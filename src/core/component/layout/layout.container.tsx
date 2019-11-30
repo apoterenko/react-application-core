@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { Snackbar } from '../snackbar';
-import { BaseContainer } from '../base/base.container';
+import { BasicContainer } from '../base/basic.container';
 import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
 import { IContainerProps } from '../../definition';
 
-export class LayoutContainer<TProps extends IContainerProps, TState = {}> extends BaseContainer<TProps, TState> {
+export class LayoutContainer<TProps extends IContainerProps, TState = {}> extends BasicContainer<TProps, TState> {
 
   /**
    * @stable [19.08.2018]

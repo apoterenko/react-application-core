@@ -5,7 +5,6 @@ export * from './calc';
 export * from './clone';
 export * from './cls';
 export * from './cond';
-export * from './decorator';
 export * from './dom';
 export * from './entity';
 export * from './event';

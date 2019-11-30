@@ -15,6 +15,7 @@ import {
   IDialogFormChangesConfirmStoreProxy,
   IEnvironment,
   IEventManager,
+  IFormStoreProxy,
   ILogManager,
   IModifyEntityPayloadFactory,
   IPermissionsManager,
@@ -153,3 +154,10 @@ export const getModifyEntityPayloadFactory = (): IModifyEntityPayloadFactory => 
  */
 export const getDialogFormChangesConfirmStoreProxyFactory = (): (parent: IContainer) => IDialogFormChangesConfirmStoreProxy =>
   staticInjector(DI_TYPES.DialogFormChangesConfirmStoreProxyFactory);
+
+/**
+ * @stable [30.11.2019]
+ * @returns {(parent: IContainer) => IFormStoreProxy}
+ */
+export const getFormStoreProxyFactory = (): (parent: IContainer) => IFormStoreProxy =>
+  staticInjector(DI_TYPES.FormStoreProxyFactory);

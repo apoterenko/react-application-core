@@ -7,7 +7,6 @@ export * from './button-definition.interface';
 export * from './channel-definition.interface';
 export * from './component-definition.interface';
 export * from './connector-definition.interface';
-export * from './constructor-definition.interface';
 export * from './container-definition.interface';
 export * from './cron-definition.interface';
 export * from './date-definition.interface';

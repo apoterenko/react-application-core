@@ -63,15 +63,6 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
          */
         constructor(props: IUniversalContainerProps) {
           super(props);
-
-          const injectedServices = config.injectedServices;
-          if (Array.isArray(injectedServices)) {
-            injectedServices.forEach((ctor) => {
-              if (isObjectNotEmpty(ctor.$$name)) {
-                Reflect.set(this, ctor.$$name, Reflect.construct(ctor, [this]));
-              }
-            });
-          }
           this.overrideRenderMethod();
 
           logger.debug(`[$basicConnector][constructor] Section: ${sectionName}`);

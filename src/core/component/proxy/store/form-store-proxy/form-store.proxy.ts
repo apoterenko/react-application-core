@@ -1,4 +1,3 @@
-import { namedConstructor } from '../../../../util';
 import { FormActionBuilder } from '../../../action.builder';
 import {
   IFormStoreProxy,
@@ -9,7 +8,6 @@ import {
 import { BaseStoreProxy } from '../base-store.proxy';
 import { IKeyValue } from '../../../../definitions.interface';
 
-@namedConstructor('$$formStoreProxy')
 export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                             TProps extends IUniversalContainerProps = IUniversalContainerProps>
   extends BaseStoreProxy<TStore, TProps>

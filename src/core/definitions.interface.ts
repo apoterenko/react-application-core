@@ -38,8 +38,6 @@ export interface IEmptyDataWrapper<TEmptyData> {
 export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 }
 
-export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
-export interface I$$nameWrapper { $$name?: string; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
 export interface IAccessDeniedWrapper<TAccessDenied> { accessDenied?: TAccessDenied; }
@@ -199,7 +197,6 @@ export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
 export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
-export interface IInjectedServicesWrapper<TValue> { injectedServices?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }

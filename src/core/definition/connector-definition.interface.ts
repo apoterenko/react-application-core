@@ -2,12 +2,10 @@ import { IRouteEntity } from './router-definition.interface';
 import {
   ACTION_PREFIX,
   IAccessConfigurationWrapper,
-  IInjectedServicesWrapper,
   IKeyValue,
   IMappersWrapper,
   IRouteConfigurationWrapper,
 } from '../definitions.interface';
-import { INamedConstructor } from './constructor-definition.interface';
 
 /**
  * @stable [16.11.2019]
@@ -23,8 +21,7 @@ export type DynamicSectionsMapT = Map<string, IConnectorEntity>;
  * @stable [16.11.2019]
  */
 export interface IBasicConnectorEntity<TStoreEntity>
-  extends IInjectedServicesWrapper<INamedConstructor[]>,
-    IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>>,
+  extends IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>>,
     IRouteConfigurationWrapper<IRouteEntity> {
 }
 
