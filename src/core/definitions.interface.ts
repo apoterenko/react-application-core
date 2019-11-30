@@ -38,6 +38,7 @@ export interface IEmptyDataWrapper<TEmptyData> {
 export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 }
 
+export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
 export interface IAccessDeniedWrapper<TAccessDenied> { accessDenied?: TAccessDenied; }
@@ -241,6 +242,7 @@ export interface IModeWrapper<TMode = string> { mode?: TMode; }
 export interface IMultiWrapper { multi?: boolean; }
 export interface INameWrapper<TName = string> { name?: TName; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
+export interface INeedToBeOpenedWrapper { needToBeOpened?: boolean; }
 export interface INewEntityWrapper<TNewEntity = boolean> { newEntity?: TNewEntity; }
 export interface INextFormChangesWrapper<TChanges> { nextFormChanges?: TChanges; }
 export interface INextFormRouteWrapper { nextFormRoute?: string; }
@@ -570,13 +572,6 @@ export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
  */
 export interface IOnMoreOptionsSelectWrapper<TPayload, TOnMoreOptionsSelect = (payload?: TPayload) => void> {
   onMoreOptionsSelect?: TOnMoreOptionsSelect;
-}
-
-/**
- * @stable [20.08.2018]
- */
-export interface INeedToOpenMenuWrapper {
-  needToOpenMenu?: boolean;
 }
 
 /**

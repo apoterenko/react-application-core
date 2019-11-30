@@ -180,11 +180,11 @@ export const isHovered = (hoveredWrapper: IHoveredWrapper): boolean =>
 
 /**
  * @stable [27.10.2019]
- * @param {IExpandActionRenderedWrapper} hoveredWrapper
+ * @param {IExpandActionRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isExpandActionRendered  = (hoveredWrapper: IExpandActionRenderedWrapper): boolean =>
-  ifNotNilThanValue(hoveredWrapper, () => hoveredWrapper.expandActionRendered !== false, false);
+export const isExpandActionRendered  = (wrapper: IExpandActionRenderedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.expandActionRendered !== false, false);
 
 /**
  * @stable [28.10.2019]

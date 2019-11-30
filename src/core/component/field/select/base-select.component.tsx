@@ -2,11 +2,27 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { cancelEvent, joinClassName, isDef, getWidth, isFn, calc, inProgress } from '../../../util';
+import {
+  calc,
+  cancelEvent,
+  getWidth,
+  ifNotNilThanValue,
+  inProgress,
+  isDef,
+  isExpandActionRendered,
+  isFn,
+  joinClassName,
+} from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu } from '../../menu';
-import { AnyT, IKeyboardEvent } from '../../../definitions.interface';
-import { IBaseSelectProps, IBasicSelectState } from './basic-select.interface';
+import {
+  AnyT,
+  IKeyboardEvent,
+} from '../../../definitions.interface';
+import {
+  IBaseSelectProps,
+  IBaseSelectState,
+} from './base-select.interface';
 import {
   FieldActionTypesEnum,
   IBaseEvent,
@@ -15,24 +31,26 @@ import {
 } from '../../../definition';
 
 export class BaseSelect<TProps extends IBaseSelectProps,
-                        TState extends IBasicSelectState>
+                        TState extends IBaseSelectState>
     extends BaseTextField<TProps, TState> {
 
-  protected static logger = LoggerFactory.makeLogger('BaseSelect');
+  protected static readonly logger = LoggerFactory.makeLogger('BaseSelect');
+
+  private readonly menuRef = React.createRef<Menu>();
 
   /**
-   * @stable [15.09.2018]
+   * @stable [30.11.2019]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
-    this.getMenuWidth = this.getMenuWidth.bind(this);
+
     this.onClose = this.onClose.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
-    if (props.expandActionRendered !== false) {
+    if (isExpandActionRendered(this.props)) {
       this.defaultActions = [
         {type: props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.openMenu},
         ...this.defaultActions
@@ -41,34 +59,37 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [20.08.2018]
+   * @stable [30.11.2019]
    * @param {Readonly<TProps extends IBaseSelectProps>} prevProps
-   * @param {Readonly<TState extends IBasicSelectState>} prevState
+   * @param {Readonly<TState extends IBaseSelectState>} prevState
    */
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
     super.componentDidUpdate(prevProps, prevState);
-
     const props = this.props;
-    if (this.state.needToOpenMenu && !R.isNil(props.options)) {
-      this.showMenu();
-      this.setState({needToOpenMenu: false});
 
-      if (props.onLoadDictionary) {
-        props.onLoadDictionary(this.toFilteredOptions());
+    if (this.state.needToBeOpened) {
+      ifNotNilThanValue(
+        props.options,
+        () => {
+          this.setState({needToBeOpened: false}, () => {
+            this.showMenu();
+            if (isFn(props.onLoadDictionary)) {
+              props.onLoadDictionary(this.filteredOptions);
+            }
+          });
+        }
+      );
+    }
+
+    const $$cachedValue = this.state.$$cachedValue;
+    const newValue = props.value;
+    if (!R.isNil($$cachedValue)) {
+
+      // Need to reset the previous cached display value if the value has been cleared or replaced
+      if (R.isNil(newValue) || !R.equals($$cachedValue.value, newValue)) {
+        this.setState({$$cachedValue: null});
       }
     }
-
-    /**
-     * Need to reset the previous cached display value if the value has been cleared manually
-     */
-    if (!R.isNil(this.state.displayValue) && R.isNil(props.value)) {
-      this.setState({displayValue: null});
-    }
-  }
-
-  public onKeyDown(event: IKeyboardEvent): void {
-    super.onKeyDown(event);
-    cancelEvent(event);
   }
 
   public onKeyBackspace(event: IKeyboardEvent): void {
@@ -90,30 +111,35 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [06.10.2018]
+   * @stable [30.11.2019]
    */
   public clearValue(): void {
     super.clearValue();
-    this.setState({displayValue: null});
+    this.setState({$$cachedValue: null});
   }
 
   /**
-   * @stable [25.02.2019]
+   * @stable [30.11.2019]
    * @param {IBaseEvent} event
    */
   public openMenu(event?: IBaseEvent): void {
-    if (this.menu.isOpen() || this.state.needToOpenMenu) {
+    if (this.menu.isOpen() || this.state.needToBeOpened) {
       return;
     }
     cancelEvent(event);
 
-    const {onEmptyDictionary, bindDictionary, options, forceReload} = this.props;
+    const {
+      onEmptyDictionary,
+      bindDictionary,
+      options,
+      forceReload,
+    } = this.props;
     const areOptionsEmpty = R.isNil(options);
 
     if (forceReload || areOptionsEmpty) {
       if (isFn(onEmptyDictionary)) {
-        this.setState({needToOpenMenu: true});
         onEmptyDictionary(bindDictionary);
+        this.setState({needToBeOpened: true}); // After callback invoking (!)
       } else if (!areOptionsEmpty) {
         this.showMenu();
       }
@@ -123,11 +149,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [18.06.2018]
+   * @stable [30.11.2019]
    * @returns {boolean}
    */
   public get inProgress(): boolean {
-    return inProgress(this.props) || !!this.state.needToOpenMenu;
+    return inProgress(this.props) || this.state.needToBeOpened === true;
   }
 
   /**
@@ -147,9 +173,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const props = this.props;
     return (
       <Menu
-        ref='menu'
-        width={this.getMenuWidth}
-        options={this.toFilteredOptions()}
+        ref={this.menuRef}
+        width={this.menuWidth}
+        options={this.filteredOptions}
         onSelect={this.onSelect}
         onFilterChange={this.onFilterChange}
         onClose={this.onClose}
@@ -158,10 +184,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [20.08.2018]
+   * @stable [30.11.2019]
    * @returns {ISelectOptionEntity[]}
    */
-  protected toFilteredOptions(): ISelectOptionEntity[] {
+  protected get filteredOptions(): ISelectOptionEntity[] {
     return this.options;
   }
 
@@ -179,21 +205,23 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [20.08.2018]
+   * @stable [30.11.2019]
    * @param {ISelectOptionEntity} option
    */
   protected onSelect(option: ISelectOptionEntity): void {
-    this.onChangeManually(option.value);
+    this.setState({
+      $$cachedValue: {
+        value: option.value,
+        label: String(option.label || option.value),
+      },
+    }, () => {
+      this.onChangeManually(option.value);
 
-    /**
-     * We need to save a label because dictionary data may be refreshed
-     * TODO Need to save an internal state in storage
-     */
-    this.setState({displayValue: option.label || option.value});
-
-    if (this.props.onSelect) {
-      this.props.onSelect(option);
-    }
+      const onSelect = this.props.onSelect;
+      if (isFn(onSelect)) {
+        onSelect(option);
+      }
+    });
   }
 
   /**
@@ -213,18 +241,21 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {AnyT}
    */
   protected getDecoratedValue(value: AnyT): AnyT {
-    const statedDisplayValue = this.state.displayValue;
-    if (!R.isNil(statedDisplayValue)) {
-      return super.getDecoratedValue(statedDisplayValue, false);
+    const $$cachedValue = this.state.$$cachedValue;
+    if (!R.isNil($$cachedValue)) {
+      return super.getDecoratedValue($$cachedValue.label, false);
     }
+
     const selectedItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
     return R.isNil(selectedItem)
       ? super.getDecoratedValue(value)
-      : super.getDecoratedValue(
-        R.isNil(selectedItem.label)
-          ? selectedItem.value
-          : this.t(selectedItem.label),
-        false
+      : (
+        super.getDecoratedValue(
+          R.isNil(selectedItem.label)
+            ? selectedItem.value
+            : this.t(selectedItem.label),
+          false
+        )
       );
   }
 
@@ -237,22 +268,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [20.08.2018]
-   * @returns {IMenu}
-   */
-  private get menu(): IMenu {
-    return this.refs.menu as IMenu;
-  }
-
-  /**
-   * @stable [20.08.2018]
+   * @stable [30.11.2019]
    */
   private showMenu(): void {
-    const filteredOptions = this.toFilteredOptions();
-    if (filteredOptions.length) {
-      this.menu.show();
+    if (R.isEmpty(this.filteredOptions)) {
+      BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
     } else {
-      BaseSelect.logger.debug('[$BasicSelect][showMenu] The options are empty. The menu does not show.');
+      this.menu.show();
     }
   }
 
@@ -280,7 +302,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [23.11.2019]
    * @returns {number}
    */
-  private getMenuWidth(): number {
+  private get menuWidth(): number {
     return getWidth(this.getSelf());
+  }
+
+  /**
+   * @stable [30.11.2019]
+   * @returns {IMenu}
+   */
+  private get menu(): IMenu {
+    return this.menuRef.current;
   }
 }

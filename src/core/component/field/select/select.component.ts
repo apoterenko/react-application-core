@@ -1,25 +1,28 @@
-import { BaseSelect } from './basic-select.component';
-import { ISelectInternalProps, ISelectInternalState } from './select.interface';
+import { BaseSelect } from './base-select.component';
+import {
+  ISelectProps,
+  ISelectState,
+} from './select.interface';
 import { ISelectOptionEntity } from '../../../definition';
 import { joinClassName } from '../../../util';
 
-export class Select extends BaseSelect<ISelectInternalProps, ISelectInternalState> {
+export class Select extends BaseSelect<ISelectProps, ISelectState> {
 
-  public static defaultProps: ISelectInternalProps = {
+  public static readonly defaultProps: ISelectProps = {
     forceReload: true,
     preventFocus: true,
   };
 
   /**
-   * @stable [20.08.2018]
+   * @stable [30.11.2019]
    * @returns {ISelectOptionEntity[]}
    */
-  protected toFilteredOptions(): ISelectOptionEntity[] {
-    return super.toFilteredOptions().filter((option) => option.value !== this.value);
+  protected get filteredOptions(): ISelectOptionEntity[] {
+    return this.options.filter((option) => option.value !== this.value);
   }
 
   /**
-   * @stable [21.09.2018]
+   * @stable [30.11.2019]
    * @returns {string}
    */
   protected getFieldClassName(): string {

@@ -124,13 +124,12 @@ export class MultiField<TProps extends IMultiFieldProps,
    * @param {ISelectOptionEntity[]} options
    * @returns {ISelectOptionEntity[]}
    */
-  protected toFilteredOptions(): ISelectOptionEntity[] {
+  protected get filteredOptions(): ISelectOptionEntity[] {
     const activeValue = this.multiFieldPlugin.activeValue;
-    const result = super.toFilteredOptions();
 
     return this.props.ignoreSelectedValue
-      ? result
-      : result.filter((option) => !activeValue.find((item) => item.id === option.value));
+      ? this.options
+      : this.options.filter((option) => !activeValue.find((item) => item.id === option.value));
   }
 
   /**
