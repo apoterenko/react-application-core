@@ -1,6 +1,9 @@
 import { interfaces } from 'inversify';
 
-import { DI_TYPES, appContainer } from '../../../../di';
+import {
+  appContainer,
+  DI_TYPES,
+} from '../../../../di';
 import { DialogFormChangesConfirmStoreProxy } from './dialog-form-changes-confirm-store.proxy';
 import { IContainer } from '../../../../definition';
 

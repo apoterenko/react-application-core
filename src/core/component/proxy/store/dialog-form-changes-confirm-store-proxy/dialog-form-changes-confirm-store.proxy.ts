@@ -10,9 +10,7 @@ import {
   IUniversalStoreEntity,
   ROUTER_BACK_ACTION_TYPE,
 } from '../../../../definition';
-import { namedConstructor } from '../../../../util';
 
-@namedConstructor('$$dialogFormChangesConfirmStoreProxy')
 export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                                                 TProps extends IUniversalContainerProps = IUniversalContainerProps>
   extends BaseStoreProxy<TStore, TProps>
