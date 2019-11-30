@@ -62,17 +62,19 @@ export class BaseTransport {
   }
 
   /**
-   * @stable [26.02.2019]
+   * @stable [26.11.2019]
    * @param {IEditableApiEntity<TEntity extends IEntity>} entity
-   * @returns {Promise<TEntity extends IEntity>}
+   * @param {boolean} addIdParameter
+   * @returns {Promise<TResult>}
    */
-  protected doSaveEntity<TEntity extends IEntity, TResult = TEntity>(entity: IEditableApiEntity<TEntity>): Promise<TResult> {
+  protected doSaveEntity<TEntity extends IEntity, TResult = TEntity>(entity: IEditableApiEntity<TEntity>,
+                                                                     addIdParameter = true): Promise<TResult> {
     const apiEntity = entity.apiEntity;
     return this.transport.request<TResult>({
       params: {
         ...apiEntity.changes as {},
         ...defValuesFilter(entity.extraParams),
-        ...defValuesFilter({ id: apiEntity.entityId }),
+        ...(addIdParameter ? defValuesFilter({ id: apiEntity.entityId }) : {}),
       },
       name: apiEntity.newEntity ? entity.addApi : entity.editApi,
       operation: entity.operation,

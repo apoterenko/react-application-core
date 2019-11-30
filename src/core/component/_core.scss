@@ -151,4 +151,16 @@
     $rac-icon-flex-shrink: $rac-icon-flex-shrink,
     $rac-icon-size: $rac-icon-size
   );
+
+  /**
+   * @application-message
+   * @stable [28.11.2019]
+   */
+  @include rac-message-wrapper (
+    $rac-message-wrapper-custom: rac-application-message-wrapper,
+    $rac-message-body-color: $rac-application-message-body-color,
+    $rac-message-body-font-size: $rac-application-message-body-font-size,
+    $rac-message-wrapper-background-size: $rac-application-message-wrapper-background-size,
+    $rac-message-wrapper-background: $rac-application-message-wrapper-background
+  );
 }

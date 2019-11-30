@@ -188,6 +188,12 @@ $rac-profile-app-version-top: 4px !default;
 $rac-profile-app-version-left: 4px !default;
 $rac-profile-app-version-font-size: 8px !default;
 
+/* @stable [28.11.2019] */
+$rac-application-message-body-color: unset !default;
+$rac-application-message-body-font-size: unset !default;
+$rac-application-message-wrapper-background-size: unset !default;
+$rac-application-message-wrapper-background: unset !default;
+
 /* @stable [24.06.2018] */
 $rac-button-mini-cls: rac-button-mini;
 $rac-button-outlined-cls: rac-button-outlined;

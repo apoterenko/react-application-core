@@ -3,7 +3,7 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
-  IApplicationEntity,
+  IUniversalApplicationEntity,
   IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
@@ -725,22 +725,22 @@ export const hasTransportWrapperQueueOperations = (entity: ITransportWrapperEnti
 
 /**
  * @stable [28.11.2019]
- * @param {IApplicationEntity} entity
+ * @param {IUniversalApplicationEntity} entity
  * @returns {boolean}
  */
-export const isApplicationInProgress = (entity: IApplicationEntity): boolean => inProgress(entity);
+export const isApplicationInProgress = (entity: IUniversalApplicationEntity): boolean => inProgress(entity);
 
 /**
  * @stable [28.11.2019]
- * @param {IApplicationEntity} entity
+ * @param {IUniversalApplicationEntity} entity
  * @returns {boolean}
  */
-export const doesApplicationErrorExist = (entity: IApplicationEntity): boolean => doesErrorExist(entity);
+export const doesApplicationErrorExist = (entity: IUniversalApplicationEntity): boolean => doesErrorExist(entity);
 
 /**
  * @stable [28.11.2019]
- * @param {IApplicationEntity} entity
+ * @param {IUniversalApplicationEntity} entity
  * @returns {boolean}
  */
-export const isApplicationMessageVisible = (entity: IApplicationEntity): boolean =>
+export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity): boolean =>
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);

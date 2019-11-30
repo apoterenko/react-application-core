@@ -2,7 +2,11 @@ import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import { NotificationActionBuilder } from '../../notification';
-import { ListActionBuilder, FormActionBuilder } from '../../component/action.builder';
+import {
+  ConnectorActionBuilder,
+  FormActionBuilder,
+  ListActionBuilder,
+} from '../../component/action.builder';
 
 export const makeFailedEffectsProxy = (actionType: string,
                                        actionsResolver?: (action: IEffectsAction) => IEffectsAction[]): () => void =>
@@ -43,3 +47,11 @@ export const makeFailedListLoadEffectsProxy = (section: string): () => void =>
  */
 export const makeFailedListLazyLoadEffectsProxy = (section: string): () => void =>
   makeFailedEffectsProxy(ListActionBuilder.buildLazyLoadErrorActionType(section));
+
+/**
+ * @stable [25.11.2019]
+ * @param {string} section
+ * @returns {() => void}
+ */
+export const makeFailedConnectorInitEffectsProxy = (section: string): () => void =>
+  makeFailedEffectsProxy(ConnectorActionBuilder.buildInitErrorActionType(section));

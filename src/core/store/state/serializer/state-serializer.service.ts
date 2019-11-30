@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 
 import {
-  INITIAL_APPLICATION_ENTITY,
+  INITIAL_UNIVERSAL_APPLICATION_ENTITY,
   INITIAL_CHANNELS_ENTITY,
   INITIAL_NOTIFICATION_ENTITY,
   INITIAL_TRANSPORT_ENTITY,
@@ -23,7 +23,7 @@ export class StateSerializer implements IStateSerializer {
       ...state,
       ...ifNotNilThanValue(
         state.application,
-        () => ({application: INITIAL_APPLICATION_ENTITY})
+        () => ({application: INITIAL_UNIVERSAL_APPLICATION_ENTITY})
       ),
       ...ifNotNilThanValue(
         state.notification,

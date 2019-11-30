@@ -1080,6 +1080,31 @@
 }
 
 /**
+ * @stable [28.11.2019]
+ */
+@mixin rac-message-wrapper (
+  $rac-message-wrapper-custom: unset,
+  /**/
+  $rac-message-body-color: unset,
+  $rac-message-body-font-size: unset,
+  $rac-message-wrapper-background-size: unset,
+  $rac-message-wrapper-background: unset
+) {
+  #{rac-build-cls(rac-message-wrapper, $rac-message-wrapper-custom)} {
+    @include rac-styles (
+      $rac-styles-background-size: $rac-message-wrapper-background-size,
+      $rac-styles-background: $rac-message-wrapper-background
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-message-body,
+      $rac-styles-color: $rac-message-body-color,
+      $rac-styles-font-size: $rac-message-body-font-size
+    );
+  }
+}
+
+/**
  * @stable [14.01.2019]
  */
 @mixin rac-viewer(

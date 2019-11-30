@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { ITitleProps } from './title.interface';
 
 export class Title extends BaseComponent<ITitleProps> {

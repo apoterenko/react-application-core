@@ -11,6 +11,8 @@ import {
   DynamicSectionsMapT,
   IAuth,
   IConnectorEntity,
+  IContainer,
+  IDialogFormChangesConfirmStoreProxy,
   IEnvironment,
   IEventManager,
   ILogManager,
@@ -98,12 +100,6 @@ export const getSettings = (): ISettingsEntity => staticInjector(DI_TYPES.Settin
 export const getDatabaseStorage = (): IStorage => staticInjector(DI_TYPES.DatabaseStorage);
 
 /**
- * @stable [23.02.2019]
- * @returns {TApi}
- */
-export const getApi = <TApi>(): TApi => staticInjector(DI_TYPES.Api);
-
-/**
  * @stable [11.09.2019]
  * @returns {Store<TState>}
  */
@@ -150,3 +146,10 @@ export const getStateSerializer = (): IStateSerializer => staticInjector(DI_TYPE
  * @returns {IModifyEntityPayloadFactory}
  */
 export const getModifyEntityPayloadFactory = (): IModifyEntityPayloadFactory => staticInjector(DI_TYPES.ModifyEntityPayloadFactory);
+
+/**
+ * @stable [27.11.2019]
+ * @returns {(parent: IContainer) => }
+ */
+export const getDialogFormChangesConfirmStoreProxyFactory = (): (parent: IContainer) => IDialogFormChangesConfirmStoreProxy =>
+  staticInjector(DI_TYPES.DialogFormChangesConfirmStoreProxyFactory);
