@@ -4,10 +4,12 @@ import { prepareUrl } from '../util';
 import {
   DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
+  DEFAULT_PHONE_SETTINGS_ENTITY,
   DEFAULT_STORAGE_SETTINGS_ENTITY,
   IButtonProps,
   ICurrencySettingsEntity,
   IMessagesSettingsEntity,
+  IPhoneSettingsEntity,
   IStorageSettingsEntity,
   ITransportSettingsEntity,
   RegexpEnum,
@@ -44,12 +46,6 @@ export interface IDateTimeSettings {
   uiShortTimePattern?: string;            // UI pattern
 }
 
-export interface IApplicationPhoneSettings {
-  uiPattern?: string;
-  uiMask?: Array<string|RegExp>;
-  uiCountryAbbreviation?: string;
-}
-
 export interface IApplicationNumberSettings {
   uiPattern?: string;
 }
@@ -80,7 +76,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   exportActionTitleMessage?: string;
   fileLoadErrorMessage?: string;
   filtersMessage?: string;
-  followingErrorHasOccurredMessage?: string;
   invalidAddressMessage?: string;
   logOutMessage?: string;
   logoutNotificationMessage?: string;
@@ -150,7 +145,7 @@ export interface ISettingsEntity {
   number?: IApplicationNumberSettings;
   pdfWorkerDirectoryUrl?: string;
   persistenceStorage?: StorageTypesEnum;
-  phone?: IApplicationPhoneSettings;
+  phone?: IPhoneSettingsEntity;
   resourcePaths?: IApplicationResourcePaths;
   signalRUrl?: string;
   storage?: IStorageSettingsEntity;
@@ -197,7 +192,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     exportActionTitleMessage: 'Export',
     fileLoadErrorMessage: 'Can\'t load the file.',
     filtersMessage: 'Filters',
-    followingErrorHasOccurredMessage: 'The following error has occurred:',
     invalidAddressMessage: 'Invalid address',
     logOutMessage: 'Log out',
     logoutNotificationMessage: 'You were logged out.',
@@ -244,10 +238,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   number: {
     uiPattern: RegexpEnum.NUMBER,
   },
-  phone: {
-    uiMask: ['+', /\d/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-    uiCountryAbbreviation: 'US',
-  },
+  phone: DEFAULT_PHONE_SETTINGS_ENTITY,
   storage: DEFAULT_STORAGE_SETTINGS_ENTITY,
   currency: DEFAULT_CURRENCY_SETTINGS_ENTITY,
   channel: {

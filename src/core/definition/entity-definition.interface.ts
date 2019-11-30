@@ -31,7 +31,7 @@ import { IFieldChangeEntity } from './field-definition.interface';
 export interface ILifeCycleEntity
   extends ITouchedWrapper,
     IProgressWrapper,
-    IErrorEntity<string> {
+    IErrorEntity<string | boolean> {
 }
 
 /**

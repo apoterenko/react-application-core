@@ -19,7 +19,6 @@ export const ACTION_PREFIX = '$$-RAC-';
 /**
  * Core fields
  */
-export const ID_FIELD_NAME = 'id';                                                              /* @stable [02.07.2018] */
 export const FROM_DATE_FIELD_NAME = 'fromDate';
 export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
@@ -29,8 +28,6 @@ export const TIME_FIELD_NAME = 'time';
  * @deprecated
  */
 export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */
-export const REGION_FIELD_NAME = 'region';                                                      /* @stable [01.08.2018] */
-export const CITY_FIELD_NAME = 'city';                                                          /* @stable [04.08.2018] */
 
 /* @stable [23.04.2018] */
 export interface IEmptyDataWrapper<TEmptyData> {
@@ -78,6 +75,7 @@ export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IAutoUnsubscribeWrapper { autoUnsubscribe?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
+export interface IBasenameWrapper { basename?: string; }
 export interface IBeforeEnterWrapper<TBeforeEnter> { beforeEnter?: TBeforeEnter; }
 export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
 export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
@@ -97,6 +95,7 @@ export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
 export interface IChildrenWrapper<TChildren> { children?: TChildren; }
 export interface ICityWrapper<TCity = string> { city?: TCity; }
 export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }
+export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
 export interface ICloseWrapper<TClose> { close?: TClose; }
 export interface ICodeWrapper<TCode = string> { code?: TCode; }
@@ -297,6 +296,7 @@ export interface IPathWrapper<TPath = string> { path?: TPath; }
 export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
 export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
 export interface IPermissionsWrapper<TValue> { permissions?: TValue; }
+export interface IPlaceActionRenderedWrapper { placeActionRendered?: boolean; }
 export interface IPlaceEntityWrapper<TPlaceEntity> { placeEntity?: TPlaceEntity; }
 export interface IPlaceholderWrapper { placeholder?: string; }
 export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
@@ -415,6 +415,7 @@ export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
 export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
+export interface IWrapperWrapper<TValue> { wrapper?: TValue; }
 export interface IWrapWrapper { wrap?: boolean; }
 export interface IXPositionWrapper { xPosition?: number | (() => number); }
 export interface IXWrapper<TX = number> { x?: TX; }
@@ -428,11 +429,6 @@ export interface IZoomWrapper { zoom?: number; }
  */
 export interface IToolbarWrapper<TToolbar = JSX.Element> {
   toolbar?: TToolbar;
-}
-
-/* @stable - 11.04.2018 */
-export interface IBasenameWrapper {
-  basename?: string;
 }
 
 /**
@@ -657,13 +653,6 @@ export interface ICloseDisabledWrapper {
  */
 export interface INotUseFieldWrapper {
   notUseField?: boolean;
-}
-
-/**
- * @stable [01.08.2018]
- */
-export interface INotUsePlaceActionWrapper {
-  notUsePlaceAction?: boolean;
 }
 
 /**
@@ -912,13 +901,6 @@ export interface IFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item: TFil
  */
 export interface ITopTitleWrapper<TTopTitle = string> {
   topTitle?: TTopTitle;
-}
-
-/**
- * @stable [15.09.2018]
- */
-export interface IClearActionWrapper {
-  clearActionRendered?: boolean;
 }
 
 /**

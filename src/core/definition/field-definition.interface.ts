@@ -57,6 +57,7 @@ import { IMultiEntity } from './entity-definition.interface';
  */
 export const FIELD_DISPLAY_EMPTY_VALUE = '';
 export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
+export const ID_FIELD_NAME = 'id';
 
 /**
  * @stable [27.05.2019]

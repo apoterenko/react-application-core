@@ -8,6 +8,7 @@ import {
   IDictionariesWrapper,
   IEntity,
   IEntityWrapper,
+  IErrorWrapper,
   IFormSectionWrapper,
   IFormsSectionsWrapper,
   IInitialStateWrapper,
@@ -15,6 +16,7 @@ import {
   ILazyLoadingWrapper,
   IListSectionWrapper,
   IListsSectionsWrapper,
+  IMessageWrapper,
   INavigateBackWrapper,
   INextFormChangesWrapper,
   INextFormRouteWrapper,
@@ -36,7 +38,7 @@ import {
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
-import { IApplicationWrapperEntity } from './application-definition.interface';
+import { IUniversalApplicationWrapperEntity } from './application-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
@@ -144,6 +146,22 @@ export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
 }
 
 /**
+ * @stable [29.11.2019]
+ */
+export interface INotificationErrorMiddlewareConfigEntity
+  extends IEffectsActionEntity,
+    IErrorWrapper<boolean | string> {
+}
+
+/**
+ * @stable [29.11.2019]
+ */
+export interface INotificationInfoMiddlewareConfigEntity
+  extends IEffectsActionEntity,
+    IMessageWrapper {
+}
+
+/**
  * @stable [09.10.2019]
  */
 export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
@@ -210,7 +228,7 @@ export interface IDispatchEntity {
  * @stable [28.09.2019]
  */
 export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
-  extends IApplicationWrapperEntity,
+  extends IUniversalApplicationWrapperEntity,
     IUserWrapperEntity,
     IStackWrapperEntity,
     IChannelWrapperEntity,

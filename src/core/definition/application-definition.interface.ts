@@ -7,12 +7,13 @@ import {
   IAuthorizedWrapper,
   IPathWrapper,
   IReadyWrapper,
+  IBasenameWrapper,
 } from '../definitions.interface';
 
 /**
  * @stable [24.09.2019]
  */
-export interface IApplicationEntity
+export interface IUniversalApplicationEntity
   extends ILifeCycleEntity,
     IAuthorizedWrapper,
     IReadyWrapper,
@@ -20,16 +21,24 @@ export interface IApplicationEntity
 }
 
 /**
- * @stable [24.09.2019]
+ * @stable [30.11.2019]
  */
-export interface IApplicationWrapperEntity
-  extends IApplicationWrapper<IApplicationEntity> {
+export interface IApplicationEntity
+  extends IUniversalApplicationEntity,
+    IBasenameWrapper {
 }
 
 /**
  * @stable [24.09.2019]
  */
-export const INITIAL_APPLICATION_ENTITY = Object.freeze<IApplicationEntity>({
+export interface IUniversalApplicationWrapperEntity
+  extends IApplicationWrapper<IUniversalApplicationEntity> {
+}
+
+/**
+ * @stable [24.09.2019]
+ */
+export const INITIAL_UNIVERSAL_APPLICATION_ENTITY = Object.freeze<IUniversalApplicationEntity>({
   ready: false,         // By default the application is not ready because an async token
   authorized: false,    // By default the application is not authorized because an async token
   progress: false,
@@ -52,3 +61,6 @@ export const $RAC_APPLICATION_READY_ACTION_TYPE = `${$APPLICATION_SECTION}.${APP
 /**/
 const APPLICATION_NOT_READY_ACTION_TYPE = 'not.ready';
 export const $RAC_APPLICATION_NOT_READY_ACTION_TYPE = `${$APPLICATION_SECTION}.${APPLICATION_NOT_READY_ACTION_TYPE}`;
+/**/
+export const APPLICATION_CUSTOM_ERROR_ACTION_TYPE = 'custom.error';
+export const $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE = `${$APPLICATION_SECTION}.${APPLICATION_CUSTOM_ERROR_ACTION_TYPE}`;

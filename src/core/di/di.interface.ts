@@ -5,6 +5,7 @@ export const DI_TYPES = Object.freeze({
   CryptoManager: Symbol('CryptoManager'),
   DatabaseStorage: Symbol('DatabaseStorage'),
   DateConverter: Symbol('DateConverter'),
+  DialogFormChangesConfirmStoreProxyFactory: Symbol('dialogFormChangesConfirmStoreProxy'),
   DomAccessor: Symbol('DomAccessor'),
   DynamicRoutes: Symbol('DynamicRoutes'),
   DynamicSections: Symbol('DynamicSections'),

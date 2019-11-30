@@ -4,6 +4,8 @@ import {
   ICountryWrapper,
   ILatWrapper,
   ILngWrapper,
+  IPlaceEntityWrapper,
+  IPlaceIdWrapper,
   IRegionWrapper,
   IStreetNumberWrapper,
   IStreetWrapper,
@@ -21,12 +23,21 @@ export interface ILatLngEntity
 /**
  * @stable [26.08.2019]
  */
-export interface IPlaceEntity
-  extends ICountryWrapper,
+export interface IPlaceEntity<TCity = string>
+  extends IAreaWrapper,
+    ICityWrapper<TCity>,
+    ICountryWrapper,
     IRegionWrapper,
-    IAreaWrapper,
-    ICityWrapper,
-    IStreetWrapper,
     IStreetNumberWrapper,
+    IStreetWrapper,
     IZipCodeWrapper {
+}
+
+/**
+ * @stable [26.11.2019]
+ */
+export interface IChangePlacePayloadEntity
+  extends ILatLngEntity,
+    IPlaceIdWrapper,
+    IPlaceEntityWrapper<IPlaceEntity> {
 }
