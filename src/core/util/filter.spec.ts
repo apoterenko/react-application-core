@@ -6,8 +6,8 @@ import {
   cloneUsingFilters,
   cloneUsingTimeFieldsFilters,
 } from './filter';
+import { ID_FIELD_NAME } from '../definition/field-definition.interface';
 import {
-  ID_FIELD_NAME,
   UNDEF,
   TIME_FIELD_NAME,
   TO_TIME_FIELD_NAME,

@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import {
   IAlwaysReturnEmptyValueIfOriginalValueWrapper,
   ICenteredMenuWrapper,
@@ -5,6 +7,7 @@ import {
   IDisabledWrapper,
   IEditedWrapper,
   IEmptyOriginalValueWrapper,
+  IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFocusedWrapper,
   IHighlightOddWrapper,
@@ -13,9 +16,11 @@ import {
   IKeyboardOpenWrapper,
   ILoadingWrapper,
   IMultiWrapper,
+  IPlaceActionRenderedWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
   IReadOnlyWrapper,
+  IReadyWrapper,
   IRemoteFilterWrapper,
   IRequiredWrapper,
   ISelectableWrapper,
@@ -28,7 +33,10 @@ import {
   IVisibleWrapper,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
-import { isNumber } from './type';
+import {
+  isBoolean,
+  isNumber,
+} from './type';
 import { isOddNumber } from './calc';
 
 /**
@@ -54,6 +62,28 @@ export const isFocusPrevented = (preventFocusEntity: IPreventFocusWrapper): bool
  */
 export const inProgress = (progressEntity: IProgressWrapper): boolean =>
   ifNotNilThanValue(progressEntity, () => progressEntity.progress === true, false);
+
+/**
+ * @stable [28.11.2019]
+ * @param {IReadyWrapper} entity
+ * @returns {boolean}
+ */
+export const isReady = (entity: IReadyWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.ready === true, false);
+
+/**
+ * @stable [28.11.2019]
+ * @param {IErrorWrapper} entity
+ * @returns {boolean}
+ */
+export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean =>
+  ifNotNilThanValue(
+    entity, () =>
+      isBoolean(entity.error)
+        ? entity.error === true
+        : !R.isNil(entity.error),
+    false
+  );
 
 /**
  * @stable [24.10.2019]
@@ -252,3 +282,10 @@ export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
 export const isBeingLoaded = (entity: ILoadingWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.loading === true, false);
 
+/**
+ * @stable [26.11.2019]
+ * @param {IPlaceActionRenderedWrapper} entity
+ * @returns {boolean}
+ */
+export const isPlaceActionRendered = (entity: IPlaceActionRenderedWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.placeActionRendered !== false, false);

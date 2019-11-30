@@ -3,11 +3,11 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
+  IApplicationEntity,
   IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
   IFormWrapperEntity,
-  ILifeCycleEntity,
   IListEntity,
   IListWrapperEntity,
   IOperationEntity,
@@ -65,6 +65,11 @@ import {
   coalesce,
   trimmedUndefEmpty,
 } from './nvl';
+import {
+  doesErrorExist,
+  inProgress,
+  isReady,
+} from './wrapper';
 
 /**
  * @stable [17.11.2019]
@@ -158,14 +163,6 @@ export const selectListEntityDirections = (entity: IListEntity): ISortDirections
   ifNotNilThanValue(entity, (): ISortDirectionsEntity => entity.directions, UNDEF_SYMBOL);
 
 /**
- * @stable [17.09.2019]
- * @param {ILifeCycleEntity} entity
- * @returns {boolean}
- */
-export const selectLifeCycleEntityProgress = (entity: ILifeCycleEntity): boolean =>
-  ifNotNilThanValue(entity, (): boolean => entity.progress, UNDEF_SYMBOL);
-
-/**
  * @stable [28.09.2019]
  * @param {IUserWrapperEntity} entity
  * @returns {IUserEntity}
@@ -188,6 +185,14 @@ export const selectQueryFilterEntity = (entity: IQueryFilterWrapperEntity): IQue
  */
 export const selectQuery = (entity: IQueryWrapper): string =>
   ifNotNilThanValue(entity, (): string => trimmedUndefEmpty(entity.query), UNDEF_SYMBOL);
+
+/**
+ * @stable [27.11.2019]
+ * @param {IQueryFilterWrapperEntity} entity
+ * @returns {string}
+ */
+export const selectFilterQuery = (entity: IQueryFilterWrapperEntity): string =>
+  selectQuery(selectQueryFilterEntity(entity));
 
 /**
  * @stable [19.10.2019]
@@ -479,7 +484,7 @@ export const mapListPagedEntity =
  * @returns {IDisabledWrapper}
  */
 export const mapDisabledProgressWrapper = (entity: IProgressWrapper): IDisabledWrapper =>
-  mapDisabled(selectLifeCycleEntityProgress(entity));
+  mapDisabled(inProgress(entity));
 
 /**
  * @stable [12.10.2019]
@@ -591,7 +596,7 @@ export const mapActionsDisabled = (actionsDisabled: boolean): IActionsDisabledWr
  * @returns {IActionsDisabledWrapper}
  */
 export const mapListActionsDisabled = (list: IListEntity): IActionsDisabledWrapper =>
-  mapActionsDisabled(selectLifeCycleEntityProgress(list));
+  mapActionsDisabled(inProgress(list));
 
 /**
  * @stable [17.09.2019]
@@ -717,3 +722,25 @@ export const hasTransportWrapperQueueOperation = (entity: ITransportWrapperEntit
 export const hasTransportWrapperQueueOperations = (entity: ITransportWrapperEntity,
                                                    ...operations: Array<string | IOperationEntity>): boolean =>
   hasQueueOperations(selectTransportWrapperQueue(entity), ...operations);
+
+/**
+ * @stable [28.11.2019]
+ * @param {IApplicationEntity} entity
+ * @returns {boolean}
+ */
+export const isApplicationInProgress = (entity: IApplicationEntity): boolean => inProgress(entity);
+
+/**
+ * @stable [28.11.2019]
+ * @param {IApplicationEntity} entity
+ * @returns {boolean}
+ */
+export const doesApplicationErrorExist = (entity: IApplicationEntity): boolean => doesErrorExist(entity);
+
+/**
+ * @stable [28.11.2019]
+ * @param {IApplicationEntity} entity
+ * @returns {boolean}
+ */
+export const isApplicationMessageVisible = (entity: IApplicationEntity): boolean =>
+  isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);

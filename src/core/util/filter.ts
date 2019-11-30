@@ -4,13 +4,13 @@ import {
   AnyT,
   EntityIdT,
   FROM_TIME_FIELD_NAME,
-  ID_FIELD_NAME,
   IEntity,
   IEntityIdTWrapper,
   IKeyValue,
   TIME_FIELD_NAME,
   TO_TIME_FIELD_NAME,
 } from '../definitions.interface';
+import { ID_FIELD_NAME } from '../definition/field-definition.interface';
 import { isDef, isObject, isFn, isString } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 import { isObjectNotEmpty } from './object';

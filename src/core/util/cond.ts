@@ -1,6 +1,10 @@
 import * as R from 'ramda';
 
-import { AnyT, StringNumberT, UNDEF, UNDEF_SYMBOL } from '../definitions.interface';
+import {
+  AnyT,
+  UNDEF,
+  UNDEF_SYMBOL,
+} from '../definitions.interface';
 import { isFn } from '../util';
 import { calc } from './calc';
 import { isObjectNotEmpty } from './object';
@@ -99,12 +103,3 @@ export const ifNotTrueThanValue = <TResult>(value: boolean,
                                             callback: (value: boolean) => TResult,
                                             defaultValue = null): TResult =>
   value !== true ? callback(value) : defaultValue;
-
-/**
- * @stable [26.06.2019]
- * @param {StringNumberT} value
- * @returns {StringNumberT}
- */
-export const ifEmptyThanNull = (value: StringNumberT): StringNumberT => value === ''
-  ? null
-  : value;
