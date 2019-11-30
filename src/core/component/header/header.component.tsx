@@ -1,9 +1,8 @@
 import * as React from 'react';
 
 import { toClassName } from '../../util';
-import { ISubHeaderProps } from './header.interface';
-import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout';
+import { BaseComponent } from '../base/base.component';
+import { FlexLayout } from '../layout/flex';
 
 export class Header extends BaseComponent {
 

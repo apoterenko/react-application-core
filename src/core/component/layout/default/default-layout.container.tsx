@@ -11,14 +11,14 @@ import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
 import { Profile } from '../../profile';
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../flex';
 import { Operation } from '../../../operation';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
 import {
   LAYOUT_XY_UPDATE_ACTION_TYPE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
   LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE,
-} from '../../layout';
+} from '../layout.interface';
 import { ENV } from '../../../env';
 import { Menu } from '../../menu';
 import { Link } from '../../link';

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { Snackbar } from '../../component/snackbar';
-import { BaseContainer } from '../../component/base';
+import { Snackbar } from '../snackbar';
+import { BaseContainer } from '../base/base.container';
 import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
 import { IContainerProps } from '../../definition';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../../../base';
-import { FlexLayout } from '../../../layout';
+import { BaseComponent } from '../../../base/base.component';
+import { FlexLayout } from '../../../layout/flex';
 import { IListItemGraphicProps } from './list-item-graphic.interface';
 import { joinClassName } from '../../../../util';
 

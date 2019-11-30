@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { toClassName } from '../../../util';
-import { BaseComponent } from '../../base';
+import { BaseComponent } from '../../base/base.component';
 
 // TODO deprecated (use FlexLayout instead)
 export class CenterLayout extends BaseComponent {

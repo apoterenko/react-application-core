@@ -27,7 +27,7 @@ import {
 import { BaseList } from '../list';
 import { Checkbox } from '../field';
 import { Field } from '../field';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { GridColumn } from './column';
 import {
   GridHeader,

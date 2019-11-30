@@ -9,8 +9,8 @@ import {
   UniversalScrollableContext,
   UniversalStickyContext,
 } from '../../definition';
-import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout';
+import { BaseComponent } from '../base/base.component';
+import { FlexLayout } from '../layout/flex';
 import { joinClassName } from '../../util';
 
 export class Main extends BaseComponent<IMainProps>

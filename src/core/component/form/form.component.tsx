@@ -36,7 +36,7 @@ import {
   isFormResettable,
   isFormSubmittable,
 } from './form.support';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import {
   IBaseEvent,
   IButtonProps,

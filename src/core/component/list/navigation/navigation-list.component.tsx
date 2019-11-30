@@ -5,7 +5,7 @@ import { toClassName, uuid, orNull, ifNotFalseThanValue  } from '../../../util';
 import { Link } from '../../link';
 import { INavigationListProps } from './navigation-list.interface';
 import { ListDivider } from '../../list';
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../../layout/flex';
 import {
   INavigationItemEntity,
   IScrollableEntity,

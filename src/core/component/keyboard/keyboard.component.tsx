@@ -12,7 +12,7 @@ import {
   IKeyboardState,
 } from './keyboard.interface';
 import { KeyboardKey } from './key';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import {
   IKeyboardKey,
   KeyboardKeyEnum,

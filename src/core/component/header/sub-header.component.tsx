@@ -3,9 +3,9 @@ import * as R from 'ramda';
 
 import { orNull, orDefault, toClassName } from '../../util';
 import { ISubHeaderProps } from './header.interface';
-import { BaseComponent } from '../base';
+import { BaseComponent } from '../base/base.component';
 import { Menu } from '../menu';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { Button } from '../button';
 
 export class SubHeader extends BaseComponent<ISubHeaderProps> {

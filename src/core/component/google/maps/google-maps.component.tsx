@@ -26,7 +26,7 @@ import {
   IGoogleMapsClickPayloadEntity,
   GoogleMapsMapTypeEnum,
 } from './google-maps.interface';
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../../layout/flex';
 import {
   ILatLngEntity,
   IMenuItemEntity,
