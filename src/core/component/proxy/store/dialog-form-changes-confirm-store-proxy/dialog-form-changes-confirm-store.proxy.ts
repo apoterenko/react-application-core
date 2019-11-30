@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { BaseStoreProxy } from '../base-store.proxy';
 import {
+  IDialogFormChangesConfirmStoreProxy,
   IUniversalComponentProps,
   IUniversalContainer,
   IUniversalContainerProps,
@@ -9,7 +10,6 @@ import {
   IUniversalStoreEntity,
   ROUTER_BACK_ACTION_TYPE,
 } from '../../../../definition';
-import { IDialogFormChangesConfirmStoreProxy } from './dialog-form-changes-confirm-store-proxy.interface';
 import { namedConstructor } from '../../../../util';
 
 @namedConstructor('$$dialogFormChangesConfirmStoreProxy')
