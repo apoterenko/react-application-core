@@ -5,7 +5,7 @@ import { ENV } from '../../../env';
 import { IPdfViewerProps, IPdfViewerState, IUniversalPdfPlugin } from './pdf-viewer.interface';
 import { Viewer } from '../viewer.component';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../../layout/flex';
 import { Button } from '../../button';
 
 export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {

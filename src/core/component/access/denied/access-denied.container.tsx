@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CenterLayout } from '../../layout/center';
+import { FlexLayout } from '../../layout/flex';
 import { basicConnector, defaultMappers } from '../../connector';
 import { BaseContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
@@ -32,13 +32,15 @@ export class AccessDeniedContainer extends BaseContainer {
 
     return (
         <DefaultLayoutContainer {...props}>
-          <CenterLayout>
+          <FlexLayout
+            justifyContentCenter={true}
+            alignItemsCenter={true}>
             <div className='rac-access-denied'>
               {this.uiFactory.makeIcon('report')}
               <p>{this.t(messages.accessDeniedMessage)}</p>
               <p>{this.t(messages.sorryMessage)}</p>
             </div>
-          </CenterLayout>
+          </FlexLayout>
         </DefaultLayoutContainer>
     );
   }

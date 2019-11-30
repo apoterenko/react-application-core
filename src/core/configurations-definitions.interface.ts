@@ -11,7 +11,6 @@ import {
   IActiveWrapper,
   IAliasWrapper,
   IBackwardRenderedWrapper,
-  IBasenameWrapper,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
@@ -21,7 +20,7 @@ import {
   IChangeFormWrapper,
   IChildrenWrapper,
   IClassNameWrapper,
-  IClearActionWrapper,
+  IClearActionRenderedWrapper,
   IDisabledWrapper,
   IDisplayMessageWrapper,
   IEmptyDataMessageWrapper,
@@ -35,7 +34,6 @@ import {
   IFocusEvent,
   IForwardRenderedWrapper,
   IFullWrapper,
-  IHideNavBarWrapper,
   IIconWrapper,
   IItemsWrapper,
   IKeyboardConfigurationWrapper,
@@ -193,11 +191,6 @@ export interface IWebCameraConfiguration extends IComponentProps,
                                                  IOnSelectWrapper<Blob> {
 }
 
-/* @stable - 11.04.2018 */
-export interface IApplicationConfiguration extends IBasenameWrapper,
-                                                   IHideNavBarWrapper {
-}
-
 /**
  * @stable [08.05.2018]
  */
@@ -268,7 +261,7 @@ export interface IFieldProps extends IComponentProps,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
   IPrefixLabelWrapper,
-  IClearActionWrapper {
+  IClearActionRenderedWrapper {
   minLength?: number;
   maxLength?: number;
   rows?: number;

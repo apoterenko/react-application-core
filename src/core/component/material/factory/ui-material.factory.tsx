@@ -123,8 +123,8 @@ import { IUIIconConfiguration } from '../../../configurations-definitions.interf
 import { DI_TYPES, lazyInject } from '../../../di';
 import { TranslatorT } from '../../../translation';
 import { IUIDefaultIconFactory } from '../../icon';
-import { FlexLayout } from '../../layout';
-import { UIDefaultFactory } from '../../ui/factory/ui-default-factory.service';
+import { FlexLayout } from '../../layout/flex';
+import { IUniversalUiMessageConfigEntity } from '../../../definition';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {
@@ -344,8 +344,8 @@ export class UIMaterialFactory implements IUIFactory {
    * @param {Error} e
    * @returns {Element}
    */
-  public makeWindowErrorElement(e: Error): Element {
-    return this.defaultUIFactory.makeWindowErrorElement(e);
+  public makeWindowError(e: Error): Element {
+    return this.defaultUIFactory.makeWindowError(e);
   }
 
   /**
@@ -353,8 +353,17 @@ export class UIMaterialFactory implements IUIFactory {
    * @param {Error} e
    * @returns {React.ReactNode}
    */
-  public makeReactErrorElement(e: Error): React.ReactNode {
-    return this.defaultUIFactory.makeReactErrorElement(e);
+  public makeReactError(e: Error): React.ReactNode {
+    return this.defaultUIFactory.makeReactError(e);
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @param {IUniversalUiMessageConfigEntity} cfg
+   * @returns {React.ReactNode}
+   */
+  public makeMessage(cfg: IUniversalUiMessageConfigEntity): React.ReactNode {
+    return this.defaultUIFactory.makeMessage(cfg);
   }
 
   /**

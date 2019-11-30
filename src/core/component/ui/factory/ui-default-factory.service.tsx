@@ -3,7 +3,10 @@ import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { Store } from 'redux';
 
-import { DI_TYPES, lazyInject } from '../../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../../di';
 import {
   ErrorEventCategoriesEnum,
   IDomAccessor,
@@ -12,6 +15,7 @@ import {
   IRouter,
   IRoutesEntity,
   IUiFactory,
+  IUiMessageConfigEntity,
   IUniversalStoreEntity,
 } from '../../../definition';
 import { ISettingsEntity } from '../../../settings';
@@ -38,8 +42,29 @@ export class UIDefaultFactory implements IUiFactory {
    * @stable [07.10.2019]
    */
   constructor() {
-    this.onRestart = this.onRestart.bind(this);
     this.onRestartAndReload = this.onRestartAndReload.bind(this);
+  }
+
+  /**
+   * @stable [28.11.2019]
+   * @param {IUiMessageConfigEntity} cfg
+   * @returns {React.ReactNode}
+   */
+  public makeMessage(cfg: IUiMessageConfigEntity): React.ReactNode {
+    const {message, wrapper = true} = cfg;
+    const body = (
+      <div className={joinClassName(...this.getMessageBodyClassNames(), cfg.className)}>
+        {message}
+      </div>
+    );
+    if (!wrapper) {
+      return body;
+    }
+    return (
+      <div className={joinClassName(...this.getMessageWrapperClassNames(), cfg.wrapperClassName)}>
+        {body}
+      </div>
+    );
   }
 
   /**
@@ -47,7 +72,7 @@ export class UIDefaultFactory implements IUiFactory {
    * @param {Error} e
    * @returns {JSX.Element}
    */
-  public makeWindowErrorElement(e: Error): Element {
+  public makeWindowError(e: Error): Element {
     this.logError(ErrorEventCategoriesEnum.WINDOW_ERROR, e);
 
     const el = this.domAccessor.getElement(UIDefaultFactory.WIN_ERROR_ID);
@@ -70,7 +95,7 @@ export class UIDefaultFactory implements IUiFactory {
    * @param {Error} e
    * @returns {React.ReactNode}
    */
-  public makeReactErrorElement(e: Error): React.ReactNode {
+  public makeReactError(e: Error): React.ReactNode {
     this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
 
     return (
@@ -157,6 +182,18 @@ export class UIDefaultFactory implements IUiFactory {
   }
 
   /**
+   * @stable [28.11.2019]
+   * @returns {string[]}
+   */
+  protected getMessageWrapperClassNames(): string[] {
+    return ['rac-message-wrapper', 'rac-full-size', 'rac-fixed'];
+  }
+
+  protected getMessageBodyClassNames(): string[] {
+    return ['rac-message-body', 'rac-alignment-center'];
+  }
+
+  /**
    * @stable [07.10.2019]
    * @returns {string[]}
    */
@@ -208,20 +245,26 @@ export class UIDefaultFactory implements IUiFactory {
   }
 
   /**
-   * @stable [07.10.2019]
-   */
-  protected onRestart(): void {
-    this.router.go(-this.router.length);
-    this.router.push(this.routes.logout);
-  }
-
-  /**
    * In case of an out memory error, it would be better to reload the page
    * @stable [16.10.2019]
    */
-  protected onRestartAndReload(): void {
-    this.onRestart();
+  protected async onRestartAndReload(): Promise<void> {
+    this.router.go(-this.router.length);
+
+    try {
+      await this.onBeforeReload();
+    } catch (ignored) {
+      // Do nothing
+    }
     this.domAccessor.reload(true);
+  }
+
+  /**
+   * @stable [29.11.2019]
+   * @returns {Promise<void>}
+   */
+  protected async onBeforeReload(): Promise<void> {
+    this.router.push(this.routes.logout);
   }
 
   /**

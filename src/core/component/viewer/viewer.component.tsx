@@ -3,7 +3,7 @@ import * as R from 'ramda';
 
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
-import { FlexLayout, CenterLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { IUniversalDialog2, Dialog } from '../dialog';
 import { IViewerProps, IViewerState } from './viewer.interface';
 import { PictureViewer } from '../viewer';
@@ -71,9 +71,11 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
             ? (
               isErrorExist
                 ? (
-                  <CenterLayout>{
+                  <FlexLayout
+                    justifyContentCenter={true}
+                    alignItemsCenter={true}>{
                     this.t(this.settings.messages.fileLoadErrorMessage)
-                  }</CenterLayout>
+                  }</FlexLayout>
                 )
                 : <PictureViewer/>
             )

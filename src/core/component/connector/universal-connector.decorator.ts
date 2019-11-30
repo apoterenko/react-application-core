@@ -109,7 +109,7 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
               return originalRenderer.call(this);
             } catch (e) {
               logger.debug('[$basicConnector][overrideRenderMethod] Error:', e);
-              return getUiFactory().makeReactErrorElement(e);
+              return getUiFactory().makeReactError(e);
             }
           };
         }

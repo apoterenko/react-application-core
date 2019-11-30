@@ -4,14 +4,12 @@ import {
   ILatWrapper,
   ILngWrapper,
   IOnChangePlaceWrapper,
-  IPlaceIdWrapper,
-  INotUsePlaceActionWrapper,
+  IPlaceActionRenderedWrapper,
   IUseZipCodeWrapper,
-  IPlaceEntityWrapper,
   INotUseCustomValidatorWrapper,
 } from '../../../definitions.interface';
 import { IBaseTextFieldProps } from '../textfield';
-import { IPlaceEntity } from '../../../definition';
+import { IChangePlacePayloadEntity } from '../../../definition';
 
 /**
  * @stable [30.07.2018]
@@ -21,23 +19,13 @@ export enum AddressMapMarkerActionEnum {
 }
 
 /**
- * @stable [01.08.2018]
- */
-export interface IAddressFieldChangePlacePayloadEntity
-  extends ILatWrapper,
-    ILngWrapper,
-    IPlaceIdWrapper,
-    IPlaceEntityWrapper<IPlaceEntity> {
-}
-
-/**
  * @stable [29.07.2018]
  */
 export interface IAddressFieldProps extends IBaseTextFieldProps,
                                             IUseZipCodeWrapper,
                                             INotUseCustomValidatorWrapper,
-                                            INotUsePlaceActionWrapper,
-                                            IOnChangePlaceWrapper<IAddressFieldChangePlacePayloadEntity>,
+                                            IPlaceActionRenderedWrapper,
+                                            IOnChangePlaceWrapper<IChangePlacePayloadEntity>,
                                             ILatWrapper,
                                             ILngWrapper {
 }
