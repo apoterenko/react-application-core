@@ -7,9 +7,7 @@ import {
 } from '../../../../definition';
 import { IDictionaryStoreProxy } from './dictionary-store-proxy.interface';
 import { IKeyValue } from '../../../../definitions.interface';
-import { namedConstructor } from '../../../../util';
 
-@namedConstructor('$$dictionaryStoreProxy')
 export class DictionaryStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                                   TProps extends IUniversalContainerProps = IUniversalContainerProps>
   extends BaseStoreProxy<TStore, TProps>

@@ -38,7 +38,6 @@ export interface IEmptyDataWrapper<TEmptyData> {
 export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 }
 
-export interface I$$dictionaryStoreProxyWrapper<TValue> { $$dictionaryStoreProxy?: TValue; }
 export interface I$$formStoreProxyWrapper<TValue> { $$formStoreProxy?: TValue; }
 export interface I$$nameWrapper { $$name?: string; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
