@@ -1,12 +1,12 @@
 import { namedConstructor } from '../../../../util';
 import { FormActionBuilder } from '../../../action.builder';
 import {
+  IFormStoreProxy,
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../../../definition';
 import { BaseStoreProxy } from '../base-store.proxy';
-import { IFormStoreProxy } from './form-store-proxy.interface';
 import { IKeyValue } from '../../../../definitions.interface';
 
 @namedConstructor('$$formStoreProxy')

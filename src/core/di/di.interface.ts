@@ -13,6 +13,7 @@ export const DI_TYPES = Object.freeze({
   EventManager: Symbol('EventManager'),
   FieldsOptions: Symbol('FieldsOptions'),
   FileStorage: Symbol('FileStorage'),
+  FormStoreProxyFactory: Symbol('FormStoreProxyFactory'),
   FullScreenManager: Symbol('FullScreenManager'),
   GeoCoder: Symbol('GeoCoder'),
   I18n: Symbol('I18n'),
