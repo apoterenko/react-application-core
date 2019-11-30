@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BaseComponent } from '../../component/base';
+import { BaseComponent } from '../base';
 import {
   fullFlexClassName,
   handlerPropsFactory,
@@ -11,7 +11,7 @@ import {
 } from '../../util';
 import { IButtonProps, DEFAULT_FLEX_BUTTON_CLASS_NAMES } from '../../definition';
 import { isButtonDisabled, getButtonText, getButtonIcon, hasIconButton } from './button.support';
-import { Link } from '../../component/link';
+import { Link } from '../link';
 
 export class Button extends BaseComponent<IButtonProps> {
 

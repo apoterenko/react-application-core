@@ -9,7 +9,7 @@ import {
   joinClassName,
 } from '../../../util';
 import { Field, toLastAddedMultiItemEntityId } from '../../field';
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../../layout/flex';
 import { PictureViewer, Viewer } from '../../viewer';
 import { IViewFieldProps, IViewFieldState } from './view-field.interface';
 import {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { IChipProps } from './chip.interface';
 
 export class Chip extends BaseComponent<IChipProps> {

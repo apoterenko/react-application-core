@@ -174,16 +174,6 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildValidActionType(section), applySection(section, {valid}));
   }
 
-  /**
-   * @stable [11.04.2019]
-   * @param {string} section
-   * @param {IApiEntity<TData>} apiEntity
-   * @returns {IEffectsAction}
-   */
-  public static buildSubmitAction<TData>(section: string, apiEntity: IApiEntity<TData>): IEffectsAction {
-    return EffectsAction.create(this.buildSubmitActionType(section), applySection(section, apiEntity));
-  }
-
   public static buildSubmitFinishedAction(section: string): IEffectsAction {
     return EffectsAction.create(this.buildSubmitFinishedActionType(section), applySection(section));
   }

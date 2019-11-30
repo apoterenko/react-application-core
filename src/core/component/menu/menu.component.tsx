@@ -20,7 +20,7 @@ import {
   queryFilter,
   subArray,
 } from '../../util';
-import { BaseComponent } from '../base';
+import { BaseComponent } from '../base/base.component';
 import { Dialog } from '../dialog';
 import {
   EventsEnum,

@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { IDrawerProps } from './drawer.interface';
 import { toClassName } from '../../util';
-import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout/flex/flex-layout.component';
+import { BaseComponent } from '../base/base.component';
+import { FlexLayout } from '../layout/flex';
 
 export class Drawer extends BaseComponent<IDrawerProps> {
 

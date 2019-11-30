@@ -15,7 +15,7 @@ import {
 } from './datefield.interface';
 import { BaseTextField } from '../textfield';
 import { Dialog } from '../../dialog';
-import { FlexLayout } from '../../layout';
+import { FlexLayout } from '../../layout/flex';
 import { NumberField } from '../numberfield';
 
 export class DateField<TProps extends IDateFieldProps = IDateFieldProps,

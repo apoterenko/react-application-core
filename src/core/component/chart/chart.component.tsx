@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { Chart as ChartJs } from 'chart.js';
 
 import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { IChartProps } from './chart.interface';
 import { toClassName, ifNotFalseThanValue } from '../../util';
 

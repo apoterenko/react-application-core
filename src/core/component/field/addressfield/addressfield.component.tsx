@@ -7,7 +7,7 @@ import {
   IFieldActionEntity,
   IPlaceEntity,
 } from '../../../definition';
-import { orNull, toAddress, uuid, toPlace, toClassName } from '../../../util';
+import { orNull, toAddress, uuid, toPlace, toClassName, isPlaceActionRendered } from '../../../util';
 import { BaseTextField } from '../textfield';
 import { IUniversalDialog2,  Dialog } from '../../dialog';
 import {
@@ -50,7 +50,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   constructor(props: IAddressFieldProps) {
     super(props);
 
-    if (!props.notUsePlaceAction) {
+    if (isPlaceActionRendered(props)) {
       this.addMapAction();
     }
 

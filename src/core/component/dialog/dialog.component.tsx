@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../base';
+import { BaseComponent } from '../base/base.component';
 import { Button } from '../button';
-import { FlexLayout } from '../layout';
+import { FlexLayout } from '../layout/flex';
 import { IUniversalDialog2, IDialogProps, IUniversalDialogProps } from './dialog.interface';
 import { orNull, toClassName, isFn } from '../../util';
 import { Title } from '../title';

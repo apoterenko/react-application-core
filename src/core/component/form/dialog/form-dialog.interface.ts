@@ -5,8 +5,3 @@ export interface IFormDialogProps
   extends IUniversalDialogProps,
   IFormWrapperEntity {
 }
-
-/**
- * @deprecated Use
- */
-export const FORM_DIALOG_REF = 'formDialog';
