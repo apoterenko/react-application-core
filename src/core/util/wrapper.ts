@@ -4,6 +4,7 @@ import {
   IAlwaysReturnEmptyValueIfOriginalValueWrapper,
   ICenteredMenuWrapper,
   IChangeableWrapper,
+  IClearActionRenderedWrapper,
   IDisabledWrapper,
   IEditedWrapper,
   IEmptyOriginalValueWrapper,
@@ -185,6 +186,14 @@ export const isHovered = (hoveredWrapper: IHoveredWrapper): boolean =>
  */
 export const isExpandActionRendered  = (wrapper: IExpandActionRenderedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.expandActionRendered !== false, false);
+
+/**
+ * @stable [01.12.2019]
+ * @param {IClearActionRenderedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isClearActionRendered  = (wrapper: IClearActionRenderedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.clearActionRendered !== false, false);
 
 /**
  * @stable [28.10.2019]

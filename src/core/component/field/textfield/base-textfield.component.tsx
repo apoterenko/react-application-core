@@ -5,7 +5,7 @@ import MaskedTextInput from 'react-text-mask';
 
 import {
   calc,
-  ifNotFalseThanValue,
+  isClearActionRendered,
   isFn,
   joinClassName,
   nvl,
@@ -13,7 +13,10 @@ import {
   parseValueAtPx,
   toJqEl,
 } from '../../../util';
-import { UNI_CODES, IChangeEvent, UniCodesEnum } from '../../../definitions.interface';
+import {
+  IChangeEvent,
+  UniCodesEnum,
+} from '../../../definitions.interface';
 import {
   IKeyboardConfiguration,
 } from '../../../configurations-definitions.interface';
@@ -52,7 +55,9 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
     this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
 
-    ifNotFalseThanValue(props.clearActionRendered, () => this.addClearAction());
+    if (isClearActionRendered(props)) {
+      this.addClearAction();
+    }
   }
 
   /**
@@ -70,7 +75,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return joinClassName(super.getSelfElementClassName(), 'rac-text-field');
+    return joinClassName(super.getSelfElementClassName(), 'rac-text-field'); // TODO Deprecated rac-text-field
   }
 
   /**
@@ -235,21 +240,17 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [30.10.2019]
+   * @stable [01.12.2019]
    * @returns {IFieldActionEntity[]}
    */
   protected getFieldActions(): IFieldActionEntity[] {
     const isValuePresent = this.isValuePresent;
-    const isFieldModifiable = !this.isFieldNotModifiable;
 
     return super.getFieldActions().filter(
       (action) => {
         switch (action.type) {
-          case FieldActionTypesEnum.CALENDAR:
-          case FieldActionTypesEnum.DROP_DOWN:
-            return isFieldModifiable;
           case FieldActionTypesEnum.CLOSE:
-            return isFieldModifiable && isValuePresent;
+            return isValuePresent;
         }
         return true;
       }
@@ -304,7 +305,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return (
       <MaskedTextInput
         guide={nvl(props.maskGuide, BaseTextField.DEFAULT_MASK_GUIDE)}
-        placeholderChar={nvl(props.maskPlaceholderChar, UNI_CODES.space)}
+        placeholderChar={nvl(props.maskPlaceholderChar, UniCodesEnum.SPACE)}
         mask={mask}
         {...this.getInputElementProps()}/>
     );
