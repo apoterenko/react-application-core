@@ -81,12 +81,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       );
     }
 
-    const $$cachedValue = this.state.$$cachedValue;
     const newValue = props.value;
-    if (!R.isNil($$cachedValue)) {
+    if (R.isNil(newValue) && !R.equals(newValue, prevProps.value)) {
+      const $$cachedValue = this.state.$$cachedValue;
 
-      // Need to reset the previous cached display value if the value has been cleared or replaced
-      if (R.isNil(newValue) || !R.equals($$cachedValue.value, newValue)) {
+      if (!R.isNil($$cachedValue) && !R.equals($$cachedValue.value, newValue)) {
+        // Need to reset the previous cached display value if the value has been cleared or replaced
         this.setState({$$cachedValue: null});
       }
     }
