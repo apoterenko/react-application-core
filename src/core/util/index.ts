@@ -22,6 +22,7 @@ export * from './nvl';
 export * from './object';
 export * from './page';
 export * from './parameter';
+export * from './patch';
 export * from './place';
 export * from './promise';
 export * from './props';

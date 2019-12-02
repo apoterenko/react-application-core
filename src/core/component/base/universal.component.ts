@@ -1,7 +1,11 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { isFn, nvl } from '../../util';
+import {
+  isFn,
+  nvl,
+  patchRenderMethod,
+} from '../../util';
 import {
   DI_TYPES,
   getDatabaseStorage,
@@ -17,7 +21,10 @@ import {
 } from '../../di';
 import { TranslatorT } from '../../translation';
 import { ISettingsEntity } from '../../settings';
-import { IDateConverter, INumberConverter } from '../../converter';
+import {
+  IDateConverter,
+  INumberConverter,
+} from '../../converter';
 import { AnyT } from '../../definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import {
@@ -46,12 +53,14 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null };
 
   /**
-   * @stable [22.09.2019]
+   * @stable [02.12.2019]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
+
     this.initPlugins();
+    patchRenderMethod(this);
   }
 
   /**

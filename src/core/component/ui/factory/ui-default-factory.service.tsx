@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { Store } from 'redux';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import {
   DI_TYPES,
@@ -28,6 +29,7 @@ import {
 
 @injectable()
 export class UIDefaultFactory implements IUiFactory {
+  private static readonly logger = LoggerFactory.makeLogger('UIDefaultFactory');
   private static readonly WIN_ERROR_ID = '$$windowErrorElement';
 
   @lazyInject(DI_TYPES.DomAccessor) protected readonly domAccessor: IDomAccessor;
@@ -74,20 +76,21 @@ export class UIDefaultFactory implements IUiFactory {
    */
   public makeWindowError(e: Error): Element {
     this.logError(ErrorEventCategoriesEnum.WINDOW_ERROR, e);
+    UIDefaultFactory.logger.error('$[UIDefaultFactory][makeWindowError] Error:', e);
 
     const el = this.domAccessor.getElement(UIDefaultFactory.WIN_ERROR_ID);
-    const errorMessageWrapperEl = el || this.domAccessor.createElement();
-    if (!R.isNil(el)) {
-      // Do nothing, because only one error is shown
-    } else {
+    if (R.isNil(el)) {
+      const errorMessageWrapperEl = this.domAccessor.createElement();
       const errorMessageEl = this.domAccessor.createElement('div', errorMessageWrapperEl);
       errorMessageEl.id = UIDefaultFactory.WIN_ERROR_ID;
       this.domAccessor.addClassNames(errorMessageWrapperEl, ...this.getErrorWrapperClassNames());
       this.domAccessor.addClassNames(errorMessageEl, ...this.getErrorClassNames());
-      this.domAccessor.addChild(errorMessageWrapperEl);
       this.makeWindowErrorBodyElement(e, errorMessageEl);
+      return errorMessageWrapperEl;
+    } else {
+      // Do nothing, because only one error is shown
+      return el.parentElement;
     }
-    return errorMessageWrapperEl;
   }
 
   /**
@@ -97,6 +100,7 @@ export class UIDefaultFactory implements IUiFactory {
    */
   public makeReactError(e: Error): React.ReactNode {
     this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
+    UIDefaultFactory.logger.error('$[UIDefaultFactory][makeReactError] Error:', e);
 
     return (
       <div className={joinClassName(...this.getErrorWrapperClassNames())}>
