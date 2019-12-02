@@ -349,12 +349,13 @@ export class UIMaterialFactory implements IUIFactory {
   }
 
   /**
-   * @stable [07.10.2019]
+   * @stable [02.12.2019]
    * @param {Error} e
+   * @param {boolean} logging
    * @returns {React.ReactNode}
    */
-  public makeReactError(e: Error): React.ReactNode {
-    return this.defaultUIFactory.makeReactError(e);
+  public makeReactError(e: Error, logging?: boolean): React.ReactNode {
+    return this.defaultUIFactory.makeReactError(e, logging);
   }
 
   /**

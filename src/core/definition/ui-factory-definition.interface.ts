@@ -18,11 +18,12 @@ export interface IUiFactory {
   makeWindowError?(e: Error): Element;
 
   /**
-   * @stable [07.10.2019]
+   * @stable [02.12.2019]
    * @param {Error} e
+   * @param {boolean} logging
    * @returns {React.ReactNode}
    */
-  makeReactError?(e: Error): React.ReactNode;
+  makeReactError?(e: Error, logging?: boolean): React.ReactNode;
 
   /**
    * @stable [28.11.2019]

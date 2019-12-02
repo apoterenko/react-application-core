@@ -94,13 +94,16 @@ export class UIDefaultFactory implements IUiFactory {
   }
 
   /**
-   * @stable [07.10.2019]
+   * @stable [02.12.2019]
    * @param {Error} e
+   * @param {boolean} logging
    * @returns {React.ReactNode}
    */
-  public makeReactError(e: Error): React.ReactNode {
-    this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
-    UIDefaultFactory.logger.error('$[UIDefaultFactory][makeReactError] Error:', e);
+  public makeReactError(e: Error, logging?: boolean): React.ReactNode {
+    if (logging !== false) {
+      this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
+      UIDefaultFactory.logger.error('$[UIDefaultFactory][makeReactError] Error:', e);
+    }
 
     return (
       <div className={joinClassName(...this.getErrorWrapperClassNames())}>
