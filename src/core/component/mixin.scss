@@ -1186,7 +1186,8 @@
   $rac-self-field-display: unset,                                                   /* @stable [23.10.2019] */
   $rac-self-field-height: unset,
   $rac-self-field-icon-color: unset,                                                /* @stable [28.10.2019] */
-  $rac-self-field-icon-margin: unset,                                               /* @stable [30.10.2019] */
+  $rac-self-field-icon-height: unset,                                               /* @stable [03.12.2019] */
+  $rac-self-field-icon-padding: unset,                                              /* @stable [30.10.2019] */
   $rac-self-field-icon-size: unset,                                                 /* @stable [28.10.2019] */
   $rac-self-field-input-background: unset,                                          /* @stable [30.10.2019] */
   $rac-self-field-input-border: unset,                                              /* @stable [30.10.2019] */
@@ -1318,7 +1319,8 @@
 
         @include rac-icon (
           $rac-icon-color: $rac-self-field-icon-color,
-          $rac-icon-margin: $rac-self-field-icon-margin,
+          $rac-icon-height: $rac-self-field-icon-height,
+          $rac-icon-padding: $rac-self-field-icon-padding,
           $rac-icon-size: $rac-self-field-icon-size
         );
 
@@ -2864,7 +2866,7 @@
   $rac-form-layout-self-field-focused-input-placeholder-color: unset,                     /* @stable [09.11.2019] */
   $rac-form-layout-self-field-height: unset,                                              /* @stable [30.10.2019] */
   $rac-form-layout-self-field-icon-color: unset,                                          /* @stable [30.10.2019] */
-  $rac-form-layout-self-field-icon-margin: unset,                                         /* @stable [09.11.2019] */
+  $rac-form-layout-self-field-icon-padding: unset,                                        /* @stable [09.11.2019] */
   $rac-form-layout-self-field-input-caret-bottom: unset,                                  /* @stable [09.11.2019] */
   $rac-form-layout-self-field-input-color: unset,                                         /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-font-size: unset,                                     /* @stable [30.10.2019] */
@@ -2889,7 +2891,7 @@
       $rac-self-field-border: $rac-form-layout-self-field-border,
       $rac-self-field-height: $rac-form-layout-self-field-height,
       $rac-self-field-icon-color: $rac-form-layout-self-field-icon-color,
-      $rac-self-field-icon-margin: $rac-form-layout-self-field-icon-margin,
+      $rac-self-field-icon-padding: $rac-form-layout-self-field-icon-padding,
       $rac-self-field-input-caret-bottom: $rac-form-layout-self-field-input-caret-bottom,
       $rac-self-field-input-color: $rac-form-layout-self-field-input-color,
       $rac-self-field-input-font-size: $rac-form-layout-self-field-input-font-size,

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { LoggerFactory } from 'ts-smart-logger';
 
 import {
   cancelEvent,
@@ -29,7 +28,6 @@ import { IApiEntity, IEditableEntity } from '../../definition';
 import { IFieldProps, IFieldsConfigurations } from '../../configurations-definitions.interface';
 import { lazyInject, DI_TYPES } from '../../di';
 import {
-  isFormDirty,
   isFormFieldChangeable,
   isFormFieldDisabled,
   isFormOfNewEntity,
@@ -52,11 +50,9 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     form: INITIAL_FORM_ENTITY,
     validateOnMount: true,
   };
-  private static readonly logger = LoggerFactory.makeLogger('Form');
 
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
-  private readonly childrenMap: Map<React.FunctionComponentElement<{ children: React.ReactChild[] }>,
-    string | React.RefObject<IField>> = new Map();
+  private readonly formRef = React.createRef<HTMLFormElement>();
 
   /**
    * @stable [29.05.2018]
@@ -72,7 +68,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   public render(): JSX.Element {
     const props = this.props;
 
-    this.childrenMap.clear();
     const nodes = (
       cloneReactNodes<IFieldProps>(
         this,
@@ -116,14 +111,13 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
           );
         },
         (child) => Field.isPrototypeOf(child.type),
-        this.childrenMap,
         (child) => (child.props as IFieldProps).rendered,
       )
     );
 
     return (
       <form
-        ref='self'
+        ref={this.formRef}
         autoComplete='off'
         onReset={this.onReset}
         onSubmit={this.onSubmit}
@@ -153,11 +147,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     if (this.props.validateOnMount) {
       this.propsOnValid();
     }
-  }
-
-  public componentWillUnmount(): void {
-    super.componentWillUnmount();
-    this.childrenMap.clear();
   }
 
   /**
@@ -195,12 +184,11 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     );
   }
 
-  private onChange(name: string, value: AnyT, validationGroup: string): void {
+  private onChange(name: string, value: AnyT): void {
 
     if (this.props.onChange) {
       this.props.onChange({name, value});
     }
-    this.resetGroupFieldsErrors(name, validationGroup);
     this.propsOnValid();
   }
 
@@ -224,9 +212,13 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
+  /**
+   * @stable [03.12.2019]
+   */
   private propsOnValid(): void {
-    if (this.props.onValid) {
-      this.props.onValid((this.refs.self as HTMLFormElement).checkValidity());
+    const props = this.props;
+    if (isFn(props.onValid)) {
+      props.onValid(props.manualValidation || this.formRef.current.checkValidity());
     }
   }
 
@@ -252,42 +244,12 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
-  private resetGroupFieldsErrors(name: string, validationGroup: string): void {
-    if (!validationGroup) {
-      return;
-    }
-    this.childrenMap.forEach((uuidRef, child) => {
-      const childProps = child.props as IFieldProps;
-      const groupName = childProps.validationGroup;
-      const fieldName = childProps.name;
-
-      if (groupName === validationGroup && fieldName !== name) {
-        const refObject = isString(uuidRef) ? null : uuidRef as React.RefObject<IField>;
-        const otherFieldInstanceAtTheSameGroup = refObject && refObject.current || this.refs[uuidRef as string] as IField;
-
-        if (otherFieldInstanceAtTheSameGroup) {
-          otherFieldInstanceAtTheSameGroup.resetError();
-        } else {
-          Form.logger.warn(`[$Form] The ref is not defined to the field with ${fieldName} name.`);
-        }
-      }
-    });
-  }
-
   /**
    * @stable [03.08.2018]
    * @returns {boolean}
    */
   private isFormValid(): boolean {
     return isFormEntityValid(this.props);
-  }
-
-  /**
-   * @stable [03.08.2018]
-   * @returns {boolean}
-   */
-  private isFormDirty(): boolean {
-    return isFormDirty(this.props);
   }
 
   /**

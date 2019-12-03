@@ -725,7 +725,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
 
     ifNotNilThanValue(
       this.props.changeForm,
-      (changeForm) => changeForm(props.name, rawValue, props.validationGroup)
+      (changeForm) => changeForm(props.name, rawValue)
     );
   }
 

@@ -24,7 +24,6 @@ export type RenderPredicateT = (child: JSX.Element) => boolean;
 export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component<{}>,
                                         mergedProps: TProps | ((component: JSX.Element | React.Component<{}>) => TProps),
                                         mergePropsPredicate: RenderPredicateT,
-                                        childrenMap?: Map<JSX.Element, string | React.RefObject<{}>>,
                                         renderPredicate?: RenderPredicateT): React.ReactNode[] =>
   React.Children.map<React.ReactNode, React.ReactNode>(
     component.props.children,
@@ -50,12 +49,9 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
               ref,
               ...calc<TProps>(mergedProps, reactChild) as {},
             }),
-            children: cloneReactNodes<TProps>(reactChild, mergedProps, mergePropsPredicate, childrenMap, renderPredicate),
+            children: cloneReactNodes<TProps>(reactChild, mergedProps, mergePropsPredicate, renderPredicate),
           }
         );
-        if (childrenMap && canMergeProps) {
-          childrenMap.set(clonedChild, ref);
-        }
         return clonedChild;
       }
     },

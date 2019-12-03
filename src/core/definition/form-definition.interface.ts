@@ -12,6 +12,7 @@ import {
   IFormWrapper,
   IFullWrapper,
   IKeyValue,
+  IManualValidationWrapper,
   IOnBeforeSubmitWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
@@ -62,15 +63,16 @@ export interface IGenericFormEntity
     IChangeableWrapper,
     ICompactWrapper,
     IDisabledWrapper,
-    IValidWrapper,
     IFullWrapper,
+    IManualValidationWrapper,
     IReadOnlyWrapper,
     IResetActionRenderedWrapper,
     IResetIconWrapper,
     IResetTextWrapper,
     ISubmitIconWrapper,
     ISubmitTextWrapper,
-    IValidateOnMountWrapper {
+    IValidateOnMountWrapper,
+    IValidWrapper {
 }
 
 /**

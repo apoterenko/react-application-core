@@ -227,6 +227,7 @@ export interface ILocationWrapper<TLocation> { location?: TLocation; }
 export interface ILockWrapper { lock?: boolean; }
 export interface ILoginWrapper<TLogin = string> { login?: TLogin; }
 export interface ILogoutWrapper<TLogout> { logout?: TLogout; }
+export interface IManualValidationWrapper { manualValidation?: boolean; }
 export interface IMappersWrapper<TMappers> { mappers?: TMappers; }
 export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
 export interface IMaxCountWrapper { maxCount?: number; }
@@ -945,13 +946,6 @@ export interface IStringErrorWrapper extends IErrorWrapper<string> {
  */
 export interface IOnInitWrapper<TOnInit = (...args: AnyT[]) => void> {
   onInit?: TOnInit;
-}
-
-/**
- * @stable [17.06.2018]
- */
-export interface IValidationGroupWrapper<TValidationGroup = string> {
-  validationGroup?: TValidationGroup;
 }
 
 /**
