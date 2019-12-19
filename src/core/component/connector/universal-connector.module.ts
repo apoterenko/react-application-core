@@ -5,6 +5,7 @@ import {
 import {
   IConnectorEntity,
 } from '../../definition';
+import './universal-connector-container-factory/universal-connector-container-factory.module';
 
 /**
  * @stable [17.11.2019]

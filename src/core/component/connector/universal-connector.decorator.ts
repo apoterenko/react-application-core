@@ -2,19 +2,12 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import {
   ifNotNilThanValue,
-  isFn,
-  patchRenderMethod,
 } from '../../util';
 import {
+  getConnectorContainerFactory,
   getDynamicRoutes,
   getDynamicSections,
-  getStore,
 } from '../../di';
-import { ConnectorActionBuilder } from './connector-action.builder';
-import {
-  STACK_POP_ACTION_TYPE,
-  STACK_PUSH_ACTION_TYPE,
-} from '../../store/stack/stack.interface';
 import { universalConnectorFactory } from './universal-connector.factory';
 import {
   IBasicConnectorEntity,
@@ -37,53 +30,10 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
   (target: IUniversalContainerCtor): void => {
     let finalTarget = target;
 
-    const sectionName = ifNotNilThanValue(target.defaultProps, (defaultProps) => defaultProps.sectionName);
-    if (sectionName) {
-      getDynamicSections().set(sectionName, config);
-
-      finalTarget = class extends target {
-
-        /**
-         * @stable [09.10.2019]
-         * @param {IUniversalContainerProps} props
-         */
-        constructor(props: IUniversalContainerProps) {
-          super(props);
-          patchRenderMethod(this);
-
-          logger.debug(`[$basicConnector][constructor] Section: ${sectionName}`);
-        }
-
-        /**
-         * @stable [02.12.2019]
-         */
-        public componentWillUnmount(): void {
-          const store = getStore();
-          store.dispatch({type: STACK_POP_ACTION_TYPE, data: sectionName});
-          store.dispatch({type: ConnectorActionBuilder.buildDestroyActionType(sectionName)});
-
-          logger.debug(`[$basicConnector][componentWillUnmount] Section: ${sectionName}`);
-
-          if (isFn(super.componentWillUnmount)) {
-            super.componentWillUnmount();
-          }
-        }
-
-        /**
-         * @stable [11.09.2019]
-         */
-        public componentDidMount(): void {
-          const store = getStore();
-          store.dispatch({type: STACK_PUSH_ACTION_TYPE, data: sectionName});
-          store.dispatch({type: ConnectorActionBuilder.buildInitActionType(sectionName)});
-
-          logger.debug(`[$basicConnector][componentDidMount] Section: ${sectionName}`);
-
-          if (isFn(super.componentDidMount)) {
-            super.componentDidMount();
-          }
-        }
-      };
+    const section = ifNotNilThanValue(target.defaultProps, (defaultProps) => defaultProps.sectionName);
+    if (section) {
+      getDynamicSections().set(section, config);
+      finalTarget = getConnectorContainerFactory().fromTarget(target, section);
     } else {
       logger.warn(
         `[$basicConnector] The sectionName is not defined for ${target.name ||
