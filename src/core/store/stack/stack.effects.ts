@@ -8,19 +8,19 @@ import {
   FilterActionBuilder,
   TabPanelActionBuilder,
 } from '../../component/action.builder';
-import { STACK_PUSH_ACTION_TYPE } from './stack.interface';
-import { StackActionBuilder } from './stack-action.builder';
+import { StackActionBuilder } from '../../action';
 import { getAllIndependentStackSections } from './stack.support';
 import {
   IStackPayloadEntity,
   IStoreEntity,
+  $RAC_STACK_PUSH_ACTION_TYPE,
 } from '../../definition';
 
 @provideInSingleton(StackEffects)
 export class StackEffects {
   private static logger = LoggerFactory.makeLogger('StackEffects');
 
-  @EffectsService.effects(STACK_PUSH_ACTION_TYPE)
+  @EffectsService.effects($RAC_STACK_PUSH_ACTION_TYPE)
   public $onStackPush(action: IEffectsAction, state: IStoreEntity): IEffectsAction[] {
     const payload: IStackPayloadEntity = action.data;
     const destroyableSections = getAllIndependentStackSections(payload.section, state.stack);

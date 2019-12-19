@@ -13,7 +13,7 @@ import {
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { RouterActionBuilder } from '../router/router-action.builder';
+import { RouterActionBuilder } from '../action';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 
 @provideInSingleton(TransportEffects)

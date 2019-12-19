@@ -2,16 +2,7 @@ import * as graphlib from '@dagrejs/graphlib';
 import * as R from 'ramda';
 
 import { IStackEntity, IStackItemEntity } from '../../definition';
-
-/**
- * @stable [20.09.2019]
- * @param {string} currentSection
- * @param {IStackEntity} stackEntity
- * @returns {number}
- */
-export const findStackEntityIndex = (currentSection: string,
-                                     stackEntity: IStackEntity): number =>
-  R.findIndex<IStackItemEntity>((entry) => entry.section === currentSection, stackEntity.stack);
+import { findStackItemEntityIndexBySection } from '../../util';
 
 /**
  * @stable [21.09.2019]
@@ -42,7 +33,7 @@ export const collectStackMainSectionsByIndex = (stackEntity: IStackEntity,
  */
 export const getAdditionalStackSectionsToDestroy = (section: string,
                                                     stackEntity: IStackEntity): string [] =>
-  collectStackMainSectionsByIndex(stackEntity, findStackEntityIndex(section, stackEntity));
+  collectStackMainSectionsByIndex(stackEntity, findStackItemEntityIndexBySection(section, stackEntity));
 
 /**
  * @stable [20.09.2019]
@@ -60,7 +51,7 @@ export const toGraphComponents = (currentSection: string,
    * R0 -> R1 -> R2 -> R3 -> R0
    * R0 -> R1 -> R2 -> R3 -> R1
    */
-  const currentSectionIndex = findStackEntityIndex(currentSection, stackEntity);
+  const currentSectionIndex = findStackItemEntityIndexBySection(currentSection, stackEntity);
   const additionalSectionsToPreventToBeLinked = currentSectionIndex > -1
     // // R0 -> R1 -> R2 -> R3 -> R1 ==> The links between R1-R2 + R1-R3 will be broken
     ? collectStackMainSectionsByIndex(stackEntity, currentSectionIndex + 1)
