@@ -8,6 +8,14 @@ export enum RegexpEnum {
 }
 
 /**
+ * @stable [09.10.2019]
+ */
+export const REGEXP = {
+  DIGITAL: new RegExp(RegexpEnum.DIGITAL),
+  PRICE: new RegExp(RegexpEnum.PRICE),
+};
+
+/**
  * @stable [29.11.0219]
  */
 export interface ICurrencySettingsEntity {

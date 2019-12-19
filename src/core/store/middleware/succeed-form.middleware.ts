@@ -1,7 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { orNull, ifNotNilThanValue } from '../../util';
-import { RouterActionBuilder } from '../../router';
+import { RouterActionBuilder } from '../../action';
 import { IEntity } from '../../definitions.interface';
 import {
   FormActionBuilder,

@@ -6,8 +6,10 @@ import {
 } from '../../component/action.builder';
 import { IChainedFormMiddlewareConfigEntity } from '../../definition';
 import { ifNotNilThanValue } from '../../util';
-import { RouterActionBuilder } from '../../router';
-import { StackActionBuilder } from '../stack';
+import {
+  RouterActionBuilder,
+  StackActionBuilder,
+} from '../../action';
 
 /**
  * @stable [28.08.2019]

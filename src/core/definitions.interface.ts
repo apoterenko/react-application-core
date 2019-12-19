@@ -112,9 +112,11 @@ export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
 export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
+export interface IDateWrapper<TDate = string> { date?: TDate; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
+export interface IDepthWrapper { depth?: number; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
 export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFileTypeTransportConfiguration?: TValue; }
@@ -144,6 +146,7 @@ export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
 export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
+export interface IFieldConfigurationWrapper<TProps> { fieldConfiguration?: TProps; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
 export interface IFieldsWrapper<TFields> { fields?: TFields; }
 export interface IFieldWrapper<TField> { field?: TField; }
@@ -152,6 +155,7 @@ export interface IFilesWrapper<TValue> { files?: TValue; }
 export interface IFilterPlaceholderWrapper { filterPlaceholder?: string; }
 export interface IFilterRendererWrapper<TPayload> { filterRenderer?(payload: TPayload): JSX.Element; }
 export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
+export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
@@ -167,11 +171,12 @@ export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwarded
 export interface IFullSizeWrapper { fullSize?: boolean; }
 export interface IFullWrapper<TFull = boolean> { full?: TFull; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
-export interface IGoBackWrapper { goBack?(): void; }
+export interface IGoBackWrapper { goBack?(depth?: number): void; }
 export interface IGridConfigurationWrapper<TValue> { gridConfiguration?: TValue; }
 export interface IGroupableWrapper { groupable?: boolean; }
 export interface IGroupByWrapper<TGroupBy> { groupBy?: TGroupBy; }
 export interface IGroupedDataSorterWrapper<T1, T2> { groupedDataSorter?(t1?: T1, t2?: T1, t3?: T2, t4?: T2): number; }
+export interface IGroupedRowsWrapper<TValue> { groupedRows?: TValue; }
 export interface IGroupedWrapper { grouped?: boolean; }
 export interface IGroupExpandedWrapper { groupExpanded?: boolean; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }
@@ -184,7 +189,6 @@ export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
 export interface IHeaderWidthWrapper { headerWidth?: number; }
 export interface IHeightWrapper { height?: number; }
 export interface IHideWrapper { hide?(): void; }
-export interface IHighlightExpandedGroupWrapper { highlightExpandedGroup?: boolean; }
 export interface IHighlightOddWrapper { highlightOdd?: boolean; }
 export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
@@ -199,6 +203,7 @@ export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
 export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
+export interface IInputFormatWrapper { inputFormat?: string; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IItemsWrapper<TItems> { items?: TItems; }
@@ -209,6 +214,7 @@ export interface IKeyValue extends Record<string, AnyT> {}
 export interface IKeyWrapper<TKey = string> { key?: TKey; }
 export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
 export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
+export interface ILastWrapper<TValue = boolean> { last?: TValue; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
 export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
 export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
@@ -278,6 +284,7 @@ export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
 export interface IOperationIdWrapper { operationId?: string; }
 export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?: TOperation; }
 export interface IOptionsWrapper<TOptions> { options?: TOptions; }
+export interface IOrderWrapper<TValue = number> { order?: TValue; }
 export interface IOriginalDataWrapper<TOriginalData = IEntity[]> { originalData?: TOriginalData; }
 export interface IOriginalEntityWrapper<TOriginalEntity> { originalEntity?: TOriginalEntity; }
 export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
@@ -292,6 +299,8 @@ export interface IPasswordWrapper<TPassword = string> { password?: TPassword; }
 export interface IPathWrapper<TPath = string> { path?: TPath; }
 export interface IPatternWrapper<TPattern = string> { pattern?: TPattern; }
 export interface IPayloadWrapper<TPayload = AnyT> { payload?: TPayload; }
+export interface IPerfectScrollWrapper<TValue> { perfectScroll?: TValue; }
+export interface IPeriodWrapper<TPeriod = AnyT> { period?: TPeriod; }
 export interface IPermissionsWrapper<TValue> { permissions?: TValue; }
 export interface IPlaceActionRenderedWrapper { placeActionRendered?: boolean; }
 export interface IPlaceEntityWrapper<TPlaceEntity> { placeEntity?: TPlaceEntity; }
@@ -316,6 +325,7 @@ export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
 export interface IReadOnlyWrapper { readOnly?: boolean; }
 export interface IReadyWrapper { ready?: boolean; }
 export interface IRefreshMapWrapper { refreshMap?: boolean; }
+export interface IRefreshOnUpdateWrapper { refreshOnUpdate?: boolean; }
 export interface IRegionWrapper<TRegion = string> { region?: TRegion; }
 export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
 export interface IRemoteFilterWrapper { remoteFilter?: boolean; }
@@ -340,12 +350,14 @@ export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TResponsive; }
 export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
+export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
 export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
 export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
 export interface IRoundedWrapper { rounded?: boolean; }
 export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
+export interface IRowNumWrapper { rowNum?: number; }
 export interface IRowWrapper<TRow = boolean> { row?: TRow; }
 export interface IScaleWrapper<TScale = number> { scale?: TScale; }
 export interface ISectionNameWrapper { sectionName?: string; }
@@ -664,13 +676,6 @@ export interface IUseZipCodeWrapper {
  */
 export interface IInputWrapper<TInput = HTMLInputElement | HTMLTextAreaElement> {
   input?: TInput;
-}
-
-/**
- * @stable [02.06.2018]
- */
-export interface IDateWrapper<TDate = string> {
-  date?: TDate;
 }
 
 /**
@@ -1227,11 +1232,6 @@ export interface IColSpanWrapper {
  */
 export interface IColumnColSpanWrapper {
   columnColSpan?: number;
-}
-
-/* @stable - 14.04.2018 */
-export interface IHideNavBarWrapper {
-  hideNavBar?: boolean;
 }
 
 /**

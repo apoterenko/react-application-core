@@ -9,8 +9,10 @@ import {
   isFn,
   selectPreventEffectsFromAction,
 } from '../../util';
-import { RouterActionBuilder } from '../../router';
-import { StackActionBuilder } from '../stack';
+import {
+  RouterActionBuilder,
+  StackActionBuilder,
+} from '../../action';
 
 /**
  * @stable [19.10.2019]

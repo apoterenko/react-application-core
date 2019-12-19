@@ -2,10 +2,15 @@ import * as React from 'react';
 
 import {
   IActivateDialogWrapper,
+  IFirstWrapper,
   IGoBackWrapper,
+  IItemWrapper,
   IKeyValue,
+  ILastWrapper,
 } from '../definitions.interface';
+import { IContainer } from './container-definition.interface';
 import { IDispatcher } from './dispatcher-definition.interface';
+import { IStackItemEntity } from './stack-definition.interface';
 import { IUniversalDialog } from './dialog-definition.interface';
 
 /**
@@ -14,7 +19,8 @@ import { IUniversalDialog } from './dialog-definition.interface';
 export interface IDialogFormChangesConfirmStoreProxy
   extends IDispatcher,
     IActivateDialogWrapper,
-    IGoBackWrapper {
+    IGoBackWrapper,
+    IBaseRouterStoreProxy {
   getDialogRef<T extends IUniversalDialog>(): React.RefObject<T>;
 }
 
@@ -26,3 +32,35 @@ export interface IFormStoreProxy
   dispatchFormReset(otherSection?: string): void;
   dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
 }
+
+/**
+ * @stable [19.12.2019]
+ */
+export interface IRouterStoreProxyFactoryConfigEntity
+  extends IFirstWrapper,
+    IItemWrapper<IStackItemEntity>,
+    ILastWrapper {
+}
+
+/**
+ * @stable [19.12.2019]
+ */
+export interface IBaseRouterStoreProxy {
+  buildNavigationSteps?(factory: (cfg: IRouterStoreProxyFactoryConfigEntity) => JSX.Element): React.ReactNode[];
+}
+
+/**
+ * @stable [19.12.2019]
+ */
+export interface IRouterStoreProxy
+  extends IBaseRouterStoreProxy,
+    IGoBackWrapper {
+  navigateBack?(): void;
+}
+
+/**
+ * @stable [18.12.2019]
+ */
+export type DialogFormChangesConfirmStoreProxyFactoryT = (parent: IContainer) => IDialogFormChangesConfirmStoreProxy;
+export type FormStoreProxyFactoryT = (parent: IContainer) => IFormStoreProxy;
+export type RouterStoreProxyFactoryT = (parent: IContainer) => IRouterStoreProxy;

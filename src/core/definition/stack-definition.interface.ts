@@ -1,9 +1,11 @@
 import {
+  ACTION_PREFIX,
+  IDestroySectionsWrapper,
   ILinkedSectionsWrapper,
   ILockWrapper,
-  IDestroySectionsWrapper,
   ISectionWrapper,
   IStackWrapper,
+  IUrlWrapper,
 } from '../definitions.interface';
 
 /**
@@ -16,11 +18,12 @@ export const INITIAL_STACK_ENTITY = Object.freeze<IStackEntity>({
 });
 
 /**
- * @stable [20.09.2019]
+ * @stable [18.12.2019]
  */
 export interface IStackItemEntity
-  extends ISectionWrapper,
-    ILinkedSectionsWrapper {
+  extends ILinkedSectionsWrapper,
+    ISectionWrapper,
+    IUrlWrapper {
 }
 
 /**
@@ -38,3 +41,19 @@ export interface IStackEntity
 export interface IStackWrapperEntity
   extends IStackWrapper<IStackEntity> {
 }
+
+/**
+ * @stable [18.12.2019]
+ */
+export interface IStackPayloadEntity
+  extends ISectionWrapper,
+    IUrlWrapper {
+}
+
+/**
+ * @stable [19.12.2019]
+ */
+export const $RAC_STACK_LOCK_ACTION_TYPE = `${ACTION_PREFIX}stack.lock`;
+export const $RAC_STACK_POP_ACTION_TYPE = `${ACTION_PREFIX}stack.pop`;
+export const $RAC_STACK_PUSH_ACTION_TYPE = `${ACTION_PREFIX}stack.push`;
+export const $RAC_STACK_REMOVE_ACTION_TYPE = `${ACTION_PREFIX}stack.remove`;
