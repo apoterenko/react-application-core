@@ -29,6 +29,7 @@ import {
   IErrorMessageRenderedWrapper,
   IErrorMessageWrapper,
   IFactorWrapper,
+  IFieldConfigurationWrapper,
   IFieldWrapper,
   IFilterFnWrapper,
   IFocusEvent,
@@ -107,13 +108,6 @@ export interface IItemConfigurationWrapper<TItemConfiguration> {
  */
 export interface IFilterConfigurationWrapper<TFilterConfiguration = IFilterConfiguration> {
   filterConfiguration?: IFilterConfiguration;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IFieldConfigurationWrapper<TFieldConfiguration = IFieldProps> {
-  fieldConfiguration?: TFieldConfiguration;
 }
 
 /**
@@ -367,7 +361,7 @@ export interface IFilterConfiguration extends IActionsDisabledWrapper,
                                               IIconWrapper,
                                               IFullWrapper,
                                               IActionsWrapper<IFilterActionConfiguration[]>,
-                                              IFieldConfigurationWrapper {
+                                              IFieldConfigurationWrapper<IFieldProps> {
 }
 
 /**
