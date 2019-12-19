@@ -159,7 +159,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   public get value(): AnyT {
     const props = this.props;
     const value = props.value;
-    return isDef(value) ? value : props.defaultValue;
+    return this.isValueDefined(value) ? value : this.getDefaultValue();
   }
 
   /**
@@ -261,6 +261,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [06.06.2018]
    */
   public abstract setFocus(): void;
+
+  /**
+   * @stable [15.12.2019]
+   * @param value
+   * @returns {boolean}
+   */
+  protected isValueDefined(value: AnyT): boolean {
+    return isDef(value);
+  }
 
   /**
    * @stable [29.10.2019]
@@ -388,6 +397,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected getFieldMask(): Array<string | RegExp> {
     return this.props.mask;
+  }
+
+  /**
+   * @stable [15.12.2019]
+   * @returns {AnyT}
+   */
+  protected getDefaultValue(): AnyT {
+    return this.props.defaultValue;
   }
 
   /**

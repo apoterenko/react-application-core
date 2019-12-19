@@ -7,8 +7,8 @@ import {
   StringNumberT,
   ITimeWrapper,
 } from '../../../definitions.interface';
-import { IDateFieldProps, IDateFieldState } from '../datefield';
-import { DateTimeLikeTypeT } from '../../../converter';
+import { IDateFieldProps, IDateFieldState } from '../date-field';
+import { DateTimeLikeTypeT } from '../../../definition';
 
 /**
  * @stable [07.01.2019]

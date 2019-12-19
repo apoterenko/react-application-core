@@ -11,7 +11,6 @@ import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IActionsDisabledWrapper,
-  IDisabledWrapper,
   IEntity,
   IEntityWrapper,
   IKeyValue,

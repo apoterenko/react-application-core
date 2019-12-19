@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { UNDEF } from '../../../definitions.interface';
 import { DelayedTask, toClassName, defValuesFilter, calc, isFn, toType, orNull } from '../../../util';
-import { DateField } from '../datefield';
+import { DateField } from '../date-field';
 import { FlexLayout } from '../../layout/flex';
 import { Button } from '../../button';
 import {
