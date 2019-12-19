@@ -3,17 +3,17 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton } from '../../di';
 import {
-  ListActionBuilder,
-  FormActionBuilder,
   FilterActionBuilder,
+  FormActionBuilder,
+  ListActionBuilder,
   TabPanelActionBuilder,
 } from '../../component/action.builder';
 import { StackActionBuilder } from '../../action';
 import { getAllIndependentStackSections } from './stack.support';
 import {
+  $RAC_STACK_PUSH_ACTION_TYPE,
   IStackPayloadEntity,
   IStoreEntity,
-  $RAC_STACK_PUSH_ACTION_TYPE,
 } from '../../definition';
 
 @provideInSingleton(StackEffects)
