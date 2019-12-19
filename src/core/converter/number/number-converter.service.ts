@@ -75,13 +75,26 @@ export class NumberConverter implements INumberConverter {
     return isNaN(result) ? value : result;
   }
 
-  public number(value: StringNumberT, stringResult = true): string | number {
+  /**
+   * @stable [19.12.2019]
+   * @param {StringNumberT} value
+   * @param {boolean} returnString
+   * @returns {StringNumberT}
+   */
+  public number(value: StringNumberT, returnString = true): StringNumberT {
     if (isNumber(value)) {
       return value;
     }
-    const valueAsString = value as string;
-    const result = parseFloat(valueAsString);
-    return isNaN(result) || (!R.equals(String(result), value) && stringResult) ? value : result;
+    const vAsString = value as string;
+    if (R.isNil(vAsString)) {
+      return value;
+    }
+    const normalizedValue = vAsString.startsWith('.') ? `0${vAsString}` : vAsString;
+    const result = parseFloat(normalizedValue);
+
+    return (isNaN(result) || (!R.equals(String(result), normalizedValue) && returnString))
+      ? normalizedValue
+      : result;
   }
 
   /**

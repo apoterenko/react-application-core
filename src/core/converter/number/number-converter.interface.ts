@@ -11,7 +11,7 @@ export interface INumberConverter {
   integerCurrency(value: StringNumberT): string;
   integerFormat(value: StringNumberT): string;
   internalId(value: StringNumberT): string;
-  number(value: StringNumberT, stringResult?: boolean): StringNumberT;
+  number(value: StringNumberT, returnString?: boolean): StringNumberT;
   numberParameter(value: StringNumberT, converter?: (value: number) => number): number;
   phone(value: StringNumberT, phoneNumberFormat?: PNF): string;
 }
