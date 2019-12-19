@@ -21,6 +21,9 @@ import {
 } from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
+  $RAC_ROUTER_NAVIGATE_ACTION_TYPE,
+  $RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE,
+  $RAC_ROUTER_REWRITE_ACTION_TYPE,
   DynamicRoutesMapT,
   IAuth,
   IEnvironment,
@@ -35,9 +38,6 @@ import {
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
-  ROUTER_BACK_ACTION_TYPE,
-  ROUTER_NAVIGATE_ACTION_TYPE,
-  ROUTER_REWRITE_ACTION_TYPE,
 } from '../../definition';
 import {
   applySection,
@@ -108,14 +108,14 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    * @deprecated Use proxy
    */
   public navigate<TPath0, TState0>(path: TPath0, state?: TState0): void {
-    this.doNavigate(ROUTER_NAVIGATE_ACTION_TYPE, path, state);
+    this.doNavigate($RAC_ROUTER_NAVIGATE_ACTION_TYPE, path, state);
   }
 
   /**
    * @deprecated Use proxy
    */
   public navigateAndRewrite<TPath0, TState0>(path: TPath0, state?: TState0): void {
-    this.doNavigate(ROUTER_REWRITE_ACTION_TYPE, path, state);
+    this.doNavigate($RAC_ROUTER_REWRITE_ACTION_TYPE, path, state);
   }
 
   /**
@@ -147,7 +147,7 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    * @deprecated Use proxy
    */
   protected navigateToBack(): void {
-    this.dispatchCustomType(ROUTER_BACK_ACTION_TYPE);
+    this.dispatchCustomType($RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE);
   }
 
   /**
