@@ -3,13 +3,15 @@ import * as React from 'react';
 import { BaseStoreProxy } from '../base-store.proxy';
 import {
   IDialogFormChangesConfirmStoreProxy,
+  IRouterStoreProxy,
+  IRouterStoreProxyFactoryConfigEntity,
   IUniversalComponentProps,
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalDialog,
   IUniversalStoreEntity,
-  ROUTER_BACK_ACTION_TYPE,
 } from '../../../../definition';
+import { getRouterStoreProxyFactoryFactory } from '../../../../di';
 
 export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                                                 TProps extends IUniversalContainerProps = IUniversalContainerProps>
@@ -17,6 +19,8 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
   implements IDialogFormChangesConfirmStoreProxy {
 
   public readonly dialogRef = React.createRef<IUniversalDialog>();
+  private readonly routerStoreProxy: IRouterStoreProxy;
+  private originalGoBackFn: () => void;
 
   /**
    * @stable [09.10.2019]
@@ -24,8 +28,22 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
    */
   constructor(readonly container: IUniversalContainer<TProps>) {
     super(container);
+
     this.goBack = this.goBack.bind(this);
     this.activateDialog = this.activateDialog.bind(this);
+
+    this.routerStoreProxy = getRouterStoreProxyFactoryFactory()(container);
+    this.originalGoBackFn = this.routerStoreProxy.goBack;
+    this.routerStoreProxy.goBack = this.activateDialog; // Need to intercept a click event
+  }
+
+  /**
+   * @stable [20.12.2019]
+   * @param {(cfg: IRouterStoreProxyFactoryConfigEntity) => JSX.Element} factory
+   * @returns {React.ReactNode[]}
+   */
+  public buildNavigationSteps(factory: (cfg: IRouterStoreProxyFactoryConfigEntity) => JSX.Element): React.ReactNode[] {
+    return this.routerStoreProxy.buildNavigationSteps(factory);
   }
 
   /**
@@ -36,10 +54,10 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
   }
 
   /**
-   * @stable [03.10.2019]
+   * @stable [18.12.2019]
    */
   public goBack(): void {
-    this.dispatchCustomType(ROUTER_BACK_ACTION_TYPE);
+    this.originalGoBackFn.call(this.routerStoreProxy);
   }
 
   /**
