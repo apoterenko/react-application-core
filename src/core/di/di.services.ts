@@ -7,12 +7,13 @@ import {
 } from '../converter';
 import { ISettingsEntity } from '../settings';
 import {
+  DialogFormChangesConfirmStoreProxyFactoryT,
   DynamicRoutesMapT,
   DynamicSectionsMapT,
+  FormStoreProxyFactoryT,
   IAuth,
   IConnectorEntity,
   IContainer,
-  IDialogFormChangesConfirmStoreProxy,
   IEnvironment,
   IEventManager,
   IFormStoreProxy,
@@ -25,8 +26,10 @@ import {
   ITransport,
   IUniversalComponentCtor,
   IUniversalComponentProps,
+  IUniversalConnectorContainerFactory,
   IUniversalContainerCtor,
   IUniversalContainerProps,
+  RouterStoreProxyFactoryT,
   UniversalPluginFactoryT,
 } from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';
@@ -152,12 +155,25 @@ export const getModifyEntityPayloadFactory = (): IModifyEntityPayloadFactory => 
  * @stable [27.11.2019]
  * @returns {(parent: IContainer) => }
  */
-export const getDialogFormChangesConfirmStoreProxyFactory = (): (parent: IContainer) => IDialogFormChangesConfirmStoreProxy =>
+export const getDialogFormChangesConfirmStoreProxyFactory = (): DialogFormChangesConfirmStoreProxyFactoryT =>
   staticInjector(DI_TYPES.DialogFormChangesConfirmStoreProxyFactory);
 
 /**
  * @stable [30.11.2019]
- * @returns {(parent: IContainer) => IFormStoreProxy}
+ * @returns {FormStoreProxyFactoryT}
  */
-export const getFormStoreProxyFactory = (): (parent: IContainer) => IFormStoreProxy =>
-  staticInjector(DI_TYPES.FormStoreProxyFactory);
+export const getFormStoreProxyFactory = (): FormStoreProxyFactoryT => staticInjector(DI_TYPES.FormStoreProxyFactory);
+
+/**
+ * @stable [18.12.2019]
+ * @returns {RouterStoreProxyFactoryT}
+ */
+export const getRouterStoreProxyFactoryFactory = (): RouterStoreProxyFactoryT =>
+  staticInjector(DI_TYPES.RouterStoreProxyFactory);
+
+/**
+ * @stable [19.12.2019]
+ * @returns {IUniversalConnectorContainerFactory}
+ */
+export const getConnectorContainerFactory = (): IUniversalConnectorContainerFactory =>
+  staticInjector(DI_TYPES.ConnectorContainerFactory);

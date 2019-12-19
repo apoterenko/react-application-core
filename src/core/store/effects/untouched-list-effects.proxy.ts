@@ -1,9 +1,10 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
-import { ConnectorActionBuilder, TabPanelActionBuilder } from '../../component/action.builder';
+import { TabPanelActionBuilder } from '../../component/action.builder';
 import { IUntouchedListMiddlewareConfig } from '../middleware/middleware.interface';
 import { makeUntouchedListMiddleware, makeUntouchedLazyLoadedListMiddleware } from '../middleware/untouched-list.middleware';
+import { ConnectorActionBuilder } from '../../action';
 
 /**
  * @stable [31.08.2018]

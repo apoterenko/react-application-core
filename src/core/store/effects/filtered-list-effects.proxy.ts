@@ -7,8 +7,10 @@ import {
   FilterActionBuilder,
   ToolbarActionBuilder,
 } from '../../component/action.builder';
-import { RouterActionBuilder } from '../../router';
-import { StackActionBuilder } from '../stack';
+import {
+  RouterActionBuilder,
+  StackActionBuilder,
+} from '../../action';
 import { makeFilterManualApplyMiddleware } from '../middleware';
 import { makeRefreshedListMiddleware } from '../middleware';
 

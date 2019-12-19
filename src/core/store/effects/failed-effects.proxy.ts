@@ -3,10 +3,10 @@ import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 import { provideInSingleton } from '../../di';
 import { NotificationActionBuilder } from '../../notification';
 import {
-  ConnectorActionBuilder,
   FormActionBuilder,
   ListActionBuilder,
 } from '../../component/action.builder';
+import { ConnectorActionBuilder } from '../../action';
 
 export const makeFailedEffectsProxy = (actionType: string,
                                        actionsResolver?: (action: IEffectsAction) => IEffectsAction[]): () => void =>

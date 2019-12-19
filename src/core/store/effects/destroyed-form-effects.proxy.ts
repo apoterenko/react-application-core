@@ -1,11 +1,14 @@
-import { EffectsService, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import {
-  makeDestroyedFormMiddleware,
   IDestroyedFormMiddlewareConfig,
+  makeDestroyedFormMiddleware,
 } from '../middleware';
-import { ConnectorActionBuilder } from '../../component/connector/connector-action.builder';
+import { ConnectorActionBuilder } from '../../action';
 
 /**
  * @stable [21.01.2019]

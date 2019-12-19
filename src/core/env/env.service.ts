@@ -9,6 +9,7 @@ import {
 } from '../definition';
 import { ENV } from './env.interface';
 import { AnyT } from '../definitions.interface';
+import { getCurrentUrlPath } from '../util';
 
 @injectable()
 export class Environment implements IEnvironment {
@@ -46,6 +47,14 @@ export class Environment implements IEnvironment {
       windowsPlatform: this.windowsPlatform,
     };
     Environment.logger.info(`[$Environment] ${JSON.stringify(payload)}`);
+  }
+
+  /**
+   * @stable [19.12.2019]
+   * @returns {string}
+   */
+  public get path(): string {
+    return getCurrentUrlPath();
   }
 
   /**
