@@ -24,6 +24,7 @@ import { FormDialog } from '../form';
 import { Snackbar } from '../snackbar';
 import { UniversalPluginFactoryT, IComponentCtor } from '../../definition';
 
+// TODO UI plugins should contain an array (material.module.ts, perfect-scroll.module.ts, etc)
 const uiPlugins = new Map<IComponentCtor, UniversalPluginFactoryT>();
 bindToConstantValue(DI_TYPES.UIPlugins, uiPlugins);
 

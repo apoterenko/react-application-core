@@ -38,6 +38,7 @@ import {
   ListItem,
   SimpleList,
 } from '../list';
+import { PerfectScrollPlugin } from '../plugin';
 
 export class Menu extends BaseComponent<IMenuProps, IMenuState>
     implements IMenu {
@@ -59,6 +60,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   constructor(props: IMenuProps) {
     super(props);
+
+    if (this.canInitPerfectScrollPlugin) {
+      this.registerPlugin(PerfectScrollPlugin);
+    }
 
     this.getItemElement = this.getItemElement.bind(this);
     this.hide = this.hide.bind(this);
@@ -90,7 +95,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
           >
             {this.closeActionElement}
             {filterElement}
-            {this.listElement}
+            {this.getListElement(true)}
           </Dialog>
         )
       );
@@ -106,7 +111,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
           style={{...!this.centeredMenu && {width: calc(props.width)}}}
           className={joinClassName('rac-menu', props.className, this.uiFactory.menu, this.uiFactory.menuSurface)}>
           {filterElement}
-          {this.listElement}
+          {this.getListElement()}
         </div>
       </div>
     );
@@ -259,12 +264,16 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [23.09.2019]
+   * @stable [06.12.2019]
+   * @param {boolean} addPerfectScroll
    * @returns {JSX.Element}
    */
-  private get listElement(): JSX.Element {
+  private getListElement(addPerfectScroll = false): JSX.Element {
     return (
       <SimpleList
+        plugins={[
+          ...(addPerfectScroll ? [PerfectScrollPlugin] : [])
+        ]}
         className={this.uiFactory.list}>
         {subArray(this.items, this.props.maxCount).map(this.getItemElement)}
       </SimpleList>
@@ -356,6 +365,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private get dialog(): Dialog<AnyT> {
     return this.dialogRef.current;
+  }
+
+  /**
+   * @stable [20.12.2019]
+   * @returns {boolean}
+   */
+  private get canInitPerfectScrollPlugin(): boolean {
+    return !this.centeredMenu;
   }
 
   /**

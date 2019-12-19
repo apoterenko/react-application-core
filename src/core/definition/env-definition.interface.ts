@@ -27,6 +27,7 @@ export interface IEnvironment {
   macPlatform?: boolean;
   mobilePlatform?: boolean;
   passwordPlaceholder?: string;
+  path?: string;
   platformName?: string;
   platformType?: string;
   platformVersion?: string;

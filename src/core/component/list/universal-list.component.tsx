@@ -142,7 +142,7 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
    * @returns {boolean}
    */
   protected get isRemoteMode(): boolean {
-    return !this.props.useLocalFiltering;
+    return !this.props.localFiltration;
   }
 
   /**
