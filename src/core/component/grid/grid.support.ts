@@ -173,7 +173,7 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
       source = R.sortWith(sorters, source);
     }
   }
-  if (props.useLocalFiltering) {
+  if (props.localFiltration) {
     const filterChanges = state.filterChanges;
     const changedColumns = Object.keys(filterChanges);
     const defaultLocalFilter = (cfg: IGridFilterEntity) =>

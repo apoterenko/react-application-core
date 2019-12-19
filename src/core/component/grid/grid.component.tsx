@@ -40,6 +40,7 @@ import {
   IFieldChangeEntity,
   IGridColumnProps,
   IGridProps,
+  IGridRowConfigEntity,
   ISortDirectionEntity,
 } from '../../definition';
 import {
@@ -84,7 +85,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
             {
               this.hasGrouping
                 ? this.getGroupedRows(dataSource)
-                : dataSource.map((entity, index) => this.getRow(entity, index, true))
+                : dataSource.map((entity, rowNum) => this.getRow({entity, rowNum, highlightOdd: isHighlightOdd(props, rowNum)}))
             }
             {props.topTotal === false && this.totalRowElement}
           </tbody>
@@ -149,7 +150,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private onChangeFilterField(payload: IFieldChangeEntity): void {
     const props = this.props;
 
-    if (props.useLocalFiltering) {
+    if (props.localFiltration) {
       this.setState({
         filterChanges: {
           ...this.state.filterChanges,
@@ -295,18 +296,18 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [26.10.2019]
-   * @param {IEntity} entity
-   * @param {number} rowNum
-   * @param {boolean} highlightOdd
-   * @param {IEntity[]} groupedRows
+   * @stable [06.12.2019]
+   * @param {IGridRowConfigEntity} rowConfig
    * @returns {JSX.Element}
    */
-  private getRow(entity: IEntity,
-                 rowNum: number,
-                 highlightOdd: boolean,
-                 groupedRows?: IEntity[]): JSX.Element {
+  private getRow(rowConfig: IGridRowConfigEntity): JSX.Element {
     const props = this.props;
+    const {
+      entity,
+      groupedRows,
+      highlightOdd,
+      rowNum,
+    } = rowConfig;
     const rowKey = this.toRowKey(entity);
     const entityChanges = props.changes[entity.id];
     const hasChanges = !R.isNil(entityChanges);
@@ -315,7 +316,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return (
       <GridRow
         key={rowKey}
-        odd={highlightOdd && isHighlightOdd(props, rowNum)}
+        odd={highlightOdd}
         hovered={isHovered(props)}
         selected={this.isEntitySelected(entity)}
         selectable={isSelectable(props)}
@@ -377,7 +378,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private toFilterFieldValue(name: string): AnyT {
     const props = this.props;
     const state = this.state;
-    return orUndef<AnyT>(props.useLocalFiltering, () => state.filterChanges[name]);
+    return orUndef<AnyT>(props.localFiltration, () => state.filterChanges[name]);
   }
 
   /**
@@ -552,46 +553,47 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       groupedDataSourceEntities.push(entity);
     });
 
-    let rowNum = 0;
+    const props = this.props;
+    let groupingRowNum = 0;
+
     // See the comment at the top
     keysSet.forEach((groupedRowValue) => {
       const groupedRows = groupedDataSource[groupedRowValue];
-      rows.push(this.getGroupingRow(groupedRowValue, groupedRows, rowNum++));
+      const highlightOdd = isHighlightOdd(props, groupingRowNum++);
+      rows.push(this.getGroupingRow({value: groupedRowValue, groupedRows, highlightOdd}));
 
       if (this.isGroupedRowExpanded(groupedRowValue)) {
-        const highlightOdd = groupedRows.length > 1;
-        groupedRows.forEach((entity, index) => rows.push(this.getRow(entity, index, highlightOdd, groupedRows)));
+        groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows, highlightOdd})));
       }
     });
     return rows;
   }
 
   /**
-   * @stable [11.11.2019]
-   * @param {EntityIdT} groupedRowValue
-   * @param {IEntity[]} groupedRows
-   * @param {number} rowNum
+   * @stable [06.12.2019]
+   * @param {IGridRowConfigEntity} config
    * @returns {JSX.Element}
    */
-  private getGroupingRow(groupedRowValue: EntityIdT, groupedRows: IEntity[], rowNum: number): JSX.Element {
+  private getGroupingRow(config: IGridRowConfigEntity): JSX.Element {
     const props = this.props;
+    const {value, groupedRows, highlightOdd} = config;
     const groupBy = props.groupBy;
     const groupValue = groupBy.groupValue;
     const isGroupValueArray = Array.isArray(groupValue);
-    const isExpanded = this.isGroupedRowExpanded(groupedRowValue);
+    const isExpanded = this.isGroupedRowExpanded(value);
     const expandActionRendered = this.isExpandActionRendered;
     const columns = this.columnsConfiguration;
 
     return (
       <GridRow
-        key={this.toGroupedRowKey(groupedRowValue)}
+        key={this.toGroupedRowKey(value)}
         grouped={true}
-        odd={isHighlightOdd(props, rowNum)}
-        groupExpanded={isExpanded && props.highlightExpandedGroup !== false}>
+        odd={highlightOdd}
+        groupExpanded={isExpanded}>
         {
           columns.map((column, columnNum) => {
-            const key = this.toGroupedColumnKey(groupedRowValue, columnNum);
-            const contentKey = this.toGroupedColumnKey(`${groupedRowValue}-content`, columnNum);
+            const key = this.toGroupedColumnKey(value, columnNum);
+            const contentKey = this.toGroupedColumnKey(`${value}-content`, columnNum);
             const node = (
               columnNum === 0
                 ? (
@@ -604,15 +606,15 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                         key: `${contentKey}-expanded-action-${isExpanded ? 'close' : 'open'}`,
                         className: 'rac-grid-data-row-group-expanded-icon',
                         type: isExpanded ? 'close-list' : 'open-list',
-                        onClick: (event) => this.onExpandGroup(event, groupedRowValue, !isExpanded),
+                        onClick: (event) => this.onExpandGroup(event, value, !isExpanded),
                       })
                     )} {
                     isFn(groupValue)
-                      ? (groupValue as GroupValueRendererT)(groupedRowValue, groupedRows)
+                      ? (groupValue as GroupValueRendererT)(value, groupedRows)
                       : (
                         isGroupValueArray
-                          ? (isFn(groupValue[0]) ? groupValue[0](groupedRowValue, groupedRows) : null)
-                          : groupedRowValue
+                          ? (isFn(groupValue[0]) ? groupValue[0](value, groupedRows) : null)
+                          : value
                       )
                   }
                   </FlexLayout>
@@ -620,7 +622,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                 : (
                   orNull(
                     isGroupValueArray && isFn(groupValue[columnNum]),
-                    () => groupValue[columnNum](groupedRowValue, groupedRows)
+                    () => groupValue[columnNum](value, groupedRows)
                   )
                 )
             );
