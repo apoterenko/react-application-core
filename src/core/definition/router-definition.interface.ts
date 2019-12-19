@@ -6,6 +6,7 @@ import {
   IAfterEnterWrapper,
   IBeforeEnterWrapper,
   IComputedMatchWrapper,
+  IDepthWrapper,
   IExactWrapper,
   IHistoryWrapper,
   IHomeWrapper,
@@ -51,8 +52,9 @@ export interface IRoutesEntity
 /**
  * @stable [09.10.2019]
  */
-export interface INavigateEntity<TPath, TState = {}>
-  extends IPathWrapper<TPath>,
+export interface INavigateEntity<TPath = string, TState = {}>
+  extends IDepthWrapper,
+    IPathWrapper<TPath>,
     IStateWrapper<TState> {
 }
 
@@ -100,8 +102,8 @@ export type DynamicRoutesMapT = Map<IUniversalContainerCtor, IConnectorEntity>;
 /**
  * @stable [09.10.2019]
  */
-export const ROUTER_NAVIGATE_ACTION_TYPE = `${ACTION_PREFIX}router.navigate`;
-export const ROUTER_REPLACE_ACTION_TYPE = `${ACTION_PREFIX}router.replace`;
-export const ROUTER_REWRITE_ACTION_TYPE = `${ACTION_PREFIX}router.rewrite`;
-export const ROUTER_BACK_ACTION_TYPE = `${ROUTER_NAVIGATE_ACTION_TYPE}.back`;
-export const ROUTER_RELOAD_ACTION_TYPE = `${ROUTER_NAVIGATE_ACTION_TYPE}.reload`;
+export const $RAC_ROUTER_NAVIGATE_ACTION_TYPE = `${ACTION_PREFIX}router.navigate`;
+export const $RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE = `${ACTION_PREFIX}router.navigate.back`;
+export const $RAC_ROUTER_RELOAD_ACTION_TYPE = `${$RAC_ROUTER_NAVIGATE_ACTION_TYPE}.reload`;
+export const $RAC_ROUTER_REPLACE_ACTION_TYPE = `${ACTION_PREFIX}router.replace`;
+export const $RAC_ROUTER_REWRITE_ACTION_TYPE = `${ACTION_PREFIX}router.rewrite`;

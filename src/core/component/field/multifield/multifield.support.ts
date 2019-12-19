@@ -4,7 +4,6 @@ import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions
 import {
   asEntitiesArray,
   asMultiFieldEditedEntities,
-  asMultiFieldRemovedEntities,
   buildMultiItemEntity,
   ifNotNilThanValue,
   isDef,
@@ -63,19 +62,6 @@ export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEn
   multiFieldEntity: MultiFieldEntityT<TItem>,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
   const result = asMultiFieldEditedEntities<TItem>(multiFieldEntity);
-  return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
-}
-
-/**
- * @stable [22.11.2018]
- * @param {MultiFieldEntityT} multiFieldEntity
- * @param {(entity: TItem, index: number) => TResult} mapper
- * @returns {TResult[]}
- */
-export function fromMultiFieldEntityToDeletedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
-  multiFieldEntity: MultiFieldEntityT<TItem>,
-  mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = asMultiFieldRemovedEntities<TItem>(multiFieldEntity);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 

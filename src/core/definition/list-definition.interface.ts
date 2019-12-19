@@ -12,7 +12,6 @@ import {
   IFilterFnWrapper,
   IFullWrapper,
   IGroupByWrapper,
-  IHighlightExpandedGroupWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIconWrapper,
@@ -78,7 +77,7 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
       columnName: string,
       groupValue: GroupValueRendererT | GroupValueRendererT[]
     }> {
-  useLocalFiltering?: boolean;
+  localFiltration?: boolean;
   useLocalSorting?: boolean;
 }
 
@@ -110,7 +109,6 @@ export interface IListEntity<TEntity = IEntity,
     IChangesWrapper,
     ISelectedElementEntity,
     IDeactivatedWrapper,
-    IHighlightExpandedGroupWrapper,
     IHighlightOddWrapper,
     IHoveredWrapper,
     ISelectableWrapper,

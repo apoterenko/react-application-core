@@ -4,6 +4,7 @@ import {
   AnyT,
   IActionWrapper,
   ICustomActionsWrapper,
+  IDataWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
   IEntity,
@@ -32,6 +33,7 @@ import {
   IReplaceRouteWrapper,
   IReplaceWrapper,
   ISectionNameWrapper,
+  ISectionWrapper,
   ISelectWrapper,
   IStateWrapper,
   ISucceedMessageWrapper,
@@ -244,4 +246,12 @@ export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalStoreEntity<TDictionaries, TPermissions>,
     ILayoutWrapperEntity,
     INotificationWrapperEntity {
+}
+
+/**
+ * @stable [05.12.2019]
+ */
+export interface ISectionDataEntity<TData = IKeyValue>
+  extends ISectionWrapper,
+    IDataWrapper<TData> {
 }

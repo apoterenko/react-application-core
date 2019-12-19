@@ -201,7 +201,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected getEmptyValue(): AnyT {
     const props = this.props;
-    return isDef(props.emptyValue) ? props.emptyValue : this.settings.entityEmptyId;
+    return isDef(props.emptyValue) ? props.emptyValue : this.settings.entityEmptyId; // TODO Move to universal-field
   }
 
   /**

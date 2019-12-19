@@ -22,6 +22,7 @@ import {
   IFilterRendererWrapper,
   IFilterWrapper,
   IGroupedDataSorterWrapper,
+  IGroupedRowsWrapper,
   IGroupedWrapper,
   IGroupExpandedWrapper,
   IHeaderClassNameWrapper,
@@ -31,6 +32,7 @@ import {
   IHeaderRenderedWrapper,
   IHeaderRendererWrapper,
   IHeaderWidthWrapper,
+  IHighlightOddWrapper,
   IHoveredWrapper,
   IIndexedWrapper,
   IIndexWrapper,
@@ -45,6 +47,7 @@ import {
   IQueryWrapper,
   IRenderedWrapper,
   IRendererWrapper,
+  IRowNumWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
@@ -54,6 +57,7 @@ import {
   ITotalEntityWrapper,
   ITotalWrapper,
   ITplWrapper,
+  IValueWrapper,
   IWidthWrapper,
   IWrapperClassNameWrapper,
   StringNumberT,
@@ -149,6 +153,17 @@ export interface IGridRowProps<TEntity extends IEntity = IEntity>
   extends IComponentProps,
     IGenericGridRowEntity<TEntity>,
     IOnClickWrapper<TEntity> {
+}
+
+/**
+ * @stable [06.12.2019]
+ */
+export interface IGridRowConfigEntity<TEntity extends IEntity = IEntity>
+  extends IEntityWrapper<TEntity>,
+    IGroupedRowsWrapper<TEntity[]>,
+    IHighlightOddWrapper,
+    IRowNumWrapper,
+    IValueWrapper {
 }
 
 /**
