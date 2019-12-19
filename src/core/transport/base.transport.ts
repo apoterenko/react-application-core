@@ -13,12 +13,24 @@ import {
   IEditableApiEntity,
   IEnvironment,
 } from '../definition';
-import { IEntity, StringNumberT } from '../definitions.interface';
+import {
+  IEntity,
+  StringNumberT,
+} from '../definitions.interface';
 import { INumberConverter } from '../converter';
 import { ISettingsEntity } from '../settings';
-import { ITransportRequestEntity, ITransport } from '../definition';
-import { lazyInject, DI_TYPES } from '../di';
-import { toStringParameter } from '../util';
+import {
+  ITransport,
+  ITransportRequestEntity,
+} from '../definition';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../di';
+import {
+  asValidCronExpression,
+  toStringParameter,
+} from '../util';
 
 @injectable()
 export class BaseTransport {
@@ -35,6 +47,13 @@ export class BaseTransport {
    */
   protected prepareNumberValue = (value: StringNumberT, converter?: (value: number) => number): number =>
     this.nc.numberParameter(value, converter)
+
+  /**
+   * @stable [16.12.2019]
+   * @param {string} value
+   * @returns {string}
+   */
+  protected prepareCronValue = (value: string): string => asValidCronExpression(value);
 
   /**
    * @stable [13.10.2019]

@@ -1,23 +1,30 @@
 import { AnyAction } from 'redux';
 
-import { excludeFieldsFilter, toSection } from '../util';
-import {
-  DICTIONARIES_DESTROY_ACTION_TYPE,
-  INITIAL_DICTIONARIES_STATE,
-} from './dictionaries.interface';
+import { toSection } from '../util';
 import { DictionariesActionBuilder } from './dictionaries-action.builder';
-import { IDictionariesEntity } from '../definition';
+import {
+  $RAC_DICTIONARIES_DESTROY_ACTION_TYPE,
+  IDictionariesEntity,
+  INITIAL_DICTIONARIES_ENTITY,
+  ISectionDataEntity,
+} from '../definition';
 
-export function dictionariesReducer(state: IDictionariesEntity = INITIAL_DICTIONARIES_STATE,
-                                    action: AnyAction): IDictionariesEntity {
+/**
+ * @stable [05.12.2019]
+ * @param {IDictionariesEntity} state
+ * @param {AnyAction} action
+ * @returns {IDictionariesEntity}
+ */
+export const dictionariesReducer = (state: IDictionariesEntity = INITIAL_DICTIONARIES_ENTITY,
+                                    action: AnyAction): IDictionariesEntity => {
   const section = toSection(action);
+  const actionData: ISectionDataEntity = action.data;
+
   switch (action.type) {
-    case DICTIONARIES_DESTROY_ACTION_TYPE:
+    case $RAC_DICTIONARIES_DESTROY_ACTION_TYPE:
       return {
-        ...INITIAL_DICTIONARIES_STATE,
+        ...INITIAL_DICTIONARIES_ENTITY,
       };
-    case DictionariesActionBuilder.buildClearActionType(section):
-      return excludeFieldsFilter(state, section);
     case DictionariesActionBuilder.buildLoadActionType(section):
       return {
         ...state,
@@ -26,11 +33,18 @@ export function dictionariesReducer(state: IDictionariesEntity = INITIAL_DICTION
           loading: true,
         },
       };
+    case DictionariesActionBuilder.buildSetActionType(section):
+      return {
+        ...state,
+        [section]: {
+          data: actionData.data,
+        },
+      };
     case DictionariesActionBuilder.buildLoadDoneActionType(section):
       return {
         ...state,
         [section]: {
-          data: action.data,
+          data: actionData,  // Data from redux-effects-promise
           loading: false,
         },
       };
@@ -44,4 +58,4 @@ export function dictionariesReducer(state: IDictionariesEntity = INITIAL_DICTION
       };
   }
   return state;
-}
+};

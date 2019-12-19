@@ -11,6 +11,7 @@ import {
   INITIAL_STACK_ENTITY,
   IStackEntity,
   IStackItemEntity,
+  IStackPayloadEntity,
 } from '../../definition';
 import {
   findStackEntityIndex,
@@ -26,7 +27,7 @@ import {
 export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
                              action: AnyAction): IStackEntity => {
   const stack = state.stack;
-  const nextSection: string = action.data;
+  const payloadEntity: IStackPayloadEntity = action.data;
   const previousSection: string = action.data;
   const sectionsToDestroy: string[] = action.data;
 
@@ -51,16 +52,18 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
      * Is called from componentDidMount
      */
     case STACK_PUSH_ACTION_TYPE:
+      const pushSection = payloadEntity.section;      // Next section
+      const pushUrl = payloadEntity.url;              // Next section url (url path)
       return {
         ...state,
         destroySections: INITIAL_STACK_ENTITY.destroySections,      // Auto reset
         ...(
-          findStackEntityIndex(nextSection, state) > -1             // If already inserted
+          findStackEntityIndex(pushSection, state) > -1             // If already inserted
             ? {}
             : {
               stack: [
                 ...stack,
-                {section: nextSection, linkedSections: []}
+                {section: pushSection, url: pushUrl, linkedSections: []}
               ],
             }
         ),
@@ -94,6 +97,7 @@ export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
      * @stable [21.09.2019]
      */
     case STACK_LOCK_ACTION_TYPE:
+      const nextSection: string = action.data;
       return {
         ...state,
         lock: true,

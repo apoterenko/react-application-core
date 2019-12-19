@@ -11,7 +11,10 @@ import {
 import { STACK_PUSH_ACTION_TYPE } from './stack.interface';
 import { StackActionBuilder } from './stack-action.builder';
 import { getAllIndependentStackSections } from './stack.support';
-import { IStoreEntity } from '../../definition';
+import {
+  IStackPayloadEntity,
+  IStoreEntity,
+} from '../../definition';
 
 @provideInSingleton(StackEffects)
 export class StackEffects {
@@ -19,8 +22,8 @@ export class StackEffects {
 
   @EffectsService.effects(STACK_PUSH_ACTION_TYPE)
   public $onStackPush(action: IEffectsAction, state: IStoreEntity): IEffectsAction[] {
-    const currentSection = action.data;
-    const destroyableSections = getAllIndependentStackSections(currentSection, state.stack);
+    const payload: IStackPayloadEntity = action.data;
+    const destroyableSections = getAllIndependentStackSections(payload.section, state.stack);
 
     if (destroyableSections.length) {
       StackEffects.logger.debug(`[$StackEffects][$onStackPush] The sections to destroy: [${destroyableSections}]`);
