@@ -25,7 +25,7 @@ export class TextArea extends BaseTextField<ITextAreaInternalProps,
       isDef(this.props.maxLength),
       () => (
         <label className='rac-text-area-length-label'>
-          {this.definiteValue.length} {this.t('of')} {this.props.maxLength}
+          {(this.value || '').length} {this.t('of')} {this.props.maxLength}
         </label>
       )
     );
