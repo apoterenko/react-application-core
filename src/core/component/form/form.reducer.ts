@@ -12,6 +12,14 @@ import {
 } from '../../definition';
 import { FormActionBuilder } from './form-action.builder';
 
+const fromPayload = (payload: IFieldChangeEntity & IFieldsChangesEntity) => {
+  const fieldChangeEntity: IFieldChangeEntity = payload;
+  const fieldsChangesEntity: IFieldsChangesEntity = payload;
+  return Array.isArray(fieldsChangesEntity.fields)
+    ? R.mergeAll<IKeyValue>(fieldsChangesEntity.fields.map((elem) => ({[elem.name]: elem.value})))
+    : {[fieldChangeEntity.name]: fieldChangeEntity.value};
+};
+
 export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
                             action: IEffectsAction): IEditableEntity {
   const section = toSection(action);
@@ -22,15 +30,9 @@ export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
       };
     case FormActionBuilder.buildClearActionType(section):
     case FormActionBuilder.buildChangeActionType(section):
-      const fieldChangeEntity: IFieldChangeEntity = action.data;
-      const fieldsChangesEntity: IFieldsChangesEntity = action.data;
       const changes = defValuesFilter<IKeyValue, IKeyValue>({
         ...state.changes,
-        ...(
-          Array.isArray(fieldsChangesEntity.fields)
-            ? R.mergeAll<IKeyValue>(fieldsChangesEntity.fields.map((elem) => ({[elem.name]: elem.value})))
-            : {[fieldChangeEntity.name]: fieldChangeEntity.value}
-        ),
+        ...fromPayload(action.data),
       });
       return {
         ...state,
@@ -38,6 +40,15 @@ export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
         dirty: Object.keys(changes).length > 0,
         touched: true,
         changes,
+      };
+    case FormActionBuilder.buildDefaultChangeActionType(section):
+      const defaultChanges = defValuesFilter<IKeyValue, IKeyValue>({
+        ...state.defaultChanges,
+        ...fromPayload(action.data),
+      });
+      return {
+        ...state,
+        defaultChanges,
       };
     case FormActionBuilder.buildValidActionType(section):
       return {

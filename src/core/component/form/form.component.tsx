@@ -42,7 +42,7 @@ import {
   IFormProps,
   INITIAL_FORM_ENTITY,
 } from '../../definition';
-import { apiEntityFactory } from '../../api';
+import { mapApiEntity } from '../../api';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
@@ -74,18 +74,16 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         (field: IField) => {
           const fieldProps = field.props;
           const predefinedOptions = this.getPredefinedFieldProps(field);
-          const originalValue = this.getFieldOriginalValue(field);
 
           return defValuesFilter<IFieldProps, IFieldProps>(
             {
               value: this.getFieldValue(field),
-              originalValue,
+              originalValue: this.getFieldOriginalValue(field),
               displayValue: this.getFieldDisplayValue(field, predefinedOptions),
               readOnly: this.isFieldReadOnly(field),
               disabled: this.isFieldDisabled(field),
               changeable: this.isFieldChangeable(field),
               changeForm: this.onChange,
-              emptyOriginalValue: isUndef(originalValue),
 
               // Dynamic linked dictionary callbacks
               onEmptyDictionary: orUndef<() => void>(
@@ -165,7 +163,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {IApiEntity}
    */
   public get apiEntity(): IApiEntity {
-    return apiEntityFactory(this.changes, this.entity, this.originalEntity);
+    return mapApiEntity(this.changes, this.entity, this.originalEntity);
   }
 
   /**

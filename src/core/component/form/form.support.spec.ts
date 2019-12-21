@@ -1,11 +1,11 @@
 import { UNDEF } from '../../definitions.interface';
-import { apiEntityFactory } from '../../api';
+import { mapApiEntity } from '../../api';
 
 describe('form.support', () => {
 
   describe('buildApiEntity', () => {
     it('test1', () => {
-      const apiEntity = apiEntityFactory(
+      const apiEntity = mapApiEntity(
         {
           field1: 101,
         },
@@ -25,7 +25,7 @@ describe('form.support', () => {
     });
 
     it('test2', () => {
-      const apiEntity = apiEntityFactory(
+      const apiEntity = mapApiEntity(
         {
           field1: 102,
         },
@@ -57,7 +57,7 @@ describe('form.support', () => {
     });
 
     it('test3', () => {
-      const apiEntity = apiEntityFactory(
+      const apiEntity = mapApiEntity(
         {
         },
         {

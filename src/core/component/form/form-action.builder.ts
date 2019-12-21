@@ -12,6 +12,7 @@ import {
   FORM_CHANGE_ACTION_TYPE,
   FORM_CLEAR_ACTION_TYPE,
   FORM_DEACTIVATED_VALUE_ACTION_TYPE,
+  FORM_DEFAULT_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
   FORM_PROGRESS_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
@@ -54,6 +55,15 @@ export class FormActionBuilder {
    */
   public static buildChangeActionType(section: string): string {
     return `${toActionPrefix(section)}.${FORM_CHANGE_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [20.12.2019]
+   * @param {string} section
+   * @returns {string}
+   */
+  public static buildDefaultChangeActionType(section: string): string {
+    return `${toActionPrefix(section)}.${FORM_DEFAULT_CHANGE_ACTION_TYPE}`;
   }
 
   /**
@@ -224,6 +234,14 @@ export class FormActionBuilder {
   public static buildChangesAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): IEffectsAction {
     return EffectsAction.create(
       this.buildChangeActionType(section),
+      applySection(section, this.buildChangesPayload(changes))
+    );
+  }
+
+  public static buildDefaultChangesAction<TData extends IKeyValue = IKeyValue>(section: string,
+                                                                               changes: TData): IEffectsAction {
+    return EffectsAction.create(
+      this.buildDefaultChangeActionType(section),
       applySection(section, this.buildChangesPayload(changes))
     );
   }
