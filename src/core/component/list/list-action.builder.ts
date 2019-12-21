@@ -287,7 +287,12 @@ export class ListActionBuilder {
     return this.buildMergeAction(section, {payload: {id, changes}});
   }
 
-  public static buildLoadAction(section: string, data?: AnyT): IEffectsAction {
+  /**
+   * @stable [11.12.2019]
+   * @param section
+   * @param data
+   */
+  public static buildLoadAction<TData = AnyT>(section: string, data?: TData): IEffectsAction {
     return EffectsAction.create(this.buildLoadActionType(section), applySection(section, data));
   }
 
