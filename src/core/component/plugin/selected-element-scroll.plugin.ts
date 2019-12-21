@@ -1,11 +1,17 @@
-import { DI_TYPES, lazyInject } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import {
   IComponent,
   IDomAccessor,
   ISelectedElementComponentProps,
   IUniversalPlugin,
 } from '../../definition';
-import { ifNotNilThanValue } from '../../util';
+import {
+  ifNotNilThanValue,
+  isRefreshOnUpdate,
+} from '../../util';
 
 export class SelectedElementPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
@@ -28,26 +34,32 @@ export class SelectedElementPlugin implements IUniversalPlugin {
    * @stable [25.10.2019]
    */
   public componentDidUpdate() {
-    this.refreshScrollPosition();
+    if (isRefreshOnUpdate(this.component.props)) {
+      this.refreshScrollPosition();
+    }
   }
 
   /**
-   * @stable [08.11.2019]
+   * @stable [19.12.2019]
    */
   private refreshScrollPosition(): void {
-    ifNotNilThanValue(this.selectedElement, (selectedElement) => {
-      if (!this.domAccessor.isElementVisibleWithinParent(selectedElement, this.component.getSelf())) {
-        this.domAccessor.scrollTo(
-          selectedElement,
-          this.component.getSelf(),
-          ifNotNilThanValue(
-            this.stickyElement,
-            (stickyElement) => ({offsetTop: this.domAccessor.getHeight(stickyElement)}),
-            {}
-          )
-        );
+    ifNotNilThanValue(
+      this.selectedElement,
+      (selectedElement) => {
+        const self = this.component.getSelf();
+        if (!this.domAccessor.isElementVisibleWithinParent(selectedElement, self)) {
+          this.domAccessor.scrollTo(
+            selectedElement,
+            self,
+            ifNotNilThanValue(
+              this.stickyElement,
+              (stickyElement) => ({offsetTop: this.domAccessor.getHeight(stickyElement)}),
+              {}
+            )
+          );
+        }
       }
-    });
+    );
   }
 
   /**
