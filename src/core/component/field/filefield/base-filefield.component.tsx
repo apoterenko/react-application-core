@@ -147,7 +147,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @stable [02.08.2018]
    * @returns {EntityIdT[]}
    */
-  protected getEmptyValue(): EntityIdT[] {
+  protected get originalEmptyValue(): EntityIdT[] {
     return [];
   }
 

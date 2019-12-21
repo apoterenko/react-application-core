@@ -12,9 +12,8 @@ import {
   isChangeable,
   isDef,
   isDisabled,
+  isDisplayValueOnlyWrapper,
   isFieldInactive,
-  isFieldNotModifiable,
-  isFieldValuePresent,
   isFn,
   isFocused,
   isFocusPrevented,
@@ -23,7 +22,7 @@ import {
   isReadOnly,
   isRequired,
   isSyntheticCursorUsed,
-  isUndef,
+  isValuePresent,
   isVisible,
   notNilValuesFilter,
   orNull,
@@ -36,7 +35,10 @@ import {
   IFocusEvent,
   IKeyboardEvent,
 } from '../../../definitions.interface';
-import { FIELD_EMPTY_ERROR_VALUE, IUniversalFieldState } from './field.interface';
+import {
+  FIELD_EMPTY_ERROR_VALUE,
+  IUniversalFieldState,
+} from './field.interface';
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
   IGenericFieldEntity,
@@ -125,7 +127,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
     this.setFocus();    // UX
 
     if (this.isValuePresent) {
-      this.onChangeManually(this.getEmptyValue());
+      this.onChangeManually(this.emptyValue);
     }
 
     const props = this.props;
@@ -150,16 +152,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
     if (this.props.preventManualChanges !== true) {
       this.onChangeValue(currentRawValue);
     }
-  }
-
-  /**
-   * @stable [22.10.2018]
-   * @returns {AnyT}
-   */
-  public get value(): AnyT {
-    const props = this.props;
-    const value = props.value;
-    return this.isValueDefined(value) ? value : this.getDefaultValue();
   }
 
   /**
@@ -251,6 +243,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
+   * @stable [21.12.2019]
+   * @returns {AnyT}
+   */
+  public get value(): AnyT {
+    const value = this.props.value;
+    return this.isValueDefined(value) ? value : this.defaultValue;
+  }
+
+  /**
    * @stable [17.06.2018]
    * @param {AnyT} event
    * @returns {AnyT}
@@ -263,15 +264,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   public abstract setFocus(): void;
 
   /**
-   * @stable [15.12.2019]
-   * @param value
-   * @returns {boolean}
-   */
-  protected isValueDefined(value: AnyT): boolean {
-    return isDef(value);
-  }
-
-  /**
    * @stable [29.10.2019]
    * @param {boolean} usePrintf
    * @param {AnyT} args
@@ -281,15 +273,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
     return usePrintf
       ? Printf.sprintf(this.t(this.props.displayMessage), ...args)
       : FIELD_DISPLAY_EMPTY_VALUE;
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @param {AnyT} value
-   * @returns {boolean}
-   */
-  protected get isValuePresent(): boolean {
-    return isFieldValuePresent(this.value, this.getEmptyValue());
   }
 
   /**
@@ -314,22 +297,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected isFieldInvalid(): boolean {
     return !R.isNil(this.error);
-  }
-
-  /**
-   * @stable [17.06.2018]
-   * @returns {AnyT}
-   */
-  protected getEmptyValue(): AnyT {
-    return FIELD_DISPLAY_EMPTY_VALUE;
-  }
-
-  /**
-   * @stable [18.06.2018]
-   * @returns {AnyT}
-   */
-  protected get definiteValue(): AnyT {
-    return isUndef(this.value) ? this.getEmptyValue() : this.value;
   }
 
   /**
@@ -400,30 +367,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [15.12.2019]
-   * @returns {AnyT}
-   */
-  protected getDefaultValue(): AnyT {
-    return this.props.defaultValue;
-  }
-
-  /**
    * @stable [17.06.2018]
    * @returns {string}
    */
   protected getFieldPattern(): string {
     return this.props.pattern;
-  }
-
-  /**
-   * @stable [18.06.2018]
-   * @returns {AnyT}
-   */
-  protected get displayValue(): AnyT {
-    const value = this.value;
-    return this.inProgress || !this.isValuePresent
-      ? FIELD_DISPLAY_EMPTY_VALUE  // The dictionaries data is cleaned before request
-      : this.getDecoratedValue(value);
   }
 
   /**
@@ -443,14 +391,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
           ? (R.isNil(displayValue) ? decoratedValue : this.decorateValueBeforeDisplaying(displayValue))
           : decoratedValue
       );
-  }
-
-  /**
-   * @stable [07.01.2018]
-   * @returns {boolean}
-   */
-  protected get hasDisplayValue(): boolean {
-    return isDef(this.props.displayValue);
   }
 
   /**
@@ -500,14 +440,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isChangeable(): boolean {
     return isChangeable(this.props);
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @returns {boolean}
-   */
-  protected get isFieldNotModifiable(): boolean {
-    return isFieldNotModifiable(this.props);
   }
 
   /**
@@ -639,6 +571,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
+   * @stable [21.12.2019]
+   * @returns {boolean}
+   */
+  protected get isDisplayValueOnly() {
+    return isDisplayValueOnlyWrapper(this.props);
+  }
+
+  /**
    * @stable [03.09.2018]
    * @returns {JSX.Element}
    */
@@ -696,6 +636,74 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
+   * @stable [21.12.2019]
+   * @param value
+   * @returns {boolean}
+   */
+  protected isValueDefined(value: AnyT): boolean {
+    return isDef(value);
+  }
+
+  /**
+   * @stable [21.12.2019]
+   * @returns {boolean}
+   */
+  protected get isValuePresent(): boolean {
+    return isValuePresent(this.value, this.emptyValue);
+  }
+
+  /**
+   * @stable [21.12.2019]
+   * @returns {boolean}
+   */
+  protected get isDisplayValueDefined(): boolean {
+    return isDef(this.props.displayValue);
+  }
+
+  /**
+   * @stable [21.12.2019]
+   * @returns {AnyT}
+   */
+  protected get defaultValue(): AnyT {
+    return this.props.defaultValue;
+  }
+
+  /**
+   * @stable [21.12.2019]
+   * @returns {AnyT}
+   */
+  protected get displayValue(): AnyT {
+    return this.inProgress || !this.isValuePresent
+      ? FIELD_DISPLAY_EMPTY_VALUE
+      : this.decoratedValue;
+  }
+
+  /**
+   * @stable [21.12.2019]
+   * @returns {AnyT}
+   */
+  protected get decoratedValue(): AnyT {
+    return this.getDecoratedValue(this.value);
+  }
+
+  /**
+   * @stable [21.12.2019]
+   * @returns {AnyT}
+   */
+  protected get originalEmptyValue(): AnyT {
+    return FIELD_DISPLAY_EMPTY_VALUE;
+  }
+
+  /**
+   * @stable [21.12.2019]
+   * @returns {AnyT}
+   */
+  protected get emptyValue(): AnyT {
+    const props = this.props;
+    return isDef(props.emptyValue) ? props.emptyValue : this.originalEmptyValue;
+  }
+
+  /**
    * @stable [03.09.2018]
    */
   protected abstract removeFocus(): void;
@@ -713,15 +721,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @param {AnyT} currentRawValue
    */
   private onChangeValue(currentRawValue: AnyT): void {
-    const finalFieldValue = buildFinalFieldValue({
+    const actualFieldValue = buildFinalFieldValue({
       ...this.props as IGenericFieldEntity,
-      emptyValue: this.getEmptyValue(),
+      emptyValue: this.emptyValue,
       value: currentRawValue,
     });
 
-    this.validateField(finalFieldValue);
-    this.notifyAboutChanges(finalFieldValue);
-    this.notifyFormAboutChanges(finalFieldValue);
+    this.validateField(actualFieldValue);
+    this.notifyAboutChanges(actualFieldValue);
+    this.notifyFormAboutChanges(actualFieldValue);
   }
 
   /**

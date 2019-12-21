@@ -78,7 +78,7 @@ export class MultiField<TProps extends IMultiFieldProps,
    * @stable [01.06.2018]
    * @returns {EntityIdT[]}
    */
-  protected getEmptyValue(): EntityIdT[] {
+  protected get originalEmptyValue(): EntityIdT[] {
     return [];
   }
 
