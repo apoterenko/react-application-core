@@ -53,7 +53,7 @@ export class CronField extends Field<ICronFieldProps> {
    * @stable [15.12.2019]
    * @returns {string}
    */
-  protected getDefaultValue(): string {
+  protected get defaultValue(): string {
     const {defaultValue, period} = this.props;
     return isDef(defaultValue)
       ? defaultValue
