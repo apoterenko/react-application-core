@@ -155,6 +155,7 @@
   $rac-styles-flex-height: unset,
   $rac-styles-flex-shrink: unset,
   $rac-styles-flex-width: unset,
+  $rac-styles-flex-wrap: unset,
   $rac-styles-flex: unset,
   $rac-styles-float: unset,
   $rac-styles-font-family: unset,
@@ -218,6 +219,7 @@
   @if $rac-styles-cursor != unset { cursor: $rac-styles-cursor; }
   @if $rac-styles-flex-direction != unset { @include flex-direction($rac-styles-flex-direction); }
   @if $rac-styles-flex-shrink != unset { @include flex-shrink($rac-styles-flex-shrink); }
+  @if $rac-styles-flex-wrap != unset { @include flex-wrap($rac-styles-flex-wrap); }
   @if $rac-styles-float != unset { float: $rac-styles-float; }
   @if $rac-styles-font-family != unset { font-family: $rac-styles-font-family; }
   @if $rac-styles-justify-content != unset { @include justify-content($rac-styles-justify-content); }
@@ -395,6 +397,7 @@
   $rac-styles-flex-height: unset,
   $rac-styles-flex-shrink: unset,
   $rac-styles-flex-width: unset,
+  $rac-styles-flex-wrap: unset,
   $rac-styles-flex: unset,
   $rac-styles-float: unset,
   $rac-styles-font-family: unset,
@@ -477,6 +480,7 @@
         $rac-styles-flex-height: $rac-styles-flex-height,
         $rac-styles-flex-shrink: $rac-styles-flex-shrink,
         $rac-styles-flex-width: $rac-styles-flex-width,
+        $rac-styles-flex-wrap: $rac-styles-flex-wrap,
         $rac-styles-flex: $rac-styles-flex,
         $rac-styles-float: $rac-styles-float,
         $rac-styles-font-family: $rac-styles-font-family,
@@ -558,6 +562,7 @@
       $rac-styles-flex-height: $rac-styles-flex-height,
       $rac-styles-flex-shrink: $rac-styles-flex-shrink,
       $rac-styles-flex-width: $rac-styles-flex-width,
+      $rac-styles-flex-wrap: $rac-styles-flex-wrap,
       $rac-styles-flex: $rac-styles-flex,
       $rac-styles-float: $rac-styles-float,
       $rac-styles-font-family: $rac-styles-font-family,
@@ -1629,6 +1634,7 @@
  */
 @mixin rac-button(
   $rac-button-custom: unset,
+  /**/
   $rac-button-background: unset,
   $rac-button-border-radius: unset,
   $rac-button-border: unset,
@@ -1658,7 +1664,10 @@
   $rac-button-icon-opacity: unset,
   $rac-button-icon-size: unset,
   $rac-button-icon-width: unset,
+  $rac-button-justify-content: unset,
   $rac-button-left: unset,
+  $rac-button-margin-bottom: unset,
+  $rac-button-margin-right: unset,
   $rac-button-margin: unset,
   $rac-button-min-width: unset,
   $rac-button-opacity: unset,
@@ -1679,8 +1688,11 @@
       $rac-styles-color: $rac-button-color,
       $rac-styles-cursor: $rac-button-cursor,
       $rac-styles-height: $rac-button-height,
+      $rac-styles-justify-content: $rac-button-justify-content,
       $rac-styles-left: $rac-button-left,
       $rac-styles-margin : $rac-button-margin,
+      $rac-styles-margin-bottom: $rac-button-margin-bottom,
+      $rac-styles-margin-right: $rac-button-margin-right,
       $rac-styles-min-width : $rac-button-min-width,
       $rac-styles-opacity: $rac-button-opacity,
       $rac-styles-padding: $rac-button-padding,
@@ -3259,6 +3271,112 @@
       $rac-drawer-transform: $rac-default-layout-drawer-transform,
       $rac-drawer-width: $rac-default-layout-drawer-width,
       $rac-drawer-z-index: $rac-default-layout-drawer-z-index
+    );
+  }
+}
+
+/**
+ * @stable [06.12.2019]
+ */
+@mixin rac-perfect-scrollbar (
+  $rac-perfect-scrollbar-custom: unset,
+  $rac-perfect-scrollbar-active-background-color: unset,
+  $rac-perfect-scrollbar-background-color: unset,
+  $rac-perfect-scrollbar-rail-background-color: unset
+) {
+  #{rac-build-cls($rac-perfect-scrollbar-custom)} {
+    .ps__thumb-y, .ps__thumb-x   {
+      @include rac-styles (
+        $rac-styles-background-color: $rac-perfect-scrollbar-background-color
+      );
+    }
+
+    .ps .ps__rail-x:hover,
+    .ps .ps__rail-y:hover,
+    .ps .ps__rail-x:focus,
+    .ps .ps__rail-y:focus,
+    .ps .ps__rail-x.ps--clicking,
+    .ps .ps__rail-y.ps--clicking {
+      @include rac-styles (
+        $rac-styles-background-color: $rac-perfect-scrollbar-rail-background-color
+      );
+    }
+
+    .ps__rail-x:hover > .ps__thumb-x,
+    .ps__rail-x:focus > .ps__thumb-x,
+    .ps__rail-x.ps--clicking .ps__thumb-x,
+    .ps__rail-y:hover > .ps__thumb-y,
+    .ps__rail-y:focus > .ps__thumb-y,
+    .ps__rail-y.ps--clicking .ps__thumb-y {
+      @include rac-styles (
+        $rac-styles-background-color: $rac-perfect-scrollbar-active-background-color
+      );
+    }
+  }
+}
+
+/**
+ * @stable [16.12.2019]
+ */
+@mixin rac-cron-days (
+  $rac-cron-days-custom: unset,
+  /**/
+  $rac-cron-day-action-background: unset,
+  $rac-cron-day-action-border-radius: unset,
+  $rac-cron-day-action-content-font-size: unset,
+  $rac-cron-day-action-height: unset,
+  $rac-cron-day-action-justify-content: unset,
+  $rac-cron-day-action-margin-bottom: unset,
+  $rac-cron-day-action-offset-margin-right: unset,
+  $rac-cron-day-action-width: unset,
+  $rac-cron-day-selected-action-background: unset,
+  $rac-cron-days-background: unset,
+  $rac-cron-days-body-display: unset,
+  $rac-cron-days-body-flex-wrap: unset,
+  $rac-cron-days-body-width: unset,
+  $rac-cron-days-border-radius: unset,
+  $rac-cron-days-display: unset,
+  $rac-cron-days-flex: unset,
+  $rac-cron-days-justify-content: unset,
+  $rac-cron-days-padding: unset
+) {
+  #{rac-build-cls($rac-cron-days-cls, $rac-cron-days-custom)} {
+    @include rac-styles (
+      $rac-styles-background: $rac-cron-days-background,
+      $rac-styles-border-radius: $rac-cron-days-border-radius,
+      $rac-styles-display: $rac-cron-days-display,
+      $rac-styles-flex: $rac-cron-days-flex,
+      $rac-styles-justify-content: $rac-cron-days-justify-content,
+      $rac-styles-padding: $rac-cron-days-padding
+    );
+
+    .rac-cron-days-body {
+      @include rac-styles (
+        $rac-styles-display: $rac-cron-days-body-display,
+        $rac-styles-flex-wrap: $rac-cron-days-body-flex-wrap,
+        $rac-styles-width: $rac-cron-days-body-width
+      );
+    }
+
+    @include rac-button (
+      $rac-button-background: $rac-cron-day-action-background,
+      $rac-button-border-radius: $rac-cron-day-action-border-radius,
+      $rac-button-content-font-size: $rac-cron-day-action-content-font-size,
+      $rac-button-custom: $rac-cron-day-action-cls,
+      $rac-button-height: $rac-cron-day-action-height,
+      $rac-button-justify-content: $rac-cron-day-action-justify-content,
+      $rac-button-margin-bottom: $rac-cron-day-action-margin-bottom,
+      $rac-button-width: $rac-cron-day-action-width
+    );
+
+    @include rac-button (
+      $rac-button-custom: rac-build-cls2($rac-cron-day-action-cls, $rac-cron-day-selected-action-cls),
+      $rac-button-background: $rac-cron-day-selected-action-background
+    );
+
+    @include rac-button (
+      $rac-button-custom: rac-build-cls2($rac-cron-day-action-cls, $rac-cron-day-action-offset-cls),
+      $rac-button-margin-right: $rac-cron-day-action-offset-margin-right
     );
   }
 }

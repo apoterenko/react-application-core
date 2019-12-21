@@ -162,6 +162,7 @@ export class UIMaterialFactory implements IUIFactory {
     dashboard: faChartLine,
     done: faCheck,
     done_all: faCheckDouble,
+    ellipsis_h: faEllipsisH,
     error: faExclamationCircle,
     exchange: faExchangeAlt,
     exchange_alt: faExchangeAlt,
