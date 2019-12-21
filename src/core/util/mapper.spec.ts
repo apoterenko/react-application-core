@@ -24,7 +24,7 @@ describe('util/mapper', () => {
     });
 
     it('test3', () => {
-      const extendedEntity = mapExtendedEntity({name: 'name1'});
+      const extendedEntity = mapExtendedEntity({name: 'name1'}, undefined);
 
       expect(extendedEntity).toEqual({
         entity: {name: 'name1'},
@@ -34,7 +34,7 @@ describe('util/mapper', () => {
     });
 
     it('test4', () => {
-      const extendedEntity = mapExtendedEntity(null);
+      const extendedEntity = mapExtendedEntity(null, undefined);
 
       expect(extendedEntity).toEqual({
         entity: {},
@@ -43,7 +43,7 @@ describe('util/mapper', () => {
     });
 
     it('test5', () => {
-      const extendedEntity = mapExtendedEntity(undefined);
+      const extendedEntity = mapExtendedEntity(undefined, undefined);
 
       expect(extendedEntity).toEqual({
         entity: {},

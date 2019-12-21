@@ -395,7 +395,7 @@ export class CronEntity implements ICronEntity {
     if (this.minutes.length === 1 && this.hours.length === 1) {
       if (this.daysOfMonths.length === 1 && this.months.length === 1) {
         if (this.years.length === 1) {
-          return CronPeriodsEnum.WITHOUT_REPEATING;
+          return CronPeriodsEnum.NO_REPETITIONS;
         }
         return CronPeriodsEnum.YEARLY;
       }

@@ -26,34 +26,34 @@ import { isNotMultiEntity } from './entity';
 import {
   isDef,
   isPrimitive,
+  isUndef,
 } from './type';
 import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
   inProgress,
-  isAlwaysReturnEmptyValueIfOriginalValue,
   isChangeable,
   isDisabled,
-  isEmptyOriginalValueSet,
   isReadOnly,
 } from './wrapper';
 import { defValuesFilter } from './filter';
 
 /**
- * @stable [30.10.2019]
+ * @stable [20.12.2019]
  * @param {IGenericFieldEntity} config
  * @returns {AnyT}
  */
 export const buildFinalFieldValue = (config: IGenericFieldEntity): AnyT => {
-  const {emptyValue, originalValue, value} = config;
-  const finalOriginalValue = isEmptyOriginalValueSet(config) ? emptyValue : originalValue;
+  const {
+    emptyValue,
+    originalValue,
+    value,
+  } = config;
+  const actualOriginalValue = isUndef(originalValue) ? emptyValue : originalValue;
 
-  const result = isDef(finalOriginalValue) && R.equals(value, finalOriginalValue)
+  return isDef(actualOriginalValue) && R.equals(value, actualOriginalValue)
     ? FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES
     : value;
-  return FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES === result
-    ? (isAlwaysReturnEmptyValueIfOriginalValue(config) ? emptyValue : result)
-    : result;
 };
 
 /**
@@ -66,19 +66,11 @@ export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
 
 /**
  * @stable [30.10.2019]
- * @param {IGenericFieldEntity} props
- * @returns {boolean}
- */
-export const isFieldNotModifiable = (props: IGenericFieldEntity): boolean =>
-  isDisabled(props) || isReadOnly(props) || !isChangeable(props);
-
-/**
- * @stable [30.10.2019]
  * @param {AnyT} value
  * @param {AnyT} emptyValue
  * @returns {boolean}
  */
-export const isFieldValuePresent = (value: AnyT, emptyValue: AnyT): boolean =>
+export const isValuePresent = (value: AnyT, emptyValue: AnyT): boolean =>
   isDef(value) && !R.equals(value, emptyValue);
 
 /**
@@ -192,23 +184,6 @@ export const asMultiFieldEditedEntities =
       }
     });
     return Array.from(resultItems.values());
-  };
-
-/**
- * @stable [22.11.2019]
- * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
- * @returns {TEntity[]}
- */
-export const asMultiFieldRemovedEntities =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
-    if (R.isNil(entity)) {
-      return UNDEF;
-    }
-    if (isNotMultiEntity(entity)) {
-      return [];
-    }
-    const multiEntity = entity as IMultiEntity;
-    return multiEntity.remove as TEntity[];
   };
 
 /**

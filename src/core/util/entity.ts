@@ -10,10 +10,11 @@ import {
   IFormWrapperEntity,
   IMultiEntity,
   MultiFieldEntityT,
+  ValidatorRuleEnum,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 import { isPrimitive } from './type';
-import { validate, ValidatorRuleEnum } from './validator';
+import { validate } from './validator';
 
 /**
  * @stable [30.01.2019]

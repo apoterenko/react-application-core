@@ -1,6 +1,7 @@
 import {
   AnyT,
 } from '../definitions.interface';
+import { REGEXP } from '../definition/settings-definition.interface';
 
 /**
  * @stable [02.10.2019]
@@ -35,15 +36,32 @@ export const isFn = (value: AnyT): boolean => typeof value === 'function';
 export const isNumber = (value: AnyT): boolean => typeof value === 'number';
 
 /**
+ * @stable [06.12.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isDigit = (value: AnyT): boolean => isNumber(value) && REGEXP.DIGITAL.test(String(value));
+
+/**
  * @stable [01.08.2018]
  * @param {AnyT} value
  * @returns {boolean}
  */
 export const isNumberLike = (value: AnyT): boolean => /^-?[0-9]\d*(\.\d+)?$/.test(String(value));
 
-export function isBoolean(value: AnyT): boolean {
-  return typeof value === 'boolean';
-}
+/**
+ * @stable [06.12.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isPriceLike = (value: AnyT): boolean => REGEXP.PRICE.test(String(value));
+
+/**
+ * @stable [06.12.2019]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isBoolean = (value: AnyT): boolean => typeof value === 'boolean';
 
 /**
  * @stable [23.09.2019]

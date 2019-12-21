@@ -3,7 +3,6 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
-  IUniversalApplicationEntity,
   IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
@@ -21,10 +20,14 @@ import {
   ISortDirectionEntity,
   ISortDirectionsEntity,
   ISortDirectionsWrapperEntity,
+  IStackEntity,
+  IStackItemEntity,
+  IStackWrapperEntity,
   ITabPanelEntity,
   ITabPanelWrapperEntity,
   ITransportEntity,
   ITransportWrapperEntity,
+  IUniversalApplicationEntity,
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
@@ -54,15 +57,16 @@ import {
 import {
   ifNotEmptyThanValue,
   ifNotNilThanValue,
+  orUndef,
 } from './cond';
 import {
   isFn,
   isString,
 } from './type';
 import { isNewEntity } from './entity';
-import { shallowClone } from './clone';
 import {
   coalesce,
+  nvl,
   trimmedUndefEmpty,
 } from './nvl';
 import {
@@ -135,6 +139,14 @@ export const selectEditableEntity =
  */
 export const selectChanges = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
   ifNotNilThanValue(entity, (): TResult => entity.changes as TResult, UNDEF_SYMBOL);
+
+/**
+ * @stable [20.12.2019]
+ * @param {IEditableEntity} entity
+ * @returns {TResult}
+ */
+export const selectDefaultChanges = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
+  ifNotNilThanValue(entity, (): TResult => entity.defaultChanges as TResult, UNDEF_SYMBOL);
 
 /**
  * @stable [21.11.2019]
@@ -535,22 +547,27 @@ export const mapUserWrapperEntity = (userWrapper: IUserWrapperEntity): IUserWrap
   mapUserEntity(selectUserEntity(userWrapper));
 
 /**
- * @stable [05.09.2019]
+ * @stable [21.12.2019]
  * @param {TEntity} entity
  * @param {IEditableEntity} editableEntity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
 export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
-                                                           editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
-  defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
-    entity: {
-      ...entity as {},
-      ...selectChanges(editableEntity),
-    } as TEntity,
-    entityId: ifNotNilThanValue(entity, () => entity.id, UNDEF_SYMBOL),
-    originalEntity: shallowClone<TEntity>(entity),
-    newEntity: isNewEntity(entity),
+                                                           editableEntity: IEditableEntity): IExtendedEntity<TEntity> => {
+  let originalEntity: TEntity;
+  const newEntity = isNewEntity(entity);
+  const defaultChanges = selectDefaultChanges<TEntity>(editableEntity);
+  ifNotNilThanValue(
+    nvl(defaultChanges, entity),
+    () => (originalEntity = {...defaultChanges as {}, ...entity as {}} as TEntity)
+  );
+  return defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
+    entity: {...originalEntity as {}, ...selectChanges(editableEntity)} as TEntity,
+    entityId: orUndef(!newEntity, () => entity.id),
+    newEntity,
+    originalEntity,
   });
+};
 
 /**
  * @stable [06.09.2019]
@@ -560,7 +577,7 @@ export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
  */
 export const mapListSelectedExtendedEntity =
   <TEntity extends IEntity>(listWrapper: IListWrapperEntity<TEntity>,
-                            editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
+                            editableEntity: IEditableEntity): IExtendedEntity<TEntity> =>
     mapExtendedEntity(
       selectListSelectedEntity(listWrapper),
       editableEntity
@@ -724,3 +741,27 @@ export const doesApplicationErrorExist = (entity: IUniversalApplicationEntity): 
  */
 export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity): boolean =>
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);
+
+/**
+ * @stable [18.12.2019]
+ * @param {IStackWrapperEntity} entity
+ * @returns {IStackEntity}
+ */
+export const selectStackEntity = (entity: IStackWrapperEntity): IStackEntity =>
+  ifNotNilThanValue(entity, () => entity.stack, UNDEF_SYMBOL);
+
+/**
+ * @stable [18.12.2019]
+ * @param {IStackEntity} entity
+ * @returns {IStackItemEntity[]}
+ */
+export const selectStackItemEntities = (entity: IStackEntity): IStackItemEntity[] =>
+  ifNotNilThanValue(entity, (data) => data.stack, UNDEF_SYMBOL);
+
+/**
+ * @stable [18.12.2019]
+ * @param {IStackWrapperEntity} entity
+ * @returns {IStackItemEntity[]}
+ */
+export const selectStackWrapperItemEntities = (entity: IStackWrapperEntity): IStackItemEntity[] =>
+  selectStackItemEntities(selectStackEntity(entity));

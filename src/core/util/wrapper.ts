@@ -1,13 +1,11 @@
 import * as R from 'ramda';
 
 import {
-  IAlwaysReturnEmptyValueIfOriginalValueWrapper,
   ICenteredMenuWrapper,
   IChangeableWrapper,
   IClearActionRenderedWrapper,
   IDisabledWrapper,
   IEditedWrapper,
-  IEmptyOriginalValueWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFocusedWrapper,
@@ -22,12 +20,14 @@ import {
   IProgressWrapper,
   IReadOnlyWrapper,
   IReadyWrapper,
+  IRefreshOnUpdateWrapper,
   IRemoteFilterWrapper,
   IRequiredWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
   ISyntheticCursorWrapper,
+  IDisplayValueOnlyWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
   IValidWrapper,
@@ -236,22 +236,6 @@ export const isSyntheticCursorUsed = (wrapper: ISyntheticCursorWrapper): boolean
   ifNotNilThanValue(wrapper, () => wrapper.syntheticCursor !== false, false);
 
 /**
- * @stable [12.11.2019]
- * @param {IEmptyOriginalValueWrapper} wrapper
- * @returns {boolean}
- */
-export const isEmptyOriginalValueSet = (wrapper: IEmptyOriginalValueWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.emptyOriginalValue === true, false);
-
-/**
- * @stable [14.11.2019]
- * @param {IAlwaysReturnEmptyValueIfOriginalValueWrapper} wrapper
- * @returns {boolean}
- */
-export const isAlwaysReturnEmptyValueIfOriginalValue = (wrapper: IAlwaysReturnEmptyValueIfOriginalValueWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.alwaysReturnEmptyValueIfOriginalValue === true, false);
-
-/**
  * @stable [13.11.2019]
  * @param {IMultiWrapper} wrapper
  * @returns {boolean}
@@ -298,3 +282,19 @@ export const isBeingLoaded = (entity: ILoadingWrapper): boolean =>
  */
 export const isPlaceActionRendered = (entity: IPlaceActionRenderedWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.placeActionRendered !== false, false);
+
+/**
+ * @stable [19.12.2019]
+ * @param {IRefreshOnUpdateWrapper} entity
+ * @returns {boolean}
+ */
+export const isRefreshOnUpdate = (entity: IRefreshOnUpdateWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.refreshOnUpdate === true, false);
+
+/**
+ * @stable [21.12.2019]
+ * @param {IDisplayValueOnlyWrapper} entity
+ * @returns {boolean}
+ */
+export const isDisplayValueOnlyWrapper = (entity: IDisplayValueOnlyWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.displayValueOnly === true, false);

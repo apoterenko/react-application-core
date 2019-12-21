@@ -133,17 +133,6 @@ describe('util/field', () => {
             expect(result).toEqual('updatedValue1');
           });
         });
-
-        describe('alwaysReturnEmptyValueIfOriginalValue is true', () => {
-          it('test1', () => {
-            const result = buildFinalFieldValue({
-              alwaysReturnEmptyValueIfOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual('updatedValue1');
-          });
-        });
       });
 
       describe('originalValue is set', () => {
@@ -159,103 +148,6 @@ describe('util/field', () => {
 
           it('test2', () => {
             const result = buildFinalFieldValue({
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue2',
-            });
-            expect(result).toEqual('updatedValue2');
-          });
-        });
-
-        describe('alwaysReturnEmptyValueIfOriginalValue is true', () => {
-          it('test1', () => {
-            const result = buildFinalFieldValue({
-              alwaysReturnEmptyValueIfOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual(FIELD_DISPLAY_EMPTY_VALUE);
-          });
-
-          it('test2', () => {
-            const result = buildFinalFieldValue({
-              alwaysReturnEmptyValueIfOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue2',
-            });
-            expect(result).toEqual('updatedValue2');
-          });
-        });
-      });
-    });
-
-    describe('emptyOriginalValue is true', () => {
-      describe('originalValue is not set', () => {
-        describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
-          it('test1', () => {
-            const result = buildFinalFieldValue({
-              emptyOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual('updatedValue1');
-          });
-        });
-
-        describe('alwaysReturnEmptyValueIfOriginalValue is true', () => {
-          it('test1', () => {
-            const result = buildFinalFieldValue({
-              alwaysReturnEmptyValueIfOriginalValue: true,
-              emptyOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual('updatedValue1');
-          });
-        });
-      });
-
-      describe('originalValue is set', () => {
-        describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
-          it('test1', () => {
-            const result = buildFinalFieldValue({
-              emptyOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual('updatedValue1');
-          });
-
-          it('test2', () => {
-            const result = buildFinalFieldValue({
-              emptyOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue2',
-            });
-            expect(result).toEqual('updatedValue2');
-          });
-        });
-
-        describe('alwaysReturnEmptyValueIfOriginalValue is true', () => {
-          it('test1', () => {
-            const result = buildFinalFieldValue({
-              alwaysReturnEmptyValueIfOriginalValue: true,
-              emptyOriginalValue: true,
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual('updatedValue1');
-          });
-
-          it('test2', () => {
-            const result = buildFinalFieldValue({
-              alwaysReturnEmptyValueIfOriginalValue: true,
-              emptyOriginalValue: true,
               emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
               originalValue: 'updatedValue1',
               value: 'updatedValue2',
