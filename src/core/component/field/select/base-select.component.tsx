@@ -8,7 +8,6 @@ import {
   getWidth,
   ifNotNilThanValue,
   inProgress,
-  isDef,
   isExpandActionRendered,
   isFn,
   joinClassName,
@@ -24,6 +23,7 @@ import {
   IBaseSelectState,
 } from './base-select.interface';
 import {
+  FIELD_VALUE_TO_RESET,
   FieldActionTypesEnum,
   IBaseEvent,
   IMenu,
@@ -196,12 +196,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [29.06.2018]
+   * @stable [21.12.2019]
    * @returns {AnyT}
    */
-  protected getEmptyValue(): AnyT {
-    const props = this.props;
-    return isDef(props.emptyValue) ? props.emptyValue : this.settings.entityEmptyId; // TODO Move to universal-field
+  protected get originalEmptyValue(): AnyT {
+    return FIELD_VALUE_TO_RESET;
   }
 
   /**
