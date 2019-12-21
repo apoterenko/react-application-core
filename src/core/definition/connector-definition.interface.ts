@@ -6,6 +6,7 @@ import {
   IMappersWrapper,
   IRouteConfigurationWrapper,
 } from '../definitions.interface';
+import { IUniversalContainerCtor } from './container-definition.interface';
 
 /**
  * @stable [16.11.2019]
@@ -34,7 +35,14 @@ export interface IConnectorEntity<TStoreEntity = {}, TAccessConfig = {}>
 }
 
 /**
+ * @stable [19.12.2019]
+ */
+export interface IUniversalConnectorContainerFactory {
+  fromTarget(target: IUniversalContainerCtor, section: string): IUniversalContainerCtor;
+}
+
+/**
  * @stable [25.11.2019]
  */
-export const $CONNECTED_CONTAINER_INIT_ACTION_TYPE = `${ACTION_PREFIX}connected.container.init`;
-export const $CONNECTED_CONTAINER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}connected.container.destroy`;
+export const $RAC_CONNECTED_CONTAINER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}connected.container.destroy`;
+export const $RAC_CONNECTED_CONTAINER_INIT_ACTION_TYPE = `${ACTION_PREFIX}connected.container.init`;
