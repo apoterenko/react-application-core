@@ -6,7 +6,10 @@ import {
   ISelectEntityPayloadEntity,
 } from '../../definition';
 import { IEntity } from '../../definitions.interface';
-import { ListActionBuilder } from '../../component/action.builder';
+import {
+  FormActionBuilder,
+  ListActionBuilder,
+} from '../../component/action.builder';
 import { makeChainedMiddleware } from './chained.middleware';
 import {
   defValuesFilter,
@@ -39,9 +42,21 @@ const toChainedConfigEntity = <TEntity extends IEntity, TState>(
  * @param {IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>} config
  * @returns {IEffectsAction[]}
  */
-export const makeCreateEntityMiddleware = <TEntity extends IEntity, TState>(
-  config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] =>
-  makeChainedMiddleware(toChainedConfigEntity(config));
+export const makeCreateEntityMiddleware =
+  <TEntity extends IEntity, TState>(config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] =>
+    ifNotNilThanValue(
+      makeChainedMiddleware(toChainedConfigEntity(config)),
+      (actions) => (
+       [
+         ...actions,
+         ...(
+           isObjectNotEmpty(config.defaultChanges) && config.formSection
+             ? [FormActionBuilder.buildDefaultChangesAction<TEntity>(config.formSection, config.defaultChanges)]
+             : []
+         )
+       ]
+      )
+    );
 
 /**
  * @stable [19.10.2019]

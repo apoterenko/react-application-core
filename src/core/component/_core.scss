@@ -122,6 +122,15 @@
 
   /**
    * @styling
+   * @stable [21.12.2019]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-break-word,
+    $rac-styles-word-break: break-word
+  );
+
+  /**
+   * @styling
    * @stable [25.10.2019]
    */
   @include rac-styles (
@@ -164,3 +173,14 @@
     $rac-message-wrapper-background: $rac-application-message-wrapper-background
   );
 }
+
+/**
+ * @perfect-scrollbar
+ * @stable [06.12.2019]
+ */
+@include rac-perfect-scrollbar (
+  $rac-perfect-scrollbar-custom: rac,
+  $rac-perfect-scrollbar-active-background-color: $rac-perfect-scrollbar-active-background-color,
+  $rac-perfect-scrollbar-background-color: $rac-perfect-scrollbar-background-color,
+  $rac-perfect-scrollbar-rail-background-color: $rac-perfect-scrollbar-rail-background-color
+);

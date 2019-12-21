@@ -1,4 +1,5 @@
 @import '~normalize.css/normalize';
+@import './_core';
 @import './access/denied/access-denied';
 @import './barcode/barcode';
 @import './button/button';
@@ -7,7 +8,6 @@
 @import './chip/chip';
 @import './common';
 @import './constant';
-@import './_core';
 @import './dialog/dialog';
 @import './dnd/dnd';
 @import './drawer/drawer';
@@ -21,6 +21,7 @@
 @import './list/list';
 @import './menu/menu';
 @import './overlay/overlay';
+@import './plugin/_plugin';
 @import './profile/profile';
 @import './scrollbar/scrollbar';
 @import './snackbar/snackbar';
