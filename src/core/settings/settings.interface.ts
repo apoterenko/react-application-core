@@ -138,7 +138,6 @@ export interface ISettingsEntity {
   dateTime?: IDateTimeSettings;
   downloadUrl?: string;
   emptyPictureUrl?: string;
-  entityEmptyId?: AnyT;
   googleMaps?: IGoogleMapsSettings;
   messages?: IMessagesSettings;
   metaFilesUrl?: string;
@@ -157,7 +156,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
   emptyPictureUrl: 'media/no_avatar.jpg',
   companyName: 'Test company',
-  entityEmptyId: null,
   transport: {
     method: 'post',
     withCredentials: true,

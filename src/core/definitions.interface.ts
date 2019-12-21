@@ -60,7 +60,6 @@ export interface IAfterEnterWrapper<TAfterEnter> { afterEnter?: TAfterEnter; }
 export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
-export interface IAlwaysReturnEmptyValueIfOriginalValueWrapper { alwaysReturnEmptyValueIfOriginalValue?: boolean; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
@@ -113,6 +112,7 @@ export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
 export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
 export interface IDateWrapper<TDate = string> { date?: TDate; }
+export interface IDefaultChangesWrapper<TChanges extends IKeyValue = IKeyValue> { defaultChanges?: TChanges; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
@@ -123,18 +123,19 @@ export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFi
 export interface IDetectFileTypeWrapper { detectFileType?: boolean; }
 export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
 export interface IDictionariesWrapper<TDictionaries> { dictionaries?: TDictionaries; }
+export interface IDiffWrapper<TValue> { diff?: TValue; }
 export interface IDirectionsWrapper<TDirections> { directions?: TDirections; }
 export interface IDirectionWrapper<TDirection = string> { direction?: TDirection; }
 export interface IDirtyWrapper { dirty?: boolean; }
 export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisplayNameWrapper { displayName?: string; }
+export interface IDisplayValueOnlyWrapper { displayValueOnly?: boolean; }
 export interface IDisplayValueWrapper<TDisplayValue = string> { displayValue?: TDisplayValue; }
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
 export interface IElementWrapper<TElement = Element> { element?: TElement; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
-export interface IEmptyOriginalValueWrapper<TValue = boolean> { emptyOriginalValue?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
@@ -164,7 +165,7 @@ export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
 export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; }
-export interface IFormSectionWrapper<TFormSection = string> { formSection?: TFormSection; }
+export interface IFormSectionWrapper<TValue = string> { formSection?: TValue; }
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
@@ -286,8 +287,8 @@ export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?
 export interface IOptionsWrapper<TOptions> { options?: TOptions; }
 export interface IOrderWrapper<TValue = number> { order?: TValue; }
 export interface IOriginalDataWrapper<TOriginalData = IEntity[]> { originalData?: TOriginalData; }
-export interface IOriginalEntityWrapper<TOriginalEntity> { originalEntity?: TOriginalEntity; }
-export interface IOriginalValueWrapper<TOriginalValue = AnyT> { originalValue?: TOriginalValue; }
+export interface IOriginalEntityWrapper<TValue> { originalEntity?: TValue; }
+export interface IOriginalValueWrapper<TValue = AnyT> { originalValue?: TValue; }
 export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 export interface IPageWrapper<TPage = number> { page?: TPage; }

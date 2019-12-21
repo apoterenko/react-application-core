@@ -156,4 +156,5 @@ export interface IForm
  */
 export const INITIAL_FORM_ENTITY = Object.freeze<IEditableEntity>({
   changes: {},
+  defaultChanges: {},
 });

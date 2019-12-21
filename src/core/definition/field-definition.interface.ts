@@ -9,7 +9,6 @@ import {
   EntityIdT,
   IActionsPosition,
   IActionsWrapper,
-  IAlwaysReturnEmptyValueIfOriginalValueWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   IChangeableWrapper,
@@ -18,7 +17,6 @@ import {
   IDisabledWrapper,
   IDisplayNameWrapper,
   IDisplayValueWrapper,
-  IEmptyOriginalValueWrapper,
   IEmptyValueWrapper,
   IEntity,
   IFieldRenderedWrapper,
@@ -40,6 +38,7 @@ import {
   IStepWrapper,
   ISyntheticCursorWrapper,
   ITabIndexWrapper,
+  IDisplayValueOnlyWrapper,
   ITitleWrapper,
   ITypeWrapper,
   IUseKeyboardWrapper,
@@ -57,6 +56,7 @@ import { IMultiEntity } from './entity-definition.interface';
  */
 export const FIELD_DISPLAY_EMPTY_VALUE = '';
 export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
+export const FIELD_VALUE_TO_RESET = null;
 export const ID_FIELD_NAME = 'id';
 
 /**
@@ -65,7 +65,6 @@ export const ID_FIELD_NAME = 'id';
 export interface IGenericFieldEntity
   extends IActionsPosition<FieldActionPositionsEnum>,
     IActionsWrapper<IFieldActionEntity[]>,
-    IAlwaysReturnEmptyValueIfOriginalValueWrapper,
     IAutoCompleteWrapper,
     IAutoFocusWrapper,
     IChangeableWrapper,
@@ -74,7 +73,6 @@ export interface IGenericFieldEntity
     IDisabledWrapper,
     IDisplayNameWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
-    IEmptyOriginalValueWrapper,
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
     IFullWrapper,
@@ -92,6 +90,7 @@ export interface IGenericFieldEntity
     IStepWrapper,
     ISyntheticCursorWrapper,
     ITabIndexWrapper,
+    IDisplayValueOnlyWrapper,
     ITypeWrapper<StringNumberT>,
     IUseKeyboardWrapper,
     IValueWrapper,

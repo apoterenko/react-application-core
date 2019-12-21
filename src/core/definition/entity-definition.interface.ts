@@ -3,6 +3,7 @@ import {
   IActiveValueWrapper,
   IAddWrapper,
   IChangesWrapper,
+  IDefaultChangesWrapper,
   IDirtyWrapper,
   IEditWrapper,
   IEntity,
@@ -38,10 +39,10 @@ export interface ILifeCycleEntity
  * @stable [26.02.2019]
  */
 export interface IExtendedEntity<TEntity>
-  extends IEntityWrapper<TEntity>,
+  extends IEntityIdWrapper<EntityIdT>,
+    IEntityWrapper<TEntity>,
     INewEntityWrapper,
-    IOriginalEntityWrapper<TEntity>,
-    IEntityIdWrapper<EntityIdT> {
+    IOriginalEntityWrapper<TEntity> {
 }
 
 /**
@@ -49,10 +50,11 @@ export interface IExtendedEntity<TEntity>
  */
 export interface IEditableEntity<TChanges = IKeyValue>
   extends ILifeCycleEntity,
+    IActiveValueWrapper,
     IChangesWrapper<TChanges>,
+    IDefaultChangesWrapper<TChanges>,
     IDirtyWrapper,
-    IValidWrapper,
-    IActiveValueWrapper {
+    IValidWrapper {
 }
 
 /**

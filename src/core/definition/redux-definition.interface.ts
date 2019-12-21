@@ -5,6 +5,7 @@ import {
   IActionWrapper,
   ICustomActionsWrapper,
   IDataWrapper,
+  IDefaultChangesWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
   IEntity,
@@ -40,15 +41,15 @@ import {
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
-import { IUniversalApplicationWrapperEntity } from './application-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
+import { ISelectedWrapperEntity } from './entity-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
 import { ITransportWrapperEntity } from './transport-definition.interface';
+import { IUniversalApplicationWrapperEntity } from './application-definition.interface';
 import { IUserWrapperEntity } from './user-definition.interface';
-import { ISelectedWrapperEntity } from './entity-definition.interface';
 
 /**
  * @stable [26.08.2019]
@@ -167,13 +168,14 @@ export interface INotificationInfoMiddlewareConfigEntity
  * @stable [09.10.2019]
  */
 export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
-  extends IFormSectionWrapper<string | ((entity: TEntity, state: TState, action: IEffectsAction) => string)>,
+  extends IFormSectionWrapper,
     IListSectionWrapper,
     IStateWrapper<TState>,
     IPathWrapper<ChainedMiddlewarePayloadT<TState, TEntity>>,
     IEffectsActionEntity,
     ILazyLoadingWrapper,
-    IEntityWrapper<TEntity> {
+    IEntityWrapper<TEntity>,
+    IDefaultChangesWrapper<TEntity> {
 }
 
 /**
@@ -210,20 +212,6 @@ export interface ISucceedListFormMiddlewareConfigEntity
  */
 export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
   serialize(state: TState): TState;
-}
-
-/**
- * @stable [27.09.2019]
- */
-export interface IDispatchEntity {
-  dispatch?<TChanges = IKeyValue>(type: string, data?: TChanges): void;
-  dispatchCustomType?<TData = IKeyValue>(type: string, data?: TData): void;
-  dispatchFormChange?(fieldName: string, fieldValue?: AnyT, otherSection?: string): void;
-  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
-  dispatchFormSubmit?(): void;
-  dispatchFrameworkAction?<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void;
-  dispatchListCreate?(): void;
-  dispatchLoadDictionary?<TData = IKeyValue>(dictionary: string, data?: TData): void;
 }
 
 /**
