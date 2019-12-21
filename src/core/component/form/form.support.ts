@@ -71,7 +71,8 @@ export const isFormSubmittable = (formProps: IFormProps): boolean =>
  * @returns {boolean}
  */
 export const isFormResettable = (formProps: IFormProps): boolean =>
-  formProps.alwaysResettable === true || isFormSubmittable(formProps);
+  formProps.alwaysResettable === true
+  || (isFormDirty(formProps) && !isFormEntityDisabled(formProps));
 
 /**
  * @stable [29.05.2018]
