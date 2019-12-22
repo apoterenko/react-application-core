@@ -3,7 +3,7 @@ import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
-  buildFinalFieldValue,
+  buildActualFieldValue,
   calc,
   DelayedTask,
   ifNilThanValue,
@@ -721,7 +721,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @param {AnyT} currentRawValue
    */
   private onChangeValue(currentRawValue: AnyT): void {
-    const actualFieldValue = buildFinalFieldValue({
+    const actualFieldValue = buildActualFieldValue({
       ...this.props as IGenericFieldEntity,
       emptyValue: this.emptyValue,
       value: currentRawValue,

@@ -67,11 +67,11 @@ export class DateTimeFieldHelper {
                                                            defaultToDate: Date): TEntity {
     return {
       [fromDateFieldName]: this.dc.fromStartUiDateTimeToDateTime(
-        fromDateResolver(entity) || this.dc.fromDateToUiDate(defaultFromDate),
+        fromDateResolver(entity) || this.dc.fromDateToUiDate({date: defaultFromDate}),
         fromTimeResolver(entity)
       ),
       [toDateFieldName]: this.dc.fromEndUiDateTimeToDateTime(
-        toDateResolver(entity) || this.dc.fromDateToUiDate(defaultToDate),
+        toDateResolver(entity) || this.dc.fromDateToUiDate({date: defaultToDate}),
         toTimeResolver(entity)
       ),
     } as TEntity;

@@ -26,13 +26,11 @@ import { isNotMultiEntity } from './entity';
 import {
   isDef,
   isPrimitive,
-  isUndef,
 } from './type';
 import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
   inProgress,
-  isChangeable,
   isDisabled,
   isReadOnly,
 } from './wrapper';
@@ -43,16 +41,21 @@ import { defValuesFilter } from './filter';
  * @param {IGenericFieldEntity} config
  * @returns {AnyT}
  */
-export const buildFinalFieldValue = (config: IGenericFieldEntity): AnyT => {
+export const buildActualFieldValue = (config: IGenericFieldEntity): AnyT => {
   const {
     emptyValue,
+    keepChanges,
     originalValue,
     value,
   } = config;
-  const actualOriginalValue = isUndef(originalValue) ? emptyValue : originalValue;
-
-  return isDef(actualOriginalValue) && R.equals(value, actualOriginalValue)
-    ? FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES
+  const isOriginalValueDefined = isDef(originalValue);
+  const originalOrEmptyValue = isOriginalValueDefined ? originalValue : emptyValue;
+  return isDef(originalOrEmptyValue) && R.equals(value, originalOrEmptyValue)
+    ? (
+      isOriginalValueDefined
+        ? FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES
+        : (keepChanges ? value : FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES)
+    )
     : value;
 };
 

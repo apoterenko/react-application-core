@@ -209,6 +209,7 @@ export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IItemsWrapper<TItems> { items?: TItems; }
 export interface IItemWrapper<TItem> { item?: TItem; }
+export interface IKeepChangesWrapper { keepChanges?: boolean; }
 export interface IKeyboardEvent<TTarget = {}> extends React.KeyboardEvent<TTarget> { }
 export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
@@ -290,6 +291,7 @@ export interface IOriginalDataWrapper<TOriginalData = IEntity[]> { originalData?
 export interface IOriginalEntityWrapper<TValue> { originalEntity?: TValue; }
 export interface IOriginalValueWrapper<TValue = AnyT> { originalValue?: TValue; }
 export interface IOutlinedWrapper { outlined?: boolean; }
+export interface IOutputFormatWrapper { outputFormat?: string; }
 export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 export interface IPageWrapper<TPage = number> { page?: TPage; }
 export interface IParamsWrapper<TParams = IKeyValue> { params?: TParams; }
@@ -384,6 +386,7 @@ export interface IStickyElementClassNameWrapper { stickyElementClassName?: strin
 export interface IStickyHeadWrapper { stickyHead?: boolean; }
 export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
 export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
+export interface IStrictWrapper { strict?: boolean; }
 export interface IStyleWrapper<TStyle> { style?: TStyle; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
@@ -432,6 +435,7 @@ export interface IXWrapper<TX = number> { x?: TX; }
 export interface IYPositionWrapper { yPosition?: number | (() => number); }
 export interface IYWrapper<TY = number> { y?: TY; }
 export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
+export interface IZoneWrapper<TValue = string> { zone?: TValue; }
 export interface IZoomWrapper { zoom?: number; }
 
 /**
