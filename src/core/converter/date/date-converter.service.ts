@@ -561,15 +561,11 @@ export class DateConverter implements IDateConverter {
    */
   public fromDateToUiDate(cfg: IMomentConfigEntity): string {
     return this.dateAsString({
-      ...cfg,
-      strict: false,
+      strict: false, // UTC: ignore a time, by default (+00:00 | Z)
       inputFormat: this.dateFormat,
       outputFormat: this.uiDateFormat,
+      ...cfg,
     });
-  }
-
-  public fromDateToDate(date: DateTimeLikeTypeT): string {
-    return this.fromDateToArbitraryFormat(date, this.dateFormat); // xxx
   }
 
   public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {

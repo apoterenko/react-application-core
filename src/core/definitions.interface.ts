@@ -60,6 +60,7 @@ export interface IAfterEnterWrapper<TAfterEnter> { afterEnter?: TAfterEnter; }
 export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
+export interface IAlwaysSendChangesWrapper { alwaysSendChanges?: boolean; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
@@ -146,6 +147,7 @@ export interface IEventNameWrapper { eventName?: string; }
 export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
+export interface IExtraParamsWrapper<TExtraParams> { extraParams?: TExtraParams; }
 export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
 export interface IFieldConfigurationWrapper<TProps> { fieldConfiguration?: TProps; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
@@ -991,11 +993,6 @@ export interface IApiEntityWrapper<TApiEntity> {
  */
 export interface ITotalEntityWrapper<TTotalEntity> {
   totalEntity?: TTotalEntity;
-}
-
-/* @stable - 12.04.2018 */
-export interface IExtraParamsWrapper<TExtraParams> {
-  extraParams?: TExtraParams;
 }
 
 /**

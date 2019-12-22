@@ -10,7 +10,7 @@ import {
 } from '../util';
 import { AnyT } from '../definitions.interface';
 import {
-  IEditableApiEntity,
+  IUpdateEntityPayloadEntity,
   IEnvironment,
 } from '../definition';
 import {
@@ -81,19 +81,17 @@ export class BaseTransport {
   }
 
   /**
-   * @stable [26.11.2019]
-   * @param {IEditableApiEntity<TEntity extends IEntity>} entity
-   * @param {boolean} addIdParameter
+   * @stable [23.12.2019]
+   * @param {IUpdateEntityPayloadEntity<TEntity extends IEntity>} entity
    * @returns {Promise<TResult>}
    */
-  protected doSaveEntity<TEntity extends IEntity, TResult = TEntity>(entity: IEditableApiEntity<TEntity>,
-                                                                     addIdParameter = true): Promise<TResult> {
+  protected doSaveEntity<TEntity extends IEntity, TResult = TEntity>(entity: IUpdateEntityPayloadEntity<TEntity>): Promise<TResult> {
     const apiEntity = entity.apiEntity;
     return this.transport.request<TResult>({
       params: {
-        ...apiEntity.changes as {},
+        ...(entity.alwaysSendChanges ? apiEntity.changes : apiEntity.diff) as {},
         ...defValuesFilter(entity.extraParams),
-        ...(addIdParameter ? defValuesFilter({ id: apiEntity.entityId }) : {}),
+        ...defValuesFilter({id: apiEntity.entityId}),
       },
       name: apiEntity.newEntity ? entity.addApi : entity.editApi,
       operation: entity.operation,

@@ -40,6 +40,7 @@ export interface ILifeCycleEntity
  */
 export interface IExtendedEntity<TEntity>
   extends IEntityIdWrapper<EntityIdT>,
+    IChangesWrapper<TEntity>,
     IEntityWrapper<TEntity>,
     INewEntityWrapper,
     IOriginalEntityWrapper<TEntity> {

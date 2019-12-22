@@ -17,13 +17,13 @@ export const mapApiEntity =
                                       originalEntity?: TEntity): IApiEntity<TEntity> => {
     const entityId = entity && entity.id;
     const newEntity = R.isNil(entityId);
-    const merger = {...entity as {}, ...changes as {}} as TEntity;
+    const merger = {...entity as {}, ...changes as {}} as TEntity; // TODO An entity is already merged with changes
     return notNilValuesFilter<IApiEntity<TEntity>, IApiEntity<TEntity>>({
       changes,
       diff: newEntity ? merger : changes,
       entity,
       entityId,
-      merger,
+      merger,  // TODO Deprecated
       newEntity,
       originalEntity,
     });
