@@ -1,6 +1,20 @@
+import * as moment from 'moment';
+
+import {
+  IDateWrapper,
+  IInputFormatWrapper,
+  IOutputFormatWrapper,
+  IStrictWrapper,
+  IZoneWrapper,
+} from '../definitions.interface';
+
 /**
- * @stable [15.09.2018]
+ * @stable [22.12.2019]
  */
+export type DateTimeLikeTypeT = string | Date;
+export type MomentT = moment.Moment;
+
+// TODO ?
 export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
   {id: 0, name: 'Sunday'},
   {id: 1, name: 'Monday'},
@@ -10,3 +24,14 @@ export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
   {id: 5, name: 'Friday'},
   {id: 6, name: 'Saturday'}
 ]);
+
+/**
+ * @stable [17.12.2019]
+ */
+export interface IMomentConfigEntity
+  extends IDateWrapper<DateTimeLikeTypeT>,
+    IInputFormatWrapper,
+    IOutputFormatWrapper,
+    IStrictWrapper,
+    IZoneWrapper {
+}

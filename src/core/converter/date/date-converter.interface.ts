@@ -1,13 +1,16 @@
 import * as moment from 'moment';
 
 import { IKeyValue } from '../../definitions.interface';
-
-/**
- * @stable [07.01.2019]
- */
-export type DateTimeLikeTypeT = string | Date;
+import {
+  DateTimeLikeTypeT,
+  IMomentConfigEntity,
+  MomentT,
+} from '../../definition';
 
 export interface IDateConverter {
+  asMomentDate(cfg: IMomentConfigEntity): MomentT;
+  fromDateToUiDate(cfg: IMomentConfigEntity): string;
+  /**/
   getAppOnlineLifeTimeInSeconds(): number;
   getAppOnlineLifeTimeInHours(): number;
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
@@ -87,13 +90,12 @@ export interface IDateConverter {
   tryGetFirstDayOfYear(duration?: moment.DurationInputArg1,
                        date?: DateTimeLikeTypeT,
                        inputFormat?: string): Date;
+  toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict?: boolean): moment.Moment;
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
-  fromDateToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;
   fromStartUiDateTimeToDateTime(startUiDate: string, startUiTime?: string): string;
   fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime?: string): string;
-  from30DaysAgoUiDateTimeToDateTime(): string;
   formatDate(date: DateTimeLikeTypeT, outputFormat: string): string;
   formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
@@ -120,6 +122,7 @@ export interface IDateConverter {
   getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
+  getLocalizedWeekdayShortest(index: number): string;
   getPersonAge(birthday: DateTimeLikeTypeT,
                date?: DateTimeLikeTypeT,
                inputFormat?: string): number;

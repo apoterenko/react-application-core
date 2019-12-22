@@ -5,9 +5,22 @@ import 'moment-timezone';
 
 import { lazyInject, DI_TYPES } from '../../di';
 import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO, IKeyValue } from '../../definitions.interface';
-import { isString, orNull, orUndef, defValuesFilter, ifNotNilThanValue, NUMBER_COMPARATOR } from '../../util';
+import {
+  defValuesFilter,
+  ifNotNilThanValue,
+  isObjectNotEmpty,
+  isString,
+  NUMBER_COMPARATOR,
+  orNull,
+  orUndef,
+} from '../../util';
 import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../settings';
-import { IDateConverter, DateTimeLikeTypeT } from './date-converter.interface';
+import { IDateConverter } from './date-converter.interface';
+import {
+  DateTimeLikeTypeT,
+  IMomentConfigEntity,
+  MomentT,
+} from '../../definition';
 
 const APP_STARTING_DATE = Date.now();
 
@@ -74,6 +87,26 @@ export class DateConverter implements IDateConverter {
       return momentDate.isValid()
           ? momentDate.format(outputFormat)
           : String(date);
+    }
+  }
+
+  /**
+   * @stable [22.12.2019]
+   * @param {IMomentConfigEntity} cfg
+   * @returns {string}
+   */
+  public dateAsString(cfg: IMomentConfigEntity): string {
+    const {
+      date,
+      outputFormat,
+    } = cfg;
+    if (isObjectNotEmpty(date)) {
+      const momentDate = this.asMomentDate(cfg);
+      return momentDate.isValid()
+        ? momentDate.format(outputFormat)
+        : String(date);
+    } else {
+      return '';
     }
   }
 
@@ -522,14 +555,21 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @deprecated Use fromDateTimeToDate
+   * @stable [22.12.2019]
+   * @param {IMomentConfigEntity} cfg
+   * @returns {string}
    */
-  public fromDateToUiDate(date: DateTimeLikeTypeT): string {
-    return this.format(
-      this.shrinkDate(date), /* Need to clear a timezone */
-      this.dateFormat,
-      this.uiDateFormat
-    );
+  public fromDateToUiDate(cfg: IMomentConfigEntity): string {
+    return this.dateAsString({
+      ...cfg,
+      strict: false,
+      inputFormat: this.dateFormat,
+      outputFormat: this.uiDateFormat,
+    });
+  }
+
+  public fromDateToDate(date: DateTimeLikeTypeT): string {
+    return this.fromDateToArbitraryFormat(date, this.dateFormat); // xxx
   }
 
   public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {
@@ -554,16 +594,6 @@ export class DateConverter implements IDateConverter {
    */
   public fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime = DEFAULT_TIME_TO): string {
     return this.fromUiDateTimeToDateTime(endUiDate, endUiTime);
-  }
-
-  /**
-   * @deprecated
-   */
-  public from30DaysAgoUiDateTimeToDateTime(): string {
-    return this.fromUiDateTimeToDateTime(
-      this.fromDateToUiDate(this.get30DaysAgo()),
-      DEFAULT_TIME_FROM
-    );
   }
 
   /**
@@ -671,6 +701,11 @@ export class DateConverter implements IDateConverter {
     return DateConverter.WEEKDAYS_SHORT[index];
   }
 
+  public getLocalizedWeekdayShortest(index: number): string {
+    // TODO
+    return ['SU', 'M', 'T', 'W', 'TH', 'F', 'SA'][index];
+  }
+
   /**
    * @stable [25.08.2018]
    * @param {number} monthsAgo
@@ -757,16 +792,31 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [11.08.2018]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} inputFormat
-   * @returns {moment.Moment}
+   * @deprecated Use asMomentDate
    */
-  private toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string): moment.Moment {
+  public toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict = true): moment.Moment {
     const momentDate = date instanceof Date
       ? moment(date)
-      : moment(date, inputFormat, true);
+      : moment(date, inputFormat, strict);
     const zone = this.timeZone;
+    return zone ? moment.tz(date, zone) : momentDate;
+  }
+
+  /**
+   * @stable [22.12.2019]
+   * @param {IMomentConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asMomentDate(cfg: IMomentConfigEntity): MomentT {
+    const {
+      date,
+      inputFormat,
+      strict = true,
+      zone = this.timeZone,
+    } = cfg;
+    const momentDate = date instanceof Date
+      ? moment(date)
+      : moment(date, inputFormat, strict);
     return zone ? moment.tz(date, zone) : momentDate;
   }
 
