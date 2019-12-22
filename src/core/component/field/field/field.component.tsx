@@ -63,6 +63,7 @@ export class Field<TProps extends IFieldProps,
         className={this.getFieldClassName()}
         onClick={cancelEvent}>
         {this.props.children}
+        {this.getDisplayValueElement()}
         {this.getSelfElement()}
         {this.getMessageElement()}
         {this.getErrorMessageElement()}

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
@@ -506,6 +507,29 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected getInputAttachmentElement(): JSX.Element {
     return null;
+  }
+
+  /**
+   * @stable [23.12.2019]
+   * @react-native-compatible
+   * @returns {React.ReactNode}
+   */
+  protected getDisplayValueElement(): React.ReactNode {
+    return orNull(
+      this.isDisplayValueOnly,
+      () => this.inProgress
+        ? (this.decoratedValue || this.getWaitMessageElement())
+        : this.decoratedValue
+    );
+  }
+
+  /**
+   * @stable [23.12.2019]
+   * @react-native-compatible
+   * @returns {React.ReactNode}
+   */
+  protected getWaitMessageElement(): React.ReactNode {
+    return this.settings.messages.PLEASE_WAIT;
   }
 
   /**
