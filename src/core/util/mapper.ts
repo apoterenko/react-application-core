@@ -561,7 +561,7 @@ export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
     nvl(defaultChanges, entity),
     () => (originalEntity = {...defaultChanges as {}, ...entity as {}} as TEntity)
   );
-  const changes: TEntity = selectChanges<TEntity>(editableEntity);
+  const changes = selectChanges<TEntity>(editableEntity);
   return defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
     changes,
     entity: {...originalEntity as {}, ...changes as {}} as TEntity,
