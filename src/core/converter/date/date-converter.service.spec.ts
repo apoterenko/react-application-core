@@ -22,12 +22,12 @@ describe('date-converter.service', () => {
   describe('fromDateToUiDate', () => {
     // https://www.timeanddate.com/worldclock/converter.html
     it('test1', () => {
-      const value = dateConverter.fromDateToUiDate('2036-07-31');               // Moscow, Russia
-      expect(value).toEqual('2036-07-31');                                      // Los Angeles, USA
+      const value = dateConverter.fromDateToUiDate({date: '2036-07-31'});               // Moscow, Russia
+      expect(value).toEqual('2036-07-31');                                              // Los Angeles, USA
     });
     it('test2', () => {
-      const value = dateConverter.fromDateToUiDate(new Date('2036-07-31'));     // Moscow, Russia
-      expect(value).toEqual('2036-07-30');                                      // Los Angeles, USA
+      const value = dateConverter.fromDateToUiDate({date: new Date('2036-07-31')});     // Moscow, Russia
+      expect(value).toEqual('2036-07-30');                                              // Los Angeles, USA
     });
   });
 
