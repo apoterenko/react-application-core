@@ -250,10 +250,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         return renderEl;
       }
       if (this.isElementField(renderEl)) {
+        const props = renderEl.props;
+        const propsValue = props.value;
         return React.cloneElement<IFieldProps>(renderEl, {
-          ...this.getDefaultFieldProps(renderEl.props),
+          ...this.getDefaultFieldProps(props),
           name: column.name,
-          value: isDef(renderEl.props.value) ? renderEl.props.value : Reflect.get(entity, column.name),
+          keepChanges: true,
+          value: isDef(propsValue) ? propsValue : Reflect.get(entity, column.name),
           onChange: (value) => this.onChangeRowField({value, name, rawData: entity}),
         });
       }

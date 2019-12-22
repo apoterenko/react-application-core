@@ -2,7 +2,7 @@ import {
   asMultiFieldEditedEntities,
   asMultiFieldEntities,
   asOrderedMultiFieldEntities,
-  buildFinalFieldValue,
+  buildActualFieldValue,
 } from './field';
 import {
   UNDEF,
@@ -126,7 +126,7 @@ describe('util/field', () => {
       describe('originalValue is not set', () => {
         describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
           it('test1', () => {
-            const result = buildFinalFieldValue({
+            const result = buildActualFieldValue({
               emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
               value: 'updatedValue1',
             });
@@ -138,7 +138,7 @@ describe('util/field', () => {
       describe('originalValue is set', () => {
         describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
           it('test1', () => {
-            const result = buildFinalFieldValue({
+            const result = buildActualFieldValue({
               emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
               originalValue: 'updatedValue1',
               value: 'updatedValue1',
@@ -147,7 +147,7 @@ describe('util/field', () => {
           });
 
           it('test2', () => {
-            const result = buildFinalFieldValue({
+            const result = buildActualFieldValue({
               emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
               originalValue: 'updatedValue1',
               value: 'updatedValue2',
