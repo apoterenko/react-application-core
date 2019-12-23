@@ -2,9 +2,19 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  IApiEntity,
+  IBaseEvent,
+  IButtonProps,
+  IEditableEntity,
+  IForm,
+  IFormProps,
+  INITIAL_FORM_ENTITY,
+} from '../../definition';
+import {
   cancelEvent,
   cloneReactNodes,
   defValuesFilter,
+  getFormFieldDisplayValue,
   getFormFieldOriginalValue,
   getFormFieldValue,
   ifNotFalseThanValue,
@@ -14,7 +24,6 @@ import {
   isFormFieldReadOnly,
   isFormWrapperEntityInProgress,
   isString,
-  isUndef,
   joinClassName,
   mapApiEntity,
   notNilValuesArrayFilter,
@@ -25,9 +34,11 @@ import { AnyT, IEntity } from '../../definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { Field, IField } from '../field';
-import { IApiEntity, IEditableEntity } from '../../definition';
 import { IFieldProps, IFieldsConfigurations } from '../../configurations-definitions.interface';
-import { lazyInject, DI_TYPES } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import {
   isFormFieldChangeable,
   isFormFieldDisabled,
@@ -36,13 +47,6 @@ import {
   isFormSubmittable,
 } from './form.support';
 import { FlexLayout } from '../layout/flex';
-import {
-  IBaseEvent,
-  IButtonProps,
-  IForm,
-  IFormProps,
-  INITIAL_FORM_ENTITY,
-} from '../../definition';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
@@ -164,7 +168,8 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   public get apiEntity(): IApiEntity {
     const props = this.props;
-    return mapApiEntity({changes: props.changes, entity: this.entity, originalEntity: props.originalEntity});
+    const {entity, originalEntity} = props;
+    return mapApiEntity({changes: props.form.changes, entity, originalEntity});
   }
 
   /**
@@ -328,13 +333,14 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     return getFormFieldOriginalValue(this.props, field.props);
   }
 
-  private getFieldDisplayValue(field: IField, fieldConfiguration: IFieldProps): string {
-    const fieldProps = field.props;
-    const fieldDisplayName = fieldProps.displayName || (fieldConfiguration ? fieldConfiguration.displayName : null);
-
-    return isUndef(fieldProps.displayValue) && fieldDisplayName
-        ? Reflect.get(this.entity, fieldDisplayName)
-        : fieldProps.displayValue;
+  /**
+   * @stable [24.12.2019]
+   * @param {IFieldProps} props
+   * @param {IFieldProps} defaultProps
+   * @returns {AnyT}
+   */
+  private getFieldDisplayValue(props: IFieldProps, defaultProps: IFieldProps): AnyT {
+    return getFormFieldDisplayValue(this.props, props, defaultProps);
   }
 
   /**
@@ -354,14 +360,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
       resultProps = props as IFieldProps;
     }
     return resultProps;
-  }
-
-  /**
-   * @stable - 01.04.2018
-   * @returns {IEntity}
-   */
-  private get entity(): IEntity {
-    return this.props.entity;
   }
 
   /**

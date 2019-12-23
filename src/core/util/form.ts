@@ -48,6 +48,32 @@ export const getFormFieldValue = <TEntity extends IEntity = IEntity>(formWrapper
     );
 
 /**
+ * @stable [24.12.2019]
+ * @param {IFormWrapperEntity<TEntity extends IEntity>} formWrapperEntity
+ * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericFieldEntity} defaultFieldProps
+ * @returns {AnyT}
+ */
+export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(formWrapperEntity: IFormWrapperEntity<TEntity>,
+                                                                            fieldProps: IGenericFieldEntity,
+                                                                            defaultFieldProps?: IGenericFieldEntity): AnyT =>
+  isDef(fieldProps.displayValue)
+    ? fieldProps.displayValue
+    : (
+      ifNotEmptyThanValue(
+        fieldProps.displayName || ifNotNilThanValue(defaultFieldProps, () => defaultFieldProps.displayName),
+        (displayName) => ifNotNilThanValue(
+          R.isNil(formWrapperEntity.entity)
+            ? ifNotNilThanValue(formWrapperEntity.form, (form) => form.changes)
+            : formWrapperEntity.entity,
+          (data) => Reflect.get(data, displayName),
+          UNDEF_SYMBOL
+        ),
+        UNDEF_SYMBOL
+      )
+    );
+
+/**
  * @stable [16.11.2019]
  * @param {IFormWrapperEntity<TEntity extends IEntity>} formWrapperEntity
  * @param {IGenericFieldEntity} fieldProps
