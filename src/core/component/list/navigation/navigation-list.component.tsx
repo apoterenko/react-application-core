@@ -64,7 +64,7 @@ export class NavigationList
                       alignItemsCenter={true}
                       className={toClassName(
                         'rac-navigation-list-group',
-                        ind === this.props.items.lastIndexOf(item) && 'rac-navigation-list-last-group',
+                        ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list-last-group',
                         isGroupItemActive
                           ? 'rac-navigation-list-item-active'
                           : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
