@@ -23,6 +23,7 @@ export class NavigationList
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
+    const items = this.props.items;
     return (
       <nav
         ref={this.selfRef}
@@ -30,7 +31,7 @@ export class NavigationList
         onScroll={this.onScroll}
       >
         <ListDivider/>
-        {this.props.items.map(this.toElement, this)}
+        {items.map(this.toElement, this)}
       </nav>
     );
   }
@@ -47,10 +48,12 @@ export class NavigationList
    * @param {INavigationItemEntity} item
    * @returns {JSX.Element}
    */
-  private toElement(item: INavigationItemEntity): JSX.Element {
+  private toElement(item: INavigationItemEntity, index: number): JSX.Element {
     const isExpanded = this.isItemExpanded(item);
     const fullLayoutModeEnabled = this.fullLayoutModeEnabled;
     const label = this.t(item.label);
+    const ind = this.props.items.length - 1 -
+      [...this.props.items].reverse().findIndex((itm) => itm.type === NavigationItemTypesEnum.SUB_HEADER);
 
     switch (item.type) {
       case NavigationItemTypesEnum.SUB_HEADER:
@@ -61,6 +64,7 @@ export class NavigationList
                       alignItemsCenter={true}
                       className={toClassName(
                         'rac-navigation-list-group',
+                        ind === this.props.items.lastIndexOf(item) && 'rac-navigation-list-last-group',
                         isGroupItemActive
                           ? 'rac-navigation-list-item-active'
                           : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
