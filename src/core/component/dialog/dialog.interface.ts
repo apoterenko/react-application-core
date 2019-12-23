@@ -43,7 +43,6 @@ export interface IDialogProps
 export interface IUniversalDialog2<TProps extends IUniversalDialogProps = IUniversalDialogProps, TState = {}>
   extends IUniversalDialog<TProps, TState>,
           IIsOpenWrapper,
-          IOnDeactivateWrapper<() => void>,
           IOnCloseWrapper,
           ICloseWrapper<() => void>,
           IOnAcceptWrapper {

@@ -1,11 +1,19 @@
 import { MDCDialog } from '@material/dialog';
 
-import { IUniversalDialog2, INativeMaterialDialogComponent } from '../../dialog';
+import {
+  INativeMaterialDialogComponent,
+  IUniversalDialog2,
+} from '../../dialog';
 import { MaterialPlugin } from './material.plugin';
-import { sequence, isFn } from '../../../util';
+import {
+  isFn,
+  sequence,
+} from '../../../util';
 
 export class DialogMaterialPlugin<TDialog extends IUniversalDialog2>
   extends MaterialPlugin<TDialog, INativeMaterialDialogComponent> {
+
+  private onDeactivateCallback: () => void;
 
   /**
    * @stable [04.10.2018]
@@ -35,8 +43,9 @@ export class DialogMaterialPlugin<TDialog extends IUniversalDialog2>
   /**
    * @stable [17.06.2019]
    */
-  private activate(): void {
+  private activate(onDeactivateCallback?: () => void): void {
     this.mdc.open();
+    this.onDeactivateCallback = onDeactivateCallback;
   }
 
   /**
@@ -54,5 +63,9 @@ export class DialogMaterialPlugin<TDialog extends IUniversalDialog2>
     if (isFn(onDeactivateFn)) {
       onDeactivateFn.call(this.component);
     }
+    if (isFn(this.onDeactivateCallback)) {
+      this.onDeactivateCallback();
+    }
+    this.onDeactivateCallback = null;
   }
 }

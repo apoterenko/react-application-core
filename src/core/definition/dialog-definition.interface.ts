@@ -2,6 +2,7 @@ import {
   IAcceptableWrapper,
   IActivateWrapper,
   IClosableWrapper,
+  IOnDeactivateWrapper,
 } from '../definitions.interface';
 import { IUniversalComponent } from './component-definition.interface';
 import { IUniversalComponentProps } from './props-definition.interface';
@@ -20,7 +21,8 @@ export interface IGenericDialogEntity
  */
 export interface IUniversalDialog<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends IUniversalComponent<TProps, TState>,
-    IClosableWrapper,
     IAcceptableWrapper,
-    IActivateWrapper {
+    IActivateWrapper,
+    IClosableWrapper,
+    IOnDeactivateWrapper {
 }

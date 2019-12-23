@@ -27,7 +27,7 @@ import { IWebComponentEntity } from '../../../definition';
 export interface IUniversalSearchToolbarConfiguration extends IUniversalComponentEntity,
                                                               IFilterConfiguration,
                                                               IOnActivateWrapper,
-                                                              IOnDeactivateWrapper<() => void>,
+                                                              IOnDeactivateWrapper,
                                                               IOnOpenWrapper,
                                                               IOnApplyWrapper,
                                                               IFullWrapper,

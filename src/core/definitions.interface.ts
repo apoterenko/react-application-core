@@ -49,7 +49,7 @@ export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 export interface IActionsWrapper<TActions> { actions?: TActions; }
 export interface IActionWrapper<TAction> { action?: TAction; }
 export interface IActivateDialogWrapper { activateDialog?(): void; }
-export interface IActivateWrapper { activate?(): void; }
+export interface IActivateWrapper { activate?(onDeactivateCallback?: () => void): void; }
 export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
 export interface IActiveValueWrapper<TActiveValue = number> { activeValue?: TActiveValue; }
 export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
@@ -264,10 +264,10 @@ export interface INoCacheWrapper { noCache?: boolean; }
 export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IOddWrapper { odd?: boolean; }
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
-export interface IOnClickWrapper<TValue = AnyT> { onClick?(payload?: TValue): void; }
+export interface IOnClickWrapper<TValue = AnyT> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
-export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(payload?: TValue): void; }
-export interface IOnDeactivateWrapper<TDeactivate> { onDeactivate?: TDeactivate; }
+export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
+export interface IOnDeactivateWrapper<TValue = AnyT> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }

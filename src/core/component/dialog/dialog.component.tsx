@@ -42,7 +42,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   /**
    * @stable [19.06.2019]
    */
-  public activate(): void {
+  public activate(onDeactivateCallback?: () => void): void {
     // Each plugin must override this method
   }
 
