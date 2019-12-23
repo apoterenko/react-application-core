@@ -8,6 +8,7 @@
    * @stable [18.10.2019]
    */
   @include rac-default-layout (
+    $rac-default-layout-drawer-background: $rac-default-layout-drawer-background,
     $rac-default-layout-drawer-transform: $rac-default-layout-drawer-transform,
     $rac-default-layout-drawer-width: $rac-default-layout-drawer-width,
     $rac-default-layout-drawer-z-index: $rac-default-layout-drawer-z-index
@@ -123,6 +124,8 @@
     .rac-drawer {
 
       .rac-navigation-list {
+        flex: 1;
+        position: relative;
 
         .rac-navigation-list-group {
           height: $rac-default-layout-drawer-navigation-list-group-subheader-height;                /* @stable [23.09.2018] */

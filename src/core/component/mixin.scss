@@ -3242,15 +3242,22 @@
  */
 @mixin rac-drawer (
   $rac-drawer-custom: unset,
+  /**/
+  $rac-drawer-background: unset,
+  $rac-drawer-display: unset,
+  $rac-drawer-flex-direction: unset,
   $rac-drawer-transform: unset,
   $rac-drawer-width: unset,
   $rac-drawer-z-index: unset
 ) {
   #{rac-build-cls(rac-drawer, $rac-drawer-custom)} {
     @include rac-styles (
-      $rac-styles-z-index: $rac-drawer-z-index,
+      $rac-styles-background: $rac-drawer-background,
+      $rac-styles-display: $rac-drawer-display,
+      $rac-styles-flex-direction: $rac-drawer-flex-direction,
       $rac-styles-transform: $rac-drawer-transform,
-      $rac-styles-width: $rac-drawer-width
+      $rac-styles-width: $rac-drawer-width,
+      $rac-styles-z-index: $rac-drawer-z-index
     );
   }
 }
@@ -3261,6 +3268,8 @@
 @mixin rac-default-layout (
   $rac-default-layout-custom: unset,
   $rac-default-layout-drawer-custom: unset,
+  $rac-default-layout-drawer-background: unset,
+  $rac-default-layout-drawer-display: unset,
   $rac-default-layout-drawer-transform: unset,
   $rac-default-layout-drawer-width: unset,
   $rac-default-layout-drawer-z-index: unset
@@ -3268,6 +3277,8 @@
   #{rac-build-cls(rac-default-layout, $rac-default-layout-custom)} {
     @include rac-drawer (
       $rac-drawer-custom: $rac-default-layout-drawer-custom,
+      $rac-drawer-background: $rac-default-layout-drawer-background,
+      $rac-drawer-display: $rac-default-layout-drawer-display,
       $rac-drawer-transform: $rac-default-layout-drawer-transform,
       $rac-drawer-width: $rac-default-layout-drawer-width,
       $rac-drawer-z-index: $rac-default-layout-drawer-z-index

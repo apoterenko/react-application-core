@@ -4,7 +4,11 @@ import * as R from 'ramda';
 import { Drawer } from '../../drawer';
 import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
-import { joinClassName, orNull, isFn, cancelEvent } from '../../../util';
+import {
+  isFn,
+  joinClassName,
+  orNull,
+} from '../../../util';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
 import { Header, SubHeader } from '../../header';
@@ -34,6 +38,7 @@ import {
 } from '../../../definition';
 import { Overlay } from '../../overlay';
 import {
+  PerfectScrollPlugin,
   PersistentScrollPlugin,
   SelectedElementPlugin,
   StickyHeaderPlugin,
@@ -70,7 +75,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.onProfileMenuClick = this.onProfileMenuClick.bind(this);
     this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
-    this.onNotificationsClick = this.onNotificationsClick.bind(this);
   }
 
   /**
@@ -98,7 +102,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    * @param {IBaseEvent} event
    */
   private onUserMenuActionClick(event: IBaseEvent): void {
-    cancelEvent(event);
     this.userMenuRef.current.show();
   }
 
@@ -146,12 +149,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [01.12.2018]
+   * @stable [23.12.2019]
    * @param {IXYEntity} xy
    */
   private onNavigationListScroll(xy: IXYEntity): void {
-    const payloadWrapper: IPayloadWrapper<ILayoutEntity> = {payload: xy};
-    this.dispatchCustomType(LAYOUT_XY_UPDATE_ACTION_TYPE, payloadWrapper);
+    this.dispatchCustomType<IPayloadWrapper<ILayoutEntity>>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
   }
 
   /**
@@ -214,22 +216,15 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [11.02.2019]
-   */
-  private onNotificationsClick(): void {
-    this.setState({notifications: !this.state.notifications});
-  }
-
-  /**
    * @stable [18.09.2018]
    * @returns {JSX.Element}
    */
   private get drawerElement(): JSX.Element {
-    const props = this.props;
     const layoutFullModeEnabled = this.layoutFullModeEnabled;
     return (
       <Drawer mini={!layoutFullModeEnabled}>
         <FlexLayout row={true}
+                    full={false}
                     alignItemsCenter={true}
                     className='rac-drawer-toolbar-spacer'
                     onClick={this.onLogoMenuActionClick}>
@@ -237,25 +232,19 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
                    appVersion={ENV.appVersion}
                    onClick={this.onProfileMenuClick}/>
         </FlexLayout>
-        <NavigationList {...props.layout}
-                        dividerRendered={false}
-                        items={this.menuItems}
-                        onScroll={this.onNavigationListScroll}
-                        onGroupClick={this.onNavigationListGroupClick}
-                        plugins={[PersistentScrollPlugin]}/>
+        {this.navigationListElement}
       </Drawer>
     );
   }
 
   /**
-   * @stable [17.10.2018]
-   * @param {IBaseEvent} event
+   * @stable [04.12.2019]
    */
-  private onProfileMenuClick(event: IBaseEvent): void {
-    cancelEvent(event);
-
-    const payloadWrapper: IPayloadWrapper<LayoutModeEnum> = {payload: this.layoutMode};
-    this.dispatchCustomType(LAYOUT_MODE_UPDATE_ACTION_TYPE, payloadWrapper);
+  private onProfileMenuClick(): void {
+    this.dispatchCustomType<IPayloadWrapper<LayoutModeEnum>>(
+      LAYOUT_MODE_UPDATE_ACTION_TYPE,
+      {payload: this.layoutMode}
+    );
   }
 
   /**
@@ -268,7 +257,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const title = props.title || (runtimeTitle && runtimeTitle.label);
 
     return (
-      <Main plugins={[StickyHeaderPlugin, SelectedElementPlugin]}>
+      <Main plugins={[
+        PerfectScrollPlugin,
+        SelectedElementPlugin,
+        StickyHeaderPlugin
+      ]}>
         <SubHeader {...props.headerConfiguration}
                    title={title}
                    onNavigationActionClick={this.onHeaderNavigationActionClick}
@@ -330,6 +323,18 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
               options={this.USER_MENU_OPTIONS}
               onSelect={this.onUserMenuSelect}/>
       </div>
+    );
+  }
+
+  private get navigationListElement(): JSX.Element {
+    return (
+      <NavigationList
+        {...this.props.layout}
+        dividerRendered={false}
+        items={this.menuItems}
+        onScroll={this.onNavigationListScroll}
+        onGroupClick={this.onNavigationListGroupClick}
+        plugins={[PersistentScrollPlugin, PerfectScrollPlugin]}/>
     );
   }
 }

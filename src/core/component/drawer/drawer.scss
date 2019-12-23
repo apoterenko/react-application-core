@@ -1,9 +1,14 @@
 @import '../constant';
+@import '../mixin';
 
-// Drawer [FRAMEWORK-][RAC+]
 .rac {
 
-  .rac-drawer {                                                                      /* @stable [18.09.2018] */
-    background: $rac-drawer-background;                                              /* @stable [17.09.2018] */
-  }
+  /**
+   * @drawer
+   * @stable [23.12.2019]
+   */
+  @include rac-drawer (
+    $rac-drawer-display: $rac-drawer-display,
+    $rac-drawer-flex-direction: $rac-drawer-flex-direction
+  );
 }

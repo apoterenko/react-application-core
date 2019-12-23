@@ -702,9 +702,6 @@ $rac-menu-dialog-icon-close-color: $rac-dialog-color-0 !default;
 $rac-menu-dialog-icon-close-margin: 0 0 $rac-offset-1 auto !default;
 $rac-menu-dialog-icon-close-size: 24px !default;
 
-/* @stable [17.09.2018] */
-$rac-drawer-background: $color-5 !default;
-
 /* @stable [03.08.2018] */
 $rac-dnd-border: 1px dashed $color-4 !default;
 $rac-dnd-font-size: $rac-default-font-size !default;
@@ -765,7 +762,12 @@ $rac-snackbar-button-color: $color-5 !default;
 $rac-snackbar-error-button-color: $rac-snackbar-button-color !default;
 $rac-snackbar-error-background-color: $color-11 !default;
 
+/* @stable [23.12.2019] */
+$rac-drawer-display: flex !default;
+$rac-drawer-flex-direction: column !default;
+
 /* @stable [13.09.2018] */
+$rac-default-layout-drawer-background: $rac-color-0-4 !default;
 $rac-default-layout-drawer-mini-width: 48px !default;
 $rac-default-layout-drawer-navigation-list-group-subheader-height: 40px !default;
 $rac-default-layout-drawer-navigation-list-icon-width: 48px !default;

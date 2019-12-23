@@ -552,24 +552,25 @@ export const mapUserWrapperEntity = (userWrapper: IUserWrapperEntity): IUserWrap
  * @param {IEditableEntity} editableEntity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
-export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
-                                                           editableEntity: IEditableEntity): IExtendedEntity<TEntity> => {
-  let originalEntity: TEntity;
-  const newEntity = isNewEntity(entity);
-  const defaultChanges = selectDefaultChanges<TEntity>(editableEntity);
-  ifNotNilThanValue(
-    nvl(defaultChanges, entity),
-    () => (originalEntity = {...defaultChanges as {}, ...entity as {}} as TEntity)
-  );
-  const changes = selectChanges<TEntity>(editableEntity);
-  return defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
-    changes,
-    entity: {...originalEntity as {}, ...changes as {}} as TEntity,
-    entityId: orUndef(!newEntity, () => entity.id),
-    newEntity,
-    originalEntity,
-  });
-};
+export const mapExtendedEntity =
+  <TEntity extends IEntity = IEntity>(entity: TEntity,
+                                      editableEntity: IEditableEntity<TEntity>): IExtendedEntity<TEntity> => {
+    let originalEntity;
+    const newEntity = isNewEntity(entity);
+    const defaultChanges = selectDefaultChanges<TEntity>(editableEntity);
+    ifNotNilThanValue(
+      nvl(defaultChanges, entity),
+      () => (originalEntity = {...defaultChanges as {}, ...entity as {}} as TEntity)
+    );
+    const changes = selectChanges<TEntity>(editableEntity);
+    return defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
+      changes,
+      entity: {...originalEntity as {}, ...changes as {}} as TEntity,
+      entityId: orUndef(!newEntity, () => entity.id),
+      newEntity,
+      originalEntity,
+    });
+  };
 
 /**
  * @stable [06.09.2019]
@@ -579,8 +580,8 @@ export const mapExtendedEntity = <TEntity extends IEntity>(entity: TEntity,
  */
 export const mapListSelectedExtendedEntity =
   <TEntity extends IEntity>(listWrapper: IListWrapperEntity<TEntity>,
-                            editableEntity: IEditableEntity): IExtendedEntity<TEntity> =>
-    mapExtendedEntity(
+                            editableEntity: IEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
+    mapExtendedEntity<TEntity>(
       selectListSelectedEntity(listWrapper),
       editableEntity
     );
