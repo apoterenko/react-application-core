@@ -74,7 +74,7 @@ export class LogManagerEventPayloadFactory
    */
   protected getEventLabel(payload: AnyT): string {
     if (R.isNil(payload)) {
-      return '';
+      return '[-]';
     }
     try {
       return `:${JSON.stringify(payload)}`;
@@ -83,6 +83,11 @@ export class LogManagerEventPayloadFactory
         '[$LogManagerEventPayloadFactory][getEventLabel] The system error has occurred:',
         e
       );
+      try {
+        return `:${String(payload)}`;
+      } catch (ignored) {
+        // Do nothing
+      }
     }
   }
 }

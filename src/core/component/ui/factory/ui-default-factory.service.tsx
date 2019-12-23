@@ -280,6 +280,6 @@ export class UIDefaultFactory implements IUiFactory {
    * @param {Error} e
    */
   protected logError(errorCategory: ErrorEventCategoriesEnum, e: Error): void {
-    this.logManager.send(errorCategory, e.name, e.stack || e.message);
+    this.logManager.send(errorCategory, e.name, {message: e.message, stack: e.stack});
   }
 }
