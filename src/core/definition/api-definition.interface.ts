@@ -8,7 +8,6 @@ import {
   IEntity,
   IExtraParamsWrapper,
   IKeyValue,
-  IMergerWrapper,
   IOperationWrapper,
 } from '../definitions.interface';
 import { IOperationEntity } from './operation-definition.interface';
@@ -17,8 +16,7 @@ import { IExtendedEntity } from './entity-definition.interface';
 export interface IApiEntity<TEntity extends IEntity = IEntity>
   extends IExtendedEntity<TEntity>,
     IChangesWrapper<TEntity>,
-    IDiffWrapper<TEntity>,
-    IMergerWrapper<TEntity> {
+    IDiffWrapper<TEntity> {
 }
 
 /**

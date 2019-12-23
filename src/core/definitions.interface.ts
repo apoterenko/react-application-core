@@ -243,7 +243,6 @@ export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMenuConfigurationWrapper<TMenuConfiguration> { menuConfiguration?: TMenuConfiguration; }
 export interface IMenuOptionsWrapper<TMenuOptions> { menuOptions?: TMenuOptions; }
-export interface IMergerWrapper<TMerger> { merger?: TMerger; }
 export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }
 export interface IMessagesWrapper<TMessages> { messages?: TMessages; }
 export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
@@ -398,6 +397,7 @@ export interface ISuccessWrapper<TSuccess = boolean> { success?: TSuccess; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
+export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITitleWrapper { title?: string; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
@@ -1021,13 +1021,6 @@ export interface IBackwardRenderedWrapper<TBackwardRendered = boolean> {
  */
 export interface IForwardRenderedWrapper<TForwardRendered = boolean> {
   forwardRendered?: TForwardRendered;
-}
-
-/**
- * @stable [09.06.2018]
- */
-export interface ITextWrapper<TText = string> {
-  text?: TText;
 }
 
 /* @stable - 19.04.2018 */

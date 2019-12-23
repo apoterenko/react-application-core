@@ -31,6 +31,7 @@ import {
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
+  IApiEntity,
 } from '../definition';
 import {
   AnyT,
@@ -567,6 +568,30 @@ export const mapExtendedEntity =
       changes,
       entity: {...originalEntity as {}, ...changes as {}} as TEntity,
       entityId: orUndef(!newEntity, () => entity.id),
+      newEntity,
+      originalEntity,
+    });
+  };
+
+/**
+ * @stable [23.12.2019]
+ * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
+ * @returns {IApiEntity<TEntity extends IEntity>}
+ */
+export const mapApiEntity =
+  <TEntity extends IEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IApiEntity<TEntity> => {
+    const {
+      changes,
+      entity,
+      originalEntity,
+    } = extendedEntity;
+    const entityId = entity.id;
+    const newEntity = R.isNil(entityId);
+    return defValuesFilter<IApiEntity<TEntity>, IApiEntity<TEntity>>({
+      changes,
+      diff: newEntity ? entity : changes,
+      entity,
+      entityId,
       newEntity,
       originalEntity,
     });

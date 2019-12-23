@@ -16,6 +16,7 @@ import {
   isString,
   isUndef,
   joinClassName,
+  mapApiEntity,
   notNilValuesArrayFilter,
   orNull,
   orUndef,
@@ -42,7 +43,6 @@ import {
   IFormProps,
   INITIAL_FORM_ENTITY,
 } from '../../definition';
-import { mapApiEntity } from '../../api';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
@@ -159,11 +159,12 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [23.12.2019]
    * @returns {IApiEntity}
    */
   public get apiEntity(): IApiEntity {
-    return mapApiEntity(this.changes, this.entity, this.originalEntity);
+    const props = this.props;
+    return mapApiEntity({changes: props.changes, entity: this.entity, originalEntity: props.originalEntity});
   }
 
   /**
@@ -332,7 +333,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     const fieldDisplayName = fieldProps.displayName || (fieldConfiguration ? fieldConfiguration.displayName : null);
 
     return isUndef(fieldProps.displayValue) && fieldDisplayName
-        ? Reflect.get(this.entity || this.changes, fieldDisplayName)
+        ? Reflect.get(this.entity, fieldDisplayName)
         : fieldProps.displayValue;
   }
 
@@ -361,22 +362,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   private get entity(): IEntity {
     return this.props.entity;
-  }
-
-  /**
-   * @stable [10.06.2018]
-   * @returns {IEntity}
-   */
-  private get originalEntity(): IEntity {
-    return this.props.originalEntity;
-  }
-
-  /**
-   * @stable - 01.04.2018
-   * @returns {IEntity}
-   */
-  private get changes(): IEntity {
-    return this.form.changes;
   }
 
   /**
