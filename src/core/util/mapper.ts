@@ -585,7 +585,7 @@ export const mapApiEntity =
       entity,
       originalEntity,
     } = extendedEntity;
-    const entityId = entity.id;
+    const entityId = ifNotNilThanValue(entity, () => entity.id, UNDEF_SYMBOL);
     const newEntity = R.isNil(entityId);
     return defValuesFilter<IApiEntity<TEntity>, IApiEntity<TEntity>>({
       changes,
