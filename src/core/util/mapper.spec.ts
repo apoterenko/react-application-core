@@ -24,33 +24,5 @@ describe('util/mapper', () => {
         originalEntity: {name: 'name1'},
       });
     });
-
-    it('test3', () => {
-      const extendedEntity = mapExtendedEntity({name: 'name1'}, undefined);
-
-      expect(extendedEntity).toEqual({
-        entity: {name: 'name1'},
-        newEntity: true,
-        originalEntity: {name: 'name1'},
-      });
-    });
-
-    it('test4', () => {
-      const extendedEntity = mapExtendedEntity(null, undefined);
-
-      expect(extendedEntity).toEqual({
-        entity: {},
-        newEntity: true,
-      });
-    });
-
-    it('test5', () => {
-      const extendedEntity = mapExtendedEntity(undefined, undefined);
-
-      expect(extendedEntity).toEqual({
-        entity: {},
-        newEntity: true,
-      });
-    });
   });
 });
