@@ -11,6 +11,7 @@ import {
   getLogManager,
   getNumberConverter,
   getPermissionsManager,
+  getPhoneConverter,
   getSettings,
   getStateSerializer,
   getStorage,
@@ -32,6 +33,7 @@ import {
   INavigateEntity,
   IOperationEntity,
   IPermissionsManager,
+  IPhoneConverter,
   IRoutesEntity,
   IStateSerializer,
   IStorage,
@@ -255,6 +257,14 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get nc(): INumberConverter {
     return getNumberConverter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @returns {IPhoneConverter}
+   */
+  protected get pc(): IPhoneConverter {
+    return getPhoneConverter();
   }
 
   /**

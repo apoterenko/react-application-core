@@ -37,7 +37,7 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
  * @stable [29.11.0219]
  */
 export interface IPhoneSettingsEntity {
-  uiCountryAbbreviation?: string;
+  countryAbbr?: string;
   uiMask?: Array<string|RegExp>;
 }
 
@@ -45,7 +45,7 @@ export interface IPhoneSettingsEntity {
  * @stable [29.11.0219]
  */
 export const DEFAULT_PHONE_SETTINGS_ENTITY = Object.freeze<IPhoneSettingsEntity>({
-  uiCountryAbbreviation: 'US',
+  countryAbbr: 'US',
   uiMask: ['+', /\d/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
 });
 

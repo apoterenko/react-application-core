@@ -20,6 +20,7 @@ import {
   ILogManager,
   IModifyEntityPayloadFactory,
   IPermissionsManager,
+  IPhoneConverter,
   IStateSerializer,
   IStorage,
   IStoreEntity,
@@ -41,6 +42,12 @@ import { TranslatorT } from '../translation';
  * @returns {INumberConverter}
  */
 export const getNumberConverter = (): INumberConverter => staticInjector(DI_TYPES.NumberConverter);
+
+/**
+ * @stable [24.12.2019]
+ * @returns {IPhoneConverter}
+ */
+export const getPhoneConverter = (): IPhoneConverter => staticInjector(DI_TYPES.PhoneConverter);
 
 /**
  * @stable [16.11.2019]

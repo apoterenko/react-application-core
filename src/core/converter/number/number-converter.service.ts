@@ -179,7 +179,7 @@ export class NumberConverter implements INumberConverter {
     const v = isString(value) ? value as string : String(value);
     let phoneNumber;
     try {
-      phoneNumber = this.phoneUtilInstance.parse(v, this.settings.phone.uiCountryAbbreviation);
+      phoneNumber = this.phoneUtilInstance.parse(v, this.settings.phone.countryAbbr);
     } catch (e) {
       return v;
     }

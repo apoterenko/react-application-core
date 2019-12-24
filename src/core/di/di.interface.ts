@@ -27,6 +27,7 @@ export const DI_TYPES = Object.freeze({
   NotVersionedSessionStorage: Symbol('NotVersionedSessionStorage'),
   NumberConverter: Symbol('NumberConverter'),
   PermissionsManager: Symbol('PermissionsManager'),
+  PhoneConverter: Symbol('PhoneConverter'),
   Router: Symbol('Router'),
   RouterStoreProxyFactory: Symbol('RouterStoreProxyFactory'),
   Routes: Symbol('Routes'),
