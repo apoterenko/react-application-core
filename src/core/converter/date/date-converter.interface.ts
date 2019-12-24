@@ -92,9 +92,6 @@ export interface IDateConverter {
   toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict?: boolean): moment.Moment;
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
-  formatDate(date: DateTimeLikeTypeT, outputFormat: string): string;
-  formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
-  formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
   getCurrentDate(): Date;
@@ -108,9 +105,7 @@ export interface IDateConverter {
                     date?: DateTimeLikeTypeT,
                     inputFormat?: string): Date;
   get30DaysAgo(): Date;
-  getXDaysLater(days: number): Date;
   getXDaysAgo(days: number): Date;
-  addXDays(date: Date, days: number): Date;
   getLocalizedMonth(index: number): string;
   getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
@@ -123,5 +118,4 @@ export interface IDateConverter {
   isSameDay(date1: Date, date2: Date): boolean;
   isWeekend(day: number): boolean;
   combine(dateAsString: string, timeAsString: string): string;
-  shrinkDate(dateTime: DateTimeLikeTypeT, separator?: string): DateTimeLikeTypeT;
 }

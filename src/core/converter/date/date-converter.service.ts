@@ -569,22 +569,8 @@ export class DateConverter implements IDateConverter {
   /**
    * @deprecated
    */
-  public getXDaysLater(days: number): Date {
-    return this.getCurrentMomentDate().add(days, 'days').toDate();
-  }
-
-  /**
-   * @deprecated
-   */
   public getXDaysAgo(days: number): Date {
     return this.getCurrentMomentDate().subtract(days, 'days').toDate();
-  }
-
-  /**
-   * @deprecated
-   */
-  public addXDays(date: Date, days: number): Date {
-    return this.toMomentDate(date).add(days, 'days').toDate();
   }
 
   /**
@@ -618,18 +604,6 @@ export class DateConverter implements IDateConverter {
    */
   public getYesterdayDate(): Date {
     return this.tryAddXDays(-1);
-  }
-
-  public formatDate(date: DateTimeLikeTypeT, outputFormat: string): string {
-    return this.format(date, this.dateFormat, outputFormat);
-  }
-
-  public formatTimeFromDateTime(date: DateTimeLikeTypeT): string {
-    return this.formatDateTime(date, this.timeFormat);
-  }
-
-  public formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string {
-    return this.format(date, this.dateTimeFormat, outputFormat);
   }
 
   public getLocalizedMonth(index: number): string {
@@ -716,16 +690,6 @@ export class DateConverter implements IDateConverter {
    */
   public combine(dateAsString: string, timeAsString: string): string {
     return [dateAsString, timeAsString].join(' ');
-  }
-
-  /**
-   * @stable [25.08.2018]
-   * @param {DateTimeLikeTypeT} dateTime
-   * @param {string} separator
-   * @returns {DateTimeLikeTypeT}
-   */
-  public shrinkDate(dateTime: DateTimeLikeTypeT, separator = 'T'): DateTimeLikeTypeT {
-    return isString(dateTime) ? (dateTime as string).split(separator)[0] : dateTime;
   }
 
   /**
