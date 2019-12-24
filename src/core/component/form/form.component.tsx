@@ -64,6 +64,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   constructor(props: IFormProps) {
     super(props);
+    this.doSubmit = this.doSubmit.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -226,7 +227,11 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
-  private onSubmit(event: IBaseEvent): void {
+  private doSubmit(): void {
+    this.onSubmit();
+  }
+
+  private onSubmit(event?: IBaseEvent): void {
     cancelEvent(event);
 
     const props = this.props;
@@ -396,6 +401,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   private get formActionsElement(): JSX.Element {
     const props = this.props;
+    const submitConfiguration = props.submitConfiguration || {};
     const messages = this.settings.messages;
     const actions = notNilValuesArrayFilter<IButtonProps>(
       orNull(
@@ -419,8 +425,8 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         error: !R.isNil(this.form.error),
         text: props.submitText || (this.isFormOfNewEntity() ? messages.create : messages.save),
         ...props.buttonConfiguration,
-        ...props.submitConfiguration,
-        onClick: null,
+        ...submitConfiguration,
+        onClick: orNull(submitConfiguration.type === 'button', () => this.doSubmit),
       }
     );
     return (
