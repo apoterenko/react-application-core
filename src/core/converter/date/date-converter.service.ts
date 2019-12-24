@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import 'moment-timezone';
 
 import { lazyInject, DI_TYPES } from '../../di';
-import { DEFAULT_TIME_FROM, DEFAULT_TIME_TO, IKeyValue } from '../../definitions.interface';
+import { IKeyValue } from '../../definitions.interface';
 import {
   defValuesFilter,
   ifNotNilThanValue,
@@ -137,15 +137,6 @@ export class DateConverter implements IDateConverter {
    */
   public fromDateToYear(date: DateTimeLikeTypeT = this.currentDate): number {
     return this.toYear(date, this.dateFormat);
-  }
-
-  /**
-   * @stable [09.11.2018]
-   * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
-   * @returns {string} [Example: Apr 07 08:54 PM]
-   */
-  public fromDateTimeToPstDateTime(date: DateTimeLikeTypeT = this.currentDate): string {
-    return this.fromDateTimeToArbitraryFormat(date, this.pstDateTimeFormat);
   }
 
   /**
@@ -568,30 +559,6 @@ export class DateConverter implements IDateConverter {
     });
   }
 
-  public fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string {
-    return this.fromDateTimeToArbitraryFormat(date, this.uiDateTimeFormat);
-  }
-
-  /**
-   * @test
-   * @param {string} startUiDate [2018-01-31]
-   * @param {string} startUiTime [21:58:59]
-   * @returns {string} The formatted value [2018-01-31T21:58:59-08:00]
-   */
-  public fromStartUiDateTimeToDateTime(startUiDate: string, startUiTime = DEFAULT_TIME_FROM): string {
-    return this.fromUiDateTimeToDateTime(startUiDate, startUiTime);
-  }
-
-  /**
-   * @test
-   * @param {string} endUiDate [2018-01-31]
-   * @param {string} endUiTime [23:59:59]
-   * @returns {string} The formatted value [2018-01-31T23:59:59-08:00]
-   */
-  public fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime = DEFAULT_TIME_TO): string {
-    return this.fromUiDateTimeToDateTime(endUiDate, endUiTime);
-  }
-
   /**
    * @deprecated
    */
@@ -657,28 +624,12 @@ export class DateConverter implements IDateConverter {
     return this.format(date, this.dateFormat, outputFormat);
   }
 
-  public formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string {
-    return this.formatDateTime(date, this.dateTimeFormat);
-  }
-
   public formatTimeFromDateTime(date: DateTimeLikeTypeT): string {
     return this.formatDateTime(date, this.timeFormat);
   }
 
   public formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateTimeFormat, outputFormat);
-  }
-
-  public formatPSTDate(date: DateTimeLikeTypeT = new Date()): string {
-    return this.formatDate(date, this.dateTimeSettings.pstDateFormat);
-  }
-
-  public appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat: string = this.dateFormat): Date {
-    let momentDate = this.toMomentDate(date, inputFormat);
-    data.forEach((item) => {
-      momentDate = momentDate.add(item[0] as moment.DurationInputArg1, item[1] as moment.DurationInputArg2);
-    });
-    return momentDate.toDate();
   }
 
   public getLocalizedMonth(index: number): string {

@@ -8,8 +8,6 @@ export const ONE_DOLLAR_VALUE = 1;
 export const DEFAULT_CURRENCY_PRECISION_VALUE = 2;
 export const DEFAULT_PAGE_SIZE = 50;
 export const DEFAULT_MAX_PAGE_SIZE = 1000000;
-export const DEFAULT_TIME_FROM = '00:00:00';
-export const DEFAULT_TIME_TO = '23:59:59';
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
@@ -19,8 +17,6 @@ export const ACTION_PREFIX = '$$-RAC-';
 /**
  * Core fields
  */
-export const FROM_DATE_FIELD_NAME = 'fromDate';
-export const TO_DATE_FIELD_NAME = 'toDate';
 export const FROM_TIME_FIELD_NAME = 'fromTime';
 export const TO_TIME_FIELD_NAME = 'toTime';
 export const TIME_FIELD_NAME = 'time';
@@ -107,6 +103,7 @@ export interface IComputedMatchWrapper<TComputedMatch> { computedMatch?: TComput
 export interface IConditionWrapper<TValue = () => void> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
+export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }

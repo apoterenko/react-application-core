@@ -1,5 +1,4 @@
 export * from './action';
-export * from './api';
 export * from './auth';
 export * from './log';
 export * from './application';

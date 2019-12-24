@@ -17,7 +17,6 @@ export interface IDateConverter {
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
-  fromDateTimeToPstDateTime(date?: DateTimeLikeTypeT): string;
   fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
   fromDateTimeToPstTime(date?: DateTimeLikeTypeT): string;
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
@@ -93,21 +92,15 @@ export interface IDateConverter {
   toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict?: boolean): moment.Moment;
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
   fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
-  fromDateTimeToUiDateTime(date: DateTimeLikeTypeT): string;
-  fromStartUiDateTimeToDateTime(startUiDate: string, startUiTime?: string): string;
-  fromEndUiDateTimeToDateTime(endUiDate: string, endUiTime?: string): string;
   formatDate(date: DateTimeLikeTypeT, outputFormat: string): string;
-  formatDateTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatTimeFromDateTime(date: DateTimeLikeTypeT): string;
   formatDateTime(date: DateTimeLikeTypeT, outputFormat: string): string;
-  formatPSTDate(date: DateTimeLikeTypeT): string;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
   getCurrentDate(): Date;
   getCurrentTime(): Date;
   getStartOfCurrentDate(): Date;
   getYesterdayDate(): Date;
-  appendToDate(date: DateTimeLikeTypeT, data: Array<Array<number|string>>, inputFormat?: string): Date;
   getFirstDayOfMonth(monthsAgo?: number,
                      date?: DateTimeLikeTypeT,
                      inputFormat?: string): Date;

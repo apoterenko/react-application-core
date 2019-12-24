@@ -8,7 +8,6 @@ export * from './component/connector/connector.mapper';
 export * from './component/connector/universal-connector.decorator';
 export * from './component/connector/universal-connector.mapper';
 export * from './component/list/list-action.builder';
-export * from './component/list/list.container';
 export * from './component/list/list.interface';
 export * from './component/list/list.reducer';
 export * from './configurations-definitions.interface';
