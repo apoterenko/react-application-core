@@ -9,7 +9,6 @@ import {
   defValuesFilter,
   ifNotNilThanValue,
   isObjectNotEmpty,
-  isString,
   NUMBER_COMPARATOR,
   orNull,
   orUndef,
@@ -131,15 +130,6 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [04.03.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @returns {number}
-   */
-  public fromDateToYear(date: DateTimeLikeTypeT = this.currentDate): number {
-    return this.toYear(date, this.dateFormat);
-  }
-
-  /**
    * @stable [09.11.2018]
    * @param {DateTimeLikeTypeT} date [Example: 2018-11-30T03:00:00+03:00]
    * @returns {string} [Example: Nov 30]
@@ -219,16 +209,6 @@ export class DateConverter implements IDateConverter {
    */
   public fromUiDateToDate(date: DateTimeLikeTypeT): string {
     return this.format(date, this.uiDateFormat, this.dateFormat);
-  }
-
-  /**
-   * @stable [24.11.2018]
-   * @param {string} date [Example: 2018-11-24]
-   * @param {string} time [Example: 03:47:17]
-   * @returns {string} [Example: Nov 24]
-   */
-  public fromUiDateTimeToPstDate(date: string, time: string): string {
-    return this.fromDateTimeToPstDate(this.fromUiDateTimeToDateTime(date, time));
   }
 
   /**
@@ -774,31 +754,7 @@ export class DateConverter implements IDateConverter {
     return this.combine(this.uiDateFormat, this.uiTimeFormat);
   }
 
-  private get pstDateTimeFormat(): string {
-    return this.combine(this.dateTimeSettings.pstDateFormat, this.dateTimeSettings.pstTimeFormat);
-  }
-
   private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
-  }
-
-  /**
-   * @stable [04.03.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} inputFormat
-   * @returns {number}
-   */
-  private toYear(date: DateTimeLikeTypeT, inputFormat: string): number {
-    return this.toDate(date, inputFormat).getFullYear();
-  }
-
-  /**
-   * @stable [04.03.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} inputFormat
-   * @returns {number}
-   */
-  private toMonth(date: DateTimeLikeTypeT, inputFormat: string): number {
-    return this.toDate(date, inputFormat).getMonth();
   }
 }
