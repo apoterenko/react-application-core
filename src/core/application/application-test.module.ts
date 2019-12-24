@@ -1,4 +1,5 @@
-import '../converter/converter-test.module';
+import '../converter/date/date-converter.module';
+import '../converter/number/number-converter.module';
 import '../settings/settings.module';
 
 import { clone } from '../util';

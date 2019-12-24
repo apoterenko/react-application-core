@@ -1,23 +1,8 @@
-import { staticInjector } from '../../di';
-import { DateConverter } from './date-converter.service';
+import { getDateConverter } from '../../di';
 
-const dateConverter = staticInjector(DateConverter);
+const dateConverter = getDateConverter();
 
 describe('date-converter.service', () => {
-  describe('tryAddXDaysAsMomentDate', () => {
-    it('test1', () => {
-      const value = dateConverter.tryAddXDaysAsMomentDate(30, new Date('2036-07-31')).toDate();
-      expect(value).toEqual(new Date('2036-08-30'));
-    });
-    it('test2', () => {
-      const value = dateConverter.tryAddXDaysAsMomentDate(20, '2036-07-31').format('YYYY-MM-DD');
-      expect(value).toEqual('2036-08-20');
-    });
-    it('test3', () => {
-      const value = dateConverter.tryAddXDaysAsMomentDate(20, '2036-07-31 12:00:00').format('YYYY-MM-DD HH:mm:ss');
-      expect(value).toEqual('2036-08-20 12:00:00');
-    });
-  });
 
   describe('fromDateToUiDate', () => {
     // https://www.timeanddate.com/worldclock/converter.html
