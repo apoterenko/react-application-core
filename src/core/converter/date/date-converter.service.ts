@@ -10,6 +10,7 @@ import {
   ifNotNilThanValue,
   isObjectNotEmpty,
   NUMBER_COMPARATOR,
+  nvl,
   orNull,
   orUndef,
 } from '../../util';
@@ -17,7 +18,7 @@ import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../setti
 import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
-  IMomentConfigEntity,
+  IDateTimeConfigEntity,
   MomentT,
 } from '../../definition';
 
@@ -91,10 +92,10 @@ export class DateConverter implements IDateConverter {
 
   /**
    * @stable [22.12.2019]
-   * @param {IMomentConfigEntity} cfg
+   * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public dateAsString(cfg: IMomentConfigEntity): string {
+  public dateAsString(cfg: IDateTimeConfigEntity): string {
     const {
       date,
       outputFormat,
@@ -157,12 +158,16 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [04.10.2019]
-   * @param {DateTimeLikeTypeT} date
+   * @stable [25.12.2019]
+   * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromDateTimeToUiDate(date: DateTimeLikeTypeT): string {
-    return this.fromDateTimeToArbitraryFormat(date, this.uiDateFormat);
+  public fromDateTimeToUiDate(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({
+      inputFormat: this.dateTimeFormat,
+      outputFormat: this.uiDateFormat,
+      ...cfg,
+    });
   }
 
   /**
@@ -184,13 +189,20 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [24.11.2018]
-   * @param {string} date [Example: 2018-11-24]
-   * @param {string} time [Example: 03:47:17]
-   * @returns {string} [Example: 2018-11-24T03:47:17+03:00]
+   * @stable [25.12.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
    */
-  public fromUiDateTimeToDateTime(date: string, time: string): string {
-    return this.format(this.combine(date, time), this.uiDateTimeFormat, this.dateTimeFormat);
+  public fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({
+      outputFormat: this.dateTimeFormat,
+      ...cfg,
+      date: `${cfg.date} ${nvl(cfg.time, this.uiDefaultTime)}`.trim(),
+      inputFormat: `${
+        nvl(cfg.inputFormat, this.uiDateFormat)} ${
+        nvl(cfg.inputTimeFormat, this.uiTimeFormat)
+        }`.trim(),
+    });
   }
 
   /**
@@ -527,10 +539,10 @@ export class DateConverter implements IDateConverter {
 
   /**
    * @stable [22.12.2019]
-   * @param {IMomentConfigEntity} cfg
+   * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromDateToUiDate(cfg: IMomentConfigEntity): string {
+  public fromDateToUiDate(cfg: IDateTimeConfigEntity): string {
     return this.dateAsString({
       strict: false, // UTC: ignore a time, by default (+00:00 | Z)
       inputFormat: this.dateFormat,
@@ -554,7 +566,7 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [29.08.2019]
+   * @stable [25.12.2019]
    * @returns {Date}
    */
   public getCurrentDate(): Date {
@@ -695,20 +707,27 @@ export class DateConverter implements IDateConverter {
 
   /**
    * @stable [22.12.2019]
-   * @param {IMomentConfigEntity} cfg
+   * @param {IDateTimeConfigEntity} cfg
    * @returns {MomentT}
    */
-  public asMomentDate(cfg: IMomentConfigEntity): MomentT {
+  public asMomentDate(cfg: IDateTimeConfigEntity): MomentT {
     const {
       date,
       inputFormat,
       strict = true,
       zone = this.timeZone,
     } = cfg;
-    const momentDate = date instanceof Date
-      ? moment(date)
-      : moment(date, inputFormat, strict);
-    return zone ? moment.tz(date, zone) : momentDate;
+    return zone
+      ? (
+        date instanceof Date
+          ? moment.tz(date, zone)
+          : moment.tz(date, inputFormat, strict, zone)
+      )
+      : (
+        date instanceof Date
+          ? moment(date)
+          : moment(date, inputFormat, strict)
+      );
   }
 
   /**
@@ -726,6 +745,10 @@ export class DateConverter implements IDateConverter {
     return this.dateTimeSettings.timeZone;
   }
 
+  /**
+   * @stable [25.12.2019]
+   * @returns {Date}
+   */
   private get currentDate(): Date {
     return this.dateTimeSettings.currentDate;
   }
@@ -746,12 +769,20 @@ export class DateConverter implements IDateConverter {
     return this.dateTimeSettings.uiDateFormat;
   }
 
+  /**
+   * @stable [25.12.2019]
+   * @returns {string}
+   */
   private get uiTimeFormat(): string {
     return this.dateTimeSettings.uiTimeFormat;
   }
 
-  private get uiDateTimeFormat(): string {
-    return this.combine(this.uiDateFormat, this.uiTimeFormat);
+  /**
+   * @stable [25.12.2019]
+   * @returns {string}
+   */
+  private get uiDefaultTime(): string {
+    return this.dateTimeSettings.uiDefaultTime;
   }
 
   private get dateTimeSettings(): IDateTimeSettings {

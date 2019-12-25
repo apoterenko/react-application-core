@@ -1,13 +1,14 @@
 import { ENV } from '../env';
-import { AnyT } from '../definitions.interface';
 import { prepareUrl } from '../util';
 import {
   DEFAULT_CURRENCY_SETTINGS_ENTITY,
+  DEFAULT_DATE_TIME_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
   DEFAULT_PHONE_SETTINGS_ENTITY,
   DEFAULT_STORAGE_SETTINGS_ENTITY,
   IButtonProps,
   ICurrencySettingsEntity,
+  IDateTimeSettingsEntity,
   IMessagesSettingsEntity,
   IPhoneSettingsEntity,
   IStorageSettingsEntity,
@@ -25,17 +26,13 @@ export enum StartDayOfWeekT {
   SUNDAY,
 }
 
-export interface IDateTimeSettings {
+export interface IDateTimeSettings extends IDateTimeSettingsEntity {
   yearPlaceholder?: string;
   startDayOfWeek?: StartDayOfWeekT;
-  currentDate?: Date;        // Current date
   timeZone?: string;         // Time zone (+08:00, etc..)
   dateFormat?: string;       // Client-server communication format
   timeFormat?: string;       // Client-server communication format
-  dateTimeFormat?: string;   // Client-server communication format
-  uiDateFormat?: string;     // UI format
   uiMonthFormat?: string;    // UI format
-  uiTimeFormat?: string;     // UI format
   pstDateFormat?: string;                 // UI PST format
   pstTimeFormat?: string;                 // UI PST format
   uiDateMask?: Array<string|RegExp>;      // UI mask
@@ -213,14 +210,12 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     yearMessage: 'Year',
   },
   dateTime: {
+    ...DEFAULT_DATE_TIME_SETTINGS_ENTITY,
     yearPlaceholder: 'YYYY',
     startDayOfWeek: StartDayOfWeekT.MONDAY,
-    dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
     dateFormat: 'YYYY-MM-DD',
     timeFormat: 'HH:mm:ss',
-    uiDateFormat: 'YYYY-MM-DD',
     uiMonthFormat: 'YYYY-MM',
-    uiTimeFormat: 'HH:mm:ss',
     pstTimeFormat: 'hh:mm A',
     pstDateFormat: 'MMM DD',
     uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
@@ -254,7 +249,3 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     libraries: 'places,visualization',
   },
 };
-
-Reflect.defineProperty(DEFAULT_APPLICATION_SETTINGS.dateTime, 'currentDate', {
-  get: () => new Date(),    // To prevent 24h caching
-});

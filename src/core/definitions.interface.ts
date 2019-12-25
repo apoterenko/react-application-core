@@ -204,6 +204,7 @@ export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
+export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IItemsWrapper<TItems> { items?: TItems; }
@@ -395,6 +396,7 @@ export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: T
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
+export interface ITimeWrapper<TTime = string> { time?: TTime; }
 export interface ITitleWrapper { title?: string; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
@@ -680,13 +682,6 @@ export interface IUseZipCodeWrapper {
  */
 export interface IInputWrapper<TInput = HTMLInputElement | HTMLTextAreaElement> {
   input?: TInput;
-}
-
-/**
- * @stable [02.06.2018]
- */
-export interface ITimeWrapper<TTime = string> {
-  time?: TTime;
 }
 
 /**

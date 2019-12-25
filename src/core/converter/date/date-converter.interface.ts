@@ -3,13 +3,16 @@ import * as moment from 'moment';
 import { IKeyValue } from '../../definitions.interface';
 import {
   DateTimeLikeTypeT,
-  IMomentConfigEntity,
+  IDateTimeConfigEntity,
   MomentT,
 } from '../../definition';
 
 export interface IDateConverter {
-  asMomentDate(cfg: IMomentConfigEntity): MomentT;
-  fromDateToUiDate(cfg: IMomentConfigEntity): string;
+  asMomentDate(cfg: IDateTimeConfigEntity): MomentT;
+  fromDateTimeToUiDate(cfg: IDateTimeConfigEntity): string;
+  fromDateToUiDate(cfg: IDateTimeConfigEntity): string;
+  fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity): string;
+  getCurrentDate(): Date;
   /**/
   getAppOnlineLifeTimeInSeconds(): number;
   getAppOnlineLifeTimeInHours(): number;
@@ -22,7 +25,6 @@ export interface IDateConverter {
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
-  fromUiDateTimeToDateTime(date: string, time: string): string;
   fromUiDateToDateTime(date: DateTimeLikeTypeT): string;
   fromUiDateToDate(date: DateTimeLikeTypeT): string;
   splitToDateTimeFields<TEntity>(entity: TEntity,
@@ -89,10 +91,8 @@ export interface IDateConverter {
                        inputFormat?: string): Date;
   toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict?: boolean): moment.Moment;
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
-  fromDateTimeToUiDate(date: DateTimeLikeTypeT): string;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
-  getCurrentDate(): Date;
   getCurrentTime(): Date;
   getStartOfCurrentDate(): Date;
   getYesterdayDate(): Date;

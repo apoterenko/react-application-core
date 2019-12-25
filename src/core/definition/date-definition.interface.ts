@@ -3,8 +3,10 @@ import * as moment from 'moment';
 import {
   IDateWrapper,
   IInputFormatWrapper,
+  IInputTimeFormatWrapper,
   IOutputFormatWrapper,
   IStrictWrapper,
+  ITimeWrapper,
   IZoneWrapper,
 } from '../definitions.interface';
 
@@ -28,10 +30,12 @@ export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
 /**
  * @stable [17.12.2019]
  */
-export interface IMomentConfigEntity
+export interface IDateTimeConfigEntity
   extends IDateWrapper<DateTimeLikeTypeT>,
     IInputFormatWrapper,
+    IInputTimeFormatWrapper,
     IOutputFormatWrapper,
     IStrictWrapper,
+    ITimeWrapper,
     IZoneWrapper {
 }

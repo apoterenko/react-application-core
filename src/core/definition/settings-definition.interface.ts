@@ -16,6 +16,36 @@ export const REGEXP = {
 };
 
 /**
+ * @stable [25.12.2019]
+ */
+export interface IDateTimeSettingsEntity {
+  currentDate?: Date;
+  dateTimeFormat?: string;
+  uiDateFormat?: string;
+  uiDefaultTime?: string;
+  uiTimeFormat?: string;
+}
+
+/**
+ * @stable [25.12.2019]
+ */
+const defaultDateTimeSettingsEntity: IDateTimeSettingsEntity = {
+  dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
+  uiDateFormat: 'YYYY-MM-DD',
+  uiDefaultTime: '00:00:00',
+  uiTimeFormat: 'HH:mm:ss',
+};
+
+Reflect.defineProperty(defaultDateTimeSettingsEntity, 'currentDate', {
+  get: () => new Date(),    // To prevent "24h" cache issue
+});
+
+/**
+ * @stable [25.12.2019]
+ */
+export const DEFAULT_DATE_TIME_SETTINGS_ENTITY = Object.freeze<IDateTimeSettingsEntity>(defaultDateTimeSettingsEntity);
+
+/**
  * @stable [29.11.0219]
  */
 export interface ICurrencySettingsEntity {
