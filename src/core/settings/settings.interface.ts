@@ -249,3 +249,8 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     libraries: 'places,visualization',
   },
 };
+
+// TODO Remove duplication
+Reflect.defineProperty(DEFAULT_APPLICATION_SETTINGS.dateTime, 'currentDate', {
+  get: () => new Date(),    // To prevent 24h caching
+});

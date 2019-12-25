@@ -574,6 +574,15 @@ export const mapExtendedEntity =
   };
 
 /**
+ * @stable [25.12.2019]
+ * @param {IEditableEntity<TEntity extends IEntity>} editableEntity
+ * @returns {IExtendedEntity<TEntity extends IEntity>}
+ */
+export const mapExtendedEditableEntity =
+  <TEntity extends IEntity = IEntity>(editableEntity: IEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
+    mapExtendedEntity(null, editableEntity);
+
+/**
  * @stable [23.12.2019]
  * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
  * @returns {IApiEntity<TEntity extends IEntity>}

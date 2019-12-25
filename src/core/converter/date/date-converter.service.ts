@@ -100,7 +100,7 @@ export class DateConverter implements IDateConverter {
       date,
       outputFormat,
     } = cfg;
-    if (isObjectNotEmpty(date)) {
+    if (date instanceof Date || isObjectNotEmpty(date)) {
       const momentDate = this.asMomentDate(cfg);
       return momentDate.isValid()
         ? momentDate.format(outputFormat)
@@ -571,6 +571,14 @@ export class DateConverter implements IDateConverter {
    */
   public getCurrentDate(): Date {
     return this.currentDate;
+  }
+
+  /**
+   * @stable [25.12.2019]
+   * @returns {string}
+   */
+  public getCurrentDateAsUiDate(): string {
+    return this.dateAsString({date: this.getCurrentDate(), outputFormat: this.uiDateFormat});
   }
 
   /**

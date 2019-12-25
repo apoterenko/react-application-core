@@ -13,6 +13,7 @@ export interface IDateConverter {
   fromDateToUiDate(cfg: IDateTimeConfigEntity): string;
   fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity): string;
   getCurrentDate(): Date;
+  getCurrentDateAsUiDate(): string;
   /**/
   getAppOnlineLifeTimeInSeconds(): number;
   getAppOnlineLifeTimeInHours(): number;
