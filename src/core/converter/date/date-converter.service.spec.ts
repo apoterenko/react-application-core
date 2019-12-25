@@ -52,6 +52,21 @@ describe('date-converter.service', () => {
     });
   });
 
+  describe('fromDateTimeToUiDateTime', () => {
+    // https://www.timeanddate.com/worldclock/converter.html
+    it('test1', () => {
+      const value = dateConverter.fromDateTimeToUiDateTime({date: '2036-07-31T00:00:00+03:00'});               // Moscow, Russia
+      expect(value).toEqual('2036-07-30 14:00:00');                                                            // Los Angeles, USA
+    });
+    it('test2', () => {
+      const value = dateConverter.fromDateTimeToUiDateTime({
+        date: '2036-07-31T00:23:34+03:00',                                                                     // Moscow, Russia
+        outputTimeFormat: 'HH:mm',
+      });
+      expect(value).toEqual('2036-07-30 14:23');                                                               // Los Angeles, USA
+    });
+  });
+
   describe('getCurrentDate', () => {
     it('test1', () => {
       const value = dateConverter.getCurrentDate();
