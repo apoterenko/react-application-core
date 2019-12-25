@@ -1,19 +1,29 @@
 import * as R from 'ramda';
 import { injectable } from 'inversify';
-import { PhoneNumberFormat as PNF, PhoneNumberUtil as PNU } from 'google-libphonenumber';
 
-import { lazyInject, DI_TYPES } from '../../di';
-import { isNumber, isString, isFn, isUndef } from '../../util';
+import {
+  lazyInject,
+  DI_TYPES,
+} from '../../di';
+import {
+  isFn,
+  isNumber,
+  isString,
+  isUndef,
+} from '../../util';
 import { ISettingsEntity } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
-import { EntityIdT, StringNumberT, UNDEF } from '../../definitions.interface';
+import {
+  EntityIdT,
+  StringNumberT,
+  UNDEF,
+} from '../../definitions.interface';
 
 @injectable()
 export class NumberConverter implements INumberConverter {
 
   @lazyInject(DI_TYPES.Settings) private settings: ISettingsEntity;
   private defaultFormatter = new Intl.NumberFormat();
-  private phoneUtilInstance = PNU.getInstance();
 
   /**
    * @stable [22.10.2018]
@@ -171,22 +181,6 @@ export class NumberConverter implements INumberConverter {
    */
   public internalId(value: EntityIdT): string {
     return `(#${value})`;
-  }
-
-  public phone(value: number | string, phoneNumberFormat: PNF = PNF.INTERNATIONAL): string {
-    if (!value) {
-      return '';
-    }
-    const v = isString(value) ? value as string : String(value);
-    let phoneNumber;
-    try {
-      phoneNumber = this.phoneUtilInstance.parse(v, this.settings.phone.countryAbbr);
-    } catch (e) {
-      return v;
-    }
-    return this.phoneUtilInstance.isValidNumber(phoneNumber)
-        ? this.phoneUtilInstance.format(phoneNumber, phoneNumberFormat)
-        : v;
   }
 
   /**

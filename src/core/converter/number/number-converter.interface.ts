@@ -1,5 +1,3 @@
-import { PhoneNumberFormat as PNF } from 'google-libphonenumber';
-
 import { StringNumberT } from '../../definitions.interface';
 
 export interface INumberConverter {
@@ -14,5 +12,4 @@ export interface INumberConverter {
   internalId(value: StringNumberT): string;
   number(value: StringNumberT, returnString?: boolean): StringNumberT;
   numberParameter(value: StringNumberT, converter?: (value: number) => number): number;
-  phone(value: StringNumberT, phoneNumberFormat?: PNF): string;
 }
