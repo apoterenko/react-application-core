@@ -11,7 +11,12 @@ import {
   TO_TIME_FIELD_NAME,
 } from '../definitions.interface';
 import { ID_FIELD_NAME } from '../definition/field-definition.interface';
-import { isDef, isObject, isFn, isString } from './type';
+import {
+  isDef,
+  isFn,
+  isObject,
+  isString,
+} from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 import { isObjectNotEmpty } from './object';
 
@@ -210,6 +215,13 @@ export const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => 
  * @returns {TValue[]}
  */
 export const trueValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, TRUE_VALUE_PREDICATE);
+
+/**
+ * @stable [25.12.2019]
+ * @param {TValue} data
+ * @returns {TValue[]}
+ */
+export const stringValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, STRING_VALUE_PREDICATE);
 
 export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource,

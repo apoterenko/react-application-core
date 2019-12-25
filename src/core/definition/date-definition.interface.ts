@@ -5,6 +5,7 @@ import {
   IInputFormatWrapper,
   IInputTimeFormatWrapper,
   IOutputFormatWrapper,
+  IOutputTimeFormatWrapper,
   IStrictWrapper,
   ITimeWrapper,
   IZoneWrapper,
@@ -35,6 +36,7 @@ export interface IDateTimeConfigEntity
     IInputFormatWrapper,
     IInputTimeFormatWrapper,
     IOutputFormatWrapper,
+    IOutputTimeFormatWrapper,
     IStrictWrapper,
     ITimeWrapper,
     IZoneWrapper {

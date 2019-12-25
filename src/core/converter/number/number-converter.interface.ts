@@ -3,6 +3,7 @@ import { PhoneNumberFormat as PNF } from 'google-libphonenumber';
 import { StringNumberT } from '../../definitions.interface';
 
 export interface INumberConverter {
+  asNumber(value: StringNumberT): number;
   currency(value: StringNumberT, options?: Intl.NumberFormatOptions): string;
   format(value: StringNumberT): string;
   fractionalFormat(value: StringNumberT): string;

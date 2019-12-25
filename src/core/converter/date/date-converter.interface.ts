@@ -10,6 +10,7 @@ import {
 export interface IDateConverter {
   asMomentDate(cfg: IDateTimeConfigEntity): MomentT;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity): string;
+  fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity): string;
   fromDateToUiDate(cfg: IDateTimeConfigEntity): string;
   fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity): string;
   getCurrentDate(): Date;

@@ -171,6 +171,23 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [25.12.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({
+      inputFormat: this.dateTimeFormat,
+      ...cfg,
+      outputFormat: `${
+        nvl(cfg.outputFormat, this.uiDateFormat)} ${
+        nvl(cfg.outputTimeFormat, this.uiTimeFormat)
+        }`
+        .trim(),
+    });
+  }
+
+  /**
    * @stable [09.11.2018]
    * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
    * @returns {string} [Example: 20:54:45]
@@ -201,7 +218,8 @@ export class DateConverter implements IDateConverter {
       inputFormat: `${
         nvl(cfg.inputFormat, this.uiDateFormat)} ${
         nvl(cfg.inputTimeFormat, this.uiTimeFormat)
-        }`.trim(),
+        }`
+        .trim(),
     });
   }
 

@@ -291,6 +291,7 @@ export interface IOriginalEntityWrapper<TValue> { originalEntity?: TValue; }
 export interface IOriginalValueWrapper<TValue = AnyT> { originalValue?: TValue; }
 export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IOutputFormatWrapper { outputFormat?: string; }
+export interface IOutputTimeFormatWrapper { outputTimeFormat?: string; }
 export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 export interface IPageWrapper<TPage = number> { page?: TPage; }
 export interface IParamsWrapper<TParams = IKeyValue> { params?: TParams; }

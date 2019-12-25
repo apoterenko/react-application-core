@@ -21,23 +21,15 @@ export class NumberConverter implements INumberConverter {
   private defaultCurrencyFormatOptions = {style: 'currency', currency: this.settings.currency.uiCurrency};
   private currencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultCurrencyFormatOptions);
 
-  /**
-   * @stable [22.10.2018]
-   */
   private defaultIntegerFormatOptions: Intl.NumberFormatOptions = {
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
   };
   private integerFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultIntegerFormatOptions);
-
-  /**
-   * @stable [22.10.2018]
-   */
-  private defaultFractionalFormatOptions: Intl.NumberFormatOptions = {
+  private fractionalFormatter = new Intl.NumberFormat(this.uiLocale, {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
-  };
-  private fractionalFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultFractionalFormatOptions);
+  });
 
   /**
    * @stable [22.10.2018]
@@ -58,6 +50,15 @@ export class NumberConverter implements INumberConverter {
     this.integerCurrency = this.integerCurrency.bind(this);
     this.integerFormat = this.integerFormat.bind(this);
     this.fractionalFormat = this.fractionalFormat.bind(this);
+  }
+
+  /**
+   * @stable [25.12.2019]
+   * @param {StringNumberT} value
+   * @returns {number}
+   */
+  public asNumber(value: StringNumberT): number {
+    return this.number(value, false) as number;
   }
 
   /**
@@ -113,7 +114,7 @@ export class NumberConverter implements INumberConverter {
     if (isString(value) && R.isEmpty((value as string).trim())) {
       return null;
     }
-    const v = this.number(value, false) as number;
+    const v = this.asNumber(value);
     return isFn(converter) ? converter(v) : v;
   }
 
@@ -126,21 +127,21 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
-   * @stable [22.10.2018]
+   * @stable [25.12.2019]
    * @param {StringNumberT} value
    * @returns {string}
    */
   public integerFormat(value: StringNumberT): string {
-    return this.integerFormatter.format(this.number(value, false) as number);
+    return this.integerFormatter.format(this.asNumber(value));
   }
 
   /**
-   * @stable [22.10.2018]
+   * @stable [25.12.2019]
    * @param {StringNumberT} value
    * @returns {string}
    */
   public fractionalFormat(value: StringNumberT): string {
-    return this.fractionalFormatter.format(this.number(value, false) as number);
+    return this.fractionalFormatter.format(this.asNumber(value));
   }
 
   public currency(value: number | string, options?: Intl.NumberFormatOptions): string {
