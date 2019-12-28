@@ -1,10 +1,13 @@
 import * as R from 'ramda';
 
 import {
+  IAlwaysDirtyWrapper,
   ICenteredMenuWrapper,
   IChangeableWrapper,
   IClearActionRenderedWrapper,
+  IDirtyWrapper,
   IDisabledWrapper,
+  IDisplayValueOnlyWrapper,
   IEditedWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
@@ -27,7 +30,6 @@ import {
   ISelectedWrapper,
   ISortableWrapper,
   ISyntheticCursorWrapper,
-  IDisplayValueOnlyWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
   IValidWrapper,
@@ -296,5 +298,21 @@ export const isRefreshOnUpdate = (entity: IRefreshOnUpdateWrapper): boolean =>
  * @param {IDisplayValueOnlyWrapper} entity
  * @returns {boolean}
  */
-export const isDisplayValueOnlyWrapper = (entity: IDisplayValueOnlyWrapper): boolean =>
+export const isDisplayValueOnly = (entity: IDisplayValueOnlyWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.displayValueOnly === true, false);
+
+/**
+ * @stable [26.12.2019]
+ * @param {IAlwaysDirtyWrapper} entity
+ * @returns {boolean}
+ */
+export const isAlwaysDirty = (entity: IAlwaysDirtyWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.alwaysDirty === true, false);
+
+/**
+ * @stable [26.12.2019]
+ * @param {IDirtyWrapper} entity
+ * @returns {boolean}
+ */
+export const isDirty = (entity: IDirtyWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.dirty === true, false);

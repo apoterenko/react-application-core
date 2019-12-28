@@ -17,11 +17,15 @@ import {
 } from './cond';
 import {
   inProgress,
+  isAlwaysDirty,
+  isDirty,
+  isDisabled,
   isValid,
 } from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
 import { selectEditableEntity } from './mapper';
+import { isObjectNotEmpty } from './object';
 
 /**
  * @stable [16.11.2019]
@@ -100,7 +104,27 @@ export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(for
 export const isFormEntityDisabled = <TEntity extends IEntity = IEntity>(entity: IFormEntity<TEntity>): boolean =>
   ifNotNilThanValue(
     entity,
-    () => entity.disabled === true || isFormWrapperEntityInProgress(entity),
+    () => isDisabled(entity) || isFormWrapperEntityInProgress(entity),
+    false
+  );
+
+/**
+ * @stable [26.12.2019]
+ * @param {IFormEntity<TEntity extends IEntity>} formEntity
+ * @returns {boolean}
+ */
+export const isFormEntityDirty = <TEntity extends IEntity = IEntity>(formEntity: IFormEntity<TEntity>): boolean =>
+  ifNotNilThanValue(
+    formEntity,
+    () => (
+      isAlwaysDirty(formEntity) || (
+        ifNotNilThanValue(
+          formEntity.form,
+          (form) => isDirty(form) || isObjectNotEmpty(form.defaultChanges),
+          false
+        )
+      )
+    ),
     false
   );
 
