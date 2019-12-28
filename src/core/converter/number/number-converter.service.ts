@@ -142,7 +142,7 @@ export class NumberConverter implements INumberConverter {
    * @returns {string}
    */
   public integerFormat(value: StringNumberT): string {
-    return this.integerFormatter.format(this.asNumber(value));
+    return R.isNil(value) ? '' : this.integerFormatter.format(this.asNumber(value));
   }
 
   /**
@@ -151,7 +151,7 @@ export class NumberConverter implements INumberConverter {
    * @returns {string}
    */
   public fractionalFormat(value: StringNumberT): string {
-    return this.fractionalFormatter.format(this.asNumber(value));
+    return R.isNil(value) ? '' : this.fractionalFormatter.format(this.asNumber(value));
   }
 
   public currency(value: number | string, options?: Intl.NumberFormatOptions): string {
