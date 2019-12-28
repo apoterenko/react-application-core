@@ -65,7 +65,8 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
    * @stable [06.12.2019]
    */
   private tryRegisterPs(): void {
-    const selfRef = this.component.getSelf() as HTMLElement;
+    const component = this.component;
+    const selfRef = component.getSelf() as HTMLElement;
     if (R.isNil(selfRef)) {
       this.doDestroy();
       return;
@@ -76,9 +77,9 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
 
     this.ps = new PerfectScrollbar(selfRef, {
       wheelSpeed: 2,
-      wheelPropagation: true,
+      wheelPropagation: false,
       minScrollbarLength: 20,
-      ...this.component.props.perfectScroll,
+      ...component.props.perfectScroll,
     });
 
     this.resizeUnsubscriber = this.domAccessor.captureEvent({
