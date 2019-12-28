@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseStoreProxy } from '../base-store.proxy';
 import {
@@ -12,6 +13,7 @@ import {
 import { RouterActionBuilder } from '../../../../action';
 import {
   handlerPropsFactory,
+  NOT_NIL_VALUE_PREDICATE,
   selectStackWrapperItemEntities,
 } from '../../../../util';
 
@@ -56,7 +58,11 @@ export class RouterStoreProxy<TStore extends IUniversalStoreEntity = IUniversalS
     return entities
       .map((item, index) => {
         const last = index === length - 1;
-        return React.cloneElement(factory({item, first: index === 0, last}), {
+        const stepElement = factory({item, first: index === 0, last});
+        if (R.isNil(stepElement)) {
+          return null;
+        }
+        return React.cloneElement(stepElement, {
           key: item.url,
           ...(
             last
@@ -64,6 +70,7 @@ export class RouterStoreProxy<TStore extends IUniversalStoreEntity = IUniversalS
               : handlerPropsFactory(() => this.goBack(length - entities.indexOf(item) - 1))
           ),
         });
-      });
+      })
+      .filter(NOT_NIL_VALUE_PREDICATE);
   }
 }
