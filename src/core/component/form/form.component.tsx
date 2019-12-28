@@ -223,7 +223,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   private propsOnValid(): void {
     const props = this.props;
     if (isFn(props.onValid)) {
-      props.onValid(props.manualValidation || this.formRef.current.checkValidity());
+      props.onValid(props.manualValidation || this.formRef.current.checkValidity()); // TODO manualValidation -> valid
     }
   }
 

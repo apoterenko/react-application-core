@@ -5,7 +5,8 @@ import { Button } from '../button';
 import { FlexLayout } from '../layout/flex';
 import { IUniversalDialog2, IDialogProps, IUniversalDialogProps } from './dialog.interface';
 import { orNull, toClassName, isFn } from '../../util';
-import { Title } from '../title';
+import { PerfectScrollPlugin } from '../plugin';
+import { BasicComponent } from '../base/basic.component';
 
 export class Dialog<TProps extends IDialogProps = IDialogProps,
                     TState = {}>
@@ -144,7 +145,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [17.06.2019]
+   * @stable [29.12.2019]
    * @returns {JSX.Element}
    */
   private get bodyElement(): JSX.Element {
@@ -153,16 +154,18 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
       <React.Fragment>
         {
           props.title && (
-            <Title>
+            <div className='rac-dialog-body-title'>
               {this.t(props.title)}
-            </Title>
+            </div>
           )
         }
         {
           props.children && (
-            <FlexLayout className='rac-dialog-body-content'>
+            <BasicComponent
+              className='rac-dialog-body-content'
+              plugins={PerfectScrollPlugin}>
               {props.children}
-            </FlexLayout>
+            </BasicComponent>
           )
         }
       </React.Fragment>

@@ -4,14 +4,23 @@
 
 .rac {
 
-  @include rac-dialog(                                                                        /* @stable [17.06.2019] */
+  @include rac-dialog (                                                                       /* @stable [17.06.2019] */
     $rac-dialog-body-background: $rac-dialog-body-background,
-    $rac-dialog-body-max-height: $rac-dialog-body-max-height,
     $rac-dialog-body-border-radius: $rac-dialog-body-border-radius,
-    $rac-dialog-body-padding: $rac-dialog-body-padding,
+    $rac-dialog-body-content-display: $rac-dialog-body-content-display,
+    $rac-dialog-body-content-flex-direction: $rac-dialog-body-content-flex-direction,
+    $rac-dialog-body-content-flex: $rac-dialog-body-content-flex,
     $rac-dialog-body-content-overflow: $rac-dialog-body-content-overflow,
-    $rac-dialog-scrim-background: $rac-dialog-scrim-background,
+    $rac-dialog-body-content-padding: $rac-dialog-body-content-padding,
+    $rac-dialog-body-content-position: $rac-dialog-body-content-position,
+    $rac-dialog-body-max-height: $rac-dialog-body-max-height,
+    $rac-dialog-body-padding: $rac-dialog-body-padding,
+    $rac-dialog-body-title-border-bottom: $rac-dialog-body-title-border-bottom,
+    $rac-dialog-body-title-font-weight: $rac-dialog-body-title-font-weight,
+    $rac-dialog-body-title-margin: $rac-dialog-body-title-margin,
+    $rac-dialog-body-title-padding: $rac-dialog-body-title-padding,
     $rac-dialog-footer-actions-margin: $rac-dialog-footer-actions-margin,
-    $rac-dialog-footer-actions-neighbor-child-margin: $rac-dialog-footer-actions-neighbor-child-margin
+    $rac-dialog-footer-actions-neighbor-child-margin: $rac-dialog-footer-actions-neighbor-child-margin,
+    $rac-dialog-scrim-background: $rac-dialog-scrim-background
   );
 }

@@ -678,14 +678,24 @@ $rac-menu-dialog-cls: rac-menu-dialog;
 $rac-menu-dialog-icon-close-cls: rac-menu-dialog-icon-close;
 /**/
 $rac-dialog-color-0: $rac-color-0-1 !default;
+$rac-dialog-color-1: $rac-color-0-0 !default;
 $rac-dialog-height-0: 80vh !default;
 /**/
 $rac-dialog-body-background: $rac-dialog-color-0 !default;
 $rac-dialog-body-border-radius: $rac-border-radius-0 !default;
-$rac-dialog-body-content-overflow: auto !default;
+$rac-dialog-body-content-display: flex !default;
+$rac-dialog-body-content-flex-direction: column !default;
+$rac-dialog-body-content-flex: 1 !default;
+$rac-dialog-body-content-overflow: unset !default;
+$rac-dialog-body-content-padding: 0 $rac-offset-3 !default;
+$rac-dialog-body-content-position: relative !default;
 $rac-dialog-body-max-height: $rac-dialog-height-0 !default;
-$rac-dialog-body-padding: $rac-offset-3 !default;
-$rac-dialog-footer-actions-margin: $rac-offset-3 0 0 0 !default;
+$rac-dialog-body-padding: $rac-offset-3 0 !default;
+$rac-dialog-body-title-border-bottom: 1px solid $rac-dialog-color-1 !default;
+$rac-dialog-body-title-font-weight: $rac-font-weight-2 !default;
+$rac-dialog-body-title-margin: 0 $rac-offset-3 $rac-offset-3 $rac-offset-3 !default;
+$rac-dialog-body-title-padding: 0 0 12px 0 !default;
+$rac-dialog-footer-actions-margin: $rac-offset-3 $rac-offset-3 0 $rac-offset-3 !default;
 $rac-dialog-footer-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
 $rac-dialog-scrim-background: $rac-color-0-6 !default;
 /**/
@@ -693,6 +703,8 @@ $rac-menu-dialog-base-text-field-margin: 0 0 $rac-offset-1 0 !default;
 $rac-menu-dialog-base-text-self-field-background: $rac-field-color-1 !default;
 $rac-menu-dialog-base-text-self-field-height: $rac-field-height-1 !default;
 $rac-menu-dialog-body-background: 0 !default;
+$rac-menu-dialog-body-height: $rac-dialog-height-0 !default;
+$rac-menu-dialog-body-justify-content: unset !default;
 $rac-menu-dialog-body-padding: 0 !default;
 $rac-menu-dialog-list-background: $rac-dialog-color-0 !default;
 $rac-menu-dialog-list-border-radius: $rac-border-radius-0 !default;
