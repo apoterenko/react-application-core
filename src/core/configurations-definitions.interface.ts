@@ -392,9 +392,7 @@ export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | stri
  */
 export type UIIconConfigurationT = IUIIconConfiguration | string;
 
-/**
- * @stable [08.08.2018]
- */
+// TODO
 export interface ISubHeaderConfiguration extends IComponentProps,
                                                  IMoreOptionsWrapper<IMenuItemEntity[]>,
                                                  IItemsWrapper<JSX.Element>,

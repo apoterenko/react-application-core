@@ -57,6 +57,7 @@ export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IAlwaysSendChangesWrapper { alwaysSendChanges?: boolean; }
+export interface IApiEntityWrapper<TApiEntity> { apiEntity?: TApiEntity; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
@@ -402,6 +403,7 @@ export interface ITitleWrapper { title?: string; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
 export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
+export interface ITotalEntityWrapper<TValue = AnyT> { totalEntity?: TValue; }
 export interface ITotalWrapper<TValue = boolean> { total?: TValue; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface IToWrapper<TValue = string> { to?: TValue; }
@@ -972,20 +974,6 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
  */
 export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
   relatedEntity?: TRelatedEntity;
-}
-
-/**
- * @stable [04.07.2018]
- */
-export interface IApiEntityWrapper<TApiEntity> {
-  apiEntity?: TApiEntity;
-}
-
-/**
- * @stable [27.12.2018]
- */
-export interface ITotalEntityWrapper<TTotalEntity> {
-  totalEntity?: TTotalEntity;
 }
 
 /**

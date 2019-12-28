@@ -13,7 +13,7 @@ import {
   isChangeable,
   isDef,
   isDisabled,
-  isDisplayValueOnlyWrapper,
+  isDisplayValueOnly,
   isFieldInactive,
   isFn,
   isFocused,
@@ -599,7 +599,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {boolean}
    */
   protected get isDisplayValueOnly() {
-    return isDisplayValueOnlyWrapper(this.props);
+    return isDisplayValueOnly(this.props);
   }
 
   /**

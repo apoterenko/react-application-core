@@ -14,6 +14,7 @@ import {
   IEnvironment,
 } from '../definition';
 import {
+  EntityIdT,
   IEntity,
   StringNumberT,
 } from '../definitions.interface';
@@ -22,12 +23,14 @@ import { ISettingsEntity } from '../settings';
 import {
   ITransport,
   ITransportRequestEntity,
+  MultiFieldEntityT,
 } from '../definition';
 import {
   DI_TYPES,
   lazyInject,
 } from '../di';
 import {
+  asMultiFieldMappedEntitiesIds,
   asValidCronExpression,
   toStringParameter,
 } from '../util';
@@ -69,6 +72,15 @@ export class BaseTransport {
    */
   protected preparePhoneValue(value: string): string {
     return orUndef(!R.isNil(value), () => value.replace(/\D/g, ''));
+  }
+
+  /**
+   * @stable [26.12.2019]
+   * @param {MultiFieldEntityT | EntityIdT[]} value
+   * @returns {EntityIdT[]}
+   */
+  protected prepareMultiEntitiesIdsValue(value: MultiFieldEntityT | EntityIdT[]): EntityIdT[] {
+    return asMultiFieldMappedEntitiesIds(value);
   }
 
   /**
