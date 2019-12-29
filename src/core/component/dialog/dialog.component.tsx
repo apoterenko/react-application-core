@@ -185,6 +185,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
           <FlexLayout
             row={true}
             full={false}
+            noShrink={true}
             className='rac-dialog-footer-actions'
           >
             {

@@ -74,8 +74,9 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
     IOnChangeFilterWrapper<IFieldChangeEntity>,
     IItemConfigurationWrapper<TItemConfiguration>,
     IGroupByWrapper<{
-      columnName: string,
-      groupValue: GroupValueRendererT | GroupValueRendererT[]
+      fieldName?: string,
+      groupedFieldName?: string;
+      groupValue?: GroupValueRendererT | GroupValueRendererT[]
     }> {
   localFiltration?: boolean;
   useLocalSorting?: boolean;

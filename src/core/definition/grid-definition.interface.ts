@@ -179,10 +179,10 @@ export interface IGridGenericEntity<TColumn, TEntity extends IEntity = IEntity>
   IExpandActionRenderedWrapper,
   IExpandedGroupsWrapper<{[index: string]: boolean}>,
   IGroupedDataSorterWrapper<EntityIdT, TEntity>,
+  IOnSortingDirectionChangeWrapper<ISortDirectionEntity>,
   IStickyHeadWrapper,
   ITopTotalWrapper,
-  ITotalEntityWrapper<TEntity>,
-  IOnSortingDirectionChangeWrapper<ISortDirectionEntity> {
+  ITotalEntityWrapper<TEntity> {
 }
 
 export interface IGridEntity<TEntity extends IEntity = IEntity>

@@ -318,6 +318,7 @@ $rac-grid-color-1: $rac-color-1-2 !default;
 $rac-grid-color-2: $rac-color-0-4 !default;
 $rac-grid-color-3: $rac-color-1-6 !default;
 $rac-grid-color-4: $rac-color-0-0 !default;
+$rac-grid-color-5: $rac-color-0-3 !default;
 $rac-grid-offset-0: $rac-offset-1 !default;
 /**/
 $rac-grid-body-border-left: 1px solid $rac-grid-color-1 !default;
@@ -334,7 +335,7 @@ $rac-grid-body-overflow: unset !default;
 $rac-grid-body-row-border-bottom: unset !default;
 $rac-grid-body-row-box-sizing: border-box !default;
 $rac-grid-body-row-hover-background: $rac-grid-color-4 !default;
-$rac-grid-body-row-part-of-group-border-bottom: 1px solid $rac-grid-color-1 !default;
+$rac-grid-body-row-part-of-group-border-bottom: 1px solid $rac-grid-color-5 !default;
 $rac-grid-border-collapse: collapse !default;
 $rac-grid-color: $rac-color-1-0 !default;
 $rac-grid-column-align-center-content-align-items: center !default;

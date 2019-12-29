@@ -144,6 +144,7 @@ export interface IErrorWrapper<TError = boolean> { error?: TError; }
 export interface IEventNameWrapper { eventName?: string; }
 export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
+export interface IExpandedAllGroupsWrapper { expandedAllGroups?: boolean; }
 export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
 export interface IExtraParamsWrapper<TExtraParams> { extraParams?: TExtraParams; }
 export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }

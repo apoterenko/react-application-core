@@ -11,17 +11,16 @@ import {
   IEntity,
 } from '../../definitions.interface';
 import {
-  cancelEvent,
   coalesce,
   ifNotNilThanValue,
   isDef,
+  isExpandActionRendered,
   isFn,
   isHighlightOdd,
   isHovered,
   isSelectable,
   joinClassName,
   orNull,
-  isExpandActionRendered,
   orUndef,
 } from '../../util';
 import { BaseList } from '../list';
@@ -36,7 +35,6 @@ import {
 import { GridRow } from './row';
 import { IGridState } from './grid.interface';
 import {
-  IBaseEvent,
   IFieldChangeEntity,
   IGridColumnProps,
   IGridProps,
@@ -83,7 +81,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           <tbody className='rac-grid-body'>
             {props.topTotal !== false && this.totalRowElement}
             {
-              this.hasGrouping
+              this.isGrouped
                 ? this.getGroupedRows(dataSource)
                 : dataSource.map((entity, rowNum) => this.getRow({entity, rowNum, highlightOdd: isHighlightOdd(props, rowNum)}))
             }
@@ -187,7 +185,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private get headRowElement(): JSX.Element {
     const {expandedAllGroups} = this.state;
     const expandActionRendered = this.isExpandActionRendered;
-    const {hasGrouping, props} = this;
+    const {isGrouped, props} = this;
 
     return (
       <GridRow>
@@ -203,7 +201,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
               {...column}
             >
               { // TODO (duplication)
-                expandActionRendered && hasGrouping && columnNum === 0 // TODO index 0 (duplication)
+                expandActionRendered && isGrouped && columnNum === 0 // TODO index 0 (duplication)
                 ? this.uiFactory.makeIcon({
                     key: `header-${columnNum}-expanded-action-${expandedAllGroups ? 'close' : 'open'}`,
                     className: 'rac-grid-data-row-group-expanded-icon',
@@ -524,48 +522,57 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     if (R.isEmpty(dataSource)) {
       return [];
     }
-    const groupedDataSorter = this.props.groupedDataSorter;
-    const dataSource0 = isFn(groupedDataSorter)
+    const props = this.props;
+    const groupedFieldName = props.groupBy.groupedFieldName;
+    const groupedDataSorter = props.groupedDataSorter;
+
+    const preparedDataSource = isFn(groupedDataSorter)
       ? R.sort(
           (entity1, entity2) =>
-            groupedDataSorter(this.extractGroupedValue(entity1), this.extractGroupedValue(entity2), entity1, entity2),
+            groupedDataSorter(this.extractGroupFieldValue(entity1), this.extractGroupFieldValue(entity2), entity1, entity2),
           dataSource
         )
       : dataSource;
 
-    const rows = [];
-    const groupedDataSource = {};
-    const keysSet = new Set<EntityIdT>(); // To save original ordering
+    const groupedDataSourceMap = new Map();
+    const groupValuesSet = new Set<EntityIdT>(); // To save original ordering
+    const isGroupedByReadyData = this.isGroupedByReadyData;
 
-    dataSource0.forEach((entity) => {
-      const groupColumnValue = this.extractGroupedValue(entity);
+    preparedDataSource.forEach((entity) => {
+      let groupedDataSourceEntities;
+      const groupFieldValue = this.extractGroupFieldValue(entity);
 
-      /**
-       * See https://www.ecma-international.org/ecma-262/6.0/#sec-set-objects
-       * ...Append value as the last element of entries.
-       *
-       * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/add
-       * The add() method appends a new element with a specified value to the end of a Set object.
-       */
-      keysSet.add(groupColumnValue);
+      if (isGroupedByReadyData) {
+        groupValuesSet.add(entity.id);
+        groupedDataSourceMap.set(entity.id, groupFieldValue);
+      } else {
+        /**
+         * See https://www.ecma-international.org/ecma-262/6.0/#sec-set-objects
+         * ...Append value as the last element of entries.
+         *
+         * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/add
+         * The add() method appends a new element with a specified value to the end of a Set object.
+         */
+        groupValuesSet.add(groupFieldValue);
 
-      let groupedDataSourceEntities = Reflect.get(groupedDataSource, groupColumnValue);
-      if (!groupedDataSource.hasOwnProperty(groupColumnValue)) {
-        Reflect.set(groupedDataSource, groupColumnValue, groupedDataSourceEntities = []);
+        groupedDataSourceEntities = groupedDataSourceMap.get(groupFieldValue);
+        if (!groupedDataSourceMap.has(groupFieldValue)) {
+          groupedDataSourceMap.set(groupFieldValue, groupedDataSourceEntities = []);
+        }
+        groupedDataSourceEntities.push(entity);
       }
-      groupedDataSourceEntities.push(entity);
     });
 
-    const props = this.props;
     let groupingRowNum = 0;
+    const rows = [];
 
     // See the comment at the top
-    keysSet.forEach((groupedRowValue) => {
-      const groupedRows = groupedDataSource[groupedRowValue];
+    groupValuesSet.forEach((groupValue) => {
+      const groupedRows = groupedDataSourceMap.get(groupValue);
       const highlightOdd = isHighlightOdd(props, groupingRowNum++);
-      rows.push(this.getGroupingRow({value: groupedRowValue, groupedRows, highlightOdd}));
+      rows.push(this.getGroupingRow({value: groupValue, groupedRows, highlightOdd}));
 
-      if (this.isGroupedRowExpanded(groupedRowValue)) {
+      if (this.isGroupedRowExpanded(groupValue)) {
         groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows, highlightOdd})));
       }
     });
@@ -609,7 +616,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                         key: `${contentKey}-expanded-action-${isExpanded ? 'close' : 'open'}`,
                         className: 'rac-grid-data-row-group-expanded-icon',
                         type: isExpanded ? 'close-list' : 'open-list',
-                        onClick: (event) => this.onExpandGroup(event, value, !isExpanded),
+                        onClick: () => this.onExpandGroup(value, !isExpanded),
                       })
                     )} {
                     isFn(groupValue)
@@ -670,15 +677,23 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [04.07.2018]
-   * @param {IBaseEvent} event
+   * @stable [29.12.2019]
    * @param {EntityIdT} groupedRowValue
    * @param {boolean} expanded
    */
-  private onExpandGroup(event: IBaseEvent, groupedRowValue: EntityIdT, expanded: boolean): void {
-    cancelEvent(event);
+  private onExpandGroup(groupedRowValue: EntityIdT, expanded: boolean): void {
+    this.setState(
+      (previousState) => ({expandedGroups: {...previousState.expandedGroups, [groupedRowValue]: expanded}})
+    );
+  }
 
-    this.setState({expandedGroups: {...this.state.expandedGroups, [groupedRowValue]: expanded}});
+  /**
+   * @stable [29.12.2019]
+   */
+  private onExpandAllGroups(): void {
+    this.setState(
+      (previousState) => ({expandedAllGroups: !previousState.expandedAllGroups, expandedGroups: {}})
+    );
   }
 
   /**
@@ -697,27 +712,30 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     );
   }
 
-  private onExpandAllGroups(event: IBaseEvent): void {
-    cancelEvent(event);
-    this.setState({expandedAllGroups: !this.state.expandedAllGroups, expandedGroups: {}});
-  }
-
   /**
-   * @stable [07.03.2019]
+   * @stable [29.12.2019]
    * @param {IEntity} entity
    * @returns {AnyT}
    */
-  private extractGroupedValue(entity: IEntity): AnyT {
+  private extractGroupFieldValue(entity: IEntity): AnyT {
     const groupBy = this.props.groupBy;
-    return Reflect.get(entity, groupBy.columnName);
+    return Reflect.get(entity, groupBy.groupedFieldName || groupBy.fieldName);
   }
 
   /**
-   * @stable [27.07.2019]
+   * @stable [29.12.2019]
    * @returns {boolean}
    */
-  private get hasGrouping(): boolean {
+  private get isGrouped(): boolean {
     return isDef(this.props.groupBy);
+  }
+
+  /**
+   * @stable [29.12.2019]
+   * @returns {boolean}
+   */
+  private get isGroupedByReadyData(): boolean {
+    return this.isGrouped && isDef(this.props.groupBy.groupedFieldName);
   }
 
   /**

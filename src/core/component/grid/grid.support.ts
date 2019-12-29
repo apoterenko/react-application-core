@@ -198,12 +198,12 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
 };
 
 /**
- * @stable [07.03.2019]
- * @param {MultiFieldEntityT} entity
- * @param {(item) => EntityIdT} groupValueAccessor
+ * @stable [29.12.2019]
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
+ * @param {(item: TEntity) => EntityIdT} groupValueAccessor
  * @returns {Record<EntityIdT, boolean>}
  */
-export const toExpandedGridGroups =
+export const asExpandedGridGroups =
   <TEntity extends IEntity>(entity: MultiFieldEntityT<TEntity>,
-                            groupValueAccessor: (item: TEntity) => EntityIdT): Record<EntityIdT, boolean> =>
+                            groupValueAccessor: (item: TEntity) => EntityIdT = (item) => item.id): Record<EntityIdT, boolean> =>
     R.mergeAll((asMultiFieldEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));

@@ -1,4 +1,5 @@
 import {
+  IExpandedAllGroupsWrapper,
   IExpandedGroupsWrapper,
   IFilterChangesWrapper,
   IGridConfigurationWrapper,
@@ -25,7 +26,8 @@ export interface IGridContainerProps extends IContainerProps,
 }
 
 // TODO
-export interface IGridState extends IFilterChangesWrapper,
-                                    IExpandedGroupsWrapper<IKeyValue> {
-  expandedAllGroups?: boolean; // TODO
+export interface IGridState
+  extends IFilterChangesWrapper,
+    IExpandedGroupsWrapper<IKeyValue>,
+    IExpandedAllGroupsWrapper {
 }
