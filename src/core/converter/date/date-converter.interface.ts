@@ -7,7 +7,7 @@ import {
   MomentT,
 } from '../../definition';
 
-export interface IDateConverter<TDate = {}> {
+export interface IDateConverter<TDate = Date> {
   addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
@@ -15,6 +15,7 @@ export interface IDateConverter<TDate = {}> {
   addDurationAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): MomentT;
+  fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
@@ -31,11 +32,9 @@ export interface IDateConverter<TDate = {}> {
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
-  fromDateTimeToPstTime(date?: DateTimeLikeTypeT): string;
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
-  fromUiDateToDate(date: DateTimeLikeTypeT): string;
   splitToDateTimeFields<TEntity>(entity: TEntity,
                                  dateFieldName: string,
                                  timeFieldName: string,
@@ -44,9 +43,6 @@ export interface IDateConverter<TDate = {}> {
                               duration: moment.DurationInputArg1,
                               date?: DateTimeLikeTypeT,
                               inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
-  tryAddXDaysAsMomentDate(duration: moment.DurationInputArg1,
-                          date?: DateTimeLikeTypeT,
-                          inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
   tryGetWeekdayNumber(date?: DateTimeLikeTypeT,
                       inputFormat?: string): number;
   tryAddXDuration(unit: moment.DurationInputArg2,

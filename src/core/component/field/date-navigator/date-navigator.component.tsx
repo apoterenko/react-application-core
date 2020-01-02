@@ -103,7 +103,7 @@ export class DateNavigator
                 className='rac-date-navigator-clock'
               >
                 {this.uiFactory.makeIcon('clock')}
-                {this.dc.fromDateTimeToPstTime(this.state.currentTime)}
+                {this.dc.fromDateTimeToPstTime({date: this.state.currentTime})}
               </FlexLayout>
             )
           )

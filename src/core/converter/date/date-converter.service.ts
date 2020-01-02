@@ -189,18 +189,16 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [08.01.2019]
-   * @param {DateTimeLikeTypeT} date
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromDateTimeToPstTime(date: DateTimeLikeTypeT = this.currentDate): string {
-    return this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstTimeFormat);
+  public fromDateTimeToPstTime(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({...cfg, inputFormat: this.dateTimeFormat, outputFormat: this.pstTimeFormat});
   }
 
   /**
-   * @stable [09.11.2018]
-   * @param {DateTimeLikeTypeT} date [Example: 2018-04-07T20:54:45+03:00]
-   * @returns {string} [Example: 2018-04-07]
+   * @deprecated
    */
   public fromDateTimeToDate(date: DateTimeLikeTypeT): string {
     return this.fromDateTimeToArbitraryFormat(date, this.dateFormat);
@@ -295,15 +293,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [11.11.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @returns {string}
-   */
-  public fromUiDateToDate(date: DateTimeLikeTypeT): string {
-    return this.format(date, this.uiDateFormat, this.dateFormat);
-  }
-
-  /**
    * @stable [09.11.2018]
    * @param {TEntity} entity
    * @param {string} dateFieldName
@@ -354,19 +343,6 @@ export class DateConverter implements IDateConverter<MomentT> {
                                      inputFormat = this.uiDateFormat): moment.Moment {
     const momentDate = this.toMomentDate(date, inputFormat);
     return orNull(momentDate.isValid(), () => momentDate.add(duration, unit));
-  }
-
-  /**
-   * @stable [07.01.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {moment.Moment}
-   */
-  public tryAddXDaysAsMomentDate(duration: moment.DurationInputArg1,
-                                 date: DateTimeLikeTypeT = this.currentDate,
-                                 inputFormat = this.uiDateFormat): moment.Moment {
-    return this.tryAddXDurationAsMomentDate('days', duration, date, inputFormat);
   }
 
   /**
@@ -869,6 +845,14 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   private get uiDefaultTime(): string {
     return this.dateTimeSettings.uiDefaultTime;
+  }
+
+  /**
+   * @stable [02.01.2019]
+   * @returns {string}
+   */
+  private get pstTimeFormat(): string {
+    return this.dateTimeSettings.pstTimeFormat;
   }
 
   private get dateTimeSettings(): IDateTimeSettings {
