@@ -73,4 +73,15 @@ describe('date-converter.service', () => {
       expect(value).toEqual(new Date('Aug 30 2036 00:00:00 GMT-0800'));
     });
   });
+
+  describe('addDaysToUiDateAsDate', () => {
+    it('test1', () => {
+      const value = dateConverter.addDaysToUiDateAsDate({date: '2020-01-31', duration: 1});
+      expect(value).toEqual(new Date('February 1 2020 00:00:00 GMT-0800'));
+    });
+    it('test2', () => {
+      const value = dateConverter.addDaysToUiDateAsDate({date: '2020-02-29', duration: 1});
+      expect(value).toEqual(new Date('March 1 2020 00:00:00 GMT-0800'));
+    });
+  });
 });

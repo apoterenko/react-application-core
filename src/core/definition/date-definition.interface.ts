@@ -2,13 +2,16 @@ import * as moment from 'moment';
 
 import {
   IDateWrapper,
+  IDurationWrapper,
   IInputFormatWrapper,
   IInputTimeFormatWrapper,
   IOutputFormatWrapper,
   IOutputTimeFormatWrapper,
   IStrictWrapper,
   ITimeWrapper,
+  IUnitWrapper,
   IZoneWrapper,
+  StringNumberT,
 } from '../definitions.interface';
 
 /**
@@ -31,13 +34,15 @@ export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
 /**
  * @stable [17.12.2019]
  */
-export interface IDateTimeConfigEntity
-  extends IDateWrapper<DateTimeLikeTypeT>,
+export interface IDateTimeConfigEntity<TDate = Date>
+  extends IDateWrapper<DateTimeLikeTypeT | TDate>,
+    IDurationWrapper<StringNumberT>,
     IInputFormatWrapper,
     IInputTimeFormatWrapper,
     IOutputFormatWrapper,
     IOutputTimeFormatWrapper,
     IStrictWrapper,
     ITimeWrapper,
+    IUnitWrapper<StringNumberT>,
     IZoneWrapper {
 }

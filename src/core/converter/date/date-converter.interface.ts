@@ -7,14 +7,22 @@ import {
   MomentT,
 } from '../../definition';
 
-export interface IDateConverter {
-  asMomentDate(cfg: IDateTimeConfigEntity): MomentT;
-  fromDateTimeToUiDate(cfg: IDateTimeConfigEntity): string;
-  fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity): string;
-  fromDateToUiDate(cfg: IDateTimeConfigEntity): string;
-  fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity): string;
+export interface IDateConverter<TDate = {}> {
+  addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
+  addDuration(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  addDurationAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
+  asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
+  asMomentDate(cfg: IDateTimeConfigEntity<TDate>): MomentT;
+  fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromDateToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromUiDateToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   getCurrentDate(): Date;
   getCurrentDateAsUiDate(): string;
+  getStartOfCurrentDate(): Date;
   /**/
   getAppOnlineLifeTimeInSeconds(): number;
   getAppOnlineLifeTimeInHours(): number;
@@ -27,7 +35,6 @@ export interface IDateConverter {
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
-  fromUiDateToDateTime(date: DateTimeLikeTypeT): string;
   fromUiDateToDate(date: DateTimeLikeTypeT): string;
   splitToDateTimeFields<TEntity>(entity: TEntity,
                                  dateFieldName: string,
@@ -96,7 +103,6 @@ export interface IDateConverter {
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
   getCurrentTime(): Date;
-  getStartOfCurrentDate(): Date;
   getYesterdayDate(): Date;
   getFirstDayOfMonth(monthsAgo?: number,
                      date?: DateTimeLikeTypeT,

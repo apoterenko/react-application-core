@@ -130,6 +130,7 @@ export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueOnlyWrapper { displayValueOnly?: boolean; }
 export interface IDisplayValueWrapper<TDisplayValue = string> { displayValue?: TDisplayValue; }
+export interface IDurationWrapper<TValue> { duration?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
@@ -413,6 +414,7 @@ export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface ITransportWrapper<TValue> { transport?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
 export interface IUniqueParamNameWrapper { uniqueParamName?: string; }
+export interface IUnitWrapper<TValue> { unit?: TValue; }
 export interface IUpdatedWrapper<TValue = boolean> { updated?: TValue; }
 export interface IUpdateWrapper<TValue = string> { update?: TValue; }
 export interface IUploadUrlWrapper { uploadUrl?: string; }

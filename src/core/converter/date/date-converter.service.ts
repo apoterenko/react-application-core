@@ -25,7 +25,7 @@ import {
 const APP_STARTING_DATE = Date.now();
 
 @injectable()
-export class DateConverter implements IDateConverter {
+export class DateConverter implements IDateConverter<MomentT> {
   private static MONTHS = moment.months();
   private static MONTHS_SHORT = moment.monthsShort();
   private static WEEKDAYS_SHORT = moment.weekdaysShort()
@@ -111,6 +111,55 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {moment.Moment}
+   */
+  public addDuration(cfg: IDateTimeConfigEntity): moment.Moment {
+    const momentDate = this.asMomentDate(cfg);
+    return orNull(
+      momentDate.isValid(),
+      () => momentDate.add(cfg.duration as moment.DurationInputArg1, cfg.unit as moment.DurationInputArg2)
+    );
+  }
+
+  /**
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {moment.Moment}
+   */
+  public addDays(cfg: IDateTimeConfigEntity): moment.Moment {
+    return this.addDuration({...cfg, unit: 'days'});
+  }
+
+  /**
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {moment.Moment}
+   */
+  public addDaysToUiDate(cfg: IDateTimeConfigEntity): moment.Moment {
+    return this.addDays({...cfg, inputFormat: this.uiDateFormat});
+  }
+
+  /**
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.addDaysToUiDate(cfg), (momentDate) => momentDate.toDate());
+  }
+
+  /**
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public addDurationAsDate(cfg: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.addDuration(cfg), (momentDate) => momentDate.toDate());
+  }
+
+  /**
    * @stable [09.11.2018]
    * @param {DateTimeLikeTypeT} date
    * @param {string} outputFormat
@@ -171,6 +220,15 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public asFormattedDateTime(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({...cfg, outputFormat: this.dateTimeFormat});
+  }
+
+  /**
    * @stable [25.12.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
@@ -224,12 +282,16 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [11.08.2019]
-   * @param {DateTimeLikeTypeT} date
+   * @stable [02.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromUiDateToDateTime(date: DateTimeLikeTypeT): string {
-    return this.format(date, this.uiDateFormat, this.dateTimeFormat);
+  public fromUiDateToDateTime(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({
+      ...cfg,
+      outputFormat: this.dateTimeFormat,
+      inputFormat: this.uiDateFormat,
+    });
   }
 
   /**
@@ -284,12 +346,7 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [07.01.2019]
-   * @param {moment.DurationInputArg2} unit
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {moment.Moment}
+   * @deprecated
    */
   public tryAddXDurationAsMomentDate(unit: moment.DurationInputArg2,
                                      duration: moment.DurationInputArg1,
@@ -732,7 +789,7 @@ export class DateConverter implements IDateConverter {
   }
 
   /**
-   * @stable [22.12.2019]
+   * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {MomentT}
    */
@@ -743,6 +800,9 @@ export class DateConverter implements IDateConverter {
       strict = true,
       zone = this.timeZone,
     } = cfg;
+    if (moment.isMoment(date)) {
+      return date;
+    }
     return zone
       ? (
         date instanceof Date
