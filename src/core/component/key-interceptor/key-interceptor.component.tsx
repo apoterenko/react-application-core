@@ -107,10 +107,12 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
    * @stable [08.10.2019]
    */
   private onCheckBuffer(): void {
-    if (this.buffer.length >= this.props.robotDetectionMinSymbolsCount) {
-      const onSelect = this.props.onSelect;
+    const props = this.props;
+    if (this.buffer.length >= props.robotDetectionMinSymbolsCount) {
+      const onSelect = props.onSelect;
       if (isFn(onSelect)) {
-        onSelect(this.buffer);
+        const normalizedValue = this.buffer.trim(); // Normalize a buffer in some specific case (production issue fix (!))
+        onSelect(normalizedValue);
       }
     }
     this.buffer = FIELD_DISPLAY_EMPTY_VALUE;

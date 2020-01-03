@@ -33,6 +33,15 @@
 
   /**
    * @layout
+   * @stable [03.01.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-nowrap,
+    $rac-styles-white-space: nowrap
+  );
+
+  /**
+   * @layout
    * @stable [30.09.2019]
    */
   @include rac-styles (

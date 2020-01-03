@@ -523,7 +523,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       return [];
     }
     const props = this.props;
-    const groupedFieldName = props.groupBy.groupedFieldName;
     const groupedDataSorter = props.groupedDataSorter;
 
     const preparedDataSource = isFn(groupedDataSorter)
