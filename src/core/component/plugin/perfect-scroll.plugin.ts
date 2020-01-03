@@ -57,7 +57,11 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
    */
   private doUpdate(): void {
     if (isDef(this.ps)) {
-      this.ps.update();
+      try {
+        this.ps.update();
+      } catch (e) {
+        // Do nothing... (https://github.com/mdbootstrap/perfect-scrollbar/issues/827)
+      }
     }
   }
 
