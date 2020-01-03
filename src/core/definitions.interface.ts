@@ -106,11 +106,14 @@ export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnecte
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
+export interface ICurrentWrapper<TValue> { current?: TValue; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
 export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
 export interface IDateWrapper<TDate = string> { date?: TDate; }
+export interface IDaysLabelsWrapper<TValue> { daysLabels?: TValue; }
+export interface IDaysWrapper<TValue> { days?: TValue; }
 export interface IDefaultChangesWrapper<TChanges extends IKeyValue = IKeyValue> { defaultChanges?: TChanges; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
@@ -260,6 +263,7 @@ export interface INextFormRouteWrapper { nextFormRoute?: string; }
 export interface INextFormSectionWrapper { nextFormSection?: string; }
 export interface INextListSectionWrapper { nextListSection?: string; }
 export interface INextSectionWrapper<TValue = string> { nextSection?: TValue; }
+export interface INextWrapper<TValue> { next?: TValue; }
 export interface INoAuthWrapper { noAuth?: boolean; }
 export interface INoCacheWrapper { noCache?: boolean; }
 export interface INoShrinkWrapper { noShrink?: boolean; }
@@ -320,6 +324,7 @@ export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IPreviewScaleWrapper<TScale = number> { previewScale?: TScale; }
 export interface IPreviousActionWrapper<TValue> { previousAction?: TValue; }
 export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
+export interface IPreviousWrapper<TValue> { previous?: TValue; }
 export interface IProfileWrapper<TProfile> { profile?: TProfile; }
 export interface IProgressMessageWrapper<TProgressMessage = string> { progressMessage?: TProgressMessage; }
 export interface IProgressWrapper { progress?: boolean; }
@@ -396,6 +401,7 @@ export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
 export interface ISubmitTextWrapper { submitText?: string; }
 export interface ISucceedMessageWrapper { succeedMessage?: string; }
 export interface ISuccessWrapper<TSuccess = boolean> { success?: TSuccess; }
+export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }

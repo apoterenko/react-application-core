@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { IKeyValue } from '../../definitions.interface';
 import {
   DateTimeLikeTypeT,
+  ICalendarEntity,
   IDateTimeConfigEntity,
   MomentT,
 } from '../../definition';
@@ -12,9 +13,14 @@ export interface IDateConverter<TDate = Date> {
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDuration(cfg: IDateTimeConfigEntity<TDate>): TDate;
-  addDurationAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
+  asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
+  asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
+  asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): MomentT;
+  asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
+  buildCalendar(cfg?: IDateTimeConfigEntity): ICalendarEntity;
+  dateAsString(cfg: IDateTimeConfigEntity): string;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
@@ -23,6 +29,10 @@ export interface IDateConverter<TDate = Date> {
   fromUiDateToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   getCurrentDate(): Date;
   getCurrentDateAsUiDate(): string;
+  getLocalizedShortestWeekday(cfg: IDateTimeConfigEntity): string;
+  getLocalizedShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
+  getShortestWeekday(cfg: IDateTimeConfigEntity): string;
+  getShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
   getStartOfCurrentDate(): Date;
   /**/
   getAppOnlineLifeTimeInSeconds(): number;
@@ -112,7 +122,6 @@ export interface IDateConverter<TDate = Date> {
   getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
-  getLocalizedWeekdayShortest(index: number): string;
   getPersonAge(birthday: DateTimeLikeTypeT,
                date?: DateTimeLikeTypeT,
                inputFormat?: string): number;

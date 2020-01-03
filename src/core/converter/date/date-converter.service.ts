@@ -3,8 +3,13 @@ import * as R from 'ramda';
 import * as moment from 'moment';
 import 'moment-timezone';
 
-import { lazyInject, DI_TYPES } from '../../di';
-import { IKeyValue } from '../../definitions.interface';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
+import {
+  IKeyValue,
+} from '../../definitions.interface';
 import {
   defValuesFilter,
   ifNotNilThanValue,
@@ -18,6 +23,8 @@ import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../setti
 import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
+  ICalendarEntity,
+  ICalendarWeekEntity,
   IDateTimeConfigEntity,
   MomentT,
 } from '../../definition';
@@ -34,6 +41,12 @@ export class DateConverter implements IDateConverter<MomentT> {
   private static WEEKDAYS = moment.weekdays()
       .slice(1, 7)
       .concat(moment.weekdays()[0]);
+
+  private static DEFAULT_SHORTEST_ISO_WEEKDAYS = ['M', 'T', 'W', 'TH', 'F', 'SA', 'SU'];
+  private static DEFAULT_SHORTEST_WEEKDAYS = [
+    DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS[6],
+    ...DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS.slice(0, 6)
+  ];
 
   @lazyInject(DI_TYPES.Settings) private settings: ISettingsEntity;
 
@@ -111,15 +124,56 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [03.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asStartUnitOf(cfg: IDateTimeConfigEntity): MomentT {
+    return this.processValidMomentDate({
+      date: this.getCurrentDate(),
+      ...cfg,
+    }, (mDate) => mDate.startOf(cfg.unit as moment.unitOfTime.StartOf));
+  }
+
+  /**
+   * @stable [03.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asEndUnitOf(cfg: IDateTimeConfigEntity): MomentT {
+    return this.processValidMomentDate({
+      date: this.getCurrentDate(),
+      ...cfg,
+    }, (mDate) => mDate.endOf(cfg.unit as moment.unitOfTime.StartOf));
+  }
+
+  /**
+   * @stable [03.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asStartUnitOf({...cfg, unit: 'month'});
+  }
+
+  /**
+   * @stable [03.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asLastDayOfMonth(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asEndUnitOf({...cfg, unit: 'month'});
+  }
+
+  /**
    * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
-   * @returns {moment.Moment}
+   * @returns {MomentT}
    */
-  public addDuration(cfg: IDateTimeConfigEntity): moment.Moment {
-    const momentDate = this.asMomentDate(cfg);
-    return orNull(
-      momentDate.isValid(),
-      () => momentDate.add(cfg.duration as moment.DurationInputArg1, cfg.unit as moment.DurationInputArg2)
+  public addDuration(cfg: IDateTimeConfigEntity): MomentT {
+    return this.processValidMomentDate(
+      cfg,
+      (mDate) => mDate.add(cfg.duration as moment.DurationInputArg1, cfg.unit as moment.DurationInputArg2)
     );
   }
 
@@ -130,6 +184,15 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public addDays(cfg: IDateTimeConfigEntity): moment.Moment {
     return this.addDuration({...cfg, unit: 'days'});
+  }
+
+  /**
+   * @stable [03.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {moment.Moment}
+   */
+  public addMonths(cfg: IDateTimeConfigEntity): moment.Moment {
+    return this.addDuration({...cfg, unit: 'months'});
   }
 
   /**
@@ -148,15 +211,6 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity): Date {
     return ifNotNilThanValue(this.addDaysToUiDate(cfg), (momentDate) => momentDate.toDate());
-  }
-
-  /**
-   * @stable [02.01.2019]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {Date}
-   */
-  public addDurationAsDate(cfg: IDateTimeConfigEntity): Date {
-    return ifNotNilThanValue(this.addDuration(cfg), (momentDate) => momentDate.toDate());
   }
 
   /**
@@ -673,9 +727,44 @@ export class DateConverter implements IDateConverter<MomentT> {
     return DateConverter.WEEKDAYS_SHORT[index];
   }
 
-  public getLocalizedWeekdayShortest(index: number): string {
-    // TODO
-    return ['SU', 'M', 'T', 'W', 'TH', 'F', 'SA'][index];
+  /**
+   * @stable [04.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string[]}
+   */
+  public getShortestWeekdays(cfg?: IDateTimeConfigEntity): string[] {
+    const {isoWeek = false} = cfg || {};
+    return isoWeek
+      ? DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS
+      : DateConverter.DEFAULT_SHORTEST_WEEKDAYS;
+  }
+
+  /**
+   * @stable [04.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string[]}
+   */
+  public getLocalizedShortestWeekdays(cfg?: IDateTimeConfigEntity): string[] {
+    // TODO Localize
+    return this.getShortestWeekdays(cfg);
+  }
+
+  /**
+   * @stable [04.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public getShortestWeekday(cfg: IDateTimeConfigEntity): string {
+    return this.getShortestWeekdays(cfg)[cfg.index];
+  }
+
+  /**
+   * @stable [04.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public getLocalizedShortestWeekday(cfg: IDateTimeConfigEntity): string {
+    return this.getLocalizedShortestWeekdays(cfg)[cfg.index];
   }
 
   /**
@@ -790,6 +879,118 @@ export class DateConverter implements IDateConverter<MomentT> {
           ? moment(date)
           : moment(date, inputFormat, strict)
       );
+  }
+
+  /**
+   * @stable [03.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {ICalendarEntity}
+   */
+  public buildCalendar(cfg?: IDateTimeConfigEntity): ICalendarEntity {
+    const {isoWeek = false} = cfg || {};
+    const firstDayOfMonthAsMDate = this.asFirstDayOfMonth(cfg);
+    const firstDayOfIsoWeek = firstDayOfMonthAsMDate.isoWeekday();
+    const maxWeeksCount = 6;
+    const maxDaysCountOnWeek = 7;
+
+    const data: ICalendarWeekEntity[] = [];
+    let currentDate;
+    let currentMonthValue;
+
+    for (let i = 0; i < maxWeeksCount; i++) {
+      const row = {id: i};
+      data.push(row);
+
+      for (let j = 0; j < maxDaysCountOnWeek; j++) {
+        if (R.isNil(currentDate)) {
+          if (firstDayOfIsoWeek === j + 1) { // The ISO day of the week: 1 === Monday and 7 === Sunday
+            currentDate = firstDayOfMonthAsMDate.toDate();
+            currentMonthValue = firstDayOfMonthAsMDate.month();
+            row[j] = {
+              current: true,
+              date: currentDate,
+              next: false,
+              previous: false,
+              value: firstDayOfMonthAsMDate.date(),
+            };
+
+            for (let k = j - 1, m = 1; k >= 0; k--) {
+              const mDate = this.addDays({date: currentDate, duration: -1 * m++});
+              row[k] = {
+                current: false,
+                date: mDate.toDate(),
+                next: false,
+                previous: true,
+                value: mDate.date(),
+              };
+            }
+          }
+        } else {
+          const currentMDate = this.addDays({date: currentDate, duration: 1});
+          currentDate = currentMDate.toDate();
+          const next = currentMDate.month() > currentMonthValue;
+          row[j] = {
+            current: !next,
+            date: currentDate,
+            next,
+            previous: false,
+            value: currentMDate.date(),
+          };
+        }
+      }
+    }
+
+    const result = {
+      days: data,
+      daysLabels: this.getLocalizedShortestWeekdays(cfg),
+    };
+    if (!isoWeek) {
+      result.days = data.map((row, index) => {
+        const newRow = {...row};
+        for (let i = 0; i < maxDaysCountOnWeek - 1; i++) {
+          newRow[i + 1] = row[i];
+        }
+        const startingDate = data[index - 1];
+        if (R.isNil(startingDate)) {
+          const startingMDate = this.addDays({date: data[0][0].date, duration: -1});
+          newRow[0] = {
+            current: false,
+            date: startingMDate.toDate(),
+            next: false,
+            previous: true,
+            value: startingMDate.date(),
+          };
+        } else {
+          newRow[0] = data[index - 1][maxDaysCountOnWeek - 1];
+        }
+        return newRow;
+      });
+    }
+    let truncateFirstWeek = true;
+    let truncateLastWeek = true;
+    for (let j = 0; j < maxDaysCountOnWeek; j++) {
+      truncateFirstWeek = truncateFirstWeek && result.days[0][j].current === false;
+      truncateLastWeek = truncateLastWeek && result.days[result.days.length - 1][j].current === false;
+    }
+    return {
+      ...result,
+      days: [
+        ...(truncateFirstWeek ? [] : [result.days[0]]),
+        ...result.days.slice(1, result.days.length - 1),
+        ...(truncateLastWeek ? [] : [result.days[result.days.length - 1]])
+      ],
+    };
+  }
+
+  /**
+   * @stable [03.01.2019]
+   * @param {IDateTimeConfigEntity} cfg
+   * @param {(date: MomentT) => TResult} handler
+   * @returns {TResult}
+   */
+  private processValidMomentDate<TResult>(cfg: IDateTimeConfigEntity, handler: (date: MomentT) => TResult): TResult {
+    const momentDate = this.asMomentDate(cfg);
+    return orNull(momentDate.isValid(), () => handler(momentDate));
   }
 
   /**

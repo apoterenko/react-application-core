@@ -12,6 +12,7 @@ import {
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFocusedWrapper,
+  IHeaderRenderedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIndexedWrapper,
@@ -132,6 +133,14 @@ export const isHighlightOdd = (highlightOddEntity: IHighlightOddWrapper, index: 
  */
 export const isIndexed = (indexedEntity: IIndexedWrapper): boolean =>
   ifNotNilThanValue(indexedEntity, () => indexedEntity.indexed === true, false);
+
+/**
+ * @stable [03.01.2019]
+ * @param {IHeaderRenderedWrapper} headerRendered
+ * @returns {boolean}
+ */
+export const isHeaderRendered = (headerRendered: IHeaderRenderedWrapper): boolean =>
+  ifNotNilThanValue(headerRendered, () => headerRendered.headerRendered !== false, false);
 
 /**
  * @stable [26.10.2019]

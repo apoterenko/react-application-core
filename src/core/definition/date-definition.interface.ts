@@ -1,15 +1,24 @@
 import * as moment from 'moment';
 
 import {
+  ICurrentWrapper,
   IDateWrapper,
+  IDaysLabelsWrapper,
+  IDaysWrapper,
   IDurationWrapper,
+  IEntityIdTWrapper,
+  IIndexWrapper,
   IInputFormatWrapper,
   IInputTimeFormatWrapper,
+  IIsoWeekWrapper,
+  INextWrapper,
   IOutputFormatWrapper,
   IOutputTimeFormatWrapper,
+  IPreviousWrapper,
   IStrictWrapper,
   ITimeWrapper,
   IUnitWrapper,
+  IValueWrapper,
   IZoneWrapper,
   StringNumberT,
 } from '../definitions.interface';
@@ -37,12 +46,47 @@ export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
 export interface IDateTimeConfigEntity<TDate = Date>
   extends IDateWrapper<DateTimeLikeTypeT | TDate>,
     IDurationWrapper<StringNumberT>,
+    IIndexWrapper,
     IInputFormatWrapper,
     IInputTimeFormatWrapper,
+    IIsoWeekWrapper,
     IOutputFormatWrapper,
     IOutputTimeFormatWrapper,
     IStrictWrapper,
     ITimeWrapper,
-    IUnitWrapper<StringNumberT>,
+    IUnitWrapper<string>,
     IZoneWrapper {
+}
+
+/**
+ * @stable [03.01.2020]
+ */
+export interface ICalendarDayEntity
+  extends ICurrentWrapper<boolean>,
+    IDateWrapper<Date>,
+    INextWrapper<boolean>,
+    IPreviousWrapper<boolean>,
+    IValueWrapper<number> {
+}
+
+/**
+ * @stable [03.01.2020]
+ */
+export interface ICalendarWeekEntity
+  extends IEntityIdTWrapper {
+  0?: ICalendarDayEntity;
+  1?: ICalendarDayEntity;
+  2?: ICalendarDayEntity;
+  3?: ICalendarDayEntity;
+  4?: ICalendarDayEntity;
+  5?: ICalendarDayEntity;
+  6?: ICalendarDayEntity;
+}
+
+/**
+ * @stable [03.01.2020]
+ */
+export interface ICalendarEntity
+  extends IDaysWrapper<ICalendarWeekEntity[]>,
+    IDaysLabelsWrapper<string[]> {
 }
