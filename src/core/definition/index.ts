@@ -4,6 +4,7 @@ export * from './application-definition.interface';
 export * from './auth-definition.interface';
 export * from './bootstrap-definition.interface';
 export * from './button-definition.interface';
+export * from './calendar-definition.interface';
 export * from './channel-definition.interface';
 export * from './component-definition.interface';
 export * from './composite-field-definition.interface';

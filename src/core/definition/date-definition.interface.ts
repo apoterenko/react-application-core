@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 
 import {
+  ICalendarEntityWrapper,
   ICurrentWrapper,
   IDateWrapper,
   IDaysLabelsWrapper,
@@ -18,6 +19,7 @@ import {
   IStrictWrapper,
   ITimeWrapper,
   IUnitWrapper,
+  IUseSyntheticCalendarWrapper,
   IValueWrapper,
   IZoneWrapper,
   StringNumberT,
@@ -59,6 +61,14 @@ export interface IDateTimeConfigEntity<TDate = Date>
 }
 
 /**
+ * @stable [04.01.2020]
+ */
+export interface ICalendarConfigEntity<TDate = Date>
+  extends IDateTimeConfigEntity<TDate>,
+    IUseSyntheticCalendarWrapper {
+}
+
+/**
  * @stable [03.01.2020]
  */
 export interface ICalendarDayEntity
@@ -89,4 +99,11 @@ export interface ICalendarWeekEntity
 export interface ICalendarEntity
   extends IDaysWrapper<ICalendarWeekEntity[]>,
     IDaysLabelsWrapper<string[]> {
+}
+
+/**
+ * @stable [04.01.2020]
+ */
+export interface ICalendarEntityWrapperEntity
+  extends ICalendarEntityWrapper<ICalendarEntity> {
 }

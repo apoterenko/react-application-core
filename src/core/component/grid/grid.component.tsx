@@ -16,6 +16,7 @@ import {
   isDef,
   isExpandActionRendered,
   isFn,
+  isHeaderRendered,
   isHighlightOdd,
   isHovered,
   isSelectable,
@@ -74,10 +75,14 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           cellSpacing={0}
           className={joinClassName('rac-grid', props.className)}
         >
-          <GridHeader stickyHead={props.stickyHead}>
-            {this.headRowElement}
-            {this.filterElement}
-          </GridHeader>
+          {
+            isHeaderRendered(props) && (
+              <GridHeader stickyHead={props.stickyHead}>
+                {this.headRowElement}
+                {this.filterElement}
+              </GridHeader>
+            )
+          }
           <tbody className='rac-grid-body'>
             {props.topTotal !== false && this.totalRowElement}
             {

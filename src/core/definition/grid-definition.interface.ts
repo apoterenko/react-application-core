@@ -187,6 +187,7 @@ export interface IGridGenericEntity<TColumn, TEntity extends IEntity = IEntity>
 
 export interface IGridEntity<TEntity extends IEntity = IEntity>
   extends IListEntity<TEntity>,
+    IHeaderRenderedWrapper,
     IGridGenericEntity<IGridColumnProps, TEntity>,
     IWrapperClassNameWrapper,
     /**/

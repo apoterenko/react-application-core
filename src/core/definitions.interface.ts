@@ -78,6 +78,8 @@ export interface IBlockWrapper<TBlock = boolean> { block?: TBlock; }
 export interface IBoolWrapper { bool?: boolean; }
 export interface IBorderedWrapper { bordered?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
+export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?: TValue; }
+export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 export interface ICallbackWrapper<TValue = () => void> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICenteredMenuWrapper { centeredMenu?: boolean; }
@@ -213,6 +215,7 @@ export interface IInputFormatWrapper { inputFormat?: string; }
 export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
+export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IItemsWrapper<TItems> { items?: TItems; }
 export interface IItemWrapper<TItem> { item?: TItem; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
@@ -374,10 +377,12 @@ export interface IScaleWrapper<TScale = number> { scale?: TScale; }
 export interface ISectionNameWrapper { sectionName?: string; }
 export interface ISectionWrapper<TSection = string> { section?: TSection; }
 export interface ISelectableWrapper { selectable?: boolean; }
+export interface ISelectedDaysWrapper<TValue> { selectedDays?: TValue; }
 export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
+export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
 export interface IShowWrapper { show?(): void; }
 export interface ISignInWrapper<TSignIn> { signIn?: TSignIn; }
 export interface ISmallWrapper<TSmall = boolean> { small?: TSmall; }
@@ -401,7 +406,6 @@ export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
 export interface ISubmitTextWrapper { submitText?: string; }
 export interface ISucceedMessageWrapper { succeedMessage?: string; }
 export interface ISuccessWrapper<TSuccess = boolean> { success?: TSuccess; }
-export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
@@ -431,6 +435,7 @@ export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TUser = string> { user?: TUser; }
+export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
 export interface IUuidWrapper { uuid?: string; }
 export interface IValidateOnMountWrapper { validateOnMount?: boolean; }
 export interface IValidWrapper { valid?: boolean; }
