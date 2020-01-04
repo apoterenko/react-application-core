@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { IKeyValue } from '../../definitions.interface';
 import {
   DateTimeLikeTypeT,
+  ICalendarConfigEntity,
   ICalendarEntity,
   IDateTimeConfigEntity,
   MomentT,
@@ -13,13 +14,13 @@ export interface IDateConverter<TDate = Date> {
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDuration(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
   asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): MomentT;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
-  buildCalendar(cfg?: IDateTimeConfigEntity): ICalendarEntity;
   dateAsString(cfg: IDateTimeConfigEntity): string;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;

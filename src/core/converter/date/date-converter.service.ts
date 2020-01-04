@@ -23,6 +23,7 @@ import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../setti
 import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
+  ICalendarConfigEntity,
   ICalendarEntity,
   ICalendarWeekEntity,
   IDateTimeConfigEntity,
@@ -886,8 +887,16 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {ICalendarEntity}
    */
-  public buildCalendar(cfg?: IDateTimeConfigEntity): ICalendarEntity {
-    const {isoWeek = false} = cfg || {};
+  public asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity {
+    const syntheticCalendar = ifNotNilThanValue(cfg, () => cfg.useSyntheticCalendar === true, false);
+    cfg = {
+      isoWeek: syntheticCalendar || false,
+      ...cfg,
+      ...(
+        syntheticCalendar ? ({date: new Date('01/01/1900')}) : ({})  // The date "01/01/1900" starts on Monday.
+      ),
+    };
+    const {isoWeek} = cfg;
     const firstDayOfMonthAsMDate = this.asFirstDayOfMonth(cfg);
     const firstDayOfIsoWeek = firstDayOfMonthAsMDate.isoWeekday();
     const maxWeeksCount = 6;
@@ -929,6 +938,7 @@ export class DateConverter implements IDateConverter<MomentT> {
           const currentMDate = this.addDays({date: currentDate, duration: 1});
           currentDate = currentMDate.toDate();
           const next = currentMDate.month() > currentMonthValue;
+
           row[j] = {
             current: !next,
             date: currentDate,
@@ -968,16 +978,17 @@ export class DateConverter implements IDateConverter<MomentT> {
     }
     let truncateFirstWeek = true;
     let truncateLastWeek = true;
+    const days = result.days;
     for (let j = 0; j < maxDaysCountOnWeek; j++) {
-      truncateFirstWeek = truncateFirstWeek && result.days[0][j].current === false;
-      truncateLastWeek = truncateLastWeek && result.days[result.days.length - 1][j].current === false;
+      truncateFirstWeek = truncateFirstWeek && days[0][j].current === false;
+      truncateLastWeek = truncateLastWeek && days[days.length - 1][j].current === false;
     }
     return {
       ...result,
       days: [
-        ...(truncateFirstWeek ? [] : [result.days[0]]),
-        ...result.days.slice(1, result.days.length - 1),
-        ...(truncateLastWeek ? [] : [result.days[result.days.length - 1]])
+        ...(truncateFirstWeek ? [] : [days[0]]),
+        ...days.slice(1, days.length - 1),
+        ...(truncateLastWeek ? [] : [days[days.length - 1]])
       ],
     };
   }
