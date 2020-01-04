@@ -1880,7 +1880,6 @@
   $rac-grid-column-content-sort-transform: unset,                                 /* @stable [13.11.2019] */
   $rac-grid-column-content-sort-white-space: unset,                               /* @stable [13.11.2019] */
   $rac-grid-column-content-text-align: unset,                                     /* @stable [22.10.2019] */
-  $rac-grid-column-content-vertical-align: unset,
   $rac-grid-column-content-white-space: unset,                                    /* @stable [21.10.2019] */
   $rac-grid-column-content-width: unset                                           /* @stable [04.01.2020] */
 ) {
@@ -1918,7 +1917,6 @@
       $rac-styles-position: $rac-grid-column-content-position,
       $rac-styles-right: $rac-grid-column-content-right,
       $rac-styles-text-align: $rac-grid-column-content-text-align,
-      $rac-styles-vertical-align: $rac-grid-column-content-vertical-align,
       $rac-styles-white-space: $rac-grid-column-content-white-space,
       $rac-styles-width: $rac-grid-column-content-width
     );
@@ -2030,7 +2028,6 @@
   $rac-grid-column-content-sort-transform: unset,                                     /* @stable [13.11.2019] */
   $rac-grid-column-content-sort-white-space: unset,                                   /* @stable [13.11.2019] */
   $rac-grid-column-content-text-align: unset,                                         /* @stable [22.10.2019] */
-  $rac-grid-column-content-vertical-align: unset,
   $rac-grid-column-content-white-space: unset,                                        /* @stable [21.10.2019] */
   $rac-grid-column-content-width: unset,                                              /* @stable [04.01.2020] */
   $rac-grid-column-height: unset,
@@ -2140,7 +2137,6 @@
       $rac-grid-column-content-sort-transform: $rac-grid-column-content-sort-transform,
       $rac-grid-column-content-sort-white-space: $rac-grid-column-content-sort-white-space,
       $rac-grid-column-content-text-align: $rac-grid-column-content-text-align,
-      $rac-grid-column-content-vertical-align: $rac-grid-column-content-vertical-align,
       $rac-grid-column-content-white-space: $rac-grid-column-content-white-space,
       $rac-grid-column-content-width: $rac-grid-column-content-width
     );
@@ -2291,14 +2287,12 @@
   $rac-grid-column-content-flex-direction: unset,                                 /* @stable [21.10.2019] */
   $rac-grid-column-content-flex: unset,                                           /* @stable [21.10.2019] */
   $rac-grid-column-content-font-size: unset,
-  $rac-grid-column-content-font-weight: unset,                                    /* @stable [04.01.2020] */
   $rac-grid-column-content-height: unset,                                         /* @stable [04.01.2020] */
   $rac-grid-column-content-justify-content: unset,                                /* @stable [26.10.2019] */
   $rac-grid-column-content-letter-spacing: unset,                                 /* @stable [03.01.2020] */
   $rac-grid-column-content-line-height: unset,                                    /* @stable [03.01.2020] */
   $rac-grid-column-content-margin: unset,                                         /* @stable [03.01.2020] */
   $rac-grid-column-content-no-user-select: unset,                                 /* @stable [04.01.2020] */
-  $rac-grid-column-content-overflow: unset,
   $rac-grid-column-content-position: unset,
   $rac-grid-column-content-right: unset,
   $rac-grid-column-content-self-field-border-color: unset,                        /* @stable [21.10.2019] */
@@ -2309,7 +2303,6 @@
   $rac-grid-column-content-sort-left: unset,                                      /* @stable [13.11.2019] */
   $rac-grid-column-content-sort-transform: unset,                                 /* @stable [13.11.2019] */
   $rac-grid-column-content-text-align: unset,                                     /* @stable [22.10.2019] */
-  $rac-grid-column-content-vertical-align: unset,
   $rac-grid-column-content-width: unset,                                          /* @stable [04.01.2020] */
   $rac-grid-column-edited-content-after-color: unset,                             /* @stable [26.10.2019] */
   $rac-grid-column-edited-content-after-content: unset,                           /* @stable [26.10.2019] */
@@ -2328,7 +2321,6 @@
   $rac-grid-column-icon-content-width: unset,
   $rac-grid-column-icon-display: unset,
   $rac-grid-column-icon-height: unset,                                            /* @stable [26.10.2019] */
-  $rac-grid-column-icon-line-height: unset,
   $rac-grid-column-icon-vertical-align: unset,                                    /* @stable [21.10.2019] */
   $rac-grid-column-icon-width: unset,                                             /* @stable [26.10.2019] */
   $rac-grid-column-line-height: unset,                                            /* @stable [21.10.2019] */
@@ -2483,14 +2475,12 @@
       $rac-grid-column-content-flex-direction: $rac-grid-column-content-flex-direction,
       $rac-grid-column-content-flex: $rac-grid-column-content-flex,
       $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-      $rac-grid-column-content-font-weight: $rac-grid-column-content-font-weight,
       $rac-grid-column-content-height: $rac-grid-column-content-height,
       $rac-grid-column-content-justify-content: $rac-grid-column-content-justify-content,
       $rac-grid-column-content-letter-spacing: $rac-grid-column-content-letter-spacing,
       $rac-grid-column-content-line-height: $rac-grid-column-content-line-height,
       $rac-grid-column-content-margin: $rac-grid-column-content-margin,
       $rac-grid-column-content-no-user-select: $rac-grid-column-content-no-user-select,
-      $rac-grid-column-content-overflow: $rac-grid-column-content-overflow,
       $rac-grid-column-content-position: $rac-grid-column-content-position,
       $rac-grid-column-content-right: $rac-grid-column-content-right,
       $rac-grid-column-content-self-field-border-color: $rac-grid-column-content-self-field-border-color,
@@ -2501,7 +2491,6 @@
       $rac-grid-column-content-sort-left: $rac-grid-column-content-sort-left,
       $rac-grid-column-content-sort-transform: $rac-grid-column-content-sort-transform,
       $rac-grid-column-content-text-align: $rac-grid-column-content-text-align,
-      $rac-grid-column-content-vertical-align: $rac-grid-column-content-vertical-align,
       $rac-grid-column-content-width: $rac-grid-column-content-width,
       $rac-grid-column-height: $rac-grid-column-height,
       $rac-grid-column-icon-background: $rac-grid-column-icon-background,
@@ -2514,7 +2503,6 @@
       $rac-grid-column-icon-custom: $rac-grid-column-icon-custom,
       $rac-grid-column-icon-display: $rac-grid-column-icon-display,
       $rac-grid-column-icon-height: $rac-grid-column-icon-height,
-      $rac-grid-column-icon-line-height: $rac-grid-column-icon-line-height,
       $rac-grid-column-icon-vertical-align: $rac-grid-column-icon-vertical-align,
       $rac-grid-column-icon-width: $rac-grid-column-icon-width,
       $rac-grid-column-line-height: $rac-grid-column-line-height,
