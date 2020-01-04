@@ -27,7 +27,6 @@ export enum StartDayOfWeekT {
 }
 
 export interface IDateTimeSettings extends IDateTimeSettingsEntity {
-  yearPlaceholder?: string;
   startDayOfWeek?: StartDayOfWeekT;
   timeZone?: string;         // Time zone (+08:00, etc..)
   dateFormat?: string;       // Client-server communication format
@@ -95,7 +94,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   waitMessage?: string;
   welcomeMessage?: string;
   yearMessage?: string;
-  yearPlaceholderMessage?: string;
 }
 
 export interface IAuthorizationSettings {
@@ -164,7 +162,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   },
   messages: {
     ...DEFAULT_MESSAGES_SETTINGS_ENTITY,
-    yearPlaceholderMessage: 'Year as {pattern}',
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
     addressSelectionMessage: 'Address selection',
@@ -211,7 +208,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   },
   dateTime: {
     ...DEFAULT_DATE_TIME_SETTINGS_ENTITY,
-    yearPlaceholder: 'YYYY',
     startDayOfWeek: StartDayOfWeekT.MONDAY,
     dateFormat: 'YYYY-MM-DD',
     timeFormat: 'HH:mm:ss',

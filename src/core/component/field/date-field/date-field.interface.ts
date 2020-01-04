@@ -12,13 +12,8 @@ import {
 
 export interface IDateFieldProps extends IBaseTextFieldProps,
                                          IFormatWrapper {
-  autoOk?: boolean;
-  firstDayOfWeek?: number;
   maxDate?: Date;
   minDate?: Date;
-  locale?: string;
-  okLabel?: string;
-  yearPlaceholder?: string | boolean;
 }
 
 export interface IDateFieldState

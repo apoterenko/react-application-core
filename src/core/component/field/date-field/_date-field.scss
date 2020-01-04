@@ -1,0 +1,14 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  /**
+   * @date-field-calendar
+   * @stable [04.01.2020]
+   */
+  @include rac-calendar (
+    $rac-calendar-custom: rac-date-field-calendar,
+    $rac-calendar-width: $rac-date-field-calendar-width
+  );
+}

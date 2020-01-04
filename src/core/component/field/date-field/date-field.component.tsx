@@ -1,12 +1,15 @@
 import * as React from 'react';
-import DayPicker from 'react-day-picker';
 
-import { orNull, nvl, joinClassName, ifNotFalseThanValue } from '../../../util';
-import { AnyT } from '../../../definitions.interface';
+import { orNull, nvl, joinClassName, ifNotNilThanValue } from '../../../util';
+import {
+  AnyT,
+  UNDEF_SYMBOL,
+} from '../../../definitions.interface';
 import {
   DateTimeLikeTypeT,
   FieldActionTypesEnum,
   IBaseEvent,
+  ICalendarDayEntity,
 } from '../../../definition';
 import { IDateTimeSettings } from '../../../settings';
 import {
@@ -17,14 +20,13 @@ import { BaseTextField } from '../textfield';
 import { Dialog } from '../../dialog';
 import { FlexLayout } from '../../layout/flex';
 import { NumberField } from '../numberfield';
+import { Calendar } from '../../calendar';
 
 export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                        TState extends IDateFieldState = IDateFieldState>
   extends BaseTextField<TProps, TState> {
 
   public static defaultProps: IDateFieldProps = {
-    autoOk: true,
-    firstDayOfWeek: 1,
     preventFocus: true,
     minDate: new Date('01/01/1900'),
     maxDate: new Date('01/01/4000'),
@@ -59,13 +61,12 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     const state = this.state;
-    const yearPlaceholder = props.yearPlaceholder;
     const settings = this.settings;
 
     return orNull(
       state.dialogOpened,
       () => {
-        const initialDate = this.dialogDate;
+        const dialogDate = this.dialogDate;
         return (
           <Dialog
             ref={this.dialogRef}
@@ -77,25 +78,19 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               full={false}>
               <NumberField
                 value={this.state.year}
+                keepChanges={true}
                 onChange={this.onChangeYear}
                 pattern={'[0-9]{4}'}
                 mask={[/\d/, /\d/, /\d/, /\d/]}
-                placeholder={ifNotFalseThanValue(
-                  yearPlaceholder as boolean,
-                  () => nvl(
-                    yearPlaceholder,
-                    settings.messages.yearPlaceholderMessage.replace('{pattern}', settings.dateTime.yearPlaceholder))
-                  )
-                }>
+                placeholder={ifNotNilThanValue(dialogDate, () => String(dialogDate.getUTCFullYear()), UNDEF_SYMBOL)}>
               </NumberField>
             </FlexLayout>
-            <DayPicker
-              firstDayOfWeek={props.firstDayOfWeek}
-              fixedWeeks={true}
-              locale={props.locale}
-              month={initialDate}
-              selectedDays={initialDate}
-              onDayClick={this.onAccept}/>
+            <Calendar
+              calendarEntity={this.dc.asCalendar({date: dialogDate})}
+              selectedDays={[dialogDate.getDate()]}
+              gridConfiguration={{headerRendered: true}}
+              className='rac-date-field-calendar'
+              onSelect={this.onAccept}/>
           </Dialog>
         );
       }
@@ -164,25 +159,26 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onChangeYear(value: number): void {
     const props = this.props;
-    this.setState({year: value});
+    this.setState({year: value}, () => {
+      const date = new Date(this.dialogDate.getTime());
+      date.setFullYear(value);
 
-    const date = new Date(this.dialogDate.getTime());
-    date.setFullYear(value);
-
-    if (this.dc.compare(date, props.minDate) >= 0
-      && this.dc.compare(props.maxDate, date) >= 0) {
-      this.onChangeManually(date);
-    }
+      if (this.dc.compare(date, props.minDate) >= 0
+        && this.dc.compare(props.maxDate, date) >= 0) {
+        this.onChangeManually(date);
+      }
+    });
   }
 
   /**
-   * @stable [24.02.2019]
-   * @param {Date} currentTime
+   * @stable [05.01.2020]
+   * @param {ICalendarDayEntity} calendarDayEntity
    */
-  private onAccept(currentTime: Date): void {
-    this.onChangeManually(currentTime);
+  private onAccept(calendarDayEntity: ICalendarDayEntity): void {
+    const currentTime = calendarDayEntity.date;
     this.dialog.onAccept();
-    this.setState({dialogOpened: false});
+
+    this.setState({dialogOpened: false}, () => this.onChangeManually(currentTime));
   }
 
   /**

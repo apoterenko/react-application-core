@@ -567,6 +567,8 @@ $rac-text-field-not-changeable-border-bottom: unset !default;
 $rac-text-field-not-changeable-border-left: unset !default;
 $rac-text-field-not-changeable-border-right: unset !default;
 $rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !default;
+/**/
+$rac-date-field-calendar-width: 240px !default;
 
 /* @stable [18.06.2019] */
 $rac-date-field-dialog-body-max-height: min-content !default;
@@ -907,9 +909,9 @@ $rac-calendar-offset-0: 2px !default;
 $rac-calendar-body-border: 0 !default;
 $rac-calendar-cell-padding-left: 0 !default;
 $rac-calendar-cell-padding-right: 0 !default;
+$rac-calendar-current-day-font-weight: $rac-font-weight-2 !default;
 $rac-calendar-day-border-radius: $rac-calendar-size-0 / 2 !default;
 $rac-calendar-day-cursor: pointer !default;
-$rac-calendar-day-font-weight: $rac-font-weight-2 !default;
 $rac-calendar-day-margin: 0 auto !default;
 $rac-calendar-day-no-user-select: true !default;
 $rac-calendar-day-size: $rac-calendar-size-0 !default;

@@ -3362,9 +3362,9 @@
   $rac-calendar-body-border: unset,
   $rac-calendar-cell-padding-left: unset,
   $rac-calendar-cell-padding-right: unset,
+  $rac-calendar-current-day-font-weight: unset,
   $rac-calendar-day-border-radius: unset,
   $rac-calendar-day-cursor: unset,
-  $rac-calendar-day-font-weight: unset,
   $rac-calendar-day-margin: unset,
   $rac-calendar-day-no-user-select: unset,
   $rac-calendar-day-size: unset,
@@ -3381,7 +3381,6 @@
     $rac-grid-body-border: $rac-calendar-body-border,
     $rac-grid-body-column-content-border-radius: $rac-calendar-day-border-radius,
     $rac-grid-body-column-content-cursor: $rac-calendar-day-cursor,
-    $rac-grid-body-column-content-font-weight: $rac-calendar-day-font-weight,
     $rac-grid-body-column-content-height: $rac-calendar-day-size,
     $rac-grid-body-column-content-line-height: $rac-calendar-day-size,
     $rac-grid-body-column-padding-bottom: $rac-calendar-day-wrapper-padding-bottom,
@@ -3397,7 +3396,13 @@
 
   @include rac-grid (
     $rac-grid-custom: $rac-calendar-cls,
-    $rac-grid-column-custom: rac-calendar-selected-day-wrapper,
+    $rac-grid-column-custom: rac-calendar-selected-day,
     $rac-grid-body-column-content-background: $rac-calendar-selected-day-background
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: rac-calendar-current-day,
+    $rac-grid-body-column-content-font-weight: $rac-calendar-current-day-font-weight
   );
 }
