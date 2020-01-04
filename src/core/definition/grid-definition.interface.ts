@@ -42,6 +42,7 @@ import {
   IOnChangeBoolValueWrapper,
   IOnClickWrapper,
   IOnColumnClickWrapper,
+  IOnColumnContentClickWrapper,
   IOnSortingDirectionChangeWrapper,
   IPartOfGroupWrapper,
   IQueryWrapper,
@@ -113,6 +114,7 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
     IGenericGridColumnEntity<TEntity>,
     IOnClickWrapper<ISortDirectionEntity>,
     IOnColumnClickWrapper<IGridColumnProps<TEntity>>,
+    IOnColumnContentClickWrapper<IGridColumnProps<TEntity>>,
     ISorterWrapper<TEntity>,
     IIndexedWrapper,
     /**/

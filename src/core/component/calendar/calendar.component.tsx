@@ -54,7 +54,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
         align: 'center',
         columnClassName: this.getColumnClassName,
         renderer: this.getCellElement,
-        onColumnClick: this.onClick,
+        onColumnContentClick: this.onClick,
       }
     ));
 

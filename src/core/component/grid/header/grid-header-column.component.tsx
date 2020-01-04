@@ -54,7 +54,7 @@ export class GridHeaderColumn extends BaseGridColumn {
    * @param {React.ReactNode} children
    * @returns {React.ReactNode}
    */
-  protected getColumnContentChildrenElement(children: React.ReactNode): React.ReactNode {
+  protected getColumnContentElement(children: React.ReactNode): React.ReactNode {
     return (
       <React.Fragment>
         {

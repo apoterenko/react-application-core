@@ -92,7 +92,7 @@ export class CronField extends Field<ICronFieldProps> {
   protected getInputAttachmentElement(): JSX.Element {
     const cronEntity = this.newCronEntity;
     return (
-      <div className='rac-cron-days'>
+      <div className='rac-cron-calendar-wrapper'>
         <Calendar
           showOnlyCurrentDays={true}
           selectedDays={this.days.filter((cronDay) => this.isDaySelected(cronEntity, cronDay))}

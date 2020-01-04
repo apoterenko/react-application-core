@@ -3,8 +3,10 @@ import * as React from 'react';
 import { UniversalComponent } from '../../base';
 import {
   defValuesFilter,
+  handlerPropsFactory,
   ifNotNilThanValue,
   isEdited,
+  isFn,
   isIndexed,
   isNumber,
   isOddNumber,
@@ -16,6 +18,15 @@ import { IGridColumnProps } from '../../../definition';
 
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   extends UniversalComponent<TProps> {
+
+  /**
+   * @stable [04.01.2020]
+   * @param {TProps} props
+   */
+  constructor(props: TProps) {
+    super(props);
+    this.onColumnContentClick = this.onColumnContentClick.bind(this);
+  }
 
   /**
    * @stable [17.10.2019]
@@ -48,26 +59,37 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   }
 
   /**
-   * @stable [26.10.2019]
+   * @stable [04.01.2020]
    * @returns {JSX.Element}
    */
   protected get columnContentElement(): JSX.Element {
+    const props = this.props;
     return ifNotNilThanValue(
-      this.props.children,
+      props.children,
       (children) => (
-        <div className='rac-grid-column-content'>
-          {this.getColumnContentChildrenElement(children)}
+        <div
+          className='rac-grid-column-content'
+          {...handlerPropsFactory(this.onColumnContentClick, isFn(props.onColumnContentClick), false)}>
+          {this.getColumnContentElement(children)}
         </div>
       )
     );
   }
 
   /**
-   * @stable [22.10.2019]
+   * @stable [04.01.2020]
    * @param {React.ReactNode} children
    * @returns {React.ReactNode}
    */
-  protected getColumnContentChildrenElement(children: React.ReactNode): React.ReactNode {
+  protected getColumnContentElement(children: React.ReactNode): React.ReactNode {
     return children;
+  }
+
+  /**
+   * @stable [04.01.2020]
+   */
+  private onColumnContentClick(): void {
+    const props = this.props;
+    props.onColumnContentClick(props);
   }
 }

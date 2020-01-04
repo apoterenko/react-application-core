@@ -274,6 +274,7 @@ export interface IOddWrapper { odd?: boolean; }
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
 export interface IOnClickWrapper<TValue = AnyT> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
+export interface IOnColumnContentClickWrapper<TValue = AnyT> { onColumnContentClick?(value?: TValue): void; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
 export interface IOnDeactivateWrapper<TValue = AnyT> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
