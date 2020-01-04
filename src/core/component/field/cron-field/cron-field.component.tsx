@@ -7,24 +7,28 @@ import {
   ifNotNilThanValue,
   isDef,
   joinClassName,
+  makeArray,
 } from '../../../util';
-import { Button } from '../../button';
 import { Field } from '../field/field.component';
 import {
   CRON_ALL_DAYS_OF_MONTH_VALUES,
   CRON_ALL_DAYS_OF_WEEK_VALUES,
   CronPeriodsEnum,
+  ICalendarDayEntity,
+  ICalendarEntity,
+  ICalendarWeekEntity,
   ICronEntity,
 } from '../../../definition';
+import { Calendar } from '../../calendar';
 
 export class CronField extends Field<ICronFieldProps> {
+
   public static readonly defaultProps: ICronFieldProps = {
     period: CronPeriodsEnum.MONTHLY,
     returnNeverExecutablePeriodAsEmptyValue: true,
     type: 'hidden',
   };
 
-  private static readonly WEEK_DAYS_COUNT = 7;
   private static readonly DEFAULT_VALUES_FACTORIES: Record<number, (returnNeverExecutablePeriodAsEmptyValue: boolean) => string> = {
     [CronPeriodsEnum.MONTHLY]: (returnNeverExecutablePeriodAsEmptyValue: boolean): string =>
       CronEntity.newInstance()
@@ -39,6 +43,21 @@ export class CronField extends Field<ICronFieldProps> {
         .withDaysOfWeeks()
         .toExpression(returnNeverExecutablePeriodAsEmptyValue),
   };
+  private static readonly DEFAULT_WEEKLY_DAYS: ICalendarWeekEntity[] = [{
+    id: 0,
+    ...R.mergeAll(makeArray(7).map((_, index): ICalendarWeekEntity => ({[index]: {current: true, value: index}}))),
+  }];
+
+  /**
+   * @stable [04.01.2020]
+   * @param {ICronFieldProps} props
+   */
+  constructor(props: ICronFieldProps) {
+    super(props);
+
+    this.onDaySelect = this.onDaySelect.bind(this);
+    this.getCalendarCellElement = this.getCalendarCellElement.bind(this);
+  }
 
   /**
    * @stable [15.12.2019]
@@ -67,30 +86,20 @@ export class CronField extends Field<ICronFieldProps> {
   }
 
   /**
-   * @stable [15.12.2019]
+   * @stable [03.01.2020]
    * @returns {JSX.Element}
    */
   protected getInputAttachmentElement(): JSX.Element {
     const cronEntity = this.newCronEntity;
     return (
       <div className='rac-cron-days'>
-        <div className='rac-cron-days-body'>
-        {
-          this.days.map((cronDay, index) => (
-            <Button
-              key={cronDay}
-              rippled={false}
-              className={joinClassName(
-                'rac-cron-day-action',
-                ((index + 1) % CronField.WEEK_DAYS_COUNT !== 0) && 'rac-cron-day-action-offset',
-                this.isDaySelected(cronEntity, cronDay) && 'rac-cron-day-selected-action'
-              )}
-              onClick={() => this.onDaySelect(cronDay)}>
-              {this.getDayDisplayValue(cronDay)}
-            </Button>
-          ))
-        }
-        </div>
+        <Calendar
+          showOnlyCurrentDays={true}
+          selectedDays={this.days.filter((cronDay) => this.isDaySelected(cronEntity, cronDay))}
+          className='rac-cron-calendar'
+          calendarEntity={this.calendarEntity}
+          renderer={this.getCalendarCellElement}
+          onSelect={this.onDaySelect}/>
       </div>
     );
   }
@@ -104,10 +113,11 @@ export class CronField extends Field<ICronFieldProps> {
   }
 
   /**
-   * @stable [15.12.2019]
-   * @param {number} day
+   * @stable [03.01.2020]
+   * @param {ICalendarDayEntity} calendarDayEntity
    */
-  private onDaySelect(day: number): void {
+  private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
+    const day = calendarDayEntity.value;
     const cronEntity = this.newCronEntity;
 
     switch (this.props.period) {
@@ -172,15 +182,30 @@ export class CronField extends Field<ICronFieldProps> {
   }
 
   /**
-   * @stable [16.12.2019]
-   * @param {number} cronDay
-   * @returns {React.ReactNode}
+   * @stable [04.01.2020]
+   * @param {ICalendarDayEntity} weekDayEntity
+   * @returns {JSX.Element}
    */
-  private getDayDisplayValue(cronDay: number): React.ReactNode {
+  private getCalendarCellElement(weekDayEntity: ICalendarDayEntity): JSX.Element {
+    return (
+      <React.Fragment>
+        {weekDayEntity.date ? weekDayEntity.date.getDate() : this.dc.getLocalizedShortestWeekday({index: weekDayEntity.value})}
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * @stable [04.01.2020]
+   * @returns {ICalendarEntity}
+   */
+  private get calendarEntity(): ICalendarEntity {
     switch (this.props.period) {
       case CronPeriodsEnum.WEEKLY:
-        return this.dc.getLocalizedWeekdayShortest(cronDay);
+        return {
+          days: CronField.DEFAULT_WEEKLY_DAYS,
+          daysLabels: this.dc.getLocalizedShortestWeekdays(),
+        };
     }
-    return cronDay;
+    return null;
   }
 }
