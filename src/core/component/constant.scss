@@ -890,38 +890,23 @@ $rac-sticky-fixed-position: fixed !default;
 $rac-sticky-fixed-z-index: $rac-z-index-sticky !default;
 
 /* @stable [16.12.2019] */
-$rac-cron-day-action-cls: rac-cron-day-action;
-$rac-cron-day-action-offset-cls: rac-cron-day-action-offset;
-$rac-cron-day-selected-action-cls: rac-cron-day-selected-action;
 $rac-cron-days-cls: rac-cron-days;
 $rac-cron-field-cls: rac-cron-field;
 /**/
 $rac-cron-field-labeled-cls: '#{$rac-cron-field-cls}.#{$rac-field-labeled-cls}';
 /**/
-$rac-cron-day-count-0: 7 !default;
-$rac-cron-day-size-0: 28px !default;
-/**/
-$rac-cron-day-action-background: 0 !default;
-$rac-cron-day-action-border-radius: $rac-cron-day-size-0 / 2 !default;
-$rac-cron-day-action-content-font-size: $rac-font-size-0 !default;
-$rac-cron-day-action-height: $rac-cron-day-size-0 !default;
-$rac-cron-day-action-justify-content: center !default;
-$rac-cron-day-action-margin-bottom: $rac-offset-0 !default;
-$rac-cron-day-action-offset-margin-right: $rac-offset-1 !default;
-$rac-cron-day-action-width: $rac-cron-day-size-0 !default;
-$rac-cron-day-selected-action-background: $rac-color-0-4 !default;
+$rac-cron-calendar-selected-day-background: $rac-color-0-4 !default;
 $rac-cron-days-background: $rac-color-0-3 !default;
-$rac-cron-days-body-display: flex !default;
-$rac-cron-days-body-flex-wrap: wrap !default;
-$rac-cron-days-body-width: $rac-cron-day-size-0 * $rac-cron-day-count-0 + $rac-offset-1 * ($rac-cron-day-count-0 - 1) !default;
 $rac-cron-days-border-radius: $rac-border-radius-0 !default;
 $rac-cron-days-display: flex !default;
 $rac-cron-days-flex: 1 !default;
-$rac-cron-days-justify-content: center !default;
-$rac-cron-days-padding: $rac-offset-1 $rac-offset-1 $rac-offset-0 $rac-offset-1 !default;
+$rac-cron-days-padding: 6px $rac-offset-0 !default;
 $rac-cron-field-labeled-self-field-label-position: $rac-base-text-labeled-self-field-label-position !default;
 $rac-cron-field-labeled-self-field-label-top: $rac-base-text-labeled-self-field-label-top !default;
 $rac-cron-field-self-field-input-wrapper-flex: 1 !default;
+
+/* @stable [04.01.2020] */
+$rac-calendar-selected-day-background: unset !default;
 
 /**/
 $rac-disabled-opacity: .2;

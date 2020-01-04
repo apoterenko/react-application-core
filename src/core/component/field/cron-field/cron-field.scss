@@ -27,23 +27,19 @@
    * @stable [16.12.2019]
    */
   @include rac-cron-days (
-    $rac-cron-day-action-background: $rac-cron-day-action-background,
-    $rac-cron-day-action-border-radius: $rac-cron-day-action-border-radius,
-    $rac-cron-day-action-content-font-size: $rac-cron-day-action-content-font-size,
-    $rac-cron-day-action-height: $rac-cron-day-action-height,
-    $rac-cron-day-action-justify-content: $rac-cron-day-action-justify-content,
-    $rac-cron-day-action-margin-bottom: $rac-cron-day-action-margin-bottom,
-    $rac-cron-day-action-offset-margin-right: $rac-cron-day-action-offset-margin-right,
-    $rac-cron-day-action-width: $rac-cron-day-action-width,
-    $rac-cron-day-selected-action-background: $rac-cron-day-selected-action-background,
     $rac-cron-days-background: $rac-cron-days-background,
-    $rac-cron-days-body-display: $rac-cron-days-body-display,
-    $rac-cron-days-body-flex-wrap: $rac-cron-days-body-flex-wrap,
-    $rac-cron-days-body-width: $rac-cron-days-body-width,
     $rac-cron-days-border-radius: $rac-cron-days-border-radius,
     $rac-cron-days-display: $rac-cron-days-display,
     $rac-cron-days-flex: $rac-cron-days-flex,
-    $rac-cron-days-justify-content: $rac-cron-days-justify-content,
     $rac-cron-days-padding: $rac-cron-days-padding
+  );
+
+  /**
+   * @cron-calendar
+   * @stable [04.01.2020]
+   */
+  @include rac-calendar (
+    $rac-calendar-custom: rac-cron-calendar,
+    $rac-calendar-selected-day-background: $rac-cron-calendar-selected-day-background
   );
 }
