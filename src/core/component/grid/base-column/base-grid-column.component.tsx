@@ -3,10 +3,8 @@ import * as React from 'react';
 import { UniversalComponent } from '../../base';
 import {
   defValuesFilter,
-  handlerPropsFactory,
   ifNotNilThanValue,
   isEdited,
-  isFn,
   isIndexed,
   isNumber,
   isOddNumber,
@@ -18,15 +16,6 @@ import { IGridColumnProps } from '../../../definition';
 
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   extends UniversalComponent<TProps> {
-
-  /**
-   * @stable [04.01.2020]
-   * @param {TProps} props
-   */
-  constructor(props: TProps) {
-    super(props);
-    this.onColumnContentClick = this.onColumnContentClick.bind(this);
-  }
 
   /**
    * @stable [17.10.2019]
@@ -63,17 +52,24 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    * @returns {JSX.Element}
    */
   protected get columnContentElement(): JSX.Element {
-    const props = this.props;
     return ifNotNilThanValue(
-      props.children,
+      this.props.children,
       (children) => (
-        <div
-          className='rac-grid-column-content'
-          {...handlerPropsFactory(this.onColumnContentClick, isFn(props.onColumnContentClick), false)}>
+        <div {...this.getColumnContentProps()}>
           {this.getColumnContentElement(children)}
         </div>
       )
     );
+  }
+
+  /**
+   * @stable [04.01.2020]
+   * @returns {React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>}
+   */
+  protected getColumnContentProps(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    return {
+      className: 'rac-grid-column-content',
+    };
   }
 
   /**
@@ -83,13 +79,5 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    */
   protected getColumnContentElement(children: React.ReactNode): React.ReactNode {
     return children;
-  }
-
-  /**
-   * @stable [04.01.2020]
-   */
-  private onColumnContentClick(): void {
-    const props = this.props;
-    props.onColumnContentClick(props);
   }
 }

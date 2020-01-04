@@ -61,8 +61,9 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     return (
       <Grid
         {...NOT_SELECTABLE_GRID_ENTITY}
-        highlightOdd={false}
         headerRendered={false}
+        highlightOdd={false}
+        {...props.gridConfiguration}
         columnsConfiguration={columns}
         className={joinClassName('rac-calendar', props.className)}
         {...listEntity}

@@ -21,6 +21,7 @@ import {
   IExpandedGroupsWrapper,
   IFilterRendererWrapper,
   IFilterWrapper,
+  IGridConfigurationWrapper,
   IGroupedDataSorterWrapper,
   IGroupedRowsWrapper,
   IGroupedWrapper,
@@ -202,6 +203,13 @@ export interface IGridEntity<TEntity extends IEntity = IEntity>
 export interface IGridProps
   extends IComponentProps,
     IGridEntity {
+}
+
+/**
+ * @stable [04.01.2020]
+ */
+export interface IGridConfigurationWrapperEntity<TProps extends IGridProps = IGridProps>
+  extends IGridConfigurationWrapper<TProps> {
 }
 
 /**

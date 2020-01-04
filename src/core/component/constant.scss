@@ -358,8 +358,6 @@ $rac-grid-column-content-display: flex !default;
 $rac-grid-column-content-flex-direction: column !default;
 $rac-grid-column-content-flex: 1 !default;
 $rac-grid-column-content-font-size: $rac-font-size-0 !default;
-$rac-grid-column-content-letter-spacing: $rac-letter-spacing-0 !default;
-$rac-grid-column-content-position: unset !default;
 $rac-grid-column-content-self-field-border-color: unset !default;
 $rac-grid-column-content-self-field-border-radius: unset !default;
 $rac-grid-column-content-self-field-height: unset !default;
@@ -904,15 +902,19 @@ $rac-cron-field-self-field-input-wrapper-flex: 1 !default;
 
 /* @stable [04.01.2020] */
 $rac-calendar-size-0: 28px !default;
+$rac-calendar-offset-0: 2px !default;
 /**/
 $rac-calendar-body-border: 0 !default;
+$rac-calendar-cell-padding-left: 0 !default;
+$rac-calendar-cell-padding-right: 0 !default;
 $rac-calendar-day-border-radius: $rac-calendar-size-0 / 2 !default;
 $rac-calendar-day-cursor: pointer !default;
 $rac-calendar-day-font-weight: $rac-font-weight-2 !default;
 $rac-calendar-day-margin: 0 auto !default;
 $rac-calendar-day-no-user-select: true !default;
 $rac-calendar-day-size: $rac-calendar-size-0 !default;
-$rac-calendar-day-wrapper-padding: 2px 0 !default;
+$rac-calendar-day-wrapper-padding-bottom: $rac-calendar-offset-0 !default;
+$rac-calendar-day-wrapper-padding-top: $rac-calendar-offset-0 !default;
 $rac-calendar-margin: 0 auto !default;
 $rac-calendar-selected-day-background: $rac-color-0-4 !default;
 

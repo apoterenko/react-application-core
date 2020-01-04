@@ -11,6 +11,7 @@ import {
   ICalendarEntity,
   ICalendarEntityWrapperEntity,
 } from './date-definition.interface';
+import { IGridConfigurationWrapperEntity } from './grid-definition.interface';
 
 /**
  * @stable [04.01.2020]
@@ -19,7 +20,8 @@ export interface IGenericCalendarEntity
   extends ICalendarConfigurationWrapper<ICalendarEntity>,
     ICalendarEntityWrapperEntity,
     ISelectedDaysWrapper<number[]>,
-    IShowOnlyCurrentDaysWrapper {
+    IShowOnlyCurrentDaysWrapper,
+    IGridConfigurationWrapperEntity {
 }
 
 /**
