@@ -23,15 +23,15 @@
   );
 
   /**
-   * @cron-days
-   * @stable [16.12.2019]
+   * @cron-calendar-wrapper
+   * @stable [04.01.2020]
    */
-  @include rac-cron-days (
-    $rac-cron-days-background: $rac-cron-days-background,
-    $rac-cron-days-border-radius: $rac-cron-days-border-radius,
-    $rac-cron-days-display: $rac-cron-days-display,
-    $rac-cron-days-flex: $rac-cron-days-flex,
-    $rac-cron-days-padding: $rac-cron-days-padding
+  @include rac-styles (
+    $rac-styles-custom: rac-cron-calendar-wrapper,
+    $rac-styles-background: $rac-cron-calendar-wrapper-background,
+    $rac-styles-border-radius: $rac-cron-calendar-wrapper-border-radius,
+    $rac-styles-flex: $rac-cron-calendar-wrapper-flex,
+    $rac-styles-padding: $rac-cron-calendar-wrapper-padding
   );
 
   /**
@@ -40,6 +40,6 @@
    */
   @include rac-calendar (
     $rac-calendar-custom: rac-cron-calendar,
-    $rac-calendar-selected-day-background: $rac-cron-calendar-selected-day-background
+    $rac-calendar-width: $rac-cron-calendar-width
   );
 }

@@ -80,7 +80,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     const entity = this.asCalendarDayEntity(payload);
 
     return joinClassName(
-      selectedDays.includes(entity.value) && 'rac-calendar-selected-day'
+      selectedDays.includes(entity.value) && 'rac-calendar-selected-day-wrapper'
     );
   }
 

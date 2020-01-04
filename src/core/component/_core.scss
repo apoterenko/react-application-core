@@ -159,6 +159,15 @@
   );
 
   /**
+   * @styling
+   * @stable [04.01.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-cursor-pointer,
+    $rac-styles-cursor: pointer
+  );
+
+  /**
    * @icon
    * @stable [09.11.2019]
    */

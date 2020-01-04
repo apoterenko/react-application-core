@@ -1,0 +1,22 @@
+@import '../constant';
+@import '../mixin';
+
+.rac {
+
+  /**
+   * @calendar
+   * @stable [04.01.2020]
+   */
+  @include rac-calendar (
+    $rac-calendar-body-border: $rac-calendar-body-border,
+    $rac-calendar-day-border-radius: $rac-calendar-day-border-radius,
+    $rac-calendar-day-cursor: $rac-calendar-day-cursor,
+    $rac-calendar-day-font-weight: $rac-calendar-day-font-weight,
+    $rac-calendar-day-margin: $rac-calendar-day-margin,
+    $rac-calendar-day-no-user-select: $rac-calendar-day-no-user-select,
+    $rac-calendar-day-size: $rac-calendar-day-size,
+    $rac-calendar-day-wrapper-padding: $rac-calendar-day-wrapper-padding,
+    $rac-calendar-margin: $rac-calendar-margin,
+    $rac-calendar-selected-day-background: $rac-calendar-selected-day-background
+  );
+}
