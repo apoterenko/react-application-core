@@ -84,4 +84,19 @@ describe('date-converter.service', () => {
       expect(value).toEqual(new Date('March 1 2020 00:00:00 GMT-0800'));
     });
   });
+
+  describe('asAbsoluteDayOfYear', () => {
+    it('test1', () => {
+      const value = dateConverter.asAbsoluteDayOfYear({date: '2020-02-29', inputFormat: 'YYYY-MM-DD'});
+      expect(value).toEqual(60);
+    });
+    it('test2', () => {
+      const value = dateConverter.asAbsoluteDayOfYear({date: new Date('February 29 2020 00:00:00 GMT-0800')});
+      expect(value).toEqual(60);
+    });
+    it('test3', () => {
+      const value = dateConverter.asAbsoluteDayOfYear();
+      expect(value).toEqual(243);
+    });
+  });
 });

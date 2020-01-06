@@ -33,14 +33,14 @@ import { ISettingsEntity } from '../../settings';
  */
 export const makeSucceedFormMiddleware =
   (config: ISucceedFormMiddlewareConfigEntity = {navigateBack: true}): IEffectsAction[] => {
-  const {formSection, succeedMessage, navigateBack} = config;
+  const {formSection, succeedText, navigateBack} = config;
   return [
     navigateBack === false && formSection
       ? FormActionBuilder.buildSubmitDoneAction(formSection)
       : RouterActionBuilder.buildBackAction(),
     ...(
-      succeedMessage
-        ? [NotificationActionBuilder.buildInfoAction(getTranslator()(succeedMessage))]
+      succeedText
+        ? [NotificationActionBuilder.buildInfoAction(getTranslator()(succeedText))]
         : []
     )
   ];
@@ -80,14 +80,14 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
     ),
     NotificationActionBuilder.buildInfoAction(
       getTranslator()(
-        config.succeedMessage || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
+        config.succeedText || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
       )
     )
   ];
 };
 
 export const makeSucceedListFormMiddleware = (config: ISucceedListFormMiddlewareConfigEntity): IEffectsAction[] => {
-  const {listSection, action, navigateBack, succeedMessage} = config;
+  const {listSection, action, navigateBack, succeedText} = config;
 
   const connectorConfig = getDynamicSections().get(listSection);
   const dynamicListRoute = orNull<string>(
@@ -106,7 +106,7 @@ export const makeSucceedListFormMiddleware = (config: ISucceedListFormMiddleware
   ].concat(
     NotificationActionBuilder.buildInfoAction(
       staticInjector<TranslatorT>(DI_TYPES.Translate)(
-        succeedMessage || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
+        succeedText || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
       )
     )
   );

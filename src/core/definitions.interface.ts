@@ -36,6 +36,9 @@ export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 
 export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
+export interface IAcceptDisabledWrapper { acceptDisabled?: boolean; }
+export interface IAcceptTextWrapper { acceptText?: string; }
+export interface IAcceptWrapper { accept?(): void; }
 export interface IAccessConfigurationWrapper<TAccessConfiguration> { accessConfiguration?: TAccessConfiguration; }
 export interface IAccessDeniedWrapper<TAccessDenied> { accessDenied?: TAccessDenied; }
 export interface IActionsDisabledWrapper { actionsDisabled?: boolean; }
@@ -45,7 +48,7 @@ export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 export interface IActionsWrapper<TActions> { actions?: TActions; }
 export interface IActionWrapper<TAction> { action?: TAction; }
 export interface IActivateDialogWrapper { activateDialog?(): void; }
-export interface IActivateWrapper { activate?(onDeactivateCallback?: () => void): void; }
+export interface IActivateWrapper<TPayload = AnyT> { activate?(payload?: TPayload): void; }
 export interface IActiveActionsWrapper<TActions> { activeActions?: TActions; }
 export interface IActiveValueWrapper<TActiveValue = number> { activeValue?: TActiveValue; }
 export interface IActiveWrapper<TActive = boolean> { active?: TActive; }
@@ -92,7 +95,8 @@ export interface ICityWrapper<TCity = string> { city?: TCity; }
 export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
-export interface ICloseWrapper<TClose> { close?: TClose; }
+export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
+export interface ICloseTextWrapper { closeText?: string; }
 export interface ICodeWrapper<TCode = string> { code?: TCode; }
 export interface IColumnClassNameWrapper<TClassName = string> { columnClassName?: TClassName; }
 export interface IColumnNameWrapper { columnName?: string; }
@@ -271,12 +275,14 @@ export interface INoAuthWrapper { noAuth?: boolean; }
 export interface INoCacheWrapper { noCache?: boolean; }
 export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IOddWrapper { odd?: boolean; }
+export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
+export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
 export interface IOnClickWrapper<TValue = AnyT> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
-export interface IOnColumnContentClickWrapper<TValue = AnyT> { onColumnContentClick?(value?: TValue): void; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
-export interface IOnDeactivateWrapper<TValue = AnyT> { onDeactivate?(value?: TValue): void; }
+export interface IOnColumnContentClickWrapper<TValue = AnyT> { onColumnContentClick?(value?: TValue): void; }
+export interface IOnDeactivateWrapper<TPayload = AnyT> { onDeactivate?(payload?: TPayload): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
@@ -405,7 +411,7 @@ export interface IStyleWrapper<TStyle> { style?: TStyle; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
 export interface ISubmitTextWrapper { submitText?: string; }
-export interface ISucceedMessageWrapper { succeedMessage?: string; }
+export interface ISucceedTextWrapper { succeedText?: string; }
 export interface ISuccessWrapper<TSuccess = boolean> { success?: TSuccess; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
@@ -658,20 +664,6 @@ export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
  */
 export interface IAvatarRenderedWrapper {
   avatarRendered?: boolean;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IAcceptDisabledWrapper {
-  acceptDisabled?: boolean;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface ICloseDisabledWrapper {
-  closeDisabled?: boolean;
 }
 
 /**
@@ -937,20 +929,6 @@ export interface IUseUppercaseWrapper {
 }
 
 /**
- * @stable [17.05.2018]
- */
-export interface ICloseMessageWrapper<TCloseMessage = string> {
-  closeMessage?: TCloseMessage;
-}
-
-/**
- * @stable [17.05.2018]
- */
-export interface IAcceptMessageWrapper<TAcceptMessage = string> {
-  acceptMessage?: TAcceptMessage;
-}
-
-/**
  * @stable [01.02.2019]
  */
 export interface IErrorMessageWrapper<TErrorMessage = string> {
@@ -1157,23 +1135,9 @@ export interface IAfterShowWrapper<TAfterShow = () => void> {
   afterShow?: TAfterShow;
 }
 
-/**
- * @stable [17.05.2018]
- */
-export interface IOnAcceptWrapper<TOnAccept = (...args: AnyT[]) => void> {
-  onAccept?: TOnAccept;
-}
-
 /* @stable - 31.03.2018 */
 export interface IOnCreateWrapper<TOnCreate = () => void> {
   onCreate?: TOnCreate;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IOnActivateWrapper<TOnActivate = () => void> {
-  onActivate?: TOnActivate;
 }
 
 /**

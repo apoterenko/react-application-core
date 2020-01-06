@@ -8,7 +8,7 @@ import {
   IUniversalComponentProps,
   IUniversalContainer,
   IUniversalContainerProps,
-  IUniversalDialog,
+  IDialog,
   IUniversalStoreEntity,
 } from '../../../../definition';
 import { getRouterStoreProxyFactoryFactory } from '../../../../di';
@@ -19,7 +19,7 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
   extends BaseStoreProxy<TStore, TProps>
   implements IDialogFormChangesConfirmStoreProxy {
 
-  private readonly dialogRef = React.createRef<IUniversalDialog>();
+  private readonly dialogRef = React.createRef<IDialog>();
   private readonly routerStoreProxy: IRouterStoreProxy;
   private readonly originalGoBackFn: () => void;
   private cachedDepth: number;
@@ -53,7 +53,7 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
    * @stable [03.10.2019]
    */
   public activateDialog(): void {
-    this.dialogRef.current.activate(this.onDialogDeactivate);
+    this.dialogRef.current.activate({onDeactivate: this.onDialogDeactivate});
   }
 
   /**
@@ -65,9 +65,9 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
 
   /**
    * @stable [03.10.2019]
-   * @returns {React.RefObject<T extends IUniversalDialog>}
+   * @returns {React.RefObject<T extends IDialog>}
    */
-  public getDialogRef<T extends IUniversalDialog>(): React.RefObject<T> {
+  public getDialogRef<T extends IDialog>(): React.RefObject<T> {
     return this.dialogRef as React.RefObject<T>;
   }
 

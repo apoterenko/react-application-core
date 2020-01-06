@@ -288,9 +288,6 @@ export class UIMaterialFactory implements IUIFactory {
   public menuAnchor = 'mdc-menu-surface--anchor';
   public menuSurface = 'mdc-menu-surface';
   public menu = 'mdc-menu';
-  public dialog = 'mdc-dialog';
-  public dialogContainer = 'mdc-dialog__container';
-  public dialogScrim = 'mdc-dialog__scrim';
 
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;

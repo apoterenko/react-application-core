@@ -24,11 +24,12 @@ import {
   IBaseFileFieldProps,
 } from './basic-filefield.interface';
 import { toLastAddedMultiItemEntityId } from '../multifield';
-import { IUniversalDialog2, Dialog } from '../../dialog';
+import { Dialog } from '../../dialog';
 import { WebCamera, IWebCamera } from '../../web-camera';
 import {
   FieldActionTypesEnum,
   IBaseEvent,
+  IDialog,
   IFieldActionEntity,
 } from '../../../definition';
 
@@ -257,10 +258,10 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   /**
    * @stable [02.08.2018]
-   * @returns {IUniversalDialog2}
+   * @returns {IDialog}
    */
-  private get cameraDialog(): IUniversalDialog2 {
-    return this.refs.cameraDialog as IUniversalDialog2;
+  private get cameraDialog(): IDialog {
+    return this.refs.cameraDialog as IDialog;
   }
 
   /**

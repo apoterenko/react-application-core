@@ -61,7 +61,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   protected getInputAttachmentElement(): JSX.Element {
     const props = this.props;
     const state = this.state;
-    const settings = this.settings;
 
     return orNull(
       state.dialogOpened,
@@ -72,17 +71,17 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             ref={this.dialogRef}
             acceptable={false}
             closable={false}
-            className='rac-date-field-dialog'
           >
             <FlexLayout
               full={false}>
               <NumberField
                 value={this.state.year}
+                autoFocus={true}
                 keepChanges={true}
-                onChange={this.onChangeYear}
                 pattern={'[0-9]{4}'}
                 mask={[/\d/, /\d/, /\d/, /\d/]}
-                placeholder={ifNotNilThanValue(dialogDate, () => String(dialogDate.getUTCFullYear()), UNDEF_SYMBOL)}>
+                placeholder={ifNotNilThanValue(dialogDate, () => String(dialogDate.getUTCFullYear()), UNDEF_SYMBOL)}
+                onChange={this.onChangeYear}>
               </NumberField>
             </FlexLayout>
             <Calendar
@@ -102,7 +101,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Array<string | RegExp>}
    */
   protected getFieldMask(): Array<string|RegExp> {
-    return orNull<Array<string|RegExp>>(
+    return orNull(
       !this.isDisplayValueDefined,
       () => super.getFieldMask() || this.dateTimeSettings.uiDateMask
     );
@@ -176,7 +175,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onAccept(calendarDayEntity: ICalendarDayEntity): void {
     const currentTime = calendarDayEntity.date;
-    this.dialog.onAccept();
+    this.dialog.accept();
 
     this.setState({dialogOpened: false}, () => this.onChangeManually(currentTime));
   }

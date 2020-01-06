@@ -4,7 +4,8 @@ import * as R from 'ramda';
 import { toClassName, orNull } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout/flex';
-import { IUniversalDialog2, Dialog } from '../dialog';
+import { Dialog } from '../dialog';
+import { IDialog } from '../../definition';
 import { IViewerProps, IViewerState } from './viewer.interface';
 import { PictureViewer } from '../viewer';
 
@@ -161,7 +162,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   private onPreview(): void {
     this.setState({opened: true});
 
-    const dialog = this.refs.dialog as IUniversalDialog2;
+    const dialog = this.refs.dialog as IDialog;
     dialog.activate();
   }
 }

@@ -1,151 +1,239 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import { BaseComponent } from '../base/base.component';
 import { Button } from '../button';
 import { FlexLayout } from '../layout/flex';
-import { IUniversalDialog2, IDialogProps, IUniversalDialogProps } from './dialog.interface';
-import { orNull, toClassName, isFn } from '../../util';
+import {
+  handlerPropsFactory,
+  isFn,
+  joinClassName,
+  orNull,
+} from '../../util';
 import { PerfectScrollPlugin } from '../plugin';
+import {
+  IActivateDialogConfigEntity,
+  IDialog,
+  IDialogProps,
+  IDialogState,
+} from '../../definition';
 import { BasicComponent } from '../base/basic.component';
+import { BaseComponent } from '../base/base.component';
 
 export class Dialog<TProps extends IDialogProps = IDialogProps,
-                    TState = {}>
+                    TState extends IDialogState = IDialogState>
   extends BaseComponent<TProps, TState>
-  implements IUniversalDialog2<TProps, TState> {
+  implements IDialog<TProps, TState> {
+
+  private onDeactivateCallback: () => void;
 
   /**
-   * @stable [04.10.2018]
+   * @stable [06.01.2020]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
-    this.onAccept = this.onAccept.bind(this);
-    this.onClose = this.onClose.bind(this);
+
+    this.onAcceptClick = this.onAcceptClick.bind(this);
+    this.onCloseClick = this.onCloseClick.bind(this);
+    this.onDialogScrimClick = this.onDialogScrimClick.bind(this);
+
+    this.state = {opened: false} as TState;
   }
 
   /**
-   * @stable [03.08.2018]
+   * @stable [05.01.2020]
+   * @returns {React.ReactNode}
+   */
+  public render(): React.ReactNode {
+    return orNull(
+      this.state.opened,
+      () => (
+        ReactDOM.createPortal(
+          <div
+            ref={this.selfRef}
+            className={this.getDialogClassName()}>
+            {this.dialogScrimElement}
+            <div className='rac-dialog-body-wrapper rac-absolute rac-full-size'>
+              {this.dialogBodyElement}
+            </div>
+          </div>,
+          this.domAccessor.getDocumentBodyElement()
+        )
+      )
+    );
+  }
+
+  /**
+   * @stable [06.01.2020]
+   * @param {IActivateDialogConfigEntity} payload
+   */
+  public activate(payload?: IActivateDialogConfigEntity): void {
+    this.setState({opened: true}, () => {
+      const {
+        onActivate,
+        onDeactivate,
+      } = payload || {} as IActivateDialogConfigEntity;
+
+      if (isFn(onDeactivate)) {
+        this.onDeactivateCallback = onDeactivate;
+      }
+      if (isFn(onActivate)) {
+        onActivate.call(this);
+      }
+      const props = this.props;
+      if (isFn(props.onActivate)) {
+        props.onActivate();
+      }
+    });
+  }
+
+  /**
+   * @stable [06.01.2020]
+   */
+  public accept(): void {
+    this.onAcceptClick();
+  }
+
+  /**
+   * @stable [05.01.2020]
+   * @returns {string}
+   */
+  protected getDialogClassName(): string {
+    return joinClassName('rac-dialog', this.props.className);
+  }
+
+  /**
+   * @stable [06.01.2020]
+   */
+  protected onAcceptClick(): void {
+    const props = this.props;
+
+    this.doClose(() => {
+      if (isFn(props.onAccept)) {
+        props.onAccept();
+      }
+    });
+  }
+
+  /**
+   * @stable [05.01.2020]
+   */
+  private onCloseClick(): void {
+    const props = this.props;
+
+    this.doClose(() => {
+      if (isFn(props.onClose)) {
+        props.onClose();
+      }
+    });
+  }
+
+  /**
+   * @stable [05.01.2020]
+   */
+  private onDialogScrimClick(): void {
+    this.doClose();
+  }
+
+  /**
+   * @stable [05.01.2020]
+   * @param {() => void} callback
+   */
+  private doClose(callback?: () => void): void {
+    const props = this.props;
+
+    this.setState({opened: false}, () => {
+      if (isFn(this.onDeactivateCallback)) {
+        this.onDeactivateCallback.call(this);
+        this.onDeactivateCallback = null;
+      }
+      if (isFn(props.onDeactivate)) {
+        props.onDeactivate();
+      }
+      if (isFn(callback)) {
+        callback.call(this);
+      }
+    });
+  }
+
+  /**
+   * @stable [24.03.2019]
    * @returns {JSX.Element}
    */
-  public render(): JSX.Element {
+  private get footerElement(): JSX.Element {
+    const props = this.props;
+    return (
+      orNull(
+        this.closable || this.acceptable,
+        () => (
+          <FlexLayout
+            row={true}
+            full={false}
+            noShrink={true}
+            className='rac-dialog-footer-actions'
+          >
+            {
+              orNull(
+                this.closable,
+                () => (
+                  <Button
+                    icon='close'
+                    full={true}
+                    disabled={this.isCloseButtonDisabled}
+                    onClick={this.onCloseClick}>
+                    {this.t(props.closeText || this.settings.messages.DIALOG_CANCEL)}
+                  </Button>
+                )
+              )
+            }
+            {
+              orNull(
+                this.acceptable,
+                () => (
+                  <Button
+                    icon='ok-filled'
+                    full={true}
+                    raised={true}
+                    disabled={this.isAcceptButtonDisabled}
+                    onClick={this.onAcceptClick}>
+                    {this.t(props.acceptText || this.settings.messages.DIALOG_ACCEPT)}
+                  </Button>
+                )
+              )
+            }
+          </FlexLayout>
+        )
+      )
+    );
+  }
+
+  /**
+   * @stable [05.01.2020]
+   * @returns {JSX.Element}
+   */
+  private get dialogScrimElement(): JSX.Element {
     return (
       <div
-        ref={this.selfRef}
-        className={this.getDialogClassName()}>
-        {this.dialogBodyElement}
-        {this.isDialogVisible() && (
-          <div className={toClassName('rac-dialog-scrim', this.uiFactory.dialogScrim)}/>
-        )}
+        className='rac-dialog-scrim rac-absolute rac-full-size'
+        {...handlerPropsFactory(this.onDialogScrimClick)}/>
+    );
+  }
+
+  /**
+   * @stable [05.01.2020]
+   * @returns {JSX.Element}
+   */
+  private get dialogBodyElement(): JSX.Element {
+    return (
+      <div className='rac-dialog-body'>
+        {this.bodyElement}
+        {this.footerElement}
       </div>
     );
   }
 
   /**
-   * @stable [19.06.2019]
-   */
-  public activate(onDeactivateCallback?: () => void): void {
-    // Each plugin must override this method
-  }
-
-  /**
-   * @stable [17.05.2018]
-   */
-  public onAccept(): void {
-    const props = this.props;
-    if (props.onAccept) {
-      props.onAccept();
-    }
-  }
-
-  /**
-   * @stable [17.06.2019]
-   */
-  public onClose(): void {
-    const props = this.props;
-    if (props.onClose) {
-      props.onClose();
-    }
-  }
-
-  /**
-   * @stable [19.06.2019]
-   */
-  public onDeactivate(): void {
-    const props = this.props;
-    if (isFn(props.onDeactivate)) {
-      props.onDeactivate();
-    }
-  }
-
-  /**
-   * @stable [17.05.2018]
-   * @returns {boolean}
-   */
-  public get acceptable(): boolean {
-    return this.props.acceptable !== false;
-  }
-
-  /**
-   * @stable [17.05.2018]
-   * @returns {boolean}
-   */
-  public get closable(): boolean {
-    return this.props.closable !== false;
-  }
-
-  /**
-   * @stable [05.08.2018]
-   * @returns {string}
-   */
-  protected getDialogClassName(): string {
-    return toClassName(
-      'rac-dialog',
-      this.props.className,
-      this.uiFactory.dialog,
-      !this.isDialogVisible() && 'rac-invisible'
-    );
-  }
-
-  /**
-   * @stable [03.08.2018]
-   * @returns {boolean}
-   */
-  protected isCloseButtonDisabled(): boolean {
-    return this.props.closeDisabled;
-  }
-
-  /**
-   * @stable [03.08.2018]
-   * @returns {boolean}
-   */
-  protected isAcceptButtonDisabled(): boolean {
-    return this.props.acceptDisabled;
-  }
-
-  /**
-   * @stable [04.08.2018]
-   * @returns {boolean}
-   */
-  protected isDialogVisible(): boolean {
-    return true;
-  }
-
-  /**
-   * @stable [17.06.2019]
-   * @returns {JSX.Element}
-   */
-  private get dialogBodyElement(): JSX.Element {
-    return (
-      <FlexLayout
-        className={toClassName('rac-dialog-body', this.uiFactory.dialogContainer)}>
-        {this.bodyElement}
-        {this.footerElement}
-      </FlexLayout>
-    );
-  }
-
-  /**
-   * @stable [29.12.2019]
+   * @stable [06.01.2020]
    * @returns {JSX.Element}
    */
   private get bodyElement(): JSX.Element {
@@ -173,53 +261,34 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [24.03.2019]
-   * @returns {JSX.Element}
+   * @stable [06.01.2020]
+   * @returns {boolean}
    */
-  private get footerElement(): JSX.Element {
-    const props = this.props;
-    return (
-      orNull(
-        this.closable || this.acceptable,
-        () => (
-          <FlexLayout
-            row={true}
-            full={false}
-            noShrink={true}
-            className='rac-dialog-footer-actions'
-          >
-            {
-              orNull(
-                this.closable,
-                () => (
-                  <Button
-                    icon='close'
-                    full={true}
-                    disabled={this.isCloseButtonDisabled()}
-                    onClick={this.onClose}>
-                    {this.t(props.closeMessage || this.settings.messages.dialogCancelMessage)}
-                  </Button>
-                )
-              )
-            }
-            {
-              orNull<JSX.Element>(
-                this.acceptable,
-                () => (
-                  <Button
-                    icon='ok-filled'
-                    full={true}
-                    raised={true}
-                    disabled={this.isAcceptButtonDisabled()}
-                    onClick={this.onAccept}>
-                    {this.t(props.acceptMessage || this.settings.messages.dialogAcceptMessage)}
-                  </Button>
-                )
-              )
-            }
-          </FlexLayout>
-        )
-      )
-    );
+  private get acceptable(): boolean {
+    return this.props.acceptable !== false;
+  }
+
+  /**
+   * @stable [06.01.2020]
+   * @returns {boolean}
+   */
+  private get closable(): boolean {
+    return this.props.closable !== false;
+  }
+
+  /**
+   * @stable [06.01.2020]
+   * @returns {boolean}
+   */
+  private get isCloseButtonDisabled(): boolean {
+    return this.props.closeDisabled === true;
+  }
+
+  /**
+   * @stable [06.01.2020]
+   * @returns {boolean}
+   */
+  private get isAcceptButtonDisabled(): boolean {
+    return this.props.acceptDisabled === true;
   }
 }

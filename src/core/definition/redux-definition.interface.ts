@@ -37,7 +37,7 @@ import {
   ISectionWrapper,
   ISelectWrapper,
   IStateWrapper,
-  ISucceedMessageWrapper,
+  ISucceedTextWrapper,
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
@@ -191,7 +191,7 @@ export interface ISortedListMiddlewareConfigEntity
  * @stable [04.10.2019]
  */
 export interface ISucceedFormMiddlewareConfigEntity
-  extends ISucceedMessageWrapper,
+  extends ISucceedTextWrapper,
     IFormSectionWrapper,
     INavigateBackWrapper {
 }
@@ -200,11 +200,11 @@ export interface ISucceedFormMiddlewareConfigEntity
  * @stable [09.10.2019]
  */
 export interface ISucceedListFormMiddlewareConfigEntity
-  extends INavigateBackWrapper,
-    IEffectsActionEntity,
-    IListSectionWrapper,
+  extends IEffectsActionEntity,
     IFormSectionWrapper,
-    ISucceedMessageWrapper {
+    IListSectionWrapper,
+    INavigateBackWrapper,
+    ISucceedTextWrapper {
 }
 
 /**

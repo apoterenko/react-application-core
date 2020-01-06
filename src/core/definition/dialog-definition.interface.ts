@@ -1,28 +1,72 @@
 import {
   IAcceptableWrapper,
+  IAcceptDisabledWrapper,
+  IAcceptTextWrapper,
+  IAcceptWrapper,
   IActivateWrapper,
   IClosableWrapper,
+  ICloseDisabledWrapper,
+  ICloseTextWrapper,
+  IOnAcceptWrapper,
+  IOnActivateWrapper,
+  IOnCloseWrapper,
   IOnDeactivateWrapper,
+  IOpenedWrapper,
 } from '../definitions.interface';
-import { IUniversalComponent } from './component-definition.interface';
-import { IUniversalComponentProps } from './props-definition.interface';
+import { IComponent } from './component-definition.interface';
+import { IComponentProps } from './props-definition.interface';
 
 /**
  * @stable [03.10.2019]
  */
 export interface IGenericDialogEntity
-  extends IClosableWrapper,
-    IAcceptableWrapper {
+  extends IAcceptableWrapper,
+    IAcceptDisabledWrapper,
+    IAcceptTextWrapper,
+    IClosableWrapper,
+    ICloseDisabledWrapper,
+    ICloseTextWrapper {
 }
 
 /**
- * @react-native-compatible
+ * @stable [06.01.2020]
+ */
+export interface IBehavioralDialogEntity
+  extends IGenericDialogEntity,
+    IOnAcceptWrapper,
+    IOnActivateWrapper,
+    IOnCloseWrapper,
+    IOnDeactivateWrapper {
+}
+
+/**
+ * @stable [05.01.2020]
+ */
+export interface IActivateDialogConfigEntity
+  extends IOnActivateWrapper,
+    IOnDeactivateWrapper {
+}
+
+/**
  * @stable [03.10.2019]
  */
-export interface IUniversalDialog<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
-  extends IUniversalComponent<TProps, TState>,
-    IAcceptableWrapper,
-    IActivateWrapper,
-    IClosableWrapper,
-    IOnDeactivateWrapper {
+export interface IDialog<TProps extends IComponentProps = IComponentProps, TState = {}>
+  extends IComponent<TProps, TState>,
+    IAcceptWrapper,
+    IActivateWrapper<IActivateDialogConfigEntity> {
+}
+
+/**
+ * @stable [06.01.2020]
+ */
+export interface IDialogProps
+  extends IComponentProps,
+    IBehavioralDialogEntity {
+}
+
+/**
+ * @stable [06.01.2020]
+ */
+export interface IDialogState
+  extends IOpenedWrapper {
 }

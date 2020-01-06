@@ -33,9 +33,6 @@ export interface IUIFactory
   menuAnchor?: string;
   menuSurface?: string;
   menu?: string;
-  dialog?: string;
-  dialogContainer?: string;
-  dialogScrim?: string;
 
   /**
    * @stable [15.12.2018]

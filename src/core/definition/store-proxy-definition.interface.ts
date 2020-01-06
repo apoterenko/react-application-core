@@ -11,7 +11,7 @@ import {
 import { IContainer } from './container-definition.interface';
 import { IDispatcher } from './dispatcher-definition.interface';
 import { IStackItemEntity } from './stack-definition.interface';
-import { IUniversalDialog } from './dialog-definition.interface';
+import { IDialog } from './dialog-definition.interface';
 
 /**
  * @stable [27.11.2019]
@@ -21,7 +21,7 @@ export interface IDialogFormChangesConfirmStoreProxy
     IActivateDialogWrapper,
     IGoBackWrapper,
     IBaseRouterStoreProxy {
-  getDialogRef<T extends IUniversalDialog>(): React.RefObject<T>;
+  getDialogRef<T extends IDialog>(): React.RefObject<T>;
 }
 
 /**

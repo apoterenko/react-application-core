@@ -171,7 +171,7 @@ export interface ITabPanelConfiguration extends IComponentProps,
                                                 IForwardRenderedWrapper,
                                                 IOnCloseWrapper<ITabConfiguration>,
                                                 IReactOnClickWrapper<ITabConfiguration>,
-                                                IOnDeactivateWrapper,
+                                                IOnDeactivateWrapper<number>,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
 

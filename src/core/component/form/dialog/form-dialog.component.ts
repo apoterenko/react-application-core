@@ -1,30 +1,25 @@
 import { Dialog } from '../../dialog/dialog.component';
-
+import { IActivateDialogConfigEntity } from '../../../definition';
 import { IFormDialogProps } from './form-dialog.interface';
+import { isDirty } from '../../../util';
 
 export class FormDialog extends Dialog<IFormDialogProps> {
 
   public static defaultProps: IFormDialogProps = {
     title: 'Changes you made will not be saved',
-    closeMessage: 'Cancel',
-    acceptMessage: 'Discard',
+    closeText: 'Cancel',
+    acceptText: 'Discard',
   };
 
   /**
-   * @stable [31.05.2018]
+   * @stable [05.01.2020]
+   * @param {IActivateDialogConfigEntity} payload
    */
-  public activate(): void {
-    if (this.isDialogVisible()) {
-      super.activate();
+  public activate(payload?: IActivateDialogConfigEntity): void {
+    if (isDirty(this.props.form)) {
+      super.activate(payload);
     } else {
-      this.onAccept();
+      this.onAcceptClick();
     }
-  }
-
-  /**
-   * @stable [04.08.2018]
-   */
-  protected isDialogVisible(): boolean {
-    return this.props.form.dirty;
   }
 }

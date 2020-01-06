@@ -179,6 +179,19 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [06.01.2020]
+   * @tested
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {number}
+   */
+  public asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity): number {
+    return this.processValidMomentDate({
+      date: this.getCurrentDate(),
+      ...cfg,
+    }, (mDate) => mDate.dayOfYear());
+  }
+
+  /**
    * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {moment.Moment}
@@ -207,6 +220,7 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [02.01.2019]
+   * @tested
    * @param {IDateTimeConfigEntity} cfg
    * @returns {Date}
    */
@@ -283,6 +297,7 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [25.12.2019]
+   * @tested
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
@@ -318,6 +333,7 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [25.12.2019]
+   * @tested
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
@@ -645,6 +661,7 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [22.12.2019]
+   * @tested
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
@@ -673,6 +690,7 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [25.12.2019]
+   * @tested
    * @returns {Date}
    */
   public getCurrentDate(): Date {

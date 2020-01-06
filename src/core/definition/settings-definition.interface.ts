@@ -86,6 +86,8 @@ export interface IMessagesSettingsEntity {
   APPLICATION_IS_INITIALIZING?: string;
   BUILD?: string;
   DETAILS_INFO?: string;
+  DIALOG_ACCEPT?: string;
+  DIALOG_CANCEL?: string;
   ENVIRONMENT?: string;
   ERROR?: string;
   FILTER_PLACEHOLDER?: string;
@@ -106,6 +108,8 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   APPLICATION_IS_INITIALIZING: 'The app is initializing...',
   BUILD: 'Build',
   DETAILS_INFO: 'Details info',
+  DIALOG_ACCEPT: 'Continue',
+  DIALOG_CANCEL: 'Cancel',
   ENVIRONMENT: 'Environment',
   ERROR: 'Error',
   FILTER_PLACEHOLDER: 'Search',

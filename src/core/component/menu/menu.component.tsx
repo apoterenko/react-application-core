@@ -67,6 +67,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
     this.getItemElement = this.getItemElement.bind(this);
     this.hide = this.hide.bind(this);
+    this.onDialogActivate = this.onDialogActivate.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.onFilterValueChange = this.onFilterValueChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
@@ -91,6 +92,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             className='rac-menu-dialog'
             closable={false}
             acceptable={false}
+            onActivate={this.onDialogActivate}
             onDeactivate={this.onDialogDeactivate}
           >
             {this.closeActionElement}
@@ -143,9 +145,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.setState({filter: UNDEF, opened: true}, () => {
       if (this.doesDialogExist) {
         this.dialog.activate();
-      }
-      if (this.isFilterUsed) {
-        this.field.setFocus();
       }
       if (!this.centeredMenu) {
         this.unsubscribeAllCaptureEvents();
@@ -243,10 +242,19 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.06.2019]
+   * @stable [06.01.2020]
    */
   private onDialogDeactivate(): void {
     this.setState({opened: false});
+  }
+
+  /**
+   * @stable [06.01.2020]
+   */
+  private onDialogActivate(): void {
+    if (this.isFilterUsed) {
+      this.field.setFocus();
+    }
   }
 
   /**

@@ -62,8 +62,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   create?: string;
   dataSaved?: string;
   defaultErrorMessage?: string;
-  dialogAcceptMessage?: string;
-  dialogCancelMessage?: string;
   dialogTitleMessage?: string;
   dndMessage?: string;
   emptyDataMessage?: string;
@@ -174,8 +172,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     create: 'Create',
     dataSaved: 'The data has been successfully saved.',
     defaultErrorMessage: 'Error',
-    dialogAcceptMessage: 'Continue',
-    dialogCancelMessage: 'Cancel',
     dialogTitleMessage: 'Notice',
     dndMessage: 'Upload a file(s) here',
     emptyDataMessage: 'No data found',

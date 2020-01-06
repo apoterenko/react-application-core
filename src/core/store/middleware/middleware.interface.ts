@@ -11,7 +11,7 @@ import {
   IRelatedEntityWrapper,
   IResolverWrapper,
   IStateWrapper,
-  ISucceedMessageWrapper,
+  ISucceedTextWrapper,
 } from '../../definitions.interface';
 import {
   IEffectsActionEntity,
@@ -56,7 +56,7 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
             IFormSectionWrapper,
             INavigateBackWrapper,
             IStateWrapper<TApplicationState>,
-            ISucceedMessageWrapper {
+            ISucceedTextWrapper {
   getEntity?(state: TApplicationState): TEntity;
   getRelatedEntities?(entity: TEntity): TRelatedEntity[];
   makeRelatedChanges?(relatedEntities: TRelatedEntity[]): TEntity;

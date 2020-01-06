@@ -14,6 +14,7 @@ export interface IDateConverter<TDate = Date> {
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDuration(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity): number;
   asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
   asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;

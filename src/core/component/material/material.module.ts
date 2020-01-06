@@ -8,7 +8,6 @@ import {
 import { addClassNameToBody, orNull, ifNotFalseThanValue } from '../../util';
 import { IUIFactory } from '../factory';
 import {
-  DialogMaterialPlugin,
   MaterialPlugin,
   MenuMaterialPlugin,
   TabPanelMaterialPlugin,
@@ -19,8 +18,6 @@ import { Menu } from '../menu';
 import { TabPanel } from '../tabpanel';
 import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
-import { Dialog } from '../dialog';
-import { FormDialog } from '../form';
 import { Snackbar } from '../snackbar';
 import { UniversalPluginFactoryT, IComponentCtor } from '../../definition';
 
@@ -37,16 +34,6 @@ uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(comp
  * @stable [15.08.2018]
  */
 uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(component));
-
-/**
- * @stable [18.05.2018]
- */
-uiPlugins.set(Dialog, (component: Dialog) => new DialogMaterialPlugin<Dialog>(component));
-
-/**
- * @stable [29.05.2018]
- */
-uiPlugins.set(FormDialog, (component: FormDialog) => new DialogMaterialPlugin<Dialog>(component));
 
 /**
  * @stable [18.06.2019]
