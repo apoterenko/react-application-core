@@ -34,10 +34,8 @@ export interface IDateTimeSettings extends IDateTimeSettingsEntity {
   uiMonthFormat?: string;    // UI format
   pstDateFormat?: string;                 // UI PST format
   pstTimeFormat?: string;                 // UI PST format
-  uiDateMask?: Array<string|RegExp>;      // UI mask
   uiTimeMask?: Array<string|RegExp>;      // UI mask
   uiShortTimeMask?: Array<string|RegExp>; // UI mask
-  uiDatePattern?: string;                 // UI pattern
   uiTimePattern?: string;                 // UI pattern
   uiShortTimePattern?: string;            // UI pattern
 }
@@ -210,10 +208,8 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     uiMonthFormat: 'YYYY-MM',
     pstTimeFormat: 'hh:mm A',
     pstDateFormat: 'MMM DD',
-    uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
     uiTimeMask: [/\d/, /\d/, ':', /\d/, /\d/, ':', /\d/, /\d/],
     uiShortTimeMask: [/\d/, /\d/, ':', /\d/, /\d/],
-    uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
     uiTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])',
     uiShortTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9])',
   },

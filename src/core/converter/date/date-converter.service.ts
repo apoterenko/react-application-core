@@ -89,11 +89,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [11.08.2018]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} inputFormat
-   * @param {string} outputFormat
-   * @returns {string}
+   * @deprecated
    */
   public format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string {
     if (R.isNil(date) || R.isEmpty(date)) {
@@ -414,10 +410,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [07.01.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {DateTimeLikeTypeT}
+   * @deprecated
    */
   public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat = this.dateFormat): DateTimeLikeTypeT {
     const momentDate = this.toMomentDate(date, inputFormat);
@@ -938,6 +931,15 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [07.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asDate(cfg: IDateTimeConfigEntity): Date {
+    return this.processValidMomentDate(cfg, (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [07.01.2020]
    * @tested
    * @param {IDayOfYearEntity} o1
    * @param {IDayOfYearEntity} o2
@@ -1054,6 +1056,7 @@ export class DateConverter implements IDateConverter<MomentT> {
     const firstDayOfIsoWeek = firstDayOfMonthAsMDate.isoWeekday();
     const maxWeeksCount = 6;
     const maxDaysCountOnWeek = 7;
+    const today = this.buildDayOfYear();
 
     const data: ICalendarWeekEntity[] = [];
     let currentDate;
@@ -1066,8 +1069,9 @@ export class DateConverter implements IDateConverter<MomentT> {
       previous: false,
       ...itm,
       day: mDate.date(),
+      month: mDate.month(), // Months are zero indexed, so January is month 0
+      today: this.compare(today, mDate.toDate()) === 0,
       year: mDate.year(),
-      month: mDate.month(), // Months are zero indexed, so January is month 0.
     });
 
     for (let i = 0; i < maxWeeksCount; i++) {
@@ -1221,7 +1225,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {Date}
    */
   private buildDayOfYear(date?: Date): Date {
-    const d = date ? new Date(date) : new Date();
+    const d = new Date(date || this.getCurrentDate());
     d.setHours(0);
     d.setMinutes(0);
     d.setSeconds(0);

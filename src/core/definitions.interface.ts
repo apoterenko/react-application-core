@@ -182,6 +182,7 @@ export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsS
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 export interface IFromToEntity<TValue> extends IToWrapper<TValue>, IFromWrapper<TValue> {}
+export interface IFromValueWrapper<TValue = string> { fromValue?: TValue; }
 export interface IFromWrapper<TValue = string> { from?: TValue; }
 export interface IFullSizeWrapper { fullSize?: boolean; }
 export interface IFullWrapper<TFull = boolean> { full?: TFull; }
@@ -424,12 +425,14 @@ export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPane
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeWrapper<TTime = string> { time?: TTime; }
 export interface ITitleWrapper { title?: string; }
+export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
 export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
 export interface ITotalEntityWrapper<TValue = AnyT> { totalEntity?: TValue; }
 export interface ITotalWrapper<TValue = boolean> { total?: TValue; }
 export interface ITouchedWrapper { touched?: boolean; }
+export interface IToValueWrapper<TValue = string> { toValue?: TValue; }
 export interface IToWrapper<TValue = string> { to?: TValue; }
 export interface ITplWrapper<TValue> { tpl?: TValue; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }

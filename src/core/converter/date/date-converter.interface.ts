@@ -8,7 +8,6 @@ import {
   IDateTimeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
-  MomentT,
 } from '../../definition';
 
 export interface IDateConverter<TDate = Date> {
@@ -20,13 +19,14 @@ export interface IDateConverter<TDate = Date> {
   addMonthsAsDate(cfg: IDateTimeConfigEntity): Date;
   asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity): number;
   asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
+  asDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   asDayOfYearEntity(cfg?: IDateTimeConfigEntity): IDayOfYearEntity;
   asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date;
   asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
-  asMomentDate(cfg: IDateTimeConfigEntity<TDate>): MomentT;
+  asMomentDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
   dateAsString(cfg: IDateTimeConfigEntity): string;

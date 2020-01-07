@@ -2,11 +2,13 @@ import {
   ICalendarConfigurationWrapper,
   IDateWrapper,
   IFromToEntity,
+  IFromValueWrapper,
   IIsSelectedWrapper,
   IOnSelectWrapper,
   IRendererWrapper,
   ISelectedDaysWrapper,
   IShowOnlyCurrentDaysWrapper,
+  IToValueWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import {
@@ -51,5 +53,7 @@ export interface ICalendarProps
  */
 export interface ICalendarRangeState
   extends IDateWrapper<Date>,
-    IFromToEntity<IDayOfYearEntity> {
+    IFromToEntity<IDayOfYearEntity>,
+    IFromValueWrapper,
+    IToValueWrapper {
 }

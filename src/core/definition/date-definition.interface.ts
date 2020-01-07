@@ -21,6 +21,7 @@ import {
   IPreviousWrapper,
   IStrictWrapper,
   ITimeWrapper,
+  ITodayWrapper,
   IUnitWrapper,
   IUseSyntheticCalendarWrapper,
   IYearWrapper,
@@ -76,6 +77,7 @@ export interface ICalendarConfigEntity<TDate = Date>
  */
 export interface IDayOfYearEntity
   extends IDayWrapper,
+    IFromToEntity<boolean>,
     IMonthWrapper,
     IYearWrapper {
 }
@@ -93,9 +95,10 @@ export interface IFromToDayOfYearEntity
 export interface ICalendarDayEntity
   extends ICurrentWrapper<boolean>,
     IDateWrapper<Date>,
+    IDayOfYearEntity,
     INextWrapper<boolean>,
     IPreviousWrapper<boolean>,
-    IDayOfYearEntity {
+    ITodayWrapper<boolean> {
 }
 
 /**

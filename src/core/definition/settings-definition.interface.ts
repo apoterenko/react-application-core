@@ -22,6 +22,8 @@ export interface IDateTimeSettingsEntity {
   currentDate?: Date;
   dateTimeFormat?: string;
   uiDateFormat?: string;
+  uiDateMask?: Array<string|RegExp>;
+  uiDatePattern?: string;
   uiDefaultTime?: string;
   uiTimeFormat?: string;
 }
@@ -32,6 +34,8 @@ export interface IDateTimeSettingsEntity {
 const defaultDateTimeSettingsEntity: IDateTimeSettingsEntity = {
   dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
   uiDateFormat: 'YYYY-MM-DD',
+  uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
+  uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
   uiDefaultTime: '00:00:00',
   uiTimeFormat: 'HH:mm:ss',
 };
