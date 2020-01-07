@@ -6,12 +6,15 @@ import {
   IDateWrapper,
   IDaysLabelsWrapper,
   IDaysWrapper,
+  IDayWrapper,
   IDurationWrapper,
   IEntityIdTWrapper,
+  IFromToEntity,
   IIndexWrapper,
   IInputFormatWrapper,
   IInputTimeFormatWrapper,
   IIsoWeekWrapper,
+  IMonthWrapper,
   INextWrapper,
   IOutputFormatWrapper,
   IOutputTimeFormatWrapper,
@@ -20,7 +23,7 @@ import {
   ITimeWrapper,
   IUnitWrapper,
   IUseSyntheticCalendarWrapper,
-  IValueWrapper,
+  IYearWrapper,
   IZoneWrapper,
   StringNumberT,
 } from '../definitions.interface';
@@ -69,6 +72,22 @@ export interface ICalendarConfigEntity<TDate = Date>
 }
 
 /**
+ * @stable [07.01.2020]
+ */
+export interface IDayOfYearEntity
+  extends IDayWrapper,
+    IMonthWrapper,
+    IYearWrapper {
+}
+
+/**
+ * @stable [07.01.2020]
+ */
+export interface IFromToDayOfYearEntity
+  extends IFromToEntity<IDayOfYearEntity> {
+}
+
+/**
  * @stable [03.01.2020]
  */
 export interface ICalendarDayEntity
@@ -76,7 +95,7 @@ export interface ICalendarDayEntity
     IDateWrapper<Date>,
     INextWrapper<boolean>,
     IPreviousWrapper<boolean>,
-    IValueWrapper<number> {
+    IDayOfYearEntity {
 }
 
 /**

@@ -14,7 +14,6 @@ import {
   defValuesFilter,
   ifNotNilThanValue,
   isObjectNotEmpty,
-  NUMBER_COMPARATOR,
   nvl,
   orNull,
   orUndef,
@@ -24,9 +23,12 @@ import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
   ICalendarConfigEntity,
+  ICalendarDayEntity,
   ICalendarEntity,
   ICalendarWeekEntity,
   IDateTimeConfigEntity,
+  IDayOfYearEntity,
+  IFromToDayOfYearEntity,
   MomentT,
 } from '../../definition';
 
@@ -81,7 +83,7 @@ export class DateConverter implements IDateConverter<MomentT> {
       ? 0
       : (
         date1$ instanceof Date && date2$ instanceof Date
-          ? NUMBER_COMPARATOR(date1$.getTime(), date2$.getTime())
+          ? date1$ === date2$ ? 0 : (date1$ > date2$ ? 1 : -1)
           : NaN
       );
   }
@@ -158,6 +160,15 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [06.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asFirstDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asFirstDayOfMonth(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
    * @stable [03.01.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {MomentT}
@@ -203,18 +214,27 @@ export class DateConverter implements IDateConverter<MomentT> {
   /**
    * @stable [03.01.2019]
    * @param {IDateTimeConfigEntity} cfg
-   * @returns {moment.Moment}
+   * @returns {MomentT}
    */
-  public addMonths(cfg: IDateTimeConfigEntity): moment.Moment {
+  public addMonths(cfg: IDateTimeConfigEntity): MomentT {
     return this.addDuration({...cfg, unit: 'months'});
+  }
+
+  /**
+   * @stable [06.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public addMonthsAsDate(cfg: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.addMonths(cfg), (mDate) => mDate.toDate());
   }
 
   /**
    * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
-   * @returns {moment.Moment}
+   * @returns {MomentT}
    */
-  public addDaysToUiDate(cfg: IDateTimeConfigEntity): moment.Moment {
+  public addDaysToUiDate(cfg: IDateTimeConfigEntity): MomentT {
     return this.addDays({...cfg, inputFormat: this.uiDateFormat});
   }
 
@@ -901,6 +921,89 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [07.01.2020]
+   * @tested
+   * @param {IDayOfYearEntity} o1
+   * @param {IDayOfYearEntity} o2
+   * @returns {number}
+   */
+  public compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number {
+    o1 = o1 || {} as IDayOfYearEntity;
+    o2 = o2 || {} as IDayOfYearEntity;
+    const d1 = this.buildDayOfYear();
+    const d2 = this.buildDayOfYear();
+    d1.setFullYear(o1.year, o1.month, o1.day);
+    d2.setFullYear(o2.year, o2.month, o2.day);
+    return this.compare(d1, d2);
+  }
+
+  /**
+   * @stable [07.01.2020]
+   * @tested
+   * @param {IFromToDayOfYearEntity} range
+   * @param {IDayOfYearEntity} entity
+   * @returns {IFromToDayOfYearEntity}
+   */
+  public selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity {
+    const {to = {}, from = {}} = range || {};
+    const {day, month, year} = entity;
+    const isDateToEmpty = R.isEmpty(to);
+    const isDateFromEmpty = R.isEmpty(from);
+
+    if (isDateToEmpty && isDateFromEmpty) {
+      return ({from: {day, month, year}, to});
+    } else if (!isDateFromEmpty && !isDateToEmpty) {
+      const compareResult1 = this.compareDayOfYearEntity(from, entity);
+      const compareResult2 = this.compareDayOfYearEntity(entity, to);
+      if (compareResult1 === 0) {
+        return {from: {}, to};
+      } else if (compareResult2 === 0) {
+        return {from, to: {}};
+      } else if (compareResult1 === 1) {
+        return ({from: {day, month, year}, to});
+      } else {
+        return ({from, to: {day, month, year}});
+      }
+    } else if (!isDateFromEmpty) {
+      const compareResult = this.compareDayOfYearEntity(from, entity);
+      if (compareResult >= 0) {
+        return ({from: compareResult === 0 ? {} : {day, month, year}, to});
+      } else {
+        return ({from, to: {day, month, year}});
+      }
+    }
+    return ({from, to});
+  }
+
+  /**
+   * @stable [07.01.2020]
+   * @tested
+   * @param {IFromToDayOfYearEntity} range
+   * @param {IDayOfYearEntity} entity
+   * @returns {boolean}
+   */
+  public isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean {
+    const {from = {}, to = {}} = range;
+    const isDateToEmpty = R.isEmpty(to);
+    const isDateFromEmpty = R.isEmpty(from);
+
+    if (!isDateFromEmpty && isDateToEmpty) {
+      const compareResult1 = this.compareDayOfYearEntity(entity, from);
+      return compareResult1 === 0;
+    }
+    if (isDateFromEmpty && !isDateToEmpty) {
+      const compareResult2 = this.compareDayOfYearEntity(entity, to);
+      return compareResult2 === 0;
+    }
+    if (!isDateToEmpty && !isDateFromEmpty) {
+      const compareResult1 = this.compareDayOfYearEntity(entity, from);
+      const compareResult2 = this.compareDayOfYearEntity(entity, to);
+      return compareResult1 >= 0 && compareResult2 <= 0;
+    }
+    return false;
+  }
+
+  /**
    * @stable [03.01.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {ICalendarEntity}
@@ -923,6 +1026,17 @@ export class DateConverter implements IDateConverter<MomentT> {
     const data: ICalendarWeekEntity[] = [];
     let currentDate;
     let currentMonthValue;
+    let dayEntity: ICalendarDayEntity;
+
+    const buildDayEntity = (itm: ICalendarDayEntity, mDate: MomentT): ICalendarDayEntity => ({
+      current: false,
+      next: false,
+      previous: false,
+      ...itm,
+      day: mDate.date(),
+      year: mDate.year(),
+      month: mDate.month(), // Months are zero indexed, so January is month 0.
+    });
 
     for (let i = 0; i < maxWeeksCount; i++) {
       const row = {id: i};
@@ -933,37 +1047,22 @@ export class DateConverter implements IDateConverter<MomentT> {
           if (firstDayOfIsoWeek === j + 1) { // The ISO day of the week: 1 === Monday and 7 === Sunday
             currentDate = firstDayOfMonthAsMDate.toDate();
             currentMonthValue = firstDayOfMonthAsMDate.month();
-            row[j] = {
-              current: true,
-              date: currentDate,
-              next: false,
-              previous: false,
-              value: firstDayOfMonthAsMDate.date(),
-            };
+
+            dayEntity = buildDayEntity({current: true, date: currentDate}, firstDayOfMonthAsMDate);
+            row[j] = dayEntity;
 
             for (let k = j - 1, m = 1; k >= 0; k--) {
               const mDate = this.addDays({date: currentDate, duration: -1 * m++});
-              row[k] = {
-                current: false,
-                date: mDate.toDate(),
-                next: false,
-                previous: true,
-                value: mDate.date(),
-              };
+              dayEntity = buildDayEntity({previous: true, date: mDate.toDate()}, mDate);
+              row[k] = dayEntity;
             }
           }
         } else {
           const currentMDate = this.addDays({date: currentDate, duration: 1});
           currentDate = currentMDate.toDate();
-          const next = currentMDate.month() > currentMonthValue;
-
-          row[j] = {
-            current: !next,
-            date: currentDate,
-            next,
-            previous: false,
-            value: currentMDate.date(),
-          };
+          const next = currentMDate.month() !== currentMonthValue;
+          dayEntity = buildDayEntity({current: !next, next, date: currentDate}, currentMDate);
+          row[j] = dayEntity;
         }
       }
     }
@@ -981,13 +1080,8 @@ export class DateConverter implements IDateConverter<MomentT> {
         const startingDate = data[index - 1];
         if (R.isNil(startingDate)) {
           const startingMDate = this.addDays({date: data[0][0].date, duration: -1});
-          newRow[0] = {
-            current: false,
-            date: startingMDate.toDate(),
-            next: false,
-            previous: true,
-            value: startingMDate.date(),
-          };
+          dayEntity = buildDayEntity({previous: true, date: startingMDate.toDate()}, startingMDate);
+          newRow[0] = dayEntity;
         } else {
           newRow[0] = data[index - 1][maxDaysCountOnWeek - 1];
         }
@@ -1087,5 +1181,19 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
+  }
+
+  /**
+   * @stable [07.01.2020]
+   * @param {Date} date
+   * @returns {Date}
+   */
+  private buildDayOfYear(date?: Date): Date {
+    const d = date ? new Date(date) : new Date();
+    d.setHours(0);
+    d.setMinutes(0);
+    d.setSeconds(0);
+    d.setMilliseconds(0);
+    return d;
   }
 }

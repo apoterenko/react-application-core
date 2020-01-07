@@ -99,4 +99,106 @@ describe('date-converter.service', () => {
       expect(value).toEqual(243);
     });
   });
+
+  describe('compareDayOfYearEntity', () => {
+    it('test1', () => {
+      const value = dateConverter.compareDayOfYearEntity({year: 2019, month: 2, day: 23}, {year: 2019, month: 2, day: 23});
+      expect(value).toEqual(0);
+    });
+    it('test2', () => {
+      const value = dateConverter.compareDayOfYearEntity({year: 2016, month: 2, day: 29}, {year: 2016, month: 3, day: 1});
+      expect(value).toEqual(-1);
+    });
+    it('test3', () => {
+      const value = dateConverter.compareDayOfYearEntity({year: 2016, month: 3, day: 1}, {year: 2016, month: 2, day: 29});
+      expect(value).toEqual(1);
+    });
+  });
+
+  describe('selectDaysOfYearRange', () => {
+    it('test1 [] -> [from]', () => {
+      const value = dateConverter.selectDaysOfYearRange({}, {year: 2016, month: 2, day: 29});
+      expect(value).toEqual({to: {}, from: {year: 2016, month: 2, day: 29}});
+    });
+    it('test2 [<-from]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}},
+        {year: 2016, month: 2, day: 28}
+      );
+      expect(value).toEqual({to: {}, from: {year: 2016, month: 2, day: 28}});
+    });
+    it('test3 [from] -> []', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}},
+        {year: 2016, month: 2, day: 29}
+      );
+      expect(value).toEqual({to: {}, from: {}});
+    });
+    it('test4 [from] -> [from, to]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}},
+        {year: 2016, month: 3, day: 1}
+      );
+      expect(value).toEqual({to: {year: 2016, month: 3, day: 1}, from: {year: 2016, month: 2, day: 29}});
+    });
+    it('test5 [from, <-to]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 3, day: 1}
+      );
+      expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 1}});
+    });
+    it('test6 [from, to->]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 3, day: 3}
+      );
+      expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 3}});
+    });
+    it('test7 [from, to]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 3, day: 2}
+      );
+      expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {}});
+    });
+  });
+
+  describe('isDayOfYearBelongToDaysOfYearRange', () => {
+    it('test1', () => {
+      const value = dateConverter.isDayOfYearBelongToDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 3, day: 1}
+      );
+      expect(value).toEqual(true);
+    });
+    it('test2', () => {
+      const value = dateConverter.isDayOfYearBelongToDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 2, day: 29}
+      );
+      expect(value).toEqual(true);
+    });
+    it('test3', () => {
+      const value = dateConverter.isDayOfYearBelongToDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 3, day: 2}
+      );
+      expect(value).toEqual(true);
+    });
+    it('test4', () => {
+      const value = dateConverter.isDayOfYearBelongToDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 2, day: 28}
+      );
+      expect(value).toEqual(false);
+    });
+    it('test5', () => {
+      const value = dateConverter.isDayOfYearBelongToDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 3, day: 3}
+      );
+      expect(value).toEqual(false);
+    });
+  });
 });
