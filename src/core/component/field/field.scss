@@ -198,12 +198,6 @@
     $rac-thumb-unchecked-disabled-opacity: $rac-switch-thumb-unchecked-disabled-opacity
   );
 
-  @include rac-dialog(                                                                        /* @stable [18.06.2019] */
-    $rac-dialog-custom: rac-date-field-dialog,
-    $rac-dialog-body-max-height: $rac-date-field-dialog-body-max-height,
-    $rac-dialog-body-max-width: $rac-date-field-dialog-body-max-width
-  );
-
   @include rac-google-maps(                                                                   /* @stable [18.06.2019] */
     $rac-google-maps-custom: rac-dialog-google-maps,
     $rac-google-maps-flex-height: $rac-dialog-google-maps-flex-height

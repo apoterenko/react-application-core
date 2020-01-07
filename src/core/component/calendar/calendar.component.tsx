@@ -77,13 +77,26 @@ export class Calendar extends BaseComponent<ICalendarProps> {
    * @returns {string}
    */
   private getColumnClassName(payload: IGridColumnProps<ICalendarDayEntity>): string {
-    const {selectedDays = []} = this.props;
     const entity = this.asCalendarDayEntity(payload);
+    const isDaySelected = this.isDaySelected(entity);
 
     return joinClassName(
       entity.current && 'rac-calendar-current-day',
-      selectedDays.includes(entity.value) && entity.current && 'rac-calendar-selected-day'
+      entity.today && 'rac-calendar-today',
+      isDaySelected && 'rac-calendar-selected-day'
     );
+  }
+
+  /**
+   * @stable [07.01.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isDaySelected(entity: ICalendarDayEntity): boolean {
+    const {isSelected, selectedDays = []} = this.props;
+    return isFn(isSelected)
+      ? isSelected(entity)
+      : selectedDays.includes(entity.day) && entity.current;
   }
 
   /**
