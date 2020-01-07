@@ -1,5 +1,8 @@
 import {
   ICalendarConfigurationWrapper,
+  IDateWrapper,
+  IFromToEntity,
+  IIsSelectedWrapper,
   IOnSelectWrapper,
   IRendererWrapper,
   ISelectedDaysWrapper,
@@ -10,6 +13,7 @@ import {
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarEntityWrapperEntity,
+  IDayOfYearEntity,
 } from './date-definition.interface';
 import { IGridConfigurationWrapperEntity } from './grid-definition.interface';
 
@@ -29,6 +33,7 @@ export interface IGenericCalendarEntity
  */
 export interface IBehavioralCalendarEntity
   extends IGenericCalendarEntity,
+    IIsSelectedWrapper<ICalendarDayEntity>,
     IOnSelectWrapper<ICalendarDayEntity>,
     IRendererWrapper<ICalendarDayEntity> {
 }
@@ -39,4 +44,12 @@ export interface IBehavioralCalendarEntity
 export interface ICalendarProps
   extends IComponentProps,
     IBehavioralCalendarEntity {
+}
+
+/**
+ * @stable [06.01.2020]
+ */
+export interface ICalendarRangeState
+  extends IDateWrapper<Date>,
+    IFromToEntity<IDayOfYearEntity> {
 }

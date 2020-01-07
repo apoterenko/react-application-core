@@ -6,6 +6,8 @@ import {
   ICalendarConfigEntity,
   ICalendarEntity,
   IDateTimeConfigEntity,
+  IDayOfYearEntity,
+  IFromToDayOfYearEntity,
   MomentT,
 } from '../../definition';
 
@@ -14,14 +16,18 @@ export interface IDateConverter<TDate = Date> {
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDuration(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  addMonths(cfg: IDateTimeConfigEntity): TDate;
+  addMonthsAsDate(cfg: IDateTimeConfigEntity): Date;
   asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity): number;
   asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
   asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
+  asFirstDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date;
   asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): MomentT;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
+  compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
   dateAsString(cfg: IDateTimeConfigEntity): string;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
@@ -36,6 +42,8 @@ export interface IDateConverter<TDate = Date> {
   getShortestWeekday(cfg: IDateTimeConfigEntity): string;
   getShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
   getStartOfCurrentDate(): Date;
+  isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
+  selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;
   /**/
   getAppOnlineLifeTimeInSeconds(): number;
   getAppOnlineLifeTimeInHours(): number;

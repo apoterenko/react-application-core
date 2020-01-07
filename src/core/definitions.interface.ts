@@ -117,9 +117,10 @@ export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
 export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
-export interface IDateWrapper<TDate = string> { date?: TDate; }
+export interface IDateWrapper<TValue = string> { date?: TValue; }
 export interface IDaysLabelsWrapper<TValue> { daysLabels?: TValue; }
 export interface IDaysWrapper<TValue> { days?: TValue; }
+export interface IDayWrapper<TValue = number> { day?: TValue; }
 export interface IDefaultChangesWrapper<TChanges extends IKeyValue = IKeyValue> { defaultChanges?: TChanges; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
@@ -180,6 +181,8 @@ export interface IFormSectionWrapper<TValue = string> { formSection?: TValue; }
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
 export interface IFormWrapper<TForm> { form?: TForm; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
+export interface IFromToEntity<TValue> extends IToWrapper<TValue>, IFromWrapper<TValue> {}
+export interface IFromWrapper<TValue = string> { from?: TValue; }
 export interface IFullSizeWrapper { fullSize?: boolean; }
 export interface IFullWrapper<TFull = boolean> { full?: TFull; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
@@ -220,6 +223,7 @@ export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
+export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }
 export interface IItemsWrapper<TItems> { items?: TItems; }
 export interface IItemWrapper<TItem> { item?: TItem; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
@@ -260,6 +264,7 @@ export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
 export interface IMethodWrapper { method?: string; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IModeWrapper<TMode = string> { mode?: TMode; }
+export interface IMonthWrapper<TValue = number> { month?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }
 export interface INameWrapper<TName = string> { name?: TName; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
@@ -383,7 +388,7 @@ export interface IRowWrapper<TRow = boolean> { row?: TRow; }
 export interface IScaleWrapper<TScale = number> { scale?: TScale; }
 export interface ISectionNameWrapper { sectionName?: string; }
 export interface ISectionWrapper<TSection = string> { section?: TSection; }
-export interface ISelectableWrapper { selectable?: boolean; }
+export interface ISelectableWrapper<TValue = boolean> { selectable?: TValue; }
 export interface ISelectedDaysWrapper<TValue> { selectedDays?: TValue; }
 export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
 export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
@@ -457,6 +462,7 @@ export interface IWrapperWrapper<TValue> { wrapper?: TValue; }
 export interface IWrapWrapper { wrap?: boolean; }
 export interface IXPositionWrapper { xPosition?: number | (() => number); }
 export interface IXWrapper<TX = number> { x?: TX; }
+export interface IYearWrapper<TValue = number> { year?: TValue; }
 export interface IYPositionWrapper { yPosition?: number | (() => number); }
 export interface IYWrapper<TY = number> { y?: TY; }
 export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
