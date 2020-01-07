@@ -117,7 +117,7 @@ export class CronField extends Field<ICronFieldProps> {
    * @param {ICalendarDayEntity} calendarDayEntity
    */
   private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
-    const day = calendarDayEntity.value;
+    const day = calendarDayEntity.day;
     const cronEntity = this.newCronEntity;
 
     switch (this.props.period) {
@@ -189,7 +189,7 @@ export class CronField extends Field<ICronFieldProps> {
   private getCalendarCellElement(weekDayEntity: ICalendarDayEntity): JSX.Element {
     return (
       <React.Fragment>
-        {weekDayEntity.date ? weekDayEntity.date.getDate() : this.dc.getLocalizedShortestWeekday({index: weekDayEntity.value})}
+        {weekDayEntity.date ? weekDayEntity.date.getDate() : this.dc.getLocalizedShortestWeekday({index: weekDayEntity.day})}
       </React.Fragment>
     );
   }
