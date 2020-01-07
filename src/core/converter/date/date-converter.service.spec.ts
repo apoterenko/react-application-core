@@ -162,6 +162,27 @@ describe('date-converter.service', () => {
       );
       expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {}});
     });
+    it('test8 [from, to]->[to]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 2, day: 29}
+      );
+      expect(value).toEqual({from: {}, to: {year: 2016, month: 3, day: 2}});
+    });
+    it('test9 [to]->[from, to]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 2, day: 29}
+      );
+      expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}});
+    });
+    it('test10 [to]->[from, to]', () => {
+      const value = dateConverter.selectDaysOfYearRange(
+        {from: {}, to: {year: 2016, month: 3, day: 2}},
+        {year: 2016, month: 3, day: 3}
+      );
+      expect(value).toEqual({from: {year: 2016, month: 3, day: 2}, to: {year: 2016, month: 3, day: 3}});
+    });
   });
 
   describe('isDayOfYearBelongToDaysOfYearRange', () => {

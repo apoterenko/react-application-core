@@ -139,6 +139,16 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [07.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {IDayOfYearEntity}
+   */
+  public asDayOfYearEntity(cfg?: IDateTimeConfigEntity): IDayOfYearEntity {
+    return this.processValidMomentDate(cfg,
+      (mDate) => ({day: mDate.date(), month: mDate.month(), year: mDate.year()}));
+  }
+
+  /**
    * @stable [03.01.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {MomentT}
@@ -694,6 +704,12 @@ export class DateConverter implements IDateConverter<MomentT> {
     });
   }
 
+  public fromDayOfYearEntityAsDate(entity: IDayOfYearEntity): Date {
+    const d = this.buildDayOfYear();
+    d.setFullYear(entity.year, entity.month, entity.day);
+    return d;
+  }
+
   /**
    * @deprecated
    */
@@ -947,8 +963,16 @@ export class DateConverter implements IDateConverter<MomentT> {
   public selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity {
     const {to = {}, from = {}} = range || {};
     const {day, month, year} = entity;
+    const onlyFrom = entity.from === true;
+    const onlyTo = entity.to === true;
     const isDateToEmpty = R.isEmpty(to);
     const isDateFromEmpty = R.isEmpty(from);
+
+    if (onlyFrom) { // Manual set
+      return {to, from: {day, month, year}};
+    } else if (onlyTo) { // Manual set
+      return {from, to: {day, month, year}};
+    }
 
     if (isDateToEmpty && isDateFromEmpty) {
       return ({from: {day, month, year}, to});
@@ -970,6 +994,14 @@ export class DateConverter implements IDateConverter<MomentT> {
         return ({from: compareResult === 0 ? {} : {day, month, year}, to});
       } else {
         return ({from, to: {day, month, year}});
+      }
+    } else if (!isDateToEmpty) {
+      // The "from value" is not set
+      const compareResult = this.compareDayOfYearEntity(entity, to);
+      if (compareResult >= 0) {
+        return ({from: compareResult === 0 ? {} : {...to}, to: {day, month, year}});
+      } else {
+        return ({from: {day, month, year}, to});
       }
     }
     return ({from, to});

@@ -20,6 +20,7 @@ export interface IDateConverter<TDate = Date> {
   addMonthsAsDate(cfg: IDateTimeConfigEntity): Date;
   asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity): number;
   asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
+  asDayOfYearEntity(cfg?: IDateTimeConfigEntity): IDayOfYearEntity;
   asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date;
@@ -33,6 +34,7 @@ export interface IDateConverter<TDate = Date> {
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromDayOfYearEntityAsDate(entity: IDayOfYearEntity): Date;
   fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromUiDateToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   getCurrentDate(): Date;
