@@ -87,7 +87,7 @@ export class DateNavigator
         <DateField
           {...defValuesFilter({...this.props, type: UNDEF, step: UNDEF, pattern: UNDEF, time: UNDEF})}
           className={toClassName('rac-date-navigator', props.className)}
-          format={this.getFieldFormat()}
+          format={this.fieldFormat}
           displayValue={this.getDisplayValue}/>
         <Button
           icon='arrow_right'
@@ -134,10 +134,10 @@ export class DateNavigator
     let nextValue;
     switch (this.props.type) {
       case DateNavigatorTypeEnum.DAY:
-        nextValue = this.dc.tryAddXDays(durationToAdd, this.value, this.getFieldFormat());
+        nextValue = this.dc.tryAddXDays(durationToAdd, this.value, this.fieldFormat);
         break;
       case DateNavigatorTypeEnum.MONTH:
-        nextValue = this.dc.tryAddXMonths(durationToAdd, this.value, this.getFieldFormat());
+        nextValue = this.dc.tryAddXMonths(durationToAdd, this.value, this.fieldFormat);
         break;
     }
     this.onChangeManually(nextValue);
@@ -163,7 +163,7 @@ export class DateNavigator
         pattern = 'MMMM YYYY';
         break;
     }
-    const formattedDisplayValue = this.dc.format(this.value, this.getFieldFormat(), pattern);
+    const formattedDisplayValue = this.dc.format(this.value, this.fieldFormat, pattern);
     return isFn(props.displayValue)
       ? calc(props.displayValue, toType<IDateNavigatorDisplayValuePayloadEntity>({
           displayValue: formattedDisplayValue, value: this.value, type: props.type, pattern,
