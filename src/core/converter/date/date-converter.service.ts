@@ -484,6 +484,20 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [07.01.2020]
+   * @param {Date} date
+   * @returns {Date}
+   */
+  public asDayOfYear(date?: Date): Date {
+    const d = new Date(date || this.getCurrentDate());
+    d.setHours(0);
+    d.setMinutes(0);
+    d.setSeconds(0);
+    d.setMilliseconds(0);
+    return d;
+  }
+
+  /**
    * @stable [10.02.2019]
    * @param {moment.DurationInputArg1} duration
    * @param {DateTimeLikeTypeT} date
@@ -698,7 +712,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   public fromDayOfYearEntityAsDate(entity: IDayOfYearEntity): Date {
-    const d = this.buildDayOfYear();
+    const d = this.asDayOfYear();
     d.setFullYear(entity.year, entity.month, entity.day);
     return d;
   }
@@ -948,8 +962,8 @@ export class DateConverter implements IDateConverter<MomentT> {
   public compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number {
     o1 = o1 || {} as IDayOfYearEntity;
     o2 = o2 || {} as IDayOfYearEntity;
-    const d1 = this.buildDayOfYear();
-    const d2 = this.buildDayOfYear();
+    const d1 = this.asDayOfYear();
+    const d2 = this.asDayOfYear();
     d1.setFullYear(o1.year, o1.month, o1.day);
     d2.setFullYear(o2.year, o2.month, o2.day);
     return this.compare(d1, d2);
@@ -1056,7 +1070,7 @@ export class DateConverter implements IDateConverter<MomentT> {
     const firstDayOfIsoWeek = firstDayOfMonthAsMDate.isoWeekday();
     const maxWeeksCount = 6;
     const maxDaysCountOnWeek = 7;
-    const today = this.buildDayOfYear();
+    const today = this.asDayOfYear();
 
     const data: ICalendarWeekEntity[] = [];
     let currentDate;
@@ -1217,19 +1231,5 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
-  }
-
-  /**
-   * @stable [07.01.2020]
-   * @param {Date} date
-   * @returns {Date}
-   */
-  private buildDayOfYear(date?: Date): Date {
-    const d = new Date(date || this.getCurrentDate());
-    d.setHours(0);
-    d.setMinutes(0);
-    d.setSeconds(0);
-    d.setMilliseconds(0);
-    return d;
   }
 }

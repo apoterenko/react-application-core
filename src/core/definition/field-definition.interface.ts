@@ -14,6 +14,7 @@ import {
   IChangeableWrapper,
   IClassNameWrapper,
   IDefaultValueWrapper,
+  IDialogClassNameWrapper,
   IDisabledWrapper,
   IDisplayNameWrapper,
   IDisplayValueOnlyWrapper,
@@ -22,7 +23,9 @@ import {
   IEntity,
   IFieldRenderedWrapper,
   IFieldsWrapper,
+  IFormatWrapper,
   IFullWrapper,
+  IHeaderFormatWrapper,
   IKeepChangesWrapper,
   ILabelWrapper,
   IMaskWrapper,
@@ -195,3 +198,12 @@ export const GENERIC_FIELD_PASSWORD_TYPE_ENTITY = Object.freeze<IGenericFieldEnt
   autoComplete: 'new-password',
   type: 'password',
 });
+
+/**
+ * @stable [07.01.2020]
+ */
+export interface IGenericDateFieldEntity
+  extends IDialogClassNameWrapper,
+    IFormatWrapper,
+    IHeaderFormatWrapper {
+}

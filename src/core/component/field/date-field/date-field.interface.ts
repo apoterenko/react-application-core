@@ -6,12 +6,13 @@ import {
 } from '../textfield/base-textfield.interface';
 import {
   ICurrentTimeWrapper,
-  IFormatWrapper,
   IDialogOpenedWrapper,
 } from '../../../definitions.interface';
+import { IGenericDateFieldEntity } from '../../../definition';
 
-export interface IDateFieldProps extends IBaseTextFieldProps,
-                                         IFormatWrapper {
+export interface IDateFieldProps
+  extends IBaseTextFieldProps,
+    IGenericDateFieldEntity {
   maxDate?: Date;
   minDate?: Date;
 }
@@ -21,4 +22,5 @@ export interface IDateFieldState
     ICurrentTimeWrapper<Date>,
     IDialogOpenedWrapper {
   year?: number; // TODO
+  date?: Date;
 }

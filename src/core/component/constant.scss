@@ -570,7 +570,12 @@ $rac-text-field-not-changeable-border-left: unset !default;
 $rac-text-field-not-changeable-border-right: unset !default;
 $rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !default;
 /**/
-$rac-date-field-calendar-width: 240px !default;
+$rac-date-field-dialog-calendar-width: 240px !default;
+$rac-date-field-dialog-range-explorer-align-items: center !default;
+$rac-date-field-dialog-range-explorer-date-flex: 1 !default;
+$rac-date-field-dialog-range-explorer-date-text-align: center !default;
+$rac-date-field-dialog-range-explorer-display: flex !default;
+$rac-date-field-dialog-range-explorer-flex-direction: row !default;
 
 /* @stable [18.06.2019] */
 $rac-dialog-google-maps-flex-height: 40vh !default;

@@ -4,11 +4,15 @@
 .rac {
 
   /**
-   * @date-field-calendar
-   * @stable [04.01.2020]
+   * @date-field-dialog
+   * @stable [07.01.2020]
    */
-  @include rac-calendar (
-    $rac-calendar-custom: rac-date-field-calendar,
-    $rac-calendar-width: $rac-date-field-calendar-width
+  @include rac-date-field-dialog (
+    $rac-date-field-dialog-calendar-width: $rac-date-field-dialog-calendar-width,
+    $rac-date-field-dialog-range-explorer-align-items: $rac-date-field-dialog-range-explorer-align-items,
+    $rac-date-field-dialog-range-explorer-date-flex: $rac-date-field-dialog-range-explorer-date-flex,
+    $rac-date-field-dialog-range-explorer-date-text-align: $rac-date-field-dialog-range-explorer-date-text-align,
+    $rac-date-field-dialog-range-explorer-display: $rac-date-field-dialog-range-explorer-display,
+    $rac-date-field-dialog-range-explorer-flex-direction: $rac-date-field-dialog-range-explorer-flex-direction
   );
 }

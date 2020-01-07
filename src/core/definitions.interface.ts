@@ -130,6 +130,7 @@ export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: 
 export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFileTypeTransportConfiguration?: TValue; }
 export interface IDetectFileTypeWrapper { detectFileType?: boolean; }
+export interface IDialogClassNameWrapper { dialogClassName?: string; }
 export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
 export interface IDictionariesWrapper<TDictionaries> { dictionaries?: TDictionaries; }
 export interface IDiffWrapper<TValue> { diff?: TValue; }
@@ -173,7 +174,8 @@ export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IForceReloadWrapper { forceReload?: boolean; }
-export interface IFormatWrapper<TFormat = string> { format?: TFormat; }
+export interface IHeaderFormatWrapper<TValue = string> { headerFormat?: TValue; }
+export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
 export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; }

@@ -24,18 +24,20 @@ import {
   IDateFieldState,
 } from './date-field.interface';
 import { BaseTextField } from '../textfield';
+import { Button } from '../../button';
+import { Calendar } from '../../calendar';
 import { Dialog } from '../../dialog';
 import { NumberField } from '../numberfield';
-import { Calendar } from '../../calendar';
 
 export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                        TState extends IDateFieldState = IDateFieldState>
   extends BaseTextField<TProps, TState> {
 
   public static readonly defaultProps: IDateFieldProps = {
-    preventFocus: true,
-    minDate: new Date('01/01/1900'),
+    headerFormat: 'MMMM YYYY',
     maxDate: new Date('01/01/4000'),
+    minDate: new Date('01/01/1900'),
+    preventFocus: true,
   };
 
   private readonly dialogRef = React.createRef<Dialog<AnyT>>();
@@ -47,14 +49,19 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   constructor(props: TProps) {
     super(props);
 
+    this.isDaySelected = this.isDaySelected.bind(this);
     this.onAccept = this.onAccept.bind(this);
     this.onCalendarClick = this.onCalendarClick.bind(this);
     this.onChangeYear = this.onChangeYear.bind(this);
+    this.setNextMonth = this.setNextMonth.bind(this);
+    this.setPreviousMonth = this.setPreviousMonth.bind(this);
 
     this.defaultActions = [
       {type: FieldActionTypesEnum.CALENDAR, onClick: this.onCalendarClick},
       ...this.defaultActions
     ];
+
+    this.state = {date: null} as TState;
   }
 
   /**
@@ -75,15 +82,22 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             ref={this.dialogRef}
             acceptable={false}
             closable={false}
+            className={joinClassName(this.props.dialogClassName, 'rac-date-field__dialog')}
           >
-            <div>
-              {this.dateToDisplay()}
+            <div className='rac-date-field__dialog-range-explorer'>
+              <Button
+                onClick={this.setPreviousMonth}/>
+              <span className='rac-date-field__dialog-range-explorer-date'>
+                {this.dateToDisplay()}
+              </span>
+              <Button
+                onClick={this.setNextMonth}/>
             </div>
             <Calendar
               calendarEntity={this.calendarEntity}
-              selectedDays={this.selectedDays}
+              isSelected={this.isDaySelected}
               gridConfiguration={{headerRendered: true}}
-              className='rac-date-field-calendar'
+              className='rac-date-field__calendar'
               onSelect={this.onAccept}/>
             <NumberField
               value={this.state.year}
@@ -161,6 +175,28 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
+   * @stable [08.01.2020]
+   */
+  private setPreviousMonth(): void {
+    this.changeMonth(-1);
+  }
+
+  /**
+   * @stable [08.01.2020]
+   */
+  private setNextMonth(): void {
+    this.changeMonth(1);
+  }
+
+  /**
+   * @stable [08.01.2020]
+   * @param {number} duration
+   */
+  private changeMonth(duration: number): void {
+    this.setState({date: this.dc.addMonthsAsDate({date: this.calendarDate, duration})});
+  }
+
+  /**
    * @stable [19.04.2019]
    * @param {number} value
    */
@@ -195,7 +231,16 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @stable [24.02.2019]
    */
   private onCalendarClick(): void {
-    this.setState({dialogOpened: true}, () => this.dialog.activate());
+    this.setState({dialogOpened: true, date: null}, () => this.dialog.activate());
+  }
+
+  /**
+   * @stable [08.01.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isDaySelected(entity: ICalendarDayEntity): boolean {
+    return this.dc.compare(entity.date, this.selectedDate) === 0;
   }
 
   /**
@@ -208,10 +253,23 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
   /**
    * @stable [07.01.2020]
-   * @returns {number}
+   * @param {DateTimeLikeTypeT} value
+   * @returns {string}
    */
-  private get selectedDays(): number[] {
-    return ifNotNilThanValue(this.selectedDate, (selectedDate) => [selectedDate.getDate()], []);
+  private serializeValue(value: DateTimeLikeTypeT): string {
+    return this.dc.dateAsString({
+      date: value,
+      inputFormat: this.fieldFormat,
+      outputFormat: this.fieldFormat,
+    });
+  }
+
+  /**
+   * @stable [08.01.2020]
+   * @returns {string}
+   */
+  private dateToDisplay(): string {
+    return this.dc.dateAsString({date: this.calendarDate, outputFormat: this.props.headerFormat});
   }
 
   /**
@@ -223,24 +281,11 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [07.01.2020]
+   * @stable [08.01.2020]
    * @returns {Date}
    */
   private get calendarDate(): Date {
-    return this.selectedDate || this.dc.getCurrentDate();
-  }
-
-  /**
-   * @stable [07.01.2020]
-   * @param {DateTimeLikeTypeT} value
-   * @returns {string}
-   */
-  private serializeValue(value: DateTimeLikeTypeT): string {
-    return this.dc.dateAsString({date: value, inputFormat: this.fieldFormat, outputFormat: this.fieldFormat});
-  }
-
-  private dateToDisplay(): string {
-    return this.dc.dateAsString({date: this.calendarDate, outputFormat: 'MMMM YYYY'});
+    return this.state.date || this.selectedDate || this.dc.asDayOfYear();
   }
 
   /**

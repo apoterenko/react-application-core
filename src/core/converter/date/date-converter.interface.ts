@@ -20,6 +20,7 @@ export interface IDateConverter<TDate = Date> {
   asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity): number;
   asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
   asDate(cfg: IDateTimeConfigEntity<TDate>): Date;
+  asDayOfYear(date?: Date): Date;
   asDayOfYearEntity(cfg?: IDateTimeConfigEntity): IDayOfYearEntity;
   asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
