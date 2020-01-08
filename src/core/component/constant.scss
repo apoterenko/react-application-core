@@ -570,8 +570,12 @@ $rac-text-field-not-changeable-border-left: unset !default;
 $rac-text-field-not-changeable-border-right: unset !default;
 $rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !default;
 /**/
-$rac-date-field-dialog-calendar-width: 240px !default;
+$rac-date-field-dialog-body-background: $rac-color-1-3 !default;
+$rac-date-field-dialog-calendar-day-color: $rac-color-0-1 !default;
+$rac-date-field-dialog-calendar-day-font-size: $rac-font-size-1 !default;
+$rac-date-field-dialog-calendar-width: 302px !default;
 $rac-date-field-dialog-range-explorer-align-items: center !default;
+$rac-date-field-dialog-range-explorer-date-color: $rac-color-0-1 !default;
 $rac-date-field-dialog-range-explorer-date-flex: 1 !default;
 $rac-date-field-dialog-range-explorer-date-text-align: center !default;
 $rac-date-field-dialog-range-explorer-display: flex !default;

@@ -8,8 +8,12 @@
    * @stable [07.01.2020]
    */
   @include rac-date-field-dialog (
+    $rac-date-field-dialog-body-background: $rac-date-field-dialog-body-background,
+    $rac-date-field-dialog-calendar-day-color: $rac-date-field-dialog-calendar-day-color,
+    $rac-date-field-dialog-calendar-day-font-size: $rac-date-field-dialog-calendar-day-font-size,
     $rac-date-field-dialog-calendar-width: $rac-date-field-dialog-calendar-width,
     $rac-date-field-dialog-range-explorer-align-items: $rac-date-field-dialog-range-explorer-align-items,
+    $rac-date-field-dialog-range-explorer-date-color: $rac-date-field-dialog-range-explorer-date-color,
     $rac-date-field-dialog-range-explorer-date-flex: $rac-date-field-dialog-range-explorer-date-flex,
     $rac-date-field-dialog-range-explorer-date-text-align: $rac-date-field-dialog-range-explorer-date-text-align,
     $rac-date-field-dialog-range-explorer-display: $rac-date-field-dialog-range-explorer-display,

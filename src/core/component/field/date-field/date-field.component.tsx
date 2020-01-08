@@ -73,10 +73,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   protected getInputAttachmentElement(): JSX.Element {
+    const {year, dialogOpened} = this.state;
     return orNull(
-      this.state.dialogOpened,  // To improve performance
+      dialogOpened,  // To improve performance
       () => {
-        const selectedDate = this.selectedDate;
         return (
           <Dialog
             ref={this.dialogRef}
@@ -86,11 +86,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           >
             <div className='rac-date-field__dialog-range-explorer'>
               <Button
+                icon='back'
+                mini={true}
                 onClick={this.setPreviousMonth}/>
               <span className='rac-date-field__dialog-range-explorer-date'>
                 {this.dateToDisplay()}
               </span>
               <Button
+                icon='forward'
+                mini={true}
                 onClick={this.setNextMonth}/>
             </div>
             <Calendar
@@ -100,13 +104,13 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               className='rac-date-field__calendar'
               onSelect={this.onAccept}/>
             <NumberField
-              value={this.state.year}
+              value={year}
               autoFocus={true}
               keepChanges={true}
               errorMessageRendered={false}
               pattern={'[0-9]{4}'}
               mask={[/\d/, /\d/, /\d/, /\d/]}
-              placeholder={ifNotNilThanValue(selectedDate, () => String(selectedDate.getUTCFullYear()), UNDEF_SYMBOL)}
+              placeholder={this.selectedYearPlaceholder}
               onChange={this.onChangeYear}>
             </NumberField>
           </Dialog>
@@ -286,6 +290,18 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get calendarDate(): Date {
     return this.state.date || this.selectedDate || this.dc.asDayOfYear();
+  }
+
+  /**
+   * @stable [08.01.2020]
+   * @returns {string}
+   */
+  private get selectedYearPlaceholder(): string {
+    return ifNotNilThanValue(
+      this.selectedDate,
+      (selectedDate) => String(this.dc.asDayOfYearEntity({date: selectedDate}).year),
+      UNDEF_SYMBOL
+    );
   }
 
   /**

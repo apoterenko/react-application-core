@@ -20,6 +20,17 @@
     $rac-calendar-day-wrapper-padding-bottom: $rac-calendar-day-wrapper-padding-bottom,
     $rac-calendar-day-wrapper-padding-top: $rac-calendar-day-wrapper-padding-top,
     $rac-calendar-margin: $rac-calendar-margin,
-    $rac-calendar-selected-day-background: $rac-calendar-selected-day-background
+    $rac-calendar-selected-day-background: $rac-calendar-selected-day-background,
+    $rac-calendar-today-background: $rac-calendar-today-background,
+    $rac-calendar-today-color: $rac-calendar-today-color
+  );
+
+  @include rac-calendar-range (
+    $rac-calendar-range-body-display: flex,
+    $rac-calendar-range-body-flex-direction: row,
+    $rac-calendar-range-display: flex,
+    $rac-calendar-range-flex-direction: column,
+    $rac-calendar-range-header-display: flex,
+    $rac-calendar-range-header-flex-direction: row
   );
 }
