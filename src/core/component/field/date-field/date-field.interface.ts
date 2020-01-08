@@ -13,8 +13,6 @@ import { IGenericDateFieldEntity } from '../../../definition';
 export interface IDateFieldProps
   extends IBaseTextFieldProps,
     IGenericDateFieldEntity {
-  maxDate?: Date;
-  minDate?: Date;
 }
 
 export interface IDateFieldState

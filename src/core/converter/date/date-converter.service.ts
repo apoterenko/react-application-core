@@ -13,6 +13,7 @@ import {
 import {
   defValuesFilter,
   ifNotNilThanValue,
+  isNumber,
   isObjectNotEmpty,
   nvl,
   orNull,
@@ -27,6 +28,7 @@ import {
   ICalendarEntity,
   ICalendarWeekEntity,
   IDateTimeConfigEntity,
+  IDateTimeRangeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
   MomentT,
@@ -70,7 +72,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [08.08.2019]
+   * @stable [08.01.2020]
    * @param {DateTimeLikeTypeT} date1
    * @param {DateTimeLikeTypeT} date2
    * @returns {number}
@@ -711,10 +713,34 @@ export class DateConverter implements IDateConverter<MomentT> {
     });
   }
 
-  public fromDayOfYearEntityAsDate(entity: IDayOfYearEntity): Date {
-    const d = this.asDayOfYear();
-    d.setFullYear(entity.year, entity.month, entity.day);
-    return d;
+  /**
+   * @stable [08.01.2020]
+   * @param {IDayOfYearEntity} entity
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public fromDayOfYearEntity(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity): MomentT {
+    const mDate = this.asMomentDate({date: this.asDayOfYear(), ...cfg});
+    if (isNumber(entity.month)) {
+      mDate.month(entity.month);
+    }
+    if (isNumber(entity.year)) {
+      mDate.year(entity.year);
+    }
+    if (isNumber(entity.day)) {
+      mDate.date(entity.day);
+    }
+    return orNull(mDate.isValid(), () => mDate);
+  }
+
+  /**
+   * @stable [08.01.2020]
+   * @param {IDayOfYearEntity} entity
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public fromDayOfYearEntityAsDate(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.fromDayOfYearEntity(entity, cfg), (mDate) => mDate.toDate());
   }
 
   /**
@@ -962,11 +988,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   public compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number {
     o1 = o1 || {} as IDayOfYearEntity;
     o2 = o2 || {} as IDayOfYearEntity;
-    const d1 = this.asDayOfYear();
-    const d2 = this.asDayOfYear();
-    d1.setFullYear(o1.year, o1.month, o1.day);
-    d2.setFullYear(o2.year, o2.month, o2.day);
-    return this.compare(d1, d2);
+    return this.compare(this.fromDayOfYearEntityAsDate(o1), this.fromDayOfYearEntityAsDate(o2));
   }
 
   /**
@@ -1021,6 +1043,18 @@ export class DateConverter implements IDateConverter<MomentT> {
       }
     }
     return ({from, to});
+  }
+
+  /**
+   * @stable [08.01.2020]
+   * @param {IDateTimeRangeConfigEntity} cfg
+   * @returns {boolean}
+   */
+  public isDateBelongToDatesRange(cfg: IDateTimeRangeConfigEntity): boolean {
+    const minDate = nvl(cfg.minDate, this.dateTimeSettings.minDate);
+    const maxDate = nvl(cfg.maxDate, this.dateTimeSettings.maxDate);
+
+    return this.compare(cfg.date, minDate) >= 0 && this.compare(maxDate, cfg.date) >= 0;
   }
 
   /**
