@@ -29,6 +29,8 @@ import {
   IKeepChangesWrapper,
   ILabelWrapper,
   IMaskWrapper,
+  IMaxDateWrapper,
+  IMinDateWrapper,
   INameWrapper,
   IOnClickWrapper,
   IOriginalValueWrapper,
@@ -54,6 +56,7 @@ import {
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
+import { ICalendarConfigurationWrapperEntity } from './calendar-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -203,7 +206,10 @@ export const GENERIC_FIELD_PASSWORD_TYPE_ENTITY = Object.freeze<IGenericFieldEnt
  * @stable [07.01.2020]
  */
 export interface IGenericDateFieldEntity
-  extends IDialogClassNameWrapper,
+  extends ICalendarConfigurationWrapperEntity,
+    IDialogClassNameWrapper,
     IFormatWrapper,
-    IHeaderFormatWrapper {
+    IHeaderFormatWrapper,
+    IMaxDateWrapper<Date>,
+    IMinDateWrapper<Date> {
 }

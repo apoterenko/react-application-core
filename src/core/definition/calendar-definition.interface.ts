@@ -49,6 +49,13 @@ export interface ICalendarProps
 }
 
 /**
+ * @stable [08.01.2020]
+ */
+export interface ICalendarConfigurationWrapperEntity
+  extends ICalendarConfigurationWrapper<ICalendarProps> {
+}
+
+/**
  * @stable [06.01.2020]
  */
 export interface ICalendarRangeState

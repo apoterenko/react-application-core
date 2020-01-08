@@ -174,7 +174,6 @@ export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IForceReloadWrapper { forceReload?: boolean; }
-export interface IHeaderFormatWrapper<TValue = string> { headerFormat?: TValue; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
@@ -201,6 +200,7 @@ export interface IHeaderClassNameWrapper { headerClassName?: string; }
 export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
 export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
+export interface IHeaderFormatWrapper<TValue = string> { headerFormat?: TValue; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeaderRendererWrapper<TPayload> { headerRenderer?(payload: TPayload): React.ReactNode; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
@@ -259,12 +259,14 @@ export interface IManualValidationWrapper { manualValidation?: boolean; }
 export interface IMappersWrapper<TMappers> { mappers?: TMappers; }
 export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
 export interface IMaxCountWrapper { maxCount?: number; }
+export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
 export interface IMenuConfigurationWrapper<TMenuConfiguration> { menuConfiguration?: TMenuConfiguration; }
 export interface IMenuOptionsWrapper<TMenuOptions> { menuOptions?: TMenuOptions; }
 export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }
 export interface IMessagesWrapper<TMessages> { messages?: TMessages; }
 export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
 export interface IMethodWrapper { method?: string; }
+export interface IMinDateWrapper<TValue = string> { minDate?: TValue; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IModeWrapper<TMode = string> { mode?: TMode; }
 export interface IMonthWrapper<TValue = number> { month?: TValue; }

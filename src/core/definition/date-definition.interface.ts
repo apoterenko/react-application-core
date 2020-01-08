@@ -14,6 +14,8 @@ import {
   IInputFormatWrapper,
   IInputTimeFormatWrapper,
   IIsoWeekWrapper,
+  IMaxDateWrapper,
+  IMinDateWrapper,
   IMonthWrapper,
   INextWrapper,
   IOutputFormatWrapper,
@@ -62,6 +64,15 @@ export interface IDateTimeConfigEntity<TDate = Date>
     ITimeWrapper,
     IUnitWrapper<string>,
     IZoneWrapper {
+}
+
+/**
+ * @stable [08.01.2020]
+ */
+export interface IDateTimeRangeConfigEntity
+  extends IDateWrapper<Date>,
+    IMaxDateWrapper<Date>,
+    IMinDateWrapper<Date> {
 }
 
 /**

@@ -6,6 +6,7 @@ import {
   ICalendarConfigEntity,
   ICalendarEntity,
   IDateTimeConfigEntity,
+  IDateTimeRangeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
 } from '../../definition';
@@ -29,13 +30,15 @@ export interface IDateConverter<TDate = Date> {
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
+  compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
   dateAsString(cfg: IDateTimeConfigEntity): string;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
-  fromDayOfYearEntityAsDate(entity: IDayOfYearEntity): Date;
+  fromDayOfYearEntity(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity): TDate;
+  fromDayOfYearEntityAsDate(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity): Date;
   fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromUiDateToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   getCurrentDate(): Date;
@@ -45,12 +48,12 @@ export interface IDateConverter<TDate = Date> {
   getShortestWeekday(cfg: IDateTimeConfigEntity): string;
   getShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
   getStartOfCurrentDate(): Date;
+  isDateBelongToDatesRange(cfg: IDateTimeRangeConfigEntity): boolean;
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
   selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;
   /**/
   getAppOnlineLifeTimeInSeconds(): number;
   getAppOnlineLifeTimeInHours(): number;
-  compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;

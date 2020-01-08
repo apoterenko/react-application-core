@@ -35,8 +35,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
   public static readonly defaultProps: IDateFieldProps = {
     headerFormat: 'MMMM YYYY',
-    maxDate: new Date('01/01/4000'),
-    minDate: new Date('01/01/1900'),
     preventFocus: true,
   };
 
@@ -74,6 +72,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
   protected getInputAttachmentElement(): JSX.Element {
     const {year, dialogOpened} = this.state;
+    const props = this.props;
     return orNull(
       dialogOpened,  // To improve performance
       () => {
@@ -82,7 +81,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             ref={this.dialogRef}
             acceptable={false}
             closable={false}
-            className={joinClassName(this.props.dialogClassName, 'rac-date-field__dialog')}
+            className={joinClassName(props.dialogClassName, 'rac-date-field__dialog')}
           >
             <div className='rac-date-field__dialog-range-explorer'>
               <Button
@@ -98,9 +97,11 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                 onClick={this.setNextMonth}/>
             </div>
             <Calendar
+              showOnlyCurrentDays={true}
+              gridConfiguration={{headerRendered: true}}
+              {...props.calendarConfiguration}
               calendarEntity={this.calendarEntity}
               isSelected={this.isDaySelected}
-              gridConfiguration={{headerRendered: true}}
               className='rac-date-field__calendar'
               onSelect={this.onAccept}/>
             <NumberField
@@ -108,8 +109,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               autoFocus={true}
               keepChanges={true}
               errorMessageRendered={false}
-              pattern={'[0-9]{4}'}
-              mask={[/\d/, /\d/, /\d/, /\d/]}
+              pattern={this.dateTimeSettings.uiYearPattern}
+              mask={this.dateTimeSettings.uiYearMask}
               placeholder={this.selectedYearPlaceholder}
               onChange={this.onChangeYear}>
             </NumberField>
@@ -201,20 +202,18 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [19.04.2019]
-   * @param {number} value
+   * @stable [08.01.2020]
+   * @param {number} year
    */
-  private onChangeYear(value: number): void {
+  private onChangeYear(year: number): void {
     const props = this.props;
-    this.setState({year: value}, () => {
-      const date = new Date(this.selectedDate.getTime());
-      date.setFullYear(value);
+    const date = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.selectedDate});
 
-      if (this.dc.compare(date, props.minDate) >= 0
-        && this.dc.compare(props.maxDate, date) >= 0) {
-        this.onChangeManually(date);
-      }
-    });
+    if (this.dc.isDateBelongToDatesRange({date, minDate: props.minDate, maxDate: props.maxDate})) {
+      this.setState({year, date});
+    } else {
+      this.setState({year});
+    }
   }
 
   /**
