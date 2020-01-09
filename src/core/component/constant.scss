@@ -457,6 +457,7 @@ $rac-base-select-cls: rac-base-select;
 $rac-base-text-cls: rac-base-text;
 $rac-checkbox-cls: rac-checkbox;
 $rac-checked-cls: rac-checked;
+$rac-date-field-dialog-cls: rac-date-field__dialog;
 $rac-field-actioned-cls: rac-field-actioned;
 $rac-field-disabled-cls: rac-field-disabled;
 $rac-field-focused-cls: rac-field-focused;
@@ -467,6 +468,7 @@ $rac-field-prevent-focus-cls: rac-field-prevent-focus;
 $rac-field-required-cls: rac-field-required;
 $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
+$rac-place-field-dialog-cls: rac-place-field__dialog;
 $rac-switch-cls: rac-switch;
 $rac-unchecked-cls: rac-unchecked;
 $rac-view-field-cls: rac-view-field;
@@ -583,6 +585,8 @@ $rac-date-field-dialog-range-explorer-date-flex: 1 !default;
 $rac-date-field-dialog-range-explorer-date-text-align: center !default;
 $rac-date-field-dialog-range-explorer-display: flex !default;
 $rac-date-field-dialog-range-explorer-flex-direction: row !default;
+/**/
+$rac-place-field-dialog-body-height: 80vh !default;
 
 /* @stable [18.06.2019] */
 $rac-dialog-google-maps-flex-height: 40vh !default;

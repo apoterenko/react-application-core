@@ -1,0 +1,13 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  /**
+   * @place-field-dialog
+   * @stable [09.01.2020]
+   */
+  @include rac-place-field-dialog (
+    $rac-place-field-dialog-body-height: $rac-place-field-dialog-body-height
+  );
+}
