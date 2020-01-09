@@ -4,13 +4,14 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
   calc,
-  cancelEvent,
   getWidth,
   ifNotNilThanValue,
   inProgress,
   isExpandActionRendered,
   isFn,
+  isRemoteFilterApplied,
   joinClassName,
+  orNull,
 } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu } from '../../menu';
@@ -19,6 +20,7 @@ import {
   IKeyboardEvent,
 } from '../../../definitions.interface';
 import {
+  IBaseSelect,
   IBaseSelectProps,
   IBaseSelectState,
 } from './base-select.interface';
@@ -27,12 +29,14 @@ import {
   FieldActionTypesEnum,
   IBaseEvent,
   IMenu,
+  IMenuProps,
   ISelectOptionEntity,
 } from '../../../definition';
 
 export class BaseSelect<TProps extends IBaseSelectProps,
                         TState extends IBaseSelectState>
-    extends BaseTextField<TProps, TState> {
+  extends BaseTextField<TProps, TState>
+  implements IBaseSelect {
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseSelect');
 
@@ -119,33 +123,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [30.11.2019]
+   * @stable [09.01.2020]
    * @param {IBaseEvent} event
    */
   public openMenu(event?: IBaseEvent): void {
-    if (this.menu.isOpen() || this.state.needToBeOpened) {
+    if (this.state.needToBeOpened) {
       return;
     }
-    cancelEvent(event);
+    this.domAccessor.cancelEvent(event);
 
-    const {
-      onEmptyDictionary,
-      bindDictionary,
-      options,
-      forceReload,
-    } = this.props;
-    const areOptionsEmpty = R.isNil(options);
-
-    if (forceReload || areOptionsEmpty) {
-      if (isFn(onEmptyDictionary)) {
-        onEmptyDictionary(bindDictionary);
-        this.setState({needToBeOpened: true}); // After callback invoking (!)
-      } else if (!areOptionsEmpty) {
-        this.showMenu();
+    this.setState({menuOpened: true}, () => {
+      if (!this.menu.isOpen()) {
+        this.doOpenMenu();
       }
-    } else {
-      this.showMenu();
-    }
+    });
   }
 
   /**
@@ -166,21 +157,32 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [01.06.2018]
+   * @stable [09.01.2020]
    * @returns {JSX.Element}
    */
   protected getInputAttachmentElement(): JSX.Element {
-    const props = this.props;
-    return (
-      <Menu
-        ref={this.menuRef}
-        width={this.menuWidth}
-        options={this.filteredOptions}
-        onSelect={this.onSelect}
-        onFilterChange={this.onFilterChange}
-        onClose={this.onClose}
-        {...props.menuConfiguration}/>
+    const {menuOpened} = this.state;
+    return orNull(
+      menuOpened === true,   // To improve a performance
+      () => (
+        <Menu
+          ref={this.menuRef}
+          width={this.menuWidth}
+          options={this.filteredOptions}
+          onSelect={this.onSelect}
+          onFilterChange={this.onFilterChange}
+          onClose={this.onClose}
+          {...this.getMenuProps()}/>
+      )
     );
+  }
+
+  /**
+   * @stable [09.01.2020]
+   * @returns {IMenuProps}
+   */
+  protected getMenuProps(): IMenuProps {
+    return this.props.menuConfiguration;
   }
 
   /**
@@ -267,10 +269,35 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [30.11.2019]
+   * @stable [09.01.2020]
+   */
+  private doOpenMenu(): void {
+    const {
+      bindDictionary,
+      forceOpenEmptyMenu,
+      forceReload,
+      onEmptyDictionary,
+      options,
+    } = this.props;
+    const areOptionsEmpty = R.isNil(options);
+
+    if (forceReload || areOptionsEmpty) {
+      if (isFn(onEmptyDictionary)) {
+        onEmptyDictionary(bindDictionary);
+        this.setState({needToBeOpened: true}); // After callback invoking (!)
+      } else if (!areOptionsEmpty || forceOpenEmptyMenu) {
+        this.showMenu();
+      }
+    } else {
+      this.showMenu();
+    }
+  }
+
+  /**
+   * @stable [09.01.2020]
    */
   private showMenu(): void {
-    if (R.isEmpty(this.filteredOptions)) {
+    if (!this.isRemoteFilterApplied && R.isEmpty(this.filteredOptions)) {
       BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
     } else {
       this.menu.show();
@@ -278,7 +305,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [20.08.2018]
+   * @stable [09.01.2020]
    */
   private hideMenu(): void {
     this.menu.hide();
@@ -295,6 +322,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (isFn(onDictionaryFilterChange)) {
       onDictionaryFilterChange(props.bindDictionary, {payload: {query}});
     }
+  }
+
+  /**
+   * @stable [09.01.2020]
+   * @returns {boolean}
+   */
+  private get isRemoteFilterApplied(): boolean {
+    return isRemoteFilterApplied(this.getMenuProps());
   }
 
   /**

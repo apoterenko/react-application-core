@@ -1,15 +1,18 @@
 import {
   I$$cachedValueWrapper,
   IExpandActionRenderedWrapper,
+  IForceOpenEmptyMenuWrapper,
   IForceReloadWrapper,
   IMenuConfigurationWrapper,
   INeedToBeOpenedWrapper,
   IOnDictionaryFilterChangeWrapper,
   IOnFilterChangeWrapper,
+  IOpenMenuWrapper,
   IPayloadWrapper,
   IQueryWrapper,
 } from '../../../definitions.interface';
 import {
+  IBaseEvent,
   IMenuProps,
   ISelectOptionEntity,
 } from '../../../definition';
@@ -26,6 +29,7 @@ export interface IBaseSelectState
   extends IFieldState,
     INeedToBeOpenedWrapper,
     I$$cachedValueWrapper<ISelectOptionEntity> {
+  menuOpened?: boolean;
 }
 
 /**
@@ -42,10 +46,15 @@ export interface IBaseSelectProps
     IBaseTextFieldProps,
     IMenuConfigurationWrapper<IMenuProps>,
     IForceReloadWrapper,
+    IForceOpenEmptyMenuWrapper,
     IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
   options?: ISelectOptionEntity[] | (() => ISelectOptionEntity[]);
 
   onSelect?(option: ISelectOptionEntity): void;
+}
+
+export interface IBaseSelect
+  extends IOpenMenuWrapper<IBaseEvent> {
 }
