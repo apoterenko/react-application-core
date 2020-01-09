@@ -1,9 +1,21 @@
 import { injectable } from 'inversify';
 
-import { orNull, isFn } from '../../util';
-import { DI_TYPES, lazyInject } from '../../di';
 import {
+  appendUrlArgs,
+  ifNotNilThanValue,
+  isFn,
+  nvl,
+  orNull,
+} from '../../util';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
+import {
+  AsyncLibsEnum,
   EventsEnum,
+  IAsyncLibConfigEntity,
+  IAsyncLibManager,
   IBootstrapper,
   IDomAccessor,
   IEnvironment,
@@ -14,15 +26,60 @@ import {
   ISettingsEntity,
 } from '../../settings';
 import { AnyT } from '../../definitions.interface';
-import { IUIFactory } from '../../component/factory/factory.interface'; // TODO Fix import
+import { IUIFactory } from '../../component/factory/factory.interface';  // TODO Fix import
 
 @injectable()
 export class WebBootstrapper implements IBootstrapper {
+  @lazyInject(DI_TYPES.AsyncLibManager) private readonly asyncLibManager: IAsyncLibManager;
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.UIFactory) private readonly uiFactory: IUIFactory;
+
+  private readonly asyncLibraries = new Map<string, IAsyncLibConfigEntity>();
+
+  /**
+   * @stable [09.01.2020]
+   */
+  constructor() {
+    const {
+      asyncLibraries,
+      googleMaps,
+    } = this.settings;
+    const googleMapsKey = this.environment.googleMapsKey;
+
+    ifNotNilThanValue(
+      nvl(asyncLibraries, googleMapsKey),
+      () => {
+        ifNotNilThanValue(
+          asyncLibraries.googleMaps,
+          (googleMapsLibCfg) => {
+            this.registerAsyncLibrary({
+              url: appendUrlArgs(
+                googleMapsLibCfg,
+                {
+                  key: googleMapsKey,
+                  libraries: googleMaps.libraries,
+                },
+              ),
+              alias: AsyncLibsEnum.GOOGLE_MAPS,
+            });
+          }
+        );
+      }
+    );
+  }
+
+  /**
+   * @stable [09.01.2020]
+   * @param {IAsyncLibConfigEntity} cfg
+   * @returns {IBootstrapper}
+   */
+  public registerAsyncLibrary(cfg: IAsyncLibConfigEntity): IBootstrapper {
+    this.asyncLibraries.set(cfg.alias || cfg.url, cfg);
+    return this;
+  }
 
   /**
    * @stable [01.10.2019]
@@ -40,6 +97,7 @@ export class WebBootstrapper implements IBootstrapper {
 
     this.initGA();
     this.initErrorHandler();
+    this.initAsyncLibraries();
 
     switch (document.readyState) {
       case 'loading':
@@ -83,6 +141,13 @@ export class WebBootstrapper implements IBootstrapper {
         this.window.ga('create', environment.googleKey, 'auto');
       }
     }
+  }
+
+  /**
+   * @stable [09.01.2020]
+   */
+  protected initAsyncLibraries(): void {
+    this.asyncLibraries.forEach((cfg) => this.asyncLibManager.registerLib(cfg));
   }
 
   /**
