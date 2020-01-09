@@ -176,6 +176,7 @@ export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
+export interface IForceOpenEmptyMenuWrapper { forceOpenEmptyMenu?: boolean; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
 export interface IFormattedNameWrapper { formattedName?: string; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
@@ -313,6 +314,7 @@ export interface IOnSortingDirectionChangeWrapper<TPayload> { onSortingDirection
 export interface IOnSubmitWrapper<TValue> { onSubmit?: TValue; }
 export interface IOnValidWrapper<TValue> { onValid?: TValue; }
 export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
+export interface IOpenMenuWrapper<TPayload> { openMenu?(payload?: TPayload): void; }
 export interface IOperationIdWrapper { operationId?: string; }
 export interface IOperationWrapper<TOperation = IIdWrapper<string>> { operation?: TOperation; }
 export interface IOptionsWrapper<TOptions> { options?: TOptions; }
