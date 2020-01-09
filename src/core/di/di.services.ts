@@ -23,6 +23,7 @@ import {
   IModifyEntityPayloadFactory,
   IPermissionsManager,
   IPhoneConverter,
+  IPlaceApi,
   IStateSerializer,
   IStorage,
   IStoreEntity,
@@ -152,7 +153,13 @@ export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.Even
  * @stable [09.01.2020]
  * @returns {IAsyncLibManager}
  */
-export const getAsyncLibManager = <TPromise>(): IAsyncLibManager<TPromise> => staticInjector(DI_TYPES.AsyncLibManager);
+export const getAsyncLibManager = (): IAsyncLibManager => staticInjector(DI_TYPES.AsyncLibManager);
+
+/**
+ * @stable [09.01.2020]
+ * @returns {IPlaceApi}
+ */
+export const getPlaceApi = (): IPlaceApi => staticInjector(DI_TYPES.PlacesApi);
 
 /**
  * @stable [09.01.2020]

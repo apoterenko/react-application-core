@@ -1,11 +1,13 @@
 import { ENV } from '../env';
 import { prepareUrl } from '../util';
 import {
+  DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
   DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_DATE_TIME_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
   DEFAULT_PHONE_SETTINGS_ENTITY,
   DEFAULT_STORAGE_SETTINGS_ENTITY,
+  IAsyncLibrariesSettingsEntity,
   IButtonProps,
   ICurrencySettingsEntity,
   IDateTimeSettingsEntity,
@@ -117,6 +119,7 @@ export interface IBootstrapSettings {
 }
 
 export interface ISettingsEntity {
+  asyncLibraries?: IAsyncLibrariesSettingsEntity;
   authorization?: IAuthorizationSettings;
   bootstrap?: IBootstrapSettings;
   channel?: IApplicationChannelSettings;
@@ -196,6 +199,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     waitMessage: 'Please wait...',
     yearMessage: 'Year',
   },
+  asyncLibraries: DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
   dateTime: {
     ...DEFAULT_DATE_TIME_SETTINGS_ENTITY,
     startDayOfWeek: StartDayOfWeekT.MONDAY,

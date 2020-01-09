@@ -267,7 +267,7 @@ export const isCenteredMenu = (wrapper: ICenteredMenuWrapper): boolean =>
  * @param {IRemoteFilterWrapper} wrapper
  * @returns {boolean}
  */
-export const isRemoteFilter = (wrapper: IRemoteFilterWrapper): boolean =>
+export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.remoteFilter === true, false);
 
 /**

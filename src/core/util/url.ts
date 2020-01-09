@@ -8,6 +8,7 @@ import {
   TransportMethodsEnum,
 } from '../definition';
 import { isObjectNotEmpty } from './object';
+import { notNilValuesFilter } from './filter';
 
 /**
  * @stable [07.10.2019]
@@ -67,6 +68,22 @@ export const buildTransportUrl = (config: ITransportUrlConfigEntity) => {
     if (isObjectNotEmpty(params)) {
       R.forEachObjIndexed((value, key) => url.addSearch(String(key), value), params);
     }
+  }
+  return url.valueOf();
+};
+
+/**
+ * @stable [08.01.2020]
+ * @param {string} initialUrl
+ * @param {IKeyValue} args
+ * @returns {string}
+ */
+export const appendUrlArgs = (initialUrl: string, args: IKeyValue) => {
+  const url = new URI(initialUrl);
+
+  args = notNilValuesFilter(args);
+  if (isObjectNotEmpty(args)) {
+    R.forEachObjIndexed((value, key) => url.addSearch(String(key), value), args);
   }
   return url.valueOf();
 };
