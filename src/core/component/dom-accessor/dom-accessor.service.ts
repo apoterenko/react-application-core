@@ -6,6 +6,7 @@ import {
   addClassNames,
   addRootElement,
   calc,
+  cancelEvent,
   createElement,
   createScript,
   findElement,
@@ -56,6 +57,14 @@ export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [09.01.2020]
+   * @param {IBaseEvent} event
+   */
+  public cancelEvent(event: IBaseEvent): void {
+    cancelEvent(event);
+  }
 
   /**
    * @stable [08.01.2020]

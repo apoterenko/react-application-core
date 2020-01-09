@@ -53,11 +53,20 @@ export class FieldConverter implements IFieldConverter {
    */
   public convert(config: IFieldConverterConfigEntity): AnyT {
     const {value} = config;
-    const converter = this.converters.get(this.asKey(config));
+    const converter = this.converter(config);
     if (!isFn(converter)) {
       throw new Error(`The converter is not registered! A config ${JSON.stringify(config)}:`);
     }
     return converter(value);
+  }
+
+  /**
+   * @stable [09.01.2020]
+   * @param {IFieldConverterConfigEntity} config
+   * @returns {(value: AnyT) => AnyT}
+   */
+  public converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT {
+    return this.converters.get(this.asKey(config));
   }
 
   /**

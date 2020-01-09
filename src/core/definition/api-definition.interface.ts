@@ -10,8 +10,13 @@ import {
   IKeyValue,
   IOperationWrapper,
 } from '../definitions.interface';
-import { IOperationEntity } from './operation-definition.interface';
 import { IExtendedEntity } from './entity-definition.interface';
+import { IOperationEntity } from './operation-definition.interface';
+import {
+  IPlaceEntity,
+  IPlaceGeoCodeRequestEntity,
+  ISearchPlacesRequestEntity,
+} from './place-definition.interface';
 
 export interface IApiEntity<TEntity extends IEntity = IEntity>
   extends IExtendedEntity<TEntity>,
@@ -36,4 +41,12 @@ export interface IUpdateEntityPayloadEntity<TEntity extends IEntity>
   IEditApiWrapper,
   IExtraParamsWrapper<IKeyValue>,
   IOperationWrapper<IOperationEntity> {
+}
+
+/**
+ * @stable [09.01.2020]
+ */
+export interface IPlaceApi {
+  getPlaceGeoCode<TResult>(request: IPlaceGeoCodeRequestEntity): TResult;
+  searchPlaces(request: ISearchPlacesRequestEntity): any;
 }
