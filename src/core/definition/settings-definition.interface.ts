@@ -95,6 +95,7 @@ export const DEFAULT_PHONE_SETTINGS_ENTITY = Object.freeze<IPhoneSettingsEntity>
  * @stable [07.10.2019]
  */
 export interface IMessagesSettingsEntity {
+  ADDRESS_SELECTION?: string;
   APPLICATION_IS_INITIALIZING?: string;
   BUILD?: string;
   DETAILS_INFO?: string;
@@ -107,6 +108,7 @@ export interface IMessagesSettingsEntity {
   PATH?: string;
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
+  PUT_MARKER_HERE?: string;
   RESTART_APP?: string;
   SOMETHING_WENT_WRONG?: string;
   UNKNOWN_ERROR?: string;
@@ -117,6 +119,7 @@ export interface IMessagesSettingsEntity {
  * @stable [07.10.2019]
  */
 export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsEntity>({
+  ADDRESS_SELECTION: 'Address selection',
   APPLICATION_IS_INITIALIZING: 'The app is initializing...',
   BUILD: 'Build',
   DETAILS_INFO: 'Details info',
@@ -129,6 +132,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
+  PUT_MARKER_HERE: 'Put marker here',
   RESTART_APP: 'Restart App',
   SOMETHING_WENT_WRONG: 'Something went wrong',
   UNKNOWN_ERROR: 'Unknown error',

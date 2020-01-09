@@ -56,6 +56,7 @@ export interface IAddApiWrapper { addApi?: string; }
 export interface IAddedFilesWrapper<TValue> { addedFiles?: TValue; }
 export interface IAddWrapper<TValue> { add?: TValue; }
 export interface IAfterEnterWrapper<TAfterEnter> { afterEnter?: TAfterEnter; }
+export interface IAliasWrapper<TValue = string> { alias?: TValue; }
 export interface IAlignWrapper<TAlign = string> { align?: TAlign; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
@@ -110,6 +111,7 @@ export interface IComputedMatchWrapper<TComputedMatch> { computedMatch?: TComput
 export interface IConditionWrapper<TValue = () => void> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
+export interface IConverterWrapper<TValue> { converter?: TValue; }
 export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
 export interface ICurrentWrapper<TValue> { current?: TValue; }
@@ -126,6 +128,7 @@ export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaul
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
 export interface IDepthWrapper { depth?: number; }
+export interface IDescriptionWrapper<TValue = string> { description?: TValue; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
 export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFileTypeTransportConfiguration?: TValue; }
@@ -174,6 +177,7 @@ export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IForceReloadWrapper { forceReload?: boolean; }
+export interface IFormattedNameWrapper { formattedName?: string; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
@@ -842,13 +846,6 @@ export interface IFooterRenderedWrapper {
  */
 export interface ITimeoutWrapper {
   timeout?: number;
-}
-
-/**
- * @stable [31.08.2018]
- */
-export interface IAliasWrapper<TAlias = string> {
-  alias?: TAlias;
 }
 
 /**

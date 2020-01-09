@@ -1,4 +1,5 @@
 import { injectable } from 'inversify';
+import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import {
   FieldConverterTypesEnum,
@@ -8,13 +9,14 @@ import {
 } from '../../definition';
 import {
   asPlaceEntity,
-  isFn,
   asPlaceEntityFormattedName,
+  isFn,
 } from '../../util';
 import { AnyT } from '../../definitions.interface';
 
 @injectable()
 export class FieldConverter implements IFieldConverter {
+  private static readonly logger = LoggerFactory.makeLogger('FieldConverter');
 
   private readonly converters = new Map<string, (value: AnyT) => AnyT>();
 
@@ -40,6 +42,8 @@ export class FieldConverter implements IFieldConverter {
    */
   public register(config: IFieldConverterConfigEntity): void {
     this.converters.set(this.asKey(config), config.converter);
+
+    FieldConverter.logger.debug(`[$FieldConverter][register] The converter has been registered successfully:`, config);
   }
 
   /**
