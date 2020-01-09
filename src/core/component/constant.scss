@@ -16,9 +16,7 @@ $color-12: #a70101 !default;
 $color-13: #73af90 !default;
 $color-15: #000 !default;
 $color-17: #57fff1 !default;
-$color-20: #e4e4e4 !default;
 $color-22: #f2f2f2 !default;
-$color-23: #585956 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
 
 /**/
@@ -93,7 +91,6 @@ $rac-default-offset: 16px !default;
 $rac-default-half-offset: $rac-default-offset / 2 !default;
 $rac-default-toolbar-height: 64px !default;
 $rac-default-layout-offset: 40px !default;
-$rac-default-layout-offset-2: $rac-layout-offset-0 !default;
 $rac-default-font-size: $rac-font-size-0 !default;
 $rac-default-font-size-2: $rac-font-size-1 !default;
 $rac-default-font-size-3: 16px !default;
@@ -587,6 +584,9 @@ $rac-date-field-dialog-range-explorer-display: flex !default;
 $rac-date-field-dialog-range-explorer-flex-direction: row !default;
 /**/
 $rac-place-field-dialog-body-height: 80vh !default;
+$rac-place-field-dialog-body-min-width: 90vh !default;
+$rac-place-field-dialog-place-font-size: $rac-font-size-0 !default;
+$rac-place-field-dialog-place-margin: 0 0 $rac-offset-3 0 !default;
 
 /* @stable [18.06.2019] */
 $rac-dialog-google-maps-flex-height: 40vh !default;

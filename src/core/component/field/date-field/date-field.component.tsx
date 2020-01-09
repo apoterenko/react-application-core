@@ -65,7 +65,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @stable [07.01.2020]
    * @param {DateTimeLikeTypeT} currentRawValue
    */
-  public onChangeManually(currentRawValue: DateTimeLikeTypeT): void {
+  public onChangeManually(currentRawValue: DateTimeLikeTypeT | AnyT): void {
     super.onChangeManually(this.serializeValue(currentRawValue));
   }
 

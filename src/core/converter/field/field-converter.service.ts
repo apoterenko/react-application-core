@@ -1,5 +1,8 @@
 import { injectable } from 'inversify';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
+import {
+  ILogger,
+  LoggerFactory,
+} from 'ts-smart-logger';
 
 import {
   FieldConverterTypesEnum,
@@ -10,6 +13,7 @@ import {
 import {
   asPlaceEntity,
   asPlaceEntityFormattedName,
+  asPlaceParameter,
   isFn,
 } from '../../util';
 import { AnyT } from '../../definitions.interface';
@@ -33,6 +37,11 @@ export class FieldConverter implements IFieldConverter {
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.STRING,
       converter: asPlaceEntityFormattedName,
+    });
+    this.register({
+      from: FieldConverterTypesEnum.PLACE_ENTITY,
+      to: FieldConverterTypesEnum.PLACE_PARAMETER,
+      converter: asPlaceParameter,
     });
   }
 

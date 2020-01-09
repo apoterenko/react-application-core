@@ -7,13 +7,14 @@ import {
   isObjectNotEmpty,
   isPlaceActionRendered,
   joinClassName,
+  nvl,
   orNull,
   uuid,
 } from '../../../util';
-import { BaseSelect } from '../select/base-select.component';
-import { GoogleMaps } from '../../google';
-import { Dialog } from '../../dialog';
 import { AnyT } from '../../../definitions.interface';
+import { BaseSelect } from '../select/base-select.component';
+import { Dialog } from '../../dialog';
+import { GoogleMaps } from '../../google';
 import {
   FieldConverterTypesEnum,
   FILTERED_CENTERED_MENU_ENTITY,
@@ -80,11 +81,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @returns {string}
    */
   protected decorateValueBeforeDisplaying(value: IPlaceEntity): string {
-    return this.fieldConverter.convert({
-      from: FieldConverterTypesEnum.PLACE_ENTITY,
-      to: FieldConverterTypesEnum.STRING,
-      value,
-    });
+    return value.formattedName;
   }
 
   /**
@@ -99,7 +96,6 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
     return orNull(
       dialogOpened,  // To improve a performance
       () => {
-        const formattedName = this.decorateValueBeforeDisplaying(placeEntity || this.value);
         return (
           <Dialog
             ref={this.dialogRef}
@@ -109,7 +105,14 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
             onAccept={this.onDialogAccept}
             className={joinClassName(this.props.dialogClassName, 'rac-place-field__dialog')}
           >
-            <div className='rac-place-field__dialog-place'>{formattedName}</div>
+            <div className='rac-place-field__dialog-place'>
+              {
+                nvl(
+                  ifNotNilThanValue(placeEntity, () => this.fromPlaceEntityToString(placeEntity)),
+                  this.placeEntityValue.formattedName
+                )
+              }
+            </div>
             <GoogleMaps
               ref={this.googleMapsRef}
               className='rac-place-field__dialog-google-maps'
@@ -189,7 +192,16 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @stable [09.01.2020]
    */
   private onDialogAccept(): void {
-    this.setState({dialogOpened: false}, () => this.onChangeManually(this.state.placeEntity));
+    this.setState(
+      {dialogOpened: false},
+      () => {
+        const {placeEntity} = this.state;
+        this.onChangeManually<IPlaceEntity>({
+          ...placeEntity,
+          formattedName: this.fromPlaceEntityToString(placeEntity),
+        });
+      }
+    );
   }
 
   /**
@@ -245,6 +257,19 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
         refreshMap: true,
       });
     }
+  }
+
+  /**
+   * @stable [10.01.2020]
+   * @param {IPlaceEntity} placeEntity
+   * @returns {string}
+   */
+  private fromPlaceEntityToString(placeEntity: IPlaceEntity): string {
+    return this.fieldConverter.convert({
+      from: FieldConverterTypesEnum.PLACE_ENTITY,
+      to: FieldConverterTypesEnum.STRING,
+      value: placeEntity,
+    });
   }
 
   /**

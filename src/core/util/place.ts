@@ -1,24 +1,23 @@
+import { ifNotNilThanValue } from './cond';
 import { IPlaceEntity } from '../definition';
 import { join } from './join';
-import { ifNotNilThanValue } from './cond';
+import { UNDEF_SYMBOL } from '../definitions.interface';
 
 /**
  * @stable [01.08.2018]
  * @param {IPlaceEntity} placeEntity
  * @returns {string}
  */
-export const toAddress = (placeEntity: IPlaceEntity): string => ifNotNilThanValue(
-  placeEntity,
-  () => (
-    join([
+export const asPlaceEntityFormattedName = (placeEntity: IPlaceEntity): string =>
+  ifNotNilThanValue(
+    placeEntity,
+    () => join([
       join([placeEntity.streetNumber, placeEntity.street], ' '),
       placeEntity.city,
       placeEntity.region,
       placeEntity.country
-    ], ', ')
-  ),
-  ''
-);
+    ], ', ') || placeEntity.formattedName,
+  );
 
 /**
  * @stable [01.08.2018]
@@ -31,15 +30,28 @@ export const toPlaceDescription = <TType>(cmp: google.maps.GeocoderAddressCompon
   cmp && extractor(cmp);
 
 /**
+ * @stable [10.01.2020]
+ * @param {IPlaceEntity} placeEntity
+ * @returns {string}
+ */
+export const asPlaceParameter = (placeEntity: IPlaceEntity): string =>
+  ifNotNilThanValue(
+    placeEntity,
+    () => placeEntity.formattedName,
+    UNDEF_SYMBOL
+  );
+
+/**
  * @stable [04.08.2018]
  * @param {google.maps.GeocoderResult | google.maps.places.PlaceResult} place
  * @returns {IPlaceEntity}
  */
-export const toPlace = (place: google.maps.GeocoderResult | google.maps.places.PlaceResult): IPlaceEntity => {
+export const asPlaceEntity = (place: google.maps.GeocoderResult | google.maps.places.PlaceResult): IPlaceEntity => {
   if (!Array.isArray(place.address_components)) {
     return null;
   }
   return {
+    ...ifNotNilThanValue(place.geometry, (geometry) => ({lat: geometry.location.lat(), lng: geometry.location.lng()})),
     country: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('country')),
       (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name

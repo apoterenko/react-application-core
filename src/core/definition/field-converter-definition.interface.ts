@@ -12,6 +12,7 @@ import {
 export enum FieldConverterTypesEnum {
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   PLACE_ENTITY = 'PLACE_ENTITY',
+  PLACE_PARAMETER = 'PLACE_PARAMETER',
   STRING = 'STRING',
 }
 

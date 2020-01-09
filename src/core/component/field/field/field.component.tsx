@@ -85,7 +85,7 @@ export class Field<TProps extends IFieldProps,
    * @stable [07.01.2019]
    * @param {AnyT} currentRawValue
    */
-  public onChangeManually(currentRawValue: AnyT): void {
+  public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
     this.updateInputBeforeHTML5Validation(currentRawValue);
     super.onChangeManually(currentRawValue);
   }

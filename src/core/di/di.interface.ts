@@ -13,7 +13,7 @@ export const DI_TYPES = Object.freeze({
   DynamicSections: Symbol('DynamicSections'),
   Environment: Symbol('Environment'),
   EventManager: Symbol('EventManager'),
-  FieldCoverter: Symbol('FieldCoverter'),
+  FieldConverter: Symbol('FieldConverter'),
   FieldsOptions: Symbol('FieldsOptions'),
   FileStorage: Symbol('FileStorage'),
   FormStoreProxyFactory: Symbol('FormStoreProxyFactory'),

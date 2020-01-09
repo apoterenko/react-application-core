@@ -21,6 +21,9 @@ import {
 import { INumberConverter } from '../converter';
 import { ISettingsEntity } from '../settings';
 import {
+  FieldConverterTypesEnum,
+  IFieldConverter,
+  IPlaceEntity,
   ITransport,
   ITransportRequestEntity,
   MultiFieldEntityT,
@@ -41,6 +44,7 @@ export class BaseTransport {
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
+  @lazyInject(DI_TYPES.FieldConverter) protected readonly fieldConverter: IFieldConverter;
 
   /**
    * @stable [29.08.2019]
@@ -50,6 +54,18 @@ export class BaseTransport {
    */
   protected prepareNumberValue = (value: StringNumberT, converter?: (value: number) => number): number =>
     this.nc.numberParameter(value, converter)
+
+  /**
+   * @stable [10.01.2020]
+   * @param {IPlaceEntity} value
+   * @returns {string}
+   */
+  protected preparePlaceParameterValue = (value: IPlaceEntity): string =>
+    this.fieldConverter.convert({
+      from: FieldConverterTypesEnum.PLACE_ENTITY,
+      to: FieldConverterTypesEnum.PLACE_PARAMETER,
+      value,
+    })
 
   /**
    * @stable [16.12.2019]

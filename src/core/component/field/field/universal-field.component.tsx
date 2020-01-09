@@ -149,7 +149,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [07.01.2018]
    * @param {AnyT} currentRawValue
    */
-  public onChangeManually(currentRawValue: AnyT): void {
+  public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
     if (this.props.preventManualChanges !== true) {
       this.onChangeValue(currentRawValue);
     }

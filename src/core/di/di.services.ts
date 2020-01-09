@@ -165,7 +165,7 @@ export const getPlaceApi = (): IPlaceApi => staticInjector(DI_TYPES.PlacesApi);
  * @stable [09.01.2020]
  * @returns {IFieldConverter}
  */
-export const getFieldConverter = (): IFieldConverter => staticInjector(DI_TYPES.FieldCoverter);
+export const getFieldConverter = (): IFieldConverter => staticInjector(DI_TYPES.FieldConverter);
 
 /**
  * @stable [24.09.2019]
