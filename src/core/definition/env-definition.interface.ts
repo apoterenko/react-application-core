@@ -21,6 +21,7 @@ export interface IEnvironment {
   chromePlatform?: boolean;
   document?: Document;
   googleKey?: string;
+  googleMapsKey?: string;
   host?: string;
   ios13Platform?: boolean;
   iosPlatform?: boolean;
