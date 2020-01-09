@@ -70,6 +70,7 @@ export interface IDomAccessor {
   applyPosition(source: Element, position: string, value: number | (() => number)): void;
   asJqEl(source: Element): IJQueryElement<Element>;
   attachClickListener(callback: (e: IBaseEvent) => void, parentEl?: Element | EventTarget): () => void;
+  cancelEvent(event: IBaseEvent): void;
   captureEvent(cfg: ICaptureEventConfigEntity): () => void;
   captureEventWithinElement(cfg: ICaptureEventConfigEntity);
   createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parentEl?: Element): TElement;

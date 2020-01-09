@@ -14,7 +14,7 @@ import {
   isFilterUsed,
   isFn,
   isMulti,
-  isRemoteFilter,
+  isRemoteFilterApplied,
   joinClassName,
   nvl,
   queryFilter,
@@ -200,7 +200,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   private get items(): IMenuItemEntity[] {
     const props = this.props;
 
-    return !this.isFilterUsed || isRemoteFilter(props)
+    return !this.isFilterUsed || isRemoteFilterApplied(props)
       ? props.options
       : props.options.filter((option) => props.filter(this.state.filter, option));
   }
