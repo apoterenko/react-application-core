@@ -8,10 +8,13 @@ import {
 } from '../../util';
 import {
   DI_TYPES,
+  getAsyncLibManager,
   getDatabaseStorage,
   getEnvironment,
   getEventManager,
+  getFieldConverter,
   getNumberConverter,
+  getPlaceApi,
   getSettings,
   getTranslator,
   getTransport,
@@ -28,9 +31,12 @@ import {
 import { AnyT } from '../../definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import {
+  IAsyncLibManager,
   IDomAccessor,
   IEnvironment,
   IEventManager,
+  IFieldConverter,
+  IPlaceApi,
   IStorage,
   ITransport,
   IUniversalComponent,
@@ -124,6 +130,33 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get eventManager(): IEventManager {
     return getEventManager();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [09.01.2020]
+   * @returns {IFieldConverter}
+   */
+  protected get fieldConverter(): IFieldConverter {
+    return getFieldConverter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [09.01.2020]
+   * @returns {IPlaceApi}
+   */
+  protected get placeApi(): IPlaceApi {
+    return getPlaceApi();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [09.01.2020]
+   * @returns {IAsyncLibManager}
+   */
+  protected get asyncLibManager(): IAsyncLibManager {
+    return getAsyncLibManager();
   }
 
   /**
