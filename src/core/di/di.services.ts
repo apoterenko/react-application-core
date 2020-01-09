@@ -11,11 +11,13 @@ import {
   DynamicRoutesMapT,
   DynamicSectionsMapT,
   FormStoreProxyFactoryT,
+  IAsyncLibManager,
   IAuth,
   IConnectorEntity,
   IContainer,
   IEnvironment,
   IEventManager,
+  IFieldConverter,
   IFormStoreProxy,
   ILogManager,
   IModifyEntityPayloadFactory,
@@ -145,6 +147,18 @@ export const getLogManager = (): ILogManager => staticInjector(DI_TYPES.LogManag
  * @returns {IEventManager}
  */
 export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.EventManager);
+
+/**
+ * @stable [09.01.2020]
+ * @returns {IAsyncLibManager}
+ */
+export const getAsyncLibManager = <TPromise>(): IAsyncLibManager<TPromise> => staticInjector(DI_TYPES.AsyncLibManager);
+
+/**
+ * @stable [09.01.2020]
+ * @returns {IFieldConverter}
+ */
+export const getFieldConverter = (): IFieldConverter => staticInjector(DI_TYPES.FieldCoverter);
 
 /**
  * @stable [24.09.2019]

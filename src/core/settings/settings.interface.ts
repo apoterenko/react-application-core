@@ -50,7 +50,6 @@ export interface IApplicationNumberSettings {
 export interface IMessagesSettings extends IMessagesSettingsEntity {
   acceptMessage?: string;
   accessDeniedMessage?: string;
-  addressSelectionMessage?: string;
   applyMessage?: string;
   appNotReadyMessage?: string;
   clearAllMessage?: string;
@@ -75,7 +74,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   noItemsMessage?: string;
   pagesMessage?: string;
   previewMessage?: string;
-  putMarkerHereMessage?: string;
   refreshActionTitleMessage?: string;
   requestCancelErrorMessage?: string;
   reset?: string;
@@ -160,7 +158,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     ...DEFAULT_MESSAGES_SETTINGS_ENTITY,
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
-    addressSelectionMessage: 'Address selection',
     applyMessage: 'Apply',
     appNotReadyMessage: 'App is being initialized...',
     clearAllMessage: 'Clear all',
@@ -185,7 +182,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     noItemsMessage: 'No items.',
     pagesMessage: '{from}-{to} of {count}',
     previewMessage: 'Preview',
-    putMarkerHereMessage: 'Put marker here',
     refreshActionTitleMessage: 'Refresh',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
     reset: 'Reset',

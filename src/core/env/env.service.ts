@@ -2,14 +2,10 @@ import { injectable } from 'inversify';
 import * as P from 'platform';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import {
-  EventsEnum,
-  IEnvironment,
-  TouchEventsEnum,
-} from '../definition';
-import { ENV } from './env.interface';
 import { AnyT } from '../definitions.interface';
+import { ENV } from './env.interface';
 import { getCurrentUrlPath } from '../util';
+import { IEnvironment } from '../definition';
 
 @injectable()
 export class Environment implements IEnvironment {
@@ -47,6 +43,14 @@ export class Environment implements IEnvironment {
       windowsPlatform: this.windowsPlatform,
     };
     Environment.logger.info(`[$Environment] ${JSON.stringify(payload)}`);
+  }
+
+  /**
+   * @stable [09.01.2020]
+   * @returns {string}
+   */
+  public get googleMapsKey(): string {
+    return process.env.GOOGLE_MAPS_KEY;
   }
 
   /**

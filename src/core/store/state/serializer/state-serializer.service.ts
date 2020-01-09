@@ -1,10 +1,11 @@
 import { injectable } from 'inversify';
 
 import {
-  INITIAL_UNIVERSAL_APPLICATION_ENTITY,
+  INITIAL_ASYNC_LIBS_ENTITY,
   INITIAL_CHANNELS_ENTITY,
   INITIAL_NOTIFICATION_ENTITY,
   INITIAL_TRANSPORT_ENTITY,
+  INITIAL_UNIVERSAL_APPLICATION_ENTITY,
   IStateSerializer,
   IStoreEntity,
 } from '../../../definition';
@@ -32,6 +33,10 @@ export class StateSerializer implements IStateSerializer {
       ...ifNotNilThanValue(
         state.transport,
         () => ({transport: INITIAL_TRANSPORT_ENTITY})
+      ),
+      ...ifNotNilThanValue(
+        state.asyncLibs,
+        () => ({asyncLibs: INITIAL_ASYNC_LIBS_ENTITY})
       ),
       ...ifNotNilThanValue(
         state.channel,

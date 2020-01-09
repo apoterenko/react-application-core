@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import {
   ifNotNilThanValue,
-  isFocusPrevented,
   joinClassName,
   nvl,
   orNull,
 } from '../../../util';
 import {
   AnyT,
+  UNDEF,
   UNDEF_SYMBOL,
 } from '../../../definitions.interface';
 import {
@@ -49,17 +49,16 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     this.isDaySelected = this.isDaySelected.bind(this);
     this.onAccept = this.onAccept.bind(this);
-    this.onCalendarClick = this.onCalendarClick.bind(this);
     this.onChangeYear = this.onChangeYear.bind(this);
+    this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
+    this.openDialog = this.openDialog.bind(this);
     this.setNextMonth = this.setNextMonth.bind(this);
     this.setPreviousMonth = this.setPreviousMonth.bind(this);
 
     this.defaultActions = [
-      {type: FieldActionTypesEnum.CALENDAR, onClick: this.onCalendarClick},
+      {type: FieldActionTypesEnum.CALENDAR, onClick: this.openDialog},
       ...this.defaultActions
     ];
-
-    this.state = {date: null} as TState;
   }
 
   /**
@@ -70,11 +69,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     super.onChangeManually(this.serializeValue(currentRawValue));
   }
 
+  /**
+   * @stable [09.01.2020]
+   * @returns {JSX.Element}
+   */
   protected getInputAttachmentElement(): JSX.Element {
     const {year, dialogOpened} = this.state;
     const props = this.props;
     return orNull(
-      dialogOpened,  // To improve performance
+      dialogOpened,  // To improve a performance
       () => {
         return (
           <Dialog
@@ -82,6 +85,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             acceptable={false}
             closable={false}
             className={joinClassName(props.dialogClassName, 'rac-date-field__dialog')}
+            onDeactivate={this.onDialogDeactivate}
           >
             <div className='rac-date-field__dialog-range-explorer'>
               <Button
@@ -121,14 +125,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [07.01.2020]
+   * @stable [09.01.2020]
    * @param {IBaseEvent} event
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
 
-    if (isFocusPrevented(this.props)) {
-      this.onCalendarClick();
+    if (this.isFocusPrevented) {
+      this.openDialog();
     }
   }
 
@@ -217,24 +221,39 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [05.01.2020]
+   * @stable [09.01.2020]
    * @param {ICalendarDayEntity} calendarDayEntity
    */
   private onAccept(calendarDayEntity: ICalendarDayEntity): void {
-    this.setState({dialogOpened: false}, () => {
+    this.onDialogClose(() => {
       this.onChangeManually(calendarDayEntity.date);
 
-      if (!isFocusPrevented(this.props)) {
+      if (!this.isFocusPrevented) {
         this.setFocus();
       }
     });
   }
 
   /**
+   * @stable [09.01.2020]
+   */
+  private onDialogDeactivate(): void {
+    this.onDialogClose();
+  }
+
+  /**
+   * @stable [09.01.2020]
+   * @param {() => void} callback
+   */
+  private onDialogClose(callback?: () => void): void {
+    this.setState({dialogOpened: false, date: UNDEF, year: UNDEF}, callback);
+  }
+
+  /**
    * @stable [24.02.2019]
    */
-  private onCalendarClick(): void {
-    this.setState({dialogOpened: true, date: null}, () => this.dialog.activate());
+  private openDialog(): void {
+    this.setState({dialogOpened: true}, () => this.dialog.activate());
   }
 
   /**

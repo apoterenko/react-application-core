@@ -1,5 +1,6 @@
 export const DI_TYPES = Object.freeze({
   Api: Symbol('Api'),
+  AsyncLibManager: Symbol('AsyncLibManager'),
   Auth: Symbol('Auth'),
   Channel: Symbol('Channel'),
   ConnectorContainerFactory: Symbol('ConnectorContainerFactory'),
@@ -12,6 +13,7 @@ export const DI_TYPES = Object.freeze({
   DynamicSections: Symbol('DynamicSections'),
   Environment: Symbol('Environment'),
   EventManager: Symbol('EventManager'),
+  FieldCoverter: Symbol('FieldCoverter'),
   FieldsOptions: Symbol('FieldsOptions'),
   FileStorage: Symbol('FileStorage'),
   FormStoreProxyFactory: Symbol('FormStoreProxyFactory'),
@@ -28,6 +30,7 @@ export const DI_TYPES = Object.freeze({
   NumberConverter: Symbol('NumberConverter'),
   PermissionsManager: Symbol('PermissionsManager'),
   PhoneConverter: Symbol('PhoneConverter'),
+  PlacesApi: Symbol('PlacesApi'),
   Router: Symbol('Router'),
   RouterStoreProxyFactory: Symbol('RouterStoreProxyFactory'),
   Routes: Symbol('Routes'),
