@@ -30,5 +30,6 @@ export interface IFieldConverterConfigEntity
  */
 export interface IFieldConverter {
   convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
+  converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
   register(config: IFieldConverterConfigEntity): void;
 }

@@ -76,6 +76,20 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
 });
 
 /**
+ * @stable [09.01.2020]
+ */
+export interface IAsyncLibrariesSettingsEntity {
+  googleMaps?: string;
+}
+
+/**
+ * @stable [09.01.2020]
+ */
+export const DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY = Object.freeze<IAsyncLibrariesSettingsEntity>({
+  googleMaps: 'https://maps.googleapis.com/maps/api/js',
+});
+
+/**
  * @stable [29.11.0219]
  */
 export interface IPhoneSettingsEntity {
