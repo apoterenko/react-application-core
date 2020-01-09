@@ -4,22 +4,21 @@ import * as Promise from 'bluebird';
 
 import { AnyT } from '../../../definitions.interface';
 import {
-  IFieldActionEntity,
+  IDialog,
+  IGoogleMapsActionEntity,
   IPlaceEntity,
 } from '../../../definition';
-import { orNull, toAddress, uuid, toPlace, toClassName, isPlaceActionRendered } from '../../../util';
+import { orNull, asPlaceEntityFormattedName, uuid, asPlaceEntity, toClassName, isPlaceActionRendered } from '../../../util';
 import { BaseTextField } from '../textfield';
-import { IUniversalDialog2,  Dialog } from '../../dialog';
+import { Dialog } from '../../dialog';
 import {
   IAddressFieldState,
   IAddressFieldProps,
-  AddressMapMarkerActionEnum,
 } from './addressfield.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { IGeoCoder } from '../../../google';
 import {
   GoogleMaps,
-  IGoogleMapsSelectEntity,
   IGoogleMaps,
   IGoogleMapsMarkerChangePlaceEntity,
 } from '../../google';
@@ -40,6 +39,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   private lng: number;
   private placeId: string;
   private placeEntity: IPlaceEntity;
+  private readonly dialogRef = React.createRef<Dialog<AnyT>>();
 
   @lazyInject(DI_TYPES.GeoCoder) private geoCoder: IGeoCoder;
 
@@ -51,15 +51,18 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
     super(props);
 
     if (isPlaceActionRendered(props)) {
-      this.addMapAction();
+      this.defaultActions = [
+        ...this.defaultActions,
+        {type: 'location_on', onClick: () => this.dialog.activate()}
+      ];
     }
 
-    this.onMenuSelect = this.onMenuSelect.bind(this);
-    this.onMarkerChangePlace = this.onMarkerChangePlace.bind(this);
-    this.onPlaceChanged = this.onPlaceChanged.bind(this);
-    this.onDialogClose = this.onDialogClose.bind(this);
-    this.onDialogAccept = this.onDialogAccept.bind(this);
     this.initGoogleMapsObjects = this.initGoogleMapsObjects.bind(this);
+    this.onDialogAccept = this.onDialogAccept.bind(this);
+    this.onDialogClose = this.onDialogClose.bind(this);
+    this.onMarkerChangePlace = this.onMarkerChangePlace.bind(this);
+    this.onMenuSelect = this.onMenuSelect.bind(this);
+    this.onPlaceChanged = this.onPlaceChanged.bind(this);
 
     // Don't need to save this values to React State, because UI doesn't use these bindings !!
     // => Need to initialize the internal "state" manually
@@ -75,7 +78,12 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
 
     this.cancelGeoCoderTaskIfPending();
 
-    this.autocomplete = null;
+    if (!R.isNil(this.autocomplete)) {
+      this.autocomplete.set('place', null);
+      this.autocomplete.unbindAll();
+      this.autocomplete = null;
+    }
+
     this.geoCoderTask = null;
     this.clearInternalVariables();
   }
@@ -107,8 +115,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
     const currentPlace = R.isNil(state.place) ? this.value : state.place;
 
     return (
-      <Dialog ref='dialog'
-              title={messages.addressSelectionMessage}
+      <Dialog ref={this.dialogRef}
               acceptDisabled={!this.isPlaceChanged}
               closeMessage={messages.closeMessage}
               acceptMessage={messages.acceptMessage}
@@ -124,8 +131,8 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
           onSelect={this.onMenuSelect}
           onChangePlace={this.onMarkerChangePlace}
           menuOptions={[{
-            label: this.settings.messages.putMarkerHereMessage,
-            value: AddressMapMarkerActionEnum.PUT_MARKER_HERE,
+          //  label: this.settings.messages.putMarkerHereMessage,
+          //  value: GoogleMapsMarkerActionsEnum.PUT_MARKER_HERE,
           }]}/>
       </Dialog>
     );
@@ -139,7 +146,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
     if (this.props.useZipCode) {
       return this.placeEntity.zipCode;
     }
-    return toAddress(this.placeEntity);
+    return asPlaceEntityFormattedName(this.placeEntity);
   }
 
   /**
@@ -178,7 +185,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
     this.lat = place.geometry.location.lat();
     this.lng = place.geometry.location.lng();
     this.placeId = place.place_id;
-    this.placeEntity = toPlace(place);
+    this.placeEntity = asPlaceEntity(place);
 
     this.onChangeManually(this.buildValue());           // Emit event to update a component value
     this.propsChangePlace();                            // Emit event to update a side values
@@ -206,14 +213,14 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   private propsChangePlace(): void {
     const props = this.props;
 
-    if (props.onChangePlace) {
+   /* if (props.onChangePlace) {
       props.onChangePlace({
         lat: this.lat,
         lng: this.lng,
         placeId: this.placeId,
         placeEntity: this.placeEntity,
       });
-    }
+    }*/
   }
 
   /**
@@ -222,32 +229,41 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   private initGoogleMapsObjects(): void {
     this.googleMaps.addMarker({draggable: true, position: null}, AddressField.ADDRESS_MARKER);
 
+    if (this.autocomplete) {
+      this.autocomplete.unbindAll();
+    }
+
     this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement, {
       componentRestrictions: this.settings.companyCountry ? {country: this.settings.companyCountry} : null,
     });
     this.autocomplete.addListener('place_changed', this.onPlaceChanged);
+
+    const props = this.props;
+    const isMarkerVisible = !(R.isNil(props.lat) && R.isNil(props.lng));
+
+    if (isMarkerVisible) {
+      this.googleMaps.setMarkerState({
+        marker: AddressField.ADDRESS_MARKER,
+        visible: true,
+        refreshMap: true,
+        lat: props.lat,
+        lng: props.lng,
+        zoom: this.settings.googleMaps.prettyZoom,
+      });
+    } else {
+      this.googleMaps.setMarkerState({
+        marker: AddressField.ADDRESS_MARKER,
+        visible: false,
+        refreshMap: true,
+      });
+    }
   }
 
   /**
    * @stable [31.07.2018]
-   * @param {IGoogleMapsSelectEntity} payload
+   * @param {IGoogleMapsActionEntity} payload
    */
-  private onMenuSelect(payload: IGoogleMapsSelectEntity): void {
-    this.lat = payload.lat;
-    this.lng = payload.lng;
-
-    switch (payload.item.value) {
-      case AddressMapMarkerActionEnum.PUT_MARKER_HERE:
-        this.googleMaps.setMarkerState({
-          marker: AddressField.ADDRESS_MARKER,
-          visible: true,
-          refreshMap: false,
-          lat: this.lat,
-          lng: this.lng,
-        });
-        this.updateGeocodeInfo();
-        break;
-    }
+  private onMenuSelect(payload: IGoogleMapsActionEntity): void {
   }
 
   /**
@@ -274,8 +290,8 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   private updateGeocodeInfo(): void {
     this.cancelGeoCoderTaskIfPending();
 
-    this.geoCoderTask = this.geoCoder.geocode({location: {lat: this.lat, lng: this.lng}})
-      .then((geocoderResults) => this.onGeocodeInfoLoad(geocoderResults));
+    // this.geoCoderTask = this.geoCoder.geocode({location: {lat: this.lat, lng: this.lng}})
+   //   .then((geocoderResults) => this.onGeocodeInfoLoad(geocoderResults));
   }
 
   /**
@@ -305,7 +321,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
     }
     const place = geocoderResults[0];
     this.placeId = place.place_id;
-    this.placeEntity = toPlace(place);
+    this.placeEntity = asPlaceEntity(place);
     this.setState({place: this.buildValue()});
     return geocoderResults;
   }
@@ -330,56 +346,11 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   }
 
   /**
-   * @stable [29.07.2018]
+   * @stable [06.01.2020]
+   * @returns {IDialog}
    */
-  private addMapAction(): void {
-    const this0 = this;
-
-    this.defaultActions = R.insert<IFieldActionEntity>(
-      0,
-      {
-        type: 'location_on',
-        onClick() {
-          this0.openDialog();
-        },
-      },
-      this.defaultActions
-    );
-  }
-
-  /**
-   * @stable [30.07.2018]
-   */
-  private openDialog(): void {
-    this.dialog.activate();
-
-    const props = this.props;
-    const isMarkerVisible = !(R.isNil(props.lat) && R.isNil(props.lng));
-
-    if (isMarkerVisible) {
-      this.googleMaps.setMarkerState({
-        marker: AddressField.ADDRESS_MARKER,
-        visible: true,
-        refreshMap: true,
-        lat: props.lat,
-        lng: props.lng,
-        zoom: this.settings.googleMaps.prettyZoom,
-      });
-    } else {
-      this.googleMaps.setMarkerState({
-        marker: AddressField.ADDRESS_MARKER,
-        visible: false,
-        refreshMap: true,
-      });
-    }
-  }
-
-  /**
-   * @stable [29.07.2018]
-   * @returns {IUniversalDialog2}
-   */
-  private get dialog(): IUniversalDialog2 {
-    return this.refs.dialog as IUniversalDialog2;
+  private get dialog(): IDialog {
+    return this.dialogRef.current;
   }
 
   /**

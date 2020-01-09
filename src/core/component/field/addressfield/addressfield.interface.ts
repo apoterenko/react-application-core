@@ -12,13 +12,6 @@ import { IBaseTextFieldProps } from '../textfield';
 import { IChangePlacePayloadEntity } from '../../../definition';
 
 /**
- * @stable [30.07.2018]
- */
-export enum AddressMapMarkerActionEnum {
-  PUT_MARKER_HERE,
-}
-
-/**
  * @stable [29.07.2018]
  */
 export interface IAddressFieldProps extends IBaseTextFieldProps,
