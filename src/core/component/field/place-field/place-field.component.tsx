@@ -16,11 +16,13 @@ import { Dialog } from '../../dialog';
 import { AnyT } from '../../../definitions.interface';
 import {
   FieldConverterTypesEnum,
+  FILTERED_CENTERED_MENU_ENTITY,
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
   ILatLngEntity,
   IMenuItemEntity,
+  IMenuProps,
   IPlaceEntity,
   IPlaceFieldProps,
   IPlaceFieldState,
@@ -30,6 +32,7 @@ import {
 export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   public static readonly defaultProps: IPlaceFieldProps = {
+    forceOpenEmptyMenu: true,
     forceReload: true,
     preventFocus: true,
   };
@@ -88,7 +91,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @stable [09.01.2020]
    * @returns {JSX.Element}
    */
-  protected getInputAttachmentElement(): JSX.Element {
+  protected getAttachmentElement(): JSX.Element {
     const {
       dialogOpened,
       placeEntity,
@@ -126,6 +129,18 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   protected getFieldClassName(): string {
     return joinClassName(super.getFieldClassName(), 'rac-place-field');
+  }
+
+  /**
+   * @stable [09.01.2020]
+   * @returns {IMenuProps}
+   */
+  protected getMenuProps(): IMenuProps {
+    return {
+      ...FILTERED_CENTERED_MENU_ENTITY,
+      remoteFilter: true,
+      ...super.getMenuProps(),
+    };
   }
 
   /**
