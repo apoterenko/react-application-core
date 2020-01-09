@@ -5,7 +5,7 @@ import * as Promise from 'bluebird';
 import { AnyT } from '../../../definitions.interface';
 import {
   IDialog,
-  IGoogleMapsActionEntity,
+  IGoogleMapsMenuItemEntity,
   IPlaceEntity,
 } from '../../../definition';
 import { orNull, asPlaceEntityFormattedName, uuid, asPlaceEntity, toClassName, isPlaceActionRendered } from '../../../util';
@@ -15,11 +15,8 @@ import {
   IAddressFieldState,
   IAddressFieldProps,
 } from './addressfield.interface';
-import { DI_TYPES, lazyInject } from '../../../di';
-import { IGeoCoder } from '../../../google';
 import {
   GoogleMaps,
-  IGoogleMaps,
   IGoogleMapsMarkerChangePlaceEntity,
 } from '../../google';
 
@@ -40,8 +37,6 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
   private placeId: string;
   private placeEntity: IPlaceEntity;
   private readonly dialogRef = React.createRef<Dialog<AnyT>>();
-
-  @lazyInject(DI_TYPES.GeoCoder) private geoCoder: IGeoCoder;
 
   /**
    * @stable [29.07.2018]
@@ -261,9 +256,10 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
 
   /**
    * @stable [31.07.2018]
-   * @param {IGoogleMapsActionEntity} payload
+   * @param {IGoogleMapsMenuItemEntity} payload
    */
-  private onMenuSelect(payload: IGoogleMapsActionEntity): void {
+  private onMenuSelect(payload: IGoogleMapsMenuItemEntity): void {
+    //
   }
 
   /**
@@ -355,9 +351,8 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
 
   /**
    * @stable [31.07.2018]
-   * @returns {IGoogleMaps}
    */
-  private get googleMaps(): IGoogleMaps {
-    return this.refs.googleMaps as IGoogleMaps;
+  private get googleMaps(): any {
+    return this.refs.googleMaps;
   }
 }
