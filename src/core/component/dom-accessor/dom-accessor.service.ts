@@ -7,6 +7,7 @@ import {
   addRootElement,
   calc,
   createElement,
+  createScript,
   findElement,
   getContentHeight,
   getHeight,
@@ -55,6 +56,15 @@ export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [08.01.2020]
+   * @param {Partial<HTMLScriptElement>} cfg
+   * @returns {Promise<HTMLScriptElement>}
+   */
+  public createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement> {
+    return createScript(cfg);
+  }
 
   /**
    * @stable [23.11.2019]

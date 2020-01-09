@@ -2,7 +2,7 @@ import * as $ from 'jquery';
 import * as R from 'ramda';
 window.jQuery = $;  // Needed to signalr
 import 'signalr';
-import * as Promise from 'bluebird';
+import * as BPromise from 'bluebird';
 import { injectable } from 'inversify';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
@@ -25,7 +25,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
   protected static logger = LoggerFactory.makeLogger('SignalRChannel');
 
   private signalRScriptTask: Promise<HTMLScriptElement>;
-  private readonly signalRInitTasks = new Map<string, Promise<void>>();
+  private readonly signalRInitTasks = new Map<string, BPromise<void>>();
 
   /**
    * @stable [12.12.2018]
@@ -51,7 +51,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
     this.signalRInitTasks.set(
       ip,
       // Need to wrap the script loader promise because of chain cancellation
-      new Promise((resolve) => this.signalRScriptTask.then(resolve)) // This new promise instance may be canceled!
+      new BPromise((resolve) => this.signalRScriptTask.then(resolve)) // This new promise instance may be canceled!
         .then(() => this.onSignalRInitialize(ip, hubUrl, config))
     );
   }
