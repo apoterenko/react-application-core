@@ -1,6 +1,7 @@
 import {
   ACTION_PREFIX,
   IAliasWrapper,
+  IAsyncLibsWrapper,
   IDataWrapper,
   ILoadingWrapper,
   IUrlWrapper,
@@ -51,6 +52,13 @@ export interface IAsyncLibEntity
  */
 export interface IAsyncLibsEntity {
   [alias: string]: IAsyncLibEntity;
+}
+
+/**
+ * @stable [10.01.2020]
+ */
+export interface IAsyncLibsWrapperEntity
+  extends IAsyncLibsWrapper<IAsyncLibsEntity> {
 }
 
 /**

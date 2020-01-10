@@ -41,6 +41,7 @@ import {
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
+import { IAsyncLibsWrapperEntity } from './async-lib-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
@@ -232,6 +233,7 @@ export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
  */
 export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalStoreEntity<TDictionaries, TPermissions>,
+    IAsyncLibsWrapperEntity,
     ILayoutWrapperEntity,
     INotificationWrapperEntity {
 }

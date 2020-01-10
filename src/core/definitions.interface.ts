@@ -65,6 +65,7 @@ export interface IApiEntityWrapper<TApiEntity> { apiEntity?: TApiEntity; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TApplication> { application?: TApplication; }
 export interface IAreaWrapper<TArea = string> { area?: TArea; }
+export interface IAsyncLibsWrapper<TValue> { asyncLibs?: TValue; }
 export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
 export interface IAutoCompleteWrapper<TAutoComplete = string> { autoComplete?: TAutoComplete; }

@@ -9,8 +9,11 @@ import { makeEntityReducerFactory } from '../store/store.support';
 import { defaultLayoutReducer } from '../component/layout/default/default-layout.reducer';
 import { IStackEntity, ILayoutEntity } from '../definition';
 import { $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
+import { asyncLibReducer } from '../async-lib';
 
+// TODO refactoring
 export const defaultReducers = {
+  asyncLibs: asyncLibReducer,
   dictionaries: dictionariesReducer,
   permissions: makeEntityReducerFactory({
     select: PERMISSIONS_UPDATE_ACTION_TYPE,
