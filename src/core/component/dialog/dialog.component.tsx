@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { Button } from '../button';
-import { FlexLayout } from '../layout/flex';
 import {
   handlerPropsFactory,
   isFn,
@@ -53,7 +52,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
             ref={this.selfRef}
             className={this.getDialogClassName()}>
             {this.dialogScrimElement}
-            <div className='rac-dialog-body-wrapper rac-absolute rac-full-size'>
+            <div className='rac-dialog__body-wrapper rac-absolute rac-full-size'>
               {this.dialogBodyElement}
             </div>
           </div>,
@@ -166,12 +165,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
       orNull(
         this.closable || this.acceptable,
         () => (
-          <FlexLayout
-            row={true}
-            full={false}
-            noShrink={true}
-            className='rac-dialog-footer-actions'
-          >
+          <div className='rac-dialog__actions'>
             {
               orNull(
                 this.closable,
@@ -201,7 +195,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
                 )
               )
             }
-          </FlexLayout>
+          </div>
         )
       )
     );
@@ -214,7 +208,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   private get dialogScrimElement(): JSX.Element {
     return (
       <div
-        className='rac-dialog-scrim rac-absolute rac-full-size'
+        className='rac-dialog__scrim rac-absolute rac-full-size'
         {...handlerPropsFactory(this.onDialogScrimClick)}/>
     );
   }
@@ -225,7 +219,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
    */
   private get dialogBodyElement(): JSX.Element {
     return (
-      <div className='rac-dialog-body'>
+      <div className='rac-dialog__body'>
         {this.bodyElement}
         {this.footerElement}
       </div>
@@ -242,7 +236,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
       <React.Fragment>
         {
           props.title && (
-            <div className='rac-dialog-body-title'>
+            <div className='rac-dialog__body-title'>
               {this.t(props.title)}
             </div>
           )
@@ -250,7 +244,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
         {
           props.children && (
             <BasicComponent
-              className='rac-dialog-body-content'
+              className='rac-dialog__body-content'
               plugins={PerfectScrollPlugin}>
               {props.children}
             </BasicComponent>
