@@ -90,6 +90,28 @@ export const DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY = Object.freeze<IAsyncLibra
 });
 
 /**
+ * @stable [10.01.2020]
+ */
+export interface IGoogleMapsSettingsEntity {
+  lat?: number;
+  libraries?: string;
+  lng?: number;
+  prettyZoom?: number;
+  zoom?: number;
+}
+
+/**
+ * @stable [10.01.2020]
+ */
+export const DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY = Object.freeze<IGoogleMapsSettingsEntity>({
+  lat: 34.0522,
+  libraries: 'places,visualization',
+  lng: -118.2436,
+  prettyZoom: 17,
+  zoom: 13,
+});
+
+/**
  * @stable [29.11.0219]
  */
 export interface IPhoneSettingsEntity {

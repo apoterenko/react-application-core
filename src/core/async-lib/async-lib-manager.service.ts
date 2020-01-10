@@ -16,7 +16,7 @@ import {
   IDomAccessor,
   IUniversalStoreEntity,
 } from '../definition';
-import { ifNilThanValue } from '../util';
+import { ifNotNilThanValue } from '../util';
 import { AnyT } from '../definitions.interface';
 
 @injectable()
@@ -75,17 +75,21 @@ export class AsyncLibManager implements IAsyncLibManager {
   }
 
   /**
-   * @stable [09.01.2020]
-   * @param {Bluebird<HTMLScriptElement>} promise
+   * @stable [10.01.2020]
+   * @param {Bluebird<HTMLScriptElement> | AnyT} promise
+   * @returns {boolean}
    */
-  public cancelWaiting(promise: BPromise<HTMLScriptElement> | AnyT): void {
-    ifNilThanValue(
+  public cancelWaiting(promise: BPromise<HTMLScriptElement> | AnyT): boolean {
+    return ifNotNilThanValue<BPromise<HTMLScriptElement>, boolean>(
       promise,
-      () => {
-        if (promise.isPending()) {
-          promise.cancel();
+      ($$promise) => {
+        if ($$promise.isPending()) {
+          $$promise.cancel();
+          return true;
         }
-      }
+        return false;
+      },
+      false
     );
   }
 }

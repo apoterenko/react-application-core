@@ -51,7 +51,13 @@ export const asPlaceEntity = (place: google.maps.GeocoderResult | google.maps.pl
     return null;
   }
   return {
-    ...ifNotNilThanValue(place.geometry, (geometry) => ({lat: geometry.location.lat(), lng: geometry.location.lng()})),
+    ...ifNotNilThanValue(
+      place.geometry,
+      (geometry) => ({
+        lat: geometry.location.lat(),
+        lng: geometry.location.lng(),
+      })
+    ),
     country: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('country')),
       (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name

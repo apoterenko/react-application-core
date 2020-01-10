@@ -4,6 +4,7 @@ import {
   DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
   DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_DATE_TIME_SETTINGS_ENTITY,
+  DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
   DEFAULT_PHONE_SETTINGS_ENTITY,
   DEFAULT_STORAGE_SETTINGS_ENTITY,
@@ -11,6 +12,7 @@ import {
   IButtonProps,
   ICurrencySettingsEntity,
   IDateTimeSettingsEntity,
+  IGoogleMapsSettingsEntity,
   IMessagesSettingsEntity,
   IPhoneSettingsEntity,
   IStorageSettingsEntity,
@@ -101,14 +103,6 @@ export interface IApplicationChannelSettings {
   eventToEmit?: string;
 }
 
-export interface IGoogleMapsSettings {
-  lat?: number;
-  lng?: number;
-  zoom?: number;
-  prettyZoom?: number;
-  libraries?: string;
-}
-
 export interface IComponentsSettings {
   button?: IButtonProps;
 }
@@ -130,7 +124,7 @@ export interface ISettingsEntity {
   dateTime?: IDateTimeSettings;
   downloadUrl?: string;
   emptyPictureUrl?: string;
-  googleMaps?: IGoogleMapsSettings;
+  googleMaps?: IGoogleMapsSettingsEntity;
   messages?: IMessagesSettings;
   metaFilesUrl?: string;
   number?: IApplicationNumberSettings;
@@ -229,13 +223,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   authorization: {
     isAuthorizationNeeded: true,
   },
-  googleMaps: {
-    lat: 34.0522,
-    lng: -118.2436,
-    zoom: 13,
-    prettyZoom: 17,
-    libraries: 'places,visualization',
-  },
+  googleMaps: DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
 };
 
 // TODO Remove duplication

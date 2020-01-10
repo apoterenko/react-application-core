@@ -32,7 +32,7 @@ export interface IAsyncLibConfigEntity
  * @stable [09.01.2020]
  */
 export interface IAsyncLibManager {
-  cancelWaiting<TPromise>(promise: TPromise): void;
+  cancelWaiting<TPromise>(promise: TPromise): boolean;
   loadLib(cfg: IAsyncLibConfigEntity): Promise<HTMLScriptElement>;
   registerLib(cfg: IAsyncLibConfigEntity): void;
   waitForLib<TPromise>(cfg: IAsyncLibConfigEntity): TPromise;

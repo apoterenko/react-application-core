@@ -10,6 +10,7 @@ import {
   ILatLngEntity,
 } from './place-definition.interface';
 import { IMenuItemEntity } from './menu-definition.interface';
+import { IXYEntity } from './xy-definition.interface';
 
 /**
  * @stable [09.01.2020]
@@ -37,6 +38,14 @@ export interface IGoogleMapsHeatMapLayerConfigEntity
   extends IPointsWrapper<ILatLngEntity[]>,
     IRefreshMapWrapper,
     IZoomWrapper {
+}
+
+/**
+ * @stable [10.01.2020]
+ */
+export interface IGoogleMapsOpenMenuContextEntity
+  extends ILatLngEntity,
+    IXYEntity {
 }
 
 /**

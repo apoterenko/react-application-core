@@ -1,110 +1,137 @@
-import * as Promise from 'bluebird';
+import * as BPromise from 'bluebird';
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import { Menu } from '../../menu';
 import {
-  getGoogleMapsScript,
   DelayedTask,
-  uuid,
-  isString,
-  orNull,
+  ifNotNilThanValue,
+  isArrayNotEmpty,
   isDef,
   isFn,
-  toClassName,
-  isArrayNotEmpty,
+  isObjectNotEmpty,
+  isString,
+  joinClassName,
   nvl,
+  orNull,
+  uuid,
 } from '../../../util';
 import {
-  IGoogleMapsMarkerConfigEntity,
   IGoogleMapsProps,
-  IGoogleMapsHeatMapLayerConfigEntity,
 } from './google-maps.interface';
 import {
-  IGoogleMaps,
   IGoogleMapsClickPayloadEntity,
   GoogleMapsMapTypeEnum,
 } from './google-maps.interface';
 import { FlexLayout } from '../../layout/flex';
 import {
+  AsyncLibsEnum,
+  IGoogleMaps,
+  IGoogleMapsHeatMapLayerConfigEntity,
+  IGoogleMapsMarkerConfigEntity,
+  IGoogleMapsOpenMenuContextEntity,
+  IGoogleMapsSettingsEntity,
   ILatLngEntity,
-  IMenuItemEntity,
   IMenu,
+  IMenuItemEntity,
 } from '../../../definition';
-import { IGoogleMapsSettings } from '../../../settings';
 
 export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
-  implements IGoogleMaps {
+  implements IGoogleMaps,
+    IGoogleMapsOpenMenuContextEntity {
 
-  private googleMapsScriptTask: Promise<void>;
-  private openMenuTask: DelayedTask;
+  public lat: number;
+  public lng: number;
+  public x: number;
+  public y: number;
+
   private clickEventListener: google.maps.MapsEventListener;
   private dbClickEventListener: google.maps.MapsEventListener;
-  private map: google.maps.Map;
+  private googleMapsLibTask: BPromise<void>;
   private heatMapLayer: google.maps.visualization.HeatmapLayer;
-
-  private x: number;
-  private y: number;
-  private lat: number;
-  private lng: number;
+  private map: google.maps.Map;
+  private openMenuTask: DelayedTask;
   private readonly markers = new Map<string, google.maps.Marker>();
   private readonly markersDragListeners = new Map<string, google.maps.MapsEventListener>();
+  private readonly menuRef = React.createRef<Menu>();
 
   /**
-   * @stable [31.07.2018]
+   * @stable [10.01.2020]
    * @param {IGoogleMapsProps} props
    */
   constructor(props: IGoogleMapsProps) {
     super(props);
 
+    this.addHeatMapLayer = this.addHeatMapLayer.bind(this);
+    this.onGoogleMapsReady = this.onGoogleMapsReady.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
     this.onMapDbClick = this.onMapDbClick.bind(this);
     this.onMenuSelect = this.onMenuSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
-    this.initGoogleMapsObjects = this.initGoogleMapsObjects.bind(this);
-    this.addHeatMapLayer = this.addHeatMapLayer.bind(this);
 
     if (this.haveMenuOptions) {
-      this.openMenuTask = new DelayedTask(this.openMenu, 200);
+      this.openMenuTask = new DelayedTask(this.openMenu, 200); // Double click issue
     }
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [09.01.2020]
    */
   public componentDidMount(): void {
     super.componentDidMount();
 
-    // We cannot cancel the original promise, because of it is shared
-    this.googleMapsScriptTask = new Promise<HTMLScriptElement>(
-      (resolve, reject) => getGoogleMapsScript(this.settings.googleMaps.libraries).then(resolve, reject)
-    ).then(this.initGoogleMapsObjects);
+    this.googleMapsLibTask = this.asyncLibManager
+      .waitForLib<BPromise<HTMLScriptElement>>({alias: AsyncLibsEnum.GOOGLE_MAPS})
+      .then(() => this.onGoogleMapsReady());
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [10.01.2020]
    */
   public componentWillUnmount(): void {
     super.componentWillUnmount();
 
-    if (isDef(this.openMenuTask)) {
-      this.openMenuTask.stop();
-    }
-    this.cancelGoogleMapsScriptTaskIfPending();
+    ifNotNilThanValue(
+      this.openMenuTask,
+      (task) => {
+        task.stop();
+        this.openMenuTask = null;
+      }
+    );
+    this.cancelGoogleMapsLibTask();
 
-    this.markersDragListeners.forEach((dragEndEventListener) => dragEndEventListener.remove());
+    this.markersDragListeners.forEach((listener) => listener.remove());
+    this.markersDragListeners.clear();
+    this.markers.clear();
 
-    if (isDef(this.clickEventListener)) {
-      this.clickEventListener.remove();
-    }
-    if (isDef(this.dbClickEventListener)) {
-      this.dbClickEventListener.remove();
-    }
-    this.map = null;
-    this.heatMapLayer = null;
-    this.openMenuTask = null;
-    this.googleMapsScriptTask = null;
+    ifNotNilThanValue(
+      this.clickEventListener,
+      (listener) => {
+        listener.remove();
+        this.clickEventListener = null;
+      }
+    );
+    ifNotNilThanValue(
+      this.dbClickEventListener,
+      (listener) => {
+        listener.remove();
+        this.dbClickEventListener = null;
+      }
+    );
+    ifNotNilThanValue(
+      this.heatMapLayer,
+      (heatMapLayer) => {
+        heatMapLayer.unbindAll();
+        this.heatMapLayer = null;
+      }
+    );
+    ifNotNilThanValue(
+      this.map,
+      (map) => {
+        map.unbindAll();
+        this.map = null;
+      }
+    );
   }
 
   /**
@@ -114,16 +141,16 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <FlexLayout className={toClassName('rac-google-maps', props.className)}>
+      <FlexLayout className={joinClassName('rac-google-maps', props.className)}>
         <div
           ref={this.selfRef}
           className='rac-google-maps-map rac-flex-full'/>
         {
-          orNull<JSX.Element>(
+          orNull(
             this.haveMenuOptions,
             () => (
               <Menu
-                ref='menu'
+                ref={this.menuRef}
                 xPosition={() => this.x + this.getSelf().offsetLeft}
                 yPosition={() => this.y + this.getSelf().offsetTop}
                 options={props.menuOptions}
@@ -162,20 +189,23 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [23.02.2019]
+   * @stable [10.01.2020]
    * @param {IGoogleMapsMarkerConfigEntity} cfg
    */
   public setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void {
     const {
       marker,
-      visible,
+      visible = true,
       refreshMap,
       lat = this.mapsSettings.lat,
       lng = this.mapsSettings.lng,
       zoom = this.mapsSettings.zoom,
     } = cfg;
 
-    const markerAsObject = isString(marker) ? this.markers.get(marker as string) : marker as google.maps.Marker;
+    const markerAsObject = isString(marker)
+      ? this.markers.get(marker as string)
+      : marker as google.maps.Marker;
+
     markerAsObject.setPosition({lat, lng});
     markerAsObject.setVisible(visible);
 
@@ -207,7 +237,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [10.01.2020]
    * @param {string} markerId
    * @param {google.maps.Marker} marker
    */
@@ -217,24 +247,24 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     const lng = position.lng();
 
     const props = this.props;
-    if (props.onChangePlace) {
+    if (isFn(props.onChangePlace)) {
       props.onChangePlace({name: markerId, item: marker, lat, lng});
     }
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [10.01.2020]
    * @param {IMenuItemEntity} item
    */
   private onMenuSelect(item: IMenuItemEntity): void {
     const props = this.props;
-    if (props.onSelect) {
+    if (isFn(props.onSelect)) {
       props.onSelect({item, lat: this.lat, lng: this.lng});
     }
   }
 
   /**
-   * @stable [03.03.2019]
+   * @stable [10.01.2020]
    * @param {IGoogleMapsClickPayloadEntity} event
    */
   private onMapClick(event: IGoogleMapsClickPayloadEntity): void {
@@ -246,7 +276,8 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
       const lng = event.latLng.lng();
 
       if (isDef(this.openMenuTask)) {
-        this.openMenuTask.start({x, y, lat, lng});
+        const payload: IGoogleMapsOpenMenuContextEntity = {x, y, lat, lng};
+        this.openMenuTask.start(payload);
       }
     }
     if (isFn(props.onClick)) {
@@ -265,34 +296,18 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [10.01.2020]
+   * @param {IGoogleMapsOpenMenuContextEntity} context
    */
-  private cancelGoogleMapsScriptTaskIfPending(): void {
-    this.cancelTaskIfPending(this.googleMapsScriptTask);
-  }
-
-  /**
-   * @stable [31.07.2018]
-   */
-  private cancelTaskIfPending<TResult = void>(promise: Promise<TResult>): void {
-    if (promise && promise.isPending()) {
-      promise.cancel();
-    }
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @param {{x: number; y: number; lat: number; lng: number}} nextState
-   */
-  private openMenu(nextState: { x: number, y: number, lat: number, lng: number }) {
-    Object.assign(this, nextState);   // We need to sync the internal state with a starting task state
+  private openMenu(context: IGoogleMapsOpenMenuContextEntity) {
+    Object.assign(this, context);
     this.menu.show();
   }
 
   /**
    * @stable [31.07.2018]
    */
-  private initGoogleMapsObjects(): void {
+  private onGoogleMapsReady(): void {
     const props = this.props;
     const {options = {}} = props;
 
@@ -309,7 +324,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
     this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', this.onMapDbClick);
 
-    if (props.onInit) {
+    if (isFn(props.onInit)) {
       props.onInit(this.map);
     }
   }
@@ -325,11 +340,19 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [09.01.2020]
+   */
+  private cancelGoogleMapsLibTask(): void {
+    this.asyncLibManager.cancelWaiting<BPromise<void>>(this.googleMapsLibTask);
+    this.googleMapsLibTask = null;
+  }
+
+  /**
+   * @stable [10.01.2020]
    * @returns {IMenu}
    */
   private get menu(): IMenu {
-    return this.refs.menu as IMenu;
+    return this.menuRef.current;
   }
 
   /**
@@ -337,14 +360,14 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    * @returns {boolean}
    */
   private get haveMenuOptions(): boolean {
-    return !R.isNil(this.props.menuOptions);
+    return isObjectNotEmpty(this.props.menuOptions);
   }
 
   /**
    * @stable [04.03.2019]
-   * @returns {IGoogleMapsSettings}
+   * @returns {IGoogleMapsSettingsEntity}
    */
-  private get mapsSettings(): IGoogleMapsSettings {
+  private get mapsSettings(): IGoogleMapsSettingsEntity {
     return this.settings.googleMaps;
   }
 }
