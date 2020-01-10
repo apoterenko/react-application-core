@@ -1,4 +1,3 @@
-export * from './address-definition.interface';
 export * from './api-definition.interface';
 export * from './application-definition.interface';
 export * from './async-lib-definition.interface';

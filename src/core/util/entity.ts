@@ -5,47 +5,12 @@ import {
   IEntity,
 } from '../definitions.interface';
 import {
-  IEditableEntity,
   IExtendedEntity,
-  IFormWrapperEntity,
   IMultiEntity,
   MultiFieldEntityT,
-  ValidatorRuleEnum,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 import { isPrimitive } from './type';
-import { validate } from './validator';
-
-/**
- * @stable [30.01.2019]
- * @param {Record<string, ValidatorRuleEnum[]>} payloads
- * @param {IEditableEntity<TEntity extends IEntity>} editableEntity
- * @param {boolean} canSaveEmptyChanges
- * @returns {boolean}
- */
-export const canSubmitEditableEntity = <TEntity extends IEntity>(payloads: Record<string, ValidatorRuleEnum[]>,
-                                                                 editableEntity: IEditableEntity<TEntity>,
-                                                                 canSaveEmptyChanges = false): boolean =>
-  !editableEntity.progress
-  && validate(payloads, editableEntity.changes).valid
-  && (
-    canSaveEmptyChanges || !R.isEmpty(editableEntity.changes)
-  );
-
-/**
- * @stable [30.01.2019]
- * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
- * @param {Record<string, ValidatorRuleEnum[]>} editRules
- * @param {Record<string, ValidatorRuleEnum[]>} createRules
- * @returns {boolean}
- */
-export const canSubmitEntityFormEntity = <TEntity extends IEntity>(entity: IFormWrapperEntity<TEntity>,
-                                                                   editRules: Record<string, ValidatorRuleEnum[]>,
-                                                                   createRules?: Record<string, ValidatorRuleEnum[]>): boolean =>
-  canSubmitEditableEntity(
-    doesExtendedEntityExist(entity) ? editRules : createRules || editRules,
-    entity.form
-  );
 
 /**
  * @stable [19.10.2019]

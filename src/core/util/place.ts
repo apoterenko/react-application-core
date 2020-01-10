@@ -58,6 +58,7 @@ export const asPlaceEntity = (place: google.maps.GeocoderResult | google.maps.pl
         lng: geometry.location.lng(),
       })
     ),
+    placeId: place.place_id,
     country: toPlaceDescription(
       place.address_components.find((addr) => addr.types.includes('country')),
       (cmp: google.maps.GeocoderAddressComponent) => cmp.long_name

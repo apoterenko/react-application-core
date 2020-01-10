@@ -13,15 +13,17 @@ import {
 import { IExtendedEntity } from './entity-definition.interface';
 import { IOperationEntity } from './operation-definition.interface';
 import {
-  IPlaceEntity,
   IPlaceGeoCodeRequestEntity,
   ISearchPlacesRequestEntity,
 } from './place-definition.interface';
 
+/**
+ * @stable [10.01.2020]
+ */
 export interface IApiEntity<TEntity extends IEntity = IEntity>
-  extends IExtendedEntity<TEntity>,
-    IChangesWrapper<TEntity>,
-    IDiffWrapper<TEntity> {
+  extends IChangesWrapper<TEntity>,
+    IDiffWrapper<TEntity>,
+    IExtendedEntity<TEntity> {
 }
 
 /**
@@ -48,5 +50,5 @@ export interface IUpdateEntityPayloadEntity<TEntity extends IEntity>
  */
 export interface IPlaceApi {
   getPlaceGeoCode<TResult>(request: IPlaceGeoCodeRequestEntity): TResult;
-  searchPlaces(request: ISearchPlacesRequestEntity): any;
+  searchPlaces<TResult>(request: ISearchPlacesRequestEntity): TResult;
 }

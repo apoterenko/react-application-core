@@ -16,6 +16,7 @@ import {
   IStreetWrapper,
   IZipCodeWrapper,
 } from '../definitions.interface';
+import { INamedEntity } from './entity-definition.interface';
 import { IBaseSelectProps, IBaseSelectState } from '../component/field/select/base-select.interface'; // TODO
 
 /**
@@ -42,6 +43,7 @@ export interface IPlaceEntity<TCity = string>
     ICountryWrapper,
     IFormattedNameWrapper,
     ILatLngEntity,
+    IPlaceIdWrapper,
     IRegionWrapper,
     IStreetNumberWrapper,
     IStreetWrapper,
@@ -94,7 +96,8 @@ export interface IPlaceFieldState
  * @stable [09.01.2020]
  */
 export interface ISearchPlacesRequestEntity
-  extends IQueryWrapper {
+  extends ICountryWrapper,
+    IQueryWrapper {
 }
 
 /**
@@ -102,4 +105,12 @@ export interface ISearchPlacesRequestEntity
  */
 export interface IPlaceGeoCodeRequestEntity
   extends ILatLngEntity {
+}
+
+/**
+ * @stable [10.01.2020]
+ */
+export interface ISearchPlaceEntity
+  extends INamedEntity,
+    IPlaceIdWrapper {
 }

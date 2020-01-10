@@ -93,6 +93,7 @@ export const DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY = Object.freeze<IAsyncLibra
  * @stable [10.01.2020]
  */
 export interface IGoogleMapsSettingsEntity {
+  componentRestrictions?: {country?: string};
   lat?: number;
   libraries?: string;
   lng?: number;
@@ -104,6 +105,7 @@ export interface IGoogleMapsSettingsEntity {
  * @stable [10.01.2020]
  */
 export const DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY = Object.freeze<IGoogleMapsSettingsEntity>({
+  componentRestrictions: {country: 'us'},
   lat: 34.0522,
   libraries: 'places,visualization',
   lng: -118.2436,

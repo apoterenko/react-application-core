@@ -6,6 +6,7 @@ import {
   ifNotNilThanValue,
   isObjectNotEmpty,
   isPlaceActionRendered,
+  isString,
   joinClassName,
   nvl,
   orNull,
@@ -77,11 +78,11 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   /**
    * @stable [09.01.2020]
-   * @param {IPlaceEntity} value
+   * @param {IPlaceEntity | string} value
    * @returns {string}
    */
-  protected decorateValueBeforeDisplaying(value: IPlaceEntity): string {
-    return value.formattedName;
+  protected decorateValueBeforeDisplaying(value: IPlaceEntity | string): string {
+    return isString(value) ? value as string : (value as IPlaceEntity).formattedName;
   }
 
   /**

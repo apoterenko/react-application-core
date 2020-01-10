@@ -356,7 +356,7 @@ export interface IProfileWrapper<TProfile> { profile?: TProfile; }
 export interface IProgressMessageWrapper<TProgressMessage = string> { progressMessage?: TProgressMessage; }
 export interface IProgressWrapper { progress?: boolean; }
 export interface IQueryParamsWrapper<TQueryParams> { queryParams?: TQueryParams; }
-export interface IQueryWrapper<TQuery = string> { query?: TQuery; }
+export interface IQueryWrapper<TValue = string> { query?: TValue; }
 export interface IQueueWrapper<TQueue> { queue?: TQueue; }
 export interface IRaisedWrapper { raised?: boolean; }
 export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }

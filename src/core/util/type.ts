@@ -17,10 +17,6 @@ export const isDef = (value: AnyT): boolean => !isUndef(value);
  */
 export const isUndef = (value: AnyT): boolean => typeof value === 'undefined';
 
-export function isNull(value: AnyT): boolean {
-  return value === null;
-}
-
 /**
  * @stable [02.10.2019]
  * @param {AnyT} value

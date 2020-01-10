@@ -117,7 +117,6 @@ export interface ISettingsEntity {
   authorization?: IAuthorizationSettings;
   bootstrap?: IBootstrapSettings;
   channel?: IApplicationChannelSettings;
-  companyCountry?: string;
   companyName?: string;
   components?: IComponentsSettings;
   currency?: ICurrencySettingsEntity;
