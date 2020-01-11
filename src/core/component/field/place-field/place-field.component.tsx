@@ -37,6 +37,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   public static readonly defaultProps: IPlaceFieldProps = {
     autoComplete: 'new-password',
+    forceReload: true,
     preventFocus: true,
   };
   private static readonly PLACE_MARKER = uuid();

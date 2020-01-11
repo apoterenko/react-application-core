@@ -12,7 +12,6 @@ import {
   isDef,
   isExpandActionRendered,
   isFn,
-  isForceOpenEmptyMenuEnabled,
   isMenuOpened,
   isWaitingForData,
   joinClassName,
@@ -155,7 +154,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       if (isFn(onEmptyDictionary)) {
         this.setState({waitingForData: true}, () => onEmptyDictionary(bindDictionary));
       } else {
-        this.renderAndShowMenu();
+        // Try open empty dialog menu to remote search
+        this.renderAndShowMenu(!this.isQuickSelectionModeEnabled);
       }
     } else {
       this.renderAndShowMenu();
@@ -364,22 +364,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [12.01.2020]
+   * @param {boolean} force
    */
-  private renderAndShowMenu(): void {
-    if (!R.isEmpty(this.filteredOptions) || this.canOpenEmptyMenu) {
+  private renderAndShowMenu(force = false): void {
+    if (!R.isEmpty(this.filteredOptions) || force) {
       this.setState({menuRendered: true}, () => this.menu.show());
     } else {
       BaseSelect.logger.debug('[$BaseSelect][renderAndShowMenu] The options are empty. The menu does not show.');
     }
-  }
-
-  /**
-   * @stable [12.01.2020]
-   * @returns {boolean}
-   */
-  private get canOpenEmptyMenu(): boolean {
-    return isForceOpenEmptyMenuEnabled(this.props);
   }
 
   /**

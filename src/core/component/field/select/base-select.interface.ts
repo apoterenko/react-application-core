@@ -2,7 +2,6 @@ import {
   I$$cachedValueWrapper,
   IDelayTimeoutWrapper,
   IExpandActionRenderedWrapper,
-  IForceOpenEmptyMenuWrapper,
   IForceReloadWrapper,
   IMenuConfigurationWrapper,
   IOnDictionaryFilterChangeWrapper,
@@ -47,7 +46,6 @@ export interface IBaseSelectProps
     IMenuConfigurationWrapper<IMenuProps>,
     IForceReloadWrapper,
     IDelayTimeoutWrapper,
-    IForceOpenEmptyMenuWrapper,
     IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO

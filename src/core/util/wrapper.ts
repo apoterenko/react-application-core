@@ -12,7 +12,6 @@ import {
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFocusedWrapper,
-  IForceOpenEmptyMenuWrapper,
   IHeaderRenderedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
@@ -290,14 +289,6 @@ export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
  */
 export const isMenuOpened = (wrapper: IMenuRenderedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.menuRendered === true, false);
-
-/**
- * @stable [11.01.2020]
- * @param {IForceOpenEmptyMenuWrapper} wrapper
- * @returns {boolean}
- */
-export const isForceOpenEmptyMenuEnabled = (wrapper: IForceOpenEmptyMenuWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.forceOpenEmptyMenu === true, false);
 
 /**
  * @stable [11.01.2020]
