@@ -68,7 +68,21 @@ export class DictionariesActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildLoadAction<TData = IKeyValue>(section: string, data?: TData): IEffectsAction {
-    return EffectsAction.create(this.buildLoadActionType(section), applySection(section, data));
+    const plainAction = this.buildLoadPlainAction(section, data);
+    return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @param {string} section
+   * @param {TData} data
+   * @returns {IEffectsAction}
+   */
+  public static buildLoadPlainAction<TData = IKeyValue>(section: string, data?: TData): IEffectsAction {
+    return {
+      type: this.buildLoadActionType(section),
+      data: applySection(section, data),
+    };
   }
 
   /**
