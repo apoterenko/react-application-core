@@ -12,6 +12,7 @@ import {
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFocusedWrapper,
+  IForceOpenEmptyMenuWrapper,
   IHeaderRenderedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
@@ -34,6 +35,7 @@ import {
   ISyntheticCursorWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
+  IUseZipCodeWrapper,
   IValidWrapper,
   IVisibleWrapper,
 } from '../definitions.interface';
@@ -280,6 +282,14 @@ export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.remoteFilter === true, false);
 
 /**
+ * @stable [11.01.2020]
+ * @param {IForceOpenEmptyMenuWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isForceOpenEmptyMenuEnabled = (wrapper: IForceOpenEmptyMenuWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.forceOpenEmptyMenu === true, false);
+
+/**
  * @stable [23.11.2019]
  * @param {IUseFilterWrapper} wrapper
  * @returns {boolean}
@@ -302,6 +312,14 @@ export const isBeingLoaded = (entity: ILoadingWrapper): boolean =>
  */
 export const isPlaceActionRendered = (entity: IPlaceActionRenderedWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.placeActionRendered !== false, false);
+
+/**
+ * @stable [11.01.2020]
+ * @param {IUseZipCodeWrapper} entity
+ * @returns {boolean}
+ */
+export const isUseZipCode = (entity: IUseZipCodeWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.useZipCode === true, false);
 
 /**
  * @stable [19.12.2019]

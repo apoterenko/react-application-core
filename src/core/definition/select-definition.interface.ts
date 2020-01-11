@@ -1,8 +1,8 @@
-import { INamedEntity } from './entity-definition.interface';
 import { IMenuItemEntity } from './menu-definition.interface';
 import {
   IDisabledWrapper,
   IEntityIdTWrapper,
+  IKeyValue,
   INameWrapper,
 } from '../definitions.interface';
 
@@ -18,6 +18,6 @@ export interface IOptionEntity
 /**
  * @stable [02.10.2019]
  */
-export interface ISelectOptionEntity<TRawData extends INamedEntity = INamedEntity>
+export interface ISelectOptionEntity<TRawData = IKeyValue>
   extends IMenuItemEntity<TRawData> {
 }

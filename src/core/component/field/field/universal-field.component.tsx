@@ -42,6 +42,7 @@ import {
 } from './field.interface';
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
+  IBaseEvent,
   IGenericFieldEntity,
 } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
@@ -138,10 +139,10 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [27.07.2018]
-   * @param {AnyT} event
+   * @stable [11.01.2020]
+   * @param {IBaseEvent} event
    */
-  public onChange(event: AnyT): void {
+  public onChange(event: IBaseEvent): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
@@ -211,10 +212,10 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [18.06.2018]
-   * @param {IKeyboardEvent} event
+   * @stable [11.01.2020]
+   * @param {IBaseEvent} event
    */
-  public onKeyEscape(event: IKeyboardEvent): void {
+  public onKeyEscape(event: IBaseEvent): void {
     const props = this.props;
     if (isFn(props.onKeyEscape)) {
       props.onKeyEscape(event);

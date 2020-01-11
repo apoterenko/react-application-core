@@ -15,6 +15,7 @@ import {
   IRegionWrapper,
   IStreetNumberWrapper,
   IStreetWrapper,
+  IUseZipCodeWrapper,
   IZipCodeWrapper,
 } from '../definitions.interface';
 import { INamedEntity } from './entity-definition.interface';
@@ -73,7 +74,8 @@ export interface IChangePlacePayloadEntity
  */
 export interface IGenericPlaceFieldEntity
   extends IDialogClassNameWrapper,
-    IPlaceActionRenderedWrapper {
+    IPlaceActionRenderedWrapper,
+    IUseZipCodeWrapper {
 }
 
 /**
@@ -112,7 +114,9 @@ export interface ISearchPlacesRequestPayloadWrapperEntity
  * @stable [09.01.2020]
  */
 export interface IPlaceGeoCodeRequestEntity
-  extends ILatLngEntity {
+  extends ICountryWrapper,
+    ILatLngEntity,
+    IPlaceIdWrapper {
 }
 
 /**
