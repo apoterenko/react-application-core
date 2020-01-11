@@ -9,7 +9,7 @@ import {
   ICompositeCronFieldConfigEntity,
   ICompositeCronFieldItemEntity,
 } from '../../../definition';
-import { CompositeFieldFactory } from '../composite-field-factory.service';
+import { ControlledFieldFactory } from '../controlled-field-factory.service';
 import {
   CronField,
   DateField,
@@ -35,7 +35,7 @@ import {
 
 @provideInSingleton(CompositeCronFieldFactory)
 export class CompositeCronFieldFactory
-  extends CompositeFieldFactory<ICompositeCronFieldConfigEntity,
+  extends ControlledFieldFactory<ICompositeCronFieldConfigEntity,
     ICompositeCronFieldItemEntity,
     CompositeCronFieldItemsEnum> {
 
@@ -79,7 +79,7 @@ export class CompositeCronFieldFactory
    */
   protected getFields(config: ICompositeCronFieldConfigEntity): ICompositeCronFieldItemEntity[] {
     const userFields = super.getFields(config);
-    return this.sortAndFilterFields(
+    return this.sortFields(
       CompositeCronFieldFactory.DEFAULT_FIELDS
         .filter((cfg) => {
             switch (cfg.type) {
@@ -174,7 +174,7 @@ export class CompositeCronFieldFactory
     }
 
     if (isDef(cronFieldValue)) {
-      this.formStoreProxyFactory(config.container).dispatchFormChanges({
+      this.$formStoreProxyFactory(config.container).dispatchFormChanges({
         [ifNotNilThanValue(cronField.fieldConfiguration, (fCfg) => fCfg.name)]: cronFieldValue,
       });
     }
