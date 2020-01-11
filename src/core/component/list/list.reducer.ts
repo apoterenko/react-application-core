@@ -18,8 +18,8 @@ import {
   notNilValuesFilter,
   nvl,
   SAME_ENTITY_PREDICATE,
-  selectEntityFromAction,
-  selectPayloadEntityFromAction,
+  selectDataFromAction,
+  selectDataPayloadFromAction,
   selectSelectedEntityFromAction,
   toSection,
   toType,
@@ -184,7 +184,7 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildLazyLoadDoneActionType(section):
-      const lazyLoadedEntity = selectSelectedEntityFromAction(action) || selectEntityFromAction(action);
+      const lazyLoadedEntity = selectSelectedEntityFromAction(action) || selectDataFromAction(action);
       modifyDataPayload = {
         id: lazyLoadedEntity.id,
         changes: lazyLoadedEntity,
@@ -202,7 +202,7 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildInsertActionType(section):
-      modifyDataPayload = nvl(modifyDataPayload, selectPayloadEntityFromAction<IModifyEntityPayloadEntity>(action));
+      modifyDataPayload = nvl(modifyDataPayload, selectDataPayloadFromAction<IModifyEntityPayloadEntity>(action));
       const doesEntityExist = doesArrayContainEntity(state.data, modifyDataPayload);
       const mergedData = mergeArrayItem<IEntityIdTWrapper>(
         state.data,
