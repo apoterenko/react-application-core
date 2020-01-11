@@ -9,9 +9,6 @@ import {
   trueValuesArrayFilter,
 } from './filter';
 import {
-  AnyT,
-} from '../definitions.interface';
-import {
   IJQueryElement,
   IXYEntity,
 } from '../definition';
@@ -128,26 +125,9 @@ export const createPreloadedImg = (...images: string[]): void => {
 /**
  * @stable [04.10.2018]
  * @param {Element} source
- * @param {string} style
- * @param {AnyT} value
- * @returns {any}
- */
-export const applyStyle = (source: Element, style: string, value: AnyT) => $(source).css(style, value);
-
-/**
- * @stable [04.10.2018]
- * @param {Element} source
  * @returns {number}
  */
 export const getWidth = (source: Element): number => $(source).width();
-
-/**
- * @stable [18.11.2018]
- * @param {Element} source
- * @param {number} width
- * @returns {any}
- */
-export const setWidth = (source: Element, width: number) => $(source).width(width);
 
 /**
  * @stable [27.10.2018]

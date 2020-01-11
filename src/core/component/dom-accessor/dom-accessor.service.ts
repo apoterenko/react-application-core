@@ -14,6 +14,7 @@ import {
   getHeight,
   getScrollLeft,
   getScrollTop,
+  getWidth,
   hasClasses,
   hasElements,
   hasParent,
@@ -57,6 +58,15 @@ export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [11.01.2020]
+   * @param {Element} source
+   * @returns {number}
+   */
+  public getWidth(source: Element): number {
+    return getWidth(source);
+  }
 
   /**
    * @stable [09.01.2020]

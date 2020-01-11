@@ -1,5 +1,6 @@
 import {
   I$$cachedValueWrapper,
+  IDelayTimeoutWrapper,
   IExpandActionRenderedWrapper,
   IForceOpenEmptyMenuWrapper,
   IForceReloadWrapper,
@@ -46,6 +47,7 @@ export interface IBaseSelectProps
     IBaseTextFieldProps,
     IMenuConfigurationWrapper<IMenuProps>,
     IForceReloadWrapper,
+    IDelayTimeoutWrapper,
     IForceOpenEmptyMenuWrapper,
     IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {

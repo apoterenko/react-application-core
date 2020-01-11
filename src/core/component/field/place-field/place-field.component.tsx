@@ -87,11 +87,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @param {ISelectOptionEntity<IPlaceEntity>} option
    */
   protected onSelect(option: ISelectOptionEntity<IPlaceEntity>): void {
-    if (this.useZipCode) {
-      this.refreshGeocodeInfo({placeId: option.rawData.placeId}, option);
-    } else {
-      super.onSelect(option);
-    }
+    this.refreshGeocodeInfo({placeId: option.rawData.placeId}, option);
   }
 
   /**
@@ -192,12 +188,26 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   private onGeoCodeRequestDone(result: IPlaceEntity[], option?: ISelectOptionEntity<IPlaceEntity>): void {
     const placeEntity = result[0];
-    if (this.useZipCode) {
-      this.onChangeManually(placeEntity);
-      this.notifySelectOption(option);
+    if (R.isNil(option)) {
+      // To preview in a dialog
+      this.setState({placeEntity});
     } else {
-      this.setState({placeEntity}); // To preview in a dialog
+      // The selection via a select component
+      this.doSelect(placeEntity, option);
     }
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @param {IPlaceEntity} placeEntity
+   * @param {ISelectOptionEntity<IPlaceEntity>} option
+   */
+  private doSelect(placeEntity: IPlaceEntity, option?: ISelectOptionEntity<IPlaceEntity>): void {
+    this.onChangeManually<IPlaceEntity>({
+      ...placeEntity,
+      formattedName: this.fromPlaceEntityToString(placeEntity),
+    });
+    this.notifySelectOption(option);
   }
 
   /**
@@ -219,19 +229,10 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
    */
   private onDialogAccept(): void {
-    this.setState(
-      {dialogOpened: false},
-      () => {
-        const {placeEntity} = this.state;
-        this.onChangeManually<IPlaceEntity>({
-          ...placeEntity,
-          formattedName: this.fromPlaceEntityToString(placeEntity),
-        });
-      }
-    );
+    this.setState({dialogOpened: false}, () => this.doSelect(this.state.placeEntity));
   }
 
   /**

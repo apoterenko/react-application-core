@@ -47,10 +47,7 @@ export class GooglePlaceApi implements IPlaceApi {
       ...(
         ifNotNilThanValue(
           nvl(req.lat, req.lng),
-          () => ({
-            ...this.getDefaultParams(req.country),
-            location: {lat: req.lat, lng: req.lng},
-          })
+          () => ({location: {lat: req.lat, lng: req.lng}})
         )
       ),
     });

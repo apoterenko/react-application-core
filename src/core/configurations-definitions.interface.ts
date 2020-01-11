@@ -11,7 +11,6 @@ import {
   IActiveWrapper,
   IAliasWrapper,
   IBackwardRenderedWrapper,
-  IBaseEvent,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
@@ -81,6 +80,7 @@ import {
 } from './react-definitions.interface';
 import {
   IApiEntity,
+  IBaseEvent,
   IComponentProps,
   IGenericFieldEntity,
   IMenuItemEntity,

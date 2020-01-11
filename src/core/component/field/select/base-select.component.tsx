@@ -10,6 +10,7 @@ import {
   getWidth,
   ifNotNilThanValue,
   inProgress,
+  isDef,
   isExpandActionRendered,
   isFn,
   isForceOpenEmptyMenuEnabled,
@@ -65,7 +66,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       ];
     }
     if (this.isQuickSelectionModeEnabled) {
-      this.quickFilterQueryTask = new DelayedTask(this.openMenuAndStartSearch.bind(this), 1000);
+      this.quickFilterQueryTask = new DelayedTask(this.openMenuAndStartSearch.bind(this), this.delayTimeout);
     }
   }
 
@@ -247,10 +248,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {ISelectOptionEntity} option
    */
   protected notifySelectOption(option: ISelectOptionEntity): void {
-    const onSelect = this.props.onSelect;
-    if (isFn(onSelect)) {
-      onSelect(option);
+    if (!isDef(option)) {
+      return;
     }
+    const onSelect = this.props.onSelect;
+    if (!isFn(onSelect)) {
+      return;
+    }
+    onSelect(option);
   }
 
   /**
@@ -338,26 +343,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
   }
 
-  /**
-   * @stable [11.01.2020]
-   */
-  private showMenu(): void {
-    if (R.isEmpty(this.filteredOptions)) {
-      BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
-    } else {
-      this.menu.show();
-    }
-  }
-
-  /**
-   * @stable [09.01.2020]
-   */
-  private hideMenu(): void {
-    if (this.isMenuOpen) {
-      this.menu.hide();
-    }
-  }
-
   private onFilterChange(query: string): void {
     const props = this.props;
     const onFilterChange = props.onFilterChange;
@@ -373,26 +358,31 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [11.01.2020]
+   */
+  private showMenu(): void {
+    if (R.isEmpty(this.filteredOptions)) {
+      BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
+      return;
+    }
+    this.menu.show();
+  }
+
+  /**
+   * @stable [11.01.2020]
+   */
+  private hideMenu(): void {
+    if (!this.isMenuOpen) {
+      return;
+    }
+    this.menu.hide();
+  }
+
+  /**
+   * @stable [11.01.2020]
    * @returns {boolean}
    */
   private get openEmptyMenuForcibly(): boolean {
     return isForceOpenEmptyMenuEnabled(this.props);
-  }
-
-  /**
-   * @stable [23.11.2019]
-   * @returns {number}
-   */
-  private get menuWidth(): number {
-    return getWidth(this.getSelf());
-  }
-
-  /**
-   * @stable [30.11.2019]
-   * @returns {IMenu}
-   */
-  private get menu(): IMenu {
-    return this.menuRef.current;
   }
 
   /**
@@ -403,4 +393,27 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     return !this.isFocusPrevented;
   }
 
+  /**
+   * @stable [11.01.2020]
+   * @returns {number}
+   */
+  private get menuWidth(): number {
+    return this.domAccessor.getWidth(this.getSelf());
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @returns {number}
+   */
+  private get delayTimeout(): number {
+    return nvl(this.props.delayTimeout, 1000);
+  }
+
+  /**
+   * @stable [30.11.2019]
+   * @returns {IMenu}
+   */
+  private get menu(): IMenu {
+    return this.menuRef.current;
+  }
 }

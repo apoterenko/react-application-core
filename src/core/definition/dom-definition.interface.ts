@@ -89,6 +89,7 @@ export interface IDomAccessor {
   getScrollInfo(el: Element): IXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;
+  getWidth(source: Element): number;
   hasClasses(target: Element, ...classNames: string[]): boolean;
   hasElements(selector: string | Element, target: Element): boolean;
   hasParent(selector: string, target: Element): boolean;
