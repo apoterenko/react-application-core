@@ -7,13 +7,13 @@ import {
 
 import {
   DelayedTask,
-  getWidth,
   ifNotNilThanValue,
   inProgress,
   isDef,
   isExpandActionRendered,
   isFn,
   isForceOpenEmptyMenuEnabled,
+  isMenuOpened,
   joinClassName,
   nvl,
   orNull,
@@ -54,6 +54,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   constructor(props: TProps) {
     super(props);
 
+    this.doOpenMenu = this.doOpenMenu.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
@@ -66,7 +67,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       ];
     }
     if (this.isQuickSelectionModeEnabled) {
-      this.quickFilterQueryTask = new DelayedTask(this.openMenuAndStartSearch.bind(this), this.delayTimeout);
+      this.quickFilterQueryTask = new DelayedTask(this.onDelayedFilterChange.bind(this), this.delayTimeout);
     }
   }
 
@@ -142,7 +143,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       return;
     }
     this.domAccessor.cancelEvent(event);
-    this.setState({menuOpened: true}, () => this.doOpenMenu());
+    this.setState({menuOpened: true}, this.doOpenMenu);
   }
 
   /**
@@ -159,21 +160,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
-
-    if (!this.isQuickSelectionModeEnabled) {
-      this.openMenu(event);
-    }
+    this.openMenu(event);
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
    * @returns {JSX.Element}
    */
   protected getInputAttachmentElement(): JSX.Element {
-    const {menuOpened} = this.state;
     return orNull(
-      menuOpened === true,   // To improve a performance
-      () => (
+      isMenuOpened(this.state),
+      () => ( // To improve a performance
         <Menu
           ref={this.menuRef}
           width={this.menuWidth}
@@ -312,9 +309,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   /**
    * @stable [11.01.2020]
    */
-  private openMenuAndStartSearch(): void {
+  private onDelayedFilterChange(): void {
     this.onFilterChange(this.value);
-    this.openMenu();
   }
 
   /**
