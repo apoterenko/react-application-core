@@ -267,6 +267,7 @@ export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
 export interface IMenuConfigurationWrapper<TMenuConfiguration> { menuConfiguration?: TMenuConfiguration; }
+export interface IMenuOpenedWrapper { menuOpened?: boolean; }
 export interface IMenuOptionsWrapper<TMenuOptions> { menuOptions?: TMenuOptions; }
 export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }
 export interface IMessagesWrapper<TMessages> { messages?: TMessages; }

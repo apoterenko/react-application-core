@@ -5,7 +5,6 @@ import {
   IForceOpenEmptyMenuWrapper,
   IForceReloadWrapper,
   IMenuConfigurationWrapper,
-  INeedToBeOpenedWrapper,
   IOnDictionaryFilterChangeWrapper,
   IOnFilterChangeWrapper,
   IOpenMenuWrapper,
@@ -14,6 +13,7 @@ import {
 } from '../../../definitions.interface';
 import {
   IBaseEvent,
+  IGenericBaseSelectStateEntity,
   IMenuProps,
   ISelectOptionEntity,
 } from '../../../definition';
@@ -28,9 +28,8 @@ import { IFieldState } from '../field/field.interface';
  */
 export interface IBaseSelectState
   extends IFieldState,
-    INeedToBeOpenedWrapper,
+    IGenericBaseSelectStateEntity,
     I$$cachedValueWrapper<ISelectOptionEntity> {
-  menuOpened?: boolean;
 }
 
 /**

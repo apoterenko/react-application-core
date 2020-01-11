@@ -30,8 +30,10 @@ import {
   ILabelWrapper,
   IMaskWrapper,
   IMaxDateWrapper,
+  IMenuOpenedWrapper,
   IMinDateWrapper,
   INameWrapper,
+  INeedToBeOpenedWrapper,
   IOnClickWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
@@ -212,4 +214,13 @@ export interface IGenericDateFieldEntity
     IHeaderFormatWrapper,
     IMaxDateWrapper<Date>,
     IMinDateWrapper<Date> {
+}
+
+/**
+ * @stable [11.01.2020]
+ * @generic-state
+ */
+export interface IGenericBaseSelectStateEntity
+  extends IMenuOpenedWrapper,
+    INeedToBeOpenedWrapper {
 }

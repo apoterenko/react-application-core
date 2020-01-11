@@ -19,6 +19,7 @@ import {
   IIndexedWrapper,
   IKeyboardOpenWrapper,
   ILoadingWrapper,
+  IMenuOpenedWrapper,
   IMultiWrapper,
   IPlaceActionRenderedWrapper,
   IPreventFocusWrapper,
@@ -280,6 +281,14 @@ export const isCenteredMenu = (wrapper: ICenteredMenuWrapper): boolean =>
  */
 export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.remoteFilter === true, false);
+
+/**
+ * @stable [11.01.2020]
+ * @param {IMenuOpenedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isMenuOpened = (wrapper: IMenuOpenedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.menuOpened === true, false);
 
 /**
  * @stable [11.01.2020]
