@@ -11,6 +11,7 @@ import {
   IActiveWrapper,
   IAliasWrapper,
   IBackwardRenderedWrapper,
+  IBaseEvent,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
@@ -125,7 +126,7 @@ export interface IUniversalKeyboardHandlersConfiguration<TKeyboardEvent = IKeybo
   onKeyEnter?(event: TKeyboardEvent): void;
   onKeyUp?(event: TKeyboardEvent): void;
   onKeyDown?(event: TKeyboardEvent): void;
-  onKeyEscape?(event: TKeyboardEvent): void;
+  onKeyEscape?(event: IBaseEvent): void;
   onKeyArrowDown?(event: TKeyboardEvent): void;
   onKeyArrowUp?(event: TKeyboardEvent): void;
   onKeyBackspace?(event: TKeyboardEvent): void;
