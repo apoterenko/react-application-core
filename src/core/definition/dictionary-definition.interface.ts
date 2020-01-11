@@ -5,6 +5,7 @@ import {
   IDictionariesWrapper,
   IKeyValue,
   ILoadingWrapper,
+  IPlacesWrapper,
 } from '../definitions.interface';
 import { IPagedEntity } from './page-definition.interface';
 
@@ -26,6 +27,13 @@ export const DICTIONARY_LOAD_ACTION_TYPE = 'dictionary.load';
 export const DICTIONARY_SET_ACTION_TYPE = 'dictionary.set';
 
 /**
+ * @stable [11.01.2020]
+ */
+export enum DictionariesEnum {
+  PLACES = 'places',
+}
+
+/**
  * @stable [10.09.2019]
  */
 export const DEFAULT_DICTIONARY_PAGED_ENTITY = Object.freeze<IPagedEntity>({
@@ -42,9 +50,17 @@ export interface IDictionaryEntity<TData = IKeyValue>
 }
 
 /**
+ * @stable [11.01.2020]
+ */
+export interface IPlacesDictionaryWrapperEntity
+  extends IPlacesWrapper<IDictionaryEntity<{}>> {
+}
+
+/**
  * @stable [10.10.2019]
  */
-export interface IDictionariesEntity {
+export interface IDictionariesEntity
+  extends IPlacesDictionaryWrapperEntity {
   [dictionary: string]: IDictionaryEntity<{}>;
 }
 

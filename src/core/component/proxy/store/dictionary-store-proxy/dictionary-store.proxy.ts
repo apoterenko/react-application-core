@@ -1,11 +1,11 @@
 import { BaseStoreProxy } from '../base-store.proxy';
 import { DictionariesActionBuilder } from '../../../../dictionary';
 import {
+  IDictionaryStoreProxy,
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../../../definition';
-import { IDictionaryStoreProxy } from './dictionary-store-proxy.interface';
 import { IKeyValue } from '../../../../definitions.interface';
 
 export class DictionaryStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
@@ -23,11 +23,11 @@ export class DictionaryStoreProxy<TStore extends IUniversalStoreEntity = IUniver
   }
 
   /**
-   * @stable [09.10.2019]
+   * @stable [11.01.2020]
    * @param {string} dictionary
    * @param {TData} data
    */
   public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
-    this.dispatchAnyAction(DictionariesActionBuilder.buildLoadAction(dictionary, data));
+    this.dispatchAnyAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, data));
   }
 }
