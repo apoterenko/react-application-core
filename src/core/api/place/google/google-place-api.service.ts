@@ -18,6 +18,7 @@ import {
   ISearchPlacesRequestEntity,
 } from '../../../definition';
 import {
+  ifNotNilThanValue,
   isFn,
   isObjectNotEmpty,
   notNilValuesFilter,
@@ -26,6 +27,7 @@ import {
 import {
   AnyT,
   IEntityIdTWrapper,
+  IKeyValue,
 } from '../../../definitions.interface';
 
 @injectable()
@@ -40,12 +42,22 @@ export class GooglePlaceApi implements IPlaceApi {
    * @returns {Bluebird<IPlaceEntity[]> | AnyT}
    */
   public getPlaceGeoCode(req: IPlaceGeoCodeRequestEntity): BPromise<IPlaceEntity[]> | AnyT {
-    const request: google.maps.GeocoderRequest = {
-      location: {lat: req.lat, lng: req.lng},
-    };
+    const request = notNilValuesFilter<google.maps.GeocoderRequest, google.maps.GeocoderRequest>({
+      placeId: req.placeId,
+      ...(
+        ifNotNilThanValue(
+          nvl(req.lat, req.lng),
+          () => ({
+            ...this.getDefaultParams(req.country),
+            location: {lat: req.lat, lng: req.lng},
+          })
+        )
+      ),
+    });
     return this.makePromise((resolve) => {
-      new google.maps.Geocoder()
-        .geocode(request, (result) => {
+      new google.maps.Geocoder().geocode(
+        request,
+        (result) => {
           if (isObjectNotEmpty(result)) {
             const converter = this.fieldConverter.converter({
               from: FieldConverterTypesEnum.GEO_CODER_RESULT,
@@ -71,19 +83,14 @@ export class GooglePlaceApi implements IPlaceApi {
   public searchPlaces(request: ISearchPlacesRequestEntity): BPromise<ISearchPlaceEntity[]> | AnyT {
     request = nvl(request, {});
     const {query = ' '} = request;
-    const requestCountry = request.country;
-
-    const {googleMaps = {}} = this.settings || {};
-    const {componentRestrictions = {}} = googleMaps;
-    const {country = {}} = componentRestrictions || {};
 
     return this.makePromise((resolve) => {
       const searchService = new google.maps.places.AutocompleteService();
       searchService.getPlacePredictions(
-        notNilValuesFilter({
-          componentRestrictions: notNilValuesFilter({country: nvl(requestCountry, country)}),
+        {
+          ...this.getDefaultParams(request.country),
           input: query,
-        }),
+        },
         (result: Array<google.maps.places.AutocompletePrediction & IEntityIdTWrapper>) => {
           resolve(
             (result || []).map((entity): ISearchPlaceEntity => ({
@@ -94,6 +101,21 @@ export class GooglePlaceApi implements IPlaceApi {
           );
         },
       );
+    });
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @param {string} requestCountry
+   * @returns {IKeyValue}
+   */
+  private getDefaultParams(requestCountry: string): IKeyValue {
+    const {googleMaps = {}} = this.settings || {};
+    const {componentRestrictions = {}} = googleMaps;
+    const {country = {}} = componentRestrictions || {};
+
+    return notNilValuesFilter({
+      componentRestrictions: notNilValuesFilter({country: nvl(requestCountry, country)}),
     });
   }
 
