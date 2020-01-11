@@ -1,23 +1,26 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
+import {
+  LoggerFactory,
+  ILogger,
+} from 'ts-smart-logger';
 
 import {
-  calc,
+  DelayedTask,
   getWidth,
   ifNotNilThanValue,
   inProgress,
   isExpandActionRendered,
   isFn,
-  isRemoteFilterApplied,
+  isForceOpenEmptyMenuEnabled,
   joinClassName,
+  nvl,
   orNull,
 } from '../../../util';
 import { BaseTextField } from '../../field/textfield';
 import { Menu } from '../../menu';
 import {
   AnyT,
-  IKeyboardEvent,
 } from '../../../definitions.interface';
 import {
   IBaseSelect,
@@ -41,6 +44,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   protected static readonly logger = LoggerFactory.makeLogger('BaseSelect');
 
   private readonly menuRef = React.createRef<Menu>();
+  private readonly quickFilterQueryTask: DelayedTask;
 
   /**
    * @stable [30.11.2019]
@@ -54,11 +58,26 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
-    if (isExpandActionRendered(this.props)) {
+    if (this.isExpandActionRendered) {
       this.defaultActions = [
         {type: props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.openMenu},
         ...this.defaultActions
       ];
+    }
+    if (this.isQuickSelectionModeEnabled) {
+      this.quickFilterQueryTask = new DelayedTask(this.openMenuAndStartSearch.bind(this), 1000);
+    }
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @param {IBaseEvent} event
+   */
+  public onChange(event: IBaseEvent): void {
+    super.onChange(event);
+
+    if (this.isQuickSelectionModeEnabled) {
+      this.quickFilterQueryTask.start();
     }
   }
 
@@ -96,22 +115,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
   }
 
-  public onKeyBackspace(event: IKeyboardEvent): void {
-    super.onKeyBackspace(event);
-    this.clearValue();
-  }
-
-  public onKeyEnter(event: IKeyboardEvent): void {
-    super.onKeyEnter(event);
-    this.openMenu(event);
-  }
-
-  public onKeyEscape(event: IKeyboardEvent): void {
+  /**
+   * @stable [11.01.2020]
+   * @param {IBaseEvent} event
+   */
+  public onKeyEscape(event: IBaseEvent): void {
     super.onKeyEscape(event);
-
-    if (this.menu.isOpen()) {
-      this.hideMenu();
-    }
+    this.hideMenu();
   }
 
   /**
@@ -123,20 +133,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
    * @param {IBaseEvent} event
    */
   public openMenu(event?: IBaseEvent): void {
-    if (this.state.needToBeOpened) {
+    if (this.state.needToBeOpened || this.isMenuOpen) {
       return;
     }
     this.domAccessor.cancelEvent(event);
-
-    this.setState({menuOpened: true}, () => {
-      if (!this.menu.isOpen()) {
-        this.doOpenMenu();
-      }
-    });
+    this.setState({menuOpened: true}, () => this.doOpenMenu());
   }
 
   /**
@@ -148,12 +153,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [25.02.2019]
+   * @stable [11.01.2020]
    * @param {IBaseEvent} event
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
-    this.openMenu(event);
+
+    if (!this.isQuickSelectionModeEnabled) {
+      this.openMenu(event);
+    }
   }
 
   /**
@@ -193,6 +201,19 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     return this.options;
   }
 
+  /**
+   * @stable [11.01.2020]
+   * @returns {boolean}
+   */
+  protected get isMenuOpen(): boolean {
+    const menu = this.menu;
+    return !R.isNil(menu) && menu.isOpen();
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @returns {string}
+   */
   protected getFieldClassName(): string {
     return joinClassName(super.getFieldClassName(), 'rac-base-select');
   }
@@ -217,12 +238,19 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       },
     }, () => {
       this.onChangeManually(option.value);
-
-      const onSelect = this.props.onSelect;
-      if (isFn(onSelect)) {
-        onSelect(option);
-      }
+      this.notifySelectOption(option);
     });
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @param {ISelectOptionEntity} option
+   */
+  protected notifySelectOption(option: ISelectOptionEntity): void {
+    const onSelect = this.props.onSelect;
+    if (isFn(onSelect)) {
+      onSelect(option);
+    }
   }
 
   /**
@@ -261,11 +289,27 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [20.08.2018]
+   * @stable [11.01.2020]
    * @returns {ISelectOptionEntity[]}
    */
   protected get options(): ISelectOptionEntity[] {
-    return calc<ISelectOptionEntity[]>(this.props.options) || [];
+    return nvl(this.props.options, []);
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @returns {boolean}
+   */
+  protected get isExpandActionRendered(): boolean {
+    return isExpandActionRendered(this.props);
+  }
+
+  /**
+   * @stable [11.01.2020]
+   */
+  private openMenuAndStartSearch(): void {
+    this.onFilterChange(this.value);
+    this.openMenu();
   }
 
   /**
@@ -274,19 +318,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private doOpenMenu(): void {
     const {
       bindDictionary,
-      forceOpenEmptyMenu,
       forceReload,
       onEmptyDictionary,
       options,
     } = this.props;
-    const areOptionsEmpty = R.isNil(options);
+    const areOptionsUnavailable = R.isNil(options);
 
-    if (forceReload || areOptionsEmpty) {
+    if (forceReload || areOptionsUnavailable) {
       if (isFn(onEmptyDictionary)) {
         onEmptyDictionary(bindDictionary);
         this.setState({needToBeOpened: true}); // After callback invoking (!)
-      } else if (!areOptionsEmpty || forceOpenEmptyMenu) {
+      } else if (!areOptionsUnavailable) {
         this.showMenu();
+      } else if (this.openEmptyMenuForcibly) {
+        this.menu.show();
       }
     } else {
       this.showMenu();
@@ -294,10 +339,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
    */
   private showMenu(): void {
-    if (!this.isRemoteFilterApplied && R.isEmpty(this.filteredOptions)) {
+    if (R.isEmpty(this.filteredOptions)) {
       BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
     } else {
       this.menu.show();
@@ -308,7 +353,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [09.01.2020]
    */
   private hideMenu(): void {
-    this.menu.hide();
+    if (this.isMenuOpen) {
+      this.menu.hide();
+    }
   }
 
   private onFilterChange(query: string): void {
@@ -325,11 +372,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
    * @returns {boolean}
    */
-  private get isRemoteFilterApplied(): boolean {
-    return isRemoteFilterApplied(this.getMenuProps());
+  private get openEmptyMenuForcibly(): boolean {
+    return isForceOpenEmptyMenuEnabled(this.props);
   }
 
   /**
@@ -347,4 +394,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private get menu(): IMenu {
     return this.menuRef.current;
   }
+
+  /**
+   * @stable [11.01.2020]
+   * @returns {boolean}
+   */
+  private get isQuickSelectionModeEnabled(): boolean {
+    return !this.isFocusPrevented;
+  }
+
 }
