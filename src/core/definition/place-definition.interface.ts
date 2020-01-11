@@ -126,3 +126,14 @@ export interface ISearchPlaceEntity
   extends INamedEntity,
     IPlaceIdWrapper {
 }
+
+/**
+ * TODO Move to field-definition
+ * @stable [21.11.2019]
+ */
+export const ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
+  expandActionRendered: false,
+  menuConfiguration: {centeredMenu: false, useFilter: false},
+  preventFocus: false,
+  useZipCode: true,
+});
