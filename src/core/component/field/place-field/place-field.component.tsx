@@ -66,8 +66,11 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
     this.refreshGeocodeInfo = this.refreshGeocodeInfo.bind(this);
 
     if (isPlaceActionRendered(props)) {
-      this.defaultActions = R.insert(1, {type: 'location_on', onClick: this.openDialog},
-        this.defaultActions);
+      this.defaultActions = R.insert(
+        this.isExpandActionRendered ? 1 : 0,
+        {type: 'location_on', onClick: this.openDialog},
+        this.defaultActions
+      );
     }
   }
 
@@ -191,7 +194,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
     const placeEntity = result[0];
     if (this.useZipCode) {
       this.onChangeManually(placeEntity);
-      this.notifyOptionSelect(option);
+      this.notifySelectOption(option);
     } else {
       this.setState({placeEntity}); // To preview in a dialog
     }
