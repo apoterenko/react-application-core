@@ -228,9 +228,7 @@ export class AddressField extends BaseTextField<IAddressFieldProps, IAddressFiel
       this.autocomplete.unbindAll();
     }
 
-    this.autocomplete = new google.maps.places.Autocomplete(this.input as HTMLInputElement, {
-      componentRestrictions: this.settings.companyCountry ? {country: this.settings.companyCountry} : null,
-    });
+    this.autocomplete = null;
     this.autocomplete.addListener('place_changed', this.onPlaceChanged);
 
     const props = this.props;
