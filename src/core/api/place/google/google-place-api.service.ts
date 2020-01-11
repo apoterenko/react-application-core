@@ -69,8 +69,9 @@ export class GooglePlaceApi implements IPlaceApi {
    * @returns {Bluebird<ISearchPlaceEntity[]> | AnyT}
    */
   public searchPlaces(request: ISearchPlacesRequestEntity): BPromise<ISearchPlaceEntity[]> | AnyT {
-    const requestCountry = request.country;
+    request = nvl(request, {});
     const {query = ' '} = request;
+    const requestCountry = request.country;
 
     const {googleMaps = {}} = this.settings || {};
     const {componentRestrictions = {}} = googleMaps;
