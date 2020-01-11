@@ -26,6 +26,7 @@ import {
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
   IRemoteFilterWrapper,
+  IRenderedWrapper,
   IRequiredWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
@@ -141,6 +142,14 @@ export const isIndexed = (indexedEntity: IIndexedWrapper): boolean =>
  */
 export const isHeaderRendered = (headerRendered: IHeaderRenderedWrapper): boolean =>
   ifNotNilThanValue(headerRendered, () => headerRendered.headerRendered !== false, false);
+
+/**
+ * @stable [11.01.2020]
+ * @param {IRenderedWrapper} value
+ * @returns {boolean}
+ */
+export const isRendered = (value: IRenderedWrapper): boolean =>
+  ifNotNilThanValue(value, () => value.rendered !== false, false);
 
 /**
  * @stable [26.10.2019]

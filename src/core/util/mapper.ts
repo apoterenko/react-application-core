@@ -284,32 +284,26 @@ export const selectPreventEffectsFromAction = (action: IEffectsAction): boolean 
 );
 
 /**
- * @stable [19.10.2019]
+ * @stable [11.01.2020]
  * @param {IEffectsAction} action
- * @returns {TEntity}
+ * @returns {TData}
  */
-export const selectPayloadEntityFromAction =
-  <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => ifNotNilThanValue(
-    action,
-    () => ifNotNilThanValue(
-      action.data,
-      (data: IPayloadWrapper<TEntity>) => data.payload,
-      UNDEF_SYMBOL
-    ),
-    UNDEF_SYMBOL
-  );
+export const selectDataFromAction = <TData>(action: IEffectsAction): TData => ifNotNilThanValue(
+  action,
+  () => action.data,
+  UNDEF_SYMBOL
+);
 
 /**
- * @stable [19.10.2019]
+ * @stable [11.01.2020]
  * @param {IEffectsAction} action
- * @returns {TEntity}
+ * @returns {TPayload}
  */
-export const selectEntityFromAction =
-  <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => ifNotNilThanValue(
-    action,
-    () => action.data,
-    UNDEF_SYMBOL
-  );
+export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload => ifNotNilThanValue(
+  selectDataFromAction(action),
+  (data: IPayloadWrapper<TPayload>) => data.payload,
+  UNDEF_SYMBOL
+);
 
 /**
  * @stable [19.10.2019]
