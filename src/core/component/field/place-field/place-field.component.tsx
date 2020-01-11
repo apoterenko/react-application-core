@@ -6,7 +6,8 @@ import {
   ifNotNilThanValue,
   isObjectNotEmpty,
   isPlaceActionRendered,
-  isString,
+  isPrimitive,
+  isUseZipCode,
   joinClassName,
   nvl,
   orNull,
@@ -22,18 +23,20 @@ import {
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
-  ILatLngEntity,
   IMenuItemEntity,
   IMenuProps,
   IPlaceEntity,
   IPlaceFieldProps,
   IPlaceFieldState,
+  IPlaceGeoCodeRequestEntity,
+  ISelectOptionEntity,
   PlaceMarkerActionsEnum,
 } from '../../../definition';
 
 export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   public static readonly defaultProps: IPlaceFieldProps = {
+    autoComplete: 'new-password',
     forceOpenEmptyMenu: true,
     forceReload: true,
     preventFocus: true,
@@ -77,12 +80,27 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
+   * @param {ISelectOptionEntity<IPlaceEntity>} option
+   */
+  protected onSelect(option: ISelectOptionEntity<IPlaceEntity>): void {
+    if (this.useZipCode) {
+      this.refreshGeocodeInfo({placeId: option.rawData.placeId}, option);
+    } else {
+      super.onSelect(option);
+    }
+  }
+
+  /**
+   * @stable [11.01.2020]
    * @param {IPlaceEntity | string} value
    * @returns {string}
    */
   protected decorateValueBeforeDisplaying(value: IPlaceEntity | string): string {
-    return isString(value) ? value as string : (value as IPlaceEntity).formattedName;
+    const valueAsPlaceEntity = value as IPlaceEntity;
+    return isPrimitive(value)
+      ? value as string
+      : (this.useZipCode ? valueAsPlaceEntity.zipCode : valueAsPlaceEntity.formattedName);
   }
 
   /**
@@ -148,27 +166,35 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [09.01.2020]
-   * @param {ILatLngEntity} latLngEntity
+   * @stable [11.01.2020]
+   * @param {IPlaceGeoCodeRequestEntity} geoCodeRequest
+   * @param {ISelectOptionEntity<IPlaceEntity>} option
    */
-  private refreshGeocodeInfo(latLngEntity: ILatLngEntity): void {
+  private refreshGeocodeInfo(geoCodeRequest: IPlaceGeoCodeRequestEntity, option?: ISelectOptionEntity<IPlaceEntity>): void {
     this.cancelPlaceGeoCodeTask();
 
-    this.placeGeoCodeTask = this.placeApi.getPlaceGeoCode<BPromise<IPlaceEntity[]>>(latLngEntity)
-      .then((result) => this.onGeoCodeResultDone(result));
+    this.placeGeoCodeTask = this.placeApi.getPlaceGeoCode<BPromise<IPlaceEntity[]>>(geoCodeRequest)
+      .then((result) => {
+        if (isObjectNotEmpty(result)) {
+          this.onGeoCodeRequestDone(result, option);
+        }
+        return result;
+      });
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
    * @param {IPlaceEntity[]} result
-   * @returns {IPlaceEntity[]}
+   * @param {ISelectOptionEntity<IPlaceEntity>} option
    */
-  private onGeoCodeResultDone(result: IPlaceEntity[]): IPlaceEntity[] {
-    if (!isObjectNotEmpty(result)) {
-      return result;
+  private onGeoCodeRequestDone(result: IPlaceEntity[], option?: ISelectOptionEntity<IPlaceEntity>): void {
+    const placeEntity = result[0];
+    if (this.useZipCode) {
+      this.onChangeManually(placeEntity);
+      this.notifyOptionSelect(option);
+    } else {
+      this.setState({placeEntity}); // To preview in a dialog
     }
-    this.setState({placeEntity: result[0]});
-    return result;
   }
 
   /**
@@ -303,5 +329,13 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   private get placeEntityValue(): IPlaceEntity {
     return this.value;
+  }
+
+  /**
+   * @stable [11.01.2020]
+   * @returns {boolean}
+   */
+  private get useZipCode(): boolean {
+    return isUseZipCode(this.props);
   }
 }
