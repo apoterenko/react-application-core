@@ -267,8 +267,8 @@ export interface IMarkerWrapper<TMarker> { marker?: TMarker; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
 export interface IMenuConfigurationWrapper<TMenuConfiguration> { menuConfiguration?: TMenuConfiguration; }
-export interface IMenuOpenedWrapper { menuOpened?: boolean; }
 export interface IMenuOptionsWrapper<TMenuOptions> { menuOptions?: TMenuOptions; }
+export interface IMenuRenderedWrapper { menuRendered?: boolean; }
 export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }
 export interface IMessagesWrapper<TMessages> { messages?: TMessages; }
 export interface IMessageWrapper<TMessage = string> { message?: TMessage; }
@@ -280,7 +280,6 @@ export interface IMonthWrapper<TValue = number> { month?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }
 export interface INameWrapper<TName = string> { name?: TName; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
-export interface INeedToBeOpenedWrapper { needToBeOpened?: boolean; }
 export interface INewEntityWrapper<TNewEntity = boolean> { newEntity?: TNewEntity; }
 export interface INextFormChangesWrapper<TChanges> { nextFormChanges?: TChanges; }
 export interface INextFormRouteWrapper { nextFormRoute?: string; }
@@ -470,6 +469,7 @@ export interface IValidWrapper { valid?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IViewerWrapper<TViewer> { viewer?: TViewer; }
 export interface IVisibleWrapper { visible?: boolean; }
+export interface IWaitingForDataWrapper { waitingForData?: boolean; }
 export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
 export interface IWidthWrapper<TWidth = number> { width?: TWidth; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }

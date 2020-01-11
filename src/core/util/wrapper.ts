@@ -19,7 +19,7 @@ import {
   IIndexedWrapper,
   IKeyboardOpenWrapper,
   ILoadingWrapper,
-  IMenuOpenedWrapper,
+  IMenuRenderedWrapper,
   IMultiWrapper,
   IPlaceActionRenderedWrapper,
   IPreventFocusWrapper,
@@ -39,6 +39,7 @@ import {
   IUseZipCodeWrapper,
   IValidWrapper,
   IVisibleWrapper,
+  IWaitingForDataWrapper,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
 import {
@@ -284,11 +285,11 @@ export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
 
 /**
  * @stable [11.01.2020]
- * @param {IMenuOpenedWrapper} wrapper
+ * @param {IMenuRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isMenuOpened = (wrapper: IMenuOpenedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.menuOpened === true, false);
+export const isMenuOpened = (wrapper: IMenuRenderedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.menuRendered === true, false);
 
 /**
  * @stable [11.01.2020]
@@ -297,6 +298,14 @@ export const isMenuOpened = (wrapper: IMenuOpenedWrapper): boolean =>
  */
 export const isForceOpenEmptyMenuEnabled = (wrapper: IForceOpenEmptyMenuWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.forceOpenEmptyMenu === true, false);
+
+/**
+ * @stable [11.01.2020]
+ * @param {IWaitingForDataWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isWaitingForData = (wrapper: IWaitingForDataWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.waitingForData === true, false);
 
 /**
  * @stable [23.11.2019]

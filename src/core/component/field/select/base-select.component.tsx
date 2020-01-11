@@ -7,13 +7,14 @@ import {
 
 import {
   DelayedTask,
-  ifNotNilThanValue,
+  ifNotEmptyThanValue,
   inProgress,
   isDef,
   isExpandActionRendered,
   isFn,
   isForceOpenEmptyMenuEnabled,
   isMenuOpened,
+  isWaitingForData,
   joinClassName,
   nvl,
   orNull,
@@ -54,15 +55,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   constructor(props: TProps) {
     super(props);
 
-    this.doOpenMenu = this.doOpenMenu.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
+    this.onDropDownClick = this.onDropDownClick.bind(this);
 
     if (this.isExpandActionRendered) {
       this.defaultActions = [
-        {type: props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.openMenu},
+        {type: props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.onDropDownClick},
         ...this.defaultActions
       ];
     }
@@ -79,12 +80,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.onChange(event);
 
     if (this.isQuickSelectionModeEnabled) {
+      this.hideMenu();
       this.quickFilterQueryTask.start();
     }
   }
 
   /**
-   * @stable [30.11.2019]
+   * @stable [11.01.2020]
    * @param {Readonly<TProps extends IBaseSelectProps>} prevProps
    * @param {Readonly<TState extends IBaseSelectState>} prevState
    */
@@ -92,20 +94,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.componentDidUpdate(prevProps, prevState);
     const props = this.props;
 
-    if (this.state.needToBeOpened) {
-      ifNotNilThanValue(
-        props.options,
-        () => {
-          this.setState({needToBeOpened: false}, () => {
-            this.showMenu();
-            if (isFn(props.onLoadDictionary)) {
-              props.onLoadDictionary(this.filteredOptions);
-            }
-          });
+    if (this.isWaitingForData
+      && R.isNil(prevProps.options)
+      && !R.equals(props.options, prevProps.options)) {
+
+      this.setState({waitingForData: false}, () => {
+        this.renderAndShowMenu();
+
+        if (isFn(props.onLoadDictionary)) {
+          props.onLoadDictionary(this.filteredOptions);
         }
-      );
+      });
     }
 
+    // TODO Remove later
     const newValue = props.value;
     if (R.isNil(newValue) && !R.equals(newValue, prevProps.value)) {
       const $$cachedValue = this.state.$$cachedValue;
@@ -136,14 +138,28 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [11.01.2020]
-   * @param {IBaseEvent} event
    */
-  public openMenu(event?: IBaseEvent): void {
-    if (this.state.needToBeOpened || this.isMenuOpen) {
+  public openMenu(): void {
+    if (this.inProgress || this.isMenuAlreadyRenderedAndOpened) {
       return;
     }
-    this.domAccessor.cancelEvent(event);
-    this.setState({menuOpened: true}, this.doOpenMenu);
+    const {
+      bindDictionary,
+      forceReload,
+      onEmptyDictionary,
+      options,
+    } = this.props;
+
+    const areOptionsUnavailable = R.isNil(options);
+    if (forceReload || areOptionsUnavailable) {
+      if (isFn(onEmptyDictionary)) {
+        this.setState({waitingForData: true}, () => onEmptyDictionary(bindDictionary));
+      } else {
+        this.renderAndShowMenu();
+      }
+    } else {
+      this.renderAndShowMenu();
+    }
   }
 
   /**
@@ -151,7 +167,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {boolean}
    */
   public get inProgress(): boolean {
-    return inProgress(this.props) || this.state.needToBeOpened === true;
+    return inProgress(this.props) || this.isWaitingForData;
   }
 
   /**
@@ -160,7 +176,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
-    this.openMenu(event);
+    this.openMenu();
   }
 
   /**
@@ -203,7 +219,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [11.01.2020]
    * @returns {boolean}
    */
-  protected get isMenuOpen(): boolean {
+  protected get isMenuAlreadyRenderedAndOpened(): boolean {
     const menu = this.menu;
     return !R.isNil(menu) && menu.isOpen();
   }
@@ -310,33 +326,19 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [11.01.2020]
    */
   private onDelayedFilterChange(): void {
-    this.onFilterChange(this.value);
+    ifNotEmptyThanValue(
+      this.value,
+      (value) => this.setState({waitingForData: true}, () => this.onFilterChange(value))
+    );
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [11.01.2020]
+   * @param {IBaseEvent} event
    */
-  private doOpenMenu(): void {
-    const {
-      bindDictionary,
-      forceReload,
-      onEmptyDictionary,
-      options,
-    } = this.props;
-    const areOptionsUnavailable = R.isNil(options);
-
-    if (forceReload || areOptionsUnavailable) {
-      if (isFn(onEmptyDictionary)) {
-        onEmptyDictionary(bindDictionary);
-        this.setState({needToBeOpened: true}); // After callback invoking (!)
-      } else if (!areOptionsUnavailable) {
-        this.showMenu();
-      } else if (this.openEmptyMenuForcibly) {
-        this.menu.show();
-      }
-    } else {
-      this.showMenu();
-    }
+  private onDropDownClick(event: IBaseEvent): void {
+    this.domAccessor.cancelEvent(event);
+    this.openMenu();
   }
 
   private onFilterChange(query: string): void {
@@ -355,29 +357,28 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   /**
    * @stable [11.01.2020]
    */
-  private showMenu(): void {
-    if (R.isEmpty(this.filteredOptions)) {
-      BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
-      return;
+  private hideMenu(): void {
+    if (this.isMenuAlreadyRenderedAndOpened) {
+      this.setState({menuRendered: false});
     }
-    this.menu.show();
   }
 
   /**
    * @stable [11.01.2020]
    */
-  private hideMenu(): void {
-    if (!this.isMenuOpen) {
-      return;
+  private renderAndShowMenu(): void {
+    if (!R.isEmpty(this.filteredOptions) || this.canOpenEmptyMenu) {
+      this.setState({menuRendered: true}, () => this.menu.show());
+    } else {
+      BaseSelect.logger.debug('[$BaseSelect][renderAndShowMenu] The options are empty. The menu does not show.');
     }
-    this.menu.hide();
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [12.01.2020]
    * @returns {boolean}
    */
-  private get openEmptyMenuForcibly(): boolean {
+  private get canOpenEmptyMenu(): boolean {
     return isForceOpenEmptyMenuEnabled(this.props);
   }
 
@@ -387,6 +388,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get isQuickSelectionModeEnabled(): boolean {
     return !this.isFocusPrevented;
+  }
+
+  /**
+   * @stable [12.01.2020]
+   * @returns {boolean}
+   */
+  private get isWaitingForData(): boolean {
+    return isWaitingForData(this.state);
   }
 
   /**

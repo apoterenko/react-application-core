@@ -269,10 +269,12 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [10.11.2019]
+   * @stable [11.01.2020]
    * @param {IBaseEvent} event
    */
   protected onClick(event: IBaseEvent): void {
+    this.domAccessor.cancelEvent(event);
+
     const props = this.props;
     if (isFn(props.onClick)) {
       props.onClick(event);

@@ -30,10 +30,10 @@ import {
   ILabelWrapper,
   IMaskWrapper,
   IMaxDateWrapper,
-  IMenuOpenedWrapper,
+  IMenuRenderedWrapper,
   IMinDateWrapper,
   INameWrapper,
-  INeedToBeOpenedWrapper,
+  IWaitingForDataWrapper,
   IOnClickWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
@@ -221,6 +221,6 @@ export interface IGenericDateFieldEntity
  * @generic-state
  */
 export interface IGenericBaseSelectStateEntity
-  extends IMenuOpenedWrapper,
-    INeedToBeOpenedWrapper {
+  extends IMenuRenderedWrapper,
+    IWaitingForDataWrapper {
 }
