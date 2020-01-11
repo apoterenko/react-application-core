@@ -16,7 +16,7 @@ import { IContainerProps } from './props-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';  // TODO
 import { IGenericCronEntity } from './cron-definition.interface';
 import { IPlaceFieldProps } from './place-definition.interface';
-import { IPlacesDictionariesEntity } from './dictionary-definition.interface';
+import { IPlacesDictionaryWrapperEntity } from './dictionary-definition.interface';
 
 /**
  * @controlled-field
@@ -32,11 +32,13 @@ export interface IControlledFieldItemEntity<TControlledFieldItemsEnum, TProps ex
  * @controlled-field
  * @stable [11.01.2020]
  */
-export interface IControlledFieldConfigEntity<TControlledFieldItemEntity extends IControlledFieldItemEntity<TControlledFieldEnum, TProps>,
+export interface IControlledFieldConfigEntity<
+  TControlledFieldItemEntity extends IControlledFieldItemEntity<TControlledFieldEnum, TProps>,
   TControlledFieldEnum,
   TDictionaries = {},
+  TPermissions = {},
   TProps extends IFieldProps = IFieldProps>
-  extends IContainerWrapper<IContainer<IContainerProps<TDictionaries>>>,
+  extends IContainerWrapper<IContainer<IContainerProps<TDictionaries, TPermissions>>>,
     IFieldsWrapper<TControlledFieldItemEntity[]>,
     IFieldWrapper<TProps> {
 }
@@ -92,7 +94,8 @@ export enum ControlledPlaceFieldItemsEnum {
 export interface IControlledPlaceFieldConfigEntity
   extends IControlledFieldConfigEntity<IControlledPlaceFieldItemEntity,
     ControlledPlaceFieldItemsEnum,
-    IPlacesDictionariesEntity,
+    IPlacesDictionaryWrapperEntity,
+    {},
     IPlaceFieldProps> {
 }
 

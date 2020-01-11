@@ -28,8 +28,8 @@ export interface IComponentProps
  * @react-native-compatible
  * @stable [27.09.2019]
  */
-export interface IUniversalContainerProps
-  extends IUniversalContainerEntity {
+export interface IUniversalContainerProps<TDictionaries = {}, TPermissions = {}>
+  extends IUniversalContainerEntity<TDictionaries, TPermissions> {
 }
 
 /**

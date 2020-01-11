@@ -68,7 +68,10 @@ export interface IUniversalContainer<TProps extends IUniversalContainerProps = I
 /**
  * @stable [27.09.2019]
  */
-export interface IContainer<TProps extends IContainerProps = IContainerProps, TState = {}>
+export interface IContainer<TProps extends IContainerProps<TDictionaries, TPermissions> = IContainerProps<TDictionaries, TPermissions>,
+  TState = {},
+  TDictionaries = {},
+  TPermissions = {}>
   extends IUniversalContainer<TProps, TState> {
 }
 
@@ -76,7 +79,11 @@ export interface IContainer<TProps extends IContainerProps = IContainerProps, TS
  * @react-native-compatible
  * @stable [01.10.2019]
  */
-export interface IUniversalContainerCtor<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
+export interface IUniversalContainerCtor<
+  TProps extends IUniversalContainerProps<TDictionaries, TPermissions> = IUniversalContainerProps<TDictionaries, TPermissions>,
+  TState = {},
+  TDictionaries = {},
+  TPermissions = {}>
   extends React.ComponentClass<TProps, TState> {
 }
 

@@ -343,6 +343,7 @@ export interface IPlaceActionRenderedWrapper { placeActionRendered?: boolean; }
 export interface IPlaceEntityWrapper<TPlaceEntity> { placeEntity?: TPlaceEntity; }
 export interface IPlaceholderWrapper { placeholder?: string; }
 export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
+export interface IPlacesWrapper<TValue> { places?: TValue; }
 export interface IPlaceWrapper<TPlace = string> { place?: TPlace; }
 export interface IPointsWrapper<TPoints> { points?: TPoints; }
 export interface IPopupWrapper<TPopup = boolean> { popup?: TPopup; }
