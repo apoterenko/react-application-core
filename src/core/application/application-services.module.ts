@@ -8,6 +8,7 @@ import '../component/full-screen/full-screen.module';
 import '../component/jquery/jquery.module';
 import '../component/proxy/proxy.module';
 import '../component/ui/ui.module';
+import '../dictionary/dictionaries.module';
 import '../event/event-manager.module';
 import '../lock/lock.module';
 import '../permissions/permissions-manager.module';
