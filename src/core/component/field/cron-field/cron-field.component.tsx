@@ -45,7 +45,7 @@ export class CronField extends Field<ICronFieldProps> {
   };
   private static readonly DEFAULT_WEEKLY_DAYS: ICalendarWeekEntity[] = [{
     id: 0,
-    ...R.mergeAll(makeArray(7).map((_, index): ICalendarWeekEntity => ({[index]: {current: true, value: index}}))),
+    ...R.mergeAll(makeArray(7).map((_, index): ICalendarWeekEntity => ({[index]: {current: true, day: index}}))),
   }];
 
   /**
@@ -189,7 +189,9 @@ export class CronField extends Field<ICronFieldProps> {
   private getCalendarCellElement(weekDayEntity: ICalendarDayEntity): JSX.Element {
     return (
       <React.Fragment>
-        {weekDayEntity.date ? weekDayEntity.date.getDate() : this.dc.getLocalizedShortestWeekday({index: weekDayEntity.day})}
+        {weekDayEntity.date
+          ? weekDayEntity.date.getDate()
+          : this.dc.getLocalizedShortestWeekday({index: weekDayEntity.day})}
       </React.Fragment>
     );
   }

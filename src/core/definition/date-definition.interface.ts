@@ -117,13 +117,7 @@ export interface ICalendarDayEntity
  */
 export interface ICalendarWeekEntity
   extends IEntityIdTWrapper {
-  0?: ICalendarDayEntity;
-  1?: ICalendarDayEntity;
-  2?: ICalendarDayEntity;
-  3?: ICalendarDayEntity;
-  4?: ICalendarDayEntity;
-  5?: ICalendarDayEntity;
-  6?: ICalendarDayEntity;
+  [index: number]: ICalendarDayEntity;
 }
 
 /**
