@@ -1,9 +1,15 @@
 import { injectable } from 'inversify';
-import { IEffectsAction, EffectsService } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { AnyT } from '../definitions.interface';
-import { lazyInject, DI_TYPES } from '../di';
+import {
+  lazyInject,
+  DI_TYPES,
+} from '../di';
 import {
   ifNotEmptyThanValue,
   orNull,
@@ -23,10 +29,12 @@ import {
 } from '../definition';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 import { BaseEffects } from '../store/effects/base.effects';
-import { DictionariesActionBuilder } from '../dictionary/dictionaries-action.builder';
+import {
+  DictionariesActionBuilder,
+  RouterActionBuilder,
+} from '../action';
 import { NotificationActionBuilder } from '../notification/notification-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
-import { RouterActionBuilder } from '../action';
 import { TransportActionBuilder } from '../transport/transport-action.builder';
 import { userActionBuilder } from '../user';
 
