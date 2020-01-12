@@ -1,5 +1,5 @@
 import { BaseStoreProxy } from '../base-store.proxy';
-import { DictionariesActionBuilder } from '../../../../dictionary';
+import { DictionariesActionBuilder } from '../../../../action';
 import {
   IDictionaryStoreProxy,
   IUniversalContainer,

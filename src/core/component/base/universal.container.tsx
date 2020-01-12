@@ -47,7 +47,7 @@ import {
   toActionPrefix,
   toType,
 } from '../../util';
-import { DictionariesActionBuilder } from '../../dictionary';
+import { DictionariesActionBuilder } from '../../action';
 import { FormActionBuilder } from '../form/form-action.builder';
 import {
   IDateConverter,
