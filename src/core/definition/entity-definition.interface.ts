@@ -38,7 +38,7 @@ export interface ILifeCycleEntity
 /**
  * @stable [26.02.2019]
  */
-export interface IExtendedEntity<TEntity>
+export interface IExtendedEntity<TEntity = IEntity>
   extends IEntityIdWrapper<EntityIdT>,
     IChangesWrapper<TEntity>,
     IEntityWrapper<TEntity>,

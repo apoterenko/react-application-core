@@ -5,6 +5,7 @@ import {
   CompositeCronFieldItemsEnum,
   CompositeCronFieldPropsT,
   CronPeriodsEnum,
+  DateTimeLikeTypeT,
   FIELD_VALUE_TO_RESET,
   ICompositeCronFieldConfigEntity,
   ICompositeCronFieldItemEntity,
@@ -29,6 +30,7 @@ import {
 } from '../../../util';
 import { IDateConverter } from '../../../converter';
 import {
+  IEntity,
   StringNumberT,
   UNDEF,
 } from '../../../definitions.interface';
@@ -118,7 +120,7 @@ export class CompositeCronFieldFactory
       case CompositeCronFieldItemsEnum.FROM:
         return {
           ...props,
-          onChange: (fromDateValue) => this.onChanges(config, fromDateValue, config.period),
+          onChange: (fromDateValue) => this.onCompositeFieldChange(config, fromDateValue, config.period),
         };
       case CompositeCronFieldItemsEnum.CRON:
         return {
@@ -131,7 +133,12 @@ export class CompositeCronFieldFactory
             const currentCronPeriod = isFn(config.cronPeriodsMapper)
               ? config.cronPeriodsMapper(option.value)
               : option.value;
-            this.onChanges(config, config.fromDate, currentCronPeriod);
+
+            ifNotNilThanValue(
+              this.getDateFromFieldName(config),
+              (dateFromFieldName) =>
+                this.onCompositeFieldChange(config, this.asContainerEntity(config)[dateFromFieldName], currentCronPeriod)
+            );
           },
         };
     }
@@ -139,15 +146,14 @@ export class CompositeCronFieldFactory
   }
 
   /**
-   * @stable [18.12.2019]
+   * @stable [12.01.2020]
    * @param {ICompositeCronFieldConfigEntity} config
-   * @param {string} fromDateValue
+   * @param {DateTimeLikeTypeT} fromDateValue
    * @param {StringNumberT} currentCronPeriod
    */
-  private onChanges(config: ICompositeCronFieldConfigEntity,
-                    fromDateValue: string,
-                    currentCronPeriod: StringNumberT): void {
-    const cronField = this.getCronFieldItem(config);
+  private onCompositeFieldChange(config: ICompositeCronFieldConfigEntity,
+                                 fromDateValue: DateTimeLikeTypeT,
+                                 currentCronPeriod: StringNumberT): void {
     let cronFieldValue = R.equals(config.period, currentCronPeriod) // config.period == previousValue or currentValue
       ? UNDEF
       : FIELD_VALUE_TO_RESET;
@@ -161,32 +167,35 @@ export class CompositeCronFieldFactory
         break;
       case CronPeriodsEnum.YEARLY:
         ifNotNilThanValue(
-          this.toCronEntity(fromDateValue),
+          this.asCronEntity(fromDateValue),
           (cronEntity) => (cronFieldValue = cronEntity)
         );
         break;
       case CronPeriodsEnum.NO_REPETITIONS:
         ifNotNilThanValue(
-          this.toCronEntity(fromDateValue, true),
+          this.asCronEntity(fromDateValue, true),
           (cronEntity) => (cronFieldValue = cronEntity)
         );
         break;
     }
 
     if (isDef(cronFieldValue)) {
-      this.$formStoreProxyFactory(config.container).dispatchFormChanges({
-        [ifNotNilThanValue(cronField.fieldConfiguration, (fCfg) => fCfg.name)]: cronFieldValue,
-      });
+      const proxy = this.$formStoreProxyFactory(config.container);
+
+      ifNotNilThanValue(
+        this.getCronFieldName(config),
+        (cronFieldName) => proxy.dispatchFormChanges({[cronFieldName]: cronFieldValue})
+      );
     }
   }
 
   /**
    * @stable [18.12.2019]
-   * @param {string} fromDateValue
+   * @param {DateTimeLikeTypeT} fromDateValue
    * @param {boolean} applyYear
    * @returns {string}
    */
-  private toCronEntity(fromDateValue: string, applyYear = false): string {
+  private asCronEntity(fromDateValue: DateTimeLikeTypeT, applyYear = false): string {
     const fromDate = this.dc.toMomentDate(fromDateValue, 'YYYY-MM-DD', false); // TODO
 
     if (isNumber(fromDate.month()) && isNumber(fromDate.date())) {
@@ -212,5 +221,61 @@ export class CompositeCronFieldFactory
   private getCronFieldItem(config: ICompositeCronFieldConfigEntity): ICompositeCronFieldItemEntity {
     return super.getFields(config)
       .find((actualFieldCfg0) => actualFieldCfg0.type === CompositeCronFieldItemsEnum.CRON);
+  }
+
+  /**
+   * @stable [12.01.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
+   * @returns {ICompositeCronFieldItemEntity}
+   */
+  private getDateFromFieldItem(config: ICompositeCronFieldConfigEntity): ICompositeCronFieldItemEntity {
+    return super.getFields(config)
+      .find((actualFieldCfg0) => actualFieldCfg0.type === CompositeCronFieldItemsEnum.FROM);
+  }
+
+  /**
+   * @stable [12.01.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
+   * @returns {ICompositeCronFieldItemEntity}
+   */
+  private getPeriodFieldItem(config: ICompositeCronFieldConfigEntity): ICompositeCronFieldItemEntity {
+    return super.getFields(config)
+      .find((actualFieldCfg0) => actualFieldCfg0.type === CompositeCronFieldItemsEnum.PERIOD);
+  }
+
+  /**
+   * @stable [12.01.2020]
+   * @param {ICompositeCronFieldItemEntity} fieldItem
+   * @returns {string}
+   */
+  private getFieldName(fieldItem: ICompositeCronFieldItemEntity): string {
+    return ifNotNilThanValue(fieldItem.fieldConfiguration, (fCfg) => fCfg.name);
+  }
+
+  /**
+   * @stable [12.01.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
+   * @returns {string}
+   */
+  private getDateFromFieldName(config: ICompositeCronFieldConfigEntity): string {
+    return this.getFieldName(this.getDateFromFieldItem(config));
+  }
+
+  /**
+   * @stable [12.01.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
+   * @returns {string}
+   */
+  private getCronFieldName(config: ICompositeCronFieldConfigEntity): string {
+    return this.getFieldName(this.getCronFieldItem(config));
+  }
+
+  /**
+   * @stable [12.01.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
+   * @returns {IEntity}
+   */
+  private asContainerEntity(config: ICompositeCronFieldConfigEntity): IEntity {
+    return config.container.props.entity;
   }
 }

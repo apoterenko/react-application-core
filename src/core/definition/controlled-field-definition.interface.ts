@@ -4,7 +4,6 @@ import {
   IFieldConfigurationWrapper,
   IFieldsWrapper,
   IFieldWrapper,
-  IFromDateWrapper,
   IOrderWrapper,
   IPeriodWrapper,
   ITypeWrapper,
@@ -13,6 +12,7 @@ import { CronPeriodsEnum } from './cron-definition.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
 import { IContainer } from './container-definition.interface';
 import { IContainerProps } from './props-definition.interface';
+import { IExtendedEntity } from './entity-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';  // TODO
 import { IGenericCronEntity } from './cron-definition.interface';
 import { IPlaceFieldProps } from './place-definition.interface';
@@ -38,7 +38,7 @@ export interface IControlledFieldConfigEntity<
   TDictionaries = {},
   TPermissions = {},
   TProps extends IFieldProps = IFieldProps>
-  extends IContainerWrapper<IContainer<IContainerProps<TDictionaries, TPermissions>>>,
+  extends IContainerWrapper<IContainer<IContainerProps<TDictionaries, TPermissions> & IExtendedEntity>>,
     IFieldsWrapper<TControlledFieldItemEntity[]>,
     IFieldWrapper<TProps> {
 }
@@ -74,8 +74,7 @@ export interface ICompositeCronFieldItemEntity
  */
 export interface ICompositeCronFieldConfigEntity
   extends IControlledFieldConfigEntity<ICompositeCronFieldItemEntity, CompositeCronFieldItemsEnum>,
-    IPeriodWrapper<CronPeriodsEnum>,
-    IFromDateWrapper {
+    IPeriodWrapper<CronPeriodsEnum> {
   cronPeriodsMapper?(externalPeriod: EntityIdT): CronPeriodsEnum;
 }
 
