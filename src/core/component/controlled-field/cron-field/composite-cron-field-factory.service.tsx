@@ -86,9 +86,9 @@ export class CompositeCronFieldFactory
         .filter((cfg) => {
             switch (cfg.type) {
               case CompositeCronFieldItemsEnum.CRON:
-                return [CronPeriodsEnum.MONTHLY, CronPeriodsEnum.WEEKLY].includes(config.period);
+                return [CronPeriodsEnum.MONTHLY, CronPeriodsEnum.WEEKLY].includes(this.getPeriodValue(config));
               case CompositeCronFieldItemsEnum.TO:
-                return ![CronPeriodsEnum.NO_REPETITIONS].includes(config.period);
+                return ![CronPeriodsEnum.NO_REPETITIONS].includes(this.getPeriodValue(config));
             }
             return true;
           }
@@ -120,12 +120,14 @@ export class CompositeCronFieldFactory
       case CompositeCronFieldItemsEnum.FROM:
         return {
           ...props,
-          onChange: (fromDateValue) => this.onCompositeFieldChange(config, fromDateValue, config.period),
+          onChange: (fromDateValue) => this.onCompositeFieldChange(config, fromDateValue, this.getPeriodValue(config)),
         };
       case CompositeCronFieldItemsEnum.CRON:
         return {
           ...props,
-          period: config.period === CronPeriodsEnum.WEEKLY ? CronPeriodsEnum.WEEKLY : CronPeriodsEnum.MONTHLY,
+          period: this.getPeriodValue(config) === CronPeriodsEnum.WEEKLY
+            ? CronPeriodsEnum.WEEKLY
+            : CronPeriodsEnum.MONTHLY,
         };
       case CompositeCronFieldItemsEnum.PERIOD:
         return {
@@ -154,7 +156,7 @@ export class CompositeCronFieldFactory
   private onCompositeFieldChange(config: ICompositeCronFieldConfigEntity,
                                  fromDateValue: DateTimeLikeTypeT,
                                  currentCronPeriod: StringNumberT): void {
-    let cronFieldValue = R.equals(config.period, currentCronPeriod) // config.period == previousValue or currentValue
+    let cronFieldValue = R.equals(this.getPeriodValue(config), currentCronPeriod) // config.period == previousValue or currentValue
       ? UNDEF
       : FIELD_VALUE_TO_RESET;
 
@@ -271,11 +273,32 @@ export class CompositeCronFieldFactory
   }
 
   /**
+   * @stable [13.01.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
+   * @returns {string}
+   */
+  private getPeriodFieldName(config: ICompositeCronFieldConfigEntity): string {
+    return this.getFieldName(this.getPeriodFieldItem(config));
+  }
+
+  /**
    * @stable [12.01.2020]
    * @param {ICompositeCronFieldConfigEntity} config
    * @returns {IEntity}
    */
   private asContainerEntity(config: ICompositeCronFieldConfigEntity): IEntity {
     return config.container.props.entity;
+  }
+
+  /**
+   * @stable [13.01.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
+   * @returns {CronPeriodsEnum}
+   */
+  private getPeriodValue(config: ICompositeCronFieldConfigEntity): CronPeriodsEnum {
+    return ifNotNilThanValue(
+      this.getPeriodFieldName(config),
+      (periodFieldName) => this.asContainerEntity(config)[periodFieldName]
+    );
   }
 }

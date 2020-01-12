@@ -5,7 +5,6 @@ import {
   IFieldsWrapper,
   IFieldWrapper,
   IOrderWrapper,
-  IPeriodWrapper,
   ITypeWrapper,
 } from '../definitions.interface';
 import { CronPeriodsEnum } from './cron-definition.interface';
@@ -73,8 +72,7 @@ export interface ICompositeCronFieldItemEntity
  * @stable [18.12.2019]
  */
 export interface ICompositeCronFieldConfigEntity
-  extends IControlledFieldConfigEntity<ICompositeCronFieldItemEntity, CompositeCronFieldItemsEnum>,
-    IPeriodWrapper<CronPeriodsEnum> {
+  extends IControlledFieldConfigEntity<ICompositeCronFieldItemEntity, CompositeCronFieldItemsEnum> {
   cronPeriodsMapper?(externalPeriod: EntityIdT): CronPeriodsEnum;
 }
 

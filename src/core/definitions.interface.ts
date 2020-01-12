@@ -129,7 +129,6 @@ export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaul
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
 export interface IDepthWrapper { depth?: number; }
-export interface IDescriptionWrapper<TValue = string> { description?: TValue; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
 export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFileTypeTransportConfiguration?: TValue; }
