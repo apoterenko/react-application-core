@@ -22,7 +22,7 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
   private readonly dialogRef = React.createRef<IDialog>();
   private readonly routerStoreProxy: IRouterStoreProxy;
   private readonly originalGoBackFn: () => void;
-  private cachedDepth: number;
+  private $cachedDepth: number;
 
   /**
    * @stable [09.10.2019]
@@ -37,7 +37,6 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
     this.routerStoreProxy = getRouterStoreProxyFactoryFactory()(container);
     this.originalGoBackFn = this.routerStoreProxy.goBack;
     this.routerStoreProxy.goBack = this.interceptGoBack.bind(this); // Need to intercept a click event
-    this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
   }
 
   /**
@@ -53,14 +52,15 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
    * @stable [03.10.2019]
    */
   public activateDialog(): void {
-    this.dialogRef.current.activate({onDeactivate: this.onDialogDeactivate});
+    this.dialogRef.current.activate();
   }
 
   /**
    * @stable [18.12.2019]
    */
   public goBack(): void {
-    this.originalGoBackFn.call(this.routerStoreProxy, this.cachedDepth);
+    this.originalGoBackFn.call(this.routerStoreProxy, this.$cachedDepth);
+    this.$cachedDepth = UNDEF;
   }
 
   /**
@@ -76,14 +76,7 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
    * @param {number} depth
    */
   private interceptGoBack(depth?: number): void {
-    this.cachedDepth = depth;
+    this.$cachedDepth = depth;
     this.activateDialog();
-  }
-
-  /**
-   * @stable [23.12.2019]
-   */
-  private onDialogDeactivate(): void {
-    this.cachedDepth = UNDEF;
   }
 }
