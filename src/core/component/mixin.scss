@@ -3495,20 +3495,22 @@
   $rac-calendar-dialog-body-background: unset,                                            /* @stable [13.01.2020] */
   $rac-calendar-dialog-body-content-padding: unset,                                       /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-align-items: unset,                                 /* @stable [08.01.2020] */
+  $rac-calendar-dialog-range-explorer-button-mini-background: unset,                      /* @stable [14.01.2020] */
+  $rac-calendar-dialog-range-explorer-button-mini-icon-color: unset,                      /* @stable [14.01.2020] */
+  $rac-calendar-dialog-range-explorer-button-mini-icon-size: unset,                       /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-date-color: unset,                                  /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-date-flex: unset,                                   /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-date-font-size: unset,                              /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-date-text-align: unset,                             /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-display: unset,                                     /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-flex-direction: unset,                              /* @stable [13.01.2020] */
+  $rac-calendar-dialog-range-explorer-margin: unset,                                      /* @stable [14.01.2020] */
   $rac-date-field-dialog-calendar-day-border-radius: unset,                               /* @stable [08.01.2020] */
   $rac-date-field-dialog-calendar-day-color: unset,                                       /* @stable [08.01.2020] */
   $rac-date-field-dialog-calendar-day-font-size: unset,                                   /* @stable [08.01.2020] */
   $rac-date-field-dialog-calendar-day-size: unset,                                        /* @stable [08.01.2020] */
   $rac-date-field-dialog-calendar-head-border-bottom: unset,                              /* @stable [13.01.2020] */
-  $rac-date-field-dialog-calendar-width: unset,                                           /* @stable [08.01.2020] */
-  $rac-date-field-dialog-range-explorer-button-mini-background: unset,                    /* @stable [13.01.2020] */
-  $rac-date-field-dialog-range-explorer-button-mini-icon-color: unset                     /* @stable [13.01.2020] */
+  $rac-date-field-dialog-calendar-width: unset                                            /* @stable [08.01.2020] */
 ) {
   #{rac-build-cls($rac-calendar-dialog-cls, $rac-calendar-dialog-custom)} {
     .rac-calendar-dialog__range-explorer {
@@ -3516,13 +3518,15 @@
       @include rac-styles (
         $rac-styles-align-items: $rac-calendar-dialog-range-explorer-align-items,
         $rac-styles-display: $rac-calendar-dialog-range-explorer-display,
-        $rac-styles-flex-direction: $rac-calendar-dialog-range-explorer-flex-direction
+        $rac-styles-flex-direction: $rac-calendar-dialog-range-explorer-flex-direction,
+        $rac-styles-margin: $rac-calendar-dialog-range-explorer-margin
       );
 
       @include rac-button (
         $rac-button-custom: $rac-button-mini-cls,
-        $rac-button-background: $rac-date-field-dialog-range-explorer-button-mini-background,
-        $rac-button-icon-color: $rac-date-field-dialog-range-explorer-button-mini-icon-color
+        $rac-button-background: $rac-calendar-dialog-range-explorer-button-mini-background,
+        $rac-button-icon-color: $rac-calendar-dialog-range-explorer-button-mini-icon-color,
+        $rac-button-icon-size: $rac-calendar-dialog-range-explorer-button-mini-icon-size
       );
     }
 

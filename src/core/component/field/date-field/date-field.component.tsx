@@ -84,7 +84,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             ref={this.dialogRef}
             acceptable={false}
             closable={false}
-            className={joinClassName(props.dialogClassName, 'rac-calendar-dialog')}
+            className={joinClassName(props.dialogClassName, 'rac-calendar-dialog', 'rac-date-field__calendar-dialog')}
             onDeactivate={this.onDialogDeactivate}
           >
             <div className='rac-calendar-dialog__range-explorer'>
