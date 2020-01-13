@@ -113,7 +113,7 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
           className='pos-neighbor-left-half-offset-wrapper'
         >
           <Button
-            icon='back2'
+            icon='back'
             text={'Previous page'}
             disabled={this.state.previewPage === 1}
             onClick={this.onPreviousPage}/>
