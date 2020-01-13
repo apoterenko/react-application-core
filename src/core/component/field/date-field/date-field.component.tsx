@@ -109,12 +109,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               onSelect={this.onAccept}/>
             <NumberField
               value={year}
+              full={false}
               autoFocus={true}
               keepChanges={true}
               errorMessageRendered={false}
               pattern={this.dateTimeSettings.uiYearPattern}
               mask={this.dateTimeSettings.uiYearMask}
               placeholder={this.selectedYearPlaceholder}
+              className='rac-calendar-dialog__input'
               onChange={this.onChangeYear}>
             </NumberField>
           </Dialog>
