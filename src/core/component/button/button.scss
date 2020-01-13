@@ -62,7 +62,11 @@
     $rac-button-content-margin: $rac-button-decorated-content-margin
   );
 
-  @include rac-button(                                                                        /* @stable [23.01.2019] */
+  /**
+   * @button-decorated-not-filled
+   * @stable [13.01.2020]
+   */
+  @include rac-button (
     $rac-button-custom: $rac-button-decorated-not-filled-cls,
     $rac-button-width: $rac-button-decorated-not-filled-width
   );

@@ -198,22 +198,24 @@ $rac-perfect-scrollbar-active-background-color: unset !default;
 $rac-perfect-scrollbar-background-color: unset !default;
 $rac-perfect-scrollbar-rail-background-color: unset !default;
 
-/* @stable [24.06.2018] */
-$rac-button-mini-cls: rac-button-mini;
-$rac-button-outlined-cls: rac-button-outlined;
-$rac-button-raised-cls: rac-button-raised;
+/* @stable [13.01.2020] */
 $rac-button-decorated-cls: rac-button-decorated;
 $rac-button-filled-cls: rac-button-filled;
+$rac-button-mini-cls: rac-button-mini;
 $rac-button-not-filled-cls: rac-button-not-filled;
+$rac-button-outlined-cls: rac-button-outlined;
+$rac-button-raised-cls: rac-button-raised;
+/**/
 $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
-$rac-button-height: 40px !default;
-$rac-button-background: $color-10 !default;
+/**/
+$rac-button-background: $rac-color-0-3 !default;
+$rac-button-border-radius: $rac-border-radius-1 !default;
 $rac-button-border: none !default;
 $rac-button-cursor: pointer !default;
-$rac-button-padding: 0 $rac-default-half-offset !default;
-$rac-button-border-radius: $rac-border-radius-1 !default;
-$rac-button-text-transform: none !default;
+$rac-button-height: 40px !default;
 $rac-button-icon-margin: 0 8px !default;
+$rac-button-padding: 0 $rac-default-half-offset !default;
+$rac-button-text-transform: none !default;
 /**/
 $rac-button-content-font-size: $rac-default-font-size-2 !default;
 $rac-button-content-font-weight: $rac-default-font-weight-2 !default;
@@ -577,6 +579,8 @@ $rac-date-field-dialog-calendar-day-font-size: $rac-font-size-1 !default;
 $rac-date-field-dialog-calendar-day-size:  $rac-date-field-dialog-size-0 !default;
 $rac-date-field-dialog-calendar-width: 302px !default;
 $rac-date-field-dialog-range-explorer-align-items: center !default;
+$rac-date-field-dialog-range-explorer-button-mini-background: $rac-color-0-9 !default;
+$rac-date-field-dialog-range-explorer-button-mini-icon-color: $rac-color-0-1 !default;
 $rac-date-field-dialog-range-explorer-date-color: $rac-color-0-1 !default;
 $rac-date-field-dialog-range-explorer-date-flex: 1 !default;
 $rac-date-field-dialog-range-explorer-date-text-align: center !default;
