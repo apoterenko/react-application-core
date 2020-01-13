@@ -3495,6 +3495,8 @@
   $rac-date-field-dialog-calendar-day-size: unset,                                        /* @stable [08.01.2020] */
   $rac-date-field-dialog-calendar-width: unset,                                           /* @stable [08.01.2020] */
   $rac-date-field-dialog-range-explorer-align-items: unset,                               /* @stable [08.01.2020] */
+  $rac-date-field-dialog-range-explorer-button-mini-background: unset,                    /* @stable [13.01.2020] */
+  $rac-date-field-dialog-range-explorer-button-mini-icon-color: unset,                    /* @stable [13.01.2020] */
   $rac-date-field-dialog-range-explorer-date-color: unset,                                /* @stable [08.01.2020] */
   $rac-date-field-dialog-range-explorer-date-flex: unset,                                 /* @stable [08.01.2020] */
   $rac-date-field-dialog-range-explorer-date-text-align: unset,                           /* @stable [08.01.2020] */
@@ -3502,12 +3504,20 @@
   $rac-date-field-dialog-range-explorer-flex-direction: unset                             /* @stable [08.01.2020] */
 ) {
   #{rac-build-cls($rac-date-field-dialog-cls, $rac-date-field-dialog-custom)} {
-    @include rac-styles (
-      $rac-styles-custom: rac-date-field__dialog-range-explorer,
-      $rac-styles-align-items: $rac-date-field-dialog-range-explorer-align-items,
-      $rac-styles-display: $rac-date-field-dialog-range-explorer-display,
-      $rac-styles-flex-direction: $rac-date-field-dialog-range-explorer-flex-direction
-    );
+    .rac-date-field__dialog-range-explorer {
+
+      @include rac-styles (
+        $rac-styles-align-items: $rac-date-field-dialog-range-explorer-align-items,
+        $rac-styles-display: $rac-date-field-dialog-range-explorer-display,
+        $rac-styles-flex-direction: $rac-date-field-dialog-range-explorer-flex-direction
+      );
+
+      @include rac-button (
+        $rac-button-custom: $rac-button-mini-cls,
+        $rac-button-background: $rac-date-field-dialog-range-explorer-button-mini-background,
+        $rac-button-icon-color: $rac-date-field-dialog-range-explorer-button-mini-icon-color
+      );
+    }
 
     @include rac-styles (
       $rac-styles-custom: rac-date-field__dialog-range-explorer-date,
