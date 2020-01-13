@@ -52,11 +52,11 @@ export class CompositeCronFieldFactory
     },
     {
       order: 2,
-      type: CompositeCronFieldItemsEnum.CRON,
+      type: CompositeCronFieldItemsEnum.TO,
     },
     {
       order: 3,
-      type: CompositeCronFieldItemsEnum.TO,
+      type: CompositeCronFieldItemsEnum.CRON,
     }
   ];
 

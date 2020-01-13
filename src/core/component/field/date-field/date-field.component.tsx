@@ -84,10 +84,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             ref={this.dialogRef}
             acceptable={false}
             closable={false}
-            className={joinClassName(props.dialogClassName, 'rac-date-field__dialog')}
+            className={joinClassName(props.dialogClassName, 'rac-calendar-dialog')}
             onDeactivate={this.onDialogDeactivate}
           >
-            <div className='rac-date-field__dialog-range-explorer'>
+            <div className='rac-calendar-dialog__range-explorer'>
               <Button
                 icon='back'
                 mini={true}
@@ -106,7 +106,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               {...props.calendarConfiguration}
               calendarEntity={this.calendarEntity}
               isSelected={this.isDaySelected}
-              className='rac-date-field__calendar'
               onSelect={this.onAccept}/>
             <NumberField
               value={year}
