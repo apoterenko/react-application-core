@@ -10,6 +10,8 @@
   @include rac-calendar-dialog (
     $rac-calendar-dialog-body-background: $rac-calendar-dialog-body-background,
     $rac-calendar-dialog-body-content-padding: $rac-calendar-dialog-body-content-padding,
+    $rac-calendar-dialog-head-border-bottom: $rac-calendar-dialog-head-border-bottom,
+    $rac-calendar-dialog-head-column-content-font-size: $rac-calendar-dialog-head-column-content-font-size,
     $rac-calendar-dialog-range-explorer-align-items: $rac-calendar-dialog-range-explorer-align-items,
     $rac-calendar-dialog-range-explorer-button-mini-background: $rac-calendar-dialog-range-button-mini-background,
     $rac-calendar-dialog-range-explorer-button-mini-icon-color: $rac-calendar-dialog-range-button-mini-icon-color,
@@ -33,7 +35,6 @@
     $rac-date-field-dialog-calendar-day-color: $rac-date-field-dialog-calendar-day-color,
     $rac-date-field-dialog-calendar-day-font-size: $rac-date-field-dialog-calendar-day-font-size,
     $rac-date-field-dialog-calendar-day-size: $rac-date-field-dialog-calendar-day-size,
-    $rac-date-field-dialog-calendar-head-border-bottom: $rac-date-field-dialog-calendar-head-border-bottom,
     $rac-date-field-dialog-calendar-width: $rac-date-field-dialog-calendar-width
   );
 }
