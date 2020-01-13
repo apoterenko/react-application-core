@@ -92,7 +92,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                 icon='back'
                 mini={true}
                 onClick={this.setPreviousMonth}/>
-              <span className='rac-date-field__dialog-range-explorer-date'>
+              <span className='rac-calendar-dialog__range-explorer-date'>
                 {this.dateToDisplay()}
               </span>
               <Button

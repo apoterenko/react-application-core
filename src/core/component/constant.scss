@@ -580,10 +580,6 @@ $rac-date-field-dialog-calendar-head-border-bottom: 1px solid $rac-color-0-11 !d
 $rac-date-field-dialog-calendar-width: 302px !default;
 $rac-date-field-dialog-range-explorer-button-mini-background: $rac-color-0-9 !default;
 $rac-date-field-dialog-range-explorer-button-mini-icon-color: $rac-color-0-1 !default;
-$rac-date-field-dialog-range-explorer-date-color: $rac-color-0-1 !default;
-$rac-date-field-dialog-range-explorer-date-flex: 1 !default;
-$rac-date-field-dialog-range-explorer-date-font-size: $rac-font-size-1 !default;
-$rac-date-field-dialog-range-explorer-date-text-align: center !default;
 /**/
 $rac-place-field-dialog-body-height: 80vh !default;
 $rac-place-field-dialog-body-min-width: 90vh !default;
@@ -596,6 +592,10 @@ $rac-calendar-dialog-cls: rac-calendar-dialog;
 $rac-calendar-dialog-body-background: $rac-color-1-3 !default;
 $rac-calendar-dialog-body-content-padding: unset !default;
 $rac-calendar-dialog-range-explorer-align-items: center !default;
+$rac-calendar-dialog-range-explorer-date-flex: 1 !default;
+$rac-calendar-dialog-range-explorer-date-font-size: $rac-font-size-1 !default;
+$rac-calendar-dialog-range-explorer-date-text-align: center !default;
+$rac-calendar-dialog-range-explorer-date: $rac-color-0-1 !default;
 $rac-calendar-dialog-range-explorer-display: flex !default;
 $rac-calendar-dialog-range-explorer-flex-direction: row !default;
 
