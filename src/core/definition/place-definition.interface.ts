@@ -62,16 +62,6 @@ export interface IPlaceEntityWrapperEntity<TCity = string>
 }
 
 /**
- * TODO
- * @deprecated
- */
-export interface IChangePlacePayloadEntity
-  extends ILatLngEntity,
-    IPlaceEntityWrapperEntity,
-    IPlaceIdWrapper {
-}
-
-/**
  * @stable [09.01.2020]
  */
 export interface IGenericPlaceFieldEntity
