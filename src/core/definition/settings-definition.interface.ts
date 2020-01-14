@@ -143,6 +143,7 @@ export interface IMessagesSettingsEntity {
   ERROR?: string;
   FILTER_PLACEHOLDER?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
+  OK?: string;
   PATH?: string;
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
@@ -167,6 +168,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   ERROR: 'Error',
   FILTER_PLACEHOLDER: 'Search',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
+  OK: 'Ok',
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',

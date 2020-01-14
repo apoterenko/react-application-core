@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import {
   ifNotNilThanValue,
@@ -49,6 +50,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     this.isDaySelected = this.isDaySelected.bind(this);
     this.onAccept = this.onAccept.bind(this);
+    this.onOk = this.onOk.bind(this);
     this.onChangeYear = this.onChangeYear.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.openDialog = this.openDialog.bind(this);
@@ -107,18 +109,23 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               calendarEntity={this.calendarEntity}
               isSelected={this.isDaySelected}
               onSelect={this.onAccept}/>
-            <NumberField
-              value={year}
-              full={false}
-              autoFocus={true}
-              keepChanges={true}
-              errorMessageRendered={false}
-              pattern={this.dateTimeSettings.uiYearPattern}
-              mask={this.dateTimeSettings.uiYearMask}
-              placeholder={this.selectedYearPlaceholder}
-              className='rac-calendar-dialog__input'
-              onChange={this.onChangeYear}>
-            </NumberField>
+            <div className='rac-calendar-dialog__footer'>
+              <NumberField
+                value={year}
+                full={false}
+                autoFocus={true}
+                keepChanges={true}
+                errorMessageRendered={false}
+                pattern={this.dateTimeSettings.uiYearPattern}
+                mask={this.dateTimeSettings.uiYearMask}
+                placeholder={this.selectedYearPlaceholder}
+                className='rac-calendar-dialog__input'
+                onChange={this.onChangeYear}>
+              </NumberField>
+              <Button
+                text={this.settings.messages.OK}
+                onClick={this.onOk}/>
+            </div>
           </Dialog>
         );
       }
@@ -222,12 +229,21 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
+   * @stable [14.01.2020]
+   */
+  private onOk(): void {
+    this.onAccept();
+  }
+
+  /**
    * @stable [09.01.2020]
    * @param {ICalendarDayEntity} calendarDayEntity
    */
-  private onAccept(calendarDayEntity: ICalendarDayEntity): void {
+  private onAccept(calendarDayEntity?: ICalendarDayEntity): void {
     this.onDialogClose(() => {
-      this.onChangeManually(calendarDayEntity.date);
+      if (!R.isNil(calendarDayEntity)) {
+        this.onChangeManually(calendarDayEntity.date);
+      }
 
       if (!this.isFocusPrevented) {
         this.setFocus();

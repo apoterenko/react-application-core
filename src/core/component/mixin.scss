@@ -3520,6 +3520,10 @@
   $rac-calendar-dialog-calendar-head-color: unset,                                        /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-head-column-content-font-size: unset,                     /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-margin: unset,                                            /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-action-background: unset,                                   /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-action-height: unset,                                       /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-display: unset,                                             /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-justify-content: unset,                                     /* @stable [14.01.2020] */
   $rac-calendar-dialog-input-self-field-background: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-input-width: unset,                                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-align-items: unset,                                 /* @stable [08.01.2020] */
@@ -3536,7 +3540,6 @@
 ) {
   #{rac-build-cls($rac-calendar-dialog-cls, $rac-calendar-dialog-custom)} {
     .rac-calendar-dialog__range-explorer {
-
       @include rac-styles (
         $rac-styles-align-items: $rac-calendar-dialog-range-explorer-align-items,
         $rac-styles-display: $rac-calendar-dialog-range-explorer-display,
@@ -3549,6 +3552,18 @@
         $rac-button-background: $rac-calendar-dialog-range-explorer-button-mini-background,
         $rac-button-icon-color: $rac-calendar-dialog-range-explorer-button-mini-icon-color,
         $rac-button-icon-size: $rac-calendar-dialog-range-explorer-button-mini-icon-size
+      );
+    }
+
+    .rac-calendar-dialog__footer {
+      @include rac-styles (
+        $rac-styles-display: $rac-calendar-dialog-footer-display,
+        $rac-styles-justify-content: $rac-calendar-dialog-footer-justify-content
+      );
+
+      @include rac-button (
+        $rac-button-background: $rac-calendar-dialog-footer-action-background,
+        $rac-button-height: $rac-calendar-dialog-footer-action-height
       );
     }
 
