@@ -3457,6 +3457,7 @@
   @include rac-grid (
     $rac-grid-custom: $rac-calendar-cls,
     $rac-grid-column-custom: $rac-calendar-selected-day-cls,
+    $rac-grid-body-column-content-color: $rac-calendar-selected-day-color,
     $rac-grid-body-column-content-background: $rac-calendar-selected-day-background
   );
 
@@ -3513,6 +3514,7 @@
   /**/
   $rac-calendar-dialog-body-background: unset,                                            /* @stable [13.01.2020] */
   $rac-calendar-dialog-body-content-padding: unset,                                       /* @stable [13.01.2020] */
+  $rac-calendar-dialog-body-height: unset,                                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-body-width: unset,                                                 /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-body-border-bottom: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-day-border-radius: unset,                                 /* @stable [14.01.2020] */
@@ -3526,6 +3528,7 @@
   $rac-calendar-dialog-calendar-head-column-content-font-size: unset,                     /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-head-padding: unset,                                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-margin: unset,                                            /* @stable [14.01.2020] */
+  $rac-calendar-dialog-calendar-selected-day-color: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-background: unset,                                   /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-height: unset,                                       /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-display: unset,                                             /* @stable [14.01.2020] */
@@ -3599,7 +3602,8 @@
       $rac-calendar-head-color: $rac-calendar-dialog-calendar-head-color,
       $rac-calendar-head-column-content-font-size: $rac-calendar-dialog-calendar-head-column-content-font-size,
       $rac-calendar-head-padding: $rac-calendar-dialog-calendar-head-padding,
-      $rac-calendar-margin: $rac-calendar-dialog-calendar-margin
+      $rac-calendar-margin: $rac-calendar-dialog-calendar-margin,
+      $rac-calendar-selected-day-color: $rac-calendar-dialog-calendar-selected-day-color
     );
   }
 
@@ -3607,6 +3611,7 @@
     $rac-dialog-custom: rac-build-cls2($rac-calendar-dialog-cls, $rac-calendar-dialog-custom),
     $rac-dialog-body-background: $rac-calendar-dialog-body-background,
     $rac-dialog-body-content-padding: $rac-calendar-dialog-body-content-padding,
+    $rac-dialog-body-height: $rac-calendar-dialog-body-height,
     $rac-dialog-body-width: $rac-calendar-dialog-body-width
   );
 }
