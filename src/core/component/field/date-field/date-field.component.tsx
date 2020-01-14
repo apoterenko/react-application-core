@@ -119,7 +119,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                 pattern={this.dateTimeSettings.uiYearPattern}
                 mask={this.dateTimeSettings.uiYearMask}
                 placeholder={this.selectedYearPlaceholder}
-                className='rac-calendar-dialog__input'
                 onChange={this.onChangeYear}>
               </NumberField>
               <Button

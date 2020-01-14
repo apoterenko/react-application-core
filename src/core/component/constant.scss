@@ -580,7 +580,7 @@ $rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !defaul
 $rac-date-field-calendar-dialog-body-height: 342px !default;
 $rac-date-field-calendar-dialog-body-width: 304px !default;
 $rac-date-field-calendar-dialog-footer-action-width: 64px !default;
-$rac-date-field-calendar-dialog-input-width: 64px !default;
+$rac-date-field-calendar-dialog-footer-input-width: 64px !default;
 $rac-date-field-calendar-dialog-range-explorer-date-text-align: center !default;
 /**/
 $rac-place-field-dialog-body-height: 80vh !default;
@@ -616,8 +616,8 @@ $rac-calendar-dialog-footer-action-content-color: $rac-color-0-1 !default;
 $rac-calendar-dialog-footer-action-height: 32px !default;
 $rac-calendar-dialog-footer-action-margin: 0 0 0 $rac-offset-3 !default;
 $rac-calendar-dialog-footer-display: flex !default;
+$rac-calendar-dialog-footer-input-self-field-background: $rac-color-0-1 !default;
 $rac-calendar-dialog-footer-justify-content: center !default;
-$rac-calendar-dialog-input-self-field-background: $rac-color-0-1 !default;
 $rac-calendar-dialog-range-button-mini-background: $rac-color-0-9 !default;
 $rac-calendar-dialog-range-button-mini-icon-color: $rac-color-0-1 !default;
 $rac-calendar-dialog-range-button-mini-icon-size: $rac-icon-size-4 !default;

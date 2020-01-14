@@ -3540,9 +3540,9 @@
   $rac-calendar-dialog-footer-action-margin: unset,                                       /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-width: unset,                                        /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-display: unset,                                             /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-input-self-field-background: unset,                         /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-input-width: unset,                                         /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-justify-content: unset,                                     /* @stable [14.01.2020] */
-  $rac-calendar-dialog-input-self-field-background: unset,                                /* @stable [14.01.2020] */
-  $rac-calendar-dialog-input-width: unset,                                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-align-items: unset,                                 /* @stable [08.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-background: unset,                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-icon-color: unset,                      /* @stable [14.01.2020] */
@@ -3578,6 +3578,12 @@
         $rac-styles-justify-content: $rac-calendar-dialog-footer-justify-content
       );
 
+      @include rac-field (
+        $rac-field-custom: $rac-base-text-cls,
+        $rac-field-width: $rac-calendar-dialog-footer-input-width,
+        $rac-self-field-background: $rac-calendar-dialog-footer-input-self-field-background
+      );
+
       @include rac-button (
         $rac-button-background: $rac-calendar-dialog-footer-action-background,
         $rac-button-content-color: $rac-calendar-dialog-footer-action-content-color,
@@ -3593,12 +3599,6 @@
       $rac-styles-flex: $rac-calendar-dialog-range-explorer-date-flex,
       $rac-styles-font-size: $rac-calendar-dialog-range-explorer-date-font-size,
       $rac-styles-text-align: $rac-calendar-dialog-range-explorer-date-text-align
-    );
-
-    @include rac-field (
-      $rac-field-custom: rac-build-cls2($rac-base-text-cls, rac-calendar-dialog__input),
-      $rac-field-width: $rac-calendar-dialog-input-width,
-      $rac-self-field-background: $rac-calendar-dialog-input-self-field-background
     );
 
     @include rac-calendar (
