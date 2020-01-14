@@ -3535,7 +3535,10 @@
   $rac-calendar-dialog-calendar-margin: unset,                                            /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-selected-day-color: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-background: unset,                                   /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-action-content-color: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-height: unset,                                       /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-action-margin: unset,                                       /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-action-width: unset,                                        /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-display: unset,                                             /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-justify-content: unset,                                     /* @stable [14.01.2020] */
   $rac-calendar-dialog-input-self-field-background: unset,                                /* @stable [14.01.2020] */
@@ -3577,7 +3580,10 @@
 
       @include rac-button (
         $rac-button-background: $rac-calendar-dialog-footer-action-background,
-        $rac-button-height: $rac-calendar-dialog-footer-action-height
+        $rac-button-content-color: $rac-calendar-dialog-footer-action-content-color,
+        $rac-button-height: $rac-calendar-dialog-footer-action-height,
+        $rac-button-margin: $rac-calendar-dialog-footer-action-margin,
+        $rac-button-width: $rac-calendar-dialog-footer-action-width
       );
     }
 
