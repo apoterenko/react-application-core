@@ -11,6 +11,8 @@ import {
   IPlaceActionRenderedWrapper,
   IPlaceEntityWrapper,
   IPlaceIdWrapper,
+  IPlainValueWrapper,
+  IProgressWrapper,
   IQueryWrapper,
   IRegionWrapper,
   IStreetNumberWrapper,
@@ -75,6 +77,7 @@ export interface IChangePlacePayloadEntity
 export interface IGenericPlaceFieldEntity
   extends IDialogClassNameWrapper,
     IPlaceActionRenderedWrapper,
+    IPlainValueWrapper,
     IUseZipCodeWrapper {
 }
 
@@ -87,12 +90,20 @@ export interface IPlaceFieldProps
 }
 
 /**
+ * @stable [15.01.2020]
+ */
+export interface IGenericPlaceFieldState
+  extends IDialogOpenedWrapper,
+    IPlaceEntityWrapperEntity,
+    IProgressWrapper {
+}
+
+/**
  * @stable [09.01.2020]
  */
 export interface IPlaceFieldState
   extends IBaseSelectState,
-    IDialogOpenedWrapper,
-    IPlaceEntityWrapperEntity {
+    IGenericPlaceFieldState {
 }
 
 /**
@@ -126,14 +137,3 @@ export interface ISearchPlaceEntity
   extends INamedEntity,
     IPlaceIdWrapper {
 }
-
-/**
- * TODO Move to field-definition
- * @stable [21.11.2019]
- */
-export const ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
-  expandActionRendered: false,
-  menuConfiguration: {centeredMenu: false, useFilter: false},
-  preventFocus: false,
-  useZipCode: true,
-});

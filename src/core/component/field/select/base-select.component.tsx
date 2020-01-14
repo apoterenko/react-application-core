@@ -163,11 +163,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [30.11.2019]
+   * @stable [15.01.2020]
    * @returns {boolean}
    */
-  public get inProgress(): boolean {
-    return inProgress(this.props) || this.isWaitingForData;
+  protected isFieldBusy(): boolean {
+    return super.isFieldBusy() || this.isWaitingForData;
   }
 
   /**

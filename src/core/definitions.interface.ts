@@ -343,6 +343,7 @@ export interface IPlaceholderWrapper { placeholder?: string; }
 export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
 export interface IPlacesWrapper<TValue> { places?: TValue; }
 export interface IPlaceWrapper<TPlace = string> { place?: TPlace; }
+export interface IPlainValueWrapper { plainValue?: boolean; }
 export interface IPointsWrapper<TPoints> { points?: TPoints; }
 export interface IPopupWrapper<TPopup = boolean> { popup?: TPopup; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
@@ -461,6 +462,7 @@ export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TUser = string> { user?: TUser; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
+export interface IUseZipCodeWrapper { useZipCode?: boolean; }
 export interface IUuidWrapper { uuid?: string; }
 export interface IValidateOnMountWrapper { validateOnMount?: boolean; }
 export interface IValidWrapper { valid?: boolean; }
@@ -698,13 +700,6 @@ export interface INotUseFieldWrapper {
  */
 export interface INotUseCustomValidatorWrapper {
   notUseCustomValidator?: boolean;
-}
-
-/**
- * @stable [01.08.2018]
- */
-export interface IUseZipCodeWrapper {
-  useZipCode?: boolean;
 }
 
 /**

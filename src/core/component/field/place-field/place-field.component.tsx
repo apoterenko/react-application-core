@@ -4,8 +4,10 @@ import * as BPromise from 'bluebird';
 
 import {
   ifNotNilThanValue,
+  inProgress,
   isObjectNotEmpty,
   isPlaceActionRendered,
+  isPlainValueApplied,
   isPrimitive,
   isUseZipCode,
   joinClassName,
@@ -79,6 +81,14 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   public componentWillUnmount(): void {
     this.cancelPlaceGeoCodeTask();
     super.componentWillUnmount();
+  }
+
+  /**
+   * @stable [15.01.2020]
+   * @returns {boolean}
+   */
+  protected isFieldBusy(): boolean {
+    return super.isFieldBusy() || inProgress(this.state);
   }
 
   /**
@@ -171,13 +181,23 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   private refreshGeocodeInfo(geoCodeRequest: IPlaceGeoCodeRequestEntity, option?: ISelectOptionEntity<IPlaceEntity>): void {
     this.cancelPlaceGeoCodeTask();
 
-    this.placeGeoCodeTask = this.placeApi.getPlaceGeoCode<BPromise<IPlaceEntity[]>>(geoCodeRequest)
-      .then((result) => {
-        if (isObjectNotEmpty(result)) {
-          this.onGeoCodeRequestDone(result, option);
-        }
-        return result;
-      });
+    this.setState({progress: true}, () => {
+      this.placeGeoCodeTask = this.placeApi.getPlaceGeoCode<BPromise<IPlaceEntity[]>>(geoCodeRequest)
+        .then(
+          (result) => {
+            this.setState({progress: false});
+
+            if (isObjectNotEmpty(result)) {
+              this.onGeoCodeRequestDone(result, option);
+            }
+            return result;
+          },
+          (error) => {
+            this.setState({progress: false});
+            return error;
+          }
+        );
+    });
   }
 
   /**
@@ -202,10 +222,16 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @param {ISelectOptionEntity<IPlaceEntity>} option
    */
   private doSelect(placeEntity: IPlaceEntity, option?: ISelectOptionEntity<IPlaceEntity>): void {
-    this.onChangeManually<IPlaceEntity>({
-      ...placeEntity,
-      formattedName: this.fromPlaceEntityToString(placeEntity),
-    });
+    if (this.isPlainValueApplied) {
+      this.onChangeManually(
+        this.useZipCode ? placeEntity.zipCode : this.fromPlaceEntityToString(placeEntity)
+      );
+    } else {
+      this.onChangeManually<IPlaceEntity>({
+        ...placeEntity,
+        formattedName: this.fromPlaceEntityToString(placeEntity),
+      });
+    }
     this.notifySelectOption(option);
   }
 
@@ -340,5 +366,13 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   private get useZipCode(): boolean {
     return isUseZipCode(this.props);
+  }
+
+  /**
+   * @stable [14.01.2020]
+   * @returns {boolean}
+   */
+  private get isPlainValueApplied(): boolean {
+    return isPlainValueApplied(this.props);
   }
 }

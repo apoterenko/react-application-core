@@ -21,6 +21,7 @@ import {
   IMenuRenderedWrapper,
   IMultiWrapper,
   IPlaceActionRenderedWrapper,
+  IPlainValueWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
   IReadOnlyWrapper,
@@ -329,6 +330,14 @@ export const isPlaceActionRendered = (entity: IPlaceActionRenderedWrapper): bool
  */
 export const isUseZipCode = (entity: IUseZipCodeWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.useZipCode === true, false);
+
+/**
+ * @stable [14.01.2020]
+ * @param {IPlainValueWrapper} entity
+ * @returns {boolean}
+ */
+export const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.plainValue === true, false);
 
 /**
  * @stable [19.12.2019]

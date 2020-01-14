@@ -57,10 +57,17 @@ export interface IPlacesDictionaryWrapperEntity
 }
 
 /**
+ * @stable [14.01.2020]
+ */
+export interface IBaseDictionariesEntity
+  extends IPlacesDictionaryWrapperEntity {
+}
+
+/**
  * @stable [10.10.2019]
  */
 export interface IDictionariesEntity
-  extends IPlacesDictionaryWrapperEntity {
+  extends IBaseDictionariesEntity {
   [dictionary: string]: IDictionaryEntity<{}>;
 }
 

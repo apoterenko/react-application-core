@@ -465,6 +465,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {boolean}
    */
   protected get inProgress(): boolean {
+    return this.isFieldBusy();
+  }
+
+  /**
+   * @stable [15.01.2020]
+   * @returns {boolean}
+   */
+  protected isFieldBusy(): boolean {
     return inProgress(this.props);
   }
 
