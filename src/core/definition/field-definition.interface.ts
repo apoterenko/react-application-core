@@ -55,10 +55,12 @@ import {
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
+import { ICalendarConfigurationWrapperEntity } from './calendar-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
-import { ICalendarConfigurationWrapperEntity } from './calendar-definition.interface';
+import { IPlaceFieldProps } from './place-definition.interface';
+import { IBaseSelectProps } from '../component/field/select/base-select.interface'; // TODO
 
 /**
  * @stable [28.05.2019]
@@ -224,3 +226,22 @@ export interface IGenericBaseSelectStateEntity
   extends IMenuRenderedWrapper,
     IWaitingForDataWrapper {
 }
+
+/**
+ * @stable [15.01.2020]
+ * @default-field-entity
+ */
+export const QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
+  expandActionRendered: false,
+  menuConfiguration: {centeredMenu: false, useFilter: false},
+  preventFocus: false,
+});
+
+/**
+ * @stable [15.01.2020]
+ * @default-field-entity
+ */
+export const ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
+  ...QUICK_SEARCH_FIELD_ENTITY,
+  useZipCode: true,
+});
