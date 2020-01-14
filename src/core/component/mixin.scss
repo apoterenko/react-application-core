@@ -2371,6 +2371,7 @@
   $rac-grid-head-filter-row-column-content-self-field-height: unset,              /* @stable [21.10.2019] */
   $rac-grid-head-filter-row-column-content-self-field-input-color: unset,         /* @stable [18.10.2019] */
   $rac-grid-head-filter-row-column-padding-top: unset,                            /* @stable [21.10.2019] */
+  $rac-grid-head-padding: unset,                                                  /* @stable [14.01.2020] */
   $rac-grid-height: unset,                                                        /* @stable [18.10.2019] */
   $rac-grid-margin: unset,                                                        /* @stable [18.10.2019] */
   $rac-grid-padding: unset,                                                       /* @stable [18.10.2019] */
@@ -2527,7 +2528,8 @@
         $rac-styles-border-radius: $rac-grid-head-border-radius,
         $rac-styles-border-right: $rac-grid-head-border-right,
         $rac-styles-box-sizing: $rac-grid-head-box-sizing,
-        $rac-styles-color: $rac-grid-head-color
+        $rac-styles-color: $rac-grid-head-color,
+        $rac-styles-padding: $rac-grid-head-padding
       );
 
       @include rac-grid-column (
@@ -3405,18 +3407,20 @@
   $rac-calendar-day-color: unset,                                             /* @stable [08.01.2020] */
   $rac-calendar-day-cursor: unset,                                            /* @stable [08.01.2020] */
   $rac-calendar-day-font-size: unset,                                         /* @stable [08.01.2020] */
-  $rac-calendar-day-margin: unset,
+  $rac-calendar-day-margin: unset,                                            /* @stable [14.01.2020] */
   $rac-calendar-day-no-user-select: unset,                                    /* @stable [14.01.2020] */
   $rac-calendar-day-size: unset,                                              /* @stable [14.01.2020] */
-  $rac-calendar-day-wrapper-padding-bottom: unset,
-  $rac-calendar-day-wrapper-padding-top: unset,
+  $rac-calendar-day-wrapper-padding-bottom: unset,                            /* @stable [14.01.2020] */
+  $rac-calendar-day-wrapper-padding-top: unset,                               /* @stable [14.01.2020] */
   $rac-calendar-head-border-bottom: unset,                                    /* @stable [13.01.2020] */
   $rac-calendar-head-border-left: unset,                                      /* @stable [14.01.2020] */
   $rac-calendar-head-border-right: unset,                                     /* @stable [14.01.2020] */
   $rac-calendar-head-color: unset,                                            /* @stable [14.01.2020] */
   $rac-calendar-head-column-content-font-size: unset,                         /* @stable [14.01.2020] */
+  $rac-calendar-head-padding: unset,                                          /* @stable [14.01.2020] */
   $rac-calendar-margin: unset,                                                /* @stable [14.01.2020] */
   $rac-calendar-selected-day-background: unset,                               /* @stable [07.01.2020] */
+  $rac-calendar-selected-day-color: unset,                                    /* @stable [14.01.2020] */
   $rac-calendar-today-background: unset,                                      /* @stable [07.01.2020] */
   $rac-calendar-today-color: unset,                                           /* @stable [07.01.2020] */
   $rac-calendar-width: unset                                                  /* @stable [08.01.2020] */
@@ -3445,6 +3449,7 @@
     $rac-grid-head-border-right: $rac-calendar-head-border-right,
     $rac-grid-head-color: $rac-calendar-head-color,
     $rac-grid-head-column-content-font-size: $rac-calendar-head-column-content-font-size,
+    $rac-grid-head-padding: $rac-calendar-head-padding,
     $rac-grid-margin: $rac-calendar-margin,
     $rac-grid-width: $rac-calendar-width
   );
@@ -3519,6 +3524,7 @@
   $rac-calendar-dialog-calendar-head-border-right: unset,                                 /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-head-color: unset,                                        /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-head-column-content-font-size: unset,                     /* @stable [14.01.2020] */
+  $rac-calendar-dialog-calendar-head-padding: unset,                                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-margin: unset,                                            /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-background: unset,                                   /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-height: unset,                                       /* @stable [14.01.2020] */
@@ -3592,6 +3598,7 @@
       $rac-calendar-head-border-right: $rac-calendar-dialog-calendar-head-border-right,
       $rac-calendar-head-color: $rac-calendar-dialog-calendar-head-color,
       $rac-calendar-head-column-content-font-size: $rac-calendar-dialog-calendar-head-column-content-font-size,
+      $rac-calendar-head-padding: $rac-calendar-dialog-calendar-head-padding,
       $rac-calendar-margin: $rac-calendar-dialog-calendar-margin
     );
   }
