@@ -2272,6 +2272,7 @@
   $rac-grid-body-row-box-sizing: unset,                                           /* @stable [11.11.2019] */
   $rac-grid-body-row-hover-background: unset,                                     /* @stable [11.11.2019] */
   $rac-grid-body-row-part-of-group-border-bottom: unset,                          /* @stable [11.11.2019] */
+  $rac-grid-border-bottom: unset,                                                 /* @stable [14.01.2020] */
   $rac-grid-border-collapse: unset,                                               /* @stable [26.10.2019] */
   $rac-grid-border-spacing: unset,                                                /* @stable [26.10.2019] */
   $rac-grid-color: unset,                                                         /* @stable [26.10.2019] */
@@ -2396,6 +2397,7 @@
 
   #{rac-build-cls(rac-grid, $rac-grid-custom)} {
     @include rac-styles (
+      $rac-styles-border-bottom: $rac-grid-border-bottom,
       $rac-styles-border-collapse: $rac-grid-border-collapse,
       $rac-styles-border-spacing: $rac-grid-border-spacing,
       $rac-styles-color: $rac-grid-color,
@@ -3400,6 +3402,7 @@
   /**/
   $rac-calendar-body-border-bottom: unset,                                    /* @stable [14.01.2020] */
   $rac-calendar-body-border: unset,                                           /* @stable [14.01.2020] */
+  $rac-calendar-border-bottom: unset,                                         /* @stable [14.01.2020] */
   $rac-calendar-cell-padding-left: unset,
   $rac-calendar-cell-padding-right: unset,
   $rac-calendar-current-day-font-weight: unset,
@@ -3439,6 +3442,7 @@
     $rac-grid-body-column-content-line-height: $rac-calendar-day-size,
     $rac-grid-body-column-padding-bottom: $rac-calendar-day-wrapper-padding-bottom,
     $rac-grid-body-column-padding-top: $rac-calendar-day-wrapper-padding-top,
+    $rac-grid-border-bottom: $rac-calendar-border-bottom,
     $rac-grid-column-content-margin: $rac-calendar-day-margin,
     $rac-grid-column-content-no-user-select: $rac-calendar-day-no-user-select,
     $rac-grid-column-content-width: $rac-calendar-day-size,
@@ -3517,6 +3521,7 @@
   $rac-calendar-dialog-body-height: unset,                                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-body-width: unset,                                                 /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-body-border-bottom: unset,                                /* @stable [14.01.2020] */
+  $rac-calendar-dialog-calendar-border-bottom: unset,                                     /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-day-border-radius: unset,                                 /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-day-color: unset,                                         /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-day-font-size: unset,                                     /* @stable [14.01.2020] */
@@ -3592,6 +3597,7 @@
 
     @include rac-calendar (
       $rac-calendar-body-border-bottom: $rac-calendar-dialog-calendar-body-border-bottom,
+      $rac-calendar-border-bottom: $rac-calendar-dialog-calendar-border-bottom,
       $rac-calendar-day-border-radius: $rac-calendar-dialog-calendar-day-border-radius,
       $rac-calendar-day-color: $rac-calendar-dialog-calendar-day-color,
       $rac-calendar-day-font-size: $rac-calendar-dialog-calendar-day-font-size,
