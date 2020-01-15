@@ -2,18 +2,15 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { AnyT } from '../../../definitions.interface';
-import { BaseContainer } from '../../base';
-import { FormContainer } from '../../form';
-import {
-  FILTER_FORM_DIALOG_ACCEPT_ACTION_TYPE,
-  FILTER_FORM_DIALOG_CLEAR_ACTION_TYPE,
-  FILTER_FORM_DIALOG_RESET_ACTION_TYPE,
-  IFilterFormDialogContainerProps,
-} from './filter-form-dialog.interface';
 import { Dialog } from '../dialog.component';
+import { FilterFormDialogActionBuilder } from '../../../action';
+import { FormContainer } from '../../form';
+import { IFilterFormDialogContainerProps } from '../../../definition';
+import { isTouched } from '../../../util';
+import { UniversalContainer } from '../../base/universal.container';
 
 export class FilterFormDialogContainer
-  extends BaseContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog<AnyT>>>> {
+  extends UniversalContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog<AnyT>>>> {
 
   /**
    * @stable [10.03.2019]
@@ -30,7 +27,7 @@ export class FilterFormDialogContainer
    */
   public componentWillUnmount() {
     if (this.props.autoReset) {
-      this.dispatchFrameworkAction(FILTER_FORM_DIALOG_RESET_ACTION_TYPE);
+      this.dispatchCustomType(FilterFormDialogActionBuilder.buildResetActionType(this.props.sectionName));
     }
   }
 
@@ -40,19 +37,24 @@ export class FilterFormDialogContainer
    */
   public render(): JSX.Element {
     const props = this.props;
-    const noFilterChanges = this.noFilterChanges;
-    const messages = this.settings.messages;
+    const {APPLY, CLEAR_ALL, CLOSE, FILTERS} = this.settings.messages;
+    const haveFilterChangesOrIsTouched = this.haveFilterChangesOrIsTouched;
+
     return (
       <Dialog
         ref={props.forwardedRef}
-        title={this.settings.messages.filtersMessage}
-        closeMessage={noFilterChanges ? messages.closeMessage : messages.clearAllMessage}
-        acceptMessage={messages.applyMessage}
-        acceptDisabled={noFilterChanges}
+        title={FILTERS}
+        closeText={haveFilterChangesOrIsTouched ? CLEAR_ALL : CLOSE}
+        acceptText={APPLY}
+        closeDisabled={!haveFilterChangesOrIsTouched}
+        acceptDisabled={!this.haveFilterChanges}
         onAccept={this.onAcceptFilter}
         onClose={this.onClearFilter}>
         <FormContainer
-          formConfiguration={{actionsRendered: false}}
+          formConfiguration={{
+            actionsRendered: false,
+            compact: true,
+          }}
           {...props}
         />
       </Dialog>
@@ -63,23 +65,29 @@ export class FilterFormDialogContainer
    * @stable [10.03.2019]
    */
   private onAcceptFilter(): void {
-    this.dispatchFrameworkAction(FILTER_FORM_DIALOG_ACCEPT_ACTION_TYPE);
+    this.dispatchCustomType(FilterFormDialogActionBuilder.buildAcceptActionType(this.props.sectionName));
   }
 
   /**
    * @stable [10.03.2019]
    */
   private onClearFilter(): void {
-    if (!this.noFilterChanges) {
-      this.dispatchFrameworkAction(FILTER_FORM_DIALOG_CLEAR_ACTION_TYPE);
-    }
+    this.dispatchCustomType(FilterFormDialogActionBuilder.buildClearActionType(this.props.sectionName));
   }
 
   /**
-   * @stable [12.03.2019]
+   * @stable [16.01.2020]
    * @returns {boolean}
    */
-  private get noFilterChanges(): boolean {
-    return R.isEmpty(this.props.form.changes);
+  private get haveFilterChangesOrIsTouched(): boolean {
+    return this.haveFilterChanges || isTouched(this.props.form);
+  }
+
+  /**
+   * @stable [16.01.2020]
+   * @returns {boolean}
+   */
+  private get haveFilterChanges(): boolean {
+    return !R.isEmpty(this.props.form.changes);
   }
 }

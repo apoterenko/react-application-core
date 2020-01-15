@@ -1,9 +1,9 @@
-import { ACTION_PREFIX } from '../../../definitions.interface';
+import { ACTION_PREFIX } from '../definitions.interface';
 import {
   FILTER_FORM_DIALOG_ACCEPT_ACTION_TYPE,
   FILTER_FORM_DIALOG_CLEAR_ACTION_TYPE,
   FILTER_FORM_DIALOG_RESET_ACTION_TYPE,
-} from './filter-form-dialog.interface';
+} from '../definition';
 
 export class FilterFormDialogActionBuilder {
 
