@@ -108,7 +108,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
     const valueAsPlaceEntity = value as IPlaceEntity;
     return isPrimitive(value)
       ? value as string
-      : (this.useZipCode ? valueAsPlaceEntity.zipCode : valueAsPlaceEntity.formattedName);
+      : ((this.useZipCode ? valueAsPlaceEntity.zipCode : valueAsPlaceEntity.formattedName) || '');
   }
 
   /**
