@@ -79,7 +79,7 @@ export const inProgress = (progressEntity: IProgressWrapper): boolean =>
  * @returns {boolean}
  */
 export const isCheckScrimNeeded = <TEntity extends ICheckScrimWrapper = ICheckScrimWrapper>(checkScrim: TEntity): boolean =>
-  ifNotNilThanValue(checkScrim, () => checkScrim.checkScrim !== false, false);
+  ifNotNilThanValue(checkScrim, () => checkScrim.checkScrim === true, false);
 
 /**
  * @stable [28.11.2019]

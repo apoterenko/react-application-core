@@ -14,7 +14,6 @@ import {
   IChangeableWrapper,
   IClassNameWrapper,
   IDefaultValueWrapper,
-  IDialogClassNameWrapper,
   IDisabledWrapper,
   IDisplayNameWrapper,
   IDisplayValueOnlyWrapper,
@@ -55,12 +54,13 @@ import {
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
+import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
 import { ICalendarConfigurationWrapperEntity } from './calendar-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
+import { IDialogConfigurationWrapperEntity } from './dialog-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
 import { IPlaceFieldProps } from './place-definition.interface';
-import { IBaseSelectProps } from '../component/field/select/base-select.interface'; // TODO
 
 /**
  * @stable [28.05.2019]
@@ -211,7 +211,7 @@ export const GENERIC_FIELD_PASSWORD_TYPE_ENTITY = Object.freeze<IGenericFieldEnt
  */
 export interface IGenericDateFieldEntity
   extends ICalendarConfigurationWrapperEntity,
-    IDialogClassNameWrapper,
+    IDialogConfigurationWrapperEntity,
     IFormatWrapper,
     IHeaderFormatWrapper,
     IMaxDateWrapper<Date>,

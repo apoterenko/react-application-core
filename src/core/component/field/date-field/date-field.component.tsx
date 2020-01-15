@@ -78,15 +78,23 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   protected getInputAttachmentElement(): JSX.Element {
     const {year, dialogOpened} = this.state;
     const props = this.props;
+    const {dialogConfiguration = {}} = props;
+
     return orNull(
       dialogOpened,  // To improve a performance
       () => {
         return (
           <Dialog
+            checkScrim={true}
+            {...props.dialogConfiguration}
             ref={this.dialogRef}
             acceptable={false}
             closable={false}
-            className={joinClassName(props.dialogClassName, 'rac-calendar-dialog', 'rac-date-field__calendar-dialog')}
+            className={joinClassName(
+              dialogConfiguration.className,
+              'rac-calendar-dialog',
+              'rac-date-field__calendar-dialog'
+            )}
             onDeactivate={this.onDialogDeactivate}
           >
             <div className='rac-calendar-dialog__range-explorer'>

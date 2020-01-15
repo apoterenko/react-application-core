@@ -15,6 +15,7 @@ import {
   IOnSelectWrapper,
   IOpenedWrapper,
   IOptionsWrapper,
+  IProgressWrapper,
   IRawDataWrapper,
   IRemoteFilterWrapper,
   IRendererWrapper,
@@ -48,22 +49,30 @@ export interface IStringMenuActionEntity
 }
 
 /**
+ * @stable [15.01.2020]
+ */
+export interface IGenericMenuEntity
+  extends IMaxCountWrapper,
+    IMultiWrapper,
+    IProgressWrapper,
+    IRemoteFilterWrapper,
+    IUseFilterWrapper {
+}
+
+/**
  * @stable [02.10.2019]
  */
 export interface IMenuEntity
-  extends ICenteredMenuWrapper,
+  extends IGenericMenuEntity,
+    ICenteredMenuWrapper,
     IFilterPlaceholderWrapper,
     IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
-    IMaxCountWrapper,
-    IMultiWrapper,
     IOnCloseWrapper,
     IOnFilterChangeWrapper<(query: string) => void>,
     IOnSelectWrapper<IMenuItemEntity>,
     IOptionsWrapper<IMenuItemEntity[]>,
-    IRemoteFilterWrapper,
     IRendererWrapper<IMenuItemEntity, number>,
     ITplWrapper<(item: IMenuItemEntity) => StringNumberT>,
-    IUseFilterWrapper,
     IWidthWrapper<number | (() => number)>,
     IXPositionWrapper,
     IYPositionWrapper {

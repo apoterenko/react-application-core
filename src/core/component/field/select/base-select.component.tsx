@@ -190,6 +190,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         <Menu
           ref={this.menuRef}
           width={this.menuWidth}
+          progress={!this.areOptionsDefined}
           options={this.filteredOptions}
           onSelect={this.onSelect}
           onFilterChange={this.onFilterChange}
@@ -405,6 +406,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get delayTimeout(): number {
     return nvl(this.props.delayTimeout, 1000);
+  }
+
+  /**
+   * @stable [15.01.2020]
+   * @returns {boolean}
+   */
+  private get areOptionsDefined(): boolean {
+    return !R.isNil(this.props.options);
   }
 
   /**

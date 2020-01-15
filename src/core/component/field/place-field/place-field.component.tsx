@@ -132,14 +132,17 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
             onAccept={this.onDialogAccept}
             className={joinClassName(this.props.dialogClassName, 'rac-place-field__dialog')}
           >
-            <div className='rac-place-field__dialog-place'>
-              {
+            {
+              ifNotNilThanValue(
                 nvl(
                   ifNotNilThanValue(placeEntity, () => this.fromPlaceEntityToString(placeEntity)),
-                  this.placeEntityValue.formattedName
+                  ifNotNilThanValue(this.placeEntityValue, (placeEntityValue) => placeEntityValue.formattedName)
+                ),
+                (value) => (
+                  <div className='rac-place-field__dialog-place'>{value}</div>
                 )
-              }
-            </div>
+              )
+            }
             <GoogleMaps
               ref={this.googleMapsRef}
               className='rac-place-field__dialog-google-maps'

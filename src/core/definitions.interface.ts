@@ -135,6 +135,7 @@ export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
 export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFileTypeTransportConfiguration?: TValue; }
 export interface IDetectFileTypeWrapper { detectFileType?: boolean; }
 export interface IDialogClassNameWrapper { dialogClassName?: string; }
+export interface IDialogConfigurationWrapper<TValue> { dialogConfiguration?: TValue; }
 export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
 export interface IDictionariesWrapper<TDictionaries> { dictionaries?: TDictionaries; }
 export interface IDiffWrapper<TValue> { diff?: TValue; }

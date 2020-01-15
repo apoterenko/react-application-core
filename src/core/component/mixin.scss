@@ -3023,8 +3023,8 @@
   $rac-dialog-actions-flex-shrink: unset,                                                     /* @stable [10.01.2020] */
   $rac-dialog-actions-margin: unset,                                                          /* @stable [29.12.2019] */
   $rac-dialog-actions-neighbor-child-margin: unset,                                           /* @stable [29.12.2019] */
-  $rac-dialog-body-background: unset,
-  $rac-dialog-body-border-radius: unset,
+  $rac-dialog-body-background: unset,                                                         /* @stable [15.01.2020] */
+  $rac-dialog-body-border-radius: unset,                                                      /* @stable [15.01.2020] */
   $rac-dialog-body-content-align-items: unset,
   $rac-dialog-body-content-display: unset,                                                    /* @stable [29.12.2019] */
   $rac-dialog-body-content-flex-direction: unset,                                             /* @stable [29.12.2019] */
@@ -3136,6 +3136,7 @@
   $rac-menu-dialog-body-justify-content: unset,                                    /* @stable [29.12.2019] */
   $rac-menu-dialog-body-min-height: unset,                                         /* @stable [28.12.2019] */
   $rac-menu-dialog-body-padding: unset,                                            /* @stable [11.11.2019] */
+  $rac-menu-dialog-body-width: unset,                                              /* @stable [15.01.2020] */
   $rac-menu-dialog-icon-close-color: unset,                                        /* @stable [11.11.2019] */
   $rac-menu-dialog-icon-close-margin: unset,                                       /* @stable [11.11.2019] */
   $rac-menu-dialog-icon-close-size: unset,                                         /* @stable [11.11.2019] */
@@ -3149,7 +3150,8 @@
     $rac-dialog-body-height: $rac-menu-dialog-body-height,
     $rac-dialog-body-justify-content: $rac-menu-dialog-body-justify-content,
     $rac-dialog-body-min-height: $rac-menu-dialog-body-min-height,
-    $rac-dialog-body-padding: $rac-menu-dialog-body-padding
+    $rac-dialog-body-padding: $rac-menu-dialog-body-padding,
+    $rac-dialog-body-width: $rac-menu-dialog-body-width
   );
 
   #{rac-build-cls($rac-menu-dialog-cls, $rac-menu-dialog-custom)} {

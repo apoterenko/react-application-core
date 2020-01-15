@@ -10,6 +10,7 @@ import {
   calc,
   DelayedTask,
   ifNotNilThanValue,
+  inProgress,
   isCenteredMenu,
   isFilterUsed,
   isFn,
@@ -191,6 +192,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   public isOpen(): boolean {
     return this.state.opened;
+  }
+
+  /**
+   * @stable [15.01.2020]
+   * @returns {boolean}
+   */
+  protected get isWaitingForData(): boolean {
+    return inProgress(this.props);
   }
 
   /**

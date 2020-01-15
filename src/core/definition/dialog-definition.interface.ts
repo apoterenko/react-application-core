@@ -8,6 +8,7 @@ import {
   IClosableWrapper,
   ICloseDisabledWrapper,
   ICloseTextWrapper,
+  IDialogConfigurationWrapper,
   IOnAcceptWrapper,
   IOnActivateWrapper,
   IOnCloseWrapper,
@@ -71,4 +72,11 @@ export interface IDialogProps
  */
 export interface IDialogState
   extends IOpenedWrapper {
+}
+
+/**
+ * @stable [15.01.2020]
+ */
+export interface IDialogConfigurationWrapperEntity<TProps extends IDialogProps = IDialogProps>
+  extends IDialogConfigurationWrapper<TProps> {
 }

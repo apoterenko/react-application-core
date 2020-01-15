@@ -1,3 +1,4 @@
+export * from './action';
 export * from './application/universal-application.effects';
 export * from './bootstrap/react-app.bootstrapper';
 export * from './component/application/application-action.builder';

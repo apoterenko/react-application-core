@@ -7,6 +7,7 @@ import {
   isCheckScrimNeeded,
   isFn,
   joinClassName,
+  noop,
   orNull,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin';
@@ -26,7 +27,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   implements IDialog<TProps, TState> {
 
   private onDeactivateCallback: () => void;
-  private doesAnotherScrimLayerExist = false;
+  private readonly doesAnotherScrimLayerExist: boolean;
 
   /**
    * @stable [06.01.2020]
@@ -58,14 +59,17 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
           <div
             ref={this.selfRef}
             className={this.getDialogClassName()}
-            {...handlerPropsFactory(this.onDialogScrimClick, true, false)}
           >
-            <div className={joinClassName(
-              'rac-dialog__body-wrapper',
-              'rac-absolute',
-              'rac-full-size',
-              this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
-            )}>
+            <div
+              className={
+                joinClassName(
+                  'rac-dialog__body-wrapper',
+                  'rac-absolute',
+                  'rac-full-size',
+                  this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
+                )}
+              {...handlerPropsFactory(this.onDialogScrimClick, true, false)}
+            >
               {this.dialogBodyElement}
             </div>
           </div>,
@@ -220,7 +224,10 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
    */
   private get dialogBodyElement(): JSX.Element {
     return (
-      <div className='rac-dialog__body'>
+      <div
+        className='rac-dialog__body'
+        {...handlerPropsFactory(noop, true, false)}  // To stop a event bubbling
+      >
         {this.bodyElement}
         {this.footerElement}
       </div>
