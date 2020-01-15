@@ -15,6 +15,7 @@ import {
   IClassNameWrapper,
   IDefaultValueWrapper,
   IDisabledWrapper,
+  IDisableLabelWrapper,
   IDisplayNameWrapper,
   IDisplayValueOnlyWrapper,
   IDisplayValueWrapper,
@@ -32,7 +33,6 @@ import {
   IMenuRenderedWrapper,
   IMinDateWrapper,
   INameWrapper,
-  IWaitingForDataWrapper,
   IOnClickWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
@@ -51,6 +51,7 @@ import {
   IUseKeyboardWrapper,
   IValueWrapper,
   IVisibleWrapper,
+  IWaitingForDataWrapper,
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
@@ -198,15 +199,24 @@ export enum FieldActionPositionsEnum {
 }
 
 /**
+ * @default-field-entity
  * @stable [24.11.2019]
- * @type {IGenericFieldEntity}
  */
-export const GENERIC_FIELD_PASSWORD_TYPE_ENTITY = Object.freeze<IGenericFieldEntity>({
+export const GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY = Object.freeze<IGenericFieldEntity>({
   autoComplete: 'new-password',
+});
+
+/**
+ * @default-field-entity
+ * @stable [24.11.2019]
+ */
+export const GENERIC_FIELD_PASSWORD_ENTITY = Object.freeze<IGenericFieldEntity>({
+  ...GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY,
   type: 'password',
 });
 
 /**
+ * @generic-entity
  * @stable [07.01.2020]
  */
 export interface IGenericDateFieldEntity
@@ -219,17 +229,25 @@ export interface IGenericDateFieldEntity
 }
 
 /**
- * @stable [11.01.2020]
- * @generic-state
+ * @generic-entity
+ * @stable [07.01.2020]
  */
-export interface IGenericBaseSelectStateEntity
+export interface IGenericBaseCheckboxEntity
+  extends IDisableLabelWrapper {
+}
+
+/**
+ * @generic-state
+ * @stable [11.01.2020]
+ */
+export interface IGenericBaseSelectState
   extends IMenuRenderedWrapper,
     IWaitingForDataWrapper {
 }
 
 /**
- * @stable [15.01.2020]
  * @default-field-entity
+ * @stable [15.01.2020]
  */
 export const QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
   expandActionRendered: false,
@@ -238,8 +256,8 @@ export const QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
 });
 
 /**
- * @stable [15.01.2020]
  * @default-field-entity
+ * @stable [15.01.2020]
  */
 export const ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
   ...QUICK_SEARCH_FIELD_ENTITY,

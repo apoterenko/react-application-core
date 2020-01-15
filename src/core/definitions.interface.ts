@@ -143,6 +143,7 @@ export interface IDirectionsWrapper<TDirections> { directions?: TDirections; }
 export interface IDirectionWrapper<TDirection = string> { direction?: TDirection; }
 export interface IDirtyWrapper { dirty?: boolean; }
 export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
+export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueOnlyWrapper { displayValueOnly?: boolean; }
 export interface IDisplayValueWrapper<TDisplayValue = string> { displayValue?: TDisplayValue; }

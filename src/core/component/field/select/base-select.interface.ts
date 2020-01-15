@@ -12,7 +12,7 @@ import {
 } from '../../../definitions.interface';
 import {
   IBaseEvent,
-  IGenericBaseSelectStateEntity,
+  IGenericBaseSelectState,
   IMenuProps,
   ISelectOptionEntity,
 } from '../../../definition';
@@ -27,7 +27,7 @@ import { IFieldState } from '../field/field.interface';
  */
 export interface IBaseSelectState
   extends IFieldState,
-    IGenericBaseSelectStateEntity,
+    IGenericBaseSelectState,
     I$$cachedValueWrapper<ISelectOptionEntity> {
 }
 
