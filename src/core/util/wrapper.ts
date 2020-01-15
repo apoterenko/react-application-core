@@ -35,6 +35,7 @@ import {
   ISelectedWrapper,
   ISortableWrapper,
   ISyntheticCursorWrapper,
+  ITouchedWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
   IUseZipCodeWrapper,
@@ -307,6 +308,14 @@ export const isMenuOpened = (wrapper: IMenuRenderedWrapper): boolean =>
  */
 export const isWaitingForData = (wrapper: IWaitingForDataWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.waitingForData === true, false);
+
+/**
+ * @stable [16.01.2020]
+ * @param {ITouchedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isTouched = (wrapper: ITouchedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.touched === true, false);
 
 /**
  * @stable [23.11.2019]

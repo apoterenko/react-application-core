@@ -54,9 +54,7 @@ export interface IApplicationNumberSettings {
 export interface IMessagesSettings extends IMessagesSettingsEntity {
   acceptMessage?: string;
   accessDeniedMessage?: string;
-  applyMessage?: string;
   appNotReadyMessage?: string;
-  clearAllMessage?: string;
   closeMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
@@ -70,7 +68,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   errorMessage?: string;
   exportActionTitleMessage?: string;
   fileLoadErrorMessage?: string;
-  filtersMessage?: string;
   invalidAddressMessage?: string;
   logOutMessage?: string;
   logoutNotificationMessage?: string;
@@ -154,9 +151,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     ...DEFAULT_MESSAGES_SETTINGS_ENTITY,
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
-    applyMessage: 'Apply',
     appNotReadyMessage: 'App is being initialized...',
-    clearAllMessage: 'Clear all',
     closeMessage: 'Close',
     confirmationMessage: 'Confirmation',
     continueMessage: 'Continue',
@@ -170,7 +165,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     errorMessage: 'Something went wrong. There was a problem loading your data',
     exportActionTitleMessage: 'Export',
     fileLoadErrorMessage: 'Can\'t load the file.',
-    filtersMessage: 'Filters',
     invalidAddressMessage: 'Invalid address',
     logOutMessage: 'Log out',
     logoutNotificationMessage: 'You were logged out.',

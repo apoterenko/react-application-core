@@ -24,6 +24,7 @@ export * from './event-definition.interface';
 export * from './field-converter-definition.interface';
 export * from './field-definition.interface';
 export * from './file-definition.interface';
+export * from './filter-form-dialog-definition.interface';
 export * from './flex-definition.interface';
 export * from './form-definition.interface';
 export * from './google-maps-definition.interface';

@@ -6,7 +6,7 @@ import {
   IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
-  IFormWrapperEntity,
+  IFormExtendedEditableEntity,
   IListEntity,
   IListWrapperEntity,
   IOperationEntity,
@@ -126,11 +126,11 @@ export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT =>
 
 /**
  * @stable [04.09.2019]
- * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
+ * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} entity
  * @returns {IEditableEntity<TEntity extends IEntity>}
  */
 export const selectEditableEntity =
-  <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity<TEntity>): IEditableEntity<TEntity> =>
+  <TEntity extends IEntity = IEntity>(entity: IFormExtendedEditableEntity<TEntity>): IEditableEntity<TEntity> =>
     ifNotNilThanValue(entity, (): IEditableEntity<TEntity> => entity.form, UNDEF_SYMBOL);
 
 /**
@@ -151,11 +151,11 @@ export const selectDefaultChanges = <TResult extends IEntity = IEntity>(entity: 
 
 /**
  * @stable [21.11.2019]
- * @param {IFormWrapperEntity<TEntity extends IEntity>} entity
+ * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} entity
  * @returns {TEntity}
  */
 export const selectEditableEntityChanges =
-  <TEntity extends IEntity = IEntity>(entity: IFormWrapperEntity<TEntity>): TEntity =>
+  <TEntity extends IEntity = IEntity>(entity: IFormExtendedEditableEntity<TEntity>): TEntity =>
     ifNotNilThanValue(entity, (): TEntity => selectChanges<TEntity>(selectEditableEntity(entity)), UNDEF_SYMBOL);
 
 /**
@@ -427,11 +427,11 @@ export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWr
 /**
  * @stable [21.11.2019]
  * @param {IEditableEntity<TEntity extends IEntity>} form
- * @returns {IFormWrapperEntity<TEntity extends IEntity>}
+ * @returns {IFormExtendedEditableEntity<TEntity extends IEntity>}
  */
 export const mapEditableEntity =
-  <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IFormWrapperEntity<TEntity> =>
-    defValuesFilter<IFormWrapperEntity<TEntity>, IFormWrapperEntity<TEntity>>({form});
+  <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IFormExtendedEditableEntity<TEntity> =>
+    defValuesFilter<IFormExtendedEditableEntity<TEntity>, IFormExtendedEditableEntity<TEntity>>({form});
 
 /**
  * @stable [04.09.2019]
@@ -686,11 +686,11 @@ export const selectEditableEntityToolbarToolsActiveFilter = (editableEntity: IEd
 
 /**
  * @stable [18.09.2019]
- * @param {IFormWrapperEntity} entityFormEntity
+ * @param {IFormExtendedEditableEntity} fEntity
  * @returns {ToolbarToolsEnum[]}
  */
-export const selectFormEntityToolbarToolsActiveFilter = (entityFormEntity: IFormWrapperEntity): ToolbarToolsEnum[] =>
-  selectEditableEntityToolbarToolsActiveFilter(selectEditableEntity(entityFormEntity));
+export const selectFormEntityToolbarToolsActiveFilter = (fEntity: IFormExtendedEditableEntity): ToolbarToolsEnum[] =>
+  selectEditableEntityToolbarToolsActiveFilter(selectEditableEntity(fEntity));
 
 /**
  * @stable [11.10.2019]

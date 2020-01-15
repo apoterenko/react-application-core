@@ -76,9 +76,9 @@ export interface IGenericFormEntity
 }
 
 /**
- * @stable [25.09.2019]
+ * @stable [16.01.2020]
  */
-export interface IFormWrapperEntity<TEntity = IEntity>
+export interface IFormExtendedEditableEntity<TEntity = IEntity>
   extends IFormWrapper<IEditableEntity<TEntity>>,
     IExtendedEntity<TEntity> {
 }
@@ -87,7 +87,7 @@ export interface IFormWrapperEntity<TEntity = IEntity>
  * @stable [25.09.2019]
  */
 export interface IBehavioralFormWrapperEntity<TEntity extends IEntity = IEntity>
-  extends IFormWrapperEntity<TEntity>,
+  extends IFormExtendedEditableEntity<TEntity>,
     IOnBeforeSubmitWrapper<(apiEntity: IApiEntity<TEntity>) => boolean>,
     IOnChangeWrapper<IFieldChangeEntity>,
     IOnEmptyDictionaryWrapper<(dictionary?: string, payload?: IApiEntity) => void>,

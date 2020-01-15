@@ -226,7 +226,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
     return (
       <div
         className='rac-dialog__body'
-        {...handlerPropsFactory(noop, true, false)}  // To stop a event bubbling
+        {...handlerPropsFactory(noop, true, false)}  // To stop the events bubbling
       >
         {this.bodyElement}
         {this.footerElement}

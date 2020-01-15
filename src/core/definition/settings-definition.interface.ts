@@ -135,13 +135,17 @@ export const DEFAULT_PHONE_SETTINGS_ENTITY = Object.freeze<IPhoneSettingsEntity>
 export interface IMessagesSettingsEntity {
   ADDRESS_SELECTION?: string;
   APPLICATION_IS_INITIALIZING?: string;
+  APPLY?: string;
   BUILD?: string;
+  CLEAR_ALL?: string;
+  CLOSE?: string;
   DETAILS_INFO?: string;
   DIALOG_ACCEPT?: string;
   DIALOG_CANCEL?: string;
   ENVIRONMENT?: string;
   ERROR?: string;
   FILTER_PLACEHOLDER?: string;
+  FILTERS?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   OK?: string;
   PATH?: string;
@@ -160,13 +164,17 @@ export interface IMessagesSettingsEntity {
 export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsEntity>({
   ADDRESS_SELECTION: 'Address selection',
   APPLICATION_IS_INITIALIZING: 'The app is initializing...',
+  APPLY: 'Apply',
   BUILD: 'Build',
+  CLEAR_ALL: 'Clear all',
+  CLOSE: 'Close',
   DETAILS_INFO: 'Details info',
   DIALOG_ACCEPT: 'Continue',
   DIALOG_CANCEL: 'Cancel',
   ENVIRONMENT: 'Environment',
   ERROR: 'Error',
   FILTER_PLACEHOLDER: 'Search',
+  FILTERS: 'Filters',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   OK: 'Ok',
   PATH: 'Path',

@@ -1,9 +1,9 @@
 import {
   IDialogProps,
-  IFormWrapperEntity,
+  IFormExtendedEditableEntity,
 } from '../../../definition';
 
 export interface IFormDialogProps
   extends IDialogProps,
-  IFormWrapperEntity {
+  IFormExtendedEditableEntity {
 }
