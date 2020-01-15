@@ -728,6 +728,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
+   * @stable [16.01.2020]
+   * @returns {string}
+   */
+  protected getLabel(): string {
+    return this.props.label;
+  }
+
+  /**
    * @stable [21.12.2019]
    * @returns {AnyT}
    */

@@ -223,12 +223,11 @@ export class Field<TProps extends IFieldProps,
   }
 
   protected getLabelElement(): JSX.Element {
-    const props = this.props;
     return ifNotNilThanValue(
-      props.label,
-      () => (
+      this.getLabel(),
+      (label) => (
         <label className='rac-field-label'>
-          {this.t(props.label)}
+          {this.t(label)}
         </label>
       )
     );

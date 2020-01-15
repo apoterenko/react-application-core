@@ -2,12 +2,16 @@ import * as React from 'react';
 
 import { Field } from '../../field';
 import {
+  IBaseCheckboxInputProps,
   IBaseCheckboxProps,
   IBaseCheckboxState,
-  IBaseCheckboxInputProps,
 } from './checkbox.interface';
 import { IBaseEvent } from '../../../definition';
-import { noop, joinClassName } from '../../../util';
+import {
+  joinClassName,
+  noop,
+  nvl,
+} from '../../../util';
 
 export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
                           TState extends IBaseCheckboxState = IBaseCheckboxState>
@@ -57,5 +61,15 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
       'rac-base-checkbox',
       this.value ? 'rac-checked' : 'rac-unchecked'
     );
+  }
+
+  /**
+   * @stable [16.01.2020]
+   * @returns {string}
+   */
+  protected getLabel(): string {
+    return this.value
+      ? super.getLabel()
+      : nvl(this.props.disableLabel, super.getLabel());
   }
 }
