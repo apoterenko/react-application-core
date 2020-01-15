@@ -92,6 +92,7 @@ export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
 export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
+export interface ICheckScrimWrapper { checkScrim?: boolean; }
 export interface IChildrenWrapper<TChildren> { children?: TChildren; }
 export interface ICityWrapper<TCity = string> { city?: TCity; }
 export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }

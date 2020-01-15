@@ -9,15 +9,24 @@ import {
   joinClassName,
   nvl,
 } from '../../util';
-import { IButtonProps, DEFAULT_FLEX_BUTTON_CLASS_NAMES } from '../../definition';
-import { isButtonDisabled, getButtonText, getButtonIcon, hasIconButton } from './button.support';
+import {
+  DEFAULT_FLEX_BUTTON_CLASS_NAMES,
+  IButtonProps,
+} from '../../definition';
+import {
+  getButtonIcon,
+  getButtonText,
+  hasIconButton,
+  isButtonDisabled,
+} from './button.support';
 import { Link } from '../link';
 
 export class Button extends BaseComponent<IButtonProps> {
 
   public static readonly defaultProps: IButtonProps = {
-    type: 'button',
     full: false,
+    touched: false,
+    type: 'button',
   };
 
   private readonly buttonRef = React.createRef<HTMLButtonElement>();

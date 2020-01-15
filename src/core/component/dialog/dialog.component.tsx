@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { Button } from '../button';
 import {
   handlerPropsFactory,
+  isCheckScrimNeeded,
   isFn,
   joinClassName,
   orNull,
@@ -17,6 +18,7 @@ import {
 } from '../../definition';
 import { BasicComponent } from '../base/basic.component';
 import { BaseComponent } from '../base/base.component';
+import { ICheckScrimWrapper } from '../../definitions.interface';
 
 export class Dialog<TProps extends IDialogProps = IDialogProps,
                     TState extends IDialogState = IDialogState>
@@ -24,6 +26,7 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
   implements IDialog<TProps, TState> {
 
   private onDeactivateCallback: () => void;
+  private doesAnotherScrimLayerExist = false;
 
   /**
    * @stable [06.01.2020]
@@ -37,6 +40,10 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
     this.onDialogScrimClick = this.onDialogScrimClick.bind(this);
 
     this.state = {opened: false} as TState;
+
+    if (isCheckScrimNeeded(props as ICheckScrimWrapper)) {
+      this.doesAnotherScrimLayerExist = this.domAccessor.hasElements('.rac-dialog__scrim', this.anchorElement);
+    }
   }
 
   /**
@@ -50,13 +57,19 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
         ReactDOM.createPortal(
           <div
             ref={this.selfRef}
-            className={this.getDialogClassName()}>
-            {this.dialogScrimElement}
-            <div className='rac-dialog__body-wrapper rac-absolute rac-full-size'>
+            className={this.getDialogClassName()}
+            {...handlerPropsFactory(this.onDialogScrimClick, true, false)}
+          >
+            <div className={joinClassName(
+              'rac-dialog__body-wrapper',
+              'rac-absolute',
+              'rac-full-size',
+              this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
+            )}>
               {this.dialogBodyElement}
             </div>
           </div>,
-          this.domAccessor.getDocumentBodyElement()
+          this.anchorElement
         )
       )
     );
@@ -205,18 +218,6 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
    * @stable [05.01.2020]
    * @returns {JSX.Element}
    */
-  private get dialogScrimElement(): JSX.Element {
-    return (
-      <div
-        className='rac-dialog__scrim rac-absolute rac-full-size'
-        {...handlerPropsFactory(this.onDialogScrimClick)}/>
-    );
-  }
-
-  /**
-   * @stable [05.01.2020]
-   * @returns {JSX.Element}
-   */
   private get dialogBodyElement(): JSX.Element {
     return (
       <div className='rac-dialog__body'>
@@ -284,5 +285,13 @@ export class Dialog<TProps extends IDialogProps = IDialogProps,
    */
   private get isAcceptButtonDisabled(): boolean {
     return this.props.acceptDisabled === true;
+  }
+
+  /**
+   * @stable [15.01.2020]
+   * @returns {Element}
+   */
+  private get anchorElement(): Element {
+    return this.domAccessor.getDocumentBodyElement();
   }
 }

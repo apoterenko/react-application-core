@@ -117,13 +117,18 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { isFn, isString, joinClassName, uuid } from '../../../util';
+import {
+  handlerPropsFactory,
+  isFn,
+  isString,
+  joinClassName,
+  uuid,
+} from '../../../util';
 import { IUIFactory } from '../../factory';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { TranslatorT } from '../../../translation';
 import { IUIDefaultIconFactory } from '../../icon';
-import { FlexLayout } from '../../layout/flex';
 import { IUniversalUiMessageConfigEntity } from '../../../definition';
 
 @injectable()
@@ -313,27 +318,22 @@ export class UIMaterialFactory implements IUIFactory {
     }
 
     const iconCtor = awIconCtor || faQuestion;
-    const isActionIcon = isFn(config.onClick);
+    const hasHandler = isFn(config.onClick);
 
     return (
-      <FlexLayout
+      <div
         key={config.key || uuid()}
         title={config.title}
-        full={false}
-        inline={true}
         className={joinClassName(
           'rac-icon',
-          isActionIcon && `rac-action-icon rac-action-${config.type}-icon`,
+          hasHandler && `rac-action-icon rac-action-${config.type}-icon`,
           config.disabled && 'rac-disabled-icon',
           config.className,
         )}
-        justifyContentCenter={true}
-        alignItemsCenter={true}
-        disabled={config.disabled}
-        onClick={config.onClick}
+        {...handlerPropsFactory(config.onClick, !config.disabled, false)}
       >
         {uiIconCtor || <FontAwesomeIcon icon={iconCtor}/>}
-      </FlexLayout>
+      </div>
     );
   }
 

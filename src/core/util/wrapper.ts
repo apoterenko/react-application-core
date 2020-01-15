@@ -4,6 +4,7 @@ import {
   IAlwaysDirtyWrapper,
   ICenteredMenuWrapper,
   IChangeableWrapper,
+  ICheckScrimWrapper,
   IClearActionRenderedWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
@@ -71,6 +72,14 @@ export const isFocusPrevented = (preventFocusEntity: IPreventFocusWrapper): bool
  */
 export const inProgress = (progressEntity: IProgressWrapper): boolean =>
   ifNotNilThanValue(progressEntity, () => progressEntity.progress === true, false);
+
+/**
+ * @stable [15.01.2020]
+ * @param {TEntity} checkScrim
+ * @returns {boolean}
+ */
+export const isCheckScrimNeeded = <TEntity extends ICheckScrimWrapper = ICheckScrimWrapper>(checkScrim: TEntity): boolean =>
+  ifNotNilThanValue(checkScrim, () => checkScrim.checkScrim !== false, false);
 
 /**
  * @stable [28.11.2019]

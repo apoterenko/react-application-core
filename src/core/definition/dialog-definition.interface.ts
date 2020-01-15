@@ -4,6 +4,7 @@ import {
   IAcceptTextWrapper,
   IAcceptWrapper,
   IActivateWrapper,
+  ICheckScrimWrapper,
   IClosableWrapper,
   ICloseDisabledWrapper,
   ICloseTextWrapper,
@@ -23,6 +24,7 @@ export interface IGenericDialogEntity
   extends IAcceptableWrapper,
     IAcceptDisabledWrapper,
     IAcceptTextWrapper,
+    ICheckScrimWrapper,
     IClosableWrapper,
     ICloseDisabledWrapper,
     ICloseTextWrapper {

@@ -2,13 +2,21 @@ import * as React from 'react';
 
 import { BaseComponent } from '../../base';
 import { Button } from '../../button';
-import { IKeyboardKey, KeyboardKeyEnum } from '../../../configurations-definitions.interface';
+import {
+  IKeyboardKey,
+  KeyboardKeyEnum,
+} from '../../../configurations-definitions.interface';
 import { IKeyboardKeyProps } from './keyboard-key.interface';
-import { joinClassName, isString, isFn, calc } from '../../../util';
+import {
+  calc,
+  isFn,
+  isString,
+  joinClassName,
+} from '../../../util';
 import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 
 export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
-  private buttonRef = React.createRef<Button>();
+  private readonly buttonRef = React.createRef<Button>();
 
   /**
    * @stable [26.01.2019]
@@ -44,6 +52,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
         ref={this.buttonRef}
         disabled={props.disabled}
         rippled={props.rippled}
+        touched={true}
         className={joinClassName(
           'rac-keyboard-key',
           `rac-keyboard-key-${value}`,

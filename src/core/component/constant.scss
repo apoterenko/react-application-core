@@ -179,8 +179,8 @@ $rac-icon-height0: 12px !default;
 
 /* @stable [09.11.2019] */
 $rac-icon-content-height: 100% !default;
-$rac-icon-content-vertical-align: unset !default;
 $rac-icon-content-width: 100% !default;
+$rac-icon-display: inline-flex !default;
 $rac-icon-flex-shrink: 0 !default;
 $rac-icon-size: $rac-icon-size-4 !default;
 
@@ -758,7 +758,6 @@ $rac-dialog-body-title-font-weight: $rac-font-weight-2 !default;
 $rac-dialog-body-title-margin: 0 $rac-offset-3 $rac-offset-3 $rac-offset-3 !default;
 $rac-dialog-body-title-padding: 0 0 12px 0 !default;
 $rac-dialog-body-wrapper-align-items: center !default;
-$rac-dialog-body-wrapper-background: transparent !default;
 $rac-dialog-body-wrapper-display: flex !default;
 $rac-dialog-body-wrapper-justify-content: center !default;
 $rac-dialog-body-z-index: $rac-z-index-dialog !default;
