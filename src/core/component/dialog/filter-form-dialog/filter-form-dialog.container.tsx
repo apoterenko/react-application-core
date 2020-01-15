@@ -38,15 +38,13 @@ export class FilterFormDialogContainer
   public render(): JSX.Element {
     const props = this.props;
     const {APPLY, CLEAR_ALL, CLOSE, FILTERS} = this.settings.messages;
-    const haveFilterChangesOrIsTouched = this.haveFilterChangesOrIsTouched;
 
     return (
       <Dialog
         ref={props.forwardedRef}
         title={FILTERS}
-        closeText={haveFilterChangesOrIsTouched ? CLEAR_ALL : CLOSE}
+        closeText={this.haveFilterChangesOrIsTouched ? CLEAR_ALL : CLOSE}
         acceptText={APPLY}
-        closeDisabled={!haveFilterChangesOrIsTouched}
         acceptDisabled={!this.haveFilterChanges}
         onAccept={this.onAcceptFilter}
         onClose={this.onClearFilter}>
@@ -72,7 +70,9 @@ export class FilterFormDialogContainer
    * @stable [10.03.2019]
    */
   private onClearFilter(): void {
-    this.dispatchCustomType(FilterFormDialogActionBuilder.buildClearActionType(this.props.sectionName));
+    if (this.haveFilterChangesOrIsTouched) {
+      this.dispatchCustomType(FilterFormDialogActionBuilder.buildClearActionType(this.props.sectionName));
+    }
   }
 
   /**
