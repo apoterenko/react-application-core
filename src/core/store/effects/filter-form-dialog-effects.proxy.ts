@@ -2,12 +2,12 @@ import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import {
-  makeFilterFormDialogClearMiddleware,
-  makeFilterFormDialogAcceptMiddleware,
-  makeFilterFormDialogResetMiddleware,
   IFilterFormDialogMiddlewareConfig,
+  makeFilterFormDialogAcceptMiddleware,
+  makeFilterFormDialogClearMiddleware,
+  makeFilterFormDialogResetMiddleware,
 } from '../middleware';
-import { FilterFormDialogActionBuilder } from '../../component/dialog/filter-form-dialog/filter-form-dialog-action.builder';
+import { FilterFormDialogActionBuilder } from '../../action';
 
 /**
  * @stable [11.03.2019]

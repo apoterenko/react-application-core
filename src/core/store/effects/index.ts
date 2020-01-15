@@ -4,7 +4,7 @@ export * from './destroyed-form-effects.proxy';
 export * from './edited-list-effects.proxy';
 export * from './effects-by.decorator';
 export * from './failed-effects.proxy';
-export * from './filer-form-dialog-effects.proxy';
+export * from './filter-form-dialog-effects.proxy';
 export * from './filtered-list-effects.proxy';
 export * from './paginated-list-effects.proxy';
 export * from './refreshed-list-on-valid-form-effects.proxy';
