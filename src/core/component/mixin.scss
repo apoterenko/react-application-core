@@ -1017,35 +1017,36 @@
 @mixin rac-icon (
   $rac-icon-custom: unset,
   /**/
+  $rac-icon-align-items: unset,                                             /* @stable [15.01.2020] */
   $rac-icon-background: unset,                                              /* @stable [15.01.2020] */
   $rac-icon-border-radius: unset,                                           /* @stable [15.01.2020] */
   $rac-icon-border: unset,                                                  /* @stable [15.01.2020] */
-  $rac-icon-bottom: unset,
+  $rac-icon-bottom: unset,                                                  /* @stable [15.01.2020] */
   $rac-icon-color: unset,                                                   /* @stable [09.11.2019] */
-  $rac-icon-content-height: unset,
-  $rac-icon-content-margin: unset,
+  $rac-icon-content-height: unset,                                          /* @stable [15.01.2020] */
   $rac-icon-content-opacity: unset,
   $rac-icon-content-size: unset,                                            /* @stable [10.11.2019] */
-  $rac-icon-content-width: unset,
+  $rac-icon-content-width: unset,                                           /* @stable [15.01.2020] */
   $rac-icon-cursor: unset,                                                  /* @stable [10.11.2019] */
-  $rac-icon-display: unset,
+  $rac-icon-display: unset,                                                 /* @stable [15.01.2020] */
   $rac-icon-flex-shrink: unset,                                             /* @stable [12.11.2019] */
   $rac-icon-height: unset,
-  $rac-icon-left: unset,
+  $rac-icon-justify-content: unset,                                         /* @stable [15.01.2020] */
   $rac-icon-line-height: unset,
   $rac-icon-margin: unset,
   $rac-icon-opacity: unset,
   $rac-icon-padding: unset,
-  $rac-icon-position: unset,
+  $rac-icon-position: unset,                                                /* @stable [15.01.2020] */
   $rac-icon-right: unset,
   $rac-icon-size: unset,                                                    /* @stable [10.11.2019] */
-  $rac-icon-top: unset,
+  $rac-icon-top: unset,                                                     /* @stable [15.01.2020] */
   $rac-icon-vertical-align: unset,                                          /* @stable [21.10.2019] */
-  $rac-icon-width: unset
+  $rac-icon-width: unset                                                    /* @stable [15.01.2020] */
 ) {
 
   #{rac-build-cls(rac-icon, $rac-icon-custom)} {
     @include rac-styles (
+      $rac-styles-align-items: $rac-icon-align-items,
       $rac-styles-background: $rac-icon-background,
       $rac-styles-border-radius: $rac-icon-border-radius,
       $rac-styles-border: $rac-icon-border,
@@ -1053,11 +1054,9 @@
       $rac-styles-color: $rac-icon-color,
       $rac-styles-cursor: $rac-icon-cursor,
       $rac-styles-display: $rac-icon-display,
-      $rac-styles-flex-height: $rac-icon-height,
       $rac-styles-flex-shrink: $rac-icon-flex-shrink,
-      $rac-styles-flex-width: $rac-icon-width,
       $rac-styles-height: $rac-icon-height,
-      $rac-styles-left: $rac-icon-left,
+      $rac-styles-justify-content: $rac-icon-justify-content,
       $rac-styles-line-height: $rac-icon-line-height,
       $rac-styles-margin: $rac-icon-margin,
       $rac-styles-opacity: $rac-icon-opacity,
@@ -1073,7 +1072,6 @@
     svg {
       @include rac-styles (
         $rac-styles-height: $rac-icon-content-height,
-        $rac-styles-margin: $rac-icon-content-margin,
         $rac-styles-opacity: $rac-icon-content-opacity,
         $rac-styles-size: $rac-icon-content-size,
         $rac-styles-width: $rac-icon-content-width
