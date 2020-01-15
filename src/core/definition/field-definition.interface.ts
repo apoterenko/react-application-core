@@ -243,5 +243,6 @@ export const QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
  */
 export const ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
   ...QUICK_SEARCH_FIELD_ENTITY,
+  placeActionRendered: false,
   useZipCode: true,
 });
