@@ -172,10 +172,12 @@
    * @stable [09.11.2019]
    */
   @include rac-icon (
+    $rac-icon-align-items: $rac-icon-align-items,
     $rac-icon-content-height: $rac-icon-content-height,
     $rac-icon-content-width: $rac-icon-content-width,
     $rac-icon-display: $rac-icon-display,
     $rac-icon-flex-shrink: $rac-icon-flex-shrink,
+    $rac-icon-justify-content: $rac-icon-justify-content,
     $rac-icon-size: $rac-icon-size
   );
 

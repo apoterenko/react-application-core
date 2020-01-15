@@ -122,6 +122,7 @@ import {
   isFn,
   isString,
   joinClassName,
+  nvl,
   uuid,
 } from '../../../util';
 import { IUIFactory } from '../../factory';
@@ -330,7 +331,7 @@ export class UIMaterialFactory implements IUIFactory {
           config.disabled && 'rac-disabled-icon',
           config.className,
         )}
-        {...handlerPropsFactory(config.onClick, !config.disabled, false)}
+        {...handlerPropsFactory(config.onClick, !config.disabled, nvl(config.touched, false))}
       >
         {uiIconCtor || <FontAwesomeIcon icon={iconCtor}/>}
       </div>

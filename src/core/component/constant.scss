@@ -178,10 +178,12 @@ $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
 
 /* @stable [09.11.2019] */
+$rac-icon-align-items: center !default;
 $rac-icon-content-height: 100% !default;
 $rac-icon-content-width: 100% !default;
 $rac-icon-display: inline-flex !default;
 $rac-icon-flex-shrink: 0 !default;
+$rac-icon-justify-content: center !default;
 $rac-icon-size: $rac-icon-size-4 !default;
 
 /* @stable [26.06.2018] */
