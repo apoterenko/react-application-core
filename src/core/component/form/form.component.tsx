@@ -11,7 +11,6 @@ import {
   INITIAL_FORM_ENTITY,
 } from '../../definition';
 import {
-  cancelEvent,
   cloneReactNodes,
   defValuesFilter,
   getFormFieldDisplayValue,
@@ -232,7 +231,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   private onSubmit(event?: IBaseEvent): void {
-    cancelEvent(event);
+    this.domAccessor.cancelEvent(event);
 
     const props = this.props;
     const apiEntity = this.apiEntity;
@@ -246,7 +245,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   private onReset(event: IBaseEvent): void {
-    cancelEvent(event);
+    this.domAccessor.cancelEvent(event);
 
     if (this.props.onReset) {
       this.props.onReset();

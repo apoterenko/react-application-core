@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 
 import {
-  IFormEntity,
   IFormExtendedEditableEntity,
+  IFormProps,
   IGenericFieldEntity,
   IGenericFormEntity,
 } from '../definition';
@@ -97,11 +97,11 @@ export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(fEn
     );
 
 /**
- * @stable [25.09.2019]
- * @param {IFormEntity<TEntity>} entity
+ * @stable [16.01.2020]
+ * @param {IFormProps<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isFormEntityDisabled = <TEntity extends IEntity = IEntity>(entity: IFormEntity<TEntity>): boolean =>
+export const isFormEntityDisabled = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
   ifNotNilThanValue(
     entity,
     () => isDisabled(entity) || isFormWrapperEntityInProgress(entity),
@@ -109,11 +109,11 @@ export const isFormEntityDisabled = <TEntity extends IEntity = IEntity>(entity: 
   );
 
 /**
- * @stable [26.12.2019]
- * @param {IFormEntity<TEntity extends IEntity>} formEntity
+ * @stable [16.01.2020]
+ * @param {IFormProps<TEntity extends IEntity>} formEntity
  * @returns {boolean}
  */
-export const isFormEntityDirty = <TEntity extends IEntity = IEntity>(formEntity: IFormEntity<TEntity>): boolean =>
+export const isFormEntityDirty = <TEntity extends IEntity = IEntity>(formEntity: IFormProps<TEntity>): boolean =>
   ifNotNilThanValue(
     formEntity,
     () => (
@@ -129,11 +129,11 @@ export const isFormEntityDirty = <TEntity extends IEntity = IEntity>(formEntity:
   );
 
 /**
- * @stable [25.10.2019]
- * @param {IFormEntity<TEntity extends IEntity>} entity
+ * @stable [16.01.2020]
+ * @param {IFormProps<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isFormEntityValid = <TEntity extends IEntity = IEntity>(entity: IFormEntity<TEntity>): boolean =>
+export const isFormEntityValid = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
   isValid(entity) && isValid(selectEditableEntity<TEntity>(entity)); // Redux or auto validation
 
 /**

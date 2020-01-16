@@ -7,9 +7,11 @@ import {
 } from '../../configurations-definitions.interface';
 import {
   IFormProps,
-  IGenericFormEntity,
 } from '../../definition';
-import { isTabActive, getTabActiveValue } from '../tabpanel/tabpanel.support';
+import {
+  isTabActive,
+  getTabActiveValue,
+} from '../tabpanel/tabpanel.support';
 import {
   isFormEntityDirty,
   isFormEntityDisabled,
@@ -22,7 +24,7 @@ import {
  * @param {IFieldProps} fieldProps
  * @returns {boolean}
  */
-export const isFormFieldDisabled = (formProps: IGenericFormEntity,
+export const isFormFieldDisabled = (formProps: IFormProps,
                                     fieldProps: IFieldProps): boolean =>
   R.isNil(fieldProps.disabled)
     ? isFormEntityDisabled(formProps)

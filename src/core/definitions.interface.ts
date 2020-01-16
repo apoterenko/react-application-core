@@ -294,7 +294,7 @@ export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
-export interface IOnBeforeSubmitWrapper<TOnBeforeSubmit> { onBeforeSubmit?: TOnBeforeSubmit; }
+export interface IOnBeforeSubmitWrapper<TPayload, TResult = void> { onBeforeSubmit?(payload?: TPayload): TResult; }
 export interface IOnClickWrapper<TValue = AnyT> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
@@ -309,12 +309,12 @@ export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
-export interface IOnResetWrapper<TValue> { onReset?: TValue; }
+export interface IOnResetWrapper { onReset?(): void; }
 export interface IOnScrollWrapper<TPayload = AnyT> { onScroll?(payload?: TPayload): void; }
 export interface IOnSelectWrapper<TValue = AnyT> { onSelect?(payload?: TValue): void; }
 export interface IOnSortingDirectionChangeWrapper<TPayload> { onSortingDirectionChange?(payload: TPayload): void; }
-export interface IOnSubmitWrapper<TValue> { onSubmit?: TValue; }
-export interface IOnValidWrapper<TValue> { onValid?: TValue; }
+export interface IOnSubmitWrapper<TPayload = AnyT> { onSubmit?(payload?: TPayload): void; }
+export interface IOnValidWrapper<TPayload = boolean> { onValid?(payload?: TPayload): void; }
 export interface IOpenedWrapper<TOpened = boolean> { opened?: TOpened; }
 export interface IOpenMenuWrapper<TPayload> { openMenu?(payload?: TPayload): void; }
 export interface IOperationIdWrapper { operationId?: string; }
