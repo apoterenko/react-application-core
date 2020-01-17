@@ -15,6 +15,7 @@ import {
   isDef,
   isFilterUsed,
   isFn,
+  isHighlightOdd,
   isMulti,
   isRemoteFilterApplied,
   joinClassName,
@@ -306,11 +307,12 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [23.09.2019]
+   * @stable [17.01.2020]
    * @param {IMenuItemEntity} option
+   * @param {number} index
    * @returns {JSX.Element}
    */
-  private getItemElement(option: IMenuItemEntity): JSX.Element {
+  private getItemElement(option: IMenuItemEntity, index: number): JSX.Element {
     const props = this.props;
     return (
       <ListItem
@@ -318,6 +320,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         disabled={option.disabled}
         icon={option.icon}
         rawData={option}
+        odd={isHighlightOdd(props, index)}
         renderer={props.renderer}
         tpl={props.tpl}
         onClick={this.onSelect}>

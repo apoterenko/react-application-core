@@ -19,6 +19,7 @@ import {
   IKeyValue,
   IListConfigurationWrapper,
   IListWrapper,
+  IOddWrapper,
   IOnChangeFilterWrapper,
   IOnChangeHeaderWrapper,
   IOnChangeWrapper,
@@ -83,16 +84,25 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
 }
 
 /**
+ * @generic-entity
+ * @stable [17.01.2020]
+ */
+export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
+  extends IDisabledWrapper,
+    IIconWrapper,
+    IIndexWrapper,
+    IOddWrapper,
+    IRawDataWrapper<TEntity>,
+    ISelectedWrapper {
+}
+
+/**
  * @stable [27.10.2019]
  */
 export interface IListItemEntity<TEntity extends IEntity = IEntity>
-  extends IRawDataWrapper<TEntity>,
+  extends IGenericListItemEntity<TEntity>,
     ITplWrapper<(entity: TEntity) => StringNumberT>,
     IOnClickWrapper<TEntity>,
-    ISelectedWrapper,
-    IIndexWrapper,
-    IDisabledWrapper,
-    IIconWrapper,
     IRendererWrapper<TEntity, number> {
 }
 

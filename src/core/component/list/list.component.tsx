@@ -3,7 +3,10 @@ import * as React from 'react';
 import { BaseList } from './base-list.component';
 import { IEntity } from '../../definitions.interface';
 import { IListProps } from '../../definition';
-import { joinClassName, isOddNumber, ifNotNilThanValue } from '../../util';
+import {
+  ifNotNilThanValue,
+  isHighlightOdd,
+} from '../../util';
 import { ListItem } from './item';
 import { SimpleList } from '../list/simple';
 
@@ -55,14 +58,9 @@ export class List extends BaseList<IListProps, {}, SimpleList> {
         index={index}
         rawData={entity}
         selected={this.isEntitySelected(entity)}
+        odd={isHighlightOdd(props, index)}
         onClick={props.onSelect}
-        {...props.itemConfiguration}
-        className={
-          joinClassName(
-            props.itemConfiguration.className,
-            props.highlightOdd !== false && (isOddNumber(index) ? 'rac-list-item-odd' : '')
-          )
-        }/>
+        {...props.itemConfiguration}/>
     );
   }
 }

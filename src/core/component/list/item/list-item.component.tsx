@@ -75,13 +75,14 @@ export class ListItem extends BaseComponent<IListItemProps> {
         className: joinClassName(
           'rac-list-item',
           props.className,
+          props.odd && 'rac-list-item-odd',
           ...(
             isSelected(props)
               ? ['rac-list-item-selected', context.selectedElementClassName]
               : ['rac-list-item-unselected']
           )
         ),
-        ...handlerPropsFactory<HTMLLIElement>(this.onClick, !isDisabled(props) && isFn(props.onClick), false),
+        ...handlerPropsFactory(this.onClick, !isDisabled(props) && isFn(props.onClick), false),
       }
     );
   }
