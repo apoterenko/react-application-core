@@ -12,12 +12,14 @@ import {
   ifNotNilThanValue,
   inProgress,
   isCenteredMenu,
+  isDef,
   isFilterUsed,
   isFn,
   isMulti,
   isRemoteFilterApplied,
   joinClassName,
   nvl,
+  orNull,
   queryFilter,
   subArray,
 } from '../../util';
@@ -29,7 +31,7 @@ import {
   IMenuItemEntity,
   IMenuProps,
   IMenuState,
-  SyntheticEventsEnum,
+  SyntheticEmitterEventsEnum,
 } from '../../definition';
 import {
   IField,
@@ -45,14 +47,15 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     implements IMenu {
 
   public static readonly defaultProps: IMenuProps = {
+    delayTimeout: 1000,
     filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
   private readonly dialogRef = React.createRef<Dialog<AnyT>>();
   private readonly fieldRef = React.createRef<TextField>();
   private readonly menuAnchorRef = React.createRef<HTMLDivElement>();
-  private readonly filterQueryTask: DelayedTask;
-  private syntheticScrollEventUnsubscriber: () => void;
+  private filterQueryTask: DelayedTask;
+  private scrollEventUnsubscriber: () => void;
   private resizeUnsubscriber: () => void;
 
   /**
@@ -72,9 +75,13 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.onFilterValueChange = this.onFilterValueChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
+    this.scrollEventCallbackCondition = this.scrollEventCallbackCondition.bind(this);
 
     this.state = {opened: false};
-    this.filterQueryTask = new DelayedTask(this.onFilterValueDelayedChange.bind(this), 500);
+
+    if (this.isFilterUsed) {
+      this.filterQueryTask = new DelayedTask(this.notifyFilterChange.bind(this), props.delayTimeout);
+    }
   }
 
   /**
@@ -83,7 +90,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   public render(): JSX.Element {
     const props = this.props;
-    const filterElement = this.filterElement;
 
     if (this.centeredMenu) {
       return (
@@ -97,7 +103,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             onDeactivate={this.onDialogDeactivate}
           >
             {this.closeActionElement}
-            {filterElement}
+            {this.filterElement}
             {this.getListElement(true)}
           </Dialog>
         )
@@ -113,7 +119,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
           ref={this.selfRef}
           style={{...!this.centeredMenu && {width: calc(props.width)}}}
           className={joinClassName('rac-menu', props.className, this.uiFactory.menu, this.uiFactory.menuSurface)}>
-          {filterElement}
           {this.getListElement()}
         </div>
       </div>
@@ -124,10 +129,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @stable [18.06.2019]
    */
   public componentWillUnmount() {
-    this.unsubscribeAllCaptureEvents();
-    this.filterQueryTask.stop();
-
+    this.clearAll();
     super.componentWillUnmount();
+
+    this.filterQueryTask = null;
   }
 
   /**
@@ -148,15 +153,16 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         this.dialog.activate();
       }
       if (!this.centeredMenu) {
-        this.unsubscribeAllCaptureEvents();
-        this.syntheticScrollEventUnsubscriber = this.domAccessor.captureEventWithinElement({
-          autoUnsubscribe: true,
+        this.clearAll();
+
+        this.scrollEventUnsubscriber = this.eventEmitter.subscribe({
+          autoUnsubscribing: true,
           callback: this.hide,
-          element: this.selfRef.current,
-          eventName: SyntheticEventsEnum.SCROLL,  // We do not have info about scrollable parent (body, etc, ...)
+          condition: this.scrollEventCallbackCondition,
+          eventName: SyntheticEmitterEventsEnum.SCROLL,
         });
         this.resizeUnsubscriber = this.domAccessor.captureEvent({
-          autoUnsubscribe: true,
+          autoUnsubscribing: true,
           callback: this.hide,
           eventName: EventsEnum.RESIZE,
         });
@@ -178,8 +184,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @stable [18.06.2019]
    */
   public hide(): void {
-    const props = this.props;
+    this.clearAll();
+
     this.setState({opened: false}, () => {
+      const props = this.props;
       if (isFn(props.onClose)) {
         props.onClose();
       }
@@ -226,7 +234,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   /**
    * @stable [23.11.2019]
    */
-  private onFilterValueDelayedChange(): void {
+  private notifyFilterChange(): void {
     const props = this.props;
     if (isFn(props.onFilterChange)) {
       props.onFilterChange(this.state.filter);
@@ -270,9 +278,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @stable [23.11.2019]
    */
   private unsubscribeAllCaptureEvents(): void {
-    if (isFn(this.syntheticScrollEventUnsubscriber)) {
-      this.syntheticScrollEventUnsubscriber();
-      this.syntheticScrollEventUnsubscriber = null;
+    if (isFn(this.scrollEventUnsubscriber)) {
+      this.scrollEventUnsubscriber();
+      this.scrollEventUnsubscriber = null;
     }
     if (isFn(this.resizeUnsubscriber)) {
       this.resizeUnsubscriber();
@@ -319,21 +327,34 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.06.2019]
+   * @stable [17.01.2020]
+   */
+  private clearAll(): void {
+    this.unsubscribeAllCaptureEvents();
+
+    if (isDef(this.filterQueryTask)) {
+      this.filterQueryTask.stop();
+    }
+  }
+
+  /**
+   * @stable [17.01.2020]
    * @returns {JSX.Element}
    */
   private get filterElement(): JSX.Element {
     const props = this.props;
     const state = this.state;
-    return (
-      <TextField
-        ref={this.fieldRef}
-        full={false}
-        value={state.filter}
-        visible={this.isFilterUsed}  /* MDC focus trap */
-        placeholder={props.filterPlaceholder || this.settings.messages.FILTER_PLACEHOLDER}
-        errorMessageRendered={false}
-        onChange={this.onFilterValueChange}/>
+    return orNull(
+      this.isFilterUsed,
+      () => (
+        <TextField
+          ref={this.fieldRef}
+          full={false}
+          value={state.filter}
+          placeholder={props.filterPlaceholder || this.settings.messages.FILTER_PLACEHOLDER}
+          errorMessageRendered={false}
+          onChange={this.onFilterValueChange}/>
+      )
     );
   }
 
@@ -390,6 +411,15 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private get canInitPerfectScrollPlugin(): boolean {
     return !this.centeredMenu;
+  }
+
+  /**
+   * @stable [17.01.2020]
+   * @param {HTMLElement} element
+   * @returns {boolean}
+   */
+  private scrollEventCallbackCondition(element: HTMLElement): boolean {
+    return element !== this.selfRef.current;
   }
 
   /**
