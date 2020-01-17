@@ -21,6 +21,7 @@ export * from './entity-definition.interface';
 export * from './env-definition.interface';
 export * from './error-definition.interface';
 export * from './event-definition.interface';
+export * from './event-emitter-definition.interface';
 export * from './field-converter-definition.interface';
 export * from './field-definition.interface';
 export * from './file-definition.interface';

@@ -124,7 +124,7 @@ export interface ITabPanelConfigurationWrapper<TabPanelConfiguration = ITabPanel
  */
 export interface IUniversalKeyboardHandlersConfiguration<TKeyboardEvent = IKeyboardEvent> {
   onKeyTab?(event: TKeyboardEvent): void;
-  onKeyEnter?(event: TKeyboardEvent): void;
+  onKeyEnter?(event: IBaseEvent): void;
   onKeyUp?(event: TKeyboardEvent): void;
   onKeyDown?(event: TKeyboardEvent): void;
   onKeyEscape?(event: IBaseEvent): void;

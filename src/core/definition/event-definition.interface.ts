@@ -29,15 +29,9 @@ export enum EventsEnum {
   MOUSEENTER = 'mouseenter',
   MOUSELEAVE = 'mouseleave',
   RESIZE = 'resize',
+  SCROLL = 'scroll',
   UNLOAD = 'unload',
   WHEEL = 'wheel',
-}
-
-/**
- * @stable [23.11.2019]
- */
-export enum SyntheticEventsEnum {
-  SCROLL = 'syntheticscroll',
 }
 
 /**

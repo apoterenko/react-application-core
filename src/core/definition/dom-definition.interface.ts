@@ -3,7 +3,7 @@ import JQuery from 'jquery';
 import { IBaseEvent } from './event-definition.interface';
 import { IXYEntity } from './xy-definition.interface';
 import {
-  IAutoUnsubscribeWrapper,
+  IAutoUnsubscribingWrapper,
   ICallbackWrapper,
   IConditionWrapper,
   IElementWrapper,
@@ -44,9 +44,9 @@ export interface IJQueryElement<TElement extends Element = Element>
  * @stable [23.11.2019]
  */
 export interface ICaptureEventConfigEntity
-  extends IAutoUnsubscribeWrapper,
+  extends IAutoUnsubscribingWrapper,
     ICallbackWrapper,
-    IConditionWrapper,
+    IConditionWrapper<() => void>,
     IElementWrapper<Element | EventTarget>,
     IEventNameWrapper,
     IParentElementWrapper<Element | EventTarget> {

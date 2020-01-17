@@ -34,6 +34,7 @@ export interface IEnvironment {
   platformVersion?: string;
   prodMode?: boolean;
   safariPlatform?: boolean;
+  touchedPlatform?: boolean;
   window?: Window;
   windowsPhonePlatform?: boolean;
   windowsPlatform?: boolean;

@@ -71,7 +71,7 @@ export interface IAuthWrapper<TAuth = string> { auth?: TAuth; }
 export interface IAutoCompleteWrapper<TAutoComplete = string> { autoComplete?: TAutoComplete; }
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
-export interface IAutoUnsubscribeWrapper { autoUnsubscribe?: boolean; }
+export interface IAutoUnsubscribingWrapper { autoUnsubscribing?: boolean; }
 export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IBasenameWrapper { basename?: string; }
 export interface IBeforeEnterWrapper<TBeforeEnter> { beforeEnter?: TBeforeEnter; }
@@ -110,7 +110,7 @@ export interface IColumnTitleWrapper<TColumnTitle = string> { columnTitle?: TCol
 export interface IColumnWidthWrapper { columnWidth?: number; }
 export interface ICompactWrapper<TCompact = boolean> { compact?: TCompact; }
 export interface IComputedMatchWrapper<TComputedMatch> { computedMatch?: TComputedMatch; }
-export interface IConditionWrapper<TValue = () => void> { condition?: TValue; }
+export interface IConditionWrapper<TValue> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface IConverterWrapper<TValue> { converter?: TValue; }
