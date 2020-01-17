@@ -323,7 +323,13 @@
   };
 
   var updateGeometry = function(i) {
+    if (!i) {
+      return;
+    }
     var element = i.element;
+    if (!element) {
+      return;
+    }
     var roundedScrollTop = Math.floor(element.scrollTop);
 
     i.containerWidth = element.clientWidth;
@@ -422,6 +428,9 @@
   }
 
   function updateCss(element, i) {
+    if (!element) {
+      return;
+    }
     var xRailOffset = { width: i.railXWidth };
     var roundedScrollTop = Math.floor(element.scrollTop);
 
@@ -486,7 +495,9 @@
         i.scrollbarYRail.getBoundingClientRect().top;
       var direction = positionTop > i.scrollbarYTop ? 1 : -1;
 
-      i.element.scrollTop += direction * i.containerHeight;
+      if (i.element) {
+        i.element.scrollTop += direction * i.containerHeight;
+      }
       updateGeometry(i);
 
       e.stopPropagation();
@@ -590,6 +601,9 @@
     var scrollbarFocused = function () { return matches(i.scrollbarX, ':focus') || matches(i.scrollbarY, ':focus'); };
 
     function shouldPreventDefault(deltaX, deltaY) {
+      if (!element) {
+        return;
+      }
       var scrollTop = Math.floor(element.scrollTop);
       if (deltaX === 0) {
         if (!i.scrollbarYActive) {
@@ -731,6 +745,9 @@
     var element = i.element;
 
     function shouldPreventDefault(deltaX, deltaY) {
+      if (!element) {
+        return;
+      }
       var roundedScrollTop = Math.floor(element.scrollTop);
       var isTop = element.scrollTop === 0;
       var isBottom =
@@ -889,6 +906,9 @@
     var element = i.element;
 
     function shouldPrevent(deltaX, deltaY) {
+      if (!element) {
+        return;
+      }
       var scrollTop = Math.floor(element.scrollTop);
       var scrollLeft = element.scrollLeft;
       var magnitudeX = Math.abs(deltaX);
@@ -919,8 +939,10 @@
     }
 
     function applyTouchMove(differenceX, differenceY) {
-      element.scrollTop -= differenceY;
-      element.scrollLeft -= differenceX;
+      if (element) {
+        element.scrollTop -= differenceY;
+        element.scrollLeft -= differenceX;
+      }
 
       updateGeometry(i);
     }
@@ -1274,7 +1296,7 @@
   };
 
   PerfectScrollbar.prototype.onScroll = function onScroll (e) {
-    if (!this.isAlive) {
+    if (!this.isAlive || !this.element) {
       return;
     }
 
