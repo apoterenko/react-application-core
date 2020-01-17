@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import PerfectScrollbar from 'perfect-scrollbar';
+import * as PerfectScrollbar from './perfect-scrollbar'; // TODO
 
 import {
   EventsEnum,
