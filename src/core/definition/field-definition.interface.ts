@@ -13,7 +13,10 @@ import {
   IAutoFocusWrapper,
   IChangeableWrapper,
   IClassNameWrapper,
+  ICurrentWrapper,
+  IDateWrapper,
   IDefaultValueWrapper,
+  IDialogOpenedWrapper,
   IDisabledWrapper,
   IDisableLabelWrapper,
   IDisplayNameWrapper,
@@ -52,6 +55,7 @@ import {
   IValueWrapper,
   IVisibleWrapper,
   IWaitingForDataWrapper,
+  IYearWrapper,
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
@@ -226,6 +230,17 @@ export interface IGenericDateFieldEntity
     IHeaderFormatWrapper,
     IMaxDateWrapper<Date>,
     IMinDateWrapper<Date> {
+}
+
+/**
+ * @generic-state
+ * @stable [17.01.2020]
+ */
+export interface IGenericDateFieldState
+  extends ICurrentWrapper<Date>,
+    IDateWrapper<Date>,
+    IDialogOpenedWrapper,
+    IYearWrapper {
 }
 
 /**

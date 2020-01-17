@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import {
   ifNotNilThanValue,
@@ -50,8 +49,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     this.isDaySelected = this.isDaySelected.bind(this);
     this.onAccept = this.onAccept.bind(this);
-    this.onOk = this.onOk.bind(this);
     this.onChangeYear = this.onChangeYear.bind(this);
+    this.onDaySelect = this.onDaySelect.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.setNextMonth = this.setNextMonth.bind(this);
@@ -114,9 +113,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               showOnlyCurrentDays={true}
               gridConfiguration={{headerRendered: true}}
               {...props.calendarConfiguration}
-              calendarEntity={this.calendarEntity}
+              calendarEntity={this.currentCalendarEntity}
               isSelected={this.isDaySelected}
-              onSelect={this.onAccept}/>
+              onSelect={this.onDaySelect}/>
             <div className='rac-calendar-dialog__footer'>
               <NumberField
                 value={year}
@@ -131,7 +130,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               </NumberField>
               <Button
                 text={this.settings.messages.OK}
-                onClick={this.onOk}/>
+                onClick={this.onAccept}/>
             </div>
           </Dialog>
         );
@@ -217,7 +216,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @param {number} duration
    */
   private changeMonth(duration: number): void {
-    this.setState({date: this.dc.addMonthsAsDate({date: this.calendarDate, duration})});
+    this.setState({current: this.dc.addMonthsAsDate({date: this.currentCalendarDate, duration})});
   }
 
   /**
@@ -226,35 +225,41 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onChangeYear(year: number): void {
     const props = this.props;
-    const date = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.selectedDate});
+    const date = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.valueToAccept});
 
     if (this.dc.isDateBelongToDatesRange({date, minDate: props.minDate, maxDate: props.maxDate})) {
-      this.setState({year, date});
+      this.setState({current: UNDEF, year, date});
     } else {
-      this.setState({year});
+      this.setState({current: UNDEF, year});
     }
   }
 
   /**
-   * @stable [14.01.2020]
+   * @stable [17.01.2020]
    */
-  private onOk(): void {
-    this.onAccept();
-  }
-
-  /**
-   * @stable [09.01.2020]
-   * @param {ICalendarDayEntity} calendarDayEntity
-   */
-  private onAccept(calendarDayEntity?: ICalendarDayEntity): void {
+  private onAccept(): void {
+    const valueToAccept = this.valueToAccept;
     this.onDialogClose(() => {
-      if (!R.isNil(calendarDayEntity)) {
-        this.onChangeManually(calendarDayEntity.date);
-      }
+      ifNotNilThanValue(
+        valueToAccept,
+        () => this.onChangeManually(valueToAccept)
+      );
 
       if (!this.isFocusPrevented) {
         this.setFocus();
       }
+    });
+  }
+
+  /**
+   * @stable [17.01.2020]
+   * @param {ICalendarDayEntity} calendarDayEntity
+   */
+  private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
+    this.setState({
+      current: UNDEF,
+      year: UNDEF,
+      date: calendarDayEntity.date,
     });
   }
 
@@ -270,7 +275,12 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @param {() => void} callback
    */
   private onDialogClose(callback?: () => void): void {
-    this.setState({dialogOpened: false, date: UNDEF, year: UNDEF}, callback);
+    this.setState({
+      dialogOpened: false,
+      current: UNDEF,
+      date: UNDEF,
+      year: UNDEF,
+    }, callback);
   }
 
   /**
@@ -286,14 +296,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {boolean}
    */
   private isDaySelected(entity: ICalendarDayEntity): boolean {
-    return this.dc.compare(entity.date, this.selectedDate) === 0;
+    return this.dc.compare(entity.date, this.valueToAccept) === 0;
   }
 
   /**
    * @stable [07.01.2020]
    * @returns {Date}
    */
-  private get selectedDate(): Date {
+  private get valueAsDate(): Date {
     return this.dc.asDate({date: this.value, inputFormat: this.fieldFormat});
   }
 
@@ -315,23 +325,31 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {string}
    */
   private dateToDisplay(): string {
-    return this.dc.dateAsString({date: this.calendarDate, outputFormat: this.props.headerFormat});
+    return this.dc.dateAsString({date: this.currentCalendarDate, outputFormat: this.props.headerFormat});
   }
 
   /**
    * @stable [07.01.2020]
    * @returns {ICalendarEntity}
    */
-  private get calendarEntity(): ICalendarEntity {
-    return this.dc.asCalendar({date: this.calendarDate});
+  private get currentCalendarEntity(): ICalendarEntity {
+    return this.dc.asCalendar({date: this.currentCalendarDate});
   }
 
   /**
-   * @stable [08.01.2020]
+   * @stable [17.01.2020]
    * @returns {Date}
    */
-  private get calendarDate(): Date {
-    return this.state.date || this.selectedDate || this.dc.asDayOfYear();
+  private get currentCalendarDate(): Date {
+    return this.state.current || this.valueToAccept;
+  }
+
+  /**
+   * @stable [17.01.2020]
+   * @returns {Date}
+   */
+  private get valueToAccept(): Date {
+    return this.state.date || this.valueAsDate || this.dc.asDayOfYear();
   }
 
   /**
@@ -340,7 +358,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get selectedYearPlaceholder(): string {
     return ifNotNilThanValue(
-      this.selectedDate,
+      this.valueAsDate,
       (selectedDate) => String(this.dc.asDayOfYearEntity({date: selectedDate}).year),
       UNDEF_SYMBOL
     );
