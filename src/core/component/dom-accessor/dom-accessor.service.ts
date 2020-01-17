@@ -113,18 +113,18 @@ export class DomAccessor implements IDomAccessor {
    */
   public captureEvent(cfg: ICaptureEventConfigEntity): () => void {
     const {
-      autoUnsubscribe,
+      autoUnsubscribing,
       callback,
       condition = () => true,
       element = this.window,
       eventName,
     } = cfg;
 
-    let eventUnSubscriber: () => void;
-    return eventUnSubscriber = this.eventManager.subscribe(element, eventName, () => {
+    let eventUnsubscriber: () => void;
+    return eventUnsubscriber = this.eventManager.subscribe(element, eventName, () => {
       if (condition()) {
-        if (autoUnsubscribe) {
-          eventUnSubscriber();
+        if (autoUnsubscribing) {
+          eventUnsubscriber();
         }
         callback();
       }
@@ -138,7 +138,7 @@ export class DomAccessor implements IDomAccessor {
    */
   public captureEventWithinElement(cfg: ICaptureEventConfigEntity): () => void {
     const {
-      autoUnsubscribe,
+      autoUnsubscribing,
       callback,
       element,
       eventName,
@@ -146,27 +146,31 @@ export class DomAccessor implements IDomAccessor {
     } = cfg;
 
     let withinMenuEl = false;
-    let mouseenterUnSubscriber: () => void;
-    let mouseleaveUnSubscriber: () => void;
+    let enterUnsubscriber: () => void;
+    let leaveUnsubscriber: () => void;
 
-    const sideEffectsUnSubscriber = () => {
-      if (isFn(mouseenterUnSubscriber)) {
-        mouseenterUnSubscriber();
-        mouseenterUnSubscriber = null;
+    const sideEffectsUnsubscriber = () => {
+      if (isFn(enterUnsubscriber)) {
+        enterUnsubscriber();
+        enterUnsubscriber = null;
       }
-      if (isFn(mouseleaveUnSubscriber)) {
-        mouseleaveUnSubscriber();
-        mouseleaveUnSubscriber = null;
+      if (isFn(leaveUnsubscriber)) {
+        leaveUnsubscriber();
+        leaveUnsubscriber = null;
       }
     };
-    mouseenterUnSubscriber = this.eventManager.subscribe(element, EventsEnum.MOUSEENTER, () => withinMenuEl = true);
-    mouseleaveUnSubscriber = this.eventManager.subscribe(element, EventsEnum.MOUSELEAVE, () => withinMenuEl = false);
+
+    const touchedPlatform = this.environment.touchedPlatform;
+    enterUnsubscriber = this.eventManager.subscribe(element,
+      touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSEENTER, () => withinMenuEl = true);
+    leaveUnsubscriber = this.eventManager.subscribe(element,
+      touchedPlatform ? TouchEventsEnum.TOUCH_END : EventsEnum.MOUSELEAVE, () => withinMenuEl = false);
 
     const originalUnSubscriber = this.captureEvent({
-      autoUnsubscribe,
+      autoUnsubscribing,
       callback: () => {
-        if (autoUnsubscribe) {
-          sideEffectsUnSubscriber();
+        if (autoUnsubscribing) {
+          sideEffectsUnsubscriber();
         }
         callback();
       },
@@ -176,7 +180,7 @@ export class DomAccessor implements IDomAccessor {
     });
 
     return () => {
-      sideEffectsUnSubscriber();
+      sideEffectsUnsubscriber();
       originalUnSubscriber();
     };
   }
