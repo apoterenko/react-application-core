@@ -8,7 +8,6 @@ import {
 import {
   DelayedTask,
   ifNotEmptyThanValue,
-  inProgress,
   isDef,
   isExpandActionRendered,
   isFn,
@@ -67,7 +66,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       ];
     }
     if (this.isQuickSelectionModeEnabled) {
-      this.quickFilterQueryTask = new DelayedTask(this.onDelayedFilterChange.bind(this), this.delayTimeout);
+      this.quickFilterQueryTask = new DelayedTask(this.notifyFilterChange.bind(this), this.delayTimeout);
     }
   }
 
@@ -77,11 +76,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   public onChange(event: IBaseEvent): void {
     super.onChange(event);
-
-    if (this.isQuickSelectionModeEnabled) {
-      this.hideMenu();
-      this.quickFilterQueryTask.start();
-    }
+    this.startQuickSearchIfApplicable();
   }
 
   /**
@@ -160,6 +155,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     } else {
       this.renderAndShowMenu();
     }
+  }
+
+  /**
+   * @stable [16.01.2020]
+   * @param {IBaseEvent} event
+   */
+  public onKeyEnter(event: IBaseEvent): void {
+    if (this.startQuickSearchIfApplicable(true)) {
+      this.domAccessor.cancelEvent(event);
+    }
+    super.onKeyEnter(event);
   }
 
   /**
@@ -326,7 +332,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   /**
    * @stable [11.01.2020]
    */
-  private onDelayedFilterChange(): void {
+  private notifyFilterChange(): void {
     ifNotEmptyThanValue(
       this.value,
       (value) => this.setState({waitingForData: true}, () => this.onFilterChange(value))
@@ -377,6 +383,25 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
+   * @stable [16.01.2020]
+   */
+  private startQuickSearchIfApplicable(noDelay = false): boolean {
+    if (!this.isQuickSelectionModeEnabled) {
+      return false;
+    }
+
+    this.hideMenu();
+
+    if (noDelay) {
+      this.quickFilterQueryTask.stop();
+      this.notifyFilterChange();
+    } else {
+      this.quickFilterQueryTask.start();
+    }
+    return true;
+  }
+
+  /**
    * @stable [11.01.2020]
    * @returns {boolean}
    */
@@ -393,11 +418,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
-   * @returns {number}
+   * @stable [17.01.2020]
+   * @returns {() => number}
    */
-  private get menuWidth(): number {
-    return this.domAccessor.getWidth(this.getSelf());
+  private get menuWidth(): () => number {
+    return () => this.domAccessor.getWidth(this.getSelf());
   }
 
   /**
