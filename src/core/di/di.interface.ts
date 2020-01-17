@@ -13,6 +13,7 @@ export const DI_TYPES = Object.freeze({
   DynamicRoutes: Symbol('DynamicRoutes'),
   DynamicSections: Symbol('DynamicSections'),
   Environment: Symbol('Environment'),
+  EventEmitter: Symbol('EventEmitter'),
   EventManager: Symbol('EventManager'),
   FieldConverter: Symbol('FieldConverter'),
   FieldsOptions: Symbol('FieldsOptions'),
