@@ -70,9 +70,9 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   /**
    * @stable [28.06.2018]
-   * @param {IKeyboardEvent} event
+   * @param {IBaseEvent} event
    */
-  public onKeyEnter(event: IKeyboardEvent): void {
+  public onKeyEnter(event: IBaseEvent): void {
     super.onKeyEnter(event);
     this.openFileDialog(event);
   }

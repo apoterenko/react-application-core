@@ -190,10 +190,10 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [18.06.2018]
-   * @param {IKeyboardEvent} event
+   * @stable [16.01.2020]
+   * @param {IBaseEvent} event
    */
-  public onKeyEnter(event: IKeyboardEvent): void {
+  public onKeyEnter(event: IBaseEvent): void {
     const props = this.props;
     if (isFn(props.onKeyEnter)) {
       props.onKeyEnter(event);
