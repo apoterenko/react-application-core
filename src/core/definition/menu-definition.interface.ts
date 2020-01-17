@@ -7,6 +7,7 @@ import {
   IFilterPlaceholderWrapper,
   IFilterWrapper,
   IHideWrapper,
+  IHighlightOddWrapper,
   IIconWrapper,
   IIsOpenWrapper,
   IMaxCountWrapper,
@@ -54,6 +55,7 @@ export interface IStringMenuActionEntity
  */
 export interface IGenericMenuEntity
   extends IDelayTimeoutWrapper,
+    IHighlightOddWrapper,
     IMaxCountWrapper,
     IMultiWrapper,
     IProgressWrapper,

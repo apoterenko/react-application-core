@@ -39,6 +39,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   };
 
   private readonly dialogRef = React.createRef<Dialog<AnyT>>();
+  private readonly yearRef = React.createRef<NumberField>();
 
   /**
    * @stable [07.01.2020]
@@ -118,6 +119,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               onSelect={this.onDaySelect}/>
             <div className='rac-calendar-dialog__footer'>
               <NumberField
+                ref={this.yearRef}
                 value={year}
                 full={false}
                 autoFocus={true}
@@ -258,9 +260,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
     this.setState({
       current: UNDEF,
-      year: UNDEF,
+      year: calendarDayEntity.year,
       date: calendarDayEntity.date,
-    });
+    }, () => this.yearRef.current.setFocus());
   }
 
   /**
@@ -360,7 +362,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     return ifNotNilThanValue(
       this.valueAsDate,
       (selectedDate) => String(this.dc.asDayOfYearEntity({date: selectedDate}).year),
-      UNDEF_SYMBOL
+      this.settings.dateTime.uiYearFormat
     );
   }
 

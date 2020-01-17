@@ -28,6 +28,7 @@ export interface IDateTimeSettingsEntity {
   uiDatePattern?: string;
   uiDefaultTime?: string;
   uiTimeFormat?: string;
+  uiYearFormat?: string;
   uiYearMask?: Array<string|RegExp>;
   uiYearPattern?: string;
 }
@@ -44,6 +45,7 @@ const defaultDateTimeSettingsEntity: IDateTimeSettingsEntity = {
   uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
   uiDefaultTime: '00:00:00',
   uiTimeFormat: 'HH:mm:ss',
+  uiYearFormat: 'YYYY',
   uiYearMask: [/\d/, /\d/, /\d/, /\d/],
   uiYearPattern: '[0-9]{4}',
 };

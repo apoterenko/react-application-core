@@ -3542,6 +3542,7 @@
   $rac-calendar-dialog-footer-action-width: unset,                                        /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-display: unset,                                             /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-input-self-field-background: unset,                         /* @stable [14.01.2020] */
+  $rac-calendar-dialog-footer-input-self-field-input-text-align: unset,                   /* @stable [17.01.2020] */
   $rac-calendar-dialog-footer-input-width: unset,                                         /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-justify-content: unset,                                     /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-align-items: unset,                                 /* @stable [08.01.2020] */
@@ -3582,7 +3583,8 @@
       @include rac-field (
         $rac-field-custom: $rac-base-text-cls,
         $rac-field-width: $rac-calendar-dialog-footer-input-width,
-        $rac-self-field-background: $rac-calendar-dialog-footer-input-self-field-background
+        $rac-self-field-background: $rac-calendar-dialog-footer-input-self-field-background,
+        $rac-self-field-input-text-align: $rac-calendar-dialog-footer-input-self-field-input-text-align
       );
 
       @include rac-button (
