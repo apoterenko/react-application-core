@@ -11,6 +11,7 @@ import {
   getAsyncLibManager,
   getDatabaseStorage,
   getEnvironment,
+  getEventEmitter,
   getEventManager,
   getFieldConverter,
   getNumberConverter,
@@ -34,6 +35,7 @@ import {
   IAsyncLibManager,
   IDomAccessor,
   IEnvironment,
+  IEventEmitter,
   IEventManager,
   IFieldConverter,
   IPlaceApi,
@@ -139,6 +141,15 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get fieldConverter(): IFieldConverter {
     return getFieldConverter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [17.01.2020]
+   * @returns {IEventEmitter}
+   */
+  protected get eventEmitter(): IEventEmitter {
+    return getEventEmitter();
   }
 
   /**

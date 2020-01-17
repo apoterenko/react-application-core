@@ -16,6 +16,7 @@ import {
   IConnectorEntity,
   IContainer,
   IEnvironment,
+  IEventEmitter,
   IEventManager,
   IFieldConverter,
   IFormStoreProxy,
@@ -130,6 +131,12 @@ export const getTransport = (): ITransport => staticInjector(DI_TYPES.Transport)
  * @returns {IEnvironment}
  */
 export const getEnvironment = (): IEnvironment => staticInjector(DI_TYPES.Environment);
+
+/**
+ * @stable [17.01.2020]
+ * @returns {IEventEmitter}
+ */
+export const getEventEmitter = (): IEventEmitter => staticInjector(DI_TYPES.EventEmitter);
 
 /**
  * @stable [24.09.2019]

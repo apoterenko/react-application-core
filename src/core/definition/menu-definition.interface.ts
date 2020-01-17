@@ -1,6 +1,7 @@
 import {
   EntityIdT,
   ICenteredMenuWrapper,
+  IDelayTimeoutWrapper,
   IDisabledWrapper,
   IEntity,
   IFilterPlaceholderWrapper,
@@ -52,7 +53,8 @@ export interface IStringMenuActionEntity
  * @stable [15.01.2020]
  */
 export interface IGenericMenuEntity
-  extends IMaxCountWrapper,
+  extends IDelayTimeoutWrapper,
+    IMaxCountWrapper,
     IMultiWrapper,
     IProgressWrapper,
     IRemoteFilterWrapper,
