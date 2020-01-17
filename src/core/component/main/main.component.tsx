@@ -5,7 +5,6 @@ import {
   FlexClassNamesEnum,
   IMainProps,
   IScrollableEntity,
-  SyntheticEventsEnum,
   UniversalScrollableContext,
   UniversalStickyContext,
 } from '../../definition';
@@ -66,8 +65,7 @@ export class Main extends BaseComponent<IMainProps>
    * @stable [13.12.2018]
    */
   public onScroll() {
-    this.domAccessor.fireEvent({eventName: SyntheticEventsEnum.SCROLL});
-
     // Each plugin should override this method
+    // TODO Try move to eventManager service
   }
 }
