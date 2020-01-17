@@ -4,23 +4,26 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import {
   EventsEnum,
   IDomAccessor,
+  IEventEmitter,
   IPerfectScrollableComponent,
   IUniversalPlugin,
+  SyntheticEmitterEventsEnum,
 } from '../../definition';
 import {
   DI_TYPES,
   lazyInject,
 } from '../../di';
 import {
-  isDef,
   isFn,
 } from '../../util';
 
 export class PerfectScrollPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
+  @lazyInject(DI_TYPES.EventEmitter) private readonly eventEmitter: IEventEmitter;
 
   private ps;
   private resizeUnsubscriber: () => void;
+  private scrollUnsubscriber: () => void;
 
   /**
    * @stable [04.12.2019]
@@ -28,20 +31,21 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
    */
   constructor(private readonly component: IPerfectScrollableComponent) {
     this.doUpdate = this.doUpdate.bind(this);
+    this.onScroll = this.onScroll.bind(this);
   }
 
   /**
    * @stable [04.12.2019]
    */
   public componentDidMount() {
-    this.tryRegisterPs();
+    this.registerPlugin();
   }
 
   /**
    * @stable [04.12.2019]
    */
   public componentDidUpdate() {
-    this.tryRegisterPs();
+    this.registerPlugin();
     this.doUpdate();
   }
 
@@ -56,21 +60,17 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
    * @stable [06.12.2019]
    */
   private doUpdate(): void {
-    if (isDef(this.ps)) {
-      try {
-        this.ps.update();
-      } catch (e) {
-        // Do nothing... (https://github.com/mdbootstrap/perfect-scrollbar/issues/827)
-      }
+    if (R.isNil(this.ps)) {
+      return;
     }
+    this.ps.update();
   }
 
   /**
    * @stable [06.12.2019]
    */
-  private tryRegisterPs(): void {
-    const component = this.component;
-    const selfRef = component.getSelf() as HTMLElement;
+  private registerPlugin(): void {
+    const selfRef = this.selfRef;
     if (R.isNil(selfRef)) {
       this.doDestroy();
       return;
@@ -83,13 +83,26 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
       wheelSpeed: 2,
       wheelPropagation: false,
       minScrollbarLength: 20,
-      ...component.props.perfectScroll,
+      ...this.component.props.perfectScroll,
+    });
+
+    this.scrollUnsubscriber = this.domAccessor.captureEvent({
+      eventName: EventsEnum.SCROLL,
+      element: selfRef,
+      callback: this.onScroll,
     });
 
     this.resizeUnsubscriber = this.domAccessor.captureEvent({
       eventName: EventsEnum.RESIZE,
       callback: this.doUpdate,
     });
+  }
+
+  /**
+   * @stable [17.01.2020]
+   */
+  private onScroll(): void {
+    this.eventEmitter.emit(SyntheticEmitterEventsEnum.SCROLL, this.selfRef);
   }
 
   /**
@@ -105,6 +118,11 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
       this.resizeUnsubscriber();
       this.resizeUnsubscriber = null;
     }
+
+    if (isFn(this.scrollUnsubscriber)) {
+      this.scrollUnsubscriber();
+      this.scrollUnsubscriber = null;
+    }
   }
 
   /**
@@ -113,5 +131,13 @@ export class PerfectScrollPlugin implements IUniversalPlugin {
    */
   private get doesPsExist(): boolean {
     return !R.isNil(this.ps);
+  }
+
+  /**
+   * @stable [17.01.2020]
+   * @returns {HTMLElement}
+   */
+  private get selfRef(): HTMLElement {
+    return this.component.getSelf() as HTMLElement;
   }
 }
