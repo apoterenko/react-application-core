@@ -150,6 +150,14 @@ export class Environment implements IEnvironment {
   }
 
   /**
+   * @stable [16.01.2020]
+   * @returns {boolean}
+   */
+  public get touchedPlatform(): boolean {
+    return 'ontouchstart' in this.window;
+  }
+
+  /**
    * @stable [08.10.2019]
    * @returns {boolean}
    */
@@ -186,7 +194,7 @@ export class Environment implements IEnvironment {
    * @returns {boolean}
    */
   public get ios13Platform(): boolean {
-    return this.isMacPlatform && this.safariPlatform && 'ontouchstart' in this.window;
+    return this.isMacPlatform && this.safariPlatform && this.touchedPlatform;
   }
 
   /**
