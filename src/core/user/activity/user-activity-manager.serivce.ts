@@ -32,6 +32,7 @@ export class UserActivityManager implements IUserActivityManager {
 
   private suspended: boolean;
   private inactivityTask: DelayedTask;
+  private keyPressEventUnsubscriber: () => void;
   private mouseDownEventUnsubscriber: () => void;
   private mouseMoveEventUnsubscriber: () => void;
   private touchMoveEventUnsubscriber: () => void;
@@ -71,6 +72,11 @@ export class UserActivityManager implements IUserActivityManager {
     });
     this.mouseMoveEventUnsubscriber = this.domAccessor.captureEvent({
       eventName: EventsEnum.MOUSE_MOVE,
+      element: this.environment.document,
+      callback: this.onUserActivate,
+    });
+    this.keyPressEventUnsubscriber = this.domAccessor.captureEvent({
+      eventName: EventsEnum.KEY_PRESS,
       element: this.environment.document,
       callback: this.onUserActivate,
     });
@@ -135,6 +141,10 @@ export class UserActivityManager implements IUserActivityManager {
     if (isFn(this.mouseMoveEventUnsubscriber)) {
       this.mouseMoveEventUnsubscriber();
       this.mouseMoveEventUnsubscriber = null;
+    }
+    if (isFn(this.keyPressEventUnsubscriber)) {
+      this.keyPressEventUnsubscriber();
+      this.keyPressEventUnsubscriber = null;
     }
 
     UserActivityManager.logger.debug('[$$UserActivityManager][cancel]');
