@@ -14,5 +14,6 @@ import '../lock/lock.module';
 import '../permissions/permissions-manager.module';
 import '../router/router.module';
 import '../storage/storage.module';
+import '../user/user.module';
 import './application.effects';
 import './universal.module';

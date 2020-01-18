@@ -103,3 +103,12 @@ export const ifNotTrueThanValue = <TResult>(value: boolean,
                                             callback: (value: boolean) => TResult,
                                             defaultValue = null): TResult =>
   value !== true ? callback(value) : defaultValue;
+
+/**
+ * @stable [19.01.2020]
+ * @param {AnyT} currentValue
+ * @param {AnyT} previousValue
+ * @returns {boolean}
+ */
+export const isSet = (currentValue: AnyT, previousValue: AnyT): boolean =>
+  !R.isNil(currentValue) && !R.equals(currentValue, previousValue);

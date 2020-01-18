@@ -34,6 +34,7 @@ import {
   IUniversalConnectorContainerFactory,
   IUniversalContainerCtor,
   IUniversalContainerProps,
+  IUserActivityManager,
   RouterStoreProxyFactoryT,
   UniversalPluginFactoryT,
 } from '../definition';
@@ -212,3 +213,10 @@ export const getRouterStoreProxyFactoryFactory = (): RouterStoreProxyFactoryT =>
  */
 export const getConnectorContainerFactory = (): IUniversalConnectorContainerFactory =>
   staticInjector(DI_TYPES.ConnectorContainerFactory);
+
+/**
+ * @stable [19.01.2020]
+ * @returns {IUserActivityManager}
+ */
+export const getUserActivityManager = (): IUserActivityManager =>
+  staticInjector(DI_TYPES.UserActivityManager);

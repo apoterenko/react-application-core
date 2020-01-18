@@ -437,6 +437,7 @@ export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: T
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
+export interface ITimeoutWrapper { timeout?: number; }
 export interface ITimeWrapper<TTime = string> { time?: TTime; }
 export interface ITitleWrapper { title?: string; }
 export interface ITodayWrapper<TValue> { today?: TValue; }
@@ -840,13 +841,6 @@ export interface IErrorMessageRenderedWrapper {
  */
 export interface IFooterRenderedWrapper {
   footerRendered?: boolean;
-}
-
-/**
- * @stable [22.08.2018]
- */
-export interface ITimeoutWrapper {
-  timeout?: number;
 }
 
 /**

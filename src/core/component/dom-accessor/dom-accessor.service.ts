@@ -162,9 +162,9 @@ export class DomAccessor implements IDomAccessor {
 
     const touchedPlatform = this.environment.touchedPlatform;
     enterUnsubscriber = this.eventManager.subscribe(element,
-      touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSEENTER, () => withinMenuEl = true);
+      touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_ENTER, () => withinMenuEl = true);
     leaveUnsubscriber = this.eventManager.subscribe(element,
-      touchedPlatform ? TouchEventsEnum.TOUCH_END : EventsEnum.MOUSELEAVE, () => withinMenuEl = false);
+      touchedPlatform ? TouchEventsEnum.TOUCH_END : EventsEnum.MOUSE_LEAVE, () => withinMenuEl = false);
 
     const originalUnSubscriber = this.captureEvent({
       autoUnsubscribing,

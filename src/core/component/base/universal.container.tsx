@@ -18,6 +18,7 @@ import {
   getStore,
   getTranslator,
   getUiFactory,
+  getUserActivityManager,
   staticInjector,
 } from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
@@ -40,6 +41,7 @@ import {
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
+  IUserActivityManager,
 } from '../../definition';
 import {
   applySection,
@@ -283,6 +285,15 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get logManager(): ILogManager {
     return getLogManager();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [19.01.2020]
+   * @returns {IUserActivityManager}
+   */
+  protected get userActivityManager(): IUserActivityManager {
+    return getUserActivityManager();
   }
 
   /**

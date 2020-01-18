@@ -17,8 +17,8 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
   };
   private static readonly logger = LoggerFactory.makeLogger('KeyInterceptor');
 
-  private static IOS_SAFARI_CAPTURE_EVENT = EventsEnum.KEYDOWN;
-  private static DEFAULT_CAPTURE_EVENT = EventsEnum.KEYPRESS;
+  private static IOS_SAFARI_CAPTURE_EVENT = EventsEnum.KEY_DOWN;
+  private static DEFAULT_CAPTURE_EVENT = EventsEnum.KEY_PRESS;
   private static ENTER_KEY_CODES = [10, 13];
   private static SPECIAL_KEY_CODES = [
     8,  // backspace

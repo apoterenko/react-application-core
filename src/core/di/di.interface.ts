@@ -54,6 +54,7 @@ export const DI_TYPES = Object.freeze({
   UIFactory: Symbol('UIFactory'),
   UIIconFactory: Symbol('UIIconFactory'),
   UIPlugins: Symbol('UIPlugins'),
+  UserActivityManager: Symbol('UserActivityManager'),
   VersionProcessor: Symbol('VersionProcessor'),
   WebBootstrapper: Symbol('WebBootstrapper'),
 });

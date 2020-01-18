@@ -22,12 +22,13 @@ export enum TouchEventsEnum {
  * @stable [11.09.2019]
  */
 export enum EventsEnum {
-  KEYDOWN = 'keydown',
-  KEYPRESS = 'keypress',
+  KEY_DOWN = 'keydown',
+  KEY_PRESS = 'keypress',
   LOAD = 'load',
   MOUSE_DOWN = 'mousedown',
-  MOUSEENTER = 'mouseenter',
-  MOUSELEAVE = 'mouseleave',
+  MOUSE_ENTER = 'mouseenter',
+  MOUSE_LEAVE = 'mouseleave',
+  MOUSE_MOVE = 'mousemove',
   RESIZE = 'resize',
   SCROLL = 'scroll',
   UNLOAD = 'unload',
