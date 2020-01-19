@@ -46,7 +46,7 @@ import { IChannelWrapperEntity } from './channel-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
-import { ISelectedWrapperEntity } from './entity-definition.interface';
+import { ISelectedEntity } from './entity-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
 import { ITransportWrapperEntity } from './transport-definition.interface';
 import { IUniversalApplicationWrapperEntity } from './application-definition.interface';
@@ -88,7 +88,7 @@ export interface IPreviousActionWrapperEntity
  * @stable [20.10.2019]
  */
 export interface ISelectEntityPayloadEntity
-  extends ISelectedWrapperEntity,
+  extends ISelectedEntity,
     IPreventEffectsWrapper,
     IPreviousActionWrapperEntity {
 }

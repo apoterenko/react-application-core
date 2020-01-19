@@ -67,23 +67,23 @@ export interface INamedEntity
 }
 
 /**
- * @stable [19.10.2019]
+ * @stable [19.01.2020]
  */
-export interface IPayloadEntityIdWrapperEntity
-  extends IPayloadWrapper<IEntityIdTWrapper> {
-}
-
-/**
- * @stable [10.11.2019]
- */
-export interface IPayloadEntityIdEntity
+export interface IPayloadEntityId
   extends IPayloadWrapper<EntityIdT> {
 }
 
 /**
- * @stable [19.10.2019]
+ * @stable [19.01.2020]
  */
-export interface ISelectedWrapperEntity<TEntity extends IEntity = IEntity>
+export interface IPayloadEntity<TEntity extends IEntity = IEntity>
+  extends IPayloadWrapper<TEntity> {
+}
+
+/**
+ * @stable [19.01.2020]
+ */
+export interface ISelectedEntity<TEntity extends IEntity = IEntity>
   extends ISelectedWrapper<TEntity> {
 }
 

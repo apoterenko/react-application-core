@@ -292,18 +292,15 @@ export const selectPreventEffectsFromAction = (action: IEffectsAction): boolean 
 );
 
 /**
- * @stable [11.01.2020]
+ * @stable [19.01.2020]
  * @param {IEffectsAction} action
  * @returns {TData}
  */
-export const selectDataFromAction = <TData>(action: IEffectsAction): TData => ifNotNilThanValue(
-  action,
-  () => action.data,
-  UNDEF_SYMBOL
-);
+export const selectDataFromAction = <TData>(action: IEffectsAction): TData =>
+  ifNotNilThanValue(action, () => action.data, UNDEF_SYMBOL);
 
 /**
- * @stable [11.01.2020]
+ * @stable [19.01.2020]
  * @param {IEffectsAction} action
  * @returns {TPayload}
  */

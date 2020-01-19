@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { IEntity } from '../../definitions.interface';
-import { IFieldChangeEntity, ISelectedWrapperEntity } from '../../definition';
+import { IFieldChangeEntity, ISelectedEntity } from '../../definition';
 import {
   LIST_SELECT_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
@@ -63,6 +63,6 @@ export class UniversalBaseListContainer<TProps extends any> extends UniversalCon
    * @param {IEntity} entity
    */
   private onSelect(entity: IEntity): void {
-    this.dispatchFrameworkAction<ISelectedWrapperEntity>(LIST_SELECT_ACTION_TYPE, {selected: entity});
+    this.dispatchFrameworkAction<ISelectedEntity>(LIST_SELECT_ACTION_TYPE, {selected: entity});
   }
 }

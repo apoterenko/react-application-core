@@ -37,7 +37,7 @@ import {
 } from '../definitions.interface';
 import {
   ILifeCycleEntity,
-  ISelectedWrapperEntity,
+  ISelectedEntity,
 } from './entity-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IPaginatedEntity } from './page-definition.interface';
@@ -59,7 +59,7 @@ export interface IGenericListEntity<TEntity = IEntity,
     IOriginalDataWrapper<TEntity[]>,
     IPaginatedEntity,
     IRawDataWrapper<TRawData>,
-    ISelectedWrapperEntity<TEntity>,
+    ISelectedEntity<TEntity>,
     ISorterWrapper {
 }
 

@@ -1,17 +1,21 @@
-import { EffectsAction, IEffectsAction, EffectsActionBuilder } from 'redux-effects-promise';
+import {
+  EffectsAction,
+  EffectsActionBuilder,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import {
   AnyT,
   EntityIdT,
   IDataWrapper,
   IEntity,
-  IRemovedEntityWrapper,
 } from '../../definitions.interface';
 import {
   IModifyEntityPayloadWrapperEntity,
   IPagedEntity,
+  IPayloadEntity,
+  ISelectedEntity,
   ISelectEntityPayloadEntity,
-  ISelectedWrapperEntity,
 } from '../../definition';
 import { applySection, toActionPrefix } from '../../util';
 import {
@@ -210,17 +214,6 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [19.10.2019]
-   * @param {string} section
-   * @param {ISelectedWrapperEntity<TEntity extends IEntity>} selectedWrapper
-   * @returns {IEffectsAction}
-   */
-  public static buildLazyLoadDoneAction<TEntity extends IEntity = IEntity>(
-    section: string, selectedWrapper: ISelectedWrapperEntity<TEntity>): IEffectsAction {
-    return EffectsAction.create(this.buildLazyLoadDoneActionType(section), applySection(section, selectedWrapper));
-  }
-
-  /**
    * @stable [15.03.2019]
    * @param {string} section
    * @returns {IEffectsAction}
@@ -233,7 +226,7 @@ export class ListActionBuilder {
   /**
    * @stable [03.06.2018]
    * @param {string} section
-   * @param {ISelectedWrapperEntity} payload
+   * @param {ISelectedEntity} payload
    * @returns {IEffectsAction}
    */
   public static buildLazyLoadAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
@@ -263,13 +256,14 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [17.05.2018]
+   * @stable [19.01.2020]
    * @param {string} section
-   * @param {IRemovedEntityWrapper} data
+   * @param {EntityIdT} id
    * @returns {IEffectsAction}
    */
-  public static buildRemoveAction(section: string, data: IRemovedEntityWrapper): IEffectsAction {
-    return EffectsAction.create(this.buildRemoveActionType(section), applySection(section, data));
+  public static buildRemoveAction(section: string, id: EntityIdT): IEffectsAction {
+    const plainAction = this.buildRemovePlainAction(section, id);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   public static buildUpdateAction(section: string, data?: IModifyEntityPayloadWrapperEntity): IEffectsAction {
@@ -364,6 +358,20 @@ export class ListActionBuilder {
   public static buildSelectAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
     const plainAction = this.buildSelectPlainAction(section, payload);
     return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
+   * @stable [19.01.2020]
+   * @param {string} section
+   * @param {EntityIdT} id
+   * @returns {IEffectsAction}
+   */
+  public static buildRemovePlainAction(section: string, id: EntityIdT): IEffectsAction {
+    const payload: IPayloadEntity = {payload: {id}};
+    return {
+      type: this.buildRemoveActionType(section),
+      data: applySection(section, payload),
+    };
   }
 
   /**

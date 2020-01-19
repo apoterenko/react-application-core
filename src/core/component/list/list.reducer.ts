@@ -3,9 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   FIRST_PAGE,
-  IEntity,
   IEntityIdTWrapper,
-  IRemovedEntityWrapper,
 } from '../../definitions.interface';
 import {
   buildEntityByMergeStrategy,
@@ -22,7 +20,6 @@ import {
   selectDataPayloadFromAction,
   selectSelectedEntityFromAction,
   toSection,
-  toType,
 } from '../../util';
 import { convertError } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
@@ -32,8 +29,6 @@ import {
   IListEntity,
   IModifyEntityPayloadEntity,
   INITIAL_LIST_ENTITY,
-  ISelectedWrapperEntity,
-  ISortDirectionEntity,
   ISortDirectionPayloadEntity,
   ISortDirectionsEntity,
 } from '../../definition';
@@ -169,11 +164,16 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
         ...INITIAL_LIST_ENTITY,
         error: convertError(action.error).message,
       };
+
+    /**
+     * @stable [19.01.2020]
+     */
     case ListActionBuilder.buildSelectActionType(section):
       return {
         ...state,
-        selected: toType<ISelectedWrapperEntity>(action.data).selected,
+        selected: selectSelectedEntityFromAction(action),
       };
+
     case ListActionBuilder.buildCreateActionType(section):
     case ListActionBuilder.buildDeselectActionType(section):
       return {
@@ -228,7 +228,7 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
       /**
        * @stable [08.06.2019]
        */
-      const removedEntity = toType<IRemovedEntityWrapper>(action.data).removed;
+      const removedEntity = selectDataPayloadFromAction(action);
       const filteredData = state.data.filter((entity) => !SAME_ENTITY_PREDICATE(entity, removedEntity));
       return {
         ...state,
