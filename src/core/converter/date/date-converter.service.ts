@@ -257,10 +257,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [09.11.2018]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} outputFormat
-   * @returns {string}
+   * @deprecated
    */
   public fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string {
     return this.format(date, this.dateTimeFormat, outputFormat);

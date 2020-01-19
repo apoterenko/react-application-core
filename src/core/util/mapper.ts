@@ -217,18 +217,26 @@ export const selectSelectedEntity =
     ifNotNilThanValue(listEntity, (): TEntity => listEntity.selected, UNDEF_SYMBOL);
 
 /**
- * @stable [19.10.2019]
+ * @stable [19.01.2020]
  * @param {IEffectsAction} action
  * @returns {TEntity}
  */
 export const selectSelectedEntityFromAction =
   <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => ifNotNilThanValue(
-    action,
-    () => ifNotNilThanValue(
-      action.data,
-      (data: ISelectedWrapper<TEntity>) => data.selected,
-      UNDEF_SYMBOL
-    ),
+    selectDataFromAction(action),
+    (data: ISelectedWrapper<TEntity>) => data.selected,
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [19.01.2020]
+ * @param {IEffectsAction} action
+ * @returns {EntityIdT}
+ */
+export const selectSelectedEntityIdFromAction =
+  <TEntity extends IEntity = IEntity>(action: IEffectsAction): EntityIdT => ifNotNilThanValue(
+    selectSelectedEntityFromAction(action),
+    (entity: TEntity) => entity.id,
     UNDEF_SYMBOL
   );
 
