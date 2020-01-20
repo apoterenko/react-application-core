@@ -117,6 +117,7 @@ export interface IConverterWrapper<TValue> { converter?: TValue; }
 export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
 export interface ICurrentWrapper<TValue> { current?: TValue; }
+export interface ICursorWrapper<TValue> { cursor?: TValue; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
 export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
@@ -362,6 +363,7 @@ export interface IQueryParamsWrapper<TQueryParams> { queryParams?: TQueryParams;
 export interface IQueryWrapper<TValue = string> { query?: TValue; }
 export interface IQueueWrapper<TQueue> { queue?: TQueue; }
 export interface IRaisedWrapper { raised?: boolean; }
+export interface IRangeEnabledWrapper { rangeEnabled?: boolean; }
 export interface IRawDataWrapper<TRawData = AnyT> { rawData?: TRawData; }
 export interface IReadOnlyWrapper { readOnly?: boolean; }
 export interface IReadyWrapper { ready?: boolean; }

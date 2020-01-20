@@ -104,9 +104,9 @@ export interface IFromToDayOfYearEntity
  * @stable [03.01.2020]
  */
 export interface ICalendarDayEntity
-  extends ICurrentWrapper<boolean>,
+  extends IDayOfYearEntity,
+    ICurrentWrapper<boolean>,
     IDateWrapper<Date>,
-    IDayOfYearEntity,
     INextWrapper<boolean>,
     IPreviousWrapper<boolean>,
     ITodayWrapper<boolean> {

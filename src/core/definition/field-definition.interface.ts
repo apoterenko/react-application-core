@@ -14,6 +14,7 @@ import {
   IChangeableWrapper,
   IClassNameWrapper,
   ICurrentWrapper,
+  ICursorWrapper,
   IDateWrapper,
   IDefaultValueWrapper,
   IDialogOpenedWrapper,
@@ -36,12 +37,14 @@ import {
   IMenuRenderedWrapper,
   IMinDateWrapper,
   INameWrapper,
+  INextWrapper,
   IOnClickWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
+  IRangeEnabledWrapper,
   IRawDataWrapper,
   IReadOnlyWrapper,
   IRenderedWrapper,
@@ -229,7 +232,8 @@ export interface IGenericDateFieldEntity
     IFormatWrapper,
     IHeaderFormatWrapper,
     IMaxDateWrapper<Date>,
-    IMinDateWrapper<Date> {
+    IMinDateWrapper<Date>,
+    IRangeEnabledWrapper {
 }
 
 /**
@@ -238,8 +242,10 @@ export interface IGenericDateFieldEntity
  */
 export interface IGenericDateFieldState
   extends ICurrentWrapper<Date>,
+    ICursorWrapper<Date>,
     IDateWrapper<Date>,
     IDialogOpenedWrapper,
+    INextWrapper<Date>,
     IYearWrapper {
 }
 

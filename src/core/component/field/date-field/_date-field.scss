@@ -36,6 +36,9 @@
     $rac-calendar-dialog-range-explorer-button-mini-icon-color: $rac-calendar-dialog-range-button-mini-icon-color,
     $rac-calendar-dialog-range-explorer-button-mini-icon-size: $rac-calendar-dialog-range-button-mini-icon-size,
     $rac-calendar-dialog-range-explorer-date-color: $rac-calendar-dialog-range-explorer-date,
+    $rac-calendar-dialog-range-explorer-date-content-flex: $rac-calendar-dialog-range-explorer-date-content-flex,
+    $rac-calendar-dialog-range-explorer-date-content-text-align: $rac-calendar-dialog-range-explorer-date-content-text-align,
+    $rac-calendar-dialog-range-explorer-date-display: $rac-calendar-dialog-range-explorer-date-display,
     $rac-calendar-dialog-range-explorer-date-flex: $rac-calendar-dialog-range-explorer-date-flex,
     $rac-calendar-dialog-range-explorer-date-font-size: $rac-calendar-dialog-range-explorer-date-font-size,
     $rac-calendar-dialog-range-explorer-display: $rac-calendar-dialog-range-explorer-display,
@@ -54,6 +57,18 @@
     $rac-calendar-dialog-footer-action-width: $rac-date-field-calendar-dialog-footer-action-width,
     $rac-calendar-dialog-footer-input-self-field-input-text-align: $rac-date-field-calendar-dialog-footer-input-self-field-input-text-align,
     $rac-calendar-dialog-footer-input-width: $rac-date-field-calendar-dialog-footer-input-width,
-    $rac-calendar-dialog-range-explorer-date-text-align: $rac-date-field-calendar-dialog-range-explorer-date-text-align
+    $rac-calendar-dialog-range-explorer-date-justify-content: $rac-date-field-calendar-dialog-range-explorer-date-justify-content
+  );
+
+  /**
+   * @date-field-calendar-range-dialog
+   * @stable [20.01.2020]
+   */
+  @include rac-calendar-dialog (
+    $rac-calendar-dialog-custom: rac-date-field__calendar-range-dialog,
+    $rac-calendar-dialog-body-height: $rac-date-field-calendar-range-dialog-body-height,
+    $rac-calendar-dialog-body-width: $rac-date-field-calendar-range-dialog-body-width,
+    $rac-calendar-dialog-range-calendar-next-margin: $rac-calendar-dialog-range-calendar-next-margin,
+    $rac-calendar-dialog-range-calendars-display: $rac-calendar-dialog-range-calendars-display
   );
 }

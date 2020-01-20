@@ -1067,12 +1067,10 @@ export class DateConverter implements IDateConverter<MomentT> {
     const isDateFromEmpty = R.isEmpty(from);
 
     if (!isDateFromEmpty && isDateToEmpty) {
-      const compareResult1 = this.compareDayOfYearEntity(entity, from);
-      return compareResult1 === 0;
+      return this.compareDayOfYearEntity(entity, from) === 0;
     }
     if (isDateFromEmpty && !isDateToEmpty) {
-      const compareResult2 = this.compareDayOfYearEntity(entity, to);
-      return compareResult2 === 0;
+      return this.compareDayOfYearEntity(entity, to) === 0;
     }
     if (!isDateToEmpty && !isDateFromEmpty) {
       const compareResult1 = this.compareDayOfYearEntity(entity, from);

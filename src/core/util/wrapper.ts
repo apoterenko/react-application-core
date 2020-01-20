@@ -25,6 +25,7 @@ import {
   IPlainValueWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
+  IRangeEnabledWrapper,
   IReadOnlyWrapper,
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
@@ -127,6 +128,14 @@ export const isVisible = (visibleEntity: IVisibleWrapper): boolean =>
  */
 export const isFocused = (wrapper: IFocusedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.focused === true, false);
+
+/**
+ * @stable [20.01.2020]
+ * @param {IRangeEnabledWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isRangeEnabled = (wrapper: IRangeEnabledWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.rangeEnabled === true, false);
 
 /**
  * @stable [26.10.2019]

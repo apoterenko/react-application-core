@@ -210,6 +210,13 @@ export const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => 
 export const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
 
 /**
+ * @stable [20.01.2020]
+ * @param {TValue} data
+ * @returns {TValue[]}
+ */
+export const notEmptyValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_EMPTY_VALUE_PREDICATE);
+
+/**
  * @stable [22.10.2019]
  * @param {TValue} data
  * @returns {TValue[]}
