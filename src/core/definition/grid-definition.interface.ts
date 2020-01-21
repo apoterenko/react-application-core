@@ -206,6 +206,7 @@ export interface IGridProps
 }
 
 /**
+ * @configuration-entity
  * @stable [04.01.2020]
  */
 export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps>

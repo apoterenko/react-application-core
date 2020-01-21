@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 import {
-  ICalendarEntityWrapper,
+  ICalendarEntityConfigurationWrapper,
   ICurrentWrapper,
   IDateWrapper,
   IDaysLabelsWrapper,
@@ -87,6 +87,14 @@ export interface ICalendarConfigEntity<TDate = Date>
 }
 
 /**
+ * @configuration-entity
+ * @stable [21.01.2020]
+ */
+export interface ICalendarEntityConfigurationEntity
+  extends ICalendarEntityConfigurationWrapper<ICalendarConfigEntity> {
+}
+
+/**
  * @entity
  * @stable [07.01.2020]
  */
@@ -134,12 +142,4 @@ export interface ICalendarWeekEntity
 export interface ICalendarEntity
   extends IDaysWrapper<ICalendarWeekEntity[]>,
     IDaysLabelsWrapper<string[]> {
-}
-
-/**
- * @wrapper-entity
- * @stable [21.01.2020]
- */
-export interface ICalendarEntityWrapperEntity
-  extends ICalendarEntityWrapper<ICalendarEntity> {
 }

@@ -631,7 +631,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {ICalendarEntity}
    */
   private get currentCalendarEntity(): ICalendarEntity {
-    return this.dc.asCalendar({date: this.currentCalendarDate});
+    return this.getCalendarEntity(this.currentCalendarDate);
   }
 
   /**
@@ -639,7 +639,16 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {ICalendarEntity}
    */
   private get nextCalendarEntity(): ICalendarEntity {
-    return this.dc.asCalendar({date: this.nextCalendarDate});
+    return this.getCalendarEntity(this.nextCalendarDate);
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {Date} date
+   * @returns {ICalendarEntity}
+   */
+  private getCalendarEntity(date: Date): ICalendarEntity {
+    return this.dc.asCalendar({...this.props.calendarEntityConfiguration as {}, date});
   }
 
   /**

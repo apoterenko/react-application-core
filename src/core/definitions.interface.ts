@@ -85,6 +85,7 @@ export interface IBorderedWrapper { bordered?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
 export interface ICalendarActionRenderedWrapper { calendarActionRendered?: boolean; }
 export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?: TValue; }
+export interface ICalendarEntityConfigurationWrapper<TValue> { calendarEntityConfiguration?: TValue; }
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 export interface ICallbackWrapper<TValue = () => void> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }

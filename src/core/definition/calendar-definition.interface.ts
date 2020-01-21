@@ -7,30 +7,32 @@ import {
   IRendererWrapper,
   ISelectedDaysWrapper,
   IShowOnlyCurrentDaysWrapper,
+  ICalendarEntityWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import {
   ICalendarDayEntity,
-  ICalendarEntityWrapperEntity,
+  ICalendarEntity,
 } from './date-definition.interface';
 import { IGridConfigurationEntity } from './grid-definition.interface';
 
 /**
+ * @generic-entity
  * @stable [04.01.2020]
  */
 export interface IGenericCalendarEntity
-  extends ICalendarEntityWrapperEntity,
+  extends ICalendarEntityWrapper<ICalendarEntity>,
     ISelectedDaysWrapper<number[]>,
     IShowOnlyCurrentDaysWrapper,
     IGridConfigurationEntity {
 }
 
 /**
+ * @behavioral-entity
  * @stable [04.01.2020]
  */
 export interface IBehavioralCalendarEntity
-  extends IGenericCalendarEntity,
-    IIsFirstSelectedWrapper<ICalendarDayEntity>,
+  extends IIsFirstSelectedWrapper<ICalendarDayEntity>,
     IIsLastSelectedWrapper<ICalendarDayEntity>,
     IIsSelectedWrapper<ICalendarDayEntity>,
     IOnSelectWrapper<ICalendarDayEntity>,
@@ -38,10 +40,12 @@ export interface IBehavioralCalendarEntity
 }
 
 /**
+ * @props
  * @stable [03.01.2020]
  */
 export interface ICalendarProps
   extends IComponentProps,
+    IGenericCalendarEntity,
     IBehavioralCalendarEntity {
 }
 

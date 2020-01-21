@@ -66,6 +66,7 @@ import {
 } from '../definitions.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
 import { ICalendarConfigurationEntity } from './calendar-definition.interface';
+import { ICalendarEntityConfigurationEntity } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IDialogConfigurationEntity } from './dialog-definition.interface';
@@ -229,8 +230,9 @@ export const GENERIC_FIELD_PASSWORD_ENTITY = Object.freeze<IGenericFieldEntity>(
  * @stable [07.01.2020]
  */
 export interface IGenericDateFieldEntity
-  extends ICalendarConfigurationEntity,
-    ICalendarActionRenderedWrapper,
+  extends ICalendarActionRenderedWrapper,
+    ICalendarConfigurationEntity,
+    ICalendarEntityConfigurationEntity,
     IDialogConfigurationEntity,
     IFormatWrapper,
     IHeaderFormatWrapper,
