@@ -2,6 +2,7 @@ import * as R from 'ramda';
 
 import {
   IAlwaysDirtyWrapper,
+  ICalendarActionRenderedWrapper,
   ICenteredMenuWrapper,
   IChangeableWrapper,
   ICheckScrimWrapper,
@@ -229,6 +230,14 @@ export const isHovered = (hoveredWrapper: IHoveredWrapper): boolean =>
  */
 export const isExpandActionRendered  = (wrapper: IExpandActionRenderedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.expandActionRendered !== false, false);
+
+/**
+ * @stable [21.01.2020]
+ * @param {ICalendarActionRenderedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isCalendarActionRendered  = (wrapper: ICalendarActionRenderedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.calendarActionRendered !== false, false);
 
 /**
  * @stable [01.12.2019]

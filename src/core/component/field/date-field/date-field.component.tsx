@@ -1,8 +1,10 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import {
   ifNotEmptyThanValue,
   ifNotNilThanValue,
+  isCalendarActionRendered,
   isDef,
   isRangeEnabled,
   joinClassName,
@@ -23,6 +25,7 @@ import {
   IBaseEvent,
   ICalendarDayEntity,
   ICalendarEntity,
+  ICalendarProps,
   IDateTimeSettingsEntity,
   IFromToDayOfYearEntity,
 } from '../../../definition';
@@ -56,16 +59,24 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     super(props);
 
     this.isDaySelected = this.isDaySelected.bind(this);
+    this.isFirstSelectedDay = this.isFirstSelectedDay.bind(this);
+    this.isLastSelectedDay = this.isLastSelectedDay.bind(this);
     this.onAccept = this.onAccept.bind(this);
     this.onChangeYear = this.onChangeYear.bind(this);
     this.onDaySelect = this.onDaySelect.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
+    this.onRangeFromChange = this.onRangeFromChange.bind(this);
+    this.onRangeToChange = this.onRangeToChange.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.setNextMonth = this.setNextMonth.bind(this);
     this.setPreviousMonth = this.setPreviousMonth.bind(this);
 
     this.defaultActions = [
-      {type: FieldActionTypesEnum.CALENDAR, onClick: this.openDialog},
+      ...(
+        isCalendarActionRendered(this.props)
+          ? [{type: FieldActionTypesEnum.CALENDAR, onClick: this.openDialog}]
+          : []
+      ),
       ...this.defaultActions
     ];
   }
@@ -104,7 +115,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             className={joinClassName(
               dialogConfiguration.className,
               'rac-calendar-dialog',
-              this.isRangeEnabled ? 'rac-date-field__calendar-range-dialog' : 'rac-date-field__calendar-dialog'
+              this.isRangeEnabled ? 'rac-date-field__calendars-dialog' : 'rac-date-field__calendar-dialog'
             )}
             onDeactivate={this.onDialogDeactivate}
           >
@@ -123,18 +134,22 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             </div>
             {this.calendarElement}
             <div className='rac-calendar-dialog__footer'>
-              <NumberField
-                ref={this.yearRef}
-                value={year}
-                full={false}
-                autoFocus={true}
-                keepChanges={true}
-                errorMessageRendered={false}
-                pattern={this.dateTimeSettings.uiYearPattern}
-                mask={this.dateTimeSettings.uiYearMask}
-                placeholder={this.selectedYearPlaceholder}
-                onChange={this.onChangeYear}>
-              </NumberField>
+              {this.isRangeEnabled && this.rangeFieldsElement}
+              {
+                !this.isRangeEnabled && (
+                  <NumberField
+                    ref={this.yearRef}
+                    value={year}
+                    full={false}
+                    autoFocus={true}
+                    keepChanges={true}
+                    errorMessageRendered={false}
+                    pattern={this.dateTimeSettings.uiYearPattern}
+                    mask={this.dateTimeSettings.uiYearMask}
+                    placeholder={this.selectedYearPlaceholder}
+                    onChange={this.onChangeYear}/>
+                )
+              }
               <Button
                 text={this.settings.messages.OK}
                 onClick={this.onAccept}/>
@@ -219,37 +234,46 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {JSX.Element}
    */
   private get calendarElement(): JSX.Element {
-    const props = this.props;
-    const {calendarConfiguration = {}} = props;
+    const defaultCalendarProps = this.defaultCalendarProps;
+    const {gridConfiguration = {}} = defaultCalendarProps;
+
     if (this.isRangeEnabled) {
       return (
-        <div className='rac-calendar-dialog__range-calendars'>
+        <div className='rac-calendar-dialog__calendars-wrapper'>
           <Calendar
-            showOnlyCurrentDays={true}
-            gridConfiguration={{headerRendered: true}}
-            {...calendarConfiguration}
-            calendarEntity={this.currentCalendarEntity}
-            isSelected={this.isDaySelected}
-            onSelect={this.onDaySelect}/>
+            {...defaultCalendarProps}
+            calendarEntity={this.currentCalendarEntity}/>
           <Calendar
-            showOnlyCurrentDays={true}
-            gridConfiguration={{headerRendered: true, wrapperClassName: 'rac-calendar-dialog__range-calendar-next'}}
-            {...calendarConfiguration}
-            calendarEntity={this.nextCalendarEntity}
-            isSelected={this.isDaySelected}
-            onSelect={this.onDaySelect}/>
+            {...defaultCalendarProps}
+            gridConfiguration={{
+              ...gridConfiguration,
+              wrapperClassName: joinClassName('rac-calendar-dialog__second-calendar', gridConfiguration.className),
+            }}
+            calendarEntity={this.nextCalendarEntity}/>
         </div>
       );
     }
     return (
       <Calendar
-        showOnlyCurrentDays={true}
-        gridConfiguration={{headerRendered: true}}
-        {...props.calendarConfiguration}
-        calendarEntity={this.currentCalendarEntity}
-        isSelected={this.isDaySelected}
-        onSelect={this.onDaySelect}/>
+        {...defaultCalendarProps}
+        calendarEntity={this.currentCalendarEntity}/>
     );
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @returns {ICalendarProps}
+   */
+  private get defaultCalendarProps(): ICalendarProps {
+    return {
+      gridConfiguration: {headerRendered: true},
+      showOnlyCurrentDays: true,
+      ...this.props.calendarConfiguration as {},
+      isSelected: this.isDaySelected,
+      isFirstSelected: this.isFirstSelectedDay,
+      isLastSelected: this.isLastSelectedDay,
+      onSelect: this.onDaySelect,
+    };
   }
 
   /**
@@ -270,6 +294,32 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       );
     }
     return this.currentDateToDisplay;
+  }
+
+  /**
+   * @stable [20.01.2020]
+   * @returns {JSX.Element}
+   */
+  private get rangeFieldsElement(): JSX.Element {
+    return (
+      <React.Fragment>
+        <DateField
+          full={false}
+          value={this.state.from}
+          preventFocus={false}
+          placeholder={this.fieldFormat}
+          calendarActionRendered={false}
+          onChange={this.onRangeFromChange}/>
+        <span className='rac-calendar-dialog__range-input-separator'>&nbsp;&mdash;&nbsp;</span>
+        <DateField
+          full={false}
+          value={this.state.to}
+          preventFocus={false}
+          placeholder={this.fieldFormat}
+          calendarActionRendered={false}
+          onChange={this.onRangeToChange}/>
+      </React.Fragment>
+    );
   }
 
   /**
@@ -295,6 +345,24 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
+   * @stable [20.01.2020]
+   * @param {string} value
+   */
+  private onRangeToChange(value: string): void {
+    const date = this.getValueAsDate(value);
+    this.setState(R.isNil(date) ? {to: value} : {to: value, next: date});
+  }
+
+  /**
+   * @stable [20.01.2020]
+   * @param {string} value
+   */
+  private onRangeFromChange(value: string): void {
+    const date = this.getValueAsDate(value);
+    this.setState(R.isNil(date) ? {from: value} : {from: value, current: date});
+  }
+
+  /**
    * @stable [08.01.2020]
    * @param {number} year
    */
@@ -315,10 +383,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   private onAccept(): void {
     const valueToAccept = this.isRangeEnabled ? this.rangeValueToAccept : this.dateValueToAccept;
     this.onDialogClose(() => {
-      ifNotNilThanValue(
-        valueToAccept,
-        () => this.onChangeManually(valueToAccept)
-      );
+      ifNotNilThanValue(valueToAccept, () => this.onChangeManually(valueToAccept));
 
       if (!this.isFocusPrevented) {
         this.setFocus();
@@ -332,13 +397,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
     if (this.isRangeEnabled) {
-      const result = this.dc.selectDaysOfYearRange(this.currentFromToDayOfYearEntity, calendarDayEntity);
-      this.setState({
-        current: null,
-        next: null,
-        ...ifNotEmptyThanValue(result.from, (from) => ({current: this.dc.fromDayOfYearEntityAsDate(from)})),
-        ...ifNotEmptyThanValue(result.to, (to) => ({next: this.dc.fromDayOfYearEntityAsDate(to)})),
-      });
+      this.onRangeDaySelect(calendarDayEntity);
     } else {
       this.setState({
         cursor: UNDEF,
@@ -346,6 +405,20 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         date: calendarDayEntity.date,
       }, () => this.yearRef.current.setFocus());
     }
+  }
+
+  /**
+   * @stable [20.01.2020]
+   * @param {ICalendarDayEntity} calendarDayEntity
+   */
+  private onRangeDaySelect(calendarDayEntity: ICalendarDayEntity): void {
+    const result = this.dc.selectDaysOfYearRange(this.currentFromToDayOfYearEntity, calendarDayEntity);
+    this.setState({
+      current: null,
+      next: null,
+      ...ifNotEmptyThanValue(result.from, (from) => ({current: this.dc.fromDayOfYearEntityAsDate(from)})),
+      ...ifNotEmptyThanValue(result.to, (to) => ({next: this.dc.fromDayOfYearEntityAsDate(to)})),
+    });
   }
 
   /**
@@ -390,6 +463,30 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
+   * @stable [21.01.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isFirstSelectedDay(entity: ICalendarDayEntity): boolean {
+    return this.isRangeEnabled && this.dc.isDayOfYearBelongToDaysOfYearRange({
+      ...this.currentFromToDayOfYearEntity,
+      to: {},
+    }, entity);
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isLastSelectedDay(entity: ICalendarDayEntity): boolean {
+    return this.isRangeEnabled && this.dc.isDayOfYearBelongToDaysOfYearRange({
+      ...this.currentFromToDayOfYearEntity,
+      from: {},
+    }, entity);
+  }
+
+  /**
    * @stable [20.01.2020]
    * @param {ICalendarDayEntity} entity
    * @returns {boolean}
@@ -403,20 +500,26 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Date}
    */
   private get valueAsDate(): Date {
-    return this.dc.asDate({date: this.value, inputFormat: this.fieldFormat});
+    return this.getValueAsDate(this.value);
+  }
+
+  /**
+   * @stable [20.01.2020]
+   * @param {DateTimeLikeTypeT} date
+   * @returns {Date}
+   */
+  private getValueAsDate(date: DateTimeLikeTypeT): Date {
+    return this.dc.asDate({date, inputFormat: this.fieldFormat});
   }
 
   /**
    * @stable [20.01.2020]
    * @returns {Date[]}
    */
-  private get valueAsDateArray(): Date[] {
+  private get valueAsDatesArray(): Date[] {
     return ifNotEmptyThanValue(
       this.value,
-      (value) => ([
-        this.dc.asDate({date: value[0], inputFormat: this.fieldFormat}),
-        this.dc.asDate({date: value[1], inputFormat: this.fieldFormat})
-      ]),
+      (value) => ([this.getValueAsDate(value[0]), this.getValueAsDate(value[1])]),
       []
     );
   }
@@ -492,8 +595,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get rangeValueToAccept(): Date[] {
     return [
-      this.state.current || ifNotNilThanValue(this.valueAsDateArray, (data) => data[0]),
-      this.state.next || ifNotNilThanValue(this.valueAsDateArray, (data) => data[1])
+      this.state.current || ifNotNilThanValue(this.valueAsDatesArray, (data) => data[0]),
+      this.state.next || ifNotNilThanValue(this.valueAsDatesArray, (data) => data[1])
     ];
   }
 
@@ -539,7 +642,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get currentFromToDayOfYearEntity(): IFromToDayOfYearEntity {
     const {current, next} = this.state;
-    const valueArray = this.valueAsDateArray;
+    const valueArray = this.valueAsDatesArray;
 
     return notNilValuesFilter<IFromToDayOfYearEntity, IFromToDayOfYearEntity>({
       ...ifNotNilThanValue(valueArray[0], (dateFrom) => ({from: this.dc.asDayOfYearEntity({date: dateFrom})})),

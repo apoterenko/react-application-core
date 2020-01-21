@@ -3,6 +3,8 @@ import {
   IDateWrapper,
   IFromToEntity,
   IFromValueWrapper,
+  IIsFirstSelectedWrapper,
+  IIsLastSelectedWrapper,
   IIsSelectedWrapper,
   IOnSelectWrapper,
   IRendererWrapper,
@@ -35,6 +37,8 @@ export interface IGenericCalendarEntity
  */
 export interface IBehavioralCalendarEntity
   extends IGenericCalendarEntity,
+    IIsFirstSelectedWrapper<ICalendarDayEntity>,
+    IIsLastSelectedWrapper<ICalendarDayEntity>,
     IIsSelectedWrapper<ICalendarDayEntity>,
     IOnSelectWrapper<ICalendarDayEntity>,
     IRendererWrapper<ICalendarDayEntity> {

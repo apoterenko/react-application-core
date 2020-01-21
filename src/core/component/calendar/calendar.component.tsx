@@ -79,11 +79,16 @@ export class Calendar extends BaseComponent<ICalendarProps> {
   private getColumnClassName(payload: IGridColumnProps<ICalendarDayEntity>): string {
     const entity = this.asCalendarDayEntity(payload);
     const isDaySelected = this.isDaySelected(entity);
+    const isFirstSelectedDay = this.isFirstSelectedDay(entity);
+    const isLastSelectedDay = this.isLastSelectedDay(entity);
 
     return joinClassName(
       entity.current && 'rac-calendar-current-day',
       entity.today && 'rac-calendar-today',
-      isDaySelected && 'rac-calendar-selected-day'
+      isDaySelected && 'rac-calendar-selected-day',
+      isFirstSelectedDay && 'rac-calendar-first-selected-day',
+      (!isFirstSelectedDay && !isLastSelectedDay) && 'rac-calendar-middle-selected-day',
+      isLastSelectedDay && 'rac-calendar-last-selected-day'
     );
   }
 
@@ -97,6 +102,26 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     return isFn(isSelected)
       ? isSelected(entity)
       : selectedDays.includes(entity.day) && entity.current;
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isFirstSelectedDay(entity: ICalendarDayEntity): boolean {
+    const {isFirstSelected} = this.props;
+    return isFn(isFirstSelected) && isFirstSelected(entity);
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isLastSelectedDay(entity: ICalendarDayEntity): boolean {
+    const {isLastSelected} = this.props;
+    return isFn(isLastSelected) && isLastSelected(entity);
   }
 
   /**

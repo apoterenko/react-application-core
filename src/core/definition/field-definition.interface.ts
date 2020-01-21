@@ -11,6 +11,7 @@ import {
   IActionsWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
+  ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   IClassNameWrapper,
   ICurrentWrapper,
@@ -28,6 +29,7 @@ import {
   IFieldRenderedWrapper,
   IFieldsWrapper,
   IFormatWrapper,
+  IFromToEntity,
   IFullWrapper,
   IHeaderFormatWrapper,
   IKeepChangesWrapper,
@@ -228,6 +230,7 @@ export const GENERIC_FIELD_PASSWORD_ENTITY = Object.freeze<IGenericFieldEntity>(
  */
 export interface IGenericDateFieldEntity
   extends ICalendarConfigurationWrapperEntity,
+    ICalendarActionRenderedWrapper,
     IDialogConfigurationWrapperEntity,
     IFormatWrapper,
     IHeaderFormatWrapper,
@@ -245,6 +248,7 @@ export interface IGenericDateFieldState
     ICursorWrapper<Date>,
     IDateWrapper<Date>,
     IDialogOpenedWrapper,
+    IFromToEntity<string>,
     INextWrapper<Date>,
     IYearWrapper {
 }

@@ -83,6 +83,7 @@ export interface IBlockWrapper<TBlock = boolean> { block?: TBlock; }
 export interface IBoolWrapper { bool?: boolean; }
 export interface IBorderedWrapper { bordered?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
+export interface ICalendarActionRenderedWrapper { calendarActionRendered?: boolean; }
 export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?: TValue; }
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 export interface ICallbackWrapper<TValue = () => void> { callback?: TValue; }
@@ -232,6 +233,8 @@ export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
 export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
+export interface IIsFirstSelectedWrapper<TValue> { isFirstSelected?(payload?: TValue): boolean; }
+export interface IIsLastSelectedWrapper<TValue> { isLastSelected?(payload?: TValue): boolean; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }

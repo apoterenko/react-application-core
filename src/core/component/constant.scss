@@ -585,8 +585,13 @@ $rac-date-field-calendar-dialog-footer-action-width: 72px !default;
 $rac-date-field-calendar-dialog-footer-input-self-field-input-text-align: center !default;
 $rac-date-field-calendar-dialog-footer-input-width: 72px !default;
 $rac-date-field-calendar-dialog-range-explorer-date-justify-content: center !default;
-$rac-date-field-calendar-range-dialog-body-height: 400px !default;
-$rac-date-field-calendar-range-dialog-body-width: 608px !default;
+/**/
+$rac-date-field-calendars-dialog-body-height: 400px !default;
+$rac-date-field-calendars-dialog-body-width: 608px !default;
+$rac-date-field-calendars-dialog-calendar-middle-selected-day-border-radius: 0 !default;
+$rac-date-field-calendars-dialog-calendar-middle-selected-day-width: 100% !default;
+$rac-date-field-calendars-dialog-calendars-wrapper-display: flex !default;
+$rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-offset-4 !default;
 /**/
 $rac-place-field-dialog-body-height: 80vh !default;
 $rac-place-field-dialog-body-min-width: 90vh !default;
@@ -626,8 +631,6 @@ $rac-calendar-dialog-footer-justify-content: center !default;
 $rac-calendar-dialog-range-button-mini-background: $rac-color-0-9 !default;
 $rac-calendar-dialog-range-button-mini-icon-color: $rac-color-0-1 !default;
 $rac-calendar-dialog-range-button-mini-icon-size: $rac-icon-size-4 !default;
-$rac-calendar-dialog-range-calendar-next-margin: 0 0 0 $rac-offset-4 !default;
-$rac-calendar-dialog-range-calendars-display: flex !default;
 $rac-calendar-dialog-range-explorer-align-items: center !default;
 $rac-calendar-dialog-range-explorer-date-content-flex: 1 !default;
 $rac-calendar-dialog-range-explorer-date-content-text-align: center !default;
@@ -980,6 +983,7 @@ $rac-cron-field-labeled-self-field-label-top: $rac-base-text-labeled-self-field-
 $rac-cron-field-self-field-input-wrapper-flex: 1 !default;
 
 /* @stable [04.01.2020] */
+$rac-calendar-middle-selected-day-cls: rac-calendar-middle-selected-day;
 $rac-calendar-selected-day-cls: rac-calendar-selected-day;
 $rac-calendar-today-cls: rac-calendar-today;
 /**/

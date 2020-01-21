@@ -61,14 +61,16 @@
   );
 
   /**
-   * @date-field-calendar-range-dialog
-   * @stable [20.01.2020]
+   * @date-field-calendars-dialog
+   * @stable [21.01.2020]
    */
   @include rac-calendar-dialog (
-    $rac-calendar-dialog-custom: rac-date-field__calendar-range-dialog,
-    $rac-calendar-dialog-body-height: $rac-date-field-calendar-range-dialog-body-height,
-    $rac-calendar-dialog-body-width: $rac-date-field-calendar-range-dialog-body-width,
-    $rac-calendar-dialog-range-calendar-next-margin: $rac-calendar-dialog-range-calendar-next-margin,
-    $rac-calendar-dialog-range-calendars-display: $rac-calendar-dialog-range-calendars-display
+    $rac-calendar-dialog-custom: rac-date-field__calendars-dialog,
+    $rac-calendar-dialog-body-height: $rac-date-field-calendars-dialog-body-height,
+    $rac-calendar-dialog-body-width: $rac-date-field-calendars-dialog-body-width,
+    $rac-calendar-dialog-calendar-middle-selected-day-border-radius: $rac-date-field-calendars-dialog-calendar-middle-selected-day-border-radius,
+    $rac-calendar-dialog-calendar-middle-selected-day-width: $rac-date-field-calendars-dialog-calendar-middle-selected-day-width,
+    $rac-calendar-dialog-calendars-wrapper-display: $rac-date-field-calendars-dialog-calendars-wrapper-display,
+    $rac-calendar-dialog-second-calendar-margin: $rac-date-field-calendars-dialog-second-calendar-margin
   );
 }
