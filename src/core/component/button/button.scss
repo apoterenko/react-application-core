@@ -73,8 +73,8 @@
 
   @include rac-button(                                                                        /* @stable [10.02.2019] */
     $rac-button-custom: rac-build-cls2($rac-button-mini-cls, $rac-button-decorated-not-filled-cls),
-    $rac-button-width: 32px,
-    $rac-button-height: 32px,
+    $rac-button-width: $rac-button-mini-size-0,
+    $rac-button-height: $rac-button-mini-size-0,
     $rac-button-icon-size: 12px
   );
 }

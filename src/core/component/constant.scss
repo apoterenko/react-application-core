@@ -262,6 +262,8 @@ $rac-button-raised-cls: rac-button-raised;
 /**/
 $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
 /**/
+$rac-button-mini-size-0: 32px;
+/**/
 $rac-button-background: $rac-color-0-3 !default;
 $rac-button-border-radius: $rac-border-radius-1 !default;
 $rac-button-border: none !default;
@@ -647,6 +649,7 @@ $rac-date-field-calendars-dialog-quick-button-height: 32px !default;
 $rac-date-field-calendars-dialog-quick-button-neighbor-margin: 0 0 0 $rac-offset-1 !default;
 $rac-date-field-calendars-dialog-quick-buttons-display: flex !default;
 $rac-date-field-calendars-dialog-quick-buttons-margin: 0 0 $rac-offset-3 0 !default;
+$rac-date-field-calendars-dialog-range-explorer-date-content-next-margin: 0 0 0 $rac-button-mini-size-0 * 2 + $rac-offset-4 !default;
 $rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-offset-4 !default;
 /**/
 $rac-place-field-dialog-body-height: 80vh !default;
