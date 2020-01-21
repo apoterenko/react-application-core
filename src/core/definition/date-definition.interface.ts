@@ -49,6 +49,7 @@ export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
 ]);
 
 /**
+ * @config-entity
  * @stable [17.12.2019]
  */
 export interface IDateTimeConfigEntity<TDate = Date>
@@ -67,15 +68,17 @@ export interface IDateTimeConfigEntity<TDate = Date>
 }
 
 /**
- * @stable [08.01.2020]
+ * @config-entity
+ * @stable [21.01.2020]
  */
-export interface IDateTimeRangeConfigEntity
+export interface IDateRangeConfigEntity
   extends IDateWrapper<Date>,
     IMaxDateWrapper<Date>,
     IMinDateWrapper<Date> {
 }
 
 /**
+ * @config-entity
  * @stable [04.01.2020]
  */
 export interface ICalendarConfigEntity<TDate = Date>
@@ -84,6 +87,7 @@ export interface ICalendarConfigEntity<TDate = Date>
 }
 
 /**
+ * @entity
  * @stable [07.01.2020]
  */
 export interface IDayOfYearEntity
@@ -94,6 +98,7 @@ export interface IDayOfYearEntity
 }
 
 /**
+ * @entity
  * @stable [07.01.2020]
  */
 export interface IFromToDayOfYearEntity
@@ -101,6 +106,7 @@ export interface IFromToDayOfYearEntity
 }
 
 /**
+ * @entity
  * @stable [03.01.2020]
  */
 export interface ICalendarDayEntity
@@ -113,6 +119,7 @@ export interface ICalendarDayEntity
 }
 
 /**
+ * @entity
  * @stable [03.01.2020]
  */
 export interface ICalendarWeekEntity
@@ -121,6 +128,7 @@ export interface ICalendarWeekEntity
 }
 
 /**
+ * @entity
  * @stable [03.01.2020]
  */
 export interface ICalendarEntity
@@ -129,7 +137,8 @@ export interface ICalendarEntity
 }
 
 /**
- * @stable [04.01.2020]
+ * @wrapper-entity
+ * @stable [21.01.2020]
  */
 export interface ICalendarEntityWrapperEntity
   extends ICalendarEntityWrapper<ICalendarEntity> {

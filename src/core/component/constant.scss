@@ -997,12 +997,13 @@ $rac-cron-field-labeled-self-field-label-position: $rac-base-text-labeled-self-f
 $rac-cron-field-labeled-self-field-label-top: $rac-base-text-labeled-self-field-label-top !default;
 $rac-cron-field-self-field-input-wrapper-flex: 1 !default;
 
-/* @stable [04.01.2020] */
-$rac-calendar-first-selected-day-cls: rac-calendar-first-selected-day;
-$rac-calendar-last-selected-day-cls: rac-calendar-last-selected-day;
-$rac-calendar-middle-selected-day-cls: rac-calendar-middle-selected-day;
-$rac-calendar-selected-day-cls: rac-calendar-selected-day;
-$rac-calendar-today-cls: rac-calendar-today;
+/* @stable [21.01.2020] */
+$rac-calendar-current-day-cls: rac-calendar__current-day;
+$rac-calendar-first-selected-day-cls: rac-calendar__first-selected-day;
+$rac-calendar-last-selected-day-cls: rac-calendar__last-selected-day;
+$rac-calendar-middle-selected-day-cls: rac-calendar__middle-selected-day;
+$rac-calendar-selected-day-cls: rac-calendar__selected-day;
+$rac-calendar-today-cls: rac-calendar__today;
 /**/
 $rac-calendar-size-0: 28px !default;
 $rac-calendar-offset-0: 2px !default;
@@ -1020,7 +1021,6 @@ $rac-calendar-day-wrapper-padding-bottom: $rac-calendar-offset-0 !default;
 $rac-calendar-day-wrapper-padding-top: $rac-calendar-offset-0 !default;
 $rac-calendar-margin: 0 auto !default;
 $rac-calendar-selected-day-background: $rac-color-0-4 !default;
-$rac-calendar-today-background: $rac-color-0-3 !default;
 $rac-calendar-today-color: $rac-color-2-2 !default;
 
 /**/

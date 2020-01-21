@@ -19,7 +19,8 @@ import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 
 /**
- * @stable [03.10.2019]
+ * @generic-entity
+ * @stable [21.10.2019]
  */
 export interface IGenericDialogEntity
   extends IAcceptableWrapper,
@@ -32,18 +33,19 @@ export interface IGenericDialogEntity
 }
 
 /**
- * @stable [06.01.2020]
+ * @behavioral-entity
+ * @stable [21.01.2020]
  */
 export interface IBehavioralDialogEntity
-  extends IGenericDialogEntity,
-    IOnAcceptWrapper,
+  extends IOnAcceptWrapper,
     IOnActivateWrapper,
     IOnCloseWrapper,
     IOnDeactivateWrapper {
 }
 
 /**
- * @stable [05.01.2020]
+ * @config-entity
+ * @stable [21.01.2020]
  */
 export interface IActivateDialogConfigEntity
   extends IOnActivateWrapper,
@@ -51,23 +53,27 @@ export interface IActivateDialogConfigEntity
 }
 
 /**
+ * @component
  * @stable [03.10.2019]
  */
-export interface IDialog<TProps extends IComponentProps = IComponentProps, TState = {}>
+export interface IDialog<TProps extends IComponentProps = IComponentProps, TState extends IDialogState = IDialogState>
   extends IComponent<TProps, TState>,
     IAcceptWrapper,
     IActivateWrapper<IActivateDialogConfigEntity> {
 }
 
 /**
+ * @props
  * @stable [06.01.2020]
  */
 export interface IDialogProps
   extends IComponentProps,
+    IGenericDialogEntity,
     IBehavioralDialogEntity {
 }
 
 /**
+ * @state
  * @stable [06.01.2020]
  */
 export interface IDialogState
@@ -75,8 +81,9 @@ export interface IDialogState
 }
 
 /**
+ * @configuration-entity
  * @stable [15.01.2020]
  */
-export interface IDialogConfigurationWrapperEntity<TProps extends IDialogProps = IDialogProps>
+export interface IDialogConfigurationEntity<TProps extends IDialogProps = IDialogProps>
   extends IDialogConfigurationWrapper<TProps> {
 }

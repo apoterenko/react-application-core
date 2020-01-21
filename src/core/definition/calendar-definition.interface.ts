@@ -1,8 +1,5 @@
 import {
   ICalendarConfigurationWrapper,
-  IDateWrapper,
-  IFromToEntity,
-  IFromValueWrapper,
   IIsFirstSelectedWrapper,
   IIsLastSelectedWrapper,
   IIsSelectedWrapper,
@@ -10,26 +7,22 @@ import {
   IRendererWrapper,
   ISelectedDaysWrapper,
   IShowOnlyCurrentDaysWrapper,
-  IToValueWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import {
   ICalendarDayEntity,
-  ICalendarEntity,
   ICalendarEntityWrapperEntity,
-  IDayOfYearEntity,
 } from './date-definition.interface';
-import { IGridConfigurationWrapperEntity } from './grid-definition.interface';
+import { IGridConfigurationEntity } from './grid-definition.interface';
 
 /**
  * @stable [04.01.2020]
  */
 export interface IGenericCalendarEntity
-  extends ICalendarConfigurationWrapper<ICalendarEntity>,
-    ICalendarEntityWrapperEntity,
+  extends ICalendarEntityWrapperEntity,
     ISelectedDaysWrapper<number[]>,
     IShowOnlyCurrentDaysWrapper,
-    IGridConfigurationWrapperEntity {
+    IGridConfigurationEntity {
 }
 
 /**
@@ -53,18 +46,9 @@ export interface ICalendarProps
 }
 
 /**
- * @stable [08.01.2020]
+ * @configuration-entity
+ * @stable [21.01.2020]
  */
-export interface ICalendarConfigurationWrapperEntity
-  extends ICalendarConfigurationWrapper<ICalendarProps> {
-}
-
-/**
- * @stable [06.01.2020]
- */
-export interface ICalendarRangeState
-  extends IDateWrapper<Date>,
-    IFromToEntity<IDayOfYearEntity>,
-    IFromValueWrapper,
-    IToValueWrapper {
+export interface ICalendarConfigurationEntity<TProps extends ICalendarProps = ICalendarProps>
+  extends ICalendarConfigurationWrapper<TProps> {
 }

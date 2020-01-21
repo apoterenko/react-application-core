@@ -27,8 +27,8 @@ import {
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarWeekEntity,
+  IDateRangeConfigEntity,
   IDateTimeConfigEntity,
-  IDateTimeRangeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
   MomentT,
@@ -543,10 +543,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public asDayOfYear(date?: Date): Date {
     const d = new Date(date || this.getCurrentDate());
-    d.setHours(0);
-    d.setMinutes(0);
-    d.setSeconds(0);
-    d.setMilliseconds(0);
+    d.setHours(0, 0, 0, 0);
     return d;
   }
 
@@ -826,23 +823,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @deprecated
-   */
-  public getCurrentTime(): Date {
-    return new Date();
-  }
-
-  /**
-   * @stable [08.08.2019]
-   * @returns {Date}
-   */
-  public getStartOfCurrentDate(): Date {
-    const date = new Date(this.currentDate);
-    date.setHours(0, 0, 0, 0);
-    return date;
-  }
-
-  /**
    * @stable [09.05.2019]
    * @returns {Date}
    */
@@ -1098,10 +1078,10 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [08.01.2020]
-   * @param {IDateTimeRangeConfigEntity} cfg
+   * @param {IDateRangeConfigEntity} cfg
    * @returns {boolean}
    */
-  public isDateBelongToDatesRange(cfg: IDateTimeRangeConfigEntity): boolean {
+  public isDateBelongToDatesRange(cfg: IDateRangeConfigEntity): boolean {
     const minDate = nvl(cfg.minDate, this.dateTimeSettings.minDate);
     const maxDate = nvl(cfg.maxDate, this.dateTimeSettings.maxDate);
 

@@ -6,7 +6,7 @@ import {
   ICalendarConfigEntity,
   ICalendarEntity,
   IDateTimeConfigEntity,
-  IDateTimeRangeConfigEntity,
+  IDateRangeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
 } from '../../definition';
@@ -53,8 +53,7 @@ export interface IDateConverter<TDate = Date> {
   getLocalizedShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
   getShortestWeekday(cfg: IDateTimeConfigEntity): string;
   getShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
-  getStartOfCurrentDate(): Date;
-  isDateBelongToDatesRange(cfg: IDateTimeRangeConfigEntity): boolean;
+  isDateBelongToDatesRange(cfg: IDateRangeConfigEntity): boolean;
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
   selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;
   /**/
@@ -130,7 +129,6 @@ export interface IDateConverter<TDate = Date> {
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
-  getCurrentTime(): Date;
   getYesterdayDate(): Date;
   getFirstDayOfMonth(monthsAgo?: number,
                      date?: DateTimeLikeTypeT,

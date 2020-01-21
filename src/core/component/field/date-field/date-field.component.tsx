@@ -360,28 +360,28 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @stable [21.01.2020]
    */
   private onSetWeek(): void {
-    this.setQuickValue(this.dc.asFirstDayOfWeekAsDate(), this.dc.getStartOfCurrentDate());
+    this.setQuickValue(this.dc.asFirstDayOfWeekAsDate(), this.dc.asDayOfYear());
   }
 
   /**
    * @stable [21.01.2020]
    */
   private onSetMonth(): void {
-    this.setQuickValue(this.dc.asFirstDayOfMonthAsDate(), this.dc.getStartOfCurrentDate());
+    this.setQuickValue(this.dc.asFirstDayOfMonthAsDate(), this.dc.asDayOfYear());
   }
 
   /**
    * @stable [21.01.2020]
    */
   private onSetQuarter(): void {
-    this.setQuickValue(this.dc.asFirstDayOfQuarterAsDate(), this.dc.getStartOfCurrentDate());
+    this.setQuickValue(this.dc.asFirstDayOfQuarterAsDate(), this.dc.asDayOfYear());
   }
 
   /**
    * @stable [21.01.2020]
    */
   private onSetYear(): void {
-    this.setQuickValue(this.dc.asFirstDayOfYearAsDate(), this.dc.getStartOfCurrentDate());
+    this.setQuickValue(this.dc.asFirstDayOfYearAsDate(), this.dc.asDayOfYear());
   }
 
   /**
@@ -444,7 +444,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onChangeYear(year: number): void {
     const props = this.props;
-    const date = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.dateValueToAccept});
+    const date = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.defaultDateValueToAccept});
 
     if (this.dc.isDateBelongToDatesRange({date, minDate: props.minDate, maxDate: props.maxDate})) {
       this.setState({cursor: UNDEF, year, date});
@@ -514,7 +514,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       current: UNDEF,
       cursor: UNDEF,
       date: UNDEF,
+      from: UNDEF,
       next: UNDEF,
+      to: UNDEF,
       year: UNDEF,
     }, callback);
   }
@@ -532,10 +534,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {boolean}
    */
   private isDaySelected(entity: ICalendarDayEntity): boolean {
-    if (this.isRangeEnabled) {
-      return this.isRangeSelected(entity);
-    }
-    return this.dc.compare(entity.date, this.dateValueToAccept) === 0;
+    return this.isRangeEnabled
+      ? this.isRangeSelected(entity)
+      : this.dc.compare(entity.date, this.dateValueToAccept) === 0;
   }
 
   /**
@@ -646,7 +647,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Date}
    */
   private get currentCalendarDate(): Date {
-    return this.state.cursor || this.dateValueToAccept;
+    return this.state.cursor || this.defaultDateValueToAccept;
   }
 
   /**
@@ -662,7 +663,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Date}
    */
   private get dateValueToAccept(): Date {
-    return this.state.date || this.valueAsDate || this.dc.asDayOfYear();
+    return this.state.date || this.valueAsDate;
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @returns {Date}
+   */
+  private get defaultDateValueToAccept(): Date {
+    return this.dateValueToAccept || this.dc.asDayOfYear();
   }
 
   /**

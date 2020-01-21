@@ -349,7 +349,6 @@ export interface IPlaceEntityWrapper<TPlaceEntity> { placeEntity?: TPlaceEntity;
 export interface IPlaceholderWrapper { placeholder?: string; }
 export interface IPlaceIdWrapper<TPlaceId = string> { placeId?: TPlaceId; }
 export interface IPlacesWrapper<TValue> { places?: TValue; }
-export interface IPlaceWrapper<TPlace = string> { place?: TPlace; }
 export interface IPlainValueWrapper { plainValue?: boolean; }
 export interface IPointsWrapper<TPoints> { points?: TPoints; }
 export interface IPopupWrapper<TPopup = boolean> { popup?: TPopup; }
@@ -452,7 +451,6 @@ export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTot
 export interface ITotalEntityWrapper<TValue = AnyT> { totalEntity?: TValue; }
 export interface ITotalWrapper<TValue = boolean> { total?: TValue; }
 export interface ITouchedWrapper { touched?: boolean; }
-export interface IToValueWrapper<TValue = string> { toValue?: TValue; }
 export interface IToWrapper<TValue = string> { to?: TValue; }
 export interface ITplWrapper<TValue> { tpl?: TValue; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }

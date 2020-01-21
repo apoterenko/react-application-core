@@ -208,7 +208,7 @@ export interface IGridProps
 /**
  * @stable [04.01.2020]
  */
-export interface IGridConfigurationWrapperEntity<TProps extends IGridProps = IGridProps>
+export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps>
   extends IGridConfigurationWrapper<TProps> {
 }
 

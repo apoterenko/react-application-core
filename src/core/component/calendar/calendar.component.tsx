@@ -83,12 +83,13 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     const isLastSelectedDay = this.isLastSelectedDay(entity);
 
     return joinClassName(
-      entity.current && 'rac-calendar-current-day',
-      entity.today && 'rac-calendar-today',
-      isDaySelected && 'rac-calendar-selected-day',
-      isFirstSelectedDay && 'rac-calendar-first-selected-day',
-      (!isFirstSelectedDay && !isLastSelectedDay) && 'rac-calendar-middle-selected-day',
-      isLastSelectedDay && 'rac-calendar-last-selected-day'
+      entity.current && 'rac-calendar__current-day',
+      entity.today && 'rac-calendar__today',
+      isDaySelected && 'rac-calendar__selected-day',
+      (!isDaySelected && !entity.today) && 'rac-calendar__basic-day',
+      isFirstSelectedDay && 'rac-calendar__first-selected-day',
+      (!isFirstSelectedDay && !isLastSelectedDay) && 'rac-calendar__middle-selected-day',
+      isLastSelectedDay && 'rac-calendar__last-selected-day'
     );
   }
 
