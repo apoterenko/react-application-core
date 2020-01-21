@@ -137,6 +137,6 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
    * @returns {boolean}
    */
   private get isCaptureFilterDisabled(): boolean {
-    return this.environment.safariPlatform && this.environment.iosPlatform;
+    return this.environment.safariOrSafariMobilePlatform && this.environment.iosPlatform;
   }
 }

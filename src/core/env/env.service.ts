@@ -150,6 +150,22 @@ export class Environment implements IEnvironment {
   }
 
   /**
+   * @stable [21.01.2020]
+   * @returns {boolean}
+   */
+  public get safariMobilePlatform(): boolean {
+    return this.browserName === 'Safari Mobile';
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @returns {boolean}
+   */
+  public get safariOrSafariMobilePlatform(): boolean {
+    return this.safariMobilePlatform || this.safariPlatform;
+  }
+
+  /**
    * @stable [16.01.2020]
    * @returns {boolean}
    */
@@ -194,7 +210,7 @@ export class Environment implements IEnvironment {
    * @returns {boolean}
    */
   public get ios13Platform(): boolean {
-    return this.isMacPlatform && this.safariPlatform && this.touchedPlatform;
+    return this.isMacPlatform && this.safariOrSafariMobilePlatform && this.touchedPlatform;
   }
 
   /**

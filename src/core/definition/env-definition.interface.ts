@@ -33,6 +33,8 @@ export interface IEnvironment {
   platformType?: string;
   platformVersion?: string;
   prodMode?: boolean;
+  safariMobilePlatform?: boolean;
+  safariOrSafariMobilePlatform?: boolean;
   safariPlatform?: boolean;
   touchedPlatform?: boolean;
   window?: Window;
