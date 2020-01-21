@@ -391,6 +391,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private setQuickValue(current: Date, next: Date): void {
     this.setState({
+      cursor: next,
       from: this.serializeValue(current),
       to: this.serializeValue(next),
       current,
@@ -444,7 +445,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onChangeYear(year: number): void {
     const props = this.props;
-    const current = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.defaultDateValueToAccept});
+    const current = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.dateValueToAccept || this.dc.asDayOfYear()});
 
     if (this.dc.isDateBelongToDatesRange({date: current, minDate: props.minDate, maxDate: props.maxDate})) {
       this.setState({cursor: UNDEF, year, current});
@@ -655,7 +656,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Date}
    */
   private get currentCalendarDate(): Date {
-    return this.state.cursor || this.defaultDateValueToAccept;
+    return this.state.cursor
+      || (this.isRangeEnabled ? this.rangeValueToAccept[0] : this.dateValueToAccept)
+      || this.dc.asDayOfYear();
   }
 
   /**
@@ -672,14 +675,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get dateValueToAccept(): Date {
     return this.state.current || this.valueAsDate;
-  }
-
-  /**
-   * @stable [21.01.2020]
-   * @returns {Date}
-   */
-  private get defaultDateValueToAccept(): Date {
-    return this.dateValueToAccept || this.dc.asDayOfYear();
   }
 
   /**
