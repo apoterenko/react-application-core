@@ -360,28 +360,42 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @stable [21.01.2020]
    */
   private onSetWeek(): void {
-    this.setState({current: this.dc.asFirstDayOfWeekAsDate(), next: this.dc.getStartOfCurrentDate()});
+    this.setQuickValue(this.dc.asFirstDayOfWeekAsDate(), this.dc.getStartOfCurrentDate());
   }
 
   /**
    * @stable [21.01.2020]
    */
   private onSetMonth(): void {
-    this.setState({current: this.dc.asFirstDayOfMonthAsDate(), next: this.dc.getStartOfCurrentDate()});
+    this.setQuickValue(this.dc.asFirstDayOfMonthAsDate(), this.dc.getStartOfCurrentDate());
   }
 
   /**
    * @stable [21.01.2020]
    */
   private onSetQuarter(): void {
-    this.setState({current: this.dc.asFirstDayOfQuarterAsDate(), next: this.dc.getStartOfCurrentDate()});
+    this.setQuickValue(this.dc.asFirstDayOfQuarterAsDate(), this.dc.getStartOfCurrentDate());
   }
 
   /**
    * @stable [21.01.2020]
    */
   private onSetYear(): void {
-    this.setState({current: this.dc.asFirstDayOfYearAsDate(), next: this.dc.getStartOfCurrentDate()});
+    this.setQuickValue(this.dc.asFirstDayOfYearAsDate(), this.dc.getStartOfCurrentDate());
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {Date} current
+   * @param {Date} next
+   */
+  private setQuickValue(current: Date, next: Date): void {
+    this.setState({
+      from: this.serializeValue(current),
+      to: this.serializeValue(next),
+      current,
+      next,
+    });
   }
 
   /**
