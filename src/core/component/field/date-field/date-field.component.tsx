@@ -48,6 +48,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     preventFocus: true,
   };
 
+  private readonly defaultRangeFieldProps: IDateFieldProps = {
+    calendarActionRendered: false,
+    errorMessageRendered: false,
+    full: false,
+    placeholder: this.fieldFormat,
+    preventFocus: false,
+  };
+
   private readonly dialogRef = React.createRef<Dialog<AnyT>>();
   private readonly yearRef = React.createRef<NumberField>();
 
@@ -304,19 +312,13 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     return (
       <React.Fragment>
         <DateField
-          full={false}
+          {...this.defaultRangeFieldProps}
           value={this.state.from}
-          preventFocus={false}
-          placeholder={this.fieldFormat}
-          calendarActionRendered={false}
           onChange={this.onRangeFromChange}/>
         <span className='rac-calendar-dialog__range-input-separator'>&nbsp;&mdash;&nbsp;</span>
         <DateField
-          full={false}
+          {...this.defaultRangeFieldProps}
           value={this.state.to}
-          preventFocus={false}
-          placeholder={this.fieldFormat}
-          calendarActionRendered={false}
           onChange={this.onRangeToChange}/>
       </React.Fragment>
     );

@@ -3568,6 +3568,7 @@
   $rac-calendar-dialog-calendar-selected-day-color: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-selected-day-width: unset,                                /* @stable [21.01.2020] */
   $rac-calendar-dialog-calendars-wrapper-display: unset,                                  /* @stable [21.01.2020] */
+  $rac-calendar-dialog-calendars-wrapper-flex: unset,                                     /* @stable [21.01.2020] */
   $rac-calendar-dialog-footer-action-background: unset,                                   /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-content-color: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-action-height: unset,                                       /* @stable [14.01.2020] */
@@ -3650,7 +3651,8 @@
 
     @include rac-styles (
       $rac-styles-custom: rac-calendar-dialog__calendars-wrapper,
-      $rac-styles-display: $rac-calendar-dialog-calendars-wrapper-display
+      $rac-styles-display: $rac-calendar-dialog-calendars-wrapper-display,
+      $rac-styles-flex: $rac-calendar-dialog-calendars-wrapper-flex
     );
 
     @include rac-styles (
