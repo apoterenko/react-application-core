@@ -444,10 +444,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onChangeYear(year: number): void {
     const props = this.props;
-    const date = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.defaultDateValueToAccept});
+    const current = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.defaultDateValueToAccept});
 
-    if (this.dc.isDateBelongToDatesRange({date, minDate: props.minDate, maxDate: props.maxDate})) {
-      this.setState({cursor: UNDEF, year, date});
+    if (this.dc.isDateBelongToDatesRange({date: current, minDate: props.minDate, maxDate: props.maxDate})) {
+      this.setState({cursor: UNDEF, year, current});
     } else {
       this.setState({cursor: UNDEF, year});
     }
@@ -478,7 +478,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       this.setState({
         cursor: UNDEF,
         year: calendarDayEntity.year,
-        date: calendarDayEntity.date,
+        current: calendarDayEntity.date,
       }, () => this.yearRef.current.setFocus());
     }
   }
@@ -513,7 +513,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       dialogOpened: false,
       current: UNDEF,
       cursor: UNDEF,
-      date: UNDEF,
       from: UNDEF,
       next: UNDEF,
       to: UNDEF,
@@ -672,7 +671,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Date}
    */
   private get dateValueToAccept(): Date {
-    return this.state.date || this.valueAsDate;
+    return this.state.current || this.valueAsDate;
   }
 
   /**

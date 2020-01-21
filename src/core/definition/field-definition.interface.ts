@@ -16,7 +16,6 @@ import {
   IClassNameWrapper,
   ICurrentWrapper,
   ICursorWrapper,
-  IDateWrapper,
   IDefaultValueWrapper,
   IDialogOpenedWrapper,
   IDisabledWrapper,
@@ -248,7 +247,6 @@ export interface IGenericDateFieldEntity
 export interface IGenericDateFieldState
   extends ICurrentWrapper<Date>,
     ICursorWrapper<Date>,
-    IDateWrapper<Date>,
     IDialogOpenedWrapper,
     IFromToEntity<string>,
     INextWrapper<Date>,
