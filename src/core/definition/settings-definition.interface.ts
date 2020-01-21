@@ -148,16 +148,20 @@ export interface IMessagesSettingsEntity {
   ERROR?: string;
   FILTER_PLACEHOLDER?: string;
   FILTERS?: string;
+  MONTH?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   OK?: string;
   PATH?: string;
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
   PUT_MARKER_HERE?: string;
+  QUARTER?: string;
   RESTART_APP?: string;
   SOMETHING_WENT_WRONG?: string;
   UNKNOWN_ERROR?: string;
   USER?: string;
+  WEEK?: string;
+  YEAR?: string;
 }
 
 /**
@@ -177,14 +181,18 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   ERROR: 'Error',
   FILTER_PLACEHOLDER: 'Search',
   FILTERS: 'Filters',
+  MONTH: 'Month',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   OK: 'Ok',
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
   PUT_MARKER_HERE: 'Put marker here',
+  QUARTER: 'Quarter',
   RESTART_APP: 'Restart App',
   SOMETHING_WENT_WRONG: 'Something went wrong',
   UNKNOWN_ERROR: 'Unknown error',
   USER: 'User',
+  WEEK: 'Week',
+  YEAR: 'Year',
 });

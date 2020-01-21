@@ -75,6 +75,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.onRangeFromChange = this.onRangeFromChange.bind(this);
     this.onRangeToChange = this.onRangeToChange.bind(this);
+    this.onSetMonth = this.onSetMonth.bind(this);
+    this.onSetQuarter = this.onSetQuarter.bind(this);
+    this.onSetWeek = this.onSetWeek.bind(this);
+    this.onSetYear = this.onSetYear.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.setNextMonth = this.setNextMonth.bind(this);
     this.setPreviousMonth = this.setPreviousMonth.bind(this);
@@ -127,6 +131,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             )}
             onDeactivate={this.onDialogDeactivate}
           >
+            {this.isRangeEnabled && this.quickButtonsElement}
             <div className='rac-calendar-dialog__range-explorer'>
               <Button
                 icon='back'
@@ -322,6 +327,61 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           onChange={this.onRangeToChange}/>
       </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @returns {JSX.Element}
+   */
+  private get quickButtonsElement(): JSX.Element {
+    return (
+      <div className='rac-calendar-dialog__quick-buttons'>
+        <Button
+          full={true}
+          text={this.settings.messages.WEEK}
+          onClick={this.onSetWeek}/>
+        <Button
+          full={true}
+          text={this.settings.messages.MONTH}
+          onClick={this.onSetMonth}/>
+        <Button
+          full={true}
+          text={this.settings.messages.QUARTER}
+          onClick={this.onSetQuarter}/>
+        <Button
+          full={true}
+          text={this.settings.messages.YEAR}
+          onClick={this.onSetYear}/>
+      </div>
+    );
+  }
+
+  /**
+   * @stable [21.01.2020]
+   */
+  private onSetWeek(): void {
+    this.setState({current: this.dc.asFirstDayOfWeekAsDate(), next: this.dc.getStartOfCurrentDate()});
+  }
+
+  /**
+   * @stable [21.01.2020]
+   */
+  private onSetMonth(): void {
+    this.setState({current: this.dc.asFirstDayOfMonthAsDate(), next: this.dc.getStartOfCurrentDate()});
+  }
+
+  /**
+   * @stable [21.01.2020]
+   */
+  private onSetQuarter(): void {
+    this.setState({current: this.dc.asFirstDayOfQuarterAsDate(), next: this.dc.getStartOfCurrentDate()});
+  }
+
+  /**
+   * @stable [21.01.2020]
+   */
+  private onSetYear(): void {
+    this.setState({current: this.dc.asFirstDayOfYearAsDate(), next: this.dc.getStartOfCurrentDate()});
   }
 
   /**

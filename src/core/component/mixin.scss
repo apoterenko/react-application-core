@@ -679,17 +679,17 @@
 /**
  * @stable [13.03.2019]
  */
-@mixin rac-neighbor-child(
+@mixin rac-neighbor-child (
   $rac-neighbor-child-custom: unset,
   $rac-neighbor-child-margin: unset
 ) {
   $v: unquote('>');
   @if $rac-neighbor-child-custom != unset {
-   $v: '.#{$rac-neighbor-child-custom} >';
+    $v: '.#{$rac-neighbor-child-custom} >';
   }
 
   #{$v} :not(:first-child) {
-    @include rac-styles(
+    @include rac-styles (
       $rac-styles-margin: $rac-neighbor-child-margin
     );
   }
@@ -3579,6 +3579,12 @@
   $rac-calendar-dialog-footer-input-self-field-input-text-align: unset,                   /* @stable [17.01.2020] */
   $rac-calendar-dialog-footer-input-width: unset,                                         /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-justify-content: unset,                                     /* @stable [14.01.2020] */
+  $rac-calendar-dialog-quick-button-background: unset,                                    /* @stable [21.01.2020] */
+  $rac-calendar-dialog-quick-button-content-color: unset,                                 /* @stable [21.01.2020] */
+  $rac-calendar-dialog-quick-button-height: unset,                                        /* @stable [21.01.2020] */
+  $rac-calendar-dialog-quick-button-neighbor-margin: unset,                               /* @stable [21.01.2020] */
+  $rac-calendar-dialog-quick-buttons-display: unset,                                      /* @stable [21.01.2020] */
+  $rac-calendar-dialog-quick-buttons-margin: unset,                                       /* @stable [21.01.2020] */
   $rac-calendar-dialog-range-explorer-align-items: unset,                                 /* @stable [08.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-background: unset,                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-icon-color: unset,                      /* @stable [14.01.2020] */
@@ -3659,6 +3665,23 @@
       $rac-styles-custom: rac-calendar-dialog__second-calendar,
       $rac-styles-margin: $rac-calendar-dialog-second-calendar-margin
     );
+
+    .rac-calendar-dialog__quick-buttons {
+      @include rac-styles (
+        $rac-styles-display: $rac-calendar-dialog-quick-buttons-display,
+        $rac-styles-margin: $rac-calendar-dialog-quick-buttons-margin
+      );
+
+      @include rac-button (
+        $rac-button-background: $rac-calendar-dialog-quick-button-background,
+        $rac-button-content-color: $rac-calendar-dialog-quick-button-content-color,
+        $rac-button-height: $rac-calendar-dialog-quick-button-height
+      );
+
+      @include rac-neighbor-child (
+        $rac-neighbor-child-margin: $rac-calendar-dialog-quick-button-neighbor-margin
+      );
+    }
 
     @include rac-calendar (
       $rac-calendar-body-border-bottom: $rac-calendar-dialog-calendar-body-border-bottom,

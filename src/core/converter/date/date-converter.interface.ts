@@ -26,6 +26,12 @@ export interface IDateConverter<TDate = Date> {
   asEndUnitOf(cfg: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asFirstDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date;
+  asFirstDayOfQuarter(cfg?: IDateTimeConfigEntity): TDate;
+  asFirstDayOfQuarterAsDate(cfg?: IDateTimeConfigEntity): Date;
+  asFirstDayOfWeek(cfg?: IDateTimeConfigEntity): TDate;
+  asFirstDayOfWeekAsDate(cfg?: IDateTimeConfigEntity): Date;
+  asFirstDayOfYear(cfg?: IDateTimeConfigEntity): TDate;
+  asFirstDayOfYearAsDate(cfg?: IDateTimeConfigEntity): Date;
   asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): TDate;

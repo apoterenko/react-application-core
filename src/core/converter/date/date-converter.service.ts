@@ -159,6 +159,15 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [21.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asFirstDayOfWeek(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asStartUnitOf({...cfg, unit: 'week'});
+  }
+
+  /**
    * @stable [03.01.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {MomentT}
@@ -168,12 +177,57 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [21.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asFirstDayOfQuarter(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asStartUnitOf({...cfg, unit: 'quarter'});
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asFirstDayOfYear(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asStartUnitOf({...cfg, unit: 'year'});
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asFirstDayOfWeekAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asFirstDayOfWeek(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
    * @stable [06.01.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {Date}
    */
   public asFirstDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date {
     return ifNotNilThanValue(this.asFirstDayOfMonth(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asFirstDayOfQuarterAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asFirstDayOfQuarter(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [21.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asFirstDayOfYearAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asFirstDayOfYear(cfg), (mDate) => mDate.toDate());
   }
 
   /**
