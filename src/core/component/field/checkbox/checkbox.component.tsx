@@ -10,7 +10,7 @@ export class Checkbox extends BaseCheckbox<ICheckboxProps, ICheckboxState> {
    * @stable [23.10.2019]
    * @returns {JSX.Element}
    */
-  protected getInputAttachmentElement(): JSX.Element {
+  protected get inputAttachmentElement(): JSX.Element {
     return orNull(this.value, () => this.uiFactory.makeIcon('check-sign'));
   }
 

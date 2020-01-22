@@ -20,7 +20,7 @@ export class TextArea extends BaseTextField<ITextAreaInternalProps,
   /**
    * @inheritDoc
    */
-  protected getInputAttachmentElement(): JSX.Element {
+  protected get inputAttachmentElement(): JSX.Element {
     return orNull(
       isDef(this.props.maxLength),
       () => (

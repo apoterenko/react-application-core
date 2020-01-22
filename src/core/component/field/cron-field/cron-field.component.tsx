@@ -89,7 +89,7 @@ export class CronField extends Field<ICronFieldProps> {
    * @stable [03.01.2020]
    * @returns {JSX.Element}
    */
-  protected getInputAttachmentElement(): JSX.Element {
+  protected get inputAttachmentElement(): JSX.Element {
     const cronEntity = this.newCronEntity;
     return (
       <div className='rac-cron-calendar-wrapper'>
