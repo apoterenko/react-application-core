@@ -31,6 +31,7 @@ import {
   IFromToEntity,
   IFullWrapper,
   IHeaderFormatWrapper,
+  IInlineWrapper,
   IKeepChangesWrapper,
   ILabelWrapper,
   IMaskWrapper,
@@ -235,6 +236,7 @@ export interface IGenericDateFieldEntity
     IDialogConfigurationEntity,
     IFormatWrapper,
     IHeaderFormatWrapper,
+    IInlineWrapper,
     IMaxDateWrapper<Date>,
     IMinDateWrapper<Date>,
     IRangeEnabledWrapper {

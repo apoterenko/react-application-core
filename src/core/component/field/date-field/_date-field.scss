@@ -7,6 +7,15 @@
    * @calendar-dialog
    * @stable [14.01.2020]
    */
+  @include rac-calendar-base-dialog (
+    $rac-calendar-base-dialog-range-explorer-display: $rac-calendar-base-dialog-range-explorer-display,
+    $rac-calendar-base-dialog-range-explorer-flex-direction: $rac-calendar-base-dialog-range-explorer-flex-direction
+  );
+
+  /**
+   * @calendar-dialog
+   * @stable [14.01.2020]
+   */
   @include rac-calendar-dialog (
     $rac-calendar-dialog-body-background: $rac-calendar-dialog-body-background,
     $rac-calendar-dialog-body-content-padding: $rac-calendar-dialog-body-content-padding,
@@ -41,8 +50,6 @@
     $rac-calendar-dialog-range-explorer-date-display: $rac-calendar-dialog-range-explorer-date-display,
     $rac-calendar-dialog-range-explorer-date-flex: $rac-calendar-dialog-range-explorer-date-flex,
     $rac-calendar-dialog-range-explorer-date-font-size: $rac-calendar-dialog-range-explorer-date-font-size,
-    $rac-calendar-dialog-range-explorer-display: $rac-calendar-dialog-range-explorer-display,
-    $rac-calendar-dialog-range-explorer-flex-direction: $rac-calendar-dialog-range-explorer-flex-direction,
     $rac-calendar-dialog-range-explorer-margin: $rac-calendar-dialog-range-explorer-margin
   );
 

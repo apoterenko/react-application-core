@@ -6,6 +6,7 @@ import {
   ifNotNilThanValue,
   isCalendarActionRendered,
   isDef,
+  isInline,
   isRangeEnabled,
   joinClassName,
   notEmptyValuesArrayFilter,
@@ -109,67 +110,40 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @stable [09.01.2020]
    * @returns {JSX.Element}
    */
-  protected getInputAttachmentElement(): JSX.Element {
-    const {year, dialogOpened} = this.state;
+  protected getAttachmentElement(): JSX.Element {
     const props = this.props;
+    const {dialogOpened} = this.state;
     const {dialogConfiguration = {}} = props;
 
+    const className = joinClassName(
+      !this.isInline && dialogConfiguration.className,
+      'rac-calendar-base-dialog',
+      this.isInline ? 'rac-calendar-inline-dialog' : 'rac-calendar-dialog',
+      this.isRangeEnabled ? 'rac-date-field__calendars-dialog' : 'rac-date-field__calendar-dialog'
+    );
+
+    if (this.isInline) {
+      return (
+        <div className={className}>
+          {this.calendarAttachmentElement}
+        </div>
+      );
+    }
     return orNull(
       dialogOpened,  // To improve a performance
-      () => {
-        return (
-          <Dialog
-            checkScrim={true}
-            {...props.dialogConfiguration}
-            ref={this.dialogRef}
-            acceptable={false}
-            closable={false}
-            className={joinClassName(
-              dialogConfiguration.className,
-              'rac-calendar-dialog',
-              this.isRangeEnabled ? 'rac-date-field__calendars-dialog' : 'rac-date-field__calendar-dialog'
-            )}
-            onDeactivate={this.onDialogDeactivate}
-          >
-            {this.isRangeEnabled && this.quickButtonsElement}
-            <div className='rac-calendar-dialog__range-explorer'>
-              <Button
-                icon='back'
-                mini={true}
-                onClick={this.setPreviousMonth}/>
-              <div className='rac-calendar-dialog__range-explorer-date'>
-                {this.rangeExplorerDateElement}
-              </div>
-              <Button
-                icon='forward'
-                mini={true}
-                onClick={this.setNextMonth}/>
-            </div>
-            {this.calendarElement}
-            <div className='rac-calendar-dialog__footer'>
-              {this.isRangeEnabled && this.rangeFieldsElement}
-              {
-                !this.isRangeEnabled && (
-                  <NumberField
-                    ref={this.yearRef}
-                    value={year}
-                    full={false}
-                    autoFocus={true}
-                    keepChanges={true}
-                    errorMessageRendered={false}
-                    pattern={this.dateTimeSettings.uiYearPattern}
-                    mask={this.dateTimeSettings.uiYearMask}
-                    placeholder={this.selectedYearPlaceholder}
-                    onChange={this.onChangeYear}/>
-                )
-              }
-              <Button
-                text={this.settings.messages.OK}
-                onClick={this.onAccept}/>
-            </div>
-          </Dialog>
-        );
-      }
+      () => (
+        <Dialog
+          checkScrim={true}
+          {...props.dialogConfiguration}
+          ref={this.dialogRef}
+          acceptable={false}
+          closable={false}
+          className={className}
+          onDeactivate={this.onDialogDeactivate}
+        >
+          {this.calendarAttachmentElement}
+        </Dialog>
+      )
     );
   }
 
@@ -240,6 +214,54 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   protected get fieldFormat(): string {
     return nvl(this.props.format, this.dateTimeSettings.uiDateFormat);
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
+  private get calendarAttachmentElement(): JSX.Element {
+    const {year} = this.state;
+    return (
+      <React.Fragment>
+        {this.isRangeEnabled && this.quickButtonsElement}
+        <div className='rac-calendar-dialog__range-explorer'>
+          <Button
+            icon='back'
+            mini={true}
+            onClick={this.setPreviousMonth}/>
+          <div className='rac-calendar-dialog__range-explorer-date'>
+            {this.rangeExplorerDateElement}
+          </div>
+          <Button
+            icon='forward'
+            mini={true}
+            onClick={this.setNextMonth}/>
+        </div>
+        {this.calendarElement}
+        <div className='rac-calendar-dialog__footer'>
+          {this.isRangeEnabled && this.rangeFieldsElement}
+          {
+            !this.isRangeEnabled && (
+              <NumberField
+                ref={this.yearRef}
+                value={year}
+                full={false}
+                autoFocus={true}
+                keepChanges={true}
+                errorMessageRendered={false}
+                pattern={this.dateTimeSettings.uiYearPattern}
+                mask={this.dateTimeSettings.uiYearMask}
+                placeholder={this.selectedYearPlaceholder}
+                onChange={this.onChangeYear}/>
+            )
+          }
+          <Button
+            text={this.settings.messages.OK}
+            onClick={this.onAccept}/>
+        </div>
+      </React.Fragment>
+    );
   }
 
   /**
@@ -722,6 +744,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get isRangeEnabled(): boolean {
     return isRangeEnabled(this.props);
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {boolean}
+   */
+  private get isInline(): boolean {
+    return isInline(this.props);
   }
 
   /**

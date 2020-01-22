@@ -18,6 +18,7 @@ import {
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIndexedWrapper,
+  IInlineWrapper,
   IKeyboardOpenWrapper,
   ILoadingWrapper,
   IMenuRenderedWrapper,
@@ -249,11 +250,19 @@ export const isClearActionRendered  = (wrapper: IClearActionRenderedWrapper): bo
 
 /**
  * @stable [28.10.2019]
- * @param {IReadOnlyWrapper} readOnlyWrapper
+ * @param {IReadOnlyWrapper} wrapper
  * @returns {boolean}
  */
-export const isReadOnly = (readOnlyWrapper: IReadOnlyWrapper): boolean =>
-  ifNotNilThanValue(readOnlyWrapper, () => readOnlyWrapper.readOnly === true, false);
+export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.readOnly === true, false);
+
+/**
+ * @stable [22.01.2020]
+ * @param {IInlineWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isInline = (wrapper: IInlineWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.inline === true, false);
 
 /**
  * @stable [28.10.2019]
