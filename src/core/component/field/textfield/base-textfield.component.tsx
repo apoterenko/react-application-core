@@ -159,11 +159,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return joinClassName(super.getFieldClassName(), 'rac-base-text');
   }
 
-  /**
-   *
-   * @returns {JSX.Element}
-   */
-  protected getProgressLabelElement(): JSX.Element {
+  protected get progressLabelElement(): JSX.Element {
     return orNull(
       this.inProgress,
       () => <ProgressLabel className='rac-field-loader rac-absolute-center-position'/>
@@ -220,10 +216,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @stable [15.09.2018]
    * @returns {JSX.Element}
    */
-  protected getPrefixLabelElement(): JSX.Element {
+  protected get prefixLabelElement(): JSX.Element {
     const props = this.props;
     return (
-      orNull<JSX.Element>(
+      orNull(
         props.prefixLabel,
         <span className='rac-field-prefix-label rac-absolute-left-center-position'>{props.prefixLabel}</span>
       )

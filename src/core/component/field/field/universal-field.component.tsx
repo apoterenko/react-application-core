@@ -515,7 +515,39 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
+  protected get keyboardElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
   protected get inputAttachmentElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
+  protected get progressLabelElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
+  protected get actionsElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
+  protected get prefixLabelElement(): JSX.Element {
     return null;
   }
 

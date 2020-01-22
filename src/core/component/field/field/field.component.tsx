@@ -10,13 +10,12 @@ import {
   joinClassName,
   orNull,
   orUndef,
-  toClassName,
 } from '../../../util';
 import {
   AnyT,
-  IKeyboardEvent,
   IChangeEvent,
-  UNI_CODES,
+  IKeyboardEvent,
+  UniCodesEnum,
   } from '../../../definitions.interface';
 import {
   IField,
@@ -179,13 +178,9 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [29.10.2019]
+   * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
-  protected get keyboardElement(): JSX.Element {
-    return null;
-  }
-
   protected get selfElement(): JSX.Element {
     const props = this.props;
     if (this.isFieldRendered) {
@@ -195,11 +190,11 @@ export class Field<TProps extends IFieldProps,
           style={props.style}
           className={this.getSelfElementClassName()}
         >
-          {this.getPrefixLabelElement()}
+          {this.prefixLabelElement}
           {this.inputWrapperElement}
           {this.actionsElement}
-          {this.getLabelElement()}
-          {this.getProgressLabelElement()}
+          {this.labelElement}
+          {this.progressLabelElement}
         </div>
       );
     }
@@ -220,15 +215,7 @@ export class Field<TProps extends IFieldProps,
     return this.inputAttachmentElement;
   }
 
-  protected getProgressLabelElement(): JSX.Element {
-    return null;
-  }
-
-  protected get actionsElement(): JSX.Element {
-    return null;
-  }
-
-  protected getLabelElement(): JSX.Element {
+  protected get labelElement(): JSX.Element {
     return ifNotNilThanValue(
       this.getLabel(),
       (label) => (
@@ -244,10 +231,6 @@ export class Field<TProps extends IFieldProps,
   }
 
   protected getInputCaretElement(): JSX.Element {
-    return null;
-  }
-
-  protected getPrefixLabelElement(): JSX.Element {
     return null;
   }
 
@@ -419,8 +402,8 @@ export class Field<TProps extends IFieldProps,
     return (
       <div
         title={message}
-        className={toClassName('rac-field-help-text', className)}>
-        {message ? this.t(message) : UNI_CODES.noBreakSpace}
+        className={joinClassName('rac-field-help-text', className)}>
+        {message ? this.t(message) : UniCodesEnum.NO_BREAK_SPACE}
       </div>
     );
   }
