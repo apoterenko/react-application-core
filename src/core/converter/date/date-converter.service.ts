@@ -23,6 +23,7 @@ import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../setti
 import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
+  EnvironmentGlobalVariablesEnum,
   ICalendarConfigEntity,
   ICalendarDayEntity,
   ICalendarEntity,
@@ -30,12 +31,11 @@ import {
   IDateRangeConfigEntity,
   IDateTimeConfigEntity,
   IDayOfYearEntity,
+  IEnvironment,
   IFromToDayOfYearEntity,
   IPersonAgeConfigEntity,
   MomentT,
 } from '../../definition';
-
-const APP_STARTING_DATE = Date.now();
 
 @injectable()
 export class DateConverter implements IDateConverter<MomentT> {
@@ -54,22 +54,31 @@ export class DateConverter implements IDateConverter<MomentT> {
     ...DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS.slice(0, 6)
   ];
 
-  @lazyInject(DI_TYPES.Settings) private settings: ISettingsEntity;
+  @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
+  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+  private readonly appOnlineStartingDate = Date.now();
 
   /**
-   * @stable [16.10.2019]
-   * @returns {number}
+   * @stable [22.01.2020]
    */
-  public getAppOnlineLifeTimeInSeconds(): number {
-    return Math.round(Date.now() - APP_STARTING_DATE) / (1000 * 60);
+  constructor() {
+    this.environment.setVariable(EnvironmentGlobalVariablesEnum.DATE_CONVERTER, this);
   }
 
   /**
-   * @stable [16.10.2019]
+   * @stable [22.01.2020]
    * @returns {number}
    */
-  public getAppOnlineLifeTimeInHours(): number {
-    return Math.round(this.getAppOnlineLifeTimeInSeconds() / 60);
+  public get appOnlineLifeTimeInSeconds(): number {
+    return Math.round((Date.now() - this.appOnlineStartingDate) * 0.001);
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {number}
+   */
+  public get appOnlineLifeTimeInHours(): number {
+    return Math.round(this.appOnlineLifeTimeInSeconds / 3600);
   }
 
   /**
@@ -403,9 +412,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [23.11.2018]
-   * @param {DateTimeLikeTypeT} date [Example: Wed Oct 24 2018 04:07:41 GMT+0300 (RTZ 2 (зима))]
-   * @returns {string} [Example: 2018-10-24T04:07:41+03:00]
+   * @deptecated
    */
   public fromDateTimeToDateTime(date: DateTimeLikeTypeT): string {
     return this.fromDateTimeToArbitraryFormat(date, this.dateTimeFormat);

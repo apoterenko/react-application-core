@@ -13,6 +13,8 @@ import {
 } from '../../definition';
 
 export interface IDateConverter<TDate = Date> {
+  appOnlineLifeTimeInHours: number;
+  appOnlineLifeTimeInSeconds: number;
   addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
@@ -59,8 +61,6 @@ export interface IDateConverter<TDate = Date> {
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
   selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;
   /**/
-  getAppOnlineLifeTimeInSeconds(): number;
-  getAppOnlineLifeTimeInHours(): number;
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;

@@ -1,9 +1,12 @@
+import * as R from 'ramda';
 import { Store } from 'redux';
 import { injectable } from 'inversify';
 import { LoggerFactory } from 'ts-smart-logger';
-import * as R from 'ramda';
 
-import { DI_TYPES, lazyInject } from '../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../di';
 import {
   IEnvironment,
   ILogManagerEventPayloadFactory,
@@ -59,8 +62,8 @@ export class LogManagerEventPayloadFactory
     const browserVersion = this.environment.browserVersion;
 
     return `${R.isNil(user) || R.isNil(user.id) ? '' : `${user.id}:${user.name}:`}${
-      appVersion}:${this.dc.getAppOnlineLifeTimeInHours()}:${
-      this.dc.fromDateTimeToDateTime(this.dc.getCurrentDate())}:${
+      appVersion}:${this.dc.appOnlineLifeTimeInHours}:${
+      this.dc.dateAsDateTimeString({date: this.dc.getCurrentDate()})}:${
       browserName}:${
       browserVersion}:${
       getCurrentUrlPath()}${

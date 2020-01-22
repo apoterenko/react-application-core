@@ -43,9 +43,18 @@ export interface IGoogleMapsHeatMapLayerConfigEntity
 /**
  * @stable [10.01.2020]
  */
-export interface IGoogleMapsOpenMenuContextEntity
+export interface IGoogleMapsMenuContextEntity
   extends ILatLngEntity,
     IXYEntity {
+}
+
+/**
+ * @external-entity
+ * @stable [03.03.2019]
+ */
+export interface IGoogleMapsEventClickPayloadEntity {
+  pixel?: google.maps.Point;
+  latLng?: google.maps.LatLng;
 }
 
 /**

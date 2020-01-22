@@ -35,7 +35,7 @@ export class DelayedTask
    * @stable [29.07.2018]
    * @param {AnyT} context
    */
-  public start(context?: AnyT): void {
+  public start<TContext = AnyT>(context?: TContext): void {
     this.context = context;
     this.launchTask();
   }

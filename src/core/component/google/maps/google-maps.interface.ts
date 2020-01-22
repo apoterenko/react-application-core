@@ -10,6 +10,7 @@ import {
   IOptionsWrapper,
 } from '../../../definitions.interface';
 import {
+  IGoogleMapsEventClickPayloadEntity,
   IGoogleMapsMenuItemEntity,
   ILatLngEntity,
   IMenuItemEntity,
@@ -44,13 +45,5 @@ export interface IGoogleMapsProps
     IOptionsWrapper<google.maps.MapOptions>,
     IOnInitWrapper,
     IOnChangePlaceWrapper<IGoogleMapsMarkerChangePlaceEntity>,
-    IOnClickWrapper<IGoogleMapsClickPayloadEntity> {
-}
-
-/**
- * @stable [03.03.2019]
- */
-export interface IGoogleMapsClickPayloadEntity {
-  pixel?: google.maps.Point;
-  latLng?: google.maps.LatLng;
+    IOnClickWrapper<IGoogleMapsEventClickPayloadEntity> {
 }

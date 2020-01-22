@@ -1,5 +1,6 @@
 import * as BPromise from 'bluebird';
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import { Menu } from '../../menu';
@@ -21,14 +22,14 @@ import {
 } from './google-maps.interface';
 import {
   GoogleMapsMapTypeEnum,
-  IGoogleMapsClickPayloadEntity,
 } from './google-maps.interface';
 import {
   AsyncLibsEnum,
   IGoogleMaps,
+  IGoogleMapsEventClickPayloadEntity,
   IGoogleMapsHeatMapLayerConfigEntity,
   IGoogleMapsMarkerConfigEntity,
-  IGoogleMapsOpenMenuContextEntity,
+  IGoogleMapsMenuContextEntity,
   IGoogleMapsSettingsEntity,
   ILatLngEntity,
   IMenu,
@@ -37,7 +38,7 @@ import {
 
 export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   implements IGoogleMaps,
-    IGoogleMapsOpenMenuContextEntity {
+    IGoogleMapsMenuContextEntity {
 
   public lat: number;
   public lng: number;
@@ -49,9 +50,9 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   private googleMapsLibTask: BPromise<void>;
   private heatMapLayer: google.maps.visualization.HeatmapLayer;
   private map: google.maps.Map;
+  private markers = new Map<string, google.maps.Marker>();
+  private markersListeners = new Map<string, google.maps.MapsEventListener>();
   private openMenuTask: DelayedTask;
-  private readonly markers = new Map<string, google.maps.Marker>();
-  private readonly markersDragListeners = new Map<string, google.maps.MapsEventListener>();
   private readonly menuRef = React.createRef<Menu>();
 
   /**
@@ -101,7 +102,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [10.01.2020]
+   * @stable [22.01.2020]
    */
   public componentWillUnmount(): void {
     super.componentWillUnmount();
@@ -115,9 +116,13 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     );
     this.cancelGoogleMapsLibTask();
 
-    this.markersDragListeners.forEach((listener) => listener.remove());
-    this.markersDragListeners.clear();
+    this.markersListeners.forEach((listener) => listener.remove());
+    this.markersListeners.clear();
+    this.markersListeners = null;
+
+    this.markers.forEach((marker) => marker.unbindAll());
     this.markers.clear();
+    this.markers = null;
 
     ifNotNilThanValue(
       this.clickEventListener,
@@ -167,7 +172,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     this.markers.set(markerId, marker);
 
     if (config.draggable) {
-      this.markersDragListeners.set(
+      this.markersListeners.set(
         markerId,
         google.maps.event.addListener(marker, 'dragend', () => this.onMarkerDragEnd(markerId, marker))
       );
@@ -270,22 +275,27 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [10.01.2020]
-   * @param {IGoogleMapsClickPayloadEntity} event
+   * @stable [22.01.2020]
+   * @param {IGoogleMapsEventClickPayloadEntity} event
    */
-  private onMapClick(event: IGoogleMapsClickPayloadEntity): void {
+  private onMapClick(event: IGoogleMapsEventClickPayloadEntity): void {
     const props = this.props;
-    if (event.pixel) {
-      const x = event.pixel.x;
-      const y = event.pixel.y;
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
 
-      if (isDef(this.openMenuTask)) {
-        const payload: IGoogleMapsOpenMenuContextEntity = {x, y, lat, lng};
-        this.openMenuTask.start(payload);
+    ifNotNilThanValue(
+      event.pixel,
+      (pixel) => {
+        const x = pixel.x;
+        const y = pixel.y;
+        const lat = event.latLng.lat();
+        const lng = event.latLng.lng();
+
+        ifNotNilThanValue(
+          this.openMenuTask,
+          (openMenuTask) => openMenuTask.start<IGoogleMapsMenuContextEntity>({x, y, lat, lng})
+        );
       }
-    }
+    );
+
     if (isFn(props.onClick)) {
       props.onClick(event);
     }
@@ -293,9 +303,9 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
 
   /**
    * @stable [03.03.2019]
-   * @param {IGoogleMapsClickPayloadEntity} event
+   * @param {IGoogleMapsEventClickPayloadEntity} event
    */
-  private onMapDbClick(event: IGoogleMapsClickPayloadEntity): void {
+  private onMapDbClick(event: IGoogleMapsEventClickPayloadEntity): void {
     if (this.haveMenuOptions) {
       this.openMenuTask.stop();
     }
@@ -303,9 +313,9 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
 
   /**
    * @stable [10.01.2020]
-   * @param {IGoogleMapsOpenMenuContextEntity} context
+   * @param {IGoogleMapsMenuContextEntity} context
    */
-  private openMenu(context: IGoogleMapsOpenMenuContextEntity) {
+  private openMenu(context: IGoogleMapsMenuContextEntity) {
     Object.assign(this, context);
     this.menu.show();
   }

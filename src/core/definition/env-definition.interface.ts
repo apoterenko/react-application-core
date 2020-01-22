@@ -4,6 +4,7 @@ import { AnyT } from '../definitions.interface';
  * @stable [28.08.2019]
  */
 export enum EnvironmentGlobalVariablesEnum {
+  DATE_CONVERTER = '$$dateConverter',
   TRANSPORT = '$$transport',
 }
 

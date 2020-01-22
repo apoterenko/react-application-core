@@ -10,7 +10,7 @@ import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
 import {
   ILayoutEntity,
   INITIAL_LAYOUT_ENTITY,
-  IPayloadXYEntity,
+  IXYPayloadEntity,
   LayoutModeEnum,
 } from '../../../definition';
 
@@ -32,7 +32,7 @@ export const defaultLayoutReducer = (state: ILayoutEntity = INITIAL_LAYOUT_ENTIT
         },
       };
     case LAYOUT_XY_UPDATE_ACTION_TYPE:
-      const xyPayloadWrapper: IPayloadXYEntity = action.data;
+      const xyPayloadWrapper: IXYPayloadEntity = action.data;
       return {
         ...state,
         ...xyPayloadWrapper.payload,
