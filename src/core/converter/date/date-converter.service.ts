@@ -370,7 +370,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public asFormattedDateTime(cfg: IDateTimeConfigEntity): string {
+  public dateAsDateTimeString(cfg: IDateTimeConfigEntity): string {
     return this.dateAsString({...cfg, outputFormat: this.dateTimeFormat});
   }
 

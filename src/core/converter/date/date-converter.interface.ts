@@ -32,12 +32,12 @@ export interface IDateConverter<TDate = Date> {
   asFirstDayOfWeekAsDate(cfg?: IDateTimeConfigEntity): Date;
   asFirstDayOfYear(cfg?: IDateTimeConfigEntity): TDate;
   asFirstDayOfYearAsDate(cfg?: IDateTimeConfigEntity): Date;
-  asFormattedDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
+  dateAsDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsString(cfg: IDateTimeConfigEntity): string;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;

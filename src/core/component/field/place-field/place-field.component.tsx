@@ -22,6 +22,7 @@ import { GoogleMaps } from '../../google';
 import {
   FieldConverterTypesEnum,
   FILTERED_CENTERED_MENU_ENTITY,
+  GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY,
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
@@ -38,7 +39,7 @@ import {
 export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   public static readonly defaultProps: IPlaceFieldProps = {
-    autoComplete: 'new-password',
+    ...GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY,
     forceReload: true,
     preventFocus: true,
   };
