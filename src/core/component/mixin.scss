@@ -3410,16 +3410,36 @@
 @mixin rac-calendar-base-dialog (
   $rac-calendar-base-dialog-custom: unset,                                                    /* @stable [22.01.2020] */
   /**/
+  $rac-calendar-base-dialog-range-explorer-align-items: unset,                                /* @stable [22.01.2020] */
+  $rac-calendar-base-dialog-range-explorer-date-content-flex: unset,                          /* @stable [22.01.2020] */
+  $rac-calendar-base-dialog-range-explorer-date-content-text-align: unset,                    /* @stable [22.01.2020] */
+  $rac-calendar-base-dialog-range-explorer-date-display: unset,                               /* @stable [20.01.2020] */
+  $rac-calendar-base-dialog-range-explorer-date-flex: unset,                                  /* @stable [13.01.2020] */
+  $rac-calendar-base-dialog-range-explorer-date-justify-content: unset,                       /* @stable [13.01.2020] */
   $rac-calendar-base-dialog-range-explorer-display: unset,                                    /* @stable [22.01.2020] */
   $rac-calendar-base-dialog-range-explorer-flex-direction: unset                              /* @stable [22.01.2020] */
 ) {
   #{rac-cls($rac-calendar-base-dialog-cls, $rac-calendar-base-dialog-custom)} {
     .rac-calendar-dialog__range-explorer {
       @include rac-styles (
+        $rac-styles-align-items: $rac-calendar-base-dialog-range-explorer-align-items,
         $rac-styles-display: $rac-calendar-base-dialog-range-explorer-display,
         $rac-styles-flex-direction: $rac-calendar-base-dialog-range-explorer-flex-direction
       );
     }
+
+    @include rac-styles (
+      $rac-styles-custom: rac-calendar-dialog__range-explorer-date,
+      $rac-styles-display: $rac-calendar-base-dialog-range-explorer-date-display,
+      $rac-styles-flex: $rac-calendar-base-dialog-range-explorer-date-flex,
+      $rac-styles-justify-content: $rac-calendar-base-dialog-range-explorer-date-justify-content
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-calendar-dialog__range-explorer-date-content,
+      $rac-styles-flex: $rac-calendar-base-dialog-range-explorer-date-content-flex,
+      $rac-styles-text-align: $rac-calendar-base-dialog-range-explorer-date-content-text-align
+    );
   }
 }
 
@@ -3470,25 +3490,18 @@
   $rac-calendar-dialog-quick-button-neighbor-margin: unset,                               /* @stable [21.01.2020] */
   $rac-calendar-dialog-quick-buttons-display: unset,                                      /* @stable [21.01.2020] */
   $rac-calendar-dialog-quick-buttons-margin: unset,                                       /* @stable [21.01.2020] */
-  $rac-calendar-dialog-range-explorer-align-items: unset,                                 /* @stable [08.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-background: unset,                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-icon-color: unset,                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-icon-size: unset,                       /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-date-color: unset,                                  /* @stable [13.01.2020] */
-  $rac-calendar-dialog-range-explorer-date-content-flex: unset,                           /* @stable [20.01.2020] */
   $rac-calendar-dialog-range-explorer-date-content-next-margin: unset,                    /* @stable [21.01.2020] */
-  $rac-calendar-dialog-range-explorer-date-content-text-align: unset,                     /* @stable [20.01.2020] */
-  $rac-calendar-dialog-range-explorer-date-display: unset,                                /* @stable [20.01.2020] */
-  $rac-calendar-dialog-range-explorer-date-flex: unset,                                   /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-date-font-size: unset,                              /* @stable [13.01.2020] */
-  $rac-calendar-dialog-range-explorer-date-justify-content: unset,                        /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-margin: unset,                                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-second-calendar-margin: unset                                      /* @stable [20.01.2020] */
 ) {
   #{rac-cls($rac-calendar-dialog-cls, $rac-calendar-dialog-custom)} {
     .rac-calendar-dialog__range-explorer {
       @include rac-styles (
-        $rac-styles-align-items: $rac-calendar-dialog-range-explorer-align-items,
         $rac-styles-margin: $rac-calendar-dialog-range-explorer-margin
       );
 
@@ -3525,16 +3538,7 @@
     @include rac-styles (
       $rac-styles-custom: rac-calendar-dialog__range-explorer-date,
       $rac-styles-color: $rac-calendar-dialog-range-explorer-date-color,
-      $rac-styles-display: $rac-calendar-dialog-range-explorer-date-display,
-      $rac-styles-flex: $rac-calendar-dialog-range-explorer-date-flex,
-      $rac-styles-font-size: $rac-calendar-dialog-range-explorer-date-font-size,
-      $rac-styles-justify-content: $rac-calendar-dialog-range-explorer-date-justify-content
-    );
-
-    @include rac-styles (
-      $rac-styles-custom: rac-calendar-dialog__range-explorer-date-content,
-      $rac-styles-flex: $rac-calendar-dialog-range-explorer-date-content-flex,
-      $rac-styles-text-align: $rac-calendar-dialog-range-explorer-date-content-text-align
+      $rac-styles-font-size: $rac-calendar-dialog-range-explorer-date-font-size
     );
 
     @include rac-styles (

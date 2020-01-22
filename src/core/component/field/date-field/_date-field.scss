@@ -4,12 +4,26 @@
 .rac {
 
   /**
-   * @calendar-dialog
-   * @stable [14.01.2020]
+   * @calendar-base-dialog
+   * @stable [22.01.2020]
    */
   @include rac-calendar-base-dialog (
+    $rac-calendar-base-dialog-range-explorer-align-items: $rac-calendar-base-dialog-range-explorer-align-items,
+    $rac-calendar-base-dialog-range-explorer-date-content-flex: $rac-calendar-base-dialog-range-explorer-date-content-flex,
+    $rac-calendar-base-dialog-range-explorer-date-content-text-align: $rac-calendar-base-dialog-range-explorer-date-content-text-align,
+    $rac-calendar-base-dialog-range-explorer-date-display: $rac-calendar-base-dialog-range-explorer-date-display,
+    $rac-calendar-base-dialog-range-explorer-date-flex: $rac-calendar-base-dialog-range-explorer-date-flex,
     $rac-calendar-base-dialog-range-explorer-display: $rac-calendar-base-dialog-range-explorer-display,
     $rac-calendar-base-dialog-range-explorer-flex-direction: $rac-calendar-base-dialog-range-explorer-flex-direction
+  );
+
+  /**
+ * @date-field-calendar-base-dialog
+ * @stable [22.01.2020]
+ */
+  @include rac-calendar-base-dialog (
+    $rac-calendar-base-dialog-custom: rac-date-field__calendar-dialog,
+    $rac-calendar-base-dialog-range-explorer-date-justify-content: $rac-date-field-calendar-base-dialog-range-explorer-date-justify-content
   );
 
   /**
@@ -40,15 +54,10 @@
     $rac-calendar-dialog-footer-display: $rac-calendar-dialog-footer-display,
     $rac-calendar-dialog-footer-input-self-field-background: $rac-calendar-dialog-footer-input-self-field-background,
     $rac-calendar-dialog-footer-justify-content: $rac-calendar-dialog-footer-justify-content,
-    $rac-calendar-dialog-range-explorer-align-items: $rac-calendar-dialog-range-explorer-align-items,
     $rac-calendar-dialog-range-explorer-button-mini-background: $rac-calendar-dialog-range-button-mini-background,
     $rac-calendar-dialog-range-explorer-button-mini-icon-color: $rac-calendar-dialog-range-button-mini-icon-color,
     $rac-calendar-dialog-range-explorer-button-mini-icon-size: $rac-calendar-dialog-range-button-mini-icon-size,
     $rac-calendar-dialog-range-explorer-date-color: $rac-calendar-dialog-range-explorer-date,
-    $rac-calendar-dialog-range-explorer-date-content-flex: $rac-calendar-dialog-range-explorer-date-content-flex,
-    $rac-calendar-dialog-range-explorer-date-content-text-align: $rac-calendar-dialog-range-explorer-date-content-text-align,
-    $rac-calendar-dialog-range-explorer-date-display: $rac-calendar-dialog-range-explorer-date-display,
-    $rac-calendar-dialog-range-explorer-date-flex: $rac-calendar-dialog-range-explorer-date-flex,
     $rac-calendar-dialog-range-explorer-date-font-size: $rac-calendar-dialog-range-explorer-date-font-size,
     $rac-calendar-dialog-range-explorer-margin: $rac-calendar-dialog-range-explorer-margin
   );
@@ -63,8 +72,7 @@
     $rac-calendar-dialog-body-width: $rac-date-field-calendar-dialog-body-width,
     $rac-calendar-dialog-footer-action-width: $rac-date-field-calendar-dialog-footer-action-width,
     $rac-calendar-dialog-footer-input-self-field-input-text-align: $rac-date-field-calendar-dialog-footer-input-self-field-input-text-align,
-    $rac-calendar-dialog-footer-input-width: $rac-date-field-calendar-dialog-footer-input-width,
-    $rac-calendar-dialog-range-explorer-date-justify-content: $rac-date-field-calendar-dialog-range-explorer-date-justify-content
+    $rac-calendar-dialog-footer-input-width: $rac-date-field-calendar-dialog-footer-input-width
   );
 
   /**

@@ -256,9 +256,13 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                 onChange={this.onChangeYear}/>
             )
           }
-          <Button
-            text={this.settings.messages.OK}
-            onClick={this.onAccept}/>
+          {
+            !this.isInline && (
+              <Button
+                text={this.settings.messages.OK}
+                onClick={this.onAccept}/>
+            )
+          }
         </div>
       </React.Fragment>
     );
