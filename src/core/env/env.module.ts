@@ -1,8 +1,10 @@
-import { DI_TYPES, bindInSingleton } from '../di';
-import { IEnvironment } from '../definition';
+import {
+  bindInSingleton,
+  DI_TYPES,
+} from '../di';
 import { Environment } from './env.service';
 
 /**
  * @stable [11.09.2019]
  */
-bindInSingleton<IEnvironment>(DI_TYPES.Environment, Environment);
+bindInSingleton(DI_TYPES.Environment, Environment);
