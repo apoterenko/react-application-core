@@ -20,9 +20,9 @@ import { BaseSelect } from '../select/base-select.component';
 import { Dialog } from '../../dialog';
 import { GoogleMaps } from '../../google';
 import {
+  DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   FieldConverterTypesEnum,
   FILTERED_CENTERED_MENU_ENTITY,
-  DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
