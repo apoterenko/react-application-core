@@ -223,6 +223,7 @@ $rac-calendar-base-dialog-range-explorer-date-display: flex !default;
 $rac-calendar-base-dialog-range-explorer-date-flex: 1 !default;
 $rac-calendar-base-dialog-range-explorer-display: flex !default;
 $rac-calendar-base-dialog-range-explorer-flex-direction: row !default;
+$rac-calendar-base-dialog-range-explorer-margin: 0 0 $rac-offset-1 0 !default;
 /**/
 $rac-calendar-dialog-body-background: $rac-calendar-dialog-color-0 !default;
 $rac-calendar-dialog-body-content-padding: unset !default;
@@ -252,7 +253,6 @@ $rac-calendar-dialog-range-button-mini-icon-color: $rac-color-0-1 !default;
 $rac-calendar-dialog-range-button-mini-icon-size: $rac-icon-size-4 !default;
 $rac-calendar-dialog-range-explorer-date-font-size: $rac-font-size-1 !default;
 $rac-calendar-dialog-range-explorer-date: $rac-color-0-1 !default;
-$rac-calendar-dialog-range-explorer-margin: 0 0 $rac-offset-1 0 !default;
 
 /* @stable [13.01.2020] */
 $rac-button-decorated-cls: rac-button-decorated;

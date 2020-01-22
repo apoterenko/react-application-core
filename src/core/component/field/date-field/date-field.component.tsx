@@ -86,7 +86,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     this.defaultActions = [
       ...(
-        isCalendarActionRendered(this.props)
+        !this.isInline && isCalendarActionRendered(this.props)
           ? [{type: FieldActionTypesEnum.CALENDAR, onClick: this.openDialog}]
           : []
       ),
@@ -162,7 +162,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
 
-    if (this.isFocusPrevented) {
+    if (!this.isInline && this.isFocusPrevented) {
       this.openDialog();
     }
   }
