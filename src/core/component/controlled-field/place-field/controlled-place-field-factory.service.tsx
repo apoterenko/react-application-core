@@ -6,7 +6,7 @@ import {
   IControlledPlaceFieldConfigEntity,
   IControlledPlaceFieldItemEntity,
   IPlaceFieldProps,
-  ISearchPlacesRequestPayloadWrapperEntity,
+  ISearchPlacesPayloadEntity,
 } from '../../../definition';
 import { ControlledFieldFactory } from '../controlled-field-factory.service';
 import {
@@ -50,7 +50,7 @@ export class ControlledPlaceFieldFactory
           ...props,
           options: mapDictionaryEntity(config.container.props.dictionaries.places),
           onFilterChange: (query) => {
-            const payloadWrapper: ISearchPlacesRequestPayloadWrapperEntity = {payload: {query}};
+            const payloadWrapper: ISearchPlacesPayloadEntity = {payload: {query}};
             this.$dictionaryStoreProxyFactory(container).dispatchLoadDictionary(DictionariesEnum.PLACES, payloadWrapper);
           },
         };

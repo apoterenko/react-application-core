@@ -2867,19 +2867,28 @@
 }
 
 /**
- * @stable [04.03.2019]
+ * @stable [22.01.2020]
  */
-@mixin rac-google-maps(
+@mixin rac-google-maps (
   $rac-google-maps-custom: unset,
-  $rac-google-maps-margin: unset,
-  $rac-google-maps-position: unset,
-  $rac-google-maps-flex-height: unset
+  /**/
+  $rac-google-maps-body-flex: unset,                                                          /* @stable [22.01.2020] */
+  $rac-google-maps-display: unset,                                                            /* @stable [22.01.2020] */
+  $rac-google-maps-flex: unset,                                                               /* @stable [22.01.2020] */
+  $rac-google-maps-margin: unset,                                                             /* @stable [22.01.2020] */
+  $rac-google-maps-position: unset                                                            /* @stable [22.01.2020] */
 ) {
   #{rac-cls(rac-google-maps, $rac-google-maps-custom)} {
-    @include rac-styles(
+    @include rac-styles (
+      $rac-styles-display: $rac-google-maps-display,
+      $rac-styles-flex: $rac-google-maps-flex,
       $rac-styles-margin: $rac-google-maps-margin,
-      $rac-styles-position: $rac-google-maps-position,
-      $rac-styles-flex-height: $rac-google-maps-flex-height
+      $rac-styles-position: $rac-google-maps-position
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-google-maps__body,
+      $rac-styles-flex: $rac-google-maps-body-flex
     );
   }
 }

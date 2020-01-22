@@ -31,6 +31,7 @@ export enum PlaceMarkerActionsEnum {
 }
 
 /**
+ * @entity
  * @stable [09.01.2020]
  */
 export interface ILatLngEntity
@@ -39,6 +40,7 @@ export interface ILatLngEntity
 }
 
 /**
+ * @entity
  * @stable [09.01.2020]
  */
 export interface IPlaceEntity<TCity = string>
@@ -62,6 +64,7 @@ export interface IPlaceEntityWrapperEntity<TCity = string>
 }
 
 /**
+ * @generic-entity
  * @stable [09.01.2020]
  */
 export interface IGenericPlaceFieldEntity
@@ -72,6 +75,7 @@ export interface IGenericPlaceFieldEntity
 }
 
 /**
+ * @props
  * @stable [09.01.2020]
  */
 export interface IPlaceFieldProps
@@ -80,6 +84,7 @@ export interface IPlaceFieldProps
 }
 
 /**
+ * @generic-state
  * @stable [15.01.2020]
  */
 export interface IGenericPlaceFieldState
@@ -89,6 +94,7 @@ export interface IGenericPlaceFieldState
 }
 
 /**
+ * @state
  * @stable [09.01.2020]
  */
 export interface IPlaceFieldState
@@ -97,18 +103,20 @@ export interface IPlaceFieldState
 }
 
 /**
+ * @entity
  * @stable [09.01.2020]
  */
-export interface ISearchPlacesRequestEntity
+export interface ISearchPlacesEntity
   extends ICountryWrapper,
     IQueryWrapper {
 }
 
 /**
+ * @payload-entity
  * @stable [09.01.2020]
  */
-export interface ISearchPlacesRequestPayloadWrapperEntity
-  extends IPayloadWrapper<ISearchPlacesRequestEntity> {
+export interface ISearchPlacesPayloadEntity
+  extends IPayloadWrapper<ISearchPlacesEntity> {
 }
 
 /**

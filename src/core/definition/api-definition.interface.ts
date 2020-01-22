@@ -14,7 +14,7 @@ import { IExtendedEntity } from './entity-definition.interface';
 import { IOperationEntity } from './operation-definition.interface';
 import {
   IPlaceGeoCodeRequestEntity,
-  ISearchPlacesRequestEntity,
+  ISearchPlacesEntity,
 } from './place-definition.interface';
 
 /**
@@ -50,5 +50,5 @@ export interface IUpdateEntityPayloadEntity<TEntity extends IEntity>
  */
 export interface IPlaceApi {
   getPlaceGeoCode<TResult>(request: IPlaceGeoCodeRequestEntity): TResult;
-  searchPlaces<TResult>(request: ISearchPlacesRequestEntity): TResult;
+  searchPlaces<TResult>(request: ISearchPlacesEntity): TResult;
 }

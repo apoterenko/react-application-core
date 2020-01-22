@@ -660,9 +660,6 @@ $rac-place-field-dialog-body-min-width: 90vh !default;
 $rac-place-field-dialog-place-font-size: $rac-font-size-0 !default;
 $rac-place-field-dialog-place-margin: 0 0 $rac-offset-3 0 !default;
 
-/* @stable [18.06.2019] */
-$rac-dialog-google-maps-flex-height: 40vh !default;
-
 /* @stable [31.05.2019] */
 $rac-switch-thumb-cls: rac-switch__thumb;
 /**/
@@ -967,6 +964,9 @@ $rac-toolbar-tools-neighbor-margin: 0 0 0 $rac-default-half-offset !default;
 $rac-toolbar-tool-active-background: $rac-color-0-2 !default;
 
 /* @stable [24.03.2019] */
+$rac-google-maps-body-flex: 1 !default;
+$rac-google-maps-display: flex !default;
+$rac-google-maps-flex: 1 !default;
 $rac-google-maps-position: relative !default;
 
 /* @stable [30.09.2019] */

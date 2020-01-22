@@ -15,7 +15,7 @@ import {
   IPlaceEntity,
   IPlaceGeoCodeRequestEntity,
   ISearchPlaceEntity,
-  ISearchPlacesRequestEntity,
+  ISearchPlacesEntity,
 } from '../../../definition';
 import {
   ifNotNilThanValue,
@@ -74,10 +74,10 @@ export class GooglePlaceApi implements IPlaceApi {
 
   /**
    * @stable [10.01.2020]
-   * @param {ISearchPlacesRequestEntity} request
+   * @param {ISearchPlacesEntity} request
    * @returns {Bluebird<ISearchPlaceEntity[]> | AnyT}
    */
-  public searchPlaces(request: ISearchPlacesRequestEntity): BPromise<ISearchPlaceEntity[]> | AnyT {
+  public searchPlaces(request: ISearchPlacesEntity): BPromise<ISearchPlaceEntity[]> | AnyT {
     request = nvl(request, {});
     const {query = ' '} = request;
 

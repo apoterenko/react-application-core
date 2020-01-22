@@ -1,0 +1,16 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  /**
+   * @google-maps
+   * @stable [22.01.2020]
+   */
+  @include rac-google-maps (
+    $rac-google-maps-body-flex: $rac-google-maps-body-flex,
+    $rac-google-maps-display: $rac-google-maps-display,
+    $rac-google-maps-flex: $rac-google-maps-flex,
+    $rac-google-maps-position: $rac-google-maps-position
+  );
+}

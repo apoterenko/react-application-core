@@ -20,10 +20,9 @@ import {
   IGoogleMapsProps,
 } from './google-maps.interface';
 import {
-  IGoogleMapsClickPayloadEntity,
   GoogleMapsMapTypeEnum,
+  IGoogleMapsClickPayloadEntity,
 } from './google-maps.interface';
-import { FlexLayout } from '../../layout/flex';
 import {
   AsyncLibsEnum,
   IGoogleMaps,
@@ -72,6 +71,22 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     if (this.haveMenuOptions) {
       this.openMenuTask = new DelayedTask(this.openMenu, 200); // Double click issue
     }
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
+  public render(): JSX.Element {
+    const props = this.props;
+    return (
+      <div className={joinClassName('rac-google-maps', props.className)}>
+        <div
+          ref={this.selfRef}
+          className='rac-google-maps__body'/>
+        {this.menuElement}
+      </div>
+    );
   }
 
   /**
@@ -131,34 +146,6 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
         map.unbindAll();
         this.map = null;
       }
-    );
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @returns {JSX.Element}
-   */
-  public render(): JSX.Element {
-    const props = this.props;
-    return (
-      <FlexLayout className={joinClassName('rac-google-maps', props.className)}>
-        <div
-          ref={this.selfRef}
-          className='rac-google-maps-map rac-flex-full'/>
-        {
-          orNull(
-            this.haveMenuOptions,
-            () => (
-              <Menu
-                ref={this.menuRef}
-                xPosition={() => this.x + this.getSelf().offsetLeft}
-                yPosition={() => this.y + this.getSelf().offsetTop}
-                options={props.menuOptions}
-                onSelect={this.onMenuSelect}/>
-            )
-          )
-        }
-      </FlexLayout>
     );
   }
 
@@ -234,6 +221,25 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
         nvl(cfg.zoom, this.mapsSettings.zoom)
       );
     }
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
+  private get menuElement(): JSX.Element {
+    const props = this.props;
+    return orNull(
+      this.haveMenuOptions,
+      () => (
+        <Menu
+          ref={this.menuRef}
+          xPosition={() => this.x + this.getSelf().offsetLeft}
+          yPosition={() => this.y + this.getSelf().offsetTop}
+          options={props.menuOptions}
+          onSelect={this.onMenuSelect}/>
+      )
+    );
   }
 
   /**
@@ -348,14 +354,6 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [10.01.2020]
-   * @returns {IMenu}
-   */
-  private get menu(): IMenu {
-    return this.menuRef.current;
-  }
-
-  /**
    * @stable [26.10.2018]
    * @returns {boolean}
    */
@@ -369,5 +367,13 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    */
   private get mapsSettings(): IGoogleMapsSettingsEntity {
     return this.settings.googleMaps;
+  }
+
+  /**
+   * @stable [10.01.2020]
+   * @returns {IMenu}
+   */
+  private get menu(): IMenu {
+    return this.menuRef.current;
   }
 }

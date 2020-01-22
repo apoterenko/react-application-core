@@ -198,11 +198,6 @@
     $rac-thumb-unchecked-disabled-opacity: $rac-switch-thumb-unchecked-disabled-opacity
   );
 
-  @include rac-google-maps(                                                                   /* @stable [18.06.2019] */
-    $rac-google-maps-custom: rac-dialog-google-maps,
-    $rac-google-maps-flex-height: $rac-dialog-google-maps-flex-height
-  );
-
   .rac-text-area-length-label {
     @include _rac-position-properties($rac-position: absolute,
                                       $rac-position-right: 8px,

@@ -7,7 +7,7 @@ import {
   DictionariesEnum,
   IPlaceApi,
   ISearchPlaceEntity,
-  ISearchPlacesRequestEntity,
+  ISearchPlacesEntity,
 } from '../definition';
 import {
   DI_TYPES,
@@ -28,5 +28,5 @@ export class DictionariesEffects {
    */
   @EffectsService.effects(DictionariesActionBuilder.buildLoadActionType(DictionariesEnum.PLACES))
   public $onSearchPlaces = (action: IEffectsAction): Promise<ISearchPlaceEntity[]> =>
-    this.placesApi.searchPlaces(selectDataPayloadFromAction<ISearchPlacesRequestEntity>(action))
+    this.placesApi.searchPlaces(selectDataPayloadFromAction<ISearchPlacesEntity>(action))
 }

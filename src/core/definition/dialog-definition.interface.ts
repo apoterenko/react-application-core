@@ -73,11 +73,19 @@ export interface IDialogProps
 }
 
 /**
+ * @generic-state
+ * @stable [22.01.2020]
+ */
+export interface IGenericDialogState
+  extends IOpenedWrapper {
+}
+
+/**
  * @state
  * @stable [06.01.2020]
  */
 export interface IDialogState
-  extends IOpenedWrapper {
+  extends IGenericDialogState {
 }
 
 /**

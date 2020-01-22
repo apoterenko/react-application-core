@@ -1,9 +1,0 @@
-@import '../../constant';
-@import '../../mixin';
-
-.rac {
-
-  @include rac-google-maps(                                                                   /* @stable [24.03.2019] */
-    $rac-google-maps-position: $rac-google-maps-position
-  );
-}
