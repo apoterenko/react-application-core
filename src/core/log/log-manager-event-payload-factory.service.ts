@@ -60,10 +60,12 @@ export class LogManagerEventPayloadFactory
     const appVersion = this.environment.appVersion;
     const browserName = this.environment.browserName;
     const browserVersion = this.environment.browserVersion;
+    const platformType = this.environment.platformType;
 
     return `${R.isNil(user) || R.isNil(user.id) ? '' : `${user.id}:${user.name}:`}${
       appVersion}:${this.dc.appOnlineLifeTimeInHours}:${
       this.dc.dateAsDateTimeString({date: this.dc.getCurrentDate()})}:${
+      platformType}:${
       browserName}:${
       browserVersion}:${
       getCurrentUrlPath()}${
