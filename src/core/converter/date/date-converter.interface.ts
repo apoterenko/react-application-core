@@ -5,10 +5,11 @@ import {
   DateTimeLikeTypeT,
   ICalendarConfigEntity,
   ICalendarEntity,
-  IDateTimeConfigEntity,
   IDateRangeConfigEntity,
+  IDateTimeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
+  IPersonAgeConfigEntity,
 } from '../../definition';
 
 export interface IDateConverter<TDate = Date> {
@@ -34,6 +35,7 @@ export interface IDateConverter<TDate = Date> {
   asFirstDayOfYearAsDate(cfg?: IDateTimeConfigEntity): Date;
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  asPersonAge(cfg: IPersonAgeConfigEntity<TDate>): number;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
@@ -142,9 +144,6 @@ export interface IDateConverter<TDate = Date> {
   getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
-  getPersonAge(birthday: DateTimeLikeTypeT,
-               date?: DateTimeLikeTypeT,
-               inputFormat?: string): number;
   isSameMonth(date1: Date, date2: Date): boolean;
   isSameDay(date1: Date, date2: Date): boolean;
   isWeekend(day: number): boolean;

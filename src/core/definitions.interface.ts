@@ -76,6 +76,7 @@ export interface IBarcodeWrapper<TBarcode = string> { barcode?: TBarcode; }
 export interface IBasenameWrapper { basename?: string; }
 export interface IBeforeEnterWrapper<TBeforeEnter> { beforeEnter?: TBeforeEnter; }
 export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
+export interface IBirthdayWrapper { birthday?: string; }
 export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
 export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }

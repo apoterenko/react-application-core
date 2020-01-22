@@ -31,6 +31,7 @@ import {
   IDateTimeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
+  IPersonAgeConfigEntity,
   MomentT,
 } from '../../definition';
 
@@ -920,10 +921,17 @@ export class DateConverter implements IDateConverter<MomentT> {
     );
   }
 
-  public getPersonAge(birthday: DateTimeLikeTypeT,
-                      date: DateTimeLikeTypeT = this.currentDate,
-                      inputFormat?: string): number {
-    return this.toMomentDate(date, inputFormat).diff(birthday, 'years');
+  /**
+   * @stable [22.01.2020]
+   * @param {IPersonAgeConfigEntity} cfg
+   * @returns {number}
+   */
+  public asPersonAge(cfg: IPersonAgeConfigEntity): number {
+    return this.processValidMomentDate({
+      date: this.getCurrentDate(),
+      inputFormat: this.uiDateFormat,
+      ...cfg as IDateTimeConfigEntity,
+    }, (mDate) => mDate.diff(cfg.birthday, 'years'));
   }
 
   public isSameMonth(date1: Date, date2: Date): boolean {

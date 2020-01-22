@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 
 import {
+  IBirthdayWrapper,
   ICalendarEntityConfigurationWrapper,
   ICurrentWrapper,
   IDateWrapper,
@@ -84,6 +85,15 @@ export interface IDateRangeConfigEntity
 export interface ICalendarConfigEntity<TDate = Date>
   extends IDateTimeConfigEntity<TDate>,
     IUseSyntheticCalendarWrapper {
+}
+
+/**
+ * @config-entity
+ * @stable [22.01.2020]
+ */
+export interface IPersonAgeConfigEntity<TDate = Date>
+  extends IDateTimeConfigEntity<TDate>,
+    IBirthdayWrapper {
 }
 
 /**
