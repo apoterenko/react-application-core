@@ -186,12 +186,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
-  protected getInputAttachmentElement(): JSX.Element {
+  protected get inputAttachmentElement(): JSX.Element {
     return orNull(
-      isMenuOpened(this.state),
+      this.isMenuOpened,
       () => ( // To improve a performance
         <Menu
           ref={this.menuRef}
@@ -439,6 +439,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get areOptionsDefined(): boolean {
     return !R.isNil(this.props.options);
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {boolean}
+   */
+  private get isMenuOpened(): boolean {
+    return isMenuOpened(this.state);
   }
 
   /**

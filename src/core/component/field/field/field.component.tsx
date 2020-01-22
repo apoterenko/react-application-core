@@ -61,10 +61,11 @@ export class Field<TProps extends IFieldProps,
     return (
       <div
         className={this.getFieldClassName()}
-        onClick={cancelEvent}>
+        onClick={cancelEvent}
+      >
         {this.props.children}
         {this.getDisplayValueElement()}
-        {this.getSelfElement()}
+        {this.selfElement}
         {this.getMessageElement()}
         {this.getErrorMessageElement()}
         {this.getAttachmentElement()}
@@ -185,33 +186,38 @@ export class Field<TProps extends IFieldProps,
     return null;
   }
 
-  protected getSelfElement(): JSX.Element {
+  protected get selfElement(): JSX.Element {
     const props = this.props;
-    return orNull<JSX.Element>(
-      props.fieldRendered !== false,
-      () => (
-        <div ref='self'
-             style={props.style}
-             className={this.getSelfElementClassName()}>
+    if (this.isFieldRendered) {
+      return (
+        <div
+          ref={this.selfRef}
+          style={props.style}
+          className={this.getSelfElementClassName()}
+        >
           {this.getPrefixLabelElement()}
-          {this.getInputWrapperElement()}
+          {this.inputWrapperElement}
           {this.actionsElement}
           {this.getLabelElement()}
           {this.getProgressLabelElement()}
         </div>
-      )
-    );
+      );
+    }
+    return this.inputWrapperElement;
   }
 
-  protected getInputWrapperElement(): JSX.Element {
-    return (
-      <div className={this.getInputWrapperElementClassName()}>
-        {this.getInputElement()}
-        {this.getMirrorInputElement()}
-        {this.getInputCaretElement()}
-        {this.getInputAttachmentElement()}
-      </div>
-    );
+  protected get inputWrapperElement(): JSX.Element {
+    if (this.isFieldRendered) {
+      return (
+        <div className={this.getInputWrapperElementClassName()}>
+          {this.getInputElement()}
+          {this.getMirrorInputElement()}
+          {this.getInputCaretElement()}
+          {this.inputAttachmentElement}
+        </div>
+      );
+    }
+    return this.inputAttachmentElement;
   }
 
   protected getProgressLabelElement(): JSX.Element {

@@ -15,6 +15,7 @@ import {
   isDisabled,
   isDisplayValueOnly,
   isFieldInactive,
+  isFieldRendered,
   isFn,
   isFocused,
   isFocusPrevented,
@@ -511,10 +512,10 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [03.09.2018]
+   * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
-  protected getInputAttachmentElement(): JSX.Element {
+  protected get inputAttachmentElement(): JSX.Element {
     return null;
   }
 
@@ -691,6 +692,14 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueDefined(): boolean {
     return isDef(this.props.displayValue);
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {boolean}
+   */
+  protected get isFieldRendered(): boolean {
+    return isFieldRendered(this.props);
   }
 
   /**

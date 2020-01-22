@@ -13,6 +13,7 @@ import {
   IEditedWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
+  IFieldRenderedWrapper,
   IFocusedWrapper,
   IHeaderRenderedWrapper,
   IHighlightOddWrapper,
@@ -60,6 +61,14 @@ import { isOddNumber } from './calc';
  */
 export const isValid = (validEntity: IValidWrapper): boolean =>
   ifNotNilThanValue(validEntity, () => validEntity.valid !== false, false);
+
+/**
+ * @stable [22.01.2020]
+ * @param {IFieldRenderedWrapper} validEntity
+ * @returns {boolean}
+ */
+export const isFieldRendered = (validEntity: IFieldRenderedWrapper): boolean =>
+  ifNotNilThanValue(validEntity, () => validEntity.fieldRendered !== false, false);
 
 /**
  * @stable [24.10.2019]
