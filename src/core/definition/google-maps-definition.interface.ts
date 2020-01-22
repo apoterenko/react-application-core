@@ -1,6 +1,13 @@
 import {
   IItemWrapper,
   IMarkerWrapper,
+  IMenuOptionsWrapper,
+  INameWrapper,
+  IOnChangePlaceWrapper,
+  IOnClickWrapper,
+  IOnInitWrapper,
+  IOnSelectWrapper,
+  IOptionsWrapper,
   IPointsWrapper,
   IRefreshMapWrapper,
   IVisibleWrapper,
@@ -11,8 +18,10 @@ import {
 } from './place-definition.interface';
 import { IMenuItemEntity } from './menu-definition.interface';
 import { IXYEntity } from './xy-definition.interface';
+import { IComponentProps } from './props-definition.interface';
 
 /**
+ * @entity
  * @stable [09.01.2020]
  */
 export interface IGoogleMapsMenuItemEntity
@@ -21,6 +30,7 @@ export interface IGoogleMapsMenuItemEntity
 }
 
 /**
+ * @config-entity
  * @stable [09.01.2020]
  */
 export interface IGoogleMapsMarkerConfigEntity
@@ -32,6 +42,7 @@ export interface IGoogleMapsMarkerConfigEntity
 }
 
 /**
+ * @config-entity
  * @stable [09.01.2020]
  */
 export interface IGoogleMapsHeatMapLayerConfigEntity
@@ -41,6 +52,17 @@ export interface IGoogleMapsHeatMapLayerConfigEntity
 }
 
 /**
+ * @entity
+ * @stable [23.01.2020]
+ */
+export interface IGoogleMapsMarkerChangePlaceEntity
+  extends ILatLngEntity,
+    INameWrapper,
+    IItemWrapper<google.maps.Marker> {
+}
+
+/**
+ * @entity
  * @stable [10.01.2020]
  */
 export interface IGoogleMapsMenuContextEntity
@@ -58,6 +80,48 @@ export interface IGoogleMapsEventClickPayloadEntity {
 }
 
 /**
+ * @enum
+ * @stable [04.03.2019]
+ */
+export enum GoogleMapsMapTypeEnum {
+  HYBRID,
+  ROADMAP,
+  SATELLITE,
+  TERRAIN,
+}
+
+/**
+ * @generic-entity
+ * @stable [23.01.2020]
+ */
+export interface IGenericGoogleMapsEntity
+  extends IOptionsWrapper<google.maps.MapOptions>,
+    IMenuOptionsWrapper<IMenuItemEntity[]> {
+}
+
+/**
+ * @behavioral-entity
+ * @stable [23.01.2020]
+ */
+export interface IBehavioralGoogleMapsEntity
+  extends IOnChangePlaceWrapper<IGoogleMapsMarkerChangePlaceEntity>,
+    IOnClickWrapper<IGoogleMapsEventClickPayloadEntity>,
+    IOnInitWrapper,
+    IOnSelectWrapper<IGoogleMapsMenuItemEntity> {
+}
+
+/**
+ * @props
+ * @stable [23.01.2020]
+ */
+export interface IGoogleMapsProps
+  extends IComponentProps,
+    IGenericGoogleMapsEntity,
+    IBehavioralGoogleMapsEntity {
+}
+
+/**
+ * @component
  * @stable [09.01.2020]
  */
 export interface IGoogleMaps {

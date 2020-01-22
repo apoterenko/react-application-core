@@ -1,6 +1,5 @@
 import * as BPromise from 'bluebird';
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import { Menu } from '../../menu';
@@ -8,7 +7,6 @@ import {
   DelayedTask,
   ifNotNilThanValue,
   isArrayNotEmpty,
-  isDef,
   isFn,
   isObjectNotEmpty,
   isString,
@@ -18,18 +16,14 @@ import {
   uuid,
 } from '../../../util';
 import {
-  IGoogleMapsProps,
-} from './google-maps.interface';
-import {
-  GoogleMapsMapTypeEnum,
-} from './google-maps.interface';
-import {
   AsyncLibsEnum,
+  GoogleMapsMapTypeEnum,
   IGoogleMaps,
   IGoogleMapsEventClickPayloadEntity,
   IGoogleMapsHeatMapLayerConfigEntity,
   IGoogleMapsMarkerConfigEntity,
   IGoogleMapsMenuContextEntity,
+  IGoogleMapsProps,
   IGoogleMapsSettingsEntity,
   ILatLngEntity,
   IMenu,
@@ -115,47 +109,14 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
       }
     );
     this.cancelGoogleMapsLibTask();
+    this.unbindListeners();
 
-    this.markersListeners.forEach((listener) => listener.remove());
-    this.markersListeners.clear();
-    this.markersListeners = null;
-
-    this.markers.forEach((marker) => marker.unbindAll());
-    this.markers.clear();
     this.markers = null;
-
-    ifNotNilThanValue(
-      this.clickEventListener,
-      (listener) => {
-        listener.remove();
-        this.clickEventListener = null;
-      }
-    );
-    ifNotNilThanValue(
-      this.dbClickEventListener,
-      (listener) => {
-        listener.remove();
-        this.dbClickEventListener = null;
-      }
-    );
-    ifNotNilThanValue(
-      this.heatMapLayer,
-      (heatMapLayer) => {
-        heatMapLayer.unbindAll();
-        this.heatMapLayer = null;
-      }
-    );
-    ifNotNilThanValue(
-      this.map,
-      (map) => {
-        map.unbindAll();
-        this.map = null;
-      }
-    );
+    this.markersListeners = null;
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [22.01.2020]
    * @param {google.maps.MarkerOptions} cfg
    * @param {string} name
    * @returns {google.maps.Marker}
@@ -302,13 +263,11 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [03.03.2019]
+   * @stable [23.01.2020]
    * @param {IGoogleMapsEventClickPayloadEntity} event
    */
   private onMapDbClick(event: IGoogleMapsEventClickPayloadEntity): void {
-    if (this.haveMenuOptions) {
-      this.openMenuTask.stop();
-    }
+    ifNotNilThanValue(this.openMenuTask, (openMenuTask) => openMenuTask.stop());
   }
 
   /**
@@ -321,7 +280,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [31.07.2018]
+   * @stable [22.01.2020]
    */
   private onGoogleMapsReady(): void {
     const props = this.props;
@@ -333,10 +292,13 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     mapTypes.set(GoogleMapsMapTypeEnum.HYBRID, google.maps.MapTypeId.HYBRID);
     mapTypes.set(GoogleMapsMapTypeEnum.TERRAIN, google.maps.MapTypeId.TERRAIN);
 
+    this.unbindListeners();
+
     this.map = new google.maps.Map(this.getSelf(), {
       ...options,
       mapTypeId: mapTypes.get(options.mapTypeId) || google.maps.MapTypeId.ROADMAP,
     });
+
     this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
     this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', this.onMapDbClick);
 
@@ -364,7 +326,47 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [26.10.2018]
+   * @stable [22.01.2020]
+   */
+  private unbindListeners(): void {
+    this.markersListeners.forEach((listener) => listener.remove());
+    this.markersListeners.clear();
+
+    this.markers.forEach((marker) => marker.unbindAll());
+    this.markers.clear();
+
+    ifNotNilThanValue(
+      this.clickEventListener,
+      (listener) => {
+        listener.remove();
+        this.clickEventListener = null;
+      }
+    );
+    ifNotNilThanValue(
+      this.dbClickEventListener,
+      (listener) => {
+        listener.remove();
+        this.dbClickEventListener = null;
+      }
+    );
+    ifNotNilThanValue(
+      this.heatMapLayer,
+      (heatMapLayer) => {
+        heatMapLayer.unbindAll();
+        this.heatMapLayer = null;
+      }
+    );
+    ifNotNilThanValue(
+      this.map,
+      (map) => {
+        map.unbindAll();
+        this.map = null;
+      }
+    );
+  }
+
+  /**
+   * @stable [23.01.2020]
    * @returns {boolean}
    */
   private get haveMenuOptions(): boolean {

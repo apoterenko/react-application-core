@@ -209,19 +209,19 @@ export enum FieldActionPositionsEnum {
 }
 
 /**
- * @default-field-entity
+ * @default-entity
  * @stable [24.11.2019]
  */
-export const GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY = Object.freeze<IGenericFieldEntity>({
+export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
   autoComplete: 'new-password',
 });
 
 /**
- * @default-field-entity
+ * @default-entity
  * @stable [24.11.2019]
  */
-export const GENERIC_FIELD_PASSWORD_ENTITY = Object.freeze<IGenericFieldEntity>({
-  ...GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY,
+export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
+  ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   type: 'password',
 });
 
@@ -273,21 +273,21 @@ export interface IGenericBaseSelectState
 }
 
 /**
- * @default-field-entity
+ * @default-entity
  * @stable [15.01.2020]
  */
-export const QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
+export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
   expandActionRendered: false,
   menuConfiguration: {centeredMenu: false, useFilter: false},
   preventFocus: false,
 });
 
 /**
- * @default-field-entity
+ * @default-entity
  * @stable [15.01.2020]
  */
-export const ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
-  ...QUICK_SEARCH_FIELD_ENTITY,
+export const DEFAULT_ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
+  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
   placeActionRendered: false,
   useZipCode: true,
 });

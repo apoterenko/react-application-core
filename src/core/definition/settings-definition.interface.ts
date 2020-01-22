@@ -104,6 +104,7 @@ export interface IGoogleMapsSettingsEntity {
 }
 
 /**
+ * @default-entity
  * @stable [10.01.2020]
  */
 export const DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY = Object.freeze<IGoogleMapsSettingsEntity>({

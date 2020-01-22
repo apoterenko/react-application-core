@@ -62,7 +62,7 @@ export const CRON_PART_TYPE_RANGES = Object.freeze<{[cronPartType: string]: numb
  */
 export const CRON_PART_TYPE_RANGES_VALUES = Object.freeze<{ [cronPartType: string]: number[] }>(
   ((): { [cronPartType: string]: number[] } => {
-    const result = {};
+    const result = Object.create(null);
     R.forEachObjIndexed((value, key) => {
       const allValues = [];
       for (let index = value[0]; index <= value[1]; index++) {

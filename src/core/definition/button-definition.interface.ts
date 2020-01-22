@@ -1,17 +1,9 @@
 import {
-  IBlockWrapper,
-  IBooleanIconLeftWrapper,
-  IBooleanTransparentWrapper,
-  IBorderedWrapper,
   IButtonConfigurationWrapper,
-  IDefaultOnPressWrapper,
   IDisabledWrapper,
   IErrorMessageWrapper,
   IFullWrapper,
-  IIconStyleWrapper,
   IIconWrapper,
-  IKeyValue,
-  ILargeWrapper,
   IMiniWrapper,
   IOnClickWrapper,
   IOutlinedWrapper,
@@ -19,18 +11,12 @@ import {
   IProgressWrapper,
   IRaisedWrapper,
   IRippledWrapper,
-  IRoundedWrapper,
-  ISmallWrapper,
-  IStyleWrapper,
-  ISuccessWrapper,
-  ITextStyleWrapper,
   ITextWrapper,
   ITouchedWrapper,
   IToWrapper,
   ITypeWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
-import { IUniversalComponentEntity } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 
 /**
@@ -76,27 +62,6 @@ export interface IButtonProps
  */
 export interface IButtonConfigurationWrapperEntity
   extends IButtonConfigurationWrapper<IButtonProps> {
-}
-
-export interface IRnButtonEntity
-  extends IUniversalComponentEntity,
-    IBorderedWrapper,
-    IRoundedWrapper,
-    ISuccessWrapper,
-    IBlockWrapper,
-    ISmallWrapper,
-    ILargeWrapper,
-    IBooleanIconLeftWrapper,
-    IBooleanTransparentWrapper,
-    IIconStyleWrapper<IKeyValue>,
-    ITextStyleWrapper<IKeyValue>,
-    IStyleWrapper<IKeyValue>,
-    IDefaultOnPressWrapper {
-}
-
-export interface IRnButtonProps
-  extends IGenericButtonEntity,
-    IRnButtonEntity {
 }
 
 /**

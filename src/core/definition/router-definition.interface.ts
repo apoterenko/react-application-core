@@ -44,7 +44,7 @@ export interface IRouterWrapperEntity
 export interface IRoutesEntity
   extends IAccessDeniedWrapper<string>,
     IHomeWrapper<string>,
-    ILogoutWrapper<string>,
+    ILogoutWrapper,
     IProfileWrapper<string>,
     ISignInWrapper<string> {
 }

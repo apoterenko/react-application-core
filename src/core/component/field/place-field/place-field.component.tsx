@@ -22,7 +22,7 @@ import { GoogleMaps } from '../../google';
 import {
   FieldConverterTypesEnum,
   FILTERED_CENTERED_MENU_ENTITY,
-  GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY,
+  DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
@@ -39,7 +39,7 @@ import {
 export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   public static readonly defaultProps: IPlaceFieldProps = {
-    ...GENERIC_FIELD_NO_AUTO_COMPLETE_ENTITY,
+    ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
     forceReload: true,
     preventFocus: true,
   };
