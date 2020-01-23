@@ -1,13 +1,11 @@
-import * as R from 'ramda';
-
 import {
   NOT_NIL_VALUE_PREDICATE,
   uuid,
 } from '../../../util';
 import {
-  IUniversalLayoutViewBuilder,
   IUniversalLayoutBuilderConfigEntity,
   IUniversalLayoutProps,
+  IUniversalLayoutViewBuilder,
   LayoutTypesEnum,
   UniversalLayoutBuilderChildrenT,
 } from '../../../definition';
@@ -16,13 +14,13 @@ import { StringNumberT } from '../../../definitions.interface';
 export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps = IUniversalLayoutProps> {
 
   private index: number;
-  private layoutId = uuid();
+  private readonly layoutId = uuid();
 
   /**
    * @stable [22.10.2018]
    * @param {IUniversalLayoutViewBuilder<TNode>} layoutViewBuilder
    */
-  constructor(private layoutViewBuilder: IUniversalLayoutViewBuilder<TNode, TProps>) {
+  constructor(private readonly layoutViewBuilder: IUniversalLayoutViewBuilder<TNode, TProps>) {
   }
 
   /**
@@ -40,7 +38,7 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
    * @param {UniversalLayoutBuilderChildrenT<TNode>} _
    * @returns {StringNumberT}
    */
-  protected getClonedItemKey(_: UniversalLayoutBuilderChildrenT<TNode>): StringNumberT {
+  protected asClonedItemKey(_: UniversalLayoutBuilderChildrenT<TNode>): StringNumberT {
     return this.newKey;
   }
 
@@ -56,21 +54,16 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
   }
 
   /**
-   * @stable [22.10.2018]
+   * @stable [23.01.2020]
    * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
    * @returns {TNode}
    */
   private buildHorizontalLayout(layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): TNode {
-    const children = [];
-    const filteredItems = this.filterChildren(layoutConfig);
-
-    filteredItems.forEach((item, index) => {
-      children.push(this.asClonedItem(item, layoutConfig));
-      if (index < filteredItems.length - 1) {
-        children.push(this.layoutViewBuilder.buildSeparatorView(this.key));
-      }
-    });
-    return this.layoutViewBuilder.buildRowView(this.key, children, layoutConfig);
+    return this.layoutViewBuilder.buildRowView(
+      this.key,
+      this.filterChildren(layoutConfig).map((item, index) => this.asClonedItem(item, layoutConfig)),
+      layoutConfig
+    );
   }
 
   /**
@@ -81,9 +74,7 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
   private buildVerticalLayout(layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): TNode {
     return this.layoutViewBuilder.buildColumnView(
       this.key,
-      R.isNil(layoutConfig.children)
-        ? [layoutConfig]
-        : this.filterChildren(layoutConfig).map((item) => this.asClonedItem(item, layoutConfig)),
+      this.filterChildren(layoutConfig).map((item) => this.asClonedItem(item, layoutConfig)),
       layoutConfig
     );
   }
@@ -110,12 +101,14 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
     const itemAsCfg = item as IUniversalLayoutBuilderConfigEntity<TNode>;
 
     return this.layoutViewBuilder.isClonedItem(item)
-      ? this.layoutViewBuilder.cloneItem(
-        itemAsNode,
-        this.layoutViewBuilder.getClonedItemProps(
+      ? (
+        this.layoutViewBuilder.cloneItem(
           itemAsNode,
-          layoutConfig,
-          {key: this.getClonedItemKey(itemAsNode)} as TProps
+          this.layoutViewBuilder.getClonedItemProps(
+            itemAsNode,
+            layoutConfig,
+            {key: this.asClonedItemKey(itemAsNode)} as TProps
+          )
         )
       )
       : this.buildLayout(itemAsCfg);

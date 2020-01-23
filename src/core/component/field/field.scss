@@ -70,6 +70,7 @@
    */
   @include rac-field (
     $rac-field-custom: $rac-base-text-cls,
+    $rac-field-overflow: $rac-base-text-overflow,
     $rac-self-field-border-radius: $rac-base-text-self-field-border-radius,
     $rac-self-field-border: $rac-base-text-self-field-border,
     $rac-self-field-height: $rac-base-text-self-field-height,

@@ -73,6 +73,24 @@
   );
 
   /**
+   * @layout
+   * @stable [23.01.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-align-items-center,
+    $rac-styles-align-items: center
+  );
+
+  /**
+   * @layout
+   * @stable [23.01.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-justify-content-center,
+    $rac-styles-justify-content: center
+  );
+
+  /**
    * @error
    * @stable [30.09.2019]
    */
