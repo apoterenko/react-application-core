@@ -1,0 +1,24 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  /**
+   * @layout-builder
+   * @stable [23.01.2020]
+   */
+  @include rac-layout-builder (
+    $rac-layout-builder-1-2-flex: $rac-layout-builder-1-2-flex,
+    $rac-layout-builder-3-4-flex: $rac-layout-builder-3-4-flex,
+    $rac-layout-builder-column-view-display: $rac-layout-builder-column-view-display,
+    $rac-layout-builder-column-view-flex-direction: $rac-layout-builder-column-view-flex-direction,
+    $rac-layout-builder-column-view-neighbor-child-margin: $rac-layout-builder-column-view-neighbor-child-margin,
+    $rac-layout-builder-row-view-display: $rac-layout-builder-row-view-display,
+    $rac-layout-builder-row-view-flex-direction: $rac-layout-builder-row-view-flex-direction,
+    $rac-layout-builder-row-view-neighbor-child-margin: $rac-layout-builder-row-view-neighbor-child-margin,
+    $rac-layout-builder-x1-flex: $rac-layout-builder-x1-flex,
+    $rac-layout-builder-x2-flex: $rac-layout-builder-x2-flex,
+    $rac-layout-builder-x4-flex: $rac-layout-builder-x4-flex,
+    $rac-layout-builder-x8-flex: $rac-layout-builder-x8-flex
+  );
+}

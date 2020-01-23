@@ -28,7 +28,6 @@ import {
   IEntity,
   IErrorMessageRenderedWrapper,
   IErrorMessageWrapper,
-  IFactorWrapper,
   IFieldConfigurationWrapper,
   IFieldWrapper,
   IFilterFnWrapper,
@@ -64,7 +63,6 @@ import {
   ISelectedWrapper,
   ISimpleWrapper,
   ISorterWrapper,
-  IStyleWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
   ITouchedWrapper,
@@ -267,40 +265,6 @@ export interface IFieldProps extends IComponentProps,
  */
 export interface IFieldsConfigurations {
   [fieldName: string]: string | IFieldProps | ((field) => IFieldProps | string);
-}
-
-/**
- * @stable [22.10.2018]
- */
-export enum LayoutBuilderTypeEnum {
-  VERTICAL,
-  HORIZONTAL,
-}
-
-/* @stable - 16.04.2018 */
-export enum LayoutBuilderFactorsEnum {
-  FACTOR_0_5,
-  FACTOR_0_75,
-  FACTOR_1,
-  FACTOR_2,
-  FACTOR_4,
-  FACTOR_8,
-}
-
-/**
- * @stable [22.10.2018]
- */
-export type UniversalLayoutBuilderChildrenT<TNode> = IUniversalLayoutBuilderConfiguration<TNode> | TNode;
-
-/**
- * @stable [22.10.2018]
- */
-export interface IUniversalLayoutBuilderConfiguration<TNode>
-  extends ILayoutWrapper<LayoutBuilderTypeEnum>,
-          IStyleWrapper<IKeyValue>,
-          IFullWrapper,
-          IChildrenWrapper<Array<UniversalLayoutBuilderChildrenT<TNode>>>,
-          IFactorWrapper<LayoutBuilderFactorsEnum> {
 }
 
 /* @stable - 08.04.2018 */
