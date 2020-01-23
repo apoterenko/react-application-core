@@ -40,7 +40,7 @@ export type UniversalLayoutBuilderChildrenT<TNode> = IUniversalLayoutBuilderConf
 /**
  * @stable [23.01.2020]
  */
-export type LayoutBuilderChildrenT = UniversalLayoutBuilderChildrenT<React.ReactNode>;
+export type LayoutBuilderChildrenT = UniversalLayoutBuilderChildrenT<JSX.Element>;
 
 /**
  * @config-entity

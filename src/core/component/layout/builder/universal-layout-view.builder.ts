@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as R from 'ramda';
 
 import {
@@ -43,7 +42,7 @@ export abstract class UniversalLayoutViewBuilder<TNode, TProps extends IUniversa
    * @returns {boolean}
    */
   public isClonedItem(item: UniversalLayoutBuilderChildrenT<TNode>): boolean {
-    const itemEl = item as React.ReactElement;
+    const itemEl = item as JSX.Element;
     const type = itemEl.type;
     return isFn(type)
       || (isString(type) && !R.isEmpty(type));  // type = {'div', 'span', ...}
