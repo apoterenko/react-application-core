@@ -94,10 +94,10 @@ export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
 export interface IChannelsWrapper<TValue = string> { channels?: TValue; }
-export interface IChannelWrapper<TChannel = string> { channel?: TChannel; }
+export interface IChannelWrapper<TValue = string> { channel?: TValue; }
 export interface ICheckScrimWrapper { checkScrim?: boolean; }
-export interface IChildrenWrapper<TChildren> { children?: TChildren; }
-export interface ICityWrapper<TCity = string> { city?: TCity; }
+export interface IChildrenWrapper<TValue> { children?: TValue; }
+export interface ICityWrapper<TValue = string> { city?: TValue; }
 export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
@@ -169,7 +169,7 @@ export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; 
 export interface IExpandedAllGroupsWrapper { expandedAllGroups?: boolean; }
 export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
 export interface IExtraParamsWrapper<TExtraParams> { extraParams?: TExtraParams; }
-export interface IFactorWrapper<TFactor = number> { factor?: TFactor; }
+export interface IFactorWrapper<TValue = number> { factor?: TValue; }
 export interface IFieldConfigurationWrapper<TProps> { fieldConfiguration?: TProps; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
 export interface IFieldsWrapper<TFields> { fields?: TFields; }
@@ -245,7 +245,7 @@ export interface IKeepChangesWrapper { keepChanges?: boolean; }
 export interface IKeyboardEvent<TValue = {}> extends React.KeyboardEvent<TValue> { }
 export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
-export interface IKeyWrapper<TKey = string> { key?: TKey; }
+export interface IKeyWrapper<TValue = string> { key?: TValue; }
 export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
 export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
 export interface ILastWrapper<TValue = boolean> { last?: TValue; }

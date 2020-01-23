@@ -70,7 +70,6 @@ export * from './notification';
 export * from './operation';
 export * from './permissions';
 export * from './props-definitions.interface';
-export * from './react-configurations-definitions.interface';
 export * from './react-definitions.interface';
 export * from './router';
 export * from './settings';

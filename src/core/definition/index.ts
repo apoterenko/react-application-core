@@ -31,6 +31,7 @@ export * from './form-definition.interface';
 export * from './google-maps-definition.interface';
 export * from './grid-definition.interface';
 export * from './label-definition.interface';
+export * from './layout-builder-definition.interface';
 export * from './layout-definition.interface';
 export * from './list-definition.interface';
 export * from './log-definition.interface';
