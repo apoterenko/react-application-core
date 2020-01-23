@@ -1,23 +1,23 @@
 import { IKeyValue, AnyT } from '../../../definitions.interface';
 import { isDef } from '../../../util';
-import {
-  IUniversalLayoutBuilderConfiguration,
-  UniversalLayoutBuilderChildrenT,
-} from '../../../configurations-definitions.interface';
 import { UniversalLayoutViewBuilder } from './universal-layout-view.builder';
+import {
+  IUniversalLayoutBuilderConfigEntity,
+  UniversalLayoutBuilderChildrenT,
+} from '../../../definition';
 
-export class DefaultLayoutViewBuilder<TNode> extends UniversalLayoutViewBuilder<TNode> {
+export class DefaultLayoutViewBuilder extends UniversalLayoutViewBuilder<JSX.Element> {
 
   /**
    * @stable [22.10.2018]
    * @param {IKeyValue} props
    * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
-   * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
+   * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
    * @returns {AnyT}
    */
   public buildRowView(props: IKeyValue,
-                      children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
-                      layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): AnyT {
+                      children: Array<UniversalLayoutBuilderChildrenT<JSX.Element>>,
+                      layoutConfig: IUniversalLayoutBuilderConfigEntity<JSX.Element>): AnyT {
     return {
       ...layoutConfig.factor ? { factor: layoutConfig.factor } : {},
       columns: children,
@@ -28,12 +28,12 @@ export class DefaultLayoutViewBuilder<TNode> extends UniversalLayoutViewBuilder<
    * @stable [22.10.2018]
    * @param {IKeyValue} props
    * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
-   * @param {IUniversalLayoutBuilderConfiguration<TNode>} layoutConfig
+   * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
    * @returns {AnyT}
    */
   public buildColumnView(props: IKeyValue,
-                         children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
-                         layoutConfig: IUniversalLayoutBuilderConfiguration<TNode>): AnyT {
+                         children: Array<UniversalLayoutBuilderChildrenT<JSX.Element>>,
+                         layoutConfig: IUniversalLayoutBuilderConfigEntity<JSX.Element>): AnyT {
     return {
       ...layoutConfig.factor ? { factor: layoutConfig.factor } : {},
       rows: children,
@@ -41,22 +41,22 @@ export class DefaultLayoutViewBuilder<TNode> extends UniversalLayoutViewBuilder<
   }
 
   /**
-   * @stable [22.10.2018]
-   * @param {IKeyValue} props
+   * @stable [23.01.2020]
+   * @param {JSX.Element} props
    * @returns {AnyT}
    */
-  public buildSeparatorView(props: IKeyValue): AnyT {
+  public buildSeparatorView(props: JSX.Element): AnyT {
     return {
       separator: null,
     };
   }
 
   /**
-   * @stable [22.10.2018]
-   * @param {UniversalLayoutBuilderChildrenT<TNode>} item
+   * @stable [23.01.2020]
+   * @param {UniversalLayoutBuilderChildrenT<JSX.Element>} item
    * @returns {boolean}
    */
-  public isClonedItem(item: UniversalLayoutBuilderChildrenT<TNode>): boolean {
-    return isDef((item as {props: IKeyValue}).props);
+  public isClonedItem(item: UniversalLayoutBuilderChildrenT<JSX.Element>): boolean {
+    return isDef((item as JSX.Element).props);
   }
 }

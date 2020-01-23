@@ -1,3 +1,3 @@
-export * from './react-layout.builder';
+export * from './layout-view.builder';
+export * from './layout.builder';
 export * from './universal-layout-view.builder';
-export * from './react-layout-view.builder';
