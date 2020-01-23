@@ -1,4 +1,4 @@
-import { IKeyValue, AnyT } from '../../../definitions.interface';
+import { AnyT } from '../../../definitions.interface';
 import { isDef } from '../../../util';
 import { UniversalLayoutViewBuilder } from './universal-layout-view.builder';
 import {
@@ -9,13 +9,13 @@ import {
 export class DefaultLayoutViewBuilder extends UniversalLayoutViewBuilder<JSX.Element> {
 
   /**
-   * @stable [22.10.2018]
-   * @param {IKeyValue} props
-   * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
-   * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
+   * @stable [23.01.2020]
+   * @param {{}} props
+   * @param {Array<UniversalLayoutBuilderChildrenT<JSX.Element>>} children
+   * @param {IUniversalLayoutBuilderConfigEntity<JSX.Element>} layoutConfig
    * @returns {AnyT}
    */
-  public buildRowView(props: IKeyValue,
+  public buildRowView(props: {},
                       children: Array<UniversalLayoutBuilderChildrenT<JSX.Element>>,
                       layoutConfig: IUniversalLayoutBuilderConfigEntity<JSX.Element>): AnyT {
     return {
@@ -25,29 +25,18 @@ export class DefaultLayoutViewBuilder extends UniversalLayoutViewBuilder<JSX.Ele
   }
 
   /**
-   * @stable [22.10.2018]
-   * @param {IKeyValue} props
-   * @param {Array<UniversalLayoutBuilderChildrenT<TNode>>} children
-   * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
+   * @stable [23.01.2020]
+   * @param {{}} props
+   * @param {Array<UniversalLayoutBuilderChildrenT<JSX.Element>>} children
+   * @param {IUniversalLayoutBuilderConfigEntity<JSX.Element>} layoutConfig
    * @returns {AnyT}
    */
-  public buildColumnView(props: IKeyValue,
+  public buildColumnView(props: {},
                          children: Array<UniversalLayoutBuilderChildrenT<JSX.Element>>,
                          layoutConfig: IUniversalLayoutBuilderConfigEntity<JSX.Element>): AnyT {
     return {
       ...layoutConfig.factor ? { factor: layoutConfig.factor } : {},
       rows: children,
-    };
-  }
-
-  /**
-   * @stable [23.01.2020]
-   * @param {JSX.Element} props
-   * @returns {AnyT}
-   */
-  public buildSeparatorView(props: JSX.Element): AnyT {
-    return {
-      separator: null,
     };
   }
 

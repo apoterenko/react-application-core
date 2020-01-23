@@ -23,7 +23,8 @@ export class LayoutBuilder extends UniversalLayoutBuilder<React.ReactNode> {
    * @param {LayoutBuilderChildrenT} item
    * @returns {StringNumberT}
    */
-  protected getClonedItemKey(item: LayoutBuilderChildrenT): StringNumberT {
-    return (item as React.ReactElement<React.Attributes>).props.key || super.getClonedItemKey(item);
+  protected asClonedItemKey(item: LayoutBuilderChildrenT): StringNumberT {
+    const element = item as React.ReactElement<React.Attributes>;
+    return element.props.key || super.asClonedItemKey(item);
   }
 }

@@ -1,5 +1,8 @@
 import { DefaultLayoutViewBuilder } from './default-layout-view.builder';
-import { LayoutBuilderTypeEnum, LayoutBuilderFactorsEnum } from '../../../configurations-definitions.interface';
+import {
+  LayoutFactorsEnum,
+  LayoutTypesEnum,
+} from '../../../definition';
 import { UniversalLayoutBuilder } from './universal-layout.builder';
 
 describe('layout.builder', () => {
@@ -14,11 +17,11 @@ describe('layout.builder', () => {
       children: [
         new pseudoElement('p1', 'v1'),
         {
-          layout: LayoutBuilderTypeEnum.HORIZONTAL,
+          layout: LayoutTypesEnum.HORIZONTAL,
           children: [
             new pseudoElement('p2', 'v2'),
             {
-              factor: LayoutBuilderFactorsEnum.FACTOR_2,
+              factor: LayoutFactorsEnum.FACTOR_2,
               children: [
                 new pseudoElement('p4', 'v4'),
                 new pseudoElement('p5', 'v5')
@@ -36,15 +39,13 @@ describe('layout.builder', () => {
         {
           columns: [
             new pseudoElement('p2', 'v2'),
-            {separator: null},
             {
-              factor: LayoutBuilderFactorsEnum.FACTOR_2,
+              factor: LayoutFactorsEnum.FACTOR_2,
               rows: [
                 new pseudoElement('p4', 'v4'),
                 new pseudoElement('p5', 'v5')
               ],
             },
-            {separator: null},
             new pseudoElement('p3', 'v3')
           ],
         }
