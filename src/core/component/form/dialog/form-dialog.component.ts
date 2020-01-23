@@ -1,9 +1,9 @@
-import { Dialog } from '../../dialog/dialog.component';
+import { BaseDialog } from '../../dialog/base-dialog.component';
 import { IActivateDialogConfigEntity } from '../../../definition';
 import { IFormDialogProps } from './form-dialog.interface';
 import { isDirty } from '../../../util';
 
-export class FormDialog extends Dialog<IFormDialogProps> {
+export class FormDialog extends BaseDialog<IFormDialogProps> {
 
   public static defaultProps: IFormDialogProps = {
     title: 'Changes you made will not be saved',

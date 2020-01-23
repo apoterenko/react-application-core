@@ -103,15 +103,15 @@ export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
 export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
 export interface ICloseTextWrapper { closeText?: string; }
-export interface ICodeWrapper<TCode = string> { code?: TCode; }
-export interface IColumnClassNameWrapper<TClassName = string> { columnClassName?: TClassName; }
+export interface ICodeWrapper<TValue = string> { code?: TValue; }
+export interface IColumnClassNameWrapper<TValue = string> { columnClassName?: TValue; }
 export interface IColumnNameWrapper { columnName?: string; }
 export interface IColumnRenderedWrapper { columnRendered?: boolean; }
 export interface IColumnsConfigurationWrapper<TValue> { columnsConfiguration?: TValue; }
-export interface IColumnStylesWrapper<TStyles> { columnStyles?: TStyles; }
-export interface IColumnTitleWrapper<TColumnTitle = string> { columnTitle?: TColumnTitle; }
+export interface IColumnStylesWrapper<TValue> { columnStyles?: TValue; }
+export interface IColumnTitleWrapper<TValue = string> { columnTitle?: TValue; }
 export interface IColumnWidthWrapper { columnWidth?: number; }
-export interface ICompactWrapper<TCompact = boolean> { compact?: TCompact; }
+export interface ICompactWrapper<TValue = boolean> { compact?: TValue; }
 export interface IComputedMatchWrapper<TComputedMatch> { computedMatch?: TComputedMatch; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }

@@ -126,7 +126,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
         {dndElement}
         <Dialog ref='cameraDialog'
                 title={messages.takeSnapshotMessage}
-                acceptMessage={messages.acceptMessage}
+                acceptText={messages.acceptMessage}
                 onClose={this.onCameraDialogClose}
                 onAccept={this.onCameraDialogAccept}>
           {

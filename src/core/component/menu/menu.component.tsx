@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  AnyT,
   StringNumberT,
   UNDEF,
 } from '../../definitions.interface';
@@ -52,7 +51,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
-  private readonly dialogRef = React.createRef<Dialog<AnyT>>();
+  private readonly dialogRef = React.createRef<Dialog>();
   private readonly fieldRef = React.createRef<TextField>();
   private readonly menuAnchorRef = React.createRef<HTMLDivElement>();
   private filterQueryTask: DelayedTask;
@@ -402,9 +401,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [17.06.2019]
-   * @returns {Dialog<AnyT>}
+   * @returns {Dialog}
    */
-  private get dialog(): Dialog<AnyT> {
+  private get dialog(): Dialog {
     return this.dialogRef.current;
   }
 

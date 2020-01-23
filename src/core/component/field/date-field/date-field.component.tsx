@@ -57,7 +57,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     preventFocus: false,
   };
 
-  private readonly dialogRef = React.createRef<Dialog<AnyT>>();
+  private readonly dialogRef = React.createRef<Dialog>();
   private readonly yearRef = React.createRef<NumberField>();
 
   /**

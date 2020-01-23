@@ -15,7 +15,6 @@ import {
   orNull,
   uuid,
 } from '../../../util';
-import { AnyT } from '../../../definitions.interface';
 import { BaseSelect } from '../select/base-select.component';
 import { Dialog } from '../../dialog';
 import { GoogleMaps } from '../../google';
@@ -45,7 +44,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   };
   private static readonly PLACE_MARKER = uuid();
 
-  private readonly dialogRef = React.createRef<Dialog<AnyT>>();
+  private readonly dialogRef = React.createRef<Dialog>();
   private readonly googleMapsRef = React.createRef<GoogleMaps>();
   private readonly googleMapsMenuOptions: IMenuItemEntity[] = [{
     label: this.settings.messages.PUT_MARKER_HERE,

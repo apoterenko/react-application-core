@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { AnyT } from '../../../definitions.interface';
 import { Dialog } from '../dialog.component';
 import { FilterFormDialogActionBuilder } from '../../../action';
 import { FormContainer } from '../../form';
@@ -10,13 +9,13 @@ import { isTouched } from '../../../util';
 import { UniversalContainer } from '../../base/universal.container';
 
 export class FilterFormDialogContainer
-  extends UniversalContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog<AnyT>>>> {
+  extends UniversalContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog>>> {
 
   /**
    * @stable [10.03.2019]
    * @param {IFilterFormDialogContainerProps} props
    */
-  constructor(props: IFilterFormDialogContainerProps<React.RefObject<Dialog<AnyT>>>) {
+  constructor(props: IFilterFormDialogContainerProps<React.RefObject<Dialog>>) {
     super(props);
     this.onAcceptFilter = this.onAcceptFilter.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
