@@ -19,7 +19,7 @@ import {
 import { IFieldProps } from '../../../configurations-definitions.interface';
 import {
   IBaseTextFieldProps,
-} from '../textfield/base-textfield.interface';
+} from '../text-field/base-textfield.interface';
 import { IFieldState } from '../field/field.interface';
 
 /**

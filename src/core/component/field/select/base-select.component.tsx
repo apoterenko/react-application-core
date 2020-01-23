@@ -17,7 +17,7 @@ import {
   nvl,
   orNull,
 } from '../../../util';
-import { BaseTextField } from '../../field/textfield';
+import { BaseTextField } from '../text-field';
 import { Menu } from '../../menu';
 import {
   AnyT,

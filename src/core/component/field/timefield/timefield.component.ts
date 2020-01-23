@@ -1,4 +1,4 @@
-import { BaseTextField } from '../textfield';
+import { BaseTextField } from '../text-field';
 import { IDateTimeSettings } from '../../../settings';
 import {
   ITimeField,

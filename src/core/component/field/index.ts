@@ -6,7 +6,7 @@ export * from './field';
 export * from './filefield';
 export * from './view-field';
 export * from './multifield';
-export * from './textfield';
+export * from './text-field';
 export * from './select';
 export * from './gridfield';
 export * from './textarea';

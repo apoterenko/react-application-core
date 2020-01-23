@@ -1,7 +1,7 @@
 import {
   IBaseTextFieldProps,
   IBaseTextFieldState,
-} from '../textfield';
+} from '../text-field';
 import {
   IUseDownloadActionWrapper,
   IFileNameWrapper,

@@ -4,13 +4,15 @@ import { IFieldProps } from '../../../configurations-definitions.interface';
 /**
  * @stable [25.02.2019]
  */
-export interface IBaseTextFieldState extends IFieldState {
+export interface IBaseTextFieldState
+  extends IFieldState {
 }
 
 /**
  * @stable [25.02.2019]
  */
-export interface IBaseTextFieldProps extends IFieldProps {
+export interface IBaseTextFieldProps
+  extends IFieldProps {
 }
 
 /**

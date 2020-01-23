@@ -2,7 +2,7 @@ import {
   IBaseTextFieldState,
   IBaseTextFieldProps,
   IBaseTextField,
-} from '../textfield';
+} from '../text-field';
 
 export interface INumberFieldInternalState extends IBaseTextFieldState {
 }

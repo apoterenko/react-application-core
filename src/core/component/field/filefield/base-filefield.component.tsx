@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { BaseTextField } from '../textfield';
+import { BaseTextField } from '../text-field';
 import {
   cancelEvent,
   downloadFile,

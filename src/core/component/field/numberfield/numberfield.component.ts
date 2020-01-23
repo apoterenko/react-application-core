@@ -1,5 +1,5 @@
 import { toClassName } from '../../../util';
-import { BaseTextField } from '../textfield';
+import { BaseTextField } from '../text-field';
 import { IApplicationNumberSettings } from '../../../settings';
 import {
   INumberField,

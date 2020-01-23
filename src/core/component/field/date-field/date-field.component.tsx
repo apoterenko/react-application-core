@@ -34,7 +34,7 @@ import {
   IDateFieldProps,
   IDateFieldState,
 } from './date-field.interface';
-import { BaseTextField } from '../textfield';
+import { BaseTextField } from '../text-field';
 import { Button } from '../../button';
 import { Calendar } from '../../calendar';
 import { Dialog } from '../../dialog';
