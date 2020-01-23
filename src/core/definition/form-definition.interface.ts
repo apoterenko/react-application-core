@@ -40,7 +40,7 @@ import {
 import { IApiEntity } from './api-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import {
-  IButtonConfigurationWrapperEntity,
+  IButtonConfigurationEntity,
   IButtonProps,
   IGenericButtonEntity,
 } from './button-definition.interface';
@@ -102,7 +102,7 @@ export interface IBehavioralFormExtendedEditableEntity<TEntity extends IEntity =
  */
 export interface IFormEntity<TEntity = IEntity> // TODO Destroy it later: Behavioral + Generic only
   extends IBehavioralFormExtendedEditableEntity<TEntity>,
-    IButtonConfigurationWrapperEntity,  // TODO Move to Generic entity
+    IButtonConfigurationEntity,  // TODO Move to Generic entity
     IResetConfigurationWrapper<IButtonProps>,
     ISubmitConfigurationWrapper<IButtonProps>,
     IActionsFactoryWrapper<(defaultActions: IFormExtraButtonEntity[]) => IFormExtraButtonEntity[]> {

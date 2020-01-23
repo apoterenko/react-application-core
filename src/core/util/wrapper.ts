@@ -7,6 +7,7 @@ import {
   IChangeableWrapper,
   ICheckScrimWrapper,
   IClearActionRenderedWrapper,
+  IDecoratedWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
   IDisplayValueOnlyWrapper,
@@ -35,6 +36,7 @@ import {
   IRemoteFilterWrapper,
   IRenderedWrapper,
   IRequiredWrapper,
+  IRippledWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
@@ -304,6 +306,22 @@ export const isRequired = (wrapper: IRequiredWrapper): boolean =>
  */
 export const isSyntheticCursorUsed = (wrapper: ISyntheticCursorWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.syntheticCursor !== false, false);
+
+/**
+ * @stable [24.01.2020]
+ * @param {IDecoratedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isDecorated = (wrapper: IDecoratedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.decorated !== false, false);
+
+/**
+ * @stable [24.01.2020]
+ * @param {IRippledWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isRippled = (wrapper: IRippledWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.rippled !== false, false);
 
 /**
  * @stable [13.11.2019]

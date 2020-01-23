@@ -1,13 +1,14 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { BaseComponent } from '../base';
 import {
   fullFlexClassName,
   handlerPropsFactory,
   ifNotNilThanValue,
+  isDecorated,
+  isObjectNotEmpty,
+  isRippled,
   joinClassName,
-  nvl,
 } from '../../util';
 import {
   DEFAULT_FLEX_BUTTON_CLASS_NAMES,
@@ -37,8 +38,12 @@ export class Button extends BaseComponent<IButtonProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
+    const {
+      decorated,
+      iconRight,
+    } = props;
     const buttonText = getButtonText(props);
-    const hasContent = !R.isNil(props.children) || (!R.isNil(buttonText) && !R.isEmpty(buttonText));
+    const hasContent = isObjectNotEmpty(props.children) || isObjectNotEmpty(buttonText);
     const hasIcon = hasIconButton(props);
 
     const className = joinClassName(
@@ -46,11 +51,11 @@ export class Button extends BaseComponent<IButtonProps> {
       props.className,
       fullFlexClassName(props),
       hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
-      hasIcon ? 'rac-button-decorated' : 'rac-button-not-decorated',
+      this.isDecorated && hasIcon && 'rac-button-decorated',
       props.mini && 'rac-button-mini',
       props.outlined && 'rac-button-outlined',
       props.raised && 'rac-button-raised',
-      this.isButtonRippled && this.uiFactory.rippleSurface
+      this.isRippled && this.uiFactory.rippleSurface
     );
 
     if (props.to) {
@@ -66,6 +71,8 @@ export class Button extends BaseComponent<IButtonProps> {
     }
     const disabled = isButtonDisabled(props);
 
+    const iconElement = hasIcon && this.uiFactory.makeIcon(getButtonIcon(props, 'spinner', 'error'));
+
     return (
       <button
         ref={this.buttonRef}
@@ -76,7 +83,7 @@ export class Button extends BaseComponent<IButtonProps> {
         disabled={disabled}
         {...handlerPropsFactory(props.onClick, !disabled, props.touched)}
       >
-        {hasIcon && this.uiFactory.makeIcon(getButtonIcon(props, 'spinner', 'error'))}
+        {!iconRight && iconElement}
         {
           hasContent && (
             <div className='rac-button-content'>
@@ -85,6 +92,7 @@ export class Button extends BaseComponent<IButtonProps> {
             </div>
           )
         }
+        {iconRight && iconElement}
       </button>
     );
   }
@@ -97,7 +105,23 @@ export class Button extends BaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [23.02.2019]
+   * @stable [24.01.2020]
+   * @returns {boolean}
+   */
+  private get isRippled(): boolean {
+    return isRippled(this.props) && isRippled(this.globalButtonSettings);
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {boolean}
+   */
+  private get isDecorated(): boolean {
+    return isDecorated(this.props);
+  }
+
+  /**
+   * @stable [24.01.2020]
    * @returns {HTMLButtonElement}
    */
   private get buttonEl(): HTMLButtonElement {
@@ -105,19 +129,10 @@ export class Button extends BaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [23.02.2019]
+   * @stable [24.01.2020]
    * @returns {IButtonProps}
    */
   private get globalButtonSettings(): IButtonProps {
-    return ifNotNilThanValue(this.settings.components, (components) => components.button) || {};
-  }
-
-  /**
-   * @stable [23.02.2019]
-   * @returns {boolean}
-   */
-  private get isButtonRippled(): boolean {
-    const props = this.props;
-    return nvl(props.rippled, this.globalButtonSettings.rippled) !== false;
+    return ifNotNilThanValue(this.settings.components, (components) => components.button, {}) || {};
   }
 }

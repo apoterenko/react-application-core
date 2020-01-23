@@ -1,8 +1,10 @@
 import {
   IButtonConfigurationWrapper,
+  IDecoratedWrapper,
   IDisabledWrapper,
   IErrorMessageWrapper,
   IFullWrapper,
+  IIconRightWrapper,
   IIconWrapper,
   IMiniWrapper,
   IOnClickWrapper,
@@ -20,14 +22,16 @@ import { IErrorEntity } from './error-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 
 /**
- * @cross-platform
+ * @generic-entity
  * @stable [13.02.2019]
  */
 export interface IGenericButtonEntity
-  extends IDisabledWrapper,
+  extends IDecoratedWrapper,
+    IDisabledWrapper,
     IErrorEntity,
     IErrorMessageWrapper,
     IFullWrapper,
+    IIconRightWrapper,
     IIconWrapper<string | boolean>,
     IMiniWrapper,
     IOutlinedWrapper,
@@ -42,30 +46,33 @@ export interface IGenericButtonEntity
 }
 
 /**
- * @stable [27.09.2019]
+ * @behavioral-entity
+ * @stable [24.01.2020]
  */
-export interface IButtonEntity
-  extends IGenericButtonEntity,
-    IOnClickWrapper {
+export interface IBehavioralButtonEntity
+  extends IOnClickWrapper {
 }
 
 /**
+ * @props
  * @stable [27.09.2019]
  */
 export interface IButtonProps
   extends IComponentProps,
-    IButtonEntity {
+    IGenericButtonEntity,
+    IBehavioralButtonEntity {
 }
 
 /**
- * @stable [26.10.2019]
+ * @configuration-entity
+ * @stable [24.01.2020]
  */
-export interface IButtonConfigurationWrapperEntity
+export interface IButtonConfigurationEntity
   extends IButtonConfigurationWrapper<IButtonProps> {
 }
 
 /**
- * @stable [16.10.2019]
+ * TODO
  */
 export const DEFAULT_FLEX_BUTTON_CLASS_NAMES = Object.freeze([
   'rac-button',

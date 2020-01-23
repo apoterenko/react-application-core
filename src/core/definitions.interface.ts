@@ -129,6 +129,7 @@ export interface IDateWrapper<TValue = string> { date?: TValue; }
 export interface IDaysLabelsWrapper<TValue> { daysLabels?: TValue; }
 export interface IDaysWrapper<TValue> { days?: TValue; }
 export interface IDayWrapper<TValue = number> { day?: TValue; }
+export interface IDecoratedWrapper { decorated?: boolean; }
 export interface IDefaultChangesWrapper<TChanges extends IKeyValue = IKeyValue> { defaultChanges?: TChanges; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
@@ -140,22 +141,22 @@ export interface IDetectFileTypeTransportConfigurationWrapper<TValue> { detectFi
 export interface IDetectFileTypeWrapper { detectFileType?: boolean; }
 export interface IDialogClassNameWrapper { dialogClassName?: string; }
 export interface IDialogConfigurationWrapper<TValue> { dialogConfiguration?: TValue; }
-export interface IDialogOpenedWrapper<TOpened = boolean> { dialogOpened?: TOpened; }
-export interface IDictionariesWrapper<TDictionaries> { dictionaries?: TDictionaries; }
+export interface IDialogOpenedWrapper<TValue = boolean> { dialogOpened?: TValue; }
+export interface IDictionariesWrapper<TValue> { dictionaries?: TValue; }
 export interface IDiffWrapper<TValue> { diff?: TValue; }
-export interface IDirectionsWrapper<TDirections> { directions?: TDirections; }
-export interface IDirectionWrapper<TDirection = string> { direction?: TDirection; }
+export interface IDirectionsWrapper<TValue> { directions?: TValue; }
+export interface IDirectionWrapper<TValue = string> { direction?: TValue; }
 export interface IDirtyWrapper { dirty?: boolean; }
 export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueOnlyWrapper { displayValueOnly?: boolean; }
-export interface IDisplayValueWrapper<TDisplayValue = string> { displayValue?: TDisplayValue; }
+export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
 export interface IDurationWrapper<TValue> { duration?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
-export interface IElementWrapper<TElement = Element> { element?: TElement; }
+export interface IElementWrapper<TValue = Element> { element?: TValue; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
@@ -222,6 +223,7 @@ export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
 export interface IHoveredWrapper { hovered?: boolean; }
 export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
+export interface IIconRightWrapper { iconRight?: boolean; }
 export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
 export interface IIdWrapper<TId = number> { id?: TId; }
 export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }

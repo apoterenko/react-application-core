@@ -1,3 +1,5 @@
+import { IButtonProps } from './button-definition.interface';
+
 /**
  * @stable [09.10.2019]
  */
@@ -78,6 +80,7 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
 });
 
 /**
+ * @entity
  * @stable [09.01.2020]
  */
 export interface IAsyncLibrariesSettingsEntity {
@@ -85,6 +88,15 @@ export interface IAsyncLibrariesSettingsEntity {
 }
 
 /**
+ * @entity
+ * @stable [24.01.2020]
+ */
+export interface IComponentsSettingsEntity {
+  button?: IButtonProps;
+}
+
+/**
+ * @default-entity
  * @stable [09.01.2020]
  */
 export const DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY = Object.freeze<IAsyncLibrariesSettingsEntity>({

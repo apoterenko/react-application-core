@@ -1,21 +1,11 @@
 import * as R from 'ramda';
 
 import { getSettings } from '../../di';
-import { IButtonEntity, IGenericButtonEntity } from '../../definition';
+import { IButtonProps } from '../../definition';
 
-/**
- * @stable - 19.04.2018
- * @param {UniversalButtonEntityT} entity
- * @returns {boolean | undefined}
- */
-export const isButtonDisabled = (entity: IButtonEntity) => entity.disabled || entity.progress;
+export const isButtonDisabled = (entity: IButtonProps) => entity.disabled || entity.progress;
 
-/**
- * @stable [27.09.2019]
- * @param {IGenericButtonEntity} entity
- * @returns {string}
- */
-export const getButtonText = (entity: IGenericButtonEntity): string => {
+export const getButtonText = (entity: IButtonProps): string => {
   const settings = getSettings();
   return (
     entity.progress
@@ -28,14 +18,7 @@ export const getButtonText = (entity: IGenericButtonEntity): string => {
   );
 };
 
-/**
- * @stable - 19.04.2018
- * @param {UniversalButtonEntityT} entity
- * @param {string} progressIcon
- * @param {string} errorIcon
- * @returns {string}
- */
-export const getButtonIcon = (entity: IButtonEntity,
+export const getButtonIcon = (entity: IButtonProps,
                               progressIcon: string,
                               errorIcon: string): string => (
   entity.progress
@@ -43,9 +26,4 @@ export const getButtonIcon = (entity: IButtonEntity,
     : (entity.error ? errorIcon : entity.icon as string)
 );
 
-/**
- * @stable [23.02.2019]
- * @param {IGenericButtonEntity} props
- * @returns {boolean}
- */
-export const hasIconButton = (props: IGenericButtonEntity) => !R.isNil(props.icon) && props.icon !== false;
+export const hasIconButton = (props: IButtonProps) => !R.isNil(props.icon) && props.icon !== false;

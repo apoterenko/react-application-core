@@ -1539,7 +1539,7 @@
   $rac-button-hover-background: unset,
   $rac-button-hover-color: unset,
   $rac-button-hover-shadow: unset,
-  $rac-button-icon-color: unset,
+  $rac-button-icon-color: unset,                                                     /* stable [24.01.2020 ] */
   $rac-button-icon-height: unset,
   $rac-button-icon-margin: unset,
   $rac-button-icon-opacity: unset,
@@ -1549,6 +1549,7 @@
   $rac-button-left: unset,
   $rac-button-margin-bottom: unset,
   $rac-button-margin-right: unset,
+  $rac-button-margin-top: unset,                                                     /* stable [24.01.2020 ] */
   $rac-button-margin: unset,
   $rac-button-min-width: unset,
   $rac-button-opacity: unset,
@@ -1574,6 +1575,7 @@
       $rac-styles-margin : $rac-button-margin,
       $rac-styles-margin-bottom: $rac-button-margin-bottom,
       $rac-styles-margin-right: $rac-button-margin-right,
+      $rac-styles-margin-top: $rac-button-margin-top,
       $rac-styles-min-width : $rac-button-min-width,
       $rac-styles-opacity: $rac-button-opacity,
       $rac-styles-padding: $rac-button-padding,
