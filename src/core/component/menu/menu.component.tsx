@@ -236,7 +236,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   /**
    * @stable [23.11.2019]
    */
-  private unsubscribeAllCaptureEvents(): void {
+  private unsubscribeAllEvents(): void {
     if (isFn(this.scrollEventUnsubscriber)) {
       this.scrollEventUnsubscriber();
       this.scrollEventUnsubscriber = null;
@@ -289,7 +289,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @stable [24.01.2020]
    */
   private clearAll(): void {
-    this.unsubscribeAllCaptureEvents();
+    this.unsubscribeAllEvents();
 
     ifNotNilThanValue(this.filterQueryTask, (task) => task.stop());
   }

@@ -17,7 +17,10 @@ import { Main } from '../../main';
 import { Profile } from '../../profile';
 import { FlexLayout } from '../flex';
 import { Operation } from '../../../operation';
-import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
+import {
+  IPayloadWrapper,
+  StringNumberT,
+} from '../../../definitions.interface';
 import {
   LAYOUT_XY_UPDATE_ACTION_TYPE,
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
@@ -30,6 +33,7 @@ import {
   IBaseEvent,
   ILayoutEntity,
   IMenuItemEntity,
+  IMenuProps,
   INavigationItemEntity,
   IOperationEntity,
   IStringMenuActionEntity,
@@ -46,19 +50,30 @@ import {
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
-  public static defaultProps: IDefaultLayoutContainerProps = {
+  public static readonly defaultProps: IDefaultLayoutContainerProps = {
     headerConfiguration: {},
     footerRendered: true,
   };
-  private readonly PROFILE_EXIT_ACTION = 'exit';
-  private readonly PROFILE_PROFILE_ACTION = 'profile';
-  private readonly USER_MENU_OPTIONS = [
-    {label: this.settings.messages.settingsMessage, icon: 'settings', value: this.PROFILE_PROFILE_ACTION},
-    {label: this.settings.messages.logOutMessage, icon: 'sign_out_alt', value: this.PROFILE_EXIT_ACTION}
-  ];
-  private userMenuRef = React.createRef<Menu>();
 
-  @lazyInject(NavigationMenuBuilder) private navigationMenuBuilder: NavigationMenuBuilder;
+  private readonly userExitActionValue = 'exit';
+  private readonly userMenuAnchorRef = React.createRef<HTMLElement>();
+  private readonly userMenuRef = React.createRef<Menu>();
+  private readonly userProfileActionValue = 'profile';
+  private readonly userMenuProps: IMenuProps = {
+    ref: this.userMenuRef,
+    options: [
+      {label: this.settings.messages.settingsMessage, icon: 'settings', value: this.userProfileActionValue},
+      {label: this.settings.messages.logOutMessage, icon: 'sign_out_alt', value: this.userExitActionValue}
+    ],
+    positionConfiguration: {
+      at: 'right bottom',
+      my: 'right top',
+    },
+    anchorElement: this.getMenuAnchorElement.bind(this),
+    onSelect: this.onUserMenuSelect.bind(this),
+  };
+
+  @lazyInject(NavigationMenuBuilder) private readonly navigationMenuBuilder: NavigationMenuBuilder;
 
   /**
    * @stable [18.09.2018]
@@ -66,15 +81,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    */
   constructor(props: IDefaultLayoutContainerProps) {
     super(props);
-    this.state = {notifications: false};
+
     this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
-    this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
-    this.onUserMenuSelect = this.onUserMenuSelect.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
-    this.onProfileMenuClick = this.onProfileMenuClick.bind(this);
-    this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
+    this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
+    this.onProfileMenuClick = this.onProfileMenuClick.bind(this);
+    this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
+
+    this.state = {notifications: false};
   }
 
   /**
@@ -111,10 +127,10 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    */
   private onUserMenuSelect(menuItem: IMenuItemEntity): void {
     switch (menuItem.value) {
-      case this.PROFILE_EXIT_ACTION:
+      case this.userExitActionValue:
         this.navigate(this.routes.logout);
         break;
-      case this.PROFILE_PROFILE_ACTION:
+      case this.userProfileActionValue:
         this.navigate(this.routes.profile);
         break;
     }
@@ -308,22 +324,30 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
+   * @stable [24.01.2020]
    * @returns {JSX.Element}
    */
   private get userMenuElement(): JSX.Element {
     return (
-      <div>
+      <React.Fragment>
         {this.uiFactory.makeIcon({
-          type: 'more_hor',
-          className: 'rac-user-menu',
+          ref: this.userMenuAnchorRef,
+          key: 'user-menu-icon-key',
+          type: 'more',
+          className: 'rac-user-menu-action',
           onClick: this.onUserMenuActionClick,
         })}
-        <Menu ref={this.userMenuRef}
-              options={this.USER_MENU_OPTIONS}
-              onSelect={this.onUserMenuSelect}/>
-      </div>
+        <Menu {...this.userMenuProps}/>
+      </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {HTMLElement}
+   */
+  private getMenuAnchorElement(): HTMLElement {
+    return this.userMenuAnchorRef.current;
   }
 
   private get navigationListElement(): JSX.Element {
