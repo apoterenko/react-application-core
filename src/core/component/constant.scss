@@ -760,16 +760,17 @@ $rac-dialog-display-0: flex !default;
 $rac-dialog-height-0: 80vh !default;
 $rac-dialog-width-0: 50vw !default;
 /**/
-$rac-dialog-body-background: unset !default;
 $rac-dialog-actions-display: $rac-dialog-display-0 !default;
 $rac-dialog-actions-flex-shrink: 0 !default;
 $rac-dialog-actions-margin: $rac-offset-3 $rac-offset-3 0 $rac-offset-3 !default;
 $rac-dialog-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
+$rac-dialog-body-border-radius: unset !default;
 $rac-dialog-body-content-display: $rac-dialog-display-0 !default;
 $rac-dialog-body-content-flex-direction: column !default;
 $rac-dialog-body-content-flex: 1 !default;
 $rac-dialog-body-content-overflow: unset !default;
 $rac-dialog-body-content-position: relative !default;
+$rac-dialog-body-display: unset !default;
 $rac-dialog-body-title-border-bottom: 1px solid $rac-dialog-color-1 !default;
 $rac-dialog-body-title-font-weight: $rac-font-weight-2 !default;
 $rac-dialog-body-title-margin: 0 $rac-offset-3 $rac-offset-3 $rac-offset-3 !default;
