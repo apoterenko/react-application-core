@@ -7,12 +7,14 @@ import {
   calc,
   handlerPropsFactory,
   isCheckScrimNeeded,
+  isDefault,
   isFn,
+  isScrollable,
   joinClassName,
   noop,
   orNull,
 } from '../../util';
-import { PerfectScrollPlugin } from '../plugin';
+import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
   IActivateDialogConfigEntity,
   IDialog,
@@ -71,7 +73,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                   'rac-full-size',
                   this.isAnchored || this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
                 )}
-              {...handlerPropsFactory(this.onDialogScrimClick, true, false)}
+              {...this.getHandlerProps(this.onDialogScrimClick)}
             >
               {this.dialogBodyElement}
             </div>
@@ -232,7 +234,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         ref={this.bodyRef}
         style={{width: calc<number>(this.props.width)}}
         className='rac-dialog__body'
-        {...handlerPropsFactory(noop, true, false)}  // To stop the events bubbling
+        {...this.getHandlerProps()}  // To stop the events bubbling
       >
         {this.bodyElement}
         {this.footerElement}
@@ -245,22 +247,26 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get bodyElement(): JSX.Element {
-    const props = this.props;
+    const {
+      children,
+      title,
+    } = this.props;
+
     return (
       <React.Fragment>
         {
-          props.title && (
+          title && (
             <div className='rac-dialog__body-title'>
-              {this.t(props.title)}
+              {this.t(title)}
             </div>
           )
         }
         {
-          props.children && (
+          children && (
             <BasicComponent
               className='rac-dialog__body-content'
-              plugins={PerfectScrollPlugin}>
-              {props.children}
+              plugins={isScrollable(this.props) ? [PerfectScrollPlugin] : []}>
+              {children}
             </BasicComponent>
           )
         }
@@ -321,10 +327,22 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {string}
    */
   private get dialogClassName(): string {
+    const props = this.props;
+
     return joinClassName(
       'rac-dialog',
+      isDefault(props) && 'rac-default-dialog',
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
-      this.props.className
+      props.className
     );
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @param {() => void} handler
+   * @returns {Partial<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>}
+   */
+  private getHandlerProps(handler = noop): Partial<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>> {
+    return handlerPropsFactory(handler, true, false);
   }
 }

@@ -1,8 +1,5 @@
 import {
   I$$cachedValueWrapper,
-  IDelayTimeoutWrapper,
-  IExpandActionRenderedWrapper,
-  IForceReloadWrapper,
   IMenuConfigurationWrapper,
   IOnDictionaryFilterChangeWrapper,
   IOnFilterChangeWrapper,
@@ -12,6 +9,7 @@ import {
 } from '../../../definitions.interface';
 import {
   IBaseEvent,
+  IGenericBaseSelectEntity,
   IGenericBaseSelectState,
   IMenuProps,
   ISelectOptionEntity,
@@ -34,18 +32,16 @@ export interface IBaseSelectState
 /**
  * @stable [15.09.2018]
  */
-export interface IBasicSelectConfiguration extends IFieldProps,
-                                                   IExpandActionRenderedWrapper {
+export interface IBasicSelectConfiguration extends IFieldProps {
   onClose?(): void;
 }
 
 // TODO
 export interface IBaseSelectProps
   extends IBasicSelectConfiguration,
+    IGenericBaseSelectEntity,
     IBaseTextFieldProps,
     IMenuConfigurationWrapper<IMenuProps>,
-    IForceReloadWrapper,
-    IDelayTimeoutWrapper,
     IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
