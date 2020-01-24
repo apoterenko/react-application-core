@@ -9,12 +9,14 @@ import {
   IClosableWrapper,
   ICloseDisabledWrapper,
   ICloseTextWrapper,
+  IDefaultWrapper,
   IDialogConfigurationWrapper,
   IOnAcceptWrapper,
   IOnActivateWrapper,
   IOnCloseWrapper,
   IOnDeactivateWrapper,
   IOpenedWrapper,
+  IScrollableWrapper,
   IWidthWrapper,
 } from '../definitions.interface';
 import { IComponent } from './component-definition.interface';
@@ -43,7 +45,9 @@ export interface IGenericDialogEntity
     ICheckScrimWrapper,
     IClosableWrapper,
     ICloseDisabledWrapper,
-    ICloseTextWrapper {
+    ICloseTextWrapper,
+    IDefaultWrapper,
+    IScrollableWrapper {
 }
 
 /**
