@@ -19,7 +19,9 @@ import {
   subArray,
 } from '../../util';
 import { BaseComponent } from '../base/base.component';
-import { Dialog } from '../dialog';
+import { BasicList } from '../list/basic/basic-list.component';
+import { Dialog } from '../dialog/dialog.component';
+import { ListItem } from '../list/item/list-item.component';
 import {
   EventsEnum,
   IMenu,
@@ -32,11 +34,7 @@ import {
   IField,
   TextField,
 } from '../field';
-import {
-  ListItem,
-  SimpleList,
-} from '../list';
-import { PerfectScrollPlugin } from '../plugin';
+import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 
 export class Menu extends BaseComponent<IMenuProps, IMenuState>
     implements IMenu {
@@ -87,7 +85,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
           ref={this.dialogRef}
           closable={false}
           acceptable={false}
+          default={false}
           width={props.width}
+          scrollable={this.isDialogScrollable}
           positionConfiguration={props.positionConfiguration}
           anchorElement={props.anchorElement}
           className='rac-menu-dialog'
@@ -253,12 +253,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private get listElement(): JSX.Element {
     return (
-      <SimpleList
-        plugins={[PerfectScrollPlugin]}
-        className={this.uiFactory.list}
-      >
+      <BasicList
+        plugins={this.isDialogScrollable ? [] : [PerfectScrollPlugin]}>
         {subArray(this.items, this.props.maxCount).map(this.getItemElement)}
-      </SimpleList>
+      </BasicList>
     );
   }
 
@@ -378,6 +376,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private get isAnchored(): boolean {
     return !R.isNil(this.props.anchorElement);
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {boolean}
+   */
+  private get isDialogScrollable(): boolean {
+    return !this.isFilterUsed;
   }
 
   /**
