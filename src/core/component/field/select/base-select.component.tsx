@@ -53,11 +53,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   constructor(props: TProps) {
     super(props);
 
+    this.getMenuAnchorElement = this.getMenuAnchorElement.bind(this);
+    this.getMenuWidth = this.getMenuWidth.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
-    this.onDropDownClick = this.onDropDownClick.bind(this);
 
     if (this.isExpandActionRendered) {
       this.defaultActions = [
@@ -195,7 +197,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       () => ( // To improve a performance
         <Menu
           ref={this.menuRef}
-          width={this.menuWidth}
+          anchorElement={this.getMenuAnchorElement}
+          width={this.getMenuWidth}
           progress={!this.areOptionsDefined}
           options={this.filteredOptions}
           onSelect={this.onSelect}
@@ -418,11 +421,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [17.01.2020]
-   * @returns {() => number}
+   * @stable [24.01.2020]
+   * @returns {number}
    */
-  private get menuWidth(): () => number {
-    return () => this.domAccessor.getWidth(this.getSelf());
+  private getMenuWidth(): number {
+    return this.domAccessor.getWidth(this.getSelf());
   }
 
   /**
@@ -447,6 +450,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get isMenuOpened(): boolean {
     return isMenuOpened(this.state);
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {HTMLElement}
+   */
+  private getMenuAnchorElement(): HTMLElement {
+    return this.input;
   }
 
   /**

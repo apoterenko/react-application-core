@@ -551,6 +551,19 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
         />
       </svg>
     ),
+    'more': (
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' width='16' height='16' viewBox='0 0 16 16'
+      >
+        <defs>
+          <path
+            id='7ce1975f-1487-43ce-94b1-0ed9361b2fd7'
+            fill='currentColor'
+            d='M14 4.222a2 2 0 10.001-3.999 2 2 0 00-.001 4zm-6 0A2 2 0 108.001.223a2 2 0 00-.001 4zm-6 0A2 2 0 102.001.223a2 2 0 00-.001 4z'
+          />
+        </defs>
+        <use fillRule='evenodd' transform='translate(0 6)' xlinkHref='#7ce1975f-1487-43ce-94b1-0ed9361b2fd7'/>
+      </svg>
+    ),
   };
   // tslint:enable:max-line-length
 
