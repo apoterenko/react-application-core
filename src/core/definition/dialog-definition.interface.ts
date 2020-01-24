@@ -4,6 +4,7 @@ import {
   IAcceptTextWrapper,
   IAcceptWrapper,
   IActivateWrapper,
+  IAnchorElementWrapper,
   ICheckScrimWrapper,
   IClosableWrapper,
   ICloseDisabledWrapper,
@@ -14,16 +15,29 @@ import {
   IOnCloseWrapper,
   IOnDeactivateWrapper,
   IOpenedWrapper,
+  IWidthWrapper,
 } from '../definitions.interface';
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
+import { IDomPositionConfigurationEntity } from './dom-definition.interface';
+
+/**
+ * @generic-entity
+ * @stable [21.10.2019]
+ */
+export interface IGenericBaseDialogEntity
+  extends IAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
+    IDomPositionConfigurationEntity,
+    IWidthWrapper<number | (() => number)> {
+}
 
 /**
  * @generic-entity
  * @stable [21.10.2019]
  */
 export interface IGenericDialogEntity
-  extends IAcceptableWrapper,
+  extends IGenericBaseDialogEntity,
+    IAcceptableWrapper,
     IAcceptDisabledWrapper,
     IAcceptTextWrapper,
     ICheckScrimWrapper,
