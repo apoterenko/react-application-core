@@ -30,9 +30,6 @@ export interface IUIFactory
   cardActionButtons?: string;
   cardActionIcons?: string;
   rippleSurface?: string;
-  menuAnchor?: string;
-  menuSurface?: string;
-  menu?: string;
 
   /**
    * @stable [15.12.2018]

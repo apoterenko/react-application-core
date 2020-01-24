@@ -21,7 +21,7 @@ import { GoogleMaps } from '../../google';
 import {
   DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   FieldConverterTypesEnum,
-  FILTERED_CENTERED_MENU_ENTITY,
+  DEFAULT_FILTERED_MENU_ENTITY,
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
@@ -170,7 +170,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   protected getMenuProps(): IMenuProps {
     return {
-      ...FILTERED_CENTERED_MENU_ENTITY,
+      ...DEFAULT_FILTERED_MENU_ENTITY,
       remoteFilter: true,
       ...super.getMenuProps(),
     };

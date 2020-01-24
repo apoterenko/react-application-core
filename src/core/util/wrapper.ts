@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import {
   IAlwaysDirtyWrapper,
   ICalendarActionRenderedWrapper,
-  ICenteredMenuWrapper,
   IChangeableWrapper,
   ICheckScrimWrapper,
   IClearActionRenderedWrapper,
@@ -330,14 +329,6 @@ export const isRippled = (wrapper: IRippledWrapper): boolean =>
  */
 export const isMulti = (wrapper: IMultiWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.multi === true, false);
-
-/**
- * @stable [23.11.2019]
- * @param {ICenteredMenuWrapper} wrapper
- * @returns {boolean}
- */
-export const isCenteredMenu = (wrapper: ICenteredMenuWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.centeredMenu === true, false);
 
 /**
  * @stable [23.11.2019]
