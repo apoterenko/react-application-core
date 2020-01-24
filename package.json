@@ -202,7 +202,6 @@
     "application",
     "core",
     "redux",
-    "core",
     "logic"
   ]
 }
