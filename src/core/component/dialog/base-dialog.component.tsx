@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as R from 'ramda';
 
 import { Button } from '../button';
 import {
+  calc,
   handlerPropsFactory,
   isCheckScrimNeeded,
   isFn,
@@ -28,6 +30,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
   private onDeactivateCallback: () => void;
   private readonly doesAnotherScrimLayerExist: boolean;
+  private readonly bodyRef = React.createRef<HTMLDivElement>();
 
   /**
    * @stable [06.01.2020]
@@ -43,7 +46,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.state = {opened: false} as TState;
 
     if (isCheckScrimNeeded(props as ICheckScrimWrapper)) {
-      this.doesAnotherScrimLayerExist = this.domAccessor.hasElements('.rac-dialog__scrim', this.anchorElement);
+      this.doesAnotherScrimLayerExist = this.domAccessor.hasElements('.rac-dialog__scrim', this.portalElement);
     }
   }
 
@@ -58,7 +61,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         ReactDOM.createPortal(
           <div
             ref={this.selfRef}
-            className={this.getDialogClassName()}
+            className={this.dialogClassName}
           >
             <div
               className={
@@ -66,25 +69,35 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                   'rac-dialog__body-wrapper',
                   'rac-absolute',
                   'rac-full-size',
-                  this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
+                  this.isAnchored || this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
                 )}
               {...handlerPropsFactory(this.onDialogScrimClick, true, false)}
             >
               {this.dialogBodyElement}
             </div>
           </div>,
-          this.anchorElement
+          this.portalElement
         )
       )
     );
   }
 
   /**
-   * @stable [06.01.2020]
+   * @stable [24.01.2020]
    * @param {IActivateDialogConfigEntity} payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
+    const props = this.props;
+
     this.setState({opened: true}, () => {
+      if (this.isAnchored) {
+        this.domAccessor.setPosition({
+          ...props.positionConfiguration as {},
+          element: this.bodyRef.current,
+          of: calc<HTMLElement>(props.anchorElement),
+        });
+      }
+
       const {
         onActivate,
         onDeactivate,
@@ -96,7 +109,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       if (isFn(onActivate)) {
         onActivate.call(this);
       }
-      const props = this.props;
       if (isFn(props.onActivate)) {
         props.onActivate();
       }
@@ -108,14 +120,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    */
   public accept(): void {
     this.onAcceptClick();
-  }
-
-  /**
-   * @stable [05.01.2020]
-   * @returns {string}
-   */
-  protected getDialogClassName(): string {
-    return joinClassName('rac-dialog', this.props.className);
   }
 
   /**
@@ -219,12 +223,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [05.01.2020]
+   * @stable [24.01.2020]
    * @returns {JSX.Element}
    */
   private get dialogBodyElement(): JSX.Element {
     return (
       <div
+        ref={this.bodyRef}
+        style={{width: calc(this.props.width)}}
         className='rac-dialog__body'
         {...handlerPropsFactory(noop, true, false)}  // To stop the events bubbling
       >
@@ -298,7 +304,27 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [15.01.2020]
    * @returns {Element}
    */
-  private get anchorElement(): Element {
-    return this.domAccessor.getDocumentBodyElement();
+  private get portalElement(): Element {
+    return this.domAccessor.documentBody;
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {boolean}
+   */
+  private get isAnchored(): boolean {
+    return !R.isNil(this.props.anchorElement);
+  }
+
+  /**
+   * @stable [05.01.2020]
+   * @returns {string}
+   */
+  private get dialogClassName(): string {
+    return joinClassName(
+      'rac-dialog',
+      this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
+      this.props.className
+    );
   }
 }
