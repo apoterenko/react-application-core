@@ -8,9 +8,9 @@ import {
   isHighlightOdd,
 } from '../../util';
 import { ListItem } from './item';
-import { SimpleList } from '../list/simple';
+import { BasicList } from './basic';
 
-export class List extends BaseList<IListProps, {}, SimpleList> {
+export class List extends BaseList<IListProps, {}, BasicList> {
 
   /**
    * @stable [25.10.2019]
@@ -35,11 +35,11 @@ export class List extends BaseList<IListProps, {}, SimpleList> {
    */
   protected getView(): JSX.Element {
     return (
-      <SimpleList
+      <BasicList
         ref={this.selfRef}
         {...this.props}>
         {this.dataSource.map(this.getItem)}
-      </SimpleList>
+      </BasicList>
     );
   }
 
