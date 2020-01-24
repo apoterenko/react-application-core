@@ -9,6 +9,7 @@ import {
   IElementWrapper,
   IEventNameWrapper,
   IParentElementWrapper,
+  IPositionConfigurationWrapper,
 } from '../definitions.interface';
 
 /**
@@ -53,9 +54,41 @@ export interface ICaptureEventConfigEntity
 }
 
 /**
+ * @configuration-entity
+ * @stable [24.01.2020]
+ */
+export interface IDomPositionConfigurationEntity
+  extends IPositionConfigurationWrapper<IDomPositionConfigEntity> {
+}
+
+/**
+ * @config-entity
+ * @see https://api.jqueryui.com/position/
+ * @stable [24.01.2020]
+ */
+export interface IDomPositionConfigEntity<TElement extends HTMLElement = HTMLElement> {
+  at?: string;
+  collision?: string;
+  element?: TElement;
+  my?: string;
+  of?: TElement;
+}
+
+/**
+ * @default-entity
+ * @stable [24.01.2020]
+ */
+export const DEFAULT_DOM_POSITION_CONFIG_ENTITY = Object.freeze<IDomPositionConfigEntity>({
+  at: 'left bottom',
+  collision: 'fit',
+  my: 'left top',
+});
+
+/**
+ * @config-entity
  * @stable [23.11.2019]
  */
-export interface IFireEventConfigEntity
+export interface IDomFireEventConfigEntity
   extends IEventNameWrapper,
     IElementWrapper<Element | EventTarget> {
 }
@@ -64,11 +97,12 @@ export interface IFireEventConfigEntity
  * @stable [29.09.2019]
  */
 export interface IDomAccessor {
+  documentBody?: Element;
   addChild(child: Element, parentEl?: Element): Element;
   addClassNames(element: Element, ...clsNames: string[]): void;
   addRootElement(): Element;
   applyPosition(source: Element, position: string, value: number | (() => number)): void;
-  asJqEl(source: Element): IJQueryElement<Element>;
+  asJqEl<TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement;
   attachClickListener(callback: (e: IBaseEvent) => void, parentEl?: Element | EventTarget): () => void;
   cancelEvent(event: IBaseEvent): void;
   captureEvent(cfg: ICaptureEventConfigEntity): () => void;
@@ -79,10 +113,9 @@ export interface IDomAccessor {
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
   findElement(selector: string | Element, parentEl?: Element): Element;
-  fireEvent(cfg: IFireEventConfigEntity): void;
+  fireEvent(cfg: IDomFireEventConfigEntity): void;
   getActiveElement(): Element;
   getContentHeight(source: Element): number;
-  getDocumentBodyElement(): Element;
   getElement(id: string): Element;
   getHeight(source: Element): number;
   getRootElement(): Element;
@@ -101,6 +134,7 @@ export interface IDomAccessor {
   removeChild(child: Element, parentEl?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
   scrollTo(payload: IXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
+  setPosition(cfg: IDomPositionConfigEntity): void;
   setScrollLeft(el: Element, left: number): void;
   setScrollTop(el: Element, top: number): void;
 }
