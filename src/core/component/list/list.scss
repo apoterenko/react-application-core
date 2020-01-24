@@ -35,4 +35,13 @@
     $rac-list-padding: $rac-list-padding,
     $rac-list-position: $rac-list-position
   );
+
+  /**
+   * @full-list
+   * @stable [24.01.2020]
+   */
+  @include rac-list (
+    $rac-list-custom: rac-full-list,
+    $rac-list-flex: $rac-full-list-flex
+  );
 }

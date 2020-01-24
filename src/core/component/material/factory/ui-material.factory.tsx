@@ -261,7 +261,6 @@ export class UIMaterialFactory implements IUIFactory {
   };
   private static logger = LoggerFactory.makeLogger('UIMaterialFactory');
 
-  public list = 'mdc-list';
   public snackbar = 'mdc-snackbar';
   public snackbarText = 'mdc-snackbar__text';
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
@@ -282,7 +281,6 @@ export class UIMaterialFactory implements IUIFactory {
   public tabIndicatorContent = 'mdc-tab-indicator__content';
   public tabIndicatorContentUnderline = 'mdc-tab-indicator__content--underline';
   public tabBarScroller = 'mdc-tab-scroller';
-  public listItemMeta = 'mdc-list-item__meta';
   public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
   public cardActionButtons = 'mdc-card__action-buttons';

@@ -3,14 +3,12 @@ import { IUiFactory } from '../../definition';
 
 export interface IUIFactory
   extends IUiFactory {
-  list?: string;
   snackbar?: string;
   snackbarText?: string;
   snackbarActionWrapper?: string;
   snackbarActionButton?: string;
   icons?: string;
   toolbar?: string;
-  listItemMeta?: string;
   tabBarScrollerScrollArea?: string;
   tabBarScrollerScrollAreaScroll?: string;
   tabBarScrollerScrollContent?: string;

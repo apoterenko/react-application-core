@@ -7,5 +7,5 @@ export * from './list.container';
 export * from './list.interface';
 export * from './list.reducer';
 export * from './navigation';
-export * from './simple';
+export * from './basic';
 export * from './universal-base-list.container';
