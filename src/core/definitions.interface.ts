@@ -61,6 +61,7 @@ export interface IAlignWrapper<TValue = string> { align?: TValue; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IAlwaysSendChangesWrapper { alwaysSendChanges?: boolean; }
+export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
 export interface IApiEntityWrapper<TValue> { apiEntity?: TValue; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TValue> { application?: TValue; }
@@ -88,8 +89,8 @@ export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?:
 export interface ICalendarEntityConfigurationWrapper<TValue> { calendarEntityConfiguration?: TValue; }
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 export interface ICallbackWrapper<TValue = () => void> { callback?: TValue; }
+export interface IPositionConfigurationWrapper<TValue> { positionConfiguration?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
-export interface ICenteredMenuWrapper { centeredMenu?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
@@ -98,7 +99,7 @@ export interface IChannelWrapper<TValue = string> { channel?: TValue; }
 export interface ICheckScrimWrapper { checkScrim?: boolean; }
 export interface IChildrenWrapper<TValue> { children?: TValue; }
 export interface ICityWrapper<TValue = string> { city?: TValue; }
-export interface IClassNameWrapper<TClassName = string> { className?: TClassName; }
+export interface IClassNameWrapper<TValue = string> { className?: TValue; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
 export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
@@ -112,7 +113,7 @@ export interface IColumnStylesWrapper<TValue> { columnStyles?: TValue; }
 export interface IColumnTitleWrapper<TValue = string> { columnTitle?: TValue; }
 export interface IColumnWidthWrapper { columnWidth?: number; }
 export interface ICompactWrapper<TValue = boolean> { compact?: TValue; }
-export interface IComputedMatchWrapper<TComputedMatch> { computedMatch?: TComputedMatch; }
+export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
@@ -224,13 +225,13 @@ export interface IHomeWrapper<THome> { home?: THome; }
 export interface IHoveredWrapper { hovered?: boolean; }
 export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
 export interface IIconRightWrapper { iconRight?: boolean; }
-export interface IIconWrapper<TIcon = string> { icon?: TIcon; }
-export interface IIdWrapper<TId = number> { id?: TId; }
+export interface IIconWrapper<TValue = string> { icon?: TValue; }
+export interface IIdWrapper<TValue = number> { id?: TValue; }
 export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }
 export interface IIgnoreSelectedValueWrapper { ignoreSelectedValue?: boolean; }
 export interface IIndexedWrapper { indexed?: boolean; }
-export interface IIndexWrapper<TIndex = number> { index?: TIndex; }
-export interface IInfoWrapper<TInfo = string> { info?: TInfo; }
+export interface IIndexWrapper<TValue = number> { index?: TValue; }
+export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
@@ -248,8 +249,7 @@ export interface IKeyboardEvent<TValue = {}> extends React.KeyboardEvent<TValue>
 export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
 export interface IKeyWrapper<TValue = string> { key?: TValue; }
-export interface ILabelWrapper<TLabel = string> { label?: TLabel; }
-export interface ILargeWrapper<TLarge = boolean> { large?: TLarge; }
+export interface ILabelWrapper<TValue = string> { label?: TValue; }
 export interface ILastWrapper<TValue = boolean> { last?: TValue; }
 export interface ILatWrapper<TLat = number> { lat?: TLat; }
 export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
