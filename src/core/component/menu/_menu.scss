@@ -12,10 +12,7 @@
     $rac-menu-dialog-base-text-self-field-background: $rac-menu-dialog-base-text-self-field-background,
     $rac-menu-dialog-base-text-self-field-height: $rac-menu-dialog-base-text-self-field-height,
     $rac-menu-dialog-body-background: $rac-menu-dialog-body-background,
-    $rac-menu-dialog-body-height: $rac-menu-dialog-body-height,
     $rac-menu-dialog-body-justify-content: $rac-menu-dialog-body-justify-content,
-    $rac-menu-dialog-body-padding: $rac-menu-dialog-body-padding,
-    $rac-menu-dialog-body-width: $rac-menu-dialog-body-width,
     $rac-menu-dialog-icon-close-color: $rac-menu-dialog-icon-close-color,
     $rac-menu-dialog-icon-close-margin: $rac-menu-dialog-icon-close-margin,
     $rac-menu-dialog-icon-close-size: $rac-menu-dialog-icon-close-size,
@@ -24,27 +21,23 @@
     $rac-menu-dialog-list-overflow: $rac-menu-dialog-list-overflow
   );
 
-  @include rac-menu (                                                                         /* @stable [23.09.2019] */
-    $rac-menu-list-max-height: $rac-menu-list-max-height,
-    $rac-menu-list-item-padding: $rac-menu-list-item-padding
+  /**
+   * @menu-not-anchored-dialog
+   * @stable [24.01.2020]
+   */
+  @include rac-menu-dialog (
+    $rac-menu-dialog-custom: rac-not-anchored-dialog,
+    $rac-menu-dialog-body-display: $rac-menu-not-anchored-dialog-body-display,
+    $rac-menu-dialog-body-height: $rac-menu-not-anchored-dialog-body-height,
+    $rac-menu-dialog-body-width: $rac-menu-not-anchored-dialog-body-width
   );
 
-  .rac-menu {
-    z-index: $rac-menu-window-position;                                               /* @stable [04.10.2018] */
-
-    .rac-list {
-
-      .rac-list-item {
-
-        &[aria-disabled='true'] {
-          opacity: $rac-opacity;                              /* @stable [05.08.2018] */
-          cursor: default;                                    /* @stable [04.10.2018] */
-        }
-
-        &:hover {
-          background: $rac-menu-item-hover-background;        /* @stable [04.10.2018] */
-        }
-      }
-    }
-  }
+  /**
+   * @menu-anchored-dialog
+   * @stable [25.01.2020]
+   */
+  @include rac-menu-dialog (
+    $rac-menu-dialog-custom: rac-anchored-dialog,
+    $rac-menu-dialog-body-display: $rac-menu-anchored-dialog-body-display
+  );
 }

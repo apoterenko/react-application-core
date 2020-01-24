@@ -2,6 +2,7 @@ import * as R from 'ramda';
 
 import {
   IAlwaysDirtyWrapper,
+  IAnchoredWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   ICheckScrimWrapper,
@@ -370,8 +371,16 @@ export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
  * @param {IMenuRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isMenuOpened = (wrapper: IMenuRenderedWrapper): boolean =>
+export const isMenuRendered = (wrapper: IMenuRenderedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.menuRendered === true, false);
+
+/**
+ * @stable [24.01.2020]
+ * @param {IAnchoredWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isAnchored = (wrapper: IAnchoredWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.anchored === true, false);
 
 /**
  * @stable [11.01.2020]
