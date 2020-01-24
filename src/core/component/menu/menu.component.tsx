@@ -6,19 +6,14 @@ import {
   UNDEF,
 } from '../../definitions.interface';
 import {
-  calc,
   DelayedTask,
   ifNotNilThanValue,
   inProgress,
-  isCenteredMenu,
-  isDef,
   isFilterUsed,
   isFn,
   isHighlightOdd,
   isMulti,
   isRemoteFilterApplied,
-  joinClassName,
-  nvl,
   orNull,
   queryFilter,
   subArray,
@@ -53,21 +48,16 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   private readonly dialogRef = React.createRef<Dialog>();
   private readonly fieldRef = React.createRef<TextField>();
-  private readonly menuAnchorRef = React.createRef<HTMLDivElement>();
   private filterQueryTask: DelayedTask;
   private scrollEventUnsubscriber: () => void;
   private resizeUnsubscriber: () => void;
 
   /**
-   * @stable [31.07.2018]
+   * @stable [24.01.2020]
    * @param {IMenuProps} props
    */
   constructor(props: IMenuProps) {
     super(props);
-
-    if (this.canInitPerfectScrollPlugin) {
-      this.registerPlugin(PerfectScrollPlugin);
-    }
 
     this.getItemElement = this.getItemElement.bind(this);
     this.hide = this.hide.bind(this);
@@ -85,43 +75,30 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [18.06.2019]
+   * @stable [24.01.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
 
-    if (this.centeredMenu) {
-      return (
-        this.state.opened && (
-          <Dialog
-            ref={this.dialogRef}
-            className='rac-menu-dialog'
-            closable={false}
-            acceptable={false}
-            onActivate={this.onDialogActivate}
-            onDeactivate={this.onDialogDeactivate}
-          >
-            {this.closeActionElement}
-            {this.filterElement}
-            {this.getListElement(true)}
-          </Dialog>
-        )
-      );
-    }
-
     return (
-      <div
-        ref={this.menuAnchorRef}
-        className={this.uiFactory.menuAnchor}
-      >
-        <div
-          ref={this.selfRef}
-          style={{...!this.centeredMenu && {width: calc(props.width)}}}
-          className={joinClassName('rac-menu', props.className, this.uiFactory.menu, this.uiFactory.menuSurface)}>
-          {this.getListElement()}
-        </div>
-      </div>
+      this.state.opened && (
+        <Dialog
+          ref={this.dialogRef}
+          closable={false}
+          acceptable={false}
+          width={props.width}
+          positionConfiguration={props.positionConfiguration}
+          anchorElement={props.anchorElement}
+          className='rac-menu-dialog'
+          onActivate={this.onDialogActivate}
+          onDeactivate={this.onDialogDeactivate}
+        >
+          {!this.isAnchored && this.closeActionElement}
+          {this.filterElement}
+          {this.listElement}
+        </Dialog>
+      )
     );
   }
 
@@ -136,23 +113,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.06.2019]
-   * @returns {boolean}
-   */
-  public get centeredMenu(): boolean {
-    return isCenteredMenu(this.props);
-  }
-
-  /**
-   * @stable [04.10.2018]
+   * @stable [24.01.2020]
    */
   public show(): void {
-    const props = this.props;
     this.setState({filter: UNDEF, opened: true}, () => {
       if (this.doesDialogExist) {
         this.dialog.activate();
       }
-      if (!this.centeredMenu) {
+      if (this.isAnchored) {
         this.clearAll();
 
         this.scrollEventUnsubscriber = this.eventEmitter.subscribe({
@@ -168,16 +136,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         });
       }
     });
-
-    ifNotNilThanValue(
-      nvl(props.xPosition, props.yPosition),
-      () => {
-        const el = this.menuAnchorRef.current;
-        this.domAccessor.addClassNames(el, 'rac-absolute');
-        this.domAccessor.applyPosition(el, 'left', props.xPosition);
-        this.domAccessor.applyPosition(el, 'top', props.yPosition);
-      }
-    );
   }
 
   /**
@@ -223,12 +181,13 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [23.11.2019]
+   * @stable [24.01.2020]
    * @param {string} filter
    */
   private onFilterValueChange(filter: string): void {
-    this.setState({filter});
-    this.filterQueryTask.start();
+    this.setState(
+      {filter}, () => ifNotNilThanValue(this.filterQueryTask, (task) => task.start())
+    );
   }
 
   /**
@@ -289,17 +248,15 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [06.12.2019]
-   * @param {boolean} addPerfectScroll
+   * @stable [24.01.2020]
    * @returns {JSX.Element}
    */
-  private getListElement(addPerfectScroll = false): JSX.Element {
+  private get listElement(): JSX.Element {
     return (
       <SimpleList
-        plugins={[
-          ...(addPerfectScroll ? [PerfectScrollPlugin] : [])
-        ]}
-        className={this.uiFactory.list}>
+        plugins={[PerfectScrollPlugin]}
+        className={this.uiFactory.list}
+      >
         {subArray(this.items, this.props.maxCount).map(this.getItemElement)}
       </SimpleList>
     );
@@ -329,14 +286,12 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.01.2020]
+   * @stable [24.01.2020]
    */
   private clearAll(): void {
     this.unsubscribeAllCaptureEvents();
 
-    if (isDef(this.filterQueryTask)) {
-      this.filterQueryTask.stop();
-    }
+    ifNotNilThanValue(this.filterQueryTask, (task) => task.stop());
   }
 
   /**
@@ -346,6 +301,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   private get filterElement(): JSX.Element {
     const props = this.props;
     const state = this.state;
+
     return orNull(
       this.isFilterUsed,
       () => (
@@ -408,20 +364,20 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [20.12.2019]
-   * @returns {boolean}
-   */
-  private get canInitPerfectScrollPlugin(): boolean {
-    return !this.centeredMenu;
-  }
-
-  /**
    * @stable [17.01.2020]
    * @param {HTMLElement} element
    * @returns {boolean}
    */
   private scrollEventCallbackCondition(element: HTMLElement): boolean {
     return element !== this.selfRef.current;
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {boolean}
+   */
+  private get isAnchored(): boolean {
+    return !R.isNil(this.props.anchorElement);
   }
 
   /**
