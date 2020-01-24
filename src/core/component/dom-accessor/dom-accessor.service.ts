@@ -1,5 +1,7 @@
-import { injectable } from 'inversify';
 import * as R from 'ramda';
+import * as $ from 'jquery';
+import { injectable } from 'inversify';
+import 'jquery-ui/ui/position';
 
 import {
   addChild,
@@ -9,6 +11,7 @@ import {
   cancelEvent,
   createElement,
   createScript,
+  defValuesFilter,
   findElement,
   getContentHeight,
   getHeight,
@@ -18,7 +21,6 @@ import {
   hasClasses,
   hasElements,
   hasParent,
-  isElementFocused,
   isElementVisibleWithinParent,
   isFn,
   openFullScreen,
@@ -29,16 +31,17 @@ import {
   sequence,
   setScrollLeft,
   setScrollTop,
-  toJqEl,
 } from '../../util';
 import {
+  DEFAULT_DOM_POSITION_CONFIG_ENTITY,
   EventsEnum,
   IBaseEvent,
   ICaptureEventConfigEntity,
   IDomAccessor,
+  IDomPositionConfigEntity,
   IEnvironment,
   IEventManager,
-  IFireEventConfigEntity,
+  IDomFireEventConfigEntity,
   IJQueryElement,
   IScrollConfigEntity,
   IXYEntity,
@@ -52,12 +55,44 @@ import {
   IBootstrapSettings,
   ISettingsEntity,
 } from '../../settings';
+import { UNDEF } from '../../definitions.interface';
 
 @injectable()
 export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {Element}
+   */
+  public get documentBody(): Element {
+    return this.environment.document.body;
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @param {IDomPositionConfigEntity} cfg
+   */
+  public setPosition(cfg: IDomPositionConfigEntity): void {
+    const cfg0 = defValuesFilter<IDomPositionConfigEntity, IDomPositionConfigEntity>({
+      ...DEFAULT_DOM_POSITION_CONFIG_ENTITY,
+      ...cfg,
+      element: UNDEF,
+    });
+    const el = this.asJqEl(cfg.element);
+    el.position(cfg0);
+  }
+
+  /**
+   * @stable [23.11.2019]
+   * @param {IDomFireEventConfigEntity} cfg
+   */
+  public fireEvent(cfg: IDomFireEventConfigEntity): void {
+    const {eventName, element = this.window} = cfg;
+    element.dispatchEvent(new Event(eventName));
+  }
 
   /**
    * @stable [11.01.2020]
@@ -83,15 +118,6 @@ export class DomAccessor implements IDomAccessor {
    */
   public createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement> {
     return createScript(cfg);
-  }
-
-  /**
-   * @stable [23.11.2019]
-   * @param {IFireEventConfigEntity} cfg
-   */
-  public fireEvent(cfg: IFireEventConfigEntity): void {
-    const {eventName, element = this.window} = cfg;
-    element.dispatchEvent(new Event(eventName));
   }
 
   /**
@@ -186,12 +212,12 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [30.10.2019]
+   * @stable [24.01.2020]
    * @param {Element} element
    * @returns {boolean}
    */
   public isElementFocused(element: Element): boolean {
-    return isElementFocused(element);
+    return this.environment.document.activeElement === element;
   }
 
   /**
@@ -359,14 +385,6 @@ export class DomAccessor implements IDomAccessor {
 
   /**
    * @stable [13.01.2019]
-   * @returns {Element}
-   */
-  public getDocumentBodyElement(): Element {
-    return this.environment.document.body;
-  }
-
-  /**
-   * @stable [13.01.2019]
    * @param {Element} element
    * @param {string} clsNames
    */
@@ -424,8 +442,8 @@ export class DomAccessor implements IDomAccessor {
    * @param {Element} source
    * @returns {IJQueryElement}
    */
-  public asJqEl(source: Element): IJQueryElement {
-    return toJqEl(source);
+  public asJqEl<TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement {
+    return $(source) as TJqElement;
   }
 
   /**
