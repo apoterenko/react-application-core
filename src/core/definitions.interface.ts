@@ -61,6 +61,7 @@ export interface IAlignWrapper<TValue = string> { align?: TValue; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IAlwaysSendChangesWrapper { alwaysSendChanges?: boolean; }
+export interface IAnchoredWrapper { anchored?: boolean; }
 export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
 export interface IApiEntityWrapper<TValue> { apiEntity?: TValue; }
 export interface IApiUrlWrapper { apiUrl?: string; }
@@ -89,7 +90,6 @@ export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?:
 export interface ICalendarEntityConfigurationWrapper<TValue> { calendarEntityConfiguration?: TValue; }
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 export interface ICallbackWrapper<TValue = () => void> { callback?: TValue; }
-export interface IPositionConfigurationWrapper<TValue> { positionConfiguration?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
@@ -134,6 +134,7 @@ export interface IDecoratedWrapper { decorated?: boolean; }
 export interface IDefaultChangesWrapper<TChanges extends IKeyValue = IKeyValue> { defaultChanges?: TChanges; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
+export interface IDefaultWrapper { default?: boolean; }
 export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
 export interface IDepthWrapper { depth?: number; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
@@ -198,7 +199,7 @@ export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwarded
 export interface IFromToEntity<TValue> extends IToWrapper<TValue>, IFromWrapper<TValue> {}
 export interface IFromWrapper<TValue = string> { from?: TValue; }
 export interface IFullSizeWrapper { fullSize?: boolean; }
-export interface IFullWrapper<TFull = boolean> { full?: TFull; }
+export interface IFullWrapper<TValue = boolean> { full?: TValue; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
 export interface IGoBackWrapper { goBack?(depth?: number): void; }
 export interface IGridConfigurationWrapper<TValue> { gridConfiguration?: TValue; }
@@ -360,6 +361,7 @@ export interface IPlainValueWrapper { plainValue?: boolean; }
 export interface IPluginsWrapper<TValue> { plugins?: TValue; }
 export interface IPointsWrapper<TValue> { points?: TValue; }
 export interface IPopupWrapper<TValue = boolean> { popup?: TValue; }
+export interface IPositionConfigurationWrapper<TValue> { positionConfiguration?: TValue; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IPreviewScaleWrapper<TValue = number> { previewScale?: TValue; }
@@ -412,6 +414,7 @@ export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue;
 export interface IRowNumWrapper { rowNum?: number; }
 export interface IRowWrapper<TRow = boolean> { row?: TRow; }
 export interface IScaleWrapper<TScale = number> { scale?: TScale; }
+export interface IScrollableWrapper { scrollable?: boolean; }
 export interface ISectionNameWrapper { sectionName?: string; }
 export interface ISectionWrapper<TSection = string> { section?: TSection; }
 export interface ISelectableWrapper<TValue = boolean> { selectable?: TValue; }

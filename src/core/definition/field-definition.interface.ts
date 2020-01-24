@@ -9,6 +9,7 @@ import {
   EntityIdT,
   IActionsPosition,
   IActionsWrapper,
+  IAnchoredWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   ICalendarActionRenderedWrapper,
@@ -17,6 +18,7 @@ import {
   ICurrentWrapper,
   ICursorWrapper,
   IDefaultValueWrapper,
+  IDelayTimeoutWrapper,
   IDialogOpenedWrapper,
   IDisabledWrapper,
   IDisableLabelWrapper,
@@ -25,8 +27,10 @@ import {
   IDisplayValueWrapper,
   IEmptyValueWrapper,
   IEntity,
+  IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
   IFieldsWrapper,
+  IForceReloadWrapper,
   IFormatWrapper,
   IFromToEntity,
   IFullWrapper,
@@ -270,6 +274,17 @@ export interface IGenericBaseCheckboxEntity
 export interface IGenericBaseSelectState
   extends IMenuRenderedWrapper,
     IWaitingForDataWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [24.01.2020]
+ */
+export interface IGenericBaseSelectEntity
+  extends IAnchoredWrapper,
+    IDelayTimeoutWrapper,
+    IExpandActionRenderedWrapper,
+    IForceReloadWrapper {
 }
 
 /**

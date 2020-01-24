@@ -7,6 +7,7 @@ import {
   ICheckScrimWrapper,
   IClearActionRenderedWrapper,
   IDecoratedWrapper,
+  IDefaultWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
   IDisplayValueOnlyWrapper,
@@ -15,6 +16,7 @@ import {
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
   IFocusedWrapper,
+  IFullWrapper,
   IHeaderRenderedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
@@ -36,6 +38,7 @@ import {
   IRenderedWrapper,
   IRequiredWrapper,
   IRippledWrapper,
+  IScrollableWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
@@ -102,6 +105,30 @@ export const isCheckScrimNeeded = <TEntity extends ICheckScrimWrapper = ICheckSc
  */
 export const isReady = (entity: IReadyWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.ready === true, false);
+
+/**
+ * @stable [24.01.2020]
+ * @param {IFullWrapper} entity
+ * @returns {boolean}
+ */
+export const isFull = (entity: IFullWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.full !== false, false);
+
+/**
+ * @stable [24.01.2020]
+ * @param {IScrollableWrapper} entity
+ * @returns {boolean}
+ */
+export const isScrollable = (entity: IScrollableWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.scrollable !== false, false);
+
+/**
+ * @stable [24.01.2020]
+ * @param {IDefaultWrapper} entity
+ * @returns {boolean}
+ */
+export const isDefault = (entity: IDefaultWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.default !== false, false);
 
 /**
  * @stable [28.11.2019]
