@@ -230,7 +230,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return (
       <div
         ref={this.bodyRef}
-        style={{width: calc(this.props.width)}}
+        style={{width: calc<number>(this.props.width)}}
         className='rac-dialog__body'
         {...handlerPropsFactory(noop, true, false)}  // To stop the events bubbling
       >

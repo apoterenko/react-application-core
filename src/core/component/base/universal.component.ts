@@ -67,6 +67,8 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   constructor(props: TProps) {
     super(props);
 
+    this.registerPlugin = this.registerPlugin.bind(this);
+
     this.initPlugins();
     patchRenderMethod(this);
   }
@@ -266,7 +268,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
     if (dynamicPluginFactory) {
       this.registerPlugin(dynamicPluginFactory(this));
     }
-    [].concat(this.props.plugins || []).forEach((plugin) => this.registerPlugin(plugin));
+    [].concat(this.props.plugins || []).forEach(this.registerPlugin);
   }
 
   /**
