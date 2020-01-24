@@ -799,9 +799,12 @@ $rac-default-dialog-display: $rac-dialog-display-0 !default;
 $rac-default-dialog-justify-content: center !default;
 /**/
 $rac-menu-anchored-dialog-body-display: inline-block !default;
+$rac-menu-not-anchored-dialog-align-items: center !default;
 $rac-menu-not-anchored-dialog-body-display: $rac-dialog-display-0 !default;
 $rac-menu-not-anchored-dialog-body-height: $rac-dialog-height-0 !default;
 $rac-menu-not-anchored-dialog-body-width: $rac-dialog-width-0 !default;
+$rac-menu-not-anchored-dialog-display: $rac-dialog-display-0 !default;
+$rac-menu-not-anchored-dialog-justify-content: center !default;
 /**/
 $rac-menu-dialog-icon-close-color: $rac-dialog-color-0 !default;
 $rac-menu-dialog-icon-close-margin: 0 0 $rac-offset-1 auto !default;

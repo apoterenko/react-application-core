@@ -27,9 +27,12 @@
    */
   @include rac-menu-dialog (
     $rac-menu-dialog-custom: rac-not-anchored-dialog,
+    $rac-menu-dialog-align-items: $rac-menu-not-anchored-dialog-align-items,
     $rac-menu-dialog-body-display: $rac-menu-not-anchored-dialog-body-display,
     $rac-menu-dialog-body-height: $rac-menu-not-anchored-dialog-body-height,
-    $rac-menu-dialog-body-width: $rac-menu-not-anchored-dialog-body-width
+    $rac-menu-dialog-body-width: $rac-menu-not-anchored-dialog-body-width,
+    $rac-menu-dialog-display: $rac-menu-not-anchored-dialog-display,
+    $rac-menu-dialog-justify-content: $rac-menu-not-anchored-dialog-justify-content
   );
 
   /**

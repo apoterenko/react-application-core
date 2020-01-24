@@ -3102,6 +3102,7 @@
 @mixin rac-menu-dialog (
   $rac-menu-dialog-custom: unset,
   /**/
+  $rac-menu-dialog-align-items: unset,                                             /* @stable [25.01.2020] */
   $rac-menu-dialog-base-text-field-margin: unset,                                  /* @stable [11.11.2019] */
   $rac-menu-dialog-base-text-self-field-background: unset,                         /* @stable [11.11.2019] */
   $rac-menu-dialog-base-text-self-field-height: unset,                             /* @stable [11.11.2019] */
@@ -3116,12 +3117,14 @@
   $rac-menu-dialog-icon-close-color: unset,                                        /* @stable [11.11.2019] */
   $rac-menu-dialog-icon-close-margin: unset,                                       /* @stable [11.11.2019] */
   $rac-menu-dialog-icon-close-size: unset,                                         /* @stable [11.11.2019] */
+  $rac-menu-dialog-justify-content: unset,                                         /* @stable [25.01.2020] */
   $rac-menu-dialog-list-background: unset,                                         /* @stable [11.11.2019] */
   $rac-menu-dialog-list-border-radius: unset,                                      /* @stable [11.11.2019] */
   $rac-menu-dialog-list-overflow: unset                                            /* @stable [11.11.2019] */
 ) {
   @include rac-dialog (
     $rac-dialog-custom: rac-cls2($rac-menu-dialog-cls, $rac-menu-dialog-custom),
+    $rac-dialog-align-items: $rac-menu-dialog-align-items,
     $rac-dialog-body-background: $rac-menu-dialog-body-background,
     $rac-dialog-body-display: $rac-menu-dialog-body-display,
     $rac-dialog-body-flex-direction: $rac-menu-dialog-body-flex-direction,
@@ -3129,7 +3132,8 @@
     $rac-dialog-body-justify-content: $rac-menu-dialog-body-justify-content,
     $rac-dialog-body-min-height: $rac-menu-dialog-body-min-height,
     $rac-dialog-body-padding: $rac-menu-dialog-body-padding,
-    $rac-dialog-body-width: $rac-menu-dialog-body-width
+    $rac-dialog-body-width: $rac-menu-dialog-body-width,
+    $rac-dialog-justify-content: $rac-menu-dialog-justify-content
   );
 
   #{rac-cls($rac-menu-dialog-cls, $rac-menu-dialog-custom)} {
