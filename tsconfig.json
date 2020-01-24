@@ -17,9 +17,10 @@
       "dom"
     ],
     "types": [
-      "node",
+      "googlemaps",
       "jasmine",
-      "googlemaps"
+      "jqueryui",
+      "node"
     ],
     "typeRoots": [
       "node_modules/@types"
