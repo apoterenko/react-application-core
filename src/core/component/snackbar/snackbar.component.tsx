@@ -27,7 +27,7 @@ export class Snackbar extends BaseComponent<ISnackbarProps> {
           <button className={toClassName('rac-snackbar-button', this.uiFactory.snackbarActionButton)}/>
         </div>
       </div>,
-      this.domAccessor.getDocumentBodyElement()
+      this.domAccessor.documentBody
     );
   }
 }

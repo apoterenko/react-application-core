@@ -50,6 +50,7 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps, TS
 }
 
 /**
+ * @ctor
  * @react-native-compatible
  * @stable [23.10.2019]
  */
@@ -58,6 +59,7 @@ export interface IUniversalComponentCtor<TProps extends IUniversalComponentProps
 }
 
 /**
+ * @ctor
  * @stable [23.10.2019]
  */
 export interface IComponentCtor<TProps extends IComponentProps = IComponentProps, TState = {}>

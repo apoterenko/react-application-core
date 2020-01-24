@@ -42,7 +42,7 @@ export class Overlay extends BaseComponent<IOverlayProps> {
           )
         )}
       </FlexLayout>,
-      this.domAccessor.getDocumentBodyElement()
+      this.domAccessor.documentBody
     );
   }
 

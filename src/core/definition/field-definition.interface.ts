@@ -276,9 +276,9 @@ export interface IGenericBaseSelectState
  * @default-entity
  * @stable [15.01.2020]
  */
-export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
+export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({ // TODO Generic entity
   expandActionRendered: false,
-  menuConfiguration: {centeredMenu: false, useFilter: false},
+  menuConfiguration: {useFilter: false},
   preventFocus: false,
 });
 

@@ -1,4 +1,5 @@
 import {
+  AnyT,
   EntityIdT,
   IActiveValueWrapper,
   IAddWrapper,
@@ -12,6 +13,7 @@ import {
   IEntityWrapper,
   IIndexWrapper,
   IKeyValue,
+  ILabelWrapper,
   INameWrapper,
   INewEntityWrapper,
   IOriginalEntityWrapper,
@@ -22,9 +24,19 @@ import {
   ISourceWrapper,
   ITouchedWrapper,
   IValidWrapper,
+  IValueWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
+
+/**
+ * @entity
+ * @stable [24.01.2020]
+ */
+export interface ILabeledValueEntity<TValue = AnyT>
+  extends ILabelWrapper,
+    IValueWrapper<TValue> {
+}
 
 /**
  * @stable [11.09.2019]
