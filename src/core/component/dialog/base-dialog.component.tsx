@@ -63,20 +63,16 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         ReactDOM.createPortal(
           <div
             ref={this.selfRef}
-            className={this.dialogClassName}
+            className={
+              joinClassName(
+                this.dialogClassName,
+                'rac-absolute',
+                'rac-full-size',
+                this.isAnchored || this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
+              )}
+            {...this.getHandlerProps(this.onDialogScrimClick)}
           >
-            <div
-              className={
-                joinClassName(
-                  'rac-dialog__body-wrapper',
-                  'rac-absolute',
-                  'rac-full-size',
-                  this.isAnchored || this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
-                )}
-              {...this.getHandlerProps(this.onDialogScrimClick)}
-            >
-              {this.dialogBodyElement}
-            </div>
+            {this.dialogBodyElement}
           </div>,
           this.portalElement
         )
