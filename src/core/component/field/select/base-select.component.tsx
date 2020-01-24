@@ -8,10 +8,11 @@ import {
 import {
   DelayedTask,
   ifNotEmptyThanValue,
+  isAnchored,
   isDef,
   isExpandActionRendered,
   isFn,
-  isMenuOpened,
+  isMenuRendered,
   isWaitingForData,
   joinClassName,
   nvl,
@@ -193,12 +194,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected get inputAttachmentElement(): JSX.Element {
     return orNull(
-      this.isMenuOpened,
-      () => ( // To improve a performance
+      this.isMenuRendered,   // To improve a performance
+      () => (
         <Menu
           ref={this.menuRef}
-          anchorElement={this.getMenuAnchorElement}
-          width={this.getMenuWidth}
+          anchorElement={orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
+          width={orNull(this.isMenuAnchored, () => this.getMenuWidth)}
           progress={!this.areOptionsDefined}
           options={this.filteredOptions}
           onSelect={this.onSelect}
@@ -448,8 +449,16 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [22.01.2020]
    * @returns {boolean}
    */
-  private get isMenuOpened(): boolean {
-    return isMenuOpened(this.state);
+  private get isMenuRendered(): boolean {
+    return isMenuRendered(this.state);
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {boolean}
+   */
+  private get isMenuAnchored(): boolean {
+    return isAnchored(this.props);
   }
 
   /**
