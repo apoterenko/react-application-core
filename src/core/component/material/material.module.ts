@@ -5,16 +5,14 @@ import {
   bindToConstantValue,
   DI_TYPES,
 } from '../../di';
-import { addClassNameToBody, orNull, ifNotFalseThanValue } from '../../util';
+import { addClassNameToBody, ifNotFalseThanValue } from '../../util';
 import { IUIFactory } from '../factory';
 import {
   MaterialPlugin,
-  MenuMaterialPlugin,
   TabPanelMaterialPlugin,
   SnackbarMaterialPlugin,
 } from './plugin';
 import { UIMaterialFactory } from './factory';
-import { Menu } from '../menu';
 import { TabPanel } from '../tabpanel';
 import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
@@ -34,12 +32,6 @@ uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(comp
  * @stable [15.08.2018]
  */
 uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(component));
-
-/**
- * @stable [18.06.2019]
- */
-uiPlugins.set(Menu, (component: Menu) =>
-  orNull(!component.centeredMenu, () => new MenuMaterialPlugin<Menu>(component)));
 
 /**
  * @stable [30.08.2019]

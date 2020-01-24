@@ -6,6 +6,7 @@ import { BasicContainer } from '../base/basic.container';
 import { NOTIFICATION_CLEAR_ACTION_TYPE } from '../../notification';
 import { IContainerProps } from '../../definition';
 
+// TODO
 export class LayoutContainer<TProps extends IContainerProps, TState = {}> extends BasicContainer<TProps, TState> {
 
   /**

@@ -62,7 +62,6 @@ import {
   faChevronLeft,
   faPlug,
   faKey,
-  faEllipsisH,
   faPowerOff,
   faInfo,
   faBinoculars,
@@ -168,7 +167,6 @@ export class UIMaterialFactory implements IUIFactory {
     dashboard: faChartLine,
     done: faCheck,
     done_all: faCheckDouble,
-    ellipsis_h: faEllipsisH,
     error: faExclamationCircle,
     exchange: faExchangeAlt,
     exchange_alt: faExchangeAlt,
@@ -205,7 +203,6 @@ export class UIMaterialFactory implements IUIFactory {
     map_marker_alt: faMapMarkerAlt,
     menu: faBars,
     minus: faMinus,
-    more_hor: faEllipsisH,
     more_vert: faEllipsisV,
     navigate_before: faChevronLeft,
     navigate_next: faChevronRight,
@@ -291,9 +288,6 @@ export class UIMaterialFactory implements IUIFactory {
   public cardActionButtons = 'mdc-card__action-buttons';
   public cardActionIcons = 'mdc-card__action-icons';
   public rippleSurface = 'mdc-ripple-surface';
-  public menuAnchor = 'mdc-menu-surface--anchor';
-  public menuSurface = 'mdc-menu-surface';
-  public menu = 'mdc-menu';
 
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;
@@ -323,6 +317,7 @@ export class UIMaterialFactory implements IUIFactory {
 
     return (
       <div
+        ref={config.ref}
         key={config.key || uuid()}
         title={config.title}
         className={joinClassName(
