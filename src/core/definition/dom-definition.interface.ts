@@ -47,7 +47,7 @@ export interface IJQueryElement<TElement extends Element = Element>
  */
 export interface ICaptureEventConfigEntity
   extends IAutoUnsubscribingWrapper,
-    ICallbackWrapper,
+    ICallbackWrapper<(event?: IBaseEvent) => void>,
     ICaptureWrapper,
     IConditionWrapper<() => void>,
     IElementWrapper<Element | EventTarget>,

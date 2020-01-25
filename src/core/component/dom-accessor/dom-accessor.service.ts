@@ -141,20 +141,21 @@ export class DomAccessor implements IDomAccessor {
     const {
       autoUnsubscribing,
       callback,
+      capture = false,
       condition = () => true,
       element = this.window,
       eventName,
     } = cfg;
 
     let eventUnsubscriber: () => void;
-    return eventUnsubscriber = this.eventManager.subscribe(element, eventName, () => {
+    return eventUnsubscriber = this.eventManager.subscribe(element, eventName, (event: IBaseEvent) => {
       if (condition()) {
         if (autoUnsubscribing) {
           eventUnsubscriber();
         }
-        callback();
+        callback(event);
       }
-    });
+    }, capture);
   }
 
   /**
