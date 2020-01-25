@@ -225,12 +225,10 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [06.01.2020]
+   * @stable [25.01.2020]
    */
   private onDialogActivate(): void {
-    if (this.isFilterUsed) {
-      this.field.setFocus();
-    }
+    ifNotNilThanValue(this.field, (field) => field.setFocus());
   }
 
   /**
@@ -277,7 +275,8 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         odd={isHighlightOdd(props, index)}
         renderer={props.renderer}
         tpl={props.tpl}
-        onClick={this.onSelect}>
+        onClick={this.onSelect}
+      >
         {this.optionValueFn(option)}
       </ListItem>
     );
@@ -323,7 +322,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
       this.uiFactory.makeIcon({
         key: 'menu-close-action-key',
         type: 'close',
-        className: 'rac-menu-dialog-icon-close',
+        className: 'rac-menu-dialog__icon-close',
         onClick: this.hide,
       })
     );
@@ -383,7 +382,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @returns {boolean}
    */
   private get isDialogScrollable(): boolean {
-    return !this.isFilterUsed;
+    return !this.isAnchored;
   }
 
   /**

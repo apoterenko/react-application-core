@@ -1331,7 +1331,6 @@
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-margin: unset,
   $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
-  $rac-list-item-outline: unset,
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
   $rac-list-item-position: unset,
   $rac-list-item-text-margin: unset,
@@ -1361,7 +1360,6 @@
       $rac-styles-line-height: $rac-list-item-line-height,
       $rac-styles-margin: $rac-list-item-margin,
       $rac-styles-min-height: $rac-list-item-min-height,
-      $rac-styles-outline: $rac-list-item-outline,
       $rac-styles-padding: $rac-list-item-padding,
       $rac-styles-position: $rac-list-item-position,
       $rac-styles-width: $rac-list-item-width
@@ -1415,7 +1413,7 @@
   $rac-list-item-custom: unset,
   $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
   $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
-  $rac-list-item-float: unset,
+  $rac-list-item-float: unset,                                                    /* @stable [25.01.2020] */
   $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
   $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-graphic-background: unset,
@@ -1428,7 +1426,6 @@
   $rac-list-item-margin: unset,
   $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
   $rac-list-item-odd-background: unset,
-  $rac-list-item-outline: unset,
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
   $rac-list-item-position: unset,
   $rac-list-item-selected-background: unset,                                      /* @stable [27.10.2019] */
@@ -1484,7 +1481,6 @@
       $rac-list-item-line-height: $rac-list-item-line-height,
       $rac-list-item-margin: $rac-list-item-margin,
       $rac-list-item-min-height: $rac-list-item-min-height,
-      $rac-list-item-outline: $rac-list-item-outline,
       $rac-list-item-padding: $rac-list-item-padding,
       $rac-list-item-position: $rac-list-item-position,
       $rac-list-item-text-margin: $rac-list-item-text-margin,
@@ -2996,9 +2992,13 @@
   $rac-dialog-body-background: unset,                                                         /* @stable [15.01.2020] */
   $rac-dialog-body-border-radius: unset,                                                      /* @stable [15.01.2020] */
   $rac-dialog-body-content-align-items: unset,
+  $rac-dialog-body-content-background: unset,                                                 /* @stable [25.01.2020] */
+  $rac-dialog-body-content-border-radius: unset,                                              /* @stable [25.01.2020] */
+  $rac-dialog-body-content-box-shadow: unset,                                                 /* @stable [25.01.2020] */
   $rac-dialog-body-content-display: unset,                                                    /* @stable [29.12.2019] */
   $rac-dialog-body-content-flex-direction: unset,                                             /* @stable [29.12.2019] */
   $rac-dialog-body-content-flex: unset,                                                       /* @stable [29.12.2019] */
+  $rac-dialog-body-content-margin: unset,                                                     /* @stable [25.01.2020] */
   $rac-dialog-body-content-overflow: unset,                                                   /* @stable [10.01.2020] */
   $rac-dialog-body-content-padding: unset,                                                    /* @stable [29.12.2019] */
   $rac-dialog-body-content-position: unset,                                                   /* @stable [29.12.2019] */
@@ -3006,6 +3006,7 @@
   $rac-dialog-body-flex-direction: unset,                                                     /* @stable [06.01.2020] */
   $rac-dialog-body-height: unset,                                                             /* @stable [29.12.2019] */
   $rac-dialog-body-justify-content: unset,                                                    /* @stable [29.12.2019] */
+  $rac-dialog-body-margin: unset,                                                             /* @stable [25.01.2020] */
   $rac-dialog-body-max-height: unset,                                                         /* @stable [15.01.2020] */
   $rac-dialog-body-max-width: unset,                                                          /* @stable [06.01.2020] */
   $rac-dialog-body-min-height: unset,                                                         /* @stable [15.01.2020] */
@@ -3031,6 +3032,7 @@
       $rac-styles-flex-direction: $rac-dialog-body-flex-direction,
       $rac-styles-height: $rac-dialog-body-height,
       $rac-styles-justify-content: $rac-dialog-body-justify-content,
+      $rac-styles-margin: $rac-dialog-body-margin,
       $rac-styles-max-height: $rac-dialog-body-max-height,
       $rac-styles-max-width: $rac-dialog-body-max-width,
       $rac-styles-min-height: $rac-dialog-body-min-height,
@@ -3070,9 +3072,13 @@
     @include rac-styles (
       $rac-styles-custom: rac-dialog__body-content,
       $rac-styles-align-items: $rac-dialog-body-content-align-items,
+      $rac-styles-background: $rac-dialog-body-content-background,
+      $rac-styles-border-radius: $rac-dialog-body-content-border-radius,
+      $rac-styles-box-shadow: $rac-dialog-body-content-box-shadow,
       $rac-styles-display: $rac-dialog-body-content-display,
       $rac-styles-flex-direction: $rac-dialog-body-content-flex-direction,
       $rac-styles-flex: $rac-dialog-body-content-flex,
+      $rac-styles-margin: $rac-dialog-body-content-margin,
       $rac-styles-overflow: $rac-dialog-body-content-overflow,
       $rac-styles-padding: $rac-dialog-body-content-padding,
       $rac-styles-position: $rac-dialog-body-content-position
@@ -3103,10 +3109,15 @@
   $rac-menu-dialog-base-text-self-field-background: unset,                         /* @stable [11.11.2019] */
   $rac-menu-dialog-base-text-self-field-height: unset,                             /* @stable [11.11.2019] */
   $rac-menu-dialog-body-background: unset,                                         /* @stable [11.11.2019] */
+  $rac-menu-dialog-body-content-background: unset,                                 /* @stable [25.01.2020] */
+  $rac-menu-dialog-body-content-border-radius: unset,                              /* @stable [25.01.2020] */
+  $rac-menu-dialog-body-content-box-shadow: unset,                                 /* @stable [25.01.2020] */
+  $rac-menu-dialog-body-content-margin: unset,                                     /* @stable [25.01.2020] */
   $rac-menu-dialog-body-display: unset,                                            /* @stable [25.01.2020] */
   $rac-menu-dialog-body-flex-direction: unset,                                     /* @stable [24.01.2020] */
   $rac-menu-dialog-body-height: unset,                                             /* @stable [28.12.2019] */
   $rac-menu-dialog-body-justify-content: unset,                                    /* @stable [29.12.2019] */
+  $rac-menu-dialog-body-margin: unset,                                             /* @stable [25.01.2020] */
   $rac-menu-dialog-body-min-height: unset,                                         /* @stable [28.12.2019] */
   $rac-menu-dialog-body-padding: unset,                                            /* @stable [24.01.2020] */
   $rac-menu-dialog-body-width: unset,                                              /* @stable [15.01.2020] */
@@ -3121,16 +3132,22 @@
   $rac-menu-dialog-list-item-color: unset,                                         /* @stable [25.01.2020] */
   $rac-menu-dialog-list-item-min-height: unset,                                    /* @stable [25.01.2020] */
   $rac-menu-dialog-list-margin: unset,                                             /* @stable [25.01.2020] */
-  $rac-menu-dialog-list-overflow: unset                                            /* @stable [11.11.2019] */
+  $rac-menu-dialog-list-overflow: unset,                                           /* @stable [11.11.2019] */
+  $rac-menu-dialog-list-padding: unset                                             /* @stable [25.01.2020] */
 ) {
   @include rac-dialog (
     $rac-dialog-custom: rac-cls2($rac-menu-dialog-cls, $rac-menu-dialog-custom),
     $rac-dialog-align-items: $rac-menu-dialog-align-items,
     $rac-dialog-body-background: $rac-menu-dialog-body-background,
+    $rac-dialog-body-content-background: $rac-menu-dialog-body-content-background,
+    $rac-dialog-body-content-border-radius: $rac-menu-dialog-body-content-border-radius,
+    $rac-dialog-body-content-box-shadow: $rac-menu-dialog-body-content-box-shadow,
+    $rac-dialog-body-content-margin: $rac-menu-dialog-body-content-margin,
     $rac-dialog-body-display: $rac-menu-dialog-body-display,
     $rac-dialog-body-flex-direction: $rac-menu-dialog-body-flex-direction,
     $rac-dialog-body-height: $rac-menu-dialog-body-height,
     $rac-dialog-body-justify-content: $rac-menu-dialog-body-justify-content,
+    $rac-dialog-body-margin: $rac-menu-dialog-body-margin,
     $rac-dialog-body-min-height: $rac-menu-dialog-body-min-height,
     $rac-dialog-body-padding: $rac-menu-dialog-body-padding,
     $rac-dialog-body-width: $rac-menu-dialog-body-width,
@@ -3146,7 +3163,8 @@
       $rac-list-item-color: $rac-menu-dialog-list-item-color,
       $rac-list-item-min-height: $rac-menu-dialog-list-item-min-height,
       $rac-list-margin: $rac-menu-dialog-list-margin,
-      $rac-list-overflow: $rac-menu-dialog-list-overflow
+      $rac-list-overflow: $rac-menu-dialog-list-overflow,
+      $rac-list-padding: $rac-menu-dialog-list-padding
     );
 
     @include rac-field (

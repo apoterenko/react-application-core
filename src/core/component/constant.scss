@@ -316,7 +316,7 @@ $rac-list-item-border-radius: unset !default;
 $rac-list-item-color: $rac-color-1-0 !default;
 $rac-list-item-cursor: pointer !default;
 $rac-list-item-display: flex !default;
-$rac-list-item-flex-direction: row !default;
+$rac-list-item-flex-direction: unset !default;
 $rac-list-item-font-size: $rac-font-size-0 !default;
 $rac-list-item-font-weight: unset !default;
 $rac-list-item-graphic-background: $rac-color-1-1 !default;
@@ -329,8 +329,6 @@ $rac-list-item-odd-background: $rac-color-0-3 !default;
 $rac-list-item-padding: 8px !default;
 $rac-list-item-selected-background: $rac-color-2-0 !default;
 $rac-list-margin: 0 !default;
-$rac-list-overflow-x: unset !default;   /** @layout hidden **/
-$rac-list-overflow-y: unset !default;   /** @layout auto **/
 $rac-list-padding: 0 !default;
 $rac-list-position: relative !default;
 /**/
@@ -754,7 +752,7 @@ $rac-tab-nav-margin: 28px !default;
 /* @stable [05.08.2018] */
 /************************/
 $rac-menu-dialog-cls: rac-menu-dialog;
-$rac-menu-dialog-icon-close-cls: rac-menu-dialog-icon-close;
+$rac-menu-dialog-icon-close-cls: rac-menu-dialog__icon-close;
 /**/
 $rac-dialog-color-0: $rac-color-0-1 !default;
 $rac-dialog-color-1: $rac-color-0-0 !default;
@@ -787,7 +785,6 @@ $rac-menu-dialog-base-text-self-field-height: $rac-field-height-1 !default;
 $rac-menu-dialog-body-background: unset !default;
 $rac-menu-dialog-body-justify-content: unset !default;
 $rac-menu-dialog-list-background: $rac-dialog-color-0 !default;
-$rac-menu-dialog-list-border-radius: $rac-border-radius-0 !default;
 $rac-menu-dialog-list-overflow: auto !default;
 /**/
 $rac-default-dialog-align-items: center !default;
@@ -803,12 +800,18 @@ $rac-default-dialog-display: $rac-dialog-display-0 !default;
 $rac-default-dialog-justify-content: center !default;
 /**/
 $rac-menu-anchored-dialog-body-background: unset !default;
+$rac-menu-anchored-dialog-body-content-background: $rac-color-1-3 !default;
+$rac-menu-anchored-dialog-body-content-border-radius: $rac-border-radius-0 !default;
+$rac-menu-anchored-dialog-body-content-box-shadow: 0 5px 10px 0 $rac-color-0-2 !default;
+$rac-menu-anchored-dialog-body-content-margin: $rac-offset-1 0 0 0 !default;
 $rac-menu-anchored-dialog-body-display: inline-block !default;
-$rac-menu-anchored-dialog-list-background: $rac-color-1-3 !default;
+$rac-menu-anchored-dialog-body-margin: unset !default;
+$rac-menu-anchored-dialog-list-background: 0 !default;
 $rac-menu-anchored-dialog-list-item-box-sizing: border-box !default;
 $rac-menu-anchored-dialog-list-item-color: $rac-color-0-1 !default;
 $rac-menu-anchored-dialog-list-item-min-height: 32px !default;
-$rac-menu-anchored-dialog-list-margin: $rac-offset-1 0 0 0 !default;
+$rac-menu-anchored-dialog-list-margin: unset !default;
+$rac-menu-anchored-dialog-list-padding: $rac-offset-1 0 !default;
 /**/
 $rac-menu-not-anchored-dialog-align-items: center !default;
 $rac-menu-not-anchored-dialog-body-display: $rac-dialog-display-0 !default;
@@ -816,6 +819,7 @@ $rac-menu-not-anchored-dialog-body-height: $rac-dialog-height-0 !default;
 $rac-menu-not-anchored-dialog-body-width: $rac-dialog-width-0 !default;
 $rac-menu-not-anchored-dialog-display: $rac-dialog-display-0 !default;
 $rac-menu-not-anchored-dialog-justify-content: center !default;
+$rac-menu-not-anchored-dialog-list-border-radius: $rac-border-radius-0 !default;
 /**/
 $rac-menu-dialog-icon-close-color: $rac-dialog-color-0 !default;
 $rac-menu-dialog-icon-close-margin: 0 0 $rac-offset-1 auto !default;
