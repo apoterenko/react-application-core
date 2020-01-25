@@ -6,6 +6,7 @@ import {
 } from 'ts-smart-logger';
 
 import {
+  calc,
   DelayedTask,
   ifNotEmptyThanValue,
   isAnchored,
@@ -466,7 +467,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {HTMLElement}
    */
   private getMenuAnchorElement(): HTMLElement {
-    return this.input;
+    const props = this.props;
+    return calc<HTMLElement>(props.menuAnchorElement) || this.input;
   }
 
   /**
