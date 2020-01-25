@@ -30,18 +30,13 @@ export class Button extends BaseComponent<IButtonProps> {
     type: 'button',
   };
 
-  private readonly buttonRef = React.createRef<HTMLButtonElement>();
-
   /**
    * @stable [27.01.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
-    const {
-      decorated,
-      iconRight,
-    } = props;
+    const {iconRight} = props;
     const buttonText = getButtonText(props);
     const hasContent = isObjectNotEmpty(props.children) || isObjectNotEmpty(buttonText);
     const hasIcon = hasIconButton(props);
@@ -75,7 +70,7 @@ export class Button extends BaseComponent<IButtonProps> {
 
     return (
       <button
-        ref={this.buttonRef}
+        ref={this.selfRef}
         type={props.type}
         title={props.title}
         style={props.style}
@@ -101,7 +96,7 @@ export class Button extends BaseComponent<IButtonProps> {
    * @stable [23.02.2019]
    */
   public blur(): void {
-    this.buttonEl.blur(); // document.activeElement === body
+    this.getSelf().blur(); // document.activeElement === body
   }
 
   /**
@@ -118,14 +113,6 @@ export class Button extends BaseComponent<IButtonProps> {
    */
   private get isDecorated(): boolean {
     return isDecorated(this.props);
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {HTMLButtonElement}
-   */
-  private get buttonEl(): HTMLButtonElement {
-    return this.buttonRef.current;
   }
 
   /**
