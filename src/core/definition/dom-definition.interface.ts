@@ -88,6 +88,16 @@ export const DEFAULT_DOM_POSITION_CONFIG_ENTITY = Object.freeze<IDomPositionConf
 });
 
 /**
+ * @default-entity
+ * @stable [24.01.2020]
+ */
+export const DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY = Object.freeze<IDomPositionConfigEntity>({
+  ...DEFAULT_DOM_POSITION_CONFIG_ENTITY,
+  at: 'right bottom',
+  my: 'right top',
+});
+
+/**
  * @config-entity
  * @stable [23.11.2019]
  */

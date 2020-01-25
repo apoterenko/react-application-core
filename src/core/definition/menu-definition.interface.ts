@@ -133,6 +133,15 @@ export interface IMenu
  * @default-entity
  * @stable [24.01.2020]
  */
-export const DEFAULT_FILTERED_MENU_ENTITY = Object.freeze<IGenericMenuEntity>({
+export const DEFAULT_FILTERED_MENU_ENTITY = Object.freeze<IMenuProps>({
   useFilter: true,
+});
+
+/**
+ * @default-entity
+ * @stable [24.01.2020]
+ */
+export const DEFAULT_REMOTE_FILTERED_MENU_ENTITY = Object.freeze<IMenuProps>({
+  ...DEFAULT_FILTERED_MENU_ENTITY,
+  remoteFilter: true,
 });

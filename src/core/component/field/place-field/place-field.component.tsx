@@ -20,8 +20,8 @@ import { Dialog } from '../../dialog';
 import { GoogleMaps } from '../../google';
 import {
   DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
+  DEFAULT_REMOTE_FILTERED_MENU_ENTITY,
   FieldConverterTypesEnum,
-  DEFAULT_FILTERED_MENU_ENTITY,
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
@@ -170,8 +170,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   protected getMenuProps(): IMenuProps {
     return {
-      ...DEFAULT_FILTERED_MENU_ENTITY,
-      remoteFilter: true,
+      ...DEFAULT_REMOTE_FILTERED_MENU_ENTITY,
       ...super.getMenuProps(),
     };
   }

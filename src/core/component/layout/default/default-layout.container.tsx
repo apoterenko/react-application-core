@@ -30,13 +30,14 @@ import { ENV } from '../../../env';
 import { Menu } from '../../menu';
 import { Link } from '../../link';
 import {
+  DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY,
   IBaseEvent,
   ILayoutEntity,
   IMenuItemEntity,
+  IMenuItemStringValueEntity,
   IMenuProps,
   INavigationItemEntity,
   IOperationEntity,
-  IMenuItemStringValueEntity,
   IXYEntity,
   LayoutModeEnum,
 } from '../../../definition';
@@ -65,10 +66,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
       {label: this.settings.messages.settingsMessage, icon: 'settings', value: this.userProfileActionValue},
       {label: this.settings.messages.logOutMessage, icon: 'sign_out_alt', value: this.userExitActionValue}
     ],
-    positionConfiguration: {
-      at: 'right bottom',
-      my: 'right top',
-    },
+    positionConfiguration: DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY,
     anchorElement: this.getMenuAnchorElement.bind(this),
     onSelect: this.onUserMenuSelect.bind(this),
   };

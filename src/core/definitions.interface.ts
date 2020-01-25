@@ -278,6 +278,7 @@ export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
+export interface IMenuAnchorElementWrapper<TValue> { menuAnchorElement?: TValue; }
 export interface IMenuConfigurationWrapper<TValue> { menuConfiguration?: TValue; }
 export interface IMenuOptionsWrapper<TValue> { menuOptions?: TValue; }
 export interface IMenuRenderedWrapper { menuRendered?: boolean; }

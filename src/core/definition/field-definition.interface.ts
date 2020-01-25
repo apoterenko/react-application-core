@@ -40,6 +40,7 @@ import {
   ILabelWrapper,
   IMaskWrapper,
   IMaxDateWrapper,
+  IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
   IMinDateWrapper,
   INameWrapper,
@@ -290,6 +291,7 @@ export interface IGenericBaseSelectEntity
     IDelayTimeoutWrapper,
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
+    IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
     IOptionsWrapper<ISelectOptionEntity[]> {
 }
