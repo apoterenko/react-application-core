@@ -20,7 +20,6 @@ import {
   getWidth,
   hasClasses,
   hasElements,
-  hasParent,
   isElementVisibleWithinParent,
   isFn,
   openFullScreen,
@@ -45,6 +44,7 @@ import {
   IJQueryElement,
   IScrollConfigEntity,
   IXYEntity,
+  IDomParentConfigEntity,
   TouchEventsEnum,
 } from '../../definition';
 import {
@@ -367,13 +367,21 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [16.02.2019]
-   * @param {string} selector
-   * @param {Element} target
+   * @stable [25.01.2020]
+   * @param {IDomParentConfigEntity} cfg
    * @returns {boolean}
    */
-  public hasParent(selector: string, target: Element): boolean {
-    return hasParent(selector, target);
+  public hasParent(cfg: IDomParentConfigEntity): boolean {
+    return this.getParents(cfg).length > 0;
+  }
+
+  /**
+   * @stable [25.01.2020]
+   * @param {IDomParentConfigEntity} cfg
+   * @returns {IJQueryElement}
+   */
+  public getParents(cfg: IDomParentConfigEntity): IJQueryElement {
+    return this.asJqEl(cfg.element).parents(this.asSelector(cfg.parentClassName));
   }
 
   /**
@@ -532,6 +540,15 @@ export class DomAccessor implements IDomAccessor {
    */
   private get window(): Window {
     return this.environment.window;
+  }
+
+  /**
+   * @stable [25.01.2020]
+   * @param {string} selector
+   * @returns {string}
+   */
+  private asSelector(selector: string): string {
+    return selector.startsWith('.') ? selector : `.${selector}`;
   }
 
   /**

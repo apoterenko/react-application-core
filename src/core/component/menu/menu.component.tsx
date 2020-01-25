@@ -11,9 +11,11 @@ import {
   inProgress,
   isFilterUsed,
   isFn,
+  isHeightRestricted,
   isHighlightOdd,
   isMulti,
   isRemoteFilterApplied,
+  joinClassName,
   orNull,
   queryFilter,
   subArray,
@@ -45,6 +47,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   };
 
   private readonly dialogRef = React.createRef<Dialog>();
+  private readonly listRef = React.createRef<BasicList>();
   private readonly fieldRef = React.createRef<TextField>();
   private filterQueryTask: DelayedTask;
   private scrollEventUnsubscriber: () => void;
@@ -60,6 +63,8 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.asItemElement = this.asItemElement.bind(this);
     this.hide = this.hide.bind(this);
     this.onDialogActivate = this.onDialogActivate.bind(this);
+    this.onDialogAfterDestroy = this.onDialogAfterDestroy.bind(this);
+    this.onDialogAfterRender = this.onDialogAfterRender.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.onFilterValueChange = this.onFilterValueChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
@@ -80,24 +85,36 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     const props = this.props;
 
     return (
-      this.state.opened && (
-        <Dialog
-          ref={this.dialogRef}
-          closable={false}
-          acceptable={false}
-          default={false}
-          width={props.width}
-          scrollable={this.isDialogScrollable}
-          positionConfiguration={props.positionConfiguration}
-          anchorElement={props.anchorElement}
-          className='rac-menu-dialog'
-          onActivate={this.onDialogActivate}
-          onDeactivate={this.onDialogDeactivate}
-        >
-          {!this.isAnchored && this.closeActionElement}
-          {this.filterElement}
-          {this.listElement}
-        </Dialog>
+      orNull(
+        this.state.opened,
+        () => (
+          <Dialog
+            ref={this.dialogRef}
+            closable={false}
+            acceptable={false}
+            default={false}
+            width={props.width}
+            scrollable={this.isDialogScrollable}
+            positionConfiguration={props.positionConfiguration}
+            anchorElement={props.anchorElement}
+            className={
+              joinClassName(
+                'rac-menu-dialog',
+                isHeightRestricted(props) && 'rac-height-restricted-dialog'
+              )
+            }
+            onActivate={this.onDialogActivate}
+            onDeactivate={this.onDialogDeactivate}
+          >
+            {!this.isAnchored && (
+              <React.Fragment>
+                {this.closeActionElement}
+                {this.isFilterUsed && this.filterElement}
+              </React.Fragment>
+            )}
+            {this.listElement}
+          </Dialog>
+        )
       )
     );
   }
@@ -116,26 +133,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @stable [24.01.2020]
    */
   public show(): void {
-    this.setState({filter: UNDEF, opened: true}, () => {
-      if (this.doesDialogExist) {
-        this.dialog.activate();
-      }
-      if (this.isAnchored) {
-        this.clearAll();
-
-        this.scrollEventUnsubscriber = this.eventEmitter.subscribe({
-          autoUnsubscribing: true,
-          callback: this.hide,
-          condition: this.scrollEventCallbackCondition,
-          eventName: SyntheticEmitterEventsEnum.SCROLL,
-        });
-        this.resizeUnsubscriber = this.domAccessor.captureEvent({
-          autoUnsubscribing: true,
-          callback: this.hide,
-          eventName: EventsEnum.RESIZE,
-        });
-      }
-    });
+    this.setState({filter: UNDEF, opened: true}, this.onDialogAfterRender);
   }
 
   /**
@@ -144,12 +142,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   public hide(): void {
     this.clearAll();
 
-    this.setState({opened: false}, () => {
-      const props = this.props;
-      if (isFn(props.onClose)) {
-        props.onClose();
-      }
-    });
+    this.setState({opened: false}, this.onDialogAfterDestroy);
   }
 
   /**
@@ -170,14 +163,12 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [23.11.2019]
-   * @returns {IMenuItemEntity[]}
    */
-  private get items(): IMenuItemEntity[] {
+  private notifyFilterChange(): void {
     const props = this.props;
-
-    return !this.isFilterUsed || isRemoteFilterApplied(props)
-      ? props.options
-      : props.options.filter((option) => props.filter(this.state.filter, option));
+    if (isFn(props.onFilterChange)) {
+      props.onFilterChange(this.state.filter);
+    }
   }
 
   /**
@@ -188,16 +179,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     this.setState(
       {filter}, () => ifNotNilThanValue(this.filterQueryTask, (task) => task.start())
     );
-  }
-
-  /**
-   * @stable [23.11.2019]
-   */
-  private notifyFilterChange(): void {
-    const props = this.props;
-    if (isFn(props.onFilterChange)) {
-      props.onFilterChange(this.state.filter);
-    }
   }
 
   /**
@@ -232,16 +213,35 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [23.11.2019]
+   * @stable [25.01.2020]
    */
-  private unsubscribeAllEvents(): void {
-    if (isFn(this.scrollEventUnsubscriber)) {
-      this.scrollEventUnsubscriber();
-      this.scrollEventUnsubscriber = null;
+  private onDialogAfterRender(): void {
+    ifNotNilThanValue(this.dialog, (dialog) => dialog.activate());
+
+    if (this.isAnchored) {
+      this.clearAll();
+
+      this.scrollEventUnsubscriber = this.eventEmitter.subscribe({
+        autoUnsubscribing: true,
+        callback: this.hide,
+        condition: this.scrollEventCallbackCondition,
+        eventName: SyntheticEmitterEventsEnum.SCROLL,
+      });
+      this.resizeUnsubscriber = this.domAccessor.captureEvent({
+        autoUnsubscribing: true,
+        callback: this.hide,
+        eventName: EventsEnum.RESIZE,
+      });
     }
-    if (isFn(this.resizeUnsubscriber)) {
-      this.resizeUnsubscriber();
-      this.resizeUnsubscriber = null;
+  }
+
+  /**
+   * @stable [25.01.2020]
+   */
+  private onDialogAfterDestroy(): void {
+    const props = this.props;
+    if (isFn(props.onClose)) {
+      props.onClose();
     }
   }
 
@@ -252,6 +252,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   private get listElement(): JSX.Element {
     return (
       <BasicList
+        ref={this.listRef}
         plugins={this.isDialogScrollable ? [] : [PerfectScrollPlugin]}>
         {subArray(this.items, this.props.maxCount).map(this.asItemElement)}
       </BasicList>
@@ -283,15 +284,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [24.01.2020]
-   */
-  private clearAll(): void {
-    this.unsubscribeAllEvents();
-
-    ifNotNilThanValue(this.filterQueryTask, (task) => task.stop());
-  }
-
-  /**
    * @stable [17.01.2020]
    * @returns {JSX.Element}
    */
@@ -299,17 +291,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     const props = this.props;
     const state = this.state;
 
-    return orNull(
-      this.isFilterUsed,
-      () => (
-        <TextField
-          ref={this.fieldRef}
-          full={false}
-          value={state.filter}
-          placeholder={props.filterPlaceholder || this.settings.messages.FILTER_PLACEHOLDER}
-          errorMessageRendered={false}
-          onChange={this.onFilterValueChange}/>
-      )
+    return (
+      <TextField
+        ref={this.fieldRef}
+        full={false}
+        value={state.filter}
+        placeholder={props.filterPlaceholder || this.settings.messages.FILTER_PLACEHOLDER}
+        errorMessageRendered={false}
+        onChange={this.onFilterValueChange}/>
     );
   }
 
@@ -329,6 +318,47 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
+   * @stable [17.01.2020]
+   * @param {HTMLElement} element
+   * @returns {boolean}
+   */
+  private scrollEventCallbackCondition(element: HTMLElement): boolean {
+    const list = this.listRef.current;
+    return R.isNil(list) || element !== list.getSelf();
+  }
+
+  /**
+   * @stable [24.01.2020]
+   */
+  private clearAll(): void {
+    this.unsubscribeAllEvents();
+
+    ifNotNilThanValue(this.filterQueryTask, (task) => task.stop());
+  }
+
+  /**
+   * @stable [23.11.2019]
+   */
+  private unsubscribeAllEvents(): void {
+    if (isFn(this.scrollEventUnsubscriber)) {
+      this.scrollEventUnsubscriber();
+      this.scrollEventUnsubscriber = null;
+    }
+    if (isFn(this.resizeUnsubscriber)) {
+      this.resizeUnsubscriber();
+      this.resizeUnsubscriber = null;
+    }
+  }
+
+  /**
+   * @stable [24.01.2020]
+   * @returns {boolean}
+   */
+  private get isAnchored(): boolean {
+    return !R.isNil(this.props.anchorElement);
+  }
+
+  /**
    * @stable [23.11.2019]
    * @returns {boolean}
    */
@@ -337,11 +367,23 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.05.2019]
+   * @stable [24.01.2020]
    * @returns {boolean}
    */
-  private get doesDialogExist(): boolean {
-    return !R.isNil(this.dialog);
+  private get isDialogScrollable(): boolean {
+    return !this.isAnchored && !this.isFilterUsed;
+  }
+
+  /**
+   * @stable [23.11.2019]
+   * @returns {IMenuItemEntity[]}
+   */
+  private get items(): IMenuItemEntity[] {
+    const props = this.props;
+
+    return !this.isFilterUsed || isRemoteFilterApplied(props)
+      ? props.options
+      : props.options.filter((option) => props.filter(this.state.filter, option));
   }
 
   /**
@@ -358,31 +400,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private get dialog(): Dialog {
     return this.dialogRef.current;
-  }
-
-  /**
-   * @stable [17.01.2020]
-   * @param {HTMLElement} element
-   * @returns {boolean}
-   */
-  private scrollEventCallbackCondition(element: HTMLElement): boolean {
-    return element !== this.selfRef.current;
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {boolean}
-   */
-  private get isAnchored(): boolean {
-    return !R.isNil(this.props.anchorElement);
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {boolean}
-   */
-  private get isDialogScrollable(): boolean {
-    return !this.isAnchored && !this.isFilterUsed;
   }
 
   /**

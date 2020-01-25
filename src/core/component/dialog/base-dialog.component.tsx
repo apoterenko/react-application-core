@@ -34,7 +34,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   private static readonly DIALOG_CLASS_NAME = 'rac-dialog';
   private static readonly DIALOG_SCRIM_CLASS_NAME = 'rac-dialog__scrim';
   private static readonly DIALOG_SCRIM_SELECTOR = `.${BaseDialog.DIALOG_SCRIM_CLASS_NAME}`;
-  private static readonly DIALOG_SELECTOR = `.${BaseDialog.DIALOG_CLASS_NAME}`;
 
   private onDeactivateCallback: () => void;
   private closeEventUnsubscriber: () => void;
@@ -170,8 +169,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [25.01.2020]
    */
   private onDocumentClickCapture(event: IBaseEvent): void {
-    const target = event.target;
-    if (this.domAccessor.hasParent(BaseDialog.DIALOG_SELECTOR, target as HTMLElement)) {
+    const element = event.target as HTMLElement;
+    if (this.domAccessor.hasParent({parentClassName: BaseDialog.DIALOG_CLASS_NAME, element})) {
       return;
     }
     this.doClose();

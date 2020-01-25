@@ -9,6 +9,7 @@ import {
   IConditionWrapper,
   IElementWrapper,
   IEventNameWrapper,
+  IParentClassNameWrapper,
   IParentElementWrapper,
   IPositionConfigurationWrapper,
 } from '../definitions.interface';
@@ -96,6 +97,15 @@ export interface IDomFireEventConfigEntity
 }
 
 /**
+ * @config-entity
+ * @stable [25.01.2020]
+ */
+export interface IDomParentConfigEntity
+  extends IElementWrapper,
+    IParentClassNameWrapper {
+}
+
+/**
  * @stable [29.09.2019]
  */
 export interface IDomAccessor {
@@ -120,6 +130,7 @@ export interface IDomAccessor {
   getContentHeight(source: Element): number;
   getElement(id: string): Element;
   getHeight(source: Element): number;
+  getParents(cfg: IDomParentConfigEntity): IJQueryElement;
   getRootElement(): Element;
   getScrollInfo(el: Element): IXYEntity;
   getScrollLeft(el: Element): number;
@@ -127,7 +138,7 @@ export interface IDomAccessor {
   getWidth(source: Element): number;
   hasClasses(target: Element, ...classNames: string[]): boolean;
   hasElements(selector: string | Element, target: Element): boolean;
-  hasParent(selector: string, target: Element): boolean;
+  hasParent(cfg: IDomParentConfigEntity): boolean;
   isAlreadyFocused(): boolean;
   isElementFocused(element: Element): boolean;
   isElementVisibleWithinParent(child: Element, parentEl?: Element): boolean;

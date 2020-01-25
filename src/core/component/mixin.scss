@@ -3132,6 +3132,7 @@
   $rac-menu-dialog-list-item-color: unset,                                         /* @stable [25.01.2020] */
   $rac-menu-dialog-list-item-min-height: unset,                                    /* @stable [25.01.2020] */
   $rac-menu-dialog-list-margin: unset,                                             /* @stable [25.01.2020] */
+  $rac-menu-dialog-list-max-height: unset,                                         /* @stable [25.01.2020] */
   $rac-menu-dialog-list-overflow: unset,                                           /* @stable [11.11.2019] */
   $rac-menu-dialog-list-padding: unset                                             /* @stable [25.01.2020] */
 ) {
@@ -3163,6 +3164,7 @@
       $rac-list-item-color: $rac-menu-dialog-list-item-color,
       $rac-list-item-min-height: $rac-menu-dialog-list-item-min-height,
       $rac-list-margin: $rac-menu-dialog-list-margin,
+      $rac-list-max-height: $rac-menu-dialog-list-max-height,
       $rac-list-overflow: $rac-menu-dialog-list-overflow,
       $rac-list-padding: $rac-menu-dialog-list-padding
     );

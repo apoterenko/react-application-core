@@ -261,7 +261,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     // TODO refactoring
     const clickedEl = e.target as Element;
 
-    if (this.domAccessor.hasParent('.rac-action-close-icon', clickedEl)) {
+    if (this.domAccessor.hasParent({parentClassName: 'rac-action-close-icon', element: clickedEl})) {
       if (this.isValuePresent) {
         this.clearValue();
       }

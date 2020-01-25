@@ -267,24 +267,6 @@ export const findElement = (selector: string | Element, parent: Element = docume
   findElements(selector, parent)[0];
 
 /**
- * @stable [08.02.2019]
- * @param {string} selector
- * @param {Element} target
- * @returns {TJqElement}
- */
-export const getParents = <TJqElement extends IJQueryElement = IJQueryElement>(selector: string, target: Element): TJqElement =>
-  toJqEl(target).parents(selector) as TJqElement;
-
-/**
- * @stable [08.02.2019]
- * @param {string} selector
- * @param {Element} target
- * @returns {boolean}
- */
-export const hasParent = (selector: string, target: Element): boolean =>
-  getParents(selector, target).length > 0;
-
-/**
  * @stable [22.10.2019]
  * @param {Element} target
  * @param {string} classNames

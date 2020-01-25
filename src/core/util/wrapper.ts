@@ -19,6 +19,7 @@ import {
   IFocusedWrapper,
   IFullWrapper,
   IHeaderRenderedWrapper,
+  IHeightRestrictedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIndexedWrapper,
@@ -405,6 +406,14 @@ export const isTouched = (wrapper: ITouchedWrapper): boolean =>
  */
 export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.useFilter === true, false);
+
+/**
+ * @stable [25.01.2020]
+ * @param {IHeightRestrictedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isHeightRestricted = (wrapper: IHeightRestrictedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.heightRestricted !== false, false);
 
 /**
  * @stable [22.11.2019]

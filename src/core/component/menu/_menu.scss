@@ -55,4 +55,13 @@
     $rac-menu-dialog-list-margin: $rac-menu-anchored-dialog-list-margin,
     $rac-menu-dialog-list-padding: $rac-menu-anchored-dialog-list-padding
   );
+
+  /**
+   * @menu-anchored-height-restricted-dialog
+   * @stable [25.01.2020]
+   */
+  @include rac-menu-dialog (
+    $rac-menu-dialog-custom: rac-cls2(rac-anchored-dialog, rac-height-restricted-dialog),
+    $rac-menu-dialog-list-max-height: $rac-menu-anchored-height-restricted-dialog-max-height
+  );
 }

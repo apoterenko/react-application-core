@@ -219,6 +219,7 @@ export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeaderRendererWrapper<TPayload> { headerRenderer?(payload: TPayload): React.ReactNode; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
 export interface IHeaderWidthWrapper { headerWidth?: number; }
+export interface IHeightRestrictedWrapper { heightRestricted?: boolean; }
 export interface IHeightWrapper { height?: number; }
 export interface IHideWrapper { hide?(): void; }
 export interface IHighlightOddWrapper { highlightOdd?: boolean; }
@@ -343,6 +344,7 @@ export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
 export interface IPageWrapper<TPage = number> { page?: TPage; }
 export interface IParamsWrapper<TValue = {}> { params?: TValue; }
+export interface IParentClassNameWrapper<TValue = string> { parentClassName?: TValue; }
 export interface IParentElementWrapper<TValue = Element> { parentElement?: TValue; }
 export interface IParentWrapper<TParent> { parent?: TParent; }
 export interface IPartOfGroupWrapper { partOfGroup?: boolean; }
