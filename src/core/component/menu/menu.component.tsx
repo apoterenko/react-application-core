@@ -382,7 +382,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @returns {boolean}
    */
   private get isDialogScrollable(): boolean {
-    return !this.isAnchored;
+    return !this.isAnchored && !this.isFilterUsed;
   }
 
   /**
