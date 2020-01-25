@@ -5,6 +5,7 @@ import { IXYEntity } from './xy-definition.interface';
 import {
   IAutoUnsubscribingWrapper,
   ICallbackWrapper,
+  ICaptureWrapper,
   IConditionWrapper,
   IElementWrapper,
   IEventNameWrapper,
@@ -47,6 +48,7 @@ export interface IJQueryElement<TElement extends Element = Element>
 export interface ICaptureEventConfigEntity
   extends IAutoUnsubscribingWrapper,
     ICallbackWrapper,
+    ICaptureWrapper,
     IConditionWrapper<() => void>,
     IElementWrapper<Element | EventTarget>,
     IEventNameWrapper,

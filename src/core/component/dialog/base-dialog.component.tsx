@@ -11,12 +11,13 @@ import {
   isFn,
   isScrollable,
   joinClassName,
-  noop,
   orNull,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
+  EventsEnum,
   IActivateDialogConfigEntity,
+  IBaseEvent,
   IDialog,
   IDialogProps,
   IDialogState,
@@ -30,7 +31,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   extends BaseComponent<TProps, TState>
   implements IDialog<TProps, TState> {
 
+  private static readonly DIALOG_CLASS_NAME = 'rac-dialog';
+  private static readonly DIALOG_SCRIM_CLASS_NAME = 'rac-dialog__scrim';
+  private static readonly DIALOG_SCRIM_SELECTOR = `.${BaseDialog.DIALOG_SCRIM_CLASS_NAME}`;
+  private static readonly DIALOG_SELECTOR = `.${BaseDialog.DIALOG_CLASS_NAME}`;
+
   private onDeactivateCallback: () => void;
+  private closeEventUnsubscriber: () => void;
   private readonly doesAnotherScrimLayerExist: boolean;
   private readonly bodyRef = React.createRef<HTMLDivElement>();
 
@@ -44,40 +51,52 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.onAcceptClick = this.onAcceptClick.bind(this);
     this.onCloseClick = this.onCloseClick.bind(this);
     this.onDialogScrimClick = this.onDialogScrimClick.bind(this);
+    this.onDocumentClickCapture = this.onDocumentClickCapture.bind(this);
 
     this.state = {opened: false} as TState;
 
     if (isCheckScrimNeeded(props as ICheckScrimWrapper)) {
-      this.doesAnotherScrimLayerExist = this.domAccessor.hasElements('.rac-dialog__scrim', this.portalElement);
+      this.doesAnotherScrimLayerExist = this.domAccessor.hasElements(BaseDialog.DIALOG_SCRIM_SELECTOR, this.portalElement);
     }
   }
 
   /**
-   * @stable [05.01.2020]
+   * @stable [25.01.2020]
    * @returns {React.ReactNode}
    */
   public render(): React.ReactNode {
     return orNull(
       this.state.opened,
-      () => (
-        ReactDOM.createPortal(
+      () => {
+        const isAnchored = this.isAnchored;
+        return ReactDOM.createPortal(
           <div
             ref={this.selfRef}
             className={
               joinClassName(
                 this.dialogClassName,
-                'rac-absolute',
-                'rac-full-size',
-                this.isAnchored || this.doesAnotherScrimLayerExist ? 'rac-dialog__transparent-scrim' : 'rac-dialog__scrim'
+                !isAnchored && 'rac-absolute rac-full-size',
+                isAnchored || this.doesAnotherScrimLayerExist
+                  ? 'rac-dialog__transparent-scrim'
+                  : BaseDialog.DIALOG_SCRIM_CLASS_NAME
               )}
-            {...this.getHandlerProps(this.onDialogScrimClick)}
+            {...handlerPropsFactory(this.onDialogScrimClick, !isAnchored, false)}
           >
             {this.dialogBodyElement}
           </div>,
           this.portalElement
-        )
-      )
+        );
+      }
     );
+  }
+
+  /**
+   * @stable [25.01.2020]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+
+    this.unsubscribeEvents();
   }
 
   /**
@@ -88,13 +107,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const props = this.props;
 
     this.setState({opened: true}, () => {
-      if (this.isAnchored) {
-        this.domAccessor.setPosition({
-          ...props.positionConfiguration as {},
-          element: this.bodyRef.current,
-          of: calc<HTMLElement>(props.anchorElement),
-        });
-      }
+      this.onAfterRender();
 
       const {
         onActivate,
@@ -154,6 +167,41 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
+   * @stable [25.01.2020]
+   */
+  private onDocumentClickCapture(event: IBaseEvent): void {
+    const target = event.target;
+    if (this.domAccessor.hasParent(BaseDialog.DIALOG_SELECTOR, target as HTMLElement)) {
+      return;
+    }
+    this.doClose();
+  }
+
+  /**
+   * @stable [25.01.2020]
+   */
+  private onAfterRender(): void {
+    if (!this.isAnchored) {
+      return;
+    }
+
+    this.unsubscribeEvents();
+
+    const props = this.props;
+    this.domAccessor.setPosition({
+      ...props.positionConfiguration as {},
+      element: this.bodyRef.current,
+      of: calc<HTMLElement>(props.anchorElement),
+    });
+
+    this.closeEventUnsubscriber = this.domAccessor.captureEvent({
+      eventName: EventsEnum.CLICK,
+      capture: true, // We must process a capture phase of click event because a component may stop an events bubbling
+      callback: this.onDocumentClickCapture,
+    });
+  }
+
+  /**
    * @stable [05.01.2020]
    * @param {() => void} callback
    */
@@ -161,6 +209,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const props = this.props;
 
     this.setState({opened: false}, () => {
+      this.unsubscribeEvents();
+
       if (isFn(this.onDeactivateCallback)) {
         this.onDeactivateCallback.call(this);
         this.onDeactivateCallback = null;
@@ -230,7 +280,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         ref={this.bodyRef}
         style={{width: calc<number>(this.props.width)}}
         className='rac-dialog__body'
-        {...this.getHandlerProps()}  // To stop the events bubbling
+        onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
         {this.bodyElement}
         {this.footerElement}
@@ -268,6 +318,16 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         }
       </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [25.01.2020]
+   */
+  private unsubscribeEvents(): void {
+    if (isFn(this.closeEventUnsubscriber)) {
+      this.closeEventUnsubscriber();
+      this.closeEventUnsubscriber = null;
+    }
   }
 
   /**
@@ -326,19 +386,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const props = this.props;
 
     return joinClassName(
-      'rac-dialog',
+      BaseDialog.DIALOG_CLASS_NAME,
       isDefault(props) && 'rac-default-dialog',
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
       props.className
     );
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @param {() => void} handler
-   * @returns {Partial<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>}
-   */
-  private getHandlerProps(handler = noop): Partial<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>> {
-    return handlerPropsFactory(handler, true, false);
   }
 }

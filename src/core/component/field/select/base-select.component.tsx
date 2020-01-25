@@ -104,9 +104,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       });
     }
 
-    // TODO Remove later
+    // TODO Use keyValueCache
     const newValue = props.value;
-    if (R.isNil(newValue) && !R.equals(newValue, prevProps.value)) {
+    if (!R.equals(newValue, prevProps.value)) {
       const $$cachedValue = this.state.$$cachedValue;
 
       if (!R.isNil($$cachedValue) && !R.equals($$cachedValue.value, newValue)) {

@@ -22,6 +22,7 @@ export enum TouchEventsEnum {
  * @stable [11.09.2019]
  */
 export enum EventsEnum {
+  CLICK = 'click',
   KEY_DOWN = 'keydown',
   KEY_PRESS = 'keypress',
   LOAD = 'load',

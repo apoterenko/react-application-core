@@ -89,8 +89,9 @@ export interface ICalendarActionRenderedWrapper { calendarActionRendered?: boole
 export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?: TValue; }
 export interface ICalendarEntityConfigurationWrapper<TValue> { calendarEntityConfiguration?: TValue; }
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
-export interface ICallbackWrapper<TValue = () => void> { callback?: TValue; }
+export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayload = AnyT> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
+export interface ICaptureWrapper { capture?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
