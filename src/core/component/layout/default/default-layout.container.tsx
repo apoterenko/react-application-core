@@ -36,7 +36,7 @@ import {
   IMenuProps,
   INavigationItemEntity,
   IOperationEntity,
-  IStringMenuActionEntity,
+  IMenuItemStringValueEntity,
   IXYEntity,
   LayoutModeEnum,
 } from '../../../definition';
@@ -138,9 +138,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   /**
    * @stable [18.09.2018]
-   * @param {IStringMenuActionEntity} option
+   * @param {IMenuItemStringValueEntity} option
    */
-  private onHeaderMoreOptionsSelect(option: IStringMenuActionEntity): void {
+  private onHeaderMoreOptionsSelect(option: IMenuItemStringValueEntity): void {
     const params: IPayloadWrapper<IOperationEntity> = {payload: Operation.create(option.value)};
     this.dispatchFrameworkAction(option.value, params);
   }

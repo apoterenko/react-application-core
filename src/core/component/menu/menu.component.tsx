@@ -57,7 +57,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   constructor(props: IMenuProps) {
     super(props);
 
-    this.getItemElement = this.getItemElement.bind(this);
+    this.asItemElement = this.asItemElement.bind(this);
     this.hide = this.hide.bind(this);
     this.onDialogActivate = this.onDialogActivate.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
@@ -255,7 +255,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     return (
       <BasicList
         plugins={this.isDialogScrollable ? [] : [PerfectScrollPlugin]}>
-        {subArray(this.items, this.props.maxCount).map(this.getItemElement)}
+        {subArray(this.items, this.props.maxCount).map(this.asItemElement)}
       </BasicList>
     );
   }
@@ -266,7 +266,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @param {number} index
    * @returns {JSX.Element}
    */
-  private getItemElement(option: IMenuItemEntity, index: number): JSX.Element {
+  private asItemElement(option: IMenuItemEntity, index: number): JSX.Element {
     const props = this.props;
     return (
       <ListItem

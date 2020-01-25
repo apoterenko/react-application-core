@@ -10,6 +10,7 @@ import {
   IIconWrapper,
   IIsOpenWrapper,
   IMaxCountWrapper,
+  IMenuConfigurationWrapper,
   IMultiWrapper,
   IOnCloseWrapper,
   IOnFilterChangeWrapper,
@@ -44,34 +45,44 @@ export interface IMenuItemEntity<TEntity extends IEntity = IEntity, TValue = Ent
 }
 
 /**
+ * @entity
  * @stable [02.10.2019]
  */
-export interface IStringMenuActionEntity
+export interface IMenuItemStringValueEntity
   extends IMenuItemEntity<IEntity, string> {
 }
 
 /**
+ * @generic-entity
  * @stable [24.01.2020]
  */
-export interface IGenericMenuEntity<TItem extends IMenuItemEntity = IMenuItemEntity>
+export interface IGenericMenuEntity<TOptionEntity extends IMenuItemEntity = IMenuItemEntity>
   extends IGenericBaseDialogEntity,
     IDelayTimeoutWrapper,
     IFilterPlaceholderWrapper,
     IHighlightOddWrapper,
     IMaxCountWrapper,
     IMultiWrapper,
-    IOptionsWrapper<TItem[]>,
+    IOptionsWrapper<TOptionEntity[]>,
     IProgressWrapper,
     IRemoteFilterWrapper,
     IUseFilterWrapper {
 }
 
-export interface IMenuEntity
+/**
+ * @behavioral-entity
+ * @stable [24.01.2020]
+ */
+export interface IBehavioralMenuEntity
   extends IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
     IOnCloseWrapper,
     IOnFilterChangeWrapper<(query: string) => void>,
-    IOnSelectWrapper<IMenuItemEntity>,
-    IRendererWrapper<IMenuItemEntity, number>,
+    IOnSelectWrapper<IMenuItemEntity> {
+}
+
+// TODO
+export interface IMenuEntity
+  extends IRendererWrapper<IMenuItemEntity, number>,
     ITplWrapper<(item: IMenuItemEntity) => StringNumberT>,
     IXPositionWrapper,
     IYPositionWrapper {
@@ -84,7 +95,8 @@ export interface IMenuEntity
 export interface IMenuProps
   extends IComponentProps,
     IMenuEntity, // TODO
-    IGenericMenuEntity {
+    IGenericMenuEntity,
+    IBehavioralMenuEntity {
 }
 
 /**
@@ -94,6 +106,14 @@ export interface IMenuProps
 export interface IMenuState
   extends IFilterWrapper,
     IOpenedWrapper {
+}
+
+/**
+ * @configuration-entity
+ * @stable [25.01.2020]
+ */
+export interface IMenuConfigurationEntity<TProps extends IMenuProps = IMenuProps>
+  extends IMenuConfigurationWrapper<TProps> {
 }
 
 /**

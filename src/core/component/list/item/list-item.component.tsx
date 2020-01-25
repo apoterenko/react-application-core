@@ -39,7 +39,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
     return (
       <UniversalScrollableContext.Consumer>
         {(selectedElementClassName) => (
-          props.renderer
+          isFn(props.renderer)
             ? React.cloneElement(
                 props.renderer(props.rawData, props.index),
                 this.getItemProps({selectedElementClassName})

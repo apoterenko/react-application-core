@@ -182,7 +182,7 @@ export interface IFilePathWrapper { filePath?: string; }
 export interface IFilesWrapper<TValue> { files?: TValue; }
 export interface IFilterPlaceholderWrapper { filterPlaceholder?: string; }
 export interface IFilterRendererWrapper<TPayload> { filterRenderer?(payload: TPayload): JSX.Element; }
-export interface IFilterWrapper<TFilter = string> { filter?: TFilter; }
+export interface IFilterWrapper<TValue = string> { filter?: TValue; }
 export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
@@ -277,7 +277,7 @@ export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
-export interface IMenuConfigurationWrapper<TMenuConfiguration> { menuConfiguration?: TMenuConfiguration; }
+export interface IMenuConfigurationWrapper<TValue> { menuConfiguration?: TValue; }
 export interface IMenuOptionsWrapper<TValue> { menuOptions?: TValue; }
 export interface IMenuRenderedWrapper { menuRendered?: boolean; }
 export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }

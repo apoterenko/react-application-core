@@ -45,6 +45,7 @@ import {
   INameWrapper,
   INextWrapper,
   IOnClickWrapper,
+  IOptionsWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
@@ -68,7 +69,7 @@ import {
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
-import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
+import { ISelectProps } from '../component/field/select/select.interface';  // TODO
 import { ICalendarConfigurationEntity } from './calendar-definition.interface';
 import { ICalendarEntityConfigurationEntity } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
@@ -76,6 +77,10 @@ import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IDialogConfigurationEntity } from './dialog-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
 import { IPlaceFieldProps } from './place-definition.interface';
+import {
+  IMenuConfigurationEntity,
+  IMenuItemEntity,
+} from './menu-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -284,14 +289,24 @@ export interface IGenericBaseSelectEntity
   extends IAnchoredWrapper,
     IDelayTimeoutWrapper,
     IExpandActionRenderedWrapper,
-    IForceReloadWrapper {
+    IForceReloadWrapper,
+    IMenuConfigurationEntity,
+    IOptionsWrapper<ISelectOptionEntity[]> {
+}
+
+/**
+ * @entity
+ * @stable [25.01.2020]
+ */
+export interface ISelectOptionEntity<TRawData = {}>
+  extends IMenuItemEntity<TRawData> {
 }
 
 /**
  * @default-entity
  * @stable [15.01.2020]
  */
-export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({ // TODO Generic entity
+export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<ISelectProps>({
   expandActionRendered: false,
   menuConfiguration: {useFilter: false},
   preventFocus: false,
@@ -303,6 +318,7 @@ export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>
  */
 export const DEFAULT_ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
   ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
+  anchored: true,
   placeActionRendered: false,
   useZipCode: true,
 });

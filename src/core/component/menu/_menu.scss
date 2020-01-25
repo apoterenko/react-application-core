@@ -41,6 +41,12 @@
    */
   @include rac-menu-dialog (
     $rac-menu-dialog-custom: rac-anchored-dialog,
-    $rac-menu-dialog-body-display: $rac-menu-anchored-dialog-body-display
+    $rac-menu-dialog-body-background: $rac-menu-anchored-dialog-body-background,
+    $rac-menu-dialog-body-display: $rac-menu-anchored-dialog-body-display,
+    $rac-menu-dialog-list-background: $rac-menu-anchored-dialog-list-background,
+    $rac-menu-dialog-list-item-box-sizing: $rac-menu-anchored-dialog-list-item-box-sizing,
+    $rac-menu-dialog-list-item-color: $rac-menu-anchored-dialog-list-item-color,
+    $rac-menu-dialog-list-item-min-height: $rac-menu-anchored-dialog-list-item-min-height,
+    $rac-menu-dialog-list-margin: $rac-menu-anchored-dialog-list-margin
   );
 }

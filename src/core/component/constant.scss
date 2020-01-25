@@ -750,7 +750,9 @@ $rac-tab-icon-text-line-height: 24px !default;
 $rac-tab-icon-text-letter-spacing: $rac-default-letter-spacing !default;
 $rac-tab-nav-margin: 28px !default;
 
+/************************/
 /* @stable [05.08.2018] */
+/************************/
 $rac-menu-dialog-cls: rac-menu-dialog;
 $rac-menu-dialog-icon-close-cls: rac-menu-dialog-icon-close;
 /**/
@@ -800,7 +802,14 @@ $rac-default-dialog-body-padding: $rac-offset-3 0 !default;
 $rac-default-dialog-display: $rac-dialog-display-0 !default;
 $rac-default-dialog-justify-content: center !default;
 /**/
+$rac-menu-anchored-dialog-body-background: unset !default;
 $rac-menu-anchored-dialog-body-display: inline-block !default;
+$rac-menu-anchored-dialog-list-background: $rac-color-1-3 !default;
+$rac-menu-anchored-dialog-list-item-box-sizing: border-box !default;
+$rac-menu-anchored-dialog-list-item-color: $rac-color-0-1 !default;
+$rac-menu-anchored-dialog-list-item-min-height: 32px !default;
+$rac-menu-anchored-dialog-list-margin: $rac-offset-1 0 0 0 !default;
+/**/
 $rac-menu-not-anchored-dialog-align-items: center !default;
 $rac-menu-not-anchored-dialog-body-display: $rac-dialog-display-0 !default;
 $rac-menu-not-anchored-dialog-body-height: $rac-dialog-height-0 !default;

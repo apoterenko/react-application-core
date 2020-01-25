@@ -6,6 +6,7 @@ import {
   IChangesWrapper,
   IDefaultChangesWrapper,
   IDirtyWrapper,
+  IDisabledWrapper,
   IEditWrapper,
   IEntity,
   IEntityIdTWrapper,
@@ -76,6 +77,15 @@ export interface IEditableEntity<TChanges = IKeyValue>
 export interface INamedEntity
   extends IEntityIdTWrapper,
     INameWrapper {
+}
+
+/**
+ * @entity
+ * @stable [25.01.2020]
+ */
+export interface IOptionEntity
+  extends INamedEntity,
+    IDisabledWrapper {
 }
 
 /**

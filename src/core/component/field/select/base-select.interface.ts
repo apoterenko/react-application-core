@@ -1,6 +1,5 @@
 import {
   I$$cachedValueWrapper,
-  IMenuConfigurationWrapper,
   IOnDictionaryFilterChangeWrapper,
   IOnFilterChangeWrapper,
   IOpenMenuWrapper,
@@ -11,7 +10,6 @@ import {
   IBaseEvent,
   IGenericBaseSelectEntity,
   IGenericBaseSelectState,
-  IMenuProps,
   ISelectOptionEntity,
 } from '../../../definition';
 import { IFieldProps } from '../../../configurations-definitions.interface';
@@ -41,11 +39,9 @@ export interface IBaseSelectProps
   extends IBasicSelectConfiguration,
     IGenericBaseSelectEntity,
     IBaseTextFieldProps,
-    IMenuConfigurationWrapper<IMenuProps>,
     IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
-  options?: ISelectOptionEntity[] | (() => ISelectOptionEntity[]);
 
   onSelect?(option: ISelectOptionEntity): void;
 }
