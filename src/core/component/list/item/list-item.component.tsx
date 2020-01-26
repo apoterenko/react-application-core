@@ -48,7 +48,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
                     className: 'rac-list-item__icon',
                   })
                 }
-                <div className='rac-list-item__text'>
+                <div className='rac-list-item__content'>
                   {
                     isFn(props.tpl)
                       ? props.tpl(props.rawData)
