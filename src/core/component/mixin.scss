@@ -1319,7 +1319,6 @@
   $rac-list-item-cursor: unset,                                                   /* @stable [26.01.2020] */
   $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
   $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
-  $rac-list-item-flex: unset,                                                     /* @stable [27.10.2019] */
   $rac-list-item-float: unset,
   $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
   $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
@@ -1331,6 +1330,7 @@
   $rac-list-item-margin: unset,
   $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
+  $rac-list-item-text-flex: unset,                                                /* @stable [27.10.2019] */
   $rac-list-item-text-margin: unset,                                              /* @stable [26.01.2020] */
   $rac-list-item-width: unset                                                     /* @stable [09.11.2019] */
 ) {
@@ -1350,7 +1350,6 @@
       $rac-styles-cursor: $rac-list-item-cursor,
       $rac-styles-display: $rac-list-item-display,
       $rac-styles-flex-direction: $rac-list-item-flex-direction,
-      $rac-styles-flex: $rac-list-item-flex,
       $rac-styles-float: $rac-list-item-float,
       $rac-styles-font-size: $rac-list-item-font-size,
       $rac-styles-font-weight: $rac-list-item-font-weight,
@@ -1371,6 +1370,7 @@
 
       @include rac-styles (
         $rac-styles-custom: rac-list-item__text,
+        $rac-styles-flex: $rac-list-item-text-flex,
         $rac-styles-margin: $rac-list-item-text-margin
       );
     }
@@ -1411,7 +1411,6 @@
   $rac-list-item-decorated-text-margin: unset,                                    /* @stable [26.01.2020] */
   $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
   $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
-  $rac-list-item-flex: unset,                                                     /* @stable [26.01.2020] */
   $rac-list-item-float: unset,                                                    /* @stable [25.01.2020] */
   $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
   $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
@@ -1426,6 +1425,7 @@
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
   $rac-list-item-selected-background: unset,                                      /* @stable [27.10.2019] */
   $rac-list-item-selected-color: unset,                                           /* @stable [27.10.2019] */
+  $rac-list-item-text-flex: unset,                                                /* @stable [26.01.2020] */
   $rac-list-item-text-margin: unset,                                              /* @stable [26.01.2020] */
   $rac-list-item-width: unset,                                                    /* @stable [09.11.2019] */
   $rac-list-margin: unset,                                                        /* @stable [25.01.2020] */
@@ -1467,7 +1467,6 @@
       $rac-list-item-cursor: $rac-list-item-cursor,
       $rac-list-item-display: $rac-list-item-display,
       $rac-list-item-flex-direction: $rac-list-item-flex-direction,
-      $rac-list-item-flex: $rac-list-item-flex,
       $rac-list-item-float: $rac-list-item-float,
       $rac-list-item-font-size: $rac-list-item-font-size,
       $rac-list-item-font-weight: $rac-list-item-font-weight,
@@ -1479,6 +1478,7 @@
       $rac-list-item-margin: $rac-list-item-margin,
       $rac-list-item-min-height: $rac-list-item-min-height,
       $rac-list-item-padding: $rac-list-item-padding,
+      $rac-list-item-text-flex: $rac-list-item-text-flex,
       $rac-list-item-text-margin: $rac-list-item-text-margin,
       $rac-list-item-width: $rac-list-item-width
     );
