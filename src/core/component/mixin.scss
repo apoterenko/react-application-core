@@ -1324,6 +1324,7 @@
   $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
   $rac-list-item-hover-background: unset,                                         /* @stable [26.01.2020] */
+  $rac-list-item-hover-color: unset,                                              /* @stable [27.01.2020] */
   $rac-list-item-icon-background: unset,                                          /* @stable [26.01.2020] */
   $rac-list-item-icon-color: unset,                                               /* @stable [26.01.2020] */
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
@@ -1378,7 +1379,8 @@
     &.rac-list-item__hovered {
       &:hover {
         @include rac-styles (
-          $rac-styles-background: $rac-list-item-hover-background
+          $rac-styles-background: $rac-list-item-hover-background,
+          $rac-styles-color: $rac-list-item-hover-color
         );
       }
     }
@@ -1416,6 +1418,7 @@
   $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
   $rac-list-item-hover-background: unset,                                         /* @stable [26.01.2020] */
+  $rac-list-item-hover-color: unset,                                              /* @stable [26.01.2020] */
   $rac-list-item-icon-background: unset,                                          /* @stable [26.01.2020] */
   $rac-list-item-icon-color: unset,                                               /* @stable [26.01.2020] */
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
@@ -1487,13 +1490,15 @@
       $rac-list-item-custom: $rac-list-item-selected-cls,
       $rac-list-item-background: $rac-list-item-selected-background,
       $rac-list-item-color: $rac-list-item-selected-color,
-      $rac-list-item-hover-background: $rac-list-item-hover-background
+      $rac-list-item-hover-background: $rac-list-item-hover-background,
+      $rac-list-item-hover-color: $rac-list-item-hover-color
     );
 
     @include rac-list-item (
       $rac-list-item-custom: rac-not-cls($rac-list-item-selected-cls, $rac-list-item-odd-cls),
       $rac-list-item-background: $rac-list-item-odd-background,
-      $rac-list-item-hover-background: $rac-list-item-hover-background
+      $rac-list-item-hover-background: $rac-list-item-hover-background,
+      $rac-list-item-hover-color: $rac-list-item-hover-color
     );
 
     @include rac-list-item (
@@ -3132,6 +3137,7 @@
   $rac-menu-dialog-list-item-decorated-text-margin: unset,                         /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-font-weight: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-hover-background: unset,                              /* @stable [26.01.2020] */
+  $rac-menu-dialog-list-item-hover-color: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-line-height: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-min-height: unset,                                    /* @stable [25.01.2020] */
   $rac-menu-dialog-list-item-odd-background: unset,                                /* @stable [26.01.2020] */
@@ -3172,6 +3178,7 @@
       $rac-list-item-decorated-text-margin: $rac-menu-dialog-list-item-decorated-text-margin,
       $rac-list-item-font-weight: $rac-menu-dialog-list-item-font-weight,
       $rac-list-item-hover-background: $rac-menu-dialog-list-item-hover-background,
+      $rac-list-item-hover-color: $rac-menu-dialog-list-item-hover-color,
       $rac-list-item-line-height: $rac-menu-dialog-list-item-line-height,
       $rac-list-item-min-height: $rac-menu-dialog-list-item-min-height,
       $rac-list-item-odd-background: $rac-menu-dialog-list-item-odd-background,
