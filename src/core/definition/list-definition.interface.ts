@@ -89,6 +89,7 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
  */
 export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
   extends IDisabledWrapper,
+    IHoveredWrapper,
     IIconWrapper,
     IIndexWrapper,
     IOddWrapper,

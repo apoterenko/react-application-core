@@ -321,6 +321,7 @@ export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<ISelectProps>({
 export const DEFAULT_ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
   ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
   anchored: true,
+  menuConfiguration: {useFilter: false, heightRestricted: false},
   placeActionRendered: false,
   useZipCode: true,
 });

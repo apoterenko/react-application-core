@@ -76,6 +76,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
           'rac-list-item',
           props.className,
           props.odd && 'rac-list-item-odd',
+          props.hovered && 'rac-list-item-hovered',
           ...(
             isSelected(props)
               ? ['rac-list-item-selected', context.selectedElementClassName]

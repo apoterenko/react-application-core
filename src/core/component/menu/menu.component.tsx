@@ -273,6 +273,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         disabled={option.disabled}
         icon={option.icon}
         rawData={option}
+        hovered={true}
         odd={isHighlightOdd(props, index)}
         renderer={props.renderer}
         tpl={props.tpl}
