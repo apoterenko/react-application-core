@@ -98,21 +98,23 @@ export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [27.10.2019]
+ * @behavioral-entity
+ * @stable [26.01.2020]
  */
-export interface IListItemEntity<TEntity extends IEntity = IEntity>
-  extends IGenericListItemEntity<TEntity>,
-    ITplWrapper<(entity: TEntity) => StringNumberT>,
-    IOnClickWrapper<TEntity>,
-    IRendererWrapper<TEntity, number> {
+export interface IBehavioralListItemEntity<TEntity extends IEntity = IEntity>
+  extends IOnClickWrapper<TEntity>,
+    IRendererWrapper<TEntity, number>,
+    ITplWrapper<(entity: TEntity) => StringNumberT> {
 }
 
 /**
- * @stable [27.10.2019]
+ * @props
+ * @stable [26.01.2020]
  */
-export interface IListItemProps
+export interface IListItemProps<TEntity extends IEntity = IEntity>
   extends IComponentProps,
-    IListItemEntity {
+    IGenericListItemEntity<TEntity>,
+    IBehavioralListItemEntity<TEntity> {
 }
 
 export interface IListEntity<TEntity = IEntity,

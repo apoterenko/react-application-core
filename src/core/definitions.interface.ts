@@ -324,8 +324,8 @@ export interface IOnInitWrapper<TValue = AnyT> { onInit?(payload?: TValue): void
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
 export interface IOnResetWrapper { onReset?(): void; }
-export interface IOnScrollWrapper<TPayload = {}> { onScroll?(payload?: TPayload): void; }
-export interface IOnSelectWrapper<TPayload = {}> { onSelect?(payload?: TPayload): void; }
+export interface IOnScrollWrapper<TValue = {}> { onScroll?(payload?: TValue): void; }
+export interface IOnSelectWrapper<TValue = {}> { onSelect?(payload?: TValue): void; }
 export interface IOnSortingDirectionChangeWrapper<TPayload> { onSortingDirectionChange?(payload: TPayload): void; }
 export interface IOnSubmitWrapper<TPayload = {}> { onSubmit?(payload?: TPayload): void; }
 export interface IOnValidWrapper<TPayload = boolean> { onValid?(payload?: TPayload): void; }

@@ -305,10 +305,8 @@ $rac-button-decorated-not-filled-width: 40px !default;
 /* @stable [26.01.2020] */
 /************************/
 $rac-card-list-cls: rac-card-list;
-$rac-list-item-odd-cls: rac-list-item-odd;
-$rac-list-item-selected-cls: rac-list-item-selected;
-/**/
-$rac-list-item-size-0: 32px;
+$rac-list-item-odd-cls: rac-list-item__odd;
+$rac-list-item-selected-cls: rac-list-item__selected;
 /**/
 $rac-card-list-item-align-items: normal !default;
 $rac-card-list-item-float: left !default;
@@ -321,16 +319,14 @@ $rac-list-item-color: $rac-color-1-0 !default;
 $rac-list-item-cursor: pointer !default;
 $rac-list-item-display: flex !default;
 $rac-list-item-flex-direction: unset !default;
+$rac-list-item-flex: 1 !default;
 $rac-list-item-font-size: $rac-font-size-0 !default;
 $rac-list-item-font-weight: unset !default;
-$rac-list-item-graphic-background: $rac-color-1-1 !default;
-$rac-list-item-graphic-border-radius: $rac-list-item-size-0 / 2 !default;
-$rac-list-item-graphic-icon-color: $rac-color-0-1 !default;
-$rac-list-item-graphic-margin: 0 $rac-offset-3 0 0 !default;
-$rac-list-item-graphic-size: $rac-list-item-size-0 !default;
+$rac-list-item-icon-background: unset !default;
+$rac-list-item-icon-color: unset !default;
 $rac-list-item-margin: unset !default;
 $rac-list-item-odd-background: $rac-color-0-3 !default;
-$rac-list-item-padding: 8px !default;
+$rac-list-item-padding: $rac-offset-1 $rac-offset-3 $rac-offset-1 $rac-offset-2 !default;
 $rac-list-item-selected-background: $rac-color-2-0 !default;
 $rac-list-margin: 0 !default;
 $rac-list-padding: 0 !default;
@@ -697,8 +693,6 @@ $rac-filter-active-font-size: 18px !default;
 $rac-form-actions-flex-shrink: 0 !default;
 $rac-form-actions-button-neighbor-margin: 0 0 0 $rac-default-half-offset !default;
 $rac-form-actions-button-min-width: unset !default;
-$rac-form-simple-list-item-graphic-border-radius: 16px !default;
-$rac-form-simple-list-item-graphic-margin-right: 20px !default;
 
 /* @stable [24.06.2018] */
 $rac-chip-padding: 6px 20px !default;

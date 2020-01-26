@@ -7,10 +7,6 @@ import {
   isSelected,
   joinClassName,
 } from '../../../util';
-import {
-  ListItemGraphic,
-  ListItemText,
-} from '../../list';
 import { BaseComponent } from '../../base';
 import {
   IListItemProps,
@@ -47,13 +43,18 @@ export class ListItem extends BaseComponent<IListItemProps> {
             : (
               <li {...this.getItemProps({selectedElementClassName})}>
                 {
-                  props.icon && <ListItemGraphic iconConfiguration={props.icon}/>
+                  props.icon && this.uiFactory.makeIcon({
+                    type: props.icon,
+                    className: 'rac-list-item__icon',
+                  })
                 }
-                {
-                  isFn(props.tpl)
-                    ? <ListItemText>{props.tpl(props.rawData)}</ListItemText>
-                    : props.children
-                }
+                <div className='rac-list-item__text'>
+                  {
+                    isFn(props.tpl)
+                      ? props.tpl(props.rawData)
+                      : props.children
+                  }
+                </div>
               </li>
             )
         )}
@@ -75,12 +76,13 @@ export class ListItem extends BaseComponent<IListItemProps> {
         className: joinClassName(
           'rac-list-item',
           props.className,
-          props.odd && 'rac-list-item-odd',
-          props.hovered && 'rac-list-item-hovered',
+          props.icon && 'rac-list-item__decorated',
+          props.odd && 'rac-list-item__odd',
+          props.hovered && 'rac-list-item__hovered',
           ...(
             isSelected(props)
-              ? ['rac-list-item-selected', context.selectedElementClassName]
-              : ['rac-list-item-unselected']
+              ? ['rac-list-item__selected', context.selectedElementClassName]
+              : ['rac-list-item__unselected']
           )
         ),
         ...handlerPropsFactory(this.onClick, !isDisabled(props) && isFn(props.onClick), false),

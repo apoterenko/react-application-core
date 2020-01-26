@@ -1316,25 +1316,22 @@
   $rac-list-item-box-shadow: unset,                                               /* @stable [09.11.2019] */
   $rac-list-item-box-sizing: unset,                                               /* @stable [25.01.2020] */
   $rac-list-item-color: unset,                                                    /* @stable [26.01.2020] */
-  $rac-list-item-cursor: unset,
+  $rac-list-item-cursor: unset,                                                   /* @stable [26.01.2020] */
   $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
   $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
+  $rac-list-item-flex: unset,                                                     /* @stable [27.10.2019] */
   $rac-list-item-float: unset,
   $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
   $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
-  $rac-list-item-graphic-background: unset,
-  $rac-list-item-graphic-border-radius: unset,
-  $rac-list-item-graphic-icon-color: unset,
-  $rac-list-item-graphic-margin: unset,
-  $rac-list-item-graphic-size: unset,
   $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
   $rac-list-item-hover-background: unset,                                         /* @stable [26.01.2020] */
+  $rac-list-item-icon-background: unset,                                          /* @stable [26.01.2020] */
+  $rac-list-item-icon-color: unset,                                               /* @stable [26.01.2020] */
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-margin: unset,
   $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
-  $rac-list-item-position: unset,
-  $rac-list-item-text-margin: unset,
+  $rac-list-item-text-margin: unset,                                              /* @stable [26.01.2020] */
   $rac-list-item-width: unset                                                     /* @stable [09.11.2019] */
 ) {
   #{rac-cls(rac-list-item, $rac-list-item-custom)} {
@@ -1353,6 +1350,7 @@
       $rac-styles-cursor: $rac-list-item-cursor,
       $rac-styles-display: $rac-list-item-display,
       $rac-styles-flex-direction: $rac-list-item-flex-direction,
+      $rac-styles-flex: $rac-list-item-flex,
       $rac-styles-float: $rac-list-item-float,
       $rac-styles-font-size: $rac-list-item-font-size,
       $rac-styles-font-weight: $rac-list-item-font-weight,
@@ -1361,31 +1359,23 @@
       $rac-styles-margin: $rac-list-item-margin,
       $rac-styles-min-height: $rac-list-item-min-height,
       $rac-styles-padding: $rac-list-item-padding,
-      $rac-styles-position: $rac-list-item-position,
       $rac-styles-width: $rac-list-item-width
     );
 
     > {
-      .rac-list-item-graphic {
-        @include rac-styles (
-          $rac-styles-background: $rac-list-item-graphic-background,
-          $rac-styles-border-radius: $rac-list-item-graphic-border-radius,
-          $rac-styles-margin: $rac-list-item-graphic-margin,
-          $rac-styles-size: $rac-list-item-graphic-size
-        );
-
-        @include rac-icon (
-          $rac-icon-color: $rac-list-item-graphic-icon-color
-        );
-      }
+      @include rac-icon (
+        $rac-icon-custom: rac-list-item__icon,
+        $rac-icon-background: $rac-list-item-icon-background,
+        $rac-icon-color: $rac-list-item-icon-color
+      );
 
       @include rac-styles (
-        $rac-styles-custom: rac-list-item-text,
+        $rac-styles-custom: rac-list-item__text,
         $rac-styles-margin: $rac-list-item-text-margin
       );
     }
 
-    &.rac-list-item-hovered {
+    &.rac-list-item__hovered {
       &:hover {
         @include rac-styles (
           $rac-styles-background: $rac-list-item-hover-background
@@ -1403,7 +1393,6 @@
   $rac-list-item-custom: unset,
   /**/
   $rac-list-background: unset,                                                    /* @stable [09.11.2019] */
-  $rac-list-border-bottom: unset,
   $rac-list-border-radius: unset,                                                 /* @stable [25.01.2020] */
   $rac-list-flex-basis: unset,                                                    /* @stable [25.01.2020] */
   $rac-list-flex: unset,                                                          /* @stable [24.01.2020] */
@@ -1411,35 +1400,33 @@
   $rac-list-item-background: unset,                                               /* @stable [25.01.2020] */
   $rac-list-item-border-bottom: unset,                                            /* @stable [09.11.2019] */
   $rac-list-item-border-left: unset,                                              /* @stable [09.11.2019] */
-  $rac-list-item-border-radius: unset,
+  $rac-list-item-border-radius: unset,                                            /* @stable [26.01.2020] */
   $rac-list-item-border-right: unset,                                             /* @stable [09.11.2019] */
   $rac-list-item-border-top: unset,                                               /* @stable [09.11.2019] */
   $rac-list-item-border: unset,                                                   /* @stable [09.11.2019] */
   $rac-list-item-box-shadow: unset,                                               /* @stable [09.11.2019] */
-  $rac-list-item-box-sizing: unset,
+  $rac-list-item-box-sizing: unset,                                               /* @stable [26.01.2020] */
   $rac-list-item-color: unset,                                                    /* @stable [25.01.2020] */
-  $rac-list-item-cursor: unset,
+  $rac-list-item-cursor: unset,                                                   /* @stable [26.01.2020] */
+  $rac-list-item-decorated-text-margin: unset,                                    /* @stable [26.01.2020] */
   $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
   $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
+  $rac-list-item-flex: unset,                                                     /* @stable [26.01.2020] */
   $rac-list-item-float: unset,                                                    /* @stable [25.01.2020] */
   $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
   $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
-  $rac-list-item-graphic-background: unset,
-  $rac-list-item-graphic-border-radius: unset,
-  $rac-list-item-graphic-icon-color: unset,
-  $rac-list-item-graphic-margin: unset,
-  $rac-list-item-graphic-size: unset,
   $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
   $rac-list-item-hover-background: unset,                                         /* @stable [26.01.2020] */
+  $rac-list-item-icon-background: unset,                                          /* @stable [26.01.2020] */
+  $rac-list-item-icon-color: unset,                                               /* @stable [26.01.2020] */
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
-  $rac-list-item-margin: unset,
+  $rac-list-item-margin: unset,                                                   /* @stable [26.01.2020] */
   $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
   $rac-list-item-odd-background: unset,                                           /* @stable [26.01.2020] */
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
-  $rac-list-item-position: unset,
   $rac-list-item-selected-background: unset,                                      /* @stable [27.10.2019] */
   $rac-list-item-selected-color: unset,                                           /* @stable [27.10.2019] */
-  $rac-list-item-text-margin: unset,
+  $rac-list-item-text-margin: unset,                                              /* @stable [26.01.2020] */
   $rac-list-item-width: unset,                                                    /* @stable [09.11.2019] */
   $rac-list-margin: unset,                                                        /* @stable [25.01.2020] */
   $rac-list-max-height: unset,                                                    /* @stable [26.01.2020] */
@@ -1452,7 +1439,6 @@
   #{rac-cls(rac-list, $rac-list-custom)} {
     @include rac-styles (
       $rac-styles-background: $rac-list-background,
-      $rac-styles-border-bottom: $rac-list-border-bottom,
       $rac-styles-border-radius: $rac-list-border-radius,
       $rac-styles-flex-basis: $rac-list-flex-basis,
       $rac-styles-flex: $rac-list-flex,
@@ -1481,21 +1467,18 @@
       $rac-list-item-cursor: $rac-list-item-cursor,
       $rac-list-item-display: $rac-list-item-display,
       $rac-list-item-flex-direction: $rac-list-item-flex-direction,
+      $rac-list-item-flex: $rac-list-item-flex,
       $rac-list-item-float: $rac-list-item-float,
       $rac-list-item-font-size: $rac-list-item-font-size,
       $rac-list-item-font-weight: $rac-list-item-font-weight,
-      $rac-list-item-graphic-background: $rac-list-item-graphic-background,
-      $rac-list-item-graphic-border-radius: $rac-list-item-graphic-border-radius,
-      $rac-list-item-graphic-icon-color: $rac-list-item-graphic-icon-color,
-      $rac-list-item-graphic-margin: $rac-list-item-graphic-margin,
-      $rac-list-item-graphic-size: $rac-list-item-graphic-size,
       $rac-list-item-height: $rac-list-item-height,
       $rac-list-item-hover-background: $rac-list-item-hover-background,
+      $rac-list-item-icon-background: $rac-list-item-icon-background,
+      $rac-list-item-icon-color: $rac-list-item-icon-color,
       $rac-list-item-line-height: $rac-list-item-line-height,
       $rac-list-item-margin: $rac-list-item-margin,
       $rac-list-item-min-height: $rac-list-item-min-height,
       $rac-list-item-padding: $rac-list-item-padding,
-      $rac-list-item-position: $rac-list-item-position,
       $rac-list-item-text-margin: $rac-list-item-text-margin,
       $rac-list-item-width: $rac-list-item-width
     );
@@ -1511,6 +1494,11 @@
       $rac-list-item-custom: rac-not-cls($rac-list-item-selected-cls, $rac-list-item-odd-cls),
       $rac-list-item-background: $rac-list-item-odd-background,
       $rac-list-item-hover-background: $rac-list-item-hover-background
+    );
+
+    @include rac-list-item (
+      $rac-list-item-custom: rac-list-item__decorated,
+      $rac-list-item-text-margin: $rac-list-item-decorated-text-margin
     );
   }
 }
@@ -3141,6 +3129,7 @@
   $rac-menu-dialog-list-border-radius: unset,                                      /* @stable [11.11.2019] */
   $rac-menu-dialog-list-item-box-sizing: unset,                                    /* @stable [25.01.2020] */
   $rac-menu-dialog-list-item-color: unset,                                         /* @stable [25.01.2020] */
+  $rac-menu-dialog-list-item-decorated-text-margin: unset,                         /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-font-weight: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-hover-background: unset,                              /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-line-height: unset,                                   /* @stable [26.01.2020] */
@@ -3180,6 +3169,7 @@
       $rac-list-border-radius: $rac-menu-dialog-list-border-radius,
       $rac-list-item-box-sizing: $rac-menu-dialog-list-item-box-sizing,
       $rac-list-item-color: $rac-menu-dialog-list-item-color,
+      $rac-list-item-decorated-text-margin: $rac-menu-dialog-list-item-decorated-text-margin,
       $rac-list-item-font-weight: $rac-menu-dialog-list-item-font-weight,
       $rac-list-item-hover-background: $rac-menu-dialog-list-item-hover-background,
       $rac-list-item-line-height: $rac-menu-dialog-list-item-line-height,

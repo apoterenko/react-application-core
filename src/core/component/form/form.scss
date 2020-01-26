@@ -1,30 +1,11 @@
 @import '../constant';
 @import '../mixin';
 
-// Form [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-form(
-    $rac-form-actions-flex-shrink: $rac-form-actions-flex-shrink,
+  @include rac-form (
     $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
-    $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin
+    $rac-form-actions-button-neighbor-margin: $rac-form-actions-button-neighbor-margin,
+    $rac-form-actions-flex-shrink: $rac-form-actions-flex-shrink
   );
-
-  .rac-form {
-
-    .rac-list {
-
-      .rac-list-item {
-
-        .rac-list-item-graphic {
-          border-radius: $rac-form-simple-list-item-graphic-border-radius;          /* @stable [25.06.2018] */
-          margin-right: $rac-form-simple-list-item-graphic-margin-right;            /* @stable [03.08.2018] */
-        }
-
-        .rac-list-item-text {
-          white-space: normal;                                                      /* @stable [04.07.2018] */
-        }
-      }
-    }
-  }
 }

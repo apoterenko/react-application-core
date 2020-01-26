@@ -79,13 +79,13 @@ export interface IBehavioralMenuEntity
   extends IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
     IOnCloseWrapper,
     IOnFilterChangeWrapper<(query: string) => void>,
-    IOnSelectWrapper<IMenuItemEntity> {
+    IOnSelectWrapper<IMenuItemEntity>,
+    ITplWrapper<(item: IMenuItemEntity) => StringNumberT> {
 }
 
 // TODO
 export interface IMenuEntity
   extends IRendererWrapper<IMenuItemEntity, number>,
-    ITplWrapper<(item: IMenuItemEntity) => StringNumberT>,
     IXPositionWrapper,
     IYPositionWrapper {
 }
