@@ -1372,7 +1372,7 @@
       @include rac-styles (
         $rac-styles-custom: rac-list-item__content,
         $rac-styles-flex: $rac-list-item-content-flex,
-        $rac-styles-margin: $rac-list-item-content-text-align
+        $rac-styles-text-align: $rac-list-item-content-text-align
       );
     }
 
