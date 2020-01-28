@@ -6,7 +6,6 @@ import {
   ifNotNilThanValue,
   isObjectNotEmpty,
   isPlaceActionRendered,
-  isPrimitive,
   isUseZipCode,
   joinClassName,
   nvl,
@@ -32,6 +31,7 @@ import {
   ISelectOptionEntity,
   PlaceMarkerActionsEnum,
 } from '../../../definition';
+import { EntityIdT } from '../../../definitions.interface';
 
 export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
@@ -95,10 +95,9 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @returns {string}
    */
   protected decorateDisplayValue(value: IPlaceEntity | string): string {
-    const valueAsPlaceEntity = value as IPlaceEntity;
-    return isPrimitive(value)
-      ? value as string
-      : ((this.useZipCode ? valueAsPlaceEntity.zipCode : valueAsPlaceEntity.formattedName) || '');
+    return this.useZipCode
+      ? this.zipCodeEntityAsDisplayValue(value)
+      : this.placeEntityAsDisplayValue(value);
   }
 
   /**
@@ -110,6 +109,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
       dialogOpened,
       placeEntity,
     } = this.state;
+
     return orNull(
       dialogOpened,  // To improve a performance
       () => {
@@ -124,10 +124,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
           >
             {
               ifNotNilThanValue(
-                nvl(
-                  ifNotNilThanValue(placeEntity, () => this.fromPlaceEntityToString(placeEntity)),
-                  ifNotNilThanValue(this.placeEntityValue, (placeEntityValue) => placeEntityValue.formattedName)
-                ),
+                this.placeEntityAsDisplayValue(nvl(placeEntity, this.value)),
                 (value) => (
                   <div className='rac-place-field__dialog-place'>{value}</div>
                 )
@@ -209,21 +206,20 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [29.01.2020]
    * @param {IPlaceEntity} placeEntity
    * @param {ISelectOptionEntity<IPlaceEntity>} option
    */
   private doSelect(placeEntity: IPlaceEntity, option?: ISelectOptionEntity<IPlaceEntity>): void {
+    let payload: IPlaceEntity | EntityIdT;
     if (this.isPlainValueApplied) {
-      this.onChangeManually(
-        this.useZipCode ? placeEntity.zipCode : this.fromPlaceEntityToString(placeEntity)
-      );
+      payload = this.useZipCode
+        ? this.zipCodeEntityAsDisplayValue(placeEntity)
+        : this.placeEntityAsDisplayValue(placeEntity);
     } else {
-      this.onChangeManually<IPlaceEntity>({
-        ...placeEntity,
-        formattedName: this.fromPlaceEntityToString(placeEntity),
-      });
+      payload = placeEntity;
     }
+    this.onChangeManually(payload);
     this.notifySelectOption(option);
   }
 
@@ -287,7 +283,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   private initPlaceMarker(): void {
     this.googleMaps.addMarker({draggable: true, position: null}, PlaceField.PLACE_MARKER);
 
-    const {lat, lng} = this.placeEntityValue || {} as IPlaceEntity;
+    const {lat, lng}: IPlaceEntity = (this.value || {});
     const isMarkerVisible = !(R.isNil(lat) && R.isNil(lng));
 
     if (isMarkerVisible) {
@@ -309,13 +305,26 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   /**
    * @stable [10.01.2020]
-   * @param {IPlaceEntity} placeEntity
+   * @param {IPlaceEntity | string} placeEntity
    * @returns {string}
    */
-  private fromPlaceEntityToString(placeEntity: IPlaceEntity): string {
+  private placeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
     return this.fieldConverter.convert({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
-      to: FieldConverterTypesEnum.STRING,
+      to: FieldConverterTypesEnum.DISPLAY_VALUE,
+      value: placeEntity,
+    });
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @param {IPlaceEntity | string} placeEntity
+   * @returns {string}
+   */
+  private zipCodeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
+    return this.fieldConverter.convert({
+      from: FieldConverterTypesEnum.ZIP_CODE_ENTITY,
+      to: FieldConverterTypesEnum.DISPLAY_VALUE,
       value: placeEntity,
     });
   }
@@ -342,14 +351,6 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   private get googleMaps(): IGoogleMaps {
     return this.googleMapsRef.current;
-  }
-
-  /**
-   * @stable [09.01.2020]
-   * @returns {IPlaceEntity}
-   */
-  private get placeEntityValue(): IPlaceEntity {
-    return this.value;
   }
 
   /**

@@ -16,7 +16,6 @@ import {
 } from '../../definition';
 import {
   asPlaceEntity,
-  asPlaceParameter,
   isFn,
   isPrimitive,
   join,
@@ -65,7 +64,7 @@ export class FieldConverter implements IFieldConverter {
     this.register({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.PLACE_PARAMETER,
-      converter: asPlaceParameter,
+      converter: this.placeEntityAsDisplayValue,
     });
     this.register({
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,

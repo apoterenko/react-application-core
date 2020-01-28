@@ -1,6 +1,5 @@
 import { ifNotNilThanValue } from './cond';
 import { IPlaceEntity } from '../definition';
-import { UNDEF_SYMBOL } from '../definitions.interface';
 
 /**
  * @stable [01.08.2018]
@@ -11,18 +10,6 @@ import { UNDEF_SYMBOL } from '../definitions.interface';
 export const toPlaceDescription = <TType>(cmp: google.maps.GeocoderAddressComponent,
                                           extractor: (cmp: google.maps.GeocoderAddressComponent) => TType): TType =>
   cmp && extractor(cmp);
-
-/**
- * @stable [10.01.2020]
- * @param {IPlaceEntity} placeEntity
- * @returns {string}
- */
-export const asPlaceParameter = (placeEntity: IPlaceEntity): string =>
-  ifNotNilThanValue(
-    placeEntity,
-    () => placeEntity.formattedName,
-    UNDEF_SYMBOL
-  );
 
 /**
  * @stable [04.08.2018]
