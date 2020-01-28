@@ -65,8 +65,10 @@ import {
   ITitleWrapper,
   ITypeWrapper,
   IUseKeyboardWrapper,
+  IUseLocalOptionsWrapper,
   IValueWrapper,
   IVisibleWrapper,
+  IWaitingForOptionsWrapper,
   IYearWrapper,
   StringNumberT,
   UNDEF,
@@ -78,7 +80,6 @@ import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IDialogConfigurationEntity } from './dialog-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
-import { IPlaceFieldProps } from './place-definition.interface';
 import {
   IMenuConfigurationEntity,
   IMenuItemEntity,
@@ -296,7 +297,9 @@ export interface IGenericBaseSelectEntity
     IForceReloadWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
-    IOptionsWrapper<ISelectOptionEntity[]> {
+    IOptionsWrapper<ISelectOptionEntity[]>,
+    IUseLocalOptionsWrapper,
+    IWaitingForOptionsWrapper {
 }
 
 /**
@@ -312,28 +315,8 @@ export interface ISelectOptionEntity<TRawData = {}>
  * @stable [15.01.2020]
  */
 export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
+  anchored: true,
   expandActionRendered: false,
   menuConfiguration: {useFilter: false},
   preventFocus: false,
-});
-
-/**
- * @default-entity
- * @stable [28.01.2020]
- */
-export const BASIC_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
-  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
-  anchored: true,
-});
-
-/**
- * @default-entity
- * @stable [15.01.2020]
- */
-export const DEFAULT_ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
-  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
-  anchored: true,
-  menuConfiguration: {useFilter: false, heightRestricted: false},
-  placeActionRendered: false,
-  useZipCode: true,
 });

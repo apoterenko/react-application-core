@@ -14,6 +14,7 @@ import {
   isDef,
   isExpandActionRendered,
   isFn,
+  isLocalOptionsUsed,
   isMenuRendered,
   isObjectNotEmpty,
   isPrimitive,
@@ -24,7 +25,10 @@ import {
 } from '../../../util';
 import { BaseTextField } from '../text-field';
 import { Menu } from '../../menu';
-import { AnyT } from '../../../definitions.interface';
+import {
+  AnyT,
+  EntityIdT,
+} from '../../../definitions.interface';
 import {
   IBaseSelect,
   IBaseSelectProps,
@@ -49,7 +53,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   private readonly menuRef = React.createRef<Menu>();
   private readonly quickFilterQueryTask: DelayedTask;
-  private readonly localOptionsAvailable: boolean;
 
   /**
    * @stable [30.11.2019]
@@ -66,8 +69,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.onOptionsLoadDone = this.onOptionsLoadDone.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
-
-    this.localOptionsAvailable = this.doOptionsExist;
 
     if (this.isExpandActionRendered) {
       this.defaultActions = [
@@ -90,7 +91,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [29.01.2020]
    * @param {Readonly<TProps extends IBaseSelectProps>} prevProps
    * @param {Readonly<TState extends IBaseSelectState>} prevState
    */
@@ -98,21 +99,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.componentDidUpdate(prevProps, prevState);
     const props = this.props;
 
-    if (this.state.progress && !props.progress && prevProps.progress) {
+    if (this.state.progress
+      && !props.waitingForOptions && prevProps.waitingForOptions) {
+      // We can't use progress props because it is reserved
       // The new data have come
       this.setState({progress: false}, this.onOptionsLoadDone);
     }
 
-    // TODO Use keyValueCache
-    const newValue = props.value;
-    if (!R.equals(newValue, prevProps.value)) {
-      const $$cachedValue = this.state.$$cachedValue;
-
-      if (!R.isNil($$cachedValue) && !R.equals($$cachedValue.value, newValue)) {
-        // Need to reset the previous cached display value if the value has been cleared or replaced
-        this.setState({$$cachedValue: null});
-      }
-    }
+    this.tryResetCachedValue(props, prevProps);
   }
 
   /**
@@ -285,9 +279,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const $$cachedValue = this.state.$$cachedValue;
     const hasCachedValue = !R.isNil($$cachedValue);
 
-    if (!hasCachedValue && this.localOptionsAvailable) {
-      const optionValue = isPrimitive(value) ? value : ((value as ISelectOptionEntity).value);
-      value = R.find<ISelectOptionEntity>((option) => option.value === optionValue, this.options);
+    if (!hasCachedValue && this.isLocalOptionsUsed) {
+      const optionValue = this.selectOptionEntityAsId(value);
+      value = nvl(
+        R.find<ISelectOptionEntity>((option) => this.selectOptionEntityAsId(option) === optionValue, this.options),
+        value
+      );
     }
     return super.getDecoratedDisplayValue(hasCachedValue ? $$cachedValue : value, hasCachedValue);
   }
@@ -335,7 +332,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private notifyFilterChange(): void {
     const value = this.value;
 
-    if (this.isAllowEmptyFilterValue || isObjectNotEmpty(value)) {
+    if (this.isAllowEmptyFilterValue || (isObjectNotEmpty(value) && isPrimitive(value))) {
       this.setState({progress: true}, () => this.onFilterChange(value));
     }
   }
@@ -354,8 +351,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {ISelectOptionEntity} option
    */
   private onSelectDone(option: ISelectOptionEntity): void {
-    this.onChangeManually(this.isPlainValueApplied ? option.value : option);
+    this.onChangeManually(this.isPlainValueApplied ? this.selectOptionEntityAsId(option) : option);
     this.notifySelectOption(option);
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @returns {EntityIdT}
+   */
+  private selectOptionEntityAsId(value: AnyT): EntityIdT {
+    return this.fieldConverter.convert({
+      value,
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.ID,
+    });
   }
 
   private onFilterChange(query: string): void {
@@ -424,6 +433,25 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
+   * @stable [29.01.2020]
+   * @param {TProps} props
+   * @param {TProps} previousProps
+   */
+  private tryResetCachedValue(props: TProps, previousProps: TProps): void {
+    const newValue = props.value;
+    if (!R.equals(newValue, previousProps.value)) {
+      // The value has changed
+
+      // TODO Use keyValueCache
+      const $$cachedValue = this.state.$$cachedValue;
+      if (!R.isNil($$cachedValue) && !R.equals($$cachedValue.value, newValue)) {
+        // Need to reset the previous cached display value if the value has been cleared or replaced
+        this.setState({$$cachedValue: null});
+      }
+    }
+  }
+
+  /**
    * @stable [11.01.2020]
    * @returns {boolean}
    */
@@ -461,6 +489,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get isMenuRendered(): boolean {
     return isMenuRendered(this.state);
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @returns {boolean}
+   */
+  private get isLocalOptionsUsed(): boolean {
+    return isLocalOptionsUsed(this.props);
   }
 
   /**

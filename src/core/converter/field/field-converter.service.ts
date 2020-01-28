@@ -10,18 +10,20 @@ import {
   IFieldConverter,
   IFieldConverterConfigEntity,
   IPhoneConfigEntity,
+  IPlaceEntity,
   ISelectOptionEntity,
   TranslatorT,
 } from '../../definition';
 import {
   asPlaceEntity,
-  asPlaceEntityFormattedName,
   asPlaceParameter,
   isFn,
   isPrimitive,
+  join,
 } from '../../util';
 import {
   AnyT,
+  EntityIdT,
   StringNumberT,
 } from '../../definitions.interface';
 import {
@@ -40,7 +42,10 @@ export class FieldConverter implements IFieldConverter {
    * @stable [09.01.2020]
    */
   constructor() {
+    this.placeEntityAsDisplayValue = this.placeEntityAsDisplayValue.bind(this);
     this.selectOptionEntityAsDisplayValue = this.selectOptionEntityAsDisplayValue.bind(this);
+    this.selectOptionEntityAsId = this.selectOptionEntityAsId.bind(this);
+    this.zipCodeEntityAsDisplayValue = this.zipCodeEntityAsDisplayValue.bind(this);
 
     this.register({
       from: FieldConverterTypesEnum.GEO_CODER_RESULT,
@@ -49,8 +54,13 @@ export class FieldConverter implements IFieldConverter {
     });
     this.register({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
-      to: FieldConverterTypesEnum.STRING,
-      converter: asPlaceEntityFormattedName,
+      to: FieldConverterTypesEnum.DISPLAY_VALUE,
+      converter: this.placeEntityAsDisplayValue,
+    });
+    this.register({
+      from: FieldConverterTypesEnum.ZIP_CODE_ENTITY,
+      to: FieldConverterTypesEnum.DISPLAY_VALUE,
+      converter: this.zipCodeEntityAsDisplayValue,
     });
     this.register({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
@@ -61,6 +71,11 @@ export class FieldConverter implements IFieldConverter {
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
       to: FieldConverterTypesEnum.DISPLAY_VALUE,
       converter: this.selectOptionEntityAsDisplayValue,
+    });
+    this.register({
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.ID,
+      converter: this.selectOptionEntityAsId,
     });
   }
 
@@ -99,6 +114,46 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [28.01.2020]
+   * @param {IPlaceEntity | string} placeEntity
+   * @returns {string}
+   */
+  protected placeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
+    if (R.isNil(placeEntity)) {
+      return placeEntity;
+    }
+    if (isPrimitive(placeEntity)) {
+      return placeEntity as string;
+    }
+    const placeEntityAsObject = placeEntity as IPlaceEntity;
+    return join(
+      [
+        join([placeEntityAsObject.streetNumber, placeEntityAsObject.street], ' '),
+        placeEntityAsObject.city,
+        placeEntityAsObject.region,
+        placeEntityAsObject.country
+      ],
+      ', '
+    ) || placeEntityAsObject.formattedName;
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @param {IPlaceEntity | string} placeEntity
+   * @returns {string}
+   */
+  protected zipCodeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
+    if (R.isNil(placeEntity)) {
+      return placeEntity;
+    }
+    if (isPrimitive(placeEntity)) {
+      return placeEntity as string;
+    }
+    const placeEntityAsObject = placeEntity as IPlaceEntity;
+    return placeEntityAsObject.zipCode;
+  }
+
+  /**
+   * @stable [28.01.2020]
    * @param {ISelectOptionEntity | StringNumberT} option
    * @returns {StringNumberT}
    */
@@ -113,6 +168,22 @@ export class FieldConverter implements IFieldConverter {
     return R.isNil(optionAsObject.label)
       ? optionAsObject.value
       : this.t(optionAsObject.label, option);
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @param {ISelectOptionEntity | StringNumberT} option
+   * @returns {EntityIdT}
+   */
+  protected selectOptionEntityAsId(option: ISelectOptionEntity | StringNumberT): EntityIdT {
+    if (R.isNil(option)) {
+      return option;
+    }
+    if (isPrimitive(option)) {
+      return option as StringNumberT;
+    }
+    const optionAsObject = option as ISelectOptionEntity;
+    return optionAsObject.value;
   }
 
   /**

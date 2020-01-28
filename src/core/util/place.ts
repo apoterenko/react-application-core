@@ -1,23 +1,6 @@
 import { ifNotNilThanValue } from './cond';
 import { IPlaceEntity } from '../definition';
-import { join } from './join';
 import { UNDEF_SYMBOL } from '../definitions.interface';
-
-/**
- * @stable [01.08.2018]
- * @param {IPlaceEntity} placeEntity
- * @returns {string}
- */
-export const asPlaceEntityFormattedName = (placeEntity: IPlaceEntity): string =>
-  ifNotNilThanValue(
-    placeEntity,
-    () => join([
-      join([placeEntity.streetNumber, placeEntity.street], ' '),
-      placeEntity.city,
-      placeEntity.region,
-      placeEntity.country
-    ], ', ') || placeEntity.formattedName,
-  );
 
 /**
  * @stable [01.08.2018]

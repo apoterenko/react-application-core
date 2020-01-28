@@ -481,6 +481,7 @@ export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 export interface IUrlWrapper<TValue = string> { url?: TValue; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
+export interface IUseLocalOptionsWrapper { useLocalOptions?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TValue = string> { user?: TValue; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
@@ -491,6 +492,7 @@ export interface IValidWrapper { valid?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
+export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }
 export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }

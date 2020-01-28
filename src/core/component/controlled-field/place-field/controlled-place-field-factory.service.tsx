@@ -15,7 +15,7 @@ import {
 import {
   provideInSingleton,
 } from '../../../di';
-import { selectDictionaryEntityOptions } from '../../../util';
+import { mapDictionaryEntityField } from '../../../util';
 
 @provideInSingleton(ControlledPlaceFieldFactory)
 export class ControlledPlaceFieldFactory
@@ -41,21 +41,21 @@ export class ControlledPlaceFieldFactory
   protected getExtraProps(config: IControlledPlaceFieldConfigEntity,
                           actualFieldCfg: IControlledPlaceFieldItemEntity,
                           actualFields: IControlledPlaceFieldItemEntity[]): IPlaceFieldProps {
-    const props = super.getExtraProps(config, actualFieldCfg, actualFields);
+    const extraProps = super.getExtraProps(config, actualFieldCfg, actualFields);
     const container = config.container;
 
     switch (actualFieldCfg.type) {
       case ControlledPlaceFieldItemsEnum.PLACE:
         return {
-          ...props,
-          options: selectDictionaryEntityOptions(config.container.props.dictionaries.places),
+          ...extraProps,
+          ...mapDictionaryEntityField(config.container.props.dictionaries.places),
           onFilterChange: (query) => {
             const payloadWrapper: ISearchPlacesPayloadEntity = {payload: {query}};
             this.$dictionaryStoreProxyFactory(container).dispatchLoadDictionary(DictionariesEnum.PLACES, payloadWrapper);
           },
         };
     }
-    return props;
+    return extraProps;
   }
 
   /**

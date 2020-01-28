@@ -55,6 +55,7 @@ import {
   IRawDataWrapper,
   ISelectedWrapper,
   ITokenWrapper,
+  IWaitingForOptionsWrapper,
   StringNumberT,
   UNDEF,
   UNDEF_SYMBOL,
@@ -383,6 +384,14 @@ export const mapEntityId = (id: EntityIdT): IEntityIdTWrapper =>
  */
 export const mapProgress = (progress: boolean): IProgressWrapper =>
   defValuesFilter<IProgressWrapper, IProgressWrapper>({progress});
+
+/**
+ * @stable [29.01.2020]
+ * @param {boolean} waitingForOptions
+ * @returns {IWaitingForOptionsWrapper}
+ */
+export const mapWaitingForOptions = (waitingForOptions: boolean): IWaitingForOptionsWrapper =>
+  defValuesFilter<IWaitingForOptionsWrapper, IWaitingForOptionsWrapper>({waitingForOptions});
 
 /**
  * @stable [28.01.2020]
@@ -756,13 +765,13 @@ export const selectDictionaryEntityLoading =
  * @stable [28.01.2020]
  * @param {IDictionaryEntity<TEntity>} dictionaryEntity
  * @param {(data: TEntity[]) => TResult} accessor
- * @returns {IGenericFieldEntity & IGenericBaseSelectEntity}
+ * @returns {IGenericBaseSelectEntity}
  */
 export const mapDictionaryEntityField =
   <TEntity, TResult = TEntity[]>(dictionaryEntity: IDictionaryEntity<TEntity>,
-                                 accessor?: (data: TEntity[]) => TResult): IGenericFieldEntity & IGenericBaseSelectEntity =>
+                                 accessor?: (data: TEntity[]) => TResult): IGenericBaseSelectEntity =>
     ({
-      ...mapProgress(selectDictionaryEntityLoading(dictionaryEntity)),
+      ...mapWaitingForOptions(selectDictionaryEntityLoading(dictionaryEntity)),
       ...mapOptions(selectDictionaryEntityOptions<TEntity>(dictionaryEntity, accessor)),
     });
 
