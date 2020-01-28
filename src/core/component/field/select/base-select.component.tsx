@@ -16,6 +16,7 @@ import {
   isFn,
   isMenuRendered,
   isObjectNotEmpty,
+  isPrimitive,
   joinClassName,
   nvl,
   orNull,
@@ -48,6 +49,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   private readonly menuRef = React.createRef<Menu>();
   private readonly quickFilterQueryTask: DelayedTask;
+  private readonly localOptionsAvailable: boolean;
 
   /**
    * @stable [30.11.2019]
@@ -64,6 +66,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.onOptionsLoadDone = this.onOptionsLoadDone.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
+
+    this.localOptionsAvailable = this.doOptionsExist;
 
     if (this.isExpandActionRendered) {
       this.defaultActions = [
@@ -142,8 +146,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       options,
     } = this.props;
 
-    const areOptionsUnavailable = R.isNil(options);
-    if (forceReload || areOptionsUnavailable) {
+    if (forceReload || !this.doOptionsExist) {
       if (isFn(onEmptyDictionary)) {
         this.setState({progress: true}, () => onEmptyDictionary(bindDictionary));
       } else {
@@ -192,7 +195,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
           ref={this.menuRef}
           anchorElement={orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
           width={orNull(this.isMenuAnchored, () => this.getMenuWidth)}
-          progress={!this.areOptionsDefined}
+          progress={this.isFieldBusy()}
           options={this.filteredOptions}
           onSelect={this.onSelect}
           onFilterChange={this.onFilterChange}
@@ -282,6 +285,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const $$cachedValue = this.state.$$cachedValue;
     const hasCachedValue = !R.isNil($$cachedValue);
 
+    if (!hasCachedValue && this.localOptionsAvailable) {
+      const optionValue = isPrimitive(value) ? value : ((value as ISelectOptionEntity).value);
+      value = R.find<ISelectOptionEntity>((option) => option.value === optionValue, this.options);
+    }
     return super.getDecoratedDisplayValue(hasCachedValue ? $$cachedValue : value, hasCachedValue);
   }
 
@@ -444,7 +451,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [15.01.2020]
    * @returns {boolean}
    */
-  private get areOptionsDefined(): boolean {
+  private get doOptionsExist(): boolean {
     return !R.isNil(this.props.options);
   }
 
