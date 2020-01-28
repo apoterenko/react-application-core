@@ -42,6 +42,7 @@ import {
   IUniversalContainerProps,
   IUniversalStoreEntity,
   IUserActivityManager,
+  TranslatorT,
 } from '../../definition';
 import {
   applySection,
@@ -57,7 +58,6 @@ import {
 } from '../../converter';
 import { ISettingsEntity } from '../../settings';
 import { IUIFactory } from '../factory/factory.interface';
-import { TranslatorT } from '../../translation';
 
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps,
                                 TState = {},

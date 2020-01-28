@@ -36,11 +36,11 @@ import {
   IUniversalContainerProps,
   IUserActivityManager,
   RouterStoreProxyFactoryT,
+  TranslatorT,
   UniversalPluginFactoryT,
 } from '../definition';
 import { IUIFactory } from '../component/factory/factory.interface';
 import { staticInjector } from './di.support';
-import { TranslatorT } from '../translation';
 
 /**
  * @stable [31.10.2018]

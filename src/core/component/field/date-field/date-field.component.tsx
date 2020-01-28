@@ -172,7 +172,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @param {AnyT} value
    * @returns {string}
    */
-  protected decorateValueBeforeDisplaying(value: DateTimeLikeTypeT): string {
+  protected decorateDisplayValue(value: DateTimeLikeTypeT): string {
     return this.isRangeEnabled
       ? `${this.serializeValue(value[0])} - ${this.serializeValue(value[1])}`
       : this.serializeValue(value);

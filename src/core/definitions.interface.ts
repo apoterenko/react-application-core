@@ -58,6 +58,7 @@ export interface IAddWrapper<TValue> { add?: TValue; }
 export interface IAfterEnterWrapper<TAfterEnter> { afterEnter?: TAfterEnter; }
 export interface IAliasWrapper<TValue = string> { alias?: TValue; }
 export interface IAlignWrapper<TValue = string> { align?: TValue; }
+export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IAlwaysSendChangesWrapper { alwaysSendChanges?: boolean; }
@@ -153,7 +154,7 @@ export interface IDirtyWrapper { dirty?: boolean; }
 export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDisplayNameWrapper { displayName?: string; }
-export interface IDisplayValueOnlyWrapper { displayValueOnly?: boolean; }
+export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: boolean; }
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
 export interface IDurationWrapper<TValue> { duration?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
@@ -490,7 +491,6 @@ export interface IValidWrapper { valid?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
-export interface IWaitingForDataWrapper { waitingForData?: boolean; }
 export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }

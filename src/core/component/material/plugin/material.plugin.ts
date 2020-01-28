@@ -7,8 +7,11 @@ import {
 import { DI_TYPES, staticInjector } from '../../../di';
 import { INativeMaterialComponentFactory } from '../../material';
 import { isDef } from '../../../util';
-import { TranslatorT } from '../../../translation';
-import { IUniversalPlugin, IComponent } from '../../../definition';
+import {
+  IComponent,
+  IUniversalPlugin,
+  TranslatorT,
+} from '../../../definition';
 
 export class MaterialPlugin<TComponent extends IComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent = INativeMaterialComponent>

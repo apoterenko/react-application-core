@@ -9,6 +9,7 @@ import {
   EntityIdT,
   IActionsPosition,
   IActionsWrapper,
+  IAllowEmptyFilterValueWrapper,
   IAnchoredWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
@@ -23,7 +24,7 @@ import {
   IDisabledWrapper,
   IDisableLabelWrapper,
   IDisplayNameWrapper,
-  IDisplayValueOnlyWrapper,
+  IDisplayValueRenderedOnlyWrapper,
   IDisplayValueWrapper,
   IEmptyValueWrapper,
   IEntity,
@@ -50,6 +51,7 @@ import {
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
+  IPlainValueWrapper,
   IPreventFocusWrapper,
   IProgressWrapper,
   IRangeEnabledWrapper,
@@ -65,12 +67,11 @@ import {
   IUseKeyboardWrapper,
   IValueWrapper,
   IVisibleWrapper,
-  IWaitingForDataWrapper,
   IYearWrapper,
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
-import { ISelectProps } from '../component/field/select/select.interface';  // TODO
+import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
 import { ICalendarConfigurationEntity } from './calendar-definition.interface';
 import { ICalendarEntityConfigurationEntity } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
@@ -104,7 +105,7 @@ export interface IGenericFieldEntity
     IDelayedChangesEntity,
     IDisabledWrapper,
     IDisplayNameWrapper,
-    IDisplayValueOnlyWrapper,
+    IDisplayValueRenderedOnlyWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
@@ -116,6 +117,7 @@ export interface IGenericFieldEntity
     IOriginalValueWrapper,
     IPatternWrapper,
     IPlaceholderWrapper,
+    IPlainValueWrapper,
     IPreventFocusWrapper,
     IProgressWrapper,
     IReadOnlyWrapper,
@@ -279,7 +281,7 @@ export interface IGenericBaseCheckboxEntity
  */
 export interface IGenericBaseSelectState
   extends IMenuRenderedWrapper,
-    IWaitingForDataWrapper {
+    IProgressWrapper {
 }
 
 /**
@@ -287,7 +289,8 @@ export interface IGenericBaseSelectState
  * @stable [24.01.2020]
  */
 export interface IGenericBaseSelectEntity
-  extends IAnchoredWrapper,
+  extends IAllowEmptyFilterValueWrapper,
+    IAnchoredWrapper,
     IDelayTimeoutWrapper,
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
@@ -308,10 +311,19 @@ export interface ISelectOptionEntity<TRawData = {}>
  * @default-entity
  * @stable [15.01.2020]
  */
-export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<ISelectProps>({
+export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
   expandActionRendered: false,
   menuConfiguration: {useFilter: false},
   preventFocus: false,
+});
+
+/**
+ * @default-entity
+ * @stable [28.01.2020]
+ */
+export const BASIC_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
+  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
+  anchored: true,
 });
 
 /**

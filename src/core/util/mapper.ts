@@ -3,10 +3,13 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
+  IApiEntity,
   IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
   IFormExtendedEditableEntity,
+  IGenericBaseSelectEntity,
+  IGenericFieldEntity,
   IListEntity,
   IListWrapperEntity,
   IOperationEntity,
@@ -31,7 +34,6 @@ import {
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
-  IApiEntity,
 } from '../definition';
 import {
   AnyT,
@@ -39,10 +41,12 @@ import {
   EntityIdT,
   FIRST_PAGE,
   IActionsDisabledWrapper,
+  IDataWrapper,
   IDisabledWrapper,
   IEntity,
   IEntityIdTWrapper,
   IKeyValue,
+  IOptionsWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
   IProgressWrapper,
@@ -73,6 +77,7 @@ import {
 import {
   doesErrorExist,
   inProgress,
+  isLoading,
   isReady,
 } from './wrapper';
 
@@ -223,7 +228,7 @@ export const selectSelectedEntity =
  */
 export const selectSelectedEntityFromAction =
   <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => ifNotNilThanValue(
-    selectDataFromAction(action),
+    selectData(action),
     (data: ISelectedWrapper<TEntity>) => data.selected,
     UNDEF_SYMBOL
   );
@@ -292,23 +297,28 @@ export const selectPreventEffectsFromAction = (action: IEffectsAction): boolean 
 );
 
 /**
- * @stable [19.01.2020]
- * @param {IEffectsAction} action
+ * @stable [28.01.2020]
+ * @param {IDataWrapper<TData>} wrapper
  * @returns {TData}
  */
-export const selectDataFromAction = <TData>(action: IEffectsAction): TData =>
-  ifNotNilThanValue(action, () => action.data, UNDEF_SYMBOL);
+export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData =>
+  ifNotNilThanValue(wrapper, () => wrapper.data, UNDEF_SYMBOL);
 
 /**
- * @stable [19.01.2020]
+ * @stable [28.01.2020]
+ * @param {IPayloadWrapper<TPayload>} wrapper
+ * @returns {TPayload}
+ */
+export const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload =>
+  ifNotNilThanValue(wrapper, () => wrapper.payload, UNDEF_SYMBOL);
+
+/**
+ * @stable [28.01.2020]
  * @param {IEffectsAction} action
  * @returns {TPayload}
  */
-export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload => ifNotNilThanValue(
-  selectDataFromAction(action),
-  (data: IPayloadWrapper<TPayload>) => data.payload,
-  UNDEF_SYMBOL
-);
+export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
+  selectPayload(selectData(action));
 
 /**
  * @stable [19.10.2019]
@@ -365,6 +375,22 @@ export const selectFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): str
  */
 export const mapEntityId = (id: EntityIdT): IEntityIdTWrapper =>
   defValuesFilter<IEntityIdTWrapper, IEntityIdTWrapper>({id});
+
+/**
+ * @stable [28.01.2020]
+ * @param {boolean} progress
+ * @returns {IProgressWrapper}
+ */
+export const mapProgress = (progress: boolean): IProgressWrapper =>
+  defValuesFilter<IProgressWrapper, IProgressWrapper>({progress});
+
+/**
+ * @stable [28.01.2020]
+ * @param {TValue} options
+ * @returns {IOptionsWrapper<TValue>}
+ */
+export const mapOptions = <TValue>(options: TValue): IOptionsWrapper<TValue> =>
+  defValuesFilter<IOptionsWrapper<TValue>, IOptionsWrapper<TValue>>({options});
 
 /**
  * @stable [13.11.2019]
@@ -667,13 +693,17 @@ export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): 
 export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<ISelectOptionEntity<TEntity>> =>
   ifNotNilThanValue(
     data,
-    (entities) => [].concat(entities)
-      .map((entity) => defValuesFilter<ISelectOptionEntity<TEntity>, ISelectOptionEntity<TEntity>>({
-        value: entity.id,
-        label: entity.name,
-        disabled: entity.disabled,
-        rawData: entity,
-      })),
+    (entities) => (
+      [].concat(entities)
+        .map(
+          (entity) => defValuesFilter<ISelectOptionEntity<TEntity>, ISelectOptionEntity<TEntity>>({
+            value: entity.id,
+            label: entity.name,
+            disabled: entity.disabled,
+            rawData: entity,
+          })
+        )
+    ),
     UNDEF_SYMBOL
   );
 
@@ -698,34 +728,43 @@ export const selectFormEntityToolbarToolsActiveFilter = (fEntity: IFormExtendedE
   selectEditableEntityToolbarToolsActiveFilter(selectEditableEntity(fEntity));
 
 /**
- * @stable [11.10.2019]
+ * @stable [28.01.2020]
  * @param {IDictionaryEntity<TEntity>} dictionaryEntity
- * @param {(data: (TEntity[] | TEntity)) => TResult} accessor
- * @returns {TEntity[] | TEntity | TResult}
+ * @param {(data: (TEntity[] | TEntity)) => AnyT} accessor
+ * @returns {Array<ISelectOptionEntity<TEntity>>}
  */
-export const mapDictionaryEntityData = <TEntity, TResult = TEntity | TEntity[]>(
-  dictionaryEntity: IDictionaryEntity<TEntity>,
-  accessor?: (data: TEntity | TEntity[]) => TResult): TResult | TEntity | TEntity[] =>
-  ifNotNilThanValue(
-    dictionaryEntity,
-    () => ifNotNilThanValue(
-      dictionaryEntity.data,
-      (data) => isFn(accessor) ? accessor(data) : data,
-      UNDEF_SYMBOL
-    ),
-    UNDEF_SYMBOL
-  );
+export const selectDictionaryEntityOptions =
+  <TEntity>(dictionaryEntity: IDictionaryEntity<TEntity>,
+            accessor?: (data: TEntity | TEntity[]) => AnyT): Array<ISelectOptionEntity<TEntity>> =>
+    mapSelectOptions<TEntity>(
+      ifNotNilThanValue(
+        selectData<TEntity | TEntity[]>(dictionaryEntity),
+        (data) => isFn(accessor) ? accessor(data) : data
+      )
+    );
 
 /**
- * @stable [11.10.2019]
+ * @stable [28.01.2020]
  * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
- * @returns {Array<ISelectOptionEntity<TDictionaryEntity>>}
+ * @returns {boolean}
  */
-export const mapDictionaryEntity = <TDictionaryEntity>(
-  dictionaryEntity: IDictionaryEntity<TDictionaryEntity>): Array<ISelectOptionEntity<TDictionaryEntity>> =>
-  mapSelectOptions<TDictionaryEntity>(
-    mapDictionaryEntityData<TDictionaryEntity>(dictionaryEntity)
-  );
+export const selectDictionaryEntityLoading =
+  <TDictionaryEntity>(dictionaryEntity: IDictionaryEntity<TDictionaryEntity>): boolean =>
+    isLoading(dictionaryEntity);
+
+/**
+ * @stable [28.01.2020]
+ * @param {IDictionaryEntity<TEntity>} dictionaryEntity
+ * @param {(data: TEntity[]) => TResult} accessor
+ * @returns {IGenericFieldEntity & IGenericBaseSelectEntity}
+ */
+export const mapDictionaryEntityField =
+  <TEntity, TResult = TEntity[]>(dictionaryEntity: IDictionaryEntity<TEntity>,
+                                 accessor?: (data: TEntity[]) => TResult): IGenericFieldEntity & IGenericBaseSelectEntity =>
+    ({
+      ...mapProgress(selectDictionaryEntityLoading(dictionaryEntity)),
+      ...mapOptions(selectDictionaryEntityOptions<TEntity>(dictionaryEntity, accessor)),
+    });
 
 /**
  * @stable [25.11.2019]

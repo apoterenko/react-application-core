@@ -16,7 +16,7 @@ import {
   notNilValuesFilter,
   nvl,
   SAME_ENTITY_PREDICATE,
-  selectDataFromAction,
+  selectData,
   selectDataPayloadFromAction,
   selectSelectedEntityFromAction,
   toSection,
@@ -184,7 +184,7 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildLazyLoadDoneActionType(section):
-      const lazyLoadedEntity = selectSelectedEntityFromAction(action) || selectDataFromAction(action);
+      const lazyLoadedEntity = selectSelectedEntityFromAction(action) || selectData(action);
       modifyDataPayload = {
         id: lazyLoadedEntity.id,
         changes: lazyLoadedEntity,

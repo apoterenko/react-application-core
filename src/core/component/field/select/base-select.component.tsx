@@ -8,22 +8,22 @@ import {
 import {
   calc,
   DelayedTask,
-  ifNotEmptyThanValue,
+  inProgress,
+  isAllowEmptyFilterValue,
   isAnchored,
   isDef,
   isExpandActionRendered,
   isFn,
   isMenuRendered,
-  isWaitingForData,
+  isObjectNotEmpty,
   joinClassName,
   nvl,
   orNull,
+  shallowClone,
 } from '../../../util';
 import { BaseTextField } from '../text-field';
 import { Menu } from '../../menu';
-import {
-  AnyT,
-} from '../../../definitions.interface';
+import { AnyT } from '../../../definitions.interface';
 import {
   IBaseSelect,
   IBaseSelectProps,
@@ -32,6 +32,7 @@ import {
 import {
   FIELD_VALUE_TO_RESET,
   FieldActionTypesEnum,
+  FieldConverterTypesEnum,
   IBaseEvent,
   IMenu,
   IMenuProps,
@@ -60,6 +61,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.onClose = this.onClose.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
+    this.onOptionsLoadDone = this.onOptionsLoadDone.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
@@ -92,17 +94,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.componentDidUpdate(prevProps, prevState);
     const props = this.props;
 
-    if (this.isWaitingForData
-      && R.isNil(prevProps.options)
-      && !R.equals(props.options, prevProps.options)) {
-
-      this.setState({waitingForData: false}, () => {
-        this.renderAndShowMenu();
-
-        if (isFn(props.onLoadDictionary)) {
-          props.onLoadDictionary(this.filteredOptions);
-        }
-      });
+    if (this.state.progress && !props.progress && prevProps.progress) {
+      // The new data have come
+      this.setState({progress: false}, this.onOptionsLoadDone);
     }
 
     // TODO Use keyValueCache
@@ -138,7 +132,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [11.01.2020]
    */
   public openMenu(): void {
-    if (this.inProgress || this.isMenuAlreadyRenderedAndOpened) {
+    if (this.isFieldBusy() || this.isMenuAlreadyRenderedAndOpened) {
       return;
     }
     const {
@@ -151,7 +145,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const areOptionsUnavailable = R.isNil(options);
     if (forceReload || areOptionsUnavailable) {
       if (isFn(onEmptyDictionary)) {
-        this.setState({waitingForData: true}, () => onEmptyDictionary(bindDictionary));
+        this.setState({progress: true}, () => onEmptyDictionary(bindDictionary));
       } else {
         // Try open empty dialog menu to remote search
         this.renderAndShowMenu(!this.isQuickSelectionModeEnabled);
@@ -173,20 +167,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [15.01.2020]
-   * @returns {boolean}
-   */
-  protected isFieldBusy(): boolean {
-    return super.isFieldBusy() || this.isWaitingForData;
-  }
-
-  /**
-   * @stable [11.01.2020]
+   * @stable [28.01.2020]
    * @param {IBaseEvent} event
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
-    this.openMenu();
+
+    if (this.isQuickSelectionModeEnabled) {
+      this.notifyFilterChange();
+    } else {
+      this.openMenu();
+    }
   }
 
   /**
@@ -228,12 +219,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [28.01.2020]
    * @returns {boolean}
    */
-  protected get isMenuAlreadyRenderedAndOpened(): boolean {
-    const menu = this.menu;
-    return !R.isNil(menu) && menu.isOpen();
+  protected isFieldBusy(): boolean {
+    return inProgress(this.state);
   }
 
   /**
@@ -253,19 +243,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [30.11.2019]
+   * @stable [28.01.2020]
    * @param {ISelectOptionEntity} option
    */
   protected onSelect(option: ISelectOptionEntity): void {
-    this.setState({
-      $$cachedValue: {
-        value: option.value,
-        label: String(option.label || option.value),
-      },
-    }, () => {
-      this.onChangeManually(option.value);
-      this.notifySelectOption(option);
-    });
+    this.setState({$$cachedValue: shallowClone(option)}, this.onSelectDone.bind(this, option));
   }
 
   /**
@@ -273,11 +255,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {ISelectOptionEntity} option
    */
   protected notifySelectOption(option: ISelectOptionEntity): void {
-    if (!isDef(option)) {
-      return;
-    }
     const onSelect = this.props.onSelect;
-    if (!isFn(onSelect)) {
+    if (!isDef(option) || !isFn(onSelect)) {
       return;
     }
     onSelect(option);
@@ -295,27 +274,28 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [12.02.2019]
+   * @stable [28.01.2020]
    * @param {AnyT} value
    * @returns {AnyT}
    */
-  protected getDecoratedValue(value: AnyT): AnyT {
+  protected getDecoratedDisplayValue(value: AnyT): AnyT {
     const $$cachedValue = this.state.$$cachedValue;
-    if (!R.isNil($$cachedValue)) {
-      return super.getDecoratedValue($$cachedValue.label, false);
-    }
+    const hasCachedValue = !R.isNil($$cachedValue);
 
-    const selectedItem = R.find<ISelectOptionEntity>((option) => option.value === value, this.options);
-    return R.isNil(selectedItem)
-      ? super.getDecoratedValue(value)
-      : (
-        super.getDecoratedValue(
-          R.isNil(selectedItem.label)
-            ? selectedItem.value
-            : this.t(selectedItem.label),
-          false
-        )
-      );
+    return super.getDecoratedDisplayValue(hasCachedValue ? $$cachedValue : value, hasCachedValue);
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @param {AnyT} value
+   * @returns {AnyT}
+   */
+  protected decorateDisplayValue(value: AnyT): AnyT {
+    return this.fieldConverter.convert({
+      value,
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.DISPLAY_VALUE,
+    });
   }
 
   /**
@@ -335,13 +315,22 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [28.01.2020]
+   * @returns {boolean}
+   */
+  protected get isAllowEmptyFilterValue(): boolean {
+    return isAllowEmptyFilterValue(this.props);
+  }
+
+  /**
+   * @stable [28.01.2020]
    */
   private notifyFilterChange(): void {
-    ifNotEmptyThanValue(
-      this.value,
-      (value) => this.setState({waitingForData: true}, () => this.onFilterChange(value))
-    );
+    const value = this.value;
+
+    if (this.isAllowEmptyFilterValue || isObjectNotEmpty(value)) {
+      this.setState({progress: true}, () => this.onFilterChange(value));
+    }
   }
 
   /**
@@ -351,6 +340,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private onDropDownClick(event: IBaseEvent): void {
     this.domAccessor.cancelEvent(event);
     this.openMenu();
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @param {ISelectOptionEntity} option
+   */
+  private onSelectDone(option: ISelectOptionEntity): void {
+    this.onChangeManually(this.isPlainValueApplied ? option.value : option);
+    this.notifySelectOption(option);
   }
 
   private onFilterChange(query: string): void {
@@ -407,19 +405,23 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
+   * @stable [28.01.2020]
+   */
+  private onOptionsLoadDone(): void {
+    this.renderAndShowMenu();
+
+    const props = this.props;
+    if (isFn(props.onLoadDictionary)) {
+      props.onLoadDictionary(this.filteredOptions);
+    }
+  }
+
+  /**
    * @stable [11.01.2020]
    * @returns {boolean}
    */
   private get isQuickSelectionModeEnabled(): boolean {
     return !this.isFocusPrevented;
-  }
-
-  /**
-   * @stable [12.01.2020]
-   * @returns {boolean}
-   */
-  private get isWaitingForData(): boolean {
-    return isWaitingForData(this.state);
   }
 
   /**
@@ -463,12 +465,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
+   * @stable [11.01.2020]
+   * @returns {boolean}
+   */
+  private get isMenuAlreadyRenderedAndOpened(): boolean {
+    const menu = this.menu;
+    return !R.isNil(menu) && menu.isOpen();
+  }
+
+  /**
    * @stable [24.01.2020]
    * @returns {HTMLElement}
    */
   private getMenuAnchorElement(): HTMLElement {
-    const props = this.props;
-    return calc<HTMLElement>(props.menuAnchorElement) || this.input;
+    return calc<HTMLElement>(this.props.menuAnchorElement) || this.input;
   }
 
   /**

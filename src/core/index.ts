@@ -75,7 +75,6 @@ export * from './router';
 export * from './settings';
 export * from './storage';
 export * from './store';
-export * from './translation';
 export * from './transport';
 export * from './user';
 export * from './util';

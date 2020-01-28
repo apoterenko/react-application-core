@@ -1,7 +1,10 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
+import {
+  ILogger,
+  LoggerFactory,
+} from 'ts-smart-logger';
 
 import {
   buildActualFieldValue,
@@ -13,7 +16,7 @@ import {
   isChangeable,
   isDef,
   isDisabled,
-  isDisplayValueOnly,
+  isDisplayValueRenderedOnly,
   isFieldInactive,
   isFieldRendered,
   isFn,
@@ -21,6 +24,7 @@ import {
   isFocusPrevented,
   isKeyboardOpen,
   isKeyboardUsed,
+  isPlainValueApplied,
   isReadOnly,
   isRequired,
   isSyntheticCursorUsed,
@@ -378,21 +382,22 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [12.02.2019]
+   * @stable [28.01.2020]
    * @param {AnyT} value
-   * @param {boolean} returnDisplayValue
+   * @param {boolean} forceApplyValue
    * @returns {AnyT}
    */
-  protected getDecoratedValue(value: AnyT, returnDisplayValue = true): AnyT {
-    const props = this.props;
-    const displayValue = props.displayValue;
-    const decoratedValue = this.decorateValueBeforeDisplaying(value);
-    return isFn(displayValue)
-      ? calc(displayValue, decoratedValue)
+  protected getDecoratedDisplayValue(value: AnyT, forceApplyValue = false): AnyT {
+    const {displayValue} = this.props;
+    if (forceApplyValue) {
+      return this.decorateDisplayValue(value);
+    }
+    return R.isNil(displayValue)
+      ? this.decorateDisplayValue(value)
       : (
-        returnDisplayValue
-          ? (R.isNil(displayValue) ? decoratedValue : this.decorateValueBeforeDisplaying(displayValue))
-          : decoratedValue
+        isFn(displayValue)
+          ? calc(displayValue, this.decorateDisplayValue(value))
+          : this.decorateDisplayValue(displayValue)
       );
   }
 
@@ -401,7 +406,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @param {AnyT} value
    * @returns {AnyT}
    */
-  protected decorateValueBeforeDisplaying(value: AnyT): AnyT {
+  protected decorateDisplayValue(value: AnyT): AnyT {
     return value;
   }
 
@@ -459,14 +464,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isVisible(): boolean {
     return isVisible(this.props);
-  }
-
-  /**
-   * @stable [25.10.2019]
-   * @returns {boolean}
-   */
-  protected get inProgress(): boolean {
-    return this.isFieldBusy();
   }
 
   /**
@@ -552,17 +549,18 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [23.12.2019]
    * @react-native-compatible
+   * @stable [28.01.2020]
    * @returns {React.ReactNode}
    */
   protected getDisplayValueElement(): React.ReactNode {
-    return orNull(
-      this.isDisplayValueOnly,
-      () => this.inProgress
-        ? (this.decoratedValue || this.getWaitMessageElement())
-        : this.decoratedValue
-    );
+    if (!this.isDisplayValueRenderedOnly) {
+      return null;
+    }
+    const result = this.decoratedDisplayValue;
+    return R.isNil(result)
+      ? (this.isFieldBusy() ? this.getWaitMessageElement() : result)
+      : result;
   }
 
   /**
@@ -637,11 +635,19 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [21.12.2019]
+   * @stable [28.01.2020]
    * @returns {boolean}
    */
-  protected get isDisplayValueOnly() {
-    return isDisplayValueOnly(this.props);
+  protected get isPlainValueApplied(): boolean {
+    return isPlainValueApplied(this.props);
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @returns {boolean}
+   */
+  protected get isDisplayValueRenderedOnly() {
+    return isDisplayValueRenderedOnly(this.props);
   }
 
   /**
@@ -743,21 +749,21 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [21.12.2019]
+   * @stable [28.01.2020]
    * @returns {AnyT}
    */
   protected get displayValue(): AnyT {
-    return this.inProgress || !this.isValuePresent
+    return !this.isValuePresent || (this.isFocusPrevented && this.isFieldBusy())
       ? FIELD_DISPLAY_EMPTY_VALUE
-      : this.decoratedValue;
+      : this.decoratedDisplayValue;
   }
 
   /**
    * @stable [21.12.2019]
    * @returns {AnyT}
    */
-  protected get decoratedValue(): AnyT {
-    return this.getDecoratedValue(this.value);
+  protected get decoratedDisplayValue(): AnyT {
+    return this.getDecoratedDisplayValue(this.value);
   }
 
   /**
@@ -829,11 +835,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   private notifyFormAboutChanges(rawValue: AnyT): void {
     const props = this.props;
-
-    ifNotNilThanValue(
-      this.props.changeForm,
-      (changeForm) => changeForm(props.name, rawValue)
-    );
+    ifNotNilThanValue(this.props.changeForm, (changeForm) => changeForm(props.name, rawValue));
   }
 
   /**
@@ -841,10 +843,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @param {AnyT} rawValue
    */
   private notifyAboutChanges(rawValue: AnyT): void {
-    ifNotNilThanValue(
-      this.props.onChange,
-      (onChange) => onChange(rawValue)
-    );
+    ifNotNilThanValue(this.props.onChange, (onChange) => onChange(rawValue));
   }
 
   /**

@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 
 import {
+  IAllowEmptyFilterValueWrapper,
   IAlwaysDirtyWrapper,
   IAnchoredWrapper,
   ICalendarActionRenderedWrapper,
@@ -11,7 +12,7 @@ import {
   IDefaultWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
-  IDisplayValueOnlyWrapper,
+  IDisplayValueRenderedOnlyWrapper,
   IEditedWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
@@ -51,7 +52,6 @@ import {
   IUseZipCodeWrapper,
   IValidWrapper,
   IVisibleWrapper,
-  IWaitingForDataWrapper,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
 import {
@@ -384,14 +384,6 @@ export const isAnchored = (wrapper: IAnchoredWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.anchored === true, false);
 
 /**
- * @stable [11.01.2020]
- * @param {IWaitingForDataWrapper} wrapper
- * @returns {boolean}
- */
-export const isWaitingForData = (wrapper: IWaitingForDataWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.waitingForData === true, false);
-
-/**
  * @stable [16.01.2020]
  * @param {ITouchedWrapper} wrapper
  * @returns {boolean}
@@ -416,12 +408,20 @@ export const isHeightRestricted = (wrapper: IHeightRestrictedWrapper): boolean =
   ifNotNilThanValue(wrapper, () => wrapper.heightRestricted !== false, false);
 
 /**
- * @stable [22.11.2019]
+ * @stable [28.01.2020]
+ * @param {IAllowEmptyFilterValueWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isAllowEmptyFilterValue = (wrapper: IAllowEmptyFilterValueWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.allowEmptyFilterValue !== false, false);
+
+/**
+ * @stable [28.01.2020]
  * @param {ILoadingWrapper} entity
  * @returns {boolean}
  */
-export const isBeingLoaded = (entity: ILoadingWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.loading === true, false);
+export const isLoading = (entity: ILoadingWrapper): boolean =>
+  R.isNil(entity) ? false : entity.loading === true;
 
 /**
  * @stable [26.11.2019]
@@ -445,7 +445,7 @@ export const isUseZipCode = (entity: IUseZipCodeWrapper): boolean =>
  * @returns {boolean}
  */
 export const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.plainValue === true, false);
+  ifNotNilThanValue(entity, () => entity.plainValue !== false, false);
 
 /**
  * @stable [19.12.2019]
@@ -456,12 +456,12 @@ export const isRefreshOnUpdate = (entity: IRefreshOnUpdateWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.refreshOnUpdate === true, false);
 
 /**
- * @stable [21.12.2019]
- * @param {IDisplayValueOnlyWrapper} entity
+ * @stable [28.01.2020]
+ * @param {IDisplayValueRenderedOnlyWrapper} entity
  * @returns {boolean}
  */
-export const isDisplayValueOnly = (entity: IDisplayValueOnlyWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.displayValueOnly === true, false);
+export const isDisplayValueRenderedOnly = (entity: IDisplayValueRenderedOnlyWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.displayValueRenderedOnly === true, false);
 
 /**
  * @stable [26.12.2019]

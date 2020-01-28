@@ -127,9 +127,11 @@ import {
 import { IUIFactory } from '../../factory';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
-import { TranslatorT } from '../../../translation';
 import { IUIDefaultIconFactory } from '../../icon';
-import { IUniversalUiMessageConfigEntity } from '../../../definition';
+import {
+  IUniversalUiMessageConfigEntity,
+  TranslatorT,
+} from '../../../definition';
 
 @injectable()
 export class UIMaterialFactory implements IUIFactory {

@@ -94,7 +94,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             acceptable={false}
             default={false}
             width={props.width}
-            scrollable={this.isDialogScrollable}
+            scrollable={false}
             positionConfiguration={props.positionConfiguration}
             anchorElement={props.anchorElement}
             className={
@@ -253,7 +253,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     return (
       <BasicList
         ref={this.listRef}
-        plugins={this.isDialogScrollable ? [] : [PerfectScrollPlugin]}>
+        plugins={[PerfectScrollPlugin]}>
         {subArray(this.items, this.props.maxCount).map(this.asItemElement)}
       </BasicList>
     );
@@ -365,14 +365,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private get isFilterUsed(): boolean {
     return isFilterUsed(this.props);
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {boolean}
-   */
-  private get isDialogScrollable(): boolean {
-    return !this.isAnchored && !this.isFilterUsed;
   }
 
   /**

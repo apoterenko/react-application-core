@@ -1,7 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  selectDataFromAction,
+  selectData,
   toSection,
 } from '../util';
 import { DictionariesActionBuilder } from '../action';
@@ -21,7 +21,7 @@ import {
 export const dictionariesReducer = (state: IDictionariesEntity = INITIAL_DICTIONARIES_ENTITY,
                                     action: IEffectsAction): IDictionariesEntity => {
   const section = toSection(action);
-  const actionData = selectDataFromAction<ISectionDataEntity>(action);
+  const actionData = selectData<ISectionDataEntity>(action);
 
   switch (action.type) {
     case $RAC_DICTIONARIES_DESTROY_ACTION_TYPE:

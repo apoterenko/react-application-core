@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { injectable } from 'inversify';
 import {
   ILogger,
@@ -9,25 +10,38 @@ import {
   IFieldConverter,
   IFieldConverterConfigEntity,
   IPhoneConfigEntity,
+  ISelectOptionEntity,
+  TranslatorT,
 } from '../../definition';
 import {
   asPlaceEntity,
   asPlaceEntityFormattedName,
   asPlaceParameter,
   isFn,
+  isPrimitive,
 } from '../../util';
-import { AnyT } from '../../definitions.interface';
+import {
+  AnyT,
+  StringNumberT,
+} from '../../definitions.interface';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 
 @injectable()
 export class FieldConverter implements IFieldConverter {
   private static readonly logger = LoggerFactory.makeLogger('FieldConverter');
 
-  private readonly converters = new Map<string, (value: AnyT) => AnyT>();
+  @lazyInject(DI_TYPES.Translate) protected readonly t: TranslatorT;
+  protected readonly converters = new Map<string, (value: AnyT) => AnyT>();
 
   /**
    * @stable [09.01.2020]
    */
   constructor() {
+    this.selectOptionEntityAsDisplayValue = this.selectOptionEntityAsDisplayValue.bind(this);
+
     this.register({
       from: FieldConverterTypesEnum.GEO_CODER_RESULT,
       to: FieldConverterTypesEnum.PLACE_ENTITY,
@@ -42,6 +56,11 @@ export class FieldConverter implements IFieldConverter {
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.PLACE_PARAMETER,
       converter: asPlaceParameter,
+    });
+    this.register({
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.DISPLAY_VALUE,
+      converter: this.selectOptionEntityAsDisplayValue,
     });
   }
 
@@ -76,6 +95,24 @@ export class FieldConverter implements IFieldConverter {
    */
   public converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT {
     return this.converters.get(this.asKey(config));
+  }
+
+  /**
+   * @stable [28.01.2020]
+   * @param {ISelectOptionEntity | StringNumberT} option
+   * @returns {StringNumberT}
+   */
+  protected selectOptionEntityAsDisplayValue(option: ISelectOptionEntity | StringNumberT): StringNumberT {
+    if (R.isNil(option)) {
+      return option;
+    }
+    if (isPrimitive(option)) {
+      return option as StringNumberT;
+    }
+    const optionAsObject = option as ISelectOptionEntity;
+    return R.isNil(optionAsObject.label)
+      ? optionAsObject.value
+      : this.t(optionAsObject.label, option);
   }
 
   /**

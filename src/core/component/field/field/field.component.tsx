@@ -291,7 +291,7 @@ export class Field<TProps extends IFieldProps,
     const minLength = props.minLength;                                                                     /* @stable [28.10.2019] */
     const name = props.name;                                                                               /* @stable [28.10.2019] */
     const pattern = this.getFieldPattern();                                                                /* @stable [29.10.2019] */
-    const placeholder = orUndef(props.placeholder && !this.inProgress, () => this.t(props.placeholder));   /* @stable [29.10.2019] */
+    const placeholder = orUndef(props.placeholder && !this.isFieldBusy(), () => this.t(props.placeholder));/* @stable [29.10.2019] */
     const readOnly = this.isInactive;                                                                      /* @stable [28.10.2019] */
     const required = this.isRequired;                                                                      /* @stable [29.10.2019] */
     const rows = props.rows;                                                                               /* @stable [28.10.2019] */

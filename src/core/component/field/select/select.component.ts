@@ -14,11 +14,12 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
   };
 
   /**
-   * @stable [30.11.2019]
+   * @stable [28.01.2020]
    * @returns {ISelectOptionEntity[]}
    */
   protected get filteredOptions(): ISelectOptionEntity[] {
-    return this.options.filter((option) => option.value !== this.value);
+    const value = this.value;
+    return this.options.filter((option) => option.value !== value);
   }
 
   /**

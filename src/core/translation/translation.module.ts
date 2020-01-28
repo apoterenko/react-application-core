@@ -1,3 +1,9 @@
-import { appContainer, DI_TYPES } from '../di';
+import {
+  bindToConstantValue,
+  DI_TYPES,
+} from '../di';
 
-appContainer.bind(DI_TYPES.Translate).toConstantValue((k) => k);
+/**
+ * @stable [28.01.2020]
+ */
+bindToConstantValue(DI_TYPES.Translate, (k) => k);

@@ -62,6 +62,7 @@ export * from './store-proxy-definition.interface';
 export * from './tab-definition.interface';
 export * from './toolbar-tools-definition.interface';
 export * from './tooltip-definition.interface';
+export * from './translation-definition.interface';
 export * from './transport-definition.interface';
 export * from './ui-factory-definition.interface';
 export * from './user-activity-defenition.interface';

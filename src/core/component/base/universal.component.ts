@@ -23,7 +23,6 @@ import {
   getUiPlugins,
   staticInjector,
 } from '../../di';
-import { TranslatorT } from '../../translation';
 import { ISettingsEntity } from '../../settings';
 import {
   IDateConverter,
@@ -47,6 +46,7 @@ import {
   IUniversalComponentProps,
   IUniversalPlugin,
   IUniversalPluginCtor,
+  TranslatorT,
   UniversalPluginFactoryT,
 } from '../../definition';
 

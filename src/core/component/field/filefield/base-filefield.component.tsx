@@ -165,7 +165,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @param {AnyT} value
    * @returns {string}
    */
-  protected decorateValueBeforeDisplaying(value: AnyT): string {
+  protected decorateDisplayValue(value: AnyT): string {
     const len = this.multiFieldPlugin.getActiveValueLength(value);
     return this.buildDisplayMessage(len > 0, len);
   }
@@ -277,6 +277,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @returns {boolean}
    */
   private get isDownloadActionDisabled(): boolean {
-    return this.isDisabled || this.inProgress || this.isValueNotPresent;
+    return this.isDisabled || this.isFieldBusy() || this.isValueNotPresent;
   }
 }

@@ -161,7 +161,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   protected get progressLabelElement(): JSX.Element {
     return orNull(
-      this.inProgress,
+      this.isFieldBusy(),
       () => <ProgressLabel className='rac-field-loader rac-absolute-center-position'/>
     );
   }

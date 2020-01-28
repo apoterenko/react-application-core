@@ -4,10 +4,8 @@ import * as BPromise from 'bluebird';
 
 import {
   ifNotNilThanValue,
-  inProgress,
   isObjectNotEmpty,
   isPlaceActionRendered,
-  isPlainValueApplied,
   isPrimitive,
   isUseZipCode,
   joinClassName,
@@ -84,14 +82,6 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [15.01.2020]
-   * @returns {boolean}
-   */
-  protected isFieldBusy(): boolean {
-    return super.isFieldBusy() || inProgress(this.state);
-  }
-
-  /**
    * @stable [11.01.2020]
    * @param {ISelectOptionEntity<IPlaceEntity>} option
    */
@@ -104,7 +94,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @param {IPlaceEntity | string} value
    * @returns {string}
    */
-  protected decorateValueBeforeDisplaying(value: IPlaceEntity | string): string {
+  protected decorateDisplayValue(value: IPlaceEntity | string): string {
     const valueAsPlaceEntity = value as IPlaceEntity;
     return isPrimitive(value)
       ? value as string
@@ -368,13 +358,5 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   private get useZipCode(): boolean {
     return isUseZipCode(this.props);
-  }
-
-  /**
-   * @stable [14.01.2020]
-   * @returns {boolean}
-   */
-  private get isPlainValueApplied(): boolean {
-    return isPlainValueApplied(this.props);
   }
 }

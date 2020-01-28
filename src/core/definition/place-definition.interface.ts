@@ -11,7 +11,6 @@ import {
   IPlaceActionRenderedWrapper,
   IPlaceEntityWrapper,
   IPlaceIdWrapper,
-  IPlainValueWrapper,
   IProgressWrapper,
   IQueryWrapper,
   IRegionWrapper,
@@ -70,7 +69,6 @@ export interface IPlaceEntityWrapperEntity<TCity = string>
 export interface IGenericPlaceFieldEntity
   extends IDialogClassNameWrapper,
     IPlaceActionRenderedWrapper,
-    IPlainValueWrapper,
     IUseZipCodeWrapper {
 }
 

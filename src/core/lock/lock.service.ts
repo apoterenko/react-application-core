@@ -1,9 +1,15 @@
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { IEventManager } from '../definition';
+import {
+  IEventManager,
+  TranslatorT,
+} from '../definition';
 import { ILock } from './lock.interface';
-import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
-import { TranslatorT } from '../translation';
+import {
+  DI_TYPES,
+  lazyInject,
+  provideInSingleton,
+} from '../di';
 
 @provideInSingleton(Lock)
 export class Lock implements ILock {
