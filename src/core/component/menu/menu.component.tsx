@@ -100,6 +100,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             className={
               joinClassName(
                 'rac-menu-dialog',
+                props.className,
                 isHeightRestricted(props) && 'rac-height-restricted-dialog'
               )
             }

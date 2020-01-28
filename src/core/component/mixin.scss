@@ -3133,12 +3133,14 @@
   $rac-menu-dialog-list-item-box-sizing: unset,                                    /* @stable [25.01.2020] */
   $rac-menu-dialog-list-item-color: unset,                                         /* @stable [25.01.2020] */
   $rac-menu-dialog-list-item-decorated-content-text-align: unset,                  /* @stable [26.01.2020] */
+  $rac-menu-dialog-list-item-font-size: unset,                                     /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-font-weight: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-hover-background: unset,                              /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-hover-color: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-line-height: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-min-height: unset,                                    /* @stable [25.01.2020] */
   $rac-menu-dialog-list-item-odd-background: unset,                                /* @stable [26.01.2020] */
+  $rac-menu-dialog-list-item-padding: unset,                                       /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-selected-background: unset,                           /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-selected-color: unset,                                /* @stable [26.01.2020] */
   $rac-menu-dialog-list-margin: unset,                                             /* @stable [25.01.2020] */
@@ -3174,12 +3176,14 @@
       $rac-list-item-box-sizing: $rac-menu-dialog-list-item-box-sizing,
       $rac-list-item-color: $rac-menu-dialog-list-item-color,
       $rac-list-item-decorated-content-text-align: $rac-menu-dialog-list-item-decorated-content-text-align,
+      $rac-list-item-font-size: $rac-menu-dialog-list-item-font-size,
       $rac-list-item-font-weight: $rac-menu-dialog-list-item-font-weight,
       $rac-list-item-hover-background: $rac-menu-dialog-list-item-hover-background,
       $rac-list-item-hover-color: $rac-menu-dialog-list-item-hover-color,
       $rac-list-item-line-height: $rac-menu-dialog-list-item-line-height,
       $rac-list-item-min-height: $rac-menu-dialog-list-item-min-height,
       $rac-list-item-odd-background: $rac-menu-dialog-list-item-odd-background,
+      $rac-list-item-padding: $rac-menu-dialog-list-item-padding,
       $rac-list-item-selected-background: $rac-menu-dialog-list-item-selected-background,
       $rac-list-item-selected-color: $rac-menu-dialog-list-item-selected-color,
       $rac-list-margin: $rac-menu-dialog-list-margin,
