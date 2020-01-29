@@ -385,6 +385,15 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [29.01.2020]
+   * @param {IDomParentConfigEntity} cfg
+   * @returns {TElement[]}
+   */
+  public getParentsAsElements<TElement extends HTMLElement = HTMLElement>(cfg: IDomParentConfigEntity): TElement[] {
+    return this.getParents(cfg).get() as TElement[];
+  }
+
+  /**
    * @stable [29.09.2019]
    * @returns {Element}
    */

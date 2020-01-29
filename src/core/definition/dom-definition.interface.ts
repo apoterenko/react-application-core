@@ -141,6 +141,7 @@ export interface IDomAccessor {
   getElement(id: string): Element;
   getHeight(source: Element): number;
   getParents(cfg: IDomParentConfigEntity): IJQueryElement;
+  getParentsAsElements(cfg: IDomParentConfigEntity): Element[];
   getRootElement(): Element;
   getScrollInfo(el: Element): IXYEntity;
   getScrollLeft(el: Element): number;

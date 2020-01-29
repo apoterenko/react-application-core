@@ -166,11 +166,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [25.01.2020]
+   * @stable [29.01.2020]
    */
   private onDocumentClickCapture(event: IBaseEvent): void {
     const element = event.target as HTMLElement;
-    if (this.domAccessor.hasParent({parentClassName: BaseDialog.DIALOG_CLASS_NAME, element})) {
+
+    if (this.domAccessor.getParentsAsElements({parentClassName: BaseDialog.DIALOG_CLASS_NAME, element})
+        .includes(this.getSelf())) {
       return;
     }
     this.doClose();
