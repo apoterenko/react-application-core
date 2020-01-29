@@ -254,6 +254,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     return (
       <BasicList
         ref={this.listRef}
+        default={false}
         plugins={[PerfectScrollPlugin]}>
         {subArray(this.items, this.props.maxCount).map(this.asItemElement)}
       </BasicList>

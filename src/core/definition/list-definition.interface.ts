@@ -5,6 +5,7 @@ import {
   IChangesWrapper,
   IDataWrapper,
   IDeactivatedWrapper,
+  IDefaultWrapper,
   IDisabledWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
@@ -52,6 +53,7 @@ import { GroupValueRendererT, IItemConfigurationWrapper } from '../configuration
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IDataWrapper<TEntity[]>,
+    IDefaultWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
     ILifeCycleEntity,

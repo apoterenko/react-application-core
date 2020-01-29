@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  isDefault,
   isFull,
   joinClassName,
 } from '../../../util';
@@ -21,6 +22,7 @@ export class BasicList extends BaseComponent<IBasicListProps> {
         ref={this.selfRef}
         className={joinClassName(
           'rac-list',
+          isDefault(props) && 'rac-default-list',
           isFull(props) && 'rac-full-list',
           props.className
         )}>

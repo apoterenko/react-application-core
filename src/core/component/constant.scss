@@ -315,7 +315,6 @@ $rac-card-list-item-width: 150px !default;
 /**/
 $rac-list-item-align-items: center !default;
 $rac-list-item-border-radius: unset !default;
-$rac-list-item-color: $rac-color-1-0 !default;
 $rac-list-item-content-flex: 1 !default;
 $rac-list-item-cursor: pointer !default;
 $rac-list-item-display: flex !default;
@@ -325,12 +324,14 @@ $rac-list-item-font-weight: unset !default;
 $rac-list-item-icon-background: unset !default;
 $rac-list-item-icon-color: unset !default;
 $rac-list-item-margin: unset !default;
-$rac-list-item-odd-background: $rac-color-0-3 !default;
 $rac-list-item-padding: $rac-offset-1 $rac-offset-3 $rac-offset-1 $rac-offset-2 !default;
 $rac-list-item-selected-background: $rac-color-2-0 !default;
 $rac-list-margin: 0 !default;
 $rac-list-padding: 0 !default;
 $rac-list-position: relative !default;
+/**/
+$rac-default-list-item-color: $rac-color-1-0 !default;
+$rac-default-list-item-odd-background: $rac-color-0-3 !default;
 /**/
 $rac-full-list-flex: 1 !default;
 
@@ -809,6 +810,7 @@ $rac-menu-anchored-dialog-body-content-box-shadow: 0 5px 10px 0 $rac-color-0-2 !
 $rac-menu-anchored-dialog-body-content-margin: $rac-offset-1 0 0 0 !default;
 $rac-menu-anchored-dialog-body-display: inline-block !default;
 $rac-menu-anchored-dialog-body-margin: unset !default;
+$rac-menu-anchored-dialog-body-min-width: 160px !default;
 $rac-menu-anchored-dialog-list-background: 0 !default;
 $rac-menu-anchored-dialog-list-item-color: $rac-color-0-1 !default;
 $rac-menu-anchored-dialog-list-item-hover-background: $rac-color-0-11 !default;
@@ -817,7 +819,6 @@ $rac-menu-anchored-dialog-list-item-odd-background: unset !default;
 $rac-menu-anchored-dialog-list-item-selected-background: $rac-color-2-3 !default;
 $rac-menu-anchored-dialog-list-item-selected-color: $rac-color-1-3 !default;
 $rac-menu-anchored-dialog-list-margin: unset !default;
-$rac-menu-anchored-dialog-list-min-width: 160px !default;
 $rac-menu-anchored-dialog-list-padding: $rac-offset-1 0 !default;
 /**/
 $rac-menu-anchored-height-restricted-dialog-max-height: 200px !default;
