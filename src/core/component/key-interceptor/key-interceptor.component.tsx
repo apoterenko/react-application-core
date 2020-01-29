@@ -17,7 +17,7 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
   };
   private static readonly logger = LoggerFactory.makeLogger('KeyInterceptor');
 
-  private static IOS_SAFARI_CAPTURE_EVENT = EventsEnum.KEY_DOWN;
+  private static IOS12_SAFARI_CAPTURE_EVENT = EventsEnum.KEY_DOWN;
   private static DEFAULT_CAPTURE_EVENT = EventsEnum.KEY_PRESS;
   private static ENTER_KEY_CODES = [10, 13];
   private static SPECIAL_KEY_CODES = [
@@ -128,7 +128,7 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
     // https://developer.mozilla.org/en-US/docs/Web/API/Document/keypress_event
     // Since this event has been deprecated, you should look to use beforeinput or keydown instead.
     return this.isCaptureFilterDisabled
-      ? KeyInterceptor.IOS_SAFARI_CAPTURE_EVENT
+      ? KeyInterceptor.IOS12_SAFARI_CAPTURE_EVENT
       : KeyInterceptor.DEFAULT_CAPTURE_EVENT;
   }
 
@@ -137,6 +137,7 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
    * @returns {boolean}
    */
   private get isCaptureFilterDisabled(): boolean {
-    return this.environment.safariOrSafariMobilePlatform && this.environment.iosPlatform;
+    const env = this.environment;
+    return env.safariOrSafariMobilePlatform && env.iosPlatform && !env.ios13Platform;
   }
 }
