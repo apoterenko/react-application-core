@@ -10,8 +10,9 @@ import {
 } from '../util';
 import { AnyT } from '../definitions.interface';
 import {
-  IUpdateEntityPayloadEntity,
   IEnvironment,
+  ISelectOptionEntity,
+  IUpdateEntityPayloadEntity,
 } from '../definition';
 import {
   EntityIdT,
@@ -64,6 +65,18 @@ export class BaseTransport {
     this.fieldConverter.convert({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.PLACE_PARAMETER,
+      value,
+    })
+
+  /**
+   * @stable [30.01.2020]
+   * @param {ISelectOptionEntity | EntityIdT} value
+   * @returns {string}
+   */
+  protected prepareSelectOptionEntityAsId = (value: ISelectOptionEntity | EntityIdT): string =>
+    this.fieldConverter.convert({
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.ID,
       value,
     })
 

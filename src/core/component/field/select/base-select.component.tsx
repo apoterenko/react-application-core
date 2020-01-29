@@ -17,7 +17,6 @@ import {
   isLocalOptionsUsed,
   isMenuRendered,
   isObjectNotEmpty,
-  isPrimitive,
   joinClassName,
   nvl,
   orNull,
@@ -53,6 +52,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   private readonly menuRef = React.createRef<Menu>();
   private readonly quickFilterQueryTask: DelayedTask;
+  private $$previousDecoratedDisplayValue: string;
 
   /**
    * @stable [30.11.2019]
@@ -77,7 +77,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       ];
     }
     if (this.isQuickSearchEnabled) {
-      this.quickFilterQueryTask = new DelayedTask(this.notifyFilterChange.bind(this), this.delayTimeout);
+      this.quickFilterQueryTask = new DelayedTask(this.notifyQuickSearchFilterChange.bind(this), this.delayTimeout);
     }
   }
 
@@ -157,6 +157,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {IBaseEvent} event
    */
   public onKeyEnter(event: IBaseEvent): void {
+    this.clearPreviousDecoratedDisplayValue();
+
     if (this.startQuickSearchIfApplicable(true)) {
       this.domAccessor.cancelEvent(event);
     }
@@ -171,7 +173,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.onClick(event);
 
     if (this.isQuickSearchEnabled) {
-      this.notifyFilterChange();
+      this.$$previousDecoratedDisplayValue = this.decoratedDisplayValue;
+      this.notifyQuickSearchFilterChange();
     } else {
       this.openMenu();
     }
@@ -328,12 +331,29 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [28.01.2020]
+   * @returns {EntityIdT}
    */
-  private notifyFilterChange(): void {
-    const value = this.value;
+  protected selectOptionEntityAsId(value: AnyT): EntityIdT {
+    return this.fieldConverter.convert({
+      value,
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.ID,
+    });
+  }
 
-    if (this.isAllowEmptyFilterValue || (isObjectNotEmpty(value) && isPrimitive(value))) {
-      this.setState({progress: true}, () => this.onFilterChange(value));
+  /**
+   * @stable [28.01.2020]
+   */
+  private notifyQuickSearchFilterChange(): void {
+    const currentValue = this.decoratedDisplayValue;
+    const previousValue = this.$$previousDecoratedDisplayValue;
+    const isCurrentValueEmpty = !isObjectNotEmpty(currentValue);
+
+    if (this.isAllowEmptyFilterValue || !isCurrentValueEmpty || !R.equals(previousValue, currentValue)) {
+      this.setState({progress: true}, () => {
+        this.onFilterChange(currentValue);
+        this.$$previousDecoratedDisplayValue = currentValue;
+      });
     }
   }
 
@@ -353,18 +373,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private onSelectDone(option: ISelectOptionEntity): void {
     this.onChangeManually(this.isPlainValueApplied ? this.selectOptionEntityAsId(option) : option);
     this.notifySelectOption(option);
-  }
-
-  /**
-   * @stable [28.01.2020]
-   * @returns {EntityIdT}
-   */
-  private selectOptionEntityAsId(value: AnyT): EntityIdT {
-    return this.fieldConverter.convert({
-      value,
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
-      to: FieldConverterTypesEnum.ID,
-    });
+    this.setFocus();
   }
 
   private onFilterChange(query: string): void {
@@ -413,7 +422,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     if (noDelay) {
       this.quickFilterQueryTask.stop();
-      this.notifyFilterChange();
+      this.notifyQuickSearchFilterChange();
     } else {
       this.quickFilterQueryTask.start();
     }
@@ -449,6 +458,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         this.setState({$$cachedValue: null});
       }
     }
+  }
+
+  /**
+   * @stable [30.01.2020]
+   */
+  private clearPreviousDecoratedDisplayValue(): void {
+    this.$$previousDecoratedDisplayValue = null;
   }
 
   /**

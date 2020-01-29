@@ -520,6 +520,7 @@ $rac-base-text-cls: rac-base-text;
 $rac-checkbox-cls: rac-checkbox;
 $rac-checked-cls: rac-checked;
 $rac-field-actioned-cls: rac-field-actioned;
+$rac-field-busy-cls: rac-field-busy;
 $rac-field-disabled-cls: rac-field-disabled;
 $rac-field-focused-cls: rac-field-focused;
 $rac-field-input-caret-cls: rac-field-input-caret;
@@ -536,6 +537,7 @@ $rac-view-field-cls: rac-view-field;
 /**/
 $rac-base-checkbox-checked-cls: '#{$rac-base-checkbox-cls}.#{$rac-checked-cls}';
 $rac-base-text-actioned-cls: '#{$rac-base-text-cls}.#{$rac-field-actioned-cls}';
+$rac-base-text-busy-cls: '#{$rac-base-text-cls}.#{$rac-field-busy-cls}';
 $rac-base-text-focused-cls: '#{$rac-base-text-cls}.#{$rac-field-focused-cls}';
 $rac-base-text-labeled-cls: '#{$rac-base-text-cls}.#{$rac-field-labeled-cls}';
 /**/
@@ -553,6 +555,7 @@ $rac-base-checkbox-self-field-label-line-height: $rac-line-height-0 !default;
 $rac-base-checkbox-self-field-label-margin: 0 0 0 $rac-offset-1 !default;
 $rac-base-select-self-field-input-wrapper-flex-direction: column !default;
 $rac-base-text-actioned-self-field-input-width: unset !default;
+$rac-base-text-busy-self-field-input-opacity: 0 !default;
 $rac-base-text-labeled-self-field-label-position: absolute !default;
 $rac-base-text-labeled-self-field-label-top: -$rac-text-size-1 !default;
 $rac-base-text-overflow: hidden !default;

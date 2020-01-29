@@ -1,0 +1,24 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  /**
+   * @base-text-labeled
+   * @stable [28.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-labeled-cls,
+    $rac-self-field-label-position: $rac-base-text-labeled-self-field-label-position,
+    $rac-self-field-label-top: $rac-base-text-labeled-self-field-label-top
+  );
+
+  /**
+   * @base-text-busy
+   * @stable [30.01.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-busy-cls,
+    $rac-self-field-input-opacity: $rac-base-text-busy-self-field-input-opacity
+  );
+}

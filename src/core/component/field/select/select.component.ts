@@ -18,8 +18,8 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
    * @returns {ISelectOptionEntity[]}
    */
   protected get filteredOptions(): ISelectOptionEntity[] {
-    const value = this.value;
-    return this.options.filter((option) => option.value !== value);
+    const id = this.selectOptionEntityAsId(this.value);
+    return this.options.filter((option) => this.selectOptionEntityAsId(option) !== id);
   }
 
   /**
