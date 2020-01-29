@@ -17,6 +17,7 @@ import {
   isLocalOptionsUsed,
   isMenuRendered,
   isObjectNotEmpty,
+  isPrimitive,
   joinClassName,
   nvl,
   orNull,
@@ -87,6 +88,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   public onChange(event: IBaseEvent): void {
     super.onChange(event);
+
+    this.clearPreviousDecoratedDisplayValue();
     this.startQuickSearchIfApplicable();
   }
 
@@ -124,6 +127,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   public clearValue(): void {
     super.clearValue();
     this.clearCachedValue();
+    this.clearPreviousDecoratedDisplayValue();
   }
 
   /**
@@ -282,7 +286,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const $$cachedValue = this.state.$$cachedValue;
     const hasCachedValue = !R.isNil($$cachedValue);
 
-    if (!hasCachedValue && this.isLocalOptionsUsed) {
+    if (!hasCachedValue && this.isLocalOptionsUsed && !isPrimitive(value)) {
       const optionValue = this.selectOptionEntityAsId(value);
       value = nvl(
         R.find<ISelectOptionEntity>((option) => this.selectOptionEntityAsId(option) === optionValue, this.options),
