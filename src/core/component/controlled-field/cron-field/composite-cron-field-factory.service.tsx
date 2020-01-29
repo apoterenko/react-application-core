@@ -131,6 +131,7 @@ export class CompositeCronFieldFactory
         };
       case CompositeCronFieldItemsEnum.PERIOD:
         return {
+          ...props,
           onSelect: (option) => {
             const currentCronPeriod = isFn(config.cronPeriodsMapper)
               ? config.cronPeriodsMapper(option.value)

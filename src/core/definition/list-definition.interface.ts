@@ -18,6 +18,7 @@ import {
   IIconWrapper,
   IIndexWrapper,
   IKeyValue,
+  ILastWrapper,
   IListConfigurationWrapper,
   IListWrapper,
   IOddWrapper,
@@ -94,6 +95,7 @@ export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
     IHoveredWrapper,
     IIconWrapper,
     IIndexWrapper,
+    ILastWrapper,
     IOddWrapper,
     IRawDataWrapper<TEntity>,
     ISelectedWrapper {

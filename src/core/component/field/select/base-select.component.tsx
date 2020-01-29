@@ -76,7 +76,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         ...this.defaultActions
       ];
     }
-    if (this.isQuickSelectionModeEnabled) {
+    if (this.isQuickSearchEnabled) {
       this.quickFilterQueryTask = new DelayedTask(this.notifyFilterChange.bind(this), this.delayTimeout);
     }
   }
@@ -145,7 +145,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         this.setState({progress: true}, () => onEmptyDictionary(bindDictionary));
       } else {
         // Try open empty dialog menu to remote search
-        this.renderAndShowMenu(!this.isQuickSelectionModeEnabled);
+        this.renderAndShowMenu(!this.isQuickSearchEnabled);
       }
     } else {
       this.renderAndShowMenu();
@@ -170,7 +170,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
 
-    if (this.isQuickSelectionModeEnabled) {
+    if (this.isQuickSearchEnabled) {
       this.notifyFilterChange();
     } else {
       this.openMenu();
@@ -405,7 +405,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [16.01.2020]
    */
   private startQuickSearchIfApplicable(noDelay = false): boolean {
-    if (!this.isQuickSelectionModeEnabled) {
+    if (!this.isQuickSearchEnabled) {
       return false;
     }
 
@@ -452,10 +452,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [29.01.2020]
    * @returns {boolean}
    */
-  private get isQuickSelectionModeEnabled(): boolean {
+  private get isQuickSearchEnabled(): boolean {
     return !this.isFocusPrevented;
   }
 

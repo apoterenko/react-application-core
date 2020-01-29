@@ -79,6 +79,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
           props.icon && 'rac-list-item__decorated',
           props.odd && 'rac-list-item__odd',
           props.hovered && 'rac-list-item__hovered',
+          props.last && 'rac-list-item__last',  // We can't use :not(:last-child) because of PerfectScrollbar Plugin
           ...(
             isSelected(props)
               ? ['rac-list-item__selected', context.selectedElementClassName]

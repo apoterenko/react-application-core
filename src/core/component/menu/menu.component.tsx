@@ -8,7 +8,6 @@ import {
 import {
   DelayedTask,
   ifNotNilThanValue,
-  inProgress,
   isFilterUsed,
   isFn,
   isHeightRestricted,
@@ -60,7 +59,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   constructor(props: IMenuProps) {
     super(props);
 
-    this.asItemElement = this.asItemElement.bind(this);
     this.hide = this.hide.bind(this);
     this.onDialogActivate = this.onDialogActivate.bind(this);
     this.onDialogAfterDestroy = this.onDialogAfterDestroy.bind(this);
@@ -155,14 +153,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [15.01.2020]
-   * @returns {boolean}
-   */
-  protected get isWaitingForData(): boolean {
-    return inProgress(this.props);
-  }
-
-  /**
    * @stable [23.11.2019]
    */
   private notifyFilterChange(): void {
@@ -251,23 +241,26 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    * @returns {JSX.Element}
    */
   private get listElement(): JSX.Element {
+    const items = subArray(this.items, this.props.maxCount);
     return (
       <BasicList
         ref={this.listRef}
         default={false}
-        plugins={[PerfectScrollPlugin]}>
-        {subArray(this.items, this.props.maxCount).map(this.asItemElement)}
+        plugins={[PerfectScrollPlugin]}
+      >
+        {items.map((option: IMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
       </BasicList>
     );
   }
 
   /**
-   * @stable [17.01.2020]
+   * @stable [29.01.2020]
    * @param {IMenuItemEntity} option
    * @param {number} index
+   * @param {number} length
    * @returns {JSX.Element}
    */
-  private asItemElement(option: IMenuItemEntity, index: number): JSX.Element {
+  private asItemElement(option: IMenuItemEntity, index: number, length: number): JSX.Element {
     const props = this.props;
     return (
       <ListItem
@@ -277,6 +270,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         rawData={option}
         hovered={true}
         odd={isHighlightOdd(props, index)}
+        last={index === length - 1}
         renderer={props.renderer}
         tpl={props.tpl}
         onClick={this.onSelect}
