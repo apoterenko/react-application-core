@@ -315,8 +315,10 @@ export interface ISelectOptionEntity<TRawData = {}>
  * @stable [15.01.2020]
  */
 export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
+  allowEmptyFilterValue: false,
   anchored: true,
   expandActionRendered: false,
   menuConfiguration: {useFilter: false},
   preventFocus: false,
+  useLocalOptions: false,
 });

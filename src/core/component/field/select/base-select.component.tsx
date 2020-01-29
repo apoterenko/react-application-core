@@ -123,7 +123,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   public clearValue(): void {
     super.clearValue();
-    this.setState({$$cachedValue: null});
+    this.clearCachedValue();
   }
 
   /**
@@ -346,15 +346,21 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private notifyQuickSearchFilterChange(): void {
     const currentValue = this.decoratedDisplayValue;
-    const previousValue = this.$$previousDecoratedDisplayValue;
-    const isCurrentValueEmpty = !isObjectNotEmpty(currentValue);
+    const isCurrentValueNotEmpty = isObjectNotEmpty(currentValue);
+    const isAllowEmptyFilterValue0 = this.isAllowEmptyFilterValue;
 
-    if (this.isAllowEmptyFilterValue || !isCurrentValueEmpty || !R.equals(previousValue, currentValue)) {
-      this.setState({progress: true}, () => {
-        this.onFilterChange(currentValue);
-        this.$$previousDecoratedDisplayValue = currentValue;
-      });
+    if (!isAllowEmptyFilterValue0 && !isCurrentValueNotEmpty) {
+      return;
     }
+    const isCurrentValueEqualPreviousValue = R.equals(this.$$previousDecoratedDisplayValue, currentValue);
+    if (isCurrentValueNotEmpty && isCurrentValueEqualPreviousValue) {
+      return;
+    }
+
+    this.setState({progress: true}, () => {
+      this.onFilterChange(currentValue);
+      this.refreshPreviousDecoratedDisplayValue();
+    });
   }
 
   /**
@@ -417,15 +423,16 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (!this.isQuickSearchEnabled) {
       return false;
     }
+    this.clearCachedValue(() => {
+      this.hideMenu();
 
-    this.hideMenu();
-
-    if (noDelay) {
-      this.quickFilterQueryTask.stop();
-      this.notifyQuickSearchFilterChange();
-    } else {
-      this.quickFilterQueryTask.start();
-    }
+      if (noDelay) {
+        this.quickFilterQueryTask.stop();
+        this.notifyQuickSearchFilterChange();
+      } else {
+        this.quickFilterQueryTask.start();
+      }
+    });
     return true;
   }
 
@@ -455,7 +462,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       const $$cachedValue = this.state.$$cachedValue;
       if (!R.isNil($$cachedValue) && !R.equals($$cachedValue.value, newValue)) {
         // Need to reset the previous cached display value if the value has been cleared or replaced
-        this.setState({$$cachedValue: null});
+        this.clearCachedValue();
       }
     }
   }
@@ -465,6 +472,21 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private clearPreviousDecoratedDisplayValue(): void {
     this.$$previousDecoratedDisplayValue = null;
+  }
+
+  /**
+   * @stable [30.01.2020]
+   */
+  private refreshPreviousDecoratedDisplayValue(): void {
+    this.$$previousDecoratedDisplayValue = this.decoratedDisplayValue;
+  }
+
+  /**
+   * @stable [30.01.2020]
+   * @param {() => void} callback
+   */
+  private clearCachedValue(callback?: () => void): void {
+    this.setState({$$cachedValue: null}, callback);
   }
 
   /**
