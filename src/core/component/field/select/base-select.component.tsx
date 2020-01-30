@@ -14,9 +14,9 @@ import {
   isDef,
   isExpandActionRendered,
   isFn,
-  isLocalOptionsUsed,
   isMenuRendered,
   isObjectNotEmpty,
+  isUndef,
   joinClassName,
   nvl,
   orNull,
@@ -551,7 +551,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {boolean}
    */
   private get isLocalOptionsUsed(): boolean {
-    return isLocalOptionsUsed(this.props);
+    return isUndef(this.props.waitingForOptions);
   }
 
   /**
