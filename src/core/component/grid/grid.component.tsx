@@ -184,7 +184,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     } else if (isFn(column.headerRenderer)) {
       return column.headerRenderer(column);
     }
-    return this.t(column.title);
+    return this.t(column.title as string);
   }
 
   private get headRowElement(): JSX.Element {

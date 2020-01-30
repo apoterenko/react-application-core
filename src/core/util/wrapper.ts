@@ -49,7 +49,6 @@ import {
   ITouchedWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
-  IUseLocalOptionsWrapper,
   IUseZipCodeWrapper,
   IValidWrapper,
   IVisibleWrapper,
@@ -407,14 +406,6 @@ export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
  */
 export const isHeightRestricted = (wrapper: IHeightRestrictedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.heightRestricted !== false, false);
-
-/**
- * @stable [28.01.2020]
- * @param {IUseLocalOptionsWrapper} wrapper
- * @returns {boolean}
- */
-export const isLocalOptionsUsed = (wrapper: IUseLocalOptionsWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.useLocalOptions !== false, false);
 
 /**
  * @stable [28.01.2020]

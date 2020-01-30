@@ -32,7 +32,7 @@ export const UniversalStickyContext = React.createContext(null);
  */
 export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalStoreEntity<TDictionaries, TPermissions>,
-    ITitleWrapper,
+    ITitleWrapper<string | boolean>,
     ISectionNameWrapper {
 }
 

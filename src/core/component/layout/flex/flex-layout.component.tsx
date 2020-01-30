@@ -42,7 +42,7 @@ export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
             props.separator && 'rac-flex-separator'      // TODO Deprecated
           )
         }
-        title={props.title}
+        title={props.title as string}
         style={props.style}
         {...handlerPropsFactory(props.onClick, !calc(props.disabled), props.touched)}
       >

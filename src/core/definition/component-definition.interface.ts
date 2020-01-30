@@ -29,7 +29,7 @@ export interface IWebComponentEntity<TClassName = string>
  */
 export interface IUniversalComponentEntity
   extends React.ClassAttributes<AnyT>,  // TODO Replace with React.RefAttributes (ref="string")
-    ITitleWrapper,
+    ITitleWrapper<string | boolean>,
     IPluginsWrapper<IUniversalPluginCtor | IUniversalPluginCtor[]> {
 }
 

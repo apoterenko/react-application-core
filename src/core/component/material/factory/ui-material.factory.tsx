@@ -319,7 +319,7 @@ export class UIMaterialFactory implements IUIFactory {
       <div
         ref={config.ref}
         key={config.key || uuid()}
-        title={config.title}
+        title={config.title as string}
         className={joinClassName(
           'rac-icon',
           hasHandler && `rac-action-icon rac-action-${config.type}-icon`,

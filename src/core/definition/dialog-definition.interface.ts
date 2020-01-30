@@ -22,6 +22,7 @@ import {
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
+import { IFormExtendedEditableEntity } from './form-definition.interface';
 
 /**
  * @generic-entity
@@ -112,4 +113,13 @@ export interface IDialogState
  */
 export interface IDialogConfigurationEntity<TProps extends IDialogProps = IDialogProps>
   extends IDialogConfigurationWrapper<TProps> {
+}
+
+/**
+ * @props
+ * @stable [30.01.2020]
+ */
+export interface IUnsavedFormChangesDialogProps
+  extends IDialogProps,
+    IFormExtendedEditableEntity {
 }

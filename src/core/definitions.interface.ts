@@ -43,7 +43,7 @@ export interface IAccessConfigurationWrapper<TValue> { accessConfiguration?: TVa
 export interface IAccessDeniedWrapper<TValue> { accessDenied?: TValue; }
 export interface IActionsDisabledWrapper { actionsDisabled?: boolean; }
 export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
-export interface IActionsPosition<TActionsPosition> { actionsPosition?: TActionsPosition; }
+export interface IActionsPosition<TValue> { actionsPosition?: TValue; }
 export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 export interface IActionsWrapper<TValue> { actions?: TValue; }
 export interface IActionWrapper<TValue> { action?: TValue; }
@@ -55,7 +55,7 @@ export interface IActiveWrapper<TValue = boolean> { active?: TValue; }
 export interface IAddApiWrapper { addApi?: string; }
 export interface IAddedFilesWrapper<TValue> { addedFiles?: TValue; }
 export interface IAddWrapper<TValue> { add?: TValue; }
-export interface IAfterEnterWrapper<TAfterEnter> { afterEnter?: TAfterEnter; }
+export interface IAfterEnterWrapper<TValue> { afterEnter?: TValue; }
 export interface IAliasWrapper<TValue = string> { alias?: TValue; }
 export interface IAlignWrapper<TValue = string> { align?: TValue; }
 export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean; }
@@ -188,6 +188,7 @@ export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
+export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
 export interface IFormattedNameWrapper { formattedName?: string; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
@@ -456,8 +457,8 @@ export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
-export interface ITimeWrapper<TTime = string> { time?: TTime; }
-export interface ITitleWrapper { title?: string; }
+export interface ITimeWrapper<TValue = string> { time?: TValue; }
+export interface ITitleWrapper<TValue = string> { title?: TValue; }
 export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
@@ -481,7 +482,6 @@ export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 export interface IUrlWrapper<TValue = string> { url?: TValue; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
-export interface IUseLocalOptionsWrapper { useLocalOptions?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TValue = string> { user?: TValue; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
@@ -1050,19 +1050,7 @@ export interface IFilterFormWrapper<TFilterForm> {
   filterForm?: TFilterForm;
 }
 
-/**
- * @stable [31.05.2018]
- */
-export interface IFooterWrapper<TFooter = JSX.Element> {
-  footer?: TFooter;
-}
-
 export interface ISubmitWrapper<TPayload = AnyT> { submit?(payload?: TPayload): void; }
-
-/* @stable - 19.04.2018 */
-export interface IOnPressWrapper<TOnPress> {
-  onPress?: TOnPress;
-}
 
 /**
  * @stable [17.08.2018]

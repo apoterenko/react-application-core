@@ -65,7 +65,6 @@ import {
   ITitleWrapper,
   ITypeWrapper,
   IUseKeyboardWrapper,
-  IUseLocalOptionsWrapper,
   IValueWrapper,
   IVisibleWrapper,
   IWaitingForOptionsWrapper,
@@ -298,7 +297,6 @@ export interface IGenericBaseSelectEntity
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
     IOptionsWrapper<ISelectOptionEntity[]>,
-    IUseLocalOptionsWrapper,
     IWaitingForOptionsWrapper {
 }
 
@@ -320,5 +318,4 @@ export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>
   expandActionRendered: false,
   menuConfiguration: {useFilter: false},
   preventFocus: false,
-  useLocalOptions: false,
 });
