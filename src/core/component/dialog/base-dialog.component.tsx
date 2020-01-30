@@ -146,6 +146,30 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
+   * @stable [30.01.2020]
+   * @returns {string}
+   */
+  protected get title(): string | boolean {
+    return this.props.title;
+  }
+
+  /**
+   * @stable [30.01.2020]
+   * @returns {string}
+   */
+  protected get closeText(): string {
+    return this.props.closeText || this.settings.messages.DIALOG_CANCEL;
+  }
+
+  /**
+   * @stable [30.01.2020]
+   * @returns {string}
+   */
+  protected get acceptText(): string {
+    return this.props.acceptText || this.settings.messages.DIALOG_ACCEPT;
+  }
+
+  /**
    * @stable [05.01.2020]
    */
   private onCloseClick(): void {
@@ -230,7 +254,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get footerElement(): JSX.Element {
-    const props = this.props;
     return (
       orNull(
         this.closable || this.acceptable,
@@ -245,7 +268,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                     full={true}
                     disabled={this.isCloseButtonDisabled}
                     onClick={this.onCloseClick}>
-                    {this.t(props.closeText || this.settings.messages.DIALOG_CANCEL)}
+                    {this.t(this.closeText)}
                   </Button>
                 )
               )
@@ -260,7 +283,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                     raised={true}
                     disabled={this.isAcceptButtonDisabled}
                     onClick={this.onAcceptClick}>
-                    {this.t(props.acceptText || this.settings.messages.DIALOG_ACCEPT)}
+                    {this.t(this.acceptText)}
                   </Button>
                 )
               )
@@ -294,17 +317,15 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get bodyElement(): JSX.Element {
-    const {
-      children,
-      title,
-    } = this.props;
+    const {children} = this.props;
+    const title = this.title;
 
     return (
       <React.Fragment>
         {
           title && (
             <div className='rac-dialog__body-title'>
-              {this.t(title)}
+              {this.t(title as string)}
             </div>
           )
         }

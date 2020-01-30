@@ -72,7 +72,7 @@ export class Button extends BaseComponent<IButtonProps> {
       <button
         ref={this.selfRef}
         type={props.type}
-        title={props.title}
+        title={props.title as string}
         style={props.style}
         className={className}
         disabled={disabled}
