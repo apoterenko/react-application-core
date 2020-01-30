@@ -17,7 +17,6 @@ import {
   isLocalOptionsUsed,
   isMenuRendered,
   isObjectNotEmpty,
-  isPrimitive,
   joinClassName,
   nvl,
   orNull,
@@ -120,11 +119,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [30.11.2019]
+   * @stable [30.01.2020]
    */
   public clearValue(): void {
     super.clearValue();
-    this.clearCachedValue();
+
+    if (this.isPlainValueApplied) {
+      this.clearCachedValue();
+    }
   }
 
   /**
@@ -172,7 +174,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.onClick(event);
 
     if (this.isQuickSearchEnabled) {
-      this.notifyQuickSearchFilterChange();
+      if (!this.isFieldBusy()) {
+        this.notifyQuickSearchFilterChange();
+      } else {
+        BaseSelect.logger.debug('[$BaseSelect][onClick] The field is busy. Do nothing...');
+      }
     } else {
       this.openMenu();
     }
@@ -245,7 +251,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {ISelectOptionEntity} option
    */
   protected onSelect(option: ISelectOptionEntity): void {
-    this.setState({$$cachedValue: shallowClone(option)}, this.onSelectDone.bind(this, option));
+    if (this.isPlainValueApplied) {
+      this.saveCachedValue(shallowClone(option), () => this.doSelectOption(option));
+    } else {
+      this.doSelectOption(option);
+    }
   }
 
   /**
@@ -277,10 +287,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {AnyT}
    */
   protected getDecoratedDisplayValue(value: AnyT): AnyT {
-    const $$cachedValue = this.state.$$cachedValue;
+    const $$cachedValue = this.$$cashedValue;
     const hasCachedValue = !R.isNil($$cachedValue);
 
-    if (!hasCachedValue && this.isLocalOptionsUsed && !isPrimitive(value)) {
+    if (!hasCachedValue && this.isLocalOptionsUsed && (!this.isQuickSearchEnabled || this.isValueObject(value))) {
       const optionValue = this.selectOptionEntityAsId(value);
       value = nvl(
         R.find<ISelectOptionEntity>((option) => this.selectOptionEntityAsId(option) === optionValue, this.options),
@@ -343,11 +353,19 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [28.01.2020]
    */
   private notifyQuickSearchFilterChange(): void {
+    if (this.isValueObject(this.value)) {
+      // Why we should search the same value object instance?
+
+      BaseSelect.logger.debug('[$BaseSelect][notifyQuickSearchFilterChange] The value is an object. Do nothing...');
+      return;
+    }
+
     const currentValue = this.decoratedDisplayValue;
     const isCurrentValueNotEmpty = isObjectNotEmpty(currentValue);
     const isAllowEmptyFilterValue0 = this.isAllowEmptyFilterValue;
 
     if (!isAllowEmptyFilterValue0 && !isCurrentValueNotEmpty) {
+      BaseSelect.logger.debug('[$BaseSelect][notifyQuickSearchFilterChange] The decorated value is empty. Do nothing...');
       return;
     }
     this.setState({progress: true}, () => this.onFilterChange(currentValue));
@@ -366,7 +384,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [28.01.2020]
    * @param {ISelectOptionEntity} option
    */
-  private onSelectDone(option: ISelectOptionEntity): void {
+  private doSelectOption(option: ISelectOptionEntity): void {
     this.onChangeManually(this.isPlainValueApplied ? this.selectOptionEntityAsId(option) : option);
     this.notifySelectOption(option);
     this.setFocus();
@@ -410,19 +428,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [16.01.2020]
    */
   private startQuickSearchIfApplicable(noDelay = false): boolean {
-    if (!this.isQuickSearchEnabled) {
+    if (!this.isQuickSearchEnabled || this.isFieldBusy()) {
       return false;
     }
-    this.clearCachedValue(() => {
-      this.hideMenu();
-
-      if (noDelay) {
-        this.quickFilterQueryTask.stop();
-        this.notifyQuickSearchFilterChange();
-      } else {
-        this.quickFilterQueryTask.start();
-      }
-    });
+    if (this.isPlainValueApplied) {
+      this.clearCachedValue(() => this.hideMenuAndStartQuickSearch(noDelay));
+    } else {
+      this.hideMenuAndStartQuickSearch(noDelay);
+    }
     return true;
   }
 
@@ -439,17 +452,36 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
+   * @stable [30.01.2020]
+   * @param {boolean} noDelay
+   */
+  private hideMenuAndStartQuickSearch(noDelay = false): void {
+    this.hideMenu();
+
+    if (noDelay) {
+      this.quickFilterQueryTask.stop();
+      this.notifyQuickSearchFilterChange();
+    } else {
+      this.quickFilterQueryTask.start();
+    }
+  }
+
+  /**
    * @stable [29.01.2020]
    * @param {TProps} props
    * @param {TProps} previousProps
    */
   private tryResetCachedValue(props: TProps, previousProps: TProps): void {
+    if (!this.isPlainValueApplied) {
+      return;
+    }
+
     const newValue = props.value;
     if (!R.equals(newValue, previousProps.value)) {
       // The value has changed
 
-      // TODO Use keyValueCache
-      const $$cachedValue = this.state.$$cachedValue;
+      // TODO Pass cached value inside a constructor
+      const $$cachedValue = this.$$cashedValue;
       if (!R.isNil($$cachedValue) && !R.equals($$cachedValue.value, newValue)) {
         // Need to reset the previous cached display value if the value has been cleared or replaced
         this.clearCachedValue();
@@ -462,7 +494,16 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {() => void} callback
    */
   private clearCachedValue(callback?: () => void): void {
-    this.setState({$$cachedValue: null}, callback);
+    this.saveCachedValue(null, callback);
+  }
+
+  /**
+   * @stable [30.01.2020]
+   * @param {ISelectOptionEntity} value
+   * @param {() => void} callback
+   */
+  private saveCachedValue(value?: ISelectOptionEntity, callback?: () => void): void {
+    this.setState({$$cachedValue: value}, callback);
   }
 
   /**
@@ -544,5 +585,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get menu(): IMenu {
     return this.menuRef.current;
+  }
+
+  /**
+   * @stable [30.01.2020]
+   * @returns {ISelectOptionEntity}
+   */
+  private get $$cashedValue(): ISelectOptionEntity {
+    return this.state.$$cachedValue;
   }
 }

@@ -24,6 +24,7 @@ import {
   isFocusPrevented,
   isKeyboardOpen,
   isKeyboardUsed,
+  isObject,
   isPlainValueApplied,
   isReadOnly,
   isRequired,
@@ -705,6 +706,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isSyntheticCursorUsed(): boolean {
     return isSyntheticCursorUsed(this.props);
+  }
+
+  /**
+   * @stable [30.01.2020]
+   * @param {AnyT} value
+   * @returns {boolean}
+   */
+  protected isValueObject(value: AnyT): boolean {
+    return isObject(value);
   }
 
   /**
