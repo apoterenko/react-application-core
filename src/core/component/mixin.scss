@@ -3033,6 +3033,7 @@
   $rac-dialog-body-title-margin: unset,                                                       /* @stable [29.12.2019] */
   $rac-dialog-body-title-padding: unset,                                                      /* @stable [29.12.2019] */
   $rac-dialog-body-width: unset,                                                              /* @stable [10.01.2020] */
+  $rac-dialog-body-z-index: unset,                                                            /* @stable [31.01.2020] */
   $rac-dialog-display: unset,                                                                 /* @stable [06.01.2020] */
   $rac-dialog-height: unset,                                                                  /* @stable [10.01.2020] */
   $rac-dialog-justify-content: unset,                                                         /* @stable [10.01.2020] */
@@ -3071,7 +3072,8 @@
           $rac-styles-min-height: $rac-dialog-body-min-height,
           $rac-styles-min-width: $rac-dialog-body-min-width,
           $rac-styles-padding: $rac-dialog-body-padding,
-          $rac-styles-width: $rac-dialog-body-width
+          $rac-styles-width: $rac-dialog-body-width,
+          $rac-styles-z-index: $rac-dialog-body-z-index
         );
 
         > {
@@ -3139,6 +3141,7 @@
   $rac-menu-dialog-body-min-width: unset,                                          /* @stable [29.12.2019] */
   $rac-menu-dialog-body-padding: unset,                                            /* @stable [24.01.2020] */
   $rac-menu-dialog-body-width: unset,                                              /* @stable [15.01.2020] */
+  $rac-menu-dialog-body-z-index: unset,                                            /* @stable [31.01.2020] */
   $rac-menu-dialog-display: unset,                                                 /* @stable [25.01.2020] */
   $rac-menu-dialog-icon-close-color: unset,                                        /* @stable [11.11.2019] */
   $rac-menu-dialog-icon-close-margin: unset,                                       /* @stable [11.11.2019] */
@@ -3185,6 +3188,7 @@
     $rac-dialog-body-min-width: $rac-menu-dialog-body-min-width,
     $rac-dialog-body-padding: $rac-menu-dialog-body-padding,
     $rac-dialog-body-width: $rac-menu-dialog-body-width,
+    $rac-dialog-body-z-index: $rac-menu-dialog-body-z-index,
     $rac-dialog-display: $rac-menu-dialog-display,
     $rac-dialog-justify-content: $rac-menu-dialog-justify-content
   );

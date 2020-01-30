@@ -437,7 +437,11 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
       this.isInline
         ? 'rac-inline-dialog'
-        : (this.doesAnotherModalDialogOpen ? 'rac-transparent-dialog' : 'rac-not-transparent-dialog'),
+        : (
+          !this.isAnchored && (
+            this.doesAnotherModalDialogOpen ? 'rac-transparent-dialog' : 'rac-not-transparent-dialog'
+          )
+        ),
     );
   }
 }
