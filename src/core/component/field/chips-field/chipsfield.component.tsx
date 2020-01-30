@@ -2,7 +2,12 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { Chip } from '../../chip';
-import { coalesce, NAME_ASC_SORTER_FN, uuid } from '../../../util';
+import {
+  coalesce,
+  joinClassName,
+  NAME_ASC_SORTER_FN,
+  uuid,
+} from '../../../util';
 import { EntityIdT } from '../../../definitions.interface';
 import { IChipsFieldProps, IChipsFieldState } from './chipsfield.interface';
 import { INamedEntity } from '../../../definition';
@@ -33,6 +38,10 @@ export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
         )}
       </div>
     );
+  }
+
+  protected getFieldClassName(): string {
+    return joinClassName(super.getFieldClassName(), 'rac-chips-field');
   }
 
   /**

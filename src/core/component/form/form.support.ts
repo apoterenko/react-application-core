@@ -15,7 +15,7 @@ import {
 import {
   isFormEntityDirty,
   isFormEntityDisabled,
-  isFormEntityValid,
+  isFormValid,
 } from '../../util';
 
 /**
@@ -55,7 +55,7 @@ export const isFormChangeable = (formProps: IFormProps): boolean => formProps.ch
  * @returns {boolean}
  */
 export const isFormSubmittable = (formProps: IFormProps): boolean =>
-  isFormEntityValid(formProps)
+  isFormValid(formProps)
     && isFormEntityDirty(formProps)
     && !isFormEntityDisabled(formProps);
 

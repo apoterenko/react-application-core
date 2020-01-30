@@ -12,7 +12,7 @@ export * from './gridfield';
 export * from './textarea';
 export * from './switch';
 export * from './checkbox';
-export * from './chipsfield';
+export * from './chips-field';
 export * from './place-field';
 export * from './timefield';
 export * from './numberfield';

@@ -1,0 +1,17 @@
+@import '../constant';
+@import '../mixin';
+
+.rac {
+
+  /**
+   * @form
+   * @stable [30.01.2020]
+   */
+  @include rac-form (
+    $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
+    $rac-form-actions-display: $rac-form-actions-display,
+    $rac-form-actions-flex-shrink: $rac-form-actions-flex-shrink,
+    $rac-form-actions-justify-content: $rac-form-actions-justify-content,
+    $rac-form-actions-neighbor-child-margin: $rac-form-actions-neighbor-child-margin
+  );
+}

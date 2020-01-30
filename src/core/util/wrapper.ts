@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 
 import {
+  IActionsRenderedWrapper,
   IAllowEmptyFilterValueWrapper,
   IAlwaysDirtyWrapper,
   IAnchoredWrapper,
@@ -8,6 +9,7 @@ import {
   IChangeableWrapper,
   ICheckScrimWrapper,
   IClearActionRenderedWrapper,
+  ICompactWrapper,
   IDecoratedWrapper,
   IDefaultWrapper,
   IDirtyWrapper,
@@ -50,6 +52,7 @@ import {
   IUseFilterWrapper,
   IUseKeyboardWrapper,
   IUseZipCodeWrapper,
+  IValidateOnMountWrapper,
   IValidWrapper,
   IVisibleWrapper,
 } from '../definitions.interface';
@@ -62,19 +65,35 @@ import { isOddNumber } from './calc';
 
 /**
  * @stable [24.10.2019]
- * @param {IValidWrapper} validEntity
+ * @param {IValidWrapper} wrapper
  * @returns {boolean}
  */
-export const isValid = (validEntity: IValidWrapper): boolean =>
-  ifNotNilThanValue(validEntity, () => validEntity.valid !== false, false);
+export const isValid = (wrapper: IValidWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.valid !== false, false);
 
 /**
  * @stable [22.01.2020]
- * @param {IFieldRenderedWrapper} validEntity
+ * @param {IFieldRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isFieldRendered = (validEntity: IFieldRenderedWrapper): boolean =>
-  ifNotNilThanValue(validEntity, () => validEntity.fieldRendered !== false, false);
+export const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.fieldRendered !== false, false);
+
+/**
+ * @stable [30.01.2020]
+ * @param {IValidateOnMountWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isValidateOnMount = (wrapper: IValidateOnMountWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.validateOnMount !== false, false);
+
+/**
+ * @stable [30.01.2020]
+ * @param {ICompactWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isCompact = (wrapper: ICompactWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.compact === true, false);
 
 /**
  * @stable [24.10.2019]
@@ -156,11 +175,19 @@ export const isKeyboardUsed = (useKeyboardEntity: IUseKeyboardWrapper): boolean 
 
 /**
  * @stable [25.10.2019]
- * @param {IVisibleWrapper} visibleEntity
+ * @param {IVisibleWrapper} wrapper
  * @returns {boolean}
  */
-export const isVisible = (visibleEntity: IVisibleWrapper): boolean =>
-  ifNotNilThanValue(visibleEntity, () => visibleEntity.visible !== false, false);
+export const isVisible = (wrapper: IVisibleWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.visible !== false, false);
+
+/**
+ * @stable [30.01.2020]
+ * @param {IActionsRenderedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isActionsRendered = (wrapper: IActionsRenderedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.actionsRendered !== false, false);
 
 /**
  * @stable [30.10.2019]

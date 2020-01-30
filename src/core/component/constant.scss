@@ -519,6 +519,7 @@ $rac-base-select-cls: rac-base-select;
 $rac-base-text-cls: rac-base-text;
 $rac-checkbox-cls: rac-checkbox;
 $rac-checked-cls: rac-checked;
+$rac-chips-field-cls: rac-chips-field;
 $rac-field-actioned-cls: rac-field-actioned;
 $rac-field-busy-cls: rac-field-busy;
 $rac-field-disabled-cls: rac-field-disabled;
@@ -585,6 +586,7 @@ $rac-checkbox-self-field-input-wrapper-border-radius: $rac-border-radius-0 !defa
 $rac-checkbox-self-field-input-wrapper-border: 1px solid $rac-checkbox-color-0 !default;
 $rac-checkbox-self-field-input-wrapper-justify-content: center !default;
 $rac-checkbox-self-field-input-wrapper-size: 16px !default;
+$rac-chips-field-min-height: min-content !default;
 $rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
 $rac-field-disabled-opacity: unset !default;
 $rac-field-display: flex !default;
@@ -698,10 +700,16 @@ $rac-filter-active-right: 8px !default;
 $rac-filter-active-bottom: 18px !default;
 $rac-filter-active-font-size: 18px !default;
 
-/* @stable [03.08.2018] */
-$rac-form-actions-flex-shrink: 0 !default;
-$rac-form-actions-button-neighbor-margin: 0 0 0 $rac-default-half-offset !default;
+/************************/
+/* @stable [30.01.2020] */
+/************************/
+$rac-form-display-0: flex !default;
+/**/
 $rac-form-actions-button-min-width: unset !default;
+$rac-form-actions-display: $rac-form-display-0 !default;
+$rac-form-actions-flex-shrink: 0 !default;
+$rac-form-actions-justify-content: center !default;
+$rac-form-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
 
 /* @stable [24.06.2018] */
 $rac-chip-padding: 6px 20px !default;

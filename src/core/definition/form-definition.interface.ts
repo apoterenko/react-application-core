@@ -152,6 +152,7 @@ export interface IForm
 }
 
 /**
+ * @initial-entity
  * @stable [27.09.2019]
  */
 export const INITIAL_FORM_ENTITY = Object.freeze<IEditableEntity>({

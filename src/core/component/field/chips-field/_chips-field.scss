@@ -1,0 +1,14 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  /**
+   * @chips-field
+   * @stable [30.01.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-chips-field-cls,
+    $rac-field-min-height: $rac-chips-field-min-height
+  );
+}

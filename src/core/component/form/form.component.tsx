@@ -16,18 +16,21 @@ import {
   getFormFieldDisplayValue,
   getFormFieldOriginalValue,
   getFormFieldValue,
-  ifNotFalseThanValue,
   ifNotNilThanValue,
+  isActionsRendered,
+  isCompact,
   isFn,
-  isFormEntityValid,
+  isFormValid,
   isFormFieldReadOnly,
   isFormWrapperEntityInProgress,
   isString,
+  isValidateOnMount,
   joinClassName,
   mapApiEntity,
   notNilValuesArrayFilter,
   orNull,
   orUndef,
+  selectEditableEntityChanges,
 } from '../../util';
 import { AnyT, IEntity } from '../../definitions.interface';
 import { BaseComponent } from '../base';
@@ -45,17 +48,14 @@ import {
   isFormResettable,
   isFormSubmittable,
 } from './form.support';
-import { FlexLayout } from '../layout/flex';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
 
-  public static defaultProps: IFormProps = {
+  public static readonly defaultProps: IFormProps = {
     form: INITIAL_FORM_ENTITY,
-    validateOnMount: true,
   };
 
   @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
-  private readonly formRef = React.createRef<HTMLFormElement>();
 
   /**
    * @stable [29.05.2018]
@@ -69,114 +69,86 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     this.onChange = this.onChange.bind(this);
   }
 
+  /**
+   * @stable [30.01.2020]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
-
-    const nodes = (
-      cloneReactNodes<IFieldProps>(
-        this,
-        (field: IField) => {
-          const fieldProps = field.props;
-          const predefinedOptions = this.getPredefinedFieldProps(field);
-
-          return defValuesFilter<IFieldProps, IFieldProps>(
-            {
-              value: this.getFieldValue(field),
-              originalValue: this.getFieldOriginalValue(field),
-              displayValue: this.getFieldDisplayValue(field, predefinedOptions),
-              readOnly: this.isFieldReadOnly(field),
-              disabled: this.isFieldDisabled(field),
-              changeable: this.isFieldChangeable(field),
-              changeForm: this.onChange,
-
-              // Dynamic linked dictionary callbacks
-              onEmptyDictionary: orUndef<() => void>(
-                fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
-                () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
-              ),
-              onLoadDictionary: orUndef<(items: AnyT) => void>(
-                fieldProps.bindDictionary || fieldProps.onLoadDictionary,
-                () => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
-              ),
-
-              // Predefined options
-              ...predefinedOptions,
-
-              // The fields props have a higher priority
-              ...defValuesFilter<IFieldProps, IFieldProps>({
-                label: fieldProps.label,
-                type: fieldProps.type,
-                placeholder: fieldProps.placeholder,
-                prefixLabel: fieldProps.prefixLabel,
-              }),
-            }
-          );
-        },
-        (child) => Field.isPrototypeOf(child.type),
-        (child) => (child.props as IFieldProps).rendered,
-      )
-    );
+    const nodes = this.formNodes;
 
     return (
       <form
-        ref={this.formRef}
+        ref={this.selfRef}
         autoComplete='off'
         onReset={this.onReset}
         onSubmit={this.onSubmit}
-        className={this.getFormClassName()}>
+        className={this.formClassName}>
         {
-          props.compact
+          isCompact(props)
             ? nodes
             : (
-              <div className='rac-form-body-wrapper'>
-                <div className='rac-form-body'>
-                  {nodes}
-                </div>
+              <div className='rac-form__body'>
+                {nodes}
               </div>
             )
         }
-        {this.formActionsWrapperElement}
+        {
+          isActionsRendered(props) && (
+            <div className='rac-form__actions'>
+              {this.formActionsElement}
+            </div>
+          )
+        }
       </form>
     );
   }
 
   /**
-   * @stable [12.09.2018]
+   * @stable [30.01.2020]
    */
   public componentDidMount(): void {
     super.componentDidMount();
 
-    if (this.props.validateOnMount) {
+    if (isValidateOnMount(this.props)) {
       this.propsOnValid();
     }
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [30.01.2020]
    * @param {IApiEntity} apiEntity
    */
   public submit(apiEntity: IApiEntity): void {
     const props = this.props;
-    if (props.onSubmit) {
+    if (isFn(props.onSubmit)) {
       props.onSubmit(apiEntity);
     }
   }
 
   /**
-   * @stable [23.12.2019]
+   * @stable [30.01.2020]
    * @returns {IApiEntity}
    */
   public get apiEntity(): IApiEntity {
     const props = this.props;
     const {entity, originalEntity} = props;
-    return mapApiEntity({changes: props.form.changes, entity, originalEntity});
+    return mapApiEntity({changes: selectEditableEntityChanges(props), entity, originalEntity});
+  }
+
+  /**
+   * @stable [30.01.2020]
+   * @returns {HTMLFormElement}
+   */
+  public getSelf(): HTMLFormElement {
+    return super.getSelf() as HTMLFormElement;
   }
 
   /**
    * @stable [25.02.2019]
    * @returns {string}
    */
-  private getFormClassName(): string {
+  private get formClassName(): string {
     const props = this.props;
     return joinClassName(
       'rac-form',
@@ -222,10 +194,13 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   private propsOnValid(): void {
     const props = this.props;
     if (isFn(props.onValid)) {
-      props.onValid(props.manualValidation || this.formRef.current.checkValidity()); // TODO manualValidation -> valid
+      props.onValid(props.manualValidation || this.getSelf().checkValidity()); // TODO manualValidation -> valid
     }
   }
 
+  /**
+   * @stable [30.01.2020]
+   */
   private doSubmit(): void {
     this.onSubmit();
   }
@@ -244,20 +219,25 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     }
   }
 
+  /**
+   * @stable [30.01.2020]
+   * @param {IBaseEvent} event
+   */
   private onReset(event: IBaseEvent): void {
     this.domAccessor.cancelEvent(event);
 
-    if (this.props.onReset) {
-      this.props.onReset();
+    const onReset = this.props.onReset;
+    if (isFn(onReset)) {
+      onReset();
     }
   }
 
   /**
-   * @stable [03.08.2018]
+   * @stable [30.01.2020]
    * @returns {boolean}
    */
   private isFormValid(): boolean {
-    return isFormEntityValid(this.props);
+    return isFormValid(this.props);
   }
 
   /**
@@ -378,26 +358,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @stable [25.02.2019]
    * @returns {JSX.Element}
    */
-  private get formActionsWrapperElement(): JSX.Element {
-    const props = this.props;
-    return ifNotFalseThanValue<JSX.Element>(
-      props.actionsRendered,
-      () => (
-        <FlexLayout
-          full={false}
-          row={true}
-          justifyContentCenter={true}
-          className='rac-form-actions'>
-          {this.formActionsElement}
-        </FlexLayout>
-      )
-    );
-  }
-
-  /**
-   * @stable [25.02.2019]
-   * @returns {JSX.Element}
-   */
   private get formActionsElement(): JSX.Element {
     const props = this.props;
     const submitConfiguration = props.submitConfiguration || {};
@@ -440,6 +400,53 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
             )
           )}
       </React.Fragment>
+    );
+  }
+
+  private get formNodes(): React.ReactNode[] {
+    return (
+      cloneReactNodes<IFieldProps>(
+        this,
+        (field: IField) => {
+          const fieldProps = field.props;
+          const predefinedOptions = this.getPredefinedFieldProps(field);
+
+          return defValuesFilter<IFieldProps, IFieldProps>(
+            {
+              value: this.getFieldValue(field),
+              originalValue: this.getFieldOriginalValue(field),
+              displayValue: this.getFieldDisplayValue(field, predefinedOptions),
+              readOnly: this.isFieldReadOnly(field),
+              disabled: this.isFieldDisabled(field),
+              changeable: this.isFieldChangeable(field),
+              changeForm: this.onChange,
+
+              // Dynamic linked dictionary callbacks
+              onEmptyDictionary: orUndef<() => void>(
+                fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
+                () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
+              ),
+              onLoadDictionary: orUndef<(items: AnyT) => void>(
+                fieldProps.bindDictionary || fieldProps.onLoadDictionary,
+                () => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
+              ),
+
+              // Predefined options
+              ...predefinedOptions,
+
+              // The fields props have a higher priority
+              ...defValuesFilter<IFieldProps, IFieldProps>({
+                label: fieldProps.label,
+                type: fieldProps.type,
+                placeholder: fieldProps.placeholder,
+                prefixLabel: fieldProps.prefixLabel,
+              }),
+            }
+          );
+        },
+        (child) => Field.isPrototypeOf(child.type),
+        (child) => (child.props as IFieldProps).rendered,
+      )
     );
   }
 }
