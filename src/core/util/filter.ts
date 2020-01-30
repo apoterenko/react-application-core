@@ -14,6 +14,7 @@ import { ID_FIELD_NAME } from '../definition/field-definition.interface';
 import {
   isDef,
   isFn,
+  isNumberLike,
   isObject,
   isString,
 } from './type';
@@ -158,6 +159,14 @@ export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value
 export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
 
 /**
+ * @stable [30.01.2020]
+ * @param {string} key
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isNumberLike(value);
+
+/**
  * @stable [31.03.2019]
  * @param {string} key
  * @param {AnyT} value
@@ -239,6 +248,14 @@ export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends I
 
 export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, DEF_KEY_VALUE_PREDICATE);
+
+/**
+ * @stable [30.01.2020]
+ * @param {TSource} source
+ * @returns {TResult}
+ */
+export const numberLikeValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, NUMBER_LIKE_KEY_VALUE_PREDICATE);
 
 /**
  * @stable [31.01.2019]

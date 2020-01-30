@@ -53,7 +53,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   private readonly menuRef = React.createRef<Menu>();
   private readonly quickFilterQueryTask: DelayedTask;
-  private $$previousDecoratedDisplayValue: string;
 
   /**
    * @stable [30.11.2019]
@@ -89,7 +88,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   public onChange(event: IBaseEvent): void {
     super.onChange(event);
 
-    this.clearPreviousDecoratedDisplayValue();
     this.startQuickSearchIfApplicable();
   }
 
@@ -127,7 +125,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   public clearValue(): void {
     super.clearValue();
     this.clearCachedValue();
-    this.clearPreviousDecoratedDisplayValue();
   }
 
   /**
@@ -161,8 +158,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {IBaseEvent} event
    */
   public onKeyEnter(event: IBaseEvent): void {
-    this.clearPreviousDecoratedDisplayValue();
-
     if (this.startQuickSearchIfApplicable(true)) {
       this.domAccessor.cancelEvent(event);
     }
@@ -177,7 +172,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.onClick(event);
 
     if (this.isQuickSearchEnabled) {
-      this.$$previousDecoratedDisplayValue = this.decoratedDisplayValue;
       this.notifyQuickSearchFilterChange();
     } else {
       this.openMenu();
@@ -356,15 +350,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (!isAllowEmptyFilterValue0 && !isCurrentValueNotEmpty) {
       return;
     }
-    const isCurrentValueEqualPreviousValue = R.equals(this.$$previousDecoratedDisplayValue, currentValue);
-    if (isCurrentValueNotEmpty && isCurrentValueEqualPreviousValue) {
-      return;
-    }
-
-    this.setState({progress: true}, () => {
-      this.onFilterChange(currentValue);
-      this.refreshPreviousDecoratedDisplayValue();
-    });
+    this.setState({progress: true}, () => this.onFilterChange(currentValue));
   }
 
   /**
@@ -469,20 +455,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         this.clearCachedValue();
       }
     }
-  }
-
-  /**
-   * @stable [30.01.2020]
-   */
-  private clearPreviousDecoratedDisplayValue(): void {
-    this.$$previousDecoratedDisplayValue = null;
-  }
-
-  /**
-   * @stable [30.01.2020]
-   */
-  private refreshPreviousDecoratedDisplayValue(): void {
-    this.$$previousDecoratedDisplayValue = this.decoratedDisplayValue;
   }
 
   /**
