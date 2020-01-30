@@ -133,7 +133,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       dialogOpened,  // To improve a performance
       () => (
         <Dialog
-          checkScrim={true}
+          checkModal={true}
           {...props.dialogConfiguration}
           ref={this.dialogRef}
           acceptable={false}

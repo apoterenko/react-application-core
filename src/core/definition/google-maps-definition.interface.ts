@@ -1,4 +1,5 @@
 import {
+  IEventWrapper,
   IItemWrapper,
   IMarkerWrapper,
   IMenuOptionsWrapper,
@@ -17,7 +18,6 @@ import {
   ILatLngEntity,
 } from './place-definition.interface';
 import { IMenuItemEntity } from './menu-definition.interface';
-import { IXYEntity } from './xy-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 
 /**
@@ -66,8 +66,8 @@ export interface IGoogleMapsMarkerChangePlaceEntity
  * @stable [10.01.2020]
  */
 export interface IGoogleMapsMenuContextEntity
-  extends ILatLngEntity,
-    IXYEntity {
+  extends IEventWrapper,
+    ILatLngEntity {
 }
 
 /**
@@ -75,8 +75,9 @@ export interface IGoogleMapsMenuContextEntity
  * @stable [03.03.2019]
  */
 export interface IGoogleMapsEventClickPayloadEntity {
-  pixel?: google.maps.Point;
   latLng?: google.maps.LatLng;
+  pixel?: google.maps.Point;
+  tb?: Event;
 }
 
 /**

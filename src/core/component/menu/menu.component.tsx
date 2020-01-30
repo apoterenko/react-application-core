@@ -91,15 +91,16 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             closable={false}
             acceptable={false}
             default={false}
-            width={props.width}
             scrollable={false}
+            inline={props.inline}
+            width={props.width}
             positionConfiguration={props.positionConfiguration}
             anchorElement={props.anchorElement}
             className={
               joinClassName(
                 'rac-menu-dialog',
                 props.className,
-                isHeightRestricted(props) && 'rac-height-restricted-dialog'
+                isHeightRestricted(props) && 'rac-menu-height-restricted-dialog'
               )
             }
             onActivate={this.onDialogActivate}
@@ -129,10 +130,16 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [24.01.2020]
+   * @stable [31.01.2020]
+   * @param {() => void} callback
    */
-  public show(): void {
-    this.setState({filter: UNDEF, opened: true}, this.onDialogAfterRender);
+  public show(callback?: () => void): void {
+    this.setState({filter: UNDEF, opened: true}, () => {
+      if (isFn(callback)) {
+        callback();
+      }
+      this.onDialogAfterRender();
+    });
   }
 
   /**

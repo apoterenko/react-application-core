@@ -34,10 +34,9 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   implements IGoogleMaps,
     IGoogleMapsMenuContextEntity {
 
+  public event: Event;
   public lat: number;
   public lng: number;
-  public x: number;
-  public y: number;
 
   private clickEventListener: google.maps.MapsEventListener;
   private dbClickEventListener: google.maps.MapsEventListener;
@@ -113,6 +112,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
 
     this.markers = null;
     this.markersListeners = null;
+    this.event = null;
   }
 
   /**
@@ -194,15 +194,15 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    * @returns {JSX.Element}
    */
   private get menuElement(): JSX.Element {
-    const props = this.props;
     return orNull(
       this.haveMenuOptions,
       () => (
         <Menu
           ref={this.menuRef}
-          xPosition={() => this.x + this.getSelf().offsetLeft}
-          yPosition={() => this.y + this.getSelf().offsetTop}
-          options={props.menuOptions}
+          inline={true}
+          positionConfiguration={{event: () => this.event}}
+          anchorElement={() => this.getSelf()}
+          options={this.props.menuOptions}
           onSelect={this.onMenuSelect}/>
       )
     );
@@ -237,28 +237,27 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
 
   /**
    * @stable [22.01.2020]
-   * @param {IGoogleMapsEventClickPayloadEntity} event
+   * @param {IGoogleMapsEventClickPayloadEntity} payload
    */
-  private onMapClick(event: IGoogleMapsEventClickPayloadEntity): void {
+  private onMapClick(payload: IGoogleMapsEventClickPayloadEntity): void {
     const props = this.props;
 
     ifNotNilThanValue(
-      event.pixel,
-      (pixel) => {
-        const x = pixel.x;
-        const y = pixel.y;
-        const lat = event.latLng.lat();
-        const lng = event.latLng.lng();
+      payload.pixel,
+      () => {
+        const event = payload.tb;
+        const lat = payload.latLng.lat();
+        const lng = payload.latLng.lng();
 
         ifNotNilThanValue(
           this.openMenuTask,
-          (openMenuTask) => openMenuTask.start<IGoogleMapsMenuContextEntity>({x, y, lat, lng})
+          (openMenuTask) => openMenuTask.start<IGoogleMapsMenuContextEntity>({event, lat, lng})
         );
       }
     );
 
     if (isFn(props.onClick)) {
-      props.onClick(event);
+      props.onClick(payload);
     }
   }
 
@@ -275,7 +274,10 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    * @param {IGoogleMapsMenuContextEntity} context
    */
   private openMenu(context: IGoogleMapsMenuContextEntity) {
-    Object.assign(this, context);
+    this.event = context.event;
+    this.lat = context.lat;
+    this.lng = context.lng;
+
     this.menu.show();
   }
 

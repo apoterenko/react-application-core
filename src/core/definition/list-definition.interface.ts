@@ -103,12 +103,20 @@ export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
 
 /**
  * @behavioral-entity
+ * @stable [30.01.2020]
+ */
+export interface IBehavioralBaseListItemEntity<TEntity = IEntity>
+  extends IRendererWrapper<TEntity, number>,
+    ITplWrapper<(entity: TEntity) => StringNumberT> {
+}
+
+/**
+ * @behavioral-entity
  * @stable [26.01.2020]
  */
 export interface IBehavioralListItemEntity<TEntity extends IEntity = IEntity>
-  extends IOnClickWrapper<TEntity>,
-    IRendererWrapper<TEntity, number>,
-    ITplWrapper<(entity: TEntity) => StringNumberT> {
+  extends IBehavioralBaseListItemEntity<TEntity>,
+    IOnClickWrapper<TEntity> {
 }
 
 /**

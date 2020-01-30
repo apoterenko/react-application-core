@@ -98,7 +98,7 @@ export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent
 export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
 export interface IChannelsWrapper<TValue = string> { channels?: TValue; }
 export interface IChannelWrapper<TValue = string> { channel?: TValue; }
-export interface ICheckScrimWrapper { checkScrim?: boolean; }
+export interface ICheckModalWrapper { checkModal?: boolean; }
 export interface IChildrenWrapper<TValue> { children?: TValue; }
 export interface ICityWrapper<TValue = string> { city?: TValue; }
 export interface IClassNameWrapper<TValue = string> { className?: TValue; }
@@ -169,6 +169,7 @@ export interface IEntityIdWrapper<TEntityId = EntityIdT> { entityId?: TEntityId;
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
 export interface IErrorWrapper<TError = boolean> { error?: TError; }
 export interface IEventNameWrapper { eventName?: string; }
+export interface IEventWrapper<TValue = Event> { event?: TValue; }
 export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedAllGroupsWrapper { expandedAllGroups?: boolean; }
@@ -228,7 +229,6 @@ export interface IHighlightOddWrapper { highlightOdd?: boolean; }
 export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
 export interface IHoveredWrapper { hovered?: boolean; }
-export interface IIconConfigurationWrapper<TValue> { iconConfiguration?: TValue; }
 export interface IIconRightWrapper { iconRight?: boolean; }
 export interface IIconWrapper<TValue = string> { icon?: TValue; }
 export interface IIdWrapper<TValue = number> { id?: TValue; }
@@ -256,13 +256,13 @@ export interface IKeyValue extends Record<string, AnyT> {}
 export interface IKeyWrapper<TValue = string> { key?: TValue; }
 export interface ILabelWrapper<TValue = string> { label?: TValue; }
 export interface ILastWrapper<TValue = boolean> { last?: TValue; }
-export interface ILatWrapper<TLat = number> { lat?: TLat; }
-export interface ILayoutWrapper<TLayout> { layout?: TLayout; }
+export interface ILatWrapper<TValue = number> { lat?: TValue; }
+export interface ILayoutWrapper<TValue> { layout?: TValue; }
 export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
-export interface ILeftSlotWrapper<TLeftSlot> { leftSlot?: TLeftSlot; }
+export interface ILeftSlotWrapper<TValue> { leftSlot?: TValue; }
 export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
 export interface ILinkWrapper<TLink = string> { link?: TLink; }
-export interface IListAccessorWrapper<TListAccessor> { listAccessor?: TListAccessor; }
+export interface IListAccessorWrapper<TValue> { listAccessor?: TValue; }
 export interface IListConfigurationWrapper<TProps> { listConfiguration?: TProps; }
 export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
 export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
@@ -430,9 +430,8 @@ export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
-export interface IShowWrapper { show?(): void; }
+export interface IShowWrapper<TValue = {}> { show?(payload?: TValue): void; }
 export interface ISignInWrapper<TSignIn> { signIn?: TSignIn; }
-export interface ISmallWrapper<TSmall = boolean> { small?: TSmall; }
 export interface ISortableWrapper { sortable?: boolean; }
 export interface ISorterWrapper<TEntity = IEntity> { sorter?(entity1: TEntity, entity2: TEntity): number; }
 export interface ISourceWrapper<TValue> { source?: TValue; }
@@ -499,10 +498,8 @@ export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
 export interface IWrapperWrapper<TValue> { wrapper?: TValue; }
 export interface IWrapWrapper { wrap?: boolean; }
-export interface IXPositionWrapper { xPosition?: number | (() => number); }
-export interface IXWrapper<TX = number> { x?: TX; }
+export interface IXWrapper<TX = number> { x?: any; }
 export interface IYearWrapper<TValue = number> { year?: TValue; }
-export interface IYPositionWrapper { yPosition?: number | (() => number); }
 export interface IYWrapper<TY = number> { y?: TY; }
 export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
 export interface IZoneWrapper<TValue = string> { zone?: TValue; }

@@ -116,6 +116,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
         return (
           <Dialog
             ref={this.dialogRef}
+            scrollable={false}
             title={this.settings.messages.ADDRESS_SELECTION}
             acceptDisabled={!this.isPlaceChanged}
             onDeactivate={this.onDialogDeactivate}

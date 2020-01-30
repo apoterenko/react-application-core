@@ -21,14 +21,10 @@ import {
   IProgressWrapper,
   IRawDataWrapper,
   IRemoteFilterWrapper,
-  IRendererWrapper,
   IShowWrapper,
-  ITplWrapper,
   IUseFilterWrapper,
-  IXPositionWrapper,
-  IYPositionWrapper,
-  StringNumberT,
 } from '../definitions.interface';
+import { IBehavioralBaseListItemEntity } from './list-definition.interface';
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IGenericBaseDialogEntity } from './dialog-definition.interface';
@@ -76,18 +72,11 @@ export interface IGenericMenuEntity<TOptionEntity extends IMenuItemEntity = IMen
  * @stable [24.01.2020]
  */
 export interface IBehavioralMenuEntity
-  extends IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
+  extends IBehavioralBaseListItemEntity<IMenuItemEntity>,
+    IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
     IOnCloseWrapper,
     IOnFilterChangeWrapper<(query: string) => void>,
-    IOnSelectWrapper<IMenuItemEntity>,
-    ITplWrapper<(item: IMenuItemEntity) => StringNumberT> {
-}
-
-// TODO
-export interface IMenuEntity
-  extends IRendererWrapper<IMenuItemEntity, number>,
-    IXPositionWrapper,
-    IYPositionWrapper {
+    IOnSelectWrapper<IMenuItemEntity> {
 }
 
 /**
@@ -96,7 +85,6 @@ export interface IMenuEntity
  */
 export interface IMenuProps
   extends IComponentProps,
-    IMenuEntity, // TODO
     IGenericMenuEntity,
     IBehavioralMenuEntity {
 }
@@ -124,7 +112,7 @@ export interface IMenuConfigurationEntity<TProps extends IMenuProps = IMenuProps
  */
 export interface IMenu
   extends IComponent<IMenuProps, IMenuState>,
-    IShowWrapper,
+    IShowWrapper<() => void>,
     IIsOpenWrapper,
     IHideWrapper {
 }

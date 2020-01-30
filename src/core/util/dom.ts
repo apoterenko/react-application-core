@@ -98,14 +98,6 @@ export const addChild = (child: Element, parent: Element = document.body): Eleme
 export const removeChild = (child: Element, parent: Element = document.body): Element => parent.removeChild(child);
 
 /**
- * @stable [17.11.2018]
- * @param {Element} child
- * @param {Element} parent
- * @returns {Element}
- */
-export const removeSelf = (child: Element, parent: Element = document.body): Element => removeChild(child, child.parentElement);
-
-/**
  * @stable [14.06.2018]
  * @param {string} images
  */
@@ -172,13 +164,6 @@ export const setScrollTop = (source: Element, value: number): IJQueryElement => 
  * @returns {IJQueryElement}
  */
 export const setScrollLeft = (source: Element, value: number): IJQueryElement => $(source).scrollLeft(value);
-
-/**
- * @stable [04.10.2018]
- * @param {Element} source
- * @returns {boolean}
- */
-export const isParentDocumentBody = (source: Element): boolean => $(source).parent().get(0) === document.body;
 
 /**
  * @stable [23.06.2018]

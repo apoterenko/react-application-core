@@ -6,9 +6,10 @@ import { Button } from '../button';
 import {
   calc,
   handlerPropsFactory,
-  isCheckScrimNeeded,
+  isCheckModalNeeded,
   isDefault,
   isFn,
+  isInline,
   isScrollable,
   joinClassName,
   orNull,
@@ -24,7 +25,7 @@ import {
 } from '../../definition';
 import { BasicComponent } from '../base/basic.component';
 import { BaseComponent } from '../base/base.component';
-import { ICheckScrimWrapper } from '../../definitions.interface';
+import { ICheckModalWrapper } from '../../definitions.interface';
 
 export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                         TState extends IDialogState = IDialogState>
@@ -32,12 +33,12 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   implements IDialog<TProps, TState> {
 
   private static readonly DIALOG_CLASS_NAME = 'rac-dialog';
-  private static readonly DIALOG_SCRIM_CLASS_NAME = 'rac-dialog__scrim';
-  private static readonly DIALOG_SCRIM_SELECTOR = `.${BaseDialog.DIALOG_SCRIM_CLASS_NAME}`;
+  private static readonly DIALOG_MODAL_CLASS_NAME = 'rac-dialog-modal';
+  private static readonly DIALOG_MODAL_SELECTOR = `.${BaseDialog.DIALOG_MODAL_CLASS_NAME}`;
 
   private onDeactivateCallback: () => void;
   private closeEventUnsubscriber: () => void;
-  private readonly doesAnotherScrimLayerExist: boolean;
+  private readonly doesAnotherModalDialogOpen: boolean;
   private readonly bodyRef = React.createRef<HTMLDivElement>();
 
   /**
@@ -49,13 +50,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
     this.onAcceptClick = this.onAcceptClick.bind(this);
     this.onCloseClick = this.onCloseClick.bind(this);
-    this.onDialogScrimClick = this.onDialogScrimClick.bind(this);
+    this.onDialogClick = this.onDialogClick.bind(this);
     this.onDocumentClickCapture = this.onDocumentClickCapture.bind(this);
 
     this.state = {opened: false} as TState;
 
-    if (isCheckScrimNeeded(props as ICheckScrimWrapper)) {
-      this.doesAnotherScrimLayerExist = this.domAccessor.hasElements(BaseDialog.DIALOG_SCRIM_SELECTOR, this.portalElement);
+    if (isCheckModalNeeded(props as ICheckModalWrapper)) {
+      this.doesAnotherModalDialogOpen = this.domAccessor.hasElements(BaseDialog.DIALOG_MODAL_SELECTOR, this.portalElement);
     }
   }
 
@@ -67,24 +68,21 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return orNull(
       this.state.opened,
       () => {
-        const isAnchored = this.isAnchored;
-        return ReactDOM.createPortal(
+        const inline = this.isInline;
+        const modal = this.isModal;
+
+        const content = (
           <div
             ref={this.selfRef}
-            className={
-              joinClassName(
-                this.dialogClassName,
-                !isAnchored && 'rac-absolute rac-full-size',
-                isAnchored || this.doesAnotherScrimLayerExist
-                  ? 'rac-dialog__transparent-scrim'
-                  : BaseDialog.DIALOG_SCRIM_CLASS_NAME
-              )}
-            {...handlerPropsFactory(this.onDialogScrimClick, !isAnchored, false)}
+            className={this.dialogClassName}
+            {...handlerPropsFactory(this.onDialogClick, modal, false)}
           >
             {this.dialogBodyElement}
-          </div>,
-          this.portalElement
+          </div>
         );
+        return inline
+          ? content
+          : ReactDOM.createPortal(content, this.portalElement);
       }
     );
   }
@@ -185,7 +183,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   /**
    * @stable [05.01.2020]
    */
-  private onDialogScrimClick(): void {
+  private onDialogClick(): void {
     this.doClose();
   }
 
@@ -401,17 +399,45 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [05.01.2020]
+   * @stable [31.01.2020]
+   * @returns {boolean}
+   */
+  private get isInline(): boolean {
+    return isInline(this.props);
+  }
+
+  /**
+   * @stable [31.01.2020]
+   * @returns {boolean}
+   */
+  private get isDefault(): boolean {
+    return isDefault(this.props);
+  }
+
+  /**
+   * @stable [31.01.2020]
+   * @returns {boolean}
+   */
+  private get isModal(): boolean {
+    return !this.isInline && !this.isAnchored;
+  }
+
+  /**
+   * @stable [31.01.2020]
    * @returns {string}
    */
   private get dialogClassName(): string {
     const props = this.props;
 
     return joinClassName(
+      props.className,
       BaseDialog.DIALOG_CLASS_NAME,
-      isDefault(props) && 'rac-default-dialog',
+      this.isDefault && 'rac-default-dialog',
+      this.isModal && 'rac-modal-dialog',
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
-      props.className
+      this.isInline
+        ? 'rac-inline-dialog'
+        : (this.doesAnotherModalDialogOpen ? 'rac-transparent-dialog' : 'rac-not-transparent-dialog'),
     );
   }
 }

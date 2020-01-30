@@ -22,10 +22,7 @@
     $rac-dialog-body-title-border-bottom: $rac-dialog-body-title-border-bottom,
     $rac-dialog-body-title-font-weight: $rac-dialog-body-title-font-weight,
     $rac-dialog-body-title-margin: $rac-dialog-body-title-margin,
-    $rac-dialog-body-title-padding: $rac-dialog-body-title-padding,
-    $rac-dialog-body-z-index: $rac-dialog-body-z-index,
-    $rac-dialog-scrim-background: $rac-dialog-scrim-background,
-    $rac-dialog-scrim-z-index: $rac-dialog-scrim-z-index
+    $rac-dialog-body-title-padding: $rac-dialog-body-title-padding
   );
 
   /**
@@ -33,17 +30,49 @@
    * @stable [24.01.2020]
    */
   @include rac-dialog (
-    $rac-dialog-custom: rac-default-dialog,
-    $rac-dialog-body-display: $rac-default-dialog-body-display,
+    $rac-dialog-custom: $rac-default-dialog-cls,
     $rac-dialog-align-items: $rac-default-dialog-align-items,
     $rac-dialog-body-background: $rac-default-dialog-body-background,
     $rac-dialog-body-border-radius: $rac-default-dialog-body-border-radius,
     $rac-dialog-body-content-padding: $rac-default-dialog-body-content-padding,
+    $rac-dialog-body-display: $rac-default-dialog-body-display,
     $rac-dialog-body-flex-direction: $rac-default-dialog-body-flex-direction,
     $rac-dialog-body-max-height: $rac-default-dialog-body-max-height,
     $rac-dialog-body-max-width: $rac-default-dialog-body-max-width,
     $rac-dialog-body-padding: $rac-default-dialog-body-padding,
     $rac-dialog-display: $rac-default-dialog-display,
     $rac-dialog-justify-content: $rac-default-dialog-justify-content
+  );
+
+  /**
+   * @modal-dialog
+   * @stable [31.01.2020]
+   */
+  @include rac-dialog (
+    $rac-dialog-custom: $rac-modal-dialog-cls,
+    $rac-dialog-height: $rac-modal-dialog-height,
+    $rac-dialog-left: $rac-modal-dialog-left,
+    $rac-dialog-position: $rac-modal-dialog-position,
+    $rac-dialog-top: $rac-modal-dialog-top,
+    $rac-dialog-width: $rac-modal-dialog-width,
+    $rac-dialog-z-index: $rac-modal-dialog-z-index
+  );
+
+  /**
+    * @inline-dialog
+    * @stable [31.01.2020]
+    */
+  @include rac-dialog (
+    $rac-dialog-custom: $rac-inline-dialog-cls,
+    $rac-dialog-position: $rac-inline-dialog-position
+  );
+
+  /**
+   * @not-transparent-dialog
+   * @stable [31.01.2020]
+   */
+  @include rac-dialog (
+    $rac-dialog-custom: $rac-not-transparent-dialog-cls,
+    $rac-dialog-background: $rac-not-transparent-dialog-background
   );
 }

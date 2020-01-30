@@ -7,7 +7,7 @@ import {
   IAnchoredWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
-  ICheckScrimWrapper,
+  ICheckModalWrapper,
   IClearActionRenderedWrapper,
   ICompactWrapper,
   IDecoratedWrapper,
@@ -113,11 +113,11 @@ export const inProgress = (progressEntity: IProgressWrapper): boolean =>
 
 /**
  * @stable [15.01.2020]
- * @param {TEntity} checkScrim
+ * @param {TEntity} wrapper
  * @returns {boolean}
  */
-export const isCheckScrimNeeded = <TEntity extends ICheckScrimWrapper = ICheckScrimWrapper>(checkScrim: TEntity): boolean =>
-  ifNotNilThanValue(checkScrim, () => checkScrim.checkScrim === true, false);
+export const isCheckModalNeeded = <TEntity extends ICheckModalWrapper = ICheckModalWrapper>(wrapper: TEntity): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.checkModal === true, false);
 
 /**
  * @stable [28.11.2019]

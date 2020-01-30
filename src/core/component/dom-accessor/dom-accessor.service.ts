@@ -20,6 +20,7 @@ import {
   getWidth,
   hasClasses,
   hasElements,
+  ifNotNilThanValue,
   isElementVisibleWithinParent,
   isFn,
   openFullScreen,
@@ -37,14 +38,14 @@ import {
   IBaseEvent,
   ICaptureEventConfigEntity,
   IDomAccessor,
+  IDomFireEventConfigEntity,
+  IDomParentConfigEntity,
   IDomPositionConfigEntity,
   IEnvironment,
   IEventManager,
-  IDomFireEventConfigEntity,
   IJQueryElement,
   IScrollConfigEntity,
   IXYEntity,
-  IDomParentConfigEntity,
   TouchEventsEnum,
 } from '../../definition';
 import {
@@ -79,7 +80,9 @@ export class DomAccessor implements IDomAccessor {
     const cfg0 = defValuesFilter<IDomPositionConfigEntity, IDomPositionConfigEntity>({
       ...DEFAULT_DOM_POSITION_CONFIG_ENTITY,
       ...cfg,
+      event: UNDEF,
       element: UNDEF,
+      ...ifNotNilThanValue(cfg.event, (event) => ({of: calc(event)})),
     });
     const el = this.asJqEl(cfg.element);
     el.position(cfg0);

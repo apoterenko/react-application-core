@@ -586,7 +586,7 @@ $rac-checkbox-self-field-input-wrapper-border-radius: $rac-border-radius-0 !defa
 $rac-checkbox-self-field-input-wrapper-border: 1px solid $rac-checkbox-color-0 !default;
 $rac-checkbox-self-field-input-wrapper-justify-content: center !default;
 $rac-checkbox-self-field-input-wrapper-size: 16px !default;
-$rac-chips-field-min-height: min-content !default;
+$rac-chips-field-min-height: unset !default;
 $rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
 $rac-field-disabled-opacity: unset !default;
 $rac-field-display: flex !default;
@@ -766,8 +766,12 @@ $rac-tab-nav-margin: 28px !default;
 /************************/
 /* @stable [05.08.2018] */
 /************************/
+$rac-default-dialog-cls: rac-default-dialog;
+$rac-inline-dialog-cls: rac-inline-dialog;
 $rac-menu-dialog-cls: rac-menu-dialog;
 $rac-menu-dialog-icon-close-cls: rac-menu-dialog__icon-close;
+$rac-modal-dialog-cls: rac-modal-dialog;
+$rac-not-transparent-dialog-cls: rac-not-transparent-dialog;
 /**/
 $rac-dialog-color-0: $rac-color-0-1 !default;
 $rac-dialog-color-1: $rac-color-0-0 !default;
@@ -790,9 +794,17 @@ $rac-dialog-body-title-border-bottom: 1px solid $rac-dialog-color-1 !default;
 $rac-dialog-body-title-font-weight: $rac-font-weight-2 !default;
 $rac-dialog-body-title-margin: 0 $rac-offset-3 $rac-offset-3 $rac-offset-3 !default;
 $rac-dialog-body-title-padding: 0 0 12px 0 !default;
-$rac-dialog-body-z-index: $rac-z-index-dialog !default;
-$rac-dialog-scrim-background: $rac-color-0-6 !default;
-$rac-dialog-scrim-z-index: $rac-z-index-dialog !default;
+/**/
+$rac-modal-dialog-height: 100% !default;
+$rac-modal-dialog-left: 0 !default;
+$rac-modal-dialog-position: absolute !default;
+$rac-modal-dialog-top: 0 !default;
+$rac-modal-dialog-width: 100% !default;
+$rac-modal-dialog-z-index: $rac-z-index-dialog !default;
+/**/
+$rac-inline-dialog-position: absolute !default;
+/**/
+$rac-not-transparent-dialog-background: $rac-color-0-6 !default;
 /**/
 $rac-menu-dialog-base-text-field-margin: 0 0 $rac-offset-1 0 !default;
 $rac-menu-dialog-base-text-self-field-background: $rac-field-color-1 !default;

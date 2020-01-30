@@ -9,6 +9,7 @@ import {
   IConditionWrapper,
   IElementWrapper,
   IEventNameWrapper,
+  IEventWrapper,
   IParentClassNameWrapper,
   IParentElementWrapper,
   IPositionConfigurationWrapper,
@@ -69,12 +70,13 @@ export interface IDomPositionConfigurationEntity
  * @see https://api.jqueryui.com/position/
  * @stable [24.01.2020]
  */
-export interface IDomPositionConfigEntity<TElement extends HTMLElement = HTMLElement> {
+export interface IDomPositionConfigEntity<TElement extends HTMLElement = HTMLElement>
+  extends IEventWrapper<Event | (() => Event)>, // Extra synthetic props
+    IElementWrapper<TElement> { // Extra synthetic props
   at?: string;
   collision?: string;
-  element?: TElement;
   my?: string;
-  of?: TElement;
+  of?: TElement | Event;
 }
 
 /**

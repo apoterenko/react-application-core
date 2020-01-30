@@ -5,12 +5,13 @@ import {
   IAcceptWrapper,
   IActivateWrapper,
   IAnchorElementWrapper,
-  ICheckScrimWrapper,
+  ICheckModalWrapper,
   IClosableWrapper,
   ICloseDisabledWrapper,
   ICloseTextWrapper,
   IDefaultWrapper,
   IDialogConfigurationWrapper,
+  IInlineWrapper,
   IOnAcceptWrapper,
   IOnActivateWrapper,
   IOnCloseWrapper,
@@ -31,6 +32,7 @@ import { IFormExtendedEditableEntity } from './form-definition.interface';
 export interface IGenericBaseDialogEntity
   extends IAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IDomPositionConfigurationEntity,
+    IInlineWrapper,
     IWidthWrapper<number | (() => number)> {
 }
 
@@ -43,7 +45,7 @@ export interface IGenericDialogEntity
     IAcceptableWrapper,
     IAcceptDisabledWrapper,
     IAcceptTextWrapper,
-    ICheckScrimWrapper,
+    ICheckModalWrapper,
     IClosableWrapper,
     ICloseDisabledWrapper,
     ICloseTextWrapper,
