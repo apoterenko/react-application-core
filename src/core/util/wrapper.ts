@@ -20,6 +20,7 @@ import {
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
   IFocusedWrapper,
+  IForceReloadWrapper,
   IFullWrapper,
   IHeaderRenderedWrapper,
   IHeightRestrictedWrapper,
@@ -118,6 +119,14 @@ export const inProgress = (progressEntity: IProgressWrapper): boolean =>
  */
 export const isCheckModalNeeded = <TEntity extends ICheckModalWrapper = ICheckModalWrapper>(wrapper: TEntity): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.checkModal === true, false);
+
+/**
+ * @stable [31.01.2020]
+ * @param {IForceReloadWrapper} entity
+ * @returns {boolean}
+ */
+export const isForceReload = (entity: IForceReloadWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.forceReload !== false, false);
 
 /**
  * @stable [28.11.2019]

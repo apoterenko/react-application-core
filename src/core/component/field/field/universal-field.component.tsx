@@ -390,15 +390,12 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected getDecoratedDisplayValue(value: AnyT, forceApplyValue = false): AnyT {
     const {displayValue} = this.props;
-    if (forceApplyValue) {
-      return this.decorateDisplayValue(value);
-    }
     return R.isNil(displayValue)
       ? this.decorateDisplayValue(value)
       : (
         isFn(displayValue)
           ? calc(displayValue, this.decorateDisplayValue(value))
-          : this.decorateDisplayValue(displayValue)
+          : this.decorateDisplayValue(forceApplyValue ? value : displayValue)
       );
   }
 

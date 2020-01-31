@@ -23,7 +23,6 @@ export class MultiField<TProps extends IMultiFieldProps,
     displayMessage: '%d value(s)',
     clearActionRendered: false,
     errorMessageRendered: false,
-    forceReload: true,
     preventFocus: true,
   };
 
@@ -124,7 +123,7 @@ export class MultiField<TProps extends IMultiFieldProps,
    * @param {ISelectOptionEntity[]} options
    * @returns {ISelectOptionEntity[]}
    */
-  protected get filteredOptions(): ISelectOptionEntity[] {
+  protected getFilteredOptions(): ISelectOptionEntity[] {
     const activeValue = this.multiFieldPlugin.activeValue;
 
     return this.props.ignoreSelectedValue

@@ -77,8 +77,8 @@ export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IAutoUnsubscribingWrapper { autoUnsubscribing?: boolean; }
 export interface IBarcodeWrapper<TValue = string> { barcode?: TValue; }
 export interface IBasenameWrapper { basename?: string; }
-export interface IBeforeEnterWrapper<TBeforeEnter> { beforeEnter?: TBeforeEnter; }
-export interface IBindDictionaryWrapper<TBindDictionary = string> { bindDictionary?: TBindDictionary; }
+export interface IBeforeEnterWrapper<TValue> { beforeEnter?: TValue; }
+export interface IBindDictionaryWrapper<TValue = string> { bindDictionary?: TValue; }
 export interface IBirthdayWrapper { birthday?: string; }
 export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
@@ -94,8 +94,8 @@ export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayloa
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICaptureWrapper { capture?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
-export interface IChangeEvent<TTarget = IValueWrapper> extends React.ChangeEvent<TTarget> {}
-export interface IChangesWrapper<TChanges extends IKeyValue = IKeyValue> { changes?: TChanges; }
+export interface IChangeEvent<TValue = IValueWrapper> extends React.ChangeEvent<TValue> {}
+export interface IChangesWrapper<TValue extends IKeyValue = IKeyValue> { changes?: TValue; }
 export interface IChannelsWrapper<TValue = string> { channels?: TValue; }
 export interface IChannelWrapper<TValue = string> { channel?: TValue; }
 export interface ICheckModalWrapper { checkModal?: boolean; }

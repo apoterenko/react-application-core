@@ -9,7 +9,6 @@ import { joinClassName } from '../../../util';
 export class Select extends BaseSelect<ISelectProps, ISelectState> {
 
   public static readonly defaultProps: ISelectProps = {
-    forceReload: true,
     preventFocus: true,
   };
 
@@ -17,9 +16,9 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
    * @stable [28.01.2020]
    * @returns {ISelectOptionEntity[]}
    */
-  protected get filteredOptions(): ISelectOptionEntity[] {
+  protected getFilteredOptions(): ISelectOptionEntity[] {
     const id = this.selectOptionEntityAsId(this.value);
-    return this.options.filter((option) => this.selectOptionEntityAsId(option) !== id);
+    return super.getFilteredOptions((option) => this.selectOptionEntityAsId(option) !== id);
   }
 
   /**

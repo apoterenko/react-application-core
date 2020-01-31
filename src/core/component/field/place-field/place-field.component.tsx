@@ -37,7 +37,6 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   public static readonly defaultProps: IPlaceFieldProps = {
     ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
-    forceReload: true,
     preventFocus: true,
   };
   private static readonly PLACE_MARKER = uuid();
