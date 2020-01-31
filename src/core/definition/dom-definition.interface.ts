@@ -127,7 +127,6 @@ export interface IDomAccessor {
   addRootElement(): Element;
   applyPosition(source: Element, position: string, value: number | (() => number)): void;
   asJqEl<TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement;
-  attachClickListener(callback: (e: IBaseEvent) => void, parentEl?: Element | EventTarget): () => void;
   cancelEvent(event: IBaseEvent): void;
   captureEvent(cfg: ICaptureEventConfigEntity): () => void;
   captureEventWithinElement(cfg: ICaptureEventConfigEntity);

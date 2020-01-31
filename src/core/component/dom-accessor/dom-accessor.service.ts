@@ -223,20 +223,6 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [23.11.2019]
-   * @param {(e: IBaseEvent) => void} callback
-   * @param {Document} element
-   * @returns {() => void}
-   */
-  public attachClickListener(callback: (e: IBaseEvent) => void, element = this.document): () => void {
-    return this.eventManager.subscribe(
-      element,
-      this.environment.mobilePlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
-      callback
-    );
-  }
-
-  /**
    * @stable [26.10.2019]
    * @param {Element} child
    * @param {Element} parent
