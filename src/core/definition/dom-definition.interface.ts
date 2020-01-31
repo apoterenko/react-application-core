@@ -136,7 +136,7 @@ export interface IDomAccessor {
   defineGlobalErrorHandler(callback: (e: Error) => void): void;
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
-  findElement(selector: string | Element, parentEl?: Element): Element;
+  findElement(selector: string, parent?: Element): Element;
   fireEvent(cfg: IDomFireEventConfigEntity): void;
   getActiveElement(): Element;
   getContentHeight(source: Element): number;
@@ -150,7 +150,7 @@ export interface IDomAccessor {
   getScrollTop(el: Element): number;
   getWidth(source: Element): number;
   hasClasses(target: Element, ...classNames: string[]): boolean;
-  hasElements(selector: string | Element, target: Element): boolean;
+  hasElements(selector: string, target?: Element): boolean;
   hasParent(cfg: IDomParentConfigEntity): boolean;
   isAlreadyFocused(): boolean;
   isElementFocused(element: Element): boolean;

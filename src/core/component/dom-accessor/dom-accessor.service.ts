@@ -12,14 +12,12 @@ import {
   createElement,
   createScript,
   defValuesFilter,
-  findElement,
   getContentHeight,
   getHeight,
   getScrollLeft,
   getScrollTop,
   getWidth,
   hasClasses,
-  hasElements,
   ifNotNilThanValue,
   isElementVisibleWithinParent,
   isFn,
@@ -260,12 +258,12 @@ export class DomAccessor implements IDomAccessor {
 
   /**
    * @stable [16.10.2019]
-   * @param {string | Element} selector
+   * @param {string} selector
    * @param {Element} parent
    * @returns {Element}
    */
-  public findElement(selector: string | Element, parent?: Element): Element {
-    return findElement(selector, parent);
+  public findElement(selector: string, parent?: Element): Element {
+    return this.findElements(selector, parent)[0];
   }
 
   /**
@@ -360,13 +358,13 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [16.02.2019]
-   * @param {string | Element} selector
+   * @stable [31.01.2020]
+   * @param {string} selector
    * @param {Element} target
    * @returns {boolean}
    */
-  public hasElements(selector: string | Element, target: Element): boolean {
-    return hasElements(selector, target);
+  public hasElements(selector: string, target?: Element): boolean {
+    return this.findElements(selector, target).length > 0;
   }
 
   /**
@@ -561,6 +559,16 @@ export class DomAccessor implements IDomAccessor {
    */
   private asSelector(selector: string): string {
     return selector.startsWith('.') ? selector : `.${selector}`;
+  }
+
+  /**
+   * @stable [31.01.2020]
+   * @param {string} selector
+   * @param {Element} target
+   * @returns {IJQueryElement}
+   */
+  private findElements(selector: string, target: Element = this.documentBody): IJQueryElement {
+    return this.asJqEl(target).find(this.asSelector(selector));
   }
 
   /**

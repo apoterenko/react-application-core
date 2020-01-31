@@ -33,8 +33,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   implements IDialog<TProps, TState> {
 
   private static readonly DIALOG_CLASS_NAME = 'rac-dialog';
-  private static readonly DIALOG_MODAL_CLASS_NAME = 'rac-dialog-modal';
-  private static readonly DIALOG_MODAL_SELECTOR = `.${BaseDialog.DIALOG_MODAL_CLASS_NAME}`;
+  private static readonly DIALOG_MODAL_CLASS_NAME = 'rac-modal-dialog';
 
   private onDeactivateCallback: () => void;
   private closeEventUnsubscriber: () => void;
@@ -56,7 +55,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.state = {opened: false} as TState;
 
     if (isCheckModalNeeded(props as ICheckModalWrapper)) {
-      this.doesAnotherModalDialogOpen = this.domAccessor.hasElements(BaseDialog.DIALOG_MODAL_SELECTOR, this.portalElement);
+      this.doesAnotherModalDialogOpen = this.domAccessor.hasElements(BaseDialog.DIALOG_MODAL_CLASS_NAME, this.portalElement);
     }
   }
 
@@ -433,7 +432,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       props.className,
       BaseDialog.DIALOG_CLASS_NAME,
       this.isDefault && 'rac-default-dialog',
-      this.isModal && 'rac-modal-dialog',
+      this.isModal && BaseDialog.DIALOG_MODAL_CLASS_NAME,
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
       this.isInline
         ? 'rac-inline-dialog'

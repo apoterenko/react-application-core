@@ -575,13 +575,15 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
 
   /**
    * @stable [28.10.2019]
-   * @returns {boolean}
    */
-  protected openVirtualKeyboard(): boolean {
+  protected openVirtualKeyboard(callback?: () => void): void {
     if (this.isKeyboardOpen()) {
-      return false;
+      return;
     }
     this.setState({keyboardOpen: true}, () => {
+      if (isFn(callback)) {
+        callback();
+      }
       if (isDef(this.caretBlinkingTask)) {
         this.caretBlinkingTask.start();
 
@@ -592,7 +594,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
         this.refreshCaretPosition();
       }
     });
-    return true;
   }
 
   /**

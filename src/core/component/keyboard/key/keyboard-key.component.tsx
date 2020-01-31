@@ -52,7 +52,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
         ref={this.buttonRef}
         disabled={props.disabled}
         rippled={props.rippled}
-        touched={true}
+        touched={isString(keyAsString) || KEYBOARD_SPECIAL_KEYS.CLOSE !== keyAsObject.value}
         className={joinClassName(
           'rac-keyboard-key',
           `rac-keyboard-key-${value}`,

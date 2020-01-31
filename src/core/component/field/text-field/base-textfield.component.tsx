@@ -29,10 +29,12 @@ import {
   IBaseTextFieldState,
 } from './base-textfield.interface';
 import {
+  EventsEnum,
   FieldActionTypesEnum,
   IBaseEvent,
   IFieldActionEntity,
   IJQueryElement,
+  TouchEventsEnum,
 } from '../../../definition';
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,
@@ -110,15 +112,17 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [28.10.2019]
-   * @returns {boolean}
+   * @stable [31.01.2020]
    */
-  protected openVirtualKeyboard(): boolean {
-    const result = super.openVirtualKeyboard();
-    if (result) {
-      this.keyboardListenerUnsubscriber = this.domAccessor.attachClickListener(this.onDocumentClickHandler);
-    }
-    return result;
+  protected openVirtualKeyboard(): void {
+    super.openVirtualKeyboard(() => {
+      this.keyboardListenerUnsubscriber = this.domAccessor.captureEvent({
+        element: this.environment.document,
+        callback: this.onDocumentClickHandler,
+        capture: true,
+        eventName: this.environment.touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
+      });
+    });
   }
 
   /**
@@ -258,17 +262,17 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @param {IBaseEvent} e
    */
   private onDocumentClickHandler(e: IBaseEvent): void {
-    // TODO refactoring
-    const clickedEl = e.target as Element;
-
-    if (this.domAccessor.hasParent({parentClassName: 'rac-action-close-icon', element: clickedEl})) {
-      if (this.isValuePresent) {
-        this.clearValue();
-      }
-    } else if (!(this.input === clickedEl
-                  || this.domAccessor.hasElements(clickedEl, this.keyboardRef.current.getSelf()))) {
-      this.closeVirtualKeyboard();
+    const element = event.target as HTMLElement;
+    const keyboardEl = this.keyboardRef.current.getSelf();
+    if (!keyboardEl) {
+      return;
     }
+
+    if (this.domAccessor.getParentsAsElements({parentClassName: 'rac-keyboard', element})  // TODO className
+        .includes(keyboardEl)) {
+      return;
+    }
+    this.closeVirtualKeyboard();
   }
 
   /**

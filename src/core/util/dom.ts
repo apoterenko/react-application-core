@@ -233,25 +233,6 @@ export const parseValueAtPx = (v: string): number => parseFloat((v || '').split(
 export const preventContextMenu = () => document.body.oncontextmenu = () => false;
 
 /**
- * @stable [16.02.2019]
- * @param {string | Element} selector
- * @param {Element} parent
- * @returns {TJqElement}
- */
-export const findElements = <TJqElement extends IJQueryElement = IJQueryElement>(selector: string | Element,
-                                                                                 parent: Element = document.body): TJqElement =>
-  toJqEl(parent).find(selector) as TJqElement;
-
-/**
- * @stable [16.02.2019]
- * @param {string | Element} selector
- * @param {Element} parent
- * @returns {TJqElement}
- */
-export const findElement = (selector: string | Element, parent: Element = document.body): Element =>
-  findElements(selector, parent)[0];
-
-/**
  * @stable [22.10.2019]
  * @param {Element} target
  * @param {string} classNames
@@ -261,15 +242,6 @@ export const hasClasses = (target: Element, ...classNames: string[]): boolean =>
   const el = toJqEl(target);
   return trueValuesArrayFilter(...classNames.map((className) => el.hasClass(className))).length > 0;
 };
-
-/**
- * @stable [16.02.2019]
- * @param {string | Element} selector
- * @param {Element} target
- * @returns {boolean}
- */
-export const hasElements = (selector: string | Element, target: Element): boolean =>
-  findElements(selector, target).length > 0;
 
 /**
  * @stable [01.12.2018]
