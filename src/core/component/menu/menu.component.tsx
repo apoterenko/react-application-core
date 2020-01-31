@@ -256,6 +256,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         plugins={[PerfectScrollPlugin]}
       >
         {items.map((option: IMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
+        {!items.length && <div className='rac-menu__empty-message'>{this.settings.messages.NO_DATA}</div>}
       </BasicList>
     );
   }

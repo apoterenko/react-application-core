@@ -165,6 +165,7 @@ export interface IMessagesSettingsEntity {
   FILTERS?: string;
   MONTH?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
+  NO_DATA?: string;
   OK?: string;
   PATH?: string;
   PLEASE_WAIT?: string;
@@ -200,6 +201,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   FILTERS: 'Filters',
   MONTH: 'Month',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
+  NO_DATA: 'No data',
   OK: 'Ok',
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',

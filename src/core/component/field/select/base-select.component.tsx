@@ -255,7 +255,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const value = this.value;
     const doesFilterExist = isFn(filter);
 
-    if (this.isQuickSearchEnabled && (!this.isForceReload || this.isLocalOptionsUsed) && !this.isValueObject(value)) {
+    if (this.isQuickSearchEnabled
+      && this.isLocalOptionsUsed
+      && !this.isValueObject(value)
+      && isObjectNotEmpty(value)) {
+
       const originalFilter = (option) => queryFilter(value, this.selectOptionEntityAsDisplayValue(option));
 
       return this.options.filter(
@@ -451,7 +455,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     BaseSelect.logger.debug((logger) => {
       logger.write('[$BaseSelect][onFilterChange] onFilterChange:',
-        onFilterChange || '[-]', ', onDictionaryFilterChange:', onDictionaryFilterChange || '[-]');
+        isFn(onFilterChange) || '[-]', ', onDictionaryFilterChange:', isFn(onDictionaryFilterChange) || '[-]');
     });
 
     if (isFn(onFilterChange)) {
@@ -476,7 +480,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {boolean} force
    */
   private renderAndShowMenu(force = false): void {
-    if (!R.isEmpty(this.getFilteredOptions()) || force) {
+    if (force || !R.isEmpty(this.getFilteredOptions())) {
       this.setState({menuRendered: true}, () => this.menu.show());
     } else {
       BaseSelect.logger.debug('[$BaseSelect][renderAndShowMenu] The options are empty. The menu does not show.');
@@ -496,6 +500,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         '[$BaseSelect][startQuickSearchIfApplicable] Can\'t start a search because of isQuickSearchEnabled:',
         isQuickSearchEnabled, ', isFieldBusy:', isFieldBusy, ', isLocalOptionsUsed:', isLocalOptionsUsed
       );
+
+      if (!this.isMenuAlreadyRenderedAndOpened
+        && isQuickSearchEnabled
+        && isLocalOptionsUsed) {
+        this.renderAndShowMenu(true);
+      }
       return false;
     }
     if (this.isPlainValueApplied) {
