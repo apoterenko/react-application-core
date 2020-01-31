@@ -173,7 +173,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
 
-    if (this.isQuickSearchEnabled) {
+    if (this.isQuickSearchEnabled && !this.isLocalOptionsUsed) {
       if (!this.isFieldBusy()) {
         this.notifyQuickSearchFilterChange();
       } else {
@@ -428,7 +428,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [16.01.2020]
    */
   private startQuickSearchIfApplicable(noDelay = false): boolean {
-    if (!this.isQuickSearchEnabled || this.isFieldBusy()) {
+    if (!this.isQuickSearchEnabled || this.isFieldBusy() || this.isLocalOptionsUsed) {
       return false;
     }
     if (this.isPlainValueApplied) {
