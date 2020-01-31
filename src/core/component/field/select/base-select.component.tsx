@@ -8,6 +8,7 @@ import {
 import {
   calc,
   DelayedTask,
+  ifNotNilThanValue,
   inProgress,
   isAllowEmptyFilterValue,
   isAnchored,
@@ -107,6 +108,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
 
     this.tryResetCachedValue(props, prevProps);
+  }
+
+  /**
+   * @stable [31.01.2020]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this.cancelQueryFilterTask();
   }
 
   /**
@@ -459,7 +468,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.hideMenu();
 
     if (noDelay) {
-      this.quickFilterQueryTask.stop();
+      this.cancelQueryFilterTask();
       this.notifyQuickSearchFilterChange();
     } else {
       this.quickFilterQueryTask.start();
@@ -487,6 +496,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         this.clearCachedValue();
       }
     }
+  }
+
+  /**
+   * @stable [31.01.2020]
+   */
+  private cancelQueryFilterTask(): void {
+    ifNotNilThanValue(this.quickFilterQueryTask, (task) => task.stop());
   }
 
   /**
