@@ -299,7 +299,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const $$cachedValue = this.$$cashedValue;
     const hasCachedValue = !R.isNil($$cachedValue);
 
-    if (!hasCachedValue && this.isLocalOptionsUsed && (!this.isQuickSearchEnabled || this.isValueObject(value))) {
+    if (!hasCachedValue && (!this.isQuickSearchEnabled || this.isValueObject(value))) {
       const optionValue = this.selectOptionEntityAsId(value);
       value = nvl(
         R.find<ISelectOptionEntity>((option) => this.selectOptionEntityAsId(option) === optionValue, this.options),
