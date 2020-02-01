@@ -52,6 +52,7 @@ import {
   ITouchedWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
+  IForceUseLocalFilterWrapper,
   IUseZipCodeWrapper,
   IValidateOnMountWrapper,
   IValidWrapper,
@@ -418,6 +419,14 @@ export const isMenuRendered = (wrapper: IMenuRenderedWrapper): boolean =>
  */
 export const isAnchored = (wrapper: IAnchoredWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.anchored === true, false);
+
+/**
+ * @stable [01.02.2020]
+ * @param {IForceUseLocalFilterWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isForceUseLocalFilter = (wrapper: IForceUseLocalFilterWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.forceUseLocalFilter === true, false);
 
 /**
  * @stable [16.01.2020]

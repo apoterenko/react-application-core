@@ -6,15 +6,10 @@ import {
   IControlledPlaceFieldConfigEntity,
   IControlledPlaceFieldItemEntity,
   IPlaceFieldProps,
-  ISearchPlacesPayloadEntity,
 } from '../../../definition';
 import { ControlledFieldFactory } from '../controlled-field-factory.service';
-import {
-  PlaceField,
-} from '../../field';
-import {
-  provideInSingleton,
-} from '../../../di';
+import { PlaceField } from '../../field';
+import { provideInSingleton } from '../../../di';
 import { mapDictionaryEntityField } from '../../../util';
 
 @provideInSingleton(ControlledPlaceFieldFactory)
@@ -49,10 +44,8 @@ export class ControlledPlaceFieldFactory
         return {
           ...extraProps,
           ...mapDictionaryEntityField(config.container.props.dictionaries.places),
-          onFilterChange: (query) => {
-            const payloadWrapper: ISearchPlacesPayloadEntity = {payload: {query}};
-            this.$dictionaryStoreProxyFactory(container).dispatchLoadDictionary(DictionariesEnum.PLACES, payloadWrapper);
-          },
+          dictionary: DictionariesEnum.PLACES,
+          onDictionaryFilterChange: this.$dictionaryStoreProxyFactory(container).dispatchLoadDictionary,
         };
     }
     return extraProps;

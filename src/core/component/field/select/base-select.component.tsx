@@ -16,6 +16,7 @@ import {
   isExpandActionRendered,
   isFn,
   isForceReload,
+  isForceUseLocalFilter,
   isMenuRendered,
   isObjectNotEmpty,
   isUndef,
@@ -148,29 +149,22 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (this.isFieldBusy() || this.isMenuAlreadyRenderedAndOpened) {
       return;
     }
-    const {
-      bindDictionary,
-      onEmptyDictionary,
-    } = this.props;
-
     const $isForceReload = this.isForceReload;
     const $doOptionsExist = this.doOptionsExist;
 
-    BaseSelect.logger.debug(
-      '[$BaseSelect][openMenu] isForceReload:', $isForceReload, ', doOptionsExist:', $doOptionsExist
-    );
+    BaseSelect.logger.debug('[$BaseSelect][openMenu] isForceReload:', $isForceReload, ', doOptionsExist:', $doOptionsExist);
 
     if ($isForceReload || !$doOptionsExist) {
-      if (isFn(onEmptyDictionary)) {
-        BaseSelect.logger.debug(
-          '[$BaseSelect][openMenu] The onEmptyDictionary callback is defined, need to load options...'
-        );
+      const {
+        onEmptyDictionary,
+      } = this.props;
 
-        this.setState({progress: true}, () => onEmptyDictionary(bindDictionary));
+      if (isFn(onEmptyDictionary)) {
+        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onEmptyDictionary callback is defined, need to load options...');
+
+        this.setState({progress: true}, () => onEmptyDictionary(this.dictionary));
       } else {
-        BaseSelect.logger.debug(
-          '[$BaseSelect][openMenu] The onEmptyDictionary callback is not defined, menu show needed...'
-        );
+        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onEmptyDictionary callback is not defined, menu show needed...');
 
         // Try open empty dialog menu to remote search
         this.renderAndShowMenu(!this.isQuickSearchEnabled);
@@ -256,7 +250,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const doesFilterExist = isFn(filter);
 
     if (this.isQuickSearchEnabled
-      && this.isLocalOptionsUsed
+      && (this.isForceUseLocalFilter || this.isLocalOptionsUsed)
       && !this.isValueObject(value)
       && isObjectNotEmpty(value)) {
 
@@ -452,17 +446,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const props = this.props;
     const onFilterChange = props.onFilterChange;
     const onDictionaryFilterChange = props.onDictionaryFilterChange;
+    const dictionary = this.dictionary;
 
     BaseSelect.logger.debug((logger) => {
-      logger.write('[$BaseSelect][onFilterChange] onFilterChange:',
-        isFn(onFilterChange) || '[-]', ', onDictionaryFilterChange:', isFn(onDictionaryFilterChange) || '[-]');
+      logger.write(
+        '[$BaseSelect][onFilterChange] onFilterChange:', isFn(onFilterChange) || '[-]',
+        ', onDictionaryFilterChange:', isFn(onDictionaryFilterChange) || '[-]',
+        ', dictionary:', dictionary);
     });
 
     if (isFn(onFilterChange)) {
       onFilterChange(query);
     }
     if (isFn(onDictionaryFilterChange)) {
-      onDictionaryFilterChange(props.bindDictionary, {payload: {query}});
+      onDictionaryFilterChange(dictionary, {payload: {query}});
     }
   }
 
@@ -660,6 +657,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
+   * @stable [01.02.2020]
+   * @returns {boolean}
+   */
+  private get isForceUseLocalFilter(): boolean {
+    return isForceUseLocalFilter(this.props);
+  }
+
+  /**
    * @stable [31.01.2020]
    * @returns {boolean}
    */
@@ -698,5 +703,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get $$cashedValue(): ISelectOptionEntity {
     return this.state.$$cachedValue;
+  }
+
+  /**
+   * @stable [01.02.2020]
+   * @returns {string}
+   */
+  private get dictionary(): string {
+    const {dictionary, bindDictionary} = this.props;
+    return nvl(dictionary, bindDictionary); // bindDictionary is used by Form
   }
 }

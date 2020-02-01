@@ -147,6 +147,7 @@ export interface IDialogClassNameWrapper { dialogClassName?: string; }
 export interface IDialogConfigurationWrapper<TValue> { dialogConfiguration?: TValue; }
 export interface IDialogOpenedWrapper<TValue = boolean> { dialogOpened?: TValue; }
 export interface IDictionariesWrapper<TValue> { dictionaries?: TValue; }
+export interface IDictionaryWrapper<TValue = string> { dictionary?: TValue; }
 export interface IDiffWrapper<TValue> { diff?: TValue; }
 export interface IDirectionsWrapper<TValue> { directions?: TValue; }
 export interface IDirectionWrapper<TValue = string> { direction?: TValue; }
@@ -191,6 +192,7 @@ export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
+export interface IForceUseLocalFilterWrapper { forceUseLocalFilter?: boolean; }
 export interface IFormattedNameWrapper { formattedName?: string; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }

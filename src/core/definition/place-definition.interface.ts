@@ -143,6 +143,7 @@ export interface ISearchPlaceEntity
  */
 export const DEFAULT_PLACE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
   ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
+  menuConfiguration: {heightRestricted: false},
 });
 
 /**
