@@ -81,7 +81,7 @@ export class Button extends BaseComponent<IButtonProps> {
         {!iconRight && iconElement}
         {
           hasContent && (
-            <div className='rac-button-content'>
+            <div className='rac-button__content'>
               {buttonText && this.t(buttonText)}
               {props.children}
             </div>
