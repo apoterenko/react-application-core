@@ -3,7 +3,7 @@
 
 .rac {
 
-  @include rac-keyboard(                                                                      /* @stable [27.01.2019] */
+  @include rac-keyboard (
     $rac-keyboard-background: $rac-keyboard-background,
     $rac-keyboard-border-radius: $rac-keyboard-border-radius,
     $rac-keyboard-border: $rac-keyboard-border,
@@ -13,6 +13,8 @@
     $rac-keyboard-close-margin: $rac-keyboard-close-margin,
     $rac-keyboard-close-position: $rac-keyboard-close-position,
     $rac-keyboard-close-right: $rac-keyboard-close-right,
+    $rac-keyboard-key-active-top: $rac-keyboard-key-active-top,
+    $rac-keyboard-key-active-transition: $rac-keyboard-key-active-transition,
     $rac-keyboard-key-background: $rac-keyboard-key-background,
     $rac-keyboard-key-border-radius: $rac-keyboard-key-border-radius,
     $rac-keyboard-key-border: $rac-keyboard-key-border,

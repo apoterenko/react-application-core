@@ -1535,7 +1535,7 @@
   $rac-button-cursor: unset,                                                         /* stable [02.02.2020 ] */
   $rac-button-disabled-background: unset,                                            /* stable [02.02.2020 ] */
   $rac-button-disabled-cursor: unset,                                                /* stable [02.02.2020 ] */
-  $rac-button-disabled-opacity: unset,
+  $rac-button-disabled-opacity: unset,                                               /* stable [02.02.2020 ] */
   $rac-button-disabled-shadow: unset,
   $rac-button-display: unset,                                                        /* stable [02.02.2020 ] */
   $rac-button-flex: unset,                                                           /* stable [02.02.2020 ] */
@@ -1544,10 +1544,10 @@
   $rac-button-hover-color: unset,                                                    /* stable [02.02.2020 ] */
   $rac-button-hover-shadow: unset,                                                   /* stable [02.02.2020 ] */
   $rac-button-icon-color: unset,                                                     /* stable [24.01.2020 ] */
-  $rac-button-icon-height: unset,
-  $rac-button-icon-margin: unset,
-  $rac-button-icon-size: unset,
-  $rac-button-icon-width: unset,
+  $rac-button-icon-height: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-icon-margin: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-icon-size: unset,                                                      /* stable [02.02.2020 ] */
+  $rac-button-icon-width: unset,                                                     /* stable [02.02.2020 ] */
   $rac-button-left: unset,                                                           /* stable [02.02.2020 ] */
   $rac-button-margin-top: unset,                                                     /* stable [24.01.2020 ] */
   $rac-button-margin: unset,                                                         /* stable [02.02.2020 ] */
@@ -2668,78 +2668,85 @@
 /**
  * @stable [13.01.2019]
  */
-@mixin rac-keyboard($rac-keyboard-custom: unset,
-                    $rac-keyboard-opacity: unset,
-                    $rac-keyboard-padding: unset,
-                    $rac-keyboard-margin: unset,
-                    $rac-keyboard-border: unset,
-                    $rac-keyboard-background: unset,
-                    $rac-keyboard-border-radius: unset,
-                    $rac-keyboard-position: unset,
-                    $rac-keyboard-bottom: unset,
-                    $rac-keyboard-key-custom: unset,
-                    $rac-keyboard-key-size: unset,
-                    $rac-keyboard-key-width: unset,
-                    $rac-keyboard-key-height: unset,
-                    $rac-keyboard-key-min-width: unset,
-                    $rac-keyboard-key-font-size: unset,
-                    $rac-keyboard-key-font-weight: unset,
-                    $rac-keyboard-key-color: unset,
-                    $rac-keyboard-key-border: unset,
-                    $rac-keyboard-key-border-radius: unset,
-                    $rac-keyboard-key-opacity: unset,
-                    $rac-keyboard-key-background: unset,
-                    $rac-keyboard-key-margin: unset,
-                    $rac-keyboard-key-icon-width: unset,
-                    $rac-keyboard-key-icon-height: unset,
-                    $rac-keyboard-key-icon-margin: unset,
-                    $rac-keyboard-close-display: unset,
-                    $rac-keyboard-close-color: unset,
-                    $rac-keyboard-close-position: unset,
-                    $rac-keyboard-close-bottom: unset,
-                    $rac-keyboard-close-right: unset,
-                    $rac-keyboard-close-margin: unset,
-                    $rac-keyboard-absolute-h-center-alignment: unset) {
+@mixin rac-keyboard (
+  $rac-keyboard-custom: unset,
+  /**/
+  $rac-keyboard-key-active-transition: unset,                                             /* @stable [02.02.2020] */
+  $rac-keyboard-key-active-top: unset,                                                    /* @stable [02.02.2020] */
+  $rac-keyboard-absolute-h-center-alignment: unset,
+  $rac-keyboard-background: unset,
+  $rac-keyboard-border-radius: unset,                                                     /* @stable [02.02.2020] */
+  $rac-keyboard-border: unset,
+  $rac-keyboard-bottom: unset,
+  $rac-keyboard-close-bottom: unset,
+  $rac-keyboard-close-color: unset,
+  $rac-keyboard-close-display: unset,
+  $rac-keyboard-close-margin: unset,
+  $rac-keyboard-close-position: unset,
+  $rac-keyboard-close-right: unset,
+  $rac-keyboard-key-background: unset,
+  $rac-keyboard-key-border-radius: unset,
+  $rac-keyboard-key-border: unset,
+  $rac-keyboard-key-color: unset,
+  $rac-keyboard-key-custom: unset,
+  $rac-keyboard-key-font-size: unset,
+  $rac-keyboard-key-font-weight: unset,
+  $rac-keyboard-key-height: unset,
+  $rac-keyboard-key-icon-height: unset,
+  $rac-keyboard-key-icon-margin: unset,
+  $rac-keyboard-key-icon-width: unset,
+  $rac-keyboard-key-margin: unset,
+  $rac-keyboard-key-min-width: unset,
+  $rac-keyboard-key-opacity: unset,
+  $rac-keyboard-key-size: unset,
+  $rac-keyboard-key-width: unset,
+  $rac-keyboard-margin: unset,
+  $rac-keyboard-opacity: unset,
+  $rac-keyboard-padding: unset,
+  $rac-keyboard-position: unset
+) {
 
   #{rac-cls(rac-keyboard, $rac-keyboard-custom)} {
-    @include rac-styles(
-      $rac-styles-opacity: $rac-keyboard-opacity,
-      $rac-styles-border: $rac-keyboard-border,
+    @include rac-styles (
       $rac-styles-background: $rac-keyboard-background,
       $rac-styles-border-radius: $rac-keyboard-border-radius,
-      $rac-styles-position: $rac-keyboard-position,
+      $rac-styles-border: $rac-keyboard-border,
       $rac-styles-bottom: $rac-keyboard-bottom,
       $rac-styles-margin: $rac-keyboard-margin,
-      $rac-styles-padding: $rac-keyboard-padding
+      $rac-styles-opacity: $rac-keyboard-opacity,
+      $rac-styles-padding: $rac-keyboard-padding,
+      $rac-styles-position: $rac-keyboard-position
     );
 
-    @include rac-button(
+    @include rac-button (
       $rac-button-custom: rac-cls2(rac-keyboard-key, $rac-keyboard-key-custom),
-      $rac-button-border: $rac-keyboard-key-border,
-      $rac-button-border-radius: $rac-keyboard-key-border-radius,
+      $rac-button-active-top: $rac-keyboard-key-active-top,
+      $rac-button-active-transition: $rac-keyboard-key-active-transition,
       $rac-button-background: $rac-keyboard-key-background,
+      $rac-button-border-radius: $rac-keyboard-key-border-radius,
+      $rac-button-border: $rac-keyboard-key-border,
       $rac-button-color: $rac-keyboard-key-color,
-      $rac-button-opacity: $rac-keyboard-key-opacity,
+      $rac-button-content-font-size: $rac-keyboard-key-font-size,
+      $rac-button-content-font-weight: $rac-keyboard-key-font-weight,
       $rac-button-height: $rac-keyboard-key-height,
-      $rac-button-min-width: $rac-keyboard-key-min-width,
-      $rac-button-size: $rac-keyboard-key-size,
-      $rac-button-width: $rac-keyboard-key-width,
-      $rac-button-margin: $rac-keyboard-key-margin,
-      $rac-button-icon-width: $rac-keyboard-key-icon-width,
       $rac-button-icon-height: $rac-keyboard-key-icon-height,
       $rac-button-icon-margin: $rac-keyboard-key-icon-margin,
-      $rac-button-content-font-size: $rac-keyboard-key-font-size,
-      $rac-button-content-font-weight: $rac-keyboard-key-font-weight
+      $rac-button-icon-width: $rac-keyboard-key-icon-width,
+      $rac-button-margin: $rac-keyboard-key-margin,
+      $rac-button-min-width: $rac-keyboard-key-min-width,
+      $rac-button-opacity: $rac-keyboard-key-opacity,
+      $rac-button-size: $rac-keyboard-key-size,
+      $rac-button-width: $rac-keyboard-key-width
     );
 
-    @include rac-icon(
+    @include rac-icon (
       $rac-icon-custom: rac-keyboard-close,
-      $rac-icon-display: $rac-keyboard-close-display,
-      $rac-icon-color: $rac-keyboard-close-color,
-      $rac-icon-position: $rac-keyboard-close-position,
       $rac-icon-bottom: $rac-keyboard-close-bottom,
-      $rac-icon-right: $rac-keyboard-close-right,
-      $rac-icon-margin: $rac-keyboard-close-margin
+      $rac-icon-color: $rac-keyboard-close-color,
+      $rac-icon-display: $rac-keyboard-close-display,
+      $rac-icon-margin: $rac-keyboard-close-margin,
+      $rac-icon-position: $rac-keyboard-close-position,
+      $rac-icon-right: $rac-keyboard-close-right
     );
 
     @if $rac-keyboard-absolute-h-center-alignment != unset {
