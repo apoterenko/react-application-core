@@ -293,6 +293,11 @@ $rac-button-size-3: 1px !default;
 $rac-button-size-4: $rac-offset-1 !default;
 $rac-button-size-5: $rac-icon-size-4 !default;
 /**/
+$rac-button-active-background: unset !default;
+$rac-button-active-left: unset !default;
+$rac-button-active-position: relative !default;
+$rac-button-active-top: unset !default;
+$rac-button-active-transition: unset !default;
 $rac-button-align-items: center !default;
 $rac-button-background: $rac-button-color-2 !default;
 $rac-button-border-radius: $rac-border-radius-1 !default;

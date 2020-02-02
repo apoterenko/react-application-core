@@ -3,7 +3,16 @@
 
 .rac {
 
+  /**
+   * @button
+   * @stable [02.02.2020]
+   */
   @include rac-button (
+    $rac-button-active-background: $rac-button-active-background,
+    $rac-button-active-left: $rac-button-active-left,
+    $rac-button-active-position: $rac-button-active-position,
+    $rac-button-active-top: $rac-button-active-top,
+    $rac-button-active-transition: $rac-button-active-transition,
     $rac-button-align-items: $rac-button-align-items,
     $rac-button-background: $rac-button-background,
     $rac-button-border-radius: $rac-button-border-radius,
@@ -22,22 +31,29 @@
     $rac-button-padding: $rac-button-padding
   );
 
-  @include rac-button(                                                                        /* @stable [01.11.2018] */
+  /**
+   * @button-raised
+   * @stable [02.02.2020]
+   */
+  @include rac-button (
     $rac-button-custom: $rac-button-raised-cls,
-    $rac-button-color: $rac-button-raised-color,
     $rac-button-background: $rac-button-raised-background,
-    $rac-button-shadow: $rac-button-raised-shadow,
+    $rac-button-color: $rac-button-raised-color,
+    $rac-button-content-font-size: $rac-button-raised-content-font-size,
     $rac-button-hover-background: $rac-button-raised-hover-background,
     $rac-button-hover-shadow: $rac-button-raised-hover-shadow,
-    $rac-button-disabled-shadow: $rac-button-disabled-shadow,          // rac-button inheritance,
-    $rac-button-content-font-size: $rac-button-raised-content-font-size,
-    $rac-button-icon-color: $rac-button-raised-icon-color
+    $rac-button-icon-color: $rac-button-raised-icon-color,
+    $rac-button-shadow: $rac-button-raised-shadow
   );
 
-  @include rac-button(                                                                        /* @stable [10.01.2019] */
+  /**
+   * @button-outlined
+   * @stable [02.02.2020]
+   */
+  @include rac-button (
     $rac-button-custom: $rac-button-outlined-cls,
+    $rac-button-background: $rac-button-outlined-background,
     $rac-button-border: $rac-button-outlined-border,
-    $rac-button-background: $rac-button-outlined-background,           // rac-button inheritance
     $rac-button-icon-color: $rac-button-outlined-icon-color
   );
 

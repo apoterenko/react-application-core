@@ -5,13 +5,11 @@ import {
   calc,
   handlerPropsFactory,
   hasIcon,
-  ifNotNilThanValue,
   inProgress,
   isDecorated,
   isDisabled,
   isFull,
   isObjectNotEmpty,
-  isRippled,
   joinClassName,
   nvl,
 } from '../../util';
@@ -45,8 +43,7 @@ export class Button extends BaseComponent<IButtonProps> {
       this.isDecorated && $hasIcon && 'rac-button-decorated',
       props.mini && 'rac-button-mini',
       props.outlined && 'rac-button-outlined',
-      props.raised && 'rac-button-raised',
-      this.isRippled && this.uiFactory.rippleSurface
+      props.raised && 'rac-button-raised'
     );
 
     if (props.to) {
@@ -92,14 +89,6 @@ export class Button extends BaseComponent<IButtonProps> {
    */
   public blur(): void {
     this.getSelf().blur(); // document.activeElement === body
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {boolean}
-   */
-  private get isRippled(): boolean {
-    return isRippled(this.props) && isRippled(this.systemButtonSettings);
   }
 
   /**
@@ -176,13 +165,5 @@ export class Button extends BaseComponent<IButtonProps> {
             : text
         )
     );
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {IButtonProps}
-   */
-  private get systemButtonSettings(): IButtonProps {
-    return ifNotNilThanValue(this.settings.components, (components) => components.button || {}, {});
   }
 }

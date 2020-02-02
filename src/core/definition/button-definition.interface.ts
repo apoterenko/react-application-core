@@ -12,7 +12,6 @@ import {
   IProgressMessageWrapper,
   IProgressWrapper,
   IRaisedWrapper,
-  IRippledWrapper,
   ITextWrapper,
   ITouchedWrapper,
   IToWrapper,
@@ -26,8 +25,7 @@ import { IComponentProps } from './props-definition.interface';
  * @stable [02.02.2020]
  */
 export interface IGenericBaseButtonEntity
-  extends IRippledWrapper,
-    IDisabledWrapper {
+  extends IDisabledWrapper {
 }
 
 /**

@@ -41,7 +41,6 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
       <Button
         ref={this.buttonRef}
         disabled={props.disabled}
-        rippled={props.rippled}
         touched={this.isKeyTouched}
         className={joinClassName(
           'rac-keyboard-key',

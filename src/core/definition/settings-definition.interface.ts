@@ -1,5 +1,3 @@
-import { IButtonProps } from './button-definition.interface';
-
 /**
  * @stable [09.10.2019]
  */
@@ -85,14 +83,6 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
  */
 export interface IAsyncLibrariesSettingsEntity {
   googleMaps?: string;
-}
-
-/**
- * @entity
- * @stable [24.01.2020]
- */
-export interface IComponentsSettingsEntity {
-  button?: IButtonProps;
 }
 
 /**
