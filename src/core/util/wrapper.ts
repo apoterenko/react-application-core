@@ -186,11 +186,11 @@ export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean
 
 /**
  * @stable [24.10.2019]
- * @param {IUseKeyboardWrapper} useKeyboardEntity
+ * @param {IUseKeyboardWrapper} wrapper
  * @returns {boolean}
  */
-export const isKeyboardUsed = (useKeyboardEntity: IUseKeyboardWrapper): boolean =>
-  ifNotNilThanValue(useKeyboardEntity, () => useKeyboardEntity.useKeyboard === true, false);
+export const isKeyboardUsed = (wrapper: IUseKeyboardWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.useKeyboard === true, false);
 
 /**
  * @stable [25.10.2019]

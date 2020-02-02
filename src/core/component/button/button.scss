@@ -14,7 +14,6 @@
     $rac-button-content-white-space: $rac-button-content-white-space,
     $rac-button-content-word-break: $rac-button-content-word-break,
     $rac-button-cursor: $rac-button-cursor,
-    $rac-button-disabled-background: $rac-button-disabled-background,
     $rac-button-disabled-cursor: $rac-button-disabled-cursor,
     $rac-button-disabled-opacity: $rac-button-disabled-opacity,
     $rac-button-disabled-shadow: $rac-button-disabled-shadow,
@@ -30,7 +29,6 @@
     $rac-button-shadow: $rac-button-raised-shadow,
     $rac-button-hover-background: $rac-button-raised-hover-background,
     $rac-button-hover-shadow: $rac-button-raised-hover-shadow,
-    $rac-button-disabled-background: $rac-button-disabled-background,  // rac-button inheritance
     $rac-button-disabled-shadow: $rac-button-disabled-shadow,          // rac-button inheritance,
     $rac-button-content-font-size: $rac-button-raised-content-font-size,
     $rac-button-icon-color: $rac-button-raised-icon-color
@@ -40,7 +38,6 @@
     $rac-button-custom: $rac-button-outlined-cls,
     $rac-button-border: $rac-button-outlined-border,
     $rac-button-background: $rac-button-outlined-background,           // rac-button inheritance
-    $rac-button-disabled-background: $rac-button-disabled-background,  // rac-button inheritance
     $rac-button-icon-color: $rac-button-outlined-icon-color
   );
 

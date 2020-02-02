@@ -3,7 +3,14 @@ import * as ReactDOM from 'react-dom';
 import * as R from 'ramda';
 
 import { ENV } from '../../env';
-import { isString, toClassName, orNull, nvl, calc } from '../../util';
+import {
+  calc,
+  isInline,
+  isString,
+  joinClassName,
+  nvl,
+  orNull,
+} from '../../util';
 import { BaseComponent } from '../base';
 import {
   KEYBOARD_QWERTY_LAYOUT,
@@ -45,21 +52,20 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
     const props = this.props;
     const state = this.state;
     const keys = props.layout[state.mode];
-    const portalKeyboard = props.inline !== false;
 
     const el = (
       <div
         ref={this.selfRef}
-        className={toClassName(
+        className={joinClassName(
           KeyboardClassNamesEnum.KEYBOARD,
           'rac-no-user-select',
-          portalKeyboard && 'rac-keyboard-portal',
+          !this.isInline && 'rac-keyboard-portal',
           calc(props.className)
         )}
       >
         {
           orNull<JSX.Element>(
-            portalKeyboard,
+            !this.isInline,
             () => this.uiFactory.makeIcon({
               key: 'keyboard-close-action-key',
               type: 'close',
@@ -93,7 +99,7 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
       </div>
     );
 
-    return portalKeyboard ? ReactDOM.createPortal(el, ENV.documentBody) : el;
+    return this.isInline ? el : ReactDOM.createPortal(el, ENV.documentBody);
   }
 
   /**
@@ -135,6 +141,14 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
           break;
       }
     }
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {boolean}
+   */
+  private get isInline(): boolean {
+    return isInline(this.props);
   }
 
   /**

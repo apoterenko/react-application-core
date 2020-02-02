@@ -1,6 +1,5 @@
 import {
   IClassNameWrapper,
-  IDisabledWrapper,
   IFieldWrapper,
   IInlineWrapper,
   IKeyboardConfigurationWrapper,
@@ -10,7 +9,6 @@ import {
   IOnCloseWrapper,
   IOnSelectWrapper,
   IRendererWrapper,
-  IRippledWrapper,
   ITypeWrapper,
   IUseUppercaseWrapper,
   IValueWrapper,
@@ -18,6 +16,7 @@ import {
 } from '../definitions.interface';
 import { IField } from '../component/field/field/field.interface'; // TODO
 import { IComponentProps } from './props-definition.interface';
+import { IGenericBaseButtonEntity } from './button-definition.interface';
 
 /**
  * @stable [02.02.2020]
@@ -69,26 +68,63 @@ export interface IKeyboardKeyValueEntity
     IWidthWrapper {
 }
 
-// TODO
-export interface IKeyboardKeyProps
-  extends IComponentProps,
-  IDisabledWrapper,
-  IOnSelectWrapper<KeyboardKeyValueT>,
-  IRendererWrapper<string>,
-  IRippledWrapper,   // TODO Button props
-  IUseUppercaseWrapper,
-  IValueWrapper<KeyboardKeyValueT> {
+/**
+ * @behavioral-entity
+ * @stable [26.01.2020]
+ */
+export interface IBehavioralKeyboardKeyEntity
+  extends IOnSelectWrapper<KeyboardKeyValueT>,
+    IRendererWrapper<string> {
 }
 
-// TODO
+/**
+ * @generic-entity
+ * @stable [02.02.2020]
+ */
+export interface IGenericKeyboardKeyEntity
+  extends IUseUppercaseWrapper,
+    IValueWrapper<KeyboardKeyValueT> {
+}
+
+/**
+ * @props
+ * @stable [02.02.2020]
+ */
+export interface IKeyboardKeyProps
+  extends IComponentProps,
+    IBehavioralKeyboardKeyEntity,
+    IGenericBaseButtonEntity,
+    IGenericKeyboardKeyEntity {
+}
+
+/**
+ * @generic-entity
+ * @stable [02.02.2020]
+ */
+export interface IGenericKeyboardEntity
+  extends IFieldWrapper<IField>,
+    IInlineWrapper,
+    IKeyboardKeyConfigurationEntity,
+    ILayoutWrapper<KeyboardLayoutT[]> {
+}
+
+/**
+ * @behavioral-entity
+ * @stable [02.02.2020]
+ */
+export interface IBehavioralKeyboardEntity
+  extends IOnChangeWrapper<string>,
+    IOnCloseWrapper {
+}
+
+/**
+ * @props
+ * @stable [02.02.2020]
+ */
 export interface IKeyboardProps
   extends IComponentProps,
-    IKeyboardKeyConfigurationEntity,
-    IOnChangeWrapper<string>,
-    IFieldWrapper<IField>,
-    ILayoutWrapper<KeyboardLayoutT[]>,
-    IOnCloseWrapper,
-    IInlineWrapper {
+    IGenericKeyboardEntity,
+    IBehavioralKeyboardEntity {
 }
 
 /**

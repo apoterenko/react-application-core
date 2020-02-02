@@ -316,7 +316,7 @@ export interface IOnBeforeSubmitWrapper<TPayload, TResult = void> { onBeforeSubm
 export interface IOnChangePlaceWrapper<TPayload = {}> { onChangePlace?(payload?: TPayload): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(payload?: TValue): void; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
-export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
+export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = AnyT> { onColumnContentClick?(value?: TValue): void; }
 export interface IOnDeactivateWrapper<TPayload = {}> { onDeactivate?(payload?: TPayload): void; }
@@ -327,7 +327,7 @@ export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue;
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
-export interface IOnInitWrapper<TValue = AnyT> { onInit?(payload?: TValue): void; }
+export interface IOnInitWrapper<TValue = {}> { onInit?(payload?: TValue): void; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
 export interface IOnResetWrapper { onReset?(): void; }

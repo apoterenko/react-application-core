@@ -4,32 +4,32 @@
 .rac {
 
   @include rac-keyboard(                                                                      /* @stable [27.01.2019] */
-    $rac-keyboard-opacity: $rac-keyboard-opacity,
-    $rac-keyboard-border: $rac-keyboard-border,
     $rac-keyboard-background: $rac-keyboard-background,
     $rac-keyboard-border-radius: $rac-keyboard-border-radius,
-    $rac-keyboard-padding: $rac-keyboard-padding,
-    $rac-keyboard-key-margin: $rac-keyboard-key-margin,
-    $rac-keyboard-key-font-size: $rac-keyboard-key-font-size,
-    $rac-keyboard-key-border: $rac-keyboard-key-border,
-    $rac-keyboard-key-opacity: $rac-keyboard-key-opacity,
-    $rac-keyboard-key-color: $rac-keyboard-key-color,
-    $rac-keyboard-key-border-radius: $rac-keyboard-key-border-radius,
-    $rac-keyboard-key-background: $rac-keyboard-key-background,
-    $rac-keyboard-key-width: $rac-keyboard-key-width,
-    $rac-keyboard-key-height: $rac-keyboard-key-height,
-    $rac-keyboard-close-display: $rac-keyboard-close-display,
+    $rac-keyboard-border: $rac-keyboard-border,
+    $rac-keyboard-close-bottom: $rac-keyboard-close-bottom,
     $rac-keyboard-close-color: $rac-keyboard-close-color,
+    $rac-keyboard-close-display: $rac-keyboard-close-display,
+    $rac-keyboard-close-margin: $rac-keyboard-close-margin,
     $rac-keyboard-close-position: $rac-keyboard-close-position,
     $rac-keyboard-close-right: $rac-keyboard-close-right,
-    $rac-keyboard-close-bottom: $rac-keyboard-close-bottom,
-    $rac-keyboard-close-margin: $rac-keyboard-close-margin
+    $rac-keyboard-key-background: $rac-keyboard-key-background,
+    $rac-keyboard-key-border-radius: $rac-keyboard-key-border-radius,
+    $rac-keyboard-key-border: $rac-keyboard-key-border,
+    $rac-keyboard-key-color: $rac-keyboard-key-color,
+    $rac-keyboard-key-font-size: $rac-keyboard-key-font-size,
+    $rac-keyboard-key-height: $rac-keyboard-key-height,
+    $rac-keyboard-key-margin: $rac-keyboard-key-margin,
+    $rac-keyboard-key-opacity: $rac-keyboard-key-opacity,
+    $rac-keyboard-key-width: $rac-keyboard-key-width,
+    $rac-keyboard-opacity: $rac-keyboard-opacity,
+    $rac-keyboard-padding: $rac-keyboard-padding
   );
 
   @include rac-keyboard(                                                                      /* @stable [14.02.2019] */
     $rac-keyboard-custom: rac-keyboard-portal,
-    $rac-keyboard-position: $rac-keyboard-portal-position,
+    $rac-keyboard-absolute-h-center-alignment: $rac-keyboard-portal-absolute-h-center-alignment,
     $rac-keyboard-bottom: $rac-keyboard-portal-bottom,
-    $rac-keyboard-absolute-h-center-alignment: $rac-keyboard-portal-absolute-h-center-alignment
+    $rac-keyboard-position: $rac-keyboard-portal-position
   );
 }

@@ -7,6 +7,7 @@ import {
   calc,
   isClearActionRendered,
   isFn,
+  isInline,
   joinClassName,
   nvl,
   orNull,
@@ -99,28 +100,30 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {boolean}
    */
   protected isKeyboardOpen(): boolean {
-    return super.isKeyboardOpen() || this.getKeyboardProps().inline === false;
+    return super.isKeyboardOpen() || this.isKeyboardInline;
   }
 
   /**
-   * @stable [21.11.2018]
-   * @returns {IKeyboardConfiguration}
+   * @stable [02.02.2020]
+   * @returns {IKeyboardProps}
    */
   protected getKeyboardProps(): IKeyboardProps {
     return this.props.keyboardConfiguration || {};
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [02.02.2020]
    */
   protected openVirtualKeyboard(): void {
     super.openVirtualKeyboard(() => {
-      this.keyboardListenerUnsubscriber = this.domAccessor.captureEvent({
-        element: this.environment.document,
-        callback: this.onDocumentClickHandler,
-        capture: true,
-        eventName: this.environment.touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
-      });
+      if (!this.isKeyboardInline) {
+        this.keyboardListenerUnsubscriber = this.domAccessor.captureEvent({
+          element: this.environment.document,
+          callback: this.onDocumentClickHandler,
+          capture: true,
+          eventName: this.environment.touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
+        });
+      }
     });
   }
 
@@ -337,5 +340,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
       onClick: () => this.clearValue(),
       disabled: () => this.isInactive,
     });
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {boolean}
+   */
+  private get isKeyboardInline(): boolean {
+    return isInline(this.getKeyboardProps());
   }
 }

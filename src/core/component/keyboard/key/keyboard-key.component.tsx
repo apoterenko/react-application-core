@@ -16,6 +16,7 @@ import {
 } from '../../../util';
 
 export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
+
   private readonly buttonRef = React.createRef<Button>();
 
   /**
@@ -33,33 +34,22 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const keyAsString = props.value as string;
-    const keyAsObject = props.value as IKeyboardKeyValueEntity;
-    const value = isString(keyAsString)
-      ? (
-        props.useUppercase
-          ? keyAsString.toUpperCase()
-          : keyAsString
-      )
-      : (
-        keyAsObject.type === KeyboardKeysEnum.UPPERCASE
-          ? (props.useUppercase ? KeyboardKeyDescriptorsEnum.LOWERCASE : keyAsObject.value)
-          : keyAsObject.value
-      );
+    const keyAsObject = this.keyAsObject;
+    const value = this.value;
 
     return (
       <Button
         ref={this.buttonRef}
         disabled={props.disabled}
         rippled={props.rippled}
-        touched={isString(keyAsString) || KeyboardKeyDescriptorsEnum.CLOSE !== keyAsObject.value}
+        touched={this.isKeyTouched}
         className={joinClassName(
           'rac-keyboard-key',
           `rac-keyboard-key-${value}`,
           keyAsObject && calc(keyAsObject.className),
           calc(props.className, value)
         )}
-        style={keyAsObject && keyAsObject.width ? {width: `${keyAsObject.width}px`} : {}}
+        style={keyAsObject && keyAsObject.width ? {width: keyAsObject.width} : {}}
         onClick={this.onClick}
       >
         {isFn(props.renderer) ? props.renderer(value) : value}
@@ -73,5 +63,52 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
   private onClick(): void {
     this.buttonRef.current.blur();
     this.props.onSelect(this.props.value);
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {string}
+   */
+  private get value(): string {
+    const props = this.props;
+    const keyAsString = this.keyAsString;
+    const keyAsObject = this.keyAsObject;
+
+    return isString(keyAsString)
+      ? (
+        props.useUppercase
+          ? keyAsString.toUpperCase()
+          : keyAsString
+      )
+      : (
+        keyAsObject.type === KeyboardKeysEnum.UPPERCASE
+          ? (props.useUppercase ? KeyboardKeyDescriptorsEnum.LOWERCASE : keyAsObject.value)
+          : keyAsObject.value
+      );
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {boolean}
+   */
+  private get isKeyTouched(): boolean {
+    return isString(this.keyAsString)
+      || KeyboardKeyDescriptorsEnum.CLOSE !== this.keyAsObject.value; // Touch issues fixes
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {IKeyboardKeyValueEntity}
+   */
+  private get keyAsObject(): IKeyboardKeyValueEntity {
+    return this.props.value as IKeyboardKeyValueEntity;
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {string}
+   */
+  private get keyAsString(): string {
+    return this.props.value as string;
   }
 }

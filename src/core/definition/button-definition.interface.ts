@@ -23,11 +23,20 @@ import { IComponentProps } from './props-definition.interface';
 
 /**
  * @generic-entity
+ * @stable [02.02.2020]
+ */
+export interface IGenericBaseButtonEntity
+  extends IRippledWrapper,
+    IDisabledWrapper {
+}
+
+/**
+ * @generic-entity
  * @stable [13.02.2019]
  */
 export interface IGenericButtonEntity
-  extends IDecoratedWrapper,
-    IDisabledWrapper,
+  extends IGenericBaseButtonEntity,
+    IDecoratedWrapper,
     IErrorEntity,
     IErrorMessageWrapper,
     IFullWrapper,
@@ -38,7 +47,6 @@ export interface IGenericButtonEntity
     IProgressMessageWrapper,
     IProgressWrapper,
     IRaisedWrapper,
-    IRippledWrapper,
     ITextWrapper,
     ITouchedWrapper,
     IToWrapper,
