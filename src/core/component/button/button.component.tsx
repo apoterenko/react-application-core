@@ -3,24 +3,19 @@ import * as React from 'react';
 import { BaseComponent } from '../base';
 import {
   calc,
-  fullFlexClassName,
   handlerPropsFactory,
+  hasIcon,
   ifNotNilThanValue,
+  inProgress,
   isDecorated,
+  isDisabled,
+  isFull,
   isObjectNotEmpty,
   isRippled,
   joinClassName,
+  nvl,
 } from '../../util';
-import {
-  DEFAULT_FLEX_BUTTON_CLASS_NAMES,
-  IButtonProps,
-} from '../../definition';
-import {
-  getButtonIcon,
-  getButtonText,
-  hasIconButton,
-  isButtonDisabled,
-} from './button.support';
+import { IButtonProps } from '../../definition';
 import { Link } from '../link';
 
 export class Button extends BaseComponent<IButtonProps> {
@@ -32,22 +27,22 @@ export class Button extends BaseComponent<IButtonProps> {
   };
 
   /**
-   * @stable [27.01.2019]
+   * @stable [02.02.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
     const {iconRight} = props;
-    const buttonText = getButtonText(props);
-    const hasContent = isObjectNotEmpty(props.children) || isObjectNotEmpty(buttonText);
-    const hasIcon = hasIconButton(props);
+    const $text = this.text;
+    const $hasContent = this.hasContent($text);
+    const $hasIcon = hasIcon(props);
 
     const className = joinClassName(
-      ...DEFAULT_FLEX_BUTTON_CLASS_NAMES,
+      'rac-button',
       calc(props.className),
-      fullFlexClassName(props as any), // TODO
-      hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
-      this.isDecorated && hasIcon && 'rac-button-decorated',
+      $hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
+      this.isFull && 'rac-button-full',
+      this.isDecorated && $hasIcon && 'rac-button-decorated',
       props.mini && 'rac-button-mini',
       props.outlined && 'rac-button-outlined',
       props.raised && 'rac-button-raised',
@@ -61,13 +56,12 @@ export class Button extends BaseComponent<IButtonProps> {
           style={props.style}
           className={className}
         >
-          {buttonText}
+          {$text}
         </Link>
       );
     }
-    const disabled = isButtonDisabled(props);
-
-    const iconElement = hasIcon && this.uiFactory.makeIcon(getButtonIcon(props, 'spinner', 'error'));
+    const disabled = this.isDisabled;
+    const iconElement = $hasIcon && this.iconElement;
 
     return (
       <button
@@ -81,9 +75,9 @@ export class Button extends BaseComponent<IButtonProps> {
       >
         {!iconRight && iconElement}
         {
-          hasContent && (
+          $hasContent && (
             <div className='rac-button__content'>
-              {buttonText && this.t(buttonText)}
+              {$text && this.t($text)}
               {props.children}
             </div>
           )
@@ -105,11 +99,11 @@ export class Button extends BaseComponent<IButtonProps> {
    * @returns {boolean}
    */
   private get isRippled(): boolean {
-    return isRippled(this.props) && isRippled(this.globalButtonSettings);
+    return isRippled(this.props) && isRippled(this.systemButtonSettings);
   }
 
   /**
-   * @stable [24.01.2020]
+   * @stable [02.02.2020]
    * @returns {boolean}
    */
   private get isDecorated(): boolean {
@@ -117,10 +111,78 @@ export class Button extends BaseComponent<IButtonProps> {
   }
 
   /**
+   * @stable [02.02.2020]
+   * @param text
+   * @returns {boolean}
+   */
+  private hasContent(text): boolean {
+    return isObjectNotEmpty(this.props.children) || isObjectNotEmpty(text);
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {boolean}
+   */
+  private get isDisabled(): boolean {
+    return isDisabled(this.props) || inProgress(this.props);
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {boolean}
+   */
+  private get isFull(): boolean {
+    return isFull(this.props);
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {JSX.Element}
+   */
+  private get iconElement(): JSX.Element {
+    const {
+      error,
+      icon,
+      progress,
+    } = this.props;
+
+    return this.uiFactory.makeIcon({
+      type: progress
+        ? 'spinner'
+        : (error ? 'error' : icon as string),
+    });
+  }
+
+  /**
+   * @stable [02.02.2020]
+   * @returns {string}
+   */
+  private get text(): string {
+    const {
+      error,
+      errorMessage,
+      icon,
+      progress,
+      progressMessage,
+      text,
+    } = this.props;
+
+    return (
+      progress
+        ? nvl(progressMessage, this.settings.messages.WAITING)
+        : (
+          error
+            ? nvl(errorMessage, this.settings.messages.ERROR)
+            : text
+        )
+    );
+  }
+
+  /**
    * @stable [24.01.2020]
    * @returns {IButtonProps}
    */
-  private get globalButtonSettings(): IButtonProps {
-    return ifNotNilThanValue(this.settings.components, (components) => components.button, {}) || {};
+  private get systemButtonSettings(): IButtonProps {
+    return ifNotNilThanValue(this.settings.components, (components) => components.button || {}, {});
   }
 }

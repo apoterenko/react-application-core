@@ -1,10 +1,10 @@
 @import '../mixin';
 @import '../constant';
 
-// Button [FRAMEWORK-][RAC+]
 .rac {
 
-  @include rac-button (                                                                       /* @stable [31.10.2018] */
+  @include rac-button (
+    $rac-button-align-items: $rac-button-align-items,
     $rac-button-background: $rac-button-background,
     $rac-button-border-radius: $rac-button-border-radius,
     $rac-button-border: $rac-button-border,
@@ -18,9 +18,9 @@
     $rac-button-disabled-cursor: $rac-button-disabled-cursor,
     $rac-button-disabled-opacity: $rac-button-disabled-opacity,
     $rac-button-disabled-shadow: $rac-button-disabled-shadow,
+    $rac-button-display: $rac-button-display,
     $rac-button-height: $rac-button-height,
-    $rac-button-padding: $rac-button-padding,
-    $rac-button-text-transform: $rac-button-text-transform
+    $rac-button-padding: $rac-button-padding
   );
 
   @include rac-button(                                                                        /* @stable [01.11.2018] */
@@ -28,13 +28,11 @@
     $rac-button-color: $rac-button-raised-color,
     $rac-button-background: $rac-button-raised-background,
     $rac-button-shadow: $rac-button-raised-shadow,
-    $rac-button-shadow-offset: $rac-button-raised-shadow-offset,
     $rac-button-hover-background: $rac-button-raised-hover-background,
     $rac-button-hover-shadow: $rac-button-raised-hover-shadow,
     $rac-button-disabled-background: $rac-button-disabled-background,  // rac-button inheritance
     $rac-button-disabled-shadow: $rac-button-disabled-shadow,          // rac-button inheritance,
     $rac-button-content-font-size: $rac-button-raised-content-font-size,
-    $rac-button-icon-opacity: $rac-button-raised-icon-opacity,
     $rac-button-icon-color: $rac-button-raised-icon-color
   );
 
@@ -46,20 +44,31 @@
     $rac-button-icon-color: $rac-button-outlined-icon-color
   );
 
-  @include rac-button(                                                                        /* @stable [01.11.2018] */
+  /**
+   * @button-filled
+   * @stable [02.02.2020]
+   */
+  @include rac-button (
     $rac-button-custom: $rac-button-filled-cls,
-    $rac-button-icon-margin: $rac-button-icon-margin
+    $rac-button-icon-margin: $rac-button-filled-icon-margin
   );
 
-  @include rac-button(                                                                        /* @stable [01.11.2018] */
+  /**
+   * @button-not-filled
+   * @stable [02.02.2020]
+   */
+  @include rac-button (
     $rac-button-custom: $rac-button-not-filled-cls,
-    $rac-button-icon-margin: 0 auto
+    $rac-button-icon-margin: $rac-button-not-filled-icon-margin
   );
 
-  @include rac-button(                                                                        /* @stable [01.11.2018] */
-    $rac-button-custom: $rac-button-decorated-cls,
-    $rac-button-content-padding: $rac-button-decorated-content-padding,
-    $rac-button-content-margin: $rac-button-decorated-content-margin
+  /**
+   * @button-decorated-filled
+   * @stable [02.02.2020]
+   */
+  @include rac-button (
+    $rac-button-custom: $rac-button-decorated-filled-cls,
+    $rac-button-content-padding: $rac-button-decorated-filled-content-padding
   );
 
   /**
@@ -71,10 +80,24 @@
     $rac-button-width: $rac-button-decorated-not-filled-width
   );
 
-  @include rac-button(                                                                        /* @stable [10.02.2019] */
-    $rac-button-custom: rac-cls2($rac-button-mini-cls, $rac-button-decorated-not-filled-cls),
-    $rac-button-width: $rac-button-mini-size-0,
-    $rac-button-height: $rac-button-mini-size-0,
-    $rac-button-icon-size: 12px
+  /**
+   * @button-mini
+   * @stable [02.02.2020]
+   */
+  @include rac-button (
+    $rac-button-custom: $rac-button-mini-cls,
+    $rac-button-height: $rac-button-mini-height,
+    $rac-button-icon-size: $rac-button-mini-icon-size,
+    $rac-button-width: $rac-button-mini-width
+  );
+
+
+  /**
+   * @button-full
+   * @stable [02.02.2020]
+   */
+  @include rac-button (
+    $rac-button-custom: $rac-button-full-cls,
+    $rac-button-flex: $rac-button-full-flex
   );
 }

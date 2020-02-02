@@ -176,6 +176,7 @@ export interface IMessagesSettingsEntity {
   SOMETHING_WENT_WRONG?: string;
   UNKNOWN_ERROR?: string;
   USER?: string;
+  WAITING?: string;
   WEEK?: string;
   YEAR?: string;
 }
@@ -212,6 +213,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   SOMETHING_WENT_WRONG: 'Something went wrong',
   UNKNOWN_ERROR: 'Unknown error',
   USER: 'User',
+  WAITING: 'Waiting...',
   WEEK: 'Week',
   YEAR: 'Year',
 });

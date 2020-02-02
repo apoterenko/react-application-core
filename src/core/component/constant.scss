@@ -80,6 +80,11 @@ $rac-color-2-2: #ed254e !default;
 $rac-color-2-3: #ffbf00 !default;
 
 /************************/
+/* @stable [02.02.2020] */
+/************************/
+$rac-opacity-0: .5 !default;
+
+/************************/
 /* @stable [29.01.2020] */
 /************************/
 $rac-field-color-0: $rac-color-1-3 !default;
@@ -259,52 +264,70 @@ $rac-calendar-dialog-range-button-mini-icon-size: $rac-icon-size-4 !default;
 $rac-calendar-dialog-range-explorer-date-font-size: $rac-font-size-1 !default;
 $rac-calendar-dialog-range-explorer-date: $rac-color-0-1 !default;
 
-/* @stable [13.01.2020] */
+/************************/
+/* @stable [02.02.2020] */
+/************************/
 $rac-button-decorated-cls: rac-button-decorated;
 $rac-button-filled-cls: rac-button-filled;
+$rac-button-full-cls: rac-button-full;
 $rac-button-mini-cls: rac-button-mini;
 $rac-button-not-filled-cls: rac-button-not-filled;
 $rac-button-outlined-cls: rac-button-outlined;
 $rac-button-raised-cls: rac-button-raised;
 /**/
+$rac-button-decorated-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-filled-cls}';
 $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
 /**/
-$rac-button-mini-size-0: 32px;
+$rac-button-color-0: $rac-color-1-6 !default;
+$rac-button-color-1: $rac-color-0-4 !default;
+$rac-button-color-2: $rac-color-0-3 !default;
+$rac-button-color-3: $rac-color-0-1 !default;
+$rac-button-color-4: $rac-color-0-10 !default;
+$rac-button-display-0: flex !default;
+$rac-button-offset-0: 0 6px 16px 0 !default;
+$rac-button-opacity-0: $rac-opacity-0 !default;
+$rac-button-size-0: 32px !default;
+$rac-button-size-1: 40px !default;
+$rac-button-size-2: 12px !default;
+$rac-button-size-3: 1px !default;
+$rac-button-size-4: $rac-offset-1 !default;
+$rac-button-size-5: $rac-icon-size-4 !default;
 /**/
-$rac-button-background: $rac-color-0-3 !default;
+$rac-button-align-items: center !default;
+$rac-button-background: $rac-button-color-2 !default;
 $rac-button-border-radius: $rac-border-radius-1 !default;
 $rac-button-border: none !default;
-$rac-button-cursor: pointer !default;
-$rac-button-height: 40px !default;
-$rac-button-icon-margin: 0 8px !default;
-$rac-button-padding: 0 $rac-default-half-offset !default;
-$rac-button-text-transform: none !default;
-/**/
-$rac-button-content-font-size: $rac-default-font-size-2 !default;
-$rac-button-content-font-weight: $rac-default-font-weight-2 !default;
+$rac-button-content-font-size: $rac-font-size-1 !default;
+$rac-button-content-font-weight: $rac-font-weight-2 !default;
 $rac-button-content-margin: 0 auto !default;
 $rac-button-content-white-space: nowrap !default;
 $rac-button-content-word-break: break-word !default;
-/**/
-$rac-button-disabled-cursor: default !default;
-$rac-button-disabled-opacity: $opacity !default;
+$rac-button-cursor: pointer !default;
+$rac-button-decorated-filled-content-padding: 0 ($rac-button-size-4 * 2 + $rac-button-size-5) 0 0 !default;
+$rac-button-decorated-not-filled-width: $rac-button-size-1 !default;
 $rac-button-disabled-background: unset !default;
+$rac-button-disabled-cursor: default !default;
+$rac-button-disabled-opacity: $rac-button-opacity-0 !default;
 $rac-button-disabled-shadow: unset !default;
-$rac-button-outlined-border: 1px solid $color-4 !default;
-$rac-button-outlined-background: transparent !default;
+$rac-button-display: $rac-button-display-0 !default;
+$rac-button-filled-icon-margin: 0 $rac-button-size-4 !default;
+$rac-button-full-flex: 1 !default;
+$rac-button-height: $rac-button-size-1 !default;
+$rac-button-mini-height: $rac-button-size-0 !default;
+$rac-button-mini-icon-size: $rac-button-size-2 !default;
+$rac-button-mini-width: $rac-button-size-0 !default;
+$rac-button-not-filled-icon-margin: 0 auto !default;
+$rac-button-outlined-background: 0 !default;
+$rac-button-outlined-border: $rac-button-size-3 solid $rac-button-color-4 !default;
 $rac-button-outlined-icon-color: unset !default;
-$rac-button-raised-color: $color-5 !default;
-$rac-button-raised-background: $color-4 !default;
-$rac-button-raised-shadow: $color-10 !default;
-$rac-button-raised-shadow-offset: 0 6px 16px 0 !default;
-$rac-button-raised-hover-background: $rac-button-raised-background !default;
-$rac-button-raised-hover-shadow: $rac-button-raised-shadow !default;
+$rac-button-padding: 0 $rac-button-size-4 !default;
+$rac-button-raised-background: $rac-button-color-1 !default;
+$rac-button-raised-color: $rac-button-color-3 !default;
 $rac-button-raised-content-font-size: unset !default;
-$rac-button-raised-icon-opacity: unset !default;
+$rac-button-raised-hover-background: $rac-button-color-1 !default;
+$rac-button-raised-hover-shadow: $rac-button-offset-0 $rac-button-color-0 !default;
 $rac-button-raised-icon-color: unset !default;
-$rac-button-decorated-content-padding: 0 32px 0 0 !default;
-$rac-button-decorated-content-margin: unset !default;
-$rac-button-decorated-not-filled-width: 40px !default;
+$rac-button-raised-shadow: $rac-button-offset-0 $rac-button-color-0 !default;
 
 /************************/
 /* @stable [26.01.2020] */
@@ -662,7 +685,7 @@ $rac-date-field-calendars-dialog-quick-button-height: 32px !default;
 $rac-date-field-calendars-dialog-quick-button-neighbor-margin: 0 0 0 $rac-offset-1 !default;
 $rac-date-field-calendars-dialog-quick-buttons-display: flex !default;
 $rac-date-field-calendars-dialog-quick-buttons-margin: 0 0 $rac-offset-3 0 !default;
-$rac-date-field-calendars-dialog-range-explorer-date-content-next-margin: 0 0 0 $rac-button-mini-size-0 * 2 + $rac-offset-4 !default;
+$rac-date-field-calendars-dialog-range-explorer-date-content-next-margin: 0 0 0 $rac-button-size-0 * 2 + $rac-offset-4 !default;
 $rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-offset-4 !default;
 /**/
 $rac-place-field-dialog-body-height: 80vh !default;

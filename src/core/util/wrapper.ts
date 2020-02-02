@@ -21,11 +21,13 @@ import {
   IFieldRenderedWrapper,
   IFocusedWrapper,
   IForceReloadWrapper,
+  IForceUseLocalFilterWrapper,
   IFullWrapper,
   IHeaderRenderedWrapper,
   IHeightRestrictedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
+  IIconWrapper,
   IIndexedWrapper,
   IInlineWrapper,
   IKeyboardOpenWrapper,
@@ -52,7 +54,6 @@ import {
   ITouchedWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
-  IForceUseLocalFilterWrapper,
   IUseZipCodeWrapper,
   IValidateOnMountWrapper,
   IValidWrapper,
@@ -144,6 +145,14 @@ export const isReady = (entity: IReadyWrapper): boolean =>
  */
 export const isFull = (entity: IFullWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.full !== false, false);
+
+/**
+ * @stable [02.02.2020]
+ * @param {IIconWrapper<boolean | string>} entity
+ * @returns {boolean}
+ */
+export const hasIcon = (entity: IIconWrapper<boolean | string>): boolean =>
+  ifNotNilThanValue(entity, () => !R.isNil(entity.icon) && entity.icon !== false, false);
 
 /**
  * @stable [24.01.2020]
@@ -262,43 +271,43 @@ export const isEdited = (editedEntity: IEditedWrapper): boolean =>
 
 /**
  * @stable [26.10.2019]
- * @param {ISortableWrapper} sortableEntity
+ * @param {ISortableWrapper} wrapper
  * @returns {boolean}
  */
-export const isSortable = (sortableEntity: ISortableWrapper): boolean =>
-  ifNotNilThanValue(sortableEntity, () => sortableEntity.sortable === true, false);
+export const isSortable = (wrapper: ISortableWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.sortable === true, false);
 
 /**
  * @stable [27.10.2019]
- * @param {IDisabledWrapper} disabledEntity
+ * @param {IDisabledWrapper} wrapper
  * @returns {boolean}
  */
-export const isDisabled = (disabledEntity: IDisabledWrapper): boolean =>
-  ifNotNilThanValue(disabledEntity, () => disabledEntity.disabled === true, false);
+export const isDisabled = (wrapper: IDisabledWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.disabled === true, false);
 
 /**
  * @stable [27.10.2019]
- * @param {IDisabledWrapper} selectedWrapper
+ * @param {IDisabledWrapper} wrapper
  * @returns {boolean}
  */
-export const isSelected = (selectedWrapper: ISelectedWrapper): boolean =>
-  ifNotNilThanValue(selectedWrapper, () => selectedWrapper.selected === true, false);
+export const isSelected = (wrapper: ISelectedWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.selected === true, false);
 
 /**
  * @stable [27.10.2019]
- * @param {ISelectableWrapper} selectableWrapper
+ * @param {ISelectableWrapper} wrapper
  * @returns {boolean}
  */
-export const isSelectable = (selectableWrapper: ISelectableWrapper): boolean =>
-  ifNotNilThanValue(selectableWrapper, () => selectableWrapper.selectable !== false, false);
+export const isSelectable = (wrapper: ISelectableWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.selectable !== false, false);
 
 /**
  * @stable [27.10.2019]
- * @param {IHoveredWrapper} hoveredWrapper
+ * @param {IHoveredWrapper} wrapper
  * @returns {boolean}
  */
-export const isHovered = (hoveredWrapper: IHoveredWrapper): boolean =>
-  ifNotNilThanValue(hoveredWrapper, () => hoveredWrapper.hovered !== false, false);
+export const isHovered = (wrapper: IHoveredWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.hovered !== false, false);
 
 /**
  * @stable [27.10.2019]
