@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { BaseComponent } from '../base';
 import {
+  calc,
   fullFlexClassName,
   handlerPropsFactory,
   ifNotNilThanValue,
@@ -43,8 +44,8 @@ export class Button extends BaseComponent<IButtonProps> {
 
     const className = joinClassName(
       ...DEFAULT_FLEX_BUTTON_CLASS_NAMES,
-      props.className,
-      fullFlexClassName(props),
+      calc(props.className),
+      fullFlexClassName(props as any), // TODO
       hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
       this.isDecorated && hasIcon && 'rac-button-decorated',
       props.mini && 'rac-button-mini',

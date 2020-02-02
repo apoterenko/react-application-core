@@ -13,6 +13,7 @@ import {
 } from '../../definition';
 import { Grid } from '../grid';
 import {
+  calc,
   isFn,
   joinClassName,
 } from '../../util';
@@ -65,7 +66,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
         highlightOdd={false}
         {...props.gridConfiguration}
         columnsConfiguration={columns}
-        className={joinClassName('rac-calendar', props.className)}
+        className={joinClassName('rac-calendar', calc(props.className))}
         {...listEntity}
       />
     );

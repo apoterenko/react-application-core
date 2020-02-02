@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { BaseComponent } from './base.component';
+import { calc } from '../../util';
 
 export class BasicComponent extends BaseComponent {
 
@@ -13,7 +14,7 @@ export class BasicComponent extends BaseComponent {
     return (
       <div
         ref={this.selfRef}
-        className={props.className}>
+        className={calc(props.className)}>
         {props.children}
       </div>
     );
