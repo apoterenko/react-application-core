@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
+import {
+  calc,
+  joinClassName,
+} from '../../../util';
 import { LayoutContainer } from '../layout.container';
 import { IFormLayoutProps } from './form-layout.interface';
 
@@ -15,8 +18,8 @@ export class FormLayoutContainer extends LayoutContainer<IFormLayoutProps> {
 
     return (
       <main
-        className={toClassName(
-          props.className,
+        className={joinClassName(
+          calc(props.className),
           'rac-form-layout',
           'rac-flex',
           'rac-flex-full',

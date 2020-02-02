@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { toClassName } from '../../util';
+import {
+  calc,
+  joinClassName,
+} from '../../util';
 import { BaseComponent } from '../base/base.component';
 import { FlexLayout } from '../layout/flex';
 
@@ -14,11 +17,12 @@ export class Header extends BaseComponent {
     const props = this.props;
 
     return (
-      <FlexLayout full={false}
-                  row={true}
-                  justifyContentEnd={true}
-                  alignItemsCenter={true}
-                  className={toClassName('rac-header', props.className)}>
+      <FlexLayout
+        full={false}
+        row={true}
+        justifyContentEnd={true}
+        alignItemsCenter={true}
+        className={joinClassName('rac-header', calc(props.className))}>
         {props.children}
       </FlexLayout>
     );

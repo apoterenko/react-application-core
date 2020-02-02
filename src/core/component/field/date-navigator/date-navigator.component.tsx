@@ -86,7 +86,7 @@ export class DateNavigator
           onClick={this.onLeft}/>
         <DateField
           {...defValuesFilter({...this.props, type: UNDEF, step: UNDEF, pattern: UNDEF, time: UNDEF})}
-          className={toClassName('rac-date-navigator', props.className)}
+          className={toClassName('rac-date-navigator', calc(props.className))}
           format={this.fieldFormat}
           displayValue={this.getDisplayValue}/>
         <Button

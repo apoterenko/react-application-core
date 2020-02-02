@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  calc,
   cancelEvent,
   defValuesFilter,
   fullFlexClassName,
@@ -333,7 +334,7 @@ export class Field<TProps extends IFieldProps,
 
     return joinClassName(
       'rac-field',
-      flexEnabled && fullFlexClassName(props),
+      flexEnabled && fullFlexClassName(props as any), // TODO
       this.isRequired && 'rac-field-required',
       this.isFieldBusy() && 'rac-field-busy',
       this.isFieldInvalid() && 'rac-field-invalid',
@@ -346,7 +347,7 @@ export class Field<TProps extends IFieldProps,
       !R.isEmpty(this.getFieldActions()) && 'rac-field-actioned',
       props.label && 'rac-field-labeled',
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
-      props.className
+      calc<string>(props.className)
     );
   }
 

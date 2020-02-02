@@ -429,7 +429,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const props = this.props;
 
     return joinClassName(
-      props.className,
+      calc<string>(props.className),
       BaseDialog.DIALOG_CLASS_NAME,
       this.isDefault && 'rac-default-dialog',
       this.isModal && BaseDialog.DIALOG_MODAL_CLASS_NAME,

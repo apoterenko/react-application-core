@@ -1,7 +1,10 @@
 import * as React from 'react';
 
 import { IDrawerProps } from './drawer.interface';
-import { joinClassName } from '../../util';
+import {
+  calc,
+  joinClassName,
+} from '../../util';
 import { BaseComponent } from '../base/base.component';
 
 export class Drawer extends BaseComponent<IDrawerProps> {
@@ -18,7 +21,7 @@ export class Drawer extends BaseComponent<IDrawerProps> {
         className={joinClassName(
           'rac-drawer',
           mini && 'rac-drawer-mini',
-          props.className
+          calc(props.className)
         )}>
         {props.children}
       </div>

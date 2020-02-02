@@ -5,7 +5,11 @@ import { Chart as ChartJs } from 'chart.js';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout/flex';
 import { IChartProps } from './chart.interface';
-import { toClassName, ifNotFalseThanValue } from '../../util';
+import {
+  calc,
+  ifNotFalseThanValue,
+  joinClassName,
+} from '../../util';
 
 export class Chart extends BaseComponent<IChartProps> {
 
@@ -39,7 +43,7 @@ export class Chart extends BaseComponent<IChartProps> {
     return (
       <FlexLayout
         row={true}
-        className={toClassName(props.className, 'rac-chart')}
+        className={joinClassName(calc(props.className), 'rac-chart')}
       >
         {props.west}
         {

@@ -5,6 +5,7 @@ import { Drawer } from '../../drawer';
 import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
 import {
+  calc,
   isFn,
   joinClassName,
   orNull,
@@ -99,7 +100,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const props = this.props;
     return (
       <FlexLayout row={true}
-                  className={joinClassName('rac-default-layout', props.className)}>
+                  className={joinClassName('rac-default-layout', calc(props.className))}>
         {this.drawerElement}
         <FlexLayout>
           {this.headerElement}

@@ -23,12 +23,12 @@ export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
         ref={this.selfRef}
         className={
           joinClassName(
-            props.className,
+            calc(props.className),
             /**/
             props.inline ? 'rac-inline-flex' : 'rac-flex',
             props.row ? 'rac-flex-row' : 'rac-flex-column',
             /**/
-            fullFlexClassName(props),
+            fullFlexClassName(props as any), // TODO
             props.fullSize && 'rac-full-size',
             props.noShrink && 'rac-flex-no-shrink',
             /**/

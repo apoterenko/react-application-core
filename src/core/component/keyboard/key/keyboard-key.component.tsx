@@ -3,17 +3,17 @@ import * as React from 'react';
 import { BaseComponent } from '../../base';
 import { Button } from '../../button';
 import {
-  IKeyboardKey,
-  KeyboardKeyEnum,
-} from '../../../configurations-definitions.interface';
-import { IKeyboardKeyProps } from './keyboard-key.interface';
+  IKeyboardKeyProps,
+  IKeyboardKeyValueEntity,
+  KeyboardKeyDescriptorsEnum,
+  KeyboardKeysEnum,
+} from '../../../definition';
 import {
   calc,
   isFn,
   isString,
   joinClassName,
 } from '../../../util';
-import { KEYBOARD_SPECIAL_KEYS } from '../keyboard.interface';
 
 export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
   private readonly buttonRef = React.createRef<Button>();
@@ -34,7 +34,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
   public render(): JSX.Element {
     const props = this.props;
     const keyAsString = props.value as string;
-    const keyAsObject = props.value as IKeyboardKey;
+    const keyAsObject = props.value as IKeyboardKeyValueEntity;
     const value = isString(keyAsString)
       ? (
         props.useUppercase
@@ -42,8 +42,8 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
           : keyAsString
       )
       : (
-        keyAsObject.type === KeyboardKeyEnum.UPPERCASE
-          ? (props.useUppercase ? KEYBOARD_SPECIAL_KEYS.LOWERCASE : keyAsObject.value)
+        keyAsObject.type === KeyboardKeysEnum.UPPERCASE
+          ? (props.useUppercase ? KeyboardKeyDescriptorsEnum.LOWERCASE : keyAsObject.value)
           : keyAsObject.value
       );
 
@@ -52,7 +52,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
         ref={this.buttonRef}
         disabled={props.disabled}
         rippled={props.rippled}
-        touched={isString(keyAsString) || KEYBOARD_SPECIAL_KEYS.CLOSE !== keyAsObject.value}
+        touched={isString(keyAsString) || KeyboardKeyDescriptorsEnum.CLOSE !== keyAsObject.value}
         className={joinClassName(
           'rac-keyboard-key',
           `rac-keyboard-key-${value}`,

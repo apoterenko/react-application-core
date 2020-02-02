@@ -3,10 +3,9 @@ import * as ReactDOM from 'react-dom';
 import * as R from 'ramda';
 
 import { ENV } from '../../env';
-import { isString, toClassName, orNull, nvl } from '../../util';
+import { isString, toClassName, orNull, nvl, calc } from '../../util';
 import { BaseComponent } from '../base';
 import {
-  IKeyboardProps,
   KEYBOARD_QWERTY_LAYOUT,
   KEYBOARD_QWERTY_DIGITAL_LAYOUT,
   IKeyboardState,
@@ -14,10 +13,12 @@ import {
 import { KeyboardKey } from './key';
 import { FlexLayout } from '../layout/flex';
 import {
-  IKeyboardKey,
-  KeyboardKeyEnum,
-  KeyboardKeyT,
-} from '../../configurations-definitions.interface';
+  IKeyboardProps,
+  KeyboardClassNamesEnum,
+  KeyboardKeyValueT,
+  KeyboardKeysEnum,
+  IKeyboardKeyValueEntity,
+} from '../../definition';
 
 export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
 
@@ -44,16 +45,16 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
     const props = this.props;
     const state = this.state;
     const keys = props.layout[state.mode];
-    const portalKeyboard = props.renderToBody !== false;
+    const portalKeyboard = props.inline !== false;
 
     const el = (
       <div
         ref={this.selfRef}
         className={toClassName(
-          'rac-keyboard',
+          KeyboardClassNamesEnum.KEYBOARD,
           'rac-no-user-select',
           portalKeyboard && 'rac-keyboard-portal',
-          props.className
+          calc(props.className)
         )}
       >
         {
@@ -97,9 +98,9 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
 
   /**
    * @stable [08.05.2018]
-   * @param {KeyboardKeyT} key
+   * @param {KeyboardKeyValueT} key
    */
-  private onSelect(key: KeyboardKeyT): void {
+  private onSelect(key: KeyboardKeyValueT): void {
     let nextValue;
     const props = this.props;
     const state = this.state;
@@ -107,29 +108,29 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
     const position = fieldValue.length;
     const chars = fieldValue.split('');
     const keyAsString = key as string;
-    const keyAsObject = key as IKeyboardKey;
+    const keyAsObject = key as IKeyboardKeyValueEntity;
 
-    if (isString(keyAsString) || keyAsObject.type === KeyboardKeyEnum.SPACE) {
+    if (isString(keyAsString) || keyAsObject.type === KeyboardKeysEnum.SPACE) {
       const keyValue = isString(keyAsString) ? keyAsString : keyAsObject.value;
       nextValue = R.insert<string>(position, state.useUppercase ? keyValue.toUpperCase() : keyValue, chars);
       props.onChange(nextValue.join(''));
       this.setState({position: position + 1});
     } else {
       switch (keyAsObject.type) {
-        case KeyboardKeyEnum.UPPERCASE:
+        case KeyboardKeysEnum.UPPERCASE:
           this.setState({useUppercase: !state.useUppercase});
           break;
-        case KeyboardKeyEnum.CHANGE_LAYOUT:
+        case KeyboardKeysEnum.CHANGE_LAYOUT:
           this.setState({mode: this.state.mode === props.layout.length - 1 ? 0 : this.state.mode + 1});
           break;
-        case KeyboardKeyEnum.BACKSPACE:
+        case KeyboardKeysEnum.BACKSPACE:
           if (position > 0) {
             nextValue = R.remove<string>(position - 1, 1, chars).join('');
             props.onChange(nextValue);
             this.setState({position: position - 1});
           }
           break;
-        case KeyboardKeyEnum.CLOSE:
+        case KeyboardKeysEnum.CLOSE:
           props.onClose();
           break;
       }

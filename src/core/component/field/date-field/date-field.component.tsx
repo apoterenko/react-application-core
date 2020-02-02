@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  calc,
   ifNotEmptyThanValue,
   ifNotNilThanValue,
   isCalendarActionRendered,
@@ -116,7 +117,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     const {dialogConfiguration = {}} = props;
 
     const className = joinClassName(
-      !this.isInline && dialogConfiguration.className,
+      !this.isInline && calc(dialogConfiguration.className),
       'rac-calendar-base-dialog',
       this.isInline ? 'rac-calendar-inline-dialog' : 'rac-calendar-dialog',
       this.isRangeEnabled ? 'rac-date-field__calendars-dialog' : 'rac-date-field__calendar-dialog'
@@ -286,7 +287,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             {...defaultCalendarProps}
             gridConfiguration={{
               ...gridConfiguration,
-              wrapperClassName: joinClassName('rac-calendar-dialog__second-calendar', gridConfiguration.className),
+              wrapperClassName: joinClassName('rac-calendar-dialog__second-calendar', calc(gridConfiguration.className)),
             }}
             calendarEntity={this.nextCalendarEntity}/>
         </div>
