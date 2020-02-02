@@ -83,5 +83,6 @@ export interface IButtonConfigurationEntity
  */
 export enum ButtonClassNamesEnum {
   BUTTON = 'rac-button',
+  BUTTON_CONTENT = 'rac-button__content',
   BUTTON_RAISED = 'rac-button-raised',
 }
