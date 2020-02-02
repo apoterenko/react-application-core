@@ -11,6 +11,7 @@ import {
   IEntity,
 } from '../../definitions.interface';
 import {
+  calc,
   coalesce,
   ifNotNilThanValue,
   isDef,
@@ -73,7 +74,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         <table
           cellPadding={0}
           cellSpacing={0}
-          className={joinClassName('rac-grid', props.className)}
+          className={joinClassName('rac-grid', calc(props.className))}
         >
           {
             isHeaderRendered(props) && (

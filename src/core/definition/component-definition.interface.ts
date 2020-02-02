@@ -18,8 +18,8 @@ import {
  * @browser-compatible
  * @stable [20.09.2019]
  */
-export interface IWebComponentEntity<TClassName = string>
-  extends IClassNameWrapper<TClassName>,
+export interface IWebComponentEntity
+  extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
     IStyleWrapper<React.CSSProperties> {
 }
 
@@ -45,7 +45,8 @@ export interface IUniversalComponent<TProps extends IUniversalComponentProps = I
 /**
  * @stable [27.09.2019]
  */
-export interface IComponent<TProps extends IComponentProps = IComponentProps, TState = {}>
+export interface IComponent<TProps extends IComponentProps = IComponentProps,
+  TState = {}>
   extends IUniversalComponent<TProps, TState> {
 }
 

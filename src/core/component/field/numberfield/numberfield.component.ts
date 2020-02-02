@@ -8,7 +8,7 @@ import {
 } from './numberfield.interface';
 import { ChangeEventT } from '../../../definitions.interface';
 import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
-import { IKeyboardConfiguration } from '../../../configurations-definitions.interface';
+import { IKeyboardProps } from '../../../definition';
 
 export class NumberField extends BaseTextField<INumberFieldInternalProps,
                                                 INumberFieldInternalState>
@@ -32,13 +32,13 @@ export class NumberField extends BaseTextField<INumberFieldInternalProps,
   }
 
   /**
-   * @stable [21.11.2018]
-   * @returns {IKeyboardConfiguration}
+   * @stable [01.02.2020]
+   * @returns {IKeyboardProps}
    */
-  protected getKeyboardConfiguration(): IKeyboardConfiguration {
+  protected getKeyboardProps(): IKeyboardProps {
     return {
       layout: [KEYBOARD_NUMERIC_LAYOUT],
-      ...super.getKeyboardConfiguration(),
+      ...super.getKeyboardProps(),
     };
   }
 

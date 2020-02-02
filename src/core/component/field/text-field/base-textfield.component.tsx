@@ -17,9 +17,6 @@ import {
   IChangeEvent,
   UniCodesEnum,
 } from '../../../definitions.interface';
-import {
-  IKeyboardConfiguration,
-} from '../../../configurations-definitions.interface';
 import { Field } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
@@ -34,6 +31,8 @@ import {
   IBaseEvent,
   IFieldActionEntity,
   IJQueryElement,
+  IKeyboardProps,
+  KeyboardClassNamesEnum,
   TouchEventsEnum,
 } from '../../../definition';
 
@@ -91,7 +90,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
         field={this}
         onClose={this.closeVirtualKeyboard}
         onChange={this.onKeyboardChange}
-        {...this.getKeyboardConfiguration()}/>
+        {...this.getKeyboardProps()}/>
     );
   }
 
@@ -100,14 +99,14 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {boolean}
    */
   protected isKeyboardOpen(): boolean {
-    return super.isKeyboardOpen() || this.getKeyboardConfiguration().renderToBody === false;
+    return super.isKeyboardOpen() || this.getKeyboardProps().inline === false;
   }
 
   /**
    * @stable [21.11.2018]
    * @returns {IKeyboardConfiguration}
    */
-  protected getKeyboardConfiguration(): IKeyboardConfiguration {
+  protected getKeyboardProps(): IKeyboardProps {
     return this.props.keyboardConfiguration || {};
   }
 
@@ -268,7 +267,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
       return;
     }
 
-    if (this.domAccessor.getParentsAsElements({parentClassName: 'rac-keyboard', element})  // TODO className
+    if (this.domAccessor.getParentsAsElements({parentClassName: KeyboardClassNamesEnum.KEYBOARD, element})
         .includes(keyboardEl)) {
       return;
     }

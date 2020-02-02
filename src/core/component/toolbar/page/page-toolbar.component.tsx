@@ -3,7 +3,12 @@ import * as R from 'ramda';
 
 import { FlexLayout } from '../../layout/flex';
 import { IPageToolbarProps } from './page-toolbar.interface';
-import { orNull, toClassName, ifNotFalseThanValue } from '../../../util';
+import {
+  calc,
+  ifNotFalseThanValue,
+  joinClassName,
+  orNull,
+} from '../../../util';
 import { UniversalPageToolbar } from './universal-page-toolbar.component';
 
 export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
@@ -17,7 +22,7 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
     return orNull<JSX.Element>(
       this.isToolbarVisible(),
       () => (
-        <FlexLayout className={toClassName('rac-toolbar', 'rac-page-toolbar', props.className)}>
+        <FlexLayout className={joinClassName('rac-toolbar', 'rac-page-toolbar', calc(props.className))}>
           {this.getToolbarBody()}
         </FlexLayout>
       )

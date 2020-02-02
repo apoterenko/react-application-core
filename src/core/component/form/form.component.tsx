@@ -11,6 +11,7 @@ import {
   INITIAL_FORM_ENTITY,
 } from '../../definition';
 import {
+  calc,
   cloneReactNodes,
   defValuesFilter,
   getFormFieldDisplayValue,
@@ -20,8 +21,8 @@ import {
   isActionsRendered,
   isCompact,
   isFn,
-  isFormValid,
   isFormFieldReadOnly,
+  isFormValid,
   isFormWrapperEntityInProgress,
   isString,
   isValidateOnMount,
@@ -156,7 +157,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
       'rac-flex-column',
       'rac-flex-no-shrink',
       props.full !== false && 'rac-flex-full',
-      props.className
+      calc(props.className)
     );
   }
 

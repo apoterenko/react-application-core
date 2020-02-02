@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, orNull } from '../../util';
+import { toClassName, orNull, calc } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout/flex';
 import { Dialog } from '../dialog';
@@ -119,7 +119,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {string}
    */
   protected getClassName(): string {
-    return toClassName('rac-viewer', this.props.className);
+    return toClassName('rac-viewer', calc<string>(this.props.className));
   }
 
   /**

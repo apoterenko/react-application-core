@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  calc,
   handlerPropsFactory,
   isDisabled,
   isFn,
@@ -75,7 +76,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
         ref: this.selfRef,
         className: joinClassName(
           'rac-list-item',
-          props.className,
+          calc(props.className),
           props.icon && 'rac-list-item__decorated',
           props.odd && 'rac-list-item__odd',
           props.hovered && 'rac-list-item__hovered',

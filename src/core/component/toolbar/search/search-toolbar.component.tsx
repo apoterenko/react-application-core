@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
+import { joinClassName, calc } from '../../../util';
 import { TextField } from '../../field';
 import { ISearchToolbarProps } from './search-toolbar.interface';
 import { UniversalSearchToolbar } from './universal-search-toolbar.component';
@@ -23,7 +23,7 @@ export class SearchToolbar<TProps extends ISearchToolbarProps = ISearchToolbarPr
         justifyContentEnd={true}
         alignItemsCenter={true}
         full={props.full}
-        className={toClassName('rac-toolbar', props.className)}>
+        className={joinClassName('rac-toolbar', calc<string>(props.className))}>
         {this.actionsElementsSection}
         {this.fieldSection}
       </FlexLayout>

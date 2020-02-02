@@ -4,7 +4,7 @@ import { BaseContainer } from '../base';
 import { Button } from '../button';
 import { FlexLayout } from '../layout/flex';
 import { IButtonProps, ToolbarToolsEnum } from '../../definition';
-import { isPrimitive, isFn, toClassName } from '../../util';
+import { isPrimitive, isFn, joinClassName, calc } from '../../util';
 import {
   IToolbarToolsContainerProps,
   TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE,
@@ -42,7 +42,7 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
         row={true}
         justifyContentEnd={true}
         {...props.flex}
-        className={toClassName(props.className, 'rac-toolbar-tools')}
+        className={joinClassName(calc(props.className), 'rac-toolbar-tools')}
       >
         {props.leftSlot}
         {
@@ -52,7 +52,7 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
               <Button
                 key={`action-${index}-key`}
                 disabled={props.actionsDisabled}
-                className={toClassName(
+                className={joinClassName(
                   (props.activeActions || []).includes(cfg) && 'rac-toolbar-tool-active',
                 )}
                 {...actionProps}/>

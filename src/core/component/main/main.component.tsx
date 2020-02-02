@@ -10,7 +10,10 @@ import {
 } from '../../definition';
 import { BaseComponent } from '../base/base.component';
 import { FlexLayout } from '../layout/flex';
-import { joinClassName } from '../../util';
+import {
+  calc,
+  joinClassName,
+} from '../../util';
 
 export class Main extends BaseComponent<IMainProps>
   implements IScrollableEntity {
@@ -43,7 +46,7 @@ export class Main extends BaseComponent<IMainProps>
               joinClassName(
                 'rac-main',
                 FlexClassNamesEnum.FULL,
-                props.className
+                calc(props.className)
               )
             }>
             <div

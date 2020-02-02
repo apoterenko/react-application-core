@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toClassName, orNull } from '../../util';
+import { joinClassName, calc } from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout/flex';
 import { ITitleProps } from './title.interface';
@@ -18,10 +18,10 @@ export class Title extends BaseComponent<ITitleProps> {
         full={false}
         row={true}
         alignItemsCenter={true}
-        className={toClassName(
+        className={joinClassName(
           'rac-title-wrapper',
           props.bordered !== false && 'rac-title-wrapper-bordered',
-          props.className
+          calc(props.className)
         )}
       >
         <FlexLayout

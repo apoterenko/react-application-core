@@ -5,9 +5,7 @@ import {
 import { STRING_VALUE_PREDICATE } from './filter';
 
 /**
- * @stable [11.09.2019]
- * @param {IClassNameWrapper & IFullWrapper} entity
- * @returns {string}
+ * @deprecated
  */
 export const fullFlexClassName = (entity: IClassNameWrapper & IFullWrapper): string =>
   (entity.full !== false && !(entity.className || '').includes('rac-flex-')) && 'rac-flex-full';

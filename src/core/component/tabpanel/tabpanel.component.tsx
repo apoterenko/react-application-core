@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, orNull, isFn } from '../../util';
+import { toClassName, orNull, isFn, calc } from '../../util';
 import { BaseComponent } from '../base';
 import { ITabPanelState, ITabPanel } from './tabpanel.interface';
 import { ITabConfiguration } from '../../configurations-definitions.interface';
@@ -62,7 +62,7 @@ export class TabPanel extends BaseComponent<ITabPanelProps, ITabPanelState> impl
                           'rac-flex',
                           'rac-flex-row',
                           props.centered && 'rac-flex-center',
-                          props.className,
+                          calc(props.className),
                           this.uiFactory.tabBar
                        )}>
           {orNull<JSX.Element>(

@@ -18,7 +18,6 @@ import {
   ICaretBlinkingFrequencyTimeoutWrapper,
   ICenteredWrapper,
   IChangeFormWrapper,
-  IChildrenWrapper,
   IClassNameWrapper,
   IClearActionRenderedWrapper,
   IDisabledWrapper,
@@ -29,17 +28,13 @@ import {
   IErrorMessageRenderedWrapper,
   IErrorMessageWrapper,
   IFieldConfigurationWrapper,
-  IFieldWrapper,
   IFilterFnWrapper,
   IFocusEvent,
   IForwardRenderedWrapper,
   IFullWrapper,
   IIconWrapper,
   IItemsWrapper,
-  IKeyboardConfigurationWrapper,
   IKeyboardEvent,
-  IKeyValue,
-  ILayoutWrapper,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
   IMessageWrapper,
@@ -58,7 +53,6 @@ import {
   IOnMoreOptionsSelectWrapper,
   IOnSelectWrapper,
   IPrefixLabelWrapper,
-  IRenderToBodyWrapper,
   IRippableWrapper,
   ISelectedWrapper,
   ISimpleWrapper,
@@ -71,7 +65,6 @@ import {
   IUseIndicatorWrapper,
   IValidateWrapper,
   IValueWrapper,
-  IWidthWrapper,
 } from './definitions.interface';
 import {
   IReactOnClickWrapper,
@@ -82,12 +75,12 @@ import {
   IBaseEvent,
   IComponentProps,
   IGenericFieldEntity,
+  IKeyboardConfigurationEntity,
   IMenuItemEntity,
   INavigationItemEntity,
   IUniversalComponentEntity,
   IWebComponentEntity,
 } from './definition';
-import { IField } from './component/field/field/field.interface';
 
 /**
  * @stable [31.05.2018]
@@ -185,46 +178,6 @@ export interface IWebCameraConfiguration extends IComponentProps,
 }
 
 /**
- * @stable [08.05.2018]
- */
-export enum KeyboardKeyEnum {
-  UPPERCASE,
-  CHANGE_LAYOUT,
-  LOWERCASE,
-  BACKSPACE,
-  CLOSE,
-  SPACE,
-  ENTER,
-}
-
-export type KeyboardKeyT = string | IKeyboardKey;
-export type KeyboardLayoutT = KeyboardKeyT[][];
-
-// TODO Fix class name
-export interface IKeyboardKey extends IValueWrapper<string>,
-                                                   ITypeWrapper<KeyboardKeyEnum>,
-                                                   IClassNameWrapper<string | ((...args) => string)>, // TODO
-                                                   IWidthWrapper {
-}
-
-export interface IKeyboardKeyEntity extends IDisabledWrapper {
-  // TODO
-  renderer?: any;
-  className?: any;
-}
-
-/**
- * @stable [08.05.2018]
- */
-export interface IKeyboardConfiguration extends IComponentProps,
-                                                IFieldWrapper<IField>,
-                                                ILayoutWrapper<KeyboardLayoutT[]>,
-                                                IOnCloseWrapper,
-                                                IRenderToBodyWrapper {
-  keyboardKeyConfiguration?: IKeyboardKeyEntity; // TODO
-}
-
-/**
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldProps
@@ -240,7 +193,7 @@ export interface IUniversalFieldProps
           IErrorMessageRenderedWrapper,
           IDisplayMessageWrapper,
           IMessageWrapper,
-          IKeyboardConfigurationWrapper<IKeyboardConfiguration>,
+          IKeyboardConfigurationEntity,
           ICaretBlinkingFrequencyTimeoutWrapper,
           IValidateWrapper<string> {
   preventManualChanges?: boolean; // TODO
@@ -337,8 +290,8 @@ export interface IUniversalUIIconConfiguration extends IUniversalComponentEntity
                                                        IDisabledWrapper,
                                                        ITypeWrapper,
                                                        ITouchedWrapper,
-                                                       IClassNameWrapper,
                                                        ISimpleWrapper,
+                                                       IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
                                                        IReactOnClickWrapper {
 }
 

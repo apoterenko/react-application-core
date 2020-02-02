@@ -252,7 +252,9 @@ export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boo
 export interface IItemsWrapper<TValue> { items?: TValue; }
 export interface IItemWrapper<TValue> { item?: TValue; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
+export interface IKeyboardConfigurationWrapper<TValue> { keyboardConfiguration?: TValue; }
 export interface IKeyboardEvent<TValue = {}> extends React.KeyboardEvent<TValue> { }
+export interface IKeyboardKeyConfigurationWrapper<TValue> { keyboardKeyConfiguration?: TValue; }
 export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
 export interface IKeyWrapper<TValue = string> { key?: TValue; }
@@ -312,6 +314,7 @@ export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnBeforeSubmitWrapper<TPayload, TResult = void> { onBeforeSubmit?(payload?: TPayload): TResult; }
 export interface IOnChangePlaceWrapper<TPayload = {}> { onChangePlace?(payload?: TPayload): void; }
+export interface IOnChangeWrapper<TValue = AnyT> { onChange?(payload?: TValue): void; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = () => void> { onClose?: TValue; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
@@ -411,11 +414,11 @@ export interface IResetTextWrapper { resetText?: string; }
 export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
 export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IResponseTypeWrapper { responseType?: string; }
-export interface IResponsiveWrapper<TResponsive = boolean> { responsive?: TResponsive; }
-export interface IResultWrapper<TResult = AnyT> { result?: TResult; }
+export interface IResponsiveWrapper<TValue = boolean> { responsive?: TValue; }
+export interface IResultWrapper<TValue = AnyT> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
-export interface IRightSlotWrapper<TRightSlot> { rightSlot?: TRightSlot; }
-export interface IRippledWrapper<TRippled = boolean> { rippled?: TRippled; }
+export interface IRightSlotWrapper<TValue> { rightSlot?: TValue; }
+export interface IRippledWrapper<TValue = boolean> { rippled?: TValue; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
 export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
@@ -486,6 +489,7 @@ export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TValue = string> { user?: TValue; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
+export interface IUseUppercaseWrapper { useUppercase?: boolean; }
 export interface IUseZipCodeWrapper { useZipCode?: boolean; }
 export interface IUuidWrapper { uuid?: string; }
 export interface IValidateOnMountWrapper { validateOnMount?: boolean; }
@@ -494,7 +498,7 @@ export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }
-export interface IWarningWrapper<TWarning = boolean> { warning?: TWarning; }
+export interface IWarningWrapper<TValue = boolean> { warning?: TValue; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
@@ -503,7 +507,7 @@ export interface IWrapWrapper { wrap?: boolean; }
 export interface IXWrapper<TX = number> { x?: any; }
 export interface IYearWrapper<TValue = number> { year?: TValue; }
 export interface IYWrapper<TY = number> { y?: TY; }
-export interface IZipCodeWrapper<TZipCode = string> { zipCode?: TZipCode; }
+export interface IZipCodeWrapper<TValue = string> { zipCode?: TValue; }
 export interface IZoneWrapper<TValue = string> { zone?: TValue; }
 export interface IZoomWrapper { zoom?: number; }
 
@@ -554,13 +558,6 @@ export interface IUseIndicatorWrapper {
  */
 export interface IOnRemoveWrapper<TItem = AnyT, TOnRemove = (item?: TItem) => void> {
   onRemove?: TOnRemove;
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IOnChangeWrapper<TChangedValue = AnyT, TOnChange = (value?: TChangedValue) => void> {
-  onChange?: TOnChange;
 }
 
 /**
@@ -661,20 +658,6 @@ export interface IValidateWrapper<TValidatedValueResult = AnyT,
                                   TValidatedValue = AnyT,
                                   TValidate = (validatedValue?: TValidatedValue) => TValidatedValueResult> {
   validate?: TValidate;
-}
-
-/**
- * @stable [13.01.2019]
- */
-export interface IRenderToBodyWrapper {
-  renderToBody?: boolean;
-}
-
-/**
- * @stable [13.01.2019]
- */
-export interface IKeyboardConfigurationWrapper<TKeyboardConfiguration> {
-  keyboardConfiguration?: TKeyboardConfiguration;
 }
 
 /**
@@ -889,13 +872,6 @@ export interface IPositionWrapper<TPosition = number> {
  */
 export interface IMoreOptionsWrapper<TMoreOptions> {
   moreOptions?: TMoreOptions;
-}
-
-/**
- * @stable [08.05.2018]
- */
-export interface IUseUppercaseWrapper {
-  useUppercase?: boolean;
 }
 
 /**

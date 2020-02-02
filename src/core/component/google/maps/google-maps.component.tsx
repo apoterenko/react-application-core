@@ -4,6 +4,7 @@ import * as React from 'react';
 import { BaseComponent } from '../../base';
 import { Menu } from '../../menu';
 import {
+  calc,
   DelayedTask,
   ifNotNilThanValue,
   isArrayNotEmpty,
@@ -74,7 +75,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <div className={joinClassName('rac-google-maps', props.className)}>
+      <div className={joinClassName('rac-google-maps', calc(props.className))}>
         <div
           ref={this.selfRef}
           className='rac-google-maps__body'/>

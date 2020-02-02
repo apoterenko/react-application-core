@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import { BaseComponent } from '../../base';
 import {
+  calc,
   handlerPropsFactory,
   isFn,
   joinClassName,
@@ -39,7 +40,7 @@ export class GridRow extends BaseComponent<IGridRowProps> {
             ref={this.selfRef}
             className={joinClassName(
               'rac-grid-row',
-              props.className,
+              calc(props.className),
               props.indexed && !R.isNil(entity) && `rac-grid-row-${entity.id}`,
               props.grouped && 'rac-grid-row-grouped',
               props.filter && 'rac-grid-row-filter',

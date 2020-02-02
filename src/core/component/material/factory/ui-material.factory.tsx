@@ -117,6 +117,7 @@ import {
 import { LoggerFactory } from 'ts-smart-logger';
 
 import {
+  calc,
   handlerPropsFactory,
   isFn,
   isString,
@@ -324,7 +325,7 @@ export class UIMaterialFactory implements IUIFactory {
           'rac-icon',
           hasHandler && `rac-action-icon rac-action-${config.type}-icon`,
           config.disabled && 'rac-disabled-icon',
-          config.className,
+          calc(config.className),
         )}
         {...handlerPropsFactory(config.onClick, !config.disabled, nvl(config.touched, false))}
       >

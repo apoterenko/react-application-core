@@ -6,6 +6,7 @@ import {
   UNDEF,
 } from '../../definitions.interface';
 import {
+  calc,
   DelayedTask,
   ifNotNilThanValue,
   isFilterUsed,
@@ -99,7 +100,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             className={
               joinClassName(
                 'rac-menu-dialog',
-                props.className,
+                calc(props.className),
                 isHeightRestricted(props) && 'rac-menu-height-restricted-dialog'
               )
             }

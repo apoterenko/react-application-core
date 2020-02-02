@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { BaseComponent } from '../base/base.component';
 import { IOverlayProps } from './overlay.interface';
 import { FlexLayout } from '../layout/flex';
-import { toClassName, isString, isFn, orNull } from '../../util';
+import { joinClassName, calc, isString, isFn, orNull } from '../../util';
 import { UNI_CODES } from '../../definitions.interface';
 
 export class Overlay extends BaseComponent<IOverlayProps> {
@@ -18,7 +18,7 @@ export class Overlay extends BaseComponent<IOverlayProps> {
     return ReactDOM.createPortal(
       <FlexLayout
         row={true}
-        className={toClassName('rac-overlay rac-absolute-full', props.className)}
+        className={joinClassName('rac-overlay rac-absolute-full', calc(props.className))}
         onClick={props.onClick}
       >
         {props.children || UNI_CODES.noBreakSpace}

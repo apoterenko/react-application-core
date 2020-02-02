@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { UniversalComponent } from '../../base';
 import {
+  calc,
   defValuesFilter,
   ifNotNilThanValue,
   isEdited,
@@ -37,12 +38,12 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     const props = this.props;
     return joinClassName(
       'rac-grid-column',
+      calc<string>(props.className),
       isIndexed(props) && isNumber(props.index) && `rac-grid-column-${props.index}`,
       isOddNumber(props.index) && 'rac-grid-column-odd',
       isEdited(props) && 'rac-grid-column-edited',
       isSortable(props) && 'rac-grid-column-sortable',
       props.align && `rac-grid-column-align-${props.align}`,
-      props.className,
       ...classNames
     );
   }
