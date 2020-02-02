@@ -13,7 +13,10 @@ import {
   joinClassName,
   nvl,
 } from '../../util';
-import { IButtonProps } from '../../definition';
+import {
+  ButtonClassNamesEnum,
+  IButtonProps,
+} from '../../definition';
 import { Link } from '../link';
 
 export class Button extends BaseComponent<IButtonProps> {
@@ -36,14 +39,14 @@ export class Button extends BaseComponent<IButtonProps> {
     const $hasIcon = hasIcon(props);
 
     const className = joinClassName(
-      'rac-button',
+      ButtonClassNamesEnum.BUTTON,
       calc(props.className),
       $hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
       this.isFull && 'rac-button-full',
       this.isDecorated && $hasIcon && 'rac-button-decorated',
       props.mini && 'rac-button-mini',
       props.outlined && 'rac-button-outlined',
-      props.raised && 'rac-button-raised'
+      props.raised && ButtonClassNamesEnum.BUTTON_RAISED
     );
 
     if (props.to) {

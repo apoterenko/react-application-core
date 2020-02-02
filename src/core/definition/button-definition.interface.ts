@@ -78,11 +78,9 @@ export interface IButtonConfigurationEntity
 }
 
 /**
- * TODO
+ * @stable [03.02.2020]
  */
-export const DEFAULT_FLEX_BUTTON_CLASS_NAMES = Object.freeze([
-  'rac-button',
-  'rac-flex',
-  'rac-flex-row',
-  'rac-flex-align-items-center'
-]);
+export enum ButtonClassNamesEnum {
+  BUTTON = 'rac-button',
+  BUTTON_RAISED = 'rac-button-raised',
+}

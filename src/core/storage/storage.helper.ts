@@ -15,10 +15,7 @@ export class StorageHelper implements IApplicationStorageHelper {
   @lazyInject(MultiEntityDatabaseStorage) private storage: IStorage;
 
   /**
-   * @stable [28.06.2018]
-   * @param {TEntity} changes
-   * @param {Array<(entity: TEntity) => string>} fields
-   * @returns {Promise<IMultiEntityStorageSetEntity[]>}
+   * @deprecated
    */
   public saveFiles<TEntity>(changes: TEntity, fields: Array<(entity: TEntity) => string>): Promise<IMultiEntityStorageSetEntity[]> {
     const tasks: Array<Promise<IMultiEntityStorageSetEntity>> = [];
