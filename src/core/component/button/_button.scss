@@ -99,10 +99,10 @@
    * @stable [02.02.2020]
    */
   @include rac-button (
-    $rac-button-custom: $rac-button-mini-cls,
-    $rac-button-height: $rac-button-mini-height,
-    $rac-button-icon-size: $rac-button-mini-icon-size,
-    $rac-button-width: $rac-button-mini-width
+    $rac-button-custom: $rac-button-decorated-not-filled-mini-cls,
+    $rac-button-height: $rac-button-decorated-not-filled-mini-height,
+    $rac-button-icon-size: $rac-button-decorated-not-filled-mini-icon-size,
+    $rac-button-width: $rac-button-decorated-not-filled-mini-width
   );
 
 

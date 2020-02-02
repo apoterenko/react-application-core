@@ -279,6 +279,7 @@ $rac-button-raised-cls: rac-button-raised;
 /**/
 $rac-button-decorated-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-filled-cls}';
 $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
+$rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-button-decorated-not-filled-cls}';
 /**/
 $rac-button-color-0: $rac-color-1-6 !default;
 $rac-button-color-1: $rac-color-0-4 !default;
@@ -311,6 +312,9 @@ $rac-button-content-white-space: nowrap !default;
 $rac-button-content-word-break: break-word !default;
 $rac-button-cursor: pointer !default;
 $rac-button-decorated-filled-content-padding: 0 ($rac-button-size-4 * 2 + $rac-button-size-5) 0 0 !default;
+$rac-button-decorated-not-filled-mini-height: $rac-button-size-0 !default;
+$rac-button-decorated-not-filled-mini-icon-size: $rac-button-size-2 !default;
+$rac-button-decorated-not-filled-mini-width: $rac-button-size-0 !default;
 $rac-button-decorated-not-filled-width: $rac-button-size-1 !default;
 $rac-button-disabled-cursor: default !default;
 $rac-button-disabled-opacity: $rac-button-opacity-0 !default;
@@ -319,9 +323,6 @@ $rac-button-display: $rac-button-display-0 !default;
 $rac-button-filled-icon-margin: 0 $rac-button-size-4 !default;
 $rac-button-full-flex: 1 !default;
 $rac-button-height: $rac-button-size-1 !default;
-$rac-button-mini-height: $rac-button-size-0 !default;
-$rac-button-mini-icon-size: $rac-button-size-2 !default;
-$rac-button-mini-width: $rac-button-size-0 !default;
 $rac-button-not-filled-icon-margin: 0 auto !default;
 $rac-button-outlined-background: 0 !default;
 $rac-button-outlined-border: $rac-button-size-3 solid $rac-button-color-4 !default;
