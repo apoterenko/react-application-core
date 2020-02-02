@@ -51,6 +51,7 @@ export type KeyboardKeyValueT = string | IKeyboardKeyValueEntity;
 export type KeyboardLayoutT = KeyboardKeyValueT[][];
 
 /**
+ * @class-names
  * @stable [01.02.2020]
  */
 export enum KeyboardClassNamesEnum {

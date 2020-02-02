@@ -78,6 +78,7 @@ export interface IButtonConfigurationEntity
 }
 
 /**
+ * @class-names
  * @stable [03.02.2020]
  */
 export enum ButtonClassNamesEnum {

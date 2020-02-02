@@ -10,7 +10,7 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [23.10.2019]
+ * @deprecated
  */
 export enum FlexClassNamesEnum {
   FULL = 'rac-flex-full',
