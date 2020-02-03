@@ -1,5 +1,6 @@
 import { FormActionBuilder } from '../../../action.builder';
 import {
+  FieldChangeEntityT,
   IFormStoreProxy,
   IUniversalContainer,
   IUniversalContainerProps,
@@ -27,7 +28,16 @@ export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
    * @param {string} otherSection
    */
   public dispatchFormReset(otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildResetPlainAction(otherSection || this.sectionName));
+    this.dispatchAnyAction(FormActionBuilder.buildResetPlainAction(this.asSection(otherSection)));
+  }
+
+  /**
+   * @stable [03.02.2020]
+   * @param {boolean} valid
+   * @param {string} otherSection
+   */
+  public dispatchFormValid(valid: boolean, otherSection?: string): void {
+    this.dispatchAnyAction(FormActionBuilder.buildValidPlainAction(this.asSection(otherSection), valid));
   }
 
   /**
@@ -36,6 +46,24 @@ export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
    * @param {string} otherSection
    */
   public dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildChangesPlainAction(otherSection || this.sectionName, changes));
+    this.dispatchAnyAction(FormActionBuilder.buildChangesPlainAction(this.asSection(otherSection), changes));
+  }
+
+  /**
+   * @stable [03.02.2020]
+   * @param {FieldChangeEntityT} payload
+   * @param {string} otherSection
+   */
+  public dispatchFormChange(payload: FieldChangeEntityT, otherSection?: string): void {
+    this.dispatchAnyAction(FormActionBuilder.buildChangePlainAction(this.asSection(otherSection), payload));
+  }
+
+  /**
+   * @stable [03.02.2020]
+   * @param {string} otherSection
+   * @returns {string}
+   */
+  private asSection(otherSection?: string): string {
+    return otherSection || this.sectionName;
   }
 }

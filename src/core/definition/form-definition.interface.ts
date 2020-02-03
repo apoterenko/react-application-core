@@ -55,10 +55,12 @@ import { IContainer } from './container-definition.interface';
  * @generic-entity
  * @stable [16.01.2020]
  */
-export interface IGenericFormEntity
-  extends IActionsRenderedWrapper,
+interface IGenericFormEntity
+  extends IActionsFactoryWrapper<(defaultActions: IFormExtraButtonEntity[]) => IFormExtraButtonEntity[]>,
+    IActionsRenderedWrapper,
     IAlwaysDirtyWrapper,
     IAlwaysResettableWrapper,
+    IButtonConfigurationEntity,
     IChangeableWrapper,
     ICompactWrapper,
     IDisabledWrapper,
@@ -66,8 +68,10 @@ export interface IGenericFormEntity
     IFullWrapper,
     IReadOnlyWrapper,
     IResetActionRenderedWrapper,
+    IResetConfigurationWrapper<IButtonProps>,
     IResetIconWrapper,
     IResetTextWrapper,
+    ISubmitConfigurationWrapper<IButtonProps>,
     ISubmitIconWrapper,
     ISubmitTextWrapper,
     IValidateOnMountWrapper,
@@ -85,7 +89,7 @@ export interface IFormExtendedEditableEntity<TEntity = IEntity>
 /**
  * @stable [25.09.2019]
  */
-export interface IBehavioralFormExtendedEditableEntity<TEntity extends IEntity = IEntity>
+export interface IBehavioralFormEntity<TEntity extends IEntity = IEntity>
   extends IFormExtendedEditableEntity<TEntity>,
     IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
     IOnChangeWrapper<IFieldChangeEntity>,
@@ -97,17 +101,6 @@ export interface IBehavioralFormExtendedEditableEntity<TEntity extends IEntity =
 }
 
 /**
- * @deprecated
- */
-export interface IFormEntity<TEntity = IEntity> // TODO Destroy it later: Behavioral + Generic only
-  extends IBehavioralFormExtendedEditableEntity<TEntity>,
-    IButtonConfigurationEntity,  // TODO Move to Generic entity
-    IResetConfigurationWrapper<IButtonProps>,
-    ISubmitConfigurationWrapper<IButtonProps>,
-    IActionsFactoryWrapper<(defaultActions: IFormExtraButtonEntity[]) => IFormExtraButtonEntity[]> {
-}
-
-/**
  * @stable [27.09.2019]
  */
 export interface IFormExtraButtonEntity
@@ -116,24 +109,35 @@ export interface IFormExtraButtonEntity
 }
 
 /**
+ * @props
  * @stable [27.09.2019]
  */
 export interface IFormProps<TEntity = IEntity>
   extends IComponentProps,
     IGenericFormEntity,
-    IFormEntity<TEntity> { // TODO Behavioral + Generic only
+    IBehavioralFormEntity<TEntity> {
 }
 
 /**
+ * @configuration-entity
+ * @stable [04.01.2020]
+ */
+export interface IFormConfigurationEntity<TProps extends IFormProps = IFormProps>
+  extends IFormConfigurationWrapper<TProps> {
+}
+
+/**
+ * @props
  * @stable [27.09.2019]
  */
 export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}, TPermissions = {}>
   extends IContainerProps<TDictionaries, TPermissions>,
-    IBehavioralFormExtendedEditableEntity<TEntity>,
-    IFormConfigurationWrapper<IFormProps> {
+    IBehavioralFormEntity<TEntity>,
+    IFormConfigurationEntity {
 }
 
 /**
+ * @container
  * @stable [27.09.2019]
  */
 export interface IFormContainer
@@ -142,12 +146,21 @@ export interface IFormContainer
 }
 
 /**
+ * @component
  * @stable [27.09.2019]
  */
 export interface IForm
   extends IComponent<IFormProps>,
     IApiWrapperEntity,
     ISubmitWrapper<IApiEntity> {
+}
+
+/**
+ * @entity
+ * @stable [03.02.2020]
+ */
+export interface IFormValidEntity
+  extends IValidWrapper {
 }
 
 /**

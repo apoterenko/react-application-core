@@ -1,10 +1,8 @@
 import * as R from 'ramda';
 
 import {
-  IFormExtendedEditableEntity,
   IFormProps,
   IGenericBaseFieldEntity,
-  IGenericFormEntity,
 } from '../definition';
 import {
   AnyT,
@@ -28,12 +26,12 @@ import { selectEditableEntity } from './mapper';
 import { isObjectNotEmpty } from './object';
 
 /**
- * @stable [16.11.2019]
- * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} fEntity
+ * [03.02.2020]
+ * @param {IFormProps<TEntity extends IEntity>} entity
  * @param {IGenericBaseFieldEntity} fieldProps
  * @returns {AnyT}
  */
-export const getFormFieldValue = <TEntity extends IEntity = IEntity>(fEntity: IFormExtendedEditableEntity<TEntity>,
+export const getFormFieldValue = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>,
                                                                      fieldProps: IGenericBaseFieldEntity): AnyT =>
   isDef(fieldProps.value)
     ? fieldProps.value
@@ -41,9 +39,9 @@ export const getFormFieldValue = <TEntity extends IEntity = IEntity>(fEntity: IF
       ifNotEmptyThanValue(
         fieldProps.name,
         (fieldName) => ifNotNilThanValue(
-          R.isNil(fEntity.entity)
-            ? ifNotNilThanValue(fEntity.form, (form) => form.changes)
-            : fEntity.entity,
+          R.isNil(entity.entity)
+            ? ifNotNilThanValue(entity.form, (form) => form.changes)
+            : entity.entity,
           (data) => Reflect.get(data, fieldName),
           UNDEF_SYMBOL
         ),
@@ -52,13 +50,13 @@ export const getFormFieldValue = <TEntity extends IEntity = IEntity>(fEntity: IF
     );
 
 /**
- * @stable [24.12.2019]
- * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} fEntity
+ * @stable [03.02.2020]
+ * @param {IFormProps<TEntity extends IEntity>} entity
  * @param {IGenericBaseFieldEntity} fieldProps
  * @param {IGenericBaseFieldEntity} defaultFieldProps
  * @returns {AnyT}
  */
-export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(fEntity: IFormExtendedEditableEntity<TEntity>,
+export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>,
                                                                             fieldProps: IGenericBaseFieldEntity,
                                                                             defaultFieldProps?: IGenericBaseFieldEntity): AnyT =>
   isDef(fieldProps.displayValue)
@@ -67,9 +65,9 @@ export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(fEnt
       ifNotEmptyThanValue(
         fieldProps.displayName || ifNotNilThanValue(defaultFieldProps, () => defaultFieldProps.displayName),
         (displayName) => ifNotNilThanValue(
-          R.isNil(fEntity.entity)
-            ? ifNotNilThanValue(fEntity.form, (form) => form.changes)
-            : fEntity.entity,
+          R.isNil(entity.entity)
+            ? ifNotNilThanValue(entity.form, (form) => form.changes)
+            : entity.entity,
           (data) => Reflect.get(data, displayName),
           UNDEF_SYMBOL
         ),
@@ -78,18 +76,18 @@ export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(fEnt
     );
 
 /**
- * @stable [16.11.2019]
- * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} fEntity
+ * @stable [03.02.2020]
+ * @param {IFormProps<TEntity extends IEntity>} entity
  * @param {IGenericBaseFieldEntity} fieldProps
  * @returns {AnyT}
  */
-export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(fEntity: IFormExtendedEditableEntity<TEntity>,
+export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>,
                                                                              fieldProps: IGenericBaseFieldEntity): AnyT =>
   isDef(fieldProps.originalValue)
     ? fieldProps.originalValue
     : (
       ifNotNilThanValue(
-        fEntity.originalEntity,
+        entity.originalEntity,
         (originalEntity) =>
           ifNotEmptyThanValue(fieldProps.name, (fieldName) => Reflect.get(originalEntity, fieldName), UNDEF_SYMBOL),
         UNDEF_SYMBOL
@@ -97,29 +95,29 @@ export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(fEn
     );
 
 /**
- * @stable [16.01.2020]
+ * @stable [03.02.2020]
  * @param {IFormProps<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isFormEntityDisabled = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
+export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
   ifNotNilThanValue(
     entity,
-    () => isDisabled(entity) || isFormWrapperEntityInProgress(entity),
+    () => isDisabled(entity) || isFormInProgress(entity),
     false
   );
 
 /**
- * @stable [16.01.2020]
- * @param {IFormProps<TEntity extends IEntity>} formEntity
+ * @stable [03.02.2020]
+ * @param {IFormProps<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isFormEntityDirty = <TEntity extends IEntity = IEntity>(formEntity: IFormProps<TEntity>): boolean =>
+export const isFormDirty = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
   ifNotNilThanValue(
-    formEntity,
+    entity,
     () => (
-      isAlwaysDirty(formEntity) || (
+      isAlwaysDirty(entity) || (
         ifNotNilThanValue(
-          formEntity.form,
+          selectEditableEntity(entity),
           (form) => isDirty(form) || isObjectNotEmpty(form.defaultChanges),
           false
         )
@@ -137,22 +135,32 @@ export const isFormValid = <TEntity extends IEntity = IEntity>(entity: IFormProp
   isValid(entity) && isValid(selectEditableEntity<TEntity>(entity)); // Redux or auto validation
 
 /**
- * @stable [25.10.2019]
- * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} entity
+ * @stable [03.02.2020]
+ * @param {IFormProps<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isFormWrapperEntityInProgress = <TEntity extends IEntity = IEntity>(entity: IFormExtendedEditableEntity<TEntity>): boolean =>
+export const isFormInProgress = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
   inProgress(selectEditableEntity<TEntity>(entity));
 
 /**
- * @stable [25.09.2019]
- * @param {IGenericFormEntity} formEntity
+ * @stable [03.02.2020]
+ * @param {IFormProps<TEntity extends IEntity>} formEntity
  * @param {IGenericBaseFieldEntity} fieldProps
  * @returns {boolean}
  */
-export const isFormFieldReadOnly = (formEntity: IGenericFormEntity,
-                                    fieldProps: IGenericBaseFieldEntity): boolean =>
+export const isFormFieldReadOnly = <TEntity extends IEntity = IEntity>(formEntity: IFormProps<TEntity>,
+                                                                       fieldProps: IGenericBaseFieldEntity): boolean =>
   nvl(
     ifNotNilThanValue(fieldProps, () => fieldProps.readOnly),
     ifNotNilThanValue(formEntity, () => formEntity.readOnly),
   ) === true;
+
+/**
+ * @stable [03.02.2020]
+ * @param {IFormProps<TEntity extends IEntity>} formProps
+ * @returns {boolean}
+ */
+export const isFormSubmittable = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>): boolean =>
+  isFormValid(formProps)
+  && isFormDirty(formProps)
+  && !isFormDisabled(formProps);

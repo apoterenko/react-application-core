@@ -1,7 +1,13 @@
 import { AnyAction } from 'redux';
-import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsAction,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
-import { applySection, toActionPrefix } from '../../util';
+import {
+  applySection,
+  toActionPrefix,
+} from '../../util';
 import {
   AnyT,
   IKeyValue,
@@ -24,8 +30,8 @@ import {
 } from './form.interface';
 import {
   FieldChangeEntityT,
-  IApiEntity,
   IFieldChangeEntity,
+  IFormValidEntity,
 } from '../../definition';
 
 export class FormActionBuilder {
@@ -175,13 +181,14 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [03.04.2019]
+   * @stable [03.02.2020]
    * @param {string} section
    * @param {boolean} valid
    * @returns {IEffectsAction}
    */
   public static buildValidAction(section: string, valid: boolean): IEffectsAction {
-    return EffectsAction.create(this.buildValidActionType(section), applySection(section, {valid}));
+    const plainAction = this.buildValidPlainAction(section, valid);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   public static buildSubmitFinishedAction(section: string): IEffectsAction {
@@ -260,24 +267,33 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [09.10.2019]
+   * @stable [03.02.2020]
    * @param {string} section
-   * @param {string} name
-   * @param {AnyT} value
-   * @returns {AnyAction}
+   * @param {FieldChangeEntityT} payload
+   * @returns {IEffectsAction}
    */
-  public static buildChangePlainAction(section: string, name: string, value?: AnyT): AnyAction {
-    const payload: IFieldChangeEntity = {name, value};
+  public static buildChangePlainAction(section: string, payload: FieldChangeEntityT): IEffectsAction {
     return {type: this.buildChangeActionType(section), data: applySection(section, payload)};
   }
 
   /**
    * @stable [11.09.2019]
    * @param {string} section
-   * @returns {AnyAction}
+   * @returns {IEffectsAction}
    */
-  public static buildResetPlainAction(section: string): AnyAction {
+  public static buildResetPlainAction(section: string): IEffectsAction {
     return {type: this.buildResetActionType(section), data: applySection(section)};
+  }
+
+  /***
+   * @stable [03.02.2020]
+   * @param {string} section
+   * @param {boolean} valid
+   * @returns {IEffectsAction}
+   */
+  public static buildValidPlainAction(section: string, valid: boolean): IEffectsAction {
+    const payload: IFormValidEntity = {valid};
+    return {type: this.buildValidActionType(section), data: applySection(section, payload)};
   }
 
   /**

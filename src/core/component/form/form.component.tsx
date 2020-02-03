@@ -24,8 +24,9 @@ import {
   isCompact,
   isFn,
   isFormFieldReadOnly,
+  isFormInProgress,
+  isFormSubmittable,
   isFormValid,
-  isFormWrapperEntityInProgress,
   isNewEntity,
   isString,
   isValidateOnMount,
@@ -51,7 +52,6 @@ import {
   isFormFieldChangeable,
   isFormFieldDisabled,
   isFormResettable,
-  isFormSubmittable,
 } from './form.support';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
@@ -288,7 +288,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {boolean}
    */
   private isFormBusy(): boolean {
-    return isFormWrapperEntityInProgress(this.props);
+    return isFormInProgress(this.props);
   }
 
   /**

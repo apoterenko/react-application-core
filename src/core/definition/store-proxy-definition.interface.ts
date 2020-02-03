@@ -8,6 +8,7 @@ import {
   IKeyValue,
   ILastWrapper,
 } from '../definitions.interface';
+import { FieldChangeEntityT } from './field-definition.interface';
 import { IContainer } from './container-definition.interface';
 import { IDialog } from './dialog-definition.interface';
 import { IDispatcher } from './dispatcher-definition.interface';
@@ -29,8 +30,10 @@ export interface IDialogFormChangesConfirmStoreProxy
  */
 export interface IFormStoreProxy
   extends IDispatcher {
+  dispatchFormChange(change: FieldChangeEntityT, otherSection?: string): void;
+  dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
   dispatchFormReset(otherSection?: string): void;
-  dispatchFormChanges?<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
+  dispatchFormValid(valid: boolean, otherSection?: string): void;
 }
 
 /**

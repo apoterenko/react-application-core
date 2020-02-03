@@ -134,15 +134,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   /**
    * @deprecated Use proxy
    */
-  public dispatchFormChange(fieldName: string, fieldValue?: AnyT, otherSection?: string): void {
-    this.appStore.dispatch(
-      FormActionBuilder.buildChangePlainAction(otherSection || this.props.sectionName, fieldName, fieldValue)
-    );
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
   public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
     this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), applySection(dictionary, data));
   }

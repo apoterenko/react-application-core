@@ -156,6 +156,7 @@ export interface IBehavioralFieldEntity
 }
 
 /**
+ * @entity
  * @stable [28.09.2019]
  */
 export interface IFieldChangeEntity

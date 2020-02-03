@@ -13,9 +13,8 @@ import {
   getTabActiveValue,
 } from '../tabpanel/tabpanel.support';
 import {
-  isFormEntityDirty,
-  isFormEntityDisabled,
-  isFormValid,
+  isFormDirty,
+  isFormDisabled,
 } from '../../util';
 
 /**
@@ -27,7 +26,7 @@ import {
 export const isFormFieldDisabled = (formProps: IFormProps,
                                     fieldProps: IFieldProps): boolean =>
   R.isNil(fieldProps.disabled)
-    ? isFormEntityDisabled(formProps)
+    ? isFormDisabled(formProps)
     : fieldProps.disabled === true;
 
 /**
@@ -50,23 +49,13 @@ export const isFormFieldChangeable = (formProps: IFormProps,
 export const isFormChangeable = (formProps: IFormProps): boolean => formProps.changeable !== false;
 
 /**
- * @stable [03.08.2018]
- * @param {IFormProps} formProps
- * @returns {boolean}
- */
-export const isFormSubmittable = (formProps: IFormProps): boolean =>
-  isFormValid(formProps)
-    && isFormEntityDirty(formProps)
-    && !isFormEntityDisabled(formProps);
-
-/**
  * @stable [15.02.2019]
  * @param {IFormProps} formProps
  * @returns {boolean}
  */
 export const isFormResettable = (formProps: IFormProps): boolean =>
   formProps.alwaysResettable === true
-  || (isFormEntityDirty(formProps) && !isFormEntityDisabled(formProps));
+  || (isFormDirty(formProps) && !isFormDisabled(formProps));
 
 /**
  * @stable [30.08.2018]

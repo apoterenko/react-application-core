@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { AnyT } from '../../definitions.interface';
-import { BaseContainer } from '../base';
+import { BasicContainer } from '../base';
 import { Form } from '../form';
 import {
   IApiEntity,
@@ -12,44 +12,52 @@ import {
   IFormContainerProps,
 } from '../../definition';
 import {
-  FORM_CHANGE_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
-  FORM_RESET_ACTION_TYPE,
 } from './form.interface';
 
-export class FormContainer extends BaseContainer<IFormContainerProps>
+export class FormContainer extends BasicContainer<IFormContainerProps>
     implements IFormContainer {
 
+  /**
+   * @stable [03.02.2020]
+   * @param {IFormContainerProps} props
+   */
   constructor(props: IFormContainerProps) {
     super(props);
 
-    this.onChange = this.onChange.bind(this);
-    this.onValid = this.onValid.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onReset = this.onReset.bind(this);
     this.onBeforeSubmit = this.onBeforeSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
     this.onLoadDictionary = this.onLoadDictionary.bind(this);
+    this.onReset = this.onReset.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onValid = this.onValid.bind(this);
   }
 
+  /**
+   * @stable [03.02.2020]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <Form ref={this.selfRef}
-              form={props.form}
-              entity={props.entity}
-              originalEntity={props.originalEntity}
-              onChange={this.onChange}
-              onSubmit={this.onSubmit}
-              onBeforeSubmit={this.onBeforeSubmit}
-              onReset={this.onReset}
-              onValid={this.onValid}
-              onEmptyDictionary={this.onEmptyDictionary}
-              onLoadDictionary={this.onLoadDictionary}
-              {...props.formConfiguration}>
-          {props.children}
-        </Form>
+      <Form
+        ref={this.selfRef}
+        form={props.form}
+        entity={props.entity}
+        originalEntity={props.originalEntity}
+        onChange={this.onChange}
+        onSubmit={this.onSubmit}
+        onBeforeSubmit={this.onBeforeSubmit}
+        onReset={this.onReset}
+        onValid={this.onValid}
+        onEmptyDictionary={this.onEmptyDictionary}
+        onLoadDictionary={this.onLoadDictionary}
+        {...props.formConfiguration}
+      >
+        {props.children}
+      </Form>
     );
   }
 
@@ -66,23 +74,23 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
    */
   private onChange(payload: IFieldChangeEntity): void {
     if (payload.name) {
-      this.dispatchFrameworkAction(FORM_CHANGE_ACTION_TYPE, payload);
+      this.formStoreProxy.dispatchFormChange(payload);
     }
   }
 
   /**
-   * @stable [17.02.2019]
+   * @stable [03.02.2020]
    * @param {boolean} valid
    */
   private onValid(valid: boolean): void {
-    this.dispatchFrameworkAction(FORM_VALID_ACTION_TYPE, {valid});
+    this.formStoreProxy.dispatchFormValid(valid);
   }
 
   /**
-   * @stable [24.02.2019]
+   * @stable [03.02.2020]
    */
   private onReset(): void {
-    this.dispatchFrameworkAction(FORM_RESET_ACTION_TYPE);
+    this.formStoreProxy.dispatchFormReset();
   }
 
   /**
@@ -103,11 +111,6 @@ export class FormContainer extends BaseContainer<IFormContainerProps>
     return props.onBeforeSubmit && props.onBeforeSubmit(apiEntity);
   }
 
-  /**
-   * @stable [04.08.2018]
-   * @param {string} dictionary
-   * @param {IApiEntity} apiEntity
-   */
   private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {
     this.dispatchLoadDictionary(dictionary, apiEntity);
   }

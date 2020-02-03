@@ -448,21 +448,21 @@ export interface ISrcWrapper<TSrc = string> { src?: TSrc; }
 export interface IStackWrapper<TStack> { stack?: TStack; }
 export interface IStateWrapper<TState> { state?: TState; }
 export interface IStatusTextWrapper { statusText?: string; }
-export interface IStatusWrapper<TStatus = number> { status?: TStatus; }
-export interface IStepWrapper<TStep = number> { step?: TStep; }
+export interface IStatusWrapper<TValue = number> { status?: TValue; }
+export interface IStepWrapper<TValue = number> { step?: TValue; }
 export interface IStickyElementClassNameWrapper { stickyElementClassName?: string; }
 export interface IStickyHeadWrapper { stickyHead?: boolean; }
-export interface IStreetNumberWrapper<TStreetNumber = string> { streetNumber?: TStreetNumber; }
+export interface IStreetNumberWrapper<TValue = string> { streetNumber?: TValue; }
 export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
 export interface IStrictWrapper { strict?: boolean; }
 export interface IStyleWrapper<TStyle> { style?: TStyle; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
-export interface ISubmitIconWrapper<TIcon = string> { submitIcon?: TIcon; }
+export interface ISubmitIconWrapper<TValue = string> { submitIcon?: TValue; }
 export interface ISubmitTextWrapper { submitText?: string; }
 export interface ISucceedTextWrapper { succeedText?: string; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
-export interface ITabPanelWrapper<TTabPanel = JSX.Element> { tabPanel?: TTabPanel; }
+export interface ITabPanelWrapper<TValue = JSX.Element> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
 export interface ITimeWrapper<TValue = string> { time?: TValue; }
@@ -470,7 +470,7 @@ export interface ITitleWrapper<TValue = string> { title?: TValue; }
 export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
-export interface ITotalAmountWrapper<TTotalAmount = number> { totalAmount?: TTotalAmount; }
+export interface ITotalAmountWrapper<TValue = number> { totalAmount?: TValue; }
 export interface ITotalCountWrapper<TValue = number> { totalCount?: TValue; }
 export interface ITotalEntityWrapper<TValue = AnyT> { totalEntity?: TValue; }
 export interface ITotalWrapper<TValue = boolean> { total?: TValue; }

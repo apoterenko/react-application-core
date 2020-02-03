@@ -1,22 +1,37 @@
 import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { isDef, toSection, defValuesFilter } from '../../util';
+import {
+  defValuesFilter,
+  isDef,
+  toSection,
+} from '../../util';
 import { convertError } from '../../error';
-import { IPayloadWrapper, IKeyValue } from '../../definitions.interface';
+import {
+  IKeyValue,
+  IPayloadWrapper,
+} from '../../definitions.interface';
 import {
   IEditableEntity,
   IFieldChangeEntity,
   IFieldsChangesEntity,
+  IFormValidEntity,
   INITIAL_FORM_ENTITY,
 } from '../../definition';
 import { FormActionBuilder } from './form-action.builder';
 
-const fromPayload = (payload: IFieldChangeEntity & IFieldsChangesEntity) => {
+/**
+ * @stable [03.02.2020]
+ * @param {IFieldChangeEntity & IFieldsChangesEntity} payload
+ * @returns {IKeyValue}
+ */
+const fromPayload = (payload: IFieldChangeEntity & IFieldsChangesEntity): IKeyValue => {
   const fieldChangeEntity: IFieldChangeEntity = payload;
   const fieldsChangesEntity: IFieldsChangesEntity = payload;
-  return Array.isArray(fieldsChangesEntity.fields)
-    ? R.mergeAll<IKeyValue>(fieldsChangesEntity.fields.map((elem) => ({[elem.name]: elem.value})))
+  const fields = fieldsChangesEntity.fields;
+
+  return Array.isArray(fields)
+    ? R.mergeAll(fields.map((elem) => ({[elem.name]: elem.value})))
     : {[fieldChangeEntity.name]: fieldChangeEntity.value};
 };
 
@@ -51,9 +66,10 @@ export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
         defaultChanges,
       };
     case FormActionBuilder.buildValidActionType(section):
+      const formValidEntity: IFormValidEntity = action.data;
       return {
         ...state,
-        valid: action.data.valid,
+        valid: formValidEntity.valid,
       };
     case FormActionBuilder.buildActiveValueActionType(section):
       /**
