@@ -48,6 +48,7 @@ import {
   IMinDateWrapper,
   INameWrapper,
   INextWrapper,
+  IOnChangeWrapper,
   IOnClickWrapper,
   IOptionsWrapper,
   IOriginalValueWrapper,
@@ -55,6 +56,7 @@ import {
   IPlaceholderWrapper,
   IPlainValueWrapper,
   IPreventFocusWrapper,
+  IPreventManualChangesWrapper,
   IProgressWrapper,
   IRangeEnabledWrapper,
   IRawDataWrapper,
@@ -81,6 +83,7 @@ import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IDialogConfigurationEntity } from './dialog-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
+import { IFieldProps } from '../configurations-definitions.interface'; // TODO
 import {
   IMenuConfigurationEntity,
   IMenuItemEntity,
@@ -95,9 +98,10 @@ export const FIELD_VALUE_TO_RESET = null;
 export const ID_FIELD_NAME = 'id';
 
 /**
+ * @generic-entity
  * @stable [27.05.2019]
  */
-export interface IGenericFieldEntity
+export interface IGenericBaseFieldEntity
   extends IActionsPosition<FieldActionPositionsEnum>,
     IActionsWrapper<IFieldActionEntity[]>,
     IAutoCompleteWrapper,
@@ -121,6 +125,7 @@ export interface IGenericFieldEntity
     IPlaceholderWrapper,
     IPlainValueWrapper,
     IPreventFocusWrapper,
+    IPreventManualChangesWrapper,                                             /* @stable [03.02.2020] */
     IProgressWrapper,
     IReadOnlyWrapper,
     IRenderedWrapper,
@@ -132,6 +137,22 @@ export interface IGenericFieldEntity
     IUseKeyboardWrapper,
     IValueWrapper,
     IVisibleWrapper {
+}
+
+/**
+ * @behavioral-entity
+ * @stable [02.02.2020]
+ */
+export interface IBehavioralBaseFieldEntity
+  extends IOnChangeWrapper {
+}
+
+/**
+ * @behavioral-entity
+ * @stable [02.02.2020]
+ */
+export interface IBehavioralFieldEntity
+  extends IOnClickWrapper {
 }
 
 /**
@@ -222,11 +243,15 @@ export enum FieldActionPositionsEnum {
   RIGHT,
 }
 
+export interface IFieldsPresets {
+  [fieldName: string]: string | IFieldProps | ((field) => IFieldProps | string);
+}
+
 /**
  * @default-entity
  * @stable [24.11.2019]
  */
-export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
+export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEntity>({
   autoComplete: 'new-password',
 });
 
@@ -234,7 +259,7 @@ export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericField
  * @default-entity
  * @stable [24.11.2019]
  */
-export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
+export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEntity>({
   ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   type: 'password',
 });

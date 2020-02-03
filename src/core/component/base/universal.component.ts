@@ -40,6 +40,7 @@ import {
   IPlaceApi,
   IStorage,
   ITransport,
+  IUniqueId,
   IUniversalComponent,
   IUniversalComponentCtor,
   IUniversalComponentEntity,
@@ -152,6 +153,15 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get eventEmitter(): IEventEmitter {
     return getEventEmitter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [17.01.2020]
+   * @returns {IUniqueId}
+   */
+  protected get uniqueId(): IUniqueId {
+    return null; // getUniqueId();
   }
 
   /**

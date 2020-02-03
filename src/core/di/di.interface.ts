@@ -16,7 +16,7 @@ export const DI_TYPES = Object.freeze({
   EventEmitter: Symbol('EventEmitter'),
   EventManager: Symbol('EventManager'),
   FieldConverter: Symbol('FieldConverter'),
-  FieldsOptions: Symbol('FieldsOptions'),
+  FieldsPresets: Symbol('FieldsPresets'),
   FileStorage: Symbol('FileStorage'),
   FormStoreProxyFactory: Symbol('FormStoreProxyFactory'),
   FullScreenManager: Symbol('FullScreenManager'),

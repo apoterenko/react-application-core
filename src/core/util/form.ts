@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import {
   IFormExtendedEditableEntity,
   IFormProps,
-  IGenericFieldEntity,
+  IGenericBaseFieldEntity,
   IGenericFormEntity,
 } from '../definition';
 import {
@@ -30,11 +30,11 @@ import { isObjectNotEmpty } from './object';
 /**
  * @stable [16.11.2019]
  * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} fEntity
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericBaseFieldEntity} fieldProps
  * @returns {AnyT}
  */
 export const getFormFieldValue = <TEntity extends IEntity = IEntity>(fEntity: IFormExtendedEditableEntity<TEntity>,
-                                                                     fieldProps: IGenericFieldEntity): AnyT =>
+                                                                     fieldProps: IGenericBaseFieldEntity): AnyT =>
   isDef(fieldProps.value)
     ? fieldProps.value
     : (
@@ -54,13 +54,13 @@ export const getFormFieldValue = <TEntity extends IEntity = IEntity>(fEntity: IF
 /**
  * @stable [24.12.2019]
  * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} fEntity
- * @param {IGenericFieldEntity} fieldProps
- * @param {IGenericFieldEntity} defaultFieldProps
+ * @param {IGenericBaseFieldEntity} fieldProps
+ * @param {IGenericBaseFieldEntity} defaultFieldProps
  * @returns {AnyT}
  */
 export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(fEntity: IFormExtendedEditableEntity<TEntity>,
-                                                                            fieldProps: IGenericFieldEntity,
-                                                                            defaultFieldProps?: IGenericFieldEntity): AnyT =>
+                                                                            fieldProps: IGenericBaseFieldEntity,
+                                                                            defaultFieldProps?: IGenericBaseFieldEntity): AnyT =>
   isDef(fieldProps.displayValue)
     ? fieldProps.displayValue
     : (
@@ -80,11 +80,11 @@ export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(fEnt
 /**
  * @stable [16.11.2019]
  * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} fEntity
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericBaseFieldEntity} fieldProps
  * @returns {AnyT}
  */
 export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(fEntity: IFormExtendedEditableEntity<TEntity>,
-                                                                             fieldProps: IGenericFieldEntity): AnyT =>
+                                                                             fieldProps: IGenericBaseFieldEntity): AnyT =>
   isDef(fieldProps.originalValue)
     ? fieldProps.originalValue
     : (
@@ -147,11 +147,11 @@ export const isFormWrapperEntityInProgress = <TEntity extends IEntity = IEntity>
 /**
  * @stable [25.09.2019]
  * @param {IGenericFormEntity} formEntity
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericBaseFieldEntity} fieldProps
  * @returns {boolean}
  */
 export const isFormFieldReadOnly = (formEntity: IGenericFormEntity,
-                                    fieldProps: IGenericFieldEntity): boolean =>
+                                    fieldProps: IGenericBaseFieldEntity): boolean =>
   nvl(
     ifNotNilThanValue(fieldProps, () => fieldProps.readOnly),
     ifNotNilThanValue(formEntity, () => formEntity.readOnly),

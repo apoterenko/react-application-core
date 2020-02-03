@@ -69,13 +69,6 @@ export const isFormResettable = (formProps: IFormProps): boolean =>
   || (isFormEntityDirty(formProps) && !isFormEntityDisabled(formProps));
 
 /**
- * @stable [29.05.2018]
- * @param {IFormProps} formProps
- * @returns {boolean}
- */
-export const isFormOfNewEntity = (formProps: IFormProps): boolean => R.isNil(formProps.entity) || R.isNil(formProps.entity.id);
-
-/**
  * @stable [30.08.2018]
  * @param {IFormProps} formProps
  * @param {ITabConfiguration} tab

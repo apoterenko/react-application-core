@@ -198,6 +198,7 @@ export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
 export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; }
+export interface IFormIdWrapper { formId?: string; }
 export interface IFormSectionWrapper<TValue = string> { formSection?: TValue; }
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
 export interface IFormWrapper<TForm> { form?: TForm; }
@@ -315,6 +316,7 @@ export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnBeforeSubmitWrapper<TPayload, TResult = void> { onBeforeSubmit?(payload?: TPayload): TResult; }
 export interface IOnChangePlaceWrapper<TPayload = {}> { onChangePlace?(payload?: TPayload): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(payload?: TValue): void; }
+export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
@@ -356,6 +358,7 @@ export interface IParentClassNameWrapper<TValue = string> { parentClassName?: TV
 export interface IParentElementWrapper<TValue = Element> { parentElement?: TValue; }
 export interface IParentWrapper<TParent> { parent?: TParent; }
 export interface IPartOfGroupWrapper { partOfGroup?: boolean; }
+export interface IPartsWrapper<TValue = string[]> { parts?: TValue; }
 export interface IPasswordWrapper<TValue = string> { password?: TValue; }
 export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IPatternWrapper<TValue = string> { pattern?: TValue; }
@@ -373,8 +376,10 @@ export interface IPluginsWrapper<TValue> { plugins?: TValue; }
 export interface IPointsWrapper<TValue> { points?: TValue; }
 export interface IPopupWrapper<TValue = boolean> { popup?: TValue; }
 export interface IPositionConfigurationWrapper<TValue> { positionConfiguration?: TValue; }
+export interface IPrefixWrapper { prefix?: string; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
+export interface IPreventManualChangesWrapper { preventManualChanges?: boolean; }
 export interface IPreviewScaleWrapper<TValue = number> { previewScale?: TValue; }
 export interface IPreviousActionWrapper<TValue> { previousAction?: TValue; }
 export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
@@ -1026,13 +1031,6 @@ export interface IFilterFormWrapper<TFilterForm> {
 }
 
 export interface ISubmitWrapper<TPayload = AnyT> { submit?(payload?: TPayload): void; }
-
-/**
- * @stable [17.08.2018]
- */
-export interface IOnClearWrapper<TOnClear = () => void> {
-  onClear?: TOnClear;
-}
 
 /**
  * @stable [22.08.2018]

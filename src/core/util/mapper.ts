@@ -9,7 +9,7 @@ import {
   IExtendedEntity,
   IFormExtendedEditableEntity,
   IGenericBaseSelectEntity,
-  IGenericFieldEntity,
+  IGenericBaseFieldEntity,
   IListEntity,
   IListWrapperEntity,
   IOperationEntity,
@@ -123,12 +123,11 @@ export const selectTransport = (entity: ITransportWrapperEntity): ITransportEnti
   ifNotNilThanValue(entity, (): ITransportEntity => entity.transport, UNDEF_SYMBOL);
 
 /**
- * @stable [20.10.2019]
+ * @stable [03.02.2020]
  * @param {IEntityIdTWrapper} entity
  * @returns {EntityIdT}
  */
-export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT =>
-  ifNotNilThanValue(entity, (): EntityIdT => entity.id, UNDEF_SYMBOL);
+export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(entity) ? UNDEF : entity.id;
 
 /**
  * @stable [04.09.2019]
@@ -242,7 +241,7 @@ export const selectSelectedEntityFromAction =
 export const selectSelectedEntityIdFromAction =
   <TEntity extends IEntity = IEntity>(action: IEffectsAction): EntityIdT => ifNotNilThanValue(
     selectSelectedEntityFromAction(action),
-    (entity: TEntity) => entity.id,
+    (entity: TEntity) => selectEntityId(entity),
     UNDEF_SYMBOL
   );
 
@@ -628,7 +627,7 @@ export const mapApiEntity =
       entity,
       originalEntity,
     } = extendedEntity;
-    const entityId = ifNotNilThanValue(entity, () => entity.id, UNDEF_SYMBOL);
+    const entityId = selectEntityId(entity);
     const newEntity = R.isNil(entityId);
     return defValuesFilter<IApiEntity<TEntity>, IApiEntity<TEntity>>({
       changes,
@@ -706,7 +705,7 @@ export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] 
       [].concat(entities)
         .map(
           (entity) => defValuesFilter<ISelectOptionEntity<TEntity>, ISelectOptionEntity<TEntity>>({
-            value: entity.id,
+            value: selectEntityId(entity),
             label: entity.name,
             disabled: entity.disabled,
             rawData: entity,

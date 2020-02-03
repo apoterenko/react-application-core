@@ -37,6 +37,7 @@ import {
   IPlaceActionRenderedWrapper,
   IPlainValueWrapper,
   IPreventFocusWrapper,
+  IPreventManualChangesWrapper,
   IProgressWrapper,
   IRangeEnabledWrapper,
   IReadOnlyWrapper,
@@ -67,20 +68,19 @@ import {
 import { isOddNumber } from './calc';
 
 /**
- * @stable [24.10.2019]
+ * @stable [03.02.2020]
  * @param {IValidWrapper} wrapper
  * @returns {boolean}
  */
-export const isValid = (wrapper: IValidWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.valid !== false, false);
+export const isValid = (wrapper: IValidWrapper): boolean => R.isNil(wrapper) ? false : wrapper.valid !== false;
 
 /**
- * @stable [22.01.2020]
+ * @stable [03.02.2020]
  * @param {IFieldRenderedWrapper} wrapper
  * @returns {boolean}
  */
 export const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.fieldRendered !== false, false);
+  R.isNil(wrapper) ? false : wrapper.fieldRendered !== false;
 
 /**
  * @stable [30.01.2020]
@@ -88,31 +88,37 @@ export const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
  * @returns {boolean}
  */
 export const isValidateOnMount = (wrapper: IValidateOnMountWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.validateOnMount !== false, false);
+  R.isNil(wrapper) ? false : wrapper.validateOnMount !== false;
+
+/**
+ * @stable [03.02.2020]
+ * @param {IPreventManualChangesWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isPreventManualChanges = (wrapper: IPreventManualChangesWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.preventManualChanges !== true;
 
 /**
  * @stable [30.01.2020]
  * @param {ICompactWrapper} wrapper
  * @returns {boolean}
  */
-export const isCompact = (wrapper: ICompactWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.compact === true, false);
+export const isCompact = (wrapper: ICompactWrapper): boolean => R.isNil(wrapper) ? false : wrapper.compact === true;
 
 /**
- * @stable [24.10.2019]
- * @param {IPreventFocusWrapper} preventFocusEntity
+ * @stable [30.01.2020]
+ * @param {IPreventFocusWrapper} wrapper
  * @returns {boolean}
  */
-export const isFocusPrevented = (preventFocusEntity: IPreventFocusWrapper): boolean =>
-  ifNotNilThanValue(preventFocusEntity, () => preventFocusEntity.preventFocus === true, false);
+export const isFocusPrevented = (wrapper: IPreventFocusWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.preventFocus === true;
 
 /**
- * @stable [24.10.2019]
- * @param {IProgressWrapper} progressEntity
+ * @stable [03.02.2020]
+ * @param {IProgressWrapper} wrapper
  * @returns {boolean}
  */
-export const inProgress = (progressEntity: IProgressWrapper): boolean =>
-  ifNotNilThanValue(progressEntity, () => progressEntity.progress === true, false);
+export const inProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrapper) ? false : wrapper.progress === true;
 
 /**
  * @stable [15.01.2020]
@@ -120,7 +126,7 @@ export const inProgress = (progressEntity: IProgressWrapper): boolean =>
  * @returns {boolean}
  */
 export const isCheckModalNeeded = <TEntity extends ICheckModalWrapper = ICheckModalWrapper>(wrapper: TEntity): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.checkModal === true, false);
+  R.isNil(wrapper) ? false : wrapper.checkModal === true;
 
 /**
  * @stable [31.01.2020]
@@ -278,76 +284,74 @@ export const isSortable = (wrapper: ISortableWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.sortable === true, false);
 
 /**
- * @stable [27.10.2019]
+ * @stable [03.02.2020]
  * @param {IDisabledWrapper} wrapper
  * @returns {boolean}
  */
 export const isDisabled = (wrapper: IDisabledWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.disabled === true, false);
+  R.isNil(wrapper) ? false : wrapper.disabled === true;
 
 /**
- * @stable [27.10.2019]
- * @param {IDisabledWrapper} wrapper
+ * @stable [03.02.2020]
+ * @param {ISelectedWrapper} wrapper
  * @returns {boolean}
  */
 export const isSelected = (wrapper: ISelectedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.selected === true, false);
+  R.isNil(wrapper) ? false : wrapper.selected === true;
 
 /**
- * @stable [27.10.2019]
+ * @stable [03.02.2020]
  * @param {ISelectableWrapper} wrapper
  * @returns {boolean}
  */
 export const isSelectable = (wrapper: ISelectableWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.selectable !== false, false);
+  R.isNil(wrapper) ? false : wrapper.selectable !== false;
 
 /**
- * @stable [27.10.2019]
+ * @stable [03.02.2020]
  * @param {IHoveredWrapper} wrapper
  * @returns {boolean}
  */
 export const isHovered = (wrapper: IHoveredWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.hovered !== false, false);
+  R.isNil(wrapper) ? false : wrapper.hovered !== false;
 
 /**
- * @stable [27.10.2019]
+ * @stable [03.02.2020]
  * @param {IExpandActionRenderedWrapper} wrapper
  * @returns {boolean}
  */
 export const isExpandActionRendered  = (wrapper: IExpandActionRenderedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.expandActionRendered !== false, false);
+  R.isNil(wrapper) ? false : wrapper.expandActionRendered !== false;
 
 /**
- * @stable [21.01.2020]
+ * @stable [03.02.2020]
  * @param {ICalendarActionRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isCalendarActionRendered  = (wrapper: ICalendarActionRenderedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.calendarActionRendered !== false, false);
+export const isCalendarActionRendered = (wrapper: ICalendarActionRenderedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.calendarActionRendered !== false;
 
 /**
- * @stable [01.12.2019]
+ * @stable [03.02.2020]
  * @param {IClearActionRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isClearActionRendered  = (wrapper: IClearActionRenderedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.clearActionRendered !== false, false);
+export const isClearActionRendered = (wrapper: IClearActionRenderedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.clearActionRendered !== false;
 
 /**
- * @stable [28.10.2019]
+ * @stable [03.02.2020]
  * @param {IReadOnlyWrapper} wrapper
  * @returns {boolean}
  */
-export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.readOnly === true, false);
+export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean => R.isNil(wrapper) ? false : wrapper.readOnly === true;
 
 /**
  * @stable [22.01.2020]
  * @param {IInlineWrapper} wrapper
  * @returns {boolean}
  */
-export const isInline = (wrapper: IInlineWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.inline === true, false);
+export const isInline = (wrapper: IInlineWrapper): boolean => R.isNil(wrapper) ? false : wrapper.inline === true;
 
 /**
  * @stable [28.10.2019]

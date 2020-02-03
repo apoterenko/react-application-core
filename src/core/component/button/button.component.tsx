@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseComponent } from '../base';
 import {
@@ -16,6 +17,7 @@ import {
 import {
   ButtonClassNamesEnum,
   IButtonProps,
+  UniversalIdProviderContext,
 } from '../../definition';
 import { Link } from '../link';
 
@@ -64,26 +66,31 @@ export class Button extends BaseComponent<IButtonProps> {
     const iconElement = $hasIcon && this.iconElement;
 
     return (
-      <button
-        ref={this.selfRef}
-        type={props.type}
-        title={props.title as string}
-        style={props.style}
-        className={className}
-        disabled={disabled}
-        {...handlerPropsFactory(props.onClick, !disabled, props.touched)}
-      >
-        {!iconRight && iconElement}
-        {
-          $hasContent && (
-            <div className='rac-button__content'>
-              {$text && this.t($text)}
-              {props.children}
-            </div>
-          )
-        }
-        {iconRight && iconElement}
-      </button>
+      <UniversalIdProviderContext.Consumer>
+        {(identificator) => (
+          <button
+            id={this.getId(identificator)}
+            ref={this.selfRef}
+            type={props.type}
+            title={props.title as string}
+            style={props.style}
+            className={className}
+            disabled={disabled}
+            {...handlerPropsFactory(props.onClick, !disabled, props.touched)}
+          >
+            {!iconRight && iconElement}
+            {
+              $hasContent && (
+                <div className='rac-button__content'>
+                  {$text && this.t($text)}
+                  {props.children}
+                </div>
+              )
+            }
+            {iconRight && iconElement}
+          </button>
+        )}
+      </UniversalIdProviderContext.Consumer>
     );
   }
 
@@ -92,6 +99,15 @@ export class Button extends BaseComponent<IButtonProps> {
    */
   public blur(): void {
     this.getSelf().blur(); // document.activeElement === body
+  }
+
+  // TODO
+  public getId(identificator: string): string {
+    if (R.isNil(identificator)) {
+      return identificator;
+    }
+    const names = [this.props.text];
+    return names.map((name) => (name || '').split(' ').map((part) => (part[0] || '').toLowerCase()).join('-')).join('-');
   }
 
   /**

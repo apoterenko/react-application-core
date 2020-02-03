@@ -6,9 +6,11 @@ import {
   IBaseEvent,
   IButtonProps,
   IEditableEntity,
+  IFieldsPresets,
   IForm,
   IFormProps,
   INITIAL_FORM_ENTITY,
+  UniversalIdProviderContext,
 } from '../../definition';
 import {
   calc,
@@ -24,6 +26,7 @@ import {
   isFormFieldReadOnly,
   isFormValid,
   isFormWrapperEntityInProgress,
+  isNewEntity,
   isString,
   isValidateOnMount,
   joinClassName,
@@ -31,13 +34,14 @@ import {
   notNilValuesArrayFilter,
   orNull,
   orUndef,
+  selectEditableEntity,
   selectEditableEntityChanges,
 } from '../../util';
 import { AnyT, IEntity } from '../../definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { Field, IField } from '../field';
-import { IFieldProps, IFieldsConfigurations } from '../../configurations-definitions.interface';
+import { IFieldProps } from '../../configurations-definitions.interface';
 import {
   DI_TYPES,
   lazyInject,
@@ -45,7 +49,6 @@ import {
 import {
   isFormFieldChangeable,
   isFormFieldDisabled,
-  isFormOfNewEntity,
   isFormResettable,
   isFormSubmittable,
 } from './form.support';
@@ -56,7 +59,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     form: INITIAL_FORM_ENTITY,
   };
 
-  @lazyInject(DI_TYPES.FieldsOptions) private fieldsOptions: IFieldsConfigurations;
+  @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
 
   /**
    * @stable [29.05.2018]
@@ -76,9 +79,10 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   public render(): JSX.Element {
     const props = this.props;
+    const {formId} = props;
     const nodes = this.formNodes;
 
-    return (
+    const formElement = (
       <form
         ref={this.selfRef}
         autoComplete='off'
@@ -102,6 +106,17 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
           )
         }
       </form>
+    );
+
+    if (R.isNil(formId)) {
+      return formElement;
+    }
+
+    return (
+      <UniversalIdProviderContext.Provider
+        value={formId}>
+        {formElement}
+      </UniversalIdProviderContext.Provider>
     );
   }
 
@@ -258,11 +273,11 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [25.02.2019]
+   * @stable [03.02.2020]
    * @returns {boolean}
    */
   private isFormOfNewEntity(): boolean {
-    return isFormOfNewEntity(this.props);
+    return isNewEntity(this.props);
   }
 
   /**
@@ -334,7 +349,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {IFieldProps}
    */
   private getPredefinedFieldProps(field: IField): IFieldProps {
-    const props = this.fieldsOptions[field.props.name];
+    const props = this.fieldsPresets[field.props.name];
 
     let resultProps: IFieldProps;
     if (isString(props)) {
@@ -345,14 +360,6 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
       resultProps = props as IFieldProps;
     }
     return resultProps;
-  }
-
-  /**
-   * @stable - 01.04.2018
-   * @returns {IEntity}
-   */
-  private get form(): IEditableEntity<IEntity> {
-    return this.props.form;
   }
 
   /**
@@ -449,5 +456,13 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         (child) => (child.props as IFieldProps).rendered,
       )
     );
+  }
+
+  /**
+   * @stable [03.02.2020]
+   * @returns {IEditableEntity<IEntity>}
+   */
+  private get form(): IEditableEntity<IEntity> {
+    return selectEditableEntity(this.props);
   }
 }

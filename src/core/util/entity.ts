@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import {
   EntityIdT,
   IEntity,
+  IEntityIdTWrapper,
 } from '../definitions.interface';
 import {
   IExtendedEntity,
@@ -11,26 +12,23 @@ import {
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 import { isPrimitive } from './type';
+import { selectEntityId } from './mapper';
 
 /**
  * @stable [19.10.2019]
  * @param {TEntity} entity
  * @returns {boolean}
  */
-export const isNewEntity = <TEntity extends IEntity>(entity: TEntity): boolean =>
-  R.isNil(entity) || R.isNil(entity.id);
+export const isNewEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
+  R.isNil(entity) || R.isNil(selectEntityId(entity));
 
 /**
- * @stable [01.10.2019]
- * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
+ * @stable [03.02.2020]
+ * @param {IExtendedEntity<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isNewExtendedEntity = <TEntity extends IEntity>(extendedEntity: IExtendedEntity<TEntity>): boolean =>
-  ifNotNilThanValue(
-    extendedEntity,
-    () => extendedEntity.newEntity === true,
-    false
-  );
+export const isNewExtendedEntity = <TEntity extends IEntity>(entity: IExtendedEntity<TEntity>): boolean =>
+  R.isNil(entity) || entity.newEntity === true;
 
 /**
  * @stable [01.10.2019]

@@ -1,4 +1,9 @@
-import { appContainer, DI_TYPES } from '../../di';
-import { IFieldsConfigurations } from '../../configurations-definitions.interface';
+import {
+  bindToConstantValue,
+  DI_TYPES,
+} from '../../di';
 
-appContainer.bind<IFieldsConfigurations>(DI_TYPES.FieldsOptions).toConstantValue({});
+/**
+ * @stable [03.02.2020]
+ */
+bindToConstantValue(DI_TYPES.FieldsPresets, Object.create(null));

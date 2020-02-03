@@ -28,6 +28,12 @@ export const UniversalStickyContext = React.createContext(null);
 
 /**
  * @react-native-compatible
+ * @stable [03.02.2020]
+ */
+export const UniversalIdProviderContext = React.createContext(null);
+
+/**
+ * @react-native-compatible
  * @stable [20.09.2019]
  */
 export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}>

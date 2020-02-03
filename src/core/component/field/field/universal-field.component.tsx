@@ -26,6 +26,7 @@ import {
   isKeyboardUsed,
   isObject,
   isPlainValueApplied,
+  isPreventManualChanges,
   isReadOnly,
   isRequired,
   isSyntheticCursorUsed,
@@ -49,7 +50,7 @@ import {
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
   IBaseEvent,
-  IGenericFieldEntity,
+  IGenericBaseFieldEntity,
 } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 
@@ -153,11 +154,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [07.01.2018]
-   * @param {AnyT} currentRawValue
+   * @stable [03.02.2020]
+   * @param {TValue} currentRawValue
    */
   public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
-    if (this.props.preventManualChanges !== true) {
+    if (isPreventManualChanges(this.props)) {
       this.onChangeValue(currentRawValue);
     }
   }
@@ -818,7 +819,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   private onChangeValue(currentRawValue: AnyT): void {
     const actualFieldValue = buildActualFieldValue({
-      ...this.props as IGenericFieldEntity,
+      ...this.props as IGenericBaseFieldEntity,
       emptyValue: this.emptyValue,
       value: currentRawValue,
     });

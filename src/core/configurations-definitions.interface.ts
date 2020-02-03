@@ -43,8 +43,8 @@ import {
   INavigationActionTypeWrapper,
   INotUseFieldWrapper,
   IOnBlurWrapper,
-  IOnChangeWrapper,
   IOnClearWrapper,
+  IOnClickWrapper,
   IOnCloseWrapper,
   IOnDeactivateWrapper,
   IOnEmptyDictionaryWrapper,
@@ -67,14 +67,15 @@ import {
   IValueWrapper,
 } from './definitions.interface';
 import {
-  IReactOnClickWrapper,
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
 import {
   IApiEntity,
   IBaseEvent,
+  IBehavioralBaseFieldEntity,
+  IBehavioralFieldEntity,
   IComponentProps,
-  IGenericFieldEntity,
+  IGenericBaseFieldEntity,
   IKeyboardConfigurationEntity,
   IMenuItemEntity,
   INavigationItemEntity,
@@ -163,7 +164,7 @@ export interface ITabPanelConfiguration extends IComponentProps,
                                                 IBackwardRenderedWrapper,
                                                 IForwardRenderedWrapper,
                                                 IOnCloseWrapper<ITabConfiguration>,
-                                                IReactOnClickWrapper<ITabConfiguration>,
+                                                IOnClickWrapper<ITabConfiguration>,
                                                 IOnDeactivateWrapper<number>,
                                                 IItemsWrapper<ITabConfiguration[]> {
 }
@@ -181,13 +182,12 @@ export interface IWebCameraConfiguration extends IComponentProps,
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldProps
-  extends IGenericFieldEntity,
+  extends IGenericBaseFieldEntity,
+          IBehavioralBaseFieldEntity,
           IUniversalComponentEntity,
           IUniversalKeyboardHandlersConfiguration<IKeyboardEvent>,
           IOnFocusWrapper<IFocusEvent>,
           IOnBlurWrapper<IFocusEvent>,
-          IReactOnClickWrapper<any>,
-          IOnChangeWrapper,
           IOnClearWrapper,
           IChangeFormWrapper<(name: string, value: AnyT) => void>,
           IErrorMessageRenderedWrapper,
@@ -196,12 +196,12 @@ export interface IUniversalFieldProps
           IKeyboardConfigurationEntity,
           ICaretBlinkingFrequencyTimeoutWrapper,
           IValidateWrapper<string> {
-  preventManualChanges?: boolean; // TODO
 }
 
 /* @stable - 11.04.2018 */
 export interface IFieldProps extends IComponentProps,
   IUniversalFieldProps,
+  IBehavioralFieldEntity,
   IBindDictionaryConfiguration,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
@@ -211,13 +211,6 @@ export interface IFieldProps extends IComponentProps,
   maxLength?: number;
   rows?: number;
   cols?: number;
-}
-
-/**
- * @stable [18.06.2018]
- */
-export interface IFieldsConfigurations {
-  [fieldName: string]: string | IFieldProps | ((field) => IFieldProps | string);
 }
 
 /* @stable - 08.04.2018 */
@@ -232,7 +225,7 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentEntit
  * @stable [27.04.2018]
  */
 export interface ICardConfiguration extends IComponentProps,
-                                            IReactOnClickWrapper,
+                                            IOnClickWrapper,
                                             IRippableWrapper,
                                             IActionButtonsWrapper<React.ReactNode>,
                                             IActionIconsWrapper<React.ReactNode> {
@@ -292,7 +285,7 @@ export interface IUniversalUIIconConfiguration extends IUniversalComponentEntity
                                                        ITouchedWrapper,
                                                        ISimpleWrapper,
                                                        IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
-                                                       IReactOnClickWrapper {
+                                                       IOnClickWrapper {
 }
 
 /**
