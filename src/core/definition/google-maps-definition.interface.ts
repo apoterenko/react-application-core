@@ -5,6 +5,7 @@ import {
   IMenuOptionsWrapper,
   INameWrapper,
   IOnChangePlaceWrapper,
+  IOnClickPlaceWrapper,
   IOnClickWrapper,
   IOnInitWrapper,
   IOnSelectWrapper,
@@ -55,10 +56,11 @@ export interface IGoogleMapsHeatMapLayerConfigEntity
  * @entity
  * @stable [23.01.2020]
  */
-export interface IGoogleMapsMarkerChangePlaceEntity
-  extends ILatLngEntity,
-    INameWrapper,
-    IItemWrapper<google.maps.Marker> {
+export interface IGoogleMapsMarkerPlaceEventEntity
+  extends IEventWrapper<IGoogleMapsEventEntity>,
+    IItemWrapper<google.maps.Marker>,
+    ILatLngEntity,
+    INameWrapper {
 }
 
 /**
@@ -74,7 +76,7 @@ export interface IGoogleMapsMenuContextEntity
  * @external-entity
  * @stable [03.03.2019]
  */
-export interface IGoogleMapsEventClickPayloadEntity {
+export interface IGoogleMapsEventEntity {
   latLng?: google.maps.LatLng;
   pixel?: google.maps.Point;
   tb?: Event;
@@ -105,8 +107,9 @@ export interface IGenericGoogleMapsEntity
  * @stable [23.01.2020]
  */
 export interface IBehavioralGoogleMapsEntity
-  extends IOnChangePlaceWrapper<IGoogleMapsMarkerChangePlaceEntity>,
-    IOnClickWrapper<IGoogleMapsEventClickPayloadEntity>,
+  extends IOnChangePlaceWrapper<IGoogleMapsMarkerPlaceEventEntity>,
+    IOnClickPlaceWrapper<IGoogleMapsMarkerPlaceEventEntity>,
+    IOnClickWrapper<IGoogleMapsEventEntity>,
     IOnInitWrapper,
     IOnSelectWrapper<IGoogleMapsMenuItemEntity> {
 }

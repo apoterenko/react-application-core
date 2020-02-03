@@ -313,9 +313,10 @@ export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnBeforeSubmitWrapper<TPayload, TResult = void> { onBeforeSubmit?(payload?: TPayload): TResult; }
-export interface IOnChangePlaceWrapper<TPayload = {}> { onChangePlace?(payload?: TPayload): void; }
+export interface IOnChangePlaceWrapper<TValue = {}> { onChangePlace?(payload?: TValue): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(payload?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
+export interface IOnClickPlaceWrapper<TValue = {}> { onClickPlace?(payload?: TValue): void; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
 export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
