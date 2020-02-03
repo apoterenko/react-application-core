@@ -34,7 +34,6 @@ import {
   mapApiEntity,
   notNilValuesArrayFilter,
   orNull,
-  orUndef,
   selectEditableEntity,
   selectEditableEntityChanges,
   selectError,
@@ -187,14 +186,14 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [04.08.2018]
+   * @stable [03.02.2020]
    * @param {IField} field
    */
-  private onEmptyDictionary(field: IField): void {
-    const props = this.props;
+  private onFieldEmptyDictionary(field: IField): void {
+    const {onEmptyDictionary} = this.props;
 
-    if (props.onEmptyDictionary) {
-      props.onEmptyDictionary(field.props.bindDictionary, this.apiEntity);
+    if (isFn(onEmptyDictionary)) {
+      onEmptyDictionary(field.props.bindDictionary, this.apiEntity);
     }
   }
 
@@ -224,13 +223,18 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     this.onSubmit();
   }
 
+  /**
+   * @stable [03.02.2020]
+   * @param {IBaseEvent} event
+   */
   private onSubmit(event?: IBaseEvent): void {
     this.domAccessor.cancelEvent(event);
 
-    const props = this.props;
+    const {onBeforeSubmit} = this.props;
     const apiEntity = this.apiEntity;
-    if (props.onBeforeSubmit) {
-      if (props.onBeforeSubmit(apiEntity) !== false) {
+
+    if (isFn(onBeforeSubmit)) {
+      if (onBeforeSubmit(apiEntity) !== false) {
         this.submit(apiEntity);
       }
     } else {
@@ -347,7 +351,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [11.09.2019]
+   * @stable [03.02.2020]
    * @param {IField} field
    * @returns {IFieldProps}
    */
@@ -414,6 +418,10 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     );
   }
 
+  /**
+   * @stable [03.02.2020]
+   * @returns {React.ReactNode[]}
+   */
   private get formNodes(): React.ReactNode[] {
     return (
       cloneReactNodes<IFieldProps>(
@@ -432,17 +440,17 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
               changeable: this.isFieldChangeable(field),
               changeForm: this.onChange,
 
-              // Dynamic linked dictionary callbacks
-              onEmptyDictionary: orUndef<() => void>(
-                fieldProps.bindDictionary || fieldProps.onEmptyDictionary,
-                () => fieldProps.onEmptyDictionary || (() => this.onEmptyDictionary(field))
+              ...(
+                fieldProps.bindDictionary && !isFn(fieldProps.onEmptyDictionary)
+                  ? ({onEmptyDictionary: () => this.onFieldEmptyDictionary(field)})
+                  : {}
               ),
-              onLoadDictionary: orUndef<(items: AnyT) => void>(
-                fieldProps.bindDictionary || fieldProps.onLoadDictionary,
-                () => fieldProps.onLoadDictionary || ((items0) => this.onLoadDictionary(field, items0))
+              ...(
+                fieldProps.bindDictionary && !isFn(fieldProps.onLoadDictionary)
+                  ? ({onLoadDictionary: (itms) => this.onLoadDictionary(field, itms)})
+                  : {}
               ),
 
-              // Predefined options
               ...predefinedOptions,
 
               // The fields props have a higher priority

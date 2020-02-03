@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import {
   EffectsAction,
   IEffectsAction,
@@ -9,7 +8,6 @@ import {
   toActionPrefix,
 } from '../../util';
 import {
-  AnyT,
   IKeyValue,
   UNDEF,
 } from '../../definitions.interface';
@@ -204,17 +202,13 @@ export class FormActionBuilder {
     return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
   }
 
-  public static buildChangeAction(section: string, data: FieldChangeEntityT): IEffectsAction {
-    return EffectsAction.create(this.buildChangeActionType(section), applySection(section, data));
-  }
-
   /**
-   * @stable [26.08.2018]
+   * @stable [03.02.2020]
    * @param {string} section
    * @param {string} fieldName
    * @returns {IEffectsAction}
    */
-  public static buildClearSimpleAction(section: string, fieldName: string): IEffectsAction {
+  public static buildClearPlainAction(section: string, fieldName: string): IEffectsAction {
     return {
       type: this.buildClearActionType(section),
       data: applySection(section, this.buildChangesPayload({[fieldName]: UNDEF})),
@@ -222,27 +216,25 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [18.04.2019]
+   * @stable [03.02.2020]
    * @param {string} section
    * @param {string} fieldName
    * @returns {IEffectsAction}
    */
   public static buildClearAction(section: string, fieldName: string): IEffectsAction {
-    const simpleAction = this.buildClearSimpleAction(section, fieldName);
-    return EffectsAction.create(simpleAction.type, simpleAction.data);
+    const plainAction = this.buildClearPlainAction(section, fieldName);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**
-   * @stable - 10.04.2018
+   * @stable [03.02.2020]
    * @param {string} section
-   * @param {IKeyValue} changes
+   * @param {TData} changes
    * @returns {IEffectsAction}
    */
   public static buildChangesAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): IEffectsAction {
-    return EffectsAction.create(
-      this.buildChangeActionType(section),
-      applySection(section, this.buildChangesPayload(changes))
-    );
+    const plainAction = this.buildChangesPlainAction(section, changes);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   public static buildDefaultChangesAction<TData extends IKeyValue = IKeyValue>(section: string,
@@ -254,12 +246,12 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [09.10.2019]
+   * @stable [03.02.2020]
    * @param {string} section
    * @param {TData} changes
-   * @returns {AnyAction}
+   * @returns {IEffectsAction}
    */
-  public static buildChangesPlainAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): AnyAction {
+  public static buildChangesPlainAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): IEffectsAction {
     return {
       type: this.buildChangeActionType(section),
       data: applySection(section, this.buildChangesPayload(changes)),
@@ -297,7 +289,7 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [26.08.2018]
+   * @stable [03.02.2020]
    * @param {IKeyValue} changes
    * @returns {FieldChangeEntityT}
    */

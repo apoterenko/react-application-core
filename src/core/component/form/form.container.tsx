@@ -13,8 +13,8 @@ import {
 } from '../../definition';
 import {
   FORM_SUBMIT_ACTION_TYPE,
-  FORM_VALID_ACTION_TYPE,
 } from './form.interface';
+import { isFn } from '../../util';
 
 export class FormContainer extends BasicContainer<IFormContainerProps>
     implements IFormContainer {
@@ -102,13 +102,13 @@ export class FormContainer extends BasicContainer<IFormContainerProps>
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [03.02.2020]
    * @param {IApiEntity} apiEntity
    * @returns {boolean}
    */
   private onBeforeSubmit(apiEntity: IApiEntity): boolean {
-    const props = this.props;
-    return props.onBeforeSubmit && props.onBeforeSubmit(apiEntity);
+    const {onBeforeSubmit} = this.props;
+    return !isFn(onBeforeSubmit) || onBeforeSubmit(apiEntity);
   }
 
   private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {

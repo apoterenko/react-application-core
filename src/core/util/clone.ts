@@ -41,8 +41,7 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
         if (!R.isNil(canRender) && !canRender) {
           return null;
         }
-
-        const clonedChild = React.cloneElement<React.Props<TProps>>(
+        return React.cloneElement<React.Props<TProps>>(
           reactChild,
           {
             ...(canMergeProps && {
@@ -52,7 +51,6 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
             children: cloneReactNodes<TProps>(reactChild, mergedProps, mergePropsPredicate, renderPredicate),
           }
         );
-        return clonedChild;
       }
     },
   );
