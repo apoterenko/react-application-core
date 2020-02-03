@@ -9,7 +9,6 @@ import {
   IExtendedEntity,
   IFormExtendedEditableEntity,
   IGenericBaseSelectEntity,
-  IGenericBaseFieldEntity,
   IListEntity,
   IListWrapperEntity,
   IOperationEntity,
@@ -45,6 +44,7 @@ import {
   IDisabledWrapper,
   IEntity,
   IEntityIdTWrapper,
+  IErrorWrapper,
   IKeyValue,
   IOptionsWrapper,
   IPayloadWrapper,
@@ -130,13 +130,21 @@ export const selectTransport = (entity: ITransportWrapperEntity): ITransportEnti
 export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(entity) ? UNDEF : entity.id;
 
 /**
- * @stable [04.09.2019]
+ * @stable [03.02.2020]
+ * @param {IErrorWrapper} entity
+ * @returns {AnyT}
+ */
+export const selectError = <TResult = AnyT>(entity: IErrorWrapper<TResult>): TResult =>
+  R.isNil(entity) ? UNDEF : entity.error;
+
+/**
+ * @stable [03.02.2020]
  * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} entity
  * @returns {IEditableEntity<TEntity extends IEntity>}
  */
 export const selectEditableEntity =
   <TEntity extends IEntity = IEntity>(entity: IFormExtendedEditableEntity<TEntity>): IEditableEntity<TEntity> =>
-    ifNotNilThanValue(entity, (): IEditableEntity<TEntity> => entity.form, UNDEF_SYMBOL);
+    R.isNil(entity) ? UNDEF : entity.form;
 
 /**
  * @stable [04.09.2019]

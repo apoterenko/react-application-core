@@ -166,21 +166,21 @@ export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; 
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
-export interface IEntityIdWrapper<TEntityId = EntityIdT> { entityId?: TEntityId; }
+export interface IEntityIdWrapper<TValue = EntityIdT> { entityId?: TValue; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
-export interface IErrorWrapper<TError = boolean> { error?: TError; }
+export interface IErrorWrapper<TValue = boolean> { error?: TValue; }
 export interface IEventNameWrapper { eventName?: string; }
 export interface IEventWrapper<TValue = Event> { event?: TValue; }
 export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedAllGroupsWrapper { expandedAllGroups?: boolean; }
-export interface IExpandedGroupsWrapper<TExpandedGroups> { expandedGroups?: TExpandedGroups; }
-export interface IExtraParamsWrapper<TExtraParams> { extraParams?: TExtraParams; }
+export interface IExpandedGroupsWrapper<TValue> { expandedGroups?: TValue; }
+export interface IExtraParamsWrapper<TValue> { extraParams?: TValue; }
 export interface IFactorWrapper<TValue = number> { factor?: TValue; }
-export interface IFieldConfigurationWrapper<TProps> { fieldConfiguration?: TProps; }
+export interface IFieldConfigurationWrapper<TValue> { fieldConfiguration?: TValue; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
-export interface IFieldsWrapper<TFields> { fields?: TFields; }
-export interface IFieldWrapper<TField> { field?: TField; }
+export interface IFieldsWrapper<TValue> { fields?: TValue; }
+export interface IFieldWrapper<TValue> { field?: TValue; }
 export interface IFilePathWrapper { filePath?: string; }
 export interface IFilesWrapper<TValue> { files?: TValue; }
 export interface IFilterPlaceholderWrapper { filterPlaceholder?: string; }
@@ -280,7 +280,6 @@ export interface ILockPageWrapper<TValue = boolean> { lockPage?: TValue; }
 export interface ILockWrapper { lock?: boolean; }
 export interface ILoginWrapper<TValue = string> { login?: TValue; }
 export interface ILogoutWrapper<TValue = string> { logout?: TValue; }
-export interface IManualValidationWrapper { manualValidation?: boolean; }
 export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }

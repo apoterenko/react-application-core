@@ -9,7 +9,6 @@ import {
   IFieldsPresets,
   IForm,
   IFormProps,
-  INITIAL_FORM_ENTITY,
   UniversalIdProviderContext,
 } from '../../definition';
 import {
@@ -21,6 +20,7 @@ import {
   getFormFieldValue,
   ifNotNilThanValue,
   isActionsRendered,
+  isBoolean,
   isCompact,
   isFn,
   isFormFieldReadOnly,
@@ -36,6 +36,7 @@ import {
   orUndef,
   selectEditableEntity,
   selectEditableEntityChanges,
+  selectError,
 } from '../../util';
 import { AnyT, IEntity } from '../../definitions.interface';
 import { BaseComponent } from '../base';
@@ -54,10 +55,6 @@ import {
 } from './form.support';
 
 export class Form extends BaseComponent<IFormProps> implements IForm {
-
-  public static readonly defaultProps: IFormProps = {
-    form: INITIAL_FORM_ENTITY,
-  };
 
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
 
@@ -176,10 +173,15 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
     );
   }
 
+  /**
+   * @stable [03.02.2020]
+   * @param {string} name
+   * @param {AnyT} value
+   */
   private onChange(name: string, value: AnyT): void {
-
-    if (this.props.onChange) {
-      this.props.onChange({name, value});
+    const {onChange} = this.props;
+    if (isFn(onChange)) {
+      onChange({name, value});
     }
     this.propsOnValid();
   }
@@ -205,12 +207,13 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [03.12.2019]
+   * @stable [03.02.2020]
    */
   private propsOnValid(): void {
-    const props = this.props;
-    if (isFn(props.onValid)) {
-      props.onValid(props.manualValidation || this.getSelf().checkValidity()); // TODO manualValidation -> valid
+    const {onValid, valid} = this.props;
+
+    if (isFn(onValid)) {
+      onValid(isBoolean(valid) || this.getSelf().checkValidity());
     }
   }
 
@@ -277,7 +280,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {boolean}
    */
   private isFormOfNewEntity(): boolean {
-    return isNewEntity(this.props);
+    return isNewEntity(this.props.entity);
   }
 
   /**
@@ -389,7 +392,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         raised: true,
         disabled: !this.isFormSubmittable(),
         progress: this.isFormBusy(),
-        error: !R.isNil(this.form.error),
+        error: this.hasError,
         text: props.submitText || (this.isFormOfNewEntity() ? messages.create : messages.save),
         ...props.buttonConfiguration,
         ...submitConfiguration,
@@ -456,6 +459,14 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         (child) => (child.props as IFieldProps).rendered,
       )
     );
+  }
+
+  /**
+   * @stable [03.02.2020]
+   * @returns {boolean}
+   */
+  private get hasError(): boolean {
+    return !R.isNil(selectError<boolean | string>(this.form));
   }
 
   /**
