@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, uuid, orNull, ifNotFalseThanValue  } from '../../../util';
+import { toClassName, uuid, orNull, ifNotFalseThanValue, nvl  } from '../../../util';
 import { Link } from '../../link';
 import { INavigationListProps } from './navigation-list.interface';
 import { ListDivider } from '../../list';
@@ -9,8 +9,10 @@ import { FlexLayout } from '../../layout/flex';
 import {
   INavigationItemEntity,
   IScrollableEntity,
-  LayoutModeEnum,
+  LayoutModesEnum,
   NavigationItemTypesEnum,
+  IComponentsSettingsEntity,
+  IDefaultLayoutProps,
 } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 
@@ -50,7 +52,7 @@ export class NavigationList
    */
   private toElement(item: INavigationItemEntity, index: number): JSX.Element {
     const isExpanded = this.isItemExpanded(item);
-    const fullLayoutModeEnabled = this.fullLayoutModeEnabled;
+    const fullLayoutModeEnabled = this.isFullLayoutModeEnabled;
     const label = this.t(item.label);
     const ind = this.props.items.length - 1 -
       [...this.props.items].reverse().findIndex((itm) => itm.type === NavigationItemTypesEnum.SUB_HEADER);
@@ -63,8 +65,10 @@ export class NavigationList
                       row={true}
                       alignItemsCenter={true}
                       className={toClassName(
-                        'rac-navigation-list-group',
-                        ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list-last-group',
+                        'rac-navigation-list__section',
+                        'rac-navigation-list__group-section',
+                        'rac-navigation-list__group',
+                        ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list__last-section',
                         isGroupItemActive
                           ? 'rac-navigation-list-item-active'
                           : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
@@ -100,39 +104,53 @@ export class NavigationList
           () => <ListDivider key={R.isNil(item.parent) ? uuid() : this.toUniqueKey(item.parent.label, 'divider')}/>
         );
       default:
-        const itemAsGroup = R.isNil(item.parent);
+        const hasItemParent = R.isNil(item.parent);
         return orNull<JSX.Element>(
-          isExpanded || itemAsGroup,
+          isExpanded || hasItemParent,
           () => (
-            <Link to={item.link}
-                  key={this.toUniqueKey(item.link, 'link')}
-                  className={toClassName(
-                    'rac-navigation-list-item',
-                    item.active
-                      ? 'rac-navigation-list-item-active'
-                      : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
-                    itemAsGroup && 'rac-navigation-list-item-as-group',
-                    'rac-flex',
-                    'rac-flex-row',
-                    'rac-flex-full',
-                    'rac-flex-align-items-center'
-                  )}
-                  title={label}>
-              {this.uiFactory.makeIcon({
-                type: item.icon,
-                key: this.toUniqueKey(item.link, 'icon'),
-                className: 'rac-navigation-list-icon',
-              })}
-              {
-                orNull<JSX.Element>(
-                  fullLayoutModeEnabled,
-                  () => <span className='rac-navigation-list-item-label'>{label}</span>
-                )
-              }
-            </Link>
+            this.getItemElement(item)
           )
         );
     }
+  }
+
+  private getItemElement(item: INavigationItemEntity): JSX.Element {
+    const isFullLayoutModeEnabled = this.isFullLayoutModeEnabled;
+    const label = this.t(item.label);
+    const hasItemParent = R.isNil(item.parent);
+    const isExpanded = this.isItemExpanded(item);
+
+    return (
+      <Link
+        to={item.link}
+        key={this.toUniqueKey(item.link, 'link')}
+        className={toClassName(
+          'rac-navigation-list__section',
+          hasItemParent ? 'rac-navigation-list__group-section' : 'rac-navigation-list__item-section',
+          'rac-navigation-list-item',
+          item.active
+            ? 'rac-navigation-list-item-active'
+            : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
+          hasItemParent && 'rac-navigation-list__item-as-group',
+          'rac-flex',
+          'rac-flex-row',
+          'rac-flex-full',
+          'rac-flex-align-items-center'
+        )}
+        title={label}>
+        {this.uiFactory.makeIcon({
+          type: item.icon,
+          key: this.toUniqueKey(item.link, 'icon'),
+          className: 'rac-navigation-list-icon',
+        })}
+        {
+          orNull<JSX.Element>(
+            isFullLayoutModeEnabled,
+            () => <span className='rac-navigation-list-item-label'>{label}</span>
+          )
+        }
+      </Link>
+    );
   }
 
   /**
@@ -171,8 +189,29 @@ export class NavigationList
    * @stable [23.09.2018]
    * @returns {boolean}
    */
-  private get fullLayoutModeEnabled(): boolean {
-    return this.props.mode === LayoutModeEnum.FULL;
+  private get isFullLayoutModeEnabled(): boolean {
+    return this.layoutMode === LayoutModesEnum.FULL;
+  }
+
+  private get layoutMode(): LayoutModesEnum {
+    return nvl(this.systemLayoutMode, this.props.mode);
+  }
+
+  /**
+   * @stable [04.02.2020]
+   * @returns {LayoutModesEnum}
+   */
+  private get systemLayoutMode(): LayoutModesEnum {
+    return this.systemSettings.layoutMode;
+  }
+
+  /**
+   * @stable [04.02.2020]
+   * @returns {IDefaultLayoutProps}
+   */
+  private get systemSettings(): IDefaultLayoutProps {
+    const {defaultLayout = {}} = this.settings.components || {} as IComponentsSettingsEntity;
+    return defaultLayout;
   }
 
   /**

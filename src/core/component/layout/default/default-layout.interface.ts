@@ -6,11 +6,11 @@ import {
   IHeaderConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
 import {
+  IFooterRenderedWrapper,
   IFooterWrapper,
   IProgressWrapper,
-  IFooterRenderedWrapper,
+  ISubHeaderRenderedWrapper,
 } from '../../../definitions.interface';
-
 /**
  * @stable [13.08.2018]
  */
@@ -22,10 +22,12 @@ export interface IDefaultLayoutContainerEntity extends IContainerProps,
 /**
  * @stable [31.05.2018]
  */
-export interface IDefaultLayoutContainerConfiguration extends IContainerProps,
-                                                              IFooterWrapper,
-                                                              IFooterRenderedWrapper,
-                                                              IHeaderConfigurationWrapper {
+export interface IDefaultLayoutContainerConfiguration
+  extends IContainerProps,
+    IFooterWrapper,
+    ISubHeaderRenderedWrapper,
+    IFooterRenderedWrapper,
+    IHeaderConfigurationWrapper {
 }
 
 /**

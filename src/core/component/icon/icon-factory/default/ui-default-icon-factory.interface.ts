@@ -1,6 +1,6 @@
 /**
  * @stable [25.01.2019]
  */
-export interface IUIDefaultIconFactory {
+export interface IUiDefaultIconFactory {
   makeInstance(iconName: string): JSX.Element;
 }

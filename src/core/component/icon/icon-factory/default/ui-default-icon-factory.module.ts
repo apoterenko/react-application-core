@@ -1,7 +1,12 @@
-import { appContainer, DI_TYPES } from '../../../../di';
+import {
+  bindInSingleton,
+  DI_TYPES,
+} from '../../../../di';
 
-import { IUIDefaultIconFactory } from './ui-default-icon-factory.interface';
-import { UIDefaultIconFactory } from './ui-default-icon-factory.service';
+import { UiDefaultIconFactory } from './ui-default-icon-factory.service';
 
-appContainer.bind<IUIDefaultIconFactory>(DI_TYPES.UIIconFactory).to(UIDefaultIconFactory).inSingletonScope();
-appContainer.bind<IUIDefaultIconFactory>(UIDefaultIconFactory).to(UIDefaultIconFactory).inSingletonScope();
+/**
+ * @stable [04.02.2020]
+ */
+bindInSingleton(DI_TYPES.UiIconFactory, UiDefaultIconFactory);
+bindInSingleton(UiDefaultIconFactory);

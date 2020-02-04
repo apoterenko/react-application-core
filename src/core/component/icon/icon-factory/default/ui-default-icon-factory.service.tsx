@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { injectable } from 'inversify';
 
-import { IUIDefaultIconFactory } from './ui-default-icon-factory.interface';
+import { IUiDefaultIconFactory } from './ui-default-icon-factory.interface';
 
 @injectable()
-export class UIDefaultIconFactory implements IUIDefaultIconFactory {
+export class UiDefaultIconFactory implements IUiDefaultIconFactory {
 
   // tslint:disable:max-line-length
   // https://svg2jsx.herokuapp.com/
@@ -573,6 +573,6 @@ export class UIDefaultIconFactory implements IUIDefaultIconFactory {
    * @returns {JSX.Element}
    */
   public makeInstance(iconName: string): JSX.Element {
-    return UIDefaultIconFactory.SUPPORTED_ICONS_MAPS[iconName];
+    return UiDefaultIconFactory.SUPPORTED_ICONS_MAPS[iconName];
   }
 }

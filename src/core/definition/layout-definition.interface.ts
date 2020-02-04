@@ -1,29 +1,36 @@
 import { IXYEntity } from './xy-definition.interface';
 import {
+  IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
   IKeyValue,
+  ILayoutModeWrapper,
   ILayoutWrapper,
   IModeWrapper,
+  IOnDrawerHeaderClickWrapper,
 } from '../definitions.interface';
+import { IComponentProps } from './props-definition.interface';
 
 /**
+ * @enum
  * @stable [28.09.2019]
  */
-export enum LayoutModeEnum {
+export enum LayoutModesEnum {
   FULL,
   MINIMAL,
 }
 
 /**
+ * @entity
  * @stable [28.09.2019]
  */
 export interface ILayoutEntity
-  extends IXYEntity,
-    IExpandedGroupsWrapper<IKeyValue>,
-    IModeWrapper<LayoutModeEnum> {
+  extends IExpandedGroupsWrapper<IKeyValue>,
+    IModeWrapper<LayoutModesEnum>,
+    IXYEntity {
 }
 
 /**
+ * @wrapper-entity
  * @stable [28.09.2019]
  */
 export interface ILayoutWrapperEntity
@@ -31,6 +38,37 @@ export interface ILayoutWrapperEntity
 }
 
 /**
+ * @generic-entity
+ * @stable [04.02.2020]
+ */
+export interface IGenericDefaultLayoutEntity
+  extends ILayoutWrapperEntity,
+    ILayoutModeWrapper<LayoutModesEnum>,
+    IDrawerHeaderRenderedWrapper {
+}
+
+/**
+ * @behavioral-entity
+ * @stable [04.02.2020]
+ */
+export interface IBehavioralDefaultLayoutEntity
+  extends IOnDrawerHeaderClickWrapper<LayoutModesEnum> {
+}
+
+/**
+ * @props
+ * @stable [04.02.2020]
+ */
+export interface IDefaultLayoutProps
+  extends IComponentProps,
+    IGenericDefaultLayoutEntity,
+    IBehavioralDefaultLayoutEntity {
+  navigationListElement?: any;
+  onLogoMenuActionClick?: any;
+}
+
+/**
+ * @enum
  * @stable [28.09.2019]
  */
 export enum LayoutGroupsValuesEnum {
@@ -38,11 +76,12 @@ export enum LayoutGroupsValuesEnum {
 }
 
 /**
+ * @initial-entity
  * @stable [28.09.2019]
  */
 export const INITIAL_LAYOUT_ENTITY = Object.freeze<ILayoutEntity>({
   x: 0,
   y: 0,
-  mode: LayoutModeEnum.FULL,
+  mode: LayoutModesEnum.FULL,
   expandedGroups: {[LayoutGroupsValuesEnum.HOME]: true},
 });

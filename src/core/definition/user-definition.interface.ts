@@ -9,6 +9,7 @@ import { INamedEntity } from './entity-definition.interface';
 import { IEntityReducerFactoryConfigEntity } from './redux-definition.interface';
 
 /**
+ * @entity
  * @stable [27.09.2019]
  */
 export interface IUserEntity
@@ -19,6 +20,7 @@ export interface IUserEntity
 }
 
 /**
+ * @wrapper-entity
  * @stable [27.09.2019]
  */
 export interface IUserWrapperEntity

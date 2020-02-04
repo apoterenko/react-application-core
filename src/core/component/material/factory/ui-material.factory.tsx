@@ -128,7 +128,7 @@ import {
 import { IUIFactory } from '../../factory';
 import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import { DI_TYPES, lazyInject } from '../../../di';
-import { IUIDefaultIconFactory } from '../../icon';
+import { IUiDefaultIconFactory } from '../../icon';
 import {
   IUniversalUiMessageConfigEntity,
   TranslatorT,
@@ -291,7 +291,7 @@ export class UIMaterialFactory implements IUIFactory {
   public rippleSurface = 'mdc-ripple-surface';
 
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
-  @lazyInject(DI_TYPES.UIIconFactory) private uiIconFactory: IUIDefaultIconFactory;
+  @lazyInject(DI_TYPES.UiIconFactory) private uiIconFactory: IUiDefaultIconFactory;
   @lazyInject(DI_TYPES.UIDefaultFactory) private defaultUIFactory: IUIFactory;
 
   /**

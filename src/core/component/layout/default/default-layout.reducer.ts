@@ -11,7 +11,7 @@ import {
   ILayoutEntity,
   INITIAL_LAYOUT_ENTITY,
   IXYPayloadEntity,
-  LayoutModeEnum,
+  LayoutModesEnum,
 } from '../../../definition';
 
 /**
@@ -38,10 +38,10 @@ export const defaultLayoutReducer = (state: ILayoutEntity = INITIAL_LAYOUT_ENTIT
         ...xyPayloadWrapper.payload,
       };
     case LAYOUT_MODE_UPDATE_ACTION_TYPE:
-      const modePayloadWrapper: IPayloadWrapper<LayoutModeEnum> = action.data;
+      const modePayloadWrapper: IPayloadWrapper<LayoutModesEnum> = action.data;
       return {
         ...state,
-        mode: modePayloadWrapper.payload === LayoutModeEnum.FULL ? LayoutModeEnum.MINIMAL : LayoutModeEnum.FULL,
+        mode: modePayloadWrapper.payload === LayoutModesEnum.FULL ? LayoutModesEnum.MINIMAL : LayoutModesEnum.FULL,
       };
     case LAYOUT_DESTROY_ACTION_TYPE:
       return {

@@ -1,13 +1,10 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { Drawer } from '../../drawer';
 import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
 import {
-  calc,
   isFn,
-  joinClassName,
   orNull,
 } from '../../../util';
 import { LayoutContainer } from '../layout.container';
@@ -15,7 +12,6 @@ import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './de
 import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { Main } from '../../main';
-import { Profile } from '../../profile';
 import { FlexLayout } from '../flex';
 import { Operation } from '../../../operation';
 import {
@@ -27,7 +23,6 @@ import {
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
   LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
-import { ENV } from '../../../env';
 import { Menu } from '../../menu';
 import { Link } from '../../link';
 import {
@@ -40,7 +35,7 @@ import {
   INavigationItemEntity,
   IOperationEntity,
   IXYEntity,
-  LayoutModeEnum,
+  LayoutModesEnum,
 } from '../../../definition';
 import { Overlay } from '../../overlay';
 import {
@@ -49,6 +44,7 @@ import {
   SelectedElementPlugin,
   StickyHeaderPlugin,
 } from '../../plugin';
+import { DefaultLayout } from './default-layout.component';
 
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
@@ -86,7 +82,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
     this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
-    this.onProfileMenuClick = this.onProfileMenuClick.bind(this);
+    this.onDrawerHeaderClick = this.onDrawerHeaderClick.bind(this);
     this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
 
     this.state = {notifications: false};
@@ -99,16 +95,18 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <FlexLayout row={true}
-                  className={joinClassName('rac-default-layout', calc(props.className))}>
-        {this.drawerElement}
+      <DefaultLayout
+        {...props}
+        onLogoMenuActionClick={this.onLogoMenuActionClick}
+        onDrawerHeaderClick={this.onDrawerHeaderClick}
+        navigationListElement={this.navigationListElement}>
         <FlexLayout>
           {this.headerElement}
           {this.mainElement}
           {this.footerElement}
         </FlexLayout>
         {this.snackbarElement}
-      </FlexLayout>
+      </DefaultLayout>
     );
   }
 
@@ -185,22 +183,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [23.09.2018]
-   * @returns {boolean}
-   */
-  private get layoutFullModeEnabled(): boolean {
-    return this.layoutMode === LayoutModeEnum.FULL;
-  }
-
-  /**
-   * @stable [23.09.2018]
-   * @returns {LayoutModeEnum}
-   */
-  private get layoutMode(): LayoutModeEnum {
-    return this.props.layout.mode;
-  }
-
-  /**
    * @stable [18.09.2018]
    * @returns {INavigationItemEntity[]}
    */
@@ -231,34 +213,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
-   * @returns {JSX.Element}
-   */
-  private get drawerElement(): JSX.Element {
-    const layoutFullModeEnabled = this.layoutFullModeEnabled;
-    return (
-      <Drawer mini={!layoutFullModeEnabled}>
-        <FlexLayout row={true}
-                    full={false}
-                    alignItemsCenter={true}
-                    className='rac-drawer-toolbar-spacer'
-                    onClick={this.onLogoMenuActionClick}>
-          <Profile avatarRendered={layoutFullModeEnabled}
-                   appVersion={ENV.appVersion}
-                   onClick={this.onProfileMenuClick}/>
-        </FlexLayout>
-        {this.navigationListElement}
-      </Drawer>
-    );
-  }
-
-  /**
    * @stable [04.12.2019]
    */
-  private onProfileMenuClick(): void {
-    this.dispatchCustomType<IPayloadWrapper<LayoutModeEnum>>(
+  private onDrawerHeaderClick(layoutMode: LayoutModesEnum): void {
+    this.dispatchCustomType<IPayloadWrapper<LayoutModesEnum>>(
       LAYOUT_MODE_UPDATE_ACTION_TYPE,
-      {payload: this.layoutMode}
+      {payload: layoutMode}
     );
   }
 
@@ -268,8 +228,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    */
   private get mainElement(): JSX.Element {
     const props = this.props;
-    const runtimeTitle = this.menuItems.find((item) => item.active);
-    const title = props.title || (runtimeTitle && runtimeTitle.label);
 
     return (
       <Main plugins={[
@@ -277,14 +235,25 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         SelectedElementPlugin,
         StickyHeaderPlugin
       ]}>
-        <SubHeader {...props.headerConfiguration}
-                   title={title}
-                   onNavigationActionClick={this.onHeaderNavigationActionClick}
-                   onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
+        {props.subHeaderRendered !== false && this.subHeaderElement}
         {this.props.children}
         {this.mainProgressOverlayElement}
         {this.notificationsElement}
       </Main>
+    );
+  }
+
+  private get subHeaderElement(): JSX.Element {
+    const props = this.props;
+    const runtimeTitle = this.menuItems.find((item) => item.active);
+    const title = props.title || (runtimeTitle && runtimeTitle.label);
+
+    return (
+      <SubHeader
+        {...props.headerConfiguration}
+        title={title}
+        onNavigationActionClick={this.onHeaderNavigationActionClick}
+        onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
     );
   }
 

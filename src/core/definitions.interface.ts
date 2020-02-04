@@ -157,6 +157,7 @@ export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: boolean; }
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
+export interface IDrawerHeaderRenderedWrapper { drawerHeaderRendered?: boolean; }
 export interface IDurationWrapper<TValue> { duration?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
@@ -190,6 +191,7 @@ export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
+export interface IFooterRenderedWrapper { footerRendered?: boolean; }
 export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
 export interface IForceUseLocalFilterWrapper { forceUseLocalFilter?: boolean; }
@@ -262,6 +264,7 @@ export interface IKeyWrapper<TValue = string> { key?: TValue; }
 export interface ILabelWrapper<TValue = string> { label?: TValue; }
 export interface ILastWrapper<TValue = boolean> { last?: TValue; }
 export interface ILatWrapper<TValue = number> { lat?: TValue; }
+export interface ILayoutModeWrapper<TValue> { layoutMode?: TValue; }
 export interface ILayoutWrapper<TValue> { layout?: TValue; }
 export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
 export interface ILeftSlotWrapper<TValue> { leftSlot?: TValue; }
@@ -325,6 +328,7 @@ export interface IOnDeactivateWrapper<TPayload = {}> { onDeactivate?(payload?: T
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
+export interface IOnDrawerHeaderClickWrapper<TValue = {}> { onDrawerHeaderClick?(payload?: TValue): void; }
 export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue; }
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
@@ -457,6 +461,7 @@ export interface IStreetNumberWrapper<TValue = string> { streetNumber?: TValue; 
 export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
 export interface IStrictWrapper { strict?: boolean; }
 export interface IStyleWrapper<TStyle> { style?: TStyle; }
+export interface ISubHeaderRenderedWrapper { subHeaderRendered?: boolean; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TValue = string> { submitIcon?: TValue; }
 export interface ISubmitTextWrapper { submitText?: string; }
@@ -787,13 +792,6 @@ export interface IOpenWrapper<TOpen = boolean> {
  */
 export interface IErrorMessageRenderedWrapper {
   errorMessageRendered?: boolean;
-}
-
-/**
- * @stable [16.09.2018]
- */
-export interface IFooterRenderedWrapper {
-  footerRendered?: boolean;
 }
 
 /**

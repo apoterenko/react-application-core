@@ -9,6 +9,7 @@ import {
   DEFAULT_PHONE_SETTINGS_ENTITY,
   DEFAULT_STORAGE_SETTINGS_ENTITY,
   IAsyncLibrariesSettingsEntity,
+  IComponentsSettingsEntity,
   ICurrencySettingsEntity,
   IDateTimeSettingsEntity,
   IGoogleMapsSettingsEntity,
@@ -109,6 +110,7 @@ export interface ISettingsEntity {
   bootstrap?: IBootstrapSettings;
   channel?: IApplicationChannelSettings;
   companyName?: string;
+  components?: IComponentsSettingsEntity;
   currency?: ICurrencySettingsEntity;
   dateTime?: IDateTimeSettings;
   downloadUrl?: string;

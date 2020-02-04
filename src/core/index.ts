@@ -38,7 +38,6 @@ export * from './component/menu';
 export * from './component/message';
 export * from './component/overlay';
 export * from './component/plugin';
-export * from './component/profile';
 export * from './component/progress';
 export * from './component/proxy';
 export * from './component/root';

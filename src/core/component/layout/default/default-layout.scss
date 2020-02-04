@@ -5,13 +5,36 @@
 
   /**
    * @default-layout
-   * @stable [18.10.2019]
+   * @stable [04.02.2020]
    */
   @include rac-default-layout (
+    $rac-default-layout-body-display: $rac-default-layout-body-display,
+    $rac-default-layout-body-flex-direction: $rac-default-layout-body-flex-direction,
+    $rac-default-layout-body-flex: $rac-default-layout-body-flex,
+    $rac-default-layout-display: $rac-default-layout-display,
     $rac-default-layout-drawer-background: $rac-default-layout-drawer-background,
+    $rac-default-layout-drawer-header-align-items: $rac-default-layout-drawer-header-align-items,
+    $rac-default-layout-drawer-header-background: $rac-default-layout-drawer-header-background,
+    $rac-default-layout-drawer-header-color: $rac-default-layout-drawer-header-color,
+    $rac-default-layout-drawer-header-cursor: $rac-default-layout-drawer-header-cursor,
+    $rac-default-layout-drawer-header-display: $rac-default-layout-drawer-header-display,
+    $rac-default-layout-drawer-header-flex-direction: $rac-default-layout-drawer-header-flex-direction,
+    $rac-default-layout-drawer-header-height: $rac-default-layout-drawer-header-height,
+    $rac-default-layout-drawer-header-position: $rac-default-layout-drawer-header-position,
+    $rac-default-layout-drawer-justify-content: $rac-default-layout-drawer-justify-content,
     $rac-default-layout-drawer-transform: $rac-default-layout-drawer-transform,
     $rac-default-layout-drawer-width: $rac-default-layout-drawer-width,
-    $rac-default-layout-drawer-z-index: $rac-default-layout-drawer-z-index
+    $rac-default-layout-drawer-z-index: $rac-default-layout-drawer-z-index,
+    $rac-default-layout-flex-direction: $rac-default-layout-flex-direction,
+    $rac-default-layout-flex: $rac-default-layout-flex,
+    $rac-default-layout-navigation-list-flex: $rac-default-layout-navigation-list-flex,
+    $rac-default-layout-navigation-list-group-section-background: $rac-default-layout-navigation-list-group-section-background,
+    $rac-default-layout-navigation-list-group-section-height: $rac-default-layout-navigation-list-group-section-height,
+    $rac-default-layout-navigation-list-item-section-background: $rac-default-layout-navigation-list-item-section-background,
+    $rac-default-layout-navigation-list-item-section-height: $rac-default-layout-navigation-list-item-section-height,
+    $rac-default-layout-navigation-list-last-section-margin: $rac-default-layout-navigation-list-last-section-margin,
+    $rac-default-layout-navigation-list-position: $rac-default-layout-navigation-list-position,
+    $rac-default-layout-navigation-list-section-background: $rac-default-layout-navigation-list-section-background
   );
 
   .rac-default-layout {                                                                       /* @stable [13.02.2019] */
@@ -72,6 +95,7 @@
       position: relative;                                                                           /* @stable [16.09.2018] */
 
       .rac-main-body-wrapper {
+        background: $rac-default-layout-main-body-wrapper-background;
         overflow: $rac-default-layout-main-body-wrapper-overflow;                                   /* @stable [22.10.2018] */
         position: $rac-default-layout-main-body-wrapper-position;                                   /* @stable [22.10.2018] */                                                                       /* @stable [16.09.2018] */
         width: $rac-default-layout-main-body-wrapper-width;                                         /* @stable [22.10.2018] */                                                                          /* @stable [16.09.2018] */
@@ -103,14 +127,6 @@
       max-height: $rac-default-layout-footer-height;                                                /* @stable [16.09.2018] */
     }
 
-    .rac-drawer-toolbar-spacer {
-      position: relative;                                                                           /* @stable [17.09.2018] */
-      cursor: $rac-default-layout-drawer-toolbar-spacer-cursor;                                     /* @stable [26.09.2018] */
-      height: $rac-default-layout-drawer-toolbar-spacer-height;                                 /* @stable [23.09.2018] */
-      color: $rac-default-layout-drawer-toolbar-spacer-color;                                       /* @stable [26.09.2018] */
-      background: $rac-default-layout-drawer-toolbar-spacer-background;                             /* @stable [17.09.2018] */
-    }
-
     .rac-notifications {                                                                      /* @stable [11.02.2019] */
       @include rac-styles(
         $rac-styles-position: absolute,
@@ -124,24 +140,6 @@
     .rac-drawer {
 
       .rac-navigation-list {
-        flex: 1;
-        position: relative;
-
-        .rac-navigation-list-group {
-          height: $rac-default-layout-drawer-navigation-list-group-subheader-height;                /* @stable [23.09.2018] */
-        }
-
-        .rac-navigation-list-last-group {
-          margin-bottom: 48px;
-        }
-
-        .rac-navigation-list-item {
-          height: $rac-default-layout-drawer-navigation-list-item-height;                           /* @stable [23.069.2018] */
-
-          &.rac-navigation-list-item-as-group {
-            height: $rac-default-layout-drawer-navigation-list-group-subheader-height;              /* @stable [23.09.2018] */
-          }
-        }
 
         .rac-navigation-list-icon {
           &.rac-icon {

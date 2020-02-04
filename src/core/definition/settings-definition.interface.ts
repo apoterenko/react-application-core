@@ -1,3 +1,5 @@
+import { IDefaultLayoutProps } from './layout-definition.interface';
+
 /**
  * @stable [09.10.2019]
  */
@@ -76,6 +78,14 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
   uiCurrency: 'USD',
   uiShortCurrency: '$',
 });
+
+/**
+ * @entity
+ * @stable [04.02.2020]
+ */
+export interface IComponentsSettingsEntity {
+  defaultLayout?: IDefaultLayoutProps;
+}
 
 /**
  * @entity
