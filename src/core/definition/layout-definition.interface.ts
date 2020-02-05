@@ -2,6 +2,7 @@ import { IXYEntity } from './xy-definition.interface';
 import {
   IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
+  IFooterWrapper,
   IKeyValue,
   ILayoutModeWrapper,
   ILayoutWrapper,
@@ -43,8 +44,9 @@ export interface ILayoutWrapperEntity
  */
 export interface IGenericDefaultLayoutEntity
   extends ILayoutWrapperEntity,
-    ILayoutModeWrapper<LayoutModesEnum>,
-    IDrawerHeaderRenderedWrapper {
+    IDrawerHeaderRenderedWrapper,
+    IFooterWrapper,
+    ILayoutModeWrapper<LayoutModesEnum> {
 }
 
 /**

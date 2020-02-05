@@ -71,7 +71,7 @@ export class NavigationList
                         ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list__last-section',
                         isGroupItemActive
                           ? 'rac-navigation-list-item-active'
-                          : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
+                          : (isExpanded ? 'rac-navigation-list__expanded-section' : ''),
                       )}
                       title={label}
                       onClick={() => this.onGroupLinkClick(item)}>
@@ -130,7 +130,7 @@ export class NavigationList
           'rac-navigation-list-item',
           item.active
             ? 'rac-navigation-list-item-active'
-            : (isExpanded ? 'rac-navigation-list-item-expanded' : ''),
+            : (isExpanded ? 'rac-navigation-list__expanded-section' : ''),
           hasItemParent && 'rac-navigation-list__item-as-group',
           'rac-flex',
           'rac-flex-row',

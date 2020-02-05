@@ -381,7 +381,6 @@ $rac-navigation-list-group-font-size: $rac-default-font-size !default;
 $rac-navigation-list-item-color: $color-5 !default;
 $rac-navigation-list-item-font-size: $rac-default-font-size !default;
 $rac-navigation-list-item-letter-spacing: $rac-default-letter-spacing !default;
-$rac-navigation-list-item-expanded-background-color: $color-13 !default;
 $rac-navigation-list-item-hover-outline: 1px solid $color-5 !default;
 $rac-navigation-list-item-active-color: $color-5 !default;
 $rac-navigation-list-item-active-background-color: $color-1 !default;
@@ -972,9 +971,15 @@ $rac-snackbar-error-background-color: $color-11 !default;
 $rac-drawer-display: flex !default;
 $rac-drawer-flex-direction: column !default;
 
-/* @stable [13.09.2018] */
+/************************/
+/* @stable [05.02.2020] */
+/************************/
+$rac-default-layout-full-cls: rac-default-layout-full;
+$rac-default-layout-mini-cls: rac-default-layout-mini;
+/**/
 $rac-default-layout-display-0: flex !default;
 $rac-default-layout-size-0: 56px !default;
+$rac-default-layout-size-1: 48px !default;
 /**/
 $rac-default-layout-body-display: $rac-default-layout-display-0 !default;
 $rac-default-layout-body-flex-direction: column !default;
@@ -992,17 +997,38 @@ $rac-default-layout-drawer-header-position: relative !default;
 $rac-default-layout-drawer-justify-content: unset !default;
 $rac-default-layout-flex-direction: unset !default;
 $rac-default-layout-flex: 1 !default;
+$rac-default-layout-full-navigation-list-icon-width: $rac-default-layout-size-1 !default;
+$rac-default-layout-main-body-content-display: $rac-default-layout-display-0 !default;
+$rac-default-layout-main-body-content-flex-direction: column !default;
+$rac-default-layout-main-body-content-flex: 1 !default;
+$rac-default-layout-main-body-content-height: 100% !default;
+$rac-default-layout-main-body-content-padding: unset !default;
+$rac-default-layout-main-body-content-width: unset !default;
+$rac-default-layout-main-body-height: unset !default;
+$rac-default-layout-main-body-width: unset !default;
+$rac-default-layout-main-display: unset !default;
+$rac-default-layout-main-flex-direction: unset !default;
+$rac-default-layout-main-flex: 1 !default;
+$rac-default-layout-main-position: relative !default;
+$rac-default-layout-mini-drawer-width: $rac-default-layout-size-1 !default;
+$rac-default-layout-mini-navigation-list-icon-width: 100% !default;
+$rac-default-layout-navigation-list-expanded-section-background: unset !default;
 $rac-default-layout-navigation-list-flex: unset !default;
 $rac-default-layout-navigation-list-group-section-background: unset !default;
 $rac-default-layout-navigation-list-group-section-height: unset !default;
 $rac-default-layout-navigation-list-item-section-background: unset !default;
 $rac-default-layout-navigation-list-item-section-height: unset !default;
 $rac-default-layout-navigation-list-last-section-margin: unset !default;
+$rac-default-layout-navigation-list-overflow: auto !default;
 $rac-default-layout-navigation-list-position: relative !default;
 $rac-default-layout-navigation-list-section-background: unset !default;
+$rac-default-layout-tab-panel-wrapper-border-bottom: unset !default;
+$rac-default-layout-tab-panel-wrapper-display: unset !default;
+$rac-default-layout-tab-panel-wrapper-flex-direction: unset !default;
+$rac-default-layout-tab-panel-wrapper-flex: unset !default;
+$rac-default-layout-tab-panel-wrapper-margin: unset !default;
+$rac-default-layout-tab-panel-wrapper-padding: unset !default;
 /**/
-$rac-default-layout-drawer-mini-width: 48px !default;
-$rac-default-layout-drawer-navigation-list-icon-width: 48px !default;
 $rac-default-layout-drawer-transform: translate3d(0, 0, 0) !default; /* iOS fixed + z-index workaround */
 $rac-default-layout-drawer-width: 220px !default;
 $rac-default-layout-drawer-z-index: $rac-z-index-drawer !default;
@@ -1025,12 +1051,6 @@ $rac-default-layout-header-user-photo-height: $rac-default-layout-header-user-ph
 $rac-default-layout-header-user-photo-margin-right: 8px !default;
 $rac-default-layout-logo-menu-icon-color: $color-5 !default;
 $rac-default-layout-logo-menu-icon-margin-right: $rac-default-offset !default;
-$rac-default-layout-main-body-container-margin-bottom: 16px !default;
-$rac-default-layout-main-body-container-padding-bottom: 16px !default;
-$rac-default-layout-main-body-content-padding: 0 $rac-default-layout-offset 0 0 !default;
-$rac-default-layout-main-body-height: 100% !default;
-$rac-default-layout-main-body-padding: 0 $rac-default-layout-offset !default;
-$rac-default-layout-main-body-tab-panel-wrapper-border-bottom: unset !default;
 $rac-default-layout-main-body-wrapper-height: 100% !default;
 $rac-default-layout-main-body-wrapper-overflow: auto !default;
 $rac-default-layout-main-body-wrapper-background: unset !default;

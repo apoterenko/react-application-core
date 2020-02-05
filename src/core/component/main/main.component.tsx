@@ -2,14 +2,12 @@ import * as React from 'react';
 
 import {
   ElementsMarkersEnum,
-  FlexClassNamesEnum,
   IMainProps,
   IScrollableEntity,
   UniversalScrollableContext,
   UniversalStickyContext,
 } from '../../definition';
 import { BaseComponent } from '../base/base.component';
-import { FlexLayout } from '../layout/flex';
 import {
   calc,
   joinClassName,
@@ -33,7 +31,7 @@ export class Main extends BaseComponent<IMainProps>
   }
 
   /**
-   * @stable [23.10.2019]
+   * @stable [05.02.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -42,21 +40,15 @@ export class Main extends BaseComponent<IMainProps>
       <UniversalStickyContext.Provider value={props.stickyElementClassName}>
         <UniversalScrollableContext.Provider value={props.selectedElementClassName}>
           <div
-            className={
-              joinClassName(
-                'rac-main',
-                FlexClassNamesEnum.FULL,
-                calc(props.className)
-              )
-            }>
+            className={joinClassName('rac-main', calc(props.className))}>
             <div
               ref={this.selfRef}
-              className='rac-main-body-wrapper'
+              className='rac-main__body'
               onScroll={this.onScroll}
             >
-              <FlexLayout className='rac-main-body'>
+              <div className='rac-main__body-content'>
                 {props.children}
-              </FlexLayout>
+              </div>
             </div>
           </div>
         </UniversalScrollableContext.Provider>

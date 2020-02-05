@@ -50,7 +50,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   public static readonly defaultProps: IDefaultLayoutContainerProps = {
     headerConfiguration: {},
-    footerRendered: true,
   };
 
   private readonly userExitActionValue = 'exit';
@@ -103,7 +102,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         <FlexLayout>
           {this.headerElement}
           {this.mainElement}
-          {this.footerElement}
         </FlexLayout>
         {this.snackbarElement}
       </DefaultLayout>
@@ -255,17 +253,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         onNavigationActionClick={this.onHeaderNavigationActionClick}
         onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
     );
-  }
-
-  /**
-   * @stable [08.10.2018]
-   * @returns {JSX.Element}
-   */
-  private get footerElement(): JSX.Element {
-    const props = this.props;
-    const footer = props.footer;
-
-    return orNull<JSX.Element>(props.footerRendered, footer);
   }
 
   /**

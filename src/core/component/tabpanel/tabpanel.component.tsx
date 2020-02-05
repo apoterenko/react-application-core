@@ -54,7 +54,7 @@ export class TabPanel extends BaseComponent<ITabPanelProps, ITabPanelState> impl
       <FlexLayout
         full={false}
         noShrink={true}
-        className='rac-tab-panel-wrapper rac-no-user-select'
+        className='rac-tab-panel__wrapper rac-no-user-select'
       >
         <div ref='self'
              className={toClassName(

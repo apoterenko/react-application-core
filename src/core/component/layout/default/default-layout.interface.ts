@@ -6,7 +6,6 @@ import {
   IHeaderConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
 import {
-  IFooterRenderedWrapper,
   IFooterWrapper,
   IProgressWrapper,
   ISubHeaderRenderedWrapper,
@@ -26,7 +25,6 @@ export interface IDefaultLayoutContainerConfiguration
   extends IContainerProps,
     IFooterWrapper,
     ISubHeaderRenderedWrapper,
-    IFooterRenderedWrapper,
     IHeaderConfigurationWrapper {
 }
 

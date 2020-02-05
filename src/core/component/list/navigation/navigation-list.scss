@@ -4,17 +4,12 @@
 .rac {
 
   .rac-navigation-list {                                                                      /* @stable [13.02.2019] */
-    @include rac-styles(
-      $rac-styles-overflow: auto
-    );
 
     @include rac-icon(
       $rac-icon-custom: rac-navigation-list-group-expand-icon,
       $rac-icon-size: $rac-navigation-list-group-expand-icon-size
     );
   }
-
-
 
   .rac-navigation-list {
 
@@ -43,10 +38,6 @@
         }
       }
 
-      &.rac-navigation-list-item-expanded {
-        background-color: $rac-navigation-list-item-expanded-background-color;          /* @stable [23.09.2018] */
-      }
-
       &:hover {
         outline: $rac-navigation-list-item-hover-outline;                               /* @stable [26.09.2018] */
       }
@@ -63,10 +54,6 @@
         &.rac-icon {
           color: $rac-navigation-list-group-expand-icon-color;                /* @stable [23.09.2018] */
         }
-      }
-
-      .rac-icon {
-        color: $rac-navigation-list-group-icon-color;                         /* @stable [26.09.2018] */
       }
     }
 
@@ -87,8 +74,5 @@
         color: $rac-navigation-list-item-icon-color;                                    /* @stable [26.09.2018] */
       }
     }
-
-
-
   }
 }

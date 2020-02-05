@@ -36,10 +36,17 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
 
     return (
       <div
-        className={joinClassName('rac-default-layout', calc(props.className))}>
+        className={
+          joinClassName(
+            'rac-default-layout',
+            calc(props.className),
+            this.isLayoutFullModeEnabled ? 'rac-default-layout-full' : 'rac-default-layout-mini'
+          )
+        }>
         {props.drawerHeaderRendered !== false && this.drawerElement}
         <div className='rac-default-layout__body'>
           {props.children}
+          {props.footer}
         </div>
       </div>
     );
