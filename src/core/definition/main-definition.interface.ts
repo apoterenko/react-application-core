@@ -1,6 +1,5 @@
 import { IComponentProps } from './props-definition.interface';
 import {
-  IPerfectScrollWrapperEntity,
   ISelectedElementEntity,
   IStickyEntity,
 } from '../definition';
@@ -10,7 +9,6 @@ import {
  */
 export interface IMainProps
   extends IComponentProps,
-    IPerfectScrollWrapperEntity,
     ISelectedElementEntity,
     IStickyEntity {
 }

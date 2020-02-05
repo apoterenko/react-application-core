@@ -6,14 +6,13 @@ import {
 } from '../../di';
 import {
   isFn,
-  sequence,
   setStickyElementProperties,
 } from '../../util';
 import {
   EventsEnum,
+  IComponent,
   IDomAccessor,
   IEventManager,
-  IScrollableComponent,
   IStickyComponentProps,
   IUniversalPlugin,
 } from '../../definition';
@@ -23,15 +22,15 @@ export class StickyHeaderPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
 
   private resizeUnsubscriber: () => void;
+  private scrollUnsubscriber: () => void;
   private isStickyElementMounted = false;
 
   /**
-   * @stable [11.10.2019]
-   * @param {IScrollableComponent} component
+   * @stable [06.02.2020]
+   * @param {IComponent<IStickyComponentProps>} component
    */
-  constructor(private readonly component: IScrollableComponent<IStickyComponentProps>) {
+  constructor(private readonly component: IComponent<IStickyComponentProps>) {
     this.doSetStickyElementProperties = this.doSetStickyElementProperties.bind(this);
-    component.onScroll = sequence(component.onScroll, this.doSetStickyElementProperties);
   }
 
   /**
@@ -70,13 +69,21 @@ export class StickyHeaderPlugin implements IUniversalPlugin {
    * @stable [16.10.2019]
    */
   private checkStickyElement(): void {
-    this.isStickyElementMounted = !R.isNil(this.domAccessor.findElement(this.stickySelector, this.component.getSelf()));
+    const element = this.component.getSelf();
+    this.isStickyElementMounted = !R.isNil(this.domAccessor.findElement(this.stickySelector, element));
 
     this.clearAllListeners();
     if (this.isStickyElementMounted) {
+
       this.resizeUnsubscriber = this.domAccessor.captureEvent({
         callback: this.doSetStickyElementProperties,
         eventName: EventsEnum.RESIZE,
+      });
+
+      this.scrollUnsubscriber = this.domAccessor.captureEvent({
+        callback: this.doSetStickyElementProperties,
+        eventName: EventsEnum.SCROLL,
+        element,
       });
     }
   }
@@ -89,6 +96,10 @@ export class StickyHeaderPlugin implements IUniversalPlugin {
       this.resizeUnsubscriber();
       this.resizeUnsubscriber = null;
     }
+    if (isFn(this.scrollUnsubscriber)) {
+      this.scrollUnsubscriber();
+      this.scrollUnsubscriber = null;
+    }
   }
 
   /**
@@ -96,6 +107,6 @@ export class StickyHeaderPlugin implements IUniversalPlugin {
    * @returns {string}
    */
   private get stickySelector(): string {
-    return `.${this.component.props.stickyElementClassName}`;
+    return this.domAccessor.asSelector(this.component.props.stickyElementClassName);
   }
 }

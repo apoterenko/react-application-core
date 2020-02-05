@@ -27,6 +27,7 @@
     $rac-default-layout-drawer-z-index: $rac-default-layout-drawer-z-index,
     $rac-default-layout-flex-direction: $rac-default-layout-flex-direction,
     $rac-default-layout-flex: $rac-default-layout-flex,
+    $rac-default-layout-main-background: $rac-default-layout-main-background,
     $rac-default-layout-main-body-content-display: $rac-default-layout-main-body-content-display,
     $rac-default-layout-main-body-content-flex-direction: $rac-default-layout-main-body-content-flex-direction,
     $rac-default-layout-main-body-content-flex: $rac-default-layout-main-body-content-flex,
@@ -34,6 +35,8 @@
     $rac-default-layout-main-body-content-padding: $rac-default-layout-main-body-content-padding,
     $rac-default-layout-main-body-content-width: $rac-default-layout-main-body-content-width,
     $rac-default-layout-main-body-height: $rac-default-layout-main-body-height,
+    $rac-default-layout-main-body-overflow: $rac-default-layout-main-body-overflow,
+    $rac-default-layout-main-body-position: $rac-default-layout-main-body-position,
     $rac-default-layout-main-body-width: $rac-default-layout-main-body-width,
     $rac-default-layout-main-display: $rac-default-layout-main-display,
     $rac-default-layout-main-flex-direction: $rac-default-layout-main-flex-direction,
@@ -127,16 +130,6 @@
       &.rac-sub-header-bordered {
         border-bottom: $rac-default-layout-sub-header-bordered-border-bottom;                       /* @stable [22.10.2018] */
         margin: $rac-default-layout-sub-header-bordered-margin;                               /* @stable [18.12.2018] */
-      }
-    }
-
-    .rac-main {
-      .rac-main__body {
-        background: $rac-default-layout-main-body-wrapper-background;
-        overflow: $rac-default-layout-main-body-wrapper-overflow;                                   /* @stable [22.10.2018] */
-        position: $rac-default-layout-main-body-wrapper-position;                                   /* @stable [22.10.2018] */                                                                       /* @stable [16.09.2018] */
-        width: $rac-default-layout-main-body-wrapper-width;                                         /* @stable [22.10.2018] */                                                                          /* @stable [16.09.2018] */
-        height: $rac-default-layout-main-body-wrapper-height;                                       /* @stable [22.10.2018] */
       }
     }
 

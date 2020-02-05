@@ -11,7 +11,6 @@ import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
 import { Header, SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
-import { Main } from '../../main';
 import { FlexLayout } from '../flex';
 import { Operation } from '../../../operation';
 import {
@@ -41,8 +40,6 @@ import { Overlay } from '../../overlay';
 import {
   PerfectScrollPlugin,
   PersistentScrollPlugin,
-  SelectedElementPlugin,
-  StickyHeaderPlugin,
 } from '../../plugin';
 import { DefaultLayout } from './default-layout.component';
 
@@ -96,13 +93,11 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     return (
       <DefaultLayout
         {...props}
+        header={this.headerElement}
         onLogoMenuActionClick={this.onLogoMenuActionClick}
         onDrawerHeaderClick={this.onDrawerHeaderClick}
         navigationListElement={this.navigationListElement}>
-        <FlexLayout>
-          {this.headerElement}
-          {this.mainElement}
-        </FlexLayout>
+        {this.mainElement}
         {this.snackbarElement}
       </DefaultLayout>
     );
@@ -228,16 +223,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     const props = this.props;
 
     return (
-      <Main plugins={[
-        PerfectScrollPlugin,
-        SelectedElementPlugin,
-        StickyHeaderPlugin
-      ]}>
+      <React.Fragment>
         {props.subHeaderRendered !== false && this.subHeaderElement}
         {this.props.children}
         {this.mainProgressOverlayElement}
         {this.notificationsElement}
-      </Main>
+      </React.Fragment>
     );
   }
 

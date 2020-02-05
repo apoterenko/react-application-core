@@ -515,6 +515,15 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [25.01.2020]
+   * @param {string} selector
+   * @returns {string}
+   */
+  public asSelector(selector: string): string {
+    return selector.startsWith('.') ? selector : `.${selector}`;
+  }
+
+  /**
    * @stable [01.10.2019]
    * @returns {IBootstrapSettings}
    */
@@ -536,15 +545,6 @@ export class DomAccessor implements IDomAccessor {
    */
   private get window(): Window {
     return this.environment.window;
-  }
-
-  /**
-   * @stable [25.01.2020]
-   * @param {string} selector
-   * @returns {string}
-   */
-  private asSelector(selector: string): string {
-    return selector.startsWith('.') ? selector : `.${selector}`;
   }
 
   /**

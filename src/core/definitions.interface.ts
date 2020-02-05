@@ -226,6 +226,7 @@ export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeaderRendererWrapper<TPayload> { headerRenderer?(payload: TPayload): React.ReactNode; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
 export interface IHeaderWidthWrapper { headerWidth?: number; }
+export interface IHeaderWrapper<TValue = JSX.Element> { header?: TValue; }
 export interface IHeightRestrictedWrapper { heightRestricted?: boolean; }
 export interface IHeightWrapper { height?: number; }
 export interface IHideWrapper { hide?(): void; }

@@ -8,7 +8,6 @@ import { ListDivider } from '../../list';
 import { FlexLayout } from '../../layout/flex';
 import {
   INavigationItemEntity,
-  IScrollableEntity,
   LayoutModesEnum,
   NavigationItemTypesEnum,
   IComponentsSettingsEntity,
@@ -17,8 +16,7 @@ import {
 import { UniversalComponent } from '../../base/universal.component';
 
 export class NavigationList
-  extends UniversalComponent<INavigationListProps>
-  implements IScrollableEntity {
+  extends UniversalComponent<INavigationListProps> {
 
   /**
    * @stable [24.10.2019]
@@ -30,19 +28,11 @@ export class NavigationList
       <nav
         ref={this.selfRef}
         className='rac-navigation-list rac-no-user-select'
-        onScroll={this.onScroll}
       >
         <ListDivider/>
         {items.map(this.toElement, this)}
       </nav>
     );
-  }
-
-  /**
-   * @stable [24.10.2019]
-   */
-  public onScroll(): void {
-    // Each plugin should override this method
   }
 
   /**

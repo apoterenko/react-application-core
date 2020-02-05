@@ -1,38 +1,48 @@
-import { DI_TYPES, lazyInject } from '../../di';
 import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
+import {
+  EventsEnum,
+  IComponent,
   IDomAccessor,
-  IScrollableComponent,
   IScrollableComponentProps,
   IUniversalPlugin,
-  IXYEntity,
 } from '../../definition';
 import {
   DelayedTask,
   isFn,
-  sequence,
 } from '../../util';
 
 export class PersistentScrollPlugin implements IUniversalPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
-  private scrollTask: DelayedTask;
+
+  private readonly scrollTask: DelayedTask;
+  private scrollUnsubscriber: () => void;
 
   /**
-   * @stable [24.10.2019]
-   * @param {IScrollableComponent<IScrollableComponentProps>} component
+   * @stable [06.02.2020]
+   * @param {IComponent<IScrollableComponentProps>} component
    */
-  constructor(private readonly component: IScrollableComponent<IScrollableComponentProps>) {
-    if (isFn(component.onScroll) && isFn(component.props.onScroll)) {
-      this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
-      component.onScroll = sequence(component.onScroll, this.onScroll, this);
-    }
+  constructor(private readonly component: IComponent<IScrollableComponentProps>) {
+    this.onScroll = this.onScroll.bind(this);
+    this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
   }
 
   /**
    * @stable [23.10.2019]
    */
   public componentDidMount() {
+    const element = this.component.getSelf();
+
     // Props contain x/y
-    this.domAccessor.scrollTo(this.component.props, this.component.getSelf());
+    this.domAccessor.scrollTo(this.component.props, element);
+
+    this.scrollUnsubscriber = this.domAccessor.captureEvent({
+      callback: this.onScroll,
+      eventName: EventsEnum.SCROLL,
+      element,
+    });
   }
 
   /**
@@ -40,14 +50,11 @@ export class PersistentScrollPlugin implements IUniversalPlugin {
    */
   public componentWillUnmount(): void {
     this.scrollTask.stop();
-  }
 
-  /**
-   * @stable [23.10.2019]
-   * @returns {IXYEntity}
-   */
-  private getScrollInfo(): IXYEntity {
-    return this.domAccessor.getScrollInfo(this.component.getSelf());
+    if (isFn(this.scrollUnsubscriber)) {
+      this.scrollUnsubscriber();
+      this.scrollUnsubscriber = null;
+    }
   }
 
   /**

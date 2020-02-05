@@ -3,6 +3,7 @@ import {
   IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
   IFooterWrapper,
+  IHeaderWrapper,
   IKeyValue,
   ILayoutModeWrapper,
   ILayoutWrapper,
@@ -46,6 +47,7 @@ export interface IGenericDefaultLayoutEntity
   extends ILayoutWrapperEntity,
     IDrawerHeaderRenderedWrapper,
     IFooterWrapper,
+    IHeaderWrapper,
     ILayoutModeWrapper<LayoutModesEnum> {
 }
 

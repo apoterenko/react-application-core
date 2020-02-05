@@ -14,7 +14,7 @@ export interface IPerfectScrollableEntity {
 /**
  * @stable [04.12.2019]
  */
-export interface IPerfectScrollWrapperEntity
+export interface IPerfectScrollEntity
   extends IPerfectScrollWrapper<IPerfectScrollableEntity> {
 }
 
@@ -31,5 +31,5 @@ export interface IPerfectScrollableComponent<TProps extends IPerfectScrollableCo
  */
 export interface IPerfectScrollableComponentProps
   extends IComponentProps,
-    IPerfectScrollWrapperEntity {
+    IPerfectScrollEntity {
 }

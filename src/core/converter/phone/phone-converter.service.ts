@@ -16,6 +16,7 @@ import {
 } from '../../definition';
 import { ISettingsEntity } from '../../settings';
 import {
+  isObjectNotEmpty,
   isString,
   nvl,
 } from '../../util';
@@ -33,7 +34,7 @@ export class PhoneConverter implements IPhoneConverter<PNF> {
    */
   public format(config: IPhoneConfigEntity<PNF>): string {
     const {value, format} = config;
-    if (R.isNil(value)) {
+    if (!isObjectNotEmpty(value)) {
       return '';
     }
     const phoneNumber = this.parse(config);

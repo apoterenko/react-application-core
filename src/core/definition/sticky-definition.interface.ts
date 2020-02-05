@@ -4,6 +4,7 @@ import {
 import { IComponentProps } from './props-definition.interface';
 
 /**
+ * @entity
  * @stable [23.10.2019]
  */
 export interface IStickyEntity
@@ -11,6 +12,7 @@ export interface IStickyEntity
 }
 
 /**
+ * @props
  * @stable [23.10.2019]
  */
 export interface IStickyComponentProps

@@ -8,11 +8,20 @@ import {
 } from '../../../util';
 import { Drawer } from '../../drawer';
 import {
+  ElementsMarkersEnum,
   IComponentsSettingsEntity,
   IDefaultLayoutProps,
   LayoutModesEnum,
+  UniversalScrollableContext,
+  UniversalStickyContext,
 } from '../../../definition';
 import { FlexLayout } from '../../layout/flex';
+import {
+  PerfectScrollPlugin,
+  SelectedElementPlugin,
+  StickyHeaderPlugin,
+} from '../../plugin';
+import { Main } from '../../main';
 
 export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
 
@@ -28,27 +37,41 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [04.02.2020]
+   * @stable [05.02.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
 
     return (
-      <div
-        className={
-          joinClassName(
-            'rac-default-layout',
-            calc(props.className),
-            this.isLayoutFullModeEnabled ? 'rac-default-layout-full' : 'rac-default-layout-mini'
-          )
-        }>
-        {props.drawerHeaderRendered !== false && this.drawerElement}
-        <div className='rac-default-layout__body'>
-          {props.children}
-          {props.footer}
-        </div>
-      </div>
+      <UniversalStickyContext.Provider value={ElementsMarkersEnum.STICKY_ELEMENT_275B4646}>
+        <UniversalScrollableContext.Provider value={ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6}>
+          <div
+            className={
+              joinClassName(
+                'rac-default-layout',
+                calc(props.className),
+                this.isLayoutFullModeEnabled ? 'rac-default-layout-full' : 'rac-default-layout-mini'
+              )
+            }>
+            {props.drawerHeaderRendered !== false && this.drawerElement}
+            <div className='rac-default-layout__body'>
+              {props.header}
+              <Main
+                stickyElementClassName={ElementsMarkersEnum.STICKY_ELEMENT_275B4646}
+                selectedElementClassName={ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6}
+                plugins={[
+                  PerfectScrollPlugin,
+                  SelectedElementPlugin,
+                  StickyHeaderPlugin
+                ]}>
+                {props.children}
+              </Main>
+              {props.footer}
+            </div>
+          </div>
+        </UniversalScrollableContext.Provider>
+      </UniversalStickyContext.Provider>
     );
   }
 
