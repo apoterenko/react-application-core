@@ -18,6 +18,7 @@ import {
 } from '../../../util';
 import {
   AsyncLibsEnum,
+  EventsEnum,
   GoogleMapsMapTypeEnum,
   IGoogleMaps,
   IGoogleMapsEventEntity,
@@ -49,6 +50,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   private markersListeners = new Map<string, google.maps.MapsEventListener[]>();
   private openMenuTask: DelayedTask;
   private readonly menuRef = React.createRef<Menu>();
+  private wheelListenerUnsubscriber: () => void;
 
   /**
    * @stable [10.01.2020]
@@ -95,14 +97,23 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     this.googleMapsLibTask = this.asyncLibManager
       .waitForLib<BPromise<HTMLScriptElement>>({alias: AsyncLibsEnum.GOOGLE_MAPS})
       .then(() => this.onGoogleMapsReady());
+
+    // It seems google doesn't stop mouse wheel propagate event.
+    this.wheelListenerUnsubscriber = this.domAccessor.captureEvent({
+      eventName: EventsEnum.WHEEL,
+      element: this.selfRef.current,
+      callback: this.domAccessor.cancelEvent,
+    });
   }
 
   /**
    * @stable [22.01.2020]
    */
   public componentWillUnmount(): void {
-    super.componentWillUnmount();
-
+    if (isFn(this.wheelListenerUnsubscriber)) {
+      this.wheelListenerUnsubscriber();
+      this.wheelListenerUnsubscriber = null;
+    }
     ifNotNilThanValue(
       this.openMenuTask,
       (task) => {
@@ -110,12 +121,15 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
         this.openMenuTask = null;
       }
     );
+
     this.cancelGoogleMapsLibTask();
     this.unbindListeners();
 
     this.markers = null;
     this.markersListeners = null;
     this.event = null;
+
+    super.componentWillUnmount();
   }
 
   /**
