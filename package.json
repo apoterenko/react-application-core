@@ -1,6 +1,6 @@
 {
   "name": "react-application-core",
-  "version": "0.0.381",
+  "version": "0.0.382",
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean",
@@ -115,6 +115,7 @@
     "react-dropzone": "^4.2.7",
     "react-redux": "5.0.7",
     "react-router-dom": "^4.1.2",
+    "react-svg-loader": "^3.0.3",
     "react-text-mask": "^5.2.0",
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
