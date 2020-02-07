@@ -119,6 +119,7 @@ export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
+export interface IContentWrapper<TContent = React.ReactNode> { content?: TContent; }
 export interface IConverterWrapper<TValue> { converter?: TValue; }
 export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
 export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
@@ -221,6 +222,8 @@ export interface IHeaderClassNameWrapper { headerClassName?: string; }
 export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
 export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
+export interface IHeaderConfigurationWrapper<TValue> { headerConfiguration?: TValue; }
+export interface IHeaderContentWrapper<TValue = React.ReactNode> { headerContent?: TValue; }
 export interface IHeaderFormatWrapper<TValue = string> { headerFormat?: TValue; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeaderRendererWrapper<TPayload> { headerRenderer?(payload: TPayload): React.ReactNode; }
@@ -938,18 +941,6 @@ export interface IBackwardRenderedWrapper<TBackwardRendered = boolean> {
 export interface IForwardRenderedWrapper<TForwardRendered = boolean> {
   forwardRendered?: TForwardRendered;
 }
-
-/* @stable - 19.04.2018 */
-export interface ITransparentWrapper<TTransparent> {
-  transparent?: TTransparent;
-}
-
-/* @stable - 19.04.2018 */
-export interface IIconLeftWrapper<TIconLeft> {
-  iconLeft?: TIconLeft;
-}
-
-export interface IContentWrapper<TContent = JSX.Element> { content?: TContent; }
 
 /**
  * @stable [20.09.2018]

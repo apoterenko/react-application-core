@@ -21,6 +21,7 @@ import {
   SelectedElementPlugin,
   StickyHeaderPlugin,
 } from '../../plugin';
+import { Header } from '../../header';
 import { Main } from '../../main';
 
 export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
@@ -32,8 +33,8 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
   constructor(props: IDefaultLayoutProps) {
     super(props);
 
-    this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
     this.onDrawerHeaderLogoClick = this.onDrawerHeaderLogoClick.bind(this);
+    this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
   }
 
   /**
@@ -42,10 +43,12 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
+    const stickyMarker = ElementsMarkersEnum.STICKY_ELEMENT_275B4646;
+    const selectedMarker = ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6;
 
     return (
-      <UniversalStickyContext.Provider value={ElementsMarkersEnum.STICKY_ELEMENT_275B4646}>
-        <UniversalScrollableContext.Provider value={ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6}>
+      <UniversalStickyContext.Provider value={stickyMarker}>
+        <UniversalScrollableContext.Provider value={selectedMarker}>
           <div
             className={
               joinClassName(
@@ -56,10 +59,10 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
             }>
             {props.drawerHeaderRendered !== false && this.drawerElement}
             <div className='rac-default-layout__body'>
-              {props.header}
+              {props.header !== false && (props.header || this.headerElement)}
               <Main
-                stickyElementClassName={ElementsMarkersEnum.STICKY_ELEMENT_275B4646}
-                selectedElementClassName={ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6}
+                stickyElementClassName={stickyMarker}
+                selectedElementClassName={selectedMarker}
                 plugins={[
                   PerfectScrollPlugin,
                   SelectedElementPlugin,
@@ -72,6 +75,20 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
           </div>
         </UniversalScrollableContext.Provider>
       </UniversalStickyContext.Provider>
+    );
+  }
+
+  /**
+   * @stable [06.02.2020]
+   * @returns {JSX.Element}
+   */
+  private get headerElement(): JSX.Element {
+    const {user, headerConfiguration} = this.props;
+    return (
+      <Header
+        user={user}
+        {...headerConfiguration}>
+      </Header>
     );
   }
 

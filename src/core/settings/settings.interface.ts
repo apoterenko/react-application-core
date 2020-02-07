@@ -17,6 +17,8 @@ import {
   IPhoneSettingsEntity,
   IStorageSettingsEntity,
   ITransportSettingsEntity,
+  DEFAULT_URLS_SETTINGS_ENTITY,
+  IUrlsSettingsEntity,
   RegexpEnum,
   StorageTypesEnum,
 } from '../definition';
@@ -68,7 +70,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   exportActionTitleMessage?: string;
   fileLoadErrorMessage?: string;
   invalidAddressMessage?: string;
-  logOutMessage?: string;
   logoutNotificationMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
@@ -79,7 +80,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   reset?: string;
   save?: string;
   serviceTemporarilyUnavailableMessage?: string;
-  settingsMessage?: string;
   simplePagesMessage?: string;
   sorryMessage?: string;
   takeSnapshotMessage?: string;
@@ -126,6 +126,7 @@ export interface ISettingsEntity {
   signalRUrl?: string;
   storage?: IStorageSettingsEntity;
   transport?: ITransportSettingsEntity;
+  urls?: IUrlsSettingsEntity;
 }
 
 export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
@@ -160,7 +161,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     exportActionTitleMessage: 'Export',
     fileLoadErrorMessage: 'Can\'t load the file.',
     invalidAddressMessage: 'Invalid address',
-    logOutMessage: 'Log out',
     logoutNotificationMessage: 'You were logged out.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
@@ -171,7 +171,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     reset: 'Reset',
     save: 'Save',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
-    settingsMessage: 'Settings',
     simplePagesMessage: 'Page {page} of {count}',
     sorryMessage: 'Sorry about that.',
     takeSnapshotMessage: 'Take a snapshot',
@@ -211,6 +210,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     isAuthorizationNeeded: true,
   },
   googleMaps: DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
+  urls: DEFAULT_URLS_SETTINGS_ENTITY,
 };
 
 // TODO Remove duplication

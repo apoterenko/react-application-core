@@ -86,8 +86,8 @@ import {
 /**
  * @stable [31.05.2018]
  */
-export interface IHeaderConfigurationWrapper<THeaderConfiguration = ISubHeaderConfiguration> {
-  headerConfiguration?: THeaderConfiguration;
+export interface ISubHeaderConfigurationWrapper<THeaderConfiguration = ISubHeaderConfiguration> {
+  subHeaderConfiguration?: THeaderConfiguration;
 }
 
 /**

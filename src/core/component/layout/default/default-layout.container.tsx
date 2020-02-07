@@ -9,7 +9,7 @@ import {
 } from '../../../util';
 import { LayoutContainer } from '../layout.container';
 import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
-import { Header, SubHeader } from '../../header';
+import { SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { FlexLayout } from '../flex';
 import { Operation } from '../../../operation';
@@ -22,15 +22,11 @@ import {
   LAYOUT_MODE_UPDATE_ACTION_TYPE,
   LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE,
 } from '../layout.interface';
-import { Menu } from '../../menu';
-import { Link } from '../../link';
 import {
-  DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY,
-  IBaseEvent,
+  HeaderUserMenuActionsEnum,
   ILayoutEntity,
   IMenuItemEntity,
   IMenuItemStringValueEntity,
-  IMenuProps,
   INavigationItemEntity,
   IOperationEntity,
   IXYEntity,
@@ -46,22 +42,7 @@ import { DefaultLayout } from './default-layout.component';
 export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
   public static readonly defaultProps: IDefaultLayoutContainerProps = {
-    headerConfiguration: {},
-  };
-
-  private readonly userExitActionValue = 'exit';
-  private readonly userMenuAnchorRef = React.createRef<HTMLElement>();
-  private readonly userMenuRef = React.createRef<Menu>();
-  private readonly userProfileActionValue = 'profile';
-  private readonly userMenuProps: IMenuProps = {
-    ref: this.userMenuRef,
-    options: [
-      {label: this.settings.messages.settingsMessage, icon: 'settings', value: this.userProfileActionValue},
-      {label: this.settings.messages.logOutMessage, icon: 'sign_out_alt', value: this.userExitActionValue}
-    ],
-    positionConfiguration: DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY,
-    anchorElement: this.getMenuAnchorElement.bind(this),
-    onSelect: this.onUserMenuSelect.bind(this),
+    subHeaderConfiguration: {},
   };
 
   @lazyInject(NavigationMenuBuilder) private readonly navigationMenuBuilder: NavigationMenuBuilder;
@@ -73,13 +54,13 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   constructor(props: IDefaultLayoutContainerProps) {
     super(props);
 
+    this.onDrawerHeaderClick = this.onDrawerHeaderClick.bind(this);
+    this.onHeaderMenuSelectItem = this.onHeaderMenuSelectItem.bind(this);
     this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
     this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
-    this.onDrawerHeaderClick = this.onDrawerHeaderClick.bind(this);
-    this.onUserMenuActionClick = this.onUserMenuActionClick.bind(this);
 
     this.state = {notifications: false};
   }
@@ -93,7 +74,9 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     return (
       <DefaultLayout
         {...props}
-        header={this.headerElement}
+        headerConfiguration={{
+          onSelect: this.onHeaderMenuSelectItem,
+        }}
         onLogoMenuActionClick={this.onLogoMenuActionClick}
         onDrawerHeaderClick={this.onDrawerHeaderClick}
         navigationListElement={this.navigationListElement}>
@@ -104,24 +87,16 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
-   * @param {IBaseEvent} event
+   * @stable [06.02.2020]
+   * @param {IMenuItemEntity} item
    */
-  private onUserMenuActionClick(event: IBaseEvent): void {
-    this.userMenuRef.current.show();
-  }
-
-  /**
-   * @stable [18.09.2018]
-   * @param {IMenuItemEntity} menuItem
-   */
-  private onUserMenuSelect(menuItem: IMenuItemEntity): void {
-    switch (menuItem.value) {
-      case this.userExitActionValue:
-        this.navigate(this.routes.logout);
+  private onHeaderMenuSelectItem(item: IMenuItemEntity): void {
+    switch (item.value) {
+      case HeaderUserMenuActionsEnum.EXIT:
+        this.routerStoreProxy.navigate(this.routes.logout);
         break;
-      case this.userProfileActionValue:
-        this.navigate(this.routes.profile);
+      case HeaderUserMenuActionsEnum.PROFILE:
+        this.routerStoreProxy.navigate(this.routes.profile);
         break;
     }
   }
@@ -147,7 +122,7 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
    */
   private onHeaderNavigationActionClick(): void {
     const props = this.props;
-    const headerConfiguration = props.headerConfiguration;
+    const headerConfiguration = props.subHeaderConfiguration;
 
     if (isFn(headerConfiguration.onNavigationActionClick)) {
       headerConfiguration.onNavigationActionClick();
@@ -184,28 +159,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   }
 
   /**
-   * @stable [18.09.2018]
-   * @returns {JSX.Element}
-   */
-  private get headerElement(): JSX.Element {
-    const props = this.props;
-    const user = props.user;
-
-    return (
-      <Header>
-        <Link to={this.routes.profile}>
-          <div className='rac-user-photo'
-               style={{backgroundImage: `url(${user.url || this.settings.emptyPictureUrl})`}}>&nbsp;</div>
-        </Link>
-        <Link to={this.routes.profile}>
-          <div className='rac-user'>{user.name}</div>
-        </Link>
-        {this.userMenuElement}
-      </Header>
-    );
-  }
-
-  /**
    * @stable [04.12.2019]
    */
   private onDrawerHeaderClick(layoutMode: LayoutModesEnum): void {
@@ -234,12 +187,12 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
 
   private get subHeaderElement(): JSX.Element {
     const props = this.props;
-    const runtimeTitle = this.menuItems.find((item) => item.active);
-    const title = props.title || (runtimeTitle && runtimeTitle.label);
+    const activeItem = this.menuItems.find((item) => item.active);
+    const title = props.title || (activeItem && activeItem.label);
 
     return (
       <SubHeader
-        {...props.headerConfiguration}
+        {...props.subHeaderConfiguration}
         title={title}
         onNavigationActionClick={this.onHeaderNavigationActionClick}
         onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
@@ -267,33 +220,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         </FlexLayout>
       )
     );
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {JSX.Element}
-   */
-  private get userMenuElement(): JSX.Element {
-    return (
-      <React.Fragment>
-        {this.uiFactory.makeIcon({
-          ref: this.userMenuAnchorRef,
-          key: 'user-menu-icon-key',
-          type: 'more',
-          className: 'rac-user-menu-action',
-          onClick: this.onUserMenuActionClick,
-        })}
-        <Menu {...this.userMenuProps}/>
-      </React.Fragment>
-    );
-  }
-
-  /**
-   * @stable [24.01.2020]
-   * @returns {HTMLElement}
-   */
-  private getMenuAnchorElement(): HTMLElement {
-    return this.userMenuAnchorRef.current;
   }
 
   private get navigationListElement(): JSX.Element {

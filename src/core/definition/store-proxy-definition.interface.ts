@@ -58,6 +58,7 @@ export interface IBaseRouterStoreProxy {
 export interface IRouterStoreProxy
   extends IBaseRouterStoreProxy,
     IGoBackWrapper {
+  navigate(path: string): void;
   navigateBack(): void;
 }
 

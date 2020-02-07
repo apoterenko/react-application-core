@@ -1,12 +1,6 @@
 @import '../constant';
 
-// Header [FRAMEWORK-][RAC+]
 .rac {
-
-  .rac-header {
-    color: $rac-header-color;                                                            /* @stable [07.08.2018] */
-    background: $rac-header-background;                                                  /* @stable [07.08.2018] */
-  }
 
   .rac-sub-header-section-title {
     font-weight: $rac-sub-header-section-title-font-weight;                              /* @stable [26.06.2018] */

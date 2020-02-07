@@ -1,17 +1,21 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, uuid, orNull, ifNotFalseThanValue, nvl  } from '../../../util';
+import {
+  ifNotFalseThanValue,
+  joinClassName,
+  nvl,
+  orNull,
+  uuid,
+} from '../../../util';
 import { Link } from '../../link';
 import { INavigationListProps } from './navigation-list.interface';
-import { ListDivider } from '../../list';
-import { FlexLayout } from '../../layout/flex';
 import {
+  IComponentsSettingsEntity,
+  IDefaultLayoutProps,
   INavigationItemEntity,
   LayoutModesEnum,
   NavigationItemTypesEnum,
-  IComponentsSettingsEntity,
-  IDefaultLayoutProps,
 } from '../../../definition';
 import { UniversalComponent } from '../../base/universal.component';
 
@@ -27,11 +31,24 @@ export class NavigationList
     return (
       <nav
         ref={this.selfRef}
-        className='rac-navigation-list rac-no-user-select'
+        className='rac-navigation-list'
       >
-        <ListDivider/>
+        {this.getListDividerElement()}
         {items.map(this.toElement, this)}
       </nav>
+    );
+  }
+
+  /**
+   * @stable [07.02.2020]
+   * @param {string} key
+   * @returns {JSX.Element}
+   */
+  private getListDividerElement(key?: string): JSX.Element {
+    return (
+      <div
+        key={key}
+        className='rac-list-divider'/>
     );
   }
 
@@ -40,7 +57,7 @@ export class NavigationList
    * @param {INavigationItemEntity} item
    * @returns {JSX.Element}
    */
-  private toElement(item: INavigationItemEntity, index: number): JSX.Element {
+  private toElement(item: INavigationItemEntity): JSX.Element {
     const isExpanded = this.isItemExpanded(item);
     const fullLayoutModeEnabled = this.isFullLayoutModeEnabled;
     const label = this.t(item.label);
@@ -51,55 +68,41 @@ export class NavigationList
       case NavigationItemTypesEnum.SUB_HEADER:
         const isGroupItemActive = !isExpanded && this.hasActiveChild(item);
         return (
-          <FlexLayout key={this.toUniqueKey(item.label, 'label')}
-                      row={true}
-                      alignItemsCenter={true}
-                      className={toClassName(
-                        'rac-navigation-list__section',
-                        'rac-navigation-list__group-section',
-                        'rac-navigation-list__group',
-                        ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list__last-section',
-                        isGroupItemActive
-                          ? 'rac-navigation-list-item-active'
-                          : (isExpanded ? 'rac-navigation-list__expanded-section' : ''),
-                      )}
-                      title={label}
-                      onClick={() => this.onGroupLinkClick(item)}>
-            {this.uiFactory.makeIcon({
-              key: this.toUniqueKey(item.label, 'group-icon'),
-              type: item.icon || 'list',
-              className: 'rac-navigation-list-icon',
-            })}
-            {
-              orNull<JSX.Element>(
-                fullLayoutModeEnabled,
-                () => <span className='rac-navigation-list-group-label rac-flex-full'>{label}</span>
-              )
-            }
-            {orNull<JSX.Element>(
-              fullLayoutModeEnabled,
-              () => (
-                this.uiFactory.makeIcon({
-                  key: this.toUniqueKey(item.label, 'group-expand-icon'),
-                  type: isExpanded ? 'dropdown-opened' : 'dropdown',
-                  className: 'rac-navigation-list-group-expand-icon rac-navigation-list-icon',
-                })
-              )
+          <div
+            key={this.asUniqueKey(item.label, 'label')}
+            className={joinClassName(
+              this.buildItemClassNames(true, isGroupItemActive, isExpanded),
+              ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list__last-section',
             )}
-          </FlexLayout>
+            title={label}
+            onClick={() => this.onGroupLinkClick(item)}
+          >
+            {this.uiFactory.makeIcon({
+              key: this.asUniqueKey(item.label, 'group-icon'),
+              type: item.icon || 'list',
+            })}
+            {fullLayoutModeEnabled && label}
+            {fullLayoutModeEnabled && this.uiFactory.makeIcon({
+              key: this.asUniqueKey(item.label, 'group-expand-icon'),
+              type: isExpanded ? 'dropdown-opened' : 'dropdown',
+              className: 'rac-navigation-list__expand-icon',
+            })}
+          </div>
         );
       case NavigationItemTypesEnum.DIVIDER:
         return ifNotFalseThanValue(
           this.props.dividerRendered,
-          () => <ListDivider key={R.isNil(item.parent) ? uuid() : this.toUniqueKey(item.parent.label, 'divider')}/>
+          () => this.getListDividerElement(
+            R.isNil(item.parent)
+              ? uuid()
+              : this.asUniqueKey(item.parent.label, 'divider')
+          )
         );
       default:
         const hasItemParent = R.isNil(item.parent);
         return orNull<JSX.Element>(
           isExpanded || hasItemParent,
-          () => (
-            this.getItemElement(item)
-          )
+          () => this.getItemElement(item)
         );
     }
   }
@@ -107,38 +110,18 @@ export class NavigationList
   private getItemElement(item: INavigationItemEntity): JSX.Element {
     const isFullLayoutModeEnabled = this.isFullLayoutModeEnabled;
     const label = this.t(item.label);
-    const hasItemParent = R.isNil(item.parent);
+    const hasParent = R.isNil(item.parent);
     const isExpanded = this.isItemExpanded(item);
 
     return (
       <Link
         to={item.link}
-        key={this.toUniqueKey(item.link, 'link')}
-        className={toClassName(
-          'rac-navigation-list__section',
-          hasItemParent ? 'rac-navigation-list__group-section' : 'rac-navigation-list__item-section',
-          'rac-navigation-list-item',
-          item.active
-            ? 'rac-navigation-list-item-active'
-            : (isExpanded ? 'rac-navigation-list__expanded-section' : ''),
-          hasItemParent && 'rac-navigation-list__item-as-group',
-          'rac-flex',
-          'rac-flex-row',
-          'rac-flex-full',
-          'rac-flex-align-items-center'
-        )}
-        title={label}>
-        {this.uiFactory.makeIcon({
-          type: item.icon,
-          key: this.toUniqueKey(item.link, 'icon'),
-          className: 'rac-navigation-list-icon',
-        })}
-        {
-          orNull<JSX.Element>(
-            isFullLayoutModeEnabled,
-            () => <span className='rac-navigation-list-item-label'>{label}</span>
-          )
-        }
+        key={this.asUniqueKey(item.link, 'link')}
+        className={this.buildItemClassNames(hasParent, item.active, isExpanded)}
+        title={label}
+      >
+        {this.uiFactory.makeIcon({type: item.icon, key: this.asUniqueKey(item.link, 'icon')})}
+        {isFullLayoutModeEnabled && label}
       </Link>
     );
   }
@@ -152,16 +135,6 @@ export class NavigationList
     if (props.onGroupClick) {
       props.onGroupClick(config);
     }
-  }
-
-  /**
-   * @stable [23.09.2018]
-   * @param {string} link
-   * @param {string} prefix
-   * @returns {string}
-   */
-  private toUniqueKey(link: string, prefix: string): string {
-    return `navigation-list-key-${link}-${prefix}`;
   }
 
   /**
@@ -212,5 +185,36 @@ export class NavigationList
   private hasActiveChild(item: INavigationItemEntity): boolean {
     const activeItem = R.find((itm) => !!itm.active, this.props.items);
     return !R.isNil(activeItem) && !R.isNil(R.find((child) => child.link === activeItem.link, item.children || []));
+  }
+
+  /**
+   * @stable [07.02.2020]
+   * @param {boolean} isGroup
+   * @param {boolean} isActive
+   * @param {boolean} isExpanded
+   * @returns {string}
+   */
+  private buildItemClassNames(isGroup: boolean,
+                              isActive: boolean,
+                              isExpanded: boolean): string {
+    return (
+      joinClassName(
+        'rac-navigation-list__section',
+        isGroup ? 'rac-navigation-list__group-section' : 'rac-navigation-list__item-section',
+        isActive
+          ? 'rac-navigation-list__active-section'
+          : (isExpanded ? 'rac-navigation-list__expanded-section' : ''),
+      )
+    );
+  }
+
+  /**
+   * @stable [07.02.2020]
+   * @param {string} link
+   * @param {string} prefix
+   * @returns {string}
+   */
+  private asUniqueKey(link: string, prefix: string): string {
+    return `navigation-list-key-${link}-${prefix}`;
   }
 }

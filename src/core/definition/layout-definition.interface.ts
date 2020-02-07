@@ -3,6 +3,7 @@ import {
   IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
   IFooterWrapper,
+  IHeaderContentWrapper,
   IHeaderWrapper,
   IKeyValue,
   ILayoutModeWrapper,
@@ -11,6 +12,8 @@ import {
   IOnDrawerHeaderClickWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
+import { IHeaderConfigurationEntity } from './header-definition.interface';
+import { IUserWrapperEntity } from './user-definition.interface';
 
 /**
  * @enum
@@ -44,11 +47,14 @@ export interface ILayoutWrapperEntity
  * @stable [04.02.2020]
  */
 export interface IGenericDefaultLayoutEntity
-  extends ILayoutWrapperEntity,
-    IDrawerHeaderRenderedWrapper,
+  extends IDrawerHeaderRenderedWrapper,
     IFooterWrapper,
-    IHeaderWrapper,
-    ILayoutModeWrapper<LayoutModesEnum> {
+    IHeaderConfigurationEntity,
+    IHeaderContentWrapper,
+    IHeaderWrapper<JSX.Element | boolean>,
+    ILayoutModeWrapper<LayoutModesEnum>,
+    ILayoutWrapperEntity,
+    IUserWrapperEntity {
 }
 
 /**

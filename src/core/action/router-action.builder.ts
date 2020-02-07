@@ -25,12 +25,22 @@ export class RouterActionBuilder {
   }
 
   /**
+   * @stable [06.02.2020]
+   * @param {string} path
+   * @returns {IEffectsAction}
+   */
+  public static buildNavigatePlainAction(path: string): IEffectsAction {
+    return {type: $RAC_ROUTER_NAVIGATE_ACTION_TYPE, data: path};
+  }
+
+  /**
    * @stable [03.06.2018]
    * @param {string} path
    * @returns {IEffectsAction}
    */
   public static buildNavigateAction(path: string): IEffectsAction {
-    return EffectsAction.create($RAC_ROUTER_NAVIGATE_ACTION_TYPE, path);
+    const plainAction = this.buildNavigatePlainAction(path);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**

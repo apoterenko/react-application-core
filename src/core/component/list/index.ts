@@ -1,5 +1,4 @@
 export * from './base-list.component';
-export * from './divider';
 export * from './item';
 export * from './list-action.builder';
 export * from './list.component';

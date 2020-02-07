@@ -32,6 +32,14 @@ export class RouterStoreProxy<TStore extends IUniversalStoreEntity = IUniversalS
   }
 
   /**
+   * @stable [06.02.2020]
+   * @param {string} path
+   */
+  public navigate(path: string): void {
+    this.dispatchAnyAction(RouterActionBuilder.buildNavigatePlainAction(path));
+  }
+
+  /**
    * @stable [20.12.2019]
    * @param {number} depth
    */

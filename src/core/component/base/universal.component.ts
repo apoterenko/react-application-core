@@ -38,6 +38,7 @@ import {
   IEventManager,
   IFieldConverter,
   IPlaceApi,
+  IRoutesEntity,
   IStorage,
   ITransport,
   IUniqueId,
@@ -198,6 +199,14 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get settings(): ISettingsEntity {
     return getSettings();
+  }
+
+  /**
+   * @stable []
+   * @returns {IRoutesEntity}
+   */
+  protected get routes(): IRoutesEntity {
+    return staticInjector(DI_TYPES.Routes);
   }
 
   /**

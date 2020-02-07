@@ -319,6 +319,14 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [06.02.2020]
+   * @returns {string}
+   */
+  public asImageUrl(url: string): string {
+    return `url(${url})`;
+  }
+
+  /**
    * @stable [14.04.2019]
    * @param {Element} child
    * @param {Element} parent

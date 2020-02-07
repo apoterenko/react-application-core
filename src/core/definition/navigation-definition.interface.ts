@@ -24,14 +24,14 @@ export enum NavigationItemTypesEnum {
  * @stable [11.09.2019]
  */
 export interface INavigationItemEntity<TAccessConfiguration = {}>
-  extends ILinkWrapper,
+  extends IAccessConfigurationWrapper<TAccessConfiguration>,
     IActiveWrapper,
+    IChildrenWrapper<INavigationItemEntity[]>,
     IIconWrapper,
-    IValueWrapper,
     ILabelWrapper,
+    ILinkWrapper,
     IParentWrapper<INavigationItemEntity>,
     IRelatedLinksWrapper<string[]>,
     ITypeWrapper<NavigationItemTypesEnum>,
-    IAccessConfigurationWrapper<TAccessConfiguration>,
-    IChildrenWrapper<INavigationItemEntity[]> {
+    IValueWrapper {
 }

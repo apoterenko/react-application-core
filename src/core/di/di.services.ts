@@ -25,6 +25,7 @@ import {
   IPermissionsManager,
   IPhoneConverter,
   IPlaceApi,
+  IRoutesEntity,
   IStateSerializer,
   IStorage,
   IStoreEntity,
@@ -108,6 +109,12 @@ export const getTranslator = (): TranslatorT => staticInjector(DI_TYPES.Translat
  * @returns {ISettingsEntity}
  */
 export const getSettings = (): ISettingsEntity => staticInjector(DI_TYPES.Settings);
+
+/**
+ * @stable [06.02.2020]
+ * @returns {IRoutesEntity}
+ */
+export const getRoutes = (): IRoutesEntity => staticInjector(DI_TYPES.Routes);
 
 /**
  * @stable [29.07.2019]

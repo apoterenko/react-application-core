@@ -1,0 +1,28 @@
+@import '../../mixin';
+@import '../../constant';
+
+.rac {
+
+  /**
+   * @navigation-list
+   * @stable [07.02.2020]
+   */
+  @include rac-navigation-list (
+    $rac-navigation-list-expand-icon-height: $rac-navigation-list-expand-icon-height,
+    $rac-navigation-list-expand-icon-margin: $rac-navigation-list-expand-icon-margin,
+    $rac-navigation-list-expand-icon-width: $rac-navigation-list-expand-icon-width,
+    $rac-navigation-list-group-section-cursor: $rac-navigation-list-group-section-cursor,
+    $rac-navigation-list-group-section-font-size: $rac-navigation-list-group-section-font-size,
+    $rac-navigation-list-group-section-font-weight: $rac-navigation-list-group-section-font-weight,
+    $rac-navigation-list-group-section-text-transform: $rac-navigation-list-group-section-text-transform,
+    $rac-navigation-list-item-section-font-weight: $rac-navigation-list-item-section-font-weight,
+    $rac-navigation-list-no-user-select: $rac-navigation-list-no-user-select,
+    $rac-navigation-list-section-align-items: $rac-navigation-list-section-align-items,
+    $rac-navigation-list-section-display: $rac-navigation-list-section-display,
+    $rac-navigation-list-section-flex-direction: $rac-navigation-list-section-flex-direction,
+    $rac-navigation-list-section-flex: $rac-navigation-list-section-flex,
+    $rac-navigation-list-section-font-size: $rac-navigation-list-section-font-size,
+    $rac-navigation-list-section-hover-outline: $rac-navigation-list-section-hover-outline,
+    $rac-navigation-list-section-word-break: $rac-navigation-list-section-word-break
+  );
+}

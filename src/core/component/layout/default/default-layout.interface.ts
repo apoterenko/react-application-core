@@ -3,7 +3,7 @@ import {
   IQueryFilterWrapperEntity,
 } from '../../../definition';
 import {
-  IHeaderConfigurationWrapper,
+  ISubHeaderConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
 import {
   IFooterWrapper,
@@ -25,7 +25,7 @@ export interface IDefaultLayoutContainerConfiguration
   extends IContainerProps,
     IFooterWrapper,
     ISubHeaderRenderedWrapper,
-    IHeaderConfigurationWrapper {
+    ISubHeaderConfigurationWrapper {
 }
 
 /**

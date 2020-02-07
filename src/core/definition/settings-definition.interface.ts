@@ -145,6 +145,22 @@ export const DEFAULT_PHONE_SETTINGS_ENTITY = Object.freeze<IPhoneSettingsEntity>
 });
 
 /**
+ * @entity
+ * @stable [06.02.2020]
+ */
+export interface IUrlsSettingsEntity {
+  emptyAvatar?: string;
+}
+
+/**
+ * @default-entity
+ * @stable [06.02.2020]
+ */
+export const DEFAULT_URLS_SETTINGS_ENTITY = Object.freeze<IUrlsSettingsEntity>({
+  emptyAvatar: 'media/no_avatar.jpg',
+});
+
+/**
  * @stable [07.10.2019]
  */
 export interface IMessagesSettingsEntity {
@@ -163,6 +179,7 @@ export interface IMessagesSettingsEntity {
   ERROR?: string;
   FILTER_PLACEHOLDER?: string;
   FILTERS?: string;
+  LOG_OUT?: string;
   MONTH?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   NO_DATA?: string;
@@ -173,6 +190,7 @@ export interface IMessagesSettingsEntity {
   PUT_MARKER_HERE?: string;
   QUARTER?: string;
   RESTART_APP?: string;
+  SETTINGS?: string;
   SOMETHING_WENT_WRONG?: string;
   UNKNOWN_ERROR?: string;
   USER?: string;
@@ -200,6 +218,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   ERROR: 'Error',
   FILTER_PLACEHOLDER: 'Search',
   FILTERS: 'Filters',
+  LOG_OUT: 'Log out',
   MONTH: 'Month',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   NO_DATA: 'No data',
@@ -210,6 +229,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PUT_MARKER_HERE: 'Put marker here',
   QUARTER: 'Quarter',
   RESTART_APP: 'Restart App',
+  SETTINGS: 'Settings',
   SOMETHING_WENT_WRONG: 'Something went wrong',
   UNKNOWN_ERROR: 'Unknown error',
   USER: 'User',

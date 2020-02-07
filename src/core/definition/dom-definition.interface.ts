@@ -126,6 +126,7 @@ export interface IDomAccessor {
   addClassNames(element: Element, ...clsNames: string[]): void;
   addRootElement(): Element;
   applyPosition(source: Element, position: string, value: number | (() => number)): void;
+  asImageUrl(url: string): string;
   asJqEl<TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement;
   asSelector(selector: string): string;
   cancelEvent(event: IBaseEvent): void;
