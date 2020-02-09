@@ -3404,8 +3404,13 @@
   $rac-header-actions-flex: unset,                                                            /* @stable [06.02.2020] */
   $rac-header-actions-margin: unset,                                                          /* @stable [06.02.2020] */
   $rac-header-actions-padding: unset,                                                         /* @stable [06.02.2020] */
+  $rac-header-back-action-margin: unset,                                                      /* @stable [10.02.2020] */
   $rac-header-background: unset,                                                              /* @stable [06.02.2020] */
   $rac-header-color: unset,                                                                   /* @stable [06.02.2020] */
+  $rac-header-content-align-items: unset,                                                     /* @stable [10.02.2020] */
+  $rac-header-content-display: unset,                                                         /* @stable [10.02.2020] */
+  $rac-header-content-flex-direction: unset,                                                  /* @stable [10.02.2020] */
+  $rac-header-content-flex: unset,                                                            /* @stable [10.02.2020] */
   $rac-header-display: unset,                                                                 /* @stable [06.02.2020] */
   $rac-header-flex-direction: unset,                                                          /* @stable [06.02.2020] */
   $rac-header-flex: unset,                                                                    /* @stable [06.02.2020] */
@@ -3446,6 +3451,14 @@
     }
 
     @include rac-styles (
+      $rac-styles-custom: rac-header__content,
+      $rac-styles-align-items: $rac-header-content-align-items,
+      $rac-styles-display: $rac-header-content-display,
+      $rac-styles-flex-direction: $rac-header-content-flex-direction,
+      $rac-styles-flex: $rac-header-content-flex
+    );
+
+    @include rac-styles (
       $rac-styles-custom: rac-header__user-info,
       $rac-styles-margin: $rac-header-user-info-margin
     );
@@ -3457,6 +3470,11 @@
       $rac-styles-height: $rac-header-user-avatar-height,
       $rac-styles-margin: $rac-header-user-avatar-margin,
       $rac-styles-width: $rac-header-user-avatar-width
+    );
+
+    @include rac-button (
+      $rac-button-custom: rac-header__back-action,
+      $rac-button-margin: $rac-header-back-action-margin
     );
 
     @include rac-button (

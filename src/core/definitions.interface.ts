@@ -75,6 +75,8 @@ export interface IAutoCompleteWrapper<TValue = string> { autoComplete?: TValue; 
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IAutoUnsubscribingWrapper { autoUnsubscribing?: boolean; }
+export interface IBackActionConfigurationWrapper<TValue> { backActionConfiguration?: TValue; }
+export interface IBackActionRenderedWrapper { backActionRendered?: boolean; }
 export interface IBarcodeWrapper<TValue = string> { barcode?: TValue; }
 export interface IBasenameWrapper { basename?: string; }
 export interface IBeforeEnterWrapper<TValue> { beforeEnter?: TValue; }
@@ -118,6 +120,7 @@ export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
+export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }
 export interface IContentWrapper<TContent = React.ReactNode> { content?: TContent; }
 export interface IConverterWrapper<TValue> { converter?: TValue; }
 export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
@@ -255,7 +258,6 @@ export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }
 export interface IItemsWrapper<TValue> { items?: TValue; }
-export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }
 export interface IItemWrapper<TValue> { item?: TValue; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
 export interface IKeyboardConfigurationWrapper<TValue> { keyboardConfiguration?: TValue; }

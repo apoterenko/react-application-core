@@ -1,5 +1,6 @@
 import {
   IContainerProps,
+  IHeaderConfigurationEntity,
   IQueryFilterWrapperEntity,
 } from '../../../definition';
 import {
@@ -10,6 +11,7 @@ import {
   IProgressWrapper,
   ISubHeaderRenderedWrapper,
 } from '../../../definitions.interface';
+
 /**
  * @stable [13.08.2018]
  */
@@ -24,6 +26,7 @@ export interface IDefaultLayoutContainerEntity extends IContainerProps,
 export interface IDefaultLayoutContainerConfiguration
   extends IContainerProps,
     IFooterWrapper,
+    IHeaderConfigurationEntity,
     ISubHeaderRenderedWrapper,
     ISubHeaderConfigurationWrapper {
 }

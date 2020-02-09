@@ -1,5 +1,7 @@
 import { IComponentProps } from './props-definition.interface';
 import {
+  IBackActionConfigurationWrapper,
+  IBackActionRenderedWrapper,
   IContentWrapper,
   IHeaderConfigurationWrapper,
   IOnSelectWrapper,
@@ -9,6 +11,7 @@ import {
   IMenuItemEntity,
 } from './menu-definition.interface';
 import { IUserWrapperEntity } from './user-definition.interface';
+import { IButtonProps } from './button-definition.interface';
 
 /**
  * @enum
@@ -24,7 +27,9 @@ export enum HeaderUserMenuActionsEnum {
  * @stable [06.02.2020]
  */
 export interface IGenericHeaderEntity
-  extends IContentWrapper,
+  extends IBackActionConfigurationWrapper<IButtonProps>,
+    IBackActionRenderedWrapper,
+    IContentWrapper,
     IMenuConfigurationEntity,
     IUserWrapperEntity {
 }

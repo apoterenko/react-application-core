@@ -3,8 +3,10 @@ import * as React from 'react';
 import { BaseComponent } from '../../base/base.component';
 import {
   calc,
+  isBackActionRendered,
   joinClassName,
   nvl,
+  selectStackWrapperItemEntities,
 } from '../../../util';
 import { Drawer } from '../../drawer';
 import {
@@ -23,6 +25,7 @@ import {
 } from '../../plugin';
 import { Header } from '../../header';
 import { Main } from '../../main';
+import { Button } from '../../button';
 
 export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
 
@@ -83,12 +86,52 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
    * @returns {JSX.Element}
    */
   private get headerElement(): JSX.Element {
-    const {user, headerConfiguration} = this.props;
+    const {
+      headerConfiguration,
+      user,
+    } = this.props;
+
     return (
       <Header
         user={user}
-        {...headerConfiguration}>
+        {...headerConfiguration}
+        content={this.headerContentElement}>
       </Header>
+    );
+  }
+
+  /**
+   * @stable [10.02.2020]
+   * @returns {React.ReactNode}
+   */
+  private get headerContentElement(): React.ReactNode {
+    const {
+      headerConfiguration = {},
+    } = this.props;
+    const {
+      backActionConfiguration = {},
+      content,
+    } = headerConfiguration;
+
+    const stackEntities = selectStackWrapperItemEntities(this.props) || [];
+    if (stackEntities.length < 2) {
+      return content;
+    }
+    return (
+      <React.Fragment>
+        {
+          isBackActionRendered(headerConfiguration) && (
+            <Button
+              icon='back2'
+              {...backActionConfiguration}
+              className={joinClassName(
+                'rac-header__back-action',
+                calc(backActionConfiguration.className),
+              )}/>
+          )
+        }
+        {content}
+      </React.Fragment>
     );
   }
 

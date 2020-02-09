@@ -102,25 +102,8 @@ html, body {
   width: 100%;
 }
 
-// Section [FRAMEWORK-]
-.rac-section, .rac-section-content {
-  padding: $rac-default-offset;
-}
-
-// Section [FRAMEWORK-]
-.rac-section-content {
-  padding-top: 0;
-}
-
 // Core [FRAMEWORK-][RAC+]
 .rac {
-
-  &.rac-disabled {
-
-    .rac-root {
-      opacity: $rac-disabled-opacity; /* @stable - 29.03.2018 */
-    }
-  }
 
   :focus {
     outline: none;                    /* @stable [23.06.2018] */
@@ -134,31 +117,6 @@ html, body {
     -webkit-appearance: none;         /* @stable [06.06.2018] */
     -moz-appearance: none;            /* @stable [06.06.2018] */
     margin: 0;                        /* @stable [06.06.2018] */
-  }
-
-  .rac-global-error-message {
-    font-size: $rac-global-error-message-font-size;          /* @stable [08.08.2018] */
-    background: $rac-global-error-message-background;        /* @stable [08.08.2018] */
-    padding: $rac-global-error-message-padding;              /* @stable [08.08.2018] */
-    border: $rac-global-error-message-border;                /* @stable [08.08.2018] */
-    border-radius: $rac-global-error-message-border-radius;  /* @stable [08.08.2018] */
-    color: $rac-global-error-message-color;                  /* @stable [08.08.2018] */
-
-    &.rac-absolute-center-position {
-      width: auto;          /* @stable [27.05.2018] */
-      max-width: 70%;       /* @stable [27.05.2018] */
-    }
-  }
-
-  .rac-width-full {
-    width: 100%;            /* @stable [14.05.2018] */
-  }
-
-  .rac-fixed-table {
-    table-layout: fixed;    /* @stable [07.05.2018] */
-    border-spacing: 0;      /* @stable [07.05.2018] */
-    width: 100%;            /* @stable [07.05.2018] */
-    height: 100%;           /* @stable [07.05.2018] */
   }
 
   .rac-overlay {
@@ -192,19 +150,5 @@ html, body {
     position: absolute;                 /* @stable [24.08.2018] */
     top: 50%;                           /* @stable [24.08.2018] */
     transform: translateY(-50%);        /* @stable [24.08.2018] */
-  }
-
-  .rac-absolute-top-position, .rac-absolute-bottom-position {
-    position: absolute;                 /* @stable [08.05.2018] */
-    left: 50%;                          /* @stable [08.05.2018] */
-    transform: translate(-50%, -100%);  /* @stable [08.05.2018] */
-  }
-
-  .rac-absolute-top-position {
-    top: 0;                             /* @stable [23.06.2018] */
-  }
-
-  .rac-absolute-bottom-position {
-    top: 100%;                          /* @stable [23.06.2018] */
   }
 }

@@ -65,10 +65,6 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
     this.state = {notifications: false};
   }
 
-  /**
-   * @stable [18.09.2018]
-   * @returns {JSX.Element}
-   */
   public render(): JSX.Element {
     const props = this.props;
     return (
@@ -76,6 +72,8 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
         {...props}
         headerConfiguration={{
           onSelect: this.onHeaderMenuSelectItem,
+          backActionConfiguration: {onClick: this.routerStoreProxy.navigateBack},
+          ...props.headerConfiguration,
         }}
         onLogoMenuActionClick={this.onLogoMenuActionClick}
         onDrawerHeaderClick={this.onDrawerHeaderClick}

@@ -5,6 +5,7 @@ import {
   IAllowEmptyFilterValueWrapper,
   IAlwaysDirtyWrapper,
   IAnchoredWrapper,
+  IBackActionRenderedWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   ICheckModalWrapper,
@@ -504,6 +505,14 @@ export const isUseZipCode = (entity: IUseZipCodeWrapper): boolean =>
  */
 export const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.plainValue !== false, false);
+
+/**
+ * @stable [10.02.2020]
+ * @param {IBackActionRenderedWrapper} entity
+ * @returns {boolean}
+ */
+export const isBackActionRendered = (entity: IBackActionRenderedWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.backActionRendered !== false, false);
 
 /**
  * @stable [19.12.2019]
