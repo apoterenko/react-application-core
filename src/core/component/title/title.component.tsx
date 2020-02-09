@@ -1,36 +1,49 @@
 import * as React from 'react';
 
-import { joinClassName, calc } from '../../util';
+import {
+  calc,
+  joinClassName,
+  nvl,
+} from '../../util';
 import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout/flex';
-import { ITitleProps } from './title.interface';
+import {
+  IComponentsSettingsEntity,
+  ITitleProps,
+} from '../../definition';
 
 export class Title extends BaseComponent<ITitleProps> {
 
   /**
-   * @stable [03.10.2018]
+   * @stable [09.02.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
+    const {items} = props;
+    const contentBorder = nvl(this.systemSettings.contentBorder, props.contentBorder);
+
     return (
-      <FlexLayout
-        full={false}
-        row={true}
-        alignItemsCenter={true}
-        className={joinClassName(
-          'rac-title-wrapper',
-          props.bordered !== false && 'rac-title-wrapper-bordered',
-          calc(props.className)
-        )}
-      >
-        <FlexLayout
-          full={false}
-          className='rac-title'>
+      <div className={joinClassName('rac-title', calc(props.className))}>
+        <div
+          className='rac-title__content'>
           {this.t(props.children as string)}
-        </FlexLayout>
-        {props.items}
-      </FlexLayout>
+          {contentBorder && <div className='rac-title__content-edge'/>}
+        </div>
+        {items && (
+          <div className='rac-title__right-content'>
+            {items}
+          </div>
+        )}
+      </div>
     );
+  }
+
+  /**
+   * @stable [09.02.2020]
+   * @returns {ITitleProps}
+   */
+  private get systemSettings(): ITitleProps {
+    const {title = {}} = this.settings.components || {} as IComponentsSettingsEntity;
+    return title;
   }
 }

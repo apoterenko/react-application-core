@@ -67,38 +67,6 @@
   );
 
   /**
-   * @base-text
-   * @stable [23.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-base-text-cls,
-    $rac-field-overflow: $rac-base-text-overflow,
-    $rac-self-field-border-radius: $rac-base-text-self-field-border-radius,
-    $rac-self-field-border: $rac-base-text-self-field-border,
-    $rac-self-field-height: $rac-base-text-self-field-height,
-    $rac-self-field-icon-color: $rac-base-text-self-field-icon-color,
-    $rac-self-field-icon-height: $rac-base-text-self-field-icon-height,
-    $rac-self-field-icon-padding: $rac-base-text-self-field-icon-padding,
-    $rac-self-field-input-caret-bottom: $rac-base-text-self-field-input-caret-bottom,
-    $rac-self-field-input-caret-font-size: $rac-base-text-self-field-input-caret-font-size,
-    $rac-self-field-input-caret-position: $rac-base-text-self-field-input-caret-position,
-    $rac-self-field-input-mirror-width: $rac-base-text-self-field-input-mirror-width,
-    $rac-self-field-input-resize: $rac-base-text-self-field-input-resize,
-    $rac-self-field-input-width: $rac-base-text-self-field-input-width,
-    $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex,
-    $rac-self-field-label-white-space: $rac-base-text-self-field-label-white-space
-  );
-
-  /**
-   * @base-text-actioned
-   * @stable [30.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-base-text-actioned-cls,
-    $rac-self-field-input-width: $rac-base-text-actioned-self-field-input-width
-  );
-
-  /**
    * @base-select
    * @stable [23.10.2019]
    */

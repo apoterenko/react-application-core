@@ -1,4 +1,5 @@
 import { IDefaultLayoutProps } from './layout-definition.interface';
+import { ITitleProps } from './title-definition.interface';
 
 /**
  * @stable [09.10.2019]
@@ -85,6 +86,7 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
  */
 export interface IComponentsSettingsEntity {
   defaultLayout?: IDefaultLayoutProps;
+  title?: ITitleProps;
 }
 
 /**

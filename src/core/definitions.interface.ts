@@ -84,7 +84,6 @@ export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
 export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
 export interface IBoolWrapper { bool?: boolean; }
-export interface IBorderedWrapper { bordered?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
 export interface ICalendarActionRenderedWrapper { calendarActionRendered?: boolean; }
 export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?: TValue; }
@@ -256,6 +255,7 @@ export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }
 export interface IItemsWrapper<TValue> { items?: TValue; }
+export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }
 export interface IItemWrapper<TValue> { item?: TValue; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
 export interface IKeyboardConfigurationWrapper<TValue> { keyboardConfiguration?: TValue; }

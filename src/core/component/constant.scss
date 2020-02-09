@@ -589,6 +589,8 @@ $rac-base-checkbox-self-field-label-line-height: $rac-line-height-0 !default;
 $rac-base-checkbox-self-field-label-margin: 0 0 0 $rac-offset-1 !default;
 $rac-base-select-self-field-input-wrapper-flex-direction: column !default;
 $rac-base-text-actioned-self-field-input-width: unset !default;
+$rac-base-text-background: unset !default;
+$rac-base-text-border-radius: unset !default;
 $rac-base-text-busy-self-field-input-opacity: 0 !default;
 $rac-base-text-labeled-self-field-label-position: absolute !default;
 $rac-base-text-labeled-self-field-label-top: -$rac-text-size-1 !default;
@@ -1088,14 +1090,37 @@ $rac-default-layout-sub-header-height: 84px !default;
 $rac-chart-canvas-wrapper-width: 100% !default;
 $rac-chart-canvas-wrapper-height: 100% !default;
 
-/* @stable [03.10.2018] */
+/************************/
+/* @stable [09.02.2020] */
+/************************/
+$rac-title-display-0: flex !default;
+$rac-title-offset-0: $rac-offset-2 !default;
+/**/
+$rac-title-align-items: center !default;
+$rac-title-border-bottom: 1px solid $rac-color-0-0 !default;
+$rac-title-content-edge-background: unset !default;
+$rac-title-content-edge-border-radius: unset !default;
+$rac-title-content-edge-box-shadow: unset !default;
+$rac-title-content-edge-height: unset !default;
+$rac-title-content-edge-margin: unset !default;
+$rac-title-content-edge-width: unset !default;
+$rac-title-content-font-size: $rac-font-size-2 !default;
+$rac-title-content-font-weight: $rac-font-weight-2 !default;
+$rac-title-content-line-height: unset !default;
+$rac-title-content-margin: unset !default;
+$rac-title-content-padding: 0 0 $rac-title-offset-0 0 !default;
+$rac-title-display: $rac-title-display-0 !default;
+$rac-title-margin: 0 0 $rac-offset-5 0 !default;
+$rac-title-right-content-align-items: unset !default;
+$rac-title-right-content-color: unset !default;
+$rac-title-right-content-display: $rac-title-display-0 !default;
+$rac-title-right-content-flex-direction: unset !default;
+$rac-title-right-content-flex: unset !default;
+$rac-title-right-content-font-size: unset !default;
+$rac-title-right-content-font-weight: unset !default;
+$rac-title-right-content-justify-content: unset !default;
+$rac-title-right-content-padding: 0 0 $rac-title-offset-0 0 !default;
 $rac-title-white-space: nowrap !default;
-$rac-title-color: $rac-default-text-color !default;
-$rac-title-font-size: 16px !default;
-$rac-title-font-weight: $rac-default-font-weight-2 !default;
-$rac-title-wrapper-border-bottom: 1px solid $rac-color-0-0 !default;
-$rac-title-wrapper-padding-bottom: 12px !default;
-$rac-title-wrapper-margin: 16px 0 !default;
 
 /* @stable [03.10.2018] */
 $rac-flex-separator-width: 24px !default;
