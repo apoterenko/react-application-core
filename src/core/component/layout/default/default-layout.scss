@@ -105,6 +105,15 @@
     $rac-default-layout-navigation-list-icon-width: $rac-default-layout-full-navigation-list-icon-width
   );
 
+  /**
+   * @$rac-default-layout-without-sub-header-cls
+   * @stable [10.02.2020]
+   */
+  @include rac-default-layout (
+    $rac-default-layout-custom: $rac-default-layout-without-sub-header-cls,
+    $rac-default-layout-main-body-content-padding-top: $rac-default-layout-without-sub-header-main-body-content-padding-top
+  );
+
   .rac-default-layout {                                                                       /* @stable [13.02.2019] */
     @include rac-icon(
       $rac-icon-custom: rac-logo-menu-icon,

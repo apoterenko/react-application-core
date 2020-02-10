@@ -9,11 +9,9 @@ import { addClassNameToBody, ifNotFalseThanValue } from '../../util';
 import { IUIFactory } from '../factory';
 import {
   MaterialPlugin,
-  TabPanelMaterialPlugin,
   SnackbarMaterialPlugin,
 } from './plugin';
 import { UIMaterialFactory } from './factory';
-import { TabPanel } from '../tabpanel';
 import { Card } from '../card';
 import { KeyboardKey } from '../keyboard';
 import { Snackbar } from '../snackbar';
@@ -22,11 +20,6 @@ import { UniversalPluginFactoryT, IComponentCtor } from '../../definition';
 // TODO UI plugins should contain an array (material.module.ts, perfect-scroll.module.ts, etc)
 const uiPlugins = new Map<IComponentCtor, UniversalPluginFactoryT>();
 bindToConstantValue(DI_TYPES.UIPlugins, uiPlugins);
-
-/**
- * @stable [15.08.2018]
- */
-uiPlugins.set(TabPanel, (component: TabPanel) => new TabPanelMaterialPlugin(component));
 
 /**
  * @stable [15.08.2018]

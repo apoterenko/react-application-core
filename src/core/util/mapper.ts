@@ -9,6 +9,7 @@ import {
   IExtendedEntity,
   IFormExtendedEditableEntity,
   IGenericBaseSelectEntity,
+  IGenericTabPanelEntity,
   IListEntity,
   IListWrapperEntity,
   IOperationEntity,
@@ -25,7 +26,6 @@ import {
   IStackEntity,
   IStackItemEntity,
   IStackWrapperEntity,
-  ITabPanelEntity,
   ITabPanelWrapperEntity,
   ITransportEntity,
   ITransportWrapperEntity,
@@ -337,12 +337,12 @@ export const selectListRawDataEntity = <TData = AnyT>(listEntity: IRawDataWrappe
   ifNotNilThanValue(listEntity, (): TData => listEntity.rawData, UNDEF_SYMBOL);
 
 /**
- * @stable [21.11.2019]
+ * @stable [10.02.2020]
  * @param {ITabPanelWrapperEntity} entity
- * @returns {ITabPanelEntity}
+ * @returns {IGenericTabPanelEntity}
  */
-export const selectTabPanelEntity = (entity: ITabPanelWrapperEntity): ITabPanelEntity =>
-  ifNotNilThanValue(entity, () => entity.tabPanel, UNDEF_SYMBOL);
+export const selectTabPanelEntity = (entity: ITabPanelWrapperEntity): IGenericTabPanelEntity =>
+  R.isNil(entity) ? UNDEF : entity.tabPanel;
 
 /**
  * @stable [18.10.2019]
@@ -425,11 +425,11 @@ export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrappe
   mapEntityId(selectEntityId(entity));
 
 /**
- * @stable [21.11.2019]
- * @param {ITabPanelEntity} tabPanel
+ * @stable [10.02.2020]
+ * @param {IGenericTabPanelEntity} tabPanel
  * @returns {ITabPanelWrapperEntity}
  */
-export const mapTabPanelEntity = (tabPanel: ITabPanelEntity): ITabPanelWrapperEntity =>
+export const mapTabPanelEntity = (tabPanel: IGenericTabPanelEntity): ITabPanelWrapperEntity =>
   defValuesFilter<ITabPanelWrapperEntity, ITabPanelWrapperEntity>({tabPanel});
 
 /**

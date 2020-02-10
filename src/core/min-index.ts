@@ -17,7 +17,6 @@ export * from './definitions.interface';
 export * from './di';
 export * from './dictionary/dictionaries.reducer';
 export * from './entities-definitions.interface';
-export * from './props-definitions.interface';
 export * from './settings';
 export * from './store/effects/base.effects';
 export * from './store/effects/effects-by.decorator';

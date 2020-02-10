@@ -12,13 +12,6 @@ export interface INativeMaterialComponentFactory<TNativeMaterialComponent extend
 }
 
 /**
- * @stable [15.08.2018]
- */
-export interface INativeMaterialTabPanelComponent extends INativeMaterialComponent {
-  scrollTo(x: number): void;
-}
-
-/**
  * @stable [22.08.2018]
  */
 export interface INativeMaterialSnackbarComponent extends INativeMaterialComponent,

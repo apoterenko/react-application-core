@@ -3,7 +3,8 @@ import * as React from 'react';
 import { BaseComponent } from '../../base/base.component';
 import {
   calc,
-  isBackActionRendered,
+  isHeaderRendered,
+  isSubHeaderRendered,
   joinClassName,
   nvl,
   selectStackWrapperItemEntities,
@@ -11,8 +12,10 @@ import {
 import { Drawer } from '../../drawer';
 import {
   ElementsMarkersEnum,
+  IButtonProps,
   IComponentsSettingsEntity,
   IDefaultLayoutProps,
+  IHeaderProps,
   LayoutModesEnum,
   UniversalScrollableContext,
   UniversalStickyContext,
@@ -57,12 +60,13 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
               joinClassName(
                 'rac-default-layout',
                 calc(props.className),
+                isSubHeaderRendered(props) ? 'rac-default-layout-with-sub-header' : 'rac-default-layout-without-sub-header',
                 this.isLayoutFullModeEnabled ? 'rac-default-layout-full' : 'rac-default-layout-mini'
               )
             }>
-            {props.drawerHeaderRendered !== false && this.drawerElement}
+            {this.drawerElement}
             <div className='rac-default-layout__body'>
-              {props.header !== false && (props.header || this.headerElement)}
+              {isHeaderRendered(props) && (props.header || this.headerElement)}
               <Main
                 stickyElementClassName={stickyMarker}
                 selectedElementClassName={selectedMarker}
@@ -105,13 +109,9 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
    * @returns {React.ReactNode}
    */
   private get headerContentElement(): React.ReactNode {
-    const {
-      headerConfiguration = {},
-    } = this.props;
-    const {
-      backActionConfiguration = {},
-      content,
-    } = headerConfiguration;
+    const headerProps = this.headerProps;
+    const backActionProps = this.headerBackActionProps;
+    const { content } = headerProps;
 
     const stackEntities = selectStackWrapperItemEntities(this.props) || [];
     if (stackEntities.length < 2) {
@@ -120,13 +120,13 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
     return (
       <React.Fragment>
         {
-          isBackActionRendered(headerConfiguration) && (
+          this.isHeaderBackActionRendered && (
             <Button
               icon='back2'
-              {...backActionConfiguration}
+              {...backActionProps}
               className={joinClassName(
                 'rac-header__back-action',
-                calc(backActionConfiguration.className),
+                calc(backActionProps.className),
               )}/>
           )
         }
@@ -207,7 +207,7 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
    * @returns {LayoutModesEnum}
    */
   private get layoutMode(): LayoutModesEnum {
-    return nvl(this.systemLayoutMode, this.props.layout.mode);
+    return nvl(this.systemProps.layoutMode, this.props.layout.mode);
   }
 
   /**
@@ -215,22 +215,46 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
    * @returns {boolean}
    */
   private get isDrawerHeaderRendered(): boolean {
-    return nvl(this.systemSettings.drawerHeaderRendered, this.props.drawerHeaderRendered) !== false;
+    return nvl(this.systemProps.drawerHeaderRendered, this.props.drawerHeaderRendered) !== false;
   }
 
   /**
-   * @stable [04.02.2020]
-   * @returns {LayoutModesEnum}
+   * @stable [10.02.2020]
+   * @returns {boolean}
    */
-  private get systemLayoutMode(): LayoutModesEnum {
-    return this.systemSettings.layoutMode;
+  private get isHeaderBackActionRendered(): boolean {
+    return nvl(this.systemHeaderProps.backActionRendered, this.headerProps.backActionRendered) !== false;
+  }
+
+  /**
+   * @stable [10.02.2020]
+   * @returns {IHeaderProps}
+   */
+  private get headerProps(): IHeaderProps {
+    return this.props.headerConfiguration || {};
+  }
+
+  /**
+   * @stable [10.02.2020]
+   * @returns {IButtonProps}
+   */
+  private get headerBackActionProps(): IButtonProps {
+    return this.headerProps.backActionConfiguration;
+  }
+
+  /**
+   * @stable [10.02.2020]
+   * @returns {IHeaderProps}
+   */
+  private get systemHeaderProps(): IHeaderProps {
+    return this.systemProps.headerConfiguration || {};
   }
 
   /**
    * @stable [04.02.2020]
    * @returns {IDefaultLayoutProps}
    */
-  private get systemSettings(): IDefaultLayoutProps {
+  private get systemProps(): IDefaultLayoutProps {
     const {defaultLayout = {}} = this.settings.components || {} as IComponentsSettingsEntity;
     return defaultLayout;
   }

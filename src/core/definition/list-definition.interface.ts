@@ -129,6 +129,7 @@ export interface IListItemProps<TEntity extends IEntity = IEntity>
     IBehavioralListItemEntity<TEntity> {
 }
 
+// TODO IGenericListEntity
 export interface IListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IUniversalListEntity<any, TEntity, TRawData>, // TODO

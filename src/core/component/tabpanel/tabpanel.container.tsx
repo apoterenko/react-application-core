@@ -7,9 +7,9 @@ import {
   TAB_PANEL_DEACTIVATED_VALUE_ACTION_TYPE,
 } from './tabpanel.interface';
 import { getTabActiveValue } from './tabpanel.support';
-import { ITabConfiguration } from '../../configurations-definitions.interface';
 import { IPayloadWrapper } from '../../definitions.interface';
-import { TabPanel } from './tabpanel.component';
+import { TabPanel } from './tab-panel.component';
+import { ITabProps } from '../../definition';
 
 export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPanelContainerProps>
   extends BaseContainer<TProps> {
@@ -30,11 +30,7 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
    */
   public render(): JSX.Element {
     return (
-      <TabPanel useIndicator={false}
-                forwardRendered={false}
-                backwardRendered={false}
-                centered={false}
-                {...this.props.tabPanelConfiguration}
+      <TabPanel {...this.props.tabPanelConfiguration}
                 onDeactivate={this.onDeactivate}
                 activeValue={this.getTabActiveValue()}
                 onClick={this.onTabClick}/>
@@ -68,9 +64,9 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
 
   /**
    * @stable [30.08.2018]
-   * @param {ITabConfiguration} tab
+   * @param {IGenericTabEntity} tab
    */
-  private onTabClick(tab: ITabConfiguration): void {
+  private onTabClick(tab: ITabProps): void {
     const payloadWrapper: IPayloadWrapper<number> = {payload: tab.value};
     this.dispatchActiveValue(payloadWrapper);
   }

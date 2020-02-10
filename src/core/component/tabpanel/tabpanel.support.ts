@@ -1,15 +1,18 @@
 import * as R from 'ramda';
 
-import { ITabConfiguration, ITabPanelConfiguration } from '../../configurations-definitions.interface';
 import { IActiveValueWrapper } from '../../definitions.interface';
+import {
+  IGenericTabEntity,
+  ITabPanelProps,
+} from '../../definition';
 
 /**
  * @stable [30.08.2018]
  * @param {IActiveValueWrapper} activeValueWrapper
- * @param {ITabConfiguration} tab
+ * @param {IGenericTabEntity} tab
  * @returns {boolean}
  */
-export const isTabActive = (activeValueWrapper: IActiveValueWrapper, tab: ITabConfiguration): boolean =>
+export const isTabActive = (activeValueWrapper: IActiveValueWrapper, tab: IGenericTabEntity): boolean =>
   R.isNil(activeValueWrapper.activeValue) ? !!tab.active : activeValueWrapper.activeValue === tab.value;
 
 /**
@@ -18,7 +21,7 @@ export const isTabActive = (activeValueWrapper: IActiveValueWrapper, tab: ITabCo
  * @param {ITabPanelConfiguration} tabPanelConfiguration
  * @returns {number}
  */
-export const getTabActiveValue = (props: IActiveValueWrapper, tabPanelConfiguration: ITabPanelConfiguration): number => {
+export const getTabActiveValue = (props: ITabPanelProps, tabPanelConfiguration: ITabPanelProps): number => {
   const currentActiveValue = props.activeValue;
   if (!R.isNil(currentActiveValue)) {
     return currentActiveValue;

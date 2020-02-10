@@ -1,9 +1,9 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { toSection } from '../../util';
+import { IGenericTabPanelEntity } from '../../definition';
 import { IPayloadWrapper } from '../../definitions.interface';
 import { TabPanelActionBuilder } from './tabpanel-action.builder';
-import { ITabPanelEntity } from '../../definition';
+import { toSection } from '../../util';
 
 /**
  * @stable [30.08.2018]
@@ -11,8 +11,8 @@ import { ITabPanelEntity } from '../../definition';
  * @param {IEffectsAction} action
  * @returns {ITabPanelEntity}
  */
-export const tabPanelReducer = (state: ITabPanelEntity = {},
-                                action: IEffectsAction): ITabPanelEntity => {
+export const tabPanelReducer = (state: IGenericTabPanelEntity = {},
+                                action: IEffectsAction): IGenericTabPanelEntity => {
   const section = toSection(action);
   switch (action.type) {
     case TabPanelActionBuilder.buildDestroyActionType(section):

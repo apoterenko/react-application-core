@@ -1,25 +1,35 @@
 @import '../constant';
+@import '../mixin';
 
-// Tab panel [FRAMEWORK-][RAC+]
 .rac {
+
+  /**
+   * @tab-panel
+   * @stable [10.02.2020]
+   */
+  @include rac-tab-panel (
+    $rac-tab-align-items: $rac-tab-align-items,
+    $rac-tab-content-font-weight:  $rac-tab-content-font-weight,
+    $rac-tab-content-margin: $rac-tab-content-margin,
+    $rac-tab-content-padding: $rac-tab-content-padding,
+    $rac-tab-cursor: $rac-tab-cursor,
+    $rac-tab-display: $rac-tab-display,
+    $rac-tab-icon-margin: $rac-tab-icon-margin,
+    $rac-tab-icon-padding: $rac-tab-icon-padding,
+    $rac-tab-panel-display: $rac-tab-panel-display,
+    $rac-tab-panel-min-height: $rac-tab-panel-min-height,
+    $rac-tab-panel-wrapper-display: $rac-tab-panel-wrapper-display,
+    $rac-tab-panel-wrapper-no-user-select: $rac-tab-panel-wrapper-no-user-select
+  );
 
   .rac-tab-panel {
 
-    .rac-tab-scroll-content {
-      overflow-y: hidden;                                             /* @stable [01.11.2018] */
-    }
-
-    .rac-tab {
-      height: $rac-tab-height;                                        /* @stable [25.09.2018] */
-      color: $rac-tab-color;                                          /* @stable [08.08.2018] */
-      font-size: $rac-tab-font-size;                                  /* @stable [25.09.2018] */
+    .rac-tab-panel__tab {
       background: $rac-tab-background;                                /* @stable [25.09.2018] */
       border-top: $rac-tab-border;                                    /* @stable [25.09.2018] */
       border-bottom: $rac-tab-border;                                 /* @stable [25.09.2018] */
       border-left: 1px solid transparent;                             /* @stable [25.09.2018] */
       border-right: 1px solid transparent;                            /* @stable [25.09.2018] */
-      text-transform: $rac-tab-text-transform;                        /* @stable [25.09.2018] */
-      letter-spacing: $rac-tab-letter-spacing;                        /* @stable [25.09.2018] */
 
       &.rac-tab-odd {
         border-left: $rac-tab-border;                                 /* @stable [26.09.2018] */
@@ -41,12 +51,6 @@
         }
       }
 
-      .rac-tab-content {
-        height: 100%;                                                 /* @stable [26.09.2018] */
-        font-weight: 500;
-        padding: 0 16px;
-      }
-
       &.rac-first-tab {
         border-left: $rac-tab-border;                                       /* @stable [26.09.2018] */
       }
@@ -62,29 +66,6 @@
       &.rac-simple-last-tab {
         border-radius: 0 $rac-tab-border-radius $rac-tab-border-radius 0;   /* @stable [25.09.2018] */
       }
-
-      .rac-tab-url-icon,
-        .rac-icon {
-        opacity: 1;                                                         /* @mdc @stable [11.08.2018] */
-      }
-
-      .rac-tab-icon-text {
-        letter-spacing: $rac-tab-icon-text-letter-spacing;            /* @stable [11.08.2018] */
-        line-height: $rac-tab-icon-text-line-height;                  /* @stable [11.08.2018] */
-      }
-
-      .rac-tab-url-icon-wrapper {
-        margin: 0 auto;                                               /* @stable [11.08.2018] */
-
-        .rac-tab-url-icon {
-          height: 100%;                                               /* @stable [11.08.2018] */
-          width: 100%;                                                /* @stable [11.08.2018] */
-        }
-      }
-    }
-
-    .rac-tab-nav-icon {
-      margin: auto $rac-tab-nav-margin;                               /* @stable [12.08.2018] */
     }
   }
 }

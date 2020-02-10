@@ -61,7 +61,7 @@ export * from './stack-definition.interface';
 export * from './sticky-definition.interface';
 export * from './storage-definition.interface';
 export * from './store-proxy-definition.interface';
-export * from './tab-definition.interface';
+export * from './tab-panel-definition.interface';
 export * from './title-definition.interface';
 export * from './toolbar-tools-definition.interface';
 export * from './tooltip-definition.interface';

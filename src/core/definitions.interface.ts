@@ -327,9 +327,9 @@ export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
 export interface IOnClickPlaceWrapper<TValue = {}> { onClickPlace?(payload?: TValue): void; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
-export interface IOnColumnClickWrapper<TValue = AnyT> { onColumnClick?(value?: TValue): void; }
-export interface IOnColumnContentClickWrapper<TValue = AnyT> { onColumnContentClick?(value?: TValue): void; }
-export interface IOnDeactivateWrapper<TPayload = {}> { onDeactivate?(payload?: TPayload): void; }
+export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
+export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
+export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(payload?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
@@ -473,6 +473,7 @@ export interface ISubmitTextWrapper { submitText?: string; }
 export interface ISucceedTextWrapper { succeedText?: string; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
+export interface ITabPanelConfigurationWrapper<TValue> { tabPanelConfiguration?: TValue; }
 export interface ITabPanelWrapper<TValue = JSX.Element> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
@@ -559,13 +560,6 @@ export interface IActionButtonsWrapper<TActionButtons> {
  */
 export interface IActionIconsWrapper<TActionIcons> {
   actionIcons?: TActionIcons;
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IUseIndicatorWrapper {
-  useIndicator?: boolean;
 }
 
 /**
@@ -928,20 +922,6 @@ export interface IRippableWrapper<TRippable = boolean> {
  */
 export interface ICenteredWrapper<TCentered = boolean> {
   centered?: TCentered;
-}
-
-/**
- * @stable [03.10.2018]
- */
-export interface IBackwardRenderedWrapper<TBackwardRendered = boolean> {
-  backwardRendered?: TBackwardRendered;
-}
-
-/**
- * @stable [03.10.2018]
- */
-export interface IForwardRenderedWrapper<TForwardRendered = boolean> {
-  forwardRendered?: TForwardRendered;
 }
 
 /**

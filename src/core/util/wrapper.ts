@@ -5,7 +5,6 @@ import {
   IAllowEmptyFilterValueWrapper,
   IAlwaysDirtyWrapper,
   IAnchoredWrapper,
-  IBackActionRenderedWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   ICheckModalWrapper,
@@ -47,11 +46,11 @@ import {
   IRemoteFilterWrapper,
   IRenderedWrapper,
   IRequiredWrapper,
-  IRippledWrapper,
   IScrollableWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
+  ISubHeaderRenderedWrapper,
   ISyntheticCursorWrapper,
   ITouchedWrapper,
   IUseFilterWrapper,
@@ -395,14 +394,6 @@ export const isDecorated = (wrapper: IDecoratedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.decorated !== false, false);
 
 /**
- * @stable [24.01.2020]
- * @param {IRippledWrapper} wrapper
- * @returns {boolean}
- */
-export const isRippled = (wrapper: IRippledWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.rippled !== false, false);
-
-/**
  * @stable [13.11.2019]
  * @param {IMultiWrapper} wrapper
  * @returns {boolean}
@@ -508,11 +499,11 @@ export const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
 
 /**
  * @stable [10.02.2020]
- * @param {IBackActionRenderedWrapper} entity
+ * @param {ISubHeaderRenderedWrapper} entity
  * @returns {boolean}
  */
-export const isBackActionRendered = (entity: IBackActionRenderedWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.backActionRendered !== false, false);
+export const isSubHeaderRendered = (entity: ISubHeaderRenderedWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.subHeaderRendered !== false, false);
 
 /**
  * @stable [19.12.2019]

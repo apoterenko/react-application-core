@@ -2,11 +2,10 @@ import * as R from 'ramda';
 
 import {
   IFieldProps,
-  ITabConfiguration,
-  ITabPanelConfiguration,
 } from '../../configurations-definitions.interface';
 import {
   IFormProps,
+  ITabProps,
 } from '../../definition';
 import {
   isTabActive,
@@ -60,10 +59,10 @@ export const isFormResettable = (formProps: IFormProps): boolean =>
 /**
  * @stable [30.08.2018]
  * @param {IFormProps} formProps
- * @param {ITabConfiguration} tab
+ * @param {IGenericTabEntity} tab
  * @returns {boolean}
  */
-export const isFormTabActive = (formProps: IFormProps, tab: ITabConfiguration): boolean =>
+export const isFormTabActive = (formProps: IFormProps, tab: ITabProps): boolean =>
   isTabActive(formProps.form, tab);
 
 /**
@@ -72,5 +71,5 @@ export const isFormTabActive = (formProps: IFormProps, tab: ITabConfiguration): 
  * @param {ITabPanelConfiguration} tabPanelConfiguration
  * @returns {number}
  */
-export const getFormTabActiveValue = (formProps: IFormProps, tabPanelConfiguration: ITabPanelConfiguration): number =>
+export const getFormTabActiveValue = (formProps: IFormProps, tabPanelConfiguration: ITabProps): number =>
   getTabActiveValue(formProps.form, tabPanelConfiguration);

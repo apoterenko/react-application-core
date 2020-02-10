@@ -51,7 +51,7 @@ export interface IGenericDefaultLayoutEntity
     IFooterWrapper,
     IHeaderConfigurationEntity,
     IHeaderContentWrapper,
-    IHeaderWrapper<JSX.Element | boolean>,
+    IHeaderWrapper,
     ILayoutModeWrapper<LayoutModesEnum>,
     ILayoutWrapperEntity,
     IUserWrapperEntity {

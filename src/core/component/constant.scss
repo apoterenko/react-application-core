@@ -320,8 +320,12 @@ $rac-button-disabled-opacity: $rac-button-opacity-0 !default;
 $rac-button-disabled-shadow: unset !default;
 $rac-button-display: $rac-button-display-0 !default;
 $rac-button-filled-icon-margin: 0 $rac-button-size-4 !default;
+$rac-button-focus-border: unset !default;
+$rac-button-focus-box-sizing: unset !default;
+$rac-button-focus-padding: unset !default;
 $rac-button-full-flex: 1 !default;
 $rac-button-height: $rac-button-size-1 !default;
+$rac-button-hover-transform: unset !default;
 $rac-button-not-filled-icon-margin: 0 auto !default;
 $rac-button-outlined-background: 0 !default;
 $rac-button-outlined-border: $rac-button-size-3 solid $rac-button-color-4 !default;
@@ -782,17 +786,29 @@ $rac-preview-dialog-body-min-height: 60vh !default;
 $rac-preview-dialog-body-max-width: 80vw !default;
 $rac-preview-dialog-body-content-align-items: center !default;
 
-/* @stable [15.09.2018] */
-$rac-tab-color: $rac-default-text-color !default;
-$rac-tab-font-size: $rac-default-font-size-2 !default;
+/************************/
+/* @stable [10.02.2020] */
+/************************/
+$rac-tab-panel-display-0: flex !default;
+/**/
+$rac-tab-align-items: center !default;
+$rac-tab-content-font-weight: $rac-font-weight-1 !default;
+$rac-tab-content-margin: unset !default;
+$rac-tab-content-padding: unset !default;
+$rac-tab-cursor: pointer !default;
+$rac-tab-display: $rac-tab-panel-display-0 !default;
+$rac-tab-icon-margin: unset !default;
+$rac-tab-icon-padding: unset !default;
+$rac-tab-panel-display: $rac-tab-panel-display-0 !default;
+$rac-tab-panel-min-height: unset !default;
+$rac-tab-panel-wrapper-display: $rac-tab-panel-display-0 !default;
+$rac-tab-panel-wrapper-no-user-select: true !default;
+/**/
 $rac-tab-background: unset !default;
 $rac-tab-active-background: unset !default;
 $rac-tab-active-border: unset !default;
 $rac-tab-border-radius: $rac-border-radius-1 !default;
 $rac-tab-border: unset !default;
-$rac-tab-text-transform: none !default;
-$rac-tab-letter-spacing: 0 !default;
-$rac-tab-height: 32px !default;
 $rac-tab-icon-text-line-height: 24px !default;
 $rac-tab-icon-text-letter-spacing: $rac-default-letter-spacing !default;
 $rac-tab-nav-margin: 28px !default;
@@ -972,6 +988,7 @@ $rac-drawer-flex-direction: column !default;
 /************************/
 $rac-default-layout-full-cls: rac-default-layout-full;
 $rac-default-layout-mini-cls: rac-default-layout-mini;
+$rac-default-layout-without-sub-header-cls: rac-default-layout-without-sub-header;
 $rac-main-body-cls: rac-main__body;
 $rac-main-body-content-cls: rac-main__body-content;
 /**/
@@ -1057,6 +1074,7 @@ $rac-default-layout-tab-panel-wrapper-flex-direction: unset !default;
 $rac-default-layout-tab-panel-wrapper-flex: unset !default;
 $rac-default-layout-tab-panel-wrapper-margin: unset !default;
 $rac-default-layout-tab-panel-wrapper-padding: unset !default;
+$rac-default-layout-without-sub-header-main-body-content-padding-top: unset !default;
 /**/
 $rac-default-layout-drawer-transform: translate3d(0, 0, 0) !default; /* iOS fixed + z-index workaround */
 $rac-default-layout-drawer-width: 220px !default;

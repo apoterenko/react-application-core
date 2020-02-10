@@ -1,32 +1,16 @@
-import { IActiveValueWrapper } from '../../definitions.interface';
-import { ITabPanelConfigurationWrapper } from '../../configurations-definitions.interface';
-import { ITabPanelProps } from '../../props-definitions.interface';
 import {
-  IComponent,
   IContainerProps,
+  ITabPanelConfigurationEntity,
   ITabPanelWrapperEntity,
 } from '../../definition';
 
 /**
- * @stable [11.08.2018]
- */
-export interface ITabPanelState extends IActiveValueWrapper {
-}
-
-/**
  * @stable [30.08.2018]
  */
-export interface ITabPanelContainerProps extends IContainerProps,
-                                                 ITabPanelWrapperEntity,
-                                                 ITabPanelConfigurationWrapper {
-}
-
-/**
- * @stable [15.08.2018]
- */
-export interface ITabPanel extends IComponent<ITabPanelProps, ITabPanelState> {
-  onForward(): void;
-  onBackward(): void;
+export interface ITabPanelContainerProps
+  extends IContainerProps,
+    ITabPanelWrapperEntity,
+    ITabPanelConfigurationEntity {
 }
 
 /**

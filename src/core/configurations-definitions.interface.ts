@@ -9,14 +9,11 @@ import {
   IActionsWrapper,
   IActiveValueWrapper,
   IActiveWrapper,
-  IAliasWrapper,
-  IBackwardRenderedWrapper,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
-  ICenteredWrapper,
   IChangeFormWrapper,
   IClassNameWrapper,
   IClearActionRenderedWrapper,
@@ -30,7 +27,6 @@ import {
   IFieldConfigurationWrapper,
   IFilterFnWrapper,
   IFocusEvent,
-  IForwardRenderedWrapper,
   IFullWrapper,
   IIconWrapper,
   IItemsWrapper,
@@ -45,8 +41,6 @@ import {
   IOnBlurWrapper,
   IOnClearWrapper,
   IOnClickWrapper,
-  IOnCloseWrapper,
-  IOnDeactivateWrapper,
   IOnEmptyDictionaryWrapper,
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
@@ -61,8 +55,6 @@ import {
   ITitleRendererWrapper,
   ITouchedWrapper,
   ITypeWrapper,
-  IUrlWrapper,
-  IUseIndicatorWrapper,
   IValidateWrapper,
   IValueWrapper,
 } from './definitions.interface';
@@ -105,13 +97,6 @@ export interface IFilterConfigurationWrapper<TFilterConfiguration = IFilterConfi
 }
 
 /**
- * @stable [31.08.2018]
- */
-export interface ITabPanelConfigurationWrapper<TabPanelConfiguration = ITabPanelConfiguration> {
-  tabPanelConfiguration?: TabPanelConfiguration;
-}
-
-/**
  * @stable [18.06.2018]
  */
 export interface IUniversalKeyboardHandlersConfiguration<TKeyboardEvent = IKeyboardEvent> {
@@ -139,35 +124,6 @@ export interface INavigationHandlersConfiguration {
  * @stable [05.10.2018]
  */
 export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode;
-
-/**
- * @stable [31.08.2018]
- */
-export interface ITabConfiguration extends IValueWrapper,
-                                           IClassNameWrapper,
-                                           IActiveWrapper,
-                                           INameWrapper,
-                                           ISelectedWrapper,
-                                           IUrlWrapper,
-                                           IIconWrapper,
-                                           IAliasWrapper,
-                                           IActiveValueWrapper {
-}
-
-/**
- * @stable [30.08.2018]
- */
-export interface ITabPanelConfiguration extends IComponentProps,
-                                                IUseIndicatorWrapper,
-                                                IRippableWrapper,
-                                                ICenteredWrapper,
-                                                IBackwardRenderedWrapper,
-                                                IForwardRenderedWrapper,
-                                                IOnCloseWrapper<ITabConfiguration>,
-                                                IOnClickWrapper<ITabConfiguration>,
-                                                IOnDeactivateWrapper<number>,
-                                                IItemsWrapper<ITabConfiguration[]> {
-}
 
 /**
  * @stable [02.08.2018]
