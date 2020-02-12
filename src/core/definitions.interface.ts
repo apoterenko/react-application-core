@@ -240,7 +240,7 @@ export interface IHighlightOddWrapper { highlightOdd?: boolean; }
 export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
 export interface IHoveredWrapper { hovered?: boolean; }
-export interface IIconRightWrapper { iconRight?: boolean; }
+export interface IIconLeftAlignedWrapper { iconLeftAligned?: boolean; }
 export interface IIconWrapper<TValue = string> { icon?: TValue; }
 export interface IIdWrapper<TValue = number> { id?: TValue; }
 export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }
@@ -293,6 +293,7 @@ export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
+export interface IMenuActionConfigurationWrapper<TValue> { menuActionConfiguration?: TValue; }
 export interface IMenuAnchorElementWrapper<TValue> { menuAnchorElement?: TValue; }
 export interface IMenuConfigurationWrapper<TValue> { menuConfiguration?: TValue; }
 export interface IMenuOptionsWrapper<TValue> { menuOptions?: TValue; }

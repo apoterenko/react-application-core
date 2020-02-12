@@ -10,6 +10,7 @@ import {
   isDecorated,
   isDisabled,
   isFull,
+  isIconLeftAligned,
   isObjectNotEmpty,
   joinClassName,
   nvl,
@@ -35,10 +36,10 @@ export class Button extends BaseComponent<IButtonProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const {iconRight} = props;
     const $text = this.text;
     const $hasContent = this.hasContent($text);
     const $hasIcon = hasIcon(props);
+    const $isIconLeftAligned = isIconLeftAligned(props);
 
     const className = joinClassName(
       ButtonClassNamesEnum.BUTTON,
@@ -78,7 +79,7 @@ export class Button extends BaseComponent<IButtonProps> {
             disabled={disabled}
             {...handlerPropsFactory(props.onClick, !disabled, props.touched)}
           >
-            {!iconRight && iconElement}
+            {$isIconLeftAligned && iconElement}
             {
               $hasContent && (
                 <div className='rac-button__content'>
@@ -87,7 +88,7 @@ export class Button extends BaseComponent<IButtonProps> {
                 </div>
               )
             }
-            {iconRight && iconElement}
+            {!$isIconLeftAligned && iconElement}
           </button>
         )}
       </UniversalIdProviderContext.Consumer>
@@ -169,7 +170,6 @@ export class Button extends BaseComponent<IButtonProps> {
     const {
       error,
       errorMessage,
-      icon,
       progress,
       progressMessage,
       text,

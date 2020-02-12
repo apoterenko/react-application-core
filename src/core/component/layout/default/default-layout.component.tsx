@@ -1,8 +1,10 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { BaseComponent } from '../../base/base.component';
 import {
   calc,
+  isBackActionRendered,
   isHeaderRendered,
   isSubHeaderRendered,
   joinClassName,
@@ -12,7 +14,6 @@ import {
 import { Drawer } from '../../drawer';
 import {
   ElementsMarkersEnum,
-  IButtonProps,
   IComponentsSettingsEntity,
   IDefaultLayoutProps,
   IHeaderProps,
@@ -28,7 +29,6 @@ import {
 } from '../../plugin';
 import { Header } from '../../header';
 import { Main } from '../../main';
-import { Button } from '../../button';
 
 export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
 
@@ -86,52 +86,18 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [06.02.2020]
+   * @stable [12.02.2020]
    * @returns {JSX.Element}
    */
   private get headerElement(): JSX.Element {
-    const {
-      headerConfiguration,
-      user,
-    } = this.props;
+    const {user} = this.props;
 
     return (
       <Header
         user={user}
-        {...headerConfiguration}
-        content={this.headerContentElement}>
+        {...this.actualHeaderProps}
+        backActionRendered={this.isHeaderBackActionRendered && (selectStackWrapperItemEntities(this.props) || []).length > 1}>
       </Header>
-    );
-  }
-
-  /**
-   * @stable [10.02.2020]
-   * @returns {React.ReactNode}
-   */
-  private get headerContentElement(): React.ReactNode {
-    const headerProps = this.headerProps;
-    const backActionProps = this.headerBackActionProps;
-    const { content } = headerProps;
-
-    const stackEntities = selectStackWrapperItemEntities(this.props) || [];
-    if (stackEntities.length < 2) {
-      return content;
-    }
-    return (
-      <React.Fragment>
-        {
-          this.isHeaderBackActionRendered && (
-            <Button
-              icon='back2'
-              {...backActionProps}
-              className={joinClassName(
-                'rac-header__back-action',
-                calc(backActionProps.className),
-              )}/>
-          )
-        }
-        {content}
-      </React.Fragment>
     );
   }
 
@@ -219,35 +185,19 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [10.02.2020]
+   * @stable [13.02.2020]
    * @returns {boolean}
    */
   private get isHeaderBackActionRendered(): boolean {
-    return nvl(this.systemHeaderProps.backActionRendered, this.headerProps.backActionRendered) !== false;
+    return isBackActionRendered(this.actualHeaderProps);
   }
 
   /**
-   * @stable [10.02.2020]
+   * @stable [13.02.2020]
    * @returns {IHeaderProps}
    */
-  private get headerProps(): IHeaderProps {
-    return this.props.headerConfiguration || {};
-  }
-
-  /**
-   * @stable [10.02.2020]
-   * @returns {IButtonProps}
-   */
-  private get headerBackActionProps(): IButtonProps {
-    return this.headerProps.backActionConfiguration;
-  }
-
-  /**
-   * @stable [10.02.2020]
-   * @returns {IHeaderProps}
-   */
-  private get systemHeaderProps(): IHeaderProps {
-    return this.systemProps.headerConfiguration || {};
+  private get actualHeaderProps(): IHeaderProps {
+    return R.mergeDeepRight(this.props.headerConfiguration, this.systemProps.headerConfiguration);
   }
 
   /**

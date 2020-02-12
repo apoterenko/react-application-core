@@ -4,6 +4,7 @@ import {
   IBackActionRenderedWrapper,
   IContentWrapper,
   IHeaderConfigurationWrapper,
+  IMenuActionConfigurationWrapper,
   IOnSelectWrapper,
 } from '../definitions.interface';
 import {
@@ -30,6 +31,7 @@ export interface IGenericHeaderEntity
   extends IBackActionConfigurationWrapper<IButtonProps>,
     IBackActionRenderedWrapper,
     IContentWrapper,
+    IMenuActionConfigurationWrapper<IButtonProps>,
     IMenuConfigurationEntity,
     IUserWrapperEntity {
 }

@@ -15,6 +15,7 @@ import {
   IGroupByWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
+  IIconLeftAlignedWrapper,
   IIconWrapper,
   IIndexWrapper,
   IKeyValue,
@@ -90,10 +91,19 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
  * @generic-entity
  * @stable [17.01.2020]
  */
-export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
+export interface IGenericBaseListItemEntity
   extends IDisabledWrapper,
+    IIconLeftAlignedWrapper,
+    IIconWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [17.01.2020]
+ */
+export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
+  extends IGenericBaseListItemEntity,
     IHoveredWrapper,
-    IIconWrapper,
     IIndexWrapper,
     ILastWrapper,
     IOddWrapper,

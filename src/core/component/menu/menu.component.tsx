@@ -276,6 +276,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         key={`menu-item-key-${option.value}`}
         disabled={option.disabled}
         icon={option.icon}
+        iconLeftAligned={option.iconLeftAligned}
         rawData={option}
         hovered={true}
         odd={isHighlightOdd(props, index)}

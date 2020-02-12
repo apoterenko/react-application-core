@@ -6,6 +6,7 @@ import {
   IAllowSingleTabWrapper,
   IAlwaysDirtyWrapper,
   IAnchoredWrapper,
+  IBackActionRenderedWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   ICheckModalWrapper,
@@ -28,6 +29,7 @@ import {
   IHeightRestrictedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
+  IIconLeftAlignedWrapper,
   IIconWrapper,
   IIndexedWrapper,
   IInlineWrapper,
@@ -554,3 +556,20 @@ export const isAllowSingleTab = (entity: IAllowSingleTabWrapper): boolean =>
  */
 export const isWrapped = (entity: IWrappedWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.wrapped !== false, false);
+
+/**
+ * @stable [12.02.2020]
+ * @param {IIconLeftAlignedWrapper} entity
+ * @returns {boolean}
+ */
+export const isIconLeftAligned = (entity: IIconLeftAlignedWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.iconLeftAligned !== false, false);
+
+/**
+ * @stable [13.02.2020]
+ * @param {TWrapper} entity
+ * @returns {boolean}
+ */
+export const isBackActionRendered =
+  <TWrapper extends IBackActionRenderedWrapper = IBackActionRenderedWrapper>(entity: TWrapper): boolean =>
+    ifNotNilThanValue(entity, () => entity.backActionRendered !== false, false);

@@ -1,14 +1,12 @@
 import {
   EntityIdT,
   IDelayTimeoutWrapper,
-  IDisabledWrapper,
   IEntity,
   IFilterPlaceholderWrapper,
   IFilterWrapper,
   IHeightRestrictedWrapper,
   IHideWrapper,
   IHighlightOddWrapper,
-  IIconWrapper,
   IIsOpenWrapper,
   IMaxCountWrapper,
   IMenuConfigurationWrapper,
@@ -24,7 +22,10 @@ import {
   IShowWrapper,
   IUseFilterWrapper,
 } from '../definitions.interface';
-import { IBehavioralBaseListItemEntity } from './list-definition.interface';
+import {
+  IBehavioralBaseListItemEntity,
+  IGenericBaseListItemEntity,
+} from './list-definition.interface';
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IGenericBaseDialogEntity } from './dialog-definition.interface';
@@ -35,8 +36,7 @@ import { ILabeledValueEntity } from './entity-definition.interface';
  * @stable [02.10.2019]
  */
 export interface IMenuItemEntity<TEntity extends IEntity = IEntity, TValue = EntityIdT>
-  extends IDisabledWrapper,
-    IIconWrapper,
+  extends IGenericBaseListItemEntity,
     ILabeledValueEntity<TValue>,
     IRawDataWrapper<TEntity> {
 }

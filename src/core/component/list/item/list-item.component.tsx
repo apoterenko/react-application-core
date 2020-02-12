@@ -5,6 +5,7 @@ import {
   handlerPropsFactory,
   isDisabled,
   isFn,
+  isIconLeftAligned,
   isSelected,
   joinClassName,
 } from '../../../util';
@@ -43,12 +44,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
               )
             : (
               <li {...this.getItemProps({selectedElementClassName})}>
-                {
-                  props.icon && this.uiFactory.makeIcon({
-                    type: props.icon,
-                    className: 'rac-list-item__icon',
-                  })
-                }
+                {isIconLeftAligned(props) && this.iconElement}
                 <div className='rac-list-item__content'>
                   {
                     isFn(props.tpl)
@@ -56,6 +52,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
                       : props.children
                   }
                 </div>
+                {!isIconLeftAligned(props) && this.iconElement}
               </li>
             )
         )}
@@ -89,6 +86,20 @@ export class ListItem extends BaseComponent<IListItemProps> {
         ),
         ...handlerPropsFactory(this.onClick, !isDisabled(props) && isFn(props.onClick), false),
       }
+    );
+  }
+
+  /**
+   * @stable [12.02.2020]
+   * @returns {JSX.Element}
+   */
+  private get iconElement(): JSX.Element {
+    const icon = this.props.icon;
+    return (
+      icon && this.uiFactory.makeIcon({
+        type: icon,
+        className: 'rac-list-item__icon',
+      })
     );
   }
 

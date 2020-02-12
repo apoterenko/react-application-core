@@ -3158,6 +3158,7 @@
   $rac-menu-dialog-list-item-hover-background: unset,                              /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-hover-border-bottom: unset,                           /* @stable [29.01.2020] */
   $rac-menu-dialog-list-item-hover-color: unset,                                   /* @stable [26.01.2020] */
+  $rac-menu-dialog-list-item-icon-color: unset,                                    /* @stable [12.02.2020] */
   $rac-menu-dialog-list-item-last-border-bottom-color: unset,                      /* @stable [29.01.2020] */
   $rac-menu-dialog-list-item-line-height: unset,                                   /* @stable [26.01.2020] */
   $rac-menu-dialog-list-item-min-height: unset,                                    /* @stable [25.01.2020] */
@@ -3206,6 +3207,7 @@
       $rac-list-item-hover-background: $rac-menu-dialog-list-item-hover-background,
       $rac-list-item-hover-border-bottom: $rac-menu-dialog-list-item-hover-border-bottom,
       $rac-list-item-hover-color: $rac-menu-dialog-list-item-hover-color,
+      $rac-list-item-icon-color: $rac-menu-dialog-list-item-icon-color,
       $rac-list-item-last-border-bottom-color: $rac-menu-dialog-list-item-last-border-bottom-color,
       $rac-list-item-line-height: $rac-menu-dialog-list-item-line-height,
       $rac-list-item-min-height: $rac-menu-dialog-list-item-min-height,
@@ -3432,6 +3434,8 @@
   $rac-header-height: unset,                                                                  /* @stable [06.02.2020] */
   $rac-header-margin: unset,                                                                  /* @stable [06.02.2020] */
   $rac-header-menu-action-background: unset,                                                  /* @stable [06.02.2020] */
+  $rac-header-menu-action-color: unset,                                                       /* @stable [12.02.2020] */
+  $rac-header-menu-action-icon-size: unset,                                                   /* @stable [13.02.2020] */
   $rac-header-menu-action-position: unset,                                                    /* @stable [06.02.2020] */
   $rac-header-menu-action-right: unset,                                                       /* @stable [06.02.2020] */
   $rac-header-padding: unset,                                                                 /* @stable [06.02.2020] */
@@ -3501,6 +3505,8 @@
     @include rac-button (
       $rac-button-custom: rac-header__menu-action,
       $rac-button-background: $rac-header-menu-action-background,
+      $rac-button-color: $rac-header-menu-action-color,
+      $rac-button-icon-size: $rac-header-menu-action-icon-size,
       $rac-button-position: $rac-header-menu-action-position,
       $rac-button-right: $rac-header-menu-action-right
     );
