@@ -380,13 +380,17 @@ $rac-full-list-flex: 1 !default;
 /************************/
 $rac-navigation-list-size-0: 12px !default;
 /**/
+$rac-navigation-list-active-section-background: unset !default;
+$rac-navigation-list-active-section-color: unset !default;
 $rac-navigation-list-expand-icon-height: $rac-navigation-list-size-0 !default;
 $rac-navigation-list-expand-icon-margin: 0 0 0 auto !default;
 $rac-navigation-list-expand-icon-width: $rac-navigation-list-size-0 !default;
+$rac-navigation-list-group-section-color: unset !default;
 $rac-navigation-list-group-section-cursor: pointer !default;
 $rac-navigation-list-group-section-font-size: unset !default;
 $rac-navigation-list-group-section-font-weight: $rac-font-weight-2 !default;
 $rac-navigation-list-group-section-text-transform: unset !default;
+$rac-navigation-list-item-icon-color: unset !default;
 $rac-navigation-list-item-section-font-weight: $rac-font-weight-1 !default;
 $rac-navigation-list-no-user-select: true !default;
 $rac-navigation-list-section-align-items: center !default;
@@ -791,7 +795,21 @@ $rac-preview-dialog-body-content-align-items: center !default;
 /************************/
 $rac-tab-panel-display-0: flex !default;
 /**/
+$rac-active-tab-background: unset !default;
+$rac-active-tab-border-bottom-color: unset !default;
+$rac-active-tab-border: unset !default;
+$rac-first-tab-border-radius: unset !default;
+$rac-inactive-tab-border-left-color: unset !default;
+$rac-inactive-tab-border-right-color: unset !default;
+$rac-last-tab-border-radius: unset !default;
 $rac-tab-align-items: center !default;
+$rac-tab-background: unset !default;
+$rac-tab-border-bottom: unset !default;
+$rac-tab-border-left: unset !default;
+$rac-tab-border-right: unset !default;
+$rac-tab-border-top: unset !default;
+$rac-tab-border: unset !default;
+$rac-tab-content-font-size: $rac-font-size-1 !default;
 $rac-tab-content-font-weight: $rac-font-weight-1 !default;
 $rac-tab-content-margin: unset !default;
 $rac-tab-content-padding: unset !default;
@@ -800,18 +818,11 @@ $rac-tab-display: $rac-tab-panel-display-0 !default;
 $rac-tab-icon-margin: unset !default;
 $rac-tab-icon-padding: unset !default;
 $rac-tab-panel-display: $rac-tab-panel-display-0 !default;
+$rac-tab-panel-flex: 1 !default;
 $rac-tab-panel-min-height: unset !default;
 $rac-tab-panel-wrapper-display: $rac-tab-panel-display-0 !default;
+$rac-tab-panel-wrapper-flex-shrink: 0 !default;
 $rac-tab-panel-wrapper-no-user-select: true !default;
-/**/
-$rac-tab-background: unset !default;
-$rac-tab-active-background: unset !default;
-$rac-tab-active-border: unset !default;
-$rac-tab-border-radius: $rac-border-radius-1 !default;
-$rac-tab-border: unset !default;
-$rac-tab-icon-text-line-height: 24px !default;
-$rac-tab-icon-text-letter-spacing: $rac-default-letter-spacing !default;
-$rac-tab-nav-margin: 28px !default;
 
 /************************/
 /* @stable [05.08.2018] */
@@ -1250,3 +1261,6 @@ $rac-header-content-align-items: center !default;
 $rac-header-content-display: $rac-header-display-0 !default;
 $rac-header-content-flex-direction: unset !default;
 $rac-header-content-flex: 1 !default;
+$rac-header-user-info-color: unset !default;
+$rac-header-user-info-font-size: unset !default;
+$rac-header-user-info-font-weight: unset !default;

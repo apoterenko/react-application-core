@@ -8,7 +8,21 @@
    * @stable [10.02.2020]
    */
   @include rac-tab-panel (
+    $rac-active-tab-background: $rac-active-tab-background,
+    $rac-active-tab-border-bottom-color: $rac-active-tab-border-bottom-color,
+    $rac-active-tab-border: $rac-active-tab-border,
+    $rac-first-tab-border-radius: $rac-first-tab-border-radius,
+    $rac-inactive-tab-border-left-color: $rac-inactive-tab-border-left-color,
+    $rac-inactive-tab-border-right-color: $rac-inactive-tab-border-right-color,
+    $rac-last-tab-border-radius: $rac-last-tab-border-radius,
     $rac-tab-align-items: $rac-tab-align-items,
+    $rac-tab-background: $rac-tab-background,
+    $rac-tab-border-bottom: $rac-tab-border-bottom,
+    $rac-tab-border-left: $rac-tab-border-left,
+    $rac-tab-border-right: $rac-tab-border-right,
+    $rac-tab-border-top: $rac-tab-border-top,
+    $rac-tab-border: $rac-tab-border,
+    $rac-tab-content-font-size:  $rac-tab-content-font-size,
     $rac-tab-content-font-weight:  $rac-tab-content-font-weight,
     $rac-tab-content-margin: $rac-tab-content-margin,
     $rac-tab-content-padding: $rac-tab-content-padding,
@@ -17,55 +31,10 @@
     $rac-tab-icon-margin: $rac-tab-icon-margin,
     $rac-tab-icon-padding: $rac-tab-icon-padding,
     $rac-tab-panel-display: $rac-tab-panel-display,
+    $rac-tab-panel-flex: $rac-tab-panel-flex,
     $rac-tab-panel-min-height: $rac-tab-panel-min-height,
     $rac-tab-panel-wrapper-display: $rac-tab-panel-wrapper-display,
+    $rac-tab-panel-wrapper-flex-shrink: $rac-tab-panel-wrapper-flex-shrink,
     $rac-tab-panel-wrapper-no-user-select: $rac-tab-panel-wrapper-no-user-select
   );
-
-  .rac-tab-panel {
-
-    .rac-tab-panel__tab {
-      background: $rac-tab-background;                                /* @stable [25.09.2018] */
-      border-top: $rac-tab-border;                                    /* @stable [25.09.2018] */
-      border-bottom: $rac-tab-border;                                 /* @stable [25.09.2018] */
-      border-left: 1px solid transparent;                             /* @stable [25.09.2018] */
-      border-right: 1px solid transparent;                            /* @stable [25.09.2018] */
-
-      &.rac-tab-odd {
-        border-left: $rac-tab-border;                                 /* @stable [26.09.2018] */
-        border-right: $rac-tab-border;                                /* @stable [26.09.2018] */
-      }
-
-      &.rac-previous-tab-active {
-        &.rac-tab-odd {
-          border-right-color: transparent;                            /* @stable [26.09.2018] */
-        }
-      }
-
-      &.rac-tab-active {
-        background: $rac-tab-active-background;                       /* @stable [25.09.2018] */
-        border: $rac-tab-active-border;                               /* @stable [26.09.2018] */
-
-        & + .rac-tab-odd {
-          border-left-color: transparent;                             /* @stable [26.09.2018] */
-        }
-      }
-
-      &.rac-first-tab {
-        border-left: $rac-tab-border;                                       /* @stable [26.09.2018] */
-      }
-
-      &.rac-last-tab {
-        border-right: $rac-tab-border;                                      /* @stable [26.09.2018] */
-      }
-
-      &.rac-simple-first-tab {
-        border-radius: $rac-tab-border-radius 0 0 $rac-tab-border-radius;   /* @stable [25.09.2018] */
-      }
-
-      &.rac-simple-last-tab {
-        border-radius: 0 $rac-tab-border-radius $rac-tab-border-radius 0;   /* @stable [25.09.2018] */
-      }
-    }
-  }
 }

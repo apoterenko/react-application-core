@@ -1,7 +1,7 @@
 import {
   IActiveValueWrapper,
   IActiveWrapper,
-  IDefaultWrapper,
+  IAllowSingleTabWrapper,
   IIconWrapper,
   IItemsWrapper,
   INameWrapper,
@@ -12,8 +12,10 @@ import {
   ITabPanelConfigurationWrapper,
   ITabPanelWrapper,
   IValueWrapper,
+  IWrapperClassNameWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
+import { IBaseEvent } from './event-definition.interface';
 
 /**
  * @generic-entity
@@ -50,8 +52,9 @@ export interface ITabProps
  */
 export interface IGenericTabPanelEntity
   extends IActiveValueWrapper,
-    IDefaultWrapper,
-    IItemsWrapper<ITabProps[]> {
+    IAllowSingleTabWrapper,
+    IItemsWrapper<ITabProps[]>,
+    IWrapperClassNameWrapper {
 }
 
 /**
@@ -62,7 +65,7 @@ export interface IBehavioralTabPanelEntity
   extends IOnClickWrapper<ITabProps>,
     IOnCloseWrapper<ITabProps>,
     IOnDeactivateWrapper<number>,
-    IRendererWrapper<ITabProps> {
+    IRendererWrapper<ITabProps, (event: IBaseEvent) => void> {
 }
 
 /**

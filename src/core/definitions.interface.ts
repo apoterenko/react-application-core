@@ -59,6 +59,7 @@ export interface IAfterEnterWrapper<TValue> { afterEnter?: TValue; }
 export interface IAliasWrapper<TValue = string> { alias?: TValue; }
 export interface IAlignWrapper<TValue = string> { align?: TValue; }
 export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean; }
+export interface IAllowSingleTabWrapper { allowSingleTab?: boolean; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IAlwaysSendChangesWrapper { alwaysSendChanges?: boolean; }
