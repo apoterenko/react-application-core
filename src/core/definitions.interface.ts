@@ -518,6 +518,7 @@ export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }
 export interface IWarningWrapper<TValue = boolean> { warning?: TValue; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
+export interface IWrappedWrapper { wrapped?: boolean; }
 export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
 export interface IWrapperWrapper<TValue> { wrapper?: TValue; }
 export interface IWrapWrapper { wrap?: boolean; }

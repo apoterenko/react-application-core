@@ -99,28 +99,34 @@ export class NavigationList
           )
         );
       default:
-        const hasItemParent = R.isNil(item.parent);
-        return orNull<JSX.Element>(
-          isExpanded || hasItemParent,
-          () => this.getItemElement(item)
-        );
+        const isGroup = R.isNil(item.parent);
+        return orNull(isExpanded || isGroup, () => this.asItemElement(item));
     }
   }
 
-  private getItemElement(item: INavigationItemEntity): JSX.Element {
+  /**
+   * @stable [12.02.2020]
+   * @param {INavigationItemEntity} item
+   * @returns {JSX.Element}
+   */
+  private asItemElement(item: INavigationItemEntity): JSX.Element {
     const isFullLayoutModeEnabled = this.isFullLayoutModeEnabled;
     const label = this.t(item.label);
-    const hasParent = R.isNil(item.parent);
+    const isGroup = R.isNil(item.parent);
     const isExpanded = this.isItemExpanded(item);
 
     return (
       <Link
         to={item.link}
         key={this.asUniqueKey(item.link, 'link')}
-        className={this.buildItemClassNames(hasParent, item.active, isExpanded)}
+        className={this.buildItemClassNames(isGroup, item.active, isExpanded)}
         title={label}
       >
-        {this.uiFactory.makeIcon({type: item.icon, key: this.asUniqueKey(item.link, 'icon')})}
+        {this.uiFactory.makeIcon({
+          type: item.icon,
+          key: this.asUniqueKey(item.link, 'icon'),
+          className: 'rac-navigation-list__item-icon',
+        })}
         {isFullLayoutModeEnabled && label}
       </Link>
     );

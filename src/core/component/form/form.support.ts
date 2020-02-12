@@ -9,7 +9,6 @@ import {
 } from '../../definition';
 import {
   isTabActive,
-  getTabActiveValue,
 } from '../tabpanel/tabpanel.support';
 import {
   isFormDirty,
@@ -64,12 +63,3 @@ export const isFormResettable = (formProps: IFormProps): boolean =>
  */
 export const isFormTabActive = (formProps: IFormProps, tab: ITabProps): boolean =>
   isTabActive(formProps.form, tab);
-
-/**
- * @stable [30.08.2018]
- * @param {IFormProps} formProps
- * @param {ITabPanelConfiguration} tabPanelConfiguration
- * @returns {number}
- */
-export const getFormTabActiveValue = (formProps: IFormProps, tabPanelConfiguration: ITabProps): number =>
-  getTabActiveValue(formProps.form, tabPanelConfiguration);

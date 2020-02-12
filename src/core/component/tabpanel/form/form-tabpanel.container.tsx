@@ -1,11 +1,18 @@
 import * as React from 'react';
 
 import { FORM_ACTIVE_VALUE_ACTION_TYPE, FORM_DEACTIVATED_VALUE_ACTION_TYPE } from '../../form';
-import { IPayloadWrapper } from '../../../definitions.interface';
+import {
+  IActiveValueWrapper,
+  IPayloadWrapper,
+} from '../../../definitions.interface';
 import { TabPanelContainer } from '../tabpanel.container';
-import { getFormTabActiveValue } from '../../form';
+import {
+  IFormExtendedEditableEntity,
+  ITabPanelContainerProps,
+} from '../../../definition';
 
-export class FormTabPanelContainer extends TabPanelContainer {
+export class FormTabPanelContainer
+  extends TabPanelContainer<ITabPanelContainerProps & IFormExtendedEditableEntity> {
 
   /**
    * @stable [30.08.2018]
@@ -24,11 +31,10 @@ export class FormTabPanelContainer extends TabPanelContainer {
   }
 
   /**
-   * @stable [30.08.2018]
-   * @returns {number}
+   * @stable [12.02.2020]
+   * @returns {IActiveValueWrapper}
    */
-  protected getTabActiveValue(): number {
-    const props = this.props;
-    return getFormTabActiveValue(props, props.tabPanelConfiguration);
+  protected getActiveValueWrapper(): IActiveValueWrapper {
+    return this.props.form;
   }
 }

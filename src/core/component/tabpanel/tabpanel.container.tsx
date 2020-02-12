@@ -2,14 +2,18 @@ import * as React from 'react';
 
 import { BaseContainer } from '../base';
 import {
-  ITabPanelContainerProps,
   TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE,
   TAB_PANEL_DEACTIVATED_VALUE_ACTION_TYPE,
 } from './tabpanel.interface';
-import { getTabActiveValue } from './tabpanel.support';
-import { IPayloadWrapper } from '../../definitions.interface';
+import {
+  IActiveValueWrapper,
+  IPayloadWrapper,
+} from '../../definitions.interface';
 import { TabPanel } from './tab-panel.component';
-import { ITabProps } from '../../definition';
+import {
+  ITabPanelContainerProps,
+  ITabProps,
+} from '../../definition';
 
 export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPanelContainerProps>
   extends BaseContainer<TProps> {
@@ -30,22 +34,23 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
    */
   public render(): JSX.Element {
     return (
-      <TabPanel {...this.props.tabPanelConfiguration}
-                onDeactivate={this.onDeactivate}
-                activeValue={this.getTabActiveValue()}
-                onClick={this.onTabClick}>
+      <TabPanel
+        {...this.props.tabPanelConfiguration}
+        activeValue={this.getActiveValueWrapper().activeValue}
+        onDeactivate={this.onDeactivate}
+        onClick={this.onTabClick}
+      >
         {this.props.children}
       </TabPanel>
     );
   }
 
   /**
-   * @stable [30.08.2018]
-   * @returns {number}
+   * @stable [12.02.2020]
+   * @returns {IActiveValueWrapper}
    */
-  protected getTabActiveValue(): number {
-    const props = this.props;
-    return getTabActiveValue(props.tabPanel, props.tabPanelConfiguration);
+  protected getActiveValueWrapper(): IActiveValueWrapper {
+    return this.props.tabPanel;
   }
 
   /**

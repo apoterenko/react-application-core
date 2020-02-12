@@ -12,9 +12,13 @@ import {
   ITabPanelConfigurationWrapper,
   ITabPanelWrapper,
   IValueWrapper,
+  IWrappedWrapper,
   IWrapperClassNameWrapper,
 } from '../definitions.interface';
-import { IComponentProps } from './props-definition.interface';
+import {
+  IComponentProps,
+  IContainerProps,
+} from './props-definition.interface';
 import { IBaseEvent } from './event-definition.interface';
 
 /**
@@ -54,6 +58,7 @@ export interface IGenericTabPanelEntity
   extends IActiveValueWrapper,
     IAllowSingleTabWrapper,
     IItemsWrapper<ITabProps[]>,
+    IWrappedWrapper,
     IWrapperClassNameWrapper {
 }
 
@@ -92,4 +97,22 @@ export interface ITabPanelWrapperEntity
  */
 export interface ITabPanelConfigurationEntity
   extends ITabPanelConfigurationWrapper<ITabPanelProps> {
+}
+
+/**
+ * @generic-entity
+ * @stable [12.02.2020]
+ */
+export interface IGenericTabPanelContainerEntity
+  extends ITabPanelConfigurationEntity,
+    ITabPanelWrapperEntity {
+}
+
+/**
+ * @props
+ * @stable [12.02.2020]
+ */
+export interface ITabPanelContainerProps
+  extends IContainerProps,
+    IGenericTabPanelContainerEntity {
 }
