@@ -130,12 +130,13 @@ export const selectTransport = (entity: ITransportWrapperEntity): ITransportEnti
 export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(entity) ? UNDEF : entity.id;
 
 /**
- * @stable [03.02.2020]
- * @param {IErrorWrapper} entity
- * @returns {AnyT}
+ * @stable [13.02.2020]
+ * @param {TErrorWrapper} entity
+ * @returns {TResult}
  */
-export const selectError = <TResult = AnyT>(entity: IErrorWrapper<TResult>): TResult =>
-  R.isNil(entity) ? UNDEF : entity.error;
+export const selectError =
+  <TResult = AnyT, TErrorWrapper extends IErrorWrapper<TResult> = IErrorWrapper<TResult>>(entity: TErrorWrapper): TResult =>
+    R.isNil(entity) ? UNDEF : entity.error;
 
 /**
  * @stable [03.02.2020]
@@ -309,8 +310,7 @@ export const selectPreventEffectsFromAction = (action: IEffectsAction): boolean 
  * @param {IDataWrapper<TData>} wrapper
  * @returns {TData}
  */
-export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData =>
-  ifNotNilThanValue(wrapper, () => wrapper.data, UNDEF_SYMBOL);
+export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData => R.isNil(wrapper) ? UNDEF : wrapper.data;
 
 /**
  * @stable [28.01.2020]
@@ -327,6 +327,14 @@ export const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPa
  */
 export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
   selectPayload(selectData(action));
+
+/**
+ * @stable [13.02.2020]
+ * @param {IEffectsAction} action
+ * @returns {TResult}
+ */
+export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): TResult =>
+  selectError(action);
 
 /**
  * @stable [19.10.2019]

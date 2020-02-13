@@ -10,6 +10,7 @@ import {
   ILayoutWrapper,
   IModeWrapper,
   IOnDrawerHeaderClickWrapper,
+  ITopTitleWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IHeaderConfigurationEntity } from './header-definition.interface';
@@ -75,6 +76,23 @@ export interface IDefaultLayoutProps
     IBehavioralDefaultLayoutEntity {
   navigationListElement?: any;
   onLogoMenuActionClick?: any;
+}
+
+/**
+ * @generic-entity
+ * @stable [13.02.2020]
+ */
+export interface IGenericFormLayoutEntity
+  extends ITopTitleWrapper {
+}
+
+/**
+ * @props
+ * @stable [13.02.2020]
+ */
+export interface IFormLayoutProps
+  extends IComponentProps,
+    IGenericFormLayoutEntity {
 }
 
 /**

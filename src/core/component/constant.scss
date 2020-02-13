@@ -948,15 +948,22 @@ $rac-dnd-font-size: $rac-default-font-size !default;
 $rac-dnd-border-radius: 8px !default;
 $rac-dnd-padding: 24px 0 !default;
 
-/* @stable [09.11.2019] */
+/************************/
+/* @stable [13.02.2020] */
+/************************/
+$rac-form-layout-align-items: center !default;
 $rac-form-layout-background-size: cover !default;
 $rac-form-layout-background: unset !default;
 $rac-form-layout-content-border: unset !default;
 $rac-form-layout-content-margin: unset !default;
 $rac-form-layout-content-position: relative !default;
 $rac-form-layout-content-width: 280px !default;
+$rac-form-layout-display: flex !default;
 $rac-form-layout-field-margin: 0 0 $rac-offset-1 0 !default;
+$rac-form-layout-flex-direction: unset !default;
+$rac-form-layout-flex: 1 !default;
 $rac-form-layout-form-actions-margin: $rac-offset-3 0 0 0 !default;
+$rac-form-layout-justify-content: center !default;
 $rac-form-layout-self-field-background: $rac-color-0-7 !default;
 $rac-form-layout-self-field-border-radius: unset !default;
 $rac-form-layout-self-field-border: 0 !default;

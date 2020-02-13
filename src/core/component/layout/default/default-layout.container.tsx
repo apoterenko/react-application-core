@@ -7,7 +7,7 @@ import {
   isFn,
   orNull,
 } from '../../../util';
-import { LayoutContainer } from '../layout.container';
+import { BasicContainer } from '../../base/basic.container';
 import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
 import { SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
@@ -38,8 +38,9 @@ import {
   PersistentScrollPlugin,
 } from '../../plugin';
 import { DefaultLayout } from './default-layout.component';
+import { NotificationContainer } from '../../notification';
 
-export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
+export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
   public static readonly defaultProps: IDefaultLayoutContainerProps = {
     subHeaderConfiguration: {},
@@ -68,19 +69,20 @@ export class DefaultLayoutContainer extends LayoutContainer<IDefaultLayoutContai
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <DefaultLayout
-        {...props}
-        headerConfiguration={{
-          onSelect: this.onHeaderMenuSelectItem,
-          backActionConfiguration: {onClick: this.routerStoreProxy.navigateBack},
-          ...props.headerConfiguration,
-        }}
-        onLogoMenuActionClick={this.onLogoMenuActionClick}
-        onDrawerHeaderClick={this.onDrawerHeaderClick}
-        navigationListElement={this.navigationListElement}>
-        {this.mainElement}
-        {this.snackbarElement}
-      </DefaultLayout>
+      <NotificationContainer {...props}>
+        <DefaultLayout
+          {...props}
+          headerConfiguration={{
+            onSelect: this.onHeaderMenuSelectItem,
+            backActionConfiguration: {onClick: this.routerStoreProxy.navigateBack},
+            ...props.headerConfiguration,
+          }}
+          onLogoMenuActionClick={this.onLogoMenuActionClick}
+          onDrawerHeaderClick={this.onDrawerHeaderClick}
+          navigationListElement={this.navigationListElement}>
+          {this.mainElement}
+        </DefaultLayout>
+      </NotificationContainer>
     );
   }
 

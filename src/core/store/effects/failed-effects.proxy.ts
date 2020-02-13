@@ -1,12 +1,14 @@
 import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
-import { NotificationActionBuilder } from '../../notification';
 import {
   FormActionBuilder,
   ListActionBuilder,
 } from '../../component/action.builder';
-import { ConnectorActionBuilder } from '../../action';
+import {
+  ConnectorActionBuilder,
+  NotificationActionBuilder,
+} from '../../action';
 
 export const makeFailedEffectsProxy = (actionType: string,
                                        actionsResolver?: (action: IEffectsAction) => IEffectsAction[]): () => void =>
@@ -18,7 +20,7 @@ export const makeFailedEffectsProxy = (actionType: string,
     @EffectsService.effects(actionType)
     public $onError(action: IEffectsAction): IEffectsAction[] {
       return (actionsResolver ? actionsResolver(action) : []).concat(
-        NotificationActionBuilder.buildErrorAction(action.error)
+        NotificationActionBuilder.buildErrorAction(action)
       );
     }
   }

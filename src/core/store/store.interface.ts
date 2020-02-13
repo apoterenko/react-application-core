@@ -1,12 +1,14 @@
 import { AnyAction, Reducer } from 'redux';
 
-import { notificationReducer } from '../notification';
+import {
+  defaultLayoutReducer,
+  notificationReducer,
+} from '../component/reducers';
 import { dictionariesReducer } from '../dictionary';
 import { PERMISSIONS_DESTROY_ACTION_TYPE, PERMISSIONS_UPDATE_ACTION_TYPE } from '../permissions';
 import { stackReducer } from './stack';
 import { channelsReducers } from '../channel';
 import { makeEntityReducerFactory } from '../store/store.support';
-import { defaultLayoutReducer } from '../component/layout/default/default-layout.reducer';
 import { IStackEntity, ILayoutEntity } from '../definition';
 import { $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
 import { asyncLibReducer } from '../async-lib';

@@ -6,7 +6,6 @@ export * from './edited-list.middleware';
 export * from './filer-form-dialog.middleware';
 export * from './filtered-list.middleware';
 export * from './middleware.interface';
-export * from './notification.middleware';
 export * from './refreshed-list.middleware';
 export * from './sorted-list.middleware';
 export * from './succeed-form.middleware';

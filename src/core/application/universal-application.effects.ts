@@ -31,9 +31,9 @@ import { ApplicationActionBuilder } from '../component/application/application-a
 import { BaseEffects } from '../store/effects/base.effects';
 import {
   DictionariesActionBuilder,
+  NotificationActionBuilder,
   RouterActionBuilder,
 } from '../action';
-import { NotificationActionBuilder } from '../notification/notification-action.builder';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
 import { TransportActionBuilder } from '../transport/transport-action.builder';
 import { userActionBuilder } from '../user';

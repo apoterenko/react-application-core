@@ -28,17 +28,22 @@ import {
   isFormSubmittable,
   isFormValid,
   isNewEntity,
+  isObjectNotEmpty,
   isString,
   isValidateOnMount,
   joinClassName,
   mapApiEntity,
-  notNilValuesArrayFilter,
+  notNilValuesFilter,
+  objectValuesArrayFilter,
   orNull,
   selectEditableEntity,
   selectEditableEntityChanges,
   selectError,
 } from '../../util';
-import { AnyT, IEntity } from '../../definitions.interface';
+import {
+  AnyT,
+  IEntity,
+} from '../../definitions.interface';
 import { BaseComponent } from '../base';
 import { Button } from '../button';
 import { Field, IField } from '../field';
@@ -64,9 +69,9 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   constructor(props: IFormProps) {
     super(props);
     this.doSubmit = this.doSubmit.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onReset = this.onReset.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onReset = this.onReset.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
@@ -259,7 +264,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @stable [30.01.2020]
    * @returns {boolean}
    */
-  private isFormValid(): boolean {
+  private get isFormValid(): boolean {
     return isFormValid(this.props);
   }
 
@@ -267,7 +272,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @stable [03.08.2018]
    * @returns {boolean}
    */
-  private isFormSubmittable(): boolean {
+  private get isFormSubmittable(): boolean {
     return isFormSubmittable(this.props);
   }
 
@@ -275,7 +280,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @stable [15.02.2019]
    * @returns {boolean}
    */
-  private isFormResettable(): boolean {
+  private get isFormResettable(): boolean {
     return isFormResettable(this.props);
   }
 
@@ -283,7 +288,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @stable [03.02.2020]
    * @returns {boolean}
    */
-  private isFormOfNewEntity(): boolean {
+  private get isFormOfNewEntity(): boolean {
     return isNewEntity(this.props.entity);
   }
 
@@ -291,7 +296,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @stable [25.09.2019]
    * @returns {boolean}
    */
-  private isFormBusy(): boolean {
+  private get isFormBusy(): boolean {
     return isFormInProgress(this.props);
   }
 
@@ -370,42 +375,17 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [25.02.2019]
+   * @stable [13.02.2020]
    * @returns {JSX.Element}
    */
   private get formActionsElement(): JSX.Element {
     const props = this.props;
-    const submitConfiguration = props.submitConfiguration || {};
-    const messages = this.settings.messages;
-    const actions = notNilValuesArrayFilter<IButtonProps>(
-      orNull(
-        props.resetActionRendered,
-        (): IButtonProps => ({
-          type: 'reset',
-          icon: props.resetIcon || 'close',
-          disabled: !this.isFormResettable(),
-          text: props.resetText || messages.reset,
-          ...props.buttonConfiguration,
-          ...props.resetConfiguration,
-          onClick: null,
-        })
-      ),
-      {
-        type: 'submit',
-        icon: this.isFormValid() ? (props.submitIcon || 'ok-filled') : 'exclamation',
-        raised: true,
-        disabled: !this.isFormSubmittable(),
-        progress: this.isFormBusy(),
-        error: this.hasError,
-        text: props.submitText || (this.isFormOfNewEntity() ? messages.create : messages.save),
-        ...props.buttonConfiguration,
-        ...submitConfiguration,
-        onClick: orNull(submitConfiguration.type === 'button', () => this.doSubmit),
-      }
-    );
+    const actions = this.actions;
+    const actualActions = isFn(props.actionsFactory) ? props.actionsFactory(actions) : actions;
+
     return (
       <React.Fragment>
-        {(isFn(props.actionsFactory) ? props.actionsFactory(actions) : actions)
+        {actualActions
           .map(
             (action, index) => (
               <Button
@@ -474,7 +454,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {boolean}
    */
   private get hasError(): boolean {
-    return !R.isNil(selectError<boolean | string>(this.form));
+    return isObjectNotEmpty(selectError(this.form));
   }
 
   /**
@@ -483,5 +463,43 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    */
   private get form(): IEditableEntity<IEntity> {
     return selectEditableEntity(this.props);
+  }
+
+  /**
+   * @stable [13.02.2020]
+   * @returns {IButtonProps[]}
+   */
+  private get actions(): IButtonProps[] {
+    const props = this.props;
+    const {
+      buttonConfiguration = {},
+      resetConfiguration = {},
+      submitConfiguration = {},
+    } = props;
+    const messages = this.settings.messages;
+
+    return objectValuesArrayFilter(
+      props.resetActionRendered && notNilValuesFilter<IButtonProps, IButtonProps>({
+        type: 'reset',
+        icon: props.resetIcon || 'close',
+        disabled: !this.isFormResettable,
+        text: props.resetText || messages.reset,
+        ...buttonConfiguration,
+        ...resetConfiguration,
+        onClick: null,
+      }),
+      notNilValuesFilter<IButtonProps, IButtonProps>({
+        type: 'submit',
+        icon: this.isFormValid ? (props.submitIcon || 'ok-filled') : 'exclamation',
+        raised: true,
+        disabled: !this.isFormSubmittable,
+        progress: this.isFormBusy,
+        error: this.hasError,
+        text: props.submitText || (this.isFormOfNewEntity ? messages.create : messages.save),
+        ...buttonConfiguration,
+        ...submitConfiguration,
+        onClick: orNull(submitConfiguration.type === 'button', () => this.doSubmit),
+      })
+    );
   }
 }

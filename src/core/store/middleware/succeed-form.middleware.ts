@@ -4,7 +4,10 @@ import {
   ifNotNilThanValue,
   orNull,
 } from '../../util';
-import { RouterActionBuilder } from '../../action';
+import {
+  NotificationActionBuilder,
+  RouterActionBuilder,
+} from '../../action';
 import { IEntity } from '../../definitions.interface';
 import {
   FormActionBuilder,
@@ -26,7 +29,6 @@ import {
   getTranslator,
   staticInjector,
 } from '../../di';
-import { NotificationActionBuilder } from '../../notification';
 import { ISettingsEntity } from '../../settings';
 
 /**

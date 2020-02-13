@@ -38,8 +38,9 @@ export const UniversalIdProviderContext = React.createContext(null);
  */
 export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalStoreEntity<TDictionaries, TPermissions>,
-    ITitleWrapper<string | boolean>,
-    ISectionNameWrapper {
+    INotificationWrapperEntity,
+    ISectionNameWrapper,
+    ITitleWrapper<string | boolean> {
 }
 
 /**
@@ -47,8 +48,7 @@ export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}
  */
 export interface IContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalContainerEntity<TDictionaries, TPermissions>,
-    ILayoutWrapperEntity,
-    INotificationWrapperEntity {
+    ILayoutWrapperEntity {
 }
 
 /**

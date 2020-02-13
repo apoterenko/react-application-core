@@ -8,13 +8,10 @@ import {
   getDynamicRoutes,
   getEnvironment,
   getEventManager,
-  getLogManager,
   getNumberConverter,
   getPermissionsManager,
   getPhoneConverter,
   getSettings,
-  getStateSerializer,
-  getStorage,
   getStore,
   getTranslator,
   getUiFactory,
@@ -30,14 +27,11 @@ import {
   IAuth,
   IEnvironment,
   IEventManager,
-  ILogManager,
   INavigateEntity,
   IOperationEntity,
   IPermissionsManager,
   IPhoneConverter,
   IRoutesEntity,
-  IStateSerializer,
-  IStorage,
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
@@ -220,15 +214,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    * @stable [07.10.2019]
    * @returns {ISettingsEntity}
    */
-  protected get storage(): IStorage {
-    return getStorage();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {ISettingsEntity}
-   */
   protected get settings(): ISettingsEntity {
     return getSettings();
   }
@@ -261,15 +246,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
 
   /**
    * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {ILogManager}
-   */
-  protected get logManager(): ILogManager {
-    return getLogManager();
-  }
-
-  /**
-   * @react-native-compatible
    * @stable [19.01.2020]
    * @returns {IUserActivityManager}
    */
@@ -293,15 +269,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get eventManager(): IEventManager {
     return getEventManager();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {IStateSerializer}
-   */
-  protected get stateSerializer(): IStateSerializer {
-    return getStateSerializer();
   }
 
   /**
