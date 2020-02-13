@@ -60,7 +60,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   closeMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
-  create?: string;
   dataSaved?: string;
   dialogTitleMessage?: string;
   dndMessage?: string;
@@ -77,8 +76,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   previewMessage?: string;
   refreshActionTitleMessage?: string;
   requestCancelErrorMessage?: string;
-  reset?: string;
-  save?: string;
   serviceTemporarilyUnavailableMessage?: string;
   simplePagesMessage?: string;
   sorryMessage?: string;
@@ -151,7 +148,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     closeMessage: 'Close',
     confirmationMessage: 'Confirmation',
     continueMessage: 'Continue',
-    create: 'Create',
     dataSaved: 'The data has been successfully saved.',
     dialogTitleMessage: 'Notice',
     dndMessage: 'Upload a file(s) here',
@@ -168,8 +164,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     previewMessage: 'Preview',
     refreshActionTitleMessage: 'Refresh',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
-    reset: 'Reset',
-    save: 'Save',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     simplePagesMessage: 'Page {page} of {count}',
     sorryMessage: 'Sorry about that.',

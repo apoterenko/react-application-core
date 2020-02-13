@@ -173,6 +173,7 @@ export interface IMessagesSettingsEntity {
   CHANGES_YOU_MADE_WILL_NOT_BE_SAVED?: string;
   CLEAR_ALL?: string;
   CLOSE?: string;
+  CREATE?: string;
   DETAILS_INFO?: string;
   DIALOG_ACCEPT?: string;
   DIALOG_CANCEL?: string;
@@ -191,7 +192,9 @@ export interface IMessagesSettingsEntity {
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
   PUT_MARKER_HERE?: string;
   QUARTER?: string;
+  RESET?: string;
   RESTART_APP?: string;
+  SAVE?: string;
   SETTINGS?: string;
   SOMETHING_WENT_WRONG?: string;
   UNKNOWN_ERROR?: string;
@@ -212,6 +215,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   CHANGES_YOU_MADE_WILL_NOT_BE_SAVED: 'Changes you made will not be saved',
   CLEAR_ALL: 'Clear all',
   CLOSE: 'Close',
+  CREATE: 'Create',
   DETAILS_INFO: 'Details info',
   DIALOG_ACCEPT: 'Continue',
   DIALOG_CANCEL: 'Cancel',
@@ -230,7 +234,9 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
   PUT_MARKER_HERE: 'Put marker here',
   QUARTER: 'Quarter',
+  RESET: 'Reset',
   RESTART_APP: 'Restart App',
+  SAVE: 'Save',
   SETTINGS: 'Settings',
   SOMETHING_WENT_WRONG: 'Something went wrong',
   UNKNOWN_ERROR: 'Unknown error',

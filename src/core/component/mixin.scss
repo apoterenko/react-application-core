@@ -2536,21 +2536,29 @@
   $rac-form-body-flex: unset,                                                   /* @stable [30.01.2020] */
   $rac-form-body-margin: unset,                                                 /* @stable [30.01.2020] */
   $rac-form-border-bottom: unset,                                               /* @stable [30.01.2020] */
+  $rac-form-display: unset,                                                     /* @stable [13.02.2020] */
+  $rac-form-flex-direction: unset,                                              /* @stable [13.02.2020] */
+  $rac-form-flex-shrink: unset,                                                 /* @stable [13.02.2020] */
+  $rac-form-flex: unset,                                                        /* @stable [13.02.2020] */
   $rac-form-height: unset,                                                      /* @stable [30.01.2020] */
   $rac-form-margin: unset,                                                      /* @stable [30.01.2020] */
   $rac-form-padding: unset,                                                     /* @stable [30.01.2020] */
   $rac-form-position: unset                                                     /* @stable [30.01.2020] */
 ) {
   #{rac-cls(rac-form, $rac-form-custom)} {
-    @include rac-styles(
+    @include rac-styles (
       $rac-styles-border-bottom: $rac-form-border-bottom,
+      $rac-styles-display: $rac-form-display,
+      $rac-styles-flex-direction: $rac-form-flex-direction,
+      $rac-styles-flex-shrink: $rac-form-flex-shrink,
+      $rac-styles-flex: $rac-form-flex,
       $rac-styles-height: $rac-form-height,
       $rac-styles-margin: $rac-form-margin,
       $rac-styles-padding: $rac-form-padding,
       $rac-styles-position: $rac-form-position
     );
 
-    @include rac-styles(
+    @include rac-styles (
       $rac-styles-custom: rac-form__body,
       $rac-styles-display: $rac-form-body-display,
       $rac-styles-flex: $rac-form-body-flex,

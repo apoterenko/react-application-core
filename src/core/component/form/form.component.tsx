@@ -27,6 +27,7 @@ import {
   isFormInProgress,
   isFormSubmittable,
   isFormValid,
+  isFull,
   isNewEntity,
   isObjectNotEmpty,
   isString,
@@ -162,17 +163,15 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
   }
 
   /**
-   * @stable [25.02.2019]
+   * @stable [13.02.2020]
    * @returns {string}
    */
   private get formClassName(): string {
     const props = this.props;
+
     return joinClassName(
       'rac-form',
-      'rac-flex',
-      'rac-flex-column',
-      'rac-flex-no-shrink',
-      props.full !== false && 'rac-flex-full',
+      isFull(props) && 'rac-form-full',
       calc(props.className)
     );
   }
@@ -483,7 +482,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         type: 'reset',
         icon: props.resetIcon || 'close',
         disabled: !this.isFormResettable,
-        text: props.resetText || messages.reset,
+        text: props.resetText || messages.RESET,
         ...buttonConfiguration,
         ...resetConfiguration,
         onClick: null,
@@ -495,7 +494,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
         disabled: !this.isFormSubmittable,
         progress: this.isFormBusy,
         error: this.hasError,
-        text: props.submitText || (this.isFormOfNewEntity ? messages.create : messages.save),
+        text: props.submitText || (this.isFormOfNewEntity ? messages.CREATE : messages.SAVE),
         ...buttonConfiguration,
         ...submitConfiguration,
         onClick: orNull(submitConfiguration.type === 'button', () => this.doSubmit),
