@@ -117,6 +117,15 @@
   );
 
   /**
+   * @disabled-checkbox
+   * @stable [23.10.2019]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-disabled-checkbox-cls,
+    $rac-self-field-input-wrapper-opacity: $rac-disabled-checkbox-self-field-input-wrapper-opacity
+  );
+
+  /**
    * @switch
    * @stable [28.10.2019]
    */

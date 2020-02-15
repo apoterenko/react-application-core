@@ -189,6 +189,7 @@ export class Field<TProps extends IFieldProps,
         <div
           ref={this.selfRef}
           style={props.style}
+          title={props.title as string}
           className={this.getSelfElementClassName()}
         >
           {this.prefixLabelElement}

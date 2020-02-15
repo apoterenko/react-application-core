@@ -9,7 +9,6 @@ import {
   downloadFileAsBlob,
   joinClassName,
   objectValuesArrayFilter,
-  orNull,
   uuid,
 } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
@@ -25,7 +24,7 @@ import {
 } from './basic-filefield.interface';
 import { toLastAddedMultiItemEntityId } from '../multifield';
 import { Dialog } from '../../dialog';
-import { WebCamera, IWebCamera } from '../../web-camera';
+import { WebCamera } from '../../web-camera';
 import {
   FieldActionTypesEnum,
   IBaseEvent,
@@ -39,6 +38,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
+  private readonly cameraRef = React.createRef<WebCamera>();
 
   /**
    * @stable [30.10.2019]
@@ -52,7 +52,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
     this.onCameraDialogClose = this.onCameraDialogClose.bind(this);
     this.onSelect = this.onSelect.bind(this);
-    this.onSelectCameraSnapshot = this.onSelectCameraSnapshot.bind(this);
+    this.onCameraSnapshotSelect = this.onCameraSnapshotSelect.bind(this);
     this.openCameraDialog = this.openCameraDialog.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
 
@@ -124,19 +124,18 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     return (
       <div className='rac-dnd-wrapper'>
         {dndElement}
-        <Dialog ref='cameraDialog'
-                title={messages.takeSnapshotMessage}
-                acceptText={messages.acceptMessage}
-                onClose={this.onCameraDialogClose}
-                onAccept={this.onCameraDialogAccept}>
+        <Dialog
+          ref='cameraDialog'
+          title={messages.takeSnapshotMessage}
+          acceptText={messages.acceptMessage}
+          onClose={this.onCameraDialogClose}
+          onAccept={this.onCameraDialogAccept}
+        >
           {
-            orNull(
-              state.cameraEnabled,
-              () => (
-                <WebCamera
-                  ref='camera'
-                  onSelect={this.onSelectCameraSnapshot}/>
-              )
+            state.cameraEnabled && (
+              <WebCamera
+                ref={this.cameraRef}
+                onSelect={this.onCameraSnapshotSelect}/>
             )
           }
         </Dialog>
@@ -212,7 +211,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @stable [01.08.2019]
    * @param {Blob} blob
    */
-  private onSelectCameraSnapshot(blob: Blob): void {
+  private onCameraSnapshotSelect(blob: Blob): void {
     this.onSelect([blob]);
   }
 
@@ -225,9 +224,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @param {IBaseEvent} event
    */
   private openCameraDialog(event: IBaseEvent): void {
-    cancelEvent(event);
-    this.setState({cameraEnabled: true});
-    this.cameraDialog.activate();
+    this.setState({cameraEnabled: true}, () => this.cameraDialog.activate());
   }
 
   /**
@@ -265,11 +262,11 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [02.08.2018]
-   * @returns {IWebCamera}
+   * @stable [14.02.2020]
+   * @returns {WebCamera}
    */
-  private get camera(): IWebCamera {
-    return this.refs.camera as IWebCamera;
+  private get camera(): WebCamera {
+    return this.cameraRef.current;
   }
 
   /**

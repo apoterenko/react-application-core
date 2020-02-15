@@ -64,6 +64,15 @@
 
   /**
    * @layout
+   * @stable [15.02.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-relative,
+    $rac-styles-position: relative
+  );
+
+  /**
+   * @layout
    * @stable [30.09.2019]
    */
   @include rac-alignment-center (
