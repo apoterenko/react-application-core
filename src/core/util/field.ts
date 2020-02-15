@@ -108,13 +108,13 @@ export const fromDynamicFieldsArray = <TEntity extends IEntity | EntityIdT>(arra
   );
 
 /**
- * @stable [28.08.2019]
+ * @stable [14.02.2020]
  * @param {EntityIdT[]} array
- * @param {(itm: EntityIdT) => EntityIdT} valueAccessor
+ * @param {(itm: EntityIdT) => AnyT} valueAccessor
  * @returns {IKeyValue}
  */
 export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
-                                          valueAccessor: (itm: EntityIdT) => EntityIdT): IKeyValue =>
+                                          valueAccessor: (itm: EntityIdT) => AnyT): IKeyValue =>
   fromDynamicFieldsArray<EntityIdT>(array, (itm) => itm, valueAccessor);
 
 /**

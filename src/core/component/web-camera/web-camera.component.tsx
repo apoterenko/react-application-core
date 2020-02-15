@@ -2,11 +2,10 @@ import * as React from 'react';
 import * as Webcam from 'webcamjs';
 
 import { BaseComponent } from '../base';
-import { IWebCameraProps, IWebCamera } from './web-camera.interface';
+import { IWebCameraProps } from './web-camera.interface';
 import { uuid, isFn, fromUrlToBlob } from '../../util';
 
-export class WebCamera extends BaseComponent<IWebCameraProps>
-  implements IWebCamera {
+export class WebCamera extends BaseComponent<IWebCameraProps> {
 
   public static readonly defaultProps: IWebCameraProps = {
     cameraWidth: 360,
