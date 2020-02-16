@@ -173,7 +173,7 @@ export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
 export interface IEntityIdWrapper<TValue = EntityIdT> { entityId?: TValue; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
-export interface IErrorMessageRenderedWrapper { errorMessageRendered?: boolean; };
+export interface IErrorMessageRenderedWrapper { errorMessageRendered?: boolean; }
 export interface IErrorWrapper<TValue = boolean> { error?: TValue; }
 export interface IEventNameWrapper { eventName?: string; }
 export interface IEventWrapper<TValue = Event> { event?: TValue; }
@@ -682,13 +682,6 @@ export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
 }
 
 /**
- * @stable [23.09.2018]
- */
-export interface IAvatarRenderedWrapper {
-  avatarRendered?: boolean;
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface INotUseFieldWrapper {
@@ -916,13 +909,6 @@ export interface IRippableWrapper<TRippable = boolean> {
 }
 
 /**
- * @stable [03.10.2018]
- */
-export interface ICenteredWrapper<TCentered = boolean> {
-  centered?: TCentered;
-}
-
-/**
  * @stable [20.09.2018]
  */
 export interface ISeparatorWrapper<TSeparator = boolean> {
@@ -1060,13 +1046,6 @@ export interface IColumnColSpanWrapper {
  */
 export interface IDisplayMessageWrapper<TDisplayMessage = string> {
   displayMessage?: TDisplayMessage;
-}
-
-/**
- * @stable [17.06.2018]
- */
-export interface IAppVersionWrapper {
-  appVersion?: string;
 }
 
 /**
