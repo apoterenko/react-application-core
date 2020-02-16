@@ -100,6 +100,24 @@
   );
 
   /**
+   * @layout
+   * @stable [16.02.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-one-quarter,
+    $rac-styles-flex: .25
+  );
+
+  /**
+   * @layout
+   * @stable [16.02.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-one-third,
+    $rac-styles-flex: .33
+  );
+
+  /**
    * @error
    * @stable [30.09.2019]
    */

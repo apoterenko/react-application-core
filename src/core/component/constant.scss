@@ -610,9 +610,7 @@ $rac-base-text-border-radius: unset !default;                                   
 $rac-base-text-busy-self-field-input-opacity: 0 !default;
 $rac-base-text-labeled-self-field-flex-direction: unset !default;                                         /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-left: unset !default;                                             /* @stable [16.02.2020]*/
-$rac-base-text-labeled-self-field-label-overflow: hidden !default;                                        /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-position: absolute !default;                                      /* @stable [16.02.2020]*/
-$rac-base-text-labeled-self-field-label-text-overflow: ellipsis !default;                                 /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-top: -$rac-field-size-0 !default;                                 /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-white-space: nowrap !default;                                     /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-width: 100% !default;                                             /* @stable [16.02.2020]*/
@@ -678,6 +676,8 @@ $rac-self-field-input-wrapper-display: flex !default;
 $rac-self-field-label-color: unset !default;
 $rac-self-field-label-font-size: $rac-font-size-0 !default;
 $rac-self-field-label-font-weight: $rac-font-weight-1 !default;
+$rac-self-field-label-overflow: hidden !default;                                                          /* @stable [16.02.2020]*/
+$rac-self-field-label-text-overflow: ellipsis !default;                                                   /* @stable [16.02.2020]*/
 $rac-self-field-position: relative !default;
 $rac-switch-self-field-height: $rac-text-size-0 !default;
 $rac-switch-self-field-input-height: $rac-switch-size-0 !default;
