@@ -4,11 +4,11 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BaseTextField } from '../text-field';
 import {
-  cancelEvent,
   downloadFile,
   downloadFileAsBlob,
   joinClassName,
   objectValuesArrayFilter,
+  orNull,
   uuid,
 } from '../../../util';
 import { DnD, IDnd } from '../../dnd';
@@ -28,7 +28,6 @@ import { WebCamera } from '../../web-camera';
 import {
   FieldActionTypesEnum,
   IBaseEvent,
-  IDialog,
   IFieldActionEntity,
 } from '../../../definition';
 
@@ -39,6 +38,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
   private readonly cameraRef = React.createRef<WebCamera>();
+  private readonly cameraDialogRef = React.createRef<Dialog>();
 
   /**
    * @stable [30.10.2019]
@@ -51,8 +51,8 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.downloadFile = this.downloadFile.bind(this);
     this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
     this.onCameraDialogClose = this.onCameraDialogClose.bind(this);
-    this.onSelect = this.onSelect.bind(this);
     this.onCameraSnapshotSelect = this.onCameraSnapshotSelect.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.openCameraDialog = this.openCameraDialog.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
 
@@ -124,21 +124,24 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     return (
       <div className='rac-dnd-wrapper'>
         {dndElement}
-        <Dialog
-          ref='cameraDialog'
-          title={messages.takeSnapshotMessage}
-          acceptText={messages.acceptMessage}
-          onClose={this.onCameraDialogClose}
-          onAccept={this.onCameraDialogAccept}
-        >
-          {
-            state.cameraEnabled && (
-              <WebCamera
-                ref={this.cameraRef}
-                onSelect={this.onCameraSnapshotSelect}/>
+        {
+          orNull(
+            this.state.opened,
+            () => (
+              <Dialog
+                ref={this.cameraDialogRef}
+                title={messages.takeSnapshotMessage}
+                acceptText={messages.acceptMessage}
+                onClose={this.onCameraDialogClose}
+                onBeforeAccept={this.onCameraDialogAccept}
+              >
+                <WebCamera
+                  ref={this.cameraRef}
+                  onSelect={this.onCameraSnapshotSelect}/>
+              </Dialog>
             )
-          }
-        </Dialog>
+          )
+        }
       </div>
     );
   }
@@ -173,7 +176,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @stable [02.08.2018]
    */
   private onCameraDialogClose(): void {
-    this.setState({cameraEnabled: false});
+    this.setState({opened: false});
   }
 
   /**
@@ -224,7 +227,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @param {IBaseEvent} event
    */
   private openCameraDialog(event: IBaseEvent): void {
-    this.setState({cameraEnabled: true}, () => this.cameraDialog.activate());
+    this.setState({opened: true}, () => this.cameraDialog.activate());
   }
 
   /**
@@ -232,7 +235,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @param {IBaseEvent} event
    */
   private openFileDialog(event: IBaseEvent): void {
-    cancelEvent(event);
     this.dnd.open();
   }
 
@@ -241,8 +243,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @param {IBaseEvent} event
    */
   private async downloadFile(event: IBaseEvent): Promise<void> {
-    cancelEvent(event);
-
     if (this.isValueNotPresent) {
       return;
     }
@@ -254,11 +254,11 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [02.08.2018]
-   * @returns {IDialog}
+   * @stable [15.02.2020]
+   * @returns {Dialog}
    */
-  private get cameraDialog(): IDialog {
-    return this.refs.cameraDialog as IDialog;
+  private get cameraDialog(): Dialog {
+    return this.cameraDialogRef.current;
   }
 
   /**

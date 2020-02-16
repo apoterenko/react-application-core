@@ -18,6 +18,7 @@ import {
   IDisabledWrapper,
   IDisplayValueRenderedOnlyWrapper,
   IEditedWrapper,
+  IErrorMessageRenderedWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
@@ -573,3 +574,11 @@ export const isIconLeftAligned = (entity: IIconLeftAlignedWrapper): boolean =>
 export const isBackActionRendered =
   <TWrapper extends IBackActionRenderedWrapper = IBackActionRenderedWrapper>(entity: TWrapper): boolean =>
     ifNotNilThanValue(entity, () => entity.backActionRendered !== false, false);
+
+/**
+ * @stable [16.02.2020]
+ * @param {IErrorMessageRenderedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isErrorMessageRendered = (wrapper: IErrorMessageRenderedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.errorMessageRendered !== false;

@@ -1,5 +1,6 @@
 @import '../constant';
 @import '../mixin';
+@import './checkbox/_checkbox';
 @import './chips-field/_chips-field';
 @import './cron-field/_cron-field';
 @import './date-field/_date-field';
@@ -37,15 +38,6 @@
   );
 
   /**
-   * @field-labeled
-   * @stable [28.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-field-labeled-cls,
-    $rac-self-field-margin-top: $rac-field-labeled-self-field-margin-top
-  );
-
-  /**
    * @field-required
    * @stable [29.10.2019]
    */
@@ -76,28 +68,6 @@
   );
 
   /**
-   * @base-checkbox
-   * @stable [23.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-base-checkbox-cls,
-    $rac-self-field-align-items: $rac-base-checkbox-self-field-align-items,
-    $rac-self-field-input-opacity: $rac-base-checkbox-self-field-input-opacity,
-    $rac-self-field-input-wrapper-position: $rac-base-checkbox-self-field-input-wrapper-position,
-    $rac-self-field-label-line-height: $rac-base-checkbox-self-field-label-line-height,
-    $rac-self-field-label-margin: $rac-base-checkbox-self-field-label-margin
-  );
-
-  /**
-   * @base-checkbox
-   * @stable [23.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-base-checkbox-checked-cls,
-    $rac-self-field-input-wrapper-background: $rac-base-checkbox-checked-self-field-input-wrapper-background
-  );
-
-  /**
    * @checkbox
    * @stable [23.10.2019]
    */
@@ -114,15 +84,6 @@
     $rac-self-field-input-wrapper-border: $rac-checkbox-self-field-input-wrapper-border,
     $rac-self-field-input-wrapper-justify-content: $rac-checkbox-self-field-input-wrapper-justify-content,
     $rac-self-field-input-wrapper-size: $rac-checkbox-self-field-input-wrapper-size
-  );
-
-  /**
-   * @disabled-checkbox
-   * @stable [23.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-disabled-checkbox-cls,
-    $rac-self-field-input-wrapper-opacity: $rac-disabled-checkbox-self-field-input-wrapper-opacity
   );
 
   /**
@@ -143,10 +104,6 @@
     $rac-field-custom: $rac-view-field-cls,
     $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
   );
-
-  @include rac-field($rac-field-custom: $rac-field-disabled-cls,
-                     $rac-field-opacity: $rac-field-disabled-opacity,
-                     $rac-text-field-opacity: $rac-text-field-disabled-opacity);
 
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
                      $rac-self-field-height: $rac-text-area-height,
@@ -228,7 +185,6 @@
     }
 
     .rac-field-loader {
-      width: auto;                                                    /* @stable [18.09.2018] */
 
       .rac-loading-message {
         color: $rac-field-loader-loading-message-color;               /* @stable [18.09.2018] */

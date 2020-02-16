@@ -1,0 +1,36 @@
+@import '../../constant';
+@import '../../mixin';
+
+.rac {
+
+  /**
+   * @base-checkbox
+   * @stable [15.02.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-checkbox-cls,
+    $rac-self-field-align-items: $rac-base-checkbox-self-field-align-items,
+    $rac-self-field-input-opacity: $rac-base-checkbox-self-field-input-opacity,
+    $rac-self-field-input-wrapper-position: $rac-base-checkbox-self-field-input-wrapper-position,
+    $rac-self-field-label-line-height: $rac-base-checkbox-self-field-label-line-height,
+    $rac-self-field-label-margin: $rac-base-checkbox-self-field-label-margin
+  );
+
+  /**
+   * @base-checkbox-checked
+   * @stable [15.02.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-checkbox-checked-cls,
+    $rac-self-field-input-wrapper-background: $rac-base-checkbox-checked-self-field-input-wrapper-background
+  );
+
+  /**
+   * @checkbox-disabled
+   * @stable [15.02.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-checkbox-disabled-cls,
+    $rac-self-field-input-wrapper-opacity: $rac-checkbox-disabled-self-field-input-wrapper-opacity
+  );
+}

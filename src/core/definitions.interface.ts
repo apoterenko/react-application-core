@@ -173,6 +173,7 @@ export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
 export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
 export interface IEntityIdWrapper<TValue = EntityIdT> { entityId?: TValue; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
+export interface IErrorMessageRenderedWrapper { errorMessageRendered?: boolean; };
 export interface IErrorWrapper<TValue = boolean> { error?: TValue; }
 export interface IEventNameWrapper { eventName?: string; }
 export interface IEventWrapper<TValue = Event> { event?: TValue; }
@@ -322,6 +323,7 @@ export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
+export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void; }
 export interface IOnBeforeSubmitWrapper<TPayload, TResult = void> { onBeforeSubmit?(payload?: TPayload): TResult; }
 export interface IOnChangePlaceWrapper<TValue = {}> { onChangePlace?(payload?: TValue): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(payload?: TValue): void; }
@@ -790,13 +792,6 @@ export interface IOpenWrapper<TOpen = boolean> {
 }
 
 /**
- * @stable [02.06.2018]
- */
-export interface IErrorMessageRenderedWrapper {
-  errorMessageRendered?: boolean;
-}
-
-/**
  * @stable [31.08.2018]
  */
 export interface IResolverWrapper<TResolver> {
@@ -946,13 +941,6 @@ export interface IUseDownloadActionWrapper {
  */
 export interface IUseCameraWrapper {
   useCamera?: boolean;
-}
-
-/**
- * @stable [02.08.2018]
- */
-export interface ICameraEnabledWrapper {
-  cameraEnabled?: boolean;
 }
 
 /**

@@ -33,7 +33,6 @@ import {
   isValuePresent,
   isVisible,
   notNilValuesFilter,
-  orNull,
 } from '../../../util';
 import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -527,14 +526,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
-  protected get progressLabelElement(): JSX.Element {
-    return null;
-  }
-
-  /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
-   */
   protected get actionsElement(): JSX.Element {
     return null;
   }
@@ -648,17 +639,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueRenderedOnly() {
     return isDisplayValueRenderedOnly(this.props);
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {JSX.Element}
-   */
-  protected getErrorMessageElement(): JSX.Element {
-    return orNull<JSX.Element>(
-      this.props.errorMessageRendered !== false,
-      () => this.toMessageElement(this.error, 'rac-field-error-text')
-    );
   }
 
   /**

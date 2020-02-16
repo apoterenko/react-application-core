@@ -6,12 +6,13 @@ import {
   IUseDownloadActionWrapper,
   IFileNameWrapper,
   IUseCameraWrapper,
-  ICameraEnabledWrapper,
+  IOpenedWrapper,
   IMultiWrapper,
 } from '../../../definitions.interface';
 
-export interface IBaseFileFieldState extends IBaseTextFieldState,
-                                             ICameraEnabledWrapper {
+export interface IBaseFileFieldState
+  extends IBaseTextFieldState,
+    IOpenedWrapper {
 }
 
 export interface IBaseFileFieldProps extends IBaseTextFieldProps,

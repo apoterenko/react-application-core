@@ -14,6 +14,7 @@ import {
   IInlineWrapper,
   IOnAcceptWrapper,
   IOnActivateWrapper,
+  IOnBeforeAcceptWrapper,
   IOnCloseWrapper,
   IOnDeactivateWrapper,
   IOpenedWrapper,
@@ -60,6 +61,7 @@ export interface IGenericDialogEntity
 export interface IBehavioralDialogEntity
   extends IOnAcceptWrapper,
     IOnActivateWrapper,
+    IOnBeforeAcceptWrapper,
     IOnCloseWrapper,
     IOnDeactivateWrapper {
 }

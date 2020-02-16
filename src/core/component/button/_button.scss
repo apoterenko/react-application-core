@@ -17,6 +17,7 @@
     $rac-button-background: $rac-button-background,
     $rac-button-border-radius: $rac-button-border-radius,
     $rac-button-border: $rac-button-border,
+    $rac-button-color: $rac-button-color,
     $rac-button-content-font-size: $rac-button-content-font-size,
     $rac-button-content-font-weight: $rac-button-content-font-weight,
     $rac-button-content-margin: $rac-button-content-margin,
@@ -32,7 +33,9 @@
     $rac-button-focus-padding: $rac-button-focus-padding,
     $rac-button-height: $rac-button-height,
     $rac-button-hover-transform: $rac-button-hover-transform,
-    $rac-button-padding: $rac-button-padding
+    $rac-button-hover-transition: $rac-button-hover-transition,
+    $rac-button-padding: $rac-button-padding,
+    $rac-button-shadow: $rac-button-shadow
   );
 
   /**

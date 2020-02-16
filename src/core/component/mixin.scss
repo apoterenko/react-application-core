@@ -1016,14 +1016,12 @@
   $rac-field-height: unset,
   $rac-field-help-text-font-size: unset,
   $rac-field-help-text-line-height: unset,
-  $rac-field-input-cursor: unset,
   $rac-field-justify-content: unset,                                                /* @stable [28.10.2019] */
   $rac-field-label-margin: unset,
   $rac-field-margin-top: unset,
   $rac-field-margin: unset,                                                         /* @stable [30.10.2019] */
   $rac-field-max-width: unset,
   $rac-field-min-height: unset,                                                     /* @stable [30.01.2020] */
-  $rac-field-opacity: unset,
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
   $rac-field-padding: unset,
   $rac-field-position: unset,                                                       /* @stable [15.02.2020] */
@@ -1037,7 +1035,8 @@
   $rac-self-field-border: unset,                                                    /* @stable [30.10.2019] */
   $rac-self-field-box-sizing: unset,
   $rac-self-field-display: unset,                                                   /* @stable [23.10.2019] */
-  $rac-self-field-height: unset,
+  $rac-self-field-flex-direction: unset,                                            /* @stable [16.02.2020] */
+  $rac-self-field-height: unset,                                                    /* @stable [15.02.2020] */
   $rac-self-field-icon-color: unset,                                                /* @stable [28.10.2019] */
   $rac-self-field-icon-height: unset,                                               /* @stable [03.12.2019] */
   $rac-self-field-icon-padding: unset,                                              /* @stable [30.10.2019] */
@@ -1093,8 +1092,11 @@
   $rac-self-field-label-position: unset,                                            /* @stable [28.10.2019] */
   $rac-self-field-label-top: unset,                                                 /* @stable [09.11.2019] */
   $rac-self-field-label-white-space: unset,                                         /* @stable [09.11.2019] */
+  $rac-self-field-loader-margin-top: unset,                                         /* @stable [16.02.2020] */
   $rac-self-field-margin-top: unset,                                                /* @stable [28.10.2019] */
   $rac-self-field-margin: unset,                                                    /* @stable [28.10.2019] */
+  $rac-self-field-overflow: unset,                                                  /* @stable [16.02.2020] */
+  $rac-self-field-padding-top: unset,                                               /* @stable [16.02.2020] */
   $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
   $rac-self-field-viewer-content-border-radius: unset,
   $rac-self-field-viewer-content-height: unset,
@@ -1103,9 +1105,7 @@
   $rac-self-field-viewer-content-width: unset,
   $rac-self-field-viewer-margin: unset,
   $rac-text-field-filter-active-after-bottom: unset,
-  $rac-text-field-filter-active-after-left: unset,
-  $rac-text-field-margin: unset,
-  $rac-text-field-opacity: unset
+  $rac-text-field-filter-active-after-left: unset
 ) {
 
   #{rac-cls(rac-field, $rac-field-custom)} {
@@ -1122,7 +1122,6 @@
       $rac-styles-margin: $rac-field-margin,
       $rac-styles-max-width: $rac-field-max-width,
       $rac-styles-min-height: $rac-field-min-height,
-      $rac-styles-opacity: $rac-field-opacity,
       $rac-styles-overflow: $rac-field-overflow,
       $rac-styles-padding: $rac-field-padding,
       $rac-styles-position: $rac-field-position,
@@ -1147,9 +1146,12 @@
         $rac-styles-border: $rac-self-field-border,
         $rac-styles-box-sizing: $rac-self-field-box-sizing,
         $rac-styles-display: $rac-self-field-display,
+        $rac-styles-flex-direction: $rac-self-field-flex-direction,
         $rac-styles-height: $rac-self-field-height,
         $rac-styles-margin-top: $rac-self-field-margin-top,
         $rac-styles-margin: $rac-self-field-margin,
+        $rac-styles-overflow: $rac-self-field-overflow,
+        $rac-styles-padding-top: $rac-self-field-padding-top,
         $rac-styles-position: $rac-self-field-position
       );
 
@@ -1176,6 +1178,11 @@
             );
           }
         }
+
+        @include rac-styles (
+          $rac-styles-custom: rac-field-loader,
+          $rac-styles-margin-top: $rac-self-field-loader-margin-top
+        );
 
         @include rac-icon (
           $rac-icon-color: $rac-self-field-icon-color,
@@ -1261,11 +1268,6 @@
     }
 
     > .rac-text-field {
-
-      @include rac-styles(
-        $rac-styles-opacity: $rac-text-field-opacity,
-        $rac-styles-margin: $rac-text-field-margin
-      );
 
       @include rac-filter-active(
         $rac-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
@@ -1509,9 +1511,13 @@
   $rac-button-custom: unset,
   /**/
   $rac-button-active-background: unset,                                              /* stable [02.02.2020 ] */
+  $rac-button-active-border: unset,                                                  /* stable [15.02.2020 ] */
+  $rac-button-active-box-shadow: unset,                                              /* stable [15.02.2020 ] */
   $rac-button-active-left: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-active-padding: unset,                                                 /* stable [15.02.2020 ] */
   $rac-button-active-position: unset,                                                /* stable [02.02.2020 ] */
   $rac-button-active-top: unset,                                                     /* stable [02.02.2020 ] */
+  $rac-button-active-transform:  unset,                                              /* stable [15.02.2020 ] */
   $rac-button-active-transition: unset,                                              /* stable [02.02.2020 ] */
   $rac-button-align-items: unset,                                                    /* stable [02.02.2020 ] */
   $rac-button-background: unset,                                                     /* stable [01.02.2020 ] */
@@ -1521,6 +1527,7 @@
   $rac-button-content-color: unset,                                                  /* stable [02.02.2020 ] */
   $rac-button-content-font-size: unset,                                              /* stable [02.02.2020 ] */
   $rac-button-content-font-weight: unset,                                            /* stable [02.02.2020 ] */
+  $rac-button-content-height: unset,                                                 /* stable [15.02.2020 ] */
   $rac-button-content-margin: unset,                                                 /* stable [02.02.2020 ] */
   $rac-button-content-padding: unset,                                                /* stable [24.01.2020 ] */
   $rac-button-content-text-align: unset,                                             /* stable [24.01.2020 ] */
@@ -1542,6 +1549,7 @@
   $rac-button-hover-color: unset,                                                    /* stable [02.02.2020 ] */
   $rac-button-hover-shadow: unset,                                                   /* stable [02.02.2020 ] */
   $rac-button-hover-transform: unset,                                                /* stable [10.02.2020 ] */
+  $rac-button-hover-transition: unset,                                               /* stable [15.02.2020 ] */
   $rac-button-icon-color: unset,                                                     /* stable [24.01.2020 ] */
   $rac-button-icon-height: unset,                                                    /* stable [02.02.2020 ] */
   $rac-button-icon-margin: unset,                                                    /* stable [02.02.2020 ] */
@@ -1558,6 +1566,7 @@
   $rac-button-shadow: unset,                                                         /* stable [02.02.2020 ] */
   $rac-button-size: unset,                                                           /* stable [02.02.2020 ] */
   $rac-button-top: unset,                                                            /* stable [02.02.2020 ] */
+  $rac-button-transition: unset,                                                     /* stable [15.02.2020 ] */
   $rac-button-width: unset                                                           /* stable [02.02.2020 ] */
 ) {
   #{rac-cls(rac-button, $rac-button-custom)} {
@@ -1575,6 +1584,7 @@
       $rac-styles-left: $rac-button-left,
       $rac-styles-margin : $rac-button-margin,
       $rac-styles-margin-top: $rac-button-margin-top,
+      $rac-styles-transition: $rac-button-transition,
       $rac-styles-min-width : $rac-button-min-width,
       $rac-styles-opacity: $rac-button-opacity,
       $rac-styles-padding: $rac-button-padding,
@@ -1598,6 +1608,7 @@
       $rac-styles-color: $rac-button-content-color,
       $rac-styles-font-size: $rac-button-content-font-size,
       $rac-styles-font-weight: $rac-button-content-font-weight,
+      $rac-styles-height: $rac-button-content-height,
       $rac-styles-margin: $rac-button-content-margin,
       $rac-styles-padding: $rac-button-content-padding,
       $rac-styles-text-align: $rac-button-content-text-align,
@@ -1605,16 +1616,6 @@
       $rac-styles-width: $rac-button-content-width,
       $rac-styles-word-break: $rac-button-content-word-break
     );
-
-    &:active:not([disabled]) {
-      @include rac-styles (
-        $rac-styles-background: $rac-button-active-background,
-        $rac-styles-left: $rac-button-active-left,
-        $rac-styles-position: $rac-button-active-position,
-        $rac-styles-top: $rac-button-active-top,
-        $rac-styles-transition: $rac-button-active-transition
-      );
-    }
 
     &:focus:not([disabled]) {
       @include rac-styles (
@@ -1629,7 +1630,22 @@
         $rac-styles-background: $rac-button-hover-background,
         $rac-styles-box-shadow: $rac-button-hover-shadow,
         $rac-styles-color: $rac-button-hover-color,
-        $rac-styles-transform: $rac-button-hover-transform
+        $rac-styles-transform: $rac-button-hover-transform,
+        $rac-styles-transition: $rac-button-hover-transition
+      );
+    }
+
+    &:active:not([disabled]) {
+      @include rac-styles (
+        $rac-styles-background: $rac-button-active-background,
+        $rac-styles-border: $rac-button-active-border,
+        $rac-styles-box-shadow: $rac-button-active-box-shadow,
+        $rac-styles-left: $rac-button-active-left,
+        $rac-styles-padding: $rac-button-active-padding,
+        $rac-styles-position: $rac-button-active-position,
+        $rac-styles-top: $rac-button-active-top,
+        $rac-styles-transform: $rac-button-active-transform,
+        $rac-styles-transition: $rac-button-active-transition
       );
     }
 

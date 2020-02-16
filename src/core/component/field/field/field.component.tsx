@@ -7,6 +7,7 @@ import {
   defValuesFilter,
   fullFlexClassName,
   ifNotNilThanValue,
+  isErrorMessageRendered,
   isFn,
   joinClassName,
   orNull,
@@ -26,6 +27,7 @@ import { UniversalField } from './universal-field.component';
 import {
   FieldActionPositionsEnum,
   IBaseEvent,
+  IComponentsSettingsEntity,
   IFieldActionEntity,
   IFieldComplexInputAttributes,
   IFieldInputAttributes,
@@ -179,6 +181,16 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [03.09.2018]
+   * @returns {JSX.Element}
+   */
+  protected getErrorMessageElement(): JSX.Element {
+    return this.isErrorMessageRendered
+      ? this.toMessageElement(this.error, 'rac-field-error-text')
+      : null;
+  }
+
+  /**
    * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
@@ -201,6 +213,14 @@ export class Field<TProps extends IFieldProps,
       );
     }
     return this.inputWrapperElement;
+  }
+
+  /**
+   * @stable [16.02.2020]
+   * @returns {JSX.Element}
+   */
+  protected get progressLabelElement(): JSX.Element {
+    return null;
   }
 
   protected get inputWrapperElement(): JSX.Element {
@@ -236,6 +256,10 @@ export class Field<TProps extends IFieldProps,
     return null;
   }
 
+  /**
+   * @stable [16.02.2020]
+   * @returns {JSX.Element}
+   */
   protected getAttachmentElement(): JSX.Element {
     return null;
   }
@@ -442,5 +466,22 @@ export class Field<TProps extends IFieldProps,
    */
   protected get jqInput(): IJQueryElement {
     return this.domAccessor.asJqEl(this.input);
+  }
+
+  /**
+   * @stable [16.02.2020]
+   * @returns {boolean}
+   */
+  private get isErrorMessageRendered(): boolean {
+    return isErrorMessageRendered(this.systemProps) && isErrorMessageRendered(this.props);
+  }
+
+  /**
+   * @stable [16.02.2020]
+   * @returns {TProps}
+   */
+  private get systemProps(): TProps {
+    const {field = {}} = this.settings.components || {} as IComponentsSettingsEntity;
+    return field as TProps;
   }
 }

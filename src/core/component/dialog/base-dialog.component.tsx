@@ -135,6 +135,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   protected onAcceptClick(): void {
     const props = this.props;
 
+    if (props.onBeforeAccept) {
+      props.onBeforeAccept();
+    }
+
     this.doClose(() => {
       if (isFn(props.onAccept)) {
         props.onAccept();
