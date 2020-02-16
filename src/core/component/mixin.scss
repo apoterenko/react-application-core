@@ -1089,9 +1089,12 @@
   $rac-self-field-label-left: unset,                                                /* @stable [09.11.2019] */
   $rac-self-field-label-line-height: unset,                                         /* @stable [09.11.2019] */
   $rac-self-field-label-margin: unset,                                              /* @stable [09.11.2019] */
+  $rac-self-field-label-overflow: unset,                                            /* @stable [16.02.2020] */
   $rac-self-field-label-position: unset,                                            /* @stable [28.10.2019] */
+  $rac-self-field-label-text-overflow: unset,                                       /* @stable [16.02.2020] */
   $rac-self-field-label-top: unset,                                                 /* @stable [09.11.2019] */
   $rac-self-field-label-white-space: unset,                                         /* @stable [09.11.2019] */
+  $rac-self-field-label-width: unset,                                               /* @stable [16.02.2020] */
   $rac-self-field-loader-margin-top: unset,                                         /* @stable [16.02.2020] */
   $rac-self-field-margin-top: unset,                                                /* @stable [28.10.2019] */
   $rac-self-field-margin: unset,                                                    /* @stable [28.10.2019] */
@@ -1164,9 +1167,12 @@
             $rac-styles-left: $rac-self-field-label-left,
             $rac-styles-line-height: $rac-self-field-label-line-height,
             $rac-styles-margin: $rac-self-field-label-margin,
+            $rac-styles-overflow: $rac-self-field-label-overflow,
             $rac-styles-position: $rac-self-field-label-position,
+            $rac-styles-text-overflow: $rac-self-field-label-text-overflow,
             $rac-styles-top: $rac-self-field-label-top,
-            $rac-styles-white-space: $rac-self-field-label-white-space
+            $rac-styles-white-space: $rac-self-field-label-white-space,
+            $rac-styles-width: $rac-self-field-label-width
           );
 
           &::after {

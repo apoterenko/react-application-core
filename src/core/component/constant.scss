@@ -610,8 +610,12 @@ $rac-base-text-border-radius: unset !default;                                   
 $rac-base-text-busy-self-field-input-opacity: 0 !default;
 $rac-base-text-labeled-self-field-flex-direction: unset !default;                                         /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-left: unset !default;                                             /* @stable [16.02.2020]*/
+$rac-base-text-labeled-self-field-label-overflow: hidden !default;                                        /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-position: absolute !default;                                      /* @stable [16.02.2020]*/
+$rac-base-text-labeled-self-field-label-text-overflow: ellipsis !default;                                 /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-top: -$rac-field-size-0 !default;                                 /* @stable [16.02.2020]*/
+$rac-base-text-labeled-self-field-label-white-space: nowrap !default;                                     /* @stable [16.02.2020]*/
+$rac-base-text-labeled-self-field-label-width: 100% !default;                                             /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-loader-margin-top:  unset !default;                                     /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-margin-top: $rac-field-size-0 !default;                                 /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-padding-top: unset !default;                                            /* @stable [16.02.2020]*/
@@ -632,8 +636,7 @@ $rac-base-text-self-field-input-mirror-width: auto !default;
 $rac-base-text-self-field-input-resize: none !default;
 $rac-base-text-self-field-input-width: calc(100% - 32px) !default;
 $rac-base-text-self-field-input-wrapper-flex: 1 !default;
-$rac-base-text-self-field-label-white-space: nowrap !default;
-$rac-base-text-self-field-overflow: hidden !default;                                                      /* @stable [16.02.2020]*/
+$rac-base-text-self-field-overflow: unset !default;                                                       /* @stable [16.02.2020]*/
 $rac-checkbox-disabled-self-field-input-wrapper-opacity: $rac-field-opacity-0 !default;
 $rac-checkbox-justify-content: center !default;
 $rac-checkbox-self-field-input-cursor: pointer !default;
