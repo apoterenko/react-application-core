@@ -19,6 +19,7 @@
    * @stable [21.10.2019]
    */
   @include rac-grid (
+    $rac-grid-body-background: $rac-grid-body-background,
     $rac-grid-body-border-left: $rac-grid-body-border-left,
     $rac-grid-body-border-right: $rac-grid-body-border-right,
     $rac-grid-body-column-content-action-icon-color: $rac-grid-body-column-content-action-icon-color,
@@ -30,6 +31,7 @@
     $rac-grid-body-column-padding-top: $rac-grid-body-column-padding-top,
     $rac-grid-body-column-position: $rac-grid-body-column-position,
     $rac-grid-body-overflow: $rac-grid-body-overflow,
+    $rac-grid-body-padding: $rac-grid-body-padding,
     $rac-grid-body-row-border-bottom: $rac-grid-body-row-border-bottom,
     $rac-grid-body-row-box-sizing: $rac-grid-body-row-box-sizing,
     $rac-grid-body-row-hover-background: $rac-grid-body-row-hover-background,
@@ -101,11 +103,15 @@
     $rac-grid-head-filter-row-column-content-self-field-height: $rac-grid-head-filter-row-column-content-self-field-height,
     $rac-grid-head-filter-row-column-content-self-field-input-color: $rac-grid-head-filter-row-column-content-self-field-input-color,
     $rac-grid-head-filter-row-column-padding-top: $rac-grid-head-filter-row-column-padding-top,
+    $rac-grid-head-margin-bottom: $rac-grid-head-margin-bottom,
+    $rac-grid-head-padding-left: $rac-grid-head-padding-left,
+    $rac-grid-head-padding-right: $rac-grid-head-padding-right,
     $rac-grid-position: $rac-grid-position,
     $rac-grid-row-display: $rac-grid-row-display,
     $rac-grid-row-group-expanded-background: $rac-grid-row-group-expanded-background,
     $rac-grid-row-grouped-font-weight: $rac-grid-row-grouped-font-weight,
     $rac-grid-row-odd-background: $rac-grid-row-odd-background,
+    $rac-grid-row-odd-border-radius: $rac-grid-row-odd-border-radius,
     $rac-grid-row-padding: $rac-grid-row-padding,
     $rac-grid-row-selectable-cursor: $rac-grid-row-selectable-cursor,
     $rac-grid-row-selected-background: $rac-grid-row-selected-background,

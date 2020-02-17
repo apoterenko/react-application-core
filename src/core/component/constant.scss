@@ -430,6 +430,7 @@ $rac-grid-color-4: $rac-color-0-0 !default;
 $rac-grid-color-5: $rac-color-0-3 !default;
 $rac-grid-offset-0: $rac-offset-1 !default;
 /**/
+$rac-grid-body-background: unset !default;
 $rac-grid-body-border-left: 1px solid $rac-grid-color-1 !default;
 $rac-grid-body-border-right: 1px solid $rac-grid-color-1 !default;
 $rac-grid-body-column-content-action-icon-color: $rac-grid-color-2 !default;
@@ -441,6 +442,7 @@ $rac-grid-body-column-padding-bottom: $rac-offset-1 !default;
 $rac-grid-body-column-padding-top: $rac-offset-1!default;
 $rac-grid-body-column-position: unset !default;
 $rac-grid-body-overflow: unset !default;
+$rac-grid-body-padding: unset !default;
 $rac-grid-body-row-border-bottom: unset !default;
 $rac-grid-body-row-box-sizing: border-box !default;
 $rac-grid-body-row-hover-background: $rac-grid-color-4 !default;
@@ -522,11 +524,15 @@ $rac-grid-head-filter-row-column-content-self-field-border-color: $rac-color-0-7
 $rac-grid-head-filter-row-column-content-self-field-height: 24px !default;
 $rac-grid-head-filter-row-column-content-self-field-input-color: $rac-color-0-8 !default;
 $rac-grid-head-filter-row-column-padding-top: 0 !default;
+$rac-grid-head-margin-bottom: unset !default;
+$rac-grid-head-padding-left: unset !default;
+$rac-grid-head-padding-right: unset !default;
 $rac-grid-position: relative !default;
 $rac-grid-row-display: table !default;
 $rac-grid-row-group-expanded-background: unset !default;
 $rac-grid-row-grouped-font-weight: $rac-font-weight-1 !default;
 $rac-grid-row-odd-background: $rac-odd-background-0 !default;
+$rac-grid-row-odd-border-radius: unset !default;
 $rac-grid-row-padding: unset !default;
 $rac-grid-row-selectable-cursor: pointer !default;
 $rac-grid-row-selected-background: $rac-color-2-0 !default;
@@ -673,7 +679,7 @@ $rac-self-field-input-font-weight: $rac-font-weight-1 !default;
 $rac-self-field-input-line-height: normal !default;
 $rac-self-field-input-padding: 0 $rac-offset-3 !default;
 $rac-self-field-input-wrapper-display: flex !default;
-$rac-self-field-label-color: unset !default;
+$rac-self-field-label-color: unset !default;                                                              /* @stable [16.02.2020]*/
 $rac-self-field-label-font-size: $rac-font-size-0 !default;
 $rac-self-field-label-font-weight: $rac-font-weight-1 !default;
 $rac-self-field-label-overflow: hidden !default;                                                          /* @stable [16.02.2020]*/
@@ -844,6 +850,7 @@ $rac-tab-icon-padding: unset !default;
 $rac-tab-panel-display: $rac-tab-panel-display-0 !default;
 $rac-tab-panel-flex: 1 !default;
 $rac-tab-panel-min-height: unset !default;
+$rac-tab-panel-wrapper-border-bottom: unset !default;
 $rac-tab-panel-wrapper-display: $rac-tab-panel-display-0 !default;
 $rac-tab-panel-wrapper-flex-shrink: 0 !default;
 $rac-tab-panel-wrapper-no-user-select: true !default;
