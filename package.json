@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean",
-    "build": "npm run scss & npm run tsc-build",
+    "build": "npm run tsc-build",
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
     "lint:sass": "node_modules/.bin/sass-lint -c sass-lint.yml -v -q",
