@@ -8,6 +8,8 @@ import {
   IIconWrapper,
   IMiniWrapper,
   IOnClickWrapper,
+  IOnMouseEnterWrapper,
+  IOnMouseLeaveWrapper,
   IOutlinedWrapper,
   IProgressMessageWrapper,
   IProgressWrapper,
@@ -56,7 +58,9 @@ export interface IGenericButtonEntity
  * @stable [24.01.2020]
  */
 export interface IBehavioralButtonEntity
-  extends IOnClickWrapper {
+  extends IOnClickWrapper,
+    IOnMouseEnterWrapper,
+    IOnMouseLeaveWrapper {
 }
 
 /**

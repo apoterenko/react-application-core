@@ -8,6 +8,7 @@
    * @stable [04.01.2020]
    */
   @include rac-calendar (
+    $rac-calendar-body-background: $rac-calendar-body-background,
     $rac-calendar-body-border: $rac-calendar-body-border,
     $rac-calendar-cell-padding-left: $rac-calendar-cell-padding-left,
     $rac-calendar-cell-padding-right: $rac-calendar-cell-padding-right,
@@ -19,6 +20,7 @@
     $rac-calendar-day-size: $rac-calendar-day-size,
     $rac-calendar-day-wrapper-padding-bottom: $rac-calendar-day-wrapper-padding-bottom,
     $rac-calendar-day-wrapper-padding-top: $rac-calendar-day-wrapper-padding-top,
+    $rac-calendar-head-background: $rac-calendar-head-background,
     $rac-calendar-margin: $rac-calendar-margin,
     $rac-calendar-selected-day-background: $rac-calendar-selected-day-background,
     $rac-calendar-today-color: $rac-calendar-today-color

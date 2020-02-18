@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IBaseEvent } from './definition';
 
 export type AnyT = any;
 export type StringNumberT = number | string;
@@ -344,6 +345,8 @@ export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(payload?: TValue): void; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
+export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
+export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
 export interface IOnResetWrapper { onReset?(): void; }
 export interface IOnScrollWrapper<TValue = {}> { onScroll?(payload?: TValue): void; }

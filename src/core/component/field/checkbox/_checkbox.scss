@@ -10,8 +10,11 @@
   @include rac-field (
     $rac-field-custom: $rac-base-checkbox-cls,
     $rac-self-field-align-items: $rac-base-checkbox-self-field-align-items,
+    $rac-self-field-height: $rac-base-checkbox-self-field-height,
     $rac-self-field-input-opacity: $rac-base-checkbox-self-field-input-opacity,
     $rac-self-field-input-wrapper-position: $rac-base-checkbox-self-field-input-wrapper-position,
+    $rac-self-field-label-color: $rac-base-checkbox-self-field-label-color,
+    $rac-self-field-label-font-size: $rac-base-checkbox-self-field-label-font-size,
     $rac-self-field-label-line-height: $rac-base-checkbox-self-field-label-line-height,
     $rac-self-field-label-margin: $rac-base-checkbox-self-field-label-margin
   );

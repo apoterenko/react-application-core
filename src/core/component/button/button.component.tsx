@@ -78,6 +78,8 @@ export class Button extends BaseComponent<IButtonProps> {
             className={className}
             disabled={disabled}
             {...handlerPropsFactory(props.onClick, !disabled, props.touched)}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
           >
             {$isIconLeftAligned && iconElement}
             {

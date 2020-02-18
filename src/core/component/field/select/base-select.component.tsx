@@ -43,6 +43,7 @@ import {
   FieldActionTypesEnum,
   FieldConverterTypesEnum,
   IBaseEvent,
+  IComponentsSettingsEntity,
   IMenu,
   IMenuProps,
   ISelectOptionEntity,
@@ -76,7 +77,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     if (this.isExpandActionRendered) {
       this.defaultActions = [
-        {type: props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.onDropDownClick},
+        {type: this.systemBaseSelectProps.icon || props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.onDropDownClick},
         ...this.defaultActions
       ];
     }
@@ -712,5 +713,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private get dictionary(): string {
     const {dictionary, bindDictionary} = this.props;
     return nvl(dictionary, bindDictionary); // bindDictionary is used by Form
+  }
+
+  /**
+   * @stable [17.02.2020]
+   * @returns {TProps}
+   */
+  private get systemBaseSelectProps(): TProps {
+    const {baseSelect = {}} = this.settings.components || {} as IComponentsSettingsEntity;
+    return baseSelect as TProps;
   }
 }

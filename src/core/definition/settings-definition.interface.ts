@@ -1,3 +1,4 @@
+import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
 import { IDefaultLayoutProps } from './layout-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';  // TODO
 import { ITitleProps } from './title-definition.interface';
@@ -86,6 +87,7 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
  * @stable [04.02.2020]
  */
 export interface IComponentsSettingsEntity {
+  baseSelect?: IBaseSelectProps;
   defaultLayout?: IDefaultLayoutProps;
   field?: IFieldProps;
   title?: ITitleProps;
