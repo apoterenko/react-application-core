@@ -131,5 +131,7 @@ export interface IGoogleMapsProps
 export interface IGoogleMaps {
   addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void;
   addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker;
+  fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
+  getMarkers(): Map<string, google.maps.Marker>;
   setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void;
 }

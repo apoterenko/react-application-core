@@ -206,6 +206,15 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     }
   }
 
+  public fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+                   padding?: number | google.maps.Padding) {
+    this.map.fitBounds(bounds, padding);
+  }
+
+  public getMarkers(): Map<string, google.maps.Marker> {
+    return this.markers;
+  }
+
   /**
    * @stable [22.01.2020]
    * @returns {JSX.Element}
