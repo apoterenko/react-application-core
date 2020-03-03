@@ -38,6 +38,7 @@ import {
   ISelectWrapper,
   IStateWrapper,
   ISucceedTextWrapper,
+  ITabPanelsSectionsWrapper,
   ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
@@ -66,8 +67,9 @@ export interface IEntityActionBuilder {
  * @stable [27.08.2019]
  */
 export enum DestroyedContainerTypesEnum {
-  LIST,
   FORM,
+  LIST,
+  TAB_PANEL,
 }
 
 /**
@@ -108,11 +110,12 @@ export interface IEntityReducerFactoryConfigEntity
  * @stable [27.08.2019]
  */
 export interface IDestroyedContainerMiddlewareConfigEntity
-  extends ISectionNameWrapper,
-    ITypeWrapper<DestroyedContainerTypesEnum>,
-    IListsSectionsWrapper<string[]>,
+  extends ICustomActionsWrapper<string[]>,
     IFormsSectionsWrapper<string[]>,
-    ICustomActionsWrapper<string[]> {
+    IListsSectionsWrapper<string[]>,
+    ISectionNameWrapper,
+    ITabPanelsSectionsWrapper<string[]>,
+    ITypeWrapper<DestroyedContainerTypesEnum> {
 }
 
 /**

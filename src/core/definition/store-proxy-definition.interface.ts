@@ -9,6 +9,7 @@ import {
   ILastWrapper,
 } from '../definitions.interface';
 import { FieldChangeEntityT } from './field-definition.interface';
+import { IApiEntity } from './api-definition.interface';
 import { IContainer } from './container-definition.interface';
 import { IDialog } from './dialog-definition.interface';
 import { IDispatcher } from './dispatcher-definition.interface';
@@ -33,6 +34,7 @@ export interface IFormStoreProxy
   dispatchFormChange(change: FieldChangeEntityT, otherSection?: string): void;
   dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
   dispatchFormReset(otherSection?: string): void;
+  dispatchFormSubmit(apiEntity: IApiEntity, otherSection?: string): void;
   dispatchFormValid(valid: boolean, otherSection?: string): void;
 }
 
@@ -68,6 +70,14 @@ export interface IRouterStoreProxy
 export interface IDictionaryStoreProxy
   extends IDispatcher {
   dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData);
+}
+
+/**
+ * @generic-container
+ * @stable [29.02.2020]
+ */
+export interface IGenericBasicContainer {
+  dictionaryStoreProxy: IDictionaryStoreProxy;
 }
 
 /**

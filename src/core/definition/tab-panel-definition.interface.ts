@@ -23,7 +23,7 @@ import { IBaseEvent } from './event-definition.interface';
 
 /**
  * @generic-entity
- * @stable [31.08.2018]
+ * @stable [29.02.2020]
  */
 export interface IGenericTabEntity
   extends IActiveValueWrapper,
@@ -100,7 +100,7 @@ export interface ITabPanelConfigurationEntity
 }
 
 /**
- * @generic-entity
+ * @generic-container-entity
  * @stable [12.02.2020]
  */
 export interface IGenericTabPanelContainerEntity
