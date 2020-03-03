@@ -5,6 +5,7 @@ import {
   DI_TYPES,
   getAuth,
   getDateConverter,
+  getDomAccessor,
   getDynamicRoutes,
   getEnvironment,
   getEventManager,
@@ -25,6 +26,7 @@ import {
   $RAC_ROUTER_REWRITE_ACTION_TYPE,
   DynamicRoutesMapT,
   IAuth,
+  IDomAccessor,
   IEnvironment,
   IEventManager,
   INavigateEntity,
@@ -225,6 +227,15 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get nc(): INumberConverter {
     return getNumberConverter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [19.02.2020]
+   * @returns {IDomAccessor}
+   */
+  protected get domAccessor(): IDomAccessor {
+    return getDomAccessor();
   }
 
   /**

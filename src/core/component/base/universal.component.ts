@@ -10,6 +10,7 @@ import {
   DI_TYPES,
   getAsyncLibManager,
   getDatabaseStorage,
+  getDomAccessor,
   getEnvironment,
   getEventEmitter,
   getEventManager,
@@ -60,7 +61,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   protected readonly plugins: IUniversalPlugin[] = [];
   protected readonly selfRef = React.createRef<TSelfRef>();
-  private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null };
+  private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null }; // TODO Mke it frozen & static
 
   /**
    * @stable [02.12.2019]
@@ -244,11 +245,12 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @stable [01.12.2018]
+   * @react-native-compatible
+   * @stable [19.02.2020]
    * @returns {IDomAccessor}
    */
   protected get domAccessor(): IDomAccessor {
-    return staticInjector(DI_TYPES.DomAccessor);
+    return getDomAccessor();
   }
 
   /**
