@@ -8,6 +8,7 @@ import {
 import { ISettingsEntity } from '../settings';
 import {
   DialogFormChangesConfirmStoreProxyFactoryT,
+  DictionaryStoreProxyFactoryT,
   DynamicRoutesMapT,
   DynamicSectionsMapT,
   FormStoreProxyFactoryT,
@@ -15,6 +16,7 @@ import {
   IAuth,
   IConnectorEntity,
   IContainer,
+  IDomAccessor,
   IEnvironment,
   IEventEmitter,
   IEventManager,
@@ -48,6 +50,12 @@ import { staticInjector } from './di.support';
  * @returns {INumberConverter}
  */
 export const getNumberConverter = (): INumberConverter => staticInjector(DI_TYPES.NumberConverter);
+
+/**
+ * @stable [19.02.2020]
+ * @returns {IDomAccessor}
+ */
+export const getDomAccessor = (): IDomAccessor => staticInjector(DI_TYPES.DomAccessor);
 
 /**
  * @stable [24.12.2019]
@@ -213,6 +221,13 @@ export const getFormStoreProxyFactory = (): FormStoreProxyFactoryT => staticInje
  */
 export const getRouterStoreProxyFactoryFactory = (): RouterStoreProxyFactoryT =>
   staticInjector(DI_TYPES.RouterStoreProxyFactory);
+
+/**
+ * @stable [29.02.2020]
+ * @returns {DictionaryStoreProxyFactoryT}
+ */
+export const getDictionaryStoreProxyFactory = (): DictionaryStoreProxyFactoryT =>
+  staticInjector(DI_TYPES.DictionaryStoreProxyFactory);
 
 /**
  * @stable [19.12.2019]
