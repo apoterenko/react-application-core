@@ -37,6 +37,7 @@ export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
 
 export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
+export interface IAcceptActionConfigurationWrapper<TValue> { acceptActionConfiguration?: TValue; }
 export interface IAcceptDisabledWrapper { acceptDisabled?: boolean; }
 export interface IAcceptTextWrapper { acceptText?: string; }
 export interface IAcceptWrapper { accept?(): void; }
@@ -107,6 +108,7 @@ export interface ICityWrapper<TValue = string> { city?: TValue; }
 export interface IClassNameWrapper<TValue = string> { className?: TValue; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
+export interface ICloseActionConfigurationWrapper<TValue> { closeActionConfiguration?: TValue; }
 export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
 export interface ICloseTextWrapper { closeText?: string; }
 export interface ICodeWrapper<TValue = string> { code?: TValue; }
@@ -131,7 +133,7 @@ export interface ICurrentWrapper<TValue> { current?: TValue; }
 export interface ICursorWrapper<TValue> { cursor?: TValue; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }
-export interface IDataWrapper<TData = AnyT[]> { data?: TData; }
+export interface IDataWrapper<TValue = AnyT[]> { data?: TValue; }
 export interface IDateNowWrapper<TValue = number> { dateNow?: TValue; }
 export interface IDateWrapper<TValue = string> { date?: TValue; }
 export interface IDaysLabelsWrapper<TValue> { daysLabels?: TValue; }
@@ -208,7 +210,7 @@ export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; 
 export interface IFormIdWrapper { formId?: string; }
 export interface IFormSectionWrapper<TValue = string> { formSection?: TValue; }
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
-export interface IFormWrapper<TForm> { form?: TForm; }
+export interface IFormWrapper<TValue> { form?: TValue; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 export interface IFromToEntity<TValue> extends IToWrapper<TValue>, IFromWrapper<TValue> {}
 export interface IFromWrapper<TValue = string> { from?: TValue; }
@@ -250,6 +252,7 @@ export interface IIgnoreSelectedValueWrapper { ignoreSelectedValue?: boolean; }
 export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
+export interface IInitialDataWrapper<TValue = AnyT[]> { initialData?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
@@ -277,11 +280,11 @@ export interface ILayoutWrapper<TValue> { layout?: TValue; }
 export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
 export interface ILeftSlotWrapper<TValue> { leftSlot?: TValue; }
 export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
-export interface ILinkWrapper<TLink = string> { link?: TLink; }
+export interface ILinkWrapper<TValue = string> { link?: TValue; }
 export interface IListAccessorWrapper<TValue> { listAccessor?: TValue; }
-export interface IListConfigurationWrapper<TProps> { listConfiguration?: TProps; }
-export interface IListSectionWrapper<TListSection = string> { listSection?: TListSection; }
-export interface IListsSectionsWrapper<TListsSections> { listsSections?: TListsSections; }
+export interface IListConfigurationWrapper<TValue> { listConfiguration?: TValue; }
+export interface IListSectionWrapper<TValue = string> { listSection?: TValue; }
+export interface IListsSectionsWrapper<TValue> { listsSections?: TValue; }
 export interface IListWrapper<TList> { list?: TList; }
 export interface ILngWrapper<TLng = number> { lng?: TLng; }
 export interface ILoadingWrapper { loading?: boolean; }
@@ -477,10 +480,12 @@ export interface ISubHeaderRenderedWrapper { subHeaderRendered?: boolean; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TValue = string> { submitIcon?: TValue; }
 export interface ISubmitTextWrapper { submitText?: string; }
+export interface ISubmitWrapper { submit?(): void; }
 export interface ISucceedTextWrapper { succeedText?: string; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelConfigurationWrapper<TValue> { tabPanelConfiguration?: TValue; }
+export interface ITabPanelsSectionsWrapper<TValue> { tabPanelsSections?: TValue; }
 export interface ITabPanelWrapper<TValue = JSX.Element> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
@@ -980,8 +985,6 @@ export interface ICaretPositionWrapper {
 export interface IFilterFormWrapper<TFilterForm> {
   filterForm?: TFilterForm;
 }
-
-export interface ISubmitWrapper<TPayload = AnyT> { submit?(payload?: TPayload): void; }
 
 /**
  * @stable [22.08.2018]

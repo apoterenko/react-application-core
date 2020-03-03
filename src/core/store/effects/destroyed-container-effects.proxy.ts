@@ -1,4 +1,7 @@
-import { EffectsService, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import {
@@ -9,8 +12,9 @@ import {
   makeDestroyedContainerMiddleware,
 } from '../middleware';
 import {
-  ListActionBuilder,
   FormActionBuilder,
+  ListActionBuilder,
+  TabPanelActionBuilder,
 } from '../../component/action.builder';
 
 /**
@@ -24,6 +28,8 @@ const toDestroyedContainerType = (config: IDestroyedContainerMiddlewareConfigEnt
       return FormActionBuilder.buildDestroyActionType(config.sectionName);
     case DestroyedContainerTypesEnum.LIST:
       return ListActionBuilder.buildDestroyActionType(config.sectionName);
+    case DestroyedContainerTypesEnum.TAB_PANEL:
+      return TabPanelActionBuilder.buildDestroyActionType(config.sectionName);
   }
 };
 
