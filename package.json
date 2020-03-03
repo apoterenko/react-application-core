@@ -3,15 +3,16 @@
   "version": "0.0.382",
   "license": "MIT",
   "scripts": {
-    "clean": "npm cache clean",
     "build": "npm run scss & npm run tsc-build",
-    "tsc-build": "node_modules/.bin/tsc --p tsconfig.json",
+    "clean": "npm cache clean",
+    "deploy": "npm install && npm run build && npm publish ./",
+    "install": "npm install tslint -g",
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
     "lint:sass": "node_modules/.bin/sass-lint -c sass-lint.yml -v -q",
-    "deploy": "npm install && npm run build && npm publish ./",
     "scss": "node scripts/scss.js",
     "test": "node_modules/.bin/karma start --browsers ChromeHeadlessNoSandbox",
-    "test:local": "node_modules/.bin/karma start"
+    "test:local": "node_modules/.bin/karma start",
+    "tsc-build": "node_modules/.bin/tsc --p tsconfig.json"
   },
   "dependencies": {
     "@dagrejs/graphlib": "^2.1.4",
