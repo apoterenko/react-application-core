@@ -83,6 +83,7 @@ export class DateNavigator
         <Button
           icon='arrow_left'
           mini={true}
+          {...props.leftActionConfiguration}
           onClick={this.onLeft}/>
         <DateField
           {...defValuesFilter({...this.props, type: UNDEF, step: UNDEF, pattern: UNDEF, time: UNDEF})}
@@ -92,6 +93,7 @@ export class DateNavigator
         <Button
           icon='arrow_right'
           mini={true}
+          {...props.rightActionConfiguration}
           onClick={this.onRight}/>
         {
           orNull<JSX.Element>(

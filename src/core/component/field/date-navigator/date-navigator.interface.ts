@@ -23,6 +23,8 @@ export enum DateNavigatorTypeEnum {
  */
 export interface IDateNavigatorProps extends IDateFieldProps,
                                              ITimeWrapper<boolean> {
+  leftActionConfiguration?: any;
+  rightActionConfiguration?: any;
 }
 
 /**
