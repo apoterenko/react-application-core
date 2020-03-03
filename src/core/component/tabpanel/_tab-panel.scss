@@ -8,6 +8,13 @@
    * @stable [10.02.2020]
    */
   @include rac-tab-panel (
+    $rac-active-tab-after-background: $rac-active-tab-after-background,
+    $rac-active-tab-after-bottom: $rac-active-tab-after-bottom,
+    $rac-active-tab-after-box-shadow: $rac-active-tab-after-box-shadow,
+    $rac-active-tab-after-content: $rac-active-tab-after-content,
+    $rac-active-tab-after-height: $rac-active-tab-after-height,
+    $rac-active-tab-after-position: $rac-active-tab-after-position,
+    $rac-active-tab-after-width: $rac-active-tab-after-width,
     $rac-active-tab-background: $rac-active-tab-background,
     $rac-active-tab-border-bottom-color: $rac-active-tab-border-bottom-color,
     $rac-active-tab-border: $rac-active-tab-border,
@@ -36,6 +43,7 @@
     $rac-tab-panel-wrapper-border-bottom: $rac-tab-panel-wrapper-border-bottom,
     $rac-tab-panel-wrapper-display: $rac-tab-panel-wrapper-display,
     $rac-tab-panel-wrapper-flex-shrink: $rac-tab-panel-wrapper-flex-shrink,
-    $rac-tab-panel-wrapper-no-user-select: $rac-tab-panel-wrapper-no-user-select
+    $rac-tab-panel-wrapper-no-user-select: $rac-tab-panel-wrapper-no-user-select,
+    $rac-tab-position: $rac-tab-position
   );
 }
