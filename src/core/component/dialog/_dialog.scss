@@ -8,6 +8,7 @@
    * @stable [05.01.2020]
    */
   @include rac-dialog (
+    $rac-dialog-action-height: $rac-dialog-action-height,
     $rac-dialog-actions-display: $rac-dialog-actions-display,
     $rac-dialog-actions-flex-shrink: $rac-dialog-actions-flex-shrink,
     $rac-dialog-actions-margin: $rac-dialog-actions-margin,

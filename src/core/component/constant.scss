@@ -135,6 +135,12 @@ $rac-triangle-color: $color-4 !default;
 /* @stable [26.06.2018] */
 $rac-min-width: unset !default;
 
+/************************/
+/* @stable [19.02.2020] */
+/************************/
+$rac-base-font-family: unset !default;
+$rac-base-font-size: unset !default;
+
 /* @stable [26.06.2018] */
 $rac-scrollbar-width: 6px !default;
 $rac-scrollbar-height: 6px !default;
@@ -330,6 +336,8 @@ $rac-button-full-flex: 1 !default;
 $rac-button-height: $rac-button-size-1 !default;
 $rac-button-hover-transform: unset !default;
 $rac-button-hover-transition: unset !default;
+$rac-button-icon-color: unset !default;
+$rac-button-icon-size: unset !default;
 $rac-button-not-filled-icon-margin: 0 auto !default;
 $rac-button-outlined-background: 0 !default;
 $rac-button-outlined-border: $rac-button-size-3 solid $rac-button-color-4 !default;
@@ -442,6 +450,7 @@ $rac-grid-body-column-content-position: unset !default;
 $rac-grid-body-column-padding-bottom: $rac-offset-1 !default;
 $rac-grid-body-column-padding-top: $rac-offset-1!default;
 $rac-grid-body-column-position: unset !default;
+$rac-grid-body-column-vertical-align: unset !default;
 $rac-grid-body-overflow: unset !default;
 $rac-grid-body-padding: unset !default;
 $rac-grid-body-row-border-bottom: unset !default;
@@ -608,11 +617,12 @@ $rac-base-checkbox-checked-self-field-input-wrapper-background: $rac-checkbox-co
 $rac-base-checkbox-self-field-align-items: center !default;
 $rac-base-checkbox-self-field-height: unset !default;                                                     /* @stable [16.02.2020]*/
 $rac-base-checkbox-self-field-input-opacity: 0 !default;
+$rac-base-checkbox-self-field-input-wrapper-background: unset !default;                                   /* @stable [19.02.2020]*/
 $rac-base-checkbox-self-field-input-wrapper-position: relative !default;
 $rac-base-checkbox-self-field-label-color: unset !default;                                                /* @stable [18.02.2020]*/
 $rac-base-checkbox-self-field-label-font-size: unset !default;                                            /* @stable [18.02.2020]*/
 $rac-base-checkbox-self-field-label-line-height: $rac-line-height-0 !default;
-$rac-base-checkbox-self-field-label-margin: 0 0 0 $rac-offset-1 !default;
+$rac-base-checkbox-self-field-label-margin: 0 0 0 $rac-offset-1 !default;                                 /* @stable [20.02.2020]*/
 $rac-base-select-self-field-input-wrapper-flex-direction: column !default;
 $rac-base-text-actioned-self-field-input-width: unset !default;
 $rac-base-text-background: unset !default;                                                                /* @stable [16.02.2020]*/
@@ -831,6 +841,13 @@ $rac-preview-dialog-body-content-align-items: center !default;
 /************************/
 $rac-tab-panel-display-0: flex !default;
 /**/
+$rac-active-tab-after-background: unset !default;
+$rac-active-tab-after-bottom: unset !default;
+$rac-active-tab-after-box-shadow: unset !default;
+$rac-active-tab-after-content: unset !default;
+$rac-active-tab-after-height: unset !default;
+$rac-active-tab-after-position: unset !default;
+$rac-active-tab-after-width: unset !default;
 $rac-active-tab-background: unset !default;
 $rac-active-tab-border-bottom-color: unset !default;
 $rac-active-tab-border: unset !default;
@@ -860,6 +877,7 @@ $rac-tab-panel-wrapper-border-bottom: unset !default;
 $rac-tab-panel-wrapper-display: $rac-tab-panel-display-0 !default;
 $rac-tab-panel-wrapper-flex-shrink: 0 !default;
 $rac-tab-panel-wrapper-no-user-select: true !default;
+$rac-tab-position: relative !default;
 
 /************************/
 /* @stable [05.08.2018] */
@@ -877,6 +895,7 @@ $rac-dialog-display-0: flex !default;
 $rac-dialog-height-0: 80vh !default;
 $rac-dialog-width-0: 50vw !default;
 /**/
+$rac-dialog-action-height: unset !default;
 $rac-dialog-actions-display: $rac-dialog-display-0 !default;
 $rac-dialog-actions-flex-shrink: 0 !default;
 $rac-dialog-actions-margin: $rac-offset-3 $rac-offset-3 0 $rac-offset-3 !default;
@@ -1302,18 +1321,21 @@ $rac-layout-builder-x8-flex: 8 !default;
 /************************/
 /* @stable [10.02.2020] */
 /************************/
+$rac-header-color-0: unset !default;
 $rac-header-display-0: flex !default;
 $rac-header-size-0: 24px !default;
 /**/
 $rac-header-actions-align-items: center !default;
 $rac-header-actions-display: $rac-header-display-0 !default;
 $rac-header-actions-margin: 0 0 0 auto !default;
+$rac-header-back-action-icon-color: $rac-header-color-0 !default;
 $rac-header-back-action-margin: 0 $rac-offset-3 0 0 !default;
 $rac-header-content-align-items: center !default;
 $rac-header-content-display: $rac-header-display-0 !default;
 $rac-header-content-flex-direction: unset !default;
 $rac-header-content-flex: 1 !default;
 $rac-header-menu-action-color: unset !default;
+$rac-header-menu-action-icon-color:  $rac-header-color-0 !default;
 $rac-header-menu-action-icon-size: unset !default;
 $rac-header-user-avatar-background-size: cover !default;
 $rac-header-user-avatar-border-radius: $rac-header-size-0 / 2 !default;

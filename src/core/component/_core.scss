@@ -3,6 +3,17 @@
 
 .rac {
 
+  & * {
+    /**
+    * @base
+    * @stable [19.02.2020]
+    */
+    @include rac-styles (
+      $rac-styles-font-family: $rac-base-font-family,
+      $rac-styles-font-size: $rac-base-font-size
+    );
+  }
+
   /**
    * @layout
    * @stable [18.11.2019]
