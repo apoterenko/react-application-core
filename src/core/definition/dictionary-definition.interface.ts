@@ -74,6 +74,6 @@ export interface IDictionariesEntity
 /**
  * @stable [10.10.2019]
  */
-export interface IDictionariesWrapperEntity
-  extends IDictionariesWrapper<IDictionariesEntity> {
+export interface IDictionariesWrapperEntity<TDictionariesEntity = IDictionariesEntity>
+  extends IDictionariesWrapper<TDictionariesEntity> {
 }

@@ -7,10 +7,15 @@ import {
   ISectionNameWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
-import { IContainerProps, IUniversalContainerProps } from './props-definition.interface';
+import {
+  IContainerProps,
+  IUniversalContainerProps,
+} from './props-definition.interface';
+import { IBaseDictionariesEntity } from './dictionary-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
+import { IGenericBasicContainer } from './store-proxy-definition.interface';
 import { IUniversalStoreEntity } from './redux-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
 
@@ -72,6 +77,7 @@ export interface IUniversalContainer<TProps extends IUniversalContainerProps = I
 }
 
 /**
+ * @container
  * @stable [27.09.2019]
  */
 export interface IContainer<TProps extends IContainerProps<TDictionaries, TPermissions> = IContainerProps<TDictionaries, TPermissions>,
@@ -98,4 +104,13 @@ export interface IUniversalContainerCtor<
  */
 export interface IContainerCtor<TProps extends IContainerProps = IContainerProps, TState = {}>
   extends IUniversalContainerCtor<TProps, TState> {
+}
+
+/**
+ * @container
+ * @stable [29.02.2020]
+ */
+export interface IFieldsContainer
+  extends IContainer<IContainerProps<IBaseDictionariesEntity>>,
+    IGenericBasicContainer {
 }

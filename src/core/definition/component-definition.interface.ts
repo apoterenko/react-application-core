@@ -25,11 +25,19 @@ export interface IWebComponentEntity
 
 /**
  * @react-native-compatible
+ * @stable [27.02.2020]
+ */
+export interface IGenericComponentEntity<TComponent = AnyT>
+  extends React.ClassAttributes<TComponent>, // TODO React.ClassAttributes -> React.RefAttributes (ref="string")
+    ITitleWrapper<string | boolean> {
+}
+
+/**
+ * @react-native-compatible
  * @stable [22.09.2019]
  */
 export interface IUniversalComponentEntity
-  extends React.ClassAttributes<AnyT>,  // TODO Replace with React.RefAttributes (ref="string")
-    ITitleWrapper<string | boolean>,
+  extends IGenericComponentEntity<AnyT>,
     IPluginsWrapper<IUniversalPluginCtor | IUniversalPluginCtor[]> {
 }
 

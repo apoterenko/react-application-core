@@ -1,5 +1,6 @@
 import {
   IAcceptableWrapper,
+  IAcceptActionConfigurationWrapper,
   IAcceptDisabledWrapper,
   IAcceptTextWrapper,
   IAcceptWrapper,
@@ -7,6 +8,7 @@ import {
   IAnchorElementWrapper,
   ICheckModalWrapper,
   IClosableWrapper,
+  ICloseActionConfigurationWrapper,
   ICloseDisabledWrapper,
   ICloseTextWrapper,
   IDefaultWrapper,
@@ -21,6 +23,7 @@ import {
   IScrollableWrapper,
   IWidthWrapper,
 } from '../definitions.interface';
+import { IButtonProps } from './button-definition.interface';
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
@@ -44,10 +47,12 @@ export interface IGenericBaseDialogEntity
 export interface IGenericDialogEntity
   extends IGenericBaseDialogEntity,
     IAcceptableWrapper,
+    IAcceptActionConfigurationWrapper<IButtonProps>,
     IAcceptDisabledWrapper,
     IAcceptTextWrapper,
     ICheckModalWrapper,
     IClosableWrapper,
+    ICloseActionConfigurationWrapper<IButtonProps>,
     ICloseDisabledWrapper,
     ICloseTextWrapper,
     IDefaultWrapper,

@@ -28,7 +28,6 @@ import {
   ISubmitConfigurationWrapper,
   ISubmitIconWrapper,
   ISubmitTextWrapper,
-  ISubmitWrapper,
   IValidateOnMountWrapper,
   IValidWrapper,
 } from '../definitions.interface';
@@ -47,9 +46,6 @@ import {
   IComponentProps,
   IContainerProps,
 } from './props-definition.interface';
-import { IApiWrapperEntity } from './api-definition.interface';
-import { IComponent } from './component-definition.interface';
-import { IContainer } from './container-definition.interface';
 
 /**
  * @generic-entity
@@ -137,31 +133,31 @@ export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}, TPer
 }
 
 /**
- * @container
- * @stable [27.09.2019]
- */
-export interface IFormContainer
-  extends IContainer<IFormContainerProps>,
-    ISubmitWrapper {
-}
-
-/**
- * @component
- * @stable [27.09.2019]
- */
-export interface IForm
-  extends IComponent<IFormProps>,
-    IApiWrapperEntity,
-    ISubmitWrapper<IApiEntity> {
-}
-
-/**
  * @entity
  * @stable [03.02.2020]
  */
 export interface IFormValidEntity
   extends IValidWrapper {
 }
+
+/**
+ * @default-entity
+ * @stable [21.02.2020]
+ */
+export const DEFAULT_FORM_FIELD_CONTROLLER_ENTITY = Object.freeze<IGenericFormEntity>({
+  actionsRendered: false,
+  compact: true,
+  full: false,
+});
+
+/**
+ * @default-entity
+ * @stable [21.02.2020]
+ */
+export const DEFAULT_FULL_FORM_FIELD_CONTROLLER_ENTITY = Object.freeze<IGenericFormEntity>({
+  ...DEFAULT_FORM_FIELD_CONTROLLER_ENTITY,
+  full: true,
+});
 
 /**
  * @initial-entity
