@@ -14,12 +14,13 @@
 
   /**
    * @cron-field-labeled
-   * @stable [16.12.2019]
+   * @stable [04.03.2020]
    */
   @include rac-field (
     $rac-field-custom: $rac-cron-field-labeled-cls,
     $rac-self-field-label-position: $rac-cron-field-labeled-self-field-label-position,
-    $rac-self-field-label-top: $rac-cron-field-labeled-self-field-label-top
+    $rac-self-field-label-top: $rac-cron-field-labeled-self-field-label-top,
+    $rac-self-field-margin-top: $rac-cron-field-labeled-self-field-margin-top
   );
 
   /**

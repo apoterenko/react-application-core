@@ -38,9 +38,14 @@ export class PhoneConverter implements IPhoneConverter<PNF> {
       return '';
     }
     const phoneNumber = this.parse(config);
-    return this.phoneUtilInstance.isValidNumber(phoneNumber)
-      ? this.phoneUtilInstance.format(phoneNumber, format)
-      : isString(value) ? value as string : String(value);
+    const valueAsString = isString(value) ? value as string : String(value);
+    try {
+      return this.phoneUtilInstance.isValidNumber(phoneNumber)
+        ? this.phoneUtilInstance.format(phoneNumber, format)
+        : valueAsString;
+    } catch (e) {
+      return valueAsString;
+    }
   }
 
   /**

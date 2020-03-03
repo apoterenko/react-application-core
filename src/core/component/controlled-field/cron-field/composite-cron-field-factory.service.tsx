@@ -125,6 +125,7 @@ export class CompositeCronFieldFactory
       case CompositeCronFieldItemsEnum.CRON:
         return {
           ...props,
+          errorMessageRendered: false,
           period: this.getPeriodValue(config) === CronPeriodsEnum.WEEKLY
             ? CronPeriodsEnum.WEEKLY
             : CronPeriodsEnum.MONTHLY,
