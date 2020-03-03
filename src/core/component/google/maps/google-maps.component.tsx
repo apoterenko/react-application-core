@@ -51,6 +51,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   private openMenuTask: DelayedTask;
   private readonly menuRef = React.createRef<Menu>();
   private wheelListenerUnsubscriber: () => void;
+  private directionsService: google.maps.DirectionsService;
 
   /**
    * @stable [10.01.2020]
@@ -159,6 +160,21 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
+   * @stable [03.03.2020]
+   * @param {string} name
+   */
+  public removeMarker(name: string): void {
+    ifNotNilThanValue(
+      this.markers.get(name),
+      (marker) => {
+        marker.unbindAll();
+        marker.setMap(null);
+        this.markers.delete(name);
+      }
+    );
+  }
+
+  /**
    * @stable [10.01.2020]
    * @param {IGoogleMapsMarkerConfigEntity} cfg
    */
@@ -185,6 +201,43 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   }
 
   /**
+   * @stable [23.02.2020]
+   */
+  public addPolyline(polylineCfg: google.maps.PolylineOptions): google.maps.Polyline {
+    const polylineConfig: google.maps.PolylineOptions = {
+      strokeWeight: 2,
+      ...polylineCfg,
+    };
+
+    const polyline = new google.maps.Polyline(polylineConfig);
+    polyline.setMap(this.map);
+
+    return polyline;
+  }
+
+  /**
+   * @stable [23.02.2020]
+   */
+  public addDirectionPolyline(directionCfg: google.maps.DirectionsRequest, polylineCfg: google.maps.PolylineOptions, ): void {
+    const directionConfig: google.maps.DirectionsRequest = {
+      travelMode: google.maps.TravelMode.DRIVING,
+      ...directionCfg,
+    };
+
+    this.directionsService.route(directionConfig, (result, status) => {
+      // TODO Convert to Promise (to cancel)
+      if (status === google.maps.DirectionsStatus.OK) {
+        this.addPolyline({
+          path: result.routes[0].overview_path,
+          ...polylineCfg,
+        });
+      } else {
+        throw new Error(`google.maps.DirectionsService request error, status code: ${status}`);
+      }
+    });
+  }
+
+  /**
    * @stable [04.03.2019]
    * @param {IGoogleMapsHeatMapLayerConfigEntity} cfg
    */
@@ -206,11 +259,17 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     }
   }
 
+  /**
+   * @stable [20.02.2020]
+   */
   public fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
                    padding?: number | google.maps.Padding) {
     this.map.fitBounds(bounds, padding);
   }
 
+  /**
+   * @stable [20.02.2020]
+   */
   public getMarkers(): Map<string, google.maps.Marker> {
     return this.markers;
   }
@@ -353,6 +412,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
       mapTypeId: mapTypes.get(options.mapTypeId) || google.maps.MapTypeId.ROADMAP,
     });
 
+    this.directionsService = new google.maps.DirectionsService();
     this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
     this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', this.onMapDbClick);
 

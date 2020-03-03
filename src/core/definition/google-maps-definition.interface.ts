@@ -129,9 +129,12 @@ export interface IGoogleMapsProps
  * @stable [09.01.2020]
  */
 export interface IGoogleMaps {
+  addDirectionPolyline(directionCfg: google.maps.DirectionsRequest, polylineCfg: google.maps.PolylineOptions): void;
   addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void;
   addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker;
+  addPolyline(polylineCfg: google.maps.PolylineOptions): google.maps.Polyline;
   fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
   getMarkers(): Map<string, google.maps.Marker>;
+  removeMarker(name: string): void;
   setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void;
 }
