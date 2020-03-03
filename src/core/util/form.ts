@@ -22,7 +22,9 @@ import {
 } from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
-import { selectEditableEntity } from './mapper';
+import {
+  selectEditableEntity,
+} from './mapper';
 import { isObjectNotEmpty } from './object';
 
 /**
@@ -66,7 +68,7 @@ export const getFormFieldDisplayValue = <TEntity extends IEntity = IEntity>(enti
         fieldProps.displayName || ifNotNilThanValue(defaultFieldProps, () => defaultFieldProps.displayName),
         (displayName) => ifNotNilThanValue(
           R.isNil(entity.entity)
-            ? ifNotNilThanValue(entity.form, (form) => form.changes)
+            ? ifNotNilThanValue(entity.form, (form) => form.changes)  // TODO Select form changes
             : entity.entity,
           (data) => Reflect.get(data, displayName),
           UNDEF_SYMBOL

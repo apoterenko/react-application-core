@@ -16,11 +16,7 @@ import { notNilValuesFilter } from './filter';
  */
 export const getCurrentUrlPath = (): string => URI().path();
 
-/**
- * @stable [16.11.2019]
- * @param {string} search
- * @returns {}
- */
+// TODO Deprecated  new URI().query(true);
 export const getURLSearchParams = (search: string): URLSearchParams => new URLSearchParams(search);
 
 /**

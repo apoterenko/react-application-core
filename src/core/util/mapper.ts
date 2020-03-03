@@ -45,6 +45,8 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IErrorWrapper,
+  IFilterWrapper,
+  IInitialDataWrapper,
   IKeyValue,
   IOptionsWrapper,
   IPayloadWrapper,
@@ -54,9 +56,7 @@ import {
   IQueueWrapper,
   IRawDataWrapper,
   ISelectedWrapper,
-  ITokenWrapper,
   IWaitingForOptionsWrapper,
-  StringNumberT,
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -81,14 +81,10 @@ import {
   isLoading,
   isReady,
 } from './wrapper';
-
-/**
- * @stable [17.11.2019]
- * @param {ITokenWrapper} entity
- * @returns {StringNumberT}
- */
-export const selectToken = (entity: ITokenWrapper): string =>
-  ifNotNilThanValue(entity, (): string => entity.token, UNDEF_SYMBOL);
+import {
+  selectForm,
+  selectToken,
+} from './select';
 
 /**
  * @stable [25.11.2019]
@@ -139,13 +135,13 @@ export const selectError =
     R.isNil(entity) ? UNDEF : entity.error;
 
 /**
- * @stable [03.02.2020]
- * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} entity
+ * @stable [29.02.2020]
+ * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} wrapper
  * @returns {IEditableEntity<TEntity extends IEntity>}
  */
 export const selectEditableEntity =
-  <TEntity extends IEntity = IEntity>(entity: IFormExtendedEditableEntity<TEntity>): IEditableEntity<TEntity> =>
-    R.isNil(entity) ? UNDEF : entity.form;
+  <TEntity extends IEntity = IEntity>(wrapper: IFormExtendedEditableEntity<TEntity>): IEditableEntity<TEntity> =>
+    selectForm(wrapper);
 
 /**
  * @stable [04.09.2019]
@@ -153,7 +149,7 @@ export const selectEditableEntity =
  * @returns {TResult}
  */
 export const selectChanges = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
-  ifNotNilThanValue(entity, (): TResult => entity.changes as TResult, UNDEF_SYMBOL);
+  R.isNil(entity) ? UNDEF : entity.changes;
 
 /**
  * @stable [20.12.2019]
@@ -164,13 +160,13 @@ export const selectDefaultChanges = <TResult extends IEntity = IEntity>(entity: 
   ifNotNilThanValue(entity, (): TResult => entity.defaultChanges as TResult, UNDEF_SYMBOL);
 
 /**
- * @stable [21.11.2019]
+ * @stable [21.02.2020]
  * @param {IFormExtendedEditableEntity<TEntity extends IEntity>} entity
  * @returns {TEntity}
  */
 export const selectEditableEntityChanges =
   <TEntity extends IEntity = IEntity>(entity: IFormExtendedEditableEntity<TEntity>): TEntity =>
-    ifNotNilThanValue(entity, (): TEntity => selectChanges<TEntity>(selectEditableEntity(entity)), UNDEF_SYMBOL);
+    R.isNil(entity) ? UNDEF : selectChanges<TEntity>(selectEditableEntity(entity));
 
 /**
  * @stable [19.10.2019]
@@ -198,12 +194,12 @@ export const selectUserEntity = (entity: IUserWrapperEntity): IUserEntity =>
   ifNotNilThanValue(entity, (): IUserEntity => entity.user, UNDEF_SYMBOL);
 
 /**
- * @stable [04.09.2019]
- * @param {IQueryFilterWrapperEntity} entity
- * @returns {IQueryFilterEntity}
+ * @stable [29.02.2020]
+ * @param {IFilterWrapper<TEntity>} entity
+ * @returns {TEntity}
  */
-export const selectQueryFilterEntity = (entity: IQueryFilterWrapperEntity): IQueryFilterEntity =>
-  ifNotNilThanValue(entity, (): IQueryFilterEntity => entity.filter, UNDEF_SYMBOL);
+export const selectFilter = <TEntity = string>(entity: IFilterWrapper<TEntity>): TEntity =>
+  R.isNil(entity) ? UNDEF : entity.filter;
 
 /**
  * @stable [19.10.2019]
@@ -218,17 +214,16 @@ export const selectQuery = (entity: IQueryWrapper): string =>
  * @param {IQueryFilterWrapperEntity} entity
  * @returns {string}
  */
-export const selectFilterQuery = (entity: IQueryFilterWrapperEntity): string =>
-  selectQuery(selectQueryFilterEntity(entity));
+export const selectFilterQuery = (entity: IQueryFilterWrapperEntity): string => selectQuery(selectFilter(entity));
 
 /**
- * @stable [19.10.2019]
- * @param {ISelectedWrapper<TEntity extends IEntity>} listEntity
+ * @stable [29.02.2020]
+ * @param {ISelectedWrapper<TEntity extends IEntity>} entity
  * @returns {TEntity}
  */
 export const selectSelectedEntity =
-  <TEntity extends IEntity>(listEntity: ISelectedWrapper<TEntity>): TEntity =>
-    ifNotNilThanValue(listEntity, (): TEntity => listEntity.selected, UNDEF_SYMBOL);
+  <TEntity extends IEntity>(entity: ISelectedWrapper<TEntity>): TEntity =>
+    R.isNil(entity) ? UNDEF : entity.selected;
 
 /**
  * @stable [19.01.2020]
@@ -313,6 +308,14 @@ export const selectPreventEffectsFromAction = (action: IEffectsAction): boolean 
 export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData => R.isNil(wrapper) ? UNDEF : wrapper.data;
 
 /**
+ * @stable [20.02.2020]
+ * @param {IInitialDataWrapper<TData>} wrapper
+ * @returns {TData}
+ */
+export const selectInitialData = <TData>(wrapper: IInitialDataWrapper<TData>): TData =>
+  R.isNil(wrapper) ? UNDEF : wrapper.initialData;
+
+/**
  * @stable [28.01.2020]
  * @param {IPayloadWrapper<TPayload>} wrapper
  * @returns {TPayload}
@@ -327,6 +330,14 @@ export const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPa
  */
 export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
   selectPayload(selectData(action));
+
+/**
+ * @stable [20.02.2020]
+ * @param {IEffectsAction} action
+ * @returns {TPayload}
+ */
+export const selectInitialDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
+  selectPayload(selectInitialData(action));
 
 /**
  * @stable [13.02.2020]
@@ -378,11 +389,12 @@ export const selectListSelectedEntity =
  * @param {IQueryFilterWrapperEntity} entity
  * @returns {string}
  */
-export const selectFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): string => ifNotNilThanValue(
-  selectQueryFilterEntity(entity),
-  (filterEntity) => selectQuery(filterEntity),
-  UNDEF_SYMBOL
-);
+export const selectFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): string =>
+  ifNotNilThanValue(
+    selectFilter(entity),
+    (filterEntity) => selectQuery(filterEntity),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [20.10.2019]
@@ -472,12 +484,19 @@ export const mapDisabled = (disabled: boolean): IDisabledWrapper =>
 export const mapQuery = (query: string): IQueryWrapper => defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
 
 /**
- * @stable [04.09.2019]
+ * @stable [29.02.2020]
+ * @param {TEntity} filter
+ * @returns {IFilterWrapper<TEntity>}
+ */
+export const mapFilter = <TEntity = string>(filter: TEntity): IFilterWrapper<TEntity> =>
+  defValuesFilter<IFilterWrapper<TEntity>, IFilterWrapper<TEntity>>({filter});
+
+/**
+ * @stable [29.02.2020]
  * @param {IQueryFilterEntity} filter
  * @returns {IQueryFilterWrapperEntity}
  */
-export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWrapperEntity =>
-  defValuesFilter<IQueryFilterWrapperEntity, IQueryFilterWrapperEntity>({filter});
+export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWrapperEntity => mapFilter(filter);
 
 /**
  * @stable [21.11.2019]
@@ -675,7 +694,7 @@ export const mapListSelectedExtendedEntity =
  * @returns {IQueryFilterWrapperEntity}
  */
 export const mapQueryFilterWrapperEntity = (queryFilter: IQueryFilterWrapperEntity): IQueryFilterWrapperEntity =>
-  mapQueryFilterEntity(selectQueryFilterEntity(queryFilter));
+  mapQueryFilterEntity(selectFilter(queryFilter));
 
 /**
  * @stable [10.09.2019]

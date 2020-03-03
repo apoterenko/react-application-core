@@ -4,19 +4,19 @@ import { isFn } from './type';
 import { getUiFactory } from '../di/di.services';
 
 /**
- * @stable [02.12.2019]
+ * @stable [03.03.2020]
  * @param {React.Component<{}, {}>} scope
  */
 export const patchRenderMethod = (scope: React.Component<{}, {}>): void => {
-  const originalRenderer = scope.render;
-  if (!isFn(originalRenderer)) {
-    return;
+  const originalRender = scope.render;
+
+  if (isFn(originalRender)) {
+    scope.render = () => {
+      try {
+        return originalRender.call(scope);
+      } catch (e) {
+        return getUiFactory().makeReactError(e);
+      }
+    };
   }
-  scope.render = (): React.ReactNode => {
-    try {
-      return originalRenderer.call(scope);
-    } catch (e) {
-      return getUiFactory().makeReactError(e);
-    }
-  };
 };
