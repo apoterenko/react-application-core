@@ -15,6 +15,6 @@ export class TransportRequestDataFactory implements ITransportRequestDataFactory
    * @returns {IKeyValue}
    */
   public makeRequestData(req: ITransportRequestEntity): IKeyValue {
-    return null;
+    return req.params;
   }
 }
