@@ -8,7 +8,6 @@
     "deploy": "npm install && npm run build && npm publish ./",
     "lint": "node_modules/.bin/tslint --config tslint.json src/**/*.ts*",
     "lint:sass": "node_modules/.bin/sass-lint -c sass-lint.yml -v -q",
-    "postinstall": "npm install tslint -g",
     "scss": "node scripts/scss.js",
     "test": "node_modules/.bin/karma start --browsers ChromeHeadlessNoSandbox",
     "test:local": "node_modules/.bin/karma start",
