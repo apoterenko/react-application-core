@@ -13,7 +13,6 @@ import {
 } from './plugin';
 import { UIMaterialFactory } from './factory';
 import { Card } from '../card';
-import { KeyboardKey } from '../keyboard';
 import { Snackbar } from '../snackbar';
 import { UniversalPluginFactoryT, IComponentCtor } from '../../definition';
 
@@ -31,11 +30,6 @@ uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(comp
  */
 uiPlugins.set(Card, (component: Card) =>
   ifNotFalseThanValue(component.props.rippled, () => new MaterialPlugin<Card>(component, MDCRipple)));
-
-/**
- * @stable [08.05.2018]
- */
-uiPlugins.set(KeyboardKey, (component: KeyboardKey) => new MaterialPlugin<KeyboardKey>(component, MDCRipple));
 
 /**
  * @stable [27.05.2018]
