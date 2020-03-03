@@ -7,17 +7,10 @@ import { Form } from '../form';
 import {
   IApiEntity,
   IFieldChangeEntity,
-  IForm,
-  IFormContainer,
   IFormContainerProps,
 } from '../../definition';
-import {
-  FORM_SUBMIT_ACTION_TYPE,
-} from './form.interface';
-import { isFn } from '../../util';
 
-export class FormContainer extends BasicContainer<IFormContainerProps>
-    implements IFormContainer {
+export class FormContainer extends BasicContainer<IFormContainerProps> {
 
   /**
    * @stable [03.02.2020]
@@ -26,7 +19,6 @@ export class FormContainer extends BasicContainer<IFormContainerProps>
   constructor(props: IFormContainerProps) {
     super(props);
 
-    this.onBeforeSubmit = this.onBeforeSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
     this.onLoadDictionary = this.onLoadDictionary.bind(this);
@@ -43,13 +35,12 @@ export class FormContainer extends BasicContainer<IFormContainerProps>
     const props = this.props;
     return (
       <Form
-        ref={this.selfRef}
         form={props.form}
         entity={props.entity}
         originalEntity={props.originalEntity}
         onChange={this.onChange}
         onSubmit={this.onSubmit}
-        onBeforeSubmit={this.onBeforeSubmit}
+        onBeforeSubmit={props.onBeforeSubmit}
         onReset={this.onReset}
         onValid={this.onValid}
         onEmptyDictionary={this.onEmptyDictionary}
@@ -59,13 +50,6 @@ export class FormContainer extends BasicContainer<IFormContainerProps>
         {props.children}
       </Form>
     );
-  }
-
-  /**
-   * @stable [27.09.2019]
-   */
-  public submit(): void {
-    this.form.submit(this.form.apiEntity);
   }
 
   /**
@@ -98,17 +82,7 @@ export class FormContainer extends BasicContainer<IFormContainerProps>
    * @param {IApiEntity} apiEntity
    */
   private onSubmit(apiEntity: IApiEntity): void {
-    this.dispatchFrameworkAction(FORM_SUBMIT_ACTION_TYPE, apiEntity);
-  }
-
-  /**
-   * @stable [03.02.2020]
-   * @param {IApiEntity} apiEntity
-   * @returns {boolean}
-   */
-  private onBeforeSubmit(apiEntity: IApiEntity): boolean {
-    const {onBeforeSubmit} = this.props;
-    return !isFn(onBeforeSubmit) || onBeforeSubmit(apiEntity);
+    this.formStoreProxy.dispatchFormSubmit(apiEntity);
   }
 
   private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {
@@ -120,13 +94,5 @@ export class FormContainer extends BasicContainer<IFormContainerProps>
     if (noAvailableItemsToSelect && R.isEmpty(items)) {
       this.dispatchNotification(noAvailableItemsToSelect);
     }
-  }
-
-  /**
-   * @stable [27.09.2019]
-   * @returns {IForm}
-   */
-  private get form(): IForm {
-    return this.selfRef.current;
   }
 }

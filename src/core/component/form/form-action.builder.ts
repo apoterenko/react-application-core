@@ -28,6 +28,7 @@ import {
 } from './form.interface';
 import {
   FieldChangeEntityT,
+  IApiEntity,
   IFieldChangeEntity,
   IFormValidEntity,
 } from '../../definition';
@@ -275,6 +276,16 @@ export class FormActionBuilder {
    */
   public static buildResetPlainAction(section: string): IEffectsAction {
     return {type: this.buildResetActionType(section), data: applySection(section)};
+  }
+
+  /**
+   * @stable [01.03.2020]
+   * @param {string} section
+   * @param {IApiEntity} apiEntity
+   * @returns {IEffectsAction}
+   */
+  public static buildSubmitPlainAction(section: string, apiEntity: IApiEntity): IEffectsAction {
+    return {type: this.buildSubmitActionType(section), data: applySection(section, apiEntity)};
   }
 
   /***

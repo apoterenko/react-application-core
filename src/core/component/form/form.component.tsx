@@ -7,7 +7,6 @@ import {
   IButtonProps,
   IEditableEntity,
   IFieldsPresets,
-  IForm,
   IFormProps,
   UniversalIdProviderContext,
 } from '../../definition';
@@ -37,9 +36,9 @@ import {
   notNilValuesFilter,
   objectValuesArrayFilter,
   orNull,
-  selectEditableEntity,
   selectEditableEntityChanges,
   selectError,
+  selectForm,
 } from '../../util';
 import {
   AnyT,
@@ -59,7 +58,7 @@ import {
   isFormResettable,
 } from './form.support';
 
-export class Form extends BaseComponent<IFormProps> implements IForm {
+export class Form extends BaseComponent<IFormProps> {
 
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
 
@@ -135,12 +134,11 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
 
   /**
    * @stable [30.01.2020]
-   * @param {IApiEntity} apiEntity
    */
-  public submit(apiEntity: IApiEntity): void {
+  public submit(): void {
     const props = this.props;
     if (isFn(props.onSubmit)) {
-      props.onSubmit(apiEntity);
+      props.onSubmit(this.apiEntity);
     }
   }
 
@@ -239,10 +237,10 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
 
     if (isFn(onBeforeSubmit)) {
       if (onBeforeSubmit(apiEntity) !== false) {
-        this.submit(apiEntity);
+        this.submit();
       }
     } else {
-      this.submit(apiEntity);
+      this.submit();
     }
   }
 
@@ -461,7 +459,7 @@ export class Form extends BaseComponent<IFormProps> implements IForm {
    * @returns {IEditableEntity<IEntity>}
    */
   private get form(): IEditableEntity<IEntity> {
-    return selectEditableEntity(this.props);
+    return selectForm(this.props);
   }
 
   /**
