@@ -1,6 +1,7 @@
 import { FormActionBuilder } from '../../../action.builder';
 import {
   FieldChangeEntityT,
+  IApiEntity,
   IFormStoreProxy,
   IUniversalContainer,
   IUniversalContainerProps,
@@ -29,6 +30,15 @@ export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
    */
   public dispatchFormReset(otherSection?: string): void {
     this.dispatchAnyAction(FormActionBuilder.buildResetPlainAction(this.asSection(otherSection)));
+  }
+
+  /**
+   * @stable [01.03.2020]
+   * @param {IApiEntity} apiEntity
+   * @param {string} otherSection
+   */
+  public dispatchFormSubmit(apiEntity: IApiEntity, otherSection?: string): void {
+    this.dispatchAnyAction(FormActionBuilder.buildSubmitPlainAction(this.asSection(otherSection), apiEntity));
   }
 
   /**
