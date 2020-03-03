@@ -1,8 +1,12 @@
-import { IEffectsAction, EffectsAction } from 'redux-effects-promise';
+import {
+  EffectsAction,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import {
-  ListActionBuilder,
   FormActionBuilder,
+  ListActionBuilder,
+  TabPanelActionBuilder,
 } from '../../component/action.builder';
 import { IDestroyedContainerMiddlewareConfigEntity } from '../../definition';
 
@@ -13,6 +17,8 @@ import { IDestroyedContainerMiddlewareConfigEntity } from '../../definition';
  */
 export const makeDestroyedContainerMiddleware = (config: IDestroyedContainerMiddlewareConfigEntity): IEffectsAction[] =>
   [
+    ...(config.tabPanelsSections || [])
+      .map((tabPanelSection) => TabPanelActionBuilder.buildDestroyAction(tabPanelSection)),
     ...(config.formsSections || [])
       .map((formSection) => FormActionBuilder.buildDestroyAction(formSection)),
     ...(config.listsSections || [])
