@@ -129,6 +129,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.onAcceptClick();
   }
 
+  public close(): void {
+    this.doClose();
+  }
+
   /**
    * @stable [06.01.2020]
    */
@@ -267,6 +271,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                   <Button
                     icon='close'
                     full={true}
+                    {...this.props.closeActionConfiguration}
                     disabled={this.isCloseButtonDisabled}
                     onClick={this.onCloseClick}>
                     {this.t(this.closeText)}
@@ -282,6 +287,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                     icon='ok-filled'
                     full={true}
                     raised={true}
+                    {...this.props.acceptActionConfiguration}
                     disabled={this.isAcceptButtonDisabled}
                     onClick={this.onAcceptClick}>
                     {this.t(this.acceptText)}
