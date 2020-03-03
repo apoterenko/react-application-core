@@ -1,21 +1,26 @@
 import {
   getDialogFormChangesConfirmStoreProxyFactory,
+  getDictionaryStoreProxyFactory,
   getFormStoreProxyFactory,
   getRouterStoreProxyFactoryFactory,
 } from '../../di';
 import {
   IContainerProps,
   IDialogFormChangesConfirmStoreProxy,
+  IDictionaryStoreProxy,
   IFormStoreProxy,
   IRouterStoreProxy,
+  IGenericBasicContainer,
 } from '../../definition';
 import { BaseContainer } from './base.container';
 
 export class BasicContainer<TProps extends IContainerProps = IContainerProps,
   TState = {}>
-  extends BaseContainer<TProps, TState> {
+  extends BaseContainer<TProps, TState>
+  implements IGenericBasicContainer {
 
   private $dfccStoreProxy: IDialogFormChangesConfirmStoreProxy;
+  private $dictionaryStoreProxy: IDictionaryStoreProxy;
   private $formStoreProxy: IFormStoreProxy;
   private $routerStoreProxy: IRouterStoreProxy;
 
@@ -41,5 +46,13 @@ export class BasicContainer<TProps extends IContainerProps = IContainerProps,
    */
   protected get routerStoreProxy(): IRouterStoreProxy {
     return this.$routerStoreProxy = this.$routerStoreProxy || getRouterStoreProxyFactoryFactory()(this);
+  }
+
+  /**
+   * @stable [29.02.2020]
+   * @returns {IDictionaryStoreProxy}
+   */
+  public get dictionaryStoreProxy(): IDictionaryStoreProxy {
+    return this.$dictionaryStoreProxy = this.$dictionaryStoreProxy || getDictionaryStoreProxyFactory()(this);
   }
 }
