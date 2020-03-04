@@ -1,10 +1,10 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { IListConfigurationWrapperEntity } from '../../definition';
+import { IListConfigurationEntity } from '../../definition';
 import { IKeyValue } from '../../definitions.interface';
 
 export interface IListContainerProps extends IKeyValue,  // TODO
-  IListConfigurationWrapperEntity {
+  IListConfigurationEntity {
 }
 
 export const LIST_LOAD_ACTION_TYPE = 'list.load';

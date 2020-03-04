@@ -164,7 +164,7 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
   if (R.isNil(source)) {
     return source;
   }
-  if (props.useLocalSorting) {
+  if (props.localSorting) {
     const sorters = columns
       .filter((column) => isFn(column.sorter) && !R.isNil(getGridColumnSortDirection(column, props).direction))
       .map((column) => (entity1, entity2) =>

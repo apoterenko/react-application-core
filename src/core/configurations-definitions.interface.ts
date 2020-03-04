@@ -2,13 +2,10 @@ import * as React from 'react';
 
 import {
   AnyT,
-  EntityIdT,
   IActionButtonsWrapper,
   IActionIconsWrapper,
   IActionsDisabledWrapper,
   IActionsWrapper,
-  IActiveValueWrapper,
-  IActiveWrapper,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
@@ -35,7 +32,6 @@ import {
   IMaskPlaceholderCharWrapper,
   IMessageWrapper,
   IMoreOptionsWrapper,
-  INameWrapper,
   INavigationActionTypeWrapper,
   INotUseFieldWrapper,
   IOnBlurWrapper,
@@ -48,7 +44,6 @@ import {
   IOnSelectWrapper,
   IPrefixLabelWrapper,
   IRippableWrapper,
-  ISelectedWrapper,
   ISimpleWrapper,
   ISorterWrapper,
   ISubBorderWrapper,
@@ -56,7 +51,6 @@ import {
   ITouchedWrapper,
   ITypeWrapper,
   IValidateWrapper,
-  IValueWrapper,
 } from './definitions.interface';
 import {
   IOnNavigationActionClickWrapper,
@@ -70,24 +64,9 @@ import {
   IGenericBaseFieldEntity,
   IKeyboardConfigurationEntity,
   IMenuItemEntity,
-  INavigationItemEntity,
   IUniversalComponentEntity,
   IWebComponentEntity,
 } from './definition';
-
-/**
- * @stable [31.05.2018]
- */
-export interface ISubHeaderConfigurationWrapper<THeaderConfiguration = ISubHeaderConfiguration> {
-  subHeaderConfiguration?: THeaderConfiguration;
-}
-
-/**
- * @stable [14.05.2018]
- */
-export interface IItemConfigurationWrapper<TItemConfiguration> {
-  itemConfiguration?: TItemConfiguration;
-}
 
 /**
  * @stable [18.05.2018]
@@ -119,11 +98,6 @@ export interface INavigationHandlersConfiguration {
   onFirst?(): void;
   onLast?(): void;
 }
-
-/**
- * @stable [05.10.2018]
- */
-export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode;
 
 /**
  * @stable [02.08.2018]
@@ -189,13 +163,6 @@ export interface ICardConfiguration extends IComponentProps,
 }
 
 /**
- * @deprecated
- */
-export interface INavigationListItemConfiguration
-  extends INavigationItemEntity {
-}
-
-/**
  * @stable [04.05.2018]
  */
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
@@ -255,11 +222,6 @@ export interface IUIIconConfiguration extends IUniversalUIIconConfiguration,
  * @stable [18.05.2018]
  */
 export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | string;
-
-/**
- * @stable [18.05.2018]
- */
-export type UIIconConfigurationT = IUIIconConfiguration | string;
 
 // TODO
 export interface ISubHeaderConfiguration extends IComponentProps,

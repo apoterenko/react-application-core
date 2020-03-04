@@ -6,6 +6,7 @@ import {
 } from 'ts-smart-logger';
 
 import {
+  FIELD_DISPLAY_EMPTY_VALUE,
   FieldConverterTypesEnum,
   IFieldConverter,
   IFieldConverterConfigEntity,
@@ -19,6 +20,7 @@ import {
   isFn,
   isPrimitive,
   join,
+  notEmptyValuesArrayFilter,
 } from '../../util';
 import {
   AnyT,
@@ -124,15 +126,18 @@ export class FieldConverter implements IFieldConverter {
       return placeEntity as string;
     }
     const placeEntityAsObject = placeEntity as IPlaceEntity;
+
     return join(
-      [
-        join([placeEntityAsObject.streetNumber, placeEntityAsObject.street], ' '),
-        placeEntityAsObject.city,
-        placeEntityAsObject.region,
-        placeEntityAsObject.country
-      ],
+      notEmptyValuesArrayFilter(
+        ...[
+          `${placeEntityAsObject.streetNumber || ''} ${placeEntityAsObject.street || ''}`,
+          placeEntityAsObject.city,
+          placeEntityAsObject.region,
+          placeEntityAsObject.country
+        ].map((v) => (v || '').trim())
+      ),
       ', '
-    ) || placeEntityAsObject.formattedName;
+    ) || placeEntityAsObject.formattedName || FIELD_DISPLAY_EMPTY_VALUE;
   }
 
   /**
@@ -148,7 +153,7 @@ export class FieldConverter implements IFieldConverter {
       return placeEntity as string;
     }
     const placeEntityAsObject = placeEntity as IPlaceEntity;
-    return placeEntityAsObject.zipCode;
+    return placeEntityAsObject.zipCode || FIELD_DISPLAY_EMPTY_VALUE;
   }
 
   /**

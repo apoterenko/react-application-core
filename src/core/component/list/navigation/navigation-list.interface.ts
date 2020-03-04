@@ -1,10 +1,8 @@
 import {
-  IScrollableComponentProps,
   ILayoutEntity,
+  INavigationItemEntity,
+  IScrollableComponentProps,
 } from '../../../definition';
-import {
-  INavigationListItemConfiguration,
-} from '../../../configurations-definitions.interface';
 import {
   IExpandedGroupsWrapper,
   IItemsWrapper,
@@ -18,8 +16,8 @@ import {
 export interface INavigationListProps
   extends IScrollableComponentProps,
     IExpandedGroupsWrapper<IKeyValue>,
-    IItemsWrapper<INavigationListItemConfiguration[]>,
-    IOnGroupClickWrapper<INavigationListItemConfiguration>,
+    IItemsWrapper<INavigationItemEntity[]>,
+    IOnGroupClickWrapper<INavigationItemEntity>,
     ILayoutEntity {
   dividerRendered?: boolean;
 }

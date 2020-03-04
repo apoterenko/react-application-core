@@ -6,6 +6,7 @@ import {
   calc,
   handlerPropsFactory,
   isFn,
+  isSelectable,
   joinClassName,
 } from '../../../util';
 import {
@@ -32,6 +33,7 @@ export class GridRow extends BaseComponent<IGridRowProps> {
   public render(): JSX.Element {
     const props = this.props;
     const entity = props.entity;
+    const selectable = isSelectable(props);
 
     return (
       <UniversalScrollableContext.Consumer>
@@ -49,10 +51,10 @@ export class GridRow extends BaseComponent<IGridRowProps> {
               props.odd && 'rac-grid-row-odd',
               props.partOfGroup && 'rac-grid-row-part-of-group',
               props.total && 'rac-grid-row-total',
-              props.selectable && 'rac-grid-row-selectable',
+              selectable && 'rac-grid-row-selectable',
               props.selected && `rac-grid-row-selected ${selectedElementClassName}`
             )}
-            {...handlerPropsFactory(this.onClick, props.selectable === true && isFn(props.onClick), false)}
+            {...handlerPropsFactory(this.onClick, selectable && isFn(props.onClick), false)}
           >
             {props.children}
           </tr>

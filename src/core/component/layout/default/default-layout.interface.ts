@@ -4,13 +4,12 @@ import {
   IQueryFilterWrapperEntity,
 } from '../../../definition';
 import {
-  ISubHeaderConfigurationWrapper,
-} from '../../../configurations-definitions.interface';
-import {
   IFooterWrapper,
   IProgressWrapper,
+  ISubHeaderConfigurationWrapper,
   ISubHeaderRenderedWrapper,
 } from '../../../definitions.interface';
+import { ISubHeaderConfiguration } from '../../../configurations-definitions.interface';  // TODO
 
 /**
  * @stable [13.08.2018]
@@ -28,7 +27,7 @@ export interface IDefaultLayoutContainerConfiguration
     IFooterWrapper,
     IHeaderConfigurationEntity,
     ISubHeaderRenderedWrapper,
-    ISubHeaderConfigurationWrapper {
+    ISubHeaderConfigurationWrapper<ISubHeaderConfiguration> {
 }
 
 /**

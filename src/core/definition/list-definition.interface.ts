@@ -1,6 +1,9 @@
+import * as React from 'react';
+
 import {
   AnyT,
   DEFAULT_PAGE_SIZE,
+  EntityIdT,
   FIRST_PAGE,
   IChangesWrapper,
   IDataWrapper,
@@ -10,24 +13,29 @@ import {
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
   IEntity,
+  IFieldNameWrapper,
   IFilterFnWrapper,
+  IFilterWrapper,
   IFullWrapper,
   IGroupByWrapper,
+  IGroupedFieldNameWrapper,
+  IGroupValueWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIconLeftAlignedWrapper,
   IIconWrapper,
   IIndexWrapper,
+  IItemConfigurationWrapper,
   IKeyValue,
   ILastWrapper,
   IListConfigurationWrapper,
   IListWrapper,
+  ILocalSortingWrapper,
   IOddWrapper,
   IOnChangeFilterWrapper,
   IOnChangeHeaderWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
-  IOnCreateWrapper,
   IOnSelectWrapper,
   IOriginalDataWrapper,
   IRawDataWrapper,
@@ -38,53 +46,68 @@ import {
   ITplWrapper,
   StringNumberT,
 } from '../definitions.interface';
-import {
-  ILifeCycleEntity,
-  ISelectedEntity,
-} from './entity-definition.interface';
+import { ILifeCycleEntity } from './entity-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IPaginatedEntity } from './page-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsWrapperEntity } from './sort-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
-import { GroupValueRendererT, IItemConfigurationWrapper } from '../configurations-definitions.interface';
 
 /**
+ * @stable [04.03.2020]
+ */
+export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode;
+
+/**
+ * @generic-entity
+ * @stable [04.03.2020]
+ */
+export interface IGenericListGroupByEntity
+  extends IFieldNameWrapper,
+    IGroupedFieldNameWrapper,
+    IGroupValueWrapper<GroupValueRendererT | GroupValueRendererT[]> {
+}
+
+/**
+ * @generic-entity
  * @stable [27.10.2019]
  */
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
-  extends IDataWrapper<TEntity[]>,
+  extends ILifeCycleEntity,
+    IPaginatedEntity,
+    IDataWrapper<TEntity[]>,
     IDefaultWrapper,
+    IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
-    ILifeCycleEntity,
-    IOnSelectWrapper<TEntity>,    // TODO Move behaviour
+    IGroupByWrapper<IGenericListGroupByEntity>,
+    ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
-    IPaginatedEntity,
     IRawDataWrapper<TRawData>,
-    ISelectedEntity<TEntity>,
+    ISelectedWrapper<TEntity>,
     ISorterWrapper {
+}
+
+/**
+ * @behavioral-entity
+ * @stable [04.03.2020]
+ */
+export interface IBehavioralListEntity<TEntity = IEntity>
+  extends IFilterWrapper<(entity: TEntity) => boolean>,
+    IOnSelectWrapper<TEntity> {
 }
 
 export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
   TEntity = IEntity,
   TRawData = AnyT>
   extends IGenericListEntity<TEntity, TRawData>,
-    IFilterFnWrapper,
-    IEmptyDataMessageWrapper,
-    IOnCreateWrapper,
+    IBehavioralListEntity<TEntity>,
     IOnChangeWrapper<IFieldChangeEntity>,
     IOnChangeHeaderWrapper<IFieldChangeEntity>,
     IOnChangeFilterWrapper<IFieldChangeEntity>,
-    IItemConfigurationWrapper<TItemConfiguration>,
-    IGroupByWrapper<{
-      fieldName?: string,
-      groupedFieldName?: string;
-      groupValue?: GroupValueRendererT | GroupValueRendererT[]
-    }> {
+    IItemConfigurationWrapper<TItemConfiguration> {
   localFiltration?: boolean;
-  useLocalSorting?: boolean;
 }
 
 /**
@@ -153,6 +176,7 @@ export interface IListEntity<TEntity = IEntity,
 }
 
 /**
+ * @wrapper-entity
  * @stable [19.10.2019]
  */
 export interface IListWrapperEntity<TEntity = IEntity>
@@ -160,13 +184,15 @@ export interface IListWrapperEntity<TEntity = IEntity>
 }
 
 /**
+ * @configuration-entity
  * @stable [25.10.2019]
  */
-export interface IListConfigurationWrapperEntity
+export interface IListConfigurationEntity
   extends IListConfigurationWrapper<IListProps> {
 }
 
 /**
+ * @props
  * @stable [27.10.2019]
  */
 export interface IListProps

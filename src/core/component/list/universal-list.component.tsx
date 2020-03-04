@@ -3,7 +3,6 @@ import * as R from 'ramda';
 
 import {
   filterAndSortEntities,
-  isFn,
   pageFromNumber,
   pageToNumber,
   SAME_ENTITY_PREDICATE,
@@ -20,15 +19,6 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
                                     TState = {},
                                     TSelfRef = AnyT>
   extends UniversalComponent<TProps, TState, TSelfRef> {
-
-  /**
-   * @stable [27.10.2019]
-   * @param {TProps} props
-   */
-  constructor(props: TProps) {
-    super(props);
-    this.onCreate = this.onCreate.bind(this);
-  }
 
   /**
    * @stable [21.06.2018]
@@ -57,15 +47,6 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
    * @returns {JSX.Element}
    */
   protected abstract getView(): JSX.Element;
-
-  /**
-   * @stable [23.04.2018]
-   */
-  protected onCreate(): void {
-    if (isFn(this.props.onCreate)) {
-      this.props.onCreate();
-    }
-  }
 
   /**
    * @stable [23.10.2019]

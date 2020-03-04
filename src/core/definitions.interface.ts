@@ -170,6 +170,7 @@ export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
 export interface IElementWrapper<TValue = Element> { element?: TValue; }
+export interface IEmptyDataMessageWrapper<TValue = string> { emptyDataMessage?: TValue; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
@@ -187,6 +188,7 @@ export interface IExpandedGroupsWrapper<TValue> { expandedGroups?: TValue; }
 export interface IExtraParamsWrapper<TValue> { extraParams?: TValue; }
 export interface IFactorWrapper<TValue = number> { factor?: TValue; }
 export interface IFieldConfigurationWrapper<TValue> { fieldConfiguration?: TValue; }
+export interface IFieldNameWrapper { fieldName?: string; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
 export interface IFieldsWrapper<TValue> { fields?: TValue; }
 export interface IFieldWrapper<TValue> { field?: TValue; }
@@ -220,11 +222,13 @@ export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
 export interface IGoBackWrapper { goBack?(depth?: number): void; }
 export interface IGridConfigurationWrapper<TValue> { gridConfiguration?: TValue; }
 export interface IGroupableWrapper { groupable?: boolean; }
-export interface IGroupByWrapper<TGroupBy> { groupBy?: TGroupBy; }
+export interface IGroupByWrapper<TValue> { groupBy?: TValue; }
 export interface IGroupedDataSorterWrapper<T1, T2> { groupedDataSorter?(t1?: T1, t2?: T1, t3?: T2, t4?: T2): number; }
+export interface IGroupedFieldNameWrapper { groupedFieldName?: string; }
 export interface IGroupedRowsWrapper<TValue> { groupedRows?: TValue; }
 export interface IGroupedWrapper { grouped?: boolean; }
 export interface IGroupExpandedWrapper { groupExpanded?: boolean; }
+export interface IGroupValueWrapper<TValue> { groupValue?: TValue; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }
 export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
@@ -263,6 +267,7 @@ export interface IIsLastSelectedWrapper<TValue> { isLastSelected?(payload?: TVal
 export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }
+export interface IItemConfigurationWrapper<TValue> { itemConfiguration?: TValue; }
 export interface IItemsWrapper<TValue> { items?: TValue; }
 export interface IItemWrapper<TValue> { item?: TValue; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
@@ -289,6 +294,7 @@ export interface IListWrapper<TList> { list?: TList; }
 export interface ILngWrapper<TLng = number> { lng?: TLng; }
 export interface ILoadingWrapper { loading?: boolean; }
 export interface ILocalFilterWrapper<TValue = {}> { localFilter?(payload?: TValue): boolean; }
+export interface ILocalSortingWrapper { localSorting?: boolean; }
 export interface ILocationWrapper<TValue> { location?: TValue; }
 export interface ILockPageWrapper<TValue = boolean> { lockPage?: TValue; }
 export interface ILockWrapper { lock?: boolean; }
@@ -447,11 +453,11 @@ export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbol
 export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
 export interface IRowNumWrapper { rowNum?: number; }
-export interface IRowWrapper<TRow = boolean> { row?: TRow; }
-export interface IScaleWrapper<TScale = number> { scale?: TScale; }
+export interface IRowWrapper<TValue = boolean> { row?: TValue; }
+export interface IScaleWrapper<TValue = number> { scale?: TValue; }
 export interface IScrollableWrapper { scrollable?: boolean; }
 export interface ISectionNameWrapper { sectionName?: string; }
-export interface ISectionWrapper<TSection = string> { section?: TSection; }
+export interface ISectionWrapper<TValue = string> { section?: TValue; }
 export interface ISelectableWrapper<TValue = boolean> { selectable?: TValue; }
 export interface ISelectedDaysWrapper<TValue> { selectedDays?: TValue; }
 export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
@@ -476,6 +482,7 @@ export interface IStreetNumberWrapper<TValue = string> { streetNumber?: TValue; 
 export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
 export interface IStrictWrapper { strict?: boolean; }
 export interface IStyleWrapper<TStyle> { style?: TStyle; }
+export interface ISubHeaderConfigurationWrapper<TValue> { subHeaderConfiguration?: TValue; }
 export interface ISubHeaderRenderedWrapper { subHeaderRendered?: boolean; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TValue = string> { submitIcon?: TValue; }
@@ -821,13 +828,6 @@ export interface ISimpleWrapper<TSimple = boolean> {
 }
 
 /**
- * @stable [02.06.2018]
- */
-export interface IEmptyDataMessageWrapper<TEmptyDataMessage = string> {
-  emptyDataMessage?: TEmptyDataMessage;
-}
-
-/**
  * @stable [07.06.2018]
  */
 export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends ITplWrapper<(item: TItem) => TResult> {
@@ -991,11 +991,6 @@ export interface IFilterFormWrapper<TFilterForm> {
  */
 export interface IAfterShowWrapper<TAfterShow = () => void> {
   afterShow?: TAfterShow;
-}
-
-/* @stable - 31.03.2018 */
-export interface IOnCreateWrapper<TOnCreate = () => void> {
-  onCreate?: TOnCreate;
 }
 
 /**

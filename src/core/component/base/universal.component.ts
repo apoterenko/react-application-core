@@ -16,6 +16,7 @@ import {
   getEventManager,
   getFieldConverter,
   getNumberConverter,
+  getPhoneConverter,
   getPlaceApi,
   getSettings,
   getTranslator,
@@ -38,6 +39,7 @@ import {
   IEventEmitter,
   IEventManager,
   IFieldConverter,
+  IPhoneConverter,
   IPlaceApi,
   IRoutesEntity,
   IStorage,
@@ -234,6 +236,15 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get nc(): INumberConverter {
     return getNumberConverter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [04.03.2020]
+   * @returns {IPhoneConverter}
+   */
+  protected get pc(): IPhoneConverter {
+    return getPhoneConverter();
   }
 
   /**

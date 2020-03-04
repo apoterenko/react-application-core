@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  GroupValueRendererT,
   IFieldProps,
 } from '../../configurations-definitions.interface';
 import {
@@ -20,7 +19,6 @@ import {
   isHeaderRendered,
   isHighlightOdd,
   isHovered,
-  isSelectable,
   joinClassName,
   orNull,
   orUndef,
@@ -37,6 +35,7 @@ import {
 import { GridRow } from './row';
 import { IGridState } from './grid.interface';
 import {
+  GroupValueRendererT,
   IFieldChangeEntity,
   IGridColumnProps,
   IGridProps,
@@ -326,7 +325,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         odd={highlightOdd}
         hovered={isHovered(props)}
         selected={this.isEntitySelected(entity)}
-        selectable={isSelectable(props)}
+        selectable={props.selectable}
         entity={entity}
         partOfGroup={isPartOfGroup}
         onClick={props.onSelect}
