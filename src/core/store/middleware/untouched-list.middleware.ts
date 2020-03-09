@@ -15,7 +15,7 @@ export const makeUntouchedListMiddleware = <TApplicationState>(config: IUntouche
     orNull<IEffectsAction>(
       !(isFn(config.listAccessor)
         ? config.listAccessor(state).touched
-        : config.resolver(state).list.touched), // Deprecated
+        : config.resolver(state).list.touched), // TODO Deprecated
       () => ListActionBuilder.buildLoadAction(config.listSection)
     );
 

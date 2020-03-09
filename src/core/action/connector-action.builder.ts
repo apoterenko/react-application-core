@@ -4,9 +4,10 @@ import {
 } from 'redux-effects-promise';
 
 import {
-  $RAC_CONNECTED_CONTAINER_INIT_ACTION_TYPE,
   $RAC_CONNECTED_CONTAINER_DESTROY_ACTION_TYPE,
-} from '../definition/index';
+  $RAC_CONNECTED_CONTAINER_INIT_ACTION_TYPE,
+} from '../definition';
+import { applySection } from '../util';
 
 export class ConnectorActionBuilder {
 
@@ -16,7 +17,7 @@ export class ConnectorActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildInitPlainAction(section: string): IEffectsAction {
-    return {type: this.buildInitActionType(section)};
+    return {type: this.buildInitActionType(section), data: applySection(section)};
   }
 
   /**
