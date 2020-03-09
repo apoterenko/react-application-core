@@ -9,6 +9,7 @@ import {
   getDynamicRoutes,
   getEnvironment,
   getEventManager,
+  getFieldConverter,
   getNumberConverter,
   getPermissionsManager,
   getPhoneConverter,
@@ -29,6 +30,7 @@ import {
   IDomAccessor,
   IEnvironment,
   IEventManager,
+  IFieldConverter,
   INavigateEntity,
   IOperationEntity,
   IPermissionsManager,
@@ -209,6 +211,15 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get dc(): IDateConverter {
     return getDateConverter();
+  }
+
+  /**
+   * @react-native-compatible
+   * @stable [07.10.2019]
+   * @returns {IFieldConverter}
+   */
+  protected get fieldConverter(): IFieldConverter {
+    return getFieldConverter();
   }
 
   /**

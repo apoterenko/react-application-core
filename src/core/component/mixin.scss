@@ -4501,7 +4501,9 @@
   $rac-calendar-dialog-range-explorer-date-color: unset,                                  /* @stable [13.01.2020] */
   $rac-calendar-dialog-range-explorer-date-content-next-margin: unset,                    /* @stable [21.01.2020] */
   $rac-calendar-dialog-range-explorer-date-font-size: unset,                              /* @stable [13.01.2020] */
-  $rac-calendar-dialog-second-calendar-margin: unset                                      /* @stable [20.01.2020] */
+  $rac-calendar-dialog-second-calendar-margin: unset,                                     /* @stable [20.01.2020] */
+  $rac-calendar-dialog-selected-quick-action-background: unset,                           /* @stable [08.03.2020] */
+  $rac-calendar-dialog-selected-quick-action-content-color: unset                         /* @stable [08.03.2020] */
 ) {
   #{rac-cls($rac-calendar-dialog-cls, $rac-calendar-dialog-custom)} {
     .rac-calendar-dialog__range-explorer {
@@ -4572,6 +4574,12 @@
 
       @include rac-neighbor-child (
         $rac-neighbor-child-margin: $rac-calendar-dialog-quick-button-neighbor-margin
+      );
+
+      @include rac-button (
+        $rac-button-custom: rac-calendar-dialog__selected-quick-action,
+        $rac-button-background: $rac-calendar-dialog-selected-quick-action-background,
+        $rac-button-content-color: $rac-calendar-dialog-selected-quick-action-content-color
       );
     }
 

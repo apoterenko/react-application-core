@@ -216,6 +216,15 @@
 
   /**
    * @styling
+   * @stable [08.03.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-overflow-hidden,
+    $rac-styles-overflow: hidden
+  );
+
+  /**
+   * @styling
    * @stable [04.01.2020]
    */
   @include rac-styles (
