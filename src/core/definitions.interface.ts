@@ -58,6 +58,7 @@ export interface IAddApiWrapper { addApi?: string; }
 export interface IAddedFilesWrapper<TValue> { addedFiles?: TValue; }
 export interface IAddWrapper<TValue> { add?: TValue; }
 export interface IAfterEnterWrapper<TValue> { afterEnter?: TValue; }
+export interface IAheadValueWrapper<TValue> { aheadValue?: TValue; }
 export interface IAliasWrapper<TValue = string> { alias?: TValue; }
 export interface IAlignWrapper<TValue = string> { align?: TValue; }
 export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean; }
@@ -264,6 +265,7 @@ export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }
 export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsFirstSelectedWrapper<TValue> { isFirstSelected?(payload?: TValue): boolean; }
 export interface IIsLastSelectedWrapper<TValue> { isLastSelected?(payload?: TValue): boolean; }
+export interface IIsMiddleSelectedWrapper<TValue> { isMiddleSelected?(payload?: TValue): boolean; }
 export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }
@@ -389,6 +391,7 @@ export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IPatternWrapper<TValue = string> { pattern?: TValue; }
 export interface IPayloadWrapper<TValue = {}> { payload?: TValue; }
 export interface IPerfectScrollWrapper<TValue> { perfectScroll?: TValue; }
+export interface IPeriodModeWrapper<TValue> { periodMode?: TValue; }
 export interface IPeriodWrapper<TValue = AnyT> { period?: TValue; }
 export interface IPermissionsWrapper<TValue> { permissions?: TValue; }
 export interface IPlaceActionRenderedWrapper { placeActionRendered?: boolean; }

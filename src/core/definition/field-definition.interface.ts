@@ -9,6 +9,7 @@ import {
   EntityIdT,
   IActionsPosition,
   IActionsWrapper,
+  IAheadValueWrapper,
   IAllowEmptyFilterValueWrapper,
   IAnchoredWrapper,
   IAutoCompleteWrapper,
@@ -16,7 +17,6 @@ import {
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   IClassNameWrapper,
-  ICurrentWrapper,
   ICursorWrapper,
   IDefaultValueWrapper,
   IDelayTimeoutWrapper,
@@ -35,6 +35,7 @@ import {
   IForceReloadWrapper,
   IForceUseLocalFilterWrapper,
   IFormatWrapper,
+  IFromDateWrapper,
   IFromToEntity,
   IFullWrapper,
   IHeaderFormatWrapper,
@@ -47,12 +48,12 @@ import {
   IMenuRenderedWrapper,
   IMinDateWrapper,
   INameWrapper,
-  INextWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
   IOptionsWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
+  IPeriodModeWrapper,
   IPlaceholderWrapper,
   IPlainValueWrapper,
   IPreventFocusWrapper,
@@ -67,18 +68,23 @@ import {
   ISyntheticCursorWrapper,
   ITabIndexWrapper,
   ITitleWrapper,
+  IToDateWrapper,
   ITypeWrapper,
   IUseKeyboardWrapper,
   IValueWrapper,
   IVisibleWrapper,
   IWaitingForOptionsWrapper,
-  IYearWrapper,
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
 import { ICalendarConfigurationEntity } from './calendar-definition.interface';
-import { ICalendarEntityConfigurationEntity } from './date-definition.interface';
+import {
+  DatePeriodsEnum,
+  DatesRangeValueT,
+  DateTimeLikeTypeT,
+  ICalendarEntityConfigurationEntity,
+} from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IDialogConfigurationEntity } from './dialog-definition.interface';
@@ -266,6 +272,11 @@ export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEnti
 });
 
 /**
+ * @stable [06.03.2020]
+ */
+export type DateFieldRangeValueT = DatesRangeValueT | DateTimeLikeTypeT;
+
+/**
  * @generic-entity
  * @stable [07.01.2020]
  */
@@ -274,6 +285,7 @@ export interface IGenericDateFieldEntity
     ICalendarConfigurationEntity,
     ICalendarEntityConfigurationEntity,
     IDialogConfigurationEntity,
+    IAheadValueWrapper<DatesRangeValueT>,
     IFormatWrapper,
     IHeaderFormatWrapper,
     IInlineWrapper,
@@ -287,12 +299,12 @@ export interface IGenericDateFieldEntity
  * @stable [17.01.2020]
  */
 export interface IGenericDateFieldState
-  extends ICurrentWrapper<Date>,
+  extends IFromToEntity<Date>,
     ICursorWrapper<Date>,
     IDialogOpenedWrapper,
-    IFromToEntity<string>,
-    INextWrapper<Date>,
-    IYearWrapper {
+    IFromDateWrapper<DateTimeLikeTypeT>,
+    IPeriodModeWrapper<DatePeriodsEnum>,
+    IToDateWrapper<DateTimeLikeTypeT> {
 }
 
 /**

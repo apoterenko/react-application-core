@@ -21,6 +21,7 @@ import {
   INextWrapper,
   IOutputFormatWrapper,
   IOutputTimeFormatWrapper,
+  IPeriodModeWrapper,
   IPreviousWrapper,
   IStrictWrapper,
   ITimeWrapper,
@@ -37,6 +38,18 @@ import {
  */
 export type DateTimeLikeTypeT = string | Date;
 export type MomentT = moment.Moment;
+
+/**
+ * @stable [06.03.2020]
+ */
+export enum DatePeriodsEnum {
+  CUSTOM,
+  DAY,
+  MONTH,
+  QUARTER,
+  WEEK,
+  YEAR,
+}
 
 // TODO ?
 export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
@@ -69,10 +82,24 @@ export interface IDateTimeConfigEntity<TDate = Date>
 }
 
 /**
+ * @stable [07.03.2020]
+ */
+export type DatesRangeValueT = Array<DateTimeLikeTypeT | DatePeriodsEnum>;
+
+/**
+ * @entity
+ * @stable [07.03.2020]
+ */
+export interface IDatesRangeEntity
+  extends IFromToEntity<DateTimeLikeTypeT>,
+    IPeriodModeWrapper<DatePeriodsEnum> {
+}
+
+/**
  * @config-entity
  * @stable [21.01.2020]
  */
-export interface IDateRangeConfigEntity
+export interface IMinMaxDatesRangeConfigEntity
   extends IDateWrapper<Date>,
     IMaxDateWrapper<Date>,
     IMinDateWrapper<Date> {
