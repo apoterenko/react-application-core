@@ -228,12 +228,12 @@ export const isFocused = (wrapper: IFocusedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.focused === true, false);
 
 /**
- * @stable [20.01.2020]
+ * @stable [06.03.2020]
  * @param {IRangeEnabledWrapper} wrapper
  * @returns {boolean}
  */
 export const isRangeEnabled = (wrapper: IRangeEnabledWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.rangeEnabled === true, false);
+  R.isNil(wrapper) ? false : wrapper.rangeEnabled === true;
 
 /**
  * @stable [26.10.2019]

@@ -40,7 +40,6 @@ import {
   EntityIdT,
   FIRST_PAGE,
   IActionsDisabledWrapper,
-  IDataWrapper,
   IDisabledWrapper,
   IEntity,
   IEntityIdTWrapper,
@@ -82,6 +81,8 @@ import {
   isReady,
 } from './wrapper';
 import {
+  selectChanges,
+  selectData,
   selectForm,
   selectToken,
 } from './select';
@@ -142,14 +143,6 @@ export const selectError =
 export const selectEditableEntity =
   <TEntity extends IEntity = IEntity>(wrapper: IFormExtendedEditableEntity<TEntity>): IEditableEntity<TEntity> =>
     selectForm(wrapper);
-
-/**
- * @stable [04.09.2019]
- * @param {IEditableEntity} entity
- * @returns {TResult}
- */
-export const selectChanges = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
-  R.isNil(entity) ? UNDEF : entity.changes;
 
 /**
  * @stable [20.12.2019]
@@ -299,13 +292,6 @@ export const selectPreventEffectsFromAction = (action: IEffectsAction): boolean 
   () => coalesce(selectPreventEffects(action.data), selectPreventEffects(action.initialData), UNDEF),
   UNDEF_SYMBOL
 );
-
-/**
- * @stable [28.01.2020]
- * @param {IDataWrapper<TData>} wrapper
- * @returns {TData}
- */
-export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData => R.isNil(wrapper) ? UNDEF : wrapper.data;
 
 /**
  * @stable [20.02.2020]
