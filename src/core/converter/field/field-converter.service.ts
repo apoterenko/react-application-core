@@ -6,8 +6,12 @@ import {
 } from 'ts-smart-logger';
 
 import {
+  DatePeriodsEnum,
+  DatesRangeValueT,
+  DateTimeLikeTypeT,
   FIELD_DISPLAY_EMPTY_VALUE,
   FieldConverterTypesEnum,
+  IDatesRangeEntity,
   IFieldConverter,
   IFieldConverterConfigEntity,
   IPhoneConfigEntity,
@@ -21,6 +25,7 @@ import {
   isPrimitive,
   join,
   notEmptyValuesArrayFilter,
+  notNilValuesArrayFilter,
 } from '../../util';
 import {
   AnyT,
@@ -77,6 +82,16 @@ export class FieldConverter implements IFieldConverter {
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
       to: FieldConverterTypesEnum.ID,
       converter: this.selectOptionEntityAsId,
+    });
+    this.register({
+      from: FieldConverterTypesEnum.DATES_RANGE_ENTITY,
+      to: FieldConverterTypesEnum.DATES_RANGE_VALUE,
+      converter: this.datesRangeEntityAsDatesRangeValue,
+    });
+    this.register({
+      from: FieldConverterTypesEnum.DATES_RANGE_VALUE,
+      to: FieldConverterTypesEnum.DATES_RANGE_ENTITY,
+      converter: this.datesRangeValueAsDatesRangeEntity,
     });
   }
 
@@ -188,6 +203,38 @@ export class FieldConverter implements IFieldConverter {
     }
     const optionAsObject = option as ISelectOptionEntity;
     return optionAsObject.value;
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDatesRangeEntity} entity
+   * @returns {DatesRangeValueT}
+   */
+  protected datesRangeEntityAsDatesRangeValue(entity: IDatesRangeEntity): DatesRangeValueT {
+    if (R.isNil(entity)) {
+      return entity;
+    }
+    return notNilValuesArrayFilter<DateTimeLikeTypeT | DatePeriodsEnum>(
+      entity.from,
+      entity.to,
+      entity.periodMode
+    );
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {DatesRangeValueT} value
+   * @returns {IDatesRangeEntity}
+   */
+  protected datesRangeValueAsDatesRangeEntity(value: DatesRangeValueT): IDatesRangeEntity {
+    if (R.isNil(value)) {
+      return value;
+    }
+    return {
+      from: value[0] as DateTimeLikeTypeT,
+      to: value[1] as DateTimeLikeTypeT,
+      periodMode: value[2] as DatePeriodsEnum,
+    };
   }
 
   /**
