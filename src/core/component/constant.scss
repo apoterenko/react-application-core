@@ -265,6 +265,7 @@ $rac-calendar-dialog-footer-action-height: 32px !default;
 $rac-calendar-dialog-footer-action-margin: 0 0 0 $rac-offset-3 !default;
 $rac-calendar-dialog-footer-display: flex !default;
 $rac-calendar-dialog-footer-input-self-field-background: $rac-color-0-1 !default;
+$rac-calendar-dialog-footer-input-width: 128px !default;
 $rac-calendar-dialog-footer-justify-content: center !default;
 $rac-calendar-dialog-footer-self-field-height: unset !default;
 $rac-calendar-dialog-range-button-mini-background: $rac-color-0-9 !default;
@@ -730,8 +731,6 @@ $rac-date-field-calendar-base-dialog-range-explorer-date-justify-content: center
 $rac-date-field-calendar-dialog-body-height: 342px !default;
 $rac-date-field-calendar-dialog-body-width: 304px !default;
 $rac-date-field-calendar-dialog-footer-action-width: 72px !default;
-$rac-date-field-calendar-dialog-footer-input-self-field-input-text-align: center !default;
-$rac-date-field-calendar-dialog-footer-input-width: 72px !default;
 /**/
 $rac-date-field-calendars-dialog-body-height: 400px !default;
 $rac-date-field-calendars-dialog-body-width: 608px !default;
@@ -742,7 +741,6 @@ $rac-date-field-calendars-dialog-calendar-selected-day-width: 100% !default;
 $rac-date-field-calendars-dialog-calendars-wrapper-display: flex !default;
 $rac-date-field-calendars-dialog-calendars-wrapper-flex: 1 !default;
 $rac-date-field-calendars-dialog-footer-action-width: 72px !default;
-$rac-date-field-calendars-dialog-footer-input-width: 128px !default;
 $rac-date-field-calendars-dialog-quick-button-background: $rac-color-0-9 !default;
 $rac-date-field-calendars-dialog-quick-button-content-color: $rac-color-0-1 !default;
 $rac-date-field-calendars-dialog-quick-button-height: 32px !default;
@@ -751,6 +749,8 @@ $rac-date-field-calendars-dialog-quick-buttons-display: flex !default;
 $rac-date-field-calendars-dialog-quick-buttons-margin: 0 0 $rac-offset-3 0 !default;
 $rac-date-field-calendars-dialog-range-explorer-date-content-next-margin: 0 0 0 $rac-button-size-0 * 2 + $rac-offset-4 !default;
 $rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-offset-4 !default;
+$rac-date-field-calendars-selected-quick-action-background: $rac-color-2-3 !default;
+$rac-date-field-calendars-selected-quick-action-content-color: $rac-color-1-3 !default;
 /**/
 $rac-place-field-dialog-body-height: 80vh !default;
 $rac-place-field-dialog-body-min-width: 90vh !default;

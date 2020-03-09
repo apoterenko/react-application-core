@@ -54,6 +54,7 @@
     $rac-calendar-dialog-footer-action-margin: $rac-calendar-dialog-footer-action-margin,
     $rac-calendar-dialog-footer-display: $rac-calendar-dialog-footer-display,
     $rac-calendar-dialog-footer-input-self-field-background: $rac-calendar-dialog-footer-input-self-field-background,
+    $rac-calendar-dialog-footer-input-width: $rac-calendar-dialog-footer-input-width,
     $rac-calendar-dialog-footer-justify-content: $rac-calendar-dialog-footer-justify-content,
     $rac-calendar-dialog-footer-self-field-height: $rac-calendar-dialog-footer-self-field-height,
     $rac-calendar-dialog-range-explorer-button-mini-background: $rac-calendar-dialog-range-button-mini-background,
@@ -71,9 +72,7 @@
     $rac-calendar-dialog-custom: rac-date-field__calendar-dialog,
     $rac-calendar-dialog-body-height: $rac-date-field-calendar-dialog-body-height,
     $rac-calendar-dialog-body-width: $rac-date-field-calendar-dialog-body-width,
-    $rac-calendar-dialog-footer-action-width: $rac-date-field-calendar-dialog-footer-action-width,
-    $rac-calendar-dialog-footer-input-self-field-input-text-align: $rac-date-field-calendar-dialog-footer-input-self-field-input-text-align,
-    $rac-calendar-dialog-footer-input-width: $rac-date-field-calendar-dialog-footer-input-width
+    $rac-calendar-dialog-footer-action-width: $rac-date-field-calendar-dialog-footer-action-width
   );
 
   /**
@@ -91,7 +90,6 @@
     $rac-calendar-dialog-calendars-wrapper-display: $rac-date-field-calendars-dialog-calendars-wrapper-display,
     $rac-calendar-dialog-calendars-wrapper-flex: $rac-date-field-calendars-dialog-calendars-wrapper-flex,
     $rac-calendar-dialog-footer-action-width: $rac-date-field-calendars-dialog-footer-action-width,
-    $rac-calendar-dialog-footer-input-width: $rac-date-field-calendars-dialog-footer-input-width,
     $rac-calendar-dialog-quick-button-background: $rac-date-field-calendars-dialog-quick-button-background,
     $rac-calendar-dialog-quick-button-content-color: $rac-date-field-calendars-dialog-quick-button-content-color,
     $rac-calendar-dialog-quick-button-height: $rac-date-field-calendars-dialog-quick-button-height,
@@ -99,6 +97,8 @@
     $rac-calendar-dialog-quick-buttons-display: $rac-date-field-calendars-dialog-quick-buttons-display,
     $rac-calendar-dialog-quick-buttons-margin: $rac-date-field-calendars-dialog-quick-buttons-margin,
     $rac-calendar-dialog-range-explorer-date-content-next-margin: $rac-date-field-calendars-dialog-range-explorer-date-content-next-margin,
-    $rac-calendar-dialog-second-calendar-margin: $rac-date-field-calendars-dialog-second-calendar-margin
+    $rac-calendar-dialog-second-calendar-margin: $rac-date-field-calendars-dialog-second-calendar-margin,
+    $rac-calendar-dialog-selected-quick-action-background: $rac-date-field-calendars-selected-quick-action-background,
+    $rac-calendar-dialog-selected-quick-action-content-color: $rac-date-field-calendars-selected-quick-action-content-color
   );
 }

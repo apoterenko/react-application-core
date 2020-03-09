@@ -3,31 +3,42 @@ import * as R from 'ramda';
 
 import {
   calc,
+  defValuesFilter,
   ifNotEmptyThanValue,
   ifNotNilThanValue,
   isCalendarActionRendered,
   isDef,
   isInline,
+  isObjectNotEmpty,
   isRangeEnabled,
+  isUndef,
   joinClassName,
-  notEmptyValuesArrayFilter,
   notNilValuesFilter,
   nvl,
+  objectValuesArrayFilter,
   orNull,
 } from '../../../util';
 import {
   AnyT,
-  EntityIdT,
+  StringNumberT,
   UNDEF,
+  UniCodesEnum,
 } from '../../../definitions.interface';
 import {
+  CalendarDialogClassesEnum,
+  ComponentClassesEnum,
+  DateFieldRangeValueT,
+  DatePeriodsEnum,
+  DatesRangeValueT,
   DateTimeLikeTypeT,
   FIELD_DISPLAY_EMPTY_VALUE,
   FieldActionTypesEnum,
+  FieldConverterTypesEnum,
   IBaseEvent,
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarProps,
+  IDatesRangeEntity,
   IDateTimeSettingsEntity,
   IFromToDayOfYearEntity,
 } from '../../../definition';
@@ -39,7 +50,6 @@ import { BaseTextField } from '../text-field';
 import { Button } from '../../button';
 import { Calendar } from '../../calendar';
 import { Dialog } from '../../dialog';
-import { NumberField } from '../numberfield';
 
 export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
                        TState extends IDateFieldState = IDateFieldState>
@@ -59,7 +69,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   };
 
   private readonly dialogRef = React.createRef<Dialog>();
-  private readonly yearRef = React.createRef<NumberField>();
+  private readonly fromDateRef = React.createRef<DateField<AnyT>>();
 
   /**
    * @stable [07.01.2020]
@@ -69,18 +79,20 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     super(props);
 
     this.isDaySelected = this.isDaySelected.bind(this);
-    this.isFirstSelectedDay = this.isFirstSelectedDay.bind(this);
-    this.isLastSelectedDay = this.isLastSelectedDay.bind(this);
+    this.isFirstDaySelected = this.isFirstDaySelected.bind(this);
+    this.isLastDaySelected = this.isLastDaySelected.bind(this);
+    this.isMiddleDaySelected = this.isMiddleDaySelected.bind(this);
     this.onAccept = this.onAccept.bind(this);
-    this.onChangeYear = this.onChangeYear.bind(this);
     this.onDaySelect = this.onDaySelect.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
-    this.onRangeFromChange = this.onRangeFromChange.bind(this);
-    this.onRangeToChange = this.onRangeToChange.bind(this);
+    this.onFromDateFieldChange = this.onFromDateFieldChange.bind(this);
+    this.onSetCustom = this.onSetCustom.bind(this);
+    this.onSetDay = this.onSetDay.bind(this);
     this.onSetMonth = this.onSetMonth.bind(this);
     this.onSetQuarter = this.onSetQuarter.bind(this);
     this.onSetWeek = this.onSetWeek.bind(this);
     this.onSetYear = this.onSetYear.bind(this);
+    this.onToDateFieldChange = this.onToDateFieldChange.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.setNextMonth = this.setNextMonth.bind(this);
     this.setPreviousMonth = this.setPreviousMonth.bind(this);
@@ -96,13 +108,21 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [20.01.2020]
-   * @param {DateTimeLikeTypeT[] | DateTimeLikeTypeT | AnyT} currentRawValue
+   * @stable [07.03.2020]
+   * @param {IDatesRangeEntity | DateTimeLikeTypeT | AnyT} currentRawValue
    */
-  public onChangeManually(currentRawValue: DateTimeLikeTypeT[] | DateTimeLikeTypeT | AnyT): void {
+  public onChangeManually(currentRawValue: IDatesRangeEntity | DateTimeLikeTypeT | AnyT): void {
+    const rangeEntity: IDatesRangeEntity = currentRawValue;
+
     super.onChangeManually(
       this.isRangeEnabled
-        ? notEmptyValuesArrayFilter(this.serializeValue(currentRawValue[0]), this.serializeValue(currentRawValue[1]))
+        ? (
+          this.fromDatesRangeEntity({
+            ...rangeEntity,
+            from: this.serializeValue(rangeEntity.from),
+            to: this.serializeValue(nvl(rangeEntity.to, rangeEntity.from)),
+          })
+        )
         : this.serializeValue(currentRawValue)
     );
   }
@@ -118,8 +138,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     const className = joinClassName(
       !this.isInline && calc(dialogConfiguration.className),
-      'rac-calendar-base-dialog',
-      this.isInline ? 'rac-calendar-inline-dialog' : 'rac-calendar-dialog',
+      ComponentClassesEnum.CALENDAR_BASE_DIALOG,
+      this.isInline
+        ? ComponentClassesEnum.CALENDAR_INLINE_DIALOG
+        : ComponentClassesEnum.CALENDAR_DIALOG,
       this.isRangeEnabled ? 'rac-date-field__calendars-dialog' : 'rac-date-field__calendar-dialog'
     );
 
@@ -149,15 +171,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [20.01.2020]
-   * @returns {EntityIdT[] | string}
+   * @stable [07.03.2020]
+   * @returns {StringNumberT[] | string}
    */
-  protected get originalEmptyValue(): EntityIdT[] | string {
+  protected get originalEmptyValue(): StringNumberT[] | string {
     return this.isRangeEnabled ? [] : FIELD_DISPLAY_EMPTY_VALUE;
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [07.03.2020]
    * @param {IBaseEvent} event
    */
   protected onClick(event: IBaseEvent): void {
@@ -169,48 +191,46 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [07.01.2019]
-   * @param {AnyT} value
+   * @stable [07.03.2020]
+   * @param {DateFieldRangeValueT} value
    * @returns {string}
    */
-  protected decorateDisplayValue(value: DateTimeLikeTypeT): string {
-    return this.isRangeEnabled
-      ? `${this.serializeValue(value[0])} - ${this.serializeValue(value[1])}`
-      : this.serializeValue(value);
+  protected decorateDisplayValue(value: DateFieldRangeValueT): string {
+    if (this.isRangeEnabled) {
+      const dateRangeEntity = this.fromDatesRangeValue(value as DatesRangeValueT);
+      return R.isNil(dateRangeEntity)
+        ? FIELD_DISPLAY_EMPTY_VALUE
+        : this.getDecoratedRangeDisplayValue(dateRangeEntity);
+    }
+    return this.serializeValue(value as DateTimeLikeTypeT);
   }
 
   /**
-   * @stable [02.05.2019]
+   * @stable [09.03.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-date-field');
+    return joinClassName(super.getFieldClassName(), ComponentClassesEnum.DATE_FIELD);
   }
 
   /**
-   * @stable [07.01.2020]
+   * @stable [09.03.2020]
    * @returns {string}
    */
   protected getFieldPattern(): string {
-    return orNull(
-      !this.isDisplayValueDefined && !this.isRangeEnabled,
-      () => super.getFieldPattern() || this.dateTimeSettings.uiDatePattern
-    );
+    return orNull(this.isFieldMaskNeeded, () => super.getFieldPattern() || this.dateTimeSettings.uiDatePattern);
   }
 
   /**
-   * @stable [07.01.2020]
+   * @stable [09.03.2020]
    * @returns {Array<string | RegExp>}
    */
   protected getFieldMask(): Array<string|RegExp> {
-    return orNull(
-      !this.isDisplayValueDefined && !this.isRangeEnabled,
-      () => super.getFieldMask() || this.dateTimeSettings.uiDateMask
-    );
+    return orNull(this.isFieldMaskNeeded, () => super.getFieldMask() || this.dateTimeSettings.uiDateMask);
   }
 
   /**
-   * @stable [07.01.2020]
+   * @stable [09.03.2020]
    * @returns {string}
    */
   protected get fieldFormat(): string {
@@ -222,7 +242,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {JSX.Element}
    */
   private get calendarAttachmentElement(): JSX.Element {
-    const {year} = this.state;
     return (
       <React.Fragment>
         {this.isRangeEnabled && this.quickButtonsElement}
@@ -241,22 +260,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         </div>
         {this.calendarElement}
         <div className='rac-calendar-dialog__footer'>
-          {this.isRangeEnabled && this.rangeFieldsElement}
-          {
-            !this.isRangeEnabled && (
-              <NumberField
-                ref={this.yearRef}
-                value={year}
-                full={false}
-                autoFocus={true}
-                keepChanges={true}
-                errorMessageRendered={false}
-                pattern={this.dateTimeSettings.uiYearPattern}
-                mask={this.dateTimeSettings.uiYearMask}
-                placeholder={this.selectedYearPlaceholder}
-                onChange={this.onChangeYear}/>
-            )
-          }
+          {this.dateFieldsElement}
           {
             !this.isInline && (
               <Button
@@ -310,8 +314,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       showOnlyCurrentDays: true,
       ...this.props.calendarConfiguration as {},
       isSelected: this.isDaySelected,
-      isFirstSelected: this.isFirstSelectedDay,
-      isLastSelected: this.isLastSelectedDay,
+      isMiddleSelected: this.isMiddleDaySelected,
+      isFirstSelected: this.isFirstDaySelected,
+      isLastSelected: this.isLastDaySelected,
       onSelect: this.onDaySelect,
     };
   }
@@ -325,311 +330,518 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       return (
         <React.Fragment>
           <div className='rac-calendar-dialog__range-explorer-date-content'>
-            {this.currentDateToDisplay}
+            {this.currentDateAsDisplayValue}
           </div>
           <div className='rac-calendar-dialog__range-explorer-date-content rac-calendar-dialog__range-explorer-date-content-next'>
-            {this.nextDateToDisplay}
+            {this.nextDateAsDisplayValue}
           </div>
         </React.Fragment>
       );
     }
-    return this.currentDateToDisplay;
+    return this.currentDateAsDisplayValue;
   }
 
   /**
    * @stable [20.01.2020]
    * @returns {JSX.Element}
    */
-  private get rangeFieldsElement(): JSX.Element {
+  private get dateFieldsElement(): JSX.Element {
     return (
       <React.Fragment>
         <DateField
           {...this.defaultRangeFieldProps}
-          value={this.state.from}
-          onChange={this.onRangeFromChange}/>
-        <span className='rac-calendar-dialog__range-input-separator'>&nbsp;&mdash;&nbsp;</span>
-        <DateField
-          {...this.defaultRangeFieldProps}
-          value={this.state.to}
-          onChange={this.onRangeToChange}/>
+          autoFocus={true}
+          ref={this.fromDateRef}
+          value={this.state.fromDate}
+          onChange={this.onFromDateFieldChange}/>
+        {
+          this.isRangeEnabled
+          && ![this.selectedPeriodMode, this.aheadEntityPeriodMode].includes(DatePeriodsEnum.DAY)
+          && (
+            <React.Fragment>
+              <span className={ComponentClassesEnum.CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR}>&mdash;</span>
+              <DateField
+                {...this.defaultRangeFieldProps}
+                value={this.state.toDate}
+                onChange={this.onToDateFieldChange}/>
+            </React.Fragment>
+          )
+        }
       </React.Fragment>
     );
   }
 
   /**
-   * @stable [21.01.2020]
+   * @stable [07.03.2020]
    * @returns {JSX.Element}
    */
   private get quickButtonsElement(): JSX.Element {
+    const previousPeriodModeEnabled = this.isPreviousPeriodModeEnabled;
+    const selectedPeriodMode = this.selectedPeriodMode;
+    const aheadEntityPeriodMode = this.aheadEntityPeriodMode;
+
+    const buttonsElement = objectValuesArrayFilter(
+      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.DAY) && (
+        <Button
+          key='quick-action-day'
+          full={true}
+          className={
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.DAY && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+          }
+          text={previousPeriodModeEnabled
+            ? this.settings.messages.PREVIOUS_DAY
+            : this.settings.messages.DAY}
+          onClick={this.onSetDay}/>
+      ),
+      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.WEEK) && (
+        <Button
+          key='quick-action-week'
+          full={true}
+          className={
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.WEEK && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+          }
+          text={previousPeriodModeEnabled
+            ? this.settings.messages.PREVIOUS_WEEK
+            : this.settings.messages.WEEK}
+          onClick={this.onSetWeek}/>
+      ),
+      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.MONTH) && (
+        <Button
+          key='quick-action-month'
+          full={true}
+          className={
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.MONTH && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+          }
+          text={previousPeriodModeEnabled
+            ? this.settings.messages.PREVIOUS_MONTH
+            : this.settings.messages.MONTH}
+          onClick={this.onSetMonth}/>
+      ),
+      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.QUARTER) && (
+        <Button
+          key='quick-action-quarter'
+          full={true}
+          className={
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.QUARTER && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+          }
+          text={previousPeriodModeEnabled
+            ? this.settings.messages.PREVIOUS_QUARTER
+            : this.settings.messages.QUARTER}
+          onClick={this.onSetQuarter}/>
+      ),
+      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.YEAR) && (
+        <Button
+          key='quick-action-year'
+          full={true}
+          className={
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.YEAR && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+          }
+          text={previousPeriodModeEnabled
+            ? this.settings.messages.PREVIOUS_YEAR
+            : this.settings.messages.YEAR}
+          onClick={this.onSetYear}/>
+      ),
+      !previousPeriodModeEnabled && (
+        <Button
+          key='quick-action-custom'
+          full={true}
+          className={
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.CUSTOM && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+          }
+          text={this.settings.messages.CUSTOM}
+          onClick={this.onSetCustom}/>
+      )
+    );
+    if (R.isEmpty(buttonsElement)) {
+      return null;
+    }
     return (
       <div className='rac-calendar-dialog__quick-buttons'>
-        <Button
-          full={true}
-          text={this.settings.messages.WEEK}
-          onClick={this.onSetWeek}/>
-        <Button
-          full={true}
-          text={this.settings.messages.MONTH}
-          onClick={this.onSetMonth}/>
-        <Button
-          full={true}
-          text={this.settings.messages.QUARTER}
-          onClick={this.onSetQuarter}/>
-        <Button
-          full={true}
-          text={this.settings.messages.YEAR}
-          onClick={this.onSetYear}/>
+        {buttonsElement}
       </div>
     );
   }
 
   /**
-   * @stable [21.01.2020]
+   * @stable [07.03.2020]
+   */
+  private onSetDay(): void {
+    const currentDate = this.dc.getCurrentDate();
+    if (this.isPreviousPeriodModeEnabled) {
+      const previousDay = this.dc.addDaysAsDate({date: this.aheadEntity.from, duration: -1});
+
+      this.setQuickValue(previousDay, previousDay, DatePeriodsEnum.DAY);
+    } else {
+      this.setQuickValue(currentDate, currentDate, DatePeriodsEnum.DAY);
+    }
+  }
+
+  /**
+   * @stable [07.03.2020]
    */
   private onSetWeek(): void {
-    this.setQuickValue(this.dc.asFirstDayOfWeekAsDate(), this.dc.asDayOfYear());
+    if (this.isPreviousPeriodModeEnabled) {
+      const aheadEntity = this.aheadEntity;
+      const firstDayOfWeekAsDate = this.dc.asFirstDayOfWeekAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
+      const firstDayOfPreviousWeek = this.dc.addWeeksAsDate({date: firstDayOfWeekAsDate, duration: -1});
+
+      this.setQuickValue(
+        firstDayOfPreviousWeek,
+        this.dc.asLastDayOfWeekAsDate({date: firstDayOfPreviousWeek}),
+        DatePeriodsEnum.WEEK
+      );
+    } else {
+      this.setQuickValue(this.dc.asFirstDayOfWeekAsDate(), this.dc.asLastDayOfWeekAsDate(), DatePeriodsEnum.WEEK);
+    }
   }
 
   /**
-   * @stable [21.01.2020]
+   * @stable [07.03.2020]
    */
   private onSetMonth(): void {
-    this.setQuickValue(this.dc.asFirstDayOfMonthAsDate(), this.dc.asDayOfYear());
+    if (this.isPreviousPeriodModeEnabled) {
+      const aheadEntity = this.aheadEntity;
+      const firstDayOfMonthAsDate = this.dc.asFirstDayOfMonthAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
+      const firstDayOfPreviousMonth = this.dc.addMonthsAsDate({date: firstDayOfMonthAsDate, duration: -1});
+
+      this.setQuickValue(
+        firstDayOfPreviousMonth,
+        this.dc.asLastDayOfMonthAsDate({date: firstDayOfPreviousMonth}),
+        DatePeriodsEnum.MONTH
+      );
+    } else {
+      this.setQuickValue(this.dc.asFirstDayOfMonthAsDate(), this.dc.asLastDayOfMonthAsDate(), DatePeriodsEnum.MONTH);
+    }
   }
 
   /**
-   * @stable [21.01.2020]
+   * @stable [08.03.2020]
    */
   private onSetQuarter(): void {
-    this.setQuickValue(this.dc.asFirstDayOfQuarterAsDate(), this.dc.asDayOfYear());
+    if (this.isPreviousPeriodModeEnabled) {
+      const aheadEntity = this.aheadEntity;
+      const firstDayOfQuarterAsDate = this.dc.asFirstDayOfQuarterAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
+      const firstDayOfPreviousQuarter = this.dc.addQuartersAsDate({date: firstDayOfQuarterAsDate, duration: -1});
+
+      this.setQuickValue(
+        firstDayOfPreviousQuarter,
+        this.dc.asLastDayOfQuarterAsDate({date: firstDayOfPreviousQuarter}),
+        DatePeriodsEnum.QUARTER
+      );
+    } else {
+      this.setQuickValue(this.dc.asFirstDayOfQuarterAsDate(), this.dc.asLastDayOfQuarterAsDate(), DatePeriodsEnum.QUARTER);
+    }
   }
 
   /**
-   * @stable [21.01.2020]
+   * @stable [08.03.2020]
    */
   private onSetYear(): void {
-    this.setQuickValue(this.dc.asFirstDayOfYearAsDate(), this.dc.asDayOfYear());
+    if (this.isPreviousPeriodModeEnabled) {
+      const aheadEntity = this.aheadEntity;
+      const firstDayOfYearAsDate = this.dc.asFirstDayOfYearAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
+      const firstDayOfPreviousYear = this.dc.addYearsAsDate({date: firstDayOfYearAsDate, duration: -1});
+
+      this.setQuickValue(
+        firstDayOfPreviousYear,
+        this.dc.asLastDayOfYearAsDate({date: firstDayOfPreviousYear}),
+        DatePeriodsEnum.YEAR
+      );
+    } else {
+      this.setQuickValue(this.dc.asFirstDayOfYearAsDate(), this.dc.asLastDayOfYearAsDate(), DatePeriodsEnum.YEAR);
+    }
   }
 
   /**
-   * @stable [21.01.2020]
-   * @param {Date} current
-   * @param {Date} next
+   * @stable [08.03.2020]
    */
-  private setQuickValue(current: Date, next: Date): void {
+  private onSetCustom(): void {
     this.setState({
-      cursor: next,
-      from: this.serializeValue(current),
-      to: this.serializeValue(next),
-      current,
-      next,
+      cursor: UNDEF,
+      from: null,
+      periodMode: DatePeriodsEnum.CUSTOM,
+      to: null,
     });
   }
 
   /**
-   * @stable [08.01.2020]
+   * @stable [06.03.2020]
+   * @param {Date} from
+   * @param {Date} to
+   * @param {DatePeriodsEnum} periodMode
+   */
+  private setQuickValue(from: Date, to: Date, periodMode: DatePeriodsEnum): void {
+    this.setState({
+      cursor: from,
+      from,
+      periodMode,
+      to,
+    });
+  }
+
+  /**
+   * @stable [07.03.2020]
    */
   private setPreviousMonth(): void {
-    this.changeMonth(-1);
+    this.doChangeMonth(-1);
   }
 
   /**
-   * @stable [08.01.2020]
+   * @stable [07.03.2020]
    */
   private setNextMonth(): void {
-    this.changeMonth(1);
+    this.doChangeMonth(1);
   }
 
   /**
-   * @stable [08.01.2020]
+   * @stable [07.03.2020]
    * @param {number} duration
    */
-  private changeMonth(duration: number): void {
+  private doChangeMonth(duration: number): void {
     this.setState({cursor: this.dc.addMonthsAsDate({date: this.currentCalendarDate, duration})});
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [09.03.2020]
    * @param {string} value
    */
-  private onRangeToChange(value: string): void {
-    const date = this.getValueAsDate(value);
-    this.setState(R.isNil(date) ? {to: value} : {to: value, next: date});
+  private onToDateFieldChange(value: string): void {
+    const to = this.getValueAsDate(value);
+
+    this.setState(
+      R.isNil(to)
+        ? {toDate: value}
+        : ({periodMode: DatePeriodsEnum.CUSTOM, to, toDate: value})
+    );
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [09.03.2020]
    * @param {string} value
    */
-  private onRangeFromChange(value: string): void {
-    const date = this.getValueAsDate(value);
-    this.setState(R.isNil(date) ? {from: value} : {from: value, current: date});
+  private onFromDateFieldChange(value: string): void {
+    const from = this.getValueAsDate(value);
+
+    this.setState(
+      R.isNil(from)
+        ? {fromDate: value}
+        : ({
+          cursor: from,
+          from,
+          fromDate: value,
+          periodMode: DatePeriodsEnum.CUSTOM,
+        })
+    );
   }
 
   /**
-   * @stable [08.01.2020]
-   * @param {number} year
-   */
-  private onChangeYear(year: number): void {
-    const props = this.props;
-    const current = this.dc.fromDayOfYearEntityAsDate({year}, {date: this.dateValueToAccept || this.dc.asDayOfYear()});
-
-    if (this.dc.isDateBelongToDatesRange({date: current, minDate: props.minDate, maxDate: props.maxDate})) {
-      this.setState({cursor: UNDEF, year, current});
-    } else {
-      this.setState({cursor: UNDEF, year});
-    }
-  }
-
-  /**
-   * @stable [17.01.2020]
+   * @stable [08.03.2020]
    */
   private onAccept(): void {
-    const valueToAccept = this.isRangeEnabled ? this.rangeValueToAccept : this.dateValueToAccept;
-    this.onDialogClose(() => {
-      ifNotNilThanValue(valueToAccept, () => this.onChangeManually(valueToAccept));
+    const acceptedValue = this.isRangeEnabled ? this.acceptedDatesRangeEntity : this.acceptedDateValue;
 
-      if (!this.isFocusPrevented) {
-        this.setFocus();
-      }
+    this.onDialogClose(() => {
+      ifNotEmptyThanValue(acceptedValue, () => this.onChangeManually(acceptedValue));
+      this.setFocus();
     });
   }
 
   /**
-   * @stable [17.01.2020]
+   * @stable [09.03.2020]
    * @param {ICalendarDayEntity} calendarDayEntity
    */
   private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
+    let updatedState: IDateFieldState;
+
     if (this.isRangeEnabled) {
-      this.onRangeDaySelect(calendarDayEntity);
-    } else {
-      this.setState({
+      const periodMode = this.isPreviousPeriodModeEnabled
+        ? this.aheadEntityPeriodMode
+        : this.selectedPeriodMode;
+
+      let rangeValues: IDateFieldState = {};
+      const result = this.dc.selectDaysOfYearRange(this.currentFromToDayOfYearEntity, calendarDayEntity);
+      const rangeValuesFrom = ifNotEmptyThanValue(result.from, (from) => ({from: this.dc.fromDayOfYearEntityAsDate(from)}));
+
+      switch (periodMode) {
+        case DatePeriodsEnum.WEEK:
+        case DatePeriodsEnum.MONTH:
+        case DatePeriodsEnum.QUARTER:
+        case DatePeriodsEnum.YEAR:
+          ifNotEmptyThanValue(
+            rangeValuesFrom.from,
+            (from) => {
+              switch (periodMode) {
+                case DatePeriodsEnum.WEEK:
+                  rangeValues = {
+                    from: this.dc.asFirstDayOfWeekAsDate({date: from}),
+                    to: this.dc.asLastDayOfWeekAsDate({date: from}),
+                  };
+                  break;
+                case DatePeriodsEnum.MONTH:
+                  rangeValues = {
+                    from: this.dc.asFirstDayOfMonthAsDate({date: from}),
+                    to: this.dc.asLastDayOfMonthAsDate({date: from}),
+                  };
+                  break;
+                case DatePeriodsEnum.QUARTER:
+                  rangeValues = {
+                    from: this.dc.asFirstDayOfQuarterAsDate({date: from}),
+                    to: this.dc.asLastDayOfQuarterAsDate({date: from}),
+                  };
+                  break;
+                case DatePeriodsEnum.YEAR:
+                  rangeValues = {
+                    from: this.dc.asFirstDayOfYearAsDate({date: from}),
+                    to: this.dc.asLastDayOfYearAsDate({date: from}),
+                  };
+                  break;
+              }
+            }
+          );
+          break;
+        case DatePeriodsEnum.DAY:
+        case DatePeriodsEnum.CUSTOM:
+          rangeValues = {
+            ...rangeValuesFrom,
+            ...ifNotEmptyThanValue(result.to, (to) => ({to: this.dc.fromDayOfYearEntityAsDate(to)})),
+          };
+          break;
+      }
+
+      updatedState = {
         cursor: UNDEF,
-        year: calendarDayEntity.year,
-        current: calendarDayEntity.date,
-      }, () => this.yearRef.current.setFocus());
+        from: null,
+        fromDate: UNDEF,
+        to: null,
+        toDate: UNDEF,
+        ...rangeValues,
+        ...(
+          this.isPreviousPeriodModeEnabled ? {periodMode: null} : {periodMode}
+        ),
+      };
+    } else {
+      updatedState = {
+        cursor: UNDEF,
+        from: calendarDayEntity.date,
+        fromDate: UNDEF,
+      };
     }
+    this.setState(updatedState, () => this.fromDateRef.current.setFocus());
   }
 
   /**
-   * @stable [20.01.2020]
-   * @param {ICalendarDayEntity} calendarDayEntity
-   */
-  private onRangeDaySelect(calendarDayEntity: ICalendarDayEntity): void {
-    const result = this.dc.selectDaysOfYearRange(this.currentFromToDayOfYearEntity, calendarDayEntity);
-    this.setState({
-      current: null,
-      next: null,
-      ...ifNotEmptyThanValue(result.from, (from) => ({current: this.dc.fromDayOfYearEntityAsDate(from)})),
-      ...ifNotEmptyThanValue(result.to, (to) => ({next: this.dc.fromDayOfYearEntityAsDate(to)})),
-    });
-  }
-
-  /**
-   * @stable [09.01.2020]
+   * @stable [08.03.2020]
    */
   private onDialogDeactivate(): void {
     this.onDialogClose();
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [08.03.2020]
    * @param {() => void} callback
    */
   private onDialogClose(callback?: () => void): void {
     this.setState({
-      dialogOpened: false,
-      current: UNDEF,
       cursor: UNDEF,
+      dialogOpened: UNDEF,
       from: UNDEF,
-      next: UNDEF,
+      fromDate: UNDEF,    // The manual field value
+      periodMode: UNDEF,
       to: UNDEF,
-      year: UNDEF,
+      toDate: UNDEF,      // The manual field value
     }, callback);
   }
 
   /**
-   * @stable [24.02.2019]
+   * @stable [08.03.2020]
    */
   private openDialog(): void {
     this.setState({dialogOpened: true}, () => this.dialog.activate());
   }
 
   /**
-   * @stable [08.01.2020]
-   * @param {ICalendarDayEntity} entity
+   * @stable [09.03.2020]
+   * @param {IDatesRangeEntity} dateRangeEntity
+   * @returns {string}
+   */
+  private getDecoratedRangeDisplayValue(dateRangeEntity: IDatesRangeEntity): string {
+    const dateFromAsString = this.serializeValue(dateRangeEntity.from);
+    const dateToAsString = this.serializeValue(dateRangeEntity.to);
+    const messages = this.settings.messages;
+
+    if (this.checkRange(dateFromAsString, dateToAsString,
+        this.dc.addDaysAsDate({date: this.dc.getCurrentDate(), duration: -1}),
+        this.dc.addDaysAsDate({date: this.dc.getCurrentDate(), duration: -1}))) {
+      return `${messages.YESTERDAY}: ${this.dc.dateAsPstDateString({date: dateRangeEntity.from})}`;
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString,
+        this.dc.addWeeksAsDate({date: this.dc.asFirstDayOfWeekAsDate(), duration: -1}),
+        this.dc.addWeeksAsDate({date: this.dc.asLastDayOfWeekAsDate(), duration: -1}))) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_WEEK);
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString,
+        this.dc.addMonthsAsDate({date: this.dc.asFirstDayOfMonthAsDate(), duration: -1}),
+        this.dc.addMonthsAsDate({date: this.dc.asLastDayOfMonthAsDate(), duration: -1}))) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_MONTH);
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString,
+        this.dc.addQuartersAsDate({date: this.dc.asFirstDayOfQuarterAsDate(), duration: -1}),
+        this.dc.addQuartersAsDate({date: this.dc.asLastDayOfQuarterAsDate(), duration: -1}))) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_QUARTER);
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString,
+        this.dc.addYearsAsDate({date: this.dc.asFirstDayOfYearAsDate(), duration: -1}),
+        this.dc.addYearsAsDate({date: this.dc.asLastDayOfYearAsDate(), duration: -1}))) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_YEAR);
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.getCurrentDate(), this.dc.getCurrentDate())) {
+      return `${messages.TODAY}: ${this.dc.dateAsPstDateString({date: dateRangeEntity.from})}`;
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.asFirstDayOfWeekAsDate(), this.dc.asLastDayOfWeekAsDate())) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.THIS_WEEK);
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.asFirstDayOfMonthAsDate(), this.dc.asLastDayOfMonthAsDate())) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.THIS_MONTH);
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.asFirstDayOfQuarterAsDate(), this.dc.asLastDayOfQuarterAsDate())) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.THIS_QUARTER);
+
+    } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.asFirstDayOfYearAsDate(), this.dc.asLastDayOfYearAsDate())) {
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.THIS_YEAR);
+    }
+    return `${dateFromAsString} ${UniCodesEnum.N_DASH} ${this.serializeValue(dateToAsString)}`;
+  }
+
+  /**
+   * @stable [09.03.2020]
+   * @param {DateTimeLikeTypeT} from
+   * @param {DateTimeLikeTypeT} to
+   * @param {string} label
+   * @returns {string}
+   */
+  private getDecoratedRangeSpecificValue(from: DateTimeLikeTypeT, to: DateTimeLikeTypeT, label: string): string {
+    const dateFrom = this.getValueAsDate(from);
+    const dateTo = this.getValueAsDate(to);
+
+    return `${label}: ${this.dc.dateAsPstDateString({date: dateFrom})} ${UniCodesEnum.N_DASH} ${
+      this.dc.dateAsPstDateString({date: dateTo})}`;
+  }
+
+  /**
+   * @stable [09.03.2020]
+   * @param {string} dateFromAsString
+   * @param {string} dateToAsString
+   * @param {Date} dateFrom
+   * @param {Date} dateTo
    * @returns {boolean}
    */
-  private isDaySelected(entity: ICalendarDayEntity): boolean {
-    return this.isRangeEnabled
-      ? this.isRangeSelected(entity)
-      : this.dc.compare(entity.date, this.dateValueToAccept) === 0;
+  private checkRange(dateFromAsString: string, dateToAsString: string, dateFrom: Date, dateTo: Date): boolean {
+    return this.serializeValue(dateFrom) === dateFromAsString &&
+      this.serializeValue(dateTo) === dateToAsString;
   }
 
   /**
-   * @stable [21.01.2020]
-   * @param {ICalendarDayEntity} entity
-   * @returns {boolean}
-   */
-  private isFirstSelectedDay(entity: ICalendarDayEntity): boolean {
-    return this.isRangeEnabled && this.dc.isDayOfYearBelongToDaysOfYearRange({
-      ...this.currentFromToDayOfYearEntity,
-      to: {},
-    }, entity);
-  }
-
-  /**
-   * @stable [21.01.2020]
-   * @param {ICalendarDayEntity} entity
-   * @returns {boolean}
-   */
-  private isLastSelectedDay(entity: ICalendarDayEntity): boolean {
-    return this.isRangeEnabled && this.dc.isDayOfYearBelongToDaysOfYearRange({
-      ...this.currentFromToDayOfYearEntity,
-      from: {},
-    }, entity);
-  }
-
-  /**
-   * @stable [20.01.2020]
-   * @param {ICalendarDayEntity} entity
-   * @returns {boolean}
-   */
-  private isRangeSelected(entity: ICalendarDayEntity): boolean {
-    return this.dc.isDayOfYearBelongToDaysOfYearRange(this.currentFromToDayOfYearEntity, entity);
-  }
-
-  /**
-   * @stable [20.01.2020]
-   * @returns {Date}
-   */
-  private get valueAsDate(): Date {
-    return this.getValueAsDate(this.value);
-  }
-
-  /**
-   * @stable [20.01.2020]
-   * @param {DateTimeLikeTypeT} date
-   * @returns {Date}
-   */
-  private getValueAsDate(date: DateTimeLikeTypeT): Date {
-    return this.dc.asDate({date, inputFormat: this.fieldFormat});
-  }
-
-  /**
-   * @stable [20.01.2020]
-   * @returns {Date[]}
-   */
-  private get valueAsDatesArray(): Date[] {
-    return ifNotEmptyThanValue(
-      this.value,
-      (value) => ([this.getValueAsDate(value[0]), this.getValueAsDate(value[1])]),
-      []
-    );
-  }
-
-  /**
-   * @stable [20.01.2020]
+   * @stable [08.03.2020]
    * @param {DateTimeLikeTypeT} value
    * @returns {string}
    */
@@ -638,23 +850,23 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [08.01.2020]
+   * @stable [08.03.2020]
    * @returns {string}
    */
-  private get currentDateToDisplay(): string {
+  private get currentDateAsDisplayValue(): string {
     return this.dc.dateAsString({date: this.currentCalendarDate, outputFormat: this.props.headerFormat});
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [08.03.2020]
    * @returns {string}
    */
-  private get nextDateToDisplay(): string {
+  private get nextDateAsDisplayValue(): string {
     return this.dc.dateAsString({date: this.nextCalendarDate, outputFormat: this.props.headerFormat});
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [08.03.2020]
    * @returns {ICalendarEntity}
    */
   private get currentCalendarEntity(): ICalendarEntity {
@@ -662,7 +874,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [08.03.2020]
    * @returns {ICalendarEntity}
    */
   private get nextCalendarEntity(): ICalendarEntity {
@@ -670,7 +882,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [21.01.2020]
+   * @stable [08.03.2020]
    * @param {Date} date
    * @returns {ICalendarEntity}
    */
@@ -679,72 +891,296 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [07.03.2020]
    * @returns {Date}
    */
   private get currentCalendarDate(): Date {
-    return this.state.cursor
-      || (this.isRangeEnabled ? this.rangeValueToAccept[0] : this.dateValueToAccept)
-      || this.dc.asDayOfYear();
+    const {cursor, from} = this.state;
+    return cursor
+      || (
+        this.isRangeEnabled
+          ? (from || this.getValueAsDate(this.valueAsDateFrom))
+          : this.acceptedDateValue
+      )
+      || this.dc.getCurrentDate();
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [08.03.2020]
    * @returns {Date}
    */
   private get nextCalendarDate(): Date {
-    return this.dc.addMonths({date: this.currentCalendarDate, duration: 1});
+    return this.dc.addMonthsAsDate({date: this.currentCalendarDate, duration: 1});
   }
 
   /**
-   * @stable [17.01.2020]
+   * @stable [07.03.2020]
+   * @returns {IFromToDayOfYearEntity}
+   */
+  private get currentFromToDayOfYearEntity(): IFromToDayOfYearEntity {
+    const {from, to} = this.state;
+
+    const result: IFromToDayOfYearEntity = {
+      // The values from state
+      ...(
+        isDef(from) // "Null" as value (!)
+          ? ({from: ifNotNilThanValue(from, () => this.dc.asDayOfYearEntity({date: from}))})
+          : ({})
+      ),
+      ...(
+        isDef(to)
+          ? ({to: ifNotNilThanValue(to, () => this.dc.asDayOfYearEntity({date: to}))})
+          : ({})
+      ),
+    };
+
+    if (isUndef(result.from) || isUndef(result.to)) {
+      const rangeEntity = this.datesRangeEntity;
+      if (!R.isNil(rangeEntity)) {
+        if (isUndef(result.from) && !R.isNil(rangeEntity.from)) {
+          result.from = this.dc.asDayOfYearEntity({date: rangeEntity.from, inputFormat: this.fieldFormat});
+        }
+        if (isUndef(result.to) && !R.isNil(rangeEntity.to)) {
+          result.to = this.dc.asDayOfYearEntity({date: rangeEntity.to, inputFormat: this.fieldFormat});
+        }
+      }
+    }
+    return notNilValuesFilter(result);
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDatesRangeEntity} entity
+   * @returns {DatesRangeValueT}
+   */
+  private fromDatesRangeEntity(entity: IDatesRangeEntity): DatesRangeValueT {
+    return this.fieldConverter.convert({
+      from: FieldConverterTypesEnum.DATES_RANGE_ENTITY,
+      to: FieldConverterTypesEnum.DATES_RANGE_VALUE,
+      value: entity,
+    });
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {DatesRangeValueT} value
+   * @returns {IDatesRangeEntity}
+   */
+  private fromDatesRangeValue(value: DatesRangeValueT): IDatesRangeEntity {
+    return this.fieldConverter.convert({
+      from: FieldConverterTypesEnum.DATES_RANGE_VALUE,
+      to: FieldConverterTypesEnum.DATES_RANGE_ENTITY,
+      value,
+    });
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @returns {IDatesRangeEntity}
+   */
+  private get datesRangeEntity(): IDatesRangeEntity {
+    return this.fromDatesRangeValue(this.value);
+  }
+
+  /**
+   * @stable [06.03.2020]
+   * @param {DateTimeLikeTypeT} date
    * @returns {Date}
    */
-  private get dateValueToAccept(): Date {
-    return this.state.current || this.valueAsDate;
+  private getValueAsDate(date: DateTimeLikeTypeT): Date {
+    return this.dc.asDate({date, inputFormat: this.fieldFormat});
   }
 
   /**
-   * @stable [20.01.2020]
-   * @returns {Date[]}
+   * @stable [10.03.2020]
+   * @returns {IDatesRangeEntity}
    */
-  private get rangeValueToAccept(): Date[] {
-    return [
-      this.state.current || ifNotNilThanValue(this.valueAsDatesArray, (data) => data[0]),
-      this.state.next || ifNotNilThanValue(this.valueAsDatesArray, (data) => data[1])
-    ];
+  private get acceptedDatesRangeEntity(): IDatesRangeEntity {
+    const {from, periodMode, to} = this.state;
+
+    if (isObjectNotEmpty(from) || isObjectNotEmpty(to)) {
+      return defValuesFilter<IDatesRangeEntity, IDatesRangeEntity>({
+        from: from || this.valueAsDateFrom,
+        periodMode,
+        to: to || this.valueAsDateTo,
+      });
+    }
+    return defValuesFilter<IDatesRangeEntity, IDatesRangeEntity>({from, periodMode, to});
   }
 
   /**
-   * @stable [08.01.2020]
-   * @returns {string}
+   * @stable [06.03.2020]
+   * @returns {Date}
    */
-  private get selectedYearPlaceholder(): string {
-    return ifNotNilThanValue(
-      this.valueAsDate,
-      (selectedDate) => String(this.dc.asDayOfYearEntity({date: selectedDate}).year),
-      this.settings.dateTime.uiYearFormat
+  private get acceptedDateValue(): Date {
+    return this.state.from || this.valueAsDate;
+  }
+
+  /**
+   * @stable [06.03.2020]
+   * @returns {Date}
+   */
+  private get valueAsDate(): Date {
+    return this.getValueAsDate(this.value);
+  }
+
+  /**
+   * @stable [06.03.2020]
+   * @returns {DatePeriodsEnum}
+   */
+  private get valueAsPeriodMode(): DatePeriodsEnum {
+    return ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.periodMode);
+  }
+
+  /**
+   * @stable [08.03.2020]
+   * @returns {DatePeriodsEnum}
+   */
+  private get valueAsDateFrom(): DateTimeLikeTypeT {
+    return ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.from);
+  }
+
+  /**
+   * @stable [09.03.2020]
+   * @returns {DateTimeLikeTypeT}
+   */
+  private get valueAsDateTo(): DateTimeLikeTypeT {
+    return ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.to);
+  }
+
+  /**
+   * @stable [06.03.2020]
+   * @returns {DateFieldRangeValueT}
+   */
+  private get aheadValue(): DatesRangeValueT {
+    return this.props.aheadValue;
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @returns {IDatesRangeEntity}
+   */
+  private get aheadEntity(): IDatesRangeEntity {
+    return this.fromDatesRangeValue(this.aheadValue);
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @returns {DatePeriodsEnum}
+   */
+  private get aheadEntityPeriodMode(): DatePeriodsEnum {
+    return ifNotNilThanValue(this.aheadEntity, (aheadEntity) => aheadEntity.periodMode);
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @returns {DatePeriodsEnum}
+   */
+  private get selectedPeriodMode(): DatePeriodsEnum {
+    const {periodMode} = this.state;
+    return isDef(periodMode) ? periodMode : nvl(this.valueAsPeriodMode, DatePeriodsEnum.CUSTOM);
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isDaySelected(entity: ICalendarDayEntity): boolean {
+    return this.isRangeEnabled
+      ? this.isRangeSelected(entity)
+      : this.dc.compare(entity.date, this.acceptedDateValue) === 0;
+  }
+
+  /**
+   * @stable [08.03.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isRangeSelected(entity: ICalendarDayEntity): boolean {
+    return this.dc.isDayOfYearBelongToDaysOfYearRange(this.currentFromToDayOfYearEntity, entity);
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isFirstDaySelected(entity: ICalendarDayEntity): boolean {
+    const currentFromToDayOfYearEntity = this.currentFromToDayOfYearEntity;
+
+    return (
+      this.isServiceDaySelected(currentFromToDayOfYearEntity)
+      && isObjectNotEmpty(currentFromToDayOfYearEntity.to)
+      && (
+        this.dc.isDayOfYearBelongToDaysOfYearRange({
+          ...currentFromToDayOfYearEntity,
+          to: {},
+        }, entity)
+      )
     );
   }
 
   /**
-   * stable [07.01.2020]
-   * @returns {IDateTimeSettingsEntity}
+   * @stable [07.03.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
    */
-  private get dateTimeSettings(): IDateTimeSettingsEntity {
-    return this.settings.dateTime || {};
+  private isLastDaySelected(entity: ICalendarDayEntity): boolean {
+    const currentFromToDayOfYearEntity = this.currentFromToDayOfYearEntity;
+
+    return (
+      this.isServiceDaySelected(currentFromToDayOfYearEntity)
+      && isObjectNotEmpty(currentFromToDayOfYearEntity.from)
+      && (
+        this.dc.isDayOfYearBelongToDaysOfYearRange({
+          ...currentFromToDayOfYearEntity,
+          from: {},
+        }, entity)
+      )
+    );
   }
 
   /**
-   * @stable [24.02.2019]
-   * @returns {Dialog}
+   * @stable [07.03.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
    */
-  private get dialog(): Dialog {
-    return this.dialogRef.current;
+  private isMiddleDaySelected(entity: ICalendarDayEntity): boolean {
+    const currentFromToDayOfYearEntity = this.currentFromToDayOfYearEntity;
+
+    return (
+      this.isServiceDaySelected(currentFromToDayOfYearEntity) && (
+        !this.isLastDaySelected(entity)
+        && !this.isFirstDaySelected(entity)
+        && isObjectNotEmpty(currentFromToDayOfYearEntity.to)
+        && isObjectNotEmpty(currentFromToDayOfYearEntity.from)
+      )
+    );
   }
 
   /**
-   * @stable [20.01.2020]
+   * @stable [07.03.2020]
+   * @param {IFromToDayOfYearEntity} currentFromToDayOfYearEntity
+   * @returns {boolean}
+   */
+  private isServiceDaySelected(currentFromToDayOfYearEntity: IFromToDayOfYearEntity): boolean {
+    return (
+      this.isRangeEnabled
+      && !this.dc.isDayOfYearEqualOtherDayOfYear(currentFromToDayOfYearEntity.from, currentFromToDayOfYearEntity.to)
+    );
+  }
+
+  /**
+   * @stable [06.03.2020]
+   * @returns {boolean}
+   */
+  private get isPreviousPeriodModeEnabled(): boolean {
+    return !R.isNil(this.aheadValue);
+  }
+
+  /**
+   * @stable [06.03.2020]
    * @returns {boolean}
    */
   private get isRangeEnabled(): boolean {
@@ -752,7 +1188,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [22.01.2020]
+   * @stable [06.03.2020]
    * @returns {boolean}
    */
   private get isInline(): boolean {
@@ -760,28 +1196,26 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [20.01.2020]
-   * @returns {IFromToDayOfYearEntity}
+   * @stable [09.03.2020]
+   * @returns {boolean}
    */
-  private get currentFromToDayOfYearEntity(): IFromToDayOfYearEntity {
-    const {current, next} = this.state;
-    const valueArray = this.valueAsDatesArray;
+  private get isFieldMaskNeeded(): boolean {
+    return !this.isDisplayValueDefined && !this.isRangeEnabled;
+  }
 
-    return notNilValuesFilter<IFromToDayOfYearEntity, IFromToDayOfYearEntity>({
-      ...ifNotNilThanValue(valueArray[0], (dateFrom) => ({from: this.dc.asDayOfYearEntity({date: dateFrom})})),
-      ...ifNotNilThanValue(valueArray[1], (dateTo) => ({to: this.dc.asDayOfYearEntity({date: dateTo})})),
+  /**
+   * stable [06.03.2020]
+   * @returns {IDateTimeSettingsEntity}
+   */
+  private get dateTimeSettings(): IDateTimeSettingsEntity {
+    return this.settings.dateTime || {};
+  }
 
-      // "Null" as value (!)
-      ...(
-        isDef(current)
-          ? ({from: ifNotNilThanValue(current, () => this.dc.asDayOfYearEntity({date: current}))})
-          : ({})
-      ),
-      ...(
-        isDef(next)
-          ? ({to: ifNotNilThanValue(next, () => this.dc.asDayOfYearEntity({date: next}))})
-          : ({})
-      ),
-    });
+  /**
+   * @stable [06.03.2020]
+   * @returns {Dialog}
+   */
+  private get dialog(): Dialog {
+    return this.dialogRef.current;
   }
 }

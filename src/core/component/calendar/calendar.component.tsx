@@ -82,14 +82,15 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     const isDaySelected = this.isDaySelected(entity);
     const isFirstSelectedDay = this.isFirstSelectedDay(entity);
     const isLastSelectedDay = this.isLastSelectedDay(entity);
+    const isMiddleSelectedDay = this.isMiddleSelectedDay(entity);
 
     return joinClassName(
       entity.current && 'rac-calendar__current-day',
       entity.today && 'rac-calendar__today',
       isDaySelected && 'rac-calendar__selected-day',
-      (!isDaySelected && !entity.today) && 'rac-calendar__basic-day',
+      !isDaySelected && !entity.today && 'rac-calendar__basic-day',
       isFirstSelectedDay && 'rac-calendar__first-selected-day',
-      (!isFirstSelectedDay && !isLastSelectedDay) && 'rac-calendar__middle-selected-day',
+      isMiddleSelectedDay && 'rac-calendar__middle-selected-day',
       isLastSelectedDay && 'rac-calendar__last-selected-day'
     );
   }
@@ -124,6 +125,18 @@ export class Calendar extends BaseComponent<ICalendarProps> {
   private isLastSelectedDay(entity: ICalendarDayEntity): boolean {
     const {isLastSelected} = this.props;
     return isFn(isLastSelected) && isLastSelected(entity);
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {ICalendarDayEntity} entity
+   * @returns {boolean}
+   */
+  private isMiddleSelectedDay(entity: ICalendarDayEntity): boolean {
+    const {isMiddleSelected} = this.props;
+    return isFn(isMiddleSelected)
+      ? isMiddleSelected(entity)
+      : (!this.isFirstSelectedDay(entity) && !this.isLastSelectedDay(entity));
   }
 
   /**
