@@ -28,11 +28,11 @@ import {
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarWeekEntity,
-  IDateRangeConfigEntity,
   IDateTimeConfigEntity,
   IDayOfYearEntity,
   IEnvironment,
   IFromToDayOfYearEntity,
+  IMinMaxDatesRangeConfigEntity,
   IPersonAgeConfigEntity,
   MomentT,
 } from '../../definition';
@@ -245,8 +245,71 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {MomentT}
    */
+  public asLastDayOfQuarter(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asEndUnitOf({...cfg, unit: 'quarter'});
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asLastDayOfQuarterAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asLastDayOfQuarter(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [03.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
   public asLastDayOfMonth(cfg?: IDateTimeConfigEntity): MomentT {
     return this.asEndUnitOf({...cfg, unit: 'month'});
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asLastDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asLastDayOfMonth(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asLastDayOfWeek(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asEndUnitOf({...cfg, unit: 'week'});
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asLastDayOfWeekAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asLastDayOfWeek(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [08.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public asLastDayOfYear(cfg?: IDateTimeConfigEntity): MomentT {
+    return this.asEndUnitOf({...cfg, unit: 'year'});
+  }
+
+  /**
+   * @stable [08.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public asLastDayOfYearAsDate(cfg?: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.asLastDayOfYear(cfg), (mDate) => mDate.toDate());
   }
 
   /**
@@ -279,8 +342,17 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {moment.Moment}
    */
-  public addDays(cfg: IDateTimeConfigEntity): moment.Moment {
+  public addDays(cfg: IDateTimeConfigEntity): MomentT {
     return this.addDuration({...cfg, unit: 'days'});
+  }
+
+  /**
+   * @stable [08.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public addDaysAsDate(cfg: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.addDays(cfg), (mDate) => mDate.toDate());
   }
 
   /**
@@ -299,6 +371,60 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public addMonthsAsDate(cfg: IDateTimeConfigEntity): Date {
     return ifNotNilThanValue(this.addMonths(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [06.01.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public addQuartersAsDate(cfg: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.addQuarters(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public addQuarters(cfg: IDateTimeConfigEntity): MomentT {
+    return this.addDuration({...cfg, unit: 'quarters'});
+  }
+
+  /**
+   * @stable [08.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public addYears(cfg: IDateTimeConfigEntity): MomentT {
+    return this.addDuration({...cfg, unit: 'years'});
+  }
+
+  /**
+   * @stable [08.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public addYearsAsDate(cfg: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.addYears(cfg), (mDate) => mDate.toDate());
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {MomentT}
+   */
+  public addWeeks(cfg: IDateTimeConfigEntity): MomentT {
+    return this.addDuration({...cfg, unit: 'weeks'});
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {Date}
+   */
+  public addWeeksAsDate(cfg: IDateTimeConfigEntity): Date {
+    return ifNotNilThanValue(this.addWeeks(cfg), (mDate) => mDate.toDate());
   }
 
   /**
@@ -338,12 +464,21 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [09.11.2018]
-   * @param {DateTimeLikeTypeT} date [Example: 2018-11-30T03:00:00+03:00]
-   * @returns {string} [Example: Nov 30]
+   * @stable [09.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
    */
-  public fromDateTimeToPstDate(date: DateTimeLikeTypeT = this.currentDate): string {
-    return this.fromDateTimeToArbitraryFormat(date, this.dateTimeSettings.pstDateFormat);
+  public dateAsPstDateString(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({...cfg, outputFormat: this.pstDateFormat});
+  }
+
+  /**
+   * @stable [09.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public dateAsPstTimeString(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({...cfg, outputFormat: this.pstTimeFormat});
   }
 
   /**
@@ -382,6 +517,15 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public dateAsDateTimeString(cfg: IDateTimeConfigEntity): string {
     return this.dateAsString({...cfg, outputFormat: this.dateTimeFormat});
+  }
+
+  /**
+   * @stable [05.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public dateAsDateString(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({...cfg, outputFormat: this.dateFormat});
   }
 
   /**
@@ -556,19 +700,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [10.02.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {Date}
-   */
-  public tryAddXWeeks(duration: moment.DurationInputArg1,
-                      date: DateTimeLikeTypeT = this.currentDate,
-                      inputFormat = this.uiDateFormat): Date {
-    return this.tryAddXDuration('weeks', duration, date, inputFormat);
-  }
-
-  /**
    * @stable [07.01.2019]
    * @param {moment.DurationInputArg1} duration
    * @param {DateTimeLikeTypeT} date
@@ -640,19 +771,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [10.01.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {moment.Moment}
-   */
-  public tryGetFirstDayOfYearAsMomentDate(duration: moment.DurationInputArg1 = 0,
-                                          date: DateTimeLikeTypeT = this.currentDate,
-                                          inputFormat = this.uiDateFormat): moment.Moment {
-    return this.tryGetFirstDayOfXAsMomentDate('years', 'year', duration, date, inputFormat);
-  }
-
-  /**
    * @stable [10.02.2019]
    * @param {moment.DurationInputArg1} duration
    * @param {DateTimeLikeTypeT} date
@@ -709,36 +827,6 @@ export class DateConverter implements IDateConverter<MomentT> {
                                inputFormat = this.uiDateFormat): Date {
     return ifNotNilThanValue<moment.Moment, Date>(
       this.tryGetFirstDayOfMonthAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
-    );
-  }
-
-  /**
-   * @stable [10.02.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {Date}
-   */
-  public tryGetFirstDayOfQuarter(duration: moment.DurationInputArg1 = 0,
-                                 date: DateTimeLikeTypeT = this.currentDate,
-                                 inputFormat = this.uiDateFormat): Date {
-    return ifNotNilThanValue<moment.Moment, Date>(
-      this.tryGetFirstDayOfQuarterAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
-    );
-  }
-
-  /**
-   * @stable [10.02.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {Date}
-   */
-  public tryGetFirstDayOfYear(duration: moment.DurationInputArg1 = 0,
-                              date: DateTimeLikeTypeT = this.currentDate,
-                              inputFormat = this.uiDateFormat): Date {
-    return ifNotNilThanValue<moment.Moment, Date>(
-      this.tryGetFirstDayOfYearAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
     );
   }
 
@@ -828,14 +916,6 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public getCurrentDateAsUiDate(): string {
     return this.dateAsString({date: this.getCurrentDate(), outputFormat: this.uiDateFormat});
-  }
-
-  /**
-   * @stable [09.05.2019]
-   * @returns {Date}
-   */
-  public getYesterdayDate(): Date {
-    return this.tryAddXDays(-1);
   }
 
   public getLocalizedMonth(index: number): string {
@@ -1061,17 +1141,7 @@ export class DateConverter implements IDateConverter<MomentT> {
     if (isDateToEmpty && isDateFromEmpty) {
       return ({from: {day, month, year}, to});
     } else if (!isDateFromEmpty && !isDateToEmpty) {
-      const compareResult1 = this.compareDayOfYearEntity(from, entity);
-      const compareResult2 = this.compareDayOfYearEntity(entity, to);
-      if (compareResult1 === 0) {
-        return {from: {}, to};
-      } else if (compareResult2 === 0) {
-        return {from, to: {}};
-      } else if (compareResult1 === 1) {
-        return ({from: {day, month, year}, to});
-      } else {
-        return ({from, to: {day, month, year}});
-      }
+      return ({from: {day, month, year}, to: {}});
     } else if (!isDateFromEmpty) {
       const compareResult = this.compareDayOfYearEntity(from, entity);
       if (compareResult >= 0) {
@@ -1093,10 +1163,10 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [08.01.2020]
-   * @param {IDateRangeConfigEntity} cfg
+   * @param {IMinMaxDatesRangeConfigEntity} cfg
    * @returns {boolean}
    */
-  public isDateBelongToDatesRange(cfg: IDateRangeConfigEntity): boolean {
+  public isDateBelongToDatesRange(cfg: IMinMaxDatesRangeConfigEntity): boolean {
     const minDate = nvl(cfg.minDate, this.dateTimeSettings.minDate);
     const maxDate = nvl(cfg.maxDate, this.dateTimeSettings.maxDate);
 
@@ -1127,6 +1197,21 @@ export class DateConverter implements IDateConverter<MomentT> {
       return compareResult1 >= 0 && compareResult2 <= 0;
     }
     return false;
+  }
+
+  /**
+   * @stable [07.03.2020]
+   * @param {IDayOfYearEntity} entity1
+   * @param {IDayOfYearEntity} entity2
+   * @returns {boolean}
+   */
+  public isDayOfYearEqualOtherDayOfYear(entity1: IDayOfYearEntity, entity2: IDayOfYearEntity): boolean {
+    return !R.isNil(entity1) && !R.isNil(entity2)
+      && (
+        entity1.day === entity2.day
+        && entity1.month === entity2.month
+        && entity1.year === entity2.year
+      );
   }
 
   /**
@@ -1305,6 +1390,10 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   private get pstTimeFormat(): string {
     return this.dateTimeSettings.pstTimeFormat;
+  }
+
+  private get pstDateFormat(): string {
+    return this.dateTimeSettings.pstDateFormat;
   }
 
   private get dateTimeSettings(): IDateTimeSettings {

@@ -5,10 +5,10 @@ import {
   DateTimeLikeTypeT,
   ICalendarConfigEntity,
   ICalendarEntity,
-  IDateRangeConfigEntity,
   IDateTimeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
+  IMinMaxDatesRangeConfigEntity,
   IPersonAgeConfigEntity,
 } from '../../definition';
 
@@ -16,11 +16,18 @@ export interface IDateConverter<TDate = Date> {
   appOnlineLifeTimeInHours: number;
   appOnlineLifeTimeInSeconds: number;
   addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
+  addDaysAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDuration(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addMonths(cfg: IDateTimeConfigEntity): TDate;
   addMonthsAsDate(cfg: IDateTimeConfigEntity): Date;
+  addQuarters(cfg: IDateTimeConfigEntity): TDate;
+  addQuartersAsDate(cfg: IDateTimeConfigEntity): Date;
+  addWeeks(cfg: IDateTimeConfigEntity): TDate;
+  addWeeksAsDate(cfg: IDateTimeConfigEntity): Date;
+  addYears(cfg: IDateTimeConfigEntity): TDate;
+  addYearsAsDate(cfg: IDateTimeConfigEntity): Date;
   asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity): number;
   asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
   asDate(cfg: IDateTimeConfigEntity<TDate>): Date;
@@ -36,12 +43,22 @@ export interface IDateConverter<TDate = Date> {
   asFirstDayOfYear(cfg?: IDateTimeConfigEntity): TDate;
   asFirstDayOfYearAsDate(cfg?: IDateTimeConfigEntity): Date;
   asLastDayOfMonth(cfg?: IDateTimeConfigEntity): TDate;
+  asLastDayOfMonthAsDate(cfg?: IDateTimeConfigEntity): Date;
+  asLastDayOfQuarter(cfg?: IDateTimeConfigEntity): TDate;
+  asLastDayOfQuarterAsDate(cfg?: IDateTimeConfigEntity): Date;
+  asLastDayOfWeek(cfg?: IDateTimeConfigEntity): TDate;
+  asLastDayOfWeekAsDate(cfg?: IDateTimeConfigEntity): Date;
+  asLastDayOfYear(cfg?: IDateTimeConfigEntity): TDate;
+  asLastDayOfYearAsDate(cfg?: IDateTimeConfigEntity): Date;
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   asPersonAge(cfg: IPersonAgeConfigEntity<TDate>): number;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
+  dateAsDateString(cfg: IDateTimeConfigEntity): string;
   dateAsDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
+  dateAsPstDateString(cfg: IDateTimeConfigEntity): string;
+  dateAsPstTimeString(cfg: IDateTimeConfigEntity): string;
   dateAsString(cfg: IDateTimeConfigEntity): string;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
@@ -57,14 +74,14 @@ export interface IDateConverter<TDate = Date> {
   getLocalizedShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
   getShortestWeekday(cfg: IDateTimeConfigEntity): string;
   getShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
-  isDateBelongToDatesRange(cfg: IDateRangeConfigEntity): boolean;
+  isDateBelongToDatesRange(cfg: IMinMaxDatesRangeConfigEntity): boolean;
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
+  isDayOfYearEqualOtherDayOfYear(entity1: IDayOfYearEntity, entity2: IDayOfYearEntity): boolean;
   selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;
   /**/
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
-  fromDateTimeToPstDate(date?: DateTimeLikeTypeT): string;
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
@@ -85,9 +102,6 @@ export interface IDateConverter<TDate = Date> {
   tryAddXDays(duration: moment.DurationInputArg1,
               date?: DateTimeLikeTypeT,
               inputFormat?: string): Date;
-  tryAddXWeeks(duration: moment.DurationInputArg1,
-               date?: DateTimeLikeTypeT,
-               inputFormat?: string): Date;
   tryAddXMonths(duration: moment.DurationInputArg1,
                 date?: DateTimeLikeTypeT,
                 inputFormat?: string): Date;
@@ -97,41 +111,20 @@ export interface IDateConverter<TDate = Date> {
   tryAddXYears(duration: moment.DurationInputArg1,
                date?: DateTimeLikeTypeT,
                inputFormat?: string): Date;
-  tryGetFirstDayOfXAsMomentDate(unit: moment.DurationInputArg2,
-                                startOf: moment.unitOfTime.StartOf,
-                                duration: moment.DurationInputArg1,
-                                date: DateTimeLikeTypeT,
-                                inputFormat?: string): moment.Moment;
   tryGetFirstDayOfWeekAsMomentDate(duration?: moment.DurationInputArg1,
                                    date?: DateTimeLikeTypeT,
                                    inputFormat?: string): moment.Moment;
   tryGetFirstDayOfMonthAsMomentDate(duration?: moment.DurationInputArg1,
                                     date?: DateTimeLikeTypeT,
                                     inputFormat?: string): moment.Moment;
-  tryGetFirstDayOfQuarterAsMomentDate(duration?: moment.DurationInputArg1,
-                                      date?: DateTimeLikeTypeT,
-                                      inputFormat?: string): moment.Moment;
-  tryGetFirstDayOfYearAsMomentDate(duration?: moment.DurationInputArg1,
-                                   date?: DateTimeLikeTypeT,
-                                   inputFormat?: string): moment.Moment;
   tryGetFirstDayOfWeek(duration?: moment.DurationInputArg1,
                        date?: DateTimeLikeTypeT,
                        inputFormat?: string): Date;
   isDateBelongsToCurrentWeek(date?: DateTimeLikeTypeT, inputFormat?: string): boolean;
-  tryGetFirstDayOfMonth(duration?: moment.DurationInputArg1,
-                        date?: DateTimeLikeTypeT,
-                        inputFormat?: string): Date;
-  tryGetFirstDayOfQuarter(duration?: moment.DurationInputArg1,
-                          date?: DateTimeLikeTypeT,
-                          inputFormat?: string): Date;
-  tryGetFirstDayOfYear(duration?: moment.DurationInputArg1,
-                       date?: DateTimeLikeTypeT,
-                       inputFormat?: string): Date;
   toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict?: boolean): moment.Moment;
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
-  getYesterdayDate(): Date;
   getFirstDayOfMonth(monthsAgo?: number,
                      date?: DateTimeLikeTypeT,
                      inputFormat?: string): Date;
