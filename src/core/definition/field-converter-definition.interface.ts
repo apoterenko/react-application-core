@@ -10,6 +10,8 @@ import {
  * @stable [09.01.2020]
  */
 export enum FieldConverterTypesEnum {
+  DATES_RANGE_ENTITY = 'DATES_RANGE_ENTITY',
+  DATES_RANGE_VALUE = 'DATES_RANGE_VALUE',
   DISPLAY_VALUE = 'DISPLAY_VALUE',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',

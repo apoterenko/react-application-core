@@ -70,7 +70,7 @@ export const composeReducers = <TReducersMap extends {}>(reducersMap: TReducersM
   combineReducers<ReducersMapObject>(reducersMap as ReducersMapObject);
 
 /**
- * @deprecated Use makeEntityReducerFactory
+ * @deprecated Use makeEntityReducer
  * @param {string} updateActionType
  * @param {string} destroyActionType
  * @param {TPayload} initialState
@@ -118,7 +118,7 @@ export const entityReducerFactory = (
  * @param {IEntityReducerFactoryConfigEntity} config
  * @returns {(state: AnyT, action: AnyAction) => AnyT}
  */
-export const makeEntityReducerFactory = (config: IEntityReducerFactoryConfigEntity): (state: AnyT, action: AnyAction) => AnyT =>
+export const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (state: AnyT, action: AnyAction) => AnyT =>
   (state = config.initialState || null, action): AnyT => {
     switch (action.type) {
       case config.update:
