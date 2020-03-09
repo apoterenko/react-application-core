@@ -33,8 +33,6 @@ export interface IDateTimeSettingsEntity {
   uiDatePattern?: string;
   uiDefaultTime?: string;
   uiTimeFormat?: string;
-  uiYearFormat?: string;
-  uiYearMask?: Array<string|RegExp>;
   uiYearPattern?: string;
 }
 
@@ -50,8 +48,6 @@ const defaultDateTimeSettingsEntity: IDateTimeSettingsEntity = {
   uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',
   uiDefaultTime: '00:00:00',
   uiTimeFormat: 'HH:mm:ss',
-  uiYearFormat: 'YYYY',
-  uiYearMask: [/\d/, /\d/, /\d/, /\d/],
   uiYearPattern: '[0-9]{4}',
 };
 
@@ -178,6 +174,8 @@ export interface IMessagesSettingsEntity {
   CLEAR_ALL?: string;
   CLOSE?: string;
   CREATE?: string;
+  CUSTOM?: string;
+  DAY?: string;
   DETAILS_INFO?: string;
   DIALOG_ACCEPT?: string;
   DIALOG_CANCEL?: string;
@@ -194,6 +192,11 @@ export interface IMessagesSettingsEntity {
   PATH?: string;
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
+  PREVIOUS_DAY?: string;
+  PREVIOUS_MONTH?: string;
+  PREVIOUS_QUARTER?: string;
+  PREVIOUS_WEEK?: string;
+  PREVIOUS_YEAR?: string;
   PUT_MARKER_HERE?: string;
   QUARTER?: string;
   RESET?: string;
@@ -201,11 +204,17 @@ export interface IMessagesSettingsEntity {
   SAVE?: string;
   SETTINGS?: string;
   SOMETHING_WENT_WRONG?: string;
+  THIS_MONTH?: string;
+  THIS_QUARTER?: string;
+  THIS_WEEK?: string;
+  THIS_YEAR?: string;
+  TODAY?: string;
   UNKNOWN_ERROR?: string;
   USER?: string;
   WAITING?: string;
   WEEK?: string;
   YEAR?: string;
+  YESTERDAY?: string;
 }
 
 /**
@@ -220,6 +229,8 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   CLEAR_ALL: 'Clear all',
   CLOSE: 'Close',
   CREATE: 'Create',
+  CUSTOM: 'Custom',
+  DAY: 'Day',
   DETAILS_INFO: 'Details info',
   DIALOG_ACCEPT: 'Continue',
   DIALOG_CANCEL: 'Cancel',
@@ -236,6 +247,11 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
+  PREVIOUS_DAY: 'Prev. day',
+  PREVIOUS_MONTH: 'Prev. month',
+  PREVIOUS_QUARTER: 'Prev. quarter',
+  PREVIOUS_WEEK: 'Prev. week',
+  PREVIOUS_YEAR: 'Prev. year',
   PUT_MARKER_HERE: 'Put marker here',
   QUARTER: 'Quarter',
   RESET: 'Reset',
@@ -243,9 +259,15 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   SAVE: 'Save',
   SETTINGS: 'Settings',
   SOMETHING_WENT_WRONG: 'Something went wrong',
+  THIS_MONTH: 'This month',
+  THIS_QUARTER: 'This quarter',
+  THIS_WEEK: 'This week',
+  THIS_YEAR: 'This year',
+  TODAY: 'Today',
   UNKNOWN_ERROR: 'Unknown error',
   USER: 'User',
   WAITING: 'Waiting...',
   WEEK: 'Week',
   YEAR: 'Year',
+  YESTERDAY: 'Yesterday',
 });
