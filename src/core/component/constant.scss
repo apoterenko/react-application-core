@@ -729,11 +729,11 @@ $rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !defaul
 $rac-date-field-calendar-base-dialog-range-explorer-date-justify-content: center !default;
 /**/
 $rac-date-field-calendar-dialog-body-height: 342px !default;
-$rac-date-field-calendar-dialog-body-width: 304px !default;
+$rac-date-field-calendar-dialog-body-max-width: 304px !default;
 $rac-date-field-calendar-dialog-footer-action-width: 72px !default;
 /**/
 $rac-date-field-calendars-dialog-body-height: 400px !default;
-$rac-date-field-calendars-dialog-body-width: 608px !default;
+$rac-date-field-calendars-dialog-body-max-width: 608px !default;
 $rac-date-field-calendars-dialog-calendar-first-selected-day-border-radius: $rac-calendar-dialog-size-1 0 0 $rac-calendar-dialog-size-1 !default;
 $rac-date-field-calendars-dialog-calendar-last-selected-day-border-radius: 0 $rac-calendar-dialog-size-1 $rac-calendar-dialog-size-1 0 !default;
 $rac-date-field-calendars-dialog-calendar-middle-selected-day-border-radius: 0 !default;
@@ -956,6 +956,7 @@ $rac-default-dialog-body-border-radius: $rac-border-radius-0 !default;
 $rac-default-dialog-body-content-padding: 0 $rac-offset-3 !default;
 $rac-default-dialog-body-display: $rac-dialog-display-0 !default;
 $rac-default-dialog-body-flex-direction: column !default;
+$rac-default-dialog-body-flex: 1 !default;
 $rac-default-dialog-body-max-height: $rac-dialog-height-0 !default;
 $rac-default-dialog-body-max-width: $rac-dialog-width-0 !default;
 $rac-default-dialog-body-padding: $rac-offset-3 0 !default;

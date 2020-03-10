@@ -3125,6 +3125,7 @@
   $rac-dialog-body-content-position: unset,                                                   /* @stable [29.12.2019] */
   $rac-dialog-body-display: unset,                                                            /* @stable [06.01.2020] */
   $rac-dialog-body-flex-direction: unset,                                                     /* @stable [06.01.2020] */
+  $rac-dialog-body-flex: unset,                                                               /* @stable [10.03.2020] */
   $rac-dialog-body-height: unset,                                                             /* @stable [29.12.2019] */
   $rac-dialog-body-justify-content: unset,                                                    /* @stable [29.12.2019] */
   $rac-dialog-body-margin: unset,                                                             /* @stable [25.01.2020] */
@@ -3169,6 +3170,7 @@
           $rac-styles-border-radius: $rac-dialog-body-border-radius,
           $rac-styles-display: $rac-dialog-body-display,
           $rac-styles-flex-direction: $rac-dialog-body-flex-direction,
+          $rac-styles-flex: $rac-dialog-body-flex,
           $rac-styles-height: $rac-dialog-body-height,
           $rac-styles-justify-content: $rac-dialog-body-justify-content,
           $rac-styles-margin: $rac-dialog-body-margin,
@@ -4456,6 +4458,7 @@
   $rac-calendar-dialog-body-background: unset,                                            /* @stable [13.01.2020] */
   $rac-calendar-dialog-body-content-padding: unset,                                       /* @stable [13.01.2020] */
   $rac-calendar-dialog-body-height: unset,                                                /* @stable [14.01.2020] */
+  $rac-calendar-dialog-body-max-width: unset,                                             /* @stable [14.01.2020] */
   $rac-calendar-dialog-body-width: unset,                                                 /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-body-border-bottom: unset,                                /* @stable [14.01.2020] */
   $rac-calendar-dialog-calendar-border-bottom: unset,                                     /* @stable [14.01.2020] */
@@ -4611,6 +4614,7 @@
     $rac-dialog-body-background: $rac-calendar-dialog-body-background,
     $rac-dialog-body-content-padding: $rac-calendar-dialog-body-content-padding,
     $rac-dialog-body-height: $rac-calendar-dialog-body-height,
+    $rac-dialog-body-max-width: $rac-calendar-dialog-body-max-width,
     $rac-dialog-body-width: $rac-calendar-dialog-body-width
   );
 }

@@ -71,7 +71,7 @@
   @include rac-calendar-dialog (
     $rac-calendar-dialog-custom: rac-date-field__calendar-dialog,
     $rac-calendar-dialog-body-height: $rac-date-field-calendar-dialog-body-height,
-    $rac-calendar-dialog-body-width: $rac-date-field-calendar-dialog-body-width,
+    $rac-calendar-dialog-body-max-width: $rac-date-field-calendar-dialog-body-max-width,
     $rac-calendar-dialog-footer-action-width: $rac-date-field-calendar-dialog-footer-action-width
   );
 
@@ -82,7 +82,7 @@
   @include rac-calendar-dialog (
     $rac-calendar-dialog-custom: rac-date-field__calendars-dialog,
     $rac-calendar-dialog-body-height: $rac-date-field-calendars-dialog-body-height,
-    $rac-calendar-dialog-body-width: $rac-date-field-calendars-dialog-body-width,
+    $rac-calendar-dialog-body-max-width: $rac-date-field-calendars-dialog-body-max-width,
     $rac-calendar-dialog-calendar-first-selected-day-border-radius: $rac-date-field-calendars-dialog-calendar-first-selected-day-border-radius,
     $rac-calendar-dialog-calendar-last-selected-day-border-radius: $rac-date-field-calendars-dialog-calendar-last-selected-day-border-radius,
     $rac-calendar-dialog-calendar-middle-selected-day-border-radius: $rac-date-field-calendars-dialog-calendar-middle-selected-day-border-radius,
