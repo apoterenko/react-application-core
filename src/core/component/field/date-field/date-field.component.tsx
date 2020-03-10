@@ -576,6 +576,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       from,
       periodMode,
       to,
+      ...(
+        [DatePeriodsEnum.DAY].includes(periodMode) ? {toDate: UNDEF} : {}
+      ),
     });
   }
 
@@ -635,13 +638,23 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [08.03.2020]
+   * @stable [10.03.2020]
    */
   private onAccept(): void {
-    const acceptedValue = this.isRangeEnabled ? this.acceptedDatesRangeEntity : this.acceptedDateValue;
+    const acceptedValue = this.isRangeEnabled
+      ? this.acceptedDatesRangeEntity
+      : this.acceptedDateValue;
+
+    const acceptedValueAsRangeEntity = acceptedValue as IDatesRangeEntity;
 
     this.onDialogClose(() => {
-      ifNotEmptyThanValue(acceptedValue, () => this.onChangeManually(acceptedValue));
+      ifNotEmptyThanValue(
+        acceptedValue,
+        () => {
+          if (!this.isRangeEnabled || isObjectNotEmpty(acceptedValueAsRangeEntity.from)) {
+            this.onChangeManually(acceptedValue);
+          }
+        });
       this.setFocus();
     });
   }
@@ -663,6 +676,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       const rangeValuesFrom = ifNotEmptyThanValue(result.from, (from) => ({from: this.dc.fromDayOfYearEntityAsDate(from)}));
 
       switch (periodMode) {
+        case DatePeriodsEnum.DAY:
         case DatePeriodsEnum.WEEK:
         case DatePeriodsEnum.MONTH:
         case DatePeriodsEnum.QUARTER:
@@ -671,6 +685,12 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             rangeValuesFrom.from,
             (from) => {
               switch (periodMode) {
+                case DatePeriodsEnum.DAY:
+                  rangeValues = {
+                    from,
+                    to: from,
+                  };
+                  break;
                 case DatePeriodsEnum.WEEK:
                   rangeValues = {
                     from: this.dc.asFirstDayOfWeekAsDate({date: from}),
@@ -699,7 +719,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             }
           );
           break;
-        case DatePeriodsEnum.DAY:
         case DatePeriodsEnum.CUSTOM:
           rangeValues = {
             ...rangeValuesFrom,
@@ -809,7 +828,11 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.asFirstDayOfYearAsDate(), this.dc.asLastDayOfYearAsDate())) {
       return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.THIS_YEAR);
     }
-    return `${dateFromAsString} ${UniCodesEnum.N_DASH} ${this.serializeValue(dateToAsString)}`;
+
+    if (R.equals(dateToAsString, dateFromAsString)) {
+      return `${messages.DATE}: ${dateFromAsString}`;
+    }
+    return `${dateFromAsString} ${UniCodesEnum.N_DASH} ${dateToAsString}`;
   }
 
   /**
@@ -997,8 +1020,11 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get acceptedDatesRangeEntity(): IDatesRangeEntity {
     const {from, periodMode, to} = this.state;
+    const selectedPeriodMode = this.selectedPeriodMode;
 
-    if (isObjectNotEmpty(from) || isObjectNotEmpty(to)) {
+    if (![selectedPeriodMode].includes(DatePeriodsEnum.DAY)
+      && (isObjectNotEmpty(from) || isObjectNotEmpty(to))) {
+
       return defValuesFilter<IDatesRangeEntity, IDatesRangeEntity>({
         from: from || this.valueAsDateFrom,
         periodMode,

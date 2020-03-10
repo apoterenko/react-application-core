@@ -175,6 +175,7 @@ export interface IMessagesSettingsEntity {
   CLOSE?: string;
   CREATE?: string;
   CUSTOM?: string;
+  DATE?: string;
   DAY?: string;
   DETAILS_INFO?: string;
   DIALOG_ACCEPT?: string;
@@ -230,6 +231,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   CLOSE: 'Close',
   CREATE: 'Create',
   CUSTOM: 'Custom',
+  DATE: 'Date',
   DAY: 'Day',
   DETAILS_INFO: 'Details info',
   DIALOG_ACCEPT: 'Continue',
