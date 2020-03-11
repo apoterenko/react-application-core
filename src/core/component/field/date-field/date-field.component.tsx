@@ -94,6 +94,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     this.onSetYear = this.onSetYear.bind(this);
     this.onToDateFieldChange = this.onToDateFieldChange.bind(this);
     this.openDialog = this.openDialog.bind(this);
+    this.setFromDateFocus = this.setFromDateFocus.bind(this);
     this.setNextMonth = this.setNextMonth.bind(this);
     this.setPreviousMonth = this.setPreviousMonth.bind(this);
 
@@ -579,7 +580,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       ...(
         [DatePeriodsEnum.DAY].includes(periodMode) ? {toDate: UNDEF} : {}
       ),
-    });
+    }, this.setFromDateFocus);
+  }
+
+  /**
+   * @stable [11.03.2020]
+   */
+  private setFromDateFocus(): void {
+    ifNotNilThanValue(this.fromDateRef.current, (field) => field.setFocus());
   }
 
   /**
@@ -619,7 +627,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [09.03.2020]
+   * @stable [11.03.2020]
    * @param {string} value
    */
   private onFromDateFieldChange(value: string): void {
@@ -632,7 +640,11 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           cursor: from,
           from,
           fromDate: value,
-          periodMode: DatePeriodsEnum.CUSTOM,
+          ...(
+            this.selectedPeriodMode === DatePeriodsEnum.DAY
+              ? {to: null, toDate: UNDEF}
+              : {periodMode: DatePeriodsEnum.CUSTOM}
+          ),
         })
     );
   }
@@ -738,14 +750,18 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           this.isPreviousPeriodModeEnabled ? {periodMode: null} : {periodMode}
         ),
       };
+
+      ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(updatedState.from)));
+      ifNotEmptyThanValue(updatedState.to, () => (updatedState.toDate = this.serializeValue(updatedState.to)));
     } else {
       updatedState = {
         cursor: UNDEF,
         from: calendarDayEntity.date,
         fromDate: UNDEF,
       };
+      ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(calendarDayEntity.date)));
     }
-    this.setState(updatedState, () => this.fromDateRef.current.setFocus());
+    this.setState(updatedState, this.setFromDateFocus);
   }
 
   /**
