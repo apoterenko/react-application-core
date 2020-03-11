@@ -27,6 +27,7 @@ import {
 import {
   CalendarDialogClassesEnum,
   ComponentClassesEnum,
+  DateFieldClassesEnum,
   DateFieldRangeValueT,
   DatePeriodsEnum,
   DatesRangeValueT,
@@ -143,7 +144,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       this.isInline
         ? ComponentClassesEnum.CALENDAR_INLINE_DIALOG
         : ComponentClassesEnum.CALENDAR_DIALOG,
-      this.isRangeEnabled ? 'rac-date-field__calendars-dialog' : 'rac-date-field__calendar-dialog'
+      this.isRangeEnabled
+        ? DateFieldClassesEnum.DATE_FIELD_CALENDARS_DIALOG
+        : DateFieldClassesEnum.DATE_FIELD_CALENDAR_DIALOG
     );
 
     if (this.isInline) {
@@ -211,7 +214,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), ComponentClassesEnum.DATE_FIELD);
+    return joinClassName(super.getFieldClassName(), DateFieldClassesEnum.DATE_FIELD);
   }
 
   /**

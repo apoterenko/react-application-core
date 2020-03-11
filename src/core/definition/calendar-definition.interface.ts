@@ -1,13 +1,14 @@
 import {
   ICalendarConfigurationWrapper,
+  ICalendarEntityWrapper,
   IIsFirstSelectedWrapper,
   IIsLastSelectedWrapper,
+  IIsMiddleSelectedWrapper,
   IIsSelectedWrapper,
   IOnSelectWrapper,
   IRendererWrapper,
   ISelectedDaysWrapper,
   IShowOnlyCurrentDaysWrapper,
-  ICalendarEntityWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import {
@@ -34,6 +35,7 @@ export interface IGenericCalendarEntity
 export interface IBehavioralCalendarEntity
   extends IIsFirstSelectedWrapper<ICalendarDayEntity>,
     IIsLastSelectedWrapper<ICalendarDayEntity>,
+    IIsMiddleSelectedWrapper<ICalendarDayEntity>,
     IIsSelectedWrapper<ICalendarDayEntity>,
     IOnSelectWrapper<ICalendarDayEntity>,
     IRendererWrapper<ICalendarDayEntity> {
@@ -55,4 +57,12 @@ export interface ICalendarProps
  */
 export interface ICalendarConfigurationEntity<TProps extends ICalendarProps = ICalendarProps>
   extends ICalendarConfigurationWrapper<TProps> {
+}
+
+/**
+ * @classes
+ * @stable [08.03.2020]
+ */
+export enum CalendarDialogClassesEnum {
+ SELECTED_QUICK_ACTION = 'rac-calendar-dialog__selected-quick-action',
 }
