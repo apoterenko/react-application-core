@@ -141,42 +141,21 @@ describe('date-converter.service', () => {
       );
       expect(value).toEqual({to: {year: 2016, month: 3, day: 1}, from: {year: 2016, month: 2, day: 29}});
     });
-    it('test5 [from, <-to]', () => {
+    it('test5 [from, to]->[from]', () => {
       const value = dateConverter.selectDaysOfYearRange(
         {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
         {year: 2016, month: 3, day: 1}
       );
-      expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 1}});
+      expect(value).toEqual({from: {year: 2016, month: 3, day: 1}, to: {}});
     });
-    it('test6 [from, to->]', () => {
-      const value = dateConverter.selectDaysOfYearRange(
-        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
-        {year: 2016, month: 3, day: 3}
-      );
-      expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 3}});
-    });
-    it('test7 [from, to]', () => {
-      const value = dateConverter.selectDaysOfYearRange(
-        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
-        {year: 2016, month: 3, day: 2}
-      );
-      expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {}});
-    });
-    it('test8 [from, to]->[to]', () => {
-      const value = dateConverter.selectDaysOfYearRange(
-        {from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}},
-        {year: 2016, month: 2, day: 29}
-      );
-      expect(value).toEqual({from: {}, to: {year: 2016, month: 3, day: 2}});
-    });
-    it('test9 [to]->[from, to]', () => {
+    it('test6 [to]->[from, to]', () => {
       const value = dateConverter.selectDaysOfYearRange(
         {from: {}, to: {year: 2016, month: 3, day: 2}},
         {year: 2016, month: 2, day: 29}
       );
       expect(value).toEqual({from: {year: 2016, month: 2, day: 29}, to: {year: 2016, month: 3, day: 2}});
     });
-    it('test10 [to]->[from, to]', () => {
+    it('test7 [to]->[from, to]', () => {
       const value = dateConverter.selectDaysOfYearRange(
         {from: {}, to: {year: 2016, month: 3, day: 2}},
         {year: 2016, month: 3, day: 3}
