@@ -1,5 +1,6 @@
 @import '~sass-mixins/partials/_user-select';
 @import '~sass-flex-mixin/_flex';
+@import './classes';
 
 /**
  * @stable [21.01.2020]
@@ -1610,6 +1611,7 @@
   $rac-button-margin: unset,                                                         /* stable [02.02.2020 ] */
   $rac-button-min-width: unset,                                                      /* stable [02.02.2020 ] */
   $rac-button-opacity: unset,                                                        /* stable [02.02.2020 ] */
+  $rac-button-overflow: unset,                                                       /* stable [11.03.2020 ] */
   $rac-button-padding: unset,                                                        /* stable [02.02.2020 ] */
   $rac-button-position: unset,                                                       /* stable [02.02.2020 ] */
   $rac-button-right: unset,                                                          /* stable [06.02.2020 ] */
@@ -1634,14 +1636,15 @@
       $rac-styles-left: $rac-button-left,
       $rac-styles-margin : $rac-button-margin,
       $rac-styles-margin-top: $rac-button-margin-top,
-      $rac-styles-transition: $rac-button-transition,
       $rac-styles-min-width : $rac-button-min-width,
       $rac-styles-opacity: $rac-button-opacity,
+      $rac-styles-overflow: $rac-button-overflow,
       $rac-styles-padding: $rac-button-padding,
       $rac-styles-position: $rac-button-position,
       $rac-styles-right: $rac-button-right,
       $rac-styles-size: $rac-button-size,
       $rac-styles-top: $rac-button-top,
+      $rac-styles-transition: $rac-button-transition,
       $rac-styles-width: $rac-button-width
     );
 

@@ -123,6 +123,7 @@ export interface IColumnWidthWrapper { columnWidth?: number; }
 export interface ICompactWrapper<TValue = boolean> { compact?: TValue; }
 export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
+export interface IConfirmWrapper { confirm?: boolean; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }

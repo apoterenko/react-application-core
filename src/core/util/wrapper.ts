@@ -12,6 +12,7 @@ import {
   ICheckModalWrapper,
   IClearActionRenderedWrapper,
   ICompactWrapper,
+  IConfirmWrapper,
   IDecoratedWrapper,
   IDefaultWrapper,
   IDirtyWrapper,
@@ -132,6 +133,13 @@ export const inProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrappe
  */
 export const isCheckModalNeeded = <TEntity extends ICheckModalWrapper = ICheckModalWrapper>(wrapper: TEntity): boolean =>
   R.isNil(wrapper) ? false : wrapper.checkModal === true;
+
+/**
+ * @stable [11.03.2020]
+ * @param {IConfirmWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isConfirm = (wrapper: IConfirmWrapper): boolean => R.isNil(wrapper) ? false : wrapper.confirm === true;
 
 /**
  * @stable [31.01.2020]

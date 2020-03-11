@@ -11,6 +11,7 @@ import {
   ICloseActionConfigurationWrapper,
   ICloseDisabledWrapper,
   ICloseTextWrapper,
+  IConfirmWrapper,
   IDefaultWrapper,
   IDialogConfigurationWrapper,
   IInlineWrapper,
@@ -55,6 +56,7 @@ export interface IGenericDialogEntity
     ICloseActionConfigurationWrapper<IButtonProps>,
     ICloseDisabledWrapper,
     ICloseTextWrapper,
+    IConfirmWrapper,
     IDefaultWrapper,
     IScrollableWrapper {
 }
@@ -131,4 +133,13 @@ export interface IDialogConfigurationEntity<TProps extends IDialogProps = IDialo
 export interface IUnsavedFormChangesDialogProps
   extends IDialogProps,
     IFormExtendedEditableEntity {
+}
+
+/**
+ * @stable [11.03.2020]
+ */
+export enum DialogClassesEnum {
+  CONFIRM_DIALOG = 'rac-confirm-dialog',
+  DIALOG = 'rac-dialog',
+  MODAL_DIALOG = 'rac-modal-dialog',
 }

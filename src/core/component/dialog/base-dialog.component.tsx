@@ -7,6 +7,7 @@ import {
   calc,
   handlerPropsFactory,
   isCheckModalNeeded,
+  isConfirm,
   isDefault,
   isFn,
   isInline,
@@ -16,6 +17,7 @@ import {
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
+  DialogClassesEnum,
   EventsEnum,
   IActivateDialogConfigEntity,
   IBaseEvent,
@@ -31,9 +33,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                         TState extends IDialogState = IDialogState>
   extends BaseComponent<TProps, TState>
   implements IDialog<TProps, TState> {
-
-  private static readonly DIALOG_CLASS_NAME = 'rac-dialog';
-  private static readonly DIALOG_MODAL_CLASS_NAME = 'rac-modal-dialog';
 
   private onDeactivateCallback: () => void;
   private closeEventUnsubscriber: () => void;
@@ -55,7 +54,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.state = {opened: false} as TState;
 
     if (isCheckModalNeeded(props as ICheckModalWrapper)) {
-      this.doesAnotherModalDialogOpen = this.domAccessor.hasElements(BaseDialog.DIALOG_MODAL_CLASS_NAME, this.portalElement);
+      this.doesAnotherModalDialogOpen = this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement);
     }
   }
 
@@ -200,7 +199,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   private onDocumentClickCapture(event: IBaseEvent): void {
     const element = event.target as HTMLElement;
 
-    if (this.domAccessor.getParentsAsElements({parentClassName: BaseDialog.DIALOG_CLASS_NAME, element})
+    if (this.domAccessor.getParentsAsElements({parentClassName: DialogClassesEnum.DIALOG, element})
         .includes(this.getSelf())) {
       return;
     }
@@ -424,6 +423,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
+   * @stable [11.03.2020]
+   * @returns {boolean}
+   */
+  private get isConfirm(): boolean {
+    return isConfirm(this.props);
+  }
+
+  /**
    * @stable [31.01.2020]
    * @returns {boolean}
    */
@@ -440,9 +447,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
     return joinClassName(
       calc<string>(props.className),
-      BaseDialog.DIALOG_CLASS_NAME,
+      DialogClassesEnum.DIALOG,
       this.isDefault && 'rac-default-dialog',
-      this.isModal && BaseDialog.DIALOG_MODAL_CLASS_NAME,
+      this.isModal && DialogClassesEnum.MODAL_DIALOG,
+      this.isConfirm && DialogClassesEnum.CONFIRM_DIALOG,
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
       this.isInline
         ? 'rac-inline-dialog'

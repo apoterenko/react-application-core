@@ -344,6 +344,7 @@ $rac-button-outlined-background: 0 !default;
 $rac-button-outlined-border: $rac-button-size-3 solid $rac-button-color-4 !default;
 $rac-button-outlined-color: unset !default;
 $rac-button-outlined-icon-color: unset !default;
+$rac-button-overflow: hidden !default;
 $rac-button-padding: 0 $rac-button-size-4 !default;
 $rac-button-raised-background: $rac-button-color-1 !default;
 $rac-button-raised-color: $rac-button-color-3 !default;
@@ -887,7 +888,6 @@ $rac-tab-position: relative !default;
 /* @stable [05.08.2018] */
 /************************/
 $rac-default-dialog-cls: rac-default-dialog;
-$rac-inline-dialog-cls: rac-inline-dialog;
 $rac-menu-dialog-cls: rac-menu-dialog;
 $rac-menu-dialog-icon-close-cls: rac-menu-dialog__icon-close;
 $rac-modal-dialog-cls: rac-modal-dialog;
@@ -923,8 +923,8 @@ $rac-modal-dialog-top: 0 !default;
 $rac-modal-dialog-width: 100% !default;
 $rac-modal-dialog-z-index: $rac-z-index-dialog !default;
 /**/
+$rac-confirm-dialog-body-flex: initial !default;
 $rac-inline-dialog-position: absolute !default;
-/**/
 $rac-not-transparent-dialog-background: $rac-color-0-6 !default;
 /**/
 $rac-menu-dialog-base-text-field-margin: 0 0 $rac-offset-1 0 !default;

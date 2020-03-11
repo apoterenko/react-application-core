@@ -7,6 +7,10 @@ import { BaseDialog } from '../base-dialog.component';
 
 export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDialogProps> {
 
+  public static readonly defaultProps: IUnsavedFormChangesDialogProps = {
+    confirm: true,
+  };
+
   /**
    * @stable [05.01.2020]
    * @param {IActivateDialogConfigEntity} payload
