@@ -2,6 +2,7 @@ export * from './effects';
 export * from './middleware';
 export * from './stack';
 export * from './state';
+export * from './store.factory';
 export * from './store.interface';
 export * from './store.module';
 export * from './store.support';

@@ -5,6 +5,7 @@ import { AnyT } from '../definitions.interface';
  */
 export enum EnvironmentGlobalVariablesEnum {
   DATE_CONVERTER = '$$dateConverter',
+  ENVIRONMENT = '$$env',
   TRANSPORT = '$$transport',
 }
 
@@ -41,5 +42,6 @@ export interface IEnvironment {
   window?: Window;
   windowsPhonePlatform?: boolean;
   windowsPlatform?: boolean;
+  getSectionFullPath?(sectionRoute: string): string;
   setVariable?(name: string, scope: AnyT): void;
 }

@@ -93,6 +93,22 @@ export interface IComponentsSettingsEntity {
  * @entity
  * @stable [09.01.2020]
  */
+export interface IRoutesSettingsEntity {
+  oauthCallback?: string;
+}
+
+/**
+ * @default-entity
+ * @stable [09.01.2020]
+ */
+export const DEFAULT_ROUTES_SETTINGS_ENTITY = Object.freeze<IRoutesSettingsEntity>({
+  oauthCallback: '/oauth2callback',
+});
+
+/**
+ * @entity
+ * @stable [09.01.2020]
+ */
 export interface IAsyncLibrariesSettingsEntity {
   googleMaps?: string;
 }

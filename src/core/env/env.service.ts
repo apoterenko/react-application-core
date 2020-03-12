@@ -4,8 +4,15 @@ import { LoggerFactory } from 'ts-smart-logger';
 
 import { AnyT } from '../definitions.interface';
 import { ENV } from './env.interface';
-import { getCurrentUrlPath } from '../util';
-import { IEnvironment } from '../definition';
+import {
+  getCurrentUrlPath,
+  getFullPath,
+  getSectionFullPath,
+} from '../util';
+import {
+  EnvironmentGlobalVariablesEnum,
+  IEnvironment,
+} from '../definition';
 
 @injectable()
 export class Environment implements IEnvironment {
@@ -43,6 +50,8 @@ export class Environment implements IEnvironment {
       windowsPlatform: this.windowsPlatform,
     };
     Environment.logger.info(`[$Environment] ${JSON.stringify(payload)}`);
+
+    this.setVariable(EnvironmentGlobalVariablesEnum.ENVIRONMENT, this);
   }
 
   /**
@@ -59,6 +68,14 @@ export class Environment implements IEnvironment {
    */
   public get path(): string {
     return getCurrentUrlPath();
+  }
+
+  /**
+   * @stable [13.03.2020]
+   * @returns {string}
+   */
+  public get fullPath(): string {
+    return getFullPath();
   }
 
   /**
@@ -228,6 +245,15 @@ export class Environment implements IEnvironment {
    */
   public setVariable(name: string, scope: AnyT): void {
     Reflect.set(this.window, name, scope);
+  }
+
+  /**
+   * @stable [13.03.2020]
+   * @param {string} sectionRoute
+   * @returns {string}
+   */
+  public getSectionFullPath(sectionRoute: string): string {
+    return getSectionFullPath(sectionRoute);
   }
 
   /**

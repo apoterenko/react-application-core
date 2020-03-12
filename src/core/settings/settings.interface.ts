@@ -7,7 +7,9 @@ import {
   DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
   DEFAULT_PHONE_SETTINGS_ENTITY,
+  DEFAULT_ROUTES_SETTINGS_ENTITY,
   DEFAULT_STORAGE_SETTINGS_ENTITY,
+  DEFAULT_URLS_SETTINGS_ENTITY,
   IAsyncLibrariesSettingsEntity,
   IComponentsSettingsEntity,
   ICurrencySettingsEntity,
@@ -15,9 +17,9 @@ import {
   IGoogleMapsSettingsEntity,
   IMessagesSettingsEntity,
   IPhoneSettingsEntity,
+  IRoutesSettingsEntity,
   IStorageSettingsEntity,
   ITransportSettingsEntity,
-  DEFAULT_URLS_SETTINGS_ENTITY,
   IUrlsSettingsEntity,
   RegexpEnum,
   StorageTypesEnum,
@@ -120,6 +122,7 @@ export interface ISettingsEntity {
   persistenceStorage?: StorageTypesEnum;
   phone?: IPhoneSettingsEntity;
   resourcePaths?: IApplicationResourcePaths;
+  routes?: IRoutesSettingsEntity;
   signalRUrl?: string;
   storage?: IStorageSettingsEntity;
   transport?: ITransportSettingsEntity;
@@ -173,6 +176,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     waitMessage: 'Please wait...',
     yearMessage: 'Year',
   },
+  routes: DEFAULT_ROUTES_SETTINGS_ENTITY,
   asyncLibraries: DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
   dateTime: {
     ...DEFAULT_DATE_TIME_SETTINGS_ENTITY,

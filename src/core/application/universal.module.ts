@@ -7,6 +7,7 @@ import '../converter/converter.module';
 import '../env/env.module';
 import '../promise/promise.module';
 import '../settings/settings.module';
+import '../store/store.module';
 import '../translation/translation.module';
 import '../transport/transport.module';
 import '../version/version-processor.module';

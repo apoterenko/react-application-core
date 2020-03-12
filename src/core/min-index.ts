@@ -23,5 +23,6 @@ export * from './store/effects/effects-by.decorator';
 export * from './store/effects/untouched-list-effects.proxy';
 export * from './store/store.support';
 export * from './store/universal-store.factory';
+export * from './store/store.factory';
 export * from './transport';
 export * from './util';
