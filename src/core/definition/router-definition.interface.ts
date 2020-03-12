@@ -85,7 +85,7 @@ export interface IRouteEntity
     IExactWrapper,
     IKeyWrapper,
     IOnEnterWrapper<() => void>,
-    IPathWrapper,
+    IPathWrapper<string | (() => string)>,
     ITypeWrapper<ContainerVisibilityTypesEnum> {
 }
 

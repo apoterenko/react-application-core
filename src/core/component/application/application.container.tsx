@@ -11,6 +11,7 @@ import {
 import {
   ContainerVisibilityTypesEnum,
   EventsEnum,
+  IBaseRootContainerProps,
   IConnectorEntity,
   IContainerCtor,
   IRouter,
@@ -24,6 +25,10 @@ import {
 } from '../root';
 import { IApplicationContainerProps, } from './application.interface';
 import { UniversalApplicationContainer } from './universal-application.container';
+import {
+  calc,
+  ifNotEmptyThanValue,
+} from '../../util';
 
 export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEntity>
     extends UniversalApplicationContainer<IApplicationContainerProps> {
@@ -71,12 +76,16 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
     const Component = routeEntity.type === ContainerVisibilityTypesEnum.PRIVATE
       ? PrivateRootContainer
       : PublicRootContainer;
+    const props: IBaseRootContainerProps = {
+      ...routeEntity,
+      ...ifNotEmptyThanValue(routeEntity.path, () => ({path: calc(routeEntity.path)})),
+    };
     return (
       <Component
         exact={true}
         accessConfiguration={connectorEntity.accessConfiguration}
         container={ctor}
-        {...routeEntity}
+        {...props}
         key={this.toRouteId(routeEntity)}/>
     );
   }

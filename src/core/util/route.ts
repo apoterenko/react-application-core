@@ -6,6 +6,7 @@ import {
   NEW_OPTION,
 } from '../definitions.interface';
 import { IConnectorEntity } from '../definition';
+import { calc } from './calc';
 
 export function buildRoute(path: string, params: IKeyValue): string {
   (path.match(/\:[a-zA-Z0-9]+/g) || []).forEach((placeholder) => {
@@ -40,10 +41,10 @@ export const buildEntityRoute = <TEntity extends IEntity>(path: string,
  * @returns {string}
  */
 export const getRoutePathBySection = (section: string, connectorConfigs: Map<string, IConnectorEntity>): string => {
-  let routePath = null;
+  let routePath: string = null;
   connectorConfigs.forEach((connectorConfig, currentSection) => {
     if (currentSection === section) {
-      routePath = connectorConfig.routeConfiguration.path;
+      routePath = calc(connectorConfig.routeConfiguration.path);
     }
   });
   return routePath;

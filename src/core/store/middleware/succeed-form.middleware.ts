@@ -1,6 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
+  calc,
   ifNotNilThanValue,
   orNull,
 } from '../../util';
@@ -95,9 +96,9 @@ export const makeSucceedListFormMiddleware = (config: ISucceedListFormMiddleware
   const {listSection, action, navigateBack, succeedText} = config;
 
   const connectorConfig = getDynamicSections().get(listSection);
-  const dynamicListRoute = orNull<string>(
+  const dynamicListRoute = orNull(
     connectorConfig,
-    () => connectorConfig.routeConfiguration.path
+    () => calc(connectorConfig.routeConfiguration.path)
   );
   const payloadWrapper = getModifyEntityPayloadFactory().makeInstance(action);
 

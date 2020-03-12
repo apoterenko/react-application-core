@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
+import {
+  ILogger,
+  LoggerFactory,
+} from 'ts-smart-logger';
 
 import {
+  calc,
   doesApplicationErrorExist,
   ifNotNilThanValue,
   isApplicationInProgress,
@@ -110,7 +114,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
       ifNotNilThanValue(
         config.routeConfiguration,
         (routeCfg) => {
-          if ([routeCfg.path, routeCfg.key].includes(path)) {
+          if ([calc(routeCfg.path), routeCfg.key].includes(path)) {
             result = ctor;
           }
         }
@@ -180,7 +184,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @returns {string}
    */
   protected toRouteId(routeCfg: IRouteEntity): string {
-    return routeCfg.path || routeCfg.key;
+    return calc(routeCfg.path) || routeCfg.key;
   }
 
   /**

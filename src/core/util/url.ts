@@ -16,6 +16,37 @@ import { notNilValuesFilter } from './filter';
  */
 export const getCurrentUrlPath = (): string => URI().path();
 
+/**
+ * @stable [13.03.2020]
+ * @param {string} sectionRoute
+ * @returns {string}
+ */
+export const getSectionFullPath = (sectionRoute: string): string => URI(getFullPath()).segment(sectionRoute).toString();
+
+/**
+ * @stable [13.03.2020]
+ * @returns {string}
+ */
+export const getFullPath = (): string => `${getUrlProtocol()}://${getUrlHost()}${getUrlDirectory()}`;
+
+/**
+ * @stable [13.03.2020]
+ * @returns {string}
+ */
+export const getUrlDirectory = (): string => URI().directory();
+
+/**
+ * @stable [13.03.2020]
+ * @returns {string}
+ */
+export const getUrlHost = (): string => URI().host();
+
+/**
+ * @stable [13.03.2020]
+ * @returns {string}
+ */
+export const getUrlProtocol = (): string => URI().protocol();
+
 // TODO Deprecated  new URI().query(true);
 export const getURLSearchParams = (search: string): URLSearchParams => new URLSearchParams(search);
 
