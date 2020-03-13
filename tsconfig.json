@@ -40,7 +40,7 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "exclude": [
-    "./node_modules/*",
+    "node_modules",
     "core"
   ]
 }
