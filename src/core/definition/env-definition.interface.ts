@@ -1,4 +1,7 @@
-import { AnyT } from '../definitions.interface';
+import {
+  AnyT,
+  IKeyValue,
+} from '../definitions.interface';
 
 /**
  * @stable [28.08.2019]
@@ -43,5 +46,6 @@ export interface IEnvironment {
   windowsPhonePlatform?: boolean;
   windowsPlatform?: boolean;
   getSectionFullPath?(sectionRoute: string): string;
+  getUrlQueryParams?<TParams = IKeyValue>(): TParams;
   setVariable?(name: string, scope: AnyT): void;
 }

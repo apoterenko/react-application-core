@@ -40,7 +40,7 @@ import { userActionBuilder } from '../user';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
-  private static logger = LoggerFactory.makeLogger('UniversalApplicationEffects');
+  private static readonly logger = LoggerFactory.makeLogger('UniversalApplicationEffects');
 
   @lazyInject(DI_TYPES.Auth) protected readonly auth: IAuth;
   @lazyInject(DI_TYPES.NotVersionedPersistentStorage) protected notVersionedPersistentStorage: IStorage;

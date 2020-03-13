@@ -107,6 +107,22 @@ export const DEFAULT_ROUTES_SETTINGS_ENTITY = Object.freeze<IRoutesSettingsEntit
 
 /**
  * @entity
+ * @stable [13.03.2020]
+ */
+export interface IOAuthSettingsEntity {
+  clientId?: string;
+}
+
+/**
+ * @default-entity
+ * @stable [13.03.2020]
+ */
+export const DEFAULT_OAUTH_SETTINGS_ENTITY = Object.freeze<IOAuthSettingsEntity>({
+  clientId: 'spa',
+});
+
+/**
+ * @entity
  * @stable [09.01.2020]
  */
 export interface IAsyncLibrariesSettingsEntity {

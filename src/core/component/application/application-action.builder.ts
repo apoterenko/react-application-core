@@ -23,6 +23,7 @@ import {
   $RAC_APPLICATION_READY_ACTION_TYPE,
 } from '../../definition';
 
+// TODO Move
 export class ApplicationActionBuilder {
 
   /**

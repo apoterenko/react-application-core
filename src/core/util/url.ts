@@ -2,7 +2,10 @@ import * as R from 'ramda';
 import * as URI from 'urijs';
 import * as URLSearchParams from 'url-search-params';
 
-import { IKeyValue } from '../definitions.interface';
+import {
+  AnyT,
+  IKeyValue,
+} from '../definitions.interface';
 import {
   ITransportUrlConfigEntity,
   TransportMethodsEnum,
@@ -28,6 +31,12 @@ export const getSectionFullPath = (sectionRoute: string): string => URI(getFullP
  * @returns {string}
  */
 export const getFullPath = (): string => `${getUrlProtocol()}://${getUrlHost()}${getUrlDirectory()}`;
+
+/**
+ * @stable [13.03.2020]
+ * @returns {TParams}
+ */
+export const getUrlQueryParams = <TParams = IKeyValue>(): TParams => new URI().query(true) as AnyT;
 
 /**
  * @stable [13.03.2020]

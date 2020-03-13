@@ -6,6 +6,7 @@ import {
   DEFAULT_DATE_TIME_SETTINGS_ENTITY,
   DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
+  DEFAULT_OAUTH_SETTINGS_ENTITY,
   DEFAULT_PHONE_SETTINGS_ENTITY,
   DEFAULT_ROUTES_SETTINGS_ENTITY,
   DEFAULT_STORAGE_SETTINGS_ENTITY,
@@ -16,6 +17,7 @@ import {
   IDateTimeSettingsEntity,
   IGoogleMapsSettingsEntity,
   IMessagesSettingsEntity,
+  IOAuthSettingsEntity,
   IPhoneSettingsEntity,
   IRoutesSettingsEntity,
   IStorageSettingsEntity,
@@ -118,6 +120,7 @@ export interface ISettingsEntity {
   messages?: IMessagesSettings;
   metaFilesUrl?: string;
   number?: IApplicationNumberSettings;
+  oauth?: IOAuthSettingsEntity;
   pdfWorkerDirectoryUrl?: string;
   persistenceStorage?: StorageTypesEnum;
   phone?: IPhoneSettingsEntity;
@@ -176,6 +179,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     waitMessage: 'Please wait...',
     yearMessage: 'Year',
   },
+  oauth: DEFAULT_OAUTH_SETTINGS_ENTITY,
   routes: DEFAULT_ROUTES_SETTINGS_ENTITY,
   asyncLibraries: DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
   dateTime: {

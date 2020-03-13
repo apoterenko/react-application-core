@@ -2,12 +2,16 @@ import { injectable } from 'inversify';
 import * as P from 'platform';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { AnyT } from '../definitions.interface';
+import {
+  AnyT,
+  IKeyValue,
+} from '../definitions.interface';
 import { ENV } from './env.interface';
 import {
   getCurrentUrlPath,
   getFullPath,
   getSectionFullPath,
+  getUrlQueryParams,
 } from '../util';
 import {
   EnvironmentGlobalVariablesEnum,
@@ -254,6 +258,14 @@ export class Environment implements IEnvironment {
    */
   public getSectionFullPath(sectionRoute: string): string {
     return getSectionFullPath(sectionRoute);
+  }
+
+  /**
+   * @stable [13.03.2020]
+   * @returns {TParams}
+   */
+  public getUrlQueryParams<TParams = IKeyValue>(): TParams {
+    return getUrlQueryParams();
   }
 
   /**
