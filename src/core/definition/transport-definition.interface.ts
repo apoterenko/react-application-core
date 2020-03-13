@@ -329,6 +329,15 @@ export interface ITransportEntity
 }
 
 /**
+ * @reducer-payload-entity
+ * @stable [13.03.2020]
+ */
+export interface ITransportReducerPayloadEntity
+  extends IOperationIdWrapper,
+    ITokenWrapper {
+}
+
+/**
  * @stable [24.09.2019]
  */
 export interface ITransportWrapperEntity

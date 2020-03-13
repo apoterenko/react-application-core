@@ -1,24 +1,31 @@
-import { AnyAction } from 'redux';
+import {
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import {
-  ITransportEntity,
   INITIAL_TRANSPORT_ENTITY,
+  ITransportEntity,
+  ITransportReducerPayloadEntity,
 } from '../definition';
-import { IOperationIdWrapper } from '../definitions.interface';
 import {
+  TRANSPORT_DESTROY_ACTION_TYPE,
+  TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
   TRANSPORT_REQUEST_ACTION_TYPE,
+  TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
   TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
-  TRANSPORT_DESTROY_ACTION_TYPE,
   TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
-  TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
-  TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { ifNotNilThanValue } from '../util';
+import {
+  ifNotNilThanValue,
+  selectData,
+} from '../util';
 
 export function transportReducer(state: ITransportEntity = INITIAL_TRANSPORT_ENTITY,
-                                 action: AnyAction): ITransportEntity {
-  const operationId = ifNotNilThanValue<IOperationIdWrapper, string>(action.data, (data) => data.operationId);
+                                 action: IEffectsAction): ITransportEntity {
+  const payloadData = selectData<ITransportReducerPayloadEntity>(action);
+  const operationId = ifNotNilThanValue(payloadData, (data) => data.operationId);
+
   switch (action.type) {
     case TRANSPORT_REQUEST_ACTION_TYPE:
       return {
@@ -44,7 +51,7 @@ export function transportReducer(state: ITransportEntity = INITIAL_TRANSPORT_ENT
     case TRANSPORT_UPDATE_TOKEN_ACTION_TYPE:
       return {
         ...state,
-        token: action.data.token,
+        token: payloadData.token,
       };
     case TRANSPORT_DESTROY_TOKEN_ACTION_TYPE:
       return {
