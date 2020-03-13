@@ -31,6 +31,7 @@ import {
 } from '../../definitions.interface';
 import { TransportActionBuilder } from '../../transport';
 import { ApplicationActionBuilder } from '../../component/application/application-action.builder';
+import { notNilValuesFilter } from '../../util';
 
 @provideInSingleton(OpenIdAuthCallbackEffects)
 export class OpenIdAuthCallbackEffects {
@@ -67,9 +68,9 @@ export class OpenIdAuthCallbackEffects {
       grant_type: GRANT_TYPE_AUTHORIZATION_CODE,
       code,
       refresh_token: UNDEF,
-      extras: {
-        code_verifier: authRequest.extras.code_verifier,
-      },
+      extras: notNilValuesFilter({
+        code_verifier: authRequest.internal.code_verifier,
+      }),
     });
 
     const configuration = await this.getValueFromStorage<AuthorizationServiceConfigurationJson>(
