@@ -41,7 +41,7 @@ export class DatabaseStorage extends BaseStorage {
    * @returns {Promise<boolean>}
    */
   public remove(key: string, noPrefix?: boolean): Promise<void> {
-    return this.instance.removeItem(noPrefix ? key : this.toKey(key));
+    return this.instance.removeItem(this.toKey(key, noPrefix));
   }
 
   /**

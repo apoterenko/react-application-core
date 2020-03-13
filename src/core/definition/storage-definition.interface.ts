@@ -70,7 +70,7 @@ export enum StorageTypesEnum {
  */
 export interface IStorage {
   set(key: string, value: AnyT): Promise<AnyT>;
-  get?(key: string): Promise<AnyT>;
+  get?(key: string, noPrefix?: boolean): Promise<AnyT>;
   remove?(key: string, noPrefix?: boolean): Promise<void>;
   each?(command: (value: AnyT, key: string) => void): void;
 }

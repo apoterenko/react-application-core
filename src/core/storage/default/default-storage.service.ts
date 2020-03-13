@@ -1,6 +1,10 @@
 import { AnyT } from '../../definitions.interface';
 import { BaseStorage } from '../base-storage.service';
-import { ifNotNilThanValue, nvl } from '../../util';
+import {
+  nvl,
+  parseJson,
+  serializeJson,
+} from '../../util';
 import { ISettingsEntity } from '../../settings';
 import { StorageTypesEnum } from '../../definition';
 
@@ -24,18 +28,20 @@ export class DefaultStorage extends BaseStorage {
    * @param {AnyT} value
    * @returns {Promise<boolean>}
    */
-  public set(key: string, value: AnyT): Promise<boolean> {
-    this.storage.setItem(this.toKey(key), JSON.stringify(value));
-    return Promise.resolve(true);
+  public async set(key: string, value: AnyT): Promise<boolean> {
+    this.storage.setItem(this.toKey(key), serializeJson(value));
+    return true;
   }
 
   /**
-   * @stable [28.07.2019]
+   * @stable [13.03.2020]
    * @param {string} key
+   * @param {boolean} noPrefix
    * @returns {Promise<AnyT>}
    */
-  public get(key: string): Promise<AnyT> {
-    return Promise.resolve(ifNotNilThanValue(this.storage.getItem(this.toKey(key)), (v) => JSON.parse(v)));
+  public async get(key: string, noPrefix?: boolean): Promise<AnyT> {
+    const data = await this.storage.getItem(this.toKey(key, noPrefix));
+    return parseJson(data);
   }
 
   /**
@@ -44,9 +50,8 @@ export class DefaultStorage extends BaseStorage {
    * @param {boolean} noPrefix
    * @returns {Promise<boolean>}
    */
-  public remove(key: string, noPrefix?: boolean): Promise<void> {
-    this.storage.removeItem(noPrefix ? key : this.toKey(key));
-    return Promise.resolve();
+  public async remove(key: string, noPrefix?: boolean): Promise<void> {
+    this.storage.removeItem(this.toKey(key, noPrefix));
   }
 
   /**

@@ -1,5 +1,8 @@
 import { AnyT } from '../definitions.interface';
-import { IStorage, STORAGE_PATH_SEPARATOR } from '../definition';
+import {
+  IStorage,
+  STORAGE_PATH_SEPARATOR,
+} from '../definition';
 
 export abstract class BaseStorage implements IStorage {
 
@@ -19,11 +22,12 @@ export abstract class BaseStorage implements IStorage {
   public abstract set(key: string, value: AnyT): Promise<boolean>;
 
   /**
-   * @stable [28.07.2019]
+   * @stable [13.03.2020]
    * @param {string} key
+   * @param {boolean} noPrefix
    * @returns {string}
    */
-  protected toKey(key: string): string {
-    return [this.prefix, key].join(STORAGE_PATH_SEPARATOR);
+  protected toKey(key: string, noPrefix?: boolean): string {
+    return noPrefix ? key : [this.prefix, key].join(STORAGE_PATH_SEPARATOR);
   }
 }
