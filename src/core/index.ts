@@ -73,5 +73,4 @@ export * from './settings';
 export * from './storage';
 export * from './store';
 export * from './transport';
-export * from './user';
 export * from './util';

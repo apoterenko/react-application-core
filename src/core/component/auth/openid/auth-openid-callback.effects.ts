@@ -15,32 +15,40 @@ import {
   DI_TYPES,
   lazyInject,
   provideInSingleton,
-} from '../../di';
+} from '../../../di';
 import {
   IAuth,
   IEnvironment,
+  IFieldConverter,
   IStorage,
   OAUTH_CALLBACK_SECTION,
-} from '../../definition';
-import { ISettingsEntity } from '../../settings';
-import { ConnectorActionBuilder } from '../../action';
+} from '../../../definition';
+import { ISettingsEntity } from '../../../settings';
+import {
+  ConnectorActionBuilder,
+  StorageActionBuilder,
+  userActionBuilder,
+} from '../../../action';
+import { decodeJwt } from '../../../util/jwt';
 import {
   ICodeWrapper,
   IKeyValue,
   UNDEF,
-} from '../../definitions.interface';
-import { TransportActionBuilder } from '../../transport';
-import { ApplicationActionBuilder } from '../../component/application/application-action.builder';
-import { notNilValuesFilter } from '../../util';
+} from '../../../definitions.interface';
+import { TransportActionBuilder } from '../../../transport';
+import { ApplicationActionBuilder } from '../../application/application-action.builder'; // TODO Move
+import { notNilValuesFilter } from '../../../util';
 
-@provideInSingleton(OpenIdAuthCallbackEffects)
-export class OpenIdAuthCallbackEffects {
-  private static readonly logger = LoggerFactory.makeLogger('OpenIdAuthCallbackEffects');
+@provideInSingleton(AuthOpenIdCallbackEffects)
+export class AuthOpenIdCallbackEffects {
+  private static readonly logger = LoggerFactory.makeLogger('AuthOpenIdCallbackEffects');
 
+  // See inside the "@openid/appauth" package
   private static readonly AUTHORIZATION_REQUEST_HANDLE_KEY = 'appauth_current_authorization_request';
 
   @lazyInject(DI_TYPES.Auth) private readonly auth: IAuth;
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
+  @lazyInject(DI_TYPES.FieldConverter) private readonly fieldConverter: IFieldConverter;
   @lazyInject(DI_TYPES.NotVersionedSessionStorage) private readonly notVersionedSessionStorage: IStorage;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
 
@@ -51,15 +59,15 @@ export class OpenIdAuthCallbackEffects {
   @EffectsService.effects(ConnectorActionBuilder.buildInitActionType(OAUTH_CALLBACK_SECTION))
   public async $onConnectorInit(): Promise<IEffectsAction[]> {
     if (this.auth.isAuthorized()) {
-      OpenIdAuthCallbackEffects.logger.debug(() =>
-        `[$OAuth2callbackContainerEffects][$onConnectorInit] The application is already authorized, exit...`);
+      AuthOpenIdCallbackEffects.logger.debug(() =>
+        `[$AuthOpenIdCallbackEffects][$onConnectorInit] The application is already authorized, exit...`);
       return null;
     }
 
     const params = this.environment.getUrlQueryParams<ICodeWrapper>();
     const code = params.code;
 
-    const key = await this.getValueFromStorage<string>(OpenIdAuthCallbackEffects.AUTHORIZATION_REQUEST_HANDLE_KEY);
+    const key = await this.getValueFromStorage<string>(AuthOpenIdCallbackEffects.AUTHORIZATION_REQUEST_HANDLE_KEY);
     const authRequest = await this.getValueFromStorage(this.authorizationRequestKey(key));
 
     const request = new TokenRequest({
@@ -68,9 +76,7 @@ export class OpenIdAuthCallbackEffects {
       grant_type: GRANT_TYPE_AUTHORIZATION_CODE,
       code,
       refresh_token: UNDEF,
-      extras: notNilValuesFilter({
-        code_verifier: authRequest.internal.code_verifier,
-      }),
+      extras: notNilValuesFilter({code_verifier: authRequest.internal.code_verifier}),
     });
 
     const configuration = await this.getValueFromStorage<AuthorizationServiceConfigurationJson>(
@@ -80,12 +86,16 @@ export class OpenIdAuthCallbackEffects {
     const tokenHandler = new BaseTokenRequestHandler();
     const response = await tokenHandler.performTokenRequest(new AuthorizationServiceConfiguration(configuration), request);
 
-    OpenIdAuthCallbackEffects.logger.debug(() =>
-      `[$OAuth2callbackContainerEffects][$onConnectorInit] The token has been generated successfully. The token payload:`, response);
+    AuthOpenIdCallbackEffects.logger.debug(() =>
+      `[$AuthOpenIdCallbackEffects][$onConnectorInit] The token has been generated successfully. The token payload:`, response);
 
     return [
+      userActionBuilder.buildReplaceAction(
+        this.fieldConverter.fromOAuthJwtDecodedInfoToOAuthUserInfo(decodeJwt(response.accessToken))
+      ),
       TransportActionBuilder.buildUpdateTokenAction({token: response.accessToken}),
-      ApplicationActionBuilder.buildAuthorizedAction()
+      StorageActionBuilder.buildSyncAppStateAction(), // Need to sync the updated state with the storage immediately
+      ApplicationActionBuilder.buildAfterLoginAction()
     ];
   }
 
@@ -99,7 +109,8 @@ export class OpenIdAuthCallbackEffects {
   }
 
   /**
-   * @see @openid/appauth
+   * See inside the "@openid/appauth" package
+   *
    * @stable [13.03.2020]
    * @param {string} handle
    * @returns {string}
@@ -107,7 +118,8 @@ export class OpenIdAuthCallbackEffects {
   private readonly authorizationRequestKey = (handle: string) => `${handle}_appauth_authorization_request`;
 
   /**
-   * @see @openid/appauth
+   * See inside the "@openid/appauth" package
+   *
    * @stable [13.03.2020]
    * @param {string} handle
    * @returns {string}

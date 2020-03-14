@@ -1,4 +1,7 @@
-import { EffectsAction, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsAction,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import {
   $RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE,

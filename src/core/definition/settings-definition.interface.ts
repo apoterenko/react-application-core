@@ -94,6 +94,7 @@ export interface IComponentsSettingsEntity {
  * @stable [09.01.2020]
  */
 export interface IRoutesSettingsEntity {
+  home?: string;
   oauthCallback?: string;
 }
 
@@ -102,6 +103,7 @@ export interface IRoutesSettingsEntity {
  * @stable [09.01.2020]
  */
 export const DEFAULT_ROUTES_SETTINGS_ENTITY = Object.freeze<IRoutesSettingsEntity>({
+  home: '/',
   oauthCallback: '/oauth2callback',
 });
 

@@ -33,10 +33,10 @@ import {
   DictionariesActionBuilder,
   NotificationActionBuilder,
   RouterActionBuilder,
+  userActionBuilder,
 } from '../action';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
 import { TransportActionBuilder } from '../transport/transport-action.builder';
-import { userActionBuilder } from '../user';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {

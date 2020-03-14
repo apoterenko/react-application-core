@@ -17,6 +17,7 @@ import {
   IPhoneConfigEntity,
   IPlaceEntity,
   ISelectOptionEntity,
+  IUserEntity,
   TranslatorT,
 } from '../../definition';
 import {
@@ -93,6 +94,11 @@ export class FieldConverter implements IFieldConverter {
       to: FieldConverterTypesEnum.DATES_RANGE_ENTITY,
       converter: this.datesRangeValueAsDatesRangeEntity,
     });
+    this.register({
+      from: FieldConverterTypesEnum.OAUTH_JWT_DECODED_INFO,
+      to: FieldConverterTypesEnum.OAUTH_USER_INFO,
+      converter: this.$fromOAuthJwtDecodedInfoToOAuthUserInfo.bind(this),
+    });
   }
 
   /**
@@ -126,6 +132,19 @@ export class FieldConverter implements IFieldConverter {
    */
   public converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT {
     return this.converters.get(this.asKey(config));
+  }
+
+  /**
+   * @stable [14.03.2020]
+   * @param {TValue} value
+   * @returns {IUserEntity}
+   */
+  public fromOAuthJwtDecodedInfoToOAuthUserInfo<TValue = AnyT>(value: TValue): IUserEntity {
+    return this.convert({
+      from: FieldConverterTypesEnum.OAUTH_JWT_DECODED_INFO,
+      to: FieldConverterTypesEnum.OAUTH_USER_INFO,
+      value,
+    });
   }
 
   /**
@@ -235,6 +254,10 @@ export class FieldConverter implements IFieldConverter {
       to: value[1] as DateTimeLikeTypeT,
       periodMode: value[2] as DatePeriodsEnum,
     };
+  }
+
+  private $fromOAuthJwtDecodedInfoToOAuthUserInfo<TValue = AnyT>(value: TValue): IUserEntity {
+    return {id: -1, name: 'Anonymous'};
   }
 
   /**
