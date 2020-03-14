@@ -17,10 +17,10 @@ export enum FieldConverterTypesEnum {
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
-  OAUTH_USER_INFO = 'OAUTH_USER_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
   PLACE_PARAMETER = 'PLACE_PARAMETER',
   SELECT_OPTION_ENTITY = 'SELECT_OPTION_ENTITY',
+  USER_ENTITY = 'USER_ENTITY',
   ZIP_CODE_ENTITY = 'ZIP_CODE_ENTITY',
 }
 
@@ -40,6 +40,6 @@ export interface IFieldConverterConfigEntity
 export interface IFieldConverter {
   convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
   converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
-  fromOAuthJwtDecodedInfoToOAuthUserInfo<TValue = AnyT>(value: TValue): IUserEntity;
+  fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
   register(config: IFieldConverterConfigEntity): void;
 }

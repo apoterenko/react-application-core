@@ -91,7 +91,7 @@ export class AuthOpenIdCallbackEffects {
 
     return [
       userActionBuilder.buildReplaceAction(
-        this.fieldConverter.fromOAuthJwtDecodedInfoToOAuthUserInfo(decodeJwt(response.accessToken))
+        this.fieldConverter.fromOAuthJwtDecodedInfoToUserEntity(decodeJwt(response.accessToken))
       ),
       TransportActionBuilder.buildUpdateTokenAction({token: response.accessToken}),
       StorageActionBuilder.buildSyncAppStateAction(), // Need to sync the updated state with the storage immediately

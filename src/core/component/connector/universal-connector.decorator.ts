@@ -24,7 +24,7 @@ const logger = LoggerFactory.makeLogger('universal-connector.decorator');
  * @param {IBasicConnectorEntity<TStoreEntity>} config
  * @returns {(target: IContainerClassEntity) => void}
  */
-export const basicConnector = <TStoreEntity extends IUniversalStoreEntity>(
+export const basicConnector = <TStoreEntity extends IUniversalStoreEntity = IUniversalStoreEntity>(
   config: IBasicConnectorEntity<TStoreEntity>
 ) =>
   (target: IUniversalContainerCtor): void => {

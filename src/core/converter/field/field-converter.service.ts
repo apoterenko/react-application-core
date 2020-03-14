@@ -96,8 +96,8 @@ export class FieldConverter implements IFieldConverter {
     });
     this.register({
       from: FieldConverterTypesEnum.OAUTH_JWT_DECODED_INFO,
-      to: FieldConverterTypesEnum.OAUTH_USER_INFO,
-      converter: this.$fromOAuthJwtDecodedInfoToOAuthUserInfo.bind(this),
+      to: FieldConverterTypesEnum.USER_ENTITY,
+      converter: this.$fromOAuthJwtDecodedInfoToUserEntity.bind(this),
     });
   }
 
@@ -139,10 +139,10 @@ export class FieldConverter implements IFieldConverter {
    * @param {TValue} value
    * @returns {IUserEntity}
    */
-  public fromOAuthJwtDecodedInfoToOAuthUserInfo<TValue = AnyT>(value: TValue): IUserEntity {
+  public fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity {
     return this.convert({
       from: FieldConverterTypesEnum.OAUTH_JWT_DECODED_INFO,
-      to: FieldConverterTypesEnum.OAUTH_USER_INFO,
+      to: FieldConverterTypesEnum.USER_ENTITY,
       value,
     });
   }
@@ -256,7 +256,12 @@ export class FieldConverter implements IFieldConverter {
     };
   }
 
-  private $fromOAuthJwtDecodedInfoToOAuthUserInfo<TValue = AnyT>(value: TValue): IUserEntity {
+  /**
+   * @stable [14.03.2020]
+   * @param {TValue} value
+   * @returns {IUserEntity}
+   */
+  private $fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity {
     return {id: -1, name: 'Anonymous'};
   }
 

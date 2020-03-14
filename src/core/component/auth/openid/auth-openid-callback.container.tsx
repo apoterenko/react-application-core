@@ -4,13 +4,12 @@ import { Message } from '../../message';
 import { basicConnector } from '../../connector';
 import {
   IContainerProps,
-  IStoreEntity,
   OAUTH_CALLBACK_SECTION,
 } from '../../../definition';
 import { getSettings } from '../../../di';
 import { BaseContainer } from '../../base';
 
-@basicConnector<IStoreEntity>({
+@basicConnector({
   routeConfiguration: {
     path: () => getSettings().routes.oauthCallback,
   },
