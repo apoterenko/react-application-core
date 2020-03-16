@@ -95,7 +95,9 @@ export interface IComponentsSettingsEntity {
  */
 export interface IRoutesSettingsEntity {
   home?: string;
+  logout?: string;
   oauthCallback?: string;
+  oauthSignIn?: string;
 }
 
 /**
@@ -104,7 +106,9 @@ export interface IRoutesSettingsEntity {
  */
 export const DEFAULT_ROUTES_SETTINGS_ENTITY = Object.freeze<IRoutesSettingsEntity>({
   home: '/',
+  logout: '/logout',
   oauthCallback: '/oauth2callback',
+  oauthSignIn: '/oauth2sign_in',
 });
 
 /**
@@ -113,6 +117,7 @@ export const DEFAULT_ROUTES_SETTINGS_ENTITY = Object.freeze<IRoutesSettingsEntit
  */
 export interface IOAuthSettingsEntity {
   clientId?: string;
+  scope?: string;
 }
 
 /**
@@ -121,6 +126,7 @@ export interface IOAuthSettingsEntity {
  */
 export const DEFAULT_OAUTH_SETTINGS_ENTITY = Object.freeze<IOAuthSettingsEntity>({
   clientId: 'spa',
+  scope: 'internal-api',
 });
 
 /**
@@ -186,6 +192,7 @@ export const DEFAULT_PHONE_SETTINGS_ENTITY = Object.freeze<IPhoneSettingsEntity>
  */
 export interface IUrlsSettingsEntity {
   emptyAvatar?: string;
+  pdfWorker?: string;
 }
 
 /**
@@ -194,6 +201,7 @@ export interface IUrlsSettingsEntity {
  */
 export const DEFAULT_URLS_SETTINGS_ENTITY = Object.freeze<IUrlsSettingsEntity>({
   emptyAvatar: 'media/no_avatar.jpg',
+  pdfWorker: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.min.js',
 });
 
 /**
@@ -227,6 +235,7 @@ export interface IMessagesSettingsEntity {
   PATH?: string;
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
+  PREVIEW?: string;
   PREVIOUS_DAY?: string;
   PREVIOUS_MONTH?: string;
   PREVIOUS_QUARTER?: string;
@@ -283,6 +292,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
+  PREVIEW: 'Preview',
   PREVIOUS_DAY: 'Prev. day',
   PREVIOUS_MONTH: 'Prev. month',
   PREVIOUS_QUARTER: 'Prev. quarter',

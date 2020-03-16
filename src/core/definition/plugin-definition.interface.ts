@@ -21,7 +21,8 @@ export type UniversalPluginFactoryT = (component: IUniversalComponent) => IUnive
  * @react-native-compatible
  * @stable [22.09.2019]
  */
-export type IUniversalPluginCtor<TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
-                                 TProps extends IUniversalComponentProps = IUniversalComponentProps,
-                                 TState = {}>
+export type GenericPluginCtorT
+  <TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
+    TProps extends IUniversalComponentProps = IUniversalComponentProps,
+    TState = {}>
   = new(component: TComponent) => IUniversalPlugin<TProps, TState>;

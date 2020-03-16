@@ -68,7 +68,8 @@ export enum StorageTypesEnum {
 /**
  * @stable [28.07.2019]
  */
-export interface IStorage {
+export interface IStorage<TStorage = Storage> {
+  storage?: TStorage;
   set(key: string, value: AnyT): Promise<AnyT>;
   get?(key: string, noPrefix?: boolean): Promise<AnyT>;
   remove?(key: string, noPrefix?: boolean): Promise<void>;

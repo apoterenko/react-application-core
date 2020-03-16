@@ -14,6 +14,7 @@ import {
   IConfirmWrapper,
   IDefaultWrapper,
   IDialogConfigurationWrapper,
+  IExtraActionsWrapper,
   IInlineWrapper,
   IOnAcceptWrapper,
   IOnActivateWrapper,
@@ -58,6 +59,7 @@ export interface IGenericDialogEntity
     ICloseTextWrapper,
     IConfirmWrapper,
     IDefaultWrapper,
+    IExtraActionsWrapper<JSX.Element>,
     IScrollableWrapper {
 }
 
@@ -141,5 +143,16 @@ export interface IUnsavedFormChangesDialogProps
 export enum DialogClassesEnum {
   CONFIRM_DIALOG = 'rac-confirm-dialog',
   DIALOG = 'rac-dialog',
+  DIALOG_ACTIONS = 'rac-dialog__actions',
+  DIALOG_BODY = 'rac-dialog__body',
+  DIALOG_BODY_CONTENT = 'rac-dialog__body-content',
+  DIALOG_BODY_CONTENT_WRAPPER = 'rac-dialog__body-content-wrapper',
+  DIALOG_BODY_TITLE = 'rac-dialog__body-title',
+  DIALOG_EXTRA_ACTIONS = 'rac-dialog__extra-actions',
+  INLINE_DIALOG = 'rac-inline-dialog',
+  MENU_DIALOG = 'rac-menu-dialog',
   MODAL_DIALOG = 'rac-modal-dialog',
+  PLACE_DIALOG = 'rac-place-dialog',
+  PLACE_DIALOG_TITLE = 'rac-place-dialog__title',
+  PREVIEW_DIALOG = 'rac-preview-dialog',
 }

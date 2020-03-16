@@ -187,6 +187,7 @@ export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedAllGroupsWrapper { expandedAllGroups?: boolean; }
 export interface IExpandedGroupsWrapper<TValue> { expandedGroups?: TValue; }
+export interface IExtraActionsWrapper<TValue> { extraActions?: TValue; }
 export interface IExtraParamsWrapper<TValue> { extraParams?: TValue; }
 export interface IFactorWrapper<TValue = number> { factor?: TValue; }
 export interface IFieldConfigurationWrapper<TValue> { fieldConfiguration?: TValue; }
@@ -409,6 +410,7 @@ export interface IPrefixWrapper { prefix?: string; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IPreventManualChangesWrapper { preventManualChanges?: boolean; }
+export interface IPreviewPageWrapper<TPage = number> { previewPage?: TPage; }
 export interface IPreviewScaleWrapper<TValue = number> { previewScale?: TValue; }
 export interface IPreviousActionWrapper<TValue> { previousAction?: TValue; }
 export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
