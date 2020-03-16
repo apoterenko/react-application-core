@@ -4,14 +4,21 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { AnyT } from '../../../definitions.interface';
-import { isFn, toJqEl } from '../../../util';
+import {
+  isFn,
+  isNumber,
+  nvl,
+  toJqEl,
+} from '../../../util';
 import { IPdfViewerDocument, IPdfViewerPage, IUniversalPdfPlugin } from './pdf-viewer.interface';
 
+// TODO Rename -> Generic..
 export class UniversalPdfPlugin implements IUniversalPdfPlugin {
-  private static logger = LoggerFactory.makeLogger('UniversalPdfPlugin');
+  private static readonly logger = LoggerFactory.makeLogger('UniversalPdfPlugin');
+  private static readonly DEFAULT_VIEWPORT_SCALE = 1;
 
   private page = 1;
-  private scale = 1;
+  private scale: number;
   private src: string;
   private loadTask: Promise<IPdfViewerDocument>;
   private loadPageTask: Promise<IPdfViewerPage>;
@@ -143,14 +150,17 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
     const w = viewportParent.width();
     const h = viewportParent.height();
 
-    const unscaledViewport = page.getViewport(1);
-    const actualScale = Math.min((h / unscaledViewport.height), (w / unscaledViewport.width));
+    const unscaledViewport = page.getViewport(UniversalPdfPlugin.DEFAULT_VIEWPORT_SCALE);
+    const outerScale = this.scale;
+    const hasOuterScale = isNumber(this.scale);
 
-    const viewport = page.getViewport(actualScale);
+    const initialScale = Math.min(h / unscaledViewport.height, w / unscaledViewport.width);
+    const viewport = page.getViewport(nvl(outerScale, initialScale));
 
     const canvasContext = renderArea.getContext('2d');
-    renderArea.height = h;
-    renderArea.width = w;
+
+    renderArea.height = hasOuterScale ? viewport.height : h;
+    renderArea.width = hasOuterScale ? viewport.width : w;
 
     page.render({canvasContext, viewport});
     return page;

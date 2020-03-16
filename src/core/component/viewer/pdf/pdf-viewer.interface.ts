@@ -1,5 +1,4 @@
-import { IViewerState, IViewerProps  } from '../viewer.interface';
-import { IPdfViewerEntity, IPdfViewerViewport } from '../../../definition';
+import { IPdfViewerViewport } from '../../../definition';
 
 /**
  * @stable [14.11.2018]
@@ -29,20 +28,4 @@ export interface IPdfViewerDocument {
 export interface IPdfViewerPage {
   getViewport(scale: number): IPdfViewerViewport;
   render({canvasContext: HTMLCanvasContext, viewport: IPdfViewerViewport}): void;
-}
-
-/**
- * @stable [19.09.2019]
- */
-export interface IPdfViewerProps
-  extends IViewerProps,
-    IPdfViewerEntity {
-}
-
-/**
- * @stable [27.06.2018]
- */
-export interface IPdfViewerState
-  extends IViewerState {
-  previewPage?: number; // TODO
 }
