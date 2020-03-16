@@ -991,9 +991,6 @@
   }
 }
 
-/**
- * @stable [15.03.2020]
- */
 @mixin rac-viewer(
   $rac-viewer-custom: unset,
   /**/
@@ -1009,16 +1006,14 @@
   $rac-viewer-empty-content-size: unset,
   $rac-viewer-flex-shrink: unset,
   $rac-viewer-flex: unset,                                                    /* @stable [15.03.2020] */
-  $rac-viewer-margin: unset,
-  $rac-viewer-position: unset
+  $rac-viewer-margin: unset
 ) {
 
   #{rac-cls(rac-viewer, $rac-viewer-custom)} {
     @include rac-styles(
       $rac-styles-flex-shrink: $rac-viewer-flex-shrink,
       $rac-styles-flex: $rac-viewer-flex,
-      $rac-styles-margin: $rac-viewer-margin,
-      $rac-styles-position: $rac-viewer-position
+      $rac-styles-margin: $rac-viewer-margin
     );
 
     > .rac-viewer-content {

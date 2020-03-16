@@ -1,0 +1,37 @@
+@import '../constant';
+@import '../mixin';
+
+.rac {
+
+  /**
+    * @viewer
+    * @stable [16.03.2020]
+    */
+  @include rac-viewer (
+  );
+
+  /**
+    * @full-viewer
+    * @stable [16.03.2020]
+    */
+  @include rac-viewer (
+    $rac-viewer-custom: $rac-full-viewer-cls,
+    $rac-viewer-flex: $rac-full-viewer-flex
+  );
+
+  /**
+   * @preview-dialog
+   * @stable [16.03.2020]
+   */
+  @include rac-preview-dialog (
+    $rac-preview-dialog-body-content-padding: $rac-preview-dialog-body-content-padding,
+    $rac-preview-dialog-body-content-wrapper-overflow: $rac-preview-dialog-body-content-wrapper-overflow,
+    $rac-preview-dialog-body-content-wrapper-padding: $rac-preview-dialog-body-content-wrapper-padding,
+    $rac-preview-dialog-body-max-width: $rac-preview-dialog-body-max-width,
+    $rac-preview-dialog-body-min-height: $rac-preview-dialog-body-min-height,
+    $rac-preview-dialog-extra-actions-position: $rac-preview-dialog-extra-actions-position,
+    $rac-preview-dialog-extra-actions-right: $rac-preview-dialog-extra-actions-right,
+    $rac-preview-dialog-extra-actions-top: $rac-preview-dialog-extra-actions-top,
+    $rac-preview-dialog-extra-actions-transform: $rac-preview-dialog-extra-actions-transform
+  );
+}
