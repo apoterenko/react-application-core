@@ -1,131 +1,166 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { toClassName, orNull, calc } from '../../util';
+import {
+  calc,
+  isCurrentValueNotEqualPreviousValue,
+  isFull,
+  isOpened,
+  isPreviewUsed,
+  joinClassName,
+  nvl,
+} from '../../util';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout/flex';
 import { Dialog } from '../dialog';
-import { IDialog } from '../../definition';
-import { IViewerProps, IViewerState } from './viewer.interface';
 import { PictureViewer } from '../viewer';
+import {
+  DialogClassesEnum,
+  IconsEnum,
+  IViewerProps,
+  IViewerState,
+  ViewerClassesEnum,
+} from '../../definition';
+import { UNDEF } from '../../definitions.interface';
+import { Button } from '../button';
 
 export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
                              TState extends IViewerState = IViewerState>
   extends BaseComponent<TProps, TState> {
 
+  private static readonly DEFAULT_PAGE = 1;
+  private static readonly DEFAULT_SCALE = 1;
+  private static readonly DEFAULT_SCALE_DIFF = .3;
+
+  private readonly previewDialogRef = React.createRef<Dialog>();
+
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
-    this.onPreview = this.onPreview.bind(this);
+
+    this.onBack = this.onBack.bind(this);
+    this.onDecrementScale = this.onDecrementScale.bind(this);
     this.onDialogClose = this.onDialogClose.bind(this);
+    this.onForward = this.onForward.bind(this);
+    this.onIncrementScale = this.onIncrementScale.bind(this);
+    this.showPreviewDialog = this.showPreviewDialog.bind(this);
+
     this.state = {} as TState;
   }
 
   /**
-   * @stable [08.07.2018]
-   * @param {TProps} props
-   * @param {TState} state
+   * @stable [16.03.2020]
+   * @param {TProps} prevProps
+   * @param {TState} prevState
    */
-  public componentDidUpdate(props: TProps, state: TState): void {
-    super.componentDidUpdate(props, state);
+  public componentDidUpdate(prevProps: TProps, prevState: TState): void {
+    super.componentDidUpdate(prevProps, prevState);
 
-    const currentProps = this.props;
-    if (!R.equals(currentProps.src, props.src)) {
-      this.refresh();
+    if (this.hasSrcChanges(prevProps, prevState)) {
+      this.refreshOnSrcChanges();
+    }
+    if (this.hasInternalChanges(prevProps, prevState)) {
+      this.refreshOnInternalChanges();
     }
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
    */
   public componentDidMount(): void {
     super.componentDidMount();
 
-    this.refresh();
+    this.refreshOnSrcChanges();
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const state = this.state;
     const props = this.props;
-    const isErrorExist = !R.isNil(state.error);
-    const isSrcAbsent = R.isNil(props.src);
-    const isDefaultSrcAbsent = R.isNil(props.defaultScr);
-    const isSrcAndDefaultSrcAbsent = isSrcAbsent && isDefaultSrcAbsent;
-    const isProgressMessageShown = this.isProgressMessageShown;
-    const canShowPreview = props.usePreview && !isSrcAbsent && !isProgressMessageShown && !isSrcAndDefaultSrcAbsent && !isErrorExist;
 
     return (
-      <FlexLayout
+      <div
         style={props.style}
-        full={props.full}
         className={this.getClassName()}
       >
-        {
-          isErrorExist || isSrcAndDefaultSrcAbsent
-            ? (
-              isErrorExist
-                ? (
-                  <FlexLayout
-                    justifyContentCenter={true}
-                    alignItemsCenter={true}>{
-                    this.t(this.settings.messages.fileLoadErrorMessage)
-                  }</FlexLayout>
-                )
-                : <PictureViewer/>
-            )
-            : (isProgressMessageShown ? this.settings.messages.waitingMessage : this.getContentElement())
-        }
-        {
-          orNull<JSX.Element>(
-            canShowPreview,
-            () => (
-              this.uiFactory.makeIcon({
-                type: 'search_plus',
-                className: 'rac-preview-action-icon rac-absolute-center-position',
-                onClick: this.onPreview,
-              })
-            )
-          )
-        }
-        {
-          orNull<JSX.Element>(
-            canShowPreview,
-            () => (
-              <Dialog
-                ref='dialog'
-                className='rac-preview-dialog'
-                title={this.settings.messages.previewMessage}
-                closeText={this.settings.messages.closeMessage}
-                acceptable={false}
-                onClose={this.onDialogClose}>
-                {orNull(state.opened, () => this.gePreviewElement())}
-              </Dialog>
-            )
-          )
-        }
-      </FlexLayout>
+        {this.bodyElement}
+        {this.previewIconElement}
+        {this.previewDialogElement}
+      </div>
     );
   }
 
   /**
-   * @stable [10.01.2019]
-   * @returns {string}
+   * @stable [16.03.2020]
+   * @returns {JSX.Element}
    */
-  protected getClassName(): string {
-    return toClassName('rac-viewer', calc<string>(this.props.className));
+  protected getPreviewExtraActionsElement(): JSX.Element {
+    return (
+      <React.Fragment>
+        <Button
+          icon={IconsEnum.SEARCH_MINUS}
+          onClick={this.onDecrementScale}/>
+        <Button
+          icon={IconsEnum.SEARCH_PLUS}
+          onClick={this.onIncrementScale}/>
+        <Button
+          icon={IconsEnum.BACK}
+          disabled={this.isPreviewBackActionDisabled()}
+          onClick={this.onBack}/>
+        <Button
+          icon={IconsEnum.FORWARD}
+          disabled={this.isPreviewForwardActionDisabled()}
+          onClick={this.onForward}/>
+      </React.Fragment>
+    );
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
+   * @returns {boolean}
    */
-  protected refresh(): void {
+  protected isPreviewForwardActionDisabled(): boolean {
+    return false;
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  protected isPreviewBackActionDisabled(): boolean {
+    return this.state.previewPage === Viewer.DEFAULT_PAGE;
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {string}
+   */
+  protected getClassName(): string {
+    const props = this.props;
+
+    return joinClassName(
+      ViewerClassesEnum.VIEWER,
+      isFull(props) && ViewerClassesEnum.FULL_VIEWER,
+      calc<string>(props.className)
+    );
+  }
+
+  /**
+   * @stable [16.03.2020]
+   */
+  protected refreshOnSrcChanges(): void {
+    // Do nothing
+  }
+
+  /**
+   * @stable [16.03.2020]
+   */
+  protected refreshOnInternalChanges(): void {
     // Do nothing
   }
 
@@ -136,33 +171,269 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   protected abstract getContentElement(): JSX.Element;
 
   /**
-   * @stable [08.07.2018]
+   * @stable [15.03.2020]
    * @returns {JSX.Element}
    */
   protected abstract gePreviewElement(): JSX.Element;
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
    * @returns {boolean}
    */
-  protected get isProgressMessageShown(): boolean {
+  protected get isProgressMessageRendered(): boolean {
     return false;
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
    */
   protected onDialogClose(): void {
-    this.setState({opened: false});
+    this.setState({
+      opened: false,
+      previewPage: UNDEF,
+      previewScale: UNDEF,
+    });
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
+   * @param {TProps} prevProps
+   * @param {TState} prevState
+   * @returns {boolean}
    */
-  private onPreview(): void {
-    this.setState({opened: true});
+  protected hasInternalChanges(prevProps: TProps, prevState: TState): boolean {
+    return (
+      this.hasPageChanges(prevProps, prevState)
+      || this.hasScaleChanges(prevProps, prevState)
+    );
+  }
 
-    const dialog = this.refs.dialog as IDialog;
-    dialog.activate();
+  /**
+   * @stable [15.03.2020]
+   * @param {TProps} prevProps
+   * @param {TState} prevState
+   * @returns {boolean}
+   */
+  protected hasScaleChanges(prevProps: TProps, prevState: TState): boolean {
+    return isCurrentValueNotEqualPreviousValue(this.props.scale, prevProps.scale);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @param {TProps} prevProps
+   * @param {TState} prevState
+   * @returns {boolean}
+   */
+  protected hasSrcChanges(prevProps: TProps, prevState: TState): boolean {
+    return isCurrentValueNotEqualPreviousValue(this.props.src, prevProps.src);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @param {TProps} prevProps
+   * @param {TState} prevState
+   * @returns {boolean}
+   */
+  protected hasPageChanges(prevProps: TProps, prevState: TState): boolean {
+    return (
+      isCurrentValueNotEqualPreviousValue(this.props.page, prevProps.page)
+      || isCurrentValueNotEqualPreviousValue(this.state.page, prevState.page)
+    );
+  }
+
+  /**
+   * @stable [16.03.2020]
+   */
+  private onBack(): void {
+    this.setState({previewPage: this.actualOrDefaultPreviewPage - 1});
+  }
+
+  /**
+   * @stable [16.03.2020]
+   */
+  private onForward(): void {
+    this.setState({previewPage: this.actualOrDefaultPreviewPage + 1});
+  }
+
+  /**
+   * @stable [16.03.2020]
+   */
+  private onIncrementScale(): void {
+    this.setState({previewScale: this.actualOrDefaultPreviewScale + Viewer.DEFAULT_SCALE_DIFF});
+  }
+
+  /**
+   * @stable [16.03.2020]
+   */
+  private onDecrementScale(): void {
+    this.setState({previewScale: this.actualOrDefaultPreviewScale - Viewer.DEFAULT_SCALE_DIFF});
+  }
+
+  /**
+   * @stable [16.03.2020]
+   */
+  private showPreviewDialog(): void {
+    this.setState({opened: true}, () => this.previewDialogRef.current.activate());
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {number}
+   */
+  protected get actualOrDefaultPage(): number {
+    return nvl(this.actualPage, Viewer.DEFAULT_PAGE);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {number}
+   */
+  protected get actualPage(): number {
+    return nvl(this.state.page, this.props.page);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {number}
+   */
+  protected get actualOrDefaultPreviewPage(): number {
+    return nvl(this.actualPreviewPage, Viewer.DEFAULT_PAGE);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {number}
+   */
+  protected get actualPreviewPage(): number {
+    return nvl(this.state.previewPage, this.props.previewPage);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {number}
+   */
+  protected get actualPreviewScale(): number {
+    return nvl(this.state.previewScale, this.props.previewScale);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {number}
+   */
+  protected get actualScale(): number {
+    return nvl(this.state.scale, this.props.scale);
+  }
+
+  private get bodyElement(): React.ReactNode {
+    const messages = this.settings.messages;
+    const doesErrorExist = this.doesErrorExist;
+
+    return doesErrorExist || this.isActualSrcAbsent
+      ? (
+        doesErrorExist
+          ? (
+            <FlexLayout
+              justifyContentCenter={true}
+              alignItemsCenter={true}>{
+              this.t(messages.fileLoadErrorMessage)
+            }</FlexLayout>
+          )
+          : <PictureViewer/>
+      )
+      : (this.isProgressMessageRendered ? this.settings.messages.WAITING : this.getContentElement());
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {JSX.Element}
+   */
+  private get previewDialogElement(): JSX.Element {
+    const messages = this.settings.messages;
+    const state = this.state;
+
+    return isOpened(state) && this.canPreview && (
+      <Dialog
+        ref={this.previewDialogRef}
+        className={DialogClassesEnum.PREVIEW_DIALOG}
+        title={messages.PREVIEW}
+        closeText={messages.CLOSE}
+        acceptable={false}
+        extraActions={this.getPreviewExtraActionsElement()}
+        onClose={this.onDialogClose}
+      >
+        {this.gePreviewElement()}
+      </Dialog>
+    );
+  }
+
+  private get previewIconElement(): JSX.Element {
+    return (
+      this.canPreview && (
+        this.uiFactory.makeIcon({
+          type: 'search_plus',
+          className: 'rac-preview-action-icon rac-absolute-center-position',
+          onClick: this.showPreviewDialog,
+        })
+      )
+    );
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {number}
+   */
+  private get actualOrDefaultPreviewScale(): number {
+    return nvl(this.actualPreviewScale, Viewer.DEFAULT_SCALE);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get canPreview(): boolean {
+    return this.isPreviewUsed
+      && !this.isProgressMessageRendered
+      && !this.isActualSrcAbsent
+      && !this.doesErrorExist;
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get doesErrorExist(): boolean {
+    return !R.isNil(this.state.error);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get isActualSrcAbsent(): boolean {
+    return this.isSrcAbsent && this.isDefaultSrcAbsent;
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get isSrcAbsent(): boolean {
+    return R.isNil(this.props.src);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get isDefaultSrcAbsent(): boolean {
+    return R.isNil(this.props.defaultScr);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get isPreviewUsed(): boolean {
+    return isPreviewUsed(this.props);
   }
 }
