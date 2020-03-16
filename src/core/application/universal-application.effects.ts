@@ -145,17 +145,14 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
     ];
   }
 
-  /**
-   * @stable - 25.04.2018
-   * @returns {IEffectsAction[]}
-   */
   @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType())
-  public $onLogout(): IEffectsAction[] {
+  public async $onLogout(): Promise<IEffectsAction[]> {
     return [
       PermissionsActionBuilder.buildDestroyAction(),
       userActionBuilder.buildDestroyAction(),
       DictionariesActionBuilder.buildDestroyAllAction(),
       ApplicationActionBuilder.buildUnauthorizedAction(),
+      TransportActionBuilder.buildDestroyTokenAction(),
       ApplicationActionBuilder.buildAfterLogoutAction()
     ];
   }
@@ -167,7 +164,6 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLogoutActionType())
   public async $onAfterLogout(): Promise<IEffectsAction[]> {
     return [
-      TransportActionBuilder.buildDestroyTokenAction(),
       ...ifNotEmptyThanValue(
         this.settings.messages.logoutNotificationMessage,
         (logoutNotificationMessage) => [NotificationActionBuilder.buildInfoAction(logoutNotificationMessage)],
