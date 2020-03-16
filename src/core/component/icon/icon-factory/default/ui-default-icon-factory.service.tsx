@@ -2,6 +2,7 @@ import * as React from 'react';
 import { injectable } from 'inversify';
 
 import { IUiDefaultIconFactory } from './ui-default-icon-factory.interface';
+import { IconsEnum } from '../../../../definition';
 
 @injectable()
 export class UiDefaultIconFactory implements IUiDefaultIconFactory {
@@ -39,7 +40,7 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         />
       </svg>
     ),
-    'back': (
+    [IconsEnum.BACK]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M10.59 18.94a1.485 1.485 0 0 1 0 2.121 1.534 1.534 0 0 1-2.147 0L.668 13.59A2.203 2.203 0 0 1 0 12c0-.6.237-1.167.666-1.59l7.775-7.47a1.538 1.538 0 0 1 2.151 0 1.488 1.488 0 0 1 0 2.12l-5.72 5.44H22.5c.83 0 1.5.67 1.5 1.5 0 .825-.672 1.5-1.5 1.5H4.869l5.722 5.441z'
