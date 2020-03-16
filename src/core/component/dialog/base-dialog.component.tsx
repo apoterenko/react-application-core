@@ -19,6 +19,7 @@ import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
   DialogClassesEnum,
   EventsEnum,
+  GenericPluginCtorT,
   IActivateDialogConfigEntity,
   IBaseEvent,
   IDialog,
@@ -301,7 +302,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [24.01.2020]
+   * @stable [16.03.2020]
    * @returns {JSX.Element}
    */
   private get dialogBodyElement(): JSX.Element {
@@ -309,14 +310,28 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       <div
         ref={this.bodyRef}
         style={{width: calc<number>(this.props.width)}}
-        className='rac-dialog__body'
+        className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
         {this.titleElement}
-        <div className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}>
-          {this.bodyElement}
-          {this.extraActionsElement}
-        </div>
+        {
+          this.hasExtraActions
+            ? (
+              <div className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}>
+                {this.bodyElement}
+                {this.extraActionsElement}
+              </div>
+            )
+            : (
+              <BasicComponent
+                className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}
+                plugins={this.wrapperPlugins}
+              >
+                {this.bodyElement}
+                {this.extraActionsElement}
+              </BasicComponent>
+            )
+        }
         {this.actionsElement}
       </div>
     );
@@ -346,13 +361,12 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get extraActionsElement(): JSX.Element {
-    const {extraActions} = this.props;
     return (
       <React.Fragment>
         {
-          extraActions && (
+          this.hasExtraActions && (
             <div className={DialogClassesEnum.DIALOG_EXTRA_ACTIONS}>
-              {extraActions}
+              {this.props.extraActions}
             </div>
           )
         }
@@ -370,14 +384,18 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return (
       <React.Fragment>
         {
-          children && (
-            <BasicComponent
-              className={DialogClassesEnum.DIALOG_BODY_CONTENT}
-              plugins={isScrollable(this.props) ? [PerfectScrollPlugin] : []}
-            >
-              {children}
-            </BasicComponent>
-          )
+          this.hasExtraActions
+            ? (
+              children && (
+                <BasicComponent
+                  className={DialogClassesEnum.DIALOG_BODY_CONTENT}
+                  plugins={this.wrapperPlugins}
+                >
+                  {children}
+                </BasicComponent>
+              )
+            )
+            : children
         }
       </React.Fragment>
     );
@@ -471,6 +489,30 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    */
   private get isModal(): boolean {
     return !this.isInline && !this.isAnchored;
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get hasExtraActions(): boolean {
+    return !R.isNil(this.props.extraActions);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  private get isScrollable(): boolean {
+    return isScrollable(this.props);
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {GenericPluginCtorT[]}
+   */
+  private get wrapperPlugins(): GenericPluginCtorT[] {
+    return this.isScrollable ? [PerfectScrollPlugin] : [];
   }
 
   /**
