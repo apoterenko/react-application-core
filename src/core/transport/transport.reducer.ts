@@ -3,18 +3,18 @@ import {
 } from 'redux-effects-promise';
 
 import {
+  $_RAC_TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
+  $_RAC_TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
   INITIAL_TRANSPORT_ENTITY,
   ITransportEntity,
-  ITransportReducerPayloadEntity,
+  ITransportFluxEntity,
 } from '../definition';
 import {
   TRANSPORT_DESTROY_ACTION_TYPE,
-  TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
-  TRANSPORT_REQUEST_ACTION_TYPE,
+  $RAC_TRANSPORT_REQUEST_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
-  TRANSPORT_REQUEST_DONE_ACTION_TYPE,
+  $RAC_TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
-  TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
 } from './transport-reducer.interface';
 import {
   ifNotNilThanValue,
@@ -23,11 +23,11 @@ import {
 
 export function transportReducer(state: ITransportEntity = INITIAL_TRANSPORT_ENTITY,
                                  action: IEffectsAction): ITransportEntity {
-  const payloadData = selectData<ITransportReducerPayloadEntity>(action);
+  const payloadData = selectData<ITransportFluxEntity>(action);
   const operationId = ifNotNilThanValue(payloadData, (data) => data.operationId);
 
   switch (action.type) {
-    case TRANSPORT_REQUEST_ACTION_TYPE:
+    case $RAC_TRANSPORT_REQUEST_ACTION_TYPE:
       return {
         ...state,
         queue: operationId
@@ -36,7 +36,7 @@ export function transportReducer(state: ITransportEntity = INITIAL_TRANSPORT_ENT
       };
     case TRANSPORT_REQUEST_CANCEL_ACTION_TYPE:
     case TRANSPORT_REQUEST_ERROR_ACTION_TYPE:
-    case TRANSPORT_REQUEST_DONE_ACTION_TYPE:
+    case $RAC_TRANSPORT_REQUEST_DONE_ACTION_TYPE:
       return {
         ...state,
         queue: operationId
@@ -48,12 +48,12 @@ export function transportReducer(state: ITransportEntity = INITIAL_TRANSPORT_ENT
           ...INITIAL_TRANSPORT_ENTITY,
       };
     }
-    case TRANSPORT_UPDATE_TOKEN_ACTION_TYPE:
+    case $_RAC_TRANSPORT_UPDATE_TOKEN_ACTION_TYPE:
       return {
         ...state,
         token: payloadData.token,
       };
-    case TRANSPORT_DESTROY_TOKEN_ACTION_TYPE:
+    case $_RAC_TRANSPORT_DESTROY_TOKEN_ACTION_TYPE:
       return {
         ...state,
         token: null,

@@ -1,7 +1,14 @@
-import { IEffectsAction, EffectsService, EffectsAction } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { provideInSingleton, lazyInject, DI_TYPES } from '../di';
+import {
+  DI_TYPES,
+  lazyInject,
+  provideInSingleton,
+} from '../di';
 import {
   IRoutesEntity,
   ITransportResponseAccessor,
@@ -10,10 +17,10 @@ import {
 import { IApplicationTransportErrorInterceptor } from './transport.interface';
 import {
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
-  TRANSPORT_REQUEST_DONE_ACTION_TYPE,
-  TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
 } from './transport-reducer.interface';
-import { RouterActionBuilder } from '../action';
+import {
+  RouterActionBuilder,
+} from '../action';
 import { ApplicationActionBuilder } from '../component/application/application-action.builder';
 
 @provideInSingleton(TransportEffects)
@@ -23,16 +30,6 @@ export class TransportEffects {
   @lazyInject(DI_TYPES.TransportResponseAccessor) private readonly responseAccessor: ITransportResponseAccessor;
   @lazyInject(DI_TYPES.TransportErrorInterceptor) private readonly errorInterceptor: IApplicationTransportErrorInterceptor;
   @lazyInject(DI_TYPES.Routes) private readonly routes: IRoutesEntity;
-
-  @EffectsService.effects(TRANSPORT_REQUEST_DONE_ACTION_TYPE)
-  public $onTransportRequestDone(action: IEffectsAction): IEffectsAction {
-    const data = action.data;
-    const token = this.responseAccessor.toToken(data);
-    if (token) {
-      return EffectsAction.create(TRANSPORT_UPDATE_TOKEN_ACTION_TYPE, { token });
-    }
-    return null;
-  }
 
   /**
    * @stable [05.02.2019]

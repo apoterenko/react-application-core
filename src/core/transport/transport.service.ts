@@ -6,8 +6,8 @@ import { DI_TYPES, lazyInject } from '../di';
 import { notNilValuesFilter, ifNotNilThanValue, toType, coalesce } from '../util';
 import { IKeyValue } from '../definitions.interface';
 import {
-  TRANSPORT_REQUEST_ACTION_TYPE,
-  TRANSPORT_REQUEST_DONE_ACTION_TYPE,
+  $RAC_TRANSPORT_REQUEST_ACTION_TYPE,
+  $RAC_TRANSPORT_REQUEST_DONE_ACTION_TYPE,
   TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
 } from './transport-reducer.interface';
@@ -58,7 +58,7 @@ export class Transport implements ITransport {
    */
   public async request<TResponse>(req: ITransportRequestEntity): Promise<TResponse> {
     this.cancelRequest(req); // Try cancel the same request automatically
-    this.store.dispatch({type: TRANSPORT_REQUEST_ACTION_TYPE, data: this.toResponseMetaEntity(req)});
+    this.store.dispatch({type: $RAC_TRANSPORT_REQUEST_ACTION_TYPE, data: this.toResponseMetaEntity(req)});
 
     let responseFactoryEntity: ITransportResponseFactoryEntity;
     try {
@@ -128,7 +128,7 @@ export class Transport implements ITransport {
    */
   private onRequestDone(req: ITransportRequestEntity, responseEntity: ITransportResponseEntity): void {
     this.store.dispatch({
-      type: TRANSPORT_REQUEST_DONE_ACTION_TYPE,
+      type: $RAC_TRANSPORT_REQUEST_DONE_ACTION_TYPE,
       data: toType<ITransportResponseEntity>({
         ...this.toResponseMetaEntity(req),
         ...responseEntity,

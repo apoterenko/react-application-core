@@ -39,6 +39,7 @@ import {
   ILoadingWrapper,
   IMenuRenderedWrapper,
   IMultiWrapper,
+  IOpenedWrapper,
   IPlaceActionRenderedWrapper,
   IPlainValueWrapper,
   IPreventFocusWrapper,
@@ -60,6 +61,7 @@ import {
   ITouchedWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
+  IUsePreviewWrapper,
   IUseZipCodeWrapper,
   IValidateOnMountWrapper,
   IValidWrapper,
@@ -590,3 +592,19 @@ export const isBackActionRendered =
  */
 export const isErrorMessageRendered = (wrapper: IErrorMessageRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.errorMessageRendered !== false;
+
+/**
+ * @stable [15.03.2020]
+ * @param {IOpenedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isOpened = (wrapper: IOpenedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.opened === true;
+
+/**
+ * @stable [16.03.2020]
+ * @param {IUsePreviewWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isPreviewUsed = (wrapper: IUsePreviewWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.usePreview !== false;

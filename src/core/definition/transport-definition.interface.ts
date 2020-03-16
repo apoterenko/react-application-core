@@ -1,4 +1,5 @@
 import {
+  ACTION_PREFIX,
   AnyT,
   EntityIdT,
   IApiUrlWrapper,
@@ -244,7 +245,6 @@ export interface ITransportResponseFactory {
  */
 export interface ITransportResponseAccessor {
   isAuthError(responseEntity: ITransportResponseEntity): boolean;
-  toToken(payload: ITransportResponseEntity): string;
 }
 
 /**
@@ -329,10 +329,10 @@ export interface ITransportEntity
 }
 
 /**
- * @reducer-payload-entity
- * @stable [13.03.2020]
+ * @flux-entity
+ * @stable [17.03.2020]
  */
-export interface ITransportReducerPayloadEntity
+export interface ITransportFluxEntity
   extends IOperationIdWrapper,
     ITokenWrapper {
 }
@@ -351,3 +351,9 @@ export const INITIAL_TRANSPORT_ENTITY = Object.freeze<ITransportEntity>({
   queue: [],
   token: null,
 });
+
+/**
+ * @stable [16.03.2020]
+ */
+export const $_RAC_TRANSPORT_DESTROY_TOKEN_ACTION_TYPE = `${ACTION_PREFIX}transport.destroy.token`;
+export const $_RAC_TRANSPORT_UPDATE_TOKEN_ACTION_TYPE = `${ACTION_PREFIX}transport.update.token`;
