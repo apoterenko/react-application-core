@@ -3,7 +3,6 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import { ITokenWrapper } from '../../definitions.interface';
 import {
   APPLICATION_AFTER_INIT_ACTION_TYPE,
   APPLICATION_AFTER_LOGIN_ACTION_TYPE,
@@ -21,6 +20,7 @@ import {
   $RAC_APPLICATION_NOT_READY_ACTION_TYPE,
   $RAC_APPLICATION_PREPARE_ACTION_TYPE,
   $RAC_APPLICATION_READY_ACTION_TYPE,
+  IApplicationFluxTokenEntity,
 } from '../../definition';
 
 // TODO Move
@@ -59,11 +59,21 @@ export class ApplicationActionBuilder {
     return EffectsAction.create($RAC_APPLICATION_NOT_READY_ACTION_TYPE);
   }
 
-  public static buildAfterLoginAction(): IEffectsAction {
-    return EffectsAction.create(this.buildAfterLoginActionType());
+  /**
+   * @stable [16.03.2020]
+   * @param {IApplicationFluxTokenEntity} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildAfterLoginAction(payload: IApplicationFluxTokenEntity): IEffectsAction {
+    return EffectsAction.create(this.buildAfterLoginActionType(), payload);
   }
 
-  public static buildAuthorizedAction(payload?: ITokenWrapper): IEffectsAction {
+  /**
+   * @stable [16.03.2020]
+   * @param {IApplicationFluxTokenEntity} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildAuthorizedAction(payload?: IApplicationFluxTokenEntity): IEffectsAction {
     return EffectsAction.create(this.buildAuthorizedActionType(), payload);
   }
 

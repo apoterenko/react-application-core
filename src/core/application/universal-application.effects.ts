@@ -12,9 +12,9 @@ import {
 } from '../di';
 import {
   ifNotEmptyThanValue,
+  isObjectNotEmpty,
   orNull,
   selectToken,
-  selectTransportWrapperToken,
 } from '../util';
 import { ISettingsEntity } from '../settings';
 import {
@@ -33,10 +33,11 @@ import {
   DictionariesActionBuilder,
   NotificationActionBuilder,
   RouterActionBuilder,
+  StorageActionBuilder,
+  TransportActionBuilder,
   userActionBuilder,
 } from '../action';
 import { PermissionsActionBuilder } from '../permissions/permissions-action.builder';
-import { TransportActionBuilder } from '../transport/transport-action.builder';
 
 @injectable()
 export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
@@ -62,17 +63,18 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
       ];
     }
     const token = await this.notVersionedPersistentStorage.get(this.authTokenKeyName);
-    const actions = [];
+    return [
+      ...isObjectNotEmpty(token)
+        ? [
+          // Transport
+          TransportActionBuilder.buildUpdateTokenAction({token}),  // We don't save a transport state at all to storage
 
-    if (token) {
-      actions.push(ApplicationActionBuilder.buildAuthorizedAction({token}));
-      actions.push(TransportActionBuilder.buildUpdateTokenAction({token}));
-    }
-    const result = actions.concat(ApplicationActionBuilder.buildAfterInitAction());
-
-    UniversalApplicationEffects.logger.debug(() =>
-      `[$UniversalApplicationEffects][$onInit] The actions are: ${JSON.stringify(result)}`);
-    return result;
+          // Application
+          ApplicationActionBuilder.buildAuthorizedAction()
+        ]
+        : [],
+      ApplicationActionBuilder.buildAfterInitAction()
+    ];
   }
 
   /**
@@ -132,16 +134,27 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable [26.09.2019]
+   * @stable [17.03.2020]
+   * @param {IEffectsAction} action
    * @returns {IEffectsAction[]}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAfterLoginActionType())
-  public $onAfterLogin(): IEffectsAction[] {
+  public $onAfterLogin(action: IEffectsAction): IEffectsAction[] {
+    const token = selectToken(action.data);
     return [
+      // State
+      StorageActionBuilder.buildSyncAppStateAction(),    // Sync the updated state with the storage immediately (user saving, etc..)
+
+      // Transport
+      TransportActionBuilder.buildUpdateTokenAction({token}),
+
+      // Application
       ApplicationActionBuilder.buildNotReadyAction(),
-      ApplicationActionBuilder.buildAuthorizedAction(),
+      ApplicationActionBuilder.buildAuthorizedAction({token}),
       ApplicationActionBuilder.buildPrepareAction(),
-      RouterActionBuilder.buildNavigateAction(this.routes.home) // Need to replace "/logout"
+
+      // Routing
+      RouterActionBuilder.buildNavigateAction(this.settings.routes.home) // Need to replace "/logout"
     ];
   }
 
@@ -174,18 +187,21 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   }
 
   /**
-   * @stable [17.11.2019]
+   * @stable [16.03.2020]
    * @param {IEffectsAction} action
-   * @param {IUniversalStoreEntity} state
    * @returns {Promise<void>}
    */
   @EffectsService.effects(ApplicationActionBuilder.buildAuthorizedActionType())
-  public async $onAuthorized(action: IEffectsAction, state: IUniversalStoreEntity): Promise<void> {
-    const token = selectToken(action.data) || selectTransportWrapperToken(state);
-    await this.notVersionedPersistentStorage.set(this.authTokenKeyName, token);
+  public async $onAuthorized(action: IEffectsAction): Promise<void> {
+    const token = selectToken(action.data);
 
-    UniversalApplicationEffects.logger.debug(() =>
-      `[$UniversalApplicationEffects][$onAuthorized] The storage token has been applied: ${token}`);
+    if (isObjectNotEmpty(token)) {
+      await this.notVersionedPersistentStorage.set(this.authTokenKeyName, token);
+
+      UniversalApplicationEffects.logger.debug(
+        `[$UniversalApplicationEffects][$onAuthorized] The storage token has been applied: ${token}`
+      );
+    }
   }
 
   /**
