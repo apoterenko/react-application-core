@@ -257,12 +257,12 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [24.03.2019]
    * @returns {JSX.Element}
    */
-  private get footerElement(): JSX.Element {
+  private get actionsElement(): JSX.Element {
     return (
       orNull(
         this.closable || this.acceptable,
         () => (
-          <div className='rac-dialog__actions'>
+          <div className={DialogClassesEnum.DIALOG_ACTIONS}>
             {
               orNull(
                 this.closable,
@@ -312,9 +312,51 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         className='rac-dialog__body'
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
-        {this.bodyElement}
-        {this.footerElement}
+        {this.titleElement}
+        <div className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}>
+          {this.bodyElement}
+          {this.extraActionsElement}
+        </div>
+        {this.actionsElement}
       </div>
+    );
+  }
+
+  /**
+   * @stable [15.03.2020]
+   * @returns {JSX.Element}
+   */
+  private get titleElement(): JSX.Element {
+    const title = this.title;
+    return (
+      <React.Fragment>
+        {
+          title && (
+            <div className={DialogClassesEnum.DIALOG_BODY_TITLE}>
+              {this.t(title as string)}
+            </div>
+          )
+        }
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * @stable [15.03.2020]
+   * @returns {JSX.Element}
+   */
+  private get extraActionsElement(): JSX.Element {
+    const {extraActions} = this.props;
+    return (
+      <React.Fragment>
+        {
+          extraActions && (
+            <div className={DialogClassesEnum.DIALOG_EXTRA_ACTIONS}>
+              {extraActions}
+            </div>
+          )
+        }
+      </React.Fragment>
     );
   }
 
@@ -324,22 +366,15 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    */
   private get bodyElement(): JSX.Element {
     const {children} = this.props;
-    const title = this.title;
 
     return (
       <React.Fragment>
         {
-          title && (
-            <div className='rac-dialog__body-title'>
-              {this.t(title as string)}
-            </div>
-          )
-        }
-        {
           children && (
             <BasicComponent
-              className='rac-dialog__body-content'
-              plugins={isScrollable(this.props) ? [PerfectScrollPlugin] : []}>
+              className={DialogClassesEnum.DIALOG_BODY_CONTENT}
+              plugins={isScrollable(this.props) ? [PerfectScrollPlugin] : []}
+            >
               {children}
             </BasicComponent>
           )
@@ -453,7 +488,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       this.isConfirm && DialogClassesEnum.CONFIRM_DIALOG,
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
       this.isInline
-        ? 'rac-inline-dialog'
+        ? DialogClassesEnum.INLINE_DIALOG
         : (
           !this.isAnchored && (
             this.doesAnotherModalDialogOpen ? 'rac-transparent-dialog' : 'rac-not-transparent-dialog'
