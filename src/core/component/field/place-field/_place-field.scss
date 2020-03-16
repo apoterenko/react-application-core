@@ -4,13 +4,13 @@
 .rac {
 
   /**
-   * @place-field-dialog
-   * @stable [09.01.2020]
+   * @place-dialog
+   * @stable [16.03.2020]
    */
-  @include rac-place-field-dialog (
-    $rac-place-field-dialog-body-height: $rac-place-field-dialog-body-height,
-    $rac-place-field-dialog-body-min-width: $rac-place-field-dialog-body-min-width,
-    $rac-place-field-dialog-place-font-size: $rac-place-field-dialog-place-font-size,
-    $rac-place-field-dialog-place-margin: $rac-place-field-dialog-place-margin
+  @include rac-place-dialog (
+    $rac-place-dialog-body-height: $rac-place-dialog-body-height,
+    $rac-place-dialog-body-min-width: $rac-place-dialog-body-min-width,
+    $rac-place-dialog-title-font-size: $rac-place-dialog-title-font-size,
+    $rac-place-dialog-title-margin: $rac-place-dialog-title-margin
   );
 }

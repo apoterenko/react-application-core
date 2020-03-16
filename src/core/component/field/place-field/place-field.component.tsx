@@ -18,6 +18,7 @@ import { GoogleMaps } from '../../google';
 import {
   DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   DEFAULT_REMOTE_FILTERED_MENU_ENTITY,
+  DialogClassesEnum,
   FieldConverterTypesEnum,
   IDialog,
   IGoogleMaps,
@@ -120,19 +121,18 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
             acceptDisabled={!this.isPlaceChanged}
             onDeactivate={this.onDialogDeactivate}
             onAccept={this.onDialogAccept}
-            className={joinClassName(this.props.dialogClassName, 'rac-place-field__dialog')}
+            className={joinClassName(this.props.dialogClassName, DialogClassesEnum.PLACE_DIALOG)}
           >
             {
               ifNotNilThanValue(
                 this.placeEntityAsDisplayValue(nvl(placeEntity, this.value)),
                 (value) => (
-                  <div className='rac-place-field__dialog-place'>{value}</div>
+                  <div className={DialogClassesEnum.PLACE_DIALOG_TITLE}>{value}</div>
                 )
               )
             }
             <GoogleMaps
               ref={this.googleMapsRef}
-              className='rac-place-field__dialog-google-maps'
               onSelect={this.onDialogMenuActionSelect}
               onInit={this.initPlaceMarker}
               onChangePlace={this.refreshGeocodeInfo}
