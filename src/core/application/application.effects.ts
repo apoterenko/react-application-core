@@ -9,11 +9,14 @@ import { UniversalApplicationEffects } from './universal-application.effects';
 export class ApplicationEffects<TApi> extends UniversalApplicationEffects<TApi> {
 
   /**
-   * @stable [11.08.2018]
-   * @returns {IEffectsAction[]}
+   * @stable [14.03.2020]
+   * @returns {Promise<IEffectsAction[]>}
    */
-  @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType())
-  public $onLogout(): IEffectsAction[] {
-    return super.$onLogout().concat(LayoutActionBuilder.buildDestroyAction());
+  @EffectsService.effects(ApplicationActionBuilder.buildLogoutActionType(), true)
+  public async $onLogout(): Promise<IEffectsAction[]> {
+    return [
+      ...await super.$onLogout(),
+      LayoutActionBuilder.buildDestroyAction()
+    ];
   }
 }
