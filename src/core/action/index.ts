@@ -6,4 +6,5 @@ export * from './notification-action.builder';
 export * from './router-action.builder';
 export * from './stack-action.builder';
 export * from './storage-action.builder';
+export * from './transport-action.builder';
 export * from './user-action.builder';
