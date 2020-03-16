@@ -1,62 +1,37 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
-import { ENV } from '../../../env';
-import { IPdfViewerProps, IPdfViewerState, IUniversalPdfPlugin } from './pdf-viewer.interface';
+import { IUniversalPdfPlugin } from './pdf-viewer.interface';
 import { Viewer } from '../viewer.component';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
-import { FlexLayout } from '../../layout/flex';
-import { Button } from '../../button';
+import {
+  IPdfViewerProps,
+  IPdfViewerState,
+} from '../../../definition';
+import { ifNotNilThanValue } from '../../../util';
+import { AnyT } from '../../../definitions.interface';
 
 export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
 
-  public static defaultProps: IPdfViewerProps = {
-    previewScale: 1.5,
-    scale: .3,
-    page: 1,
-    usePreview: true,
-  };
-
-  private static PREVIEW_WIDTH = 600;
   private pdfRendererPlugin: IUniversalPdfPlugin;
+  private readonly canvasRef = React.createRef<HTMLCanvasElement>();
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
    * @param {IPdfViewerProps} props
    */
   constructor(props: IPdfViewerProps) {
     super(props);
 
-    this.state = {previewPage: 1};
-    this.onPreviousPage = this.onPreviousPage.bind(this);
-    this.onNextPage = this.onNextPage.bind(this);
-
     this.pdfRendererPlugin = new UniversalPdfPlugin(
-      `${this.settings.pdfWorkerDirectoryUrl}pdf.worker.min.js?_dc=${ENV.appVersion}`,
-      () => this.refs.canvas as HTMLCanvasElement,
-      () => this.setState({error: null}),
-      (error) => this.setState({error})
+      `${this.settings.urls.pdfWorker}?_dc=${this.environment.appVersion}`,
+      () => this.canvasRef.current,
+      this.onLoadSucceed.bind(this),
+      this.onLoadError.bind(this)
     );
   }
 
   /**
-   * @stable [14.11.2018]
-   * @param {IPdfViewerProps} props
-   * @param {IPdfViewerState} state
-   */
-  public componentDidUpdate(props: IPdfViewerProps, state: IPdfViewerState): void {
-    super.componentDidUpdate(props, state);
-
-    const currentPage = this.props.page;
-    if (!R.equals(currentPage, props.page)) {
-      this.pdfRendererPlugin
-        .setPage(currentPage)
-        .refreshPage();
-    }
-  }
-
-  /**
-   * @stable [14.11.2018]
+   * @stable [16.03.2020]
    */
   public componentWillUnmount(): void {
     this.pdfRendererPlugin.cancel();
@@ -66,84 +41,83 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [16.03.2020]
    */
-  protected refresh(): void {
-    const props = this.props;
-    const src = props.src;
+  protected refreshOnSrcChanges(): void {
+    ifNotNilThanValue(
+      this.props.src,
+      (src) => {
+        // This plugin can't process the null value
 
-    if (R.isNil(src)) {
-      // This plugin can't process the null value
-      return;
-    }
-
-    this.pdfRendererPlugin
-      .setSrc(src)
-      .setScale(props.scale)
-      .loadDocument();
-  }
-
-  /**
-   * @stable [08.07.2018]
-   * @returns {JSX.Element}
-   */
-  protected getContentElement(): JSX.Element {
-    return <canvas ref='canvas'/>;
-  }
-
-  /**
-   * @stable [08.07.2018]
-   * @returns {JSX.Element}
-   */
-  protected gePreviewElement(): JSX.Element {
-    const props = this.props;
-    const previewScale = props.previewScale;
-    const previewWidth = PdfViewer.PREVIEW_WIDTH * previewScale;
-    return (
-      <React.Fragment>
-        <PdfViewer
-          usePreview={false}
-          src={props.src}
-          page={this.state.previewPage}
-          style={{width: '100%'}}
-          scale={previewScale}/>
-        <FlexLayout
-          full={false}
-          row={true}
-          className='pos-neighbor-left-half-offset-wrapper'
-        >
-          <Button
-            icon='back'
-            text={'Previous page'}
-            disabled={this.state.previewPage === 1}
-            onClick={this.onPreviousPage}/>
-          <Button
-            icon='forward'
-            text={'Next page'}
-            disabled={this.state.previewPage === this.pdfRendererPlugin.numPages}
-            onClick={this.onNextPage}/>
-        </FlexLayout>
-      </React.Fragment>
+        this.pdfRendererPlugin
+          .setSrc(src)
+          .setPage(this.actualOrDefaultPage)
+          .setScale(this.actualScale)
+          .loadDocument();
+      }
     );
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [16.03.2020]
+   */
+  protected refreshOnInternalChanges(): void {
+    this.pdfRendererPlugin
+      .setPage(this.actualOrDefaultPage)
+      .setScale(this.actualScale)
+      .refreshPage();
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {JSX.Element}
+   */
+  protected getContentElement(): JSX.Element {
+    return <canvas ref={this.canvasRef}/>;
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {JSX.Element}
+   */
+  protected gePreviewElement(): JSX.Element {
+    return (
+      <PdfViewer
+        usePreview={false}
+        src={this.props.src}
+        page={this.actualOrDefaultPreviewPage}
+        scale={this.actualPreviewScale}/>
+    );
+  }
+
+  /**
+   * @stable [16.03.2020]
    * @returns {boolean}
    */
-  protected get isProgressMessageShown(): boolean {
+  protected isPreviewForwardActionDisabled(): boolean {
+    return this.actualOrDefaultPreviewPage === this.pdfRendererPlugin.numPages;
+  }
+
+  /**
+   * @stable [16.03.2020]
+   * @returns {boolean}
+   */
+  protected get isProgressMessageRendered(): boolean {
     return !this.pdfRendererPlugin.hasLoadedDocument;
   }
 
-  protected onDialogClose(): void {
-    this.setState({opened: false, previewPage: 1});
+  /**
+   * @stable [16.03.2020]
+   * @param {AnyT} error
+   */
+  private onLoadError(error: AnyT): void {
+    this.setState({error});
   }
 
-  private onPreviousPage(): void {
-    this.setState({previewPage: this.state.previewPage - 1});
-  }
-
-  private onNextPage(): void {
-    this.setState({previewPage: this.state.previewPage + 1});
+  /**
+   * @stable [16.03.2020]
+   */
+  private onLoadSucceed(): void {
+    this.setState({error: null});
   }
 }
