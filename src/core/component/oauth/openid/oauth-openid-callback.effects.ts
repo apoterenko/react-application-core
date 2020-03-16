@@ -26,8 +26,6 @@ import {
 import { ISettingsEntity } from '../../../settings';
 import {
   ConnectorActionBuilder,
-  StorageActionBuilder,
-  TransportActionBuilder,
   userActionBuilder,
 } from '../../../action';
 import { decodeJwt } from '../../../util/jwt';
@@ -89,13 +87,13 @@ export class OAuthOpenIdCallbackEffects {
     OAuthOpenIdCallbackEffects.logger.debug(() =>
       `[$OAuthOpenIdCallbackEffects][$onConnectorInit] The token has been generated successfully. The token payload:`, response);
 
+    const token = response.accessToken;
+
     return [
       userActionBuilder.buildReplaceAction(
-        this.fieldConverter.fromOAuthJwtDecodedInfoToUserEntity(decodeJwt(response.accessToken))
+        this.fieldConverter.fromOAuthJwtDecodedInfoToUserEntity(decodeJwt(token))
       ),
-      StorageActionBuilder.buildSyncAppStateAction(), // Sync the updated state (a user object) with the storage immediately
-      TransportActionBuilder.buildUpdateTokenAction({token: response.accessToken}),
-      ApplicationActionBuilder.buildAfterLoginAction()
+      ApplicationActionBuilder.buildAfterLoginAction({token})
     ];
   }
 

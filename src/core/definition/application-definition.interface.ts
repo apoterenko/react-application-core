@@ -5,9 +5,10 @@ import {
   ACTION_PREFIX,
   IApplicationWrapper,
   IAuthorizedWrapper,
+  IBasenameWrapper,
   IPathWrapper,
   IReadyWrapper,
-  IBasenameWrapper,
+  ITokenWrapper,
 } from '../definitions.interface';
 
 /**
@@ -45,6 +46,14 @@ export const INITIAL_UNIVERSAL_APPLICATION_ENTITY = Object.freeze<IUniversalAppl
   error: null,
   path: null,
 });
+
+/**
+ * @flux-entity
+ * @stable [17.03.2020]
+ */
+export interface IApplicationFluxTokenEntity
+  extends ITokenWrapper {
+}
 
 /**
  * @stable [18.11.2019]
