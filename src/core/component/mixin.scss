@@ -992,49 +992,52 @@
 }
 
 /**
- * @stable [14.01.2019]
+ * @stable [15.03.2020]
  */
 @mixin rac-viewer(
   $rac-viewer-custom: unset,
-  $rac-viewer-position: unset,
-  $rac-viewer-margin: unset,
-  $rac-viewer-flex-shrink: unset,
-  $rac-viewer-content-margin: unset,
-  $rac-viewer-content-size: unset,
+  /**/
   $rac-viewer-content-border-radius: unset,
-  $rac-viewer-content-width: unset,
   $rac-viewer-content-height: unset,
-  $rac-viewer-content-max-width: unset,
+  $rac-viewer-content-margin: unset,
   $rac-viewer-content-max-height: unset,
-  $rac-viewer-empty-content-size: unset,
+  $rac-viewer-content-max-width: unset,
+  $rac-viewer-content-size: unset,
+  $rac-viewer-content-width: unset,
+  $rac-viewer-empty-content-border-radius: unset,
   $rac-viewer-empty-content-margin: unset,
-  $rac-viewer-empty-content-border-radius: unset
+  $rac-viewer-empty-content-size: unset,
+  $rac-viewer-flex-shrink: unset,
+  $rac-viewer-flex: unset,                                                    /* @stable [15.03.2020] */
+  $rac-viewer-margin: unset,
+  $rac-viewer-position: unset
 ) {
 
   #{rac-cls(rac-viewer, $rac-viewer-custom)} {
     @include rac-styles(
-      $rac-styles-position: $rac-viewer-position,
+      $rac-styles-flex-shrink: $rac-viewer-flex-shrink,
+      $rac-styles-flex: $rac-viewer-flex,
       $rac-styles-margin: $rac-viewer-margin,
-      $rac-styles-flex-shrink: $rac-viewer-flex-shrink
+      $rac-styles-position: $rac-viewer-position
     );
 
     > .rac-viewer-content {
-      @include rac-styles(
-        $rac-styles-size: $rac-viewer-content-size,
-        $rac-styles-max-width: $rac-viewer-content-max-width,
-        $rac-styles-max-height: $rac-viewer-content-max-height,
-        $rac-styles-width: $rac-viewer-content-width,
+      @include rac-styles (
+        $rac-styles-border-radius: $rac-viewer-content-border-radius,
         $rac-styles-height: $rac-viewer-content-height,
         $rac-styles-margin: $rac-viewer-content-margin,
-        $rac-styles-border-radius: $rac-viewer-content-border-radius
+        $rac-styles-max-height: $rac-viewer-content-max-height,
+        $rac-styles-max-width: $rac-viewer-content-max-width,
+        $rac-styles-size: $rac-viewer-content-size,
+        $rac-styles-width: $rac-viewer-content-width
       );
     }
 
     > .rac-viewer-empty-content {
-      @include rac-styles(
-        $rac-styles-size: $rac-viewer-empty-content-size,
+      @include rac-styles (
+        $rac-styles-border-radius: $rac-viewer-empty-content-border-radius,
         $rac-styles-margin: $rac-viewer-empty-content-margin,
-        $rac-styles-border-radius: $rac-viewer-empty-content-border-radius
+        $rac-styles-size: $rac-viewer-empty-content-size
       );
     }
   }
@@ -3108,24 +3111,32 @@
   /**/
   $rac-dialog-action-height: unset,                                                           /* @stable [24.02.2020] */
   $rac-dialog-actions-display: unset,                                                         /* @stable [10.01.2020] */
-  $rac-dialog-actions-flex-shrink: unset,                                                     /* @stable [10.01.2020] */
   $rac-dialog-actions-margin: unset,                                                          /* @stable [29.12.2019] */
   $rac-dialog-actions-neighbor-child-margin: unset,                                           /* @stable [29.12.2019] */
   $rac-dialog-align-items: unset,                                                             /* @stable [15.01.2020] */
   $rac-dialog-background: unset,                                                              /* @stable [10.01.2020] */
   $rac-dialog-body-background: unset,                                                         /* @stable [15.01.2020] */
   $rac-dialog-body-border-radius: unset,                                                      /* @stable [15.01.2020] */
-  $rac-dialog-body-content-align-items: unset,
+  $rac-dialog-body-content-align-items: unset,                                                /* @stable [15.03.2020] */
   $rac-dialog-body-content-background: unset,                                                 /* @stable [25.01.2020] */
   $rac-dialog-body-content-border-radius: unset,                                              /* @stable [25.01.2020] */
   $rac-dialog-body-content-box-shadow: unset,                                                 /* @stable [25.01.2020] */
   $rac-dialog-body-content-display: unset,                                                    /* @stable [29.12.2019] */
-  $rac-dialog-body-content-flex-direction: unset,                                             /* @stable [29.12.2019] */
   $rac-dialog-body-content-flex: unset,                                                       /* @stable [29.12.2019] */
   $rac-dialog-body-content-margin: unset,                                                     /* @stable [25.01.2020] */
   $rac-dialog-body-content-overflow: unset,                                                   /* @stable [10.01.2020] */
   $rac-dialog-body-content-padding: unset,                                                    /* @stable [29.12.2019] */
   $rac-dialog-body-content-position: unset,                                                   /* @stable [29.12.2019] */
+  $rac-dialog-body-content-wrapper-background: unset,                                         /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-border-radius: unset,                                      /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-box-shadow: unset,                                         /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-display: unset,                                            /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-flex-direction: unset,                                     /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-flex: unset,                                               /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-margin: unset,                                             /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-overflow: unset,                                           /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-padding: unset,                                            /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-position: unset,                                           /* @stable [16.03.2020] */
   $rac-dialog-body-display: unset,                                                            /* @stable [06.01.2020] */
   $rac-dialog-body-flex-direction: unset,                                                     /* @stable [06.01.2020] */
   $rac-dialog-body-flex: unset,                                                               /* @stable [10.03.2020] */
@@ -3137,6 +3148,7 @@
   $rac-dialog-body-min-height: unset,                                                         /* @stable [15.01.2020] */
   $rac-dialog-body-min-width: unset,                                                          /* @stable [10.01.2020] */
   $rac-dialog-body-padding: unset,                                                            /* @stable [13.01.2020] */
+  $rac-dialog-body-position: unset,                                                           /* @stable [15.03.2020] */
   $rac-dialog-body-title-border-bottom: unset,                                                /* @stable [29.12.2019] */
   $rac-dialog-body-title-font-weight: unset,                                                  /* @stable [29.12.2019] */
   $rac-dialog-body-title-margin: unset,                                                       /* @stable [29.12.2019] */
@@ -3144,6 +3156,10 @@
   $rac-dialog-body-width: unset,                                                              /* @stable [10.01.2020] */
   $rac-dialog-body-z-index: unset,                                                            /* @stable [31.01.2020] */
   $rac-dialog-display: unset,                                                                 /* @stable [06.01.2020] */
+  $rac-dialog-extra-actions-position: unset,                                                  /* @stable [16.03.2020] */
+  $rac-dialog-extra-actions-right: unset,                                                     /* @stable [16.03.2020] */
+  $rac-dialog-extra-actions-top: unset,                                                       /* @stable [16.03.2020] */
+  $rac-dialog-extra-actions-transform: unset,                                                 /* @stable [16.03.2020] */
   $rac-dialog-height: unset,                                                                  /* @stable [10.01.2020] */
   $rac-dialog-justify-content: unset,                                                         /* @stable [10.01.2020] */
   $rac-dialog-left: unset,                                                                    /* @stable [10.01.2020] */
@@ -3182,30 +3198,54 @@
           $rac-styles-min-height: $rac-dialog-body-min-height,
           $rac-styles-min-width: $rac-dialog-body-min-width,
           $rac-styles-padding: $rac-dialog-body-padding,
+          $rac-styles-position: $rac-dialog-body-position,
           $rac-styles-width: $rac-dialog-body-width,
           $rac-styles-z-index: $rac-dialog-body-z-index
         );
 
         > {
-          @include rac-styles (
-            $rac-styles-custom: rac-dialog__body-content,
-            $rac-styles-align-items: $rac-dialog-body-content-align-items,
-            $rac-styles-background: $rac-dialog-body-content-background,
-            $rac-styles-border-radius: $rac-dialog-body-content-border-radius,
-            $rac-styles-box-shadow: $rac-dialog-body-content-box-shadow,
-            $rac-styles-display: $rac-dialog-body-content-display,
-            $rac-styles-flex-direction: $rac-dialog-body-content-flex-direction,
-            $rac-styles-flex: $rac-dialog-body-content-flex,
-            $rac-styles-margin: $rac-dialog-body-content-margin,
-            $rac-styles-overflow: $rac-dialog-body-content-overflow,
-            $rac-styles-padding: $rac-dialog-body-content-padding,
-            $rac-styles-position: $rac-dialog-body-content-position
-          );
+          .rac-dialog__body-content-wrapper {
+            @include rac-styles (
+              $rac-styles-background: $rac-dialog-body-content-wrapper-background,
+              $rac-styles-border-radius: $rac-dialog-body-content-wrapper-border-radius,
+              $rac-styles-box-shadow: $rac-dialog-body-content-wrapper-box-shadow,
+              $rac-styles-display: $rac-dialog-body-content-wrapper-display,
+              $rac-styles-flex-direction: $rac-dialog-body-content-wrapper-flex-direction,
+              $rac-styles-flex: $rac-dialog-body-content-wrapper-flex,
+              $rac-styles-margin: $rac-dialog-body-content-wrapper-margin,
+              $rac-styles-overflow: $rac-dialog-body-content-wrapper-overflow,
+              $rac-styles-padding: $rac-dialog-body-content-wrapper-padding,
+              $rac-styles-position: $rac-dialog-body-content-wrapper-position
+            );
+
+            > {
+              @include rac-styles (
+                $rac-styles-custom: rac-dialog__body-content,
+                $rac-styles-align-items: $rac-dialog-body-content-align-items,
+                $rac-styles-background: $rac-dialog-body-content-background,
+                $rac-styles-border-radius: $rac-dialog-body-content-border-radius,
+                $rac-styles-box-shadow: $rac-dialog-body-content-box-shadow,
+                $rac-styles-display: $rac-dialog-body-content-display,
+                $rac-styles-flex: $rac-dialog-body-content-flex,
+                $rac-styles-margin: $rac-dialog-body-content-margin,
+                $rac-styles-overflow: $rac-dialog-body-content-overflow,
+                $rac-styles-padding: $rac-dialog-body-content-padding,
+                $rac-styles-position: $rac-dialog-body-content-position
+              );
+
+              @include rac-styles (
+                $rac-styles-custom: rac-dialog__extra-actions,
+                $rac-styles-position: $rac-dialog-extra-actions-position,
+                $rac-styles-right: $rac-dialog-extra-actions-right,
+                $rac-styles-top: $rac-dialog-extra-actions-top,
+                $rac-styles-transform: $rac-dialog-extra-actions-transform
+              );
+            }
+          }
 
           .rac-dialog__actions {
             @include rac-styles (
               $rac-styles-display: $rac-dialog-actions-display,
-              $rac-styles-flex-shrink: $rac-dialog-actions-flex-shrink,
               $rac-styles-margin: $rac-dialog-actions-margin
             );
 
@@ -3232,6 +3272,43 @@
 }
 
 /**
+ * @stable [15.03.2020]
+ */
+@mixin rac-preview-dialog (
+  $rac-preview-dialog-custom: unset,
+  /**/
+  $rac-preview-dialog-body-content-padding: unset,                                            /* @stable [16.03.2020] */
+  $rac-preview-dialog-body-content-wrapper-overflow: unset,                                   /* @stable [16.03.2020] */
+  $rac-preview-dialog-body-content-wrapper-padding: unset,                                    /* @stable [16.03.2020] */
+  $rac-preview-dialog-body-max-width: unset,                                                  /* @stable [16.03.2020] */
+  $rac-preview-dialog-body-min-height: unset,                                                 /* @stable [16.03.2020] */
+  $rac-preview-dialog-extra-actions-position: unset,                                          /* @stable [16.03.2020] */
+  $rac-preview-dialog-extra-actions-right: unset,                                             /* @stable [16.03.2020] */
+  $rac-preview-dialog-extra-actions-top: unset,                                               /* @stable [16.03.2020] */
+  $rac-preview-dialog-extra-actions-transform: unset,                                         /* @stable [16.03.2020] */
+  $rac-preview-dialog-viewer-flex: unset                                                      /* @stable [16.03.2020] */
+) {
+  @include rac-dialog (
+    $rac-dialog-custom: rac-cls2($rac-preview-dialog-cls, $rac-preview-dialog-custom),
+    $rac-dialog-body-content-padding: $rac-preview-dialog-body-content-padding,
+    $rac-dialog-body-content-wrapper-overflow: $rac-preview-dialog-body-content-wrapper-overflow,
+    $rac-dialog-body-content-wrapper-padding: $rac-preview-dialog-body-content-wrapper-padding,
+    $rac-dialog-body-max-width: $rac-preview-dialog-body-max-width,
+    $rac-dialog-body-min-height: $rac-preview-dialog-body-min-height,
+    $rac-dialog-extra-actions-position: $rac-preview-dialog-extra-actions-position,
+    $rac-dialog-extra-actions-right: $rac-preview-dialog-extra-actions-right,
+    $rac-dialog-extra-actions-top: $rac-preview-dialog-extra-actions-top,
+    $rac-dialog-extra-actions-transform: $rac-preview-dialog-extra-actions-transform
+  );
+
+  #{rac-cls($rac-preview-dialog-cls, $rac-preview-dialog-custom)} {
+    @include rac-viewer (
+      $rac-viewer-flex: $rac-preview-dialog-viewer-flex
+    );
+  }
+}
+
+/**
  * @stable [25.01.2020]
  */
 @mixin rac-menu-dialog (
@@ -3242,10 +3319,10 @@
   $rac-menu-dialog-base-text-self-field-background: unset,                         /* @stable [11.11.2019] */
   $rac-menu-dialog-base-text-self-field-height: unset,                             /* @stable [11.11.2019] */
   $rac-menu-dialog-body-background: unset,                                         /* @stable [11.11.2019] */
-  $rac-menu-dialog-body-content-background: unset,                                 /* @stable [25.01.2020] */
-  $rac-menu-dialog-body-content-border-radius: unset,                              /* @stable [25.01.2020] */
-  $rac-menu-dialog-body-content-box-shadow: unset,                                 /* @stable [25.01.2020] */
-  $rac-menu-dialog-body-content-margin: unset,                                     /* @stable [25.01.2020] */
+  $rac-menu-dialog-body-content-wrapper-background: unset,                         /* @stable [25.01.2020] */
+  $rac-menu-dialog-body-content-wrapper-border-radius: unset,                      /* @stable [25.01.2020] */
+  $rac-menu-dialog-body-content-wrapper-box-shadow: unset,                         /* @stable [25.01.2020] */
+  $rac-menu-dialog-body-content-wrapper-margin: unset,                             /* @stable [25.01.2020] */
   $rac-menu-dialog-body-display: unset,                                            /* @stable [25.01.2020] */
   $rac-menu-dialog-body-flex-direction: unset,                                     /* @stable [24.01.2020] */
   $rac-menu-dialog-body-height: unset,                                             /* @stable [28.12.2019] */
@@ -3299,10 +3376,10 @@
     $rac-dialog-custom: rac-cls2($rac-menu-dialog-cls, $rac-menu-dialog-custom),
     $rac-dialog-align-items: $rac-menu-dialog-align-items,
     $rac-dialog-body-background: $rac-menu-dialog-body-background,
-    $rac-dialog-body-content-background: $rac-menu-dialog-body-content-background,
-    $rac-dialog-body-content-border-radius: $rac-menu-dialog-body-content-border-radius,
-    $rac-dialog-body-content-box-shadow: $rac-menu-dialog-body-content-box-shadow,
-    $rac-dialog-body-content-margin: $rac-menu-dialog-body-content-margin,
+    $rac-dialog-body-content-wrapper-background: $rac-menu-dialog-body-content-wrapper-background,
+    $rac-dialog-body-content-wrapper-border-radius: $rac-menu-dialog-body-content-wrapper-border-radius,
+    $rac-dialog-body-content-wrapper-box-shadow: $rac-menu-dialog-body-content-wrapper-box-shadow,
+    $rac-dialog-body-content-wrapper-margin: $rac-menu-dialog-body-content-wrapper-margin,
     $rac-dialog-body-display: $rac-menu-dialog-body-display,
     $rac-dialog-body-flex-direction: $rac-menu-dialog-body-flex-direction,
     $rac-dialog-body-height: $rac-menu-dialog-body-height,
@@ -4623,28 +4700,28 @@
 }
 
 /**
- * @stable [09.01.2020]
+ * @stable [16.03.2020]
  */
-@mixin rac-place-field-dialog (
-  $rac-place-field-dialog-custom: unset,
+@mixin rac-place-dialog (
+  $rac-place-dialog-custom: unset,
   /**/
-  $rac-place-field-dialog-body-height: unset,                                              /* @stable [09.01.2020] */
-  $rac-place-field-dialog-body-min-width: unset,                                           /* @stable [10.01.2020] */
-  $rac-place-field-dialog-place-font-size: unset,                                          /* @stable [10.01.2020] */
-  $rac-place-field-dialog-place-margin: unset                                              /* @stable [10.01.2020] */
+  $rac-place-dialog-body-height: unset,                                                 /* @stable [09.01.2020] */
+  $rac-place-dialog-body-min-width: unset,                                              /* @stable [10.01.2020] */
+  $rac-place-dialog-title-font-size: unset,                                             /* @stable [10.01.2020] */
+  $rac-place-dialog-title-margin: unset                                                 /* @stable [10.01.2020] */
 ) {
-  #{rac-cls($rac-place-field-dialog-cls, $rac-place-field-dialog-custom)} {
+  #{rac-cls($rac-place-dialog-cls, $rac-place-dialog-custom)} {
     @include rac-styles (
-      $rac-styles-custom: rac-place-field__dialog-place,
-      $rac-styles-font-size: $rac-place-field-dialog-place-font-size,
-      $rac-styles-margin: $rac-place-field-dialog-place-margin
+      $rac-styles-custom: rac-place-dialog__title,
+      $rac-styles-font-size: $rac-place-dialog-title-font-size,
+      $rac-styles-margin: $rac-place-dialog-title-margin
     );
   }
 
   @include rac-dialog (
-    $rac-dialog-custom: rac-cls2($rac-place-field-dialog-cls, $rac-place-field-dialog-custom),
-    $rac-dialog-body-height: $rac-place-field-dialog-body-height,
-    $rac-dialog-body-min-width: $rac-place-field-dialog-body-min-width
+    $rac-dialog-custom: rac-cls2($rac-place-dialog-cls, $rac-place-dialog-custom),
+    $rac-dialog-body-height: $rac-place-dialog-body-height,
+    $rac-dialog-body-min-width: $rac-place-dialog-body-min-width
   );
 }
 
