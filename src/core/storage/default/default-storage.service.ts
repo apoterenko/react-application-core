@@ -70,7 +70,7 @@ export class DefaultStorage extends BaseStorage {
    * @stable [28.07.2019]
    * @returns {Storage}
    */
-  private get storage(): Storage {
+  public get storage(): Storage {
     const settings = this.settingsProvider();
     switch (nvl(this.storageType, settings && settings.persistenceStorage)) {
       case StorageTypesEnum.SESSION:

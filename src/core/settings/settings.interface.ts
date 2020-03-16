@@ -61,7 +61,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   acceptMessage?: string;
   accessDeniedMessage?: string;
   appNotReadyMessage?: string;
-  closeMessage?: string;
   confirmationMessage?: string;
   continueMessage?: string;
   dataSaved?: string;
@@ -77,7 +76,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
   pagesMessage?: string;
-  previewMessage?: string;
   refreshActionTitleMessage?: string;
   requestCancelErrorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
@@ -121,7 +119,6 @@ export interface ISettingsEntity {
   metaFilesUrl?: string;
   number?: IApplicationNumberSettings;
   oauth?: IOAuthSettingsEntity;
-  pdfWorkerDirectoryUrl?: string;
   persistenceStorage?: StorageTypesEnum;
   phone?: IPhoneSettingsEntity;
   resourcePaths?: IApplicationResourcePaths;
@@ -151,7 +148,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
     appNotReadyMessage: 'App is being initialized...',
-    closeMessage: 'Close',
     confirmationMessage: 'Confirmation',
     continueMessage: 'Continue',
     dataSaved: 'The data has been successfully saved.',
@@ -167,7 +163,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
     pagesMessage: '{from}-{to} of {count}',
-    previewMessage: 'Preview',
     refreshActionTitleMessage: 'Refresh',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',

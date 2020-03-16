@@ -3,7 +3,6 @@ export * from './factory';
 export * from './factory/transport-factory.service';
 export * from './request';
 export * from './response';
-export * from './transport-action.builder';
 export * from './transport-reducer.interface';
 export * from './transport.interface';
 export * from './transport.reducer';

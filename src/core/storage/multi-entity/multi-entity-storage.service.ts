@@ -7,14 +7,14 @@ import {
   IStorage,
 } from '../../definition';
 
-export class MultiEntityStorage implements IStorage {
+export class MultiEntityStorage implements IStorage<IStorage> {
 
   /**
    * @stable [30.07.2019]
    * @param {IStorage} storage
    * @param {(entity: IMultiItemEntity) => Promise<any>} multiEntityProcessor
    */
-  constructor(private storage: IStorage,
+  constructor(public storage: IStorage,
               private multiEntityProcessor = (entity: IMultiItemEntity) => Promise.resolve(entity.value)) {
   }
 
