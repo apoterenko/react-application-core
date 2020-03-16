@@ -1,4 +1,4 @@
-import { IViewerProps, IViewerState } from '../viewer.interface';
+import { IViewerState, IViewerProps } from '../../../definition';
 
 /**
  * @stable [19.09.2019]

@@ -8,8 +8,7 @@ import {
   IViewerWrapper,
 } from '../../../definitions.interface';
 import { IFieldState } from '../field/field.interface';
-import { IViewerProps } from '../../viewer/viewer.interface';
-import { ITransportRequestEntity, IComponentCtor } from '../../../definition';
+import { ITransportRequestEntity, IComponentCtor, IViewerProps } from '../../../definition';
 
 /**
  * TODO IViewFieldEntity

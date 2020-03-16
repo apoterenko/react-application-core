@@ -25,6 +25,7 @@ import { BasicList } from '../list/basic/basic-list.component';
 import { Dialog } from '../dialog/dialog.component';
 import { ListItem } from '../list/item/list-item.component';
 import {
+  DialogClassesEnum,
   EventsEnum,
   IMenu,
   IMenuItemEntity,
@@ -99,7 +100,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
             anchorElement={props.anchorElement}
             className={
               joinClassName(
-                'rac-menu-dialog',
+                DialogClassesEnum.MENU_DIALOG,
                 calc(props.className),
                 isHeightRestricted(props) && 'rac-menu-height-restricted-dialog'
               )

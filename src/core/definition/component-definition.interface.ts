@@ -8,7 +8,7 @@ import {
   IStyleWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
-import { IUniversalPluginCtor } from './plugin-definition.interface';
+import { GenericPluginCtorT } from './plugin-definition.interface';
 import {
   IComponentProps,
   IUniversalComponentProps,
@@ -38,7 +38,7 @@ export interface IGenericComponentEntity<TComponent = AnyT>
  */
 export interface IUniversalComponentEntity
   extends IGenericComponentEntity<AnyT>,
-    IPluginsWrapper<IUniversalPluginCtor | IUniversalPluginCtor[]> {
+    IPluginsWrapper<GenericPluginCtorT | GenericPluginCtorT[]> {
 }
 
 /**

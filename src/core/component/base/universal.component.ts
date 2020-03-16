@@ -33,6 +33,7 @@ import {
 import { AnyT } from '../../definitions.interface';
 import { IUIFactory } from '../factory/factory.interface';
 import {
+  GenericPluginCtorT,
   IAsyncLibManager,
   IDomAccessor,
   IEnvironment,
@@ -50,7 +51,6 @@ import {
   IUniversalComponentEntity,
   IUniversalComponentProps,
   IUniversalPlugin,
-  IUniversalPluginCtor,
   TranslatorT,
   UniversalPluginFactoryT,
 } from '../../definition';
@@ -275,15 +275,15 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   /**
    * @stable [18.06.2019]
-   * @param {IUniversalPluginCtor | IUniversalPlugin} pluginObject
+   * @param {GenericPluginCtorT | IUniversalPlugin} pluginObject
    */
-  protected registerPlugin(pluginObject: IUniversalPluginCtor | IUniversalPlugin): void {
+  protected registerPlugin(pluginObject: GenericPluginCtorT | IUniversalPlugin): void {
     if (R.isNil(pluginObject)) {
       return;
     }
     this.plugins.push(
       isFn(pluginObject)
-        ? Reflect.construct(pluginObject as IUniversalPluginCtor, [this])
+        ? Reflect.construct(pluginObject as GenericPluginCtorT, [this])
         : pluginObject
     );
   }
