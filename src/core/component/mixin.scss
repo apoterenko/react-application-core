@@ -141,6 +141,7 @@
   $rac-styles-display: unset,
   $rac-styles-flex-basis: unset,
   $rac-styles-flex-direction: unset,
+  $rac-styles-flex-grow: unset,
   $rac-styles-flex-height: unset,
   $rac-styles-flex-shrink: unset,
   $rac-styles-flex-width: unset,
@@ -225,6 +226,7 @@
   @if $rac-styles-flex != unset { @include flex($rac-styles-flex); }
   @if $rac-styles-flex-basis != unset { @include flex-basis($rac-styles-flex-basis); }
   @if $rac-styles-flex-direction != unset { @include flex-direction($rac-styles-flex-direction); }
+  @if $rac-styles-flex-grow != unset { @include flex-grow($rac-styles-flex-grow); }
   @if $rac-styles-flex-shrink != unset { @include flex-shrink($rac-styles-flex-shrink); }
   @if $rac-styles-flex-wrap != unset { @include flex-wrap($rac-styles-flex-wrap); }
   @if $rac-styles-float != unset { float: $rac-styles-float; }
@@ -324,6 +326,7 @@
   $rac-styles-display: unset,
   $rac-styles-flex-basis: unset,
   $rac-styles-flex-direction: unset,
+  $rac-styles-flex-grow: unset,
   $rac-styles-flex-height: unset,
   $rac-styles-flex-shrink: unset,
   $rac-styles-flex-width: unset,
@@ -411,6 +414,7 @@
         $rac-styles-display: $rac-styles-display,
         $rac-styles-flex-basis: $rac-styles-flex-basis,
         $rac-styles-flex-direction: $rac-styles-flex-direction,
+        $rac-styles-flex-grow: $rac-styles-flex-grow,
         $rac-styles-flex-height: $rac-styles-flex-height,
         $rac-styles-flex-shrink: $rac-styles-flex-shrink,
         $rac-styles-flex-width: $rac-styles-flex-width,
@@ -497,6 +501,7 @@
       $rac-styles-display: $rac-styles-display,
       $rac-styles-flex-basis: $rac-styles-flex-basis,
       $rac-styles-flex-direction: $rac-styles-flex-direction,
+      $rac-styles-flex-grow: $rac-styles-flex-grow,
       $rac-styles-flex-height: $rac-styles-flex-height,
       $rac-styles-flex-shrink: $rac-styles-flex-shrink,
       $rac-styles-flex-width: $rac-styles-flex-width,
@@ -1004,14 +1009,14 @@
   $rac-viewer-empty-content-border-radius: unset,
   $rac-viewer-empty-content-margin: unset,
   $rac-viewer-empty-content-size: unset,
-  $rac-viewer-flex-shrink: unset,
+  $rac-viewer-flex-grow: unset,                                               /* @stable [15.03.2020] */
   $rac-viewer-flex: unset,                                                    /* @stable [15.03.2020] */
   $rac-viewer-margin: unset
 ) {
 
   #{rac-cls(rac-viewer, $rac-viewer-custom)} {
-    @include rac-styles(
-      $rac-styles-flex-shrink: $rac-viewer-flex-shrink,
+    @include rac-styles (
+      $rac-styles-flex-grow: $rac-viewer-flex-grow,
       $rac-styles-flex: $rac-viewer-flex,
       $rac-styles-margin: $rac-viewer-margin
     );
@@ -3106,6 +3111,7 @@
   /**/
   $rac-dialog-action-height: unset,                                                           /* @stable [24.02.2020] */
   $rac-dialog-actions-display: unset,                                                         /* @stable [10.01.2020] */
+  $rac-dialog-actions-flex: unset,                                                            /* @stable [17.03.2020] */
   $rac-dialog-actions-margin: unset,                                                          /* @stable [29.12.2019] */
   $rac-dialog-actions-neighbor-child-margin: unset,                                           /* @stable [29.12.2019] */
   $rac-dialog-align-items: unset,                                                             /* @stable [15.01.2020] */
@@ -3241,6 +3247,7 @@
           .rac-dialog__actions {
             @include rac-styles (
               $rac-styles-display: $rac-dialog-actions-display,
+              $rac-styles-flex: $rac-dialog-actions-flex,
               $rac-styles-margin: $rac-dialog-actions-margin
             );
 

@@ -4,19 +4,12 @@
 .rac {
 
   /**
-    * @viewer
-    * @stable [16.03.2020]
-    */
-  @include rac-viewer (
-  );
-
-  /**
     * @full-viewer
     * @stable [16.03.2020]
     */
   @include rac-viewer (
     $rac-viewer-custom: $rac-full-viewer-cls,
-    $rac-viewer-flex: $rac-full-viewer-flex
+    $rac-viewer-flex-grow: $rac-full-viewer-flex-grow
   );
 
   /**
