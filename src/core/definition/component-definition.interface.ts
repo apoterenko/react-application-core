@@ -24,11 +24,13 @@ export interface IWebComponentEntity
 }
 
 /**
- * @react-native-compatible
+ * @generic-entity
  * @stable [27.02.2020]
  */
 export interface IGenericComponentEntity<TComponent = AnyT>
-  extends React.ClassAttributes<TComponent>, // TODO React.ClassAttributes -> React.RefAttributes (ref="string")
+  extends React.RefAttributes<TComponent>,
+    IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+    IStyleWrapper<React.CSSProperties>,
     ITitleWrapper<string | boolean> {
 }
 

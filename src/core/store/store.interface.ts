@@ -1,4 +1,5 @@
 import { AnyAction, Reducer } from 'redux';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   defaultLayoutReducer,
@@ -9,7 +10,13 @@ import { PERMISSIONS_DESTROY_ACTION_TYPE, PERMISSIONS_UPDATE_ACTION_TYPE } from 
 import { stackReducer } from './stack';
 import { channelsReducers } from '../channel';
 import { makeEntityReducer } from '../store/store.support';
-import { IStackEntity, ILayoutEntity } from '../definition';
+import {
+  IAsyncLibsEntity,
+  IDictionariesEntity,
+  ILayoutEntity,
+  INotificationEntity,
+  IStackEntity,
+} from '../definition';
 import { $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
 import { asyncLibReducer } from '../async-lib';
 

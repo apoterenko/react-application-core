@@ -20,6 +20,7 @@ export * from './component/drawer';
 export * from './component/factory';
 export * from './component/field';
 export * from './component/filter';
+export * from './component/info';
 export * from './component/form';
 export * from './component/full-screen';
 export * from './component/google';

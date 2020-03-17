@@ -4,6 +4,7 @@ import {
   AnyT,
   UNDEF,
 } from '../definitions.interface';
+import { isString } from './type';
 
 /**
  * @stable [19.12.2018]
@@ -11,6 +12,13 @@ import {
  * @returns {boolean}
  */
 export const isObjectNotEmpty = <TValue>(o: AnyT): boolean => !R.isNil(o) && !R.isEmpty(o);
+
+/**
+ * @stable [18.03.2020]
+ * @param {AnyT} o
+ * @returns {boolean}
+ */
+export const isStringNotEmpty = <TValue>(o: AnyT): boolean => isString(o) && isObjectNotEmpty(o);
 
 /**
  * @stable [20.03.2019]

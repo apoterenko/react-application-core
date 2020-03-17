@@ -227,6 +227,7 @@ export interface IMessagesSettingsEntity {
   ERROR?: string;
   FILTER_PLACEHOLDER?: string;
   FILTERS?: string;
+  IT_IS_IMPOSSIBLE_TO_DOWNLOAD_A_FILE?: string;
   LOG_OUT?: string;
   MONTH?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
@@ -284,6 +285,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   ERROR: 'Error',
   FILTER_PLACEHOLDER: 'Search',
   FILTERS: 'Filters',
+  IT_IS_IMPOSSIBLE_TO_DOWNLOAD_A_FILE: 'It\'s impossible to download a file',
   LOG_OUT: 'Log out',
   MONTH: 'Month',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',

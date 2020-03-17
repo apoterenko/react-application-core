@@ -1,8 +1,16 @@
 import * as React from 'react';
 
 import { AnyT } from '../../definitions.interface';
-import { IGenericComponentProps } from '../../definition';
+import {
+  IGenericComponentProps,
+  TranslatorT,
+} from '../../definition';
 import { patchRenderMethod } from '../../util';
+import {
+  getSettings,
+  getTranslator,
+} from '../../di';
+import { ISettingsEntity } from '../../settings';
 
 export class GenericComponent<TProps extends IGenericComponentProps = IGenericComponentProps,
   TState = {},
@@ -19,5 +27,21 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
     super(props);
 
     patchRenderMethod(this);
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {ISettingsEntity}
+   */
+  protected get settings(): ISettingsEntity {
+    return getSettings();
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {TranslatorT}
+   */
+  protected get t(): TranslatorT {
+    return getTranslator();
   }
 }

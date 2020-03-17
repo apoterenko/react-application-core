@@ -417,7 +417,7 @@ export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
 export interface IPreviousWrapper<TValue> { previous?: TValue; }
 export interface IProfileWrapper<TValue> { profile?: TValue; }
 export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TValue; }
-export interface IProgressWrapper { progress?: boolean; }
+export interface IProgressWrapper<TValue = boolean> { progress?: TValue; }
 export interface IQueryParamsWrapper<TValue> { queryParams?: TValue; }
 export interface IQueryWrapper<TValue = string> { query?: TValue; }
 export interface IQueueWrapper<TValue> { queue?: TValue; }
@@ -493,7 +493,6 @@ export interface ISubHeaderRenderedWrapper { subHeaderRendered?: boolean; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TValue = string> { submitIcon?: TValue; }
 export interface ISubmitTextWrapper { submitText?: string; }
-export interface ISubmitWrapper { submit?(): void; }
 export interface ISucceedTextWrapper { succeedText?: string; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }

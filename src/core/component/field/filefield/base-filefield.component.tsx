@@ -11,7 +11,7 @@ import {
   orNull,
   uuid,
 } from '../../../util';
-import { DnD, IDnd } from '../../dnd';
+import { DnD } from '../../dnd';
 import {
   EntityIdT,
   IKeyboardEvent,
@@ -39,6 +39,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
   private readonly cameraRef = React.createRef<WebCamera>();
   private readonly cameraDialogRef = React.createRef<Dialog>();
+  private readonly dndRef = React.createRef<DnD>();
 
   /**
    * @stable [30.10.2019]
@@ -114,7 +115,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     const messages = this.settings.messages;
 
     const dndElement = (
-      <DnD ref='dnd'
+      <DnD ref={this.dndRef}
            disabled={this.isInactive}
            onSelect={this.onSelect}/>
     );
@@ -218,8 +219,8 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.onSelect([blob]);
   }
 
-  private get dnd(): IDnd {
-    return this.refs.dnd as IDnd;
+  private get dnd(): DnD {
+    return this.dndRef.current;
   }
 
   /**

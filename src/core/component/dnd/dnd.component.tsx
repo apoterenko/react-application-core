@@ -4,11 +4,10 @@ import Dropzone from 'react-dropzone';
 import { BaseComponent } from '../base';
 import {
   IDndProps,
-  IDnd,
   INativeDropZoneComponent,
 } from './dnd.interface';
 
-export class DnD extends BaseComponent<IDndProps> implements IDnd {
+export class DnD extends BaseComponent<IDndProps> {
 
   /**
    * @stable [03.08.2018]

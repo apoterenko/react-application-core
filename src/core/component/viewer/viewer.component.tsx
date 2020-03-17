@@ -11,7 +11,6 @@ import {
   nvl,
 } from '../../util';
 import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout/flex';
 import { Dialog } from '../dialog';
 import { PictureViewer } from '../viewer';
 import {
@@ -23,6 +22,7 @@ import {
 } from '../../definition';
 import { UNDEF } from '../../definitions.interface';
 import { Button } from '../button';
+import { Info } from '../info';
 
 export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
                              TState extends IViewerState = IViewerState>
@@ -61,8 +61,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
 
     if (this.hasSrcChanges(prevProps, prevState)) {
       this.refreshOnSrcChanges();
-    }
-    if (this.hasInternalChanges(prevProps, prevState)) {
+    } else if (this.hasInternalChanges(prevProps, prevState)) {
       this.refreshOnInternalChanges();
     }
   }
@@ -102,21 +101,61 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   protected getPreviewExtraActionsElement(): JSX.Element {
     return (
       <React.Fragment>
-        <Button
-          icon={IconsEnum.SEARCH_MINUS}
-          onClick={this.onDecrementScale}/>
-        <Button
-          icon={IconsEnum.SEARCH_PLUS}
-          onClick={this.onIncrementScale}/>
-        <Button
-          icon={IconsEnum.BACK}
-          disabled={this.isPreviewBackActionDisabled()}
-          onClick={this.onBack}/>
-        <Button
-          icon={IconsEnum.FORWARD}
-          disabled={this.isPreviewForwardActionDisabled()}
-          onClick={this.onForward}/>
+        {this.decrementScaleAction}
+        {this.incrementScaleAction}
+        {this.previewBackActionElement}
+        {this.previewForwardActionElement}
       </React.Fragment>
+    );
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {JSX.Element}
+   */
+  protected get previewForwardActionElement(): JSX.Element {
+    return (
+      <Button
+        icon={IconsEnum.FORWARD}
+        disabled={this.isPreviewForwardActionDisabled()}
+        onClick={this.onForward}/>
+    );
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {JSX.Element}
+   */
+  protected get previewBackActionElement(): JSX.Element {
+    return (
+      <Button
+        icon={IconsEnum.BACK}
+        disabled={this.isPreviewBackActionDisabled()}
+        onClick={this.onBack}/>
+    );
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {JSX.Element}
+   */
+  protected get incrementScaleAction(): JSX.Element {
+    return (
+      <Button
+        icon={IconsEnum.SEARCH_PLUS}
+        onClick={this.onIncrementScale}/>
+    );
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {JSX.Element}
+   */
+  protected get decrementScaleAction(): JSX.Element {
+    return (
+      <Button
+        icon={IconsEnum.SEARCH_MINUS}
+        onClick={this.onDecrementScale}/>
     );
   }
 
@@ -324,6 +363,10 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
     return nvl(this.state.scale, this.props.scale);
   }
 
+  /**
+   * @stable [18.03.2020]
+   * @returns {React.ReactNode}
+   */
   private get bodyElement(): React.ReactNode {
     const messages = this.settings.messages;
     const doesErrorExist = this.doesErrorExist;
@@ -331,16 +374,10 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
     return doesErrorExist || this.isActualSrcAbsent
       ? (
         doesErrorExist
-          ? (
-            <FlexLayout
-              justifyContentCenter={true}
-              alignItemsCenter={true}>{
-              this.t(messages.fileLoadErrorMessage)
-            }</FlexLayout>
-          )
+          ? <Info error={messages.IT_IS_IMPOSSIBLE_TO_DOWNLOAD_A_FILE}/>
           : <PictureViewer/>
       )
-      : (this.isProgressMessageRendered ? this.settings.messages.WAITING : this.getContentElement());
+      : (this.isProgressMessageRendered ? <Info progress={true}/> : this.getContentElement());
   }
 
   /**

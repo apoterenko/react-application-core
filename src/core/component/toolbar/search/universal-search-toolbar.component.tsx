@@ -7,7 +7,6 @@ import {
   IUniversalFieldProps,
   ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
-import { IUniversalField } from '../../../entities-definitions.interface';
 import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
 import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
 import { UniversalComponent } from '../../base/universal.component';
@@ -120,7 +119,6 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
   protected get fieldProps(): IUniversalFieldProps {
     const props = this.props;
     return {
-      ref: 'queryField',
       autoFocus: true,
       errorMessageRendered: false,
       value: this.query,
@@ -209,14 +207,6 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
    * @returns {JSX.Element}
    */
   protected abstract get actionsElementsWrapper(): JSX.Element[];
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {IUniversalField}
-   */
-  private get queryField(): IUniversalField {
-    return this.refs.queryField as IUniversalField;
-  }
 
   /**
    * @stable [18.05.2018]
