@@ -1050,9 +1050,8 @@
   /**/
   $rac-viewer-align-items: unset,                                             /* @stable [18.03.2020] */
   $rac-viewer-content-border-radius: unset,                                   /* @stable [18.03.2020] */
-  $rac-viewer-content-height: unset,
   $rac-viewer-content-margin: unset,                                          /* @stable [18.03.2020] */
-  $rac-viewer-content-max-height: unset,
+  $rac-viewer-content-max-height: unset,                                      /* @stable [18.03.2020] */
   $rac-viewer-content-max-width: unset,
   $rac-viewer-content-display: unset,                                         /* @stable [18.03.2020] */
   $rac-viewer-content-size: unset,                                            /* @stable [18.03.2020] */
@@ -1095,7 +1094,6 @@
         $rac-styles-custom: $rac-viewer-content-cls,
         $rac-styles-border-radius: $rac-viewer-content-border-radius,
         $rac-styles-display: $rac-viewer-content-display,
-        $rac-styles-height: $rac-viewer-content-height,
         $rac-styles-margin: $rac-viewer-content-margin,
         $rac-styles-max-height: $rac-viewer-content-max-height,
         $rac-styles-max-width: $rac-viewer-content-max-width,
@@ -1208,7 +1206,6 @@
   $rac-self-field-padding-top: unset,                                               /* @stable [16.02.2020] */
   $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
   $rac-self-field-viewer-content-border-radius: unset,                              /* @stable [18.03.2020] */
-  $rac-self-field-viewer-content-height: unset,
   $rac-self-field-viewer-content-max-height: unset,
   $rac-self-field-viewer-content-max-width: unset,
   $rac-self-field-viewer-content-width: unset,
@@ -1372,7 +1369,6 @@
         @include rac-viewer (
           $rac-viewer-margin: $rac-self-field-viewer-margin,
           $rac-viewer-content-border-radius: $rac-self-field-viewer-content-border-radius,
-          $rac-viewer-content-height: $rac-self-field-viewer-content-height,
           $rac-viewer-content-max-height: $rac-self-field-viewer-content-max-height,
           $rac-viewer-content-max-width: $rac-self-field-viewer-content-max-width,
           $rac-viewer-content-width: $rac-self-field-viewer-content-width
