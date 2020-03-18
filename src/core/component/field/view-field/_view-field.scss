@@ -1,0 +1,14 @@
+@import '../../mixin';
+@import './_view-constant';
+
+.rac {
+
+  /**
+   * @view-field
+   * @stable [18.03.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-view-field-cls,
+    $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
+  );
+}

@@ -1,6 +1,6 @@
 @import '~sass-mixins/partials/_user-select';
 @import '~sass-flex-mixin/_flex';
-@import './classes';
+@import './_classes';
 
 /**
  * @stable [21.01.2020]
@@ -1050,12 +1050,12 @@
   /**/
   $rac-viewer-align-items: unset,                                             /* @stable [18.03.2020] */
   $rac-viewer-content-border-radius: unset,                                   /* @stable [18.03.2020] */
+  $rac-viewer-content-display: unset,                                         /* @stable [18.03.2020] */
   $rac-viewer-content-margin: unset,                                          /* @stable [18.03.2020] */
   $rac-viewer-content-max-height: unset,                                      /* @stable [18.03.2020] */
-  $rac-viewer-content-max-width: unset,
-  $rac-viewer-content-display: unset,                                         /* @stable [18.03.2020] */
+  $rac-viewer-content-max-width: unset,                                       /* @stable [18.03.2020] */
   $rac-viewer-content-size: unset,                                            /* @stable [18.03.2020] */
-  $rac-viewer-content-width: unset,
+  $rac-viewer-content-width: unset,                                           /* @stable [18.03.2020] */
   $rac-viewer-display: unset,                                                 /* @stable [18.03.2020] */
   $rac-viewer-flex-grow: unset,                                               /* @stable [15.03.2020] */
   $rac-viewer-flex: unset,                                                    /* @stable [15.03.2020] */
@@ -1206,10 +1206,9 @@
   $rac-self-field-padding-top: unset,                                               /* @stable [16.02.2020] */
   $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
   $rac-self-field-viewer-content-border-radius: unset,                              /* @stable [18.03.2020] */
-  $rac-self-field-viewer-content-max-height: unset,
-  $rac-self-field-viewer-content-max-width: unset,
-  $rac-self-field-viewer-content-width: unset,
-  $rac-self-field-viewer-margin: unset,
+  $rac-self-field-viewer-content-max-height: unset,                                 /* @stable [18.03.2020] */
+  $rac-self-field-viewer-content-max-width: unset,                                  /* @stable [18.03.2020] */
+  $rac-self-field-viewer-margin: unset,                                             /* @stable [18.03.2020] */
   $rac-text-field-filter-active-after-bottom: unset,
   $rac-text-field-filter-active-after-left: unset
 ) {
@@ -1367,11 +1366,10 @@
         }
 
         @include rac-viewer (
-          $rac-viewer-margin: $rac-self-field-viewer-margin,
           $rac-viewer-content-border-radius: $rac-self-field-viewer-content-border-radius,
           $rac-viewer-content-max-height: $rac-self-field-viewer-content-max-height,
           $rac-viewer-content-max-width: $rac-self-field-viewer-content-max-width,
-          $rac-viewer-content-width: $rac-self-field-viewer-content-width
+          $rac-viewer-margin: $rac-self-field-viewer-margin
         );
       }
     }

@@ -598,7 +598,6 @@ $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
 $rac-switch-cls: rac-switch;
 $rac-unchecked-cls: rac-unchecked;
-$rac-view-field-cls: rac-view-field;
 /**/
 $rac-base-checkbox-checked-cls: '#{$rac-base-checkbox-cls}.#{$rac-checked-cls}';
 $rac-base-text-actioned-cls: '#{$rac-base-text-cls}.#{$rac-field-actioned-cls}';
@@ -726,7 +725,6 @@ $rac-text-field-invalid-border-color: $color-11 !default;
 $rac-text-field-not-changeable-border-bottom: unset !default;
 $rac-text-field-not-changeable-border-left: unset !default;
 $rac-text-field-not-changeable-border-right: unset !default;
-$rac-view-field-self-field-viewer-margin: 0 0 $rac-default-half-offset 0 !default;
 /**/
 $rac-date-field-calendar-base-dialog-range-explorer-date-justify-content: center !default;
 /**/

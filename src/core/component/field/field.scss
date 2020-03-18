@@ -7,6 +7,7 @@
 @import './date-navigator/date-navigator';
 @import './place-field/_place-field';
 @import './text-field/_text-field';
+@import './view-field/_view-field';
 
 .rac {
 
@@ -102,11 +103,6 @@
     $rac-self-field-input-wrapper-background: $rac-switch-self-field-input-wrapper-background,
     $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius,
     $rac-self-field-input-wrapper-box-shadow: $rac-switch-self-field-input-wrapper-box-shadow
-  );
-
-  @include rac-field(                                                                         /* @stable [27.03.2019] */
-    $rac-field-custom: $rac-view-field-cls,
-    $rac-self-field-viewer-margin: $rac-view-field-self-field-viewer-margin
   );
 
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
