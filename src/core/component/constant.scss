@@ -765,13 +765,16 @@ $rac-place-dialog-title-margin: 0 0 $rac-offset-3 0 !default;
 /************************/
 /* @stable [16.03.2020] */
 /************************/
-$rac-preview-dialog-body-content-padding: 0 $rac-offset-3 !default;
+$rac-preview-dialog-body-content-padding: 0 $rac-primary-offset-3 !default;
 $rac-preview-dialog-body-content-wrapper-overflow: hidden !default;
 $rac-preview-dialog-body-content-wrapper-padding: 0 !default;
 $rac-preview-dialog-body-max-width: 80vw !default;
 $rac-preview-dialog-body-min-height: 80vh !default;
+$rac-preview-dialog-extra-action-background: $rac-primary-color-metis-0-0 !default;
+$rac-preview-dialog-extra-action-border-radius: 50% !default;
+$rac-preview-dialog-extra-actions-neighbor-child-margin: $rac-primary-offset-3 0 0 0 !default;
 $rac-preview-dialog-extra-actions-position: absolute !default;
-$rac-preview-dialog-extra-actions-right: $rac-offset-3 !default;
+$rac-preview-dialog-extra-actions-right: $rac-primary-offset-3 !default;
 $rac-preview-dialog-extra-actions-top: 50% !default;
 $rac-preview-dialog-extra-actions-transform: translateY(-50%) !default;
 
@@ -850,7 +853,31 @@ $rac-sub-header-section-title-font-size: 24px !default;
 /************************/
 /* @stable [17.03.2020] */
 /************************/
+$rac-empty-picture-viewer-align-items: center !default;
+$rac-empty-picture-viewer-display: $rac-primary-display-0 !default;
+$rac-empty-picture-viewer-justify-content: center !default;
 $rac-full-viewer-flex-grow: $rac-primary-flex-grow-0 !default;
+$rac-info-viewer-display: $rac-primary-display-0 !default;
+$rac-viewer-content-display: $rac-primary-display-1 !default;
+$rac-viewer-content-margin:$rac-primary-margin-0 !default;
+$rac-viewer-display: unset !default;
+$rac-viewer-preview-icon-color: $rac-primary-color-metis-3 !default;
+$rac-viewer-preview-icon-not-hover-display: none !default;
+
+/************************/
+/* @stable [18.03.2020] */
+/************************/
+$rac-error-info-text-color: $rac-primary-color-callisto-0 !default;
+$rac-full-info-flex-grow: $rac-primary-flex-grow-0 !default;
+$rac-info-align-items: center !default;
+$rac-info-display: $rac-primary-display-0 !default;
+$rac-info-icon-margin: 0 $rac-primary-offset-1 0 0 !default;
+$rac-info-justify-content: center !default;
+$rac-info-text-display: $rac-primary-display-0 !default;
+$rac-info-text-flex: .75 !default;
+$rac-info-text-font-size: $rac-primary-font-size-0 !default;
+$rac-info-text-justify-content: center !default;
+$rac-info-text-line-height: $rac-primary-line-height-1 !default;
 
 /************************/
 /* @stable [10.02.2020] */
@@ -1237,9 +1264,6 @@ $rac-date-navigator-text-field-input-font-size: $rac-default-font-size-2 !defaul
 $rac-date-navigator-clock-font-size: 24px !default;
 $rac-date-navigator-clock-margin: 0 0 0 24px !default;
 $rac-date-navigator-clock-icon-margin: 0 8px 0 0 !default;
-
-/* @stable [10.01.2019] */
-$rac-picture-viewer-cls: rac-picture-viewer;
 
 /* @stable [10.01.2019] */
 $rac-overlay-background: $color-24 !default;

@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import {
   calc,
+  inProgress,
   isCurrentValueNotEqualPreviousValue,
   isFull,
   isOpened,
@@ -14,13 +15,17 @@ import { BaseComponent } from '../base';
 import { Dialog } from '../dialog';
 import { PictureViewer } from '../viewer';
 import {
+  ComponentClassesEnum,
   DialogClassesEnum,
   IconsEnum,
   IViewerProps,
   IViewerState,
   ViewerClassesEnum,
 } from '../../definition';
-import { UNDEF } from '../../definitions.interface';
+import {
+  AnyT,
+  UNDEF,
+} from '../../definitions.interface';
 import { Button } from '../button';
 import { Info } from '../info';
 
@@ -46,6 +51,9 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
     this.onDialogClose = this.onDialogClose.bind(this);
     this.onForward = this.onForward.bind(this);
     this.onIncrementScale = this.onIncrementScale.bind(this);
+    this.onLoadError = this.onLoadError.bind(this);
+    this.onLoadStart = this.onLoadStart.bind(this);
+    this.onLoadSucceed = this.onLoadSucceed.bind(this);
     this.showPreviewDialog = this.showPreviewDialog.bind(this);
 
     this.state = {} as TState;
@@ -101,8 +109,8 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   protected getPreviewExtraActionsElement(): JSX.Element {
     return (
       <React.Fragment>
-        {this.decrementScaleAction}
         {this.incrementScaleAction}
+        {this.decrementScaleAction}
         {this.previewBackActionElement}
         {this.previewForwardActionElement}
       </React.Fragment>
@@ -160,6 +168,29 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
+   * @stable [18.03.2020]
+   * @param {AnyT} error
+   */
+  protected onLoadError(error: AnyT): void {
+    this.setState({error, progress: false});
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @param {(...args) => void} callback
+   */
+  protected onLoadSucceed(callback?: (...args) => void): void {
+    this.setState({progress: false}, callback);
+  }
+
+  /**
+   * @stable [18.03.2020]
+   */
+  protected onLoadStart(): void {
+    this.setState({error: null, progress: true});
+  }
+
+  /**
    * @stable [16.03.2020]
    * @returns {boolean}
    */
@@ -172,7 +203,8 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {boolean}
    */
   protected isPreviewBackActionDisabled(): boolean {
-    return this.state.previewPage === Viewer.DEFAULT_PAGE;
+    const previewPage = this.state.previewPage;
+    return !previewPage || previewPage === Viewer.DEFAULT_PAGE;
   }
 
   /**
@@ -184,6 +216,8 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
 
     return joinClassName(
       ViewerClassesEnum.VIEWER,
+      this.isSrcAbsent && ViewerClassesEnum.EMPTY_VIEWER,
+      this.isInfoRendered && ViewerClassesEnum.INFO_VIEWER,
       isFull(props) && ViewerClassesEnum.FULL_VIEWER,
       calc<string>(props.className)
     );
@@ -204,7 +238,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [18.03.2020]
    * @returns {JSX.Element}
    */
   protected abstract getContentElement(): JSX.Element;
@@ -219,8 +253,8 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @stable [16.03.2020]
    * @returns {boolean}
    */
-  protected get isProgressMessageRendered(): boolean {
-    return false;
+  protected get inProgress(): boolean {
+    return inProgress(this.state);
   }
 
   /**
@@ -365,19 +399,30 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
 
   /**
    * @stable [18.03.2020]
+   * @returns {string}
+   */
+  protected get actualSrc(): string {
+    return this.props.src || this.props.defaultScr;
+  }
+
+  /**
+   * @stable [18.03.2020]
    * @returns {React.ReactNode}
    */
   private get bodyElement(): React.ReactNode {
     const messages = this.settings.messages;
-    const doesErrorExist = this.doesErrorExist;
 
-    return doesErrorExist || this.isActualSrcAbsent
+    return this.isInfoRendered
       ? (
-        doesErrorExist
-          ? <Info error={messages.IT_IS_IMPOSSIBLE_TO_DOWNLOAD_A_FILE}/>
-          : <PictureViewer/>
+        <Info
+          progress={this.inProgress}
+          error={messages.AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE}/>
       )
-      : (this.isProgressMessageRendered ? <Info progress={true}/> : this.getContentElement());
+      : (
+        this.isActualSrcAbsent
+          ? <PictureViewer/>
+          : this.getContentElement()
+      );
   }
 
   /**
@@ -397,22 +442,38 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
         acceptable={false}
         extraActions={this.getPreviewExtraActionsElement()}
         onClose={this.onDialogClose}
+        onDeactivate={this.onDialogClose}
       >
         {this.gePreviewElement()}
       </Dialog>
     );
   }
 
+  /**
+   * @stable [18.03.2020]
+   * @returns {JSX.Element}
+   */
   private get previewIconElement(): JSX.Element {
     return (
       this.canPreview && (
         this.uiFactory.makeIcon({
-          type: 'search_plus',
-          className: 'rac-preview-action-icon rac-absolute-center-position',
+          type: IconsEnum.SEARCH_PLUS,
+          className: joinClassName(
+            ComponentClassesEnum.ALIGNMENT_CENTER,
+            ViewerClassesEnum.VIEWER_PREVIEW_ICON
+          ),
           onClick: this.showPreviewDialog,
         })
       )
     );
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {boolean}
+   */
+  private get isInfoRendered(): boolean {
+    return this.inProgress || this.doesErrorExist;
   }
 
   /**
@@ -429,7 +490,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    */
   private get canPreview(): boolean {
     return this.isPreviewUsed
-      && !this.isProgressMessageRendered
+      && !this.inProgress
       && !this.isActualSrcAbsent
       && !this.doesErrorExist;
   }

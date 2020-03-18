@@ -5,12 +5,12 @@ import { Viewer } from '../viewer.component';
 import { UniversalPdfPlugin } from './universal-pdf.plugin';
 import {
   IPdfViewerProps,
-  IPdfViewerState,
 } from '../../../definition';
-import { ifNotNilThanValue } from '../../../util';
-import { AnyT } from '../../../definitions.interface';
+import {
+  ifNotNilThanValue,
+} from '../../../util';
 
-export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
+export class PdfViewer extends Viewer {
 
   private pdfRendererPlugin: IUniversalPdfPlugin;
   private readonly canvasRef = React.createRef<HTMLCanvasElement>();
@@ -25,8 +25,9 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
     this.pdfRendererPlugin = new UniversalPdfPlugin(
       `${this.settings.urls.pdfWorker}?_dc=${this.environment.appVersion}`,
       () => this.canvasRef.current,
-      this.onLoadSucceed.bind(this),
-      this.onLoadError.bind(this)
+      this.onLoadSucceed,
+      this.onLoadStart,
+      this.onLoadError
     );
   }
 
@@ -45,7 +46,7 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
    */
   protected refreshOnSrcChanges(): void {
     ifNotNilThanValue(
-      this.props.src,
+      this.actualSrc,
       (src) => {
         // This plugin can't process the null value
 
@@ -84,7 +85,7 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
     return (
       <PdfViewer
         usePreview={false}
-        src={this.props.src}
+        src={this.actualSrc}
         page={this.actualOrDefaultPreviewPage}
         scale={this.actualPreviewScale}/>
     );
@@ -96,28 +97,5 @@ export class PdfViewer extends Viewer<IPdfViewerProps, IPdfViewerState> {
    */
   protected isPreviewForwardActionDisabled(): boolean {
     return this.actualOrDefaultPreviewPage === this.pdfRendererPlugin.numPages;
-  }
-
-  /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
-   */
-  protected get isProgressMessageRendered(): boolean {
-    return !this.pdfRendererPlugin.hasLoadedDocument;
-  }
-
-  /**
-   * @stable [16.03.2020]
-   * @param {AnyT} error
-   */
-  private onLoadError(error: AnyT): void {
-    this.setState({error});
-  }
-
-  /**
-   * @stable [16.03.2020]
-   */
-  private onLoadSucceed(): void {
-    this.setState({error: null});
   }
 }

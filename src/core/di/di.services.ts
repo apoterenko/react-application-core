@@ -32,6 +32,7 @@ import {
   IStorage,
   IStoreEntity,
   ITransport,
+  IUiFactory,
   IUniversalComponentCtor,
   IUniversalComponentProps,
   IUniversalConnectorContainerFactory,
@@ -42,7 +43,6 @@ import {
   TranslatorT,
   UniversalPluginFactoryT,
 } from '../definition';
-import { IUIFactory } from '../component/factory/factory.interface';
 import { staticInjector } from './di.support';
 
 /**
@@ -95,10 +95,10 @@ export const getAuth = (): IAuth => staticInjector(DI_TYPES.Auth);
 export const getDateConverter = (): IDateConverter => staticInjector(DI_TYPES.DateConverter);
 
 /**
- * @stable [09.11.2018]
- * @returns {IUIFactory}
+ * @stable [18.03.2020]
+ * @returns {IUiFactory}
  */
-export const getUiFactory = (): IUIFactory => staticInjector(DI_TYPES.UIFactory);
+export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UIFactory);
 
 /**
  * @stable [23.10.2019]

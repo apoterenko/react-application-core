@@ -10,10 +10,24 @@ $rac-preview-dialog-cls: rac-preview-dialog;
 /************************/
 /* @stable [11.03.2020] */
 /************************/
+$rac-empty-viewer-cls: rac-empty-viewer;
 $rac-full-viewer-cls: rac-full-viewer;
+$rac-info-viewer-cls: rac-info-viewer;
+$rac-picture-viewer-cls: rac-picture-viewer;
+$rac-viewer-cls: rac-viewer;
+$rac-viewer-content-cls: rac-viewer__content;
+$rac-viewer-preview-icon-cls: rac-viewer__preview-icon;
+/**/
+$rac-empty-picture-viewer-cls: '#{$rac-empty-viewer-cls}.#{$rac-picture-viewer-cls}';
 
 /************************/
 /* @stable [11.03.2020] */
 /************************/
 $rac-date-field__calendar-dialog-cls: rac-date-field__calendar-dialog;
 $rac-date-field__calendars-dialog-cls: rac-date-field__calendars-dialog;
+
+/************************/
+/* @stable [18.03.2020] */
+/************************/
+$rac-error-info-cls: rac-error-info;
+$rac-full-info-cls: rac-full-info;

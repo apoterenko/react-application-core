@@ -3,11 +3,16 @@ import * as React from 'react';
 import {
   calc,
   formatJson,
+  isFull,
   isObject,
   isStringNotEmpty,
   joinClassName,
 } from '../../util';
-import { IInfoComponentProps } from '../../definition';
+import {
+  IconsEnum,
+  IInfoComponentProps,
+  InfoClassesEnum,
+} from '../../definition';
 import { GenericComponent } from '../base/generic.component';
 import {
   IErrorWrapper,
@@ -58,13 +63,19 @@ export class Info extends GenericComponent<IInfoComponentProps> {
     return (
       <div className={
         joinClassName(
-          'rac-info',
-          result.error && 'rac-info-error',
-          result.progress && 'rac-info-progress',
-          !result.error && !result.progress && 'rac-info-message',
+          InfoClassesEnum.INFO,
+          isFull(props) && InfoClassesEnum.FULL_INFO,
+          result.error && InfoClassesEnum.ERROR_INFO,
+          result.progress && InfoClassesEnum.PROGRESS_INFO,
+          !result.error && !result.progress && InfoClassesEnum.MESSAGE_INFO,
           calc(props.className))}
       >
-        {result}
+        {result.text && (
+          <span className={InfoClassesEnum.INFO_TEXT}>
+            {result.progress && this.uiFactory.makeIcon({type: IconsEnum.SPINNER, className: InfoClassesEnum.INFO_ICON})}
+            {result.text}
+          </span>
+        )}
         {props.children}
       </div>
     );

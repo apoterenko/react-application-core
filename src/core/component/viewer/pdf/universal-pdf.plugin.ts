@@ -25,15 +25,17 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
   private loadedDocument: IPdfViewerDocument;
 
   /**
-   * @stable [14.11.2018]
+   * @stable [18.03.2020]
    * @param {string} workerSrc
    * @param {() => HTMLCanvasElement} canvasResolver
-   * @param {() => void} onSuccess
+   * @param {(callback: (page: IPdfViewerPage) => void) => void} onFinish
+   * @param {() => void} onStart
    * @param {(error: AnyT) => void} onError
    */
   constructor(private workerSrc: string,
               private canvasResolver: () => HTMLCanvasElement,
-              private onSuccess?: () => void,
+              private onFinish: (callback: (page: IPdfViewerPage) => void) => void,
+              private onStart?: () => void,
               private onError?: (error: AnyT) => void) {
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadPage = this.onLoadPage.bind(this);
@@ -82,26 +84,31 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
       UniversalPdfPlugin.logger.warn('[$UniversalPdfPlugin][loadDocument] The src is not defined!');
       return;
     }
-
-    const loadTask = pdfjsLib.getDocument(this.src);
-    this.loadTask = Promise.resolve<IPdfViewerDocument>(loadTask.promise)
-      .then<IPdfViewerDocument>(this.onLoad, this.onLoadError);
+    if (isFn(this.onStart)) {
+      this.onStart();
+    }
+    this.loadTask = Promise.resolve(pdfjsLib.getDocument(this.src).promise)
+      .then(this.onLoad, this.onLoadError);
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [18.03.2020]
    */
   public refreshPage(): void {
     if (!this.hasLoadedDocument) {
       UniversalPdfPlugin.logger.warn('[$UniversalPdfPlugin][refreshPage] The document is not defined!');
       return;
     }
-    this.loadPageTask = Promise.resolve<IPdfViewerPage>(this.loadedDocument.getPage(this.page))
-      .then<IPdfViewerPage>(this.onLoadPage);
+    this.loadPageTask = new Promise<IPdfViewerPage>((resolve, reject) =>
+      this.loadedDocument.getPage(this.page).then(resolve, reject)
+    ).then(
+      (page) => this.onFinish(() => this.onLoadPage(page)),
+      this.onLoadError
+    );
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [18.03.2020]
    * @returns {boolean}
    */
   public get hasLoadedDocument(): boolean {
@@ -131,9 +138,6 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
    */
   private onLoad(pdf: IPdfViewerDocument): IPdfViewerDocument {
     this.loadedDocument = pdf;
-    if (isFn(this.onSuccess)) {
-      this.onSuccess();
-    }
     this.refreshPage();
     return pdf;
   }

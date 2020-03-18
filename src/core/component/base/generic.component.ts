@@ -3,12 +3,14 @@ import * as React from 'react';
 import { AnyT } from '../../definitions.interface';
 import {
   IGenericComponentProps,
+  IUiFactory,
   TranslatorT,
 } from '../../definition';
 import { patchRenderMethod } from '../../util';
 import {
   getSettings,
   getTranslator,
+  getUiFactory,
 } from '../../di';
 import { ISettingsEntity } from '../../settings';
 
@@ -43,5 +45,13 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
    */
   protected get t(): TranslatorT {
     return getTranslator();
+  }
+
+  /**
+   * @stable [18.03.2020]
+   * @returns {IUiFactory}
+   */
+  protected get uiFactory(): IUiFactory {
+    return getUiFactory();
   }
 }

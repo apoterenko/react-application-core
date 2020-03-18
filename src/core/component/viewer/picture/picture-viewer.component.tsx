@@ -1,10 +1,13 @@
 import * as React from 'react';
 
-import { toClassName } from '../../../util';
+import { joinClassName } from '../../../util';
 import { Viewer } from '../viewer.component';
-import { IPictureViewerProps, IPictureViewerState } from './picture-viewer.interface';
+import {
+  IPictureViewerProps,
+  ViewerClassesEnum,
+} from '../../../definition';
 
-export class PictureViewer extends Viewer<IPictureViewerProps, IPictureViewerState> {
+export class PictureViewer extends Viewer<IPictureViewerProps> {
 
   public static defaultProps: IPictureViewerProps = {
     defaultScr: 'media/no_picture.jpg',
@@ -12,11 +15,20 @@ export class PictureViewer extends Viewer<IPictureViewerProps, IPictureViewerSta
   };
 
   /**
-   * @stable [10.01.2019]
+   * @stable [18.03.2020]
+   * @returns {JSX.Element}
+   */
+  protected getPreviewExtraActionsElement(): JSX.Element {
+    // You may implement this later..
+    return null;
+  }
+
+  /**
+   * @stable [18.03.2020]
    * @returns {string}
    */
   protected getClassName(): string {
-    return toClassName(super.getClassName(), 'rac-picture-viewer');
+    return joinClassName(super.getClassName(), ViewerClassesEnum.PICTURE_VIEWER);
   }
 
   /**
@@ -24,21 +36,18 @@ export class PictureViewer extends Viewer<IPictureViewerProps, IPictureViewerSta
    * @returns {JSX.Element}
    */
   protected getContentElement(): JSX.Element {
-    const props = this.props;
     return (
       <img
-        className={toClassName('rac-viewer-content', !props.src && 'rac-viewer-empty-content')}
-        src={props.src || props.defaultScr}/>
+        className={ViewerClassesEnum.VIEWER_CONTENT}
+        src={this.actualSrc}/>
     );
   }
 
   /**
-   * @stable [08.07.2018]
+   * @stable [18.03.2020]
    * @returns {JSX.Element}
    */
   protected gePreviewElement(): JSX.Element {
-    return (
-      <PictureViewer src={this.props.src}/>
-    );
+    return <PictureViewer src={this.actualSrc}/>;
   }
 }

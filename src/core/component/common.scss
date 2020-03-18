@@ -138,14 +138,6 @@ html, body {
     color: $rac-message-color;                    /* @stable [26.06.2018] */
   }
 
-  .rac-absolute-center-position {
-    position: absolute;                 /* @stable [08.05.2018] */
-    left: 50% !important;               /* @mdc @stable [08.05.2018] */
-    top: 50% !important;                /* @mdc @stable [08.05.2018] */
-    width: 50%;                         /* @stable [08.05.2018] */
-    transform: translate(-50%, -50%);   /* @stable [08.05.2018] */
-  }
-
   .rac-absolute-left-center-position {
     position: absolute;                 /* @stable [24.08.2018] */
     top: 50%;                           /* @stable [24.08.2018] */

@@ -996,48 +996,111 @@
   }
 }
 
-@mixin rac-viewer(
+/**
+ * @stable [18.03.2020]
+ */
+@mixin rac-info (
+  $rac-info-custom: unset,
+  /**/
+  $rac-info-align-items: unset,                                                      /* @stable [18.03.2020] */
+  $rac-info-display: unset,                                                          /* @stable [18.03.2020] */
+  $rac-info-flex-grow: unset,                                                        /* @stable [18.03.2020] */
+  $rac-info-icon-margin: unset,                                                      /* @stable [18.03.2020] */
+  $rac-info-justify-content: unset,                                                  /* @stable [18.03.2020] */
+  $rac-info-text-color: unset,                                                       /* @stable [18.03.2020] */
+  $rac-info-text-display: unset,                                                     /* @stable [18.03.2020] */
+  $rac-info-text-flex: unset,                                                        /* @stable [18.03.2020] */
+  $rac-info-text-font-size: unset,                                                   /* @stable [18.03.2020] */
+  $rac-info-text-justify-content: unset,                                             /* @stable [18.03.2020] */
+  $rac-info-text-line-height: unset                                                  /* @stable [18.03.2020] */
+) {
+  #{rac-cls(rac-info, $rac-info-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-info-align-items,
+      $rac-styles-display: $rac-info-display,
+      $rac-styles-flex-grow: $rac-info-flex-grow,
+      $rac-styles-justify-content: $rac-info-justify-content
+    );
+
+    > {
+      .rac-info__text {
+        @include rac-styles (
+          $rac-styles-color: $rac-info-text-color,
+          $rac-styles-display: $rac-info-text-display,
+          $rac-styles-flex: $rac-info-text-flex,
+          $rac-styles-font-size: $rac-info-text-font-size,
+          $rac-styles-justify-content: $rac-info-text-justify-content,
+          $rac-styles-line-height: $rac-info-text-line-height
+        );
+
+        @include rac-icon (
+          $rac-icon-custom: rac-info__icon,
+          $rac-icon-margin: $rac-info-icon-margin
+        );
+      }
+    }
+  }
+}
+
+/**
+ * @stable [18.03.2020]
+ */
+@mixin rac-viewer (
   $rac-viewer-custom: unset,
   /**/
-  $rac-viewer-content-border-radius: unset,
+  $rac-viewer-align-items: unset,                                             /* @stable [18.03.2020] */
+  $rac-viewer-content-border-radius: unset,                                   /* @stable [18.03.2020] */
   $rac-viewer-content-height: unset,
-  $rac-viewer-content-margin: unset,
+  $rac-viewer-content-margin: unset,                                          /* @stable [18.03.2020] */
   $rac-viewer-content-max-height: unset,
   $rac-viewer-content-max-width: unset,
-  $rac-viewer-content-size: unset,
+  $rac-viewer-content-display: unset,                                         /* @stable [18.03.2020] */
+  $rac-viewer-content-size: unset,                                            /* @stable [18.03.2020] */
   $rac-viewer-content-width: unset,
-  $rac-viewer-empty-content-border-radius: unset,
-  $rac-viewer-empty-content-margin: unset,
-  $rac-viewer-empty-content-size: unset,
+  $rac-viewer-display: unset,                                                 /* @stable [18.03.2020] */
   $rac-viewer-flex-grow: unset,                                               /* @stable [15.03.2020] */
   $rac-viewer-flex: unset,                                                    /* @stable [15.03.2020] */
-  $rac-viewer-margin: unset
+  $rac-viewer-justify-content: unset,                                         /* @stable [18.03.2020] */
+  $rac-viewer-margin: unset,                                                  /* @stable [18.03.2020] */
+  $rac-viewer-preview-icon-color: unset,                                      /* @stable [18.03.2020] */
+  $rac-viewer-preview-icon-not-hover-display: unset                           /* @stable [18.03.2020] */
 ) {
 
-  #{rac-cls(rac-viewer, $rac-viewer-custom)} {
+  #{rac-cls($rac-viewer-cls, $rac-viewer-custom)} {
     @include rac-styles (
+      $rac-styles-align-items: $rac-viewer-align-items,
+      $rac-styles-display: $rac-viewer-display,
       $rac-styles-flex-grow: $rac-viewer-flex-grow,
       $rac-styles-flex: $rac-viewer-flex,
+      $rac-styles-justify-content: $rac-viewer-justify-content,
       $rac-styles-margin: $rac-viewer-margin
     );
 
-    > .rac-viewer-content {
+    &:not(:hover) {
+      > {
+        @include rac-icon (
+          $rac-icon-custom: $rac-viewer-preview-icon-cls,
+          $rac-icon-display: $rac-viewer-preview-icon-not-hover-display
+        );
+      }
+    }
+
+    > {
+      @include rac-icon (
+        $rac-icon-custom: $rac-viewer-preview-icon-cls,
+        $rac-icon-color: $rac-viewer-preview-icon-color
+      );
+
       @include rac-styles (
+        $rac-styles-custom: $rac-viewer-content-cls,
         $rac-styles-border-radius: $rac-viewer-content-border-radius,
+        $rac-styles-display: $rac-viewer-content-display,
         $rac-styles-height: $rac-viewer-content-height,
         $rac-styles-margin: $rac-viewer-content-margin,
         $rac-styles-max-height: $rac-viewer-content-max-height,
         $rac-styles-max-width: $rac-viewer-content-max-width,
         $rac-styles-size: $rac-viewer-content-size,
         $rac-styles-width: $rac-viewer-content-width
-      );
-    }
-
-    > .rac-viewer-empty-content {
-      @include rac-styles (
-        $rac-styles-border-radius: $rac-viewer-empty-content-border-radius,
-        $rac-styles-margin: $rac-viewer-empty-content-margin,
-        $rac-styles-size: $rac-viewer-empty-content-size
       );
     }
   }
@@ -1144,7 +1207,7 @@
   $rac-self-field-overflow: unset,                                                  /* @stable [16.02.2020] */
   $rac-self-field-padding-top: unset,                                               /* @stable [16.02.2020] */
   $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
-  $rac-self-field-viewer-content-border-radius: unset,
+  $rac-self-field-viewer-content-border-radius: unset,                              /* @stable [18.03.2020] */
   $rac-self-field-viewer-content-height: unset,
   $rac-self-field-viewer-content-max-height: unset,
   $rac-self-field-viewer-content-max-width: unset,
@@ -1306,7 +1369,7 @@
           }
         }
 
-        @include rac-viewer(
+        @include rac-viewer (
           $rac-viewer-margin: $rac-self-field-viewer-margin,
           $rac-viewer-content-border-radius: $rac-self-field-viewer-content-border-radius,
           $rac-viewer-content-height: $rac-self-field-viewer-content-height,
@@ -3157,6 +3220,9 @@
   $rac-dialog-body-width: unset,                                                              /* @stable [10.01.2020] */
   $rac-dialog-body-z-index: unset,                                                            /* @stable [31.01.2020] */
   $rac-dialog-display: unset,                                                                 /* @stable [06.01.2020] */
+  $rac-dialog-extra-action-background: unset,                                                 /* @stable [18.03.2020] */
+  $rac-dialog-extra-action-border-radius: unset,                                              /* @stable [18.03.2020] */
+  $rac-dialog-extra-actions-neighbor-child-margin: unset,                                     /* @stable [16.03.2020] */
   $rac-dialog-extra-actions-position: unset,                                                  /* @stable [16.03.2020] */
   $rac-dialog-extra-actions-right: unset,                                                     /* @stable [16.03.2020] */
   $rac-dialog-extra-actions-top: unset,                                                       /* @stable [16.03.2020] */
@@ -3234,13 +3300,23 @@
                 $rac-styles-position: $rac-dialog-body-content-position
               );
 
-              @include rac-styles (
-                $rac-styles-custom: rac-dialog__extra-actions,
-                $rac-styles-position: $rac-dialog-extra-actions-position,
-                $rac-styles-right: $rac-dialog-extra-actions-right,
-                $rac-styles-top: $rac-dialog-extra-actions-top,
-                $rac-styles-transform: $rac-dialog-extra-actions-transform
-              );
+              .rac-dialog__extra-actions {
+                @include rac-styles (
+                  $rac-styles-position: $rac-dialog-extra-actions-position,
+                  $rac-styles-right: $rac-dialog-extra-actions-right,
+                  $rac-styles-top: $rac-dialog-extra-actions-top,
+                  $rac-styles-transform: $rac-dialog-extra-actions-transform
+                );
+
+                @include rac-button (
+                  $rac-button-background: $rac-dialog-extra-action-background,
+                  $rac-button-border-radius: $rac-dialog-extra-action-border-radius
+                );
+
+                @include rac-neighbor-child (
+                  $rac-neighbor-child-margin: $rac-dialog-extra-actions-neighbor-child-margin
+                );
+              }
             }
           }
 
@@ -3284,6 +3360,9 @@
   $rac-preview-dialog-body-content-wrapper-padding: unset,                                    /* @stable [16.03.2020] */
   $rac-preview-dialog-body-max-width: unset,                                                  /* @stable [16.03.2020] */
   $rac-preview-dialog-body-min-height: unset,                                                 /* @stable [16.03.2020] */
+  $rac-preview-dialog-extra-action-background: unset,                                         /* @stable [16.03.2020] */
+  $rac-preview-dialog-extra-action-border-radius: unset,                                      /* @stable [18.03.2020] */
+  $rac-preview-dialog-extra-actions-neighbor-child-margin: unset,                             /* @stable [18.03.2020] */
   $rac-preview-dialog-extra-actions-position: unset,                                          /* @stable [16.03.2020] */
   $rac-preview-dialog-extra-actions-right: unset,                                             /* @stable [16.03.2020] */
   $rac-preview-dialog-extra-actions-top: unset,                                               /* @stable [16.03.2020] */
@@ -3297,6 +3376,9 @@
     $rac-dialog-body-content-wrapper-padding: $rac-preview-dialog-body-content-wrapper-padding,
     $rac-dialog-body-max-width: $rac-preview-dialog-body-max-width,
     $rac-dialog-body-min-height: $rac-preview-dialog-body-min-height,
+    $rac-dialog-extra-action-background: $rac-preview-dialog-extra-action-background,
+    $rac-dialog-extra-action-border-radius: $rac-preview-dialog-extra-action-border-radius,
+    $rac-dialog-extra-actions-neighbor-child-margin: $rac-preview-dialog-extra-actions-neighbor-child-margin,
     $rac-dialog-extra-actions-position: $rac-preview-dialog-extra-actions-position,
     $rac-dialog-extra-actions-right: $rac-preview-dialog-extra-actions-right,
     $rac-dialog-extra-actions-top: $rac-preview-dialog-extra-actions-top,

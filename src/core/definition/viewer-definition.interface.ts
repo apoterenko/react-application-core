@@ -7,6 +7,7 @@ import {
   IPageWrapper,
   IPreviewPageWrapper,
   IPreviewScaleWrapper,
+  IProgressWrapper,
   IScaleWrapper,
   ISrcWrapper,
   IUsePreviewWrapper,
@@ -38,13 +39,30 @@ export interface IGenericViewerEntity
 }
 
 /**
+ * @generic-entity
+ * @stable [16.03.2020]
+ */
+export interface IGenericPdfViewerEntity
+  extends IGenericViewerEntity {
+}
+
+/**
+ * @generic-entity
+ * @stable [16.03.2020]
+ */
+export interface IGenericPictureViewerEntity
+  extends IGenericViewerEntity {
+}
+
+/**
  * @generic-state
  * @stable [16.03.2020]
  */
 export interface IGenericViewerState
   extends IBaseViewerEntity,
     IErrorWrapper<Error>,
-    IOpenedWrapper {
+    IOpenedWrapper,
+    IProgressWrapper {
 }
 
 /**
@@ -53,14 +71,6 @@ export interface IGenericViewerState
  */
 export interface IViewerState
   extends IGenericViewerState {
-}
-
-/**
- * @state
- * @stable [16.03.2020]
- */
-export interface IPdfViewerState
-  extends IViewerState {
 }
 
 /**
@@ -73,20 +83,21 @@ export interface IViewerProps
 }
 
 /**
- * @generic-entity
- * @stable [16.03.2020]
- */
-export interface IGenericPdfViewerEntity
-  extends IGenericViewerEntity {
-}
-
-/**
  * @props
  * @stable [16.03.2020]
  */
 export interface IPdfViewerProps
   extends IComponentProps,
     IGenericPdfViewerEntity {
+}
+
+/**
+ * @props
+ * @stable [16.03.2020]
+ */
+export interface IPictureViewerProps
+  extends IComponentProps,
+    IGenericPictureViewerEntity {
 }
 
 /**
@@ -102,6 +113,11 @@ export interface IPdfViewerViewport
  * @stable [15.03.2020]
  */
 export enum ViewerClassesEnum {
+  EMPTY_VIEWER = 'rac-empty-viewer',
   FULL_VIEWER = 'rac-full-viewer',
+  INFO_VIEWER = 'rac-info-viewer',
+  PICTURE_VIEWER = 'rac-picture-viewer',
   VIEWER = 'rac-viewer',
+  VIEWER_CONTENT = 'rac-viewer__content',
+  VIEWER_PREVIEW_ICON = 'rac-viewer__preview-icon',
 }

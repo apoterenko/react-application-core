@@ -81,6 +81,7 @@ export interface IComponentCtor<TProps extends IComponentProps = IComponentProps
  * @stable [09.03.2020]
  */
 export enum ComponentClassesEnum {
+  ALIGNMENT_CENTER = 'rac-alignment-center',
   CALENDAR_BASE_DIALOG = 'rac-calendar-base-dialog',   // TODO
   CALENDAR_DIALOG = 'rac-calendar-dialog',   // TODO
   CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR = 'rac-calendar-dialog__range-input-separator',   // TODO

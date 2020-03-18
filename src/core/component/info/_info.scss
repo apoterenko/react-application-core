@@ -1,0 +1,39 @@
+@import '../constant';
+@import '../mixin';
+
+.rac {
+
+  /**
+    * @info
+    * @stable [18.03.2020]
+    */
+  @include rac-info (
+    $rac-info-align-items: $rac-info-align-items,
+    $rac-info-display: $rac-info-display,
+    $rac-info-icon-margin: $rac-info-icon-margin,
+    $rac-info-justify-content: $rac-info-justify-content,
+    $rac-info-text-display: $rac-info-text-display,
+    $rac-info-text-flex: $rac-info-text-flex,
+    $rac-info-text-font-size: $rac-info-text-font-size,
+    $rac-info-text-justify-content: $rac-info-text-justify-content,
+    $rac-info-text-line-height: $rac-info-text-line-height
+  );
+
+  /**
+  * @info-error
+  * @stable [18.03.2020]
+  */
+  @include rac-info (
+    $rac-info-custom: $rac-error-info-cls,
+    $rac-info-text-color: $rac-error-info-text-color
+  );
+
+  /**
+    * @full-info
+    * @stable [18.03.2020]
+    */
+  @include rac-info (
+    $rac-info-custom: $rac-full-info-cls,
+    $rac-info-flex-grow: $rac-full-info-flex-grow
+  );
+}

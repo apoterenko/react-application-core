@@ -4,6 +4,7 @@ import {
   AnyT,
   IClassNameWrapper,
   IMessageWrapper,
+  ITypeWrapper,
   IWrapperClassNameWrapper,
   IWrapperWrapper,
 } from '../definitions.interface';
@@ -31,6 +32,22 @@ export interface IUiFactory {
    * @returns {React.ReactNode}
    */
   makeMessage?(cfg: IUniversalUiMessageConfigEntity): React.ReactNode;
+
+  /**
+   * @stable [18.03.2020]
+   * @param {IIconConfigEntity | string} config
+   * @returns {JSX.Element}
+   */
+  makeIcon?(config: IIconConfigEntity | string): JSX.Element;
+}
+
+/**
+ * @config-entity
+ * @stable [18.03.2020]
+ */
+export interface IIconConfigEntity
+  extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+    ITypeWrapper {
 }
 
 /**
