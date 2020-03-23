@@ -7,22 +7,27 @@ import { AnyT } from '../../../definitions.interface';
 import {
   isFn,
   isNumber,
-  nvl,
   toJqEl,
 } from '../../../util';
-import { IPdfViewerDocument, IPdfViewerPage, IUniversalPdfPlugin } from './pdf-viewer.interface';
+import {
+  IGenericPdfPlugin,
+  IPdfViewerDocumentEntity,
+  IPdfViewerPageEntity,
+} from '../../../definition';
 
-// TODO Rename -> Generic..
-export class UniversalPdfPlugin implements IUniversalPdfPlugin {
-  private static readonly logger = LoggerFactory.makeLogger('UniversalPdfPlugin');
+export class GenericPdfPlugin implements IGenericPdfPlugin {
+  private static readonly logger = LoggerFactory.makeLogger('GenericPdfPlugin');
   private static readonly DEFAULT_VIEWPORT_SCALE = 1;
 
+  private autoScale = true;
+  private initialScale: number;
+  private loadedDocument: IPdfViewerDocumentEntity;
+  private loadPageTask: Promise<IPdfViewerPageEntity>;
+  private loadTask: Promise<IPdfViewerDocumentEntity>;
+  private onError?: (error: AnyT) => void;
   private page = 1;
   private scale: number;
   private src: string;
-  private loadTask: Promise<IPdfViewerDocument>;
-  private loadPageTask: Promise<IPdfViewerPage>;
-  private loadedDocument: IPdfViewerDocument;
 
   /**
    * @stable [18.03.2020]
@@ -30,13 +35,11 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
    * @param {() => HTMLCanvasElement} canvasResolver
    * @param {(callback: (page: IPdfViewerPage) => void) => void} onFinish
    * @param {() => void} onStart
-   * @param {(error: AnyT) => void} onError
    */
   constructor(private workerSrc: string,
               private canvasResolver: () => HTMLCanvasElement,
-              private onFinish: (callback: (page: IPdfViewerPage) => void) => void,
-              private onStart?: () => void,
-              private onError?: (error: AnyT) => void) {
+              private onFinish: (callback: (page: IPdfViewerPageEntity) => void) => void,
+              private onStart?: () => void) {
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadPage = this.onLoadPage.bind(this);
     this.onLoad = this.onLoad.bind(this);
@@ -45,11 +48,21 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
   }
 
   /**
+   * @stable [23.03.2020]
+   * @param {(error: AnyT) => void} onError
+   * @returns {IGenericPdfPlugin}
+   */
+  public setOnError(onError?: (error: AnyT) => void): IGenericPdfPlugin {
+    this.onError = onError;
+    return this;
+  }
+
+  /**
    * @stable [14.11.2018]
    * @param {number} page
-   * @returns {IUniversalPdfPlugin}
+   * @returns {IGenericPdfPlugin}
    */
-  public setPage(page: number): IUniversalPdfPlugin {
+  public setPage(page: number): IGenericPdfPlugin {
     this.page = page;
     return this;
   }
@@ -57,9 +70,9 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
   /**
    * @stable [14.11.2018]
    * @param {string} src
-   * @returns {IUniversalPdfPlugin}
+   * @returns {IGenericPdfPlugin}
    */
-  public setSrc(src: string): IUniversalPdfPlugin {
+  public setSrc(src: string): IGenericPdfPlugin {
     this.src = src;
     return this;
   }
@@ -67,10 +80,20 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
   /**
    * @stable [14.11.2018]
    * @param {number} scale
-   * @returns {IUniversalPdfPlugin}
+   * @returns {IGenericPdfPlugin}
    */
-  public setScale(scale: number): IUniversalPdfPlugin {
+  public setScale(scale: number): IGenericPdfPlugin {
     this.scale = scale;
+    return this;
+  }
+
+  /**
+   * @stable [23.03.2020]
+   * @param {boolean} autoScale
+   * @returns {IGenericPdfPlugin}
+   */
+  public setAutoScale(autoScale: boolean): IGenericPdfPlugin {
+    this.autoScale = autoScale;
     return this;
   }
 
@@ -81,7 +104,7 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
     this.cancel();
 
     if (!this.src) {
-      UniversalPdfPlugin.logger.warn('[$UniversalPdfPlugin][loadDocument] The src is not defined!');
+      GenericPdfPlugin.logger.warn('[$GenericPdfPlugin][loadDocument] The src is not defined!');
       return;
     }
     if (isFn(this.onStart)) {
@@ -96,10 +119,10 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
    */
   public refreshPage(): void {
     if (!this.hasLoadedDocument) {
-      UniversalPdfPlugin.logger.warn('[$UniversalPdfPlugin][refreshPage] The document is not defined!');
+      GenericPdfPlugin.logger.warn('[$GenericPdfPlugin][refreshPage] The document is not defined!');
       return;
     }
-    this.loadPageTask = new Promise<IPdfViewerPage>((resolve, reject) =>
+    this.loadPageTask = new Promise<IPdfViewerPageEntity>((resolve, reject) =>
       this.loadedDocument.getPage(this.page).then(resolve, reject)
     ).then(
       (page) => this.onFinish(() => this.onLoadPage(page)),
@@ -115,7 +138,11 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
     return !R.isNil(this.loadedDocument);
   }
 
-  public get numPages(): number {
+  /**
+   * @stable [23.03.2020]
+   * @returns {number}
+   */
+  public get pagesCount(): number {
     return this.loadedDocument.numPages;
   }
 
@@ -126,6 +153,7 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
     this.cancelTask();
     this.cancelPageTask();
 
+    this.initialScale = null;
     this.loadTask = null;
     this.loadPageTask = null;
     this.loadedDocument = null;
@@ -133,10 +161,10 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
 
   /**
    * @stable [14.11.2018]
-   * @param {IPdfViewerDocument} pdf
-   * @returns {IPdfViewerDocument}
+   * @param {IPdfViewerDocumentEntity} pdf
+   * @returns {IPdfViewerDocumentEntity}
    */
-  private onLoad(pdf: IPdfViewerDocument): IPdfViewerDocument {
+  private onLoad(pdf: IPdfViewerDocumentEntity): IPdfViewerDocumentEntity {
     this.loadedDocument = pdf;
     this.refreshPage();
     return pdf;
@@ -144,22 +172,29 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
 
   /**
    * @stable [14.11.2018]
-   * @param {IPdfViewerPage} page
-   * @returns {IPdfViewerPage}
+   * @param {IPdfViewerPageEntity} page
+   * @returns {IPdfViewerPageEntity}
    */
-  private onLoadPage(page: IPdfViewerPage): IPdfViewerPage {
+  private onLoadPage(page: IPdfViewerPageEntity): IPdfViewerPageEntity {
     const renderArea = this.renderArea;
 
     const viewportParent = toJqEl(renderArea.parentElement);
     const w = viewportParent.width();
     const h = viewportParent.height();
 
-    const unscaledViewport = page.getViewport(UniversalPdfPlugin.DEFAULT_VIEWPORT_SCALE);
+    const unscaledViewport = page.getViewport(GenericPdfPlugin.DEFAULT_VIEWPORT_SCALE);
     const outerScale = this.scale;
     const hasOuterScale = isNumber(this.scale);
 
-    const initialScale = Math.min(h / unscaledViewport.height, w / unscaledViewport.width);
-    const viewport = page.getViewport(nvl(outerScale, initialScale));
+    if (this.autoScale) {
+      this.initialScale = R.isNil(this.initialScale)
+        ? Math.min(h / unscaledViewport.height, w / unscaledViewport.width)
+        : this.initialScale;
+    } else {
+      this.initialScale = 0;
+    }
+
+    const viewport = page.getViewport(this.initialScale + (hasOuterScale ? outerScale : 0));
 
     const canvasContext = renderArea.getContext('2d');
 
@@ -176,7 +211,7 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
    * @returns {AnyT}
    */
   private onLoadError(error: AnyT): AnyT {
-    UniversalPdfPlugin.logger.error(`[$UniversalPdfPlugin][onLoadError] Error:`, error);
+    GenericPdfPlugin.logger.error(`[$GenericPdfPlugin][onLoadError] Error:`, error);
 
     if (isFn(this.onError)) {
       this.onError(error);
@@ -191,7 +226,7 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
     if (this.loadTask && this.loadTask.isPending()) {
       this.loadTask.cancel();
 
-      UniversalPdfPlugin.logger.warn(`[$UniversalPdfPlugin][cancelTask] The pdf task has been cancelled.`);
+      GenericPdfPlugin.logger.warn(`[$GenericPdfPlugin][cancelTask] The pdf task has been cancelled.`);
     }
   }
 
@@ -202,7 +237,7 @@ export class UniversalPdfPlugin implements IUniversalPdfPlugin {
     if (this.loadPageTask && this.loadPageTask.isPending()) {
       this.loadPageTask.cancel();
 
-      UniversalPdfPlugin.logger.warn(`[$UniversalPdfPlugin][cancelPageTask] The pdf page task has been cancelled.`);
+      GenericPdfPlugin.logger.warn(`[$GenericPdfPlugin][cancelPageTask] The pdf page task has been cancelled.`);
     }
   }
 

@@ -1,4 +1,5 @@
 import {
+  AnyT,
   IDefaultSrcWrapper,
   IErrorWrapper,
   IFullWrapper,
@@ -106,6 +107,39 @@ export interface IPictureViewerProps
 export interface IPdfViewerViewport
   extends IHeightWrapper,
     IWidthWrapper {
+}
+
+/**
+ * @stable [23.03.2020]
+ */
+export interface IPdfViewerPageEntity {
+  getViewport(scale: number): IPdfViewerViewport;
+  render({canvasContext: HTMLCanvasContext, viewport: IPdfViewerViewport}): void;
+}
+
+/**
+ * @stable [23.03.2020]
+ */
+export interface IPdfViewerDocumentEntity {
+  numPages: number;
+  getPage(page: number): Promise<IPdfViewerPageEntity>;
+}
+
+/**
+ * @generic-plugin
+ * @stable [23.03.2020]
+ */
+export interface IGenericPdfPlugin {
+  hasLoadedDocument: boolean;
+  pagesCount: number;
+  cancel(): void;
+  loadDocument(): void;
+  refreshPage(): void;
+  setAutoScale(autoScale: boolean): IGenericPdfPlugin;
+  setOnError(onError?: (error: AnyT) => void): IGenericPdfPlugin;
+  setPage(page: number): IGenericPdfPlugin;
+  setScale(scale: number): IGenericPdfPlugin;
+  setSrc(src: string): IGenericPdfPlugin;
 }
 
 /**

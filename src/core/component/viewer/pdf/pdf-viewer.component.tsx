@@ -1,18 +1,16 @@
 import * as React from 'react';
 
-import { IUniversalPdfPlugin } from './pdf-viewer.interface';
-import { Viewer } from '../viewer.component';
-import { UniversalPdfPlugin } from './universal-pdf.plugin';
+import { ifNotNilThanValue } from '../../../util';
 import {
+  IGenericPdfPlugin,
   IPdfViewerProps,
 } from '../../../definition';
-import {
-  ifNotNilThanValue,
-} from '../../../util';
+import { GenericPdfPlugin } from './generic-pdf.plugin';
+import { Viewer } from '../viewer.component';
 
 export class PdfViewer extends Viewer {
 
-  private pdfRendererPlugin: IUniversalPdfPlugin;
+  private pdfRendererPlugin: IGenericPdfPlugin;
   private readonly canvasRef = React.createRef<HTMLCanvasElement>();
 
   /**
@@ -22,13 +20,14 @@ export class PdfViewer extends Viewer {
   constructor(props: IPdfViewerProps) {
     super(props);
 
-    this.pdfRendererPlugin = new UniversalPdfPlugin(
+    this.pdfRendererPlugin = new GenericPdfPlugin(
       `${this.settings.urls.pdfWorker}?_dc=${this.environment.appVersion}`,
       () => this.canvasRef.current,
       this.onLoadSucceed,
-      this.onLoadStart,
-      this.onLoadError
-    );
+      this.onLoadStart
+    )
+      .setAutoScale(true)
+      .setOnError(this.onLoadError);
   }
 
   /**
@@ -53,7 +52,7 @@ export class PdfViewer extends Viewer {
         this.pdfRendererPlugin
           .setSrc(src)
           .setPage(this.actualOrDefaultPage)
-          .setScale(this.actualScale)
+          .setScale(this.actualOrDefaultScale)
           .loadDocument();
       }
     );
@@ -65,7 +64,7 @@ export class PdfViewer extends Viewer {
   protected refreshOnInternalChanges(): void {
     this.pdfRendererPlugin
       .setPage(this.actualOrDefaultPage)
-      .setScale(this.actualScale)
+      .setScale(this.actualOrDefaultScale)
       .refreshPage();
   }
 
@@ -87,7 +86,7 @@ export class PdfViewer extends Viewer {
         usePreview={false}
         src={this.actualSrc}
         page={this.actualOrDefaultPreviewPage}
-        scale={this.actualPreviewScale}/>
+        scale={this.actualOrDefaultPreviewScale}/>
     );
   }
 
@@ -96,6 +95,14 @@ export class PdfViewer extends Viewer {
    * @returns {boolean}
    */
   protected isPreviewForwardActionDisabled(): boolean {
-    return this.actualOrDefaultPreviewPage === this.pdfRendererPlugin.numPages;
+    return this.actualOrDefaultPreviewPage === this.pdfRendererPlugin.pagesCount;
+  }
+
+  /**
+   * @stable [23.03.2020]
+   * @returns {number}
+   */
+  protected get defaultScale(): number {
+    return 0; // Because of "autoscale = true" by default
   }
 }

@@ -1062,7 +1062,8 @@
   $rac-viewer-justify-content: unset,                                         /* @stable [18.03.2020] */
   $rac-viewer-margin: unset,                                                  /* @stable [18.03.2020] */
   $rac-viewer-preview-icon-color: unset,                                      /* @stable [18.03.2020] */
-  $rac-viewer-preview-icon-not-hover-display: unset                           /* @stable [18.03.2020] */
+  $rac-viewer-preview-icon-not-hover-display: unset,                          /* @stable [18.03.2020] */
+  $rac-viewer-preview-icon-size: unset                                        /* @stable [18.03.2020] */
 ) {
 
   #{rac-cls($rac-viewer-cls, $rac-viewer-custom)} {
@@ -1087,7 +1088,8 @@
     > {
       @include rac-icon (
         $rac-icon-custom: $rac-viewer-preview-icon-cls,
-        $rac-icon-color: $rac-viewer-preview-icon-color
+        $rac-icon-color: $rac-viewer-preview-icon-color,
+        $rac-icon-size: $rac-viewer-preview-icon-size
       );
 
       @include rac-styles (

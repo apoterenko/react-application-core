@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import {
   calc,
+  coalesce,
   inProgress,
   isCurrentValueNotEqualPreviousValue,
   isFull,
@@ -34,8 +35,6 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   extends BaseComponent<TProps, TState> {
 
   private static readonly DEFAULT_PAGE = 1;
-  private static readonly DEFAULT_SCALE = 1;
-  private static readonly DEFAULT_SCALE_DIFF = .3;
 
   private readonly previewDialogRef = React.createRef<Dialog>();
 
@@ -332,14 +331,14 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @stable [16.03.2020]
    */
   private onIncrementScale(): void {
-    this.setState({previewScale: this.actualOrDefaultPreviewScale + Viewer.DEFAULT_SCALE_DIFF});
+    this.setState({previewScale: this.actualOrDefaultPreviewScale + this.defaultScaleDiff});
   }
 
   /**
    * @stable [16.03.2020]
    */
   private onDecrementScale(): void {
-    this.setState({previewScale: this.actualOrDefaultPreviewScale - Viewer.DEFAULT_SCALE_DIFF});
+    this.setState({previewScale: this.actualOrDefaultPreviewScale - this.defaultScaleDiff});
   }
 
   /**
@@ -382,19 +381,19 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [23.03.2020]
    * @returns {number}
    */
-  protected get actualPreviewScale(): number {
-    return nvl(this.state.previewScale, this.props.previewScale);
+  protected get actualOrDefaultPreviewScale(): number {
+    return coalesce(this.state.previewScale, this.props.previewScale, this.defaultScale);
   }
 
   /**
    * @stable [16.03.2020]
    * @returns {number}
    */
-  protected get actualScale(): number {
-    return nvl(this.state.scale, this.props.scale);
+  protected get actualOrDefaultScale(): number {
+    return coalesce(this.state.scale, this.props.scale, this.defaultScale);
   }
 
   /**
@@ -403,6 +402,22 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    */
   protected get actualSrc(): string {
     return this.props.src || this.props.defaultScr;
+  }
+
+  /**
+   * @stable [23.03.2020]
+   * @returns {number}
+   */
+  protected get defaultScaleDiff(): number {
+    return .3;
+  }
+
+  /**
+   * @stable [23.03.2020]
+   * @returns {number}
+   */
+  protected get defaultScale(): number {
+    return 1;
   }
 
   /**
@@ -474,14 +489,6 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    */
   private get isInfoRendered(): boolean {
     return this.inProgress || this.doesErrorExist;
-  }
-
-  /**
-   * @stable [16.03.2020]
-   * @returns {number}
-   */
-  private get actualOrDefaultPreviewScale(): number {
-    return nvl(this.actualPreviewScale, Viewer.DEFAULT_SCALE);
   }
 
   /**
