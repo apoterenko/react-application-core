@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BaseComponent } from '../../base';
+import { BaseComponent } from '../../base/base.component';
 import {
   calc,
   handlerPropsFactory,

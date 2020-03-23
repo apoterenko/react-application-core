@@ -33,10 +33,7 @@ import {
   IMenuState,
   SyntheticEmitterEventsEnum,
 } from '../../definition';
-import {
-  IField,
-  TextField,
-} from '../field';
+import { TextField } from '../field/text-field';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 
 export class Menu extends BaseComponent<IMenuProps, IMenuState>
@@ -388,9 +385,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [07.06.2018]
-   * @returns {IField}
+   * @returns {TextField}
    */
-  private get field(): IField {
+  private get field(): TextField {
     return this.fieldRef.current;
   }
 

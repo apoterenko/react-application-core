@@ -5,7 +5,7 @@ import {
 } from '../di';
 import {
   DynamicSectionsMapT,
-  INavigationItemEntity,
+  INavigationListItemEntity,
   IPermissionsManager,
   IStackWrapperEntity,
   NavigationItemTypesEnum,
@@ -19,11 +19,11 @@ import {
 export class NavigationMenuBuilder {
 
   @lazyInject(DI_TYPES.DynamicSections) private readonly dynamicSections: DynamicSectionsMapT;
-  @lazyInject(DI_TYPES.Menu) private readonly menu: INavigationItemEntity[];
+  @lazyInject(DI_TYPES.Menu) private readonly menu: INavigationListItemEntity[];
   @lazyInject(DI_TYPES.PermissionsManager) private readonly permissionsManager: IPermissionsManager;
 
-  public provide(stackWrapper: IStackWrapperEntity): INavigationItemEntity[] {
-    let menuItems: INavigationItemEntity[] = [];
+  public provide(stackWrapper: IStackWrapperEntity): INavigationListItemEntity[] {
+    let menuItems: INavigationListItemEntity[] = [];
     this.menu.forEach((item) => {
       const itemChildren = item.children;
 
@@ -38,7 +38,7 @@ export class NavigationMenuBuilder {
           }
           menuItems = menuItems
               .concat(item.label ? {...item, type: NavigationItemTypesEnum.SUB_HEADER} : [])
-              .concat(filteredChildren.map((itm): INavigationItemEntity => ({...itm, parent: item})));
+              .concat(filteredChildren.map((itm): INavigationListItemEntity => ({...itm, parent: item})));
         }
       } else if (this.isAccessible(item)) {
         menuItems.push({...item});
@@ -67,16 +67,16 @@ export class NavigationMenuBuilder {
         }
       }
     }
-    return menuItems.map((item): INavigationItemEntity =>
+    return menuItems.map((item): INavigationListItemEntity =>
       activeItem && item === activeItem ? ({...item, active: true}) : ({...item}));
   }
 
   /**
    * @stable [19.10.2018]
-   * @param {INavigationItemEntity} itm
+   * @param {INavigationListItemEntity} itm
    * @returns {boolean}
    */
-  private isAccessible(itm: INavigationItemEntity): boolean {
+  private isAccessible(itm: INavigationListItemEntity): boolean {
     return !itm.accessConfiguration || this.permissionsManager.isAccessible(itm.accessConfiguration);
   }
 }

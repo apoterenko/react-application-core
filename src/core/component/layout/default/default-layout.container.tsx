@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import { NavigationList } from '../../list';
 import { lazyInject } from '../../../di';
 import {
+  ifNotEmptyThanValue,
   isFn,
   orNull,
 } from '../../../util';
@@ -27,7 +28,7 @@ import {
   ILayoutEntity,
   IMenuItemEntity,
   IMenuItemStringValueEntity,
-  INavigationItemEntity,
+  INavigationListItemEntity,
   IOperationEntity,
   IXYEntity,
   LayoutModesEnum,
@@ -60,6 +61,7 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
     this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
+    this.onNavigationListClick = this.onNavigationListClick.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
     this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
 
@@ -138,23 +140,10 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
   }
 
   /**
-   * @stable [23.09.2018]
-   * @param {INavigationItemEntity} item
-   */
-  private onNavigationListGroupClick(item: INavigationItemEntity): void {
-    const itemValue = item.value;
-    if (R.isNil(itemValue)) {
-      return;
-    }
-    const payloadWrapper: IPayloadWrapper<StringNumberT> = {payload: itemValue};
-    this.dispatchCustomType(LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE, payloadWrapper);
-  }
-
-  /**
    * @stable [18.09.2018]
-   * @returns {INavigationItemEntity[]}
+   * @returns {INavigationListItemEntity[]}
    */
-  private get menuItems(): INavigationItemEntity[] {
+  private get menuItems(): INavigationListItemEntity[] {
     return this.navigationMenuBuilder.provide(this.props);
   }
 
@@ -229,8 +218,26 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
         dividerRendered={false}
         items={this.menuItems}
         onScroll={this.onNavigationListScroll}
+        onClick={this.onNavigationListClick}
         onGroupClick={this.onNavigationListGroupClick}
         plugins={[PersistentScrollPlugin, PerfectScrollPlugin]}/>
     );
+  }
+
+  /**
+   * @stable [24.03.2020]
+   * @param {INavigationListItemEntity} item
+   */
+  private onNavigationListClick(item: INavigationListItemEntity): void {
+    ifNotEmptyThanValue(item.link, (link) => this.routerStoreProxy.navigate(link));
+  }
+
+  private onNavigationListGroupClick(item: INavigationListItemEntity): void {
+    const itemValue = item.value;
+    if (R.isNil(itemValue)) {
+      return;
+    }
+    const payloadWrapper: IPayloadWrapper<StringNumberT> = {payload: itemValue};
+    this.dispatchCustomType(LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE, payloadWrapper);
   }
 }

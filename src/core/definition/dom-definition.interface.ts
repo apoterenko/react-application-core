@@ -76,7 +76,7 @@ export interface IDomPositionConfigEntity<TElement extends HTMLElement = HTMLEle
   at?: string;
   collision?: string;
   my?: string;
-  of?: TElement | Event;
+  of?: TElement | Event | string;
 }
 
 /**

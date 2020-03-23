@@ -3,30 +3,56 @@ import * as R from 'ramda';
 
 import {
   ifNotFalseThanValue,
+  ifNotNilThanValue,
   joinClassName,
+  notNilValuesArrayFilter,
   nvl,
   orNull,
   uuid,
 } from '../../../util';
 import { Link } from '../../link';
-import { INavigationListProps } from './navigation-list.interface';
+import { Menu } from '../../menu';
 import {
   IComponentsSettingsEntity,
   IDefaultLayoutProps,
-  INavigationItemEntity,
+  IMenuItemEntity,
+  INavigationListItemEntity,
+  INavigationListProps,
+  INavigationListState,
   LayoutModesEnum,
+  NAVIGATION_EXTRA_ITEM_TYPES,
   NavigationItemTypesEnum,
+  NavigationListClassesEnum,
 } from '../../../definition';
-import { UniversalComponent } from '../../base/universal.component';
+import { BaseComponent } from '../../base/base.component';
+import { EntityIdT } from '../../../definitions.interface';
 
 export class NavigationList
-  extends UniversalComponent<INavigationListProps> {
+  extends BaseComponent<INavigationListProps, INavigationListState> {
+
+  private readonly menuRef = React.createRef<Menu>();
+  private readonly itemsRefsMap = new Map<EntityIdT, React.RefObject<HTMLDivElement>>();
+
+  /**
+   * @stable [23.03.2020]
+   * @param {INavigationListProps} props
+   */
+  constructor(props: INavigationListProps) {
+    super(props);
+
+    this.asPopupMenuAnchorElement = this.asPopupMenuAnchorElement.bind(this);
+    this.onPopupMenuItemSelect = this.onPopupMenuItemSelect.bind(this);
+
+    this.state = {};
+  }
 
   /**
    * @stable [24.10.2019]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
+    this.itemsRefsMap.clear();
+
     const items = this.props.items;
     return (
       <nav
@@ -35,8 +61,36 @@ export class NavigationList
       >
         {this.getListDividerElement()}
         {items.map(this.toElement, this)}
+        {
+          ifNotNilThanValue(
+            this.state.activeGroup,
+            (activeGroup) => (
+              <Menu
+                positionConfiguration={{
+                  collision: 'fit',
+                  my: 'left top',
+                  at: 'right top',
+                }}
+                heightRestricted={false}
+                ref={this.menuRef}
+                options={notNilValuesArrayFilter(...items.map((item) => this.asPopupMenuItem(item, activeGroup)))
+                  .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.t(itm.label), rawData: itm}))}
+                anchorElement={this.asPopupMenuAnchorElement}
+                onSelect={this.onPopupMenuItemSelect}/>
+            )
+          )
+        }
       </nav>
     );
+  }
+
+  /**
+   * @stable [23.03.2020]
+   */
+  public componentWillUnmount(): void {
+    this.itemsRefsMap.clear();
+
+    super.componentWillUnmount();
   }
 
   /**
@@ -54,36 +108,38 @@ export class NavigationList
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationItemEntity} item
+   * @param {INavigationListItemEntity} item
    * @returns {JSX.Element}
    */
-  private toElement(item: INavigationItemEntity): JSX.Element {
+  private toElement(item: INavigationListItemEntity): JSX.Element {
     const isExpanded = this.isItemExpanded(item);
     const fullLayoutModeEnabled = this.isFullLayoutModeEnabled;
     const label = this.t(item.label);
-    const ind = this.props.items.length - 1 -
-      [...this.props.items].reverse().findIndex((itm) => itm.type === NavigationItemTypesEnum.SUB_HEADER);
 
     switch (item.type) {
       case NavigationItemTypesEnum.SUB_HEADER:
         const isGroupItemActive = !isExpanded && this.hasActiveChild(item);
+        const groupRef = React.createRef<HTMLDivElement>();
+        this.itemsRefsMap.set(item.value, groupRef);
+        const ind = this.props.items.length - 1 -
+          [...this.props.items].reverse().findIndex((itm) => itm.type === NavigationItemTypesEnum.SUB_HEADER);
+
         return (
           <div
+            ref={groupRef}
             key={this.asUniqueKey(item.label, 'label')}
             className={joinClassName(
-              this.buildItemClassNames(true, isGroupItemActive, isExpanded),
+              this.asItemClasses(true, isGroupItemActive, isExpanded),
               ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list__last-section',
             )}
             title={label}
-            onClick={() => this.onGroupLinkClick(item)}
+            onClick={() => this.onGroupClick(item)}
           >
             {this.uiFactory.makeIcon({
-              key: this.asUniqueKey(item.label, 'group-icon'),
               type: item.icon || 'list',
             })}
             {fullLayoutModeEnabled && label}
             {fullLayoutModeEnabled && this.uiFactory.makeIcon({
-              key: this.asUniqueKey(item.label, 'group-expand-icon'),
               type: isExpanded ? 'dropdown-opened' : 'dropdown',
               className: 'rac-navigation-list__expand-icon',
             })}
@@ -100,16 +156,16 @@ export class NavigationList
         );
       default:
         const isGroup = R.isNil(item.parent);
-        return orNull(isExpanded || isGroup, () => this.asItemElement(item));
+        return orNull((isExpanded || isGroup) && fullLayoutModeEnabled, () => this.asItemElement(item));
     }
   }
 
   /**
    * @stable [12.02.2020]
-   * @param {INavigationItemEntity} item
+   * @param {INavigationListItemEntity} item
    * @returns {JSX.Element}
    */
-  private asItemElement(item: INavigationItemEntity): JSX.Element {
+  private asItemElement(item: INavigationListItemEntity): JSX.Element {
     const isFullLayoutModeEnabled = this.isFullLayoutModeEnabled;
     const label = this.t(item.label);
     const isGroup = R.isNil(item.parent);
@@ -119,13 +175,12 @@ export class NavigationList
       <Link
         to={item.link}
         key={this.asUniqueKey(item.link, 'link')}
-        className={this.buildItemClassNames(isGroup, item.active, isExpanded)}
+        className={this.asItemClasses(isGroup, item.active, isExpanded)}
         title={label}
       >
         {this.uiFactory.makeIcon({
           type: item.icon,
-          key: this.asUniqueKey(item.link, 'icon'),
-          className: 'rac-navigation-list__item-icon',
+          className: NavigationListClassesEnum.NAVIGATION_LIST_ITEM_ICON,
         })}
         {isFullLayoutModeEnabled && label}
       </Link>
@@ -133,22 +188,32 @@ export class NavigationList
   }
 
   /**
-   * @stable [23.09.2018]
-   * @param {INavigationItemEntity} config
+   * @stable [23.03.2020]
+   * @param {IMenuItemEntity<INavigationListItemEntity>} option
    */
-  private onGroupLinkClick(config: INavigationItemEntity): void {
-    const props = this.props;
-    if (props.onGroupClick) {
-      props.onGroupClick(config);
+  private onPopupMenuItemSelect(option: IMenuItemEntity<INavigationListItemEntity>): void {
+    this.setState({activeGroup: null}, () =>
+      ifNotNilThanValue(this.props.onClick, (onClick) => onClick(option.rawData)));
+  }
+
+  /**
+   * @stable [24.03.2020]
+   * @param {INavigationListItemEntity} entity
+   */
+  private onGroupClick(entity: INavigationListItemEntity): void {
+    ifNotNilThanValue(this.props.onGroupClick, (onGroupClick) => onGroupClick(entity));
+
+    if (!this.isFullLayoutModeEnabled) {
+      this.setState({activeGroup: entity}, () => this.menuRef.current.show());
     }
   }
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationItemEntity} item
+   * @param {INavigationListItemEntity} item
    * @returns {boolean}
    */
-  private isItemExpanded(item: INavigationItemEntity): boolean {
+  private isItemExpanded(item: INavigationListItemEntity): boolean {
     const expandedGroups = this.props.expandedGroups;
     return expandedGroups[item.value] === true
       || (!R.isNil(item.parent) && expandedGroups[item.parent.value] === true);
@@ -185,37 +250,60 @@ export class NavigationList
 
   /**
    * @stable [23.09.2018]
-   * @param {INavigationItemEntity} item
+   * @param {INavigationListItemEntity} item
    * @returns {boolean}
    */
-  private hasActiveChild(item: INavigationItemEntity): boolean {
+  private hasActiveChild(item: INavigationListItemEntity): boolean {
     const activeItem = R.find((itm) => !!itm.active, this.props.items);
     return !R.isNil(activeItem) && !R.isNil(R.find((child) => child.link === activeItem.link, item.children || []));
   }
 
   /**
-   * @stable [07.02.2020]
+   * @stable [24.03.2020]
+   * @param {INavigationListItemEntity} item
+   * @param {INavigationListItemEntity} activeGroup
+   * @returns {INavigationListItemEntity}
+   */
+  private asPopupMenuItem(item: INavigationListItemEntity, activeGroup: INavigationListItemEntity): INavigationListItemEntity {
+    if (NAVIGATION_EXTRA_ITEM_TYPES.includes(item.type)) {
+      return null;
+    }
+    return ifNotNilThanValue(item.parent, (parent) => orNull(parent.value === activeGroup.value, item));
+  }
+
+  /**
+   * @stable [24.03.2020]
+   * @returns {HTMLElement}
+   */
+  private asPopupMenuAnchorElement(): HTMLElement {
+    return this.itemsRefsMap.get(this.state.activeGroup.value).current;
+  }
+
+  /**
+   * @stable [23.03.2020]
    * @param {boolean} isGroup
    * @param {boolean} isActive
    * @param {boolean} isExpanded
    * @returns {string}
    */
-  private buildItemClassNames(isGroup: boolean,
-                              isActive: boolean,
-                              isExpanded: boolean): string {
+  private asItemClasses(isGroup: boolean,
+                        isActive: boolean,
+                        isExpanded: boolean): string {
     return (
       joinClassName(
-        'rac-navigation-list__section',
-        isGroup ? 'rac-navigation-list__group-section' : 'rac-navigation-list__item-section',
+        NavigationListClassesEnum.NAVIGATION_LIST_SECTION,
+        isGroup
+          ? NavigationListClassesEnum.NAVIGATION_LIST_GROUP_SECTION
+          : NavigationListClassesEnum.NAVIGATION_LIST_ITEM_SECTION,
         isActive
-          ? 'rac-navigation-list__active-section'
-          : (isExpanded ? 'rac-navigation-list__expanded-section' : ''),
+          ? NavigationListClassesEnum.NAVIGATION_LIST_ACTIVE_SECTION
+          : (isExpanded ? NavigationListClassesEnum.NAVIGATION_LIST_EXPANDED_SECTION : ''),
       )
     );
   }
 
   /**
-   * @stable [07.02.2020]
+   * @stable [23.03.2020]
    * @param {string} link
    * @param {string} prefix
    * @returns {string}

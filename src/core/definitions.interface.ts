@@ -52,6 +52,7 @@ export interface IActionWrapper<TValue> { action?: TValue; }
 export interface IActivateDialogWrapper { activateDialog?(): void; }
 export interface IActivateWrapper<TValue = {}> { activate?(payload?: TValue): void; }
 export interface IActiveActionsWrapper<TValue> { activeActions?: TValue; }
+export interface IActiveGroupWrapper<TValue> { activeGroup?: TValue; }
 export interface IActiveValueWrapper<TValue = number> { activeValue?: TValue; }
 export interface IActiveWrapper<TValue = boolean> { active?: TValue; }
 export interface IAddApiWrapper { addApi?: string; }
@@ -166,6 +167,7 @@ export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: boolean; }
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
+export interface IDividerRenderedWrapper { dividerRendered?: boolean; }
 export interface IDrawerHeaderRenderedWrapper { drawerHeaderRendered?: boolean; }
 export interface IDurationWrapper<TValue> { duration?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
@@ -356,6 +358,7 @@ export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue;
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
+export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(payload?: TValue): void; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
@@ -592,13 +595,6 @@ export interface IActionIconsWrapper<TActionIcons> {
  */
 export interface IOnRemoveWrapper<TItem = AnyT, TOnRemove = (item?: TItem) => void> {
   onRemove?: TOnRemove;
-}
-
-/**
- * @stable [23.09.2018]
- */
-export interface IOnGroupClickWrapper<TGroup = AnyT, TOnGroupClick = (value?: TGroup) => void> {
-  onGroupClick?: TOnGroupClick;
 }
 
 /**

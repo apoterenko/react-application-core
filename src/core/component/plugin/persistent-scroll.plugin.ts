@@ -6,7 +6,7 @@ import {
   EventsEnum,
   IComponent,
   IDomAccessor,
-  IScrollableComponentProps,
+  IScrolledProps,
   IUniversalPlugin,
 } from '../../definition';
 import {
@@ -22,9 +22,9 @@ export class PersistentScrollPlugin implements IUniversalPlugin {
 
   /**
    * @stable [06.02.2020]
-   * @param {IComponent<IScrollableComponentProps>} component
+   * @param {IComponent<IScrolledProps>} component
    */
-  constructor(private readonly component: IComponent<IScrollableComponentProps>) {
+  constructor(private readonly component: IComponent<IScrolledProps>) {
     this.onScroll = this.onScroll.bind(this);
     this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
   }
