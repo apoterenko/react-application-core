@@ -136,7 +136,8 @@ export interface IGenericPdfPlugin {
   loadDocument(): void;
   refreshPage(): void;
   setAutoScale(autoScale: boolean): IGenericPdfPlugin;
-  setOnError(onError?: (error: AnyT) => void): IGenericPdfPlugin;
+  setOnError(onError: (error: AnyT) => void): IGenericPdfPlugin;
+  setOnStart(onStart: () => void): IGenericPdfPlugin;
   setPage(page: number): IGenericPdfPlugin;
   setScale(scale: number): IGenericPdfPlugin;
   setSrc(src: string): IGenericPdfPlugin;

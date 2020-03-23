@@ -7,17 +7,23 @@ import { AnyT } from '../../../definitions.interface';
 import {
   isFn,
   isNumber,
-  toJqEl,
 } from '../../../util';
 import {
+  IDomAccessor,
   IGenericPdfPlugin,
   IPdfViewerDocumentEntity,
   IPdfViewerPageEntity,
 } from '../../../definition';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../../di';
 
 export class GenericPdfPlugin implements IGenericPdfPlugin {
   private static readonly logger = LoggerFactory.makeLogger('GenericPdfPlugin');
   private static readonly DEFAULT_VIEWPORT_SCALE = 1;
+
+  @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
   private autoScale = true;
   private initialScale: number;
@@ -25,21 +31,20 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   private loadPageTask: Promise<IPdfViewerPageEntity>;
   private loadTask: Promise<IPdfViewerDocumentEntity>;
   private onError?: (error: AnyT) => void;
+  private onStart: () => void;
   private page = 1;
   private scale: number;
   private src: string;
 
   /**
-   * @stable [18.03.2020]
+   * @stable [23.03.2020]
    * @param {string} workerSrc
    * @param {() => HTMLCanvasElement} canvasResolver
-   * @param {(callback: (page: IPdfViewerPage) => void) => void} onFinish
-   * @param {() => void} onStart
+   * @param {(callback: (page: IPdfViewerPageEntity) => void) => void} onFinish
    */
   constructor(private workerSrc: string,
               private canvasResolver: () => HTMLCanvasElement,
-              private onFinish: (callback: (page: IPdfViewerPageEntity) => void) => void,
-              private onStart?: () => void) {
+              private onFinish: (callback: (page: IPdfViewerPageEntity) => void) => void) {
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadPage = this.onLoadPage.bind(this);
     this.onLoad = this.onLoad.bind(this);
@@ -49,10 +54,20 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
 
   /**
    * @stable [23.03.2020]
+   * @param {() => void} onStart
+   * @returns {IGenericPdfPlugin}
+   */
+  public setOnStart(onStart: () => void): IGenericPdfPlugin {
+    this.onStart = onStart;
+    return this;
+  }
+
+  /**
+   * @stable [23.03.2020]
    * @param {(error: AnyT) => void} onError
    * @returns {IGenericPdfPlugin}
    */
-  public setOnError(onError?: (error: AnyT) => void): IGenericPdfPlugin {
+  public setOnError(onError: (error: AnyT) => void): IGenericPdfPlugin {
     this.onError = onError;
     return this;
   }
@@ -177,10 +192,8 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
    */
   private onLoadPage(page: IPdfViewerPageEntity): IPdfViewerPageEntity {
     const renderArea = this.renderArea;
-
-    const viewportParent = toJqEl(renderArea.parentElement);
-    const w = viewportParent.width();
-    const h = viewportParent.height();
+    const w = this.domAccessor.getWidth(renderArea.parentElement);
+    const h = this.domAccessor.getHeight(renderArea.parentElement);
 
     const unscaledViewport = page.getViewport(GenericPdfPlugin.DEFAULT_VIEWPORT_SCALE);
     const outerScale = this.scale;

@@ -20,14 +20,15 @@ export class PdfViewer extends Viewer {
   constructor(props: IPdfViewerProps) {
     super(props);
 
-    this.pdfRendererPlugin = new GenericPdfPlugin(
-      `${this.settings.urls.pdfWorker}?_dc=${this.environment.appVersion}`,
-      () => this.canvasRef.current,
-      this.onLoadSucceed,
-      this.onLoadStart
-    )
-      .setAutoScale(true)
-      .setOnError(this.onLoadError);
+    this.pdfRendererPlugin =
+      new GenericPdfPlugin(
+        `${this.settings.urls.pdfWorker}?_dc=${this.environment.appVersion}`,
+        () => this.canvasRef.current,
+        this.onLoadSucceed
+      )
+        .setAutoScale(true)
+        .setOnStart(this.onLoadStart)
+        .setOnError(this.onLoadError);
   }
 
   /**
