@@ -167,3 +167,14 @@ export const INITIAL_FORM_ENTITY = Object.freeze<IEditableEntity>({
   changes: {},
   defaultChanges: {},
 });
+
+/**
+ * @classes
+ * @stable [23.03.2020]
+ */
+export enum FormClassesEnum {
+  FORM = 'rac-form',
+  FORM_ACTIONS = 'rac-form__actions',
+  FORM_BODY = 'rac-form__body',
+  FULL_FORM = 'rac-full-form',
+}

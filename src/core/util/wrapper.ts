@@ -5,6 +5,7 @@ import {
   IAllowEmptyFilterValueWrapper,
   IAllowSingleTabWrapper,
   IAlwaysDirtyWrapper,
+  IAlwaysResettableWrapper,
   IAnchoredWrapper,
   IBackActionRenderedWrapper,
   ICalendarActionRenderedWrapper,
@@ -369,12 +370,20 @@ export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean => R.isNil(wrappe
 export const isInline = (wrapper: IInlineWrapper): boolean => R.isNil(wrapper) ? false : wrapper.inline === true;
 
 /**
- * @stable [28.10.2019]
- * @param {IChangeableWrapper} changeableWrapper
+ * @stable [23.03.2020]
+ * @param {IChangeableWrapper} wrapper
  * @returns {boolean}
  */
-export const isChangeable = (changeableWrapper: IChangeableWrapper): boolean =>
-  ifNotNilThanValue(changeableWrapper, () => changeableWrapper.changeable !== false, false);
+export const isChangeable = (wrapper: IChangeableWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.changeable !== false;
+
+/**
+ * @stable [23.03.2020]
+ * @param {IAlwaysResettableWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isAlwaysResettable = (wrapper: IAlwaysResettableWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.alwaysResettable === true;
 
 /**
  * @stable [28.10.2019]

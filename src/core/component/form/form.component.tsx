@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  FormClassesEnum,
   IApiEntity,
   IBaseEvent,
   IButtonProps,
@@ -22,8 +23,11 @@ import {
   isBoolean,
   isCompact,
   isFn,
+  isFormFieldChangeable,
+  isFormFieldDisabled,
   isFormFieldReadOnly,
   isFormInProgress,
+  isFormResettable,
   isFormSubmittable,
   isFormValid,
   isFull,
@@ -52,11 +56,6 @@ import {
   DI_TYPES,
   lazyInject,
 } from '../../di';
-import {
-  isFormFieldChangeable,
-  isFormFieldDisabled,
-  isFormResettable,
-} from './form.support';
 
 export class Form extends BaseComponent<IFormProps> {
 
@@ -94,14 +93,14 @@ export class Form extends BaseComponent<IFormProps> {
           isCompact(props)
             ? nodes
             : (
-              <div className='rac-form__body'>
+              <div className={FormClassesEnum.FORM_BODY}>
                 {nodes}
               </div>
             )
         }
         {
           isActionsRendered(props) && (
-            <div className='rac-form__actions'>
+            <div className={FormClassesEnum.FORM_ACTIONS}>
               {this.formActionsElement}
             </div>
           )
@@ -168,8 +167,8 @@ export class Form extends BaseComponent<IFormProps> {
     const props = this.props;
 
     return joinClassName(
-      'rac-form',
-      isFull(props) && 'rac-form-full',
+      FormClassesEnum.FORM,
+      isFull(props) && FormClassesEnum.FULL_FORM,
       calc(props.className)
     );
   }
@@ -266,7 +265,7 @@ export class Form extends BaseComponent<IFormProps> {
   }
 
   /**
-   * @stable [03.08.2018]
+   * @stable [23.03.2020]
    * @returns {boolean}
    */
   private get isFormSubmittable(): boolean {
@@ -274,7 +273,7 @@ export class Form extends BaseComponent<IFormProps> {
   }
 
   /**
-   * @stable [15.02.2019]
+   * @stable [23.03.2020]
    * @returns {boolean}
    */
   private get isFormResettable(): boolean {
@@ -307,7 +306,7 @@ export class Form extends BaseComponent<IFormProps> {
   }
 
   /**
-   * @stable - 11.04.2018
+   * @stable [23.03.2020]
    * @param {IField} field
    * @returns {boolean}
    */
@@ -316,7 +315,7 @@ export class Form extends BaseComponent<IFormProps> {
   }
 
   /**
-   * @stable [16.11.2018]
+   * @stable [23.03.2020]
    * @param {IField} field
    * @returns {boolean}
    */

@@ -809,20 +809,15 @@ $rac-filter-active-font-size: 18px !default;
 /************************/
 /* @stable [30.01.2020] */
 /************************/
-$rac-form-full-cls: rac-form-full;
-/**/
-$rac-form-display-0: flex !default;
-/**/
 $rac-form-actions-button-min-width: unset !default;
-$rac-form-actions-display: $rac-form-display-0 !default;
-$rac-form-actions-flex-shrink: 0 !default;
+$rac-form-actions-display: $rac-primary-display-0 !default;
+$rac-form-actions-flex: $rac-primary-flex-0 !default;
 $rac-form-actions-justify-content: center !default;
-$rac-form-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
-$rac-form-display: $rac-form-display-0 !default;
+$rac-form-actions-neighbor-child-margin: 0 0 0 $rac-primary-offset-1 !default;
+$rac-form-display: $rac-primary-display-0 !default;
 $rac-form-flex-direction: column !default;
-$rac-form-flex-shrink: 0 !default;
 $rac-form-flex: unset !default;
-$rac-form-full-flex: 1 !default;
+$rac-full-form-flex-grow: $rac-primary-flex-grow-0 !default;
 
 /* @stable [24.06.2018] */
 $rac-chip-padding: 6px 20px !default;

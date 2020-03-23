@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import {
   IFormProps,
   IGenericBaseFieldEntity,
+  ITabProps,
 } from '../definition';
 import {
   AnyT,
@@ -16,16 +17,18 @@ import {
 import {
   inProgress,
   isAlwaysDirty,
+  isAlwaysResettable,
+  isChangeable,
   isDirty,
   isDisabled,
   isValid,
 } from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
-import {
-  selectEditableEntity,
-} from './mapper';
+import { selectEditableEntity } from './mapper';
 import { isObjectNotEmpty } from './object';
+import { isTabActive } from './tab';
+import { selectForm } from './select';
 
 /**
  * [03.02.2020]
@@ -97,16 +100,12 @@ export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(ent
     );
 
 /**
- * @stable [03.02.2020]
+ * @stable [23.03.2020]
  * @param {IFormProps<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
 export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  ifNotNilThanValue(
-    entity,
-    () => isDisabled(entity) || isFormInProgress(entity),
-    false
-  );
+  R.isNil(entity) ? false : (isDisabled(entity) || isFormInProgress(entity));
 
 /**
  * @stable [03.02.2020]
@@ -158,6 +157,26 @@ export const isFormFieldReadOnly = <TEntity extends IEntity = IEntity>(formEntit
   ) === true;
 
 /**
+ * @stable [23.03.2020]
+ * @param {IFormProps} formProps
+ * @param {IGenericBaseFieldEntity} fieldProps
+ * @returns {boolean}
+ */
+export const isFormFieldDisabled = (formProps: IFormProps,
+                                    fieldProps: IGenericBaseFieldEntity): boolean =>
+  R.isNil(fieldProps.disabled) ? isFormDisabled(formProps) : isDisabled(fieldProps);
+
+/**
+ * @stable [23.03.2020]
+ * @param {IFormProps} formProps
+ * @param {IGenericBaseFieldEntity} fieldProps
+ * @returns {boolean}
+ */
+export const isFormFieldChangeable = (formProps: IFormProps,
+                                      fieldProps: IGenericBaseFieldEntity): boolean =>
+  R.isNil(fieldProps.changeable) ? isChangeable(formProps) : isChangeable(fieldProps);
+
+/**
  * @stable [03.02.2020]
  * @param {IFormProps<TEntity extends IEntity>} formProps
  * @returns {boolean}
@@ -166,3 +185,25 @@ export const isFormSubmittable = <TEntity extends IEntity = IEntity>(formProps: 
   isFormValid(formProps)
   && isFormDirty(formProps)
   && !isFormDisabled(formProps);
+
+/**
+ * @stable [23.03.2020]
+ * @param {IFormProps<TEntity extends IEntity>} formProps
+ * @returns {boolean}
+ */
+export const isFormResettable = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>): boolean =>
+  isAlwaysResettable(formProps)
+  || (
+    isFormDirty(formProps)
+    && !isFormDisabled(formProps)
+  );
+
+/**
+ * @stable [23.03.2020]
+ * @param {IFormProps<TEntity extends IEntity>} formProps
+ * @param {ITabProps} tab
+ * @returns {boolean}
+ */
+export const isFormTabActive = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>,
+                                                                   tab: ITabProps): boolean =>
+  isTabActive(selectForm(formProps), tab);

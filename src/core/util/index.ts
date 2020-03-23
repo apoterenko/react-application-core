@@ -37,6 +37,7 @@ export * from './sort';
 export * from './stack';
 export * from './storage';
 export * from './style';
+export * from './tab';
 export * from './task';
 export * from './time';
 export * from './type';

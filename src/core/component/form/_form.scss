@@ -10,21 +10,20 @@
   @include rac-form (
     $rac-form-actions-button-min-width: $rac-form-actions-button-min-width,
     $rac-form-actions-display: $rac-form-actions-display,
-    $rac-form-actions-flex-shrink: $rac-form-actions-flex-shrink,
+    $rac-form-actions-flex: $rac-form-actions-flex,
     $rac-form-actions-justify-content: $rac-form-actions-justify-content,
     $rac-form-actions-neighbor-child-margin: $rac-form-actions-neighbor-child-margin,
     $rac-form-display: $rac-form-display,
     $rac-form-flex-direction: $rac-form-flex-direction,
-    $rac-form-flex-shrink: $rac-form-flex-shrink,
     $rac-form-flex: $rac-form-flex
   );
 
   /**
-   * @form-full
-   * @stable [13.02.2020]
+   * @full-form
+   * @stable [23.03.2020]
    */
   @include rac-form (
-    $rac-form-custom: $rac-form-full-cls,
-    $rac-form-flex: $rac-form-full-flex
+    $rac-form-custom: $rac-full-form-cls,
+    $rac-form-flex-grow: $rac-full-form-flex-grow
   );
 }
