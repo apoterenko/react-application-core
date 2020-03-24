@@ -7,13 +7,14 @@ import {
   IItemWrapper,
   IKeyValue,
   ILastWrapper,
+  IPropsWrapper,
 } from '../definitions.interface';
 import { FieldChangeEntityT } from './field-definition.interface';
 import { IApiEntity } from './api-definition.interface';
-import { IContainer } from './container-definition.interface';
 import { IDialog } from './dialog-definition.interface';
 import { IDispatcher } from './dispatcher-definition.interface';
 import { IStackItemEntity } from './stack-definition.interface';
+import { IUniversalContainerProps } from './props-definition.interface';
 
 /**
  * @stable [27.11.2019]
@@ -83,7 +84,11 @@ export interface IGenericBasicContainer {
 /**
  * @stable [18.12.2019]
  */
-export type DialogFormChangesConfirmStoreProxyFactoryT = (parent: IContainer) => IDialogFormChangesConfirmStoreProxy;
-export type DictionaryStoreProxyFactoryT = (parent: IContainer) => IDictionaryStoreProxy;
-export type FormStoreProxyFactoryT = (parent: IContainer) => IFormStoreProxy;
-export type RouterStoreProxyFactoryT = (parent: IContainer) => IRouterStoreProxy;
+export type DialogFormChangesConfirmStoreProxyFactoryT =
+  (parent: IPropsWrapper<IUniversalContainerProps>) => IDialogFormChangesConfirmStoreProxy;
+export type DictionaryStoreProxyFactoryT =
+  (parent: IPropsWrapper<IUniversalContainerProps>) => IDictionaryStoreProxy;
+export type FormStoreProxyFactoryT =
+  (parent: IPropsWrapper<IUniversalContainerProps>) => IFormStoreProxy;
+export type RouterStoreProxyFactoryT =
+  (parent: IPropsWrapper<IUniversalContainerProps>) => IRouterStoreProxy;

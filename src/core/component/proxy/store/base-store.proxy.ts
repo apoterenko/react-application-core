@@ -1,24 +1,32 @@
-import { Store, AnyAction } from 'redux';
+import { Store } from 'redux';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import { applySection } from '../../../util';
-import { getStore } from '../../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../../di';
 import {
   IDispatcher,
-  IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../../definition';
-import { IKeyValue } from '../../../definitions.interface';
+import {
+  IKeyValue,
+  IPropsWrapper,
+} from '../../../definitions.interface';
 
 export class BaseStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                             TProps extends IUniversalContainerProps = IUniversalContainerProps>
   implements IDispatcher {
 
+  @lazyInject(DI_TYPES.Store) protected readonly appStore: Store<TStore>;
+
   /**
-   * @stable [09.10.2019]
-   * @param {IUniversalContainer<TProps extends IUniversalContainerProps>} container
+   * @stable [24.03.2020]
+   * @param {{props: TProps}} container
    */
-  constructor(protected readonly container: IUniversalContainer<TProps>) {
+  constructor(protected readonly container: IPropsWrapper<TProps>) {
   }
 
   /**
@@ -40,20 +48,11 @@ export class BaseStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
   }
 
   /**
-   * @stable [11.09.2019]
-   * @param {AnyAction} action
+   * @stable [24.03.2020]
+   * @param {IEffectsAction} action
    */
-  public dispatchAnyAction(action: AnyAction): void {
+  public dispatchAnyAction(action: IEffectsAction): void {
     this.appStore.dispatch(action);
-  }
-
-  /**
-   * @reactNativeCompatible
-   * @stable [11.09.2019]
-   * @returns {Store<TStore>}
-   */
-  protected get appStore(): Store<TStore> {
-    return getStore();
   }
 
   /**

@@ -3,12 +3,14 @@ import {
   FieldChangeEntityT,
   IApiEntity,
   IFormStoreProxy,
-  IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../../../definition';
 import { BaseStoreProxy } from '../base-store.proxy';
-import { IKeyValue } from '../../../../definitions.interface';
+import {
+  IKeyValue,
+  IPropsWrapper,
+} from '../../../../definitions.interface';
 
 export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                             TProps extends IUniversalContainerProps = IUniversalContainerProps>
@@ -16,10 +18,10 @@ export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
   implements IFormStoreProxy {
 
   /**
-   * @stable [09.10.2019]
-   * @param {IUniversalContainer<TProps extends IUniversalContainerProps>} container
+   * @stable [24.03.2020]
+   * @param {IPropsWrapper<TProps extends IUniversalContainerProps>} container
    */
-  constructor(readonly container: IUniversalContainer<TProps>) {
+  constructor(readonly container: IPropsWrapper<TProps>) {
     super(container);
     this.dispatchFormReset = this.dispatchFormReset.bind(this);
   }

@@ -144,6 +144,7 @@ export class UIMaterialFactory implements IUIFactory {
   public static ICONS_MAP = {
     [IconsEnum.SEARCH_MINUS]: faSearchMinus,
     [IconsEnum.SEARCH_PLUS]: faSearchPlus,
+    [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
     access_time: faHistory,
     add: faPlus,
     address_card: faAddressCard,
@@ -237,7 +238,6 @@ export class UIMaterialFactory implements IUIFactory {
     shield_alt: faShieldAlt,
     shipping_fast: faShippingFast,
     shopping_cart: faShoppingCart,
-    sign_out_alt: faSignOutAlt,
     signIn: faSignInAlt,
     smile_beam: faSmileBeam,
     sms: faCommentDots,

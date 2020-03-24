@@ -219,7 +219,7 @@ export const getFormStoreProxyFactory = (): FormStoreProxyFactoryT => staticInje
  * @stable [18.12.2019]
  * @returns {RouterStoreProxyFactoryT}
  */
-export const getRouterStoreProxyFactoryFactory = (): RouterStoreProxyFactoryT =>
+export const getRouterStoreProxyFactory = (): RouterStoreProxyFactoryT =>
   staticInjector(DI_TYPES.RouterStoreProxyFactory);
 
 /**

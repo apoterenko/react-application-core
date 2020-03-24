@@ -2,22 +2,30 @@ import * as React from 'react';
 
 import { BaseStoreProxy } from '../base-store.proxy';
 import {
+  IDialog,
   IDialogFormChangesConfirmStoreProxy,
   IRouterStoreProxy,
   IRouterStoreProxyFactoryConfigEntity,
-  IUniversalComponentProps,
   IUniversalContainer,
   IUniversalContainerProps,
-  IDialog,
   IUniversalStoreEntity,
+  RouterStoreProxyFactoryT,
 } from '../../../../definition';
-import { getRouterStoreProxyFactoryFactory } from '../../../../di';
-import { UNDEF } from '../../../../definitions.interface';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../../../di';
+import {
+  IPropsWrapper,
+  UNDEF,
+} from '../../../../definitions.interface';
 
 export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                                                 TProps extends IUniversalContainerProps = IUniversalContainerProps>
   extends BaseStoreProxy<TStore, TProps>
   implements IDialogFormChangesConfirmStoreProxy {
+
+  @lazyInject(DI_TYPES.RouterStoreProxyFactory) private readonly routerStoreProxyFactory: RouterStoreProxyFactoryT;
 
   private readonly dialogRef = React.createRef<IDialog>();
   private readonly routerStoreProxy: IRouterStoreProxy;
@@ -28,13 +36,13 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
    * @stable [09.10.2019]
    * @param {IUniversalContainer<TProps extends IUniversalContainerProps>} container
    */
-  constructor(readonly container: IUniversalContainer<TProps>) {
+  constructor(readonly container: IPropsWrapper<TProps>) {
     super(container);
 
     this.goBack = this.goBack.bind(this);
     this.activateDialog = this.activateDialog.bind(this);
 
-    this.routerStoreProxy = getRouterStoreProxyFactoryFactory()(container);
+    this.routerStoreProxy = this.routerStoreProxyFactory(container);
     this.originalGoBackFn = this.routerStoreProxy.goBack;
     this.routerStoreProxy.goBack = this.interceptGoBack.bind(this); // Need to intercept a click event
   }

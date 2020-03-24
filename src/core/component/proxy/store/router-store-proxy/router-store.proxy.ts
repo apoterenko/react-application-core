@@ -5,8 +5,6 @@ import { BaseStoreProxy } from '../base-store.proxy';
 import {
   IRouterStoreProxy,
   IRouterStoreProxyFactoryConfigEntity,
-  IUniversalComponentProps,
-  IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../../../definition';
@@ -16,6 +14,7 @@ import {
   NOT_NIL_VALUE_PREDICATE,
   selectStackWrapperItemEntities,
 } from '../../../../util';
+import { IPropsWrapper } from '../../../../definitions.interface';
 
 export class RouterStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
   TProps extends IUniversalContainerProps = IUniversalContainerProps>
@@ -23,10 +22,10 @@ export class RouterStoreProxy<TStore extends IUniversalStoreEntity = IUniversalS
   implements IRouterStoreProxy {
 
   /**
-   * @stable [20.12.2019]
-   * @param {IUniversalContainer<TProps extends IUniversalContainerProps>} container
+   * @stable [24.03.2020]
+   * @param {IPropsWrapper<TProps extends IUniversalContainerProps>} container
    */
-  constructor(readonly container: IUniversalContainer<TProps>) {
+  constructor(readonly container: IPropsWrapper<TProps>) {
     super(container);
     this.navigateBack = this.navigateBack.bind(this);
   }

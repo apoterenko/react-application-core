@@ -2,7 +2,7 @@ import {
   getDialogFormChangesConfirmStoreProxyFactory,
   getDictionaryStoreProxyFactory,
   getFormStoreProxyFactory,
-  getRouterStoreProxyFactoryFactory,
+  getRouterStoreProxyFactory,
 } from '../../di';
 import {
   IContainerProps,
@@ -45,7 +45,7 @@ export class BasicContainer<TProps extends IContainerProps = IContainerProps,
    * @returns {IRouterStoreProxy}
    */
   protected get routerStoreProxy(): IRouterStoreProxy {
-    return this.$routerStoreProxy = this.$routerStoreProxy || getRouterStoreProxyFactoryFactory()(this);
+    return this.$routerStoreProxy = this.$routerStoreProxy || getRouterStoreProxyFactory()(this);
   }
 
   /**

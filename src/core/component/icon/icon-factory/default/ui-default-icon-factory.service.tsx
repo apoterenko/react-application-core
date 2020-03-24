@@ -33,7 +33,7 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         <path fill='currentColor' d='M3 21.006C3 21.003 21 21 21 21c-.006 0 0-7.506 0-7.506a1.5 1.5 0 0 1 3 0v7.512A3.008 3.008 0 0 1 21 24H3c-1.659 0-3-1.338-3-2.994v-7.512a1.5 1.5 0 0 1 3 0v7.512zM7.059 6.408a1.485 1.485 0 0 0-2.121 0 1.536 1.536 0 0 0 0 2.15l5.472 5.782c.423.429.986.666 1.59.666.6 0 1.167-.237 1.59-.668l5.47-5.782a1.534 1.534 0 0 0 0-2.148 1.485 1.485 0 0 0-2.12 0l-3.44 3.72V1.5a1.5 1.5 0 1 0-3 0v8.631l-3.44-3.72-.001-.003z'/>
       </svg>
     ),
-    'back2': (
+    [IconsEnum.BACK2]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M8.59 16.94a1.485 1.485 0 0 1 0 2.121 1.534 1.534 0 0 1-2.147 0L.667 13.59A2.203 2.203 0 0 1 0 12c0-.6.237-1.167.666-1.59l5.775-5.47a1.538 1.538 0 0 1 2.151 0 1.488 1.488 0 0 1 0 2.12l-3.72 3.44H22.5c.83 0 1.5.67 1.5 1.5 0 .825-.672 1.5-1.5 1.5H4.869l3.722 3.441z'
@@ -421,10 +421,11 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         />
       </svg>
     ),
-    'settings': (
+    [IconsEnum.SETTINGS]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M22.5 14H21a1.5 1.5 0 0 1 0-3h1.5a1.5 1.5 0 0 1 0 3zm0-7.5H11.58A2.972 2.972 0 0 1 9 8a3 3 0 1 1 0-6c1.065 0 2.052.573 2.58 1.5H22.5a1.5 1.5 0 0 1 0 3zM3 6.5H1.5a1.5 1.5 0 0 1 0-3H3a1.5 1.5 0 0 1 0 3zM1.5 11h10.92A2.972 2.972 0 0 1 15 9.5a3 3 0 1 1 0 6 2.972 2.972 0 0 1-2.58-1.5H1.5a1.5 1.5 0 0 1 0-3zm0 7.5H3a1.5 1.5 0 0 1 0 3H1.5a1.5 1.5 0 0 1 0-3zm10.08 0H22.5a1.5 1.5 0 0 1 0 3H11.58A2.972 2.972 0 0 1 9 23a3 3 0 1 1 0-6c1.065 0 2.052.573 2.58 1.5z'
+        <path fill='currentColor'
+              d='M22.5 14H21a1.5 1.5 0 0 1 0-3h1.5a1.5 1.5 0 0 1 0 3zm0-7.5H11.58A2.972 2.972 0 0 1 9 8a3 3 0 1 1 0-6c1.065 0 2.052.573 2.58 1.5H22.5a1.5 1.5 0 0 1 0 3zM3 6.5H1.5a1.5 1.5 0 0 1 0-3H3a1.5 1.5 0 0 1 0 3zM1.5 11h10.92A2.972 2.972 0 0 1 15 9.5a3 3 0 1 1 0 6 2.972 2.972 0 0 1-2.58-1.5H1.5a1.5 1.5 0 0 1 0-3zm0 7.5H3a1.5 1.5 0 0 1 0 3H1.5a1.5 1.5 0 0 1 0-3zm10.08 0H22.5a1.5 1.5 0 0 1 0 3H11.58A2.972 2.972 0 0 1 9 23a3 3 0 1 1 0-6c1.065 0 2.052.573 2.58 1.5z'
         />
       </svg>
     ),
@@ -552,7 +553,7 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         />
       </svg>
     ),
-    'more': (
+    [IconsEnum.MORE]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' width='16' height='16' viewBox='0 0 16 16'
       >
         <defs>
