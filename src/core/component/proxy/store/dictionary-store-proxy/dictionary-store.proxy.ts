@@ -2,11 +2,13 @@ import { BaseStoreProxy } from '../base-store.proxy';
 import { DictionariesActionBuilder } from '../../../../action';
 import {
   IDictionaryStoreProxy,
-  IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../../../definition';
-import { IKeyValue } from '../../../../definitions.interface';
+import {
+  IKeyValue,
+  IPropsWrapper,
+} from '../../../../definitions.interface';
 
 export class DictionaryStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
                                   TProps extends IUniversalContainerProps = IUniversalContainerProps>
@@ -14,10 +16,10 @@ export class DictionaryStoreProxy<TStore extends IUniversalStoreEntity = IUniver
   implements IDictionaryStoreProxy {
 
   /**
-   * @stable [09.10.2019]
-   * @param {IUniversalContainer<TProps extends IUniversalContainerProps>} container
+   * @stable [24.03.2020]
+   * @param {IPropsWrapper<TProps extends IUniversalContainerProps>} container
    */
-  constructor(readonly container: IUniversalContainer<TProps>) {
+  constructor(readonly container: IPropsWrapper<TProps>) {
     super(container);
     this.dispatchLoadDictionary = this.dispatchLoadDictionary.bind(this);
   }
