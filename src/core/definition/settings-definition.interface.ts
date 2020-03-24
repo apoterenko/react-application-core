@@ -1,6 +1,7 @@
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
 import { IDefaultLayoutProps } from './layout-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';  // TODO
+import { IHeaderProps } from './header-definition.interface';
 import { ITitleProps } from './title-definition.interface';
 
 /**
@@ -86,8 +87,15 @@ export interface IComponentsSettingsEntity {
   baseSelect?: IBaseSelectProps;
   defaultLayout?: IDefaultLayoutProps;
   field?: IFieldProps;
+  header?: IHeaderProps;
   title?: ITitleProps;
 }
+
+/**
+ * @default-entity
+ * @stable [24.03.2020]
+ */
+export const DEFAULT_COMPONENTS_SETTINGS_ENTITY = Object.freeze<IComponentsSettingsEntity>({});
 
 /**
  * @entity

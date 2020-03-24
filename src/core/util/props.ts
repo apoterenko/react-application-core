@@ -1,10 +1,26 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { cancelEvent } from './event';
 import { getEnvironment } from '../di/di.services';
-import { ifNotFalseThanValue } from './cond';
-import { isFn } from './type';
 import { IBaseEvent } from '../definition';
+import { ifNotFalseThanValue } from './cond';
+import { IKeyValue } from '../definitions.interface';
+import { isFn } from './type';
+
+/**
+ * @stable [24.03.2020]
+ * @param {TProps} props
+ * @param {TProps} systemProps
+ * @returns {TProps}
+ */
+export const mergeWithSystemProps = <TProps = IKeyValue>(props: TProps, systemProps: TProps): TProps =>
+  R.isNil(systemProps)
+    ? props
+    : ({
+      ...props as {},
+      ...systemProps as {},
+    } as TProps);
 
 /**
  * @stable [22.10.2019]

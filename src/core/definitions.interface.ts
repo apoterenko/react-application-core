@@ -128,10 +128,10 @@ export interface IConfirmWrapper { confirm?: boolean; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }
-export interface IContentWrapper<TContent = React.ReactNode> { content?: TContent; }
+export interface IContentWrapper<TValue = React.ReactNode> { content?: TValue; }
 export interface IConverterWrapper<TValue> { converter?: TValue; }
 export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
-export interface ICountryWrapper<TCountry = string> { country?: TCountry; }
+export interface ICountryWrapper<TValue = string> { country?: TValue; }
 export interface ICurrentWrapper<TValue> { current?: TValue; }
 export interface ICursorWrapper<TValue> { cursor?: TValue; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
@@ -421,6 +421,7 @@ export interface IPreviousWrapper<TValue> { previous?: TValue; }
 export interface IProfileWrapper<TValue> { profile?: TValue; }
 export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TValue; }
 export interface IProgressWrapper<TValue = boolean> { progress?: TValue; }
+export interface IPropsWrapper<TValue> { props?: TValue; }
 export interface IQueryParamsWrapper<TValue> { queryParams?: TValue; }
 export interface IQueryWrapper<TValue = string> { query?: TValue; }
 export interface IQueueWrapper<TValue> { queue?: TValue; }

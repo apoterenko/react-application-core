@@ -2,6 +2,7 @@ import { ENV } from '../env';
 import { prepareUrl } from '../util';
 import {
   DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
+  DEFAULT_COMPONENTS_SETTINGS_ENTITY,
   DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_DATE_TIME_SETTINGS_ENTITY,
   DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
@@ -197,6 +198,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   phone: DEFAULT_PHONE_SETTINGS_ENTITY,
   storage: DEFAULT_STORAGE_SETTINGS_ENTITY,
   currency: DEFAULT_CURRENCY_SETTINGS_ENTITY,
+  components: DEFAULT_COMPONENTS_SETTINGS_ENTITY,
   channel: {
     eventToListen: 'client-event-to-listen',
     eventToEmit: 'client-event-to-emit',
