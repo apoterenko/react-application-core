@@ -4652,12 +4652,12 @@
   $rac-calendar-dialog-footer-input-width: unset,                                         /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-justify-content: unset,                                     /* @stable [14.01.2020] */
   $rac-calendar-dialog-footer-self-field-height: unset,                                   /* @stable [18.02.2020] */
+  $rac-calendar-dialog-quick-actions-display: unset,                                      /* @stable [21.01.2020] */
+  $rac-calendar-dialog-quick-actions-margin: unset,                                       /* @stable [21.01.2020] */
   $rac-calendar-dialog-quick-button-background: unset,                                    /* @stable [21.01.2020] */
   $rac-calendar-dialog-quick-button-content-color: unset,                                 /* @stable [21.01.2020] */
   $rac-calendar-dialog-quick-button-height: unset,                                        /* @stable [21.01.2020] */
   $rac-calendar-dialog-quick-button-neighbor-margin: unset,                               /* @stable [21.01.2020] */
-  $rac-calendar-dialog-quick-buttons-display: unset,                                      /* @stable [21.01.2020] */
-  $rac-calendar-dialog-quick-buttons-margin: unset,                                       /* @stable [21.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-background: unset,                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-icon-color: unset,                      /* @stable [14.01.2020] */
   $rac-calendar-dialog-range-explorer-button-mini-icon-size: unset,                       /* @stable [14.01.2020] */
@@ -4723,10 +4723,10 @@
       $rac-styles-margin: $rac-calendar-dialog-second-calendar-margin
     );
 
-    .rac-calendar-dialog__quick-buttons {
+    .rac-calendar-dialog__quick-actions {
       @include rac-styles (
-        $rac-styles-display: $rac-calendar-dialog-quick-buttons-display,
-        $rac-styles-margin: $rac-calendar-dialog-quick-buttons-margin
+        $rac-styles-display: $rac-calendar-dialog-quick-actions-display,
+        $rac-styles-margin: $rac-calendar-dialog-quick-actions-margin
       );
 
       @include rac-button (

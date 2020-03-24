@@ -1,5 +1,5 @@
-@import '../../constant';
 @import '../../mixin';
+@import './_date-field-constant';
 
 .rac {
 
@@ -90,12 +90,12 @@
     $rac-calendar-dialog-calendars-wrapper-display: $rac-date-field-calendars-dialog-calendars-wrapper-display,
     $rac-calendar-dialog-calendars-wrapper-flex: $rac-date-field-calendars-dialog-calendars-wrapper-flex,
     $rac-calendar-dialog-footer-action-width: $rac-date-field-calendars-dialog-footer-action-width,
+    $rac-calendar-dialog-quick-actions-display: $rac-date-field-calendars-dialog-quick-actions-display,
+    $rac-calendar-dialog-quick-actions-margin: $rac-date-field-calendars-dialog-quick-actions-margin,
     $rac-calendar-dialog-quick-button-background: $rac-date-field-calendars-dialog-quick-button-background,
     $rac-calendar-dialog-quick-button-content-color: $rac-date-field-calendars-dialog-quick-button-content-color,
     $rac-calendar-dialog-quick-button-height: $rac-date-field-calendars-dialog-quick-button-height,
     $rac-calendar-dialog-quick-button-neighbor-margin: $rac-date-field-calendars-dialog-quick-button-neighbor-margin,
-    $rac-calendar-dialog-quick-buttons-display: $rac-date-field-calendars-dialog-quick-buttons-display,
-    $rac-calendar-dialog-quick-buttons-margin: $rac-date-field-calendars-dialog-quick-buttons-margin,
     $rac-calendar-dialog-range-explorer-date-content-next-margin: $rac-date-field-calendars-dialog-range-explorer-date-content-next-margin,
     $rac-calendar-dialog-second-calendar-margin: $rac-date-field-calendars-dialog-second-calendar-margin,
     $rac-calendar-dialog-selected-quick-action-background: $rac-date-field-calendars-selected-quick-action-background,

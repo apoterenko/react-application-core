@@ -407,7 +407,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           key='quick-action-day'
           full={true}
           className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.DAY && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.DAY && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
           }
           text={previousPeriodModeEnabled
             ? this.settings.messages.PREVIOUS_DAY
@@ -419,7 +419,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           key='quick-action-week'
           full={true}
           className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.WEEK && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.WEEK && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
           }
           text={previousPeriodModeEnabled
             ? this.settings.messages.PREVIOUS_WEEK
@@ -431,7 +431,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           key='quick-action-month'
           full={true}
           className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.MONTH && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.MONTH && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
           }
           text={previousPeriodModeEnabled
             ? this.settings.messages.PREVIOUS_MONTH
@@ -443,7 +443,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           key='quick-action-quarter'
           full={true}
           className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.QUARTER && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.QUARTER && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
           }
           text={previousPeriodModeEnabled
             ? this.settings.messages.PREVIOUS_QUARTER
@@ -455,7 +455,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           key='quick-action-year'
           full={true}
           className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.YEAR && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.YEAR && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
           }
           text={previousPeriodModeEnabled
             ? this.settings.messages.PREVIOUS_YEAR
@@ -467,7 +467,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           key='quick-action-custom'
           full={true}
           className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.CUSTOM && CalendarDialogClassesEnum.SELECTED_QUICK_ACTION)
+            joinClassName(selectedPeriodMode === DatePeriodsEnum.CUSTOM && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
           }
           text={this.settings.messages.CUSTOM}
           onClick={this.onSetCustom}/>
@@ -477,7 +477,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       return null;
     }
     return (
-      <div className='rac-calendar-dialog__quick-buttons'>
+      <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_QUICK_ACTIONS}>
         {buttonsElement}
       </div>
     );
