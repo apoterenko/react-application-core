@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import {
   calc,
+  coalesce,
   defValuesFilter,
   ifNotEmptyThanValue,
   ifNotNilThanValue,
@@ -356,7 +357,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           {...this.defaultRangeFieldProps}
           autoFocus={true}
           ref={this.fromDateRef}
-          value={this.state.fromDate}
+          value={this.fromDateFieldValue}
           onChange={this.onFromDateFieldChange}/>
         {
           this.isRangeEnabled
@@ -366,13 +367,29 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
               <span className={ComponentClassesEnum.CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR}>&mdash;</span>
               <DateField
                 {...this.defaultRangeFieldProps}
-                value={this.state.toDate}
+                value={this.toDateFieldValue}
                 onChange={this.onToDateFieldChange}/>
             </React.Fragment>
           )
         }
       </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [24.03.2020]
+   * @returns {DateTimeLikeTypeT}
+   */
+  private get toDateFieldValue(): DateTimeLikeTypeT {
+    return coalesce(this.state.toDate, this.state.to, this.valueAsDateTo);
+  }
+
+  /**
+   * @stable [24.03.2020]
+   * @returns {DateTimeLikeTypeT}
+   */
+  private get fromDateFieldValue(): DateTimeLikeTypeT {
+    return coalesce(this.state.fromDate, this.state.from, this.valueAsDateFrom);
   }
 
   /**
@@ -563,8 +580,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     this.setState({
       cursor: UNDEF,
       from: null,
+      fromDate: UNDEF,
       periodMode: DatePeriodsEnum.CUSTOM,
       to: null,
+      toDate: UNDEF,
     });
   }
 
@@ -578,11 +597,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     this.setState({
       cursor: from,
       from,
+      fromDate: UNDEF,
       periodMode,
       to,
-      ...(
-        [DatePeriodsEnum.DAY].includes(periodMode) ? {toDate: UNDEF} : {}
-      ),
+      toDate: UNDEF,
     }, this.setFromDateFocus);
   }
 
