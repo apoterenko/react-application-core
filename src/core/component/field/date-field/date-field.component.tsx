@@ -460,11 +460,13 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   /**
    * @stable [25.03.2020]
    * @param {DatePeriodsEnum} period
+   * @param {boolean} isPreviousPeriodModeEnabled
    * @returns {string}
    */
-  private getQuickActionClassName(period: DatePeriodsEnum): string {
+  private getQuickActionClassName(period: DatePeriodsEnum,
+                                  isPreviousPeriodModeEnabled = this.isPreviousPeriodModeEnabled): string {
     return joinClassName(
-      !this.isPreviousPeriodModeEnabled
+      !isPreviousPeriodModeEnabled
       && this.selectedPeriodMode === period
       && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION
     );
@@ -483,7 +485,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         <Button
           key='quick-action-day'
           full={true}
-          className={this.getQuickActionClassName(DatePeriodsEnum.DAY)}
+          className={this.getQuickActionClassName(DatePeriodsEnum.DAY, false)}
           text={previousPeriodModeEnabled
             ? this.previousPeriodQuickActionText
             : this.settings.messages.TODAY}
@@ -493,7 +495,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         <Button
           key='quick-action-week'
           full={true}
-          className={this.getQuickActionClassName(DatePeriodsEnum.WEEK)}
+          className={this.getQuickActionClassName(DatePeriodsEnum.WEEK, false)}
           text={previousPeriodModeEnabled
             ? this.previousPeriodQuickActionText
             : this.settings.messages.THIS_WEEK}
@@ -503,7 +505,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         <Button
           key='quick-action-month'
           full={true}
-          className={this.getQuickActionClassName(DatePeriodsEnum.MONTH)}
+          className={this.getQuickActionClassName(DatePeriodsEnum.MONTH, false)}
           text={previousPeriodModeEnabled
             ? this.previousPeriodQuickActionText
             : this.settings.messages.THIS_MONTH}
@@ -513,7 +515,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         <Button
           key='quick-action-quarter'
           full={true}
-          className={this.getQuickActionClassName(DatePeriodsEnum.QUARTER)}
+          className={this.getQuickActionClassName(DatePeriodsEnum.QUARTER, false)}
           text={previousPeriodModeEnabled
             ? this.previousPeriodQuickActionText
             : this.settings.messages.THIS_QUARTER}
@@ -524,7 +526,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           key='quick-action-custom'
           full={true}
           disabled={previousPeriodModeEnabled}
-          className={this.getQuickActionClassName(DatePeriodsEnum.CUSTOM)}
+          className={this.getQuickActionClassName(DatePeriodsEnum.CUSTOM, false)}
           text={this.settings.messages.CUSTOM}
           onClick={this.onSetCustom}/>
       )
