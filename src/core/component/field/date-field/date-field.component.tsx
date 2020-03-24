@@ -66,6 +66,24 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     preventFocus: true,
   };
 
+  private static readonly INITIAL_PERIOD_STATE: IDateFieldState = {
+    cursor: UNDEF,
+    fromDate: UNDEF,
+  };
+
+  private static readonly INITIAL_RANGE_PERIOD_STATE: IDateFieldState = {
+    ...DateField.INITIAL_PERIOD_STATE,
+    from: null,
+    to: null,
+    toDate: UNDEF,
+  };
+
+  private static readonly DEFAULT_RANGE_PERIOD_STATE: IDateFieldState = {
+    ...DateField.INITIAL_RANGE_PERIOD_STATE,
+    from: UNDEF,
+    to: UNDEF,
+  };
+
   private readonly defaultRangeFieldProps: IDateFieldProps = {
     calendarActionRendered: false,
     errorMessageRendered: false,
@@ -445,7 +463,11 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {string}
    */
   private getQuickActionClassName(period: DatePeriodsEnum): string {
-    return joinClassName(this.selectedPeriodMode === period && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION);
+    return joinClassName(
+      !this.isPreviousPeriodModeEnabled
+      && this.selectedPeriodMode === period
+      && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION
+    );
   }
 
   /**
@@ -638,12 +660,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onSetCustom(): void {
     this.setState({
-      cursor: UNDEF,
-      from: null,
-      fromDate: UNDEF,
+      ...DateField.INITIAL_RANGE_PERIOD_STATE,
       periodMode: DatePeriodsEnum.CUSTOM,
-      to: null,
-      toDate: UNDEF,
     });
   }
 
@@ -770,42 +788,43 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
       switch (periodMode) {
         case DatePeriodsEnum.DAY:
+        case DatePeriodsEnum.PREVIOUS_DAY:
         case DatePeriodsEnum.WEEK:
+        case DatePeriodsEnum.PREVIOUS_WEEK:
         case DatePeriodsEnum.MONTH:
+        case DatePeriodsEnum.PREVIOUS_MONTH:
         case DatePeriodsEnum.QUARTER:
-        case DatePeriodsEnum.YEAR:
+        case DatePeriodsEnum.PREVIOUS_QUARTER:
           ifNotEmptyThanValue(
             rangeValuesFrom.from,
             (from) => {
               switch (periodMode) {
                 case DatePeriodsEnum.DAY:
+                case DatePeriodsEnum.PREVIOUS_DAY:
                   rangeValues = {
                     from,
                     to: from,
                   };
                   break;
                 case DatePeriodsEnum.WEEK:
+                case DatePeriodsEnum.PREVIOUS_WEEK:
                   rangeValues = {
                     from: this.dc.asFirstDayOfWeekAsDate({date: from}),
                     to: this.dc.asLastDayOfWeekAsDate({date: from}),
                   };
                   break;
                 case DatePeriodsEnum.MONTH:
+                case DatePeriodsEnum.PREVIOUS_MONTH:
                   rangeValues = {
                     from: this.dc.asFirstDayOfMonthAsDate({date: from}),
                     to: this.dc.asLastDayOfMonthAsDate({date: from}),
                   };
                   break;
                 case DatePeriodsEnum.QUARTER:
+                case DatePeriodsEnum.PREVIOUS_QUARTER:
                   rangeValues = {
                     from: this.dc.asFirstDayOfQuarterAsDate({date: from}),
                     to: this.dc.asLastDayOfQuarterAsDate({date: from}),
-                  };
-                  break;
-                case DatePeriodsEnum.YEAR:
-                  rangeValues = {
-                    from: this.dc.asFirstDayOfYearAsDate({date: from}),
-                    to: this.dc.asLastDayOfYearAsDate({date: from}),
                   };
                   break;
               }
@@ -821,24 +840,17 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       }
 
       updatedState = {
-        cursor: UNDEF,
-        from: null,
-        fromDate: UNDEF,
-        to: null,
-        toDate: UNDEF,
+        ...DateField.INITIAL_RANGE_PERIOD_STATE,
         ...rangeValues,
-        ...(
-          this.isPreviousPeriodModeEnabled ? {periodMode: null} : {periodMode}
-        ),
+        periodMode,
       };
 
       ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(updatedState.from)));
       ifNotEmptyThanValue(updatedState.to, () => (updatedState.toDate = this.serializeValue(updatedState.to)));
     } else {
       updatedState = {
-        cursor: UNDEF,
+        ...DateField.INITIAL_PERIOD_STATE,
         from: calendarDayEntity.date,
-        fromDate: UNDEF,
       };
       ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(calendarDayEntity.date)));
     }
@@ -858,13 +870,9 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private onDialogClose(callback?: () => void): void {
     this.setState({
-      cursor: UNDEF,
+      ...DateField.DEFAULT_RANGE_PERIOD_STATE,
       dialogOpened: UNDEF,
-      from: UNDEF,
-      fromDate: UNDEF,    // The manual field value
       periodMode: UNDEF,
-      to: UNDEF,
-      toDate: UNDEF,      // The manual field value
     }, callback);
   }
 
@@ -905,11 +913,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         this.dc.addQuartersAsDate({date: this.dc.asLastDayOfQuarterAsDate(), duration: -1}))) {
       return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.LAST_QUARTER);
 
-    } else if (this.checkRange(dateFromAsString, dateToAsString,
-        this.dc.addYearsAsDate({date: this.dc.asFirstDayOfYearAsDate(), duration: -1}),
-        this.dc.addYearsAsDate({date: this.dc.asLastDayOfYearAsDate(), duration: -1}))) {
-      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.LAST_YEAR);
-
     } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.getCurrentDate(), this.dc.getCurrentDate())) {
       return `${messages.TODAY}: ${this.dc.dateAsPstDateString({date: dateRangeEntity.from})}`;
 
@@ -921,9 +924,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.asFirstDayOfQuarterAsDate(), this.dc.asLastDayOfQuarterAsDate())) {
       return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.THIS_QUARTER);
-
-    } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.asFirstDayOfYearAsDate(), this.dc.asLastDayOfYearAsDate())) {
-      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.THIS_YEAR);
     }
 
     if (R.equals(dateToAsString, dateFromAsString)) {
@@ -959,31 +959,35 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       from = this.serializeValue(fromDate);
       to = this.serializeValue(toDate);
     };
+    const messages = this.settings.messages;
 
     switch (this.aheadEntityPeriodMode) {
       case DatePeriodsEnum.PREVIOUS_DAY:
         this.onSetDay(onSetValue);
         break;
       case DatePeriodsEnum.DAY:
-        return this.settings.messages.YESTERDAY;
+        return messages.YESTERDAY;
       case DatePeriodsEnum.PREVIOUS_WEEK:
         this.onSetWeek(onSetValue);
         break;
       case DatePeriodsEnum.WEEK:
-        return this.settings.messages.LAST_WEEK;
+        return messages.LAST_WEEK;
       case DatePeriodsEnum.PREVIOUS_MONTH:
         this.onSetMonth(onSetValue);
         break;
       case DatePeriodsEnum.MONTH:
-        return this.settings.messages.LAST_MONTH;
+        return messages.LAST_MONTH;
       case DatePeriodsEnum.PREVIOUS_QUARTER:
         this.onSetQuarter(onSetValue);
         break;
       case DatePeriodsEnum.QUARTER:
-        return this.settings.messages.LAST_QUARTER;
+        return messages.LAST_QUARTER;
     }
-    return `${this.settings.messages.LAST_PERIOD}: ${from}${UniCodesEnum.NO_BREAK_SPACE}${UniCodesEnum.NO_BREAK_SPACE}${
-      UniCodesEnum.N_DASH}${UniCodesEnum.NO_BREAK_SPACE}${UniCodesEnum.NO_BREAK_SPACE}${to}`;
+    const separator = `${UniCodesEnum.NO_BREAK_SPACE}${UniCodesEnum.NO_BREAK_SPACE}`;
+    if (R.equals(from, to)) {
+      return `${messages.LAST_PERIOD}:${separator}${from}`;
+    }
+    return `${messages.LAST_PERIOD}:${separator}${from}${separator}${UniCodesEnum.N_DASH}${separator}${to}`;
   }
 
   /**

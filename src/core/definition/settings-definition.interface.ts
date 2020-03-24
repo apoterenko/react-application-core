@@ -258,7 +258,6 @@ export interface IMessagesSettingsEntity {
   THIS_MONTH?: string;
   THIS_QUARTER?: string;
   THIS_WEEK?: string;
-  THIS_YEAR?: string;
   TODAY?: string;
   UNKNOWN_ERROR?: string;
   USER?: string;
@@ -313,7 +312,6 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   THIS_MONTH: 'This month',
   THIS_QUARTER: 'This quarter',
   THIS_WEEK: 'This week',
-  THIS_YEAR: 'This year',
   TODAY: 'Today',
   UNKNOWN_ERROR: 'Unknown error',
   USER: 'User',

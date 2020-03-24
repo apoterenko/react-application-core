@@ -52,7 +52,6 @@ export enum DatePeriodsEnum {
   PREVIOUS_WEEK,
   QUARTER,
   WEEK,
-  YEAR,
 }
 
 /**
