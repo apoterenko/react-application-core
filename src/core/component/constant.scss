@@ -328,7 +328,7 @@ $rac-button-decorated-not-filled-mini-icon-size: $rac-button-size-2 !default;
 $rac-button-decorated-not-filled-mini-width: $rac-button-size-0 !default;
 $rac-button-decorated-not-filled-width: $rac-button-size-1 !default;
 $rac-button-disabled-cursor: default !default;
-$rac-button-disabled-opacity: $rac-button-opacity-0 !default;
+$rac-button-disabled-opacity: .4 !default;
 $rac-button-disabled-shadow: unset !default;
 $rac-button-display: $rac-button-display-0 !default;
 $rac-button-filled-icon-margin: 0 $rac-button-size-4 !default;
@@ -732,7 +732,7 @@ $rac-date-field-calendar-dialog-body-height: 342px !default;
 $rac-date-field-calendar-dialog-body-max-width: 304px !default;
 $rac-date-field-calendar-dialog-footer-action-width: 72px !default;
 /**/
-$rac-date-field-calendars-dialog-body-height: 400px !default;
+$rac-date-field-calendars-dialog-body-height: 422px !default;
 $rac-date-field-calendars-dialog-body-max-width: 608px !default;
 $rac-date-field-calendars-dialog-calendar-first-selected-day-border-radius: $rac-calendar-dialog-size-1 0 0 $rac-calendar-dialog-size-1 !default;
 $rac-date-field-calendars-dialog-calendar-last-selected-day-border-radius: 0 $rac-calendar-dialog-size-1 $rac-calendar-dialog-size-1 0 !default;

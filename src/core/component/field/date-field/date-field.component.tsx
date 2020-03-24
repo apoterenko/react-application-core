@@ -33,6 +33,7 @@ import {
   DatePeriodsEnum,
   DatesRangeValueT,
   DateTimeLikeTypeT,
+  DAYS_PERIODS,
   FIELD_DISPLAY_EMPTY_VALUE,
   FieldActionTypesEnum,
   FieldConverterTypesEnum,
@@ -43,6 +44,9 @@ import {
   IDatesRangeEntity,
   IDateTimeSettingsEntity,
   IFromToDayOfYearEntity,
+  MONTHS_PERIODS,
+  QUARTERS_PERIODS,
+  WEEKS_PERIODS,
 } from '../../../definition';
 import {
   IDateFieldProps,
@@ -89,16 +93,16 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.onFromDateFieldChange = this.onFromDateFieldChange.bind(this);
     this.onSetCustom = this.onSetCustom.bind(this);
-    this.onSetDay = this.onSetDay.bind(this);
-    this.onSetMonth = this.onSetMonth.bind(this);
-    this.onSetQuarter = this.onSetQuarter.bind(this);
-    this.onSetWeek = this.onSetWeek.bind(this);
-    this.onSetYear = this.onSetYear.bind(this);
+    this.onSetLastMonth = this.onSetLastMonth.bind(this);
+    this.onSetLastQuarter = this.onSetLastQuarter.bind(this);
+    this.onSetLastWeek = this.onSetLastWeek.bind(this);
+    this.onSetYesterday = this.onSetYesterday.bind(this);
     this.onToDateFieldChange = this.onToDateFieldChange.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.setFromDateFocus = this.setFromDateFocus.bind(this);
     this.setNextMonth = this.setNextMonth.bind(this);
     this.setPreviousMonth = this.setPreviousMonth.bind(this);
+    this.setQuickValue = this.setQuickValue.bind(this);
 
     this.defaultActions = [
       ...(
@@ -249,7 +253,12 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   private get calendarAttachmentElement(): JSX.Element {
     return (
       <React.Fragment>
-        {this.isRangeEnabled && this.quickButtonsElement}
+        {this.isRangeEnabled && (
+          <React.Fragment>
+            {this.quickButtonsElement}
+            {this.previousQuickButtonsElement}
+          </React.Fragment>
+        )}
         <div className='rac-calendar-dialog__range-explorer'>
           <Button
             icon='back'
@@ -361,7 +370,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
           onChange={this.onFromDateFieldChange}/>
         {
           this.isRangeEnabled
-          && ![this.selectedPeriodMode, this.aheadEntityPeriodMode].includes(DatePeriodsEnum.DAY)
+          && R.isEmpty(R.intersection([this.selectedPeriodMode, this.aheadEntityPeriodMode], DAYS_PERIODS))
           && (
             <React.Fragment>
               <span className={ComponentClassesEnum.CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR}>&mdash;</span>
@@ -393,89 +402,111 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
+   * @stable [25.03.2020]
+   * @returns {JSX.Element}
+   */
+  private get previousQuickButtonsElement(): JSX.Element {
+    const isPreviousPeriodModeEnabled = this.isPreviousPeriodModeEnabled;
+
+    return (
+      <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_QUICK_ACTIONS}>
+        <Button
+          full={true}
+          className={this.getQuickActionClassName(DatePeriodsEnum.PREVIOUS_DAY)}
+          disabled={isPreviousPeriodModeEnabled}
+          text={this.settings.messages.YESTERDAY}
+          onClick={this.onSetYesterday}/>
+        <Button
+          full={true}
+          className={this.getQuickActionClassName(DatePeriodsEnum.PREVIOUS_WEEK)}
+          disabled={isPreviousPeriodModeEnabled}
+          text={this.settings.messages.LAST_WEEK}
+          onClick={this.onSetLastWeek}/>
+        <Button
+          full={true}
+          className={this.getQuickActionClassName(DatePeriodsEnum.PREVIOUS_MONTH)}
+          disabled={isPreviousPeriodModeEnabled}
+          text={this.settings.messages.LAST_MONTH}
+          onClick={this.onSetLastMonth}/>
+        <Button
+          key='quick-action-previous-quarter'
+          full={true}
+          className={this.getQuickActionClassName(DatePeriodsEnum.PREVIOUS_QUARTER)}
+          disabled={isPreviousPeriodModeEnabled}
+          text={this.settings.messages.LAST_QUARTER}
+          onClick={this.onSetLastQuarter}/>
+      </div>
+    );
+  }
+
+  /**
+   * @stable [25.03.2020]
+   * @param {DatePeriodsEnum} period
+   * @returns {string}
+   */
+  private getQuickActionClassName(period: DatePeriodsEnum): string {
+    return joinClassName(this.selectedPeriodMode === period && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION);
+  }
+
+  /**
    * @stable [07.03.2020]
    * @returns {JSX.Element}
    */
   private get quickButtonsElement(): JSX.Element {
     const previousPeriodModeEnabled = this.isPreviousPeriodModeEnabled;
-    const selectedPeriodMode = this.selectedPeriodMode;
     const aheadEntityPeriodMode = this.aheadEntityPeriodMode;
 
     const buttonsElement = objectValuesArrayFilter(
-      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.DAY) && (
+      (!previousPeriodModeEnabled || DAYS_PERIODS.includes(aheadEntityPeriodMode)) && (
         <Button
           key='quick-action-day'
           full={true}
-          className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.DAY && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
-          }
+          className={this.getQuickActionClassName(DatePeriodsEnum.DAY)}
           text={previousPeriodModeEnabled
-            ? this.settings.messages.PREVIOUS_DAY
-            : this.settings.messages.DAY}
-          onClick={this.onSetDay}/>
+            ? this.previousPeriodQuickActionText
+            : this.settings.messages.TODAY}
+          onClick={() => this.onSetDay()}/>
       ),
-      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.WEEK) && (
+      (!previousPeriodModeEnabled || WEEKS_PERIODS.includes(aheadEntityPeriodMode)) && (
         <Button
           key='quick-action-week'
           full={true}
-          className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.WEEK && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
-          }
+          className={this.getQuickActionClassName(DatePeriodsEnum.WEEK)}
           text={previousPeriodModeEnabled
-            ? this.settings.messages.PREVIOUS_WEEK
-            : this.settings.messages.WEEK}
-          onClick={this.onSetWeek}/>
+            ? this.previousPeriodQuickActionText
+            : this.settings.messages.THIS_WEEK}
+          onClick={() => this.onSetWeek()}/>
       ),
-      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.MONTH) && (
+      (!previousPeriodModeEnabled || MONTHS_PERIODS.includes(aheadEntityPeriodMode)) && (
         <Button
           key='quick-action-month'
           full={true}
-          className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.MONTH && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
-          }
+          className={this.getQuickActionClassName(DatePeriodsEnum.MONTH)}
           text={previousPeriodModeEnabled
-            ? this.settings.messages.PREVIOUS_MONTH
-            : this.settings.messages.MONTH}
-          onClick={this.onSetMonth}/>
+            ? this.previousPeriodQuickActionText
+            : this.settings.messages.THIS_MONTH}
+          onClick={() => this.onSetMonth()}/>
       ),
-      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.QUARTER) && (
+      (!previousPeriodModeEnabled || QUARTERS_PERIODS.includes(aheadEntityPeriodMode)) && (
         <Button
           key='quick-action-quarter'
           full={true}
-          className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.QUARTER && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
-          }
+          className={this.getQuickActionClassName(DatePeriodsEnum.QUARTER)}
           text={previousPeriodModeEnabled
-            ? this.settings.messages.PREVIOUS_QUARTER
-            : this.settings.messages.QUARTER}
-          onClick={this.onSetQuarter}/>
+            ? this.previousPeriodQuickActionText
+            : this.settings.messages.THIS_QUARTER}
+          onClick={() => this.onSetQuarter()}/>
       ),
-      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.YEAR) && (
-        <Button
-          key='quick-action-year'
-          full={true}
-          className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.YEAR && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
-          }
-          text={previousPeriodModeEnabled
-            ? this.settings.messages.PREVIOUS_YEAR
-            : this.settings.messages.YEAR}
-          onClick={this.onSetYear}/>
-      ),
-      !previousPeriodModeEnabled && (
+      (!previousPeriodModeEnabled || aheadEntityPeriodMode === DatePeriodsEnum.CUSTOM) && (
         <Button
           key='quick-action-custom'
           full={true}
-          className={
-            joinClassName(selectedPeriodMode === DatePeriodsEnum.CUSTOM && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION)
-          }
+          disabled={previousPeriodModeEnabled}
+          className={this.getQuickActionClassName(DatePeriodsEnum.CUSTOM)}
           text={this.settings.messages.CUSTOM}
           onClick={this.onSetCustom}/>
       )
     );
-    if (R.isEmpty(buttonsElement)) {
-      return null;
-    }
     return (
       <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_QUICK_ACTIONS}>
         {buttonsElement}
@@ -486,91 +517,120 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   /**
    * @stable [07.03.2020]
    */
-  private onSetDay(): void {
+  private onSetDay(setQuickValue = this.setQuickValue): void {
     const currentDate = this.dc.getCurrentDate();
     if (this.isPreviousPeriodModeEnabled) {
       const previousDay = this.dc.addDaysAsDate({date: this.aheadEntity.from, duration: -1});
 
-      this.setQuickValue(previousDay, previousDay, DatePeriodsEnum.DAY);
+      setQuickValue(previousDay, previousDay, DatePeriodsEnum.DAY);
     } else {
-      this.setQuickValue(currentDate, currentDate, DatePeriodsEnum.DAY);
+      setQuickValue(currentDate, currentDate, DatePeriodsEnum.DAY);
     }
+  }
+
+  /**
+   * @stable [25.03.2020]
+   */
+  private onSetYesterday(): void {
+    const date = this.dc.addDaysAsDate({date: this.dc.getCurrentDate(), duration: -1});
+
+    this.setQuickValue(date, date, DatePeriodsEnum.PREVIOUS_DAY);
   }
 
   /**
    * @stable [07.03.2020]
    */
-  private onSetWeek(): void {
+  private onSetWeek(setQuickValue = this.setQuickValue): void {
     if (this.isPreviousPeriodModeEnabled) {
       const aheadEntity = this.aheadEntity;
       const firstDayOfWeekAsDate = this.dc.asFirstDayOfWeekAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
       const firstDayOfPreviousWeek = this.dc.addWeeksAsDate({date: firstDayOfWeekAsDate, duration: -1});
 
-      this.setQuickValue(
+      setQuickValue(
         firstDayOfPreviousWeek,
         this.dc.asLastDayOfWeekAsDate({date: firstDayOfPreviousWeek}),
         DatePeriodsEnum.WEEK
       );
     } else {
-      this.setQuickValue(this.dc.asFirstDayOfWeekAsDate(), this.dc.asLastDayOfWeekAsDate(), DatePeriodsEnum.WEEK);
+      setQuickValue(this.dc.asFirstDayOfWeekAsDate(), this.dc.asLastDayOfWeekAsDate(), DatePeriodsEnum.WEEK);
     }
+  }
+
+  /**
+   * @stable [25.03.2020]
+   */
+  private onSetLastWeek(): void {
+    const date = this.dc.addWeeksAsDate({date: this.dc.getCurrentDate(), duration: -1});
+
+    this.setQuickValue(
+      this.dc.asFirstDayOfWeekAsDate({date}),
+      this.dc.asLastDayOfWeekAsDate({date}),
+      DatePeriodsEnum.PREVIOUS_WEEK
+    );
   }
 
   /**
    * @stable [07.03.2020]
    */
-  private onSetMonth(): void {
+  private onSetMonth(setQuickValue = this.setQuickValue): void {
     if (this.isPreviousPeriodModeEnabled) {
       const aheadEntity = this.aheadEntity;
       const firstDayOfMonthAsDate = this.dc.asFirstDayOfMonthAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
       const firstDayOfPreviousMonth = this.dc.addMonthsAsDate({date: firstDayOfMonthAsDate, duration: -1});
 
-      this.setQuickValue(
+      setQuickValue(
         firstDayOfPreviousMonth,
         this.dc.asLastDayOfMonthAsDate({date: firstDayOfPreviousMonth}),
         DatePeriodsEnum.MONTH
       );
     } else {
-      this.setQuickValue(this.dc.asFirstDayOfMonthAsDate(), this.dc.asLastDayOfMonthAsDate(), DatePeriodsEnum.MONTH);
+      setQuickValue(this.dc.asFirstDayOfMonthAsDate(), this.dc.asLastDayOfMonthAsDate(), DatePeriodsEnum.MONTH);
     }
+  }
+
+  /**
+   * @stable [25.03.2020]
+   */
+  private onSetLastMonth(): void {
+    const date = this.dc.addMonthsAsDate({date: this.dc.getCurrentDate(), duration: -1});
+
+    this.setQuickValue(
+      this.dc.asFirstDayOfMonthAsDate({date}),
+      this.dc.asLastDayOfMonthAsDate({date}),
+      DatePeriodsEnum.PREVIOUS_MONTH
+    );
   }
 
   /**
    * @stable [08.03.2020]
    */
-  private onSetQuarter(): void {
+  private onSetQuarter(setQuickValue = this.setQuickValue): void {
     if (this.isPreviousPeriodModeEnabled) {
       const aheadEntity = this.aheadEntity;
       const firstDayOfQuarterAsDate = this.dc.asFirstDayOfQuarterAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
       const firstDayOfPreviousQuarter = this.dc.addQuartersAsDate({date: firstDayOfQuarterAsDate, duration: -1});
 
-      this.setQuickValue(
+      setQuickValue(
         firstDayOfPreviousQuarter,
         this.dc.asLastDayOfQuarterAsDate({date: firstDayOfPreviousQuarter}),
         DatePeriodsEnum.QUARTER
       );
     } else {
-      this.setQuickValue(this.dc.asFirstDayOfQuarterAsDate(), this.dc.asLastDayOfQuarterAsDate(), DatePeriodsEnum.QUARTER);
+      setQuickValue(this.dc.asFirstDayOfQuarterAsDate(), this.dc.asLastDayOfQuarterAsDate(), DatePeriodsEnum.QUARTER);
     }
   }
 
   /**
-   * @stable [08.03.2020]
+   * @stable [25.03.2020]
    */
-  private onSetYear(): void {
-    if (this.isPreviousPeriodModeEnabled) {
-      const aheadEntity = this.aheadEntity;
-      const firstDayOfYearAsDate = this.dc.asFirstDayOfYearAsDate({date: aheadEntity.from, inputFormat: this.fieldFormat});
-      const firstDayOfPreviousYear = this.dc.addYearsAsDate({date: firstDayOfYearAsDate, duration: -1});
+  private onSetLastQuarter(): void {
+    const date = this.dc.addQuartersAsDate({date: this.dc.getCurrentDate(), duration: -1});
 
-      this.setQuickValue(
-        firstDayOfPreviousYear,
-        this.dc.asLastDayOfYearAsDate({date: firstDayOfPreviousYear}),
-        DatePeriodsEnum.YEAR
-      );
-    } else {
-      this.setQuickValue(this.dc.asFirstDayOfYearAsDate(), this.dc.asLastDayOfYearAsDate(), DatePeriodsEnum.YEAR);
-    }
+    this.setQuickValue(
+      this.dc.asFirstDayOfQuarterAsDate({date}),
+      this.dc.asLastDayOfQuarterAsDate({date}),
+      DatePeriodsEnum.PREVIOUS_QUARTER
+    );
   }
 
   /**
@@ -833,22 +893,22 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     } else if (this.checkRange(dateFromAsString, dateToAsString,
         this.dc.addWeeksAsDate({date: this.dc.asFirstDayOfWeekAsDate(), duration: -1}),
         this.dc.addWeeksAsDate({date: this.dc.asLastDayOfWeekAsDate(), duration: -1}))) {
-      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_WEEK);
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.LAST_WEEK);
 
     } else if (this.checkRange(dateFromAsString, dateToAsString,
         this.dc.addMonthsAsDate({date: this.dc.asFirstDayOfMonthAsDate(), duration: -1}),
         this.dc.addMonthsAsDate({date: this.dc.asLastDayOfMonthAsDate(), duration: -1}))) {
-      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_MONTH);
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.LAST_MONTH);
 
     } else if (this.checkRange(dateFromAsString, dateToAsString,
         this.dc.addQuartersAsDate({date: this.dc.asFirstDayOfQuarterAsDate(), duration: -1}),
         this.dc.addQuartersAsDate({date: this.dc.asLastDayOfQuarterAsDate(), duration: -1}))) {
-      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_QUARTER);
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.LAST_QUARTER);
 
     } else if (this.checkRange(dateFromAsString, dateToAsString,
         this.dc.addYearsAsDate({date: this.dc.asFirstDayOfYearAsDate(), duration: -1}),
         this.dc.addYearsAsDate({date: this.dc.asLastDayOfYearAsDate(), duration: -1}))) {
-      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.PREVIOUS_YEAR);
+      return this.getDecoratedRangeSpecificValue(dateRangeEntity.from, dateRangeEntity.to, messages.LAST_YEAR);
 
     } else if (this.checkRange(dateFromAsString, dateToAsString, this.dc.getCurrentDate(), this.dc.getCurrentDate())) {
       return `${messages.TODAY}: ${this.dc.dateAsPstDateString({date: dateRangeEntity.from})}`;
@@ -885,6 +945,45 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     return `${label}: ${this.dc.dateAsPstDateString({date: dateFrom})} ${UniCodesEnum.N_DASH} ${
       this.dc.dateAsPstDateString({date: dateTo})}`;
+  }
+
+  /**
+   * @stable [24.03.2020]
+   * @returns {string}
+   */
+  private get previousPeriodQuickActionText(): string {
+    let from;
+    let to;
+
+    const onSetValue = (fromDate, toDate) => {
+      from = this.serializeValue(fromDate);
+      to = this.serializeValue(toDate);
+    };
+
+    switch (this.aheadEntityPeriodMode) {
+      case DatePeriodsEnum.PREVIOUS_DAY:
+        this.onSetDay(onSetValue);
+        break;
+      case DatePeriodsEnum.DAY:
+        return this.settings.messages.YESTERDAY;
+      case DatePeriodsEnum.PREVIOUS_WEEK:
+        this.onSetWeek(onSetValue);
+        break;
+      case DatePeriodsEnum.WEEK:
+        return this.settings.messages.LAST_WEEK;
+      case DatePeriodsEnum.PREVIOUS_MONTH:
+        this.onSetMonth(onSetValue);
+        break;
+      case DatePeriodsEnum.MONTH:
+        return this.settings.messages.LAST_MONTH;
+      case DatePeriodsEnum.PREVIOUS_QUARTER:
+        this.onSetQuarter(onSetValue);
+        break;
+      case DatePeriodsEnum.QUARTER:
+        return this.settings.messages.LAST_QUARTER;
+    }
+    return `${this.settings.messages.LAST_PERIOD}: ${from}${UniCodesEnum.NO_BREAK_SPACE}${UniCodesEnum.NO_BREAK_SPACE}${
+      UniCodesEnum.N_DASH}${UniCodesEnum.NO_BREAK_SPACE}${UniCodesEnum.NO_BREAK_SPACE}${to}`;
   }
 
   /**
@@ -1057,9 +1156,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get acceptedDatesRangeEntity(): IDatesRangeEntity {
     const {from, periodMode, to} = this.state;
-    const selectedPeriodMode = this.selectedPeriodMode;
 
-    if (![selectedPeriodMode].includes(DatePeriodsEnum.DAY)
+    if (!DAYS_PERIODS.includes(this.selectedPeriodMode)
       && (isObjectNotEmpty(from) || isObjectNotEmpty(to))) {
 
       return defValuesFilter<IDatesRangeEntity, IDatesRangeEntity>({

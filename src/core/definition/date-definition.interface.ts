@@ -46,10 +46,22 @@ export enum DatePeriodsEnum {
   CUSTOM,
   DAY,
   MONTH,
+  PREVIOUS_DAY,
+  PREVIOUS_MONTH,
+  PREVIOUS_QUARTER,
+  PREVIOUS_WEEK,
   QUARTER,
   WEEK,
   YEAR,
 }
+
+/**
+ * @stable [25.03.2020]
+ */
+export const DAYS_PERIODS = [DatePeriodsEnum.DAY, DatePeriodsEnum.PREVIOUS_DAY];
+export const WEEKS_PERIODS = [DatePeriodsEnum.WEEK, DatePeriodsEnum.PREVIOUS_WEEK];
+export const MONTHS_PERIODS = [DatePeriodsEnum.MONTH, DatePeriodsEnum.PREVIOUS_MONTH];
+export const QUARTERS_PERIODS = [DatePeriodsEnum.QUARTER, DatePeriodsEnum.PREVIOUS_QUARTER];
 
 // TODO ?
 export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([

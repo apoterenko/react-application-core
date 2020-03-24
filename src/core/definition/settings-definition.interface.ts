@@ -236,8 +236,12 @@ export interface IMessagesSettingsEntity {
   ERROR?: string;
   FILTER_PLACEHOLDER?: string;
   FILTERS?: string;
+  LAST_MONTH?: string;
+  LAST_PERIOD?: string;
+  LAST_QUARTER?: string;
+  LAST_WEEK?: string;
+  LAST_YEAR?: string;
   LOG_OUT?: string;
-  MONTH?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   NO_DATA?: string;
   OK?: string;
@@ -245,13 +249,7 @@ export interface IMessagesSettingsEntity {
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
   PREVIEW?: string;
-  PREVIOUS_DAY?: string;
-  PREVIOUS_MONTH?: string;
-  PREVIOUS_QUARTER?: string;
-  PREVIOUS_WEEK?: string;
-  PREVIOUS_YEAR?: string;
   PUT_MARKER_HERE?: string;
-  QUARTER?: string;
   RESET?: string;
   RESTART_APP?: string;
   SAVE?: string;
@@ -265,7 +263,6 @@ export interface IMessagesSettingsEntity {
   UNKNOWN_ERROR?: string;
   USER?: string;
   WAITING?: string;
-  WEEK?: string;
   YEAR?: string;
   YESTERDAY?: string;
 }
@@ -294,8 +291,11 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   ERROR: 'Error',
   FILTER_PLACEHOLDER: 'Search',
   FILTERS: 'Filters',
+  LAST_MONTH: 'Last month',
+  LAST_PERIOD: 'Last period',
+  LAST_QUARTER: 'Last quarter',
+  LAST_WEEK: 'Last week',
   LOG_OUT: 'Log out',
-  MONTH: 'Month',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   NO_DATA: 'No data',
   OK: 'Ok',
@@ -303,13 +303,8 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
   PREVIEW: 'Preview',
-  PREVIOUS_DAY: 'Prev. day',
-  PREVIOUS_MONTH: 'Prev. month',
-  PREVIOUS_QUARTER: 'Prev. quarter',
-  PREVIOUS_WEEK: 'Prev. week',
-  PREVIOUS_YEAR: 'Prev. year',
+  LAST_YEAR: 'Last year',
   PUT_MARKER_HERE: 'Put marker here',
-  QUARTER: 'Quarter',
   RESET: 'Reset',
   RESTART_APP: 'Restart App',
   SAVE: 'Save',
@@ -323,7 +318,6 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   UNKNOWN_ERROR: 'Unknown error',
   USER: 'User',
   WAITING: 'Waiting...',
-  WEEK: 'Week',
   YEAR: 'Year',
   YESTERDAY: 'Yesterday',
 });
