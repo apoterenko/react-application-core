@@ -12,9 +12,7 @@ import {
   isInline,
   isObjectNotEmpty,
   isRangeEnabled,
-  isUndef,
   joinClassName,
-  notNilValuesFilter,
   nvl,
   objectValuesArrayFilter,
   orNull,
@@ -1047,38 +1045,20 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [07.03.2020]
+   * @stable [25.03.2020]
    * @returns {IFromToDayOfYearEntity}
    */
   private get currentFromToDayOfYearEntity(): IFromToDayOfYearEntity {
-    const {from, to} = this.state;
-
-    const result: IFromToDayOfYearEntity = {
-      // The values from state
-      ...(
-        isDef(from) // "Null" as value (!)
-          ? ({from: ifNotNilThanValue(from, () => this.dc.asDayOfYearEntity({date: from}))})
-          : ({})
+    return {
+      ...ifNotEmptyThanValue(
+        this.fromDateFieldValue,
+        (fromValue) => ({from: this.dc.asDayOfYearEntity({date: fromValue, inputFormat: this.fieldFormat})})
       ),
-      ...(
-        isDef(to)
-          ? ({to: ifNotNilThanValue(to, () => this.dc.asDayOfYearEntity({date: to}))})
-          : ({})
+      ...ifNotEmptyThanValue(
+        this.toDateFieldValue,
+        (toValue) => ({to: this.dc.asDayOfYearEntity({date: toValue, inputFormat: this.fieldFormat})})
       ),
     };
-
-    if (isUndef(result.from) || isUndef(result.to)) {
-      const rangeEntity = this.datesRangeEntity;
-      if (!R.isNil(rangeEntity)) {
-        if (isUndef(result.from) && !R.isNil(rangeEntity.from)) {
-          result.from = this.dc.asDayOfYearEntity({date: rangeEntity.from, inputFormat: this.fieldFormat});
-        }
-        if (isUndef(result.to) && !R.isNil(rangeEntity.to)) {
-          result.to = this.dc.asDayOfYearEntity({date: rangeEntity.to, inputFormat: this.fieldFormat});
-        }
-      }
-    }
-    return notNilValuesFilter(result);
   }
 
   /**
@@ -1131,7 +1111,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   private get acceptedDatesRangeEntity(): IDatesRangeEntity {
     const {from, periodMode, to} = this.state;
 
-    if (!DAYS_PERIODS.includes(this.selectedPeriodMode)
+    if (![...DAYS_PERIODS, DatePeriodsEnum.CUSTOM].includes(this.selectedPeriodMode)
       && (isObjectNotEmpty(from) || isObjectNotEmpty(to))) {
 
       return defValuesFilter<IDatesRangeEntity, IDatesRangeEntity>({
