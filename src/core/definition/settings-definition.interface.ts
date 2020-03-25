@@ -224,6 +224,7 @@ export interface IMessagesSettingsEntity {
   CHANGES_YOU_MADE_WILL_NOT_BE_SAVED?: string;
   CLEAR_ALL?: string;
   CLOSE?: string;
+  COMPARE_TO?: string;
   CREATE?: string;
   CUSTOM?: string;
   DATE?: string;
@@ -237,7 +238,6 @@ export interface IMessagesSettingsEntity {
   FILTER_PLACEHOLDER?: string;
   FILTERS?: string;
   LAST_MONTH?: string;
-  LAST_PERIOD?: string;
   LAST_QUARTER?: string;
   LAST_WEEK?: string;
   LAST_YEAR?: string;
@@ -278,6 +278,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   CHANGES_YOU_MADE_WILL_NOT_BE_SAVED: 'Changes you made will not be saved',
   CLEAR_ALL: 'Clear all',
   CLOSE: 'Close',
+  COMPARE_TO: 'Compare to',
   CREATE: 'Create',
   CUSTOM: 'Custom',
   DATE: 'Date',
@@ -291,9 +292,9 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   FILTER_PLACEHOLDER: 'Search',
   FILTERS: 'Filters',
   LAST_MONTH: 'Last month',
-  LAST_PERIOD: 'Last period',
   LAST_QUARTER: 'Last quarter',
   LAST_WEEK: 'Last week',
+  LAST_YEAR: 'Last year',
   LOG_OUT: 'Log out',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   NO_DATA: 'No data',
@@ -302,7 +303,6 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
   PREVIEW: 'Preview',
-  LAST_YEAR: 'Last year',
   PUT_MARKER_HERE: 'Put marker here',
   RESET: 'Reset',
   RESTART_APP: 'Restart App',

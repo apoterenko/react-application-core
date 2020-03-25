@@ -71,11 +71,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     fromDate: UNDEF,
   };
 
-  private static readonly INITIAL_RANGE_PERIOD_STATE: IDateFieldState = {
-    ...DateField.INITIAL_PERIOD_STATE,
-    from: null,
+  private static readonly INITIAL_RANGE_TO_DATE_STATE: IDateFieldState = {
     to: null,
     toDate: UNDEF,
+  };
+
+  private static readonly INITIAL_RANGE_PERIOD_STATE: IDateFieldState = {
+    ...DateField.INITIAL_PERIOD_STATE,
+    ...DateField.INITIAL_RANGE_TO_DATE_STATE,
+    from: null,
   };
 
   private static readonly DEFAULT_RANGE_PERIOD_STATE: IDateFieldState = {
@@ -412,11 +416,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [24.03.2020]
+   * @stable [25.03.2020]
    * @returns {DateTimeLikeTypeT}
    */
   private get fromDateFieldValue(): DateTimeLikeTypeT {
-    return coalesce(this.state.fromDate, this.state.from, this.valueAsDateFrom);
+    return coalesce(
+      this.state.fromDate,
+      this.state.from,
+      this.isRangeEnabled ? this.valueAsDateFrom : this.valueAsDate
+    );
   }
 
   /**
@@ -728,26 +736,29 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [11.03.2020]
+   * @stable [25.03.2020]
    * @param {string} value
    */
   private onFromDateFieldChange(value: string): void {
     const from = this.getValueAsDate(value);
 
-    this.setState(
-      R.isNil(from)
-        ? {fromDate: value}
-        : ({
-          cursor: from,
-          from,
-          fromDate: value,
-          ...(
-            this.selectedPeriodMode === DatePeriodsEnum.DAY
-              ? {to: null, toDate: UNDEF}
-              : {periodMode: DatePeriodsEnum.CUSTOM}
-          ),
-        })
-    );
+    this.setState({
+      fromDate: value,
+      ...(
+        R.isNil(from)
+          ? {}
+          : ({
+            periodMode: DatePeriodsEnum.CUSTOM,
+            cursor: from,
+            from,
+            ...(
+              DAYS_PERIODS.includes(this.selectedPeriodMode)
+                ? DateField.INITIAL_RANGE_TO_DATE_STATE
+                : {}
+            ),
+          })
+      ),
+    });
   }
 
   /**
@@ -773,82 +784,23 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [09.03.2020]
+   * @stable [25.03.2020]
    * @param {ICalendarDayEntity} calendarDayEntity
    */
   private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
     let updatedState: IDateFieldState;
 
     if (this.isRangeEnabled) {
-      const periodMode = this.isPreviousPeriodModeEnabled
-        ? this.aheadEntityPeriodMode
-        : this.selectedPeriodMode;
-
-      let rangeValues: IDateFieldState = {};
-      const result = this.dc.selectDaysOfYearRange(this.currentFromToDayOfYearEntity, calendarDayEntity);
-      const rangeValuesFrom = ifNotEmptyThanValue(result.from, (from) => ({from: this.dc.fromDayOfYearEntityAsDate(from)}));
-
-      switch (periodMode) {
-        case DatePeriodsEnum.DAY:
-        case DatePeriodsEnum.PREVIOUS_DAY:
-        case DatePeriodsEnum.WEEK:
-        case DatePeriodsEnum.PREVIOUS_WEEK:
-        case DatePeriodsEnum.MONTH:
-        case DatePeriodsEnum.PREVIOUS_MONTH:
-        case DatePeriodsEnum.QUARTER:
-        case DatePeriodsEnum.PREVIOUS_QUARTER:
-          ifNotEmptyThanValue(
-            rangeValuesFrom.from,
-            (from) => {
-              switch (periodMode) {
-                case DatePeriodsEnum.DAY:
-                case DatePeriodsEnum.PREVIOUS_DAY:
-                  rangeValues = {
-                    from,
-                    to: from,
-                  };
-                  break;
-                case DatePeriodsEnum.WEEK:
-                case DatePeriodsEnum.PREVIOUS_WEEK:
-                  rangeValues = {
-                    from: this.dc.asFirstDayOfWeekAsDate({date: from}),
-                    to: this.dc.asLastDayOfWeekAsDate({date: from}),
-                  };
-                  break;
-                case DatePeriodsEnum.MONTH:
-                case DatePeriodsEnum.PREVIOUS_MONTH:
-                  rangeValues = {
-                    from: this.dc.asFirstDayOfMonthAsDate({date: from}),
-                    to: this.dc.asLastDayOfMonthAsDate({date: from}),
-                  };
-                  break;
-                case DatePeriodsEnum.QUARTER:
-                case DatePeriodsEnum.PREVIOUS_QUARTER:
-                  rangeValues = {
-                    from: this.dc.asFirstDayOfQuarterAsDate({date: from}),
-                    to: this.dc.asLastDayOfQuarterAsDate({date: from}),
-                  };
-                  break;
-              }
-            }
-          );
-          break;
-        case DatePeriodsEnum.CUSTOM:
-          rangeValues = {
-            ...rangeValuesFrom,
-            ...ifNotEmptyThanValue(result.to, (to) => ({to: this.dc.fromDayOfYearEntityAsDate(to)})),
-          };
-          break;
-      }
-
+      const daysOfYearRange = this.dc.selectDaysOfYearRange(this.currentFromToDayOfYearEntity, calendarDayEntity);
       updatedState = {
         ...DateField.INITIAL_RANGE_PERIOD_STATE,
-        ...rangeValues,
-        periodMode,
+        ...ifNotEmptyThanValue(daysOfYearRange.from, (from) => ({from: this.dc.fromDayOfYearEntityAsDate(from)})),
+        ...ifNotEmptyThanValue(daysOfYearRange.to, (to) => ({to: this.dc.fromDayOfYearEntityAsDate(to)})),
+        periodMode: DatePeriodsEnum.CUSTOM,
       };
-
       ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(updatedState.from)));
       ifNotEmptyThanValue(updatedState.to, () => (updatedState.toDate = this.serializeValue(updatedState.to)));
+
     } else {
       updatedState = {
         ...DateField.INITIAL_PERIOD_STATE,
@@ -856,7 +808,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       };
       ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(calendarDayEntity.date)));
     }
-    this.setState(updatedState, this.setFromDateFocus);
+
+    this.setState((prevState) => ({...updatedState, cursor: prevState.cursor}), this.setFromDateFocus);
   }
 
   /**
@@ -968,28 +921,32 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
         this.onSetDay(onSetValue);
         break;
       case DatePeriodsEnum.DAY:
-        return messages.YESTERDAY;
+        from = to = messages.YESTERDAY;
+        break;
       case DatePeriodsEnum.PREVIOUS_WEEK:
         this.onSetWeek(onSetValue);
         break;
       case DatePeriodsEnum.WEEK:
-        return messages.LAST_WEEK;
+        from = to = messages.LAST_WEEK;
+        break;
       case DatePeriodsEnum.PREVIOUS_MONTH:
         this.onSetMonth(onSetValue);
         break;
       case DatePeriodsEnum.MONTH:
-        return messages.LAST_MONTH;
+        from = to = messages.LAST_MONTH;
+        break;
       case DatePeriodsEnum.PREVIOUS_QUARTER:
         this.onSetQuarter(onSetValue);
         break;
       case DatePeriodsEnum.QUARTER:
-        return messages.LAST_QUARTER;
+        from = to = messages.LAST_QUARTER;
+        break;
     }
     const separator = `${UniCodesEnum.NO_BREAK_SPACE}${UniCodesEnum.NO_BREAK_SPACE}`;
     if (R.equals(from, to)) {
-      return `${messages.LAST_PERIOD}:${separator}${from}`;
+      return `${messages.COMPARE_TO}:${separator}${from}`;
     }
-    return `${messages.LAST_PERIOD}:${separator}${from}${separator}${UniCodesEnum.N_DASH}${separator}${to}`;
+    return `${messages.COMPARE_TO}:${separator}${from}${separator}${UniCodesEnum.N_DASH}${separator}${to}`;
   }
 
   /**
@@ -1056,15 +1013,15 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [07.03.2020]
+   * @stable [25.03.2020]
    * @returns {Date}
    */
   private get currentCalendarDate(): Date {
-    const {cursor, from} = this.state;
+    const {cursor} = this.state;
     return cursor
       || (
         this.isRangeEnabled
-          ? (from || this.getValueAsDate(this.valueAsDateFrom))
+          ? this.getValueAsDate(this.valueAsDateFrom)
           : this.acceptedDateValue
       )
       || this.dc.getCurrentDate();
