@@ -66,7 +66,10 @@ export interface ICalendarConfigurationEntity<TProps extends ICalendarProps = IC
 export enum CalendarDialogClassesEnum {
   CALENDAR_BASE_DIALOG = 'rac-calendar-base-dialog',
   CALENDAR_DIALOG = 'rac-calendar-dialog',
+  CALENDAR_DIALOG_FOOTER = 'rac-calendar-dialog__footer',
   CALENDAR_DIALOG_QUICK_ACTIONS = 'rac-calendar-dialog__quick-actions',
+  CALENDAR_DIALOG_RANGE_EXPLORER = 'rac-calendar-dialog__range-explorer',
+  CALENDAR_DIALOG_RANGE_EXPLORER_DATE = 'rac-calendar-dialog__range-explorer-date',
   CALENDAR_DIALOG_SELECTED_QUICK_ACTION = 'rac-calendar-dialog__selected-quick-action',
   CALENDAR_INLINE_DIALOG = 'rac-calendar-inline-dialog',
 }

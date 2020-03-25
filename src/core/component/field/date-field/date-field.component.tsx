@@ -39,6 +39,7 @@ import {
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarProps,
+  IconsEnum,
   IDatesRangeEntity,
   IDateTimeSettingsEntity,
   IFromToDayOfYearEntity,
@@ -269,7 +270,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [22.01.2020]
+   * @stable [25.03.2020]
    * @returns {JSX.Element}
    */
   private get calendarAttachmentElement(): JSX.Element {
@@ -281,21 +282,21 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
             {this.previousQuickButtonsElement}
           </React.Fragment>
         )}
-        <div className='rac-calendar-dialog__range-explorer'>
+        <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_RANGE_EXPLORER}>
           <Button
-            icon='back'
+            icon={IconsEnum.BACK}
             mini={true}
             onClick={this.setPreviousMonth}/>
-          <div className='rac-calendar-dialog__range-explorer-date'>
+          <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_RANGE_EXPLORER_DATE}>
             {this.rangeExplorerDateElement}
           </div>
           <Button
-            icon='forward'
+            icon={IconsEnum.FORWARD}
             mini={true}
             onClick={this.setNextMonth}/>
         </div>
         {this.calendarElement}
-        <div className='rac-calendar-dialog__footer'>
+        <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_FOOTER}>
           {this.dateFieldsElement}
           {
             !this.isInline && (
