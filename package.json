@@ -201,10 +201,10 @@
     }
   ],
   "keywords": [
-    "react",
-    "business",
     "application",
-    "redux",
-    "logic"
+    "business",
+    "logic",
+    "react",
+    "redux"
   ]
 }
