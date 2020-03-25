@@ -66,20 +66,22 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     preventFocus: true,
   };
 
+  private static readonly INITIAL_PERIOD_DATE_VALUE = null;
+
   private static readonly INITIAL_PERIOD_STATE: IDateFieldState = {
     cursor: UNDEF,
     fromDate: UNDEF,
   };
 
   private static readonly INITIAL_RANGE_TO_DATE_STATE: IDateFieldState = {
-    to: null,
+    to: DateField.INITIAL_PERIOD_DATE_VALUE,
     toDate: UNDEF,
   };
 
   private static readonly INITIAL_RANGE_PERIOD_STATE: IDateFieldState = {
     ...DateField.INITIAL_PERIOD_STATE,
     ...DateField.INITIAL_RANGE_TO_DATE_STATE,
-    from: null,
+    from: DateField.INITIAL_PERIOD_DATE_VALUE,
   };
 
   private static readonly DEFAULT_RANGE_PERIOD_STATE: IDateFieldState = {
@@ -167,10 +169,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
 
     const className = joinClassName(
       !this.isInline && calc(dialogConfiguration.className),
-      ComponentClassesEnum.CALENDAR_BASE_DIALOG,
+      CalendarDialogClassesEnum.CALENDAR_BASE_DIALOG,
       this.isInline
-        ? ComponentClassesEnum.CALENDAR_INLINE_DIALOG
-        : ComponentClassesEnum.CALENDAR_DIALOG,
+        ? CalendarDialogClassesEnum.CALENDAR_INLINE_DIALOG
+        : CalendarDialogClassesEnum.CALENDAR_DIALOG,
       this.isRangeEnabled
         ? DateFieldClassesEnum.DATE_FIELD_CALENDARS_DIALOG
         : DateFieldClassesEnum.DATE_FIELD_CALENDAR_DIALOG
@@ -412,7 +414,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {DateTimeLikeTypeT}
    */
   private get toDateFieldValue(): DateTimeLikeTypeT {
-    return coalesce(this.state.toDate, this.state.to, this.valueAsDateTo);
+    const {toDate, to} = this.state;
+    return to === DateField.INITIAL_PERIOD_DATE_VALUE
+      ? to
+      : coalesce(toDate, to, this.valueAsDateTo);
   }
 
   /**
@@ -420,11 +425,10 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {DateTimeLikeTypeT}
    */
   private get fromDateFieldValue(): DateTimeLikeTypeT {
-    return coalesce(
-      this.state.fromDate,
-      this.state.from,
-      this.isRangeEnabled ? this.valueAsDateFrom : this.valueAsDate
-    );
+    const {fromDate, from} = this.state;
+    return from === DateField.INITIAL_PERIOD_DATE_VALUE
+      ? from
+      : coalesce(fromDate, from, this.isRangeEnabled ? this.valueAsDateFrom : this.valueAsDate);
   }
 
   /**
@@ -722,17 +726,24 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [09.03.2020]
+   * @stable [25.03.2020]
    * @param {string} value
    */
   private onToDateFieldChange(value: string): void {
     const to = this.getValueAsDate(value);
 
-    this.setState(
-      R.isNil(to)
-        ? {toDate: value}
-        : ({periodMode: DatePeriodsEnum.CUSTOM, to, toDate: value})
-    );
+    this.setState({
+      toDate: value,
+      ...(
+        R.isNil(to)
+          ? {}
+          : ({
+            periodMode: DatePeriodsEnum.CUSTOM,
+            cursor: this.dc.addMonthsAsDate({date: this.dc.asFirstDayOfMonth({date: to}), duration: -1}),
+            to,
+          })
+      ),
+    });
   }
 
   /**

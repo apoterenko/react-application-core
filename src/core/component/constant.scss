@@ -228,9 +228,6 @@ $rac-perfect-scrollbar-background-color: unset !default;
 $rac-perfect-scrollbar-rail-background-color: unset !default;
 
 /* @stable [21.01.2019] */
-$rac-calendar-base-dialog-cls: rac-calendar-base-dialog;
-$rac-calendar-dialog-cls: rac-calendar-dialog;
-/**/
 $rac-calendar-dialog-size-0: 32px !default;
 $rac-calendar-dialog-size-1: $rac-calendar-dialog-size-0 / 2 !default;
 $rac-calendar-dialog-color-0: $rac-color-1-3 !default;
@@ -267,7 +264,6 @@ $rac-calendar-dialog-footer-action-height: 32px !default;
 $rac-calendar-dialog-footer-action-margin: 0 0 0 $rac-offset-3 !default;
 $rac-calendar-dialog-footer-display: flex !default;
 $rac-calendar-dialog-footer-input-self-field-background: $rac-color-0-1 !default;
-$rac-calendar-dialog-footer-input-width: 128px !default;
 $rac-calendar-dialog-footer-justify-content: center !default;
 $rac-calendar-dialog-footer-self-field-height: unset !default;
 $rac-calendar-dialog-range-button-mini-background: $rac-color-0-9 !default;
