@@ -202,8 +202,8 @@
   ],
   "keywords": [
     "application",
-    "business",
     "logic",
+    "business",
     "react",
     "redux"
   ]
