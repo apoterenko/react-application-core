@@ -204,7 +204,6 @@
     "application",
     "business",
     "logic",
-    "react",
-    "redux"
+    "react"
   ]
 }
