@@ -39,8 +39,6 @@ import {
 
 @injectable()
 export class DateConverter implements IDateConverter<MomentT> {
-  private static MONTHS = moment.months();
-  private static MONTHS_SHORT = moment.monthsShort();
   private static WEEKDAYS_SHORT = moment.weekdaysShort()
       .slice(1, 7)
       .concat(moment.weekdaysShort()[0]);
@@ -919,14 +917,6 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public currentDateAsUiDateString(cfg?: IDateTimeConfigEntity): string {
     return this.dateAsUiDateString({...cfg, date: this.getCurrentDate()});
-  }
-
-  public getLocalizedMonth(index: number): string {
-    return DateConverter.MONTHS[index];
-  }
-
-  public getLocalizedMonthShort(index: number): string {
-    return DateConverter.MONTHS_SHORT[index];
   }
 
   public getLocalizedWeekday(index: number): string {

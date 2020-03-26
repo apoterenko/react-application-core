@@ -134,8 +134,6 @@ export interface IDateConverter<TDate = Date> {
                     inputFormat?: string): Date;
   get30DaysAgo(): Date;
   getXDaysAgo(days: number): Date;
-  getLocalizedMonth(index: number): string;
-  getLocalizedMonthShort(index: number): string;
   getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
   isSameMonth(date1: Date, date2: Date): boolean;

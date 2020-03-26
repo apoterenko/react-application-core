@@ -1,9 +1,13 @@
-import { IEffectsAction, EffectsAction, EffectsActionBuilder } from 'redux-effects-promise';
+import {
+  EffectsAction,
+  EffectsActionBuilder,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import {
   IChainedMiddlewareConfigEntity,
   IEditedListMiddlewareConfigEntity,
-  ISelectEntityPayloadEntity,
+  ISelectedFluxEntity,
 } from '../../definition';
 import { IEntity } from '../../definitions.interface';
 import {
@@ -23,17 +27,17 @@ import {
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
 /**
- * @stable [20.10.2019]
+ * @stable [27.03.2020]
  * @param {IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>} config
  * @returns {IChainedMiddlewareConfigEntity<TState, TEntity extends IEntity>}
  */
-const toChainedConfigEntity = <TEntity extends IEntity, TState>(
+const asChainedConfigEntity =
+  <TEntity extends IEntity, TState>(
     config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IChainedMiddlewareConfigEntity<TState, TEntity> =>
   ({
     action: config.action,
     nextSection: config.formSection,
     path: config.path,
-    payload: null,
     state: config.state,
   });
 
@@ -45,64 +49,49 @@ const toChainedConfigEntity = <TEntity extends IEntity, TState>(
 export const makeCreateEntityMiddleware =
   <TEntity extends IEntity, TState>(config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] =>
     ifNotNilThanValue(
-      makeChainedMiddleware(toChainedConfigEntity(config)),
+      makeChainedMiddleware(asChainedConfigEntity(config)),
       (actions) => [...actions, ...makeDefaultFormChangesMiddleware(config)]
     );
 
 /**
- * @stable [19.10.2019]
+ * @stable [27.03.2020]
  * @param {IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>} config
  * @returns {IEffectsAction[]}
  */
-export const makeSelectEntityMiddleware = <TEntity extends IEntity, TState>(
-  config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] => {
-  const action = config.action;
-  const selected = selectSelectedEntityFromAction(action);
+export const makeSelectEntityMiddleware =
+  <TEntity extends IEntity, TState>(config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] => {
+    const action = config.action;
+    const selected = selectSelectedEntityFromAction(action);
 
-  return config.lazyLoading
-    ? [
-      ListActionBuilder.buildLazyLoadAction(
-        config.listSection,
-        defValuesFilter<ISelectEntityPayloadEntity, ISelectEntityPayloadEntity>({
-          selected,
-          preventEffects: selectPreventEffectsFromAction(action),
-          previousAction: selectPreviousActionFromAction(action),
-        })
-      )
-    ]
-    : makeChainedMiddleware({
-        action,
-        nextSection: config.formSection,
-        path: config.path,
-        payload: selected,
-        state: config.state,
-      });
-};
+    return config.lazyLoading
+      ? [
+        ListActionBuilder.buildLazyLoadAction(
+          config.listSection,
+          defValuesFilter<ISelectedFluxEntity, ISelectedFluxEntity>({
+            selected,
+            preventEffects: selectPreventEffectsFromAction(action),
+            previousAction: selectPreviousActionFromAction(action),
+          })
+        )
+      ]
+      : makeChainedMiddleware({...asChainedConfigEntity(config), payload: selected});
+  };
 
 /**
- * @stable [20.10.2019]
+ * @stable [27.03.2020]
  * @param {IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>} config
  * @returns {IEffectsAction[]}
  */
-export const makeLazyLoadedEntityMiddleware = <TEntity extends IEntity, TState>(
-  config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] => {
-  const action = config.action;
-  const result = [
-    ...ifNotNilThanValue(
-      selectPreviousActionTypeFromAction(action),
-      (previousActionType) => [EffectsAction.create(EffectsActionBuilder.buildDoneActionType(previousActionType))],
-      []
-    ),
-    ...ifNotNilThanValue(
-      makeChainedMiddleware({
-        ...toChainedConfigEntity(config),
-        ...defValuesFilter<IChainedMiddlewareConfigEntity<TState>, IChainedMiddlewareConfigEntity<TState>>({
-          payload: action.data,
-        }),
-      }),
-      (actions) => actions,
-      []
-    )
-  ];
-  return orNull(isObjectNotEmpty(result), result);
-};
+export const makeLazyLoadedEntityMiddleware =
+  <TEntity extends IEntity, TState>(config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] => {
+    const action = config.action;
+    const result = [
+      ...ifNotNilThanValue(
+        selectPreviousActionTypeFromAction(action),
+        (previousActionType) => [EffectsAction.create(EffectsActionBuilder.buildDoneActionType(previousActionType))],
+        []
+      ),
+      ...makeChainedMiddleware({...asChainedConfigEntity(config), payload: action.data}) || []
+    ];
+    return orNull(isObjectNotEmpty(result), result);
+  };

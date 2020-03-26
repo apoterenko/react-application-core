@@ -20,7 +20,7 @@ import {
   IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
-  IFormExtendedEditableEntity,
+  IExtendedFormEditableEntity,
   IListEntity,
   IListWrapperEntity,
   IPagedEntity,
@@ -56,7 +56,7 @@ export const transportMapper = (storeEntity: IUniversalStoreEntity): ITransportW
 /**
  * @deprecated mapEditableEntity
  */
-export const formMapper = (editableEntity: IEditableEntity): IFormExtendedEditableEntity => ({
+export const formMapper = (editableEntity: IEditableEntity): IExtendedFormEditableEntity => ({
   form: {
     ...editableEntity,
   },
@@ -190,7 +190,7 @@ export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEdi
 /**
  * @deprecated selectFormEntityToolbarToolsActiveFilter
  */
-export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IFormExtendedEditableEntity): ToolbarToolsEnum[] =>
+export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
   toolbarActiveFilterToolEditableEntityMapper(entityFormEntity.form);
 
 /**

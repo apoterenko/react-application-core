@@ -9,7 +9,6 @@ import {
   IListSectionWrapper,
   INavigateBackWrapper,
   IRelatedEntityWrapper,
-  IResolverWrapper,
   IStateWrapper,
   ISucceedTextWrapper,
 } from '../../definitions.interface';
@@ -25,7 +24,6 @@ import {
  */
 export interface IUntouchedListMiddlewareConfig<TApplicationState>
   extends IListAccessorWrapper<(state: TApplicationState) => IListEntity>,
-          IResolverWrapper<(state: TApplicationState) => IListWrapperEntity>,
           IListSectionWrapper,
           ILazyLoadedResolverWrapper<(state: TApplicationState, action?: IEffectsAction) => IListWrapperEntity>,
           ILazyLoadedSectionWrapper<(state: TApplicationState, action?: IEffectsAction) => string> {

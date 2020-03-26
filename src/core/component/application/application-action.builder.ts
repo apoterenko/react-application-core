@@ -20,7 +20,7 @@ import {
   $RAC_APPLICATION_NOT_READY_ACTION_TYPE,
   $RAC_APPLICATION_PREPARE_ACTION_TYPE,
   $RAC_APPLICATION_READY_ACTION_TYPE,
-  IApplicationFluxTokenEntity,
+  IApplicationTokenFluxEntity,
 } from '../../definition';
 
 // TODO Move
@@ -61,19 +61,19 @@ export class ApplicationActionBuilder {
 
   /**
    * @stable [16.03.2020]
-   * @param {IApplicationFluxTokenEntity} payload
+   * @param {IApplicationTokenFluxEntity} payload
    * @returns {IEffectsAction}
    */
-  public static buildAfterLoginAction(payload: IApplicationFluxTokenEntity): IEffectsAction {
+  public static buildAfterLoginAction(payload: IApplicationTokenFluxEntity): IEffectsAction {
     return EffectsAction.create(this.buildAfterLoginActionType(), payload);
   }
 
   /**
    * @stable [16.03.2020]
-   * @param {IApplicationFluxTokenEntity} payload
+   * @param {IApplicationTokenFluxEntity} payload
    * @returns {IEffectsAction}
    */
-  public static buildAuthorizedAction(payload?: IApplicationFluxTokenEntity): IEffectsAction {
+  public static buildAuthorizedAction(payload?: IApplicationTokenFluxEntity): IEffectsAction {
     return EffectsAction.create(this.buildAuthorizedActionType(), payload);
   }
 

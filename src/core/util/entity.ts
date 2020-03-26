@@ -7,12 +7,11 @@ import {
 } from '../definitions.interface';
 import {
   IExtendedEntity,
-  IMultiEntity,
   MultiFieldEntityT,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 import { isPrimitive } from './type';
-import { selectEntityId } from './mapper';
+import { selectEntityId } from './select';
 
 /**
  * @stable [19.10.2019]

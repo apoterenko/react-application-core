@@ -5,7 +5,6 @@ import {
   IChainedMiddlewareConfigEntity,
 } from '../../definition';
 import {
-  ifNotFalseThanValue,
   isFn,
   selectPreventEffectsFromAction,
 } from '../../util';
@@ -15,24 +14,25 @@ import {
 } from '../../action';
 
 /**
- * @stable [19.10.2019]
+ * @stable [26.03.2020]
  * @param {IChainedMiddlewareConfigEntity<TState, TPayload>} config
  * @returns {IEffectsAction[]}
  */
-export const makeChainedMiddleware = <TPayload, TState>(
-  config: IChainedMiddlewareConfigEntity<TState, TPayload>): IEffectsAction[] =>
-  ifNotFalseThanValue(
-    selectPreventEffectsFromAction(config.action),
-    () => [
-      StackActionBuilder.buildLockAction(
-        isFn(config.nextSection)
-          ? (config.nextSection as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
-          : config.nextSection as string
-      ),
-      RouterActionBuilder.buildNavigateAction(
-        isFn(config.path)
-          ? (config.path as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
-          : config.path as string
-      )
-    ]
-  );
+export const makeChainedMiddleware =
+  <TPayload, TState>(config: IChainedMiddlewareConfigEntity<TState, TPayload>): IEffectsAction[] =>
+    selectPreventEffectsFromAction(config.action) === true
+      ? []
+      : (
+        [
+          StackActionBuilder.buildLockAction(
+            isFn(config.nextSection)
+              ? (config.nextSection as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
+              : config.nextSection as string
+          ),
+          RouterActionBuilder.buildNavigateAction(
+            isFn(config.path)
+              ? (config.path as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
+              : config.path as string
+          )
+        ]
+      );

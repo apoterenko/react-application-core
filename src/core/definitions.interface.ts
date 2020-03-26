@@ -474,20 +474,20 @@ export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
 export interface IShowWrapper<TValue = {}> { show?(payload?: TValue): void; }
 export interface ISignInWrapper<TSignIn> { signIn?: TSignIn; }
 export interface ISortableWrapper { sortable?: boolean; }
-export interface ISorterWrapper<TEntity = IEntity> { sorter?(entity1: TEntity, entity2: TEntity): number; }
+export interface ISorterWrapper<TValue = IEntity> { sorter?(entity1: TValue, entity2: TValue): number; }
 export interface ISourceWrapper<TValue> { source?: TValue; }
-export interface ISrcWrapper<TSrc = string> { src?: TSrc; }
-export interface IStackWrapper<TStack> { stack?: TStack; }
-export interface IStateWrapper<TState> { state?: TState; }
+export interface ISrcWrapper<TValue = string> { src?: TValue; }
+export interface IStackWrapper<TValue> { stack?: TValue; }
+export interface IStateWrapper<TValue> { state?: TValue; }
 export interface IStatusTextWrapper { statusText?: string; }
 export interface IStatusWrapper<TValue = number> { status?: TValue; }
 export interface IStepWrapper<TValue = number> { step?: TValue; }
 export interface IStickyElementClassNameWrapper { stickyElementClassName?: string; }
 export interface IStickyHeadWrapper { stickyHead?: boolean; }
 export interface IStreetNumberWrapper<TValue = string> { streetNumber?: TValue; }
-export interface IStreetWrapper<TStreet = string> { street?: TStreet; }
+export interface IStreetWrapper<TValue = string> { street?: TValue; }
 export interface IStrictWrapper { strict?: boolean; }
-export interface IStyleWrapper<TStyle> { style?: TStyle; }
+export interface IStyleWrapper<TValue> { style?: TValue; }
 export interface ISubHeaderConfigurationWrapper<TValue> { subHeaderConfiguration?: TValue; }
 export interface ISubHeaderRenderedWrapper { subHeaderRendered?: boolean; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
@@ -797,13 +797,6 @@ export interface IEastWrapper<TEast = JSX.Element> {
  */
 export interface IOpenWrapper<TOpen = boolean> {
   open?: TOpen;
-}
-
-/**
- * @stable [31.08.2018]
- */
-export interface IResolverWrapper<TResolver> {
-  resolver?: TResolver;
 }
 
 /**
