@@ -3,12 +3,9 @@ import * as R from 'ramda';
 import {
   AnyT,
   EntityIdT,
-  FROM_TIME_FIELD_NAME,
   IEntity,
   IEntityIdTWrapper,
   IKeyValue,
-  TIME_FIELD_NAME,
-  TO_TIME_FIELD_NAME,
 } from '../definitions.interface';
 import { ID_FIELD_NAME } from '../definition/field-definition.interface';
 import {
@@ -66,21 +63,6 @@ export function excludeFieldsPredicateFactory(...fields: string[]) {
 }
 
 export const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD_NAME);
-export const EXCLUDE_TIME_FIELDS_PREDICATE = excludeFieldsPredicateFactory(
-  TIME_FIELD_NAME,
-  FROM_TIME_FIELD_NAME,
-  TO_TIME_FIELD_NAME,
-);
-
-/**
- * @test
- * @param {TSource} source
- * @returns {TResult}
- */
-export function cloneUsingTimeFieldsFilters<TSource extends IKeyValue, TResult extends IKeyValue>(
-  source: TSource): TResult {
-  return cloneUsingFilters<TSource, TResult>(source, EXCLUDE_TIME_FIELDS_PREDICATE);
-}
 
 /**
  * @stable [09.01.2019]

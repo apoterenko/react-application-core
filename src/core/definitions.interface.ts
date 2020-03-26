@@ -16,12 +16,6 @@ export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 
 /**
- * Core fields
- */
-export const FROM_TIME_FIELD_NAME = 'fromTime';
-export const TO_TIME_FIELD_NAME = 'toTime';
-export const TIME_FIELD_NAME = 'time';
-/**
  * @deprecated
  */
 export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */
@@ -1053,13 +1047,6 @@ export interface IColumnColSpanWrapper {
  */
 export interface IDisplayMessageWrapper<TDisplayMessage = string> {
   displayMessage?: TDisplayMessage;
-}
-
-/**
- * @stable [07.01.2019]
- */
-export interface ICurrentTimeWrapper<TCurrentDate> {
-  currentTime?: TCurrentDate;
 }
 
 /* @stable - 15.04.2018 */

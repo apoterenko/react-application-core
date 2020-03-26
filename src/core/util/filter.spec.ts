@@ -4,14 +4,10 @@ import {
   defValuesFilter,
   excludeIdFieldFilter,
   cloneUsingFilters,
-  cloneUsingTimeFieldsFilters,
 } from './filter';
 import { ID_FIELD_NAME } from '../definition/field-definition.interface';
 import {
   UNDEF,
-  TIME_FIELD_NAME,
-  TO_TIME_FIELD_NAME,
-  FROM_TIME_FIELD_NAME,
 } from '../definitions.interface';
 
 describe('util/filter', () => {
@@ -235,40 +231,6 @@ describe('util/filter', () => {
       expect(clonedObject).toEqual(
         { key1: 'value1', key2: { key7: { key8: null } } }
       );
-    });
-  });
-
-  describe('cloneUsingTimeFieldsFilters', () => {
-    it('test1', () => {
-      const o = {
-        key1: 'value1',
-        [TIME_FIELD_NAME]: '10:59:59',
-        [FROM_TIME_FIELD_NAME]: '10:59:59',
-        [TO_TIME_FIELD_NAME]: '10:59:59',
-        key2: {
-          key3: 'value3',
-          [TIME_FIELD_NAME]: '10:59:59',
-          [FROM_TIME_FIELD_NAME]: '10:59:59',
-          [TO_TIME_FIELD_NAME]: '10:59:59',
-          key4: {
-            key5: 'value5',
-            [TIME_FIELD_NAME]: '10:59:59',
-            [FROM_TIME_FIELD_NAME]: '10:59:59',
-            [TO_TIME_FIELD_NAME]: '10:59:59',
-          },
-        },
-      };
-      const clonedObject = cloneUsingTimeFieldsFilters(o);
-
-      expect(clonedObject).toEqual({
-        key1: 'value1',
-        key2: {
-          key3: 'value3',
-          key4: {
-            key5: 'value5',
-          },
-        },
-      });
     });
   });
 });
