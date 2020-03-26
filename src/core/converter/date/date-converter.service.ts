@@ -115,7 +115,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [22.12.2019]
+   * @stable [26.03.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
@@ -125,10 +125,7 @@ export class DateConverter implements IDateConverter<MomentT> {
       outputFormat,
     } = cfg;
     if (date instanceof Date || isObjectNotEmpty(date)) {
-      const momentDate = this.asMomentDate(cfg);
-      return momentDate.isValid()
-        ? momentDate.format(outputFormat)
-        : String(date);
+      return this.processValidMomentDate(cfg, (mDate) => mDate.format(outputFormat)) || String(date);
     } else {
       return '';
     }
@@ -529,6 +526,15 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [26.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public dateAsUiDateString(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsString({...cfg, outputFormat: this.uiDateFormat});
+  }
+
+  /**
    * @stable [25.12.2019]
    * @tested
    * @param {IDateTimeConfigEntity} cfg
@@ -849,10 +855,9 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {string}
    */
   public fromDateToUiDate(cfg: IDateTimeConfigEntity): string {
-    return this.dateAsString({
+    return this.dateAsUiDateString({
       strict: false, // UTC: ignore a time, by default (+00:00 | Z)
       inputFormat: this.dateFormat,
-      outputFormat: this.uiDateFormat,
       ...cfg,
     });
   }
