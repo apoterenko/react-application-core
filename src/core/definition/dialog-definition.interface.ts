@@ -29,7 +29,7 @@ import { IButtonProps } from './button-definition.interface';
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
-import { IFormExtendedEditableEntity } from './form-definition.interface';
+import { IExtendedFormEditableEntity } from './form-definition.interface';
 
 /**
  * @generic-entity
@@ -134,7 +134,7 @@ export interface IDialogConfigurationEntity<TProps extends IDialogProps = IDialo
  */
 export interface IUnsavedFormChangesDialogProps
   extends IDialogProps,
-    IFormExtendedEditableEntity {
+    IExtendedFormEditableEntity {
 }
 
 /**

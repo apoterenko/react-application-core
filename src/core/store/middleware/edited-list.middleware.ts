@@ -7,7 +7,6 @@ import {
 } from '../../definition';
 import { IEntity } from '../../definitions.interface';
 import {
-  FormActionBuilder,
   ListActionBuilder,
 } from '../../component/action.builder';
 import { makeChainedMiddleware } from './chained.middleware';
@@ -21,6 +20,7 @@ import {
   selectPreviousActionTypeFromAction,
   selectSelectedEntityFromAction,
 } from '../../util';
+import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
 /**
  * @stable [20.10.2019]
@@ -46,16 +46,7 @@ export const makeCreateEntityMiddleware =
   <TEntity extends IEntity, TState>(config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IEffectsAction[] =>
     ifNotNilThanValue(
       makeChainedMiddleware(toChainedConfigEntity(config)),
-      (actions) => (
-       [
-         ...actions,
-         ...(
-           isObjectNotEmpty(config.defaultChanges) && config.formSection
-             ? [FormActionBuilder.buildDefaultChangesAction<TEntity>(config.formSection, config.defaultChanges)]
-             : []
-         )
-       ]
-      )
+      (actions) => [...actions, ...makeDefaultFormChangesMiddleware(config)]
     );
 
 /**

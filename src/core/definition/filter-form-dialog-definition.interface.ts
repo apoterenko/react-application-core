@@ -3,14 +3,14 @@ import {
   IForwardedRefWrapper,
 } from '../definitions.interface';
 import { IContainerProps } from './props-definition.interface';
-import { IFormExtendedEditableEntity } from './form-definition.interface';
+import { IExtendedFormEditableEntity } from './form-definition.interface';
 
 /**
  * @stable [16.01.2020]
  */
 export interface IGenericFilterFormDialogEntity<TRef>
   extends IAutoResetWrapper,
-    IFormExtendedEditableEntity,
+    IExtendedFormEditableEntity,
     IForwardedRefWrapper<TRef> {
 }
 

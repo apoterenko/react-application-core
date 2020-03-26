@@ -5,7 +5,6 @@ import {
   IActionWrapper,
   ICustomActionsWrapper,
   IDataWrapper,
-  IDefaultChangesWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
   IEntity,
@@ -44,6 +43,7 @@ import {
 } from '../definitions.interface';
 import { IAsyncLibsWrapperEntity } from './async-lib-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
+import { IDefaultFormChangesMiddlewareConfigEntity } from './middleware-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
@@ -172,14 +172,13 @@ export interface INotificationInfoMiddlewareConfigEntity
  * @stable [09.10.2019]
  */
 export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
-  extends IFormSectionWrapper,
+  extends IDefaultFormChangesMiddlewareConfigEntity<TEntity, TState>,
     IListSectionWrapper,
     IStateWrapper<TState>,
     IPathWrapper<ChainedMiddlewarePayloadT<TState, TEntity>>,
     IEffectsActionEntity,
     ILazyLoadingWrapper,
-    IEntityWrapper<TEntity>,
-    IDefaultChangesWrapper<TEntity> {
+    IEntityWrapper<TEntity> {
 }
 
 /**
