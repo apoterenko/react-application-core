@@ -1,5 +1,6 @@
 import {
   ICalendarConfigurationWrapper,
+  ICalendarEntityConfigurationWrapper,
   ICalendarEntityWrapper,
   IIsFirstSelectedWrapper,
   IIsLastSelectedWrapper,
@@ -9,11 +10,13 @@ import {
   IRendererWrapper,
   ISelectedDaysWrapper,
   IShowOnlyCurrentDaysWrapper,
+  IUseSyntheticCalendarWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import {
   ICalendarDayEntity,
   ICalendarEntity,
+  IDateTimeConfigEntity,
 } from './date-definition.interface';
 import { IGridConfigurationEntity } from './grid-definition.interface';
 
@@ -52,11 +55,28 @@ export interface ICalendarProps
 }
 
 /**
+ * @config-entity
+ * @stable [04.01.2020]
+ */
+export interface ICalendarConfigEntity<TDate = Date>
+  extends IDateTimeConfigEntity<TDate>,
+    IUseSyntheticCalendarWrapper {
+}
+
+/**
  * @configuration-entity
  * @stable [21.01.2020]
  */
 export interface ICalendarConfigurationEntity<TProps extends ICalendarProps = ICalendarProps>
   extends ICalendarConfigurationWrapper<TProps> {
+}
+
+/**
+ * @configuration-entity
+ * @stable [21.01.2020]
+ */
+export interface ICalendarEntityConfigurationEntity
+  extends ICalendarEntityConfigurationWrapper<ICalendarConfigEntity> {
 }
 
 /**

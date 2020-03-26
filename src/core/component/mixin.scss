@@ -1653,6 +1653,7 @@
   $rac-button-disabled-opacity: unset,                                               /* stable [02.02.2020 ] */
   $rac-button-disabled-shadow: unset,                                                /* stable [03.02.2020 ] */
   $rac-button-display: unset,                                                        /* stable [02.02.2020 ] */
+  $rac-button-flex-grow: unset,                                                      /* stable [26.03.2020 ] */
   $rac-button-flex: unset,                                                           /* stable [02.02.2020 ] */
   $rac-button-focus-border: unset,                                                   /* stable [10.02.2020 ] */
   $rac-button-focus-box-sizing: unset,                                               /* stable [10.02.2020 ] */
@@ -1693,6 +1694,7 @@
       $rac-styles-color: $rac-button-color,
       $rac-styles-cursor: $rac-button-cursor,
       $rac-styles-display: $rac-button-display,
+      $rac-styles-flex-grow: $rac-button-flex-grow,
       $rac-styles-flex: $rac-button-flex,
       $rac-styles-height: $rac-button-height,
       $rac-styles-left: $rac-button-left,
@@ -4435,6 +4437,36 @@
     .ps__rail-y.ps--clicking .ps__thumb-y {
       @include rac-styles (
         $rac-styles-background-color: $rac-perfect-scrollbar-active-background-color
+      );
+    }
+  }
+}
+
+/**
+ * @stable [26.03.2020]
+ */
+@mixin rac-date-field-navigator (
+  $rac-date-field-navigator-custom: unset,
+  /**/
+  $rac-date-field-navigator-button-decorated-not-filled-mini-icon-size: unset,               /* @stable [26.03.2020] */
+  $rac-date-field-navigator-display: unset,                                                  /* @stable [26.03.2020] */
+  $rac-date-field-navigator-field-margin: unset,                                             /* @stable [26.03.2020] */
+  $rac-date-field-navigator-self-field-background: unset                                     /* @stable [26.03.2020] */
+) {
+  #{rac-cls($rac-date-field-navigator-cls, $rac-date-field-navigator-custom)} {
+    @include rac-styles (
+      $rac-styles-display: $rac-date-field-navigator-display
+    );
+
+    > {
+      @include rac-button (
+        $rac-button-custom: $rac-button-decorated-not-filled-mini-cls,
+        $rac-button-icon-size: $rac-date-field-navigator-button-decorated-not-filled-mini-icon-size
+      );
+
+      @include rac-field (
+        $rac-field-margin: $rac-date-field-navigator-field-margin,
+        $rac-self-field-background: $rac-date-field-navigator-self-field-background
       );
     }
   }

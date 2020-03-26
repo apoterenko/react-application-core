@@ -56,11 +56,11 @@ export interface IDateConverter<TDate = Date> {
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
   dateAsDateString(cfg: IDateTimeConfigEntity): string;
-  dateAsUiDateString(cfg: IDateTimeConfigEntity): string;
   dateAsDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsPstDateString(cfg: IDateTimeConfigEntity): string;
   dateAsPstTimeString(cfg: IDateTimeConfigEntity): string;
   dateAsString(cfg: IDateTimeConfigEntity): string;
+  dateAsUiDateString(cfg: IDateTimeConfigEntity): string;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<TDate>): string;

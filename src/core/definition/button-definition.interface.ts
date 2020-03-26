@@ -82,11 +82,12 @@ export interface IButtonConfigurationEntity
 }
 
 /**
- * @class-names
- * @stable [03.02.2020]
+ * @classes
+ * @stable [26.03.2020]
  */
-export enum ButtonClassNamesEnum {
+export enum ButtonClassesEnum {
   BUTTON = 'rac-button',
   BUTTON_CONTENT = 'rac-button__content',
   BUTTON_RAISED = 'rac-button-raised',
+  FULL_BUTTON = 'rac-full-button',
 }

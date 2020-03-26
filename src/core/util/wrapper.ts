@@ -62,6 +62,7 @@ import {
   ITouchedWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
+  IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
   IValidateOnMountWrapper,
@@ -617,3 +618,11 @@ export const isOpened = (wrapper: IOpenedWrapper): boolean =>
  */
 export const isPreviewUsed = (wrapper: IUsePreviewWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.usePreview !== false;
+
+/**
+ * @stable [25.03.2020]
+ * @param {IUsePeriodNavigatorWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isPeriodNavigatorUsed = (wrapper: IUsePeriodNavigatorWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.usePeriodNavigator === true;

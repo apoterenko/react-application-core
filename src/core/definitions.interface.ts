@@ -218,6 +218,7 @@ export interface IFormIdWrapper { formId?: string; }
 export interface IFormSectionWrapper<TValue = string> { formSection?: TValue; }
 export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
 export interface IFormWrapper<TValue> { form?: TValue; }
+export interface IForwardActionConfigurationWrapper<TValue> { forwardActionConfiguration?: TValue; }
 export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
 export interface IFromToEntity<TValue> extends IToWrapper<TValue>, IFromWrapper<TValue> {}
 export interface IFromWrapper<TValue = string> { from?: TValue; }
@@ -240,7 +241,6 @@ export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColu
 export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
 export interface IHeaderConfigurationWrapper<TValue> { headerConfiguration?: TValue; }
 export interface IHeaderContentWrapper<TValue = React.ReactNode> { headerContent?: TValue; }
-export interface IHeaderFormatWrapper<TValue = string> { headerFormat?: TValue; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeaderRendererWrapper<TPayload> { headerRenderer?(payload: TPayload): React.ReactNode; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
@@ -397,6 +397,8 @@ export interface IPatternWrapper<TValue = string> { pattern?: TValue; }
 export interface IPayloadWrapper<TValue = {}> { payload?: TValue; }
 export interface IPerfectScrollWrapper<TValue> { perfectScroll?: TValue; }
 export interface IPeriodModeWrapper<TValue> { periodMode?: TValue; }
+export interface IPeriodStepWrapper { periodStep?: number; }
+export interface IPeriodTypeWrapper<TValue> { periodType?: TValue; }
 export interface IPeriodWrapper<TValue = AnyT> { period?: TValue; }
 export interface IPermissionsWrapper<TValue> { permissions?: TValue; }
 export interface IPlaceActionRenderedWrapper { placeActionRendered?: boolean; }
@@ -530,6 +532,7 @@ export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 export interface IUrlWrapper<TValue = string> { url?: TValue; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
+export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TValue = string> { user?: TValue; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
@@ -550,6 +553,7 @@ export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperC
 export interface IWrapperWrapper<TValue> { wrapper?: TValue; }
 export interface IWrapWrapper { wrap?: boolean; }
 export interface IXWrapper<TX = number> { x?: any; }
+export interface IYearMonthFormatWrapper<TValue = string> { yearMonthFormat?: TValue; }
 export interface IYearWrapper<TValue = number> { year?: TValue; }
 export interface IYWrapper<TY = number> { y?: TY; }
 export interface IZipCodeWrapper<TValue = string> { zipCode?: TValue; }

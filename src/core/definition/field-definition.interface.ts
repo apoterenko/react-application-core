@@ -9,18 +9,14 @@ import {
   EntityIdT,
   IActionsPosition,
   IActionsWrapper,
-  IAheadValueWrapper,
   IAllowEmptyFilterValueWrapper,
   IAnchoredWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
-  ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   IClassNameWrapper,
-  ICursorWrapper,
   IDefaultValueWrapper,
   IDelayTimeoutWrapper,
-  IDialogOpenedWrapper,
   IDictionaryWrapper,
   IDisabledWrapper,
   IDisableLabelWrapper,
@@ -34,32 +30,23 @@ import {
   IFieldsWrapper,
   IForceReloadWrapper,
   IForceUseLocalFilterWrapper,
-  IFormatWrapper,
-  IFromDateWrapper,
-  IFromToEntity,
   IFullWrapper,
-  IHeaderFormatWrapper,
-  IInlineWrapper,
   IKeepChangesWrapper,
   ILabelWrapper,
   IMaskWrapper,
-  IMaxDateWrapper,
   IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
-  IMinDateWrapper,
   INameWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
   IOptionsWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
-  IPeriodModeWrapper,
   IPlaceholderWrapper,
   IPlainValueWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
   IProgressWrapper,
-  IRangeEnabledWrapper,
   IRawDataWrapper,
   IReadOnlyWrapper,
   IRenderedWrapper,
@@ -68,7 +55,6 @@ import {
   ISyntheticCursorWrapper,
   ITabIndexWrapper,
   ITitleWrapper,
-  IToDateWrapper,
   ITypeWrapper,
   IUseKeyboardWrapper,
   IValueWrapper,
@@ -78,16 +64,12 @@ import {
   UNDEF,
 } from '../definitions.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
-import { ICalendarConfigurationEntity } from './calendar-definition.interface';
 import {
-  DatePeriodsEnum,
   DatesRangeValueT,
   DateTimeLikeTypeT,
-  ICalendarEntityConfigurationEntity,
 } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
-import { IDialogConfigurationEntity } from './dialog-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface'; // TODO
 import {
@@ -275,37 +257,6 @@ export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEnti
  * @stable [06.03.2020]
  */
 export type DateFieldRangeValueT = DatesRangeValueT | DateTimeLikeTypeT;
-
-/**
- * @generic-entity
- * @stable [07.01.2020]
- */
-export interface IGenericDateFieldEntity
-  extends ICalendarActionRenderedWrapper,
-    ICalendarConfigurationEntity,
-    ICalendarEntityConfigurationEntity,
-    IDialogConfigurationEntity,
-    IAheadValueWrapper<DatesRangeValueT>,
-    IFormatWrapper,
-    IHeaderFormatWrapper,
-    IInlineWrapper,
-    IMaxDateWrapper<Date>,
-    IMinDateWrapper<Date>,
-    IRangeEnabledWrapper {
-}
-
-/**
- * @generic-state
- * @stable [17.01.2020]
- */
-export interface IGenericDateFieldState
-  extends IFromToEntity<Date>,
-    ICursorWrapper<Date>,
-    IDialogOpenedWrapper,
-    IFromDateWrapper<DateTimeLikeTypeT>,
-    IPeriodModeWrapper<DatePeriodsEnum>,
-    IToDateWrapper<DateTimeLikeTypeT> {
-}
 
 /**
  * @generic-entity

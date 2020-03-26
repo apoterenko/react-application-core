@@ -275,18 +275,6 @@ $rac-calendar-dialog-range-explorer-date: $rac-color-0-1 !default;
 /************************/
 /* @stable [02.02.2020] */
 /************************/
-$rac-button-decorated-cls: rac-button-decorated;
-$rac-button-filled-cls: rac-button-filled;
-$rac-button-full-cls: rac-button-full;
-$rac-button-mini-cls: rac-button-mini;
-$rac-button-not-filled-cls: rac-button-not-filled;
-$rac-button-outlined-cls: rac-button-outlined;
-$rac-button-raised-cls: rac-button-raised;
-/**/
-$rac-button-decorated-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-filled-cls}';
-$rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
-$rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-button-decorated-not-filled-cls}';
-/**/
 $rac-button-color-0: $rac-color-1-6 !default;
 $rac-button-color-1: $rac-color-0-4 !default;
 $rac-button-color-2: $rac-color-0-3 !default;
@@ -331,7 +319,6 @@ $rac-button-filled-icon-margin: 0 $rac-button-size-4 !default;
 $rac-button-focus-border: unset !default;
 $rac-button-focus-box-sizing: unset !default;
 $rac-button-focus-padding: unset !default;
-$rac-button-full-flex: 1 !default;
 $rac-button-height: $rac-button-size-1 !default;
 $rac-button-hover-transform: unset !default;
 $rac-button-hover-transition: unset !default;

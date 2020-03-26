@@ -4,6 +4,17 @@
 .rac {
 
   /**
+   * @date-field-navigator
+   * @stable [26.03.2020]
+   */
+  @include rac-date-field-navigator (
+    $rac-date-field-navigator-button-decorated-not-filled-mini-icon-size: $rac-date-field-navigator-button-decorated-not-filled-mini-icon-size,
+    $rac-date-field-navigator-display: $rac-date-field-navigator-display,
+    $rac-date-field-navigator-field-margin: $rac-date-field-navigator-field-margin,
+    $rac-date-field-navigator-self-field-background: $rac-date-field-navigator-self-field-background
+  );
+
+  /**
    * @calendar-base-dialog
    * @stable [22.01.2020]
    */

@@ -2,7 +2,6 @@ import * as moment from 'moment';
 
 import {
   IBirthdayWrapper,
-  ICalendarEntityConfigurationWrapper,
   ICurrentWrapper,
   IDateWrapper,
   IDaysLabelsWrapper,
@@ -22,12 +21,12 @@ import {
   IOutputFormatWrapper,
   IOutputTimeFormatWrapper,
   IPeriodModeWrapper,
+  IPeriodTypeWrapper,
   IPreviousWrapper,
   IStrictWrapper,
   ITimeWrapper,
   ITodayWrapper,
   IUnitWrapper,
-  IUseSyntheticCalendarWrapper,
   IYearWrapper,
   IZoneWrapper,
   StringNumberT,
@@ -99,11 +98,27 @@ export type DatesRangeValueT = Array<DateTimeLikeTypeT | DatePeriodsEnum>;
 
 /**
  * @entity
+ * @stable [26.03.2020]
+ */
+export interface IDatePeriodModeEntity
+  extends IPeriodModeWrapper<DatePeriodsEnum> {
+}
+
+/**
+ * @entity
+ * @stable [26.03.2020]
+ */
+export interface IDatePeriodTypeEntity
+  extends IPeriodTypeWrapper<DatePeriodsEnum> {
+}
+
+/**
+ * @entity
  * @stable [07.03.2020]
  */
 export interface IDatesRangeEntity
   extends IFromToEntity<DateTimeLikeTypeT>,
-    IPeriodModeWrapper<DatePeriodsEnum> {
+    IDatePeriodModeEntity {
 }
 
 /**
@@ -118,28 +133,11 @@ export interface IMinMaxDatesRangeConfigEntity
 
 /**
  * @config-entity
- * @stable [04.01.2020]
- */
-export interface ICalendarConfigEntity<TDate = Date>
-  extends IDateTimeConfigEntity<TDate>,
-    IUseSyntheticCalendarWrapper {
-}
-
-/**
- * @config-entity
  * @stable [22.01.2020]
  */
 export interface IPersonAgeConfigEntity<TDate = Date>
   extends IDateTimeConfigEntity<TDate>,
     IBirthdayWrapper {
-}
-
-/**
- * @configuration-entity
- * @stable [21.01.2020]
- */
-export interface ICalendarEntityConfigurationEntity
-  extends ICalendarEntityConfigurationWrapper<ICalendarConfigEntity> {
 }
 
 /**

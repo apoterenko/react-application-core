@@ -28,6 +28,11 @@ $rac-date-field__calendars-dialog-cls: rac-date-field__calendars-dialog;
 $rac-view-field-cls: rac-view-field;
 
 /************************/
+/* @stable [26.03.2020] */
+/************************/
+$rac-date-field-navigator-cls: rac-date-field-navigator;
+
+/************************/
 /* @stable [18.03.2020] */
 /************************/
 $rac-error-info-cls: rac-error-info;
@@ -43,3 +48,18 @@ $rac-full-form-cls: rac-full-form;
 /************************/
 $rac-calendar-base-dialog-cls: rac-calendar-base-dialog;
 $rac-calendar-dialog-cls: rac-calendar-dialog;
+
+/************************/
+/* @stable [26.03.2020] */
+/************************/
+$rac-button-decorated-cls: rac-button-decorated;
+$rac-button-filled-cls: rac-button-filled;
+$rac-button-mini-cls: rac-button-mini;
+$rac-button-not-filled-cls: rac-button-not-filled;
+$rac-button-outlined-cls: rac-button-outlined;
+$rac-button-raised-cls: rac-button-raised;
+$rac-full-button-cls: rac-full-button;
+/**/
+$rac-button-decorated-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-filled-cls}';
+$rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
+$rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-button-decorated-not-filled-cls}';

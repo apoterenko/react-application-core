@@ -11,6 +11,7 @@ import {
   isDef,
   isInline,
   isObjectNotEmpty,
+  isPeriodNavigatorUsed,
   isRangeEnabled,
   joinClassName,
   nvl,
@@ -61,7 +62,8 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   extends BaseTextField<TProps, TState> {
 
   public static readonly defaultProps: IDateFieldProps = {
-    headerFormat: 'MMMM YYYY',
+    periodStep: 1,
+    periodType: DatePeriodsEnum.MONTH,
     preventFocus: true,
   };
 
@@ -107,6 +109,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   constructor(props: TProps) {
     super(props);
 
+    this.addPeriod = this.addPeriod.bind(this);
     this.isDaySelected = this.isDaySelected.bind(this);
     this.isFirstDaySelected = this.isFirstDaySelected.bind(this);
     this.isLastDaySelected = this.isLastDaySelected.bind(this);
@@ -126,6 +129,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
     this.setNextMonth = this.setNextMonth.bind(this);
     this.setPreviousMonth = this.setPreviousMonth.bind(this);
     this.setQuickValue = this.setQuickValue.bind(this);
+    this.subtractPeriod = this.subtractPeriod.bind(this);
 
     this.defaultActions = [
       ...(
@@ -135,6 +139,40 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       ),
       ...this.defaultActions
     ];
+  }
+
+  /**
+   * @stable [26.03.2020]
+   * @returns {JSX.Element}
+   */
+  public render(): JSX.Element {
+    const props = this.props;
+    const baseElement = super.render();
+
+    if (!this.isPeriodNavigatorUsed) {
+      return baseElement;
+    }
+    const {
+      backActionConfiguration = {},
+      forwardActionConfiguration = {},
+    } = props;
+
+    return (
+      <div
+        className={DateFieldClassesEnum.DATE_FIELD_NAVIGATOR}>
+        <Button
+          icon={IconsEnum.BACK}
+          mini={true}
+          {...backActionConfiguration}
+          onClick={this.subtractPeriod}/>
+        {baseElement}
+        <Button
+          icon={IconsEnum.FORWARD}
+          mini={true}
+          {...forwardActionConfiguration}
+          onClick={this.addPeriod}/>
+      </div>
+    );
   }
 
   /**
@@ -223,12 +261,17 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [07.03.2020]
+   * @stable [26.03.2020]
    * @param {DateFieldRangeValueT} value
    * @returns {string}
    */
   protected decorateDisplayValue(value: DateFieldRangeValueT): string {
-    if (this.isRangeEnabled) {
+    if (this.isPeriodNavigatorUsed) {
+      switch (this.props.periodType) {
+        case DatePeriodsEnum.MONTH:
+          return this.dc.dateAsString({date: this.valueAsDate, outputFormat: this.yearMonthFormat});
+      }
+    } else if (this.isRangeEnabled) {
       const dateRangeEntity = this.fromDatesRangeValue(value as DatesRangeValueT);
       return R.isNil(dateRangeEntity)
         ? FIELD_DISPLAY_EMPTY_VALUE
@@ -250,7 +293,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {string}
    */
   protected getFieldPattern(): string {
-    return orNull(this.isFieldMaskNeeded, () => super.getFieldPattern() || this.dateTimeSettings.uiDatePattern);
+    return orNull(this.isFieldMaskOrPatternNeeded, () => super.getFieldPattern() || this.dateTimeSettings.uiDatePattern);
   }
 
   /**
@@ -258,7 +301,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {Array<string | RegExp>}
    */
   protected getFieldMask(): Array<string|RegExp> {
-    return orNull(this.isFieldMaskNeeded, () => super.getFieldMask() || this.dateTimeSettings.uiDateMask);
+    return orNull(this.isFieldMaskOrPatternNeeded, () => super.getFieldMask() || this.dateTimeSettings.uiDateMask);
   }
 
   /**
@@ -469,21 +512,6 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [25.03.2020]
-   * @param {DatePeriodsEnum} period
-   * @param {boolean} isPreviousPeriodModeEnabled
-   * @returns {string}
-   */
-  private getQuickActionClassName(period: DatePeriodsEnum,
-                                  isPreviousPeriodModeEnabled = this.isPreviousPeriodModeEnabled): string {
-    return joinClassName(
-      !isPreviousPeriodModeEnabled
-      && this.selectedPeriodMode === period
-      && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION
-    );
-  }
-
-  /**
    * @stable [07.03.2020]
    * @returns {JSX.Element}
    */
@@ -546,6 +574,57 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
       <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_QUICK_ACTIONS}>
         {buttonsElement}
       </div>
+    );
+  }
+
+  /**
+   * @stable [25.03.2020]
+   */
+  private subtractPeriod(): void {
+    this.doChangePeriod(-this.props.periodStep);
+  }
+
+  /**
+   * @stable [25.03.2020]
+   */
+  private addPeriod(): void {
+    this.doChangePeriod(this.props.periodStep);
+  }
+
+  /**
+   * @stable [26.03.2020]
+   * @param {number} duration
+   */
+  private doChangePeriod(duration: number): void {
+    let nextValue;
+    const cfg = {date: this.valueAsDate, duration};
+
+    switch (this.props.periodType) {
+      case DatePeriodsEnum.DAY:
+        nextValue = this.dc.addDaysAsDate(cfg);
+        break;
+      case DatePeriodsEnum.WEEK:
+        nextValue = this.dc.addWeeksAsDate(cfg);
+        break;
+      case DatePeriodsEnum.MONTH:
+        nextValue = this.dc.addMonthsAsDate(cfg);
+        break;
+    }
+    ifNotNilThanValue(nextValue, () => this.onChangeManually(nextValue));
+  }
+
+  /**
+   * @stable [25.03.2020]
+   * @param {DatePeriodsEnum} period
+   * @param {boolean} isPreviousPeriodModeEnabled
+   * @returns {string}
+   */
+  private getQuickActionClassName(period: DatePeriodsEnum,
+                                  isPreviousPeriodModeEnabled = this.isPreviousPeriodModeEnabled): string {
+    return joinClassName(
+      !isPreviousPeriodModeEnabled
+      && this.selectedPeriodMode === period
+      && CalendarDialogClassesEnum.CALENDAR_DIALOG_SELECTED_QUICK_ACTION
     );
   }
 
@@ -986,7 +1065,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {string}
    */
   private get currentDateAsDisplayValue(): string {
-    return this.dc.dateAsString({date: this.currentCalendarDate, outputFormat: this.props.headerFormat});
+    return this.dc.dateAsString({date: this.currentCalendarDate, outputFormat: this.yearMonthFormat});
   }
 
   /**
@@ -994,7 +1073,7 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    * @returns {string}
    */
   private get nextDateAsDisplayValue(): string {
-    return this.dc.dateAsString({date: this.nextCalendarDate, outputFormat: this.props.headerFormat});
+    return this.dc.dateAsString({date: this.nextCalendarDate, outputFormat: this.yearMonthFormat});
   }
 
   /**
@@ -1312,11 +1391,19 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   }
 
   /**
-   * @stable [09.03.2020]
+   * @stable [26.03.2020]
    * @returns {boolean}
    */
-  private get isFieldMaskNeeded(): boolean {
-    return !this.isDisplayValueDefined && !this.isRangeEnabled;
+  private get isFieldMaskOrPatternNeeded(): boolean {
+    return !this.isDisplayValueDefined && !this.isRangeEnabled && !this.isPeriodNavigatorUsed;
+  }
+
+  /**
+   * @stable [25.03.2020]
+   * @returns {boolean}
+   */
+  private get isPeriodNavigatorUsed(): boolean {
+    return isPeriodNavigatorUsed(this.props);
   }
 
   /**
@@ -1325,6 +1412,14 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
    */
   private get dateTimeSettings(): IDateTimeSettingsEntity {
     return this.settings.dateTime || {};
+  }
+
+  /**
+   * @stable [26.03.2020]
+   * @returns {string}
+   */
+  private get yearMonthFormat(): string {
+    return nvl(this.props.yearMonthFormat, this.settings.dateTime.uiYearMonthFormat);
   }
 
   /**

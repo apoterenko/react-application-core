@@ -1,5 +1,7 @@
 @import '../mixin';
 @import '../constant';
+@import '../_classes';
+@import './_button-constant';
 
 .rac {
 
@@ -117,11 +119,11 @@
 
 
   /**
-   * @button-full
+   * @full-button
    * @stable [02.02.2020]
    */
   @include rac-button (
-    $rac-button-custom: $rac-button-full-cls,
-    $rac-button-flex: $rac-button-full-flex
+    $rac-button-custom: $rac-full-button-cls,
+    $rac-button-flex-grow: $rac-full-button-flex-grow
   );
 }

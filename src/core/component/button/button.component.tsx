@@ -16,7 +16,7 @@ import {
   nvl,
 } from '../../util';
 import {
-  ButtonClassNamesEnum,
+  ButtonClassesEnum,
   IButtonProps,
   UniversalIdProviderContext,
 } from '../../definition';
@@ -42,14 +42,14 @@ export class Button extends BaseComponent<IButtonProps> {
     const $isIconLeftAligned = isIconLeftAligned(props);
 
     const className = joinClassName(
-      ButtonClassNamesEnum.BUTTON,
+      ButtonClassesEnum.BUTTON,
       calc(props.className),
       $hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
-      this.isFull && 'rac-button-full',
+      this.isFull && ButtonClassesEnum.FULL_BUTTON,
       this.isDecorated && $hasIcon && 'rac-button-decorated',
       props.mini && 'rac-button-mini',
       props.outlined && 'rac-button-outlined',
-      props.raised && ButtonClassNamesEnum.BUTTON_RAISED
+      props.raised && ButtonClassesEnum.BUTTON_RAISED
     );
 
     if (props.to) {
