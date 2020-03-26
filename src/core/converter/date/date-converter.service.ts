@@ -495,19 +495,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [25.12.2019]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string}
-   */
-  public fromDateTimeToUiDate(cfg: IDateTimeConfigEntity): string {
-    return this.dateAsString({
-      inputFormat: this.dateTimeFormat,
-      outputFormat: this.uiDateFormat,
-      ...cfg,
-    });
-  }
-
-  /**
    * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
@@ -849,8 +836,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [22.12.2019]
-   * @tested
+   * @stable [26.03.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
@@ -858,6 +844,18 @@ export class DateConverter implements IDateConverter<MomentT> {
     return this.dateAsUiDateString({
       strict: false, // UTC: ignore a time, by default (+00:00 | Z)
       inputFormat: this.dateFormat,
+      ...cfg,
+    });
+  }
+
+  /**
+   * @stable [26.03.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {string}
+   */
+  public fromDateTimeToUiDate(cfg: IDateTimeConfigEntity): string {
+    return this.dateAsUiDateString({
+      inputFormat: this.dateTimeFormat,
       ...cfg,
     });
   }
@@ -916,11 +914,11 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [25.12.2019]
+   * @stable [26.03.2020]
    * @returns {string}
    */
-  public getCurrentDateAsUiDate(): string {
-    return this.dateAsString({date: this.getCurrentDate(), outputFormat: this.uiDateFormat});
+  public currentDateAsUiDateString(cfg?: IDateTimeConfigEntity): string {
+    return this.dateAsUiDateString({...cfg, date: this.getCurrentDate()});
   }
 
   public getLocalizedMonth(index: number): string {

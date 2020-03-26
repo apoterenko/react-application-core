@@ -55,6 +55,7 @@ export interface IDateConverter<TDate = Date> {
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
+  currentDateAsUiDateString(cfg?: IDateTimeConfigEntity): string;
   dateAsDateString(cfg: IDateTimeConfigEntity): string;
   dateAsDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsPstDateString(cfg: IDateTimeConfigEntity): string;
@@ -70,7 +71,6 @@ export interface IDateConverter<TDate = Date> {
   fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromUiDateToDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
   getCurrentDate(): Date;
-  getCurrentDateAsUiDate(): string;
   getLocalizedShortestWeekday(cfg: IDateTimeConfigEntity): string;
   getLocalizedShortestWeekdays(cfg?: IDateTimeConfigEntity): string[];
   getShortestWeekday(cfg: IDateTimeConfigEntity): string;
