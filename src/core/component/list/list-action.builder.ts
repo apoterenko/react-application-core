@@ -15,7 +15,7 @@ import {
   IPagedEntity,
   IPayloadEntity,
   ISelectedEntity,
-  ISelectEntityPayloadEntity,
+  ISelectedFluxEntity,
 } from '../../definition';
 import { applySection, toActionPrefix } from '../../util';
 import {
@@ -229,7 +229,7 @@ export class ListActionBuilder {
    * @param {ISelectedEntity} payload
    * @returns {IEffectsAction}
    */
-  public static buildLazyLoadAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
+  public static buildLazyLoadAction(section: string, payload: ISelectedFluxEntity): IEffectsAction {
     return EffectsAction.create(this.buildLazyLoadActionType(section), applySection(section, payload));
   }
 
@@ -352,10 +352,10 @@ export class ListActionBuilder {
   /**
    * @stable [20.10.2019]
    * @param {string} section
-   * @param {ISelectEntityPayloadEntity} payload
+   * @param {ISelectedFluxEntity} payload
    * @returns {IEffectsAction}
    */
-  public static buildSelectAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
+  public static buildSelectAction(section: string, payload: ISelectedFluxEntity): IEffectsAction {
     const plainAction = this.buildSelectPlainAction(section, payload);
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
@@ -377,10 +377,10 @@ export class ListActionBuilder {
   /**
    * @stable [20.10.2019]
    * @param {string} section
-   * @param {ISelectEntityPayloadEntity} payload
+   * @param {ISelectedFluxEntity} payload
    * @returns {IEffectsAction}
    */
-  public static buildSelectPlainAction(section: string, payload: ISelectEntityPayloadEntity): IEffectsAction {
+  public static buildSelectPlainAction(section: string, payload: ISelectedFluxEntity): IEffectsAction {
     return {
       type: this.buildSelectActionType(section),
       data: applySection(section, payload),

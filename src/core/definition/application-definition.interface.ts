@@ -51,7 +51,7 @@ export const INITIAL_UNIVERSAL_APPLICATION_ENTITY = Object.freeze<IUniversalAppl
  * @flux-entity
  * @stable [17.03.2020]
  */
-export interface IApplicationFluxTokenEntity
+export interface IApplicationTokenFluxEntity
   extends ITokenWrapper {
 }
 

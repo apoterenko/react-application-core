@@ -7,12 +7,12 @@ import {
 } from '../../../definitions.interface';
 import { TabPanelContainer } from '../tabpanel.container';
 import {
-  IFormExtendedEditableEntity,
+  IExtendedFormEditableEntity,
   ITabPanelContainerProps,
 } from '../../../definition';
 
 export class FormTabPanelContainer
-  extends TabPanelContainer<ITabPanelContainerProps & IFormExtendedEditableEntity> {
+  extends TabPanelContainer<ITabPanelContainerProps & IExtendedFormEditableEntity> {
 
   /**
    * @stable [30.08.2018]
