@@ -57,9 +57,7 @@ import { Button } from '../../button';
 import { Calendar } from '../../calendar';
 import { Dialog } from '../../dialog';
 
-export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
-                       TState extends IDateFieldState = IDateFieldState>
-  extends BaseTextField<TProps, TState> {
+export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
 
   public static readonly defaultProps: IDateFieldProps = {
     periodStep: 1,
@@ -100,13 +98,13 @@ export class DateField<TProps extends IDateFieldProps = IDateFieldProps,
   };
 
   private readonly dialogRef = React.createRef<Dialog>();
-  private readonly fromDateRef = React.createRef<DateField<AnyT>>();
+  private readonly fromDateRef = React.createRef<DateField>();
 
   /**
    * @stable [07.01.2020]
-   * @param {TProps} props
+   * @param {IDateFieldProps} props
    */
-  constructor(props: TProps) {
+  constructor(props: IDateFieldProps) {
     super(props);
 
     this.addPeriod = this.addPeriod.bind(this);
