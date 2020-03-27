@@ -23,6 +23,7 @@ import { INamedEntity } from './entity-definition.interface';
 import { IBaseSelectProps, IBaseSelectState } from '../component/field/select/base-select.interface'; // TODO
 import {
   DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
+  ISelectOptionEntity,
 } from './field-definition.interface';
 
 /**
@@ -56,6 +57,14 @@ export interface IPlaceEntity<TCity = string>
     IStreetNumberWrapper,
     IStreetWrapper,
     IZipCodeWrapper {
+}
+
+/**
+ * @entity
+ * @stable [09.01.2020]
+ */
+export interface IPlaceSelectOptionEntity
+  extends ISelectOptionEntity<IPlaceEntity> {
 }
 
 /**

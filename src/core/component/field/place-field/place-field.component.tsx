@@ -29,6 +29,7 @@ import {
   IPlaceFieldProps,
   IPlaceFieldState,
   IPlaceGeoCodeRequestEntity,
+  IPlaceSelectOptionEntity,
   ISelectOptionEntity,
   PlaceMarkerActionsEnum,
 } from '../../../definition';
@@ -83,9 +84,9 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   /**
    * @stable [11.01.2020]
-   * @param {ISelectOptionEntity<IPlaceEntity>} option
+   * @param {IPlaceSelectOptionEntity} option
    */
-  protected onSelect(option: ISelectOptionEntity<IPlaceEntity>): void {
+  protected onSelect(option: IPlaceSelectOptionEntity): void {
     this.refreshGeocodeInfo({placeId: option.rawData.placeId}, option);
   }
 
@@ -165,9 +166,9 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   /**
    * @stable [11.01.2020]
    * @param {IPlaceGeoCodeRequestEntity} geoCodeRequest
-   * @param {ISelectOptionEntity<IPlaceEntity>} option
+   * @param {IPlaceSelectOptionEntity} option
    */
-  private refreshGeocodeInfo(geoCodeRequest: IPlaceGeoCodeRequestEntity, option?: ISelectOptionEntity<IPlaceEntity>): void {
+  private refreshGeocodeInfo(geoCodeRequest: IPlaceGeoCodeRequestEntity, option?: IPlaceSelectOptionEntity): void {
     this.cancelPlaceGeoCodeTask();
 
     this.setState({progress: true}, () => {
@@ -192,9 +193,9 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   /**
    * @stable [11.01.2020]
    * @param {IPlaceEntity[]} result
-   * @param {ISelectOptionEntity<IPlaceEntity>} option
+   * @param {IPlaceSelectOptionEntity} option
    */
-  private onGeoCodeRequestDone(result: IPlaceEntity[], option?: ISelectOptionEntity<IPlaceEntity>): void {
+  private onGeoCodeRequestDone(result: IPlaceEntity[], option?: IPlaceSelectOptionEntity): void {
     const placeEntity = result[0];
     if (R.isNil(option)) {
       // To preview in a dialog
@@ -208,9 +209,9 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   /**
    * @stable [29.01.2020]
    * @param {IPlaceEntity} placeEntity
-   * @param {ISelectOptionEntity<IPlaceEntity>} option
+   * @param {IPlaceSelectOptionEntity} option
    */
-  private doSelect(placeEntity: IPlaceEntity, option?: ISelectOptionEntity<IPlaceEntity>): void {
+  private doSelect(placeEntity: IPlaceEntity, option?: IPlaceSelectOptionEntity): void {
     let payload: IPlaceEntity | EntityIdT;
     if (this.isPlainValueApplied) {
       payload = this.useZipCode

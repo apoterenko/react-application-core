@@ -85,6 +85,7 @@ export class Form extends BaseComponent<IFormProps> {
     const formElement = (
       <form
         ref={this.selfRef}
+        style={props.style}
         autoComplete='off'
         onReset={this.onReset}
         onSubmit={this.onSubmit}
