@@ -76,21 +76,14 @@ import {
   isNumber,
 } from './type';
 import { isOddNumber } from './calc';
-
-/**
- * @stable [27.03.2020]
- * @param {boolean} value
- * @returns {boolean}
- */
-export const isValueValid = (value: boolean): boolean => value !== false;
+import { $isValid } from './value';
 
 /**
  * @stable [03.02.2020]
  * @param {IValidWrapper} wrapper
  * @returns {boolean}
  */
-export const isValid = (wrapper: IValidWrapper): boolean =>
-  R.isNil(wrapper) ? false : isValueValid(wrapper.valid);
+export const isValid = (wrapper: IValidWrapper): boolean => R.isNil(wrapper) ? false : $isValid(wrapper.valid);
 
 /**
  * @stable [03.02.2020]

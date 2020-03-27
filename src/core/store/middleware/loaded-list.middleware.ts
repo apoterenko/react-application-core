@@ -3,7 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { ListActionBuilder } from '../../component/action.builder';
 import { IListEffectsMiddlewareConfig } from '../../definition';
 import {
-  isValueValid,
+  $isValid,
   orNull,
   selectValidFromAction,
 } from '../../util';
@@ -15,6 +15,6 @@ import {
  */
 export const makeLoadedListOnValidMiddleware = (config: IListEffectsMiddlewareConfig): IEffectsAction =>
   orNull(
-    isValueValid(selectValidFromAction(config.action)),
+    $isValid(selectValidFromAction(config.action)),
     () => ListActionBuilder.buildLoadAction(config.listSection)
   );
