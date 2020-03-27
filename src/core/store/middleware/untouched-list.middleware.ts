@@ -24,11 +24,3 @@ export const makeUntouchedListMiddleware = <TState>(config: IUntouchedListMiddle
       ),
       (actions) => actions
     );
-
-/**
- * @stable [27.03.2020]
- * @param {IUntouchedListMiddlewareConfigEntity<TState>} config
- * @returns {() => IEffectsAction}
- */
-export const makeUntouchedLazyLoadedListMiddleware = <TState>(config: IUntouchedListMiddlewareConfigEntity<TState>) =>
-  (action: IEffectsAction, state: TState): IEffectsAction => ListActionBuilder.buildLoadAction(config.listSection);
