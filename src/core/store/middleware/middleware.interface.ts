@@ -51,14 +51,6 @@ export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
 }
 
 /**
- * @stable [18.02.2019]
- */
-export interface IRefreshedListOnValidFormMiddlewareConfig
-  extends IListSectionWrapper,
-    IEffectsActionEntity {
-}
-
-/**
  * @stable [11.03.2019]
  */
 export interface IFilterFormDialogMiddlewareConfig

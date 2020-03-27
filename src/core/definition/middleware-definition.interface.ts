@@ -55,9 +55,8 @@ export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
  */
 export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
   extends IDefaultFormChangesMiddlewareConfigEntity<TEntity, TState>,
-    IEffectsActionEntity,
+    IListEffectsMiddlewareConfig,
     ILazyLoadingWrapper,
-    IListSectionWrapper,
     IPathWrapper<ChainedMiddlewarePayloadT<TState, TEntity>>,
     IStateWrapper<TState> {
 }
@@ -70,4 +69,13 @@ export interface IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChange
   extends IDefaultFormChangesMiddlewareConfigEntity<TDefaultFormChanges, TState>,
     IListAccessorWrapper<(state: TState) => IListEntity>,
     IListSectionWrapper {
+}
+
+/**
+ * @config-entity
+ * @stable [27.03.2020]
+ */
+export interface IListEffectsMiddlewareConfig
+  extends IListSectionWrapper,
+    IEffectsActionEntity {
 }

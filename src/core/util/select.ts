@@ -14,6 +14,7 @@ import {
   ISelectedWrapper,
   ITokenWrapper,
   ITypeWrapper,
+  IValidWrapper,
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -80,6 +81,22 @@ export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>)
  */
 export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData =>
   R.isNil(wrapper) ? UNDEF : wrapper.data;
+
+/**
+ * @stable [27.03.2020]
+ * @param {IValidWrapper} wrapper
+ * @returns {boolean}
+ */
+export const selectValid = (wrapper: IValidWrapper): boolean =>
+  R.isNil(wrapper) ? UNDEF : wrapper.valid;
+
+/**
+ * @stable [27.03.2020]
+ * @param {IEffectsAction} wrapper
+ * @returns {boolean}
+ */
+export const selectValidFromAction = (wrapper: IEffectsAction): boolean =>
+  R.isNil(wrapper) ? UNDEF : selectValid(wrapper.data);
 
 /**
  * @stable [26.03.2020]

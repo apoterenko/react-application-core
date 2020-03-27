@@ -78,11 +78,19 @@ import {
 import { isOddNumber } from './calc';
 
 /**
+ * @stable [27.03.2020]
+ * @param {boolean} value
+ * @returns {boolean}
+ */
+export const isValueValid = (value: boolean): boolean => value !== false;
+
+/**
  * @stable [03.02.2020]
  * @param {IValidWrapper} wrapper
  * @returns {boolean}
  */
-export const isValid = (wrapper: IValidWrapper): boolean => R.isNil(wrapper) ? false : wrapper.valid !== false;
+export const isValid = (wrapper: IValidWrapper): boolean =>
+  R.isNil(wrapper) ? false : isValueValid(wrapper.valid);
 
 /**
  * @stable [03.02.2020]
