@@ -6,6 +6,7 @@ export * from './effects-by.decorator';
 export * from './failed-effects.proxy';
 export * from './filter-form-dialog-effects.proxy';
 export * from './filtered-list-effects.proxy';
+export * from './loaded-list-on-tab-activate-effects.proxy';
 export * from './loaded-list-on-valid-form-effects.proxy';
 export * from './paginated-list-effects.proxy';
 export * from './sorted-list-effects.proxy';

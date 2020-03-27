@@ -30,6 +30,14 @@ export type ChainedMiddlewarePayloadT<TState, TPayload> = string | ChainedMiddle
 
 /**
  * @config-entity
+ * @stable [27.03.2020]
+ */
+export interface IListMiddlewareConfigEntity
+  extends IListSectionWrapper {
+}
+
+/**
+ * @config-entity
  * @stable [26.03.2020]
  */
 export interface IDefaultFormChangesMiddlewareConfigEntity<TChanges extends IKeyValue = IKeyValue, TState = {}>
@@ -68,7 +76,7 @@ export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TSta
 export interface IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges = {}>
   extends IDefaultFormChangesMiddlewareConfigEntity<TDefaultFormChanges, TState>,
     IListAccessorWrapper<(state: TState) => IListEntity>,
-    IListSectionWrapper {
+    IListMiddlewareConfigEntity {
 }
 
 /**
@@ -76,6 +84,6 @@ export interface IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChange
  * @stable [27.03.2020]
  */
 export interface IListEffectsMiddlewareConfig
-  extends IListSectionWrapper,
+  extends IListMiddlewareConfigEntity,
     IEffectsActionEntity {
 }
