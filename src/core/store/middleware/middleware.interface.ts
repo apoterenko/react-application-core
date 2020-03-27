@@ -1,11 +1,6 @@
-import { IEffectsAction } from 'redux-effects-promise';
-
 import {
   IEntity,
   IFormSectionWrapper,
-  ILazyLoadedResolverWrapper,
-  ILazyLoadedSectionWrapper,
-  IListAccessorWrapper,
   IListSectionWrapper,
   INavigateBackWrapper,
   IRelatedEntityWrapper,
@@ -15,19 +10,7 @@ import {
 import {
   IEffectsActionEntity,
   IStoreEntity,
-  IListWrapperEntity,
-  IListEntity,
 } from '../../definition';
-
-/**
- * @stable [31.08.2018]
- */
-export interface IUntouchedListMiddlewareConfig<TApplicationState>
-  extends IListAccessorWrapper<(state: TApplicationState) => IListEntity>,
-          IListSectionWrapper,
-          ILazyLoadedResolverWrapper<(state: TApplicationState, action?: IEffectsAction) => IListWrapperEntity>,
-          ILazyLoadedSectionWrapper<(state: TApplicationState, action?: IEffectsAction) => string> {
-}
 
 /**
  * @stable [06.07.2018]

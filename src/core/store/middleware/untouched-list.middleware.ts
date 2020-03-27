@@ -1,35 +1,34 @@
 import { IEffectsAction } from 'redux-effects-promise';
-import * as R from 'ramda';
 
-import { orNull, isFn } from '../../util';
+import {
+  ifNotEmptyThanValue,
+  isTouched,
+  notNilValuesArrayFilter,
+  orNull,
+} from '../../util';
 import { ListActionBuilder } from '../../component/action.builder';
-import { IUntouchedListMiddlewareConfig } from './middleware.interface';
+import { IUntouchedListMiddlewareConfigEntity } from '../../definition';
+import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
 /**
- * @stable [31.08.2018]
- * @param {IUntouchedListMiddlewareConfig<TApplicationState>} config
- * @returns {(action: IEffectsAction, state: TApplicationState) => IEffectsAction}
+ * @stable [27.03.2020]
+ * @param {IUntouchedListMiddlewareConfigEntity<TState>} config
+ * @returns {(action: IEffectsAction, state: TState) => IEffectsAction}
  */
-export const makeUntouchedListMiddleware = <TApplicationState>(config: IUntouchedListMiddlewareConfig<TApplicationState>) =>
-  (action: IEffectsAction, state: TApplicationState): IEffectsAction =>
-    orNull(
-      !config.listAccessor(state).touched,
-      () => ListActionBuilder.buildLoadAction(config.listSection)
+export const makeUntouchedListMiddleware = <TState>(config: IUntouchedListMiddlewareConfigEntity<TState>) =>
+  (action: IEffectsAction, state: TState): IEffectsAction[] =>
+    ifNotEmptyThanValue(
+      notNilValuesArrayFilter(
+        makeDefaultFormChangesMiddleware(config),
+        orNull(!isTouched(config.listAccessor(state)), () => ListActionBuilder.buildLoadAction(config.listSection))
+      ),
+      (actions) => actions
     );
 
 /**
- * @stable [31.08.2018]
- * @param {IUntouchedListMiddlewareConfig<TApplicationState>} config
- * @returns {(action: IEffectsAction, state: TApplicationState) => IEffectsAction}
+ * @stable [27.03.2020]
+ * @param {IUntouchedListMiddlewareConfigEntity<TState>} config
+ * @returns {() => IEffectsAction}
  */
-export const makeUntouchedLazyLoadedListMiddleware = <TApplicationState>(config: IUntouchedListMiddlewareConfig<TApplicationState>) =>
-  (action: IEffectsAction, state: TApplicationState): IEffectsAction => {
-    if (!isFn(config.lazyLoadedSection)) {
-      return ListActionBuilder.buildLoadAction(config.listSection);
-    }
-    const lazyLoadedSection = config.lazyLoadedSection(state, action);
-    return orNull<IEffectsAction>(
-      !R.isNil(lazyLoadedSection) && !config.lazyLoadedResolver(state, action).list.touched,
-      () => ListActionBuilder.buildLoadAction(lazyLoadedSection)
-    );
-  };
+export const makeUntouchedLazyLoadedListMiddleware = <TState>(config: IUntouchedListMiddlewareConfigEntity<TState>) =>
+  (action: IEffectsAction, state: TState): IEffectsAction => ListActionBuilder.buildLoadAction(config.listSection);

@@ -456,7 +456,7 @@ export const isAnchored = (wrapper: IAnchoredWrapper): boolean =>
  * @returns {boolean}
  */
 export const isForceUseLocalFilter = (wrapper: IForceUseLocalFilterWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.forceUseLocalFilter === true, false);
+  R.isNil(wrapper) ? false : wrapper.forceUseLocalFilter === true;
 
 /**
  * @stable [16.01.2020]
@@ -464,7 +464,7 @@ export const isForceUseLocalFilter = (wrapper: IForceUseLocalFilterWrapper): boo
  * @returns {boolean}
  */
 export const isTouched = (wrapper: ITouchedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.touched === true, false);
+  R.isNil(wrapper) ? false : wrapper.touched === true;
 
 /**
  * @stable [23.11.2019]
@@ -472,7 +472,7 @@ export const isTouched = (wrapper: ITouchedWrapper): boolean =>
  * @returns {boolean}
  */
 export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.useFilter === true, false);
+  R.isNil(wrapper) ? false : wrapper.useFilter === true;
 
 /**
  * @stable [25.01.2020]
@@ -480,7 +480,7 @@ export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
  * @returns {boolean}
  */
 export const isHeightRestricted = (wrapper: IHeightRestrictedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.heightRestricted !== false, false);
+  R.isNil(wrapper) ? false : wrapper.heightRestricted !== false;
 
 /**
  * @stable [28.01.2020]
@@ -488,7 +488,7 @@ export const isHeightRestricted = (wrapper: IHeightRestrictedWrapper): boolean =
  * @returns {boolean}
  */
 export const isAllowEmptyFilterValue = (wrapper: IAllowEmptyFilterValueWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.allowEmptyFilterValue !== false, false);
+  R.isNil(wrapper) ? false : wrapper.allowEmptyFilterValue !== false;
 
 /**
  * @stable [28.01.2020]
@@ -500,11 +500,11 @@ export const isLoading = (entity: ILoadingWrapper): boolean =>
 
 /**
  * @stable [26.11.2019]
- * @param {IPlaceActionRenderedWrapper} entity
+ * @param {IPlaceActionRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isPlaceActionRendered = (entity: IPlaceActionRenderedWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.placeActionRendered !== false, false);
+export const isPlaceActionRendered = (wrapper: IPlaceActionRenderedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.placeActionRendered !== false;
 
 /**
  * @stable [11.01.2020]

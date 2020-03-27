@@ -800,20 +800,6 @@ export interface IOpenWrapper<TOpen = boolean> {
 }
 
 /**
- * @stable [31.08.2018]
- */
-export interface ILazyLoadedResolverWrapper<TLazyLoadedResolver> {
-  lazyLoadedResolver?: TLazyLoadedResolver;
-}
-
-/**
- * @stable [31.08.2018]
- */
-export interface ILazyLoadedSectionWrapper<TLazyLoadedSection> {
-  lazyLoadedSection?: TLazyLoadedSection;
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface ISimpleWrapper<TSimple = boolean> {
