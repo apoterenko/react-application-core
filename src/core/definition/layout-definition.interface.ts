@@ -50,7 +50,7 @@ export interface ILayoutWrapperEntity
 export interface IGenericDefaultLayoutEntity
   extends IDrawerHeaderRenderedWrapper,
     IFooterWrapper,
-    IGenericStoreEntity
+    IGenericStoreEntity,
     IHeaderConfigurationEntity,
     IHeaderContentWrapper,
     IHeaderWrapper,
