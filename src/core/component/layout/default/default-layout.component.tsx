@@ -91,9 +91,11 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
    * @returns {JSX.Element}
    */
   private get headerElement(): JSX.Element {
+    const props = this.props;
     return (
       <Header
-        {...mapStoreEntity(this.props)}
+        {...props.headerConfiguration}
+        {...mapStoreEntity(props)}
         backActionRendered={this.isHeaderBackActionRendered && (selectStackWrapperItemEntities(this.props) || []).length > 1}>
       </Header>
     );
