@@ -156,7 +156,7 @@ export class NavigationList
         );
       default:
         const isGroup = R.isNil(item.parent);
-        return orNull((isExpanded || isGroup) && fullLayoutModeEnabled, () => this.asItemElement(item));
+        return orNull(isGroup || fullLayoutModeEnabled && isExpanded, () => this.asItemElement(item));
     }
   }
 
@@ -227,6 +227,7 @@ export class NavigationList
     return this.layoutMode === LayoutModesEnum.FULL;
   }
 
+  // TODO
   private get layoutMode(): LayoutModesEnum {
     return nvl(this.systemLayoutMode, this.props.mode);
   }
