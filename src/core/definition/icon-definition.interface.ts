@@ -7,6 +7,7 @@ export enum IconsEnum {
   FORWARD = 'forward',
   FORWARD2 = 'forward2',
   MORE = 'more',
+  PLUS = 'plus',
   SEARCH_MINUS = 'search_minus',
   SEARCH_PLUS = 'search_plus',
   SETTINGS = 'settings',

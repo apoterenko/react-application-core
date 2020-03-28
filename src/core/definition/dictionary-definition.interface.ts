@@ -57,6 +57,7 @@ export interface IPlacesDictionaryWrapperEntity
 }
 
 /**
+ * @entity
  * @stable [14.01.2020]
  */
 export interface IBaseDictionariesEntity
@@ -64,6 +65,7 @@ export interface IBaseDictionariesEntity
 }
 
 /**
+ * @entity
  * @stable [10.10.2019]
  */
 export interface IDictionariesEntity
@@ -72,6 +74,7 @@ export interface IDictionariesEntity
 }
 
 /**
+ * @wrapper-entity
  * @stable [10.10.2019]
  */
 export interface IDictionariesWrapperEntity<TDictionariesEntity = IDictionariesEntity>
