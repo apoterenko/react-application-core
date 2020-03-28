@@ -19,7 +19,12 @@ import {
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { coalesce } from './nvl';
-import { IPreviousActionWrapperEntity } from '../definition';
+import {
+  IDictionariesWrapperEntity,
+  IPreviousActionWrapperEntity,
+  ITransportWrapperEntity,
+  IUserWrapperEntity,
+} from '../definition';
 import { ifNotNilThanValue } from './cond';
 
 /**
@@ -177,3 +182,27 @@ export const selectSelectedEntityIdFromAction = <TEntity extends IEntity = IEnti
     (entity: TEntity) => selectEntityId(entity),
     UNDEF_SYMBOL
   );
+
+/**
+ * @stable [28.03.2020]
+ * @param {IUserWrapperEntity<TUser>} entity
+ * @returns {TUser}
+ */
+export const selectUser = <TUser>(entity: IUserWrapperEntity<TUser>): TUser =>
+  R.isNil(entity) ? UNDEF : entity.user;
+
+/**
+ * @stable [28.03.2020]
+ * @param {ITransportWrapperEntity<TTransport>} entity
+ * @returns {TTransport}
+ */
+export const selectTransport = <TTransport>(entity: ITransportWrapperEntity<TTransport>): TTransport =>
+  R.isNil(entity) ? UNDEF : entity.transport;
+
+/**
+ * @stable [28.03.2020]
+ * @param {IDictionariesWrapperEntity<TDictionaries>} entity
+ * @returns {TDictionaries}
+ */
+export const selectDictionaries = <TDictionaries>(entity: IDictionariesWrapperEntity<TDictionaries>): TDictionaries =>
+  R.isNil(entity) ? UNDEF : entity.dictionaries;

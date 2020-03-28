@@ -23,8 +23,8 @@ export interface IUserEntity
  * @wrapper-entity
  * @stable [27.09.2019]
  */
-export interface IUserWrapperEntity
-  extends IUserWrapper<IUserEntity> {
+export interface IUserWrapperEntity<TUser = IUserEntity>
+  extends IUserWrapper<TUser> {
 }
 
 /**

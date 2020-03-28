@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { IComponentProps } from './props-definition.interface';
 import {
   IBackActionConfigurationWrapper,
@@ -11,8 +13,8 @@ import {
   IMenuConfigurationEntity,
   IMenuItemEntity,
 } from './menu-definition.interface';
-import { IUserWrapperEntity } from './user-definition.interface';
 import { IButtonProps } from './button-definition.interface';
+import { IGenericStoreEntity } from './redux-definition.interface';
 
 /**
  * @enum
@@ -30,10 +32,10 @@ export enum HeaderUserMenuActionsEnum {
 export interface IGenericHeaderEntity
   extends IBackActionConfigurationWrapper<IButtonProps>,
     IBackActionRenderedWrapper,
-    IContentWrapper,
+    IContentWrapper<React.ReactNode | (() => React.ReactNode)>,
+    IGenericStoreEntity,
     IMenuActionConfigurationWrapper<IButtonProps>,
-    IMenuConfigurationEntity,
-    IUserWrapperEntity {
+    IMenuConfigurationEntity {
 }
 
 /**
@@ -60,4 +62,18 @@ export interface IHeaderProps
  */
 export interface IHeaderConfigurationEntity
   extends IHeaderConfigurationWrapper<IHeaderProps> {
+}
+
+/**
+ * @classes
+ * @stable [24.03.2020]
+ */
+export enum HeaderClassesEnum {
+  HEADER = 'rac-header',
+  HEADER_ACTIONS = 'rac-header__actions',
+  HEADER_BACK_ACTION = 'rac-header__back-action',
+  HEADER_CONTENT = 'rac-header__content',
+  HEADER_MENU_ACTION = 'rac-header__menu-action',
+  HEADER_USER_AVATAR = 'rac-header__user-avatar',
+  HEADER_USER_INFO = 'rac-header__user-info',
 }

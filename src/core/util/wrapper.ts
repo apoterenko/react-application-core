@@ -19,6 +19,7 @@ import {
   IDirtyWrapper,
   IDisabledWrapper,
   IDisplayValueRenderedOnlyWrapper,
+  IDrawerHeaderRenderedWrapper,
   IEditedWrapper,
   IErrorMessageRenderedWrapper,
   IErrorWrapper,
@@ -619,6 +620,14 @@ export const isOpened = (wrapper: IOpenedWrapper): boolean =>
  */
 export const isPreviewUsed = (wrapper: IUsePreviewWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.usePreview !== false;
+
+/**
+ * @stable [28.03.2020]
+ * @param {IDrawerHeaderRenderedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isDrawerHeaderRendered = (wrapper: IDrawerHeaderRenderedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.drawerHeaderRendered !== false;
 
 /**
  * @stable [25.03.2020]

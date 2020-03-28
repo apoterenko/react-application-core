@@ -322,6 +322,7 @@ export interface ITransportTokenAccessor
 }
 
 /**
+ * @entity
  * @stable [24.09.2019]
  */
 export interface ITransportEntity
@@ -339,10 +340,11 @@ export interface ITransportFluxEntity
 }
 
 /**
+ * @wrapper-entity
  * @stable [24.09.2019]
  */
-export interface ITransportWrapperEntity
-  extends ITransportWrapper<ITransportEntity> {
+export interface ITransportWrapperEntity<TTransport = ITransportEntity>
+  extends ITransportWrapper<TTransport> {
 }
 
 /**

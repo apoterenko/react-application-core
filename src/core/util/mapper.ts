@@ -4,11 +4,14 @@ import * as R from 'ramda';
 import { defValuesFilter } from './filter';
 import {
   IApiEntity,
+  IDictionariesEntity,
+  IDictionariesWrapperEntity,
   IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
   IGenericBaseSelectEntity,
+  IGenericStoreEntity,
   IGenericTabPanelEntity,
   IListEntity,
   IListWrapperEntity,
@@ -80,10 +83,14 @@ import {
 import {
   selectChanges,
   selectData,
+  selectDictionaries,
   selectEntityId,
   selectForm,
+  selectList,
   selectSelected,
   selectToken,
+  selectTransport,
+  selectUser,
 } from './select';
 
 /**
@@ -109,14 +116,6 @@ export const selectTransportWrapperToken = (entity: ITransportWrapperEntity): st
  */
 export const selectTransportWrapperQueue = (entity: ITransportWrapperEntity): string[] =>
   selectQueue(selectTransport(entity));
-
-/**
- * @stable [17.11.2019]
- * @param {ITransportWrapperEntity} entity
- * @returns {ITransportEntity}
- */
-export const selectTransport = (entity: ITransportWrapperEntity): ITransportEntity =>
-  ifNotNilThanValue(entity, (): ITransportEntity => entity.transport, UNDEF_SYMBOL);
 
 /**
  * @stable [13.02.2020]
@@ -168,14 +167,6 @@ export const selectListEntity =
  */
 export const selectListEntityDirections = (entity: IListEntity): ISortDirectionsEntity =>
   ifNotNilThanValue(entity, (): ISortDirectionsEntity => entity.directions, UNDEF_SYMBOL);
-
-/**
- * @stable [28.09.2019]
- * @param {IUserWrapperEntity} entity
- * @returns {IUserEntity}
- */
-export const selectUserEntity = (entity: IUserWrapperEntity): IUserEntity =>
-  ifNotNilThanValue(entity, (): IUserEntity => entity.user, UNDEF_SYMBOL);
 
 /**
  * @stable [29.02.2020]
@@ -354,12 +345,29 @@ export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelWrapper
   mapTabPanelEntity(selectTabPanelEntity(tabPanelWrapperEntity));
 
 /**
- * @stable [28.09.2019]
- * @param {IUserEntity} user
- * @returns {IUserWrapperEntity}
+ * @stable [28.03.2020]
+ * @param {TUser} user
+ * @returns {IUserWrapperEntity<TUser>}
  */
-export const mapUserEntity = (user: IUserEntity): IUserWrapperEntity =>
-  defValuesFilter<IUserWrapperEntity, IUserWrapperEntity>({user});
+export const mapUser = <TUser = IUserEntity>(user: TUser): IUserWrapperEntity<TUser> =>
+  defValuesFilter<IUserWrapperEntity<TUser>, IUserWrapperEntity<TUser>>({user});
+
+/**
+ * @stable [28.03.2020]
+ * @param {TTransport} transport
+ * @returns {ITransportWrapperEntity<TTransport>}
+ */
+export const mapTransport = <TTransport = ITransportEntity>(transport: TTransport): ITransportWrapperEntity<TTransport> =>
+  defValuesFilter<ITransportWrapperEntity<TTransport>, ITransportWrapperEntity<TTransport>>({transport});
+
+/**
+ * @stable [28.03.2020]
+ * @param {TDictionaries} dictionaries
+ * @returns {IDictionariesWrapperEntity<TDictionaries>}
+ */
+export const mapDictionaries =
+  <TDictionaries = IDictionariesEntity>(dictionaries: TDictionaries): IDictionariesWrapperEntity<TDictionaries> =>
+    defValuesFilter<IDictionariesWrapperEntity<TDictionaries>, IDictionariesWrapperEntity<TDictionaries>>({dictionaries});
 
 /**
  * @stable [12.10.2019]
@@ -505,15 +513,33 @@ export const mapPaginatedEntity = (entity: IPaginatedEntity): IPaginatedEntity =
  * @returns {IListWrapperEntity}
  */
 export const mapListWrapperEntity = (listWrapper: IListWrapperEntity): IListWrapperEntity =>
-  mapListEntity(selectListEntity(listWrapper));
+  mapListEntity(selectList(listWrapper));
 
 /**
- * @stable [28.09.2019]
- * @param {IUserWrapperEntity} userWrapper
- * @returns {IUserWrapperEntity}
+ * @stable [28.03.2020]
+ * @param {IUserWrapperEntity<TUser>} wrapper
+ * @returns {IUserWrapperEntity<TUser>}
  */
-export const mapUserWrapperEntity = (userWrapper: IUserWrapperEntity): IUserWrapperEntity =>
-  mapUserEntity(selectUserEntity(userWrapper));
+export const mapUserWrapperEntity = <TUser = IUserEntity>(wrapper: IUserWrapperEntity<TUser>): IUserWrapperEntity<TUser> =>
+  mapUser(selectUser(wrapper));
+
+/**
+ * @stable [28.03.2020]
+ * @param {ITransportWrapperEntity<TTransport>} wrapper
+ * @returns {ITransportWrapperEntity<TTransport>}
+ */
+export const mapTransportWrapperEntity =
+  <TTransport = ITransportEntity>(wrapper: ITransportWrapperEntity<TTransport>): ITransportWrapperEntity<TTransport> =>
+    mapTransport(selectTransport(wrapper));
+
+/**
+ * @stable [28.03.2020]
+ * @param {IDictionariesWrapperEntity<TDictionaries>} wrapper
+ * @returns {IDictionariesWrapperEntity<TDictionaries>}
+ */
+export const mapDictionariesWrapperEntity =
+  <TDictionaries = IDictionariesEntity>(wrapper: IDictionariesWrapperEntity<TDictionaries>): IDictionariesWrapperEntity<TDictionaries> =>
+    mapDictionaries(selectDictionaries(wrapper));
 
 /**
  * @stable [21.12.2019]
@@ -806,3 +832,16 @@ export const selectStackItemEntities = (entity: IStackEntity): IStackItemEntity[
  */
 export const selectStackWrapperItemEntities = (entity: IStackWrapperEntity): IStackItemEntity[] =>
   selectStackItemEntities(selectStackEntity(entity));
+
+/**
+ * @stable [28.03.2020]
+ * @param {IGenericStoreEntity<TDictionaries>} entity
+ * @returns {IGenericStoreEntity<TDictionaries>}
+ */
+export const mapStoreEntity =
+  <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
+    ({
+      ...mapDictionariesWrapperEntity(entity),
+      ...mapTransportWrapperEntity(entity),
+      ...mapUserWrapperEntity(entity),
+    });

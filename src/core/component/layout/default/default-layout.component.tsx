@@ -1,20 +1,21 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { BaseComponent } from '../../base/base.component';
 import {
   calc,
   isBackActionRendered,
+  isDrawerHeaderRendered,
   isHeaderRendered,
   isSubHeaderRendered,
   joinClassName,
+  mapStoreEntity,
+  mergeWithSystemProps,
   nvl,
   selectStackWrapperItemEntities,
 } from '../../../util';
 import { Drawer } from '../../drawer';
 import {
   ElementsMarkersEnum,
-  IComponentsSettingsEntity,
   IDefaultLayoutProps,
   IHeaderProps,
   LayoutModesEnum,
@@ -86,16 +87,13 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [12.02.2020]
+   * @stable [28.03.2020]
    * @returns {JSX.Element}
    */
   private get headerElement(): JSX.Element {
-    const {user} = this.props;
-
     return (
       <Header
-        user={user}
-        {...this.actualHeaderProps}
+        {...mapStoreEntity(this.props)}
         backActionRendered={this.isHeaderBackActionRendered && (selectStackWrapperItemEntities(this.props) || []).length > 1}>
       </Header>
     );
@@ -169,19 +167,19 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [04.02.2020]
+   * @stable [28.03.2020]
    * @returns {LayoutModesEnum}
    */
   private get layoutMode(): LayoutModesEnum {
-    return nvl(this.systemProps.layoutMode, this.props.layout.mode);
+    return nvl(this.mergedProps.layoutMode, this.props.layout.mode);
   }
 
   /**
-   * @stable [04.02.2020]
+   * @stable [28.03.2020]
    * @returns {boolean}
    */
   private get isDrawerHeaderRendered(): boolean {
-    return nvl(this.systemProps.drawerHeaderRendered, this.props.drawerHeaderRendered) !== false;
+    return isDrawerHeaderRendered(this.mergedProps);
   }
 
   /**
@@ -189,23 +187,22 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
    * @returns {boolean}
    */
   private get isHeaderBackActionRendered(): boolean {
-    return isBackActionRendered(this.actualHeaderProps);
+    return isBackActionRendered(this.mergedHeaderProps);
   }
 
   /**
-   * @stable [13.02.2020]
-   * @returns {IHeaderProps}
-   */
-  private get actualHeaderProps(): IHeaderProps {
-    return R.mergeDeepRight(this.props.headerConfiguration, this.systemProps.headerConfiguration);
-  }
-
-  /**
-   * @stable [04.02.2020]
+   * @stable [28.03.2020]
    * @returns {IDefaultLayoutProps}
    */
-  private get systemProps(): IDefaultLayoutProps {
-    const {defaultLayout = {}} = this.settings.components || {} as IComponentsSettingsEntity;
-    return defaultLayout;
+  private get mergedProps(): IDefaultLayoutProps {
+    return mergeWithSystemProps(this.props, this.settings.components.defaultLayout);
+  }
+
+  /**
+   * @stable [28.03.2020]
+   * @returns {IHeaderProps}
+   */
+  private get mergedHeaderProps(): IHeaderProps {
+    return mergeWithSystemProps(this.props.headerConfiguration, this.settings.components.header);
   }
 }

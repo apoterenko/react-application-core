@@ -160,16 +160,24 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
 }
 
 /**
+ * @generic-entity
+ * @stable [28.03.2020]
+ */
+export interface IGenericStoreEntity<TDictionaries = {}>
+  extends IDictionariesWrapper<TDictionaries>,
+    ITransportWrapperEntity,
+    IUserWrapperEntity {
+}
+
+/**
  * @stable [28.09.2019]
  */
 export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
-  extends IUniversalApplicationWrapperEntity,
-    IUserWrapperEntity,
+  extends IGenericStoreEntity<TDictionaries>,
+    IUniversalApplicationWrapperEntity,
     IStackWrapperEntity,
     IChannelWrapperEntity,
-    ITransportWrapperEntity,
-    IPermissionsWrapperEntity<TPermissions>,
-    IDictionariesWrapper<TDictionaries> {
+    IPermissionsWrapperEntity<TPermissions> {
 }
 
 /**
