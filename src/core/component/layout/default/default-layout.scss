@@ -118,7 +118,9 @@
     @include rac-icon(
       $rac-icon-custom: rac-logo-menu-icon,
       $rac-icon-color: $rac-default-layout-logo-menu-icon-color,
-      $rac-icon-margin: 0 $rac-default-layout-logo-menu-icon-margin-right 0 auto
+      $rac-icon-height: $rac-default-layout-logo-menu-icon-height,
+      $rac-icon-margin: 0 0 0 auto,
+      $rac-icon-padding: 0 16px
     );
 
     @include rac-form(                                                                        /* @stable [15.02.2019] */
