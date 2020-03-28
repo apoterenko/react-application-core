@@ -13,8 +13,8 @@ import {
   ITopTitleWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
+import { IGenericStoreEntity } from './redux-definition.interface';
 import { IHeaderConfigurationEntity } from './header-definition.interface';
-import { IUserWrapperEntity } from './user-definition.interface';
 
 /**
  * @enum
@@ -50,12 +50,12 @@ export interface ILayoutWrapperEntity
 export interface IGenericDefaultLayoutEntity
   extends IDrawerHeaderRenderedWrapper,
     IFooterWrapper,
+    IGenericStoreEntity
     IHeaderConfigurationEntity,
     IHeaderContentWrapper,
     IHeaderWrapper,
     ILayoutModeWrapper<LayoutModesEnum>,
-    ILayoutWrapperEntity,
-    IUserWrapperEntity {
+    ILayoutWrapperEntity {
 }
 
 /**
