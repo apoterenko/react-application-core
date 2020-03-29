@@ -2,7 +2,6 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { FormActionBuilder } from '../../component/action.builder';
 import { IDefaultFormChangesMiddlewareConfigEntity } from '../../definition';
-import { IKeyValue } from '../../definitions.interface';
 import {
   calc,
   isObjectNotEmpty,
@@ -10,14 +9,13 @@ import {
 } from '../../util';
 
 /**
- * @stable [26.03.2020]
- * @param {IDefaultFormChangesMiddlewareConfigEntity<TChanges extends IKeyValue, TState>} config
+ * @stable [29.03.2020]
+ * @param {IDefaultFormChangesMiddlewareConfigEntity<TState, TChanges>} config
  * @returns {IEffectsAction}
  */
 export const makeDefaultFormChangesMiddleware =
-  <TChanges extends IKeyValue = IKeyValue, TState = {}>(config: IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>
-  ): IEffectsAction =>
-  orNull(
-    isObjectNotEmpty(config.defaultChanges) && isObjectNotEmpty(config.formSection),
-    () => FormActionBuilder.buildDefaultChangesAction(config.formSection, calc(config.defaultChanges))
-  );
+  <TState = {}, TChanges = {}>(config: IDefaultFormChangesMiddlewareConfigEntity<TState, TChanges>): IEffectsAction =>
+    orNull(
+      isObjectNotEmpty(config.defaultChanges) && isObjectNotEmpty(calc(config.formSection)),
+      () => FormActionBuilder.buildDefaultChangesAction(calc(config.formSection), calc(config.defaultChanges))
+    );

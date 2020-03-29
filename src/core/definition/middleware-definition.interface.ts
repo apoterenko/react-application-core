@@ -2,10 +2,10 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   AnyT,
+  IContainerSectionWrapper,
   IDefaultChangesWrapper,
   IEntity,
   IFormSectionWrapper,
-  IKeyValue,
   ILazyLoadingWrapper,
   IListAccessorWrapper,
   IListSectionWrapper,
@@ -13,6 +13,7 @@ import {
   IPathWrapper,
   IPayloadWrapper,
   IStateWrapper,
+  ITabPanelSectionWrapper,
 } from '../definitions.interface';
 import { IEffectsActionEntity } from './redux-definition.interface';
 import { IListEntity } from './list-definition.interface';
@@ -29,20 +30,72 @@ export type ChainedMiddlewarePayloadFnT<TState, TPayload> =
 export type ChainedMiddlewarePayloadT<TState, TPayload> = string | ChainedMiddlewarePayloadFnT<TState, TPayload>;
 
 /**
- * @config-entity
- * @stable [27.03.2020]
+ * @stable [29.03.2020]
  */
-export interface IListMiddlewareConfigEntity
-  extends IListSectionWrapper {
+export type SectionT<TState> = string | ((cfg: IActionStateEntity<TState>) => string);
+
+/**
+ * @entity
+ * @stable [29.03.2020]
+ */
+export interface IActionStateEntity<TState = {}>
+  extends IEffectsActionEntity,
+    IStateWrapper<TState> {
 }
 
 /**
  * @config-entity
- * @stable [26.03.2020]
+ * @stable [29.03.2020]
  */
-export interface IDefaultFormChangesMiddlewareConfigEntity<TChanges extends IKeyValue = IKeyValue, TState = {}>
-  extends IFormSectionWrapper,
-    IDefaultChangesWrapper<TChanges | (() => TChanges)> {
+export interface IListMiddlewareConfigEntity<TState = {}>
+  extends IListSectionWrapper<SectionT<TState>> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface ILoadedListMiddlewareConfigEntity<TState = {}>
+  extends IActionStateEntity<TState>,
+    IListMiddlewareConfigEntity<TState> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface ILoadedListOnTabActivateMiddlewareConfigEntity<TState = {}>
+  extends ILoadedListMiddlewareConfigEntity<TState>,
+    ITabPanelSectionWrapper<SectionT<TState>> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface ILoadedListOnFormValidMiddlewareConfigEntity<TState = {}>
+  extends ILoadedListMiddlewareConfigEntity<TState>,
+    IFormSectionWrapper<SectionT<TState>> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface IUntouchedListMiddlewareConfigEntity<TState = {}, TDefaultChanges = {}>
+  extends IContainerSectionWrapper<SectionT<TState>>,
+    IDefaultFormChangesMiddlewareConfigEntity<TState, TDefaultChanges>,
+    IListAccessorWrapper<(state: TState) => IListEntity>,
+    ILoadedListMiddlewareConfigEntity<TState> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface IDefaultFormChangesMiddlewareConfigEntity<TState = {}, TDefaultChanges = {}>
+  extends IDefaultChangesWrapper<TDefaultChanges | (() => TDefaultChanges)>,
+    IFormSectionWrapper<SectionT<TState>> {
 }
 
 /**
@@ -50,11 +103,10 @@ export interface IDefaultFormChangesMiddlewareConfigEntity<TChanges extends IKey
  * @stable [26.03.2020]
  */
 export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
-  extends IEffectsActionEntity,
+  extends IActionStateEntity<TState>,
     INextSectionWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
     IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
-    IPayloadWrapper<TPayload>,
-    IStateWrapper<TState> {
+    IPayloadWrapper<TPayload> {
 }
 
 /**
@@ -62,28 +114,8 @@ export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
  * @stable [26.03.2020]
  */
 export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
-  extends IDefaultFormChangesMiddlewareConfigEntity<TEntity, TState>,
-    IListEffectsMiddlewareConfig,
+  extends IDefaultFormChangesMiddlewareConfigEntity<TState, TEntity>,
     ILazyLoadingWrapper,
-    IPathWrapper<ChainedMiddlewarePayloadT<TState, TEntity>>,
-    IStateWrapper<TState> {
-}
-
-/**
- * @config-entity
- * @stable [27.03.2020]
- */
-export interface IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges = {}>
-  extends IDefaultFormChangesMiddlewareConfigEntity<TDefaultFormChanges, TState>,
-    IListAccessorWrapper<(state: TState) => IListEntity>,
-    IListMiddlewareConfigEntity {
-}
-
-/**
- * @config-entity
- * @stable [27.03.2020]
- */
-export interface IListEffectsMiddlewareConfig
-  extends IListMiddlewareConfigEntity,
-    IEffectsActionEntity {
+    ILoadedListMiddlewareConfigEntity<TState>,
+    IPathWrapper<ChainedMiddlewarePayloadT<TState, TEntity>> {
 }

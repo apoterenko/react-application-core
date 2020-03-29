@@ -129,6 +129,7 @@ export interface IGoogleMapsProps
  * @stable [09.01.2020]
  */
 export interface IGoogleMaps {
+  isInitialized: boolean;
   addDirectionPolyline(directionCfg: google.maps.DirectionsRequest, polylineCfg: google.maps.PolylineOptions): void;
   addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void;
   addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker;

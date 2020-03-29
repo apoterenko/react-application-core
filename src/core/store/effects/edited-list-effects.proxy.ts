@@ -9,6 +9,7 @@ import {
   makeSelectEntityMiddleware,
 } from '../middleware';
 import { provideInSingleton } from '../../di';
+import { calc } from '../../util';
 
 /**
  * @stable [19.10.2019]
@@ -28,7 +29,7 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
        * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildCreateActionType(config.listSection))
+      @EffectsService.effects(ListActionBuilder.buildCreateActionType(calc(config.listSection)))
       public $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         makeCreateEntityMiddleware<TEntity, TState>({...config, action, state})
 
@@ -38,7 +39,7 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
        * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildSelectActionType(config.listSection))
+      @EffectsService.effects(ListActionBuilder.buildSelectActionType(calc(config.listSection)))
       public $onEntitySelect = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         makeSelectEntityMiddleware<TEntity, TState>({...config, action, state})
 
@@ -48,7 +49,7 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
        * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(config.listSection))
+      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(calc(config.listSection)))
       public $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         makeLazyLoadedEntityMiddleware<TEntity, TState>({...config, action, state})
     }

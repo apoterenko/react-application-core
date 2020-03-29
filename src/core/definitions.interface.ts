@@ -120,6 +120,7 @@ export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
 export interface IConfirmWrapper { confirm?: boolean; }
 export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
+export interface IContainerSectionWrapper<TValue = string> { containerSection?: TValue; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }
 export interface IContentWrapper<TValue = React.ReactNode> { content?: TValue; }
@@ -137,7 +138,7 @@ export interface IDaysLabelsWrapper<TValue> { daysLabels?: TValue; }
 export interface IDaysWrapper<TValue> { days?: TValue; }
 export interface IDayWrapper<TValue = number> { day?: TValue; }
 export interface IDecoratedWrapper { decorated?: boolean; }
-export interface IDefaultChangesWrapper<TChanges extends IKeyValue = IKeyValue> { defaultChanges?: TChanges; }
+export interface IDefaultChangesWrapper<TChanges = {}> { defaultChanges?: TChanges; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDefaultWrapper { default?: boolean; }
@@ -497,6 +498,7 @@ export interface ISucceedTextWrapper { succeedText?: string; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelConfigurationWrapper<TValue> { tabPanelConfiguration?: TValue; }
+export interface ITabPanelSectionWrapper<TValue = string> { tabPanelSection?: TValue; }
 export interface ITabPanelsSectionsWrapper<TValue> { tabPanelsSections?: TValue; }
 export interface ITabPanelWrapper<TValue = JSX.Element> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }

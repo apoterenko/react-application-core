@@ -1,5 +1,6 @@
-import * as BPromise from 'bluebird';
 import * as React from 'react';
+import * as R from 'ramda';
+import * as BPromise from 'bluebird';
 
 import { BaseComponent } from '../../base';
 import { Menu } from '../../menu';
@@ -272,6 +273,14 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    */
   public getMarkers(): Map<string, google.maps.Marker> {
     return this.markers;
+  }
+
+  /**
+   * @stable [29.03.2020]
+   * @returns {boolean}
+   */
+  public get isInitialized(): boolean {
+    return !R.isNil(this.map);
   }
 
   /**

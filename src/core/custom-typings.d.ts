@@ -3,6 +3,7 @@ interface Window {
   $;
   dataLayer;
   ga;
+  google,
   jQuery;
 }
 /* tslint:enable */

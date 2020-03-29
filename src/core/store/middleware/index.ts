@@ -12,4 +12,3 @@ export * from './refreshed-list.middleware';
 export * from './sorted-list.middleware';
 export * from './succeed-form.middleware';
 export * from './toolbar-tools.middleware';
-export * from './untouched-list.middleware';

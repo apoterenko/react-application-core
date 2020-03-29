@@ -15,6 +15,7 @@ import {
 } from '../../component/action.builder';
 import { makeChainedMiddleware } from './chained.middleware';
 import {
+  calc,
   defValuesFilter,
   ifNotNilThanValue,
   isObjectNotEmpty,
@@ -37,7 +38,7 @@ const asChainedConfigEntity =
     config: IEditedListMiddlewareConfigEntity<TEntity, TState>): IChainedMiddlewareConfigEntity<TState, TEntity> =>
   ({
     action: config.action,
-    nextSection: config.formSection,
+    nextSection: calc(config.formSection, config),
     path: config.path,
     state: config.state,
   });
@@ -67,7 +68,7 @@ export const makeSelectEntityMiddleware =
     return config.lazyLoading
       ? [
         ListActionBuilder.buildLazyLoadAction(
-          config.listSection,
+          calc(config.listSection, config),
           defValuesFilter<ISelectedFluxEntity, ISelectedFluxEntity>({
             selected,
             preventEffects: selectPreventEffectsFromAction(action),
