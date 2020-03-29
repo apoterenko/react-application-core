@@ -1,13 +1,13 @@
 import {
   IFilterConfiguration,
   IFilterConfigurationWrapper,
-  ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
 import {
-  IUniversalComponentEntity,
   IQueryFilterEntity,
   IQueryFilterWrapperEntity,
+  IUniversalComponentEntity,
   IUniversalContainerEntity,
+  ToolbarToolsEnum,
 } from '../../../definition';
 import {
   IOnApplyWrapper,
@@ -32,7 +32,7 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
                                                               IOnApplyWrapper,
                                                               IFullWrapper,
                                                               IOnRefreshWrapper,
-                                                              IOnActionClickWrapper<ToolbarActionEnum>,
+                                                              IOnActionClickWrapper<ToolbarToolsEnum>,
                                                               IOnChangeWrapper<string> {
 }
 

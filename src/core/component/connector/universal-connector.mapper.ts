@@ -7,17 +7,14 @@ import {
   orNull,
 } from '../../util';
 import {
-  AnyT,
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
   IActionsDisabledWrapper,
   IEntity,
   IEntityWrapper,
-  IKeyValue,
 } from '../../definitions.interface';
 import {
   IDictionariesWrapperEntity,
-  IDictionaryEntity,
   IEditableEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
@@ -27,17 +24,11 @@ import {
   IPaginatedEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
-  IUserWrapperEntity,
   ToolbarToolsEnum,
 } from '../../definition';
 import {
   IDataMutatorEntity,
 } from '../../entities-definitions.interface';
-import {
-  IFilterConfiguration,
-  IFilterAndSorterConfiguration,
-  ToolbarActionEnum,
-} from '../../configurations-definitions.interface';
 
 /* @stable - 22.04.2018 */
 export const dictionariesMapper = (storeEntity: IUniversalStoreEntity): IDictionariesWrapperEntity => ({

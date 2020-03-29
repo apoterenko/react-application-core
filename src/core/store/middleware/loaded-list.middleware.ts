@@ -6,7 +6,9 @@ import {
   ILoadedListMiddlewareConfigEntity,
   ILoadedListOnFormValidMiddlewareConfigEntity,
   ILoadedListOnTabActivateMiddlewareConfigEntity,
+  IRefreshedListMiddlewareConfigEntity,
   IUntouchedListMiddlewareConfigEntity,
+  ToolbarToolsEnum,
 } from '../../definition';
 import {
   $isValid,
@@ -16,6 +18,7 @@ import {
   isTouched,
   notNilValuesArrayFilter,
   orNull,
+  selectDataPayloadFromAction,
   selectValidFromAction,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
@@ -61,7 +64,7 @@ export const makeLoadedListOnTabActivateMiddleware =
  * @returns {IEffectsAction[]}
  */
 export const makeUntouchedListMiddleware =
-  <TState>(config: IUntouchedListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
+  <TState = {}>(config: IUntouchedListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     ifNotEmptyThanValue(
       notNilValuesArrayFilter(
         makeDefaultFormChangesMiddleware(config),
@@ -72,3 +75,18 @@ export const makeUntouchedListMiddleware =
       ),
       (actions) => actions
     );
+
+/**
+ * @stable [30.03.2020]
+ * @param {IRefreshedListMiddlewareConfigEntity<TState>} config
+ * @returns {IEffectsAction[]}
+ */
+export const makeRefreshedListMiddleware =
+  <TState = {}>(config: IRefreshedListMiddlewareConfigEntity<TState>): IEffectsAction[] => {
+    const payload = selectDataPayloadFromAction<ToolbarToolsEnum>(config.action);
+    switch (payload) {
+      case ToolbarToolsEnum.REFRESH:
+        return [makeLoadedListMiddleware(config)];
+    }
+    return null;
+  };

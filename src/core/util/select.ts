@@ -2,6 +2,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import {
+  AnyT,
   EntityIdT,
   IChangesWrapper,
   IDataWrapper,
@@ -9,8 +10,12 @@ import {
   IEntityIdTWrapper,
   IEntityWrapper,
   IFormWrapper,
+  IInitialDataWrapper,
   IListWrapper,
+  IPayloadWrapper,
   IPreventEffectsWrapper,
+  IQueueWrapper,
+  IRawDataWrapper,
   ISelectedWrapper,
   ITokenWrapper,
   ITypeWrapper,
@@ -21,11 +26,28 @@ import {
 import { coalesce } from './nvl';
 import {
   IDictionariesWrapperEntity,
+  IListWrapperEntity,
   IPreviousActionWrapperEntity,
   ITransportWrapperEntity,
   IUserWrapperEntity,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
+
+/**
+ * @stable [30.03.2020]
+ * @param {IQueueWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+export const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.queue;
+
+/**
+ * @stable [30.03.2020]
+ * @param {IRawDataWrapper<TData>} wrapper
+ * @returns {TData}
+ */
+export const selectRawData = <TData = AnyT>(wrapper: IRawDataWrapper<TData>): TData =>
+  R.isNil(wrapper) ? UNDEF : wrapper.rawData;
 
 /**
  * @stable [27.03.2020]
@@ -86,6 +108,22 @@ export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>)
  */
 export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData =>
   R.isNil(wrapper) ? UNDEF : wrapper.data;
+
+/**
+ * @stable [30.03.2020]
+ * @param {IPayloadWrapper<TPayload>} wrapper
+ * @returns {TPayload}
+ */
+export const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload =>
+  R.isNil(wrapper) ? UNDEF : wrapper.payload;
+
+/**
+ * @stable [30.03.2020]
+ * @param {IEffectsAction} action
+ * @returns {TPayload}
+ */
+export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
+  selectPayload(selectData(action));
 
 /**
  * @stable [27.03.2020]
@@ -206,3 +244,28 @@ export const selectTransport = <TTransport>(entity: ITransportWrapperEntity<TTra
  */
 export const selectDictionaries = <TDictionaries>(entity: IDictionariesWrapperEntity<TDictionaries>): TDictionaries =>
   R.isNil(entity) ? UNDEF : entity.dictionaries;
+
+/**
+ * @stable [30.03.2020]
+ * @param {IInitialDataWrapper<TData>} wrapper
+ * @returns {TData}
+ */
+export const selectInitialData = <TData>(wrapper: IInitialDataWrapper<TData>): TData =>
+  R.isNil(wrapper) ? UNDEF : wrapper.initialData;
+
+/**
+ * @stable [30.03.2020]
+ * @param {IEffectsAction} action
+ * @returns {TPayload}
+ */
+export const selectInitialDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
+  selectPayload(selectInitialData(action));
+
+/**
+ * @stable [30.03.2020]
+ * @param {IListWrapperEntity<TEntity extends IEntity>} listWrapperEntity
+ * @returns {TEntity}
+ */
+export const selectListSelectedEntity =
+  <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity<TEntity>): TEntity =>
+    ifNotNilThanValue(selectList(listWrapperEntity), (list) => selectSelected(list), UNDEF_SYMBOL);

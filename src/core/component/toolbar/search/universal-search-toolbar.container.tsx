@@ -14,8 +14,8 @@ import {
   IUniversalSearchToolbarProps,
 } from './search-toolbar.interface';
 import { TOOLBAR_CUSTOM_ACTION_ACTION_TYPE } from '../toolbar.interface';
-import { ToolbarActionEnum } from '../../../configurations-definitions.interface';
 import { IPayloadWrapper } from '../../../definitions.interface';
+import { ToolbarToolsEnum } from '../../../definition';
 
 export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchToolbarContainerProps, TState = {}>
   extends UniversalContainer<TProps, TState> {
@@ -101,8 +101,8 @@ export class UniversalSearchToolbarContainer<TProps extends IUniversalSearchTool
   /**
    * @stable [13.09.2018]
    */
-  private onActionClick(action: ToolbarActionEnum): void {
-    const payloadWrapper: IPayloadWrapper<ToolbarActionEnum> = {payload: action};
+  private onActionClick(action: ToolbarToolsEnum): void {
+    const payloadWrapper: IPayloadWrapper<ToolbarToolsEnum> = {payload: action};
     this.dispatchFrameworkAction(TOOLBAR_CUSTOM_ACTION_ACTION_TYPE, payloadWrapper);
   }
 }

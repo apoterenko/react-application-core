@@ -48,14 +48,10 @@ import {
   IErrorWrapper,
   IFilterWrapper,
   IFormWrapper,
-  IInitialDataWrapper,
-  IKeyValue,
   IOptionsWrapper,
-  IPayloadWrapper,
   IProgressWrapper,
   IQueryWrapper,
   IQueueWrapper,
-  IRawDataWrapper,
   IWaitingForOptionsWrapper,
   UNDEF,
   UNDEF_SYMBOL,
@@ -87,19 +83,13 @@ import {
   selectEntityId,
   selectForm,
   selectList,
-  selectSelected,
+  selectListSelectedEntity,
+  selectQueue,
+  selectRawData,
   selectToken,
   selectTransport,
   selectUser,
 } from './select';
-
-/**
- * @stable [25.11.2019]
- * @param {IQueueWrapper<TValue>} entity
- * @returns {TValue}
- */
-export const selectQueue = <TValue>(entity: IQueueWrapper<TValue>): TValue =>
-  ifNotNilThanValue(entity, (): TValue => entity.queue, UNDEF_SYMBOL);
 
 /**
  * @stable [17.11.2019]
@@ -192,52 +182,12 @@ export const selectQuery = (entity: IQueryWrapper): string =>
 export const selectFilterQuery = (entity: IQueryFilterWrapperEntity): string => selectQuery(selectFilter(entity));
 
 /**
- * @stable [20.02.2020]
- * @param {IInitialDataWrapper<TData>} wrapper
- * @returns {TData}
- */
-export const selectInitialData = <TData>(wrapper: IInitialDataWrapper<TData>): TData =>
-  R.isNil(wrapper) ? UNDEF : wrapper.initialData;
-
-/**
- * @stable [28.01.2020]
- * @param {IPayloadWrapper<TPayload>} wrapper
- * @returns {TPayload}
- */
-export const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload =>
-  ifNotNilThanValue(wrapper, () => wrapper.payload, UNDEF_SYMBOL);
-
-/**
- * @stable [28.01.2020]
- * @param {IEffectsAction} action
- * @returns {TPayload}
- */
-export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
-  selectPayload(selectData(action));
-
-/**
- * @stable [20.02.2020]
- * @param {IEffectsAction} action
- * @returns {TPayload}
- */
-export const selectInitialDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
-  selectPayload(selectInitialData(action));
-
-/**
  * @stable [13.02.2020]
  * @param {IEffectsAction} action
  * @returns {TResult}
  */
 export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): TResult =>
   selectError(action);
-
-/**
- * @stable [19.10.2019]
- * @param {IRawDataWrapper<TData>} listEntity
- * @returns {TData}
- */
-export const selectListRawDataEntity = <TData = AnyT>(listEntity: IRawDataWrapper<TData>): TData =>
-  ifNotNilThanValue(listEntity, (): TData => listEntity.rawData, UNDEF_SYMBOL);
 
 /**
  * @stable [10.02.2020]
@@ -253,20 +203,7 @@ export const selectTabPanelEntity = (entity: ITabPanelWrapperEntity): IGenericTa
  * @returns {TData}
  */
 export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: IListWrapperEntity): TData =>
-  selectListRawDataEntity<TData>(selectListEntity(listWrapperEntity));
-
-/**
- * @stable [19.10.2019]
- * @param {IListWrapperEntity<TEntity extends IEntity>} listWrapperEntity
- * @returns {TEntity}
- */
-export const selectListSelectedEntity =
-  <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity<TEntity>): TEntity =>
-    ifNotNilThanValue<IListEntity<TEntity>, TEntity>(
-      selectListEntity<TEntity>(listWrapperEntity),
-      (list) => selectSelected<TEntity>(list),
-      UNDEF_SYMBOL
-    );
+  selectRawData<TData>(selectList(listWrapperEntity));
 
 /**
  * @stable [30.08.2019]

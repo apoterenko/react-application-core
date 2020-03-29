@@ -66,6 +66,7 @@ import {
   IMenuItemEntity,
   IUniversalComponentEntity,
   IWebComponentEntity,
+  ToolbarToolsEnum,
 } from './definition';
 
 /**
@@ -171,21 +172,11 @@ export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
 }
 
 /**
- * @stable [13.09.2018]
- */
-export enum ToolbarActionEnum {
-  OPEN_FILTER,
-  CLEAR_FILTER,
-  REFRESH_DATA,
-  DOWNLOAD_DATA,
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface IFilterActionConfiguration extends IClassNameWrapper,
                                                     IDisabledWrapper,
-                                                    ITypeWrapper<ToolbarActionEnum> {
+                                                    ITypeWrapper<ToolbarToolsEnum> {
 }
 
 /**

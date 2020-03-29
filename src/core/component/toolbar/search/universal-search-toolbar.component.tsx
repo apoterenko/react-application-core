@@ -5,12 +5,14 @@ import { orNull, isFn, nvl } from '../../../util';
 import {
   IFilterActionConfiguration,
   IUniversalFieldProps,
-  ToolbarActionEnum,
 } from '../../../configurations-definitions.interface';
 import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
 import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
 import { UniversalComponent } from '../../base/universal.component';
-import { IFieldActionEntity } from '../../../definition';
+import {
+  IFieldActionEntity,
+  ToolbarToolsEnum,
+} from '../../../definition';
 
 export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchToolbarProps,
                                              TState = {}>
@@ -31,16 +33,16 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
    * @stable [18.05.2018]
    */
   protected readonly baseActionsProps: Record<number, IFieldActionEntity> = {
-    [ToolbarActionEnum.OPEN_FILTER]: {
+    [ToolbarToolsEnum.FILTER]: {
       type: 'filter',
       onClick: this.onOpen.bind(this),
     },
-    [ToolbarActionEnum.CLEAR_FILTER]: {
+    [ToolbarToolsEnum.CLEAR]: {
       type: 'close',
       onClick: this.onDeactivate.bind(this),
     },
-    [ToolbarActionEnum.REFRESH_DATA]: {type: 'refresh', title: this.settings.messages.refreshActionTitleMessage},
-    [ToolbarActionEnum.DOWNLOAD_DATA]: {type: 'download', title: this.settings.messages.exportActionTitleMessage},
+    [ToolbarToolsEnum.REFRESH]: {type: 'refresh', title: this.settings.messages.refreshActionTitleMessage},
+    [ToolbarToolsEnum.DOWNLOAD_FILE]: {type: 'download', title: this.settings.messages.exportActionTitleMessage},
   };
 
   /**
@@ -135,7 +137,7 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
     const props = this.props;
     const defaultActions: IFilterActionConfiguration[] = props.notUseField
       ? []
-      : [{type: ToolbarActionEnum.CLEAR_FILTER}];
+      : [{type: ToolbarToolsEnum.CLEAR}];
 
     return R.map<IFilterActionConfiguration, IFieldActionEntity>((action): IFieldActionEntity => {
       const config = this.baseActionsProps[action.type];
@@ -228,11 +230,7 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
     }
   }
 
-  /**
-   * @stable [12.09.2018]
-   * @param {ToolbarActionEnum} type
-   */
-  private onActionClick(type: ToolbarActionEnum): void {
+  private onActionClick(type: ToolbarToolsEnum): void {
     const props = this.props;
     if (props.onActionClick) {
       props.onActionClick(type);

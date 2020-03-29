@@ -44,13 +44,6 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
 }
 
 /**
- * @stable [13.09.2018]
- */
-export interface IRefreshedListMiddlewareConfig extends IListSectionWrapper,
-                                                        IEffectsActionEntity {
-}
-
-/**
  * @stable [11.03.2019]
  */
 export interface IFilterFormDialogMiddlewareConfig

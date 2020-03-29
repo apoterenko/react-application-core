@@ -100,6 +100,14 @@ export interface IDefaultFormChangesMiddlewareConfigEntity<TState = {}, TDefault
 
 /**
  * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface IRefreshedListMiddlewareConfigEntity<TState = {}>
+  extends ILoadedListMiddlewareConfigEntity<TState> {
+}
+
+/**
+ * @config-entity
  * @stable [26.03.2020]
  */
 export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
