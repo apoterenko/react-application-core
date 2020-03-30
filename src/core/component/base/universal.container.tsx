@@ -9,7 +9,6 @@ import {
   getDynamicRoutes,
   getEnvironment,
   getEventManager,
-  getFieldConverter,
   getNumberConverter,
   getPermissionsManager,
   getPhoneConverter,
@@ -17,20 +16,15 @@ import {
   getStore,
   getTranslator,
   getUiFactory,
-  getUserActivityManager,
   staticInjector,
 } from '../../di';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import {
-  $RAC_ROUTER_NAVIGATE_ACTION_TYPE,
-  $RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE,
-  $RAC_ROUTER_REWRITE_ACTION_TYPE,
   DynamicRoutesMapT,
   IAuth,
   IDomAccessor,
   IEnvironment,
   IEventManager,
-  IFieldConverter,
   INavigateEntity,
   IOperationEntity,
   IPermissionsManager,
@@ -39,7 +33,6 @@ import {
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
-  IUserActivityManager,
   TranslatorT,
 } from '../../definition';
 import {
@@ -48,8 +41,6 @@ import {
   toActionPrefix,
   toType,
 } from '../../util';
-import { DictionariesActionBuilder } from '../../action';
-import { FormActionBuilder } from '../form/form-action.builder';
 import {
   IDateConverter,
   INumberConverter,
@@ -57,6 +48,10 @@ import {
 import { ISettingsEntity } from '../../settings';
 import { IUIFactory } from '../factory/factory.interface';
 
+/**
+ * TODO
+ * @deprecated
+ */
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps,
                                 TState = {},
                                 TAccessConfig = {}>
@@ -64,16 +59,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   implements IUniversalContainer<TProps, TState> {
 
   protected readonly selfRef = React.createRef<AnyT>();
-
-  /**
-   * @stable - 12.04.2018
-   * @param {TProps} props
-   */
-  constructor(props: TProps) {
-    super(props);
-    this.navigateToBack = this.navigateToBack.bind(this);
-    this.dispatchLoadDictionary = this.dispatchLoadDictionary.bind(this);
-  }
 
   /**
    * @stable [27.10.2019]
@@ -103,43 +88,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     const props = this.props;
     const section = otherSection || props.sectionName;
     this.dispatchCustomType(`${toActionPrefix(section)}.${type}`, applySection(section, data));
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
-  public navigate<TPath0, TState0>(path: TPath0, state?: TState0): void {
-    this.doNavigate($RAC_ROUTER_NAVIGATE_ACTION_TYPE, path, state);
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
-  public navigateAndRewrite<TPath0, TState0>(path: TPath0, state?: TState0): void {
-    this.doNavigate($RAC_ROUTER_REWRITE_ACTION_TYPE, path, state);
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
-  public dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void {
-    this.appStore.dispatch(
-      FormActionBuilder.buildChangesPlainAction(otherSection || this.props.sectionName, changes)
-    );
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
-  public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
-    this.dispatchCustomType(DictionariesActionBuilder.buildLoadActionType(dictionary), applySection(dictionary, data));
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
-  protected navigateToBack(): void {
-    this.dispatchCustomType($RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE);
   }
 
   /**
@@ -216,15 +164,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   /**
    * @react-native-compatible
    * @stable [07.10.2019]
-   * @returns {IFieldConverter}
-   */
-  protected get fieldConverter(): IFieldConverter {
-    return getFieldConverter();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
    * @returns {ISettingsEntity}
    */
   protected get settings(): ISettingsEntity {
@@ -264,15 +203,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get uiFactory(): IUIFactory {
     return getUiFactory();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [19.01.2020]
-   * @returns {IUserActivityManager}
-   */
-  protected get userActivityManager(): IUserActivityManager {
-    return getUserActivityManager();
   }
 
   /**

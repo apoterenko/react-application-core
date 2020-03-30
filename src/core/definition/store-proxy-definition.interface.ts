@@ -25,21 +25,21 @@ export interface IStoreProxy {
 }
 
 /**
- * @stable [27.11.2019]
+ * @proxy
+ * @stable [30.03.2020]
  */
 export interface IDialogFormChangesConfirmStoreProxy
-  extends IStoreProxy,
-    IActivateDialogWrapper,
+  extends IActivateDialogWrapper,
     IGoBackWrapper,
     IBaseRouterStoreProxy {
   getDialogRef<T extends IDialog>(): React.RefObject<T>;
 }
 
 /**
- * @stable [09.10.2019]
+ * @proxy
+ * @stable [30.03.2020]
  */
-export interface IFormStoreProxy
-  extends IStoreProxy {
+export interface IFormStoreProxy {
   dispatchFormChange(change: FieldChangeEntityT, otherSection?: string): void;
   dispatchFormChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
   dispatchFormReset(otherSection?: string): void;
@@ -48,6 +48,7 @@ export interface IFormStoreProxy
 }
 
 /**
+ * @proxy
  * @stable [30.03.2020]
  */
 export interface INotificationStoreProxy {
@@ -55,6 +56,7 @@ export interface INotificationStoreProxy {
 }
 
 /**
+ * @config-entity
  * @stable [19.12.2019]
  */
 export interface IRouterStoreProxyFactoryConfigEntity
@@ -64,14 +66,16 @@ export interface IRouterStoreProxyFactoryConfigEntity
 }
 
 /**
- * @stable [19.12.2019]
+ * @proxy
+ * @stable [30.03.2020]
  */
 export interface IBaseRouterStoreProxy {
   buildNavigationSteps(factory: (cfg: IRouterStoreProxyFactoryConfigEntity) => JSX.Element): React.ReactNode[];
 }
 
 /**
- * @stable [19.12.2019]
+ * @proxy
+ * @stable [30.03.2020]
  */
 export interface IRouterStoreProxy
   extends IBaseRouterStoreProxy,
@@ -82,7 +86,8 @@ export interface IRouterStoreProxy
 }
 
 /**
- * @stable [11.01.2020]
+ * @proxy
+ * @stable [30.03.2020]
  */
 export interface IDictionaryStoreProxy {
   dispatchLoadDictionary<TData = {}>(dictionary: string, data?: TData);
