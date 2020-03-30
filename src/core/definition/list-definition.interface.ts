@@ -14,7 +14,6 @@ import {
   IEmptyMessageWrapper,
   IEntity,
   IFieldNameWrapper,
-  IFilterFnWrapper,
   IFilterWrapper,
   IFullWrapper,
   IGroupByWrapper,
@@ -36,6 +35,7 @@ import {
   IOnChangeHeaderWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
+  IOnCreateWrapper,
   IOnSelectWrapper,
   IOriginalDataWrapper,
   IRawDataWrapper,
@@ -46,12 +46,14 @@ import {
   ITplWrapper,
   StringNumberT,
 } from '../definitions.interface';
-import { ILifeCycleEntity } from './entity-definition.interface';
 import { IComponentProps } from './props-definition.interface';
+import { IFieldChangeEntity } from './field-definition.interface';
+import { IGenericComponentProps } from './component-definition.interface';
+import { IGenericContainerProps } from './container-definition.interface';
+import { ILifeCycleEntity } from './entity-definition.interface';
 import { IPaginatedEntity } from './page-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsWrapperEntity } from './sort-definition.interface';
-import { IFieldChangeEntity } from './field-definition.interface';
 
 /**
  * @stable [04.03.2020]
@@ -74,18 +76,20 @@ export interface IGenericListGroupByEntity
  */
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
-  extends ILifeCycleEntity,
-    IPaginatedEntity,
+  extends IChangesWrapper,
     IDataWrapper<TEntity[]>,
     IDefaultWrapper,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
     IGroupByWrapper<IGenericListGroupByEntity>,
+    ILifeCycleEntity,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
+    IPaginatedEntity,
     IRawDataWrapper<TRawData>,
     ISelectedWrapper<TEntity>,
+    ISortDirectionsWrapperEntity,
     ISorterWrapper {
 }
 
@@ -95,6 +99,8 @@ export interface IGenericListEntity<TEntity = IEntity,
  */
 export interface IBehavioralListEntity<TEntity = IEntity>
   extends IFilterWrapper<(entity: TEntity) => boolean>,
+    IOnChangeWrapper<IFieldChangeEntity>,
+    IOnCreateWrapper,
     IOnSelectWrapper<TEntity> {
 }
 
@@ -103,7 +109,6 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
   TRawData = AnyT>
   extends IGenericListEntity<TEntity, TRawData>,
     IBehavioralListEntity<TEntity>,
-    IOnChangeWrapper<IFieldChangeEntity>,
     IOnChangeHeaderWrapper<IFieldChangeEntity>,
     IOnChangeFilterWrapper<IFieldChangeEntity>,
     IItemConfigurationWrapper<TItemConfiguration> {
@@ -162,17 +167,19 @@ export interface IListItemProps<TEntity extends IEntity = IEntity>
     IBehavioralListItemEntity<TEntity> {
 }
 
-// TODO IGenericListEntity
+/**
+ * @deprecated Use IGenericListEntity & IListProps
+ * TODO Destroy it
+ */
 export interface IListEntity<TEntity = IEntity,
   TRawData = AnyT>
-  extends IUniversalListEntity<any, TEntity, TRawData>, // TODO
+  extends IUniversalListEntity<any, TEntity, TRawData>, // TODO Remove later
     IChangesWrapper,
     ISelectedElementEntity,
     IDeactivatedWrapper,
     IHighlightOddWrapper,
     IHoveredWrapper,
-    ISelectableWrapper,
-    ISortDirectionsWrapperEntity {
+    ISelectableWrapper {
 }
 
 /**
@@ -180,7 +187,7 @@ export interface IListEntity<TEntity = IEntity,
  * @stable [19.10.2019]
  */
 export interface IListWrapperEntity<TEntity = IEntity>
-  extends IListWrapper<IListEntity<TEntity>> {
+  extends IListWrapper<IGenericListEntity<TEntity>> {
 }
 
 /**
@@ -201,18 +208,60 @@ export interface IListProps
 }
 
 /**
+ * @generic-entity
+ * @stable [30.03.2020]
+ */
+export interface IGenericBaseListContainerEntity
+  extends IListWrapperEntity {
+}
+
+/**
+ * @generic-entity
+ * @stable [30.03.2020]
+ */
+export interface IGenericListContainerEntity
+  extends IGenericBaseListContainerEntity,
+    IListConfigurationEntity {
+}
+
+/**
+ * @props
+ * @stable [30.03.2020]
+ */
+export interface IBaseListContainerProps
+  extends IGenericContainerProps,
+    IGenericBaseListContainerEntity {
+}
+
+/**
+ * @props
+ * @stable [30.03.2020]
+ */
+export interface IListContainerProps
+  extends IGenericContainerProps,
+    IGenericListContainerEntity {
+}
+
+/**
  * @stable [20.10.2019]
  */
-export const INITIAL_LIST_ENTITY = Object.freeze<IListEntity>({
+export const INITIAL_LIST_ENTITY = Object.freeze<IGenericListEntity>({
   changes: {},
-  directions: {},
-  progress: false,
-  touched: false,
-  lockPage: false,
   data: null,
-  rawData: null,
-  selected: null,
+  directions: {},
+  lockPage: false,
   page: FIRST_PAGE,
   pageSize: DEFAULT_PAGE_SIZE,
+  progress: false,
+  rawData: null,
+  selected: null,
   totalCount: 0,
+  touched: false,
 });
+
+/**
+ * @stable [30.03.2020]
+ */
+export const LIST_CANCEL_LOAD_ACTION_TYPE = 'list.cancel.load';
+export const LIST_CREATE_ACTION_TYPE = 'list.create';
+export const LIST_SELECT_ACTION_TYPE = 'list.select';
