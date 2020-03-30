@@ -133,8 +133,7 @@ export interface IFieldsContainer
  * @stable [30.03.2020]
  */
 export interface IGenericContainerEntity<TDictionaries = {}>
-  extends IGenericStoreEntity<TDictionaries>,
-    ISectionNameWrapper {
+  extends IGenericStoreEntity<TDictionaries> {
 }
 
 /**

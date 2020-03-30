@@ -165,6 +165,7 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
  */
 export interface IGenericStoreEntity<TDictionaries = {}>
   extends IDictionariesWrapper<TDictionaries>,
+    ISectionNameWrapper,
     IStackWrapperEntity,
     ITransportWrapperEntity,
     IUserWrapperEntity {
@@ -176,7 +177,6 @@ export interface IGenericStoreEntity<TDictionaries = {}>
 export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
   extends IGenericStoreEntity<TDictionaries>,
     IUniversalApplicationWrapperEntity,
-    IStackWrapperEntity,
     IChannelWrapperEntity,
     IPermissionsWrapperEntity<TPermissions> {
 }

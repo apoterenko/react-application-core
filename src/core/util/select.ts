@@ -16,6 +16,7 @@ import {
   IPreventEffectsWrapper,
   IQueueWrapper,
   IRawDataWrapper,
+  ISectionNameWrapper,
   ISelectedWrapper,
   IStackWrapper,
   ITokenWrapper,
@@ -252,6 +253,14 @@ export const selectTransport = <TTransport>(entity: ITransportWrapper<TTransport
  */
 export const selectDictionaries = <TDictionaries>(entity: IDictionariesWrapper<TDictionaries>): TDictionaries =>
   R.isNil(entity) ? UNDEF : entity.dictionaries;
+
+/**
+ * @stable [30.03.2020]
+ * @param {ISectionNameWrapper} entity
+ * @returns {string}
+ */
+export const selectSectionName = (entity: ISectionNameWrapper): string =>
+  R.isNil(entity) ? UNDEF : entity.sectionName;
 
 /**
  * @stable [30.03.2020]

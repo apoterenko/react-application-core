@@ -51,6 +51,8 @@ import {
   IOptionsWrapper,
   IProgressWrapper,
   IQueryWrapper,
+  ISectionNameWrapper,
+  IUserWrapper,
   IWaitingForOptionsWrapper,
   UNDEF,
   UNDEF_SYMBOL,
@@ -85,6 +87,7 @@ import {
   selectListSelectedEntity,
   selectQueue,
   selectRawData,
+  selectSectionName,
   selectStack,
   selectToken,
   selectTransport,
@@ -282,12 +285,20 @@ export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelWrapper
   mapTabPanelEntity(selectTabPanelEntity(tabPanelWrapperEntity));
 
 /**
- * @stable [28.03.2020]
+ * @stable [30.03.2020]
  * @param {TUser} user
- * @returns {IUserWrapperEntity<TUser>}
+ * @returns {IUserWrapper<TUser>}
  */
-export const mapUser = <TUser = IUserEntity>(user: TUser): IUserWrapperEntity<TUser> =>
-  defValuesFilter<IUserWrapperEntity<TUser>, IUserWrapperEntity<TUser>>({user});
+export const mapUser = <TUser = IUserEntity>(user: TUser): IUserWrapper<TUser> =>
+  defValuesFilter<IUserWrapper<TUser>, IUserWrapper<TUser>>({user});
+
+/**
+ * @stable [30.03.2020]
+ * @param {string} sectionName
+ * @returns {ISectionNameWrapper}
+ */
+export const mapSectionName = (sectionName: string): ISectionNameWrapper =>
+  defValuesFilter<ISectionNameWrapper, ISectionNameWrapper>({sectionName});
 
 /**
  * @stable [30.03.2020]
@@ -495,6 +506,14 @@ export const mapTransportWrapperEntity =
 export const mapDictionariesWrapperEntity =
   <TDictionaries = IDictionariesEntity>(wrapper: IDictionariesWrapperEntity<TDictionaries>): IDictionariesWrapperEntity<TDictionaries> =>
     mapDictionaries(selectDictionaries(wrapper));
+
+/**
+ * @stable [30.03.2020]
+ * @param {ISectionNameWrapper} wrapper
+ * @returns {ISectionNameWrapper}
+ */
+export const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper =>
+  mapSectionName(selectSectionName(wrapper));
 
 /**
  * @stable [21.12.2019]
@@ -796,6 +815,7 @@ export const selectStackWrapperItemEntities = (entity: IStackWrapperEntity): ISt
 export const mapStoreEntity =
   <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
     ({
+      ...mapSectionNameWrapper(entity),
       ...mapDictionariesWrapperEntity(entity),
       ...mapStackWrapperEntity(entity),
       ...mapTransportWrapperEntity(entity),
