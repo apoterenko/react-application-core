@@ -1,25 +1,22 @@
-import { BaseStoreProxy } from '../base-store.proxy';
+import { StoreProxy } from '../store.proxy';
 import { DictionariesActionBuilder } from '../../../../action';
 import {
   IDictionaryStoreProxy,
-  IUniversalContainerProps,
-  IUniversalStoreEntity,
+  IGenericContainer,
+  IGenericContainerProps,
+  IGenericStoreEntity,
 } from '../../../../definition';
-import {
-  IKeyValue,
-  IPropsWrapper,
-} from '../../../../definitions.interface';
 
-export class DictionaryStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
-                                  TProps extends IUniversalContainerProps = IUniversalContainerProps>
-  extends BaseStoreProxy<TStore, TProps>
+export class DictionaryStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+                                  TProps extends IGenericContainerProps = IGenericContainerProps>
+  extends StoreProxy<TStore, TProps>
   implements IDictionaryStoreProxy {
 
   /**
-   * @stable [24.03.2020]
-   * @param {IPropsWrapper<TProps extends IUniversalContainerProps>} container
+   * @stable [30.03.2020]
+   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
    */
-  constructor(readonly container: IPropsWrapper<TProps>) {
+  constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
     this.dispatchLoadDictionary = this.dispatchLoadDictionary.bind(this);
   }
@@ -29,7 +26,7 @@ export class DictionaryStoreProxy<TStore extends IUniversalStoreEntity = IUniver
    * @param {string} dictionary
    * @param {TData} data
    */
-  public dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData): void {
+  public dispatchLoadDictionary<TData = {}>(dictionary: string, data?: TData): void {
     this.dispatchAnyAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, data));
   }
 }

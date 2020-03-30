@@ -1,26 +1,34 @@
 import * as React from 'react';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IActivateDialogWrapper,
   IFirstWrapper,
   IGoBackWrapper,
   IItemWrapper,
-  IKeyValue,
   ILastWrapper,
-  IPropsWrapper,
 } from '../definitions.interface';
 import { FieldChangeEntityT } from './field-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
-import { IDispatcher } from './dispatcher-definition.interface';
+import { IGenericContainer } from './container-definition.interface';
 import { IStackItemEntity } from './stack-definition.interface';
-import { IUniversalContainerProps } from './props-definition.interface';
+
+/**
+ * @proxy
+ * @stable [30.03.2020]
+ */
+export interface IStoreProxy {
+  dispatch<TChanges = {}>(type: string, data?: TChanges): void;
+  dispatchAnyAction(action: IEffectsAction): void;
+  dispatchCustomType<TData = {}>(type: string, data?: TData): void;
+}
 
 /**
  * @stable [27.11.2019]
  */
 export interface IDialogFormChangesConfirmStoreProxy
-  extends IDispatcher,
+  extends IStoreProxy,
     IActivateDialogWrapper,
     IGoBackWrapper,
     IBaseRouterStoreProxy {
@@ -31,12 +39,19 @@ export interface IDialogFormChangesConfirmStoreProxy
  * @stable [09.10.2019]
  */
 export interface IFormStoreProxy
-  extends IDispatcher {
+  extends IStoreProxy {
   dispatchFormChange(change: FieldChangeEntityT, otherSection?: string): void;
-  dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void;
+  dispatchFormChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
   dispatchFormReset(otherSection?: string): void;
   dispatchFormSubmit(apiEntity: IApiEntity, otherSection?: string): void;
   dispatchFormValid(valid: boolean, otherSection?: string): void;
+}
+
+/**
+ * @stable [30.03.2020]
+ */
+export interface INotificationStoreProxy {
+  dispatchNotification(info: string);
 }
 
 /**
@@ -63,32 +78,22 @@ export interface IRouterStoreProxy
     IGoBackWrapper {
   navigate(path: string): void;
   navigateBack(): void;
+  rewrite(path: string): void;
 }
 
 /**
  * @stable [11.01.2020]
  */
-export interface IDictionaryStoreProxy
-  extends IDispatcher {
-  dispatchLoadDictionary<TData = IKeyValue>(dictionary: string, data?: TData);
+export interface IDictionaryStoreProxy {
+  dispatchLoadDictionary<TData = {}>(dictionary: string, data?: TData);
 }
 
 /**
- * @generic-container
- * @stable [29.02.2020]
+ * @stable [30.03.2020]
  */
-export interface IGenericBasicContainer {
-  dictionaryStoreProxy: IDictionaryStoreProxy;
-}
-
-/**
- * @stable [18.12.2019]
- */
-export type DialogFormChangesConfirmStoreProxyFactoryT =
-  (parent: IPropsWrapper<IUniversalContainerProps>) => IDialogFormChangesConfirmStoreProxy;
-export type DictionaryStoreProxyFactoryT =
-  (parent: IPropsWrapper<IUniversalContainerProps>) => IDictionaryStoreProxy;
-export type FormStoreProxyFactoryT =
-  (parent: IPropsWrapper<IUniversalContainerProps>) => IFormStoreProxy;
-export type RouterStoreProxyFactoryT =
-  (parent: IPropsWrapper<IUniversalContainerProps>) => IRouterStoreProxy;
+export type DialogFormChangesConfirmStoreProxyFactoryT = (parent: IGenericContainer) => IDialogFormChangesConfirmStoreProxy;
+export type DictionaryStoreProxyFactoryT = (parent: IGenericContainer) => IDictionaryStoreProxy;
+export type FormStoreProxyFactoryT = (parent: IGenericContainer) => IFormStoreProxy;
+export type RouterStoreProxyFactoryT = (parent: IGenericContainer) => IRouterStoreProxy;
+export type NotificationStoreProxyFactoryT = (parent: IGenericContainer) => INotificationStoreProxy;
+export type StoreProxyFactoryT = (parent: IGenericContainer) => IStoreProxy;

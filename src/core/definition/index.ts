@@ -16,7 +16,6 @@ export * from './date-field-definition.interface';
 export * from './delayed-changes-definition.interface';
 export * from './dialog-definition.interface';
 export * from './dictionary-definition.interface';
-export * from './dispatcher-definition.interface';
 export * from './dom-definition.interface';
 export * from './entity-definition.interface';
 export * from './env-definition.interface';

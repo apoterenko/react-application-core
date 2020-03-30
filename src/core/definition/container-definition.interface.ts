@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import {
   ILocationWrapper,
+  IPropsWrapper,
   IQueryParamsWrapper,
   IRouteParamsWrapper,
   ISectionNameWrapper,
@@ -15,9 +16,22 @@ import { IBaseDictionariesEntity } from './dictionary-definition.interface';
 import { ILayoutWrapperEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
-import { IGenericBasicContainer } from './store-proxy-definition.interface';
-import { IUniversalStoreEntity } from './redux-definition.interface';
-import { IWebComponentEntity } from './component-definition.interface';
+import {
+  IGenericStoreEntity,
+  IUniversalStoreEntity,
+} from './redux-definition.interface';
+import {
+  IGenericComponentEntity,
+  IWebComponentEntity,
+} from './component-definition.interface';
+import {
+  IDialogFormChangesConfirmStoreProxy,
+  IDictionaryStoreProxy,
+  IFormStoreProxy,
+  INotificationStoreProxy,
+  IRouterStoreProxy,
+  IStoreProxy,
+} from './store-proxy-definition.interface';
 
 /**
  * @react-native-compatible
@@ -111,6 +125,38 @@ export interface IContainerCtor<TProps extends IContainerProps = IContainerProps
  * @stable [29.02.2020]
  */
 export interface IFieldsContainer
-  extends IContainer<IContainerProps<IBaseDictionariesEntity>>,
-    IGenericBasicContainer {
+  extends IGenericContainer<IContainerProps<IBaseDictionariesEntity>> {
+}
+
+/**
+ * @generic-entity
+ * @stable [30.03.2020]
+ */
+export interface IGenericContainerEntity<TDictionaries = {}>
+  extends IGenericStoreEntity<TDictionaries>,
+    ISectionNameWrapper {
+}
+
+/**
+ * @props
+ * @stable [30.03.2020]
+ */
+export interface IGenericContainerProps<TDictionaries = {}>
+  extends IGenericComponentEntity,
+    IGenericContainerEntity<TDictionaries> {
+}
+
+/**
+ * @container
+ * @stable [30.03.2020]
+ */
+export interface IGenericContainer<TProps extends IGenericContainerProps<TDictionaries> = IGenericContainerProps<TDictionaries>,
+  TDictionaries = {}>
+  extends IPropsWrapper<TProps>,
+    IStoreProxy {
+  dfccStoreProxy: IDialogFormChangesConfirmStoreProxy;
+  dictionaryStoreProxy: IDictionaryStoreProxy;
+  formStoreProxy: IFormStoreProxy;
+  notificationStoreProxy: INotificationStoreProxy;
+  routerStoreProxy: IRouterStoreProxy;
 }

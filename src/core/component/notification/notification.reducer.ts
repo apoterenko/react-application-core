@@ -7,7 +7,8 @@ import {
   INITIAL_NOTIFICATION_ENTITY,
   INotificationEntity,
 } from '../../definition';
-import { convertError } from '../../error'; // TODO Move to mapper
+import { mapErrorObject } from '../../error'; // TODO Move to mapper
+import { selectData } from '../../util';
 
 /**
  * @stable [13.02.2020]
@@ -17,7 +18,7 @@ import { convertError } from '../../error'; // TODO Move to mapper
  */
 export const notificationReducer = (state: INotificationEntity = INITIAL_NOTIFICATION_ENTITY,
                                     action: IEffectsAction): INotificationEntity => {
-  const notificationEntity: INotificationEntity = action.data;
+  const notificationEntity = selectData<INotificationEntity>(action);
   switch (action.type) {
     case $RAC_NOTIFICATION_INFO_ACTION_TYPE:
       return {
@@ -27,7 +28,7 @@ export const notificationReducer = (state: INotificationEntity = INITIAL_NOTIFIC
     case $RAC_NOTIFICATION_ERROR_ACTION_TYPE:
       return {
         ...state,
-        error: convertError(notificationEntity.error).message,
+        error: mapErrorObject(notificationEntity.error).message,
       };
     case $RAC_NOTIFICATION_CLEAR_ACTION_TYPE:
       return {

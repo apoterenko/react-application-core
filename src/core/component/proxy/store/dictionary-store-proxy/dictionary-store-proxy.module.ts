@@ -4,7 +4,7 @@ import {
   appContainer,
   DI_TYPES,
 } from '../../../../di';
-import { IContainer } from '../../../../definition';
+import { IGenericContainer } from '../../../../definition';
 import { DictionaryStoreProxy } from './dictionary-store.proxy';
 
 /**
@@ -12,5 +12,5 @@ import { DictionaryStoreProxy } from './dictionary-store.proxy';
  */
 appContainer.bind(DI_TYPES.DictionaryStoreProxyFactory)
   .toFactory(
-    (ctx: interfaces.Context) => (parent: IContainer) => new DictionaryStoreProxy(parent)
+    (ctx: interfaces.Context) => (parent: IGenericContainer) => new DictionaryStoreProxy(parent)
   );

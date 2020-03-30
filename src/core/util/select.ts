@@ -6,30 +6,30 @@ import {
   EntityIdT,
   IChangesWrapper,
   IDataWrapper,
+  IDictionariesWrapper,
   IEntity,
   IEntityIdTWrapper,
   IEntityWrapper,
   IFormWrapper,
-  IInitialDataWrapper,
   IListWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
   IQueueWrapper,
   IRawDataWrapper,
   ISelectedWrapper,
+  IStackWrapper,
   ITokenWrapper,
+  ITransportWrapper,
   ITypeWrapper,
+  IUserWrapper,
   IValidWrapper,
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { coalesce } from './nvl';
 import {
-  IDictionariesWrapperEntity,
   IListWrapperEntity,
   IPreviousActionWrapperEntity,
-  ITransportWrapperEntity,
-  IUserWrapperEntity,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 
@@ -222,44 +222,36 @@ export const selectSelectedEntityIdFromAction = <TEntity extends IEntity = IEnti
   );
 
 /**
- * @stable [28.03.2020]
- * @param {IUserWrapperEntity<TUser>} entity
+ * @stable [30.03.2020]
+ * @param {IUserWrapper<TUser>} entity
  * @returns {TUser}
  */
-export const selectUser = <TUser>(entity: IUserWrapperEntity<TUser>): TUser =>
+export const selectUser = <TUser>(entity: IUserWrapper<TUser>): TUser =>
   R.isNil(entity) ? UNDEF : entity.user;
 
 /**
- * @stable [28.03.2020]
- * @param {ITransportWrapperEntity<TTransport>} entity
+ * @stable [30.03.2020]
+ * @param {IStackWrapper<TEntity>} entity
+ * @returns {TEntity}
+ */
+export const selectStack = <TEntity>(entity: IStackWrapper<TEntity>): TEntity =>
+  R.isNil(entity) ? UNDEF : entity.stack;
+
+/**
+ * @stable [30.03.2020]
+ * @param {ITransportWrapper<TTransport>} entity
  * @returns {TTransport}
  */
-export const selectTransport = <TTransport>(entity: ITransportWrapperEntity<TTransport>): TTransport =>
+export const selectTransport = <TTransport>(entity: ITransportWrapper<TTransport>): TTransport =>
   R.isNil(entity) ? UNDEF : entity.transport;
 
 /**
- * @stable [28.03.2020]
- * @param {IDictionariesWrapperEntity<TDictionaries>} entity
+ * @stable [30.03.2020]
+ * @param {IDictionariesWrapper<TDictionaries>} entity
  * @returns {TDictionaries}
  */
-export const selectDictionaries = <TDictionaries>(entity: IDictionariesWrapperEntity<TDictionaries>): TDictionaries =>
+export const selectDictionaries = <TDictionaries>(entity: IDictionariesWrapper<TDictionaries>): TDictionaries =>
   R.isNil(entity) ? UNDEF : entity.dictionaries;
-
-/**
- * @stable [30.03.2020]
- * @param {IInitialDataWrapper<TData>} wrapper
- * @returns {TData}
- */
-export const selectInitialData = <TData>(wrapper: IInitialDataWrapper<TData>): TData =>
-  R.isNil(wrapper) ? UNDEF : wrapper.initialData;
-
-/**
- * @stable [30.03.2020]
- * @param {IEffectsAction} action
- * @returns {TPayload}
- */
-export const selectInitialDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
-  selectPayload(selectInitialData(action));
 
 /**
  * @stable [30.03.2020]

@@ -6,7 +6,7 @@ import {
   isDef,
   toSection,
 } from '../../util';
-import { convertError } from '../../error';
+import { mapErrorObject } from '../../error';
 import {
   IKeyValue,
   IPayloadWrapper,
@@ -91,7 +91,7 @@ export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
       return {
         ...state,
         progress: false,
-        error: convertError(action.error).message,
+        error: mapErrorObject(action.error).message,
       };
     case FormActionBuilder.buildSubmitFinishedActionType(section):
       return {

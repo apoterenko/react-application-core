@@ -3,25 +3,22 @@ import {
   FieldChangeEntityT,
   IApiEntity,
   IFormStoreProxy,
-  IUniversalContainerProps,
-  IUniversalStoreEntity,
+  IGenericContainer,
+  IGenericContainerProps,
+  IGenericStoreEntity,
 } from '../../../../definition';
-import { BaseStoreProxy } from '../base-store.proxy';
-import {
-  IKeyValue,
-  IPropsWrapper,
-} from '../../../../definitions.interface';
+import { StoreProxy } from '../store.proxy';
 
-export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
-                            TProps extends IUniversalContainerProps = IUniversalContainerProps>
-  extends BaseStoreProxy<TStore, TProps>
+export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+                            TProps extends IGenericContainerProps = IGenericContainerProps>
+  extends StoreProxy<TStore, TProps>
   implements IFormStoreProxy {
 
   /**
-   * @stable [24.03.2020]
-   * @param {IPropsWrapper<TProps extends IUniversalContainerProps>} container
+   * @stable [30.03.2020]
+   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
    */
-  constructor(readonly container: IPropsWrapper<TProps>) {
+  constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
     this.dispatchFormReset = this.dispatchFormReset.bind(this);
   }
@@ -57,7 +54,7 @@ export class FormStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
    * @param {TChanges} changes
    * @param {string} otherSection
    */
-  public dispatchFormChanges<TChanges extends IKeyValue = IKeyValue>(changes: TChanges, otherSection?: string): void {
+  public dispatchFormChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void {
     this.dispatchAnyAction(FormActionBuilder.buildChangesPlainAction(this.asSection(otherSection), changes));
   }
 

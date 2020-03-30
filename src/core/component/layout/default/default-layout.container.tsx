@@ -13,7 +13,6 @@ import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './de
 import { SubHeader } from '../../header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { FlexLayout } from '../flex';
-import { Operation } from '../../../operation';
 import {
   IPayloadWrapper,
   StringNumberT,
@@ -27,9 +26,7 @@ import {
   HeaderUserMenuActionsEnum,
   ILayoutEntity,
   IMenuItemEntity,
-  IMenuItemStringValueEntity,
   INavigationListItemEntity,
-  IOperationEntity,
   IXYEntity,
   LayoutModesEnum,
 } from '../../../definition';
@@ -58,7 +55,6 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
 
     this.onDrawerHeaderClick = this.onDrawerHeaderClick.bind(this);
     this.onHeaderMenuSelectItem = this.onHeaderMenuSelectItem.bind(this);
-    this.onHeaderMoreOptionsSelect = this.onHeaderMoreOptionsSelect.bind(this);
     this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
     this.onNavigationListClick = this.onNavigationListClick.bind(this);
@@ -95,28 +91,19 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
   private onHeaderMenuSelectItem(item: IMenuItemEntity): void {
     switch (item.value) {
       case HeaderUserMenuActionsEnum.EXIT:
-        this.routerStoreProxy.navigate(this.routes.logout);
+        this.routerStoreProxy.navigate(this.settings.routes.logout);
         break;
       case HeaderUserMenuActionsEnum.PROFILE:
-        this.routerStoreProxy.navigate(this.routes.profile);
+        this.routerStoreProxy.navigate(this.settings.routes.profile);
         break;
     }
-  }
-
-  /**
-   * @stable [18.09.2018]
-   * @param {IMenuItemStringValueEntity} option
-   */
-  private onHeaderMoreOptionsSelect(option: IMenuItemStringValueEntity): void {
-    const params: IPayloadWrapper<IOperationEntity> = {payload: Operation.create(option.value)};
-    this.dispatchFrameworkAction(option.value, params);
   }
 
   /**
    * @stable [17.10.2018]
    */
   private onLogoMenuActionClick(): void {
-    this.navigate(this.routes.home);
+    this.routerStoreProxy.navigate(this.settings.routes.home);
   }
 
   /**
@@ -183,8 +170,7 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
       <SubHeader
         {...props.subHeaderConfiguration}
         title={title}
-        onNavigationActionClick={this.onHeaderNavigationActionClick}
-        onMoreOptionsSelect={this.onHeaderMoreOptionsSelect}/>
+        onNavigationActionClick={this.onHeaderNavigationActionClick}/>
     );
   }
 

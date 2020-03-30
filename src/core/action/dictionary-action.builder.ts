@@ -4,7 +4,6 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import { IKeyValue } from '../definitions.interface';
 import {
   applySection,
   toActionPrefix,
@@ -62,23 +61,23 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [04.12.2019]
+   * @stable [30.03.2020]
    * @param {string} section
    * @param {TData} data
    * @returns {IEffectsAction}
    */
-  public static buildLoadAction<TData = IKeyValue>(section: string, data?: TData): IEffectsAction {
+  public static buildLoadAction<TData = {}>(section: string, data?: TData): IEffectsAction {
     const plainAction = this.buildLoadPlainAction(section, data);
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [30.03.2020]
    * @param {string} section
    * @param {TData} data
    * @returns {IEffectsAction}
    */
-  public static buildLoadPlainAction<TData = IKeyValue>(section: string, data?: TData): IEffectsAction {
+  public static buildLoadPlainAction<TData = {}>(section: string, data?: TData): IEffectsAction {
     return {
       type: this.buildLoadActionType(section),
       data: applySection(section, data),
@@ -86,12 +85,12 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [04.12.2019]
+   * @stable [30.03.2020]
    * @param {string} section
    * @param {TData[] | TData} data
    * @returns {IEffectsAction}
    */
-  public static buildSetAction<TData = IKeyValue>(section: string, data?: TData | TData[]): IEffectsAction {
+  public static buildSetAction<TData = {}>(section: string, data?: TData | TData[]): IEffectsAction {
     return EffectsAction.create(this.buildSetActionType(section), applySection(section, data));
   }
 }

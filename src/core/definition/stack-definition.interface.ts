@@ -18,6 +18,7 @@ export const INITIAL_STACK_ENTITY = Object.freeze<IStackEntity>({
 });
 
 /**
+ * @entity
  * @stable [18.12.2019]
  */
 export interface IStackItemEntity
@@ -27,19 +28,21 @@ export interface IStackItemEntity
 }
 
 /**
+ * @entity
  * @stable [20.09.2019]
  */
 export interface IStackEntity
-  extends IStackWrapper<IStackItemEntity[]>,
+  extends IDestroySectionsWrapper,
     ILockWrapper,
-    IDestroySectionsWrapper {
+    IStackWrapper<IStackItemEntity[]> {
 }
 
 /**
+ * @wrapper-entity
  * @stable [20.09.2019]
  */
-export interface IStackWrapperEntity
-  extends IStackWrapper<IStackEntity> {
+export interface IStackWrapperEntity<TEntity = IStackEntity>
+  extends IStackWrapper<TEntity> {
 }
 
 /**

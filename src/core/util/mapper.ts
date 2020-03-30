@@ -51,7 +51,6 @@ import {
   IOptionsWrapper,
   IProgressWrapper,
   IQueryWrapper,
-  IQueueWrapper,
   IWaitingForOptionsWrapper,
   UNDEF,
   UNDEF_SYMBOL,
@@ -86,6 +85,7 @@ import {
   selectListSelectedEntity,
   selectQueue,
   selectRawData,
+  selectStack,
   selectToken,
   selectTransport,
   selectUser,
@@ -290,6 +290,14 @@ export const mapUser = <TUser = IUserEntity>(user: TUser): IUserWrapperEntity<TU
   defValuesFilter<IUserWrapperEntity<TUser>, IUserWrapperEntity<TUser>>({user});
 
 /**
+ * @stable [30.03.2020]
+ * @param {TEntity} stack
+ * @returns {IStackWrapperEntity<TEntity>}
+ */
+export const mapStack = <TEntity = IStackEntity>(stack: TEntity): IStackWrapperEntity<TEntity> =>
+  defValuesFilter<IStackWrapperEntity<TEntity>, IStackWrapperEntity<TEntity>>({stack});
+
+/**
  * @stable [28.03.2020]
  * @param {TTransport} transport
  * @returns {ITransportWrapperEntity<TTransport>}
@@ -453,12 +461,22 @@ export const mapListWrapperEntity = (listWrapper: IListWrapperEntity): IListWrap
   mapListEntity(selectList(listWrapper));
 
 /**
- * @stable [28.03.2020]
- * @param {IUserWrapperEntity<TUser>} wrapper
- * @returns {IUserWrapperEntity<TUser>}
+ * @stable [30.03.2020]
+ * @param {IUserWrapperEntity<TEntity>} wrapper
+ * @returns {IUserWrapperEntity<TEntity>}
  */
-export const mapUserWrapperEntity = <TUser = IUserEntity>(wrapper: IUserWrapperEntity<TUser>): IUserWrapperEntity<TUser> =>
-  mapUser(selectUser(wrapper));
+export const mapUserWrapperEntity =
+  <TEntity = IUserEntity>(wrapper: IUserWrapperEntity<TEntity>): IUserWrapperEntity<TEntity> =>
+    mapUser(selectUser(wrapper));
+
+/**
+ * @stable [30.03.2020]
+ * @param {IStackWrapperEntity<TEntity>} wrapper
+ * @returns {IStackWrapperEntity<TEntity>}
+ */
+export const mapStackWrapperEntity =
+  <TEntity = IStackEntity>(wrapper: IStackWrapperEntity<TEntity>): IStackWrapperEntity<TEntity> =>
+    mapStack(selectStack(wrapper));
 
 /**
  * @stable [28.03.2020]
@@ -779,6 +797,7 @@ export const mapStoreEntity =
   <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
     ({
       ...mapDictionariesWrapperEntity(entity),
+      ...mapStackWrapperEntity(entity),
       ...mapTransportWrapperEntity(entity),
       ...mapUserWrapperEntity(entity),
     });

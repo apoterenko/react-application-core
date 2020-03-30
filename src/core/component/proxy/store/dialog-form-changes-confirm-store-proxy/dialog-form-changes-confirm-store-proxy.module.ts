@@ -5,12 +5,12 @@ import {
   DI_TYPES,
 } from '../../../../di';
 import { DialogFormChangesConfirmStoreProxy } from './dialog-form-changes-confirm-store.proxy';
-import { IContainer } from '../../../../definition';
+import { IGenericContainer } from '../../../../definition';
 
 /**
  * @stable [27.11.2019]
  */
 appContainer.bind(DI_TYPES.DialogFormChangesConfirmStoreProxyFactory)
   .toFactory(
-    (ctx: interfaces.Context) => (parent: IContainer) => new DialogFormChangesConfirmStoreProxy(parent)
+    (ctx: interfaces.Context) => (parent: IGenericContainer) => new DialogFormChangesConfirmStoreProxy(parent)
   );

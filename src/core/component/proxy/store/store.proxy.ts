@@ -7,26 +7,23 @@ import {
   lazyInject,
 } from '../../../di';
 import {
-  IDispatcher,
-  IUniversalContainerProps,
-  IUniversalStoreEntity,
+  IGenericContainer,
+  IGenericContainerProps,
+  IGenericStoreEntity,
+  IStoreProxy,
 } from '../../../definition';
-import {
-  IKeyValue,
-  IPropsWrapper,
-} from '../../../definitions.interface';
 
-export class BaseStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
-                            TProps extends IUniversalContainerProps = IUniversalContainerProps>
-  implements IDispatcher {
+export class StoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+                        TProps extends IGenericContainerProps = IGenericContainerProps>
+  implements IStoreProxy {
 
   @lazyInject(DI_TYPES.Store) protected readonly appStore: Store<TStore>;
 
   /**
-   * @stable [24.03.2020]
-   * @param {{props: TProps}} container
+   * @stable [30.03.2020]
+   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
    */
-  constructor(protected readonly container: IPropsWrapper<TProps>) {
+  constructor(protected readonly container: IGenericContainer<TProps>) {
   }
 
   /**
@@ -34,7 +31,7 @@ export class BaseStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
    * @param {string} type
    * @param {TChanges} data
    */
-  public dispatch<TChanges = IKeyValue>(type: string, data?: TChanges): void {
+  public dispatch<TChanges = {}>(type: string, data?: TChanges): void {
     this.dispatchCustomType(`${this.sectionName}.${type}`, applySection(this.sectionName, data));
   }
 
@@ -43,7 +40,7 @@ export class BaseStoreProxy<TStore extends IUniversalStoreEntity = IUniversalSto
    * @param {string} type
    * @param {TData} data
    */
-  public dispatchCustomType<TData = IKeyValue>(type: string, data?: TData): void {
+  public dispatchCustomType<TData = {}>(type: string, data?: TData): void {
     this.dispatchAnyAction({type, data});
   }
 

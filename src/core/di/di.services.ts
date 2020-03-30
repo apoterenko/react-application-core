@@ -39,7 +39,9 @@ import {
   IUniversalContainerCtor,
   IUniversalContainerProps,
   IUserActivityManager,
+  NotificationStoreProxyFactoryT,
   RouterStoreProxyFactoryT,
+  StoreProxyFactoryT,
   TranslatorT,
   UniversalPluginFactoryT,
 } from '../definition';
@@ -67,7 +69,7 @@ export const getPhoneConverter = (): IPhoneConverter => staticInjector(DI_TYPES.
  * @stable [16.11.2019]
  * @returns {IPermissionsManager<TAccessConfig>}
  */
-export const getPermissionsManager = <TAccessConfig = {}>(): IPermissionsManager<TAccessConfig> =>
+export const getPermissionsManager = <TPermission = {}>(): IPermissionsManager<TPermission> =>
   staticInjector(DI_TYPES.PermissionsManager);
 
 /**
@@ -210,10 +212,23 @@ export const getDialogFormChangesConfirmStoreProxyFactory = (): DialogFormChange
   staticInjector(DI_TYPES.DialogFormChangesConfirmStoreProxyFactory);
 
 /**
+ * @stable [30.03.2020]
+ * @returns {StoreProxyFactoryT}
+ */
+export const getStoreProxyFactory = (): StoreProxyFactoryT => staticInjector(DI_TYPES.StoreProxyFactory);
+
+/**
  * @stable [30.11.2019]
  * @returns {FormStoreProxyFactoryT}
  */
 export const getFormStoreProxyFactory = (): FormStoreProxyFactoryT => staticInjector(DI_TYPES.FormStoreProxyFactory);
+
+/**
+ * @stable [30.03.2020]
+ * @returns {NotificationStoreProxyFactoryT}
+ */
+export const getNotificationStoreProxyFactory = (): NotificationStoreProxyFactoryT =>
+  staticInjector(DI_TYPES.NotificationStoreProxyFactory);
 
 /**
  * @stable [18.12.2019]

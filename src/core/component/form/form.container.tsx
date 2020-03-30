@@ -86,13 +86,13 @@ export class FormContainer extends BasicContainer<IFormContainerProps> {
   }
 
   private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {
-    this.dispatchLoadDictionary(dictionary, apiEntity);
+    this.dictionaryStoreProxy.dispatchLoadDictionary(dictionary, apiEntity);
   }
 
   private onLoadDictionary(items: AnyT): void {
     const noAvailableItemsToSelect = this.settings.messages.noAvailableItemsToSelectMessage;
     if (noAvailableItemsToSelect && R.isEmpty(items)) {
-      this.dispatchNotification(noAvailableItemsToSelect);
+      this.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
     }
   }
 }

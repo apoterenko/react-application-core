@@ -21,7 +21,7 @@ import {
   selectSelectedEntityFromAction,
   toSection,
 } from '../../util';
-import { convertError } from '../../error';
+import { mapErrorObject } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import {
   EntityMergeStrategiesEnum,
@@ -162,7 +162,7 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {
         ...INITIAL_LIST_ENTITY,
-        error: convertError(action.error).message,
+        error: mapErrorObject(action.error).message,
       };
 
     /**

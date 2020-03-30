@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BaseStoreProxy } from '../base-store.proxy';
+import { StoreProxy } from '../store.proxy';
 import {
+  IGenericContainer,
+  IGenericContainerProps,
+  IGenericStoreEntity,
   IRouterStoreProxy,
   IRouterStoreProxyFactoryConfigEntity,
-  IUniversalContainerProps,
-  IUniversalStoreEntity,
 } from '../../../../definition';
 import { RouterActionBuilder } from '../../../../action';
 import {
@@ -14,18 +15,17 @@ import {
   NOT_NIL_VALUE_PREDICATE,
   selectStackWrapperItemEntities,
 } from '../../../../util';
-import { IPropsWrapper } from '../../../../definitions.interface';
 
-export class RouterStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
-  TProps extends IUniversalContainerProps = IUniversalContainerProps>
-  extends BaseStoreProxy<TStore, TProps>
+export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+                              TProps extends IGenericContainerProps = IGenericContainerProps>
+  extends StoreProxy<TStore, TProps>
   implements IRouterStoreProxy {
 
   /**
-   * @stable [24.03.2020]
-   * @param {IPropsWrapper<TProps extends IUniversalContainerProps>} container
+   * @stable [30.03.2020]
+   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
    */
-  constructor(readonly container: IPropsWrapper<TProps>) {
+  constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
     this.navigateBack = this.navigateBack.bind(this);
   }
@@ -36,6 +36,14 @@ export class RouterStoreProxy<TStore extends IUniversalStoreEntity = IUniversalS
    */
   public navigate(path: string): void {
     this.dispatchAnyAction(RouterActionBuilder.buildNavigatePlainAction(path));
+  }
+
+  /**
+   * @stable [30.03.2020]
+   * @param {string} path
+   */
+  public rewrite(path: string): void {
+    this.dispatchAnyAction(RouterActionBuilder.buildRewritePlainAction(path));
   }
 
   /**

@@ -1,16 +1,17 @@
-import { IError, ApplicationError } from './error.interface';
+import { IError } from './error.interface';
 import { notNilValuesArrayFilter } from '../util';
 import { StringNumberT } from '../definitions.interface';
 
-export function convertError(error: number | string | Error | IError): IError {
+export function mapErrorObject(error: number | string | Error | IError): IError {
+  const errorAsPlainObject = error as IError;
+
   if (error instanceof Error) {
-    return ApplicationError.create(error.message);
-  } else if (error && (error as IError).message) {
-    const error0 = error as IError;
-    return ApplicationError.create(
-        notNilValuesArrayFilter<StringNumberT>(error0.code, error0.message).join(': '),
-        error0.code
-    );
+    return {message: error.message};
+  } else if (errorAsPlainObject && errorAsPlainObject.message) {
+    return {
+      message: notNilValuesArrayFilter<StringNumberT>(errorAsPlainObject.code, errorAsPlainObject.message).join(': '),
+      code: errorAsPlainObject.code,
+    };
   }
-  return ApplicationError.create(String(error));
+  return {message: String(error)};
 }

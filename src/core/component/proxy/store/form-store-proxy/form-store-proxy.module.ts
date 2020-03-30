@@ -4,7 +4,7 @@ import {
   appContainer,
   DI_TYPES,
 } from '../../../../di';
-import { IContainer } from '../../../../definition';
+import { IGenericContainer } from '../../../../definition';
 import { FormStoreProxy } from './form-store.proxy';
 
 /**
@@ -12,5 +12,5 @@ import { FormStoreProxy } from './form-store.proxy';
  */
 appContainer.bind(DI_TYPES.FormStoreProxyFactory)
   .toFactory(
-    (ctx: interfaces.Context) => (parent: IContainer) => new FormStoreProxy(parent)
+    (ctx: interfaces.Context) => (parent: IGenericContainer) => new FormStoreProxy(parent)
   );

@@ -34,6 +34,15 @@ export class RouterActionBuilder {
   }
 
   /**
+   * @stable [30.03.2020]
+   * @param {string} path
+   * @returns {IEffectsAction}
+   */
+  public static buildRewritePlainAction(path: string): IEffectsAction {
+    return {type: $RAC_ROUTER_REWRITE_ACTION_TYPE, data: path};
+  }
+
+  /**
    * @stable [03.06.2018]
    * @param {string} path
    * @returns {IEffectsAction}
@@ -44,12 +53,13 @@ export class RouterActionBuilder {
   }
 
   /**
-   * @stable [17.11.2019]
+   * @stable [30.03.2020]
    * @param {string} path
    * @returns {IEffectsAction}
    */
   public static buildRewriteAction(path: string): IEffectsAction {
-    return EffectsAction.create($RAC_ROUTER_REWRITE_ACTION_TYPE, path);
+    const plainAction = this.buildRewritePlainAction(path);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**

@@ -108,6 +108,7 @@ export interface IRoutesSettingsEntity {
   logout?: string;
   oauthCallback?: string;
   oauthSignIn?: string;
+  profile?: string;
 }
 
 /**
@@ -119,6 +120,7 @@ export const DEFAULT_ROUTES_SETTINGS_ENTITY = Object.freeze<IRoutesSettingsEntit
   logout: '/logout',
   oauthCallback: '/oauth2callback',
   oauthSignIn: '/oauth2sign_in',
+  profile: '/profile',
 });
 
 /**

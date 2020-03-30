@@ -1,28 +1,25 @@
 import * as React from 'react';
 
-import { BaseStoreProxy } from '../base-store.proxy';
+import { StoreProxy } from '../store.proxy';
 import {
   IDialog,
   IDialogFormChangesConfirmStoreProxy,
+  IGenericContainer,
+  IGenericContainerProps,
+  IGenericStoreEntity,
   IRouterStoreProxy,
   IRouterStoreProxyFactoryConfigEntity,
-  IUniversalContainer,
-  IUniversalContainerProps,
-  IUniversalStoreEntity,
   RouterStoreProxyFactoryT,
 } from '../../../../definition';
 import {
   DI_TYPES,
   lazyInject,
 } from '../../../../di';
-import {
-  IPropsWrapper,
-  UNDEF,
-} from '../../../../definitions.interface';
+import { UNDEF } from '../../../../definitions.interface';
 
-export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEntity = IUniversalStoreEntity,
-                                                TProps extends IUniversalContainerProps = IUniversalContainerProps>
-  extends BaseStoreProxy<TStore, TProps>
+export class DialogFormChangesConfirmStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+                                                TProps extends IGenericContainerProps = IGenericContainerProps>
+  extends StoreProxy<TStore, TProps>
   implements IDialogFormChangesConfirmStoreProxy {
 
   @lazyInject(DI_TYPES.RouterStoreProxyFactory) private readonly routerStoreProxyFactory: RouterStoreProxyFactoryT;
@@ -33,10 +30,10 @@ export class DialogFormChangesConfirmStoreProxy<TStore extends IUniversalStoreEn
   private $cachedDepth: number;
 
   /**
-   * @stable [09.10.2019]
-   * @param {IUniversalContainer<TProps extends IUniversalContainerProps>} container
+   * @stable [30.03.2020]
+   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
    */
-  constructor(readonly container: IPropsWrapper<TProps>) {
+  constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
 
     this.goBack = this.goBack.bind(this);

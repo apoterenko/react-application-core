@@ -4,7 +4,7 @@ import {
   appContainer,
   DI_TYPES,
 } from '../../../../di';
-import { IContainer } from '../../../../definition';
+import { IGenericContainer } from '../../../../definition';
 import { RouterStoreProxy } from './router-store.proxy';
 
 /**
@@ -12,5 +12,5 @@ import { RouterStoreProxy } from './router-store.proxy';
  */
 appContainer.bind(DI_TYPES.RouterStoreProxyFactory)
   .toFactory(
-    (ctx: interfaces.Context) => (parent: IContainer) => new RouterStoreProxy(parent)
+    (ctx: interfaces.Context) => (parent: IGenericContainer) => new RouterStoreProxy(parent)
   );

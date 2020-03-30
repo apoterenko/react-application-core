@@ -1,5 +1,4 @@
 import {
-  IGenericComponentEntity,
   IUniversalComponentEntity,
   IWebComponentEntity,
 } from './component-definition.interface';
@@ -8,14 +7,6 @@ import {
   IUniversalContainerEntity,
   IWebContainerEntity,
 } from './container-definition.interface';
-
-/**
- * @react-native-compatible
- * @stable [27.09.2019]
- */
-export interface IGenericComponentProps
-  extends IGenericComponentEntity {
-}
 
 /**
  * @react-native-compatible

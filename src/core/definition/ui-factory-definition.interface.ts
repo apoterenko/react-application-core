@@ -3,7 +3,10 @@ import * as React from 'react';
 import {
   AnyT,
   IClassNameWrapper,
+  IDisabledWrapper,
   IMessageWrapper,
+  IOnClickWrapper,
+  ITouchedWrapper,
   ITypeWrapper,
   IWrapperClassNameWrapper,
   IWrapperWrapper,
@@ -47,6 +50,9 @@ export interface IUiFactory {
  */
 export interface IIconConfigEntity
   extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+    IDisabledWrapper,
+    IOnClickWrapper,
+    ITouchedWrapper,
     ITypeWrapper {
 }
 

@@ -291,8 +291,8 @@ export interface IListAccessorWrapper<TValue> { listAccessor?: TValue; }
 export interface IListConfigurationWrapper<TValue> { listConfiguration?: TValue; }
 export interface IListSectionWrapper<TValue = string> { listSection?: TValue; }
 export interface IListsSectionsWrapper<TValue> { listsSections?: TValue; }
-export interface IListWrapper<TList> { list?: TList; }
-export interface ILngWrapper<TLng = number> { lng?: TLng; }
+export interface IListWrapper<TValue> { list?: TValue; }
+export interface ILngWrapper<TValue = number> { lng?: TValue; }
 export interface ILoadingWrapper { loading?: boolean; }
 export interface ILocalFilterWrapper<TValue = {}> { localFilter?(payload?: TValue): boolean; }
 export interface ILocalSortingWrapper { localSorting?: boolean; }

@@ -35,6 +35,14 @@ export interface IGenericComponentEntity<TComponent = AnyT>
 }
 
 /**
+ * @props
+ * @stable [30.03.2020]
+ */
+export interface IGenericComponentProps
+  extends IGenericComponentEntity {
+}
+
+/**
  * @react-native-compatible
  * @stable [22.09.2019]
  */
