@@ -16,12 +16,13 @@ import {
   IPayloadEntity,
   ISelectedEntity,
   ISelectedFluxEntity,
+  LIST_CANCEL_LOAD_ACTION_TYPE,
+  LIST_CREATE_ACTION_TYPE,
+  LIST_SELECT_ACTION_TYPE,
 } from '../../definition';
 import { applySection, toActionPrefix } from '../../util';
 import {
-  LIST_CANCEL_LOAD_ACTION_TYPE,
   LIST_CHANGE_ACTION_TYPE,
-  LIST_CREATE_ACTION_TYPE,
   LIST_DESELECT_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
   LIST_FIRST_PAGE_ACTION_TYPE,
@@ -38,7 +39,6 @@ import {
   LIST_PREVIOUS_PAGE_ACTION_TYPE,
   LIST_REMOVE_ACTION_TYPE,
   LIST_RESET_ACTION_TYPE,
-  LIST_SELECT_ACTION_TYPE,
   LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE,
   LIST_UN_TOUCH_ACTION_TYPE,
   LIST_UPDATE_ACTION_TYPE,
@@ -178,7 +178,7 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [07.12.2018]
+   * @stable [30.03.2020]
    * @param {string} section
    * @returns {string}
    */
@@ -375,27 +375,30 @@ export class ListActionBuilder {
   }
 
   /**
+   * @stable [30.03.2020]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildCancelLoadPlainAction(section: string): IEffectsAction {
+    return {type: this.buildCancelLoadActionType(section), data: applySection(section)};
+  }
+
+  /**
    * @stable [20.10.2019]
    * @param {string} section
    * @param {ISelectedFluxEntity} payload
    * @returns {IEffectsAction}
    */
   public static buildSelectPlainAction(section: string, payload: ISelectedFluxEntity): IEffectsAction {
-    return {
-      type: this.buildSelectActionType(section),
-      data: applySection(section, payload),
-    };
+    return {type: this.buildSelectActionType(section), data: applySection(section, payload)};
   }
 
   /**
-   * @stable [20.01.2019]
+   * @stable [30.03.2020]
    * @param {string} section
    * @returns {IEffectsAction}
    */
   public static buildCreatePlainAction(section: string): IEffectsAction {
-    return {
-      type: this.buildCreateActionType(section),
-      data: applySection(section),
-    };
+    return {type: this.buildCreateActionType(section), data: applySection(section)};
   }
 }

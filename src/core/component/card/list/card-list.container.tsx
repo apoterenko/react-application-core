@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { UniversalBaseListContainer } from '../../list';
+import { BaseListContainer } from '../../list';
 import { CardList } from './card-list.component';
 import { ICardListContainerProps } from './card-list.interface';
 
-export class CardListContainer extends UniversalBaseListContainer<ICardListContainerProps> {
+export class CardListContainer extends BaseListContainer<ICardListContainerProps> {
 
   /**
    * @stable [06.06.2018]

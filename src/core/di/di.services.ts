@@ -39,6 +39,7 @@ import {
   IUniversalContainerCtor,
   IUniversalContainerProps,
   IUserActivityManager,
+  ListStoreProxyFactoryT,
   NotificationStoreProxyFactoryT,
   RouterStoreProxyFactoryT,
   StoreProxyFactoryT,
@@ -222,6 +223,12 @@ export const getStoreProxyFactory = (): StoreProxyFactoryT => staticInjector(DI_
  * @returns {FormStoreProxyFactoryT}
  */
 export const getFormStoreProxyFactory = (): FormStoreProxyFactoryT => staticInjector(DI_TYPES.FormStoreProxyFactory);
+
+/**
+ * @stable [30.03.2020]
+ * @returns {ListStoreProxyFactoryT}
+ */
+export const getListStoreProxyFactory = (): ListStoreProxyFactoryT => staticInjector(DI_TYPES.ListStoreProxyFactory);
 
 /**
  * @stable [30.03.2020]

@@ -95,7 +95,7 @@ export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICaptureWrapper { capture?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TValue = IValueWrapper> extends React.ChangeEvent<TValue> {}
-export interface IChangesWrapper<TValue extends IKeyValue = IKeyValue> { changes?: TValue; }
+export interface IChangesWrapper<TValue = {}> { changes?: TValue; }
 export interface IChannelsWrapper<TValue = string> { channels?: TValue; }
 export interface IChannelWrapper<TValue = string> { channel?: TValue; }
 export interface ICheckModalWrapper { checkModal?: boolean; }
@@ -344,6 +344,7 @@ export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; 
 export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
+export interface IOnCreateWrapper<TValue = {}> { onCreate?(payload?: TValue): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(payload?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }

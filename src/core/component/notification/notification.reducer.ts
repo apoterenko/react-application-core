@@ -5,20 +5,20 @@ import {
   $RAC_NOTIFICATION_ERROR_ACTION_TYPE,
   $RAC_NOTIFICATION_INFO_ACTION_TYPE,
   INITIAL_NOTIFICATION_ENTITY,
-  INotificationEntity,
+  IGenericNotificationEntity,
 } from '../../definition';
 import { mapErrorObject } from '../../error'; // TODO Move to mapper
 import { selectData } from '../../util';
 
 /**
  * @stable [13.02.2020]
- * @param {INotificationEntity} state
+ * @param {IGenericNotificationEntity} state
  * @param {IEffectsAction} action
- * @returns {INotificationEntity}
+ * @returns {IGenericNotificationEntity}
  */
-export const notificationReducer = (state: INotificationEntity = INITIAL_NOTIFICATION_ENTITY,
-                                    action: IEffectsAction): INotificationEntity => {
-  const notificationEntity = selectData<INotificationEntity>(action);
+export const notificationReducer = (state: IGenericNotificationEntity = INITIAL_NOTIFICATION_ENTITY,
+                                    action: IEffectsAction): IGenericNotificationEntity => {
+  const notificationEntity = selectData<IGenericNotificationEntity>(action);
   switch (action.type) {
     case $RAC_NOTIFICATION_INFO_ACTION_TYPE:
       return {

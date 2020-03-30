@@ -8,6 +8,7 @@ import {
   IFormStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
+  IListStoreProxy,
   INotificationStoreProxy,
   IOperationEntity,
   IPermissionsManager,
@@ -19,6 +20,7 @@ import {
   getDialogFormChangesConfirmStoreProxyFactory,
   getDictionaryStoreProxyFactory,
   getFormStoreProxyFactory,
+  getListStoreProxyFactory,
   getNotificationStoreProxyFactory,
   getPermissionsManager,
   getRouterStoreProxyFactory,
@@ -37,6 +39,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   private $dfccStoreProxy: IDialogFormChangesConfirmStoreProxy;
   private $dictionaryStoreProxy: IDictionaryStoreProxy;
   private $formStoreProxy: IFormStoreProxy;
+  private $listStoreProxy: IListStoreProxy;
   private $notificationStoreProxy: INotificationStoreProxy;
   private $routerStoreProxy: IRouterStoreProxy;
   private $storeProxy: IStoreProxy;
@@ -55,6 +58,14 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    */
   public get formStoreProxy(): IFormStoreProxy {
     return this.$formStoreProxy = this.$formStoreProxy || getFormStoreProxyFactory()(this);
+  }
+
+  /**
+   * @stable [30.03.2020]
+   * @returns {IListStoreProxy}
+   */
+  public get listStoreProxy(): IListStoreProxy {
+    return this.$listStoreProxy = this.$listStoreProxy || getListStoreProxyFactory()(this);
   }
 
   /**

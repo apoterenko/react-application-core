@@ -1,4 +1,6 @@
 export * from './base-list.component';
+export * from './base-list.container';
+export * from './basic';
 export * from './item';
 export * from './list-action.builder';
 export * from './list.component';
@@ -6,5 +8,3 @@ export * from './list.container';
 export * from './list.interface';
 export * from './list.reducer';
 export * from './navigation';
-export * from './basic';
-export * from './universal-base-list.container';

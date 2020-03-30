@@ -7,7 +7,7 @@ import {
   $RAC_NOTIFICATION_CLEAR_ACTION_TYPE,
   $RAC_NOTIFICATION_ERROR_ACTION_TYPE,
   $RAC_NOTIFICATION_INFO_ACTION_TYPE,
-  INotificationEntity,
+  IGenericNotificationEntity,
 } from '../definition';
 import {
   isString,
@@ -42,7 +42,7 @@ export class NotificationActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildPlainInfoAction(info: string): IEffectsAction {
-    const notificationEntity: INotificationEntity = {info};
+    const notificationEntity: IGenericNotificationEntity = {info};
     return {type: $RAC_NOTIFICATION_INFO_ACTION_TYPE, data: notificationEntity};
   }
 
@@ -52,7 +52,7 @@ export class NotificationActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildPlainErrorAction(error: string | IEffectsAction): IEffectsAction {
-    const notificationEntity: INotificationEntity = {
+    const notificationEntity: IGenericNotificationEntity = {
       error: isString(error)
         ? error as string
         : selectErrorFromAction(error as IEffectsAction),

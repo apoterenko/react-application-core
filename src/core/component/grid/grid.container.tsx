@@ -5,11 +5,11 @@ import { ISortDirectionEntity } from '../../definition';
 import { Grid } from './grid.component';
 import { IGridContainerProps } from './grid.interface';
 import {
-  UniversalBaseListContainer,
+  BaseListContainer,
   LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE,
 } from '../list';
 
-export class GridContainer extends UniversalBaseListContainer<IGridContainerProps> {
+export class GridContainer extends BaseListContainer<IGridContainerProps> {
 
   /**
    * @stable [06.06.2018]

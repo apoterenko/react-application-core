@@ -20,7 +20,12 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    */
   constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
+
+    this.dispatchFormChange = this.dispatchFormChange.bind(this);
+    this.dispatchFormChanges = this.dispatchFormChanges.bind(this);
     this.dispatchFormReset = this.dispatchFormReset.bind(this);
+    this.dispatchFormSubmit = this.dispatchFormSubmit.bind(this);
+    this.dispatchFormValid = this.dispatchFormValid.bind(this);
   }
 
   /**

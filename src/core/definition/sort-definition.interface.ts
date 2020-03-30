@@ -33,6 +33,7 @@ export interface ISortDirectionPayloadEntity
 }
 
 /**
+ * @entity
  * @stable [17.10.2019]
  */
 export interface ISortDirectionsEntity {
@@ -40,6 +41,7 @@ export interface ISortDirectionsEntity {
 }
 
 /**
+ * @wrapper-entity
  * @stable [17.10.2019]
  */
 export interface ISortDirectionsWrapperEntity

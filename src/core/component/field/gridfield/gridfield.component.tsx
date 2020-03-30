@@ -6,7 +6,7 @@ import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield'
 import { toClassName } from '../../../util';
 import {
   IFieldChangeEntity,
-  IListEntity,
+  IGenericListEntity,
   INITIAL_LIST_ENTITY,
 } from '../../../definition';
 
@@ -28,7 +28,7 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
   protected getAttachmentElement(): JSX.Element {
     const props = this.props;
 
-    const gridListEntity: IListEntity = {
+    const gridListEntity: IGenericListEntity = {
       ...INITIAL_LIST_ENTITY,
       data: this.multiFieldPlugin.activeValue,
       changes: fromMultiItemEntitiesToFieldsChanges(this.multiFieldPlugin.editValue),

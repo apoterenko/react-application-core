@@ -6,10 +6,10 @@ import {
 } from '../definitions.interface';
 
 /**
- * @entity
+ * @generic-entity
  * @stable [24.09.2019]
  */
-export interface INotificationEntity
+export interface IGenericNotificationEntity
   extends IErrorWrapper<string>,
     IInfoWrapper {
 }
@@ -19,14 +19,14 @@ export interface INotificationEntity
  * @stable [24.09.2019]
  */
 export interface INotificationWrapperEntity
-  extends INotificationWrapper<INotificationEntity> {
+  extends INotificationWrapper<IGenericNotificationEntity> {
 }
 
 /**
  * @initial-entity
  * @stable [24.09.2019]
  */
-export const INITIAL_NOTIFICATION_ENTITY = Object.freeze<INotificationEntity>({
+export const INITIAL_NOTIFICATION_ENTITY = Object.freeze<IGenericNotificationEntity>({
   error: null,
   info: null,
 });

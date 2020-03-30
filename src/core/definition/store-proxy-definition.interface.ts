@@ -3,6 +3,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IActivateDialogWrapper,
+  IEntity,
   IFirstWrapper,
   IGoBackWrapper,
   IItemWrapper,
@@ -33,6 +34,16 @@ export interface IDialogFormChangesConfirmStoreProxy
     IGoBackWrapper,
     IBaseRouterStoreProxy {
   getDialogRef<T extends IDialog>(): React.RefObject<T>;
+}
+
+/**
+ * @proxy
+ * @stable [30.03.2020]
+ */
+export interface IListStoreProxy {
+  dispatchListCancelLoad(otherSection?: string): void;
+  dispatchListCreate(otherSection?: string): void;
+  dispatchListSelect<TEntity = IEntity>(entity: TEntity, otherSection?: string): void;
 }
 
 /**
@@ -99,6 +110,7 @@ export interface IDictionaryStoreProxy {
 export type DialogFormChangesConfirmStoreProxyFactoryT = (parent: IGenericContainer) => IDialogFormChangesConfirmStoreProxy;
 export type DictionaryStoreProxyFactoryT = (parent: IGenericContainer) => IDictionaryStoreProxy;
 export type FormStoreProxyFactoryT = (parent: IGenericContainer) => IFormStoreProxy;
-export type RouterStoreProxyFactoryT = (parent: IGenericContainer) => IRouterStoreProxy;
+export type ListStoreProxyFactoryT = (parent: IGenericContainer) => IListStoreProxy;
 export type NotificationStoreProxyFactoryT = (parent: IGenericContainer) => INotificationStoreProxy;
+export type RouterStoreProxyFactoryT = (parent: IGenericContainer) => IRouterStoreProxy;
 export type StoreProxyFactoryT = (parent: IGenericContainer) => IStoreProxy;

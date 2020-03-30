@@ -21,6 +21,7 @@ export const DI_TYPES = Object.freeze({
   FormStoreProxyFactory: Symbol('FormStoreProxyFactory'),
   FullScreenManager: Symbol('FullScreenManager'),
   I18n: Symbol('I18n'),
+  ListStoreProxyFactory: Symbol('ListStoreProxyFactory'),
   Lock: Symbol('Lock'),
   LogManager: Symbol('LogManager'),
   LogManagerEventPayloadFactory: Symbol('LogManagerEventPayloadFactory'),

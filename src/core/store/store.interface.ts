@@ -14,7 +14,7 @@ import {
   IAsyncLibsEntity,
   IDictionariesEntity,
   ILayoutEntity,
-  INotificationEntity,
+  IGenericNotificationEntity,
   IStackEntity,
 } from '../definition';
 import { $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
