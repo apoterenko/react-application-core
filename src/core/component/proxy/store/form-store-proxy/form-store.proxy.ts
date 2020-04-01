@@ -64,6 +64,15 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
   }
 
   /**
+   * @stable [01.04.2020]
+   * @param {TChanges} changes
+   * @param {string} otherSection
+   */
+  public dispatchFormDefaultChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void {
+    this.dispatchPlainAction(FormActionBuilder.buildDefaultChangesPlainAction(this.asSection(otherSection), changes));
+  }
+
+  /**
    * @stable [03.02.2020]
    * @param {FieldChangeEntityT} payload
    * @param {string} otherSection

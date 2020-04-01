@@ -179,3 +179,13 @@ export enum FormClassesEnum {
   FORM_BODY = 'rac-form__body',
   FULL_FORM = 'rac-full-form',
 }
+
+/**
+ * @stable [01.04.2020]
+ */
+export const FORM_CHANGE_ACTION_TYPE = 'form.change';
+export const FORM_CLEAR_ACTION_TYPE = 'form.clear';
+export const FORM_DEFAULT_CHANGE_ACTION_TYPE = 'form.default.change';
+export const FORM_DESTROY_ACTION_TYPE = 'form.destroy';
+export const FORM_RESET_ACTION_TYPE = 'form.reset';
+export const FORM_VALID_ACTION_TYPE = 'form.valid';

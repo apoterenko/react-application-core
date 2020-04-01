@@ -8,26 +8,23 @@ import {
   toActionPrefix,
 } from '../../util';
 import {
-  IKeyValue,
-  UNDEF,
-} from '../../definitions.interface';
-import {
   FORM_ACTIVE_VALUE_ACTION_TYPE,
-  FORM_CHANGE_ACTION_TYPE,
-  FORM_CLEAR_ACTION_TYPE,
-  FORM_DEACTIVATED_VALUE_ACTION_TYPE,
-  FORM_DEFAULT_CHANGE_ACTION_TYPE,
-  FORM_DESTROY_ACTION_TYPE,
+  FORM_INACTIVE_VALUE_ACTION_TYPE,
   FORM_PROGRESS_ACTION_TYPE,
-  FORM_RESET_ACTION_TYPE,
   FORM_SUBMIT_ACTION_TYPE,
   FORM_SUBMIT_DONE_ACTION_TYPE,
   FORM_SUBMIT_ERROR_ACTION_TYPE,
   FORM_SUBMIT_FINISHED_ACTION_TYPE,
-  FORM_VALID_ACTION_TYPE,
 } from './form.interface';
 import {
+  FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
   FieldChangeEntityT,
+  FORM_CHANGE_ACTION_TYPE,
+  FORM_CLEAR_ACTION_TYPE,
+  FORM_DEFAULT_CHANGE_ACTION_TYPE,
+  FORM_DESTROY_ACTION_TYPE,
+  FORM_RESET_ACTION_TYPE,
+  FORM_VALID_ACTION_TYPE,
   IApiEntity,
   IFieldChangeEntity,
   IFormValidEntity,
@@ -100,12 +97,12 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [02.09.2018]
+   * @stable [01.04.2020]
    * @param {string} section
    * @returns {string}
    */
-  public static buildDeactivatedValueActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_DEACTIVATED_VALUE_ACTION_TYPE}`;
+  public static buildInactiveValueActionType(section: string): string {
+    return `${toActionPrefix(section)}.${FORM_INACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   /**
@@ -191,8 +188,14 @@ export class FormActionBuilder {
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
+  /**
+   * @stable [01.04.2020]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
   public static buildSubmitFinishedAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildSubmitFinishedActionType(section), applySection(section));
+    const plainAction = this.buildSubmitFinishedPlainAction(section);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**
@@ -210,52 +213,69 @@ export class FormActionBuilder {
    * @param {string} fieldName
    * @returns {IEffectsAction}
    */
-  public static buildClearPlainAction(section: string, fieldName: string): IEffectsAction {
-    return {
-      type: this.buildClearActionType(section),
-      data: applySection(section, this.buildChangesPayload({[fieldName]: UNDEF})),
-    };
-  }
-
-  /**
-   * @stable [03.02.2020]
-   * @param {string} section
-   * @param {string} fieldName
-   * @returns {IEffectsAction}
-   */
   public static buildClearAction(section: string, fieldName: string): IEffectsAction {
     const plainAction = this.buildClearPlainAction(section, fieldName);
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [01.04.2020]
    * @param {string} section
    * @param {TData} changes
    * @returns {IEffectsAction}
    */
-  public static buildChangesAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): IEffectsAction {
+  public static buildChangesAction<TData = {}>(section: string, changes: TData): IEffectsAction {
     const plainAction = this.buildChangesPlainAction(section, changes);
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
-  public static buildDefaultChangesAction<TData extends IKeyValue = IKeyValue>(section: string,
-                                                                               changes: TData): IEffectsAction {
-    return EffectsAction.create(
-      this.buildDefaultChangeActionType(section),
-      applySection(section, this.buildChangesPayload(changes))
-    );
-  }
-
   /**
-   * @stable [03.02.2020]
+   * @stable [01.04.2020]
    * @param {string} section
    * @param {TData} changes
    * @returns {IEffectsAction}
    */
-  public static buildChangesPlainAction<TData extends IKeyValue = IKeyValue>(section: string, changes: TData): IEffectsAction {
+  public static buildDefaultChangesAction<TData = {}>(section: string,
+                                                      changes: TData): IEffectsAction {
+    const plainAction = this.buildDefaultChangesPlainAction(section, changes);
+    return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
+   * @stable [01.04.2020]
+   * @param {string} section
+   * @param {string} fieldName
+   * @returns {IEffectsAction}
+   */
+  public static buildClearPlainAction(section: string, fieldName: string): IEffectsAction {
+    return {
+      type: this.buildClearActionType(section),
+      data: applySection(section, this.buildChangesPayload({[fieldName]: FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES})),
+    };
+  }
+
+  /**
+   * @stable [01.04.2020]
+   * @param {string} section
+   * @param {TData} changes
+   * @returns {IEffectsAction}
+   */
+  public static buildChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
     return {
       type: this.buildChangeActionType(section),
+      data: applySection(section, this.buildChangesPayload(changes)),
+    };
+  }
+
+  /**
+   * @stable [01.04.2020]
+   * @param {string} section
+   * @param {TData} changes
+   * @returns {IEffectsAction}
+   */
+  public static buildDefaultChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
+    return {
+      type: this.buildDefaultChangeActionType(section),
       data: applySection(section, this.buildChangesPayload(changes)),
     };
   }
@@ -301,11 +321,20 @@ export class FormActionBuilder {
   }
 
   /**
+   * @stable [01.04.2020]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildSubmitFinishedPlainAction(section: string): IEffectsAction {
+    return {type: this.buildSubmitFinishedActionType(section), data: applySection(section)};
+  }
+
+  /**
    * @stable [03.02.2020]
-   * @param {IKeyValue} changes
+   * @param {{}} changes
    * @returns {FieldChangeEntityT}
    */
-  private static buildChangesPayload(changes: IKeyValue): FieldChangeEntityT {
+  private static buildChangesPayload(changes: {}): FieldChangeEntityT {
     return {
       fields: Object
         .keys(changes)

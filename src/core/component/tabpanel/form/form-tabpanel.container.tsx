@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FORM_ACTIVE_VALUE_ACTION_TYPE, FORM_DEACTIVATED_VALUE_ACTION_TYPE } from '../../form';
+import { FORM_ACTIVE_VALUE_ACTION_TYPE, FORM_INACTIVE_VALUE_ACTION_TYPE } from '../../form';
 import {
   IActiveValueWrapper,
   IPayloadWrapper,
@@ -27,7 +27,7 @@ export class FormTabPanelContainer
    * @param {IPayloadWrapper<number>} payloadWrapper
    */
   protected dispatchDeactivatedValue(payloadWrapper: IPayloadWrapper<number>): void {
-    this.dispatchFrameworkAction(FORM_DEACTIVATED_VALUE_ACTION_TYPE, payloadWrapper);
+    this.dispatchFrameworkAction(FORM_INACTIVE_VALUE_ACTION_TYPE, payloadWrapper);
   }
 
   /**

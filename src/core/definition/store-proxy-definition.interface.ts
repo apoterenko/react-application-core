@@ -53,6 +53,7 @@ export interface IListStoreProxy {
 export interface IFormStoreProxy {
   dispatchFormChange(change: FieldChangeEntityT, otherSection?: string): void;
   dispatchFormChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
+  dispatchFormDefaultChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
   dispatchFormReset(otherSection?: string): void;
   dispatchFormSubmit(apiEntity: IApiEntity, otherSection?: string): void;
   dispatchFormValid(valid: boolean, otherSection?: string): void;
