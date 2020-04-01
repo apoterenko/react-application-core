@@ -91,5 +91,6 @@ export interface IComponentCtor<TProps extends IComponentProps = IComponentProps
 export enum ComponentClassesEnum {
   ALIGNMENT_CENTER = 'rac-alignment-center',
   CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR = 'rac-calendar-dialog__range-input-separator',   // TODO
+  FLEX_THREE_QUARTERS = 'rac-flex-three-quarters',
   OVERFLOW_HIDDEN = 'rac-overflow-hidden',
 }
