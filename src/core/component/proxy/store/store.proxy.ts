@@ -32,7 +32,7 @@ export class StoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity
    * @param {TChanges} data
    */
   public dispatch<TChanges = {}>(type: string, data?: TChanges): void {
-    this.dispatchCustomType(`${this.sectionName}.${type}`, applySection(this.sectionName, data));
+    this.dispatchActionByType(`${this.sectionName}.${type}`, applySection(this.sectionName, data));
   }
 
   /**
@@ -40,15 +40,15 @@ export class StoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity
    * @param {string} type
    * @param {TData} data
    */
-  public dispatchCustomType<TData = {}>(type: string, data?: TData): void {
-    this.dispatchAnyAction({type, data});
+  public dispatchActionByType<TData = {}>(type: string, data?: TData): void {
+    this.dispatchPlainAction({type, data});
   }
 
   /**
    * @stable [24.03.2020]
    * @param {IEffectsAction} action
    */
-  public dispatchAnyAction(action: IEffectsAction): void {
+  public dispatchPlainAction(action: IEffectsAction): void {
     this.appStore.dispatch(action);
   }
 

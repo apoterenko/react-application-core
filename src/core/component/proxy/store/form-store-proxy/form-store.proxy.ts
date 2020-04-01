@@ -33,7 +33,7 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchFormReset(otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildResetPlainAction(this.asSection(otherSection)));
+    this.dispatchPlainAction(FormActionBuilder.buildResetPlainAction(this.asSection(otherSection)));
   }
 
   /**
@@ -42,7 +42,7 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchFormSubmit(apiEntity: IApiEntity, otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildSubmitPlainAction(this.asSection(otherSection), apiEntity));
+    this.dispatchPlainAction(FormActionBuilder.buildSubmitPlainAction(this.asSection(otherSection), apiEntity));
   }
 
   /**
@@ -51,7 +51,7 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchFormValid(valid: boolean, otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildValidPlainAction(this.asSection(otherSection), valid));
+    this.dispatchPlainAction(FormActionBuilder.buildValidPlainAction(this.asSection(otherSection), valid));
   }
 
   /**
@@ -60,7 +60,7 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchFormChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildChangesPlainAction(this.asSection(otherSection), changes));
+    this.dispatchPlainAction(FormActionBuilder.buildChangesPlainAction(this.asSection(otherSection), changes));
   }
 
   /**
@@ -69,7 +69,7 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchFormChange(payload: FieldChangeEntityT, otherSection?: string): void {
-    this.dispatchAnyAction(FormActionBuilder.buildChangePlainAction(this.asSection(otherSection), payload));
+    this.dispatchPlainAction(FormActionBuilder.buildChangePlainAction(this.asSection(otherSection), payload));
   }
 
   /**

@@ -21,8 +21,8 @@ import { IStackItemEntity } from './stack-definition.interface';
  */
 export interface IStoreProxy {
   dispatch<TChanges = {}>(type: string, data?: TChanges): void;
-  dispatchAnyAction(action: IEffectsAction): void;
-  dispatchCustomType<TData = {}>(type: string, data?: TData): void;
+  dispatchActionByType<TData = {}>(type: string, data?: TData): void;
+  dispatchPlainAction(action: IEffectsAction): void;
 }
 
 /**

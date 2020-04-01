@@ -29,7 +29,7 @@ export class ListStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchListCancelLoad(otherSection?: string): void {
-    this.dispatchAnyAction(ListActionBuilder.buildCancelLoadPlainAction(this.asSection(otherSection)));
+    this.dispatchPlainAction(ListActionBuilder.buildCancelLoadPlainAction(this.asSection(otherSection)));
   }
 
   /**
@@ -38,7 +38,7 @@ export class ListStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchListSelect<TEntity>(selected: TEntity, otherSection?: string): void {
-    this.dispatchAnyAction(ListActionBuilder.buildSelectPlainAction(this.asSection(otherSection), {selected}));
+    this.dispatchPlainAction(ListActionBuilder.buildSelectPlainAction(this.asSection(otherSection), {selected}));
   }
 
   /**
@@ -46,7 +46,7 @@ export class ListStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    * @param {string} otherSection
    */
   public dispatchListCreate(otherSection?: string): void {
-    this.dispatchAnyAction(ListActionBuilder.buildCreatePlainAction(this.asSection(otherSection)));
+    this.dispatchPlainAction(ListActionBuilder.buildCreatePlainAction(this.asSection(otherSection)));
   }
 
   /**

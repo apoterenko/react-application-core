@@ -26,6 +26,6 @@ export class NotificationStoreProxy<TStore extends IGenericStoreEntity = IGeneri
    * @param {string} info
    */
   public dispatchNotification(info: string): void {
-    this.dispatchAnyAction(NotificationActionBuilder.buildPlainInfoAction(info));
+    this.dispatchPlainAction(NotificationActionBuilder.buildPlainInfoAction(info));
   }
 }

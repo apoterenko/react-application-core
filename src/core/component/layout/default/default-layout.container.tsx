@@ -123,7 +123,7 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
    * @param {IXYEntity} xy
    */
   private onNavigationListScroll(xy: IXYEntity): void {
-    this.dispatchCustomType<IPayloadWrapper<ILayoutEntity>>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
+    this.dispatchActionByType<IPayloadWrapper<ILayoutEntity>>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
   }
 
   /**
@@ -138,7 +138,7 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
    * @stable [04.12.2019]
    */
   private onDrawerHeaderClick(layoutMode: LayoutModesEnum): void {
-    this.dispatchCustomType<IPayloadWrapper<LayoutModesEnum>>(
+    this.dispatchActionByType<IPayloadWrapper<LayoutModesEnum>>(
       LAYOUT_MODE_UPDATE_ACTION_TYPE,
       {payload: layoutMode}
     );
@@ -224,6 +224,6 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
       return;
     }
     const payloadWrapper: IPayloadWrapper<StringNumberT> = {payload: itemValue};
-    this.dispatchCustomType(LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE, payloadWrapper);
+    this.dispatchActionByType(LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE, payloadWrapper);
   }
 }

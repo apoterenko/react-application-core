@@ -27,6 +27,6 @@ export class DictionaryStoreProxy<TStore extends IGenericStoreEntity = IGenericS
    * @param {TData} data
    */
   public dispatchLoadDictionary<TData = {}>(dictionary: string, data?: TData): void {
-    this.dispatchAnyAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, data));
+    this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, data));
   }
 }

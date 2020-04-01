@@ -105,8 +105,8 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @stable [30.03.2020]
    * @param {IEffectsAction} action
    */
-  public dispatchAnyAction(action: IEffectsAction): void {
-    this.storeProxy.dispatchAnyAction(action);
+  public dispatchPlainAction(action: IEffectsAction): void {
+    this.storeProxy.dispatchPlainAction(action);
   }
 
   /**
@@ -114,8 +114,8 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @param {string} type
    * @param {TData} data
    */
-  public dispatchCustomType<TData = {}>(type: string, data?: TData): void {
-    this.storeProxy.dispatchCustomType(type, data);
+  public dispatchActionByType<TData = {}>(type: string, data?: TData): void {
+    this.storeProxy.dispatchActionByType(type, data);
   }
 
   /**

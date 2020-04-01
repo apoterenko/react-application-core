@@ -50,6 +50,7 @@ export interface IEntityActionBuilder {
   buildDestroyAction(): IEffectsAction;
   buildReplaceAction<TValue = AnyT>(replaced: TValue): IEffectsAction;
   buildSelectAction<TValue = AnyT>(selected: TValue): IEffectsAction;
+  buildSelectPlainAction<TValue = AnyT>(selected: TValue): IEffectsAction;
   buildUpdateAction<TValue = AnyT>(updated: TValue): IEffectsAction;
 }
 

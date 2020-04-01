@@ -35,7 +35,7 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
    * @param {string} path
    */
   public navigate(path: string): void {
-    this.dispatchAnyAction(RouterActionBuilder.buildNavigatePlainAction(path));
+    this.dispatchPlainAction(RouterActionBuilder.buildNavigatePlainAction(path));
   }
 
   /**
@@ -43,7 +43,7 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
    * @param {string} path
    */
   public rewrite(path: string): void {
-    this.dispatchAnyAction(RouterActionBuilder.buildRewritePlainAction(path));
+    this.dispatchPlainAction(RouterActionBuilder.buildRewritePlainAction(path));
   }
 
   /**
@@ -51,7 +51,7 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
    * @param {number} depth
    */
   public goBack(depth?: number): void {
-    this.dispatchAnyAction(RouterActionBuilder.buildNavigateBackPlainAction(depth));
+    this.dispatchPlainAction(RouterActionBuilder.buildNavigateBackPlainAction(depth));
   }
 
   /**

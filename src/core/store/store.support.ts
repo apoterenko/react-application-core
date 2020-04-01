@@ -196,6 +196,17 @@ export const makeEntityActionBuilderFactory = (config: IEntityReducerFactoryConf
      * @returns {IEffectsAction}
      */
     public buildSelectAction<TValue = AnyT>(selected: TValue): IEffectsAction {
-      return EffectsAction.create(config.select, toType<ISelectedWrapper<TValue>>({selected}));
+      const plainAction = this.buildSelectPlainAction(selected);
+      return EffectsAction.create(plainAction.type, plainAction.data);
+    }
+
+    /**
+     * @stable [01.04.2020]
+     * @param {TValue} selected
+     * @returns {IEffectsAction}
+     */
+    public buildSelectPlainAction<TValue = AnyT>(selected: TValue): IEffectsAction {
+      const payloadWrapper: ISelectedWrapper<TValue> = {selected};
+      return {type: config.select, data: payloadWrapper};
     }
   }, []);
