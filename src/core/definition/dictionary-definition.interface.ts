@@ -7,7 +7,7 @@ import {
   ILoadingWrapper,
   IPlacesWrapper,
 } from '../definitions.interface';
-import { IPagedEntity } from './page-definition.interface';
+import { IGenericPagedEntity } from './page-definition.interface';
 
 /**
  * @stable [10.09.2019]
@@ -36,7 +36,7 @@ export enum DictionariesEnum {
 /**
  * @stable [10.09.2019]
  */
-export const DEFAULT_DICTIONARY_PAGED_ENTITY = Object.freeze<IPagedEntity>({
+export const DEFAULT_DICTIONARY_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
   page: FIRST_PAGE,
   pageSize: DEFAULT_DICTIONARY_PAGE_SIZE,
 });

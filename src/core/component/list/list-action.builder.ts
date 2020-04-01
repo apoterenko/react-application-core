@@ -12,7 +12,7 @@ import {
 } from '../../definitions.interface';
 import {
   IModifyEntityPayloadWrapperEntity,
-  IPagedEntity,
+  IGenericPagedEntity,
   IPayloadEntity,
   ISelectedEntity,
   ISelectedFluxEntity,
@@ -293,10 +293,10 @@ export class ListActionBuilder {
   /**
    * @stable [13.05.2019]
    * @param {string} section
-   * @param {IDataWrapper<AnyT> & IPagedEntity} data
+   * @param {IDataWrapper<AnyT> & IGenericPagedEntity} data
    * @returns {IEffectsAction}
    */
-  public static buildLoadDoneAction(section: string, data?: IDataWrapper<AnyT> & IPagedEntity): IEffectsAction {
+  public static buildLoadDoneAction(section: string, data?: IDataWrapper<AnyT> & IGenericPagedEntity): IEffectsAction {
     return EffectsAction.create(this.buildLoadDoneActionType(section), applySection(section, data));
   }
 

@@ -123,7 +123,10 @@ export interface IFormConfigurationEntity<TProps extends IFormProps = IFormProps
   extends IFormConfigurationWrapper<TProps> {
 }
 
-// TODO
+/**
+ * TODO
+ * @deprecated Use IExtendedFormEditableEntity
+ */
 export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}, TPermissions = {}>
   extends IContainerProps<TDictionaries, TPermissions>,
     IBehavioralFormEntity<TEntity>,

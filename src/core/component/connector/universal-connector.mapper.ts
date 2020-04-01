@@ -1,8 +1,9 @@
 import * as R from 'ramda';
 
 import {
-  defValuesFilter,
   ifNotNilThanValue,
+  mapDictionariesWrapperEntity,
+  mapTransportWrapperEntity,
   mapUserWrapperEntity,
   orNull,
 } from '../../util';
@@ -14,35 +15,17 @@ import {
   IEntityWrapper,
 } from '../../definitions.interface';
 import {
-  IDictionariesWrapperEntity,
   IEditableEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
   IListEntity,
   IListWrapperEntity,
-  IPagedEntity,
-  IPaginatedEntity,
-  ITransportWrapperEntity,
-  IUniversalStoreEntity,
+  IGenericPagedEntity,
   ToolbarToolsEnum,
 } from '../../definition';
 import {
   IDataMutatorEntity,
 } from '../../entities-definitions.interface';
-
-/* @stable - 22.04.2018 */
-export const dictionariesMapper = (storeEntity: IUniversalStoreEntity): IDictionariesWrapperEntity => ({
-  dictionaries: {
-    ...storeEntity.dictionaries,
-  },
-});
-
-/* @stable - 16.04.2018 */
-export const transportMapper = (storeEntity: IUniversalStoreEntity): ITransportWrapperEntity => ({
-  transport: {
-    ...storeEntity.transport,
-  },
-});
 
 /**
  * @deprecated mapEditableEntity
@@ -75,21 +58,9 @@ export const listMapper = (listEntity: IListEntity, dataMutator?: IDataMutatorEn
 };
 
 /**
- * @deprecated Use mapPagedEntity
- * @param {IPaginatedEntity} entity
- * @returns {IPaginatedEntity}
- */
-export const listEntityPaginatedEntityMapper = (entity: IPaginatedEntity): IPaginatedEntity =>
-  defValuesFilter<IPaginatedEntity, IPaginatedEntity>({
-    page: entity.page,
-    pageSize: entity.pageSize,
-    totalCount: entity.totalCount,
-  });
-
-/**
  * @deprecated Use mapListPagedEntity
  */
-export const listEntityPageEntityFilterMapper = (listEntity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IPagedEntity => ({
+export const listEntityPageEntityFilterMapper = (listEntity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity => ({
   page: listEntity.lockPage ? listEntity.page : FIRST_PAGE,
   pageSize,
 });
@@ -98,7 +69,7 @@ export const listEntityPageEntityFilterMapper = (listEntity: IListEntity, pageSi
  * @deprecated Use mapListWrapperPagedEntity
  */
 export const listEntityWrapperPageEntityFilterMapper =
-  (listEntity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IPagedEntity =>
+  (listEntity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
     listEntityPageEntityFilterMapper(listEntity.list, pageSize);
 
 /**
@@ -188,7 +159,7 @@ export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity:
  * @stable [29.05.2018]
  */
 export const universalDefaultMappers = [
-  transportMapper,
-  mapUserWrapperEntity,
-  dictionariesMapper
+  mapDictionariesWrapperEntity,
+  mapTransportWrapperEntity,
+  mapUserWrapperEntity
 ];

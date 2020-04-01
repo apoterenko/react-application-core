@@ -33,7 +33,8 @@ export interface IUniversalContainerProps<TDictionaries = {}, TPermissions = {}>
 }
 
 /**
- * @stable [27.09.2019]
+ * TODO
+ * @deprecated Use IGenericContainerProps
  */
 export interface IContainerProps<TDictionaries = {}, TPermissions = {}>
   extends IContainerEntity<TDictionaries, TPermissions>,

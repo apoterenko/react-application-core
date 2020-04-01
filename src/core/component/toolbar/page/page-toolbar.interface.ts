@@ -1,19 +1,17 @@
-import {
-  INavigationHandlersConfiguration,
-} from '../../../configurations-definitions.interface';
+import { INavigationHandlersConfiguration } from '../../../configurations-definitions.interface';
 import { IProgressWrapper } from '../../../definitions.interface';
 import {
-  IPaginatedEntity,
-  IWebComponentEntity,
-  IUniversalComponentEntity,
   IContainerProps,
+  IGenericPaginatedEntity,
   IListWrapperEntity,
+  IUniversalComponentEntity,
+  IWebComponentEntity,
 } from '../../../definition';
 
 /**
  * @stable [16.05.2018]
  */
-export interface IUniversalPageToolbarEntity extends IPaginatedEntity,
+export interface IUniversalPageToolbarEntity extends IGenericPaginatedEntity,
                                                      IProgressWrapper {
 }
 

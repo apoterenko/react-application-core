@@ -51,7 +51,7 @@ import { IFieldChangeEntity } from './field-definition.interface';
 import { IGenericComponentProps } from './component-definition.interface';
 import { IGenericContainerProps } from './container-definition.interface';
 import { ILifeCycleEntity } from './entity-definition.interface';
-import { IPaginatedEntity } from './page-definition.interface';
+import { IGenericPaginatedEntity } from './page-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsWrapperEntity } from './sort-definition.interface';
 
@@ -82,11 +82,11 @@ export interface IGenericListEntity<TEntity = IEntity,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
+    IGenericPaginatedEntity,
     IGroupByWrapper<IGenericListGroupByEntity>,
     ILifeCycleEntity,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
-    IPaginatedEntity,
     IRawDataWrapper<TRawData>,
     ISelectedWrapper<TEntity>,
     ISortDirectionsWrapperEntity,

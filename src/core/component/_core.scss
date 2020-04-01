@@ -129,6 +129,15 @@
   );
 
   /**
+   * @layout
+   * @stable [01.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-three-quarters,
+    $rac-styles-flex: .75
+  );
+
+  /**
    * @error
    * @stable [30.09.2019]
    */
