@@ -124,7 +124,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @returns {boolean}
    */
   protected hasTransportWorkingOperations(...operations: Array<string | IOperationEntity>): boolean {
-    return hasTransportWrapperQueueOperations(this.props);
+    return hasTransportWrapperQueueOperations(this.props, ...operations);
   }
 
   /**

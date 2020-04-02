@@ -10,6 +10,7 @@ import {
 } from '../definitions.interface';
 
 /**
+ * @default-entity
  * @stable [18.09.2019]
  */
 export const DEFAULT_MAX_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
@@ -18,6 +19,7 @@ export const DEFAULT_MAX_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
 });
 
 /**
+ * @default-entity
  * @stable [12.10.2019]
  */
 export const DEFAULT_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
@@ -26,6 +28,7 @@ export const DEFAULT_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
 });
 
 /**
+ * @default-entity
  * @stable [12.10.2019]
  */
 export const DEFAULT_PAGINATED_SINGLE_ENTITY = Object.freeze<IGenericPaginatedEntity>({
