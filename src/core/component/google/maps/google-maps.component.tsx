@@ -8,6 +8,7 @@ import {
   calc,
   DelayedTask,
   EVENT_VALUE_PREDICATE,
+  ifNotEmptyThanValue,
   ifNotNilThanValue,
   isArrayNotEmpty,
   isFn,
@@ -180,7 +181,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    * @stable [10.01.2020]
    * @param {IGoogleMapsMarkerConfigEntity} cfg
    */
-  public setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void {
+  public refreshMarker(cfg: IGoogleMapsMarkerConfigEntity): void {
     const {
       marker,
       visible = true,
@@ -407,7 +408,10 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    */
   private onGoogleMapsReady(): void {
     const props = this.props;
-    const {options = {}} = props;
+    const {
+      initialMarkers,
+      options = {},
+    } = props;
 
     // google.maps.MapTypeId enum is loaded as a lazy resource (within a lazy loaded script)
     const mapTypes = new Map();
@@ -426,9 +430,25 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
     this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', this.onMapDbClick);
 
-    if (isFn(props.onInit)) {
-      props.onInit(this.map);
-    }
+    ifNotEmptyThanValue(
+      initialMarkers,
+      () => {
+        initialMarkers.forEach((cfg, index) => {
+          const marker = this.addMarker(cfg);
+          const markerPosition = marker.getPosition();
+
+          this.refreshMarker({
+            marker,
+            lat: markerPosition.lat(),
+            lng: markerPosition.lng(),
+            visible: true,
+            refreshMap: initialMarkers.length - 1 === index,
+          });
+        });
+      }
+    );
+
+    ifNotNilThanValue(props.onInit, (onInit) => onInit(this.map));
   }
 
   /**

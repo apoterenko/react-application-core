@@ -25,6 +25,7 @@ import {
   DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
   ISelectOptionEntity,
 } from './field-definition.interface';
+import { IGoogleMapsConfigurationEntity } from './google-maps-definition.interface';
 
 /**
  * @stable [09.01.2020]
@@ -80,6 +81,7 @@ export interface IPlaceEntityWrapperEntity<TCity = string>
  */
 export interface IGenericPlaceFieldEntity
   extends IDialogClassNameWrapper,
+    IGoogleMapsConfigurationEntity,
     IPlaceActionRenderedWrapper,
     IUseZipCodeWrapper {
 }

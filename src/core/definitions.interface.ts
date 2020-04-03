@@ -221,6 +221,7 @@ export interface IFullSizeWrapper { fullSize?: boolean; }
 export interface IFullWrapper<TValue = boolean> { full?: TValue; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
 export interface IGoBackWrapper { goBack?(depth?: number): void; }
+export interface IGoogleMapsConfigurationWrapper<TValue> { googleMapsConfiguration?: TValue; }
 export interface IGridConfigurationWrapper<TValue> { gridConfiguration?: TValue; }
 export interface IGroupableWrapper { groupable?: boolean; }
 export interface IGroupByWrapper<TValue> { groupBy?: TValue; }
@@ -257,6 +258,7 @@ export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialDataWrapper<TValue = AnyT[]> { initialData?: TValue; }
+export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }

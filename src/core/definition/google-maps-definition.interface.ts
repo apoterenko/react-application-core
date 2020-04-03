@@ -1,5 +1,7 @@
 import {
   IEventWrapper,
+  IGoogleMapsConfigurationWrapper,
+  IInitialMarkersWrapper,
   IItemWrapper,
   IMarkerWrapper,
   IMenuOptionsWrapper,
@@ -97,8 +99,9 @@ export enum GoogleMapsMapTypesEnum {
  * @stable [23.01.2020]
  */
 export interface IGenericGoogleMapsEntity
-  extends IOptionsWrapper<google.maps.MapOptions>,
-    IMenuOptionsWrapper<IMenuItemEntity[]> {
+  extends IInitialMarkersWrapper<google.maps.MarkerOptions[]>,
+    IMenuOptionsWrapper<IMenuItemEntity[]>,
+    IOptionsWrapper<google.maps.MapOptions> {
 }
 
 /**
@@ -124,6 +127,14 @@ export interface IGoogleMapsProps
 }
 
 /**
+ * @configuration-entity
+ * @stable [03.04.2020]
+ */
+export interface IGoogleMapsConfigurationEntity
+  extends IGoogleMapsConfigurationWrapper<IGoogleMapsProps> {
+}
+
+/**
  * @component
  * @stable [09.01.2020]
  */
@@ -135,6 +146,6 @@ export interface IGoogleMaps {
   addPolyline(polylineCfg: google.maps.PolylineOptions): google.maps.Polyline;
   fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
   getMarkers(): Map<string, google.maps.Marker>;
+  refreshMarker(cfg: IGoogleMapsMarkerConfigEntity): void;
   removeMarker(name: string): void;
-  setMarkerState(cfg: IGoogleMapsMarkerConfigEntity): void;
 }

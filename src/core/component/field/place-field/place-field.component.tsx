@@ -110,6 +110,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
       dialogOpened,
       placeEntity,
     } = this.state;
+    const props = this.props;
 
     return orNull(
       dialogOpened,  // To improve a performance
@@ -133,6 +134,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
               )
             }
             <GoogleMaps
+              {...props.googleMapsConfiguration}
               ref={this.googleMapsRef}
               onSelect={this.onDialogMenuActionSelect}
               onInit={this.initPlaceMarker}
@@ -231,7 +233,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   private onDialogMenuActionSelect(payload: IGoogleMapsMenuItemEntity): void {
     switch (payload.item.value) {
       case PlaceMarkerActionsEnum.PUT_MARKER:
-        this.googleMaps.setMarkerState({
+        this.googleMaps.refreshMarker({
           marker: PlaceField.PLACE_MARKER,
           refreshMap: false,
           lat: payload.lat,
@@ -279,29 +281,27 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [03.04.2020]
    */
   private initPlaceMarker(): void {
     this.googleMaps.addMarker({draggable: true, position: null}, PlaceField.PLACE_MARKER);
 
-    const {lat, lng}: IPlaceEntity = (this.value || {});
-    const isMarkerVisible = !(R.isNil(lat) && R.isNil(lng));
+    const {lat, lng} = this.valueAsPlaceEntity || {} as IPlaceEntity;
 
-    if (isMarkerVisible) {
-      this.googleMaps.setMarkerState({
-        marker: PlaceField.PLACE_MARKER,
-        refreshMap: true,
-        lat,
-        lng,
-        zoom: this.settings.googleMaps.prettyZoom,
-      });
-    } else {
-      this.googleMaps.setMarkerState({
-        marker: PlaceField.PLACE_MARKER,
-        visible: false,
-        refreshMap: true,
-      });
-    }
+    const initialCfg = {marker: PlaceField.PLACE_MARKER};
+    this.googleMaps.refreshMarker({
+      ...initialCfg,
+      ...(
+        !R.isNil(lat) && !R.isNil(lng)
+          ? {
+            lat,
+            lng,
+            refreshMap: true,
+            zoom: this.settings.googleMaps.prettyZoom,
+          }
+          : {visible: false, refreshMap: !this.hasMapInitialMarkers}
+      ),
+    });
   }
 
   /**
@@ -339,6 +339,14 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
+   * @stable [03.04.2020]
+   * @returns {IPlaceEntity}
+   */
+  private get valueAsPlaceEntity(): IPlaceEntity {
+    return this.value;
+  }
+
+  /**
    * @stable [09.01.2020]
    * @returns {IDialog}
    */
@@ -360,5 +368,14 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   private get useZipCode(): boolean {
     return isUseZipCode(this.props);
+  }
+
+  /**
+   * @stable [03.04.2020]
+   * @returns {boolean}
+   */
+  private get hasMapInitialMarkers(): boolean {
+    const {googleMapsConfiguration = {}} = this.props;
+    return isObjectNotEmpty(googleMapsConfiguration.initialMarkers);
   }
 }
