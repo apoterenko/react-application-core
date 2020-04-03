@@ -7,6 +7,7 @@ import { Menu } from '../../menu';
 import {
   calc,
   DelayedTask,
+  EVENT_VALUE_PREDICATE,
   ifNotNilThanValue,
   isArrayNotEmpty,
   isFn,
@@ -20,7 +21,7 @@ import {
 import {
   AsyncLibsEnum,
   EventsEnum,
-  GoogleMapsMapTypeEnum,
+  GoogleMapsMapTypesEnum,
   IGoogleMaps,
   IGoogleMapsEventEntity,
   IGoogleMapsHeatMapLayerConfigEntity,
@@ -365,7 +366,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     ifNotNilThanValue(
       payload.pixel,
       () => {
-        const event = payload.tb;
+        const event = R.find(EVENT_VALUE_PREDICATE, R.values(payload)) as MouseEvent;
         const lat = payload.latLng.lat();
         const lng = payload.latLng.lng();
 
@@ -410,9 +411,9 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
 
     // google.maps.MapTypeId enum is loaded as a lazy resource (within a lazy loaded script)
     const mapTypes = new Map();
-    mapTypes.set(GoogleMapsMapTypeEnum.SATELLITE, google.maps.MapTypeId.SATELLITE);
-    mapTypes.set(GoogleMapsMapTypeEnum.HYBRID, google.maps.MapTypeId.HYBRID);
-    mapTypes.set(GoogleMapsMapTypeEnum.TERRAIN, google.maps.MapTypeId.TERRAIN);
+    mapTypes.set(GoogleMapsMapTypesEnum.SATELLITE, google.maps.MapTypeId.SATELLITE);
+    mapTypes.set(GoogleMapsMapTypesEnum.HYBRID, google.maps.MapTypeId.HYBRID);
+    mapTypes.set(GoogleMapsMapTypesEnum.TERRAIN, google.maps.MapTypeId.TERRAIN);
 
     this.unbindListeners();
 

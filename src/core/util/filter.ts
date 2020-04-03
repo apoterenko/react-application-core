@@ -10,6 +10,7 @@ import {
 import { ID_FIELD_NAME } from '../definition/field-definition.interface';
 import {
   isDef,
+  isEvent,
   isFn,
   isNumberLike,
   isObject,
@@ -79,6 +80,13 @@ export const SAME_ENTITY_PREDICATE =
  * @returns {boolean}
  */
 export const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => isObject(value);
+
+/**
+ * @stable [03.04.2020]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const EVENT_VALUE_PREDICATE = (value: AnyT): boolean => isEvent(value);
 
 /**
  * @stable [03.10.2019]

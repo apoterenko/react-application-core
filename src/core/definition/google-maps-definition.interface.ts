@@ -79,14 +79,13 @@ export interface IGoogleMapsMenuContextEntity
 export interface IGoogleMapsEventEntity {
   latLng?: google.maps.LatLng;
   pixel?: google.maps.Point;
-  tb?: Event;
 }
 
 /**
  * @enum
  * @stable [04.03.2019]
  */
-export enum GoogleMapsMapTypeEnum {
+export enum GoogleMapsMapTypesEnum {
   HYBRID,
   ROADMAP,
   SATELLITE,

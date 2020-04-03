@@ -81,6 +81,13 @@ export const isPrimitive = (v: AnyT): boolean => isNumber(v) || isString(v) || i
 export const isObject = (v: AnyT): boolean => Object.prototype.toString.call(v) === '[object Object]';
 
 /**
+ * @stable [03.04.2020]
+ * @param {AnyT} v
+ * @returns {boolean}
+ */
+export const isEvent = (v: AnyT): boolean => v instanceof Event;
+
+/**
  * @stable [06.12.2018]
  * @param {TResult} result
  * @returns {TResult}
