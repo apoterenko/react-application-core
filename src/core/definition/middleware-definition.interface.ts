@@ -1,10 +1,8 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  AnyT,
   IContainerSectionWrapper,
   IDefaultChangesWrapper,
-  IEntity,
   IFormSectionWrapper,
   ILazyLoadingWrapper,
   IListAccessorWrapper,
@@ -16,7 +14,7 @@ import {
   ITabPanelSectionWrapper,
 } from '../definitions.interface';
 import { IEffectsActionEntity } from './redux-definition.interface';
-import { IListEntity } from './list-definition.interface';
+import { IGenericListEntity } from './list-definition.interface';
 
 /**
  * @stable [19.10.2019]
@@ -84,8 +82,8 @@ export interface ILoadedListOnFormValidMiddlewareConfigEntity<TState = {}>
  */
 export interface IUntouchedListMiddlewareConfigEntity<TState = {}, TDefaultChanges = {}>
   extends IContainerSectionWrapper<SectionT<TState>>,
-    IDefaultFormChangesMiddlewareConfigEntity<TState, TDefaultChanges>,
-    IListAccessorWrapper<(state: TState) => IListEntity>,
+    IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>,
+    IListAccessorWrapper<(state: TState) => IGenericListEntity>,
     ILoadedListMiddlewareConfigEntity<TState> {
 }
 
@@ -93,7 +91,7 @@ export interface IUntouchedListMiddlewareConfigEntity<TState = {}, TDefaultChang
  * @config-entity
  * @stable [29.03.2020]
  */
-export interface IDefaultFormChangesMiddlewareConfigEntity<TState = {}, TDefaultChanges = {}>
+export interface IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges = {}, TState = {}>
   extends IDefaultChangesWrapper<TDefaultChanges | (() => TDefaultChanges)>,
     IFormSectionWrapper<SectionT<TState>> {
 }
@@ -110,7 +108,7 @@ export interface IRefreshedListMiddlewareConfigEntity<TState = {}>
  * @config-entity
  * @stable [26.03.2020]
  */
-export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
+export interface IChainedMiddlewareConfigEntity<TState, TPayload = {}>
   extends IActionStateEntity<TState>,
     INextSectionWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
     IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
@@ -121,9 +119,9 @@ export interface IChainedMiddlewareConfigEntity<TState, TPayload = AnyT>
  * @config-entity
  * @stable [26.03.2020]
  */
-export interface IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>
-  extends IDefaultFormChangesMiddlewareConfigEntity<TState, TEntity>,
+export interface IEditedListMiddlewareConfigEntity<TPayload = {}, TState = {}, TDefaultChanges = {}>
+  extends IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>,
     ILazyLoadingWrapper,
     ILoadedListMiddlewareConfigEntity<TState>,
-    IPathWrapper<ChainedMiddlewarePayloadT<TState, TEntity>> {
+    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>> {
 }

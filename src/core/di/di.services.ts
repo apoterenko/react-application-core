@@ -98,6 +98,12 @@ export const getAuth = (): IAuth => staticInjector(DI_TYPES.Auth);
 export const getDateConverter = (): IDateConverter => staticInjector(DI_TYPES.DateConverter);
 
 /**
+ * @stable [03.04.2020]
+ * @returns {IStorage}
+ */
+export const getMultiEntityDatabaseStorage = (): IStorage => staticInjector(DI_TYPES.MultiEntityDatabaseStorage);
+
+/**
  * @stable [18.03.2020]
  * @returns {IUiFactory}
  */

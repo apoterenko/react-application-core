@@ -1,7 +1,9 @@
-import { EffectsService, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import { IEditedListMiddlewareConfigEntity } from '../../definition';
-import { IEntity } from '../../definitions.interface';
 import { ListActionBuilder } from '../../component/action.builder';
 import {
   makeCreateEntityMiddleware,
@@ -12,12 +14,12 @@ import { provideInSingleton } from '../../di';
 import { calc } from '../../util';
 
 /**
- * @stable [19.10.2019]
- * @param {IEditedListMiddlewareConfigEntity<TEntity extends IEntity, TState>} config
+ * @stable [03.04.2020]
+ * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} config
  * @returns {() => void}
  */
-export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
-  config: IEditedListMiddlewareConfigEntity<TEntity, TState>) =>
+export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
+  config: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>) =>
   (): void => {
 
     @provideInSingleton(Effects)
@@ -31,7 +33,7 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
        */
       @EffectsService.effects(ListActionBuilder.buildCreateActionType(calc(config.listSection)))
       public $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeCreateEntityMiddleware<TEntity, TState>({...config, action, state})
+        makeCreateEntityMiddleware({...config, action, state})
 
       /**
        * @stable [09.10.2019]
@@ -41,7 +43,7 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
        */
       @EffectsService.effects(ListActionBuilder.buildSelectActionType(calc(config.listSection)))
       public $onEntitySelect = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeSelectEntityMiddleware<TEntity, TState>({...config, action, state})
+        makeSelectEntityMiddleware({...config, action, state})
 
       /**
        * @stable [20.10.2019]
@@ -51,6 +53,6 @@ export const makeEditedListEffectsProxy = <TEntity extends IEntity, TState>(
        */
       @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(calc(config.listSection)))
       public $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeLazyLoadedEntityMiddleware<TEntity, TState>({...config, action, state})
+        makeLazyLoadedEntityMiddleware({...config, action, state})
     }
   };

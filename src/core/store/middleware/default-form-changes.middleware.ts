@@ -9,12 +9,12 @@ import {
 } from '../../util';
 
 /**
- * @stable [29.03.2020]
- * @param {IDefaultFormChangesMiddlewareConfigEntity<TState, TChanges>} config
+ * @stable [03.04.2020]
+ * @param {IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>} config
  * @returns {IEffectsAction}
  */
 export const makeDefaultFormChangesMiddleware =
-  <TState = {}, TChanges = {}>(config: IDefaultFormChangesMiddlewareConfigEntity<TState, TChanges>): IEffectsAction =>
+  <TChanges = {}, TState = {}>(config: IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>): IEffectsAction =>
     orNull(
       isObjectNotEmpty(config.defaultChanges) && isObjectNotEmpty(calc(config.formSection)),
       () => FormActionBuilder.buildDefaultChangesAction(calc(config.formSection), calc(config.defaultChanges))

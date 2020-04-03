@@ -4,6 +4,7 @@ import {
 import { orUndef } from '../util';
 
 /**
+ * TODO
  * @deprecated Use asSingleAddedFileId
  */
 export const extractIdFromSetFilesResult = (result: IMultiEntityStorageSetEntity): string => orUndef<string>(

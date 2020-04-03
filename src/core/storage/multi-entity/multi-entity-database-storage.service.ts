@@ -1,12 +1,17 @@
+import { injectable } from 'inversify';
+
 import {
   IMultiEntity,
   IMultiEntityStorageSetEntity,
   IStorage,
 } from '../../definition';
-import { lazyInject, DI_TYPES, provideInSingleton } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import { MultiEntityStorage } from './multi-entity-storage.service';
 
-@provideInSingleton(MultiEntityDatabaseStorage)
+@injectable()
 export class MultiEntityDatabaseStorage implements IStorage {
   @lazyInject(DI_TYPES.FileStorage) private readonly fileStorage: IStorage;
   @lazyInject(DI_TYPES.DatabaseStorage) private readonly databaseStorage: IStorage;
