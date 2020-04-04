@@ -124,6 +124,7 @@
    */
   @include rac-button (
     $rac-button-custom: $rac-full-button-cls,
+    $rac-button-flex-basis: $rac-full-button-flex-basis,
     $rac-button-flex-grow: $rac-full-button-flex-grow
   );
 }

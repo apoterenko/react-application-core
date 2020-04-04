@@ -1653,6 +1653,7 @@
   $rac-button-disabled-opacity: unset,                                               /* stable [02.02.2020 ] */
   $rac-button-disabled-shadow: unset,                                                /* stable [03.02.2020 ] */
   $rac-button-display: unset,                                                        /* stable [02.02.2020 ] */
+  $rac-button-flex-basis: unset,                                                     /* stable [03.04.2020 ] */
   $rac-button-flex-grow: unset,                                                      /* stable [26.03.2020 ] */
   $rac-button-flex: unset,                                                           /* stable [02.02.2020 ] */
   $rac-button-focus-border: unset,                                                   /* stable [10.02.2020 ] */
@@ -1694,6 +1695,7 @@
       $rac-styles-color: $rac-button-color,
       $rac-styles-cursor: $rac-button-cursor,
       $rac-styles-display: $rac-button-display,
+      $rac-styles-flex-basis: $rac-button-flex-basis,
       $rac-styles-flex-grow: $rac-button-flex-grow,
       $rac-styles-flex: $rac-button-flex,
       $rac-styles-height: $rac-button-height,

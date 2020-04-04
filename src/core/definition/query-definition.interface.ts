@@ -5,23 +5,26 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [22.08.2019]
+ * @generic-entity
+ * @stable [04.04.2020]
  */
-export interface IQueryFilterEntity
+export interface IGenericActiveQueryEntity
   extends IActiveWrapper,
     IQueryWrapper {
 }
 
 /**
- * @stable [22.08.2019]
+ * @entity
+ * @stable [04.04.2020]
  */
-export interface IQueryFilterWrapperEntity
-  extends IFilterWrapper<IQueryFilterEntity> {
+export interface IQueryFilterEntity
+  extends IFilterWrapper<IGenericActiveQueryEntity> {
 }
 
 /**
- * @stable [22.08.2019]
+ * @default-entity
+ * @stable [04.04.2020]
  */
-export const INITIAL_QUERY_FILTER_ENTITY = Object.freeze<IQueryFilterEntity>({
+export const INITIAL_ACTIVE_QUERY_ENTITY = Object.freeze<IGenericActiveQueryEntity>({
   query: '',
 });

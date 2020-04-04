@@ -3,8 +3,8 @@ import {
   IFilterConfigurationWrapper,
 } from '../../../configurations-definitions.interface';
 import {
+  IGenericActiveQueryEntity,
   IQueryFilterEntity,
-  IQueryFilterWrapperEntity,
   IUniversalComponentEntity,
   IUniversalContainerEntity,
   ToolbarToolsEnum,
@@ -39,7 +39,7 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalSearchToolbarEntity extends IQueryFilterEntity {
+export interface IUniversalSearchToolbarEntity extends IGenericActiveQueryEntity {
 }
 
 /**
@@ -73,7 +73,7 @@ export interface ISearchToolbarProps extends ISearchToolbarConfiguration,
  * @stable [18.05.2018]
  */
 export interface IUniversalSearchToolbarContainerEntity extends IUniversalContainerEntity,
-                                                                IQueryFilterWrapperEntity {
+                                                                IQueryFilterEntity {
 }
 
 /**

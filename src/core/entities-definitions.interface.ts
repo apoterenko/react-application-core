@@ -26,7 +26,7 @@ import {
   IEnvironment,
   ILifeCycleEntity,
   IListEntity,
-  IQueryFilterEntity,
+  IGenericActiveQueryEntity,
   IUniversalComponent,
 } from './definition';
 
@@ -60,10 +60,11 @@ export interface INamedNumericEntity extends IIdWrapper,
 }
 
 /**
- * @stable [17.09.2019]
+ * TODO
+ * @deprecated
  */
 export interface IQueryFilteredListEntity
-  extends IFilteredListWrapperEntity<IQueryFilterEntity, IListEntity> {
+  extends IFilteredListWrapperEntity<IGenericActiveQueryEntity, IListEntity> {
 }
 
 /* @stable [23.04.2018] */
@@ -135,7 +136,8 @@ export interface INativeMaterialComponent {
 }
 
 /**
- * @stable [28.11.2018]
+ * TODO
+ * @deprecated
  */
 export interface ICrossPlatformField extends IOnChangeManuallyWrapper,
                                              IGetValueWrapper,

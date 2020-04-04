@@ -23,7 +23,7 @@ import {
 export class Info extends GenericComponent<IInfoComponentProps> {
 
   /**
-   * @stable [23.04.2018]
+   * @stable [03.04.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {

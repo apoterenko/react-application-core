@@ -1,7 +1,7 @@
 import {
   IContainerProps,
   IHeaderConfigurationEntity,
-  IQueryFilterWrapperEntity,
+  IQueryFilterEntity,
 } from '../../../definition';
 import {
   IFooterWrapper,
@@ -15,7 +15,7 @@ import { ISubHeaderConfiguration } from '../../../configurations-definitions.int
  * @stable [13.08.2018]
  */
 export interface IDefaultLayoutContainerEntity extends IContainerProps,
-                                                       IQueryFilterWrapperEntity,
+                                                       IQueryFilterEntity,
                                                        IProgressWrapper {
 }
 

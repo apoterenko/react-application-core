@@ -5,12 +5,15 @@ import {
   FILTER_CHANGE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
 } from './filter.interface';
-import { IQueryFilterEntity, INITIAL_QUERY_FILTER_ENTITY } from '../../definition';
+import {
+  IGenericActiveQueryEntity,
+  INITIAL_ACTIVE_QUERY_ENTITY,
+} from '../../definition';
 import { IQueryWrapper } from '../../definitions.interface';
 import { FilterActionBuilder } from './filter-action.builder';
 
-export function filterReducer(state: IQueryFilterEntity = INITIAL_QUERY_FILTER_ENTITY,
-                              action: AnyAction): IQueryFilterEntity {
+export function filterReducer(state: IGenericActiveQueryEntity = INITIAL_ACTIVE_QUERY_ENTITY,
+                              action: AnyAction): IGenericActiveQueryEntity {
   const section = toSection(action);
   switch (action.type) {
     case FilterActionBuilder.buildActivateActionType(section):
@@ -26,7 +29,7 @@ export function filterReducer(state: IQueryFilterEntity = INITIAL_QUERY_FILTER_E
       };
     case `${section}.${FILTER_DESTROY_ACTION_TYPE}`:
       return {
-        ...INITIAL_QUERY_FILTER_ENTITY,
+        ...INITIAL_ACTIVE_QUERY_ENTITY,
       };
   }
   return state;

@@ -7,6 +7,7 @@ import {
   IChangesWrapper,
   IDataWrapper,
   IDictionariesWrapper,
+  IDirectionsWrapper,
   IEntity,
   IEntityIdTWrapper,
   IEntityWrapper,
@@ -29,8 +30,10 @@ import {
 } from '../definitions.interface';
 import { coalesce } from './nvl';
 import {
+  IGenericListEntity,
   IListWrapperEntity,
   IPreviousActionWrapperEntity,
+  ISortDirectionsEntity,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 
@@ -224,43 +227,43 @@ export const selectSelectedEntityIdFromAction = <TEntity extends IEntity = IEnti
 
 /**
  * @stable [30.03.2020]
- * @param {IUserWrapper<TUser>} entity
+ * @param {IUserWrapper<TUser>} wrapper
  * @returns {TUser}
  */
-export const selectUser = <TUser>(entity: IUserWrapper<TUser>): TUser =>
-  R.isNil(entity) ? UNDEF : entity.user;
+export const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser =>
+  R.isNil(wrapper) ? UNDEF : wrapper.user;
 
 /**
  * @stable [30.03.2020]
- * @param {IStackWrapper<TEntity>} entity
+ * @param {IStackWrapper<TEntity>} wrapper
  * @returns {TEntity}
  */
-export const selectStack = <TEntity>(entity: IStackWrapper<TEntity>): TEntity =>
-  R.isNil(entity) ? UNDEF : entity.stack;
+export const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity =>
+  R.isNil(wrapper) ? UNDEF : wrapper.stack;
 
 /**
  * @stable [30.03.2020]
- * @param {ITransportWrapper<TTransport>} entity
+ * @param {ITransportWrapper<TTransport>} wrapper
  * @returns {TTransport}
  */
-export const selectTransport = <TTransport>(entity: ITransportWrapper<TTransport>): TTransport =>
-  R.isNil(entity) ? UNDEF : entity.transport;
+export const selectTransport = <TTransport>(wrapper: ITransportWrapper<TTransport>): TTransport =>
+  R.isNil(wrapper) ? UNDEF : wrapper.transport;
 
 /**
  * @stable [30.03.2020]
- * @param {IDictionariesWrapper<TDictionaries>} entity
+ * @param {IDictionariesWrapper<TDictionaries>} wrapper
  * @returns {TDictionaries}
  */
-export const selectDictionaries = <TDictionaries>(entity: IDictionariesWrapper<TDictionaries>): TDictionaries =>
-  R.isNil(entity) ? UNDEF : entity.dictionaries;
+export const selectDictionaries = <TDictionaries>(wrapper: IDictionariesWrapper<TDictionaries>): TDictionaries =>
+  R.isNil(wrapper) ? UNDEF : wrapper.dictionaries;
 
 /**
  * @stable [30.03.2020]
- * @param {ISectionNameWrapper} entity
+ * @param {ISectionNameWrapper} wrapper
  * @returns {string}
  */
-export const selectSectionName = (entity: ISectionNameWrapper): string =>
-  R.isNil(entity) ? UNDEF : entity.sectionName;
+export const selectSectionName = (wrapper: ISectionNameWrapper): string =>
+  R.isNil(wrapper) ? UNDEF : wrapper.sectionName;
 
 /**
  * @stable [30.03.2020]
@@ -270,3 +273,19 @@ export const selectSectionName = (entity: ISectionNameWrapper): string =>
 export const selectListSelectedEntity =
   <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity<TEntity>): TEntity =>
     ifNotNilThanValue(selectList(listWrapperEntity), (list) => selectSelected(list), UNDEF_SYMBOL);
+
+/**
+ * @stable [04.04.2020]
+ * @param {IDirectionsWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+export const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.directions;
+
+/**
+ * @stable [04.04.2020]
+ * @param {IGenericListEntity} entity
+ * @returns {ISortDirectionsEntity}
+ */
+export const selectListEntityDirections = (entity: IGenericListEntity): ISortDirectionsEntity =>
+  selectDirections(entity);

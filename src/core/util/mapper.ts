@@ -10,7 +10,9 @@ import {
   IEditableEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
+  IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
+  IGenericListEntity,
   IGenericPagedEntity,
   IGenericPaginatedEntity,
   IGenericStoreEntity,
@@ -20,7 +22,6 @@ import {
   IOperationEntity,
   IOptionEntity,
   IQueryFilterEntity,
-  IQueryFilterWrapperEntity,
   ISelectOptionEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
@@ -154,14 +155,6 @@ export const selectListEntity =
     ifNotNilThanValue(entity, (): IListEntity<TEntity> => entity.list, UNDEF_SYMBOL);
 
 /**
- * @stable [18.10.2019]
- * @param {IListEntity} entity
- * @returns {ISortDirectionsEntity}
- */
-export const selectListEntityDirections = (entity: IListEntity): ISortDirectionsEntity =>
-  ifNotNilThanValue(entity, (): ISortDirectionsEntity => entity.directions, UNDEF_SYMBOL);
-
-/**
  * @stable [29.02.2020]
  * @param {IFilterWrapper<TEntity>} entity
  * @returns {TEntity}
@@ -179,10 +172,10 @@ export const selectQuery = (entity: IQueryWrapper): string =>
 
 /**
  * @stable [27.11.2019]
- * @param {IQueryFilterWrapperEntity} entity
+ * @param {IQueryFilterEntity} entity
  * @returns {string}
  */
-export const selectFilterQuery = (entity: IQueryFilterWrapperEntity): string => selectQuery(selectFilter(entity));
+export const selectFilterQuery = (entity: IQueryFilterEntity): string => selectQuery(selectFilter(entity));
 
 /**
  * @stable [13.02.2020]
@@ -210,10 +203,10 @@ export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: 
 
 /**
  * @stable [30.08.2019]
- * @param {IQueryFilterWrapperEntity} entity
+ * @param {IQueryFilterEntity} entity
  * @returns {string}
  */
-export const selectFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): string =>
+export const selectFilterWrapperQuery = (entity: IQueryFilterEntity): string =>
   ifNotNilThanValue(
     selectFilter(entity),
     (filterEntity) => selectQuery(filterEntity),
@@ -358,10 +351,10 @@ export const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
 
 /**
  * @stable [29.02.2020]
- * @param {IQueryFilterEntity} filter
- * @returns {IQueryFilterWrapperEntity}
+ * @param {IGenericActiveQueryEntity} filter
+ * @returns {IQueryFilterEntity}
  */
-export const mapQueryFilterEntity = (filter: IQueryFilterEntity): IQueryFilterWrapperEntity => mapFilter(filter);
+export const mapQueryFilterEntity = (filter: IGenericActiveQueryEntity): IQueryFilterEntity => mapFilter(filter);
 
 /**
  * TODO
@@ -437,7 +430,7 @@ export const mapDisabledProgressWrapper = (entity: IProgressWrapper): IDisabledW
  * @returns {IDisabledWrapper}
  */
 export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
-  mapDisabledProgressWrapper(selectListEntity(listWrapperEntity));
+  mapDisabledProgressWrapper(selectList(listWrapperEntity));
 
 /**
  * @stable [04.10.2019]
@@ -447,7 +440,7 @@ export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWra
  */
 export const mapListWrapperPagedEntity =
   (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
-    mapListPagedEntity(selectListEntity(entity), pageSize);
+    mapListPagedEntity(selectList(entity), pageSize);
 
 /**
  * @stable [10.09.2019]
@@ -613,18 +606,18 @@ export const mapListSelectedExtendedEntity =
 
 /**
  * @stable [04.09.2019]
- * @param {IQueryFilterWrapperEntity} queryFilter
- * @returns {IQueryFilterWrapperEntity}
+ * @param {IQueryFilterEntity} queryFilter
+ * @returns {IQueryFilterEntity}
  */
-export const mapQueryFilterWrapperEntity = (queryFilter: IQueryFilterWrapperEntity): IQueryFilterWrapperEntity =>
+export const mapQueryFilterWrapperEntity = (queryFilter: IQueryFilterEntity): IQueryFilterEntity =>
   mapQueryFilterEntity(selectFilter(queryFilter));
 
 /**
  * @stable [10.09.2019]
- * @param {IQueryFilterWrapperEntity} entity
+ * @param {IQueryFilterEntity} entity
  * @returns {IQueryWrapper}
  */
-export const mapFilterWrapperQuery = (entity: IQueryFilterWrapperEntity): IQueryWrapper =>
+export const mapFilterWrapperQuery = (entity: IQueryFilterEntity): IQueryWrapper =>
   mapQuery(selectFilterWrapperQuery(entity));
 
 /**
@@ -636,20 +629,20 @@ export const mapActionsDisabled = (actionsDisabled: boolean): IActionsDisabledWr
   defValuesFilter<IActionsDisabledWrapper, IActionsDisabledWrapper>({actionsDisabled});
 
 /**
- * @stable [17.09.2019]
- * @param {IListEntity} list
+ * @stable [04.04.2020]
+ * @param {IGenericListEntity} list
  * @returns {IActionsDisabledWrapper}
  */
-export const mapListActionsDisabled = (list: IListEntity): IActionsDisabledWrapper =>
+export const mapListActionsDisabled = (list: IGenericListEntity): IActionsDisabledWrapper =>
   mapActionsDisabled(inProgress(list));
 
 /**
- * @stable [17.09.2019]
+ * @stable [04.04.2020]
  * @param {IListWrapperEntity} listWrapper
- * @returns {}
+ * @returns {IActionsDisabledWrapper}
  */
 export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): IActionsDisabledWrapper =>
-  mapListActionsDisabled(selectListEntity(listWrapper));
+  mapListActionsDisabled(selectList(listWrapper));
 
 /**
  * @stable [11.10.2019]

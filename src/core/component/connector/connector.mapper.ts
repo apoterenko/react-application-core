@@ -3,8 +3,8 @@ import {
   IDictionariesWrapperEntity,
   ILayoutWrapperEntity,
   INotificationWrapperEntity,
+  IGenericActiveQueryEntity,
   IQueryFilterEntity,
-  IQueryFilterWrapperEntity,
   IStackWrapperEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
@@ -20,7 +20,7 @@ export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity 
   },
 });
 
-export const filterMapper = (filterState: IQueryFilterEntity) => ({
+export const filterMapper = (filterState: IGenericActiveQueryEntity) => ({
   filter: {
     ...filterState,
   },
@@ -41,7 +41,7 @@ export const channelMapper = (state: IChannelWrapperEntity): IChannelWrapperEnti
 /**
  * @deprecated Use mapQueryFilterEntity
  */
-export const filterWrapperMapper = (filterState: IQueryFilterWrapperEntity) =>
+export const filterWrapperMapper = (filterState: IQueryFilterEntity) =>
     filterMapper(filterState.filter);
 
 /**

@@ -79,8 +79,11 @@ export const ifNotEmptyThanValue = <TValue, TResult>(value: TValue,
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 
 /**
- * TODO
- * @deprecated
+ * @stable [04.04.2020]
+ * @param {boolean} value
+ * @param {(value: boolean) => TResult} callback
+ * @param {any} defaultValue
+ * @returns {TResult}
  */
 export const ifNotFalseThanValue = <TResult>(value: boolean,
                                              callback: (value: boolean) => TResult,
