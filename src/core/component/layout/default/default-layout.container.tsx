@@ -10,7 +10,7 @@ import {
 } from '../../../util';
 import { BasicContainer } from '../../base/basic.container';
 import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
-import { SubHeader } from '../../header';
+import { SubHeader } from '../../sub-header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { FlexLayout } from '../flex';
 import {

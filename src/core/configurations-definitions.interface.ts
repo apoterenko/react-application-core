@@ -31,7 +31,6 @@ import {
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
   IMessageWrapper,
-  IMoreOptionsWrapper,
   INavigationActionTypeWrapper,
   INotUseFieldWrapper,
   IOnBlurWrapper,
@@ -40,7 +39,6 @@ import {
   IOnEmptyDictionaryWrapper,
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
-  IOnMoreOptionsSelectWrapper,
   IOnSelectWrapper,
   IPrefixLabelWrapper,
   IRippableWrapper,
@@ -216,12 +214,10 @@ export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | stri
 
 // TODO
 export interface ISubHeaderConfiguration extends IComponentProps,
-                                                 IMoreOptionsWrapper<IMenuItemEntity[]>,
                                                  IItemsWrapper<JSX.Element>,
                                                  INavigationActionTypeWrapper,
                                                  IOnNavigationActionClickWrapper,
-                                                 IOnMoreOptionsSelectWrapper<IMenuItemEntity>,
-                                                 ITitleRendererWrapper<JSX.Element>,
+                                                 ITitleRendererWrapper<(originalElement) => JSX.Element>,
                                                  ISubBorderWrapper {
 }
 

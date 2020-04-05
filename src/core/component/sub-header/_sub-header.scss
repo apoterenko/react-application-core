@@ -1,0 +1,13 @@
+@import '../mixin';
+@import './_sub-header-constant';
+
+.rac {
+
+  /**
+   * @sub-header
+   * @stable [05.04.2020]
+   */
+  @include rac-sub-header (
+    $rac-sub-header-cursor: $rac-sub-header-cursor
+  );
+}

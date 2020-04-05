@@ -508,6 +508,7 @@ export interface ITabPanelWrapper<TValue = JSX.Element> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
 export interface ITimeWrapper<TValue = string> { time?: TValue; }
+export interface ITitleRendererWrapper<TValue> { titleRenderer?: TValue; }
 export interface ITitleWrapper<TValue = string> { title?: TValue; }
 export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
@@ -673,13 +674,6 @@ export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
 }
 
 /**
- * @stable [31.05.2018]
- */
-export interface IOnMoreOptionsSelectWrapper<TPayload, TOnMoreOptionsSelect = (payload?: TPayload) => void> {
-  onMoreOptionsSelect?: TOnMoreOptionsSelect;
-}
-
-/**
  * @stable [01.08.2018]
  */
 export interface IPrefixLabelWrapper {
@@ -819,13 +813,6 @@ export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends
 }
 
 /**
- * @stable [04.10.2018]
- */
-export interface ITitleRendererWrapper<TItem = string, TRenderer = (item?: TItem) => JSX.Element> {
-  titleRenderer?: TRenderer;
-}
-
-/**
  * @stable [22.10.2018]
  */
 export interface ISubBorderWrapper<TSubBorder = boolean> {
@@ -851,13 +838,6 @@ export interface ITopTitleWrapper<TTopTitle = string> {
  */
 export interface IPositionWrapper<TPosition = number> {
   position?: TPosition;
-}
-
-/**
- * @stable [31.05.2018]
- */
-export interface IMoreOptionsWrapper<TMoreOptions> {
-  moreOptions?: TMoreOptions;
 }
 
 /**

@@ -4923,3 +4923,18 @@
     );
   }
 }
+
+/**
+ * @stable [05.04.2020]
+ */
+@mixin rac-sub-header (
+  $rac-sub-header-custom: unset,
+  /**/
+  $rac-sub-header-cursor: unset                                                               /* @stable [05.04.2020] */
+) {
+  #{rac-cls(rac-sub-header, $rac-sub-header-custom)} {
+    @include rac-styles (
+      $rac-styles-cursor: $rac-sub-header-cursor
+    );
+  }
+}
