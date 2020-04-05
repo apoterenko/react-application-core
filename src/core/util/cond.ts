@@ -10,20 +10,31 @@ import { calc } from './calc';
 import { isObjectNotEmpty } from './object';
 
 /**
- * @stable [25.10.2018]
+ * @stable [05.04.2020]
  * @param {AnyT} condition
  * @param {string | (() => string)} result
  * @returns {string}
  */
-export const orEmpty = (condition: AnyT, result: string|(() => string)) => condition ? calc(result) : '';
+export const orEmpty = (condition: AnyT, result: string | (() => string)) =>
+  condition ? calc(result) : '';
 
-export function orNull<TResult>(condition: AnyT, result: TResult|(() => TResult)): TResult {
-  return condition ? (isFn(result) ? (result as () => TResult)() : result as TResult) : null;
-}
+/**
+ * @stable [05.04.2020]
+ * @param {AnyT} condition
+ * @param {(() => TResult) | TResult} result
+ * @returns {TResult}
+ */
+export const orNull = <TResult>(condition: AnyT, result: TResult | (() => TResult)): TResult =>
+  condition ? calc(result) : null;
 
-export function orUndef<TResult>(condition: AnyT, result: TResult|(() => TResult)): TResult {
-  return condition ? (isFn(result) ? (result as () => TResult)() : result as TResult) : undefined;
-}
+/**
+ * @stable [05.04.2020]
+ * @param {AnyT} condition
+ * @param {(() => TResult) | TResult} result
+ * @returns {TResult}
+ */
+export const orUndef = <TResult>(condition: AnyT, result: TResult | (() => TResult)): TResult =>
+  condition ? calc(result) : UNDEF;
 
 /**
  * @deprecated
@@ -105,10 +116,8 @@ export const ifNotTrueThanValue = <TResult>(value: boolean,
   value !== true ? callback(value) : defaultValue;
 
 /**
- * @stable [19.01.2020]
- * @param {AnyT} currentValue
- * @param {AnyT} previousValue
- * @returns {boolean}
+ * TODO
+ * @deprecated
  */
 export const isSet = (currentValue: AnyT, previousValue: AnyT): boolean =>
   !R.isNil(currentValue) && !R.equals(currentValue, previousValue);

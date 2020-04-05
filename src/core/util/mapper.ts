@@ -10,6 +10,7 @@ import {
   IEditableEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
+  IFormEditableEntity,
   IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
   IGenericListEntity,
@@ -558,21 +559,30 @@ export const mapExtendedFormEditableEntity =
     });
 
 /**
+ * @stable [05.04.2020]
+ * @param {IFormEditableEntity<TEntity>} wrapper
+ * @returns {IFormEditableEntity<TEntity>}
+ */
+export const mapFormEditableEntity =
+  <TEntity = IEntity>(wrapper: IFormEditableEntity<TEntity>): IFormEditableEntity<TEntity> =>
+    mapForm(selectForm(wrapper));
+
+/**
  * @stable [26.03.2020]
- * @param {IEditableEntity<TEntity extends IEntity>} editableEntity
+ * @param {IEditableEntity<TEntity>} editableEntity
  * @returns {IExtendedFormEditableEntity<TEntity extends IEntity>}
  */
 export const mapNewExtendedEditableEntity =
-  <TEntity extends IEntity = IEntity>(editableEntity: IEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
+  <TEntity = IEntity>(editableEntity: IEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     mapExtendedFormEditableEntity(null, editableEntity);
 
 /**
  * @stable [23.12.2019]
- * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
- * @returns {IApiEntity<TEntity extends IEntity>}
+ * @param {IExtendedEntity<TEntity>} extendedEntity
+ * @returns {IApiEntity<TEntity>}
  */
 export const mapApiEntity =
-  <TEntity extends IEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IApiEntity<TEntity> => {
+  <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IApiEntity<TEntity> => {
     const {
       changes,
       entity,

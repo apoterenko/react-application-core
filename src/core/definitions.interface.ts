@@ -422,6 +422,7 @@ export interface IProfileWrapper<TValue> { profile?: TValue; }
 export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TValue; }
 export interface IProgressWrapper<TValue = boolean> { progress?: TValue; }
 export interface IPropsWrapper<TValue> { props?: TValue; }
+export interface IProxyContainerWrapper<TValue> { proxyContainer?: TValue; }
 export interface IQueryParamsWrapper<TValue> { queryParams?: TValue; }
 export interface IQueryWrapper<TValue = string> { query?: TValue; }
 export interface IQueueWrapper<TValue> { queue?: TValue; }

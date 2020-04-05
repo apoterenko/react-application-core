@@ -2,14 +2,16 @@ import * as React from 'react';
 
 import { AnyT } from '../../definitions.interface';
 import {
+  IDomAccessor,
   IEventManager,
-  IGenericComponentEntity,
+  IGenericBaseComponentProps,
   IPhoneConverter,
   IUiFactory,
   TranslatorT,
 } from '../../definition';
 import {
   getDateConverter,
+  getDomAccessor,
   getEventManager,
   getNumberConverter,
   getPhoneConverter,
@@ -23,7 +25,7 @@ import {
   INumberConverter,
 } from '../../converter';
 
-export class GenericBaseComponent<TProps extends IGenericComponentEntity = IGenericComponentEntity,
+export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IGenericBaseComponentProps,
   TState = {},
   TSelfRef = AnyT>
   extends React.PureComponent<TProps, TState> {
@@ -84,5 +86,13 @@ export class GenericBaseComponent<TProps extends IGenericComponentEntity = IGene
    */
   protected get uiFactory(): IUiFactory {
     return getUiFactory();
+  }
+
+  /**
+   * @stable [05.04.2020]
+   * @returns {IDomAccessor}
+   */
+  protected get domAccessor(): IDomAccessor {
+    return getDomAccessor();
   }
 }

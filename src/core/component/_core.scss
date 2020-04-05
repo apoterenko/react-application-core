@@ -130,6 +130,15 @@
 
   /**
    * @layout
+   * @stable [04.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-half,
+    $rac-styles-flex: .5
+  );
+
+  /**
+   * @layout
    * @stable [01.04.2020]
    */
   @include rac-styles (

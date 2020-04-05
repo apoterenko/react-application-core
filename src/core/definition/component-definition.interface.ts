@@ -15,8 +15,7 @@ import {
 } from './props-definition.interface';
 
 /**
- * @browser-compatible
- * @stable [20.09.2019]
+ * @deprecated
  */
 export interface IWebComponentEntity
   extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
@@ -27,11 +26,27 @@ export interface IWebComponentEntity
  * @generic-entity
  * @stable [27.02.2020]
  */
-export interface IGenericComponentEntity<TComponent = AnyT>
+export interface IGenericBaseComponentEntity<TComponent = AnyT>
   extends React.RefAttributes<TComponent>,
     IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
     IStyleWrapper<React.CSSProperties>,
     ITitleWrapper<string | boolean> {
+}
+
+/**
+ * @generic-entity
+ * @stable [27.02.2020]
+ */
+export interface IGenericComponentEntity<TComponent = AnyT>
+  extends IGenericBaseComponentEntity<TComponent> {
+}
+
+/**
+ * @props
+ * @stable [30.03.2020]
+ */
+export interface IGenericBaseComponentProps
+  extends IGenericBaseComponentEntity {
 }
 
 /**
@@ -43,12 +58,19 @@ export interface IGenericComponentProps
 }
 
 /**
- * @react-native-compatible
- * @stable [22.09.2019]
+ * @deprecated
  */
 export interface IUniversalComponentEntity
   extends IGenericComponentEntity<AnyT>,
     IPluginsWrapper<GenericPluginCtorT | GenericPluginCtorT[]> {
+}
+
+/**
+ * @component
+ * @stable []
+ */
+export interface IGenericComponent<TProps extends IGenericComponentProps = IGenericComponentProps, TState = {}>
+  extends React.PureComponent<TProps, TState> {
 }
 
 /**
@@ -91,6 +113,8 @@ export interface IComponentCtor<TProps extends IComponentProps = IComponentProps
 export enum ComponentClassesEnum {
   ALIGNMENT_CENTER = 'rac-alignment-center',
   CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR = 'rac-calendar-dialog__range-input-separator',   // TODO
+  FLEX_HALF = 'rac-flex-half',
+  FLEX_ONE_THIRD = 'rac-flex-one-third',
   FLEX_THREE_QUARTERS = 'rac-flex-three-quarters',
   OVERFLOW_HIDDEN = 'rac-overflow-hidden',
 }

@@ -26,10 +26,16 @@ import {
   IWidthWrapper,
 } from '../definitions.interface';
 import { IButtonProps } from './button-definition.interface';
-import { IComponent } from './component-definition.interface';
-import { IComponentProps } from './props-definition.interface';
+import {
+  IGenericComponent,
+  IGenericComponentProps,
+} from './component-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
 import { IExtendedFormEditableEntity } from './form-definition.interface';
+import {
+  IGenericContainerProps,
+  IProxyContainerEntity,
+} from './container-definition.interface';
 
 /**
  * @generic-entity
@@ -88,8 +94,9 @@ export interface IActivateDialogConfigEntity
  * @component
  * @stable [03.10.2019]
  */
-export interface IDialog<TProps extends IComponentProps = IComponentProps, TState extends IDialogState = IDialogState>
-  extends IComponent<TProps, TState>,
+export interface IDialog<TProps extends IGenericComponentProps = IGenericComponentProps,
+                         TState extends IDialogState = IDialogState>
+  extends IGenericComponent<TProps, TState>,
     IAcceptWrapper,
     IActivateWrapper<IActivateDialogConfigEntity> {
 }
@@ -99,17 +106,9 @@ export interface IDialog<TProps extends IComponentProps = IComponentProps, TStat
  * @stable [06.01.2020]
  */
 export interface IDialogProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericDialogEntity,
     IBehavioralDialogEntity {
-}
-
-/**
- * @generic-state
- * @stable [22.01.2020]
- */
-export interface IGenericDialogState
-  extends IOpenedWrapper {
 }
 
 /**
@@ -117,7 +116,7 @@ export interface IGenericDialogState
  * @stable [06.01.2020]
  */
 export interface IDialogState
-  extends IGenericDialogState {
+  extends IOpenedWrapper {
 }
 
 /**
@@ -135,6 +134,16 @@ export interface IDialogConfigurationEntity<TProps extends IDialogProps = IDialo
 export interface IUnsavedFormChangesDialogProps
   extends IDialogProps,
     IExtendedFormEditableEntity {
+}
+
+/**
+ * @props
+ * @stable [05.04.2020]
+ */
+export interface IUnsavedFormChangesDialogContainerProps
+  extends IGenericContainerProps,
+    IProxyContainerEntity,
+    IDialogConfigurationEntity<IUnsavedFormChangesDialogProps> {
 }
 
 /**

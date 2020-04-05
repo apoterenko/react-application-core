@@ -76,10 +76,18 @@ interface IGenericFormEntity
 
 /**
  * @entity
+ * @stable [05.04.2020]
+ */
+export interface IFormEditableEntity<TEntity = IEntity>
+  extends IFormWrapper<IEditableEntity<TEntity>> {
+}
+
+/**
+ * @entity
  * @stable [26.03.2020]
  */
 export interface IExtendedFormEditableEntity<TEntity = IEntity>
-  extends IFormWrapper<IEditableEntity<TEntity>>,
+  extends IFormEditableEntity<TEntity>,
     IExtendedEntity<TEntity> {
 }
 

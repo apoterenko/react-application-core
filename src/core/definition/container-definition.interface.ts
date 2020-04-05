@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   ILocationWrapper,
   IPropsWrapper,
+  IProxyContainerWrapper,
   IQueryParamsWrapper,
   IRouteParamsWrapper,
   ISectionNameWrapper,
@@ -21,7 +22,7 @@ import {
   IUniversalStoreEntity,
 } from './redux-definition.interface';
 import {
-  IGenericComponentEntity,
+  IGenericBaseComponentProps,
   IWebComponentEntity,
 } from './component-definition.interface';
 import {
@@ -91,8 +92,7 @@ export interface IUniversalContainer<TProps extends IUniversalContainerProps = I
 }
 
 /**
- * @container
- * @stable [27.09.2019]
+ * @deprecated
  */
 export interface IContainer<TProps extends IContainerProps<TDictionaries, TPermissions> = IContainerProps<TDictionaries, TPermissions>,
   TState = {},
@@ -102,8 +102,7 @@ export interface IContainer<TProps extends IContainerProps<TDictionaries, TPermi
 }
 
 /**
- * @react-native-compatible
- * @stable [01.10.2019]
+ * @deprecated
  */
 export interface IUniversalContainerCtor<
   TProps extends IUniversalContainerProps<TDictionaries, TPermissions> = IUniversalContainerProps<TDictionaries, TPermissions>,
@@ -114,7 +113,7 @@ export interface IUniversalContainerCtor<
 }
 
 /**
- * @stable [01.10.2019]
+ * @deprecated
  */
 export interface IContainerCtor<TProps extends IContainerProps = IContainerProps, TState = {}>
   extends IUniversalContainerCtor<TProps, TState> {
@@ -141,7 +140,7 @@ export interface IGenericContainerEntity<TDictionaries = {}>
  * @stable [30.03.2020]
  */
 export interface IGenericContainerProps<TDictionaries = {}>
-  extends IGenericComponentEntity,
+  extends IGenericBaseComponentProps,
     IGenericContainerEntity<TDictionaries> {
 }
 
@@ -158,4 +157,12 @@ export interface IGenericContainer<TProps extends IGenericContainerProps<TDictio
   formStoreProxy: IFormStoreProxy;
   notificationStoreProxy: INotificationStoreProxy;
   routerStoreProxy: IRouterStoreProxy;
+}
+
+/**
+ * @entity
+ * @stable [05.04.2020]
+ */
+export interface IProxyContainerEntity<TProxyContainer extends IGenericContainer = IGenericContainer>
+  extends IProxyContainerWrapper<TProxyContainer> {
 }

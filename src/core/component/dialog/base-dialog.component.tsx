@@ -27,12 +27,11 @@ import {
   IDialogState,
 } from '../../definition';
 import { BasicComponent } from '../base/basic.component';
-import { BaseComponent } from '../base/base.component';
-import { ICheckModalWrapper } from '../../definitions.interface';
+import { GenericComponent } from '../base/generic.component';
 
 export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                         TState extends IDialogState = IDialogState>
-  extends BaseComponent<TProps, TState>
+  extends GenericComponent<TProps, TState>
   implements IDialog<TProps, TState> {
 
   private onDeactivateCallback: () => void;
@@ -54,7 +53,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
     this.state = {opened: false} as TState;
 
-    if (isCheckModalNeeded(props as ICheckModalWrapper)) {
+    if (isCheckModalNeeded(props)) {
       this.doesAnotherModalDialogOpen = this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement);
     }
   }
@@ -87,11 +86,9 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [25.01.2020]
+   * @stable [05.04.2020]
    */
   public componentWillUnmount(): void {
-    super.componentWillUnmount();
-
     this.unsubscribeEvents();
   }
 
@@ -201,7 +198,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const element = event.target as HTMLElement;
 
     if (this.domAccessor.getParentsAsElements({parentClassName: DialogClassesEnum.DIALOG, element})
-        .includes(this.getSelf())) {
+        .includes(this.selfRef.current)) {
       return;
     }
     this.doClose();

@@ -106,7 +106,8 @@ export interface IEnvironmentEntity
 }
 
 /**
- * @stable [09.11.2018]
+ * TODO
+ * @deprecated
  */
 export interface IFromDateFromTimeToDateToTimeEntity extends IFromDateFromTimeEntity,
                                                              IToDateToTimeEntity {
