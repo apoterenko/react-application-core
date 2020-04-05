@@ -6,7 +6,6 @@ import {
   joinClassName,
 } from '../../util';
 import { Button } from '../button';
-import { FlexLayout } from '../layout/flex';
 import { GenericComponent } from '../base/generic.component';
 import { ISubHeaderConfiguration } from '../../configurations-definitions.interface';
 import { SubHeaderClassesEnum } from '../../definition';
@@ -24,14 +23,13 @@ export class SubHeader extends GenericComponent<ISubHeaderConfiguration> {
     );
 
     return (
-      <FlexLayout row={true}
-                  full={false}
-                  alignItemsCenter={true}
-                  className={joinClassName(
-                    'rac-sub-header',
-                    props.subBorder && 'rac-sub-header-bordered',
-                    !R.isNil(props.navigationActionType) && 'rac-sub-header-navigated'
-                  )}>
+      <div
+        className={
+          joinClassName(
+            SubHeaderClassesEnum.SUB_HEADER,
+            props.subBorder && 'rac-sub-header-bordered',
+            !R.isNil(props.navigationActionType) && 'rac-sub-header-navigated'
+          )}>
         {props.navigationActionType && (
           <Button
             icon={props.navigationActionType}
@@ -44,7 +42,7 @@ export class SubHeader extends GenericComponent<ISubHeaderConfiguration> {
             : headerTitle
         }
         {props.items}
-      </FlexLayout>
+      </div>
     );
   }
 }

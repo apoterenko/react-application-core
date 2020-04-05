@@ -1,0 +1,473 @@
+@import '~sass-mixins/partials/_user-select';
+@import '~sass-flex-mixin/_flex';
+
+/**
+ * @stable [05.04.2020]
+ */
+@function rac-cls ($rac-cls,
+                   $rac-custom: unset) {
+  @if $rac-custom != unset {
+    @return '.#{$rac-cls}.#{$rac-custom}';
+  }
+  @return '.#{$rac-cls}';
+}
+
+/**
+ * @stable [05.04.2020]
+ */
+@function rac-cls2 ($rac-cls,
+                    $rac-custom: unset) {
+  @if $rac-custom != unset {
+    @return '#{$rac-cls}.#{$rac-custom}';
+  }
+  @return $rac-cls;
+}
+
+/**
+ * @stable [05.04.2020]
+ */
+@mixin _rac-styles-properties (
+  $rac-styles-custom: unset,
+  /**/
+  $rac-styles-align-items: unset,
+  $rac-styles-background-color: unset,
+  $rac-styles-background-image: unset,
+  $rac-styles-background-position: unset,
+  $rac-styles-background-repeat: unset,
+  $rac-styles-background-size: unset,
+  $rac-styles-background: unset,
+  $rac-styles-border-bottom-color: unset,
+  $rac-styles-border-bottom: unset,
+  $rac-styles-border-collapse: unset,
+  $rac-styles-border-color: unset,
+  $rac-styles-border-left-color: unset,
+  $rac-styles-border-left: unset,
+  $rac-styles-border-radius: unset,
+  $rac-styles-border-right-color: unset,
+  $rac-styles-border-right: unset,
+  $rac-styles-border-spacing: unset,
+  $rac-styles-border-style: unset,
+  $rac-styles-border-top: unset,
+  $rac-styles-border-width: unset,
+  $rac-styles-border: unset,
+  $rac-styles-bottom: unset,
+  $rac-styles-box-shadow: unset,
+  $rac-styles-box-sizing: unset,
+  $rac-styles-color: unset,
+  $rac-styles-content: unset,
+  $rac-styles-cursor: unset,
+  $rac-styles-display: unset,
+  $rac-styles-flex-basis: unset,
+  $rac-styles-flex-direction: unset,
+  $rac-styles-flex-grow: unset,
+  $rac-styles-flex-height: unset,
+  $rac-styles-flex-shrink: unset,
+  $rac-styles-flex-width: unset,
+  $rac-styles-flex-wrap: unset,
+  $rac-styles-flex: unset,
+  $rac-styles-float: unset,
+  $rac-styles-font-family: unset,
+  $rac-styles-font-size: unset,
+  $rac-styles-font-weight: unset,
+  $rac-styles-font: unset,
+  $rac-styles-height: unset,
+  $rac-styles-justify-content: unset,
+  $rac-styles-left: unset,
+  $rac-styles-letter-spacing: unset,
+  $rac-styles-line-height: unset,
+  $rac-styles-margin-bottom: unset,
+  $rac-styles-margin-left: unset,
+  $rac-styles-margin-right: unset,
+  $rac-styles-margin-top: unset,
+  $rac-styles-margin: unset,
+  $rac-styles-max-height: unset,
+  $rac-styles-max-width: unset,
+  $rac-styles-min-height: unset,
+  $rac-styles-min-width: unset,
+  $rac-styles-no-user-select: unset,
+  $rac-styles-opacity: unset,
+  $rac-styles-order: unset,
+  $rac-styles-outline: unset,
+  $rac-styles-overflow: unset,
+  $rac-styles-padding-bottom: unset,
+  $rac-styles-padding-left: unset,
+  $rac-styles-padding-right: unset,
+  $rac-styles-padding-top: unset,
+  $rac-styles-padding: unset,
+  $rac-styles-position: unset,
+  $rac-styles-resize: unset,
+  $rac-styles-right: unset,
+  $rac-styles-size: unset,
+  $rac-styles-table-layout: unset,
+  $rac-styles-text-align: unset,
+  $rac-styles-text-decoration: unset,
+  $rac-styles-text-overflow: unset,
+  $rac-styles-text-transform: unset,
+  $rac-styles-top: unset,
+  $rac-styles-transform: unset,
+  $rac-styles-transition: unset,
+  $rac-styles-vertical-align: unset,
+  $rac-styles-visibility: unset,
+  $rac-styles-white-space: unset,
+  $rac-styles-width: unset,
+  $rac-styles-word-break: unset,
+  $rac-styles-z-index: unset
+) {
+  @if $rac-styles-align-items != unset { @include align-items($rac-styles-align-items); }
+  @if $rac-styles-background != unset { background: $rac-styles-background; }
+  @if $rac-styles-background-color != unset { background-color: $rac-styles-background-color; }
+  @if $rac-styles-background-image != unset { background-image: $rac-styles-background-image; }
+  @if $rac-styles-background-position != unset { background-position: $rac-styles-background-position; }
+  @if $rac-styles-background-repeat != unset { background-repeat: $rac-styles-background-repeat; }
+  @if $rac-styles-background-size != unset { background-size: $rac-styles-background-size; }
+  @if $rac-styles-border != unset { border: $rac-styles-border; }
+  @if $rac-styles-border-bottom != unset { border-bottom: $rac-styles-border-bottom; }
+  @if $rac-styles-border-bottom-color != unset { border-bottom-color: $rac-styles-border-bottom-color; }
+  @if $rac-styles-border-collapse != unset { border-collapse: $rac-styles-border-collapse; }
+  @if $rac-styles-border-color != unset { border-color: $rac-styles-border-color; }
+  @if $rac-styles-border-left != unset { border-left: $rac-styles-border-left; }
+  @if $rac-styles-border-left-color != unset { border-left-color: $rac-styles-border-left-color; }
+  @if $rac-styles-border-radius != unset { border-radius: $rac-styles-border-radius; }
+  @if $rac-styles-border-right != unset { border-right: $rac-styles-border-right; }
+  @if $rac-styles-border-right-color != unset { border-right-color: $rac-styles-border-right-color; }
+  @if $rac-styles-border-spacing != unset { border-spacing: $rac-styles-border-spacing; }
+  @if $rac-styles-border-style != unset { border-style: $rac-styles-border-style; }
+  @if $rac-styles-border-top != unset { border-top: $rac-styles-border-top; }
+  @if $rac-styles-border-width != unset { border-width: $rac-styles-border-width; }
+  @if $rac-styles-bottom != unset { bottom: $rac-styles-bottom; }
+  @if $rac-styles-box-shadow != unset { box-shadow: $rac-styles-box-shadow; }
+  @if $rac-styles-box-sizing != unset { box-sizing: $rac-styles-box-sizing; }
+  @if $rac-styles-color != unset { color: $rac-styles-color; }
+  @if $rac-styles-content != unset { content: $rac-styles-content; }
+  @if $rac-styles-cursor != unset { cursor: $rac-styles-cursor; }
+  @if $rac-styles-display != unset { @if $rac-styles-display == flex { @include flexbox; } @else { display: $rac-styles-display; } }
+  @if $rac-styles-flex != unset { @include flex($rac-styles-flex); }
+  @if $rac-styles-flex-basis != unset { @include flex-basis($rac-styles-flex-basis); }
+  @if $rac-styles-flex-direction != unset { @include flex-direction($rac-styles-flex-direction); }
+  @if $rac-styles-flex-grow != unset { @include flex-grow($rac-styles-flex-grow); }
+  @if $rac-styles-flex-shrink != unset { @include flex-shrink($rac-styles-flex-shrink); }
+  @if $rac-styles-flex-wrap != unset { @include flex-wrap($rac-styles-flex-wrap); }
+  @if $rac-styles-float != unset { float: $rac-styles-float; }
+  @if $rac-styles-font != unset { font: $rac-styles-font; }
+  @if $rac-styles-font-family != unset { font-family: $rac-styles-font-family; }
+  @if $rac-styles-font-size != unset { font-size: $rac-styles-font-size; }
+  @if $rac-styles-font-weight != unset { font-weight: $rac-styles-font-weight; }
+  @if $rac-styles-height != unset { height: $rac-styles-height; }
+  @if $rac-styles-justify-content != unset { @include justify-content($rac-styles-justify-content); }
+  @if $rac-styles-left != unset { left: $rac-styles-left; }
+  @if $rac-styles-letter-spacing != unset { letter-spacing: $rac-styles-letter-spacing; }
+  @if $rac-styles-line-height != unset { line-height: $rac-styles-line-height; }
+  @if $rac-styles-margin != unset { margin: $rac-styles-margin; }
+  @if $rac-styles-margin-bottom != unset { margin-bottom: $rac-styles-margin-bottom; }
+  @if $rac-styles-margin-left != unset { margin-left: $rac-styles-margin-left; }
+  @if $rac-styles-margin-right != unset { margin-right: $rac-styles-margin-right; }
+  @if $rac-styles-margin-top != unset { margin-top: $rac-styles-margin-top; }
+  @if $rac-styles-max-height != unset { max-height: $rac-styles-max-height; }
+  @if $rac-styles-max-width != unset { max-width: $rac-styles-max-width; }
+  @if $rac-styles-min-height != unset { min-height: $rac-styles-min-height; }
+  @if $rac-styles-min-width != unset { min-width: $rac-styles-min-width; }
+  @if $rac-styles-no-user-select != unset { @include x-user-select; }
+  @if $rac-styles-opacity != unset { opacity: $rac-styles-opacity; }
+  @if $rac-styles-order != unset { order: $rac-styles-order; }
+  @if $rac-styles-outline != unset { outline: $rac-styles-outline; }
+  @if $rac-styles-overflow != unset { overflow: $rac-styles-overflow; }
+  @if $rac-styles-padding != unset { padding: $rac-styles-padding; }
+  @if $rac-styles-padding-bottom != unset { padding-bottom: $rac-styles-padding-bottom; }
+  @if $rac-styles-padding-left != unset { padding-left: $rac-styles-padding-left; }
+  @if $rac-styles-padding-right != unset { padding-right: $rac-styles-padding-right; }
+  @if $rac-styles-padding-top != unset { padding-top: $rac-styles-padding-top; }
+  @if $rac-styles-position != unset { position: $rac-styles-position; }
+  @if $rac-styles-resize != unset { resize: $rac-styles-resize; }
+  @if $rac-styles-right != unset { right: $rac-styles-right; }
+  @if $rac-styles-size != unset { width: $rac-styles-size; height: $rac-styles-size; }
+  @if $rac-styles-table-layout != unset { table-layout: $rac-styles-table-layout; }
+  @if $rac-styles-text-align != unset { text-align: $rac-styles-text-align; }
+  @if $rac-styles-text-decoration != unset { text-decoration: $rac-styles-text-decoration; }
+  @if $rac-styles-text-overflow != unset { text-overflow: $rac-styles-text-overflow; }
+  @if $rac-styles-text-transform != unset { text-transform: $rac-styles-text-transform; }
+  @if $rac-styles-top != unset { top: $rac-styles-top; }
+  @if $rac-styles-transform != unset { @include rac-transform($rac-styles-transform); }
+  @if $rac-styles-transition != unset { @include rac-transition($rac-styles-transition); }
+  @if $rac-styles-vertical-align != unset { vertical-align: $rac-styles-vertical-align; }
+  @if $rac-styles-visibility != unset { visibility: $rac-styles-visibility; }
+  @if $rac-styles-white-space != unset { white-space: $rac-styles-white-space; }
+  @if $rac-styles-width != unset { width: $rac-styles-width; }
+  @if $rac-styles-word-break != unset { word-break: $rac-styles-word-break; }
+  @if $rac-styles-z-index != unset { z-index: $rac-styles-z-index; }
+  @if $rac-styles-flex-width != unset {
+    min-width: $rac-styles-flex-width;
+    max-width: $rac-styles-flex-width;
+  }
+  @if $rac-styles-flex-height != unset {
+    max-height: $rac-styles-flex-height;
+    min-height: $rac-styles-flex-height;
+  }
+}
+
+/**
+ * @stable [05.04.2020]
+ */
+@mixin rac-styles (
+  $rac-styles-custom: unset,
+  /**/
+  $rac-styles-align-items: unset,
+  $rac-styles-background-color: unset,
+  $rac-styles-background-image: unset,
+  $rac-styles-background-position: unset,
+  $rac-styles-background-repeat: unset,
+  $rac-styles-background-size: unset,
+  $rac-styles-background: unset,
+  $rac-styles-border-bottom-color: unset,
+  $rac-styles-border-bottom: unset,
+  $rac-styles-border-collapse: unset,
+  $rac-styles-border-color: unset,
+  $rac-styles-border-left-color: unset,
+  $rac-styles-border-left: unset,
+  $rac-styles-border-radius: unset,
+  $rac-styles-border-right-color: unset,
+  $rac-styles-border-right: unset,
+  $rac-styles-border-spacing: unset,
+  $rac-styles-border-style: unset,
+  $rac-styles-border-top: unset,
+  $rac-styles-border-width: unset,
+  $rac-styles-border: unset,
+  $rac-styles-bottom: unset,
+  $rac-styles-box-shadow: unset,
+  $rac-styles-box-sizing: unset,
+  $rac-styles-color: unset,
+  $rac-styles-content: unset,
+  $rac-styles-cursor: unset,
+  $rac-styles-display: unset,
+  $rac-styles-flex-basis: unset,
+  $rac-styles-flex-direction: unset,
+  $rac-styles-flex-grow: unset,
+  $rac-styles-flex-height: unset,
+  $rac-styles-flex-shrink: unset,
+  $rac-styles-flex-width: unset,
+  $rac-styles-flex-wrap: unset,
+  $rac-styles-flex: unset,
+  $rac-styles-float: unset,
+  $rac-styles-font-family: unset,
+  $rac-styles-font-size: unset,
+  $rac-styles-font-weight: unset,
+  $rac-styles-font: unset,
+  $rac-styles-height: unset,
+  $rac-styles-justify-content: unset,
+  $rac-styles-left: unset,
+  $rac-styles-letter-spacing: unset,
+  $rac-styles-line-height: unset,
+  $rac-styles-margin-bottom: unset,
+  $rac-styles-margin-left: unset,
+  $rac-styles-margin-right: unset,
+  $rac-styles-margin-top: unset,
+  $rac-styles-margin: unset,
+  $rac-styles-max-height: unset,
+  $rac-styles-max-width: unset,
+  $rac-styles-min-height: unset,
+  $rac-styles-min-width: unset,
+  $rac-styles-no-user-select: unset,
+  $rac-styles-opacity: unset,
+  $rac-styles-order: unset,
+  $rac-styles-outline: unset,
+  $rac-styles-overflow: unset,
+  $rac-styles-padding-bottom: unset,
+  $rac-styles-padding-left: unset,
+  $rac-styles-padding-right: unset,
+  $rac-styles-padding-top: unset,
+  $rac-styles-padding: unset,
+  $rac-styles-position: unset,
+  $rac-styles-resize: unset,
+  $rac-styles-right: unset,
+  $rac-styles-size: unset,
+  $rac-styles-table-layout: unset,
+  $rac-styles-text-align: unset,
+  $rac-styles-text-decoration: unset,
+  $rac-styles-text-overflow: unset,
+  $rac-styles-text-transform: unset,
+  $rac-styles-top: unset,
+  $rac-styles-transform: unset,
+  $rac-styles-transition: unset,
+  $rac-styles-vertical-align: unset,
+  $rac-styles-visibility: unset,
+  $rac-styles-white-space: unset,
+  $rac-styles-width: unset,
+  $rac-styles-word-break: unset,
+  $rac-styles-z-index: unset
+) {
+
+  @if $rac-styles-custom != unset {
+    .#{$rac-styles-custom} {
+      @include _rac-styles-properties (
+        $rac-styles-align-items: $rac-styles-align-items,
+        $rac-styles-background-color: $rac-styles-background-color,
+        $rac-styles-background-image: $rac-styles-background-image,
+        $rac-styles-background-position: $rac-styles-background-position,
+        $rac-styles-background-repeat: $rac-styles-background-repeat,
+        $rac-styles-background-size: $rac-styles-background-size,
+        $rac-styles-background: $rac-styles-background,
+        $rac-styles-border-bottom-color: $rac-styles-border-bottom-color,
+        $rac-styles-border-bottom: $rac-styles-border-bottom,
+        $rac-styles-border-collapse: $rac-styles-border-collapse,
+        $rac-styles-border-color: $rac-styles-border-color,
+        $rac-styles-border-left-color: $rac-styles-border-left-color,
+        $rac-styles-border-left: $rac-styles-border-left,
+        $rac-styles-border-radius: $rac-styles-border-radius,
+        $rac-styles-border-right-color: $rac-styles-border-right-color,
+        $rac-styles-border-right: $rac-styles-border-right,
+        $rac-styles-border-spacing: $rac-styles-border-spacing,
+        $rac-styles-border-style: $rac-styles-border-style,
+        $rac-styles-border-top: $rac-styles-border-top,
+        $rac-styles-border-width: $rac-styles-border-width,
+        $rac-styles-border: $rac-styles-border,
+        $rac-styles-bottom: $rac-styles-bottom,
+        $rac-styles-box-shadow: $rac-styles-box-shadow,
+        $rac-styles-box-sizing: $rac-styles-box-sizing,
+        $rac-styles-color: $rac-styles-color,
+        $rac-styles-content: $rac-styles-content,
+        $rac-styles-cursor: $rac-styles-cursor,
+        $rac-styles-display: $rac-styles-display,
+        $rac-styles-flex-basis: $rac-styles-flex-basis,
+        $rac-styles-flex-direction: $rac-styles-flex-direction,
+        $rac-styles-flex-grow: $rac-styles-flex-grow,
+        $rac-styles-flex-height: $rac-styles-flex-height,
+        $rac-styles-flex-shrink: $rac-styles-flex-shrink,
+        $rac-styles-flex-width: $rac-styles-flex-width,
+        $rac-styles-flex-wrap: $rac-styles-flex-wrap,
+        $rac-styles-flex: $rac-styles-flex,
+        $rac-styles-float: $rac-styles-float,
+        $rac-styles-font-family: $rac-styles-font-family,
+        $rac-styles-font-size: $rac-styles-font-size,
+        $rac-styles-font-weight: $rac-styles-font-weight,
+        $rac-styles-font: $rac-styles-font,
+        $rac-styles-height: $rac-styles-height,
+        $rac-styles-justify-content: $rac-styles-justify-content,
+        $rac-styles-left: $rac-styles-left,
+        $rac-styles-letter-spacing: $rac-styles-letter-spacing,
+        $rac-styles-line-height: $rac-styles-line-height,
+        $rac-styles-margin-bottom: $rac-styles-margin-bottom,
+        $rac-styles-margin-left: $rac-styles-margin-left,
+        $rac-styles-margin-right: $rac-styles-margin-right,
+        $rac-styles-margin-top: $rac-styles-margin-top,
+        $rac-styles-margin: $rac-styles-margin,
+        $rac-styles-max-height: $rac-styles-max-height,
+        $rac-styles-max-width: $rac-styles-max-width,
+        $rac-styles-min-height: $rac-styles-min-height,
+        $rac-styles-min-width: $rac-styles-min-width,
+        $rac-styles-no-user-select: $rac-styles-no-user-select,
+        $rac-styles-opacity: $rac-styles-opacity,
+        $rac-styles-order: $rac-styles-order,
+        $rac-styles-outline: $rac-styles-outline,
+        $rac-styles-overflow: $rac-styles-overflow,
+        $rac-styles-padding-bottom: $rac-styles-padding-bottom,
+        $rac-styles-padding-left: $rac-styles-padding-left,
+        $rac-styles-padding-right: $rac-styles-padding-right,
+        $rac-styles-padding-top: $rac-styles-padding-top,
+        $rac-styles-padding: $rac-styles-padding,
+        $rac-styles-position: $rac-styles-position,
+        $rac-styles-resize: $rac-styles-resize,
+        $rac-styles-right: $rac-styles-right,
+        $rac-styles-size: $rac-styles-size,
+        $rac-styles-table-layout: $rac-styles-table-layout,
+        $rac-styles-text-align: $rac-styles-text-align,
+        $rac-styles-text-decoration: $rac-styles-text-decoration,
+        $rac-styles-text-overflow: $rac-styles-text-overflow,
+        $rac-styles-text-transform: $rac-styles-text-transform,
+        $rac-styles-top: $rac-styles-top,
+        $rac-styles-transform: $rac-styles-transform,
+        $rac-styles-transition: $rac-styles-transition,
+        $rac-styles-vertical-align: $rac-styles-vertical-align,
+        $rac-styles-visibility: $rac-styles-visibility,
+        $rac-styles-white-space: $rac-styles-white-space,
+        $rac-styles-width: $rac-styles-width,
+        $rac-styles-word-break: $rac-styles-word-break,
+        $rac-styles-z-index: $rac-styles-z-index
+      );
+    }
+  } @else {
+    @include _rac-styles-properties (
+      $rac-styles-align-items: $rac-styles-align-items,
+      $rac-styles-background-color: $rac-styles-background-color,
+      $rac-styles-background-image: $rac-styles-background-image,
+      $rac-styles-background-position: $rac-styles-background-position,
+      $rac-styles-background-repeat: $rac-styles-background-repeat,
+      $rac-styles-background-size: $rac-styles-background-size,
+      $rac-styles-background: $rac-styles-background,
+      $rac-styles-border-bottom-color: $rac-styles-border-bottom-color,
+      $rac-styles-border-bottom: $rac-styles-border-bottom,
+      $rac-styles-border-collapse: $rac-styles-border-collapse,
+      $rac-styles-border-color: $rac-styles-border-color,
+      $rac-styles-border-left-color: $rac-styles-border-left-color,
+      $rac-styles-border-left: $rac-styles-border-left,
+      $rac-styles-border-radius: $rac-styles-border-radius,
+      $rac-styles-border-right-color: $rac-styles-border-right-color,
+      $rac-styles-border-right: $rac-styles-border-right,
+      $rac-styles-border-spacing: $rac-styles-border-spacing,
+      $rac-styles-border-style: $rac-styles-border-style,
+      $rac-styles-border-top: $rac-styles-border-top,
+      $rac-styles-border-width: $rac-styles-border-width,
+      $rac-styles-border: $rac-styles-border,
+      $rac-styles-bottom: $rac-styles-bottom,
+      $rac-styles-box-shadow: $rac-styles-box-shadow,
+      $rac-styles-box-sizing: $rac-styles-box-sizing,
+      $rac-styles-color: $rac-styles-color,
+      $rac-styles-content: $rac-styles-content,
+      $rac-styles-cursor: $rac-styles-cursor,
+      $rac-styles-display: $rac-styles-display,
+      $rac-styles-flex-basis: $rac-styles-flex-basis,
+      $rac-styles-flex-direction: $rac-styles-flex-direction,
+      $rac-styles-flex-grow: $rac-styles-flex-grow,
+      $rac-styles-flex-height: $rac-styles-flex-height,
+      $rac-styles-flex-shrink: $rac-styles-flex-shrink,
+      $rac-styles-flex-width: $rac-styles-flex-width,
+      $rac-styles-flex-wrap: $rac-styles-flex-wrap,
+      $rac-styles-flex: $rac-styles-flex,
+      $rac-styles-float: $rac-styles-float,
+      $rac-styles-font-family: $rac-styles-font-family,
+      $rac-styles-font-size: $rac-styles-font-size,
+      $rac-styles-font-weight: $rac-styles-font-weight,
+      $rac-styles-font: $rac-styles-font,
+      $rac-styles-height: $rac-styles-height,
+      $rac-styles-justify-content: $rac-styles-justify-content,
+      $rac-styles-left: $rac-styles-left,
+      $rac-styles-letter-spacing: $rac-styles-letter-spacing,
+      $rac-styles-line-height: $rac-styles-line-height,
+      $rac-styles-margin-bottom: $rac-styles-margin-bottom,
+      $rac-styles-margin-left: $rac-styles-margin-left,
+      $rac-styles-margin-right: $rac-styles-margin-right,
+      $rac-styles-margin-top: $rac-styles-margin-top,
+      $rac-styles-margin: $rac-styles-margin,
+      $rac-styles-max-height: $rac-styles-max-height,
+      $rac-styles-max-width: $rac-styles-max-width,
+      $rac-styles-min-height: $rac-styles-min-height,
+      $rac-styles-min-width: $rac-styles-min-width,
+      $rac-styles-no-user-select: $rac-styles-no-user-select,
+      $rac-styles-opacity: $rac-styles-opacity,
+      $rac-styles-order: $rac-styles-order,
+      $rac-styles-outline: $rac-styles-outline,
+      $rac-styles-overflow: $rac-styles-overflow,
+      $rac-styles-padding-bottom: $rac-styles-padding-bottom,
+      $rac-styles-padding-left: $rac-styles-padding-left,
+      $rac-styles-padding-right: $rac-styles-padding-right,
+      $rac-styles-padding-top: $rac-styles-padding-top,
+      $rac-styles-padding: $rac-styles-padding,
+      $rac-styles-position: $rac-styles-position,
+      $rac-styles-resize: $rac-styles-resize,
+      $rac-styles-right: $rac-styles-right,
+      $rac-styles-size: $rac-styles-size,
+      $rac-styles-table-layout: $rac-styles-table-layout,
+      $rac-styles-text-align: $rac-styles-text-align,
+      $rac-styles-text-decoration: $rac-styles-text-decoration,
+      $rac-styles-text-overflow: $rac-styles-text-overflow,
+      $rac-styles-text-transform: $rac-styles-text-transform,
+      $rac-styles-top: $rac-styles-top,
+      $rac-styles-transform: $rac-styles-transform,
+      $rac-styles-transition: $rac-styles-transition,
+      $rac-styles-vertical-align: $rac-styles-vertical-align,
+      $rac-styles-visibility: $rac-styles-visibility,
+      $rac-styles-white-space: $rac-styles-white-space,
+      $rac-styles-width: $rac-styles-width,
+      $rac-styles-word-break: $rac-styles-word-break,
+      $rac-styles-z-index: $rac-styles-z-index
+    );
+  }
+}

@@ -8,6 +8,9 @@
    * @stable [05.04.2020]
    */
   @include rac-sub-header (
-    $rac-sub-header-cursor: $rac-sub-header-cursor
+    $rac-sub-header-align-items: $rac-sub-header-align-items,
+    $rac-sub-header-cursor: $rac-sub-header-cursor,
+    $rac-sub-header-display: $rac-sub-header-display,
+    $rac-sub-header-flex-direction: $rac-sub-header-flex-direction
   );
 }
