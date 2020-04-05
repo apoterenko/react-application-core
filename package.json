@@ -1,6 +1,6 @@
 {
   "name": "react-application-core",
-  "version": "0.0.390",
+  "version": "0.0.391",
   "license": "MIT",
   "scripts": {
     "build": "npm run scss & npm run test & npm run tsc-build",
