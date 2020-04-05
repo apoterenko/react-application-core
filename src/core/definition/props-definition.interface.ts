@@ -17,7 +17,7 @@ export interface IUniversalComponentProps
 }
 
 /**
- * @stable [22.09.2019]
+ * @deprecated
  */
 export interface IComponentProps
   extends IUniversalComponentEntity,
