@@ -11,16 +11,17 @@ import {
   FormStoreProxyFactoryT,
   IControlledFieldConfigEntity,
   IControlledFieldItemEntity,
+  IControlledMappedFieldEntity,
 } from '../../definition';
 import { IFieldProps } from '../../configurations-definitions.interface';
-import {
-  VALUE_ASC_SORTER_FN,
-} from '../../util';
+import { VALUE_ASC_SORTER_FN } from '../../util';
 
 @injectable()
-export class ControlledFieldFactory<TConfig extends IControlledFieldConfigEntity<TControlledFieldItemEntity, TControlledFieldItemsEnum>,
-  TControlledFieldItemEntity extends IControlledFieldItemEntity<TControlledFieldItemsEnum>,
-  TControlledFieldItemsEnum> {
+export class ControlledFieldFactory<
+    TConfig extends IControlledFieldConfigEntity<TControlledFieldItemEntity, TControlledFieldItemsEnum>,
+    TControlledFieldItemEntity extends IControlledFieldItemEntity<TControlledFieldItemsEnum>,
+    TControlledFieldItemsEnum
+  > {
 
   @lazyInject(DI_TYPES.DictionaryStoreProxyFactory) protected readonly $dictionaryStoreProxyFactory: DictionaryStoreProxyFactoryT;
   @lazyInject(DI_TYPES.FormStoreProxyFactory) protected readonly $formStoreProxyFactory: FormStoreProxyFactoryT;
@@ -37,22 +38,34 @@ export class ControlledFieldFactory<TConfig extends IControlledFieldConfigEntity
   }
 
   /**
-   * @stable [18.12.2019]
-   * @param {TConfig} config
-   * @returns {React.ReactNode}
+   * @stable [06.04.2020]
+   * @param {TConfig} cfg
+   * @returns {JSX.Element[]}
    */
-  public buildFields(config: TConfig): JSX.Element[] {
-    const actualFields = this.getFields(config);
+  public buildFields(cfg: TConfig): JSX.Element[] {
+    return this.buildMappedFields(cfg).map((itm) => itm.element);
+  }
+
+  /**
+   * @stable [06.04.2020]
+   * @param {TConfig} cfg
+   * @returns {Array<IControlledMappedFieldEntity<TControlledFieldItemsEnum>>}
+   */
+  public buildMappedFields(cfg: TConfig): Array<IControlledMappedFieldEntity<TControlledFieldItemsEnum>> {
+    const actualFields = this.getFields(cfg);
     return (
       actualFields
-        .map((actualFieldCfg) => {
+        .map((actualFieldCfg): IControlledMappedFieldEntity<TControlledFieldItemsEnum> => {
           const fieldConfiguration = actualFieldCfg.fieldConfiguration;
           const fieldEl = this.fields.get(actualFieldCfg.type);
 
-          return React.cloneElement(fieldEl, {
-            ...fieldConfiguration,
-            ...this.getExtraProps(config, actualFieldCfg, actualFields),
-          });
+          return {
+            element: React.cloneElement(fieldEl, {
+              ...fieldConfiguration,
+              ...this.getExtraProps(cfg, actualFieldCfg, actualFields),
+            }),
+            type: actualFieldCfg.type,
+          };
         })
     );
   }

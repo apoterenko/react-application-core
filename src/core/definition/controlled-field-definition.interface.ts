@@ -1,6 +1,7 @@
 import {
   EntityIdT,
   IContainerWrapper,
+  IElementWrapper,
   IFieldConfigurationWrapper,
   IFieldsWrapper,
   IFieldWrapper,
@@ -30,7 +31,7 @@ export interface IControlledFieldItemEntity<TControlledFieldItemsEnum, TProps ex
 }
 
 /**
- * @controlled-field
+ * @config-entity
  * @stable [11.01.2020]
  */
 export interface IControlledFieldConfigEntity<
@@ -45,7 +46,16 @@ export interface IControlledFieldConfigEntity<
 }
 
 /**
- * @composite-cron-field
+ * @controlled-field
+ * @stable [06.04.2020]
+ */
+export interface IControlledMappedFieldEntity<TEnum>
+  extends ITypeWrapper<TEnum>,
+    IElementWrapper<JSX.Element> {
+}
+
+/**
+ * @enum
  * @stable [18.12.2019]
  */
 export enum CompositeCronFieldItemsEnum {
@@ -56,7 +66,6 @@ export enum CompositeCronFieldItemsEnum {
 }
 
 /**
- * @composite-cron-field
  * @stable [18.12.2019]
  */
 export type CompositeCronFieldPropsT = IGenericCronEntity & IFieldProps & IBaseSelectProps; // TODO Props
@@ -70,7 +79,7 @@ export interface ICompositeCronFieldItemEntity
 }
 
 /**
- * @composite-cron-field
+ * @config-entity
  * @stable [18.12.2019]
  */
 export interface ICompositeCronFieldConfigEntity
@@ -79,7 +88,7 @@ export interface ICompositeCronFieldConfigEntity
 }
 
 /**
- * @controlled-place-field
+ * @enum
  * @stable [11.01.2020]
  */
 export enum ControlledPlaceFieldItemsEnum {

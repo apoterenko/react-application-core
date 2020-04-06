@@ -6,6 +6,7 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IKeyValue,
+  ITypeWrapper,
 } from '../definitions.interface';
 import { ID_FIELD_NAME } from '../definition/field-definition.interface';
 import {
@@ -288,6 +289,15 @@ export const filterAndSortEntities = <TEntity = IEntity>(data: TEntity[] | TEnti
   }
   return entities;
 };
+
+/**
+ * @stable [06.04.2020]
+ * @param {TValue[]} data
+ * @param {TType} type
+ * @returns {TValue}
+ */
+export const findByType = <TValue extends ITypeWrapper<TType>, TType>(data: TValue[], type: TType): TValue =>
+  data.find((itm) => itm.type === type);
 
 /**
  * @stable [08.06.2018]
