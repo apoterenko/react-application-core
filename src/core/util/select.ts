@@ -8,6 +8,7 @@ import {
   IDataWrapper,
   IDictionariesWrapper,
   IDirectionsWrapper,
+  IElementWrapper,
   IEntity,
   IEntityIdTWrapper,
   IEntityWrapper,
@@ -50,8 +51,16 @@ export const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue =>
  * @param {IRawDataWrapper<TData>} wrapper
  * @returns {TData}
  */
-export const selectRawData = <TData = AnyT>(wrapper: IRawDataWrapper<TData>): TData =>
+export const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.rawData;
+
+/**
+ * @stable [06.04.2020]
+ * @param {IElementWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+export const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.element;
 
 /**
  * @stable [27.03.2020]

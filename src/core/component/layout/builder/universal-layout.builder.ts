@@ -86,7 +86,7 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
    */
   private filterChildren(
     layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): Array<UniversalLayoutBuilderChildrenT<TNode>> {
-    return layoutConfig.children.filter(NOT_NIL_VALUE_PREDICATE);
+    return (layoutConfig.children || []).filter(NOT_NIL_VALUE_PREDICATE);
   }
 
   /**
