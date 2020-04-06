@@ -47,10 +47,10 @@ import { IUserWrapperEntity } from './user-definition.interface';
  */
 export interface IEntityActionBuilder<TValue = {}> {
   buildDestroyAction(): IEffectsAction;
-  buildReplaceAction<TPayload = TValue>(replaced: TPayload): IEffectsAction;
-  buildSelectAction<TPayload = TValue>(selected: TPayload): IEffectsAction;
-  buildSelectPlainAction<TPayload = TValue>(selected: TPayload): IEffectsAction;
-  buildUpdateAction<TPayload = TValue>(updated: TPayload): IEffectsAction;
+  buildReplaceAction<TPayload extends TValue = TValue>(replaced: TPayload): IEffectsAction;
+  buildSelectAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;
+  buildSelectPlainAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;
+  buildUpdateAction<TPayload extends TValue = TValue>(updated: TPayload): IEffectsAction;
 }
 
 /**
