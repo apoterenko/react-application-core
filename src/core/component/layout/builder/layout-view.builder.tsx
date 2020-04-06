@@ -64,11 +64,11 @@ export class LayoutViewBuilder
 
   /**
    * @stable [06.04.2020]
-   * @param {React.ReactElement} item
+   * @param {React.ReactElement<React.Attributes>} item
    * @param {React.ClassAttributes<{}>} props
    * @returns {LayoutBuilderChildrenNodeT}
    */
-  public cloneItem(item: React.ReactElement, props: React.ClassAttributes<{}>): LayoutBuilderChildrenNodeT {
+  public cloneItem(item: React.ReactElement<React.Attributes>, props: React.ClassAttributes<{}>): LayoutBuilderChildrenNodeT {
     return React.cloneElement(item, props);
   }
 
