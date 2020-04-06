@@ -20,7 +20,6 @@ import {
   toType,
 } from '../util';
 import {
-  AnyT,
   IPayloadWrapper,
   IReplacedWrapper,
   ISelectedWrapper,
@@ -79,14 +78,14 @@ export const composeReducers = <TReducersMap extends {}>(reducersMap: TReducersM
 export const entityReducerFactory = (
   updateActionType: string,
   destroyActionType: string,
-  initialState: AnyT = null): (state: AnyT, action: AnyAction) => AnyT =>
+  initialState = null): (state: {}, action: AnyAction) => {} =>
   (state = initialState,
-   action: AnyAction): AnyT => {
+   action: AnyAction): {} => {
     switch (action.type) {
       case updateActionType:
-        const payloadWrapper: IPayloadWrapper<AnyT> = action.data;
-        const selectedWrapper: ISelectedWrapper<AnyT> = action.data;
-        const replacedWrapper: IReplacedWrapper<AnyT> = action.data;
+        const payloadWrapper: IPayloadWrapper = action.data;
+        const selectedWrapper: ISelectedWrapper<{}> = action.data;
+        const replacedWrapper: IReplacedWrapper = action.data;
         const entity = coalesce(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
 
         // selected === null or payload === null
@@ -114,19 +113,19 @@ export const entityReducerFactory = (
   };
 
 /**
- * @stable [26.08.2019]
+ * @stable [06.04.2020]
  * @param {IEntityReducerFactoryConfigEntity} config
- * @returns {(state: AnyT, action: AnyAction) => AnyT}
+ * @returns {(state: {}, action: AnyAction) => {}}
  */
-export const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (state: AnyT, action: AnyAction) => AnyT =>
-  (state = config.initialState || null, action): AnyT => {
+export const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (state: {}, action: AnyAction) => {} =>
+  (state = config.initialState || null, action): {} => {
     switch (action.type) {
       case config.update:
       case config.replace:
       case config.select:
-        const selectedWrapper: ISelectedWrapper<AnyT> = action.data;
-        const updatedWrapper: IUpdatedWrapper<AnyT> = action.data;
-        const replacedWrapper: IReplacedWrapper<AnyT> = action.data;
+        const selectedWrapper: ISelectedWrapper<{}> = action.data;
+        const updatedWrapper: IUpdatedWrapper<{}> = action.data;
+        const replacedWrapper: IReplacedWrapper = action.data;
         const selectedEntity = selectedWrapper.selected;
         const updatedEntity = updatedWrapper.updated;
         const replacedEntity = replacedWrapper.replaced;
@@ -157,56 +156,59 @@ export const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (s
   };
 
 /**
- * @stable [26.08.2019]
+ * @stable [06.04.2020]
  * @param {IEntityReducerFactoryConfigEntity} config
- * @returns {IEntityActionBuilder}
+ * @returns {IEntityActionBuilder<TValue>}
  */
-export const makeEntityActionBuilderFactory = (config: IEntityReducerFactoryConfigEntity): IEntityActionBuilder =>
-  Reflect.construct(class implements IEntityActionBuilder {
+export const makeEntityActionBuilderFactory =
+  <TValue = {}>(config: IEntityReducerFactoryConfigEntity): IEntityActionBuilder<TValue> =>
+    Reflect.construct(class implements IEntityActionBuilder {
 
-    /**
-     * @sable [26.08.2019]
-     * @param {AnyT} replaced
-     * @returns {IEffectsAction}
-     */
-    public buildReplaceAction<TValue = AnyT>(replaced: TValue): IEffectsAction {
-      return EffectsAction.create(config.replace, toType<IReplacedWrapper<TValue>>({replaced}));
-    }
+      /**
+       * @stable [06.04.2020]
+       * @param {TPayload} replaced
+       * @returns {IEffectsAction}
+       */
+      public buildReplaceAction<TPayload = TValue>(replaced: TPayload): IEffectsAction {
+        const payloadWrapper: IReplacedWrapper<TPayload> = {replaced};
+        return EffectsAction.create(config.replace, payloadWrapper);
+      }
 
-    /**
-     * @stable [08.11.2019]
-     * @returns {IEffectsAction}
-     */
-    public buildDestroyAction(): IEffectsAction {
-      return EffectsAction.create(config.destroy);
-    }
+      /**
+       * @stable [06.04.2020]
+       * @returns {IEffectsAction}
+       */
+      public buildDestroyAction(): IEffectsAction {
+        return EffectsAction.create(config.destroy);
+      }
 
-    /**
-     * @stable [04.09.2019]
-     * @param {TValue} updated
-     * @returns {IEffectsAction}
-     */
-    public buildUpdateAction<TValue = AnyT>(updated: TValue): IEffectsAction {
-      return EffectsAction.create(config.update, toType<IUpdatedWrapper<TValue>>({updated}));
-    }
+      /**
+       * @stable [06.04.2020]
+       * @param {TPayload} updated
+       * @returns {IEffectsAction}
+       */
+      public buildUpdateAction<TPayload = TValue>(updated: TPayload): IEffectsAction {
+        const payloadWrapper: IUpdatedWrapper<TPayload> = {updated};
+        return EffectsAction.create(config.update, payloadWrapper);
+      }
 
-    /**
-     * @sable [26.08.2019]
-     * @param {AnyT} selected
-     * @returns {IEffectsAction}
-     */
-    public buildSelectAction<TValue = AnyT>(selected: TValue): IEffectsAction {
-      const plainAction = this.buildSelectPlainAction(selected);
-      return EffectsAction.create(plainAction.type, plainAction.data);
-    }
+      /**
+       * @stable [06.04.2020]
+       * @param {TPayload} selected
+       * @returns {IEffectsAction}
+       */
+      public buildSelectAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
+        const plainAction = this.buildSelectPlainAction(selected);
+        return EffectsAction.create(plainAction.type, plainAction.data);
+      }
 
-    /**
-     * @stable [01.04.2020]
-     * @param {TValue} selected
-     * @returns {IEffectsAction}
-     */
-    public buildSelectPlainAction<TValue = AnyT>(selected: TValue): IEffectsAction {
-      const payloadWrapper: ISelectedWrapper<TValue> = {selected};
-      return {type: config.select, data: payloadWrapper};
-    }
-  }, []);
+      /**
+       * @stable [06.04.2020]
+       * @param {TValue} selected
+       * @returns {IEffectsAction}
+       */
+      public buildSelectPlainAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
+        const payloadWrapper: ISelectedWrapper<TPayload> = {selected};
+        return {type: config.select, data: payloadWrapper};
+      }
+    }, []);

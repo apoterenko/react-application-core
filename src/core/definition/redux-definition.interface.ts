@@ -1,7 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  AnyT,
   IActionWrapper,
   ICustomActionsWrapper,
   IDataWrapper,
@@ -44,14 +43,14 @@ import { IUniversalApplicationWrapperEntity } from './application-definition.int
 import { IUserWrapperEntity } from './user-definition.interface';
 
 /**
- * @stable [26.08.2019]
+ * @stable [06.04.2020]
  */
-export interface IEntityActionBuilder {
+export interface IEntityActionBuilder<TValue = {}> {
   buildDestroyAction(): IEffectsAction;
-  buildReplaceAction<TValue = AnyT>(replaced: TValue): IEffectsAction;
-  buildSelectAction<TValue = AnyT>(selected: TValue): IEffectsAction;
-  buildSelectPlainAction<TValue = AnyT>(selected: TValue): IEffectsAction;
-  buildUpdateAction<TValue = AnyT>(updated: TValue): IEffectsAction;
+  buildReplaceAction<TPayload = TValue>(replaced: TPayload): IEffectsAction;
+  buildSelectAction<TPayload = TValue>(selected: TPayload): IEffectsAction;
+  buildSelectPlainAction<TPayload = TValue>(selected: TPayload): IEffectsAction;
+  buildUpdateAction<TPayload = TValue>(updated: TPayload): IEffectsAction;
 }
 
 /**
@@ -97,7 +96,7 @@ export interface IEntityReducerFactoryConfigEntity
     IReplaceWrapper<string>,
     ISelectWrapper<string>,
     IDestroyWrapper<string>,
-    IInitialStateWrapper<AnyT> {
+    IInitialStateWrapper<{}> {
 }
 
 /**

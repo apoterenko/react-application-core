@@ -442,7 +442,7 @@ export interface IRemovedWrapper<TValue = boolean> { removed?: TValue; }
 export interface IRemoveWrapper<TValue> { remove?: TValue; }
 export interface IRenderedWrapper { rendered?: boolean; }
 export interface IRendererWrapper<T1 = AnyT, T2 = AnyT, T3 = AnyT> { renderer?(t1: T1, t2?: T2, t3?: T3): JSX.Element; }
-export interface IReplacedWrapper<TValue = AnyT> { replaced?: TValue; }
+export interface IReplacedWrapper<TValue = {}> { replaced?: TValue; }
 export interface IReplaceRouteWrapper { replaceRoute?: boolean; }
 export interface IReplaceWrapper<TValue = string> { replace?: TValue; }
 export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValue; }
@@ -456,7 +456,7 @@ export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
 export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResponsiveWrapper<TValue = boolean> { responsive?: TValue; }
-export interface IResultWrapper<TValue = AnyT> { result?: TValue; }
+export interface IResultWrapper<TValue = {}> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
 export interface IRightSlotWrapper<TValue> { rightSlot?: TValue; }
 export interface IRippledWrapper<TValue = boolean> { rippled?: TValue; }

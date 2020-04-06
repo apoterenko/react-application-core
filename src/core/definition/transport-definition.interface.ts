@@ -197,8 +197,8 @@ export interface ITransportRequestProvider {
  * @TransportResponse
  * @stable [16.09.2019]
  */
-export interface ITransportResponseFactoryEntity
-  extends IResultWrapper,
+export interface ITransportResponseFactoryEntity<TResult = {}>
+  extends IResultWrapper<TResult>,
     IErrorWrapper,
     IMessageWrapper,
     IStatusTextWrapper,

@@ -2,14 +2,22 @@ import { Store } from 'redux';
 import { injectable } from 'inversify';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { DI_TYPES, lazyInject } from '../di';
-import { notNilValuesFilter, ifNotNilThanValue, toType, coalesce } from '../util';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../di';
+import {
+  coalesce,
+  ifNotNilThanValue,
+  notNilValuesFilter,
+  toType,
+} from '../util';
 import { IKeyValue } from '../definitions.interface';
 import {
   $RAC_TRANSPORT_REQUEST_ACTION_TYPE,
   $RAC_TRANSPORT_REQUEST_DONE_ACTION_TYPE,
-  TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
   TRANSPORT_REQUEST_CANCEL_ACTION_TYPE,
+  TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
 } from './transport-reducer.interface';
 import {
   EnvironmentGlobalVariablesEnum,
@@ -84,7 +92,7 @@ export class Transport implements ITransport {
       throw responseFactoryEntity;
     } else {
       this.onRequestDone(req, responseFactoryEntity);
-      return responseFactoryEntity.result;
+      return responseFactoryEntity.result as TResponse;
     }
   }
 
