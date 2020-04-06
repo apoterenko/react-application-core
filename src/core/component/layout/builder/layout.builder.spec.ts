@@ -14,15 +14,15 @@ describe('layout.builder', () => {
 
     const layoutBuilder = new UniversalLayoutBuilder(new DefaultLayoutViewBuilder());
     const layout = layoutBuilder.build({
-      children: [
+      items: [
         new pseudoElement('p1', 'v1'),
         {
           layout: LayoutTypesEnum.HORIZONTAL,
-          children: [
+          items: [
             new pseudoElement('p2', 'v2'),
             {
               factor: LayoutFactorsEnum.FACTOR_2,
-              children: [
+              items: [
                 new pseudoElement('p4', 'v4'),
                 new pseudoElement('p5', 'v5')
               ],

@@ -114,6 +114,7 @@ export enum ComponentClassesEnum {
   ABSOLUTE = 'rac-absolute',
   ALIGNMENT_CENTER = 'rac-alignment-center',
   CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR = 'rac-calendar-dialog__range-input-separator',   // TODO
+  FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
   FLEX_HALF = 'rac-flex-half',
   FLEX_ONE_QUARTER = 'rac-flex-one-quarter',
   FLEX_ONE_THIRD = 'rac-flex-one-third',

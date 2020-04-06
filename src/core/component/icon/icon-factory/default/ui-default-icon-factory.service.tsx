@@ -118,7 +118,7 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         <use fill='currentColor' fillRule='evenodd' xlinkHref='#59c5b385-2d73-41c8-8f66-bd296326c848' />
       </svg>
     ),
-    'dropdown': (
+    [IconsEnum.DROP_DOWN]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M12 20.002c.6 0 1.167-.237 1.59-.665l9.972-10.25a1.527 1.527 0 0 0 0-2.141 1.488 1.488 0 0 0-2.121 0L12 16.66 2.56 6.945a1.485 1.485 0 0 0-2.12 0 1.527 1.527 0 0 0 0 2.143l9.968 10.249c.425.428.988.665 1.59.665H12z'
@@ -185,7 +185,7 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         />
       </svg>
     ),
-    'dropdown-opened': (
+    [IconsEnum.DROP_DOWN_OPENED]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <defs>

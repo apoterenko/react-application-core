@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import {
-  IChildrenWrapper,
   IClassNameWrapper,
   IFactorWrapper,
   IFullWrapper,
+  IItemsWrapper,
   IKeyValue,
   ILayoutWrapper,
   IStyleWrapper,
@@ -38,16 +38,21 @@ export enum LayoutFactorsEnum {
 export type UniversalLayoutBuilderChildrenT<TNode> = IUniversalLayoutBuilderConfigEntity<TNode> | TNode;
 
 /**
+ * @stable [06.04.2020]
+ */
+export type LayoutBuilderChildrenNodeT = JSX.Element;
+
+/**
  * @stable [23.01.2020]
  */
-export type LayoutBuilderChildrenT = UniversalLayoutBuilderChildrenT<JSX.Element>;
+export type LayoutBuilderChildrenT = UniversalLayoutBuilderChildrenT<LayoutBuilderChildrenNodeT>;
 
 /**
  * @config-entity
  * @stable [23.01.2020]
  */
 export interface IUniversalLayoutBuilderConfigEntity<TNode>
-  extends IChildrenWrapper<Array<UniversalLayoutBuilderChildrenT<TNode>>>,
+  extends IItemsWrapper<Array<UniversalLayoutBuilderChildrenT<TNode>>>,
     IClassNameWrapper,
     IFactorWrapper<LayoutFactorsEnum>,
     IFullWrapper,
@@ -92,5 +97,5 @@ export interface IUniversalLayoutViewBuilder<TNode, TProps extends IUniversalLay
  * @stable [23.01.2020]
  */
 export interface ILayoutViewBuilder
-  extends IUniversalLayoutViewBuilder<React.ReactNode, React.DetailedHTMLProps<React.HTMLAttributes<{}>, {}>> {
+  extends IUniversalLayoutViewBuilder<LayoutBuilderChildrenNodeT, React.DetailedHTMLProps<React.HTMLAttributes<{}>, {}>> {
 }

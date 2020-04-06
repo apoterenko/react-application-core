@@ -4,11 +4,12 @@ import { LayoutViewBuilder } from './layout-view.builder';
 import { UniversalLayoutBuilder } from './universal-layout.builder';
 import {
   ILayoutViewBuilder,
+  LayoutBuilderChildrenNodeT,
   LayoutBuilderChildrenT,
 } from '../../../definition';
 import { StringNumberT } from '../../../definitions.interface';
 
-export class LayoutBuilder extends UniversalLayoutBuilder<React.ReactNode> {
+export class LayoutBuilder extends UniversalLayoutBuilder<LayoutBuilderChildrenNodeT> {
 
   /**
    * @stable [23.01.2020]

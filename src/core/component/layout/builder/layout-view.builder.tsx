@@ -3,24 +3,25 @@ import * as React from 'react';
 import { joinClassName } from '../../../util';
 import {
   ILayoutBuilderConfigEntity,
+  LayoutBuilderChildrenNodeT,
   LayoutBuilderChildrenT,
   LayoutFactorsEnum,
 } from '../../../definition';
 import { UniversalLayoutViewBuilder } from './universal-layout-view.builder';
 
 export class LayoutViewBuilder
-  extends UniversalLayoutViewBuilder<React.ReactNode, React.DetailedHTMLProps<React.HTMLAttributes<{}>, {}>> {
+  extends UniversalLayoutViewBuilder<LayoutBuilderChildrenNodeT, React.DetailedHTMLProps<React.HTMLAttributes<{}>, {}>> {
 
   /**
    * @stable [22.10.2018]
    * @param {React.HTMLAttributes<{}>} props
    * @param {LayoutBuilderChildrenT[]} children
    * @param {ILayoutBuilderConfigEntity} layoutConfig
-   * @returns {React.ReactNode}
+   * @returns {LayoutBuilderChildrenNodeT}
    */
   public buildRowView(props: React.HTMLAttributes<{}>,
                       children: LayoutBuilderChildrenT[],
-                      layoutConfig: ILayoutBuilderConfigEntity): React.ReactNode {
+                      layoutConfig: ILayoutBuilderConfigEntity): LayoutBuilderChildrenNodeT {
     return (
       <div
         {...props}
@@ -41,11 +42,11 @@ export class LayoutViewBuilder
    * @param {React.HTMLAttributes<{}>} props
    * @param {LayoutBuilderChildrenT[]} children
    * @param {ILayoutBuilderConfigEntity} layoutConfig
-   * @returns {React.ReactNode}
+   * @returns {LayoutBuilderChildrenNodeT}
    */
   public buildColumnView(props: React.HTMLAttributes<{}>,
                          children: LayoutBuilderChildrenT[],
-                         layoutConfig: ILayoutBuilderConfigEntity): React.ReactNode {
+                         layoutConfig: ILayoutBuilderConfigEntity): LayoutBuilderChildrenNodeT {
     return (
       <div
         {...props}
@@ -62,13 +63,13 @@ export class LayoutViewBuilder
   }
 
   /**
-   * @stable [23.01.2020]
-   * @param {React.ReactNode} item
+   * @stable [06.04.2020]
+   * @param {React.ReactElement} item
    * @param {React.ClassAttributes<{}>} props
-   * @returns {React.ReactNode}
+   * @returns {LayoutBuilderChildrenNodeT}
    */
-  public cloneItem(item: React.ReactNode, props: React.ClassAttributes<{}>): React.ReactNode {
-    return React.cloneElement(item as React.ReactElement<{}>, props);
+  public cloneItem(item: React.ReactElement, props: React.ClassAttributes<{}>): LayoutBuilderChildrenNodeT {
+    return React.cloneElement(item, props);
   }
 
   /**
