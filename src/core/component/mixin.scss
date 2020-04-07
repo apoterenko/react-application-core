@@ -1,4 +1,5 @@
 @import './_core-mixin';
+@import './layout/builder/_layout-builder-mixin';
 @import './sub-header/_sub-header-mixin';
 @import './_classes';
 
@@ -143,25 +144,6 @@
     $rac-styles-custom: rac-flex-responsive,
     $rac-styles-flex-direction: $rac-flex-responsive-flex-direction
   );
-}
-
-/**
- * @stable [13.03.2019]
- */
-@mixin rac-neighbor-child (
-  $rac-neighbor-child-custom: unset,
-  $rac-neighbor-child-margin: unset
-) {
-  $v: unquote('>');
-  @if $rac-neighbor-child-custom != unset {
-    $v: '.#{$rac-neighbor-child-custom} >';
-  }
-
-  #{$v} :not(:first-child) {
-    @include rac-styles (
-      $rac-styles-margin: $rac-neighbor-child-margin
-    );
-  }
 }
 
 /**
@@ -2617,79 +2599,6 @@
     );
   }
 }
-
-/**
- * @stable [23.01.2020]
- */
-@mixin rac-layout-builder (
-  $rac-layout-builder-column-view-custom: unset,
-  $rac-layout-builder-row-view-custom: unset,
-  /**/
-  $rac-layout-builder-1-2-flex: unset,                                                        /* @stable [23.01.2020] */
-  $rac-layout-builder-3-4-flex: unset,                                                        /* @stable [23.01.2020] */
-  $rac-layout-builder-column-view-display: unset,                                             /* @stable [23.01.2020] */
-  $rac-layout-builder-column-view-flex-direction: unset,                                      /* @stable [23.01.2020] */
-  $rac-layout-builder-column-view-neighbor-child-margin: unset,                               /* @stable [23.01.2020] */
-  $rac-layout-builder-row-view-display: unset,                                                /* @stable [23.01.2020] */
-  $rac-layout-builder-row-view-flex-direction: unset,                                         /* @stable [23.01.2020] */
-  $rac-layout-builder-row-view-neighbor-child-margin: unset,                                  /* @stable [23.01.2020] */
-  $rac-layout-builder-x1-flex: unset,                                                         /* @stable [23.01.2020] */
-  $rac-layout-builder-x2-flex: unset,                                                         /* @stable [23.01.2020] */
-  $rac-layout-builder-x4-flex: unset,                                                         /* @stable [23.01.2020] */
-  $rac-layout-builder-x8-flex: unset                                                          /* @stable [23.01.2020] */
-) {
-  #{rac-cls(rac-layout-builder-row-view, $rac-layout-builder-row-view-custom)} {
-    @include rac-styles (
-      $rac-styles-display: $rac-layout-builder-row-view-display,
-      $rac-styles-flex-direction: $rac-layout-builder-row-view-flex-direction
-    );
-
-    @include rac-neighbor-child (
-      $rac-neighbor-child-margin: $rac-layout-builder-row-view-neighbor-child-margin
-    );
-  }
-
-  #{rac-cls(rac-layout-builder-column-view, $rac-layout-builder-column-view-custom)} {
-    @include rac-styles (
-      $rac-styles-display: $rac-layout-builder-column-view-display,
-      $rac-styles-flex-direction: $rac-layout-builder-column-view-flex-direction
-    );
-
-    @include rac-neighbor-child (
-      $rac-neighbor-child-margin: $rac-layout-builder-column-view-neighbor-child-margin
-    );
-  }
-
-  @include rac-styles (
-    $rac-styles-custom: rac-layout-builder-1-2,
-    $rac-styles-flex: $rac-layout-builder-1-2-flex
-  );
-
-  @include rac-styles (
-    $rac-styles-custom: rac-layout-builder-3-4,
-    $rac-styles-flex: $rac-layout-builder-3-4-flex
-  );
-
-  @include rac-styles (
-    $rac-styles-custom: rac-layout-builder-x1,
-    $rac-styles-flex: $rac-layout-builder-x1-flex
-  );
-
-  @include rac-styles (
-    $rac-styles-custom: rac-layout-builder-x2,
-    $rac-styles-flex: $rac-layout-builder-x2-flex
-  );
-
-  @include rac-styles (
-    $rac-styles-custom: rac-layout-builder-x4,
-    $rac-styles-flex: $rac-layout-builder-x4-flex
-  );
-
-  @include rac-styles (
-    $rac-styles-custom: rac-layout-builder-x8,
-    $rac-styles-flex: $rac-layout-builder-x8-flex
-  );
-};
 
 /**
  * @stable [10.01.2020]

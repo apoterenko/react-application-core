@@ -471,3 +471,22 @@
     );
   }
 }
+
+/**
+ * @stable [07.04.2020]
+ */
+@mixin rac-neighbor-child (
+  $rac-neighbor-child-custom: unset,
+  $rac-neighbor-child-margin: unset
+) {
+  $v: unquote('>');
+  @if $rac-neighbor-child-custom != unset {
+    $v: '.#{$rac-neighbor-child-custom} >';
+  }
+
+  #{$v} :not(:first-child) {
+    @include rac-styles (
+      $rac-styles-margin: $rac-neighbor-child-margin
+    );
+  }
+}
