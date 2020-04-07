@@ -13,6 +13,7 @@ import {
 } from '../../di';
 import {
   AsyncLibsEnum,
+  ComponentClassesEnum,
   EventsEnum,
   IAsyncLibConfigEntity,
   IAsyncLibManager,
@@ -26,7 +27,7 @@ import {
   ISettingsEntity,
 } from '../../settings';
 import { AnyT } from '../../definitions.interface';
-import { IUIFactory } from '../../component/factory/factory.interface';  // TODO Fix import
+import { IUIFactory } from '../../component/factory/factory.interface';   // TODO Fix import
 
 @injectable()
 export class WebBootstrapper implements IBootstrapper {
@@ -159,13 +160,14 @@ export class WebBootstrapper implements IBootstrapper {
 
     this.domAccessor.addClassNames(
       document.body,
-      'rac',
+      ComponentClassesEnum.RAC,
       environment.appProfile,
-      environment.mobilePlatform ? 'rac-mobile' : 'rac-desktop',
-      orNull(environment.androidPlatform, 'rac-android'),
-      orNull(environment.iosPlatform, 'rac-ios'),
-      orNull(environment.macPlatform, 'rac-mac'),
-      orNull(environment.safariPlatform, 'rac-safari'),
+      environment.mobilePlatform ? ComponentClassesEnum.MOBILE : ComponentClassesEnum.DESKTOP,
+      orNull(environment.androidPlatform, ComponentClassesEnum.ANDROID),
+      orNull(environment.iosPlatform, ComponentClassesEnum.IOS),
+      orNull(environment.macPlatform, ComponentClassesEnum.MAC),
+      orNull(environment.chromePlatform, ComponentClassesEnum.CHROME),
+      orNull(environment.safariPlatform, ComponentClassesEnum.SAFARI),
     );
   }
 

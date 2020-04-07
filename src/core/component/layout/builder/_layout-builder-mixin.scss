@@ -10,13 +10,12 @@
   $rac-layout-builder-1-2-flex-grow: unset,                                                   /* @stable [23.01.2020] */
   $rac-layout-builder-3-4-flex-grow: unset,                                                   /* @stable [23.01.2020] */
   $rac-layout-builder-column-view-display: unset,                                             /* @stable [23.01.2020] */
-  $rac-layout-builder-column-view-flex-basis: unset,                                          /* @stable [07.04.2020] */
   $rac-layout-builder-column-view-flex-direction: unset,                                      /* @stable [23.01.2020] */
   $rac-layout-builder-column-view-neighbor-child-margin: unset,                               /* @stable [23.01.2020] */
   $rac-layout-builder-row-view-display: unset,                                                /* @stable [23.01.2020] */
-  $rac-layout-builder-row-view-flex-basis: unset,                                             /* @stable [07.04.2020] */
   $rac-layout-builder-row-view-flex-direction: unset,                                         /* @stable [23.01.2020] */
   $rac-layout-builder-row-view-neighbor-child-margin: unset,                                  /* @stable [23.01.2020] */
+  $rac-layout-builder-stretch-flex-basis: unset,                                              /* @stable [07.04.2020] */
   $rac-layout-builder-x1-flex-grow: unset,                                                    /* @stable [23.01.2020] */
   $rac-layout-builder-x2-flex-grow: unset,                                                    /* @stable [23.01.2020] */
   $rac-layout-builder-x4-flex-grow: unset,                                                    /* @stable [23.01.2020] */
@@ -25,7 +24,6 @@
   #{rac-cls(rac-layout-builder-row-view, $rac-layout-builder-row-view-custom)} {
     @include rac-styles (
       $rac-styles-display: $rac-layout-builder-row-view-display,
-      $rac-styles-flex-basis: $rac-layout-builder-row-view-flex-basis,
       $rac-styles-flex-direction: $rac-layout-builder-row-view-flex-direction
     );
 
@@ -37,7 +35,6 @@
   #{rac-cls(rac-layout-builder-column-view, $rac-layout-builder-column-view-custom)} {
     @include rac-styles (
       $rac-styles-display: $rac-layout-builder-column-view-display,
-      $rac-styles-flex-basis: $rac-layout-builder-column-view-flex-basis,
       $rac-styles-flex-direction: $rac-layout-builder-column-view-flex-direction
     );
 
@@ -45,6 +42,12 @@
       $rac-neighbor-child-margin: $rac-layout-builder-column-view-neighbor-child-margin
     );
   }
+
+
+  @include rac-styles (
+    $rac-styles-custom: rac-layout-builder-stretch,
+    $rac-styles-flex-basis: $rac-layout-builder-stretch-flex-basis
+  );
 
   @include rac-styles (
     $rac-styles-custom: rac-layout-builder-1-2,

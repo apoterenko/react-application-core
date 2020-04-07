@@ -82,18 +82,19 @@ export class LayoutViewBuilder
       return '';
     }
     switch (config.factor) {
+      // TODO
       case LayoutFactorsEnum.FACTOR_0_5:
-        return 'rac-layout-builder-1-2';
+        return 'rac-layout-builder-stretch rac-layout-builder-1-2';
       case LayoutFactorsEnum.FACTOR_0_75:
-        return 'rac-layout-builder-3-4';
+        return 'rac-layout-builder-stretch rac-layout-builder-3-4';
       case LayoutFactorsEnum.FACTOR_2:
-        return 'rac-layout-builder-x2';
+        return 'rac-layout-builder-stretch rac-layout-builder-x2';
       case LayoutFactorsEnum.FACTOR_4:
-        return 'rac-layout-builder-x4';
+        return 'rac-layout-builder-stretch rac-layout-builder-x4';
       case LayoutFactorsEnum.FACTOR_8:
-        return 'rac-layout-builder-x8';
+        return 'rac-layout-builder-stretch rac-layout-builder-x8';
       default:
-        return 'rac-layout-builder-x1';
+        return 'rac-layout-builder-stretch rac-layout-builder-x1';
     }
   }
 }
