@@ -82,7 +82,7 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
           ...(
             last
               ? {}
-              : handlerPropsFactory(() => this.goBack(length - entities.indexOf(item) - 1))
+              : handlerPropsFactory(() => this.goBack(length - entities.indexOf(item) - 1), true, false)
           ),
         });
       })

@@ -5,10 +5,10 @@ import {
   calc,
   cancelEvent,
   defValuesFilter,
-  fullFlexClassName,
   ifNotNilThanValue,
   isErrorMessageRendered,
   isFn,
+  isFull,
   joinClassName,
   orNull,
   orUndef,
@@ -25,6 +25,7 @@ import {
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
 import {
+  ComponentClassesEnum,
   FieldActionPositionsEnum,
   IBaseEvent,
   IComponentsSettingsEntity,
@@ -327,7 +328,7 @@ export class Field<TProps extends IFieldProps,
     const value = this.displayValue;                                                                        /* @stable [28.10.2019] */
 
     const result = defValuesFilter<IFieldComplexInputAttributes, IFieldComplexInputAttributes>({
-      className: 'rac-field-input rac-flex-full',
+      className: 'rac-field-input rac-flex-x1',
       autoComplete, cols, disabled, maxLength, minLength, name, pattern,
       placeholder, readOnly, rows, step, tabIndex, type, value, required,
       ...(
@@ -355,11 +356,10 @@ export class Field<TProps extends IFieldProps,
    */
   protected getFieldClassName(): string {
     const props = this.props;
-    const {flexEnabled = false} = this.settings.bootstrap;
 
     return joinClassName(
       'rac-field',
-      flexEnabled && fullFlexClassName(props as any), // TODO
+      isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
       this.isRequired && 'rac-field-required',
       this.isFieldBusy() && 'rac-field-busy',
       this.isFieldInvalid() && 'rac-field-invalid',

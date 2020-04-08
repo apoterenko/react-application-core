@@ -137,12 +137,6 @@ $rac-triangle-color: $color-4 !default;
 /* @stable [26.06.2018] */
 $rac-min-width: unset !default;
 
-/************************/
-/* @stable [19.02.2020] */
-/************************/
-$rac-base-font-family: unset !default;
-$rac-base-font-size: unset !default;
-
 /* @stable [26.06.2018] */
 $rac-scrollbar-width: 6px !default;
 $rac-scrollbar-height: 6px !default;
@@ -660,7 +654,6 @@ $rac-cron-field-labeled-self-field-margin-top: $rac-field-offset-0 !default;    
 $rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
 $rac-field-display: flex !default;
 $rac-field-flex-direction: column !default;
-$rac-field-flex-shrink: 0 !default;
 $rac-field-help-text-font-size: 10px !default;
 $rac-field-help-text-line-height: 16px !default;
 $rac-field-loader-loading-message-color: $rac-default-text-color !default;
@@ -1259,13 +1252,6 @@ $rac-google-maps-position: relative !default;
 $rac-window-error-min-width: 70vw !default;
 $rac-window-error-restart-action-margin: 0 auto !default;
 $rac-window-error-restart-action-min-width: unset !default;
-$rac-window-error-wrapper-background: $rac-color-0-1 !default;
-$rac-window-error-wrapper-z-index: $rac-z-index-window-error-wrapper !default;
-
-/* @stable [30.09.2019] */
-$rac-alignment-center-top: 50% !default;
-$rac-alignment-center-left: 50% !default;
-$rac-alignment-center-position: absolute !default;
 
 /* @stable [16.10.2019] */
 $rac-sticky-fixed-position: fixed !default;

@@ -1,5 +1,5 @@
-@import './constant';
 @import './mixin';
+@import './_core-constant';
 
 .rac {
 
@@ -87,9 +87,9 @@
    * @stable [30.09.2019]
    */
   @include rac-alignment-center (
-    $rac-alignment-center-top: $rac-alignment-center-top,
     $rac-alignment-center-left: $rac-alignment-center-left,
-    $rac-alignment-center-position: $rac-alignment-center-position
+    $rac-alignment-center-position: $rac-alignment-center-position,
+    $rac-alignment-center-top: $rac-alignment-center-top
   );
 
   /**
@@ -116,7 +116,8 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-one-quarter,
-    $rac-styles-flex: .25
+    $rac-styles-flex-basis:  $rac-flex-one-quarter-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-one-quarter-flex-grow
   );
 
   /**
@@ -125,7 +126,8 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-one-third,
-    $rac-styles-flex: .33
+    $rac-styles-flex-basis:  $rac-flex-one-third-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-one-third-flex-grow
   );
 
   /**
@@ -134,7 +136,8 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-half,
-    $rac-styles-flex: .5
+    $rac-styles-flex-basis:  $rac-flex-half-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-half-flex-grow
   );
 
   /**
@@ -143,7 +146,48 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-three-quarters,
-    $rac-styles-flex: .75
+    $rac-styles-flex-basis:  $rac-flex-three-quarters-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-three-quarters-flex-grow
+  );
+
+  /**
+   * @layout
+   * @stable [08.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-x1,
+    $rac-styles-flex-basis: $rac-flex-x1-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-x1-flex-grow
+  );
+
+  /**
+   * @layout
+   * @stable [08.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-x2,
+    $rac-styles-flex-basis: $rac-flex-x2-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-x2-flex-grow
+  );
+
+  /**
+   * @layout
+   * @stable [08.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-x3,
+    $rac-styles-flex-basis: $rac-flex-x3-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-x3-flex-grow
+  );
+
+  /**
+   * @layout
+   * @stable [08.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-x4,
+    $rac-styles-flex-basis: $rac-flex-x4-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-x4-flex-grow
   );
 
   /**

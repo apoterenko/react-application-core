@@ -24,20 +24,8 @@
     @include flex-direction(column);                                /* @stable [21.09.2018] */
   }
 
-  .rac-flex-full {
-    @include flex;                                                  /* @stable [19.09.2018] */
-  }
-
   .rac-flex-separator {
     @include flex(.1);                                              /* @stable [19.09.2018] */
-  }
-
-  .rac-flex-full-x2 {
-    @include flex(2);                                               /* @stable [21.11.2018] */
-  }
-
-  .rac-flex-full-x3 {
-    @include flex(3);                                               /* @stable [21.11.2018] */
   }
 
   .rac-flex-align-items-start {
@@ -64,21 +52,4 @@
 
 .rac-inline-flex {
   @include inline-flex;
-}
-
-// Flex full layout (x4) [FRAMEWORK-]
-.rac-flex-full-x4 {
-  @include flex(4);
-}
-
-// Flex full layout (x8) [FRAMEWORK-]
-.rac-flex-full-x8 {
-  @include flex(8);
-}
-
-// Flex center layout [FRAMEWORK-]
-.rac-flex-center {
-  text-align: center;
-  @include justify-content(center);
-  @include align-items(center);
 }

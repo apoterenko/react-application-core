@@ -2,16 +2,24 @@
 /* @stable [17.03.2020] */
 /************************/
 $rac-primary-flex-0: 0 0 auto !default;
+/**/
 $rac-primary-flex-grow-0: 1 !default;
 /**/
-$rac-primary-flex-basis-0: 0 !default;
-$rac-primary-flex-basis-1: 0% !default;
+$rac-primary-flex-basis-0: 0% !default;
 
 /************************/
 /* @stable [17.03.2020] */
 /************************/
 $rac-primary-display-0: flex !default;
 $rac-primary-display-1: block !default;
+
+/************************/
+/* @stable [08.04.2020] */
+/************************/
+$rac-primary-z-index-0: 1 !default;
+$rac-primary-z-index-1: 2 !default;
+$rac-primary-z-index-2: 3 !default;
+$rac-primary-z-index-max: 1000000 !default;
 
 /************************/
 /* @stable [18.03.2020] */
@@ -55,6 +63,7 @@ $rac-primary-icon-size-3: 20px !default;
 /* @stable [18.03.2020] */
 /************************/
 $rac-primary-color-callisto-0: #ed254e !default;
+$rac-primary-color-callisto-1: #fff !default;
 /**/
 $rac-primary-color-metis-0: rgba(0, 0, 0, .05) !default;
 $rac-primary-color-metis-0-0: #f2f2f2 !default;

@@ -17,7 +17,7 @@ export class CardList extends BaseList<ICardListProps> {
     return (
       <div
         ref='container'
-        className={toClassName('rac-list rac-card-list rac-flex-full', props.className)}>
+        className={toClassName('rac-list rac-card-list rac-flex-x1', props.className)}>
         {this.dataSource.map((item, index) => this.getItem(item, index))}
       </div>
     );

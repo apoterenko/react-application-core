@@ -1,0 +1,47 @@
+@import './_primary-constant';
+
+/************************/
+/* @stable [08.04.2020] */
+/************************/
+$rac-base-font-family: unset !default;
+$rac-base-font-size: unset !default;
+
+/************************/
+/* @stable [08.04.2020] */
+/************************/
+$rac-alignment-center-left: 50% !default;
+$rac-alignment-center-position: absolute !default;
+$rac-alignment-center-top: 50% !default;
+
+/************************/
+/* @stable [08.04.2020] */
+/************************/
+$rac-window-error-wrapper-background: $rac-primary-color-callisto-1 !default;
+$rac-window-error-wrapper-z-index: $rac-primary-z-index-max !default;
+
+/************************/
+/* @stable [08.04.2020] */
+/************************/
+$rac-flex-one-quarter-flex-basis:  $rac-primary-flex-basis-0 !default;
+$rac-flex-one-quarter-flex-grow: .25 !default;
+/**/
+$rac-flex-one-third-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-flex-one-third-flex-grow: .333 !default;
+/**/
+$rac-flex-half-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-flex-half-flex-grow: .5 !default;
+/**/
+$rac-flex-three-quarters-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-flex-three-quarters-flex-grow: .75 !default;
+/**/
+$rac-flex-x1-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-flex-x1-flex-grow: 1 !default;
+/**/
+$rac-flex-x2-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-flex-x2-flex-grow: 2 !default;
+/**/
+$rac-flex-x3-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-flex-x3-flex-grow: 3 !default;
+/**/
+$rac-flex-x4-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-flex-x4-flex-grow: 4 !default;

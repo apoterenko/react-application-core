@@ -83,7 +83,9 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
   public render(): JSX.Element {
     const props = this.props;
     return (
-      <div className={joinClassName('rac-google-maps', calc(props.className))}>
+      <div
+        style={props.style}
+        className={joinClassName('rac-google-maps', calc(props.className))}>
         <div
           ref={this.selfRef}
           className='rac-google-maps__body'/>
