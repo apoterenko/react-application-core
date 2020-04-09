@@ -11,11 +11,6 @@ import { IUniversalField } from '../../../entities-definitions.interface';
 import { IFieldProps } from '../../../configurations-definitions.interface';
 
 /**
- * @stable [17.06.2018]
- */
-export const FIELD_EMPTY_ERROR_VALUE = null;
-
-/**
  * @stable [04.09.2018]
  */
 export interface IUniversalFieldState extends IStringErrorWrapper,

@@ -15,11 +15,6 @@ export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 
-/**
- * @deprecated
- */
-export const NAME_FIELD_NAME = 'name';                                                          /* @stable [16.08.2018] */
-
 /* @stable [23.04.2018] */
 export interface IEmptyDataWrapper<TEmptyData> {
   emptyData?: TEmptyData;
@@ -678,15 +673,6 @@ export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
  */
 export interface IPrefixLabelWrapper {
   prefixLabel?: string;
-}
-
-/**
- * @stable [31.07.2018]
- */
-export interface IValidateWrapper<TValidatedValueResult = AnyT,
-                                  TValidatedValue = AnyT,
-                                  TValidate = (validatedValue?: TValidatedValue) => TValidatedValueResult> {
-  validate?: TValidate;
 }
 
 /**

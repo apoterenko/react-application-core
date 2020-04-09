@@ -27,6 +27,7 @@ import {
   isDef,
   isFn,
   isNumber,
+  nvl,
 } from '../../../util';
 import { IDateConverter } from '../../../converter';
 import {
@@ -34,6 +35,8 @@ import {
   StringNumberT,
   UNDEF,
 } from '../../../definitions.interface';
+import { IFieldProps } from '../../../configurations-definitions.interface';
+import { ISettingsEntity } from '../../../settings';
 
 @provideInSingleton(CompositeCronFieldFactory)
 export class CompositeCronFieldFactory
@@ -61,6 +64,7 @@ export class CompositeCronFieldFactory
   ];
 
   @lazyInject(DI_TYPES.DateConverter) private readonly dc: IDateConverter;
+  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
 
   /**
    * @stable [18.12.2019]
@@ -170,13 +174,13 @@ export class CompositeCronFieldFactory
         break;
       case CronPeriodsEnum.YEARLY:
         ifNotNilThanValue(
-          this.asCronEntity(fromDateValue),
+          this.asCronEntity(config, fromDateValue),
           (cronEntity) => (cronFieldValue = cronEntity)
         );
         break;
       case CronPeriodsEnum.NO_REPETITIONS:
         ifNotNilThanValue(
-          this.asCronEntity(fromDateValue, true),
+          this.asCronEntity(config, fromDateValue, true),
           (cronEntity) => (cronFieldValue = cronEntity)
         );
         break;
@@ -193,27 +197,34 @@ export class CompositeCronFieldFactory
   }
 
   /**
-   * @stable [18.12.2019]
+   * @stable [09.04.2020]
+   * @param {ICompositeCronFieldConfigEntity} config
    * @param {DateTimeLikeTypeT} fromDateValue
    * @param {boolean} applyYear
    * @returns {string}
    */
-  private asCronEntity(fromDateValue: DateTimeLikeTypeT, applyYear = false): string {
-    const fromDate = this.dc.toMomentDate(fromDateValue, 'YYYY-MM-DD', false); // TODO
+  private asCronEntity(config: ICompositeCronFieldConfigEntity,
+                       fromDateValue: DateTimeLikeTypeT,
+                       applyYear = false): string {
+    const fromDate = this.dc.asDayOfYearEntity({
+      date: fromDateValue,
+      // Need to consider the input props format
+      inputFormat: this.getFieldFormat(this.getDateFromFieldItem(config).fieldConfiguration),
+    });
 
-    if (isNumber(fromDate.month()) && isNumber(fromDate.date())) {
-      let cronEntity = CronEntity.newInstance()
-        .withHours(0)
-        .withMinutes(0)
-        .withMonths(fromDate.month() + 1) // TODO https://momentjs.com/docs/#/get-set/month/
-        .withDaysOfMonths(fromDate.date());
-
-      if (applyYear) {
-        cronEntity = cronEntity.withYears(fromDate.year());
-      }
-      return cronEntity.toExpression();
+    if (R.isNil(fromDate)) {
+      return null;
     }
-    return null;
+    let cronEntity = CronEntity.newInstance()
+      .withHours(0)
+      .withMinutes(0)
+      .withMonths(fromDate.month + 1)  // The cron months range is 1-12
+      .withDaysOfMonths(fromDate.day);
+
+    if (applyYear) {
+      cronEntity = cronEntity.withYears(fromDate.year);
+    }
+    return cronEntity.toExpression();
   }
 
   /**
@@ -301,5 +312,14 @@ export class CompositeCronFieldFactory
       this.getPeriodFieldName(config),
       (periodFieldName) => this.asContainerEntity(config)[periodFieldName]
     );
+  }
+
+  /**
+   * @stable [09.04.2020]
+   * @param {IFieldProps} props
+   * @returns {string}
+   */
+  private getFieldFormat(props: IFieldProps): string {
+    return nvl(props.format, this.settings.dateTime.uiDateFormat);
   }
 }

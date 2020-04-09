@@ -48,7 +48,6 @@ import {
   ITitleRendererWrapper,
   ITouchedWrapper,
   ITypeWrapper,
-  IValidateWrapper,
 } from './definitions.interface';
 import {
   IOnNavigationActionClickWrapper,
@@ -123,8 +122,7 @@ export interface IUniversalFieldProps
           IDisplayMessageWrapper,
           IMessageWrapper,
           IKeyboardConfigurationEntity,
-          ICaretBlinkingFrequencyTimeoutWrapper,
-          IValidateWrapper<string> {
+          ICaretBlinkingFrequencyTimeoutWrapper {
 }
 
 /* @stable - 11.04.2018 */

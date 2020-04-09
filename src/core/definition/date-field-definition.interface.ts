@@ -43,7 +43,6 @@ export interface IGenericDateFieldEntity
     IDatePeriodModeEntity,
     IDatePeriodTypeEntity,
     IDialogConfigurationEntity,
-    IFormatWrapper,
     IForwardActionConfigurationWrapper<IButtonProps>,
     IInlineWrapper,
     IMaxDateWrapper<Date>,

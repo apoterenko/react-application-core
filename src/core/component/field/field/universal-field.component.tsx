@@ -43,7 +43,6 @@ import {
   IKeyboardEvent,
 } from '../../../definitions.interface';
 import {
-  FIELD_EMPTY_ERROR_VALUE,
   IUniversalFieldState,
 } from './field.interface';
 import {
@@ -313,33 +312,13 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {string}
    */
   protected validateValueAndSetCustomValidity(value: AnyT): string {
-    const props = this.props;
-    let error = FIELD_EMPTY_ERROR_VALUE;
-
+    let error = null;
     this.setNativeInputValidity('');
 
-    if (this.isInputValid()) {
-      error = isFn(props.validate) ? props.validate(value) : error;
-      if (R.isNil(error)) {
-        error = this.validateValue(value); // The custom internal validator
-      }
-
-      if (!R.isNil(error)) {
-        this.setNativeInputValidity(error);
-      }
-    } else {
+    if (!this.isInputValid()) {
       error = this.getNativeInputValidationMessage();
     }
     return error;
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @param {AnyT} value
-   * @returns {string}
-   */
-  protected validateValue(value: AnyT): string {
-    return FIELD_EMPTY_ERROR_VALUE;
   }
 
   /**
@@ -355,7 +334,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {string}
    */
   protected getNativeInputValidationMessage(): string {
-    return FIELD_EMPTY_ERROR_VALUE;
+    return null;
   }
 
   /**
