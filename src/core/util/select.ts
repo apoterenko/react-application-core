@@ -12,6 +12,7 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IEntityWrapper,
+  IFilterWrapper,
   IFormWrapper,
   IListWrapper,
   IPayloadWrapper,
@@ -31,12 +32,18 @@ import {
 } from '../definitions.interface';
 import { coalesce } from './nvl';
 import {
+  IFormEditableEntity,
+  IGenericEditableEntity,
   IGenericListEntity,
   IListWrapperEntity,
   IPreviousActionWrapperEntity,
   ISortDirectionsEntity,
+  ToolbarToolsEnum,
 } from '../definition';
-import { ifNotNilThanValue } from './cond';
+import {
+  ifNotEmptyThanValue,
+  ifNotNilThanValue,
+} from './cond';
 
 /**
  * @stable [30.03.2020]
@@ -82,6 +89,14 @@ export const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue => R.i
  * @returns {TValue}
  */
 export const selectList = <TValue>(wrapper: IListWrapper<TValue>): TValue => R.isNil(wrapper) ? UNDEF : wrapper.list;
+
+/**
+ * @stable [09.04.2020]
+ * @param {IFilterWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+export const selectFilter = <TValue = string>(wrapper: IFilterWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.filter;
 
 /**
  * @stable [26.03.2020]
@@ -298,3 +313,31 @@ export const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): T
  */
 export const selectListEntityDirections = (entity: IGenericListEntity): ISortDirectionsEntity =>
   selectDirections(entity);
+
+/**
+ * @stable [09.04.2020]
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {TData}
+ */
+export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: IListWrapperEntity): TData =>
+  selectRawData(selectList(listWrapperEntity));
+
+/**
+ * @stable [09.04.2020]
+ * @param {IFormEditableEntity<TEntity>} entity
+ * @returns {TEntity}
+ */
+export const selectFormEditableEntityChanges = <TEntity = IEntity>(entity: IFormEditableEntity<TEntity>): TEntity =>
+  selectChanges(selectForm(entity));
+
+/**
+ * @stable [09.04.2020]
+ * @param {IGenericEditableEntity} editableEntity
+ * @returns {ToolbarToolsEnum[]}
+ */
+export const selectEditableEntityToolbarToolsActiveFilter = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
+  ifNotEmptyThanValue(
+    selectChanges(editableEntity),
+    () => [ToolbarToolsEnum.FILTER],
+    []
+  );

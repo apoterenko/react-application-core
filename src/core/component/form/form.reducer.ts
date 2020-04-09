@@ -12,7 +12,7 @@ import {
   IPayloadWrapper,
 } from '../../definitions.interface';
 import {
-  IEditableEntity,
+  IGenericEditableEntity,
   IFieldChangeEntity,
   IFieldsChangesEntity,
   IFormValidEntity,
@@ -35,8 +35,8 @@ const fromPayload = (payload: IFieldChangeEntity & IFieldsChangesEntity): IKeyVa
     : {[fieldChangeEntity.name]: fieldChangeEntity.value};
 };
 
-export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
-                            action: IEffectsAction): IEditableEntity {
+export function formReducer(state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
+                            action: IEffectsAction): IGenericEditableEntity {
   const section = toSection(action);
   switch (action.type) {
     case FormActionBuilder.buildDestroyActionType(section):
@@ -103,7 +103,7 @@ export function formReducer(state: IEditableEntity = INITIAL_FORM_ENTITY,
       /**
        * @stable [14.08.2018]
        */
-      const activeValueState: IEditableEntity = {activeValue: state.activeValue};
+      const activeValueState: IGenericEditableEntity = {activeValue: state.activeValue};
       return {
         ...INITIAL_FORM_ENTITY,
         ...(isDef(activeValueState.activeValue) ? activeValueState : {}),

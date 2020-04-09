@@ -685,6 +685,7 @@
   $rac-self-field-input-wrapper-box-shadow: unset,                                  /* @stable [30.01.2020] */
   $rac-self-field-input-wrapper-display: unset,                                     /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-flex-direction: unset,                              /* @stable [23.10.2019] */
+  $rac-self-field-input-wrapper-flex-shrink: unset,                                 /* @stable [09.04.2020] */
   $rac-self-field-input-wrapper-flex: unset,                                        /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-justify-content: unset,                             /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-opacity: unset,                                     /* @stable [15.02.2020] */
@@ -816,6 +817,7 @@
             $rac-styles-box-shadow: $rac-self-field-input-wrapper-box-shadow,
             $rac-styles-display: $rac-self-field-input-wrapper-display,
             $rac-styles-flex-direction: $rac-self-field-input-wrapper-flex-direction,
+            $rac-styles-flex-shrink: $rac-self-field-input-wrapper-flex-shrink,
             $rac-styles-flex: $rac-self-field-input-wrapper-flex,
             $rac-styles-justify-content: $rac-self-field-input-wrapper-justify-content,
             $rac-styles-opacity: $rac-self-field-input-wrapper-opacity,

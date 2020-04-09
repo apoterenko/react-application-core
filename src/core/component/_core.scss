@@ -98,7 +98,16 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-align-items-center,
-    $rac-styles-align-items: center
+    $rac-styles-align-items: $rac-flex-align-items-center-align-items
+  );
+
+  /**
+   * @layout
+   * @stable [09.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-align-items-end,
+    $rac-styles-align-items: $rac-flex-align-items-end-align-items
   );
 
   /**

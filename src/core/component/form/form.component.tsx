@@ -6,9 +6,9 @@ import {
   IApiEntity,
   IBaseEvent,
   IButtonProps,
-  IEditableEntity,
   IFieldsPresets,
   IFormProps,
+  IGenericEditableEntity,
   UniversalIdProviderContext,
 } from '../../definition';
 import {
@@ -40,15 +40,15 @@ import {
   notNilValuesFilter,
   objectValuesArrayFilter,
   orNull,
-  selectEditableEntityChanges,
   selectError,
   selectForm,
+  selectFormEditableEntityChanges,
 } from '../../util';
 import {
   AnyT,
   IEntity,
 } from '../../definitions.interface';
-import { BaseComponent } from '../base';
+import { GenericComponent } from '../base';
 import { Button } from '../button';
 import { Field, IField } from '../field';
 import { IFieldProps } from '../../configurations-definitions.interface';
@@ -57,7 +57,7 @@ import {
   lazyInject,
 } from '../../di';
 
-export class Form extends BaseComponent<IFormProps> {
+export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
 
@@ -125,8 +125,6 @@ export class Form extends BaseComponent<IFormProps> {
    * @stable [30.01.2020]
    */
   public componentDidMount(): void {
-    super.componentDidMount();
-
     if (isValidateOnMount(this.props)) {
       this.propsOnValid();
     }
@@ -149,15 +147,7 @@ export class Form extends BaseComponent<IFormProps> {
   public get apiEntity(): IApiEntity {
     const props = this.props;
     const {entity, originalEntity} = props;
-    return mapApiEntity({changes: selectEditableEntityChanges(props), entity, originalEntity});
-  }
-
-  /**
-   * @stable [30.01.2020]
-   * @returns {HTMLFormElement}
-   */
-  public getSelf(): HTMLFormElement {
-    return super.getSelf() as HTMLFormElement;
+    return mapApiEntity({changes: selectFormEditableEntityChanges(props), entity, originalEntity});
   }
 
   /**
@@ -214,7 +204,7 @@ export class Form extends BaseComponent<IFormProps> {
     const {onValid, valid} = this.props;
 
     if (isFn(onValid)) {
-      onValid(isBoolean(valid) || this.getSelf().checkValidity());
+      onValid(isBoolean(valid) || this.selfRef.current.checkValidity());
     }
   }
 
@@ -456,9 +446,9 @@ export class Form extends BaseComponent<IFormProps> {
 
   /**
    * @stable [03.02.2020]
-   * @returns {IEditableEntity<IEntity>}
+   * @returns {IGenericEditableEntity<IEntity>}
    */
-  private get form(): IEditableEntity<IEntity> {
+  private get form(): IGenericEditableEntity<IEntity> {
     return selectForm(this.props);
   }
 

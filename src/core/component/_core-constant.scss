@@ -14,6 +14,12 @@ $rac-alignment-center-position: absolute !default;
 $rac-alignment-center-top: 50% !default;
 
 /************************/
+/* @stable [09.04.2020] */
+/************************/
+$rac-flex-align-items-center-align-items: center !default;
+$rac-flex-align-items-end-align-items: flex-end !default;
+
+/************************/
 /* @stable [08.04.2020] */
 /************************/
 $rac-window-error-wrapper-background: $rac-primary-color-callisto-1 !default;

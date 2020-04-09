@@ -32,10 +32,6 @@
     @include align-items(flex-start);                               /* @stable [19.09.2018] */
   }
 
-  .rac-flex-align-items-end {
-    @include align-items(flex-end);                                 /* @stable [20.09.2018] */
-  }
-
   .rac-flex-justify-content-end {
     @include justify-content(flex-end);                             /* @stable [17.09.2018] */
   }

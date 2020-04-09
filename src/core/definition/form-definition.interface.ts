@@ -32,7 +32,7 @@ import {
   IValidWrapper,
 } from '../definitions.interface';
 import {
-  IEditableEntity,
+  IGenericEditableEntity,
   IExtendedEntity,
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
@@ -43,9 +43,9 @@ import {
   IGenericButtonEntity,
 } from './button-definition.interface';
 import {
-  IComponentProps,
   IContainerProps,
 } from './props-definition.interface';
+import { IGenericComponentProps } from './component-definition.interface';
 
 /**
  * @generic-entity
@@ -79,7 +79,7 @@ interface IGenericFormEntity
  * @stable [05.04.2020]
  */
 export interface IFormEditableEntity<TEntity = IEntity>
-  extends IFormWrapper<IEditableEntity<TEntity>> {
+  extends IFormWrapper<IGenericEditableEntity<TEntity>> {
 }
 
 /**
@@ -118,7 +118,7 @@ export interface IFormExtraButtonEntity
  * @stable [27.09.2019]
  */
 export interface IFormProps<TEntity = IEntity>
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericFormEntity,
     IBehavioralFormEntity<TEntity> {
 }
@@ -172,7 +172,7 @@ export const DEFAULT_FULL_FORM_FIELD_CONTROLLER_ENTITY = Object.freeze<IGenericF
  * @initial-entity
  * @stable [27.09.2019]
  */
-export const INITIAL_FORM_ENTITY = Object.freeze<IEditableEntity>({
+export const INITIAL_FORM_ENTITY = Object.freeze<IGenericEditableEntity>({
   changes: {},
   defaultChanges: {},
 });

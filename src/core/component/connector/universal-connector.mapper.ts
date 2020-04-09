@@ -15,7 +15,7 @@ import {
   IEntityWrapper,
 } from '../../definitions.interface';
 import {
-  IEditableEntity,
+  IGenericEditableEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
   IListEntity,
@@ -30,7 +30,7 @@ import {
 /**
  * @deprecated mapEditableEntity
  */
-export const formMapper = (editableEntity: IEditableEntity): IExtendedFormEditableEntity => ({
+export const formMapper = (editableEntity: IGenericEditableEntity): IExtendedFormEditableEntity => ({
   form: {
     ...editableEntity,
   },
@@ -89,14 +89,14 @@ export const listWrapperMapper = (listWrapperEntity: IListWrapperEntity, dataMut
 /**
  * @deprecated Use selectChanges
  */
-export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
+export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>(entity: IGenericEditableEntity): TResult =>
   entity.changes as TResult;
 
 /**
  * @deprecated Use mapExtendedEntity
  */
 export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
-                                                      editableEntity?: IEditableEntity): IExtendedEntity<TEntity> =>
+                                                      editableEntity?: IGenericEditableEntity): IExtendedEntity<TEntity> =>
     ({
       entity: {
         ...entity as {},
@@ -124,7 +124,7 @@ export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperE
  */
 export const listWrapperSelectedEntityMapper =
   <TEntity extends IEntity>(listWrapperState: IListWrapperEntity,
-                            formEntity?: IEditableEntity): IEntityWrapper<TEntity> =>
+                            formEntity?: IGenericEditableEntity): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
       listSelectedEntitySelector<TEntity>(listWrapperState),
       formEntity
@@ -146,7 +146,7 @@ export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListW
 /**
  * @deprecated selectEditableEntityToolbarToolsActiveFilter
  */
-export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IEditableEntity): ToolbarToolsEnum[] =>
+export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
   R.isNil(editableEntity) || R.isEmpty(editableEntity.changes) ? [] : [ToolbarToolsEnum.FILTER];
 
 /**

@@ -24,7 +24,7 @@ import {
 import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from './configurations-definitions.interface';
 import {
   IEnvironment,
-  ILifeCycleEntity,
+  IGenericLifeCycleEntity,
   IListEntity,
   IGenericActiveQueryEntity,
   IUniversalComponent,
@@ -68,7 +68,7 @@ export interface IQueryFilteredListEntity
 }
 
 /* @stable [23.04.2018] */
-export interface IUniversalMessageEntity extends ILifeCycleEntity {
+export interface IUniversalMessageEntity extends IGenericLifeCycleEntity {
 }
 
 /**

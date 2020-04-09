@@ -118,6 +118,7 @@ export enum ComponentClassesEnum {
   CHROME = 'rac-chrome',
   DESKTOP = 'rac-desktop',
   FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
+  FLEX_ALIGN_ITEMS_END = 'rac-flex-align-items-end',
   FLEX_HALF = 'rac-flex-half',
   FLEX_ONE_QUARTER = 'rac-flex-one-quarter',
   FLEX_ONE_THIRD = 'rac-flex-one-third',

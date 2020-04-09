@@ -32,12 +32,21 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
 
   protected readonly selfRef = React.createRef<TSelfRef>();
 
+  private $dc: IDateConverter;
+  private $domAccessor: IDomAccessor;
+  private $eventManager: IEventManager;
+  private $nc: INumberConverter;
+  private $pc: IPhoneConverter;
+  private $settings: ISettingsEntity;
+  private $t: TranslatorT;
+  private $uiFactory: IUiFactory;
+
   /**
    * @stable [18.03.2020]
    * @returns {ISettingsEntity}
    */
   protected get settings(): ISettingsEntity {
-    return getSettings();
+    return this.$settings = this.$settings || getSettings();
   }
 
   /**
@@ -45,7 +54,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {INumberConverter}
    */
   protected get nc(): INumberConverter {
-    return getNumberConverter();
+    return this.$nc = this.$nc || getNumberConverter();
   }
 
   /**
@@ -53,7 +62,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {IPhoneConverter}
    */
   protected get pc(): IPhoneConverter {
-    return getPhoneConverter();
+    return this.$pc = this.$pc || getPhoneConverter();
   }
 
   /**
@@ -61,7 +70,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {IDateConverter}
    */
   protected get dc(): IDateConverter {
-    return getDateConverter();
+    return this.$dc = this.$dc || getDateConverter();
   }
 
   /**
@@ -69,7 +78,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {IEventManager}
    */
   protected get eventManager(): IEventManager {
-    return getEventManager();
+    return this.$eventManager = this.$eventManager || getEventManager();
   }
 
   /**
@@ -77,7 +86,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {TranslatorT}
    */
   protected get t(): TranslatorT {
-    return getTranslator();
+    return this.$t = this.$t || getTranslator();
   }
 
   /**
@@ -85,7 +94,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {IUiFactory}
    */
   protected get uiFactory(): IUiFactory {
-    return getUiFactory();
+    return this.$uiFactory = this.$uiFactory || getUiFactory();
   }
 
   /**
@@ -93,6 +102,6 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {IDomAccessor}
    */
   protected get domAccessor(): IDomAccessor {
-    return getDomAccessor();
+    return this.$domAccessor = this.$domAccessor || getDomAccessor();
   }
 }

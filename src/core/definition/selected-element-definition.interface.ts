@@ -2,7 +2,7 @@ import {
   IRefreshOnUpdateWrapper,
   ISelectedElementClassNameWrapper,
 } from '../definitions.interface';
-import { IComponentProps } from './props-definition.interface';
+import { IGenericComponentProps } from './component-definition.interface';
 import { IStickyEntity } from './sticky-definition.interface';
 
 /**
@@ -17,7 +17,7 @@ export interface ISelectedElementEntity
  * @stable [23.10.2019]
  */
 export interface ISelectedElementComponentProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     ISelectedElementEntity,
     IStickyEntity {
 }

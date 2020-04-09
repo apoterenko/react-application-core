@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { AnyT } from '../../definitions.interface';
-import { BasicContainer } from '../base';
+import { GenericContainer } from '../base';
 import { Form } from '../form';
 import {
   IApiEntity,
@@ -10,7 +10,7 @@ import {
   IFormContainerProps,
 } from '../../definition';
 
-export class FormContainer extends BasicContainer<IFormContainerProps> {
+export class FormContainer extends GenericContainer<IFormContainerProps> {
 
   /**
    * @stable [03.02.2020]

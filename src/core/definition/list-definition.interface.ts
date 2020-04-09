@@ -50,8 +50,8 @@ import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IGenericComponentProps } from './component-definition.interface';
 import { IGenericContainerProps } from './container-definition.interface';
-import { ILifeCycleEntity } from './entity-definition.interface';
 import { IGenericPaginatedEntity } from './page-definition.interface';
+import { IGenericLifeCycleEntity } from './entity-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsWrapperEntity } from './sort-definition.interface';
 
@@ -74,20 +74,30 @@ export interface IGenericListGroupByEntity
  * @generic-entity
  * @stable [27.10.2019]
  */
+export interface IGenericBaseListEntity<TEntity = IEntity,
+  TRawData = AnyT>
+  extends IGenericPaginatedEntity,
+    IDataWrapper<TEntity[]>,
+    IRawDataWrapper<TRawData> {
+}
+
+/**
+ * @generic-entity
+ * @stable [27.10.2019]
+ */
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
-  extends IChangesWrapper,
-    IDataWrapper<TEntity[]>,
+  extends IGenericBaseListEntity<TEntity, TRawData>,
+    IChangesWrapper,
     IDefaultWrapper,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
-    IGenericPaginatedEntity,
     IGroupByWrapper<IGenericListGroupByEntity>,
-    ILifeCycleEntity,
+    IGenericLifeCycleEntity,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
-    IRawDataWrapper<TRawData>,
+    ISelectedElementEntity,
     ISelectedWrapper<TEntity>,
     ISortDirectionsWrapperEntity,
     ISorterWrapper {
@@ -162,7 +172,7 @@ export interface IBehavioralListItemEntity<TEntity extends IEntity = IEntity>
  * @stable [26.01.2020]
  */
 export interface IListItemProps<TEntity extends IEntity = IEntity>
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericListItemEntity<TEntity>,
     IBehavioralListItemEntity<TEntity> {
 }
@@ -175,7 +185,6 @@ export interface IListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IUniversalListEntity<any, TEntity, TRawData>, // TODO Remove later
     IChangesWrapper,
-    ISelectedElementEntity,
     IDeactivatedWrapper,
     IHighlightOddWrapper,
     IHoveredWrapper,

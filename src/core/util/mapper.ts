@@ -7,12 +7,12 @@ import {
   IDictionariesEntity,
   IDictionariesWrapperEntity,
   IDictionaryEntity,
-  IEditableEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
   IFormEditableEntity,
   IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
+  IGenericEditableEntity,
   IGenericListEntity,
   IGenericPagedEntity,
   IGenericPaginatedEntity,
@@ -60,7 +60,6 @@ import {
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import {
-  ifNotEmptyThanValue,
   ifNotNilThanValue,
   orUndef,
 } from './cond';
@@ -83,12 +82,13 @@ import {
   selectChanges,
   selectData,
   selectDictionaries,
+  selectEditableEntityToolbarToolsActiveFilter,
   selectEntityId,
+  selectFilter,
   selectForm,
   selectList,
   selectListSelectedEntity,
   selectQueue,
-  selectRawData,
   selectSectionName,
   selectStack,
   selectToken,
@@ -124,28 +124,19 @@ export const selectError =
 /**
  * @stable [29.02.2020]
  * @param {IExtendedFormEditableEntity<TEntity extends IEntity>} wrapper
- * @returns {IEditableEntity<TEntity extends IEntity>}
+ * @returns {IGenericEditableEntity<TEntity extends IEntity>}
  */
 export const selectEditableEntity =
-  <TEntity extends IEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>): IEditableEntity<TEntity> =>
+  <TEntity extends IEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>): IGenericEditableEntity<TEntity> =>
     selectForm(wrapper);
 
 /**
  * @stable [20.12.2019]
- * @param {IEditableEntity} entity
+ * @param {IGenericEditableEntity} entity
  * @returns {TResult}
  */
-export const selectDefaultChanges = <TResult extends IEntity = IEntity>(entity: IEditableEntity): TResult =>
+export const selectDefaultChanges = <TResult extends IEntity = IEntity>(entity: IGenericEditableEntity): TResult =>
   ifNotNilThanValue(entity, (): TResult => entity.defaultChanges as TResult, UNDEF_SYMBOL);
-
-/**
- * @stable [21.02.2020]
- * @param {IExtendedFormEditableEntity<TEntity extends IEntity>} entity
- * @returns {TEntity}
- */
-export const selectEditableEntityChanges =
-  <TEntity extends IEntity = IEntity>(entity: IExtendedFormEditableEntity<TEntity>): TEntity =>
-    R.isNil(entity) ? UNDEF : selectChanges<TEntity>(selectEditableEntity(entity));
 
 /**
  * TODO
@@ -154,14 +145,6 @@ export const selectEditableEntityChanges =
 export const selectListEntity =
   <TEntity extends IEntity = IEntity>(entity: IListWrapperEntity<TEntity>): IListEntity<TEntity> =>
     ifNotNilThanValue(entity, (): IListEntity<TEntity> => entity.list, UNDEF_SYMBOL);
-
-/**
- * @stable [29.02.2020]
- * @param {IFilterWrapper<TEntity>} entity
- * @returns {TEntity}
- */
-export const selectFilter = <TEntity = string>(entity: IFilterWrapper<TEntity>): TEntity =>
-  R.isNil(entity) ? UNDEF : entity.filter;
 
 /**
  * @stable [19.10.2019]
@@ -193,14 +176,6 @@ export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): T
  */
 export const selectTabPanelEntity = (entity: ITabPanelWrapperEntity): IGenericTabPanelEntity =>
   R.isNil(entity) ? UNDEF : entity.tabPanel;
-
-/**
- * @stable [18.10.2019]
- * @param {IListWrapperEntity} listWrapperEntity
- * @returns {TData}
- */
-export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: IListWrapperEntity): TData =>
-  selectRawData<TData>(selectList(listWrapperEntity));
 
 /**
  * @stable [30.08.2019]
@@ -362,7 +337,7 @@ export const mapQueryFilterEntity = (filter: IGenericActiveQueryEntity): IQueryF
  * @deprecated Use mapForm
  */
 export const mapEditableEntity =
-  <TEntity extends IEntity = IEntity>(form: IEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
+  <TEntity extends IEntity = IEntity>(form: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     defValuesFilter<IExtendedFormEditableEntity<TEntity>, IExtendedFormEditableEntity<TEntity>>({form});
 
 /**
@@ -512,12 +487,12 @@ export const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNam
 /**
  * @stable [21.12.2019]
  * @param {TEntity} entity
- * @param {IEditableEntity} editableEntity
+ * @param {IGenericEditableEntity} editableEntity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
 export const mapExtendedEntity =
   <TEntity extends IEntity = IEntity>(entity: TEntity,
-                                      editableEntity: IEditableEntity<TEntity>): IExtendedEntity<TEntity> => {
+                                      editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> => {
     let originalEntity;
     const newEntity = isNewEntity(entity);
     const defaultChanges = selectDefaultChanges<TEntity>(editableEntity);
@@ -537,22 +512,22 @@ export const mapExtendedEntity =
 
 /**
  * @stable [25.12.2019]
- * @param {IEditableEntity<TEntity extends IEntity>} editableEntity
+ * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
 export const mapNewExtendedEntity =
-  <TEntity extends IEntity = IEntity>(editableEntity: IEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
+  <TEntity extends IEntity = IEntity>(editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
     mapExtendedEntity(null, editableEntity);
 
 /**
  * @stable [26.03.2020]
  * @param {TEntity} entity
- * @param {IEditableEntity<TEntity extends IEntity>} editableEntity
+ * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
  * @returns {IExtendedFormEditableEntity<TEntity extends IEntity>}
  */
 export const mapExtendedFormEditableEntity =
   <TEntity extends IEntity = IEntity>(entity: TEntity,
-                                      editableEntity: IEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
+                                      editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     ({
       ...mapForm(editableEntity),
       ...mapExtendedEntity(entity, editableEntity),
@@ -569,11 +544,11 @@ export const mapFormEditableEntity =
 
 /**
  * @stable [26.03.2020]
- * @param {IEditableEntity<TEntity>} editableEntity
+ * @param {IGenericEditableEntity<TEntity>} editableEntity
  * @returns {IExtendedFormEditableEntity<TEntity extends IEntity>}
  */
 export const mapNewExtendedEditableEntity =
-  <TEntity = IEntity>(editableEntity: IEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
+  <TEntity = IEntity>(editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     mapExtendedFormEditableEntity(null, editableEntity);
 
 /**
@@ -603,12 +578,12 @@ export const mapApiEntity =
 /**
  * @stable [06.09.2019]
  * @param {IListWrapperEntity} listWrapper
- * @param {IEditableEntity} editableEntity
+ * @param {IGenericEditableEntity} editableEntity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
 export const mapListSelectedExtendedEntity =
   <TEntity extends IEntity>(listWrapper: IListWrapperEntity<TEntity>,
-                            editableEntity: IEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
+                            editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
     mapExtendedEntity<TEntity>(
       selectListSelectedEntity(listWrapper),
       editableEntity
@@ -678,23 +653,11 @@ export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] 
 
 /**
  * @stable [18.09.2019]
- * @param {IEditableEntity} editableEntity
+ * @param {IExtendedFormEditableEntity} entity
  * @returns {ToolbarToolsEnum[]}
  */
-export const selectEditableEntityToolbarToolsActiveFilter = (editableEntity: IEditableEntity): ToolbarToolsEnum[] =>
-  ifNotEmptyThanValue(
-    selectChanges(editableEntity),
-    () => [ToolbarToolsEnum.FILTER],
-    []
-  );
-
-/**
- * @stable [18.09.2019]
- * @param {IExtendedFormEditableEntity} fEntity
- * @returns {ToolbarToolsEnum[]}
- */
-export const selectFormEntityToolbarToolsActiveFilter = (fEntity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
-  selectEditableEntityToolbarToolsActiveFilter(selectEditableEntity(fEntity));
+export const selectFormEntityToolbarToolsActiveFilter = (entity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
+  selectEditableEntityToolbarToolsActiveFilter(selectForm(entity));
 
 /**
  * @stable [28.01.2020]

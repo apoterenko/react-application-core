@@ -26,15 +26,15 @@ import { ListActionBuilder } from './list-action.builder';
 import {
   EntityMergeStrategiesEnum,
   IFieldChangeEntity,
-  IListEntity,
+  IGenericListEntity,
   IModifyEntityPayloadEntity,
   INITIAL_LIST_ENTITY,
   ISortDirectionPayloadEntity,
   ISortDirectionsEntity,
 } from '../../definition';
 
-export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
-                            action: IEffectsAction): IListEntity => {
+export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
+                            action: IEffectsAction): IGenericListEntity => {
   const section = toSection(action);
   let modifyDataPayload;
 
@@ -122,7 +122,7 @@ export const listReducer = (state: IListEntity = INITIAL_LIST_ENTITY,
         ...INITIAL_LIST_ENTITY,
       };
     case ListActionBuilder.buildLoadDoneActionType(section):
-      const listEntity: IListEntity = action.data;
+      const listEntity: IGenericListEntity = action.data;
       if (R.isNil(listEntity)) {
         // A request auto-cancelling
         return state;

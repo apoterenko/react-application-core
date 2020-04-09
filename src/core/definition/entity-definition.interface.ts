@@ -40,16 +40,18 @@ export interface ILabeledValueEntity<TValue = AnyT>
 }
 
 /**
- * @stable [11.09.2019]
+ * @generic-entity
+ * @stable [09.04.2020]
  */
-export interface ILifeCycleEntity
+export interface IGenericLifeCycleEntity
   extends ITouchedWrapper,
     IProgressWrapper,
     IErrorEntity<string | boolean> {
 }
 
 /**
- * @stable [26.02.2019]
+ * @entity
+ * @stable [09.04.2020]
  */
 export interface IExtendedEntity<TEntity = IEntity>
   extends IEntityIdWrapper<EntityIdT>,
@@ -60,10 +62,11 @@ export interface IExtendedEntity<TEntity = IEntity>
 }
 
 /**
- * @stable [11.09.2019]
+ * @generic-entity
+ * @stable [09.04.2020]
  */
-export interface IEditableEntity<TChanges = IKeyValue>
-  extends ILifeCycleEntity,
+export interface IGenericEditableEntity<TChanges = IKeyValue>
+  extends IGenericLifeCycleEntity,
     IActiveValueWrapper,
     IChangesWrapper<TChanges>,
     IDefaultChangesWrapper<TChanges>,
@@ -72,7 +75,8 @@ export interface IEditableEntity<TChanges = IKeyValue>
 }
 
 /**
- * @stable [27.09.2019]
+ * @entity
+ * @stable [09.04.2020]
  */
 export interface INamedEntity
   extends IEntityIdTWrapper,
@@ -81,7 +85,7 @@ export interface INamedEntity
 
 /**
  * @entity
- * @stable [25.01.2020]
+ * @stable [09.04.2020]
  */
 export interface IOptionEntity
   extends INamedEntity,
