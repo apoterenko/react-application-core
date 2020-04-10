@@ -214,7 +214,7 @@ export class UIDefaultFactory implements IUiFactory {
    * @returns {string[]}
    */
   protected getErrorClassNames(): string[] {
-    return ['rac-window-error', 'rac-alignment-center'];
+    return ['rac-window-error', ComponentClassesEnum.ALIGNMENT_CENTER];
   }
 
   /**
