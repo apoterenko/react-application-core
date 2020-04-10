@@ -17,7 +17,7 @@
     $rac-form-actions-neighbor-child-margin: $rac-form-actions-neighbor-child-margin,
     $rac-form-display: $rac-form-display,
     $rac-form-flex-direction: $rac-form-flex-direction,
-    $rac-form-flex: $rac-form-flex
+    $rac-form-flex-shrink: $rac-form-flex-shrink
   );
 
   /**
@@ -26,7 +26,6 @@
    */
   @include rac-form (
     $rac-form-custom: $rac-full-form-cls,
-    $rac-form-flex-basis: $rac-full-form-flex-basis,
     $rac-form-flex-grow: $rac-full-form-flex-grow
   );
 }

@@ -4,5 +4,16 @@
 /************************/
 /* @stable [11.04.2020] */
 /************************/
-$rac-full-form-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-form-actions-button-min-width: unset !default;
+$rac-form-actions-display: $rac-primary-display-0 !default;
+$rac-form-actions-flex: unset !default;
+$rac-form-actions-justify-content: center !default;
+$rac-form-actions-neighbor-child-margin: 0 0 0 $rac-primary-offset-1 !default;
+$rac-form-display: $rac-primary-display-0 !default;
+$rac-form-flex-direction: column !default;
+$rac-form-flex-shrink: $rac-primary-flex-shrink-0 !default;
+
+/************************/
+/* @stable [11.04.2020] */
+/************************/
 $rac-full-form-flex-grow: $rac-primary-flex-grow-0 !default;
