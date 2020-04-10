@@ -1,5 +1,7 @@
-@import '../constant';
 @import '../mixin';
+@import '../constant';
+@import '../_classes';
+@import './_form-constant';
 
 .rac {
 
@@ -24,6 +26,7 @@
    */
   @include rac-form (
     $rac-form-custom: $rac-full-form-cls,
+    $rac-form-flex-basis: $rac-full-form-flex-basis,
     $rac-form-flex-grow: $rac-full-form-flex-grow
   );
 }
