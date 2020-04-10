@@ -14,6 +14,24 @@ $rac-alignment-center-position: absolute !default;
 $rac-alignment-center-top: 50% !default;
 
 /************************/
+/* @stable [10.04.2020] */
+/************************/
+$rac-margin-left-auto-margin-left: auto !default;
+/**/
+$rac-margin-right-auto-margin-right: auto !default;
+
+/************************/
+/* @stable [10.04.2020] */
+/************************/
+$rac-absolute-left: 0 !default;
+$rac-absolute-position: absolute !default;
+$rac-absolute-top: 0 !default;
+/**/
+$rac-fixed-left: 0 !default;
+$rac-fixed-position: fixed !default;
+$rac-fixed-top: 0 !default;
+
+/************************/
 /* @stable [09.04.2020] */
 /************************/
 $rac-flex-align-items-center-align-items: center !default;

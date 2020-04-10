@@ -15,4 +15,5 @@ export enum IconsEnum {
   SETTINGS = 'settings',
   SIGN_OUT_ALT = 'sign_out_alt',
   SPINNER = 'spinner',
+  SYNC = 'sync',
 }

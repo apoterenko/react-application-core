@@ -20,7 +20,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-margin-left-auto,
-    $rac-styles-margin-left: auto
+    $rac-styles-margin-left: $rac-margin-left-auto-margin-left
   );
 
   /**
@@ -29,7 +29,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-margin-right-auto,
-    $rac-styles-margin-right: auto
+    $rac-styles-margin-right: $rac-margin-right-auto-margin-right
   );
 
   /**
@@ -57,9 +57,9 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-absolute,
-    $rac-styles-position: absolute,
-    $rac-styles-top: 0,
-    $rac-styles-left: 0
+    $rac-styles-left: $rac-absolute-left,
+    $rac-styles-position: $rac-absolute-position,
+    $rac-styles-top: $rac-absolute-top
   );
 
   /**
@@ -68,9 +68,9 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-fixed,
-    $rac-styles-position: fixed,
-    $rac-styles-top: 0,
-    $rac-styles-left: 0
+    $rac-styles-left: $rac-fixed-left,
+    $rac-styles-position: $rac-fixed-position,
+    $rac-styles-top: $rac-fixed-top
   );
 
   /**

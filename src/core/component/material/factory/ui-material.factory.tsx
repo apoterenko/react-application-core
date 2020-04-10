@@ -145,6 +145,7 @@ export class UIMaterialFactory implements IUIFactory {
     [IconsEnum.SEARCH_MINUS]: faSearchMinus,
     [IconsEnum.SEARCH_PLUS]: faSearchPlus,
     [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
+    [IconsEnum.SYNC]: faSync,
     access_time: faHistory,
     add: faPlus,
     address_card: faAddressCard,
@@ -229,7 +230,6 @@ export class UIMaterialFactory implements IUIFactory {
     priority_high: faExclamation,
     product: faCannabis,
     question: faQuestion,
-    refresh: faSync,
     remove: faMinus,
     retweet: faRetweet,
     router: faServer,
@@ -244,7 +244,6 @@ export class UIMaterialFactory implements IUIFactory {
     spa: faCannabis,
     stop: faStop,
     stop_circle: faStopCircle,
-    sync: faSync,
     tablet_alt: faTabletAlt,
     tags: faTags,
     taxi: faTaxi,
@@ -273,7 +272,6 @@ export class UIMaterialFactory implements IUIFactory {
   public snackbarText = 'mdc-snackbar__text';
   public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
   public snackbarActionButton = 'mdc-snackbar__action-button';
-  public icons = 'material-icons';
   public card = 'mdc-card';
   public cardActions = 'mdc-card__actions';
   public cardActionButtons = 'mdc-card__action-buttons';

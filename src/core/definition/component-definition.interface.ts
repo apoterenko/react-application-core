@@ -129,6 +129,8 @@ export enum ComponentClassesEnum {
   FLEX_X4 = 'rac-flex-x4',
   IOS = 'rac-ios',
   MAC = 'rac-mac',
+  MARGIN_LEFT_AUTO = 'rac-margin-left-auto',
+  MARGIN_RIGHT_AUTO = 'rac-margin-right-auto',
   MOBILE = 'rac-mobile',
   OVERFLOW_HIDDEN = 'rac-overflow-hidden',
   RAC = 'rac',

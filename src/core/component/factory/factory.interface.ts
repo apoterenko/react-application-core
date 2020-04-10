@@ -7,8 +7,6 @@ export interface IUIFactory
   snackbarText?: string;
   snackbarActionWrapper?: string;
   snackbarActionButton?: string;
-  icons?: string;
-  toolbar?: string;
   card?: string;
   cardActions?: string;
   cardActionButtons?: string;
