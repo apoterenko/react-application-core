@@ -21,7 +21,6 @@ $color-22: #f2f2f2 !default;
 $color-24: rgba(0, 0, 0, 0.64) !default;
 
 /**/
-$rac-z-index-sticky: 1 !default;
 $rac-z-index-drawer: 2 !default;
 $rac-z-index-dialog: 3 !default;
 $rac-z-index-window-error-wrapper: 1000000 !default;
@@ -200,17 +199,6 @@ $rac-profile-avatar-border-radius: $rac-profile-avatar-width / 2 !default;
 $rac-profile-app-version-top: 4px !default;
 $rac-profile-app-version-left: 4px !default;
 $rac-profile-app-version-font-size: 8px !default;
-
-/* @stable [28.11.2019] */
-$rac-application-message-body-color: unset !default;
-$rac-application-message-body-font-size: unset !default;
-$rac-application-message-wrapper-background-size: unset !default;
-$rac-application-message-wrapper-background: unset !default;
-
-/* @stable [06.12.2019] */
-$rac-perfect-scrollbar-active-background-color: unset !default;
-$rac-perfect-scrollbar-background-color: unset !default;
-$rac-perfect-scrollbar-rail-background-color: unset !default;
 
 /* @stable [21.01.2019] */
 $rac-calendar-dialog-size-0: 32px !default;
@@ -1235,10 +1223,6 @@ $rac-google-maps-body-flex: 1 !default;
 $rac-google-maps-display: flex !default;
 $rac-google-maps-flex: 1 !default;
 $rac-google-maps-position: relative !default;
-
-/* @stable [16.10.2019] */
-$rac-sticky-fixed-position: fixed !default;
-$rac-sticky-fixed-z-index: $rac-z-index-sticky !default;
 
 /* @stable [16.12.2019] */
 $rac-cron-days-cls: rac-cron-days;

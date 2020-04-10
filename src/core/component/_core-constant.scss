@@ -99,3 +99,24 @@ $rac-flex-x3-flex-grow: 3 !default;
 /**/
 $rac-flex-x4-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-x4-flex-grow: 4 !default;
+
+/************************/
+/* @stable [11.04.2020] */
+/************************/
+$rac-perfect-scrollbar-active-background-color: unset !default;
+$rac-perfect-scrollbar-background-color: unset !default;
+$rac-perfect-scrollbar-rail-background-color: unset !default;
+
+/************************/
+/* @stable [11.04.2020] */
+/************************/
+$rac-application-message-body-color: unset !default;
+$rac-application-message-body-font-size: unset !default;
+$rac-application-message-wrapper-background-size: unset !default;
+$rac-application-message-wrapper-background: unset !default;
+
+/************************/
+/* @stable [11.04.2020] */
+/************************/
+$rac-sticky-fixed-position: fixed !default;
+$rac-sticky-fixed-z-index: $rac-primary-z-index-0 !default;
