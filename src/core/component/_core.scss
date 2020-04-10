@@ -94,33 +94,6 @@
 
   /**
    * @layout
-   * @stable [23.01.2020]
-   */
-  @include rac-styles (
-    $rac-styles-custom: rac-flex-align-items-center,
-    $rac-styles-align-items: $rac-flex-align-items-center-align-items
-  );
-
-  /**
-   * @layout
-   * @stable [09.04.2020]
-   */
-  @include rac-styles (
-    $rac-styles-custom: rac-flex-align-items-end,
-    $rac-styles-align-items: $rac-flex-align-items-end-align-items
-  );
-
-  /**
-   * @layout
-   * @stable [23.01.2020]
-   */
-  @include rac-styles (
-    $rac-styles-custom: rac-flex-justify-content-center,
-    $rac-styles-justify-content: center
-  );
-
-  /**
-   * @layout
    * @stable [16.02.2020]
    */
   @include rac-styles (
@@ -253,7 +226,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-strong,
-    $rac-styles-font-weight: $rac-font-weight-2
+    $rac-styles-font-weight: $rac-strong-font-weight
   );
 
   /**
@@ -262,7 +235,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-break-word,
-    $rac-styles-word-break: break-word
+    $rac-styles-word-break: $rac-break-word-word-break
   );
 
   /**

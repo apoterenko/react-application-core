@@ -1,0 +1,13 @@
+@import '../../_primary-constant';
+@import '../../_classes';
+
+/************************/
+/* @stable [10.04.2020] */
+/************************/
+$rac-flex-align-items-center-layout-align-items: center !default;
+$rac-flex-align-items-end-layout-align-items: flex-end !default;
+$rac-flex-justify-content-center-layout-justify-content: center !default;
+$rac-flex-justify-content-end-layout-justify-content: flex-end !default;
+$rac-flex-layout-display: $rac-primary-display-0 !default;
+$rac-flex-no-shrink-layout-flex-shrink: $rac-primary-flex-shrink-0 !default;
+$rac-flex-wrap-layout-flex-wrap: wrap !default;

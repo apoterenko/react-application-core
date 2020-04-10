@@ -332,6 +332,7 @@ export interface INextSectionWrapper<TValue = string> { nextSection?: TValue; }
 export interface INextWrapper<TValue> { next?: TValue; }
 export interface INoAuthWrapper { noAuth?: boolean; }
 export interface INoCacheWrapper { noCache?: boolean; }
+export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }

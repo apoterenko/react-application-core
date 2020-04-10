@@ -1,6 +1,7 @@
 @import '~sass-flex-mixin/_flex';
 @import './builder/_layout-builder';
 @import './form/_form-layout';
+@import './flex/_flex-layout';
 @import './default/default-layout';
 @import '../constant';
 
@@ -10,36 +11,11 @@
     $rac-flex-separator-width: $rac-flex-separator-width
   );
 
-  .rac-flex-wrap {                                                                            /* @stable [16.01.2019] */
-    flex-wrap: wrap;
-  }
-
-  .rac-flex-unset {
-    @include flex(unset);                                           /* @stable [19.09.2018] */
-  }
-
   .rac-flex-column {
     @include flex-direction(column);                                /* @stable [21.09.2018] */
-  }
-
-  .rac-flex-align-items-start {
-    @include align-items(flex-start);                               /* @stable [19.09.2018] */
-  }
-
-  .rac-flex-justify-content-end {
-    @include justify-content(flex-end);                             /* @stable [17.09.2018] */
   }
 
   .rac-flex-justify-content-space-between {                                                   /* @stable [06.03.2019] */
     @include justify-content(space-between);
   }
-}
-
-// Flex layout [FRAMEWORK-]
-.rac-flex {
-  @include flexbox;
-}
-
-.rac-inline-flex {
-  @include inline-flex;
 }

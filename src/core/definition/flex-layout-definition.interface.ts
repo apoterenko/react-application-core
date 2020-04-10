@@ -4,10 +4,10 @@ import {
   IDisabledWrapper,
   IFullSizeWrapper,
   IFullWrapper,
-  IInlineWrapper,
   IJustifyContentCenterWrapper,
   IJustifyContentEndWrapper,
   IJustifyContentSpaceBetweenWrapper,
+  INoShrinkWrapper,
   IOnClickWrapper,
   IRowWrapper,
   ITouchedWrapper,
@@ -25,10 +25,10 @@ export interface IGenericFlexLayoutEntity
     IDisabledWrapper,
     IFullSizeWrapper,
     IFullWrapper,
-    IInlineWrapper,
     IJustifyContentCenterWrapper,
     IJustifyContentEndWrapper,
     IJustifyContentSpaceBetweenWrapper,
+    INoShrinkWrapper,
     IRowWrapper,
     ITouchedWrapper,
     IWrapWrapper {
@@ -50,4 +50,18 @@ export interface IFlexLayoutProps
   extends IEnhancedGenericComponentProps,
     IGenericFlexLayoutEntity,
     IBehavioralFlexLayoutEntity {
+}
+
+/**
+ * @classes
+ * @stable [10.04.2020]
+ */
+export enum FlexLayoutClassesEnum {
+  FLEX = 'rac-flex',
+  FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
+  FLEX_ALIGN_ITEMS_END = 'rac-flex-align-items-end',
+  FLEX_JUSTIFY_CONTENT_CENTER = 'rac-flex-justify-content-center',
+  FLEX_JUSTIFY_CONTENT_END = 'rac-flex-justify-content-end',
+  FLEX_NO_SHRINK = 'rac-flex-no-shrink',
+  FLEX_WRAP = 'rac-flex-wrap',
 }

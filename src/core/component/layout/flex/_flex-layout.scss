@@ -1,0 +1,68 @@
+@import '../../mixin';
+@import './_flex-layout-constant';
+
+.rac {
+
+  /**
+   * @flex
+   * @stable [10.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex,
+    $rac-styles-display: $rac-flex-layout-display
+  );
+
+  /**
+   * @flex-wrap
+   * @stable [10.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-wrap,
+    $rac-styles-flex-wrap: $rac-flex-wrap-layout-flex-wrap
+  );
+
+  /**
+   * @flex-no-shrink
+   * @stable [10.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-no-shrink,
+    $rac-styles-flex-shrink: $rac-flex-no-shrink-layout-flex-shrink
+  );
+
+  /**
+   * @flex-align-items-center
+   * @stable [10.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-align-items-center,
+    $rac-styles-align-items: $rac-flex-align-items-center-layout-align-items
+  );
+
+  /**
+   * @flex-align-items-end
+   * @stable [10.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-align-items-end,
+    $rac-styles-align-items: $rac-flex-align-items-end-layout-align-items
+  );
+
+  /**
+   * @flex-justify-content-center
+   * @stable [10.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-justify-content-center,
+    $rac-styles-justify-content: $rac-flex-justify-content-center-layout-justify-content
+  );
+
+  /**
+   * @flex-justify-content-end
+   * @stable [10.04.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-justify-content-end,
+    $rac-styles-justify-content: $rac-flex-justify-content-end-layout-justify-content
+  );
+}

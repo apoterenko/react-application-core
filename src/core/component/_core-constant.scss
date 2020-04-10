@@ -17,7 +17,6 @@ $rac-alignment-center-top: 50% !default;
 /* @stable [10.04.2020] */
 /************************/
 $rac-margin-left-auto-margin-left: auto !default;
-/**/
 $rac-margin-right-auto-margin-right: auto !default;
 
 /************************/
@@ -29,6 +28,16 @@ $rac-full-size-width: 100% !default;
 /************************/
 /* @stable [10.04.2020] */
 /************************/
+$rac-strong-font-weight: $rac-primary-font-weight-2 !default;
+
+/************************/
+/* @stable [10.04.2020] */
+/************************/
+$rac-break-word-word-break: break-word !default;
+
+/************************/
+/* @stable [10.04.2020] */
+/************************/
 $rac-absolute-left: 0 !default;
 $rac-absolute-position: absolute !default;
 $rac-absolute-top: 0 !default;
@@ -36,12 +45,6 @@ $rac-absolute-top: 0 !default;
 $rac-fixed-left: 0 !default;
 $rac-fixed-position: fixed !default;
 $rac-fixed-top: 0 !default;
-
-/************************/
-/* @stable [09.04.2020] */
-/************************/
-$rac-flex-align-items-center-align-items: center !default;
-$rac-flex-align-items-end-align-items: flex-end !default;
 
 /************************/
 /* @stable [08.04.2020] */

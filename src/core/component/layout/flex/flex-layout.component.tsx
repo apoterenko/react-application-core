@@ -9,6 +9,7 @@ import {
 } from '../../../util';
 import {
   ComponentClassesEnum,
+  FlexLayoutClassesEnum,
   IFlexLayoutProps,
 } from '../../../definition';
 
@@ -27,18 +28,18 @@ export class FlexLayout extends EnhancedGenericComponent<IFlexLayoutProps> {
         className={
           joinClassName(
             calc(props.className),
+            FlexLayoutClassesEnum.FLEX,
+            props.alignItemsCenter && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_CENTER,
+            props.alignItemsEnd && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_END,
+            props.fullSize && ComponentClassesEnum.FULL_SIZE,
+            props.justifyContentCenter && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_CENTER,
+            props.justifyContentEnd && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_END,
+            props.noShrink && FlexLayoutClassesEnum.FLEX_NO_SHRINK,
+            props.wrap && FlexLayoutClassesEnum.FLEX_WRAP,
             /**/
-            props.inline ? 'rac-inline-flex' : 'rac-flex',
             props.row ? 'rac-flex-row' : 'rac-flex-column',
             /**/
             fullFlexClassName(props as any), // TODO
-            props.fullSize && ComponentClassesEnum.FULL_SIZE,
-            /**/
-            props.wrap && 'rac-flex-wrap',
-            props.alignItemsCenter && 'rac-flex-align-items-center',
-            props.alignItemsEnd && 'rac-flex-align-items-end',
-            props.justifyContentCenter && 'rac-flex-justify-content-center',
-            props.justifyContentEnd && 'rac-flex-justify-content-end',
             props.justifyContentSpaceBetween && 'rac-flex-justify-content-space-between'
           )
         }

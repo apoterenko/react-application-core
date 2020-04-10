@@ -71,6 +71,7 @@ export enum ComponentClassesEnum {
   ABSOLUTE = 'rac-absolute',
   ALIGNMENT_CENTER = 'rac-alignment-center',
   ANDROID = 'rac-android',
+  BREAK_WORD = 'rac-break-word',
   CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR = 'rac-calendar-dialog__range-input-separator',   // TODO
   CHROME = 'rac-chrome',
   DESKTOP = 'rac-desktop',
