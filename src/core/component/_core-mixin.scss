@@ -140,7 +140,15 @@
   @if $rac-styles-color != unset { color: $rac-styles-color; }
   @if $rac-styles-content != unset { content: $rac-styles-content; }
   @if $rac-styles-cursor != unset { cursor: $rac-styles-cursor; }
-  @if $rac-styles-display != unset { @if $rac-styles-display == flex { @include flexbox; } @else { display: $rac-styles-display; } }
+  @if $rac-styles-display != unset {
+    @if $rac-styles-display == flex {
+      @include flexbox;
+    } @else if $rac-styles-display == inline-flex {
+      @include inline-flex;
+    } @else {
+      display: $rac-styles-display;
+    }
+  }
   @if $rac-styles-flex != unset { @include flex($rac-styles-flex); }
   @if $rac-styles-flex-basis != unset { @include flex-basis($rac-styles-flex-basis); }
   @if $rac-styles-flex-direction != unset { @include flex-direction($rac-styles-flex-direction); }

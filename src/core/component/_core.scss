@@ -48,7 +48,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-nowrap,
-    $rac-styles-white-space: nowrap
+    $rac-styles-white-space: $rac-nowrap-white-space
   );
 
   /**
@@ -79,7 +79,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-relative,
-    $rac-styles-position: relative
+    $rac-styles-position: $rac-relative-position
   );
 
   /**

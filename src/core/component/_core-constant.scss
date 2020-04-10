@@ -36,6 +36,11 @@ $rac-strong-font-weight: $rac-primary-font-weight-2 !default;
 $rac-break-word-word-break: break-word !default;
 
 /************************/
+/* @stable [11.04.2020] */
+/************************/
+$rac-nowrap-white-space: nowrap !default;
+
+/************************/
 /* @stable [10.04.2020] */
 /************************/
 $rac-absolute-left: 0 !default;
@@ -45,6 +50,8 @@ $rac-absolute-top: 0 !default;
 $rac-fixed-left: 0 !default;
 $rac-fixed-position: fixed !default;
 $rac-fixed-top: 0 !default;
+/**/
+$rac-relative-position: relative !default;
 
 /************************/
 /* @stable [08.04.2020] */
@@ -54,6 +61,17 @@ $rac-window-error-restart-action-margin: 0 auto !default;
 $rac-window-error-restart-action-min-width: unset !default;
 $rac-window-error-wrapper-background: $rac-primary-color-callisto-1 !default;
 $rac-window-error-wrapper-z-index: $rac-primary-z-index-max !default;
+
+/************************/
+/* @stable [11.04.2020] */
+/************************/
+$rac-icon-align-items: center !default;
+$rac-icon-content-height: 100% !default;
+$rac-icon-content-width: 100% !default;
+$rac-icon-display: $rac-primary-display-2 !default;
+$rac-icon-flex-shrink: $rac-primary-flex-shrink-0 !default;
+$rac-icon-justify-content: center !default;
+$rac-icon-size: $rac-primary-icon-size-2 !default;
 
 /************************/
 /* @stable [08.04.2020] */

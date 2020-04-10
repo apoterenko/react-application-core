@@ -191,15 +191,6 @@ $rac-keyboard-portal-position: fixed !default;
 $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
 
-/* @stable [09.11.2019] */
-$rac-icon-align-items: center !default;
-$rac-icon-content-height: 100% !default;
-$rac-icon-content-width: 100% !default;
-$rac-icon-display: inline-flex !default;
-$rac-icon-flex-shrink: 0 !default;
-$rac-icon-justify-content: center !default;
-$rac-icon-size: $rac-icon-size-4 !default;
-
 /* @stable [26.06.2018] */
 $rac-profile-avatar-margin-left: 16px !default;
 $rac-profile-avatar-width: 64px !default;
@@ -424,7 +415,7 @@ $rac-grid-body-background: unset !default;
 $rac-grid-body-border-left: 1px solid $rac-grid-color-1 !default;
 $rac-grid-body-border-right: 1px solid $rac-grid-color-1 !default;
 $rac-grid-body-column-content-action-icon-color: $rac-grid-color-2 !default;
-$rac-grid-body-column-content-action-icon-content-size: $rac-icon-size !default;
+$rac-grid-body-column-content-action-icon-content-size: unset !default;
 $rac-grid-body-column-content-action-icon-size: 32px !default;
 $rac-grid-body-column-content-base-text-self-field-background: $rac-color-0-1 !default;
 $rac-grid-body-column-content-position: unset !default;
@@ -497,9 +488,9 @@ $rac-grid-head-column-padding-top: $rac-offset-1 !default;
 $rac-grid-head-column-sort-asc-action-margin: 0 0 0 $rac-offset-1 !default;
 $rac-grid-head-column-sort-desc-action-margin: unset !default;
 $rac-grid-head-column-sort-icon-background: $rac-color-0-7 !default;
-$rac-grid-head-column-sort-icon-border-radius: $rac-icon-size / 2 !default;
+$rac-grid-head-column-sort-icon-border-radius: 50% !default;
 $rac-grid-head-column-sort-icon-content-opacity: .6 !default;
-$rac-grid-head-column-sort-icon-content-size: $rac-icon-size / 2 !default;
+$rac-grid-head-column-sort-icon-content-size: 8px !default;
 $rac-grid-head-column-sort-icon-size: unset !default;
 $rac-grid-head-column-sortable-content-flex-direction: column !default;
 $rac-grid-head-column-sortable-content-margin: $rac-offset-5 0 0 0 !default;
