@@ -6,7 +6,7 @@ import {
   IDomAccessor,
   IEventEmitter,
   IPerfectScrollableComponent,
-  IUniversalPlugin,
+  IGenericPlugin,
   SyntheticEmitterEventsEnum,
 } from '../../definition';
 import {
@@ -17,7 +17,7 @@ import {
   isFn,
 } from '../../util';
 
-export class PerfectScrollPlugin implements IUniversalPlugin {
+export class PerfectScrollPlugin implements IGenericPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.EventEmitter) private readonly eventEmitter: IEventEmitter;
 

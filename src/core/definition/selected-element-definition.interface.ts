@@ -2,7 +2,7 @@ import {
   IRefreshOnUpdateWrapper,
   ISelectedElementClassNameWrapper,
 } from '../definitions.interface';
-import { IGenericComponentProps } from './component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IStickyEntity } from './sticky-definition.interface';
 
 /**

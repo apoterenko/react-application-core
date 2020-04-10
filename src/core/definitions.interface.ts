@@ -50,6 +50,8 @@ export interface IAddWrapper<TValue> { add?: TValue; }
 export interface IAfterEnterWrapper<TValue> { afterEnter?: TValue; }
 export interface IAheadValueWrapper<TValue> { aheadValue?: TValue; }
 export interface IAliasWrapper<TValue = string> { alias?: TValue; }
+export interface IAlignItemsCenterWrapper { alignItemsCenter?: boolean; }
+export interface IAlignItemsEndWrapper { alignItemsEnd?: boolean; }
 export interface IAlignWrapper<TValue = string> { align?: TValue; }
 export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean; }
 export interface IAllowSingleTabWrapper { allowSingleTab?: boolean; }
@@ -268,6 +270,9 @@ export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boo
 export interface IItemConfigurationWrapper<TValue> { itemConfiguration?: TValue; }
 export interface IItemsWrapper<TValue> { items?: TValue; }
 export interface IItemWrapper<TValue> { item?: TValue; }
+export interface IJustifyContentCenterWrapper { justifyContentCenter?: boolean; }
+export interface IJustifyContentEndWrapper { justifyContentEnd?: boolean; }
+export interface IJustifyContentSpaceBetweenWrapper { justifyContentSpaceBetween?: boolean; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
 export interface IKeyboardConfigurationWrapper<TValue> { keyboardConfiguration?: TValue; }
 export interface IKeyboardEvent<TValue = {}> extends React.KeyboardEvent<TValue> { }
@@ -327,7 +332,6 @@ export interface INextSectionWrapper<TValue = string> { nextSection?: TValue; }
 export interface INextWrapper<TValue> { next?: TValue; }
 export interface INoAuthWrapper { noAuth?: boolean; }
 export interface INoCacheWrapper { noCache?: boolean; }
-export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
@@ -450,7 +454,6 @@ export interface IResetTextWrapper { resetText?: string; }
 export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
 export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IResponseTypeWrapper { responseType?: string; }
-export interface IResponsiveWrapper<TValue = boolean> { responsive?: TValue; }
 export interface IResultWrapper<TValue = {}> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
 export interface IRightSlotWrapper<TValue> { rightSlot?: TValue; }
@@ -865,13 +868,6 @@ export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
  */
 export interface IRippableWrapper<TRippable = boolean> {
   rippable?: TRippable;
-}
-
-/**
- * @stable [20.09.2018]
- */
-export interface ISeparatorWrapper<TSeparator = boolean> {
-  separator?: TSeparator;
 }
 
 /**

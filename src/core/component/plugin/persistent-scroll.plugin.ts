@@ -7,14 +7,14 @@ import {
   IComponent,
   IDomAccessor,
   IScrolledProps,
-  IUniversalPlugin,
+  IGenericPlugin,
 } from '../../definition';
 import {
   DelayedTask,
   isFn,
 } from '../../util';
 
-export class PersistentScrollPlugin implements IUniversalPlugin {
+export class PersistentScrollPlugin implements IGenericPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
   private readonly scrollTask: DelayedTask;

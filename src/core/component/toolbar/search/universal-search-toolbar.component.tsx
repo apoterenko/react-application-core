@@ -1,7 +1,11 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { orNull, isFn, nvl } from '../../../util';
+import {
+  isFn,
+  nvl,
+  orNull,
+} from '../../../util';
 import {
   IFilterActionConfiguration,
   IUniversalFieldProps,
@@ -10,6 +14,7 @@ import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
 import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
 import { UniversalComponent } from '../../base/universal.component';
 import {
+  IconsEnum,
   IFieldActionEntity,
   ToolbarToolsEnum,
 } from '../../../definition';
@@ -41,7 +46,7 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
       type: 'close',
       onClick: this.onDeactivate.bind(this),
     },
-    [ToolbarToolsEnum.REFRESH]: {type: 'refresh', title: this.settings.messages.refreshActionTitleMessage},
+    [ToolbarToolsEnum.REFRESH]: {type: IconsEnum.SYNC, title: this.settings.messages.refreshActionTitleMessage},
     [ToolbarToolsEnum.DOWNLOAD_FILE]: {type: 'download', title: this.settings.messages.exportActionTitleMessage},
   };
 

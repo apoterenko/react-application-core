@@ -1,4 +1,4 @@
-import { IGenericComponentEntity } from './component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
   IErrorWrapper,
   IFullWrapper,
@@ -22,7 +22,7 @@ export interface IInfoGenericEntity
  * @stable [18.03.2020]
  */
 export interface IInfoComponentProps
-  extends IGenericComponentEntity,
+  extends IGenericComponentProps,
     IInfoGenericEntity {
 }
 

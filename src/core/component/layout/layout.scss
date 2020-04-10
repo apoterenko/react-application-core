@@ -10,8 +10,6 @@
     $rac-flex-separator-width: $rac-flex-separator-width
   );
 
-  @include rac-flex-no-shrink;                                                                /* @stable [17.02.2019] */
-
   .rac-flex-wrap {                                                                            /* @stable [16.01.2019] */
     flex-wrap: wrap;
   }
@@ -22,10 +20,6 @@
 
   .rac-flex-column {
     @include flex-direction(column);                                /* @stable [21.09.2018] */
-  }
-
-  .rac-flex-separator {
-    @include flex(.1);                                              /* @stable [19.09.2018] */
   }
 
   .rac-flex-align-items-start {

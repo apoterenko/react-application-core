@@ -6,13 +6,13 @@ import {
   IGetSelfWrapper,
   IPluginsWrapper,
   IStyleWrapper,
-  ITitleWrapper,
 } from '../definitions.interface';
 import { GenericPluginCtorT } from './plugin-definition.interface';
 import {
   IComponentProps,
   IUniversalComponentProps,
 } from './props-definition.interface';
+import { IGenericComponentEntity } from './generic-component-definition.interface';
 
 /**
  * @deprecated
@@ -23,54 +23,11 @@ export interface IWebComponentEntity
 }
 
 /**
- * @generic-entity
- * @stable [27.02.2020]
- */
-export interface IGenericBaseComponentEntity<TComponent = AnyT>
-  extends React.RefAttributes<TComponent>,
-    IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
-    IStyleWrapper<React.CSSProperties>,
-    ITitleWrapper<string | boolean> {
-}
-
-/**
- * @generic-entity
- * @stable [27.02.2020]
- */
-export interface IGenericComponentEntity<TComponent = AnyT>
-  extends IGenericBaseComponentEntity<TComponent> {
-}
-
-/**
- * @props
- * @stable [30.03.2020]
- */
-export interface IGenericBaseComponentProps
-  extends IGenericBaseComponentEntity {
-}
-
-/**
- * @props
- * @stable [30.03.2020]
- */
-export interface IGenericComponentProps
-  extends IGenericComponentEntity {
-}
-
-/**
  * @deprecated
  */
 export interface IUniversalComponentEntity
   extends IGenericComponentEntity<AnyT>,
     IPluginsWrapper<GenericPluginCtorT | GenericPluginCtorT[]> {
-}
-
-/**
- * @component
- * @stable []
- */
-export interface IGenericComponent<TProps extends IGenericComponentProps = IGenericComponentProps, TState = {}>
-  extends React.PureComponent<TProps, TState> {
 }
 
 /**
@@ -117,6 +74,7 @@ export enum ComponentClassesEnum {
   CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR = 'rac-calendar-dialog__range-input-separator',   // TODO
   CHROME = 'rac-chrome',
   DESKTOP = 'rac-desktop',
+  FIXED = 'rac-fixed',
   FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
   FLEX_ALIGN_ITEMS_END = 'rac-flex-align-items-end',
   FLEX_HALF = 'rac-flex-half',
@@ -127,6 +85,7 @@ export enum ComponentClassesEnum {
   FLEX_X2 = 'rac-flex-x2',
   FLEX_X3 = 'rac-flex-x3',
   FLEX_X4 = 'rac-flex-x4',
+  FULL_SIZE = 'rac-full-size',
   IOS = 'rac-ios',
   MAC = 'rac-mac',
   MARGIN_LEFT_AUTO = 'rac-margin-left-auto',

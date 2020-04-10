@@ -50,9 +50,9 @@ import {
   IUniversalComponentCtor,
   IUniversalComponentEntity,
   IUniversalComponentProps,
-  IUniversalPlugin,
+  IGenericPlugin,
   TranslatorT,
-  UniversalPluginFactoryT,
+  GenericPluginFactoryT,
 } from '../../definition';
 
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
@@ -61,7 +61,7 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   extends React.PureComponent<TProps, TState>
   implements IUniversalComponent<TProps, TState> {
 
-  protected readonly plugins: IUniversalPlugin[] = [];
+  protected readonly plugins: IGenericPlugin[] = [];
   protected readonly selfRef = React.createRef<TSelfRef>();
   private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null }; // TODO Mke it frozen & static
 
@@ -71,8 +71,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   constructor(props: TProps) {
     super(props);
-
-    this.registerPlugin = this.registerPlugin.bind(this);
 
     this.initPlugins();
     patchRenderMethod(this);
@@ -275,9 +273,9 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   /**
    * @stable [18.06.2019]
-   * @param {GenericPluginCtorT | IUniversalPlugin} pluginObject
+   * @param {GenericPluginCtorT | IGenericPlugin} pluginObject
    */
-  protected registerPlugin(pluginObject: GenericPluginCtorT | IUniversalPlugin): void {
+  protected registerPlugin(pluginObject: GenericPluginCtorT | IGenericPlugin): void {
     if (R.isNil(pluginObject)) {
       return;
     }
@@ -300,15 +298,15 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
     if (dynamicPluginFactory) {
       this.registerPlugin(dynamicPluginFactory(this));
     }
-    [].concat(this.props.plugins || []).forEach(this.registerPlugin);
+    [].concat(this.props.plugins || []).forEach(this.registerPlugin, this);
   }
 
   /**
    * @reactNativeCompatible
    * @stable [21.08.2019]
-   * @returns {Map<IUniversalComponentCtor, UniversalPluginFactoryT>}
+   * @returns {Map<IUniversalComponentCtor, GenericPluginFactoryT>}
    */
-  private get uiPlugins(): Map<IUniversalComponentCtor, UniversalPluginFactoryT> {
+  private get uiPlugins(): Map<IUniversalComponentCtor, GenericPluginFactoryT> {
     return getUiPlugins();
   }
 }

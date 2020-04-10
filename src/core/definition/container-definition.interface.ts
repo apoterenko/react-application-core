@@ -22,7 +22,6 @@ import {
   IUniversalStoreEntity,
 } from './redux-definition.interface';
 import {
-  IGenericBaseComponentProps,
   IWebComponentEntity,
 } from './component-definition.interface';
 import {
@@ -33,6 +32,7 @@ import {
   IRouterStoreProxy,
   IStoreProxy,
 } from './store-proxy-definition.interface';
+import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 
 /**
  * @react-native-compatible

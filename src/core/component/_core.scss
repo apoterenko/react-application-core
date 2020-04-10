@@ -34,12 +34,12 @@
 
   /**
    * @layout
-   * @stable [30.09.2019]
+   * @stable [10.04.2020]
    */
   @include rac-styles (
     $rac-styles-custom: rac-full-size,
-    $rac-styles-height: 100%,
-    $rac-styles-width: 100%
+    $rac-styles-height: $rac-full-size-height,
+    $rac-styles-width: $rac-full-size-width
   );
 
   /**

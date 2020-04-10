@@ -2550,16 +2550,6 @@
 }
 
 /**
- * @stable [17.02.2019]
- */
-@mixin rac-flex-no-shrink {
-  @include rac-styles(
-    $rac-styles-custom: rac-flex-no-shrink,
-    $rac-styles-flex-shrink: 0
-  );
-}
-
-/**
  * @stable [22.01.2020]
  */
 @mixin rac-google-maps (

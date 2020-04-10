@@ -9,6 +9,7 @@ import {
   lazyInject,
 } from '../../../di';
 import {
+  ComponentClassesEnum,
   ErrorEventCategoriesEnum,
   IDomAccessor,
   IEnvironment,
@@ -193,11 +194,11 @@ export class UIDefaultFactory implements IUiFactory {
    * @returns {string[]}
    */
   protected getMessageWrapperClassNames(): string[] {
-    return ['rac-message-wrapper', 'rac-full-size', 'rac-fixed'];
+    return ['rac-message-wrapper', ComponentClassesEnum.FULL_SIZE, ComponentClassesEnum.FIXED];
   }
 
   protected getMessageBodyClassNames(): string[] {
-    return ['rac-message-body', 'rac-alignment-center'];
+    return ['rac-message-body', ComponentClassesEnum.ALIGNMENT_CENTER];
   }
 
   /**
@@ -205,7 +206,7 @@ export class UIDefaultFactory implements IUiFactory {
    * @returns {string[]}
    */
   protected getErrorWrapperClassNames(): string[] {
-    return ['rac-window-error-wrapper', 'rac-full-size', 'rac-fixed'];
+    return ['rac-window-error-wrapper', ComponentClassesEnum.FULL_SIZE, ComponentClassesEnum.FIXED];
   }
 
   /**

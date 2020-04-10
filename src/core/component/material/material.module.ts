@@ -14,10 +14,10 @@ import {
 import { UIMaterialFactory } from './factory';
 import { Card } from '../card';
 import { Snackbar } from '../snackbar';
-import { UniversalPluginFactoryT, IComponentCtor } from '../../definition';
+import { GenericPluginFactoryT, IComponentCtor } from '../../definition';
 
 // TODO UI plugins should contain an array (material.module.ts, perfect-scroll.module.ts, etc)
-const uiPlugins = new Map<IComponentCtor, UniversalPluginFactoryT>();
+const uiPlugins = new Map<IComponentCtor, GenericPluginFactoryT>();
 bindToConstantValue(DI_TYPES.UIPlugins, uiPlugins);
 
 /**

@@ -12,6 +12,7 @@ import {
   DynamicRoutesMapT,
   DynamicSectionsMapT,
   FormStoreProxyFactoryT,
+  GenericPluginFactoryT,
   IAsyncLibManager,
   IAuth,
   IConnectorEntity,
@@ -22,6 +23,7 @@ import {
   IEventManager,
   IFieldConverter,
   IFormStoreProxy,
+  IGenericComponentCtor,
   ILogManager,
   IModifyEntityPayloadFactory,
   IPermissionsManager,
@@ -44,7 +46,6 @@ import {
   RouterStoreProxyFactoryT,
   StoreProxyFactoryT,
   TranslatorT,
-  UniversalPluginFactoryT,
 } from '../definition';
 import { staticInjector } from './di.support';
 
@@ -111,9 +112,9 @@ export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UIFactory)
 
 /**
  * @stable [23.10.2019]
- * @returns {Map<IUniversalComponentCtor, UniversalPluginFactoryT>}
+ * @returns {Map<IGenericComponentCtor, GenericPluginFactoryT>}
  */
-export const getUiPlugins = (): Map<IUniversalComponentCtor, UniversalPluginFactoryT> => staticInjector(DI_TYPES.UIPlugins);
+export const getUiPlugins = (): Map<IGenericComponentCtor, GenericPluginFactoryT> => staticInjector(DI_TYPES.UIPlugins);
 
 /**
  * @stable [15.11.2018]

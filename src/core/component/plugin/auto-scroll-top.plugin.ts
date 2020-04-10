@@ -2,10 +2,10 @@ import { DI_TYPES, lazyInject } from '../../di';
 import {
   IDomAccessor,
   IUniversalComponent,
-  IUniversalPlugin,
+  IGenericPlugin,
 } from '../../definition';
 
-export class AutoScrollTopPlugin implements IUniversalPlugin {
+export class AutoScrollTopPlugin implements IGenericPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
   private contentHeight: number;

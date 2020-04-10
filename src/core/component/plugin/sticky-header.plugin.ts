@@ -14,10 +14,10 @@ import {
   IDomAccessor,
   IEventManager,
   IStickyComponentProps,
-  IUniversalPlugin,
+  IGenericPlugin,
 } from '../../definition';
 
-export class StickyHeaderPlugin implements IUniversalPlugin {
+export class StickyHeaderPlugin implements IGenericPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
 

@@ -45,7 +45,7 @@ import {
 import {
   IContainerProps,
 } from './props-definition.interface';
-import { IGenericComponentProps } from './component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
  * @generic-entity

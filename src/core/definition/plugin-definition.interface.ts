@@ -1,28 +1,32 @@
 import * as React from 'react';
 
-import { IUniversalComponent } from './component-definition.interface';
-import { IUniversalComponentProps } from './props-definition.interface';
+import {
+  IGenericComponent,
+  IGenericComponentProps,
+} from './generic-component-definition.interface';
 
 /**
- * @react-native-compatible
- * @stable [22.09.2019]
+ * @plugin
+ * @stable [10.04.2020]
  */
-export interface IUniversalPlugin<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
+export interface IGenericPlugin<TProps extends IGenericComponentProps = IGenericComponentProps, TState = {}>
   extends React.ComponentLifecycle<TProps, TState> {
 }
 
 /**
- * @react-native-compatible
- * @stable [22.09.2019]
+ * @factory
+ * @stable [10.04.2020]
  */
-export type UniversalPluginFactoryT = (component: IUniversalComponent) => IUniversalPlugin;
+export type GenericPluginFactoryT =
+  <TProps extends IGenericComponentProps = IGenericComponentProps, TState = {}>(component: IGenericComponent) =>
+    IGenericPlugin<TProps, TState>;
 
 /**
- * @react-native-compatible
- * @stable [22.09.2019]
+ * @ctor
+ * @stable [10.04.2020]
  */
 export type GenericPluginCtorT
-  <TComponent extends IUniversalComponent<TProps, TState> = IUniversalComponent<TProps, TState>,
-    TProps extends IUniversalComponentProps = IUniversalComponentProps,
+  <TComponent extends IGenericComponent<TProps, TState> = IGenericComponent<TProps, TState>,
+    TProps extends IGenericComponentProps = IGenericComponentProps,
     TState = {}>
-  = new(component: TComponent) => IUniversalPlugin<TProps, TState>;
+  = new(component: TComponent) => IGenericPlugin<TProps, TState>;

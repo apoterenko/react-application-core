@@ -3,7 +3,11 @@ import * as React from 'react';
 import { BaseContainer } from '../base';
 import { Button } from '../button';
 import { FlexLayout } from '../layout/flex';
-import { IButtonProps, ToolbarToolsEnum } from '../../definition';
+import {
+  IButtonProps,
+  IconsEnum,
+  ToolbarToolsEnum,
+} from '../../definition';
 import { isPrimitive, isFn, joinClassName, calc } from '../../util';
 import {
   IToolbarToolsContainerProps,
@@ -24,7 +28,7 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
       onClick: this.onDownloadFileClick.bind(this),
     },
     [ToolbarToolsEnum.REFRESH]: {
-      icon: 'refresh',
+      icon: IconsEnum.SYNC,
       onClick: this.onRefreshClick.bind(this),
     },
   };

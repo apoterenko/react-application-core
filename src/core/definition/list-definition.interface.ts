@@ -48,10 +48,10 @@ import {
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
-import { IGenericComponentProps } from './component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './container-definition.interface';
-import { IGenericPaginatedEntity } from './page-definition.interface';
 import { IGenericLifeCycleEntity } from './entity-definition.interface';
+import { IGenericPaginatedEntity } from './page-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsWrapperEntity } from './sort-definition.interface';
 

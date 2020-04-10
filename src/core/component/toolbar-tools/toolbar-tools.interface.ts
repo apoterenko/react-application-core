@@ -9,7 +9,7 @@ import {
   IOnRefreshClickWrapper,
   IRightSlotWrapper,
 } from '../../definitions.interface';
-import { IFlexLayoutEntity, ToolbarToolsEnum, IContainerProps } from '../../definition';
+import { IGenericFlexLayoutEntity, ToolbarToolsEnum, IContainerProps } from '../../definition';
 
 /**
  * @stable [11.03.2019]
@@ -19,7 +19,7 @@ export interface IToolbarToolsContainerProps
     IActionsDisabledWrapper,
     ILeftSlotWrapper<JSX.Element>,
     IRightSlotWrapper<JSX.Element>,
-    IFlexWrapper<IFlexLayoutEntity>,
+    IFlexWrapper<IGenericFlexLayoutEntity>,
     IOnFilterClickWrapper<() => void>,
     IOnDownloadFileClickWrapper<() => void>,
     IOnRefreshClickWrapper<() => void>,

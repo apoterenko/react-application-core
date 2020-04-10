@@ -9,13 +9,13 @@ import { INativeMaterialComponentFactory } from '../../material';
 import { isDef } from '../../../util';
 import {
   IComponent,
-  IUniversalPlugin,
+  IGenericPlugin,
   TranslatorT,
 } from '../../../definition';
 
 export class MaterialPlugin<TComponent extends IComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent = INativeMaterialComponent>
-    implements IUniversalPlugin {
+    implements IGenericPlugin {
 
   protected mdc: TNativeMaterialComponent;
 

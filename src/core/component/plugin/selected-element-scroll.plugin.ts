@@ -6,14 +6,14 @@ import {
   IComponent,
   IDomAccessor,
   ISelectedElementComponentProps,
-  IUniversalPlugin,
+  IGenericPlugin,
 } from '../../definition';
 import {
   ifNotNilThanValue,
   isRefreshOnUpdate,
 } from '../../util';
 
-export class SelectedElementPlugin implements IUniversalPlugin {
+export class SelectedElementPlugin implements IGenericPlugin {
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
   /**

@@ -28,6 +28,7 @@ import {
   IFocusedWrapper,
   IForceReloadWrapper,
   IForceUseLocalFilterWrapper,
+  IFullSizeWrapper,
   IFullWrapper,
   IHeaderRenderedWrapper,
   IHeightRestrictedWrapper,
@@ -636,3 +637,11 @@ export const isDrawerHeaderRendered = (wrapper: IDrawerHeaderRenderedWrapper): b
  */
 export const isPeriodNavigatorUsed = (wrapper: IUsePeriodNavigatorWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.usePeriodNavigator === true;
+
+/**
+ * @stable [10.04.2020]
+ * @param {IFullSizeWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isFullSize = (wrapper: IFullSizeWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.fullSize === true;

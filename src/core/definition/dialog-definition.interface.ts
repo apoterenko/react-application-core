@@ -29,7 +29,7 @@ import { IButtonProps } from './button-definition.interface';
 import {
   IGenericComponent,
   IGenericComponentProps,
-} from './component-definition.interface';
+} from './generic-component-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
 import { IExtendedFormEditableEntity } from './form-definition.interface';
 import {

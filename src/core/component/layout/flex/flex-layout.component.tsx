@@ -1,15 +1,18 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../../base/base.component';
-import { IFlexLayoutProps } from './flex-layout.interface';
+import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import {
   calc,
   fullFlexClassName,
   handlerPropsFactory,
   joinClassName,
 } from '../../../util';
+import {
+  ComponentClassesEnum,
+  IFlexLayoutProps,
+} from '../../../definition';
 
-export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
+export class FlexLayout extends EnhancedGenericComponent<IFlexLayoutProps> {
 
   /**
    * @stable [11.09.2019]
@@ -29,17 +32,14 @@ export class FlexLayout extends BaseComponent<IFlexLayoutProps> {
             props.row ? 'rac-flex-row' : 'rac-flex-column',
             /**/
             fullFlexClassName(props as any), // TODO
-            props.fullSize && 'rac-full-size',
-            props.noShrink && 'rac-flex-no-shrink',
+            props.fullSize && ComponentClassesEnum.FULL_SIZE,
             /**/
             props.wrap && 'rac-flex-wrap',
             props.alignItemsCenter && 'rac-flex-align-items-center',
             props.alignItemsEnd && 'rac-flex-align-items-end',
             props.justifyContentCenter && 'rac-flex-justify-content-center',
             props.justifyContentEnd && 'rac-flex-justify-content-end',
-            props.justifyContentSpaceBetween && 'rac-flex-justify-content-space-between',
-            /**/
-            props.separator && 'rac-flex-separator'      // TODO Deprecated
+            props.justifyContentSpaceBetween && 'rac-flex-justify-content-space-between'
           )
         }
         title={props.title as string}
