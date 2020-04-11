@@ -6,13 +6,11 @@ import {
   IDataWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
-  IFormSectionWrapper,
   IFormsSectionsWrapper,
   IInitialStateWrapper,
   IKeyValue,
   IListSectionWrapper,
   IListsSectionsWrapper,
-  INavigateBackWrapper,
   INextFormChangesWrapper,
   INextFormRouteWrapper,
   INextFormSectionWrapper,
@@ -26,7 +24,6 @@ import {
   ISectionNameWrapper,
   ISectionWrapper,
   ISelectWrapper,
-  ISucceedTextWrapper,
   ITabPanelsSectionsWrapper,
   ITypeWrapper,
   IUpdateWrapper,
@@ -130,15 +127,6 @@ export interface ISortedListMiddlewareConfigEntity
   extends IListSectionWrapper,
     IRemoteSorterWrapper,
     IEffectsActionEntity {
-}
-
-/**
- * @stable [04.10.2019]
- */
-export interface ISucceedFormMiddlewareConfigEntity
-  extends ISucceedTextWrapper,
-    IFormSectionWrapper,
-    INavigateBackWrapper {
 }
 
 /**

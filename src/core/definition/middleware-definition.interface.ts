@@ -155,3 +155,13 @@ export interface ISucceedEditedListMiddlewareConfigEntity<TState = {}>
     INavigateBackWrapper,
     ISucceedTextWrapper<string | boolean> {
 }
+
+/**
+ * @config-entity
+ * @stable [11.04.2020]
+ */
+export interface ISucceedFormMiddlewareConfigEntity<TState = {}>
+  extends IFormMiddlewareConfigEntity<TState>,
+    INavigateBackWrapper,
+    ISucceedTextWrapper<string | boolean> {
+}

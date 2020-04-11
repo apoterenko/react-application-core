@@ -4,8 +4,10 @@ import {
   getRoutePath,
   ifNotNilThanValue,
   isNavigateBackNeeded,
+  isObjectNotEmpty,
   nvl,
   toContainerSection,
+  toFormSection,
   toListSection,
 } from '../../util';
 import {
@@ -35,21 +37,29 @@ import {
 import { ISettingsEntity } from '../../settings';
 
 /**
- * @stable [04.10.2019]
- * @param {ISucceedFormMiddlewareConfigEntity} config
+ * @stable [11.04.2020]
+ * @param {ISucceedFormMiddlewareConfigEntity} cfg
  * @returns {IEffectsAction[]}
  */
-export const makeSucceedFormMiddleware =
-  (config: ISucceedFormMiddlewareConfigEntity = {navigateBack: true}): IEffectsAction[] => {
-  const {formSection, succeedText, navigateBack} = config;
+export const makeSucceedFormMiddleware = (cfg?: ISucceedFormMiddlewareConfigEntity): IEffectsAction[] => {
+  cfg = cfg || {} as ISucceedFormMiddlewareConfigEntity;
+  const {succeedText} = cfg;
+
+  const actualFormSection = toFormSection(cfg);
   return [
-    navigateBack === false && formSection
-      ? FormActionBuilder.buildSubmitDoneAction(formSection)
-      : RouterActionBuilder.buildBackAction(),
     ...(
-      succeedText
-        ? [NotificationActionBuilder.buildInfoAction(getTranslator()(succeedText))]
-        : []
+      isNavigateBackNeeded(cfg) || !isObjectNotEmpty(actualFormSection)
+        ? [RouterActionBuilder.buildBackAction()]
+        : [FormActionBuilder.buildSubmitDoneAction(actualFormSection)]
+    ),
+    ...(
+      succeedText === false
+        ? []
+        : [
+          NotificationActionBuilder.buildInfoAction(
+            getTranslator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
+          )
+        ]
     )
   ];
 };
