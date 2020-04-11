@@ -6,6 +6,7 @@ import {
   ILoadedListMiddlewareConfigEntity,
   ILoadedListOnFormValidMiddlewareConfigEntity,
   ILoadedListOnTabActivateMiddlewareConfigEntity,
+  ILoadedListOnToolbarToolsRefreshConfigEntity,
   IRefreshedListMiddlewareConfigEntity,
   IUntouchedListMiddlewareConfigEntity,
   ToolbarToolsEnum,
@@ -56,6 +57,15 @@ export const makeLoadedListOnFormValidMiddleware =
  */
 export const makeLoadedListOnTabActivateMiddleware =
   <TState = {}>(config: ILoadedListOnTabActivateMiddlewareConfigEntity<TState>): IEffectsAction =>
+    makeLoadedListMiddleware(config);
+
+/**
+ * @stable [11.04.2020]
+ * @param {ILoadedListOnToolbarToolsRefreshConfigEntity<TState>} config
+ * @returns {IEffectsAction}
+ */
+export const makeLoadedListOnToolbarToolsRefreshMiddleware =
+  <TState = {}>(config: ILoadedListOnToolbarToolsRefreshConfigEntity<TState>): IEffectsAction =>
     makeLoadedListMiddleware(config);
 
 /**

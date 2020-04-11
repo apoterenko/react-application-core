@@ -50,10 +50,3 @@ export interface IFilterFormDialogMiddlewareConfig
   extends IListSectionWrapper,
     IFormSectionWrapper {
 }
-
-/**
- * @stable [11.03.2019]
- */
-export interface IToolbarToolsMiddlewareConfig
-  extends IListSectionWrapper {
-}

@@ -10,4 +10,3 @@ export * from './loaded-list.middleware';
 export * from './middleware.interface';
 export * from './sorted-list.middleware';
 export * from './succeed-form.middleware';
-export * from './toolbar-tools.middleware';
