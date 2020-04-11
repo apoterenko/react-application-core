@@ -1,9 +1,12 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  calc,
+  getRoutePath,
   ifNotNilThanValue,
-  orNull,
+  isNavigateBackNeeded,
+  nvl,
+  toContainerSection,
+  toListSection,
 } from '../../util';
 import {
   NotificationActionBuilder,
@@ -18,15 +21,14 @@ import { ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
 import {
   IApiEntity,
   IModifyEntityPayloadWrapperEntity,
-  IStoreEntity,
+  ISucceedEditedListMiddlewareConfigEntity,
   ISucceedFormMiddlewareConfigEntity,
-  ISucceedListFormMiddlewareConfigEntity,
-  TranslatorT,
 } from '../../definition';
 import {
   DI_TYPES,
   getDynamicSections,
   getModifyEntityPayloadFactory,
+  getSettings,
   getTranslator,
   staticInjector,
 } from '../../di';
@@ -92,28 +94,42 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
   ];
 };
 
-export const makeSucceedListFormMiddleware = (config: ISucceedListFormMiddlewareConfigEntity): IEffectsAction[] => {
-  const {listSection, action, navigateBack, succeedText} = config;
+/**
+ * @stable [11.04.2020]
+ * @param {ISucceedEditedListMiddlewareConfigEntity<TState>} cfg
+ * @returns {IEffectsAction[]}
+ */
+export const makeSucceedEditedListMiddleware =
+  <TState = {}>(cfg: ISucceedEditedListMiddlewareConfigEntity<TState>): IEffectsAction[] => {
+    const {
+      action,
+      succeedText,
+    } = cfg;
 
-  const connectorConfig = getDynamicSections().get(listSection);
-  const dynamicListRoute = orNull(
-    connectorConfig,
-    () => calc(connectorConfig.routeConfiguration.path)
-  );
-  const payloadWrapper = getModifyEntityPayloadFactory().makeInstance(action);
+    const actualListSection = toListSection(cfg);
 
-  return [
-    ListActionBuilder.buildMergeAction(listSection, payloadWrapper),
-    ...(
-      navigateBack !== false
-        ? [RouterActionBuilder.buildReplaceAction(dynamicListRoute)]
-        : []
-    )
-  ].concat(
-    NotificationActionBuilder.buildInfoAction(
-      staticInjector<TranslatorT>(DI_TYPES.Translate)(
-        succeedText || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
+    return [
+      ListActionBuilder.buildMergeAction(
+        actualListSection,
+        getModifyEntityPayloadFactory().makeInstance(action)
+      ),
+      ...(
+        isNavigateBackNeeded(cfg)
+          ? [
+            RouterActionBuilder.buildReplaceAction(
+              getRoutePath(getDynamicSections().get(nvl(toContainerSection(cfg), actualListSection)))
+            )
+          ]
+          : []
+      ),
+      ...(
+        succeedText === false
+          ? []
+          : [
+            NotificationActionBuilder.buildInfoAction(
+              getTranslator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
+            )
+          ]
       )
-    )
-  );
-};
+    ];
+  };

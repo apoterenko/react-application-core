@@ -2,41 +2,30 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { ListActionBuilder } from '../../component/action.builder';
 import {
-  IActionStateEntity,
   ILoadedListMiddlewareConfigEntity,
   ILoadedListOnFormValidMiddlewareConfigEntity,
   ILoadedListOnTabActivateMiddlewareConfigEntity,
   ILoadedListOnToolbarToolsRefreshConfigEntity,
-  IRefreshedListMiddlewareConfigEntity,
   IUntouchedListMiddlewareConfigEntity,
-  ToolbarToolsEnum,
 } from '../../definition';
 import {
   $isValid,
-  calc,
-  defValuesFilter,
   ifNotEmptyThanValue,
   isTouched,
   notNilValuesArrayFilter,
   orNull,
-  selectDataPayloadFromAction,
   selectValidFromAction,
+  toListSection,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
 /**
  * @stable [29.03.2020]
- * @param {ILoadedListMiddlewareConfigEntity<TState>} config
+ * @param {ILoadedListMiddlewareConfigEntity<TState>} cfg
  * @returns {IEffectsAction}
  */
-export const makeLoadedListMiddleware =
-  <TState = {}>(config: ILoadedListMiddlewareConfigEntity<TState>): IEffectsAction =>
-    ListActionBuilder.buildLoadAction(
-      calc(
-        config.listSection,
-        defValuesFilter<IActionStateEntity<TState>, IActionStateEntity<TState>>({action: config.action, state: config.state})
-      )
-    );
+export const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddlewareConfigEntity<TState>): IEffectsAction =>
+  ListActionBuilder.buildLoadAction(toListSection(cfg));
 
 /**
  * @stable [29.03.2020]
@@ -85,18 +74,3 @@ export const makeUntouchedListMiddleware =
       ),
       (actions) => actions
     );
-
-/**
- * @stable [30.03.2020]
- * @param {IRefreshedListMiddlewareConfigEntity<TState>} config
- * @returns {IEffectsAction[]}
- */
-export const makeRefreshedListMiddleware =
-  <TState = {}>(config: IRefreshedListMiddlewareConfigEntity<TState>): IEffectsAction[] => {
-    const payload = selectDataPayloadFromAction<ToolbarToolsEnum>(config.action);
-    switch (payload) {
-      case ToolbarToolsEnum.REFRESH:
-        return [makeLoadedListMiddleware(config)];
-    }
-    return null;
-  };

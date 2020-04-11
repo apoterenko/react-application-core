@@ -19,11 +19,19 @@ export type ConnectorMapperT<TStoreEntity> = (state: TStoreEntity) => IKeyValue;
 export type DynamicSectionsMapT = Map<string, IConnectorEntity>;
 
 /**
+ * @configuration-entity
+ * @stable [11.04.2020]
+ */
+export interface IRouteConfigurationEntity
+  extends IRouteConfigurationWrapper<IRouteEntity> {
+}
+
+/**
  * @stable [16.11.2019]
  */
 export interface IBasicConnectorEntity<TStoreEntity>
   extends IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>>,
-    IRouteConfigurationWrapper<IRouteEntity> {
+    IRouteConfigurationEntity {
 }
 
 /**

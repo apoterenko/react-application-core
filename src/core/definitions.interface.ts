@@ -497,7 +497,7 @@ export interface ISubHeaderRenderedWrapper { subHeaderRendered?: boolean; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
 export interface ISubmitIconWrapper<TValue = string> { submitIcon?: TValue; }
 export interface ISubmitTextWrapper { submitText?: string; }
-export interface ISucceedTextWrapper { succeedText?: string; }
+export interface ISucceedTextWrapper<TValue = string> { succeedText?: TValue; }
 export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelConfigurationWrapper<TValue> { tabPanelConfiguration?: TValue; }

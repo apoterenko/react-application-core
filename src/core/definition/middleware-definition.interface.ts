@@ -7,10 +7,12 @@ import {
   ILazyLoadingWrapper,
   IListAccessorWrapper,
   IListSectionWrapper,
+  INavigateBackWrapper,
   INextSectionWrapper,
   IPathWrapper,
   IPayloadWrapper,
   IStateWrapper,
+  ISucceedTextWrapper,
   ITabPanelSectionWrapper,
 } from '../definitions.interface';
 import { IEffectsActionEntity } from './redux-definition.interface';
@@ -39,6 +41,22 @@ export type SectionT<TState> = string | ((cfg: IActionStateEntity<TState>) => st
 export interface IActionStateEntity<TState = {}>
   extends IEffectsActionEntity,
     IStateWrapper<TState> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface IFormMiddlewareConfigEntity<TState = {}>
+  extends IFormSectionWrapper<SectionT<TState>> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
+export interface IContainerMiddlewareConfigEntity<TState = {}>
+  extends IContainerSectionWrapper<SectionT<TState>> {
 }
 
 /**
@@ -81,7 +99,7 @@ export interface ILoadedListOnToolbarToolsRefreshConfigEntity<TState = {}>
  */
 export interface ILoadedListOnFormValidMiddlewareConfigEntity<TState = {}>
   extends ILoadedListMiddlewareConfigEntity<TState>,
-    IFormSectionWrapper<SectionT<TState>> {
+    IFormMiddlewareConfigEntity<TState> {
 }
 
 /**
@@ -89,7 +107,7 @@ export interface ILoadedListOnFormValidMiddlewareConfigEntity<TState = {}>
  * @stable [29.03.2020]
  */
 export interface IUntouchedListMiddlewareConfigEntity<TState = {}, TDefaultChanges = {}>
-  extends IContainerSectionWrapper<SectionT<TState>>,
+  extends IContainerMiddlewareConfigEntity<TState>,
     IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>,
     IListAccessorWrapper<(state: TState) => IGenericListEntity>,
     ILoadedListMiddlewareConfigEntity<TState> {
@@ -101,15 +119,7 @@ export interface IUntouchedListMiddlewareConfigEntity<TState = {}, TDefaultChang
  */
 export interface IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges = {}, TState = {}>
   extends IDefaultChangesWrapper<TDefaultChanges | (() => TDefaultChanges)>,
-    IFormSectionWrapper<SectionT<TState>> {
-}
-
-/**
- * @config-entity
- * @stable [29.03.2020]
- */
-export interface IRefreshedListMiddlewareConfigEntity<TState = {}>
-  extends ILoadedListMiddlewareConfigEntity<TState> {
+    IFormMiddlewareConfigEntity<TState> {
 }
 
 /**
@@ -132,4 +142,16 @@ export interface IEditedListMiddlewareConfigEntity<TPayload = {}, TState = {}, T
     ILazyLoadingWrapper,
     ILoadedListMiddlewareConfigEntity<TState>,
     IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>> {
+}
+
+/**
+ * @config-entity
+ * @stable [11.04.2020]
+ */
+export interface ISucceedEditedListMiddlewareConfigEntity<TState = {}>
+  extends ILoadedListMiddlewareConfigEntity<TState>,
+    IContainerMiddlewareConfigEntity<TState>,
+    IFormMiddlewareConfigEntity<TState>,
+    INavigateBackWrapper,
+    ISucceedTextWrapper<string | boolean> {
 }

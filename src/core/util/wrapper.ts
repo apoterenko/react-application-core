@@ -28,7 +28,6 @@ import {
   IFocusedWrapper,
   IForceReloadWrapper,
   IForceUseLocalFilterWrapper,
-  IFullSizeWrapper,
   IFullWrapper,
   IHeaderRenderedWrapper,
   IHeightRestrictedWrapper,
@@ -42,6 +41,7 @@ import {
   ILoadingWrapper,
   IMenuRenderedWrapper,
   IMultiWrapper,
+  INavigateBackWrapper,
   IOpenedWrapper,
   IPlaceActionRenderedWrapper,
   IPlainValueWrapper,
@@ -639,9 +639,9 @@ export const isPeriodNavigatorUsed = (wrapper: IUsePeriodNavigatorWrapper): bool
   R.isNil(wrapper) ? false : wrapper.usePeriodNavigator === true;
 
 /**
- * @stable [10.04.2020]
- * @param {IFullSizeWrapper} wrapper
+ * @stable [11.04.2020]
+ * @param {INavigateBackWrapper} wrapper
  * @returns {boolean}
  */
-export const isFullSize = (wrapper: IFullSizeWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.fullSize === true;
+export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.navigateBack !== false;

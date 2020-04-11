@@ -1,18 +1,19 @@
-import { EffectsService, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import {
-  ListActionBuilder,
-  FormActionBuilder,
   FilterActionBuilder,
-  ToolbarActionBuilder,
+  FormActionBuilder,
+  ListActionBuilder,
 } from '../../component/action.builder';
 import {
   RouterActionBuilder,
   StackActionBuilder,
 } from '../../action';
 import { makeFilterManualApplyMiddleware } from '../middleware';
-import { makeRefreshedListMiddleware } from '../middleware';
 
 export function makeFilteredListEffectsProxy(
     config: { filterPath?: string; filterSection?: string, listSection?: string }
@@ -36,12 +37,6 @@ export function makeFilteredListEffectsProxy(
       @EffectsService.effects(FilterActionBuilder.buildApplyActionType(listSection))
       public $onFilterApply(): IEffectsAction {
         return ListActionBuilder.buildLoadAction(listSection);
-      }
-
-      // TODO Toolbar
-      @EffectsService.effects(ToolbarActionBuilder.buildCustomActionActionType(listSection))
-      public $onFilterRefresh(action: IEffectsAction): IEffectsAction[] {
-        return makeRefreshedListMiddleware({listSection, action});
       }
 
       @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(listSection))

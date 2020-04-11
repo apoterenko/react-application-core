@@ -10,6 +10,6 @@ export * from './loaded-list-on-form-valid-effects.proxy';
 export * from './loaded-list-on-tab-activate-effects.proxy';
 export * from './paginated-list-effects.proxy';
 export * from './sorted-list-effects.proxy';
-export * from './succeed-list-form-effects.proxy';
+export * from './succeed-edited-list-effects.proxy';
 export * from './toolbar-tools-effects.proxy';
 export * from './untouched-list-effects.proxy';

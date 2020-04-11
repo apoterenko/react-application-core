@@ -142,17 +142,6 @@ export interface ISucceedFormMiddlewareConfigEntity
 }
 
 /**
- * @stable [09.10.2019]
- */
-export interface ISucceedListFormMiddlewareConfigEntity
-  extends IEffectsActionEntity,
-    IFormSectionWrapper,
-    IListSectionWrapper,
-    INavigateBackWrapper,
-    ISucceedTextWrapper {
-}
-
-/**
  * @stable [24.09.2019]
  */
 export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {

@@ -231,6 +231,7 @@ export interface IMessagesSettingsEntity {
   COMPARE_TO?: string;
   CREATE?: string;
   CUSTOM?: string;
+  DATA_HAS_BEEN_SUCCESSFULLY_SAVED?: string;
   DATE?: string;
   DAY?: string;
   DETAILS_INFO?: string;
@@ -285,6 +286,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   COMPARE_TO: 'Compare to',
   CREATE: 'Create',
   CUSTOM: 'Custom',
+  DATA_HAS_BEEN_SUCCESSFULLY_SAVED: 'The data has been successfully saved',
   DATE: 'Date',
   DAY: 'Day',
   DETAILS_INFO: 'Details info',
