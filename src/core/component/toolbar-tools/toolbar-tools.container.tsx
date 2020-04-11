@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BaseContainer } from '../base';
+import { GenericContainer } from '../base';
 import { Button } from '../button';
 import { FlexLayout } from '../layout/flex';
 import {
@@ -11,12 +11,10 @@ import {
 import { isPrimitive, isFn, joinClassName, calc } from '../../util';
 import {
   IToolbarToolsContainerProps,
-  TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE,
-  TOOLBAR_TOOLS_FILTER_ACTION_TYPE,
-  TOOLBAR_TOOLS_REFRESH_ACTION_TYPE,
 } from './toolbar-tools.interface';
+import { ToolbarToolsActionBuilder } from '../../action';
 
-export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerProps> {
+export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContainerProps> {
 
   private readonly defaultActions = {
     [ToolbarToolsEnum.FILTER]: {
@@ -76,7 +74,7 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
     if (isFn(props.onRefreshClick)) {
       props.onRefreshClick();
     } else {
-      this.dispatchFrameworkAction(TOOLBAR_TOOLS_REFRESH_ACTION_TYPE);
+      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildRefreshPlainAction(this.props.sectionName));
     }
   }
 
@@ -88,7 +86,7 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
     if (isFn(props.onFilterClick)) {
       props.onFilterClick();
     } else {
-      this.dispatchFrameworkAction(TOOLBAR_TOOLS_FILTER_ACTION_TYPE);
+      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildFilterPlainAction(this.props.sectionName));
     }
   }
 
@@ -100,7 +98,7 @@ export class ToolbarToolsContainer extends BaseContainer<IToolbarToolsContainerP
     if (isFn(props.onDownloadFileClick)) {
       props.onDownloadFileClick();
     } else {
-      this.dispatchFrameworkAction(TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE);
+      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildDownloadFilePlainAction(this.props.sectionName));
     }
   }
 }

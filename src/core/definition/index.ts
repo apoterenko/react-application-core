@@ -72,6 +72,7 @@ export * from './sub-header-definition.interface';
 export * from './tab-panel-definition.interface';
 export * from './title-definition.interface';
 export * from './toolbar-definition.interface';
+export * from './toolbar-tools-definition.interface';
 export * from './tooltip-definition.interface';
 export * from './translation-definition.interface';
 export * from './transport-definition.interface';

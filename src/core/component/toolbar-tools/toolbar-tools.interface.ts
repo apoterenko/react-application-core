@@ -9,13 +9,13 @@ import {
   IOnRefreshClickWrapper,
   IRightSlotWrapper,
 } from '../../definitions.interface';
-import { IGenericFlexLayoutEntity, ToolbarToolsEnum, IContainerProps } from '../../definition';
+import { IGenericFlexLayoutEntity, ToolbarToolsEnum, IGenericContainerProps } from '../../definition';
 
 /**
  * @stable [11.03.2019]
  */
 export interface IToolbarToolsContainerProps
-  extends IContainerProps,
+  extends IGenericContainerProps,
     IActionsDisabledWrapper,
     ILeftSlotWrapper<JSX.Element>,
     IRightSlotWrapper<JSX.Element>,
@@ -26,10 +26,3 @@ export interface IToolbarToolsContainerProps
     IActionsWrapper<ToolbarToolsEnum[]>,
     IActiveActionsWrapper<ToolbarToolsEnum[]> {
 }
-
-/**
- * @stable [10.03.2019]
- */
-export const TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE = 'toolbar.tools.download.file';
-export const TOOLBAR_TOOLS_FILTER_ACTION_TYPE = 'toolbar.tools.filter';
-export const TOOLBAR_TOOLS_REFRESH_ACTION_TYPE = 'toolbar.tools.refresh';
