@@ -30,6 +30,7 @@ export * from './filter-form-dialog-definition.interface';
 export * from './flex-layout-definition.interface';
 export * from './form-definition.interface';
 export * from './generic-component-definition.interface';
+export * from './generic-container-definition.interface';
 export * from './google-maps-definition.interface';
 export * from './grid-definition.interface';
 export * from './header-definition.interface';

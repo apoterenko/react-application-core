@@ -18,6 +18,7 @@ import {
   IGenericPaginatedEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
+  IListContainerProps,
   IListEntity,
   IListWrapperEntity,
   IOperationEntity,
@@ -50,6 +51,7 @@ import {
   IErrorWrapper,
   IFilterWrapper,
   IFormWrapper,
+  IListWrapper,
   IOptionsWrapper,
   IProgressWrapper,
   IQueryWrapper,
@@ -326,6 +328,14 @@ export const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
   defValuesFilter<IFormWrapper<TForm>, IFormWrapper<TForm>>({form});
 
 /**
+ * @stable [11.04.2020]
+ * @param {TValue} list
+ * @returns {IListWrapper<TValue>}
+ */
+export const mapList = <TList = IGenericListEntity>(list: TList): IListWrapper<TList> =>
+  defValuesFilter<IListWrapper<TList>, IListWrapper<TList>>({list});
+
+/**
  * @stable [29.02.2020]
  * @param {IGenericActiveQueryEntity} filter
  * @returns {IQueryFilterEntity}
@@ -339,14 +349,6 @@ export const mapQueryFilterEntity = (filter: IGenericActiveQueryEntity): IQueryF
 export const mapEditableEntity =
   <TEntity extends IEntity = IEntity>(form: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     defValuesFilter<IExtendedFormEditableEntity<TEntity>, IExtendedFormEditableEntity<TEntity>>({form});
-
-/**
- * @stable [04.09.2019]
- * @param {IListEntity} list
- * @returns {IListWrapperEntity}
- */
-export const mapListEntity = (list: IListEntity): IListWrapperEntity =>
-  defValuesFilter<IListWrapperEntity, IListWrapperEntity>({list});
 
 /**
  * @stable [10.09.2019]
@@ -433,12 +435,12 @@ export const mapPaginatedEntity = (entity: IGenericPaginatedEntity): IGenericPag
 );
 
 /**
- * @stable [04.09.2019]
+ * @stable [11.04.2020]
  * @param {IListWrapperEntity} listWrapper
  * @returns {IListWrapperEntity}
  */
 export const mapListWrapperEntity = (listWrapper: IListWrapperEntity): IListWrapperEntity =>
-  mapListEntity(selectList(listWrapper));
+  mapList(selectList(listWrapper));
 
 /**
  * @stable [30.03.2020]
@@ -787,3 +789,15 @@ export const mapStoreEntity =
       ...mapTransportWrapperEntity(entity),
       ...mapUserWrapperEntity(entity),
     });
+
+/**
+ * @container-props-mapper
+ * @stable [11.04.2020]
+ * @param {IListContainerProps} props
+ * @returns {IListContainerProps}
+ */
+export const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
+  ({
+    ...mapSectionNameWrapper(props),
+    ...mapListWrapperEntity(props),
+  });

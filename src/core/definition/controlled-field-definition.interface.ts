@@ -13,7 +13,7 @@ import { IBaseSelectProps } from '../component/field/select/base-select.interfac
 import {
   IGenericContainer,
   IGenericContainerProps,
-} from './container-definition.interface';
+} from './generic-container-definition.interface';
 import { IBaseDictionariesEntity } from './dictionary-definition.interface';
 import { IExtendedEntity } from './entity-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';  // TODO

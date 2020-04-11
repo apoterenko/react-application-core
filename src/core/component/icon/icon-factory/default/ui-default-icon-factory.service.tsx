@@ -367,7 +367,7 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         <path fill='currentColor' d='M24 20a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 20zm0-7.5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16a1.5 1.5 0 0 0 1.5-1.5zM24 5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 5zM1.5 21.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z'/>
       </svg>
     ),
-    'trash': (
+    [IconsEnum.TRASH]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <defs>

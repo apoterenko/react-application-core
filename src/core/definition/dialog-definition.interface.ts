@@ -32,10 +32,8 @@ import {
 } from './generic-component-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
 import { IExtendedFormEditableEntity } from './form-definition.interface';
-import {
-  IGenericContainerProps,
-  IProxyContainerEntity,
-} from './container-definition.interface';
+import { IProxyContainerEntity } from './container-definition.interface';
+import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
  * @generic-entity

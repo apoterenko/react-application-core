@@ -12,7 +12,7 @@ import {
 import { FieldChangeEntityT } from './field-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
-import { IGenericContainer } from './container-definition.interface';
+import { IGenericContainer } from './generic-container-definition.interface';
 import { IStackItemEntity } from './stack-definition.interface';
 
 /**
