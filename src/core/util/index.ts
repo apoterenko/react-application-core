@@ -8,6 +8,7 @@ export * from './cond';
 export * from './cron';
 export * from './dom';
 export * from './entity';
+export * from './error';
 export * from './event';
 export * from './factory';
 export * from './field';

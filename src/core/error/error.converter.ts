@@ -1,9 +1,13 @@
-import { IError } from './error.interface';
+import { IErrorMessageEntity } from '../definition';
 import { notNilValuesArrayFilter } from '../util';
 import { StringNumberT } from '../definitions.interface';
 
-export function mapErrorObject(error: number | string | Error | IError): IError {
-  const errorAsPlainObject = error as IError;
+/**
+ * TODO
+ * @deprecated Use asErrorMessage
+ */
+export function mapErrorObject(error: number | string | Error | IErrorMessageEntity): IErrorMessageEntity {
+  const errorAsPlainObject = error as IErrorMessageEntity;
 
   if (error instanceof Error) {
     return {message: error.message};
