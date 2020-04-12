@@ -14,6 +14,7 @@ import {
   IPermissionsManager,
   IRouterStoreProxy,
   IStoreProxy,
+  ITabPanelStoreProxy,
   IUserActivityManager,
 } from '../../definition';
 import {
@@ -25,6 +26,7 @@ import {
   getPermissionsManager,
   getRouterStoreProxyFactory,
   getStoreProxyFactory,
+  getTabPanelStoreProxyFactory,
   getUserActivityManager,
 } from '../../di';
 import { hasTransportWrapperQueueOperations } from '../../util';
@@ -43,6 +45,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   private $notificationStoreProxy: INotificationStoreProxy;
   private $routerStoreProxy: IRouterStoreProxy;
   private $storeProxy: IStoreProxy;
+  private $tabPanelStoreProxy: ITabPanelStoreProxy;
 
   /**
    * @stable [27.11.2019]
@@ -58,6 +61,14 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    */
   public get formStoreProxy(): IFormStoreProxy {
     return this.$formStoreProxy = this.$formStoreProxy || getFormStoreProxyFactory()(this);
+  }
+
+  /**
+   * @stable [12.04.2020]
+   * @returns {IFormStoreProxy}
+   */
+  public get tabPanelStoreProxy(): ITabPanelStoreProxy {
+    return this.$tabPanelStoreProxy = this.$tabPanelStoreProxy || getTabPanelStoreProxyFactory()(this);
   }
 
   /**

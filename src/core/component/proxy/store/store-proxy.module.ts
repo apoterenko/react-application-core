@@ -12,6 +12,7 @@ import './form-store-proxy/form-store-proxy.module';
 import './list-store-proxy/list-store-proxy.module';
 import './notification-store-proxy/notification-store-proxy.module';
 import './router-store-proxy/router-store-proxy.module';
+import './tab-panel-store-proxy/tab-panel-store-proxy.module';
 
 /**
  * @stable [30.03.2020]

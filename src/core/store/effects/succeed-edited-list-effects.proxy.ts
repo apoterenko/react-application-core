@@ -3,7 +3,7 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import { FormActionBuilder } from '../../component/action.builder';
+import { FormActionBuilder } from '../../action';
 import { ISucceedEditedListMiddlewareConfigEntity } from '../../definition';
 import { makeSucceedEditedListMiddleware } from '../middleware';
 import { provideInSingleton } from '../../di';

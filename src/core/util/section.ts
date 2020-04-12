@@ -15,6 +15,7 @@ import {
   IFormMiddlewareConfigEntity,
   IListMiddlewareConfigEntity,
   ISectionDataEntity,
+  ITabPanelMiddlewareConfigEntity,
   SectionT,
 } from '../definition';
 import { nvl } from './nvl';
@@ -107,3 +108,12 @@ export const toContainerSection =
 export const toFormSection =
   <TState = {}>(cfg: IFormMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
     toConfigSection(cfg.formSection, cfg);
+
+/**
+ * @stable [12.04.2020]
+ * @param {ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>} cfg
+ * @returns {string}
+ */
+export const toTabPanelSection =
+  <TState = {}>(cfg: ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
+    toConfigSection(cfg.tabPanelSection, cfg);

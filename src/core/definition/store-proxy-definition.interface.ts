@@ -38,6 +38,16 @@ export interface IDialogFormChangesConfirmStoreProxy
 
 /**
  * @proxy
+ * @stable [12.04.2020]
+ */
+export interface ITabPanelStoreProxy {
+  dispatchTabPanelActiveValue(value: number, otherSection?: string): void;
+  dispatchTabPanelDestroy(otherSection?: string): void;
+  dispatchTabPanelInactiveValue(value: number, otherSection?: string): void;
+}
+
+/**
+ * @proxy
  * @stable [30.03.2020]
  */
 export interface IListStoreProxy {
@@ -51,9 +61,11 @@ export interface IListStoreProxy {
  * @stable [30.03.2020]
  */
 export interface IFormStoreProxy {
+  dispatchFormActiveValue(value: number, otherSection?: string): void;
   dispatchFormChange(change: FieldChangeEntityT, otherSection?: string): void;
   dispatchFormChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
   dispatchFormDefaultChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
+  dispatchFormInactiveValue(value: number, otherSection?: string): void;
   dispatchFormReset(otherSection?: string): void;
   dispatchFormSubmit(apiEntity: IApiEntity, otherSection?: string): void;
   dispatchFormValid(valid: boolean, otherSection?: string): void;
@@ -115,3 +127,4 @@ export type ListStoreProxyFactoryT = (parent: IGenericContainer) => IListStorePr
 export type NotificationStoreProxyFactoryT = (parent: IGenericContainer) => INotificationStoreProxy;
 export type RouterStoreProxyFactoryT = (parent: IGenericContainer) => IRouterStoreProxy;
 export type StoreProxyFactoryT = (parent: IGenericContainer) => IStoreProxy;
+export type TabPanelStoreProxyFactoryT = (parent: IGenericContainer) => ITabPanelStoreProxy;

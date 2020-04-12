@@ -48,13 +48,4 @@ export class ListStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
   public dispatchListCreate(otherSection?: string): void {
     this.dispatchPlainAction(ListActionBuilder.buildCreatePlainAction(this.asSection(otherSection)));
   }
-
-  /**
-   * @stable [03.02.2020]
-   * @param {string} otherSection
-   * @returns {string}
-   */
-  private asSection(otherSection?: string): string {
-    return otherSection || this.sectionName;
-  }
 }

@@ -6,31 +6,29 @@ import {
 import {
   applySection,
   toActionPrefix,
-} from '../../util';
-import {
-  FORM_ACTIVE_VALUE_ACTION_TYPE,
-  FORM_INACTIVE_VALUE_ACTION_TYPE,
-  FORM_PROGRESS_ACTION_TYPE,
-  FORM_SUBMIT_ACTION_TYPE,
-  FORM_SUBMIT_DONE_ACTION_TYPE,
-  FORM_SUBMIT_ERROR_ACTION_TYPE,
-  FORM_SUBMIT_FINISHED_ACTION_TYPE,
-} from './form.interface';
+} from '../util';
 import {
   FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
   FieldChangeEntityT,
+  FORM_ACTIVE_VALUE_ACTION_TYPE,
   FORM_CHANGE_ACTION_TYPE,
   FORM_CLEAR_ACTION_TYPE,
   FORM_DEFAULT_CHANGE_ACTION_TYPE,
   FORM_DESTROY_ACTION_TYPE,
+  FORM_INACTIVE_VALUE_ACTION_TYPE,
+  FORM_PROGRESS_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
+  FORM_SUBMIT_ACTION_TYPE,
+  FORM_SUBMIT_DONE_ACTION_TYPE,
+  FORM_SUBMIT_ERROR_ACTION_TYPE,
+  FORM_SUBMIT_FINISH_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
+  IActiveValueFluxEntity,
   IApiEntity,
   IFieldChangeEntity,
   IFormValidEntity,
-} from '../../definition';
+} from '../definition';
 
-// TODO Move
 export class FormActionBuilder {
 
   /**
@@ -133,12 +131,12 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [03.04.2019]
+   * @stable [12.04.2020]
    * @param {string} section
    * @returns {string}
    */
-  public static buildSubmitFinishedActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_SUBMIT_FINISHED_ACTION_TYPE}`;
+  public static buildSubmitFinishActionType(section: string): string {
+    return `${toActionPrefix(section)}.${FORM_SUBMIT_FINISH_ACTION_TYPE}`;
   }
 
   /**
@@ -321,12 +319,34 @@ export class FormActionBuilder {
   }
 
   /**
+   * @stable [12.04.2020]
+   * @param {string} section
+   * @param {number} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildActiveValuePlainAction(section: string, payload: number): IEffectsAction {
+    const activeValueFluxEntity: IActiveValueFluxEntity = {payload};
+    return {type: this.buildActiveValueActionType(section), data: applySection(section, activeValueFluxEntity)};
+  }
+
+  /**
+   * @stable [12.04.2020]
+   * @param {string} section
+   * @param {number} payload
+   * @returns {IEffectsAction}
+   */
+  public static buildInactiveValuePlainAction(section: string, payload: number): IEffectsAction {
+    const activeValueFluxEntity: IActiveValueFluxEntity = {payload};
+    return {type: this.buildInactiveValueActionType(section), data: applySection(section, activeValueFluxEntity)};
+  }
+
+  /**
    * @stable [01.04.2020]
    * @param {string} section
    * @returns {IEffectsAction}
    */
   public static buildSubmitFinishedPlainAction(section: string): IEffectsAction {
-    return {type: this.buildSubmitFinishedActionType(section), data: applySection(section)};
+    return {type: this.buildSubmitFinishActionType(section), data: applySection(section)};
   }
 
   /**

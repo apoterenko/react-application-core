@@ -45,7 +45,7 @@ export * from './component/root';
 export * from './component/snackbar';
 export * from './component/spacer';
 export * from './component/sub-header';
-export * from './component/tabpanel';
+export * from './component/tab-panel';
 export * from './component/title';
 export * from './component/toolbar';
 export * from './component/toolbar-tools';

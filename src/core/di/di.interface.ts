@@ -43,6 +43,7 @@ export const DI_TYPES = Object.freeze({
   Storage: Symbol('Storage'),
   Store: Symbol('Store'),
   StoreProxyFactory: Symbol('StoreProxyFactory'),
+  TabPanelStoreProxyFactory: Symbol('TabPanelStoreProxyFactory'),
   Translate: Symbol('Translate'),
   Transport: Symbol('Transport'),
   TransportErrorInterceptor: Symbol('TransportErrorInterceptor'),

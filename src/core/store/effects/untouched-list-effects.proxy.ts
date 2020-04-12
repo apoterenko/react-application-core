@@ -6,16 +6,20 @@ import {
 import { ConnectorActionBuilder } from '../../action';
 import { IUntouchedListMiddlewareConfigEntity } from '../../definition';
 import { makeUntouchedListMiddleware } from '../middleware';
-import { calc, nvl } from '../../util';
+import {
+  nvl,
+  toContainerSection,
+  toListSection,
+} from '../../util';
 import { provideInSingleton } from '../../di';
 
 /**
  * @stable [27.03.2020]
- * @param {IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges>} config
+ * @param {IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges>} cfg
  * @returns {() => void}
  */
 export const makeUntouchedListEffectsProxy =
-  <TState = {}, TDefaultFormChanges = {}>(config: IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges>) => (
+  <TState = {}, TDefaultFormChanges = {}>(cfg: IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges>) => (
     (): void => {
 
       @provideInSingleton(Effects)
@@ -27,9 +31,11 @@ export const makeUntouchedListEffectsProxy =
          * @param {TState} state
          * @returns {IEffectsAction[]}
          */
-        @EffectsService.effects(ConnectorActionBuilder.buildInitActionType(calc(nvl(config.containerSection, config.listSection))))
+        @EffectsService.effects(
+          ConnectorActionBuilder.buildInitActionType(nvl(toContainerSection(cfg), toListSection(cfg)))
+        )
         public $onConnectorInit = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-          makeUntouchedListMiddleware({...config, action, state})
+          makeUntouchedListMiddleware({...cfg, action, state})
       }
     }
   );

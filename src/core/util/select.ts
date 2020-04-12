@@ -4,8 +4,10 @@ import * as R from 'ramda';
 import {
   AnyT,
   EntityIdT,
+  IActiveValueWrapper,
   IChangesWrapper,
   IDataWrapper,
+  IDefaultChangesWrapper,
   IDictionariesWrapper,
   IDirectionsWrapper,
   IElementWrapper,
@@ -68,6 +70,14 @@ export const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): 
  */
 export const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.element;
+
+/**
+ * @stable [12.04.2020]
+ * @param {IDefaultChangesWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+export const selectDefaultChanges = <TValue = IEntity>(wrapper: IDefaultChangesWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.defaultChanges;
 
 /**
  * @stable [27.03.2020]
@@ -136,6 +146,14 @@ export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>)
  */
 export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData =>
   R.isNil(wrapper) ? UNDEF : wrapper.data;
+
+/**
+ * @stable [12.04.2020]
+ * @param {IActiveValueWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+export const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.activeValue;
 
 /**
  * @stable [30.03.2020]

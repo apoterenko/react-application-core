@@ -14,7 +14,6 @@ import {
 } from '../../component/action.builder';
 import { makeChainedMiddleware } from './chained.middleware';
 import {
-  calc,
   defValuesFilter,
   ifNotNilThanValue,
   isObjectNotEmpty,
@@ -24,22 +23,24 @@ import {
   selectPreviousActionFromAction,
   selectPreviousActionTypeFromAction,
   selectSelectedEntityFromAction,
+  toFormSection,
+  toListSection,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
 /**
  * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} config
+ * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} cfg
  * @returns {IChainedMiddlewareConfigEntity<TState, TPayload>}
  */
 const asChainedConfigEntity = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
-  config: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>
+  cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>
 ): IChainedMiddlewareConfigEntity<TState, TPayload> =>
   ({
-    action: config.action,
-    nextSection: calc(config.formSection, config),
-    path: config.path,
-    state: config.state,
+    action: cfg.action,
+    nextSection: toFormSection(cfg),
+    path: cfg.path,
+    state: cfg.state,
   });
 
 /**
@@ -56,18 +57,19 @@ export const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
 
 /**
  * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} config
+ * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} cfg
  * @returns {IEffectsAction[]}
  */
 export const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
-  config: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>): IEffectsAction[] => {
-  const action = config.action;
+  cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>): IEffectsAction[] => {
+
+  const action = cfg.action;
   const selected = selectSelectedEntityFromAction<TPayload>(action);
 
-  return config.lazyLoading
+  return cfg.lazyLoading
     ? [
       ListActionBuilder.buildLazyLoadAction(
-        calc(config.listSection, config),
+        toListSection(cfg),
         defValuesFilter<ISelectedFluxEntity, ISelectedFluxEntity>({
           selected,
           preventEffects: selectPreventEffectsFromAction(action),
@@ -75,7 +77,7 @@ export const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultC
         })
       )
     ]
-    : makeChainedMiddleware({...asChainedConfigEntity(config), payload: selected});
+    : makeChainedMiddleware({...asChainedConfigEntity(cfg), payload: selected});
 };
 
 /**

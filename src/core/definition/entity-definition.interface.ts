@@ -67,7 +67,7 @@ export interface IExtendedEntity<TEntity = IEntity>
  */
 export interface IGenericEditableEntity<TChanges = IKeyValue>
   extends IGenericLifeCycleEntity,
-    IActiveValueWrapper,
+    IGenericActiveValueEntity,
     IChangesWrapper<TChanges>,
     IDefaultChangesWrapper<TChanges>,
     IDirtyWrapper,
@@ -131,4 +131,20 @@ export interface IMultiEntity<TEntity extends IEntity = IEntity>
     IAddWrapper<TEntity[]>,
     IRemoveWrapper<TEntity[]>,
     IEditWrapper<IMultiItemEntity[]> {
+}
+
+/**
+ * @flux-entity
+ * @stable [12.04.2020]
+ */
+export interface IActiveValueFluxEntity
+  extends IPayloadWrapper<number> {
+}
+
+/**
+ * @generic-entity
+ * @stable [12.04.2020]
+ */
+export interface IGenericActiveValueEntity
+  extends IActiveValueWrapper<number> {
 }

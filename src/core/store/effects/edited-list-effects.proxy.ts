@@ -11,15 +11,15 @@ import {
   makeSelectEntityMiddleware,
 } from '../middleware';
 import { provideInSingleton } from '../../di';
-import { calc } from '../../util';
+import { toListSection } from '../../util';
 
 /**
  * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} config
+ * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} cfg
  * @returns {() => void}
  */
 export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
-  config: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>) =>
+  cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>) =>
   (): void => {
 
     @provideInSingleton(Effects)
@@ -31,9 +31,9 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildCreateActionType(calc(config.listSection)))
+      @EffectsService.effects(ListActionBuilder.buildCreateActionType(toListSection(cfg)))
       public $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeCreateEntityMiddleware({...config, action, state})
+        makeCreateEntityMiddleware({...cfg, action, state})
 
       /**
        * @stable [09.10.2019]
@@ -41,9 +41,9 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildSelectActionType(calc(config.listSection)))
+      @EffectsService.effects(ListActionBuilder.buildSelectActionType(toListSection(cfg)))
       public $onEntitySelect = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeSelectEntityMiddleware({...config, action, state})
+        makeSelectEntityMiddleware({...cfg, action, state})
 
       /**
        * @stable [20.10.2019]
@@ -51,8 +51,8 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(calc(config.listSection)))
+      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(toListSection(cfg)))
       public $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeLazyLoadedEntityMiddleware({...config, action, state})
+        makeLazyLoadedEntityMiddleware({...cfg, action, state})
     }
   };

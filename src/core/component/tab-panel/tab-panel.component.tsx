@@ -10,14 +10,14 @@ import {
   isWrapped,
   joinClassName,
 } from '../../util';
-import { BaseComponent } from '../base';
+import { GenericComponent } from '../base/generic.component';
 import {
   IBaseEvent,
   ITabPanelProps,
   ITabProps,
 } from '../../definition';
 
-export class TabPanel extends BaseComponent<ITabPanelProps> {
+export class TabPanel extends GenericComponent<ITabPanelProps> {
 
   /**
    * @stable [12.02.2020]
@@ -63,8 +63,6 @@ export class TabPanel extends BaseComponent<ITabPanelProps> {
    * @stable [02.09.2018]
    */
   public componentWillUnmount(): void {
-    super.componentWillUnmount();
-
     this.onDeactivateValue();
   }
 
@@ -139,7 +137,6 @@ export class TabPanel extends BaseComponent<ITabPanelProps> {
                 ? (
                   this.uiFactory.makeIcon({
                     className: 'rac-tab-panel__tab-icon',
-                    key: `rac-tab-icon-key-${tab.value}`,
                     type: tab.icon,
                   })
                 )

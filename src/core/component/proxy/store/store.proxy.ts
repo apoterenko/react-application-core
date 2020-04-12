@@ -61,6 +61,15 @@ export class StoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity
   }
 
   /**
+   * @stable [03.02.2020]
+   * @param {string} otherSection
+   * @returns {string}
+   */
+  protected asSection(otherSection?: string): string {
+    return otherSection || this.sectionName;
+  }
+
+  /**
    * @stable [11.09.2019]
    * @returns {TProps}
    */

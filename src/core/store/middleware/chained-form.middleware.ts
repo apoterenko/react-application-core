@@ -1,12 +1,12 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  FormActionBuilder,
   ListActionBuilder,
 } from '../../component/action.builder';
 import { IChainedFormMiddlewareConfigEntity } from '../../definition';
 import { ifNotNilThanValue } from '../../util';
 import {
+  FormActionBuilder,
   RouterActionBuilder,
   StackActionBuilder,
 } from '../../action';

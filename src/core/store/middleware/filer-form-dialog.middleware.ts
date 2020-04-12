@@ -1,7 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { ListActionBuilder } from '../../component/list/list-action.builder';
-import { FormActionBuilder } from '../../component/form/form-action.builder';
+import { FormActionBuilder } from '../../action';
 import { IFilterFormDialogMiddlewareConfig } from './middleware.interface';
 
 /**

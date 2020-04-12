@@ -1,4 +1,4 @@
-import { FormActionBuilder } from '../../../action.builder';
+import { FormActionBuilder } from '../../../../action';
 import {
   FieldChangeEntityT,
   IApiEntity,
@@ -26,6 +26,24 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
     this.dispatchFormReset = this.dispatchFormReset.bind(this);
     this.dispatchFormSubmit = this.dispatchFormSubmit.bind(this);
     this.dispatchFormValid = this.dispatchFormValid.bind(this);
+  }
+
+  /**
+   * @stable [12.04.2020]
+   * @param {number} value
+   * @param {string} otherSection
+   */
+  public dispatchFormActiveValue(value: number, otherSection?: string): void {
+    this.dispatchPlainAction(FormActionBuilder.buildActiveValuePlainAction(this.asSection(otherSection), value));
+  }
+
+  /**
+   * @stable [12.04.2020]
+   * @param {number} value
+   * @param {string} otherSection
+   */
+  public dispatchFormInactiveValue(value: number, otherSection?: string): void {
+    this.dispatchPlainAction(FormActionBuilder.buildInactiveValuePlainAction(this.asSection(otherSection), value));
   }
 
   /**
@@ -79,14 +97,5 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    */
   public dispatchFormChange(payload: FieldChangeEntityT, otherSection?: string): void {
     this.dispatchPlainAction(FormActionBuilder.buildChangePlainAction(this.asSection(otherSection), payload));
-  }
-
-  /**
-   * @stable [03.02.2020]
-   * @param {string} otherSection
-   * @returns {string}
-   */
-  private asSection(otherSection?: string): string {
-    return otherSection || this.sectionName;
   }
 }

@@ -2,11 +2,11 @@ import { EffectsService, IEffectsAction } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import {
-  FormActionBuilder,
   ListActionBuilder,
 } from '../../component/action.builder';
 import {
   ConnectorActionBuilder,
+  FormActionBuilder,
   NotificationActionBuilder,
 } from '../../action';
 

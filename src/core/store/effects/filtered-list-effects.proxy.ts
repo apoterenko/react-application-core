@@ -6,10 +6,10 @@ import {
 import { provideInSingleton } from '../../di';
 import {
   FilterActionBuilder,
-  FormActionBuilder,
   ListActionBuilder,
 } from '../../component/action.builder';
 import {
+  FormActionBuilder,
   RouterActionBuilder,
   StackActionBuilder,
 } from '../../action';

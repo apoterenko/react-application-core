@@ -45,6 +45,7 @@ import {
   NotificationStoreProxyFactoryT,
   RouterStoreProxyFactoryT,
   StoreProxyFactoryT,
+  TabPanelStoreProxyFactoryT,
   TranslatorT,
 } from '../definition';
 import { staticInjector } from './di.support';
@@ -230,6 +231,12 @@ export const getStoreProxyFactory = (): StoreProxyFactoryT => staticInjector(DI_
  * @returns {FormStoreProxyFactoryT}
  */
 export const getFormStoreProxyFactory = (): FormStoreProxyFactoryT => staticInjector(DI_TYPES.FormStoreProxyFactory);
+
+/**
+ * @stable [12.04.2020]
+ * @returns {TabPanelStoreProxyFactoryT}
+ */
+export const getTabPanelStoreProxyFactory = (): TabPanelStoreProxyFactoryT => staticInjector(DI_TYPES.TabPanelStoreProxyFactory);
 
 /**
  * @stable [30.03.2020]

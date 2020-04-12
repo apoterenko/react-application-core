@@ -55,6 +55,14 @@ export interface IFormMiddlewareConfigEntity<TState = {}>
  * @config-entity
  * @stable [29.03.2020]
  */
+export interface ITabPanelMiddlewareConfigEntity<TState = {}>
+  extends ITabPanelSectionWrapper<SectionT<TState>> {
+}
+
+/**
+ * @config-entity
+ * @stable [29.03.2020]
+ */
 export interface IContainerMiddlewareConfigEntity<TState = {}>
   extends IContainerSectionWrapper<SectionT<TState>> {
 }
@@ -82,7 +90,7 @@ export interface ILoadedListMiddlewareConfigEntity<TState = {}>
  */
 export interface ILoadedListOnTabActivateMiddlewareConfigEntity<TState = {}>
   extends ILoadedListMiddlewareConfigEntity<TState>,
-    ITabPanelSectionWrapper<SectionT<TState>> {
+    ITabPanelMiddlewareConfigEntity<TState> {
 }
 
 /**

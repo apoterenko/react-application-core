@@ -12,6 +12,7 @@ import {
   IFormEditableEntity,
   IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
+  IGenericContainer,
   IGenericEditableEntity,
   IGenericListEntity,
   IGenericPagedEntity,
@@ -35,6 +36,7 @@ import {
   ITransportEntity,
   ITransportWrapperEntity,
   IUniversalApplicationEntity,
+  IUnsavedFormChangesDialogContainerProps,
   IUserEntity,
   IUserWrapperEntity,
   ToolbarToolsEnum,
@@ -45,6 +47,7 @@ import {
   EntityIdT,
   FIRST_PAGE,
   IActionsDisabledWrapper,
+  IActiveValueWrapper,
   IDisabledWrapper,
   IEntity,
   IEntityIdTWrapper,
@@ -81,8 +84,10 @@ import {
   isReady,
 } from './wrapper';
 import {
+  selectActiveValue,
   selectChanges,
   selectData,
+  selectDefaultChanges,
   selectDictionaries,
   selectEditableEntityToolbarToolsActiveFilter,
   selectEntityId,
@@ -133,14 +138,6 @@ export const selectEditableEntity =
     selectForm(wrapper);
 
 /**
- * @stable [20.12.2019]
- * @param {IGenericEditableEntity} entity
- * @returns {TResult}
- */
-export const selectDefaultChanges = <TResult extends IEntity = IEntity>(entity: IGenericEditableEntity): TResult =>
-  ifNotNilThanValue(entity, (): TResult => entity.defaultChanges as TResult, UNDEF_SYMBOL);
-
-/**
  * TODO
  * @deprecated
  */
@@ -157,19 +154,11 @@ export const selectQuery = (entity: IQueryWrapper): string =>
   ifNotNilThanValue(entity, (): string => trimmedUndefEmpty(entity.query), UNDEF_SYMBOL);
 
 /**
- * @stable [27.11.2019]
- * @param {IQueryFilterEntity} entity
- * @returns {string}
- */
-export const selectFilterQuery = (entity: IQueryFilterEntity): string => selectQuery(selectFilter(entity));
-
-/**
  * @stable [13.02.2020]
  * @param {IEffectsAction} action
  * @returns {TResult}
  */
-export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): TResult =>
-  selectError(action);
+export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): TResult => selectError(action);
 
 /**
  * @stable [10.02.2020]
@@ -332,8 +321,16 @@ export const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
  * @param {TValue} list
  * @returns {IListWrapper<TValue>}
  */
-export const mapList = <TList = IGenericListEntity>(list: TList): IListWrapper<TList> =>
+export const mapList = <TList>(list: TList): IListWrapper<TList> =>
   defValuesFilter<IListWrapper<TList>, IListWrapper<TList>>({list});
+
+/**
+ * @stable [12.04.2020]
+ * @param {TActiveValue} activeValue
+ * @returns {IActiveValueWrapper<TActiveValue>}
+ */
+export const mapActiveValue = <TActiveValue>(activeValue: TActiveValue): IActiveValueWrapper<TActiveValue> =>
+  defValuesFilter<IActiveValueWrapper<TActiveValue>, IActiveValueWrapper<TActiveValue>>({activeValue});
 
 /**
  * @stable [29.02.2020]
@@ -485,6 +482,14 @@ export const mapDictionariesWrapperEntity =
  */
 export const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper =>
   mapSectionName(selectSectionName(wrapper));
+
+/**
+ * @stable [12.04.2020]
+ * @param {IActiveValueWrapper<TValue>} wrapper
+ * @returns {IActiveValueWrapper<TValue>}
+ */
+export const mapActiveValueWrapper = <TValue>(wrapper: IActiveValueWrapper<TValue>): IActiveValueWrapper<TValue> =>
+  mapActiveValue(selectActiveValue(wrapper));
 
 /**
  * @stable [21.12.2019]
@@ -801,3 +806,18 @@ export const mapListContainerProps = (props: IListContainerProps): IListContaine
     ...mapSectionNameWrapper(props),
     ...mapListWrapperEntity(props),
   });
+
+/**
+ * @container-props-mapper
+ * @stable [11.04.2020]
+ * @param {IFormEditableEntity<TEntity>} props
+ * @param {IGenericContainer} proxyContainer
+ * @returns {IUnsavedFormChangesDialogContainerProps}
+ */
+export const mapUnsavedFormChangesDialogContainerProps =
+  <TEntity = IEntity>(props: IFormEditableEntity<TEntity>,
+                      proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps =>
+    ({
+      dialogConfiguration: mapFormEditableEntity(props),
+      proxyContainer,
+    });

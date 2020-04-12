@@ -1,14 +1,19 @@
-import { IEffectsAction, EffectsService } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton } from '../../di';
 import {
   FilterActionBuilder,
-  FormActionBuilder,
   ListActionBuilder,
-  TabPanelActionBuilder,
 } from '../../component/action.builder';
-import { StackActionBuilder } from '../../action';
+import {
+  FormActionBuilder,
+  StackActionBuilder,
+  TabPanelActionBuilder,
+} from '../../action';
 import { getAllIndependentStackSections } from './stack.support';
 import {
   $RAC_STACK_PUSH_ACTION_TYPE,

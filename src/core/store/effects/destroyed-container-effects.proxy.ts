@@ -12,10 +12,12 @@ import {
   makeDestroyedContainerMiddleware,
 } from '../middleware';
 import {
-  FormActionBuilder,
   ListActionBuilder,
-  TabPanelActionBuilder,
 } from '../../component/action.builder';
+import {
+  FormActionBuilder,
+  TabPanelActionBuilder,
+} from '../../action';
 
 /**
  * @stable [22.03.2019]

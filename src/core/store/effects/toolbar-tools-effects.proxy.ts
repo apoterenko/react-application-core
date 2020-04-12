@@ -3,7 +3,7 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import { calc } from '../../util';
+import { toListSection } from '../../util';
 import { ILoadedListOnToolbarToolsRefreshConfigEntity } from '../../definition';
 import { makeLoadedListOnToolbarToolsRefreshMiddleware } from '../middleware';
 import { provideInSingleton } from '../../di';
@@ -11,11 +11,11 @@ import { ToolbarToolsActionBuilder } from '../../action';
 
 /**
  * @stable [11.04.2020]
- * @param {ILoadedListOnToolbarToolsRefreshConfigEntity<TState>} config
+ * @param {ILoadedListOnToolbarToolsRefreshConfigEntity<TState>} cfg
  * @returns {() => void}
  */
 export const makeToolbarToolsEffectsProxy =
-  <TState = {}>(config: ILoadedListOnToolbarToolsRefreshConfigEntity<TState>) => (
+  <TState = {}>(cfg: ILoadedListOnToolbarToolsRefreshConfigEntity<TState>) => (
     (): void => {
 
       @provideInSingleton(Effects)
@@ -27,9 +27,9 @@ export const makeToolbarToolsEffectsProxy =
          * @param {TState} state
          * @returns {IEffectsAction}
          */
-        @EffectsService.effects(ToolbarToolsActionBuilder.buildRefreshActionType(calc(config.listSection)))
+        @EffectsService.effects(ToolbarToolsActionBuilder.buildRefreshActionType(toListSection(cfg)))
         public $onRefresh = (action: IEffectsAction, state: TState): IEffectsAction =>
-          makeLoadedListOnToolbarToolsRefreshMiddleware({...config, action, state})
+          makeLoadedListOnToolbarToolsRefreshMiddleware({...cfg, action, state})
       }
     }
   );

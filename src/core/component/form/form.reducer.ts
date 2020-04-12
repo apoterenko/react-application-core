@@ -18,7 +18,7 @@ import {
   IFormValidEntity,
   INITIAL_FORM_ENTITY,
 } from '../../definition';
-import { FormActionBuilder } from './form-action.builder';
+import { FormActionBuilder } from '../../action';
 
 /**
  * @stable [03.02.2020]
@@ -93,7 +93,7 @@ export function formReducer(state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
         progress: false,
         error: mapErrorObject(action.error).message,
       };
-    case FormActionBuilder.buildSubmitFinishedActionType(section):
+    case FormActionBuilder.buildSubmitFinishActionType(section):
       return {
         ...state,
         progress: false,

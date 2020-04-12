@@ -11,12 +11,12 @@ import {
   toListSection,
 } from '../../util';
 import {
+  FormActionBuilder,
   NotificationActionBuilder,
   RouterActionBuilder,
 } from '../../action';
 import { IEntity } from '../../definitions.interface';
 import {
-  FormActionBuilder,
   ListActionBuilder,
 } from '../../component/action.builder';
 import { ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';

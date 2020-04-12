@@ -4,9 +4,11 @@ import {
   IDialogFormChangesConfirmStoreProxy,
   IDictionaryStoreProxy,
   IFormStoreProxy,
+  IListStoreProxy,
   INotificationStoreProxy,
   IRouterStoreProxy,
   IStoreProxy,
+  ITabPanelStoreProxy,
 } from './store-proxy-definition.interface';
 import { IPropsWrapper } from '../definitions.interface';
 
@@ -38,6 +40,8 @@ export interface IGenericContainer<TProps extends IGenericContainerProps<TDictio
   dfccStoreProxy: IDialogFormChangesConfirmStoreProxy;
   dictionaryStoreProxy: IDictionaryStoreProxy;
   formStoreProxy: IFormStoreProxy;
+  listStoreProxy: IListStoreProxy;
   notificationStoreProxy: INotificationStoreProxy;
   routerStoreProxy: IRouterStoreProxy;
+  tabPanelStoreProxy: ITabPanelStoreProxy;
 }

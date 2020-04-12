@@ -4,11 +4,13 @@ import {
 } from 'redux-effects-promise';
 
 import {
-  FormActionBuilder,
   ListActionBuilder,
-  TabPanelActionBuilder,
 } from '../../component/action.builder';
 import { IDestroyedContainerMiddlewareConfigEntity } from '../../definition';
+import {
+  FormActionBuilder,
+  TabPanelActionBuilder,
+} from '../../action';
 
 /**
  * @stable [27.08.2019]
