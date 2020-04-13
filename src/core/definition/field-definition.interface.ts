@@ -9,15 +9,11 @@ import {
   EntityIdT,
   IActionsPosition,
   IActionsWrapper,
-  IAllowEmptyFilterValueWrapper,
-  IAnchoredWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   IChangeableWrapper,
   IClassNameWrapper,
   IDefaultValueWrapper,
-  IDelayTimeoutWrapper,
-  IDictionaryWrapper,
   IDisabledWrapper,
   IDisableLabelWrapper,
   IDisplayNameWrapper,
@@ -25,22 +21,17 @@ import {
   IDisplayValueWrapper,
   IEmptyValueWrapper,
   IEntity,
-  IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
   IFieldsWrapper,
-  IForceReloadWrapper,
-  IForceUseLocalFilterWrapper,
   IFormatWrapper,
   IFullWrapper,
   IKeepChangesWrapper,
   ILabelWrapper,
   IMaskWrapper,
-  IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
   INameWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
-  IOptionsWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
@@ -60,7 +51,6 @@ import {
   IUseKeyboardWrapper,
   IValueWrapper,
   IVisibleWrapper,
-  IWaitingForOptionsWrapper,
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
@@ -73,10 +63,6 @@ import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface'; // TODO
-import {
-  IMenuConfigurationEntity,
-  IMenuItemEntity,
-} from './menu-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -275,32 +261,6 @@ export interface IGenericBaseCheckboxEntity
 export interface IGenericBaseSelectState
   extends IMenuRenderedWrapper,
     IProgressWrapper {
-}
-
-/**
- * @generic-entity
- * @stable [24.01.2020]
- */
-export interface IGenericBaseSelectEntity
-  extends IAllowEmptyFilterValueWrapper,
-    IAnchoredWrapper,
-    IDelayTimeoutWrapper,
-    IDictionaryWrapper,
-    IExpandActionRenderedWrapper,
-    IForceReloadWrapper,
-    IForceUseLocalFilterWrapper,
-    IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
-    IMenuConfigurationEntity,
-    IOptionsWrapper<ISelectOptionEntity[]>,
-    IWaitingForOptionsWrapper {
-}
-
-/**
- * @entity
- * @stable [25.01.2020]
- */
-export interface ISelectOptionEntity<TRawData = {}>
-  extends IMenuItemEntity<TRawData> {
 }
 
 /**

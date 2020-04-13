@@ -10,6 +10,7 @@ import {
   IExtendedEntity,
   IExtendedFormEditableEntity,
   IFormEditableEntity,
+  IFormTabPanelContainerProps,
   IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
   IGenericContainer,
@@ -805,6 +806,18 @@ export const mapListContainerProps = (props: IListContainerProps): IListContaine
   ({
     ...mapSectionNameWrapper(props),
     ...mapListWrapperEntity(props),
+  });
+
+/**
+ * @container-props-mapper
+ * @stable [13.04.2020]
+ * @param {IFormTabPanelContainerProps} props
+ * @returns {IFormTabPanelContainerProps}
+ */
+export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps): IFormTabPanelContainerProps =>
+  ({
+    ...mapSectionNameWrapper(props),
+    ...mapFormEditableEntity(props),
   });
 
 /**

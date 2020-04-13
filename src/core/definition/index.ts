@@ -61,6 +61,7 @@ export * from './redux-definition.interface';
 export * from './root-definition.interface';
 export * from './router-definition.interface';
 export * from './scrolled-definition.interface';
+export * from './select-definition.interface';
 export * from './selected-element-definition.interface';
 export * from './settings-definition.interface';
 export * from './sort-definition.interface';

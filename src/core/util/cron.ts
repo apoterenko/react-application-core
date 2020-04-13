@@ -27,14 +27,8 @@ import {
   VALUE_ASC_SORTER_FN,
   VALUE_DESC_SORTER_FN,
 } from './sort';
-import {
-  orNull,
-  ifNotNilThanValue,
-} from './cond';
-import {
-  StringNumberT,
-  UNDEF_SYMBOL,
-} from '../definitions.interface';
+import { orNull } from './cond';
+import { StringNumberT } from '../definitions.interface';
 
 // Examples:
 //   1) * * * * * *
@@ -266,18 +260,6 @@ const tryingToPack = (values: StringNumberT[]): StringNumberT[] => {
   });
   return result;
 };
-
-/**
- * @stable [16.12.2019]
- * @param {string} expression
- * @returns {string}
- */
-export const asValidCronExpression = (expression: string): string =>
-  ifNotNilThanValue(
-    expression,
-    () => CronEntity.newInstance().fromExpression(expression).toExpression(),
-    UNDEF_SYMBOL
-  );
 
 /**
  * @stable [14.12.2019]

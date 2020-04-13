@@ -18,10 +18,13 @@ import {
   IPlaceEntity,
   ISelectOptionEntity,
   IUserEntity,
+  SelectValueT,
   TranslatorT,
 } from '../../definition';
 import {
   asPlaceEntity,
+  CronEntity,
+  ifNotNilThanValue,
   isFn,
   isPrimitive,
   join,
@@ -32,6 +35,7 @@ import {
   AnyT,
   EntityIdT,
   StringNumberT,
+  UNDEF_SYMBOL,
 } from '../../definitions.interface';
 import {
   DI_TYPES,
@@ -99,6 +103,11 @@ export class FieldConverter implements IFieldConverter {
       to: FieldConverterTypesEnum.USER_ENTITY,
       converter: this.$fromOAuthJwtDecodedInfoToUserEntity.bind(this),
     });
+    this.register({
+      from: FieldConverterTypesEnum.CRON_EXPRESSION,
+      to: FieldConverterTypesEnum.CRON_PARAMETER,
+      converter: this.$fromCronExpressionToCronParameter.bind(this),
+    });
   }
 
   /**
@@ -148,6 +157,20 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
+   * @stable [13.04.2020]
+   * @nullable
+   * @param {string} value
+   * @returns {string}
+   */
+  public fromCronExpressionToCronParameter(value: string): string {
+    return this.convert({
+      from: FieldConverterTypesEnum.CRON_EXPRESSION,
+      to: FieldConverterTypesEnum.CRON_PARAMETER,
+      value,
+    });
+  }
+
+  /**
    * @stable [28.01.2020]
    * @param {IPlaceEntity | string} placeEntity
    * @returns {string}
@@ -192,10 +215,10 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [28.01.2020]
-   * @param {ISelectOptionEntity | StringNumberT} option
+   * @param {SelectValueT} option
    * @returns {StringNumberT}
    */
-  protected selectOptionEntityAsDisplayValue(option: ISelectOptionEntity | StringNumberT): StringNumberT {
+  protected selectOptionEntityAsDisplayValue(option: SelectValueT): StringNumberT {
     if (R.isNil(option)) {
       return option;
     }
@@ -210,10 +233,10 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [28.01.2020]
-   * @param {ISelectOptionEntity | StringNumberT} option
+   * @param {SelectValueT} option
    * @returns {EntityIdT}
    */
-  protected selectOptionEntityAsId(option: ISelectOptionEntity | StringNumberT): EntityIdT {
+  protected selectOptionEntityAsId(option: SelectValueT): EntityIdT {
     if (R.isNil(option)) {
       return option;
     }
@@ -266,11 +289,25 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
+   * @stable [13.04.2020]
+   * @nullable
+   * @param {string} value
+   * @returns {string}
+   */
+  private $fromCronExpressionToCronParameter(value: string): string {
+    return ifNotNilThanValue(
+      value,
+      () => CronEntity.newInstance().fromExpression(value).toExpression(),
+      UNDEF_SYMBOL
+    );
+  }
+
+  /**
    * @stable [09.01.2020]
    * @param {IFieldConverterConfigEntity} config
    * @returns {string}
    */
   private asKey(config: IFieldConverterConfigEntity): string {
-    return `${config.from}-${config.to}`;
+    return `${config.from}->${config.to}`;
   }
 }

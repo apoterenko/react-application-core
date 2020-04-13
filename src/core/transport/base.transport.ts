@@ -40,7 +40,6 @@ import {
 } from '../di';
 import {
   asMultiFieldMappedEntitiesIds,
-  asValidCronExpression,
   entitiesAsStorageTasks,
   toStringParameter,
 } from '../util';
@@ -86,13 +85,6 @@ export class BaseTransport {
       to: FieldConverterTypesEnum.ID,
       value,
     })
-
-  /**
-   * @stable [16.12.2019]
-   * @param {string} value
-   * @returns {string}
-   */
-  protected prepareCronValue = (value: string): string => asValidCronExpression(value);
 
   /**
    * @stable [13.10.2019]

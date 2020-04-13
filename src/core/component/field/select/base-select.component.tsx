@@ -47,6 +47,7 @@ import {
   IMenu,
   IMenuProps,
   ISelectOptionEntity,
+  SelectValueT,
 } from '../../../definition';
 
 export class BaseSelect<TProps extends IBaseSelectProps,
@@ -590,10 +591,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [31.01.2020]
-   * @param {ISelectOptionEntity | StringNumberT} value
+   * @param {SelectValueT} value
    * @returns {StringNumberT}
    */
-  private selectOptionEntityAsDisplayValue(value: ISelectOptionEntity | StringNumberT): StringNumberT {
+  private selectOptionEntityAsDisplayValue(value: SelectValueT): StringNumberT {
     return this.fieldConverter.convert({
       value,
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,

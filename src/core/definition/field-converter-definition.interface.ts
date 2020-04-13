@@ -11,6 +11,8 @@ import { IUserEntity } from '../definition';
  * @stable [09.01.2020]
  */
 export enum FieldConverterTypesEnum {
+  CRON_EXPRESSION = 'CRON_EXPRESSION',
+  CRON_PARAMETER = 'CRON_PARAMETER',
   DATES_RANGE_ENTITY = 'DATES_RANGE_ENTITY',
   DATES_RANGE_VALUE = 'DATES_RANGE_VALUE',
   DISPLAY_VALUE = 'DISPLAY_VALUE',
@@ -40,6 +42,7 @@ export interface IFieldConverterConfigEntity
 export interface IFieldConverter {
   convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
   converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
+  fromCronExpressionToCronParameter(value: string): string;
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
   register(config: IFieldConverterConfigEntity): void;
 }

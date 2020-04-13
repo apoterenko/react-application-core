@@ -43,9 +43,11 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   private $formStoreProxy: IFormStoreProxy;
   private $listStoreProxy: IListStoreProxy;
   private $notificationStoreProxy: INotificationStoreProxy;
+  private $permissionsManager: IPermissionsManager<TPermission>;
   private $routerStoreProxy: IRouterStoreProxy;
   private $storeProxy: IStoreProxy;
   private $tabPanelStoreProxy: ITabPanelStoreProxy;
+  private $userActivityManager: IUserActivityManager;
 
   /**
    * @stable [27.11.2019]
@@ -140,14 +142,6 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
 
   /**
    * @stable [30.03.2020]
-   * @returns {IStoreProxy}
-   */
-  protected get storeProxy(): IStoreProxy {
-    return this.$storeProxy = this.$storeProxy || getStoreProxyFactory()(this);
-  }
-
-  /**
-   * @stable [30.03.2020]
    * @param {TPermission} permission
    * @returns {boolean}
    */
@@ -157,10 +151,18 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
 
   /**
    * @stable [30.03.2020]
+   * @returns {IStoreProxy}
+   */
+  protected get storeProxy(): IStoreProxy {
+    return this.$storeProxy = this.$storeProxy || getStoreProxyFactory()(this);
+  }
+
+  /**
+   * @stable [30.03.2020]
    * @returns {IPermissionsManager<TPermission>}
    */
   protected get permissionsManager(): IPermissionsManager<TPermission> {
-    return getPermissionsManager<TPermission>();
+    return this.$permissionsManager = this.$permissionsManager || getPermissionsManager<TPermission>();
   }
 
   /**
@@ -168,6 +170,6 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @returns {IUserActivityManager}
    */
   protected get userActivityManager(): IUserActivityManager {
-    return getUserActivityManager();
+    return this.$userActivityManager = this.$userActivityManager || getUserActivityManager();
   }
 }

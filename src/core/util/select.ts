@@ -9,6 +9,7 @@ import {
   IDataWrapper,
   IDefaultChangesWrapper,
   IDictionariesWrapper,
+  IDiffWrapper,
   IDirectionsWrapper,
   IElementWrapper,
   IEntity,
@@ -130,6 +131,14 @@ export const selectToken = <TValue = string>(wrapper: ITokenWrapper<TValue>): TV
  */
 export const selectChanges = <TResult = IEntity>(entity: IChangesWrapper<TResult>): TResult =>
   R.isNil(entity) ? UNDEF : entity.changes;
+
+/**
+ * @stable [13.04.2020]
+ * @param {IDiffWrapper<TResult>} entity
+ * @returns {TResult}
+ */
+export const selectDiff = <TResult = IEntity>(entity: IDiffWrapper<TResult>): TResult =>
+  R.isNil(entity) ? UNDEF : entity.diff;
 
 /**
  * @stable [05.03.2020]
