@@ -55,6 +55,10 @@ export const stackMapper = (state: IStackWrapperEntity): IStackWrapperEntity => 
   },
 });
 
+/**
+ * TODO Use mapStoreEntity
+ * @deprecated
+ */
 export const defaultMappers = [
   ...universalDefaultMappers,
   stackMapper,

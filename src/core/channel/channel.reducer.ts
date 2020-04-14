@@ -12,18 +12,18 @@ import {
 } from './channel.interface';
 import {
   IChannelMessageEntity,
-  IChannelsEntity,
+  IGenericChannelsEntity,
   INITIAL_CHANNELS_ENTITY,
 } from '../definition';
 
 /**
  * @stable [21.05.2018]
- * @param {IChannelsEntity} state
+ * @param {IGenericChannelsEntity} state
  * @param {AnyAction} action
- * @returns {IChannelsEntity}
+ * @returns {IGenericChannelsEntity}
  */
-export function channelReducer(state: IChannelsEntity = INITIAL_CHANNELS_ENTITY,
-                               action: AnyAction): IChannelsEntity {
+export function channelReducer(state: IGenericChannelsEntity = INITIAL_CHANNELS_ENTITY,
+                               action: AnyAction): IGenericChannelsEntity {
   let current;
   const message: IChannelMessageEntity = action.data;
   switch (action.type) {

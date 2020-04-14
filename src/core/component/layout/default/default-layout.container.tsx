@@ -24,7 +24,7 @@ import {
 } from '../layout.interface';
 import {
   HeaderUserMenuActionsEnum,
-  ILayoutEntity,
+  IGenericLayoutEntity,
   IMenuItemEntity,
   INavigationListItemEntity,
   IXYEntity,
@@ -123,7 +123,7 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
    * @param {IXYEntity} xy
    */
   private onNavigationListScroll(xy: IXYEntity): void {
-    this.dispatchActionByType<IPayloadWrapper<ILayoutEntity>>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
+    this.dispatchActionByType<IPayloadWrapper<IGenericLayoutEntity>>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
   }
 
   /**

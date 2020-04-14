@@ -138,10 +138,13 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
 
 /**
  * @generic-entity
- * @stable [28.03.2020]
+ * @stable [14.04.2020]
  */
 export interface IGenericStoreEntity<TDictionaries = {}>
-  extends IDictionariesWrapper<TDictionaries>,
+  extends IChannelWrapperEntity,
+    IDictionariesWrapper<TDictionaries>,
+    ILayoutWrapperEntity,
+    INotificationWrapperEntity,
     ISectionNameWrapper,
     IStackWrapperEntity,
     ITransportWrapperEntity,
@@ -154,7 +157,6 @@ export interface IGenericStoreEntity<TDictionaries = {}>
 export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
   extends IGenericStoreEntity<TDictionaries>,
     IUniversalApplicationWrapperEntity,
-    IChannelWrapperEntity,
     IPermissionsWrapperEntity<TPermissions> {
 }
 
@@ -163,9 +165,7 @@ export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
  */
 export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalStoreEntity<TDictionaries, TPermissions>,
-    IAsyncLibsWrapperEntity,
-    ILayoutWrapperEntity,
-    INotificationWrapperEntity {
+    IAsyncLibsWrapperEntity {
 }
 
 /**

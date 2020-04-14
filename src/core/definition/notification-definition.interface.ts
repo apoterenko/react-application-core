@@ -18,8 +18,8 @@ export interface IGenericNotificationEntity
  * @wrapper-entity
  * @stable [24.09.2019]
  */
-export interface INotificationWrapperEntity
-  extends INotificationWrapper<IGenericNotificationEntity> {
+export interface INotificationWrapperEntity<TEntity = IGenericNotificationEntity>
+  extends INotificationWrapper<TEntity> {
 }
 
 /**

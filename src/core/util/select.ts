@@ -6,6 +6,7 @@ import {
   EntityIdT,
   IActiveValueWrapper,
   IChangesWrapper,
+  IChannelWrapper,
   IDataWrapper,
   IDefaultChangesWrapper,
   IDictionariesWrapper,
@@ -17,7 +18,9 @@ import {
   IEntityWrapper,
   IFilterWrapper,
   IFormWrapper,
+  ILayoutWrapper,
   IListWrapper,
+  INotificationWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
   IQueueWrapper,
@@ -291,6 +294,30 @@ export const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser =>
  */
 export const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity =>
   R.isNil(wrapper) ? UNDEF : wrapper.stack;
+
+/**
+ * @stable [14.04.2020]
+ * @param {INotificationWrapper<TEntity>} wrapper
+ * @returns {TEntity}
+ */
+export const selectNotification = <TEntity>(wrapper: INotificationWrapper<TEntity>): TEntity =>
+  R.isNil(wrapper) ? UNDEF : wrapper.notification;
+
+/**
+ * @stable [14.04.2020]
+ * @param {ILayoutWrapper<TEntity>} wrapper
+ * @returns {TEntity}
+ */
+export const selectLayout = <TEntity>(wrapper: ILayoutWrapper<TEntity>): TEntity =>
+  R.isNil(wrapper) ? UNDEF : wrapper.layout;
+
+/**
+ * @stable [14.04.2020]
+ * @param {IChannelWrapper<TEntity>} wrapper
+ * @returns {TEntity}
+ */
+export const selectChannel = <TEntity>(wrapper: IChannelWrapper<TEntity>): TEntity =>
+  R.isNil(wrapper) ? UNDEF : wrapper.channel;
 
 /**
  * @stable [30.03.2020]

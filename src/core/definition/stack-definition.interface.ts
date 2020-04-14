@@ -11,7 +11,7 @@ import {
 /**
  * @stable [20.09.2019]
  */
-export const INITIAL_STACK_ENTITY = Object.freeze<IStackEntity>({
+export const INITIAL_STACK_ENTITY = Object.freeze<IGenericStackEntity>({
   destroySections: [],
   lock: false,
   stack: [],
@@ -28,10 +28,10 @@ export interface IStackItemEntity
 }
 
 /**
- * @entity
+ * @genric-entity
  * @stable [20.09.2019]
  */
-export interface IStackEntity
+export interface IGenericStackEntity
   extends IDestroySectionsWrapper,
     ILockWrapper,
     IStackWrapper<IStackItemEntity[]> {
@@ -41,7 +41,7 @@ export interface IStackEntity
  * @wrapper-entity
  * @stable [20.09.2019]
  */
-export interface IStackWrapperEntity<TEntity = IStackEntity>
+export interface IStackWrapperEntity<TEntity = IGenericStackEntity>
   extends IStackWrapper<TEntity> {
 }
 

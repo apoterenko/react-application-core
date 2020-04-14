@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import { defValuesFilter } from './filter';
 import {
   IApiEntity,
+  IChannelWrapperEntity,
   IDictionariesEntity,
   IDictionariesWrapperEntity,
   IDictionaryEntity,
@@ -13,16 +14,22 @@ import {
   IFormTabPanelContainerProps,
   IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
+  IGenericChannelEntity,
   IGenericContainer,
   IGenericEditableEntity,
+  IGenericLayoutEntity,
   IGenericListEntity,
+  IGenericNotificationEntity,
   IGenericPagedEntity,
   IGenericPaginatedEntity,
+  IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
+  ILayoutWrapperEntity,
   IListContainerProps,
   IListEntity,
   IListWrapperEntity,
+  INotificationWrapperEntity,
   IOperationEntity,
   IOptionEntity,
   IQueryFilterEntity,
@@ -30,7 +37,6 @@ import {
   ISortDirectionEntity,
   ISortDirectionsEntity,
   ISortDirectionsWrapperEntity,
-  IStackEntity,
   IStackItemEntity,
   IStackWrapperEntity,
   ITabPanelWrapperEntity,
@@ -49,17 +55,23 @@ import {
   FIRST_PAGE,
   IActionsDisabledWrapper,
   IActiveValueWrapper,
+  IChannelWrapper,
+  IDictionariesWrapper,
   IDisabledWrapper,
   IEntity,
   IEntityIdTWrapper,
   IErrorWrapper,
   IFilterWrapper,
   IFormWrapper,
+  ILayoutWrapper,
   IListWrapper,
+  INotificationWrapper,
   IOptionsWrapper,
   IProgressWrapper,
   IQueryWrapper,
   ISectionNameWrapper,
+  IStackWrapper,
+  ITransportWrapper,
   IUserWrapper,
   IWaitingForOptionsWrapper,
   UNDEF,
@@ -87,6 +99,7 @@ import {
 import {
   selectActiveValue,
   selectChanges,
+  selectChannel,
   selectData,
   selectDefaultChanges,
   selectDictionaries,
@@ -94,8 +107,10 @@ import {
   selectEntityId,
   selectFilter,
   selectForm,
+  selectLayout,
   selectList,
   selectListSelectedEntity,
+  selectNotification,
   selectQueue,
   selectSectionName,
   selectStack,
@@ -190,14 +205,6 @@ export const mapEntityId = (id: EntityIdT): IEntityIdTWrapper =>
   defValuesFilter<IEntityIdTWrapper, IEntityIdTWrapper>({id});
 
 /**
- * @stable [28.01.2020]
- * @param {boolean} progress
- * @returns {IProgressWrapper}
- */
-export const mapProgress = (progress: boolean): IProgressWrapper =>
-  defValuesFilter<IProgressWrapper, IProgressWrapper>({progress});
-
-/**
  * @stable [29.01.2020]
  * @param {boolean} waitingForOptions
  * @returns {IWaitingForOptionsWrapper}
@@ -262,29 +269,52 @@ export const mapSectionName = (sectionName: string): ISectionNameWrapper =>
   defValuesFilter<ISectionNameWrapper, ISectionNameWrapper>({sectionName});
 
 /**
- * @stable [30.03.2020]
- * @param {TEntity} stack
- * @returns {IStackWrapperEntity<TEntity>}
+ * @stable [14.04.2020]
+ * @param {TValue} stack
+ * @returns {IStackWrapper<TValue>}
  */
-export const mapStack = <TEntity = IStackEntity>(stack: TEntity): IStackWrapperEntity<TEntity> =>
-  defValuesFilter<IStackWrapperEntity<TEntity>, IStackWrapperEntity<TEntity>>({stack});
+export const mapStack = <TValue>(stack: TValue): IStackWrapper<TValue> =>
+  defValuesFilter<IStackWrapper<TValue>, IStackWrapper<TValue>>({stack});
 
 /**
- * @stable [28.03.2020]
- * @param {TTransport} transport
- * @returns {ITransportWrapperEntity<TTransport>}
+ * @stable [14.04.2020]
+ * @param {TValue} notification
+ * @returns {INotificationWrapper<TValue>}
  */
-export const mapTransport = <TTransport = ITransportEntity>(transport: TTransport): ITransportWrapperEntity<TTransport> =>
-  defValuesFilter<ITransportWrapperEntity<TTransport>, ITransportWrapperEntity<TTransport>>({transport});
+export const mapNotification = <TValue>(notification: TValue): INotificationWrapper<TValue> =>
+  defValuesFilter<INotificationWrapper<TValue>, INotificationWrapper<TValue>>({notification});
 
 /**
- * @stable [28.03.2020]
- * @param {TDictionaries} dictionaries
- * @returns {IDictionariesWrapperEntity<TDictionaries>}
+ * @stable [14.04.2020]
+ * @param {TValue} layout
+ * @returns {ILayoutWrapper<TValue>}
  */
-export const mapDictionaries =
-  <TDictionaries = IDictionariesEntity>(dictionaries: TDictionaries): IDictionariesWrapperEntity<TDictionaries> =>
-    defValuesFilter<IDictionariesWrapperEntity<TDictionaries>, IDictionariesWrapperEntity<TDictionaries>>({dictionaries});
+export const mapLayout = <TValue>(layout: TValue): ILayoutWrapper<TValue> =>
+  defValuesFilter<ILayoutWrapper<TValue>, ILayoutWrapper<TValue>>({layout});
+
+/**
+ * @stable [14.04.2020]
+ * @param {TValue} channel
+ * @returns {IChannelWrapper<TValue>}
+ */
+export const mapChannel = <TValue>(channel: TValue): IChannelWrapper<TValue> =>
+  defValuesFilter<IChannelWrapper<TValue>, IChannelWrapper<TValue>>({channel});
+
+/**
+ * @stable [14.04.2020]
+ * @param {TValue} transport
+ * @returns {ITransportWrapper<TValue>}
+ */
+export const mapTransport = <TValue>(transport: TValue): ITransportWrapper<TValue> =>
+  defValuesFilter<ITransportWrapper<TValue>, ITransportWrapper<TValue>>({transport});
+
+/**
+ * @stable [14.04.2020]
+ * @param {TValue} dictionaries
+ * @returns {IDictionariesWrapper<TValue>}
+ */
+export const mapDictionaries = <TValue>(dictionaries: TValue): IDictionariesWrapper<TValue> =>
+    defValuesFilter<IDictionariesWrapper<TValue>, IDictionariesWrapper<TValue>>({dictionaries});
 
 /**
  * @stable [12.10.2019]
@@ -455,8 +485,35 @@ export const mapUserWrapperEntity =
  * @returns {IStackWrapperEntity<TEntity>}
  */
 export const mapStackWrapperEntity =
-  <TEntity = IStackEntity>(wrapper: IStackWrapperEntity<TEntity>): IStackWrapperEntity<TEntity> =>
+  <TEntity = IGenericStackEntity>(wrapper: IStackWrapperEntity<TEntity>): IStackWrapperEntity<TEntity> =>
     mapStack(selectStack(wrapper));
+
+/**
+ * @stable [14.04.2020]
+ * @param {INotificationWrapperEntity<TEntity>} wrapper
+ * @returns {INotificationWrapperEntity<TEntity>}
+ */
+export const mapNotificationWrapperEntity =
+  <TEntity = IGenericNotificationEntity>(wrapper: INotificationWrapperEntity<TEntity>): INotificationWrapperEntity<TEntity> =>
+    mapNotification(selectNotification(wrapper));
+
+/**
+ * @stable [14.04.2020]
+ * @param {ILayoutWrapperEntity<TEntity>} wrapper
+ * @returns {ILayoutWrapperEntity<TEntity>}
+ */
+export const mapLayoutWrapperEntity =
+  <TEntity = IGenericLayoutEntity>(wrapper: ILayoutWrapperEntity<TEntity>): ILayoutWrapperEntity<TEntity> =>
+    mapLayout(selectLayout(wrapper));
+
+/**
+ * @stable [14.04.2020]
+ * @param {IChannelWrapperEntity<TEntity>} wrapper
+ * @returns {IChannelWrapperEntity<TEntity>}
+ */
+export const mapChannelWrapperEntity =
+  <TEntity = IGenericChannelEntity>(wrapper: IChannelWrapperEntity<TEntity>): IChannelWrapperEntity<TEntity> =>
+    mapChannel(selectChannel(wrapper));
 
 /**
  * @stable [28.03.2020]
@@ -760,17 +817,17 @@ export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity)
 /**
  * @stable [18.12.2019]
  * @param {IStackWrapperEntity} entity
- * @returns {IStackEntity}
+ * @returns {IGenericStackEntity}
  */
-export const selectStackEntity = (entity: IStackWrapperEntity): IStackEntity =>
+export const selectStackEntity = (entity: IStackWrapperEntity): IGenericStackEntity =>
   ifNotNilThanValue(entity, () => entity.stack, UNDEF_SYMBOL);
 
 /**
  * @stable [18.12.2019]
- * @param {IStackEntity} entity
+ * @param {IGenericStackEntity} entity
  * @returns {IStackItemEntity[]}
  */
-export const selectStackItemEntities = (entity: IStackEntity): IStackItemEntity[] =>
+export const selectStackItemEntities = (entity: IGenericStackEntity): IStackItemEntity[] =>
   ifNotNilThanValue(entity, (data) => data.stack, UNDEF_SYMBOL);
 
 /**
@@ -782,15 +839,18 @@ export const selectStackWrapperItemEntities = (entity: IStackWrapperEntity): ISt
   selectStackItemEntities(selectStackEntity(entity));
 
 /**
- * @stable [28.03.2020]
+ * @stable [14.04.2020]
  * @param {IGenericStoreEntity<TDictionaries>} entity
  * @returns {IGenericStoreEntity<TDictionaries>}
  */
 export const mapStoreEntity =
   <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
     ({
-      ...mapSectionNameWrapper(entity),
+      ...mapChannelWrapperEntity(entity),
       ...mapDictionariesWrapperEntity(entity),
+      ...mapLayoutWrapperEntity(entity),
+      ...mapNotificationWrapperEntity(entity),
+      ...mapSectionNameWrapper(entity),
       ...mapStackWrapperEntity(entity),
       ...mapTransportWrapperEntity(entity),
       ...mapUserWrapperEntity(entity),

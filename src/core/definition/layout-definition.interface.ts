@@ -26,11 +26,11 @@ export enum LayoutModesEnum {
 }
 
 /**
- * @entity
+ * @generic-entity
  * @stable [28.09.2019]
  */
-export interface ILayoutEntity
-  extends IExpandedGroupsWrapper<IKeyValue>,
+export interface IGenericLayoutEntity
+  extends IExpandedGroupsWrapper<{}>,
     IModeWrapper<LayoutModesEnum>,
     IXYEntity {
 }
@@ -39,8 +39,8 @@ export interface ILayoutEntity
  * @wrapper-entity
  * @stable [28.09.2019]
  */
-export interface ILayoutWrapperEntity
-  extends ILayoutWrapper<ILayoutEntity> {
+export interface ILayoutWrapperEntity<TEntity = IGenericLayoutEntity>
+  extends ILayoutWrapper<TEntity> {
 }
 
 /**
@@ -107,7 +107,7 @@ export enum LayoutGroupsValuesEnum {
  * @initial-entity
  * @stable [28.09.2019]
  */
-export const INITIAL_LAYOUT_ENTITY = Object.freeze<ILayoutEntity>({
+export const INITIAL_LAYOUT_ENTITY = Object.freeze<IGenericLayoutEntity>({
   x: 0,
   y: 0,
   mode: LayoutModesEnum.FULL,

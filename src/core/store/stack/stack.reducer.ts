@@ -7,7 +7,7 @@ import {
   $RAC_STACK_PUSH_ACTION_TYPE,
   $RAC_STACK_REMOVE_ACTION_TYPE,
   INITIAL_STACK_ENTITY,
-  IStackEntity,
+  IGenericStackEntity,
   IStackItemEntity,
   IStackPayloadEntity,
 } from '../../definition';
@@ -21,12 +21,12 @@ import {
 
 /**
  * @stable [20.09.2019]
- * @param {IStackEntity} state
+ * @param {IGenericStackEntity} state
  * @param {AnyAction} action
- * @returns {IStackEntity}
+ * @returns {IGenericStackEntity}
  */
-export const stackReducer = (state: IStackEntity = INITIAL_STACK_ENTITY,
-                             action: AnyAction): IStackEntity => {
+export const stackReducer = (state: IGenericStackEntity = INITIAL_STACK_ENTITY,
+                             action: AnyAction): IGenericStackEntity => {
   const stack = state.stack;
   const payloadEntity: IStackPayloadEntity = action.data;
   const sectionsToDestroy: string[] = action.data;

@@ -476,7 +476,7 @@ export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
 export interface IShowWrapper<TValue = {}> { show?(payload?: TValue): void; }
-export interface ISignInWrapper<TSignIn> { signIn?: TSignIn; }
+export interface ISignInWrapper<TValue> { signIn?: TValue; }
 export interface ISortableWrapper { sortable?: boolean; }
 export interface ISorterWrapper<TValue = IEntity> { sorter?(entity1: TValue, entity2: TValue): number; }
 export interface ISourceWrapper<TValue> { source?: TValue; }

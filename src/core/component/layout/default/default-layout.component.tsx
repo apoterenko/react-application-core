@@ -95,7 +95,7 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
     return (
       <Header
         {...props.headerConfiguration}
-        {...mapStoreEntity(props)}
+        {...mapStoreEntity(props)} // TODO Replace with mapHeaderProps
         backActionRendered={this.isHeaderBackActionRendered && (selectStackWrapperItemEntities(this.props) || []).length > 1}>
       </Header>
     );

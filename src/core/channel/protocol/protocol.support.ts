@@ -1,18 +1,18 @@
 import * as R from 'ramda';
 
 import { orNull } from '../../util';
-import { IChannelsEntity } from '../../definition';
+import { IGenericChannelsEntity } from '../../definition';
 import { PayloadWrapper } from './payload.wrapper';
 import { CommandResult } from './command.result';
 
 /**
  * @stable [21.05.2018]
  * @param {string} ip
- * @param {IChannelsEntity} channelsEntity
+ * @param {IGenericChannelsEntity} channelsEntity
  * @returns {PayloadWrapper[]}
  */
 export const channelsEntityResponsePayloadsMapper = (ip: string,
-                                                     channelsEntity: IChannelsEntity): PayloadWrapper[] => {
+                                                     channelsEntity: IGenericChannelsEntity): PayloadWrapper[] => {
   const channel = channelsEntity[ip];
   return orNull<PayloadWrapper[]>(
     !R.isNil(channel) && !R.isNil(channel.messages),
@@ -23,12 +23,12 @@ export const channelsEntityResponsePayloadsMapper = (ip: string,
 /**
  * @stable [23.05.2018]
  * @param {string} ip
- * @param {IChannelsEntity} channelsEntity
+ * @param {IGenericChannelsEntity} channelsEntity
  * @param {(cResult: CommandResult) => boolean} predicate
  * @returns {CommandResult}
  */
 export const findCommandResult = (ip: string,
-                                  channelsEntity: IChannelsEntity,
+                                  channelsEntity: IGenericChannelsEntity,
                                   predicate: (cResult: CommandResult) => boolean): CommandResult => {
   const responsePayloads = channelsEntityResponsePayloadsMapper(ip, channelsEntity);
   if (responsePayloads) {
@@ -43,11 +43,11 @@ export const findCommandResult = (ip: string,
 /**
  * @stable [23.05.2018]
  * @param {string} ip
- * @param {IChannelsEntity} channelsEntity
+ * @param {IGenericChannelsEntity} channelsEntity
  * @param {string} uuid
  * @returns {CommandResult}
  */
 export const findCommandResultByUuid = (ip: string,
-                                        channelsEntity: IChannelsEntity,
+                                        channelsEntity: IGenericChannelsEntity,
                                         uuid: string): CommandResult =>
   findCommandResult(ip, channelsEntity, (cResult: CommandResult) => cResult.getUuid() === uuid);

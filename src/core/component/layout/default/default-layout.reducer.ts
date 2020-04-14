@@ -8,7 +8,7 @@ import {
 } from '../layout.interface';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
 import {
-  ILayoutEntity,
+  IGenericLayoutEntity,
   INITIAL_LAYOUT_ENTITY,
   IXYPayloadEntity,
   LayoutModesEnum,
@@ -16,12 +16,12 @@ import {
 
 /**
  * @stable [23.09.2018]
- * @param {ILayoutEntity} state
+ * @param {IGenericLayoutEntity} state
  * @param {AnyAction} action
- * @returns {ILayoutEntity}
+ * @returns {IGenericLayoutEntity}
  */
-export const defaultLayoutReducer = (state: ILayoutEntity = INITIAL_LAYOUT_ENTITY,
-                                     action: AnyAction): ILayoutEntity => {
+export const defaultLayoutReducer = (state: IGenericLayoutEntity = INITIAL_LAYOUT_ENTITY,
+                                     action: AnyAction): IGenericLayoutEntity => {
   switch (action.type) {
     case LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE:
       const expandedGroupPayloadWrapper: IPayloadWrapper<StringNumberT> = action.data;

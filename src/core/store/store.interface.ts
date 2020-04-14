@@ -13,9 +13,9 @@ import { makeEntityReducer } from '../store/store.support';
 import {
   IAsyncLibsEntity,
   IDictionariesEntity,
-  ILayoutEntity,
+  IGenericLayoutEntity,
   IGenericNotificationEntity,
-  IStackEntity,
+  IGenericStackEntity,
 } from '../definition';
 import { $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
 import { asyncLibReducer } from '../async-lib';
