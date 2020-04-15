@@ -111,8 +111,13 @@ export class ListActionBuilder {
     return `${toActionPrefix(section)}.${LIST_LAZY_LOAD_DONE_ACTION_TYPE}`;
   }
 
+  /**
+   * @stable [15.04.2020]
+   * @param {string} section
+   * @returns {string}
+   */
   public static buildUnTouchActionType(section: string): string {
-    return `${section}.${LIST_UN_TOUCH_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${LIST_UN_TOUCH_ACTION_TYPE}`;
   }
 
   /**
@@ -220,6 +225,16 @@ export class ListActionBuilder {
    */
   public static buildCreateAction(section: string): IEffectsAction {
     const plainAction = this.buildCreatePlainAction(section);
+    return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
+   * @stable [15.04.2020]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildUnTouchAction(section: string): IEffectsAction {
+    const plainAction = this.buildUnTouchPlainAction(section);
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
@@ -400,5 +415,14 @@ export class ListActionBuilder {
    */
   public static buildCreatePlainAction(section: string): IEffectsAction {
     return {type: this.buildCreateActionType(section), data: applySection(section)};
+  }
+
+  /**
+   * @stable [15.04.2020]
+   * @param {string} section
+   * @returns {IEffectsAction}
+   */
+  public static buildUnTouchPlainAction(section: string): IEffectsAction {
+    return {type: this.buildUnTouchActionType(section), data: applySection(section)};
   }
 }
