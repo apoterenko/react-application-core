@@ -62,12 +62,30 @@ $rac-primary-offset-6: 32px !default;
 $rac-primary-offset-7: 40px !default;
 
 /************************/
+/* @stable [14.04.2020] */
+/************************/
+$rac-primary-size-0: 4px !default;
+$rac-primary-size-1: 8px !default;
+$rac-primary-size-2: 12px !default;
+$rac-primary-size-3: 16px !default;
+$rac-primary-size-4: 20px !default;
+$rac-primary-size-5: 24px !default;
+$rac-primary-size-6: 28px !default;
+$rac-primary-size-7: 32px !default;
+$rac-primary-size-8: 36px !default;
+$rac-primary-size-9: 40px !default;
+$rac-primary-size-10: 44px !default;
+$rac-primary-size-11: 48px !default;
+$rac-primary-size-12: 52px !default;
+$rac-primary-size-13: 56px !default;
+
+/************************/
 /* @stable [26.03.2020] */
 /************************/
-$rac-primary-icon-size-0: 8px !default;
-$rac-primary-icon-size-1: 12px !default;
-$rac-primary-icon-size-2: 16px !default;
-$rac-primary-icon-size-3: 20px !default;
+$rac-primary-icon-size-0: $rac-primary-size-1 !default;
+$rac-primary-icon-size-1: $rac-primary-size-2 !default;
+$rac-primary-icon-size-2: $rac-primary-size-3 !default;
+$rac-primary-icon-size-3: $rac-primary-size-4 !default;
 
 /************************/
 /* @stable [18.03.2020] */

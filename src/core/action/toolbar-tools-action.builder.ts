@@ -2,7 +2,7 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import { ACTION_PREFIX } from '../definitions.interface';
+import { toActionPrefix } from '../util';
 import {
   TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE,
   TOOLBAR_TOOLS_FILTER_ACTION_TYPE,
@@ -17,7 +17,7 @@ export class ToolbarToolsActionBuilder {
    * @returns {string}
    */
   public static buildDownloadFileActionType(section: string): string {
-    return `${ACTION_PREFIX}${section}.${TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${TOOLBAR_TOOLS_DOWNLOAD_FILE_ACTION_TYPE}`;
   }
 
   /**
@@ -26,7 +26,7 @@ export class ToolbarToolsActionBuilder {
    * @returns {string}
    */
   public static buildRefreshActionType(section: string): string {
-    return `${ACTION_PREFIX}${section}.${TOOLBAR_TOOLS_REFRESH_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${TOOLBAR_TOOLS_REFRESH_ACTION_TYPE}`;
   }
 
   /**
@@ -35,7 +35,7 @@ export class ToolbarToolsActionBuilder {
    * @returns {string}
    */
   public static buildFilterActionType(section: string): string {
-    return `${ACTION_PREFIX}${section}.${TOOLBAR_TOOLS_FILTER_ACTION_TYPE}`;
+    return `${toActionPrefix(section)}.${TOOLBAR_TOOLS_FILTER_ACTION_TYPE}`;
   }
 
   /**

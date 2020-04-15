@@ -142,6 +142,8 @@ import {
 export class UIMaterialFactory implements IUIFactory {
 
   public static ICONS_MAP = {
+    [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
+    [IconsEnum.PRINT]: faPrint,
     [IconsEnum.SEARCH_MINUS]: faSearchMinus,
     [IconsEnum.SEARCH_PLUS]: faSearchPlus,
     [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
@@ -218,7 +220,6 @@ export class UIMaterialFactory implements IUIFactory {
     navigate_before: faChevronLeft,
     navigate_next: faChevronRight,
     payment: faCreditCard,
-    people_carry: faPeopleCarry,
     percent: faPercent,
     phone: faPhone,
     play_circle_regular: faPlayCircleRegular,
@@ -226,7 +227,6 @@ export class UIMaterialFactory implements IUIFactory {
     plug: faPlug,
     plus: faPlus,
     power_off: faPowerOff,
-    print: faPrint,
     priority_high: faExclamation,
     product: faCannabis,
     question: faQuestion,

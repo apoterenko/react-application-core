@@ -96,4 +96,5 @@ export enum ComponentClassesEnum {
   RAC = 'rac',
   RELATIVE = 'rac-relative',
   SAFARI = 'rac-safari',
+  STRONG = 'rac-strong',
 }

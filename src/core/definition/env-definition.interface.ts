@@ -7,6 +7,7 @@ import {
  * @stable [28.08.2019]
  */
 export enum EnvironmentGlobalVariablesEnum {
+  API = '$$api',
   DATE_CONVERTER = '$$dateConverter',
   ENVIRONMENT = '$$env',
   TRANSPORT = '$$transport',

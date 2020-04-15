@@ -9,6 +9,7 @@ import {
   IFieldChangeEntity,
   IFormContainerProps,
 } from '../../definition';
+import { ifNotNilThanValue } from '../../util';
 
 export class FormContainer extends GenericContainer<IFormContainerProps> {
 
@@ -19,6 +20,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   constructor(props: IFormContainerProps) {
     super(props);
 
+    this.onBeforeSubmit = this.onBeforeSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
     this.onLoadDictionary = this.onLoadDictionary.bind(this);
@@ -40,7 +42,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
         originalEntity={props.originalEntity}
         onChange={this.onChange}
         onSubmit={this.onSubmit}
-        onBeforeSubmit={props.onBeforeSubmit}
+        onBeforeSubmit={this.onBeforeSubmit}
         onReset={this.onReset}
         onValid={this.onValid}
         onEmptyDictionary={this.onEmptyDictionary}
@@ -78,11 +80,18 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [02.04.2019]
+   * @stable [15.04.2020]
    * @param {IApiEntity} apiEntity
    */
   private onSubmit(apiEntity: IApiEntity): void {
     this.formStoreProxy.dispatchFormSubmit(apiEntity);
+  }
+
+  /**
+   * @stable [15.04.2020]
+   */
+  private onBeforeSubmit(apiEntity: IApiEntity): boolean {
+    return ifNotNilThanValue(this.props.onBeforeSubmit, (onBeforeSubmit) => onBeforeSubmit(apiEntity));
   }
 
   private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {
