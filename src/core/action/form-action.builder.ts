@@ -191,8 +191,8 @@ export class FormActionBuilder {
    * @param {string} section
    * @returns {IEffectsAction}
    */
-  public static buildSubmitFinishedAction(section: string): IEffectsAction {
-    const plainAction = this.buildSubmitFinishedPlainAction(section);
+  public static buildSubmitFinishAction(section: string): IEffectsAction {
+    const plainAction = this.buildSubmitFinishPlainAction(section);
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
@@ -345,7 +345,7 @@ export class FormActionBuilder {
    * @param {string} section
    * @returns {IEffectsAction}
    */
-  public static buildSubmitFinishedPlainAction(section: string): IEffectsAction {
+  public static buildSubmitFinishPlainAction(section: string): IEffectsAction {
     return {type: this.buildSubmitFinishActionType(section), data: applySection(section)};
   }
 

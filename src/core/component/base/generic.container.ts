@@ -16,6 +16,7 @@ import {
   IStoreProxy,
   ITabPanelStoreProxy,
   IUserActivityManager,
+  IUserEntity,
 } from '../../definition';
 import {
   getDialogFormChangesConfirmStoreProxyFactory,
@@ -48,6 +49,14 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   private $storeProxy: IStoreProxy;
   private $tabPanelStoreProxy: ITabPanelStoreProxy;
   private $userActivityManager: IUserActivityManager;
+
+  /**
+   * @stable [16.04.2020]
+   * @returns {TUser}
+   */
+  protected getUser<TUser extends IUserEntity>(): TUser {
+    return this.props.user as TUser;
+  }
 
   /**
    * @stable [27.11.2019]
