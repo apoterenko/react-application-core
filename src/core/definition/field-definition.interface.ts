@@ -273,3 +273,12 @@ export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>
   expandActionRendered: false,
   preventFocus: false,
 });
+
+/**
+ * @default-entity
+ * @stable [16.04.2020]
+ */
+export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEntity>({
+  readOnly: true,
+  changeable: false,
+});
