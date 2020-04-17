@@ -32,6 +32,13 @@ export const isFn = (value: AnyT): boolean => typeof value === 'function';
 export const isNumber = (value: AnyT): boolean => typeof value === 'number';
 
 /**
+ * @stable [17.04.2020]
+ * @param {AnyT} value
+ * @returns {boolean}
+ */
+export const isNotNumber = (value: AnyT): boolean => !isNumber(value);
+
+/**
  * @stable [06.12.2019]
  * @param {AnyT} value
  * @returns {boolean}

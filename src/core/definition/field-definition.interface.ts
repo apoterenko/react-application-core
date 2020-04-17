@@ -49,6 +49,7 @@ import {
   ITitleWrapper,
   ITypeWrapper,
   IUseKeyboardWrapper,
+  IValidWrapper,
   IValueWrapper,
   IVisibleWrapper,
   StringNumberT,
@@ -111,6 +112,7 @@ export interface IGenericBaseFieldEntity
     ITabIndexWrapper,
     ITypeWrapper<StringNumberT>,
     IUseKeyboardWrapper,
+    IValidWrapper,                                                            /* @stable [17.04.2020] */
     IValueWrapper,
     IVisibleWrapper {
 }

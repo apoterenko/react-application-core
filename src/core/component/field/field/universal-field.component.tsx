@@ -30,6 +30,7 @@ import {
   isReadOnly,
   isRequired,
   isSyntheticCursorUsed,
+  isValid,
   isValuePresent,
   isVisible,
   notNilValuesFilter,
@@ -303,7 +304,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {boolean}
    */
   protected isFieldInvalid(): boolean {
-    return !R.isNil(this.error);
+    return !isValid(this.props) || !R.isNil(this.error);
   }
 
   /**

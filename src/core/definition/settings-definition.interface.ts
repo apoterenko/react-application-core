@@ -8,9 +8,10 @@ import { ITitleProps } from './title-definition.interface';
  * @stable [09.10.2019]
  */
 export enum RegexpEnum {
-  PRICE = '\\d+(\\.\\d{1,2})?',
-  NUMBER = '[-+]?[0-9]*[.,]?[0-9]+',
   DIGITAL = '[0-9]+',
+  NUMBER = '[-+]?[0-9]*[.,]?[0-9]+',
+  POSITIVE_NEGATIVE_PRICE = '[-+]?\\d+(\\.\\d{1,2})?',
+  PRICE = '\\d+(\\.\\d{1,2})?',
 }
 
 /**
