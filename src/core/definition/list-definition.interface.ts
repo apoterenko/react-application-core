@@ -193,10 +193,11 @@ export interface IListEntity<TEntity = IEntity,
 
 /**
  * @wrapper-entity
- * @stable [19.10.2019]
+ * @stable [17.04.2020]
  */
-export interface IListWrapperEntity<TEntity = IEntity>
-  extends IListWrapper<IGenericListEntity<TEntity>> {
+export interface IListWrapperEntity<TEntity = IEntity,
+  TRawData = AnyT>
+  extends IListWrapper<IGenericListEntity<TEntity, TRawData>> {
 }
 
 /**

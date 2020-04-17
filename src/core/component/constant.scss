@@ -66,6 +66,7 @@ $rac-color-0-8: rgba(255, 255, 255, .7) !default;
 $rac-color-0-9: rgba(255, 255, 255, .1) !default;
 $rac-color-0-10: rgba(0, 0, 0, .5) !default;
 $rac-color-0-11: rgba(255, 255, 255, .2) !default;
+$rac-color-0-12: rgba(18, 19, 15, .3) !default;
 /**/
 $rac-color-1-0: #212121 !default;
 $rac-color-1-1: #d8ddde !default;
@@ -651,6 +652,7 @@ $rac-self-field-input-font-size: $rac-font-size-0 !default;
 $rac-self-field-input-font-weight: $rac-font-weight-1 !default;
 $rac-self-field-input-line-height: normal !default;
 $rac-self-field-input-padding: 0 $rac-offset-3 !default;
+$rac-self-field-input-placeholder-color: $rac-color-0-12 !default;
 $rac-self-field-input-wrapper-display: flex !default;
 $rac-self-field-label-color: unset !default;                                                              /* @stable [16.02.2020]*/
 $rac-self-field-label-font-size: $rac-font-size-0 !default;                                               /* @stable [17.02.2020]*/
@@ -1000,7 +1002,7 @@ $rac-form-layout-self-field-border: 0 !default;
 $rac-form-layout-self-field-focused-background: $rac-color-0-1 !default;
 $rac-form-layout-self-field-focused-icon-color: $rac-color-0-4 !default;
 $rac-form-layout-self-field-focused-input-color: $rac-color-1-3 !default;
-$rac-form-layout-self-field-focused-input-placeholder-color: $rac-color-0-4 !default;
+$rac-form-layout-self-field-focused-input-placeholder-color: $rac-color-0-12 !default;
 $rac-form-layout-self-field-height: unset !default;
 $rac-form-layout-self-field-icon-color: $rac-color-0-5 !default;
 $rac-form-layout-self-field-icon-padding: unset !default;
