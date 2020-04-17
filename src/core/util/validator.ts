@@ -61,16 +61,17 @@ export const ValidationRules = {
 };
 
 /**
- * @stable [06.12.2019]
- * @param {Record<string, ValidatorRuleEnum[]>} payloads
- * @param {IKeyValue} checkedObject
+ * @stable [17.04.2020]
+ * @param {{[K in keyof TEntity]?: ValidatorRuleEnum[]}} payloads
+ * @param {TEntity} checkedObject
  * @returns {IValidationResultEntity}
  */
 export const validate =
-  <TEntity extends IKeyValue = IKeyValue>(payloads: Record<string, ValidatorRuleEnum[]>,
+  <TEntity extends IKeyValue = IKeyValue>(payloads: { [K in keyof TEntity]?: ValidatorRuleEnum[] },
                                           checkedObject: TEntity): IValidationResultEntity => {
-    const data = {};
+    const data = Object.create(null);
     let valid = true;
+
     R.forEachObjIndexed((rules, fieldName) => {
       const res = {};
       rules.forEach((ruleId) => valid = valid && (res[ruleId] = ValidationRules[ruleId](checkedObject[fieldName])));
