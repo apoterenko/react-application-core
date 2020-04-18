@@ -163,7 +163,7 @@ export interface ICardConfiguration extends IComponentProps,
  * @stable [04.05.2018]
  */
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
-                                                      IOnEmptyDictionaryWrapper<(dictionary?: string, payload?: IApiEntity) => void>,
+                                                      IOnEmptyDictionaryWrapper<string, IApiEntity>,
                                                       IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void> {
 }
 

@@ -7,11 +7,18 @@ import {
 import { isString } from './type';
 
 /**
- * @stable [19.12.2018]
+ * @stable [18.04.2020]
  * @param {AnyT} o
  * @returns {boolean}
  */
 export const isObjectNotEmpty = <TValue>(o: AnyT): boolean => !R.isNil(o) && !R.isEmpty(o);
+
+/**
+ * @stable [18.04.2020]
+ * @param {AnyT} o
+ * @returns {boolean}
+ */
+export const isObjectEmpty = <TValue>(o: AnyT): boolean => !isObjectNotEmpty(o);
 
 /**
  * @stable [18.03.2020]

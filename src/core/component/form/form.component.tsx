@@ -40,9 +40,8 @@ import {
   notNilValuesFilter,
   objectValuesArrayFilter,
   orNull,
+  selectChanges,
   selectError,
-  selectForm,
-  selectFormEditableEntityChanges,
 } from '../../util';
 import {
   AnyT,
@@ -89,7 +88,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
         autoComplete='off'
         onReset={this.onReset}
         onSubmit={this.onSubmit}
-        className={this.formClassName}>
+        className={this.className}>
         {
           isCompact(props)
             ? nodes
@@ -138,30 +137,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     if (isFn(props.onSubmit)) {
       props.onSubmit(this.apiEntity);
     }
-  }
-
-  /**
-   * @stable [30.01.2020]
-   * @returns {IApiEntity}
-   */
-  public get apiEntity(): IApiEntity {
-    const props = this.props;
-    const {entity, originalEntity} = props;
-    return mapApiEntity({changes: selectFormEditableEntityChanges(props), entity, originalEntity});
-  }
-
-  /**
-   * @stable [13.02.2020]
-   * @returns {string}
-   */
-  private get formClassName(): string {
-    const props = this.props;
-
-    return joinClassName(
-      FormClassesEnum.FORM,
-      isFull(props) && FormClassesEnum.FULL_FORM,
-      calc(props.className)
-    );
   }
 
   /**
@@ -445,14 +420,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [03.02.2020]
-   * @returns {IGenericEditableEntity<IEntity>}
-   */
-  private get form(): IGenericEditableEntity<IEntity> {
-    return selectForm(this.props);
-  }
-
-  /**
    * @stable [13.02.2020]
    * @returns {IButtonProps[]}
    */
@@ -488,5 +455,55 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
         onClick: orNull(submitConfiguration.type === 'button', () => this.doSubmit),
       })
     );
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @returns {IApiEntity}
+   */
+  public get apiEntity(): IApiEntity {
+    return mapApiEntity({
+      changes: selectChanges(this.form),
+      entity: this.entity,
+      originalEntity: this.originalEntity,
+    });
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @returns {string}
+   */
+  private get className(): string {
+    const props = this.props;
+
+    return joinClassName(
+      FormClassesEnum.FORM,
+      isFull(props) && FormClassesEnum.FULL_FORM,
+      calc(props.className)
+    );
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @returns {IGenericEditableEntity<IEntity>}
+   */
+  private get form(): IGenericEditableEntity<IEntity> {
+    return this.props.form;
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @returns {IEntity}
+   */
+  private get originalEntity(): IEntity {
+    return this.props.originalEntity;
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @returns {IEntity}
+   */
+  private get entity(): IEntity {
+    return this.props.entity;
   }
 }

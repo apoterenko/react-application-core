@@ -1,7 +1,12 @@
+import { LoggerFactory } from 'ts-smart-logger';
+
+import { isObjectEmpty } from '../../../../util';
 import { FormActionBuilder } from '../../../../action';
 import {
   FieldChangeEntityT,
   IApiEntity,
+  IFieldChangeEntity,
+  IFieldsChangesEntity,
   IFormStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
@@ -13,6 +18,8 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
                             TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements IFormStoreProxy {
+
+  private static readonly formStoreProxyLogger = LoggerFactory.makeLogger('FormStoreProxy');
 
   /**
    * @stable [30.03.2020]
@@ -91,11 +98,22 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [18.04.2020]
    * @param {FieldChangeEntityT} payload
    * @param {string} otherSection
    */
   public dispatchFormChange(payload: FieldChangeEntityT, otherSection?: string): void {
+    const fieldsChangesEntity = payload as IFieldsChangesEntity;
+    if (!Array.isArray(fieldsChangesEntity.fields)) {
+      const fieldChangeEntity = payload as IFieldChangeEntity;
+
+      if (isObjectEmpty(fieldChangeEntity.name)) {
+        FormStoreProxy.formStoreProxyLogger.warn(
+          '[$FormStoreProxy][dispatchFormChange] The field payload is empty:', payload
+        );
+        return;
+      }
+    }
     this.dispatchPlainAction(FormActionBuilder.buildChangePlainAction(this.asSection(otherSection), payload));
   }
 }

@@ -337,39 +337,39 @@ export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void; }
-export interface IOnBeforeSubmitWrapper<TPayload, TResult = void> { onBeforeSubmit?(payload?: TPayload): TResult; }
-export interface IOnChangePlaceWrapper<TValue = {}> { onChangePlace?(payload?: TValue): void; }
-export interface IOnChangeWrapper<TValue = AnyT> { onChange?(payload?: TValue): void; }
+export interface IOnBeforeSubmitWrapper<TValue = {}, TResult = void> { onBeforeSubmit?(value?: TValue): TResult; }
+export interface IOnChangePlaceWrapper<TValue = {}> { onChangePlace?(value?: TValue): void; }
+export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
-export interface IOnClickPlaceWrapper<TValue = {}> { onClickPlace?(payload?: TValue): void; }
+export interface IOnClickPlaceWrapper<TValue = {}> { onClickPlace?(value?: TValue): void; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
-export interface IOnCreateWrapper<TValue = {}> { onCreate?(payload?: TValue): void; }
-export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(payload?: TValue): void; }
+export interface IOnCreateWrapper<TValue = {}> { onCreate?(value?: TValue): void; }
+export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
 export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
-export interface IOnDrawerHeaderClickWrapper<TValue = {}> { onDrawerHeaderClick?(payload?: TValue): void; }
-export interface IOnEmptyDictionaryWrapper<TValue> { onEmptyDictionary?: TValue; }
+export interface IOnDrawerHeaderClickWrapper<TValue = {}> { onDrawerHeaderClick?(value?: TValue): void; }
+export interface IOnEmptyDictionaryWrapper<TValue1, TValue2> { onEmptyDictionary?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
-export interface IOnInitWrapper<TValue = {}> { onInit?(payload?: TValue): void; }
+export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
 export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
 export interface IOnResetWrapper { onReset?(): void; }
-export interface IOnScrollWrapper<TValue = {}> { onScroll?(payload?: TValue): void; }
-export interface IOnSelectWrapper<TValue = {}> { onSelect?(payload?: TValue): void; }
-export interface IOnSortingDirectionChangeWrapper<TPayload> { onSortingDirectionChange?(payload: TPayload): void; }
-export interface IOnSubmitWrapper<TPayload = {}> { onSubmit?(payload?: TPayload): void; }
-export interface IOnValidWrapper<TPayload = boolean> { onValid?(payload?: TPayload): void; }
+export interface IOnScrollWrapper<TValue = {}> { onScroll?(value?: TValue): void; }
+export interface IOnSelectWrapper<TValue = {}> { onSelect?(value?: TValue): void; }
+export interface IOnSortingDirectionChangeWrapper<TValue> { onSortingDirectionChange?(payload: TValue): void; }
+export interface IOnSubmitWrapper<TValue = {}> { onSubmit?(value?: TValue): void; }
+export interface IOnValidWrapper<TValue = boolean> { onValid?(value?: TValue): void; }
 export interface IOpenedWrapper<TValue = boolean> { opened?: TValue; }
-export interface IOpenMenuWrapper<TPayload> { openMenu?(payload?: TPayload): void; }
+export interface IOpenMenuWrapper<TValue> { openMenu?(value?: TValue): void; }
 export interface IOperationIdWrapper { operationId?: string; }
 export interface IOperationWrapper<TValue = IIdWrapper<string>> { operation?: TValue; }
 export interface IOptionsWrapper<TValue> { options?: TValue; }

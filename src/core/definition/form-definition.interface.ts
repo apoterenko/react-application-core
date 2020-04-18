@@ -34,20 +34,19 @@ import {
   IValidWrapper,
 } from '../definitions.interface';
 import {
-  IGenericEditableEntity,
+  IBaseExtendedEntity,
   IExtendedEntity,
+  IGenericEditableEntity,
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
-import { IFieldChangeEntity } from './field-definition.interface';
+import { FieldChangeEntityT } from './field-definition.interface';
 import {
   IButtonConfigurationEntity,
   IButtonProps,
   IGenericButtonEntity,
 } from './button-definition.interface';
-import {
-  IContainerProps,
-} from './props-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
  * @generic-entity
@@ -86,33 +85,34 @@ export interface IFormEditableEntity<TEntity = IEntity>
 
 /**
  * @entity
+ * @stable [18.04.2020]
+ */
+export interface IBaseExtendedFormEditableEntity<TEntity = IEntity>
+  extends IFormEditableEntity<TEntity>,
+    IBaseExtendedEntity<TEntity> {
+}
+
+/**
+ * @entity
  * @stable [26.03.2020]
  */
 export interface IExtendedFormEditableEntity<TEntity = IEntity>
-  extends IFormEditableEntity<TEntity>,
+  extends IBaseExtendedFormEditableEntity<TEntity>,
     IExtendedEntity<TEntity> {
 }
 
 /**
- * @stable [25.09.2019]
+ * @behavioral-entity
+ * @stable [18.04.2020]
  */
 export interface IBehavioralFormEntity<TEntity extends IEntity = IEntity>
-  extends IExtendedFormEditableEntity<TEntity>,
-    IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
-    IOnChangeWrapper<IFieldChangeEntity>,
-    IOnEmptyDictionaryWrapper<(dictionary?: string, payload?: IApiEntity) => void>,
+  extends IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
+    IOnChangeWrapper<FieldChangeEntityT>,
+    IOnEmptyDictionaryWrapper<string, IApiEntity<TEntity>>,
     IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void>,
     IOnResetWrapper,
     IOnSubmitWrapper<IApiEntity<TEntity>>,
     IOnValidWrapper {
-}
-
-/**
- * @stable [27.09.2019]
- */
-export interface IFormExtraButtonEntity
-  extends IGenericButtonEntity,
-    IOnClickWrapper<IApiEntity> {
 }
 
 /**
@@ -122,6 +122,7 @@ export interface IFormExtraButtonEntity
 export interface IFormProps<TEntity = IEntity>
   extends IGenericComponentProps,
     IGenericFormEntity,
+    IExtendedFormEditableEntity<TEntity>,
     IBehavioralFormEntity<TEntity> {
 }
 
@@ -134,13 +135,29 @@ export interface IFormConfigurationEntity<TProps extends IFormProps = IFormProps
 }
 
 /**
- * TODO
- * @deprecated Use IExtendedFormEditableEntity
+ * @generic-container-entity
+ * @stable [17.04.2020]
  */
-export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}, TPermissions = {}>
-  extends IContainerProps<TDictionaries, TPermissions>,
-    IBehavioralFormEntity<TEntity>,
+export interface IGenericFormContainerEntity<TEntity = IEntity>
+  extends IExtendedFormEditableEntity<TEntity>,
     IFormConfigurationEntity {
+}
+
+/**
+ * @props
+ * @stable [17.04.2020]
+ */
+export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}>
+  extends IGenericContainerProps<TDictionaries>,
+    IGenericFormContainerEntity<TEntity> {
+}
+
+/**
+ * @stable [27.09.2019]
+ */
+export interface IFormExtraButtonEntity
+  extends IGenericButtonEntity,
+    IOnClickWrapper<IApiEntity> {
 }
 
 /**
@@ -150,6 +167,15 @@ export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}, TPer
 export interface IFormValidEntity
   extends IValidWrapper {
 }
+
+/**
+ * @default-entity
+ * @stable [18.04.2020]
+ */
+export const DEFAULT_COMPACT_FORM_ENTITY = Object.freeze<IGenericFormEntity>({
+  actionsRendered: false,
+  compact: true,
+});
 
 /**
  * @default-entity

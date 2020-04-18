@@ -4,13 +4,17 @@ import * as R from 'ramda';
 import { defValuesFilter } from './filter';
 import {
   IApiEntity,
+  IBaseExtendedEntity,
+  IBaseExtendedFormEditableEntity,
   IChannelWrapperEntity,
   IDictionariesEntity,
   IDictionariesWrapperEntity,
   IDictionaryEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
+  IFormContainerProps,
   IFormEditableEntity,
+  IFormProps,
   IFormTabPanelContainerProps,
   IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
@@ -104,6 +108,7 @@ import {
   selectDefaultChanges,
   selectDictionaries,
   selectEditableEntityToolbarToolsActiveFilter,
+  selectEntity,
   selectEntityId,
   selectFilter,
   selectForm,
@@ -111,6 +116,7 @@ import {
   selectList,
   selectListSelectedEntity,
   selectNotification,
+  selectOriginalEntity,
   selectQueue,
   selectSectionName,
   selectStack,
@@ -550,23 +556,51 @@ export const mapActiveValueWrapper = <TValue>(wrapper: IActiveValueWrapper<TValu
   mapActiveValue(selectActiveValue(wrapper));
 
 /**
- * @stable [21.12.2019]
- * @param {TEntity} entity
- * @param {IGenericEditableEntity} editableEntity
- * @returns {IExtendedEntity<TEntity extends IEntity>}
+ * @stable [18.04.2020]
+ * @param {IBaseExtendedEntity<TEntity>} extendedEntity
+ * @returns {IBaseExtendedEntity<TEntity>}
+ */
+export const mapBaseExtendedEntity =
+  <TEntity = IEntity>(extendedEntity: IBaseExtendedEntity<TEntity>): IBaseExtendedEntity<TEntity> =>
+    defValuesFilter<IBaseExtendedEntity<TEntity>, IBaseExtendedEntity<TEntity>>({
+      entity: selectEntity(extendedEntity),
+      originalEntity: selectOriginalEntity(extendedEntity),
+    });
+
+/**
+ * @stable [17.04.2020]
+ * @param {IExtendedEntity<TEntity>} extendedEntity
+ * @returns {IExtendedEntity<TEntity>}
  */
 export const mapExtendedEntity =
+  <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IExtendedEntity<TEntity> =>
+    defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
+      ...mapBaseExtendedEntity(extendedEntity),
+      changes: selectChanges(extendedEntity),
+      entityId: extendedEntity.entityId,
+      newEntity: extendedEntity.newEntity,
+    });
+
+/**
+ * @stable [17.04.2020]
+ * @param {TEntity} entity
+ * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
+ * @returns {IExtendedEntity<TEntity extends IEntity>}
+ */
+export const mapEnhancedExtendedEntity =
   <TEntity extends IEntity = IEntity>(entity: TEntity,
                                       editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> => {
     let originalEntity;
     const newEntity = isNewEntity(entity);
+    const changes = selectChanges<TEntity>(editableEntity) || {} as TEntity;
     const defaultChanges = selectDefaultChanges<TEntity>(editableEntity);
+
     ifNotNilThanValue(
       nvl(defaultChanges, entity),
       () => (originalEntity = {...defaultChanges as {}, ...entity as {}} as TEntity)
     );
-    const changes = selectChanges<TEntity>(editableEntity) || {} as TEntity;
-    return defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
+
+    return mapExtendedEntity({
       changes,
       entity: {...originalEntity as {}, ...changes as {}} as TEntity,
       entityId: orUndef(!newEntity, () => entity.id),
@@ -582,7 +616,7 @@ export const mapExtendedEntity =
  */
 export const mapNewExtendedEntity =
   <TEntity extends IEntity = IEntity>(editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
-    mapExtendedEntity(null, editableEntity);
+    mapEnhancedExtendedEntity(null, editableEntity);
 
 /**
  * @stable [26.03.2020]
@@ -595,7 +629,7 @@ export const mapExtendedFormEditableEntity =
                                       editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     ({
       ...mapForm(editableEntity),
-      ...mapExtendedEntity(entity, editableEntity),
+      ...mapEnhancedExtendedEntity(entity, editableEntity),
     });
 
 /**
@@ -628,8 +662,10 @@ export const mapApiEntity =
       entity,
       originalEntity,
     } = extendedEntity;
+
     const entityId = selectEntityId(entity);
     const newEntity = R.isNil(entityId);
+
     return defValuesFilter<IApiEntity<TEntity>, IApiEntity<TEntity>>({
       changes,
       diff: newEntity ? entity : changes,
@@ -649,7 +685,7 @@ export const mapApiEntity =
 export const mapListSelectedExtendedEntity =
   <TEntity extends IEntity>(listWrapper: IListWrapperEntity<TEntity>,
                             editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
-    mapExtendedEntity<TEntity>(
+    mapEnhancedExtendedEntity<TEntity>(
       selectListSelectedEntity(listWrapper),
       editableEntity
     );
@@ -855,6 +891,33 @@ export const mapStoreEntity =
       ...mapTransportWrapperEntity(entity),
       ...mapUserWrapperEntity(entity),
     });
+
+/**
+ * @component-props-mapper
+ * @stable [18.04.2020]
+ *
+ * @param {IBaseExtendedFormEditableEntity<TEntity>} props The props are defined according to "Liskov substitution principle"
+ * @returns {IBaseExtendedFormEditableEntity<TEntity>}
+ */
+export const mapFormProps =
+  <TEntity = IEntity>(props: IBaseExtendedFormEditableEntity<TEntity>): IBaseExtendedFormEditableEntity<TEntity> =>
+    ({
+      ...mapFormEditableEntity(props),
+      ...mapBaseExtendedEntity(props),
+    });
+
+/**
+ * @container-props-mapper
+ * @stable [18.04.2020]
+ *
+ * @param {IFormContainerProps} props
+ * @returns {IFormContainerProps}
+ */
+export const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps =>
+  ({
+    ...mapSectionNameWrapper(props),
+    ...mapFormProps(props),
+  });
 
 /**
  * @container-props-mapper

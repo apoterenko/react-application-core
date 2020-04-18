@@ -1,9 +1,9 @@
-import { mapExtendedEntity } from './mapper';
+import { mapEnhancedExtendedEntity } from './mapper';
 
 describe('util/mapper', () => {
-  describe('mapExtendedEntity', () => {
+  describe('mapEnhancedExtendedEntity', () => {
     it('test1', () => {
-      const extendedEntity = mapExtendedEntity({name: 'name1', id: 100}, {changes: {name: 'name2'}});
+      const extendedEntity = mapEnhancedExtendedEntity({name: 'name1', id: 100}, {changes: {name: 'name2'}});
 
       expect(extendedEntity).toEqual({
         changes: {name: 'name2'},
@@ -15,7 +15,7 @@ describe('util/mapper', () => {
     });
 
     it('test2', () => {
-      const extendedEntity = mapExtendedEntity({name: 'name1'}, {changes: {name: 'name2'}});
+      const extendedEntity = mapEnhancedExtendedEntity({name: 'name1'}, {changes: {name: 'name2'}});
 
       expect(extendedEntity).toEqual({
         changes: {name: 'name2'},

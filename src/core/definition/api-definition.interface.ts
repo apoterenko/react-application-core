@@ -2,7 +2,6 @@ import {
   IAddApiWrapper,
   IAlwaysSendChangesWrapper,
   IApiEntityWrapper,
-  IChangesWrapper,
   IDiffWrapper,
   IEditApiWrapper,
   IEntity,
@@ -18,18 +17,19 @@ import {
 } from './place-definition.interface';
 
 /**
- * @stable [10.01.2020]
+ * @entity
+ * @stable [18.04.2020]
  */
-export interface IApiEntity<TEntity extends IEntity = IEntity>
-  extends IChangesWrapper<TEntity>,
-    IDiffWrapper<TEntity>,
+export interface IApiEntity<TEntity = IEntity>
+  extends IDiffWrapper<TEntity>,
     IExtendedEntity<TEntity> {
 }
 
 /**
- * @stable [27.09.2019]
+ * @wrapper-entity
+ * @stable [18.04.2020]
  */
-export interface IApiWrapperEntity<TEntity extends IEntity = IEntity>
+export interface IApiWrapperEntity<TEntity = IEntity>
   extends IApiEntityWrapper<IApiEntity<TEntity>> {
 }
 
@@ -46,7 +46,7 @@ export interface IUpdateEntityPayloadEntity<TEntity extends IEntity>
 }
 
 /**
- * @stable [09.01.2020]
+ * TODO Move to place definition
  */
 export interface IPlaceApi {
   getPlaceGeoCode<TResult>(request: IPlaceGeoCodeRequestEntity): TResult;

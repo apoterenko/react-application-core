@@ -21,6 +21,7 @@ import {
   ILayoutWrapper,
   IListWrapper,
   INotificationWrapper,
+  IOriginalEntityWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
   IQueueWrapper,
@@ -150,6 +151,14 @@ export const selectDiff = <TResult = IEntity>(entity: IDiffWrapper<TResult>): TR
  */
 export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>): TResult =>
   R.isNil(entity) ? UNDEF : entity.entity;
+
+/**
+ * @stable [18.04.2020]
+ * @param {IOriginalEntityWrapper<TResult>} entity
+ * @returns {TResult}
+ */
+export const selectOriginalEntity = <TResult = IEntity>(entity: IOriginalEntityWrapper<TResult>): TResult =>
+  R.isNil(entity) ? UNDEF : entity.originalEntity;
 
 /**
  * @stable [05.03.2020]

@@ -4,8 +4,14 @@ import * as R from 'ramda';
 import { Dialog } from '../dialog.component';
 import { FilterFormDialogActionBuilder } from '../../../action';
 import { FormContainer } from '../../form';
-import { IFilterFormDialogContainerProps } from '../../../definition';
-import { isTouched } from '../../../util';
+import {
+  DEFAULT_COMPACT_FORM_ENTITY,
+  IFilterFormDialogContainerProps,
+} from '../../../definition';
+import {
+  isTouched,
+  mapFormContainerProps,
+} from '../../../util';
 import { UniversalContainer } from '../../base/universal.container';
 
 export class FilterFormDialogContainer
@@ -46,14 +52,14 @@ export class FilterFormDialogContainer
         acceptText={APPLY}
         acceptDisabled={!this.haveFilterChanges}
         onAccept={this.onAcceptFilter}
-        onClose={this.onClearFilter}>
+        onClose={this.onClearFilter}
+      >
         <FormContainer
-          formConfiguration={{
-            actionsRendered: false,
-            compact: true,
-          }}
-          {...props}
-        />
+          formConfiguration={DEFAULT_COMPACT_FORM_ENTITY}
+          {...mapFormContainerProps(props)}
+        >
+          {props.children}
+        </FormContainer>
       </Dialog>
     );
   }

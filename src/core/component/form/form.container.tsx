@@ -5,11 +5,15 @@ import { AnyT } from '../../definitions.interface';
 import { GenericContainer } from '../base';
 import { Form } from '../form';
 import {
+  FieldChangeEntityT,
   IApiEntity,
-  IFieldChangeEntity,
   IFormContainerProps,
+  IFormProps,
 } from '../../definition';
-import { ifNotNilThanValue } from '../../util';
+import {
+  ifNotNilThanValue,
+  mapFormProps,
+} from '../../util';
 
 export class FormContainer extends GenericContainer<IFormContainerProps> {
 
@@ -20,7 +24,6 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   constructor(props: IFormContainerProps) {
     super(props);
 
-    this.onBeforeSubmit = this.onBeforeSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onEmptyDictionary = this.onEmptyDictionary.bind(this);
     this.onLoadDictionary = this.onLoadDictionary.bind(this);
@@ -30,24 +33,21 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [18.04.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
     return (
       <Form
-        form={props.form}
-        entity={props.entity}
-        originalEntity={props.originalEntity}
+        {...mapFormProps(props)}
+        {...this.formConfiguration}
         onChange={this.onChange}
         onSubmit={this.onSubmit}
-        onBeforeSubmit={this.onBeforeSubmit}
         onReset={this.onReset}
         onValid={this.onValid}
         onEmptyDictionary={this.onEmptyDictionary}
         onLoadDictionary={this.onLoadDictionary}
-        {...props.formConfiguration}
       >
         {props.children}
       </Form>
@@ -55,28 +55,29 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [17.02.2019]
-   * @param {IFieldChangeEntity} payload
+   * @stable [18.04.2020]
+   * @param {FieldChangeEntityT} payload
    */
-  private onChange(payload: IFieldChangeEntity): void {
-    if (payload.name) {
-      this.formStoreProxy.dispatchFormChange(payload);
-    }
+  private onChange(payload: FieldChangeEntityT): void {
+    this.formStoreProxy.dispatchFormChange(payload);
+    ifNotNilThanValue(this.formConfiguration.onChange, (onChange) => onChange(payload));
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [18.04.2020]
    * @param {boolean} valid
    */
   private onValid(valid: boolean): void {
     this.formStoreProxy.dispatchFormValid(valid);
+    ifNotNilThanValue(this.formConfiguration.onValid, (onValid) => onValid(valid));
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [18.04.2020]
    */
   private onReset(): void {
     this.formStoreProxy.dispatchFormReset();
+    ifNotNilThanValue(this.formConfiguration.onReset, (onReset) => onReset());
   }
 
   /**
@@ -85,13 +86,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
    */
   private onSubmit(apiEntity: IApiEntity): void {
     this.formStoreProxy.dispatchFormSubmit(apiEntity);
-  }
-
-  /**
-   * @stable [15.04.2020]
-   */
-  private onBeforeSubmit(apiEntity: IApiEntity): boolean {
-    return ifNotNilThanValue(this.props.onBeforeSubmit, (onBeforeSubmit) => onBeforeSubmit(apiEntity));
+    ifNotNilThanValue(this.formConfiguration.onSubmit, (onSubmit) => onSubmit(apiEntity));
   }
 
   private onEmptyDictionary(dictionary: string, apiEntity: IApiEntity): void {
@@ -103,5 +98,13 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
     if (noAvailableItemsToSelect && R.isEmpty(items)) {
       this.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
     }
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @returns {IFormProps}
+   */
+  private get formConfiguration(): IFormProps {
+    return this.props.formConfiguration || {};
   }
 }
