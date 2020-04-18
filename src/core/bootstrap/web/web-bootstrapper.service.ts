@@ -21,13 +21,13 @@ import {
   IDomAccessor,
   IEnvironment,
   IEventManager,
+  IUiFactory,
 } from '../../definition';
 import {
   IBootstrapSettings,
   ISettingsEntity,
 } from '../../settings';
 import { AnyT } from '../../definitions.interface';
-import { IUIFactory } from '../../component/factory/factory.interface';   // TODO Fix import
 
 @injectable()
 export class WebBootstrapper implements IBootstrapper {
@@ -36,7 +36,7 @@ export class WebBootstrapper implements IBootstrapper {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
-  @lazyInject(DI_TYPES.UiFactory) private readonly uiFactory: IUIFactory;
+  @lazyInject(DI_TYPES.UiFactory) private readonly uiFactory: IUiFactory;
 
   private readonly asyncLibraries = new Map<string, IAsyncLibConfigEntity>();
 

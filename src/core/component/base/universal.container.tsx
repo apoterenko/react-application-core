@@ -4,49 +4,30 @@ import { Store } from 'redux';
 import {
   DI_TYPES,
   getAuth,
-  getDateConverter,
-  getDomAccessor,
   getDynamicRoutes,
   getEnvironment,
-  getEventManager,
-  getNumberConverter,
   getPermissionsManager,
-  getPhoneConverter,
-  getSettings,
   getStore,
-  getTranslator,
-  getUiFactory,
   staticInjector,
 } from '../../di';
-import { IKeyValue, AnyT } from '../../definitions.interface';
+import { IKeyValue } from '../../definitions.interface';
 import {
   DynamicRoutesMapT,
   IAuth,
-  IDomAccessor,
   IEnvironment,
-  IEventManager,
-  INavigateEntity,
   IOperationEntity,
   IPermissionsManager,
-  IPhoneConverter,
   IRoutesEntity,
   IUniversalContainer,
   IUniversalContainerProps,
   IUniversalStoreEntity,
-  TranslatorT,
 } from '../../definition';
 import {
   applySection,
   isString,
   toActionPrefix,
-  toType,
 } from '../../util';
-import {
-  IDateConverter,
-  INumberConverter,
-} from '../../converter';
-import { ISettingsEntity } from '../../settings';
-import { IUIFactory } from '../factory/factory.interface';
+import { GenericBaseComponent } from './generic-base.component';
 
 /**
  * TODO
@@ -55,10 +36,8 @@ import { IUIFactory } from '../factory/factory.interface';
 export class UniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps,
                                 TState = {},
                                 TAccessConfig = {}>
-  extends React.PureComponent<TProps, TState>
+  extends GenericBaseComponent<TProps, TState>
   implements IUniversalContainer<TProps, TState> {
-
-  protected readonly selfRef = React.createRef<AnyT>();
 
   /**
    * @stable [27.10.2019]
@@ -119,13 +98,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   }
 
   /**
-   * @deprecated Use proxy
-   */
-  private doNavigate<TPath0, TState0>(action: string, path: TPath0, state?: TState0): void {
-    this.dispatchCustomType(action, toType<INavigateEntity<TPath0, TState0>>({ path, state }));
-  }
-
-  /**
    * @react-native-compatible
    * @stable [07.10.2019]
    * @returns {Store<IUniversalStoreEntity>}
@@ -146,81 +118,10 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   /**
    * @react-native-compatible
    * @stable [07.10.2019]
-   * @returns {TranslatorT}
-   */
-  protected get t(): TranslatorT {
-    return getTranslator();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {IDateConverter}
-   */
-  protected get dc(): IDateConverter {
-    return getDateConverter();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {ISettingsEntity}
-   */
-  protected get settings(): ISettingsEntity {
-    return getSettings();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {INumberConverter}
-   */
-  protected get nc(): INumberConverter {
-    return getNumberConverter();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [19.02.2020]
-   * @returns {IDomAccessor}
-   */
-  protected get domAccessor(): IDomAccessor {
-    return getDomAccessor();
-  }
-
-  /**
-   * @react-native-compatible
-   * @returns {IPhoneConverter}
-   */
-  protected get pc(): IPhoneConverter {
-    return getPhoneConverter();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {IUIFactory}
-   */
-  protected get uiFactory(): IUIFactory {
-    return getUiFactory();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
    * @returns {IEnvironment}
    */
   protected get environment(): IEnvironment {
     return getEnvironment();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {IEventManager}
-   */
-  protected get eventManager(): IEventManager {
-    return getEventManager();
   }
 
   /**

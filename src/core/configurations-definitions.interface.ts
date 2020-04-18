@@ -42,11 +42,9 @@ import {
   IOnSelectWrapper,
   IPrefixLabelWrapper,
   IRippableWrapper,
-  ISimpleWrapper,
   ISorterWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
-  ITouchedWrapper,
   ITypeWrapper,
 } from './definitions.interface';
 import {
@@ -60,9 +58,7 @@ import {
   IComponentProps,
   IGenericBaseFieldEntity,
   IKeyboardConfigurationEntity,
-  IMenuItemEntity,
   IUniversalComponentEntity,
-  IWebComponentEntity,
   ToolbarToolsEnum,
 } from './definition';
 
@@ -185,30 +181,6 @@ export interface IFilterConfiguration extends IActionsDisabledWrapper,
                                               IActionsWrapper<IFilterActionConfiguration[]>,
                                               IFieldConfigurationWrapper<IFieldProps> {
 }
-
-/**
- * @stable [18.05.2018]
- */
-export interface IUniversalUIIconConfiguration extends IDisabledWrapper,
-                                                       ITypeWrapper,
-                                                       ITouchedWrapper,
-                                                       ISimpleWrapper,
-                                                       IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
-                                                       IOnClickWrapper {
-  title?: any;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IUIIconConfiguration extends IUniversalUIIconConfiguration,
-                                              IWebComponentEntity {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export type UniversalUIIconConfigurationT = IUniversalUIIconConfiguration | string;
 
 // TODO
 export interface ISubHeaderConfiguration extends IComponentProps,

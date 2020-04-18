@@ -1,12 +1,11 @@
 import { MDCRipple } from '@material/ripple';
 
 import {
-  appContainer,
+  bindInSingleton,
   bindToConstantValue,
   DI_TYPES,
 } from '../../di';
 import { addClassNameToBody, ifNotFalseThanValue } from '../../util';
-import { IUIFactory } from '../factory';
 import {
   MaterialPlugin,
   SnackbarMaterialPlugin,
@@ -14,11 +13,14 @@ import {
 import { UIMaterialFactory } from './factory';
 import { Card } from '../card';
 import { Snackbar } from '../snackbar';
-import { GenericPluginFactoryT, IComponentCtor } from '../../definition';
+import {
+  GenericPluginFactoryT,
+  IComponentCtor,
+} from '../../definition';
 
 // TODO UI plugins should contain an array (material.module.ts, perfect-scroll.module.ts, etc)
 const uiPlugins = new Map<IComponentCtor, GenericPluginFactoryT>();
-bindToConstantValue(DI_TYPES.UIPlugins, uiPlugins);
+bindToConstantValue(DI_TYPES.UiPlugins, uiPlugins);
 
 /**
  * @stable [15.08.2018]
@@ -34,7 +36,7 @@ uiPlugins.set(Card, (component: Card) =>
 /**
  * @stable [27.05.2018]
  */
-appContainer.bind<IUIFactory>(DI_TYPES.UiFactory).to(UIMaterialFactory).inSingletonScope();
+bindInSingleton(DI_TYPES.UiFactory, UIMaterialFactory);
 
 // TODO
 import '../icon/icon-factory/default/ui-default-icon-factory.module';

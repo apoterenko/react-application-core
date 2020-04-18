@@ -17,7 +17,6 @@ export * from './component/controlled-field';
 export * from './component/dialog';
 export * from './component/dnd';
 export * from './component/drawer';
-export * from './component/factory';
 export * from './component/field';
 export * from './component/filter';
 export * from './component/form';

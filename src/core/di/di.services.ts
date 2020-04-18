@@ -115,7 +115,7 @@ export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UiFactory)
  * @stable [23.10.2019]
  * @returns {Map<IGenericComponentCtor, GenericPluginFactoryT>}
  */
-export const getUiPlugins = (): Map<IGenericComponentCtor, GenericPluginFactoryT> => staticInjector(DI_TYPES.UIPlugins);
+export const getUiPlugins = (): Map<IGenericComponentCtor, GenericPluginFactoryT> => staticInjector(DI_TYPES.UiPlugins);
 
 /**
  * @stable [15.11.2018]

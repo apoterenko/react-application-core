@@ -2,7 +2,6 @@ import * as React from 'react';
 import { injectable } from 'inversify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faAngleDoubleLeft,
   faAngleDoubleRight,
   faAngleLeft,
   faAngleRight,
@@ -34,7 +33,6 @@ import {
   faFileImport,
   faFileInvoiceDollar,
   faGift,
-  faGripHorizontal,
   faHistory,
   faHome,
   faInfo,
@@ -46,7 +44,6 @@ import {
   faMapMarkedAlt,
   faMapMarkerAlt,
   faMinus,
-  faMoneyBill,
   faPaperclip,
   faPeopleCarry,
   faPercent,
@@ -86,7 +83,6 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {
-  faHouzz,
   faCodepen,
   faGratipay,
   faAdversal,
@@ -101,12 +97,9 @@ import {
   faArrowAltCircleRight as faArrowAltCircleRightRegular,
   faArrowAltCircleUp as faArrowAltCircleUpRegular,
   faComments as faCommentsRegular,
-  faThumbsUp,
-  faIdCard,
   faAddressCard,
   faHdd,
   faFileAlt,
-  faSmileBeam,
   faCircle as faCircleRegular,
   faHeart as faHeartRegular,
 } from '@fortawesome/free-regular-svg-icons';
@@ -120,8 +113,6 @@ import {
   joinClassName,
   nvl,
 } from '../../../util';
-import { IUIFactory } from '../../factory';
-import { IUIIconConfiguration } from '../../../configurations-definitions.interface';
 import {
   DI_TYPES,
   lazyInject,
@@ -129,12 +120,14 @@ import {
 import { IUiDefaultIconFactory } from '../../icon';
 import {
   IconsEnum,
+  IIconConfigEntity,
+  IUiFactory,
   IUniversalUiMessageConfigEntity,
   TranslatorT,
 } from '../../../definition';
 
 @injectable()
-export class UIMaterialFactory implements IUIFactory {
+export class UIMaterialFactory implements IUiFactory {
 
   public static ICONS_MAP = {
     [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
@@ -177,7 +170,6 @@ export class UIMaterialFactory implements IUIFactory {
     done_all: faCheckDouble,
     error: faExclamationCircle,
     exchange: faExchangeAlt,
-    exchange_alt: faExchangeAlt,
     exclamation: faExclamation,
     exclamation_circle: faExclamationCircle,
     exclamation_triangle: faExclamationTriangle,
@@ -186,19 +178,14 @@ export class UIMaterialFactory implements IUIFactory {
     file: faFileAlt,
     file_import: faFileImport,
     file_invoice_dollar: faFileInvoiceDollar,
-    first_page: faAngleDoubleLeft,
     gift: faGift,
-    grip_horizontal: faGripHorizontal,
     group: faUsers,
     hdd: faHdd,
     history: faHistory,
     home: faHome,
-    houzz: faHouzz,
     http: faExchangeAlt,
-    id_card: faIdCard,
     info: faInfo,
     key: faKey,
-    local_atm: faMoneyBill,
     local_offer: faTag,
     location: faMapMarkerAlt,
     location_on: faMapMarkerAlt,
@@ -228,7 +215,6 @@ export class UIMaterialFactory implements IUIFactory {
     shield_alt: faShieldAlt,
     shipping_fast: faShippingFast,
     signIn: faSignInAlt,
-    smile_beam: faSmileBeam,
     sms: faCommentDots,
     spa: faCannabis,
     stop: faStop,
@@ -236,7 +222,6 @@ export class UIMaterialFactory implements IUIFactory {
     tablet_alt: faTabletAlt,
     tags: faTags,
     taxi: faTaxi,
-    thumbs_up: faThumbsUp,
     times_circle: faTimesCircle,
     truck: faTruck,
     truck_moving: faTruckMoving,
@@ -259,14 +244,9 @@ export class UIMaterialFactory implements IUIFactory {
 
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UiIconFactory) private uiIconFactory: IUiDefaultIconFactory;
-  @lazyInject(DI_TYPES.UIDefaultFactory) private defaultUIFactory: IUIFactory;
+  @lazyInject(DI_TYPES.UIDefaultFactory) private defaultUIFactory: IUiFactory;
 
-  /**
-   * @stable [18.05.2018]
-   * @param {UniversalUIIconConfigurationT} cfg
-   * @returns {JSX.Element}
-   */
-  public makeIcon(cfg: IUIIconConfiguration | string): JSX.Element {
+  public makeIcon(cfg: IIconConfigEntity | string): JSX.Element {
     if (!cfg) {
       return null;
     }
@@ -327,12 +307,7 @@ export class UIMaterialFactory implements IUIFactory {
     return this.defaultUIFactory.makeMessage(cfg);
   }
 
-  /**
-   * @stable [18.05.2018]
-   * @param {UniversalUIIconConfigurationT} cfg
-   * @returns {IUIIconConfiguration}
-   */
-  private toIconConfig(cfg: IUIIconConfiguration | string): IUIIconConfiguration {
-    return (isString(cfg) ? {type: cfg} : cfg)  as IUIIconConfiguration;
+  private toIconConfig(cfg: IIconConfigEntity | string): IIconConfigEntity {
+    return (isString(cfg) ? {type: cfg} : cfg)  as IIconConfigEntity;
   }
 }
