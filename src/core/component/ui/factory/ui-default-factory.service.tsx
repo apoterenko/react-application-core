@@ -3,6 +3,105 @@ import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faAngleDoubleRight,
+  faAngleLeft,
+  faAngleRight,
+  faArrowAltCircleDown,
+  faArrowDown,
+  faArrowLeft,
+  faArrowRight,
+  faArrowUp,
+  faBarcode,
+  faBars,
+  faBriefcase,
+  faCannabis,
+  faChartLine,
+  faChartPie,
+  faCheck,
+  faCheckCircle,
+  faCheckDouble,
+  faCloud,
+  faCommentDots,
+  faCubes,
+  faEllipsisV,
+  faEraser,
+  faExchangeAlt,
+  faExclamation,
+  faExclamationCircle,
+  faExclamationTriangle,
+  faEye,
+  faFileImport,
+  faFileInvoiceDollar,
+  faGift,
+  faHistory,
+  faHome,
+  faInfo,
+  faKey,
+  faLock,
+  faLongArrowAltLeft,
+  faLongArrowAltRight,
+  faLongArrowAltUp,
+  faMapMarkedAlt,
+  faMapMarkerAlt,
+  faMinus,
+  faPaperclip,
+  faPeopleCarry,
+  faPercent,
+  faPhone,
+  faPlug,
+  faPlus,
+  faPrint,
+  faQuestion,
+  faRetweet,
+  faSearch,
+  faSearchMinus,
+  faSearchPlus,
+  faServer,
+  faShieldAlt,
+  faShippingFast,
+  faSignInAlt,
+  faSignOutAlt,
+  faStop,
+  faSync,
+  faTabletAlt,
+  faTag,
+  faTags,
+  faTaxi,
+  faTimesCircle,
+  faTruck,
+  faTruckMoving,
+  faUndo,
+  faUnlockAlt,
+  faUserClock,
+  faUserEdit,
+  faUsers,
+  faUserShield,
+  faUserTie,
+  faVideo,
+  faWarehouse,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCodepen,
+  faGratipay,
+  faAdversal,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+  faUserCircle,
+  faCreditCard,
+  faSave,
+  faUser,
+  faStopCircle,
+  faArrowAltCircleRight as faArrowAltCircleRightRegular,
+  faArrowAltCircleUp as faArrowAltCircleUpRegular,
+  faComments as faCommentsRegular,
+  faAddressCard,
+  faHdd,
+  faFileAlt,
+  faCircle as faCircleRegular,
+} from '@fortawesome/free-regular-svg-icons';
 
 import {
   DI_TYPES,
@@ -11,8 +110,11 @@ import {
 import {
   ComponentClassesEnum,
   ErrorEventCategoriesEnum,
+  IconClassesEnum,
+  IconsEnum,
   IDomAccessor,
   IEnvironment,
+  IIconConfigEntity,
   ILogManager,
   IRouter,
   IRoutesEntity,
@@ -27,11 +129,120 @@ import {
   ifNotNilThanValue,
   joinClassName,
 } from '../../../util';
+import {
+  calc,
+  isFn,
+  isString,
+  nvl,
+} from '../../../util';
+import { IUiDefaultIconFactory } from '../../icon';
 
 @injectable()
-export class UIDefaultFactory implements IUiFactory {
-  private static readonly logger = LoggerFactory.makeLogger('UIDefaultFactory');
+export class UiDefaultFactory implements IUiFactory {
+  private static readonly logger = LoggerFactory.makeLogger('UiDefaultFactory');
   private static readonly WIN_ERROR_ID = '$$windowErrorElement';
+  private static readonly ICONS_MAP = {
+    [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
+    [IconsEnum.PRINT]: faPrint,
+    [IconsEnum.SEARCH_MINUS]: faSearchMinus,
+    [IconsEnum.SEARCH_PLUS]: faSearchPlus,
+    [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
+    [IconsEnum.SYNC]: faSync,
+    add: faPlus,
+    address_card: faAddressCard,
+    adversal: faAdversal,
+    angle_double_right: faAngleDoubleRight,
+    angle_left: faAngleLeft,
+    angle_right: faAngleRight,
+    arrow_alt_circle_down: faArrowAltCircleDown,
+    arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,
+    arrow_alt_circle_up_regular: faArrowAltCircleUpRegular,
+    arrow_down: faArrowDown,
+    arrow_left: faArrowLeft,
+    arrow_right: faArrowRight,
+    arrow_up: faArrowUp,
+    attach_file: faPaperclip,
+    barcode: faBarcode,
+    category: faCodepen,
+    chart_pie: faChartPie,
+    check: faCheck,
+    check_circle: faCheckCircle,
+    circle_regular: faCircleRegular,
+    clear_all: faEraser,
+    cloud: faCloud,
+    comments_regular: faCommentsRegular,
+    dashboard: faChartLine,
+    done: faCheck,
+    done_all: faCheckDouble,
+    error: faExclamationCircle,
+    exchange: faExchangeAlt,
+    exclamation: faExclamation,
+    exclamation_circle: faExclamationCircle,
+    exclamation_triangle: faExclamationTriangle,
+    file: faFileAlt,
+    file_import: faFileImport,
+    file_invoice_dollar: faFileInvoiceDollar,
+    gift: faGift,
+    group: faUsers,
+    hdd: faHdd,
+    history: faHistory,
+    home: faHome,
+    http: faExchangeAlt,
+    info: faInfo,
+    key: faKey,
+    local_offer: faTag,
+    location: faMapMarkerAlt,
+    location_on: faMapMarkerAlt,
+    lock: faLock,
+    long_arrow_alt_left: faLongArrowAltLeft,
+    long_arrow_alt_right: faLongArrowAltRight,
+    long_arrow_alt_up: faLongArrowAltUp,
+    loyalty: faGratipay,
+    map_marked_alt: faMapMarkedAlt,
+    map_marker_alt: faMapMarkerAlt,
+    menu: faBars,
+    minus: faMinus,
+    more_vert: faEllipsisV,
+    payment: faCreditCard,
+    percent: faPercent,
+    phone: faPhone,
+    plug: faPlug,
+    plus: faPlus,
+    product: faCannabis,
+    question: faQuestion,
+    remove: faMinus,
+    retweet: faRetweet,
+    router: faServer,
+    save: faSave,
+    search: faSearch,
+    shield_alt: faShieldAlt,
+    shipping_fast: faShippingFast,
+    signIn: faSignInAlt,
+    sms: faCommentDots,
+    spa: faCannabis,
+    stop: faStop,
+    stop_circle: faStopCircle,
+    tablet_alt: faTabletAlt,
+    tags: faTags,
+    taxi: faTaxi,
+    times_circle: faTimesCircle,
+    truck: faTruck,
+    truck_moving: faTruckMoving,
+    undo: faUndo,
+    unlock_alt: faUnlockAlt,
+    user: faUser,
+    user_circle: faUserCircle,
+    user_clock: faUserClock,
+    user_edit: faUserEdit,
+    user_shield: faUserShield,
+    user_tie: faUserTie,
+    verified_user: faShieldAlt,
+    video: faVideo,
+    warehouse: faWarehouse,
+    warning: faExclamationTriangle,
+    widgets: faCubes,
+    work: faBriefcase,
+  };
 
   @lazyInject(DI_TYPES.DomAccessor) protected readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
@@ -40,12 +251,48 @@ export class UIDefaultFactory implements IUiFactory {
   @lazyInject(DI_TYPES.Routes) protected readonly routes: IRoutesEntity;
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Store) protected readonly store: Store<IUniversalStoreEntity>;
+  @lazyInject(DI_TYPES.UiIconFactory) protected readonly uiDefaultIconFactory: IUiDefaultIconFactory;
+
+  private readonly alternativeIconCtors = new Map<string, JSX.Element>();
 
   /**
    * @stable [07.10.2019]
    */
   constructor() {
     this.onRestartAndReload = this.onRestartAndReload.bind(this);
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @param {IIconConfigEntity | string} cfg
+   * @returns {JSX.Element}
+   */
+  public makeIcon(cfg: IIconConfigEntity | string): JSX.Element {
+    if (R.isNil(cfg)) {
+      return cfg;
+    }
+    const config = this.toIconConfig(cfg);
+
+    return (
+      <div
+        ref={config.ref}
+        title={config.title as string}
+        className={joinClassName(
+          IconClassesEnum.ICON,
+          isFn(config.onClick) && (
+            joinClassName(
+              IconClassesEnum.ACTION_ICON,
+              `rac-action-${config.type}-icon`
+            )
+          ),
+          config.disabled && IconClassesEnum.DISABLED_ICON,
+          calc(config.className),
+        )}
+        {...handlerPropsFactory(config.onClick, !config.disabled, nvl(config.touched, false))}
+      >
+        {this.uiDefaultIconFactory.makeInstance(config.type) || this.getAlternativeIconCtor(config)}
+      </div>
+    );
   }
 
   /**
@@ -77,13 +324,13 @@ export class UIDefaultFactory implements IUiFactory {
    */
   public makeWindowError(e: Error): Element {
     this.logError(ErrorEventCategoriesEnum.WINDOW_ERROR, e);
-    UIDefaultFactory.logger.error('$[UIDefaultFactory][makeWindowError] Error:', e);
+    UiDefaultFactory.logger.error('$[UiDefaultFactory][makeWindowError] Error:', e);
 
-    const el = this.domAccessor.getElement(UIDefaultFactory.WIN_ERROR_ID);
+    const el = this.domAccessor.getElement(UiDefaultFactory.WIN_ERROR_ID);
     if (R.isNil(el)) {
       const errorMessageWrapperEl = this.domAccessor.createElement();
       const errorMessageEl = this.domAccessor.createElement('div', errorMessageWrapperEl);
-      errorMessageEl.id = UIDefaultFactory.WIN_ERROR_ID;
+      errorMessageEl.id = UiDefaultFactory.WIN_ERROR_ID;
       this.domAccessor.addClassNames(errorMessageWrapperEl, ...this.getErrorWrapperClassNames());
       this.domAccessor.addClassNames(errorMessageEl, ...this.getErrorClassNames());
       this.makeWindowErrorBodyElement(e, errorMessageEl);
@@ -103,7 +350,7 @@ export class UIDefaultFactory implements IUiFactory {
   public makeReactError(e: Error, logging?: boolean): React.ReactNode {
     if (logging !== false) {
       this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
-      UIDefaultFactory.logger.error('$[UIDefaultFactory][makeReactError] Error:', e);
+      UiDefaultFactory.logger.error('$[UiDefaultFactory][makeReactError] Error:', e);
     }
 
     return (
@@ -197,6 +444,10 @@ export class UIDefaultFactory implements IUiFactory {
     return ['rac-message-wrapper', ComponentClassesEnum.FULL_SIZE, ComponentClassesEnum.FIXED];
   }
 
+  /**
+   * @stable [18.04.2020]
+   * @returns {string[]}
+   */
   protected getMessageBodyClassNames(): string[] {
     return ['rac-message-body', ComponentClassesEnum.ALIGNMENT_CENTER];
   }
@@ -282,5 +533,29 @@ export class UIDefaultFactory implements IUiFactory {
    */
   protected logError(errorCategory: ErrorEventCategoriesEnum, e: Error): void {
     this.logManager.send(errorCategory, e.name, {message: e.message, stack: e.stack});
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @param {IIconConfigEntity} config
+   * @returns {JSX.Element}
+   */
+  private getAlternativeIconCtor(config: IIconConfigEntity): JSX.Element {
+    const icon = UiDefaultFactory.ICONS_MAP[config.type] || faQuestion;
+
+    let iconCtor = this.alternativeIconCtors.get(icon);
+    if (R.isNil(iconCtor)) {
+      this.alternativeIconCtors.set(icon, iconCtor = <FontAwesomeIcon icon={icon}/>);
+    }
+    return iconCtor;
+  }
+
+  /**
+   * @stable [18.04.2020]
+   * @param {IIconConfigEntity | string} cfg
+   * @returns {IIconConfigEntity}
+   */
+  private toIconConfig(cfg: IIconConfigEntity | string): IIconConfigEntity {
+    return (isString(cfg) ? {type: cfg} : cfg)  as IIconConfigEntity;
   }
 }

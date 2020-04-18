@@ -21,3 +21,13 @@ export enum IconsEnum {
   SYNC = 'sync',
   TRASH = 'trash',
 }
+
+/**
+ * @classes
+ * @stable [18.04.2020]
+ */
+export enum IconClassesEnum {
+  ACTION_ICON = 'rac-action-icon',
+  DISABLED_ICON = 'rac-disabled-icon',
+  ICON = 'rac-icon',
+}

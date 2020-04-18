@@ -6,12 +6,12 @@ import {
   IDisabledWrapper,
   IMessageWrapper,
   IOnClickWrapper,
-  ITitleWrapper,
   ITouchedWrapper,
   ITypeWrapper,
   IWrapperClassNameWrapper,
   IWrapperWrapper,
 } from '../definitions.interface';
+import { IGenericBaseComponentEntity } from './generic-component-definition.interface';
 
 export interface IUiFactory {
 
@@ -50,10 +50,9 @@ export interface IUiFactory {
  * @stable [18.03.2020]
  */
 export interface IIconConfigEntity
-  extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+  extends IGenericBaseComponentEntity<HTMLDivElement>,
     IDisabledWrapper,
     IOnClickWrapper,
-    ITitleWrapper<string | boolean>,
     ITouchedWrapper,
     ITypeWrapper {
 }

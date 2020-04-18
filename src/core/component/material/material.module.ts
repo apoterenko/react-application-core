@@ -1,7 +1,6 @@
 import { MDCRipple } from '@material/ripple';
 
 import {
-  bindInSingleton,
   bindToConstantValue,
   DI_TYPES,
 } from '../../di';
@@ -10,7 +9,6 @@ import {
   MaterialPlugin,
   SnackbarMaterialPlugin,
 } from './plugin';
-import { UIMaterialFactory } from './factory';
 import { Card } from '../card';
 import { Snackbar } from '../snackbar';
 import {
@@ -32,11 +30,6 @@ uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(comp
  */
 uiPlugins.set(Card, (component: Card) =>
   ifNotFalseThanValue(component.props.rippled, () => new MaterialPlugin<Card>(component, MDCRipple)));
-
-/**
- * @stable [27.05.2018]
- */
-bindInSingleton(DI_TYPES.UiFactory, UIMaterialFactory);
 
 // TODO
 import '../icon/icon-factory/default/ui-default-icon-factory.module';
