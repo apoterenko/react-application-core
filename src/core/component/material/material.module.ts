@@ -34,7 +34,7 @@ uiPlugins.set(Card, (component: Card) =>
 /**
  * @stable [27.05.2018]
  */
-appContainer.bind<IUIFactory>(DI_TYPES.UIFactory).to(UIMaterialFactory).inSingletonScope();
+appContainer.bind<IUIFactory>(DI_TYPES.UiFactory).to(UIMaterialFactory).inSingletonScope();
 
 // TODO
 import '../icon/icon-factory/default/ui-default-icon-factory.module';

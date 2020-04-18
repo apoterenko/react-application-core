@@ -1,46 +1,30 @@
-import * as React from 'react';
 import * as R from 'ramda';
 
 import {
   isFn,
-  nvl,
   patchRenderMethod,
 } from '../../util';
 import {
   DI_TYPES,
   getAsyncLibManager,
   getDatabaseStorage,
-  getDomAccessor,
   getEnvironment,
   getEventEmitter,
-  getEventManager,
   getFieldConverter,
-  getNumberConverter,
-  getPhoneConverter,
   getPlaceApi,
-  getSettings,
-  getTranslator,
   getTransport,
-  getUiFactory,
   getUiPlugins,
   staticInjector,
 } from '../../di';
-import { ISettingsEntity } from '../../settings';
-import {
-  IDateConverter,
-  INumberConverter,
-} from '../../converter';
 import { AnyT } from '../../definitions.interface';
-import { IUIFactory } from '../factory/factory.interface';
 import {
   GenericPluginCtorT,
+  GenericPluginFactoryT,
   IAsyncLibManager,
-  IDomAccessor,
   IEnvironment,
   IEventEmitter,
-  IEventManager,
   IFieldConverter,
-  IPhoneConverter,
+  IGenericPlugin,
   IPlaceApi,
   IRoutesEntity,
   IStorage,
@@ -48,22 +32,21 @@ import {
   IUniqueId,
   IUniversalComponent,
   IUniversalComponentCtor,
-  IUniversalComponentEntity,
   IUniversalComponentProps,
-  IGenericPlugin,
-  TranslatorT,
-  GenericPluginFactoryT,
 } from '../../definition';
+import { GenericBaseComponent } from './generic-base.component';
 
+/**
+ * TODO
+ * @deprecated
+ */
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {},
                                 TSelfRef = AnyT>
-  extends React.PureComponent<TProps, TState>
+  extends GenericBaseComponent<TProps, TState, TSelfRef>
   implements IUniversalComponent<TProps, TState> {
 
   protected readonly plugins: IGenericPlugin[] = [];
-  protected readonly selfRef = React.createRef<TSelfRef>();
-  private readonly defaultUiFactory: IUIFactory = { makeIcon: () => null }; // TODO Mke it frozen & static
 
   /**
    * @stable [02.12.2019]
@@ -132,15 +115,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   /**
    * @react-native-compatible
-   * @stable [08.10.2019]
-   * @returns {IEventManager}
-   */
-  protected get eventManager(): IEventManager {
-    return getEventManager();
-  }
-
-  /**
-   * @react-native-compatible
    * @stable [09.01.2020]
    * @returns {IFieldConverter}
    */
@@ -185,24 +159,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
   }
 
   /**
-   * @reactNativeCompatible
-   * @stable [22.09.2018]
-   * @returns {TranslatorT}
-   */
-  protected get t(): TranslatorT {
-    return getTranslator();
-  }
-
-  /**
-   * @reactNativeCompatible
-   * @stable [29.07.2019]
-   * @returns {ISettingsEntity}
-   */
-  protected get settings(): ISettingsEntity {
-    return getSettings();
-  }
-
-  /**
    * @stable []
    * @returns {IRoutesEntity}
    */
@@ -217,49 +173,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get databaseStorage(): IStorage {
     return getDatabaseStorage();
-  }
-
-  /**
-   * @stable [13.05.2018]
-   * @returns {IDateConverter}
-   */
-  protected get dc(): IDateConverter {
-    return staticInjector(DI_TYPES.DateConverter);
-  }
-
-  /**
-   * @reactNativeCompatible
-   * @stable [22.09.2019]
-   * @returns {INumberConverter}
-   */
-  protected get nc(): INumberConverter {
-    return getNumberConverter();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [04.03.2020]
-   * @returns {IPhoneConverter}
-   */
-  protected get pc(): IPhoneConverter {
-    return getPhoneConverter();
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {IUIFactory}
-   */
-  protected get uiFactory(): IUIFactory {
-    return nvl(getUiFactory(), this.defaultUiFactory);
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [19.02.2020]
-   * @returns {IDomAccessor}
-   */
-  protected get domAccessor(): IDomAccessor {
-    return getDomAccessor();
   }
 
   /**

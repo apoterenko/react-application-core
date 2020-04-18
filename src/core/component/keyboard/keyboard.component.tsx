@@ -67,7 +67,6 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
           orNull<JSX.Element>(
             !this.isInline,
             () => this.uiFactory.makeIcon({
-              key: 'keyboard-close-action-key',
               type: 'close',
               className: 'rac-keyboard-close',
               onClick: props.onClose,

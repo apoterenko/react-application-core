@@ -62,7 +62,6 @@ export class GridHeaderColumn extends BaseGridColumn {
             <div className='rac-grid-column-sort'>
               {
                 this.uiFactory.makeIcon({
-                  key: 'desc-sort-icon-key',
                   className: joinClassName(
                     'rac-grid-column-sort-icon',
                     'rac-grid-column-sort-desc-action',
@@ -74,7 +73,6 @@ export class GridHeaderColumn extends BaseGridColumn {
               }
               {
                 this.uiFactory.makeIcon({
-                  key: 'asc-sort-icon-key',
                   className: joinClassName(
                     'rac-grid-column-sort-icon',
                     'rac-grid-column-sort-asc-action',

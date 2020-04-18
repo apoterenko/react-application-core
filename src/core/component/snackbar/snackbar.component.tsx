@@ -20,11 +20,11 @@ export class Snackbar extends BaseComponent<ISnackbarProps> {
   public render(): React.ReactNode {
     return ReactDOM.createPortal(
       <div ref={this.selfRef}
-           className={toClassName(this.uiFactory.snackbar, 'rac-snackbar')}
+           className={toClassName('mdc-snackbar', 'rac-snackbar')}
            aria-live='assertive'>
-        <div className={toClassName(this.uiFactory.snackbarText, 'rac-snackbar-text')}/>
-        <div className={toClassName(this.uiFactory.snackbarActionWrapper, 'rac-snackbar-action-wrapper')}>
-          <button className={toClassName('rac-snackbar-button', this.uiFactory.snackbarActionButton)}/>
+        <div className={toClassName('mdc-snackbar__text', 'rac-snackbar-text')}/>
+        <div className={toClassName('mdc-snackbar__action-wrapper', 'rac-snackbar-action-wrapper')}>
+          <button className={toClassName('rac-snackbar-button', 'mdc-snackbar__action-button')}/>
         </div>
       </div>,
       this.domAccessor.documentBody

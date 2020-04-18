@@ -314,18 +314,25 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [28.10.2019]
+   * @stable [18.04.2020]
    * @returns {JSX.Element}
    */
   protected get actionsElement(): JSX.Element {
     return (
       <React.Fragment>
         {
-          this.getFieldActions().map((action) => this.uiFactory.makeIcon({
-            ...action,
-            key: `field-action-key-${action.type}`,
-            disabled: this.isFieldActionDisabled(action),
-          }))
+          this.getFieldActions().map(
+            (action, index) => (
+              <React.Fragment key={`field-action-key-${index}`}>
+                {
+                  this.uiFactory.makeIcon({
+                    ...action,
+                    disabled: this.isFieldActionDisabled(action),
+                  })
+                }
+              </React.Fragment>
+            )
+          )
         }
       </React.Fragment>
     );

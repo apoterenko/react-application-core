@@ -16,8 +16,8 @@ export class Card extends BaseComponent<ICardProps> {
       <div ref='self'
            className={toClassName(
                        'rac-card',
-                       this.uiFactory.card,
-                       ifNotFalseThanValue(props.rippled, () => this.uiFactory.rippleSurface),
+                       'mdc-card',
+                       ifNotFalseThanValue(props.rippled, () => 'mdc-ripple-surface'),
                        calc(props.className)
                      )}
            onClick={props.onClick}>
@@ -26,14 +26,14 @@ export class Card extends BaseComponent<ICardProps> {
           orNull<JSX.Element>(
             props.actionButtons || props.actionIcons,
             () => (
-              <div className={toClassName('rac-card-actions', this.uiFactory.cardActions)}>
+              <div className={toClassName('rac-card-actions', 'mdc-card__actions')}>
                 {
                   orNull<JSX.Element>(
                     props.actionButtons,
                     () => (
                       <div className={toClassName(
                                         'rac-card-action-buttons',
-                                        this.uiFactory.cardActionButtons
+                                        'mdc-card__action-buttons'
                                       )}>
                         {props.actionButtons}
                       </div>
@@ -44,7 +44,7 @@ export class Card extends BaseComponent<ICardProps> {
                   orNull<JSX.Element>(
                     props.actionIcons,
                     () => (
-                      <div className={toClassName('rac-card-action-items', this.uiFactory.cardActionIcons)}>
+                      <div className={toClassName('rac-card-action-items', 'mdc-card__action-icons')}>
                         {props.actionIcons}
                       </div>
                     )

@@ -21,9 +21,6 @@ import {
   faCheck,
   faCheckCircle,
   faCheckDouble,
-  faChevronLeft,
-  faChevronRight,
-  faClipboardCheck,
   faCloud,
   faCommentDots,
   faCubes,
@@ -66,7 +63,6 @@ import {
   faServer,
   faShieldAlt,
   faShippingFast,
-  faShoppingCart,
   faSignInAlt,
   faSignOutAlt,
   faStop,
@@ -108,7 +104,6 @@ import {
   faThumbsUp,
   faIdCard,
   faAddressCard,
-  faPlayCircle as faPlayCircleRegular,
   faHdd,
   faFileAlt,
   faSmileBeam,
@@ -217,17 +212,12 @@ export class UIMaterialFactory implements IUIFactory {
     menu: faBars,
     minus: faMinus,
     more_vert: faEllipsisV,
-    navigate_before: faChevronLeft,
-    navigate_next: faChevronRight,
     payment: faCreditCard,
     percent: faPercent,
     phone: faPhone,
-    play_circle_regular: faPlayCircleRegular,
-    playlist_add_check: faClipboardCheck,
     plug: faPlug,
     plus: faPlus,
     power_off: faPowerOff,
-    priority_high: faExclamation,
     product: faCannabis,
     question: faQuestion,
     remove: faMinus,
@@ -237,7 +227,6 @@ export class UIMaterialFactory implements IUIFactory {
     search: faSearch,
     shield_alt: faShieldAlt,
     shipping_fast: faShippingFast,
-    shopping_cart: faShoppingCart,
     signIn: faSignInAlt,
     smile_beam: faSmileBeam,
     sms: faCommentDots,
@@ -268,16 +257,6 @@ export class UIMaterialFactory implements IUIFactory {
   };
   private static logger = LoggerFactory.makeLogger('UIMaterialFactory');
 
-  public snackbar = 'mdc-snackbar';
-  public snackbarText = 'mdc-snackbar__text';
-  public snackbarActionWrapper = 'mdc-snackbar__action-wrapper';
-  public snackbarActionButton = 'mdc-snackbar__action-button';
-  public card = 'mdc-card';
-  public cardActions = 'mdc-card__actions';
-  public cardActionButtons = 'mdc-card__action-buttons';
-  public cardActionIcons = 'mdc-card__action-icons';
-  public rippleSurface = 'mdc-ripple-surface';
-
   @lazyInject(DI_TYPES.Translate) private t: TranslatorT;
   @lazyInject(DI_TYPES.UiIconFactory) private uiIconFactory: IUiDefaultIconFactory;
   @lazyInject(DI_TYPES.UIDefaultFactory) private defaultUIFactory: IUIFactory;
@@ -306,8 +285,6 @@ export class UIMaterialFactory implements IUIFactory {
 
     return (
       <div
-        ref={config.ref}
-        key={config.key}
         title={config.title as string}
         className={joinClassName(
           'rac-icon',

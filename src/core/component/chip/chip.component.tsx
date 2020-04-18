@@ -3,6 +3,7 @@ import * as React from 'react';
 import { BaseComponent } from '../base';
 import { FlexLayout } from '../layout/flex';
 import { IChipProps } from './chip.interface';
+import { IconsEnum } from '../../definition';
 
 export class Chip extends BaseComponent<IChipProps> {
 
@@ -24,8 +25,7 @@ export class Chip extends BaseComponent<IChipProps> {
           </span>
           {
             this.uiFactory.makeIcon({
-              type: 'close',
-              key: `chip-key-${props.id}`,
+              type: IconsEnum.CLOSE,
               disabled: props.disabled,
               onClick: props.onClick,
             })

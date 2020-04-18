@@ -6,6 +6,7 @@ import {
   IDisabledWrapper,
   IMessageWrapper,
   IOnClickWrapper,
+  ITitleWrapper,
   ITouchedWrapper,
   ITypeWrapper,
   IWrapperClassNameWrapper,
@@ -52,6 +53,7 @@ export interface IIconConfigEntity
   extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
     IDisabledWrapper,
     IOnClickWrapper,
+    ITitleWrapper<string | boolean>,
     ITouchedWrapper,
     ITypeWrapper {
 }

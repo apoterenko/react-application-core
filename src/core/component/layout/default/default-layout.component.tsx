@@ -143,7 +143,6 @@ export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
         {appVersion && <div className='rac-profile-app-version'>{appVersion}</div>}
         {isLayoutFullModeEnabled && <div className='rac-profile-avatar'/>}
         {this.uiFactory.makeIcon({
-          key: 'drawer-menu-logo-lkey',
           type: 'menu',
           className: 'rac-logo-menu-icon',
           onClick: this.onDrawerHeaderLogoClick,

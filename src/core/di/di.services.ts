@@ -109,7 +109,7 @@ export const getMultiEntityDatabaseStorage = (): IStorage => staticInjector(DI_T
  * @stable [18.03.2020]
  * @returns {IUiFactory}
  */
-export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UIFactory);
+export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UiFactory);
 
 /**
  * @stable [23.10.2019]

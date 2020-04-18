@@ -189,13 +189,13 @@ export interface IFilterConfiguration extends IActionsDisabledWrapper,
 /**
  * @stable [18.05.2018]
  */
-export interface IUniversalUIIconConfiguration extends IUniversalComponentEntity,
-                                                       IDisabledWrapper,
+export interface IUniversalUIIconConfiguration extends IDisabledWrapper,
                                                        ITypeWrapper,
                                                        ITouchedWrapper,
                                                        ISimpleWrapper,
                                                        IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
                                                        IOnClickWrapper {
+  title?: any;
 }
 
 /**

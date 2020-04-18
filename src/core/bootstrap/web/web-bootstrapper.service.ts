@@ -36,7 +36,7 @@ export class WebBootstrapper implements IBootstrapper {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
-  @lazyInject(DI_TYPES.UIFactory) private readonly uiFactory: IUIFactory;
+  @lazyInject(DI_TYPES.UiFactory) private readonly uiFactory: IUIFactory;
 
   private readonly asyncLibraries = new Map<string, IAsyncLibConfigEntity>();
 

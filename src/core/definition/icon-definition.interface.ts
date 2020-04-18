@@ -4,6 +4,7 @@
 export enum IconsEnum {
   BACK = 'back',
   BACK2 = 'back2',
+  CLOSE = 'close',
   DROP_DOWN = 'dropdown',
   DROP_DOWN_OPENED = 'dropdown-opened',
   FORWARD = 'forward',

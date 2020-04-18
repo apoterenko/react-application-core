@@ -91,7 +91,7 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
         />
       </svg>
     ),
-    'close': (
+    [IconsEnum.CLOSE]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M3.105 5.226a1.501 1.501 0 0 1 0-2.12 1.501 1.501 0 0 1 2.121 0L12 9.877l6.773-6.773a1.501 1.501 0 0 1 2.121 0 1.501 1.501 0 0 1 0 2.121L14.12 12l6.773 6.773a1.501 1.501 0 0 1 0 2.121 1.501 1.501 0 0 1-2.12 0l-6.774-6.773-6.773 6.773a1.501 1.501 0 0 1-2.12 0 1.501 1.501 0 0 1 0-2.12l6.772-6.774-6.773-6.773z'

@@ -55,7 +55,7 @@ export const DI_TYPES = Object.freeze({
   TransportResponseFactory: Symbol('TransportResponseFactory'),
   TransportTokenAccessor: Symbol('TransportTokenAccessor'),
   UIDefaultFactory: Symbol('UIDefaultFactory'),
-  UIFactory: Symbol('UIFactory'),
+  UiFactory: Symbol('UiFactory'),
   UiIconFactory: Symbol('UiIconFactory'),
   UIPlugins: Symbol('UIPlugins'),
   UserActivityManager: Symbol('UserActivityManager'),

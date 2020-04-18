@@ -27,6 +27,7 @@ import { ListItem } from '../list/item/list-item.component';
 import {
   DialogClassesEnum,
   EventsEnum,
+  IconsEnum,
   IMenu,
   IMenuItemEntity,
   IMenuProps,
@@ -314,8 +315,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   private get closeActionElement(): JSX.Element {
     return (
       this.uiFactory.makeIcon({
-        key: 'menu-close-action-key',
-        type: 'close',
+        type: IconsEnum.CLOSE,
         className: 'rac-menu-dialog__icon-close',
         onClick: this.hide,
       })

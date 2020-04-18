@@ -103,7 +103,6 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
             props.allowFirst,
             () => (
               this.uiFactory.makeIcon({
-                key: 'page-icon-first-key',
                 type: 'first_page',
                 className: 'rac-toolbar-icon',
                 disabled: isPreviousBtnDisabled,
@@ -114,7 +113,6 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
         }
         {
           this.uiFactory.makeIcon({
-            key: 'page-icon-previous-key',
             type: props.previousIcon || 'angle_left',
             className: 'rac-toolbar-icon',
             disabled: isPreviousBtnDisabled,
@@ -124,7 +122,6 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
         {this.getPagesElement()}
         {
           this.uiFactory.makeIcon({
-            key: 'page-icon-next-key',
             type: props.nextIcon || 'angle_right',
             className: 'rac-toolbar-icon',
             disabled: isNextBtnDisabled,
@@ -136,7 +133,6 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
             props.allowLast,
             () => (
               this.uiFactory.makeIcon({
-                key: 'page-icon-last-key',
                 type: 'angle_double_right',
                 className: 'rac-toolbar-icon',
                 disabled: isNextBtnDisabled,

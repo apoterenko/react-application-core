@@ -208,7 +208,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
               { // TODO (duplication)
                 expandActionRendered && isGrouped && columnNum === 0 // TODO index 0 (duplication)
                 ? this.uiFactory.makeIcon({
-                    key: `header-${columnNum}-expanded-action-${expandedAllGroups ? 'close' : 'open'}`,
                     className: 'rac-grid-data-row-group-expanded-icon',
                     type: expandedAllGroups ? 'close-list' : 'open-list',
                     onClick: this.onExpandAllGroups,
@@ -617,7 +616,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                     key={contentKey}>
                     {expandActionRendered && (
                       this.uiFactory.makeIcon({
-                        key: `${contentKey}-expanded-action-${isExpanded ? 'close' : 'open'}`,
                         className: 'rac-grid-data-row-group-expanded-icon',
                         type: isExpanded ? 'close-list' : 'open-list',
                         onClick: () => this.onExpandGroup(value, !isExpanded),
