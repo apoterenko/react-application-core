@@ -1,1 +1,1 @@
-import './factory/ui-default-factory.module';
+import './factory/ui-factory.module';

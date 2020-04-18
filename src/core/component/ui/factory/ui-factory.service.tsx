@@ -138,8 +138,8 @@ import {
 import { IUiDefaultIconFactory } from '../../icon';
 
 @injectable()
-export class UiDefaultFactory implements IUiFactory {
-  private static readonly logger = LoggerFactory.makeLogger('UiDefaultFactory');
+export class UiFactory implements IUiFactory {
+  private static readonly logger = LoggerFactory.makeLogger('UiFactory');
   private static readonly WIN_ERROR_ID = '$$windowErrorElement';
   private static readonly ICONS_MAP = {
     [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
@@ -324,13 +324,13 @@ export class UiDefaultFactory implements IUiFactory {
    */
   public makeWindowError(e: Error): Element {
     this.logError(ErrorEventCategoriesEnum.WINDOW_ERROR, e);
-    UiDefaultFactory.logger.error('$[UiDefaultFactory][makeWindowError] Error:', e);
+    UiFactory.logger.error('$[UiFactory][makeWindowError] Error:', e);
 
-    const el = this.domAccessor.getElement(UiDefaultFactory.WIN_ERROR_ID);
+    const el = this.domAccessor.getElement(UiFactory.WIN_ERROR_ID);
     if (R.isNil(el)) {
       const errorMessageWrapperEl = this.domAccessor.createElement();
       const errorMessageEl = this.domAccessor.createElement('div', errorMessageWrapperEl);
-      errorMessageEl.id = UiDefaultFactory.WIN_ERROR_ID;
+      errorMessageEl.id = UiFactory.WIN_ERROR_ID;
       this.domAccessor.addClassNames(errorMessageWrapperEl, ...this.getErrorWrapperClassNames());
       this.domAccessor.addClassNames(errorMessageEl, ...this.getErrorClassNames());
       this.makeWindowErrorBodyElement(e, errorMessageEl);
@@ -350,7 +350,7 @@ export class UiDefaultFactory implements IUiFactory {
   public makeReactError(e: Error, logging?: boolean): React.ReactNode {
     if (logging !== false) {
       this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
-      UiDefaultFactory.logger.error('$[UiDefaultFactory][makeReactError] Error:', e);
+      UiFactory.logger.error('$[UiFactory][makeReactError] Error:', e);
     }
 
     return (
@@ -541,7 +541,7 @@ export class UiDefaultFactory implements IUiFactory {
    * @returns {JSX.Element}
    */
   private getAlternativeIconCtor(config: IIconConfigEntity): JSX.Element {
-    const icon = UiDefaultFactory.ICONS_MAP[config.type] || faQuestion;
+    const icon = UiFactory.ICONS_MAP[config.type] || faQuestion;
 
     let iconCtor = this.alternativeIconCtors.get(icon);
     if (R.isNil(iconCtor)) {

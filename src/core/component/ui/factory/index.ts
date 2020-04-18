@@ -1,1 +1,1 @@
-export * from './ui-default-factory.service';
+export * from './ui-factory.service';

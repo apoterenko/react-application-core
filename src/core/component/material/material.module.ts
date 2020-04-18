@@ -31,9 +31,6 @@ uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(comp
 uiPlugins.set(Card, (component: Card) =>
   ifNotFalseThanValue(component.props.rippled, () => new MaterialPlugin<Card>(component, MDCRipple)));
 
-// TODO
-import '../icon/icon-factory/default/ui-default-icon-factory.module';
-
 /**
  * @stable [27.05.2018]
  */
