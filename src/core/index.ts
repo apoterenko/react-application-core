@@ -24,7 +24,6 @@ export * from './component/full-screen';
 export * from './component/google';
 export * from './component/grid';
 export * from './component/header';
-export * from './component/icon';
 export * from './component/info';
 export * from './component/key-interceptor';
 export * from './component/keyboard';

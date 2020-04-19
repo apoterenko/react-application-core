@@ -3,99 +3,6 @@ import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { Store } from 'redux';
 import { LoggerFactory } from 'ts-smart-logger';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAngleDoubleRight,
-  faAngleLeft,
-  faAngleRight,
-  faArrowAltCircleDown,
-  faArrowDown,
-  faArrowLeft,
-  faArrowRight,
-  faArrowUp,
-  faBarcode,
-  faBars,
-  faBriefcase,
-  faCannabis,
-  faChartLine,
-  faChartPie,
-  faCheck,
-  faCheckCircle,
-  faCheckDouble,
-  faCloud,
-  faCommentDots,
-  faCubes,
-  faEllipsisV,
-  faEraser,
-  faExchangeAlt,
-  faExclamation,
-  faExclamationCircle,
-  faExclamationTriangle,
-  faFileInvoiceDollar,
-  faGift,
-  faHistory,
-  faHome,
-  faInfo,
-  faKey,
-  faLock,
-  faLongArrowAltLeft,
-  faLongArrowAltRight,
-  faLongArrowAltUp,
-  faMapMarkedAlt,
-  faMapMarkerAlt,
-  faMinus,
-  faPaperclip,
-  faPeopleCarry,
-  faPercent,
-  faPlus,
-  faPrint,
-  faQuestion,
-  faSearch,
-  faSearchMinus,
-  faSearchPlus,
-  faServer,
-  faShieldAlt,
-  faShippingFast,
-  faSignInAlt,
-  faSignOutAlt,
-  faStop,
-  faSync,
-  faTabletAlt,
-  faTag,
-  faTags,
-  faTimesCircle,
-  faTruck,
-  faTruckMoving,
-  faUndo,
-  faUnlockAlt,
-  faUserClock,
-  faUserEdit,
-  faUsers,
-  faUserShield,
-  faUserTie,
-  faVideo,
-  faWarehouse,
-  IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  faCodepen,
-  faGratipay,
-  faAdversal,
-} from '@fortawesome/free-brands-svg-icons';
-import {
-  faUserCircle,
-  faCreditCard,
-  faSave,
-  faUser,
-  faStopCircle,
-  faArrowAltCircleRight as faArrowAltCircleRightRegular,
-  faArrowAltCircleUp as faArrowAltCircleUpRegular,
-  faComments as faCommentsRegular,
-  faAddressCard,
-  faHdd,
-  faFileAlt,
-  faCircle as faCircleRegular,
-} from '@fortawesome/free-regular-svg-icons';
 
 import {
   DI_TYPES,
@@ -113,6 +20,7 @@ import {
   IRouter,
   IRoutesEntity,
   IUiFactory,
+  IUiIconFactory,
   IUiMessageConfigEntity,
   IUniversalStoreEntity,
 } from '../../../definition';
@@ -129,108 +37,11 @@ import {
   isString,
   nvl,
 } from '../../../util';
-import { IUiDefaultIconFactory } from '../../icon';
 
 @injectable()
 export class UiFactory implements IUiFactory {
   private static readonly logger = LoggerFactory.makeLogger('UiFactory');
   private static readonly WIN_ERROR_ID = '$$windowErrorElement';
-  private static readonly ICONS_MAP = {
-    [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
-    [IconsEnum.PAPERCLIP]: faPaperclip,
-    [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
-    [IconsEnum.PRINT]: faPrint,
-    [IconsEnum.SEARCH_MINUS]: faSearchMinus,
-    [IconsEnum.SEARCH_PLUS]: faSearchPlus,
-    [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
-    [IconsEnum.SYNC]: faSync,
-    add: faPlus,
-    address_card: faAddressCard,
-    adversal: faAdversal,
-    angle_double_right: faAngleDoubleRight,
-    angle_left: faAngleLeft,
-    angle_right: faAngleRight,
-    arrow_alt_circle_down: faArrowAltCircleDown,
-    arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,
-    arrow_alt_circle_up_regular: faArrowAltCircleUpRegular,
-    arrow_down: faArrowDown,
-    arrow_left: faArrowLeft,
-    arrow_right: faArrowRight,
-    arrow_up: faArrowUp,
-    barcode: faBarcode,
-    category: faCodepen,
-    chart_pie: faChartPie,
-    check: faCheck,
-    check_circle: faCheckCircle,
-    circle_regular: faCircleRegular,
-    clear_all: faEraser,
-    cloud: faCloud,
-    comments_regular: faCommentsRegular,
-    dashboard: faChartLine,
-    done: faCheck,
-    done_all: faCheckDouble,
-    error: faExclamationCircle,
-    exchange: faExchangeAlt,
-    exclamation: faExclamation,
-    exclamation_circle: faExclamationCircle,
-    file: faFileAlt,
-    file_invoice_dollar: faFileInvoiceDollar,
-    gift: faGift,
-    group: faUsers,
-    hdd: faHdd,
-    history: faHistory,
-    home: faHome,
-    http: faExchangeAlt,
-    info: faInfo,
-    key: faKey,
-    local_offer: faTag,
-    location: faMapMarkerAlt,
-    location_on: faMapMarkerAlt,
-    lock: faLock,
-    long_arrow_alt_left: faLongArrowAltLeft,
-    long_arrow_alt_right: faLongArrowAltRight,
-    long_arrow_alt_up: faLongArrowAltUp,
-    loyalty: faGratipay,
-    map_marked_alt: faMapMarkedAlt,
-    map_marker_alt: faMapMarkerAlt,
-    menu: faBars,
-    minus: faMinus,
-    more_vert: faEllipsisV,
-    payment: faCreditCard,
-    percent: faPercent,
-    plus: faPlus,
-    product: faCannabis,
-    question: faQuestion,
-    remove: faMinus,
-    router: faServer,
-    save: faSave,
-    search: faSearch,
-    shield_alt: faShieldAlt,
-    shipping_fast: faShippingFast,
-    signIn: faSignInAlt,
-    sms: faCommentDots,
-    spa: faCannabis,
-    stop: faStop,
-    stop_circle: faStopCircle,
-    tablet_alt: faTabletAlt,
-    tags: faTags,
-    times_circle: faTimesCircle,
-    truck: faTruck,
-    truck_moving: faTruckMoving,
-    undo: faUndo,
-    unlock_alt: faUnlockAlt,
-    user: faUser,
-    user_circle: faUserCircle,
-    user_clock: faUserClock,
-    user_edit: faUserEdit,
-    user_shield: faUserShield,
-    user_tie: faUserTie,
-    verified_user: faShieldAlt,
-    video: faVideo,
-    warehouse: faWarehouse,
-    widgets: faCubes,
-    work: faBriefcase,
-  };
 
   @lazyInject(DI_TYPES.DomAccessor) protected readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
@@ -239,9 +50,7 @@ export class UiFactory implements IUiFactory {
   @lazyInject(DI_TYPES.Routes) protected readonly routes: IRoutesEntity;
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Store) protected readonly store: Store<IUniversalStoreEntity>;
-  @lazyInject(DI_TYPES.UiIconFactory) protected readonly uiDefaultIconFactory: IUiDefaultIconFactory;
-
-  private readonly alternativeIconCtors = new Map<string, JSX.Element>();
+  @lazyInject(DI_TYPES.UiIconFactory) protected readonly uiIconFactory: IUiIconFactory;
 
   /**
    * @stable [07.10.2019]
@@ -278,7 +87,7 @@ export class UiFactory implements IUiFactory {
         )}
         {...handlerPropsFactory(config.onClick, !config.disabled, nvl(config.touched, false))}
       >
-        {this.uiDefaultIconFactory.makeInstance(config.type) || this.getAlternativeIconCtor(config)}
+        {this.uiIconFactory.makeIcon(config)}
       </div>
     );
   }
@@ -521,21 +330,6 @@ export class UiFactory implements IUiFactory {
    */
   protected logError(errorCategory: ErrorEventCategoriesEnum, e: Error): void {
     this.logManager.send(errorCategory, e.name, {message: e.message, stack: e.stack});
-  }
-
-  /**
-   * @stable [18.04.2020]
-   * @param {IIconConfigEntity} config
-   * @returns {JSX.Element}
-   */
-  private getAlternativeIconCtor(config: IIconConfigEntity): JSX.Element {
-    const icon = UiFactory.ICONS_MAP[config.type] || faQuestion;
-
-    let iconCtor = this.alternativeIconCtors.get(icon);
-    if (R.isNil(iconCtor)) {
-      this.alternativeIconCtors.set(icon, iconCtor = <FontAwesomeIcon icon={icon}/>);
-    }
-    return iconCtor;
   }
 
   /**

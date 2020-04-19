@@ -13,7 +13,17 @@ import {
 } from '../definitions.interface';
 import { IGenericBaseComponentEntity } from './generic-component-definition.interface';
 
-export interface IUiFactory {
+export interface IUiIconFactory {
+
+  /**
+   * @stable [19.04.2020]
+   * @param {IIconConfigEntity | string} config
+   * @returns {JSX.Element}
+   */
+  makeIcon?(config: IIconConfigEntity | string): JSX.Element;
+}
+
+export interface IUiFactory extends IUiIconFactory {
 
   /**
    * @stable [30.09.2019]
@@ -36,13 +46,6 @@ export interface IUiFactory {
    * @returns {React.ReactNode}
    */
   makeMessage?(cfg: IUniversalUiMessageConfigEntity): React.ReactNode;
-
-  /**
-   * @stable [18.03.2020]
-   * @param {IIconConfigEntity | string} config
-   * @returns {JSX.Element}
-   */
-  makeIcon?(config: IIconConfigEntity | string): JSX.Element;
 }
 
 /**

@@ -4,7 +4,10 @@ import {
   bindToConstantValue,
   DI_TYPES,
 } from '../../di';
-import { addClassNameToBody, ifNotFalseThanValue } from '../../util';
+import {
+  addClassNameToBody,
+  ifNotFalseThanValue,
+} from '../../util';
 import {
   MaterialPlugin,
   SnackbarMaterialPlugin,
@@ -24,8 +27,7 @@ bindToConstantValue(DI_TYPES.UiPlugins, uiPlugins);
  * @stable [15.08.2018]
  */
 uiPlugins.set(Snackbar, (component: Snackbar) => new SnackbarMaterialPlugin(component));
-// TODO
-import '../icon/icon-factory/default/ui-default-icon-factory.module';
+
 /**
  * @stable [30.08.2019]
  */

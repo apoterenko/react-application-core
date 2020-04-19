@@ -1,11 +1,109 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import { injectable } from 'inversify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faAngleDoubleRight,
+  faAngleLeft,
+  faAngleRight,
+  faArrowAltCircleDown,
+  faArrowDown,
+  faArrowLeft,
+  faArrowRight,
+  faArrowUp,
+  faBarcode,
+  faBars,
+  faBriefcase,
+  faCannabis,
+  faChartLine,
+  faChartPie,
+  faCheck,
+  faCheckCircle,
+  faCheckDouble,
+  faCloud,
+  faCommentDots,
+  faCubes,
+  faEllipsisV,
+  faEraser,
+  faExchangeAlt,
+  faExclamation,
+  faExclamationCircle,
+  faExclamationTriangle,
+  faFileInvoiceDollar,
+  faGift,
+  faHistory,
+  faHome,
+  faInfo,
+  faKey,
+  faLock,
+  faLongArrowAltLeft,
+  faLongArrowAltRight,
+  faLongArrowAltUp,
+  faMapMarkedAlt,
+  faMapMarkerAlt,
+  faMinus,
+  faPaperclip,
+  faPeopleCarry,
+  faPercent,
+  faPlus,
+  faPrint,
+  faQuestion,
+  faSearch,
+  faSearchMinus,
+  faSearchPlus,
+  faServer,
+  faShieldAlt,
+  faShippingFast,
+  faSignInAlt,
+  faSignOutAlt,
+  faStop,
+  faSync,
+  faTabletAlt,
+  faTag,
+  faTags,
+  faTimesCircle,
+  faTruck,
+  faTruckMoving,
+  faUndo,
+  faUnlockAlt,
+  faUserClock,
+  faUserEdit,
+  faUsers,
+  faUserShield,
+  faUserTie,
+  faVideo,
+  faWarehouse,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAdversal,
+  faCodepen,
+  faGratipay,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+  faAddressCard,
+  faArrowAltCircleRight as faArrowAltCircleRightRegular,
+  faArrowAltCircleUp as faArrowAltCircleUpRegular,
+  faCircle as faCircleRegular,
+  faComments as faCommentsRegular,
+  faCreditCard,
+  faFileAlt,
+  faHdd,
+  faSave,
+  faStopCircle,
+  faUser,
+  faUserCircle,
+} from '@fortawesome/free-regular-svg-icons';
 
-import { IUiDefaultIconFactory } from './ui-default-icon-factory.interface';
-import { IconsEnum } from '../../../../definition';
+import {
+  IconsEnum,
+  IIconConfigEntity,
+  IUiIconFactory,
+} from '../../../../definition';
+import { isString } from '../../../../util';
 
 @injectable()
-export class UiDefaultIconFactory implements IUiDefaultIconFactory {
+export class UiIconFactory implements IUiIconFactory {
 
   // tslint:disable:max-line-length
   // https://svg2jsx.herokuapp.com/
@@ -569,12 +667,139 @@ export class UiDefaultIconFactory implements IUiDefaultIconFactory {
   };
   // tslint:enable:max-line-length
 
+  private static readonly ICONS_MAP = {
+    [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
+    [IconsEnum.PAPERCLIP]: faPaperclip,
+    [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
+    [IconsEnum.PRINT]: faPrint,
+    [IconsEnum.SEARCH_MINUS]: faSearchMinus,
+    [IconsEnum.SEARCH_PLUS]: faSearchPlus,
+    [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
+    [IconsEnum.SYNC]: faSync,
+    add: faPlus,
+    address_card: faAddressCard,
+    adversal: faAdversal,
+    angle_double_right: faAngleDoubleRight,
+    angle_left: faAngleLeft,
+    angle_right: faAngleRight,
+    arrow_alt_circle_down: faArrowAltCircleDown,
+    arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,
+    arrow_alt_circle_up_regular: faArrowAltCircleUpRegular,
+    arrow_down: faArrowDown,
+    arrow_left: faArrowLeft,
+    arrow_right: faArrowRight,
+    arrow_up: faArrowUp,
+    barcode: faBarcode,
+    category: faCodepen,
+    chart_pie: faChartPie,
+    check: faCheck,
+    check_circle: faCheckCircle,
+    circle_regular: faCircleRegular,
+    clear_all: faEraser,
+    cloud: faCloud,
+    comments_regular: faCommentsRegular,
+    dashboard: faChartLine,
+    done: faCheck,
+    done_all: faCheckDouble,
+    error: faExclamationCircle,
+    exchange: faExchangeAlt,
+    exclamation: faExclamation,
+    exclamation_circle: faExclamationCircle,
+    file: faFileAlt,
+    file_invoice_dollar: faFileInvoiceDollar,
+    gift: faGift,
+    group: faUsers,
+    hdd: faHdd,
+    history: faHistory,
+    home: faHome,
+    http: faExchangeAlt,
+    info: faInfo,
+    key: faKey,
+    local_offer: faTag,
+    location: faMapMarkerAlt,
+    location_on: faMapMarkerAlt,
+    lock: faLock,
+    long_arrow_alt_left: faLongArrowAltLeft,
+    long_arrow_alt_right: faLongArrowAltRight,
+    long_arrow_alt_up: faLongArrowAltUp,
+    loyalty: faGratipay,
+    map_marked_alt: faMapMarkedAlt,
+    map_marker_alt: faMapMarkerAlt,
+    menu: faBars,
+    minus: faMinus,
+    more_vert: faEllipsisV,
+    payment: faCreditCard,
+    percent: faPercent,
+    plus: faPlus,
+    product: faCannabis,
+    question: faQuestion,
+    remove: faMinus,
+    router: faServer,
+    save: faSave,
+    search: faSearch,
+    shield_alt: faShieldAlt,
+    shipping_fast: faShippingFast,
+    signIn: faSignInAlt,
+    sms: faCommentDots,
+    spa: faCannabis,
+    stop: faStop,
+    stop_circle: faStopCircle,
+    tablet_alt: faTabletAlt,
+    tags: faTags,
+    times_circle: faTimesCircle,
+    truck: faTruck,
+    truck_moving: faTruckMoving,
+    undo: faUndo,
+    unlock_alt: faUnlockAlt,
+    user: faUser,
+    user_circle: faUserCircle,
+    user_clock: faUserClock,
+    user_edit: faUserEdit,
+    user_shield: faUserShield,
+    user_tie: faUserTie,
+    verified_user: faShieldAlt,
+    video: faVideo,
+    warehouse: faWarehouse,
+    widgets: faCubes,
+    work: faBriefcase,
+  };
+
+  private readonly alternativeIconCtors = new Map<string, JSX.Element>();
+
   /**
-   * @stable [25.01.2019]
-   * @param {string} iconName
+   * @stable [19.04.2020]
+   * @param {IIconConfigEntity | string} cfg
    * @returns {JSX.Element}
    */
-  public makeInstance(iconName: string): JSX.Element {
-    return UiDefaultIconFactory.SUPPORTED_ICONS_MAPS[iconName];
+  public makeIcon(cfg: IIconConfigEntity | string): JSX.Element {
+    if (R.isNil(cfg)) {
+      return cfg;
+    }
+    const config = this.toIconConfig(cfg);
+    return UiIconFactory.SUPPORTED_ICONS_MAPS[config.type] || this.getAlternativeIconCtor(config);
+  }
+
+  /**
+   * @stable [19.04.2020]
+   * @param {IIconConfigEntity} config
+   * @returns {JSX.Element}
+   */
+  private getAlternativeIconCtor(config: IIconConfigEntity): JSX.Element {
+    const icon = UiIconFactory.ICONS_MAP[config.type] || faQuestion;
+
+    let iconCtor = this.alternativeIconCtors.get(icon);
+    if (R.isNil(iconCtor)) {
+      this.alternativeIconCtors.set(icon, iconCtor = <FontAwesomeIcon icon={icon}/>);
+    }
+    return iconCtor;
+  }
+
+  /**
+   * @stable [19.04.2020]
+   * @param {IIconConfigEntity | string} cfg
+   * @returns {IIconConfigEntity}
+   */
+  private toIconConfig(cfg: IIconConfigEntity | string): IIconConfigEntity {
+    return (isString(cfg) ? {type: cfg} : cfg)  as IIconConfigEntity;
   }
 }
