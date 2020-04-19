@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BaseComponent } from '../../base/base.component';
+import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
   calc,
   handlerPropsFactory,
@@ -15,7 +15,7 @@ import {
   UniversalScrollableContext,
 } from '../../../definition';
 
-export class GridRow extends BaseComponent<IGridRowProps> {
+export class GridRow extends GenericBaseComponent<IGridRowProps> {
 
   /**
    * @stable [23.10.2019]

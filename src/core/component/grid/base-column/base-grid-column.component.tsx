@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { UniversalComponent } from '../../base';
+import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
   calc,
   defValuesFilter,
@@ -16,7 +16,7 @@ import {
 import { IGridColumnProps } from '../../../definition';
 
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
-  extends UniversalComponent<TProps> {
+  extends GenericBaseComponent<TProps> {
 
   /**
    * @stable [17.10.2019]

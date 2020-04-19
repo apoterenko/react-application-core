@@ -92,6 +92,7 @@ export enum ComponentClassesEnum {
   MARGIN_LEFT_AUTO = 'rac-margin-left-auto',
   MARGIN_RIGHT_AUTO = 'rac-margin-right-auto',
   MOBILE = 'rac-mobile',
+  NOWRAP = 'rac-nowrap',
   OVERFLOW_HIDDEN = 'rac-overflow-hidden',
   RAC = 'rac',
   RELATIVE = 'rac-relative',

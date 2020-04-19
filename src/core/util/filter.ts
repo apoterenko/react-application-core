@@ -20,11 +20,11 @@ import {
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 import { isObjectNotEmpty } from './object';
 
-export type KeyPredicateT = (key: string, value: AnyT) => boolean;
+export type KeyValuePredicateT = (key: string, value: AnyT) => boolean;
 export type ValuePredicateT = (value: AnyT) => boolean;
 
 export function cloneUsingFilters<TSource extends IKeyValue, TResult extends IKeyValue>(
-    source: TSource, ...predicates: KeyPredicateT[]
+    source: TSource, ...predicates: KeyValuePredicateT[]
 ): TResult {
   const sourceWithObjectValues = filterByPredicate<TSource, TResult>(source, ...predicates.concat(OBJECT_KEY_VALUE_PREDICATE));
   const result: TResult = {...filterByPredicate<TSource, TResult>(source, ...predicates.concat(NOT_OBJECT_KEY_VALUE_PREDICATE)) as {}} as TResult;
@@ -37,28 +37,28 @@ export function cloneUsingFilters<TSource extends IKeyValue, TResult extends IKe
 /**
  * @stable [11.08.2018]
  * @param {TSource} source
- * @param {KeyPredicateT} predicates
+ * @param {KeyValuePredicateT} predicates
  * @returns {TResult}
  */
-export const filterByPredicate = <TSource extends IKeyValue, TResult extends IKeyValue>(
-  source: TSource,
-  ...predicates: KeyPredicateT[]
-): TResult =>
-  Object.freeze(
+export const filterByPredicate =
+  <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource,
+                                                         ...predicates: KeyValuePredicateT[]): TResult =>
     R.pickBy<TSource, TResult>(
       (value, key): boolean => predicates.length > 1
-        ? (predicates as Array<KeyPredicateT | boolean>)
-          .reduce(
-            (previousValue, currentValue): boolean =>
-              (currentValue as KeyPredicateT)(key, value)
-              && (isFn(previousValue)
-              ? (previousValue as KeyPredicateT)(key, value)
-              : previousValue as boolean)
-          ) as boolean
+        ? (
+          (predicates as Array<KeyValuePredicateT | boolean>)
+            .reduce(
+              (prevValue, curValue): boolean =>
+                (curValue as KeyValuePredicateT)(key, value) && (
+                  isFn(prevValue)
+                    ? (prevValue as KeyValuePredicateT)(key, value)
+                    : prevValue as boolean
+                )
+            ) as boolean
+        )
         : predicates[0](key, value),
       source
-    )
-  );
+    );
 
 export function excludeFieldsPredicateFactory(...fields: string[]) {
   return (key: string, value: AnyT) => !fields.includes(key);
