@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  calc,
   isFn,
+  joinClassName,
   nvl,
   orNull,
 } from '../../../util';
@@ -12,16 +14,19 @@ import {
 } from '../../../configurations-definitions.interface';
 import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
 import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
-import { UniversalComponent } from '../../base/universal.component';
+import { GenericComponent } from '../../base/generic.component';
 import {
   IconsEnum,
   IFieldActionEntity,
   ToolbarToolsEnum,
 } from '../../../definition';
+import { Button } from '../../button';
+import { TextField } from '../../field/text-field';
+import { FlexLayout } from '../../layout/flex/flex-layout.component';
 
 export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchToolbarProps,
                                              TState = {}>
-  extends UniversalComponent<TProps> {
+  extends GenericComponent<TProps> {
 
   /**
    * @stable [18.05.2018]
@@ -42,12 +47,9 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
       type: 'filter',
       onClick: this.onOpen.bind(this),
     },
-    [ToolbarToolsEnum.CLEAR]: {
-      type: 'close',
-      onClick: this.onDeactivate.bind(this),
-    },
+    [ToolbarToolsEnum.CLEAR]: {type: IconsEnum.TIMES, onClick: this.onDeactivate.bind(this)},
     [ToolbarToolsEnum.REFRESH]: {type: IconsEnum.SYNC, title: this.settings.messages.refreshActionTitleMessage},
-    [ToolbarToolsEnum.DOWNLOAD_FILE]: {type: 'download', title: this.settings.messages.exportActionTitleMessage},
+    [ToolbarToolsEnum.DOWNLOAD_FILE]: {type: IconsEnum.FILE_DOWNLOAD, title: this.settings.messages.exportActionTitleMessage},
   };
 
   /**
@@ -61,6 +63,21 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
     this.onApply = this.onApply.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onActionClick = this.onActionClick.bind(this);
+  }
+
+  public render(): JSX.Element {
+    const props = this.props;
+    return (
+      <FlexLayout
+        row={true}
+        justifyContentEnd={true}
+        alignItemsCenter={true}
+        full={props.full}
+        className={joinClassName('rac-toolbar', calc<string>(props.className))}>
+        {this.actionsElementsSection}
+        {this.fieldSection}
+      </FlexLayout>
+    );
   }
 
   /**
@@ -201,19 +218,27 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
     return orNull<JSX.Element[]>(this.actionsElements.length > 0, () => this.actionsElementsWrapper);
   }
 
-  protected abstract getActionElement(config: any): JSX.Element;	// TODO
+  /**
+   * @stable [18.05.2018]
+   * @returns {JSX.Element}
+   */
+  protected get actionsElementsWrapper(): JSX.Element[] {
+    return this.actionsElements;
+  }
+
+  protected getActionElement(config: any): JSX.Element {
+    return <Button {...config}/>;	// TODO
+  }
 
   /**
    * @stable [18.05.2018]
    * @returns {JSX.Element}
    */
-  protected abstract get fieldWrapper(): JSX.Element;
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element}
-   */
-  protected abstract get actionsElementsWrapper(): JSX.Element[];
+  protected get fieldWrapper(): JSX.Element {
+    return (
+      <TextField {...this.fieldProps}/>
+    );
+  }
 
   /**
    * @stable [18.05.2018]

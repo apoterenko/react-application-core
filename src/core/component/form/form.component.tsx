@@ -6,6 +6,7 @@ import {
   IApiEntity,
   IBaseEvent,
   IButtonProps,
+  IconsEnum,
   IFieldsPresets,
   IFormProps,
   IGenericEditableEntity,
@@ -435,7 +436,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     return objectValuesArrayFilter(
       props.resetActionRendered && notNilValuesFilter<IButtonProps, IButtonProps>({
         type: 'reset',
-        icon: props.resetIcon || 'close',
+        icon: props.resetIcon || IconsEnum.TIMES,
         disabled: !this.isFormResettable,
         text: props.resetText || messages.RESET,
         ...buttonConfiguration,

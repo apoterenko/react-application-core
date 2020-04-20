@@ -14,6 +14,7 @@ import { Link } from '../../link';
 import { Menu } from '../../menu';
 import {
   IComponentsSettingsEntity,
+  IconsEnum,
   IDefaultLayoutProps,
   IMenuItemEntity,
   INavigationListItemEntity,
@@ -140,7 +141,7 @@ export class NavigationList
             })}
             {fullLayoutModeEnabled && label}
             {fullLayoutModeEnabled && this.uiFactory.makeIcon({
-              type: isExpanded ? 'dropdown-opened' : 'dropdown',
+              type: isExpanded ? IconsEnum.CHEVRON_UP : IconsEnum.CHEVRON_DOWN,
               className: 'rac-navigation-list__expand-icon',
             })}
           </div>

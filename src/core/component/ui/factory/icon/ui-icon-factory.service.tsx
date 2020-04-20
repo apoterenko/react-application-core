@@ -20,6 +20,8 @@ import {
   faCheck,
   faCheckCircle,
   faCheckDouble,
+  faChevronDown,
+  faChevronUp,
   faCloud,
   faCommentDots,
   faCubes,
@@ -29,6 +31,7 @@ import {
   faExclamation,
   faExclamationCircle,
   faExclamationTriangle,
+  faFileDownload,
   faFileInvoiceDollar,
   faGift,
   faHistory,
@@ -61,6 +64,7 @@ import {
   faTabletAlt,
   faTag,
   faTags,
+  faTimes,
   faTimesCircle,
   faTruck,
   faTruckMoving,
@@ -125,12 +129,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'download': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M3 21.006C3 21.003 21 21 21 21c-.006 0 0-7.506 0-7.506a1.5 1.5 0 0 1 3 0v7.512A3.008 3.008 0 0 1 21 24H3c-1.659 0-3-1.338-3-2.994v-7.512a1.5 1.5 0 0 1 3 0v7.512zM7.059 6.408a1.485 1.485 0 0 0-2.121 0 1.536 1.536 0 0 0 0 2.15l5.472 5.782c.423.429.986.666 1.59.666.6 0 1.167-.237 1.59-.668l5.47-5.782a1.534 1.534 0 0 0 0-2.148 1.485 1.485 0 0 0-2.12 0l-3.44 3.72V1.5a1.5 1.5 0 1 0-3 0v8.631l-3.44-3.72-.001-.003z'/>
-      </svg>
-    ),
     [IconsEnum.BACK2]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -189,13 +187,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    [IconsEnum.CLOSE]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M3.105 5.226a1.501 1.501 0 0 1 0-2.12 1.501 1.501 0 0 1 2.121 0L12 9.877l6.773-6.773a1.501 1.501 0 0 1 2.121 0 1.501 1.501 0 0 1 0 2.121L14.12 12l6.773 6.773a1.501 1.501 0 0 1 0 2.121 1.501 1.501 0 0 1-2.12 0l-6.774-6.773-6.773 6.773a1.501 1.501 0 0 1-2.12 0 1.501 1.501 0 0 1 0-2.12l6.772-6.774-6.773-6.773z'
-        />
-      </svg>
-    ),
     'list': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -214,13 +205,6 @@ export class UiIconFactory implements IUiIconFactory {
           />
         </defs>
         <use fill='currentColor' fillRule='evenodd' xlinkHref='#59c5b385-2d73-41c8-8f66-bd296326c848' />
-      </svg>
-    ),
-    [IconsEnum.DROP_DOWN]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M12 20.002c.6 0 1.167-.237 1.59-.665l9.972-10.25a1.527 1.527 0 0 0 0-2.141 1.488 1.488 0 0 0-2.121 0L12 16.66 2.56 6.945a1.485 1.485 0 0 0-2.12 0 1.527 1.527 0 0 0 0 2.143l9.968 10.249c.425.428.988.665 1.59.665H12z'
-        />
       </svg>
     ),
     'home': (
@@ -281,17 +265,6 @@ export class UiIconFactory implements IUiIconFactory {
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M1.5 21h21a1.5 1.5 0 0 0 0-3h-21a1.5 1.5 0 0 0 0 3zm0-7.5h21a1.5 1.5 0 0 0 0-3h-21a1.5 1.5 0 0 0 0 3zm0-7.5h21a1.5 1.5 0 0 0 0-3h-21a1.5 1.5 0 0 0 0 3z'
         />
-      </svg>
-    ),
-    [IconsEnum.DROP_DOWN_OPENED]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <defs>
-          <path id='dropdown-opened' d='M12 17.5c.6 0 1.166-.237 1.59-.665L23.56 6.586a1.527 1.527 0 0 0 0-2.142 1.488 1.488 0 0 0-2.12 0l-9.442 9.714-9.44-9.714a1.485 1.485 0 0 0-2.12 0 1.527 1.527 0 0 0 0 2.142l9.969 10.25c.424.427.987.664 1.59.664h.001z'
-          />
-        </defs>
-        <use fill='currentColor' fillRule='evenodd' transform='matrix(1 0 0 -1 0 21.498)'
-             xlinkHref='#dropdown-opened' />
       </svg>
     ),
     'notifications': (
@@ -668,7 +641,10 @@ export class UiIconFactory implements IUiIconFactory {
   // tslint:enable:max-line-length
 
   private static readonly ICONS_MAP = {
+    [IconsEnum.CHEVRON_DOWN]: faChevronDown,
+    [IconsEnum.CHEVRON_UP]: faChevronUp,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
+    [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
     [IconsEnum.PAPERCLIP]: faPaperclip,
     [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
     [IconsEnum.PRINT]: faPrint,
@@ -676,6 +652,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.SEARCH_PLUS]: faSearchPlus,
     [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
     [IconsEnum.SYNC]: faSync,
+    [IconsEnum.TIMES]: faTimes,
     add: faPlus,
     address_card: faAddressCard,
     adversal: faAdversal,

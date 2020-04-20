@@ -6,6 +6,7 @@ import { IOverlayProps } from './overlay.interface';
 import { FlexLayout } from '../layout/flex';
 import { joinClassName, calc, isString, isFn, orNull } from '../../util';
 import { UNI_CODES } from '../../definitions.interface';
+import { IconsEnum } from '../../definition';
 
 export class Overlay extends BaseComponent<IOverlayProps> {
 
@@ -35,7 +36,7 @@ export class Overlay extends BaseComponent<IOverlayProps> {
           isFn(props.onClose),
           () => (
             this.uiFactory.makeIcon({
-              type: 'close',
+              type: IconsEnum.TIMES,
               className: 'rac-overlay-close-action',
               onClick: props.onClose,
             })

@@ -22,6 +22,7 @@ import {
   GenericPluginCtorT,
   IActivateDialogConfigEntity,
   IBaseEvent,
+  IconsEnum,
   IDialog,
   IDialogProps,
   IDialogState,
@@ -266,7 +267,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                 this.closable,
                 () => (
                   <Button
-                    icon='close'
+                    icon={IconsEnum.TIMES}
                     full={true}
                     {...this.props.closeActionConfiguration}
                     disabled={this.isCloseButtonDisabled}

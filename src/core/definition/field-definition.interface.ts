@@ -63,7 +63,8 @@ import {
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
-import { IFieldProps } from '../configurations-definitions.interface'; // TODO
+import { IFieldProps } from '../configurations-definitions.interface';
+import { IconsEnum } from './icon-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -168,9 +169,9 @@ export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] 
 export enum FieldActionTypesEnum {
   ATTACH_FILE = 'attach_file',
   CALENDAR = 'calendar',
-  CLOSE = 'close',
-  DOWNLOAD = 'download',
-  DROP_DOWN = 'dropdown',
+  CLOSE = 'times',                                                     /* https://fontawesome.com/ */
+  DOWNLOAD = 'file-download',                                          /* https://fontawesome.com/ */
+  DROP_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */
   VIDEO = 'video',
 }
 

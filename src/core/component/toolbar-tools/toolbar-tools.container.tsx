@@ -22,7 +22,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
       onClick: this.onFilterClick.bind(this),
     },
     [ToolbarToolsEnum.DOWNLOAD_FILE]: {
-      icon: 'download',
+      icon: IconsEnum.FILE_DOWNLOAD,
       onClick: this.onDownloadFileClick.bind(this),
     },
     [ToolbarToolsEnum.REFRESH]: {

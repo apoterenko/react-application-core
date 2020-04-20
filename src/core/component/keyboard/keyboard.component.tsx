@@ -20,11 +20,12 @@ import {
 import { KeyboardKey } from './key';
 import { FlexLayout } from '../layout/flex';
 import {
+  IconsEnum,
+  IKeyboardKeyValueEntity,
   IKeyboardProps,
   KeyboardClassNamesEnum,
-  KeyboardKeyValueT,
   KeyboardKeysEnum,
-  IKeyboardKeyValueEntity,
+  KeyboardKeyValueT,
 } from '../../definition';
 
 export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
@@ -67,7 +68,7 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
           orNull<JSX.Element>(
             !this.isInline,
             () => this.uiFactory.makeIcon({
-              type: 'close',
+              type: IconsEnum.TIMES,
               className: 'rac-keyboard-close',
               onClick: props.onClose,
             })

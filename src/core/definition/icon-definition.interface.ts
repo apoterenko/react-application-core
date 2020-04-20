@@ -4,10 +4,10 @@
 export enum IconsEnum {
   BACK = 'back',
   BACK2 = 'back2',
-  CLOSE = 'close',
-  DROP_DOWN = 'dropdown',
-  DROP_DOWN_OPENED = 'dropdown-opened',
-  EXCLAMATION_TRIANGLE = 'exclamation-triangle',
+  CHEVRON_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */
+  CHEVRON_UP = 'chevron-up',                                              /* https://fontawesome.com/ */
+  EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
+  FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */
   FORWARD = 'forward',
   FORWARD2 = 'forward2',
   MORE = 'more',
@@ -23,6 +23,7 @@ export enum IconsEnum {
   SIGN_OUT_ALT = 'sign-out-alt',
   SPINNER = 'spinner',
   SYNC = 'sync',
+  TIMES = 'times',                                                        /* https://fontawesome.com/ */
   TRASH = 'trash',
 }
 

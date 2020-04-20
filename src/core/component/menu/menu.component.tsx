@@ -315,7 +315,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   private get closeActionElement(): JSX.Element {
     return (
       this.uiFactory.makeIcon({
-        type: IconsEnum.CLOSE,
+        type: IconsEnum.TIMES,
         className: 'rac-menu-dialog__icon-close',
         onClick: this.hide,
       })
