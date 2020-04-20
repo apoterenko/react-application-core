@@ -2,6 +2,7 @@
  * @stable [24.03.2020]
  */
 export enum IconsEnum {
+  ANGLE_RIGHT = 'angle_right',                                            /* https://fontawesome.com/ */
   BACK = 'back',
   BACK2 = 'back2',
   CHEVRON_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */

@@ -11,7 +11,6 @@ import {
   faArrowLeft,
   faArrowRight,
   faArrowUp,
-  faBarcode,
   faBars,
   faBriefcase,
   faCannabis,
@@ -25,7 +24,6 @@ import {
   faCloud,
   faCommentDots,
   faCubes,
-  faEllipsisV,
   faEraser,
   faExchangeAlt,
   faExclamation,
@@ -54,7 +52,6 @@ import {
   faSearch,
   faSearchMinus,
   faSearchPlus,
-  faServer,
   faShieldAlt,
   faShippingFast,
   faSignInAlt,
@@ -71,7 +68,6 @@ import {
   faTruckMoving,
   faUndo,
   faUnlockAlt,
-  faUserClock,
   faUserEdit,
   faUsers,
   faUserShield,
@@ -88,7 +84,6 @@ import {
 import {
   faAddressCard,
   faArrowAltCircleRight as faArrowAltCircleRightRegular,
-  faArrowAltCircleUp as faArrowAltCircleUpRegular,
   faCircle as faCircleRegular,
   faComments as faCommentsRegular,
   faCreditCard,
@@ -371,13 +366,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'vault': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='80' height='80' viewBox='0 0 80 80'>
-        <path fill='currentColor' d='M11 15c-2.75 0-5 2.25-5 5v38c0 2.75 2.25 5 5 5h1v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h40v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h1c2.75 0 5-2.25 5-5V20c0-2.75-2.25-5-5-5H11zm0 2h58c1.668 0 3 1.332 3 3v38c0 1.668-1.332 3-3 3H11c-1.668 0-3-1.332-3-3V20c0-1.668 1.332-3 3-3zm1 3c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-56 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm56 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-20 2c-7.168 0-13 5.832-13 13s5.832 13 13 13 13-5.832 13-13-5.832-13-13-13zm-27 1c-1.645 0-3 1.355-3 3v18c0 1.645 1.355 3 3 3s3-1.355 3-3V30c0-1.645-1.355-3-3-3zm-9 1c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm56 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-20.996.05a1 1 0 0 0 1.996 0 10.953 10.953 0 0 1 6.043 2.497.998.998 0 0 0 1.41 1.41 10.925 10.925 0 0 1 2.496 6.047 1 1 0 0 0 0 1.996 10.953 10.953 0 0 1-2.496 6.043.965.965 0 0 0-.66-.262 1 1 0 0 0-.75 1.676 10.92 10.92 0 0 1-6.047 2.492 1 1 0 0 0-1.996 0 10.965 10.965 0 0 1-6.047-2.496.998.998 0 0 0-.719-1.676.999.999 0 0 0-.687.266 10.925 10.925 0 0 1-2.496-6.047 1 1 0 0 0 0-1.996 10.953 10.953 0 0 1 2.496-6.043.998.998 0 0 0 1.41-1.41 10.925 10.925 0 0 1 6.047-2.496zM21 29c.566 0 1 .434 1 1v18c0 .566-.434 1-1 1-.566 0-1-.434-1-1V30c0-.566.434-1 1-1zm-9 3c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm36 0c-3.855 0-7 3.145-7 7s3.145 7 7 7 7-3.145 7-7-3.145-7-7-7zm20 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-20 2c2.773 0 5 2.227 5 5s-2.227 5-5 5-5-2.227-5-5 2.227-5 5-5zm-36 2c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm56 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-56 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm56 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-56 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm56 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-56 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm56 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-56 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm56 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-56 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z'
-        />
-      </svg>
-    ),
     'receipt': (
       <svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'>
         <path fill='currentColor' d='M21 10v29.617h-1a1.999 1.999 0 1 0 0 4h40c1.105 0 2-.894 2-2 0-1.105-.895-2-2-2h-1V10l-2.992 1.496-1.926-.996-2.074 1.004L50 10.5l-2 1-2-1-1.992.996-1.926-.996L40 11.508 37.918 10.5 36 11.492l-1.918-.992L32 11.508 29.918 10.5l-1.934 1-2.066-1-1.926.996L21 10zm4.95 2.734l2.066 1 1.933-1 2.051.993 2.05-.993L36 13.742l1.95-1.008 2.05.993 2.05-.993 1.942 1.004L46 12.734l2 1 2-1 1.992.996 2.059-.996 1.941 1.004L57 13.234v28.383H23V13.234l1.008.504 1.941-1.004zM27 20.617v2h16v-2H27zm20 0v2h6v-2h-6zm-20 6v2h12v-2H27zm20 0v2h6v-2h-6zm-30 4c-3.855 0-7 3.145-7 7v32h2v-32c0-2.773 2.227-5 5-5h2v-2h-2zm44 0v2h2c2.773 0 5 2.227 5 5v32h2v-32c0-3.855-3.145-7-7-7h-2zm-35 4c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm4 0c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm4 0c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm4 0c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm4 0c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm4 0c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm4 0c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm4 0c-.55 0-1 .45-1 1 0 .551.45 1 1 1s1-.449 1-1c0-.55-.45-1-1-1zm-33 14c-1.094 0-2 .906-2 2v6c0 1.094.906 2 2 2h39c1.094 0 2-.906 2-2v-6c0-1.094-.906-2-2-2H21zm0 2h39v6H21v-6zm0 11c-1.094 0-2 .906-2 2v4c0 1.094.906 2 2 2h4c1.094 0 2-.906 2-2v-4c0-1.094-.906-2-2-2h-4zm10 0c-1.094 0-2 .906-2 2v4c0 1.094.906 2 2 2h4c1.094 0 2-.906 2-2v-4c0-1.094-.906-2-2-2h-4zm10 0c-1.094 0-2 .906-2 2v4c0 1.094.906 2 2 2h4c1.094 0 2-.906 2-2v-4c0-1.094-.906-2-2-2h-4zm15 0c-1.094 0-2 .906-2 2v4c0 1.094.906 2 2 2h4c1.094 0 2-.906 2-2v-4c0-1.094-.906-2-2-2h-4zm-35 2h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm15 0h4v4h-4v-4z'
@@ -599,6 +587,7 @@ export class UiIconFactory implements IUiIconFactory {
   // tslint:enable:max-line-length
 
   private static readonly ICONS_MAP = {
+    [IconsEnum.ANGLE_RIGHT]: faAngleRight,
     [IconsEnum.CHEVRON_DOWN]: faChevronDown,
     [IconsEnum.CHEVRON_UP]: faChevronUp,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
@@ -617,15 +606,12 @@ export class UiIconFactory implements IUiIconFactory {
     adversal: faAdversal,
     angle_double_right: faAngleDoubleRight,
     angle_left: faAngleLeft,
-    angle_right: faAngleRight,
     arrow_alt_circle_down: faArrowAltCircleDown,
     arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,
-    arrow_alt_circle_up_regular: faArrowAltCircleUpRegular,
     arrow_down: faArrowDown,
     arrow_left: faArrowLeft,
     arrow_right: faArrowRight,
     arrow_up: faArrowUp,
-    barcode: faBarcode,
     category: faCodepen,
     chart_pie: faChartPie,
     check: faCheck,
@@ -663,14 +649,12 @@ export class UiIconFactory implements IUiIconFactory {
     map_marker_alt: faMapMarkerAlt,
     menu: faBars,
     minus: faMinus,
-    more_vert: faEllipsisV,
     payment: faCreditCard,
     percent: faPercent,
     plus: faPlus,
     product: faCannabis,
     question: faQuestion,
     remove: faMinus,
-    router: faServer,
     save: faSave,
     search: faSearch,
     shield_alt: faShieldAlt,
@@ -689,7 +673,6 @@ export class UiIconFactory implements IUiIconFactory {
     unlock_alt: faUnlockAlt,
     user: faUser,
     user_circle: faUserCircle,
-    user_clock: faUserClock,
     user_edit: faUserEdit,
     user_shield: faUserShield,
     user_tie: faUserTie,

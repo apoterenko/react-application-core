@@ -10,6 +10,7 @@ import {
   orNull,
 } from '../../../util';
 import { UniversalPageToolbar } from './universal-page-toolbar.component';
+import { IconsEnum } from '../../../definition';
 
 export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
 
@@ -122,7 +123,7 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
         {this.getPagesElement()}
         {
           this.uiFactory.makeIcon({
-            type: props.nextIcon || 'angle_right',
+            type: props.nextIcon || IconsEnum.ANGLE_RIGHT,
             className: 'rac-toolbar-icon',
             disabled: isNextBtnDisabled,
             onClick: props.onNext,
