@@ -3,6 +3,7 @@ import * as React from 'react';
 import { BaseComponent } from '../../base/base.component';
 import { IProgressLabelProps } from './progress-label.interface';
 import { FlexLayout } from '../../layout/flex';
+import { IconsEnum } from '../../../definition';
 
 export class ProgressLabel extends BaseComponent<IProgressLabelProps> {
 
@@ -19,7 +20,7 @@ export class ProgressLabel extends BaseComponent<IProgressLabelProps> {
                   className={props.className}>
         <FlexLayout full={false}
                     justifyContentCenter={true}>
-          {this.uiFactory.makeIcon({ type: 'spinner', className: 'rac-loading-icon' })}
+          {this.uiFactory.makeIcon({ type: IconsEnum.SPINNER, className: 'rac-loading-icon' })}
         </FlexLayout>
         {
           <FlexLayout className='rac-loading-message'>

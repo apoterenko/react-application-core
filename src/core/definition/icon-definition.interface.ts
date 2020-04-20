@@ -21,7 +21,7 @@ export enum IconsEnum {
   SEARCH_PLUS = 'search-plus',
   SETTINGS = 'settings',
   SIGN_OUT_ALT = 'sign-out-alt',
-  SPINNER = 'spinner',
+  SPINNER = 'spinner',                                                    /* https://fontawesome.com/ */
   SYNC = 'sync',
   TIMES = 'times',                                                        /* https://fontawesome.com/ */
   TRASH = 'trash',

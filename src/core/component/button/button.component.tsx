@@ -18,6 +18,7 @@ import {
 import {
   ButtonClassesEnum,
   IButtonProps,
+  IconsEnum,
   UniversalIdProviderContext,
 } from '../../definition';
 import { Link } from '../link';
@@ -159,7 +160,7 @@ export class Button extends BaseComponent<IButtonProps> {
 
     return this.uiFactory.makeIcon({
       type: progress
-        ? 'spinner'
+        ? IconsEnum.SPINNER
         : (error ? 'error' : icon as string),
     });
   }
