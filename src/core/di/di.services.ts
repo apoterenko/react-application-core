@@ -13,6 +13,7 @@ import {
   DynamicSectionsMapT,
   FormStoreProxyFactoryT,
   GenericPluginFactoryT,
+  GenericPluginsMapT,
   IAsyncLibManager,
   IAuth,
   IConnectorEntity,
@@ -110,9 +111,9 @@ export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UiFactory)
 
 /**
  * @stable [21.04.2020]
- * @returns {Map<IGenericComponentCtor, GenericPluginFactoryT[]>}
+ * @returns {GenericPluginsMapT}
  */
-export const getUiPlugins = (): Map<IGenericComponentCtor, GenericPluginFactoryT[]> => staticInjector(DI_TYPES.UiPlugins);
+export const getUiPlugins = (): GenericPluginsMapT => staticInjector(DI_TYPES.UiPlugins);
 
 /**
  * @stable [15.11.2018]

@@ -8,7 +8,7 @@ import {
 import { AnyT } from '../../definitions.interface';
 import {
   GenericPluginCtorT,
-  GenericPluginFactoryT,
+  GenericPluginsMapT,
   IEnhancedGenericComponentProps,
   IGenericComponentCtor,
   IGenericPlugin,
@@ -22,7 +22,7 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
   extends GenericComponent<TProps, TState, TSelfRef> {
 
   protected readonly plugins: IGenericPlugin[] = [];
-  private $uiPlugins: Map<IGenericComponentCtor, GenericPluginFactoryT[]>;
+  private $uiPlugins: GenericPluginsMapT;
 
   /**
    * @stable [21.04.2020]
@@ -103,9 +103,9 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
 
   /**
    * @stable [21.04.2020]
-   * @returns {Map<IUniversalComponentCtor, GenericPluginFactoryT[]>}
+   * @returns {GenericPluginsMapT}
    */
-  private get uiPlugins(): Map<IGenericComponentCtor, GenericPluginFactoryT[]> {
+  private get uiPlugins(): GenericPluginsMapT {
     return this.$uiPlugins = this.$uiPlugins || getUiPlugins();
   }
 }

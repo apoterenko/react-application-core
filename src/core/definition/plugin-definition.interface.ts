@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import {
   IGenericComponent,
+  IGenericComponentCtor,
   IGenericComponentProps,
 } from './generic-component-definition.interface';
 
@@ -30,3 +31,8 @@ export type GenericPluginCtorT
     TProps extends IGenericComponentProps = IGenericComponentProps,
     TState = {}>
   = new(component: TComponent) => IGenericPlugin<TProps, TState>;
+
+/**
+ * @stable [21.04.2020]
+ */
+export type GenericPluginsMapT = Map<IGenericComponentCtor, GenericPluginFactoryT[]>;
