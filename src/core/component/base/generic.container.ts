@@ -51,14 +51,6 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   private $userActivityManager: IUserActivityManager;
 
   /**
-   * @stable [16.04.2020]
-   * @returns {TUser}
-   */
-  protected getUser<TUser extends IUserEntity>(): TUser {
-    return this.props.user as TUser;
-  }
-
-  /**
    * @stable [27.11.2019]
    * @returns {IDialogFormChangesConfirmStoreProxy}
    */
@@ -138,6 +130,14 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    */
   public dispatchActionByType<TData = {}>(type: string, data?: TData): void {
     this.storeProxy.dispatchActionByType(type, data);
+  }
+
+  /**
+   * @stable [16.04.2020]
+   * @returns {TUser}
+   */
+  protected getUser<TUser extends IUserEntity>(): TUser {
+    return this.props.user as TUser;
   }
 
   /**
