@@ -94,6 +94,7 @@ import {
   faHdd,
   faSave,
   faStopCircle,
+  faTrashAlt as faTrashAltRegular,
   faUser,
   faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
@@ -424,16 +425,6 @@ export class UiIconFactory implements IUiIconFactory {
         <path fill='currentColor' d='M24 20a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 20zm0-7.5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16a1.5 1.5 0 0 0 1.5-1.5zM24 5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 5zM1.5 21.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z'/>
       </svg>
     ),
-    [IconsEnum.TRASH]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <defs>
-          <path id='824ac6b3-dec4-4355-bf5e-08524aeebf4f' d='M21.5 9H21v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V9h-.5a1.5 1.5 0 0 1 0-3H6c0-3 2-6 6-6s6 3 6 6h3.5a1.5 1.5 0 0 1 0 3zM18 9v12H6V9h12zm-3-3H9c0-2 1-3 3-3s3 1 3 3zm-5.5 5a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-3 0v-5A1.5 1.5 0 0 1 9.5 11zm5 0a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-3 0v-5a1.5 1.5 0 0 1 1.5-1.5z'
-          />
-        </defs>
-        <use fill='currentColor' fillRule='evenodd' xlinkHref='#824ac6b3-dec4-4355-bf5e-08524aeebf4f' />
-      </svg>
-    ),
     'forward': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -595,6 +586,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.SPINNER]: faSpinner,
     [IconsEnum.SYNC]: faSync,
     [IconsEnum.TIMES]: faTimes,
+    [IconsEnum.TRASH_ALT_REGULAR]: faTrashAltRegular,
     [IconsEnum.VIDEO]: faVideo,
     add: faPlus,
     address_card: faAddressCard,

@@ -29,7 +29,7 @@ export enum IconsEnum {
   SPINNER = 'spinner',                                                    /* https://fontawesome.com/ */
   SYNC = 'sync',                                                          /* https://fontawesome.com/ */
   TIMES = 'times',                                                        /* https://fontawesome.com/ */
-  TRASH = 'trash',
+  TRASH_ALT_REGULAR = 'trash-alt-regular',                                /* https://fontawesome.com/ */
   VIDEO = 'video',                                                        /* https://fontawesome.com/ */
 }
 
