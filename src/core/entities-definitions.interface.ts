@@ -24,10 +24,10 @@ import {
 import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from './configurations-definitions.interface';
 import {
   IEnvironment,
+  IGenericActiveQueryEntity,
+  IGenericComponent,
   IGenericLifeCycleEntity,
   IListEntity,
-  IGenericActiveQueryEntity,
-  IUniversalComponent,
 } from './definition';
 
 /**
@@ -42,7 +42,7 @@ export interface IDateTimeEntity extends IDateWrapper,
  */
 export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps,
                                  TState = {}>
-  extends IUniversalComponent<TProps, TState>,
+  extends IGenericComponent<TProps, TState>,
           IUniversalKeyboardHandlersConfiguration,
           IValueWrapper,
           ISetFocusWrapper,

@@ -31,8 +31,8 @@ export interface IUniversalComponentEntity
 }
 
 /**
- * @react-native-compatible
- * @stable [22.09.2019]
+ * TODO
+ * @deprecated
  */
 export interface IUniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends React.Component<TProps, TState>,

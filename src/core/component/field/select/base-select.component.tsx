@@ -615,7 +615,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {number}
    */
   private getMenuWidth(): number {
-    return this.domAccessor.getWidth(this.getSelf());
+    return this.domAccessor.getWidth(this.selfRef.current);
   }
 
   /**

@@ -5,9 +5,11 @@ import {
   IDomAccessor,
   IEnvironment,
   IEventManager,
+  IFieldConverter,
   IGenericBaseComponentProps,
   IGenericComponent,
   IPhoneConverter,
+  IPlaceApi,
   IUiFactory,
   TranslatorT,
 } from '../../definition';
@@ -16,8 +18,10 @@ import {
   getDomAccessor,
   getEnvironment,
   getEventManager,
+  getFieldConverter,
   getNumberConverter,
   getPhoneConverter,
+  getPlaceApi,
   getSettings,
   getTranslator,
   getUiFactory,
@@ -39,8 +43,10 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   private $domAccessor: IDomAccessor;
   private $environment: IEnvironment;
   private $eventManager: IEventManager;
+  private $fieldConverter: IFieldConverter;
   private $nc: INumberConverter;
   private $pc: IPhoneConverter;
+  private $placeApi: IPlaceApi;
   private $settings: ISettingsEntity;
   private $t: TranslatorT;
   private $uiFactory: IUiFactory;
@@ -62,6 +68,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   }
 
   /**
+   * @stable [21.04.2020]
+   * @returns {IFieldConverter}
+   */
+  protected get fieldConverter(): IFieldConverter {
+    return this.$fieldConverter = this.$fieldConverter || getFieldConverter();
+  }
+
+  /**
    * @stable [30.03.2020]
    * @returns {IPhoneConverter}
    */
@@ -75,6 +89,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get dc(): IDateConverter {
     return this.$dc = this.$dc || getDateConverter();
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @returns {IPlaceApi}
+   */
+  protected get placeApi(): IPlaceApi {
+    return this.$placeApi = this.$placeApi || getPlaceApi();
   }
 
   /**

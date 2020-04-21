@@ -1,7 +1,11 @@
-import { DI_TYPES, lazyInject } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import {
   IDomAccessor,
-  IUniversalComponent,
+  IGenericComponent,
+  IGenericComponentProps,
   IGenericPlugin,
 } from '../../definition';
 
@@ -11,10 +15,10 @@ export class AutoScrollTopPlugin implements IGenericPlugin {
   private contentHeight: number;
 
   /**
-   * @stable [27.10.2018]
-   * @param {IUniversalComponent} component
+   * @stable [21.04.2020]
+   * @param {IGenericComponent<IGenericComponentProps, {}, HTMLElement>} component
    */
-  constructor(private readonly component: IUniversalComponent) {
+  constructor(private readonly component: IGenericComponent<IGenericComponentProps, {}, HTMLElement>) {
   }
 
   /**
@@ -32,10 +36,10 @@ export class AutoScrollTopPlugin implements IGenericPlugin {
   }
 
   /**
-   * @stable [01.12.2018]
+   * @stable [21.04.2020]
    */
   private updateScrollTop(): void {
-    const self = this.component.getSelf();
+    const self = this.component.selfRef.current;
     const contentHeight = this.domAccessor.getContentHeight(self);
 
     if (this.contentHeight !== contentHeight) {

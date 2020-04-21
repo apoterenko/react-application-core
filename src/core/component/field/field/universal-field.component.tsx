@@ -51,11 +51,11 @@ import {
   IBaseEvent,
   IGenericBaseFieldEntity,
 } from '../../../definition';
-import { UniversalComponent } from '../../base/universal.component';
+import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps,
                                      TState extends IUniversalFieldState>
-  extends UniversalComponent<TProps, TState>
+  extends EnhancedGenericComponent<TProps, TState>
   implements IUniversalField<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('UniversalField');

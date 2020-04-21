@@ -10,8 +10,6 @@ import {
   getAsyncLibManager,
   getDatabaseStorage,
   getEventEmitter,
-  getFieldConverter,
-  getPlaceApi,
   getTransport,
   getUiPlugins,
   staticInjector,
@@ -22,9 +20,7 @@ import {
   GenericPluginFactoryT,
   IAsyncLibManager,
   IEventEmitter,
-  IFieldConverter,
   IGenericPlugin,
-  IPlaceApi,
   IRoutesEntity,
   IStorage,
   ITransport,
@@ -105,15 +101,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
 
   /**
    * @react-native-compatible
-   * @stable [09.01.2020]
-   * @returns {IFieldConverter}
-   */
-  protected get fieldConverter(): IFieldConverter {
-    return getFieldConverter();
-  }
-
-  /**
-   * @react-native-compatible
    * @stable [17.01.2020]
    * @returns {IEventEmitter}
    */
@@ -128,15 +115,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get uniqueId(): IUniqueId {
     return null; // getUniqueId();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [09.01.2020]
-   * @returns {IPlaceApi}
-   */
-  protected get placeApi(): IPlaceApi {
-    return getPlaceApi();
   }
 
   /**
