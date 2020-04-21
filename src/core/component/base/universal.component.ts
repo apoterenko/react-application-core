@@ -8,9 +8,7 @@ import {
 import {
   DI_TYPES,
   getAsyncLibManager,
-  getDatabaseStorage,
   getEventEmitter,
-  getTransport,
   getUiPlugins,
   staticInjector,
 } from '../../di';
@@ -22,8 +20,6 @@ import {
   IEventEmitter,
   IGenericPlugin,
   IRoutesEntity,
-  IStorage,
-  ITransport,
   IUniqueId,
   IUniversalComponent,
   IUniversalComponentCtor,
@@ -132,24 +128,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get routes(): IRoutesEntity {
     return staticInjector(DI_TYPES.Routes);
-  }
-
-  /**
-   * @reactNativeCompatible
-   * @stable [29.07.2019]
-   * @returns {IStorage}
-   */
-  protected get databaseStorage(): IStorage {
-    return getDatabaseStorage();
-  }
-
-  /**
-   * @reactNativeCompatible
-   * @stable [15.09.2019]
-   * @returns {ITransport}
-   */
-  protected get transport(): ITransport {
-    return getTransport();
   }
 
   /**

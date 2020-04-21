@@ -10,10 +10,13 @@ import {
   IGenericComponent,
   IPhoneConverter,
   IPlaceApi,
+  IStorage,
+  ITransport,
   IUiFactory,
   TranslatorT,
 } from '../../definition';
 import {
+  getDatabaseStorage,
   getDateConverter,
   getDomAccessor,
   getEnvironment,
@@ -24,6 +27,7 @@ import {
   getPlaceApi,
   getSettings,
   getTranslator,
+  getTransport,
   getUiFactory,
 } from '../../di';
 import { ISettingsEntity } from '../../settings';
@@ -35,10 +39,12 @@ import {
 export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IGenericBaseComponentProps,
   TState = {},
   TSelfRef = AnyT>
-  extends React.PureComponent<TProps, TState> implements IGenericComponent<TProps, TState, TSelfRef> {
+  extends React.PureComponent<TProps, TState>
+  implements IGenericComponent<TProps, TState, TSelfRef> {
 
   public readonly selfRef = React.createRef<TSelfRef>();
 
+  private $databaseStorage: IStorage;
   private $dc: IDateConverter;
   private $domAccessor: IDomAccessor;
   private $environment: IEnvironment;
@@ -49,6 +55,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   private $placeApi: IPlaceApi;
   private $settings: ISettingsEntity;
   private $t: TranslatorT;
+  private $transport: ITransport;
   private $uiFactory: IUiFactory;
 
   /**
@@ -57,6 +64,22 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get settings(): ISettingsEntity {
     return this.$settings = this.$settings || getSettings();
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @returns {IStorage}
+   */
+  protected get databaseStorage(): IStorage {
+    return this.$databaseStorage = this.$databaseStorage || getDatabaseStorage();
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @returns {ITransport}
+   */
+  protected get transport(): ITransport {
+    return this.$transport = this.$transport || getTransport();
   }
 
   /**

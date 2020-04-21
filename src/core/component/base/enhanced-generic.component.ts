@@ -34,6 +34,44 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
   }
 
   /**
+   * @stable [21.04.2020]
+   */
+  public componentDidMount(): void {
+    this.plugins.forEach((plugin) => isFn(plugin.componentDidMount) && plugin.componentDidMount());
+  }
+
+  /**
+   * @stable [21.04.2020]
+   */
+  public componentWillUnmount(): void {
+    this.plugins.forEach((plugin) => isFn(plugin.componentWillUnmount) && plugin.componentWillUnmount());
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @param {Readonly<TProps extends IEnhancedGenericComponentProps>} prevProps
+   * @param {Readonly<TState>} prevState
+   * @param {never} prevContext
+   */
+  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>, prevContext?: never): void {
+    this.plugins.forEach(
+      (plugin) => isFn(plugin.componentDidUpdate) && plugin.componentDidUpdate(prevProps, prevState, prevContext)
+    );
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @param {Readonly<TProps extends IEnhancedGenericComponentProps>} prevProps
+   * @param {Readonly<TState>} prevState
+   */
+  public getSnapshotBeforeUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
+    this.plugins.forEach((plugin) =>
+      isFn(plugin.getSnapshotBeforeUpdate) && plugin.getSnapshotBeforeUpdate(prevProps, prevState));
+
+    return null;
+  }
+
+  /**
    * @stable [10.04.2020]
    * @param {GenericPluginCtorT | IGenericPlugin} pluginObject
    */
