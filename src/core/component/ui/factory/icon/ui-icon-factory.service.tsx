@@ -85,6 +85,7 @@ import {
 import {
   faAddressCard,
   faArrowAltCircleRight as faArrowAltCircleRightRegular,
+  faCalendarAlt as faCalendarAltRegular,
   faCircle as faCircleRegular,
   faComments as faCommentsRegular,
   faCreditCard,
@@ -338,12 +339,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'calendar': (
-      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M20.99 24H3.01A3.013 3.013 0 0 1 0 21V6a3.002 3.002 0 0 1 3.012-3H6V1.5a1.5 1.5 0 0 1 3 0V3h6V1.5a1.5 1.5 0 0 1 3 0V3h2.99A3.013 3.013 0 0 1 24 6v15a3.002 3.002 0 0 1-3.012 3h.002zM21 6h-3v1.5a1.5 1.5 0 0 1-3 0V6H9v1.5a1.5 1.5 0 0 1-3 0V6H3v15h18V6zm-4.5 12a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 16.5 18zm0-4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 16.5 13.5zM12 18a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 12 18zm0-4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 12 13.5zM7.5 18a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 7.5 18zm0-4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 7.5 13.5z'
-        />
-      </svg>
-    ),
     'ok-filled': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -591,6 +586,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.ANGLE_DOUBLE_LEFT]: faAngleDoubleLeft,
     [IconsEnum.ANGLE_DOUBLE_RIGHT]: faAngleDoubleRight,
     [IconsEnum.ANGLE_RIGHT]: faAngleRight,
+    [IconsEnum.CALENDAR_ALT_REGULAR]: faCalendarAltRegular,
     [IconsEnum.CHEVRON_DOWN]: faChevronDown,
     [IconsEnum.CHEVRON_UP]: faChevronUp,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
@@ -604,6 +600,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.SPINNER]: faSpinner,
     [IconsEnum.SYNC]: faSync,
     [IconsEnum.TIMES]: faTimes,
+    [IconsEnum.VIDEO]: faVideo,
     add: faPlus,
     address_card: faAddressCard,
     adversal: faAdversal,
@@ -679,7 +676,6 @@ export class UiIconFactory implements IUiIconFactory {
     user_shield: faUserShield,
     user_tie: faUserTie,
     verified_user: faShieldAlt,
-    video: faVideo,
     warehouse: faWarehouse,
     widgets: faCubes,
     work: faBriefcase,

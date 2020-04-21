@@ -7,6 +7,7 @@ export enum IconsEnum {
   ANGLE_RIGHT = 'angle_right',                                            /* https://fontawesome.com/ */
   BACK = 'back',
   BACK2 = 'back2',
+  CALENDAR_ALT_REGULAR = 'calendar-alt-regular',                          /* https://fontawesome.com/ */
   CHEVRON_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */
   CHEVRON_UP = 'chevron-up',                                              /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
@@ -25,9 +26,10 @@ export enum IconsEnum {
   SETTINGS = 'settings',
   SIGN_OUT_ALT = 'sign-out-alt',
   SPINNER = 'spinner',                                                    /* https://fontawesome.com/ */
-  SYNC = 'sync',
+  SYNC = 'sync',                                                          /* https://fontawesome.com/ */
   TIMES = 'times',                                                        /* https://fontawesome.com/ */
   TRASH = 'trash',
+  VIDEO = 'video',                                                        /* https://fontawesome.com/ */
 }
 
 /**

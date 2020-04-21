@@ -167,12 +167,12 @@ export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] 
  * @stable [30.10.2019]
  */
 export enum FieldActionTypesEnum {
-  ATTACH_FILE = 'attach_file',
-  CALENDAR = 'calendar',
+  ATTACH_FILE = 'paperclip',                                           /* https://fontawesome.com/ */
+  CALENDAR = 'calendar-alt-regular',                                   /* https://fontawesome.com/ */
   CLOSE = 'times',                                                     /* https://fontawesome.com/ */
   DOWNLOAD = 'file-download',                                          /* https://fontawesome.com/ */
   DROP_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */
-  VIDEO = 'video',
+  VIDEO = 'video',                                                     /* https://fontawesome.com/ */
 }
 
 /**
