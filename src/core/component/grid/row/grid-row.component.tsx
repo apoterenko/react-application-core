@@ -6,7 +6,9 @@ import {
   calc,
   handlerPropsFactory,
   isFn,
+  isHovered,
   isSelectable,
+  isSyntheticEntity,
   joinClassName,
 } from '../../../util';
 import {
@@ -33,7 +35,9 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
   public render(): JSX.Element {
     const props = this.props;
     const entity = props.entity;
-    const selectable = isSelectable(props);
+    const syntheticEntity = isSyntheticEntity(entity);
+    const hovered = isHovered(props) && !syntheticEntity;
+    const selectable = isSelectable(props) && !syntheticEntity;
 
     return (
       <UniversalScrollableContext.Consumer>
@@ -47,7 +51,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
               props.grouped && 'rac-grid-row-grouped',
               props.filter && 'rac-grid-row-filter',
               props.groupExpanded && 'rac-grid-row-group-expanded',
-              props.hovered && 'rac-grid-row-hovered',
+              hovered && 'rac-grid-row-hovered',
               props.odd && 'rac-grid-row-odd',
               props.partOfGroup && 'rac-grid-row-part-of-group',
               props.total && 'rac-grid-row-total',

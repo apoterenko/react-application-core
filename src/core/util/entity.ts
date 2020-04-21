@@ -11,15 +11,29 @@ import {
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 import { isPrimitive } from './type';
-import { selectEntityId } from './select';
 
 /**
- * @stable [19.10.2019]
+ * @stable [21.04.2020]
  * @param {TEntity} entity
  * @returns {boolean}
  */
 export const isNewEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
-  R.isNil(entity) || R.isNil(selectEntityId(entity));
+  R.isNil(entity) || R.isNil(entity.id);
+
+/**
+ * @stable [21.04.2020]
+ * @param {TEntity} entity
+ * @returns {boolean}
+ */
+export const isSyntheticEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
+  !R.isNil(entity) && entity.id < 0;
+
+/**
+ * @stable [21.04.2020]
+ * @param {number} id
+ * @returns {number}
+ */
+export const asSyntheticEntityId = (id: number): number => id * -1;
 
 /**
  * @stable [03.02.2020]

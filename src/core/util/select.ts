@@ -386,6 +386,14 @@ export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: 
   selectRawData(selectList(listWrapperEntity));
 
 /**
+ * @stable [21.04.2020]
+ * @param {IListWrapperEntity<TEntity>} listWrapperEntity
+ * @returns {TEntity[]}
+ */
+export const selectListWrapperDataEntity = <TEntity = AnyT>(listWrapperEntity: IListWrapperEntity<TEntity>): TEntity[] =>
+  selectData(selectList(listWrapperEntity));
+
+/**
  * @stable [09.04.2020]
  * @param {IFormEditableEntity<TEntity>} entity
  * @returns {TEntity}

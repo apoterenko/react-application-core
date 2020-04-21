@@ -18,7 +18,6 @@ import {
   isFn,
   isHeaderRendered,
   isHighlightOdd,
-  isHovered,
   joinClassName,
   orNull,
   orUndef,
@@ -322,7 +321,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       <GridRow
         key={rowKey}
         odd={highlightOdd}
-        hovered={isHovered(props)}
+        hovered={props.hovered}
         selected={this.isEntitySelected(entity)}
         selectable={props.selectable}
         entity={entity}
