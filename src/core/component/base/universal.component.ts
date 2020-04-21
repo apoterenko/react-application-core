@@ -2,13 +2,13 @@ import * as R from 'ramda';
 
 import {
   isFn,
+  isObjectNotEmpty,
   patchRenderMethod,
 } from '../../util';
 import {
   DI_TYPES,
   getAsyncLibManager,
   getDatabaseStorage,
-  getEnvironment,
   getEventEmitter,
   getFieldConverter,
   getPlaceApi,
@@ -21,7 +21,6 @@ import {
   GenericPluginCtorT,
   GenericPluginFactoryT,
   IAsyncLibManager,
-  IEnvironment,
   IEventEmitter,
   IFieldConverter,
   IGenericPlugin,
@@ -102,15 +101,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   public getSelf(): Element {
     return this.selfRef.current || this.refs.self as any; // TODO any
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [08.10.2019]
-   * @returns {IEnvironment}
-   */
-  protected get environment(): IEnvironment {
-    return getEnvironment();
   }
 
   /**
@@ -207,19 +197,14 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
     if (R.isNil(plugins)) {
       return;
     }
-    const dynamicPluginFactory = plugins.get(this.constructor as IUniversalComponentCtor);
-    if (dynamicPluginFactory) {
-      this.registerPlugin(dynamicPluginFactory(this));
+    const dynamicPluginsFactories = plugins.get(this.constructor as IUniversalComponentCtor);
+    if (isObjectNotEmpty(dynamicPluginsFactories)) {
+      dynamicPluginsFactories.forEach((dynamicPluginFactory) => this.registerPlugin(dynamicPluginFactory(this)));
     }
     [].concat(this.props.plugins || []).forEach(this.registerPlugin, this);
   }
 
-  /**
-   * @reactNativeCompatible
-   * @stable [21.08.2019]
-   * @returns {Map<IUniversalComponentCtor, GenericPluginFactoryT>}
-   */
-  private get uiPlugins(): Map<IUniversalComponentCtor, GenericPluginFactoryT> {
+  private get uiPlugins(): Map<IUniversalComponentCtor, GenericPluginFactoryT[]> {
     return getUiPlugins();
   }
 }

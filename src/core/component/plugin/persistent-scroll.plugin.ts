@@ -4,10 +4,10 @@ import {
 } from '../../di';
 import {
   EventsEnum,
-  IComponent,
   IDomAccessor,
-  IScrolledProps,
+  IGenericComponent,
   IGenericPlugin,
+  IScrolledProps,
 } from '../../definition';
 import {
   DelayedTask,
@@ -22,9 +22,9 @@ export class PersistentScrollPlugin implements IGenericPlugin {
 
   /**
    * @stable [06.02.2020]
-   * @param {IComponent<IScrolledProps>} component
+   * @param {IGenericComponent<IScrolledProps>} component
    */
-  constructor(private readonly component: IComponent<IScrolledProps>) {
+  constructor(private readonly component: IGenericComponent<IScrolledProps>) {
     this.onScroll = this.onScroll.bind(this);
     this.scrollTask = new DelayedTask(this.doScroll.bind(this), 200);
   }
@@ -33,7 +33,7 @@ export class PersistentScrollPlugin implements IGenericPlugin {
    * @stable [23.10.2019]
    */
   public componentDidMount() {
-    const element = this.component.getSelf();
+    const element = this.selfRef;
 
     // Props contain x/y
     this.domAccessor.scrollTo(this.component.props, element);
@@ -68,7 +68,14 @@ export class PersistentScrollPlugin implements IGenericPlugin {
    * @stable [24.10.2019]
    */
   private doScroll(): void {
-    const component = this.component;
-    component.props.onScroll(this.domAccessor.getScrollInfo(component.getSelf()));
+    this.component.props.onScroll(this.domAccessor.getScrollInfo(this.selfRef));
+  }
+
+  /**
+   * @stable [17.01.2020]
+   * @returns {HTMLElement}
+   */
+  private get selfRef(): HTMLElement {
+    return this.component.selfRef.current;
   }
 }

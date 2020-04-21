@@ -3,10 +3,10 @@ import {
   lazyInject,
 } from '../../di';
 import {
-  IComponent,
   IDomAccessor,
-  ISelectedElementComponentProps,
+  IGenericComponent,
   IGenericPlugin,
+  ISelectedElementComponentProps,
 } from '../../definition';
 import {
   ifNotNilThanValue,
@@ -18,9 +18,9 @@ export class SelectedElementPlugin implements IGenericPlugin {
 
   /**
    * @stable [23.10.2019]
-   * @param {IComponent} component
+   * @param {IGenericComponent} component
    */
-  constructor(private readonly component: IComponent<ISelectedElementComponentProps>) {
+  constructor(private readonly component: IGenericComponent<ISelectedElementComponentProps>) {
   }
 
   /**
@@ -46,7 +46,7 @@ export class SelectedElementPlugin implements IGenericPlugin {
     ifNotNilThanValue(
       this.selectedElement,
       (selectedElement) => {
-        const self = this.component.getSelf();
+        const self = this.selfRef;
         if (!this.domAccessor.isElementVisibleWithinParent(selectedElement, self)) {
           this.domAccessor.scrollTo(
             selectedElement,
@@ -68,7 +68,7 @@ export class SelectedElementPlugin implements IGenericPlugin {
    */
   private get selectedElement(): Element {
     return this.domAccessor.findElement(
-      `.${this.component.props.selectedElementClassName}`, this.component.getSelf()
+      `.${this.component.props.selectedElementClassName}`, this.selfRef
     );
   }
 
@@ -79,7 +79,15 @@ export class SelectedElementPlugin implements IGenericPlugin {
   private get stickyElement(): Element {
     return ifNotNilThanValue(
       this.component.props.stickyElementClassName,
-      (stickyElementClassName) => this.domAccessor.findElement(`.${stickyElementClassName}`, this.component.getSelf())
+      (stickyElementClassName) => this.domAccessor.findElement(`.${stickyElementClassName}`, this.selfRef)
     );
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @returns {HTMLElement}
+   */
+  private get selfRef(): HTMLElement {
+    return this.component.selfRef.current;
   }
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../../base/base.component';
+import { GenericComponent } from '../../base/generic.component';
 import {
   calc,
   isBackActionRendered,
@@ -31,7 +31,7 @@ import {
 import { Header } from '../../header';
 import { Main } from '../../main';
 
-export class DefaultLayout extends BaseComponent<IDefaultLayoutProps> {
+export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
 
   /**
    * @stable [04.02.2020]

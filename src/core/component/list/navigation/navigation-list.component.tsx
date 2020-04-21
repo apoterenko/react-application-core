@@ -25,11 +25,11 @@ import {
   NavigationItemTypesEnum,
   NavigationListClassesEnum,
 } from '../../../definition';
-import { BaseComponent } from '../../base/base.component';
 import { EntityIdT } from '../../../definitions.interface';
+import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 
 export class NavigationList
-  extends BaseComponent<INavigationListProps, INavigationListState> {
+  extends EnhancedGenericComponent<INavigationListProps, INavigationListState> {
 
   private readonly menuRef = React.createRef<Menu>();
   private readonly itemsRefsMap = new Map<EntityIdT, React.RefObject<HTMLDivElement>>();

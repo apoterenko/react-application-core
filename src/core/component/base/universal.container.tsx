@@ -5,7 +5,6 @@ import {
   DI_TYPES,
   getAuth,
   getDynamicRoutes,
-  getEnvironment,
   getPermissionsManager,
   getStore,
   staticInjector,
@@ -14,7 +13,6 @@ import { IKeyValue } from '../../definitions.interface';
 import {
   DynamicRoutesMapT,
   IAuth,
-  IEnvironment,
   IOperationEntity,
   IPermissionsManager,
   IRoutesEntity,
@@ -113,15 +111,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
    */
   protected get permissionsManager(): IPermissionsManager<TAccessConfig> {
     return getPermissionsManager<TAccessConfig>();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [07.10.2019]
-   * @returns {IEnvironment}
-   */
-  protected get environment(): IEnvironment {
-    return getEnvironment();
   }
 
   /**

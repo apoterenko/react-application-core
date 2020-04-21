@@ -10,11 +10,11 @@ import {
 } from '../../util';
 import {
   EventsEnum,
-  IComponent,
   IDomAccessor,
   IEventManager,
-  IStickyComponentProps,
+  IGenericComponent,
   IGenericPlugin,
+  IStickyComponentProps,
 } from '../../definition';
 
 export class StickyHeaderPlugin implements IGenericPlugin {
@@ -29,7 +29,7 @@ export class StickyHeaderPlugin implements IGenericPlugin {
    * @stable [06.02.2020]
    * @param {IComponent<IStickyComponentProps>} component
    */
-  constructor(private readonly component: IComponent<IStickyComponentProps>) {
+  constructor(private readonly component: IGenericComponent<IStickyComponentProps>) {
     this.doSetStickyElementProperties = this.doSetStickyElementProperties.bind(this);
   }
 
@@ -62,14 +62,14 @@ export class StickyHeaderPlugin implements IGenericPlugin {
     if (!this.isStickyElementMounted) {
       return;
     }
-    setStickyElementProperties(this.component.getSelf(), this.stickySelector);
+    setStickyElementProperties(this.selfRef, this.stickySelector);
   }
 
   /**
    * @stable [16.10.2019]
    */
   private checkStickyElement(): void {
-    const element = this.component.getSelf();
+    const element = this.selfRef;
     this.isStickyElementMounted = !R.isNil(this.domAccessor.findElement(this.stickySelector, element));
 
     this.clearAllListeners();
@@ -108,5 +108,13 @@ export class StickyHeaderPlugin implements IGenericPlugin {
    */
   private get stickySelector(): string {
     return this.domAccessor.asSelector(this.component.props.stickyElementClassName);
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @returns {HTMLElement}
+   */
+  private get selfRef(): HTMLElement {
+    return this.component.selfRef.current;
   }
 }

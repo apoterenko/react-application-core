@@ -4,10 +4,8 @@ import {
   IActiveWrapper,
   IChildrenWrapper,
   IDividerRenderedWrapper,
-  IExpandedGroupsWrapper,
   IIconWrapper,
   IItemsWrapper,
-  IKeyValue,
   ILabelWrapper,
   ILinkWrapper,
   IOnClickWrapper,
@@ -18,7 +16,7 @@ import {
   IValueWrapper,
 } from '../definitions.interface';
 import { IBehavioralScrolledEntity } from './scrolled-definition.interface';
-import { IComponentProps } from './props-definition.interface';
+import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 import { IGenericLayoutEntity } from './layout-definition.interface';
 
 /**
@@ -80,7 +78,7 @@ export interface IBehavioralNavigationListEntity
  * @stable [24.03.2020]
  */
 export interface INavigationListProps
-  extends IComponentProps,
+  extends IEnhancedGenericComponentProps,
     IGenericNavigationListEntity,
     IBehavioralNavigationListEntity {
 }

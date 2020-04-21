@@ -16,7 +16,6 @@ import {
   IAsyncLibManager,
   IAuth,
   IConnectorEntity,
-  IContainer,
   IDomAccessor,
   IEnvironment,
   IEventEmitter,
@@ -35,10 +34,8 @@ import {
   IStoreEntity,
   ITransport,
   IUiFactory,
-  IUniversalComponentCtor,
   IUniversalComponentProps,
   IUniversalConnectorContainerFactory,
-  IUniversalContainerCtor,
   IUniversalContainerProps,
   IUserActivityManager,
   ListStoreProxyFactoryT,
@@ -112,10 +109,10 @@ export const getMultiEntityDatabaseStorage = (): IStorage => staticInjector(DI_T
 export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UiFactory);
 
 /**
- * @stable [23.10.2019]
- * @returns {Map<IGenericComponentCtor, GenericPluginFactoryT>}
+ * @stable [21.04.2020]
+ * @returns {Map<IGenericComponentCtor, GenericPluginFactoryT[]>}
  */
-export const getUiPlugins = (): Map<IGenericComponentCtor, GenericPluginFactoryT> => staticInjector(DI_TYPES.UiPlugins);
+export const getUiPlugins = (): Map<IGenericComponentCtor, GenericPluginFactoryT[]> => staticInjector(DI_TYPES.UiPlugins);
 
 /**
  * @stable [15.11.2018]

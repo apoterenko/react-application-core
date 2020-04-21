@@ -138,6 +138,6 @@ export class PerfectScrollPlugin implements IGenericPlugin {
    * @returns {HTMLElement}
    */
   private get selfRef(): HTMLElement {
-    return this.component.getSelf() as HTMLElement;
+    return this.component.selfRef.current;
   }
 }

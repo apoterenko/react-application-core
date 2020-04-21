@@ -1,7 +1,7 @@
 import {
   IStickyElementClassNameWrapper,
 } from '../definitions.interface';
-import { IComponentProps } from './props-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
  * @entity
@@ -16,6 +16,6 @@ export interface IStickyEntity
  * @stable [23.10.2019]
  */
 export interface IStickyComponentProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IStickyEntity {
 }

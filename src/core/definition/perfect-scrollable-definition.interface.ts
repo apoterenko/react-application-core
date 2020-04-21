@@ -1,5 +1,7 @@
-import { IComponent } from './component-definition.interface';
-import { IComponentProps } from './props-definition.interface';
+import {
+  IGenericComponent,
+  IGenericComponentProps,
+} from './generic-component-definition.interface';
 import { IPerfectScrollWrapper } from '../definitions.interface';
 
 /**
@@ -12,9 +14,10 @@ export interface IPerfectScrollableEntity {
 }
 
 /**
- * @stable [04.12.2019]
+ * @generic-entity
+ * @stable [21.04.2020]
  */
-export interface IPerfectScrollEntity
+export interface IGenericPerfectScrollEntity
   extends IPerfectScrollWrapper<IPerfectScrollableEntity> {
 }
 
@@ -23,13 +26,14 @@ export interface IPerfectScrollEntity
  */
 export interface IPerfectScrollableComponent<TProps extends IPerfectScrollableComponentProps =
   IPerfectScrollableComponentProps, TState = {}>
-  extends IComponent<TProps, TState> {
+  extends IGenericComponent<TProps, TState> {
 }
 
 /**
- * @stable [04.12.2019]
+ * @props
+ * @stable [21.04.2020]
  */
 export interface IPerfectScrollableComponentProps
-  extends IComponentProps,
-    IPerfectScrollEntity {
+  extends IGenericComponentProps,
+    IGenericPerfectScrollEntity {
 }

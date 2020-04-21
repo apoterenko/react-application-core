@@ -46,8 +46,11 @@ export interface IGenericComponentProps
  * @component
  * @stable [30.03.2020]
  */
-export interface IGenericComponent<TProps extends IGenericComponentProps = IGenericComponentProps, TState = {}>
+export interface IGenericComponent<TProps extends IGenericComponentProps = IGenericComponentProps,
+                                   TState = {},
+                                   TSelfRef = AnyT>
   extends React.PureComponent<TProps, TState> {
+  selfRef: React.RefObject<TSelfRef>;
 }
 
 /**

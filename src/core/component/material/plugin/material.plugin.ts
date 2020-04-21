@@ -8,12 +8,12 @@ import { DI_TYPES, staticInjector } from '../../../di';
 import { INativeMaterialComponentFactory } from '../../material';
 import { isDef } from '../../../util';
 import {
-  IComponent,
+  IGenericComponent,
   IGenericPlugin,
   TranslatorT,
 } from '../../../definition';
 
-export class MaterialPlugin<TComponent extends IComponent,
+export class MaterialPlugin<TComponent extends IGenericComponent,
                             TNativeMaterialComponent extends INativeMaterialComponent = INativeMaterialComponent>
     implements IGenericPlugin {
 
@@ -32,10 +32,10 @@ export class MaterialPlugin<TComponent extends IComponent,
    * @stable [31.08.2018]
    */
   public componentDidMount(): void {
-    const self = this.component.getSelf();
+    const self = this.component.selfRef;
 
     if (!R.isNil(self)) {
-      this.mdc = this.mdcFactory.attachTo(self);
+      this.mdc = this.mdcFactory.attachTo(self.current);
     }
   }
 

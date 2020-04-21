@@ -3,8 +3,10 @@ import * as React from 'react';
 import { AnyT } from '../../definitions.interface';
 import {
   IDomAccessor,
+  IEnvironment,
   IEventManager,
   IGenericBaseComponentProps,
+  IGenericComponent,
   IPhoneConverter,
   IUiFactory,
   TranslatorT,
@@ -12,6 +14,7 @@ import {
 import {
   getDateConverter,
   getDomAccessor,
+  getEnvironment,
   getEventManager,
   getNumberConverter,
   getPhoneConverter,
@@ -28,12 +31,13 @@ import {
 export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IGenericBaseComponentProps,
   TState = {},
   TSelfRef = AnyT>
-  extends React.PureComponent<TProps, TState> {
+  extends React.PureComponent<TProps, TState> implements IGenericComponent<TProps, TState, TSelfRef> {
 
-  protected readonly selfRef = React.createRef<TSelfRef>();
+  public readonly selfRef = React.createRef<TSelfRef>();
 
   private $dc: IDateConverter;
   private $domAccessor: IDomAccessor;
+  private $environment: IEnvironment;
   private $eventManager: IEventManager;
   private $nc: INumberConverter;
   private $pc: IPhoneConverter;
@@ -71,6 +75,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get dc(): IDateConverter {
     return this.$dc = this.$dc || getDateConverter();
+  }
+
+  /**
+   * @stable [21.04.2020]
+   * @returns {IEnvironment}
+   */
+  protected get environment(): IEnvironment {
+    return this.$environment = this.$environment || getEnvironment();
   }
 
   /**

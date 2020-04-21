@@ -5,12 +5,12 @@ import {
   ITimeoutWrapper,
   IAfterShowWrapper,
 } from '../../definitions.interface';
-import { IComponentProps } from '../../definition';
+import { IEnhancedGenericComponentProps } from '../../definition';
 
 /**
  * @stable [22.08.2018]
  */
-export interface ISnackbarConfiguration extends IComponentProps,
+export interface ISnackbarConfiguration extends IEnhancedGenericComponentProps,
                                                 IMessageWrapper,
                                                 ISubmitTextWrapper,
                                                 ITimeoutWrapper,

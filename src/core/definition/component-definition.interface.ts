@@ -40,7 +40,8 @@ export interface IUniversalComponent<TProps extends IUniversalComponentProps = I
 }
 
 /**
- * @stable [27.09.2019]
+ * TODO
+ * @deprecated
  */
 export interface IComponent<TProps extends IComponentProps = IComponentProps,
   TState = {}>
@@ -48,9 +49,8 @@ export interface IComponent<TProps extends IComponentProps = IComponentProps,
 }
 
 /**
- * @ctor
- * @react-native-compatible
- * @stable [23.10.2019]
+ * TODO
+ * @deprecated
  */
 export interface IUniversalComponentCtor<TProps extends IUniversalComponentProps = IUniversalComponentProps, TState = {}>
   extends React.ComponentClass<TProps, TState> {

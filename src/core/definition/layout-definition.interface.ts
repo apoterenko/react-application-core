@@ -13,6 +13,7 @@ import {
   ITopTitleWrapper,
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericStoreEntity } from './redux-definition.interface';
 import { IHeaderConfigurationEntity } from './header-definition.interface';
 
@@ -71,7 +72,7 @@ export interface IBehavioralDefaultLayoutEntity
  * @stable [04.02.2020]
  */
 export interface IDefaultLayoutProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericDefaultLayoutEntity,
     IBehavioralDefaultLayoutEntity {
   navigationListElement?: any;
