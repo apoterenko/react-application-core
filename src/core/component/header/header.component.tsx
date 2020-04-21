@@ -26,7 +26,7 @@ export class Header extends BaseComponent<IHeaderProps> {
 
   private readonly defaultMenuProps: IMenuProps = {
     options: [
-      {label: this.settings.messages.SETTINGS, icon: IconsEnum.SETTINGS, value: HeaderUserMenuActionsEnum.PROFILE},
+      {label: this.settings.messages.SETTINGS, icon: IconsEnum.COGS, value: HeaderUserMenuActionsEnum.PROFILE},
       {label: this.settings.messages.LOG_OUT, icon: IconsEnum.SIGN_OUT_ALT, value: HeaderUserMenuActionsEnum.EXIT}
     ],
   };

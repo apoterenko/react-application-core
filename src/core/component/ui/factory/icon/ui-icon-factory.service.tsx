@@ -23,6 +23,7 @@ import {
   faChevronDown,
   faChevronUp,
   faCloud,
+  faCogs,
   faCommentDots,
   faCubes,
   faEraser,
@@ -477,14 +478,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    [IconsEnum.SETTINGS]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor'
-              d='M22.5 14H21a1.5 1.5 0 0 1 0-3h1.5a1.5 1.5 0 0 1 0 3zm0-7.5H11.58A2.972 2.972 0 0 1 9 8a3 3 0 1 1 0-6c1.065 0 2.052.573 2.58 1.5H22.5a1.5 1.5 0 0 1 0 3zM3 6.5H1.5a1.5 1.5 0 0 1 0-3H3a1.5 1.5 0 0 1 0 3zM1.5 11h10.92A2.972 2.972 0 0 1 15 9.5a3 3 0 1 1 0 6 2.972 2.972 0 0 1-2.58-1.5H1.5a1.5 1.5 0 0 1 0-3zm0 7.5H3a1.5 1.5 0 0 1 0 3H1.5a1.5 1.5 0 0 1 0-3zm10.08 0H22.5a1.5 1.5 0 0 1 0 3H11.58A2.972 2.972 0 0 1 9 23a3 3 0 1 1 0-6c1.065 0 2.052.573 2.58 1.5z'
-        />
-      </svg>
-    ),
     'id': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='80' height='80' viewBox='0 0 80 80'>
@@ -589,6 +582,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.CALENDAR_ALT_REGULAR]: faCalendarAltRegular,
     [IconsEnum.CHEVRON_DOWN]: faChevronDown,
     [IconsEnum.CHEVRON_UP]: faChevronUp,
+    [IconsEnum.COGS]: faCogs,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
     [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
     [IconsEnum.PAPERCLIP]: faPaperclip,
@@ -596,6 +590,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.PRINT]: faPrint,
     [IconsEnum.SEARCH_MINUS]: faSearchMinus,
     [IconsEnum.SEARCH_PLUS]: faSearchPlus,
+    [IconsEnum.SHIELD_ALT]: faShieldAlt,
     [IconsEnum.SIGN_OUT_ALT]: faSignOutAlt,
     [IconsEnum.SPINNER]: faSpinner,
     [IconsEnum.SYNC]: faSync,
@@ -656,7 +651,6 @@ export class UiIconFactory implements IUiIconFactory {
     remove: faMinus,
     save: faSave,
     search: faSearch,
-    shield_alt: faShieldAlt,
     shipping_fast: faShippingFast,
     signIn: faSignInAlt,
     sms: faCommentDots,
@@ -675,7 +669,6 @@ export class UiIconFactory implements IUiIconFactory {
     user_edit: faUserEdit,
     user_shield: faUserShield,
     user_tie: faUserTie,
-    verified_user: faShieldAlt,
     warehouse: faWarehouse,
     widgets: faCubes,
     work: faBriefcase,
