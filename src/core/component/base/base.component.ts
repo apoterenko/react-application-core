@@ -1,6 +1,10 @@
 import { UniversalComponent } from './universal.component';
 import { IComponentProps, IComponent } from '../../definition';
 
+/**
+ * TODO
+ * @deprecated
+ */
 export class BaseComponent<TProps extends IComponentProps = IComponentProps,
                            TState = {}>
     extends UniversalComponent<TProps, TState>

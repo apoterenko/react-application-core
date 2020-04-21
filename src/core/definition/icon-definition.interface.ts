@@ -2,6 +2,8 @@
  * @stable [24.03.2020]
  */
 export enum IconsEnum {
+  ANGLE_DOUBLE_LEFT = 'angle-double-left',                                /* https://fontawesome.com/ */
+  ANGLE_DOUBLE_RIGHT = 'angle-double-right',                              /* https://fontawesome.com/ */
   ANGLE_RIGHT = 'angle_right',                                            /* https://fontawesome.com/ */
   BACK = 'back',
   BACK2 = 'back2',

@@ -458,7 +458,6 @@ export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResultWrapper<TValue = {}> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
 export interface IRightSlotWrapper<TValue> { rightSlot?: TValue; }
-export interface IRippledWrapper<TValue = boolean> { rippled?: TValue; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
 export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
@@ -579,20 +578,6 @@ export interface ISetFocusWrapper<TSetFocus = () => void> {
  */
 export interface IResetErrorWrapper<TResetError = () => void> {
   resetError: TResetError;
-}
-
-/**
- * @stable [02.05.2018]
- */
-export interface IActionButtonsWrapper<TActionButtons> {
-  actionButtons?: TActionButtons;
-}
-
-/**
- * @stable [02.05.2018]
- */
-export interface IActionIconsWrapper<TActionIcons> {
-  actionIcons?: TActionIcons;
 }
 
 /**
@@ -790,13 +775,6 @@ export interface IOpenWrapper<TOpen = boolean> {
 }
 
 /**
- * @stable [18.05.2018]
- */
-export interface ISimpleWrapper<TSimple = boolean> {
-  simple?: TSimple;
-}
-
-/**
  * @stable [07.06.2018]
  */
 export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends ITplWrapper<(item: TItem) => TResult> {
@@ -862,13 +840,6 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
  */
 export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
   relatedEntity?: TRelatedEntity;
-}
-
-/**
- * @stable [02.05.2018]
- */
-export interface IRippableWrapper<TRippable = boolean> {
-  rippable?: TRippable;
 }
 
 /**

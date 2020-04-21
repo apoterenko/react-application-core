@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import { injectable } from 'inversify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faAngleDoubleLeft,
   faAngleDoubleRight,
   faAngleLeft,
   faAngleRight,
@@ -587,6 +588,8 @@ export class UiIconFactory implements IUiIconFactory {
   // tslint:enable:max-line-length
 
   private static readonly ICONS_MAP = {
+    [IconsEnum.ANGLE_DOUBLE_LEFT]: faAngleDoubleLeft,
+    [IconsEnum.ANGLE_DOUBLE_RIGHT]: faAngleDoubleRight,
     [IconsEnum.ANGLE_RIGHT]: faAngleRight,
     [IconsEnum.CHEVRON_DOWN]: faChevronDown,
     [IconsEnum.CHEVRON_UP]: faChevronUp,
@@ -604,7 +607,6 @@ export class UiIconFactory implements IUiIconFactory {
     add: faPlus,
     address_card: faAddressCard,
     adversal: faAdversal,
-    angle_double_right: faAngleDoubleRight,
     angle_left: faAngleLeft,
     arrow_alt_circle_down: faArrowAltCircleDown,
     arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,

@@ -104,7 +104,7 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
             props.allowFirst,
             () => (
               this.uiFactory.makeIcon({
-                type: 'first_page',
+                type: IconsEnum.ANGLE_DOUBLE_LEFT,
                 className: 'rac-toolbar-icon',
                 disabled: isPreviousBtnDisabled,
                 onClick: props.onFirst,
@@ -134,7 +134,7 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
             props.allowLast,
             () => (
               this.uiFactory.makeIcon({
-                type: 'angle_double_right',
+                type: IconsEnum.ANGLE_DOUBLE_RIGHT,
                 className: 'rac-toolbar-icon',
                 disabled: isNextBtnDisabled,
                 onClick: props.onLast,

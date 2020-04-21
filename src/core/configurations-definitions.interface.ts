@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import {
   AnyT,
-  IActionButtonsWrapper,
-  IActionIconsWrapper,
   IActionsDisabledWrapper,
   IActionsWrapper,
   IBindDictionaryWrapper,
@@ -41,7 +39,6 @@ import {
   IOnLoadDictionaryWrapper,
   IOnSelectWrapper,
   IPrefixLabelWrapper,
-  IRippableWrapper,
   ISorterWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
@@ -148,10 +145,7 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentEntit
  * @stable [27.04.2018]
  */
 export interface ICardConfiguration extends IComponentProps,
-                                            IOnClickWrapper,
-                                            IRippableWrapper,
-                                            IActionButtonsWrapper<React.ReactNode>,
-                                            IActionIconsWrapper<React.ReactNode> {
+                                            IOnClickWrapper {
   entity?: IEntity;
 }
 
