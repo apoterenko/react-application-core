@@ -18,7 +18,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
 
   private readonly defaultActions = {
     [ToolbarToolsEnum.FILTER]: {
-      icon: 'filter',
+      icon: IconsEnum.FILTER,
       onClick: this.onFilterClick.bind(this),
     },
     [ToolbarToolsEnum.DOWNLOAD_FILE]: {

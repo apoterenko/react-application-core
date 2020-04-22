@@ -70,13 +70,11 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   emptyDataMessage?: string;
   emptyMessage?: string;
   errorMessage?: string;
-  exportActionTitleMessage?: string;
   invalidAddressMessage?: string;
   logoutNotificationMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
   pagesMessage?: string;
-  refreshActionTitleMessage?: string;
   requestCancelErrorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
   simplePagesMessage?: string;
@@ -156,13 +154,11 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     emptyDataMessage: 'No data found',
     emptyMessage: 'Start a search',
     errorMessage: 'Something went wrong. There was a problem loading your data',
-    exportActionTitleMessage: 'Export',
     invalidAddressMessage: 'Invalid address',
     logoutNotificationMessage: 'You were logged out.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
     pagesMessage: '{from}-{to} of {count}',
-    refreshActionTitleMessage: 'Refresh',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     simplePagesMessage: 'Page {page} of {count}',

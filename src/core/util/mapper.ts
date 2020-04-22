@@ -29,10 +29,12 @@ import {
   IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
+  ILabeledValueEntity,
   ILayoutWrapperEntity,
   IListContainerProps,
   IListEntity,
   IListWrapperEntity,
+  INamedEntity,
   INotificationWrapperEntity,
   IOperationEntity,
   IOptionEntity,
@@ -798,6 +800,16 @@ export const mapDictionaryEntityField =
       ...mapWaitingForOptions(selectDictionaryEntityLoading(dictionaryEntity)),
       ...mapOptions(selectDictionaryEntityOptions<TEntity>(dictionaryEntity, accessor)),
     });
+
+/**
+ * @stable [22.04.2020]
+ * @param {INamedEntity} entity
+ * @returns {ILabeledValueEntity}
+ */
+export const mapLabeledValueEntity = (entity: INamedEntity): ILabeledValueEntity => ({
+  value: entity.id,
+  label: entity.name || String(entity.id),
+});
 
 /**
  * @stable [25.11.2019]

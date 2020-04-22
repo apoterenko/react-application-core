@@ -13,7 +13,6 @@ import {
   faArrowRight,
   faArrowUp,
   faBars,
-  faBriefcase,
   faCannabis,
   faChartLine,
   faChartPie,
@@ -33,8 +32,8 @@ import {
   faExclamationTriangle,
   faFileDownload,
   faFileInvoiceDollar,
+  faFilter,
   faGift,
-  faHistory,
   faHome,
   faInfo,
   faKey,
@@ -140,13 +139,6 @@ export class UiIconFactory implements IUiIconFactory {
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M10.59 18.94a1.485 1.485 0 0 1 0 2.121 1.534 1.534 0 0 1-2.147 0L.668 13.59A2.203 2.203 0 0 1 0 12c0-.6.237-1.167.666-1.59l7.775-7.47a1.538 1.538 0 0 1 2.151 0 1.488 1.488 0 0 1 0 2.12l-5.72 5.44H22.5c.83 0 1.5.67 1.5 1.5 0 .825-.672 1.5-1.5 1.5H4.869l5.722 5.441z'
-        />
-      </svg>
-    ),
-    'filter': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M7.5 12.962L.302 3.402C-.443 2.414.262 1 1.5 1h21c1.237 0 1.943 1.414 1.198 2.402l-7.198 9.56V21.5a1.5 1.5 0 0 1-1.974 1.423l-6-2A1.5 1.5 0 0 1 7.5 19.5v-6.538zM4.507 4l5.691 7.558a1.5 1.5 0 0 1 .302.902v5.959l3 1V12.46a1.5 1.5 0 0 1 .302-.902L19.492 4H4.508z'
         />
       </svg>
     ),
@@ -290,13 +282,6 @@ export class UiIconFactory implements IUiIconFactory {
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M19.5 7.5C19.5 3.36 16.14 0 12 0 7.86 0 4.5 3.36 4.5 7.5a7.483 7.483 0 0 0 2.625 5.7A10.49 10.49 0 0 0 1.5 22.5a1.5 1.5 0 0 0 3 0c0-4.14 3.36-7.5 7.5-7.5 4.14 0 7.5 3.36 7.5 7.5a1.5 1.5 0 0 0 3 0c0-4.04-2.28-7.545-5.625-9.3A7.483 7.483 0 0 0 19.5 7.5zM12 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z'
-        />
-      </svg>
-    ),
-    'dashboard': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M21 24h-4.5a3 3 0 0 1-3-3v-4.5a3 3 0 0 1 3-3H21a3 3 0 0 1 3 3V21a3 3 0 0 1-3 3zm0-7.5h-4.5V21H21v-4.5zm0-6h-4.5a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3H21a3 3 0 0 1 3 3v4.5a3 3 0 0 1-3 3zM21 3h-4.5v4.5H21V3zM7.5 24H3a3 3 0 0 1-3-3v-4.5a3 3 0 0 1 3-3h4.5a3 3 0 0 1 3 3V21a3 3 0 0 1-3 3zm0-7.5H3V21h4.5v-4.5zm0-6H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3h4.5a3 3 0 0 1 3 3v4.5a3 3 0 0 1-3 3zm0-7.5H3v4.5h4.5V3z'
         />
       </svg>
     ),
@@ -570,12 +555,15 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.ANGLE_DOUBLE_LEFT]: faAngleDoubleLeft,
     [IconsEnum.ANGLE_DOUBLE_RIGHT]: faAngleDoubleRight,
     [IconsEnum.ANGLE_RIGHT]: faAngleRight,
+    [IconsEnum.ARROW_UP]: faArrowUp,
     [IconsEnum.CALENDAR_ALT_REGULAR]: faCalendarAltRegular,
+    [IconsEnum.CHART_LINE]: faChartLine,
     [IconsEnum.CHEVRON_DOWN]: faChevronDown,
     [IconsEnum.CHEVRON_UP]: faChevronUp,
     [IconsEnum.COGS]: faCogs,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
     [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
+    [IconsEnum.FILTER]: faFilter,
     [IconsEnum.PAPERCLIP]: faPaperclip,
     [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
     [IconsEnum.PRINT]: faPrint,
@@ -597,7 +585,6 @@ export class UiIconFactory implements IUiIconFactory {
     arrow_down: faArrowDown,
     arrow_left: faArrowLeft,
     arrow_right: faArrowRight,
-    arrow_up: faArrowUp,
     category: faCodepen,
     chart_pie: faChartPie,
     check: faCheck,
@@ -606,7 +593,6 @@ export class UiIconFactory implements IUiIconFactory {
     clear_all: faEraser,
     cloud: faCloud,
     comments_regular: faCommentsRegular,
-    dashboard: faChartLine,
     done: faCheck,
     done_all: faCheckDouble,
     error: faExclamationCircle,
@@ -618,7 +604,6 @@ export class UiIconFactory implements IUiIconFactory {
     gift: faGift,
     group: faUsers,
     hdd: faHdd,
-    history: faHistory,
     home: faHome,
     http: faExchangeAlt,
     info: faInfo,
@@ -663,7 +648,6 @@ export class UiIconFactory implements IUiIconFactory {
     user_tie: faUserTie,
     warehouse: faWarehouse,
     widgets: faCubes,
-    work: faBriefcase,
   };
 
   private readonly alternativeIconCtors = new Map<string, JSX.Element>();

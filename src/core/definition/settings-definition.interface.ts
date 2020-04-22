@@ -241,6 +241,7 @@ export interface IMessagesSettingsEntity {
   DIALOG_DISCARD?: string;
   ENVIRONMENT?: string;
   ERROR?: string;
+  EXPORT?: string;
   FILTER_PLACEHOLDER?: string;
   FILTERS?: string;
   LAST_MONTH?: string;
@@ -256,6 +257,7 @@ export interface IMessagesSettingsEntity {
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
   PREVIEW?: string;
   PUT_MARKER_HERE?: string;
+  REFRESH?: string;
   RESET?: string;
   RESTART_APP?: string;
   SAVE?: string;
@@ -296,6 +298,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   DIALOG_DISCARD: 'Discard',
   ENVIRONMENT: 'Environment',
   ERROR: 'Error',
+  EXPORT: 'Export',
   FILTER_PLACEHOLDER: 'Search',
   FILTERS: 'Filters',
   LAST_MONTH: 'Last month',
@@ -311,6 +314,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
   PREVIEW: 'Preview',
   PUT_MARKER_HERE: 'Put marker here',
+  REFRESH: 'Refresh',
   RESET: 'Reset',
   RESTART_APP: 'Restart App',
   SAVE: 'Save',

@@ -40,29 +40,26 @@ export abstract class UniversalSearchToolbar<TProps extends IUniversalSearchTool
   };
 
   /**
-   * @stable [18.05.2018]
+   * @stable [22.04.2020]
    */
   protected readonly baseActionsProps: Record<number, IFieldActionEntity> = {
-    [ToolbarToolsEnum.FILTER]: {
-      type: 'filter',
-      onClick: this.onOpen.bind(this),
-    },
     [ToolbarToolsEnum.CLEAR]: {type: IconsEnum.TIMES, onClick: this.onDeactivate.bind(this)},
-    [ToolbarToolsEnum.REFRESH]: {type: IconsEnum.SYNC, title: this.settings.messages.refreshActionTitleMessage},
-    [ToolbarToolsEnum.DOWNLOAD_FILE]: {type: IconsEnum.FILE_DOWNLOAD, title: this.settings.messages.exportActionTitleMessage},
+    [ToolbarToolsEnum.DOWNLOAD_FILE]: {type: IconsEnum.FILE_DOWNLOAD, title: this.settings.messages.EXPORT},
+    [ToolbarToolsEnum.FILTER]: {type: IconsEnum.FILTER, onClick: this.onOpen.bind(this)},
+    [ToolbarToolsEnum.REFRESH]: {type: IconsEnum.SYNC, title: this.settings.messages.REFRESH},
   };
 
   /**
-   * @stable [18.05.2018]
+   * @stable [22.04.2020]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
 
+    this.onActionClick = this.onActionClick.bind(this);
     this.onActivate = this.onActivate.bind(this);
     this.onApply = this.onApply.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onActionClick = this.onActionClick.bind(this);
   }
 
   public render(): JSX.Element {
