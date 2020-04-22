@@ -29,7 +29,7 @@ import {
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IGenericBaseDialogEntity } from './dialog-definition.interface';
-import { ILabeledValueEntity } from './entity-definition.interface';
+import { IExtendedLabeledValueEntity } from './entity-definition.interface';
 
 /**
  * @entity
@@ -37,8 +37,7 @@ import { ILabeledValueEntity } from './entity-definition.interface';
  */
 export interface IMenuItemEntity<TEntity extends IEntity = IEntity, TValue = EntityIdT>
   extends IGenericBaseListItemEntity,
-    ILabeledValueEntity<TValue>,
-    IRawDataWrapper<TEntity> {
+    IExtendedLabeledValueEntity<TEntity, TValue> {
 }
 
 /**

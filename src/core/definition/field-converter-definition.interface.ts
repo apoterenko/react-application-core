@@ -5,7 +5,11 @@ import {
   IToWrapper,
   IValueWrapper,
 } from '../definitions.interface';
-import { IUserEntity } from '../definition';
+import {
+  IExtendedLabeledValueEntity,
+  INamedEntity,
+  IUserEntity,
+} from '../definition';
 
 /**
  * @stable [09.01.2020]
@@ -16,8 +20,10 @@ export enum FieldConverterTypesEnum {
   DATES_RANGE_ENTITY = 'DATES_RANGE_ENTITY',
   DATES_RANGE_VALUE = 'DATES_RANGE_VALUE',
   DISPLAY_VALUE = 'DISPLAY_VALUE',
+  EXTENDED_LABELED_VALUE_ENTITY = 'EXTENDED_LABELED_VALUE_ENTITY',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
+  NAMED_ENTITY = 'NAMED_ENTITY',
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
   PLACE_PARAMETER = 'PLACE_PARAMETER',
@@ -43,6 +49,7 @@ export interface IFieldConverter {
   convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
   converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
   fromCronExpressionToCronParameter(value: string): string;
+  fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity;
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
   register(config: IFieldConverterConfigEntity): void;
 }

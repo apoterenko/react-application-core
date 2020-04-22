@@ -12,8 +12,10 @@ import {
   FIELD_DISPLAY_EMPTY_VALUE,
   FieldConverterTypesEnum,
   IDatesRangeEntity,
+  IExtendedLabeledValueEntity,
   IFieldConverter,
   IFieldConverterConfigEntity,
+  INamedEntity,
   IPhoneConfigEntity,
   IPlaceEntity,
   ISelectOptionEntity,
@@ -28,6 +30,7 @@ import {
   isFn,
   isPrimitive,
   join,
+  mapExtendedLabeledValueEntity,
   notEmptyValuesArrayFilter,
   notNilValuesArrayFilter,
 } from '../../util';
@@ -108,6 +111,11 @@ export class FieldConverter implements IFieldConverter {
       to: FieldConverterTypesEnum.CRON_PARAMETER,
       converter: this.$fromCronExpressionToCronParameter.bind(this),
     });
+    this.register({
+      from: FieldConverterTypesEnum.NAMED_ENTITY,
+      to: FieldConverterTypesEnum.EXTENDED_LABELED_VALUE_ENTITY,
+      converter: this.$fromNamedEntityToExtendedLabeledValueEntity.bind(this),
+    });
   }
 
   /**
@@ -152,6 +160,19 @@ export class FieldConverter implements IFieldConverter {
     return this.convert({
       from: FieldConverterTypesEnum.OAUTH_JWT_DECODED_INFO,
       to: FieldConverterTypesEnum.USER_ENTITY,
+      value,
+    });
+  }
+
+  /**
+   * @stable [22.04.2020]
+   * @param {INamedEntity} value
+   * @returns {IExtendedLabeledValueEntity}
+   */
+  public fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity {
+    return this.convert({
+      from: FieldConverterTypesEnum.NAMED_ENTITY,
+      to: FieldConverterTypesEnum.EXTENDED_LABELED_VALUE_ENTITY,
       value,
     });
   }
@@ -298,6 +319,19 @@ export class FieldConverter implements IFieldConverter {
     return ifNotNilThanValue(
       value,
       () => CronEntity.newInstance().fromExpression(value).toExpression(),
+      UNDEF_SYMBOL
+    );
+  }
+
+  /**
+   * @stable [22.04.2020]
+   * @param {INamedEntity} value
+   * @returns {IExtendedLabeledValueEntity}
+   */
+  private $fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity {
+    return ifNotNilThanValue(
+      value,
+      () => mapExtendedLabeledValueEntity(value),
       UNDEF_SYMBOL
     );
   }

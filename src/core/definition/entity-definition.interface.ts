@@ -20,6 +20,7 @@ import {
   IOriginalEntityWrapper,
   IPayloadWrapper,
   IProgressWrapper,
+  IRawDataWrapper,
   IRemoveWrapper,
   ISelectedWrapper,
   ISourceWrapper,
@@ -37,6 +38,15 @@ import { IFieldChangeEntity } from './field-definition.interface';
 export interface ILabeledValueEntity<TValue = AnyT>
   extends ILabelWrapper,
     IValueWrapper<TValue> {
+}
+
+/**
+ * @entity
+ * @stable [22.04.2020]
+ */
+export interface IExtendedLabeledValueEntity<TEntity extends IEntity = IEntity, TValue = EntityIdT>
+  extends ILabeledValueEntity<TValue>,
+    IRawDataWrapper<TEntity> {
 }
 
 /**

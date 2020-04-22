@@ -6,6 +6,7 @@ import {
   IApiEntity,
   IBaseExtendedEntity,
   IBaseExtendedFormEditableEntity,
+  IExtendedLabeledValueEntity,
   IChannelWrapperEntity,
   IDictionariesEntity,
   IDictionariesWrapperEntity,
@@ -804,12 +805,14 @@ export const mapDictionaryEntityField =
 /**
  * @stable [22.04.2020]
  * @param {INamedEntity} entity
- * @returns {ILabeledValueEntity}
+ * @returns {IExtendedLabeledValueEntity}
  */
-export const mapLabeledValueEntity = (entity: INamedEntity): ILabeledValueEntity => ({
-  value: entity.id,
-  label: entity.name || String(entity.id),
-});
+export const mapExtendedLabeledValueEntity = (entity: INamedEntity) =>
+  defValuesFilter<IExtendedLabeledValueEntity, IExtendedLabeledValueEntity>({
+    value: entity.id,
+    label: entity.name || String(entity.id),
+    rawData: entity,
+  });
 
 /**
  * @stable [25.11.2019]
