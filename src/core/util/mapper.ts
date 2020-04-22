@@ -15,7 +15,6 @@ import {
   IExtendedLabeledValueEntity,
   IFormContainerProps,
   IFormEditableEntity,
-  IFormProps,
   IFormTabPanelContainerProps,
   IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
@@ -23,7 +22,6 @@ import {
   IGenericContainer,
   IGenericEditableEntity,
   IGenericLayoutEntity,
-  IGenericListEntity,
   IGenericNotificationEntity,
   IGenericPagedEntity,
   IGenericPaginatedEntity,
@@ -53,7 +51,6 @@ import {
   IUnsavedFormChangesDialogContainerProps,
   IUserEntity,
   IUserWrapperEntity,
-  ToolbarToolsEnum,
 } from '../definition';
 import {
   AnyT,
@@ -104,17 +101,18 @@ import {
   isReady,
 } from './wrapper';
 import {
+  selectActiveFilterToolbarToolsByEditableEntity,
   selectActiveValue,
   selectChanges,
   selectChannel,
   selectData,
   selectDefaultChanges,
   selectDictionaries,
-  selectEditableEntityToolbarToolsActiveFilter,
   selectEntity,
   selectEntityId,
   selectFilter,
   selectForm,
+  selectFormActiveFilterToolbarTools,
   selectLayout,
   selectList,
   selectListSelectedEntity,
@@ -756,14 +754,6 @@ export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] 
   );
 
 /**
- * @stable [18.09.2019]
- * @param {IExtendedFormEditableEntity} entity
- * @returns {ToolbarToolsEnum[]}
- */
-export const selectFormEntityToolbarToolsActiveFilter = (entity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
-  selectEditableEntityToolbarToolsActiveFilter(selectForm(entity));
-
-/**
  * @stable [28.01.2020]
  * @param {IDictionaryEntity<TEntity>} dictionaryEntity
  * @param {(data: (TEntity[] | TEntity)) => AnyT} accessor
@@ -937,6 +927,7 @@ export const mapFormContainerProps = (props: IFormContainerProps): IFormContaine
 /**
  * @container-props-mapper
  * @stable [11.04.2020]
+ *
  * @param {IListContainerProps} props
  * @returns {IListContainerProps}
  */
@@ -949,6 +940,7 @@ export const mapListContainerProps = (props: IListContainerProps): IListContaine
 /**
  * @container-props-mapper
  * @stable [13.04.2020]
+ *
  * @param {IFormTabPanelContainerProps} props
  * @returns {IFormTabPanelContainerProps}
  */
@@ -960,20 +952,32 @@ export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps
 
 /**
  * @container-props-mapper
- * @stable [22.04.2020]
+ * @stable [23.04.2020]
+ *
  * @param {IToolbarToolsContainerProps & IListContainerProps} props
+ * @param {() => IGenericEditableEntity} editableEntityAccessor
  * @returns {IToolbarToolsContainerProps}
  */
 export const mapToolbarToolsListContainerProps =
-  (props: IToolbarToolsContainerProps & IListContainerProps): IToolbarToolsContainerProps =>
+  (props: IToolbarToolsContainerProps & IListContainerProps,
+   editableEntityAccessor?: () => IGenericEditableEntity): IToolbarToolsContainerProps =>
     ({
       ...mapSectionNameWrapper(props),
-      toolbarTools: mapListWrapperActionsDisabled(props),
+      toolbarTools: {
+        ...mapListWrapperActionsDisabled(props),
+        activeActions: nvl(
+          isFn(editableEntityAccessor)
+            ? selectActiveFilterToolbarToolsByEditableEntity(editableEntityAccessor())
+            : selectFormActiveFilterToolbarTools(props),
+          []
+        ),
+      },
     });
 
 /**
  * @container-props-mapper
- * @stable [11.04.2020]
+ * @stable [23.04.2020]
+ *
  * @param {IFormEditableEntity<TEntity>} props
  * @param {IGenericContainer} proxyContainer
  * @returns {IUnsavedFormChangesDialogContainerProps}

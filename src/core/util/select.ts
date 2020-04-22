@@ -39,6 +39,7 @@ import {
 } from '../definitions.interface';
 import { coalesce } from './nvl';
 import {
+  IExtendedFormEditableEntity,
   IFormEditableEntity,
   IGenericEditableEntity,
   IGenericListEntity,
@@ -47,10 +48,8 @@ import {
   ISortDirectionsEntity,
   ToolbarToolsEnum,
 } from '../definition';
-import {
-  ifNotEmptyThanValue,
-  ifNotNilThanValue,
-} from './cond';
+import { ifNotNilThanValue } from './cond';
+import { isObjectNotEmpty } from './object';
 
 /**
  * @stable [30.03.2020]
@@ -402,13 +401,20 @@ export const selectFormEditableEntityChanges = <TEntity = IEntity>(entity: IForm
   selectChanges(selectForm(entity));
 
 /**
- * @stable [09.04.2020]
+ * @stable [23.04.2020]
  * @param {IGenericEditableEntity} editableEntity
  * @returns {ToolbarToolsEnum[]}
  */
-export const selectEditableEntityToolbarToolsActiveFilter = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
-  ifNotEmptyThanValue(
-    selectChanges(editableEntity),
-    () => [ToolbarToolsEnum.FILTER],
-    []
-  );
+export const selectActiveFilterToolbarToolsByEditableEntity = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
+  isObjectNotEmpty(selectChanges(editableEntity))
+  || isObjectNotEmpty(selectDefaultChanges(editableEntity))
+    ? [ToolbarToolsEnum.FILTER]
+    : [];
+
+/**
+ * @stable [23.04.2020]
+ * @param {IExtendedFormEditableEntity} entity
+ * @returns {ToolbarToolsEnum[]}
+ */
+export const selectFormActiveFilterToolbarTools = (entity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
+  selectActiveFilterToolbarToolsByEditableEntity(selectForm(entity));
