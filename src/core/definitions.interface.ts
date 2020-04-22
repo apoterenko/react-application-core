@@ -286,7 +286,7 @@ export interface ILatWrapper<TValue = number> { lat?: TValue; }
 export interface ILayoutModeWrapper<TValue> { layoutMode?: TValue; }
 export interface ILayoutWrapper<TValue> { layout?: TValue; }
 export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
-export interface ILeftSlotWrapper<TValue> { leftSlot?: TValue; }
+export interface ILeftContentWrapper<TValue> { leftContent?: TValue; }
 export interface ILinkedSectionsWrapper { linkedSections?: string[]; }
 export interface ILinkWrapper<TValue = string> { link?: TValue; }
 export interface IListAccessorWrapper<TValue> { listAccessor?: TValue; }
@@ -350,18 +350,18 @@ export interface IOnCreateWrapper<TValue = {}> { onCreate?(value?: TValue): void
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
-export interface IOnDownloadFileClickWrapper<TOnDownloadFileClick> { onDownloadFileClick?: TOnDownloadFileClick; }
+export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
 export interface IOnDrawerHeaderClickWrapper<TValue = {}> { onDrawerHeaderClick?(value?: TValue): void; }
 export interface IOnEmptyDictionaryWrapper<TValue1, TValue2> { onEmptyDictionary?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
-export interface IOnFilterClickWrapper<TOnFilterClick> { onFilterClick?: TOnFilterClick; }
+export interface IOnFilterClickWrapper<TValue = {}> { onFilterClick?(value?: TValue): void; }
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
-export interface IOnRefreshClickWrapper<TOnRefreshClick> { onRefreshClick?: TOnRefreshClick; }
+export interface IOnRefreshClickWrapper<TValue = {}> { onRefreshClick?(value?: TValue): void; }
 export interface IOnResetWrapper { onReset?(): void; }
 export interface IOnScrollWrapper<TValue = {}> { onScroll?(value?: TValue): void; }
 export interface IOnSelectWrapper<TValue = {}> { onSelect?(value?: TValue): void; }
@@ -457,7 +457,7 @@ export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResultWrapper<TValue = {}> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
-export interface IRightSlotWrapper<TValue> { rightSlot?: TValue; }
+export interface IRightContentWrapper<TValue> { rightContent?: TValue; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
 export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
@@ -510,6 +510,8 @@ export interface ITitleRendererWrapper<TValue> { titleRenderer?: TValue; }
 export interface ITitleWrapper<TValue = string> { title?: TValue; }
 export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
+export interface IToolbarToolsConfigurationWrapper<TValue> { toolbarToolsConfiguration?: TValue; }
+export interface IToolbarToolsWrapper<TValue> { toolbarTools?: TValue; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
 export interface ITotalAmountWrapper<TValue = number> { totalAmount?: TValue; }
 export interface ITotalCountWrapper<TValue = number> { totalCount?: TValue; }
@@ -548,7 +550,7 @@ export interface IWarningWrapper<TValue = boolean> { warning?: TValue; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 export interface IWrappedWrapper { wrapped?: boolean; }
-export interface IWrapperClassNameWrapper<TWrapperClassName = string> { wrapperClassName?: TWrapperClassName; }
+export interface IWrapperClassNameWrapper<TValue = string> { wrapperClassName?: TValue; }
 export interface IWrapperWrapper<TValue> { wrapper?: TValue; }
 export interface IWrapWrapper { wrap?: boolean; }
 export interface IXWrapper<TX = number> { x?: any; }

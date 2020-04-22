@@ -1,68 +1,39 @@
 import * as React from 'react';
 
 import { GenericContainer } from '../base';
-import { Button } from '../button';
-import { FlexLayout } from '../layout/flex';
-import {
-  IButtonProps,
-  IconsEnum,
-  ToolbarToolsEnum,
-} from '../../definition';
-import { isPrimitive, isFn, joinClassName, calc } from '../../util';
+import { isFn} from '../../util';
 import {
   IToolbarToolsContainerProps,
-} from './toolbar-tools.interface';
+  IToolbarToolsProps,
+} from '../../definition';
+import { ToolbarTools } from './toolbar-tools.component';
 import { ToolbarToolsActionBuilder } from '../../action';
 
 export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContainerProps> {
 
-  private readonly defaultActions = {
-    [ToolbarToolsEnum.FILTER]: {
-      icon: IconsEnum.FILTER,
-      onClick: this.onFilterClick.bind(this),
-    },
-    [ToolbarToolsEnum.DOWNLOAD_FILE]: {
-      icon: IconsEnum.FILE_DOWNLOAD,
-      onClick: this.onDownloadFileClick.bind(this),
-    },
-    [ToolbarToolsEnum.REFRESH]: {
-      icon: IconsEnum.SYNC,
-      onClick: this.onRefreshClick.bind(this),
-    },
-  };
+  /**
+   * @stable [22.04.2020]
+   * @param {IToolbarToolsContainerProps} props
+   */
+  constructor(props: IToolbarToolsContainerProps) {
+    super(props);
+
+    this.onDownloadFileClick = this.onDownloadFileClick.bind(this);
+    this.onFilterClick = this.onFilterClick.bind(this);
+    this.onRefreshClick = this.onRefreshClick.bind(this);
+  }
 
   /**
-   * @stable [10.03.2019]
+   * @stable [22.04.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-    const { actions = [ToolbarToolsEnum.REFRESH] } = this.props;
-
     return (
-      <FlexLayout
-        row={true}
-        justifyContentEnd={true}
-        {...props.flex}
-        className={joinClassName(calc(props.className), 'rac-toolbar-tools')}
-      >
-        {props.leftSlot}
-        {
-          actions.map((cfg, index) => {
-            const actionProps = isPrimitive(cfg) ? this.defaultActions[cfg] : cfg as IButtonProps;
-            return (
-              <Button
-                key={`action-${index}-key`}
-                disabled={props.actionsDisabled}
-                className={joinClassName(
-                  (props.activeActions || []).includes(cfg) && 'rac-toolbar-tool-active',
-                )}
-                {...actionProps}/>
-            );
-          })
-        }
-        {props.rightSlot}
-      </FlexLayout>
+      <ToolbarTools
+        {...this.toolbarToolsProps}
+        {...this.props.toolbarTools}
+        onRefreshClick={this.onRefreshClick}
+      />
     );
   }
 
@@ -70,7 +41,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    * @stable [10.03.2019]
    */
   private onRefreshClick(): void {
-    const props = this.props;
+    const props = this.toolbarToolsProps;
     if (isFn(props.onRefreshClick)) {
       props.onRefreshClick();
     } else {
@@ -79,10 +50,10 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
   }
 
   /**
-   * @stable [10.03.2019]
+   * @stable [22.04.2020]
    */
   private onFilterClick(): void {
-    const props = this.props;
+    const props = this.toolbarToolsProps;
     if (isFn(props.onFilterClick)) {
       props.onFilterClick();
     } else {
@@ -91,14 +62,22 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
   }
 
   /**
-   * @stable [16.04.2019]
+   * @stable [22.04.2020]
    */
   private onDownloadFileClick(): void {
-    const props = this.props;
+    const props = this.toolbarToolsProps;
     if (isFn(props.onDownloadFileClick)) {
       props.onDownloadFileClick();
     } else {
       this.dispatchPlainAction(ToolbarToolsActionBuilder.buildDownloadFilePlainAction(this.props.sectionName));
     }
+  }
+
+  /**
+   * @stable [22.04.2020]
+   * @returns {IToolbarToolsProps}
+   */
+  private get toolbarToolsProps(): IToolbarToolsProps {
+    return this.props.toolbarToolsConfiguration || {};
   }
 }

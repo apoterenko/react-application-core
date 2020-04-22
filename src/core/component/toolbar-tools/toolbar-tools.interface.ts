@@ -3,22 +3,22 @@ import {
   IActionsWrapper,
   IActiveActionsWrapper,
   IFlexWrapper,
-  ILeftSlotWrapper,
+  ILeftContentWrapper,
   IOnDownloadFileClickWrapper,
   IOnFilterClickWrapper,
   IOnRefreshClickWrapper,
-  IRightSlotWrapper,
+  IRightContentWrapper,
 } from '../../definitions.interface';
 import { IGenericFlexLayoutEntity, ToolbarToolsEnum, IGenericContainerProps } from '../../definition';
 
 /**
  * @stable [11.03.2019]
  */
-export interface IToolbarToolsContainerProps
+export interface IDeprecatedToolbarToolsContainerProps
   extends IGenericContainerProps,
     IActionsDisabledWrapper,
-    ILeftSlotWrapper<JSX.Element>,
-    IRightSlotWrapper<JSX.Element>,
+    ILeftContentWrapper<JSX.Element>,
+    IRightContentWrapper<JSX.Element>,
     IFlexWrapper<IGenericFlexLayoutEntity>,
     IOnFilterClickWrapper<() => void>,
     IOnDownloadFileClickWrapper<() => void>,

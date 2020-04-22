@@ -6,13 +6,13 @@ import {
   IApiEntity,
   IBaseExtendedEntity,
   IBaseExtendedFormEditableEntity,
-  IExtendedLabeledValueEntity,
   IChannelWrapperEntity,
   IDictionariesEntity,
   IDictionariesWrapperEntity,
   IDictionaryEntity,
   IExtendedEntity,
   IExtendedFormEditableEntity,
+  IExtendedLabeledValueEntity,
   IFormContainerProps,
   IFormEditableEntity,
   IFormProps,
@@ -30,7 +30,6 @@ import {
   IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
-  ILabeledValueEntity,
   ILayoutWrapperEntity,
   IListContainerProps,
   IListEntity,
@@ -47,6 +46,7 @@ import {
   IStackItemEntity,
   IStackWrapperEntity,
   ITabPanelWrapperEntity,
+  IToolbarToolsContainerProps,
   ITransportEntity,
   ITransportWrapperEntity,
   IUniversalApplicationEntity,
@@ -718,12 +718,12 @@ export const mapActionsDisabled = (actionsDisabled: boolean): IActionsDisabledWr
   defValuesFilter<IActionsDisabledWrapper, IActionsDisabledWrapper>({actionsDisabled});
 
 /**
- * @stable [04.04.2020]
- * @param {IGenericListEntity} list
+ * @stable [22.04.2020]
+ * @param {IProgressWrapper} progressWrapper
  * @returns {IActionsDisabledWrapper}
  */
-export const mapListActionsDisabled = (list: IGenericListEntity): IActionsDisabledWrapper =>
-  mapActionsDisabled(inProgress(list));
+export const mapProgressWrapperActionsDisabled = (progressWrapper: IProgressWrapper): IActionsDisabledWrapper =>
+  mapActionsDisabled(inProgress(progressWrapper));
 
 /**
  * @stable [04.04.2020]
@@ -731,7 +731,7 @@ export const mapListActionsDisabled = (list: IGenericListEntity): IActionsDisabl
  * @returns {IActionsDisabledWrapper}
  */
 export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): IActionsDisabledWrapper =>
-  mapListActionsDisabled(selectList(listWrapper));
+  mapProgressWrapperActionsDisabled(selectList(listWrapper));
 
 /**
  * @stable [11.10.2019]
@@ -957,6 +957,19 @@ export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps
     ...mapSectionNameWrapper(props),
     ...mapFormEditableEntity(props),
   });
+
+/**
+ * @container-props-mapper
+ * @stable [22.04.2020]
+ * @param {IToolbarToolsContainerProps & IListContainerProps} props
+ * @returns {IToolbarToolsContainerProps}
+ */
+export const mapToolbarToolsListContainerProps =
+  (props: IToolbarToolsContainerProps & IListContainerProps): IToolbarToolsContainerProps =>
+    ({
+      ...mapSectionNameWrapper(props),
+      toolbarTools: mapListWrapperActionsDisabled(props),
+    });
 
 /**
  * @container-props-mapper
