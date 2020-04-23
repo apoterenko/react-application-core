@@ -20,12 +20,6 @@ export interface IFilteredListMiddlewareConfig extends IListSectionWrapper,
 }
 
 /**
- * @stable [21.01.2019]
- */
-export interface IDestroyedFormMiddlewareConfig extends IFormSectionWrapper {
-}
-
-/**
  * @stable [22.08.2018]
  */
 export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
@@ -41,12 +35,4 @@ export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = I
   getEntity?(state: TApplicationState): TEntity;
   getRelatedEntities?(entity: TEntity): TRelatedEntity[];
   makeRelatedChanges?(relatedEntities: TRelatedEntity[]): TEntity;
-}
-
-/**
- * @stable [11.03.2019]
- */
-export interface IFilterFormDialogMiddlewareConfig
-  extends IListSectionWrapper,
-    IFormSectionWrapper {
 }
