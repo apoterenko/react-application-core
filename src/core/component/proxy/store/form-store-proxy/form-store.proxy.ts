@@ -1,12 +1,6 @@
-import { LoggerFactory } from 'ts-smart-logger';
-
-import { isObjectEmpty } from '../../../../util';
 import { FormActionBuilder } from '../../../../action';
 import {
-  FieldChangeEntityT,
   IApiEntity,
-  IFieldChangeEntity,
-  IFieldsChangesEntity,
   IFormStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
@@ -19,8 +13,6 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
   extends StoreProxy<TStore, TProps>
   implements IFormStoreProxy {
 
-  private static readonly formStoreProxyLogger = LoggerFactory.makeLogger('FormStoreProxy');
-
   /**
    * @stable [30.03.2020]
    * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
@@ -28,8 +20,8 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
   constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
 
-    this.dispatchFormChange = this.dispatchFormChange.bind(this);
     this.dispatchFormChanges = this.dispatchFormChanges.bind(this);
+    this.dispatchFormClear = this.dispatchFormClear.bind(this);
     this.dispatchFormReset = this.dispatchFormReset.bind(this);
     this.dispatchFormSubmit = this.dispatchFormSubmit.bind(this);
     this.dispatchFormValid = this.dispatchFormValid.bind(this);
@@ -59,6 +51,15 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    */
   public dispatchFormReset(otherSection?: string): void {
     this.dispatchPlainAction(FormActionBuilder.buildResetPlainAction(this.asSection(otherSection)));
+  }
+
+  /**
+   * @stable [23.04.2020]
+   * @param {string} fieldName
+   * @param {string} otherSection
+   */
+  public dispatchFormClear(fieldName: string, otherSection?: string): void {
+    this.dispatchPlainAction(FormActionBuilder.buildClearPlainAction(this.asSection(otherSection), fieldName));
   }
 
   /**
@@ -95,25 +96,5 @@ export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEn
    */
   public dispatchFormDefaultChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void {
     this.dispatchPlainAction(FormActionBuilder.buildDefaultChangesPlainAction(this.asSection(otherSection), changes));
-  }
-
-  /**
-   * @stable [18.04.2020]
-   * @param {FieldChangeEntityT} payload
-   * @param {string} otherSection
-   */
-  public dispatchFormChange(payload: FieldChangeEntityT, otherSection?: string): void {
-    const fieldsChangesEntity = payload as IFieldsChangesEntity;
-    if (!Array.isArray(fieldsChangesEntity.fields)) {
-      const fieldChangeEntity = payload as IFieldChangeEntity;
-
-      if (isObjectEmpty(fieldChangeEntity.name)) {
-        FormStoreProxy.formStoreProxyLogger.warn(
-          '[$FormStoreProxy][dispatchFormChange] The field payload is empty:', payload
-        );
-        return;
-      }
-    }
-    this.dispatchPlainAction(FormActionBuilder.buildChangePlainAction(this.asSection(otherSection), payload));
   }
 }

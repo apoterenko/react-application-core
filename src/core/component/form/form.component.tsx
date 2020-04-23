@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import {
   FormClassesEnum,
@@ -58,6 +59,7 @@ import {
 } from '../../di';
 
 export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
+  private static readonly logger = LoggerFactory.makeLogger('Form');
 
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
 
@@ -126,31 +128,36 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    */
   public componentDidMount(): void {
     if (isValidateOnMount(this.props)) {
-      this.propsOnValid();
+      this.throwOnValid();
     }
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [23.04.2020]
    */
   public submit(): void {
-    const props = this.props;
-    if (isFn(props.onSubmit)) {
-      props.onSubmit(this.apiEntity);
+    const {onSubmit} = this.props;
+
+    if (isFn(onSubmit)) {
+      onSubmit(this.apiEntity);
     }
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [23.04.2020]
    * @param {string} name
    * @param {AnyT} value
    */
   private onChange(name: string, value: AnyT): void {
     const {onChange} = this.props;
     if (isFn(onChange)) {
-      onChange({name, value});
+      if (isObjectNotEmpty(name)) {
+        onChange({[name]: value});
+        this.throwOnValid();
+      } else {
+        Form.logger.warn('[$Form][onChange] The field has no name. The field value:', value);
+      }
     }
-    this.propsOnValid();
   }
 
   /**
@@ -176,8 +183,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   /**
    * @stable [03.02.2020]
    */
-  private propsOnValid(): void {
-    const {onValid, valid} = this.props;
+  private throwOnValid(): void {
+    const {
+      onValid,
+      valid,
+    } = this.props;
 
     if (isFn(onValid)) {
       onValid(isBoolean(valid) || this.selfRef.current.checkValidity());

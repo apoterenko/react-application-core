@@ -9,7 +9,6 @@ import {
 } from '../util';
 import {
   FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
-  FieldChangeEntityT,
   FORM_ACTIVE_VALUE_ACTION_TYPE,
   FORM_CHANGE_ACTION_TYPE,
   FORM_CLEAR_ACTION_TYPE,
@@ -26,6 +25,7 @@ import {
   IActiveValueFluxEntity,
   IApiEntity,
   IFieldChangeEntity,
+  IFieldsChangesFluxEntity,
   IValidFluxEntity,
 } from '../definition';
 
@@ -253,42 +253,6 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @param {TData} changes
-   * @returns {IEffectsAction}
-   */
-  public static buildChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
-    return {
-      type: this.buildChangeActionType(section),
-      data: applySection(section, this.buildChangesPayload(changes)),
-    };
-  }
-
-  /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @param {TData} changes
-   * @returns {IEffectsAction}
-   */
-  public static buildDefaultChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
-    return {
-      type: this.buildDefaultChangeActionType(section),
-      data: applySection(section, this.buildChangesPayload(changes)),
-    };
-  }
-
-  /**
-   * @stable [03.02.2020]
-   * @param {string} section
-   * @param {FieldChangeEntityT} payload
-   * @returns {IEffectsAction}
-   */
-  public static buildChangePlainAction(section: string, payload: FieldChangeEntityT): IEffectsAction {
-    return {type: this.buildChangeActionType(section), data: applySection(section, payload)};
-  }
-
-  /**
    * @stable [11.09.2019]
    * @param {string} section
    * @returns {IEffectsAction}
@@ -350,15 +314,37 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [03.02.2020]
-   * @param {{}} changes
-   * @returns {FieldChangeEntityT}
+   * @stable [01.04.2020]
+   * @param {string} section
+   * @param {TData} changes
+   * @returns {IEffectsAction}
    */
-  private static buildChangesPayload(changes: {}): FieldChangeEntityT {
+  public static buildChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
     return {
-      fields: Object
-        .keys(changes)
-        .map((name): IFieldChangeEntity => ({name, value: Reflect.get(changes, name)})),
+      type: this.buildChangeActionType(section),
+      data: applySection(section, this.buildChangesPayload(changes)),
     };
+  }
+
+  /**
+   * @stable [01.04.2020]
+   * @param {string} section
+   * @param {TData} changes
+   * @returns {IEffectsAction}
+   */
+  public static buildDefaultChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
+    return {
+      type: this.buildDefaultChangeActionType(section),
+      data: applySection(section, this.buildChangesPayload(changes)),
+    };
+  }
+
+  /**
+   * @stable [23.04.2020]
+   * @param {{}} fields
+   * @returns {IFieldsChangesFluxEntity}
+   */
+  private static buildChangesPayload(fields: {}): IFieldsChangesFluxEntity {
+    return {fields};
   }
 }

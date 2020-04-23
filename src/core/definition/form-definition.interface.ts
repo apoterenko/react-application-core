@@ -39,7 +39,6 @@ import {
   IGenericEditableEntity,
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
-import { FieldChangeEntityT } from './field-definition.interface';
 import {
   IButtonConfigurationEntity,
   IButtonProps,
@@ -107,7 +106,7 @@ export interface IExtendedFormEditableEntity<TEntity = IEntity>
  */
 export interface IBehavioralFormEntity<TEntity extends IEntity = IEntity>
   extends IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
-    IOnChangeWrapper<FieldChangeEntityT>,
+    IOnChangeWrapper<{}>,
     IOnEmptyDictionaryWrapper<string, IApiEntity<TEntity>>,
     IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void>,
     IOnResetWrapper,

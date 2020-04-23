@@ -9,7 +9,6 @@ import {
   IItemWrapper,
   ILastWrapper,
 } from '../definitions.interface';
-import { FieldChangeEntityT } from './field-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
@@ -62,8 +61,8 @@ export interface IListStoreProxy {
  */
 export interface IFormStoreProxy {
   dispatchFormActiveValue(value: number, otherSection?: string): void;
-  dispatchFormChange(change: FieldChangeEntityT, otherSection?: string): void;
   dispatchFormChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
+  dispatchFormClear(fieldName: string, otherSection?: string): void;
   dispatchFormDefaultChanges<TChanges = {}>(changes: TChanges, otherSection?: string): void;
   dispatchFormInactiveValue(value: number, otherSection?: string): void;
   dispatchFormReset(otherSection?: string): void;

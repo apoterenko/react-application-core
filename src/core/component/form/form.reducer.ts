@@ -8,12 +8,10 @@ import {
 } from '../../util';
 import { mapErrorObject } from '../../error';
 import {
-  IKeyValue,
   IPayloadWrapper,
 } from '../../definitions.interface';
 import {
-  IFieldChangeEntity,
-  IFieldsChangesEntity,
+  IFieldsChangesFluxEntity,
   IGenericEditableEntity,
   INITIAL_FORM_ENTITY,
   IValidFluxEntity,
@@ -21,20 +19,20 @@ import {
 import { FormActionBuilder } from '../../action';
 
 /**
- * @stable [03.02.2020]
- * @param {IFieldChangeEntity & IFieldsChangesEntity} payload
- * @returns {IKeyValue}
+ * @stable [23.04.2020]
+ * @param {IFieldsChangesFluxEntity} payload
+ * @returns {{}}
  */
-const fromPayload = (payload: IFieldChangeEntity & IFieldsChangesEntity): IKeyValue => {
-  const fieldChangeEntity: IFieldChangeEntity = payload;
-  const fieldsChangesEntity: IFieldsChangesEntity = payload;
-  const fields = fieldsChangesEntity.fields;
+const asChanges = (payload: IFieldsChangesFluxEntity): {} => payload.fields;
 
-  return Array.isArray(fields)
-    ? R.mergeAll(fields.map((elem) => ({[elem.name]: elem.value})))
-    : {[fieldChangeEntity.name]: fieldChangeEntity.value};
-};
-
+/**
+ * @reducer
+ * @stable [23.04.2020]
+ *
+ * @param {IGenericEditableEntity} state
+ * @param {IEffectsAction} action
+ * @returns {IGenericEditableEntity}
+ */
 export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
                             action: IEffectsAction): IGenericEditableEntity => {
   const section = toSection(action);
@@ -50,7 +48,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
     case FormActionBuilder.buildChangeActionType(section):
       const changes = defValuesFilter({
         ...state.changes,
-        ...fromPayload(actionData),
+        ...asChanges(actionData),
       });
       return {
         ...state,
@@ -65,7 +63,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
        */
       const defaultChanges = defValuesFilter({
         ...state.defaultChanges,
-        ...fromPayload(actionData),
+        ...asChanges(actionData),
       });
       return {
         ...state,

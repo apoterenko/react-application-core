@@ -145,16 +145,12 @@ export interface IFieldChangeEntity
 }
 
 /**
- * @stable [28.09.2019]
+ * @flux-entity
+ * @stable [23.04.2020]
  */
-export interface IFieldsChangesEntity
-  extends IFieldsWrapper<IFieldChangeEntity[]> {
+export interface IFieldsChangesFluxEntity
+  extends IFieldsWrapper<{}> {
 }
-
-/**
- * @stable [28.09.2019]
- */
-export type FieldChangeEntityT = IFieldChangeEntity | IFieldsChangesEntity;
 
 /**
  * @stable [02.10.2019]
