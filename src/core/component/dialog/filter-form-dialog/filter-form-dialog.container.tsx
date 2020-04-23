@@ -11,11 +11,12 @@ import {
 import {
   isTouched,
   mapFormContainerProps,
+  selectFormEditableEntityChanges,
 } from '../../../util';
-import { UniversalContainer } from '../../base/universal.container';
+import { GenericContainer } from '../../base/generic.container';
 
 export class FilterFormDialogContainer
-  extends UniversalContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog>>> {
+  extends GenericContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog>>> {
 
   /**
    * @stable [10.03.2019]
@@ -28,21 +29,26 @@ export class FilterFormDialogContainer
   }
 
   /**
-   * @stable [12.03.2019]
+   * @stable [23.04.2020]
    */
   public componentWillUnmount() {
     if (this.props.autoReset) {
-      this.dispatchCustomType(FilterFormDialogActionBuilder.buildResetActionType(this.props.sectionName));
+      this.dispatchPlainAction(FilterFormDialogActionBuilder.buildResetPlainAction(this.props.sectionName));
     }
   }
 
   /**
-   * @stable [10.03.2019]
+   * @stable [23.04.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
-    const {APPLY, CLEAR_ALL, CLOSE, FILTERS} = this.settings.messages;
+    const {
+      APPLY,
+      CLEAR_ALL,
+      CLOSE,
+      FILTERS,
+    } = this.settings.messages;
 
     return (
       <Dialog
@@ -65,23 +71,23 @@ export class FilterFormDialogContainer
   }
 
   /**
-   * @stable [10.03.2019]
+   * @stable [23.04.2020]
    */
   private onAcceptFilter(): void {
-    this.dispatchCustomType(FilterFormDialogActionBuilder.buildAcceptActionType(this.props.sectionName));
+    this.dispatchPlainAction(FilterFormDialogActionBuilder.buildAcceptPlainAction(this.props.sectionName));
   }
 
   /**
-   * @stable [10.03.2019]
+   * @stable [23.04.2020]
    */
   private onClearFilter(): void {
     if (this.haveFilterChangesOrIsTouched) {
-      this.dispatchCustomType(FilterFormDialogActionBuilder.buildClearActionType(this.props.sectionName));
+      this.dispatchPlainAction(FilterFormDialogActionBuilder.buildClearPlainAction(this.props.sectionName));
     }
   }
 
   /**
-   * @stable [16.01.2020]
+   * @stable [23.04.2020]
    * @returns {boolean}
    */
   private get haveFilterChangesOrIsTouched(): boolean {
@@ -89,10 +95,10 @@ export class FilterFormDialogContainer
   }
 
   /**
-   * @stable [16.01.2020]
+   * @stable [23.04.2020]
    * @returns {boolean}
    */
   private get haveFilterChanges(): boolean {
-    return !R.isEmpty(this.props.form.changes);
+    return !R.isEmpty(selectFormEditableEntityChanges(this.props));
   }
 }

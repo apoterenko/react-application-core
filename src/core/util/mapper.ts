@@ -13,6 +13,7 @@ import {
   IExtendedEntity,
   IExtendedFormEditableEntity,
   IExtendedLabeledValueEntity,
+  IFilterFormDialogContainerProps,
   IFormContainerProps,
   IFormEditableEntity,
   IFormTabPanelContainerProps,
@@ -923,6 +924,17 @@ export const mapFormContainerProps = (props: IFormContainerProps): IFormContaine
     ...mapSectionNameWrapper(props),
     ...mapFormProps(props),
   });
+
+/**
+ * @container-props-mapper
+ * @stable [23.04.2020]
+ *
+ * @param {IFilterFormDialogContainerProps} props
+ * @returns {IFilterFormDialogContainerProps}
+ */
+export const mapFilterFormDialogContainerProps =
+  (props: IFilterFormDialogContainerProps): IFilterFormDialogContainerProps =>
+    mapFormContainerProps(props);
 
 /**
  * @container-props-mapper

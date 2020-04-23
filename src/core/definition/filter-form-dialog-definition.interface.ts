@@ -2,24 +2,26 @@ import {
   IAutoResetWrapper,
   IForwardedRefWrapper,
 } from '../definitions.interface';
-import { IContainerProps } from './props-definition.interface';
+import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IExtendedFormEditableEntity } from './form-definition.interface';
 
 /**
- * @stable [16.01.2020]
+ * @generic-container-entity
+ * @stable [23.04.2020]
  */
-export interface IGenericFilterFormDialogEntity<TRef>
+export interface IGenericFilterFormDialogContainerEntity<TRef>
   extends IAutoResetWrapper,
     IExtendedFormEditableEntity,
     IForwardedRefWrapper<TRef> {
 }
 
 /**
- * @stable [16.01.2020]
+ * @props
+ * @stable [23.04.2020]
  */
-export interface IFilterFormDialogContainerProps<TRef>
-  extends IContainerProps,
-    IGenericFilterFormDialogEntity<TRef> {
+export interface IFilterFormDialogContainerProps<TRef = {}>
+  extends IGenericContainerProps,
+    IGenericFilterFormDialogContainerEntity<TRef> {
 }
 
 /**

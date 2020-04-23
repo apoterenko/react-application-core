@@ -205,13 +205,13 @@ export interface IFormattedNameWrapper { formattedName?: string; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
 export interface IFormDataContentTypeWrapper { formDataContentType?: string; }
-export interface IFormDataWrapper<TFormData = FormData> { formData?: TFormData; }
+export interface IFormDataWrapper<TValue = FormData> { formData?: TValue; }
 export interface IFormIdWrapper { formId?: string; }
 export interface IFormSectionWrapper<TValue = string> { formSection?: TValue; }
-export interface IFormsSectionsWrapper<TFormsSections> { formsSections?: TFormsSections; }
+export interface IFormsSectionsWrapper<TValue> { formsSections?: TValue; }
 export interface IFormWrapper<TValue> { form?: TValue; }
 export interface IForwardActionConfigurationWrapper<TValue> { forwardActionConfiguration?: TValue; }
-export interface IForwardedRefWrapper<TForwardedRef> { forwardedRef?: TForwardedRef; }
+export interface IForwardedRefWrapper<TValue> { forwardedRef?: TValue; }
 export interface IFromToEntity<TValue> extends IToWrapper<TValue>, IFromWrapper<TValue> {}
 export interface IFromWrapper<TValue = string> { from?: TValue; }
 export interface IFullSizeWrapper { fullSize?: boolean; }
