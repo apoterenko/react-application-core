@@ -37,7 +37,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @component-container
 
-* [FilterFormDialogContainer](blob/master/src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
+* [FilterFormDialogContainer](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
 
 # Usage
 
