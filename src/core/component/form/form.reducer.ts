@@ -35,10 +35,12 @@ const fromPayload = (payload: IFieldChangeEntity & IFieldsChangesEntity): IKeyVa
     : {[fieldChangeEntity.name]: fieldChangeEntity.value};
 };
 
-export function formReducer(state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
-                            action: IEffectsAction): IGenericEditableEntity {
+export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
+                            action: IEffectsAction): IGenericEditableEntity => {
   const section = toSection(action);
-  switch (action.type) {
+  const actionType = action.type;
+
+  switch (actionType) {
     case FormActionBuilder.buildDestroyActionType(section):
       return {
         ...INITIAL_FORM_ENTITY,
@@ -101,13 +103,21 @@ export function formReducer(state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
     case FormActionBuilder.buildResetActionType(section):
     case FormActionBuilder.buildSubmitDoneActionType(section):
       /**
-       * @stable [14.08.2018]
+       * @stable [23.04.2020]
        */
-      const activeValueState: IGenericEditableEntity = {activeValue: state.activeValue};
       return {
         ...INITIAL_FORM_ENTITY,
-        ...(isDef(activeValueState.activeValue) ? activeValueState : {}),
+        ...(
+          actionType === FormActionBuilder.buildResetActionType(section)
+            ? {defaultChanges: state.defaultChanges}
+            : {}
+        ),
+        ...(
+          isDef(state.activeValue)
+            ? {activeValue: state.activeValue}
+            : {}
+        ),
       };
   }
   return state;
-}
+};

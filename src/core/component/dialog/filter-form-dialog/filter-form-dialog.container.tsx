@@ -8,10 +8,10 @@ import {
   IFilterFormDialogContainerProps,
 } from '../../../definition';
 import {
-  isObjectNotEmpty,
+  isDirty,
+  isFormSubmittable,
   isTouched,
   mapFormContainerProps,
-  selectFormEditableEntityChanges,
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
 
@@ -63,7 +63,7 @@ export class FilterFormDialogContainer
         title={FILTERS}
         closeText={this.isFilterChangedOrTouched ? CLEAR_ALL : CLOSE}
         acceptText={APPLY}
-        acceptDisabled={!this.isFilterChanged}
+        acceptDisabled={!this.canAccept}
         onAccept={this.onAcceptFilter}
         onClose={this.onClearFilter}
       >
@@ -97,15 +97,15 @@ export class FilterFormDialogContainer
    * @stable [23.04.2020]
    * @returns {boolean}
    */
-  private get isFilterChangedOrTouched(): boolean {
-    return this.isFilterChanged || isTouched(this.props.form);
+  private get canAccept(): boolean {
+    return isFormSubmittable(this.props);
   }
 
   /**
    * @stable [23.04.2020]
    * @returns {boolean}
    */
-  private get isFilterChanged(): boolean {
-    return isObjectNotEmpty(selectFormEditableEntityChanges(this.props));
+  private get isFilterChangedOrTouched(): boolean {
+    return isDirty(this.props.form) || isTouched(this.props.form);
   }
 }

@@ -132,8 +132,8 @@ export const isFormDirty = <TEntity extends IEntity = IEntity>(entity: IFormProp
  * @param {IFormProps<TEntity extends IEntity>} entity
  * @returns {boolean}
  */
-export const isFormValid = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  isValid(entity) && isValid(selectEditableEntity<TEntity>(entity)); // Redux or auto validation
+export const isFormValid = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
+  isValid(entity) && isValid(selectForm(entity)); // Redux or auto validation
 
 /**
  * @stable [03.02.2020]
