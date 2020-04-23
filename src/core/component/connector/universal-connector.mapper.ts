@@ -21,7 +21,6 @@ import {
   IListEntity,
   IListWrapperEntity,
   IGenericPagedEntity,
-  ToolbarToolsEnum,
 } from '../../definition';
 import {
   IDataMutatorEntity,
@@ -142,18 +141,6 @@ export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IActio
  */
 export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IActionsDisabledWrapper =>
   actionsDisabledListEntityMapper(listWrapperEntity.list);
-
-/**
- * @deprecated selectEditableEntityToolbarToolsActiveFilter
- */
-export const toolbarActiveFilterToolEditableEntityMapper = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
-  R.isNil(editableEntity) || R.isEmpty(editableEntity.changes) ? [] : [ToolbarToolsEnum.FILTER];
-
-/**
- * @deprecated selectFormEntityToolbarToolsActiveFilter
- */
-export const toolbarActiveFilterToolFormWrapperEntityMapper = (entityFormEntity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
-  toolbarActiveFilterToolEditableEntityMapper(entityFormEntity.form);
 
 /**
  * @stable [29.05.2018]
