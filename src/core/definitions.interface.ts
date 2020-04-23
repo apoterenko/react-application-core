@@ -187,7 +187,7 @@ export interface IFactorWrapper<TValue = number> { factor?: TValue; }
 export interface IFieldConfigurationWrapper<TValue> { fieldConfiguration?: TValue; }
 export interface IFieldNameWrapper { fieldName?: string; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
-export interface IFieldsWrapper<TValue> { fields?: TValue; }
+export interface IFieldsWrapper<TValue = {}> { fields?: TValue; }
 export interface IFieldWrapper<TValue> { field?: TValue; }
 export interface IFilePathWrapper { filePath?: string; }
 export interface IFilesWrapper<TValue> { files?: TValue; }

@@ -1,11 +1,13 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { AnyT } from '../../definitions.interface';
+import {
+  AnyT,
+  IKeyValue,
+} from '../../definitions.interface';
 import { GenericContainer } from '../base';
 import { Form } from '../form';
 import {
-  FieldChangeEntityT,
   IApiEntity,
   IFormContainerProps,
   IFormProps,
@@ -55,11 +57,11 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [18.04.2020]
-   * @param {FieldChangeEntityT} payload
+   * @stable [23.04.2020]
+   * @param {IKeyValue} payload
    */
-  private onChange(payload: FieldChangeEntityT): void {
-    this.formStoreProxy.dispatchFormChange(payload);
+  private onChange(payload: IKeyValue): void {
+    this.formStoreProxy.dispatchFormChanges(payload);
     ifNotNilThanValue(this.formConfiguration.onChange, (onChange) => onChange(payload));
   }
 

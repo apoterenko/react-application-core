@@ -106,7 +106,7 @@ export interface IExtendedFormEditableEntity<TEntity = IEntity>
  */
 export interface IBehavioralFormEntity<TEntity extends IEntity = IEntity>
   extends IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
-    IOnChangeWrapper<{}>,
+    IOnChangeWrapper,
     IOnEmptyDictionaryWrapper<string, IApiEntity<TEntity>>,
     IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void>,
     IOnResetWrapper,
