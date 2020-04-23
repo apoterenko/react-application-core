@@ -24,6 +24,7 @@ import {
   IOriginalEntityWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
+  IQueryWrapper,
   IQueueWrapper,
   IRawDataWrapper,
   ISectionNameWrapper,
@@ -37,7 +38,10 @@ import {
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
-import { coalesce } from './nvl';
+import {
+  coalesce,
+  trimmedUndefEmpty,
+} from './nvl';
 import {
   IExtendedFormEditableEntity,
   IFormEditableEntity,
@@ -45,6 +49,7 @@ import {
   IGenericListEntity,
   IListWrapperEntity,
   IPreviousActionWrapperEntity,
+  IQueryFilterEntity,
   ISortDirectionsEntity,
   ToolbarToolsEnum,
 } from '../definition';
@@ -312,6 +317,14 @@ export const selectNotification = <TEntity>(wrapper: INotificationWrapper<TEntit
   R.isNil(wrapper) ? UNDEF : wrapper.notification;
 
 /**
+ * @stable [24.04.2020]
+ * @param {IQueryWrapper} wrapper
+ * @returns {string}
+ */
+export const selectQuery = (wrapper: IQueryWrapper): string =>
+  R.isNil(wrapper) ? UNDEF : trimmedUndefEmpty(wrapper.query);
+
+/**
  * @stable [14.04.2020]
  * @param {ILayoutWrapper<TEntity>} wrapper
  * @returns {TEntity}
@@ -418,3 +431,15 @@ export const selectActiveFilterToolbarToolsByEditableEntity = (editableEntity: I
  */
 export const selectFormActiveFilterToolbarTools = (entity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
   selectActiveFilterToolbarToolsByEditableEntity(selectForm(entity));
+
+/**
+ * @stable [24.04.2020]
+ * @param {IQueryFilterEntity} entity
+ * @returns {string}
+ */
+export const selectFilterEntityQuery = (entity: IQueryFilterEntity): string =>
+  ifNotNilThanValue(
+    selectFilter(entity),
+    (filterEntity) => selectQuery(filterEntity),
+    UNDEF_SYMBOL
+  );

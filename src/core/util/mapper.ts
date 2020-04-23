@@ -93,7 +93,6 @@ import {
 import { isNewEntity } from './entity';
 import {
   nvl,
-  trimmedUndefEmpty,
 } from './nvl';
 import {
   doesErrorExist,
@@ -113,6 +112,7 @@ import {
   selectEntityId,
   selectFilter,
   selectForm,
+  selectFilterEntityQuery,
   selectFormActiveFilterToolbarTools,
   selectLayout,
   selectList,
@@ -170,14 +170,6 @@ export const selectListEntity =
     ifNotNilThanValue(entity, (): IListEntity<TEntity> => entity.list, UNDEF_SYMBOL);
 
 /**
- * @stable [19.10.2019]
- * @param {IQueryWrapper} entity
- * @returns {string}
- */
-export const selectQuery = (entity: IQueryWrapper): string =>
-  ifNotNilThanValue(entity, (): string => trimmedUndefEmpty(entity.query), UNDEF_SYMBOL);
-
-/**
  * @stable [13.02.2020]
  * @param {IEffectsAction} action
  * @returns {TResult}
@@ -191,18 +183,6 @@ export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): T
  */
 export const selectTabPanelEntity = (entity: ITabPanelWrapperEntity): IGenericTabPanelEntity =>
   R.isNil(entity) ? UNDEF : entity.tabPanel;
-
-/**
- * @stable [30.08.2019]
- * @param {IQueryFilterEntity} entity
- * @returns {string}
- */
-export const selectFilterWrapperQuery = (entity: IQueryFilterEntity): string =>
-  ifNotNilThanValue(
-    selectFilter(entity),
-    (filterEntity) => selectQuery(filterEntity),
-    UNDEF_SYMBOL
-  );
 
 /**
  * @stable [20.10.2019]
@@ -706,7 +686,7 @@ export const mapQueryFilterWrapperEntity = (queryFilter: IQueryFilterEntity): IQ
  * @returns {IQueryWrapper}
  */
 export const mapFilterWrapperQuery = (entity: IQueryFilterEntity): IQueryWrapper =>
-  mapQuery(selectFilterWrapperQuery(entity));
+  mapQuery(selectFilterEntityQuery(entity));
 
 /**
  * @stable [17.09.2019]

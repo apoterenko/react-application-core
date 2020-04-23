@@ -149,7 +149,7 @@ export interface IFieldChangeEntity
  * @stable [23.04.2020]
  */
 export interface IFieldsChangesFluxEntity
-  extends IFieldsWrapper<{}> {
+  extends IFieldsWrapper {
 }
 
 /**
