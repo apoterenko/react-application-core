@@ -33,6 +33,12 @@ The library is designed to quickly start develop the business applications are b
 * [socket.io-client](https://github.com/socketio/socket.io-client)
 * [react-text-mask](https://github.com/text-mask/text-mask)
 
+# Classes & markers
+
+#### @component-container
+
+* [FilterFormDialogContainer](blob/master/src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
+
 # Usage
 
 #### Containers
