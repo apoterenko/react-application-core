@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { Dialog } from '../dialog.component';
 import { FilterFormDialogActionBuilder } from '../../../action';
@@ -9,6 +8,7 @@ import {
   IFilterFormDialogContainerProps,
 } from '../../../definition';
 import {
+  isObjectNotEmpty,
   isTouched,
   mapFormContainerProps,
   selectFormEditableEntityChanges,
@@ -19,11 +19,12 @@ export class FilterFormDialogContainer
   extends GenericContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog>>> {
 
   /**
-   * @stable [10.03.2019]
+   * @stable [23.04.2020]
    * @param {IFilterFormDialogContainerProps} props
    */
   constructor(props: IFilterFormDialogContainerProps<React.RefObject<Dialog>>) {
     super(props);
+
     this.onAcceptFilter = this.onAcceptFilter.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
   }
@@ -33,7 +34,7 @@ export class FilterFormDialogContainer
    */
   public componentWillUnmount() {
     if (this.props.autoReset) {
-      this.dispatchPlainAction(FilterFormDialogActionBuilder.buildResetPlainAction(this.props.sectionName));
+      this.dispatchPlainAction(FilterFormDialogActionBuilder.buildResetPlainAction(this.sectionName));
     }
   }
 
@@ -54,9 +55,9 @@ export class FilterFormDialogContainer
       <Dialog
         ref={props.forwardedRef}
         title={FILTERS}
-        closeText={this.haveFilterChangesOrIsTouched ? CLEAR_ALL : CLOSE}
+        closeText={this.isFilterChangedOrTouched ? CLEAR_ALL : CLOSE}
         acceptText={APPLY}
-        acceptDisabled={!this.haveFilterChanges}
+        acceptDisabled={!this.isFilterChanged}
         onAccept={this.onAcceptFilter}
         onClose={this.onClearFilter}
       >
@@ -74,15 +75,15 @@ export class FilterFormDialogContainer
    * @stable [23.04.2020]
    */
   private onAcceptFilter(): void {
-    this.dispatchPlainAction(FilterFormDialogActionBuilder.buildAcceptPlainAction(this.props.sectionName));
+    this.dispatchPlainAction(FilterFormDialogActionBuilder.buildAcceptPlainAction(this.sectionName));
   }
 
   /**
    * @stable [23.04.2020]
    */
   private onClearFilter(): void {
-    if (this.haveFilterChangesOrIsTouched) {
-      this.dispatchPlainAction(FilterFormDialogActionBuilder.buildClearPlainAction(this.props.sectionName));
+    if (this.isFilterChangedOrTouched) {
+      this.dispatchPlainAction(FilterFormDialogActionBuilder.buildClearPlainAction(this.sectionName));
     }
   }
 
@@ -90,15 +91,15 @@ export class FilterFormDialogContainer
    * @stable [23.04.2020]
    * @returns {boolean}
    */
-  private get haveFilterChangesOrIsTouched(): boolean {
-    return this.haveFilterChanges || isTouched(this.props.form);
+  private get isFilterChangedOrTouched(): boolean {
+    return this.isFilterChanged || isTouched(this.props.form);
   }
 
   /**
    * @stable [23.04.2020]
    * @returns {boolean}
    */
-  private get haveFilterChanges(): boolean {
-    return !R.isEmpty(selectFormEditableEntityChanges(this.props));
+  private get isFilterChanged(): boolean {
+    return isObjectNotEmpty(selectFormEditableEntityChanges(this.props));
   }
 }

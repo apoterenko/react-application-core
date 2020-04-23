@@ -133,6 +133,14 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   }
 
   /**
+   * @stable [23.04.2020]
+   * @returns {string}
+   */
+  protected get sectionName(): string {
+    return this.props.sectionName;
+  }
+
+  /**
    * @stable [16.04.2020]
    * @returns {TUser}
    */

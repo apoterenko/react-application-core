@@ -45,7 +45,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
     if (isFn(props.onRefreshClick)) {
       props.onRefreshClick();
     } else {
-      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildRefreshPlainAction(this.props.sectionName));
+      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildRefreshPlainAction(this.sectionName));
     }
   }
 
@@ -57,7 +57,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
     if (isFn(props.onFilterClick)) {
       props.onFilterClick();
     } else {
-      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildFilterPlainAction(this.props.sectionName));
+      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildFilterPlainAction(this.sectionName));
     }
   }
 
@@ -69,7 +69,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
     if (isFn(props.onDownloadFileClick)) {
       props.onDownloadFileClick();
     } else {
-      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildDownloadFilePlainAction(this.props.sectionName));
+      this.dispatchPlainAction(ToolbarToolsActionBuilder.buildDownloadFilePlainAction(this.sectionName));
     }
   }
 
