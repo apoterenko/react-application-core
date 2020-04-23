@@ -8,8 +8,8 @@ import {
   IFilterFormDialogContainerProps,
 } from '../../../definition';
 import {
-  isDirty,
-  isFormSubmittable,
+  isFormDirty,
+  isFormValid,
   isTouched,
   mapFormContainerProps,
 } from '../../../util';
@@ -61,7 +61,7 @@ export class FilterFormDialogContainer
       <Dialog
         ref={props.forwardedRef}
         title={FILTERS}
-        closeText={this.isFilterChangedOrTouched ? CLEAR_ALL : CLOSE}
+        closeText={this.canAccept ? CLEAR_ALL : CLOSE}
         acceptText={APPLY}
         acceptDisabled={!this.canAccept}
         onAccept={this.onAcceptFilter}
@@ -88,7 +88,7 @@ export class FilterFormDialogContainer
    * @stable [23.04.2020]
    */
   private onClearFilter(): void {
-    if (this.isFilterChangedOrTouched) {
+    if (this.canAccept) {
       this.dispatchPlainAction(FilterFormDialogActionBuilder.buildClearPlainAction(this.sectionName));
     }
   }
@@ -98,14 +98,8 @@ export class FilterFormDialogContainer
    * @returns {boolean}
    */
   private get canAccept(): boolean {
-    return isFormSubmittable(this.props);
-  }
-
-  /**
-   * @stable [23.04.2020]
-   * @returns {boolean}
-   */
-  private get isFilterChangedOrTouched(): boolean {
-    return isDirty(this.props.form) || isTouched(this.props.form);
+    const formProps = this.props;
+    return isFormValid(formProps)
+      && (isFormDirty(formProps) || isTouched(this.props.form));
   }
 }
