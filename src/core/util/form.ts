@@ -21,12 +21,12 @@ import {
   isChangeable,
   isDirty,
   isDisabled,
+  isTouched,
   isValid,
 } from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
 import { selectEditableEntity } from './mapper';
-import { isObjectNotEmpty } from './object';
 import { isTabActive } from './tab';
 import { selectForm } from './select';
 
@@ -108,22 +108,28 @@ export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormP
   R.isNil(entity) ? false : (isDisabled(entity) || isFormInProgress(entity));
 
 /**
- * @stable [03.02.2020]
- * @param {IFormProps<TEntity extends IEntity>} entity
+ * @stable [23.04.2020]
+ * @param {IFormProps<TEntity>} entity
  * @returns {boolean}
  */
-export const isFormDirty = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
+export const isFormDirty = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
   ifNotNilThanValue(
     entity,
     () => (
-      isAlwaysDirty(entity) || (
-        ifNotNilThanValue(
-          selectEditableEntity(entity),
-          (form) => isDirty(form) || isObjectNotEmpty(form.defaultChanges),
-          false
-        )
-      )
+      isAlwaysDirty(entity) || ifNotNilThanValue(selectForm(entity), (form) => isDirty(form), false)
     ),
+    false
+  );
+
+/**
+ * @stable [23.04.2020]
+ * @param {IFormProps<TEntity>} entity
+ * @returns {boolean}
+ */
+export const isFormTouched = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
+  ifNotNilThanValue(
+    entity,
+    () => ifNotNilThanValue(selectForm(entity), (form) => isTouched(form), false),
     false
   );
 

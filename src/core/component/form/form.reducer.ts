@@ -12,11 +12,11 @@ import {
   IPayloadWrapper,
 } from '../../definitions.interface';
 import {
-  IGenericEditableEntity,
   IFieldChangeEntity,
   IFieldsChangesEntity,
-  IFormValidEntity,
+  IGenericEditableEntity,
   INITIAL_FORM_ENTITY,
+  IValidFluxEntity,
 } from '../../definition';
 import { FormActionBuilder } from '../../action';
 
@@ -39,6 +39,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
                             action: IEffectsAction): IGenericEditableEntity => {
   const section = toSection(action);
   const actionType = action.type;
+  const actionData = action.data;
 
   switch (actionType) {
     case FormActionBuilder.buildDestroyActionType(section):
@@ -47,37 +48,43 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       };
     case FormActionBuilder.buildClearActionType(section):
     case FormActionBuilder.buildChangeActionType(section):
-      const changes = defValuesFilter<IKeyValue, IKeyValue>({
+      const changes = defValuesFilter({
         ...state.changes,
-        ...fromPayload(action.data),
+        ...fromPayload(actionData),
       });
       return {
         ...state,
-        error: null,
-        dirty: Object.keys(changes).length > 0,
-        touched: true,
         changes,
+        dirty: !R.isEmpty(changes) || !R.isEmpty(state.defaultChanges),
+        error: null,
+        touched: true,
       };
     case FormActionBuilder.buildDefaultChangeActionType(section):
-      const defaultChanges = defValuesFilter<IKeyValue, IKeyValue>({
+      /**
+       * @stable [23.04.2020]
+       */
+      const defaultChanges = defValuesFilter({
         ...state.defaultChanges,
-        ...fromPayload(action.data),
+        ...fromPayload(actionData),
       });
       return {
         ...state,
         defaultChanges,
+        dirty: !R.isEmpty(defaultChanges) || !R.isEmpty(state.changes),
       };
     case FormActionBuilder.buildValidActionType(section):
-      const formValidEntity: IFormValidEntity = action.data;
+      /**
+       * @stable [23.04.2020]
+       */
       return {
         ...state,
-        valid: formValidEntity.valid,
+        valid: (actionData as IValidFluxEntity).valid,
       };
     case FormActionBuilder.buildActiveValueActionType(section):
       /**
        * @stable [14.08.2018]
        */
-      const activeValuePayload: IPayloadWrapper<number> = action.data;
+      const activeValuePayload: IPayloadWrapper<number> = actionData;
       return {
         ...state,
         activeValue: activeValuePayload.payload,

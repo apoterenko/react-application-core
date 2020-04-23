@@ -26,7 +26,7 @@ import {
   IActiveValueFluxEntity,
   IApiEntity,
   IFieldChangeEntity,
-  IFormValidEntity,
+  IValidFluxEntity,
 } from '../definition';
 
 export class FormActionBuilder {
@@ -314,7 +314,7 @@ export class FormActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildValidPlainAction(section: string, valid: boolean): IEffectsAction {
-    const payload: IFormValidEntity = {valid};
+    const payload: IValidFluxEntity = {valid};
     return {type: this.buildValidActionType(section), data: applySection(section, payload)};
   }
 

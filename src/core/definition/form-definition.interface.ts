@@ -161,10 +161,10 @@ export interface IFormExtraButtonEntity
 }
 
 /**
- * @entity
+ * @flux-entity
  * @stable [03.02.2020]
  */
-export interface IFormValidEntity
+export interface IValidFluxEntity
   extends IValidWrapper {
 }
 

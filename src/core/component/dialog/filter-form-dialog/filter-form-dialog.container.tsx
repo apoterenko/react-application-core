@@ -9,8 +9,8 @@ import {
 } from '../../../definition';
 import {
   isFormDirty,
+  isFormTouched,
   isFormValid,
-  isTouched,
   mapFormContainerProps,
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
@@ -99,7 +99,6 @@ export class FilterFormDialogContainer
    */
   private get canAccept(): boolean {
     const formProps = this.props;
-    return isFormValid(formProps)
-      && (isFormDirty(formProps) || isTouched(this.props.form));
+    return isFormValid(formProps) && (isFormDirty(formProps) || isFormTouched(formProps));
   }
 }

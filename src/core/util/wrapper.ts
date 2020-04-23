@@ -550,12 +550,12 @@ export const isDisplayValueRenderedOnly = (entity: IDisplayValueRenderedOnlyWrap
   ifNotNilThanValue(entity, () => entity.displayValueRenderedOnly === true, false);
 
 /**
- * @stable [26.12.2019]
+ * @stable [23.04.2020]
  * @param {IAlwaysDirtyWrapper} entity
  * @returns {boolean}
  */
 export const isAlwaysDirty = (entity: IAlwaysDirtyWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.alwaysDirty === true, false);
+  R.isNil(entity) ? false : entity.alwaysDirty === true;
 
 /**
  * @stable [26.12.2019]
