@@ -15,6 +15,12 @@ import {
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
 
+/**
+ * @auxiliary-container
+ * @stable [23.04.2020]
+ *
+ * Please use the "mapFilterFormDialogContainerProps"
+ */
 export class FilterFormDialogContainer
   extends GenericContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog>>> {
 
