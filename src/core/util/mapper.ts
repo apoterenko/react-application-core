@@ -955,20 +955,20 @@ export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps
  * @stable [23.04.2020]
  *
  * @param {IToolbarToolsContainerProps & IListContainerProps} props
- * @param {() => IGenericEditableEntity} editableEntityAccessor
+ * @param {IGenericEditableEntity} editableEntity
  * @returns {IToolbarToolsContainerProps}
  */
 export const mapToolbarToolsListContainerProps =
   (props: IToolbarToolsContainerProps & IListContainerProps,
-   editableEntityAccessor?: () => IGenericEditableEntity): IToolbarToolsContainerProps =>
+   editableEntity?: IGenericEditableEntity): IToolbarToolsContainerProps =>
     ({
       ...mapSectionNameWrapper(props),
       toolbarTools: {
         ...mapListWrapperActionsDisabled(props),
         activeActions: nvl(
-          isFn(editableEntityAccessor)
-            ? selectActiveFilterToolbarToolsByEditableEntity(editableEntityAccessor())
-            : selectFormActiveFilterToolbarTools(props),
+          R.isNil(editableEntity)
+            ? selectFormActiveFilterToolbarTools(props)
+            : selectActiveFilterToolbarToolsByEditableEntity(editableEntity),
           []
         ),
       },
