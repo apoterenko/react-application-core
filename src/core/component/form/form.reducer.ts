@@ -2,15 +2,13 @@ import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
+  asErrorMessage,
   defValuesFilter,
   isDef,
   toSection,
 } from '../../util';
-import { mapErrorObject } from '../../error';
 import {
-  IPayloadWrapper,
-} from '../../definitions.interface';
-import {
+  IActiveValueFluxEntity,
   IFieldsChangesFluxEntity,
   IGenericEditableEntity,
   INITIAL_FORM_ENTITY,
@@ -24,6 +22,14 @@ import { FormActionBuilder } from '../../action';
  * @returns {{}}
  */
 const asChanges = (payload: IFieldsChangesFluxEntity): {} => payload.fields;
+
+/**
+ * @stable [24.04.2020]
+ * @param changes
+ * @param defaultChanges
+ * @returns {boolean}
+ */
+const isDirty = (changes, defaultChanges) => !R.isEmpty(changes) || !R.isEmpty(defaultChanges);
 
 /**
  * @reducer
@@ -42,19 +48,22 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
 
   switch (actionType) {
     case FormActionBuilder.buildDestroyActionType(section):
+      /**
+       * @stable [24.04.2020]
+       */
       return {
         ...INITIAL_FORM_ENTITY,
       };
     case FormActionBuilder.buildClearActionType(section):
     case FormActionBuilder.buildChangeActionType(section):
-      const changes = defValuesFilter({
-        ...state.changes,
-        ...asChanges(actionData),
-      });
+      /**
+       * @stable [24.04.2020]
+       */
+      const changes = defValuesFilter({...state.changes, ...asChanges(actionData)});
       return {
         ...state,
         changes,
-        dirty: !R.isEmpty(changes) || !R.isEmpty(state.defaultChanges),
+        dirty: isDirty(changes, state.defaultChanges),
         error: null,
         touched: true,
       };
@@ -62,14 +71,11 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       /**
        * @stable [23.04.2020]
        */
-      defaultChanges = defValuesFilter({
-        ...state.defaultChanges,
-        ...asChanges(actionData),
-      });
+      defaultChanges = defValuesFilter({...state.defaultChanges, ...asChanges(actionData)});
       return {
         ...state,
         defaultChanges,
-        dirty: !R.isEmpty(defaultChanges) || !R.isEmpty(state.changes),
+        dirty: isDirty(state.changes, defaultChanges),
       };
     case FormActionBuilder.buildValidActionType(section):
       /**
@@ -81,15 +87,17 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       };
     case FormActionBuilder.buildActiveValueActionType(section):
       /**
-       * @stable [14.08.2018]
+       * @stable [24.04.2020]
        */
-      const activeValuePayload: IPayloadWrapper<number> = actionData;
       return {
         ...state,
-        activeValue: activeValuePayload.payload,
+        activeValue: (actionData as IActiveValueFluxEntity).payload,
       };
     case FormActionBuilder.buildProgressActionType(section):
     case FormActionBuilder.buildSubmitActionType(section):
+      /**
+       * @stable [24.04.2020]
+       */
       return {
         ...state,
         error: null,
@@ -99,9 +107,12 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       return {
         ...state,
         progress: false,
-        error: mapErrorObject(action.error).message,
+        error: asErrorMessage(action.error).message,
       };
     case FormActionBuilder.buildSubmitFinishActionType(section):
+      /**
+       * @stable [24.04.2020]
+       */
       return {
         ...state,
         progress: false,
@@ -112,6 +123,8 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
        * @stable [23.04.2020]
        */
       defaultChanges = state.defaultChanges;
+      const activeValue = state.activeValue;
+
       return {
         ...INITIAL_FORM_ENTITY,
         ...(
@@ -124,11 +137,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
             }
             : {}
         ),
-        ...(
-          isDef(state.activeValue)
-            ? {activeValue: state.activeValue}
-            : {}
-        ),
+        ...(isDef(activeValue) ? {activeValue} : {}),
       };
   }
   return state;
