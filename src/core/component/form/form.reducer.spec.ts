@@ -1,4 +1,5 @@
 import {
+  FORM_CHANGE_ACTION_TYPE,
   FORM_DEFAULT_CHANGE_ACTION_TYPE,
   FORM_RESET_ACTION_TYPE,
 } from '../../definition';
@@ -57,17 +58,75 @@ describe('form.reducer', () => {
     it('test1', () => {
       const reducedForm = formReducer(
         {
-          changes: {value1: 1},
-          defaultChanges: {name: 'name1'},
-          dirty: false,
+          changes: {param1: 1},
+          defaultChanges: {value1: 100, name: 'name1'},
+          dirty: true,
         },
         FormActionBuilder.buildDefaultChangesPlainAction(TEST_SECTION, {name: 'name2'})
       );
 
       const result = {
-        changes: {value1: 1},
+        changes: {param1: 1},
+        defaultChanges: {value1: 100, name: 'name2'},
+        dirty: true,
+      };
+      expect(reducedForm).toEqual(result);
+    });
+
+    it('test2', () => {
+      const reducedForm = formReducer(
+        {
+          changes: {},
+          defaultChanges: {},
+        },
+        FormActionBuilder.buildDefaultChangesPlainAction(TEST_SECTION, {name: 'name2'})
+      );
+
+      const result = {
+        changes: {},
         defaultChanges: {name: 'name2'},
         dirty: true,
+      };
+      expect(reducedForm).toEqual(result);
+    });
+  });
+
+  describe(FORM_CHANGE_ACTION_TYPE, () => {
+    it('test1', () => {
+      const reducedForm = formReducer(
+        {
+          changes: {value1: 100},
+          defaultChanges: {name: 'name1'},
+          dirty: true,
+        },
+        FormActionBuilder.buildChangesPlainAction(TEST_SECTION, {name: 'name2'})
+      );
+
+      const result = {
+        changes: {value1: 100, name: 'name2'},
+        defaultChanges: {name: 'name1'},
+        dirty: true,
+        error: null,
+        touched: true,
+      };
+      expect(reducedForm).toEqual(result);
+    });
+
+    it('test2', () => {
+      const reducedForm = formReducer(
+        {
+          changes: {},
+          defaultChanges: {},
+        },
+        FormActionBuilder.buildChangesPlainAction(TEST_SECTION, {name: 'name2'})
+      );
+
+      const result = {
+        changes: {name: 'name2'},
+        defaultChanges: {},
+        dirty: true,
+        error: null,
+        touched: true,
       };
       expect(reducedForm).toEqual(result);
     });
