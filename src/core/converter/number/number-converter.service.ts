@@ -8,6 +8,7 @@ import {
 import {
   isFn,
   isNumber,
+  isNumberLike,
   isString,
   isUndef,
 } from '../../util';
@@ -137,21 +138,21 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
-   * @stable [25.12.2019]
+   * @stable [25.04.2020]
    * @param {StringNumberT} value
    * @returns {string}
    */
   public integerFormat(value: StringNumberT): string {
-    return R.isNil(value) ? '' : this.integerFormatter.format(this.asNumber(value));
+    return this.useFormatter(value, this.integerFormatter);
   }
 
   /**
-   * @stable [25.12.2019]
+   * @stable [25.04.2020]
    * @param {StringNumberT} value
    * @returns {string}
    */
   public fractionalFormat(value: StringNumberT): string {
-    return R.isNil(value) ? '' : this.fractionalFormatter.format(this.asNumber(value));
+    return this.useFormatter(value, this.fractionalFormatter);
   }
 
   public currency(value: number | string, options?: Intl.NumberFormatOptions): string {
@@ -181,6 +182,18 @@ export class NumberConverter implements INumberConverter {
    */
   public internalId(value: EntityIdT): string {
     return `(#${value})`;
+  }
+
+  /**
+   * @stable [25.04.2020]
+   * @param {StringNumberT} value
+   * @param {Intl.NumberFormat} formatter
+   * @returns {string}
+   */
+  private useFormatter(value: StringNumberT, formatter: Intl.NumberFormat): string {
+    return R.isNil(value) || !isNumberLike(value)
+      ? ''
+      : formatter.format(this.asNumber(value));
   }
 
   /**
