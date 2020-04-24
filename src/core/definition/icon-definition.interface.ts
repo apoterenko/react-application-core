@@ -12,6 +12,7 @@ export enum IconsEnum {
   CHART_LINE = 'chart-line',                                              /* https://fontawesome.com/ */
   CHEVRON_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */
   CHEVRON_UP = 'chevron-up',                                              /* https://fontawesome.com/ */
+  CLOCK_REGULAR = 'clock-regular',                                        /* https://fontawesome.com/ */
   COGS = 'cogs',                                                          /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
   FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */

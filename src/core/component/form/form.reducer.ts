@@ -38,6 +38,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
   const section = toSection(action);
   const actionType = action.type;
   const actionData = action.data;
+  let defaultChanges;
 
   switch (actionType) {
     case FormActionBuilder.buildDestroyActionType(section):
@@ -61,7 +62,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       /**
        * @stable [23.04.2020]
        */
-      const defaultChanges = defValuesFilter({
+      defaultChanges = defValuesFilter({
         ...state.defaultChanges,
         ...asChanges(actionData),
       });
@@ -110,11 +111,17 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       /**
        * @stable [23.04.2020]
        */
+      defaultChanges = state.defaultChanges;
       return {
         ...INITIAL_FORM_ENTITY,
         ...(
           actionType === FormActionBuilder.buildResetActionType(section)
-            ? {defaultChanges: state.defaultChanges}
+            ? {
+              defaultChanges,
+              ...(
+                R.isEmpty(defaultChanges) ? {} : {dirty: true}
+              ),
+            }
             : {}
         ),
         ...(

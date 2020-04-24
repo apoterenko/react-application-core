@@ -88,6 +88,7 @@ import {
   faArrowAltCircleRight as faArrowAltCircleRightRegular,
   faCalendarAlt as faCalendarAltRegular,
   faCircle as faCircleRegular,
+  faClock as faClockRegular,
   faComments as faCommentsRegular,
   faCreditCard,
   faFileAlt,
@@ -210,13 +211,6 @@ export class UiIconFactory implements IUiIconFactory {
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M21.69 14.242a33.258 33.258 0 0 1-3 3.675 58.134 58.134 0 0 1-3.267 3.23c-.67.611-1.2 1.066-1.515 1.328a3.005 3.005 0 0 1-3.828 0c-.315-.262-.844-.72-1.515-1.329a54.864 54.864 0 0 1-3.273-3.23 33.824 33.824 0 0 1-2.99-3.665A10.843 10.843 0 0 1 .006 8.23a7.273 7.273 0 0 1 2.16-5.452A7.39 7.39 0 0 1 12 2.329a7.384 7.384 0 0 1 9.837.45 7.273 7.273 0 0 1 2.154 5.43 10.809 10.809 0 0 1-2.302 6.034l.001-.001zm-1.975-9.327a4.398 4.398 0 0 0-6.17 0l-1.55 1.533-1.549-1.533a4.415 4.415 0 0 0-6.177 0 4.287 4.287 0 0 0-1.275 3.267c-.06 4.474 9 11.98 9 11.98s9.056-7.5 9-11.985a4.27 4.27 0 0 0-1.28-3.262z'
-        />
-      </svg>
-    ),
-    'clock': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-21a9 9 0 0 0-9 9 9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9zm6 10.5h-6a1.498 1.498 0 0 1-1.5-1.485v-6.03c0-.825.672-1.5 1.5-1.5s1.5.675 1.5 1.5V10.5H18a1.5 1.5 0 0 1 0 3z'
         />
       </svg>
     ),
@@ -542,6 +536,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.CHART_LINE]: faChartLine,
     [IconsEnum.CHEVRON_DOWN]: faChevronDown,
     [IconsEnum.CHEVRON_UP]: faChevronUp,
+    [IconsEnum.CLOCK_REGULAR]: faClockRegular,
     [IconsEnum.COGS]: faCogs,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
     [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
