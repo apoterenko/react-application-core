@@ -35,6 +35,10 @@ The library is designed to quickly start develop the business applications are b
 
 # Classes & markers
 
+#### @reducer
+
+* [formReducer](src/core/component/form/form.reducer.ts)
+
 #### @component-container
 
 * [FilterFormDialogContainer](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
