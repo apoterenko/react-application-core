@@ -18,6 +18,7 @@ export enum IconsEnum {
   FILTER = 'filter',                                                      /* https://fontawesome.com/ */
   FORWARD = 'forward',
   FORWARD2 = 'forward2',
+  MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
   MORE = 'more',
   PAPERCLIP = 'paperclip',
   PEOPLE_CARRY = 'people-carry',
