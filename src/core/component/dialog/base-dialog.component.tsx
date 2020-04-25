@@ -282,7 +282,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                 this.acceptable,
                 () => (
                   <Button
-                    icon='ok-filled'
+                    icon={IconsEnum.CHECK_CIRCLE}
                     full={true}
                     raised={true}
                     {...this.props.acceptActionConfiguration}

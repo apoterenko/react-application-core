@@ -10,9 +10,11 @@ export enum IconsEnum {
   BACK2 = 'back2',
   CALENDAR_ALT_REGULAR = 'calendar-alt-regular',                          /* https://fontawesome.com/ */
   CHART_LINE = 'chart-line',                                              /* https://fontawesome.com/ */
+  CHECK_CIRCLE = 'check-circle',                                          /* https://fontawesome.com/ */
   CHEVRON_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */
   CHEVRON_UP = 'chevron-up',                                              /* https://fontawesome.com/ */
   CLOCK_REGULAR = 'clock-regular',                                        /* https://fontawesome.com/ */
+  CODEPEN = 'codepen',                                                    /* https://fontawesome.com/ */
   COGS = 'cogs',                                                          /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
   FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */
@@ -21,8 +23,8 @@ export enum IconsEnum {
   FORWARD2 = 'forward2',
   MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
   MORE = 'more',
-  PAPERCLIP = 'paperclip',
-  PEOPLE_CARRY = 'people-carry',
+  PAPERCLIP = 'paperclip',                                                /* https://fontawesome.com/ */
+  PEOPLE_CARRY = 'people-carry',                                          /* https://fontawesome.com/ */
   PHONE = 'phone',
   PLUS = 'plus',
   PRINT = 'print',

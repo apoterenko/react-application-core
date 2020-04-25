@@ -455,7 +455,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
       }),
       notNilValuesFilter<IButtonProps, IButtonProps>({
         type: 'submit',
-        icon: this.isFormValid ? (props.submitIcon || 'ok-filled') : 'exclamation',
+        icon: this.isFormValid ? (props.submitIcon || IconsEnum.CHECK_CIRCLE) : 'exclamation',
         raised: true,
         disabled: !this.isFormSubmittable,
         progress: this.isFormBusy,
