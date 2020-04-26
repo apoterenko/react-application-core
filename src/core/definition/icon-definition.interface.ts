@@ -16,6 +16,7 @@ export enum IconsEnum {
   CLOCK_REGULAR = 'clock-regular',                                        /* https://fontawesome.com/ */
   CODEPEN = 'codepen',                                                    /* https://fontawesome.com/ */
   COGS = 'cogs',                                                          /* https://fontawesome.com/ */
+  DOLLAR_SIGN = 'dollar-sign',                                            /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
   FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */
   FILTER = 'filter',                                                      /* https://fontawesome.com/ */
@@ -28,6 +29,7 @@ export enum IconsEnum {
   PHONE = 'phone',
   PLUS = 'plus',
   PRINT = 'print',
+  RECEIPT = 'receipt',                                                    /* https://fontawesome.com/ */
   SEARCH_MAGNIFIER = 'search-magnifier',
   SEARCH_MINUS = 'search-minus',
   SEARCH_PLUS = 'search-plus',

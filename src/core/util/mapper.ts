@@ -564,6 +564,15 @@ export const mapExtendedEntity =
     });
 
 /**
+ * @stable [05.04.2020]
+ * @param {IFormEditableEntity<TEntity>} wrapper
+ * @returns {IFormEditableEntity<TEntity>}
+ */
+export const mapFormEditableEntity =
+  <TEntity = IEntity>(wrapper: IFormEditableEntity<TEntity>): IFormEditableEntity<TEntity> =>
+    mapForm(selectForm(wrapper));
+
+/**
  * @stable [17.04.2020]
  * @param {TEntity} entity
  * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
@@ -601,34 +610,25 @@ export const mapNewExtendedEntity =
     mapEnhancedExtendedEntity(null, editableEntity);
 
 /**
- * @stable [26.03.2020]
+ * @stable [26.04.2020]
  * @param {TEntity} entity
- * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
- * @returns {IExtendedFormEditableEntity<TEntity extends IEntity>}
+ * @param {IGenericEditableEntity<TEntity>} editableEntity
+ * @returns {IExtendedFormEditableEntity<TEntity>}
  */
 export const mapExtendedFormEditableEntity =
-  <TEntity extends IEntity = IEntity>(entity: TEntity,
-                                      editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
+  <TEntity  = IEntity>(entity: TEntity,
+                       editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     ({
       ...mapForm(editableEntity),
       ...mapEnhancedExtendedEntity(entity, editableEntity),
     });
 
 /**
- * @stable [05.04.2020]
- * @param {IFormEditableEntity<TEntity>} wrapper
- * @returns {IFormEditableEntity<TEntity>}
- */
-export const mapFormEditableEntity =
-  <TEntity = IEntity>(wrapper: IFormEditableEntity<TEntity>): IFormEditableEntity<TEntity> =>
-    mapForm(selectForm(wrapper));
-
-/**
- * @stable [26.03.2020]
+ * @stable [26.04.2020]
  * @param {IGenericEditableEntity<TEntity>} editableEntity
- * @returns {IExtendedFormEditableEntity<TEntity extends IEntity>}
+ * @returns {IExtendedFormEditableEntity<TEntity>}
  */
-export const mapNewExtendedEditableEntity =
+export const mapNewExtendedFormEditableEntity =
   <TEntity = IEntity>(editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
     mapExtendedFormEditableEntity(null, editableEntity);
 
