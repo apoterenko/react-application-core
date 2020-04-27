@@ -35,11 +35,6 @@ The library is designed to quickly start develop the business applications are b
 
 # Classes & markers
 
-#### @reducer
-
-* [filterReducer](src/core/component/filter/filter.reducer.ts)
-* [formReducer](src/core/component/form/form.reducer.ts)
-
 #### @component-container
 
 * [FilterFormDialogContainer](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
@@ -48,6 +43,11 @@ The library is designed to quickly start develop the business applications are b
 
 * [makeDestroyedContainerEffectsProxy](src/core/store/effects/destroyed-container-effects.proxy.ts)
 * [makeFilteredListEffectsProxy](src/core/store/effects/filtered-list-effects.proxy.ts)
+
+#### @reducer
+
+* [filterReducer](src/core/component/filter/filter.reducer.ts)
+* [formReducer](src/core/component/form/form.reducer.ts)
 
 # Usage
 
