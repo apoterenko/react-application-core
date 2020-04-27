@@ -4,6 +4,7 @@ import {
 } from '../../../configurations-definitions.interface';
 import {
   IGenericActiveQueryEntity,
+  IGenericContainerProps,
   IQueryFilterEntity,
   IUniversalComponentEntity,
   IUniversalContainerEntity,
@@ -18,8 +19,6 @@ import {
   IOnRefreshWrapper,
   IFullWrapper,
 } from '../../../definitions.interface';
-import { IOnActionClickWrapper } from '../../../react-definitions.interface';
-import { IWebComponentEntity } from '../../../definition';
 
 /**
  * @stable [13.09.2018]
@@ -32,7 +31,6 @@ export interface IUniversalSearchToolbarConfiguration extends IUniversalComponen
                                                               IOnApplyWrapper,
                                                               IFullWrapper,
                                                               IOnRefreshWrapper,
-                                                              IOnActionClickWrapper<ToolbarToolsEnum>,
                                                               IOnChangeWrapper<string> {
 }
 
@@ -52,26 +50,6 @@ export interface IUniversalSearchToolbarProps extends IUniversalSearchToolbarEnt
 /**
  * @stable [18.05.2018]
  */
-export interface ISearchToolbarConfiguration extends IUniversalSearchToolbarConfiguration,
-                                                     IWebComponentEntity {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface ISearchToolbarEntity extends IUniversalSearchToolbarEntity {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface ISearchToolbarProps extends ISearchToolbarConfiguration,
-                                             ISearchToolbarEntity {
-}
-
-/**
- * @stable [18.05.2018]
- */
 export interface IUniversalSearchToolbarContainerEntity extends IUniversalContainerEntity,
                                                                 IQueryFilterEntity {
 }
@@ -84,28 +62,11 @@ export interface IUniversalSearchToolbarContainerConfiguration extends IUniversa
 }
 
 /**
+ * @props
  * @stable [18.05.2018]
  */
-export interface IUniversalSearchToolbarContainerProps extends IUniversalSearchToolbarContainerEntity,
-                                                               IUniversalSearchToolbarContainerConfiguration {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface ISearchToolbarContainerEntity extends IUniversalSearchToolbarContainerEntity {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface ISearchToolbarContainerConfiguration extends IUniversalSearchToolbarContainerConfiguration,
-                                                              IWebComponentEntity {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface ISearchToolbarContainerProps extends ISearchToolbarContainerEntity,
-                                                      ISearchToolbarContainerConfiguration {
+export interface IGenericSearchToolbarContainerProps
+  extends IGenericContainerProps,
+    IUniversalSearchToolbarContainerEntity,
+    IUniversalSearchToolbarContainerConfiguration {
 }

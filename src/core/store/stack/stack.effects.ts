@@ -5,11 +5,9 @@ import {
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { provideInSingleton } from '../../di';
+import { ListActionBuilder } from '../../component/action.builder';
 import {
   FilterActionBuilder,
-  ListActionBuilder,
-} from '../../component/action.builder';
-import {
   FormActionBuilder,
   StackActionBuilder,
   TabPanelActionBuilder,

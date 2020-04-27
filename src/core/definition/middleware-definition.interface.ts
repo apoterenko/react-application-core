@@ -12,6 +12,13 @@ import {
   IPathWrapper,
   IPayloadWrapper,
   IStateWrapper,
+  ICustomActionsWrapper,
+  IFiltersSectionsWrapper,
+  IFormsSectionsWrapper,
+  ITabPanelsSectionsWrapper,
+  ITypeWrapper,
+  IListsSectionsWrapper,
+  ISectionNameWrapper,
   ISucceedTextWrapper,
   ITabPanelSectionWrapper,
 } from '../definitions.interface';
@@ -181,4 +188,37 @@ export interface ISucceedFormMiddlewareConfigEntity<TState = {}>
 export interface IFilterFormDialogMiddlewareConfigEntity<TState = {}>
   extends IFormMiddlewareConfigEntity<TState>,
     ILoadedListMiddlewareConfigEntity<TState> {
+}
+
+/**
+ * @config-entity
+ * @stable [27.04.2020]
+ */
+export interface IFilteredListMiddlewareConfigEntity<TState = {}>
+  extends IFormMiddlewareConfigEntity<TState>,
+    ILoadedListMiddlewareConfigEntity {
+}
+
+/**
+ * @stable [27.04.2020]
+ */
+export enum DestroyedContainerTypesEnum {
+  FILTER,
+  FORM,
+  LIST,
+  TAB_PANEL,
+}
+
+/**
+ * @config-entity
+ * @stable [27.04.2020]
+ */
+export interface IDestroyedContainerMiddlewareConfigEntity
+  extends ICustomActionsWrapper<string[]>,
+    IFiltersSectionsWrapper<string[]>,
+    IFormsSectionsWrapper<string[]>,
+    IListsSectionsWrapper<string[]>,
+    ISectionNameWrapper,
+    ITabPanelsSectionsWrapper<string[]>,
+    ITypeWrapper<DestroyedContainerTypesEnum> {
 }

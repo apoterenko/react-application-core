@@ -4,58 +4,49 @@ import {
 } from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
+import { FilterActionBuilder } from '../../action';
 import {
-  FilterActionBuilder,
-  ListActionBuilder,
-} from '../../component/action.builder';
+  nvl,
+  toFormSection,
+  toListSection,
+} from '../../util';
+import { IFilteredListMiddlewareConfigEntity } from '../../definition';
 import {
-  FormActionBuilder,
-  RouterActionBuilder,
-  StackActionBuilder,
-} from '../../action';
-import { makeFilterManualApplyMiddleware } from '../middleware';
+  makeFilteredListApplyMiddleware,
+  makeFilteredListDeactivateMiddleware,
+} from '../middleware';
 
-export function makeFilteredListEffectsProxy(
-    config: { filterPath?: string; filterSection?: string, listSection?: string }
-    ): () => void {
-  const { filterPath, filterSection, listSection } = config;
-  return (): void => {
+/**
+ * @effects-proxy-factory
+ * @stable [27.04.2020]
+ *
+ * @param {IFilteredListMiddlewareConfigEntity<TState>} cfg
+ * @returns {() => void}
+ */
+export const makeFilteredListEffectsProxy = <TState = {}>(cfg: IFilteredListMiddlewareConfigEntity<TState>) =>
+  ((): void => {
 
     @provideInSingleton(Effects)
     class Effects {
 
       /**
-       * @stable [06.07.2018]
+       * @stable [27.04.2020]
        * @param {IEffectsAction} action
+       * @param {TState} state
        * @returns {IEffectsAction[]}
        */
-      @EffectsService.effects(FilterActionBuilder.buildManualApplyActionType(listSection))
-      public $onFilterManualApply(action: IEffectsAction): IEffectsAction[] {
-        return makeFilterManualApplyMiddleware({listSection, action});
-      }
+      @EffectsService.effects(FilterActionBuilder.buildApplyActionType(nvl(toFormSection(cfg), toListSection(cfg))))
+      public $onApply = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        makeFilteredListApplyMiddleware({...cfg, action, state})
 
-      @EffectsService.effects(FilterActionBuilder.buildApplyActionType(listSection))
-      public $onFilterApply(): IEffectsAction {
-        return ListActionBuilder.buildLoadAction(listSection);
-      }
-
-      @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(listSection))
-      public $onFilterDeactivate(): IEffectsAction[] {
-        return (
-          filterSection ? [FormActionBuilder.buildDestroyAction(filterSection)] : []
-        ).concat([
-          FilterActionBuilder.buildDestroyAction(listSection),
-          ListActionBuilder.buildLoadAction(listSection)
-        ]);
-      }
-
-      @EffectsService.effects(FilterActionBuilder.buildOpenActionType(listSection))
-      public $onFilterOpen(): IEffectsAction[] {
-        return [
-          StackActionBuilder.buildLockAction(filterSection),
-          RouterActionBuilder.buildNavigateAction(filterPath)
-        ];
-      }
+      /**
+       * @stable [27.04.2020]
+       * @param {IEffectsAction} action
+       * @param {TState} state
+       * @returns {IEffectsAction[]}
+       */
+      @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(nvl(toFormSection(cfg), toListSection(cfg))))
+      public $onDeactivate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        makeFilteredListDeactivateMiddleware({...cfg, action, state})
     }
-  };
-}
+  });

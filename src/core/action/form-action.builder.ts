@@ -24,11 +24,14 @@ import {
   FORM_VALID_ACTION_TYPE,
   IActiveValueFluxEntity,
   IApiEntity,
-  IFieldChangeEntity,
   IFieldsChangesFluxEntity,
   IValidFluxEntity,
 } from '../definition';
 
+/**
+ * @action-builder
+ * @stable [27.04.2020]
+ */
 export class FormActionBuilder {
 
   /**

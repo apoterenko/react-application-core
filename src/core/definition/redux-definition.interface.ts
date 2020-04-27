@@ -2,15 +2,12 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IActionWrapper,
-  ICustomActionsWrapper,
   IDataWrapper,
   IDestroyWrapper,
   IDictionariesWrapper,
-  IFormsSectionsWrapper,
   IInitialStateWrapper,
   IKeyValue,
   IListSectionWrapper,
-  IListsSectionsWrapper,
   INextFormChangesWrapper,
   INextFormRouteWrapper,
   INextFormSectionWrapper,
@@ -24,8 +21,6 @@ import {
   ISectionNameWrapper,
   ISectionWrapper,
   ISelectWrapper,
-  ITabPanelsSectionsWrapper,
-  ITypeWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
 import { IAsyncLibsWrapperEntity } from './async-lib-definition.interface';
@@ -48,15 +43,6 @@ export interface IEntityActionBuilder<TValue = {}> {
   buildSelectAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;
   buildSelectPlainAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;
   buildUpdateAction<TPayload extends TValue = TValue>(updated: TPayload): IEffectsAction;
-}
-
-/**
- * @stable [27.08.2019]
- */
-export enum DestroyedContainerTypesEnum {
-  FORM,
-  LIST,
-  TAB_PANEL,
 }
 
 /**
@@ -94,18 +80,6 @@ export interface IEntityReducerFactoryConfigEntity
     ISelectWrapper<string>,
     IDestroyWrapper<string>,
     IInitialStateWrapper<{}> {
-}
-
-/**
- * @stable [27.08.2019]
- */
-export interface IDestroyedContainerMiddlewareConfigEntity
-  extends ICustomActionsWrapper<string[]>,
-    IFormsSectionsWrapper<string[]>,
-    IListsSectionsWrapper<string[]>,
-    ISectionNameWrapper,
-    ITabPanelsSectionsWrapper<string[]>,
-    ITypeWrapper<DestroyedContainerTypesEnum> {
 }
 
 /**

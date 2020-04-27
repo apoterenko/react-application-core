@@ -8,35 +8,36 @@ import {
   DestroyedContainerTypesEnum,
   IDestroyedContainerMiddlewareConfigEntity,
 } from '../../definition';
+import { makeDestroyedContainerMiddleware } from '../middleware';
+import { ListActionBuilder } from '../../component/action.builder';
 import {
-  makeDestroyedContainerMiddleware,
-} from '../middleware';
-import {
-  ListActionBuilder,
-} from '../../component/action.builder';
-import {
+  FilterActionBuilder,
   FormActionBuilder,
   TabPanelActionBuilder,
 } from '../../action';
 
 /**
- * @stable [22.03.2019]
- * @param {IDestroyedContainerMiddlewareConfigEntity} config
+ * @stable [27.04.2020]
+ * @param {IDestroyedContainerMiddlewareConfigEntity} cfg
  * @returns {string}
  */
-const toDestroyedContainerType = (config: IDestroyedContainerMiddlewareConfigEntity): string => {
-  switch (config.type) {
+const actionType = (cfg: IDestroyedContainerMiddlewareConfigEntity): string => {
+  switch (cfg.type) {
+    case DestroyedContainerTypesEnum.FILTER:
+      return FilterActionBuilder.buildDestroyActionType(cfg.sectionName);
     case DestroyedContainerTypesEnum.FORM:
-      return FormActionBuilder.buildDestroyActionType(config.sectionName);
+      return FormActionBuilder.buildDestroyActionType(cfg.sectionName);
     case DestroyedContainerTypesEnum.LIST:
-      return ListActionBuilder.buildDestroyActionType(config.sectionName);
+      return ListActionBuilder.buildDestroyActionType(cfg.sectionName);
     case DestroyedContainerTypesEnum.TAB_PANEL:
-      return TabPanelActionBuilder.buildDestroyActionType(config.sectionName);
+      return TabPanelActionBuilder.buildDestroyActionType(cfg.sectionName);
   }
 };
 
 /**
- * @stable [27.08.2019]
+ * @effects-proxy-factory
+ * @stable [27.04.2020]
+ *
  * @param {IDestroyedContainerMiddlewareConfigEntity} config
  * @returns {() => void}
  */
@@ -47,7 +48,7 @@ export const makeDestroyedContainerEffectsProxy = (config: IDestroyedContainerMi
     @provideInSingleton(Effects)
     class Effects {
 
-      @EffectsService.effects(toDestroyedContainerType(config))
+      @EffectsService.effects(actionType(config))
       public $onDestroy = (): IEffectsAction[] => makeDestroyedContainerMiddleware(config)
     }
   };

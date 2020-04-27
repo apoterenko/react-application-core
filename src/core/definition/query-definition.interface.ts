@@ -22,6 +22,14 @@ export interface IQueryFilterEntity
 }
 
 /**
+ * @flux-entity
+ * @stable [27.04.2020]
+ */
+export interface IQueryFluxEntity
+  extends IQueryWrapper {
+}
+
+/**
  * @default-entity
  * @stable [04.04.2020]
  */
