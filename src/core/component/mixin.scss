@@ -2624,10 +2624,13 @@
   $rac-dialog-body-content-wrapper-display: unset,                                            /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-flex-direction: unset,                                     /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-flex: unset,                                               /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-font-size: unset,                                          /* @stable [27.04.2020] */
+  $rac-dialog-body-content-wrapper-line-height: unset,                                        /* @stable [27.04.2020] */
   $rac-dialog-body-content-wrapper-margin: unset,                                             /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-overflow: unset,                                           /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-padding: unset,                                            /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-position: unset,                                           /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-text-align: unset,                                         /* @stable [27.04.2020] */
   $rac-dialog-body-display: unset,                                                            /* @stable [06.01.2020] */
   $rac-dialog-body-flex-direction: unset,                                                     /* @stable [06.01.2020] */
   $rac-dialog-body-flex: unset,                                                               /* @stable [10.03.2020] */
@@ -2706,10 +2709,13 @@
               $rac-styles-display: $rac-dialog-body-content-wrapper-display,
               $rac-styles-flex-direction: $rac-dialog-body-content-wrapper-flex-direction,
               $rac-styles-flex: $rac-dialog-body-content-wrapper-flex,
+              $rac-styles-font-size: $rac-dialog-body-content-wrapper-font-size,
+              $rac-styles-line-height: $rac-dialog-body-content-wrapper-line-height,
               $rac-styles-margin: $rac-dialog-body-content-wrapper-margin,
               $rac-styles-overflow: $rac-dialog-body-content-wrapper-overflow,
               $rac-styles-padding: $rac-dialog-body-content-wrapper-padding,
-              $rac-styles-position: $rac-dialog-body-content-wrapper-position
+              $rac-styles-position: $rac-dialog-body-content-wrapper-position,
+              $rac-styles-text-align: $rac-dialog-body-content-wrapper-text-align
             );
 
             > {

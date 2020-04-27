@@ -79,6 +79,9 @@
     */
   @include rac-dialog (
     $rac-dialog-custom: $rac-confirm-dialog-cls,
+    $rac-dialog-body-content-wrapper-font-size: $rac-confirm-dialog-body-content-wrapper-font-size,
+    $rac-dialog-body-content-wrapper-line-height: $rac-confirm-dialog-body-content-wrapper-line-height,
+    $rac-dialog-body-content-wrapper-text-align: $rac-confirm-dialog-body-content-wrapper-text-align,
     $rac-dialog-body-flex: $rac-confirm-dialog-body-flex,
     $rac-dialog-body-max-width: $rac-confirm-dialog-body-max-width
   );
