@@ -149,6 +149,7 @@ export interface IUnsavedFormChangesDialogContainerProps
  */
 export enum DialogClassesEnum {
   CONFIRM_DIALOG = 'rac-confirm-dialog',
+  DEFAULT_DIALOG = 'rac-default-dialog',
   DIALOG = 'rac-dialog',
   DIALOG_ACTIONS = 'rac-dialog__actions',
   DIALOG_BODY = 'rac-dialog__body',

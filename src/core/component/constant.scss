@@ -889,10 +889,6 @@ $rac-modal-dialog-top: 0 !default;
 $rac-modal-dialog-width: 100% !default;
 $rac-modal-dialog-z-index: $rac-z-index-dialog !default;
 /**/
-$rac-confirm-dialog-body-flex: initial !default;
-$rac-inline-dialog-position: absolute !default;
-$rac-not-transparent-dialog-background: $rac-color-0-6 !default;
-/**/
 $rac-menu-dialog-base-text-field-margin: 0 0 $rac-offset-1 0 !default;
 $rac-menu-dialog-base-text-self-field-background: $rac-field-color-1 !default;
 $rac-menu-dialog-base-text-self-field-height: $rac-field-height-1 !default;
@@ -915,12 +911,9 @@ $rac-menu-dialog-list-item-line-height: $rac-line-height-0 !default;
 $rac-menu-dialog-list-item-min-height: 32px !default;
 $rac-menu-dialog-list-overflow: auto !default;
 /**/
-$rac-default-dialog-align-items: center !default;
-$rac-default-dialog-body-background: $rac-dialog-color-0 !default;
 $rac-default-dialog-body-border-radius: $rac-border-radius-0 !default;
 $rac-default-dialog-body-content-wrapper-padding: 0 $rac-offset-3 !default;
 $rac-default-dialog-body-display: $rac-primary-display-0 !default;
-$rac-default-dialog-body-flex-direction: column !default;
 $rac-default-dialog-body-flex: 1 !default;
 $rac-default-dialog-body-max-height: $rac-dialog-height-0 !default;
 $rac-default-dialog-body-max-width: $rac-dialog-width-0 !default;

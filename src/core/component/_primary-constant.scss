@@ -2,6 +2,7 @@
 /* @stable [17.03.2020] */
 /************************/
 $rac-primary-flex-0: 0 0 auto !default;
+$rac-primary-flex-1: initial !default;
 /**/
 $rac-primary-flex-grow-0: 1 !default;
 /**/
@@ -34,6 +35,18 @@ $rac-primary-line-height-1: 1.33 !default;
 /* @stable [18.03.2020] */
 /************************/
 $rac-primary-margin-0: 0 auto !default;
+
+/************************/
+/* @stable [27.04.2020] */
+/************************/
+$rac-primary-max-width-0: 10vw !default;
+$rac-primary-max-width-1: 20vw !default;
+$rac-primary-max-width-2: 30vw !default;
+$rac-primary-max-width-3: 40vw !default;
+$rac-primary-max-width-4: 50vw !default;
+$rac-primary-max-width-5: 60vw !default;
+$rac-primary-max-width-6: 70vw !default;
+$rac-primary-max-width-7: 80vw !default;
 
 /************************/
 /* @stable [18.03.2020] */
@@ -101,6 +114,7 @@ $rac-primary-color-metis-3: rgba(0, 0, 0, .3) !default;
 $rac-primary-color-metis-4: rgba(0, 0, 0, .4) !default;
 $rac-primary-color-metis-5: rgba(0, 0, 0, .5) !default;
 $rac-primary-color-metis-6: rgba(0, 0, 0, .6) !default;
+$rac-primary-color-metis-7: rgba(0, 0, 0, .7) !default;
 /**/
 $rac-primary-color-elara-0: rgba(255, 255, 255, .05) !default;
 $rac-primary-color-elara-1: rgba(255, 255, 255, .1) !default;

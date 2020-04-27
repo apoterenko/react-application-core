@@ -1,0 +1,30 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [27.04.2020] */
+/************************/
+$rac-primary-dialog-color-0: $rac-primary-color-callisto-1 !default;
+
+/************************/
+/* @stable [27.04.2020] */
+/************************/
+$rac-confirm-dialog-body-flex: $rac-primary-flex-1 !default;
+$rac-confirm-dialog-body-max-width: $rac-primary-max-width-2 !default;
+
+/************************/
+/* @stable [27.04.2020] */
+/************************/
+$rac-not-transparent-dialog-background: $rac-primary-color-metis-7 !default;
+
+/************************/
+/* @stable [27.04.2020] */
+/************************/
+$rac-inline-dialog-position: absolute !default;
+
+/************************/
+/* @stable [27.04.2020] */
+/************************/
+$rac-default-dialog-align-items: center !default;
+$rac-default-dialog-body-background: $rac-primary-dialog-color-0 !default;
+$rac-default-dialog-body-flex-direction: column !default;

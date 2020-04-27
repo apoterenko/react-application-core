@@ -523,7 +523,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return joinClassName(
       calc<string>(props.className),
       DialogClassesEnum.DIALOG,
-      this.isDefault && 'rac-default-dialog',
+      this.isDefault && DialogClassesEnum.DEFAULT_DIALOG,
       this.isModal && DialogClassesEnum.MODAL_DIALOG,
       this.isConfirm && DialogClassesEnum.CONFIRM_DIALOG,
       this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',

@@ -1,5 +1,6 @@
 @import '../constant';
 @import '../mixin';
+@import './_dialog-constant';
 
 .rac {
 
@@ -78,7 +79,8 @@
     */
   @include rac-dialog (
     $rac-dialog-custom: $rac-confirm-dialog-cls,
-    $rac-dialog-body-flex: $rac-confirm-dialog-body-flex
+    $rac-dialog-body-flex: $rac-confirm-dialog-body-flex,
+    $rac-dialog-body-max-width: $rac-confirm-dialog-body-max-width
   );
 
   /**
