@@ -44,6 +44,11 @@ The library is designed to quickly start develop the business applications are b
 
 * [FilterFormDialogContainer](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
 
+#### @effects-proxy-factory
+
+* [makeDestroyedContainerEffectsProxy](src/core/store/effects/destroyed-container-effects.proxy.ts)
+* [makeFilteredListEffectsProxy](src/core/store/effects/filtered-list-effects.proxy.ts)
+
 # Usage
 
 #### Containers
