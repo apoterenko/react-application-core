@@ -32,6 +32,8 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
       <ToolbarTools
         {...this.toolbarToolsProps}
         {...this.props.toolbarTools}
+        onDownloadFileClick={this.onDownloadFileClick}
+        onFilterClick={this.onFilterClick}
         onRefreshClick={this.onRefreshClick}
       />
     );
