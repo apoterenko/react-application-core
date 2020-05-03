@@ -9,9 +9,12 @@
    */
   @include rac-list (
     $rac-list-custom: $rac-card-list-cls,
+    $rac-list-display: $rac-card-list-display,
+    $rac-list-flex-wrap: $rac-card-list-flex-wrap,
     $rac-list-item-align-items: $rac-card-list-item-align-items,
     $rac-list-item-float: $rac-card-list-item-float,
     $rac-list-item-height: $rac-card-list-item-height,
-    $rac-list-item-width: $rac-card-list-item-width
+    $rac-list-item-width: $rac-card-list-item-width,
+    $rac-list-justify-content: $rac-card-list-justify-content
   );
 }

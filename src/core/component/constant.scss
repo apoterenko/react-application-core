@@ -315,10 +315,13 @@ $rac-card-list-cls: rac-card-list;
 $rac-list-item-odd-cls: rac-list-item__odd;
 $rac-list-item-selected-cls: rac-list-item__selected;
 /**/
+$rac-card-list-display: unset !default;
+$rac-card-list-flex-wrap: unset !default;
 $rac-card-list-item-align-items: normal !default;
 $rac-card-list-item-float: left !default;
 $rac-card-list-item-height: 208px !default;
 $rac-card-list-item-width: 150px !default;
+$rac-card-list-justify-content: unset !default;
 /**/
 $rac-list-item-align-items: center !default;
 $rac-list-item-border-radius: unset !default;

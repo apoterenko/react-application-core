@@ -2,15 +2,16 @@ import * as React from 'react';
 
 import {
   calc,
+  handlerPropsFactory,
   joinClassName,
 } from '../../util';
-import { GenericComponent } from '../base/generic.component';
+import { GenericBaseComponent } from '../base/generic-base.component';
 import { ICardProps } from './card.interface';
 
-export class Card extends GenericComponent<ICardProps> {
+export class Card extends GenericBaseComponent<ICardProps> {
 
   /**
-   * @stable [02.05.2018]
+   * @stable [03.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -18,12 +19,8 @@ export class Card extends GenericComponent<ICardProps> {
     return (
       <div
         ref={this.selfRef}
-        className={joinClassName(
-          'rac-card',
-          'mdc-card',
-          calc(props.className)
-        )}
-        onClick={props.onClick}
+        className={joinClassName('rac-card', calc(props.className))}
+        {...handlerPropsFactory(props.onClick, true, false)}
       >
         {props.children}
       </div>

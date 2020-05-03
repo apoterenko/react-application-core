@@ -720,7 +720,18 @@
   $rac-self-field-viewer-content-max-width: unset,                                  /* @stable [18.03.2020] */
   $rac-self-field-viewer-margin: unset,                                             /* @stable [18.03.2020] */
   $rac-text-field-filter-active-after-bottom: unset,
-  $rac-text-field-filter-active-after-left: unset
+  $rac-text-field-filter-active-after-left: unset,
+  $rac-field-inline-options-display: unset,
+  $rac-field-inline-option-background: unset,
+  $rac-field-inline-option-active-background: unset,
+  $rac-field-inline-option-height: unset,
+  $rac-field-inline-option-border-radius: unset,
+  $rac-field-inline-option-display: unset,
+  $rac-field-inline-option-color: unset,
+  $rac-field-inline-option-align-items: unset,
+  $rac-field-inline-option-padding: unset,
+  $rac-field-inline-option-font-weight: unset,
+  $rac-field-inline-options-neighbor-child-margin: unset
 ) {
 
   #{rac-cls(rac-field, $rac-field-custom)} {
@@ -884,6 +895,35 @@
       }
     }
 
+    > .rac-field__inline-options {
+      @include rac-styles (
+        $rac-styles-display: $rac-field-inline-options-display
+      );
+
+      @include rac-neighbor-child (
+        $rac-neighbor-child-margin: $rac-field-inline-options-neighbor-child-margin
+      );
+
+      > .rac-field__inline-option {
+        @include rac-styles (
+          $rac-styles-align-items: $rac-field-inline-option-align-items,
+          $rac-styles-background: $rac-field-inline-option-background,
+          $rac-styles-border-radius: $rac-field-inline-option-border-radius,
+          $rac-styles-color: $rac-field-inline-option-color,
+          $rac-styles-display: $rac-field-inline-option-display,
+          $rac-styles-font-weight: $rac-field-inline-option-font-weight,
+          $rac-styles-height: $rac-field-inline-option-height,
+          $rac-styles-padding: $rac-field-inline-option-padding
+        );
+
+        &.rac-field__inline-option-active {
+          @include rac-styles (
+            $rac-styles-background: $rac-field-inline-option-active-background
+          );
+        }
+      }
+    }
+
     > .rac-text-field {
 
       @include rac-filter-active(
@@ -1004,7 +1044,9 @@
   /**/
   $rac-list-background: unset,                                                    /* @stable [09.11.2019] */
   $rac-list-border-radius: unset,                                                 /* @stable [25.01.2020] */
+  $rac-list-display: unset,                                                       /* @stable [03.05.2020] */
   $rac-list-flex-basis: unset,                                                    /* @stable [25.01.2020] */
+  $rac-list-flex-wrap: unset,                                                     /* @stable [03.05.2020] */
   $rac-list-flex: unset,                                                          /* @stable [24.01.2020] */
   $rac-list-item-align-items: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-background: unset,                                               /* @stable [25.01.2020] */
@@ -1042,6 +1084,7 @@
   $rac-list-item-selected-color: unset,                                           /* @stable [27.10.2019] */
   $rac-list-item-text-align: unset,                                               /* @stable [24.02.2020] */
   $rac-list-item-width: unset,                                                    /* @stable [09.11.2019] */
+  $rac-list-justify-content: unset,                                               /* @stable [03.05.2020] */
   $rac-list-margin: unset,                                                        /* @stable [25.01.2020] */
   $rac-list-max-height: unset,                                                    /* @stable [26.01.2020] */
   $rac-list-min-width: unset,                                                     /* @stable [26.01.2020] */
@@ -1054,8 +1097,11 @@
     @include rac-styles (
       $rac-styles-background: $rac-list-background,
       $rac-styles-border-radius: $rac-list-border-radius,
+      $rac-styles-display: $rac-list-display,
       $rac-styles-flex-basis: $rac-list-flex-basis,
+      $rac-styles-flex-wrap: $rac-list-flex-wrap,
       $rac-styles-flex: $rac-list-flex,
+      $rac-styles-justify-content: $rac-list-justify-content,
       $rac-styles-margin: $rac-list-margin,
       $rac-styles-max-height: $rac-list-max-height,
       $rac-styles-min-width: $rac-list-min-width,
