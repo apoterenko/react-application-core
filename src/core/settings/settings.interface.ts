@@ -25,7 +25,6 @@ import {
   ITransportSettingsEntity,
   IUrlsSettingsEntity,
   RegexpEnum,
-  StartDaysOfWeekEnum,
   StorageTypesEnum,
 } from '../definition';
 
@@ -169,7 +168,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   asyncLibraries: DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
   dateTime: {
     ...DEFAULT_DATE_TIME_SETTINGS_ENTITY,
-    startDayOfWeek: StartDaysOfWeekEnum.MONDAY,
     dateFormat: 'YYYY-MM-DD',
     timeFormat: 'HH:mm:ss',
     uiMonthFormat: 'YYYY-MM',
