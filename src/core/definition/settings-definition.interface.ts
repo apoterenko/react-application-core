@@ -5,6 +5,14 @@ import { IHeaderProps } from './header-definition.interface';
 import { ITitleProps } from './title-definition.interface';
 
 /**
+ * @stable [03.05.2020]
+ */
+export enum StartDaysOfWeekEnum {
+  MONDAY,
+  SUNDAY,
+}
+
+/**
  * @stable [09.10.2019]
  */
 export enum RegexpEnum {
@@ -30,6 +38,7 @@ export interface IDateTimeSettingsEntity {
   dateTimeFormat?: string;
   maxDate?: Date;
   minDate?: Date;
+  startDayOfWeek?: StartDaysOfWeekEnum;
   uiDateFormat?: string;
   uiDateMask?: Array<string|RegExp>;
   uiDatePattern?: string;
@@ -46,6 +55,7 @@ const defaultDateTimeSettingsEntity: IDateTimeSettingsEntity = {
   dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
   maxDate: new Date('01/01/4000'),
   minDate: new Date('01/01/1900'),
+  startDayOfWeek: StartDaysOfWeekEnum.MONDAY,
   uiDateFormat: 'YYYY-MM-DD',
   uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
   uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',

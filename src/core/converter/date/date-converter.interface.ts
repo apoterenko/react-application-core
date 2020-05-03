@@ -53,6 +53,7 @@ export interface IDateConverter<TDate = Date> {
   asMomentDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
   asPersonAge(cfg: IPersonAgeConfigEntity<TDate>): number;
   asStartUnitOf(cfg: IDateTimeConfigEntity): TDate;
+  asWeekdayNumber(cfg?: IDateTimeConfigEntity<TDate>): number;
   compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number;
   compareDayOfYearEntity(o1: IDayOfYearEntity, o2: IDayOfYearEntity): number;
   currentDateAsUiDateString(cfg?: IDateTimeConfigEntity): string;
@@ -94,8 +95,6 @@ export interface IDateConverter<TDate = Date> {
                               duration: moment.DurationInputArg1,
                               date?: DateTimeLikeTypeT,
                               inputFormat?: string): moment.Moment | DateTimeLikeTypeT;
-  tryGetWeekdayNumber(date?: DateTimeLikeTypeT,
-                      inputFormat?: string): number;
   tryAddXDuration(unit: moment.DurationInputArg2,
                   duration: moment.DurationInputArg1,
                   date?: DateTimeLikeTypeT,

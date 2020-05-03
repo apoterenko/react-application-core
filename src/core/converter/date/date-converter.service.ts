@@ -19,7 +19,7 @@ import {
   orNull,
   orUndef,
 } from '../../util';
-import { IDateTimeSettings, ISettingsEntity, StartDayOfWeekT } from '../../settings';
+import { IDateTimeSettings, ISettingsEntity } from '../../settings';
 import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
@@ -35,6 +35,7 @@ import {
   IMinMaxDatesRangeConfigEntity,
   IPersonAgeConfigEntity,
   MomentT,
+  StartDaysOfWeekEnum,
 } from '../../definition';
 
 @injectable()
@@ -169,7 +170,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {MomentT}
    */
   public asFirstDayOfWeek(cfg?: IDateTimeConfigEntity): MomentT {
-    return this.asStartUnitOf({...cfg, unit: 'week'});
+    return this.asStartUnitOf({...cfg, unit: this.weekUnit});
   }
 
   /**
@@ -277,7 +278,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {MomentT}
    */
   public asLastDayOfWeek(cfg?: IDateTimeConfigEntity): MomentT {
-    return this.asEndUnitOf({...cfg, unit: 'week'});
+    return this.asEndUnitOf({...cfg, unit: this.weekUnit});
   }
 
   /**
@@ -573,6 +574,18 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [03.05.2020]
+   * @param {IDateTimeConfigEntity} cfg
+   * @returns {number}
+   */
+  public asWeekdayNumber(cfg?: IDateTimeConfigEntity): number {
+    return this.processValidMomentDate({
+      date: this.getCurrentDate(),
+      ...cfg,
+    }, (mDate) => this.isIsoWeek ? mDate.isoWeekday() : mDate.weekday());
+  }
+
+  /**
    * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
@@ -633,20 +646,6 @@ export class DateConverter implements IDateConverter<MomentT> {
                                      inputFormat = this.uiDateFormat): moment.Moment {
     const momentDate = this.toMomentDate(date, inputFormat);
     return orNull(momentDate.isValid(), () => momentDate.add(duration, unit));
-  }
-
-  /**
-   * @stable [11.08.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} inputFormat
-   * @returns {number}
-   */
-  public tryGetWeekdayNumber(date: DateTimeLikeTypeT = this.currentDate,
-                             inputFormat = this.uiDateFormat): number {
-    const momentDate = this.toMomentDate(date, inputFormat);
-    return orNull(momentDate.isValid(),
-      () => this.settings.dateTime.startDayOfWeek === StartDayOfWeekT.MONDAY // TODO make getter
-        ? momentDate.isoWeekday() : momentDate.weekday());
   }
 
   /**
@@ -786,7 +785,7 @@ export class DateConverter implements IDateConverter<MomentT> {
                                           inputFormat = this.uiDateFormat): moment.Moment {
     return this.tryGetFirstDayOfXAsMomentDate(
       'weeks',
-      this.settings.dateTime.startDayOfWeek === StartDayOfWeekT.MONDAY ? 'isoWeek' : 'week',
+      this.weekUnit as moment.unitOfTime.StartOf,
       duration, date, inputFormat
     );
   }
@@ -933,7 +932,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {string[]}
    */
   public getShortestWeekdays(cfg?: IDateTimeConfigEntity): string[] {
-    const {isoWeek = false} = cfg || {};
+    const {isoWeek = this.isIsoWeek} = cfg || {};
     return isoWeek
       ? DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS
       : DateConverter.DEFAULT_SHORTEST_WEEKDAYS;
@@ -1215,7 +1214,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   public asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity {
     const syntheticCalendar = ifNotNilThanValue(cfg, () => cfg.useSyntheticCalendar === true, false);
     cfg = {
-      isoWeek: syntheticCalendar || false,
+      isoWeek: syntheticCalendar || this.isIsoWeek,
       ...cfg,
       ...(
         syntheticCalendar ? ({date: new Date('01/01/1900')}) : ({})  // The date "01/01/1900" starts on Monday.
@@ -1385,10 +1384,33 @@ export class DateConverter implements IDateConverter<MomentT> {
     return this.dateTimeSettings.pstTimeFormat;
   }
 
+  /**
+   * @stable [03.05.2020]
+   * @returns {string}
+   */
+  private get weekUnit(): string {
+    return this.isIsoWeek ? 'isoWeek' : 'week';
+  }
+
+  /**
+   * https://en.wikipedia.org/wiki/ISO_week_date
+   * Weeks start with Monday.
+   *
+   * @stable [03.05.2020]
+   * @returns {boolean}
+   */
+  private get isIsoWeek(): boolean {
+    return this.dateTimeSettings.startDayOfWeek === StartDaysOfWeekEnum.MONDAY;
+  }
+
   private get pstDateFormat(): string {
     return this.dateTimeSettings.pstDateFormat;
   }
 
+  /**
+   * @stable [03.05.2020]
+   * @returns {IDateTimeSettings}
+   */
   private get dateTimeSettings(): IDateTimeSettings {
     return this.settings.dateTime || {};
   }

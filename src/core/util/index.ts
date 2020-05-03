@@ -1,4 +1,5 @@
 export * from './array';
+export * from './barcode';
 export * from './base64';
 export * from './blob';
 export * from './calc';

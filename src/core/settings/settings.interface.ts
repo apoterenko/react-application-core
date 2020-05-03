@@ -25,6 +25,7 @@ import {
   ITransportSettingsEntity,
   IUrlsSettingsEntity,
   RegexpEnum,
+  StartDaysOfWeekEnum,
   StorageTypesEnum,
 } from '../definition';
 
@@ -32,13 +33,7 @@ export interface IApplicationResourcePaths {
   uiDefaultIconPath?: string;
 }
 
-export enum StartDayOfWeekT {
-  MONDAY,
-  SUNDAY,
-}
-
 export interface IDateTimeSettings extends IDateTimeSettingsEntity {
-  startDayOfWeek?: StartDayOfWeekT;
   timeZone?: string;         // Time zone (+08:00, etc..)
   dateFormat?: string;       // Client-server communication format
   timeFormat?: string;       // Client-server communication format
@@ -174,7 +169,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   asyncLibraries: DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
   dateTime: {
     ...DEFAULT_DATE_TIME_SETTINGS_ENTITY,
-    startDayOfWeek: StartDayOfWeekT.MONDAY,
+    startDayOfWeek: StartDaysOfWeekEnum.MONDAY,
     dateFormat: 'YYYY-MM-DD',
     timeFormat: 'HH:mm:ss',
     uiMonthFormat: 'YYYY-MM',
