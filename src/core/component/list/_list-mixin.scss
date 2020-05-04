@@ -155,6 +155,7 @@
   $rac-list-item-no-user-select: unset,                                           /* @stable [29.01.2020] */
   $rac-list-item-odd-background: unset,                                           /* @stable [26.01.2020] */
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
+  $rac-list-item-selectable-cursor: unset,                                        /* @stable [05.05.2020] */
   $rac-list-item-selected-background: unset,                                      /* @stable [27.10.2019] */
   $rac-list-item-selected-color: unset,                                           /* @stable [27.10.2019] */
   $rac-list-item-text-align: unset,                                               /* @stable [24.02.2020] */
@@ -235,6 +236,11 @@
       $rac-list-item-hover-background: $rac-list-item-hover-background,
       $rac-list-item-hover-border-bottom: $rac-list-item-hover-border-bottom,
       $rac-list-item-hover-color: $rac-list-item-hover-color
+    );
+
+    @include rac-list-item (
+      $rac-list-item-custom: $rac-list-item-selectable-cls,
+      $rac-list-item-cursor: $rac-list-item-selectable-cursor
     );
 
     @include rac-list-item (
