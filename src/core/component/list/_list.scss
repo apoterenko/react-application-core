@@ -45,7 +45,7 @@
    * @stable [29.01.2020]
    */
   @include rac-list (
-    $rac-list-custom: rac-default-list,
+    $rac-list-custom: $rac-default-list-cls,
     $rac-list-item-color: $rac-default-list-item-color,
     $rac-list-item-odd-background: $rac-default-list-item-odd-background
   );
