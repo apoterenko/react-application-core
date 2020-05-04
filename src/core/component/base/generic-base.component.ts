@@ -59,6 +59,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   private $uiFactory: IUiFactory;
 
   /**
+   * @stable [04.05.2020]
+   * @returns {React.RefObject<TSelfRef>}
+   */
+  protected get actualRef(): React.RefObject<TSelfRef> {
+    return this.props.forwardedRef || this.selfRef;
+  }
+
+  /**
    * @stable [18.03.2020]
    * @returns {ISettingsEntity}
    */

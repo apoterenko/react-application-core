@@ -22,13 +22,13 @@ import { GenericContainer } from '../../base/generic.container';
  * Please use the "mapFilterFormDialogContainerProps"
  */
 export class FilterFormDialogContainer
-  extends GenericContainer<IFilterFormDialogContainerProps<React.RefObject<Dialog>>> {
+  extends GenericContainer<IFilterFormDialogContainerProps> {
 
   /**
    * @stable [23.04.2020]
    * @param {IFilterFormDialogContainerProps} props
    */
-  constructor(props: IFilterFormDialogContainerProps<React.RefObject<Dialog>>) {
+  constructor(props: IFilterFormDialogContainerProps) {
     super(props);
 
     this.onAcceptFilter = this.onAcceptFilter.bind(this);
@@ -59,7 +59,7 @@ export class FilterFormDialogContainer
 
     return (
       <Dialog
-        ref={props.forwardedRef}
+        ref={this.actualRef}
         title={FILTERS}
         closeText={this.canAccept ? CLEAR_ALL : CLOSE}
         acceptText={APPLY}

@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   AnyT,
   IClassNameWrapper,
+  IForwardedRefWrapper,
   IStyleWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
@@ -14,6 +15,7 @@ import {
 export interface IGenericBaseComponentEntity<TComponent = AnyT>
   extends React.RefAttributes<TComponent>,
     IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+    IForwardedRefWrapper<React.RefObject<AnyT>>,
     IStyleWrapper<React.CSSProperties>,
     ITitleWrapper<string | boolean> {
 }

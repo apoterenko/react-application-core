@@ -1,7 +1,4 @@
-import {
-  IAutoResetWrapper,
-  IForwardedRefWrapper,
-} from '../definitions.interface';
+import { IAutoResetWrapper } from '../definitions.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IExtendedFormEditableEntity } from './form-definition.interface';
 
@@ -9,19 +6,18 @@ import { IExtendedFormEditableEntity } from './form-definition.interface';
  * @generic-container-entity
  * @stable [23.04.2020]
  */
-export interface IGenericFilterFormDialogContainerEntity<TRef>
+export interface IGenericFilterFormDialogContainerEntity
   extends IAutoResetWrapper,
-    IExtendedFormEditableEntity,
-    IForwardedRefWrapper<TRef> {
+    IExtendedFormEditableEntity {
 }
 
 /**
  * @props
  * @stable [23.04.2020]
  */
-export interface IFilterFormDialogContainerProps<TRef = {}>
+export interface IFilterFormDialogContainerProps
   extends IGenericContainerProps,
-    IGenericFilterFormDialogContainerEntity<TRef> {
+    IGenericFilterFormDialogContainerEntity {
 }
 
 /**

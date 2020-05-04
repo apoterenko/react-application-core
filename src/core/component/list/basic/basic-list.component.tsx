@@ -21,7 +21,7 @@ export class BasicList extends GenericComponent<IBasicListProps> {
 
     return (
       <ul
-        ref={this.selfRef}
+        ref={this.actualRef}
         className={
           joinClassName(
             ListClassesEnum.LIST,

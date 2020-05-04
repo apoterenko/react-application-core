@@ -23,7 +23,7 @@ export class CardList extends BaseList<ICardListProps> {
     const props = this.props;
     return (
       <div
-        ref={this.selfRef}
+        ref={this.actualRef}
         className={
           joinClassName(
             ListClassesEnum.LIST,

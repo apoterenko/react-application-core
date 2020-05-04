@@ -1,23 +1,24 @@
 import * as React from 'react';
 
 import { BaseList } from './base-list.component';
+import { BasicList } from './basic';
 import { IEntity } from '../../definitions.interface';
 import { IListProps } from '../../definition';
 import { isHighlightOdd } from '../../util';
 import { ListItem } from './item';
-import { BasicList } from './basic';
 
 export class List extends BaseList<IListProps, {}, BasicList> {
 
   /**
-   * @stable [25.10.2019]
+   * @stable [04.05.2020]
    * @returns {JSX.Element}
    */
   protected getView(): JSX.Element {
     return (
       <BasicList
-        ref={this.selfRef}
-        {...this.props}>
+        forwardedRef={this.selfRef}
+        {...this.props}
+      >
         {this.dataSource.map(this.getItem, this)}
       </BasicList>
     );
