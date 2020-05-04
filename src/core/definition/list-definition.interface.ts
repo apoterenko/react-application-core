@@ -218,6 +218,13 @@ export interface IListProps
 }
 
 /**
+ * TODO
+ */
+export interface ICardListProps
+  extends IKeyValue { // TODO
+}
+
+/**
  * @generic-entity
  * @stable [30.03.2020]
  */
@@ -250,6 +257,19 @@ export interface IBaseListContainerProps
 export interface IListContainerProps
   extends IGenericContainerProps,
     IGenericListContainerEntity {
+}
+
+/**
+ * @classes
+ * @stable [04.05.2020]
+ */
+export enum ListClassesEnum {
+  CARD = 'rac-card',
+  CARD_LIST = 'rac-card-list',
+  DEFAULT_LIST = 'rac-default-list',
+  FULL_LIST = 'rac-full-list',
+  LIST = 'rac-list',
+  LIST_ITEM = 'rac-list-item',
 }
 
 /**

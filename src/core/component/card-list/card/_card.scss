@@ -1,0 +1,13 @@
+@import '../../mixin';
+@import './_card-constant';
+
+.rac {
+
+  /**
+   * @card
+   * @stable [04.05.2020]
+   */
+  @include rac-card (
+    $rac-card-box-sizing: $rac-card-box-sizing
+  );
+}

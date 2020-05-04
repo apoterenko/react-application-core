@@ -23,7 +23,9 @@ export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
     return orNull<JSX.Element>(
       this.isToolbarVisible(),
       () => (
-        <FlexLayout className={joinClassName('rac-toolbar', 'rac-page-toolbar', calc(props.className))}>
+        <FlexLayout
+          full={props.full}
+          className={joinClassName('rac-toolbar', 'rac-page-toolbar', calc(props.className))}>
           {this.getToolbarBody()}
         </FlexLayout>
       )

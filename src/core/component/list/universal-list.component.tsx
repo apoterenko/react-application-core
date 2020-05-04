@@ -58,16 +58,16 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
   }
 
   /**
-   * @stable [19.08.2018]
+   * @stable [04.05.2020]
    * @param {IEntity} entity
    * @returns {string}
    */
   protected toRowKey(entity: IEntity): string {
-    return `data-row-${R.isNil(entity.id) ? uuid() : entity.id}`;   // Infinity scroll supporting
+    return `data-row-${R.isNil(entity.id) ? uuid() : entity.id}`;
   }
 
   /**
-   * @stable [17.06.2018]
+   * @stable [04.05.2020]
    * @returns {IEntity[]}
    */
   protected get originalDataSource(): IEntity[] {

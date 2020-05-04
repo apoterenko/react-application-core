@@ -142,14 +142,6 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentEntit
 }
 
 /**
- * @stable [27.04.2018]
- */
-export interface ICardConfiguration extends IComponentProps,
-                                            IOnClickWrapper {
-  entity?: IEntity;
-}
-
-/**
  * @stable [04.05.2018]
  */
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,

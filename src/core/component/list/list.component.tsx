@@ -3,31 +3,11 @@ import * as React from 'react';
 import { BaseList } from './base-list.component';
 import { IEntity } from '../../definitions.interface';
 import { IListProps } from '../../definition';
-import {
-  ifNotNilThanValue,
-  isHighlightOdd,
-} from '../../util';
+import { isHighlightOdd } from '../../util';
 import { ListItem } from './item';
 import { BasicList } from './basic';
 
 export class List extends BaseList<IListProps, {}, BasicList> {
-
-  /**
-   * @stable [25.10.2019]
-   * @param {IListProps} props
-   */
-  constructor(props: IListProps) {
-    super(props);
-    this.getItem = this.getItem.bind(this);
-  }
-
-  /**
-   * @stable [25.10.2019]
-   * @returns {Element}
-   */
-  public getSelf(): Element {
-    return ifNotNilThanValue(this.selfRef.current, (simpleList) => simpleList.getSelf());
-  }
 
   /**
    * @stable [25.10.2019]
@@ -38,7 +18,7 @@ export class List extends BaseList<IListProps, {}, BasicList> {
       <BasicList
         ref={this.selfRef}
         {...this.props}>
-        {this.dataSource.map(this.getItem)}
+        {this.dataSource.map(this.getItem, this)}
       </BasicList>
     );
   }

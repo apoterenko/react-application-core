@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BaseListContainer } from '../../list';
+import { BaseListContainer } from '../list';
 import { CardList } from './card-list.component';
 import { ICardListContainerProps } from './card-list.interface';
 

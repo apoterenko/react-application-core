@@ -47,6 +47,7 @@ export interface IPageToolbarProps
   allowFirst?: boolean;
   previousIcon?: string;
   nextIcon?: string;
+  full?: boolean;
 }
 
 /**

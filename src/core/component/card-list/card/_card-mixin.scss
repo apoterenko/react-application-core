@@ -1,0 +1,16 @@
+@import '../../_core-mixin';
+
+/**
+ * @stable [04.05.2020]
+ */
+@mixin rac-card (
+  $rac-card-custom: unset,
+  /**/
+  $rac-card-box-sizing: unset                                                           /* @stable [04.05.2020] */
+) {
+  #{rac-cls(rac-card, $rac-card-custom)} {
+    @include rac-styles (
+      $rac-styles-box-sizing: $rac-card-box-sizing
+    );
+  }
+}

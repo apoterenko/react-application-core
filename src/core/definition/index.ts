@@ -5,6 +5,7 @@ export * from './auth-definition.interface';
 export * from './bootstrap-definition.interface';
 export * from './button-definition.interface';
 export * from './calendar-definition.interface';
+export * from './card-definition.interface';
 export * from './channel-definition.interface';
 export * from './component-definition.interface';
 export * from './connector-definition.interface';

@@ -329,7 +329,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
    */
   private scrollEventCallbackCondition(element: HTMLElement): boolean {
     const list = this.listRef.current;
-    return R.isNil(list) || element !== list.getSelf();
+    return R.isNil(list) || element !== list.selfRef.current;
   }
 
   /**

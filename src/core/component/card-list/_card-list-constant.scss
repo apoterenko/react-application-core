@@ -1,0 +1,15 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [04.05.2020] */
+/************************/
+$rac-card-list-align-content: flex-start !default;
+$rac-card-list-display: $rac-primary-display-0 !default;
+$rac-card-list-flex-wrap: wrap !default;
+$rac-card-list-item-align-items: normal !default;
+$rac-card-list-item-background: unset !default;
+$rac-card-list-item-float: unset !default;
+$rac-card-list-item-height: 208px !default;
+$rac-card-list-item-width: 150px !default;
+$rac-card-list-justify-content: unset !default;
