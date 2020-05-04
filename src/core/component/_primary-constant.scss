@@ -1,14 +1,18 @@
 /************************/
 /* @stable [17.03.2020] */
 /************************/
-$rac-primary-flex-0: 0 0 auto !default;
-$rac-primary-flex-1: initial !default;
-/**/
-$rac-primary-flex-grow-0: 1 !default;
+$rac-primary-flex-grow-0: 0 !default;
+$rac-primary-flex-grow-1: 1 !default;
 /**/
 $rac-primary-flex-basis-0: 0% !default;
+$rac-primary-flex-basis-1: 0 !default;
+$rac-primary-flex-basis-2: auto !default;
 /**/
 $rac-primary-flex-shrink-0: 0 !default;
+$rac-primary-flex-shrink-1: 1 !default;
+/**/
+$rac-primary-flex-0: $rac-primary-flex-grow-0 $rac-primary-flex-shrink-0 $rac-primary-flex-basis-2 !default;
+$rac-primary-flex-1: initial !default;
 
 /************************/
 /* @stable [17.03.2020] */
@@ -107,7 +111,16 @@ $rac-primary-color-callisto-0: #ed254e !default;
 $rac-primary-color-callisto-1: #fff !default;
 /**/
 $rac-primary-color-metis-0: rgba(0, 0, 0, .05) !default;
-$rac-primary-color-metis-0-0: #f2f2f2 !default;
+$rac-primary-color-metis-0-0: #f0f0f0 !default;
+$rac-primary-color-metis-0-1: #f1f1f1 !default;
+$rac-primary-color-metis-0-2: #f2f2f2 !default;
+$rac-primary-color-metis-0-3: #f3f3f3 !default;
+$rac-primary-color-metis-0-4: #f4f4f4 !default;
+$rac-primary-color-metis-0-5: #f5f5f5 !default;
+$rac-primary-color-metis-0-6: #f6f6f6 !default;
+$rac-primary-color-metis-0-7: #f7f7f7 !default;
+$rac-primary-color-metis-0-8: #f8f8f8 !default;
+/**/
 $rac-primary-color-metis-1: rgba(0, 0, 0, .1) !default;
 $rac-primary-color-metis-2: rgba(0, 0, 0, .2) !default;
 $rac-primary-color-metis-3: rgba(0, 0, 0, .3) !default;

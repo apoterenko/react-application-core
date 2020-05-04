@@ -1,5 +1,7 @@
 @import '../constant';
 @import '../mixin';
+@import '../_classes';
+@import './_list-constant';
 @import './navigation/_navigation-list';
 
 .rac {
@@ -30,11 +32,12 @@
 
   /**
    * @full-list
-   * @stable [24.01.2020]
+   * @stable [04.05.2020]
    */
   @include rac-list (
-    $rac-list-custom: rac-full-list,
-    $rac-list-flex: $rac-full-list-flex
+    $rac-list-custom: $rac-full-list-cls,
+    $rac-list-flex-basis: $rac-full-list-flex-basis,
+    $rac-list-flex-grow: $rac-full-list-flex-grow
   );
 
   /**
