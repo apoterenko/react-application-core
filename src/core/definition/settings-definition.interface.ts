@@ -2,6 +2,7 @@ import { IBaseSelectProps } from '../component/field/select/base-select.interfac
 import { IDefaultLayoutProps } from './layout-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';  // TODO
 import { IHeaderProps } from './header-definition.interface';
+import { IListItemProps } from './list-definition.interface';
 import { ITitleProps } from './title-definition.interface';
 
 /**
@@ -101,6 +102,7 @@ export interface IComponentsSettingsEntity {
   defaultLayout?: IDefaultLayoutProps;
   field?: IFieldProps;
   header?: IHeaderProps;
+  listItem?: IListItemProps;
   title?: ITitleProps;
 }
 

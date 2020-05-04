@@ -214,7 +214,8 @@ export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps
 }
 
 /**
- * @stable [19.11.2019]
+ * TODO Use DEFAULT_NOT_SELECTABLE_LIST_ENTITY
+ * @deprecated
  */
 export const NOT_SELECTABLE_GRID_ENTITY = Object.freeze<IGridEntity>({
   hovered: false,

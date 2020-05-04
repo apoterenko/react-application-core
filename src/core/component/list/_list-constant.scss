@@ -6,15 +6,16 @@
 /************************/
 $rac-list-item-align-items: center !default;
 $rac-list-item-border-radius: unset !default;
+$rac-list-item-cursor: default !default;
+$rac-list-item-display: $rac-primary-display-0 !default;
+$rac-list-item-flex-direction: unset !default;
+$rac-list-item-hover-background: $rac-primary-hover-background-0 !default;
+$rac-list-item-margin: unset !default;
+$rac-list-item-odd-background:  $rac-primary-odd-background-0 !default;
+$rac-list-item-selected-background: $rac-primary-color-callisto-2 !default;
 
 /************************/
 /* @stable [04.05.2020] */
 /************************/
 $rac-full-list-flex-basis: $rac-primary-flex-basis-1 !default;
 $rac-full-list-flex-grow: $rac-primary-flex-grow-1 !default;
-
-/************************/
-/* @stable [04.05.2020] */
-/************************/
-$rac-default-list-item-color: unset !default;
-$rac-default-list-item-odd-background: $rac-primary-odd-background-0 !default;

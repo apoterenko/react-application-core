@@ -9,8 +9,10 @@ import {
   isIconLeftAligned,
   isLast,
   isOdd,
+  isSelectable,
   isSelected,
   joinClassName,
+  mergeWithSystemProps,
 } from '../../../util';
 import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
@@ -36,27 +38,27 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
 
     return (
       <UniversalScrollableContext.Consumer>
         {(selectedElementClassName) => (
-          isFn(props.renderer)
+          isFn(mergedProps.renderer)
             ? React.cloneElement(
-                props.renderer(props.rawData, props.index),
+                mergedProps.renderer(mergedProps.rawData, mergedProps.index),
                 this.getItemProps({selectedElementClassName})
               )
             : (
               <li {...this.getItemProps({selectedElementClassName})}>
-                {isIconLeftAligned(props) && this.iconElement}
+                {isIconLeftAligned(mergedProps) && this.iconElement}
                 <div className={ListClassesEnum.LIST_ITEM_CONTENT}>
                   {
-                    isFn(props.tpl)
-                      ? props.tpl(props.rawData)
-                      : props.children
+                    isFn(mergedProps.tpl)
+                      ? mergedProps.tpl(mergedProps.rawData)
+                      : this.props.children
                   }
                 </div>
-                {!isIconLeftAligned(props) && this.iconElement}
+                {!isIconLeftAligned(mergedProps) && this.iconElement}
               </li>
             )
         )}
@@ -65,32 +67,49 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
   }
 
   /**
-   * @stable [27.10.2019]
+   * @stable [04.05.2020]
    * @param {ISelectedElementClassNameWrapper} context
-   * @returns {React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>}
+   * @returns {React.DetailedHTMLProps<React.HTMLAttributes<HTMLLIElement>, HTMLLIElement>}
    */
   private getItemProps(context: ISelectedElementClassNameWrapper): React.DetailedHTMLProps<
-    React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
-    const props = this.props;
+    React.HTMLAttributes<HTMLLIElement>, HTMLLIElement> {
+    const mergedProps = this.mergedProps;
+    const selectable = isSelectable(mergedProps);
+
     return (
       {
         ref: this.selfRef,
         className: joinClassName(
           ListClassesEnum.LIST_ITEM,
-          calc(props.className),
-          props.icon && ListClassesEnum.LIST_ITEM_DECORATED,
-          isOdd(props) && ListClassesEnum.LIST_ITEM_ODD,
-          isHovered(props) && ListClassesEnum.LIST_ITEM_HOVERED,
-          isLast(props) && ListClassesEnum.LIST_ITEM_LAST,  // We can't use :not(:last-child) because of PerfectScrollbar Plugin
+          calc(mergedProps.className),
+          selectable && ListClassesEnum.LIST_ITEM_SELECTABLE,
+          mergedProps.icon && ListClassesEnum.LIST_ITEM_DECORATED,
+          isOdd(mergedProps) && ListClassesEnum.LIST_ITEM_ODD,
+          isHovered(mergedProps) && ListClassesEnum.LIST_ITEM_HOVERED,
+          isLast(mergedProps) && ListClassesEnum.LIST_ITEM_LAST,  // We can't use :not(:last-child) because of PerfectScrollbar Plugin
           ...(
-            isSelected(props)
-              ? [ListClassesEnum.LIST_ITEM_SELECTED, context.selectedElementClassName]
-              : [ListClassesEnum.LIST_ITEM_UNSELECTED]
+            selectable && (
+              isSelected(mergedProps)
+                ? [ListClassesEnum.LIST_ITEM_SELECTED, context.selectedElementClassName]
+                : [ListClassesEnum.LIST_ITEM_UNSELECTED]
+            )
           )
         ),
-        ...handlerPropsFactory(this.onClick, !isDisabled(props) && isFn(props.onClick), false),
+        ...handlerPropsFactory(
+          this.onClick,
+          !isDisabled(mergedProps) && selectable && isFn(mergedProps.onClick),
+          false
+        ),
       }
     );
+  }
+
+  /**
+   * @stable [27.10.2019]
+   */
+  private onClick(): void {
+    const mergedProps = this.mergedProps;
+    mergedProps.onClick(mergedProps.rawData);
   }
 
   /**
@@ -98,7 +117,7 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
    * @returns {JSX.Element}
    */
   private get iconElement(): JSX.Element {
-    const icon = this.props.icon;
+    const icon = this.mergedProps.icon;
     return (
       icon && this.uiFactory.makeIcon({
         type: icon,
@@ -108,10 +127,10 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
   }
 
   /**
-   * @stable [27.10.2019]
+   * @stable [04.05.2020]
+   * @returns {IListItemProps}
    */
-  private onClick(): void {
-    const props = this.props;
-    props.onClick(props.rawData);
+  private get mergedProps(): IListItemProps {
+    return mergeWithSystemProps(this.props, this.settings.components.listItem);
   }
 }

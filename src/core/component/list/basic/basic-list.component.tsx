@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {
   calc,
-  isDefault,
   isFull,
   joinClassName,
 } from '../../../util';
@@ -25,7 +24,6 @@ export class BasicList extends EnhancedGenericComponent<IBasicListProps> {
         className={
           joinClassName(
             ListClassesEnum.LIST,
-            isDefault(props) && ListClassesEnum.DEFAULT_LIST,
             isFull(props) && ListClassesEnum.FULL_LIST,
             calc(props.className)
           )

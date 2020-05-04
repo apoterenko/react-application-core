@@ -18,10 +18,12 @@
     $rac-list-item-flex-direction: $rac-list-item-flex-direction,
     $rac-list-item-font-size: $rac-list-item-font-size,
     $rac-list-item-font-weight: $rac-list-item-font-weight,
+    $rac-list-item-hover-background: $rac-list-item-hover-background,
     $rac-list-item-icon-background: $rac-list-item-icon-background,
     $rac-list-item-icon-color: $rac-list-item-icon-color,
     $rac-list-item-margin: $rac-list-item-margin,
     $rac-list-item-no-user-select: $rac-list-item-no-user-select,
+    $rac-list-item-odd-background: $rac-list-item-odd-background,
     $rac-list-item-padding: $rac-list-item-padding,
     $rac-list-item-selected-background: $rac-list-item-selected-background,
     $rac-list-margin: $rac-list-margin,
@@ -37,15 +39,5 @@
     $rac-list-custom: $rac-full-list-cls,
     $rac-list-flex-basis: $rac-full-list-flex-basis,
     $rac-list-flex-grow: $rac-full-list-flex-grow
-  );
-
-  /**
-   * @default-list
-   * @stable [29.01.2020]
-   */
-  @include rac-list (
-    $rac-list-custom: $rac-default-list-cls,
-    $rac-list-item-color: $rac-default-list-item-color,
-    $rac-list-item-odd-background: $rac-default-list-item-odd-background
   );
 }

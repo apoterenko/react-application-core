@@ -8,7 +8,6 @@ import {
   IChangesWrapper,
   IDataWrapper,
   IDeactivatedWrapper,
-  IDefaultWrapper,
   IDisabledWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
@@ -83,18 +82,27 @@ export interface IGenericBaseListEntity<TEntity = IEntity,
 
 /**
  * @generic-entity
+ * @stable [04.05.2020]
+ */
+export interface IGenericSelectableHoveredEntity
+  extends IHoveredWrapper,
+    ISelectableWrapper {
+}
+
+/**
+ * @generic-entity
  * @stable [27.10.2019]
  */
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IGenericBaseListEntity<TEntity, TRawData>,
+    IGenericSelectableHoveredEntity,
     IChangesWrapper,
-    IDefaultWrapper,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
-    IGroupByWrapper<IGenericListGroupByEntity>,
     IGenericLifeCycleEntity,
+    IGroupByWrapper<IGenericListGroupByEntity>,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
     ISelectedElementEntity,
@@ -130,7 +138,8 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
  * @stable [17.01.2020]
  */
 export interface IGenericBaseListItemEntity
-  extends IDisabledWrapper,
+  extends IGenericSelectableHoveredEntity,
+    IDisabledWrapper,
     IIconLeftAlignedWrapper,
     IIconWrapper {
 }
@@ -141,7 +150,6 @@ export interface IGenericBaseListItemEntity
  */
 export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
   extends IGenericBaseListItemEntity,
-    IHoveredWrapper,
     IIndexWrapper,
     ILastWrapper,
     IOddWrapper,
@@ -266,7 +274,6 @@ export interface IListContainerProps
 export enum ListClassesEnum {
   CARD = 'rac-card',
   CARD_LIST = 'rac-card-list',
-  DEFAULT_LIST = 'rac-default-list',
   FULL_LIST = 'rac-full-list',
   LIST = 'rac-list',
   LIST_ITEM = 'rac-list-item',
@@ -276,6 +283,7 @@ export enum ListClassesEnum {
   LIST_ITEM_ICON = 'rac-list-item__icon',
   LIST_ITEM_LAST = 'rac-list-item__last',
   LIST_ITEM_ODD = 'rac-list-item__odd',
+  LIST_ITEM_SELECTABLE = 'rac-list-item__selectable',
   LIST_ITEM_SELECTED = 'rac-list-item__selected',
   LIST_ITEM_UNSELECTED = 'rac-list-item__unselected',
 }
@@ -295,6 +303,15 @@ export const INITIAL_LIST_ENTITY = Object.freeze<IGenericListEntity>({
   selected: null,
   totalCount: 0,
   touched: false,
+});
+
+/**
+ * @default-entity
+ * @stable [04.05.2020]
+ */
+export const DEFAULT_NOT_SELECTABLE_LIST_ENTITY = Object.freeze<IGenericListEntity>({
+  hovered: false,
+  selectable: false,
 });
 
 /**

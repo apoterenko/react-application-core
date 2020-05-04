@@ -4,7 +4,10 @@ import { BaseList } from './base-list.component';
 import { BasicList } from './basic';
 import { IEntity } from '../../definitions.interface';
 import { IListProps } from '../../definition';
-import { isHighlightOdd } from '../../util';
+import {
+  isHighlightOdd,
+  mapSelectableHoveredEntity,
+} from '../../util';
 import { ListItem } from './item';
 
 export class List extends BaseList<IListProps, {}, BasicList> {
@@ -33,8 +36,10 @@ export class List extends BaseList<IListProps, {}, BasicList> {
   protected getItem(entity: IEntity, index: number): JSX.Element {
     const props = this.props;
     const rowKey = this.toRowKey(entity);
+
     return (
       <ListItem
+        {...mapSelectableHoveredEntity(props)}
         key={rowKey}
         index={index}
         rawData={entity}

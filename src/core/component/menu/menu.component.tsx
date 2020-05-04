@@ -253,7 +253,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     return (
       <BasicList
         forwardedRef={this.listElementRef}
-        default={false}
         full={false}
         plugins={[PerfectScrollPlugin]}
       >

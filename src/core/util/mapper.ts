@@ -26,6 +26,7 @@ import {
   IGenericNotificationEntity,
   IGenericPagedEntity,
   IGenericPaginatedEntity,
+  IGenericSelectableHoveredEntity,
   IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
@@ -379,6 +380,21 @@ export const mapPagedEntity = (entity: IGenericPagedEntity): IGenericPagedEntity
   }),
   UNDEF_SYMBOL
 );
+
+/**
+ * @stable [04.05.2020]
+ * @param {IGenericSelectableHoveredEntity} entity
+ * @returns {IGenericSelectableHoveredEntity}
+ */
+export const mapSelectableHoveredEntity =
+  (entity: IGenericSelectableHoveredEntity): IGenericSelectableHoveredEntity => ifNotNilThanValue(
+    entity,
+    () => defValuesFilter<IGenericSelectableHoveredEntity, IGenericSelectableHoveredEntity>({
+      hovered: entity.hovered,
+      selectable: entity.selectable,
+    }),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [13.11.2019]
