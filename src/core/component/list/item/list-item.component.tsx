@@ -5,21 +5,25 @@ import {
   handlerPropsFactory,
   isDisabled,
   isFn,
+  isHovered,
   isIconLeftAligned,
+  isLast,
+  isOdd,
   isSelected,
   joinClassName,
 } from '../../../util';
-import { BaseComponent } from '../../base';
+import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
   IListItemProps,
+  ListClassesEnum,
   UniversalScrollableContext,
 } from '../../../definition';
 import { ISelectedElementClassNameWrapper } from '../../../definitions.interface';
 
-export class ListItem extends BaseComponent<IListItemProps> {
+export class ListItem extends GenericBaseComponent<IListItemProps> {
 
   /**
-   * @stable [27.10.2019]
+   * @stable [04.05.2020]
    * @param {IListItemProps} props
    */
   constructor(props: IListItemProps) {
@@ -45,7 +49,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
             : (
               <li {...this.getItemProps({selectedElementClassName})}>
                 {isIconLeftAligned(props) && this.iconElement}
-                <div className='rac-list-item__content'>
+                <div className={ListClassesEnum.LIST_ITEM_CONTENT}>
                   {
                     isFn(props.tpl)
                       ? props.tpl(props.rawData)
@@ -72,16 +76,16 @@ export class ListItem extends BaseComponent<IListItemProps> {
       {
         ref: this.selfRef,
         className: joinClassName(
-          'rac-list-item',
+          ListClassesEnum.LIST_ITEM,
           calc(props.className),
-          props.icon && 'rac-list-item__decorated',
-          props.odd && 'rac-list-item__odd',
-          props.hovered && 'rac-list-item__hovered',
-          props.last && 'rac-list-item__last',  // We can't use :not(:last-child) because of PerfectScrollbar Plugin
+          props.icon && ListClassesEnum.LIST_ITEM_DECORATED,
+          isOdd(props) && ListClassesEnum.LIST_ITEM_ODD,
+          isHovered(props) && ListClassesEnum.LIST_ITEM_HOVERED,
+          isLast(props) && ListClassesEnum.LIST_ITEM_LAST,  // We can't use :not(:last-child) because of PerfectScrollbar Plugin
           ...(
             isSelected(props)
-              ? ['rac-list-item__selected', context.selectedElementClassName]
-              : ['rac-list-item__unselected']
+              ? [ListClassesEnum.LIST_ITEM_SELECTED, context.selectedElementClassName]
+              : [ListClassesEnum.LIST_ITEM_UNSELECTED]
           )
         ),
         ...handlerPropsFactory(this.onClick, !isDisabled(props) && isFn(props.onClick), false),
@@ -98,7 +102,7 @@ export class ListItem extends BaseComponent<IListItemProps> {
     return (
       icon && this.uiFactory.makeIcon({
         type: icon,
-        className: 'rac-list-item__icon',
+        className: ListClassesEnum.LIST_ITEM_ICON,
       })
     );
   }

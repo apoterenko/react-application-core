@@ -48,7 +48,7 @@ import {
 } from '../definitions.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
-import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IGenericLifeCycleEntity } from './entity-definition.interface';
 import { IGenericPaginatedEntity } from './page-definition.interface';
@@ -172,7 +172,7 @@ export interface IBehavioralListItemEntity<TEntity extends IEntity = IEntity>
  * @stable [26.01.2020]
  */
 export interface IListItemProps<TEntity extends IEntity = IEntity>
-  extends IGenericComponentProps,
+  extends IGenericBaseComponentProps,
     IGenericListItemEntity<TEntity>,
     IBehavioralListItemEntity<TEntity> {
 }
@@ -270,6 +270,14 @@ export enum ListClassesEnum {
   FULL_LIST = 'rac-full-list',
   LIST = 'rac-list',
   LIST_ITEM = 'rac-list-item',
+  LIST_ITEM_CONTENT = 'rac-list-item__content',
+  LIST_ITEM_DECORATED = 'rac-list-item__decorated',
+  LIST_ITEM_HOVERED = 'rac-list-item__hovered',
+  LIST_ITEM_ICON = 'rac-list-item__icon',
+  LIST_ITEM_LAST = 'rac-list-item__last',
+  LIST_ITEM_ODD = 'rac-list-item__odd',
+  LIST_ITEM_SELECTED = 'rac-list-item__selected',
+  LIST_ITEM_UNSELECTED = 'rac-list-item__unselected',
 }
 
 /**

@@ -279,7 +279,6 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         icon={option.icon}
         iconLeftAligned={option.iconLeftAligned}
         rawData={option}
-        hovered={true}
         odd={isHighlightOdd(props, index)}
         last={index === length - 1}
         renderer={props.renderer}

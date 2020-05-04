@@ -38,10 +38,12 @@ import {
   IIndexedWrapper,
   IInlineWrapper,
   IKeyboardOpenWrapper,
+  ILastWrapper,
   ILoadingWrapper,
   IMenuRenderedWrapper,
   IMultiWrapper,
   INavigateBackWrapper,
+  IOddWrapper,
   IOpenedWrapper,
   IPlaceActionRenderedWrapper,
   IPlainValueWrapper,
@@ -251,17 +253,17 @@ export const isRangeEnabled = (wrapper: IRangeEnabledWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.rangeEnabled === true;
 
 /**
- * @stable [26.10.2019]
- * @param {IHighlightOddWrapper} highlightOddEntity
+ * @stable [04.05.2020]
+ * @param {IHighlightOddWrapper} wrapper
  * @param {number} index
  * @returns {boolean}
  */
-export const isHighlightOdd = (highlightOddEntity: IHighlightOddWrapper, index: number): boolean =>
-  ifNotNilThanValue(
-    highlightOddEntity,
-    () => highlightOddEntity.highlightOdd !== false && (isNumber(index) ? isOddNumber(index) : false),
-    false
-  );
+export const isHighlightOdd = (wrapper: IHighlightOddWrapper, index: number): boolean =>
+  R.isNil(wrapper)
+    ? false
+    : (
+      wrapper.highlightOdd !== false && (isNumber(index) ? isOddNumber(index) : false)
+    );
 
 /**
  * @stable [26.10.2019]
@@ -334,6 +336,22 @@ export const isSelectable = (wrapper: ISelectableWrapper): boolean =>
  */
 export const isHovered = (wrapper: IHoveredWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.hovered !== false;
+
+/**
+ * @stable [04.05.2020]
+ * @param {IOddWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isOdd = (wrapper: IOddWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.odd === true;
+
+/**
+ * @stable [04.05.2020]
+ * @param {ILastWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isLast = (wrapper: ILastWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.last === true;
 
 /**
  * @stable [03.02.2020]
