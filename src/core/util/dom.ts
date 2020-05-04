@@ -76,12 +76,6 @@ export const addRootElement = (rootId: string): Element => {
 };
 
 /**
- * @stable [14.11.2018]
- * @param {string} clsName
- */
-export const addClassNameToBody = (...clsName: string[]): void => addClassNames(document.body, ...clsName);
-
-/**
  * @stable [28.06.2018]
  * @param {Element} child
  * @param {Element} parent
