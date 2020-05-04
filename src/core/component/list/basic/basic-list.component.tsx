@@ -6,13 +6,14 @@ import {
   isFull,
   joinClassName,
 } from '../../../util';
-import { BaseComponent } from '../../base';
+import { GenericComponent } from '../../base/generic.component';
 import { IBasicListProps } from './basic-list.interface';
+import { ListClassesEnum } from '../../../definition';
 
-export class BasicList extends BaseComponent<IBasicListProps> {
+export class BasicList extends GenericComponent<IBasicListProps> {
 
   /**
-   * @stable [24.01.2020]
+   * @stable [04.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -21,12 +22,15 @@ export class BasicList extends BaseComponent<IBasicListProps> {
     return (
       <ul
         ref={this.selfRef}
-        className={joinClassName(
-          'rac-list',
-          isDefault(props) && 'rac-default-list',
-          isFull(props) && 'rac-full-list',
-          calc(props.className)
-        )}>
+        className={
+          joinClassName(
+            ListClassesEnum.LIST,
+            isDefault(props) && ListClassesEnum.DEFAULT_LIST,
+            isFull(props) && ListClassesEnum.FULL_LIST,
+            calc(props.className)
+          )
+        }
+      >
         {props.children}
       </ul>
     );
