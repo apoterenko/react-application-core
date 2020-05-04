@@ -1,5 +1,6 @@
 @import '~sass-mixins/partials/_user-select';
 @import '~sass-flex-mixin/_flex';
+@import './_classes';
 
 /**
  * @stable [05.04.2020]
@@ -22,6 +23,18 @@
   }
   @return $rac-cls;
 }
+
+/**
+ * @stable [04.05.2020]
+ */
+@function rac-not-cls ($rac-not-cls,
+                       $rac-cls: unset) {
+  @if $rac-cls != unset {
+    @return '#{$rac-cls}:not(.#{$rac-not-cls})';
+  }
+  @return ':not(.#{$rac-not-cls})';
+}
+
 
 /**
  * @stable [05.04.2020]

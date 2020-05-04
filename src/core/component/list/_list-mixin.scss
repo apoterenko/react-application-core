@@ -1,0 +1,249 @@
+@import '../_core-mixin';
+@import '../icon/_icon-mixin';
+
+/**
+ * @stable [04.05.2020]
+ */
+@mixin rac-list-item (
+  $rac-list-item-custom: unset,
+  /**/
+  $rac-list-item-align-items: unset,                                              /* @stable [27.10.2019] */
+  $rac-list-item-background: unset,                                               /* @stable [27.10.2019] */
+  $rac-list-item-border-bottom: unset,                                            /* @stable [09.11.2019] */
+  $rac-list-item-border-left: unset,                                              /* @stable [09.11.2019] */
+  $rac-list-item-border-radius: unset,                                            /* @stable [25.01.2020] */
+  $rac-list-item-border-right: unset,                                             /* @stable [09.11.2019] */
+  $rac-list-item-border-top: unset,                                               /* @stable [09.11.2019] */
+  $rac-list-item-border: unset,                                                   /* @stable [09.11.2019] */
+  $rac-list-item-box-shadow: unset,                                               /* @stable [09.11.2019] */
+  $rac-list-item-box-sizing: unset,                                               /* @stable [25.01.2020] */
+  $rac-list-item-color: unset,                                                    /* @stable [26.01.2020] */
+  $rac-list-item-content-flex: unset,                                             /* @stable [27.10.2019] */
+  $rac-list-item-content-text-align: unset,                                       /* @stable [26.01.2020] */
+  $rac-list-item-cursor: unset,                                                   /* @stable [26.01.2020] */
+  $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
+  $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
+  $rac-list-item-float: unset,                                                    /* @stable [04.05.2020] */
+  $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
+  $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
+  $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
+  $rac-list-item-hover-background: unset,                                         /* @stable [26.01.2020] */
+  $rac-list-item-hover-border-bottom: unset,                                      /* @stable [29.01.2020] */
+  $rac-list-item-hover-color: unset,                                              /* @stable [27.01.2020] */
+  $rac-list-item-icon-background: unset,                                          /* @stable [26.01.2020] */
+  $rac-list-item-icon-color: unset,                                               /* @stable [26.01.2020] */
+  $rac-list-item-last-border-bottom-color: unset,                                 /* @stable [29.10.2019] */
+  $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
+  $rac-list-item-margin: unset,                                                   /* @stable [04.05.2020] */
+  $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
+  $rac-list-item-min-width: unset,                                                /* @stable [04.05.2020] */
+  $rac-list-item-no-user-select: unset,                                           /* @stable [29.01.2020] */
+  $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
+  $rac-list-item-text-align: unset,                                               /* @stable [24.02.2020] */
+  $rac-list-item-width: unset                                                     /* @stable [09.11.2019] */
+) {
+  #{rac-cls(rac-list-item, $rac-list-item-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-list-item-align-items,
+      $rac-styles-background: $rac-list-item-background,
+      $rac-styles-border-bottom: $rac-list-item-border-bottom,
+      $rac-styles-border-left: $rac-list-item-border-left,
+      $rac-styles-border-radius: $rac-list-item-border-radius,
+      $rac-styles-border-right: $rac-list-item-border-right,
+      $rac-styles-border-top: $rac-list-item-border-top,
+      $rac-styles-border: $rac-list-item-border,
+      $rac-styles-box-shadow: $rac-list-item-box-shadow,
+      $rac-styles-box-sizing: $rac-list-item-box-sizing,
+      $rac-styles-color: $rac-list-item-color,
+      $rac-styles-cursor: $rac-list-item-cursor,
+      $rac-styles-display: $rac-list-item-display,
+      $rac-styles-flex-direction: $rac-list-item-flex-direction,
+      $rac-styles-float: $rac-list-item-float,
+      $rac-styles-font-size: $rac-list-item-font-size,
+      $rac-styles-font-weight: $rac-list-item-font-weight,
+      $rac-styles-height: $rac-list-item-height,
+      $rac-styles-line-height: $rac-list-item-line-height,
+      $rac-styles-margin: $rac-list-item-margin,
+      $rac-styles-min-height: $rac-list-item-min-height,
+      $rac-styles-no-user-select: $rac-list-item-no-user-select,
+      $rac-styles-padding: $rac-list-item-padding,
+      $rac-styles-text-align: $rac-list-item-text-align,
+      $rac-styles-width: $rac-list-item-width
+    );
+
+    > {
+      @include rac-icon (
+        $rac-icon-custom: rac-list-item__icon,
+        $rac-icon-background: $rac-list-item-icon-background,
+        $rac-icon-color: $rac-list-item-icon-color
+      );
+
+      @include rac-styles (
+        $rac-styles-custom: rac-list-item__content,
+        $rac-styles-flex: $rac-list-item-content-flex,
+        $rac-styles-text-align: $rac-list-item-content-text-align
+      );
+    }
+
+    &.rac-list-item__last {
+      @include rac-styles (
+        $rac-styles-border-bottom-color: $rac-list-item-last-border-bottom-color
+      );
+    }
+
+    &.rac-list-item__hovered {
+      &:hover {
+        @include rac-styles (
+          $rac-styles-background: $rac-list-item-hover-background,
+          $rac-styles-border-bottom: $rac-list-item-hover-border-bottom,
+          $rac-styles-color: $rac-list-item-hover-color
+        );
+      }
+    }
+  }
+}
+
+/**
+ * @stable [04.05.2020]
+ */
+@mixin rac-list (
+  $rac-list-custom: unset,
+  $rac-list-item-custom: unset,
+  /**/
+  $rac-list-align-content: unset,                                                 /* @stable [04.05.2020] */
+  $rac-list-background: unset,                                                    /* @stable [09.11.2019] */
+  $rac-list-border-radius: unset,                                                 /* @stable [25.01.2020] */
+  $rac-list-display: unset,                                                       /* @stable [03.05.2020] */
+  $rac-list-flex-basis: unset,                                                    /* @stable [25.01.2020] */
+  $rac-list-flex-grow: unset,                                                     /* @stable [04.05.2020] */
+  $rac-list-flex-wrap: unset,                                                     /* @stable [03.05.2020] */
+  $rac-list-flex: unset,                                                          /* @stable [24.01.2020] */
+  $rac-list-item-align-items: unset,                                              /* @stable [27.10.2019] */
+  $rac-list-item-background: unset,                                               /* @stable [25.01.2020] */
+  $rac-list-item-border-bottom: unset,                                            /* @stable [09.11.2019] */
+  $rac-list-item-border-left: unset,                                              /* @stable [09.11.2019] */
+  $rac-list-item-border-radius: unset,                                            /* @stable [26.01.2020] */
+  $rac-list-item-border-right: unset,                                             /* @stable [09.11.2019] */
+  $rac-list-item-border-top: unset,                                               /* @stable [09.11.2019] */
+  $rac-list-item-border: unset,                                                   /* @stable [09.11.2019] */
+  $rac-list-item-box-shadow: unset,                                               /* @stable [09.11.2019] */
+  $rac-list-item-box-sizing: unset,                                               /* @stable [26.01.2020] */
+  $rac-list-item-color: unset,                                                    /* @stable [25.01.2020] */
+  $rac-list-item-content-flex: unset,                                             /* @stable [26.01.2020] */
+  $rac-list-item-cursor: unset,                                                   /* @stable [26.01.2020] */
+  $rac-list-item-decorated-content-text-align: unset,                             /* @stable [26.01.2020] */
+  $rac-list-item-display: unset,                                                  /* @stable [27.10.2019] */
+  $rac-list-item-flex-direction: unset,                                           /* @stable [27.10.2019] */
+  $rac-list-item-float: unset,                                                    /* @stable [25.01.2020] */
+  $rac-list-item-font-size: unset,                                                /* @stable [09.11.2019] */
+  $rac-list-item-font-weight: unset,                                              /* @stable [09.11.2019] */
+  $rac-list-item-height: unset,                                                   /* @stable [09.11.2019] */
+  $rac-list-item-hover-background: unset,                                         /* @stable [26.01.2020] */
+  $rac-list-item-hover-border-bottom: unset,                                      /* @stable [29.01.2020] */
+  $rac-list-item-hover-color: unset,                                              /* @stable [26.01.2020] */
+  $rac-list-item-icon-background: unset,                                          /* @stable [26.01.2020] */
+  $rac-list-item-icon-color: unset,                                               /* @stable [26.01.2020] */
+  $rac-list-item-last-border-bottom-color: unset,                                 /* @stable [29.01.2020] */
+  $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
+  $rac-list-item-margin: unset,                                                   /* @stable [26.01.2020] */
+  $rac-list-item-min-height: unset,                                               /* @stable [04.05.2020] */
+  $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
+  $rac-list-item-min-width: unset,                                                /* @stable [04.05.2020] */
+  $rac-list-item-no-user-select: unset,                                           /* @stable [29.01.2020] */
+  $rac-list-item-odd-background: unset,                                           /* @stable [26.01.2020] */
+  $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
+  $rac-list-item-selected-background: unset,                                      /* @stable [27.10.2019] */
+  $rac-list-item-selected-color: unset,                                           /* @stable [27.10.2019] */
+  $rac-list-item-text-align: unset,                                               /* @stable [24.02.2020] */
+  $rac-list-item-width: unset,                                                    /* @stable [09.11.2019] */
+  $rac-list-justify-content: unset,                                               /* @stable [03.05.2020] */
+  $rac-list-margin-bottom: unset,                                                 /* @stable [04.05.2020] */
+  $rac-list-margin: unset,                                                        /* @stable [25.01.2020] */
+  $rac-list-max-height: unset,                                                    /* @stable [26.01.2020] */
+  $rac-list-min-width: unset,                                                     /* @stable [26.01.2020] */
+  $rac-list-overflow: unset,                                                      /* @stable [27.10.2019] */
+  $rac-list-padding: unset,                                                       /* @stable [27.10.2019] */
+  $rac-list-position: unset,                                                      /* @stable [28.10.2019] */
+  $rac-list-width: unset                                                          /* @stable [04.05.2020] */
+) {
+  #{rac-cls($rac-list-cls, $rac-list-custom)} {
+    @include rac-styles (
+      $rac-styles-align-content: $rac-list-align-content,
+      $rac-styles-background: $rac-list-background,
+      $rac-styles-border-radius: $rac-list-border-radius,
+      $rac-styles-display: $rac-list-display,
+      $rac-styles-flex-basis: $rac-list-flex-basis,
+      $rac-styles-flex-grow: $rac-list-flex-grow,
+      $rac-styles-flex-wrap: $rac-list-flex-wrap,
+      $rac-styles-flex: $rac-list-flex,
+      $rac-styles-justify-content: $rac-list-justify-content,
+      $rac-styles-margin-bottom: $rac-list-margin-bottom,
+      $rac-styles-margin: $rac-list-margin,
+      $rac-styles-max-height: $rac-list-max-height,
+      $rac-styles-min-width: $rac-list-min-width,
+      $rac-styles-overflow: $rac-list-overflow,
+      $rac-styles-padding: $rac-list-padding,
+      $rac-styles-position: $rac-list-position,
+      $rac-styles-width: $rac-list-width
+    );
+
+    @include rac-list-item (
+      $rac-list-item-custom: $rac-list-item-custom,
+      $rac-list-item-align-items: $rac-list-item-align-items,
+      $rac-list-item-background: $rac-list-item-background,
+      $rac-list-item-border-bottom: $rac-list-item-border-bottom,
+      $rac-list-item-border-left: $rac-list-item-border-left,
+      $rac-list-item-border-radius: $rac-list-item-border-radius,
+      $rac-list-item-border-right: $rac-list-item-border-right,
+      $rac-list-item-border-top: $rac-list-item-border-top,
+      $rac-list-item-border: $rac-list-item-border,
+      $rac-list-item-box-shadow: $rac-list-item-box-shadow,
+      $rac-list-item-box-sizing: $rac-list-item-box-sizing,
+      $rac-list-item-color: $rac-list-item-color,
+      $rac-list-item-content-flex: $rac-list-item-content-flex,
+      $rac-list-item-cursor: $rac-list-item-cursor,
+      $rac-list-item-display: $rac-list-item-display,
+      $rac-list-item-flex-direction: $rac-list-item-flex-direction,
+      $rac-list-item-float: $rac-list-item-float,
+      $rac-list-item-font-size: $rac-list-item-font-size,
+      $rac-list-item-font-weight: $rac-list-item-font-weight,
+      $rac-list-item-height: $rac-list-item-height,
+      $rac-list-item-hover-background: $rac-list-item-hover-background,
+      $rac-list-item-hover-border-bottom: $rac-list-item-hover-border-bottom,
+      $rac-list-item-hover-color: $rac-list-item-hover-color,
+      $rac-list-item-icon-background: $rac-list-item-icon-background,
+      $rac-list-item-icon-color: $rac-list-item-icon-color,
+      $rac-list-item-last-border-bottom-color: $rac-list-item-last-border-bottom-color,
+      $rac-list-item-line-height: $rac-list-item-line-height,
+      $rac-list-item-margin: $rac-list-item-margin,
+      $rac-list-item-min-height: $rac-list-item-min-height,
+      $rac-list-item-min-width: $rac-list-item-min-width,
+      $rac-list-item-no-user-select: $rac-list-item-no-user-select,
+      $rac-list-item-padding: $rac-list-item-padding,
+      $rac-list-item-text-align: $rac-list-item-text-align,
+      $rac-list-item-width: $rac-list-item-width
+    );
+
+    @include rac-list-item (
+      $rac-list-item-custom: $rac-list-item-selected-cls,
+      $rac-list-item-background: $rac-list-item-selected-background,
+      $rac-list-item-color: $rac-list-item-selected-color,
+      $rac-list-item-hover-background: $rac-list-item-hover-background,
+      $rac-list-item-hover-border-bottom: $rac-list-item-hover-border-bottom,
+      $rac-list-item-hover-color: $rac-list-item-hover-color
+    );
+
+    @include rac-list-item (
+      $rac-list-item-custom: rac-not-cls($rac-list-item-selected-cls, $rac-list-item-odd-cls),
+      $rac-list-item-background: $rac-list-item-odd-background,
+      $rac-list-item-hover-background: $rac-list-item-hover-background,
+      $rac-list-item-hover-border-bottom: $rac-list-item-hover-border-bottom,
+      $rac-list-item-hover-color: $rac-list-item-hover-color
+    );
+
+    @include rac-list-item (
+      $rac-list-item-custom: $rac-list-item-decorated-cls,
+      $rac-list-item-content-text-align: $rac-list-item-decorated-content-text-align
+    );
+  }
+}
