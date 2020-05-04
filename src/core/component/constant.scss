@@ -842,8 +842,10 @@ $rac-dialog-height-0: 80vh !default;
 $rac-dialog-width-0: 50vw !default;
 /**/
 $rac-dialog-action-height: unset !default;
+$rac-dialog-action-width: 160px !default;
 $rac-dialog-actions-display: $rac-primary-display-0 !default;
 $rac-dialog-actions-flex: $rac-primary-flex-0 !default;
+$rac-dialog-actions-justify-content: center !default;
 $rac-dialog-actions-margin: $rac-offset-3 $rac-offset-3 0 $rac-offset-3 !default;
 $rac-dialog-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
 $rac-dialog-body-border-radius: unset !default;

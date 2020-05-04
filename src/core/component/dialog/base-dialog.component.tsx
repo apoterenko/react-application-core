@@ -268,7 +268,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                 () => (
                   <Button
                     icon={IconsEnum.TIMES}
-                    full={true}
                     {...this.props.closeActionConfiguration}
                     disabled={this.isCloseButtonDisabled}
                     onClick={this.onCloseClick}>
@@ -283,7 +282,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                 () => (
                   <Button
                     icon={IconsEnum.CHECK_CIRCLE}
-                    full={true}
                     raised={true}
                     {...this.props.acceptActionConfiguration}
                     disabled={this.isAcceptButtonDisabled}

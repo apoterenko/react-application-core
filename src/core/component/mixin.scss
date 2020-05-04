@@ -2326,8 +2326,10 @@
   $rac-dialog-custom: unset,
   /**/
   $rac-dialog-action-height: unset,                                                           /* @stable [24.02.2020] */
+  $rac-dialog-action-width: unset,                                                            /* @stable [05.05.2020] */
   $rac-dialog-actions-display: unset,                                                         /* @stable [10.01.2020] */
   $rac-dialog-actions-flex: unset,                                                            /* @stable [17.03.2020] */
+  $rac-dialog-actions-justify-content: unset,                                                 /* @stable [05.05.2020] */
   $rac-dialog-actions-margin: unset,                                                          /* @stable [29.12.2019] */
   $rac-dialog-actions-neighbor-child-margin: unset,                                           /* @stable [29.12.2019] */
   $rac-dialog-align-items: unset,                                                             /* @stable [15.01.2020] */
@@ -2483,11 +2485,13 @@
             @include rac-styles (
               $rac-styles-display: $rac-dialog-actions-display,
               $rac-styles-flex: $rac-dialog-actions-flex,
+              $rac-styles-justify-content: $rac-dialog-actions-justify-content,
               $rac-styles-margin: $rac-dialog-actions-margin
             );
 
             @include rac-button (
-              $rac-button-height: $rac-dialog-action-height
+              $rac-button-height: $rac-dialog-action-height,
+              $rac-button-width: $rac-dialog-action-width
             );
 
             @include rac-neighbor-child (
