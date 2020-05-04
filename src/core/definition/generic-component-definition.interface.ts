@@ -53,6 +53,7 @@ export interface IGenericComponent<TProps extends IGenericComponentProps = IGene
                                    TSelfRef = AnyT>
   extends React.PureComponent<TProps, TState>,
     React.Component<TProps, TState> {
+  actualRef: React.RefObject<TSelfRef>;
   selfRef: React.RefObject<TSelfRef>;
 }
 

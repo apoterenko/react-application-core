@@ -62,7 +62,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @stable [04.05.2020]
    * @returns {React.RefObject<TSelfRef>}
    */
-  protected get actualRef(): React.RefObject<TSelfRef> {
+  public get actualRef(): React.RefObject<TSelfRef> {
     return this.props.forwardedRef || this.selfRef;
   }
 

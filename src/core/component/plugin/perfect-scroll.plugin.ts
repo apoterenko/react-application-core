@@ -134,10 +134,10 @@ export class PerfectScrollPlugin implements IGenericPlugin {
   }
 
   /**
-   * @stable [17.01.2020]
+   * @stable [04.05.2020]
    * @returns {HTMLElement}
    */
   private get selfRef(): HTMLElement {
-    return this.component.selfRef.current;
+    return this.component.actualRef.current;
   }
 }

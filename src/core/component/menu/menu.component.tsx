@@ -46,8 +46,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   };
 
   private readonly dialogRef = React.createRef<Dialog>();
-  private readonly listRef = React.createRef<BasicList>();
   private readonly fieldRef = React.createRef<TextField>();
+  private readonly listElementRef = React.createRef<HTMLUListElement>();
+  /**/
   private filterQueryTask: DelayedTask;
   private scrollEventUnsubscriber: () => void;
   private resizeUnsubscriber: () => void;
@@ -251,8 +252,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     const items = subArray(this.items, this.props.maxCount);
     return (
       <BasicList
-        ref={this.listRef}
+        forwardedRef={this.listElementRef}
         default={false}
+        full={false}
         plugins={[PerfectScrollPlugin]}
       >
         {items.map((option: IMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
@@ -323,13 +325,12 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.01.2020]
+   * @stable [04.05.2020]
    * @param {HTMLElement} element
    * @returns {boolean}
    */
   private scrollEventCallbackCondition(element: HTMLElement): boolean {
-    const list = this.listRef.current;
-    return R.isNil(list) || element !== list.selfRef.current;
+    return element !== this.listElementRef.current;
   }
 
   /**

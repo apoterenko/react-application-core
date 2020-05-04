@@ -6,11 +6,11 @@ import {
   isFull,
   joinClassName,
 } from '../../../util';
-import { GenericComponent } from '../../base/generic.component';
+import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import { IBasicListProps } from './basic-list.interface';
 import { ListClassesEnum } from '../../../definition';
 
-export class BasicList extends GenericComponent<IBasicListProps> {
+export class BasicList extends EnhancedGenericComponent<IBasicListProps> {
 
   /**
    * @stable [04.05.2020]
