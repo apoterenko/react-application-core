@@ -91,13 +91,14 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
    */
   private initPlugins(): void {
     const plugins = this.uiPlugins;
-    if (isObjectEmpty(plugins)) {
-      return;
+
+    if (!isObjectEmpty(plugins)) {
+      const dynamicPluginsFactories = plugins.get(this.constructor as IGenericComponentCtor);
+      if (isObjectNotEmpty(dynamicPluginsFactories)) {
+        dynamicPluginsFactories.forEach((dynamicPluginFactory) => this.registerPlugin(dynamicPluginFactory(this)));
+      }
     }
-    const dynamicPluginsFactories = plugins.get(this.constructor as IGenericComponentCtor);
-    if (isObjectNotEmpty(dynamicPluginsFactories)) {
-      dynamicPluginsFactories.forEach((dynamicPluginFactory) => this.registerPlugin(dynamicPluginFactory(this)));
-    }
+
     [].concat(this.props.plugins || []).forEach(this.registerPlugin, this);
   }
 

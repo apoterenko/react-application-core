@@ -1,20 +1,22 @@
 import * as React from 'react';
 
-import { BaseComponent } from './base.component';
 import { calc } from '../../util';
+import { EnhancedGenericComponent } from './enhanced-generic.component';
 
-export class BasicComponent extends BaseComponent {
+export class BasicComponent extends EnhancedGenericComponent {
 
   /**
-   * @stable [29.12.2019]
+   * @stable [05.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
     return (
       <div
-        ref={this.selfRef}
-        className={calc(props.className)}>
+        ref={this.actualRef}
+        style={props.style}
+        className={calc(props.className)}
+      >
         {props.children}
       </div>
     );
