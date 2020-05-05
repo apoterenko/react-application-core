@@ -103,7 +103,6 @@ $rac-default-height-2: 32px !default;
 /* @stable [25.06.2018] */
 $rac-default-offset: 16px !default;
 $rac-default-half-offset: $rac-default-offset / 2 !default;
-$rac-default-toolbar-height: 64px !default;
 $rac-default-layout-offset: 40px !default;
 $rac-default-font-size: $rac-font-size-0 !default;
 $rac-default-font-size-2: $rac-font-size-1 !default;
@@ -135,22 +134,6 @@ $rac-min-width: unset !default;
 $rac-scrollbar-width: 6px !default;
 $rac-scrollbar-height: 6px !default;
 $rac-scrollbar-thumb-background-color: $color-8 !default;
-
-/* @stable [01.11.2018] */
-$rac-toolbar-cls: rac-toolbar;
-$rac-toolbar-icon-cls: rac-toolbar-icon;
-$rac-toolbar-pages-cls: rac-toolbar-pages;
-$rac-page-toolbar-cls: rac-page-toolbar;
-/**/
-$rac-toolbar-button-margin: 0 0 0 8px !default;
-$rac-toolbar-field-max-width: 342px !default;
-/**/
-$rac-page-toolbar-border-top: unset !default;
-$rac-page-toolbar-pages-margin: unset !default;
-$rac-page-toolbar-pages-font-size: $rac-font-size-1 !default;
-$rac-page-toolbar-pages-color: $rac-color-0-4 !default;
-$rac-page-toolbar-icon-color: $rac-color-0-4 !default;
-$rac-page-toolbar-icon-margin: unset !default;
 
 /* @stable [27.01.2019] */
 $rac-keyboard-background: unset !default;
@@ -1088,7 +1071,6 @@ $rac-default-layout-without-sub-header-main-body-content-padding-top: unset !def
 $rac-default-layout-drawer-transform: translate3d(0, 0, 0) !default; /* iOS fixed + z-index workaround */
 $rac-default-layout-drawer-width: 220px !default;
 $rac-default-layout-drawer-z-index: $rac-z-index-drawer !default;
-$rac-default-layout-footer-height: $rac-default-toolbar-height !default;
 $rac-default-layout-form-actions-border-top: unset !default;
 $rac-default-layout-form-actions-height: 60px !default;
 $rac-default-layout-form-actions-margin: $rac-default-offset 0 0 0 !default;

@@ -1,54 +1,7 @@
-import { INavigationHandlersConfiguration } from '../../../configurations-definitions.interface';
-import { IProgressWrapper } from '../../../definitions.interface';
 import {
   IContainerProps,
-  IGenericPaginatedEntity,
   IListWrapperEntity,
-  IUniversalComponentEntity,
-  IWebComponentEntity,
 } from '../../../definition';
-
-/**
- * @stable [16.05.2018]
- */
-export interface IUniversalPageToolbarEntity extends IGenericPaginatedEntity,
-                                                     IProgressWrapper {
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IUniversalPageToolbarConfiguration extends IUniversalComponentEntity,
-                                                            INavigationHandlersConfiguration {
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IUniversalPageToolbarProps extends IUniversalPageToolbarEntity,
-                                                    IUniversalPageToolbarConfiguration {
-  useSimplePagesFormat?: boolean;
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IPageToolbarEntity extends IUniversalPageToolbarEntity {
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IPageToolbarProps
-  extends IPageToolbarEntity,
-    IUniversalPageToolbarConfiguration,
-    IWebComponentEntity {
-  allowLast?: boolean;
-  allowFirst?: boolean;
-  previousIcon?: string;
-  nextIcon?: string;
-  full?: boolean;
-}
 
 /**
  * @stable [16.05.2018]

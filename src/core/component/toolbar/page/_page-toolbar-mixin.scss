@@ -1,0 +1,53 @@
+@import '../../_core-mixin';
+@import '../../icon/_icon-mixin';
+
+/**
+ * @stable [05.05.2020]
+ */
+@mixin rac-page-toolbar (
+  $rac-page-toolbar-custom: unset,
+  /**/
+  $rac-page-toolbar-align-items: unset,                                                  /* @stable [05.05.2020] */
+  $rac-page-toolbar-background: unset,                                                   /* @stable [05.05.2020] */
+  $rac-page-toolbar-border-top: unset,                                                   /* @stable [05.05.2020] */
+  $rac-page-toolbar-content-display: unset,                                              /* @stable [05.05.2020] */
+  $rac-page-toolbar-display: unset,                                                      /* @stable [05.05.2020] */
+  $rac-page-toolbar-height: unset,                                                       /* @stable [05.05.2020] */
+  $rac-page-toolbar-icon-color: unset,                                                   /* @stable [05.05.2020] */
+  $rac-page-toolbar-icon-margin: unset,                                                  /* @stable [05.05.2020] */
+  $rac-page-toolbar-justify-content: unset,                                              /* @stable [05.05.2020] */
+  $rac-page-toolbar-margin: unset,                                                       /* @stable [05.05.2020] */
+  $rac-page-toolbar-pages-color: unset,                                                  /* @stable [05.05.2020] */
+  $rac-page-toolbar-pages-font-size: unset,                                              /* @stable [05.05.2020] */
+  $rac-page-toolbar-pages-margin: unset                                                  /* @stable [05.05.2020] */
+) {
+  #{rac-cls($rac-page-toolbar-cls, $rac-page-toolbar-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-page-toolbar-align-items,
+      $rac-styles-background: $rac-page-toolbar-background,
+      $rac-styles-border-top: $rac-page-toolbar-border-top,
+      $rac-styles-display: $rac-page-toolbar-display,
+      $rac-styles-height: $rac-page-toolbar-height,
+      $rac-styles-justify-content: $rac-page-toolbar-justify-content,
+      $rac-styles-margin: $rac-page-toolbar-margin
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: $rac-toolbar-pages-cls,
+      $rac-styles-color: $rac-page-toolbar-pages-color,
+      $rac-styles-font-size: $rac-page-toolbar-pages-font-size,
+      $rac-styles-margin: $rac-page-toolbar-pages-margin
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: $rac-toolbar-content-cls,
+      $rac-styles-display: $rac-page-toolbar-content-display
+    );
+
+    @include rac-icon (
+      $rac-icon-custom: $rac-toolbar-icon-cls,
+      $rac-icon-color: $rac-page-toolbar-icon-color,
+      $rac-icon-margin: $rac-page-toolbar-icon-margin
+    );
+  }
+}

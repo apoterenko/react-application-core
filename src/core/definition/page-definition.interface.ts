@@ -8,6 +8,7 @@ import {
   ITotalAmountWrapper,
   ITotalCountWrapper,
 } from '../definitions.interface';
+import { IGenericLifeCycleEntity } from './entity-definition.interface';
 
 /**
  * @default-entity
@@ -54,4 +55,13 @@ export interface IGenericPaginatedEntity
     ILockPageWrapper,
     ITotalAmountWrapper,
     ITotalCountWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [05.05.2020]
+ */
+export interface IGenericPaginatedLifeCycleEntity
+  extends IGenericPaginatedEntity,
+    IGenericLifeCycleEntity {
 }

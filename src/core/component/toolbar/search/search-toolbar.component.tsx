@@ -17,6 +17,7 @@ import { GenericComponent } from '../../base/generic.component';
 import {
   IconsEnum,
   IFieldActionEntity,
+  ToolbarClassesEnum,
   ToolbarToolsEnum,
 } from '../../../definition';
 import { Button } from '../../button';
@@ -68,7 +69,7 @@ export class SearchToolbar<TProps extends IUniversalSearchToolbarProps,
         justifyContentEnd={true}
         alignItemsCenter={true}
         full={props.full}
-        className={joinClassName('rac-toolbar', calc<string>(props.className))}>
+        className={joinClassName(ToolbarClassesEnum.SEARCH_TOOLBAR, calc<string>(props.className))}>
         {this.actionsElementsSection}
         {this.fieldSection}
       </FlexLayout>

@@ -25,6 +25,7 @@ import {
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
+  IFirstAllowedWrapper,
   IFocusedWrapper,
   IForceReloadWrapper,
   IForceUseLocalFilterWrapper,
@@ -38,6 +39,7 @@ import {
   IIndexedWrapper,
   IInlineWrapper,
   IKeyboardOpenWrapper,
+  ILastAllowedWrapper,
   ILastWrapper,
   ILoadingWrapper,
   IMenuRenderedWrapper,
@@ -96,6 +98,22 @@ export const isValid = (wrapper: IValidWrapper): boolean => R.isNil(wrapper) ? f
  */
 export const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.fieldRendered !== false;
+
+/**
+ * @stable [05.05.2020]
+ * @param {ILastAllowedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isLastAllowedWrapper = (wrapper: ILastAllowedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.lastAllowed !== false;
+
+/**
+ * @stable [05.05.2020]
+ * @param {IFirstAllowedWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isFirstAllowedWrapper = (wrapper: IFirstAllowedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.firstAllowed !== false;
 
 /**
  * @stable [30.01.2020]

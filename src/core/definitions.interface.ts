@@ -195,6 +195,7 @@ export interface IFilterPlaceholderWrapper { filterPlaceholder?: string; }
 export interface IFilterRendererWrapper<TPayload> { filterRenderer?(payload: TPayload): JSX.Element; }
 export interface IFiltersSectionsWrapper<TValue> { filtersSections?: TValue; }
 export interface IFilterWrapper<TValue = string> { filter?: TValue; }
+export interface IFirstAllowedWrapper { firstAllowed?: boolean; }
 export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
@@ -255,7 +256,6 @@ export interface IIgnoreSelectedValueWrapper { ignoreSelectedValue?: boolean; }
 export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
-export interface IInitialDataWrapper<TValue = AnyT[]> { initialData?: TValue; }
 export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
@@ -282,6 +282,7 @@ export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
 export interface IKeyWrapper<TValue = string> { key?: TValue; }
 export interface ILabelWrapper<TValue = string> { label?: TValue; }
+export interface ILastAllowedWrapper { lastAllowed?: boolean; }
 export interface ILastWrapper<TValue = boolean> { last?: TValue; }
 export interface ILatWrapper<TValue = number> { lat?: TValue; }
 export interface ILayoutModeWrapper<TValue> { layoutMode?: TValue; }
@@ -328,6 +329,7 @@ export interface INewEntityWrapper<TValue = boolean> { newEntity?: TValue; }
 export interface INextFormChangesWrapper<TValue> { nextFormChanges?: TValue; }
 export interface INextFormRouteWrapper { nextFormRoute?: string; }
 export interface INextFormSectionWrapper { nextFormSection?: string; }
+export interface INextIconWrapper { nextIcon?: string; }
 export interface INextListSectionWrapper { nextListSection?: string; }
 export interface INextSectionWrapper<TValue = string> { nextSection?: TValue; }
 export interface INextWrapper<TValue> { next?: TValue; }
@@ -357,11 +359,15 @@ export interface IOnEmptyDictionaryWrapper<TValue1, TValue2> { onEmptyDictionary
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TValue = {}> { onFilterClick?(value?: TValue): void; }
+export interface IOnFirstWrapper<TValue = AnyT> { onFirst?(value?: TValue): void; }
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
+export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
 export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
+export interface IOnNextWrapper<TValue = AnyT> { onNext?(value?: TValue): void; }
+export interface IOnPreviousWrapper<TValue = AnyT> { onPrevious?(value?: TValue): void; }
 export interface IOnRefreshClickWrapper<TValue = {}> { onRefreshClick?(value?: TValue): void; }
 export interface IOnResetWrapper { onReset?(): void; }
 export interface IOnScrollWrapper<TValue = {}> { onScroll?(value?: TValue): void; }
@@ -418,6 +424,7 @@ export interface IPreviewPageWrapper<TPage = number> { previewPage?: TPage; }
 export interface IPreviewScaleWrapper<TValue = number> { previewScale?: TValue; }
 export interface IPreviousActionWrapper<TValue> { previousAction?: TValue; }
 export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
+export interface IPreviousIconWrapper { previousIcon?: string; }
 export interface IPreviousWrapper<TValue> { previous?: TValue; }
 export interface IProfileWrapper<TValue> { profile?: TValue; }
 export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TValue; }
@@ -477,6 +484,7 @@ export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
 export interface IShowWrapper<TValue = {}> { show?(payload?: TValue): void; }
 export interface ISignInWrapper<TValue> { signIn?: TValue; }
+export interface ISimplePagesInfoFormatWrapper { simplePagesInfoFormat?: boolean; }
 export interface ISortableWrapper { sortable?: boolean; }
 export interface ISorterWrapper<TValue = IEntity> { sorter?(entity1: TValue, entity2: TValue): number; }
 export interface ISourceWrapper<TValue> { source?: TValue; }

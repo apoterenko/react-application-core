@@ -3,8 +3,8 @@ import * as R from 'ramda';
 
 import {
   filterAndSortEntities,
-  pageFromNumber,
-  pageToNumber,
+  pageCursorFrom,
+  pageCursorTo,
   SAME_ENTITY_PREDICATE,
   uuid,
 } from '../../util';
@@ -162,7 +162,7 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
    * @returns {number}
    */
   private get fromNumber(): number {
-    return pageFromNumber(this.props) - 1;
+    return pageCursorFrom(this.props) - 1;
   }
 
   /**
@@ -170,6 +170,6 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
    * @returns {number}
    */
   private get toNumber(): number {
-    return pageToNumber(this.props);
+    return pageCursorTo(this.props);
   }
 }

@@ -5,13 +5,14 @@ import {
   inProgress,
   isFirstAllowedWrapper,
   isLastAllowedWrapper,
-  isPageEntitiesEndReached,
-  isPageEntitiesStartReached,
+  isPageable,
+  isPageCursorInEndPosition,
+  isPageCursorInStartPosition,
   joinClassName,
   orNull,
-  pageFromEntitiesTotalCount,
+  pageCursorFrom,
+  pageCursorTo,
   pagesCount,
-  pageToEntitiesTotalCount,
 } from '../../../util';
 import {
   IconsEnum,
@@ -157,8 +158,7 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    * @returns {boolean}
    */
   private get isToolbarVisible(): boolean {
-    const props = this.props;
-    return props.totalCount > props.pageSize;
+    return isPageable(this.props);
   }
 
   /**
@@ -166,7 +166,7 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    * @returns {boolean}
    */
   private get isPreviousActionDisabled(): boolean {
-    return isPageEntitiesStartReached(this.props);
+    return isPageCursorInStartPosition(this.props);
   }
 
   /**
@@ -174,7 +174,7 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    * @returns {boolean}
    */
   private get isNextActionDisabled(): boolean {
-    return isPageEntitiesEndReached(this.props);
+    return isPageCursorInEndPosition(this.props);
   }
 
   /**
@@ -182,7 +182,7 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    * @returns {number}
    */
   private get toNumber(): number {
-    return pageToEntitiesTotalCount(this.props);
+    return pageCursorTo(this.props);
   }
 
   /**
@@ -190,6 +190,6 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    * @returns {number}
    */
   private get fromNumber(): number {
-    return pageFromEntitiesTotalCount(this.props);
+    return pageCursorFrom(this.props);
   }
 }

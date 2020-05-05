@@ -3,25 +3,50 @@ import { ifNotNilThanValue } from '../util';
 import { IGenericPaginatedEntity } from '../definition';
 
 /**
- * @stable [09.05.2018]
+ * @stable [05.05.2020]
  * @param {IGenericPaginatedEntity} entity
  * @returns {number}
  */
-export const pageFromNumber = (entity: IGenericPaginatedEntity): number => 1 + (entity.page - FIRST_PAGE) * entity.pageSize;
+export const pageCursorFrom =
+  (entity: IGenericPaginatedEntity): number => 1 + (entity.page - FIRST_PAGE) * entity.pageSize;
 
 /**
- * @stable [29.05.2018]
+ * @stable [05.05.2020]
  * @param {IGenericPaginatedEntity} entity
  * @returns {number}
  */
-export const pageToNumber = (entity: IGenericPaginatedEntity): number => ifNotNilThanValue(
-  entity.pageSize,
-  (pageSize) => Math.min(entity.page * pageSize, entity.totalCount)
-);
+export const pageCursorTo = (entity: IGenericPaginatedEntity): number =>
+  ifNotNilThanValue(
+    entity.pageSize,
+    (pageSize) => Math.min(entity.page * pageSize, entity.totalCount)
+  );
 
 /**
- * @stable [23.06.2019]
+ * @stable [05.05.2020]
  * @param {IGenericPaginatedEntity} entity
  * @returns {number}
  */
 export const pagesCount = (entity: IGenericPaginatedEntity): number => Math.ceil(entity.totalCount / entity.pageSize);
+
+/**
+ * @stable [05.05.2020]
+ * @param {IGenericPaginatedEntity} entity
+ * @returns {boolean}
+ */
+export const isPageCursorInEndPosition = (entity: IGenericPaginatedEntity): boolean =>
+  pageCursorTo(entity) === entity.totalCount;
+
+/**
+ * @stable [05.05.2020]
+ * @param {IGenericPaginatedEntity} entity
+ * @returns {boolean}
+ */
+export const isPageCursorInStartPosition = (entity: IGenericPaginatedEntity): boolean =>
+  entity.page === FIRST_PAGE;
+
+/**
+ * @stable [05.05.2020]
+ * @param {IGenericPaginatedEntity} entity
+ * @returns {boolean}
+ */
+export const isPageable = (entity: IGenericPaginatedEntity): boolean => entity.totalCount > entity.pageSize;

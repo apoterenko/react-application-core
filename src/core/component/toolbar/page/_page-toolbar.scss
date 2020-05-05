@@ -1,0 +1,23 @@
+@import '../../mixin';
+@import './_page-toolbar-constant';
+
+.rac {
+
+  /**
+   * @page-toolbar
+   * @stable [05.05.2020]
+   */
+  @include rac-page-toolbar (
+    $rac-page-toolbar-align-items: $rac-page-toolbar-align-items,
+    $rac-page-toolbar-border-top: $rac-page-toolbar-border-top,
+    $rac-page-toolbar-content-display: $rac-page-toolbar-content-display,
+    $rac-page-toolbar-display: $rac-page-toolbar-display,
+    $rac-page-toolbar-height: $rac-page-toolbar-height,
+    $rac-page-toolbar-icon-color: $rac-page-toolbar-icon-color,
+    $rac-page-toolbar-icon-margin: $rac-page-toolbar-icon-margin,
+    $rac-page-toolbar-justify-content: $rac-page-toolbar-justify-content,
+    $rac-page-toolbar-pages-color: $rac-page-toolbar-pages-color,
+    $rac-page-toolbar-pages-font-size: $rac-page-toolbar-pages-font-size,
+    $rac-page-toolbar-pages-margin: $rac-page-toolbar-pages-margin
+  );
+}

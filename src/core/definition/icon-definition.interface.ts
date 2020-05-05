@@ -4,7 +4,8 @@
 export enum IconsEnum {
   ANGLE_DOUBLE_LEFT = 'angle-double-left',                                /* https://fontawesome.com/ */
   ANGLE_DOUBLE_RIGHT = 'angle-double-right',                              /* https://fontawesome.com/ */
-  ANGLE_RIGHT = 'angle_right',                                            /* https://fontawesome.com/ */
+  ANGLE_LEFT = 'angle-left',                                              /* https://fontawesome.com/ */
+  ANGLE_RIGHT = 'angle-right',                                            /* https://fontawesome.com/ */
   ARROW_UP = 'arrow-up',                                                  /* https://fontawesome.com/ */
   BACK = 'back',
   BACK2 = 'back2',

@@ -264,6 +264,7 @@ export interface IMessagesSettingsEntity {
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   NO_DATA?: string;
   OK?: string;
+  PAGES_INFO?: string;
   PATH?: string;
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
@@ -274,6 +275,7 @@ export interface IMessagesSettingsEntity {
   RESTART_APP?: string;
   SAVE?: string;
   SETTINGS?: string;
+  SIMPLE_PAGES_INFO?: string;
   SOMETHING_WENT_WRONG?: string;
   THIS_MONTH?: string;
   THIS_QUARTER?: string;
@@ -321,6 +323,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   NO_DATA: 'No data',
   OK: 'Ok',
+  PAGES_INFO: '{from}-{to} of {count}',
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
@@ -331,6 +334,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   RESTART_APP: 'Restart App',
   SAVE: 'Save',
   SETTINGS: 'Settings',
+  SIMPLE_PAGES_INFO: 'Page {page} of {count}',
   SOMETHING_WENT_WRONG: 'Something went wrong',
   THIS_MONTH: 'This month',
   THIS_QUARTER: 'This quarter',

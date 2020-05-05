@@ -148,11 +148,6 @@
       }
     }
 
-    .rac-page-toolbar {  // TODO
-      min-height: $rac-default-layout-footer-height;                                                    /* @stable [16.09.2018] */
-      max-height: $rac-default-layout-footer-height;                                                /* @stable [16.09.2018] */
-    }
-
     .rac-notifications {                                                                      /* @stable [11.02.2019] */
       @include rac-styles(
         $rac-styles-position: absolute,

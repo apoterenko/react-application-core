@@ -49,8 +49,10 @@ import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
-import { IGenericLifeCycleEntity } from './entity-definition.interface';
-import { IGenericPaginatedEntity } from './page-definition.interface';
+import {
+  IGenericPaginatedEntity,
+  IGenericPaginatedLifeCycleEntity,
+} from './page-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsWrapperEntity } from './sort-definition.interface';
 
@@ -96,12 +98,12 @@ export interface IGenericSelectableHoveredEntity
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IGenericBaseListEntity<TEntity, TRawData>,
+    IGenericPaginatedLifeCycleEntity,
     IGenericSelectableHoveredEntity,
     IChangesWrapper,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
-    IGenericLifeCycleEntity,
     IGroupByWrapper<IGenericListGroupByEntity>,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,

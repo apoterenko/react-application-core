@@ -503,6 +503,7 @@ export class UiIconFactory implements IUiIconFactory {
   private static readonly ICONS_MAP = {
     [IconsEnum.ANGLE_DOUBLE_LEFT]: faAngleDoubleLeft,
     [IconsEnum.ANGLE_DOUBLE_RIGHT]: faAngleDoubleRight,
+    [IconsEnum.ANGLE_LEFT]: faAngleLeft,
     [IconsEnum.ANGLE_RIGHT]: faAngleRight,
     [IconsEnum.ARROW_UP]: faArrowUp,
     [IconsEnum.CALENDAR_ALT_REGULAR]: faCalendarAltRegular,
@@ -534,7 +535,6 @@ export class UiIconFactory implements IUiIconFactory {
     add: faPlus,
     address_card: faAddressCard,
     adversal: faAdversal,
-    angle_left: faAngleLeft,
     arrow_alt_circle_down: faArrowAltCircleDown,
     arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,
     arrow_down: faArrowDown,

@@ -68,10 +68,8 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   logoutNotificationMessage?: string;
   noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
-  pagesMessage?: string;
   requestCancelErrorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
-  simplePagesMessage?: string;
   sorryMessage?: string;
   takeSnapshotMessage?: string;
   unknownFileMessage?: string;
@@ -152,10 +150,8 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     logoutNotificationMessage: 'You were logged out.',
     noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
-    pagesMessage: '{from}-{to} of {count}',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
-    simplePagesMessage: 'Page {page} of {count}',
     sorryMessage: 'Sorry about that.',
     takeSnapshotMessage: 'Take a snapshot',
     unknownFileMessage: 'Unknown file',
