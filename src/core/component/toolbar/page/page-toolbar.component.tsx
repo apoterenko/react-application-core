@@ -1,150 +1,191 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
-import { FlexLayout } from '../../layout/flex';
-import { IPageToolbarProps } from './page-toolbar.interface';
 import {
   calc,
-  ifNotFalseThanValue,
+  inProgress,
+  isFirstAllowedWrapper,
+  isLastAllowedWrapper,
+  isPageEntitiesEndReached,
+  isPageEntitiesStartReached,
   joinClassName,
   orNull,
+  pageFromEntitiesTotalCount,
+  pagesCount,
+  pageToEntitiesTotalCount,
 } from '../../../util';
-import { UniversalPageToolbar } from './universal-page-toolbar.component';
-import { IconsEnum } from '../../../definition';
+import {
+  IconsEnum,
+  IPageToolbarProps,
+  ToolbarClassesEnum,
+} from '../../../definition';
+import { GenericComponent } from '../../base/generic.component';
 
-export class PageToolbar extends UniversalPageToolbar<IPageToolbarProps> {
+export class PageToolbar extends GenericComponent<IPageToolbarProps> {
 
   /**
-   * @stable [16.05.2018]
+   * @stable [05.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
-    return orNull<JSX.Element>(
-      this.isToolbarVisible(),
-      () => (
-        <FlexLayout
-          full={props.full}
-          className={joinClassName('rac-toolbar', 'rac-page-toolbar', calc(props.className))}>
-          {this.getToolbarBody()}
-        </FlexLayout>
-      )
-    );
-  }
+    if (!this.isToolbarVisible) {
+      return null;
+    }
 
-  /**
-   * @stable [25.06.2018]
-   * @returns {JSX.Element}
-   */
-  protected getContent(): JSX.Element {
-    const controls = this.checkAndGetControls();
-
-    return orNull<JSX.Element>(
-      !(R.isNil(this.props.children) && R.isNil(controls)),
-      () => (
-        <FlexLayout alignItemsCenter={true}
-                    row={true}
-                    className='rac-toolbar-content'>
-          {this.getLeftContent()}
-          {controls}
-          {this.getRightContent()}
-        </FlexLayout>
-      )
-    );
-  }
-
-  /**
-   * @stable [25.06.2018]
-   * @returns {JSX.Element}
-   */
-  protected getRightContent(): JSX.Element {
-    return <FlexLayout/>;
-  }
-
-  /**
-   * @stable [16.05.2018]
-   * @returns {JSX.Element}
-   */
-  protected getLeftContent(): JSX.Element {
     return (
-      <FlexLayout row={true}>
-        {this.props.children}
-      </FlexLayout>
+      <div
+        ref={this.actualRef}
+        style={props.style}
+        className={joinClassName(ToolbarClassesEnum.PAGE_TOOLBAR, calc(props.className))}
+      >
+        {this.bodyElement}
+      </div>
     );
   }
 
   /**
-   * @stable [25.06.2018]
+   * @stable [05.05.2020]
    * @returns {JSX.Element}
    */
-  protected getPagesElement(): JSX.Element {
+  private get pagesElement(): JSX.Element {
     return (
-      <FlexLayout
-        alignItemsCenter={true}
-        justifyContentCenter={true}
-        className='rac-toolbar-pages'>
-        {this.pagesLabel}
-      </FlexLayout>
+      <div className={ToolbarClassesEnum.TOOLBAR_PAGES}>
+        {this.pagesInfo}
+      </div>
     );
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [05.05.2020]
    * @returns {JSX.Element}
    */
-  protected getControls(): JSX.Element {
+  private get bodyElement(): JSX.Element {
     const props = this.props;
-    const isPreviousBtnDisabled = this.isPreviousBtnDisabled;
-    const isNextBtnDisabled = this.isNextBtnDisabled;
+
+    return orNull(
+      props.totalCount > 0 && !inProgress(props),
+      () => (
+        <div className={ToolbarClassesEnum.TOOLBAR_CONTENT}>
+          {this.actionsElement}
+        </div>
+      )
+    );
+  }
+
+  /**
+   * @stable [05.05.2020]
+   * @returns {JSX.Element}
+   */
+  private get actionsElement(): JSX.Element {
+    const props = this.props;
+    const isPreviousActionDisabled = this.isPreviousActionDisabled;
+    const isNextActionDisabled = this.isNextActionDisabled;
 
     return (
-      <FlexLayout
-        row={true}
-        full={false}>
+      <React.Fragment>
         {
-          ifNotFalseThanValue(
-            props.allowFirst,
-            () => (
-              this.uiFactory.makeIcon({
-                type: IconsEnum.ANGLE_DOUBLE_LEFT,
-                className: 'rac-toolbar-icon',
-                disabled: isPreviousBtnDisabled,
-                onClick: props.onFirst,
-              })
-            )
+          isFirstAllowedWrapper(props) && (
+            this.uiFactory.makeIcon({
+              type: IconsEnum.ANGLE_DOUBLE_LEFT,
+              className: ToolbarClassesEnum.TOOLBAR_ICON,
+              disabled: isPreviousActionDisabled,
+              onClick: props.onFirst,
+            })
           )
         }
         {
           this.uiFactory.makeIcon({
-            type: props.previousIcon || 'angle_left',
-            className: 'rac-toolbar-icon',
-            disabled: isPreviousBtnDisabled,
+            type: props.previousIcon || IconsEnum.ANGLE_LEFT,
+            className: ToolbarClassesEnum.TOOLBAR_ICON,
+            disabled: isPreviousActionDisabled,
             onClick: props.onPrevious,
           })
         }
-        {this.getPagesElement()}
+        {this.pagesElement}
         {
           this.uiFactory.makeIcon({
             type: props.nextIcon || IconsEnum.ANGLE_RIGHT,
-            className: 'rac-toolbar-icon',
-            disabled: isNextBtnDisabled,
+            className: ToolbarClassesEnum.TOOLBAR_ICON,
+            disabled: isNextActionDisabled,
             onClick: props.onNext,
           })
         }
         {
-          ifNotFalseThanValue(
-            props.allowLast,
-            () => (
-              this.uiFactory.makeIcon({
-                type: IconsEnum.ANGLE_DOUBLE_RIGHT,
-                className: 'rac-toolbar-icon',
-                disabled: isNextBtnDisabled,
-                onClick: props.onLast,
-              })
-            )
+          isLastAllowedWrapper(props) && (
+            this.uiFactory.makeIcon({
+              type: IconsEnum.ANGLE_DOUBLE_RIGHT,
+              className: ToolbarClassesEnum.TOOLBAR_ICON,
+              disabled: isNextActionDisabled,
+              onClick: props.onLast,
+            })
           )
         }
-      </FlexLayout>
+      </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [05.05.2020]
+   * @returns {string}
+   */
+  private get pagesInfo(): string {
+    const {
+      page,
+      simplePagesInfoFormat,
+    } = this.props;
+    const messages = this.settings.messages;
+
+    return this.t(
+      simplePagesInfoFormat
+        ? messages.SIMPLE_PAGES_INFO
+        : messages.PAGES_INFO,
+      {
+        page,
+        count: simplePagesInfoFormat ? pagesCount(this.props) : this.props.totalCount,
+        from: this.fromNumber,
+        to: this.toNumber,
+      }
+    );
+  }
+
+  /**
+   * @stable [05.05.2020]
+   * @returns {boolean}
+   */
+  private get isToolbarVisible(): boolean {
+    const props = this.props;
+    return props.totalCount > props.pageSize;
+  }
+
+  /**
+   * @stable [05.05.2020]
+   * @returns {boolean}
+   */
+  private get isPreviousActionDisabled(): boolean {
+    return isPageEntitiesStartReached(this.props);
+  }
+
+  /**
+   * @stable [05.05.2020]
+   * @returns {boolean}
+   */
+  private get isNextActionDisabled(): boolean {
+    return isPageEntitiesEndReached(this.props);
+  }
+
+  /**
+   * @stable [05.05.2020]
+   * @returns {number}
+   */
+  private get toNumber(): number {
+    return pageToEntitiesTotalCount(this.props);
+  }
+
+  /**
+   * @stable [05.05.2020]
+   * @returns {number}
+   */
+  private get fromNumber(): number {
+    return pageFromEntitiesTotalCount(this.props);
   }
 }
