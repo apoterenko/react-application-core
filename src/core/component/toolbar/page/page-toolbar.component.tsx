@@ -20,6 +20,10 @@ import {
 } from '../../../definition';
 import { GenericComponent } from '../../base/generic.component';
 
+/**
+ * @component-impl
+ * @stable [05.05.2020]
+ */
 export class PageToolbar extends GenericComponent<IPageToolbarProps> {
 
   /**
