@@ -19,7 +19,7 @@ import {
   isHeaderRendered,
   isHighlightOdd,
   joinClassName,
-  mapSelectableHoveredEntity,
+  Mappers,
   orNull,
   orUndef,
 } from '../../util';
@@ -320,7 +320,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
     return (
       <GridRow
-        {...mapSelectableHoveredEntity(props)}
+        {...Mappers.mapSelectableHoveredEntity(props)}
         key={rowKey}
         odd={highlightOdd}
         selected={this.isEntitySelected(entity)}

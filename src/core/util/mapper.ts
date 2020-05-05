@@ -368,13 +368,15 @@ export const mapEditableEntity =
     defValuesFilter<IExtendedFormEditableEntity<TEntity>, IExtendedFormEditableEntity<TEntity>>({form});
 
 /**
- * @stable [10.09.2019]
+ * @stable [05.05.2020]
+ * @mapper
+ *
  * @param {IGenericPagedEntity} entity
  * @returns {IGenericPagedEntity}
  */
-export const mapPagedEntity = (entity: IGenericPagedEntity): IGenericPagedEntity => ifNotNilThanValue(
+const mapPagedEntity = (entity: IGenericPagedEntity): IGenericPagedEntity => ifNotNilThanValue(
   entity,
-  () => defValuesFilter<IGenericPaginatedEntity, IGenericPaginatedEntity>({
+  () => defValuesFilter<IGenericPagedEntity, IGenericPagedEntity>({
     page: entity.page,
     pageSize: entity.pageSize,
   }),
@@ -383,10 +385,12 @@ export const mapPagedEntity = (entity: IGenericPagedEntity): IGenericPagedEntity
 
 /**
  * @stable [04.05.2020]
+ * @mapper
+ *
  * @param {IGenericSelectableHoveredEntity} entity
  * @returns {IGenericSelectableHoveredEntity}
  */
-export const mapSelectableHoveredEntity =
+const mapSelectableHoveredEntity =
   (entity: IGenericSelectableHoveredEntity): IGenericSelectableHoveredEntity => ifNotNilThanValue(
     entity,
     () => defValuesFilter<IGenericSelectableHoveredEntity, IGenericSelectableHoveredEntity>({
@@ -411,20 +415,23 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
 );
 
 /**
- * @stable [04.10.2019]
- * @param {IListEntity} entity
+ * @stable [05.05.2020]
+ * @mapper
+ *
+ * @param {IGenericPaginatedEntity} entity
  * @param {number} pageSize
  * @returns {IGenericPagedEntity}
  */
-export const mapListPagedEntity =
-  (entity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity => ifNotNilThanValue(
-    entity,
-    () => defValuesFilter<IGenericPagedEntity, IGenericPagedEntity>({
-      page: entity.lockPage ? entity.page : FIRST_PAGE,
-      pageSize,
-    }),
-    UNDEF_SYMBOL
-  );
+export const mapLockedPaginatedEntity =
+  (entity: IGenericPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
+    ifNotNilThanValue(
+      entity,
+      () => mapPagedEntity({
+        page: entity.lockPage ? entity.page : FIRST_PAGE,
+        pageSize,
+      }),
+      UNDEF_SYMBOL
+    );
 
 /**
  * @stable [12.10.2019]
@@ -450,7 +457,7 @@ export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWra
  */
 export const mapListWrapperPagedEntity =
   (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
-    mapListPagedEntity(selectList(entity), pageSize);
+    mapLockedPaginatedEntity(selectList(entity), pageSize);
 
 /**
  * @stable [10.09.2019]
@@ -997,3 +1004,12 @@ export const mapUnsavedFormChangesDialogContainerProps =
       dialogConfiguration: mapFormEditableEntity(props),
       proxyContainer,
     });
+
+/**
+ * @stable [05.05.2020]
+ */
+export class Mappers {
+
+  public static mapPagedEntity = mapPagedEntity;
+  public static mapSelectableHoveredEntity = mapSelectableHoveredEntity;
+}

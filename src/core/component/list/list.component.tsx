@@ -6,7 +6,7 @@ import { IEntity } from '../../definitions.interface';
 import { IListProps } from '../../definition';
 import {
   isHighlightOdd,
-  mapSelectableHoveredEntity,
+  Mappers,
 } from '../../util';
 import { ListItem } from './item';
 
@@ -39,7 +39,7 @@ export class List extends BaseList<IListProps, {}, BasicList> {
 
     return (
       <ListItem
-        {...mapSelectableHoveredEntity(props)}
+        {...Mappers.mapSelectableHoveredEntity(props)}
         key={rowKey}
         index={index}
         rawData={entity}
