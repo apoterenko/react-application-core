@@ -422,7 +422,7 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
  * @param {number} pageSize
  * @returns {IGenericPagedEntity}
  */
-export const mapLockedPaginatedEntity =
+const mapLockedPaginatedEntity =
   (entity: IGenericPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
     ifNotNilThanValue(
       entity,
@@ -450,13 +450,14 @@ export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWra
   mapDisabledProgressWrapper(selectList(listWrapperEntity));
 
 /**
- * @stable [04.10.2019]
+ * @stable [05.05.2020]
+ * @mapper
+ *
  * @param {IListWrapperEntity} entity
  * @param {number} pageSize
  * @returns {IGenericPagedEntity}
  */
-export const mapListWrapperPagedEntity =
-  (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
+const mapListWrapperEntityAsPagedEntity = (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
     mapLockedPaginatedEntity(selectList(entity), pageSize);
 
 /**
@@ -1010,6 +1011,7 @@ export const mapUnsavedFormChangesDialogContainerProps =
  */
 export class Mappers {
 
+  public static mapListWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
   public static mapPagedEntity = mapPagedEntity;
   public static mapSelectableHoveredEntity = mapSelectableHoveredEntity;
 }
