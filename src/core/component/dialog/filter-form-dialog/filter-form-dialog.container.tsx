@@ -16,7 +16,7 @@ import {
 import { GenericContainer } from '../../base/generic.container';
 
 /**
- * @component-container
+ * @component-container-impl
  * @stable [23.04.2020]
  *
  * Please use the "mapFilterFormDialogContainerProps"
