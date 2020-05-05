@@ -23,7 +23,12 @@ $rac-list-item-selectable-cursor: pointer !default;
 $rac-list-item-selected-background: $rac-primary-color-callisto-2 !default;
 $rac-list-margin: 0 !default;
 $rac-list-padding: 0 !default;
-$rac-list-position: relative !default;
+$rac-list-position: unset !default;
+
+/************************/
+/* @stable [05.05.2020] */
+/************************/
+$rac-ps-list-position: relative !default;
 
 /************************/
 /* @stable [04.05.2020] */

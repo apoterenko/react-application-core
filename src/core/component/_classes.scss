@@ -53,6 +53,8 @@ $rac-list-item-decorated-cls: rac-list-item__decorated;
 $rac-list-item-odd-cls: rac-list-item__odd;
 $rac-list-item-selectable-cls: rac-list-item__selectable;
 $rac-list-item-selected-cls: rac-list-item__selected;
+/**/
+$rac-ps-list-cls: '#{$rac-list-cls}.ps'; // Perfect scrollbar plugin
 
 /************************/
 /* @stable [25.03.2020] */
