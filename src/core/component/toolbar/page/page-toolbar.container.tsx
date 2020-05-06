@@ -1,72 +1,95 @@
 import * as React from 'react';
 
-import { BaseContainer } from '../../../component/base';
-import { PageToolbar } from './page-toolbar.component';
+import { GenericContainer } from '../../base/generic.container';
 import {
   IPageToolbarContainerProps,
-  PAGER_NEXT_ACTION_TYPE,
-  PAGER_PREVIOUS_ACTION_TYPE,
-  PAGER_LAST_ACTION_TYPE,
-  PAGER_FIRST_ACTION_TYPE,
-} from './page-toolbar.interface';
+  IPageToolbarProps,
+} from '../../../definition';
+import {
+  ifNotNilThanValue,
+  Mappers,
+} from '../../../util';
+import { PageToolbar } from './page-toolbar.component';
+import { PageToolbarActionBuilder } from '../../../action';
 
-export class PageToolbarContainer extends BaseContainer<IPageToolbarContainerProps> {
+/**
+ * @component-container-impl
+ * @stable [06.05.2020]
+ *
+ * Please use the "mapPageToolbarContainerProps"
+ */
+export class PageToolbarContainer extends GenericContainer<IPageToolbarContainerProps> {
 
   /**
-   * @stable [16.05.2018]
+   * @stable [06.05.2020]
    * @param {IPageToolbarContainerProps} props
    */
   constructor(props: IPageToolbarContainerProps) {
     super(props);
-    this.onPrevious = this.onPrevious.bind(this);
-    this.onNext = this.onNext.bind(this);
+
     this.onFirst = this.onFirst.bind(this);
     this.onLast = this.onLast.bind(this);
+    this.onNext = this.onNext.bind(this);
+    this.onPrevious = this.onPrevious.bind(this);
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [06.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const props = this.props;
     return (
-        <PageToolbar {...props.list}
-                     {...props.toolbarProps}
-                     onNext={this.onNext}
-                     onPrevious={this.onPrevious}
-                     onLast={this.onLast}
-                     onFirst={this.onFirst}>
-          {props.children}
-        </PageToolbar>
+      <PageToolbar
+        {...Mappers.mapPageToolbarProps(props)}
+        {...this.pageToolbarConfiguration}
+        onFirst={this.onFirst}
+        onLast={this.onLast}
+        onNext={this.onNext}
+        onPrevious={this.onPrevious}
+      >
+        {props.children}
+      </PageToolbar>
     );
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [06.05.2020]
    */
   private onNext(): void {
-    this.dispatch(PAGER_NEXT_ACTION_TYPE);
+    this.dispatchPlainAction(PageToolbarActionBuilder.buildNextPagePlainAction(this.sectionName));
+    ifNotNilThanValue(this.pageToolbarConfiguration.onNext, (onNext) => onNext());
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [06.05.2020]
    */
   private onPrevious(): void {
-    this.dispatch(PAGER_PREVIOUS_ACTION_TYPE);
+    this.dispatchPlainAction(PageToolbarActionBuilder.buildPreviousPagePlainAction(this.sectionName));
+    ifNotNilThanValue(this.pageToolbarConfiguration.onPrevious, (onPrevious) => onPrevious());
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [06.05.2020]
    */
   private onLast(): void {
-    this.dispatch(PAGER_LAST_ACTION_TYPE);
+    this.dispatchPlainAction(PageToolbarActionBuilder.buildLastPagePlainAction(this.sectionName));
+    ifNotNilThanValue(this.pageToolbarConfiguration.onLast, (onLast) => onLast());
   }
 
   /**
-   * @stable [16.05.2018]
+   * @stable [06.05.2020]
    */
   private onFirst(): void {
-    this.dispatch(PAGER_FIRST_ACTION_TYPE);
+    this.dispatchPlainAction(PageToolbarActionBuilder.buildFirstPagePlainAction(this.sectionName));
+    ifNotNilThanValue(this.pageToolbarConfiguration.onFirst, (onFirst) => onFirst());
+  }
+
+  /**
+   * @stable [06.05.2020]
+   * @returns {IPageToolbarProps}
+   */
+  private get pageToolbarConfiguration(): IPageToolbarProps {
+    return this.props.pageToolbarConfiguration || {};
   }
 }
