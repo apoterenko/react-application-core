@@ -6,8 +6,8 @@ import {
   IPageToolbarProps,
 } from '../../../definition';
 import {
+  ComponentMappers,
   ifNotNilThanValue,
-  Mappers,
 } from '../../../util';
 import { PageToolbar } from './page-toolbar.component';
 import { PageToolbarActionBuilder } from '../../../action';
@@ -41,7 +41,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
     const props = this.props;
     return (
       <PageToolbar
-        {...Mappers.pageToolbarContainerPropsAsPageToolbarProps(props)}
+        {...ComponentMappers.pageToolbarContainerPropsAsPageToolbarProps(props)}
         {...this.toolbarConfiguration}
         onFirst={this.onFirst}
         onLast={this.onLast}

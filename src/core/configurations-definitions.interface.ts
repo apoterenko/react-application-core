@@ -2,16 +2,13 @@ import * as React from 'react';
 
 import {
   AnyT,
-  IActionsDisabledWrapper,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
   IChangeFormWrapper,
-  IClassNameWrapper,
   IClearActionRenderedWrapper,
-  IDisabledWrapper,
   IDisplayMessageWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
@@ -20,8 +17,6 @@ import {
   IFieldConfigurationWrapper,
   IFilterFnWrapper,
   IFocusEvent,
-  IFullWrapper,
-  IIconWrapper,
   IItemsWrapper,
   IKeyboardEvent,
   IMaskGuideWrapper,
@@ -38,7 +33,6 @@ import {
   ISorterWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
-  ITypeWrapper,
 } from './definitions.interface';
 import {
   IOnNavigationActionClickWrapper,
@@ -52,15 +46,7 @@ import {
   IGenericFieldEntity,
   IKeyboardConfigurationEntity,
   IUniversalComponentEntity,
-  ToolbarToolsEnum,
 } from './definition';
-
-/**
- * @stable [18.05.2018]
- */
-export interface IFilterConfigurationWrapper<TFilterConfiguration = IFilterConfiguration> {
-  filterConfiguration?: IFilterConfiguration;
-}
 
 /**
  * @stable [18.06.2018]
@@ -74,16 +60,6 @@ export interface IUniversalKeyboardHandlersConfiguration<TKeyboardEvent = IKeybo
   onKeyArrowDown?(event: TKeyboardEvent): void;
   onKeyArrowUp?(event: TKeyboardEvent): void;
   onKeyBackspace?(event: TKeyboardEvent): void;
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface INavigationHandlersConfiguration {
-  onPrevious?(): void;
-  onNext?(): void;
-  onFirst?(): void;
-  onLast?(): void;
 }
 
 /**
@@ -129,10 +105,7 @@ export interface IFieldProps extends IComponentProps,
   cols?: number;
 }
 
-/**
- * @stable [06.05.2020]
- */
-export interface IFieldConfigurationEntity
+export interface IFieldConfigurationEntity<TFieldProps extends IFieldProps = IFieldProps>
   extends IFieldConfigurationWrapper<IFieldProps> {
 }
 
@@ -150,23 +123,6 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentEntit
 export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
                                                       IOnEmptyDictionaryWrapper<string, IApiEntity>,
                                                       IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void> {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IFilterActionConfiguration extends IClassNameWrapper,
-                                                    IDisabledWrapper,
-                                                    ITypeWrapper<ToolbarToolsEnum> {
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IFilterConfiguration extends IActionsDisabledWrapper,
-                                              IIconWrapper,
-                                              IFullWrapper,
-                                              IFieldConfigurationWrapper<IFieldProps> {
 }
 
 // TODO

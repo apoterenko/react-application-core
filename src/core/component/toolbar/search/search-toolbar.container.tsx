@@ -1,19 +1,30 @@
 import * as React from 'react';
 
-import {
-  IGenericSearchToolbarContainerProps,
-} from './search-toolbar.interface';
-import { GenericContainer } from '../../base/generic.container';
-import { SearchToolbar } from './search-toolbar.component';
 import { FilterActionBuilder } from '../../../action';
+import { GenericContainer } from '../../base/generic.container';
+import {
+  ISearchToolbarContainerProps,
+  ISearchToolbarProps,
+} from '../../../definition';
+import { SearchToolbar } from './search-toolbar.component';
+import {
+  ComponentMappers,
+  ifNotNilThanValue,
+} from '../../../util';
 
-export class SearchToolbarContainer extends GenericContainer<IGenericSearchToolbarContainerProps> {
+/**
+ * @component-container-impl
+ * @stable [06.05.2020]
+ *
+ * Please use the "Mappers.searchToolbarContainerProps"
+ */
+export class SearchToolbarContainer extends GenericContainer<ISearchToolbarContainerProps> {
 
   /**
    * @stable [27.04.2020]
-   * @param {IGenericSearchToolbarContainerProps} props
+   * @param {ISearchToolbarContainerProps} props
    */
-  constructor(props: IGenericSearchToolbarContainerProps) {
+  constructor(props: ISearchToolbarContainerProps) {
     super(props);
 
     this.onActivate = this.onActivate.bind(this);
@@ -22,12 +33,15 @@ export class SearchToolbarContainer extends GenericContainer<IGenericSearchToolb
     this.onDeactivate = this.onDeactivate.bind(this);
   }
 
+  /**
+   * @stable [06.05.2020]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
-    const props = this.props;
     return (
       <SearchToolbar
-        {...props.filter}
-        {...props.filterConfiguration}
+        {...ComponentMappers.searchToolbarContainerPropsAsSearchToolbarProps(this.props)}
+        {...this.toolbarConfiguration}
         onApply={this.onApply}
         onActivate={this.onActivate}
         onDeactivate={this.onDeactivate}
@@ -40,6 +54,7 @@ export class SearchToolbarContainer extends GenericContainer<IGenericSearchToolb
    */
   private onApply(): void {
     this.dispatchPlainAction(FilterActionBuilder.buildApplyPlainAction(this.sectionName));
+    ifNotNilThanValue(this.toolbarConfiguration.onApply, (onApply) => onApply());
   }
 
   /**
@@ -47,6 +62,7 @@ export class SearchToolbarContainer extends GenericContainer<IGenericSearchToolb
    */
   private onActivate(): void {
     this.dispatchPlainAction(FilterActionBuilder.buildActivatePlainAction(this.sectionName));
+    ifNotNilThanValue(this.toolbarConfiguration.onActivate, (onActivate) => onActivate());
   }
 
   /**
@@ -54,6 +70,7 @@ export class SearchToolbarContainer extends GenericContainer<IGenericSearchToolb
    */
   private onDeactivate(): void {
     this.dispatchPlainAction(FilterActionBuilder.buildDeactivatePlainAction(this.sectionName));
+    ifNotNilThanValue(this.toolbarConfiguration.onDeactivate, (onDeactivate) => onDeactivate());
   }
 
   /**
@@ -62,5 +79,14 @@ export class SearchToolbarContainer extends GenericContainer<IGenericSearchToolb
    */
   private onChange(query: string): void {
     this.dispatchPlainAction(FilterActionBuilder.buildChangePlainAction(this.sectionName, query));
+    ifNotNilThanValue(this.toolbarConfiguration.onChange, (onChange) => onChange(query));
+  }
+
+  /**
+   * @stable [06.05.2020]
+   * @returns {ISearchToolbarProps}
+   */
+  private get toolbarConfiguration(): ISearchToolbarProps {
+    return this.props.toolbarConfiguration || {};
   }
 }

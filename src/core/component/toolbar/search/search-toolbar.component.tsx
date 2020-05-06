@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   calc,
   isFn,
+  isFull,
   joinClassName,
 } from '../../../util';
 import { GenericComponent } from '../../base/generic.component';
@@ -47,7 +48,11 @@ export class SearchToolbar extends GenericComponent<ISearchToolbarProps> {
     return (
       <div
         className={
-          joinClassName(ToolbarClassesEnum.SEARCH_TOOLBAR, calc<string>(props.className))
+          joinClassName(
+            ToolbarClassesEnum.SEARCH_TOOLBAR,
+            isFull(props) && ToolbarClassesEnum.FULL_TOOLBAR,
+            calc<string>(props.className)
+          )
         }>
         {
           !this.isActive && (

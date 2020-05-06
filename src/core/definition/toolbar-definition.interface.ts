@@ -75,6 +75,7 @@ export interface IGenericSearchToolbarEntity
   extends IGenericActiveQueryEntity,
     IFieldConfigurationEntity,
     IDisabledWrapper,
+    IFullWrapper,
     IIconWrapper {
 }
 
@@ -100,11 +101,36 @@ export interface ISearchToolbarProps
 }
 
 /**
+ * @props
+ * @stable [06.05.2020]
+ */
+export interface ISearchToolbarContainerProps
+  extends IGenericContainerProps,
+    IGenericSearchToolbarContainerEntity {
+}
+
+/**
  * @configuration-entity
  * @stable [06.05.2020]
  */
 export interface IPageToolbarConfigurationEntity
   extends IToolbarConfigurationWrapper<IPageToolbarProps> {
+}
+
+/**
+ * @configuration-entity
+ * @stable [06.05.2020]
+ */
+export interface ISearchToolbarConfigurationEntity
+  extends IToolbarConfigurationWrapper<ISearchToolbarProps> {
+}
+
+/**
+ * @generic-container-entity
+ * @stable [06.05.2020]
+ */
+export interface IGenericSearchToolbarContainerEntity
+  extends ISearchToolbarConfigurationEntity {
 }
 
 /**

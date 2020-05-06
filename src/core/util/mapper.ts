@@ -952,9 +952,9 @@ export class Mappers {
   public static listWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
-  public static pageToolbarContainerPropsAsPageToolbarProps = ComponentMappers.pageToolbarContainerPropsAsPageToolbarProps;
   public static pageToolbarProps = ComponentMappers.pageToolbarProps;
   public static paginatedEntity = GenericMappers.paginatedEntity;
+  public static searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static selectableHoveredEntity = mapSelectableHoveredEntity;
 }
