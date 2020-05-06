@@ -39,7 +39,7 @@ export class List extends BaseList<IListProps, {}, BasicList> {
 
     return (
       <ListItem
-        {...Mappers.mapSelectableHoveredEntity(props)}
+        {...Mappers.selectableHoveredEntity(props)}
         key={rowKey}
         index={index}
         rawData={entity}

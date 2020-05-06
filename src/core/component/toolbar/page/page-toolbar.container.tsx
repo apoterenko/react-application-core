@@ -16,7 +16,7 @@ import { PageToolbarActionBuilder } from '../../../action';
  * @component-container-impl
  * @stable [06.05.2020]
  *
- * Please use the "mapPageToolbarContainerProps"
+ * Please use the "Mappers.pageToolbarContainerProps"
  */
 export class PageToolbarContainer extends GenericContainer<IPageToolbarContainerProps> {
 
@@ -41,7 +41,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
     const props = this.props;
     return (
       <PageToolbar
-        {...Mappers.mapPageToolbarProps(props)}
+        {...Mappers.pageToolbarContainerPropsAsPageToolbarProps(props)}
         {...this.toolbarConfiguration}
         onFirst={this.onFirst}
         onLast={this.onLast}

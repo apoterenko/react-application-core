@@ -25,6 +25,8 @@ import { GenericComponent } from '../../base/generic.component';
 /**
  * @component-impl
  * @stable [05.05.2020]
+ *
+ * Please use the "Mappers.pageToolbarProps"
  */
 export class PageToolbar extends GenericComponent<IPageToolbarProps> {
 

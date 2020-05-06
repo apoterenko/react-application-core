@@ -14,6 +14,7 @@ import {
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericPaginatedLifeCycleEntity } from './page-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
+import { IListWrapperEntity } from './list-definition.interface';
 
 /**
  * @generic-entity
@@ -71,7 +72,8 @@ export interface IPageToolbarConfigurationEntity
  * @stable [06.05.2020]
  */
 export interface IGenericPageToolbarContainerEntity
-  extends IPageToolbarConfigurationEntity {
+  extends IPageToolbarConfigurationEntity,
+    IListWrapperEntity {
 }
 
 /**

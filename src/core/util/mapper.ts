@@ -121,12 +121,13 @@ import {
   selectNotification,
   selectOriginalEntity,
   selectQueue,
-  selectSectionName,
   selectStack,
   selectToken,
   selectTransport,
   selectUser,
 } from './select';
+import { GenericMappers } from './mapper-generic';
+import { ComponentMappers } from './mapper-component';
 
 /**
  * @stable [17.11.2019]
@@ -368,22 +369,6 @@ export const mapEditableEntity =
     defValuesFilter<IExtendedFormEditableEntity<TEntity>, IExtendedFormEditableEntity<TEntity>>({form});
 
 /**
- * @stable [05.05.2020]
- * @mapper
- *
- * @param {IGenericPagedEntity} entity
- * @returns {IGenericPagedEntity}
- */
-const mapPagedEntity = (entity: IGenericPagedEntity): IGenericPagedEntity => ifNotNilThanValue(
-  entity,
-  () => defValuesFilter<IGenericPagedEntity, IGenericPagedEntity>({
-    page: entity.page,
-    pageSize: entity.pageSize,
-  }),
-  UNDEF_SYMBOL
-);
-
-/**
  * @stable [04.05.2020]
  * @mapper
  *
@@ -422,11 +407,11 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
  * @param {number} pageSize
  * @returns {IGenericPagedEntity}
  */
-const mapLockedPaginatedEntity =
+const mapPaginatedEntityAsPagedEntity =
   (entity: IGenericPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
     ifNotNilThanValue(
       entity,
-      () => mapPagedEntity({
+      () => GenericMappers.pagedEntity({
         page: entity.lockPage ? entity.page : FIRST_PAGE,
         pageSize,
       }),
@@ -458,29 +443,7 @@ export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWra
  * @returns {IGenericPagedEntity}
  */
 const mapListWrapperEntityAsPagedEntity = (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
-    mapLockedPaginatedEntity(selectList(entity), pageSize);
-
-/**
- * @stable [10.09.2019]
- * @param {IGenericPaginatedEntity} entity
- * @returns {IGenericPaginatedEntity}
- */
-export const mapPaginatedEntity = (entity: IGenericPaginatedEntity): IGenericPaginatedEntity => ifNotNilThanValue(
-  entity,
-  () => defValuesFilter<IGenericPaginatedEntity, IGenericPaginatedEntity>({
-    ...mapPagedEntity(entity),
-    totalCount: entity.totalCount,
-  }),
-  UNDEF_SYMBOL
-);
-
-/**
- * @stable [11.04.2020]
- * @param {IListWrapperEntity} listWrapper
- * @returns {IListWrapperEntity}
- */
-export const mapListWrapperEntity = (listWrapper: IListWrapperEntity): IListWrapperEntity =>
-  mapList(selectList(listWrapper));
+    mapPaginatedEntityAsPagedEntity(selectList(entity), pageSize);
 
 /**
  * @stable [30.03.2020]
@@ -544,14 +507,6 @@ export const mapTransportWrapperEntity =
 export const mapDictionariesWrapperEntity =
   <TDictionaries = IDictionariesEntity>(wrapper: IDictionariesWrapperEntity<TDictionaries>): IDictionariesWrapperEntity<TDictionaries> =>
     mapDictionaries(selectDictionaries(wrapper));
-
-/**
- * @stable [30.03.2020]
- * @param {ISectionNameWrapper} wrapper
- * @returns {ISectionNameWrapper}
- */
-export const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper =>
-  mapSectionName(selectSectionName(wrapper));
 
 /**
  * @stable [12.04.2020]
@@ -896,7 +851,7 @@ export const mapStoreEntity =
       ...mapDictionariesWrapperEntity(entity),
       ...mapLayoutWrapperEntity(entity),
       ...mapNotificationWrapperEntity(entity),
-      ...mapSectionNameWrapper(entity),
+      ...GenericMappers.sectionNameWrapper(entity),
       ...mapStackWrapperEntity(entity),
       ...mapTransportWrapperEntity(entity),
       ...mapUserWrapperEntity(entity),
@@ -925,7 +880,7 @@ export const mapFormProps =
  */
 export const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps =>
   ({
-    ...mapSectionNameWrapper(props),
+    ...GenericMappers.sectionNameWrapper(props),
     ...mapFormProps(props),
   });
 
@@ -949,8 +904,8 @@ export const mapFilterFormDialogContainerProps =
  */
 export const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
   ({
-    ...mapSectionNameWrapper(props),
-    ...mapListWrapperEntity(props),
+    ...GenericMappers.sectionNameWrapper(props),
+    ...GenericMappers.listWrapperEntity(props),
   });
 
 /**
@@ -962,7 +917,7 @@ export const mapListContainerProps = (props: IListContainerProps): IListContaine
  */
 export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps): IFormTabPanelContainerProps =>
   ({
-    ...mapSectionNameWrapper(props),
+    ...GenericMappers.sectionNameWrapper(props),
     ...mapFormEditableEntity(props),
   });
 
@@ -978,7 +933,7 @@ export const mapToolbarToolsListContainerProps =
   (props: IToolbarToolsContainerProps & IListContainerProps,
    editableEntity?: IGenericEditableEntity): IToolbarToolsContainerProps =>
     ({
-      ...mapSectionNameWrapper(props),
+      ...GenericMappers.sectionNameWrapper(props),
       toolbarTools: {
         ...mapListWrapperActionsDisabled(props),
         activeActions: nvl(
@@ -1011,7 +966,13 @@ export const mapUnsavedFormChangesDialogContainerProps =
  */
 export class Mappers {
 
-  public static mapListWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
-  public static mapPagedEntity = mapPagedEntity;
-  public static mapSelectableHoveredEntity = mapSelectableHoveredEntity;
+  public static listWrapperEntity = GenericMappers.listWrapperEntity;
+  public static listWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
+  public static pagedEntity = GenericMappers.pagedEntity;
+  public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
+  public static pageToolbarContainerPropsAsPageToolbarProps = ComponentMappers.pageToolbarContainerPropsAsPageToolbarProps;
+  public static pageToolbarProps = ComponentMappers.pageToolbarProps;
+  public static paginatedEntity = GenericMappers.paginatedEntity;
+  public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
+  public static selectableHoveredEntity = mapSelectableHoveredEntity;
 }

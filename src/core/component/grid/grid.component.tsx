@@ -320,7 +320,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
     return (
       <GridRow
-        {...Mappers.mapSelectableHoveredEntity(props)}
+        {...Mappers.selectableHoveredEntity(props)}
         key={rowKey}
         odd={highlightOdd}
         selected={this.isEntitySelected(entity)}

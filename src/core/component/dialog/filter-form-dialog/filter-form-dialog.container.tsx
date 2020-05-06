@@ -19,7 +19,7 @@ import { GenericContainer } from '../../base/generic.container';
  * @component-container-impl
  * @stable [23.04.2020]
  *
- * Please use the "mapFilterFormDialogContainerProps"
+ * Please use the "Mappers.filterFormDialogContainerProps"
  */
 export class FilterFormDialogContainer
   extends GenericContainer<IFilterFormDialogContainerProps> {
