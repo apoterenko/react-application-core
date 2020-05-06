@@ -78,7 +78,7 @@ export const ID_FIELD_NAME = 'id';
  * @generic-entity
  * @stable [27.05.2019]
  */
-export interface IGenericBaseFieldEntity
+export interface IGenericFieldEntity
   extends IActionsPosition<FieldActionPositionsEnum>,
     IActionsWrapper<IFieldActionEntity[]>,
     IAutoCompleteWrapper,
@@ -93,14 +93,14 @@ export interface IGenericBaseFieldEntity
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
     IFormatWrapper,
-    IFullWrapper,
+    IFullWrapper,                                                             /* @stable [06.05.2020] */
     IKeepChangesWrapper,
     ILabelWrapper,
     IMaskWrapper,                                                             /* @stable [09.04.2020] */
-    INameWrapper,
+    INameWrapper,                                                             /* @stable [06.05.2020] */
     IOriginalValueWrapper,
     IPatternWrapper,
-    IPlaceholderWrapper,
+    IPlaceholderWrapper,                                                      /* @stable [06.05.2020] */
     IPlainValueWrapper,
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,                                             /* @stable [03.02.2020] */
@@ -114,8 +114,7 @@ export interface IGenericBaseFieldEntity
     ITypeWrapper<StringNumberT>,
     IUseKeyboardWrapper,
     IValidWrapper,                                                            /* @stable [17.04.2020] */
-    IValueWrapper,
-    IVisibleWrapper {
+    IValueWrapper {
 }
 
 /**
@@ -227,7 +226,7 @@ export interface IFieldsPresets {
  * @default-entity
  * @stable [24.11.2019]
  */
-export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEntity>({
+export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
   autoComplete: 'new-password',
 });
 
@@ -235,7 +234,7 @@ export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericBaseF
  * @default-entity
  * @stable [24.11.2019]
  */
-export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEntity>({
+export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
   ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   type: 'password',
 });
@@ -277,7 +276,15 @@ export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>
  * @default-entity
  * @stable [16.04.2020]
  */
-export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IGenericBaseFieldEntity>({
+export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
   readOnly: true,
   changeable: false,
 });
+
+/**
+ * @classes
+ * @stable [26.03.2020]
+ */
+export enum FieldClassesEnum {
+  FIELD_SELF = 'rac-field__self',
+}

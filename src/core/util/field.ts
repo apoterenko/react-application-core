@@ -10,7 +10,7 @@ import {
 } from '../definitions.interface';
 import {
   FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
-  IGenericBaseFieldEntity,
+  IGenericFieldEntity,
   IMultiEntity,
   IMultiItemEntity,
   MultiFieldEntityT,
@@ -38,10 +38,10 @@ import { defValuesFilter } from './filter';
 
 /**
  * @stable [20.12.2019]
- * @param {IGenericBaseFieldEntity} config
+ * @param {IGenericFieldEntity} config
  * @returns {AnyT}
  */
-export const buildActualFieldValue = (config: IGenericBaseFieldEntity): AnyT => {
+export const buildActualFieldValue = (config: IGenericFieldEntity): AnyT => {
   const {
     emptyValue,
     keepChanges,
@@ -61,10 +61,10 @@ export const buildActualFieldValue = (config: IGenericBaseFieldEntity): AnyT => 
 
 /**
  * @stable [28.10.2019]
- * @param {IGenericBaseFieldEntity} props
+ * @param {IGenericFieldEntity} props
  * @returns {boolean}
  */
-export const isFieldInactive = (props: IGenericBaseFieldEntity): boolean =>
+export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
   isDisabled(props) || isReadOnly(props) || inProgress(props);
 
 /**

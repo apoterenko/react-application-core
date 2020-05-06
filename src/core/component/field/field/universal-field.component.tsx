@@ -49,7 +49,7 @@ import {
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
   IBaseEvent,
-  IGenericBaseFieldEntity,
+  IGenericFieldEntity,
 } from '../../../definition';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 
@@ -779,7 +779,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   private onChangeValue(currentRawValue: AnyT): void {
     const actualFieldValue = buildActualFieldValue({
-      ...this.props as IGenericBaseFieldEntity,
+      ...this.props as IGenericFieldEntity,
       emptyValue: this.emptyValue,
       value: currentRawValue,
     });

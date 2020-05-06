@@ -27,6 +27,7 @@ import { UniversalField } from './universal-field.component';
 import {
   ComponentClassesEnum,
   FieldActionPositionsEnum,
+  FieldClassesEnum,
   IBaseEvent,
   IComponentsSettingsEntity,
   IFieldActionEntity,
@@ -385,12 +386,11 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [24.10.2019]
+   * @stable [06.05.2020]
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    // A field may be invisible, but attachment - visible
-    return joinClassName('rac-self-field', !this.isVisible && 'rac-invisible');
+    return FieldClassesEnum.FIELD_SELF;
   }
 
   /**

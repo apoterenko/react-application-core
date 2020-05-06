@@ -53,7 +53,7 @@ import {
   IBehavioralBaseFieldEntity,
   IBehavioralFieldEntity,
   IComponentProps,
-  IGenericBaseFieldEntity,
+  IGenericFieldEntity,
   IKeyboardConfigurationEntity,
   IUniversalComponentEntity,
   ToolbarToolsEnum,
@@ -103,7 +103,7 @@ export interface IWebCameraConfiguration extends IComponentProps,
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldProps
-  extends IGenericBaseFieldEntity,
+  extends IGenericFieldEntity,
           IBehavioralBaseFieldEntity,
           IUniversalComponentEntity,
           IUniversalKeyboardHandlersConfiguration<IKeyboardEvent>,

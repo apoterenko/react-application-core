@@ -678,7 +678,7 @@
       );
     }
 
-    > .rac-self-field {
+    > .rac-field__self {
       @include rac-styles (
         $rac-styles-align-items: $rac-self-field-align-items,
         $rac-styles-background: $rac-self-field-background,

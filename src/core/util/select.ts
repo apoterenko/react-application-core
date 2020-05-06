@@ -410,7 +410,7 @@ export const selectListWrapperDataEntity = <TEntity = AnyT>(listWrapperEntity: I
  * @param {IFormEditableEntity<TEntity>} entity
  * @returns {TEntity}
  */
-export const selectFormEditableEntityChanges = <TEntity = IEntity>(entity: IFormEditableEntity<TEntity>): TEntity =>
+const selectFormEditableEntityChanges = <TEntity = IEntity>(entity: IFormEditableEntity<TEntity>): TEntity =>
   selectChanges(selectForm(entity));
 
 /**
@@ -448,6 +448,7 @@ export const selectFilterEntityQuery = (entity: IQueryFilterEntity): string =>
  * @stable [06.05.2020]
  */
 export class Selectors {
+  public static formEditableEntityChanges = selectFormEditableEntityChanges;
   public static list = selectList;
   public static sectionName = selectSectionName;
 }
