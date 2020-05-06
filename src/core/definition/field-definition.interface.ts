@@ -51,7 +51,6 @@ import {
   IUseKeyboardWrapper,
   IValidWrapper,
   IValueWrapper,
-  IVisibleWrapper,
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
@@ -64,7 +63,6 @@ import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IMultiEntity } from './entity-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';
-import { IconsEnum } from './icon-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -171,7 +169,8 @@ export enum FieldActionTypesEnum {
 }
 
 /**
- * @stable [28.10.2019]
+ * @entity
+ * @stable [06.05.2020]
  */
 export interface IFieldActionEntity
   extends IClassNameWrapper,

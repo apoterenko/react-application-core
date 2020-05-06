@@ -254,7 +254,6 @@ export interface IMessagesSettingsEntity {
   ENVIRONMENT?: string;
   ERROR?: string;
   EXPORT?: string;
-  FILTER_PLACEHOLDER?: string;
   FILTERS?: string;
   LAST_MONTH?: string;
   LAST_QUARTER?: string;
@@ -274,6 +273,7 @@ export interface IMessagesSettingsEntity {
   RESET?: string;
   RESTART_APP?: string;
   SAVE?: string;
+  SEARCH?: string;
   SETTINGS?: string;
   SHORT_PAGES_INFO?: string;
   SOMETHING_WENT_WRONG?: string;
@@ -313,7 +313,6 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   ENVIRONMENT: 'Environment',
   ERROR: 'Error',
   EXPORT: 'Export',
-  FILTER_PLACEHOLDER: 'Search',
   FILTERS: 'Filters',
   LAST_MONTH: 'Last month',
   LAST_QUARTER: 'Last quarter',
@@ -333,6 +332,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   RESET: 'Reset',
   RESTART_APP: 'Restart App',
   SAVE: 'Save',
+  SEARCH: 'Search',
   SETTINGS: 'Settings',
   SHORT_PAGES_INFO: 'Page {page} of {count}',
   SOMETHING_WENT_WRONG: 'Something went wrong',

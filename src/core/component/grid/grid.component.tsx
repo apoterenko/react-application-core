@@ -289,7 +289,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         const name = this.toFilterFieldName(column, columnNum);
         return React.cloneElement<IFieldProps>(renderEl, {
           value: this.toFilterFieldValue(name),
-          placeholder: this.settings.messages.FILTER_PLACEHOLDER,
+          placeholder: this.settings.messages.SEARCH,
           clearActionRendered: true,
           errorMessageRendered: false,
           onChange: (value) => this.onChangeFilterField({value, name}),

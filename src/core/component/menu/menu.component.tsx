@@ -302,7 +302,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         ref={this.fieldRef}
         full={false}
         value={state.filter}
-        placeholder={props.filterPlaceholder || this.settings.messages.FILTER_PLACEHOLDER}
+        placeholder={props.filterPlaceholder || this.settings.messages.SEARCH}
         errorMessageRendered={false}
         onChange={this.onFilterValueChange}/>
     );

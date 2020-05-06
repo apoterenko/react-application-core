@@ -339,6 +339,7 @@ export interface INoShrinkWrapper { noShrink?: boolean; }
 export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
+export interface IOnApplyWrapper<TValue = {}> { onApply?(value?: TValue): void; }
 export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void; }
 export interface IOnBeforeSubmitWrapper<TValue = {}, TResult = void> { onBeforeSubmit?(value?: TValue): TResult; }
 export interface IOnChangePlaceWrapper<TValue = {}> { onChangePlace?(value?: TValue): void; }
@@ -656,13 +657,6 @@ export interface IClearValueWrapper<TClearValue = () => void> {
 }
 
 /**
- * @stable [18.05.2018]
- */
-export interface IOnOpenWrapper<TOnOpen = () => void> {
-  onOpen?: TOnOpen;
-}
-
-/**
  * @stable [31.05.2018]
  */
 export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
@@ -681,13 +675,6 @@ export interface IPrefixLabelWrapper {
  */
 export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
   filterChanges?: TChanges;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface INotUseFieldWrapper {
-  notUseField?: boolean;
 }
 
 /**
@@ -929,20 +916,6 @@ export interface IAfterShowWrapper<TAfterShow = () => void> {
  */
 export interface IDeactivatedWrapper {
   deactivated?: boolean;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IOnApplyWrapper<TAppliedValue = AnyT, TOnApply = (value?: TAppliedValue) => void> {
-  onApply?: TOnApply;
-}
-
-/**
- * @stable [26.08.2018]
- */
-export interface IOnRefreshWrapper<TOnRefresh = () => void> {
-  onRefresh?: TOnRefresh;
 }
 
 /**

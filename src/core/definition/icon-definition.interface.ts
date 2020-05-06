@@ -31,6 +31,7 @@ export enum IconsEnum {
   PLUS = 'plus',
   PRINT = 'print',
   RECEIPT = 'receipt',                                                    /* https://fontawesome.com/ */
+  SEARCH = 'search',                                                      /* https://fontawesome.com/ */
   SEARCH_MAGNIFIER = 'search-magnifier',
   SEARCH_MINUS = 'search-minus',
   SEARCH_PLUS = 'search-plus',

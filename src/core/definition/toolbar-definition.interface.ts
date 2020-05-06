@@ -1,19 +1,27 @@
 import {
+  IDisabledWrapper,
   IFirstAllowedWrapper,
   IFullWrapper,
+  IIconWrapper,
   ILastAllowedWrapper,
   INextIconWrapper,
+  IOnActivateWrapper,
+  IOnApplyWrapper,
+  IOnChangeWrapper,
+  IOnDeactivateWrapper,
   IOnFirstWrapper,
   IOnLastWrapper,
   IOnNextWrapper,
   IOnPreviousWrapper,
   IPreviousIconWrapper,
-  IUseShortFormatWrapper,
   IToolbarConfigurationWrapper,
+  IUseShortFormatWrapper,
 } from '../definitions.interface';
+import { IGenericActiveQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IGenericPaginatedLifeCycleEntity } from './page-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
+import { IFieldConfigurationEntity } from '../configurations-definitions.interface'; // TODO
+import { IGenericPaginatedLifeCycleEntity } from './page-definition.interface';
 import { IListWrapperEntity } from './list-definition.interface';
 
 /**
@@ -57,6 +65,38 @@ export interface IPageToolbarProps
   extends IGenericComponentProps,
     IGenericPageToolbarEntity,
     IBehavioralPageToolbarEntity {
+}
+
+/**
+ * @generic-entity
+ * @stable [06.05.2020]
+ */
+export interface IGenericSearchToolbarEntity
+  extends IGenericActiveQueryEntity,
+    IFieldConfigurationEntity,
+    IDisabledWrapper,
+    IIconWrapper {
+}
+
+/**
+ * @behavioral-entity
+ * @stable [06.05.2020]
+ */
+export interface IBehavioralSearchToolbarEntity
+  extends IOnActivateWrapper,
+    IOnApplyWrapper,
+    IOnChangeWrapper<string>,
+    IOnDeactivateWrapper {
+}
+
+/**
+ * @props
+ * @stable [06.05.2020]
+ */
+export interface ISearchToolbarProps
+  extends IGenericContainerProps,
+    IGenericSearchToolbarEntity,
+    IBehavioralSearchToolbarEntity {
 }
 
 /**

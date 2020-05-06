@@ -1,257 +1,152 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import {
   calc,
+  isFn,
   joinClassName,
-  nvl,
-  orNull,
 } from '../../../util';
-import {
-  IFilterActionConfiguration,
-  IUniversalFieldProps,
-} from '../../../configurations-definitions.interface';
-import { IUniversalSearchToolbarProps } from './search-toolbar.interface';
-import { DelayedChangesFieldPlugin } from '../../field/field/plugin/delayed-changes-field.plugin';
 import { GenericComponent } from '../../base/generic.component';
 import {
   IconsEnum,
   IFieldActionEntity,
+  ISearchToolbarProps,
   ToolbarClassesEnum,
-  ToolbarToolsEnum,
 } from '../../../definition';
 import { Button } from '../../button';
-import { TextField } from '../../field/text-field';
-import { FlexLayout } from '../../layout/flex/flex-layout.component';
+import {
+  DelayedChangesFieldPlugin,
+  TextField,
+} from '../../field';
 
-export class SearchToolbar<TProps extends IUniversalSearchToolbarProps,
-                                             TState = {}>
-  extends GenericComponent<TProps> {
+export class SearchToolbar extends GenericComponent<ISearchToolbarProps> {
 
-  /**
-   * @stable [18.05.2018]
-   */
-  public static readonly defaultProps: IUniversalSearchToolbarProps = {
-    actions: [],
-    icon: 'search',
-    fieldConfiguration: {
-      placeholder: 'Search',
-    },
+  public static readonly defaultProps: ISearchToolbarProps = {
+    icon: IconsEnum.SEARCH,
   };
 
   /**
-   * @stable [22.04.2020]
+   * @stable [06.05.2020]
+   * @param {ISearchToolbarProps} props
    */
-  protected readonly baseActionsProps: Record<number, IFieldActionEntity> = {
-    [ToolbarToolsEnum.CLEAR]: {type: IconsEnum.TIMES, onClick: this.onDeactivate.bind(this)},
-    [ToolbarToolsEnum.DOWNLOAD_FILE]: {type: IconsEnum.FILE_DOWNLOAD, title: this.settings.messages.EXPORT},
-    [ToolbarToolsEnum.FILTER]: {type: IconsEnum.FILTER, onClick: this.onOpen.bind(this)},
-    [ToolbarToolsEnum.REFRESH]: {type: IconsEnum.SYNC, title: this.settings.messages.REFRESH},
-  };
-
-  /**
-   * @stable [22.04.2020]
-   * @param {TProps} props
-   */
-  constructor(props: TProps) {
+  constructor(props: ISearchToolbarProps) {
     super(props);
 
     this.onActivate = this.onActivate.bind(this);
-    this.onApply = this.onApply.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onDeactivate = this.onDeactivate.bind(this);
+    this.onDelay = this.onDelay.bind(this);
   }
 
+  /**
+   * @stable [06.05.2020]
+   * @returns {JSX.Element}
+   */
   public render(): JSX.Element {
     const props = this.props;
+
     return (
-      <FlexLayout
-        row={true}
-        justifyContentEnd={true}
-        alignItemsCenter={true}
-        full={props.full}
-        className={joinClassName(ToolbarClassesEnum.SEARCH_TOOLBAR, calc<string>(props.className))}>
-        {this.actionsElementsSection}
-        {this.fieldSection}
-      </FlexLayout>
+      <div
+        className={
+          joinClassName(ToolbarClassesEnum.SEARCH_TOOLBAR, calc<string>(props.className))
+        }>
+        {
+          !this.isActive && (
+            <Button
+              icon={props.icon}
+              onClick={this.onActivate}
+              disabled={props.disabled}
+            />
+          )
+        }
+        {this.isActive && (
+          <TextField
+            value={this.query}
+            actions={this.actions}
+            autoFocus={true}
+            errorMessageRendered={false}
+            placeholder={this.settings.messages.SEARCH}
+            plugins={DelayedChangesFieldPlugin}
+            onChange={this.onChange}
+            onDelay={this.onDelay}
+            {...this.props.fieldConfiguration}
+          />)}
+      </div>
     );
   }
 
   /**
-   * @stable [18.05.2018]
-   * @returns {boolean}
+   * @stable [06.05.2020]
    */
-  protected get isActive(): boolean {
-    return this.props.active;
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {string}
-   */
-  protected get query(): string {
-    return this.props.query;
-  }
-
-  /**
-   * @stable [18.05.2018]
-   */
-  protected onActivate(): void {
+  private onActivate(): void {
     const props = this.props;
-    if (props.notUseField) {
 
-      // Invoke a search
-      this.onApply();
-    } else {
-      if (props.onActivate) {
-
-        // Open a search field
-        props.onActivate();
-      }
+    if (isFn(props.onActivate)) {
+      props.onActivate();
     }
   }
 
   /**
-   * @stable [18.05.2018]
+   * @stable [06.05.2020]
    */
-  protected onDeactivate(): void {
+  private onDeactivate(): void {
     const props = this.props;
-    if (props.onDeactivate) {
-      // Close a search field
+
+    if (isFn(props.onDeactivate)) {
       props.onDeactivate();
     }
   }
 
   /**
-   * @stable [18.05.2018]
+   * @stable [06.05.2020]
    * @param {string} query
    */
-  protected onChange(query?: string): void {
+  private onChange(query: string): void {
     const props = this.props;
-    if (props.onChange) {
+
+    if (isFn(props.onChange)) {
       props.onChange(query);
     }
   }
 
   /**
-   * @stable [18.05.2018]
-   * @returns {IUniversalFieldProps}
+   * @stable [06.05.2020]
    */
-  protected get fieldProps(): IUniversalFieldProps {
+  private onDelay(): void {
     const props = this.props;
-    return {
-      autoFocus: true,
-      errorMessageRendered: false,
-      value: this.query,
-      actions: this.actions,
-      onChange: this.onChange,
-      onDelay: this.onApply,
-      plugins: DelayedChangesFieldPlugin,
-      ...props.fieldConfiguration as {},
-    };
-  }
 
-  // TODO
-  protected get actions(): IFieldActionEntity[] {
-    const props = this.props;
-    const defaultActions: IFilterActionConfiguration[] = props.notUseField
-      ? []
-      : [{type: ToolbarToolsEnum.CLEAR}];
-
-    return R.map<IFilterActionConfiguration, IFieldActionEntity>((action): IFieldActionEntity => {
-      const config = this.baseActionsProps[action.type];
-      return ({
-        ...config,
-        disabled: nvl(action.disabled, props.actionsDisabled),
-        className: action.className,
-      });
-    }, defaultActions.concat(props.actions));
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element[]}
-   */
-  protected get actionsElements(): JSX.Element[] {
-    let actions;
-    const props = this.props;
-    return []
-      .concat(
-        this.isActive
-          ? []
-          : this.getActionElement({
-            key: 'toolbar-action-key',
-            icon: props.icon,
-            onClick: this.onActivate,
-            disabled: props.actionsDisabled,
-          })
-      ).concat(
-        props.notUseField && (actions = this.actions).length > 0
-          ? actions.map((action, index) => this.getActionElement({
-            ...action,
-            icon: action.type,
-            key: `toolbar-action-key-${index}`,
-            disabled: props.actionsDisabled,
-            className: action.className,
-          }))
-          : []
-      );
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element}
-   */
-  protected get fieldSection(): JSX.Element {
-    return orNull<JSX.Element>(this.isActive, () => this.fieldWrapper);
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element}
-   */
-  protected get actionsElementsSection(): JSX.Element[] {
-    return orNull<JSX.Element[]>(this.actionsElements.length > 0, () => this.actionsElementsWrapper);
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element}
-   */
-  protected get actionsElementsWrapper(): JSX.Element[] {
-    return this.actionsElements;
-  }
-
-  protected getActionElement(config: any): JSX.Element {
-    return <Button {...config}/>;	// TODO
-  }
-
-  /**
-   * @stable [18.05.2018]
-   * @returns {JSX.Element}
-   */
-  protected get fieldWrapper(): JSX.Element {
-    return (
-      <TextField {...this.fieldProps}/>
-    );
-  }
-
-  /**
-   * @stable [18.05.2018]
-   */
-  private onOpen(): void {
-    const props = this.props;
-    if (props.onOpen) {
-      props.onOpen();
-    }
-  }
-
-  /**
-   * @stable [18.05.2018]
-   */
-  private onApply(): void {
-    const props = this.props;
     if (props.onApply) {
       props.onApply();
     }
+  }
+
+  /**
+   * @stable [06.05.2020]
+   * @returns {IFieldActionEntity[]}
+   */
+  private get actions(): IFieldActionEntity[] {
+    const props = this.props;
+    return [
+      {
+        disabled: props.disabled,
+        type: IconsEnum.TIMES,
+        onClick: this.onDeactivate,
+      }
+    ];
+  }
+
+  /**
+   * @stable [06.05.2020]
+   * @returns {string}
+   */
+  private get isActive(): boolean {
+    return this.props.active;
+  }
+
+  /**
+   * @stable [06.05.2020]
+   * @returns {string}
+   */
+  private get query(): string {
+    return this.props.query;
   }
 }

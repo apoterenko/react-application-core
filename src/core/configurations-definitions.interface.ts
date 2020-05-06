@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   AnyT,
   IActionsDisabledWrapper,
-  IActionsWrapper,
   IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
@@ -16,7 +15,6 @@ import {
   IDisplayMessageWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
-  IEntity,
   IErrorMessageRenderedWrapper,
   IErrorMessageWrapper,
   IFieldConfigurationWrapper,
@@ -30,10 +28,8 @@ import {
   IMaskPlaceholderCharWrapper,
   IMessageWrapper,
   INavigationActionTypeWrapper,
-  INotUseFieldWrapper,
   IOnBlurWrapper,
   IOnClearWrapper,
-  IOnClickWrapper,
   IOnEmptyDictionaryWrapper,
   IOnFocusWrapper,
   IOnLoadDictionaryWrapper,
@@ -133,6 +129,13 @@ export interface IFieldProps extends IComponentProps,
   cols?: number;
 }
 
+/**
+ * @stable [06.05.2020]
+ */
+export interface IFieldConfigurationEntity
+  extends IFieldConfigurationWrapper<IFieldProps> {
+}
+
 /* @stable - 08.04.2018 */
 export interface IUniversalMessageConfiguration extends IUniversalComponentEntity,
                                                         IEmptyDataMessageWrapper,
@@ -161,10 +164,8 @@ export interface IFilterActionConfiguration extends IClassNameWrapper,
  * @stable [18.05.2018]
  */
 export interface IFilterConfiguration extends IActionsDisabledWrapper,
-                                              INotUseFieldWrapper,
                                               IIconWrapper,
                                               IFullWrapper,
-                                              IActionsWrapper<IFilterActionConfiguration[]>,
                                               IFieldConfigurationWrapper<IFieldProps> {
 }
 

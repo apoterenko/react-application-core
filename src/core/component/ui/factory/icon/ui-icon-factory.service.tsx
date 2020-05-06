@@ -215,13 +215,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'search': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M21.442 23.555a1.481 1.481 0 0 0 2.119 0 1.53 1.53 0 0 0 0-2.145l-4.62-4.62a10.474 10.474 0 0 0 2.079-6.28C21.02 4.707 16.314 0 10.51 0 4.707 0 0 4.705 0 10.51c0 5.806 4.705 10.511 10.51 10.511 2.363 0 4.546-.78 6.3-2.096l4.633 4.63zM3.003 10.51a7.507 7.507 0 1 1 15.014 0 7.506 7.506 0 1 1-15.012 0h-.002z'
-        />
-      </svg>
-    ),
     'close-list': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='16' height='16' viewBox='0 0 16 16'>
@@ -507,6 +500,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
     [IconsEnum.PRINT]: faPrint,
     [IconsEnum.RECEIPT]: faReceipt,
+    [IconsEnum.SEARCH]: faSearch,
     [IconsEnum.SEARCH_MINUS]: faSearchMinus,
     [IconsEnum.SEARCH_PLUS]: faSearchPlus,
     [IconsEnum.SHIELD_ALT]: faShieldAlt,
@@ -562,7 +556,6 @@ export class UiIconFactory implements IUiIconFactory {
     question: faQuestion,
     remove: faMinus,
     save: faSave,
-    search: faSearch,
     shipping_fast: faShippingFast,
     signIn: faSignInAlt,
     sms: faCommentDots,
