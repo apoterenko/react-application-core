@@ -43,10 +43,12 @@ The library is designed to quickly start develop the business applications are b
 
 * [FilterFormDialogContainer](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
 * [PageToolbarContainer](src/core/component/toolbar/page/page-toolbar.container.tsx)
+* [SearchToolbarContainer](src/core/component/toolbar/search/search-toolbar.container.tsx)
 
 #### @component-impl
 
 * [PageToolbar](src/core/component/toolbar/page/page-toolbar.component.tsx)
+* [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
 
 #### @effects-proxy-factory
 
