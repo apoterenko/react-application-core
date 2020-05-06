@@ -443,3 +443,11 @@ export const selectFilterEntityQuery = (entity: IQueryFilterEntity): string =>
     (filterEntity) => selectQuery(filterEntity),
     UNDEF_SYMBOL
   );
+
+/**
+ * @stable [06.05.2020]
+ */
+export class Selectors {
+  public static list = selectList;
+  public static sectionName = selectSectionName;
+}

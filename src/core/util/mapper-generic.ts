@@ -1,4 +1,5 @@
 import {
+  IListWrapper,
   ISectionNameWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -11,14 +12,27 @@ import {
   IGenericPaginatedLifeCycleEntity,
   IListWrapperEntity,
 } from '../definition';
-import {
-  selectList,
-  selectSectionName,
-} from './select';
-import {
-  mapList,
-  mapSectionName,
-} from './mapper';
+import { Selectors } from './select';
+
+/**
+ * @stable [06.05.2020]
+ * @mapper-generic
+ *
+ * @param {string} sectionName
+ * @returns {ISectionNameWrapper}
+ */
+const mapSectionName = (sectionName: string): ISectionNameWrapper =>
+  defValuesFilter<ISectionNameWrapper, ISectionNameWrapper>({sectionName});
+
+/**
+ * @stable [06.05.2020]
+ * @mapper-generic
+ *
+ * @param {TList} list
+ * @returns {IListWrapper<TList>}
+ */
+const mapList = <TList>(list: TList): IListWrapper<TList> =>
+  defValuesFilter<IListWrapper<TList>, IListWrapper<TList>>({list});
 
 /**
  * @stable [06.05.2020]
@@ -27,8 +41,7 @@ import {
  * @param {ISectionNameWrapper} wrapper
  * @returns {ISectionNameWrapper}
  */
-export const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper =>
-  mapSectionName(selectSectionName(wrapper));
+const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper => mapSectionName(Selectors.sectionName(wrapper));
 
 /**
  * @stable [06.05.2020]
@@ -37,8 +50,7 @@ export const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNam
  * @param {IListWrapperEntity} wrapper
  * @returns {IListWrapperEntity}
  */
-export const mapListWrapperEntity = (wrapper: IListWrapperEntity): IListWrapperEntity =>
-  mapList(selectList(wrapper));
+const mapListWrapperEntity = (wrapper: IListWrapperEntity): IListWrapperEntity => mapList(Selectors.list(wrapper));
 
 /**
  * @stable [05.05.2020]
@@ -80,7 +92,7 @@ const mapLifeCycleEntity = (entity: IGenericLifeCycleEntity): IGenericLifeCycleE
  * @param {IGenericPaginatedEntity} entity
  * @returns {IGenericPaginatedEntity}
  */
-export const mapPaginatedEntity = (entity: IGenericPaginatedEntity): IGenericPaginatedEntity =>
+const mapPaginatedEntity = (entity: IGenericPaginatedEntity): IGenericPaginatedEntity =>
   ifNotNilThanValue(
     entity,
     () => defValuesFilter<IGenericPaginatedEntity, IGenericPaginatedEntity>({
@@ -99,7 +111,7 @@ export const mapPaginatedEntity = (entity: IGenericPaginatedEntity): IGenericPag
  * @param {IGenericPaginatedLifeCycleEntity} entity
  * @returns {IGenericPaginatedLifeCycleEntity}
  */
-export const mapPaginatedLifeCycleEntity =
+const mapPaginatedLifeCycleEntity =
   (entity: IGenericPaginatedLifeCycleEntity): IGenericPaginatedLifeCycleEntity =>
     ifNotNilThanValue(
       entity,

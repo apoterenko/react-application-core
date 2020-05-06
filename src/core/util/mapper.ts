@@ -70,12 +70,10 @@ import {
   IFilterWrapper,
   IFormWrapper,
   ILayoutWrapper,
-  IListWrapper,
   INotificationWrapper,
   IOptionsWrapper,
   IProgressWrapper,
   IQueryWrapper,
-  ISectionNameWrapper,
   IStackWrapper,
   ITransportWrapper,
   IUserWrapper,
@@ -251,14 +249,6 @@ export const mapUser = <TUser = IUserEntity>(user: TUser): IUserWrapper<TUser> =
   defValuesFilter<IUserWrapper<TUser>, IUserWrapper<TUser>>({user});
 
 /**
- * @stable [30.03.2020]
- * @param {string} sectionName
- * @returns {ISectionNameWrapper}
- */
-export const mapSectionName = (sectionName: string): ISectionNameWrapper =>
-  defValuesFilter<ISectionNameWrapper, ISectionNameWrapper>({sectionName});
-
-/**
  * @stable [14.04.2020]
  * @param {TValue} stack
  * @returns {IStackWrapper<TValue>}
@@ -336,14 +326,6 @@ export const mapFilter = <TEntity = string>(filter: TEntity): IFilterWrapper<TEn
  */
 export const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
   defValuesFilter<IFormWrapper<TForm>, IFormWrapper<TForm>>({form});
-
-/**
- * @stable [11.04.2020]
- * @param {TValue} list
- * @returns {IListWrapper<TValue>}
- */
-export const mapList = <TList>(list: TList): IListWrapper<TList> =>
-  defValuesFilter<IListWrapper<TList>, IListWrapper<TList>>({list});
 
 /**
  * @stable [12.04.2020]

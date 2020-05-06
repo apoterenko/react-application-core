@@ -3,7 +3,7 @@ import {
   IPageToolbarContainerProps,
   IPageToolbarProps,
 } from '../definition';
-import { selectList } from './select';
+import { Selectors } from './select';
 
 /**
  * @component-props-mapper
@@ -23,7 +23,7 @@ const mapPageToolbarProps = (props: IPageToolbarProps): IPageToolbarProps =>
  * @returns {IPageToolbarProps}
  */
 const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarContainerProps): IPageToolbarProps =>
-  mapPageToolbarProps(selectList(props));
+  mapPageToolbarProps(Selectors.list(props));
 
 /**
  * @container-props-mapper
