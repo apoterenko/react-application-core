@@ -4,6 +4,7 @@ import {
   calc,
   inProgress,
   isFirstAllowedWrapper,
+  isFull,
   isLastAllowedWrapper,
   isPageable,
   isPageCursorInEndPosition,
@@ -41,7 +42,11 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
       <div
         ref={this.actualRef}
         style={props.style}
-        className={joinClassName(ToolbarClassesEnum.PAGE_TOOLBAR, calc(props.className))}
+        className={joinClassName(
+          ToolbarClassesEnum.PAGE_TOOLBAR,
+          isFull(props) && ToolbarClassesEnum.FULL_TOOLBAR,
+          calc(props.className),
+        )}
       >
         {this.bodyElement}
       </div>
@@ -136,17 +141,17 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
   private get pagesInfo(): string {
     const {
       page,
-      simplePagesInfoFormat,
+      useShortFormat,
     } = this.props;
     const messages = this.settings.messages;
 
     return this.t(
-      simplePagesInfoFormat
-        ? messages.SIMPLE_PAGES_INFO
+      useShortFormat
+        ? messages.SHORT_PAGES_INFO
         : messages.PAGES_INFO,
       {
         page,
-        count: simplePagesInfoFormat ? pagesCount(this.props) : this.props.totalCount,
+        count: useShortFormat ? pagesCount(this.props) : this.props.totalCount,
         from: this.fromNumber,
         to: this.toNumber,
       }
