@@ -13,6 +13,10 @@ import {
   toActionPrefix,
 } from '../util';
 
+/**
+ * @action-builder
+ * @stable [06.05.2020]
+ */
 export class PageToolbarActionBuilder {
 
   /**
