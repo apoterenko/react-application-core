@@ -955,6 +955,7 @@ export class Mappers {
   public static pageToolbarProps = ComponentMappers.pageToolbarProps;
   public static paginatedEntity = GenericMappers.paginatedEntity;
   public static searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
+  public static searchToolbarProps = ComponentMappers.searchToolbarProps;
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static selectableHoveredEntity = mapSelectableHoveredEntity;
 }

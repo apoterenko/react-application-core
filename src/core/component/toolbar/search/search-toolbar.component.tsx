@@ -19,6 +19,12 @@ import {
   TextField,
 } from '../../field';
 
+/**
+ * @component-impl
+ * @stable [06.05.2020]
+ *
+ * Please use the "Mappers.searchToolbarProps"
+ */
 export class SearchToolbar extends GenericComponent<ISearchToolbarProps> {
 
   public static readonly defaultProps: ISearchToolbarProps = {

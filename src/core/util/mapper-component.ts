@@ -82,4 +82,5 @@ export class ComponentMappers {
   public static pageToolbarProps = mapPageToolbarProps;
   public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
+  public static searchToolbarProps = mapSearchToolbarProps;
 }
