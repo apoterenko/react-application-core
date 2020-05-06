@@ -35,6 +35,10 @@ The library is designed to quickly start develop the business applications are b
 
 # Classes & markers
 
+#### @action-builder
+
+* [PageToolbarActionBuilder][src/core/action/page-toolbar-action.builder.ts]
+
 #### @component-container-impl
 
 * [FilterFormDialogContainer](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)

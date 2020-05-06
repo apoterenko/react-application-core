@@ -5,6 +5,7 @@ export * from './filter-action.builder';
 export * from './filter-form-dialog-action.builder';
 export * from './form-action.builder';
 export * from './notification-action.builder';
+export * from './page-toolbar-action.builder';
 export * from './router-action.builder';
 export * from './stack-action.builder';
 export * from './storage-action.builder';
