@@ -253,7 +253,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
     return (
       <BasicList
         forwardedRef={this.listElementRef}
-        full={false}
+        full={!this.isAnchored}
         plugins={[PerfectScrollPlugin]}
       >
         {items.map((option: IMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
