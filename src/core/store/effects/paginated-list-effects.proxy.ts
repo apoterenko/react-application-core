@@ -1,7 +1,11 @@
-import { EffectsService, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
-import { ListActionBuilder, ToolbarActionBuilder } from '../../component/action.builder';
+import { ListActionBuilder } from '../../component/action.builder';
 import { provideInSingleton } from '../../di';
+import { PageToolbarActionBuilder } from '../../action';
 
 export function makePaginatedListEffectsProxy(section: string): () => void {
   return (): void => {
@@ -9,7 +13,7 @@ export function makePaginatedListEffectsProxy(section: string): () => void {
     @provideInSingleton(Effects)
     class Effects {
 
-      @EffectsService.effects(ToolbarActionBuilder.buildPagerPreviousActionType(section))
+      @EffectsService.effects(PageToolbarActionBuilder.buildPreviousPageActionType(section))
       public $onPrevious(): IEffectsAction[] {
         return [
           ListActionBuilder.buildPreviousPageAction(section),
@@ -17,7 +21,7 @@ export function makePaginatedListEffectsProxy(section: string): () => void {
         ];
       }
 
-      @EffectsService.effects(ToolbarActionBuilder.buildPagerNextActionType(section))
+      @EffectsService.effects(PageToolbarActionBuilder.buildNextPageActionType(section))
       public $onNext(): IEffectsAction[] {
         return [
           ListActionBuilder.buildNextPageAction(section),
@@ -25,7 +29,7 @@ export function makePaginatedListEffectsProxy(section: string): () => void {
         ];
       }
 
-      @EffectsService.effects(ToolbarActionBuilder.buildPagerFirstActionType(section))
+      @EffectsService.effects(PageToolbarActionBuilder.buildFirstPageActionType(section))
       public $onFirst(): IEffectsAction[] {
         return [
           ListActionBuilder.buildFirstPageAction(section),
@@ -33,7 +37,7 @@ export function makePaginatedListEffectsProxy(section: string): () => void {
         ];
       }
 
-      @EffectsService.effects(ToolbarActionBuilder.buildPagerLastActionType(section))
+      @EffectsService.effects(PageToolbarActionBuilder.buildLastPageActionType(section))
       public $onLast(): IEffectsAction[] {
         return [
           ListActionBuilder.buildLastPageAction(section),

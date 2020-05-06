@@ -484,7 +484,6 @@ export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
 export interface IShowWrapper<TValue = {}> { show?(payload?: TValue): void; }
 export interface ISignInWrapper<TValue> { signIn?: TValue; }
-export interface ISimplePagesInfoFormatWrapper { simplePagesInfoFormat?: boolean; }
 export interface ISortableWrapper { sortable?: boolean; }
 export interface ISorterWrapper<TValue = IEntity> { sorter?(entity1: TValue, entity2: TValue): number; }
 export interface ISourceWrapper<TValue> { source?: TValue; }
@@ -519,6 +518,7 @@ export interface ITitleRendererWrapper<TValue> { titleRenderer?: TValue; }
 export interface ITitleWrapper<TValue = string> { title?: TValue; }
 export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
+export interface IToolbarConfigurationWrapper<TValue> { toolbarConfiguration?: TValue; }
 export interface IToolbarToolsConfigurationWrapper<TValue> { toolbarToolsConfiguration?: TValue; }
 export interface IToolbarToolsWrapper<TValue> { toolbarTools?: TValue; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
@@ -545,6 +545,7 @@ export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TValue = string> { user?: TValue; }
+export interface IUseShortFormatWrapper { useShortFormat?: boolean; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
 export interface IUseUppercaseWrapper { useUppercase?: boolean; }
 export interface IUseZipCodeWrapper { useZipCode?: boolean; }

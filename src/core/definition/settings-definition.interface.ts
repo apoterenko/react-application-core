@@ -275,7 +275,7 @@ export interface IMessagesSettingsEntity {
   RESTART_APP?: string;
   SAVE?: string;
   SETTINGS?: string;
-  SIMPLE_PAGES_INFO?: string;
+  SHORT_PAGES_INFO?: string;
   SOMETHING_WENT_WRONG?: string;
   THIS_MONTH?: string;
   THIS_QUARTER?: string;
@@ -334,7 +334,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   RESTART_APP: 'Restart App',
   SAVE: 'Save',
   SETTINGS: 'Settings',
-  SIMPLE_PAGES_INFO: 'Page {page} of {count}',
+  SHORT_PAGES_INFO: 'Page {page} of {count}',
   SOMETHING_WENT_WRONG: 'Something went wrong',
   THIS_MONTH: 'This month',
   THIS_QUARTER: 'This quarter',

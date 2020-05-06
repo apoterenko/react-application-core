@@ -42,7 +42,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
     return (
       <PageToolbar
         {...Mappers.mapPageToolbarProps(props)}
-        {...this.pageToolbarConfiguration}
+        {...this.toolbarConfiguration}
         onFirst={this.onFirst}
         onLast={this.onLast}
         onNext={this.onNext}
@@ -58,7 +58,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onNext(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildNextPagePlainAction(this.sectionName));
-    ifNotNilThanValue(this.pageToolbarConfiguration.onNext, (onNext) => onNext());
+    ifNotNilThanValue(this.toolbarConfiguration.onNext, (onNext) => onNext());
   }
 
   /**
@@ -66,7 +66,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onPrevious(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildPreviousPagePlainAction(this.sectionName));
-    ifNotNilThanValue(this.pageToolbarConfiguration.onPrevious, (onPrevious) => onPrevious());
+    ifNotNilThanValue(this.toolbarConfiguration.onPrevious, (onPrevious) => onPrevious());
   }
 
   /**
@@ -74,7 +74,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onLast(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildLastPagePlainAction(this.sectionName));
-    ifNotNilThanValue(this.pageToolbarConfiguration.onLast, (onLast) => onLast());
+    ifNotNilThanValue(this.toolbarConfiguration.onLast, (onLast) => onLast());
   }
 
   /**
@@ -82,14 +82,14 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onFirst(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildFirstPagePlainAction(this.sectionName));
-    ifNotNilThanValue(this.pageToolbarConfiguration.onFirst, (onFirst) => onFirst());
+    ifNotNilThanValue(this.toolbarConfiguration.onFirst, (onFirst) => onFirst());
   }
 
   /**
    * @stable [06.05.2020]
    * @returns {IPageToolbarProps}
    */
-  private get pageToolbarConfiguration(): IPageToolbarProps {
-    return this.props.pageToolbarConfiguration || {};
+  private get toolbarConfiguration(): IPageToolbarProps {
+    return this.props.toolbarConfiguration || {};
   }
 }
