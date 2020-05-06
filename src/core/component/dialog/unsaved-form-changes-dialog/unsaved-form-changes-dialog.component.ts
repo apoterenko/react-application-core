@@ -2,7 +2,7 @@ import {
   IActivateDialogConfigEntity,
   IUnsavedFormChangesDialogProps,
 } from '../../../definition';
-import { isDirty } from '../../../util';
+import { isFormChanged } from '../../../util';
 import { BaseDialog } from '../base-dialog.component';
 
 export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDialogProps> {
@@ -12,11 +12,11 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
   };
 
   /**
-   * @stable [05.01.2020]
+   * @stable [06.05.2020]
    * @param {IActivateDialogConfigEntity} payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
-    if (isDirty(this.props.form)) {
+    if (isFormChanged(this.props)) { // We can't use dirty flag because of the default changes (!)
       super.activate(payload);
     } else {
       this.onAcceptClick();
