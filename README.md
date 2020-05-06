@@ -38,6 +38,7 @@ The library is designed to quickly start develop the business applications are b
 #### @component-container-impl
 
 * [FilterFormDialogContainer](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
+* [PageToolbarContainer](src/core/component/toolbar/page/page-toolbar.container.tsx)
 
 #### @component-impl
 
