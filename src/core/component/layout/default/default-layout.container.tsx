@@ -7,6 +7,7 @@ import {
   ifNotEmptyThanValue,
   isFn,
   orNull,
+  selectStackWrapperItemEntities,
 } from '../../../util';
 import { BasicContainer } from '../../base/basic.container';
 import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
@@ -29,6 +30,7 @@ import {
   INavigationListItemEntity,
   IXYEntity,
   LayoutModesEnum,
+  IconsEnum,
 } from '../../../definition';
 import { Overlay } from '../../overlay';
 import {
@@ -165,9 +167,11 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
     const props = this.props;
     const activeItem = this.menuItems.find((item) => item.active);
     const title = props.title || (activeItem && activeItem.label);
+    const hasBackAction = (selectStackWrapperItemEntities(this.props) || []).length > 1; // TODO
 
     return (
       <SubHeader
+        {...hasBackAction && ({navigationActionType: IconsEnum.BACK})}
         {...props.subHeaderConfiguration}
         title={title}
         onNavigationActionClick={this.onHeaderNavigationActionClick}/>
