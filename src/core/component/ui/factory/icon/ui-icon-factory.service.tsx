@@ -132,13 +132,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    [IconsEnum.BACK2]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M8.59 16.94a1.485 1.485 0 0 1 0 2.121 1.534 1.534 0 0 1-2.147 0L.667 13.59A2.203 2.203 0 0 1 0 12c0-.6.237-1.167.666-1.59l5.775-5.47a1.538 1.538 0 0 1 2.151 0 1.488 1.488 0 0 1 0 2.12l-3.72 3.44H22.5c.83 0 1.5.67 1.5 1.5 0 .825-.672 1.5-1.5 1.5H4.869l3.722 3.441z'
-        />
-      </svg>
-    ),
     [IconsEnum.BACK]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -375,17 +368,6 @@ export class UiIconFactory implements IUiIconFactory {
         <use fill='currentColor' transform='matrix(-1 0 0 1 24 0)' xlinkHref='#4696442e-6afc-43cd-85c9-b7bb0e931cd2' />
       </svg>
     ),
-    'forward2': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <defs>
-          <path id='1105b247-6581-48d6-b56d-dca80b8aff5e' d='M8.59 16.94a1.485 1.485 0 0 1 0 2.121 1.534 1.534 0 0 1-2.147 0L.667 13.59A2.203 2.203 0 0 1 0 12c0-.6.237-1.167.666-1.59l5.775-5.47a1.538 1.538 0 0 1 2.151 0 1.488 1.488 0 0 1 0 2.12l-3.72 3.44H22.5c.83 0 1.5.67 1.5 1.5 0 .825-.672 1.5-1.5 1.5H4.869l3.722 3.441z'
-          />
-        </defs>
-        <use fill='currentColor' fillRule='evenodd' transform='matrix(-1 0 0 1 24 0)'
-             xlinkHref='#1105b247-6581-48d6-b56d-dca80b8aff5e' />
-      </svg>
-    ),
     'key-delete': (
       <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'>
         <path fill='currentColor' d='M4 24l12 16h28V8H16L4 24zM.879 21.879l13-17A3 3 0 0 1 16 4h29a3 3 0 0 1 3 3v34a3 3 0 0 1-3 3H16a3 3 0 0 1-2.121-.879l-13-17a3 3 0 0 1 0-4.242zM25.172 24l-5.657-5.657c-.586-.585-1.063-1.766 0-2.828 1.062-1.063 2.243-.586 2.828 0L28 21.172l5.657-5.657c.585-.586 1.768-1.06 2.828 0 1.06 1.06.586 2.243 0 2.828L30.828 24l5.657 5.657c.586.585 1.058 1.77 0 2.828-1.058 1.058-2.243.586-2.828 0L28 26.828l-5.657 5.657c-.585.586-1.768 1.06-2.828 0-1.06-1.06-.586-2.243 0-2.828L25.172 24z'
@@ -518,6 +500,8 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
     [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
     [IconsEnum.FILTER]: faFilter,
+    [IconsEnum.LONG_ARROW_ALT_LEFT]: faLongArrowAltLeft,
+    [IconsEnum.LONG_ARROW_ALT_RIGHT]: faLongArrowAltRight,
     [IconsEnum.MINUS_CIRCLE]: faMinusCircle,
     [IconsEnum.PAPERCLIP]: faPaperclip,
     [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
@@ -565,8 +549,6 @@ export class UiIconFactory implements IUiIconFactory {
     location: faMapMarkerAlt,
     location_on: faMapMarkerAlt,
     lock: faLock,
-    long_arrow_alt_left: faLongArrowAltLeft,
-    long_arrow_alt_right: faLongArrowAltRight,
     long_arrow_alt_up: faLongArrowAltUp,
     loyalty: faGratipay,
     map_marked_alt: faMapMarkedAlt,

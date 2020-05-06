@@ -98,7 +98,7 @@ export class Header extends BaseComponent<IHeaderProps> {
         <React.Fragment>
           {
             <Button
-              icon={IconsEnum.BACK2}
+              icon={IconsEnum.LONG_ARROW_ALT_LEFT}
               {...backActionConfiguration}
               className={joinClassName(
                 HeaderClassesEnum.HEADER_BACK_ACTION,

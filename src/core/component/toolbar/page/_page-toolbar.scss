@@ -20,4 +20,13 @@
     $rac-page-toolbar-pages-font-size: $rac-page-toolbar-pages-font-size,
     $rac-page-toolbar-pages-margin: $rac-page-toolbar-pages-margin
   );
+
+  /**
+   * @full-page-toolbar
+   * @stable [06.05.2020]
+   */
+  @include rac-page-toolbar (
+    $rac-page-toolbar-custom: $rac-full-toolbar-cls,
+    $rac-page-toolbar-flex-grow: $rac-full-page-toolbar-flex-grow
+  );
 }

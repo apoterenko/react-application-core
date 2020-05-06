@@ -30,6 +30,10 @@ import { GenericComponent } from '../../base/generic.component';
  */
 export class PageToolbar extends GenericComponent<IPageToolbarProps> {
 
+  public static readonly defaultProps: IPageToolbarProps = {
+    full: false,
+  };
+
   /**
    * @stable [05.05.2020]
    * @returns {JSX.Element}

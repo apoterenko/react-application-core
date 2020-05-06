@@ -8,7 +8,6 @@ export enum IconsEnum {
   ANGLE_RIGHT = 'angle-right',                                            /* https://fontawesome.com/ */
   ARROW_UP = 'arrow-up',                                                  /* https://fontawesome.com/ */
   BACK = 'back',
-  BACK2 = 'back2',
   CALENDAR_ALT_REGULAR = 'calendar-alt-regular',                          /* https://fontawesome.com/ */
   CHART_LINE = 'chart-line',                                              /* https://fontawesome.com/ */
   CHECK_CIRCLE = 'check-circle',                                          /* https://fontawesome.com/ */
@@ -22,7 +21,8 @@ export enum IconsEnum {
   FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */
   FILTER = 'filter',                                                      /* https://fontawesome.com/ */
   FORWARD = 'forward',
-  FORWARD2 = 'forward2',
+  LONG_ARROW_ALT_LEFT = 'long-arrow-alt-left',                            /* https://fontawesome.com/ */
+  LONG_ARROW_ALT_RIGHT = 'long-arrow-alt-right',                          /* https://fontawesome.com/ */
   MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
   MORE = 'more',
   PAPERCLIP = 'paperclip',                                                /* https://fontawesome.com/ */

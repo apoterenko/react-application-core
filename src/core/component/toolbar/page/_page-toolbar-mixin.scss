@@ -12,6 +12,7 @@
   $rac-page-toolbar-border-top: unset,                                                   /* @stable [05.05.2020] */
   $rac-page-toolbar-content-display: unset,                                              /* @stable [05.05.2020] */
   $rac-page-toolbar-display: unset,                                                      /* @stable [05.05.2020] */
+  $rac-page-toolbar-flex-grow: unset,                                                    /* @stable [06.05.2020] */
   $rac-page-toolbar-height: unset,                                                       /* @stable [05.05.2020] */
   $rac-page-toolbar-icon-color: unset,                                                   /* @stable [05.05.2020] */
   $rac-page-toolbar-icon-margin: unset,                                                  /* @stable [05.05.2020] */
@@ -27,6 +28,7 @@
       $rac-styles-background: $rac-page-toolbar-background,
       $rac-styles-border-top: $rac-page-toolbar-border-top,
       $rac-styles-display: $rac-page-toolbar-display,
+      $rac-styles-flex-grow: $rac-page-toolbar-flex-grow,
       $rac-styles-height: $rac-page-toolbar-height,
       $rac-styles-justify-content: $rac-page-toolbar-justify-content,
       $rac-styles-margin: $rac-page-toolbar-margin
