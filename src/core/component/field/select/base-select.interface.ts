@@ -42,7 +42,7 @@ export interface IBaseSelectProps
     IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
-
+  inlineOptions?: boolean;
   onSelect?(option: ISelectOptionEntity): void;
 }
 

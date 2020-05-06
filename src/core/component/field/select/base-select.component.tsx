@@ -6,6 +6,7 @@ import {
 } from 'ts-smart-logger';
 
 import {
+  asMultiFieldAddedEntities,
   calc,
   DelayedTask,
   ifNotNilThanValue,
@@ -19,6 +20,7 @@ import {
   isForceUseLocalFilter,
   isMenuRendered,
   isObjectNotEmpty,
+  isPrimitive,
   isUndef,
   joinClassName,
   nvl,
@@ -31,6 +33,7 @@ import { Menu } from '../../menu';
 import {
   AnyT,
   EntityIdT,
+  IEntity,
   StringNumberT,
 } from '../../../definitions.interface';
 import {
@@ -46,6 +49,7 @@ import {
   IComponentsSettingsEntity,
   IMenu,
   IMenuProps,
+  IMultiItemEntity,
   ISelectOptionEntity,
   SelectValueT,
 } from '../../../definition';
@@ -187,6 +191,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.onKeyEnter(event);
   }
 
+  public deleteItem(item: IMultiItemEntity): void {
+    // Do nothing
+  }
+
   /**
    * @stable [28.01.2020]
    * @param {IBaseEvent} event
@@ -210,6 +218,42 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     } else {
       this.openMenu();
     }
+  }
+
+  protected getAttachmentElement(): JSX.Element {
+    const props = this.props;
+
+    // TODO
+    if (!props.inlineOptions) {
+      return super.getAttachmentElement();
+    }
+    const currentValue = this.value;
+    const value = isPrimitive(currentValue)
+      ? [{id: currentValue}] as IEntity[]
+      : (asMultiFieldAddedEntities(this.value) || []);
+
+    return (
+      <div className='rac-field__inline-options'>
+        {this.options.map((option) => {
+            const isSelected = value.find((itm) => itm.id === option.value);
+            return (
+              <div
+                key={`inline-option-key-${option.value}`}
+                className={joinClassName(
+                  'rac-field__inline-option',
+                  isSelected && 'rac-field__inline-option-active',
+                )}
+                onClick={() => isSelected
+                  ? this.deleteItem({id: option.value})
+                  : this.onSelect(option)}
+              >
+                {option.label}
+              </div>
+            );
+          }
+        )}
+      </div>
+    );
   }
 
   /**
