@@ -57,8 +57,8 @@ The library is designed to quickly start develop the business applications are b
 
 #### @reducer
 
-* [filterReducer](src/core/component/filter/filter.reducer.ts)
 * [formReducer](src/core/component/form/form.reducer.ts)
+* [queryFilterReducer](src/core/component/filter/query-filter.reducer.ts)
 
 # Usage
 

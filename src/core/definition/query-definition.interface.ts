@@ -1,6 +1,6 @@
 import {
   IActiveWrapper,
-  IFilterWrapper,
+  IQueryFilterWrapper,
   IQueryWrapper,
 } from '../definitions.interface';
 
@@ -14,11 +14,11 @@ export interface IGenericActiveQueryEntity
 }
 
 /**
- * @entity
+ * @wrapper-entity
  * @stable [04.04.2020]
  */
 export interface IQueryFilterEntity
-  extends IFilterWrapper<IGenericActiveQueryEntity> {
+  extends IQueryFilterWrapper<IGenericActiveQueryEntity> {
 }
 
 /**

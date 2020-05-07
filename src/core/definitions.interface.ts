@@ -432,6 +432,7 @@ export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TV
 export interface IProgressWrapper<TValue = boolean> { progress?: TValue; }
 export interface IPropsWrapper<TValue> { props?: TValue; }
 export interface IProxyContainerWrapper<TValue> { proxyContainer?: TValue; }
+export interface IQueryFilterWrapper<TValue> { queryFilter?: TValue; }
 export interface IQueryParamsWrapper<TValue> { queryParams?: TValue; }
 export interface IQueryWrapper<TValue = string> { query?: TValue; }
 export interface IQueueWrapper<TValue> { queue?: TValue; }

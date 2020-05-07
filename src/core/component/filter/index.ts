@@ -1,1 +1,1 @@
-export * from './filter.reducer';
+export * from './query-filter.reducer';

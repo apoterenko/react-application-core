@@ -16,8 +16,8 @@ import { FilterActionBuilder } from '../../action';
  * @param {IEffectsAction} action
  * @returns {IGenericActiveQueryEntity}
  */
-export const filterReducer = (state: IGenericActiveQueryEntity = INITIAL_ACTIVE_QUERY_ENTITY,
-                              action: IEffectsAction): IGenericActiveQueryEntity => {
+export const queryFilterReducer = (state: IGenericActiveQueryEntity = INITIAL_ACTIVE_QUERY_ENTITY,
+                                   action: IEffectsAction): IGenericActiveQueryEntity => {
   const section = toSection(action);
   const actionData = action.data;
 
