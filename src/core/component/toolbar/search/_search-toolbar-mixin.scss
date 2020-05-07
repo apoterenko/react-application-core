@@ -1,5 +1,6 @@
 @import '../../_core-mixin';
 @import '../../icon/_icon-mixin';
+@import '../../field/_field-mixin';
 
 /**
  * @stable [05.05.2020]
@@ -10,6 +11,7 @@
   $rac-search-toolbar-align-items: unset,                                                  /* @stable [05.05.2020] */
   $rac-search-toolbar-background: unset,                                                   /* @stable [05.05.2020] */
   $rac-search-toolbar-display: unset,                                                      /* @stable [05.05.2020] */
+  $rac-search-toolbar-field-max-width: unset,                                              /* @stable [07.05.2020] */
   $rac-search-toolbar-flex-grow: unset,                                                    /* @stable [06.05.2020] */
   $rac-search-toolbar-justify-content: unset                                               /* @stable [05.05.2020] */
 ) {
@@ -20,6 +22,10 @@
       $rac-styles-display: $rac-search-toolbar-display,
       $rac-styles-flex-grow: $rac-search-toolbar-flex-grow,
       $rac-styles-justify-content: $rac-search-toolbar-justify-content
+    );
+
+    @include rac-field (
+      $rac-field-max-width: $rac-search-toolbar-field-max-width
     );
   }
 }
