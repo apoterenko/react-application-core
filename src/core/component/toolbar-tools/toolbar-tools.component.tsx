@@ -75,8 +75,8 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
   /**
    * @stable [07.05.2020]
    */
-  private readonly defaultActions = (): Record<StringNumberT, IButtonProps> =>
-    ({
+  private get defaultActions(): Record<StringNumberT, IButtonProps> {
+    return ({
       [ToolbarToolsEnum.FILTER]: {
         icon: IconsEnum.FILTER,
         onClick: this.props.onFilterClick,
@@ -89,5 +89,6 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
         icon: IconsEnum.SYNC,
         onClick: this.props.onRefreshClick,
       },
-    })
+    });
+  }
 }

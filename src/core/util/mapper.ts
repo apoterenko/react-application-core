@@ -57,7 +57,6 @@ import {
   DEFAULT_PAGE_SIZE,
   EntityIdT,
   FIRST_PAGE,
-  IActionsDisabledWrapper,
   IActiveValueWrapper,
   IChannelWrapper,
   IDictionariesWrapper,
@@ -68,7 +67,6 @@ import {
   ILayoutWrapper,
   INotificationWrapper,
   IOptionsWrapper,
-  IProgressWrapper,
   IStackWrapper,
   ITransportWrapper,
   IUserWrapper,
@@ -95,7 +93,6 @@ import {
   isReady,
 } from './wrapper';
 import {
-  selectActiveFilterToolbarToolsByEditableEntity,
   selectActiveValue,
   selectChanges,
   selectChannel,
@@ -105,7 +102,6 @@ import {
   selectEntity,
   selectEntityId,
   selectForm,
-  selectFormActiveFilterToolbarTools,
   selectLayout,
   selectListSelectedEntity,
   selectNotification,
@@ -581,30 +577,6 @@ export const mapListSelectedExtendedEntity =
     );
 
 /**
- * @stable [17.09.2019]
- * @param {boolean} actionsDisabled
- * @returns {IActionsDisabledWrapper}
- */
-export const mapActionsDisabled = (actionsDisabled: boolean): IActionsDisabledWrapper =>
-  defValuesFilter<IActionsDisabledWrapper, IActionsDisabledWrapper>({actionsDisabled});
-
-/**
- * @stable [22.04.2020]
- * @param {IProgressWrapper} progressWrapper
- * @returns {IActionsDisabledWrapper}
- */
-export const mapProgressWrapperActionsDisabled = (progressWrapper: IProgressWrapper): IActionsDisabledWrapper =>
-  mapActionsDisabled(inProgress(progressWrapper));
-
-/**
- * @stable [04.04.2020]
- * @param {IListWrapperEntity} listWrapper
- * @returns {IActionsDisabledWrapper}
- */
-export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): IActionsDisabledWrapper =>
-  mapProgressWrapperActionsDisabled(Selectors.list(listWrapper));
-
-/**
  * @stable [11.10.2019]
  * @param {TEntity[] | TEntity} data
  * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
@@ -848,11 +820,11 @@ export const mapToolbarToolsListContainerProps =
     ({
       ...GenericMappers.sectionNameWrapper(props),
       toolbarTools: {
-        ...mapListWrapperActionsDisabled(props),
-        activeActions: nvl(
+        ...GenericMappers.listWrapperEntityAsDisabledWrapper(props),
+        activeTools: nvl(
           R.isNil(editableEntity)
-            ? selectFormActiveFilterToolbarTools(props)
-            : selectActiveFilterToolbarToolsByEditableEntity(editableEntity),
+            ? Selectors.formEditableEntityActiveToolbarTools(props)
+            : Selectors.editableEntityActiveToolbarTools(editableEntity),
           []
         ),
       },

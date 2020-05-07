@@ -43,7 +43,6 @@ import {
   coalesce,
 } from './nvl';
 import {
-  IExtendedFormEditableEntity,
   IFormEditableEntity,
   IGenericEditableEntity,
   IGenericListEntity,
@@ -422,23 +421,24 @@ const selectFormEditableEntityChanges = <TEntity = IEntity>(entity: IFormEditabl
   selectChanges(selectForm(entity));
 
 /**
- * @stable [23.04.2020]
+ * @stable [07.05.2020]
  * @param {IGenericEditableEntity} editableEntity
  * @returns {ToolbarToolsEnum[]}
  */
-export const selectActiveFilterToolbarToolsByEditableEntity = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
+const selectEditableEntityActiveToolbarTools = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
   isObjectNotEmpty(selectChanges(editableEntity))
   || isObjectNotEmpty(selectDefaultChanges(editableEntity))
     ? [ToolbarToolsEnum.FILTER]
     : [];
 
 /**
- * @stable [23.04.2020]
- * @param {IExtendedFormEditableEntity} entity
+ * @stable [07.05.2020]
+ * @param {IFormEditableEntity<TEntity>} entity
  * @returns {ToolbarToolsEnum[]}
  */
-export const selectFormActiveFilterToolbarTools = (entity: IExtendedFormEditableEntity): ToolbarToolsEnum[] =>
-  selectActiveFilterToolbarToolsByEditableEntity(selectForm(entity));
+const selectFormEditableEntityActiveToolbarTools =
+  <TEntity = IEntity>(entity: IFormEditableEntity<TEntity>): ToolbarToolsEnum[] =>
+    selectEditableEntityActiveToolbarTools(selectForm(entity));
 
 /**
  * @stable [07.05.2020]
@@ -452,7 +452,9 @@ const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
  * @stable [06.05.2020]
  */
 export class Selectors {
+  public static editableEntityActiveToolbarTools = selectEditableEntityActiveToolbarTools;
   public static filter = selectFilter;
+  public static formEditableEntityActiveToolbarTools = selectFormEditableEntityActiveToolbarTools;
   public static formEditableEntityChanges = selectFormEditableEntityChanges;
   public static list = selectList;
   public static query = selectQuery;
