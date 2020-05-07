@@ -197,7 +197,6 @@ export interface IFiltersSectionsWrapper<TValue> { filtersSections?: TValue; }
 export interface IFilterWrapper<TValue = string> { filter?: TValue; }
 export interface IFirstAllowedWrapper { firstAllowed?: boolean; }
 export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
-export interface IFlexWrapper<TFlex> { flex?: TFlex; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }

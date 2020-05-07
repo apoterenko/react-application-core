@@ -10,7 +10,6 @@ import {
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  IActionsDisabledWrapper,
   IEntity,
   IEntityWrapper,
 } from '../../definitions.interface';
@@ -128,19 +127,6 @@ export const listWrapperSelectedEntityMapper =
       listSelectedEntitySelector<TEntity>(listWrapperState),
       formEntity
     );
-
-/**
- * @deprecated
- */
-export const actionsDisabledListEntityMapper = (listEntity: IListEntity): IActionsDisabledWrapper => ({
-  actionsDisabled: listEntity.progress,
-});
-
-/**
- * @deprecated mapListWrapperActionsDisabled
- */
-export const actionsDisabledListWrapperEntityMapper = (listWrapperEntity: IListWrapperEntity): IActionsDisabledWrapper =>
-  actionsDisabledListEntityMapper(listWrapperEntity.list);
 
 /**
  * @stable [29.05.2018]
