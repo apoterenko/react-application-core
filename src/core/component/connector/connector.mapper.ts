@@ -39,12 +39,6 @@ export const channelMapper = (state: IChannelWrapperEntity): IChannelWrapperEnti
 });
 
 /**
- * @deprecated Use mapQueryFilterEntity
- */
-export const filterWrapperMapper = (filterState: IQueryFilterEntity) =>
-    filterMapper(filterState.filter);
-
-/**
  * @stable [18.09.2018]
  * @param {IStackWrapperEntity} state
  * @returns {IStackWrapperEntity}

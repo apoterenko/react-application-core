@@ -1,5 +1,8 @@
 import {
+  IFilterWrapper,
   IListWrapper,
+  IQueryFilterWrapper,
+  IQueryWrapper,
   ISectionNameWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -11,6 +14,7 @@ import {
   IGenericPaginatedEntity,
   IGenericPaginatedLifeCycleEntity,
   IListWrapperEntity,
+  IQueryFilterEntity,
 } from '../definition';
 import { Selectors } from './select';
 
@@ -38,10 +42,39 @@ const mapList = <TList>(list: TList): IListWrapper<TList> =>
  * @stable [06.05.2020]
  * @mapper-generic
  *
+ * @param {TEntity} filter
+ * @returns {IFilterWrapper<TEntity>}
+ */
+export const mapFilter = <TEntity = string>(filter: TEntity): IFilterWrapper<TEntity> =>
+  defValuesFilter<IFilterWrapper<TEntity>, IFilterWrapper<TEntity>>({filter});
+
+/**
+ * @stable [07.05.2020]
+ * @mapper-generic
+ *
+ * @param {TEntity} queryFilter
+ * @returns {IQueryFilterWrapper<TEntity>}
+ */
+export const mapQueryFilter = <TEntity = string>(queryFilter: TEntity): IQueryFilterWrapper<TEntity> =>
+  defValuesFilter<IQueryFilterWrapper<TEntity>, IQueryFilterWrapper<TEntity>>({queryFilter});
+
+/**
+ * @stable [06.05.2020]
+ * @param {string} query
+ * @returns {IQueryWrapper}
+ */
+export const mapQuery = (query: string): IQueryWrapper =>
+  defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
+
+/**
+ * @stable [06.05.2020]
+ * @mapper-generic
+ *
  * @param {ISectionNameWrapper} wrapper
  * @returns {ISectionNameWrapper}
  */
-const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper => mapSectionName(Selectors.sectionName(wrapper));
+const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper =>
+  mapSectionName(Selectors.sectionName(wrapper));
 
 /**
  * @stable [06.05.2020]
@@ -50,7 +83,28 @@ const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrappe
  * @param {IListWrapperEntity} wrapper
  * @returns {IListWrapperEntity}
  */
-const mapListWrapperEntity = (wrapper: IListWrapperEntity): IListWrapperEntity => mapList(Selectors.list(wrapper));
+const mapListWrapperEntity = (wrapper: IListWrapperEntity): IListWrapperEntity =>
+  mapList(Selectors.list(wrapper));
+
+/**
+ * @stable [06.05.2020]
+ * @mapper-generic
+ *
+ * @param {IQueryFilterEntity} entity
+ * @returns {IQueryFilterEntity}
+ */
+export const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
+  mapQueryFilter(Selectors.queryFilter(entity));
+
+/**
+ * @stable [07.05.2020]
+ * @mapper-generic
+ *
+ * @param {IQueryFilterEntity} entity
+ * @returns {IQueryWrapper}
+ */
+export const mapQueryFilterEntityAsQuery = (entity: IQueryFilterEntity): IQueryWrapper =>
+  mapQuery(Selectors.queryFilterEntityQuery(entity));
 
 /**
  * @stable [05.05.2020]
@@ -126,10 +180,13 @@ const mapPaginatedLifeCycleEntity =
  * @stable [06.05.2020]
  */
 export class GenericMappers {
-
+  public static filter = mapFilter;
   public static listWrapperEntity = mapListWrapperEntity;
   public static pagedEntity = mapPagedEntity;
   public static paginatedEntity = mapPaginatedEntity;
   public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;
-  public static sectionNameWrapper = mapSectionNameWrapper;
+  public static query = mapQuery;
+  public static queryFilterEntity = mapQueryFilterEntity;                               /* stable [07.05.2020] */
+  public static queryFilterEntityAsQuery = mapQueryFilterEntityAsQuery;                 /* stable [07.05.2020] */
+  public static sectionNameWrapper = mapSectionNameWrapper;                             /* stable [07.05.2020] */
 }

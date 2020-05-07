@@ -24,6 +24,7 @@ import {
   IOriginalEntityWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
+  IQueryFilterWrapper,
   IQueryWrapper,
   IQueueWrapper,
   IRawDataWrapper,
@@ -107,22 +108,32 @@ export const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue => R.i
  * @param {IListWrapper<TValue>} wrapper
  * @returns {TValue}
  */
-export const selectList = <TValue>(wrapper: IListWrapper<TValue>): TValue => R.isNil(wrapper) ? UNDEF : wrapper.list;
+const selectList = <TValue>(wrapper: IListWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.list;
 
 /**
  * @stable [09.04.2020]
  * @param {IFilterWrapper<TValue>} wrapper
  * @returns {TValue}
  */
-export const selectFilter = <TValue = string>(wrapper: IFilterWrapper<TValue>): TValue =>
+const selectFilter = <TValue = string>(wrapper: IFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.filter;
+
+/**
+ * @stable [07.05.2020]
+ * @param {IQueryFilterWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+const selectQueryFilter = <TValue = string>(wrapper: IQueryFilterWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.queryFilter;
 
 /**
  * @stable [26.03.2020]
  * @param {ITypeWrapper<TValue>} wrapper
  * @returns {TValue}
  */
-export const selectType = <TValue>(wrapper: ITypeWrapper<TValue>): TValue => R.isNil(wrapper) ? UNDEF : wrapper.type;
+export const selectType = <TValue>(wrapper: ITypeWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.type;
 
 /**
  * @stable [29.02.2020]
@@ -361,8 +372,7 @@ export const selectDictionaries = <TDictionaries>(wrapper: IDictionariesWrapper<
  * @param {ISectionNameWrapper} wrapper
  * @returns {string}
  */
-export const selectSectionName = (wrapper: ISectionNameWrapper): string =>
-  R.isNil(wrapper) ? UNDEF : wrapper.sectionName;
+const selectSectionName = (wrapper: ISectionNameWrapper): string => R.isNil(wrapper) ? UNDEF : wrapper.sectionName;
 
 /**
  * @stable [30.03.2020]
@@ -433,22 +443,21 @@ export const selectFormActiveFilterToolbarTools = (entity: IExtendedFormEditable
   selectActiveFilterToolbarToolsByEditableEntity(selectForm(entity));
 
 /**
- * @stable [24.04.2020]
+ * @stable [07.05.2020]
  * @param {IQueryFilterEntity} entity
  * @returns {string}
  */
-export const selectFilterEntityQuery = (entity: IQueryFilterEntity): string =>
-  ifNotNilThanValue(
-    selectFilter(entity),
-    (filterEntity) => selectQuery(filterEntity),
-    UNDEF_SYMBOL
-  );
+const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
+  selectQuery(selectQueryFilter(entity));
 
 /**
  * @stable [06.05.2020]
  */
 export class Selectors {
+  public static filter = selectFilter;
   public static formEditableEntityChanges = selectFormEditableEntityChanges;
   public static list = selectList;
+  public static queryFilter = selectQueryFilter;
+  public static queryFilterEntityQuery = selectQueryFilterEntityQuery;
   public static sectionName = selectSectionName;
 }

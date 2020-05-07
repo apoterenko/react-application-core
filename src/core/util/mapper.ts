@@ -17,7 +17,6 @@ import {
   IFormContainerProps,
   IFormEditableEntity,
   IFormTabPanelContainerProps,
-  IGenericActiveQueryEntity,
   IGenericBaseSelectEntity,
   IGenericChannelEntity,
   IGenericContainer,
@@ -67,7 +66,6 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IErrorWrapper,
-  IFilterWrapper,
   IFormWrapper,
   ILayoutWrapper,
   INotificationWrapper,
@@ -109,15 +107,13 @@ import {
   selectDictionaries,
   selectEntity,
   selectEntityId,
-  selectFilter,
   selectForm,
-  selectFilterEntityQuery,
   selectFormActiveFilterToolbarTools,
   selectLayout,
-  selectList,
   selectListSelectedEntity,
   selectNotification,
   selectOriginalEntity,
+  Selectors,
   selectQueue,
   selectStack,
   selectToken,
@@ -305,21 +301,6 @@ export const mapDisabled = (disabled: boolean): IDisabledWrapper =>
   defValuesFilter<IDisabledWrapper, IDisabledWrapper>({disabled});
 
 /**
- * @stable [10.09.2019]
- * @param {string} query
- * @returns {IQueryWrapper}
- */
-export const mapQuery = (query: string): IQueryWrapper => defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
-
-/**
- * @stable [29.02.2020]
- * @param {TEntity} filter
- * @returns {IFilterWrapper<TEntity>}
- */
-export const mapFilter = <TEntity = string>(filter: TEntity): IFilterWrapper<TEntity> =>
-  defValuesFilter<IFilterWrapper<TEntity>, IFilterWrapper<TEntity>>({filter});
-
-/**
  * @stable [26.03.2020]
  * @param {TForm} form
  * @returns {IFormWrapper<TForm>}
@@ -334,13 +315,6 @@ export const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
  */
 export const mapActiveValue = <TActiveValue>(activeValue: TActiveValue): IActiveValueWrapper<TActiveValue> =>
   defValuesFilter<IActiveValueWrapper<TActiveValue>, IActiveValueWrapper<TActiveValue>>({activeValue});
-
-/**
- * @stable [29.02.2020]
- * @param {IGenericActiveQueryEntity} filter
- * @returns {IQueryFilterEntity}
- */
-export const mapQueryFilterEntity = (filter: IGenericActiveQueryEntity): IQueryFilterEntity => mapFilter(filter);
 
 /**
  * TODO
@@ -414,7 +388,7 @@ export const mapDisabledProgressWrapper = (entity: IProgressWrapper): IDisabledW
  * @returns {IDisabledWrapper}
  */
 export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
-  mapDisabledProgressWrapper(selectList(listWrapperEntity));
+  mapDisabledProgressWrapper(Selectors.list(listWrapperEntity));
 
 /**
  * @stable [05.05.2020]
@@ -425,7 +399,7 @@ export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWra
  * @returns {IGenericPagedEntity}
  */
 const mapListWrapperEntityAsPagedEntity = (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
-    mapPaginatedEntityAsPagedEntity(selectList(entity), pageSize);
+    mapPaginatedEntityAsPagedEntity(Selectors.list(entity), pageSize);
 
 /**
  * @stable [30.03.2020]
@@ -634,22 +608,6 @@ export const mapListSelectedExtendedEntity =
     );
 
 /**
- * @stable [04.09.2019]
- * @param {IQueryFilterEntity} queryFilter
- * @returns {IQueryFilterEntity}
- */
-export const mapQueryFilterWrapperEntity = (queryFilter: IQueryFilterEntity): IQueryFilterEntity =>
-  mapQueryFilterEntity(selectFilter(queryFilter));
-
-/**
- * @stable [10.09.2019]
- * @param {IQueryFilterEntity} entity
- * @returns {IQueryWrapper}
- */
-export const mapFilterWrapperQuery = (entity: IQueryFilterEntity): IQueryWrapper =>
-  mapQuery(selectFilterEntityQuery(entity));
-
-/**
  * @stable [17.09.2019]
  * @param {boolean} actionsDisabled
  * @returns {IActionsDisabledWrapper}
@@ -671,7 +629,7 @@ export const mapProgressWrapperActionsDisabled = (progressWrapper: IProgressWrap
  * @returns {IActionsDisabledWrapper}
  */
 export const mapListWrapperActionsDisabled = (listWrapper: IListWrapperEntity): IActionsDisabledWrapper =>
-  mapProgressWrapperActionsDisabled(selectList(listWrapper));
+  mapProgressWrapperActionsDisabled(Selectors.list(listWrapper));
 
 /**
  * @stable [11.10.2019]
@@ -947,13 +905,14 @@ export const mapUnsavedFormChangesDialogContainerProps =
  * @stable [05.05.2020]
  */
 export class Mappers {
-
   public static listWrapperEntity = GenericMappers.listWrapperEntity;
   public static listWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
   public static pageToolbarProps = ComponentMappers.pageToolbarProps;
   public static paginatedEntity = GenericMappers.paginatedEntity;
+  public static queryFilterEntity = GenericMappers.queryFilterEntity;
+  public static queryFilterEntityAsQuery = GenericMappers.queryFilterEntityAsQuery;
   public static searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
   public static searchToolbarProps = ComponentMappers.searchToolbarProps;
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;

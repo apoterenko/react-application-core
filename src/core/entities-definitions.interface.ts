@@ -79,7 +79,8 @@ export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(e
 }
 
 /**
- * @stable [04.06.2018]
+ * TODO
+ * @deprecated
  */
 export interface IFilteredListWrapperEntity<TFilter, TList>
   extends IListWrapper<TList>,
