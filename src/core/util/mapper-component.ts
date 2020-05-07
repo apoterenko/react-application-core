@@ -25,7 +25,7 @@ const mapPageToolbarProps = (props: IPageToolbarProps): IPageToolbarProps =>
  * @returns {ISearchToolbarProps}
  */
 const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps =>
-  ({});
+  GenericMappers.activeQueryEntity(props);
 
 /**
  * @container-props-mapper
@@ -50,6 +50,20 @@ const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageT
 const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): ISearchToolbarContainerProps =>
   ({
     ...GenericMappers.sectionNameWrapper(props),
+    ...GenericMappers.queryFilterEntity(props),
+  });
+
+/**
+ * @container-component-props-mapper
+ * @stable [07.05.2020]
+ *
+ * @param {IPageToolbarContainerProps} props
+ * @returns {IPageToolbarProps}
+ */
+const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarContainerProps): IPageToolbarProps =>
+  ({
+    ...mapPageToolbarProps(Selectors.list(props)),
+    ...props.toolbarConfiguration,
   });
 
 /**
@@ -59,24 +73,16 @@ const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): IS
  * @param {IPageToolbarContainerProps} props
  * @returns {IPageToolbarProps}
  */
-const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarContainerProps): IPageToolbarProps =>
-  mapPageToolbarProps(Selectors.list(props));
-
-/**
- * @container-component-props-mapper
- * @stable [06.05.2020]
- *
- * @param {IPageToolbarContainerProps} props
- * @returns {IPageToolbarProps}
- */
 const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolbarContainerProps): ISearchToolbarProps =>
-  mapSearchToolbarProps(Selectors.list(props));
+  ({
+    ...mapSearchToolbarProps(Selectors.queryFilter(props)),
+    ...props.toolbarConfiguration,
+  });
 
 /**
  * @stable [06.05.2020]
  */
 export class ComponentMappers {
-
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static pageToolbarProps = mapPageToolbarProps;

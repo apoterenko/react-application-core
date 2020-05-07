@@ -1,5 +1,4 @@
 import {
-  IFilterWrapper,
   IListWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
@@ -9,6 +8,7 @@ import {
 import { defValuesFilter } from './filter';
 import { ifNotNilThanValue } from './cond';
 import {
+  IGenericActiveQueryEntity,
   IGenericLifeCycleEntity,
   IGenericPagedEntity,
   IGenericPaginatedEntity,
@@ -37,16 +37,6 @@ const mapSectionName = (sectionName: string): ISectionNameWrapper =>
  */
 const mapList = <TList>(list: TList): IListWrapper<TList> =>
   defValuesFilter<IListWrapper<TList>, IListWrapper<TList>>({list});
-
-/**
- * @stable [06.05.2020]
- * @mapper-generic
- *
- * @param {TEntity} filter
- * @returns {IFilterWrapper<TEntity>}
- */
-export const mapFilter = <TEntity = string>(filter: TEntity): IFilterWrapper<TEntity> =>
-  defValuesFilter<IFilterWrapper<TEntity>, IFilterWrapper<TEntity>>({filter});
 
 /**
  * @stable [07.05.2020]
@@ -123,6 +113,22 @@ const mapPagedEntity = (entity: IGenericPagedEntity): IGenericPagedEntity => ifN
 );
 
 /**
+ * @stable [07.05.2020]
+ * @mapper-generic
+ *
+ * @param {IGenericActiveQueryEntity} entity
+ * @returns {IGenericActiveQueryEntity}
+ */
+const mapActiveQueryEntity = (entity: IGenericActiveQueryEntity): IGenericActiveQueryEntity => ifNotNilThanValue(
+  entity,
+  () => defValuesFilter<IGenericActiveQueryEntity, IGenericActiveQueryEntity>({
+    active: entity.active,
+    query: entity.query,
+  }),
+  UNDEF_SYMBOL
+);
+
+/**
  * @stable [06.05.2020]
  * @mapper-generic
  *
@@ -180,7 +186,7 @@ const mapPaginatedLifeCycleEntity =
  * @stable [06.05.2020]
  */
 export class GenericMappers {
-  public static filter = mapFilter;
+  public static activeQueryEntity = mapActiveQueryEntity;                               /* stable [07.05.2020] */
   public static listWrapperEntity = mapListWrapperEntity;
   public static pagedEntity = mapPagedEntity;
   public static paginatedEntity = mapPaginatedEntity;

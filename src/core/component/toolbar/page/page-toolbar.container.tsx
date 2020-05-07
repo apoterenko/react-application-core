@@ -42,7 +42,6 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
     return (
       <PageToolbar
         {...ComponentMappers.pageToolbarContainerPropsAsPageToolbarProps(props)}
-        {...this.toolbarConfiguration}
         onFirst={this.onFirst}
         onLast={this.onLast}
         onNext={this.onNext}

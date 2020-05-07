@@ -17,7 +17,10 @@ import {
   IToolbarConfigurationWrapper,
   IUseShortFormatWrapper,
 } from '../definitions.interface';
-import { IGenericActiveQueryEntity } from './query-definition.interface';
+import {
+  IGenericActiveQueryEntity,
+  IQueryFilterEntity,
+} from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IFieldConfigurationEntity } from '../configurations-definitions.interface'; // TODO
@@ -130,7 +133,8 @@ export interface ISearchToolbarConfigurationEntity
  * @stable [06.05.2020]
  */
 export interface IGenericSearchToolbarContainerEntity
-  extends ISearchToolbarConfigurationEntity {
+  extends IQueryFilterEntity,
+    ISearchToolbarConfigurationEntity {
 }
 
 /**
@@ -138,8 +142,8 @@ export interface IGenericSearchToolbarContainerEntity
  * @stable [06.05.2020]
  */
 export interface IGenericPageToolbarContainerEntity
-  extends IPageToolbarConfigurationEntity,
-    IListWrapperEntity {
+  extends IListWrapperEntity,
+    IPageToolbarConfigurationEntity {
 }
 
 /**

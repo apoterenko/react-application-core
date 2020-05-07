@@ -41,7 +41,6 @@ export class SearchToolbarContainer extends GenericContainer<ISearchToolbarConta
     return (
       <SearchToolbar
         {...ComponentMappers.searchToolbarContainerPropsAsSearchToolbarProps(this.props)}
-        {...this.toolbarConfiguration}
         onApply={this.onApply}
         onActivate={this.onActivate}
         onDeactivate={this.onDeactivate}

@@ -41,7 +41,6 @@ import {
 } from '../definitions.interface';
 import {
   coalesce,
-  trimmedUndefEmpty,
 } from './nvl';
 import {
   IExtendedFormEditableEntity,
@@ -332,8 +331,7 @@ export const selectNotification = <TEntity>(wrapper: INotificationWrapper<TEntit
  * @param {IQueryWrapper} wrapper
  * @returns {string}
  */
-export const selectQuery = (wrapper: IQueryWrapper): string =>
-  R.isNil(wrapper) ? UNDEF : trimmedUndefEmpty(wrapper.query);
+const selectQuery = (wrapper: IQueryWrapper): string => R.isNil(wrapper) ? UNDEF : wrapper.query;
 
 /**
  * @stable [14.04.2020]
@@ -457,6 +455,7 @@ export class Selectors {
   public static filter = selectFilter;
   public static formEditableEntityChanges = selectFormEditableEntityChanges;
   public static list = selectList;
+  public static query = selectQuery;
   public static queryFilter = selectQueryFilter;
   public static queryFilterEntityQuery = selectQueryFilterEntityQuery;
   public static sectionName = selectSectionName;
