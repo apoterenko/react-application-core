@@ -1,15 +1,17 @@
 import {
   IActiveWrapper,
+  IDisabledWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
 } from '../definitions.interface';
 
 /**
  * @generic-entity
- * @stable [04.04.2020]
+ * @stable [07.05.2020]
  */
 export interface IGenericActiveQueryEntity
   extends IActiveWrapper,
+    IDisabledWrapper,
     IQueryWrapper {
 }
 

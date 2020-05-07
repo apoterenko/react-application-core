@@ -1,5 +1,4 @@
 import {
-  IDisabledWrapper,
   IFirstAllowedWrapper,
   IFullWrapper,
   IIconWrapper,
@@ -77,7 +76,6 @@ export interface IPageToolbarProps
 export interface IGenericSearchToolbarEntity
   extends IGenericActiveQueryEntity,
     IFieldConfigurationEntity,
-    IDisabledWrapper,
     IFullWrapper,
     IIconWrapper {
 }
@@ -133,7 +131,8 @@ export interface ISearchToolbarConfigurationEntity
  * @stable [06.05.2020]
  */
 export interface IGenericSearchToolbarContainerEntity
-  extends IQueryFilterEntity,
+  extends IListWrapperEntity,
+    IQueryFilterEntity,
     ISearchToolbarConfigurationEntity {
 }
 

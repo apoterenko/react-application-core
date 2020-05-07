@@ -1,5 +1,7 @@
 import {
+  IDisabledWrapper,
   IListWrapper,
+  IProgressWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
   ISectionNameWrapper,
@@ -17,6 +19,37 @@ import {
   IQueryFilterEntity,
 } from '../definition';
 import { Selectors } from './select';
+import { inProgress } from './wrapper';
+
+/**
+ * @stable [06.05.2020]
+ * @mapper-generic
+ *
+ * @param {boolean} disabled
+ * @returns {IDisabledWrapper}
+ */
+const mapDisabledAsDisabledWrapper = (disabled: boolean): IDisabledWrapper =>
+  defValuesFilter<IDisabledWrapper, IDisabledWrapper>({disabled});
+
+/**
+ * @stable [06.05.2020]
+ * @mapper-generic
+ *
+ * @param {IProgressWrapper} entity
+ * @returns {IDisabledWrapper}
+ */
+const mapProgressWrapperAsDisabledWrapper = (entity: IProgressWrapper): IDisabledWrapper =>
+  mapDisabledAsDisabledWrapper(inProgress(entity));
+
+/**
+ * @stable [07.05.2020]
+ * @mapper-generic
+ *
+ * @param {IListWrapperEntity} listWrapperEntity
+ * @returns {IDisabledWrapper}
+ */
+const mapListWrapperEntityAsDisabledWrapper = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
+  mapProgressWrapperAsDisabledWrapper(Selectors.list(listWrapperEntity));
 
 /**
  * @stable [06.05.2020]
@@ -45,7 +78,7 @@ const mapList = <TList>(list: TList): IListWrapper<TList> =>
  * @param {TEntity} queryFilter
  * @returns {IQueryFilterWrapper<TEntity>}
  */
-export const mapQueryFilter = <TEntity = string>(queryFilter: TEntity): IQueryFilterWrapper<TEntity> =>
+const mapQueryFilter = <TEntity = string>(queryFilter: TEntity): IQueryFilterWrapper<TEntity> =>
   defValuesFilter<IQueryFilterWrapper<TEntity>, IQueryFilterWrapper<TEntity>>({queryFilter});
 
 /**
@@ -53,8 +86,7 @@ export const mapQueryFilter = <TEntity = string>(queryFilter: TEntity): IQueryFi
  * @param {string} query
  * @returns {IQueryWrapper}
  */
-export const mapQuery = (query: string): IQueryWrapper =>
-  defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
+const mapQuery = (query: string): IQueryWrapper => defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
 
 /**
  * @stable [06.05.2020]
@@ -83,7 +115,7 @@ const mapListWrapperEntity = (wrapper: IListWrapperEntity): IListWrapperEntity =
  * @param {IQueryFilterEntity} entity
  * @returns {IQueryFilterEntity}
  */
-export const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
+const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
   mapQueryFilter(Selectors.queryFilter(entity));
 
 /**
@@ -93,7 +125,7 @@ export const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEn
  * @param {IQueryFilterEntity} entity
  * @returns {IQueryWrapper}
  */
-export const mapQueryFilterEntityAsQuery = (entity: IQueryFilterEntity): IQueryWrapper =>
+const mapQueryFilterEntityAsQuery = (entity: IQueryFilterEntity): IQueryWrapper =>
   mapQuery(Selectors.queryFilterEntityQuery(entity));
 
 /**
@@ -123,6 +155,7 @@ const mapActiveQueryEntity = (entity: IGenericActiveQueryEntity): IGenericActive
   entity,
   () => defValuesFilter<IGenericActiveQueryEntity, IGenericActiveQueryEntity>({
     active: entity.active,
+    disabled: entity.disabled,
     query: entity.query,
   }),
   UNDEF_SYMBOL
@@ -171,28 +204,29 @@ const mapPaginatedEntity = (entity: IGenericPaginatedEntity): IGenericPaginatedE
  * @param {IGenericPaginatedLifeCycleEntity} entity
  * @returns {IGenericPaginatedLifeCycleEntity}
  */
-const mapPaginatedLifeCycleEntity =
-  (entity: IGenericPaginatedLifeCycleEntity): IGenericPaginatedLifeCycleEntity =>
-    ifNotNilThanValue(
-      entity,
-      () => ({
-        ...mapLifeCycleEntity(entity),
-        ...mapPaginatedEntity(entity),
-      }),
-      UNDEF_SYMBOL
-    );
+const mapPaginatedLifeCycleEntity = (entity: IGenericPaginatedLifeCycleEntity): IGenericPaginatedLifeCycleEntity =>
+  ifNotNilThanValue(
+    entity,
+    () => ({
+      ...mapLifeCycleEntity(entity),
+      ...mapPaginatedEntity(entity),
+    }),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
-  public static activeQueryEntity = mapActiveQueryEntity;                               /* stable [07.05.2020] */
-  public static listWrapperEntity = mapListWrapperEntity;
-  public static pagedEntity = mapPagedEntity;
-  public static paginatedEntity = mapPaginatedEntity;
-  public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;
+  public static activeQueryEntity = mapActiveQueryEntity;                                               /* stable [07.05.2020] */
+  public static listWrapperEntity = mapListWrapperEntity;                                               /* stable [07.05.2020] */
+  public static listWrapperEntityAsDisabledWrapper = mapListWrapperEntityAsDisabledWrapper;             /* stable [07.05.2020] */
+  public static pagedEntity = mapPagedEntity;                                                           /* stable [07.05.2020] */
+  public static paginatedEntity = mapPaginatedEntity;                                                   /* stable [07.05.2020] */
+  public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                 /* stable [07.05.2020] */
+  public static progressWrapperAsDisabledWrapper = mapProgressWrapperAsDisabledWrapper;                 /* stable [07.05.2020] */
   public static query = mapQuery;
-  public static queryFilterEntity = mapQueryFilterEntity;                               /* stable [07.05.2020] */
-  public static queryFilterEntityAsQuery = mapQueryFilterEntityAsQuery;                 /* stable [07.05.2020] */
-  public static sectionNameWrapper = mapSectionNameWrapper;                             /* stable [07.05.2020] */
+  public static queryFilterEntity = mapQueryFilterEntity;                                               /* stable [07.05.2020] */
+  public static queryFilterEntityAsQuery = mapQueryFilterEntityAsQuery;                                 /* stable [07.05.2020] */
+  public static sectionNameWrapper = mapSectionNameWrapper;                                             /* stable [07.05.2020] */
 }

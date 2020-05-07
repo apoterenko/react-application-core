@@ -51,6 +51,7 @@ const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): IS
   ({
     ...GenericMappers.sectionNameWrapper(props),
     ...GenericMappers.queryFilterEntity(props),
+    ...GenericMappers.listWrapperEntity(props),
   });
 
 /**
@@ -76,6 +77,7 @@ const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarConta
 const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolbarContainerProps): ISearchToolbarProps =>
   ({
     ...mapSearchToolbarProps(Selectors.queryFilter(props)),
+    ...GenericMappers.listWrapperEntityAsDisabledWrapper(props),
     ...props.toolbarConfiguration,
   });
 

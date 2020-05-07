@@ -37,7 +37,6 @@ import {
   INotificationWrapperEntity,
   IOperationEntity,
   IOptionEntity,
-  IQueryFilterEntity,
   ISelectOptionEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
@@ -62,7 +61,6 @@ import {
   IActiveValueWrapper,
   IChannelWrapper,
   IDictionariesWrapper,
-  IDisabledWrapper,
   IEntity,
   IEntityIdTWrapper,
   IErrorWrapper,
@@ -71,7 +69,6 @@ import {
   INotificationWrapper,
   IOptionsWrapper,
   IProgressWrapper,
-  IQueryWrapper,
   IStackWrapper,
   ITransportWrapper,
   IUserWrapper,
@@ -293,14 +290,6 @@ export const mapDictionaries = <TValue>(dictionaries: TValue): IDictionariesWrap
     defValuesFilter<IDictionariesWrapper<TValue>, IDictionariesWrapper<TValue>>({dictionaries});
 
 /**
- * @stable [12.10.2019]
- * @param {boolean} disabled
- * @returns {IDisabledWrapper}
- */
-export const mapDisabled = (disabled: boolean): IDisabledWrapper =>
-  defValuesFilter<IDisabledWrapper, IDisabledWrapper>({disabled});
-
-/**
  * @stable [26.03.2020]
  * @param {TForm} form
  * @returns {IFormWrapper<TForm>}
@@ -373,22 +362,6 @@ const mapPaginatedEntityAsPagedEntity =
       }),
       UNDEF_SYMBOL
     );
-
-/**
- * @stable [12.10.2019]
- * @param {IProgressWrapper} entity
- * @returns {IDisabledWrapper}
- */
-export const mapDisabledProgressWrapper = (entity: IProgressWrapper): IDisabledWrapper =>
-  mapDisabled(inProgress(entity));
-
-/**
- * @stable [12.10.2019]
- * @param {IListWrapperEntity} listWrapperEntity
- * @returns {IDisabledWrapper}
- */
-export const mapDisabledProgressListWrapperEntity = (listWrapperEntity: IListWrapperEntity): IDisabledWrapper =>
-  mapDisabledProgressWrapper(Selectors.list(listWrapperEntity));
 
 /**
  * @stable [05.05.2020]
@@ -906,6 +879,7 @@ export const mapUnsavedFormChangesDialogContainerProps =
  */
 export class Mappers {
   public static listWrapperEntity = GenericMappers.listWrapperEntity;
+  public static listWrapperEntityAsDisabledWrapper = GenericMappers.listWrapperEntityAsDisabledWrapper;
   public static listWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
