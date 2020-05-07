@@ -3,8 +3,6 @@ import {
   IDictionariesWrapperEntity,
   ILayoutWrapperEntity,
   INotificationWrapperEntity,
-  IGenericActiveQueryEntity,
-  IQueryFilterEntity,
   IStackWrapperEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
@@ -17,12 +15,6 @@ import {
 export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
   layout: {
     ...state.layout,
-  },
-});
-
-export const filterMapper = (filterState: IGenericActiveQueryEntity) => ({
-  filter: {
-    ...filterState,
   },
 });
 
