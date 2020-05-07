@@ -1,0 +1,9 @@
+@import '../../_primary-constant';
+@import '../../_classes';
+
+/************************/
+/* @stable [07.05.2020] */
+/************************/
+$rac-search-toolbar-align-items: center !default;
+$rac-search-toolbar-display: $rac-primary-display-0 !default;
+$rac-search-toolbar-justify-content: flex-end !default;

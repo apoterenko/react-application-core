@@ -1,4 +1,5 @@
 @import '../../mixin';
+@import '../_toolbar-constant';
 @import './_page-toolbar-constant';
 
 .rac {
@@ -27,6 +28,6 @@
    */
   @include rac-page-toolbar (
     $rac-page-toolbar-custom: $rac-full-toolbar-cls,
-    $rac-page-toolbar-flex-grow: $rac-full-page-toolbar-flex-grow
+    $rac-page-toolbar-flex-grow: $rac-full-toolbar-flex-grow
   );
 }

@@ -1,0 +1,25 @@
+@import '../../mixin';
+@import '../_toolbar-constant';
+@import './_search-toolbar-constant';
+
+.rac {
+
+  /**
+   * @search-toolbar
+   * @stable [07.05.2020]
+   */
+  @include rac-search-toolbar (
+    $rac-search-toolbar-align-items: $rac-search-toolbar-align-items,
+    $rac-search-toolbar-display: $rac-search-toolbar-display,
+    $rac-search-toolbar-justify-content: $rac-search-toolbar-justify-content
+  );
+
+  /**
+   * @full-search-toolbar
+   * @stable [07.05.2020]
+   */
+  @include rac-search-toolbar (
+    $rac-search-toolbar-custom: $rac-full-toolbar-cls,
+    $rac-search-toolbar-flex-grow: $rac-full-toolbar-flex-grow
+  );
+}
