@@ -1,0 +1,29 @@
+@import '../_core-mixin';
+
+/**
+ * @stable [07.05.2020]
+ */
+@mixin rac-toolbar-tools (
+  $rac-toolbar-tools-custom: unset,
+  /**/
+  $rac-toolbar-tools-active-tool-background: unset,                                   /* @stable [07.05.2020] */
+  $rac-toolbar-tools-display: unset,                                                  /* @stable [07.05.2020] */
+  $rac-toolbar-tools-flex-grow: unset,                                                /* @stable [07.05.2020] */
+  $rac-toolbar-tools-neighbor-margin: unset                                           /* @stable [07.05.2020] */
+) {
+  #{rac-cls($rac-toolbar-tools-cls, $rac-toolbar-tools-custom)} {
+    @include rac-styles (
+      $rac-styles-display: $rac-toolbar-tools-display,
+      $rac-styles-flex-grow: $rac-toolbar-tools-flex-grow
+    );
+
+    @include rac-button (
+      $rac-button-custom: rac-toolbar-tools__active-tool,
+      $rac-button-background: $rac-toolbar-tools-active-tool-background
+    );
+
+    @include rac-neighbor-child (
+      $rac-neighbor-child-margin: $rac-toolbar-tools-neighbor-margin
+    );
+  }
+}

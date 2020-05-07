@@ -4,6 +4,7 @@
 @import './layout/builder/_layout-builder-mixin';
 @import './list/_list-mixin';
 @import './sub-header/_sub-header-mixin';
+@import './toolbar-tools/_toolbar-tools-mixin';
 @import './toolbar/_toolbar-mixin';
 
 /**
@@ -2243,20 +2244,6 @@
     @include rac-styles (
       $rac-styles-custom: rac-google-maps__body,
       $rac-styles-flex: $rac-google-maps-body-flex
-    );
-  }
-}
-
-/**
- * @stable [11.03.2019]
- */
-@mixin rac-toolbar-tools(
-  $rac-toolbar-tools-custom: unset,
-  $rac-toolbar-tools-neighbor-margin: unset
-) {
-  #{rac-cls(rac-toolbar-tools, $rac-toolbar-tools-custom)} {
-    @include rac-neighbor-child(
-      $rac-neighbor-child-margin: $rac-toolbar-tools-neighbor-margin
     );
   }
 }

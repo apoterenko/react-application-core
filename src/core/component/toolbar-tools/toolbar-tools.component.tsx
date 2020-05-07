@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import {
   calc,
+  isFull,
   isPrimitive,
   joinClassName,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
-import { FlexLayout } from '../layout';
 import {
   IButtonProps,
   IconsEnum,
@@ -21,21 +21,7 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
 
   public static readonly defaultProps: IToolbarToolsProps = {
     actions: [ToolbarToolsEnum.REFRESH],
-  };
-
-  private readonly defaultActions: Record<StringNumberT, IButtonProps> = {
-    [ToolbarToolsEnum.FILTER]: {
-      icon: IconsEnum.FILTER,
-      onClick: this.props.onFilterClick,
-    },
-    [ToolbarToolsEnum.DOWNLOAD_FILE]: {
-      icon: IconsEnum.FILE_DOWNLOAD,
-      onClick: this.props.onDownloadFileClick,
-    },
-    [ToolbarToolsEnum.REFRESH]: {
-      icon: IconsEnum.SYNC,
-      onClick: this.props.onRefreshClick,
-    },
+    full: true,
   };
 
   /**
@@ -51,13 +37,12 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
     } = this.props;
 
     return (
-      <FlexLayout
-        row={true}
-        justifyContentEnd={true}
+      <div
         className={
           joinClassName(
+            ToolbarToolsClassesEnum.TOOLBAR_TOOLS,
             calc(props.className),
-            ToolbarToolsClassesEnum.TOOLBAR_TOOLS
+            isFull(props) && ToolbarToolsClassesEnum.FULL_TOOLBAR_TOOLS
           )
         }
       >
@@ -72,16 +57,37 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
             return (
               <Button
                 key={`action-${index}-key`}
-                disabled={props.actionsDisabled}
-                className={joinClassName(
-                  (props.activeActions || []).includes(cfgAsPrimitive) && 'rac-toolbar-tool-active',
-                )}
+                disabled={props.disabled}
+                className={
+                  joinClassName(
+                    (props.activeTools || []).includes(cfgAsPrimitive) && ToolbarToolsClassesEnum.TOOLBAR_TOOLS_ACTIVE_TOOL,
+                  )
+                }
                 {...actionProps}/>
             );
           })
         }
         {rightContent}
-      </FlexLayout>
+      </div>
     );
   }
+
+  /**
+   * @stable [07.05.2020]
+   */
+  private readonly defaultActions = (): Record<StringNumberT, IButtonProps> =>
+    ({
+      [ToolbarToolsEnum.FILTER]: {
+        icon: IconsEnum.FILTER,
+        onClick: this.props.onFilterClick,
+      },
+      [ToolbarToolsEnum.DOWNLOAD_FILE]: {
+        icon: IconsEnum.FILE_DOWNLOAD,
+        onClick: this.props.onDownloadFileClick,
+      },
+      [ToolbarToolsEnum.REFRESH]: {
+        icon: IconsEnum.SYNC,
+        onClick: this.props.onRefreshClick,
+      },
+    })
 }

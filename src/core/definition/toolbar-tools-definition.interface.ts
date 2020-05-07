@@ -1,7 +1,8 @@
 import {
-  IActionsDisabledWrapper,
   IActionsWrapper,
-  IActiveActionsWrapper,
+  IActiveToolsWrapper,
+  IDisabledWrapper,
+  IFullWrapper,
   ILeftContentWrapper,
   IOnDownloadFileClickWrapper,
   IOnFilterClickWrapper,
@@ -29,7 +30,9 @@ export enum ToolbarToolsEnum {
  * @stable [26.03.2020]
  */
 export enum ToolbarToolsClassesEnum {
+  FULL_TOOLBAR_TOOLS = 'rac-full-toolbar-tools',
   TOOLBAR_TOOLS = 'rac-toolbar-tools',
+  TOOLBAR_TOOLS_ACTIVE_TOOL = 'rac-toolbar-tools__active-tool',
 }
 
 /**
@@ -37,9 +40,10 @@ export enum ToolbarToolsClassesEnum {
  * @stable [22.04.2020]
  */
 export interface IGenericToolbarToolsEntity
-  extends IActionsDisabledWrapper,
-    IActionsWrapper<Array<IButtonProps | ToolbarToolsEnum>>,
-    IActiveActionsWrapper<ToolbarToolsEnum[]>,
+  extends IActionsWrapper<Array<IButtonProps | ToolbarToolsEnum>>,
+    IActiveToolsWrapper<ToolbarToolsEnum[]>,
+    IDisabledWrapper,
+    IFullWrapper,
     ILeftContentWrapper<JSX.Element>,
     IRightContentWrapper<JSX.Element> {
 }

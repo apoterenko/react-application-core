@@ -32,7 +32,6 @@ export interface IAcceptTextWrapper { acceptText?: string; }
 export interface IAcceptWrapper { accept?(): void; }
 export interface IAccessConfigurationWrapper<TValue> { accessConfiguration?: TValue; }
 export interface IAccessDeniedWrapper<TValue> { accessDenied?: TValue; }
-export interface IActionsDisabledWrapper { actionsDisabled?: boolean; }
 export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
 export interface IActionsPosition<TValue> { actionsPosition?: TValue; }
 export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
@@ -40,8 +39,8 @@ export interface IActionsWrapper<TValue> { actions?: TValue; }
 export interface IActionWrapper<TValue> { action?: TValue; }
 export interface IActivateDialogWrapper { activateDialog?(): void; }
 export interface IActivateWrapper<TValue = {}> { activate?(payload?: TValue): void; }
-export interface IActiveActionsWrapper<TValue> { activeActions?: TValue; }
 export interface IActiveGroupWrapper<TValue> { activeGroup?: TValue; }
+export interface IActiveToolsWrapper<TValue> { activeTools?: TValue; }
 export interface IActiveValueWrapper<TValue = number> { activeValue?: TValue; }
 export interface IActiveWrapper<TValue = boolean> { active?: TValue; }
 export interface IAddApiWrapper { addApi?: string; }

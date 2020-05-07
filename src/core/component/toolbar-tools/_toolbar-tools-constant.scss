@@ -1,0 +1,14 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [07.05.2020] */
+/************************/
+$rac-toolbar-tools-active-tool-background: $rac-primary-color-callisto-3 !default;
+$rac-toolbar-tools-display: $rac-primary-display-0 !default;
+$rac-toolbar-tools-neighbor-margin: 0 0 0 $rac-primary-offset-1 !default;
+
+/************************/
+/* @stable [07.05.2020] */
+/************************/
+$rac-full-toolbar-tools-flex-grow: $rac-primary-flex-grow-1 !default;

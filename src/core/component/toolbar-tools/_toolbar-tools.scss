@@ -1,0 +1,24 @@
+@import '../mixin';
+@import './_toolbar-tools-constant';
+
+.rac {
+
+  /**
+   * @toolbar-tools
+   * @stable [070.05.2020]
+   */
+  @include rac-toolbar-tools (
+    $rac-toolbar-tools-active-tool-background: $rac-toolbar-tools-active-tool-background,
+    $rac-toolbar-tools-display: $rac-toolbar-tools-display,
+    $rac-toolbar-tools-neighbor-margin: $rac-toolbar-tools-neighbor-margin
+  );
+
+  /**
+   * @toolbar-tools
+   * @stable [070.05.2020]
+   */
+  @include rac-toolbar-tools (
+    $rac-toolbar-tools-custom: $rac-full-toolbar-tools-cls,
+    $rac-toolbar-tools-flex-grow: $rac-full-toolbar-tools-flex-grow
+  );
+}
