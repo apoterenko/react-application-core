@@ -1,7 +1,6 @@
 import { Component, ComponentClass, ComponentLifecycle } from 'react';
 
 import {
-  AnyT,
   IClearValueWrapper,
   IDateWrapper,
   IEntity,
@@ -10,7 +9,6 @@ import {
   IGetValueWrapper,
   IIdWrapper,
   IKeyValue,
-  IListWrapper,
   INameWrapper,
   IOnChangeManuallyWrapper,
   IOnChangeWrapper,
@@ -24,10 +22,8 @@ import {
 import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from './configurations-definitions.interface';
 import {
   IEnvironment,
-  IGenericActiveQueryEntity,
   IGenericComponent,
   IGenericLifeCycleEntity,
-  IListEntity,
 } from './definition';
 
 /**
@@ -59,14 +55,6 @@ export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
 }
 
-/**
- * TODO
- * @deprecated
- */
-export interface IQueryFilteredListEntity
-  extends IFilteredListWrapperEntity<IGenericActiveQueryEntity, IListEntity> {
-}
-
 /* @stable [23.04.2018] */
 export interface IUniversalMessageEntity extends IGenericLifeCycleEntity {
 }
@@ -76,15 +64,6 @@ export interface IUniversalMessageEntity extends IGenericLifeCycleEntity {
  */
 export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(entity: TEntity) => boolean>,
                                                                ISorterWrapper<(entity1: TEntity, entity2: TEntity) => number> {
-}
-
-/**
- * TODO
- * @deprecated
- */
-export interface IFilteredListWrapperEntity<TFilter, TList>
-  extends IListWrapper<TList>,
-    IFilterWrapper<TFilter> {
 }
 
 /**
