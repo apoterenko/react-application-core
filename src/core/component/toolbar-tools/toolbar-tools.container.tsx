@@ -9,6 +9,12 @@ import {
 import { ToolbarTools } from './toolbar-tools.component';
 import { ToolbarToolsActionBuilder } from '../../action';
 
+/**
+ * @component-container-impl
+ * @stable [07.05.2020]
+ *
+ * Please use the "Mappers.toolbarToolsContainerProps"
+ */
 export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContainerProps> {
 
   /**

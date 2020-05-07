@@ -17,11 +17,17 @@ import {
 import { Button } from '../button';
 import { StringNumberT } from '../../definitions.interface';
 
+/**
+ * @component-impl
+ * @stable [07.05.2020]
+ *
+ * Please use the "Mappers.toolbarToolsProps"
+ */
 export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
 
   public static readonly defaultProps: IToolbarToolsProps = {
     actions: [ToolbarToolsEnum.REFRESH],
-    full: true,
+    full: false,
   };
 
   /**

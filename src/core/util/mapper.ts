@@ -44,7 +44,6 @@ import {
   IStackItemEntity,
   IStackWrapperEntity,
   ITabPanelWrapperEntity,
-  IToolbarToolsContainerProps,
   ITransportEntity,
   ITransportWrapperEntity,
   IUniversalApplicationEntity,
@@ -810,30 +809,6 @@ export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps
  * @container-props-mapper
  * @stable [23.04.2020]
  *
- * @param {IToolbarToolsContainerProps & IListContainerProps} props
- * @param {IGenericEditableEntity} editableEntity
- * @returns {IToolbarToolsContainerProps}
- */
-export const mapToolbarToolsListContainerProps =
-  (props: IToolbarToolsContainerProps & IListContainerProps,
-   editableEntity?: IGenericEditableEntity): IToolbarToolsContainerProps =>
-    ({
-      ...GenericMappers.sectionNameWrapper(props),
-      toolbarTools: {
-        ...GenericMappers.listWrapperEntityAsDisabledWrapper(props),
-        activeTools: nvl(
-          R.isNil(editableEntity)
-            ? Selectors.formEditableEntityActiveToolbarTools(props)
-            : Selectors.editableEntityActiveToolbarTools(editableEntity),
-          []
-        ),
-      },
-    });
-
-/**
- * @container-props-mapper
- * @stable [23.04.2020]
- *
  * @param {IFormEditableEntity<TEntity>} props
  * @param {IGenericContainer} proxyContainer
  * @returns {IUnsavedFormChangesDialogContainerProps}
@@ -863,4 +838,5 @@ export class Mappers {
   public static searchToolbarProps = ComponentMappers.searchToolbarProps;
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static selectableHoveredEntity = mapSelectableHoveredEntity;
+  public static toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;
 }

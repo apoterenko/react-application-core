@@ -9,12 +9,14 @@
   $rac-toolbar-tools-active-tool-background: unset,                                   /* @stable [07.05.2020] */
   $rac-toolbar-tools-display: unset,                                                  /* @stable [07.05.2020] */
   $rac-toolbar-tools-flex-grow: unset,                                                /* @stable [07.05.2020] */
+  $rac-toolbar-tools-margin: unset,                                                   /* @stable [07.05.2020] */
   $rac-toolbar-tools-neighbor-margin: unset                                           /* @stable [07.05.2020] */
 ) {
   #{rac-cls($rac-toolbar-tools-cls, $rac-toolbar-tools-custom)} {
     @include rac-styles (
       $rac-styles-display: $rac-toolbar-tools-display,
-      $rac-styles-flex-grow: $rac-toolbar-tools-flex-grow
+      $rac-styles-flex-grow: $rac-toolbar-tools-flex-grow,
+      $rac-styles-margin: $rac-toolbar-tools-margin
     );
 
     @include rac-button (

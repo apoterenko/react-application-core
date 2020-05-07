@@ -4,6 +4,7 @@ import {
   IPageToolbarProps,
   ISearchToolbarContainerProps,
   ISearchToolbarProps,
+  IToolbarToolsContainerProps,
 } from '../definition';
 import { Selectors } from './select';
 
@@ -82,6 +83,19 @@ const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolba
   });
 
 /**
+ * @container-props-mapper
+ * @stable [07.05.2020]
+ */
+export const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToolbarToolsContainerProps =>
+  ({
+    ...GenericMappers.sectionNameWrapper(props),
+    toolbarTools: {
+      ...GenericMappers.listWrapperEntityAsDisabledWrapper(props),
+      activeTools: Selectors.dirtyWrapperActiveToolbarTools(Selectors.form(props)) || [],
+    },
+  });
+
+/**
  * @stable [06.05.2020]
  */
 export class ComponentMappers {
@@ -91,4 +105,5 @@ export class ComponentMappers {
   public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static searchToolbarProps = mapSearchToolbarProps;
+  public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;
 }

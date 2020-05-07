@@ -12,6 +12,7 @@ import {
   IDictionariesWrapper,
   IDiffWrapper,
   IDirectionsWrapper,
+  IDirtyWrapper,
   IElementWrapper,
   IEntity,
   IEntityIdTWrapper,
@@ -53,7 +54,7 @@ import {
   ToolbarToolsEnum,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
-import { isObjectNotEmpty } from './object';
+import { isDirty } from './wrapper';
 
 /**
  * @stable [30.03.2020]
@@ -422,23 +423,13 @@ const selectFormEditableEntityChanges = <TEntity = IEntity>(entity: IFormEditabl
 
 /**
  * @stable [07.05.2020]
- * @param {IGenericEditableEntity} editableEntity
+ * @param {IGenericEditableEntity} wrapper
  * @returns {ToolbarToolsEnum[]}
  */
-const selectEditableEntityActiveToolbarTools = (editableEntity: IGenericEditableEntity): ToolbarToolsEnum[] =>
-  isObjectNotEmpty(selectChanges(editableEntity))
-  || isObjectNotEmpty(selectDefaultChanges(editableEntity))
+const selectDirtyWrapperActiveToolbarTools = (wrapper: IDirtyWrapper): ToolbarToolsEnum[] =>
+  isDirty(wrapper)
     ? [ToolbarToolsEnum.FILTER]
     : [];
-
-/**
- * @stable [07.05.2020]
- * @param {IFormEditableEntity<TEntity>} entity
- * @returns {ToolbarToolsEnum[]}
- */
-const selectFormEditableEntityActiveToolbarTools =
-  <TEntity = IEntity>(entity: IFormEditableEntity<TEntity>): ToolbarToolsEnum[] =>
-    selectEditableEntityActiveToolbarTools(selectForm(entity));
 
 /**
  * @stable [07.05.2020]
@@ -452,9 +443,9 @@ const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
  * @stable [06.05.2020]
  */
 export class Selectors {
-  public static editableEntityActiveToolbarTools = selectEditableEntityActiveToolbarTools;
+  public static dirtyWrapperActiveToolbarTools = selectDirtyWrapperActiveToolbarTools;
   public static filter = selectFilter;
-  public static formEditableEntityActiveToolbarTools = selectFormEditableEntityActiveToolbarTools;
+  public static form = selectForm;
   public static formEditableEntityChanges = selectFormEditableEntityChanges;
   public static list = selectList;
   public static query = selectQuery;
