@@ -17,7 +17,7 @@ import {
 } from '../definitions.interface';
 import { IBehavioralScrolledEntity } from './scrolled-definition.interface';
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
-import { IGenericLayoutEntity } from './layout-definition.interface';
+import { IReduxLayoutEntity } from './layout-definition.interface';
 
 /**
  * @stable [11.09.2019]
@@ -58,7 +58,7 @@ export interface INavigationListItemEntity<TAccessConfiguration = {}>
  * @stable [24.03.2020]
  */
 export interface IGenericNavigationListEntity
-  extends IGenericLayoutEntity,
+  extends IReduxLayoutEntity,
     IDividerRenderedWrapper,
     IItemsWrapper<INavigationListItemEntity[]> {
 }

@@ -25,7 +25,7 @@ import {
 } from '../definitions.interface';
 import { IAsyncLibsWrapperEntity } from './async-lib-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
-import { ILayoutWrapperEntity } from './layout-definition.interface';
+import { ILayoutEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
 import { ISelectedEntity } from './entity-definition.interface';
@@ -117,7 +117,7 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
 export interface IGenericStoreEntity<TDictionaries = {}>
   extends IChannelWrapperEntity,
     IDictionariesWrapper<TDictionaries>,
-    ILayoutWrapperEntity,
+    ILayoutEntity,
     INotificationWrapperEntity,
     ISectionNameWrapper,
     IStackWrapperEntity,

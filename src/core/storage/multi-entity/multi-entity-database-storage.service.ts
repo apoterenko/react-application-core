@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 
 import {
-  IMultiEntity,
+  IReduxMultiEntity,
   IMultiEntityStorageSetEntity,
   IStorage,
 } from '../../definition';
@@ -19,10 +19,10 @@ export class MultiEntityDatabaseStorage implements IStorage {
   /**
    * @stable [30.07.2019]
    * @param {string} key
-   * @param {IMultiEntity} entity
+   * @param {IReduxMultiEntity} entity
    * @returns {Promise<IMultiEntityStorageSetEntity>}
    */
-  public async set(key: string, entity: IMultiEntity): Promise<IMultiEntityStorageSetEntity> {
+  public async set(key: string, entity: IReduxMultiEntity): Promise<IMultiEntityStorageSetEntity> {
     const ids = new Set<string>();
     const delegateStorage = new MultiEntityStorage(
       this.fileStorage,

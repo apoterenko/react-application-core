@@ -1,5 +1,5 @@
 import {
-  IMultiEntity,
+  IReduxMultiEntity,
   IMultiEntityStorageSetEntity,
   MultiFieldSingleValueT,
 } from '../definition';

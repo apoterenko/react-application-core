@@ -13,7 +13,7 @@ import { makeEntityReducer } from '../store/store.support';
 import {
   IAsyncLibsEntity,
   IDictionariesEntity,
-  IGenericLayoutEntity,
+  IReduxLayoutEntity,
   IGenericNotificationEntity,
   IGenericStackEntity,
 } from '../definition';

@@ -4,6 +4,7 @@ import {
   IDisabledWrapper,
   IEntity,
   IFormWrapper,
+  ILayoutWrapper,
   IListWrapper,
   IProgressWrapper,
   IQueryFilterWrapper,
@@ -19,6 +20,7 @@ import {
 import {
   IExtendedEntity,
   IFormEntity,
+  ILayoutEntity,
   IListEntity,
   IQueryFilterEntity,
   IReduxActiveQueryEntity,
@@ -32,6 +34,14 @@ import { Selectors } from './select';
 import { inProgress } from './wrapper';
 import { isNewEntity } from './entity';
 import { nvl } from './nvl';
+
+/**
+ * @stable [08.05.2020]
+ * @param {TValue} layout
+ * @returns {ILayoutWrapper<TValue>}
+ */
+const mapLayout = <TValue>(layout: TValue): ILayoutWrapper<TValue> =>
+  defValuesFilter<ILayoutWrapper<TValue>, ILayoutWrapper<TValue>>({layout});
 
 /**
  * @stable [08.05.2020]
@@ -249,6 +259,14 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
 });
 
 /**
+ * @stable [08.05.2020]
+ * @param {ILayoutEntity} wrapper
+ * @returns {ILayoutEntity}
+ */
+export const mapLayoutEntity = (wrapper: ILayoutEntity): ILayoutEntity =>
+  mapLayout(Selectors.layout(wrapper));
+
+/**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
@@ -258,6 +276,7 @@ export class GenericMappers {
   public static extendedEntity = mapExtendedEntity;                                                       /* stable [08.05.2020] */
   public static form = mapForm;                                                                           /* stable [08.05.2020] */
   public static formEntity = mapFormEntity;                                                               /* stable [08.05.2020] */
+  public static layoutEntity = mapLayoutEntity;                                                           /* stable [08.05.2020] */
   public static lifeCycleEntity = mapLifeCycleEntity;                                                     /* stable [08.05.2020] */
   public static listEntity = mapListEntity;                                                               /* stable [07.05.2020] */
   public static listEntityAsDisabled = mapListEntityAsDisabled;                                           /* stable [08.05.2020] */

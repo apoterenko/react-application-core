@@ -1,25 +1,23 @@
-import { IXYEntity } from './xy-definition.interface';
+import { IReduxXYEntity } from './xy-definition.interface';
 import {
   IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
   IFooterWrapper,
   IHeaderContentWrapper,
   IHeaderWrapper,
-  IKeyValue,
   ILayoutModeWrapper,
   ILayoutWrapper,
   IModeWrapper,
   IOnDrawerHeaderClickWrapper,
   ITopTitleWrapper,
 } from '../definitions.interface';
-import { IComponentProps } from './props-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericStoreEntity } from './redux-definition.interface';
 import { IHeaderConfigurationEntity } from './header-definition.interface';
 
 /**
  * @enum
- * @stable [28.09.2019]
+ * @stable [08.05.2020]
  */
 export enum LayoutModesEnum {
   FULL,
@@ -27,21 +25,21 @@ export enum LayoutModesEnum {
 }
 
 /**
- * @generic-entity
- * @stable [28.09.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericLayoutEntity
+export interface IReduxLayoutEntity
   extends IExpandedGroupsWrapper<{}>,
     IModeWrapper<LayoutModesEnum>,
-    IXYEntity {
+    IReduxXYEntity {
 }
 
 /**
- * @wrapper-entity
- * @stable [28.09.2019]
+ * @entity
+ * @stable [08.05.2020]
  */
-export interface ILayoutWrapperEntity<TEntity = IGenericLayoutEntity>
-  extends ILayoutWrapper<TEntity> {
+export interface ILayoutEntity
+  extends ILayoutWrapper<IReduxLayoutEntity> {
 }
 
 /**
@@ -56,7 +54,7 @@ export interface IGenericDefaultLayoutEntity
     IHeaderContentWrapper,
     IHeaderWrapper,
     ILayoutModeWrapper<LayoutModesEnum>,
-    ILayoutWrapperEntity {
+    ILayoutEntity {
 }
 
 /**
@@ -92,7 +90,7 @@ export interface IGenericFormLayoutEntity
  * @stable [13.02.2020]
  */
 export interface IFormLayoutProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericFormLayoutEntity {
 }
 
@@ -105,12 +103,22 @@ export enum LayoutGroupsValuesEnum {
 }
 
 /**
- * @initial-entity
- * @stable [28.09.2019]
+ * @initial-redux-entity
+ * @stable [08.05.2020]
  */
-export const INITIAL_LAYOUT_ENTITY = Object.freeze<IGenericLayoutEntity>({
+export const INITIAL_REDUX_LAYOUT_ENTITY = Object.freeze<IReduxLayoutEntity>({
+  expandedGroups: {[LayoutGroupsValuesEnum.HOME]: true},
+  mode: LayoutModesEnum.FULL,
   x: 0,
   y: 0,
-  mode: LayoutModesEnum.FULL,
-  expandedGroups: {[LayoutGroupsValuesEnum.HOME]: true},
 });
+
+/**
+ * @classes
+ * @stable [08.05.2020]
+ */
+export enum LayoutClassesEnum {
+  FORM_LAYOUT = 'rac-form-layout',
+  FORM_LAYOUT_CONTENT = 'rac-form-layout__content',
+  FORM_LAYOUT_TOP_HEADER = 'rac-form-layout__top-header',
+}

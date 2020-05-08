@@ -22,7 +22,6 @@ import {
   ILayoutWrapper,
   IListWrapper,
   INotificationWrapper,
-  IOriginalEntityWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
   IQueryFilterWrapper,
@@ -50,12 +49,15 @@ import {
   IListEntity,
   IPreviousActionWrapperEntity,
   IQueryFilterEntity,
-  IReduxFormEntity,
+  IReduxListEntity,
   IReduxSortDirectionsEntity,
   ToolbarToolsEnum,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
-import { isDirty } from './wrapper';
+import {
+  inProgress,
+  isDirty,
+} from './wrapper';
 
 /**
  * @stable [30.03.2020]
@@ -250,6 +252,13 @@ export const selectPreviousAction = (wrapper: IPreviousActionWrapperEntity): IEf
   R.isNil(wrapper) ? UNDEF : wrapper.previousAction;
 
 /**
+ * @stable [08.05.2020]
+ * @param {IListEntity} entity
+ * @returns {boolean}
+ */
+const selectListProgress = (entity: IListEntity): boolean => inProgress(selectList(entity));
+
+/**
  * @stable [26.03.2020]
  * @param {IEffectsAction} wrapper
  * @returns {IEffectsAction}
@@ -339,7 +348,7 @@ const selectQuery = (wrapper: IQueryWrapper): string => R.isNil(wrapper) ? UNDEF
  * @param {ILayoutWrapper<TEntity>} wrapper
  * @returns {TEntity}
  */
-export const selectLayout = <TEntity>(wrapper: ILayoutWrapper<TEntity>): TEntity =>
+const selectLayout = <TEntity>(wrapper: ILayoutWrapper<TEntity>): TEntity =>
   R.isNil(wrapper) ? UNDEF : wrapper.layout;
 
 /**
@@ -382,28 +391,19 @@ const selectListSelectedEntity = <TEntity extends IEntity>(entity: IListEntity<T
   selectSelected(selectList(entity));
 
 /**
- * @stable [04.04.2020]
+ * @stable [08.05.2020]
  * @param {IDirectionsWrapper<TValue>} wrapper
  * @returns {TValue}
  */
-export const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): TValue =>
+const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.directions;
 
 /**
- * @stable [04.04.2020]
- * @param {IGenericListEntity} entity
- * @returns {IReduxSortDirectionsEntity}
+ * @stable [08.05.2020]
+ * @param {IListEntity} entity
+ * @returns {TRawData}
  */
-export const selectListEntityDirections = (entity: IGenericListEntity): IReduxSortDirectionsEntity =>
-  selectDirections(entity);
-
-/**
- * @stable [09.04.2020]
- * @param {IListEntity} listWrapperEntity
- * @returns {TData}
- */
-export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: IListEntity): TData =>
-  selectRawData(selectList(listWrapperEntity));
+const selectListRawData = <TRawData = AnyT>(entity: IListEntity): TRawData => selectRawData(selectList(entity));
 
 /**
  * @stable [08.05.2020]
@@ -437,11 +437,15 @@ const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
 export class Selectors {
   public static activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
   public static changes = selectChanges;
+  public static directions = selectDirections;                                                         /* @stable [08.05.2020] */
   public static entity = selectEntity;
   public static filter = selectFilter;
   public static form = selectForm;
   public static formEntityChanges = selectFormEntityChanges;
+  public static layout = selectLayout;                                                                 /* @stable [08.05.2020] */
   public static list = selectList;
+  public static listProgress = selectListProgress;                                                     /* @stable [08.05.2020] */
+  public static listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
   public static listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
   public static query = selectQuery;
   public static queryFilter = selectQueryFilter;

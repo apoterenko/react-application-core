@@ -1,7 +1,7 @@
 import { AnyT } from '../../definitions.interface';
 import {
   IAddedFileEntity,
-  IMultiEntity,
+  IReduxMultiEntity,
   IMultiEntityStorageSetEntity,
   IMultiItemEntity,
   IStorage,
@@ -21,10 +21,10 @@ export class MultiEntityStorage implements IStorage<IStorage> {
   /**
    * @stable [30.07.2019]
    * @param {string} key
-   * @param {IMultiEntity} entity
+   * @param {IReduxMultiEntity} entity
    * @returns {Promise<IMultiEntityStorageSetEntity>}
    */
-  public async set(key: string, entity: IMultiEntity): Promise<IMultiEntityStorageSetEntity> {
+  public async set(key: string, entity: IReduxMultiEntity): Promise<IMultiEntityStorageSetEntity> {
     const result = await Promise.all<void[], IAddedFileEntity[]>([
       this.clear(entity),
       this.add(entity)
@@ -37,10 +37,10 @@ export class MultiEntityStorage implements IStorage<IStorage> {
 
   /**
    * @stable [30.07.2019]
-   * @param {IMultiEntity} entity
+   * @param {IReduxMultiEntity} entity
    * @returns {Promise<AnyT[]>}
    */
-  private async add(entity: IMultiEntity): Promise<IAddedFileEntity[]> {
+  private async add(entity: IReduxMultiEntity): Promise<IAddedFileEntity[]> {
     const payloads = entity.add;
     const entitiesTasks = await Promise.all(payloads.map((itm) => this.multiEntityProcessor(itm)));
 
@@ -51,10 +51,10 @@ export class MultiEntityStorage implements IStorage<IStorage> {
 
   /**
    * @stable [30.07.2019]
-   * @param {IMultiEntity} entity
+   * @param {IReduxMultiEntity} entity
    * @returns {Promise<void[]>}
    */
-  private clear(entity: IMultiEntity): Promise<void[]> {
+  private clear(entity: IReduxMultiEntity): Promise<void[]> {
     const clearTasks = entity.remove.map((itm) => this.storage.remove(String(itm.id)));
     return Promise.all(clearTasks);
   }
