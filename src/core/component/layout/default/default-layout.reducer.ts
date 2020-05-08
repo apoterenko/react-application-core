@@ -8,20 +8,20 @@ import {
 } from '../layout.interface';
 import { IPayloadWrapper, StringNumberT } from '../../../definitions.interface';
 import {
-  IGenericLayoutEntity,
-  INITIAL_LAYOUT_ENTITY,
-  IXYPayloadEntity,
+  IReduxLayoutEntity,
+  INITIAL_REDUX_LAYOUT_ENTITY,
+  IFluxXYEntity,
   LayoutModesEnum,
 } from '../../../definition';
 
 /**
  * @stable [23.09.2018]
- * @param {IGenericLayoutEntity} state
+ * @param {IReduxLayoutEntity} state
  * @param {AnyAction} action
- * @returns {IGenericLayoutEntity}
+ * @returns {IReduxLayoutEntity}
  */
-export const defaultLayoutReducer = (state: IGenericLayoutEntity = INITIAL_LAYOUT_ENTITY,
-                                     action: AnyAction): IGenericLayoutEntity => {
+export const defaultLayoutReducer = (state: IReduxLayoutEntity = INITIAL_REDUX_LAYOUT_ENTITY,
+                                     action: AnyAction): IReduxLayoutEntity => {
   switch (action.type) {
     case LAYOUT_EXPANDED_GROUPS_UPDATE_ACTION_TYPE:
       const expandedGroupPayloadWrapper: IPayloadWrapper<StringNumberT> = action.data;
@@ -32,10 +32,10 @@ export const defaultLayoutReducer = (state: IGenericLayoutEntity = INITIAL_LAYOU
         },
       };
     case LAYOUT_XY_UPDATE_ACTION_TYPE:
-      const xyPayloadWrapper: IXYPayloadEntity = action.data;
+      const fluxXYEntity: IFluxXYEntity = action.data;
       return {
         ...state,
-        ...xyPayloadWrapper.payload,
+        ...fluxXYEntity.payload,
       };
     case LAYOUT_MODE_UPDATE_ACTION_TYPE:
       const modePayloadWrapper: IPayloadWrapper<LayoutModesEnum> = action.data;
@@ -45,7 +45,7 @@ export const defaultLayoutReducer = (state: IGenericLayoutEntity = INITIAL_LAYOU
       };
     case LAYOUT_DESTROY_ACTION_TYPE:
       return {
-        ...INITIAL_LAYOUT_ENTITY,
+        ...INITIAL_REDUX_LAYOUT_ENTITY,
       };
   }
   return state;

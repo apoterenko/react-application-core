@@ -10,7 +10,10 @@ import {
   selectStackWrapperItemEntities,
 } from '../../../util';
 import { BasicContainer } from '../../base/basic.container';
-import { IDefaultLayoutContainerProps, IDefaultLayoutContainerState } from './default-layout.interface';
+import {
+  IDefaultLayoutContainerProps,
+  IDefaultLayoutContainerState,
+} from './default-layout.interface';
 import { SubHeader } from '../../sub-header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import { FlexLayout } from '../flex';
@@ -25,12 +28,12 @@ import {
 } from '../layout.interface';
 import {
   HeaderUserMenuActionsEnum,
-  IGenericLayoutEntity,
+  IconsEnum,
+  IFluxXYEntity,
   IMenuItemEntity,
   INavigationListItemEntity,
-  IXYEntity,
+  IReduxXYEntity,
   LayoutModesEnum,
-  IconsEnum,
 } from '../../../definition';
 import { Overlay } from '../../overlay';
 import {
@@ -122,10 +125,10 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
 
   /**
    * @stable [23.12.2019]
-   * @param {IXYEntity} xy
+   * @param {IReduxXYEntity} xy
    */
-  private onNavigationListScroll(xy: IXYEntity): void {
-    this.dispatchActionByType<IPayloadWrapper<IGenericLayoutEntity>>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
+  private onNavigationListScroll(xy: IReduxXYEntity): void {
+    this.dispatchActionByType<IFluxXYEntity>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
   }
 
   /**
