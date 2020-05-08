@@ -179,7 +179,7 @@ export interface IEventWrapper<TValue = Event> { event?: TValue; }
 export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
 export interface IExpandedAllGroupsWrapper { expandedAllGroups?: boolean; }
-export interface IExpandedGroupsWrapper<TValue> { expandedGroups?: TValue; }
+export interface IExpandedGroupsWrapper<TValue = {}> { expandedGroups?: TValue; }
 export interface IExtraActionsWrapper<TValue> { extraActions?: TValue; }
 export interface IExtraParamsWrapper<TValue> { extraParams?: TValue; }
 export interface IFactorWrapper<TValue = number> { factor?: TValue; }

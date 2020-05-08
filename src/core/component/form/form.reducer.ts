@@ -8,20 +8,13 @@ import {
   toSection,
 } from '../../util';
 import {
-  IActiveValueFluxEntity,
-  IFieldsChangesFluxEntity,
-  IGenericEditableEntity,
-  INITIAL_FORM_ENTITY,
-  IValidFluxEntity,
+  IFluxActiveValueEntity,
+  IFluxFieldsChangesEntity,
+  IFluxValidEntity,
+  INITIAL_REDUX_FORM_ENTITY,
+  IReduxFormEntity,
 } from '../../definition';
 import { FormActionBuilder } from '../../action';
-
-/**
- * @stable [23.04.2020]
- * @param {IFieldsChangesFluxEntity} payload
- * @returns {{}}
- */
-const asChanges = (payload: IFieldsChangesFluxEntity): {} => payload.fields;
 
 /**
  * @stable [24.04.2020]
@@ -33,14 +26,14 @@ const isDirty = (changes, defaultChanges) => !R.isEmpty(changes) || !R.isEmpty(d
 
 /**
  * @reducer
- * @stable [23.04.2020]
+ * @stable [08.05.2020]
  *
- * @param {IGenericEditableEntity} state
+ * @param {IReduxFormEntity} state
  * @param {IEffectsAction} action
- * @returns {IGenericEditableEntity}
+ * @returns {IReduxFormEntity}
  */
-export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
-                            action: IEffectsAction): IGenericEditableEntity => {
+export const formReducer = (state: IReduxFormEntity = INITIAL_REDUX_FORM_ENTITY,
+                            action: IEffectsAction): IReduxFormEntity => {
   const section = toSection(action);
   const actionType = action.type;
   const actionData = action.data;
@@ -52,14 +45,14 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
        * @stable [24.04.2020]
        */
       return {
-        ...INITIAL_FORM_ENTITY,
+        ...INITIAL_REDUX_FORM_ENTITY,
       };
     case FormActionBuilder.buildClearActionType(section):
     case FormActionBuilder.buildChangeActionType(section):
       /**
        * @stable [24.04.2020]
        */
-      const changes = defValuesFilter({...state.changes, ...asChanges(actionData)});
+      const changes = defValuesFilter({...state.changes, ...(actionData as IFluxFieldsChangesEntity).fields});
       return {
         ...state,
         changes,
@@ -71,7 +64,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       /**
        * @stable [23.04.2020]
        */
-      defaultChanges = defValuesFilter({...state.defaultChanges, ...asChanges(actionData)});
+      defaultChanges = defValuesFilter({...state.defaultChanges, ...(actionData as IFluxFieldsChangesEntity).fields});
       return {
         ...state,
         defaultChanges,
@@ -83,7 +76,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
        */
       return {
         ...state,
-        valid: (actionData as IValidFluxEntity).valid,
+        valid: (actionData as IFluxValidEntity).valid,
       };
     case FormActionBuilder.buildActiveValueActionType(section):
       /**
@@ -91,7 +84,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
        */
       return {
         ...state,
-        activeValue: (actionData as IActiveValueFluxEntity).payload,
+        activeValue: (actionData as IFluxActiveValueEntity).payload,
       };
     case FormActionBuilder.buildProgressActionType(section):
     case FormActionBuilder.buildSubmitActionType(section):
@@ -126,7 +119,7 @@ export const formReducer = (state: IGenericEditableEntity = INITIAL_FORM_ENTITY,
       const activeValue = state.activeValue;
 
       return {
-        ...INITIAL_FORM_ENTITY,
+        ...INITIAL_REDUX_FORM_ENTITY,
         ...(
           actionType === FormActionBuilder.buildResetActionType(section)
             ? {

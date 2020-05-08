@@ -22,15 +22,16 @@ import {
   FORM_SUBMIT_ERROR_ACTION_TYPE,
   FORM_SUBMIT_FINISH_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
-  IActiveValueFluxEntity,
   IApiEntity,
-  IFieldsChangesFluxEntity,
-  IValidFluxEntity,
+  IFluxActiveValueEntity,
+  IFluxFieldsChangesEntity,
+  IFluxValidEntity,
 } from '../definition';
+import { IKeyValue } from '../definitions.interface';
 
 /**
  * @action-builder
- * @stable [27.04.2020]
+ * @stable [08.05.2020]
  */
 export class FormActionBuilder {
 
@@ -281,8 +282,8 @@ export class FormActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildValidPlainAction(section: string, valid: boolean): IEffectsAction {
-    const payload: IValidFluxEntity = {valid};
-    return {type: this.buildValidActionType(section), data: applySection(section, payload)};
+    const fluxEntity: IFluxValidEntity = {valid};
+    return {type: this.buildValidActionType(section), data: applySection(section, fluxEntity)};
   }
 
   /**
@@ -292,8 +293,8 @@ export class FormActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildActiveValuePlainAction(section: string, payload: number): IEffectsAction {
-    const activeValueFluxEntity: IActiveValueFluxEntity = {payload};
-    return {type: this.buildActiveValueActionType(section), data: applySection(section, activeValueFluxEntity)};
+    const fluxEntity: IFluxActiveValueEntity = {payload};
+    return {type: this.buildActiveValueActionType(section), data: applySection(section, fluxEntity)};
   }
 
   /**
@@ -303,8 +304,8 @@ export class FormActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildInactiveValuePlainAction(section: string, payload: number): IEffectsAction {
-    const activeValueFluxEntity: IActiveValueFluxEntity = {payload};
-    return {type: this.buildInactiveValueActionType(section), data: applySection(section, activeValueFluxEntity)};
+    const fluxEntity: IFluxActiveValueEntity = {payload};
+    return {type: this.buildInactiveValueActionType(section), data: applySection(section, fluxEntity)};
   }
 
   /**
@@ -343,11 +344,11 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [23.04.2020]
-   * @param {{}} fields
-   * @returns {IFieldsChangesFluxEntity}
+   * @stable [08.05.2020]
+   * @param {IKeyValue} fields
+   * @returns {IFluxFieldsChangesEntity}
    */
-  private static buildChangesPayload(fields: {}): IFieldsChangesFluxEntity {
+  private static buildChangesPayload(fields: IKeyValue): IFluxFieldsChangesEntity {
     return {fields};
   }
 }

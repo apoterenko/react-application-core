@@ -1,7 +1,7 @@
 import JQuery from 'jquery';
 
 import { IBaseEvent } from './event-definition.interface';
-import { IXYEntity } from './xy-definition.interface';
+import { IReduxXYEntity } from './xy-definition.interface';
 import {
   IAutoUnsubscribingWrapper,
   ICallbackWrapper,
@@ -146,7 +146,7 @@ export interface IDomAccessor {
   getParents(cfg: IDomParentConfigEntity): IJQueryElement;
   getParentsAsElements(cfg: IDomParentConfigEntity): Element[];
   getRootElement(): Element;
-  getScrollInfo(el: Element): IXYEntity;
+  getScrollInfo(el: Element): IReduxXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;
   getWidth(source: Element): number;
@@ -160,7 +160,7 @@ export interface IDomAccessor {
   reload(forceReload?: boolean): void;
   removeChild(child: Element, parentEl?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
-  scrollTo(payload: IXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
+  scrollTo(payload: IReduxXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
   setPosition(cfg: IDomPositionConfigEntity): void;
   setScrollLeft(el: Element, left: number): void;
   setScrollTop(el: Element, top: number): void;

@@ -10,7 +10,7 @@ import {
   IconsEnum,
   IFieldsPresets,
   IFormProps,
-  IGenericEditableEntity,
+  IReduxFormEntity,
   UniversalIdProviderContext,
 } from '../../definition';
 import {
@@ -51,7 +51,10 @@ import {
 } from '../../definitions.interface';
 import { GenericComponent } from '../base';
 import { Button } from '../button';
-import { Field, IField } from '../field';
+import {
+  Field,
+  IField,
+} from '../field';
 import { IFieldProps } from '../../configurations-definitions.interface';
 import {
   DI_TYPES,
@@ -64,11 +67,12 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
 
   /**
-   * @stable [29.05.2018]
+   * @stable [08.05.2020]
    * @param {IFormProps} props
    */
   constructor(props: IFormProps) {
     super(props);
+
     this.doSubmit = this.doSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onReset = this.onReset.bind(this);
@@ -496,9 +500,9 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
   /**
    * @stable [18.04.2020]
-   * @returns {IGenericEditableEntity<IEntity>}
+   * @returns {IReduxFormEntity<IEntity>}
    */
-  private get form(): IGenericEditableEntity<IEntity> {
+  private get form(): IReduxFormEntity<IEntity> {
     return this.props.form;
   }
 
