@@ -45,13 +45,13 @@ import {
   coalesce,
 } from './nvl';
 import {
-  IFormEditableEntity,
-  IGenericEditableEntity,
+  IFormEntity,
   IGenericListEntity,
-  IListWrapperEntity,
+  IListEntity,
   IPreviousActionWrapperEntity,
   IQueryFilterEntity,
-  ISortDirectionsEntity,
+  IReduxFormEntity,
+  IReduxSortDirectionsEntity,
   ToolbarToolsEnum,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
@@ -374,13 +374,12 @@ export const selectDictionaries = <TDictionaries>(wrapper: IDictionariesWrapper<
 const selectSectionName = (wrapper: ISectionNameWrapper): string => R.isNil(wrapper) ? UNDEF : wrapper.sectionName;
 
 /**
- * @stable [30.03.2020]
- * @param {IListWrapperEntity<TEntity extends IEntity>} listWrapperEntity
+ * @stable [08.05.2020]
+ * @param {IListEntity<TEntity extends IEntity>} entity
  * @returns {TEntity}
  */
-export const selectListSelectedEntity =
-  <TEntity extends IEntity>(listWrapperEntity: IListWrapperEntity<TEntity>): TEntity =>
-    ifNotNilThanValue(selectList(listWrapperEntity), (list) => selectSelected(list), UNDEF_SYMBOL);
+const selectListSelectedEntity = <TEntity extends IEntity>(entity: IListEntity<TEntity>): TEntity =>
+  selectSelected(selectList(entity));
 
 /**
  * @stable [04.04.2020]
@@ -393,41 +392,33 @@ export const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): T
 /**
  * @stable [04.04.2020]
  * @param {IGenericListEntity} entity
- * @returns {ISortDirectionsEntity}
+ * @returns {IReduxSortDirectionsEntity}
  */
-export const selectListEntityDirections = (entity: IGenericListEntity): ISortDirectionsEntity =>
+export const selectListEntityDirections = (entity: IGenericListEntity): IReduxSortDirectionsEntity =>
   selectDirections(entity);
 
 /**
  * @stable [09.04.2020]
- * @param {IListWrapperEntity} listWrapperEntity
+ * @param {IListEntity} listWrapperEntity
  * @returns {TData}
  */
-export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: IListWrapperEntity): TData =>
+export const selectListWrapperRawDataEntity = <TData = AnyT>(listWrapperEntity: IListEntity): TData =>
   selectRawData(selectList(listWrapperEntity));
 
 /**
- * @stable [21.04.2020]
- * @param {IListWrapperEntity<TEntity>} listWrapperEntity
- * @returns {TEntity[]}
- */
-export const selectListWrapperDataEntity = <TEntity = AnyT>(listWrapperEntity: IListWrapperEntity<TEntity>): TEntity[] =>
-  selectData(selectList(listWrapperEntity));
-
-/**
- * @stable [09.04.2020]
- * @param {IFormEditableEntity<TEntity>} entity
+ * @stable [08.05.2020]
+ * @param {IFormEntity<TEntity>} entity
  * @returns {TEntity}
  */
-const selectFormEditableEntityChanges = <TEntity = IEntity>(entity: IFormEditableEntity<TEntity>): TEntity =>
+const selectFormEntityChanges = <TEntity = IEntity>(entity: IFormEntity<TEntity>): TEntity =>
   selectChanges(selectForm(entity));
 
 /**
- * @stable [07.05.2020]
- * @param {IGenericEditableEntity} wrapper
+ * @stable [08.05.2020]
+ * @param {IDirtyWrapper} wrapper
  * @returns {ToolbarToolsEnum[]}
  */
-const selectDirtyWrapperActiveToolbarTools = (wrapper: IDirtyWrapper): ToolbarToolsEnum[] =>
+const selectActiveToolbarToolsFromDirtyWrapper = (wrapper: IDirtyWrapper): ToolbarToolsEnum[] =>
   isDirty(wrapper)
     ? [ToolbarToolsEnum.FILTER]
     : [];
@@ -444,13 +435,14 @@ const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
  * @stable [06.05.2020]
  */
 export class Selectors {
+  public static activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
   public static changes = selectChanges;
-  public static dirtyWrapperActiveToolbarTools = selectDirtyWrapperActiveToolbarTools;
   public static entity = selectEntity;
   public static filter = selectFilter;
   public static form = selectForm;
-  public static formEditableEntityChanges = selectFormEditableEntityChanges;
+  public static formEntityChanges = selectFormEntityChanges;
   public static list = selectList;
+  public static listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
   public static query = selectQuery;
   public static queryFilter = selectQueryFilter;
   public static queryFilterEntityQuery = selectQueryFilterEntityQuery;

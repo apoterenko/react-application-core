@@ -50,13 +50,13 @@ export interface IExtendedLabeledValueEntity<TEntity extends IEntity = IEntity, 
 }
 
 /**
- * @generic-entity
- * @stable [09.04.2020]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericLifeCycleEntity
-  extends ITouchedWrapper,
+export interface IReduxLifeCycleEntity
+  extends IErrorEntity<string | boolean>,
     IProgressWrapper,
-    IErrorEntity<string | boolean> {
+    ITouchedWrapper {
 }
 
 /**
@@ -72,12 +72,12 @@ export interface IExtendedEntity<TEntity = IEntity>
 }
 
 /**
- * @generic-entity
- * @stable [09.04.2020]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericEditableEntity<TChanges = IKeyValue>
-  extends IGenericLifeCycleEntity,
-    IGenericActiveValueEntity,
+export interface IReduxFormEntity<TChanges = IKeyValue>
+  extends IReduxLifeCycleEntity,
+    IReduxActiveValueEntity,
     IChangesWrapper<TChanges>,
     IDefaultChangesWrapper<TChanges>,
     IDirtyWrapper,
@@ -134,27 +134,28 @@ export interface IMultiItemEntity
 }
 
 /**
- * @stable [02.10.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IMultiEntity<TEntity extends IEntity = IEntity>
-  extends ISourceWrapper<TEntity[]>,
-    IAddWrapper<TEntity[]>,
+export interface IReduxMultiEntity<TEntity extends IEntity = IEntity>
+  extends IAddWrapper<TEntity[]>,
+    IEditWrapper<IMultiItemEntity[]>,
     IRemoveWrapper<TEntity[]>,
-    IEditWrapper<IMultiItemEntity[]> {
+    ISourceWrapper<TEntity[]> {
 }
 
 /**
  * @flux-entity
  * @stable [12.04.2020]
  */
-export interface IActiveValueFluxEntity
+export interface IFluxActiveValueEntity
   extends IPayloadWrapper<number> {
 }
 
 /**
- * @generic-entity
- * @stable [12.04.2020]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericActiveValueEntity
+export interface IReduxActiveValueEntity
   extends IActiveValueWrapper<number> {
 }

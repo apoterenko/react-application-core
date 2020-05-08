@@ -61,7 +61,7 @@ import {
 } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
 import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
-import { IMultiEntity } from './entity-definition.interface';
+import { IReduxMultiEntity } from './entity-definition.interface';
 import { IFieldProps } from '../configurations-definitions.interface';
 
 /**
@@ -152,8 +152,8 @@ export interface IFieldsChangesFluxEntity
 /**
  * @stable [02.10.2019]
  */
-export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IMultiEntity;
-export type MultiFieldSingleValueT = IMultiEntity | EntityIdT;
+export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IReduxMultiEntity;
+export type MultiFieldSingleValueT = IReduxMultiEntity | EntityIdT;
 export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
 
 /**
