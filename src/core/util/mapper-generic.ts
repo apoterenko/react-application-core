@@ -15,7 +15,6 @@ import {
   orUndef,
 } from './cond';
 import {
-  IBaseExtendedEntity,
   IExtendedEntity,
   IFormEditableEntity,
   IGenericActiveQueryEntity,
@@ -33,9 +32,7 @@ import { isNewEntity } from './entity';
 import { nvl } from './nvl';
 
 /**
- * @stable [06.05.2020]
- * @mapper-generic
- *
+ * @stable [08.05.2020]
  * @param {TForm} form
  * @returns {IFormWrapper<TForm>}
  */
@@ -43,13 +40,11 @@ const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
   defValuesFilter<IFormWrapper<TForm>, IFormWrapper<TForm>>({form});
 
 /**
- * @stable [06.05.2020]
- * @mapper-generic
- *
+ * @stable [08.05.2020]
  * @param {boolean} disabled
  * @returns {IDisabledWrapper}
  */
-const mapDisabledAsDisabledWrapper = (disabled: boolean): IDisabledWrapper =>
+const mapDisabled = (disabled: boolean): IDisabledWrapper =>
   defValuesFilter<IDisabledWrapper, IDisabledWrapper>({disabled});
 
 /**
@@ -60,7 +55,7 @@ const mapDisabledAsDisabledWrapper = (disabled: boolean): IDisabledWrapper =>
  * @returns {IDisabledWrapper}
  */
 const mapProgressWrapperAsDisabledWrapper = (entity: IProgressWrapper): IDisabledWrapper =>
-  mapDisabledAsDisabledWrapper(inProgress(entity));
+  mapDisabled(inProgress(entity));
 
 /**
  * @stable [07.05.2020]
@@ -167,32 +162,17 @@ const mapPagedEntity = (entity: IGenericPagedEntity): IGenericPagedEntity => ifN
 
 /**
  * @stable [08.05.2020]
- * @mapper-generic
- *
- * @param {IBaseExtendedEntity<TEntity>} extendedEntity
- * @returns {IBaseExtendedEntity<TEntity>}
- */
-const mapBaseExtendedEntity =
-  <TEntity = IEntity>(extendedEntity: IBaseExtendedEntity<TEntity>): IBaseExtendedEntity<TEntity> =>
-    defValuesFilter<IBaseExtendedEntity<TEntity>, IBaseExtendedEntity<TEntity>>({
-      entity: extendedEntity.entity,
-      originalEntity: extendedEntity.originalEntity,
-    });
-
-/**
- * @stable [08.05.2020]
- * @mapper-generic
- *
  * @param {IExtendedEntity<TEntity>} extendedEntity
  * @returns {IExtendedEntity<TEntity>}
  */
 const mapExtendedEntity =
   <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IExtendedEntity<TEntity> =>
     defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
-      ...mapBaseExtendedEntity(extendedEntity),
       changes: extendedEntity.changes,
+      entity: extendedEntity.entity,
       entityId: extendedEntity.entityId,
       newEntity: extendedEntity.newEntity,
+      originalEntity: extendedEntity.originalEntity,
     });
 
 /**
@@ -226,9 +206,7 @@ const mapEnhancedExtendedEntity =
   };
 
 /**
- * @stable [07.05.2020]
- * @mapper-generic
- *
+ * @stable [08.05.2020]
  * @param {IGenericActiveQueryEntity} entity
  * @returns {IGenericActiveQueryEntity}
  */
@@ -243,26 +221,22 @@ const mapActiveQueryEntity = (entity: IGenericActiveQueryEntity): IGenericActive
 );
 
 /**
- * @stable [06.05.2020]
- * @mapper-generic
- *
+ * @stable [08.05.2020]
  * @param {IGenericLifeCycleEntity} entity
  * @returns {IGenericLifeCycleEntity}
  */
 const mapLifeCycleEntity = (entity: IGenericLifeCycleEntity): IGenericLifeCycleEntity => ifNotNilThanValue(
   entity,
   () => defValuesFilter<IGenericLifeCycleEntity, IGenericLifeCycleEntity>({
-    touched: entity.touched,
-    progress: entity.progress,
     error: entity.error,
+    progress: entity.progress,
+    touched: entity.touched,
   }),
   UNDEF_SYMBOL
 );
 
 /**
- * @stable [05.05.2020]
- * @mapper-generic
- *
+ * @stable [08.05.2020]
  * @param {IGenericPaginatedEntity} entity
  * @returns {IGenericPaginatedEntity}
  */
@@ -279,37 +253,31 @@ const mapPaginatedEntity = (entity: IGenericPaginatedEntity): IGenericPaginatedE
   );
 
 /**
- * @stable [06.05.2020]
- * @mapper-generic
- *
+ * @stable [08.05.2020]
  * @param {IGenericPaginatedLifeCycleEntity} entity
  * @returns {IGenericPaginatedLifeCycleEntity}
  */
-const mapPaginatedLifeCycleEntity = (entity: IGenericPaginatedLifeCycleEntity): IGenericPaginatedLifeCycleEntity =>
-  ifNotNilThanValue(
-    entity,
-    () => ({
-      ...mapLifeCycleEntity(entity),
-      ...mapPaginatedEntity(entity),
-    }),
-    UNDEF_SYMBOL
-  );
+const mapPaginatedLifeCycleEntity = (entity: IGenericPaginatedLifeCycleEntity): IGenericPaginatedLifeCycleEntity => ({
+  ...mapLifeCycleEntity(entity),
+  ...mapPaginatedEntity(entity),
+});
 
 /**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
-  public static activeQueryEntity = mapActiveQueryEntity;                                               /* stable [07.05.2020] */
-  public static baseExtendedEntity = mapBaseExtendedEntity;                                             /* stable [08.05.2020] */
+  public static activeQueryEntity = mapActiveQueryEntity;                                                 /* stable [07.05.2020] */
+  public static disabled = mapDisabled;                                                                   /* stable [07.05.2020] */
   public static enhancedExtendedEntity = mapEnhancedExtendedEntity;                                     /* stable [08.05.2020] */
-  public static extendedEntity = mapExtendedEntity;                                                     /* stable [08.05.2020] */
-  public static form = mapForm;                                                                         /* stable [08.05.2020] */
+  public static extendedEntity = mapExtendedEntity;                                                       /* stable [08.05.2020] */
+  public static form = mapForm;                                                                           /* stable [08.05.2020] */
   public static formEditableEntity = mapFormEditableEntity;                                               /* stable [08.05.2020] */
+  public static lifeCycleEntity = mapLifeCycleEntity;                                                     /* stable [08.05.2020] */
   public static listWrapperEntity = mapListWrapperEntity;                                                 /* stable [07.05.2020] */
   public static listWrapperEntityAsDisabledWrapper = mapListWrapperEntityAsDisabledWrapper;             /* stable [07.05.2020] */
   public static pagedEntity = mapPagedEntity;                                                             /* stable [07.05.2020] */
-  public static paginatedEntity = mapPaginatedEntity;                                                   /* stable [07.05.2020] */
-  public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                 /* stable [07.05.2020] */
+  public static paginatedEntity = mapPaginatedEntity;                                                     /* stable [07.05.2020] */
+  public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                   /* stable [07.05.2020] */
   public static progressWrapperAsDisabledWrapper = mapProgressWrapperAsDisabledWrapper;                 /* stable [07.05.2020] */
   public static query = mapQuery;                                                                       /* stable [08.05.2020] */
   public static queryFilterEntity = mapQueryFilterEntity;                                                 /* stable [07.05.2020] */

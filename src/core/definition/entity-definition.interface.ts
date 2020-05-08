@@ -61,22 +61,14 @@ export interface IGenericLifeCycleEntity
 
 /**
  * @entity
- * @stable [18.04.2020]
- */
-export interface IBaseExtendedEntity<TEntity = IEntity>
-  extends IEntityWrapper<TEntity>,
-    IOriginalEntityWrapper<TEntity> {
-}
-
-/**
- * @entity
  * @stable [09.04.2020]
  */
 export interface IExtendedEntity<TEntity = IEntity>
-  extends IBaseExtendedEntity<TEntity>,
+  extends IChangesWrapper<TEntity>,
     IEntityIdWrapper<EntityIdT>,
-    IChangesWrapper<TEntity>,
-    INewEntityWrapper {
+    IEntityWrapper<TEntity>,
+    INewEntityWrapper,
+    IOriginalEntityWrapper<TEntity> {
 }
 
 /**

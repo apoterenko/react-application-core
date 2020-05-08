@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 import {
-  IBaseExtendedFormEditableEntity,
+  IExtendedFormEditableEntity,
   IFormProps,
   IGenericFieldEntity,
   ITabProps,
@@ -37,11 +37,11 @@ import { isObjectNotEmpty } from './object';
 
 /**
  * @stable [06.05.2020]
- * @param {IBaseExtendedFormEditableEntity<TEntity>} wrapper
+ * @param {IExtendedFormEditableEntity<TEntity>} wrapper
  * @param {string} fieldName
  * @returns {AnyT}
  */
-const getFieldValueByName = <TEntity = IEntity>(wrapper: IBaseExtendedFormEditableEntity<TEntity>,
+const getFieldValueByName = <TEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>,
                                                 fieldName: string): AnyT => (
   ifNotEmptyThanValue(
     fieldName,
@@ -62,11 +62,11 @@ const getFieldValueByName = <TEntity = IEntity>(wrapper: IBaseExtendedFormEditab
 
 /**
  * @stable [06.05.2020]
- * @param {IBaseExtendedFormEditableEntity<TEntity>} wrapper
+ * @param {IExtendedFormEditableEntity<TEntity>} wrapper
  * @param {IGenericFieldEntity} fieldProps
  * @returns {AnyT}
  */
-export const getFormFieldValue = <TEntity = IEntity>(wrapper: IBaseExtendedFormEditableEntity<TEntity>,
+export const getFormFieldValue = <TEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>,
                                                      fieldProps: IGenericFieldEntity): AnyT =>
   isDef(fieldProps.value)
     ? fieldProps.value
@@ -74,12 +74,12 @@ export const getFormFieldValue = <TEntity = IEntity>(wrapper: IBaseExtendedFormE
 
 /**
  * @stable [06.05.2020]
- * @param {IBaseExtendedFormEditableEntity<TEntity>} wrapper
+ * @param {IExtendedFormEditableEntity<TEntity>} wrapper
  * @param {IGenericFieldEntity} fieldProps
  * @param {IGenericFieldEntity} defaultFieldProps
  * @returns {AnyT}
  */
-export const getFormFieldDisplayValue = <TEntity = IEntity>(wrapper: IBaseExtendedFormEditableEntity<TEntity>,
+export const getFormFieldDisplayValue = <TEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>,
                                                             fieldProps: IGenericFieldEntity,
                                                             defaultFieldProps?: IGenericFieldEntity): AnyT =>
   isDef(fieldProps.displayValue)
@@ -120,10 +120,10 @@ export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormP
 
 /**
  * @stable [06.05.2020]
- * @param {IBaseExtendedFormEditableEntity<TEntity>} entity
+ * @param {IExtendedFormEditableEntity<TEntity>} entity
  * @returns {boolean}
  */
-export const isFormChanged = <TEntity = IEntity>(entity: IBaseExtendedFormEditableEntity<TEntity>): boolean =>
+export const isFormChanged = <TEntity = IEntity>(entity: IExtendedFormEditableEntity<TEntity>): boolean =>
   isObjectNotEmpty(Selectors.formEditableEntityChanges(entity));
 
 /**
