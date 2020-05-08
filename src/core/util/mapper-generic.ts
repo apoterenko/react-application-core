@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import {
   IDisabledWrapper,
   IEntity,
@@ -177,28 +179,27 @@ const mapExtendedEntity =
 
 /**
  * @stable [08.05.2020]
- * @mapper-generic
- *
- * @param {TEntity} entity
  * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
+ * @param {TEntity} entity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
-const mapEnhancedExtendedEntity =
-  <TEntity extends IEntity = IEntity>(entity: TEntity,
-                                      editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> => {
-    let originalEntity;
+const mapEntityAsExtendedEntity =
+  <TEntity extends IEntity = IEntity>(editableEntity: IGenericEditableEntity<TEntity>,
+                                      entity?: TEntity): IExtendedEntity<TEntity> => {
     const newEntity = isNewEntity(entity);
-    const changes = editableEntity.changes || {} as TEntity;
-    const defaultChanges = editableEntity.defaultChanges;
+    const {
+      changes,
+      defaultChanges,
+    } = editableEntity;
+    let originalEntity;
 
-    ifNotNilThanValue(
-      nvl(defaultChanges, entity),
-      () => (originalEntity = {...defaultChanges as {}, ...entity as {}} as TEntity)
-    );
+    if (!R.isNil(nvl(defaultChanges, entity))) {
+      originalEntity = {...defaultChanges as {}, ...entity as {}};
+    }
 
     return mapExtendedEntity({
       changes,
-      entity: {...originalEntity as {}, ...changes as {}} as TEntity,
+      entity: {...originalEntity as {}, ...changes as {}},
       entityId: orUndef(!newEntity, () => entity.id),
       newEntity,
       originalEntity,
@@ -268,7 +269,7 @@ const mapPaginatedLifeCycleEntity = (entity: IGenericPaginatedLifeCycleEntity): 
 export class GenericMappers {
   public static activeQueryEntity = mapActiveQueryEntity;                                                 /* stable [07.05.2020] */
   public static disabled = mapDisabled;                                                                   /* stable [07.05.2020] */
-  public static enhancedExtendedEntity = mapEnhancedExtendedEntity;                                     /* stable [08.05.2020] */
+  public static entityAsExtendedEntity = mapEntityAsExtendedEntity;                                       /* stable [08.05.2020] */
   public static extendedEntity = mapExtendedEntity;                                                       /* stable [08.05.2020] */
   public static form = mapForm;                                                                           /* stable [08.05.2020] */
   public static formEditableEntity = mapFormEditableEntity;                                               /* stable [08.05.2020] */
