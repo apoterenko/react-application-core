@@ -1,6 +1,6 @@
-import { IComponentProps, IListEntity } from '../../../definition';
+import { IComponentProps, IDeprecatedListEntity } from '../../../definition';
 
 export interface IBasicListProps  // TODO
   extends IComponentProps,
-    IListEntity {
+    IDeprecatedListEntity {
 }

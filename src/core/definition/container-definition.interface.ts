@@ -13,7 +13,7 @@ import {
   IUniversalContainerProps,
 } from './props-definition.interface';
 import { IBaseDictionariesEntity } from './dictionary-definition.interface';
-import { ILayoutWrapperEntity } from './layout-definition.interface';
+import { ILayoutEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IStackWrapperEntity } from './stack-definition.interface';
 import { IUniversalStoreEntity } from './redux-definition.interface';
@@ -54,7 +54,7 @@ export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}
  */
 export interface IContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalContainerEntity<TDictionaries, TPermissions>,
-    ILayoutWrapperEntity {
+    ILayoutEntity {
 }
 
 /**
