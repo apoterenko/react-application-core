@@ -17,7 +17,7 @@ import {
   IMultiFieldChangesEntity,
 } from './multifield.interface';
 import {
-  IMultiEntity,
+  IReduxMultiEntity,
   IMultiItemEntity,
   MultiFieldEntityT,
   MultiFieldSingleValueT,
@@ -37,7 +37,7 @@ export const toLastAddedMultiItemEntityId = (multiFieldEntity: MultiFieldSingleV
         ? multiFieldEntity as EntityIdT
         : (
           ifNotNilThanValue(
-            (multiFieldEntity as IMultiEntity).add,
+            (multiFieldEntity as IReduxMultiEntity).add,
             (add) => ifNotNilThanValue(R.last(add), (lastValue) => lastValue.id)
           )
         )
@@ -73,7 +73,7 @@ export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEn
  * @returns {IMultiItemEntity[] | IEntity[]}
  */
 export const extractMultiItemEntities = (value: MultiFieldEntityT,
-                                         converter: (value: IMultiEntity) => IMultiItemEntity[],
+                                         converter: (value: IReduxMultiEntity) => IMultiItemEntity[],
                                          defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
   isNotMultiEntity(value)
     ? (
@@ -81,7 +81,7 @@ export const extractMultiItemEntities = (value: MultiFieldEntityT,
         ? defaultValue
         : asEntitiesArray(value as NotMultiFieldEntityT)
     )
-    : (R.isNil(value) ? [] : converter(value as IMultiEntity));
+    : (R.isNil(value) ? [] : converter(value as IReduxMultiEntity));
 
 /**
  * @stable [23.06.2018]
@@ -271,24 +271,24 @@ export const toMultiFieldChangesEntityOnDelete = (item: IMultiItemEntity,
  * @param {(entity: TEntity) => boolean} addFilter
  * @param {(entity: TEntity) => boolean} editFilter
  * @param {(entity: TEntity) => boolean} removeFilter
- * @returns {IMultiEntity}
+ * @returns {IReduxMultiEntity}
  */
 export const toFilteredMultiEntity = <TEntity extends IEntity>(multiEntity: MultiFieldEntityT<TEntity>,
                                                                updatedSource: MultiFieldEntityT<TEntity>,
                                                                addFilter?: (entity: TEntity) => boolean,
                                                                editFilter?: (entity: TEntity) => boolean,
-                                                               removeFilter?: (entity: TEntity) => boolean): IMultiEntity => {
+                                                               removeFilter?: (entity: TEntity) => boolean): IReduxMultiEntity => {
   if (R.isNil(multiEntity) || isNotMultiEntity(multiEntity)) {
     return UNDEF;
   }
-  const multiEntity0 = multiEntity as IMultiEntity;
+  const multiEntity0 = multiEntity as IReduxMultiEntity;
   const add = isFn(addFilter) ? multiEntity0.add.filter(addFilter) : multiEntity0.add;
   const edit = isFn(editFilter) ? multiEntity0.edit.filter(editFilter) : multiEntity0.edit;
   const remove = isFn(removeFilter) ? multiEntity0.remove.filter(removeFilter) : multiEntity0.remove;
   if (add.length === 0 && edit.length === 0 && remove.length === 0) {
     return UNDEF;
   }
-  return toType<IMultiEntity>({
+  return toType<IReduxMultiEntity>({
     add,
     edit,
     remove,

@@ -1,7 +1,7 @@
 import {
   IChannelWrapperEntity,
   IDictionariesWrapperEntity,
-  ILayoutWrapperEntity,
+  ILayoutEntity,
   INotificationWrapperEntity,
   IStackWrapperEntity,
   ITransportWrapperEntity,
@@ -12,7 +12,7 @@ import {
   universalDefaultMappers,
 } from './universal-connector.mapper';
 
-export const layoutMapper = (state: ILayoutWrapperEntity): ILayoutWrapperEntity => ({
+export const layoutMapper = (state: ILayoutEntity): ILayoutEntity => ({
   layout: {
     ...state.layout,
   },

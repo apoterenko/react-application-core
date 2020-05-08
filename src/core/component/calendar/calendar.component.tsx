@@ -7,7 +7,7 @@ import {
   ICalendarProps,
   ICalendarWeekEntity,
   IGridColumnProps,
-  IListEntity,
+  IDeprecatedListEntity,
   INITIAL_LIST_ENTITY,
   NOT_SELECTABLE_GRID_ENTITY,
 } from '../../definition';
@@ -43,7 +43,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     const props = this.props;
     const calendar = this.calendarEntity;
 
-    const listEntity: IListEntity = {
+    const listEntity: IDeprecatedListEntity = {
       ...INITIAL_LIST_ENTITY,
       data: calendar.days,
     };
