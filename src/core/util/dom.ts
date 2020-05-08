@@ -10,7 +10,7 @@ import {
 } from './filter';
 import {
   IJQueryElement,
-  IXYEntity,
+  IReduxXYEntity,
 } from '../definition';
 
 /**
@@ -240,9 +240,9 @@ export const hasClasses = (target: Element, ...classNames: string[]): boolean =>
 /**
  * @stable [01.12.2018]
  * @param {Element} element
- * @param {IXYEntity} xyEntity
+ * @param {IReduxXYEntity} xyEntity
  */
-export const scrollTo = (element: Element, xyEntity: IXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);
+export const scrollTo = (element: Element, xyEntity: IReduxXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);
 
 /**
  * @stable [26.10.2019]

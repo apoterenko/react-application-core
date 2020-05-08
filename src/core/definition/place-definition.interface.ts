@@ -7,7 +7,6 @@ import {
   IFormattedNameWrapper,
   ILatWrapper,
   ILngWrapper,
-  IPayloadWrapper,
   IPlaceActionRenderedWrapper,
   IPlaceEntityWrapper,
   IPlaceIdWrapper,
@@ -121,14 +120,6 @@ export interface IPlaceFieldState
 export interface ISearchPlacesEntity
   extends ICountryWrapper,
     IQueryWrapper {
-}
-
-/**
- * @payload-entity
- * @stable [09.01.2020]
- */
-export interface ISearchPlacesPayloadEntity
-  extends IPayloadWrapper<ISearchPlacesEntity> {
 }
 
 /**

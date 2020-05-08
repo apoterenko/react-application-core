@@ -70,7 +70,7 @@ import {
 } from './sort-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
-import { IListEntity } from './list-definition.interface';
+import { IDeprecatedListEntity } from './list-definition.interface';
 
 /**
  * @stable [18.10.2019]
@@ -189,7 +189,7 @@ export interface IGridGenericEntity<TColumn, TEntity extends IEntity = IEntity>
 }
 
 export interface IGridEntity<TEntity extends IEntity = IEntity>
-  extends IListEntity<TEntity>,
+  extends IDeprecatedListEntity<TEntity>,
     IHeaderRenderedWrapper,
     IGridGenericEntity<IGridColumnProps, TEntity>,
     IWrapperClassNameWrapper,

@@ -49,12 +49,10 @@ import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
-import {
-  IGenericPaginatedEntity,
-  IGenericPaginatedLifeCycleEntity,
-} from './page-definition.interface';
+import { IReduxLifeCycleEntity } from './entity-definition.interface';
+import { IReduxPaginatedEntity } from './page-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
-import { ISortDirectionsWrapperEntity } from './sort-definition.interface';
+import { ISortDirectionsEntity } from './sort-definition.interface';
 
 /**
  * @stable [04.03.2020]
@@ -72,12 +70,12 @@ export interface IGenericListGroupByEntity
 }
 
 /**
- * @generic-entity
- * @stable [27.10.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericBaseListEntity<TEntity = IEntity,
+export interface IReduxPaginatedDataEntity<TEntity = IEntity,
   TRawData = AnyT>
-  extends IGenericPaginatedEntity,
+  extends IReduxPaginatedEntity,
     IDataWrapper<TEntity[]>,
     IRawDataWrapper<TRawData> {
 }
@@ -92,15 +90,26 @@ export interface IGenericSelectableHoveredEntity
 }
 
 /**
+ * @redux-entity
+ * @stable [08.05.2020]
+ */
+export interface IReduxListEntity<TEntity = IEntity,
+  TRawData = AnyT>
+  extends IReduxPaginatedDataEntity<TEntity, TRawData>,
+    IReduxLifeCycleEntity,
+    ISortDirectionsEntity,
+    ISelectedWrapper<TEntity>,
+    IChangesWrapper {
+}
+
+/**
  * @generic-entity
  * @stable [27.10.2019]
  */
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
-  extends IGenericBaseListEntity<TEntity, TRawData>,
-    IGenericPaginatedLifeCycleEntity,
+  extends IReduxListEntity<TEntity, TRawData>,
     IGenericSelectableHoveredEntity,
-    IChangesWrapper,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
     IFullWrapper,
@@ -108,8 +117,6 @@ export interface IGenericListEntity<TEntity = IEntity,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
     ISelectedElementEntity,
-    ISelectedWrapper<TEntity>,
-    ISortDirectionsWrapperEntity,
     ISorterWrapper {
 }
 
@@ -191,7 +198,7 @@ export interface IListItemProps<TEntity extends IEntity = IEntity>
  * @deprecated Use IGenericListEntity & IListProps
  * TODO Destroy it
  */
-export interface IListEntity<TEntity = IEntity,
+export interface IDeprecatedListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IUniversalListEntity<any, TEntity, TRawData>, // TODO Remove later
     IChangesWrapper,
@@ -202,20 +209,19 @@ export interface IListEntity<TEntity = IEntity,
 }
 
 /**
- * @wrapper-entity
- * @stable [17.04.2020]
+ * @entity
+ * @stable [08.05.2020]
  */
-export interface IListWrapperEntity<TEntity = IEntity,
-  TRawData = AnyT>
-  extends IListWrapper<IGenericListEntity<TEntity, TRawData>> {
+export interface IListEntity<TEntity = IEntity, TRawData = AnyT>
+  extends IListWrapper<IReduxListEntity<TEntity, TRawData>> {
 }
 
 /**
  * @configuration-entity
- * @stable [25.10.2019]
+ * @stable [08.05.2020]
  */
-export interface IListConfigurationEntity
-  extends IListConfigurationWrapper<IListProps> {
+export interface IListConfigurationEntity<TProps extends IListProps = IListProps>
+  extends IListConfigurationWrapper<TProps> {
 }
 
 /**
@@ -224,7 +230,7 @@ export interface IListConfigurationEntity
  */
 export interface IListProps
   extends IComponentProps,
-    IListEntity {
+    IDeprecatedListEntity {
 }
 
 /**
@@ -238,16 +244,8 @@ export interface ICardListProps
  * @generic-entity
  * @stable [30.03.2020]
  */
-export interface IGenericBaseListContainerEntity
-  extends IListWrapperEntity {
-}
-
-/**
- * @generic-entity
- * @stable [30.03.2020]
- */
 export interface IGenericListContainerEntity
-  extends IGenericBaseListContainerEntity,
+  extends IListEntity,
     IListConfigurationEntity {
 }
 
@@ -257,7 +255,7 @@ export interface IGenericListContainerEntity
  */
 export interface IBaseListContainerProps
   extends IGenericContainerProps,
-    IGenericBaseListContainerEntity {
+    IListEntity {
 }
 
 /**
@@ -293,7 +291,7 @@ export enum ListClassesEnum {
 /**
  * @stable [20.10.2019]
  */
-export const INITIAL_LIST_ENTITY = Object.freeze<IGenericListEntity>({
+export const INITIAL_LIST_ENTITY = Object.freeze<IReduxListEntity>({
   changes: {},
   data: null,
   directions: {},
