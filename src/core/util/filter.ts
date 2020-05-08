@@ -257,12 +257,13 @@ export const notNilValuesFilter = <TSource extends IKeyValue, TResult extends IK
   filterByPredicate<TSource, TResult>(source, NOT_NIL_KEY_VALUE_PREDICATE);
 
 /**
- * @stable [31.03.2019]
+ * @stable [08.05.2020]
  * @param {TSource} source
  * @returns {TResult}
  */
-export const notEmptyValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
-  filterByPredicate<TSource, TResult>(source, NOT_EMPTY_KEY_VALUE_PREDICATE);
+export const notEmptyValuesFilter =
+  <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+    filterByPredicate<TSource, TResult>(source, NOT_EMPTY_KEY_VALUE_PREDICATE);
 
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);

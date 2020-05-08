@@ -29,6 +29,7 @@ import {
   IQueryWrapper,
   IQueueWrapper,
   IRawDataWrapper,
+  ISecondaryFilterWrapper,
   ISectionNameWrapper,
   ISelectedWrapper,
   IStackWrapper,
@@ -103,6 +104,14 @@ export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(
 export const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue => R.isNil(wrapper) ? UNDEF : wrapper.form;
 
 /**
+ * @stable [08.05.2020]
+ * @param {ISecondaryFilterWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+export const selectSecondaryFilter = <TValue>(wrapper: ISecondaryFilterWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.secondaryFilter;
+
+/**
  * @stable [27.03.2020]
  * @param {IListWrapper<TValue>} wrapper
  * @returns {TValue}
@@ -165,14 +174,6 @@ export const selectDiff = <TResult = IEntity>(entity: IDiffWrapper<TResult>): TR
  */
 export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>): TResult =>
   R.isNil(entity) ? UNDEF : entity.entity;
-
-/**
- * @stable [18.04.2020]
- * @param {IOriginalEntityWrapper<TResult>} entity
- * @returns {TResult}
- */
-export const selectOriginalEntity = <TResult = IEntity>(entity: IOriginalEntityWrapper<TResult>): TResult =>
-  R.isNil(entity) ? UNDEF : entity.originalEntity;
 
 /**
  * @stable [05.03.2020]
@@ -443,7 +444,9 @@ const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
  * @stable [06.05.2020]
  */
 export class Selectors {
+  public static changes = selectChanges;
   public static dirtyWrapperActiveToolbarTools = selectDirtyWrapperActiveToolbarTools;
+  public static entity = selectEntity;
   public static filter = selectFilter;
   public static form = selectForm;
   public static formEditableEntityChanges = selectFormEditableEntityChanges;
@@ -451,5 +454,6 @@ export class Selectors {
   public static query = selectQuery;
   public static queryFilter = selectQueryFilter;
   public static queryFilterEntityQuery = selectQueryFilterEntityQuery;
+  public static secondaryFilter = selectSecondaryFilter;
   public static sectionName = selectSectionName;
 }

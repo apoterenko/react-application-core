@@ -425,6 +425,7 @@ export interface IPreviousActionWrapper<TValue> { previousAction?: TValue; }
 export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
 export interface IPreviousIconWrapper { previousIcon?: string; }
 export interface IPreviousWrapper<TValue> { previous?: TValue; }
+export interface IPrimaryFilterWrapper<TValue> { primaryFilter?: TValue; }
 export interface IProfileWrapper<TValue> { profile?: TValue; }
 export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TValue; }
 export interface IProgressWrapper<TValue = boolean> { progress?: TValue; }
@@ -473,6 +474,7 @@ export interface IRowNumWrapper { rowNum?: number; }
 export interface IRowWrapper<TValue = boolean> { row?: TValue; }
 export interface IScaleWrapper<TValue = number> { scale?: TValue; }
 export interface IScrollableWrapper { scrollable?: boolean; }
+export interface ISecondaryFilterWrapper<TValue> { secondaryFilter?: TValue; }
 export interface ISectionNameWrapper { sectionName?: string; }
 export interface ISectionWrapper<TValue = string> { section?: TValue; }
 export interface ISelectableWrapper<TValue = boolean> { selectable?: TValue; }
