@@ -41,9 +41,9 @@ export interface IReduxSortDirectionsEntity {
 }
 
 /**
- * @wrapper-entity
- * @stable [17.10.2019]
+ * @entity
+ * @stable [08.05.2020]
  */
-export interface ISortDirectionsWrapperEntity
+export interface ISortDirectionsEntity
   extends IDirectionsWrapper<IReduxSortDirectionsEntity> {
 }

@@ -30,9 +30,9 @@ export interface IFluxQueryEntity
 }
 
 /**
- * @default-entity
- * @stable [04.04.2020]
+ * @initial-redux-entity
+ * @stable [08.05.2020]
  */
-export const INITIAL_ACTIVE_QUERY_ENTITY = Object.freeze<IReduxActiveQueryEntity>({
+export const INITIAL_REDUX_ACTIVE_QUERY_ENTITY = Object.freeze<IReduxActiveQueryEntity>({
   query: '',
 });

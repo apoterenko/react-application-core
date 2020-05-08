@@ -5,18 +5,18 @@ import {
 } from '../definitions.interface';
 
 /**
- * @entity
- * @stable [22.09.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IXYEntity
+export interface IReduxXYEntity
   extends IXWrapper,
     IYWrapper {
 }
 
 /**
- * @payload-entity
- * @stable [22.01.2020]
+ * @flux-entity
+ * @stable [08.05.2020]
  */
-export interface IXYPayloadEntity
-  extends IPayloadWrapper<IXYEntity> {
+export interface IFluxXYEntity
+  extends IPayloadWrapper<IReduxXYEntity> {
 }

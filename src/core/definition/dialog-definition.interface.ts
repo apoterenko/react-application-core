@@ -31,7 +31,7 @@ import {
   IGenericComponentProps,
 } from './generic-component-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
-import { IExtendedFormEditableEntity } from './form-definition.interface';
+import { IExtendedFormEntity } from './form-definition.interface';
 import { IProxyContainerEntity } from './container-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
@@ -131,7 +131,7 @@ export interface IDialogConfigurationEntity<TProps extends IDialogProps = IDialo
  */
 export interface IUnsavedFormChangesDialogProps
   extends IDialogProps,
-    IExtendedFormEditableEntity {
+    IExtendedFormEntity {
 }
 
 /**

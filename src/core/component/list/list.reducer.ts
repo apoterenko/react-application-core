@@ -30,7 +30,7 @@ import {
   IModifyEntityPayloadEntity,
   INITIAL_LIST_ENTITY,
   ISortDirectionPayloadEntity,
-  ISortDirectionsEntity,
+  IReduxSortDirectionsEntity,
 } from '../../definition';
 
 export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
@@ -47,7 +47,7 @@ export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
       const sdPayload = sdPayloadWrapper.payload;
       return {
         ...state,
-        directions: notNilValuesFilter<ISortDirectionsEntity, ISortDirectionsEntity>({
+        directions: notNilValuesFilter<IReduxSortDirectionsEntity, IReduxSortDirectionsEntity>({
           ...isMulti(sdPayload) ? state.directions : {},
           [sdPayload.name]: ifNotNilThanValue(sdPayload.direction, () => mapSortDirectionEntity(sdPayload)),
         }),
