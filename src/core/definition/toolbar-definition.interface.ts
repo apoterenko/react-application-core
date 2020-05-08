@@ -1,4 +1,5 @@
 import {
+  IDisabledWrapper,
   IFirstAllowedWrapper,
   IFullWrapper,
   IIconWrapper,
@@ -17,56 +18,48 @@ import {
   IUseShortFormatWrapper,
 } from '../definitions.interface';
 import {
-  IGenericActiveQueryEntity,
   IQueryFilterEntity,
+  IReduxActiveQueryEntity,
 } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IFieldConfigurationEntity } from '../configurations-definitions.interface'; // TODO
-import { IGenericPaginatedLifeCycleEntity } from './page-definition.interface';
-import { IListWrapperEntity } from './list-definition.interface';
+import { IReduxPaginatedLifeCycleEntity } from './page-definition.interface';
+import { IListEntity } from './list-definition.interface';
 
 /**
- * @generic-entity
- * @stable [05.05.2020]
+ * @presets-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericToolbarEntity
-  extends IFullWrapper {
-}
-
-/**
- * @generic-entity
- * @stable [05.05.2020]
- */
-export interface IGenericPageToolbarEntity
-  extends IGenericPaginatedLifeCycleEntity,
-    IGenericToolbarEntity,
-    IFirstAllowedWrapper,
+export interface IPresetsPageToolbarEntity
+  extends IFirstAllowedWrapper,
+    IFullWrapper,
     ILastAllowedWrapper,
     INextIconWrapper,
+    IOnFirstWrapper,
+    IOnLastWrapper,
+    IOnNextWrapper,
+    IOnPreviousWrapper,
     IPreviousIconWrapper,
     IUseShortFormatWrapper {
 }
 
 /**
- * @behavioral-entity
- * @stable [05.05.2020]
+ * @generic-entity
+ * @stable [08.05.2020]
  */
-export interface IBehavioralPageToolbarEntity
-  extends IOnFirstWrapper,
-    IOnLastWrapper,
-    IOnNextWrapper,
-    IOnPreviousWrapper {
+export interface IGenericPageToolbarEntity
+  extends IPresetsPageToolbarEntity,
+    IReduxPaginatedLifeCycleEntity {
 }
 
 /**
  * @props
- * @stable [05.05.2020]
+ * @stable [08.05.2020]
  */
 export interface IPageToolbarProps
   extends IGenericComponentProps,
-    IGenericPageToolbarEntity,
-    IBehavioralPageToolbarEntity {
+    IGenericPageToolbarEntity {
 }
 
 /**
@@ -74,8 +67,9 @@ export interface IPageToolbarProps
  * @stable [06.05.2020]
  */
 export interface IGenericSearchToolbarEntity
-  extends IGenericActiveQueryEntity,
+  extends IReduxActiveQueryEntity,
     IFieldConfigurationEntity,
+    IDisabledWrapper,
     IFullWrapper,
     IIconWrapper {
 }
@@ -131,7 +125,7 @@ export interface ISearchToolbarConfigurationEntity
  * @stable [06.05.2020]
  */
 export interface IGenericSearchToolbarContainerEntity
-  extends IListWrapperEntity,
+  extends IListEntity,
     IQueryFilterEntity,
     ISearchToolbarConfigurationEntity {
 }
@@ -141,7 +135,7 @@ export interface IGenericSearchToolbarContainerEntity
  * @stable [06.05.2020]
  */
 export interface IGenericPageToolbarContainerEntity
-  extends IListWrapperEntity,
+  extends IListEntity,
     IPageToolbarConfigurationEntity {
 }
 

@@ -33,10 +33,10 @@ export interface ISortDirectionPayloadEntity
 }
 
 /**
- * @entity
- * @stable [17.10.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface ISortDirectionsEntity {
+export interface IReduxSortDirectionsEntity {
   [name: string]: ISortDirectionEntity;
 }
 
@@ -45,5 +45,5 @@ export interface ISortDirectionsEntity {
  * @stable [17.10.2019]
  */
 export interface ISortDirectionsWrapperEntity
-  extends IDirectionsWrapper<ISortDirectionsEntity> {
+  extends IDirectionsWrapper<IReduxSortDirectionsEntity> {
 }

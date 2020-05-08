@@ -8,13 +8,13 @@ import {
   ITotalAmountWrapper,
   ITotalCountWrapper,
 } from '../definitions.interface';
-import { IGenericLifeCycleEntity } from './entity-definition.interface';
+import { IReduxLifeCycleEntity } from './entity-definition.interface';
 
 /**
  * @default-entity
  * @stable [18.09.2019]
  */
-export const DEFAULT_MAX_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
+export const DEFAULT_MAX_PAGED_ENTITY = Object.freeze<IReduxPagedEntity>({
   page: FIRST_PAGE,
   pageSize: DEFAULT_MAX_PAGE_SIZE,
 });
@@ -23,7 +23,7 @@ export const DEFAULT_MAX_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
  * @default-entity
  * @stable [12.10.2019]
  */
-export const DEFAULT_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
+export const DEFAULT_PAGED_ENTITY = Object.freeze<IReduxPagedEntity>({
   page: FIRST_PAGE,
   pageSize: DEFAULT_PAGE_SIZE,
 });
@@ -32,36 +32,36 @@ export const DEFAULT_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
  * @default-entity
  * @stable [12.10.2019]
  */
-export const DEFAULT_PAGINATED_SINGLE_ENTITY = Object.freeze<IGenericPaginatedEntity>({
+export const DEFAULT_PAGINATED_SINGLE_ENTITY = Object.freeze<IReduxPaginatedEntity>({
   ...DEFAULT_PAGED_ENTITY,
   totalCount: 1,
 });
 
 /**
- * @generic-entity
- * @stable [25.06.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericPagedEntity
+export interface IReduxPagedEntity
   extends IPageWrapper,
     IPageSizeWrapper {
 }
 
 /**
- * @generic-entity
- * @stable [25.06.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericPaginatedEntity
-  extends IGenericPagedEntity,
+export interface IReduxPaginatedEntity
+  extends IReduxPagedEntity,
     ILockPageWrapper,
     ITotalAmountWrapper,
     ITotalCountWrapper {
 }
 
 /**
- * @generic-entity
- * @stable [05.05.2020]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericPaginatedLifeCycleEntity
-  extends IGenericPaginatedEntity,
-    IGenericLifeCycleEntity {
+export interface IReduxPaginatedLifeCycleEntity
+  extends IReduxPaginatedEntity,
+    IReduxLifeCycleEntity {
 }

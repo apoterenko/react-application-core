@@ -1,33 +1,31 @@
 import {
   IActiveWrapper,
-  IDisabledWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
 } from '../definitions.interface';
 
 /**
- * @generic-entity
- * @stable [07.05.2020]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IGenericActiveQueryEntity
+export interface IReduxActiveQueryEntity
   extends IActiveWrapper,
-    IDisabledWrapper,
     IQueryWrapper {
 }
 
 /**
- * @wrapper-entity
+ * @entity
  * @stable [04.04.2020]
  */
 export interface IQueryFilterEntity
-  extends IQueryFilterWrapper<IGenericActiveQueryEntity> {
+  extends IQueryFilterWrapper<IReduxActiveQueryEntity> {
 }
 
 /**
  * @flux-entity
- * @stable [27.04.2020]
+ * @stable [08.05.2020]
  */
-export interface IQueryFluxEntity
+export interface IFluxQueryEntity
   extends IQueryWrapper {
 }
 
@@ -35,6 +33,6 @@ export interface IQueryFluxEntity
  * @default-entity
  * @stable [04.04.2020]
  */
-export const INITIAL_ACTIVE_QUERY_ENTITY = Object.freeze<IGenericActiveQueryEntity>({
+export const INITIAL_ACTIVE_QUERY_ENTITY = Object.freeze<IReduxActiveQueryEntity>({
   query: '',
 });

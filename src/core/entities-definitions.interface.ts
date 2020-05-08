@@ -23,7 +23,7 @@ import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from '.
 import {
   IEnvironment,
   IGenericComponent,
-  IGenericLifeCycleEntity,
+  IReduxLifeCycleEntity,
 } from './definition';
 
 /**
@@ -56,7 +56,7 @@ export interface INamedNumericEntity extends IIdWrapper,
 }
 
 /* @stable [23.04.2018] */
-export interface IUniversalMessageEntity extends IGenericLifeCycleEntity {
+export interface IUniversalMessageEntity extends IReduxLifeCycleEntity {
 }
 
 /**

@@ -1,6 +1,6 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-import { IGenericLifeCycleEntity } from './entity-definition.interface';
+import { IReduxLifeCycleEntity } from './entity-definition.interface';
 import {
   ACTION_PREFIX,
   IApplicationWrapper,
@@ -15,7 +15,7 @@ import {
  * @stable [24.09.2019]
  */
 export interface IUniversalApplicationEntity
-  extends IGenericLifeCycleEntity,
+  extends IReduxLifeCycleEntity,
     IAuthorizedWrapper,
     IReadyWrapper,
     IPathWrapper {
