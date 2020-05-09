@@ -119,7 +119,7 @@ export interface IGenericStoreEntity<TDictionaries = {}>
     IDictionariesWrapper<TDictionaries>,
     ILayoutEntity,
     INotificationWrapperEntity,
-    ISectionNameWrapper,
+    ISectionNameWrapper, // TODO Move from this
     IStackWrapperEntity,
     ITransportWrapperEntity,
     IUserWrapperEntity {

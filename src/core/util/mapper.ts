@@ -395,13 +395,6 @@ export const mapNewExtendedEntity =
     GenericMappers.entityAsExtendedEntity(editableEntity);
 
 /**
- * @deprecated
- */
-export const mapNewExtendedFormEditableEntity =
-  <TEntity = IEntity>(editableEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
-    GenericMappers.formEntityAsExtendedFormEntity(editableEntity);
-
-/**
  * @stable [23.12.2019]
  * @param {IExtendedEntity<TEntity>} extendedEntity
  * @returns {IApiEntity<TEntity>}
