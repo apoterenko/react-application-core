@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {
   AnyT,
-  IBindDictionaryWrapper,
   IBooleanEmptyDataWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
@@ -25,11 +24,8 @@ import {
   INavigationActionTypeWrapper,
   IOnBlurWrapper,
   IOnClearWrapper,
-  IOnDictionaryEmptyWrapper,
-  IOnFocusWrapper,
-  IOnDictionaryLoadWrapper,
+  IOnFocusWrapper,,
   IOnSelectWrapper,
-  IPrefixLabelWrapper,
   ISorterWrapper,
   ISubBorderWrapper,
   ITitleRendererWrapper,
@@ -38,7 +34,6 @@ import {
   IOnNavigationActionClickWrapper,
 } from './react-definitions.interface';
 import {
-  IApiEntity,
   IBaseEvent,
   IBehavioralBaseFieldEntity,
   IBehavioralFieldEntity,
@@ -114,7 +109,6 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentEntit
                                                         IEmptyMessageWrapper<React.ReactNode>,
                                                         IBooleanEmptyDataWrapper {
 }
-
 
 // TODO
 export interface ISubHeaderConfiguration extends IComponentProps,
