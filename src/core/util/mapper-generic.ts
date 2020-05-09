@@ -37,6 +37,7 @@ import { isNewEntity } from './entity';
 import { nvl } from './nvl';
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {TValue} layout
  * @returns {ILayoutWrapper<TValue>}
@@ -45,6 +46,7 @@ const mapLayout = <TValue>(layout: TValue): ILayoutWrapper<TValue> =>
   defValuesFilter<ILayoutWrapper<TValue>, ILayoutWrapper<TValue>>({layout});
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {TForm} form
  * @returns {IFormWrapper<TForm>}
@@ -53,6 +55,7 @@ const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
   defValuesFilter<IFormWrapper<TForm>, IFormWrapper<TForm>>({form});
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {boolean} disabled
  * @returns {IDisabledWrapper}
@@ -61,6 +64,7 @@ const mapDisabled = (disabled: boolean): IDisabledWrapper =>
   defValuesFilter<IDisabledWrapper, IDisabledWrapper>({disabled});
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IProgressWrapper} entity
  * @returns {IDisabledWrapper}
@@ -68,6 +72,7 @@ const mapDisabled = (disabled: boolean): IDisabledWrapper =>
 const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => mapDisabled(inProgress(entity));
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {string} sectionName
  * @returns {ISectionNameWrapper}
@@ -76,6 +81,7 @@ const mapSectionName = (sectionName: string): ISectionNameWrapper =>
   defValuesFilter<ISectionNameWrapper, ISectionNameWrapper>({sectionName});
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {ISectionNameWrapper} wrapper
  * @returns {ISectionNameWrapper}
@@ -84,6 +90,7 @@ const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrappe
   mapSectionName(Selectors.sectionName(wrapper));
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {TList} list
  * @returns {IListWrapper<TList>}
@@ -92,6 +99,7 @@ const mapList = <TList>(list: TList): IListWrapper<TList> =>
   defValuesFilter<IListWrapper<TList>, IListWrapper<TList>>({list});
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IListEntity} entity
  * @returns {IListEntity}
@@ -99,6 +107,7 @@ const mapList = <TList>(list: TList): IListWrapper<TList> =>
 const mapListEntity = (entity: IListEntity): IListEntity => mapList(Selectors.list(entity));
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IListEntity} listEntity
  * @returns {IDisabledWrapper}
@@ -107,6 +116,7 @@ const mapListEntityAsDisabled = (listEntity: IListEntity): IDisabledWrapper =>
   mapProgressAsDisabled(Selectors.list(listEntity));
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {TEntity} queryFilter
  * @returns {IQueryFilterWrapper<TEntity>}
@@ -115,6 +125,7 @@ const mapQueryFilter = <TEntity = string>(queryFilter: TEntity): IQueryFilterWra
   defValuesFilter<IQueryFilterWrapper<TEntity>, IQueryFilterWrapper<TEntity>>({queryFilter});
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {string} query
  * @returns {IQueryWrapper}
@@ -122,6 +133,7 @@ const mapQueryFilter = <TEntity = string>(queryFilter: TEntity): IQueryFilterWra
 const mapQuery = (query: string): IQueryWrapper => defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IQueryFilterEntity} entity
  * @returns {IQueryFilterEntity}
@@ -130,6 +142,7 @@ const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
   mapQueryFilter(Selectors.queryFilter(entity));
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IFormEntity<TEntity>} entity
  * @returns {IFormEntity<TEntity>}
@@ -138,6 +151,7 @@ const mapFormEntity = <TEntity = IEntity>(entity: IFormEntity<TEntity>): IFormEn
   mapForm(Selectors.form(entity));
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IQueryFilterEntity} entity
  * @returns {IQueryWrapper}
@@ -146,6 +160,7 @@ const mapQueryFilterEntityAsQuery = (entity: IQueryFilterEntity): IQueryWrapper 
   mapQuery(Selectors.queryFilterEntityQuery(entity));
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IReduxPagedEntity} entity
  * @returns {IReduxPagedEntity}
@@ -160,6 +175,7 @@ const mapPagedEntity = (entity: IReduxPagedEntity): IReduxPagedEntity => ifNotNi
 );
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IExtendedEntity<TEntity>} extendedEntity
  * @returns {IExtendedEntity<TEntity>}
@@ -175,6 +191,7 @@ const mapExtendedEntity =
     });
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IReduxFormEntity<TEntity extends IEntity>} formEntity
  * @param {TEntity} entity
@@ -204,6 +221,7 @@ const mapEntityAsExtendedEntity =
   };
 
 /**
+ * @mapper
  * @stable [09.05.2020]
  * @param {IReduxFormEntity<TEntity>} formEntity
  * @param {TEntity} entity
@@ -217,6 +235,7 @@ const mapFormEntityAsExtendedEntity = <TEntity  = IEntity>(formEntity: IReduxFor
   });
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IReduxActiveQueryEntity} entity
  * @returns {IReduxActiveQueryEntity}
@@ -231,6 +250,7 @@ const mapActiveQueryEntity = (entity: IReduxActiveQueryEntity): IReduxActiveQuer
 );
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IReduxLifeCycleEntity} entity
  * @returns {IReduxLifeCycleEntity}
@@ -246,6 +266,7 @@ const mapLifeCycleEntity = (entity: IReduxLifeCycleEntity): IReduxLifeCycleEntit
 );
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IReduxPaginatedEntity} entity
  * @returns {IReduxPaginatedEntity}
@@ -263,6 +284,7 @@ const mapPaginatedEntity = (entity: IReduxPaginatedEntity): IReduxPaginatedEntit
   );
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IReduxPaginatedLifeCycleEntity} entity
  * @returns {IReduxPaginatedLifeCycleEntity}
@@ -273,6 +295,7 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
 });
 
 /**
+ * @mapper
  * @stable [08.05.2020]
  * @param {ILayoutEntity} wrapper
  * @returns {ILayoutEntity}
