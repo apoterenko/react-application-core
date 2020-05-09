@@ -98,7 +98,7 @@ export const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue => R.i
  * @param {ISecondaryFilterWrapper<TValue>} wrapper
  * @returns {TValue}
  */
-export const selectSecondaryFilter = <TValue>(wrapper: ISecondaryFilterWrapper<TValue>): TValue =>
+const selectSecondaryFilter = <TValue>(wrapper: ISecondaryFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.secondaryFilter;
 
 /**
@@ -438,6 +438,6 @@ export class Selectors {
   public static query = selectQuery;
   public static queryFilter = selectQueryFilter;
   public static queryFilterEntityQuery = selectQueryFilterEntityQuery;
-  public static secondaryFilter = selectSecondaryFilter;
+  public static secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
   public static sectionName = selectSectionName;
 }

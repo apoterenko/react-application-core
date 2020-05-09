@@ -62,6 +62,32 @@ const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps 
 const mapFilterFormDialogContainerProps = (props: IFilterFormDialogContainerProps): IFilterFormDialogContainerProps =>
   mapFormContainerProps(props);
 
+/**
+ * @container-props-mapper
+ * @stable [09.05.2020]
+ *
+ * @param {IToolbarToolsContainerProps} props
+ * @returns {IToolbarToolsContainerProps}
+ */
+const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToolbarToolsContainerProps =>
+  ({
+    ...GenericMappers.sectionNameWrapper(props),
+    toolbarTools: {
+      ...GenericMappers.listEntityAsDisabled(props),
+      activeTools: Selectors.activeToolbarToolsFromDirtyWrapper(Selectors.form(props)) || [],
+    },
+  });
+
+/**
+ * @container-props-as
+ * @stable [09.05.2020]
+ *
+ * @param {TProps} props
+ * @returns {IToolbarToolsContainerProps}
+ */
+const asToolbarToolsContainerProps =
+  <TProps>(props: TProps): IToolbarToolsContainerProps => props as IToolbarToolsContainerProps;
+
 export const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
   ({
     ...GenericMappers.sectionNameWrapper(props),
@@ -80,15 +106,6 @@ const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolba
     ...mapSearchToolbarProps(Selectors.queryFilter(props)),
     ...GenericMappers.listEntityAsDisabled(props),
     ...props.toolbarConfiguration,
-  });
-
-export const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToolbarToolsContainerProps =>
-  ({
-    ...GenericMappers.sectionNameWrapper(props),
-    toolbarTools: {
-      ...GenericMappers.listEntityAsDisabled(props),
-      activeTools: Selectors.activeToolbarToolsFromDirtyWrapper(Selectors.form(props)) || [],
-    },
   });
 
 const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarContainerProps): IPageToolbarProps =>
@@ -113,6 +130,7 @@ const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProp
  * @stable [06.05.2020]
  */
 export class ComponentMappers {
+  public static asToolbarToolsContainerProps = asToolbarToolsContainerProps;                                              /* @stable [09.05.2020] */
   public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;
   public static formContainerProps = mapFormContainerProps;
   public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
@@ -122,5 +140,5 @@ export class ComponentMappers {
   public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static searchToolbarProps = mapSearchToolbarProps;
-  public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;
+  public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                               /* @stable [09.05.2020] */
 }

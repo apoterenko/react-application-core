@@ -582,17 +582,18 @@ export const mapUnsavedFormChangesDialogContainerProps =
  * @stable [05.05.2020]
  */
 export class Mappers {
+  public static asToolbarToolsContainerProps = ComponentMappers.asToolbarToolsContainerProps;                           /* @stable [09.05.2020] */
   public static entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;
   public static filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;
-  public static form = GenericMappers.form;                                                                     /* @stable [08.05.2020] */
-  public static formContainerProps = ComponentMappers.formContainerProps;                                       /* @stable [08.05.2020] */
-  public static formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                 /* @stable [09.05.2020] */
-  public static formEntity = GenericMappers.formEntity;                                                         /* @stable [08.05.2020] */
-  public static formEntityAsExtendedFormEntity = GenericMappers.formEntityAsExtendedFormEntity;                 /* @stable [09.05.2020] */
-  public static listEntity = GenericMappers.listEntity;                                                         /* @stable [08.05.2020] */
-  public static listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                     /* @stable [08.05.2020] */
-  public static listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                               /* @stable [08.05.2020] */
-  public static listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity; /* @stable [08.05.2020] */
+  public static form = GenericMappers.form;                                                                             /* @stable [08.05.2020] */
+  public static formContainerProps = ComponentMappers.formContainerProps;                                               /* @stable [08.05.2020] */
+  public static formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                         /* @stable [09.05.2020] */
+  public static formEntity = GenericMappers.formEntity;                                                                 /* @stable [08.05.2020] */
+  public static formEntityAsExtendedFormEntity = GenericMappers.formEntityAsExtendedFormEntity;                         /* @stable [09.05.2020] */
+  public static listEntity = GenericMappers.listEntity;                                                                 /* @stable [08.05.2020] */
+  public static listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                             /* @stable [08.05.2020] */
+  public static listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                       /* @stable [08.05.2020] */
+  public static listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;         /* @stable [08.05.2020] */
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
   public static pageToolbarProps = ComponentMappers.pageToolbarProps;
@@ -601,7 +602,8 @@ export class Mappers {
   public static queryFilterEntityAsQuery = GenericMappers.queryFilterEntityAsQuery;
   public static searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
   public static searchToolbarProps = ComponentMappers.searchToolbarProps;
+  public static secondaryFilterFormEntityAsFormEntity = GenericMappers.secondaryFilterFormEntityAsFormEntity;           /* @stable [09.05.2020] */
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static selectableHoveredEntity = mapSelectableHoveredEntity;
-  public static toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;
+  public static toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                               /* @stable [09.05.2020] */
 }

@@ -32,6 +32,7 @@ import {
   IReduxPagedEntity,
   IReduxPaginatedEntity,
   IReduxPaginatedLifeCycleEntity,
+  ISecondaryFilterFormEntity,
 } from '../definition';
 import { Selectors } from './select';
 import { inProgress } from './wrapper';
@@ -151,6 +152,16 @@ const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
  */
 const mapFormEntity = <TEntity = IEntity>(entity: IFormEntity<TEntity>): IFormEntity<TEntity> =>
   mapForm(Selectors.form(entity));
+
+/**
+ * @mapper
+ * @stable [09.05.2020]
+ * @param {ISecondaryFilterFormEntity<TEntity>} entity
+ * @returns {IFormEntity<TEntity>}
+ */
+const mapSecondaryFilterFormEntityAsFormEntity =
+  <TEntity = IEntity>(entity: ISecondaryFilterFormEntity<TEntity>): IFormEntity<TEntity> =>
+    mapFormEntity(Selectors.secondaryFilter(entity));
 
 /**
  * @mapper
@@ -373,6 +384,7 @@ export class GenericMappers {
   public static queryFilter = mapQueryFilter;                                                             /* stable [08.05.2020] */
   public static queryFilterEntity = mapQueryFilterEntity;                                                 /* stable [07.05.2020] */
   public static queryFilterEntityAsQuery = mapQueryFilterEntityAsQuery;                                   /* stable [07.05.2020] */
+  public static secondaryFilterFormEntityAsFormEntity = mapSecondaryFilterFormEntityAsFormEntity;         /* stable [09.05.2020] */
   public static sectionName = mapSectionName;                                                             /* stable [08.05.2020] */
   public static sectionNameWrapper = mapSectionNameWrapper;                                               /* stable [08.05.2020] */
 }

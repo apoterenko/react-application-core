@@ -27,6 +27,7 @@ import {
   IResetConfigurationWrapper,
   IResetIconWrapper,
   IResetTextWrapper,
+  ISecondaryFilterWrapper,
   ISubmitConfigurationWrapper,
   ISubmitIconWrapper,
   ISubmitTextWrapper,
@@ -53,6 +54,15 @@ import { IGenericContainerProps } from './generic-container-definition.interface
 export interface IFormEntity<TEntity = IEntity>
   extends IFormWrapper<IReduxFormEntity<TEntity>> {
 }
+
+/**
+ * @entity
+ * @stable [09.05.2020]
+ */
+export interface ISecondaryFilterFormEntity<TEntity = IEntity>
+  extends ISecondaryFilterWrapper<IFormEntity<TEntity>> {
+}
+
 /**
  * @entity
  * @stable [08.05.2020]
