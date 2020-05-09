@@ -18,14 +18,10 @@ import {
   IGenericContainer,
   IReduxFormEntity,
   IGenericNotificationEntity,
-  IReduxPagedEntity,
-  IReduxPaginatedEntity,
   IGenericSelectableHoveredEntity,
   IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
-  IDeprecatedListEntity,
-  IListEntity,
   INamedEntity,
   INotificationWrapperEntity,
   IOperationEntity,
@@ -46,9 +42,7 @@ import {
 } from '../definition';
 import {
   AnyT,
-  DEFAULT_PAGE_SIZE,
   EntityIdT,
-  FIRST_PAGE,
   IActiveValueWrapper,
   IChannelWrapper,
   IDictionariesWrapper,
@@ -85,7 +79,6 @@ import {
   selectEntityId,
   selectForm,
   selectNotification,
-  Selectors,
   selectQueue,
   selectStack,
   selectToken,
@@ -294,36 +287,6 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
   }),
   UNDEF_SYMBOL
 );
-
-/**
- * @stable [05.05.2020]
- * @mapper
- *
- * @param {IReduxPaginatedEntity} entity
- * @param {number} pageSize
- * @returns {IReduxPagedEntity}
- */
-const mapPaginatedEntityAsPagedEntity =
-  (entity: IReduxPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
-    ifNotNilThanValue(
-      entity,
-      () => GenericMappers.pagedEntity({
-        page: entity.lockPage ? entity.page : FIRST_PAGE,
-        pageSize,
-      }),
-      UNDEF_SYMBOL
-    );
-
-/**
- * @stable [05.05.2020]
- * @mapper
- *
- * @param {IListEntity} entity
- * @param {number} pageSize
- * @returns {IReduxPagedEntity}
- */
-const mapListWrapperEntityAsPagedEntity = (entity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
-    mapPaginatedEntityAsPagedEntity(Selectors.list(entity), pageSize);
 
 /**
  * @stable [30.03.2020]
@@ -628,8 +591,8 @@ export class Mappers {
   public static formEntityAsExtendedFormEntity = GenericMappers.formEntityAsExtendedFormEntity;                 /* @stable [09.05.2020] */
   public static listEntity = GenericMappers.listEntity;                                                         /* @stable [08.05.2020] */
   public static listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                     /* @stable [08.05.2020] */
+  public static listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                               /* @stable [08.05.2020] */
   public static listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity; /* @stable [08.05.2020] */
-  public static listWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
   public static pageToolbarProps = ComponentMappers.pageToolbarProps;

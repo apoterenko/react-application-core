@@ -1,6 +1,8 @@
 import * as R from 'ramda';
 
 import {
+  DEFAULT_PAGE_SIZE,
+  FIRST_PAGE,
   IDisabledWrapper,
   IEntity,
   IFormWrapper,
@@ -300,6 +302,34 @@ const mapPaginatedEntity = (entity: IReduxPaginatedEntity): IReduxPaginatedEntit
 
 /**
  * @mapper
+ * @stable [09.05.2020]
+ * @param {IReduxPaginatedEntity} entity
+ * @param {number} pageSize
+ * @returns {IReduxPagedEntity}
+ */
+const mapPaginatedEntityAsPagedEntity =
+  (entity: IReduxPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
+    ifNotNilThanValue(
+      entity,
+      () => mapPagedEntity({
+        page: entity.lockPage ? entity.page : FIRST_PAGE,  // lockPage <=> backward, forward, last, first
+        pageSize,
+      }),
+      UNDEF_SYMBOL
+    );
+
+/**
+ * @mapper
+ * @stable [09.05.2020]
+ * @param {IListEntity} entity
+ * @param {number} pageSize
+ * @returns {IReduxPagedEntity}
+ */
+const mapListEntityAsPagedEntity = (entity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
+  mapPaginatedEntityAsPagedEntity(Selectors.list(entity), pageSize);
+
+/**
+ * @mapper
  * @stable [08.05.2020]
  * @param {IReduxPaginatedLifeCycleEntity} entity
  * @returns {IReduxPaginatedLifeCycleEntity}
@@ -332,9 +362,11 @@ export class GenericMappers {
   public static lifeCycleEntity = mapLifeCycleEntity;                                                     /* stable [08.05.2020] */
   public static listEntity = mapListEntity;                                                               /* stable [07.05.2020] */
   public static listEntityAsDisabled = mapListEntityAsDisabled;                                           /* stable [08.05.2020] */
+  public static listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                     /* stable [09.05.2020] */
   public static listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;       /* stable [09.05.2020] */
   public static pagedEntity = mapPagedEntity;                                                             /* stable [07.05.2020] */
   public static paginatedEntity = mapPaginatedEntity;                                                     /* stable [07.05.2020] */
+  public static paginatedEntityAsPagedEntity = mapPaginatedEntityAsPagedEntity;                           /* stable [09.05.2020] */
   public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                   /* stable [07.05.2020] */
   public static progressAsDisabled = mapProgressAsDisabled;                                               /* stable [08.05.2020] */
   public static query = mapQuery;                                                                         /* stable [08.05.2020] */
