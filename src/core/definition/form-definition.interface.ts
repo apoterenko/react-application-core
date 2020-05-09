@@ -17,8 +17,8 @@ import {
   IOnBeforeSubmitWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
-  IOnEmptyDictionaryWrapper,
-  IOnLoadDictionaryWrapper,
+  IOnDictionaryEmptyWrapper,
+  IOnDictionaryLoadWrapper,
   IOnResetWrapper,
   IOnSubmitWrapper,
   IOnValidWrapper,
@@ -34,9 +34,8 @@ import {
   IValidWrapper,
 } from '../definitions.interface';
 import {
-  IBaseExtendedEntity,
   IExtendedEntity,
-  IGenericEditableEntity,
+  IReduxFormEntity,
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import {
@@ -48,10 +47,34 @@ import { IGenericComponentProps } from './generic-component-definition.interface
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
- * @generic-entity
- * @stable [16.01.2020]
+ * @entity
+ * @stable [09.05.2020]
  */
-interface IGenericFormEntity
+export interface IFormEntity<TEntity = IEntity>
+  extends IFormWrapper<IReduxFormEntity<TEntity>> {
+}
+/**
+ * @entity
+ * @stable [08.05.2020]
+ */
+export interface IExtendedFormEntity<TEntity = IEntity>
+  extends IFormEntity<TEntity>,
+    IExtendedEntity<TEntity> {
+}
+
+/**
+ * @flux-entity
+ * @stable [08.05.2020]
+ */
+export interface IFluxValidEntity
+  extends IValidWrapper {
+}
+
+/**
+ * @presets-entity
+ * @stable [08.05.2020]
+ */
+export interface IPresetsFormEntity<TEntity = IEntity>
   extends IActionsFactoryWrapper<(defaultActions: IFormExtraButtonEntity[]) => IFormExtraButtonEntity[]>,
     IActionsRenderedWrapper,
     IAlwaysDirtyWrapper,
@@ -62,6 +85,13 @@ interface IGenericFormEntity
     IDisabledWrapper,
     IFormIdWrapper,
     IFullWrapper,
+    IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
+    IOnChangeWrapper,
+    IOnDictionaryEmptyWrapper<string, IApiEntity<TEntity>>,
+    IOnDictionaryLoadWrapper<(items: AnyT, dictionary?: string) => void>,
+    IOnResetWrapper,
+    IOnSubmitWrapper<IApiEntity<TEntity>>,
+    IOnValidWrapper,
     IReadOnlyWrapper,
     IResetActionRenderedWrapper,
     IResetConfigurationWrapper<IButtonProps>,
@@ -75,76 +105,35 @@ interface IGenericFormEntity
 }
 
 /**
- * @entity
- * @stable [05.04.2020]
+ * @generic-entity
+ * @stable [09.05.2020]
  */
-export interface IFormEditableEntity<TEntity = IEntity>
-  extends IFormWrapper<IGenericEditableEntity<TEntity>> {
-}
-
-/**
- * @entity
- * @stable [18.04.2020]
- */
-export interface IBaseExtendedFormEditableEntity<TEntity = IEntity>
-  extends IFormEditableEntity<TEntity>,
-    IBaseExtendedEntity<TEntity> {
-}
-
-/**
- * @entity
- * @stable [26.03.2020]
- */
-export interface IExtendedFormEditableEntity<TEntity = IEntity>
-  extends IBaseExtendedFormEditableEntity<TEntity>,
-    IExtendedEntity<TEntity> {
-}
-
-/**
- * @behavioral-entity
- * @stable [18.04.2020]
- */
-export interface IBehavioralFormEntity<TEntity extends IEntity = IEntity>
-  extends IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
-    IOnChangeWrapper,
-    IOnEmptyDictionaryWrapper<string, IApiEntity<TEntity>>,
-    IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void>,
-    IOnResetWrapper,
-    IOnSubmitWrapper<IApiEntity<TEntity>>,
-    IOnValidWrapper {
-}
-
-/**
- * @props
- * @stable [27.09.2019]
- */
-export interface IFormProps<TEntity = IEntity>
-  extends IGenericComponentProps,
-    IGenericFormEntity,
-    IExtendedFormEditableEntity<TEntity>,
-    IBehavioralFormEntity<TEntity> {
-}
-
-/**
- * @configuration-entity
- * @stable [04.01.2020]
- */
-export interface IFormConfigurationEntity<TProps extends IFormProps = IFormProps>
-  extends IFormConfigurationWrapper<TProps> {
+interface IGenericFormEntity<TEntity = IEntity>
+  extends IExtendedFormEntity<TEntity>,
+    IPresetsFormEntity {
 }
 
 /**
  * @generic-container-entity
- * @stable [17.04.2020]
+ * @stable [09.05.2020]
  */
 export interface IGenericFormContainerEntity<TEntity = IEntity>
-  extends IExtendedFormEditableEntity<TEntity>,
+  extends IExtendedFormEntity<TEntity>,
     IFormConfigurationEntity {
 }
 
 /**
  * @props
- * @stable [17.04.2020]
+ * @stable [09.05.2020]
+ */
+export interface IFormProps<TEntity = IEntity>
+  extends IGenericComponentProps,
+    IGenericFormEntity<TEntity> {
+}
+
+/**
+ * @props
+ * @stable [09.05.2020]
  */
 export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}>
   extends IGenericContainerProps<TDictionaries>,
@@ -152,7 +141,16 @@ export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}>
 }
 
 /**
- * @stable [27.09.2019]
+ * @configuration-entity
+ * @stable [09.05.2020]
+ */
+export interface IFormConfigurationEntity<TProps extends IFormProps = IFormProps>
+  extends IFormConfigurationWrapper<TProps> {
+}
+
+/**
+ * TODO Replace with IPressetsButtonEntity
+ * @deprecated
  */
 export interface IFormExtraButtonEntity
   extends IGenericButtonEntity,
@@ -160,18 +158,10 @@ export interface IFormExtraButtonEntity
 }
 
 /**
- * @flux-entity
- * @stable [03.02.2020]
+ * @default-presets-entity
+ * @stable [09.05.2020]
  */
-export interface IValidFluxEntity
-  extends IValidWrapper {
-}
-
-/**
- * @default-entity
- * @stable [18.04.2020]
- */
-export const DEFAULT_COMPACT_FORM_ENTITY = Object.freeze<IGenericFormEntity>({
+export const DEFAULT_PRESETS_COMPACT_FORM_ENTITY = Object.freeze<IPresetsFormEntity>({
   actionsRendered: false,
   compact: true,
 });
@@ -196,10 +186,10 @@ export const DEFAULT_FULL_FORM_FIELD_CONTROLLER_ENTITY = Object.freeze<IGenericF
 });
 
 /**
- * @initial-entity
- * @stable [27.09.2019]
+ * @initial-redux-entity
+ * @stable [08.05.2020]
  */
-export const INITIAL_FORM_ENTITY = Object.freeze<IGenericEditableEntity>({
+export const INITIAL_REDUX_FORM_ENTITY = Object.freeze<IReduxFormEntity>({
   changes: {},
   defaultChanges: {},
 });
