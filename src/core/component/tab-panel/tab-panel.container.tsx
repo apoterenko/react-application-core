@@ -3,7 +3,7 @@ import * as React from 'react';
 import { GenericContainer } from '../base/generic.container';
 import { TabPanel } from './tab-panel.component';
 import {
-  IGenericActiveValueEntity,
+  IReduxActiveValueEntity,
   ITabPanelContainerProps,
   ITabProps,
 } from '../../definition';
@@ -18,8 +18,9 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
    */
   constructor(props: TProps) {
     super(props);
-    this.onTabClick = this.onTabClick.bind(this);
+
     this.onDeactivate = this.onDeactivate.bind(this);
+    this.onTabClick = this.onTabClick.bind(this);
   }
 
   /**
@@ -58,9 +59,9 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
 
   /**
    * @stable [12.04.2020]
-   * @returns {IGenericActiveValueEntity}
+   * @returns {IReduxActiveValueEntity}
    */
-  protected get activeValueEntity(): IGenericActiveValueEntity {
+  protected get activeValueEntity(): IReduxActiveValueEntity {
     return this.props.tabPanel;
   }
 

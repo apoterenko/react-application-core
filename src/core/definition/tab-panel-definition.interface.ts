@@ -16,8 +16,8 @@ import {
   IWrapperClassNameWrapper,
 } from '../definitions.interface';
 import { IBaseEvent } from './event-definition.interface';
-import { IFormEditableEntity } from './form-definition.interface';
-import { IGenericActiveValueEntity } from './entity-definition.interface';
+import { IFormEntity } from './form-definition.interface';
+import { IReduxActiveValueEntity } from './entity-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
@@ -54,7 +54,7 @@ export interface ITabProps
  * @stable [10.02.2020]
  */
 export interface IGenericTabPanelEntity
-  extends IGenericActiveValueEntity,
+  extends IReduxActiveValueEntity,
     IAllowSingleTabWrapper,
     IItemsWrapper<ITabProps[]>,
     IWrappedWrapper,
@@ -122,7 +122,7 @@ export interface ITabPanelContainerProps
  */
 export interface IFormTabPanelContainerProps<TEntity = IEntity>
   extends ITabPanelContainerProps,
-    IFormEditableEntity<TEntity> {
+    IFormEntity<TEntity> {
 }
 
 /**
