@@ -4,25 +4,24 @@ import { Dialog } from '../dialog.component';
 import { FilterFormDialogActionBuilder } from '../../../action';
 import { FormContainer } from '../../form';
 import {
-  DEFAULT_COMPACT_FORM_ENTITY,
+  DEFAULT_PRESETS_COMPACT_FORM_ENTITY,
   IFilterFormDialogContainerProps,
 } from '../../../definition';
 import {
   isFormDirty,
   isFormTouched,
   isFormValid,
-  mapFormContainerProps,
+  Mappers,
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
 
 /**
  * @component-container-impl
- * @stable [23.04.2020]
+ * @stable [09.05.2020]
  *
  * Please use the "Mappers.filterFormDialogContainerProps"
  */
-export class FilterFormDialogContainer
-  extends GenericContainer<IFilterFormDialogContainerProps> {
+export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialogContainerProps> {
 
   /**
    * @stable [23.04.2020]
@@ -68,8 +67,8 @@ export class FilterFormDialogContainer
         onClose={this.onClearFilter}
       >
         <FormContainer
-          formConfiguration={DEFAULT_COMPACT_FORM_ENTITY}
-          {...mapFormContainerProps(props)}
+          formConfiguration={DEFAULT_PRESETS_COMPACT_FORM_ENTITY}
+          {...Mappers.formContainerProps(props)}
         >
           {props.children}
         </FormContainer>
