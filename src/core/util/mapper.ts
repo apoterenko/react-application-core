@@ -4,43 +4,36 @@ import * as R from 'ramda';
 import { defValuesFilter } from './filter';
 import {
   IApiEntity,
-  IBaseExtendedEntity,
-  IBaseExtendedFormEditableEntity,
   IChannelWrapperEntity,
+  IReduxDictionariesEntity,
   IDictionariesEntity,
-  IDictionariesWrapperEntity,
-  IDictionaryEntity,
+  IReduxDictionaryEntity,
   IExtendedEntity,
-  IExtendedFormEditableEntity,
+  IExtendedFormEntity,
   IExtendedLabeledValueEntity,
-  IFilterFormDialogContainerProps,
-  IFormContainerProps,
-  IFormEditableEntity,
+  IFormEntity,
   IFormTabPanelContainerProps,
   IGenericBaseSelectEntity,
   IGenericChannelEntity,
   IGenericContainer,
-  IGenericEditableEntity,
-  IGenericLayoutEntity,
+  IReduxFormEntity,
   IGenericNotificationEntity,
-  IGenericPagedEntity,
-  IGenericPaginatedEntity,
+  IReduxPagedEntity,
+  IReduxPaginatedEntity,
   IGenericSelectableHoveredEntity,
   IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
-  ILayoutWrapperEntity,
-  IListContainerProps,
+  IDeprecatedListEntity,
   IListEntity,
-  IListWrapperEntity,
   INamedEntity,
   INotificationWrapperEntity,
   IOperationEntity,
   IOptionEntity,
   ISelectOptionEntity,
   ISortDirectionEntity,
+  IReduxSortDirectionsEntity,
   ISortDirectionsEntity,
-  ISortDirectionsWrapperEntity,
   IStackItemEntity,
   IStackWrapperEntity,
   ITabPanelWrapperEntity,
@@ -62,8 +55,6 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IErrorWrapper,
-  IFormWrapper,
-  ILayoutWrapper,
   INotificationWrapper,
   IOptionsWrapper,
   IStackWrapper,
@@ -75,16 +66,11 @@ import {
 } from '../definitions.interface';
 import {
   ifNotNilThanValue,
-  orUndef,
 } from './cond';
 import {
   isFn,
   isString,
 } from './type';
-import { isNewEntity } from './entity';
-import {
-  nvl,
-} from './nvl';
 import {
   doesErrorExist,
   inProgress,
@@ -93,18 +79,12 @@ import {
 } from './wrapper';
 import {
   selectActiveValue,
-  selectChanges,
   selectChannel,
   selectData,
-  selectDefaultChanges,
   selectDictionaries,
-  selectEntity,
   selectEntityId,
   selectForm,
-  selectLayout,
-  selectListSelectedEntity,
   selectNotification,
-  selectOriginalEntity,
   Selectors,
   selectQueue,
   selectStack,
@@ -142,11 +122,11 @@ export const selectError =
 
 /**
  * @stable [29.02.2020]
- * @param {IExtendedFormEditableEntity<TEntity extends IEntity>} wrapper
- * @returns {IGenericEditableEntity<TEntity extends IEntity>}
+ * @param {IExtendedFormEntity<TEntity extends IEntity>} wrapper
+ * @returns {IReduxFormEntity<TEntity extends IEntity>}
  */
 export const selectEditableEntity =
-  <TEntity extends IEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>): IGenericEditableEntity<TEntity> =>
+  <TEntity extends IEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>): IReduxFormEntity<TEntity> =>
     selectForm(wrapper);
 
 /**
@@ -154,8 +134,8 @@ export const selectEditableEntity =
  * @deprecated
  */
 export const selectListEntity =
-  <TEntity extends IEntity = IEntity>(entity: IListWrapperEntity<TEntity>): IListEntity<TEntity> =>
-    ifNotNilThanValue(entity, (): IListEntity<TEntity> => entity.list, UNDEF_SYMBOL);
+  <TEntity extends IEntity = IEntity>(entity: IListEntity<TEntity>): IDeprecatedListEntity<TEntity> =>
+    ifNotNilThanValue(entity, (): IDeprecatedListEntity<TEntity> => entity.list, UNDEF_SYMBOL);
 
 /**
  * @stable [13.02.2020]
@@ -198,11 +178,11 @@ export const mapOptions = <TValue>(options: TValue): IOptionsWrapper<TValue> =>
 
 /**
  * @stable [13.11.2019]
- * @param {ISortDirectionsEntity} directions
- * @returns {ISortDirectionsWrapperEntity}
+ * @param {IReduxSortDirectionsEntity} directions
+ * @returns {ISortDirectionsEntity}
  */
-export const mapSortDirectionsWrapperEntity = (directions: ISortDirectionsEntity): ISortDirectionsWrapperEntity =>
-  defValuesFilter<ISortDirectionsWrapperEntity, ISortDirectionsWrapperEntity>({directions});
+export const mapSortDirectionsWrapperEntity = (directions: IReduxSortDirectionsEntity): ISortDirectionsEntity =>
+  defValuesFilter<ISortDirectionsEntity, ISortDirectionsEntity>({directions});
 
 /**
  * @stable [20.10.2019]
@@ -254,14 +234,6 @@ export const mapNotification = <TValue>(notification: TValue): INotificationWrap
 
 /**
  * @stable [14.04.2020]
- * @param {TValue} layout
- * @returns {ILayoutWrapper<TValue>}
- */
-export const mapLayout = <TValue>(layout: TValue): ILayoutWrapper<TValue> =>
-  defValuesFilter<ILayoutWrapper<TValue>, ILayoutWrapper<TValue>>({layout});
-
-/**
- * @stable [14.04.2020]
  * @param {TValue} channel
  * @returns {IChannelWrapper<TValue>}
  */
@@ -285,14 +257,6 @@ export const mapDictionaries = <TValue>(dictionaries: TValue): IDictionariesWrap
     defValuesFilter<IDictionariesWrapper<TValue>, IDictionariesWrapper<TValue>>({dictionaries});
 
 /**
- * @stable [26.03.2020]
- * @param {TForm} form
- * @returns {IFormWrapper<TForm>}
- */
-export const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
-  defValuesFilter<IFormWrapper<TForm>, IFormWrapper<TForm>>({form});
-
-/**
  * @stable [12.04.2020]
  * @param {TActiveValue} activeValue
  * @returns {IActiveValueWrapper<TActiveValue>}
@@ -305,8 +269,8 @@ export const mapActiveValue = <TActiveValue>(activeValue: TActiveValue): IActive
  * @deprecated Use mapForm
  */
 export const mapEditableEntity =
-  <TEntity extends IEntity = IEntity>(form: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
-    defValuesFilter<IExtendedFormEditableEntity<TEntity>, IExtendedFormEditableEntity<TEntity>>({form});
+  <TEntity extends IEntity = IEntity>(form: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
+    defValuesFilter<IExtendedFormEntity<TEntity>, IExtendedFormEntity<TEntity>>({form});
 
 /**
  * @stable [04.05.2020]
@@ -343,12 +307,12 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
  * @stable [05.05.2020]
  * @mapper
  *
- * @param {IGenericPaginatedEntity} entity
+ * @param {IReduxPaginatedEntity} entity
  * @param {number} pageSize
- * @returns {IGenericPagedEntity}
+ * @returns {IReduxPagedEntity}
  */
 const mapPaginatedEntityAsPagedEntity =
-  (entity: IGenericPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
+  (entity: IReduxPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
     ifNotNilThanValue(
       entity,
       () => GenericMappers.pagedEntity({
@@ -362,11 +326,11 @@ const mapPaginatedEntityAsPagedEntity =
  * @stable [05.05.2020]
  * @mapper
  *
- * @param {IListWrapperEntity} entity
+ * @param {IListEntity} entity
  * @param {number} pageSize
- * @returns {IGenericPagedEntity}
+ * @returns {IReduxPagedEntity}
  */
-const mapListWrapperEntityAsPagedEntity = (entity: IListWrapperEntity, pageSize = DEFAULT_PAGE_SIZE): IGenericPagedEntity =>
+const mapListWrapperEntityAsPagedEntity = (entity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
     mapPaginatedEntityAsPagedEntity(Selectors.list(entity), pageSize);
 
 /**
@@ -398,15 +362,6 @@ export const mapNotificationWrapperEntity =
 
 /**
  * @stable [14.04.2020]
- * @param {ILayoutWrapperEntity<TEntity>} wrapper
- * @returns {ILayoutWrapperEntity<TEntity>}
- */
-export const mapLayoutWrapperEntity =
-  <TEntity = IGenericLayoutEntity>(wrapper: ILayoutWrapperEntity<TEntity>): ILayoutWrapperEntity<TEntity> =>
-    mapLayout(selectLayout(wrapper));
-
-/**
- * @stable [14.04.2020]
  * @param {IChannelWrapperEntity<TEntity>} wrapper
  * @returns {IChannelWrapperEntity<TEntity>}
  */
@@ -425,11 +380,11 @@ export const mapTransportWrapperEntity =
 
 /**
  * @stable [28.03.2020]
- * @param {IDictionariesWrapperEntity<TDictionaries>} wrapper
- * @returns {IDictionariesWrapperEntity<TDictionaries>}
+ * @param {IDictionariesEntity<TDictionaries>} wrapper
+ * @returns {IDictionariesEntity<TDictionaries>}
  */
 export const mapDictionariesWrapperEntity =
-  <TDictionaries = IDictionariesEntity>(wrapper: IDictionariesWrapperEntity<TDictionaries>): IDictionariesWrapperEntity<TDictionaries> =>
+  <TDictionaries = IReduxDictionariesEntity>(wrapper: IDictionariesEntity<TDictionaries>): IDictionariesEntity<TDictionaries> =>
     mapDictionaries(selectDictionaries(wrapper));
 
 /**
@@ -441,99 +396,18 @@ export const mapActiveValueWrapper = <TValue>(wrapper: IActiveValueWrapper<TValu
   mapActiveValue(selectActiveValue(wrapper));
 
 /**
- * @stable [18.04.2020]
- * @param {IBaseExtendedEntity<TEntity>} extendedEntity
- * @returns {IBaseExtendedEntity<TEntity>}
- */
-export const mapBaseExtendedEntity =
-  <TEntity = IEntity>(extendedEntity: IBaseExtendedEntity<TEntity>): IBaseExtendedEntity<TEntity> =>
-    defValuesFilter<IBaseExtendedEntity<TEntity>, IBaseExtendedEntity<TEntity>>({
-      entity: selectEntity(extendedEntity),
-      originalEntity: selectOriginalEntity(extendedEntity),
-    });
-
-/**
- * @stable [17.04.2020]
- * @param {IExtendedEntity<TEntity>} extendedEntity
- * @returns {IExtendedEntity<TEntity>}
- */
-export const mapExtendedEntity =
-  <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IExtendedEntity<TEntity> =>
-    defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
-      ...mapBaseExtendedEntity(extendedEntity),
-      changes: selectChanges(extendedEntity),
-      entityId: extendedEntity.entityId,
-      newEntity: extendedEntity.newEntity,
-    });
-
-/**
- * @stable [05.04.2020]
- * @param {IFormEditableEntity<TEntity>} wrapper
- * @returns {IFormEditableEntity<TEntity>}
- */
-export const mapFormEditableEntity =
-  <TEntity = IEntity>(wrapper: IFormEditableEntity<TEntity>): IFormEditableEntity<TEntity> =>
-    mapForm(selectForm(wrapper));
-
-/**
- * @stable [17.04.2020]
- * @param {TEntity} entity
- * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
- * @returns {IExtendedEntity<TEntity extends IEntity>}
- */
-export const mapEnhancedExtendedEntity =
-  <TEntity extends IEntity = IEntity>(entity: TEntity,
-                                      editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> => {
-    let originalEntity;
-    const newEntity = isNewEntity(entity);
-    const changes = selectChanges<TEntity>(editableEntity) || {} as TEntity;
-    const defaultChanges = selectDefaultChanges<TEntity>(editableEntity);
-
-    ifNotNilThanValue(
-      nvl(defaultChanges, entity),
-      () => (originalEntity = {...defaultChanges as {}, ...entity as {}} as TEntity)
-    );
-
-    return mapExtendedEntity({
-      changes,
-      entity: {...originalEntity as {}, ...changes as {}} as TEntity,
-      entityId: orUndef(!newEntity, () => entity.id),
-      newEntity,
-      originalEntity,
-    });
-  };
-
-/**
- * @stable [25.12.2019]
- * @param {IGenericEditableEntity<TEntity extends IEntity>} editableEntity
- * @returns {IExtendedEntity<TEntity extends IEntity>}
+ * @deprecated
  */
 export const mapNewExtendedEntity =
-  <TEntity extends IEntity = IEntity>(editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
-    mapEnhancedExtendedEntity(null, editableEntity);
+  <TEntity extends IEntity = IEntity>(editableEntity: IReduxFormEntity<TEntity>): IExtendedEntity<TEntity> =>
+    GenericMappers.entityAsExtendedEntity(editableEntity);
 
 /**
- * @stable [26.04.2020]
- * @param {TEntity} entity
- * @param {IGenericEditableEntity<TEntity>} editableEntity
- * @returns {IExtendedFormEditableEntity<TEntity>}
- */
-export const mapExtendedFormEditableEntity =
-  <TEntity  = IEntity>(entity: TEntity,
-                       editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
-    ({
-      ...mapForm(editableEntity),
-      ...mapEnhancedExtendedEntity(entity, editableEntity),
-    });
-
-/**
- * @stable [26.04.2020]
- * @param {IGenericEditableEntity<TEntity>} editableEntity
- * @returns {IExtendedFormEditableEntity<TEntity>}
+ * @deprecated
  */
 export const mapNewExtendedFormEditableEntity =
-  <TEntity = IEntity>(editableEntity: IGenericEditableEntity<TEntity>): IExtendedFormEditableEntity<TEntity> =>
-    mapExtendedFormEditableEntity(null, editableEntity);
+  <TEntity = IEntity>(editableEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
+    GenericMappers.formEntityAsExtendedEntity(editableEntity);
 
 /**
  * @stable [23.12.2019]
@@ -563,16 +437,16 @@ export const mapApiEntity =
 
 /**
  * @stable [06.09.2019]
- * @param {IListWrapperEntity} listWrapper
- * @param {IGenericEditableEntity} editableEntity
+ * @param {IListEntity} listEntity
+ * @param {IReduxFormEntity} reduxFormEntity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
 export const mapListSelectedExtendedEntity =
-  <TEntity extends IEntity>(listWrapper: IListWrapperEntity<TEntity>,
-                            editableEntity: IGenericEditableEntity<TEntity>): IExtendedEntity<TEntity> =>
-    mapEnhancedExtendedEntity<TEntity>(
-      selectListSelectedEntity(listWrapper),
-      editableEntity
+  <TEntity extends IEntity>(listEntity: IListEntity<TEntity>,
+                            reduxFormEntity: IReduxFormEntity<TEntity>): IExtendedEntity<TEntity> =>
+    GenericMappers.entityAsExtendedEntity(
+      reduxFormEntity,
+      Selectors.listSelectedEntity(listEntity)
     );
 
 /**
@@ -599,12 +473,12 @@ export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] 
 
 /**
  * @stable [28.01.2020]
- * @param {IDictionaryEntity<TEntity>} dictionaryEntity
+ * @param {IReduxDictionaryEntity<TEntity>} dictionaryEntity
  * @param {(data: (TEntity[] | TEntity)) => AnyT} accessor
  * @returns {Array<ISelectOptionEntity<TEntity>>}
  */
 export const selectDictionaryEntityOptions =
-  <TEntity>(dictionaryEntity: IDictionaryEntity<TEntity>,
+  <TEntity>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
             accessor?: (data: TEntity | TEntity[]) => AnyT): Array<ISelectOptionEntity<TEntity>> =>
     mapSelectOptions<TEntity>(
       ifNotNilThanValue(
@@ -615,21 +489,21 @@ export const selectDictionaryEntityOptions =
 
 /**
  * @stable [28.01.2020]
- * @param {IDictionaryEntity<TDictionaryEntity>} dictionaryEntity
+ * @param {IReduxDictionaryEntity<TDictionaryEntity>} dictionaryEntity
  * @returns {boolean}
  */
 export const selectDictionaryEntityLoading =
-  <TDictionaryEntity>(dictionaryEntity: IDictionaryEntity<TDictionaryEntity>): boolean =>
+  <TDictionaryEntity>(dictionaryEntity: IReduxDictionaryEntity<TDictionaryEntity>): boolean =>
     isLoading(dictionaryEntity);
 
 /**
  * @stable [28.01.2020]
- * @param {IDictionaryEntity<TEntity>} dictionaryEntity
+ * @param {IReduxDictionaryEntity<TEntity>} dictionaryEntity
  * @param {(data: TEntity[]) => TResult} accessor
  * @returns {IGenericBaseSelectEntity}
  */
 export const mapDictionaryEntityField =
-  <TEntity, TResult = TEntity[]>(dictionaryEntity: IDictionaryEntity<TEntity>,
+  <TEntity, TResult = TEntity[]>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
                                  accessor?: (data: TEntity[]) => TResult): IGenericBaseSelectEntity =>
     ({
       ...mapWaitingForOptions(selectDictionaryEntityLoading(dictionaryEntity)),
@@ -733,64 +607,13 @@ export const mapStoreEntity =
     ({
       ...mapChannelWrapperEntity(entity),
       ...mapDictionariesWrapperEntity(entity),
-      ...mapLayoutWrapperEntity(entity),
+      ...GenericMappers.layoutEntity(entity),
       ...mapNotificationWrapperEntity(entity),
       ...GenericMappers.sectionNameWrapper(entity),
       ...mapStackWrapperEntity(entity),
       ...mapTransportWrapperEntity(entity),
       ...mapUserWrapperEntity(entity),
     });
-
-/**
- * @component-props-mapper
- * @stable [18.04.2020]
- *
- * @param {IBaseExtendedFormEditableEntity<TEntity>} props The props are defined according to "Liskov substitution principle"
- * @returns {IBaseExtendedFormEditableEntity<TEntity>}
- */
-export const mapFormProps =
-  <TEntity = IEntity>(props: IBaseExtendedFormEditableEntity<TEntity>): IBaseExtendedFormEditableEntity<TEntity> =>
-    ({
-      ...mapFormEditableEntity(props),
-      ...mapBaseExtendedEntity(props),
-    });
-
-/**
- * @container-props-mapper
- * @stable [18.04.2020]
- *
- * @param {IFormContainerProps} props
- * @returns {IFormContainerProps}
- */
-export const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps =>
-  ({
-    ...GenericMappers.sectionNameWrapper(props),
-    ...mapFormProps(props),
-  });
-
-/**
- * @container-props-mapper
- * @stable [23.04.2020]
- *
- * @param {IFilterFormDialogContainerProps} props
- * @returns {IFilterFormDialogContainerProps}
- */
-export const mapFilterFormDialogContainerProps =
-  (props: IFilterFormDialogContainerProps): IFilterFormDialogContainerProps =>
-    mapFormContainerProps(props);
-
-/**
- * @container-props-mapper
- * @stable [11.04.2020]
- *
- * @param {IListContainerProps} props
- * @returns {IListContainerProps}
- */
-export const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
-  ({
-    ...GenericMappers.sectionNameWrapper(props),
-    ...GenericMappers.listWrapperEntity(props),
-  });
 
 /**
  * @container-props-mapper
@@ -802,22 +625,22 @@ export const mapListContainerProps = (props: IListContainerProps): IListContaine
 export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps): IFormTabPanelContainerProps =>
   ({
     ...GenericMappers.sectionNameWrapper(props),
-    ...mapFormEditableEntity(props),
+    ...GenericMappers.formEntity(props),
   });
 
 /**
  * @container-props-mapper
  * @stable [23.04.2020]
  *
- * @param {IFormEditableEntity<TEntity>} props
+ * @param {IFormEntity<TEntity>} props
  * @param {IGenericContainer} proxyContainer
  * @returns {IUnsavedFormChangesDialogContainerProps}
  */
 export const mapUnsavedFormChangesDialogContainerProps =
-  <TEntity = IEntity>(props: IFormEditableEntity<TEntity>,
+  <TEntity = IEntity>(props: IFormEntity<TEntity>,
                       proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps =>
     ({
-      dialogConfiguration: mapFormEditableEntity(props),
+      dialogConfiguration: GenericMappers.formEntity(props),
       proxyContainer,
     });
 
@@ -825,8 +648,14 @@ export const mapUnsavedFormChangesDialogContainerProps =
  * @stable [05.05.2020]
  */
 export class Mappers {
-  public static listWrapperEntity = GenericMappers.listWrapperEntity;
-  public static listWrapperEntityAsDisabledWrapper = GenericMappers.listWrapperEntityAsDisabledWrapper;
+  public static entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;
+  public static filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;
+  public static form = GenericMappers.form;                                                                     /* @stable [08.05.2020] */
+  public static formContainerProps = ComponentMappers.formContainerProps;                                       /* @stable [08.05.2020] */
+  public static formEntity = GenericMappers.formEntity;                                                         /* @stable [08.05.2020] */
+  public static formEntityAsExtendedEntity = GenericMappers.formEntityAsExtendedEntity;                         /* @stable [09.05.2020] */
+  public static listEntity = GenericMappers.listEntity;                                                         /* @stable [08.05.2020] */
+  public static listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                     /* @stable [08.05.2020] */
   public static listWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;

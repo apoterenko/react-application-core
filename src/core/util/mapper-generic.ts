@@ -19,6 +19,7 @@ import {
 } from './cond';
 import {
   IExtendedEntity,
+  IExtendedFormEntity,
   IFormEntity,
   ILayoutEntity,
   IListEntity,
@@ -175,18 +176,18 @@ const mapExtendedEntity =
 
 /**
  * @stable [08.05.2020]
- * @param {IReduxFormEntity<TEntity extends IEntity>} editableEntity
+ * @param {IReduxFormEntity<TEntity extends IEntity>} formEntity
  * @param {TEntity} entity
  * @returns {IExtendedEntity<TEntity extends IEntity>}
  */
 const mapEntityAsExtendedEntity =
-  <TEntity extends IEntity = IEntity>(editableEntity: IReduxFormEntity<TEntity>,
+  <TEntity extends IEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
                                       entity?: TEntity): IExtendedEntity<TEntity> => {
     const newEntity = isNewEntity(entity);
     const {
       changes,
       defaultChanges,
-    } = editableEntity;
+    } = formEntity;
     let originalEntity;
 
     if (!R.isNil(nvl(defaultChanges, entity))) {
@@ -201,6 +202,19 @@ const mapEntityAsExtendedEntity =
       originalEntity,
     });
   };
+
+/**
+ * @stable [09.05.2020]
+ * @param {IReduxFormEntity<TEntity>} formEntity
+ * @param {TEntity} entity
+ * @returns {IExtendedFormEntity<TEntity>}
+ */
+const mapFormEntityAsExtendedEntity = <TEntity  = IEntity>(formEntity: IReduxFormEntity<TEntity>,
+                                                           entity?: TEntity): IExtendedFormEntity<TEntity> =>
+  ({
+    ...GenericMappers.form(formEntity),
+    ...GenericMappers.entityAsExtendedEntity(formEntity, entity),
+  });
 
 /**
  * @stable [08.05.2020]
@@ -263,8 +277,7 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
  * @param {ILayoutEntity} wrapper
  * @returns {ILayoutEntity}
  */
-export const mapLayoutEntity = (wrapper: ILayoutEntity): ILayoutEntity =>
-  mapLayout(Selectors.layout(wrapper));
+const mapLayoutEntity = (wrapper: ILayoutEntity): ILayoutEntity => mapLayout(Selectors.layout(wrapper));
 
 /**
  * @stable [06.05.2020]
@@ -276,6 +289,7 @@ export class GenericMappers {
   public static extendedEntity = mapExtendedEntity;                                                       /* stable [08.05.2020] */
   public static form = mapForm;                                                                           /* stable [08.05.2020] */
   public static formEntity = mapFormEntity;                                                               /* stable [08.05.2020] */
+  public static formEntityAsExtendedEntity = mapFormEntityAsExtendedEntity;                               /* stable [09.05.2020] */
   public static layoutEntity = mapLayoutEntity;                                                           /* stable [08.05.2020] */
   public static lifeCycleEntity = mapLifeCycleEntity;                                                     /* stable [08.05.2020] */
   public static listEntity = mapListEntity;                                                               /* stable [07.05.2020] */
