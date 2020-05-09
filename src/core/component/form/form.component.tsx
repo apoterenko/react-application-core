@@ -8,6 +8,8 @@ import {
   IBaseEvent,
   IButtonProps,
   IconsEnum,
+  IField,
+  IFieldProps,
   IFieldsPresets,
   IFormProps,
   IReduxFormEntity,
@@ -51,11 +53,8 @@ import {
 } from '../../definitions.interface';
 import { GenericComponent } from '../base';
 import { Button } from '../button';
-import {
-  Field,
-  IField,
-} from '../field';
-import { IFieldProps } from '../../configurations-definitions.interface';
+import { Field } from '../field';
+import { IFieldProps2 } from '../../configurations-definitions.interface';  // TODO
 import {
   DI_TYPES,
   lazyInject,
@@ -165,22 +164,27 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [09.05.2020]
    * @param {IField} field
    */
-  private onFieldEmptyDictionary(field: IField): void {
-    const {onEmptyDictionary} = this.props;
+  private onFieldDictionaryEmpty(field: IField): void {
+    const {onDictionaryEmpty} = this.props;
 
-    if (isFn(onEmptyDictionary)) {
-      onEmptyDictionary(field.props.bindDictionary, this.apiEntity);
+    if (isFn(onDictionaryEmpty)) {
+      onDictionaryEmpty(field.props.bindDictionary, this.apiEntity);
     }
   }
 
-  private onLoadDictionary(field: IField, items: AnyT): void {
-    const props = this.props;
+  /**
+   * @stable [09.05.2020]
+   * @param {IField} field
+   * @param {AnyT} items
+   */
+  private onFieldDictionaryLoad(field: IField, items: AnyT): void {
+    const {onDictionaryLoad} = this.props;
 
-    if (props.onLoadDictionary) {
-      props.onLoadDictionary(items, field.props.bindDictionary);
+    if (isFn(onDictionaryLoad)) {
+      onDictionaryLoad(items, field.props.bindDictionary);
     }
   }
 
@@ -324,29 +328,29 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
   /**
    * @stable [24.12.2019]
-   * @param {IFieldProps} props
-   * @param {IFieldProps} defaultProps
+   * @param {IFieldProps2} props
+   * @param {IFieldProps2} defaultProps
    * @returns {AnyT}
    */
-  private getFieldDisplayValue(props: IFieldProps, defaultProps: IFieldProps): AnyT {
+  private getFieldDisplayValue(props: IFieldProps2, defaultProps: IFieldProps2): AnyT {
     return getFormFieldDisplayValue(this.props, props, defaultProps);
   }
 
   /**
    * @stable [03.02.2020]
    * @param {IField} field
-   * @returns {IFieldProps}
+   * @returns {IFieldProps2}
    */
-  private getPredefinedFieldProps(field: IField): IFieldProps {
+  private getPredefinedFieldProps(field: IField): IFieldProps2 {
     const props = this.fieldsPresets[field.props.name];
 
-    let resultProps: IFieldProps;
+    let resultProps: IFieldProps2;
     if (isString(props)) {
       resultProps = {label: props as string};
     } else if (isFn(props)) {
-      resultProps = (props as (field) => IFieldProps)(field);
+      resultProps = (props as (field) => IFieldProps2)(field);
     } else {
-      resultProps = props as IFieldProps;
+      resultProps = props as IFieldProps2;
     }
     return resultProps;
   }
@@ -381,13 +385,13 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    */
   private get formNodes(): React.ReactNode[] {
     return (
-      cloneReactNodes<IFieldProps>(
+      cloneReactNodes<IFieldProps2>(
         this,
         (field: IField) => {
           const fieldProps = field.props;
           const predefinedOptions = this.getPredefinedFieldProps(field);
 
-          return defValuesFilter<IFieldProps, IFieldProps>(
+          return defValuesFilter<IFieldProps2, IFieldProps2>(
             {
               value: this.getFieldValue(field),
               originalValue: this.getFieldOriginalValue(field),
@@ -398,14 +402,18 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               changeForm: this.onChange,
 
               ...(
-                fieldProps.bindDictionary && !isFn(fieldProps.onEmptyDictionary)
-                  ? ({onEmptyDictionary: () => this.onFieldEmptyDictionary(field)})
-                  : {}
-              ),
-              ...(
-                fieldProps.bindDictionary && !isFn(fieldProps.onLoadDictionary)
-                  ? ({onLoadDictionary: (itms) => this.onLoadDictionary(field, itms)})
-                  : {}
+                fieldProps.bindDictionary && ({
+                  ...(
+                    !isFn(fieldProps.onDictionaryEmpty)
+                      ? ({onDictionaryEmpty: () => this.onFieldDictionaryEmpty(field)})
+                      : {}
+                  ),
+                  ...(
+                    !isFn(fieldProps.onDictionaryLoad)
+                      ? ({onDictionaryLoad: (itms) => this.onFieldDictionaryLoad(field, itms)})
+                      : {}
+                  ),
+                })
               ),
 
               ...predefinedOptions,
@@ -413,9 +421,9 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               // The fields props have a higher priority
               ...defValuesFilter<IFieldProps, IFieldProps>({
                 label: fieldProps.label,
-                type: fieldProps.type,
                 placeholder: fieldProps.placeholder,
                 prefixLabel: fieldProps.prefixLabel,
+                type: fieldProps.type,
               }),
             }
           );
