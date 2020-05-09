@@ -13,7 +13,8 @@
   $rac-search-toolbar-display: unset,                                                      /* @stable [05.05.2020] */
   $rac-search-toolbar-field-max-width: unset,                                              /* @stable [07.05.2020] */
   $rac-search-toolbar-flex-grow: unset,                                                    /* @stable [06.05.2020] */
-  $rac-search-toolbar-justify-content: unset                                               /* @stable [05.05.2020] */
+  $rac-search-toolbar-justify-content: unset,                                              /* @stable [05.05.2020] */
+  $rac-search-toolbar-min-width: unset                                                     /* @stable [09.05.2020] */
 ) {
   #{rac-cls($rac-search-toolbar-cls, $rac-search-toolbar-custom)} {
     @include rac-styles (
@@ -21,7 +22,8 @@
       $rac-styles-background: $rac-search-toolbar-background,
       $rac-styles-display: $rac-search-toolbar-display,
       $rac-styles-flex-grow: $rac-search-toolbar-flex-grow,
-      $rac-styles-justify-content: $rac-search-toolbar-justify-content
+      $rac-styles-justify-content: $rac-search-toolbar-justify-content,
+      $rac-styles-min-width: $rac-search-toolbar-min-width
     );
 
     @include rac-field (
