@@ -162,15 +162,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     if ($isForceReload || !$doOptionsExist) {
       const {
-        onEmptyDictionary,
+        onDictionaryEmpty,
       } = this.props;
 
-      if (isFn(onEmptyDictionary)) {
-        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onEmptyDictionary callback is defined, need to load options...');
+      if (isFn(onDictionaryEmpty)) {
+        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onDictionaryEmpty callback is defined, need to load options...');
 
-        this.setState({progress: true}, () => onEmptyDictionary(this.dictionary));
+        this.setState({progress: true}, () => onDictionaryEmpty(this.dictionary));
       } else {
-        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onEmptyDictionary callback is not defined, menu show needed...');
+        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onDictionaryEmpty callback is not defined, menu show needed...');
 
         // Try open empty dialog menu to remote search
         this.renderAndShowMenu(!this.isQuickSearchEnabled);
@@ -566,8 +566,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.renderAndShowMenu();
 
     const props = this.props;
-    if (isFn(props.onLoadDictionary)) {
-      props.onLoadDictionary(this.getFilteredOptions());
+    if (isFn(props.onDictionaryLoad)) {
+      props.onDictionaryLoad(this.getFilteredOptions());
     }
   }
 

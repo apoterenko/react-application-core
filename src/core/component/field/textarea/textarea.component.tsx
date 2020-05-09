@@ -1,13 +1,12 @@
 import * as React from 'react';
 
 import { isDef, toClassName, orNull } from '../../../util';
-import { ITextArea, ITextAreaInternalProps, ITextAreaInternalState } from './textarea.interface';
+import { ITextAreaInternalProps, ITextAreaInternalState } from './textarea.interface';
 import { BaseTextField } from '../text-field';
 import { IFieldTextAreaAttributes } from '../../../definition';
 
 export class TextArea extends BaseTextField<ITextAreaInternalProps,
-                                             ITextAreaInternalState>
-    implements ITextArea {
+                                             ITextAreaInternalState> {
 
   public static defaultProps: ITextAreaInternalProps = {
     clearActionRendered: false,

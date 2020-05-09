@@ -2,7 +2,6 @@ import { toClassName } from '../../../util';
 import { BaseTextField } from '../text-field';
 import { IApplicationNumberSettings } from '../../../settings';
 import {
-  INumberField,
   INumberFieldInternalState,
   INumberFieldInternalProps,
 } from './numberfield.interface';
@@ -11,8 +10,7 @@ import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
 import { IKeyboardProps } from '../../../definition';
 
 export class NumberField extends BaseTextField<INumberFieldInternalProps,
-                                                INumberFieldInternalState>
-    implements INumberField {
+                                                INumberFieldInternalState> {
 
   // We can't use number type because an input field throws an empty value on change if valid = false
   public static defaultProps: INumberFieldInternalProps = {

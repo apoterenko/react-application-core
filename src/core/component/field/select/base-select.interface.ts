@@ -12,7 +12,7 @@ import {
   IGenericBaseSelectState,
   ISelectOptionEntity,
 } from '../../../definition';
-import { IFieldProps } from '../../../configurations-definitions.interface';
+import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import {
   IBaseTextFieldProps,
 } from '../text-field/base-textfield.interface';
@@ -30,7 +30,7 @@ export interface IBaseSelectState
 /**
  * @stable [15.09.2018]
  */
-export interface IBasicSelectConfiguration extends IFieldProps {
+export interface IBasicSelectConfiguration extends IFieldProps2 {
   onClose?(): void;
 }
 

@@ -22,7 +22,6 @@ import { Field } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
 import {
-  IBaseTextField,
   IBaseTextFieldProps,
   IBaseTextFieldState,
 } from './base-textfield.interface';
@@ -39,8 +38,7 @@ import {
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,
                            TState extends IBaseTextFieldState>
-    extends Field<TProps, TState>
-    implements IBaseTextField<TProps, TState> {
+    extends Field<TProps, TState> {
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 

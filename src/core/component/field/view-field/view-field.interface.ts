@@ -1,4 +1,4 @@
-import { IFieldProps } from '../../../configurations-definitions.interface';
+import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import {
   IDetectFileTypeTransportConfigurationWrapper,
   IDetectFileTypeWrapper,
@@ -14,7 +14,7 @@ import { ITransportRequestEntity, IComponentCtor, IViewerProps } from '../../../
  * TODO IViewFieldEntity
  */
 export interface IViewFieldProps
-  extends IFieldProps,
+  extends IFieldProps2,
     IViewerWrapper<IComponentCtor<IViewerProps>>,
     IUsePreviewWrapper,
     IDetectFileTypeWrapper,

@@ -1,14 +1,12 @@
 import { BaseTextField } from '../text-field';
 import { IDateTimeSettings } from '../../../settings';
 import {
-  ITimeField,
   ITimeFieldInternalState,
   ITimeFieldInternalProps,
 } from './timefield.interface';
 
 export class TimeField extends BaseTextField<ITimeFieldInternalProps,
-                                              ITimeFieldInternalState>
-    implements ITimeField {
+                                              ITimeFieldInternalState> {
 
   protected getFieldMask(): Array<string|RegExp> {
     return super.getFieldMask() ||

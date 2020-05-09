@@ -35,7 +35,7 @@ import {
   isVisible,
   notNilValuesFilter,
 } from '../../../util';
-import { IUniversalField } from '../../../entities-definitions.interface';
+import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
 import {
   AnyT,
@@ -49,14 +49,14 @@ import {
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
   IBaseEvent,
-  IGenericFieldEntity,
+  IGenericFieldEntity2,
 } from '../../../definition';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 
 export abstract class UniversalField<TProps extends IUniversalFieldProps,
                                      TState extends IUniversalFieldState>
   extends EnhancedGenericComponent<TProps, TState>
-  implements IUniversalField<TProps, TState> {
+  implements IGenericField2<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('UniversalField');
   private static DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT = 400;
@@ -251,7 +251,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [21.12.2019]
+   * @stable [09.05.2020]
    * @returns {AnyT}
    */
   public get value(): AnyT {
@@ -779,7 +779,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   private onChangeValue(currentRawValue: AnyT): void {
     const actualFieldValue = buildActualFieldValue({
-      ...this.props as IGenericFieldEntity,
+      ...this.props as IGenericFieldEntity2,
       emptyValue: this.emptyValue,
       value: currentRawValue,
     });
