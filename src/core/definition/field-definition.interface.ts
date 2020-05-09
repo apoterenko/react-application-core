@@ -11,9 +11,11 @@ import {
   IActionsWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
+  IBindDictionaryWrapper,
   IChangeableWrapper,
   IClassNameWrapper,
   IDefaultValueWrapper,
+  IDelayTimeoutWrapper,
   IDisabledWrapper,
   IDisableLabelWrapper,
   IDisplayNameWrapper,
@@ -32,10 +34,14 @@ import {
   INameWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
+  IOnDelayWrapper,
+  IOnDictionaryEmptyWrapper,
+  IOnDictionaryLoadWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
   IPlainValueWrapper,
+  IPrefixLabelWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
   IProgressWrapper,
@@ -60,9 +66,13 @@ import {
   DateTimeLikeTypeT,
 } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
-import { IDelayedChangesEntity } from './delayed-changes-definition.interface';
 import { IReduxMultiEntity } from './entity-definition.interface';
-import { IFieldProps } from '../configurations-definitions.interface';
+import { IFieldProps2 } from '../configurations-definitions.interface';
+import {
+  IGenericComponent,
+  IGenericComponentProps,
+} from './generic-component-definition.interface';
+import { IApiEntity } from './api-definition.interface';
 
 /**
  * @stable [28.05.2019]
@@ -73,43 +83,60 @@ export const FIELD_VALUE_TO_RESET = null;
 export const ID_FIELD_NAME = 'id';
 
 /**
+ * @presets-entity
+ * @stable [09.05.2020]
+ */
+export interface IPresetsFieldEntity<TEntity = IEntity>
+  extends IActionsWrapper<IFieldActionEntity[]>,
+    IBindDictionaryWrapper,
+    IDelayTimeoutWrapper,
+    IFormatWrapper,
+    IFullWrapper,
+    ILabelWrapper,
+    IMaskWrapper,
+    INameWrapper,
+    IOnDelayWrapper,
+    IOnDictionaryEmptyWrapper<string, IApiEntity>,
+    IOnDictionaryLoadWrapper<{}, string>,
+    IPlaceholderWrapper,
+    IPrefixLabelWrapper,
+    IReadOnlyWrapper,
+    IRenderedWrapper,
+    IRequiredWrapper,
+    ITypeWrapper<StringNumberT> {
+}
+
+/**
  * @generic-entity
- * @stable [27.05.2019]
+ * @stable [09.05.2020]
  */
 export interface IGenericFieldEntity
-  extends IActionsPosition<FieldActionPositionsEnum>,
-    IActionsWrapper<IFieldActionEntity[]>,
+  extends IPresetsFieldEntity {
+}
+
+export interface IGenericFieldEntity2
+  extends IGenericFieldEntity,
+    IActionsPosition<FieldActionPositionsEnum>,
     IAutoCompleteWrapper,
     IAutoFocusWrapper,
     IChangeableWrapper,
     IDefaultValueWrapper,
-    IDelayedChangesEntity,
     IDisabledWrapper,
     IDisplayNameWrapper,
     IDisplayValueRenderedOnlyWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
-    IFormatWrapper,
-    IFullWrapper,                                                             /* @stable [06.05.2020] */
     IKeepChangesWrapper,
-    ILabelWrapper,
-    IMaskWrapper,                                                             /* @stable [09.04.2020] */
-    INameWrapper,                                                             /* @stable [06.05.2020] */
     IOriginalValueWrapper,
     IPatternWrapper,
-    IPlaceholderWrapper,                                                      /* @stable [06.05.2020] */
     IPlainValueWrapper,
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,                                             /* @stable [03.02.2020] */
     IProgressWrapper,
-    IReadOnlyWrapper,
-    IRenderedWrapper,
-    IRequiredWrapper,
     IStepWrapper,
     ISyntheticCursorWrapper,
     ITabIndexWrapper,
-    ITypeWrapper<StringNumberT>,
     IUseKeyboardWrapper,
     IValidWrapper,                                                            /* @stable [17.04.2020] */
     IValueWrapper {
@@ -143,10 +170,29 @@ export interface IFieldChangeEntity
 
 /**
  * @flux-entity
- * @stable [23.04.2020]
+ * @stable [08.05.2020]
  */
-export interface IFieldsChangesFluxEntity
+export interface IFluxFieldsChangesEntity
   extends IFieldsWrapper {
+}
+
+/**
+ * @props
+ * @stable [09.05.2020]
+ */
+export interface IFieldProps
+  extends IGenericComponentProps,
+    IGenericFieldEntity {
+}
+
+/**
+ * @component
+ * @stable [09.05.2020]
+ */
+export interface IField<TProps extends IFieldProps = IFieldProps,
+  TState = {}>
+  extends IGenericComponent<TProps, TState>,
+    IValueWrapper {
 }
 
 /**
@@ -218,14 +264,14 @@ export enum FieldActionPositionsEnum {
 }
 
 export interface IFieldsPresets {
-  [fieldName: string]: string | IFieldProps | ((field) => IFieldProps | string);
+  [fieldName: string]: string | IFieldProps2 | ((field) => IFieldProps2 | string);
 }
 
 /**
  * @default-entity
  * @stable [24.11.2019]
  */
-export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
+export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity2>({
   autoComplete: 'new-password',
 });
 
@@ -233,7 +279,7 @@ export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericField
  * @default-entity
  * @stable [24.11.2019]
  */
-export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
+export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity2>({
   ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   type: 'password',
 });
@@ -275,7 +321,7 @@ export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>
  * @default-entity
  * @stable [16.04.2020]
  */
-export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
+export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity2>({
   readOnly: true,
   changeable: false,
 });
