@@ -1,6 +1,7 @@
 import { StoreProxy } from '../store.proxy';
 import { DictionariesActionBuilder } from '../../../../action';
 import {
+  IApiEntity,
   IDictionaryStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
@@ -22,11 +23,11 @@ export class DictionaryStoreProxy<TStore extends IGenericStoreEntity = IGenericS
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [09.05.2020]
    * @param {string} dictionary
-   * @param {TData} data
+   * @param {IApiEntity} apiEntity
    */
-  public dispatchLoadDictionary<TData = {}>(dictionary: string, data?: TData): void {
-    this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, data));
+  public dispatchLoadDictionary(dictionary: string, apiEntity?: IApiEntity): void {
+    this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, apiEntity));
   }
 }
