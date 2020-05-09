@@ -652,6 +652,7 @@ export class Mappers {
   public static filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;
   public static form = GenericMappers.form;                                                                     /* @stable [08.05.2020] */
   public static formContainerProps = ComponentMappers.formContainerProps;                                       /* @stable [08.05.2020] */
+  public static formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                 /* @stable [09.05.2020] */
   public static formEntity = GenericMappers.formEntity;                                                         /* @stable [08.05.2020] */
   public static formEntityAsExtendedEntity = GenericMappers.formEntityAsExtendedEntity;                         /* @stable [09.05.2020] */
   public static listEntity = GenericMappers.listEntity;                                                         /* @stable [08.05.2020] */

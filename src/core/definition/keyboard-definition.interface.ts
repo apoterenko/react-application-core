@@ -14,7 +14,7 @@ import {
   IValueWrapper,
   IWidthWrapper,
 } from '../definitions.interface';
-import { IField } from '../component/field/field/field.interface'; // TODO
+import { IField } from './field-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IGenericBaseButtonEntity } from './button-definition.interface';
 

@@ -35,7 +35,7 @@ import {
   StringNumberT,
   UNDEF,
 } from '../../../definitions.interface';
-import { IFieldProps } from '../../../configurations-definitions.interface';
+import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import { ISettingsEntity } from '../../../settings';
 
 @provideInSingleton(CompositeCronFieldFactory)
@@ -316,10 +316,10 @@ export class CompositeCronFieldFactory
 
   /**
    * @stable [09.04.2020]
-   * @param {IFieldProps} props
+   * @param {IFieldProps2} props
    * @returns {string}
    */
-  private getFieldFormat(props: IFieldProps): string {
+  private getFieldFormat(props: IFieldProps2): string {
     return nvl(props.format, this.settings.dateTime.uiDateFormat);
   }
 }

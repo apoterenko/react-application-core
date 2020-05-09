@@ -13,7 +13,7 @@ import {
   IControlledFieldItemEntity,
   IControlledMappedFieldEntity,
 } from '../../definition';
-import { IFieldProps } from '../../configurations-definitions.interface';
+import { IFieldProps2 } from '../../configurations-definitions.interface';
 import { VALUE_ASC_SORTER_FN } from '../../util';
 
 @injectable()
@@ -95,13 +95,13 @@ export class ControlledFieldFactory<
   /**
    * @stable [11.01.2020]
    * @param {TConfig} config
-   * @param {IControlledFieldItemEntity<TControlledFieldItemsEnum, IFieldProps>} actualFieldCfg
+   * @param {IControlledFieldItemEntity<TControlledFieldItemsEnum, IFieldProps2>} actualFieldCfg
    * @param {Array<IControlledFieldItemEntity<TControlledFieldItemsEnum>>} actualFields
-   * @returns {IFieldProps}
+   * @returns {IFieldProps2}
    */
   protected getExtraProps(config: TConfig,
-                          actualFieldCfg: IControlledFieldItemEntity<TControlledFieldItemsEnum, IFieldProps>,
-                          actualFields: Array<IControlledFieldItemEntity<TControlledFieldItemsEnum>>): IFieldProps {
+                          actualFieldCfg: IControlledFieldItemEntity<TControlledFieldItemsEnum, IFieldProps2>,
+                          actualFields: Array<IControlledFieldItemEntity<TControlledFieldItemsEnum>>): IFieldProps2 {
     return {};
   }
 }

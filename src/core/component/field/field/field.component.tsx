@@ -20,7 +20,6 @@ import {
   UniCodesEnum,
   } from '../../../definitions.interface';
 import {
-  IField,
   IFieldState,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
@@ -30,6 +29,7 @@ import {
   FieldClassesEnum,
   IBaseEvent,
   IComponentsSettingsEntity,
+  IField,
   IFieldActionEntity,
   IFieldComplexInputAttributes,
   IFieldInputAttributes,
@@ -37,9 +37,9 @@ import {
   IMaskedInputCtor,
   InputElementT,
 } from '../../../definition';
-import { IFieldProps } from '../../../configurations-definitions.interface';
+import { IFieldProps2 } from '../../../configurations-definitions.interface';
 
-export class Field<TProps extends IFieldProps,
+export class Field<TProps extends IFieldProps2,
                    TState extends IFieldState = IFieldState>
     extends UniversalField<TProps,
                            TState>

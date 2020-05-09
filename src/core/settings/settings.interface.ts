@@ -66,7 +66,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   errorMessage?: string;
   invalidAddressMessage?: string;
   logoutNotificationMessage?: string;
-  noAvailableItemsToSelectMessage?: string;
   noItemsMessage?: string;
   requestCancelErrorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
@@ -148,7 +147,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     errorMessage: 'Something went wrong. There was a problem loading your data',
     invalidAddressMessage: 'Invalid address',
     logoutNotificationMessage: 'You were logged out.',
-    noAvailableItemsToSelectMessage: 'No available items to select.',
     noItemsMessage: 'No items.',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',

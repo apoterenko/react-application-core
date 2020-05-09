@@ -36,7 +36,7 @@ export interface IDateTimeEntity extends IDateWrapper,
 /**
  * @stable [18.06.2018]
  */
-export interface IUniversalField<TProps extends IUniversalFieldProps = IUniversalFieldProps,
+export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversalFieldProps,
                                  TState = {}>
   extends IGenericComponent<TProps, TState>,
           IUniversalKeyboardHandlersConfiguration,
