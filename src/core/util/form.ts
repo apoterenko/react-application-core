@@ -1,9 +1,9 @@
 import * as R from 'ramda';
 
 import {
-  IExtendedFormEditableEntity,
+  IExtendedFormEntity,
   IFormProps,
-  IGenericFieldEntity,
+  IGenericFieldEntity2,
   ITabProps,
 } from '../definition';
 import {
@@ -37,11 +37,11 @@ import { isObjectNotEmpty } from './object';
 
 /**
  * @stable [06.05.2020]
- * @param {IExtendedFormEditableEntity<TEntity>} wrapper
+ * @param {IExtendedFormEntity<TEntity>} wrapper
  * @param {string} fieldName
  * @returns {AnyT}
  */
-const getFieldValueByName = <TEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>,
+const getFieldValueByName = <TEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>,
                                                 fieldName: string): AnyT => (
   ifNotEmptyThanValue(
     fieldName,
@@ -49,7 +49,7 @@ const getFieldValueByName = <TEntity = IEntity>(wrapper: IExtendedFormEditableEn
       ifNotNilThanValue(
         (
           R.isNil(wrapper.entity)
-            ? Selectors.formEditableEntityChanges(wrapper)
+            ? Selectors.formEntityChanges(wrapper)
             : wrapper.entity
         ),
         (data) => data[fieldName],
@@ -62,26 +62,26 @@ const getFieldValueByName = <TEntity = IEntity>(wrapper: IExtendedFormEditableEn
 
 /**
  * @stable [06.05.2020]
- * @param {IExtendedFormEditableEntity<TEntity>} wrapper
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IExtendedFormEntity<TEntity>} wrapper
+ * @param {IGenericFieldEntity2} fieldProps
  * @returns {AnyT}
  */
-export const getFormFieldValue = <TEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>,
-                                                     fieldProps: IGenericFieldEntity): AnyT =>
+export const getFormFieldValue = <TEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>,
+                                                     fieldProps: IGenericFieldEntity2): AnyT =>
   isDef(fieldProps.value)
     ? fieldProps.value
     : getFieldValueByName(wrapper, fieldProps.name);
 
 /**
  * @stable [06.05.2020]
- * @param {IExtendedFormEditableEntity<TEntity>} wrapper
- * @param {IGenericFieldEntity} fieldProps
- * @param {IGenericFieldEntity} defaultFieldProps
+ * @param {IExtendedFormEntity<TEntity>} wrapper
+ * @param {IGenericFieldEntity2} fieldProps
+ * @param {IGenericFieldEntity2} defaultFieldProps
  * @returns {AnyT}
  */
-export const getFormFieldDisplayValue = <TEntity = IEntity>(wrapper: IExtendedFormEditableEntity<TEntity>,
-                                                            fieldProps: IGenericFieldEntity,
-                                                            defaultFieldProps?: IGenericFieldEntity): AnyT =>
+export const getFormFieldDisplayValue = <TEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>,
+                                                            fieldProps: IGenericFieldEntity2,
+                                                            defaultFieldProps?: IGenericFieldEntity2): AnyT =>
   isDef(fieldProps.displayValue)
     ? fieldProps.displayValue
     : (
@@ -94,11 +94,11 @@ export const getFormFieldDisplayValue = <TEntity = IEntity>(wrapper: IExtendedFo
 /**
  * @stable [03.02.2020]
  * @param {IFormProps<TEntity extends IEntity>} entity
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericFieldEntity2} fieldProps
  * @returns {AnyT}
  */
 export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>,
-                                                                             fieldProps: IGenericFieldEntity): AnyT =>
+                                                                             fieldProps: IGenericFieldEntity2): AnyT =>
   isDef(fieldProps.originalValue)
     ? fieldProps.originalValue
     : (
@@ -120,11 +120,11 @@ export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormP
 
 /**
  * @stable [06.05.2020]
- * @param {IExtendedFormEditableEntity<TEntity>} entity
+ * @param {IExtendedFormEntity<TEntity>} entity
  * @returns {boolean}
  */
-export const isFormChanged = <TEntity = IEntity>(entity: IExtendedFormEditableEntity<TEntity>): boolean =>
-  isObjectNotEmpty(Selectors.formEditableEntityChanges(entity));
+export const isFormChanged = <TEntity = IEntity>(entity: IExtendedFormEntity<TEntity>): boolean =>
+  isObjectNotEmpty(Selectors.formEntityChanges(entity));
 
 /**
  * @stable [23.04.2020]
@@ -171,11 +171,11 @@ export const isFormInProgress = <TEntity extends IEntity = IEntity>(entity: IFor
 /**
  * @stable [03.02.2020]
  * @param {IFormProps<TEntity extends IEntity>} formEntity
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericFieldEntity2} fieldProps
  * @returns {boolean}
  */
 export const isFormFieldReadOnly = <TEntity extends IEntity = IEntity>(formEntity: IFormProps<TEntity>,
-                                                                       fieldProps: IGenericFieldEntity): boolean =>
+                                                                       fieldProps: IGenericFieldEntity2): boolean =>
   nvl(
     ifNotNilThanValue(fieldProps, () => fieldProps.readOnly),
     ifNotNilThanValue(formEntity, () => formEntity.readOnly),
@@ -184,21 +184,21 @@ export const isFormFieldReadOnly = <TEntity extends IEntity = IEntity>(formEntit
 /**
  * @stable [23.03.2020]
  * @param {IFormProps} formProps
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericFieldEntity2} fieldProps
  * @returns {boolean}
  */
 export const isFormFieldDisabled = (formProps: IFormProps,
-                                    fieldProps: IGenericFieldEntity): boolean =>
+                                    fieldProps: IGenericFieldEntity2): boolean =>
   R.isNil(fieldProps.disabled) ? isFormDisabled(formProps) : isDisabled(fieldProps);
 
 /**
  * @stable [23.03.2020]
  * @param {IFormProps} formProps
- * @param {IGenericFieldEntity} fieldProps
+ * @param {IGenericFieldEntity2} fieldProps
  * @returns {boolean}
  */
 export const isFormFieldChangeable = (formProps: IFormProps,
-                                      fieldProps: IGenericFieldEntity): boolean =>
+                                      fieldProps: IGenericFieldEntity2): boolean =>
   R.isNil(fieldProps.changeable) ? isChangeable(formProps) : isChangeable(fieldProps);
 
 /**

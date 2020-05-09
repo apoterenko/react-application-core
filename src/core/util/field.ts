@@ -10,8 +10,8 @@ import {
 } from '../definitions.interface';
 import {
   FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
-  IGenericFieldEntity,
-  IMultiEntity,
+  IGenericFieldEntity2,
+  IReduxMultiEntity,
   IMultiItemEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
@@ -38,10 +38,10 @@ import { defValuesFilter } from './filter';
 
 /**
  * @stable [20.12.2019]
- * @param {IGenericFieldEntity} config
+ * @param {IGenericFieldEntity2} config
  * @returns {AnyT}
  */
-export const buildActualFieldValue = (config: IGenericFieldEntity): AnyT => {
+export const buildActualFieldValue = (config: IGenericFieldEntity2): AnyT => {
   const {
     emptyValue,
     keepChanges,
@@ -61,10 +61,10 @@ export const buildActualFieldValue = (config: IGenericFieldEntity): AnyT => {
 
 /**
  * @stable [28.10.2019]
- * @param {IGenericFieldEntity} props
+ * @param {IGenericFieldEntity2} props
  * @returns {boolean}
  */
-export const isFieldInactive = (props: IGenericFieldEntity): boolean =>
+export const isFieldInactive = (props: IGenericFieldEntity2): boolean =>
   isDisabled(props) || isReadOnly(props) || inProgress(props);
 
 /**
@@ -129,7 +129,7 @@ export const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: 
   if (isNotMultiEntity(entity)) {
     return entity as TEntity[];
   }
-  const multiEntity = entity as IMultiEntity<TEntity>;
+  const multiEntity = entity as IReduxMultiEntity<TEntity>;
   const sourceEntities = multiEntity.source || [];
 
   // Fill a cache
@@ -161,7 +161,7 @@ export const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: 
 export const asMultiFieldEditedEntities =
   <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>,
                                       mappedSourcedItems?: Map<EntityIdT, TEntity>): TEntity[] => {
-    const multiEntity = entity as IMultiEntity<TEntity>;
+    const multiEntity = entity as IReduxMultiEntity<TEntity>;
     if (R.isNil(entity)) {
       return UNDEF;
     }
@@ -202,7 +202,7 @@ export const asMultiFieldAddedEntities =
     if (isNotMultiEntity(entity)) {
       return [];
     }
-    const multiEntity = entity as IMultiEntity;
+    const multiEntity = entity as IReduxMultiEntity;
     return multiEntity.add as TEntity[];
   };
 
@@ -224,7 +224,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldEntityT | EntityIdT)
   () => (
     isNotMultiEntity(value)
       ? asEntitiesArray(value as NotMultiFieldEntityT)
-      : asMultiFieldEntities(value as IMultiEntity)
+      : asMultiFieldEntities(value as IReduxMultiEntity)
   ).length,
   0
 );
@@ -296,11 +296,11 @@ export const buildMultiItemEntity = <TEntity extends IEntity = IEntity>(name: st
 
 /**
  * @stable [22.11.2019]
- * @param {Partial<IMultiEntity<TEntity extends IEntity>>} initial
- * @returns {IMultiEntity<TEntity extends IEntity>}
+ * @param {Partial<IReduxMultiEntity<TEntity extends IEntity>>} initial
+ * @returns {IReduxMultiEntity<TEntity extends IEntity>}
  */
 export const multiEntityFactory =
-  <TEntity extends IEntity = IEntity>(initial: Partial<IMultiEntity<TEntity>>): IMultiEntity<TEntity> => ({
+  <TEntity extends IEntity = IEntity>(initial: Partial<IReduxMultiEntity<TEntity>>): IReduxMultiEntity<TEntity> => ({
     add: initial.add || [],
     edit: initial.edit || [],
     remove: initial.remove || [],

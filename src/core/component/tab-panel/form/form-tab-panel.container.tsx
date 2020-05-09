@@ -3,9 +3,15 @@ import * as React from 'react';
 import { TabPanelContainer } from '../tab-panel.container';
 import {
   IFormTabPanelContainerProps,
-  IGenericActiveValueEntity,
+  IReduxActiveValueEntity,
 } from '../../../definition';
 
+/**
+ * @component-container-impl
+ * @stable [09.05.2020]
+ *
+ * Please use the "Mappers.formTabPanelContainerProps"
+ */
 export class FormTabPanelContainer extends TabPanelContainer<IFormTabPanelContainerProps> {
 
   /**
@@ -26,9 +32,9 @@ export class FormTabPanelContainer extends TabPanelContainer<IFormTabPanelContai
 
   /**
    * @stable [12.04.2020]
-   * @returns {IGenericActiveValueEntity}
+   * @returns {IReduxActiveValueEntity}
    */
-  protected get activeValueEntity(): IGenericActiveValueEntity {
+  protected get activeValueEntity(): IReduxActiveValueEntity {
     return this.props.form;
   }
 }

@@ -14,8 +14,8 @@ import {
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IButtonProps } from './button-definition.interface';
-import { IListWrapperEntity } from './list-definition.interface';
-import { IFormEditableEntity } from './form-definition.interface';
+import { IListEntity } from './list-definition.interface';
+import { IFormEntity } from './form-definition.interface';
 
 /**
  * @stable [22.04.2020]
@@ -91,8 +91,8 @@ export interface IToolbarToolsConfigurationEntity<TProps = IToolbarToolsProps>
  * @stable [22.04.2020]
  */
 export interface IGenericToolbarToolsContainerEntity<TProps = IToolbarToolsProps>
-  extends IFormEditableEntity,
-    IListWrapperEntity,
+  extends IFormEntity,
+    IListEntity,
     IToolbarToolsConfigurationEntity<TProps>,
     IToolbarToolsWrapperEntity {
 }
