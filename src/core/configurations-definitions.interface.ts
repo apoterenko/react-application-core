@@ -24,7 +24,7 @@ import {
   INavigationActionTypeWrapper,
   IOnBlurWrapper,
   IOnClearWrapper,
-  IOnFocusWrapper,,
+  IOnFocusWrapper,
   IOnSelectWrapper,
   ISorterWrapper,
   ISubBorderWrapper,
