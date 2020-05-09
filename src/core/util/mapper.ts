@@ -130,14 +130,6 @@ export const selectEditableEntity =
     selectForm(wrapper);
 
 /**
- * TODO
- * @deprecated
- */
-export const selectListEntity =
-  <TEntity extends IEntity = IEntity>(entity: IListEntity<TEntity>): IDeprecatedListEntity<TEntity> =>
-    ifNotNilThanValue(entity, (): IDeprecatedListEntity<TEntity> => entity.list, UNDEF_SYMBOL);
-
-/**
  * @stable [13.02.2020]
  * @param {IEffectsAction} action
  * @returns {TResult}
@@ -407,7 +399,7 @@ export const mapNewExtendedEntity =
  */
 export const mapNewExtendedFormEditableEntity =
   <TEntity = IEntity>(editableEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
-    GenericMappers.formEntityAsExtendedEntity(editableEntity);
+    GenericMappers.formEntityAsExtendedFormEntity(editableEntity);
 
 /**
  * @stable [23.12.2019]
@@ -434,20 +426,6 @@ export const mapApiEntity =
       originalEntity,
     });
   };
-
-/**
- * @stable [06.09.2019]
- * @param {IListEntity} listEntity
- * @param {IReduxFormEntity} reduxFormEntity
- * @returns {IExtendedEntity<TEntity extends IEntity>}
- */
-export const mapListSelectedExtendedEntity =
-  <TEntity extends IEntity>(listEntity: IListEntity<TEntity>,
-                            reduxFormEntity: IReduxFormEntity<TEntity>): IExtendedEntity<TEntity> =>
-    GenericMappers.entityAsExtendedEntity(
-      reduxFormEntity,
-      Selectors.listSelectedEntity(listEntity)
-    );
 
 /**
  * @stable [11.10.2019]
@@ -654,9 +632,10 @@ export class Mappers {
   public static formContainerProps = ComponentMappers.formContainerProps;                                       /* @stable [08.05.2020] */
   public static formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                 /* @stable [09.05.2020] */
   public static formEntity = GenericMappers.formEntity;                                                         /* @stable [08.05.2020] */
-  public static formEntityAsExtendedEntity = GenericMappers.formEntityAsExtendedEntity;                         /* @stable [09.05.2020] */
+  public static formEntityAsExtendedFormEntity = GenericMappers.formEntityAsExtendedFormEntity;                 /* @stable [09.05.2020] */
   public static listEntity = GenericMappers.listEntity;                                                         /* @stable [08.05.2020] */
   public static listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                     /* @stable [08.05.2020] */
+  public static listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity; /* @stable [08.05.2020] */
   public static listWrapperEntityAsPagedEntity = mapListWrapperEntityAsPagedEntity;
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;

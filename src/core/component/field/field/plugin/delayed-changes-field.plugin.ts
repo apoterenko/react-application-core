@@ -1,6 +1,14 @@
-import { sequence, DelayedTask, cancelEvent } from '../../../../util';
-import { AnyT, IChangeEvent, IKeyboardEvent } from '../../../../definitions.interface';
-import { IUniversalField } from '../../../../entities-definitions.interface';
+import {
+  cancelEvent,
+  DelayedTask,
+  sequence,
+} from '../../../../util';
+import {
+  AnyT,
+  IChangeEvent,
+  IKeyboardEvent,
+} from '../../../../definitions.interface';
+import { IGenericField2 } from '../../../../entities-definitions.interface';
 import { IGenericPlugin } from '../../../../definition';
 
 export class DelayedChangesFieldPlugin implements IGenericPlugin {
@@ -11,17 +19,17 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
 
   /**
    * @stable [18.05.2018]
-   * @param {IUniversalField} component
+   * @param {IGenericField2} component
    */
-  constructor(private component: IUniversalField<AnyT>) { // TODO Fix props typings
+  constructor(private component: IGenericField2<AnyT>) { // TODO Fix props typings
     this.delayedTask = new DelayedTask(
       this.doDelay.bind(this),
-      this.component.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT
+      component.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT
     );
 
-    this.component.onChange = sequence(this.component.onChange, this.onChange, this);
-    this.component.onChangeManually = sequence(this.component.onChangeManually, this.onChangeManually, this);
-    this.component.onKeyEnter = sequence(this.component.onKeyEnter, this.onKeyEnter, this);
+    component.onChange = sequence(component.onChange, this.onChange, this);
+    component.onChangeManually = sequence(component.onChangeManually, this.onChangeManually, this);
+    component.onKeyEnter = sequence(component.onKeyEnter, this.onKeyEnter, this);
   }
 
   /**
