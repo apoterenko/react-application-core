@@ -1,6 +1,6 @@
 import {
   IChannelWrapperEntity,
-  IDictionariesWrapperEntity,
+  IDictionariesEntity,
   ILayoutEntity,
   INotificationWrapperEntity,
   IStackWrapperEntity,

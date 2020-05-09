@@ -14,7 +14,7 @@ import {
   IContainerMiddlewareConfigEntity,
   IFormMiddlewareConfigEntity,
   IListMiddlewareConfigEntity,
-  ISectionDataEntity,
+  IFluxSectionDataEntity,
   ITabPanelMiddlewareConfigEntity,
   SectionT,
 } from '../definition';
@@ -30,7 +30,7 @@ import { defValuesFilter } from './filter';
  * @returns {TResult}
  */
 export const applySection =
-  <TResult extends ISectionDataEntity = ISectionDataEntity>(section: string, data?: IKeyValue | IKeyValue[]): TResult =>
+  <TResult extends IFluxSectionDataEntity = IFluxSectionDataEntity>(section: string, data?: IKeyValue | IKeyValue[]): TResult =>
     ({
       section,
       ...(
@@ -38,7 +38,7 @@ export const applySection =
           data,
           () => (
             Array.isArray(data)
-              ? toType<ISectionDataEntity>({data})
+              ? toType<IFluxSectionDataEntity>({data})
               : data
           )
         )

@@ -12,7 +12,7 @@ import { channelsReducers } from '../channel';
 import { makeEntityReducer } from '../store/store.support';
 import {
   IAsyncLibsEntity,
-  IDictionariesEntity,
+  IReduxDictionariesEntity,
   IReduxLayoutEntity,
   IGenericNotificationEntity,
   IGenericStackEntity,

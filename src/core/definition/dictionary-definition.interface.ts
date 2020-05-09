@@ -1,5 +1,4 @@
 import {
-  ACTION_PREFIX,
   FIRST_PAGE,
   IDataWrapper,
   IDictionariesWrapper,
@@ -7,76 +6,72 @@ import {
   ILoadingWrapper,
   IPlacesWrapper,
 } from '../definitions.interface';
-import { IGenericPagedEntity } from './page-definition.interface';
+import { IReduxPagedEntity } from './page-definition.interface';
 
 /**
- * @stable [10.09.2019]
+ * @stable [08.05.2020]
  */
 export const DEFAULT_DICTIONARY_PAGE_SIZE = 300;
 
 /**
- * @stable [04.12.2019]
+ * @initial-redux-entity
+ * @stable [08.05.2020]
  */
-export const INITIAL_DICTIONARIES_ENTITY = Object.freeze<IDictionariesEntity>({});
+export const INITIAL_REDUX_DICTIONARIES_ENTITY = Object.freeze<IReduxDictionariesEntity>({});
 
 /**
- * @stable [04.12.2019]
+ * @stable [08.05.2020]
  */
-export const $RAC_DICTIONARIES_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}.dictionaries.destroy`;
-export const DICTIONARY_LOAD_ACTION_TYPE = 'dictionary.load';
-export const DICTIONARY_SET_ACTION_TYPE = 'dictionary.set';
+export const DICTIONARY_DESTROY_ACTION_TYPE = `dictionary.destroy`;
+export const DICTIONARY_LOAD_ACTION_TYPE = `dictionary.load`;
+export const DICTIONARY_SET_ACTION_TYPE = `dictionary.set`;
 
 /**
- * @stable [11.01.2020]
+ * @stable [08.05.2020]
  */
 export enum DictionariesEnum {
   PLACES = 'places',
 }
 
 /**
- * @stable [10.09.2019]
+ * @default-entity
+ * @stable [08.05.2020]
  */
-export const DEFAULT_DICTIONARY_PAGED_ENTITY = Object.freeze<IGenericPagedEntity>({
+export const DEFAULT_DICTIONARY_PAGED_ENTITY = Object.freeze<IReduxPagedEntity>({
   page: FIRST_PAGE,
   pageSize: DEFAULT_DICTIONARY_PAGE_SIZE,
 });
 
 /**
- * @stable [10.10.2019]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IDictionaryEntity<TData = IKeyValue>
+export interface IReduxDictionaryEntity<TData = IKeyValue>
   extends IDataWrapper<TData[] | TData>,
     ILoadingWrapper {
 }
 
 /**
- * @stable [11.01.2020]
- */
-export interface IPlacesDictionaryWrapperEntity
-  extends IPlacesWrapper<IDictionaryEntity<{}>> {
-}
-
-/**
  * @entity
- * @stable [14.01.2020]
+ * @stable [08.05.2020]
  */
 export interface IBaseDictionariesEntity
-  extends IPlacesDictionaryWrapperEntity {
+  extends IPlacesWrapper<IReduxDictionaryEntity<{}>> {
+}
+
+/**
+ * @redux-entity
+ * @stable [08.05.2020]
+ */
+export interface IReduxDictionariesEntity
+  extends IBaseDictionariesEntity {
+  [dictionary: string]: IReduxDictionaryEntity<{}>;
 }
 
 /**
  * @entity
- * @stable [10.10.2019]
+ * @stable [08.05.2020]
  */
-export interface IDictionariesEntity
-  extends IBaseDictionariesEntity {
-  [dictionary: string]: IDictionaryEntity<{}>;
-}
-
-/**
- * @wrapper-entity
- * @stable [10.10.2019]
- */
-export interface IDictionariesWrapperEntity<TDictionariesEntity = IDictionariesEntity>
+export interface IDictionariesEntity<TDictionariesEntity = IReduxDictionariesEntity>
   extends IDictionariesWrapper<TDictionariesEntity> {
 }
