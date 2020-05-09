@@ -9,15 +9,19 @@ import {
   toActionPrefix,
 } from '../util';
 import {
-  $RAC_DICTIONARIES_DESTROY_ACTION_TYPE,
+  DICTIONARY_DESTROY_ACTION_TYPE,
   DICTIONARY_LOAD_ACTION_TYPE,
   DICTIONARY_SET_ACTION_TYPE,
 } from '../definition';
 
+/**
+ * @action-builder
+ * @stable [09.05.2020]
+ */
 export class DictionariesActionBuilder {
 
   /**
-   * @stable [09.10.2019]
+   * @stable [09.05.2020]
    * @param {string} section
    * @returns {string}
    */
@@ -26,7 +30,15 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [05.12.2019]
+   * @stable [09.05.2020]
+   * @returns {string}
+   */
+  public static buildDestroyActionType(): string {
+    return `${toActionPrefix('all')}.${DICTIONARY_DESTROY_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [09.05.2020]
    * @param {string} section
    * @returns {string}
    */
@@ -35,7 +47,7 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [05.12.2019]
+   * @stable [09.05.2020]
    * @param {string} section
    * @returns {string}
    */
@@ -44,7 +56,7 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [04.12.2019]
+   * @stable [09.05.2020]
    * @param {string} section
    * @returns {string}
    */
@@ -53,21 +65,32 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [05.12.2019]
+   * @stable [09.05.2020]
    * @returns {IEffectsAction}
    */
-  public static buildDestroyAllAction(): IEffectsAction {
-    return EffectsAction.create($RAC_DICTIONARIES_DESTROY_ACTION_TYPE);
+  public static buildDestroyAction(): IEffectsAction {
+    return EffectsAction.create(DictionariesActionBuilder.buildDestroyActionType());
   }
 
   /**
-   * @stable [30.03.2020]
+   * @stable [09.05.2020]
    * @param {string} section
    * @param {TData} data
    * @returns {IEffectsAction}
    */
   public static buildLoadAction<TData = {}>(section: string, data?: TData): IEffectsAction {
     const plainAction = this.buildLoadPlainAction(section, data);
+    return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
+   * @stable [09.05.2020]
+   * @param {string} section
+   * @param {TData[] | TData} data
+   * @returns {IEffectsAction}
+   */
+  public static buildSetAction<TData = {}>(section: string, data?: TData | TData[]): IEffectsAction {
+    const plainAction = this.buildSetPlainAction(section, data);
     return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
@@ -85,12 +108,15 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [30.03.2020]
+   * @stable [09.05.2020]
    * @param {string} section
    * @param {TData[] | TData} data
    * @returns {IEffectsAction}
    */
-  public static buildSetAction<TData = {}>(section: string, data?: TData | TData[]): IEffectsAction {
-    return EffectsAction.create(this.buildSetActionType(section), applySection(section, data));
+  public static buildSetPlainAction<TData = {}>(section: string, data?: TData | TData[]): IEffectsAction {
+    return {
+      type: this.buildSetActionType(section),
+      data: applySection(section, data),
+    };
   }
 }

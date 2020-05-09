@@ -163,7 +163,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
     return [
       PermissionsActionBuilder.buildDestroyAction(),
       userActionBuilder.buildDestroyAction(),
-      DictionariesActionBuilder.buildDestroyAllAction(),
+      DictionariesActionBuilder.buildDestroyAction(),
       ApplicationActionBuilder.buildUnauthorizedAction(),
       TransportActionBuilder.buildDestroyTokenAction(),
       ApplicationActionBuilder.buildAfterLogoutAction()

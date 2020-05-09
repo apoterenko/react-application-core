@@ -143,9 +143,10 @@ export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
 }
 
 /**
- * @stable [05.12.2019]
+ * @flux-entity
+ * @stable [09.05.2020]
  */
-export interface ISectionDataEntity<TData = IKeyValue>
-  extends ISectionWrapper,
-    IDataWrapper<TData> {
+export interface IFluxSectionDataEntity<TData = IKeyValue>
+  extends IDataWrapper<TData>,
+    ISectionWrapper {
 }

@@ -6,27 +6,25 @@ import {
 } from '../util';
 import { DictionariesActionBuilder } from '../action';
 import {
-  $RAC_DICTIONARIES_DESTROY_ACTION_TYPE,
-  IDictionariesEntity,
-  INITIAL_DICTIONARIES_ENTITY,
-  ISectionDataEntity,
+  INITIAL_REDUX_DICTIONARIES_ENTITY,
+  IReduxDictionariesEntity,
+  IFluxSectionDataEntity,
 } from '../definition';
 
 /**
  * @stable [12.01.2020]
- * @param {IDictionariesEntity} state
+ * @param {IReduxDictionariesEntity} state
  * @param {IEffectsAction} action
- * @returns {IDictionariesEntity}
+ * @returns {IReduxDictionariesEntity}
  */
-export const dictionariesReducer = (state: IDictionariesEntity = INITIAL_DICTIONARIES_ENTITY,
-                                    action: IEffectsAction): IDictionariesEntity => {
+export const dictionariesReducer = (state: IReduxDictionariesEntity = INITIAL_REDUX_DICTIONARIES_ENTITY,
+                                    action: IEffectsAction): IReduxDictionariesEntity => {
   const section = toSection(action);
-  const actionData = selectData<ISectionDataEntity>(action);
 
   switch (action.type) {
-    case $RAC_DICTIONARIES_DESTROY_ACTION_TYPE:
+    case DictionariesActionBuilder.buildDestroyActionType():
       return {
-        ...INITIAL_DICTIONARIES_ENTITY,
+        ...INITIAL_REDUX_DICTIONARIES_ENTITY,
       };
     case DictionariesActionBuilder.buildLoadActionType(section):
       return {
@@ -37,6 +35,7 @@ export const dictionariesReducer = (state: IDictionariesEntity = INITIAL_DICTION
         },
       };
     case DictionariesActionBuilder.buildSetActionType(section):
+      const actionData: IFluxSectionDataEntity = action.data;
       return {
         ...state,
         [section]: {
@@ -47,7 +46,7 @@ export const dictionariesReducer = (state: IDictionariesEntity = INITIAL_DICTION
       return {
         ...state,
         [section]: {
-          data: actionData,  // Data from redux-effects-promise
+          data: action.data,  // Data from redux-effects-promise
           loading: false,
         },
       };
