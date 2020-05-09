@@ -25,9 +25,9 @@ import {
   INavigationActionTypeWrapper,
   IOnBlurWrapper,
   IOnClearWrapper,
-  IOnEmptyDictionaryWrapper,
+  IOnDictionaryEmptyWrapper,
   IOnFocusWrapper,
-  IOnLoadDictionaryWrapper,
+  IOnDictionaryLoadWrapper,
   IOnSelectWrapper,
   IPrefixLabelWrapper,
   ISorterWrapper,
@@ -43,7 +43,7 @@ import {
   IBehavioralBaseFieldEntity,
   IBehavioralFieldEntity,
   IComponentProps,
-  IGenericFieldEntity,
+  IGenericFieldEntity2,
   IKeyboardConfigurationEntity,
   IUniversalComponentEntity,
 } from './definition';
@@ -75,7 +75,7 @@ export interface IWebCameraConfiguration extends IComponentProps,
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldProps
-  extends IGenericFieldEntity,
+  extends IGenericFieldEntity2,
           IBehavioralBaseFieldEntity,
           IUniversalComponentEntity,
           IUniversalKeyboardHandlersConfiguration<IKeyboardEvent>,
@@ -91,13 +91,11 @@ export interface IUniversalFieldProps
 }
 
 /* @stable - 11.04.2018 */
-export interface IFieldProps extends IComponentProps,
+export interface IFieldProps2 extends IComponentProps,
   IUniversalFieldProps,
   IBehavioralFieldEntity,
-  IBindDictionaryConfiguration,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
-  IPrefixLabelWrapper,
   IClearActionRenderedWrapper {
   minLength?: number;
   maxLength?: number;
@@ -105,8 +103,8 @@ export interface IFieldProps extends IComponentProps,
   cols?: number;
 }
 
-export interface IFieldConfigurationEntity<TFieldProps extends IFieldProps = IFieldProps>
-  extends IFieldConfigurationWrapper<IFieldProps> {
+export interface IFieldConfigurationEntity<TFieldProps extends IFieldProps2 = IFieldProps2>
+  extends IFieldConfigurationWrapper<IFieldProps2> {
 }
 
 /* @stable - 08.04.2018 */
@@ -117,13 +115,6 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentEntit
                                                         IBooleanEmptyDataWrapper {
 }
 
-/**
- * @stable [04.05.2018]
- */
-export interface IBindDictionaryConfiguration extends IBindDictionaryWrapper,
-                                                      IOnEmptyDictionaryWrapper<string, IApiEntity>,
-                                                      IOnLoadDictionaryWrapper<(items: AnyT, dictionary?: string) => void> {
-}
 
 // TODO
 export interface ISubHeaderConfiguration extends IComponentProps,

@@ -1,6 +1,6 @@
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
 import { IDefaultLayoutProps } from './layout-definition.interface';
-import { IFieldProps } from '../configurations-definitions.interface';  // TODO
+import { IFieldProps } from './field-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
 import { ITitleProps } from './title-definition.interface';
@@ -261,6 +261,7 @@ export interface IMessagesSettingsEntity {
   LAST_YEAR?: string;
   LOG_OUT?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
+  NO_AVAILABLE_ITEMS_TO_SELECT?: string;
   NO_DATA?: string;
   OK?: string;
   PAGES_INFO?: string;
@@ -320,6 +321,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   LAST_YEAR: 'Last year',
   LOG_OUT: 'Log out',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
+  NO_AVAILABLE_ITEMS_TO_SELECT: 'No available items to select',
   NO_DATA: 'No data',
   OK: 'Ok',
   PAGES_INFO: '{from}-{to} of {count}',

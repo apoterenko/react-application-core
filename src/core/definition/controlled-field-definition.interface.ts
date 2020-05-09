@@ -16,7 +16,7 @@ import {
 } from './generic-container-definition.interface';
 import { IBaseDictionariesEntity } from './dictionary-definition.interface';
 import { IExtendedEntity } from './entity-definition.interface';
-import { IFieldProps } from '../configurations-definitions.interface';  // TODO
+import { IFieldProps2 } from '../configurations-definitions.interface';  // TODO
 import { IGenericCronEntity } from './cron-definition.interface';
 import { IPlaceFieldProps } from './place-definition.interface';
 
@@ -24,7 +24,7 @@ import { IPlaceFieldProps } from './place-definition.interface';
  * @controlled-field
  * @stable [11.01.2020]
  */
-export interface IControlledFieldItemEntity<TControlledFieldItemsEnum, TProps extends IFieldProps = IFieldProps>
+export interface IControlledFieldItemEntity<TControlledFieldItemsEnum, TProps extends IFieldProps2 = IFieldProps2>
   extends IFieldConfigurationWrapper<TProps>,
     IOrderWrapper,
     ITypeWrapper<TControlledFieldItemsEnum> {
@@ -39,7 +39,7 @@ export interface IControlledFieldConfigEntity<
   TControlledFieldEnum,
   TDictionaries = {},
   TPermissions = {},
-  TProps extends IFieldProps = IFieldProps>
+  TProps extends IFieldProps2 = IFieldProps2>
   extends IContainerWrapper<IGenericContainer<IGenericContainerProps<IBaseDictionariesEntity> & IExtendedEntity>>,
     IFieldsWrapper<TControlledFieldItemEntity[]>,
     IFieldWrapper<TProps> {
@@ -68,7 +68,7 @@ export enum CompositeCronFieldItemsEnum {
 /**
  * @stable [18.12.2019]
  */
-export type CompositeCronFieldPropsT = IGenericCronEntity & IFieldProps & IBaseSelectProps; // TODO Props
+export type CompositeCronFieldPropsT = IGenericCronEntity & IFieldProps2 & IBaseSelectProps; // TODO Props
 
 /**
  * @composite-cron-field

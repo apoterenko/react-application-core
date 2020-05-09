@@ -138,7 +138,7 @@ export interface IDefaultChangesWrapper<TChanges = {}> { defaultChanges?: TChang
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDefaultWrapper { default?: boolean; }
-export interface IDelayTimeoutWrapper<TDelayTimeout = number> { delayTimeout?: TDelayTimeout; }
+export interface IDelayTimeoutWrapper<TValue = number> { delayTimeout?: TValue; }
 export interface IDepthWrapper { depth?: number; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
 export interface IDestroyWrapper<TValue = string> { destroy?: TValue; }
@@ -305,6 +305,7 @@ export interface ILoginWrapper<TValue = string> { login?: TValue; }
 export interface ILogoutWrapper<TValue = string> { logout?: TValue; }
 export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
+export interface IMaskWrapper<TValue = Array<string | RegExp>> { mask?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
 export interface IMenuActionConfigurationWrapper<TValue> { menuActionConfiguration?: TValue; }
@@ -351,10 +352,11 @@ export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClic
 export interface IOnCreateWrapper<TValue = {}> { onCreate?(value?: TValue): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
+export interface IOnDictionaryEmptyWrapper<T1, T2> { onDictionaryEmpty?(value1?: T1, value2?: T2): void; }
 export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
+export interface IOnDictionaryLoadWrapper<T1 = {}, T2 = {}> { onDictionaryLoad?(value1?: T1, value2?: T2): void; }
 export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
 export interface IOnDrawerHeaderClickWrapper<TValue = {}> { onDrawerHeaderClick?(value?: TValue): void; }
-export interface IOnEmptyDictionaryWrapper<TValue1, TValue2> { onEmptyDictionary?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TValue = {}> { onFilterClick?(value?: TValue): void; }
@@ -362,7 +364,6 @@ export interface IOnFirstWrapper<TValue = AnyT> { onFirst?(value?: TValue): void
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
-export interface IOnLoadDictionaryWrapper<TValue> { onLoadDictionary?: TValue; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
 export interface IOnNextWrapper<TValue = AnyT> { onNext?(value?: TValue): void; }
@@ -415,6 +416,7 @@ export interface IPluginsWrapper<TValue> { plugins?: TValue; }
 export interface IPointsWrapper<TValue> { points?: TValue; }
 export interface IPopupWrapper<TValue = boolean> { popup?: TValue; }
 export interface IPositionConfigurationWrapper<TValue> { positionConfiguration?: TValue; }
+export interface IPrefixLabelWrapper { prefixLabel?: string; }
 export interface IPrefixWrapper { prefix?: string; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
@@ -456,7 +458,7 @@ export interface IReplaceRouteWrapper { replaceRoute?: boolean; }
 export interface IReplaceWrapper<TValue = string> { replace?: TValue; }
 export interface IRequestDataFactoryWrapper<TValue> { requestDataFactory?: TValue; }
 export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
-export interface IRequiredWrapper<TRequired = boolean> { required?: TRequired; }
+export interface IRequiredWrapper<TValue = boolean> { required?: TValue; }
 export interface IResetActionRenderedWrapper { resetActionRendered?: boolean; }
 export interface IResetConfigurationWrapper<TValue> { resetConfiguration?: TValue; }
 export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
@@ -665,13 +667,6 @@ export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
 }
 
 /**
- * @stable [01.08.2018]
- */
-export interface IPrefixLabelWrapper {
-  prefixLabel?: string;
-}
-
-/**
  * @stable [07.06.2018]
  */
 export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
@@ -730,13 +725,6 @@ export interface IFromDateToDateEntity extends IFromDateWrapper,
  */
 export interface IFontSizeWrapper {
   fontSize?: number;
-}
-
-/**
- * @stable [04.05.2018]
- */
-export interface IMaskWrapper<TMask = Array<string|RegExp>> {
-  mask?: TMask;
 }
 
 /**
