@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  IFieldProps,
+  IFieldProps2,
 } from '../../configurations-definitions.interface';
 import {
   AnyT,
@@ -254,7 +254,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       if (this.isElementField(renderEl)) {
         const props = renderEl.props;
         const propsValue = props.value;
-        return React.cloneElement<IFieldProps>(renderEl, {
+        return React.cloneElement<IFieldProps2>(renderEl, {
           ...this.getDefaultFieldProps(props),
           name: column.name,
           keepChanges: true,
@@ -287,7 +287,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       }
       if (this.isElementField(renderEl)) {
         const name = this.toFilterFieldName(column, columnNum);
-        return React.cloneElement<IFieldProps>(renderEl, {
+        return React.cloneElement<IFieldProps2>(renderEl, {
           value: this.toFilterFieldValue(name),
           placeholder: this.settings.messages.SEARCH,
           clearActionRendered: true,
@@ -387,9 +387,9 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable [07.06.2018]
-   * @returns {IFieldProps}
+   * @returns {IFieldProps2}
    */
-  private getDefaultFieldProps(fieldProps?: IFieldProps): IFieldProps {
+  private getDefaultFieldProps(fieldProps?: IFieldProps2): IFieldProps2 {
     return {
       errorMessageRendered: false,
       readOnly: (fieldProps && fieldProps.readOnly) || this.props.deactivated,

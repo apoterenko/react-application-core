@@ -8,7 +8,6 @@ import {
   IChangesWrapper,
   IChannelWrapper,
   IDataWrapper,
-  IDefaultChangesWrapper,
   IDictionariesWrapper,
   IDiffWrapper,
   IDirectionsWrapper,
@@ -45,12 +44,9 @@ import {
 } from './nvl';
 import {
   IFormEntity,
-  IGenericListEntity,
   IListEntity,
   IPreviousActionWrapperEntity,
   IQueryFilterEntity,
-  IReduxListEntity,
-  IReduxSortDirectionsEntity,
   ToolbarToolsEnum,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
@@ -82,14 +78,6 @@ export const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): 
  */
 export const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.element;
-
-/**
- * @stable [12.04.2020]
- * @param {IDefaultChangesWrapper<TValue>} wrapper
- * @returns {TValue}
- */
-export const selectDefaultChanges = <TValue = IEntity>(wrapper: IDefaultChangesWrapper<TValue>): TValue =>
-  R.isNil(wrapper) ? UNDEF : wrapper.defaultChanges;
 
 /**
  * @stable [27.03.2020]
