@@ -601,11 +601,13 @@ export class Mappers {
   public static pageToolbarProps = ComponentMappers.pageToolbarProps;
   public static paginatedEntity = GenericMappers.paginatedEntity;
   public static primaryFilterEntityAsFinalEntity = GenericMappers.primaryFilterEntityAsFinalEntity;                     /* @stable [10.05.2020] */
+  public static primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;         /* @stable [10.05.2020] */
   public static queryFilterEntity = GenericMappers.queryFilterEntity;
   public static queryFilterEntityAsQuery = GenericMappers.queryFilterEntityAsQuery;
   public static searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
   public static searchToolbarProps = ComponentMappers.searchToolbarProps;
   public static secondaryFilterEntityAsFinalEntity = GenericMappers.secondaryFilterEntityAsFinalEntity;                 /* @stable [10.05.2020] */
+  public static secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = GenericMappers.secondaryFilterEntityAsSecondaryFilterExtendedFormEntity; /* @stable [10.05.2020] */
   public static secondaryFilterFormEntityAsFormEntity = GenericMappers.secondaryFilterFormEntityAsFormEntity;           /* @stable [09.05.2020] */
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static selectableHoveredEntity = mapSelectableHoveredEntity;

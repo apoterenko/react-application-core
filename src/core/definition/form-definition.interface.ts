@@ -58,30 +58,6 @@ export interface IFormEntity<TEntity = IEntity>
 
 /**
  * @entity
- * @stable [09.05.2020]
- */
-export interface ISecondaryFilterFormEntity<TEntity = IEntity>
-  extends ISecondaryFilterWrapper<IFormEntity<TEntity>> {
-}
-
-/**
- * @entity
- * @stable [10.05.2020]
- */
-export interface ISecondaryFilterEntity<TEntity = IEntity>
-  extends ISecondaryFilterWrapper<IReduxFormEntity<TEntity>> {
-}
-
-/**
- * @entity
- * @stable [10.05.2020]
- */
-export interface IPrimaryFilterEntity<TEntity = IEntity>
-  extends IPrimaryFilterWrapper<IReduxFormEntity<TEntity>> {
-}
-
-/**
- * @entity
  * @stable [08.05.2020]
  */
 export interface IExtendedFormEntity<TEntity = IEntity>
@@ -95,6 +71,54 @@ export interface IExtendedFormEntity<TEntity = IEntity>
  */
 export interface IFluxValidEntity
   extends IValidWrapper {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface ISecondaryFilterReduxFormEntity<TEntity = IEntity>
+  extends ISecondaryFilterWrapper<IReduxFormEntity<TEntity>> {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface IPrimaryFilterReduxFormEntity<TEntity = IEntity>
+  extends IPrimaryFilterWrapper<IReduxFormEntity<TEntity>> {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface IPrimaryFilterFormEntity<TEntity = IEntity>
+  extends IPrimaryFilterWrapper<IFormEntity<TEntity>> {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface ISecondaryFilterFormEntity<TEntity = IEntity>
+  extends ISecondaryFilterWrapper<IFormEntity<TEntity>> {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface IPrimaryFilterExtendedFormEntity<TEntity = IEntity>
+  extends IPrimaryFilterWrapper<IExtendedFormEntity<TEntity>> {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface ISecondaryFilterExtendedFormEntity<TEntity = IEntity>
+  extends ISecondaryFilterWrapper<IExtendedFormEntity<TEntity>> {
 }
 
 /**
