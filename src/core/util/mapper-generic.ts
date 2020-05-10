@@ -241,7 +241,7 @@ const mapEntityAsExtendedEntity =
     const {
       changes,
       defaultChanges,
-    } = formEntity;
+    } = formEntity || {} as IReduxFormEntity<TEntity>;
     let originalEntity;
 
     if (!R.isNil(nvl(defaultChanges, entity))) {
