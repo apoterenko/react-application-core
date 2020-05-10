@@ -22,6 +22,7 @@ import {
   IOnResetWrapper,
   IOnSubmitWrapper,
   IOnValidWrapper,
+  IPrimaryFilterWrapper,
   IReadOnlyWrapper,
   IResetActionRenderedWrapper,
   IResetConfigurationWrapper,
@@ -61,6 +62,22 @@ export interface IFormEntity<TEntity = IEntity>
  */
 export interface ISecondaryFilterFormEntity<TEntity = IEntity>
   extends ISecondaryFilterWrapper<IFormEntity<TEntity>> {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface ISecondaryFilterEntity<TEntity = IEntity>
+  extends ISecondaryFilterWrapper<IReduxFormEntity<TEntity>> {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface IPrimaryFilterEntity<TEntity = IEntity>
+  extends IPrimaryFilterWrapper<IReduxFormEntity<TEntity>> {
 }
 
 /**

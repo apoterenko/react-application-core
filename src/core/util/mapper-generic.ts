@@ -25,6 +25,7 @@ import {
   IFormEntity,
   ILayoutEntity,
   IListEntity,
+  IPrimaryFilterEntity,
   IQueryFilterEntity,
   IReduxActiveQueryEntity,
   IReduxFormEntity,
@@ -32,6 +33,7 @@ import {
   IReduxPagedEntity,
   IReduxPaginatedEntity,
   IReduxPaginatedLifeCycleEntity,
+  ISecondaryFilterEntity,
   ISecondaryFilterFormEntity,
 } from '../definition';
 import { Selectors } from './select';
@@ -260,6 +262,28 @@ const mapExtendedFormEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IRedu
 
 /**
  * @mapper
+ * @stable [10.05.2020]
+ * @param {ISecondaryFilterEntity<TEntity>} formEntity
+ * @param {TEntity} entity
+ * @returns {TEntity}
+ */
+const mapSecondaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: ISecondaryFilterEntity<TEntity>,
+                                                                  entity?: TEntity): TEntity =>
+  mapExtendedFormEntityAsFinalEntity(Selectors.secondaryFilter(formEntity), entity);
+
+/**
+ * @mapper
+ * @stable [10.05.2020]
+ * @param {IPrimaryFilterEntity<TEntity>} formEntity
+ * @param {TEntity} entity
+ * @returns {TEntity}
+ */
+const mapPrimaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IPrimaryFilterEntity<TEntity>,
+                                                                entity?: TEntity): TEntity =>
+  mapExtendedFormEntityAsFinalEntity(Selectors.primaryFilter(formEntity), entity);
+
+/**
+ * @mapper
  * @stable [09.05.2020]
  * @param {IListEntity<TEntity>} listEntity
  * @param {IReduxFormEntity<TEntity>} formEntity
@@ -381,6 +405,19 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
 const mapLayoutEntity = (wrapper: ILayoutEntity): ILayoutEntity => mapLayout(Selectors.layout(wrapper));
 
 /**
+ * @mapper
+ * @stable [10.05.2020]
+ * @param {IQueryFilterEntity & IListEntity<TEntity>} wrapper
+ * @returns {TFilter}
+ */
+const mapFullSearchFilter = <TFilter, TEntity = IEntity>(wrapper: IQueryFilterEntity & IListEntity<TEntity>): TFilter => ({
+  ...mapQueryFilterEntityAsQuery(wrapper),
+  ...mapListEntityAsPagedEntity(wrapper),
+  ...mapPrimaryFilterEntityAsFinalEntity(wrapper),
+  ...mapSecondaryFilterEntityAsFinalEntity(wrapper),
+}) as TFilter;
+
+/**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
@@ -392,6 +429,7 @@ export class GenericMappers {
   public static extendedFormEntityAsFinalEntity = mapExtendedFormEntityAsFinalEntity;                         /* stable [07.05.2020] */
   public static form = mapForm;                                                                               /* stable [08.05.2020] */
   public static formEntity = mapFormEntity;                                                                   /* stable [08.05.2020] */
+  public static fullSearchFilter = mapFullSearchFilter;                                                       /* stable [10.05.2020] */
   public static layoutEntity = mapLayoutEntity;                                                               /* stable [08.05.2020] */
   public static lifeCycleEntity = mapLifeCycleEntity;                                                         /* stable [08.05.2020] */
   public static listEntity = mapListEntity;                                                                   /* stable [07.05.2020] */
@@ -403,11 +441,13 @@ export class GenericMappers {
   public static paginatedEntity = mapPaginatedEntity;                                                         /* stable [07.05.2020] */
   public static paginatedEntityAsPagedEntity = mapPaginatedEntityAsPagedEntity;                               /* stable [09.05.2020] */
   public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                       /* stable [07.05.2020] */
+  public static primaryFilterEntityAsFinalEntity = mapPrimaryFilterEntityAsFinalEntity;                       /* stable [10.05.2020] */
   public static progressAsDisabled = mapProgressAsDisabled;                                                   /* stable [08.05.2020] */
   public static query = mapQuery;                                                                             /* stable [08.05.2020] */
   public static queryFilter = mapQueryFilter;                                                                 /* stable [08.05.2020] */
   public static queryFilterEntity = mapQueryFilterEntity;                                                     /* stable [07.05.2020] */
   public static queryFilterEntityAsQuery = mapQueryFilterEntityAsQuery;                                       /* stable [07.05.2020] */
+  public static secondaryFilterEntityAsFinalEntity = mapSecondaryFilterEntityAsFinalEntity;                   /* stable [10.05.2020] */
   public static secondaryFilterFormEntityAsFormEntity = mapSecondaryFilterFormEntityAsFormEntity;             /* stable [09.05.2020] */
   public static sectionName = mapSectionName;                                                                 /* stable [08.05.2020] */
   public static sectionNameWrapper = mapSectionNameWrapper;                                                   /* stable [08.05.2020] */

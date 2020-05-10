@@ -591,6 +591,7 @@ export class Mappers {
   public static formContainerProps = ComponentMappers.formContainerProps;                                               /* @stable [08.05.2020] */
   public static formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                         /* @stable [09.05.2020] */
   public static formEntity = GenericMappers.formEntity;                                                                 /* @stable [08.05.2020] */
+  public static fullSearchFilter = GenericMappers.fullSearchFilter;                                                     /* @stable [10.05.2020] */
   public static listEntity = GenericMappers.listEntity;                                                                 /* @stable [08.05.2020] */
   public static listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                             /* @stable [08.05.2020] */
   public static listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                       /* @stable [08.05.2020] */
@@ -599,10 +600,12 @@ export class Mappers {
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
   public static pageToolbarProps = ComponentMappers.pageToolbarProps;
   public static paginatedEntity = GenericMappers.paginatedEntity;
+  public static primaryFilterEntityAsFinalEntity = GenericMappers.primaryFilterEntityAsFinalEntity;                     /* @stable [10.05.2020] */
   public static queryFilterEntity = GenericMappers.queryFilterEntity;
   public static queryFilterEntityAsQuery = GenericMappers.queryFilterEntityAsQuery;
   public static searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
   public static searchToolbarProps = ComponentMappers.searchToolbarProps;
+  public static secondaryFilterEntityAsFinalEntity = GenericMappers.secondaryFilterEntityAsFinalEntity;                 /* @stable [10.05.2020] */
   public static secondaryFilterFormEntityAsFormEntity = GenericMappers.secondaryFilterFormEntityAsFormEntity;           /* @stable [09.05.2020] */
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static selectableHoveredEntity = mapSelectableHoveredEntity;

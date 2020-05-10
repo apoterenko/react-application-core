@@ -23,6 +23,7 @@ import {
   INotificationWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
+  IPrimaryFilterWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
   IQueueWrapper,
@@ -100,6 +101,14 @@ export const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue => R.i
  */
 const selectSecondaryFilter = <TValue>(wrapper: ISecondaryFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.secondaryFilter;
+
+/**
+ * @stable [10.05.2020]
+ * @param {IPrimaryFilterWrapper<TValue>} wrapper
+ * @returns {TValue}
+ */
+const selectPrimaryFilter = <TValue>(wrapper: IPrimaryFilterWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.primaryFilter;
 
 /**
  * @stable [27.03.2020]
@@ -435,6 +444,7 @@ export class Selectors {
   public static listProgress = selectListProgress;                                                     /* @stable [08.05.2020] */
   public static listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
   public static listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
+  public static primaryFilter = selectPrimaryFilter;                                                   /* @stable [10.05.2020] */
   public static query = selectQuery;
   public static queryFilter = selectQueryFilter;
   public static queryFilterEntityQuery = selectQueryFilterEntityQuery;
