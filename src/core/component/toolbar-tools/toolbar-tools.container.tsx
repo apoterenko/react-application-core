@@ -1,7 +1,10 @@
 import * as React from 'react';
 
 import { GenericContainer } from '../base';
-import { isFn} from '../../util';
+import {
+  isFn,
+  Mappers,
+} from '../../util';
 import {
   IToolbarToolsContainerProps,
   IToolbarToolsProps,
@@ -11,7 +14,7 @@ import { ToolbarToolsActionBuilder } from '../../action';
 
 /**
  * @component-container-impl
- * @stable [07.05.2020]
+ * @stable [10.05.2020]
  *
  * Please use the "Mappers.toolbarToolsContainerProps"
  */
@@ -30,14 +33,13 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
   }
 
   /**
-   * @stable [22.04.2020]
+   * @stable [10.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     return (
       <ToolbarTools
-        {...this.toolbarToolsProps}
-        {...this.props.toolbarTools}
+        {...Mappers.toolbarToolsContainerPropsAsToolbarTools(this.props)}
         onDownloadFileClick={this.onDownloadFileClick}
         onFilterClick={this.onFilterClick}
         onRefreshClick={this.onRefreshClick}

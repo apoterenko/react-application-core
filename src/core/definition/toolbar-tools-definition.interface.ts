@@ -38,10 +38,10 @@ export enum ToolbarToolsClassesEnum {
 }
 
 /**
- * @generic-entity
- * @stable [22.04.2020]
+ * @presets-entity
+ * @stable [10.05.2020]
  */
-export interface IGenericToolbarToolsEntity
+export interface IPresetsToolbarToolsEntity
   extends IActionsWrapper<Array<IButtonProps | ToolbarToolsEnum>>,
     IActiveToolsWrapper<ToolbarToolsEnum[]>,
     IDisabledWrapper,
@@ -51,10 +51,18 @@ export interface IGenericToolbarToolsEntity
 }
 
 /**
- * @wrapper-entity
+ * @generic-entity
  * @stable [22.04.2020]
  */
-export interface IToolbarToolsWrapperEntity
+export interface IGenericToolbarToolsEntity
+  extends IPresetsToolbarToolsEntity {
+}
+
+/**
+ * @entity
+ * @stable [10.05.2020]
+ */
+export interface IToolbarToolsEntity
   extends IToolbarToolsWrapper<IGenericToolbarToolsEntity> {
 }
 
@@ -94,7 +102,7 @@ export interface IGenericToolbarToolsContainerEntity<TProps = IToolbarToolsProps
   extends IFormEntity,
     IListEntity,
     IToolbarToolsConfigurationEntity<TProps>,
-    IToolbarToolsWrapperEntity {
+    IToolbarToolsEntity {
 }
 
 /**

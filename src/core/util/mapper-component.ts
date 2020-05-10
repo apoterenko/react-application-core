@@ -12,6 +12,7 @@ import {
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
   IToolbarToolsContainerProps,
+  IToolbarToolsProps,
 } from '../definition';
 import { Selectors } from './select';
 import { IEntity } from '../definitions.interface';
@@ -178,13 +179,25 @@ const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProp
   });
 
 /**
+ * @container-component-props-mapper
+ * @stable [10.05.2020]
+ * @param {IToolbarToolsContainerProps} props
+ * @returns {IToolbarToolsProps}
+ */
+const mapToolbarToolsContainerPropsAsToolbarTools = (props: IToolbarToolsContainerProps): IToolbarToolsProps =>
+  ({
+    ...props.toolbarTools,
+    ...props.toolbarToolsConfiguration,
+  });
+
+/**
  * @stable [06.05.2020]
  */
 export class ComponentMappers {
   public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                       /* @stable [10.05.2020] */
   public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;         /* @stable [10.05.2020] */
   public static formContainerProps = mapFormContainerProps;                                                               /* @stable [10.05.2020] */
-  public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
+  public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;                                         /* @stable [10.05.2020] */
   public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                     /* @stable [10.05.2020] */
   public static listContainerProps = mapListContainerProps;                                                               /* @stable [10.05.2020] */
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
@@ -194,5 +207,6 @@ export class ComponentMappers {
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static searchToolbarProps = mapSearchToolbarProps;
   public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                               /* @stable [09.05.2020] */
+  public static toolbarToolsContainerPropsAsToolbarTools = mapToolbarToolsContainerPropsAsToolbarTools;                   /* @stable [10.05.2020] */
   public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                 /* @stable [10.05.2020] */
 }

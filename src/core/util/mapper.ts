@@ -600,7 +600,6 @@ export class Mappers {
   public static listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;         /* @stable [08.05.2020] */
   public static pagedEntity = GenericMappers.pagedEntity;
   public static pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
-  public static pageToolbarProps = ComponentMappers.pageToolbarProps;
   public static paginatedEntity = GenericMappers.paginatedEntity;
   public static primaryFilterEntityAsFinalEntity = GenericMappers.primaryFilterEntityAsFinalEntity;                     /* @stable [10.05.2020] */
   public static primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;         /* @stable [10.05.2020] */
@@ -615,5 +614,6 @@ export class Mappers {
   public static selectableHoveredEntity = mapSelectableHoveredEntity;
   public static selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;   /* @stable [10.05.2020] */
   public static toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                               /* @stable [09.05.2020] */
+  public static toolbarToolsContainerPropsAsToolbarTools = ComponentMappers.toolbarToolsContainerPropsAsToolbarTools;   /* @stable [10.05.2020] */
   public static toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps; /* @stable [10.05.2020] */
 }
