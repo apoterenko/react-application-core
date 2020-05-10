@@ -606,5 +606,6 @@ export class Mappers {
   public static secondaryFilterFormEntityAsFormEntity = GenericMappers.secondaryFilterFormEntityAsFormEntity;           /* @stable [09.05.2020] */
   public static sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static selectableHoveredEntity = mapSelectableHoveredEntity;
+  public static selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;   /* @stable [10.05.2020] */
   public static toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                               /* @stable [09.05.2020] */
 }

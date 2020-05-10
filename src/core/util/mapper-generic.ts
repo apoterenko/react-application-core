@@ -274,6 +274,17 @@ const mapListSelectedEntityAsExtendedFormEntity =
     );
 
 /**
+ * @stable [10.05.2020]
+ * @param {IListEntity<TEntity>} listEntity
+ * @param {IReduxFormEntity<TEntity>} formEntity
+ * @returns {TEntity}
+ */
+const mapListSelectedExtendedFormEntityAsFinalEntity =
+  <TEntity = IEntity>(listEntity: IListEntity<TEntity>,
+                      formEntity: IReduxFormEntity<TEntity>): TEntity =>
+    mapListSelectedEntityAsExtendedFormEntity<TEntity>(listEntity, formEntity).entity;
+
+/**
  * @mapper
  * @stable [08.05.2020]
  * @param {IReduxActiveQueryEntity} entity
@@ -373,30 +384,31 @@ const mapLayoutEntity = (wrapper: ILayoutEntity): ILayoutEntity => mapLayout(Sel
  * @stable [06.05.2020]
  */
 export class GenericMappers {
-  public static activeQueryEntity = mapActiveQueryEntity;                                                 /* stable [07.05.2020] */
-  public static disabled = mapDisabled;                                                                   /* stable [07.05.2020] */
-  public static entityAsExtendedEntity = mapEntityAsExtendedEntity;                                       /* stable [08.05.2020] */
-  public static entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                               /* stable [10.05.2020] */
-  public static extendedEntity = mapExtendedEntity;                                                       /* stable [08.05.2020] */
-  public static extendedFormEntityAsFinalEntity = mapExtendedFormEntityAsFinalEntity;                     /* stable [07.05.2020] */
-  public static form = mapForm;                                                                           /* stable [08.05.2020] */
-  public static formEntity = mapFormEntity;                                                               /* stable [08.05.2020] */
-  public static layoutEntity = mapLayoutEntity;                                                           /* stable [08.05.2020] */
-  public static lifeCycleEntity = mapLifeCycleEntity;                                                     /* stable [08.05.2020] */
-  public static listEntity = mapListEntity;                                                               /* stable [07.05.2020] */
-  public static listEntityAsDisabled = mapListEntityAsDisabled;                                           /* stable [08.05.2020] */
-  public static listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                     /* stable [09.05.2020] */
-  public static listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;       /* stable [09.05.2020] */
-  public static pagedEntity = mapPagedEntity;                                                             /* stable [07.05.2020] */
-  public static paginatedEntity = mapPaginatedEntity;                                                     /* stable [07.05.2020] */
-  public static paginatedEntityAsPagedEntity = mapPaginatedEntityAsPagedEntity;                           /* stable [09.05.2020] */
-  public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                   /* stable [07.05.2020] */
-  public static progressAsDisabled = mapProgressAsDisabled;                                               /* stable [08.05.2020] */
-  public static query = mapQuery;                                                                         /* stable [08.05.2020] */
-  public static queryFilter = mapQueryFilter;                                                             /* stable [08.05.2020] */
-  public static queryFilterEntity = mapQueryFilterEntity;                                                 /* stable [07.05.2020] */
-  public static queryFilterEntityAsQuery = mapQueryFilterEntityAsQuery;                                   /* stable [07.05.2020] */
-  public static secondaryFilterFormEntityAsFormEntity = mapSecondaryFilterFormEntityAsFormEntity;         /* stable [09.05.2020] */
-  public static sectionName = mapSectionName;                                                             /* stable [08.05.2020] */
-  public static sectionNameWrapper = mapSectionNameWrapper;                                               /* stable [08.05.2020] */
+  public static activeQueryEntity = mapActiveQueryEntity;                                                     /* stable [07.05.2020] */
+  public static disabled = mapDisabled;                                                                       /* stable [07.05.2020] */
+  public static entityAsExtendedEntity = mapEntityAsExtendedEntity;                                           /* stable [08.05.2020] */
+  public static entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                                   /* stable [10.05.2020] */
+  public static extendedEntity = mapExtendedEntity;                                                           /* stable [08.05.2020] */
+  public static extendedFormEntityAsFinalEntity = mapExtendedFormEntityAsFinalEntity;                         /* stable [07.05.2020] */
+  public static form = mapForm;                                                                               /* stable [08.05.2020] */
+  public static formEntity = mapFormEntity;                                                                   /* stable [08.05.2020] */
+  public static layoutEntity = mapLayoutEntity;                                                               /* stable [08.05.2020] */
+  public static lifeCycleEntity = mapLifeCycleEntity;                                                         /* stable [08.05.2020] */
+  public static listEntity = mapListEntity;                                                                   /* stable [07.05.2020] */
+  public static listEntityAsDisabled = mapListEntityAsDisabled;                                               /* stable [08.05.2020] */
+  public static listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                         /* stable [09.05.2020] */
+  public static listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;           /* stable [09.05.2020] */
+  public static listSelectedExtendedFormEntityAsFinalEntity = mapListSelectedExtendedFormEntityAsFinalEntity; /* stable [10.05.2020] */
+  public static pagedEntity = mapPagedEntity;                                                                 /* stable [07.05.2020] */
+  public static paginatedEntity = mapPaginatedEntity;                                                         /* stable [07.05.2020] */
+  public static paginatedEntityAsPagedEntity = mapPaginatedEntityAsPagedEntity;                               /* stable [09.05.2020] */
+  public static paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                       /* stable [07.05.2020] */
+  public static progressAsDisabled = mapProgressAsDisabled;                                                   /* stable [08.05.2020] */
+  public static query = mapQuery;                                                                             /* stable [08.05.2020] */
+  public static queryFilter = mapQueryFilter;                                                                 /* stable [08.05.2020] */
+  public static queryFilterEntity = mapQueryFilterEntity;                                                     /* stable [07.05.2020] */
+  public static queryFilterEntityAsQuery = mapQueryFilterEntityAsQuery;                                       /* stable [07.05.2020] */
+  public static secondaryFilterFormEntityAsFormEntity = mapSecondaryFilterFormEntityAsFormEntity;             /* stable [09.05.2020] */
+  public static sectionName = mapSectionName;                                                                 /* stable [08.05.2020] */
+  public static sectionNameWrapper = mapSectionNameWrapper;                                                   /* stable [08.05.2020] */
 }
