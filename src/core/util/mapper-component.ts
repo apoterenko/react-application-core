@@ -8,6 +8,7 @@ import {
   IPageToolbarProps,
   ISearchToolbarContainerProps,
   ISearchToolbarProps,
+  ISecondaryFilterFormEntity,
   IToolbarToolsContainerProps,
 } from '../definition';
 import { Selectors } from './select';
@@ -79,6 +80,20 @@ const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToo
   });
 
 /**
+ * @container-props-mapper
+ * @stable [10.05.2020]
+ *
+ * @param {IToolbarToolsContainerProps & ISecondaryFilterFormEntity} props
+ * @returns {IToolbarToolsContainerProps}
+ */
+const mapToolbarToolsSecondaryFilterContainerProps =
+  (props: IToolbarToolsContainerProps & ISecondaryFilterFormEntity): IToolbarToolsContainerProps =>
+    mapToolbarToolsContainerProps({
+      ...asToolbarToolsContainerProps(props),
+      ...GenericMappers.secondaryFilterFormEntityAsFormEntity(props),
+    });
+
+/**
  * @container-props-as
  * @stable [09.05.2020]
  *
@@ -141,4 +156,5 @@ export class ComponentMappers {
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static searchToolbarProps = mapSearchToolbarProps;
   public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                               /* @stable [09.05.2020] */
+  public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                 /* @stable [10.05.2020] */
 }

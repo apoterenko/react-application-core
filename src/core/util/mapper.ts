@@ -613,4 +613,5 @@ export class Mappers {
   public static selectableHoveredEntity = mapSelectableHoveredEntity;
   public static selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;   /* @stable [10.05.2020] */
   public static toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                               /* @stable [09.05.2020] */
+  public static toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps; /* @stable [10.05.2020] */
 }
