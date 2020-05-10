@@ -37,6 +37,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @action-builder
 
+* [FormActionBuilder (08.05.2020)](src/core/action/form-action.builder.ts)
 * [PageToolbarActionBuilder](src/core/action/page-toolbar-action.builder.ts)
 
 #### @component-container-impl
