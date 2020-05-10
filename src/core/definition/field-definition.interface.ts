@@ -98,7 +98,9 @@ export interface IPresetsFieldEntity<TEntity = IEntity>
     IOnDelayWrapper,
     IOnDictionaryEmptyWrapper<string, IApiEntity>,
     IOnDictionaryLoadWrapper<{}, string>,
+    IPatternWrapper,
     IPlaceholderWrapper,
+    IPlainValueWrapper,
     IPrefixLabelWrapper,
     IReadOnlyWrapper,
     IRenderedWrapper,
@@ -129,8 +131,6 @@ export interface IGenericFieldEntity2
     IFieldRenderedWrapper,
     IKeepChangesWrapper,
     IOriginalValueWrapper,
-    IPatternWrapper,
-    IPlainValueWrapper,
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,                                             /* @stable [03.02.2020] */
     IProgressWrapper,
