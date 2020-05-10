@@ -6,6 +6,7 @@ import {
   IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
+  IPrimaryFilterExtendedFormEntity,
   ISearchToolbarContainerProps,
   ISearchToolbarProps,
   ISecondaryFilterExtendedFormEntity,
@@ -58,6 +59,32 @@ const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps 
  * @container-props-mapper
  * @stable [10.05.2020]
  *
+ * @param {IListContainerProps} props
+ * @returns {IListContainerProps}
+ */
+const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
+  ({
+    ...GenericMappers.listEntity(props),
+    ...GenericMappers.sectionNameWrapper(props),
+  });
+
+/**
+ * @container-props-mapper
+ * @stable [10.05.2020]
+ *
+ * @param {IFormContainerProps & IPrimaryFilterExtendedFormEntity} props
+ * @returns {IFormContainerProps}
+ */
+const mapFormPrimaryFilterContainerProps = (props: IFormContainerProps & IPrimaryFilterExtendedFormEntity): IFormContainerProps =>
+  ({
+    ...GenericMappers.sectionNameWrapper(props),
+    ...Selectors.primaryFilter(props),
+  });
+
+/**
+ * @container-props-mapper
+ * @stable [10.05.2020]
+ *
  * @param {IFilterFormDialogContainerProps} props
  * @returns {IFilterFormDialogContainerProps}
  */
@@ -75,7 +102,7 @@ const mapFilterFormDialogSecondaryFilterContainerProps =
   (props: IFilterFormDialogContainerProps & ISecondaryFilterExtendedFormEntity): IFilterFormDialogContainerProps =>
     ({
       ...GenericMappers.sectionNameWrapper(props),
-      ...props.secondaryFilter,
+      ...Selectors.secondaryFilter(props),
     });
 
 /**
@@ -118,12 +145,6 @@ const mapToolbarToolsSecondaryFilterContainerProps =
 const asToolbarToolsContainerProps =
   <TProps>(props: TProps): IToolbarToolsContainerProps => props as IToolbarToolsContainerProps;
 
-export const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
-  ({
-    ...GenericMappers.sectionNameWrapper(props),
-    ...GenericMappers.listEntity(props),
-  });
-
 const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): ISearchToolbarContainerProps =>
   ({
     ...GenericMappers.sectionNameWrapper(props),
@@ -160,11 +181,12 @@ const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProp
  * @stable [06.05.2020]
  */
 export class ComponentMappers {
-  public static asToolbarToolsContainerProps = asToolbarToolsContainerProps;                                              /* @stable [09.05.2020] */
   public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                       /* @stable [10.05.2020] */
   public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;         /* @stable [10.05.2020] */
-  public static formContainerProps = mapFormContainerProps;
+  public static formContainerProps = mapFormContainerProps;                                                               /* @stable [10.05.2020] */
   public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
+  public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                     /* @stable [10.05.2020] */
+  public static listContainerProps = mapListContainerProps;                                                               /* @stable [10.05.2020] */
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static pageToolbarProps = mapPageToolbarProps;
