@@ -55,7 +55,7 @@ const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps 
 
 /**
  * @container-props-mapper
- * @stable [09.05.2020]
+ * @stable [10.05.2020]
  *
  * @param {IFilterFormDialogContainerProps} props
  * @returns {IFilterFormDialogContainerProps}
@@ -146,7 +146,7 @@ const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProp
  */
 export class ComponentMappers {
   public static asToolbarToolsContainerProps = asToolbarToolsContainerProps;                                              /* @stable [09.05.2020] */
-  public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;
+  public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                       /* @stable [10.05.2020] */
   public static formContainerProps = mapFormContainerProps;
   public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
