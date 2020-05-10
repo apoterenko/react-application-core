@@ -1,12 +1,14 @@
 import {
-  FIRST_PAGE,
   IDataWrapper,
   IDictionariesWrapper,
   IKeyValue,
   ILoadingWrapper,
   IPlacesWrapper,
 } from '../definitions.interface';
-import { IReduxPagedEntity } from './page-definition.interface';
+import {
+  FIRST_PAGE,
+  IReduxPagedEntity,
+} from './page-definition.interface';
 
 /**
  * @stable [08.05.2020]

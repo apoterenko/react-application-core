@@ -2,10 +2,10 @@ import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  FIRST_PAGE,
   IEntityIdTWrapper,
 } from '../../definitions.interface';
 import {
+  asErrorMessage,
   buildEntityByMergeStrategy,
   doesArrayContainEntity,
   ifNotNilThanValue,
@@ -21,16 +21,16 @@ import {
   selectSelectedEntityFromAction,
   toSection,
 } from '../../util';
-import { mapErrorObject } from '../../error';
 import { ListActionBuilder } from './list-action.builder';
 import {
   EntityMergeStrategiesEnum,
+  FIRST_PAGE,
   IFieldChangeEntity,
   IGenericListEntity,
   IModifyEntityPayloadEntity,
   INITIAL_LIST_ENTITY,
-  ISortDirectionPayloadEntity,
   IReduxSortDirectionsEntity,
+  ISortDirectionPayloadEntity,
 } from '../../definition';
 
 export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
@@ -162,7 +162,7 @@ export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {
         ...INITIAL_LIST_ENTITY,
-        error: mapErrorObject(action.error).message,
+        error: asErrorMessage(action.error).message,
       };
 
     /**

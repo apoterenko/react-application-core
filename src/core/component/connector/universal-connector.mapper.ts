@@ -8,12 +8,12 @@ import {
   orNull,
 } from '../../util';
 import {
-  DEFAULT_PAGE_SIZE,
-  FIRST_PAGE,
   IEntity,
   IEntityWrapper,
 } from '../../definitions.interface';
 import {
+  DEFAULT_PAGE_SIZE,
+  FIRST_PAGE,
   IReduxFormEntity,
   IExtendedEntity,
   IExtendedFormEntity,

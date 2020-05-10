@@ -1,6 +1,5 @@
 import { AnyAction } from 'redux';
 
-import { mapErrorObject } from '../../error';
 import { ApplicationActionBuilder } from './application-action.builder';
 import {
   $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
@@ -8,9 +7,10 @@ import {
   $RAC_APPLICATION_PREPARE_ACTION_TYPE,
   $RAC_APPLICATION_PREPARE_ERROR_ACTION_TYPE,
   $RAC_APPLICATION_READY_ACTION_TYPE,
-  IUniversalApplicationEntity,
   INITIAL_UNIVERSAL_APPLICATION_ENTITY,
+  IUniversalApplicationEntity,
 } from '../../definition';
+import { asErrorMessage } from '../../util';
 
 export function applicationReducer(state: IUniversalApplicationEntity = INITIAL_UNIVERSAL_APPLICATION_ENTITY,
                                    action: AnyAction): IUniversalApplicationEntity {
@@ -33,7 +33,7 @@ export function applicationReducer(state: IUniversalApplicationEntity = INITIAL_
         ...state,
         customError: action.type === $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
         progress: false,
-        error: mapErrorObject(action.error).message,
+        error: asErrorMessage(action.error).message,
       };
     case $RAC_APPLICATION_READY_ACTION_TYPE:
       return {

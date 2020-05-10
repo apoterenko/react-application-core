@@ -7,8 +7,10 @@ import {
   INITIAL_NOTIFICATION_ENTITY,
   IGenericNotificationEntity,
 } from '../../definition';
-import { mapErrorObject } from '../../error'; // TODO Move to mapper
-import { selectData } from '../../util';
+import {
+  selectData,
+  asErrorMessage,
+} from '../../util';
 
 /**
  * @stable [13.02.2020]
@@ -28,7 +30,7 @@ export const notificationReducer = (state: IGenericNotificationEntity = INITIAL_
     case $RAC_NOTIFICATION_ERROR_ACTION_TYPE:
       return {
         ...state,
-        error: mapErrorObject(notificationEntity.error).message,
+        error: asErrorMessage(notificationEntity.error).message,
       };
     case $RAC_NOTIFICATION_CLEAR_ACTION_TYPE:
       return {

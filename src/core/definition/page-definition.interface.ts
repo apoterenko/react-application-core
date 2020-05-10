@@ -1,7 +1,4 @@
 import {
-  DEFAULT_MAX_PAGE_SIZE,
-  DEFAULT_PAGE_SIZE,
-  FIRST_PAGE,
   ILockPageWrapper,
   IPageSizeWrapper,
   IPageWrapper,
@@ -9,6 +6,13 @@ import {
   ITotalCountWrapper,
 } from '../definitions.interface';
 import { IReduxLifeCycleEntity } from './entity-definition.interface';
+
+/**
+ * @stable [18.05.2020]
+ */
+export const FIRST_PAGE = 1;
+export const DEFAULT_PAGE_SIZE = 50;
+export const DEFAULT_MAX_PAGE_SIZE = 1000000;
 
 /**
  * @default-entity

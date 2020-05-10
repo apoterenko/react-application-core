@@ -2,9 +2,7 @@ import * as React from 'react';
 
 import {
   AnyT,
-  DEFAULT_PAGE_SIZE,
   EntityIdT,
-  FIRST_PAGE,
   IChangesWrapper,
   IDataWrapper,
   IDeactivatedWrapper,
@@ -45,14 +43,18 @@ import {
   ITplWrapper,
   StringNumberT,
 } from '../definitions.interface';
-import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IReduxLifeCycleEntity } from './entity-definition.interface';
-import { IReduxPaginatedEntity } from './page-definition.interface';
+import {
+  DEFAULT_PAGE_SIZE,
+  FIRST_PAGE,
+  IReduxPaginatedEntity,
+} from './page-definition.interface';
 import { ISelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsEntity } from './sort-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
  * @stable [04.03.2020]
@@ -229,7 +231,7 @@ export interface IListConfigurationEntity<TProps extends IListProps = IListProps
  * @stable [27.10.2019]
  */
 export interface IListProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IDeprecatedListEntity {
 }
 

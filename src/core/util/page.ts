@@ -1,6 +1,8 @@
-import { FIRST_PAGE } from '../definitions.interface';
 import { ifNotNilThanValue } from '../util';
-import { IReduxPaginatedEntity } from '../definition';
+import {
+  FIRST_PAGE,
+  IReduxPaginatedEntity,
+} from '../definition';
 
 /**
  * @stable [05.05.2020]

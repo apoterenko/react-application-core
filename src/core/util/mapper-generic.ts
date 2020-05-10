@@ -1,8 +1,6 @@
 import * as R from 'ramda';
 
 import {
-  DEFAULT_PAGE_SIZE,
-  FIRST_PAGE,
   IDisabledWrapper,
   IEntity,
   IFormWrapper,
@@ -20,6 +18,8 @@ import {
   orUndef,
 } from './cond';
 import {
+  DEFAULT_PAGE_SIZE,
+  FIRST_PAGE,
   IExtendedEntity,
   IExtendedFormEntity,
   IFormEntity,
