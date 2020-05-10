@@ -583,13 +583,14 @@ export const mapUnsavedFormChangesDialogContainerProps =
  */
 export class Mappers {
   public static asToolbarToolsContainerProps = ComponentMappers.asToolbarToolsContainerProps;                           /* @stable [09.05.2020] */
-  public static entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;
+  public static entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                         /* @stable [10.05.2020] */
+  public static entityAsExtendedFormEntity = GenericMappers.entityAsExtendedFormEntity;                                 /* @stable [10.05.2020] */
+  public static extendedFormEntityAsFinalEntity = GenericMappers.extendedFormEntityAsFinalEntity;                       /* @stable [10.05.2020] */
   public static filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;
   public static form = GenericMappers.form;                                                                             /* @stable [08.05.2020] */
   public static formContainerProps = ComponentMappers.formContainerProps;                                               /* @stable [08.05.2020] */
   public static formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                         /* @stable [09.05.2020] */
   public static formEntity = GenericMappers.formEntity;                                                                 /* @stable [08.05.2020] */
-  public static formEntityAsExtendedFormEntity = GenericMappers.formEntityAsExtendedFormEntity;                         /* @stable [09.05.2020] */
   public static listEntity = GenericMappers.listEntity;                                                                 /* @stable [08.05.2020] */
   public static listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                             /* @stable [08.05.2020] */
   public static listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                       /* @stable [08.05.2020] */

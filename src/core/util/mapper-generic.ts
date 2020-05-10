@@ -235,17 +235,28 @@ const mapEntityAsExtendedEntity =
 
 /**
  * @mapper
- * @stable [09.05.2020]
+ * @stable [10.05.2020]
  * @param {IReduxFormEntity<TEntity>} formEntity
  * @param {TEntity} entity
  * @returns {IExtendedFormEntity<TEntity>}
  */
-const mapFormEntityAsExtendedFormEntity = <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
-                                                              entity?: TEntity): IExtendedFormEntity<TEntity> =>
+const mapEntityAsExtendedFormEntity = <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
+                                                          entity?: TEntity): IExtendedFormEntity<TEntity> =>
   ({
     ...mapForm(formEntity),
     ...mapEntityAsExtendedEntity(formEntity, entity),
   });
+
+/**
+ * @mapper
+ * @stable [10.05.2020]
+ * @param {IReduxFormEntity<TEntity>} formEntity
+ * @param {TEntity} entity
+ * @returns {TEntity}
+ */
+const mapExtendedFormEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
+                                                               entity?: TEntity): TEntity =>
+  mapEntityAsExtendedFormEntity(formEntity, entity).entity;
 
 /**
  * @mapper
@@ -257,7 +268,7 @@ const mapFormEntityAsExtendedFormEntity = <TEntity = IEntity>(formEntity: IRedux
 const mapListSelectedEntityAsExtendedFormEntity =
   <TEntity = IEntity>(listEntity: IListEntity<TEntity>,
                       formEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
-    mapFormEntityAsExtendedFormEntity(
+    mapEntityAsExtendedFormEntity(
       formEntity,
       Selectors.listSelectedEntity(listEntity)
     );
@@ -365,10 +376,11 @@ export class GenericMappers {
   public static activeQueryEntity = mapActiveQueryEntity;                                                 /* stable [07.05.2020] */
   public static disabled = mapDisabled;                                                                   /* stable [07.05.2020] */
   public static entityAsExtendedEntity = mapEntityAsExtendedEntity;                                       /* stable [08.05.2020] */
+  public static entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                               /* stable [10.05.2020] */
   public static extendedEntity = mapExtendedEntity;                                                       /* stable [08.05.2020] */
+  public static extendedFormEntityAsFinalEntity = mapExtendedFormEntityAsFinalEntity;                     /* stable [07.05.2020] */
   public static form = mapForm;                                                                           /* stable [08.05.2020] */
   public static formEntity = mapFormEntity;                                                               /* stable [08.05.2020] */
-  public static formEntityAsExtendedFormEntity = mapFormEntityAsExtendedFormEntity;                       /* stable [09.05.2020] */
   public static layoutEntity = mapLayoutEntity;                                                           /* stable [08.05.2020] */
   public static lifeCycleEntity = mapLifeCycleEntity;                                                     /* stable [08.05.2020] */
   public static listEntity = mapListEntity;                                                               /* stable [07.05.2020] */
