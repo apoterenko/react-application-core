@@ -5,9 +5,7 @@ import { defValuesFilter } from './filter';
 import {
   IApiEntity,
   IChannelWrapperEntity,
-  IReduxDictionariesEntity,
   IDictionariesEntity,
-  IReduxDictionaryEntity,
   IExtendedEntity,
   IExtendedFormEntity,
   IExtendedLabeledValueEntity,
@@ -16,9 +14,7 @@ import {
   IGenericBaseSelectEntity,
   IGenericChannelEntity,
   IGenericContainer,
-  IReduxFormEntity,
   IGenericNotificationEntity,
-  IGenericSelectableHoveredEntity,
   IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
@@ -26,9 +22,13 @@ import {
   INotificationWrapperEntity,
   IOperationEntity,
   IOptionEntity,
+  IPresetsSelectableHoveredEntity,
+  IReduxDictionariesEntity,
+  IReduxDictionaryEntity,
+  IReduxFormEntity,
+  IReduxSortDirectionsEntity,
   ISelectOptionEntity,
   ISortDirectionEntity,
-  IReduxSortDirectionsEntity,
   ISortDirectionsEntity,
   IStackItemEntity,
   IStackWrapperEntity,
@@ -261,13 +261,13 @@ export const mapEditableEntity =
  * @stable [04.05.2020]
  * @mapper
  *
- * @param {IGenericSelectableHoveredEntity} entity
- * @returns {IGenericSelectableHoveredEntity}
+ * @param {IPresetsSelectableHoveredEntity} entity
+ * @returns {IPresetsSelectableHoveredEntity}
  */
 const mapSelectableHoveredEntity =
-  (entity: IGenericSelectableHoveredEntity): IGenericSelectableHoveredEntity => ifNotNilThanValue(
+  (entity: IPresetsSelectableHoveredEntity): IPresetsSelectableHoveredEntity => ifNotNilThanValue(
     entity,
-    () => defValuesFilter<IGenericSelectableHoveredEntity, IGenericSelectableHoveredEntity>({
+    () => defValuesFilter<IPresetsSelectableHoveredEntity, IPresetsSelectableHoveredEntity>({
       hovered: entity.hovered,
       selectable: entity.selectable,
     }),

@@ -83,10 +83,10 @@ export interface IReduxPaginatedDataEntity<TEntity = IEntity,
 }
 
 /**
- * @generic-entity
- * @stable [04.05.2020]
+ * @presets-entity
+ * @stable [10.05.2020]
  */
-export interface IGenericSelectableHoveredEntity
+export interface IPresetsSelectableHoveredEntity
   extends IHoveredWrapper,
     ISelectableWrapper {
 }
@@ -105,21 +105,30 @@ export interface IReduxListEntity<TEntity = IEntity,
 }
 
 /**
+ * @presets-entity
+ * @stable [10.05.2020]
+ */
+export interface IPresetsListEntity
+  extends IPresetsSelectableHoveredEntity,
+    IFullWrapper,
+    IGroupByWrapper<IGenericListGroupByEntity>,
+    ISorterWrapper {
+}
+
+/**
+ * TODO IPresetsListEntity
  * @generic-entity
  * @stable [27.10.2019]
  */
 export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IReduxListEntity<TEntity, TRawData>,
-    IGenericSelectableHoveredEntity,
+    IPresetsListEntity,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper,
-    IFullWrapper,
-    IGroupByWrapper<IGenericListGroupByEntity>,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
-    ISelectedElementEntity,
-    ISorterWrapper {
+    ISelectedElementEntity {
 }
 
 /**
@@ -149,7 +158,7 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
  * @stable [17.01.2020]
  */
 export interface IGenericBaseListItemEntity
-  extends IGenericSelectableHoveredEntity,
+  extends IPresetsSelectableHoveredEntity,
     IDisabledWrapper,
     IIconLeftAlignedWrapper,
     IIconWrapper {
@@ -311,7 +320,7 @@ export const INITIAL_LIST_ENTITY = Object.freeze<IReduxListEntity>({
  * @default-entity
  * @stable [04.05.2020]
  */
-export const DEFAULT_NOT_SELECTABLE_LIST_ENTITY = Object.freeze<IGenericListEntity>({
+export const DEFAULT_NOT_SELECTABLE_LIST_ENTITY = Object.freeze<IPresetsListEntity>({
   hovered: false,
   selectable: false,
 });
