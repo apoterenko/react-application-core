@@ -429,6 +429,20 @@ const mapSecondaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IS
 /**
  * @mapper
  * @stable [10.05.2020]
+ * @param {IReduxFormEntity<TEntity>} reduxFormEntity
+ * @param {TEntity} entity
+ * @returns {IPrimaryFilterExtendedFormEntity<TEntity>}
+ */
+const mapEntityAsPrimaryFilterExtendedFormEntity =
+  <TEntity = IEntity>(reduxFormEntity: IReduxFormEntity<TEntity>,
+                      entity?: TEntity): IPrimaryFilterExtendedFormEntity<TEntity> =>
+    mapPrimaryFilter(
+      mapEntityAsExtendedFormEntity(reduxFormEntity, entity)
+    );
+
+/**
+ * @mapper
+ * @stable [10.05.2020]
  * @param {IPrimaryFilterReduxFormEntity<TEntity>} wrapper
  * @param {TEntity} entity
  * @returns {IPrimaryFilterExtendedFormEntity<TEntity>}
@@ -436,8 +450,20 @@ const mapSecondaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IS
 const mapPrimaryFilterEntityAsPrimaryFilterExtendedFormEntity =
   <TEntity = IEntity>(wrapper: IPrimaryFilterReduxFormEntity<TEntity>,
                       entity?: TEntity): IPrimaryFilterExtendedFormEntity<TEntity> =>
-    mapPrimaryFilter(
-      mapEntityAsExtendedFormEntity(Selectors.primaryFilter(wrapper), entity)
+    mapEntityAsPrimaryFilterExtendedFormEntity(Selectors.primaryFilter(wrapper), entity);
+
+/**
+ * @mapper
+ * @stable [10.05.2020]
+ * @param {IReduxFormEntity<TEntity>} reduxFormEntity
+ * @param {TEntity} entity
+ * @returns {ISecondaryFilterExtendedFormEntity<TEntity>}
+ */
+const mapEntityAsSecondaryFilterExtendedFormEntity =
+  <TEntity = IEntity>(reduxFormEntity: IReduxFormEntity<TEntity>,
+                      entity?: TEntity): ISecondaryFilterExtendedFormEntity<TEntity> =>
+    mapSecondaryFilter(
+      mapEntityAsExtendedFormEntity(reduxFormEntity, entity)
     );
 
 /**
@@ -450,9 +476,7 @@ const mapPrimaryFilterEntityAsPrimaryFilterExtendedFormEntity =
 const mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity =
   <TEntity = IEntity>(wrapper: ISecondaryFilterReduxFormEntity<TEntity>,
                       entity?: TEntity): ISecondaryFilterExtendedFormEntity<TEntity> =>
-    mapSecondaryFilter(
-      mapEntityAsExtendedFormEntity(Selectors.secondaryFilter(wrapper), entity)
-    );
+    mapEntityAsSecondaryFilterExtendedFormEntity(Selectors.secondaryFilter(wrapper), entity);
 
 /**
  * @mapper
