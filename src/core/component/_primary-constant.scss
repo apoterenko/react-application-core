@@ -99,6 +99,13 @@ $rac-primary-size-14: 60px !default;
 $rac-primary-size-15: 64px !default;
 
 /************************/
+/* @stable [11.05.2020] */
+/************************/
+$rac-primary-border-radius-0: 2px !default;
+$rac-primary-border-radius-1: 3px !default;
+$rac-primary-border-radius-2: 4px !default;
+
+/************************/
 /* @stable [26.03.2020] */
 /************************/
 $rac-primary-icon-size-0: $rac-primary-size-1 !default;
