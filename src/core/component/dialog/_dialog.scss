@@ -112,6 +112,17 @@
   );
 
   /**
+   * @progress-dialog
+   * @stable [11.05.2020]
+   */
+  @include rac-dialog (
+    $rac-dialog-custom: $rac-progress-dialog-cls,
+    $rac-dialog-body-align-items: $rac-progress-dialog-body-align-items,
+    $rac-dialog-body-justify-content: $rac-progress-dialog-body-justify-content,
+    $rac-dialog-progress-icon-size: $rac-progress-dialog-progress-icon-size
+  );
+
+  /**
    * @overlay-background
    * @stable [11.05.2020]
    */

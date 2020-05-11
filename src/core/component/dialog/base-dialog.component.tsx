@@ -6,6 +6,7 @@ import { Button } from '../button';
 import {
   calc,
   handlerPropsFactory,
+  inProgress,
   isAcceptable,
   isAcceptDisabled,
   isCheckModalNeeded,
@@ -319,26 +320,34 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
-        {this.titleElement}
         {
-          this.hasExtraActions
-            ? (
-              <div className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}>
-                {this.bodyElement}
-                {this.extraActionsElement}
-              </div>
-            )
+          this.isDialogInProgress
+            ? this.progressElement
             : (
-              <BasicComponent
-                className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}
-                plugins={this.wrapperPlugins}
-              >
-                {this.bodyElement}
-                {this.extraActionsElement}
-              </BasicComponent>
+              <React.Fragment>
+                {this.titleElement}
+                {
+                  this.hasExtraActions
+                    ? (
+                      <div className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}>
+                        {this.bodyElement}
+                        {this.extraActionsElement}
+                      </div>
+                    )
+                    : (
+                      <BasicComponent
+                        className={DialogClassesEnum.DIALOG_BODY_CONTENT_WRAPPER}
+                        plugins={this.wrapperPlugins}
+                      >
+                        {this.bodyElement}
+                        {this.extraActionsElement}
+                      </BasicComponent>
+                    )
+                }
+                {this.actionsElement}
+              </React.Fragment>
             )
         }
-        {this.actionsElement}
       </div>
     );
   }
@@ -436,6 +445,19 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
+   * @stable [11.05.2020]
+   * @returns {JSX.Element}
+   */
+  private get progressElement(): JSX.Element {
+    return (
+      this.uiFactory.makeIcon({
+        type: IconsEnum.SPINNER,
+        className: DialogClassesEnum.DIALOG_PROGRESS_ICON,
+      })
+    );
+  }
+
+  /**
    * @stable [06.01.2020]
    * @returns {boolean}
    */
@@ -524,7 +546,15 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [11.05.2020]
+   * @returns {boolean}
+   */
+  private get isDialogInProgress(): boolean {
+    return inProgress(this.mergedProps);
+  }
+
+  /**
+   * @stable [11.05.2020]
    * @returns {GenericPluginCtorT[]}
    */
   private get wrapperPlugins(): GenericPluginCtorT[] {
@@ -542,6 +572,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       calc<string>(mergedProps.className),
       DialogClassesEnum.DIALOG,
       this.isOverlay && DialogClassesEnum.OVERLAY_DIALOG,
+      this.isDialogInProgress && DialogClassesEnum.PROGRESS_DIALOG,
       this.isModal && DialogClassesEnum.MODAL_DIALOG,
       !this.isOverlay && (
         joinClassName(

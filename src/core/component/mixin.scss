@@ -2228,6 +2228,7 @@
   $rac-dialog-actions-neighbor-child-margin: unset,                                           /* @stable [29.12.2019] */
   $rac-dialog-align-items: unset,                                                             /* @stable [15.01.2020] */
   $rac-dialog-background: unset,                                                              /* @stable [10.01.2020] */
+  $rac-dialog-body-align-items: unset,                                                        /* @stable [11.05.2020] */
   $rac-dialog-body-background: unset,                                                         /* @stable [15.01.2020] */
   $rac-dialog-body-border-radius: unset,                                                      /* @stable [15.01.2020] */
   $rac-dialog-body-content-align-items: unset,                                                /* @stable [15.03.2020] */
@@ -2241,6 +2242,7 @@
   $rac-dialog-body-content-overflow: unset,                                                   /* @stable [10.01.2020] */
   $rac-dialog-body-content-padding: unset,                                                    /* @stable [29.12.2019] */
   $rac-dialog-body-content-position: unset,                                                   /* @stable [29.12.2019] */
+  $rac-dialog-body-content-wrapper-align-items: unset,                                        /* @stable [11.05.2020] */
   $rac-dialog-body-content-wrapper-background: unset,                                         /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-border-radius: unset,                                      /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-box-shadow: unset,                                         /* @stable [16.03.2020] */
@@ -2249,6 +2251,7 @@
   $rac-dialog-body-content-wrapper-flex-grow: unset,                                          /* @stable [11.05.2020] */
   $rac-dialog-body-content-wrapper-flex: unset,                                               /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-font-size: unset,                                          /* @stable [27.04.2020] */
+  $rac-dialog-body-content-wrapper-justify-content: unset,                                    /* @stable [11.05.2020] */
   $rac-dialog-body-content-wrapper-line-height: unset,                                        /* @stable [27.04.2020] */
   $rac-dialog-body-content-wrapper-margin: unset,                                             /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-overflow: unset,                                           /* @stable [16.03.2020] */
@@ -2287,6 +2290,7 @@
   $rac-dialog-left: unset,                                                                    /* @stable [10.01.2020] */
   $rac-dialog-opacity: unset,                                                                 /* @stable [11.05.2020] */
   $rac-dialog-position: unset,                                                                /* @stable [10.01.2020] */
+  $rac-dialog-progress-icon-size: unset,                                                      /* @stable [11.05.2020] */
   $rac-dialog-top: unset,                                                                     /* @stable [10.01.2020] */
   $rac-dialog-width: unset,                                                                   /* @stable [10.01.2020] */
   $rac-dialog-z-index: unset                                                                  /* @stable [31.01.2020] */
@@ -2309,6 +2313,7 @@
     > {
       .rac-dialog__body {
         @include rac-styles (
+          $rac-styles-align-items: $rac-dialog-body-align-items,
           $rac-styles-background: $rac-dialog-body-background,
           $rac-styles-border-radius: $rac-dialog-body-border-radius,
           $rac-styles-display: $rac-dialog-body-display,
@@ -2329,8 +2334,16 @@
         );
 
         > {
+          @include rac-icon (
+            $rac-icon-custom: rac-dialog__progress-icon,
+            $rac-icon-size: $rac-dialog-progress-icon-size
+          );
+        }
+
+        > {
           .rac-dialog__body-content-wrapper {
             @include rac-styles (
+              $rac-styles-align-items: $rac-dialog-body-content-wrapper-align-items,
               $rac-styles-background: $rac-dialog-body-content-wrapper-background,
               $rac-styles-border-radius: $rac-dialog-body-content-wrapper-border-radius,
               $rac-styles-box-shadow: $rac-dialog-body-content-wrapper-box-shadow,
@@ -2339,6 +2352,7 @@
               $rac-styles-flex-grow: $rac-dialog-body-content-wrapper-flex-grow,
               $rac-styles-flex: $rac-dialog-body-content-wrapper-flex,
               $rac-styles-font-size: $rac-dialog-body-content-wrapper-font-size,
+              $rac-styles-justify-content: $rac-dialog-body-content-wrapper-justify-content,
               $rac-styles-line-height: $rac-dialog-body-content-wrapper-line-height,
               $rac-styles-margin: $rac-dialog-body-content-wrapper-margin,
               $rac-styles-overflow: $rac-dialog-body-content-wrapper-overflow,

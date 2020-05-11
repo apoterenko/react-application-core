@@ -71,5 +71,12 @@ $rac-overlay-dialog-opacity: unset !default;
 /************************/
 /* @stable [11.05.2020] */
 /************************/
+$rac-progress-dialog-body-align-items: center !default;
+$rac-progress-dialog-body-justify-content: center !default;
+$rac-progress-dialog-progress-icon-size: 64px !default;
+
+/************************/
+/* @stable [11.05.2020] */
+/************************/
 $rac-overlay-filter-name: blur !default;
 $rac-overlay-filter-value: 2px !default;

@@ -22,6 +22,7 @@ import {
   IOnDeactivateWrapper,
   IOpenedWrapper,
   IOverlayWrapper,
+  IProgressWrapper,
   IScrollableWrapper,
   IWidthWrapper,
 } from '../definitions.interface';
@@ -61,6 +62,7 @@ export interface IPresetsDialogEntity
     IOnCloseWrapper,
     IOnDeactivateWrapper,
     IOverlayWrapper,
+    IProgressWrapper,
     IScrollableWrapper {
 }
 
@@ -159,6 +161,7 @@ export enum DialogClassesEnum {
   DIALOG_BODY_CONTENT_WRAPPER = 'rac-dialog__body-content-wrapper',
   DIALOG_BODY_TITLE = 'rac-dialog__body-title',
   DIALOG_EXTRA_ACTIONS = 'rac-dialog__extra-actions',
+  DIALOG_PROGRESS_ICON = 'rac-dialog__progress-icon',
   INLINE_DIALOG = 'rac-inline-dialog',
   MENU_DIALOG = 'rac-menu-dialog',
   MODAL_DIALOG = 'rac-modal-dialog',
@@ -169,5 +172,6 @@ export enum DialogClassesEnum {
   PLACE_DIALOG = 'rac-place-dialog',
   PLACE_DIALOG_TITLE = 'rac-place-dialog__title',
   PREVIEW_DIALOG = 'rac-preview-dialog',
+  PROGRESS_DIALOG = 'rac-progress-dialog',
   TRANSPARENT_DIALOG = 'rac-transparent-dialog',
 }
