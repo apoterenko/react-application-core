@@ -16,11 +16,3 @@ export interface IOnNavigationActionClickWrapper<TPayload = IBaseEvent,
                                                  TOnNavigationActionClick = (payload?: TPayload) => void> {
   onNavigationActionClick?: TOnNavigationActionClick;
 }
-
-/**
- * @deprecated
- * TODO
- */
-export interface IOnActionClickWrapper<TPayload = IBaseEvent, TOnActionClick = (payload?: TPayload) => void> {
-  onActionClick?: TOnActionClick;
-}
