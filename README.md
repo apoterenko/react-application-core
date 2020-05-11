@@ -64,6 +64,13 @@ The library is designed to quickly start develop the business applications are b
 * [formReducer](src/core/component/form/form.reducer.ts)
 * [queryFilterReducer](src/core/component/filter/query-filter.reducer.ts)
 
+# Theme customization (styling)
+
+#### Dialog
+
+* [_dialog.scss (11.05.2020)](src/core/component/dialog/_dialog.scss)
+* [_dialog-constant.scss (11.05.2020)](src/core/component/dialog/_dialog-constant.scss)
+
 # Usage
 
 #### Containers
