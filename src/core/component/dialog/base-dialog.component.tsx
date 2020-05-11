@@ -46,9 +46,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   extends GenericComponent<TProps, TState>
   implements IDialog<TProps, TState> {
 
-  private onDeactivateCallback: () => void;
-  private closeEventUnsubscriber: () => void;
-  private readonly bodyRef = React.createRef<HTMLDivElement>();
+  private $closeEventUnsubscriber: () => void;
+  private $onDeactivateCallback: () => void;
+  private $isCheckNeededAndAnotherModalDialogOpen: boolean;
+  private readonly $bodyRef = React.createRef<HTMLDivElement>();
 
   /**
    *  @stable [11.05.2020]
@@ -64,6 +65,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.onDocumentClickCapture = this.onDocumentClickCapture.bind(this);
 
     this.state = {opened: false} as TState;
+
+    this.$isCheckNeededAndAnotherModalDialogOpen = this.isCheckNeededAndAnotherModalDialogOpen;
   }
 
   /**
@@ -124,7 +127,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       } = payload || {} as IActivateDialogConfigEntity;
 
       if (isFn(onDeactivate)) {
-        this.onDeactivateCallback = onDeactivate;
+        this.$onDeactivateCallback = onDeactivate;
       }
       if (isFn(onActivate)) {
         onActivate.call(this);
@@ -232,11 +235,11 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const props = this.mergedProps;
     this.domAccessor.setPosition({
       ...props.positionConfiguration as {},
-      element: this.bodyRef.current,
+      element: this.$bodyRef.current,
       of: calc(props.anchorElement),
     });
 
-    this.closeEventUnsubscriber = this.domAccessor.captureEvent({
+    this.$closeEventUnsubscriber = this.domAccessor.captureEvent({
       eventName: EventsEnum.CLICK,
       capture: true, // We must process a capture phase of click event because a component may stop an events bubbling
       callback: this.onDocumentClickCapture,
@@ -253,9 +256,9 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.setState({opened: false}, () => {
       this.onDestroy();
 
-      if (isFn(this.onDeactivateCallback)) {
-        this.onDeactivateCallback.call(this);
-        this.onDeactivateCallback = null;
+      if (isFn(this.$onDeactivateCallback)) {
+        this.$onDeactivateCallback.call(this);
+        this.$onDeactivateCallback = null;
       }
       if (isFn(props.onDeactivate)) {
         props.onDeactivate();
@@ -321,7 +324,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   private get dialogBodyElement(): JSX.Element {
     return (
       <div
-        ref={this.bodyRef}
+        ref={this.$bodyRef}
         style={{width: calc(this.mergedProps.width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
@@ -427,9 +430,9 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [11.05.2020]
    */
   private unsubscribeEvents(): void {
-    if (isFn(this.closeEventUnsubscriber)) {
-      this.closeEventUnsubscriber();
-      this.closeEventUnsubscriber = null;
+    if (isFn(this.$closeEventUnsubscriber)) {
+      this.$closeEventUnsubscriber();
+      this.$closeEventUnsubscriber = null;
     }
   }
 
@@ -610,7 +613,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
             ? DialogClassesEnum.INLINE_DIALOG
             : (
               !this.isAnchored && (
-                isCheckModalNeeded(mergedProps) && this.isAnotherModalDialogOpen
+                this.$isCheckNeededAndAnotherModalDialogOpen
                   ? DialogClassesEnum.TRANSPARENT_DIALOG
                   : DialogClassesEnum.NOT_TRANSPARENT_DIALOG
               )
@@ -624,8 +627,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [11.05.2020]
    * @returns {boolean}
    */
-  private get isAnotherModalDialogOpen(): boolean {
-    return this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement);
+  private get isCheckNeededAndAnotherModalDialogOpen(): boolean {
+    return isCheckModalNeeded(this.mergedProps) && (
+      this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement)
+    );
   }
 
   /**
