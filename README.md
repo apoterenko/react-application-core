@@ -50,6 +50,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @component-impl
 
+* [Dialog & BaseDialog (11.05.2020)](src/core/component/dialog/base-dialog.component.tsx)
 * [PageToolbar](src/core/component/toolbar/page/page-toolbar.component.tsx)
 * [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
 * [UnsavedFormChangesDialog (11.05.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
