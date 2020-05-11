@@ -44,30 +44,26 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
   private onDeactivateCallback: () => void;
   private closeEventUnsubscriber: () => void;
-  private readonly doesAnotherModalDialogOpen: boolean;
   private readonly bodyRef = React.createRef<HTMLDivElement>();
 
   /**
-   * @stable [06.01.2020]
+   *  @stable [11.05.2020]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
 
+    this.doClose = this.doClose.bind(this);
     this.onAcceptClick = this.onAcceptClick.bind(this);
     this.onCloseClick = this.onCloseClick.bind(this);
     this.onDialogClick = this.onDialogClick.bind(this);
     this.onDocumentClickCapture = this.onDocumentClickCapture.bind(this);
 
     this.state = {opened: false} as TState;
-
-    if (isCheckModalNeeded(props)) {
-      this.doesAnotherModalDialogOpen = this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement);
-    }
   }
 
   /**
-   * @stable [25.01.2020]
+   * @stable [11.05.2020]
    * @returns {React.ReactNode}
    */
   public render(): React.ReactNode {
@@ -79,7 +75,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
         const content = (
           <div
-            ref={this.selfRef}
+            ref={this.actualRef}
             className={this.dialogClassName}
             {...handlerPropsFactory(this.onDialogClick, modal, false)}
           >
@@ -104,15 +100,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [05.04.2020]
+   * @stable [11.05.2020]
    */
   public componentWillUnmount(): void {
-    this.closeOverlayIfApplicable();
-    this.unsubscribeEvents();
+   this.onDestroy();
   }
 
   /**
-   * @stable [24.01.2020]
+   * @stable [11.05.2020]
    * @param {IActivateDialogConfigEntity} payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
@@ -139,7 +134,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [06.01.2020]
+   * @stable [11.05.2020]
    */
   protected onAcceptClick(): void {
     const props = this.mergedProps;
@@ -156,7 +151,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [11.05.2020]
    * @returns {string}
    */
   protected get title(): string | boolean {
@@ -164,7 +159,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [11.05.2020]
    * @returns {string}
    */
   protected get closeText(): string {
@@ -172,7 +167,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [11.05.2020]
    * @returns {string}
    */
   protected get acceptText(): string {
@@ -180,7 +175,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [05.01.2020]
+   * @stable [11.05.2020]
    */
   private onCloseClick(): void {
     const props = this.mergedProps;
@@ -193,27 +188,35 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [05.01.2020]
+   * @stable [11.05.2020]
    */
   private onDialogClick(): void {
     this.doClose();
   }
 
   /**
-   * @stable [29.01.2020]
+   * @stable [11.05.2020]
    */
   private onDocumentClickCapture(event: IBaseEvent): void {
     const element = event.target as HTMLElement;
 
     if (this.domAccessor.getParentsAsElements({parentClassName: DialogClassesEnum.DIALOG, element})
-        .includes(this.selfRef.current)) {
+        .includes(this.actualRef.current)) {
       return;
     }
     this.doClose();
   }
 
   /**
-   * @stable [25.01.2020]
+   * @stable [11.05.2020]
+   */
+  private onDestroy(): void {
+    this.closeOverlayIfApplicable();
+    this.unsubscribeEvents();
+  }
+
+  /**
+   * @stable [11.05.2020]
    */
   private onAfterRender(): void {
     if (!this.isAnchored) {
@@ -226,7 +229,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.domAccessor.setPosition({
       ...props.positionConfiguration as {},
       element: this.bodyRef.current,
-      of: calc<HTMLElement>(props.anchorElement),
+      of: calc(props.anchorElement),
     });
 
     this.closeEventUnsubscriber = this.domAccessor.captureEvent({
@@ -237,15 +240,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [05.01.2020]
+   * @stable [11.05.2020]
    * @param {() => void} callback
    */
   private doClose(callback?: () => void): void {
     const props = this.mergedProps;
 
     this.setState({opened: false}, () => {
-      this.closeOverlayIfApplicable();
-      this.unsubscribeEvents();
+      this.onDestroy();
 
       if (isFn(this.onDeactivateCallback)) {
         this.onDeactivateCallback.call(this);
@@ -309,14 +311,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [11.05.2020]
    * @returns {JSX.Element}
    */
   private get dialogBodyElement(): JSX.Element {
     return (
       <div
         ref={this.bodyRef}
-        style={{width: calc<number>(this.mergedProps.width)}}
+        style={{width: calc(this.mergedProps.width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
@@ -325,6 +327,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
             ? this.progressElement
             : (
               <React.Fragment>
+                {this.isOverlay && this.closeOverlayActionElement}
                 {this.titleElement}
                 {
                   this.hasExtraActions
@@ -353,7 +356,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [15.03.2020]
+   * @stable [11.05.2020]
    * @returns {JSX.Element}
    */
   private get titleElement(): JSX.Element {
@@ -372,7 +375,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [15.03.2020]
+   * @stable [11.05.2020]
    * @returns {JSX.Element}
    */
   private get extraActionsElement(): JSX.Element {
@@ -390,7 +393,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [06.01.2020]
+   * @stable [11.05.2020]
    * @returns {JSX.Element}
    */
   private get bodyElement(): JSX.Element {
@@ -417,7 +420,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [25.01.2020]
+   * @stable [11.05.2020]
    */
   private unsubscribeEvents(): void {
     if (isFn(this.closeEventUnsubscriber)) {
@@ -458,7 +461,21 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [06.01.2020]
+   * @stable [11.05.2020]
+   * @returns {JSX.Element}
+   */
+  private get closeOverlayActionElement(): JSX.Element {
+    return (
+      this.uiFactory.makeIcon({
+        type: IconsEnum.TIMES,
+        className: DialogClassesEnum.OVERLAY_DIALOG_CLOSE_ICON,
+        onClick: this.doClose,
+      })
+    );
+  }
+
+  /**
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get acceptable(): boolean {
@@ -466,7 +483,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [06.01.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get closable(): boolean {
@@ -474,7 +491,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [15.01.2020]
+   * @stable [11.05.2020]
    * @returns {Element}
    */
   private get portalElement(): Element {
@@ -482,7 +499,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [24.01.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isAnchored(): boolean {
@@ -490,7 +507,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isInline(): boolean {
@@ -514,7 +531,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.03.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isConfirm(): boolean {
@@ -571,21 +588,25 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return joinClassName(
       calc<string>(mergedProps.className),
       DialogClassesEnum.DIALOG,
+
       this.isOverlay && DialogClassesEnum.OVERLAY_DIALOG,
       this.isDialogInProgress && DialogClassesEnum.PROGRESS_DIALOG,
       this.isModal && DialogClassesEnum.MODAL_DIALOG,
+
       !this.isOverlay && (
         joinClassName(
           this.isDefault && DialogClassesEnum.DEFAULT_DIALOG,
           this.isConfirm && DialogClassesEnum.CONFIRM_DIALOG,
+
           this.isAnchored
             ? DialogClassesEnum.ANCHORED_DIALOG
             : DialogClassesEnum.NOT_ANCHORED_DIALOG,
+
           this.isInline
             ? DialogClassesEnum.INLINE_DIALOG
             : (
               !this.isAnchored && (
-                this.doesAnotherModalDialogOpen
+                isCheckModalNeeded(mergedProps) && this.isAnotherModalDialogOpen
                   ? DialogClassesEnum.TRANSPARENT_DIALOG
                   : DialogClassesEnum.NOT_TRANSPARENT_DIALOG
               )
@@ -593,6 +614,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         )
       )
     );
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @returns {boolean}
+   */
+  private get isAnotherModalDialogOpen(): boolean {
+    return this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement);
   }
 
   /**
