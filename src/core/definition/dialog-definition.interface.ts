@@ -21,6 +21,7 @@ import {
   IOnCloseWrapper,
   IOnDeactivateWrapper,
   IOpenedWrapper,
+  IOverlayClosableWrapper,
   IOverlayWrapper,
   IProgressWrapper,
   IScrollableWrapper,
@@ -70,6 +71,7 @@ export interface IPresetsDialogEntity
     IOnBeforeAcceptWrapper,
     IOnCloseWrapper,
     IOnDeactivateWrapper,
+    IOverlayClosableWrapper,
     IOverlayWrapper,
     IProgressWrapper,
     IScrollableWrapper {

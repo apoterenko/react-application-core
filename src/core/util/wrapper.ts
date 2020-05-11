@@ -51,6 +51,7 @@ import {
   INavigateBackWrapper,
   IOddWrapper,
   IOpenedWrapper,
+  IOverlayClosableWrapper,
   IOverlayWrapper,
   IPlaceActionRenderedWrapper,
   IPlainValueWrapper,
@@ -244,6 +245,14 @@ export const isAcceptable = (entity: IAcceptableWrapper): boolean =>
  */
 export const isClosable = (entity: IClosableWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.closable !== false, false);
+
+/**
+ * @stable [11.05.2020]
+ * @param {IOverlayClosableWrapper} entity
+ * @returns {boolean}
+ */
+export const isOverlayClosable = (entity: IOverlayClosableWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.overlayClosable !== false, false);
 
 /**
  * @stable [28.11.2019]

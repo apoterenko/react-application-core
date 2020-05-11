@@ -18,6 +18,7 @@ import {
   isInline,
   isOpened,
   isOverlay,
+  isOverlayClosable,
   isScrollable,
   joinClassName,
   mergeWithSystemProps,
@@ -134,9 +135,9 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         onActivate.call(this);
       }
 
-      const props = this.mergedProps;
-      if (isFn(props.onActivate)) {
-        props.onActivate();
+      const mergedProps = this.mergedProps;
+      if (isFn(mergedProps.onActivate)) {
+        mergedProps.onActivate();
       }
     });
   }
@@ -145,15 +146,18 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [11.05.2020]
    */
   protected onAcceptClick(): void {
-    const props = this.mergedProps;
+    const {
+      onAccept,
+      onBeforeAccept,
+    } = this.mergedProps;
 
-    if (props.onBeforeAccept) {
-      props.onBeforeAccept();
+    if (onBeforeAccept) {
+      onBeforeAccept();
     }
 
     this.doClose(() => {
-      if (isFn(props.onAccept)) {
-        props.onAccept();
+      if (isFn(onAccept)) {
+        onAccept();
       }
     });
   }
@@ -162,11 +166,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [11.05.2020]
    */
   protected onCloseClick(): void {
-    const props = this.mergedProps;
+    const {
+      onClose,
+    } = this.mergedProps;
 
     this.doClose(() => {
-      if (isFn(props.onClose)) {
-        props.onClose();
+      if (isFn(onClose)) {
+        onClose();
       }
     });
   }
@@ -230,14 +236,17 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     if (!this.isAnchored) {
       return;
     }
-
     this.unsubscribeEvents();
 
-    const props = this.mergedProps;
+    const {
+      anchorElement,
+      positionConfiguration,
+    } = this.mergedProps;
+
     this.domAccessor.setPosition({
-      ...props.positionConfiguration as {},
+      ...positionConfiguration,
       element: this.$bodyRef.current,
-      of: calc(props.anchorElement),
+      of: calc(anchorElement),
     });
 
     this.$closeEventUnsubscriber = this.domAccessor.captureEvent({
@@ -263,7 +272,9 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @param {() => void} callback
    */
   private doClose(callback?: () => void): void {
-    const props = this.mergedProps;
+    const {
+      onDeactivate,
+    } = this.mergedProps;
 
     this.setState({opened: false}, () => {
       this.onDestroy();
@@ -272,8 +283,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         this.$onDeactivateCallback.call(this);
         this.$onDeactivateCallback = null;
       }
-      if (isFn(props.onDeactivate)) {
-        props.onDeactivate();
+      if (isFn(onDeactivate)) {
+        onDeactivate();
       }
       if (isFn(callback)) {
         callback.call(this);
@@ -286,46 +297,44 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get actionsElement(): JSX.Element {
-    return (
-      orNull(
-        !this.isOverlay && (this.closable || this.acceptable),
-        () => {
-          const mergedProps = this.mergedProps;
-          return (
-            <div className={DialogClassesEnum.DIALOG_ACTIONS}>
-              {
-                orNull(
-                  this.closable,
-                  () => (
-                    <Button
-                      icon={IconsEnum.TIMES}
-                      {...mergedProps.closeActionConfiguration}
-                      disabled={isCloseDisabled(mergedProps)}
-                      onClick={this.onCloseClick}>
-                      {this.t(this.closeText)}
-                    </Button>
-                  )
+    return orNull(
+      this.closable || this.acceptable,
+      () => {
+        const mergedProps = this.mergedProps;
+        return (
+          <div className={DialogClassesEnum.DIALOG_ACTIONS}>
+            {
+              orNull(
+                this.closable,
+                () => (
+                  <Button
+                    icon={IconsEnum.TIMES}
+                    {...mergedProps.closeActionConfiguration}
+                    disabled={isCloseDisabled(mergedProps)}
+                    onClick={this.onCloseClick}>
+                    {this.t(this.closeText)}
+                  </Button>
                 )
-              }
-              {
-                orNull(
-                  this.acceptable,
-                  () => (
-                    <Button
-                      icon={IconsEnum.CHECK_CIRCLE}
-                      raised={true}
-                      {...mergedProps.acceptActionConfiguration}
-                      disabled={isAcceptDisabled(mergedProps)}
-                      onClick={this.onAcceptClick}>
-                      {this.t(this.acceptText)}
-                    </Button>
-                  )
+              )
+            }
+            {
+              orNull(
+                this.acceptable,
+                () => (
+                  <Button
+                    icon={IconsEnum.CHECK_CIRCLE}
+                    raised={true}
+                    {...mergedProps.acceptActionConfiguration}
+                    disabled={isAcceptDisabled(mergedProps)}
+                    onClick={this.onAcceptClick}>
+                    {this.t(this.acceptText)}
+                  </Button>
                 )
-              }
-            </div>
-          );
-        }
-      )
+              )
+            }
+          </div>
+        );
+      }
     );
   }
 
@@ -334,10 +343,12 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get dialogBodyElement(): JSX.Element {
+    const mergedProps = this.mergedProps;
+
     return (
       <div
         ref={this.$bodyRef}
-        style={{width: calc(this.mergedProps.width)}}
+        style={{width: calc(mergedProps.width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
@@ -346,7 +357,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
             ? this.progressElement
             : (
               <React.Fragment>
-                {this.isOverlay && this.closeOverlayActionElement}
                 {this.titleElement}
                 {
                   this.hasExtraActions
@@ -366,7 +376,9 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                       </BasicComponent>
                     )
                 }
-                {this.actionsElement}
+                {this.isOverlay
+                  ? isOverlayClosable(mergedProps) && this.closeOverlayActionElement
+                  : this.actionsElement}
               </React.Fragment>
             )
         }
@@ -602,10 +614,12 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {string}
    */
   private get dialogClassName(): string {
-    const mergedProps = this.mergedProps;
+    const {
+      className,
+    } = this.mergedProps;
 
     return joinClassName(
-      calc<string>(mergedProps.className),
+      calc(className),
       DialogClassesEnum.DIALOG,
 
       this.isOverlay && DialogClassesEnum.OVERLAY_DIALOG,

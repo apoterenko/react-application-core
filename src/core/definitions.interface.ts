@@ -26,7 +26,6 @@ export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAcceptActionConfigurationWrapper<TValue> { acceptActionConfiguration?: TValue; }
 export interface IAcceptDisabledWrapper { acceptDisabled?: boolean; }
 export interface IAcceptTextWrapper { acceptText?: string; }
-export interface IAcceptWrapper { accept?(): void; }
 export interface IAccessConfigurationWrapper<TValue> { accessConfiguration?: TValue; }
 export interface IAccessDeniedWrapper<TValue> { accessDenied?: TValue; }
 export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
@@ -385,6 +384,7 @@ export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IOutputFormatWrapper { outputFormat?: string; }
 export interface IOutputTimeFormatWrapper { outputTimeFormat?: string; }
 export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
+export interface IOverlayClosableWrapper { overlayClosable?: boolean; }
 export interface IOverlayWrapper<TValue = boolean> { overlay?: TValue; }
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
 export interface IPageWrapper<TPage = number> { page?: TPage; }
