@@ -51,7 +51,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.doSelectBlob = this.doSelectBlob.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
     this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
-    this.onCameraDialogClose = this.onCameraDialogClose.bind(this);
+    this.onCameraDialogDeactivate = this.onCameraDialogDeactivate.bind(this);
     this.onCameraSnapshotSelect = this.onCameraSnapshotSelect.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openCameraDialog = this.openCameraDialog.bind(this);
@@ -133,7 +133,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
                 ref={this.cameraDialogRef}
                 title={messages.takeSnapshotMessage}
                 acceptText={messages.acceptMessage}
-                onClose={this.onCameraDialogClose}
+                onDeactivate={this.onCameraDialogDeactivate}
                 onBeforeAccept={this.onCameraDialogAccept}
               >
                 <WebCamera
@@ -174,18 +174,17 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [02.08.2018]
+   * @stable [11.05.2020]
    */
-  private onCameraDialogClose(): void {
+  private onCameraDialogDeactivate(): void {
     this.setState({opened: false});
   }
 
   /**
-   * @stable [02.08.2018]
+   * @stable [11.05.2020]
    */
   private onCameraDialogAccept(): void {
     this.camera.capture();
-    this.onCameraDialogClose();
   }
 
   /**

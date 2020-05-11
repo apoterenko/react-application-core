@@ -456,7 +456,6 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
         closeText={messages.CLOSE}
         acceptable={false}
         extraActions={this.getPreviewExtraActionsElement()}
-        onClose={this.onDialogClose}
         onDeactivate={this.onDialogClose}
       >
         {this.gePreviewElement()}

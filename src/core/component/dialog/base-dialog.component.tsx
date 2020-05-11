@@ -16,6 +16,7 @@ import {
   isDefault,
   isFn,
   isInline,
+  isOpened,
   isOverlay,
   isScrollable,
   joinClassName,
@@ -75,7 +76,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    */
   public render(): React.ReactNode {
     return orNull(
-      this.state.opened,
+      isOpened(this.state),
       () => {
         const inline = this.isInline;
         const modal = this.isModal;
@@ -159,6 +160,19 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
   /**
    * @stable [11.05.2020]
+   */
+  protected onCloseClick(): void {
+    const props = this.mergedProps;
+
+    this.doClose(() => {
+      if (isFn(props.onClose)) {
+        props.onClose();
+      }
+    });
+  }
+
+  /**
+   * @stable [11.05.2020]
    * @returns {string}
    */
   protected get title(): string | boolean {
@@ -179,19 +193,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    */
   protected get acceptText(): string {
     return this.mergedProps.acceptText || this.settings.messages.DIALOG_ACCEPT;
-  }
-
-  /**
-   * @stable [11.05.2020]
-   */
-  private onCloseClick(): void {
-    const props = this.mergedProps;
-
-    this.doClose(() => {
-      if (isFn(props.onClose)) {
-        props.onClose();
-      }
-    });
   }
 
   /**
