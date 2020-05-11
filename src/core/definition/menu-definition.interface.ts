@@ -28,7 +28,7 @@ import {
 } from './list-definition.interface';
 import { IComponent } from './component-definition.interface';
 import { IComponentProps } from './props-definition.interface';
-import { IGenericBaseDialogEntity } from './dialog-definition.interface';
+import { IPresetsBaseDialogEntity } from './dialog-definition.interface';
 import { IExtendedLabeledValueEntity } from './entity-definition.interface';
 
 /**
@@ -53,7 +53,7 @@ export interface IMenuItemStringValueEntity
  * @stable [24.01.2020]
  */
 export interface IGenericMenuEntity<TOptionEntity extends IMenuItemEntity = IMenuItemEntity>
-  extends IGenericBaseDialogEntity,
+  extends IPresetsBaseDialogEntity,
     IDelayTimeoutWrapper,
     IFilterPlaceholderWrapper,
     IHeightRestrictedWrapper,

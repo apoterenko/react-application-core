@@ -9,6 +9,7 @@ import {
   ILayoutWrapper,
   IModeWrapper,
   IOnDrawerHeaderClickWrapper,
+  IProgressWrapper,
   ITopTitleWrapper,
 } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
@@ -53,8 +54,9 @@ export interface IGenericDefaultLayoutEntity
     IHeaderConfigurationEntity,
     IHeaderContentWrapper,
     IHeaderWrapper,
+    ILayoutEntity,
     ILayoutModeWrapper<LayoutModesEnum>,
-    ILayoutEntity {
+    IProgressWrapper {
 }
 
 /**

@@ -37,10 +37,10 @@ import { IProxyContainerEntity } from './container-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
- * @generic-entity
- * @stable [21.10.2019]
+ * @presets-entity
+ * @stable [11.05.2020]
  */
-export interface IGenericBaseDialogEntity
+export interface IPresetsBaseDialogEntity
   extends IAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IDomPositionConfigurationEntity,
     IInlineWrapper,
@@ -49,13 +49,22 @@ export interface IGenericBaseDialogEntity
 
 /**
  * @presets-entity
- * @stable [10.05.2020]
+ * @stable [11.05.2020]
  */
 export interface IPresetsDialogEntity
-  extends IAcceptableWrapper,
+  extends IPresetsBaseDialogEntity,
+    IAcceptableWrapper,
+    IAcceptActionConfigurationWrapper<IButtonProps>,
+    IAcceptDisabledWrapper,
+    IAcceptTextWrapper,
+    ICheckModalWrapper,   // Check more than one dialog at a time
     IClosableWrapper,
+    ICloseActionConfigurationWrapper<IButtonProps>,
+    ICloseDisabledWrapper,
+    ICloseTextWrapper,
     IConfirmWrapper,
     IDefaultWrapper,
+    IExtraActionsWrapper<JSX.Element>,
     IOnAcceptWrapper,
     IOnActivateWrapper,
     IOnBeforeAcceptWrapper,
@@ -67,21 +76,11 @@ export interface IPresetsDialogEntity
 }
 
 /**
- * TODO Presets
  * @generic-entity
  * @stable [21.10.2019]
  */
 export interface IGenericDialogEntity
-  extends IGenericBaseDialogEntity,
-    IPresetsDialogEntity,
-    IAcceptActionConfigurationWrapper<IButtonProps>,
-    IAcceptDisabledWrapper,
-    IAcceptTextWrapper,
-    ICheckModalWrapper,
-    ICloseActionConfigurationWrapper<IButtonProps>,
-    ICloseDisabledWrapper,
-    ICloseTextWrapper,
-    IExtraActionsWrapper<JSX.Element> {
+  extends IPresetsDialogEntity {
 }
 
 /**

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { GenericComponent } from '../../base/generic.component';
 import {
   calc,
+  inProgress,
   isBackActionRendered,
   isDrawerHeaderRendered,
   isHeaderRendered,
@@ -11,6 +12,7 @@ import {
   mapStoreEntity,
   mergeWithSystemProps,
   nvl,
+  orNull,
   selectStackWrapperItemEntities,
 } from '../../../util';
 import { Drawer } from '../../drawer';
@@ -30,6 +32,7 @@ import {
 } from '../../plugin';
 import { Header } from '../../header';
 import { Main } from '../../main';
+import { Dialog } from '../../dialog';
 
 export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
 
@@ -77,12 +80,28 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
                   StickyHeaderPlugin
                 ]}>
                 {props.children}
+                {this.progressElement}
               </Main>
               {props.footer}
             </div>
           </div>
         </UniversalScrollableContext.Provider>
       </UniversalStickyContext.Provider>
+    );
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @returns {JSX.Element}
+   */
+  private get progressElement(): JSX.Element {
+    return orNull(
+      this.isLayoutInProgress,
+      () => (
+        <Dialog
+          progress={true}
+          overlay={true}/>
+      )
     );
   }
 
@@ -197,6 +216,14 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
    */
   private get mergedProps(): IDefaultLayoutProps {
     return mergeWithSystemProps(this.props, this.settings.components.defaultLayout);
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @returns {boolean}
+   */
+  private get isLayoutInProgress(): boolean {
+    return inProgress(this.props);
   }
 
   /**

@@ -530,7 +530,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get hasExtraActions(): boolean {
@@ -538,7 +538,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isScrollable(): boolean {

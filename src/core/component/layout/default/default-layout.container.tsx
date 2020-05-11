@@ -35,7 +35,6 @@ import {
   IReduxXYEntity,
   LayoutModesEnum,
 } from '../../../definition';
-import { Overlay } from '../../overlay';
 import {
   PerfectScrollPlugin,
   PersistentScrollPlugin,
@@ -160,7 +159,6 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
       <React.Fragment>
         {props.subHeaderRendered !== false && this.subHeaderElement}
         {this.props.children}
-        {this.mainProgressOverlayElement}
         {this.notificationsElement}
       </React.Fragment>
     );
@@ -179,14 +177,6 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
         title={title}
         onNavigationActionClick={this.onHeaderNavigationActionClick}/>
     );
-  }
-
-  /**
-   * @stable [18.03.2019]
-   * @returns {JSX.Element}
-   */
-  private get mainProgressOverlayElement(): JSX.Element {
-    return orNull<JSX.Element>(this.props.progress, () => <Overlay progress={true}/>);
   }
 
   /**
