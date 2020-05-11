@@ -5,8 +5,10 @@
 /**
  * @stable [05.04.2020]
  */
-@function rac-cls ($rac-cls,
-                   $rac-custom: unset) {
+@function rac-cls (
+  $rac-cls,
+  $rac-custom: unset
+) {
   @if $rac-custom != unset {
     @return '.#{$rac-cls}.#{$rac-custom}';
   }
@@ -16,8 +18,10 @@
 /**
  * @stable [05.04.2020]
  */
-@function rac-cls2 ($rac-cls,
-                    $rac-custom: unset) {
+@function rac-cls2 (
+  $rac-cls,
+  $rac-custom: unset
+) {
   @if $rac-custom != unset {
     @return '#{$rac-cls}.#{$rac-custom}';
   }
@@ -25,16 +29,17 @@
 }
 
 /**
- * @stable [04.05.2020]
+ * @stable [11.05.2020]
  */
-@function rac-not-cls ($rac-not-cls,
-                       $rac-cls: unset) {
+@function rac-not-cls (
+  $rac-not-cls,
+  $rac-cls: unset
+) {
   @if $rac-cls != unset {
-    @return '#{$rac-cls}:not(.#{$rac-not-cls})';
+    @return '#{$rac-cls}:not(#{rac-cls($rac-not-cls)})';
   }
-  @return ':not(.#{$rac-not-cls})';
+  @return ':not(#{rac-cls($rac-not-cls)})';
 }
-
 
 /**
  * @stable [05.04.2020]
@@ -514,5 +519,45 @@
     @include rac-styles (
       $rac-styles-margin: $rac-neighbor-child-margin
     );
+  }
+}
+
+/**
+ * @stable [11.05.2020]
+ */
+@mixin _rac-filter-properties (
+  $rac-filter-value: unset,
+  $rac-filter-name: unset
+) {
+  $rac-filter-actual-value: unquote('#{$rac-filter-name}(#{$rac-filter-value})');
+  filter: $rac-filter-actual-value;
+  -moz-filter: $rac-filter-actual-value;
+  -ms-filter: $rac-filter-actual-value;
+  -o-filter: $rac-filter-actual-value;
+  -webkit-filter: $rac-filter-actual-value;
+}
+
+/**
+ * @stable [11.05.2020]
+ */
+@mixin rac-filter (
+  $rac-filter-custom: unset,
+  $rac-filter-value: unset,
+  $rac-filter-name: blur
+) {
+  @if $rac-filter-value != unset {
+    @if $rac-filter-custom != unset {
+      #{rac-cls($rac-filter-custom)} {
+        @include _rac-filter-properties (
+          $rac-filter-name: $rac-filter-name,
+          $rac-filter-value: $rac-filter-value
+        );
+      }
+    } @else {
+      @include _rac-filter-properties (
+        $rac-filter-name: $rac-filter-name,
+        $rac-filter-value: $rac-filter-value
+      );
+    }
   }
 }

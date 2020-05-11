@@ -1,5 +1,6 @@
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
 import { IDefaultLayoutProps } from './layout-definition.interface';
+import { IDialogProps } from './dialog-definition.interface';
 import { IFieldProps } from './field-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
@@ -100,6 +101,7 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
 export interface IComponentsSettingsEntity {
   baseSelect?: IBaseSelectProps;
   defaultLayout?: IDefaultLayoutProps;
+  dialog?: IDialogProps;
   field?: IFieldProps;
   header?: IHeaderProps;
   listItem?: IListItemProps;

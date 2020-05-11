@@ -385,6 +385,7 @@ export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IOutputFormatWrapper { outputFormat?: string; }
 export interface IOutputTimeFormatWrapper { outputTimeFormat?: string; }
 export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
+export interface IOverlayWrapper<TValue = boolean> { overlay?: TValue; }
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
 export interface IPageWrapper<TPage = number> { page?: TPage; }
 export interface IParamsWrapper<TValue = {}> { params?: TValue; }

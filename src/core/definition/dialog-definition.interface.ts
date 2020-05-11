@@ -22,6 +22,7 @@ import {
   IOnCloseWrapper,
   IOnDeactivateWrapper,
   IOpenedWrapper,
+  IOverlayWrapper,
   IScrollableWrapper,
   IWidthWrapper,
 } from '../definitions.interface';
@@ -47,36 +48,39 @@ export interface IGenericBaseDialogEntity
 }
 
 /**
+ * @presets-entity
+ * @stable [10.05.2020]
+ */
+export interface IPresetsDialogEntity
+  extends IAcceptableWrapper,
+    IClosableWrapper,
+    IConfirmWrapper,
+    IDefaultWrapper,
+    IOnAcceptWrapper,
+    IOnActivateWrapper,
+    IOnBeforeAcceptWrapper,
+    IOnCloseWrapper,
+    IOnDeactivateWrapper,
+    IOverlayWrapper,
+    IScrollableWrapper {
+}
+
+/**
+ * TODO Presets
  * @generic-entity
  * @stable [21.10.2019]
  */
 export interface IGenericDialogEntity
   extends IGenericBaseDialogEntity,
-    IAcceptableWrapper,
+    IPresetsDialogEntity,
     IAcceptActionConfigurationWrapper<IButtonProps>,
     IAcceptDisabledWrapper,
     IAcceptTextWrapper,
     ICheckModalWrapper,
-    IClosableWrapper,
     ICloseActionConfigurationWrapper<IButtonProps>,
     ICloseDisabledWrapper,
     ICloseTextWrapper,
-    IConfirmWrapper,
-    IDefaultWrapper,
-    IExtraActionsWrapper<JSX.Element>,
-    IScrollableWrapper {
-}
-
-/**
- * @behavioral-entity
- * @stable [21.01.2020]
- */
-export interface IBehavioralDialogEntity
-  extends IOnAcceptWrapper,
-    IOnActivateWrapper,
-    IOnBeforeAcceptWrapper,
-    IOnCloseWrapper,
-    IOnDeactivateWrapper {
+    IExtraActionsWrapper<JSX.Element> {
 }
 
 /**
@@ -105,8 +109,7 @@ export interface IDialog<TProps extends IGenericComponentProps = IGenericCompone
  */
 export interface IDialogProps
   extends IGenericComponentProps,
-    IGenericDialogEntity,
-    IBehavioralDialogEntity {
+    IGenericDialogEntity {
 }
 
 /**
@@ -148,6 +151,7 @@ export interface IUnsavedFormChangesDialogContainerProps
  * @stable [11.03.2020]
  */
 export enum DialogClassesEnum {
+  ANCHORED_DIALOG = 'rac-anchored-dialog',
   CONFIRM_DIALOG = 'rac-confirm-dialog',
   DEFAULT_DIALOG = 'rac-default-dialog',
   DIALOG = 'rac-dialog',
@@ -160,7 +164,11 @@ export enum DialogClassesEnum {
   INLINE_DIALOG = 'rac-inline-dialog',
   MENU_DIALOG = 'rac-menu-dialog',
   MODAL_DIALOG = 'rac-modal-dialog',
+  NOT_ANCHORED_DIALOG = 'rac-not-anchored-dialog',
+  NOT_TRANSPARENT_DIALOG = 'rac-not-transparent-dialog',
+  OVERLAY_DIALOG = 'rac-overlay-dialog',
   PLACE_DIALOG = 'rac-place-dialog',
   PLACE_DIALOG_TITLE = 'rac-place-dialog__title',
   PREVIEW_DIALOG = 'rac-preview-dialog',
+  TRANSPARENT_DIALOG = 'rac-transparent-dialog',
 }

@@ -1,4 +1,3 @@
-@import '../constant';
 @import '../mixin';
 @import './_dialog-constant';
 
@@ -18,12 +17,12 @@
     $rac-dialog-actions-neighbor-child-margin: $rac-dialog-actions-neighbor-child-margin,
     $rac-dialog-body-border-radius: $rac-dialog-body-border-radius,
     $rac-dialog-body-content-display: $rac-dialog-body-content-display,
-    $rac-dialog-body-content-flex: $rac-dialog-body-content-flex,
+    $rac-dialog-body-content-flex-grow: $rac-dialog-body-content-flex-grow,
     $rac-dialog-body-content-overflow: $rac-dialog-body-content-overflow,
     $rac-dialog-body-content-position: $rac-dialog-body-content-position,
     $rac-dialog-body-content-wrapper-display: $rac-dialog-body-content-wrapper-display,
     $rac-dialog-body-content-wrapper-flex-direction: $rac-dialog-body-content-wrapper-flex-direction,
-    $rac-dialog-body-content-wrapper-flex: $rac-dialog-body-content-wrapper-flex,
+    $rac-dialog-body-content-wrapper-flex-grow: $rac-dialog-body-content-wrapper-flex-grow,
     $rac-dialog-body-content-wrapper-position: $rac-dialog-body-content-wrapper-position,
     $rac-dialog-body-display: $rac-dialog-body-display,
     $rac-dialog-body-title-border-bottom: $rac-dialog-body-title-border-bottom,
@@ -44,7 +43,7 @@
     $rac-dialog-body-content-wrapper-padding: $rac-default-dialog-body-content-wrapper-padding,
     $rac-dialog-body-display: $rac-default-dialog-body-display,
     $rac-dialog-body-flex-direction: $rac-default-dialog-body-flex-direction,
-    $rac-dialog-body-flex: $rac-default-dialog-body-flex,
+    $rac-dialog-body-flex-grow: $rac-default-dialog-body-flex-grow,
     $rac-dialog-body-max-height: $rac-default-dialog-body-max-height,
     $rac-dialog-body-max-width: $rac-default-dialog-body-max-width,
     $rac-dialog-body-padding: $rac-default-dialog-body-padding,
@@ -95,5 +94,20 @@
   @include rac-dialog (
     $rac-dialog-custom: $rac-not-transparent-dialog-cls,
     $rac-dialog-background: $rac-not-transparent-dialog-background
+  );
+
+  /**
+   * @overlay-dialog
+   * @stable [11.05.2020]
+   */
+  @include rac-dialog (
+    $rac-dialog-custom: $rac-overlay-dialog-cls,
+    $rac-dialog-align-items: $rac-overlay-dialog-align-items,
+    $rac-dialog-background: $rac-overlay-dialog-background,
+    $rac-dialog-body-display: $rac-overlay-dialog-body-display,
+    $rac-dialog-body-flex-grow: $rac-overlay-dialog-body-flex-grow,
+    $rac-dialog-display: $rac-overlay-dialog-display,
+    $rac-dialog-justify-content: $rac-overlay-dialog-justify-content,
+    $rac-dialog-opacity: $rac-overlay-dialog-opacity
   );
 }

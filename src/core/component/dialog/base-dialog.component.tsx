@@ -570,6 +570,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {TProps}
    */
   private get mergedProps(): TProps {
-    return mergeWithSystemProps(this.props, this.settings.components.baseDialog) as TProps;
+    return mergeWithSystemProps(this.props, this.settings.components.dialog) as TProps;
   }
 }

@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 
 import {
+  IAcceptableWrapper,
   IActionsRenderedWrapper,
   IAllowEmptyFilterValueWrapper,
   IAllowSingleTabWrapper,
@@ -12,6 +13,7 @@ import {
   IChangeableWrapper,
   ICheckModalWrapper,
   IClearActionRenderedWrapper,
+  IClosableWrapper,
   ICompactWrapper,
   IConfirmWrapper,
   IDecoratedWrapper,
@@ -47,6 +49,7 @@ import {
   INavigateBackWrapper,
   IOddWrapper,
   IOpenedWrapper,
+  IOverlayWrapper,
   IPlaceActionRenderedWrapper,
   IPlainValueWrapper,
   IPreventFocusWrapper,
@@ -215,6 +218,30 @@ export const isScrollable = (entity: IScrollableWrapper): boolean =>
  */
 export const isDefault = (entity: IDefaultWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.default !== false, false);
+
+/**
+ * @stable [11.05.2020]
+ * @param {IOverlayWrapper} entity
+ * @returns {boolean}
+ */
+export const isOverlay = (entity: IOverlayWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.overlay === true, false);
+
+/**
+ * @stable [11.05.2020]
+ * @param {IAcceptableWrapper} entity
+ * @returns {boolean}
+ */
+export const isAcceptable = (entity: IAcceptableWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.acceptable !== false, false);
+
+/**
+ * @stable [11.05.2020]
+ * @param {IClosableWrapper} entity
+ * @returns {boolean}
+ */
+export const isClosable = (entity: IClosableWrapper): boolean =>
+  ifNotNilThanValue(entity, () => entity.closable !== false, false);
 
 /**
  * @stable [28.11.2019]

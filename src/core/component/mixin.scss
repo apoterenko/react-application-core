@@ -8,41 +8,6 @@
 @import './toolbar/_toolbar-mixin';
 
 /**
- * @stable [13.01.2019]
- */
-@mixin _rac-filter-properties($rac-filter-value: unset,
-                              $rac-filter-name: unset) {
-  $rac-filter-actual-value: unquote('#{$rac-filter-name}(#{$rac-filter-value})');
-  filter: $rac-filter-actual-value;
-  -ms-filter: $rac-filter-actual-value;
-  -o-filter: $rac-filter-actual-value;
-  -webkit-filter: $rac-filter-actual-value;
-  -moz-filter: $rac-filter-actual-value;
-}
-
-/**
- * @stable [13.01.2019]
- */
-@mixin rac-filter($rac-filter-custom: unset,
-                  $rac-filter-value: unset,
-                  $rac-filter-name: blur) {
-
-  @if $rac-filter-custom != unset {
-    .#{$rac-filter-custom} {
-      @include _rac-filter-properties(
-        $rac-filter-value: $rac-filter-value,
-        $rac-filter-name: $rac-filter-name
-      );
-    }
-  } @else {
-    @include _rac-filter-properties(
-      $rac-filter-value: $rac-filter-value,
-      $rac-filter-name: $rac-filter-name
-    );
-  }
-}
-
-/**
  * @stable [27.10.2018] TODO
  */
 @mixin rac-invert($value: 100%) {
@@ -2270,6 +2235,7 @@
   $rac-dialog-body-content-border-radius: unset,                                              /* @stable [25.01.2020] */
   $rac-dialog-body-content-box-shadow: unset,                                                 /* @stable [25.01.2020] */
   $rac-dialog-body-content-display: unset,                                                    /* @stable [29.12.2019] */
+  $rac-dialog-body-content-flex-grow: unset,                                                  /* @stable [11.05.2020] */
   $rac-dialog-body-content-flex: unset,                                                       /* @stable [29.12.2019] */
   $rac-dialog-body-content-margin: unset,                                                     /* @stable [25.01.2020] */
   $rac-dialog-body-content-overflow: unset,                                                   /* @stable [10.01.2020] */
@@ -2280,6 +2246,7 @@
   $rac-dialog-body-content-wrapper-box-shadow: unset,                                         /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-display: unset,                                            /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-flex-direction: unset,                                     /* @stable [16.03.2020] */
+  $rac-dialog-body-content-wrapper-flex-grow: unset,                                          /* @stable [11.05.2020] */
   $rac-dialog-body-content-wrapper-flex: unset,                                               /* @stable [16.03.2020] */
   $rac-dialog-body-content-wrapper-font-size: unset,                                          /* @stable [27.04.2020] */
   $rac-dialog-body-content-wrapper-line-height: unset,                                        /* @stable [27.04.2020] */
@@ -2290,6 +2257,7 @@
   $rac-dialog-body-content-wrapper-text-align: unset,                                         /* @stable [27.04.2020] */
   $rac-dialog-body-display: unset,                                                            /* @stable [06.01.2020] */
   $rac-dialog-body-flex-direction: unset,                                                     /* @stable [06.01.2020] */
+  $rac-dialog-body-flex-grow: unset,                                                          /* @stable [11.05.2020] */
   $rac-dialog-body-flex: unset,                                                               /* @stable [10.03.2020] */
   $rac-dialog-body-height: unset,                                                             /* @stable [29.12.2019] */
   $rac-dialog-body-justify-content: unset,                                                    /* @stable [29.12.2019] */
@@ -2317,6 +2285,7 @@
   $rac-dialog-height: unset,                                                                  /* @stable [10.01.2020] */
   $rac-dialog-justify-content: unset,                                                         /* @stable [10.01.2020] */
   $rac-dialog-left: unset,                                                                    /* @stable [10.01.2020] */
+  $rac-dialog-opacity: unset,                                                                 /* @stable [11.05.2020] */
   $rac-dialog-position: unset,                                                                /* @stable [10.01.2020] */
   $rac-dialog-top: unset,                                                                     /* @stable [10.01.2020] */
   $rac-dialog-width: unset,                                                                   /* @stable [10.01.2020] */
@@ -2330,6 +2299,7 @@
       $rac-styles-height: $rac-dialog-height,
       $rac-styles-justify-content: $rac-dialog-justify-content,
       $rac-styles-left: $rac-dialog-left,
+      $rac-styles-opacity: $rac-dialog-opacity,
       $rac-styles-position: $rac-dialog-position,
       $rac-styles-top: $rac-dialog-top,
       $rac-styles-width: $rac-dialog-width,
@@ -2343,6 +2313,7 @@
           $rac-styles-border-radius: $rac-dialog-body-border-radius,
           $rac-styles-display: $rac-dialog-body-display,
           $rac-styles-flex-direction: $rac-dialog-body-flex-direction,
+          $rac-styles-flex-grow: $rac-dialog-body-flex-grow,
           $rac-styles-flex: $rac-dialog-body-flex,
           $rac-styles-height: $rac-dialog-body-height,
           $rac-styles-justify-content: $rac-dialog-body-justify-content,
@@ -2365,6 +2336,7 @@
               $rac-styles-box-shadow: $rac-dialog-body-content-wrapper-box-shadow,
               $rac-styles-display: $rac-dialog-body-content-wrapper-display,
               $rac-styles-flex-direction: $rac-dialog-body-content-wrapper-flex-direction,
+              $rac-styles-flex-grow: $rac-dialog-body-content-wrapper-flex-grow,
               $rac-styles-flex: $rac-dialog-body-content-wrapper-flex,
               $rac-styles-font-size: $rac-dialog-body-content-wrapper-font-size,
               $rac-styles-line-height: $rac-dialog-body-content-wrapper-line-height,
@@ -2383,6 +2355,7 @@
                 $rac-styles-border-radius: $rac-dialog-body-content-border-radius,
                 $rac-styles-box-shadow: $rac-dialog-body-content-box-shadow,
                 $rac-styles-display: $rac-dialog-body-content-display,
+                $rac-styles-flex-grow: $rac-dialog-body-content-flex-grow,
                 $rac-styles-flex: $rac-dialog-body-content-flex,
                 $rac-styles-margin: $rac-dialog-body-content-margin,
                 $rac-styles-overflow: $rac-dialog-body-content-overflow,
