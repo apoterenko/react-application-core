@@ -2,6 +2,7 @@ import { IEntity } from '../definitions.interface';
 import { IFormEntity } from '../definition';
 import {
   inProgress,
+  isTouched,
   isValid,
 } from './wrapper';
 import { Selectors } from './select';
@@ -33,9 +34,18 @@ const isFormEntityChanged = <TEntity = IEntity>(entity: IFormEntity<TEntity>): b
 
 /**
  * @stable [11.05.2020]
+ * @param {IFormEntity<TEntity>} entity
+ * @returns {boolean}
+ */
+const isFormEntityTouched = <TEntity = IEntity>(entity: IFormEntity<TEntity>): boolean =>
+  isTouched(Selectors.form(entity));
+
+/**
+ * @stable [11.05.2020]
  */
 export class FormEntityUtils {
   public static readonly inProgress = isFormEntityInProgress;                                 /* @stable [11.05.2020] */
   public static readonly inValid = isFormEntityValid;                                         /* @stable [11.05.2020] */
   public static readonly isChanged = isFormEntityChanged;                                     /* @stable [11.05.2020] */
+  public static readonly isTouched = isFormEntityTouched;                                     /* @stable [11.05.2020] */
 }

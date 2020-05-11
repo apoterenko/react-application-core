@@ -8,9 +8,7 @@ import {
   IFilterFormDialogContainerProps,
 } from '../../../definition';
 import {
-  isFormDirty,
-  isFormTouched,
-  isFormValid,
+  FormUtils,
   Mappers,
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
@@ -60,7 +58,7 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
       <Dialog
         ref={this.actualRef}
         title={FILTERS}
-        closeText={this.canAccept ? CLEAR_ALL : CLOSE}
+        closeText={this.isFormTouched ? CLEAR_ALL : CLOSE}
         acceptText={APPLY}
         acceptDisabled={!this.canAccept}
         onAccept={this.onAcceptFilter}
@@ -87,17 +85,25 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
    * @stable [23.04.2020]
    */
   private onClearFilter(): void {
-    if (this.canAccept) {
+    if (this.isFormTouched) {
       this.dispatchPlainAction(FilterFormDialogActionBuilder.buildClearPlainAction(this.sectionName));
     }
   }
 
   /**
-   * @stable [23.04.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get canAccept(): boolean {
-    const formProps = this.props;
-    return isFormValid(formProps) && (isFormDirty(formProps) || isFormTouched(formProps));
+    const props = this.props;
+    return FormUtils.isValid(props) && this.isFormTouched; // The only default changes do not allow accepting (!)
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @returns {boolean}
+   */
+  private get isFormTouched(): boolean {
+    return FormUtils.isTouched(this.props);
   }
 }

@@ -21,7 +21,6 @@ import {
   isChangeable,
   isDirty,
   isDisabled,
-  isTouched,
   isValid,
 } from './wrapper';
 import { isDef } from './type';
@@ -139,18 +138,6 @@ export const isFormDirty = <TEntity = IEntity>(entity: IFormProps<TEntity>): boo
   );
 
 /**
- * @stable [23.04.2020]
- * @param {IFormProps<TEntity>} entity
- * @returns {boolean}
- */
-export const isFormTouched = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  ifNotNilThanValue(
-    entity,
-    () => ifNotNilThanValue(selectForm(entity), (form) => isTouched(form), false),
-    false
-  );
-
-/**
  * @stable [03.02.2020]
  * @param {IFormProps<TEntity extends IEntity>} formEntity
  * @param {IGenericFieldEntity2} fieldProps
@@ -221,5 +208,6 @@ export const isFormTabActive = <TEntity extends IEntity = IEntity>(formProps: IF
 export class FormUtils {
   public static readonly inProgress = FormEntityUtils.inProgress;                                   /* @stable [11.05.2020] */
   public static readonly isChanged = FormEntityUtils.isChanged;                                     /* @stable [11.05.2020] */
+  public static readonly isTouched = FormEntityUtils.isTouched;                                     /* @stable [11.05.2020] */
   public static readonly isValid = isFormValid;                                                     /* @stable [11.05.2020] */
 }
