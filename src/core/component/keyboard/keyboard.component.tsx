@@ -99,7 +99,7 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
       </div>
     );
 
-    return this.isInline ? el : ReactDOM.createPortal(el, ENV.documentBody);
+    return this.isInline ? el : ReactDOM.createPortal(el, ENV.documentBody);  // TODO Dialog
   }
 
   /**

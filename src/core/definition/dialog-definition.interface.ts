@@ -167,6 +167,7 @@ export enum DialogClassesEnum {
   NOT_ANCHORED_DIALOG = 'rac-not-anchored-dialog',
   NOT_TRANSPARENT_DIALOG = 'rac-not-transparent-dialog',
   OVERLAY_DIALOG = 'rac-overlay-dialog',
+  OVERLAY_DIALOG_CLOSE_ICON = 'rac-overlay-dialog__close-icon',
   OVERLAY_FILTER = 'rac-overlay-filter',
   PLACE_DIALOG = 'rac-place-dialog',
   PLACE_DIALOG_TITLE = 'rac-place-dialog__title',

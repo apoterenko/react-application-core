@@ -30,7 +30,7 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [11.05.2020]
    * @returns {string}
    */
   protected get acceptText(): string {
@@ -38,7 +38,7 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [11.05.2020]
    * @returns {string | boolean}
    */
   protected get title(): string | boolean {
