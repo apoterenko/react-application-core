@@ -2,6 +2,7 @@ import * as R from 'ramda';
 
 import {
   IExtendedFormEntity,
+  IFieldProps,
   IFormProps,
   IGenericFieldEntity2,
   ITabProps,
@@ -42,20 +43,20 @@ const isFormValid = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
 
 /**
  * @stable [06.05.2020]
- * @param {IExtendedFormEntity<TEntity>} wrapper
+ * @param {IExtendedFormEntity<TEntity>} formEntity
  * @param {string} fieldName
  * @returns {AnyT}
  */
-const getFieldValueByName = <TEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>,
+const getFieldValueByName = <TEntity = IEntity>(formEntity: IExtendedFormEntity<TEntity>,
                                                 fieldName: string): AnyT => (
   ifNotEmptyThanValue(
     fieldName,
     () => (
       ifNotNilThanValue(
         (
-          R.isNil(wrapper.entity)
-            ? Selectors.formEntityChanges(wrapper)
-            : wrapper.entity
+          R.isNil(formEntity.entity)
+            ? Selectors.formEntityChanges(formEntity)
+            : formEntity.entity
         ),
         (data) => data[fieldName],
         UNDEF_SYMBOL
@@ -78,39 +79,38 @@ export const getFormFieldValue = <TEntity = IEntity>(wrapper: IExtendedFormEntit
     : getFieldValueByName(wrapper, fieldProps.name);
 
 /**
- * @stable [06.05.2020]
- * @param {IExtendedFormEntity<TEntity>} wrapper
- * @param {IGenericFieldEntity2} fieldProps
- * @param {IGenericFieldEntity2} defaultFieldProps
+ * @stable [11.05.2020]
+ * @param {IExtendedFormEntity<TEntity>} formEntity
+ * @param {IFieldProps} fieldProps
+ * @param {IFieldProps} defaultFieldProps
  * @returns {AnyT}
  */
-export const getFormFieldDisplayValue = <TEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>,
-                                                            fieldProps: IGenericFieldEntity2,
-                                                            defaultFieldProps?: IGenericFieldEntity2): AnyT =>
+const getFormFieldDisplayValue = <TEntity = IEntity>(formEntity: IExtendedFormEntity<TEntity>,
+                                                     fieldProps: IFieldProps,
+                                                     defaultFieldProps?: IFieldProps): AnyT =>
   isDef(fieldProps.displayValue)
     ? fieldProps.displayValue
     : (
       getFieldValueByName(
-        wrapper,
+        formEntity,
         fieldProps.displayName || ifNotNilThanValue(defaultFieldProps, () => defaultFieldProps.displayName)
       )
     );
 
 /**
- * @stable [03.02.2020]
- * @param {IFormProps<TEntity extends IEntity>} entity
- * @param {IGenericFieldEntity2} fieldProps
+ * @stable [11.05.2020]
+ * @param {IExtendedFormEntity<TEntity>} entity
+ * @param {IFieldProps} fieldProps
  * @returns {AnyT}
  */
-export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>,
-                                                                             fieldProps: IGenericFieldEntity2): AnyT =>
+const getFormFieldOriginalValue = <TEntity = IEntity>(entity: IExtendedFormEntity<TEntity>,
+                                                      fieldProps: IFieldProps): AnyT =>
   isDef(fieldProps.originalValue)
     ? fieldProps.originalValue
     : (
       ifNotNilThanValue(
         entity.originalEntity,
-        (originalEntity) =>
-          ifNotEmptyThanValue(fieldProps.name, (fieldName) => Reflect.get(originalEntity, fieldName), UNDEF_SYMBOL),
+        (originalEntity) => ifNotEmptyThanValue(fieldProps.name, (fieldName) => originalEntity[fieldName], UNDEF_SYMBOL),
         UNDEF_SYMBOL
       )
     );
@@ -206,6 +206,8 @@ export const isFormTabActive = <TEntity extends IEntity = IEntity>(formProps: IF
  * @stable [11.05.2020]
  */
 export class FormUtils {
+  public static readonly fieldDisplayValue = getFormFieldDisplayValue;                              /* @stable [11.05.2020] */
+  public static readonly fieldOriginalValue = getFormFieldOriginalValue;                            /* @stable [11.05.2020] */
   public static readonly inProgress = FormEntityUtils.inProgress;                                   /* @stable [11.05.2020] */
   public static readonly isChanged = FormEntityUtils.isChanged;                                     /* @stable [11.05.2020] */
   public static readonly isTouched = FormEntityUtils.isTouched;                                     /* @stable [11.05.2020] */

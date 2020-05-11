@@ -19,8 +19,7 @@ import {
   calc,
   cloneReactNodes,
   defValuesFilter,
-  getFormFieldDisplayValue,
-  getFormFieldOriginalValue,
+  FormUtils,
   getFormFieldValue,
   ifNotNilThanValue,
   isActionsRendered,
@@ -30,10 +29,8 @@ import {
   isFormFieldChangeable,
   isFormFieldDisabled,
   isFormFieldReadOnly,
-  isFormInProgress,
   isFormResettable,
   isFormSubmittable,
-  isFormValid,
   isFull,
   isNewEntity,
   isObjectNotEmpty,
@@ -242,11 +239,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isFormValid(): boolean {
-    return isFormValid(this.props);
+    return FormUtils.isValid(this.props);
   }
 
   /**
@@ -274,11 +271,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [25.09.2019]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isFormBusy(): boolean {
-    return isFormInProgress(this.props);
+    return FormUtils.inProgress(this.props);
   }
 
   /**
@@ -318,22 +315,22 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [16.11.2019]
+   * @stable [11.05.2020]
    * @param {IField} field
    * @returns {AnyT}
    */
   private getFieldOriginalValue(field: IField): AnyT {
-    return getFormFieldOriginalValue(this.props, field.props);
+    return FormUtils.fieldOriginalValue(this.props, field.props);
   }
 
   /**
-   * @stable [24.12.2019]
-   * @param {IFieldProps2} props
-   * @param {IFieldProps2} defaultProps
+   * @stable [11.05.2020]
+   * @param {IField} field
+   * @param {IFieldProps} defaultProps
    * @returns {AnyT}
    */
-  private getFieldDisplayValue(props: IFieldProps2, defaultProps: IFieldProps2): AnyT {
-    return getFormFieldDisplayValue(this.props, props, defaultProps);
+  private getFieldDisplayValue(field: IField, defaultProps: IFieldProps): AnyT {
+    return FormUtils.fieldDisplayValue(this.props, field.props, defaultProps);
   }
 
   /**

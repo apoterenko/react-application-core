@@ -90,6 +90,8 @@ export interface IPresetsFieldEntity<TEntity = IEntity>
   extends IActionsWrapper<IFieldActionEntity[]>,
     IBindDictionaryWrapper,
     IDelayTimeoutWrapper,
+    IDisplayNameWrapper,
+    IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IFormatWrapper,
     IFullWrapper,
     ILabelWrapper,
@@ -109,11 +111,21 @@ export interface IPresetsFieldEntity<TEntity = IEntity>
 }
 
 /**
+ * @redux-entity
+ * @stable [08.05.2020]
+ */
+export interface IReduxFieldEntity
+  extends IOriginalValueWrapper,
+    IValueWrapper {
+}
+
+/**
  * @generic-entity
  * @stable [09.05.2020]
  */
 export interface IGenericFieldEntity
-  extends IPresetsFieldEntity {
+  extends IPresetsFieldEntity,
+    IReduxFieldEntity {
 }
 
 export interface IGenericFieldEntity2
@@ -124,13 +136,10 @@ export interface IGenericFieldEntity2
     IChangeableWrapper,
     IDefaultValueWrapper,
     IDisabledWrapper,
-    IDisplayNameWrapper,
     IDisplayValueRenderedOnlyWrapper,
-    IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
     IKeepChangesWrapper,
-    IOriginalValueWrapper,
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,                                             /* @stable [03.02.2020] */
     IProgressWrapper,
@@ -138,8 +147,7 @@ export interface IGenericFieldEntity2
     ISyntheticCursorWrapper,
     ITabIndexWrapper,
     IUseKeyboardWrapper,
-    IValidWrapper,                                                            /* @stable [17.04.2020] */
-    IValueWrapper {
+    IValidWrapper {
 }
 
 /**
