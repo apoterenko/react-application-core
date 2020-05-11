@@ -3,7 +3,6 @@ import {
   IAcceptActionConfigurationWrapper,
   IAcceptDisabledWrapper,
   IAcceptTextWrapper,
-  IAcceptWrapper,
   IActivateWrapper,
   IAnchorElementWrapper,
   ICheckModalWrapper,
@@ -99,7 +98,6 @@ export interface IActivateDialogConfigEntity
 export interface IDialog<TProps extends IGenericComponentProps = IGenericComponentProps,
                          TState extends IDialogState = IDialogState>
   extends IGenericComponent<TProps, TState>,
-    IAcceptWrapper,
     IActivateWrapper<IActivateDialogConfigEntity> {
 }
 

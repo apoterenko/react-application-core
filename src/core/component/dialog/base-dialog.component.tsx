@@ -96,8 +96,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [11.05.2020]
    */
   public componentDidMount(): void {
+    this.showOverlayIfApplicable();
     if (this.isOverlay) {
-      this.domAccessor.addClassNamesToRootElement(DialogClassesEnum.OVERLAY_FILTER);
       this.activate();
     }
   }
@@ -106,6 +106,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [05.04.2020]
    */
   public componentWillUnmount(): void {
+    this.closeOverlayIfApplicable();
     this.unsubscribeEvents();
   }
 
@@ -134,17 +135,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         props.onActivate();
       }
     });
-  }
-
-  /**
-   * @stable [06.01.2020]
-   */
-  public accept(): void {
-    this.onAcceptClick();
-  }
-
-  public close(): void {
-    this.doClose();
   }
 
   /**
@@ -253,9 +243,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const props = this.mergedProps;
 
     this.setState({opened: false}, () => {
-      if (this.isOverlay) {
-        this.domAccessor.removeClassNamesFromRootElement(DialogClassesEnum.OVERLAY_FILTER);
-      }
+      this.closeOverlayIfApplicable();
       this.unsubscribeEvents();
 
       if (isFn(this.onDeactivateCallback)) {
@@ -426,6 +414,24 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     if (isFn(this.closeEventUnsubscriber)) {
       this.closeEventUnsubscriber();
       this.closeEventUnsubscriber = null;
+    }
+  }
+
+  /**
+   * @stable [11.05.2020]
+   */
+  private showOverlayIfApplicable(): void {
+    if (this.isOverlay) {
+      this.domAccessor.addClassNamesToRootElement(DialogClassesEnum.OVERLAY_FILTER);
+    }
+  }
+
+  /**
+   * @stable [11.05.2020]
+   */
+  private closeOverlayIfApplicable(): void {
+    if (this.isOverlay) {
+      this.domAccessor.removeClassNamesFromRootElement(DialogClassesEnum.OVERLAY_FILTER);
     }
   }
 
