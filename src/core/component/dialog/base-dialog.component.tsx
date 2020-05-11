@@ -40,8 +40,6 @@ import { GenericComponent } from '../base/generic.component';
 /**
  * @component-impl
  * @stable [11.05.2020]
- *
- * Please use the "Mappers.TODO"
  */
 export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                         TState extends IDialogState = IDialogState>
