@@ -16,7 +16,6 @@ import {
   ifNotNilThanValue,
 } from './cond';
 import {
-  inProgress,
   isAlwaysDirty,
   isAlwaysResettable,
   isChangeable,
@@ -27,13 +26,20 @@ import {
 } from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
-import { selectEditableEntity } from './mapper';
 import { isTabActive } from './tab';
 import {
   selectForm,
   Selectors,
 } from './select';
-import { isObjectNotEmpty } from './object';
+import { FormEntityUtils } from './form-entity';
+
+/**
+ * @stable [11.05.2020]
+ * @param {IFormProps<TEntity>} entity
+ * @returns {boolean}
+ */
+const isFormValid = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
+  isValid(entity) && FormEntityUtils.inValid(entity);
 
 /**
  * @stable [06.05.2020]
@@ -116,15 +122,7 @@ export const getFormFieldOriginalValue = <TEntity extends IEntity = IEntity>(ent
  * @returns {boolean}
  */
 export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  R.isNil(entity) ? false : (isDisabled(entity) || isFormInProgress(entity));
-
-/**
- * @stable [06.05.2020]
- * @param {IExtendedFormEntity<TEntity>} entity
- * @returns {boolean}
- */
-export const isFormChanged = <TEntity = IEntity>(entity: IExtendedFormEntity<TEntity>): boolean =>
-  isObjectNotEmpty(Selectors.formEntityChanges(entity));
+  R.isNil(entity) ? false : (isDisabled(entity) || FormEntityUtils.inProgress(entity));
 
 /**
  * @stable [23.04.2020]
@@ -151,22 +149,6 @@ export const isFormTouched = <TEntity = IEntity>(entity: IFormProps<TEntity>): b
     () => ifNotNilThanValue(selectForm(entity), (form) => isTouched(form), false),
     false
   );
-
-/**
- * @stable [16.01.2020]
- * @param {IFormProps<TEntity extends IEntity>} entity
- * @returns {boolean}
- */
-export const isFormValid = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  isValid(entity) && isValid(selectForm(entity)); // Redux or auto validation
-
-/**
- * @stable [03.02.2020]
- * @param {IFormProps<TEntity extends IEntity>} entity
- * @returns {boolean}
- */
-export const isFormInProgress = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  inProgress(selectEditableEntity<TEntity>(entity));
 
 /**
  * @stable [03.02.2020]
@@ -232,3 +214,12 @@ export const isFormResettable = <TEntity extends IEntity = IEntity>(formProps: I
 export const isFormTabActive = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>,
                                                                    tab: ITabProps): boolean =>
   isTabActive(selectForm(formProps), tab);
+
+/**
+ * @stable [11.05.2020]
+ */
+export class FormUtils {
+  public static readonly inProgress = FormEntityUtils.inProgress;                                   /* @stable [11.05.2020] */
+  public static readonly isChanged = FormEntityUtils.isChanged;                                     /* @stable [11.05.2020] */
+  public static readonly isValid = isFormValid;                                                     /* @stable [11.05.2020] */
+}

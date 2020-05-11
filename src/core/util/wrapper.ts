@@ -2,6 +2,7 @@ import * as R from 'ramda';
 
 import {
   IAcceptableWrapper,
+  IAcceptDisabledWrapper,
   IActionsRenderedWrapper,
   IAllowEmptyFilterValueWrapper,
   IAllowSingleTabWrapper,
@@ -14,6 +15,7 @@ import {
   ICheckModalWrapper,
   IClearActionRenderedWrapper,
   IClosableWrapper,
+  ICloseDisabledWrapper,
   ICompactWrapper,
   IConfirmWrapper,
   IDecoratedWrapper,
@@ -435,6 +437,22 @@ export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean => R.isNil(wrappe
  * @returns {boolean}
  */
 export const isInline = (wrapper: IInlineWrapper): boolean => R.isNil(wrapper) ? false : wrapper.inline === true;
+
+/**
+ * @stable [11.05.2020]
+ * @param {ICloseDisabledWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isCloseDisabled = (wrapper: ICloseDisabledWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.closeDisabled === true;
+
+/**
+ * @stable [11.05.2020]
+ * @param {IAcceptDisabledWrapper} wrapper
+ * @returns {boolean}
+ */
+export const isAcceptDisabled = (wrapper: IAcceptDisabledWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.acceptDisabled === true;
 
 /**
  * @stable [23.03.2020]

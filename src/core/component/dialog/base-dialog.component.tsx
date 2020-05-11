@@ -7,8 +7,10 @@ import {
   calc,
   handlerPropsFactory,
   isAcceptable,
+  isAcceptDisabled,
   isCheckModalNeeded,
   isClosable,
+  isCloseDisabled,
   isConfirm,
   isDefault,
   isFn,
@@ -273,39 +275,42 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return (
       orNull(
         !this.isOverlay && (this.closable || this.acceptable),
-        () => (
-          <div className={DialogClassesEnum.DIALOG_ACTIONS}>
-            {
-              orNull(
-                this.closable,
-                () => (
-                  <Button
-                    icon={IconsEnum.TIMES}
-                    {...this.mergedProps.closeActionConfiguration}
-                    disabled={this.isCloseButtonDisabled}
-                    onClick={this.onCloseClick}>
-                    {this.t(this.closeText)}
-                  </Button>
+        () => {
+          const mergedProps = this.mergedProps;
+          return (
+            <div className={DialogClassesEnum.DIALOG_ACTIONS}>
+              {
+                orNull(
+                  this.closable,
+                  () => (
+                    <Button
+                      icon={IconsEnum.TIMES}
+                      {...mergedProps.closeActionConfiguration}
+                      disabled={isCloseDisabled(mergedProps)}
+                      onClick={this.onCloseClick}>
+                      {this.t(this.closeText)}
+                    </Button>
+                  )
                 )
-              )
-            }
-            {
-              orNull(
-                this.acceptable,
-                () => (
-                  <Button
-                    icon={IconsEnum.CHECK_CIRCLE}
-                    raised={true}
-                    {...this.mergedProps.acceptActionConfiguration}
-                    disabled={this.isAcceptButtonDisabled}
-                    onClick={this.onAcceptClick}>
-                    {this.t(this.acceptText)}
-                  </Button>
+              }
+              {
+                orNull(
+                  this.acceptable,
+                  () => (
+                    <Button
+                      icon={IconsEnum.CHECK_CIRCLE}
+                      raised={true}
+                      {...mergedProps.acceptActionConfiguration}
+                      disabled={isAcceptDisabled(mergedProps)}
+                      onClick={this.onAcceptClick}>
+                      {this.t(this.acceptText)}
+                    </Button>
+                  )
                 )
-              )
-            }
-          </div>
-        )
+              }
+            </div>
+          );
+        }
       )
     );
   }
@@ -434,22 +439,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    */
   private get closable(): boolean {
     return isClosable(this.mergedProps);
-  }
-
-  /**
-   * @stable [06.01.2020]
-   * @returns {boolean}
-   */
-  private get isCloseButtonDisabled(): boolean {
-    return this.mergedProps.closeDisabled === true;
-  }
-
-  /**
-   * @stable [06.01.2020]
-   * @returns {boolean}
-   */
-  private get isAcceptButtonDisabled(): boolean {
-    return this.mergedProps.acceptDisabled === true;
   }
 
   /**

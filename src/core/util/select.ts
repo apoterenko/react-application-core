@@ -432,22 +432,22 @@ const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
  * @stable [06.05.2020]
  */
 export class Selectors {
-  public static activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
-  public static changes = selectChanges;
-  public static directions = selectDirections;                                                         /* @stable [08.05.2020] */
-  public static entity = selectEntity;
-  public static filter = selectFilter;
-  public static form = selectForm;
-  public static formEntityChanges = selectFormEntityChanges;
-  public static layout = selectLayout;                                                                 /* @stable [08.05.2020] */
-  public static list = selectList;
-  public static listProgress = selectListProgress;                                                     /* @stable [08.05.2020] */
-  public static listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
-  public static listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
-  public static primaryFilter = selectPrimaryFilter;                                                   /* @stable [10.05.2020] */
-  public static query = selectQuery;
-  public static queryFilter = selectQueryFilter;
-  public static queryFilterEntityQuery = selectQueryFilterEntityQuery;
-  public static secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
-  public static sectionName = selectSectionName;
+  public static readonly activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
+  public static readonly changes = selectChanges;
+  public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
+  public static readonly entity = selectEntity;
+  public static readonly filter = selectFilter;
+  public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */
+  public static readonly formEntityChanges = selectFormEntityChanges;                                           /* @stable [11.05.2020] */
+  public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */
+  public static readonly list = selectList;
+  public static readonly listProgress = selectListProgress;                                                     /* @stable [08.05.2020] */
+  public static readonly listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
+  public static readonly listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
+  public static readonly primaryFilter = selectPrimaryFilter;                                                   /* @stable [10.05.2020] */
+  public static readonly query = selectQuery;
+  public static readonly queryFilter = selectQueryFilter;
+  public static readonly queryFilterEntityQuery = selectQueryFilterEntityQuery;
+  public static readonly secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
+  public static readonly sectionName = selectSectionName;
 }
