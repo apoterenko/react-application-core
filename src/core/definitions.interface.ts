@@ -383,7 +383,6 @@ export interface IOriginalValueWrapper<TValue = AnyT> { originalValue?: TValue; 
 export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IOutputFormatWrapper { outputFormat?: string; }
 export interface IOutputTimeFormatWrapper { outputTimeFormat?: string; }
-export interface IOverlayBackgroundClassNameWrapper { overlayBackgroundClassName?: string; }
 export interface IOverlayClosableWrapper { overlayClosable?: boolean; }
 export interface IOverlayWrapper<TValue = boolean> { overlay?: TValue; }
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
@@ -669,13 +668,6 @@ export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
  */
 export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
   filterChanges?: TChanges;
-}
-
-/**
- * @stable [31.07.2018]
- */
-export interface IInputWrapper<TInput = HTMLInputElement | HTMLTextAreaElement> {
-  input?: TInput;
 }
 
 /**

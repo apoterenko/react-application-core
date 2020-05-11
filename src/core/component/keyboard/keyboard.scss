@@ -33,6 +33,7 @@
     $rac-keyboard-custom: rac-keyboard-portal,
     $rac-keyboard-absolute-h-center-alignment: $rac-keyboard-portal-absolute-h-center-alignment,
     $rac-keyboard-bottom: $rac-keyboard-portal-bottom,
-    $rac-keyboard-position: $rac-keyboard-portal-position
+    $rac-keyboard-position: $rac-keyboard-portal-position,
+    $rac-keyboard-z-index: $rac-keyboard-portal-z-index // TODO Remove after migrating to Dialog
   );
 }

@@ -21,6 +21,7 @@ $color-24: rgba(0, 0, 0, 0.64) !default;
 /**/
 $rac-z-index-drawer: 2 !default;
 $rac-z-index-dialog: 3 !default;
+$rac-z-index-keyboard: 4 !default;
 /**/
 $rac-border-radius-0: 3px !default;
 $rac-border-radius-1: 4px !default;
@@ -163,6 +164,7 @@ $rac-keyboard-padding: 12px !default;
 $rac-keyboard-portal-absolute-h-center-alignment: true !default;
 $rac-keyboard-portal-bottom: 0 !default;
 $rac-keyboard-portal-position: fixed !default;
+$rac-keyboard-portal-z-index: $rac-z-index-keyboard !default;
 
 /* @stable [24.06.2018] */
 $rac-icon-width0: 12px !default;
@@ -1105,17 +1107,6 @@ $rac-title-white-space: nowrap !default;
 
 /* @stable [03.10.2018] */
 $rac-flex-separator-width: 24px !default;
-
-/* @stable [10.01.2019] */
-$rac-overlay-background: $color-24 !default;
-$rac-overlay-opacity: 1 !default;
-$rac-overlay-close-action-position: absolute !default;
-$rac-overlay-close-action-top: 32px !default;
-$rac-overlay-close-action-right: 32px !default;
-$rac-overlay-close-action-size: unset !default;
-$rac-overlay-close-action-color: unset !default;
-$rac-overlay-close-action-content-size: unset !default;
-$rac-overlay-progress-icon-size: 64px !default;
 
 /* @stable [24.03.2019] */
 $rac-google-maps-body-flex: 1 !default;

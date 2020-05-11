@@ -1932,62 +1932,10 @@
 /**
  * @stable [13.01.2019]
  */
-@mixin rac-overlay(
-  $rac-overlay-custom: unset,
-  $rac-overlay-background: unset,
-  $rac-overlay-opacity: unset,
-  $rac-overlay-filter-value: unset,
-  $rac-overlay-close-action-position: unset,
-  $rac-overlay-close-action-top: unset,
-  $rac-overlay-close-action-right: unset,
-  $rac-overlay-close-action-size: unset,
-  $rac-overlay-close-action-content-size: unset,
-  $rac-overlay-close-action-color: unset,
-  $rac-overlay-progress-icon-size: unset,
-  $rac-overlay-progress-z-index: unset
-) {
-
-  #{rac-cls(rac-overlay, $rac-overlay-custom)} {
-    @include rac-styles(
-      $rac-styles-background: $rac-overlay-background,
-      $rac-styles-opacity: $rac-overlay-opacity
-    );
-
-    @include rac-icon(
-      $rac-icon-custom: rac-overlay-close-action,
-      $rac-icon-position: $rac-overlay-close-action-position,
-      $rac-icon-top: $rac-overlay-close-action-top,
-      $rac-icon-right: $rac-overlay-close-action-right,
-      $rac-icon-size: $rac-overlay-close-action-size,
-      $rac-icon-content-size: $rac-overlay-close-action-content-size,
-      $rac-icon-color: $rac-overlay-close-action-color
-    );
-
-
-    @include rac-styles(
-      $rac-styles-custom: rac-overlay-progress,
-      $rac-styles-z-index: $rac-overlay-progress-z-index
-    );
-
-    @include rac-icon(
-      $rac-icon-custom: rac-overlay-progress-icon,
-      $rac-icon-size: $rac-overlay-progress-icon-size
-    );
-
-    @if $rac-overlay-filter-value != unset {
-      @include rac-filter(
-        $rac-filter-value: $rac-overlay-filter-value
-      );
-    }
-  }
-}
-
-/**
- * @stable [13.01.2019]
- */
 @mixin rac-keyboard (
   $rac-keyboard-custom: unset,
   /**/
+  $rac-keyboard-z-index: unset,
   $rac-keyboard-absolute-h-center-alignment: unset,
   $rac-keyboard-background: unset,
   $rac-keyboard-border-radius: unset,                                                     /* @stable [02.02.2020] */
@@ -2027,6 +1975,7 @@
   #{rac-cls(rac-keyboard, $rac-keyboard-custom)} {
     @include rac-styles (
       $rac-styles-background: $rac-keyboard-background,
+      $rac-styles-z-index: $rac-keyboard-z-index,
       $rac-styles-border-radius: $rac-keyboard-border-radius,
       $rac-styles-border: $rac-keyboard-border,
       $rac-styles-bottom: $rac-keyboard-bottom,
