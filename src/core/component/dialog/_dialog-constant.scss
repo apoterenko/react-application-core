@@ -4,10 +4,9 @@
 /************************/
 /* @stable [27.04.2020] */
 /************************/
+$rac-primary-dialog-background-0: $rac-primary-color-metis-7 !default;
 $rac-primary-dialog-color-0: $rac-primary-color-callisto-1 !default;
-/**/
 $rac-primary-dialog-max-height-0: 80vh !default;
-/**/
 $rac-primary-dialog-max-width-0: 50vw !default;
 
 /************************/
@@ -32,7 +31,7 @@ $rac-confirm-dialog-body-max-width: $rac-primary-max-width-2 !default;
 /************************/
 /* @stable [27.04.2020] */
 /************************/
-$rac-not-transparent-dialog-background: $rac-primary-color-metis-7 !default;
+$rac-not-transparent-dialog-background: $rac-primary-dialog-background-0 !default;
 
 /************************/
 /* @stable [27.04.2020] */
@@ -59,7 +58,7 @@ $rac-default-dialog-justify-content: center !default;
 /* @stable [11.05.2020] */
 /************************/
 $rac-overlay-dialog-align-items: unset !default;
-$rac-overlay-dialog-background: $rac-primary-color-metis-7 !default;
+$rac-overlay-dialog-background: $rac-primary-dialog-background-0 !default;
 $rac-overlay-dialog-body-display: $rac-primary-display-0 !default;
 $rac-overlay-dialog-body-flex-grow: $rac-primary-flex-grow-1 !default;
 $rac-overlay-dialog-display: $rac-primary-display-0 !default;
