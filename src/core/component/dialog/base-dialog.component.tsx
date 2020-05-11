@@ -6,13 +6,17 @@ import { Button } from '../button';
 import {
   calc,
   handlerPropsFactory,
+  isAcceptable,
   isCheckModalNeeded,
+  isClosable,
   isConfirm,
   isDefault,
   isFn,
   isInline,
+  isOverlay,
   isScrollable,
   joinClassName,
+  mergeWithSystemProps,
   orNull,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
@@ -87,6 +91,15 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
+   * @stable [11.05.2020]
+   */
+  public componentDidMount(): void {
+    if (this.isOverlay) {
+      this.activate();
+    }
+  }
+
+  /**
    * @stable [05.04.2020]
    */
   public componentWillUnmount(): void {
@@ -98,8 +111,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @param {IActivateDialogConfigEntity} payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
-    const props = this.props;
-
     this.setState({opened: true}, () => {
       this.onAfterRender();
 
@@ -114,6 +125,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       if (isFn(onActivate)) {
         onActivate.call(this);
       }
+
+      const props = this.mergedProps;
       if (isFn(props.onActivate)) {
         props.onActivate();
       }
@@ -135,7 +148,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [06.01.2020]
    */
   protected onAcceptClick(): void {
-    const props = this.props;
+    const props = this.mergedProps;
 
     if (props.onBeforeAccept) {
       props.onBeforeAccept();
@@ -153,7 +166,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {string}
    */
   protected get title(): string | boolean {
-    return this.props.title;
+    return this.mergedProps.title;
   }
 
   /**
@@ -161,7 +174,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {string}
    */
   protected get closeText(): string {
-    return this.props.closeText || this.settings.messages.DIALOG_CANCEL;
+    return this.mergedProps.closeText || this.settings.messages.DIALOG_CANCEL;
   }
 
   /**
@@ -169,14 +182,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {string}
    */
   protected get acceptText(): string {
-    return this.props.acceptText || this.settings.messages.DIALOG_ACCEPT;
+    return this.mergedProps.acceptText || this.settings.messages.DIALOG_ACCEPT;
   }
 
   /**
    * @stable [05.01.2020]
    */
   private onCloseClick(): void {
-    const props = this.props;
+    const props = this.mergedProps;
 
     this.doClose(() => {
       if (isFn(props.onClose)) {
@@ -215,7 +228,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
     this.unsubscribeEvents();
 
-    const props = this.props;
+    const props = this.mergedProps;
     this.domAccessor.setPosition({
       ...props.positionConfiguration as {},
       element: this.bodyRef.current,
@@ -234,7 +247,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @param {() => void} callback
    */
   private doClose(callback?: () => void): void {
-    const props = this.props;
+    const props = this.mergedProps;
 
     this.setState({opened: false}, () => {
       this.unsubscribeEvents();
@@ -253,13 +266,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [24.03.2019]
+   * @stable [11.05.2020]
    * @returns {JSX.Element}
    */
   private get actionsElement(): JSX.Element {
     return (
       orNull(
-        this.closable || this.acceptable,
+        !this.isOverlay && (this.closable || this.acceptable),
         () => (
           <div className={DialogClassesEnum.DIALOG_ACTIONS}>
             {
@@ -268,7 +281,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                 () => (
                   <Button
                     icon={IconsEnum.TIMES}
-                    {...this.props.closeActionConfiguration}
+                    {...this.mergedProps.closeActionConfiguration}
                     disabled={this.isCloseButtonDisabled}
                     onClick={this.onCloseClick}>
                     {this.t(this.closeText)}
@@ -283,7 +296,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                   <Button
                     icon={IconsEnum.CHECK_CIRCLE}
                     raised={true}
-                    {...this.props.acceptActionConfiguration}
+                    {...this.mergedProps.acceptActionConfiguration}
                     disabled={this.isAcceptButtonDisabled}
                     onClick={this.onAcceptClick}>
                     {this.t(this.acceptText)}
@@ -305,7 +318,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return (
       <div
         ref={this.bodyRef}
-        style={{width: calc<number>(this.props.width)}}
+        style={{width: calc<number>(this.mergedProps.width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
@@ -362,7 +375,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         {
           this.hasExtraActions && (
             <div className={DialogClassesEnum.DIALOG_EXTRA_ACTIONS}>
-              {this.props.extraActions}
+              {this.mergedProps.extraActions}
             </div>
           )
         }
@@ -412,7 +425,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get acceptable(): boolean {
-    return this.props.acceptable !== false;
+    return isAcceptable(this.mergedProps);
   }
 
   /**
@@ -420,7 +433,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get closable(): boolean {
-    return this.props.closable !== false;
+    return isClosable(this.mergedProps);
   }
 
   /**
@@ -428,7 +441,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get isCloseButtonDisabled(): boolean {
-    return this.props.closeDisabled === true;
+    return this.mergedProps.closeDisabled === true;
   }
 
   /**
@@ -436,7 +449,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get isAcceptButtonDisabled(): boolean {
-    return this.props.acceptDisabled === true;
+    return this.mergedProps.acceptDisabled === true;
   }
 
   /**
@@ -452,7 +465,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get isAnchored(): boolean {
-    return !R.isNil(this.props.anchorElement);
+    return !R.isNil(this.mergedProps.anchorElement);
   }
 
   /**
@@ -460,15 +473,23 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get isInline(): boolean {
-    return isInline(this.props);
+    return isInline(this.mergedProps);
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isDefault(): boolean {
-    return isDefault(this.props);
+    return isDefault(this.mergedProps);
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @returns {boolean}
+   */
+  private get isOverlay(): boolean {
+    return isOverlay(this.mergedProps);
   }
 
   /**
@@ -476,15 +497,15 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get isConfirm(): boolean {
-    return isConfirm(this.props);
+    return isConfirm(this.mergedProps);
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [11.05.2020]
    * @returns {boolean}
    */
   private get isModal(): boolean {
-    return !this.isInline && !this.isAnchored;
+    return (!this.isInline && !this.isAnchored) || this.isOverlay;
   }
 
   /**
@@ -492,7 +513,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get hasExtraActions(): boolean {
-    return !R.isNil(this.props.extraActions);
+    return !R.isNil(this.mergedProps.extraActions);
   }
 
   /**
@@ -500,7 +521,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get isScrollable(): boolean {
-    return isScrollable(this.props);
+    return isScrollable(this.mergedProps);
   }
 
   /**
@@ -512,26 +533,43 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [11.05.2020]
    * @returns {string}
    */
   private get dialogClassName(): string {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
 
     return joinClassName(
-      calc<string>(props.className),
+      calc<string>(mergedProps.className),
       DialogClassesEnum.DIALOG,
-      this.isDefault && DialogClassesEnum.DEFAULT_DIALOG,
+      this.isOverlay && DialogClassesEnum.OVERLAY_DIALOG,
       this.isModal && DialogClassesEnum.MODAL_DIALOG,
-      this.isConfirm && DialogClassesEnum.CONFIRM_DIALOG,
-      this.isAnchored ? 'rac-anchored-dialog' : 'rac-not-anchored-dialog',
-      this.isInline
-        ? DialogClassesEnum.INLINE_DIALOG
-        : (
-          !this.isAnchored && (
-            this.doesAnotherModalDialogOpen ? 'rac-transparent-dialog' : 'rac-not-transparent-dialog'
-          )
-        ),
+      !this.isOverlay && (
+        joinClassName(
+          this.isDefault && DialogClassesEnum.DEFAULT_DIALOG,
+          this.isConfirm && DialogClassesEnum.CONFIRM_DIALOG,
+          this.isAnchored
+            ? DialogClassesEnum.ANCHORED_DIALOG
+            : DialogClassesEnum.NOT_ANCHORED_DIALOG,
+          this.isInline
+            ? DialogClassesEnum.INLINE_DIALOG
+            : (
+              !this.isAnchored && (
+                this.doesAnotherModalDialogOpen
+                  ? DialogClassesEnum.TRANSPARENT_DIALOG
+                  : DialogClassesEnum.NOT_TRANSPARENT_DIALOG
+              )
+            ),
+        )
+      )
     );
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @returns {TProps}
+   */
+  private get mergedProps(): TProps {
+    return mergeWithSystemProps(this.props, this.settings.components.baseDialog) as TProps;
   }
 }
