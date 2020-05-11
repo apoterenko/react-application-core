@@ -241,8 +241,19 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
     this.$closeEventUnsubscriber = this.domAccessor.captureEvent({
       eventName: EventsEnum.CLICK,
-      capture: true, // We must process a capture phase of click event because a component may stop an events bubbling
       callback: this.onDocumentClickCapture,
+
+      /**
+       * We must process a capture phase of click event because a component may stop an events bubbling.
+       * This case is reproduced in case of child non-modal dialogs:
+       *   1. Open the modal dialog "D" with field "F" <Non-modal Select>
+       *   2. Click on field "F" => simple menu is open
+       *   3. Try click on the body of "D"
+       *   4. Simple menu will be closed automatically
+       *   5. "D" is still open
+       *   6. See the "onDocumentClickCapture" method
+       */
+      capture: true,
     });
   }
 
