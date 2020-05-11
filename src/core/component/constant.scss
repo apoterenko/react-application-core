@@ -801,7 +801,6 @@ $rac-tab-position: relative !default;
 /* @stable [05.08.2018] */
 /************************/
 $rac-menu-dialog-icon-close-cls: rac-menu-dialog__icon-close;
-$rac-not-transparent-dialog-cls: rac-not-transparent-dialog;
 /**/
 $rac-dialog-color-0: $rac-color-0-1 !default;
 $rac-dialog-color-1: $rac-color-0-0 !default;
@@ -815,9 +814,6 @@ $rac-dialog-actions-flex: $rac-primary-flex-0 !default;
 $rac-dialog-actions-justify-content: center !default;
 $rac-dialog-actions-margin: $rac-offset-3 $rac-offset-3 0 $rac-offset-3 !default;
 $rac-dialog-actions-neighbor-child-margin: 0 0 0 $rac-offset-1 !default;
-$rac-dialog-body-border-radius: unset !default;
-$rac-dialog-body-content-overflow: unset !default;
-$rac-dialog-body-content-position: relative !default;
 $rac-dialog-body-display: unset !default;
 $rac-dialog-body-title-border-bottom: 1px solid $rac-dialog-color-1 !default;
 $rac-dialog-body-title-font-weight: $rac-font-weight-2 !default;

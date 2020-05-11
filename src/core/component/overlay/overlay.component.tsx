@@ -71,9 +71,9 @@ export class Overlay extends BaseComponent<IOverlayProps> {
     const overlayBackgroundClassName = this.props.overlayBackgroundClassName;
     if (isString(overlayBackgroundClassName)) {
       if (add) {
-        this.domAccessor.addClassNames(this.domAccessor.getRootElement(), overlayBackgroundClassName);
+       // this.domAccessor.addClassNames(this.domAccessor.getRootElement(), overlayBackgroundClassName);
       } else {
-        this.domAccessor.removeClassNames(this.domAccessor.getRootElement(), overlayBackgroundClassName);
+       // this.domAccessor.removeClassNames(this.domAccessor.getRootElement(), overlayBackgroundClassName);
       }
     }
   }

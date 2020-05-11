@@ -110,4 +110,14 @@
     $rac-dialog-justify-content: $rac-overlay-dialog-justify-content,
     $rac-dialog-opacity: $rac-overlay-dialog-opacity
   );
+
+  /**
+   * @overlay-background
+   * @stable [11.05.2020]
+   */
+  @include rac-filter (
+    $rac-filter-custom: $rac-overlay-filter-cls,
+    $rac-filter-name: $rac-overlay-filter-name,
+    $rac-filter-value: $rac-overlay-filter-value
+  );
 }

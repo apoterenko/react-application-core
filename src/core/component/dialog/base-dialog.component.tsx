@@ -97,6 +97,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    */
   public componentDidMount(): void {
     if (this.isOverlay) {
+      this.domAccessor.addClassNamesToRootElement(DialogClassesEnum.OVERLAY_FILTER);
       this.activate();
     }
   }
@@ -252,6 +253,9 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const props = this.mergedProps;
 
     this.setState({opened: false}, () => {
+      if (this.isOverlay) {
+        this.domAccessor.removeClassNamesFromRootElement(DialogClassesEnum.OVERLAY_FILTER);
+      }
       this.unsubscribeEvents();
 
       if (isFn(this.onDeactivateCallback)) {

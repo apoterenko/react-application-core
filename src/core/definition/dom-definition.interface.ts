@@ -122,8 +122,10 @@ export interface IDomParentConfigEntity
  */
 export interface IDomAccessor {
   documentBody?: Element;
+  rootElement?: Element;
   addChild(child: Element, parentEl?: Element): Element;
   addClassNames(element: Element, ...clsNames: string[]): void;
+  addClassNamesToRootElement(...clsName: string[]): void;
   addRootElement(): Element;
   applyPosition(source: Element, position: string, value: number | (() => number)): void;
   asImageUrl(url: string): string;
@@ -145,7 +147,6 @@ export interface IDomAccessor {
   getHeight(source: Element): number;
   getParents(cfg: IDomParentConfigEntity): IJQueryElement;
   getParentsAsElements(cfg: IDomParentConfigEntity): Element[];
-  getRootElement(): Element;
   getScrollInfo(el: Element): IReduxXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;
@@ -160,6 +161,7 @@ export interface IDomAccessor {
   reload(forceReload?: boolean): void;
   removeChild(child: Element, parentEl?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
+  removeClassNamesFromRootElement(...clsNames: string[]);
   scrollTo(payload: IReduxXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
   setPosition(cfg: IDomPositionConfigEntity): void;
   setScrollLeft(el: Element, left: number): void;

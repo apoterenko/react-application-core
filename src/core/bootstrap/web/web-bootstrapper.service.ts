@@ -118,7 +118,7 @@ export class WebBootstrapper implements IBootstrapper {
   protected addRootElement(): void {
     this.domAccessor.addClassNames(
       this.domAccessor.addRootElement(),
-      orNull(this.bSettings.flexEnabled, 'rac-flex')
+      orNull(this.bSettings.flexEnabled, 'rac-flex') // TODO Drop later
     );
   }
 

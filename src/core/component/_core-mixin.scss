@@ -543,9 +543,9 @@
 @mixin rac-filter (
   $rac-filter-custom: unset,
   $rac-filter-value: unset,
-  $rac-filter-name: blur
+  $rac-filter-name: unset
 ) {
-  @if $rac-filter-value != unset {
+  @if $rac-filter-value != unset and $rac-filter-name != unset {
     @if $rac-filter-custom != unset {
       #{rac-cls($rac-filter-custom)} {
         @include _rac-filter-properties (

@@ -71,6 +71,14 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [11.05.2020]
+   * @returns {Element}
+   */
+  public get rootElement(): Element {
+    return this.document.getElementById(this.bootstrapSettings.rootId);
+  }
+
+  /**
    * @stable [24.01.2020]
    * @param {IDomPositionConfigEntity} cfg
    */
@@ -286,6 +294,14 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [11.05.2020]
+   * @param {string} clsName
+   */
+  public addClassNamesToRootElement(...clsName: string[]): void {
+    addClassNames(this.rootElement, ...clsName);
+  }
+
+  /**
    * @stable [30.09.2019]
    * @param {(e: Error) => void} callback
    */
@@ -389,14 +405,6 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [29.09.2019]
-   * @returns {Element}
-   */
-  public getRootElement(): Element {
-    return this.document.getElementById(this.bootstrapSettings.rootId);
-  }
-
-  /**
    * @stable [13.01.2019]
    * @param {Element} element
    * @param {string} clsNames
@@ -412,6 +420,14 @@ export class DomAccessor implements IDomAccessor {
    */
   public removeClassNames(element: Element, ...clsNames: string[]): void {
     removeClassNames(element, ...clsNames);
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @param {string} clsNames
+   */
+  public removeClassNamesFromRootElement(...clsNames: string[]): void {
+    this.removeClassNames(this.rootElement, ...clsNames);
   }
 
   /**

@@ -52,16 +52,24 @@ export const createScript = (cfg: Partial<HTMLScriptElement>): Promise<HTMLScrip
  * @param {Element} element
  * @param {string} clsName
  */
-export const addClassNames = (element: Element, ...clsName: string[]): void =>
+export const addClassNames = (element: Element, ...clsName: string[]): void => {
+  if (R.isNil(element)) {
+    return;
+  }
   element.classList.add(...notNilValuesArrayFilter(...clsName));
+};
 
 /**
  * @stable [30.10.2018]
  * @param {Element} element
  * @param {string} clsName
  */
-export const removeClassNames = (element: Element, ...clsName: string[]): void =>
+export const removeClassNames = (element: Element, ...clsName: string[]): void => {
+  if (R.isNil(element)) {
+    return;
+  }
   element.classList.remove(...clsName);
+};
 
 /**
  * @stable [20.09.2019]
