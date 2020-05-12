@@ -2242,7 +2242,13 @@
   $rac-dialog-progress-icon-size: unset,                                                      /* @stable [11.05.2020] */
   $rac-dialog-top: unset,                                                                     /* @stable [10.01.2020] */
   $rac-dialog-width: unset,                                                                   /* @stable [10.01.2020] */
-  $rac-dialog-z-index: unset                                                                  /* @stable [31.01.2020] */
+  $rac-dialog-z-index: unset,                                                                 /* @stable [31.01.2020] */
+  $rac-overlay-dialog-close-icon-color: unset,                                                /* @stable [12.05.2020] */
+  $rac-overlay-dialog-close-icon-content-size: unset,                                         /* @stable [12.05.2020] */
+  $rac-overlay-dialog-close-icon-position: unset,                                             /* @stable [12.05.2020] */
+  $rac-overlay-dialog-close-icon-right: unset,                                                /* @stable [12.05.2020] */
+  $rac-overlay-dialog-close-icon-size: unset,                                                 /* @stable [12.05.2020] */
+  $rac-overlay-dialog-close-icon-top: unset                                                   /* @stable [12.05.2020] */
 ) {
   #{rac-cls(rac-dialog, $rac-dialog-custom)} {
     @include rac-styles (
@@ -2286,6 +2292,16 @@
           @include rac-icon (
             $rac-icon-custom: rac-dialog__progress-icon,
             $rac-icon-size: $rac-dialog-progress-icon-size
+          );
+
+          @include rac-icon (
+            $rac-icon-custom: rac-overlay-dialog__close-icon,
+            $rac-icon-color: $rac-overlay-dialog-close-icon-color,
+            $rac-icon-content-size: $rac-overlay-dialog-close-icon-content-size,
+            $rac-icon-position: $rac-overlay-dialog-close-icon-position,
+            $rac-icon-right: $rac-overlay-dialog-close-icon-right,
+            $rac-icon-size: $rac-overlay-dialog-close-icon-size,
+            $rac-icon-top: $rac-overlay-dialog-close-icon-top
           );
         }
 
