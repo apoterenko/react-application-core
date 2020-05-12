@@ -541,6 +541,7 @@ export interface IUploadUrlWrapper { uploadUrl?: string; }
 export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
 export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 export interface IUrlWrapper<TValue = string> { url?: TValue; }
+export interface IUseActionsWrapper { useActions?: boolean; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }

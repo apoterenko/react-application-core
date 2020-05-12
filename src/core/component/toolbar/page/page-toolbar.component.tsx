@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  areActionsUsed,
   calc,
   inProgress,
   isFirstAllowedWrapper,
@@ -21,10 +22,11 @@ import {
   ToolbarClassesEnum,
 } from '../../../definition';
 import { GenericComponent } from '../../base/generic.component';
+import { Button } from '../../button';
 
 /**
  * @component-impl
- * @stable [05.05.2020]
+ * @stable [12.05.2020]
  *
  * Please use the "Mappers.pageToolbarProps"
  */
@@ -94,6 +96,14 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    */
   private get actionsElement(): JSX.Element {
     const props = this.props;
+    const {
+      FIRST,
+      LAST,
+      NEXT,
+      PREVIOUS,
+    } = this.settings.messages;
+
+    const $areActionsUsed = this.areActionsUsed;
     const isPreviousActionDisabled = this.isPreviousActionDisabled;
     const isNextActionDisabled = this.isNextActionDisabled;
 
@@ -101,39 +111,79 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
       <React.Fragment>
         {
           isFirstAllowedWrapper(props) && (
-            this.uiFactory.makeIcon({
-              type: IconsEnum.ANGLE_DOUBLE_LEFT,
-              className: ToolbarClassesEnum.TOOLBAR_ICON,
-              disabled: isPreviousActionDisabled,
-              onClick: props.onFirst,
-            })
+            $areActionsUsed
+              ? (
+                <Button
+                  text={FIRST}
+                  disabled={isPreviousActionDisabled}
+                  className={ToolbarClassesEnum.TOOLBAR_ACTION}
+                  onClick={props.onFirst}/>
+              )
+              : (
+                this.uiFactory.makeIcon({
+                  type: IconsEnum.ANGLE_DOUBLE_LEFT,
+                  className: ToolbarClassesEnum.TOOLBAR_ICON,
+                  disabled: isPreviousActionDisabled,
+                  onClick: props.onFirst,
+                })
+              )
           )
         }
         {
-          this.uiFactory.makeIcon({
-            type: props.previousIcon || IconsEnum.ANGLE_LEFT,
-            className: ToolbarClassesEnum.TOOLBAR_ICON,
-            disabled: isPreviousActionDisabled,
-            onClick: props.onPrevious,
-          })
+          $areActionsUsed
+            ? (
+              <Button
+                text={PREVIOUS}
+                disabled={isPreviousActionDisabled}
+                className={ToolbarClassesEnum.TOOLBAR_ACTION}
+                onClick={props.onPrevious}/>
+            )
+            : (
+              this.uiFactory.makeIcon({
+                type: props.previousIcon || IconsEnum.ANGLE_LEFT,
+                className: ToolbarClassesEnum.TOOLBAR_ICON,
+                disabled: isPreviousActionDisabled,
+                onClick: props.onPrevious,
+              })
+            )
         }
         {this.pagesElement}
         {
-          this.uiFactory.makeIcon({
-            type: props.nextIcon || IconsEnum.ANGLE_RIGHT,
-            className: ToolbarClassesEnum.TOOLBAR_ICON,
-            disabled: isNextActionDisabled,
-            onClick: props.onNext,
-          })
+          $areActionsUsed
+            ? (
+              <Button
+                text={NEXT}
+                disabled={isNextActionDisabled}
+                className={ToolbarClassesEnum.TOOLBAR_ACTION}
+                onClick={props.onNext}/>
+            )
+            : (
+              this.uiFactory.makeIcon({
+                type: props.nextIcon || IconsEnum.ANGLE_RIGHT,
+                className: ToolbarClassesEnum.TOOLBAR_ICON,
+                disabled: isNextActionDisabled,
+                onClick: props.onNext,
+              })
+            )
         }
         {
           isLastAllowedWrapper(props) && (
-            this.uiFactory.makeIcon({
-              type: IconsEnum.ANGLE_DOUBLE_RIGHT,
-              className: ToolbarClassesEnum.TOOLBAR_ICON,
-              disabled: isNextActionDisabled,
-              onClick: props.onLast,
-            })
+            $areActionsUsed
+              ? (
+                <Button
+                  text={LAST}
+                  disabled={isNextActionDisabled}
+                  className={ToolbarClassesEnum.TOOLBAR_ACTION}
+                  onClick={props.onLast}/>
+              )
+              : (
+                this.uiFactory.makeIcon({
+                  type: IconsEnum.ANGLE_DOUBLE_RIGHT,
+                  className: ToolbarClassesEnum.TOOLBAR_ICON,
+                  disabled: isNextActionDisabled,
+                  onClick: props.onLast,
+                })
+              )
           )
         }
       </React.Fragment>
@@ -202,5 +252,13 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    */
   private get fromNumber(): number {
     return pageCursorFrom(this.props);
+  }
+
+  /**
+   * @stable [12.05.2020]
+   * @returns {boolean}
+   */
+  private get areActionsUsed(): boolean {
+    return areActionsUsed(this.props);
   }
 }

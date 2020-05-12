@@ -72,6 +72,7 @@ import {
   ISubHeaderRenderedWrapper,
   ISyntheticCursorWrapper,
   ITouchedWrapper,
+  IUseActionsWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
   IUsePeriodNavigatorWrapper,
@@ -120,6 +121,14 @@ export const isLastAllowedWrapper = (wrapper: ILastAllowedWrapper): boolean =>
  */
 export const isFirstAllowedWrapper = (wrapper: IFirstAllowedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.firstAllowed !== false;
+
+/**
+ * @stable [12.05.2020]
+ * @param {IUseActionsWrapper} wrapper
+ * @returns {boolean}
+ */
+export const areActionsUsed = (wrapper: IUseActionsWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.useActions === true;
 
 /**
  * @stable [30.01.2020]

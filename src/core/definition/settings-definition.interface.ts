@@ -257,12 +257,15 @@ export interface IMessagesSettingsEntity {
   ERROR?: string;
   EXPORT?: string;
   FILTERS?: string;
+  FIRST?: string;
+  LAST?: string;
   LAST_MONTH?: string;
   LAST_QUARTER?: string;
   LAST_WEEK?: string;
   LAST_YEAR?: string;
   LOG_OUT?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
+  NEXT?: string;
   NO_AVAILABLE_ITEMS_TO_SELECT?: string;
   NO_DATA?: string;
   OK?: string;
@@ -271,6 +274,7 @@ export interface IMessagesSettingsEntity {
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
   PREVIEW?: string;
+  PREVIOUS?: string;
   PUT_MARKER_HERE?: string;
   REFRESH?: string;
   RESET?: string;
@@ -317,12 +321,15 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   ERROR: 'Error',
   EXPORT: 'Export',
   FILTERS: 'Filters',
+  FIRST: 'First',
+  LAST: 'Last',
   LAST_MONTH: 'Last month',
   LAST_QUARTER: 'Last quarter',
   LAST_WEEK: 'Last week',
   LAST_YEAR: 'Last year',
   LOG_OUT: 'Log out',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
+  NEXT: 'Next',
   NO_AVAILABLE_ITEMS_TO_SELECT: 'No available items to select',
   NO_DATA: 'No data',
   OK: 'Ok',
@@ -331,6 +338,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
   PREVIEW: 'Preview',
+  PREVIOUS: 'Previous',
   PUT_MARKER_HERE: 'Put marker here',
   REFRESH: 'Refresh',
   RESET: 'Reset',
