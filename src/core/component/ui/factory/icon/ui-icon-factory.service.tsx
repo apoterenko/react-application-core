@@ -94,6 +94,7 @@ import {
   faClock as faClockRegular,
   faComments as faCommentsRegular,
   faCreditCard,
+  faFile as faFileRegular,
   faFileAlt,
   faHdd,
   faSave,
@@ -391,12 +392,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'doc': (
-      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' fillRule='evenodd' d='M6 24a3.002 3.002 0 0 1-3-3.012V3.012A3.008 3.008 0 0 1 6 0h8.25c.875.027 1.71.372 2.345.975l3.432 3.43c.6.636.945 1.47.975 2.345V21a3 3 0 0 1-3 3H6zm0-3h12V9h-3a3 3 0 0 1-3-3V3c-2.88 0-6 0-6 .009V21zm9-17.379V6h2.38L15 3.621z'
-        />
-      </svg>
-    ),
     [IconsEnum.PHONE]: (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -476,6 +471,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.DOLLAR_SIGN]: faDollarSign,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
     [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
+    [IconsEnum.FILE_REGULAR]: faFileRegular,
     [IconsEnum.FILTER]: faFilter,
     [IconsEnum.LONG_ARROW_ALT_LEFT]: faLongArrowAltLeft,
     [IconsEnum.LONG_ARROW_ALT_RIGHT]: faLongArrowAltRight,

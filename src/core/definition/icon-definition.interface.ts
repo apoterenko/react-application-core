@@ -20,6 +20,7 @@ export enum IconsEnum {
   DOLLAR_SIGN = 'dollar-sign',                                            /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
   FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */
+  FILE_REGULAR = 'file-regular',                                          /* https://fontawesome.com/ */
   FILTER = 'filter',                                                      /* https://fontawesome.com/ */
   FORWARD = 'forward',
   LONG_ARROW_ALT_LEFT = 'long-arrow-alt-left',                            /* https://fontawesome.com/ */

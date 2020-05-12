@@ -5,13 +5,13 @@ import { fromUrlToBlob } from './blob';
 import { isFn } from './type';
 import { nvl } from './nvl';
 import {
-  notNilValuesArrayFilter,
   trueValuesArrayFilter,
 } from './filter';
 import {
   IJQueryElement,
   IReduxXYEntity,
 } from '../definition';
+import { joinClassName } from './cls';
 
 /**
  * @stable [28.08.2019]
@@ -48,7 +48,7 @@ export const createScript = (cfg: Partial<HTMLScriptElement>): Promise<HTMLScrip
   });
 
 /**
- * @stable [30.07.2018]
+ * @stable [12.05.2020]
  * @param {Element} element
  * @param {string} clsName
  */
@@ -56,11 +56,11 @@ export const addClassNames = (element: Element, ...clsName: string[]): void => {
   if (R.isNil(element)) {
     return;
   }
-  element.classList.add(...notNilValuesArrayFilter(...clsName));
+  toJqEl(element).addClass(joinClassName(...clsName));
 };
 
 /**
- * @stable [30.10.2018]
+ * @stable [12.05.2020]
  * @param {Element} element
  * @param {string} clsName
  */
@@ -68,7 +68,7 @@ export const removeClassNames = (element: Element, ...clsName: string[]): void =
   if (R.isNil(element)) {
     return;
   }
-  element.classList.remove(...clsName);
+  toJqEl(element).removeClass(joinClassName(...clsName));
 };
 
 /**
