@@ -169,13 +169,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'log-out': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M2.993 21C2.994 21 3 3 3 3c0 .006 7.5 0 7.5 0a1.5 1.5 0 0 0 0-3H2.992A3.007 3.007 0 0 0 0 3v18c0 1.659 1.335 3 2.993 3H10.5a1.5 1.5 0 0 0 0-3H2.992zm16.128-7.5l-3.72 3.441a1.488 1.488 0 0 0 0 2.121 1.534 1.534 0 0 0 2.148 0l5.771-5.47c.43-.425.68-.988.68-1.59 0-.6-.25-1.168-.68-1.59L17.546 4.94a1.53 1.53 0 0 0-2.146 0 1.485 1.485 0 0 0 0 2.121l3.716 3.438H10.5a1.5 1.5 0 1 0 0 3h8.62z'
-        />
-      </svg>
-    ),
     'list': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>

@@ -23,7 +23,6 @@ import {
 import {
   applySection,
   isString,
-  toActionPrefix,
 } from '../../util';
 import { GenericBaseComponent } from './generic-base.component';
 
@@ -56,15 +55,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     const {sectionName} = this.props;
     const finalSectionName = otherSectionName || sectionName;
     this.dispatchCustomType(`${finalSectionName}.${type}`, applySection(finalSectionName, data));
-  }
-
-  /**
-   * @deprecated Use proxy
-   */
-  public dispatchFrameworkAction<TData = IKeyValue>(type: string, data?: TData, otherSection?: string): void {
-    const props = this.props;
-    const section = otherSection || props.sectionName;
-    this.dispatchCustomType(`${toActionPrefix(section)}.${type}`, applySection(section, data));
   }
 
   /**
