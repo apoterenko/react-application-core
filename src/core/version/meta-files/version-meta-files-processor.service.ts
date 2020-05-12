@@ -2,17 +2,19 @@ import { injectable } from 'inversify';
 import * as R from 'ramda';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { DI_TYPES, lazyInject } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import { ISettingsEntity } from '../../settings';
-import { isObjectNotEmpty, nvl } from '../../util';
-import { Operation } from '../../operation';
+import { isObjectNotEmpty } from '../../util';
+import { VERSION_PROCESSOR_LOADING_INFO_OPERATION } from '../../operation';
 import {
   IStorage,
   ITransport,
   IVersionMetaFilesEntity,
   IVersionProcessor,
   TransportMethodsEnum,
-  VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID,
 } from '../../definition';
 
 @injectable()
@@ -41,11 +43,13 @@ export class VersionMetaFilesProcessor implements IVersionProcessor {
     try {
       data = await Promise.all([
         storage.get(this.versionUuidKeyName),
+
+        // TODO Move to core Api package
         this.transport.request({
           url: metaFilesUrl,
           method: TransportMethodsEnum.GET,
           noAuth: true,
-          operation: Operation.create(VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID),
+          operation: VERSION_PROCESSOR_LOADING_INFO_OPERATION,
         })
       ]);
     } catch (e) {

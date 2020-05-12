@@ -12,6 +12,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faArrowUp,
+  faBackspace,
   faBars,
   faCannabis,
   faChartLine,
@@ -236,11 +237,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'pin-delete-thin': (
-      <svg xmlns='http://www.w3.org/2000/svg' width='40' height='24' viewBox='0 0 40 24'>
-        <path fill='currentColor' d='M10.037 0L0 12l10.037 12h26.766c1.76 0 3.2-1.44 3.2-3.2V3.2c0-1.76-1.44-3.2-3.2-3.2H10.038zm.732 1.6h26.034c.894 0 1.6.706 1.6 1.6v17.6c0 .894-.706 1.6-1.6 1.6H10.772L2 12l8.769-10.4zm7.4 5.034l-1.131 1.132L21.272 12l-4.234 4.234 1.13 1.132 4.235-4.235 4.235 4.235 1.13-1.132L23.535 12l4.235-4.234-1.131-1.132-4.235 4.235-4.234-4.235z'/>
-      </svg>
-    ),
     'user': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -352,12 +348,6 @@ export class UiIconFactory implements IUiIconFactory {
           />
         </defs>
         <use fill='currentColor' transform='matrix(-1 0 0 1 24 0)' xlinkHref='#4696442e-6afc-43cd-85c9-b7bb0e931cd2' />
-      </svg>
-    ),
-    'key-delete': (
-      <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'>
-        <path fill='currentColor' d='M4 24l12 16h28V8H16L4 24zM.879 21.879l13-17A3 3 0 0 1 16 4h29a3 3 0 0 1 3 3v34a3 3 0 0 1-3 3H16a3 3 0 0 1-2.121-.879l-13-17a3 3 0 0 1 0-4.242zM25.172 24l-5.657-5.657c-.586-.585-1.063-1.766 0-2.828 1.062-1.063 2.243-.586 2.828 0L28 21.172l5.657-5.657c.585-.586 1.768-1.06 2.828 0 1.06 1.06.586 2.243 0 2.828L30.828 24l5.657 5.657c.586.585 1.058 1.77 0 2.828-1.058 1.058-2.243.586-2.828 0L28 26.828l-5.657 5.657c-.585.586-1.768 1.06-2.828 0-1.06-1.06-.586-2.243 0-2.828L25.172 24z'
-        />
       </svg>
     ),
     'ok': (
@@ -474,6 +464,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.ANGLE_LEFT]: faAngleLeft,
     [IconsEnum.ANGLE_RIGHT]: faAngleRight,
     [IconsEnum.ARROW_UP]: faArrowUp,
+    [IconsEnum.BACKSPACE]: faBackspace,
     [IconsEnum.CALENDAR_ALT_REGULAR]: faCalendarAltRegular,
     [IconsEnum.CHART_LINE]: faChartLine,
     [IconsEnum.CHECK_CIRCLE]: faCheckCircle,

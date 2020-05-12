@@ -6,7 +6,10 @@ import {
   join,
   notNilValuesArrayFilter,
 } from '../util';
-import { IOperationEntity } from '../definition';
+import {
+  IOperationEntity,
+  VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID,
+} from '../definition';
 import { Operation } from './operation';
 
 /**
@@ -27,3 +30,8 @@ export const makeEntityOperation =
         '-'
       )
     );
+
+/**
+ * @stable [12.05.2020]
+ */
+export const VERSION_PROCESSOR_LOADING_INFO_OPERATION = Operation.create(VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID);
