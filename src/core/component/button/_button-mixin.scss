@@ -1,0 +1,164 @@
+@import '../_core-mixin';
+@import '../icon/_icon-mixin';
+
+/**
+ * @stable [16.01.2019]
+ */
+@mixin rac-button (
+  $rac-button-custom: unset,
+  /**/
+  $rac-button-active-background: unset,                                              /* stable [02.02.2020 ] */
+  $rac-button-active-border: unset,                                                  /* stable [15.02.2020 ] */
+  $rac-button-active-box-shadow: unset,                                              /* stable [15.02.2020 ] */
+  $rac-button-active-left: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-active-padding: unset,                                                 /* stable [15.02.2020 ] */
+  $rac-button-active-position: unset,                                                /* stable [02.02.2020 ] */
+  $rac-button-active-top: unset,                                                     /* stable [02.02.2020 ] */
+  $rac-button-active-transform:  unset,                                              /* stable [15.02.2020 ] */
+  $rac-button-active-transition: unset,                                              /* stable [02.02.2020 ] */
+  $rac-button-align-items: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-background: unset,                                                     /* stable [01.02.2020 ] */
+  $rac-button-border-radius: unset,                                                  /* stable [01.02.2020 ] */
+  $rac-button-border: unset,                                                         /* stable [02.02.2020 ] */
+  $rac-button-color: unset,                                                          /* stable [02.02.2020 ] */
+  $rac-button-content-color: unset,                                                  /* stable [02.02.2020 ] */
+  $rac-button-content-font-size: unset,                                              /* stable [02.02.2020 ] */
+  $rac-button-content-font-weight: unset,                                            /* stable [02.02.2020 ] */
+  $rac-button-content-height: unset,                                                 /* stable [15.02.2020 ] */
+  $rac-button-content-margin: unset,                                                 /* stable [02.02.2020 ] */
+  $rac-button-content-padding: unset,                                                /* stable [24.01.2020 ] */
+  $rac-button-content-text-align: unset,                                             /* stable [24.01.2020 ] */
+  $rac-button-content-white-space: unset,                                            /* stable [24.01.2020 ] */
+  $rac-button-content-width: unset,                                                  /* stable [24.01.2020 ] */
+  $rac-button-content-word-break: unset,                                             /* stable [02.02.2020 ] */
+  $rac-button-cursor: unset,                                                         /* stable [02.02.2020 ] */
+  $rac-button-disabled-background: unset,                                            /* stable [02.02.2020 ] */
+  $rac-button-disabled-cursor: unset,                                                /* stable [02.02.2020 ] */
+  $rac-button-disabled-opacity: unset,                                               /* stable [02.02.2020 ] */
+  $rac-button-disabled-shadow: unset,                                                /* stable [03.02.2020 ] */
+  $rac-button-display: unset,                                                        /* stable [02.02.2020 ] */
+  $rac-button-flex-basis: unset,                                                     /* stable [03.04.2020 ] */
+  $rac-button-flex-grow: unset,                                                      /* stable [26.03.2020 ] */
+  $rac-button-flex: unset,                                                           /* stable [02.02.2020 ] */
+  $rac-button-focus-border: unset,                                                   /* stable [10.02.2020 ] */
+  $rac-button-focus-box-sizing: unset,                                               /* stable [10.02.2020 ] */
+  $rac-button-focus-padding: unset,                                                  /* stable [10.02.2020 ] */
+  $rac-button-height: unset,                                                         /* stable [02.02.2020 ] */
+  $rac-button-hover-background: unset,                                               /* stable [02.02.2020 ] */
+  $rac-button-hover-color: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-hover-shadow: unset,                                                   /* stable [02.02.2020 ] */
+  $rac-button-hover-transform: unset,                                                /* stable [10.02.2020 ] */
+  $rac-button-hover-transition: unset,                                               /* stable [15.02.2020 ] */
+  $rac-button-icon-color: unset,                                                     /* stable [24.01.2020 ] */
+  $rac-button-icon-height: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-icon-margin: unset,                                                    /* stable [02.02.2020 ] */
+  $rac-button-icon-size: unset,                                                      /* stable [02.02.2020 ] */
+  $rac-button-icon-width: unset,                                                     /* stable [02.02.2020 ] */
+  $rac-button-left: unset,                                                           /* stable [02.02.2020 ] */
+  $rac-button-margin-top: unset,                                                     /* stable [24.01.2020 ] */
+  $rac-button-margin: unset,                                                         /* stable [02.02.2020 ] */
+  $rac-button-min-width: unset,                                                      /* stable [02.02.2020 ] */
+  $rac-button-opacity: unset,                                                        /* stable [02.02.2020 ] */
+  $rac-button-overflow: unset,                                                       /* stable [11.03.2020 ] */
+  $rac-button-padding: unset,                                                        /* stable [02.02.2020 ] */
+  $rac-button-position: unset,                                                       /* stable [02.02.2020 ] */
+  $rac-button-right: unset,                                                          /* stable [06.02.2020 ] */
+  $rac-button-shadow: unset,                                                         /* stable [02.02.2020 ] */
+  $rac-button-size: unset,                                                           /* stable [02.02.2020 ] */
+  $rac-button-top: unset,                                                            /* stable [02.02.2020 ] */
+  $rac-button-transition: unset,                                                     /* stable [15.02.2020 ] */
+  $rac-button-width: unset                                                           /* stable [02.02.2020 ] */
+) {
+  #{rac-cls(rac-button, $rac-button-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-button-align-items,
+      $rac-styles-background: $rac-button-background,
+      $rac-styles-border-radius: $rac-button-border-radius,
+      $rac-styles-border: $rac-button-border,
+      $rac-styles-box-shadow: $rac-button-shadow,
+      $rac-styles-color: $rac-button-color,
+      $rac-styles-cursor: $rac-button-cursor,
+      $rac-styles-display: $rac-button-display,
+      $rac-styles-flex-basis: $rac-button-flex-basis,
+      $rac-styles-flex-grow: $rac-button-flex-grow,
+      $rac-styles-flex: $rac-button-flex,
+      $rac-styles-height: $rac-button-height,
+      $rac-styles-left: $rac-button-left,
+      $rac-styles-margin : $rac-button-margin,
+      $rac-styles-margin-top: $rac-button-margin-top,
+      $rac-styles-min-width : $rac-button-min-width,
+      $rac-styles-opacity: $rac-button-opacity,
+      $rac-styles-overflow: $rac-button-overflow,
+      $rac-styles-padding: $rac-button-padding,
+      $rac-styles-position: $rac-button-position,
+      $rac-styles-right: $rac-button-right,
+      $rac-styles-size: $rac-button-size,
+      $rac-styles-top: $rac-button-top,
+      $rac-styles-transition: $rac-button-transition,
+      $rac-styles-width: $rac-button-width
+    );
+
+    @include rac-icon (
+      $rac-icon-color: $rac-button-icon-color,
+      $rac-icon-height: $rac-button-icon-height,
+      $rac-icon-margin: $rac-button-icon-margin,
+      $rac-icon-size: $rac-button-icon-size,
+      $rac-icon-width: $rac-button-icon-width
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-button__content,
+      $rac-styles-color: $rac-button-content-color,
+      $rac-styles-font-size: $rac-button-content-font-size,
+      $rac-styles-font-weight: $rac-button-content-font-weight,
+      $rac-styles-height: $rac-button-content-height,
+      $rac-styles-margin: $rac-button-content-margin,
+      $rac-styles-padding: $rac-button-content-padding,
+      $rac-styles-text-align: $rac-button-content-text-align,
+      $rac-styles-white-space: $rac-button-content-white-space,
+      $rac-styles-width: $rac-button-content-width,
+      $rac-styles-word-break: $rac-button-content-word-break
+    );
+
+    &:focus:not([disabled]) {
+      @include rac-styles (
+        $rac-styles-border: $rac-button-focus-border,
+        $rac-styles-box-sizing: $rac-button-focus-box-sizing,
+        $rac-styles-padding: $rac-button-focus-padding
+      );
+    }
+
+    &:hover:not([disabled]) {
+      @include rac-styles (
+        $rac-styles-background: $rac-button-hover-background,
+        $rac-styles-box-shadow: $rac-button-hover-shadow,
+        $rac-styles-color: $rac-button-hover-color,
+        $rac-styles-transform: $rac-button-hover-transform,
+        $rac-styles-transition: $rac-button-hover-transition
+      );
+    }
+
+    &:active:not([disabled]) {
+      @include rac-styles (
+        $rac-styles-background: $rac-button-active-background,
+        $rac-styles-border: $rac-button-active-border,
+        $rac-styles-box-shadow: $rac-button-active-box-shadow,
+        $rac-styles-left: $rac-button-active-left,
+        $rac-styles-padding: $rac-button-active-padding,
+        $rac-styles-position: $rac-button-active-position,
+        $rac-styles-top: $rac-button-active-top,
+        $rac-styles-transform: $rac-button-active-transform,
+        $rac-styles-transition: $rac-button-active-transition
+      );
+    }
+
+    &[disabled] {
+      @include rac-styles (
+        $rac-styles-background: $rac-button-disabled-background,
+        $rac-styles-box-shadow: $rac-button-disabled-shadow,
+        $rac-styles-cursor: $rac-button-disabled-cursor,
+        $rac-styles-opacity: $rac-button-disabled-opacity
+      );
+    }
+  }
+}
