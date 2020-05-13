@@ -24,7 +24,6 @@ $rac-z-index-dialog: 3 !default;
 $rac-z-index-keyboard: 4 !default;
 /**/
 $rac-border-radius-0: 3px !default;
-$rac-border-radius-1: 4px !default;
 /**/
 $rac-font-size-0: 12px !default;
 $rac-font-size-1: 14px !default;
@@ -53,7 +52,7 @@ $rac-line-height-0: 1.33 !default;
 $rac-line-height-1: 1.14 !default;
 /**/
 $rac-color-0-0: rgba(0, 0, 0, .1) !default;
-$rac-color-0-1: $rac-primary-color-callisto-1 !default;
+$rac-color-0-1: $rac-primary-color-callisto-0 !default;
 $rac-color-0-2: rgba(0, 0, 0, .2) !default;
 $rac-color-0-3: rgba(0, 0, 0, .05) !default;
 $rac-color-0-4: rgba(0, 0, 0, .3) !default;
@@ -151,7 +150,7 @@ $rac-keyboard-key-active-top: 4px !default;
 $rac-keyboard-key-active-transition: top 1s ease-out 0.1s !default;
 $rac-keyboard-key-background-color: $color-10 !default;
 $rac-keyboard-key-background: unset !default;
-$rac-keyboard-key-border-radius: $rac-border-radius-1 !default;
+$rac-keyboard-key-border-radius: $rac-primary-border-radius-2 !default;
 $rac-keyboard-key-border: $rac-keyboard-border !default;
 $rac-keyboard-key-color: unset !default;
 $rac-keyboard-key-font-size: $rac-font-size-2 !default;
@@ -250,7 +249,7 @@ $rac-button-active-top: unset !default;
 $rac-button-active-transition: unset !default;
 $rac-button-align-items: center !default;
 $rac-button-background: $rac-button-color-2 !default;
-$rac-button-border-radius: $rac-border-radius-1 !default;
+$rac-button-border-radius: $rac-primary-border-radius-2 !default;
 $rac-button-border: none !default;
 $rac-button-color: unset !default;
 $rac-button-content-font-size: $rac-font-size-1 !default;
@@ -406,7 +405,7 @@ $rac-grid-display: flex !default;
 $rac-grid-flex-direction: column !default;
 $rac-grid-head-background: $rac-grid-color-0 !default;
 $rac-grid-head-border-left: 1px solid $rac-grid-color-0 !default;
-$rac-grid-head-border-radius: $rac-border-radius-1 $rac-border-radius-1 0 0 !default;
+$rac-grid-head-border-radius: $rac-primary-border-radius-2 $rac-primary-border-radius-2 0 0 !default;
 $rac-grid-head-border-right: 1px solid $rac-grid-color-0 !default;
 $rac-grid-head-box-sizing: border-box !default;
 $rac-grid-head-color: $rac-color-0-1 !default;
@@ -744,7 +743,7 @@ $rac-viewer-preview-icon-size: 40px !default;
 /************************/
 /* @stable [18.03.2020] */
 /************************/
-$rac-error-info-text-color: $rac-primary-color-callisto-0 !default;
+$rac-error-info-text-color: $rac-primary-color-dia-0 !default;
 $rac-full-info-flex-grow: $rac-primary-flex-grow-1 !default;
 $rac-info-align-items: center !default;
 $rac-info-display: $rac-primary-display-0 !default;
@@ -754,7 +753,7 @@ $rac-info-text-display: $rac-primary-display-0 !default;
 $rac-info-text-flex: .75 !default;
 $rac-info-text-font-size: $rac-primary-font-size-0 !default;
 $rac-info-text-justify-content: center !default;
-$rac-info-text-line-height: $rac-primary-line-height-1 !default;
+$rac-info-text-line-height: $rac-primary-line-height-2 !default;
 
 /************************/
 /* @stable [10.02.2020] */
@@ -936,7 +935,7 @@ $rac-form-layout-top-header-margin: unset !default;
 $rac-overlay-message-background: $color-5 !default;
 $rac-overlay-message-max-width: 200px !default;
 $rac-overlay-message-height: 32px !default;
-$rac-overlay-message-border-radius: $rac-border-radius-1 !default;
+$rac-overlay-message-border-radius: $rac-primary-border-radius-2 !default;
 
 /* @stable [13.08.2018] */
 $rac-snackbar-z-index: $snackbar-z-index !default;

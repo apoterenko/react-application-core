@@ -32,8 +32,10 @@ $rac-primary-z-index-max: 1000000 !default;
 /************************/
 /* @stable [18.03.2020] */
 /************************/
-$rac-primary-line-height-0: 1.14 !default;
-$rac-primary-line-height-1: 1.33 !default;
+$rac-primary-line-height-0-0: 1.14 !default;
+$rac-primary-line-height-1-0: 1.2 !default;
+$rac-primary-line-height-1-1: 1.25 !default;
+$rac-primary-line-height-2: 1.33 !default;
 
 /************************/
 /* @stable [18.03.2020] */
@@ -120,11 +122,10 @@ $rac-primary-icon-size-3: $rac-primary-size-4 !default;
 /************************/
 /* @stable [18.03.2020] */
 /************************/
-$rac-primary-color-callisto-0: #ed254e !default;
-$rac-primary-color-callisto-1: #fff !default;
-$rac-primary-color-callisto-2: #f4e6bb !default;
-$rac-primary-color-callisto-3: #ffbf00 !default;
-/**/
+/* callisto */
+$rac-primary-color-callisto-0: #fff !default;
+
+/* metis */
 $rac-primary-color-metis-0: rgba(0, 0, 0, .05) !default;
 $rac-primary-color-metis-0-0: #f0f0f0 !default;
 $rac-primary-color-metis-0-1: #f1f1f1 !default;
@@ -135,7 +136,7 @@ $rac-primary-color-metis-0-5: #f5f5f5 !default;
 $rac-primary-color-metis-0-6: #f6f6f6 !default;
 $rac-primary-color-metis-0-7: #f7f7f7 !default;
 $rac-primary-color-metis-0-8: #f8f8f8 !default;
-/**/
+/* metis */
 $rac-primary-color-metis-1: rgba(0, 0, 0, .1) !default;
 $rac-primary-color-metis-1-0: #e0e0e0 !default;
 $rac-primary-color-metis-1-1: #e1e1e1 !default;
@@ -146,14 +147,15 @@ $rac-primary-color-metis-1-5: #e5e5e5 !default;
 $rac-primary-color-metis-1-6: #e6e6e6 !default;
 $rac-primary-color-metis-1-7: #e7e7e7 !default;
 $rac-primary-color-metis-1-8: #e8e8e8 !default;
-/**/
+/* metis */
 $rac-primary-color-metis-2: rgba(0, 0, 0, .2) !default;
 $rac-primary-color-metis-3: rgba(0, 0, 0, .3) !default;
 $rac-primary-color-metis-4: rgba(0, 0, 0, .4) !default;
 $rac-primary-color-metis-5: rgba(0, 0, 0, .5) !default;
 $rac-primary-color-metis-6: rgba(0, 0, 0, .6) !default;
 $rac-primary-color-metis-7: rgba(0, 0, 0, .7) !default;
-/**/
+
+/* elara */
 $rac-primary-color-elara-0: rgba(255, 255, 255, .05) !default;
 $rac-primary-color-elara-1: rgba(255, 255, 255, .1) !default;
 $rac-primary-color-elara-2: rgba(255, 255, 255, .2) !default;
@@ -164,9 +166,15 @@ $rac-primary-color-elara-6: rgba(255, 255, 255, .6) !default;
 $rac-primary-color-elara-7: rgba(255, 255, 255, .7) !default;
 $rac-primary-color-elara-8: rgba(255, 255, 255, .8) !default;
 
-// elara
-// dia
+/* elara */
+$rac-primary-color-artemis-3: #06aed5 !default;
+
 // ganymede
+$rac-primary-color-ganymede-0: #ffbf00 !default;
+$rac-primary-color-ganymede-1: #f4e6bb !default;
+
+// dia
+$rac-primary-color-dia-0: #ed254e !default;
 
 /************************/
 /* @stable [04.05.2020] */
