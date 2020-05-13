@@ -67,6 +67,12 @@ The library is designed to quickly start develop the business applications are b
 
 # Theme customization (styling)
 
+#### Button
+
+* [_button.scss (13.05.2020)](src/core/component/button/_button.scss)
+* [_button-constant.scss (13.05.2020)](src/core/component/button/_button-constant.scss)
+* [_button-mixin.scss (13.05.2020)](src/core/component/button/_button-constant.scss)
+
 #### Dialog
 
 * [_dialog.scss (11.05.2020)](src/core/component/dialog/_dialog.scss)
