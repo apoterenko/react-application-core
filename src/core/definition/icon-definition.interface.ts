@@ -2,6 +2,7 @@
  * @stable [24.03.2020]
  */
 export enum IconsEnum {
+  EXCLAMATION_CIRCLE = 'exclamation-circle',                              /* https://fontawesome.com/ */
   ANGLE_DOUBLE_LEFT = 'angle-double-left',                                /* https://fontawesome.com/ */
   ANGLE_DOUBLE_RIGHT = 'angle-double-right',                              /* https://fontawesome.com/ */
   ANGLE_LEFT = 'angle-left',                                              /* https://fontawesome.com/ */

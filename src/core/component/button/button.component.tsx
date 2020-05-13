@@ -13,7 +13,6 @@ import {
   isObjectNotEmpty,
   joinClassName,
   mergeWithSystemProps,
-  nvl,
 } from '../../util';
 import {
   ButtonClassesEnum,
@@ -38,7 +37,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
    */
   public render(): JSX.Element {
     const $mergedProps = this.mergedProps;
-    const $text = this.text;
+    const $text = this.getText($mergedProps);
     const $hasContent = this.hasContent($text);
     const $hasIcon = this.hasIcon($mergedProps);
     const className = this.getClassName($mergedProps, $hasContent, $hasIcon);
@@ -57,7 +56,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
 
     const $isIconLeftAligned = this.isIconLeftAligned($mergedProps);
     const $disabled = this.isDisabled($mergedProps);
-    const $iconElement = $hasIcon && this.iconElement;
+    const $iconElement = $hasIcon && this.getIconElement($mergedProps);
 
     return (
       <UniversalIdProviderContext.Consumer>
@@ -117,42 +116,44 @@ export class Button extends GenericBaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [02.02.2020]
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
    * @returns {JSX.Element}
    */
-  private get iconElement(): JSX.Element {
+  private getIconElement($mergedProps: IButtonProps): JSX.Element {
     const {
       error,
       icon,
       progress,
-    } = this.props;
+    } = $mergedProps;
 
     return this.uiFactory.makeIcon({
       type: progress
         ? IconsEnum.SPINNER
-        : (error ? 'error' : icon as string),
+        : (error ? IconsEnum.EXCLAMATION_CIRCLE : icon as string),
     });
   }
 
   /**
-   * @stable [02.02.2020]
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
    * @returns {string}
    */
-  private get text(): string {
+  private getText($mergedProps: IButtonProps): string {
     const {
       error,
       errorMessage,
       progress,
       progressMessage,
       text,
-    } = this.props;
+    } = $mergedProps;
 
     return (
       progress
-        ? nvl(progressMessage, this.settings.messages.WAITING)
+        ? (progressMessage || this.settings.messages.WAITING)
         : (
           error
-            ? nvl(errorMessage, this.settings.messages.ERROR)
+            ? (errorMessage || this.settings.messages.ERROR)
             : text
         )
     );
