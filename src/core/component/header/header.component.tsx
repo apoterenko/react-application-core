@@ -35,7 +35,7 @@ export class Header extends BaseComponent<IHeaderProps> {
     icon: IconsEnum.MORE,
   };
 
-  private readonly menuAnchorRef = React.createRef<Button>();
+  private readonly menuAnchorRef = React.createRef<HTMLButtonElement>();
   private readonly menuRef = React.createRef<Menu>();
 
   /**
@@ -125,7 +125,7 @@ export class Header extends BaseComponent<IHeaderProps> {
     return (
       <React.Fragment>
         <Button
-          ref={this.menuAnchorRef}
+          forwardedRef={this.menuAnchorRef}
           {...this.defaultMenuActionProps}
           {...menuActionConfiguration}
           className={joinClassName(HeaderClassesEnum.HEADER_MENU_ACTION, calc(menuActionConfiguration.className))}
@@ -162,7 +162,7 @@ export class Header extends BaseComponent<IHeaderProps> {
    * @returns {HTMLElement}
    */
   private getMenuAnchorElement(): HTMLElement {
-    return this.menuAnchorRef.current.getSelf();
+    return this.menuAnchorRef.current;
   }
 
   /**

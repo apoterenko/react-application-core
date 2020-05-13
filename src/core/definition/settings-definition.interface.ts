@@ -5,6 +5,7 @@ import { IFieldProps } from './field-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
 import { ITitleProps } from './title-definition.interface';
+import { IButtonProps } from './button-definition.interface';
 
 /**
  * @stable [03.05.2020]
@@ -100,6 +101,7 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
  */
 export interface IComponentsSettingsEntity {
   baseSelect?: IBaseSelectProps;
+  button?: IButtonProps;
   defaultLayout?: IDefaultLayoutProps;
   dialog?: IDialogProps;
   field?: IFieldProps;

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { BaseComponent } from '../base';
 import {
   calc,
   handlerPropsFactory,
@@ -13,6 +12,7 @@ import {
   isIconLeftAligned,
   isObjectNotEmpty,
   joinClassName,
+  mergeWithSystemProps,
   nvl,
 } from '../../util';
 import {
@@ -22,8 +22,9 @@ import {
   UniversalIdProviderContext,
 } from '../../definition';
 import { Link } from '../link';
+import { GenericBaseComponent } from '../base/generic-base.component';
 
-export class Button extends BaseComponent<IButtonProps> {
+export class Button extends GenericBaseComponent<IButtonProps> {
 
   public static readonly defaultProps: IButtonProps = {
     full: false,
@@ -32,66 +33,50 @@ export class Button extends BaseComponent<IButtonProps> {
   };
 
   /**
-   * @stable [02.02.2020]
+   * @stable [13.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const $mergedProps = this.mergedProps;
     const $text = this.text;
     const $hasContent = this.hasContent($text);
-    const $hasIcon = hasIcon(props);
-    const $isIconLeftAligned = isIconLeftAligned(props);
+    const $hasIcon = this.hasIcon($mergedProps);
+    const className = this.getClassName($mergedProps, $hasContent, $hasIcon);
 
-    const className = joinClassName(
-      ButtonClassesEnum.BUTTON,
-      calc(props.className),
-      $hasContent ? 'rac-button-filled' : 'rac-button-not-filled',
-      this.isFull && ButtonClassesEnum.FULL_BUTTON,
-      this.isDecorated && $hasIcon && 'rac-button-decorated',
-      props.mini && 'rac-button-mini',
-      props.outlined && 'rac-button-outlined',
-      props.raised && ButtonClassesEnum.BUTTON_RAISED
-    );
-
-    if (props.to) {
+    if ($mergedProps.to) {
       return (
         <Link
-          to={props.to}
-          style={props.style}
+          to={$mergedProps.to}
+          style={$mergedProps.style}
           className={className}
         >
           {$text}
         </Link>
       );
     }
-    const disabled = this.isDisabled;
-    const iconElement = $hasIcon && this.iconElement;
+
+    const $isIconLeftAligned = this.isIconLeftAligned($mergedProps);
+    const $disabled = this.isDisabled($mergedProps);
+    const $iconElement = $hasIcon && this.iconElement;
 
     return (
       <UniversalIdProviderContext.Consumer>
         {(identificator) => (
           <button
             id={this.getId(identificator)}
-            ref={this.selfRef}
-            type={props.type}
-            title={props.title as string}
-            style={props.style}
+            ref={this.actualRef}
+            type={$mergedProps.type}
+            title={$mergedProps.title as string}
+            style={$mergedProps.style}
             className={className}
-            disabled={disabled}
-            {...handlerPropsFactory(props.onClick, !disabled, props.touched)}
-            onMouseEnter={props.onMouseEnter}
-            onMouseLeave={props.onMouseLeave}
+            disabled={$disabled}
+            {...handlerPropsFactory($mergedProps.onClick, !$disabled, $mergedProps.touched)}
+            onMouseEnter={$mergedProps.onMouseEnter}
+            onMouseLeave={$mergedProps.onMouseLeave}
           >
-            {$isIconLeftAligned && iconElement}
-            {
-              $hasContent && (
-                <div className='rac-button__content'>
-                  {$text && this.t($text)}
-                  {props.children}
-                </div>
-              )
-            }
-            {!$isIconLeftAligned && iconElement}
+            {$isIconLeftAligned && $iconElement}
+            {this.getContentElement($hasContent, $text)}
+            {!$isIconLeftAligned && $iconElement}
           </button>
         )}
       </UniversalIdProviderContext.Consumer>
@@ -99,10 +84,10 @@ export class Button extends BaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [23.02.2019]
+   * @stable [13.05.2020]
    */
   public blur(): void {
-    this.getSelf().blur(); // document.activeElement === body
+    this.actualRef.current.blur(); // document.activeElement === body
   }
 
   // TODO
@@ -115,36 +100,20 @@ export class Button extends BaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [02.02.2020]
-   * @returns {boolean}
+   * @stable [13.05.2020]
+   * @param {boolean} $hasContent
+   * @param {string} $text
+   * @returns {JSX.Element}
    */
-  private get isDecorated(): boolean {
-    return isDecorated(this.props);
-  }
-
-  /**
-   * @stable [02.02.2020]
-   * @param text
-   * @returns {boolean}
-   */
-  private hasContent(text): boolean {
-    return isObjectNotEmpty(this.props.children) || isObjectNotEmpty(text);
-  }
-
-  /**
-   * @stable [02.02.2020]
-   * @returns {boolean}
-   */
-  private get isDisabled(): boolean {
-    return isDisabled(this.props) || inProgress(this.props);
-  }
-
-  /**
-   * @stable [02.02.2020]
-   * @returns {boolean}
-   */
-  private get isFull(): boolean {
-    return isFull(this.props);
+  private getContentElement($hasContent: boolean, $text: string): JSX.Element {
+    return (
+      $hasContent && (
+        <div className={ButtonClassesEnum.BUTTON_CONTENT}>
+          {$text && this.t($text)}
+          {this.props.children}
+        </div>
+      )
+    );
   }
 
   /**
@@ -187,5 +156,90 @@ export class Button extends BaseComponent<IButtonProps> {
             : text
         )
     );
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
+   * @param {boolean} $hasContent
+   * @param {boolean} $hasIcon
+   * @returns {string}
+   */
+  private getClassName($mergedProps: IButtonProps,
+                       $hasContent: boolean,
+                       $hasIcon: boolean): string {
+
+    return joinClassName(
+      ButtonClassesEnum.BUTTON,
+      calc($mergedProps.className),
+      $hasContent ? ButtonClassesEnum.BUTTON_FILLED : ButtonClassesEnum.BUTTON_NOT_FILLED,
+      this.isFull($mergedProps) && ButtonClassesEnum.FULL_BUTTON,
+      this.isDecorated($mergedProps) && $hasIcon && ButtonClassesEnum.BUTTON_DECORATED,
+      $mergedProps.mini && ButtonClassesEnum.BUTTON_MINI,
+      $mergedProps.outlined && ButtonClassesEnum.BUTTON_OUTLINED,
+      $mergedProps.raised && ButtonClassesEnum.BUTTON_RAISED
+    );
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @param text
+   * @returns {boolean}
+   */
+  private hasContent(text): boolean {
+    return isObjectNotEmpty(this.props.children) || isObjectNotEmpty(text);
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
+   * @returns {boolean}
+   */
+  private hasIcon($mergedProps: IButtonProps): boolean {
+    return hasIcon($mergedProps);
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
+   * @returns {boolean}
+   */
+  private isFull($mergedProps: IButtonProps): boolean {
+    return isFull($mergedProps);
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
+   * @returns {boolean}
+   */
+  private isDecorated($mergedProps: IButtonProps): boolean {
+    return isDecorated($mergedProps);
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
+   * @returns {boolean}
+   */
+  private isDisabled($mergedProps: IButtonProps): boolean {
+    return isDisabled($mergedProps) || inProgress($mergedProps);
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @param {IButtonProps} $mergedProps
+   * @returns {boolean}
+   */
+  private isIconLeftAligned($mergedProps: IButtonProps): boolean {
+    return isIconLeftAligned($mergedProps);
+  }
+
+  /**
+   * @stable [13.05.2020]
+   * @returns {IButtonProps}
+   */
+  private get mergedProps(): IButtonProps {
+    return mergeWithSystemProps(this.props, this.settings.components.button);
   }
 }

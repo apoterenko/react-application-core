@@ -88,6 +88,11 @@ export interface IButtonConfigurationEntity
 export enum ButtonClassesEnum {
   BUTTON = 'rac-button',
   BUTTON_CONTENT = 'rac-button__content',
+  BUTTON_DECORATED = 'rac-button-decorated',
+  BUTTON_FILLED = 'rac-button-filled',
+  BUTTON_MINI = 'rac-button-mini',
+  BUTTON_NOT_FILLED = 'rac-button-not-filled',
+  BUTTON_OUTLINED = 'rac-button-outlined',
   BUTTON_RAISED = 'rac-button-raised',
   FULL_BUTTON = 'rac-full-button',
 }
