@@ -4,6 +4,9 @@
 /************************/
 /* @stable [13.05.2020] */
 /************************/
+$rac-primary-button-height-0: $rac-primary-size-7 !default;
+$rac-primary-button-height-1: $rac-primary-size-9 !default;
+/**/
 $rac-primary-button-offset-0: $rac-primary-offset-1 !default;
 /**/
 $rac-primary-button-icon-size-0: $rac-primary-icon-size-0 !default;
@@ -15,17 +18,23 @@ $rac-primary-button-color-0: $rac-primary-color-metis-5 !default;
 /************************/
 /* @stable [13.05.2020] */
 /************************/
+$rac-button-align-items: unset !default;
 $rac-button-border-radius: $rac-primary-border-radius-2 !default;
+$rac-button-border: 0 !default;
+$rac-button-color: unset !default;
 $rac-button-content-font-size: $rac-primary-font-size-1 !default;
 $rac-button-content-font-weight: $rac-primary-font-weight-2 !default;
+$rac-button-content-white-space: nowrap !default;
+$rac-button-content-word-break: break-word !default;
 $rac-button-cursor: pointer !default;
 $rac-button-display: $rac-primary-display-0 !default;
 $rac-button-hover-transform: unset !default;
 $rac-button-hover-transition: unset !default;
 $rac-button-icon-color: unset !default;
 $rac-button-icon-size: unset !default;
-/**/
-$rac-button-disabled-opacity: $rac-primary-opacity-3 !default;
+$rac-button-overflow: hidden !default;
+$rac-button-padding: 0 $rac-primary-button-offset-0 !default;
+$rac-button-shadow: unset !default;
 /**/
 $rac-button-active-background: unset !default;
 $rac-button-active-left: unset !default;
@@ -36,6 +45,14 @@ $rac-button-active-transition: unset !default;
 $rac-button-focus-border: unset !default;
 $rac-button-focus-box-sizing: unset !default;
 $rac-button-focus-padding: unset !default;
+/**/
+$rac-button-filled-icon-margin: 0 $rac-primary-button-offset-0 !default;
+/**/
+$rac-button-not-filled-icon-margin: 0 auto !default;
+/**/
+$rac-button-disabled-cursor: default !default;
+$rac-button-disabled-opacity: $rac-primary-opacity-3 !default;
+$rac-button-disabled-shadow: unset !default;
 
 /************************/
 /* @stable [02.02.2020] */
@@ -47,33 +64,19 @@ $rac-button-color-3: $rac-primary-color-callisto-0 !default;
 $rac-button-offset-0: 0 6px 16px 0 !default;
 $rac-button-size-0: 32px !default;
 $rac-button-size-1: 40px !default;
-$rac-button-size-2: 12px !default;
-$rac-button-size-3: 1px !default;
 /**/
-$rac-button-align-items: center !default;
 $rac-button-background: $rac-button-color-2 !default;
-$rac-button-border: none !default;
-$rac-button-color: unset !default;
 $rac-button-content-margin: 0 auto !default;
-$rac-button-content-white-space: nowrap !default;
-$rac-button-content-word-break: break-word !default;
 $rac-button-decorated-filled-content-padding: 0 ($rac-primary-button-offset-0 * 2 + $rac-primary-button-icon-size-2) 0 0 !default;
 $rac-button-decorated-not-filled-mini-height: $rac-button-size-0 !default;
-$rac-button-decorated-not-filled-mini-icon-size: $rac-button-size-2 !default;
+$rac-button-decorated-not-filled-mini-icon-size: $rac-primary-icon-size-1 !default;
 $rac-button-decorated-not-filled-mini-width: $rac-button-size-0 !default;
 $rac-button-decorated-not-filled-width: $rac-button-size-1 !default;
-$rac-button-disabled-cursor: default !default;
-$rac-button-disabled-shadow: unset !default;
-$rac-button-filled-icon-margin: 0 $rac-primary-button-offset-0 !default;
 $rac-button-height: $rac-button-size-1 !default;
-$rac-button-not-filled-icon-margin: 0 auto !default;
 $rac-button-outlined-background: 0 !default;
-$rac-button-outlined-border: $rac-button-size-3 solid $rac-primary-button-color-0 !default;
+$rac-button-outlined-border: 1px solid $rac-primary-button-color-0 !default;
 $rac-button-outlined-color: unset !default;
 $rac-button-outlined-icon-color: unset !default;
-$rac-button-overflow: hidden !default;
-$rac-button-padding: 0 $rac-primary-button-offset-0 !default;
-$rac-button-shadow: unset !default;
 
 /************************/
 /* @stable [13.05.2020] */
