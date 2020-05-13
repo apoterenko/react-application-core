@@ -40,7 +40,6 @@ export * from './component/progress';
 export * from './component/proxy';
 export * from './component/root';
 export * from './component/snackbar';
-export * from './component/spacer';
 export * from './component/sub-header';
 export * from './component/tab-panel';
 export * from './component/title';
