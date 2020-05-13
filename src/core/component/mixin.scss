@@ -1,6 +1,7 @@
 @import './card-list/_card-list-mixin';
 @import './form/_form-mixin';
 @import './icon/_icon-mixin';
+@import './info/_info-mixin';
 @import './layout/builder/_layout-builder-mixin';
 @import './list/_list-mixin';
 @import './sub-header/_sub-header-mixin';
@@ -383,52 +384,6 @@
       $rac-styles-color: $rac-message-body-color,
       $rac-styles-font-size: $rac-message-body-font-size
     );
-  }
-}
-
-/**
- * @stable [18.03.2020]
- */
-@mixin rac-info (
-  $rac-info-custom: unset,
-  /**/
-  $rac-info-align-items: unset,                                                      /* @stable [18.03.2020] */
-  $rac-info-display: unset,                                                          /* @stable [18.03.2020] */
-  $rac-info-flex-grow: unset,                                                        /* @stable [18.03.2020] */
-  $rac-info-icon-margin: unset,                                                      /* @stable [18.03.2020] */
-  $rac-info-justify-content: unset,                                                  /* @stable [18.03.2020] */
-  $rac-info-text-color: unset,                                                       /* @stable [18.03.2020] */
-  $rac-info-text-display: unset,                                                     /* @stable [18.03.2020] */
-  $rac-info-text-flex: unset,                                                        /* @stable [18.03.2020] */
-  $rac-info-text-font-size: unset,                                                   /* @stable [18.03.2020] */
-  $rac-info-text-justify-content: unset,                                             /* @stable [18.03.2020] */
-  $rac-info-text-line-height: unset                                                  /* @stable [18.03.2020] */
-) {
-  #{rac-cls(rac-info, $rac-info-custom)} {
-    @include rac-styles (
-      $rac-styles-align-items: $rac-info-align-items,
-      $rac-styles-display: $rac-info-display,
-      $rac-styles-flex-grow: $rac-info-flex-grow,
-      $rac-styles-justify-content: $rac-info-justify-content
-    );
-
-    > {
-      .rac-info__text {
-        @include rac-styles (
-          $rac-styles-color: $rac-info-text-color,
-          $rac-styles-display: $rac-info-text-display,
-          $rac-styles-flex: $rac-info-text-flex,
-          $rac-styles-font-size: $rac-info-text-font-size,
-          $rac-styles-justify-content: $rac-info-text-justify-content,
-          $rac-styles-line-height: $rac-info-text-line-height
-        );
-
-        @include rac-icon (
-          $rac-icon-custom: rac-info__icon,
-          $rac-icon-margin: $rac-info-icon-margin
-        );
-      }
-    }
   }
 }
 

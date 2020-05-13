@@ -1,0 +1,26 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [13.04.2020] */
+/************************/
+$rac-info-align-items: center !default;
+$rac-info-display: $rac-primary-display-0 !default;
+$rac-info-icon-margin: 0 $rac-primary-offset-1 0 0 !default;
+$rac-info-justify-content: center !default;
+$rac-info-text-display: $rac-primary-display-0 !default;
+$rac-info-text-flex-grow: $rac-primary-flex-grow-0-5 !default;
+$rac-info-text-flex: unset !default;
+$rac-info-text-font-size: $rac-primary-font-size-0 !default;
+$rac-info-text-justify-content: center !default;
+$rac-info-text-line-height: $rac-primary-line-height-2 !default;
+
+/************************/
+/* @stable [13.05.2020] */
+/************************/
+$rac-error-info-text-color: $rac-primary-color-dia-0 !default;
+
+/************************/
+/* @stable [13.05.2020] */
+/************************/
+$rac-full-info-flex-grow: $rac-primary-flex-grow-1 !default;

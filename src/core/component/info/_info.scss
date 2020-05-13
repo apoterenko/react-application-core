@@ -1,5 +1,5 @@
-@import '../constant';
-@import '../mixin';
+@import './_info-mixin';
+@import './_info-constant';
 
 .rac {
 
@@ -30,7 +30,7 @@
 
   /**
     * @full-info
-    * @stable [18.03.2020]
+    * @stable [13.05.2020]
     */
   @include rac-info (
     $rac-info-custom: $rac-full-info-cls,
