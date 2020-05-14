@@ -198,7 +198,6 @@ export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContain
     return (
       <NavigationList
         {...this.props.layout}
-        dividerRendered={false}
         items={this.menuItems}
         onScroll={this.onNavigationListScroll}
         onClick={this.onNavigationListClick}

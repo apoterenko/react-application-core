@@ -33,9 +33,6 @@ export class NavigationMenuBuilder {
         const filteredChildren = itemChildren.filter((itm) => this.isAccessible(itm));
 
         if (filteredChildren.length) {
-          if (menuItems.length) {
-            menuItems.push({type: NavigationItemTypesEnum.DIVIDER, parent: item});
-          }
           menuItems = menuItems
               .concat(item.label ? {...item, type: NavigationItemTypesEnum.SUB_HEADER} : [])
               .concat(filteredChildren.map((itm): INavigationListItemEntity => ({...itm, parent: item})));

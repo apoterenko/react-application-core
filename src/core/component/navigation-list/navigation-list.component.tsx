@@ -2,14 +2,12 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  ifNotFalseThanValue,
   ifNotNilThanValue,
   isFull,
   joinClassName,
   mergeWithSystemProps,
   notNilValuesArrayFilter,
   orNull,
-  uuid,
 } from '../../util';
 import { Link } from '../link';
 import { Menu } from '../menu';
@@ -34,7 +32,7 @@ export class NavigationList
   private readonly itemsRefsMap = new Map<EntityIdT, React.RefObject<HTMLDivElement>>();
 
   /**
-   * @stable [23.03.2020]
+   * @stable [14.05.2020]
    * @param {INavigationListProps} props
    */
   constructor(props: INavigationListProps) {
@@ -47,42 +45,42 @@ export class NavigationList
   }
 
   /**
-   * @stable [24.10.2019]
+   * @stable [14.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     this.itemsRefsMap.clear();
 
+    const {activeGroup} = this.state;
     const $mergedProps = this.mergedProps;
-    const items = $mergedProps.items;
+    const $items = $mergedProps.items;
 
     return (
       <nav
         ref={this.actualRef}
         className={this.asClassName($mergedProps)}
       >
-        {this.getListDividerElement()}
-        {items.map((item) => this.toElement(item, $mergedProps))}
-        {
-          ifNotNilThanValue(
-            this.state.activeGroup,
-            (activeGroup) => (
-              <Menu
-                positionConfiguration={{
-                  collision: 'fit',
-                  my: 'left top',
-                  at: 'right top',
-                }}
-                heightRestricted={false}
-                ref={this.menuRef}
-                options={notNilValuesArrayFilter(...items.map((item) => this.asPopupMenuItem(item, activeGroup)))
-                  .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.t(itm.label), rawData: itm}))}
-                anchorElement={this.asPopupMenuAnchorElement}
-                onSelect={this.onPopupMenuItemSelect}/>
-            )
-          )
-        }
+        {$items.map((item) => this.toElement(item, $mergedProps))}
+        {ifNotNilThanValue(activeGroup, () => this.asPopupMenuElement($items, activeGroup))}
       </nav>
+    );
+  }
+
+  private asPopupMenuElement($items: INavigationListItemEntity[],
+                             $activeGroup: INavigationListItemEntity): JSX.Element {
+    return (
+      <Menu
+        ref={this.menuRef}
+        positionConfiguration={{
+          collision: 'fit',
+          my: 'left top',
+          at: 'right top',
+        }}
+        heightRestricted={false}
+        options={notNilValuesArrayFilter(...$items.map((item) => this.asPopupMenuItem(item, $activeGroup)))
+          .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.t(itm.label), rawData: itm}))}
+        anchorElement={this.asPopupMenuAnchorElement}
+        onSelect={this.onPopupMenuItemSelect}/>
     );
   }
 
@@ -95,24 +93,11 @@ export class NavigationList
     super.componentWillUnmount();
   }
 
-  /**
-   * @stable [07.02.2020]
-   * @param {string} key
-   * @returns {JSX.Element}
-   */
-  private getListDividerElement(key?: string): JSX.Element {
-    return (
-      <div
-        key={key}
-        className='rac-list-divider'/>
-    );
-  }
-
   private toElement(item: INavigationListItemEntity,
                     $mergedProps: INavigationListProps): JSX.Element {
     const $isExpanded = this.isItemExpanded(item);
     const $isFullModeEnabled = this.isFullLayoutModeEnabled(this.mergedProps);
-    const label = this.t(item.label);
+    const $label = this.t(item.label);
     const $isGroup = R.isNil(item.parent);
 
     switch (item.type) {
@@ -131,25 +116,19 @@ export class NavigationList
               this.asItemClassName(true, isGroupItemActive, $isExpanded),
               ind === this.props.items.lastIndexOf(item) && !$isExpanded && 'rac-navigation-list__last-section',
             )}
-            title={label}
-            onClick={() => this.onGroupClick(item)}
+            title={$label}
+            onClick={() => this.onGroupClick(item, $mergedProps, $isFullModeEnabled)}
           >
             {this.asItemIconElement(item)}
-            {$isFullModeEnabled && label}
-            {$isFullModeEnabled && this.uiFactory.makeIcon({
-              type: $isExpanded ? IconsEnum.CHEVRON_UP : IconsEnum.CHEVRON_DOWN,
-              className: 'rac-navigation-list__expand-icon',
-            })}
+            {
+              $isFullModeEnabled && (
+                <React.Fragment>
+                  {$label}
+                  {this.asItemExpandIconElement($isExpanded)}
+                </React.Fragment>
+              )
+            }
           </div>
-        );
-      case NavigationItemTypesEnum.DIVIDER:
-        return ifNotFalseThanValue(
-          this.props.dividerRendered,
-          () => this.getListDividerElement(
-            R.isNil(item.parent)
-              ? uuid()
-              : this.asUniqueKey(item.parent.label, 'divider')
-          )
         );
       default:
         return orNull(
@@ -160,23 +139,29 @@ export class NavigationList
   }
 
   /**
-   * @stable [23.03.2020]
+   * @stable [14.05.2020]
    * @param {IMenuItemEntity<INavigationListItemEntity>} option
    */
   private onPopupMenuItemSelect(option: IMenuItemEntity<INavigationListItemEntity>): void {
-    this.setState({activeGroup: null}, () =>
-      ifNotNilThanValue(this.props.onClick, (onClick) => onClick(option.rawData)));
+    this.setState(
+      {activeGroup: null},
+      () => ifNotNilThanValue(this.props.onClick, (onClick) => onClick(option.rawData))
+    );
   }
 
   /**
-   * @stable [24.03.2020]
-   * @param {INavigationListItemEntity} entity
+   * @stable [14.05.2020]
+   * @param {INavigationListItemEntity} $entity
+   * @param {boolean} $isFullModeEnabled
+   * @param {INavigationListProps} $mergedProps
    */
-  private onGroupClick(entity: INavigationListItemEntity): void {
-    ifNotNilThanValue(this.props.onGroupClick, (onGroupClick) => onGroupClick(entity));
-
-    if (!this.isFullLayoutModeEnabled(this.mergedProps)) {
-      this.setState({activeGroup: entity}, () => this.menuRef.current.show());
+  private onGroupClick($entity: INavigationListItemEntity,
+                       $mergedProps: INavigationListProps,
+                       $isFullModeEnabled: boolean): void {
+    if (!$isFullModeEnabled) {
+      ifNotNilThanValue($mergedProps.onGroupClick, (onGroupClick) => onGroupClick($entity));
+    } else {
+      this.setState({activeGroup: $entity}, () => this.menuRef.current.show());
     }
   }
 
@@ -235,7 +220,7 @@ export class NavigationList
         className={this.asItemClassName($isGroup, item.active, $isExpanded)}
         title={$label}
       >
-        {this.asItemIconElement(item)}
+        {this.asItemIconElement(item, NavigationListClassesEnum.NAVIGATION_LIST_ITEM_SECTION_ICON)}
         {$isFullModeEnabled && $label}
       </Link>
     );
@@ -254,6 +239,18 @@ export class NavigationList
         NavigationListClassesEnum.NAVIGATION_LIST_SECTION_ICON,
         extraClassName
       ),
+    });
+  }
+
+  /**
+   * @stable [14.05.2020]
+   * @param {boolean} $isExpanded
+   * @returns {JSX.Element}
+   */
+  private asItemExpandIconElement($isExpanded: boolean): JSX.Element {
+    return this.uiFactory.makeIcon({
+      type: $isExpanded ? IconsEnum.CHEVRON_UP : IconsEnum.CHEVRON_DOWN,
+      className: NavigationListClassesEnum.NAVIGATION_LIST_EXPAND_ICON,
     });
   }
 

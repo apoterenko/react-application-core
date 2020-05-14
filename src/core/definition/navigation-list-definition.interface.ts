@@ -3,7 +3,6 @@ import {
   IActiveGroupWrapper,
   IActiveWrapper,
   IChildrenWrapper,
-  IDividerRenderedWrapper,
   IFullWrapper,
   IIconWrapper,
   IItemsWrapper,
@@ -24,7 +23,6 @@ import { IReduxLayoutEntity } from './layout-definition.interface';
  * @stable [11.09.2019]
  */
 export enum NavigationItemTypesEnum {
-  DIVIDER,
   GROUP,
   SUB_HEADER,
 }
@@ -33,7 +31,6 @@ export enum NavigationItemTypesEnum {
  * @stable [23.03.2020]
  */
 export const NAVIGATION_EXTRA_ITEM_TYPES = [
-  NavigationItemTypesEnum.DIVIDER,
   NavigationItemTypesEnum.SUB_HEADER
 ];
 
@@ -60,7 +57,6 @@ export interface INavigationListItemEntity<TAccessConfiguration = {}>
  */
 export interface IPresetsNavigationListEntity
   extends IPresetsScrolledEntity,
-    IDividerRenderedWrapper,
     IFullWrapper,
     IItemsWrapper<INavigationListItemEntity[]>,
     IOnClickWrapper<INavigationListItemEntity>,
@@ -110,9 +106,11 @@ export enum NavigationListClassesEnum {
   MINI_NAVIGATION_LIST = 'rac-mini-navigation-list',
   NAVIGATION_LIST = 'rac-navigation-list',
   NAVIGATION_LIST_ACTIVE_SECTION = 'rac-navigation-list__active-section',
+  NAVIGATION_LIST_EXPAND_ICON = 'rac-navigation-list__expand-icon',
   NAVIGATION_LIST_EXPANDED_SECTION = 'rac-navigation-list__expanded-section',
   NAVIGATION_LIST_GROUP_SECTION = 'rac-navigation-list__group-section',
   NAVIGATION_LIST_ITEM_SECTION = 'rac-navigation-list__item-section',
+  NAVIGATION_LIST_ITEM_SECTION_ICON = 'rac-navigation-list__item-section-icon',
   NAVIGATION_LIST_SECTION = 'rac-navigation-list__section',
   NAVIGATION_LIST_SECTION_ICON = 'rac-navigation-list__section-icon',
 }

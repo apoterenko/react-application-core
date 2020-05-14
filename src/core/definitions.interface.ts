@@ -154,7 +154,6 @@ export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: boolean; }
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
-export interface IDividerRenderedWrapper { dividerRendered?: boolean; }
 export interface IDrawerHeaderRenderedWrapper { drawerHeaderRendered?: boolean; }
 export interface IDurationWrapper<TValue> { duration?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
