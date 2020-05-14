@@ -66,24 +66,6 @@ export class NavigationList
     );
   }
 
-  private asPopupMenuElement($items: INavigationListItemEntity[],
-                             $activeGroup: INavigationListItemEntity): JSX.Element {
-    return (
-      <Menu
-        ref={this.menuRef}
-        positionConfiguration={{
-          collision: 'fit',
-          my: 'left top',
-          at: 'right top',
-        }}
-        heightRestricted={false}
-        options={notNilValuesArrayFilter(...$items.map((item) => this.asPopupMenuItem(item, $activeGroup)))
-          .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.t(itm.label), rawData: itm}))}
-        anchorElement={this.asPopupMenuAnchorElement}
-        onSelect={this.onPopupMenuItemSelect}/>
-    );
-  }
-
   /**
    * @stable [23.03.2020]
    */
@@ -197,6 +179,24 @@ export class NavigationList
       return null;
     }
     return ifNotNilThanValue(item.parent, (parent) => orNull(parent.value === activeGroup.value, item));
+  }
+
+  private asPopupMenuElement($items: INavigationListItemEntity[],
+                             $activeGroup: INavigationListItemEntity): JSX.Element {
+    return (
+      <Menu
+        ref={this.menuRef}
+        positionConfiguration={{
+          collision: 'fit',
+          my: 'left top',
+          at: 'right top',
+        }}
+        heightRestricted={false}
+        options={notNilValuesArrayFilter(...$items.map((item) => this.asPopupMenuItem(item, $activeGroup)))
+          .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.t(itm.label), rawData: itm}))}
+        anchorElement={this.asPopupMenuAnchorElement}
+        onSelect={this.onPopupMenuItemSelect}/>
+    );
   }
 
   /**
