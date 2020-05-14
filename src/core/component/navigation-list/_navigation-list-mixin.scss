@@ -60,10 +60,10 @@
  */
 @mixin rac-navigation-list (
   $rac-navigation-list-custom: unset,
-  $rac-navigation-list-section-custom: unset,
   /**/
   $rac-navigation-list-active-section-background: unset,                                      /* @stable [07.02.2020] */
   $rac-navigation-list-active-section-color: unset,                                           /* @stable [07.02.2020] */
+  $rac-navigation-list-active-section-icon-color: unset,                                      /* @stable [14.05.2020] */
   $rac-navigation-list-expand-icon-height: unset,                                             /* @stable [07.02.2020] */
   $rac-navigation-list-expand-icon-margin: unset,                                             /* @stable [07.02.2020] */
   $rac-navigation-list-expand-icon-size: unset,                                               /* @stable [14.05.2020] */
@@ -96,6 +96,7 @@
   $rac-navigation-list-section-font-size: unset,                                              /* @stable [07.02.2020] */
   $rac-navigation-list-section-height: unset,                                                 /* @stable [07.02.2020] */
   $rac-navigation-list-section-hover-outline: unset,                                          /* @stable [07.02.2020] */
+  $rac-navigation-list-section-icon-color: unset,                                             /* @stable [14.05.2020] */
   $rac-navigation-list-section-margin: unset,                                                 /* @stable [07.02.2020] */
   $rac-navigation-list-section-width: unset,                                                  /* @stable [07.02.2020] */
   $rac-navigation-list-section-word-break: unset                                              /* @stable [07.02.2020] */
@@ -111,7 +112,6 @@
     );
 
     @include rac-navigation-list-section (
-      $rac-navigation-list-section-custom: $rac-navigation-list-section-custom,
       $rac-navigation-list-section-align-items: $rac-navigation-list-section-align-items,
       $rac-navigation-list-section-background: $rac-navigation-list-section-background,
       $rac-navigation-list-section-border-radius: $rac-navigation-list-section-border-radius,
@@ -121,6 +121,7 @@
       $rac-navigation-list-section-font-size: $rac-navigation-list-section-font-size,
       $rac-navigation-list-section-height: $rac-navigation-list-section-height,
       $rac-navigation-list-section-hover-outline: $rac-navigation-list-section-hover-outline,
+      $rac-navigation-list-section-icon-color: $rac-navigation-list-section-icon-color,
       $rac-navigation-list-section-margin: $rac-navigation-list-section-margin,
       $rac-navigation-list-section-width: $rac-navigation-list-section-width,
       $rac-navigation-list-section-word-break: $rac-navigation-list-section-word-break
@@ -152,7 +153,8 @@
     @include rac-navigation-list-section (
       $rac-navigation-list-section-custom: rac-navigation-list__active-section,
       $rac-navigation-list-section-background: $rac-navigation-list-active-section-background,
-      $rac-navigation-list-section-color: $rac-navigation-list-active-section-color
+      $rac-navigation-list-section-color: $rac-navigation-list-active-section-color,
+      $rac-navigation-list-section-icon-color: $rac-navigation-list-active-section-icon-color
     );
 
     @include rac-navigation-list-section (

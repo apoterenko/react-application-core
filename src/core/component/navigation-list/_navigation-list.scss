@@ -10,6 +10,7 @@
   @include rac-navigation-list (
     $rac-navigation-list-active-section-background: $rac-navigation-list-active-section-background,
     $rac-navigation-list-active-section-color: $rac-navigation-list-active-section-color,
+    $rac-navigation-list-active-section-icon-color: $rac-navigation-list-active-section-icon-color,
     $rac-navigation-list-expand-icon-height: $rac-navigation-list-expand-icon-height,
     $rac-navigation-list-expand-icon-margin: $rac-navigation-list-expand-icon-margin,
     $rac-navigation-list-expand-icon-size: $rac-navigation-list-expand-icon-size,
@@ -33,6 +34,7 @@
     $rac-navigation-list-section-flex-direction: $rac-navigation-list-section-flex-direction,
     $rac-navigation-list-section-font-size: $rac-navigation-list-section-font-size,
     $rac-navigation-list-section-hover-outline: $rac-navigation-list-section-hover-outline,
+    $rac-navigation-list-section-icon-color: $rac-navigation-list-section-icon-color,
     $rac-navigation-list-section-word-break: $rac-navigation-list-section-word-break
   );
 

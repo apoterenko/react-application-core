@@ -6,6 +6,7 @@
 /************************/
 $rac-navigation-list-active-section-background: $rac-primary-color-ganymede-0 !default;                    /* @stable */
 $rac-navigation-list-active-section-color: $rac-primary-color-poseidon-0 !default;                         /* @stable */
+$rac-navigation-list-active-section-icon-color:  $rac-primary-color-poseidon-0 !default;                   /* @stable */
 $rac-navigation-list-expand-icon-height:unset !default;                                                    /* @stable */
 $rac-navigation-list-expand-icon-margin: 0 0 0 auto !default;                                              /* @stable */
 $rac-navigation-list-expand-icon-size: $rac-primary-icon-size-1 !default;                                  /* @stable */
@@ -19,6 +20,7 @@ $rac-navigation-list-group-section-height: $rac-primary-size-9 !default;        
 $rac-navigation-list-group-section-text-transform: unset !default;                                         /* @stable */
 $rac-navigation-list-item-section-font-weight: $rac-primary-font-weight-1 !default;                        /* @stable */
 $rac-navigation-list-item-section-height: $rac-primary-size-7 !default;                                    /* @stable */
+$rac-navigation-list-last-section-margin: unset !default;                                                  /* @stable */
 $rac-navigation-list-no-user-select: true !default;                                                        /* @stable */
 $rac-navigation-list-overflow: auto !default;                                                              /* @stable */
 $rac-navigation-list-position: relative !default;                                                          /* @stable */
@@ -28,6 +30,7 @@ $rac-navigation-list-section-display: $rac-primary-display-0 !default;          
 $rac-navigation-list-section-flex-direction: unset !default;                                               /* @stable */
 $rac-navigation-list-section-font-size: $rac-primary-font-size-0 !default;                                 /* @stable */
 $rac-navigation-list-section-hover-outline: unset !default;                                                /* @stable */
+$rac-navigation-list-section-icon-color: $rac-primary-color-elara-3 !default;                              /* @stable */
 $rac-navigation-list-section-word-break: break-word !default;                                              /* @stable */
 
 /************************/
@@ -35,11 +38,3 @@ $rac-navigation-list-section-word-break: break-word !default;                   
 /************************/
 $rac-full-navigation-list-flex-basis: $rac-primary-flex-basis-1 !default;                                  /* @stable */
 $rac-full-navigation-list-flex-grow: $rac-primary-flex-grow-1 !default;                                    /* @stable */
-
-
-$rac-navigation-list-group-item-icon-color: $rac-primary-navigation-list-item-icon-color-0 !default;       /* @stable */
-$rac-navigation-list-item-icon-color: $rac-primary-navigation-list-item-icon-color-0 !default;             /* @stable */
-
-
-
-$rac-navigation-list-last-section-margin: 0 0 48px 0;                          /* @stable [05.02.2020] */
