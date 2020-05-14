@@ -65,28 +65,6 @@
   );
 
   /**
-   * @default-layout-mini
-   * @stable [05.02.2020]
-   */
-  @include rac-default-layout (
-    $rac-default-layout-custom: $rac-default-layout-mini-cls,
-    $rac-default-layout-navigation-list-icon-width: $rac-default-layout-mini-navigation-list-icon-width,
-    $rac-default-layout-navigation-list-section-border-radius: $rac-default-layout-mini-navigation-list-section-border-radius,
-    $rac-default-layout-navigation-list-section-height: $rac-default-layout-mini-navigation-list-section-height,
-    $rac-default-layout-navigation-list-section-margin: $rac-default-layout-mini-navigation-list-section-margin,
-    $rac-default-layout-navigation-list-section-width: $rac-default-layout-mini-navigation-list-section-width
-  );
-
-  /**
-   * @default-layout-full
-   * @stable [05.02.2020]
-   */
-  @include rac-default-layout (
-    $rac-default-layout-custom: $rac-default-layout-full-cls,
-    $rac-default-layout-navigation-list-icon-width: $rac-default-layout-full-navigation-list-icon-width
-  );
-
-  /**
    * @$rac-default-layout-without-sub-header-cls
    * @stable [10.02.2020]
    */
