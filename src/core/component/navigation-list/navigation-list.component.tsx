@@ -9,9 +9,9 @@ import {
   nvl,
   orNull,
   uuid,
-} from '../../../util';
-import { Link } from '../../link';
-import { Menu } from '../../menu';
+} from '../../util';
+import { Link } from '../link';
+import { Menu } from '../menu';
 import {
   IComponentsSettingsEntity,
   IconsEnum,
@@ -24,9 +24,9 @@ import {
   NAVIGATION_EXTRA_ITEM_TYPES,
   NavigationItemTypesEnum,
   NavigationListClassesEnum,
-} from '../../../definition';
-import { EntityIdT } from '../../../definitions.interface';
-import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
+} from '../../definition';
+import { EntityIdT } from '../../definitions.interface';
+import { EnhancedGenericComponent } from '../base/enhanced-generic.component';
 
 export class NavigationList
   extends EnhancedGenericComponent<INavigationListProps, INavigationListState> {
@@ -57,8 +57,8 @@ export class NavigationList
     const items = this.props.items;
     return (
       <nav
-        ref={this.selfRef}
-        className='rac-navigation-list'
+        ref={this.actualRef}
+        className={NavigationListClassesEnum.NAVIGATION_LIST}
       >
         {this.getListDividerElement()}
         {items.map(this.toElement, this)}

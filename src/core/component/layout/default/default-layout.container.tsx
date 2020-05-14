@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { NavigationList } from '../../list';
+import { NavigationList } from '../../navigation-list';
 import { lazyInject } from '../../../di';
 import {
   ifNotEmptyThanValue,

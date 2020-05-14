@@ -96,6 +96,7 @@ export interface INavigationListState
  * @stable [24.03.2020]
  */
 export enum NavigationListClassesEnum {
+  NAVIGATION_LIST = 'rac-navigation-list',
   NAVIGATION_LIST_ACTIVE_SECTION = 'rac-navigation-list__active-section',
   NAVIGATION_LIST_EXPANDED_SECTION = 'rac-navigation-list__expanded-section',
   NAVIGATION_LIST_GROUP_SECTION = 'rac-navigation-list__group-section',
