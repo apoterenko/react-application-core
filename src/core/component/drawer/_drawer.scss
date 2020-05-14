@@ -10,6 +10,19 @@
   @include rac-drawer (
     $rac-drawer-background: $rac-drawer-background,
     $rac-drawer-display: $rac-drawer-display,
-    $rac-drawer-flex-direction: $rac-drawer-flex-direction
+    $rac-drawer-flex-direction: $rac-drawer-flex-direction,
+    $rac-drawer-justify-content: $rac-drawer-justify-content,
+    $rac-drawer-transform: $rac-drawer-transform,
+    $rac-drawer-width: $rac-drawer-width,
+    $rac-drawer-z-index: $rac-drawer-z-index
+  );
+
+  /**
+   * @drawer-mini
+   * @stable [14.05.2020]
+   */
+  @include rac-drawer (
+    $rac-drawer-custom: $rac-drawer-mini-cls,
+    $rac-drawer-width: $rac-drawer-mini-width
   );
 }

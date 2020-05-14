@@ -39,6 +39,7 @@ $rac-primary-flex-direction-1: row !default;
 $rac-primary-z-index-0: 1 !default;
 $rac-primary-z-index-1: 2 !default;
 $rac-primary-z-index-2: 3 !default;
+$rac-primary-z-index-3: 4 !default;
 $rac-primary-z-index-max: 1000000 !default;
 
 /************************/
@@ -231,3 +232,10 @@ $rac-primary-shadow-offset-0: 0 6px 16px 0 !default;
 $rac-primary-odd-background-0: $rac-primary-color-metis-0 !default;
 /**/
 $rac-primary-hover-background-0: $rac-primary-color-metis-1 !default;
+
+/************************/
+/* @stable [14.05.2020] */
+/************************/
+$rac-primary-default-layout-width-0: 32px !default;
+$rac-primary-default-layout-width-1: 48px !default;
+$rac-primary-default-layout-width-2: 56px !default;

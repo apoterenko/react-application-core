@@ -20,10 +20,6 @@
     $rac-default-layout-drawer-header-flex-direction: $rac-default-layout-drawer-header-flex-direction,
     $rac-default-layout-drawer-header-height: $rac-default-layout-drawer-header-height,
     $rac-default-layout-drawer-header-position: $rac-default-layout-drawer-header-position,
-    $rac-default-layout-drawer-justify-content: $rac-default-layout-drawer-justify-content,
-    $rac-default-layout-drawer-transform: $rac-default-layout-drawer-transform,
-    $rac-default-layout-drawer-width: $rac-default-layout-drawer-width,
-    $rac-default-layout-drawer-z-index: $rac-default-layout-drawer-z-index,
     $rac-default-layout-flex-direction: $rac-default-layout-flex-direction,
     $rac-default-layout-flex: $rac-default-layout-flex,
     $rac-default-layout-header-actions-align-items: $rac-default-layout-header-actions-align-items,
@@ -84,7 +80,6 @@
    */
   @include rac-default-layout (
     $rac-default-layout-custom: $rac-default-layout-mini-cls,
-    $rac-default-layout-drawer-width: $rac-default-layout-mini-drawer-width,
     $rac-default-layout-navigation-list-icon-width: $rac-default-layout-mini-navigation-list-icon-width,
     $rac-default-layout-navigation-list-section-border-radius: $rac-default-layout-mini-navigation-list-section-border-radius,
     $rac-default-layout-navigation-list-section-height: $rac-default-layout-mini-navigation-list-section-height,
