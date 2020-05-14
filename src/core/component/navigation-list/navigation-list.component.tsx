@@ -59,14 +59,10 @@ export class NavigationList
     return (
       <nav
         ref={this.actualRef}
-        className={joinClassName(
-          NavigationListClassesEnum.NAVIGATION_LIST,
-          !this.isFullLayoutModeEnabled($mergedProps) && NavigationListClassesEnum.MINI_NAVIGATION_LIST,
-          isFull($mergedProps) && NavigationListClassesEnum.FULL_NAVIGATION_LIST,
-        )}
+        className={this.asClassName($mergedProps)}
       >
         {this.getListDividerElement()}
-        {items.map(this.toElement, this)}
+        {items.map((item) => this.toElement(item, $mergedProps))}
         {
           ifNotNilThanValue(
             this.state.activeGroup,
@@ -112,19 +108,16 @@ export class NavigationList
     );
   }
 
-  /**
-   * @stable [23.09.2018]
-   * @param {INavigationListItemEntity} item
-   * @returns {JSX.Element}
-   */
-  private toElement(item: INavigationListItemEntity): JSX.Element {
-    const isExpanded = this.isItemExpanded(item);
+  private toElement(item: INavigationListItemEntity,
+                    $mergedProps: INavigationListProps): JSX.Element {
+    const $isExpanded = this.isItemExpanded(item);
     const $isFullModeEnabled = this.isFullLayoutModeEnabled(this.mergedProps);
     const label = this.t(item.label);
+    const $isGroup = R.isNil(item.parent);
 
     switch (item.type) {
       case NavigationItemTypesEnum.SUB_HEADER:
-        const isGroupItemActive = !isExpanded && this.hasActiveChild(item);
+        const isGroupItemActive = !$isExpanded && this.hasActiveChild(item);
         const groupRef = React.createRef<HTMLDivElement>();
         this.itemsRefsMap.set(item.value, groupRef);
         const ind = this.props.items.length - 1 -
@@ -135,8 +128,8 @@ export class NavigationList
             ref={groupRef}
             key={this.asUniqueKey(item.label, 'label')}
             className={joinClassName(
-              this.asItemClasses(true, isGroupItemActive, isExpanded),
-              ind === this.props.items.lastIndexOf(item) && !isExpanded && 'rac-navigation-list__last-section',
+              this.asItemClassName(true, isGroupItemActive, $isExpanded),
+              ind === this.props.items.lastIndexOf(item) && !$isExpanded && 'rac-navigation-list__last-section',
             )}
             title={label}
             onClick={() => this.onGroupClick(item)}
@@ -144,7 +137,7 @@ export class NavigationList
             {this.asItemIconElement(item)}
             {$isFullModeEnabled && label}
             {$isFullModeEnabled && this.uiFactory.makeIcon({
-              type: isExpanded ? IconsEnum.CHEVRON_UP : IconsEnum.CHEVRON_DOWN,
+              type: $isExpanded ? IconsEnum.CHEVRON_UP : IconsEnum.CHEVRON_DOWN,
               className: 'rac-navigation-list__expand-icon',
             })}
           </div>
@@ -159,33 +152,11 @@ export class NavigationList
           )
         );
       default:
-        const isGroup = R.isNil(item.parent);
-        return orNull(isGroup || $isFullModeEnabled && isExpanded, () => this.asItemElement(item));
+        return orNull(
+          $isGroup || $isFullModeEnabled && $isExpanded,
+          () => this.asItemElement(item, $isGroup, $isFullModeEnabled, $isExpanded)
+        );
     }
-  }
-
-  /**
-   * @stable [12.02.2020]
-   * @param {INavigationListItemEntity} item
-   * @returns {JSX.Element}
-   */
-  private asItemElement(item: INavigationListItemEntity): JSX.Element {
-    const $isFullModeEnabled = this.isFullLayoutModeEnabled(this.mergedProps);
-    const label = this.t(item.label);
-    const isGroup = R.isNil(item.parent);
-    const isExpanded = this.isItemExpanded(item);
-
-    return (
-      <Link
-        to={item.link}
-        key={this.asUniqueKey(item.link, 'link')}
-        className={this.asItemClasses(isGroup, item.active, isExpanded)}
-        title={label}
-      >
-        {this.asItemIconElement(item)}
-        {$isFullModeEnabled && label}
-      </Link>
-    );
   }
 
   /**
@@ -246,12 +217,43 @@ export class NavigationList
   /**
    * @stable [14.05.2020]
    * @param {INavigationListItemEntity} item
+   * @param {boolean} $isGroup
+   * @param {boolean} $isFullModeEnabled
+   * @param {boolean} $isExpanded
    * @returns {JSX.Element}
    */
-  private asItemIconElement(item: INavigationListItemEntity): JSX.Element {
+  private asItemElement(item: INavigationListItemEntity,
+                        $isGroup: boolean,
+                        $isFullModeEnabled: boolean,
+                        $isExpanded: boolean): JSX.Element {
+    const $label = this.t(item.label);
+
+    return (
+      <Link
+        to={item.link}
+        key={this.asUniqueKey(item.link, 'link')}
+        className={this.asItemClassName($isGroup, item.active, $isExpanded)}
+        title={$label}
+      >
+        {this.asItemIconElement(item)}
+        {$isFullModeEnabled && $label}
+      </Link>
+    );
+  }
+
+  /**
+   * @stable [14.05.2020]
+   * @param {INavigationListItemEntity} item
+   * @param {string} extraClassName
+   * @returns {JSX.Element}
+   */
+  private asItemIconElement(item: INavigationListItemEntity, extraClassName?: string): JSX.Element {
     return this.uiFactory.makeIcon({
       type: item.icon || IconsEnum.LIST_UL,
-      className: NavigationListClassesEnum.NAVIGATION_LIST_SECTION_ICON,
+      className: joinClassName(
+        NavigationListClassesEnum.NAVIGATION_LIST_SECTION_ICON,
+        extraClassName
+      ),
     });
   }
 
@@ -265,23 +267,38 @@ export class NavigationList
 
   /**
    * @stable [14.05.2020]
-   * @param {boolean} isGroup
-   * @param {boolean} isActive
-   * @param {boolean} isExpanded
+   * @param {boolean} $isGroup
+   * @param {boolean} $isActive
+   * @param {boolean} $isExpanded
    * @returns {string}
    */
-  private asItemClasses(isGroup: boolean,
-                        isActive: boolean,
-                        isExpanded: boolean): string {
+  private asItemClassName($isGroup: boolean,
+                          $isActive: boolean,
+                          $isExpanded: boolean): string {
     return (
       joinClassName(
         NavigationListClassesEnum.NAVIGATION_LIST_SECTION,
-        isGroup
+        $isGroup
           ? NavigationListClassesEnum.NAVIGATION_LIST_GROUP_SECTION
           : NavigationListClassesEnum.NAVIGATION_LIST_ITEM_SECTION,
-        isActive
+        $isActive
           ? NavigationListClassesEnum.NAVIGATION_LIST_ACTIVE_SECTION
-          : (isExpanded ? NavigationListClassesEnum.NAVIGATION_LIST_EXPANDED_SECTION : ''),
+          : ($isExpanded ? NavigationListClassesEnum.NAVIGATION_LIST_EXPANDED_SECTION : ''),
+      )
+    );
+  }
+
+  /**
+   * @stable [14.05.2020]
+   * @param {INavigationListProps} $mergedProps
+   * @returns {string}
+   */
+  private asClassName($mergedProps: INavigationListProps): string {
+    return (
+      joinClassName(
+        NavigationListClassesEnum.NAVIGATION_LIST,
+        !this.isFullLayoutModeEnabled($mergedProps) && NavigationListClassesEnum.MINI_NAVIGATION_LIST,
+        isFull($mergedProps) && NavigationListClassesEnum.FULL_NAVIGATION_LIST,
       )
     );
   }
