@@ -14,11 +14,11 @@
   $rac-navigation-list-section-cursor: unset,                                                 /* @stable [07.02.2020] */
   $rac-navigation-list-section-display: unset,                                                /* @stable [07.02.2020] */
   $rac-navigation-list-section-flex-direction: unset,                                         /* @stable [07.02.2020] */
-  $rac-navigation-list-section-flex: unset,                                                   /* @stable [07.02.2020] */
   $rac-navigation-list-section-font-size: unset,                                              /* @stable [07.02.2020] */
   $rac-navigation-list-section-font-weight: unset,                                            /* @stable [07.02.2020] */
   $rac-navigation-list-section-height: unset,                                                 /* @stable [05.02.2020] */
   $rac-navigation-list-section-hover-outline: unset,                                          /* @stable [07.02.2020] */
+  $rac-navigation-list-section-icon-color: unset,                                             /* @stable [14.05.2020] */
   $rac-navigation-list-section-margin: unset,                                                 /* @stable [05.02.2020] */
   $rac-navigation-list-section-text-transform: unset,                                         /* @stable [07.02.2020] */
   $rac-navigation-list-section-width: unset,                                                  /* @stable [05.02.2020] */
@@ -33,7 +33,6 @@
       $rac-styles-cursor: $rac-navigation-list-section-cursor,
       $rac-styles-display: $rac-navigation-list-section-display,
       $rac-styles-flex-direction: $rac-navigation-list-section-flex-direction,
-      $rac-styles-flex: $rac-navigation-list-section-flex,
       $rac-styles-font-size: $rac-navigation-list-section-font-size,
       $rac-styles-font-weight: $rac-navigation-list-section-font-weight,
       $rac-styles-height: $rac-navigation-list-section-height,
@@ -48,6 +47,11 @@
         $rac-styles-outline: $rac-navigation-list-section-hover-outline
       );
     }
+
+    @include rac-icon (
+      $rac-icon-custom: rac-navigation-list__section-icon,
+      $rac-icon-color: $rac-navigation-list-section-icon-color
+    );
   }
 }
 
@@ -68,7 +72,6 @@
   $rac-navigation-list-flex-basis: unset,                                                     /* @stable [14.05.2020] */
   $rac-navigation-list-flex-grow: unset,                                                      /* @stable [14.05.2020] */
   $rac-navigation-list-flex: unset,                                                           /* @stable [04.02.2020] */
-  $rac-navigation-list-group-item-icon-color: unset,                                          /* @stable [14.05.2020] */
   $rac-navigation-list-group-section-background: unset,                                       /* @stable [05.02.2020] */
   $rac-navigation-list-group-section-color: unset,                                            /* @stable [07.02.2020] */
   $rac-navigation-list-group-section-cursor: unset,                                           /* @stable [07.02.2020] */
@@ -77,7 +80,6 @@
   $rac-navigation-list-group-section-height: unset,                                           /* @stable [04.02.2020] */
   $rac-navigation-list-group-section-text-transform: unset,                                   /* @stable [07.02.2020] */
   $rac-navigation-list-icon-width: unset,                                                     /* @stable [05.02.2020] */
-  $rac-navigation-list-item-icon-color: unset,                                                /* @stable [07.02.2020] */
   $rac-navigation-list-item-section-background: unset,                                        /* @stable [05.02.2020] */
   $rac-navigation-list-item-section-font-weight: unset,                                       /* @stable [07.02.2020] */
   $rac-navigation-list-item-section-height: unset,                                            /* @stable [04.02.2020] */
@@ -91,7 +93,6 @@
   $rac-navigation-list-section-color: unset,                                                  /* @stable [07.02.2020] */
   $rac-navigation-list-section-display: unset,                                                /* @stable [07.02.2020] */
   $rac-navigation-list-section-flex-direction: unset,                                         /* @stable [07.02.2020] */
-  $rac-navigation-list-section-flex: unset,                                                   /* @stable [07.02.2020] */
   $rac-navigation-list-section-font-size: unset,                                              /* @stable [07.02.2020] */
   $rac-navigation-list-section-height: unset,                                                 /* @stable [07.02.2020] */
   $rac-navigation-list-section-hover-outline: unset,                                          /* @stable [07.02.2020] */
@@ -117,7 +118,6 @@
       $rac-navigation-list-section-color: $rac-navigation-list-section-color,
       $rac-navigation-list-section-display: $rac-navigation-list-section-display,
       $rac-navigation-list-section-flex-direction: $rac-navigation-list-section-flex-direction,
-      $rac-navigation-list-section-flex: $rac-navigation-list-section-flex,
       $rac-navigation-list-section-font-size: $rac-navigation-list-section-font-size,
       $rac-navigation-list-section-height: $rac-navigation-list-section-height,
       $rac-navigation-list-section-hover-outline: $rac-navigation-list-section-hover-outline,
@@ -170,16 +170,6 @@
       $rac-icon-margin: $rac-navigation-list-expand-icon-margin,
       $rac-icon-size: $rac-navigation-list-expand-icon-size,
       $rac-icon-width: $rac-navigation-list-expand-icon-width
-    );
-
-    @include rac-icon (
-      $rac-icon-custom: rac-navigation-list__item-icon,
-      $rac-icon-color: $rac-navigation-list-item-icon-color
-    );
-
-    @include rac-icon (
-      $rac-icon-custom: rac-navigation-list__group-item-icon,
-      $rac-icon-color: $rac-navigation-list-group-item-icon-color
     );
   }
 }

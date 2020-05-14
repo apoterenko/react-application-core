@@ -8,16 +8,13 @@ import {
   joinClassName,
   mergeWithSystemProps,
   notNilValuesArrayFilter,
-  nvl,
   orNull,
   uuid,
 } from '../../util';
 import { Link } from '../link';
 import { Menu } from '../menu';
 import {
-  IComponentsSettingsEntity,
   IconsEnum,
-  IDefaultLayoutProps,
   IMenuItemEntity,
   INavigationListItemEntity,
   INavigationListProps,
@@ -64,6 +61,7 @@ export class NavigationList
         ref={this.actualRef}
         className={joinClassName(
           NavigationListClassesEnum.NAVIGATION_LIST,
+          !this.isFullLayoutModeEnabled($mergedProps) && NavigationListClassesEnum.MINI_NAVIGATION_LIST,
           isFull($mergedProps) && NavigationListClassesEnum.FULL_NAVIGATION_LIST,
         )}
       >
@@ -121,7 +119,7 @@ export class NavigationList
    */
   private toElement(item: INavigationListItemEntity): JSX.Element {
     const isExpanded = this.isItemExpanded(item);
-    const fullLayoutModeEnabled = this.isFullLayoutModeEnabled;
+    const $isFullModeEnabled = this.isFullLayoutModeEnabled(this.mergedProps);
     const label = this.t(item.label);
 
     switch (item.type) {
@@ -143,12 +141,9 @@ export class NavigationList
             title={label}
             onClick={() => this.onGroupClick(item)}
           >
-            {this.uiFactory.makeIcon({
-              type: item.icon || 'list',
-              className: NavigationListClassesEnum.NAVIGATION_LIST_GROUP_ITEM_ICON,
-            })}
-            {fullLayoutModeEnabled && label}
-            {fullLayoutModeEnabled && this.uiFactory.makeIcon({
+            {this.asItemIconElement(item)}
+            {$isFullModeEnabled && label}
+            {$isFullModeEnabled && this.uiFactory.makeIcon({
               type: isExpanded ? IconsEnum.CHEVRON_UP : IconsEnum.CHEVRON_DOWN,
               className: 'rac-navigation-list__expand-icon',
             })}
@@ -165,7 +160,7 @@ export class NavigationList
         );
       default:
         const isGroup = R.isNil(item.parent);
-        return orNull(isGroup || fullLayoutModeEnabled && isExpanded, () => this.asItemElement(item));
+        return orNull(isGroup || $isFullModeEnabled && isExpanded, () => this.asItemElement(item));
     }
   }
 
@@ -175,7 +170,7 @@ export class NavigationList
    * @returns {JSX.Element}
    */
   private asItemElement(item: INavigationListItemEntity): JSX.Element {
-    const isFullLayoutModeEnabled = this.isFullLayoutModeEnabled;
+    const $isFullModeEnabled = this.isFullLayoutModeEnabled(this.mergedProps);
     const label = this.t(item.label);
     const isGroup = R.isNil(item.parent);
     const isExpanded = this.isItemExpanded(item);
@@ -187,11 +182,8 @@ export class NavigationList
         className={this.asItemClasses(isGroup, item.active, isExpanded)}
         title={label}
       >
-        {this.uiFactory.makeIcon({
-          type: item.icon,
-          className: NavigationListClassesEnum.NAVIGATION_LIST_ITEM_ICON,
-        })}
-        {isFullLayoutModeEnabled && label}
+        {this.asItemIconElement(item)}
+        {$isFullModeEnabled && label}
       </Link>
     );
   }
@@ -212,7 +204,7 @@ export class NavigationList
   private onGroupClick(entity: INavigationListItemEntity): void {
     ifNotNilThanValue(this.props.onGroupClick, (onGroupClick) => onGroupClick(entity));
 
-    if (!this.isFullLayoutModeEnabled) {
+    if (!this.isFullLayoutModeEnabled(this.mergedProps)) {
       this.setState({activeGroup: entity}, () => this.menuRef.current.show());
     }
   }
@@ -226,36 +218,6 @@ export class NavigationList
     const expandedGroups = this.props.expandedGroups;
     return expandedGroups[item.value] === true
       || (!R.isNil(item.parent) && expandedGroups[item.parent.value] === true);
-  }
-
-  /**
-   * @stable [23.09.2018]
-   * @returns {boolean}
-   */
-  private get isFullLayoutModeEnabled(): boolean {
-    return this.layoutMode === LayoutModesEnum.FULL;
-  }
-
-  // TODO
-  private get layoutMode(): LayoutModesEnum {
-    return nvl(this.systemLayoutMode, this.props.mode);
-  }
-
-  /**
-   * @stable [04.02.2020]
-   * @returns {LayoutModesEnum}
-   */
-  private get systemLayoutMode(): LayoutModesEnum {
-    return this.systemSettings.layoutMode;
-  }
-
-  /**
-   * @stable [04.02.2020]
-   * @returns {IDefaultLayoutProps}
-   */
-  private get systemSettings(): IDefaultLayoutProps {
-    const {defaultLayout = {}} = this.settings.components || {} as IComponentsSettingsEntity;
-    return defaultLayout;
   }
 
   /**
@@ -282,7 +244,19 @@ export class NavigationList
   }
 
   /**
-   * @stable [24.03.2020]
+   * @stable [14.05.2020]
+   * @param {INavigationListItemEntity} item
+   * @returns {JSX.Element}
+   */
+  private asItemIconElement(item: INavigationListItemEntity): JSX.Element {
+    return this.uiFactory.makeIcon({
+      type: item.icon || IconsEnum.LIST_UL,
+      className: NavigationListClassesEnum.NAVIGATION_LIST_SECTION_ICON,
+    });
+  }
+
+  /**
+   * @stable [14.05.2020]
    * @returns {HTMLElement}
    */
   private asPopupMenuAnchorElement(): HTMLElement {
@@ -290,7 +264,7 @@ export class NavigationList
   }
 
   /**
-   * @stable [23.03.2020]
+   * @stable [14.05.2020]
    * @param {boolean} isGroup
    * @param {boolean} isActive
    * @param {boolean} isExpanded
@@ -313,13 +287,12 @@ export class NavigationList
   }
 
   /**
-   * @stable [23.03.2020]
-   * @param {string} link
-   * @param {string} prefix
-   * @returns {string}
+   * @stable [14.05.2020]
+   * @param {INavigationListProps} $mergedProps
+   * @returns {boolean}
    */
-  private asUniqueKey(link: string, prefix: string): string {
-    return `navigation-list-key-${link}-${prefix}`;
+  private isFullLayoutModeEnabled($mergedProps: INavigationListProps): boolean {
+    return $mergedProps.mode === LayoutModesEnum.FULL;
   }
 
   /**
@@ -328,5 +301,15 @@ export class NavigationList
    */
   private get mergedProps(): INavigationListProps {
     return mergeWithSystemProps(this.props, this.settings.components.navigationList);
+  }
+
+  /**
+   * @stable [14.05.2020]
+   * @param {string} link
+   * @param {string} prefix
+   * @returns {string}
+   */
+  private asUniqueKey(link: string, prefix: string): string {
+    return `navigation-list-key-${link}-${prefix}`;
   }
 }

@@ -107,12 +107,12 @@ export interface INavigationListState
  */
 export enum NavigationListClassesEnum {
   FULL_NAVIGATION_LIST = 'rac-full-navigation-list',
+  MINI_NAVIGATION_LIST = 'rac-mini-navigation-list',
   NAVIGATION_LIST = 'rac-navigation-list',
   NAVIGATION_LIST_ACTIVE_SECTION = 'rac-navigation-list__active-section',
   NAVIGATION_LIST_EXPANDED_SECTION = 'rac-navigation-list__expanded-section',
-  NAVIGATION_LIST_GROUP_ITEM_ICON = 'rac-navigation-list__group-item-icon',
   NAVIGATION_LIST_GROUP_SECTION = 'rac-navigation-list__group-section',
-  NAVIGATION_LIST_ITEM_ICON = 'rac-navigation-list__item-icon',
   NAVIGATION_LIST_ITEM_SECTION = 'rac-navigation-list__item-section',
   NAVIGATION_LIST_SECTION = 'rac-navigation-list__section',
+  NAVIGATION_LIST_SECTION_ICON = 'rac-navigation-list__section-icon',
 }

@@ -39,6 +39,7 @@ import {
   faHome,
   faInfo,
   faKey,
+  faListUl,
   faLock,
   faLongArrowAltLeft,
   faLongArrowAltRight,
@@ -169,16 +170,6 @@ export class UiIconFactory implements IUiIconFactory {
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M19.5 24h-15a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3H6c0-3.315 2.685-6 6-6s6 2.685 6 6h1.5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3zM12 3a3 3 0 0 0-3 3h6a3 3 0 0 0-3-3zm7.5 6h-15v12h15V9zM12 12a3 3 0 1 1 0 6 3 3 0 1 1 0-6z'
         />
-      </svg>
-    ),
-    'list': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <defs>
-          <path id='334947fd-5c1b-43e4-8b56-f4c74df86320' d='M24 20a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 20zm0-7.5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16a1.5 1.5 0 0 0 1.5-1.5zM24 5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 5zM1.5 21.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z'
-          />
-        </defs>
-        <use fill='currentColor' xlinkHref='#334947fd-5c1b-43e4-8b56-f4c74df86320' />
       </svg>
     ),
     'circle': (
@@ -474,6 +465,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
     [IconsEnum.FILE_REGULAR]: faFileRegular,
     [IconsEnum.FILTER]: faFilter,
+    [IconsEnum.LIST_UL]: faListUl,
     [IconsEnum.LONG_ARROW_ALT_LEFT]: faLongArrowAltLeft,
     [IconsEnum.LONG_ARROW_ALT_RIGHT]: faLongArrowAltRight,
     [IconsEnum.MINUS_CIRCLE]: faMinusCircle,

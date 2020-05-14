@@ -2,7 +2,6 @@
  * @stable [24.03.2020]
  */
 export enum IconsEnum {
-  EXCLAMATION_CIRCLE = 'exclamation-circle',                              /* https://fontawesome.com/ */
   ANGLE_DOUBLE_LEFT = 'angle-double-left',                                /* https://fontawesome.com/ */
   ANGLE_DOUBLE_RIGHT = 'angle-double-right',                              /* https://fontawesome.com/ */
   ANGLE_LEFT = 'angle-left',                                              /* https://fontawesome.com/ */
@@ -19,11 +18,13 @@ export enum IconsEnum {
   CODEPEN = 'codepen',                                                    /* https://fontawesome.com/ */
   COGS = 'cogs',                                                          /* https://fontawesome.com/ */
   DOLLAR_SIGN = 'dollar-sign',                                            /* https://fontawesome.com/ */
+  EXCLAMATION_CIRCLE = 'exclamation-circle',                              /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
   FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */
   FILE_REGULAR = 'file-regular',                                          /* https://fontawesome.com/ */
   FILTER = 'filter',                                                      /* https://fontawesome.com/ */
   FORWARD = 'forward',
+  LIST_UL = 'list-ul',                                                    /* https://fontawesome.com/ */
   LONG_ARROW_ALT_LEFT = 'long-arrow-alt-left',                            /* https://fontawesome.com/ */
   LONG_ARROW_ALT_RIGHT = 'long-arrow-alt-right',                          /* https://fontawesome.com/ */
   MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
