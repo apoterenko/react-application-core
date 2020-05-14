@@ -2,11 +2,12 @@ import * as R from 'ramda';
 import * as PerfectScrollbar from './perfect-scrollbar'; // TODO
 
 import {
+  ComponentClassesEnum,
   EventsEnum,
   IDomAccessor,
   IEventEmitter,
-  IPerfectScrollableComponent,
   IGenericPlugin,
+  IPerfectScrollableComponent,
   SyntheticEmitterEventsEnum,
 } from '../../definition';
 import {
@@ -14,6 +15,7 @@ import {
   lazyInject,
 } from '../../di';
 import {
+  ifNotNilThanValue,
   isFn,
 } from '../../util';
 
@@ -63,6 +65,14 @@ export class PerfectScrollPlugin implements IGenericPlugin {
     if (R.isNil(this.ps)) {
       return;
     }
+    ifNotNilThanValue(
+      this.selfRef,
+      (selfRef) => {
+        // When a node has a changeable dynamic class and in the second time a registered 'ps' class is not recovered
+        // <nav ref='...' className={staticCls, ..., props.param && staticClsN}
+        this.domAccessor.addClassNames(selfRef, ComponentClassesEnum.PS);
+      }
+    );
     this.ps.update();
   }
 

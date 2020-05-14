@@ -94,6 +94,7 @@ export enum ComponentClassesEnum {
   MOBILE = 'rac-mobile',
   NOWRAP = 'rac-nowrap',
   OVERFLOW_HIDDEN = 'rac-overflow-hidden',
+  PS = 'ps',
   RAC = 'rac',
   RELATIVE = 'rac-relative',
   SAFARI = 'rac-safari',
