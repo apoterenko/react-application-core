@@ -140,7 +140,7 @@ export class NavigationList
   private onGroupClick($entity: INavigationListItemEntity,
                        $mergedProps: INavigationListProps,
                        $isFullModeEnabled: boolean): void {
-    if (!$isFullModeEnabled) {
+    if ($isFullModeEnabled) {
       ifNotNilThanValue($mergedProps.onGroupClick, (onGroupClick) => onGroupClick($entity));
     } else {
       this.setState({activeGroup: $entity}, () => this.menuRef.current.show());
