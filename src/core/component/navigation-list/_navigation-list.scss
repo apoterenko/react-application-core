@@ -1,5 +1,5 @@
-@import '../constant';
 @import './navigation-list-mixin';
+@import './navigation-list-constant';
 
 .rac {
 
@@ -13,6 +13,7 @@
     $rac-navigation-list-expand-icon-height: $rac-navigation-list-expand-icon-height,
     $rac-navigation-list-expand-icon-margin: $rac-navigation-list-expand-icon-margin,
     $rac-navigation-list-expand-icon-width: $rac-navigation-list-expand-icon-width,
+    $rac-navigation-list-expanded-section-background: $rac-navigation-list-expanded-section-background,
     $rac-navigation-list-group-section-color: $rac-navigation-list-group-section-color,
     $rac-navigation-list-group-section-cursor: $rac-navigation-list-group-section-cursor,
     $rac-navigation-list-group-section-font-size: $rac-navigation-list-group-section-font-size,

@@ -1,11 +1,12 @@
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
+import { IButtonProps } from './button-definition.interface';
 import { IDefaultLayoutProps } from './layout-definition.interface';
 import { IDialogProps } from './dialog-definition.interface';
+import { IDrawerProps } from './drawer-definition.interface';
 import { IFieldProps } from './field-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
 import { ITitleProps } from './title-definition.interface';
-import { IButtonProps } from './button-definition.interface';
 
 /**
  * @stable [03.05.2020]
@@ -104,6 +105,7 @@ export interface IComponentsSettingsEntity {
   button?: IButtonProps;
   defaultLayout?: IDefaultLayoutProps;
   dialog?: IDialogProps;
+  drawer?: IDrawerProps;
   field?: IFieldProps;
   header?: IHeaderProps;
   listItem?: IListItemProps;

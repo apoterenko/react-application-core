@@ -1,0 +1,32 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [05.04.2020] */
+/************************/
+$rac-navigation-list-active-section-background: $rac-primary-color-ganymede-0 !default;
+$rac-navigation-list-active-section-color: $rac-primary-color-poseidon-0 !default;
+$rac-navigation-list-expanded-section-background: $rac-primary-color-metis-2 !default;
+
+$rac-navigation-list-size-0: 12px !default;
+/**/
+
+$rac-navigation-list-active-section-color: unset !default;
+$rac-navigation-list-expand-icon-height: $rac-navigation-list-size-0 !default;
+$rac-navigation-list-expand-icon-margin: 0 0 0 auto !default;
+$rac-navigation-list-expand-icon-width: $rac-navigation-list-size-0 !default;
+$rac-navigation-list-group-section-color: unset !default;
+$rac-navigation-list-group-section-cursor: pointer !default;
+$rac-navigation-list-group-section-font-size: unset !default;
+$rac-navigation-list-group-section-font-weight: $rac-primary-font-weight-2 !default;
+$rac-navigation-list-group-section-text-transform: unset !default;
+$rac-navigation-list-item-icon-color: unset !default;
+$rac-navigation-list-item-section-font-weight: $rac-primary-font-weight-1 !default;
+$rac-navigation-list-no-user-select: true !default;
+$rac-navigation-list-section-align-items: center !default;
+$rac-navigation-list-section-display: flex !default;
+$rac-navigation-list-section-flex-direction: unset !default;
+$rac-navigation-list-section-flex: unset !default;
+$rac-navigation-list-section-font-size: $rac-primary-font-size-0 !default;
+$rac-navigation-list-section-hover-outline: unset !default;
+$rac-navigation-list-section-word-break: break-word !default;

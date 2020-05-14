@@ -17,6 +17,7 @@ export * from './date-field-definition.interface';
 export * from './dialog-definition.interface';
 export * from './dictionary-definition.interface';
 export * from './dom-definition.interface';
+export * from './drawer-definition.interface';
 export * from './enhanced-generic-component-definition.interface';
 export * from './entity-definition.interface';
 export * from './env-definition.interface';

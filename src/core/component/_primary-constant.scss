@@ -28,6 +28,12 @@ $rac-primary-display-1: block !default;
 $rac-primary-display-2: inline-flex !default;
 
 /************************/
+/* @stable [14.05.2020] */
+/************************/
+$rac-primary-flex-direction-0: column !default;
+$rac-primary-flex-direction-1: row !default;
+
+/************************/
 /* @stable [08.04.2020] */
 /************************/
 $rac-primary-z-index-0: 1 !default;
@@ -143,9 +149,6 @@ $rac-primary-icon-size-6: 32px !default;
 /************************/
 /* @stable [18.03.2020] */
 /************************/
-/* callisto */
-$rac-primary-color-callisto-0: #fff !default;
-
 /* metis */
 $rac-primary-color-metis-0: rgba(0, 0, 0, .05) !default;
 $rac-primary-color-metis-0-0: #f0f0f0 !default;
@@ -157,6 +160,9 @@ $rac-primary-color-metis-0-5: #f5f5f5 !default;
 $rac-primary-color-metis-0-6: #f6f6f6 !default;
 $rac-primary-color-metis-0-7: #f7f7f7 !default;
 $rac-primary-color-metis-0-8: #f8f8f8 !default;
+$rac-primary-color-metis-0-9: #f9f9f9 !default;
+$rac-primary-color-metis-0-10: #ffffff !default;
+
 /* metis */
 $rac-primary-color-metis-1: rgba(0, 0, 0, .1) !default;
 $rac-primary-color-metis-1-0: #e0e0e0 !default;
@@ -210,6 +216,9 @@ $rac-primary-color-hermes-0-7: rgba(91, 186, 111, .8) !default;
 $rac-primary-color-hermes-0-8: rgba(91, 186, 111, .9) !default;
 /**/
 $rac-primary-color-hermes-1: #4eae60 !default;
+
+// poseidon
+$rac-primary-color-poseidon-0: #12130f!default;
 
 /************************/
 /* @stable [04.05.2020] */

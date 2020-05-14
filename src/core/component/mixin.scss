@@ -2838,33 +2838,6 @@
 }
 
 /**
- * @stable [18.10.2019]
- */
-@mixin rac-drawer (
-  $rac-drawer-custom: unset,
-  /**/
-  $rac-drawer-background: unset,
-  $rac-drawer-display: unset,
-  $rac-drawer-flex-direction: unset,
-  $rac-drawer-justify-content: unset,                                                         /* @stable [04.02.2020] */
-  $rac-drawer-transform: unset,
-  $rac-drawer-width: unset,
-  $rac-drawer-z-index: unset
-) {
-  #{rac-cls($rac-drawer-cls, $rac-drawer-custom)} {
-    @include rac-styles (
-      $rac-styles-background: $rac-drawer-background,
-      $rac-styles-display: $rac-drawer-display,
-      $rac-styles-flex-direction: $rac-drawer-flex-direction,
-      $rac-styles-justify-content: $rac-drawer-justify-content,
-      $rac-styles-transform: $rac-drawer-transform,
-      $rac-styles-width: $rac-drawer-width,
-      $rac-styles-z-index: $rac-drawer-z-index
-    );
-  }
-}
-
-/**
  * @stable [04.02.2020]
  */
 @mixin rac-default-layout (
