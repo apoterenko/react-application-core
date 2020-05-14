@@ -33,6 +33,7 @@
   $rac-icon-size: unset,                                                    /* @stable [10.11.2019] */
   $rac-icon-top: unset,                                                     /* @stable [15.01.2020] */
   $rac-icon-vertical-align: unset,                                          /* @stable [21.10.2019] */
+  $rac-icon-visibility: unset,                                              /* @stable [14.05.2020] */
   $rac-icon-width: unset                                                    /* @stable [15.01.2020] */
 ) {
 
@@ -61,6 +62,7 @@
       $rac-styles-size: $rac-icon-size,
       $rac-styles-top: $rac-icon-top,
       $rac-styles-vertical-align: $rac-icon-vertical-align,
+      $rac-styles-visibility: $rac-icon-visibility,
       $rac-styles-width: $rac-icon-width
     );
 

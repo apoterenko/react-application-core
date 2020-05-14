@@ -83,6 +83,7 @@
   $rac-navigation-list-item-section-background: unset,                                        /* @stable [05.02.2020] */
   $rac-navigation-list-item-section-font-weight: unset,                                       /* @stable [07.02.2020] */
   $rac-navigation-list-item-section-height: unset,                                            /* @stable [04.02.2020] */
+  $rac-navigation-list-item-section-icon-visibility: unset,                                   /* @stable [14.05.2020] */
   $rac-navigation-list-last-section-margin: unset,                                            /* @stable [04.02.2020] */
   $rac-navigation-list-no-user-select: unset,                                                 /* @stable [07.02.2020] */
   $rac-navigation-list-overflow: unset,                                                       /* @stable [05.02.2020] */
@@ -172,6 +173,11 @@
       $rac-icon-margin: $rac-navigation-list-expand-icon-margin,
       $rac-icon-size: $rac-navigation-list-expand-icon-size,
       $rac-icon-width: $rac-navigation-list-expand-icon-width
+    );
+
+    @include rac-icon (
+      $rac-icon-custom: rac-navigation-list__item-section-icon,
+      $rac-icon-visibility: $rac-navigation-list-item-section-icon-visibility
     );
   }
 }

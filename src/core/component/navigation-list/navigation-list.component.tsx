@@ -220,7 +220,7 @@ export class NavigationList
         className={this.asItemClassName($isGroup, item.active, $isExpanded)}
         title={$label}
       >
-        {this.asItemIconElement(item, NavigationListClassesEnum.NAVIGATION_LIST_ITEM_SECTION_ICON)}
+        {this.asItemIconElement(item, !$isGroup && NavigationListClassesEnum.NAVIGATION_LIST_ITEM_SECTION_ICON)}
         {$isFullModeEnabled && $label}
       </Link>
     );
