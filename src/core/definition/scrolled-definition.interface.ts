@@ -3,10 +3,10 @@ import { IOnScrollWrapper } from '../definitions.interface';
 import { IReduxXYEntity } from './xy-definition.interface';
 
 /**
- * @behavioral-entity
+ * @presets-entity
  * @stable [24.03.2020]
  */
-export interface IBehavioralScrolledEntity
+export interface IPresetsScrolledEntity
   extends IOnScrollWrapper<IReduxXYEntity> {
 }
 
@@ -16,5 +16,5 @@ export interface IBehavioralScrolledEntity
  */
 export interface IScrolledProps
   extends IComponentProps,
-    IBehavioralScrolledEntity {
+    IPresetsScrolledEntity {
 }

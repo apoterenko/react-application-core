@@ -24,7 +24,7 @@
   $rac-navigation-list-section-width: unset,                                                  /* @stable [05.02.2020] */
   $rac-navigation-list-section-word-break: unset                                              /* @stable [07.02.2020] */
 ) {
-  #{rac-cls(rac-navigation-list__section, $rac-navigation-list-section-custom)} {
+  #{rac-cls($rac-navigation-list-section, $rac-navigation-list-section-custom)} {
     @include rac-styles (
       $rac-styles-align-items: $rac-navigation-list-section-align-items,
       $rac-styles-background: $rac-navigation-list-section-background,
@@ -62,9 +62,13 @@
   $rac-navigation-list-active-section-color: unset,                                           /* @stable [07.02.2020] */
   $rac-navigation-list-expand-icon-height: unset,                                             /* @stable [07.02.2020] */
   $rac-navigation-list-expand-icon-margin: unset,                                             /* @stable [07.02.2020] */
+  $rac-navigation-list-expand-icon-size: unset,                                               /* @stable [14.05.2020] */
   $rac-navigation-list-expand-icon-width: unset,                                              /* @stable [07.02.2020] */
   $rac-navigation-list-expanded-section-background: unset,                                    /* @stable [05.02.2020] */
+  $rac-navigation-list-flex-basis: unset,                                                     /* @stable [14.05.2020] */
+  $rac-navigation-list-flex-grow: unset,                                                      /* @stable [14.05.2020] */
   $rac-navigation-list-flex: unset,                                                           /* @stable [04.02.2020] */
+  $rac-navigation-list-group-item-icon-color: unset,                                          /* @stable [14.05.2020] */
   $rac-navigation-list-group-section-background: unset,                                       /* @stable [05.02.2020] */
   $rac-navigation-list-group-section-color: unset,                                            /* @stable [07.02.2020] */
   $rac-navigation-list-group-section-cursor: unset,                                           /* @stable [07.02.2020] */
@@ -95,8 +99,10 @@
   $rac-navigation-list-section-width: unset,                                                  /* @stable [07.02.2020] */
   $rac-navigation-list-section-word-break: unset                                              /* @stable [07.02.2020] */
 ) {
-  #{rac-cls(rac-navigation-list, $rac-navigation-list-custom)} {
+  #{rac-cls($rac-navigation-list-cls, $rac-navigation-list-custom)} {
     @include rac-styles (
+      $rac-styles-flex-basis: $rac-navigation-list-flex-basis,
+      $rac-styles-flex-grow: $rac-navigation-list-flex-grow,
       $rac-styles-flex: $rac-navigation-list-flex,
       $rac-styles-no-user-select: $rac-navigation-list-no-user-select,
       $rac-styles-overflow: $rac-navigation-list-overflow,
@@ -162,12 +168,18 @@
       $rac-icon-custom: rac-navigation-list__expand-icon,
       $rac-icon-height: $rac-navigation-list-expand-icon-height,
       $rac-icon-margin: $rac-navigation-list-expand-icon-margin,
+      $rac-icon-size: $rac-navigation-list-expand-icon-size,
       $rac-icon-width: $rac-navigation-list-expand-icon-width
     );
 
     @include rac-icon (
       $rac-icon-custom: rac-navigation-list__item-icon,
       $rac-icon-color: $rac-navigation-list-item-icon-color
+    );
+
+    @include rac-icon (
+      $rac-icon-custom: rac-navigation-list__group-item-icon,
+      $rac-icon-color: $rac-navigation-list-group-item-icon-color
     );
   }
 }

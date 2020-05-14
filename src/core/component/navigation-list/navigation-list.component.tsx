@@ -4,7 +4,9 @@ import * as R from 'ramda';
 import {
   ifNotFalseThanValue,
   ifNotNilThanValue,
+  isFull,
   joinClassName,
+  mergeWithSystemProps,
   notNilValuesArrayFilter,
   nvl,
   orNull,
@@ -54,11 +56,16 @@ export class NavigationList
   public render(): JSX.Element {
     this.itemsRefsMap.clear();
 
-    const items = this.props.items;
+    const $mergedProps = this.mergedProps;
+    const items = $mergedProps.items;
+
     return (
       <nav
         ref={this.actualRef}
-        className={NavigationListClassesEnum.NAVIGATION_LIST}
+        className={joinClassName(
+          NavigationListClassesEnum.NAVIGATION_LIST,
+          isFull($mergedProps) && NavigationListClassesEnum.FULL_NAVIGATION_LIST,
+        )}
       >
         {this.getListDividerElement()}
         {items.map(this.toElement, this)}
@@ -138,6 +145,7 @@ export class NavigationList
           >
             {this.uiFactory.makeIcon({
               type: item.icon || 'list',
+              className: NavigationListClassesEnum.NAVIGATION_LIST_GROUP_ITEM_ICON,
             })}
             {fullLayoutModeEnabled && label}
             {fullLayoutModeEnabled && this.uiFactory.makeIcon({
@@ -312,5 +320,13 @@ export class NavigationList
    */
   private asUniqueKey(link: string, prefix: string): string {
     return `navigation-list-key-${link}-${prefix}`;
+  }
+
+  /**
+   * @stable [14.05.2020]
+   * @returns {INavigationListProps}
+   */
+  private get mergedProps(): INavigationListProps {
+    return mergeWithSystemProps(this.props, this.settings.components.navigationList);
   }
 }

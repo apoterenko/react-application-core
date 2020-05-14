@@ -4,6 +4,7 @@ import {
   IActiveWrapper,
   IChildrenWrapper,
   IDividerRenderedWrapper,
+  IFullWrapper,
   IIconWrapper,
   IItemsWrapper,
   ILabelWrapper,
@@ -15,7 +16,7 @@ import {
   ITypeWrapper,
   IValueWrapper,
 } from '../definitions.interface';
-import { IBehavioralScrolledEntity } from './scrolled-definition.interface';
+import { IPresetsScrolledEntity } from './scrolled-definition.interface';
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 import { IReduxLayoutEntity } from './layout-definition.interface';
 
@@ -54,23 +55,33 @@ export interface INavigationListItemEntity<TAccessConfiguration = {}>
 }
 
 /**
- * @generic-entity
- * @stable [24.03.2020]
+ * @presets-entity
+ * @stable [14.05.2020]
  */
-export interface IGenericNavigationListEntity
-  extends IReduxLayoutEntity,
+export interface IPresetsNavigationListEntity
+  extends IPresetsScrolledEntity,
     IDividerRenderedWrapper,
-    IItemsWrapper<INavigationListItemEntity[]> {
+    IFullWrapper,
+    IItemsWrapper<INavigationListItemEntity[]>,
+    IOnClickWrapper<INavigationListItemEntity>,
+    IOnGroupClickWrapper<INavigationListItemEntity> {
 }
 
 /**
- * @behavioral-entity
- * @stable [24.03.2020]
+ * @redux-entity
+ * @stable [14.05.2020]
  */
-export interface IBehavioralNavigationListEntity
-  extends IBehavioralScrolledEntity,
-    IOnClickWrapper<INavigationListItemEntity>,
-    IOnGroupClickWrapper<INavigationListItemEntity> {
+export interface IReduxNavigationListEntity
+  extends IReduxLayoutEntity {
+}
+
+/**
+ * @generic-entity
+ * @stable [14.05.2020]
+ */
+export interface IGenericNavigationListEntity
+  extends IPresetsNavigationListEntity,
+    IReduxNavigationListEntity {
 }
 
 /**
@@ -79,8 +90,7 @@ export interface IBehavioralNavigationListEntity
  */
 export interface INavigationListProps
   extends IEnhancedGenericComponentProps,
-    IGenericNavigationListEntity,
-    IBehavioralNavigationListEntity {
+    IGenericNavigationListEntity {
 }
 
 /**
@@ -96,9 +106,11 @@ export interface INavigationListState
  * @stable [24.03.2020]
  */
 export enum NavigationListClassesEnum {
+  FULL_NAVIGATION_LIST = 'rac-full-navigation-list',
   NAVIGATION_LIST = 'rac-navigation-list',
   NAVIGATION_LIST_ACTIVE_SECTION = 'rac-navigation-list__active-section',
   NAVIGATION_LIST_EXPANDED_SECTION = 'rac-navigation-list__expanded-section',
+  NAVIGATION_LIST_GROUP_ITEM_ICON = 'rac-navigation-list__group-item-icon',
   NAVIGATION_LIST_GROUP_SECTION = 'rac-navigation-list__group-section',
   NAVIGATION_LIST_ITEM_ICON = 'rac-navigation-list__item-icon',
   NAVIGATION_LIST_ITEM_SECTION = 'rac-navigation-list__item-section',

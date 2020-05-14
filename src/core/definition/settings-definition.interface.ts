@@ -6,6 +6,7 @@ import { IDrawerProps } from './drawer-definition.interface';
 import { IFieldProps } from './field-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
+import { INavigationListProps } from './navigation-list-definition.interface';
 import { ITitleProps } from './title-definition.interface';
 
 /**
@@ -109,6 +110,7 @@ export interface IComponentsSettingsEntity {
   field?: IFieldProps;
   header?: IHeaderProps;
   listItem?: IListItemProps;
+  navigationList?: INavigationListProps;
   title?: ITitleProps;
 }
 
