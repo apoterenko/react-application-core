@@ -78,6 +78,12 @@ The library is designed to quickly start develop the business applications are b
 * [_dialog.scss (11.05.2020)](src/core/component/dialog/_dialog.scss)
 * [_dialog-constant.scss (11.05.2020)](src/core/component/dialog/_dialog-constant.scss)
 
+#### NavigationList
+
+* [_navigation-list.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list.scss)
+* [_navigation-list-constant.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-constant.scss)
+* [_navigation-list-mixin.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-mixin.scss)
+
 # Usage
 
 #### Containers
