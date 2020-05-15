@@ -8,7 +8,10 @@ import {
   IKeyValue,
   ITypeWrapper,
 } from '../definitions.interface';
-import { ID_FIELD_NAME } from '../definition/field-definition.interface';
+import {
+  ENTITY_ID_FIELD_NAME,
+  ID_FIELD_NAME,
+} from '../definition/field-definition.interface';
 import {
   isDef,
   isEvent,
@@ -60,11 +63,22 @@ export const filterByPredicate =
       source
     );
 
-export function excludeFieldsPredicateFactory(...fields: string[]) {
-  return (key: string, value: AnyT) => !fields.includes(key);
-}
+/**
+ * @stable [15.05.2020]
+ * @param {string} fields
+ * @returns {(key: string, value: AnyT) => boolean}
+ */
+const excludeFieldsPredicateFactory = (...fields: string[]) => (key: string) => !fields.includes(key);
 
-export const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD_NAME);
+/**
+ * @stable [15.05.2020]
+ */
+const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD_NAME);
+
+/**
+ * @stable [15.05.2020]
+ */
+const EXCLUDE_ENTITY_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ENTITY_ID_FIELD_NAME);
 
 /**
  * @stable [09.01.2019]
@@ -315,3 +329,12 @@ export const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
     .forEach((v) => result = result || v.includes(query.toUpperCase()));
   return result;
 };
+
+/**
+ * @stable [15.05.2020]
+ */
+export class FilterUtils {
+  public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;       /* @stable [15.05.2020] */
+  public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                     /* @stable [15.05.2020] */
+  public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;               /* @stable [15.05.2020] */
+}

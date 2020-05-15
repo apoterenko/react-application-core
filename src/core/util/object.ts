@@ -37,12 +37,11 @@ export const isCurrentValueNotEqualPreviousValue = (current: AnyT, previous: Any
   isObjectNotEmpty(current) && !R.equals(current, previous);
 
 /**
- * @stable [25.11.2019]
+ * @stable [15.05.2020]
  * @param {TValue} object
  * @returns {TValue}
  */
-export const buildUndefValuesObject = <TValue>(object: TValue): TValue =>
-  mergeObjectsArray(object, () => UNDEF);
+const buildUndefValuesObject = <TValue>(object: TValue): TValue => mergeObjectsArray(object, () => UNDEF);
 
 /**
  * @stable [17.04.2020]
@@ -54,3 +53,10 @@ export const mergeObjectsArray = <TValue>(object: TValue, mergeFn = (o, key) => 
   R.isNil(object)
     ? object
     : R.mergeAll(Object.keys(object).map((key) => ({[key]: mergeFn(object, key)})));
+
+/**
+ * @stable [15.05.2020]
+ */
+export class ObjectUtils {
+  public static buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
+}

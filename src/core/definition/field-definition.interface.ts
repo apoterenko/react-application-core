@@ -81,6 +81,7 @@ export const FIELD_DISPLAY_EMPTY_VALUE = '';
 export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
 export const FIELD_VALUE_TO_RESET = null;
 export const ID_FIELD_NAME = 'id';
+export const ENTITY_ID_FIELD_NAME = 'entityId';
 
 /**
  * @presets-entity

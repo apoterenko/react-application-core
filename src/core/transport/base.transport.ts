@@ -143,14 +143,20 @@ export class BaseTransport {
    * @returns {Promise<TResult>}
    */
   protected doSaveEntity<TEntity extends IEntity, TResult = TEntity>(entity: IUpdateEntityPayloadEntity<TEntity>): Promise<TResult> {
-    const apiEntity = entity.apiEntity;
+    const {
+      newEntity,
+      entityId,
+      changes,
+      diff,
+    } = entity.apiEntity;
+
     return this.transport.request<TResult>({
       params: {
-        ...(entity.alwaysSendChanges ? apiEntity.changes : apiEntity.diff) as {},
+        ...(entity.alwaysSendChanges ? changes : diff) as {},
         ...defValuesFilter(entity.extraParams),
-        ...defValuesFilter({id: apiEntity.entityId}),
+        ...defValuesFilter({id: entityId}),
       },
-      name: apiEntity.newEntity ? entity.addApi : entity.editApi,
+      name: newEntity ? entity.addApi : entity.editApi,
       operation: entity.operation,
     });
   }
