@@ -166,7 +166,7 @@ export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isNumberLike(value);
+const NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isNumberLike(value);
 
 /**
  * @stable [31.03.2019]
@@ -174,14 +174,14 @@ export const NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isN
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_EMPTY_VALUE_PREDICATE(value);
+const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_EMPTY_VALUE_PREDICATE(value);
 
 /**
- * @stable [03.10.2018]
+ * @stable [16.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
+const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
 
 /**
  * @stable [22.10.2019]
@@ -212,6 +212,13 @@ export const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicat
  * @returns {TValue[]}
  */
 export const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, OBJECT_VALUE_PREDICATE);
+
+/**
+ * @stable [16.05.2020]
+ * @param {TValue} data
+ * @returns {TValue[]}
+ */
+const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, DEF_VALUE_PREDICATE);
 
 /**
  * @stable [29.11.2018]
@@ -331,6 +338,7 @@ export const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
  * @stable [15.05.2020]
  */
 export class FilterUtils {
+  public static readonly defValuesArrayFilter = defValuesArrayFilter;                                 /* @stable [15.05.2020] */
   public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;       /* @stable [15.05.2020] */
   public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                     /* @stable [15.05.2020] */
   public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;               /* @stable [15.05.2020] */
