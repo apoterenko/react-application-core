@@ -26,7 +26,7 @@ export interface IMultiFieldProps extends IBaseSelectProps,
  * @stable [04.07.2018]
  */
 export interface IMultiFieldPlugin {
-  activeValue: IMultiItemEntity[];
+  activeValue: IEntity[];
   editValue: IMultiItemEntity[];
   addValue: IMultiItemEntity[];
   originalValue: IMultiItemEntity[];

@@ -1,4 +1,7 @@
-import { isFn, asMultiFieldEntities, asMultiFieldEntitiesLength } from '../../../util';
+import {
+  asMultiFieldEntitiesLength,
+  isFn,
+} from '../../../util';
 import { IEntity } from '../../../definitions.interface';
 import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import {
@@ -6,17 +9,26 @@ import {
   IMultiFieldPlugin,
 } from './multifield.interface';
 import {
+  extractMultiAddItemEntities,
   extractMultiEditItemEntities,
   extractMultiRemoveItemEntities,
-  extractMultiAddItemEntities,
   extractMultiSourceItemEntities,
   fromMultiItemEntityToEntity,
-  toMultiFieldChangesEntityOnEdit,
   toMultiFieldChangesEntityOnDelete,
+  toMultiFieldChangesEntityOnEdit,
 } from './multifield.support';
-import { IMultiItemEntity, MultiFieldEntityT } from '../../../definition';
+import {
+  IFieldConverter,
+  IMultiItemEntity,
+  MultiFieldEntityT,
+} from '../../../definition';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../../di';
 
 export class MultiFieldPlugin implements IMultiFieldPlugin {
+  @lazyInject(DI_TYPES.FieldConverter) private readonly fieldConverter: IFieldConverter;
 
   /**
    * @stable [28.11.2018]
@@ -102,11 +114,11 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [01.06.2018]
-   * @returns {IMultiItemEntity[]}
+   * @stable [16.05.2020]
+   * @returns {IEntity[]}
    */
-  public get activeValue(): IMultiItemEntity[] {
-    return asMultiFieldEntities({
+  public get activeValue(): IEntity[] {
+    return this.fieldConverter.fromMultiFieldEntityToEntities({
       source: this.originalValue,
       remove: this.removeValue,
       add: this.addValue,
