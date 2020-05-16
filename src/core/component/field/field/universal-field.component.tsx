@@ -39,7 +39,6 @@ import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
 import {
   AnyT,
-  CLEAR_DIRTY_CHANGES_VALUE,
   IFocusEvent,
   IKeyboardEvent,
 } from '../../../definitions.interface';
@@ -48,6 +47,7 @@ import {
 } from './field.interface';
 import {
   FIELD_DISPLAY_EMPTY_VALUE,
+  FieldConstants,
   IBaseEvent,
   IGenericFieldEntity2,
 } from '../../../definition';
@@ -125,7 +125,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [17.06.2018]
    */
   public resetError(): void {
-    this.validateField(CLEAR_DIRTY_CHANGES_VALUE);
+    this.validateField(FieldConstants.FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES);
   }
 
   /**

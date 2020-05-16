@@ -9,7 +9,6 @@ export const DEFAULT_CURRENCY_PRECISION_VALUE = 2;
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
-export const CLEAR_DIRTY_CHANGES_VALUE = UNDEF;
 export const ACTION_PREFIX = '$$-RAC-';
 
 /* @stable [23.04.2018] */
