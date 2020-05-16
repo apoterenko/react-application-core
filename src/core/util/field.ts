@@ -124,7 +124,7 @@ export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
  */
 const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
   if (R.isNil(entity)) {
-    return [];
+    return UNDEF;
   }
   if (isNotMultiEntity(entity)) {
     return entity as TEntity[];
@@ -151,6 +151,14 @@ const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: MultiFi
       .map((itm) => nvl(cachedEditedEntities.get(itm.id), itm))
   );
 };
+
+/**
+ * @stable [16.05.2020]
+ * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
+ * @returns {TEntity[]}
+ */
+const asMultiFieldDefinedEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
+  asMultiFieldEntities(entity) || [];
 
 /**
  * @stable [12.10.2019]
@@ -324,5 +332,6 @@ export const buildNewPhantomMultiItem =
  * @stable [16.05.2020]
  */
 export class FieldUtils {
+  public static asMultiFieldDefinedEntities = asMultiFieldDefinedEntities;                           /* @stable [16.05.2020] */
   public static asMultiFieldEntities = asMultiFieldEntities;                                         /* @stable [16.05.2020] */
 }

@@ -90,6 +90,15 @@ export class BaseTransport {
   }
 
   /**
+   * @stable [16.05.2020]
+   * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
+   * @returns {TEntity[]}
+   */
+  protected fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] {
+    return this.fieldConverter.fromMultiFieldEntityToDefinedEntities(entity);
+  }
+
+  /**
    * @stable [29.08.2019]
    * @param {StringNumberT} value
    * @param {(value: number) => number} converter

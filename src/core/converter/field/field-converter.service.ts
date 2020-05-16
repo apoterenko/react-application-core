@@ -124,6 +124,11 @@ export class FieldConverter implements IFieldConverter {
       to: FieldConverterTypesEnum.ENTITIES,
       converter: this.$fromMultiFieldEntityToEntities.bind(this),
     });
+    this.register({
+      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      to: FieldConverterTypesEnum.DEFINED_ENTITIES,
+      converter: this.$fromMultiFieldEntityToDefinedEntities.bind(this),
+    });
   }
 
   /**
@@ -208,6 +213,19 @@ export class FieldConverter implements IFieldConverter {
     return this.convert({
       from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
       to: FieldConverterTypesEnum.ENTITIES,
+      value,
+    });
+  }
+
+  /**
+   * @stable [16.05.2020]
+   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+   * @returns {TEntity[]}
+   */
+  public fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
+    return this.convert({
+      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      to: FieldConverterTypesEnum.DEFINED_ENTITIES,
       value,
     });
   }
@@ -364,6 +382,15 @@ export class FieldConverter implements IFieldConverter {
    */
   private $fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
     return FieldUtils.asMultiFieldEntities(value);
+  }
+
+  /**
+   * @stable [16.05.2020]
+   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+   * @returns {TEntity[]}
+   */
+  private $fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
+    return FieldUtils.asMultiFieldDefinedEntities(value);
   }
 
   /**

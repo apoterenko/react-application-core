@@ -21,6 +21,7 @@ export enum FieldConverterTypesEnum {
   CRON_PARAMETER = 'CRON_PARAMETER',
   DATES_RANGE_ENTITY = 'DATES_RANGE_ENTITY',
   DATES_RANGE_VALUE = 'DATES_RANGE_VALUE',
+  DEFINED_ENTITIES = 'DEFINED_ENTITIES',
   DISPLAY_VALUE = 'DISPLAY_VALUE',
   ENTITIES = 'ENTITIES',
   EXTENDED_LABELED_VALUE_ENTITY = 'EXTENDED_LABELED_VALUE_ENTITY',
@@ -53,6 +54,7 @@ export interface IFieldConverter {
   convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
   converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
   fromCronExpressionToCronParameter(value: string): string;
+  fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity;
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;

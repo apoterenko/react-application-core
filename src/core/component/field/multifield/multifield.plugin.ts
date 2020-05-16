@@ -118,7 +118,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {IEntity[]}
    */
   public get activeValue(): IEntity[] {
-    return this.fieldConverter.fromMultiFieldEntityToEntities({
+    return this.fieldConverter.fromMultiFieldEntityToDefinedEntities({
       source: this.originalValue,
       remove: this.removeValue,
       add: this.addValue,
