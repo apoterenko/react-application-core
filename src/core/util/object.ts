@@ -5,7 +5,6 @@ import {
   UNDEF,
 } from '../definitions.interface';
 import { isString } from './type';
-import { ifNotEmptyThanValue } from './cond';
 
 /**
  * @stable [18.04.2020]
@@ -60,8 +59,10 @@ const buildUndefValuesObject = <TValue>(object: TValue): TValue => buildValuesOb
  * @param {TValue} object
  * @returns {TValue}
  */
-const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): TValue =>
-  buildValuesObjectBy(object, (o, key) => ifNotEmptyThanValue(object[key], (value) => value));
+const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): TValue => buildValuesObjectBy(object, (o, key) => {
+  const value = object[key];
+  return isObjectNotEmpty(value) ? value : null;
+});
 
 /**
  * @stable [15.05.2020]
