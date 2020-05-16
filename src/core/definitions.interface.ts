@@ -572,13 +572,6 @@ export interface IZoneWrapper<TValue = string> { zone?: TValue; }
 export interface IZoomWrapper { zoom?: number; }
 
 /**
- * @stable [15.05.2018]
- */
-export interface IToolbarWrapper<TToolbar = JSX.Element> {
-  toolbar?: TToolbar;
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface ISetFocusWrapper<TSetFocus = () => void> {
@@ -590,13 +583,6 @@ export interface ISetFocusWrapper<TSetFocus = () => void> {
  */
 export interface IResetErrorWrapper<TResetError = () => void> {
   resetError: TResetError;
-}
-
-/**
- * @stable [13.05.2018]
- */
-export interface IOnRemoveWrapper<TItem = AnyT, TOnRemove = (item?: TItem) => void> {
-  onRemove?: TOnRemove;
 }
 
 /**

@@ -8,10 +8,7 @@ import {
   IKeyValue,
   ITypeWrapper,
 } from '../definitions.interface';
-import {
-  ENTITY_ID_FIELD_NAME,
-  ID_FIELD_NAME,
-} from '../definition/field-definition.interface';
+import { FieldConstants } from '../definition/field-definition.interface';
 import {
   isDef,
   isEvent,
@@ -73,12 +70,12 @@ const excludeFieldsPredicateFactory = (...fields: string[]) => (key: string) => 
 /**
  * @stable [15.05.2020]
  */
-const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ID_FIELD_NAME);
+const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(FieldConstants.ID_FIELD_NAME);
 
 /**
  * @stable [15.05.2020]
  */
-const EXCLUDE_ENTITY_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(ENTITY_ID_FIELD_NAME);
+const EXCLUDE_ENTITY_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(FieldConstants.ENTITY_ID_FIELD_NAME);
 
 /**
  * @stable [09.01.2019]

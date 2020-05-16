@@ -1,14 +1,12 @@
 import {
-  filterByPredicate,
-  excludeFieldsFilter,
-  defValuesFilter,
-  excludeIdFieldFilter,
   cloneUsingFilters,
+  defValuesFilter,
+  excludeFieldsFilter,
+  excludeIdFieldFilter,
+  filterByPredicate,
 } from './filter';
-import { ID_FIELD_NAME } from '../definition/field-definition.interface';
-import {
-  UNDEF,
-} from '../definitions.interface';
+import { FieldConstants } from '../definition/field-definition.interface';
+import { UNDEF } from '../definitions.interface';
 
 describe('util/filter', () => {
   describe('filterByPredicate', () => {
@@ -135,7 +133,7 @@ describe('util/filter', () => {
     it('test1', () => {
       const filteredObject = excludeIdFieldFilter({
         key1: 'value1',
-        [ID_FIELD_NAME]: 100,
+        [FieldConstants.ID_FIELD_NAME]: 100,
       });
 
       expect(filteredObject).toEqual({

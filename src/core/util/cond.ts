@@ -114,3 +114,11 @@ export const ifNotTrueThanValue = <TResult>(value: boolean,
                                             callback: (value: boolean) => TResult,
                                             defaultValue = null): TResult =>
   value !== true ? callback(value) : defaultValue;
+
+/**
+ * @stable [16.05.2020]
+ */
+export class ConditionUtils {
+  public static readonly ifNotEmptyThanValue = ifNotEmptyThanValue;               /* @stable [16.05.2020] */
+  public static readonly ifNotNilThanValue = ifNotNilThanValue;                   /* @stable [16.05.2020] */
+}
