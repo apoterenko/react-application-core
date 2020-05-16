@@ -8,7 +8,7 @@ import {
   toActionPrefix,
 } from '../util';
 import {
-  FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
+  FieldConstants,
   FORM_ACTIVE_VALUE_ACTION_TYPE,
   FORM_CHANGE_ACTION_TYPE,
   FORM_CLEAR_ACTION_TYPE,
@@ -252,7 +252,7 @@ export class FormActionBuilder {
   public static buildClearPlainAction(section: string, fieldName: string): IEffectsAction {
     return {
       type: this.buildClearActionType(section),
-      data: applySection(section, this.buildChangesPayload({[fieldName]: FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES})),
+      data: applySection(section, this.buildChangesPayload({[fieldName]: FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES})),
     };
   }
 

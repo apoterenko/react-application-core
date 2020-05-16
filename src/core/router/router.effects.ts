@@ -3,9 +3,9 @@ import { History } from 'history';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import {
-  isNumber,
   isObjectNotEmpty,
   isString,
+  TypeUtils,
 } from '../util';
 import {
   DI_TYPES,
@@ -74,7 +74,7 @@ export class RouterEffects {
     RouterEffects.logger.debug('[$RouterEffects][$onBack] Payload:', payload);
 
     if (isObjectNotEmpty(payload)) {
-      if (isNumber(payload.depth)) {
+      if (TypeUtils.isNumber(payload.depth)) {
         this.router.go(-payload.depth);
         return;
       }

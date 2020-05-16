@@ -9,10 +9,10 @@ import {
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import {
-  FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
+  FieldConstants,
   IGenericFieldEntity2,
-  IReduxMultiEntity,
   IMultiItemEntity,
+  IReduxMultiEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
 } from '../definition';
@@ -53,8 +53,8 @@ export const buildActualFieldValue = (config: IGenericFieldEntity2): AnyT => {
   return isDef(originalOrEmptyValue) && R.equals(value, originalOrEmptyValue)
     ? (
       isOriginalValueDefined
-        ? FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES
-        : (keepChanges ? value : FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES)
+        ? FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES
+        : (keepChanges ? value : FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES)
     )
     : value;
 };

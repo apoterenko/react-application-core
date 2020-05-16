@@ -75,23 +75,14 @@ import {
 import { IApiEntity } from './api-definition.interface';
 
 /**
- * @stable [28.05.2019]
- */
-export const FIELD_DISPLAY_EMPTY_VALUE = '';
-export const FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;
-export const FIELD_VALUE_TO_RESET = null;
-const ID_FIELD_NAME = 'id';
-const ENTITY_ID_FIELD_NAME = 'entityId';
-
-/**
  * @stable [16.05.2020]
  */
 export class FieldConstants {
-  public static readonly ENTITY_ID_FIELD_NAME = ENTITY_ID_FIELD_NAME;                                 /* @stable [16.05.2020] */
-  public static readonly FIELD_DISPLAY_EMPTY_VALUE = FIELD_DISPLAY_EMPTY_VALUE;                       /* @stable [16.05.2020] */
-  public static readonly FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES = FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES;     /* @stable [16.05.2020] */
-  public static readonly FIELD_VALUE_TO_RESET = FIELD_VALUE_TO_RESET;                                 /* @stable [16.05.2020] */
-  public static readonly ID_FIELD_NAME = ID_FIELD_NAME;                                               /* @stable [16.05.2020] */
+  public static readonly DISPLAY_EMPTY_VALUE = '';                                                    /* @stable [16.05.2020] */
+  public static readonly ENTITY_ID_FIELD_NAME = 'entityId';                                           /* @stable [16.05.2020] */
+  public static readonly ID_FIELD_NAME = 'id';                                                        /* @stable [16.05.2020] */
+  public static readonly VALUE_TO_CLEAR_DIRTY_CHANGES = UNDEF;                                        /* @stable [16.05.2020] */
+  public static readonly VALUE_TO_RESET = null;                                                       /* @stable [16.05.2020] */
 }
 
 /**

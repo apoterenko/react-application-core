@@ -86,7 +86,7 @@ import {
 import { ifNotNilThanValue } from './cond';
 import {
   isBoolean,
-  isNumber,
+  TypeUtils,
 } from './type';
 import { isOddNumber } from './calc';
 import { $isValid } from './value';
@@ -327,7 +327,7 @@ export const isHighlightOdd = (wrapper: IHighlightOddWrapper, index: number): bo
   R.isNil(wrapper)
     ? false
     : (
-      wrapper.highlightOdd !== false && (isNumber(index) ? isOddNumber(index) : false)
+      wrapper.highlightOdd !== false && (TypeUtils.isNumber(index) ? isOddNumber(index) : false)
     );
 
 /**

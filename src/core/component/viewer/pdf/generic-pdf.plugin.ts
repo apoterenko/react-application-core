@@ -6,7 +6,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { AnyT } from '../../../definitions.interface';
 import {
   isFn,
-  isNumber,
+  TypeUtils,
 } from '../../../util';
 import {
   IDomAccessor,
@@ -197,7 +197,7 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
 
     const unscaledViewport = page.getViewport(GenericPdfPlugin.DEFAULT_VIEWPORT_SCALE);
     const outerScale = this.scale;
-    const hasOuterScale = isNumber(this.scale);
+    const hasOuterScale = TypeUtils.isNumber(this.scale);
 
     if (this.autoScale) {
       this.initialScale = R.isNil(this.initialScale)

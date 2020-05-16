@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { UniversalComponent } from '../base/universal.component';
-import { DelayedTask, isFn } from '../../util';
+import { GenericBaseComponent } from '../base/generic-base.component';
+import {
+  DelayedTask,
+  isFn,
+} from '../../util';
 import {
   EventsEnum,
-  FIELD_DISPLAY_EMPTY_VALUE,
+  FieldConstants,
 } from '../../definition';
 import { IKeyInterceptorProps } from './key-interceptor.interface';
 
-export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
+export class KeyInterceptor extends GenericBaseComponent<IKeyInterceptorProps> {
 
   public static readonly defaultProps: IKeyInterceptorProps = {
     delayTimeout: 300,
@@ -30,7 +33,7 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
 
   private delayedTask: DelayedTask;
   private unSubscriber: () => void;
-  private buffer = FIELD_DISPLAY_EMPTY_VALUE;
+  private buffer = FieldConstants.DISPLAY_EMPTY_VALUE;
 
   /**
    * @stable [05.05.2018]
@@ -115,7 +118,7 @@ export class KeyInterceptor extends UniversalComponent<IKeyInterceptorProps> {
         onSelect(normalizedValue);
       }
     }
-    this.buffer = FIELD_DISPLAY_EMPTY_VALUE;
+    this.buffer = FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**

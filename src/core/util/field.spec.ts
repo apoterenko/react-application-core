@@ -7,10 +7,7 @@ import {
 import {
   UNDEF,
 } from '../definitions.interface';
-import {
-  FIELD_DISPLAY_EMPTY_VALUE,
-  FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES,
-} from '../definition';
+import { FieldConstants } from '../definition';
 
 describe('util/field', () => {
   describe('asMultiFieldEditedEntities', () => {
@@ -127,7 +124,7 @@ describe('util/field', () => {
         describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
           it('test1', () => {
             const result = buildActualFieldValue({
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
+              emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
               value: 'updatedValue1',
             });
             expect(result).toEqual('updatedValue1');
@@ -139,16 +136,16 @@ describe('util/field', () => {
         describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
           it('test1', () => {
             const result = buildActualFieldValue({
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
+              emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
               originalValue: 'updatedValue1',
               value: 'updatedValue1',
             });
-            expect(result).toEqual(FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES);
+            expect(result).toEqual(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
           });
 
           it('test2', () => {
             const result = buildActualFieldValue({
-              emptyValue: FIELD_DISPLAY_EMPTY_VALUE,
+              emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
               originalValue: 'updatedValue1',
               value: 'updatedValue2',
             });

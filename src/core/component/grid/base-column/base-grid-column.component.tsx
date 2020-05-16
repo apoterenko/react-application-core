@@ -7,11 +7,11 @@ import {
   ifNotNilThanValue,
   isEdited,
   isIndexed,
-  isNumber,
   isOddNumber,
   isSortable,
   joinClassName,
   nvl,
+  TypeUtils,
 } from '../../../util';
 import { IGridColumnProps } from '../../../definition';
 
@@ -39,7 +39,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     return joinClassName(
       'rac-grid-column',
       calc<string>(props.className),
-      isIndexed(props) && isNumber(props.index) && `rac-grid-column-${props.index}`,
+      isIndexed(props) && TypeUtils.isNumber(props.index) && `rac-grid-column-${props.index}`,
       isOddNumber(props.index) && 'rac-grid-column-odd',
       isEdited(props) && 'rac-grid-column-edited',
       isSortable(props) && 'rac-grid-column-sortable',

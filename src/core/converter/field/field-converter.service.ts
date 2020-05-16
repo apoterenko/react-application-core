@@ -9,7 +9,7 @@ import {
   DatePeriodsEnum,
   DatesRangeValueT,
   DateTimeLikeTypeT,
-  FIELD_DISPLAY_EMPTY_VALUE,
+  FieldConstants,
   FieldConverterTypesEnum,
   IDatesRangeEntity,
   IExtendedLabeledValueEntity,
@@ -266,7 +266,7 @@ export class FieldConverter implements IFieldConverter {
         ].map((v) => (v || '').trim())
       ),
       ', '
-    ) || placeEntityAsObject.formattedName || FIELD_DISPLAY_EMPTY_VALUE;
+    ) || placeEntityAsObject.formattedName || FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**
@@ -282,7 +282,7 @@ export class FieldConverter implements IFieldConverter {
       return placeEntity as string;
     }
     const placeEntityAsObject = placeEntity as IPlaceEntity;
-    return placeEntityAsObject.zipCode || FIELD_DISPLAY_EMPTY_VALUE;
+    return placeEntityAsObject.zipCode || FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**

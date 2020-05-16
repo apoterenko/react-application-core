@@ -19,7 +19,7 @@ import {
   ICronPlainEntity,
 } from '../definition';
 import { getNumberConverter } from '../di/di.services';
-import { isNumber } from './type';
+import { TypeUtils } from './type';
 import { isObjectNotEmpty } from './object';
 import { join } from './join';
 import {
@@ -188,7 +188,7 @@ const fromCronPart = (cronPart: string,
       const isFullPeriod = ranges[0] === CRON_ALL_VALUES_SYMBOL;
       const start = isFullPeriod ? availableRanges[0] : nc.number(ranges[0]) as number;
       const end = isFullPeriod ? availableRanges[1] : (ranges.length > 1 ? nc.number(ranges[1]) : start);
-      const isPeriodPresent = isNumber(period);
+      const isPeriodPresent = TypeUtils.isNumber(period);
 
       let j = start;
       for (let i = start; i <= end; i++) {
@@ -226,7 +226,7 @@ const tryingToPack = (values: StringNumberT[]): StringNumberT[] => {
   const ranges: StringNumberT[][] = [];
   let range: StringNumberT[] = [];
   values.forEach((value) => {
-    if (isNumber(value)) {
+    if (TypeUtils.isNumber(value)) {
       if (R.isEmpty(range)) {
         range = [value];
         ranges.push(range);

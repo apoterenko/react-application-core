@@ -6,7 +6,7 @@ import {
   CompositeCronFieldPropsT,
   CronPeriodsEnum,
   DateTimeLikeTypeT,
-  FIELD_VALUE_TO_RESET,
+  FieldConstants,
   ICompositeCronFieldConfigEntity,
   ICompositeCronFieldItemEntity,
 } from '../../../definition';
@@ -26,7 +26,6 @@ import {
   ifNotNilThanValue,
   isDef,
   isFn,
-  isNumber,
   nvl,
 } from '../../../util';
 import { IDateConverter } from '../../../converter';
@@ -163,7 +162,7 @@ export class CompositeCronFieldFactory
                                  currentCronPeriod: StringNumberT): void {
     let cronFieldValue = R.equals(this.getPeriodValue(config), currentCronPeriod) // config.period == previousValue or currentValue
       ? UNDEF
-      : FIELD_VALUE_TO_RESET;
+      : FieldConstants.VALUE_TO_RESET;
 
     switch (currentCronPeriod) {
       case CronPeriodsEnum.DAILY:

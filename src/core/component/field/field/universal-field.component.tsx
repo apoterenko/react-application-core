@@ -46,7 +46,6 @@ import {
   IUniversalFieldState,
 } from './field.interface';
 import {
-  FIELD_DISPLAY_EMPTY_VALUE,
   FieldConstants,
   IBaseEvent,
   IGenericFieldEntity2,
@@ -125,7 +124,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [17.06.2018]
    */
   public resetError(): void {
-    this.validateField(FieldConstants.FIELD_VALUE_TO_CLEAR_DIRTY_CHANGES);
+    this.validateField(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
   }
 
   /**
@@ -280,7 +279,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   protected buildDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
     return usePrintf
       ? Printf.sprintf(this.t(this.props.displayMessage), ...args)
-      : FIELD_DISPLAY_EMPTY_VALUE;
+      : FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**
@@ -723,7 +722,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get displayValue(): AnyT {
     return !this.isValuePresent || (this.isFocusPrevented && this.isFieldBusy())
-      ? FIELD_DISPLAY_EMPTY_VALUE
+      ? FieldConstants.DISPLAY_EMPTY_VALUE
       : this.decoratedDisplayValue;
   }
 
@@ -740,7 +739,7 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {AnyT}
    */
   protected get originalEmptyValue(): AnyT {
-    return FIELD_DISPLAY_EMPTY_VALUE;
+    return FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**

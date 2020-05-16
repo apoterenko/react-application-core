@@ -1,7 +1,5 @@
-import {
-  AnyT,
-} from '../definitions.interface';
-import { REGEXP } from '../definition/settings-definition.interface';
+import { AnyT } from '../definitions.interface';
+import { RegexpConstants } from '../definition/regexp-definition.interface';
 
 /**
  * @stable [02.10.2019]
@@ -29,7 +27,7 @@ export const isFn = (value: AnyT): boolean => typeof value === 'function';
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isNumber = (value: AnyT): boolean => typeof value === 'number';
+const isNumber = (value: AnyT): boolean => typeof value === 'number' && !isNaN(value);
 
 /**
  * @stable [17.04.2020]
@@ -43,7 +41,7 @@ export const isNotNumber = (value: AnyT): boolean => !isNumber(value);
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isDigit = (value: AnyT): boolean => isNumber(value) && REGEXP.DIGITAL.test(String(value));
+export const isDigit = (value: AnyT): boolean => isNumber(value) && RegexpConstants.DIGITAL.test(String(value));
 
 /**
  * @stable [01.08.2018]
@@ -57,7 +55,7 @@ export const isNumberLike = (value: AnyT): boolean => /^-?[0-9]\d*(\.\d+)?$/.tes
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isPriceLike = (value: AnyT): boolean => REGEXP.PRICE.test(String(value));
+export const isPriceLike = (value: AnyT): boolean => RegexpConstants.PRICE.test(String(value));
 
 /**
  * @stable [06.12.2019]
@@ -100,3 +98,10 @@ export const isEvent = (v: AnyT): boolean => v instanceof Event;
  * @returns {TResult}
  */
 export const toType = <TResult>(result: TResult): TResult => result;
+
+/**
+ * @stable [16.05.2020]
+ */
+export class TypeUtils {
+  public static readonly isNumber = isNumber;                                     /* @stable [16.05.2020] */
+}

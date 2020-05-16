@@ -7,10 +7,10 @@ import {
 } from '../../di';
 import {
   isFn,
-  isNumber,
   isNumberLike,
   isString,
   isUndef,
+  TypeUtils,
 } from '../../util';
 import { ISettingsEntity } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
@@ -79,7 +79,7 @@ export class NumberConverter implements INumberConverter {
    * @returns {StringNumberT}
    */
   public integer(value: StringNumberT, radix = 10): StringNumberT {
-    if (isNumber(value)) {
+    if (TypeUtils.isNumber(value)) {
       return value;
     }
     const valueAsString = value as string;
@@ -94,7 +94,7 @@ export class NumberConverter implements INumberConverter {
    * @returns {StringNumberT}
    */
   public number(value: StringNumberT, returnString = true): StringNumberT {
-    if (isNumber(value)) {
+    if (TypeUtils.isNumber(value)) {
       return value;
     }
     const vAsString = value as string;

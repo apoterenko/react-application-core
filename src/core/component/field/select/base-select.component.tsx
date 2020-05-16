@@ -42,8 +42,8 @@ import {
   IBaseSelectState,
 } from './base-select.interface';
 import {
-  FIELD_VALUE_TO_RESET,
   FieldActionTypesEnum,
+  FieldConstants,
   FieldConverterTypesEnum,
   IBaseEvent,
   IComponentsSettingsEntity,
@@ -334,7 +334,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {AnyT}
    */
   protected get originalEmptyValue(): AnyT {
-    return FIELD_VALUE_TO_RESET;
+    return FieldConstants.VALUE_TO_RESET;
   }
 
   /**

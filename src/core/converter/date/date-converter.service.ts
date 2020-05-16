@@ -13,11 +13,11 @@ import {
 import {
   defValuesFilter,
   ifNotNilThanValue,
-  isNumber,
   isObjectNotEmpty,
   nvl,
   orNull,
   orUndef,
+  TypeUtils,
 } from '../../util';
 import { IDateTimeSettings, ISettingsEntity } from '../../settings';
 import { IDateConverter } from './date-converter.interface';
@@ -865,13 +865,13 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public fromDayOfYearEntity(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity): MomentT {
     const mDate = this.asMomentDate({date: this.asDayOfYear(), ...cfg});
-    if (isNumber(entity.month)) {
+    if (TypeUtils.isNumber(entity.month)) {
       mDate.month(entity.month);
     }
-    if (isNumber(entity.year)) {
+    if (TypeUtils.isNumber(entity.year)) {
       mDate.year(entity.year);
     }
-    if (isNumber(entity.day)) {
+    if (TypeUtils.isNumber(entity.day)) {
       mDate.date(entity.day);
     }
     return orNull(mDate.isValid(), () => mDate);

@@ -18,24 +18,6 @@ export enum StartDaysOfWeekEnum {
 }
 
 /**
- * @stable [09.10.2019]
- */
-export enum RegexpEnum {
-  DIGITAL = '[0-9]+',
-  NUMBER = '[-+]?[0-9]*[.,]?[0-9]+',
-  POSITIVE_NEGATIVE_PRICE = '[-+]?\\d+(\\.\\d{1,2})?',
-  PRICE = '\\d+(\\.\\d{1,2})?',
-}
-
-/**
- * @stable [09.10.2019]
- */
-export const REGEXP = {
-  DIGITAL: new RegExp(RegexpEnum.DIGITAL),
-  PRICE: new RegExp(RegexpEnum.PRICE),
-};
-
-/**
  * @stable [25.12.2019]
  */
 export interface IDateTimeSettingsEntity {

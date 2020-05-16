@@ -60,6 +60,7 @@ export * from './plugin-definition.interface';
 export * from './props-definition.interface';
 export * from './query-definition.interface';
 export * from './redux-definition.interface';
+export * from './regexp-definition.interface';
 export * from './root-definition.interface';
 export * from './router-definition.interface';
 export * from './scrolled-definition.interface';

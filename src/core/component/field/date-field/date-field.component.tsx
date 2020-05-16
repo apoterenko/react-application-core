@@ -33,8 +33,8 @@ import {
   DatesRangeValueT,
   DateTimeLikeTypeT,
   DAYS_PERIODS,
-  FIELD_DISPLAY_EMPTY_VALUE,
   FieldActionTypesEnum,
+  FieldConstants,
   FieldConverterTypesEnum,
   IBaseEvent,
   ICalendarDayEntity,
@@ -243,7 +243,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @returns {StringNumberT[] | string}
    */
   protected get originalEmptyValue(): StringNumberT[] | string {
-    return this.isRangeEnabled ? [] : FIELD_DISPLAY_EMPTY_VALUE;
+    return this.isRangeEnabled ? [] : FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**
@@ -272,7 +272,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
     } else if (this.isRangeEnabled) {
       const dateRangeEntity = this.fromDatesRangeValue(value as DatesRangeValueT);
       return R.isNil(dateRangeEntity)
-        ? FIELD_DISPLAY_EMPTY_VALUE
+        ? FieldConstants.DISPLAY_EMPTY_VALUE
         : this.getDecoratedRangeDisplayValue(dateRangeEntity);
     }
     return this.serializeValue(value as DateTimeLikeTypeT);
