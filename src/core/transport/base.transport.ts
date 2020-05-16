@@ -11,7 +11,6 @@ import {
 import { AnyT } from '../definitions.interface';
 import {
   IEnvironment,
-  ISelectOptionEntity,
   IUpdateEntity,
 } from '../definition';
 import {
@@ -32,6 +31,7 @@ import {
   ITransportRequestEntity,
   MultiFieldEntityT,
   MultiFieldSingleValueT,
+  SelectValueT,
 } from '../definition';
 import {
   DI_TYPES,
@@ -85,18 +85,26 @@ export class BaseTransport {
    * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
    * @returns {TEntity[]}
    */
-  protected fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] {
-    return this.fieldConverter.fromMultiFieldEntityToEntities(entity);
-  }
+  protected fromMultiFieldEntityToEntities =
+    <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
+      this.fieldConverter.fromMultiFieldEntityToEntities(entity)
 
   /**
    * @stable [16.05.2020]
    * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
    * @returns {TEntity[]}
    */
-  protected fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] {
-    return this.fieldConverter.fromMultiFieldEntityToDefinedEntities(entity);
-  }
+  protected fromMultiFieldEntityToDefinedEntities =
+    <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
+      this.fieldConverter.fromMultiFieldEntityToDefinedEntities(entity)
+
+  /**
+   * @stable [16.05.2020]
+   * @param {SelectValueT} value
+   * @returns {EntityIdT}
+   */
+  protected fromSelectOptionEntityToId = (value: SelectValueT): EntityIdT =>
+    this.fieldConverter.fromSelectOptionEntityToId(value)
 
   /**
    * @stable [29.08.2019]
@@ -116,18 +124,6 @@ export class BaseTransport {
     this.fieldConverter.convert({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.PLACE_PARAMETER,
-      value,
-    })
-
-  /**
-   * @stable [30.01.2020]
-   * @param {ISelectOptionEntity | EntityIdT} value
-   * @returns {string}
-   */
-  protected prepareSelectOptionEntityAsId = (value: ISelectOptionEntity | EntityIdT): string =>
-    this.fieldConverter.convert({
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
-      to: FieldConverterTypesEnum.ID,
       value,
     })
 

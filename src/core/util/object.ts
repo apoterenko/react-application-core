@@ -71,5 +71,5 @@ export class ObjectUtils {
   public static buildNotEmptyOrNullValuesObject = buildNotEmptyOrNullValuesObject;               /* @stable [15.05.2020] */
   public static buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
   public static isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
-  public static mergeObjectKeysByMerger =  buildValuesObjectBy;                                  /* @stable [15.05.2020] */
+  public static buildValuesObjectBy =  buildValuesObjectBy;                                      /* @stable [15.05.2020] */
 }

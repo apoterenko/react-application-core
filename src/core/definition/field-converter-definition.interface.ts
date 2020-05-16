@@ -1,5 +1,6 @@
 import {
   AnyT,
+  EntityIdT,
   IConverterWrapper,
   IEntity,
   IFromWrapper,
@@ -11,6 +12,7 @@ import {
   INamedEntity,
   IUserEntity,
   MultiFieldEntityT,
+  SelectValueT,
 } from '../definition';
 
 /**
@@ -58,5 +60,6 @@ export interface IFieldConverter {
   fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity;
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
+  fromSelectOptionEntityToId(option: SelectValueT): EntityIdT;
   register(config: IFieldConverterConfigEntity): void;
 }

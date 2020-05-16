@@ -61,7 +61,6 @@ export class FieldConverter implements IFieldConverter {
   constructor() {
     this.placeEntityAsDisplayValue = this.placeEntityAsDisplayValue.bind(this);
     this.selectOptionEntityAsDisplayValue = this.selectOptionEntityAsDisplayValue.bind(this);
-    this.selectOptionEntityAsId = this.selectOptionEntityAsId.bind(this);
     this.zipCodeEntityAsDisplayValue = this.zipCodeEntityAsDisplayValue.bind(this);
 
     this.register({
@@ -92,7 +91,7 @@ export class FieldConverter implements IFieldConverter {
     this.register({
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
       to: FieldConverterTypesEnum.ID,
-      converter: this.selectOptionEntityAsId,
+      converter: this.$fromSelectOptionEntityToId.bind(this),
     });
     this.register({
       from: FieldConverterTypesEnum.DATES_RANGE_ENTITY,
@@ -162,6 +161,19 @@ export class FieldConverter implements IFieldConverter {
    */
   public converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT {
     return this.converters.get(this.asKey(config));
+  }
+
+  /**
+   * @stable [16.05.2020]
+   * @param {SelectValueT} value
+   * @returns {EntityIdT}
+   */
+  public fromSelectOptionEntityToId(value: SelectValueT): EntityIdT {
+    return this.convert({
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.ID,
+      value,
+    });
   }
 
   /**
@@ -292,22 +304,6 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [28.01.2020]
-   * @param {SelectValueT} option
-   * @returns {EntityIdT}
-   */
-  protected selectOptionEntityAsId(option: SelectValueT): EntityIdT {
-    if (R.isNil(option)) {
-      return option;
-    }
-    if (isPrimitive(option)) {
-      return option as StringNumberT;
-    }
-    const optionAsObject = option as ISelectOptionEntity;
-    return optionAsObject.value;
-  }
-
-  /**
    * @stable [07.03.2020]
    * @param {IDatesRangeEntity} entity
    * @returns {DatesRangeValueT}
@@ -391,6 +387,22 @@ export class FieldConverter implements IFieldConverter {
    */
   private $fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
     return FieldUtils.asMultiFieldDefinedEntities(value);
+  }
+
+  /**
+   * @stable [16.05.2020]
+   * @param {SelectValueT} option
+   * @returns {EntityIdT}
+   */
+  private $fromSelectOptionEntityToId(option: SelectValueT): EntityIdT {
+    if (R.isNil(option)) {
+      return option;
+    }
+    if (isPrimitive(option)) {
+      return option as StringNumberT;
+    }
+    const optionAsObject = option as ISelectOptionEntity;
+    return optionAsObject.value;
   }
 
   /**
