@@ -52,7 +52,6 @@ export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean
 export interface IAllowSingleTabWrapper { allowSingleTab?: boolean; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
-export interface IAlwaysSendChangesWrapper { alwaysSendChanges?: boolean; }
 export interface IAnchoredWrapper { anchored?: boolean; }
 export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
 export interface IApiEntityWrapper<TValue> { apiEntity?: TValue; }

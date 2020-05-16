@@ -5,12 +5,12 @@ import {
   calc,
   coalesce,
   inProgress,
-  isCurrentValueNotEqualPreviousValue,
   isFull,
   isOpened,
   isPreviewUsed,
   joinClassName,
   nvl,
+  ObjectUtils,
 } from '../../util';
 import { BaseComponent } from '../base';
 import { Dialog } from '../dialog';
@@ -287,7 +287,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {boolean}
    */
   protected hasScaleChanges(prevProps: TProps, prevState: TState): boolean {
-    return isCurrentValueNotEqualPreviousValue(this.props.scale, prevProps.scale);
+    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.props.scale, prevProps.scale);
   }
 
   /**
@@ -297,7 +297,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {boolean}
    */
   protected hasSrcChanges(prevProps: TProps, prevState: TState): boolean {
-    return isCurrentValueNotEqualPreviousValue(this.props.src, prevProps.src);
+    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.props.src, prevProps.src);
   }
 
   /**
@@ -308,8 +308,8 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    */
   protected hasPageChanges(prevProps: TProps, prevState: TState): boolean {
     return (
-      isCurrentValueNotEqualPreviousValue(this.props.page, prevProps.page)
-      || isCurrentValueNotEqualPreviousValue(this.state.page, prevState.page)
+      ObjectUtils.isCurrentValueNotEqualPreviousValue(this.props.page, prevProps.page)
+      || ObjectUtils.isCurrentValueNotEqualPreviousValue(this.state.page, prevState.page)
     );
   }
 

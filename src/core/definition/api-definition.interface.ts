@@ -1,6 +1,5 @@
 import {
   IAddApiWrapper,
-  IAlwaysSendChangesWrapper,
   IApiEntityWrapper,
   IDiffWrapper,
   IEditApiWrapper,
@@ -34,15 +33,15 @@ export interface IApiWrapperEntity<TEntity = IEntity>
 }
 
 /**
- * @stable [23.12.2019]
+ * @entity
+ * @stable [16.05.2020]
  */
-export interface IUpdateEntityPayloadEntity<TEntity extends IEntity>
+export interface IUpdateEntity<TEntity extends IEntity, TExtraParams = IKeyValue>
   extends IAddApiWrapper,
-  IAlwaysSendChangesWrapper,
-  IApiWrapperEntity<TEntity>,
-  IEditApiWrapper,
-  IExtraParamsWrapper<IKeyValue>,
-  IOperationWrapper<IOperationEntity> {
+    IApiWrapperEntity<TEntity>,
+    IEditApiWrapper,
+    IExtraParamsWrapper<TExtraParams>,
+    IOperationWrapper<IOperationEntity> {
 }
 
 /**

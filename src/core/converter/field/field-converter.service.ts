@@ -20,12 +20,14 @@ import {
   IPlaceEntity,
   ISelectOptionEntity,
   IUserEntity,
+  MultiFieldEntityT,
   SelectValueT,
   TranslatorT,
 } from '../../definition';
 import {
   asPlaceEntity,
   CronEntity,
+  FieldUtils,
   ifNotNilThanValue,
   isFn,
   isPrimitive,
@@ -37,6 +39,7 @@ import {
 import {
   AnyT,
   EntityIdT,
+  IEntity,
   StringNumberT,
   UNDEF_SYMBOL,
 } from '../../definitions.interface';
@@ -116,6 +119,11 @@ export class FieldConverter implements IFieldConverter {
       to: FieldConverterTypesEnum.EXTENDED_LABELED_VALUE_ENTITY,
       converter: this.$fromNamedEntityToExtendedLabeledValueEntity.bind(this),
     });
+    this.register({
+      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      to: FieldConverterTypesEnum.ENTITIES,
+      converter: this.$fromMultiFieldEntityToEntities.bind(this),
+    });
   }
 
   /**
@@ -187,6 +195,19 @@ export class FieldConverter implements IFieldConverter {
     return this.convert({
       from: FieldConverterTypesEnum.CRON_EXPRESSION,
       to: FieldConverterTypesEnum.CRON_PARAMETER,
+      value,
+    });
+  }
+
+  /**
+   * @stable [16.05.2020]
+   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+   * @returns {TEntity[]}
+   */
+  public fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
+    return this.convert({
+      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      to: FieldConverterTypesEnum.ENTITIES,
       value,
     });
   }
@@ -337,7 +358,16 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [16.05.2020]
+   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+   * @returns {TEntity[]}
+   */
+  private $fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
+    return FieldUtils.asMultiFieldEntities(value);
+  }
+
+  /**
+   * @stable [16.05.2020]
    * @param {IFieldConverterConfigEntity} config
    * @returns {string}
    */

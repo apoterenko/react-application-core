@@ -1,6 +1,7 @@
 import {
   AnyT,
   IConverterWrapper,
+  IEntity,
   IFromWrapper,
   IToWrapper,
   IValueWrapper,
@@ -9,6 +10,7 @@ import {
   IExtendedLabeledValueEntity,
   INamedEntity,
   IUserEntity,
+  MultiFieldEntityT,
 } from '../definition';
 
 /**
@@ -20,9 +22,11 @@ export enum FieldConverterTypesEnum {
   DATES_RANGE_ENTITY = 'DATES_RANGE_ENTITY',
   DATES_RANGE_VALUE = 'DATES_RANGE_VALUE',
   DISPLAY_VALUE = 'DISPLAY_VALUE',
+  ENTITIES = 'ENTITIES',
   EXTENDED_LABELED_VALUE_ENTITY = 'EXTENDED_LABELED_VALUE_ENTITY',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
+  MULTI_FIELD_ENTITY = 'MULTI_FIELD_ENTITY',
   NAMED_ENTITY = 'NAMED_ENTITY',
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
@@ -49,6 +53,7 @@ export interface IFieldConverter {
   convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
   converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
   fromCronExpressionToCronParameter(value: string): string;
+  fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity;
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
   register(config: IFieldConverterConfigEntity): void;

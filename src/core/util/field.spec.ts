@@ -1,8 +1,8 @@
 import {
   asMultiFieldEditedEntities,
-  asMultiFieldEntities,
   asOrderedMultiFieldEntities,
   buildActualFieldValue,
+  FieldUtils,
 } from './field';
 import {
   UNDEF,
@@ -68,9 +68,9 @@ describe('util/field', () => {
     });
   });
 
-  describe('asMultiFieldEntities', () => {
+  describe('FieldUtils.asMultiFieldEntities', () => {
     it('test1', () => {
-      const editedEntities = asMultiFieldEntities({
+      const editedEntities = FieldUtils.asMultiFieldEntities({
         add: [{id: 2, field1: 200}],
         remove: [],
         edit: [{id: 1, name: 'field1', value: 101}],
@@ -81,7 +81,7 @@ describe('util/field', () => {
 
     it('test2', () => {
       const entity = {id: 1, field1: 100};
-      const editedEntities = asMultiFieldEntities({
+      const editedEntities = FieldUtils.asMultiFieldEntities({
         add: [],
         remove: [entity],
         edit: [],
@@ -91,7 +91,7 @@ describe('util/field', () => {
     });
 
     it('test3', () => {
-      const editedEntities = asMultiFieldEntities({
+      const editedEntities = FieldUtils.asMultiFieldEntities({
         add: [],
         remove: [],
         edit: [

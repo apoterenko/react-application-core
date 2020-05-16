@@ -12,11 +12,12 @@ import { AnyT } from '../definitions.interface';
 import {
   IEnvironment,
   ISelectOptionEntity,
-  IUpdateEntityPayloadEntity,
+  IUpdateEntity,
 } from '../definition';
 import {
   EntityIdT,
   IEntity,
+  IKeyValue,
   StringNumberT,
 } from '../definitions.interface';
 import { INumberConverter } from '../converter';
@@ -52,6 +53,41 @@ export class BaseTransport {
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
+
+  /**
+   * @stable [16.05.2020]
+   * @param {IUpdateEntity<TEntity extends IEntity, TExtraParams>} entity
+   * @returns {Promise<TResult>}
+   */
+  protected doSaveEntity<TEntity extends IEntity = IEntity,
+    TResult = TEntity,
+    TExtraParams = IKeyValue>(entity: IUpdateEntity<TEntity, TExtraParams>): Promise<TResult> {
+
+    const {
+      newEntity,
+      entityId,
+      diff,
+    } = entity.apiEntity;
+
+    return this.transport.request<TResult>({
+      params: {
+        ...diff as {},
+        ...defValuesFilter(entity.extraParams),
+        ...defValuesFilter({id: entityId}),
+      },
+      name: newEntity ? entity.addApi : entity.editApi,
+      operation: entity.operation,
+    });
+  }
+
+  /**
+   * @stable [16.05.2020]
+   * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
+   * @returns {TEntity[]}
+   */
+  protected fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] {
+    return this.fieldConverter.fromMultiFieldEntityToEntities(entity);
+  }
 
   /**
    * @stable [29.08.2019]
@@ -135,30 +171,6 @@ export class BaseTransport {
       fieldsValuesResolvers,
       (fileName, file) => this.multiEntityDatabaseStorage.set(fileName, file)
     );
-  }
-
-  /**
-   * @stable [23.12.2019]
-   * @param {IUpdateEntityPayloadEntity<TEntity extends IEntity>} entity
-   * @returns {Promise<TResult>}
-   */
-  protected doSaveEntity<TEntity extends IEntity, TResult = TEntity>(entity: IUpdateEntityPayloadEntity<TEntity>): Promise<TResult> {
-    const {
-      newEntity,
-      entityId,
-      changes,
-      diff,
-    } = entity.apiEntity;
-
-    return this.transport.request<TResult>({
-      params: {
-        ...(entity.alwaysSendChanges ? changes : diff) as {},
-        ...defValuesFilter(entity.extraParams),
-        ...defValuesFilter({id: entityId}),
-      },
-      name: newEntity ? entity.addApi : entity.editApi,
-      operation: entity.operation,
-    });
   }
 
   /**

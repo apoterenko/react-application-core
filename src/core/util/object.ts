@@ -5,6 +5,7 @@ import {
   UNDEF,
 } from '../definitions.interface';
 import { isString } from './type';
+import { ifNotEmptyThanValue } from './cond';
 
 /**
  * @stable [18.04.2020]
@@ -33,15 +34,8 @@ export const isStringNotEmpty = <TValue>(o: AnyT): boolean => isString(o) && isO
  * @param {AnyT} previous
  * @returns {boolean}
  */
-export const isCurrentValueNotEqualPreviousValue = (current: AnyT, previous: AnyT): boolean =>
+const isCurrentValueNotEqualPreviousValue = (current: AnyT, previous: AnyT): boolean =>
   isObjectNotEmpty(current) && !R.equals(current, previous);
-
-/**
- * @stable [15.05.2020]
- * @param {TValue} object
- * @returns {TValue}
- */
-const buildUndefValuesObject = <TValue>(object: TValue): TValue => mergeObjectsArray(object, () => UNDEF);
 
 /**
  * @stable [17.04.2020]
@@ -49,14 +43,32 @@ const buildUndefValuesObject = <TValue>(object: TValue): TValue => mergeObjectsA
  * @param {(o, key) => any} mergeFn
  * @returns {TValue}
  */
-export const mergeObjectsArray = <TValue>(object: TValue, mergeFn = (o, key) => o[key]): TValue =>
+const buildValuesObjectBy = <TValue>(object: TValue, mergeFn = (o, key) => o[key]): TValue =>
   R.isNil(object)
     ? object
     : R.mergeAll(Object.keys(object).map((key) => ({[key]: mergeFn(object, key)})));
 
 /**
  * @stable [15.05.2020]
+ * @param {TValue} object
+ * @returns {TValue}
+ */
+const buildUndefValuesObject = <TValue>(object: TValue): TValue => buildValuesObjectBy(object, () => UNDEF);
+
+/**
+ * @stable [16.05.2020]
+ * @param {TValue} object
+ * @returns {TValue}
+ */
+const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): TValue =>
+  buildValuesObjectBy(object, (o, key) => ifNotEmptyThanValue(object[key], (value) => value));
+
+/**
+ * @stable [15.05.2020]
  */
 export class ObjectUtils {
+  public static buildNotEmptyOrNullValuesObject = buildNotEmptyOrNullValuesObject;               /* @stable [15.05.2020] */
   public static buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
+  public static isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
+  public static mergeObjectKeysByMerger =  buildValuesObjectBy;                                  /* @stable [15.05.2020] */
 }

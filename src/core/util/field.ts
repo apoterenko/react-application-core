@@ -118,13 +118,13 @@ export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
   fromDynamicFieldsArray<EntityIdT>(array, (itm) => itm, valueAccessor);
 
 /**
- * @stable [13.10.2019]
+ * @stable [16.05.2020]
  * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
  * @returns {TEntity[]}
  */
-export const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
+const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
   if (R.isNil(entity)) {
-    return UNDEF;
+    return [];
   }
   if (isNotMultiEntity(entity)) {
     return entity as TEntity[];
@@ -238,7 +238,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldEntityT | EntityIdT)
 export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>,
                                                                                entitiesCountLimit: number): TEntity[] => {
   const result = makeArray(entitiesCountLimit);
-  const multiFieldEntities = asMultiFieldEntities<TEntity>(value);
+  const multiFieldEntities = asMultiFieldEntities(value);
 
   if (Array.isArray(multiFieldEntities)) {
     let cursor = 0;
@@ -319,3 +319,10 @@ export const buildNewPhantomMultiItem =
     ...original as AnyT,
     id: arrayNextMinNegativeValue(asMultiFieldMappedEntitiesIds(multiFieldEntity) as number[] || []),
   });
+
+/**
+ * @stable [16.05.2020]
+ */
+export class FieldUtils {
+  public static asMultiFieldEntities = asMultiFieldEntities;                                         /* @stable [16.05.2020] */
+}

@@ -2,16 +2,16 @@ import * as R from 'ramda';
 
 import {
   calc,
+  defValuesFilter,
+  FieldUtils,
+  isFn,
   join,
+  makeArray,
   normalizeTime,
   orNull,
   orUndef,
-  toClassName,
-  defValuesFilter,
-  isFn,
   queryFilter,
-  asMultiFieldEntities,
-  makeArray,
+  toClassName,
 } from '../../util';
 import { UNI_CODES, IEntity, EntityIdT } from '../../definitions.interface';
 import {
@@ -206,4 +206,4 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
 export const asExpandedGridGroups =
   <TEntity extends IEntity>(entity: MultiFieldEntityT<TEntity>,
                             groupValueAccessor: (item: TEntity) => EntityIdT = (item) => item.id): Record<EntityIdT, boolean> =>
-    R.mergeAll((asMultiFieldEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
+    R.mergeAll((FieldUtils.asMultiFieldEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
