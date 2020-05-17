@@ -1,20 +1,29 @@
 import * as R from 'ramda';
 
-import { IGenericTabEntity } from '../definition';
-import { IActiveValueWrapper} from '../definitions.interface';
+import {
+  IPresetsTabEntity,
+  IReduxActiveValueEntity,
+} from '../definition';
 
 /**
- * @stable [23.03.2020]
- * @param {IActiveValueWrapper} wrapper
- * @param {IGenericTabEntity} tab
+ * @stable [17.05.2020]
+ * @param {IReduxActiveValueEntity} entity
+ * @param {IPresetsTabEntity} tab
  * @returns {boolean}
  */
-export const isTabActive = (wrapper: IActiveValueWrapper,
-                            tab: IGenericTabEntity): boolean =>
-  R.isNil(wrapper)
+const isTabActive = (entity: IReduxActiveValueEntity,
+                     tab: IPresetsTabEntity): boolean =>
+  R.isNil(entity)
     ? false
     : (
-      R.isNil(wrapper.activeValue)
+      R.isNil(entity.activeValue)
         ? !!tab.active
-        : wrapper.activeValue === tab.value
+        : entity.activeValue === tab.value
     );
+
+/**
+ * @stable [17.05.2020]
+ */
+export class TabUtils {
+  public static isActive = isTabActive;                              /* @stable [17.05.2020] */
+}

@@ -26,7 +26,7 @@ import {
 } from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
-import { isTabActive } from './tab';
+import { TabUtils } from './tab';
 import {
   selectForm,
   Selectors,
@@ -200,7 +200,7 @@ export const isFormResettable = <TEntity extends IEntity = IEntity>(formProps: I
  */
 export const isFormTabActive = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>,
                                                                    tab: ITabProps): boolean =>
-  isTabActive(selectForm(formProps), tab);
+  TabUtils.isActive(selectForm(formProps), tab);
 
 /**
  * @stable [11.05.2020]

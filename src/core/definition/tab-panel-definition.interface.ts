@@ -22,10 +22,10 @@ import { IGenericComponentProps } from './generic-component-definition.interface
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
- * @generic-entity
- * @stable [12.04.2020]
+ * @presets-entity
+ * @stable [17.05.2020]
  */
-export interface IGenericTabEntity
+export interface IPresetsTabEntity
   extends IActiveWrapper,
     IIconWrapper,
     INameWrapper,
@@ -33,10 +33,11 @@ export interface IGenericTabEntity
 }
 
 /**
- * @behavioral-entity
- * @stable [10.02.2020]
+ * @generic-entity
+ * @stable [12.04.2020]
  */
-export interface IBehavioralTabEntity {
+export interface IGenericTabEntity
+  extends IPresetsTabEntity {
 }
 
 /**
@@ -45,8 +46,7 @@ export interface IBehavioralTabEntity {
  */
 export interface ITabProps
   extends IGenericComponentProps,
-    IGenericTabEntity,
-    IBehavioralTabEntity {
+    IGenericTabEntity {
 }
 
 /**
