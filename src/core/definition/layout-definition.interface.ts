@@ -36,8 +36,8 @@ export interface IReduxLayoutEntity
 }
 
 /**
- * @entity
- * @stable [08.05.2020]
+ * @wrapper-entity
+ * @stable [17.05.2020]
  */
 export interface ILayoutEntity
   extends ILayoutWrapper<IReduxLayoutEntity> {

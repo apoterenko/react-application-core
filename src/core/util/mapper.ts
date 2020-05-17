@@ -32,7 +32,7 @@ import {
   ISortDirectionsEntity,
   IStackItemEntity,
   IStackWrapperEntity,
-  ITabPanelWrapperEntity,
+  ITabPanelEntity,
   ITransportEntity,
   ITransportWrapperEntity,
   IUniversalApplicationEntity,
@@ -79,6 +79,7 @@ import {
   selectEntityId,
   selectForm,
   selectNotification,
+  Selectors,
   selectQueue,
   selectStack,
   selectToken,
@@ -129,14 +130,6 @@ export const selectEditableEntity =
 export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): TResult => selectError(action);
 
 /**
- * @stable [10.02.2020]
- * @param {ITabPanelWrapperEntity} entity
- * @returns {IGenericTabPanelEntity}
- */
-export const selectTabPanelEntity = (entity: ITabPanelWrapperEntity): IGenericTabPanelEntity =>
-  R.isNil(entity) ? UNDEF : entity.tabPanel;
-
-/**
  * @stable [20.10.2019]
  * @param {EntityIdT} id
  * @returns {IEntityIdTWrapper}
@@ -179,18 +172,18 @@ export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrappe
 /**
  * @stable [10.02.2020]
  * @param {IGenericTabPanelEntity} tabPanel
- * @returns {ITabPanelWrapperEntity}
+ * @returns {ITabPanelEntity}
  */
-export const mapTabPanelEntity = (tabPanel: IGenericTabPanelEntity): ITabPanelWrapperEntity =>
-  defValuesFilter<ITabPanelWrapperEntity, ITabPanelWrapperEntity>({tabPanel});
+export const mapTabPanelEntity = (tabPanel: IGenericTabPanelEntity): ITabPanelEntity =>
+  defValuesFilter<ITabPanelEntity, ITabPanelEntity>({tabPanel});
 
 /**
  * @stable [21.11.2019]
- * @param {ITabPanelWrapperEntity} tabPanelWrapperEntity
- * @returns {ITabPanelWrapperEntity}
+ * @param {ITabPanelEntity} tabPanelWrapperEntity
+ * @returns {ITabPanelEntity}
  */
-export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelWrapperEntity): ITabPanelWrapperEntity =>
-  mapTabPanelEntity(selectTabPanelEntity(tabPanelWrapperEntity));
+export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelEntity): ITabPanelEntity =>
+  mapTabPanelEntity(Selectors.tabPanel(tabPanelWrapperEntity));
 
 /**
  * @stable [30.03.2020]

@@ -32,6 +32,7 @@ import {
   ISectionNameWrapper,
   ISelectedWrapper,
   IStackWrapper,
+  ITabPanelWrapper,
   ITokenWrapper,
   ITransportWrapper,
   ITypeWrapper,
@@ -380,6 +381,14 @@ export const selectDictionaries = <TDictionaries>(wrapper: IDictionariesWrapper<
 const selectSectionName = (wrapper: ISectionNameWrapper): string => R.isNil(wrapper) ? UNDEF : wrapper.sectionName;
 
 /**
+ * @stable [17.05.2020]
+ * @param {ITabPanelWrapper<TTabPanel>} entity
+ * @returns {TTabPanel}
+ */
+const selectTabPanel = <TTabPanel>(entity: ITabPanelWrapper<TTabPanel>): TTabPanel =>
+  R.isNil(entity) ? UNDEF : entity.tabPanel;
+
+/**
  * @stable [08.05.2020]
  * @param {IListEntity<TEntity extends IEntity>} entity
  * @returns {TEntity}
@@ -450,4 +459,5 @@ export class Selectors {
   public static readonly queryFilterEntityQuery = selectQueryFilterEntityQuery;
   public static readonly secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
   public static readonly sectionName = selectSectionName;
+  public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */
 }

@@ -50,44 +50,52 @@ export interface ITabProps
 }
 
 /**
- * @generic-entity
- * @stable [10.02.2020]
+ * @redux-entity
+ * @stable [17.05.2020]
  */
-export interface IGenericTabPanelEntity
-  extends IReduxActiveValueEntity,
-    IAllowSingleTabWrapper,
+export interface IReduxTabPanelEntity
+  extends IReduxActiveValueEntity {
+}
+
+/**
+ * @presets-entity
+ * @stable [17.05.2020]
+ */
+export interface IPresetsTabPanelEntity
+  extends IAllowSingleTabWrapper,
     IItemsWrapper<ITabProps[]>,
+    IOnClickWrapper<ITabProps>,
+    IOnCloseWrapper<ITabProps>,
+    IOnDeactivateWrapper<number>,
+    IRendererWrapper<ITabProps, (event: IBaseEvent) => void>,
     IWrappedWrapper,
     IWrapperClassNameWrapper {
 }
 
 /**
- * @behavioral-entity
- * @stable [10.02.2020]
+ * @generic-entity
+ * @stable [17.05.2020]
  */
-export interface IBehavioralTabPanelEntity
-  extends IOnClickWrapper<ITabProps>,
-    IOnCloseWrapper<ITabProps>,
-    IOnDeactivateWrapper<number>,
-    IRendererWrapper<ITabProps, (event: IBaseEvent) => void> {
+export interface IGenericTabPanelEntity
+  extends IReduxTabPanelEntity,
+    IPresetsTabPanelEntity {
 }
 
 /**
  * @props
- * @stable [10.02.2020]
+ * @stable [17.05.2020]
  */
 export interface ITabPanelProps
   extends IGenericComponentProps,
-    IGenericTabPanelEntity,
-    IBehavioralTabPanelEntity {
+    IGenericTabPanelEntity {
 }
 
 /**
  * @wrapper-entity
- * @stable [10.02.2020]
+ * @stable [17.05.2020]
  */
-export interface ITabPanelWrapperEntity
-  extends ITabPanelWrapper<IGenericTabPanelEntity> {
+export interface ITabPanelEntity
+  extends ITabPanelWrapper<IReduxTabPanelEntity> {
 }
 
 /**
@@ -104,7 +112,7 @@ export interface ITabPanelConfigurationEntity
  */
 export interface IGenericTabPanelContainerEntity
   extends ITabPanelConfigurationEntity,
-    ITabPanelWrapperEntity {
+    ITabPanelEntity {
 }
 
 /**
