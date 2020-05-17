@@ -206,4 +206,4 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
 export const asExpandedGridGroups =
   <TEntity extends IEntity>(entity: MultiFieldEntityT<TEntity>,
                             groupValueAccessor: (item: TEntity) => EntityIdT = (item) => item.id): Record<EntityIdT, boolean> =>
-    R.mergeAll((FieldUtils.asMultiFieldEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
+    R.mergeAll((FieldUtils.fromMultiFieldEntityToEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));

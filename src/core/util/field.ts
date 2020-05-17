@@ -122,7 +122,7 @@ export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
  * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
  * @returns {TEntity[]}
  */
-const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
+const fromMultiFieldEntityToEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
   if (R.isNil(entity)) {
     return UNDEF;
   }
@@ -157,8 +157,9 @@ const asMultiFieldEntities = <TEntity extends IEntity = IEntity>(entity: MultiFi
  * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
  * @returns {TEntity[]}
  */
-const asMultiFieldDefinedEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
-  asMultiFieldEntities(entity) || [];
+const fromMultiFieldEntityToDefinedEntities =
+  <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
+    fromMultiFieldEntityToEntities(entity) || [];
 
 /**
  * @stable [12.10.2019]
@@ -232,7 +233,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldEntityT | EntityIdT)
   () => (
     isNotMultiEntity(value)
       ? asEntitiesArray(value as NotMultiFieldEntityT)
-      : asMultiFieldEntities(value as IReduxMultiEntity)
+      : fromMultiFieldEntityToEntities(value as IReduxMultiEntity)
   ).length,
   0
 );
@@ -246,7 +247,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldEntityT | EntityIdT)
 export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>,
                                                                                entitiesCountLimit: number): TEntity[] => {
   const result = makeArray(entitiesCountLimit);
-  const multiFieldEntities = asMultiFieldEntities(value);
+  const multiFieldEntities = fromMultiFieldEntityToEntities(value);
 
   if (Array.isArray(multiFieldEntities)) {
     let cursor = 0;
@@ -274,7 +275,7 @@ export const asMultiFieldMappedEntities =
   <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldEntityT<TEntity> | EntityIdT[],
                                                          mapper: (entity: TEntity, index: number) => TResult): TResult[] =>
     ifNotNilThanValue(
-      asMultiFieldEntities(multiFieldEntity as MultiFieldEntityT<TEntity>),
+      fromMultiFieldEntityToEntities(multiFieldEntity as MultiFieldEntityT<TEntity>),
       (result) => result.map(mapper),
       UNDEF_SYMBOL
     );
@@ -332,6 +333,6 @@ export const buildNewPhantomMultiItem =
  * @stable [16.05.2020]
  */
 export class FieldUtils {
-  public static asMultiFieldDefinedEntities = asMultiFieldDefinedEntities;                           /* @stable [16.05.2020] */
-  public static asMultiFieldEntities = asMultiFieldEntities;                                         /* @stable [16.05.2020] */
+  public static fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
+  public static fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
 }

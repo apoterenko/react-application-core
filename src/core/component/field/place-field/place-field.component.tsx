@@ -30,7 +30,7 @@ import {
   IPlaceFieldState,
   IPlaceGeoCodeRequestEntity,
   IPlaceSelectOptionEntity,
-  ISelectOptionEntity,
+  PlaceEntityValueT,
   PlaceMarkerActionsEnum,
 } from '../../../definition';
 import { EntityIdT } from '../../../definitions.interface';
@@ -92,10 +92,10 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   /**
    * @stable [11.01.2020]
-   * @param {IPlaceEntity | string} value
+   * @param {PlaceEntityValueT} value
    * @returns {string}
    */
-  protected decorateDisplayValue(value: IPlaceEntity | string): string {
+  protected decorateDisplayValue(value: PlaceEntityValueT): string {
     return this.useZipCode
       ? this.zipCodeEntityAsDisplayValue(value)
       : this.placeEntityAsDisplayValue(value);
@@ -306,10 +306,10 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   /**
    * @stable [10.01.2020]
-   * @param {IPlaceEntity | string} placeEntity
+   * @param {PlaceEntityValueT} placeEntity
    * @returns {string}
    */
-  private placeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
+  private placeEntityAsDisplayValue(placeEntity: PlaceEntityValueT): string {
     return this.fieldConverter.convert({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.DISPLAY_VALUE,
@@ -319,10 +319,10 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   /**
    * @stable [28.01.2020]
-   * @param {IPlaceEntity | string} placeEntity
+   * @param {PlaceEntityValueT} placeEntity
    * @returns {string}
    */
-  private zipCodeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
+  private zipCodeEntityAsDisplayValue(placeEntity: PlaceEntityValueT): string {
     return this.fieldConverter.convert({
       from: FieldConverterTypesEnum.ZIP_CODE_ENTITY,
       to: FieldConverterTypesEnum.DISPLAY_VALUE,

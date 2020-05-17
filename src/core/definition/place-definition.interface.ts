@@ -60,6 +60,11 @@ export interface IPlaceEntity<TCity = string>
 }
 
 /**
+ * @stable [17.05.2020]
+ */
+export type PlaceEntityValueT = IPlaceEntity | string;
+
+/**
  * @entity
  * @stable [09.01.2020]
  */

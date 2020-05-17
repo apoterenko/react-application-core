@@ -65,9 +65,9 @@ describe('util/field', () => {
     });
   });
 
-  describe('FieldUtils.asMultiFieldEntities', () => {
+  describe('FieldUtils.fromMultiFieldEntityToEntities', () => {
     it('test1', () => {
-      const editedEntities = FieldUtils.asMultiFieldEntities({
+      const editedEntities = FieldUtils.fromMultiFieldEntityToEntities({
         add: [{id: 2, field1: 200}],
         remove: [],
         edit: [{id: 1, name: 'field1', value: 101}],
@@ -78,7 +78,7 @@ describe('util/field', () => {
 
     it('test2', () => {
       const entity = {id: 1, field1: 100};
-      const editedEntities = FieldUtils.asMultiFieldEntities({
+      const editedEntities = FieldUtils.fromMultiFieldEntityToEntities({
         add: [],
         remove: [entity],
         edit: [],
@@ -88,7 +88,7 @@ describe('util/field', () => {
     });
 
     it('test3', () => {
-      const editedEntities = FieldUtils.asMultiFieldEntities({
+      const editedEntities = FieldUtils.fromMultiFieldEntityToEntities({
         add: [],
         remove: [],
         edit: [

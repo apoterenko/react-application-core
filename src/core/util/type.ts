@@ -72,7 +72,7 @@ export const isBoolean = (value: AnyT): boolean => typeof value === 'boolean';
 export const isString = (value: AnyT): boolean => typeof value === 'string';
 
 /**
- * @stable [03.10.2019]
+ * @stable [17.05.2020]
  * @param {AnyT} v
  * @returns {boolean}
  */
@@ -104,4 +104,5 @@ export const toType = <TResult>(result: TResult): TResult => result;
  */
 export class TypeUtils {
   public static readonly isNumber = isNumber;                                     /* @stable [16.05.2020] */
+  public static readonly isPrimitive = isPrimitive;                               /* @stable [16.05.2020] */
 }

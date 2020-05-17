@@ -7,10 +7,7 @@ import {
   IRemovedFilesWrapper,
 } from '../definitions.interface';
 import { ENV } from '../env';
-import {
-  filterArray,
-  NOT_EMPTY_VALUE_PREDICATE,
-} from '../util/filter';
+import { FilterUtils } from '../util/filter';
 
 /**
  * @stable [24.09.2019]
@@ -31,9 +28,9 @@ export enum StorageEventsEnum {
  */
 export const STORAGE_PATH_SEPARATOR = '#';
 export const STORAGE_NOT_VERSIONED_KEY =
-  filterArray([ENV.appProfile, ENV.port, ENV.normalizedBasePath], NOT_EMPTY_VALUE_PREDICATE).join(STORAGE_PATH_SEPARATOR);
+  FilterUtils.notEmptyValuesArrayFilter(ENV.appProfile, ENV.port, ENV.normalizedBasePath).join(STORAGE_PATH_SEPARATOR);
 export const STORAGE_VERSIONED_KEY =
-  filterArray([ENV.appVersion, STORAGE_NOT_VERSIONED_KEY], NOT_EMPTY_VALUE_PREDICATE).join(STORAGE_PATH_SEPARATOR);
+  FilterUtils.notEmptyValuesArrayFilter(ENV.appVersion, STORAGE_NOT_VERSIONED_KEY).join(STORAGE_PATH_SEPARATOR);
 
 /**
  * @stable [17.11.2019]

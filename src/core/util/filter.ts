@@ -146,11 +146,11 @@ export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL
 export const STRING_VALUE_PREDICATE = (value: AnyT) => isString(value);
 
 /**
- * @stable [31.03.2019]
+ * @stable [17.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value);
+const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value);
 
 /**
  * @stable [03.10.2018]
@@ -228,11 +228,11 @@ const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArra
 export const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
 
 /**
- * @stable [20.01.2020]
+ * @stable [17.05.2020]
  * @param {TValue} data
  * @returns {TValue[]}
  */
-export const notEmptyValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_EMPTY_VALUE_PREDICATE);
+const notEmptyValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_EMPTY_VALUE_PREDICATE);
 
 /**
  * @stable [22.10.2019]
@@ -342,5 +342,6 @@ export class FilterUtils {
   public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;       /* @stable [15.05.2020] */
   public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                     /* @stable [15.05.2020] */
   public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;               /* @stable [15.05.2020] */
+  public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                       /* @stable [17.05.2020] */
   public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */
 }

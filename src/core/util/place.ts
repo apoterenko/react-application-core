@@ -1,5 +1,14 @@
-import { ifNotNilThanValue } from './cond';
-import { IPlaceEntity } from '../definition';
+import * as R from 'ramda';
+
+import { ConditionUtils } from './cond';
+import { TypeUtils } from './type';
+import {
+  FieldConstants,
+  IPlaceEntity,
+  PlaceEntityValueT,
+} from '../definition';
+import { FilterUtils } from './filter';
+import { JoinUtils } from './join';
 
 /**
  * @stable [01.08.2018]
@@ -21,7 +30,7 @@ export const asPlaceEntity = (place: google.maps.GeocoderResult | google.maps.pl
     return null;
   }
   return {
-    ...ifNotNilThanValue(
+    ...ConditionUtils.ifNotNilThanValue(
       place.geometry,
       (geometry) => ({
         lat: geometry.location.lat(),
@@ -59,3 +68,42 @@ export const asPlaceEntity = (place: google.maps.GeocoderResult | google.maps.pl
     ),
   };
 };
+
+/**
+ * @stable [17.05.2020]
+ * @param {PlaceEntityValueT} placeEntity
+ * @returns {string}
+ */
+const fromPlaceEntityToDisplayValue = (placeEntity: PlaceEntityValueT): string => {
+  if (R.isNil(placeEntity)) {
+    return placeEntity;
+  }
+  if (TypeUtils.isPrimitive(placeEntity)) {
+    return placeEntity as string;
+  }
+  const placeEntityAsObject = placeEntity as IPlaceEntity;
+
+  return (
+      JoinUtils.join(
+        FilterUtils.notEmptyValuesArrayFilter(
+          ...[
+            `${placeEntityAsObject.streetNumber || ''} ${placeEntityAsObject.street || ''}`,
+            placeEntityAsObject.city,
+            placeEntityAsObject.region,
+            placeEntityAsObject.country
+          ].map((v) => (v || '').trim())
+        ),
+        ', '
+      )
+    )
+    || (
+      placeEntityAsObject.formattedName || FieldConstants.DISPLAY_EMPTY_VALUE
+    );
+};
+
+/**
+ * @stable [17.05.2020]
+ */
+export class PlaceUtils {
+  public static fromPlaceEntityToDisplayValue = fromPlaceEntityToDisplayValue;                     /* @stable [17.05.2020] */
+}

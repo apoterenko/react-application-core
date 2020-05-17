@@ -21,6 +21,7 @@ import {
   ISelectOptionEntity,
   IUserEntity,
   MultiFieldEntityT,
+  PlaceEntityValueT,
   SelectValueT,
   TranslatorT,
 } from '../../definition';
@@ -31,10 +32,9 @@ import {
   ifNotNilThanValue,
   isFn,
   isPrimitive,
-  join,
   mapExtendedLabeledValueEntity,
-  notEmptyValuesArrayFilter,
   notNilValuesArrayFilter,
+  PlaceUtils,
 } from '../../util';
 import {
   AnyT,
@@ -59,7 +59,6 @@ export class FieldConverter implements IFieldConverter {
    * @stable [09.01.2020]
    */
   constructor() {
-    this.placeEntityAsDisplayValue = this.placeEntityAsDisplayValue.bind(this);
     this.selectOptionEntityAsDisplayValue = this.selectOptionEntityAsDisplayValue.bind(this);
     this.zipCodeEntityAsDisplayValue = this.zipCodeEntityAsDisplayValue.bind(this);
 
@@ -71,7 +70,7 @@ export class FieldConverter implements IFieldConverter {
     this.register({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.DISPLAY_VALUE,
-      converter: this.placeEntityAsDisplayValue,
+      converter: this.$fromPlaceEntityToDisplayValue.bind(this),
     });
     this.register({
       from: FieldConverterTypesEnum.ZIP_CODE_ENTITY,
@@ -81,7 +80,7 @@ export class FieldConverter implements IFieldConverter {
     this.register({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
       to: FieldConverterTypesEnum.PLACE_PARAMETER,
-      converter: this.placeEntityAsDisplayValue,
+      converter: this.$fromPlaceEntityToPlaceParameter.bind(this),
     });
     this.register({
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
@@ -244,37 +243,10 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [28.01.2020]
-   * @param {IPlaceEntity | string} placeEntity
+   * @param {PlaceEntityValueT} placeEntity
    * @returns {string}
    */
-  protected placeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
-    if (R.isNil(placeEntity)) {
-      return placeEntity;
-    }
-    if (isPrimitive(placeEntity)) {
-      return placeEntity as string;
-    }
-    const placeEntityAsObject = placeEntity as IPlaceEntity;
-
-    return join(
-      notEmptyValuesArrayFilter(
-        ...[
-          `${placeEntityAsObject.streetNumber || ''} ${placeEntityAsObject.street || ''}`,
-          placeEntityAsObject.city,
-          placeEntityAsObject.region,
-          placeEntityAsObject.country
-        ].map((v) => (v || '').trim())
-      ),
-      ', '
-    ) || placeEntityAsObject.formattedName || FieldConstants.DISPLAY_EMPTY_VALUE;
-  }
-
-  /**
-   * @stable [28.01.2020]
-   * @param {IPlaceEntity | string} placeEntity
-   * @returns {string}
-   */
-  protected zipCodeEntityAsDisplayValue(placeEntity: IPlaceEntity | string): string {
+  protected zipCodeEntityAsDisplayValue(placeEntity: PlaceEntityValueT): string {
     if (R.isNil(placeEntity)) {
       return placeEntity;
     }
@@ -299,7 +271,7 @@ export class FieldConverter implements IFieldConverter {
     }
     const optionAsObject = option as ISelectOptionEntity;
     return R.isNil(optionAsObject.label)
-      ? optionAsObject.value
+      ? this.$fromSelectOptionEntityToId(option)
       : this.t(optionAsObject.label, option);
   }
 
@@ -372,12 +344,30 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
+   * @stable [17.05.2020]
+   * @param {PlaceEntityValueT} placeEntity
+   * @returns {string}
+   */
+  private $fromPlaceEntityToDisplayValue(placeEntity: PlaceEntityValueT): string {
+    return PlaceUtils.fromPlaceEntityToDisplayValue(placeEntity);
+  }
+
+  /**
+   * @stable [17.05.2020]
+   * @param {PlaceEntityValueT} placeEntity
+   * @returns {string}
+   */
+  private $fromPlaceEntityToPlaceParameter(placeEntity: PlaceEntityValueT): string {
+    return PlaceUtils.fromPlaceEntityToDisplayValue(placeEntity);
+  }
+
+  /**
    * @stable [16.05.2020]
    * @param {MultiFieldEntityT<TEntity extends IEntity>} value
    * @returns {TEntity[]}
    */
   private $fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
-    return FieldUtils.asMultiFieldEntities(value);
+    return FieldUtils.fromMultiFieldEntityToEntities(value);
   }
 
   /**
@@ -386,7 +376,7 @@ export class FieldConverter implements IFieldConverter {
    * @returns {TEntity[]}
    */
   private $fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
-    return FieldUtils.asMultiFieldDefinedEntities(value);
+    return FieldUtils.fromMultiFieldEntityToDefinedEntities(value);
   }
 
   /**
