@@ -322,10 +322,10 @@ export interface IGenericBaseSelectState
  * @stable [15.01.2020]
  */
 export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
-  allowEmptyFilterValue: false,
-  anchored: true,
-  expandActionRendered: false,
-  preventFocus: false,
+  allowEmptyFilterValue: false,                                                             /* @stable [17.05.2020] */
+  anchored: true,                                                                           /* @stable [17.05.2020] */
+  expandActionRendered: false,                                                              /* @stable [17.05.2020] */
+  preventFocus: false,                                                                      /* @stable [17.05.2020] */
 });
 
 /**

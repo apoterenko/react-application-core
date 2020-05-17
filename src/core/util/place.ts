@@ -71,10 +71,30 @@ export const asPlaceEntity = (place: google.maps.GeocoderResult | google.maps.pl
 
 /**
  * @stable [17.05.2020]
- * @param {PlaceEntityValueT} placeEntity
+ * @param {IPlaceEntity} placeEntity
  * @returns {string}
  */
-const fromPlaceEntityToDisplayValue = (placeEntity: PlaceEntityValueT): string => {
+const formatPlaceEntity = (placeEntity: IPlaceEntity): string =>
+  JoinUtils.join(
+    FilterUtils.notEmptyValuesArrayFilter(
+      ...[
+        `${placeEntity.streetNumber || ''} ${placeEntity.street || ''}`,
+        placeEntity.city,
+        placeEntity.region,
+        placeEntity.country
+      ].map((v) => (v || '').trim())
+    ),
+    ', '
+  );
+
+/**
+ * @stable [17.05.2020]
+ * @param {PlaceEntityValueT} placeEntity
+ * @param {(placeEntity: IPlaceEntity) => string} placeEntityFormatter
+ * @returns {string}
+ */
+const fromPlaceEntityToDisplayValue = (placeEntity: PlaceEntityValueT,
+                                       placeEntityFormatter = formatPlaceEntity): string => {
   if (R.isNil(placeEntity)) {
     return placeEntity;
   }
@@ -83,27 +103,15 @@ const fromPlaceEntityToDisplayValue = (placeEntity: PlaceEntityValueT): string =
   }
   const placeEntityAsObject = placeEntity as IPlaceEntity;
 
-  return (
-      JoinUtils.join(
-        FilterUtils.notEmptyValuesArrayFilter(
-          ...[
-            `${placeEntityAsObject.streetNumber || ''} ${placeEntityAsObject.street || ''}`,
-            placeEntityAsObject.city,
-            placeEntityAsObject.region,
-            placeEntityAsObject.country
-          ].map((v) => (v || '').trim())
-        ),
-        ', '
-      )
-    )
-    || (
-      placeEntityAsObject.formattedName || FieldConstants.DISPLAY_EMPTY_VALUE
-    );
+  return placeEntityFormatter(placeEntityAsObject)
+    || placeEntityAsObject.formattedName
+    || FieldConstants.DISPLAY_EMPTY_VALUE;
 };
 
 /**
  * @stable [17.05.2020]
  */
 export class PlaceUtils {
+  public static formatPlaceEntity = formatPlaceEntity;                                             /* @stable [17.05.2020] */
   public static fromPlaceEntityToDisplayValue = fromPlaceEntityToDisplayValue;                     /* @stable [17.05.2020] */
 }

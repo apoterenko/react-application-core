@@ -70,6 +70,7 @@ const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): TValue => buil
 export class ObjectUtils {
   public static buildNotEmptyOrNullValuesObject = buildNotEmptyOrNullValuesObject;               /* @stable [15.05.2020] */
   public static buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
-  public static isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
   public static buildValuesObjectBy =  buildValuesObjectBy;                                      /* @stable [15.05.2020] */
+  public static isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
+  public static isObjectNotEmpty = isObjectNotEmpty;                                             /* @stable [15.05.2020] */
 }

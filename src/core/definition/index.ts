@@ -14,6 +14,7 @@ export * from './controlled-field-definition.interface';
 export * from './cron-definition.interface';
 export * from './date-definition.interface';
 export * from './date-field-definition.interface';
+export * from './default-definition.interface';
 export * from './dialog-definition.interface';
 export * from './dictionary-definition.interface';
 export * from './dom-definition.interface';

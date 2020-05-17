@@ -449,9 +449,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     const currentValue = this.decoratedDisplayValue;
     const isCurrentValueNotEmpty = isObjectNotEmpty(currentValue);
-    const isAllowEmptyFilterValue0 = this.isAllowEmptyFilterValue;
+    const $isAllowEmptyFilterValue = this.isAllowEmptyFilterValue;
 
-    if (!isAllowEmptyFilterValue0 && !isCurrentValueNotEmpty) {
+    if (!$isAllowEmptyFilterValue && !isCurrentValueNotEmpty) {
       BaseSelect.logger.debug('[$BaseSelect][notifyQuickSearchFilterChange] The decorated value is empty. Do nothing...');
       return;
     }

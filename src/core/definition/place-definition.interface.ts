@@ -158,8 +158,8 @@ export const DEFAULT_PLACE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
  * @stable [15.01.2020]
  */
 export const DEFAULT_ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
-  ...DEFAULT_PLACE_FIELD_ENTITY,
-  menuConfiguration: {useFilter: false, heightRestricted: false},
-  placeActionRendered: false,
-  useZipCode: true,
+  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,                                                /* @stable [17.05.2020] */
+  menuConfiguration: {useFilter: false, heightRestricted: false},                      /* @stable [17.05.2020] */
+  placeActionRendered: false,                                                          /* @stable [17.05.2020] */
+  useZipCode: true,                                                                    /* @stable [17.05.2020] */
 });
