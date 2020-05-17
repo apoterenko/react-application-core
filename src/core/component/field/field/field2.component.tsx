@@ -39,7 +39,7 @@ import {
 } from '../../../definition';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
 
-export class Field<TProps extends IFieldProps2,
+export class Field2<TProps extends IFieldProps2,
                    TState extends IFieldState = IFieldState>
     extends UniversalField<TProps,
                            TState>
@@ -201,9 +201,9 @@ export class Field<TProps extends IFieldProps2,
     if (this.isFieldRendered) {
       return (
         <div
-          ref={this.selfRef}
+          ref={this.actualRef}
           style={props.style}
-          title={props.title as string}
+          title={this.getTitle()}
           className={this.getSelfElementClassName()}
         >
           {this.prefixLabelElement}
@@ -215,6 +215,10 @@ export class Field<TProps extends IFieldProps2,
       );
     }
     return this.inputWrapperElement;
+  }
+
+  protected getTitle(): string {
+    return this.props.title as string || orNull(this.isFocusPrevented, () => this.displayValue);
   }
 
   /**

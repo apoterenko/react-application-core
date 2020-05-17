@@ -62,6 +62,7 @@ export interface IFieldConverter {
   fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity;
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
+  fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
   fromSelectOptionEntityToId(option: SelectValueT): EntityIdT;
   register(config: IFieldConverterConfigEntity): void;
 }

@@ -8,7 +8,7 @@ import {
   isAbsoluteURI,
   joinClassName,
 } from '../../../util';
-import { Field, toLastAddedMultiItemEntityId } from '../../field';
+import { Field2, toLastAddedMultiItemEntityId } from '../../field';
 import { FlexLayout } from '../../layout/flex';
 import { PictureViewer, Viewer } from '../../viewer';
 import { IViewFieldProps, IViewFieldState } from './view-field.interface';
@@ -19,7 +19,7 @@ import {
 } from '../../../definition';
 import { PdfViewer } from '../../viewer/pdf/pdf-viewer.component';
 
-export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
+export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
 
   public static readonly defaultProps: IViewFieldProps = {
     viewer: PictureViewer,

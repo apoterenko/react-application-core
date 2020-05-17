@@ -1,3 +1,3 @@
 export * from './plugin';
-export * from './field.component';
+export * from './field2.component';
 export * from './field.interface';

@@ -25,7 +25,7 @@ import {
 } from '../../util';
 import { BaseList } from '../list';
 import { Checkbox } from '../field';
-import { Field } from '../field';
+import { Field2 } from '../field';
 import { FlexLayout } from '../layout/flex';
 import { GridColumn } from './column';
 import {
@@ -469,7 +469,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @returns {boolean}
    */
   private isElementField(renderEl: JSX.Element): boolean {
-    return Field.isPrototypeOf(renderEl.type);
+    return Field2.isPrototypeOf(renderEl.type);
   }
 
   /**

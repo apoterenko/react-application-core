@@ -189,6 +189,19 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
+   * @stable [17.05.2020]
+   * @param {PlaceEntityValueT} value
+   * @returns {string}
+   */
+  public fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string {
+    return this.convert({
+      from: FieldConverterTypesEnum.PLACE_ENTITY,
+      to: FieldConverterTypesEnum.PLACE_PARAMETER,
+      value,
+    });
+  }
+
+  /**
    * @stable [14.03.2020]
    * @param {TValue} value
    * @returns {IUserEntity}

@@ -18,7 +18,7 @@ import {
   IChangeEvent,
   UniCodesEnum,
 } from '../../../definitions.interface';
-import { Field } from '../field';
+import { Field2 } from '../field';
 import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
 import {
@@ -38,7 +38,7 @@ import {
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,
                            TState extends IBaseTextFieldState>
-    extends Field<TProps, TState> {
+    extends Field2<TProps, TState> {
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 

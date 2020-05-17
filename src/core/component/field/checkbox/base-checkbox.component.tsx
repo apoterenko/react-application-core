@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Field } from '../../field';
+import { Field2 } from '../../field';
 import {
   IBaseCheckboxInputProps,
   IBaseCheckboxProps,
@@ -15,7 +15,7 @@ import {
 
 export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
                           TState extends IBaseCheckboxState = IBaseCheckboxState>
-  extends Field<TProps, TState> {
+  extends Field2<TProps, TState> {
 
   /**
    * @stable [31.08.2018]

@@ -50,7 +50,7 @@ import {
 } from '../../definitions.interface';
 import { GenericComponent } from '../base';
 import { Button } from '../button';
-import { Field } from '../field';
+import { Field2 } from '../field';
 import { IFieldProps2 } from '../../configurations-definitions.interface';  // TODO
 import {
   DI_TYPES,
@@ -425,7 +425,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
             }
           );
         },
-        (child) => Field.isPrototypeOf(child.type),
+        (child) => Field2.isPrototypeOf(child.type),
         (child) => (child.props as IFieldProps).rendered,
       )
     );

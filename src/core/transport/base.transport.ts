@@ -22,7 +22,6 @@ import {
 import { INumberConverter } from '../converter';
 import { ISettingsEntity } from '../settings';
 import {
-  FieldConverterTypesEnum,
   IFieldConverter,
   IMultiEntityStorageSetEntity,
   IPlaceEntity,
@@ -81,6 +80,14 @@ export class BaseTransport {
   }
 
   /**
+   * @stable [17.05.2020]
+   * @param {IPlaceEntity} value
+   * @returns {string}
+   */
+  protected fromPlaceEntityToPlaceParameter = (value: IPlaceEntity): string =>
+    this.fieldConverter.fromPlaceEntityToPlaceParameter(value)
+
+  /**
    * @stable [16.05.2020]
    * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
    * @returns {TEntity[]}
@@ -114,18 +121,6 @@ export class BaseTransport {
    */
   protected prepareNumberValue = (value: StringNumberT, converter?: (value: number) => number): number =>
     this.nc.numberParameter(value, converter)
-
-  /**
-   * @stable [10.01.2020]
-   * @param {IPlaceEntity} value
-   * @returns {string}
-   */
-  protected preparePlaceParameterValue = (value: IPlaceEntity): string =>
-    this.fieldConverter.convert({
-      from: FieldConverterTypesEnum.PLACE_ENTITY,
-      to: FieldConverterTypesEnum.PLACE_PARAMETER,
-      value,
-    })
 
   /**
    * @stable [13.10.2019]
