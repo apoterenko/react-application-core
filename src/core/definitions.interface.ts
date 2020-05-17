@@ -951,4 +951,3 @@ export const UNI_CODES = {
   lfloor: '\u230a',
 };
 
-export type ChangeEventT = React.ChangeEvent<{ value: AnyT, name?: string }>;

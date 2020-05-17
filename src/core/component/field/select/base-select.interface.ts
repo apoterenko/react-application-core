@@ -16,13 +16,13 @@ import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import {
   IBaseTextFieldProps,
 } from '../text-field/base-textfield.interface';
-import { IFieldState } from '../field/field.interface';
+import { IField2State } from '../field/field.interface';
 
 /**
  * @stable [06.10.2018]
  */
 export interface IBaseSelectState
-  extends IFieldState,
+  extends IField2State,
     IGenericBaseSelectState,
     I$$cachedValueWrapper<ISelectOptionEntity> {
 }

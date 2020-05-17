@@ -42,6 +42,7 @@ import {
   IBaseSelectState,
 } from './base-select.interface';
 import {
+  ChangeEventT,
   FieldActionTypesEnum,
   FieldConstants,
   FieldConverterTypesEnum,
@@ -95,7 +96,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [11.01.2020]
    * @param {IBaseEvent} event
    */
-  public onChange(event: IBaseEvent): void {
+  public onChange(event: ChangeEventT): void {
     super.onChange(event);
 
     this.startQuickSearchIfApplicable();

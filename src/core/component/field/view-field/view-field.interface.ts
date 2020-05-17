@@ -7,7 +7,7 @@ import {
   IUsePreviewWrapper,
   IViewerWrapper,
 } from '../../../definitions.interface';
-import { IFieldState } from '../field/field.interface';
+import { IField2State } from '../field/field.interface';
 import { ITransportRequestEntity, IComponentCtor, IViewerProps } from '../../../definition';
 
 /**
@@ -25,7 +25,7 @@ export interface IViewFieldProps
  * @stable [29.07.2019]
  */
 export interface IViewFieldState
-  extends IFieldState,
+  extends IField2State,
     IUrlWrapper,
     ITypeWrapper {
 }

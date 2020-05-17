@@ -20,7 +20,7 @@ import {
   UniCodesEnum,
   } from '../../../definitions.interface';
 import {
-  IFieldState,
+  IField2State,
 } from './field.interface';
 import { UniversalField } from './universal-field.component';
 import {
@@ -40,7 +40,7 @@ import {
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
 
 export class Field2<TProps extends IFieldProps2,
-                   TState extends IFieldState = IFieldState>
+                   TState extends IField2State = IField2State>
     extends UniversalField<TProps,
                            TState>
     implements IField<TProps, TState> {
@@ -93,15 +93,6 @@ export class Field2<TProps extends IFieldProps2,
   public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
     this.updateInputBeforeHTML5Validation(currentRawValue);
     super.onChangeManually(currentRawValue);
-  }
-
-  /**
-   * @stable [18.06.2018]
-   * @param {IChangeEvent} event
-   * @returns {AnyT}
-   */
-  public getRawValueFromEvent(event: IChangeEvent): AnyT {
-    return event.target.value;
   }
 
   /**

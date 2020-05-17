@@ -50,11 +50,12 @@ import {
   IBaseEvent,
   IGenericFieldEntity2,
 } from '../../../definition';
-import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
+import { Field } from './field.component';
+import { ChangeEventT } from 'core';
 
-export abstract class UniversalField<TProps extends IUniversalFieldProps,
-                                     TState extends IUniversalFieldState>
-  extends EnhancedGenericComponent<TProps, TState>
+export class UniversalField<TProps extends IUniversalFieldProps,
+  TState extends IUniversalFieldState>
+  extends Field<TProps, TState>
   implements IGenericField2<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('UniversalField');
@@ -141,14 +142,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
     if (isFn(props.onClear)) {
       props.onClear();
     }
-  }
-
-  /**
-   * @stable [11.01.2020]
-   * @param {IBaseEvent} event
-   */
-  public onChange(event: IBaseEvent): void {
-    this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
   /**
@@ -257,18 +250,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
     const value = this.props.value;
     return this.isValueDefined(value) ? value : this.defaultValue;
   }
-
-  /**
-   * @stable [17.06.2018]
-   * @param {AnyT} event
-   * @returns {AnyT}
-   */
-  public abstract getRawValueFromEvent(event: AnyT): AnyT;
-
-  /**
-   * @stable [06.06.2018]
-   */
-  public abstract setFocus(): void;
 
   /**
    * @stable [29.10.2019]
@@ -735,14 +716,6 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [21.12.2019]
-   * @returns {AnyT}
-   */
-  protected get originalEmptyValue(): AnyT {
-    return FieldConstants.DISPLAY_EMPTY_VALUE;
-  }
-
-  /**
    * @stable [16.01.2020]
    * @returns {string}
    */
@@ -751,18 +724,11 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [21.12.2019]
-   * @returns {AnyT}
-   */
-  protected get emptyValue(): AnyT {
-    const props = this.props;
-    return isDef(props.emptyValue) ? props.emptyValue : this.originalEmptyValue;
-  }
-
-  /**
    * @stable [03.09.2018]
    */
-  protected abstract removeFocus(): void;
+  protected removeFocus(): void {
+    // Do nothing
+  }
 
   /**
    * @stable [22.03.2019]
@@ -770,48 +736,17 @@ export abstract class UniversalField<TProps extends IUniversalFieldProps,
    * @param {string} className
    * @returns {JSX.Element}
    */
-  protected abstract toMessageElement(message: string, className?: string): JSX.Element;
-
-  /**
-   * @stable [31.07.2018]
-   * @param {AnyT} currentRawValue
-   */
-  private onChangeValue(currentRawValue: AnyT): void {
-    const actualFieldValue = buildActualFieldValue({
-      ...this.props as IGenericFieldEntity2,
-      emptyValue: this.emptyValue,
-      value: currentRawValue,
-    });
-
-    this.validateField(actualFieldValue);
-    this.notifyAboutChanges(actualFieldValue);
-    this.notifyFormAboutChanges(actualFieldValue);
+  protected toMessageElement(message: string, className?: string): JSX.Element {
+    return null;
   }
 
   /**
    * @stable [31.07.2018]
    * @param {AnyT} rawValue
    */
-  private validateField(rawValue: AnyT): void {
+  protected validateField(rawValue: AnyT): void {
     // State value cannot take an undefined value then we should pass a null value at least
     this.setState({error: this.validateValueAndSetCustomValidity(rawValue)});
-  }
-
-  /**
-   * @stable [16.11.2019]
-   * @param {AnyT} rawValue
-   */
-  private notifyFormAboutChanges(rawValue: AnyT): void {
-    const props = this.props;
-    ifNotNilThanValue(this.props.changeForm, (changeForm) => changeForm(props.name, rawValue));
-  }
-
-  /**
-   * @stable [16.11.2019]
-   * @param {AnyT} rawValue
-   */
-  private notifyAboutChanges(rawValue: AnyT): void {
-    ifNotNilThanValue(this.props.onChange, (onChange) => onChange(rawValue));
   }
 
   /**

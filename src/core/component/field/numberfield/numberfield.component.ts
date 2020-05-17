@@ -5,9 +5,11 @@ import {
   INumberFieldInternalState,
   INumberFieldInternalProps,
 } from './numberfield.interface';
-import { ChangeEventT } from '../../../definitions.interface';
 import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
-import { IKeyboardProps } from '../../../definition';
+import {
+  ChangeEventT,
+  IKeyboardProps,
+} from '../../../definition';
 
 export class NumberField extends BaseTextField<INumberFieldInternalProps,
                                                 INumberFieldInternalState> {

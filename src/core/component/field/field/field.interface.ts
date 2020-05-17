@@ -20,5 +20,5 @@ export interface IUniversalFieldState extends IStringErrorWrapper,
 /**
  * @stable [03.09.2018]
  */
-export interface IFieldState extends IUniversalFieldState {
+export interface IField2State extends IUniversalFieldState {
 }

@@ -1,4 +1,10 @@
-import { AnyT } from '../definitions.interface';
+import * as React from 'react';
+
+import {
+  AnyT,
+  INameWrapper,
+  IValueWrapper,
+} from '../definitions.interface';
 
 /**
  * @stable [31.08.2019]
@@ -7,6 +13,11 @@ export interface IBaseEvent
   extends Partial<Event> {
   nativeEvent?: Event;
 }
+
+/**
+ * @stable [17.05.2020]
+ */
+export type ChangeEventT = React.ChangeEvent<INameWrapper & IValueWrapper>;
 
 /**
  * @stable [31.08.2019]
