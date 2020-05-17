@@ -7,7 +7,6 @@ import {
 } from 'ts-smart-logger';
 
 import {
-  buildActualFieldValue,
   calc,
   DelayedTask,
   ifNilThanValue,
@@ -48,10 +47,8 @@ import {
 import {
   FieldConstants,
   IBaseEvent,
-  IGenericFieldEntity2,
 } from '../../../definition';
 import { Field } from './field.component';
-import { ChangeEventT } from 'core';
 
 export class UniversalField<TProps extends IUniversalFieldProps,
   TState extends IUniversalFieldState>

@@ -44,7 +44,6 @@ export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversal
           ISetFocusWrapper,
           IClearValueWrapper,
           IResetErrorWrapper,
-          IOnChangeWrapper,
           IOnChangeManuallyWrapper {
 }
 

@@ -9,7 +9,10 @@ import {
   IKeyboardEvent,
 } from '../../../../definitions.interface';
 import { IGenericField2 } from '../../../../entities-definitions.interface';
-import { IGenericPlugin } from '../../../../definition';
+import {
+  IField,
+  IGenericPlugin,
+} from '../../../../definition';
 
 export class DelayedChangesFieldPlugin implements IGenericPlugin {
   public static DEFAULT_DELAY_TIMEOUT = 1500;
@@ -21,7 +24,7 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
    * @stable [18.05.2018]
    * @param {IGenericField2} component
    */
-  constructor(private component: IGenericField2<AnyT>) { // TODO Fix props typings
+  constructor(private component: /*IField*/ any) { // TODO Fix props typings
     this.delayedTask = new DelayedTask(
       this.doDelay.bind(this),
       component.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT

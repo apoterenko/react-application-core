@@ -354,6 +354,7 @@ export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TValue = {}> { onFilterClick?(value?: TValue): void; }
 export interface IOnFirstWrapper<TValue = AnyT> { onFirst?(value?: TValue): void; }
+export interface IOnFormChangeWrapper<TValue1 = string, TValue2 = AnyT> { onFormChange?(value1?: TValue1, value?: TValue2): void; }
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
@@ -781,13 +782,6 @@ export interface IErrorMessageWrapper<TErrorMessage = string> {
  * @stable [17.06.2018]
  */
 export interface IStringErrorWrapper extends IErrorWrapper<string> {
-}
-
-/**
- * @stable [17.06.2018]
- */
-export interface IChangeFormWrapper<TChangeForm> {
-  changeForm?: TChangeForm;
 }
 
 /**

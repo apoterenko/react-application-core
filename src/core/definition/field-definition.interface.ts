@@ -37,6 +37,7 @@ import {
   IOnDelayWrapper,
   IOnDictionaryEmptyWrapper,
   IOnDictionaryLoadWrapper,
+  IOnFormChangeWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
@@ -95,14 +96,17 @@ export interface IPresetsFieldEntity<TEntity = IEntity>
     IDelayTimeoutWrapper,
     IDisplayNameWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
+    IEmptyValueWrapper,
     IFormatWrapper,
     IFullWrapper,
     ILabelWrapper,
     IMaskWrapper,
     INameWrapper,
+    IOnChangeWrapper,
     IOnDelayWrapper,
     IOnDictionaryEmptyWrapper<string, IApiEntity>,
     IOnDictionaryLoadWrapper<{}, string>,
+    IOnFormChangeWrapper,
     IPatternWrapper,
     IPlaceholderWrapper,
     IPlainValueWrapper,
@@ -140,7 +144,6 @@ export interface IGenericFieldEntity2
     IDefaultValueWrapper,
     IDisabledWrapper,
     IDisplayValueRenderedOnlyWrapper,
-    IEmptyValueWrapper,
     IFieldRenderedWrapper,
     IKeepChangesWrapper,
     IPreventFocusWrapper,
@@ -203,6 +206,7 @@ export interface IFieldProps
 export interface IField<TProps extends IFieldProps = IFieldProps,
   TState = {}>
   extends IGenericComponent<TProps, TState>,
+    IOnChangeWrapper,
     IValueWrapper {
 }
 

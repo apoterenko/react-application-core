@@ -396,7 +396,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               readOnly: this.isFieldReadOnly(field),
               disabled: this.isFieldDisabled(field),
               changeable: this.isFieldChangeable(field),
-              changeForm: this.onChange,
+              onFormChange: this.onChange,
 
               ...(
                 fieldProps.bindDictionary && ({

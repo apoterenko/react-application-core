@@ -2,20 +2,22 @@ import { AnyT } from '../../../definitions.interface';
 import {
   ChangeEventT,
   FieldConstants,
-  IGenericFieldEntity2,
+  IField,
+  IFieldProps,
 } from '../../../definition';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
-import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
 import { IUniversalFieldState } from './field.interface';
 import {
   buildActualFieldValue,
   ConditionUtils,
   isDef,
+  mergeWithSystemProps,
 } from '../../../util';
 
-export class Field<TProps extends IUniversalFieldProps,
+export class Field<TProps extends IFieldProps,
   TState extends IUniversalFieldState>
-  extends EnhancedGenericComponent<TProps, TState> {
+  extends EnhancedGenericComponent<TProps, TState>
+  implements IField<TProps, TState> {
 
   /**
    * @stable [17.05.2020]
@@ -39,15 +41,25 @@ export class Field<TProps extends IUniversalFieldProps,
   }
 
   protected onChangeValue(currentRawValue: AnyT): void {
+    const mergedProps = this.mergedProps;
+
     const actualFieldValue = buildActualFieldValue({
-      ...this.props as IGenericFieldEntity2,
+      ...mergedProps as {},
       emptyValue: this.emptyValue,
       value: currentRawValue,
     });
 
     this.validateField(actualFieldValue);
-    this.notifyAboutChanges(actualFieldValue);
-    this.notifyFormAboutChanges(actualFieldValue);
+
+    ConditionUtils.ifNotNilThanValue(
+      mergedProps.onChange,
+      (onChange) => onChange(actualFieldValue)
+    );
+
+    ConditionUtils.ifNotNilThanValue(
+      mergedProps.onFormChange,
+      (onFormChange) => onFormChange(mergedProps.name, actualFieldValue)
+    );
   }
 
   protected validateField(rawValue: AnyT): void {
@@ -59,8 +71,8 @@ export class Field<TProps extends IUniversalFieldProps,
    * @returns {AnyT}
    */
   protected get emptyValue(): AnyT {
-    const props = this.props;
-    return isDef(props.emptyValue) ? props.emptyValue : this.originalEmptyValue;
+    const mergedProps = this.mergedProps;
+    return isDef(mergedProps.emptyValue) ? mergedProps.emptyValue : this.originalEmptyValue;
   }
 
   /**
@@ -71,12 +83,11 @@ export class Field<TProps extends IUniversalFieldProps,
     return FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
-  private notifyFormAboutChanges(rawValue: AnyT): void {
-    const props = this.props;
-    ConditionUtils.ifNotNilThanValue(this.props.changeForm, (changeForm) => changeForm(props.name, rawValue));
-  }
-
-  private notifyAboutChanges(rawValue: AnyT): void {
-    ConditionUtils.ifNotNilThanValue(this.props.onChange, (onChange) => onChange(rawValue));
+  /**
+   * @stable [17.05.2020]
+   * @returns {TProps}
+   */
+  protected get mergedProps(): TProps {
+    return mergeWithSystemProps(this.props, this.settings.components.field) as TProps;
   }
 }
