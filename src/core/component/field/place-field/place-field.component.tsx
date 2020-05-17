@@ -98,7 +98,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   protected decorateDisplayValue(value: PlaceEntityValueT): string {
     return this.useZipCode
       ? this.zipCodeEntityAsDisplayValue(value)
-      : this.placeEntityAsDisplayValue(value);
+      : this.fromPlaceEntityToDisplayValue(value);
   }
 
   /**
@@ -127,7 +127,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
           >
             {
               ifNotNilThanValue(
-                this.placeEntityAsDisplayValue(nvl(placeEntity, this.value)),
+                this.fromPlaceEntityToDisplayValue(nvl(placeEntity, this.value)),
                 (value) => (
                   <div className={DialogClassesEnum.PLACE_DIALOG_TITLE}>{value}</div>
                 )
@@ -218,7 +218,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
     if (this.isPlainValueApplied) {
       payload = this.useZipCode
         ? this.zipCodeEntityAsDisplayValue(placeEntity)
-        : this.placeEntityAsDisplayValue(placeEntity);
+        : this.fromPlaceEntityToDisplayValue(placeEntity);
     } else {
       payload = placeEntity;
     }
@@ -305,16 +305,12 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [10.01.2020]
+   * @stable [17.05.2020]
    * @param {PlaceEntityValueT} placeEntity
    * @returns {string}
    */
-  private placeEntityAsDisplayValue(placeEntity: PlaceEntityValueT): string {
-    return this.fieldConverter.convert({
-      from: FieldConverterTypesEnum.PLACE_ENTITY,
-      to: FieldConverterTypesEnum.DISPLAY_VALUE,
-      value: placeEntity,
-    });
+  private fromPlaceEntityToDisplayValue(placeEntity: PlaceEntityValueT): string {
+    return this.fieldConverter.fromPlaceEntityToDisplayValue(placeEntity);
   }
 
   /**
