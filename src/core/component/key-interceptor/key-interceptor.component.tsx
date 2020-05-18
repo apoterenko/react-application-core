@@ -47,11 +47,9 @@ export class KeyInterceptor extends GenericBaseComponent<IKeyInterceptorProps> {
   }
 
   /**
-   * @stable [05.05.2018]
+   * @stable [18.05.2020]
    */
   public componentDidMount(): void {
-    super.componentDidMount();
-
     this.unSubscriber = this.eventManager.subscribe(
       this.environment.document,
       this.captureEvent,
@@ -60,15 +58,15 @@ export class KeyInterceptor extends GenericBaseComponent<IKeyInterceptorProps> {
   }
 
   /**
-   * @stable [05.05.2018]
+   * @stable [18.05.2020]
    */
   public componentWillUnmount(): void {
     this.delayedTask.stop();
+
     if (isFn(this.unSubscriber)) {
       this.unSubscriber();
       this.unSubscriber = null;
     }
-    super.componentWillUnmount();
   }
 
   /**
