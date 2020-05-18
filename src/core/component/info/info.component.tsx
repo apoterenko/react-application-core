@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import {
   CalcUtils,
@@ -35,6 +36,7 @@ export class Info extends GenericComponent<IInfoComponentProps> {
       progress,
     } = props;
 
+    const hasChildren = !R.isNil(props.children);
     const messages = this.settings.messages;
 
     const result: ITextWrapper & IProgressWrapper<boolean> & IErrorWrapper<boolean> =
@@ -63,7 +65,7 @@ export class Info extends GenericComponent<IInfoComponentProps> {
                                       ? emptyData as string
                                       : messages.NOT_DATA_FOUND
                                   )
-                                  : (message || messages.NO_DATA)
+                                  : (message || (hasChildren ? message : messages.NO_DATA))
                               ),
                             }
                         )
