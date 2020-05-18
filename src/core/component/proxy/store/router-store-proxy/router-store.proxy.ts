@@ -11,8 +11,8 @@ import {
 } from '../../../../definition';
 import { RouterActionBuilder } from '../../../../action';
 import {
+  FilterUtils,
   handlerPropsFactory,
-  NOT_NIL_VALUE_PREDICATE,
   selectStackWrapperItemEntities,
 } from '../../../../util';
 
@@ -70,8 +70,8 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
     const entities = selectStackWrapperItemEntities(this.props) || [];
     const length = entities.length;
 
-    return entities
-      .map((item, index) => {
+    return FilterUtils.notNilValuesArrayFilter(
+      ...entities.map((item, index) => {
         const last = index === length - 1;
         const stepElement = factory({item, first: index === 0, last});
         if (R.isNil(stepElement)) {
@@ -86,6 +86,6 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
           ),
         });
       })
-      .filter(NOT_NIL_VALUE_PREDICATE);
+    );
   }
 }

@@ -15,9 +15,9 @@ import {
 import { makeChainedMiddleware } from './chained.middleware';
 import {
   defValuesFilter,
+  FilterUtils,
   ifNotNilThanValue,
   isObjectNotEmpty,
-  notNilValuesArrayFilter,
   orNull,
   selectPreventEffectsFromAction,
   selectPreviousActionFromAction,
@@ -52,7 +52,7 @@ export const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<{}, TState, TDefaultChanges>): IEffectsAction[] =>
   ifNotNilThanValue(
     makeChainedMiddleware(asChainedConfigEntity(config)),
-    (actions) => notNilValuesArrayFilter(...actions, makeDefaultFormChangesMiddleware(config))
+    (actions) => FilterUtils.notNilValuesArrayFilter(...actions, makeDefaultFormChangesMiddleware(config))
   );
 
 /**

@@ -1,10 +1,6 @@
-import { StringNumberT } from '../definitions.interface';
-import { join } from './join';
 import { IErrorMessageEntity } from '../definition';
-import {
-  notNilValuesArrayFilter,
-  notNilValuesFilter,
-} from './filter';
+import { JoinUtils } from './join';
+import { notNilValuesFilter } from './filter';
 
 /**
  * @stable [12.04.2020]
@@ -18,10 +14,7 @@ export const asErrorMessage = (error: number | string | Error | IErrorMessageEnt
     return {message: error.message};
   } else if (errorMessageEntity && errorMessageEntity.message) {
     return notNilValuesFilter<IErrorMessageEntity, IErrorMessageEntity>({
-      message: join(
-        notNilValuesArrayFilter<StringNumberT>(errorMessageEntity.code, errorMessageEntity.message),
-        ': '
-      ),
+      message: JoinUtils.join([errorMessageEntity.code, errorMessageEntity.message], ': '),
       code: errorMessageEntity.code,
     });
   }

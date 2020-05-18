@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  FilterUtils,
   ifNotNilThanValue,
   isFull,
   joinClassName,
   mergeWithSystemProps,
-  notNilValuesArrayFilter,
   orNull,
 } from '../../util';
 import { Link } from '../link';
@@ -192,7 +192,7 @@ export class NavigationList
           at: 'right top',
         }}
         heightRestricted={false}
-        options={notNilValuesArrayFilter(...$items.map((item) => this.asPopupMenuItem(item, $activeGroup)))
+        options={FilterUtils.notNilValuesArrayFilter(...$items.map((item) => this.asPopupMenuItem(item, $activeGroup)))
           .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.t(itm.label), rawData: itm}))}
         anchorElement={this.asPopupMenuAnchorElement}
         onSelect={this.onPopupMenuItemSelect}/>

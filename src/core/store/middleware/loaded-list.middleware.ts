@@ -10,12 +10,12 @@ import {
 } from '../../definition';
 import {
   $isValid,
+  FilterUtils,
   ifNotEmptyThanValue,
-  isTouched,
-  notNilValuesArrayFilter,
   orNull,
   selectValidFromAction,
   toListSection,
+  WrapperUtils,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
@@ -65,10 +65,10 @@ export const makeLoadedListOnToolbarToolsRefreshMiddleware =
 export const makeUntouchedListMiddleware =
   <TState = {}>(config: IUntouchedListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     ifNotEmptyThanValue(
-      notNilValuesArrayFilter(
+      FilterUtils.notNilValuesArrayFilter(
         makeDefaultFormChangesMiddleware(config),
         orNull(
-          !isTouched(config.listAccessor(config.state)),
+          !WrapperUtils.isTouched(config.listAccessor(config.state)),
           () => makeLoadedListMiddleware(config)
         )
       ),

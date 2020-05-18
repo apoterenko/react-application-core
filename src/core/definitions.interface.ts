@@ -74,6 +74,7 @@ export interface IBirthdayWrapper { birthday?: string; }
 export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
 export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
+export interface IBlobUrlWrapper { blobUrl?: string; }
 export interface IBoolWrapper { bool?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
 export interface ICalendarActionRenderedWrapper { calendarActionRendered?: boolean; }
@@ -535,7 +536,6 @@ export interface IUniqueParamNameWrapper { uniqueParamName?: string; }
 export interface IUnitWrapper<TValue> { unit?: TValue; }
 export interface IUpdatedWrapper<TValue = boolean> { updated?: TValue; }
 export interface IUpdateWrapper<TValue = string> { update?: TValue; }
-export interface IUploadUrlWrapper { uploadUrl?: string; }
 export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
 export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 export interface IUrlWrapper<TValue = string> { url?: TValue; }

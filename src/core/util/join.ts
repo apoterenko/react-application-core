@@ -3,7 +3,7 @@ import {
   UniCodesEnum,
 } from '../definitions.interface';
 import { isArrayNotEmpty } from './array';
-import { NOT_NIL_VALUE_PREDICATE } from './filter';
+import { FilterUtils } from './filter';
 import { nvl } from './nvl';
 
 /**
@@ -13,7 +13,7 @@ import { nvl } from './nvl';
  * @returns {string}
  */
 export const join = (parts: AnyT[], joiner: string = UniCodesEnum.SPACE): string =>
-  parts.filter(NOT_NIL_VALUE_PREDICATE).join(joiner);
+  FilterUtils.notNilValuesArrayFilter(...parts).join(joiner);
 
 /**
  *

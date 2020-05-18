@@ -9,7 +9,7 @@ import {
 import { ifNotNilThanValue } from './cond';
 import { isFn } from './type';
 import {
-  notNilValuesArrayFilter,
+  FilterUtils,
   SAME_ENTITY_PREDICATE,
 } from './filter';
 import { nvl } from './nvl';
@@ -105,6 +105,6 @@ export const doesArrayContainEntity =
 export const areArrayValuesNotNil = (...values: AnyT[]): boolean =>
   ifNotNilThanValue(
     values,
-    () => notNilValuesArrayFilter(...values).length === values.length,
+    () => FilterUtils.notNilValuesArrayFilter(...values).length === values.length,
     false
   );

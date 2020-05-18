@@ -16,6 +16,7 @@ import {
   isNumberLike,
   isObject,
   isString,
+  TypeUtils,
 } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 import { isObjectNotEmpty } from './object';
@@ -124,11 +125,12 @@ export const NOT_OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => !OBJECT_VALU
 export const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_OBJECT_VALUE_PREDICATE(value);
 
 /**
- * @stable [27.10.2018]
+ * @stable [18.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
+ * @constructor
  */
-export const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
+const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 
 /**
  * @stable [03.10.2019]
@@ -192,19 +194,27 @@ const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
 export const TRUE_VALUE_PREDICATE = (value: AnyT) => value === true;
 
 /**
- * @stable [03.10.2018]
+ * @stable [18.05.2020]
  * @param {TValue[]} data
  * @param {ValuePredicateT} predicates
  * @returns {TValue[]}
  */
-export const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicateT[]): TValue[] =>
-  R.filter<TValue>((value) => predicates.length > 1
-    ? (predicates as Array<ValuePredicateT | boolean>)
-      .reduce(
-        (previousValue, currentValue) => (currentValue as ValuePredicateT)(value)
-          && (isFn(previousValue) ? (previousValue as ValuePredicateT)(value) : previousValue as boolean)
-      ) as boolean
-    : predicates[0](value), data);
+const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicateT[]): TValue[] =>
+  R.filter<TValue>(
+    (value) => predicates.length > 1
+      ? (predicates as Array<ValuePredicateT | boolean>)
+        .reduce(
+          (prevValue, curValue) => (
+            (curValue as ValuePredicateT)(value) && (
+              TypeUtils.isFn(prevValue)
+                ? (prevValue as ValuePredicateT)(value)
+                : prevValue as boolean
+            )
+          )
+        ) as boolean
+      : predicates[0](value),
+    data
+  );
 
 /**
  * @stable [03.10.2019]
@@ -221,11 +231,11 @@ export const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => 
 const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, DEF_VALUE_PREDICATE);
 
 /**
- * @stable [29.11.2018]
+ * @stable [18.05.2020]
  * @param {TValue} data
  * @returns {TValue[]}
  */
-export const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
+const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
 
 /**
  * @stable [17.05.2020]
@@ -342,6 +352,8 @@ export class FilterUtils {
   public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;       /* @stable [15.05.2020] */
   public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                     /* @stable [15.05.2020] */
   public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;               /* @stable [15.05.2020] */
+  public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                           /* @stable [18.05.2020] */
   public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                       /* @stable [17.05.2020] */
+  public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;                           /* @stable [18.05.2020] */
   public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */
 }

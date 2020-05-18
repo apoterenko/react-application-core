@@ -129,7 +129,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     blobDataContentType: 'application/octet-stream',
     formDataContentType: 'multipart/form-data',
     apiUrl: prepareUrl(ENV.basePath + '/api/'),
-    uploadUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
+    blobUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
     uniqueParamName: '_dc',
   },
   messages: {

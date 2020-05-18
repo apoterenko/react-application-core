@@ -7,6 +7,7 @@ import {
   IBlobDataContentTypeWrapper,
   IBlobDataWrapper,
   IBlobResponseWrapper,
+  IBlobUrlWrapper,
   ICancelTokenWrapper,
   ICodeWrapper,
   IDataProviderWrapper,
@@ -42,7 +43,6 @@ import {
   ITransportFactoryWrapper,
   ITransportWrapper,
   IUniqueParamNameWrapper,
-  IUploadUrlWrapper,
   IUrlFactoryWrapper,
   IUrlProviderWrapper,
   IUrlWrapper,
@@ -290,11 +290,11 @@ export interface ITransport
  */
 export interface ITransportSettingsEntity
   extends IBaseTransportRequestEntity,
-    IBlobDataContentTypeWrapper,
-    IFormDataContentTypeWrapper,
-    IUniqueParamNameWrapper,
     IApiUrlWrapper,
-    IUploadUrlWrapper {
+    IBlobDataContentTypeWrapper,
+    IBlobUrlWrapper,
+    IFormDataContentTypeWrapper,
+    IUniqueParamNameWrapper {
 }
 
 /**

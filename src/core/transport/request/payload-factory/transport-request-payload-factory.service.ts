@@ -7,7 +7,7 @@ import {
   ifNotEmptyThanValue,
   isDef,
   isFn,
-  notNilValuesArrayFilter,
+  JoinUtils,
   notNilValuesFilter,
   nvl,
   orUndef,
@@ -90,22 +90,19 @@ export class TransportRequestPayloadFactory implements ITransportRequestPayloadF
 
   /**
    * @stable [02.02.2019]
-   * @param {ITransportRequestEntity} requestEntity
+   * @param {ITransportRequestEntity} request
    * @returns {string}
    */
-  protected getBaseUrl(requestEntity: ITransportRequestEntity): string {
-    if (!R.isNil(requestEntity.url)) {
-      return requestEntity.url;
+  protected getBaseUrl(request: ITransportRequestEntity): string {
+    if (!R.isNil(request.url)) {
+      return request.url;
     }
-    const transportSettings = this.settings.transport;
-    const apiUrl = this.isRequestBlobData(requestEntity)
-      ? nvl(transportSettings.uploadUrl, transportSettings.apiUrl)
-      : transportSettings.apiUrl;
+    const settings = this.settings.transport;
+    const url = this.isRequestBlobData(request)
+      ? nvl(settings.blobUrl, settings.apiUrl)
+      : settings.apiUrl;
 
-    return notNilValuesArrayFilter(
-      apiUrl,
-      requestEntity.path
-    ).join(''); // URI's segment works incorrectly with a UUID (url.segment(req.path));
+    return JoinUtils.join([url, request.path], ''); // URI's segment works incorrectly with a UUID (url.segment(req.path));
   }
 
   /**

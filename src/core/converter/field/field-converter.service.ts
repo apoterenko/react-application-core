@@ -28,10 +28,10 @@ import {
   asPlaceEntity,
   CronEntity,
   FieldUtils,
+  FilterUtils,
   ifNotNilThanValue,
   isFn,
   mapExtendedLabeledValueEntity,
-  notNilValuesArrayFilter,
   PlaceUtils,
   SelectOptionUtils,
   TypeUtils,
@@ -313,7 +313,7 @@ export class FieldConverter implements IFieldConverter {
     if (R.isNil(entity)) {
       return entity;
     }
-    return notNilValuesArrayFilter<DateTimeLikeTypeT | DatePeriodsEnum>(
+    return FilterUtils.notNilValuesArrayFilter<DateTimeLikeTypeT | DatePeriodsEnum>(
       entity.from,
       entity.to,
       entity.periodMode

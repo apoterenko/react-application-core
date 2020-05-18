@@ -2,8 +2,8 @@ import { IEntity } from '../definitions.interface';
 import { IFormEntity } from '../definition';
 import {
   inProgress,
-  isTouched,
   isValid,
+  WrapperUtils,
 } from './wrapper';
 import { Selectors } from './select';
 import { isObjectNotEmpty } from './object';
@@ -38,7 +38,7 @@ const isFormEntityChanged = <TEntity = IEntity>(entity: IFormEntity<TEntity>): b
  * @returns {boolean}
  */
 const isFormEntityTouched = <TEntity = IEntity>(entity: IFormEntity<TEntity>): boolean =>
-  isTouched(Selectors.form(entity));
+  WrapperUtils.isTouched(Selectors.form(entity));
 
 /**
  * @stable [11.05.2020]

@@ -565,8 +565,7 @@ export const isForceUseLocalFilter = (wrapper: IForceUseLocalFilterWrapper): boo
  * @param {ITouchedWrapper} wrapper
  * @returns {boolean}
  */
-export const isTouched = (wrapper: ITouchedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.touched === true;
+const isTouched = (wrapper: ITouchedWrapper): boolean => R.isNil(wrapper) ? false : wrapper.touched === true;
 
 /**
  * @stable [23.11.2019]
@@ -750,4 +749,5 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  */
 export class WrapperUtils {
   public static readonly isForceReload = isForceReload;                                 /* @stable [18.05.2020] */
+  public static readonly isTouched = isTouched;                                         /* @stable [18.05.2020] */
 }

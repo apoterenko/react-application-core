@@ -3,14 +3,11 @@ import {
   IEntity,
 } from '../definitions.interface';
 import {
-  join,
-  notNilValuesArrayFilter,
-} from '../util';
-import {
   IOperationEntity,
   VERSION_PROCESSOR_LOADING_INFO_OPERATION_UUID,
 } from '../definition';
 import { Operation } from './operation';
+import { JoinUtils } from '../util';
 
 /**
  * @stable [02.04.2020]
@@ -21,15 +18,7 @@ import { Operation } from './operation';
 export const makeEntityOperation =
   <TEntity extends IEntity>(uuid: string,
                             ...entityId: EntityIdT[]): IOperationEntity =>
-    Operation.create(
-      join(
-        notNilValuesArrayFilter(
-          uuid,
-          ...entityId
-        ),
-        '-'
-      )
-    );
+    Operation.create(JoinUtils.join([uuid, ...entityId], '-'));
 
 /**
  * @stable [12.05.2020]

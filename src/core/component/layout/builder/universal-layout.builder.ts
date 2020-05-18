@@ -1,5 +1,5 @@
 import {
-  NOT_NIL_VALUE_PREDICATE,
+  FilterUtils,
   uuid,
 } from '../../../util';
 import {
@@ -86,7 +86,7 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
    */
   private filterChildren(
     layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): Array<UniversalLayoutBuilderChildrenT<TNode>> {
-    return (layoutConfig.items || []).filter(NOT_NIL_VALUE_PREDICATE);
+    return FilterUtils.notNilValuesArrayFilter(...(layoutConfig.items || []));
   }
 
   /**

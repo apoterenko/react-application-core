@@ -4,7 +4,7 @@ import {
   BARCODE_APPLICABLE_FORMATS,
   BarcodeFormatEnum,
 } from './barcode.interface';
-import { NOT_NIL_VALUE_PREDICATE } from '../../util';
+import { FilterUtils } from '../../util';
 
 /**
  * @stable [12.04.2019]
@@ -14,8 +14,8 @@ import { NOT_NIL_VALUE_PREDICATE } from '../../util';
  */
 export const getBarcodeApplicableFormats = (barcode: string,
                                             formats = BARCODE_APPLICABLE_FORMATS): BarcodeFormatEnum[] =>
-  formats
-    .map((format) => {
+  FilterUtils.notNilValuesArrayFilter(
+    ...formats.map((format) => {
       let value;
       JsBarcode({}, barcode, {
         format,
@@ -27,4 +27,4 @@ export const getBarcodeApplicableFormats = (barcode: string,
       });
       return value;
     })
-    .filter(NOT_NIL_VALUE_PREDICATE);
+  );
