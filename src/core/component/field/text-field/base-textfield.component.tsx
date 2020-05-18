@@ -19,7 +19,6 @@ import {
   UniCodesEnum,
 } from '../../../definitions.interface';
 import { Field2 } from '../field';
-import { ProgressLabel } from '../../progress';
 import { Keyboard } from '../../keyboard';
 import {
   IBaseTextFieldProps,
@@ -35,6 +34,7 @@ import {
   KeyboardClassNamesEnum,
   TouchEventsEnum,
 } from '../../../definition';
+import { Info } from '../../info';
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,
                            TState extends IBaseTextFieldState>
@@ -164,10 +164,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   protected get progressLabelElement(): JSX.Element {
-    return orNull(
-      this.isFieldBusy(),
-      () => <ProgressLabel className='rac-field-loader rac-alignment-center'/>
-    );
+    return orNull(this.isFieldBusy(), () => <Info progress={true}/>);
   }
 
   /**

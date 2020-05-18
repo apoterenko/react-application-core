@@ -81,19 +81,6 @@ html, body {
     $rac-filter-active-after-content: $rac-filter-active-content,
     $rac-filter-active-after-color: $rac-filter-active-color
   );
-
-  @include rac-styles(                                                                        /* @stable [26.12.2018] */
-    $rac-styles-custom: rac-loading-message,
-    $rac-styles-white-space: nowrap,
-    $rac-styles-font-size: $rac-loading-message-font-size,
-    $rac-styles-color: $rac-loading-message-color,
-    $rac-styles-margin: $rac-loading-message-margin
-  );
-
-  @include rac-icon(                                                                          /* @stable [26.12.2018] */
-    $rac-icon-custom: rac-loading-icon,
-    $rac-icon-color: $rac-loading-icon-color
-  );
 }
 
 // Root [FRAMEWORK-]
@@ -119,23 +106,8 @@ html, body {
     margin: 0;                        /* @stable [06.06.2018] */
   }
 
-  .rac-overlay {
-
-    .rac-message {
-      background: $rac-overlay-message-background;            /* @stable [13.08.2018] */
-      max-width: $rac-overlay-message-max-width;              /* @stable [13.08.2018] */
-      height: $rac-overlay-message-height;                    /* @stable [13.08.2018] */
-      border-radius: $rac-overlay-message-border-radius;      /* @stable [13.08.2018] */
-    }
-  }
-
   .rac-visibility-hidden {
     visibility: hidden !important;                /* @stable [15.09.2018] */
-  }
-
-  .rac-message {
-    font-size: $rac-message-font-size;            /* @stable [25.06.2018] */
-    color: $rac-message-color;                    /* @stable [26.06.2018] */
   }
 
   .rac-absolute-left-center-position {

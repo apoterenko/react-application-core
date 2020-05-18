@@ -172,7 +172,6 @@
       label,
         .rac-dnd,
         .rac-field-input,
-        .rac-message-content,
         .rac-field-prefix-label {
         opacity: $opacity;                                            /* @stable [03.08.2018] */
         cursor: default !important;                                   /* @stable [21.09.2018] */
@@ -182,18 +181,6 @@
     .rac-field-prefix-label {
       color: $rac-field-prefix-label-color;                           /* @stable [19.09.2018] */
       left: $rac-field-prefix-label-left;                             /* @stable [03.10.2018] */
-    }
-
-    .rac-field-loader {
-
-      .rac-loading-message {
-        color: $rac-field-loader-loading-message-color;               /* @stable [18.09.2018] */
-      }
-    }
-
-    .rac-message {
-      width: 100%;                                                    /* @stable [01.09.2018] */
-      color: $rac-field-message-color;                           /* @stable [29.06.2018] */
     }
 
     .rac-text-field {

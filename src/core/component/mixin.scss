@@ -647,11 +647,6 @@
           }
         }
 
-        @include rac-styles (
-          $rac-styles-custom: rac-field-loader,
-          $rac-styles-margin-top: $rac-self-field-loader-margin-top
-        );
-
         @include rac-icon (
           $rac-icon-color: $rac-self-field-icon-color,
           $rac-icon-height: $rac-self-field-icon-height,

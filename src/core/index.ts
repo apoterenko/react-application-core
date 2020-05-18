@@ -33,7 +33,6 @@ export * from './component/list';
 export * from './component/main';
 export * from './component/material';
 export * from './component/menu';
-export * from './component/message';
 export * from './component/notification';
 export * from './component/plugin';
 export * from './component/progress';

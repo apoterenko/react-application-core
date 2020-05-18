@@ -312,13 +312,6 @@ $rac-loading-message-font-size: $rac-primary-font-size-0 !default;
 $rac-loading-message-color: $rac-primary-color-poseidon-0 !default;
 $rac-loading-message-margin: 0 0 0 8px !default;
 
-/* @stable [25.06.2018] */
-$rac-message-color: $rac-primary-color-poseidon-0 !default;
-$rac-message-font-size: $rac-primary-font-size-0 !default;
-
-/* @stable [08.08.2018] */
-$rac-field-message-color: $rac-primary-color-poseidon-0 !default;
-
 /* @stable [17.09.2018] */
 $rac-base-checkbox-cls: rac-base-checkbox;
 $rac-base-select-cls: rac-base-select;
@@ -417,7 +410,6 @@ $rac-field-display: flex !default;
 $rac-field-flex-direction: column !default;
 $rac-field-help-text-font-size: 10px !default;
 $rac-field-help-text-line-height: 16px !default;
-$rac-field-loader-loading-message-color: $rac-primary-color-poseidon-0 !default;
 $rac-field-prefix-label-color: $rac-primary-color-poseidon-0 !default;
 $rac-field-prefix-label-left: 6px !default;
 $rac-field-prevent-focus-self-field-input-cursor: default !default;
@@ -753,12 +745,6 @@ $rac-form-layout-top-header-background-size: contain !default;
 $rac-form-layout-top-header-background: unset !default;
 $rac-form-layout-top-header-height: unset !default;
 $rac-form-layout-top-header-margin: unset !default;
-
-/* @stable [13.08.2018] */
-$rac-overlay-message-background: $rac-primary-color-metis-0-10 !default;
-$rac-overlay-message-max-width: 200px !default;
-$rac-overlay-message-height: 32px !default;
-$rac-overlay-message-border-radius: $rac-primary-border-radius-2 !default;
 
 /* @stable [13.08.2018] */
 $rac-snackbar-z-index: $snackbar-z-index !default;
