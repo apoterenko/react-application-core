@@ -34,7 +34,6 @@ import {
   KeyboardClassNamesEnum,
   TouchEventsEnum,
 } from '../../../definition';
-import { Info } from '../../info';
 
 export class BaseTextField<TProps extends IBaseTextFieldProps,
                            TState extends IBaseTextFieldState>
@@ -161,10 +160,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    */
   protected getFieldClassName(): string {
     return joinClassName(super.getFieldClassName(), 'rac-base-text');
-  }
-
-  protected get progressLabelElement(): JSX.Element {
-    return orNull(this.isFieldBusy(), () => <Info progress={true}/>);
   }
 
   /**

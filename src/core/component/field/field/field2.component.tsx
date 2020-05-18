@@ -201,7 +201,7 @@ export class Field2<TProps extends IFieldProps2,
           {this.inputWrapperElement}
           {this.actionsElement}
           {this.labelElement}
-          {this.progressLabelElement}
+          {this.progressInfoElement}
         </div>
       );
     }
@@ -210,14 +210,6 @@ export class Field2<TProps extends IFieldProps2,
 
   protected getTitle(): string {
     return this.props.title as string || orNull(this.isFocusPrevented, () => this.displayValue);
-  }
-
-  /**
-   * @stable [16.02.2020]
-   * @returns {JSX.Element}
-   */
-  protected get progressLabelElement(): JSX.Element {
-    return null;
   }
 
   protected get labelElement(): JSX.Element {

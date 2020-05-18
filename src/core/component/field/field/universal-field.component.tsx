@@ -10,7 +10,6 @@ import {
   DelayedTask,
   ifNilThanValue,
   ifNotNilThanValue,
-  inProgress,
   isChangeable,
   isDef,
   isDisabled,
@@ -391,14 +390,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isVisible(): boolean {
     return isVisible(this.props);
-  }
-
-  /**
-   * @stable [15.01.2020]
-   * @returns {boolean}
-   */
-  protected isFieldBusy(): boolean {
-    return inProgress(this.props);
   }
 
   /**

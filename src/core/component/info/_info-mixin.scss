@@ -10,22 +10,34 @@
   $rac-info-align-items: unset,                                                      /* @stable [18.03.2020] */
   $rac-info-display: unset,                                                          /* @stable [18.03.2020] */
   $rac-info-flex-grow: unset,                                                        /* @stable [18.03.2020] */
+  $rac-info-font-size: unset,                                                        /* @stable [18.03.2020] */
+  $rac-info-height: unset,                                                           /* @stable [19.05.2020] */
   $rac-info-icon-margin: unset,                                                      /* @stable [18.03.2020] */
   $rac-info-justify-content: unset,                                                  /* @stable [18.03.2020] */
+  $rac-info-line-height: unset,                                                      /* @stable [18.03.2020] */
+  $rac-info-position: unset,                                                         /* @stable [19.05.2020] */
+  $rac-info-text-align: unset,                                                       /* @stable [18.03.2020] */
   $rac-info-text-color: unset,                                                       /* @stable [18.03.2020] */
   $rac-info-text-display: unset,                                                     /* @stable [18.03.2020] */
   $rac-info-text-flex-grow: unset,                                                   /* @stable [13.05.2020] */
   $rac-info-text-flex: unset,                                                        /* @stable [18.03.2020] */
   $rac-info-text-font-size: unset,                                                   /* @stable [18.03.2020] */
   $rac-info-text-justify-content: unset,                                             /* @stable [18.03.2020] */
-  $rac-info-text-line-height: unset                                                  /* @stable [18.03.2020] */
+  $rac-info-text-line-height: unset,                                                 /* @stable [18.03.2020] */
+  $rac-info-width: unset                                                             /* @stable [19.05.2020] */
 ) {
   #{rac-cls(rac-info, $rac-info-custom)} {
     @include rac-styles (
       $rac-styles-align-items: $rac-info-align-items,
       $rac-styles-display: $rac-info-display,
       $rac-styles-flex-grow: $rac-info-flex-grow,
-      $rac-styles-justify-content: $rac-info-justify-content
+      $rac-styles-font-size: $rac-info-font-size,
+      $rac-styles-height: $rac-info-height,
+      $rac-styles-justify-content: $rac-info-justify-content,
+      $rac-styles-line-height: $rac-info-line-height,
+      $rac-styles-position: $rac-info-position,
+      $rac-styles-text-align: $rac-info-text-align,
+      $rac-styles-width: $rac-info-width
     );
 
     > {

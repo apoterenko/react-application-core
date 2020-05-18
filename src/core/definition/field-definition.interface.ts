@@ -67,7 +67,10 @@ import {
   DateTimeLikeTypeT,
 } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
-import { IReduxMultiEntity } from './entity-definition.interface';
+import {
+  IReduxLifeCycleEntity,
+  IReduxMultiEntity,
+} from './entity-definition.interface';
 import { IFieldProps2 } from '../configurations-definitions.interface';
 import {
   IGenericComponent,
@@ -122,7 +125,8 @@ export interface IPresetsFieldEntity<TEntity = IEntity>
  * @stable [08.05.2020]
  */
 export interface IReduxFieldEntity
-  extends IOriginalValueWrapper,
+  extends IReduxLifeCycleEntity,
+    IOriginalValueWrapper,
     IValueWrapper {
 }
 
@@ -148,7 +152,6 @@ export interface IGenericFieldEntity2
     IKeepChangesWrapper,
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,                                             /* @stable [03.02.2020] */
-    IProgressWrapper,
     IStepWrapper,
     ISyntheticCursorWrapper,
     ITabIndexWrapper,

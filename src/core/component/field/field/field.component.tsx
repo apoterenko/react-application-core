@@ -21,9 +21,10 @@ import {
   TypeUtils,
   WrapperUtils,
 } from '../../../util';
+import { Info } from '../../info';
 
 export class Field<TProps extends IFieldProps,
-  TState extends IUniversalFieldState>
+  TState extends IUniversalFieldState>  // TODO
   extends EnhancedGenericComponent<TProps, TState>
   implements IField<TProps, TState> {
 
@@ -164,6 +165,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [19.05.2020]
+   * @returns {JSX.Element}
+   */
+  protected get progressInfoElement(): JSX.Element {
+    return ConditionUtils.orNull(this.isFieldBusy(), () => <Info progress={true}/>);
+  }
+
+  /**
    * @stable [17.05.2020]
    * @returns {AnyT}
    */
@@ -204,6 +213,14 @@ export class Field<TProps extends IFieldProps,
    */
   protected isValueDefined(value: AnyT): boolean {
     return TypeUtils.isDef(value);
+  }
+
+  /**
+   * @stable [19.05.2020]
+   * @returns {boolean}
+   */
+  protected isFieldBusy(): boolean {
+    return WrapperUtils.inProgress(this.mergedProps);
   }
 
   /**
