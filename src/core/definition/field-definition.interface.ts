@@ -346,5 +346,6 @@ export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IGenericFieldEn
  * @stable [26.03.2020]
  */
 export enum FieldClassesEnum {
+  FIELD_INPUT_WRAPPER = 'rac-field__input-wrapper',
   FIELD_SELF = 'rac-field__self',
 }

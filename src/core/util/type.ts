@@ -103,6 +103,7 @@ export const toType = <TResult>(result: TResult): TResult => result;
  * @stable [16.05.2020]
  */
 export class TypeUtils {
+  public static readonly isDef = isDef;                                           /* @stable [16.05.2020] */
   public static readonly isFn = isFn;                                             /* @stable [16.05.2020] */
   public static readonly isNumber = isNumber;                                     /* @stable [16.05.2020] */
   public static readonly isPrimitive = isPrimitive;                               /* @stable [16.05.2020] */

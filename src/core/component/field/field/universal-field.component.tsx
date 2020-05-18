@@ -7,7 +7,6 @@ import {
 } from 'ts-smart-logger';
 
 import {
-  calc,
   DelayedTask,
   ifNilThanValue,
   ifNotNilThanValue,
@@ -17,7 +16,6 @@ import {
   isDisabled,
   isDisplayValueRenderedOnly,
   isFieldInactive,
-  isFieldRendered,
   isFn,
   isFocused,
   isFocusPrevented,
@@ -449,14 +447,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
-  protected get inputAttachmentElement(): JSX.Element {
-    return null;
-  }
-
-  /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
-   */
   protected get actionsElement(): JSX.Element {
     return null;
   }
@@ -650,14 +640,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueDefined(): boolean {
     return isDef(this.props.displayValue);
-  }
-
-  /**
-   * @stable [22.01.2020]
-   * @returns {boolean}
-   */
-  protected get isFieldRendered(): boolean {
-    return isFieldRendered(this.props);
   }
 
   /**

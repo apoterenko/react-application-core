@@ -103,7 +103,7 @@ export const isValid = (wrapper: IValidWrapper): boolean => R.isNil(wrapper) ? f
  * @param {IFieldRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
+const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.fieldRendered !== false;
 
 /**
@@ -748,6 +748,7 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  * @stable [18.05.2020]
  */
 export class WrapperUtils {
+  public static readonly isFieldRendered = isFieldRendered;                             /* @stable [18.05.2020] */
   public static readonly isForceReload = isForceReload;                                 /* @stable [18.05.2020] */
   public static readonly isTouched = isTouched;                                         /* @stable [18.05.2020] */
 }

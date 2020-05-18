@@ -55,3 +55,10 @@ export const handlerPropsFactory =
       }),
     ),
   });
+
+/**
+ * @stable [18.05.2020]
+ */
+export class PropsUtils {
+  public static readonly mergeWithSystemProps = mergeWithSystemProps;                /* @stable [18.05.2020] */
+}

@@ -13,9 +13,9 @@ import {
   buildActualFieldValue,
   CalcUtils,
   ConditionUtils,
-  isDef,
-  mergeWithSystemProps,
+  PropsUtils,
   TypeUtils,
+  WrapperUtils,
 } from '../../../util';
 
 export class Field<TProps extends IFieldProps,
@@ -98,12 +98,20 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [18.05.2020]
+   * @returns {JSX.Element}
+   */
+  protected get inputAttachmentElement(): JSX.Element {
+    return null;
+  }
+
+  /**
    * @stable [17.05.2020]
    * @returns {AnyT}
    */
   protected get emptyValue(): AnyT {
     const mergedProps = this.mergedProps;
-    return isDef(mergedProps.emptyValue) ? mergedProps.emptyValue : this.originalEmptyValue;
+    return TypeUtils.isDef(mergedProps.emptyValue) ? mergedProps.emptyValue : this.originalEmptyValue;
   }
 
   /**
@@ -115,10 +123,18 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [18.05.2020]
+   * @returns {boolean}
+   */
+  protected get isFieldRendered(): boolean {
+    return WrapperUtils.isFieldRendered(this.props);
+  }
+
+  /**
    * @stable [17.05.2020]
    * @returns {TProps}
    */
   protected get mergedProps(): TProps {
-    return mergeWithSystemProps(this.props, this.settings.components.field) as TProps;
+    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.field) as TProps;
   }
 }

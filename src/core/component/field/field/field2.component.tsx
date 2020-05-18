@@ -223,7 +223,7 @@ export class Field2<TProps extends IFieldProps2,
   protected get inputWrapperElement(): JSX.Element {
     if (this.isFieldRendered) {
       return (
-        <div className={this.getInputWrapperElementClassName()}>
+        <div className={FieldClassesEnum.FIELD_INPUT_WRAPPER}>
           {this.getInputElement()}
           {this.getMirrorInputElement()}
           {this.getInputCaretElement()}
@@ -370,14 +370,6 @@ export class Field2<TProps extends IFieldProps2,
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
       calc<string>(props.className)
     );
-  }
-
-  /**
-   * @stable [23.10.2019]
-   * @returns {string}
-   */
-  protected getInputWrapperElementClassName(): string {
-    return 'rac-field-input-wrapper';
   }
 
   /**
