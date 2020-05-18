@@ -12,6 +12,7 @@
     $rac-info-display: $rac-info-display,
     $rac-info-icon-margin: $rac-info-icon-margin,
     $rac-info-justify-content: $rac-info-justify-content,
+    $rac-info-text-color: $rac-info-text-color,
     $rac-info-text-display: $rac-info-text-display,
     $rac-info-text-flex-grow: $rac-info-text-flex-grow,
     $rac-info-text-flex: $rac-info-text-flex,
@@ -21,9 +22,9 @@
   );
 
   /**
-  * @info-error
-  * @stable [18.03.2020]
-  */
+    * @info-error
+    * @stable [18.03.2020]
+    */
   @include rac-info (
     $rac-info-custom: $rac-error-info-cls,
     $rac-info-text-color: $rac-error-info-text-color
