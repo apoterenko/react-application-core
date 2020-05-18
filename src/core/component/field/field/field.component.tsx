@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import { AnyT } from '../../../definitions.interface';
 import {
   ChangeEventT,
@@ -9,9 +11,11 @@ import { EnhancedGenericComponent } from '../../base/enhanced-generic.component'
 import { IUniversalFieldState } from './field.interface';
 import {
   buildActualFieldValue,
+  CalcUtils,
   ConditionUtils,
   isDef,
   mergeWithSystemProps,
+  TypeUtils,
 } from '../../../util';
 
 export class Field<TProps extends IFieldProps,
@@ -64,6 +68,33 @@ export class Field<TProps extends IFieldProps,
 
   protected validateField(rawValue: AnyT): void {
     // TODO
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @param {AnyT} value
+   * @param {boolean} forceApplyValue
+   * @returns {AnyT}
+   */
+  protected getDecoratedDisplayValue(value: AnyT, forceApplyValue = false): AnyT {
+    const {displayValue} = this.props;
+
+    return R.isNil(displayValue)
+      ? this.decorateDisplayValue(value)
+      : (
+        TypeUtils.isFn(displayValue)
+          ? CalcUtils.calc(displayValue, this.decorateDisplayValue(value))
+          : this.decorateDisplayValue(forceApplyValue ? value : displayValue)
+      );
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @param {AnyT} value
+   * @returns {AnyT}
+   */
+  protected decorateDisplayValue(value: AnyT): AnyT {
+    return value;
   }
 
   /**

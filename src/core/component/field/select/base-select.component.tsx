@@ -637,7 +637,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {StringNumberT}
    */
   private fromSelectOptionEntityToDisplayValue(value: SelectValueT): StringNumberT {
-    return this.fieldConverter.fromSelectOptionEntityToDisplayValue(this.value);
+    return this.fieldConverter.fromSelectOptionEntityToDisplayValue(value);
   }
 
   /**

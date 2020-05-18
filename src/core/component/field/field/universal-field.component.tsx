@@ -340,32 +340,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [28.01.2020]
-   * @param {AnyT} value
-   * @param {boolean} forceApplyValue
-   * @returns {AnyT}
-   */
-  protected getDecoratedDisplayValue(value: AnyT, forceApplyValue = false): AnyT {
-    const {displayValue} = this.props;
-    return R.isNil(displayValue)
-      ? this.decorateDisplayValue(value)
-      : (
-        isFn(displayValue)
-          ? calc(displayValue, this.decorateDisplayValue(value))
-          : this.decorateDisplayValue(forceApplyValue ? value : displayValue)
-      );
-  }
-
-  /**
-   * @stable [07.01.2018]
-   * @param {AnyT} value
-   * @returns {AnyT}
-   */
-  protected decorateDisplayValue(value: AnyT): AnyT {
-    return value;
-  }
-
-  /**
    * @stable [28.10.2019]
    * @returns {boolean}
    */

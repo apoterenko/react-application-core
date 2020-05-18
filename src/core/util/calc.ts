@@ -18,3 +18,10 @@ export const calc = <TResult, TPayload = AnyT>(result: TResult | ((payload?: TPa
  * @returns {boolean}
  */
 export const isOddNumber = (value: number): boolean => value % 2 !== 0;
+
+/**
+ * @stable [18.05.2020]
+ */
+export class CalcUtils {
+  public static readonly calc = calc;                                       /* @stable [18.05.2020] */
+}
