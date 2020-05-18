@@ -35,7 +35,6 @@ export * from './component/material';
 export * from './component/menu';
 export * from './component/notification';
 export * from './component/plugin';
-export * from './component/progress';
 export * from './component/proxy';
 export * from './component/root';
 export * from './component/snackbar';
