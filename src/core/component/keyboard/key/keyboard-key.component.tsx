@@ -10,8 +10,7 @@ import {
 } from '../../../definition';
 import {
   calc,
-  isFn,
-  isString,
+  TypeUtils,
   joinClassName,
 } from '../../../util';
 
@@ -51,7 +50,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
         style={keyAsObject && keyAsObject.width ? {width: keyAsObject.width} : {}}
         onClick={this.onClick}
       >
-        {isFn(props.renderer) ? props.renderer(value) : value}
+        {TypeUtils.isFn(props.renderer) ? props.renderer(value) : value}
       </Button>
     );
   }
@@ -73,7 +72,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
     const keyAsString = this.keyAsString;
     const keyAsObject = this.keyAsObject;
 
-    return isString(keyAsString)
+    return TypeUtils.isString(keyAsString)
       ? (
         props.useUppercase
           ? keyAsString.toUpperCase()
@@ -91,7 +90,7 @@ export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
    * @returns {boolean}
    */
   private get isKeyTouched(): boolean {
-    return isString(this.keyAsString)
+    return TypeUtils.isString(this.keyAsString)
       || KeyboardKeyDescriptorsEnum.CLOSE !== this.keyAsObject.value; // Touch issues fixes
   }
 

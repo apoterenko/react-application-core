@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { AnyT } from '../../definitions.interface';
 import {
+  IAsyncLibManager,
   IDomAccessor,
   IEnvironment,
   IEventManager,
@@ -16,6 +17,7 @@ import {
   TranslatorT,
 } from '../../definition';
 import {
+  getAsyncLibManager,
   getDatabaseStorage,
   getDateConverter,
   getDomAccessor,
@@ -44,6 +46,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
 
   public readonly selfRef = React.createRef<TSelfRef>();
 
+  private $asyncLibManager: IAsyncLibManager;
   private $databaseStorage: IStorage;
   private $dc: IDateConverter;
   private $domAccessor: IDomAccessor;
@@ -80,6 +83,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get databaseStorage(): IStorage {
     return this.$databaseStorage = this.$databaseStorage || getDatabaseStorage();
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @returns {IAsyncLibManager}
+   */
+  protected get asyncLibManager(): IAsyncLibManager {
+    return this.$asyncLibManager = this.$asyncLibManager || getAsyncLibManager();
   }
 
   /**

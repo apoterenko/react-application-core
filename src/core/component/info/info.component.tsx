@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import {
-  calc,
+  CalcUtils,
   formatJson,
   isFull,
-  isObject,
   isStringNotEmpty,
   joinClassName,
+  TypeUtils,
 } from '../../util';
 import {
   IconsEnum,
@@ -29,10 +29,12 @@ export class Info extends GenericComponent<IInfoComponentProps> {
   public render(): JSX.Element {
     const props = this.props;
     const {
+      emptyData,
       error,
       message,
       progress,
     } = props;
+
     const messages = this.settings.messages;
 
     const result: ITextWrapper & IProgressWrapper<boolean> & IErrorWrapper<boolean> =
@@ -51,9 +53,19 @@ export class Info extends GenericComponent<IInfoComponentProps> {
                       error instanceof Error
                         ? {text: ((error as Error).stack), error: true}
                         : (
-                          isObject(error)
+                          TypeUtils.isObject(error)
                             ? {text: formatJson(error as {}), error: true}
-                            : {text: message}
+                            : {
+                              text: (
+                                emptyData
+                                  ? (
+                                    TypeUtils.isString(emptyData)
+                                      ? emptyData as string
+                                      : messages.NOT_DATA_FOUND
+                                  )
+                                  : message || '?'
+                              ),
+                            }
                         )
                     )
                 )
@@ -68,7 +80,7 @@ export class Info extends GenericComponent<IInfoComponentProps> {
           result.error && InfoClassesEnum.ERROR_INFO,
           result.progress && InfoClassesEnum.PROGRESS_INFO,
           !result.error && !result.progress && InfoClassesEnum.MESSAGE_INFO,
-          calc(props.className))}
+          CalcUtils.calc(props.className))}
       >
         {result.text && (
           <span className={InfoClassesEnum.INFO_TEXT}>

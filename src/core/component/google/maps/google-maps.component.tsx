@@ -2,21 +2,19 @@ import * as React from 'react';
 import * as R from 'ramda';
 import * as BPromise from 'bluebird';
 
-import { BaseComponent } from '../../base';
 import { Menu } from '../../menu';
 import {
-  calc,
+  CalcUtils,
   DelayedTask,
   EVENT_VALUE_PREDICATE,
   ifNotEmptyThanValue,
   ifNotNilThanValue,
   isArrayNotEmpty,
-  isFn,
-  isObjectNotEmpty,
-  isString,
   joinClassName,
   nvl,
+  ObjectUtils,
   orNull,
+  TypeUtils,
   uuid,
 } from '../../../util';
 import {
@@ -35,8 +33,9 @@ import {
   IMenu,
   IMenuItemEntity,
 } from '../../../definition';
+import { GenericComponent } from '../../base/generic.component';
 
-export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
+export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   implements IGoogleMaps,
     IGoogleMapsMenuContextEntity {
 
@@ -85,9 +84,10 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     return (
       <div
         style={props.style}
-        className={joinClassName('rac-google-maps', calc(props.className))}>
+        className={joinClassName('rac-google-maps', CalcUtils.calc(props.className))}
+      >
         <div
-          ref={this.selfRef}
+          ref={this.actualRef}
           className='rac-google-maps__body'/>
         {this.menuElement}
       </div>
@@ -98,8 +98,6 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    * @stable [09.01.2020]
    */
   public componentDidMount(): void {
-    super.componentDidMount();
-
     this.googleMapsLibTask = this.asyncLibManager
       .waitForLib<BPromise<HTMLScriptElement>>({alias: AsyncLibsEnum.GOOGLE_MAPS})
       .then(() => this.onGoogleMapsReady());
@@ -107,7 +105,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     // It seems google doesn't stop mouse wheel propagate event.
     this.wheelListenerUnsubscriber = this.domAccessor.captureEvent({
       eventName: EventsEnum.WHEEL,
-      element: this.selfRef.current,
+      element: this.actualRef.current,
       callback: this.domAccessor.cancelEvent,
     });
   }
@@ -116,7 +114,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    * @stable [22.01.2020]
    */
   public componentWillUnmount(): void {
-    if (isFn(this.wheelListenerUnsubscriber)) {
+    if (TypeUtils.isFn(this.wheelListenerUnsubscriber)) {
       this.wheelListenerUnsubscriber();
       this.wheelListenerUnsubscriber = null;
     }
@@ -134,8 +132,6 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
     this.markers = null;
     this.markersListeners = null;
     this.event = null;
-
-    super.componentWillUnmount();
   }
 
   /**
@@ -193,7 +189,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
       zoom = this.mapsSettings.zoom,
     } = cfg;
 
-    const markerAsObject = isString(marker)
+    const markerAsObject = TypeUtils.isString(marker)
       ? this.markers.get(marker as string)
       : marker as google.maps.Marker;
 
@@ -299,7 +295,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
           ref={this.menuRef}
           inline={true}
           positionConfiguration={{event: () => this.event}}
-          anchorElement={() => this.getSelf()}
+          anchorElement={() => this.actualRef.current}
           options={this.props.menuOptions}
           onSelect={this.onMenuSelect}/>
       )
@@ -314,7 +310,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    */
   private onMarkerDragEnd(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
     const props = this.props;
-    if (isFn(props.onChangePlace)) {
+    if (TypeUtils.isFn(props.onChangePlace)) {
       props.onChangePlace(this.asPlaceEventPayload(event, markerId, marker));
     }
   }
@@ -327,7 +323,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    */
   private onMarkerClick(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
     const props = this.props;
-    if (isFn(props.onClickPlace)) {
+    if (TypeUtils.isFn(props.onClickPlace)) {
       props.onClickPlace(this.asPlaceEventPayload(event, markerId, marker));
     }
   }
@@ -354,7 +350,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    */
   private onMenuSelect(item: IMenuItemEntity): void {
     const props = this.props;
-    if (isFn(props.onSelect)) {
+    if (TypeUtils.isFn(props.onSelect)) {
       props.onSelect({item, lat: this.lat, lng: this.lng});
     }
   }
@@ -380,7 +376,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
       }
     );
 
-    if (isFn(props.onClick)) {
+    if (TypeUtils.isFn(props.onClick)) {
       props.onClick(payload);
     }
   }
@@ -423,7 +419,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
 
     this.unbindListeners();
 
-    this.map = new google.maps.Map(this.getSelf(), {
+    this.map = new google.maps.Map(this.actualRef.current, {
       ...options,
       mapTypeId: mapTypes.get(options.mapTypeId) || google.maps.MapTypeId.ROADMAP,
     });
@@ -534,7 +530,7 @@ export class GoogleMaps extends BaseComponent<IGoogleMapsProps>
    * @returns {boolean}
    */
   private get haveMenuOptions(): boolean {
-    return isObjectNotEmpty(this.props.menuOptions);
+    return ObjectUtils.isObjectNotEmpty(this.props.menuOptions);
   }
 
   /**

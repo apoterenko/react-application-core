@@ -32,10 +32,9 @@ import {
   joinClassName,
 } from '../../../util';
 import {
-  calc,
-  isFn,
-  isString,
+  CalcUtils,
   nvl,
+  TypeUtils,
 } from '../../../util';
 
 @injectable()
@@ -76,14 +75,14 @@ export class UiFactory implements IUiFactory {
         title={config.title as string}
         className={joinClassName(
           IconClassesEnum.ICON,
-          isFn(config.onClick) && (
+          TypeUtils.isFn(config.onClick) && (
             joinClassName(
               IconClassesEnum.ACTION_ICON,
               `rac-action-${config.type}-icon`
             )
           ),
           config.disabled && IconClassesEnum.DISABLED_ICON,
-          calc(config.className),
+          CalcUtils.calc(config.className),
         )}
         {...handlerPropsFactory(config.onClick, !config.disabled, nvl(config.touched, false))}
       >
@@ -338,6 +337,6 @@ export class UiFactory implements IUiFactory {
    * @returns {IIconConfigEntity}
    */
   private toIconConfig(cfg: IIconConfigEntity | string): IIconConfigEntity {
-    return (isString(cfg) ? {type: cfg} : cfg)  as IIconConfigEntity;
+    return (TypeUtils.isString(cfg) ? {type: cfg} : cfg)  as IIconConfigEntity;
   }
 }

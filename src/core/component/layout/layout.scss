@@ -8,7 +8,6 @@
 .rac {
 
   @include rac-flex-row(                                                                      /* @stable [17.02.2019] */
-    $rac-flex-separator-width: $rac-flex-separator-width
   );
 
   .rac-flex-column {

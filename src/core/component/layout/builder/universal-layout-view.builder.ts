@@ -1,9 +1,6 @@
 import * as R from 'ramda';
 
-import {
-  isFn,
-  isString,
-} from '../../../util';
+import { TypeUtils } from '../../../util';
 import {
   IUniversalLayoutBuilderConfigEntity,
   IUniversalLayoutProps,
@@ -44,8 +41,8 @@ export abstract class UniversalLayoutViewBuilder<TNode, TProps extends IUniversa
   public isClonedItem(item: UniversalLayoutBuilderChildrenT<TNode>): boolean {
     const itemEl = item as JSX.Element;
     const type = itemEl.type;
-    return isFn(type)
-      || (isString(type) && !R.isEmpty(type));  // type = {'div', 'span', ...}
+    return TypeUtils.isFn(type)
+      || (TypeUtils.isString(type) && !R.isEmpty(type));  // type = {'div', 'span', ...}
   }
 
   /**

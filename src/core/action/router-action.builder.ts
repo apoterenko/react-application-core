@@ -9,7 +9,7 @@ import {
   $RAC_ROUTER_RELOAD_ACTION_TYPE,
   $RAC_ROUTER_REPLACE_ACTION_TYPE,
   $RAC_ROUTER_REWRITE_ACTION_TYPE,
-  INavigateEntity,
+  IFluxNavigateEntity,
 } from '../definition';
 
 export class RouterActionBuilder {
@@ -20,7 +20,7 @@ export class RouterActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildNavigateBackPlainAction(depth?: number): IEffectsAction {
-    const payload: INavigateEntity = {depth};
+    const payload: IFluxNavigateEntity = {depth};
     return {type: $RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE, data: payload};
   }
 

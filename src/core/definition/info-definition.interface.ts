@@ -1,5 +1,6 @@
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
+  IEmptyDataWrapper,
   IErrorWrapper,
   IFullWrapper,
   IMessageWrapper,
@@ -7,14 +8,23 @@ import {
 } from '../definitions.interface';
 
 /**
+ * @presets-entity
+ * @stable [18.05.2020]
+ */
+export interface IPresetsInfoEntity
+  extends IEmptyDataWrapper<boolean | string>,
+    IErrorWrapper<boolean | string | Error | {}>,
+    IFullWrapper,
+    IMessageWrapper,
+    IProgressWrapper<boolean | string> {
+}
+
+/**
  * @generic-entity
  * @stable [18.03.2020]
  */
 export interface IInfoGenericEntity
-  extends IErrorWrapper<boolean | string | Error | {}>,
-    IFullWrapper,
-    IMessageWrapper,
-    IProgressWrapper<boolean | string> {
+  extends IPresetsInfoEntity {
 }
 
 /**

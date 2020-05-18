@@ -1,10 +1,12 @@
-import { IEffectsAction, EffectsService } from 'redux-effects-promise';
+import {
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 import { History } from 'history';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import {
-  isObjectNotEmpty,
-  isString,
+  ObjectUtils,
   TypeUtils,
 } from '../util';
 import {
@@ -19,7 +21,7 @@ import {
   $RAC_ROUTER_REPLACE_ACTION_TYPE,
   $RAC_ROUTER_REWRITE_ACTION_TYPE,
   IDomAccessor,
-  INavigateEntity,
+  IFluxNavigateEntity,
   IRouter,
 } from '../definition';
 
@@ -34,7 +36,7 @@ export class RouterEffects {
   public $onRewrite(action: IEffectsAction): void {
     this.router.go(-this.router.length);
 
-    const pathAndState = this.toPathAndState(action);
+    const pathAndState = this.asFluxEntity(action);
     RouterEffects.logger.debug(
       `[$RouterEffects][$onRewrite] Path: ${pathAndState.path}, state: ${pathAndState.state}`
     );
@@ -43,7 +45,7 @@ export class RouterEffects {
 
   @EffectsService.effects($RAC_ROUTER_NAVIGATE_ACTION_TYPE)
   public $onNavigate(action: IEffectsAction): void {
-    const pathAndState = this.toPathAndState(action);
+    const pathAndState = this.asFluxEntity(action);
 
     RouterEffects.logger.debug(
         `[$RouterEffects][$onNavigate] Path: ${pathAndState.path}, state: ${pathAndState.state}`
@@ -57,7 +59,7 @@ export class RouterEffects {
    */
   @EffectsService.effects($RAC_ROUTER_REPLACE_ACTION_TYPE)
   public $onReplace(action: IEffectsAction): void {
-    const pathAndState = this.toPathAndState(action);
+    const pathAndState = this.asFluxEntity(action);
     RouterEffects.logger.debug(
       `[$RouterEffects][$onReplace] Path: ${pathAndState.path}, state: ${pathAndState.state}`
     );
@@ -70,10 +72,10 @@ export class RouterEffects {
    */
   @EffectsService.effects($RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE)
   public $onBack(action: IEffectsAction): void {
-    const payload: INavigateEntity = action.data;
+    const payload: IFluxNavigateEntity = action.data;
     RouterEffects.logger.debug('[$RouterEffects][$onBack] Payload:', payload);
 
-    if (isObjectNotEmpty(payload)) {
+    if (ObjectUtils.isObjectNotEmpty(payload)) {
       if (TypeUtils.isNumber(payload.depth)) {
         this.router.go(-payload.depth);
         return;
@@ -91,10 +93,15 @@ export class RouterEffects {
     this.domAccessor.reload(true);
   }
 
-  private toPathAndState(action: IEffectsAction): INavigateEntity<History.Path, History.LocationState> {
-    const payloadAsString: string = action.data;
-    if (isString(payloadAsString)) {
-      return {path: payloadAsString};
+  /**
+   * @stable [18.05.2020]
+   * @param {IEffectsAction} action
+   * @returns {IFluxNavigateEntity<History.Path, History.LocationState>}
+   */
+  private asFluxEntity(action: IEffectsAction): IFluxNavigateEntity<History.Path, History.LocationState> {
+    const path: string = action.data;
+    if (TypeUtils.isString(path)) {
+      return {path};
     }
     return action.data;
   }

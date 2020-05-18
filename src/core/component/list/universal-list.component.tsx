@@ -13,7 +13,6 @@ import {
   IEntity,
 } from '../../definitions.interface';
 import { UniversalComponent } from '../base/universal.component';
-import { IUniversalMessageProps } from '../message/universal-message.interface';
 
 export abstract class UniversalList<TProps extends any,  // TODO Props
                                     TState = {},
@@ -95,22 +94,6 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
   }
 
   /**
-   * @stable [09.06.2018]
-   * @returns {TMessageComponentProps}
-   */
-  protected getMessageComponentProps<TMessageComponentProps extends IUniversalMessageProps>(): TMessageComponentProps {
-    const props = this.props;
-    return {
-      error: props.error,
-      progress: props.progress,
-      emptyData: this.emptyData,
-      emptyMessage: this.emptyMessage,
-      emptyDataMessage: props.emptyDataMessage,
-      errorMessage: props.error,
-    } as TMessageComponentProps;
-  }
-
-  /**
    * @stable [06.06.2018]
    * @returns {IEntity[]}
    */
@@ -130,7 +113,7 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
    * @stable [09.06.2018]
    * @returns {React.ReactNode}
    */
-  private get emptyMessage(): React.ReactNode {
+  protected get emptyMessage(): string {
     return this.props.emptyMessage;
   }
 
@@ -138,7 +121,7 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
    * @stable [17.06.2018]
    * @returns {boolean}
    */
-  private get emptyData(): boolean {
+  protected get emptyData(): boolean {
     if (this.originalDataSourceDoesNotExist) {
       return false; // It's important to show the difference between the conditions: length === 0 and data === null!
     }

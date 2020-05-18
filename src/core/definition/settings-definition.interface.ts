@@ -256,6 +256,7 @@ export interface IMessagesSettingsEntity {
   NEXT?: string;
   NO_AVAILABLE_ITEMS_TO_SELECT?: string;
   NO_DATA?: string;
+  NOT_DATA_FOUND?: string;
   OK?: string;
   PAGES_INFO?: string;
   PATH?: string;
@@ -320,6 +321,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   NEXT: 'Next',
   NO_AVAILABLE_ITEMS_TO_SELECT: 'No available items to select',
   NO_DATA: 'No data',
+  NOT_DATA_FOUND: 'No data found',
   OK: 'Ok',
   PAGES_INFO: '{from}-{to} of {count}',
   PATH: 'Path',

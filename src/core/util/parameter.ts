@@ -1,8 +1,5 @@
-import { isString } from './type';
-import {
-  ifNotEmptyThanValue,
-  ifNotNilThanValue,
-} from './cond';
+import { TypeUtils } from './type';
+import { ConditionUtils } from './cond';
 import {
   AnyT,
   UNDEF_SYMBOL,
@@ -14,13 +11,14 @@ import {
  * @returns {AnyT}
  */
 export const toStringParameter = (value: AnyT): AnyT =>
-  ifNotNilThanValue(
+  ConditionUtils.ifNotNilThanValue(
     value,
     () => {
       let resultValue = value;
-      if (isString(value)) {
+      if (TypeUtils.isString(value)) {
         resultValue = (value as string).trim();
       }
-      return ifNotEmptyThanValue(resultValue, () => resultValue);
-    }, UNDEF_SYMBOL
+      return ConditionUtils.ifNotEmptyThanValue(resultValue, () => resultValue);
+    },
+    UNDEF_SYMBOL
   );

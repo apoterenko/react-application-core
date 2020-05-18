@@ -4,7 +4,7 @@ import {
   AnyT,
   UNDEF,
 } from '../definitions.interface';
-import { isString } from './type';
+import { TypeUtils } from './type';
 
 /**
  * @stable [18.04.2020]
@@ -25,7 +25,7 @@ export const isObjectEmpty = <TValue>(o: AnyT): boolean => !isObjectNotEmpty(o);
  * @param {AnyT} o
  * @returns {boolean}
  */
-export const isStringNotEmpty = <TValue>(o: AnyT): boolean => isString(o) && isObjectNotEmpty(o);
+export const isStringNotEmpty = <TValue>(o: AnyT): boolean => TypeUtils.isString(o) && isObjectNotEmpty(o);
 
 /**
  * @stable [20.03.2019]

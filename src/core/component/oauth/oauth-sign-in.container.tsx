@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { Message } from '../message';
+import { Info } from '../info';
 import { basicConnector } from '../connector';
 import {
-  IContainerProps,
+  IGenericContainerProps,
   OAUTH_SIGN_IN_SECTION,
   OAuthClassesEnum,
 } from '../../definition';
 import { getSettings } from '../../di';
-import { BaseContainer } from '../base';
+import { GenericContainer } from '../base';
 import { joinClassName } from '../../util';
 
 @basicConnector({
@@ -17,9 +17,9 @@ import { joinClassName } from '../../util';
   },
   mappers: [],
 })
-class OAuthSignInContainer extends BaseContainer {
+class OAuthSignInContainer extends GenericContainer {
 
-  public static readonly defaultProps: IContainerProps = {
+  public static readonly defaultProps: IGenericContainerProps = {
     sectionName: OAUTH_SIGN_IN_SECTION,
   };
 
@@ -29,7 +29,7 @@ class OAuthSignInContainer extends BaseContainer {
    */
   public render(): JSX.Element {
     return (
-      <Message
+      <Info
         className={joinClassName('rac-oauth-sign-in__message', OAuthClassesEnum.OAUTH_VIEW)}
         progress={true}/>
     );

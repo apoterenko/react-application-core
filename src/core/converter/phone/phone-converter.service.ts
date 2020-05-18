@@ -17,8 +17,8 @@ import {
 import { ISettingsEntity } from '../../settings';
 import {
   isObjectNotEmpty,
-  isString,
   nvl,
+  TypeUtils,
 } from '../../util';
 
 @injectable()
@@ -38,7 +38,7 @@ export class PhoneConverter implements IPhoneConverter<PNF> {
       return '';
     }
     const phoneNumber = this.parse(config);
-    const valueAsString = isString(value) ? value as string : String(value);
+    const valueAsString = TypeUtils.isString(value) ? value as string : String(value);
     try {
       return this.phoneUtilInstance.isValidNumber(phoneNumber)
         ? this.phoneUtilInstance.format(phoneNumber, format)
@@ -58,7 +58,7 @@ export class PhoneConverter implements IPhoneConverter<PNF> {
     if (R.isNil(value)) {
       return null;
     }
-    const v = isString(value) ? value as string : String(value);
+    const v = TypeUtils.isString(value) ? value as string : String(value);
     try {
       return this.phoneUtilInstance.parse(v, nvl(countryAbbr, this.settings.phone.countryAbbr));
     } catch (e) {

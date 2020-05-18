@@ -8,7 +8,6 @@ import {
 import {
   isFn,
   isNumberLike,
-  isString,
   isUndef,
   TypeUtils,
 } from '../../util';
@@ -122,7 +121,7 @@ export class NumberConverter implements INumberConverter {
     if (value === null) {
       return null;
     }
-    if (isString(value) && R.isEmpty((value as string).trim())) {
+    if (TypeUtils.isString(value) && R.isEmpty((value as string).trim())) {
       return null;
     }
     const v = this.asNumber(value);

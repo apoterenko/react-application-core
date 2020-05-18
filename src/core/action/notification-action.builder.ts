@@ -10,8 +10,8 @@ import {
   IGenericNotificationEntity,
 } from '../definition';
 import {
-  isString,
   selectErrorFromAction,
+  TypeUtils,
 } from '../util';
 
 export class NotificationActionBuilder {
@@ -53,7 +53,7 @@ export class NotificationActionBuilder {
    */
   public static buildPlainErrorAction(error: string | IEffectsAction): IEffectsAction {
     const notificationEntity: IGenericNotificationEntity = {
-      error: isString(error)
+      error: TypeUtils.isString(error)
         ? error as string
         : selectErrorFromAction(error as IEffectsAction),
     };

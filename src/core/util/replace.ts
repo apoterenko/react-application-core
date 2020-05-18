@@ -3,7 +3,7 @@ import {
   StringNumberT,
   IKeyValue,
 } from '../definitions.interface';
-import { isString } from './type';
+import { TypeUtils } from './type';
 
 /**
  * @stable [28.01.2019]
@@ -33,7 +33,7 @@ export const regexpReplace = (inputValue: StringNumberT,
                               replacer: (...matchedValue: string[]) => string,
                               flags = 'ig'): string =>
   (
-    isString(inputValue)
+    TypeUtils.isString(inputValue)
       ? inputValue as string
       : String(inputValue)
   ).replace(new RegExp(replacedValue, flags), replacer);

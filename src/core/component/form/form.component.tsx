@@ -34,7 +34,6 @@ import {
   isFull,
   isNewEntity,
   isObjectNotEmpty,
-  isString,
   isValidateOnMount,
   joinClassName,
   mapApiEntity,
@@ -43,6 +42,7 @@ import {
   orNull,
   selectChanges,
   selectError,
+  TypeUtils,
 } from '../../util';
 import {
   AnyT,
@@ -342,7 +342,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     const props = this.fieldsPresets[field.props.name];
 
     let resultProps: IFieldProps2;
-    if (isString(props)) {
+    if (TypeUtils.isString(props)) {
       resultProps = {label: props as string};
     } else if (isFn(props)) {
       resultProps = (props as (field) => IFieldProps2)(field);

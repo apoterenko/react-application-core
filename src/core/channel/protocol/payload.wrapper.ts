@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { orNull, isString } from '../../util';
+import { orNull, TypeUtils } from '../../util';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import { ObjectStatus } from './object.status';
 import { CommandResult } from './command.result';
@@ -25,7 +25,7 @@ export class PayloadWrapper {
     const payloadAsProtocolEntity = payload as IProtocolPayloadEntity;
 
     if (Object.keys(payload).length === 2
-      && isString(payloadAsProtocolEntity.type)
+      && TypeUtils.isString(payloadAsProtocolEntity.type)
       && !R.isNil(payloadAsProtocolEntity.payload)) {
 
       // Response

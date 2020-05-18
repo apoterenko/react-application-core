@@ -11,15 +11,6 @@ export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const ACTION_PREFIX = '$$-RAC-';
 
-/* @stable [23.04.2018] */
-export interface IEmptyDataWrapper<TEmptyData> {
-  emptyData?: TEmptyData;
-}
-
-/* @stable [23.04.2018] */
-export interface IBooleanEmptyDataWrapper extends IEmptyDataWrapper<boolean> {
-}
-
 export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAcceptActionConfigurationWrapper<TValue> { acceptActionConfiguration?: TValue; }
@@ -160,6 +151,7 @@ export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
 export interface IElementWrapper<TValue = Element> { element?: TValue; }
 export interface IEmptyDataMessageWrapper<TValue = string> { emptyDataMessage?: TValue; }
+export interface IEmptyDataWrapper<TValue = boolean> { emptyData?: TValue; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}

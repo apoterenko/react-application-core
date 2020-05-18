@@ -21,7 +21,6 @@ import {
   isFocusPrevented,
   isKeyboardOpen,
   isKeyboardUsed,
-  isObject,
   isPlainValueApplied,
   isPreventManualChanges,
   isReadOnly,
@@ -31,6 +30,7 @@ import {
   isValuePresent,
   isVisible,
   notNilValuesFilter,
+  TypeUtils,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -606,24 +606,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isSyntheticCursorUsed(): boolean {
     return isSyntheticCursorUsed(this.props);
-  }
-
-  /**
-   * @stable [30.01.2020]
-   * @param {AnyT} value
-   * @returns {boolean}
-   */
-  protected isValueObject(value: AnyT): boolean {
-    return isObject(value);
-  }
-
-  /**
-   * @stable [21.12.2019]
-   * @param value
-   * @returns {boolean}
-   */
-  protected isValueDefined(value: AnyT): boolean {
-    return isDef(value);
   }
 
   /**

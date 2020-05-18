@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { orNull, isString, isPrimitive } from '../../util';
+import { orNull, TypeUtils, isPrimitive } from '../../util';
 import { UniversalComponent } from '../base/universal.component';
 import { IUniversalMessageProps } from './universal-message.interface';
 import { AnyT } from '../../definitions.interface';
@@ -72,7 +72,7 @@ export abstract class UniversalMessage<TProps extends IUniversalMessageProps = I
    */
   private getEmptyMessage(): React.ReactNode {
     const emptyMessage = this.props.emptyMessage;
-    return isString(emptyMessage)
+    return TypeUtils.isString(emptyMessage)
       ? this.t(emptyMessage as string)
       : (emptyMessage || this.t(this.settings.messages.emptyMessage));
   }

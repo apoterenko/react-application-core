@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {
   AnyT,
-  IBooleanEmptyDataWrapper,
+  IEmptyDataWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
@@ -106,7 +106,7 @@ export interface IUniversalMessageConfiguration extends IUniversalComponentEntit
                                                         IEmptyDataMessageWrapper,
                                                         IErrorMessageWrapper,
                                                         IEmptyMessageWrapper<React.ReactNode>,
-                                                        IBooleanEmptyDataWrapper {
+                                                        IEmptyDataWrapper {
 }
 
 // TODO

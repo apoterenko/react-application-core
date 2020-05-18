@@ -6,7 +6,7 @@ import { ENV } from '../../env';
 import {
   calc,
   isInline,
-  isString,
+  TypeUtils,
   joinClassName,
   nvl,
   orNull,
@@ -116,8 +116,8 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
     const keyAsString = key as string;
     const keyAsObject = key as IKeyboardKeyValueEntity;
 
-    if (isString(keyAsString) || keyAsObject.type === KeyboardKeysEnum.SPACE) {
-      const keyValue = isString(keyAsString) ? keyAsString : keyAsObject.value;
+    if (TypeUtils.isString(keyAsString) || keyAsObject.type === KeyboardKeysEnum.SPACE) {
+      const keyValue = TypeUtils.isString(keyAsString) ? keyAsString : keyAsObject.value;
       nextValue = R.insert<string>(position, state.useUppercase ? keyValue.toUpperCase() : keyValue, chars);
       props.onChange(nextValue.join(''));
       this.setState({position: position + 1});

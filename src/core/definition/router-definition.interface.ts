@@ -50,9 +50,10 @@ export interface IRoutesEntity
 }
 
 /**
- * @stable [09.10.2019]
+ * @flux-entity
+ * @stable [18.05.2020]
  */
-export interface INavigateEntity<TPath = string, TState = {}>
+export interface IFluxNavigateEntity<TPath = string, TState = {}>
   extends IDepthWrapper,
     IPathWrapper<TPath>,
     IStateWrapper<TState> {

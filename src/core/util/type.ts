@@ -65,11 +65,11 @@ export const isPriceLike = (value: AnyT): boolean => RegexpConstants.PRICE.test(
 export const isBoolean = (value: AnyT): boolean => typeof value === 'boolean';
 
 /**
- * @stable [23.09.2019]
+ * @stable [17.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isString = (value: AnyT): boolean => typeof value === 'string';
+const isString = (value: AnyT): boolean => typeof value === 'string';
 
 /**
  * @stable [17.05.2020]
@@ -79,11 +79,11 @@ export const isString = (value: AnyT): boolean => typeof value === 'string';
 export const isPrimitive = (v: AnyT): boolean => isNumber(v) || isString(v) || isBoolean(v);
 
 /**
- * @stable [03.10.2019]
+ * @stable [18.05.2020]
  * @param {AnyT} v
  * @returns {boolean}
  */
-export const isObject = (v: AnyT): boolean => Object.prototype.toString.call(v) === '[object Object]';
+const isObject = (v: AnyT): boolean => Object.prototype.toString.call(v) === '[object Object]';
 
 /**
  * @stable [03.04.2020]
@@ -106,5 +106,7 @@ export class TypeUtils {
   public static readonly isDef = isDef;                                           /* @stable [16.05.2020] */
   public static readonly isFn = isFn;                                             /* @stable [16.05.2020] */
   public static readonly isNumber = isNumber;                                     /* @stable [16.05.2020] */
+  public static readonly isObject = isObject;                                     /* @stable [16.05.2020] */
   public static readonly isPrimitive = isPrimitive;                               /* @stable [16.05.2020] */
+  public static readonly isString = isString;                                     /* @stable [16.05.2020] */
 }

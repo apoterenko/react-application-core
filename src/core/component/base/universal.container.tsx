@@ -13,7 +13,6 @@ import { IKeyValue } from '../../definitions.interface';
 import {
   DynamicRoutesMapT,
   IAuth,
-  IOperationEntity,
   IPermissionsManager,
   IRoutesEntity,
   IUniversalContainer,
@@ -22,7 +21,6 @@ import {
 } from '../../definition';
 import {
   applySection,
-  isString,
 } from '../../util';
 import { GenericBaseComponent } from './generic-base.component';
 
@@ -55,17 +53,6 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
     const {sectionName} = this.props;
     const finalSectionName = otherSectionName || sectionName;
     this.dispatchCustomType(`${finalSectionName}.${type}`, applySection(finalSectionName, data));
-  }
-
-  /**
-   * @deprecated Use TransportStoreProxy
-   */
-  protected isTransportOperationInProgress(operation: string | IOperationEntity): boolean {
-    return this.props.transport.queue.includes(
-      isString(operation)
-        ? operation as string
-        : (operation as IOperationEntity).id
-    );
   }
 
   /**

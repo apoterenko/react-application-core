@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { AnyT } from '../../definitions.interface';
-import { Message } from '../message';
 import { UniversalList } from './universal-list.component';
+import { Info } from '../info';
 
 export abstract class BaseList<TProps extends any, // TODO Props
                                TState = {},
@@ -14,6 +14,20 @@ export abstract class BaseList<TProps extends any, // TODO Props
    * @returns {JSX.Element}
    */
   protected getMessage(): JSX.Element {
-    return <Message {...this.getMessageComponentProps()}/>;  // TODO ui factory
+    const {
+      emptyDataMessage,
+      emptyMessage,
+      error,
+      progress,
+    } = this.props;
+    const emptyData = this.emptyData;
+
+    return (
+      <Info
+        error={error}
+        message={emptyMessage}
+        progress={progress}
+        emptyData={emptyData ? emptyDataMessage : emptyData}/>
+    );
   }
 }

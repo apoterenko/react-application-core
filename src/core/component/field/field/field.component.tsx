@@ -189,6 +189,24 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [18.05.2020]
+   * @param {AnyT} value
+   * @returns {boolean}
+   */
+  protected isValueObject(value: AnyT): boolean {
+    return TypeUtils.isObject(value);
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @param {AnyT} value
+   * @returns {boolean}
+   */
+  protected isValueDefined(value: AnyT): boolean {
+    return TypeUtils.isDef(value);
+  }
+
+  /**
    * @stable [17.05.2020]
    * @returns {TProps}
    */

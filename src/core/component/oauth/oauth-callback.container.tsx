@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { Message } from '../message';
 import { basicConnector } from '../connector';
 import {
-  IContainerProps,
+  IGenericContainerProps,
   OAUTH_CALLBACK_SECTION,
   OAuthClassesEnum,
 } from '../../definition';
 import { getSettings } from '../../di';
-import { BaseContainer } from '../base';
+import { GenericContainer } from '../base';
 import { joinClassName } from '../../util';
+import { Info } from '../info';
 
 @basicConnector({
   routeConfiguration: {
@@ -17,9 +17,9 @@ import { joinClassName } from '../../util';
   },
   mappers: [],
 })
-class OAuthCallbackContainer extends BaseContainer {
+class OAuthCallbackContainer extends GenericContainer {
 
-  public static readonly defaultProps: IContainerProps = {
+  public static readonly defaultProps: IGenericContainerProps = {
     sectionName: OAUTH_CALLBACK_SECTION,
   };
 
@@ -29,7 +29,7 @@ class OAuthCallbackContainer extends BaseContainer {
    */
   public render(): JSX.Element {
     return (
-      <Message
+      <Info
         className={joinClassName('rac-oauth-callback__message', OAuthClassesEnum.OAUTH_VIEW)}
         progress={true}/>
     );

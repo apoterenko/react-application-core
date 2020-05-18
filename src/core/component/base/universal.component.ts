@@ -7,7 +7,6 @@ import {
 } from '../../util';
 import {
   DI_TYPES,
-  getAsyncLibManager,
   getEventEmitter,
   getUiPlugins,
   staticInjector,
@@ -16,7 +15,6 @@ import { AnyT } from '../../definitions.interface';
 import {
   GenericPluginCtorT,
   GenericPluginFactoryT,
-  IAsyncLibManager,
   IEventEmitter,
   IGenericPlugin,
   IRoutesEntity,
@@ -111,15 +109,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   protected get uniqueId(): IUniqueId {
     return null; // getUniqueId();
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [09.01.2020]
-   * @returns {IAsyncLibManager}
-   */
-  protected get asyncLibManager(): IAsyncLibManager {
-    return getAsyncLibManager();
   }
 
   /**

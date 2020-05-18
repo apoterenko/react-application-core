@@ -58,13 +58,8 @@ import {
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
-import {
-  ifNotNilThanValue,
-} from './cond';
-import {
-  isFn,
-  isString,
-} from './type';
+import { ConditionUtils } from './cond';
+import { TypeUtils } from './type';
 import {
   doesErrorExist,
   inProgress,
@@ -257,7 +252,7 @@ export const mapEditableEntity =
  * @returns {IPresetsSelectableHoveredEntity}
  */
 const mapSelectableHoveredEntity =
-  (entity: IPresetsSelectableHoveredEntity): IPresetsSelectableHoveredEntity => ifNotNilThanValue(
+  (entity: IPresetsSelectableHoveredEntity): IPresetsSelectableHoveredEntity => ConditionUtils.ifNotNilThanValue(
     entity,
     () => defValuesFilter<IPresetsSelectableHoveredEntity, IPresetsSelectableHoveredEntity>({
       hovered: entity.hovered,
@@ -271,7 +266,7 @@ const mapSelectableHoveredEntity =
  * @param {ISortDirectionEntity} entity
  * @returns {ISortDirectionEntity}
  */
-export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirectionEntity => ifNotNilThanValue(
+export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirectionEntity => ConditionUtils.ifNotNilThanValue(
   entity,
   () => defValuesFilter<ISortDirectionEntity, ISortDirectionEntity>({
     index: entity.index,
@@ -381,7 +376,7 @@ export const mapApiEntity =
  * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
  */
 export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<ISelectOptionEntity<TEntity>> =>
-  ifNotNilThanValue(
+  ConditionUtils.ifNotNilThanValue(
     data,
     (entities) => (
       [].concat(entities)
@@ -407,9 +402,9 @@ export const selectDictionaryEntityOptions =
   <TEntity>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
             accessor?: (data: TEntity | TEntity[]) => AnyT): Array<ISelectOptionEntity<TEntity>> =>
     mapSelectOptions<TEntity>(
-      ifNotNilThanValue(
+      ConditionUtils.ifNotNilThanValue(
         selectData<TEntity | TEntity[]>(dictionaryEntity),
-        (data) => isFn(accessor) ? accessor(data) : data
+        (data) => TypeUtils.isFn(accessor) ? accessor(data) : data
       )
     );
 
@@ -460,7 +455,7 @@ export const hasQueueOperations = (queue: string[],
     R.intersection(
       queue,
       operations.map((operation) => (
-        isString(operation)
+        TypeUtils.isString(operation)
           ? operation as string
           : (operation as IOperationEntity).id
       ))
@@ -505,7 +500,7 @@ export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity)
  * @returns {IGenericStackEntity}
  */
 export const selectStackEntity = (entity: IStackWrapperEntity): IGenericStackEntity =>
-  ifNotNilThanValue(entity, () => entity.stack, UNDEF_SYMBOL);
+  ConditionUtils.ifNotNilThanValue(entity, () => entity.stack, UNDEF_SYMBOL);
 
 /**
  * @stable [18.12.2019]
@@ -513,7 +508,7 @@ export const selectStackEntity = (entity: IStackWrapperEntity): IGenericStackEnt
  * @returns {IStackItemEntity[]}
  */
 export const selectStackItemEntities = (entity: IGenericStackEntity): IStackItemEntity[] =>
-  ifNotNilThanValue(entity, (data) => data.stack, UNDEF_SYMBOL);
+  ConditionUtils.ifNotNilThanValue(entity, (data) => data.stack, UNDEF_SYMBOL);
 
 /**
  * @stable [18.12.2019]

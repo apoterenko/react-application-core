@@ -14,8 +14,6 @@ import {
   isEvent,
   isFn,
   isNumberLike,
-  isObject,
-  isString,
   TypeUtils,
 } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
@@ -92,7 +90,7 @@ export const SAME_ENTITY_PREDICATE =
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => isObject(value);
+export const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => TypeUtils.isObject(value);
 
 /**
  * @stable [03.04.2020]
@@ -145,7 +143,7 @@ export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const STRING_VALUE_PREDICATE = (value: AnyT) => isString(value);
+export const STRING_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isString(value);
 
 /**
  * @stable [17.05.2020]
@@ -339,7 +337,7 @@ export const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
     return true;
   }
   let result = false;
-  items.map((v) => (isString(v) ? v as string : R.isNil(v) ? '' : String(v)).toUpperCase())
+  items.map((v) => (TypeUtils.isString(v) ? v as string : R.isNil(v) ? '' : String(v)).toUpperCase())
     .forEach((v) => result = result || v.includes(query.toUpperCase()));
   return result;
 };

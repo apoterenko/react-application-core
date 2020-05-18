@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import {
   isDigit,
   isNumberLike,
-  isString,
+  TypeUtils,
 } from './type';
 import {
   AnyT,
@@ -33,7 +33,7 @@ export const optionalNumberLikeChecker = (value: AnyT): boolean => R.isNil(value
  * @param value
  * @returns {boolean}
  */
-export const stringChecker = (value): boolean => isString(value);
+export const stringChecker = (value): boolean => TypeUtils.isString(value);
 
 /**
  * @stable [06.12.2019]

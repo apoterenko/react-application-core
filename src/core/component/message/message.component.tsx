@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FlexLayout } from '../layout/flex';
 import { ProgressLabel } from '../progress';
 import { UniversalMessage } from './universal-message.component';
-import { isString, uuid, joinClassName } from '../../util';
+import { TypeUtils, uuid, joinClassName } from '../../util';
 
 export class Message extends UniversalMessage {
 
@@ -27,7 +27,7 @@ export class Message extends UniversalMessage {
         justifyContentCenter={true}
         alignItemsCenter={true}
         className={joinClassName('rac-message', this.props.className)}>
-        {isString(message)
+        {TypeUtils.isString(message)
           ? (
             <div className='rac-message-content'>
               {(message as string).split('\n').map((part) => <p key={uuid()}>{part}</p>)}

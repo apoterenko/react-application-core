@@ -110,7 +110,7 @@ import {
   IIconConfigEntity,
   IUiIconFactory,
 } from '../../../../definition';
-import { isString } from '../../../../util';
+import { TypeUtils } from '../../../../util';
 
 @injectable()
 export class UiIconFactory implements IUiIconFactory {
@@ -586,6 +586,6 @@ export class UiIconFactory implements IUiIconFactory {
    * @returns {IIconConfigEntity}
    */
   private toIconConfig(cfg: IIconConfigEntity | string): IIconConfigEntity {
-    return (isString(cfg) ? {type: cfg} : cfg)  as IIconConfigEntity;
+    return (TypeUtils.isString(cfg) ? {type: cfg} : cfg)  as IIconConfigEntity;
   }
 }
