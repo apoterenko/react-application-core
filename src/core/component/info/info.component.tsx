@@ -63,7 +63,7 @@ export class Info extends GenericComponent<IInfoComponentProps> {
                                       ? emptyData as string
                                       : messages.NOT_DATA_FOUND
                                   )
-                                  : message || '?'
+                                  : (message || '?')
                               ),
                             }
                         )
