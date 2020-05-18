@@ -31,7 +31,7 @@ import {
   IComponentsSettingsEntity,
   IField,
   IFieldActionEntity,
-  IFieldComplexInputAttributes,
+  FieldComposedInputAttributesT,
   IFieldInputAttributes,
   IJQueryElement,
   IMaskedInputCtor,
@@ -220,20 +220,6 @@ export class Field2<TProps extends IFieldProps2,
     return null;
   }
 
-  protected get inputWrapperElement(): JSX.Element {
-    if (this.isFieldRendered) {
-      return (
-        <div className={FieldClassesEnum.FIELD_INPUT_WRAPPER}>
-          {this.getInputElement()}
-          {this.getMirrorInputElement()}
-          {this.getInputCaretElement()}
-          {this.inputAttachmentElement}
-        </div>
-      );
-    }
-    return this.inputAttachmentElement;
-  }
-
   protected get labelElement(): JSX.Element {
     return ifNotNilThanValue(
       this.getLabel(),
@@ -243,14 +229,6 @@ export class Field2<TProps extends IFieldProps2,
         </label>
       )
     );
-  }
-
-  protected getMirrorInputElement(): JSX.Element {
-    return null;
-  }
-
-  protected getInputCaretElement(): JSX.Element {
-    return null;
   }
 
   /**
@@ -293,18 +271,10 @@ export class Field2<TProps extends IFieldProps2,
   }
 
   /**
-   * @stable [31.08.2018]
-   * @returns {JSX.Element}
-   */
-  protected getInputElement(): JSX.Element {
-    return <input {...this.getInputElementProps() as IFieldInputAttributes}/>;
-  }
-
-  /**
    * @stable [30.10.2019]
-   * @returns {IFieldComplexInputAttributes}
+   * @returns {FieldComposedInputAttributesT}
    */
-  protected getInputElementProps(): IFieldComplexInputAttributes {
+  protected getInputElementProps(): FieldComposedInputAttributesT {
     const props = this.props;
     /**/
     const autoComplete = props.autoComplete || 'off';                                                       /* @stable [29.10.2019] */
@@ -323,7 +293,7 @@ export class Field2<TProps extends IFieldProps2,
     const type = props.type || 'text';                                                                      /* @stable [28.10.2019] */
     const value = this.displayValue;                                                                        /* @stable [28.10.2019] */
 
-    const result = defValuesFilter<IFieldComplexInputAttributes, IFieldComplexInputAttributes>({
+    const result = defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
       className: 'rac-field-input rac-flex-x1',
       autoComplete, cols, disabled, maxLength, minLength, name, pattern,
       placeholder, readOnly, rows, step, tabIndex, type, value, required,
@@ -343,7 +313,7 @@ export class Field2<TProps extends IFieldProps2,
     return {
       ...result,
       ref: this.inputRef,
-    } as IFieldComplexInputAttributes;
+    } as FieldComposedInputAttributesT;
   }
 
   /**

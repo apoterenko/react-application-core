@@ -23,10 +23,7 @@ import {
   makeArray,
 } from './array';
 import { isNotMultiEntity } from './entity';
-import {
-  isDef,
-  isPrimitive,
-} from './type';
+import { TypeUtils } from './type';
 import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
@@ -37,20 +34,22 @@ import {
 import { defValuesFilter } from './filter';
 
 /**
- * @stable [20.12.2019]
+ * @stable [18.05.2020]
  * @param {IGenericFieldEntity2} config
  * @returns {AnyT}
  */
-export const buildActualFieldValue = (config: IGenericFieldEntity2): AnyT => {
+const asActualFieldValue = (config: IGenericFieldEntity2): AnyT => {
   const {
     emptyValue,
     keepChanges,
     originalValue,
     value,
   } = config;
-  const isOriginalValueDefined = isDef(originalValue);
+
+  const isOriginalValueDefined = TypeUtils.isDef(originalValue);
   const originalOrEmptyValue = isOriginalValueDefined ? originalValue : emptyValue;
-  return isDef(originalOrEmptyValue) && R.equals(value, originalOrEmptyValue)
+
+  return TypeUtils.isDef(originalOrEmptyValue) && R.equals(value, originalOrEmptyValue)
     ? (
       isOriginalValueDefined
         ? FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES
@@ -74,7 +73,7 @@ export const isFieldInactive = (props: IGenericFieldEntity2): boolean =>
  * @returns {boolean}
  */
 export const isValuePresent = (value: AnyT, emptyValue: AnyT): boolean =>
-  isDef(value) && !R.equals(value, emptyValue);
+  TypeUtils.isDef(value) && !R.equals(value, emptyValue);
 
 /**
  * @stable [27.08.2019]
@@ -221,7 +220,7 @@ export const asMultiFieldAddedEntities =
  * @returns {IEntity[]}
  */
 export const asEntitiesArray = <TEntity extends IEntity = IEntity>(value: NotMultiFieldEntityT<TEntity>): TEntity[] =>
-  isPrimitive(value) ? [{id: value} as TEntity] : value as TEntity[];
+  TypeUtils.isPrimitive(value) ? [{id: value} as TEntity] : value as TEntity[];
 
 /**
  * @stable [14.10.2019]
@@ -333,6 +332,7 @@ export const buildNewPhantomMultiItem =
  * @stable [16.05.2020]
  */
 export class FieldUtils {
+  public static asActualFieldValue = asActualFieldValue;                                                 /* @stable [16.05.2020] */
   public static fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
   public static fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
 }

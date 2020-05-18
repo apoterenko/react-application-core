@@ -1,7 +1,6 @@
 import {
   asMultiFieldEditedEntities,
   asOrderedMultiFieldEntities,
-  buildActualFieldValue,
   FieldUtils,
 } from './field';
 import {
@@ -118,41 +117,41 @@ describe('util/field', () => {
     });
   });
 
-  describe('buildFinalFieldValue', () => {
-    describe('emptyOriginalValue is not set', () => {
-      describe('originalValue is not set', () => {
-        describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
-          it('test1', () => {
-            const result = buildActualFieldValue({
-              emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual('updatedValue1');
-          });
-        });
+  describe('FieldUtils.asActualFieldValue', () => {
+    it('test1', () => {
+      const result = FieldUtils.asActualFieldValue({
+        emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
+        value: 'updatedValue1',
       });
+      expect(result).toEqual('updatedValue1');
+    });
 
-      describe('originalValue is set', () => {
-        describe('alwaysReturnEmptyValueIfOriginalValue is not defined', () => {
-          it('test1', () => {
-            const result = buildActualFieldValue({
-              emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue1',
-            });
-            expect(result).toEqual(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
-          });
-
-          it('test2', () => {
-            const result = buildActualFieldValue({
-              emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
-              originalValue: 'updatedValue1',
-              value: 'updatedValue2',
-            });
-            expect(result).toEqual('updatedValue2');
-          });
-        });
+    it('test2', () => {
+      const result = FieldUtils.asActualFieldValue({
+        emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
+        originalValue: 'updatedValue1',
+        value: 'updatedValue1',
       });
+      expect(result).toEqual(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
+    });
+
+    it('test3', () => {
+      const result = FieldUtils.asActualFieldValue({
+        emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
+        originalValue: 'updatedValue1',
+        value: 'updatedValue2',
+      });
+      expect(result).toEqual('updatedValue2');
+    });
+
+    it('test4', () => {
+      const result = FieldUtils.asActualFieldValue({
+        emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
+        originalValue: 'updatedValue1',
+        value: 'updatedValue1',
+        keepChanges: true,
+      });
+      expect(result).toEqual('updatedValue1');
     });
   });
 });

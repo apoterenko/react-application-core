@@ -659,7 +659,7 @@
           $rac-icon-size: $rac-self-field-icon-size
         );
 
-        .rac-field-input-wrapper {
+        .rac-field__input-wrapper {
           @include rac-styles (
             $rac-styles-align-items: $rac-self-field-input-wrapper-align-items,
             $rac-styles-background: $rac-self-field-input-wrapper-background,

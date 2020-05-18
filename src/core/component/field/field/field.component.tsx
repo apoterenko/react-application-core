@@ -1,18 +1,22 @@
+import * as React from 'react';
 import * as R from 'ramda';
 
 import { AnyT } from '../../../definitions.interface';
 import {
   ChangeEventT,
+  FieldClassesEnum,
+  FieldComposedInputAttributesT,
   FieldConstants,
   IField,
+  IFieldInputAttributes,
   IFieldProps,
 } from '../../../definition';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import { IUniversalFieldState } from './field.interface';
 import {
-  buildActualFieldValue,
   CalcUtils,
   ConditionUtils,
+  FieldUtils,
   PropsUtils,
   TypeUtils,
   WrapperUtils,
@@ -44,10 +48,14 @@ export class Field<TProps extends IFieldProps,
     return event.target.value;
   }
 
+  /**
+   * @stable [18.05.2020]
+   * @param {AnyT} currentRawValue
+   */
   protected onChangeValue(currentRawValue: AnyT): void {
     const mergedProps = this.mergedProps;
 
-    const actualFieldValue = buildActualFieldValue({
+    const actualFieldValue = FieldUtils.asActualFieldValue({
       ...mergedProps as {},
       emptyValue: this.emptyValue,
       value: currentRawValue,
@@ -99,9 +107,59 @@ export class Field<TProps extends IFieldProps,
 
   /**
    * @stable [18.05.2020]
+   * @returns {FieldComposedInputAttributesT}
+   */
+  protected getInputElementProps(): FieldComposedInputAttributesT {
+    return {}; // TODO
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @returns {JSX.Element}
+   */
+  protected get inputWrapperElement(): JSX.Element {
+    if (this.isFieldRendered) {
+      return (
+        <div className={FieldClassesEnum.FIELD_INPUT_WRAPPER}>
+          {this.getInputElement()}
+          {this.mirrorInputElement}
+          {this.inputCaretElement}
+          {this.inputAttachmentElement}
+        </div>
+      );
+    }
+    return this.inputAttachmentElement;
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @returns {JSX.Element}
+   */
+  protected getInputElement(): JSX.Element {
+    return <input {...this.getInputElementProps() as IFieldInputAttributes}/>;
+  }
+
+  /**
+   * @stable [18.05.2020]
    * @returns {JSX.Element}
    */
   protected get inputAttachmentElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @returns {JSX.Element}
+   */
+  protected get mirrorInputElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @returns {JSX.Element}
+   */
+  protected get inputCaretElement(): JSX.Element {
     return null;
   }
 

@@ -174,7 +174,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @stable [12.09.2018]
    * @returns {JSX.Element}
    */
-  protected getMirrorInputElement(): JSX.Element {
+  protected get mirrorInputElement(): JSX.Element {
     if (!this.isKeyboardUsed || !this.isSyntheticCursorUsed || this.isValueNotPresent) {
       return null;
     }
@@ -201,7 +201,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   // TODO
-  protected getInputCaretElement(): JSX.Element {
+  protected get inputCaretElement(): JSX.Element {
     const state = this.state;
     const textOffset = 2;
 
