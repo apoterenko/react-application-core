@@ -4,7 +4,7 @@ import {
   AnyT,
   IProgressWrapper,
 } from '../definitions.interface';
-import { getEnvironment } from '../di';
+import { getEnvironment } from '../di/di.services';
 
 export class DelayedTask
   implements IProgressWrapper {

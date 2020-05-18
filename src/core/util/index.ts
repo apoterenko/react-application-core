@@ -37,6 +37,7 @@ export * from './route';
 export * from './scroll';
 export * from './section';
 export * from './select';
+export * from './select-option';
 export * from './sort';
 export * from './stack';
 export * from './storage';

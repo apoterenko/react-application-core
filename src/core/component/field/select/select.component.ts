@@ -17,8 +17,8 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
    * @returns {ISelectOptionEntity[]}
    */
   protected getFilteredOptions(): ISelectOptionEntity[] {
-    const id = this.selectOptionEntityAsId(this.value);
-    return super.getFilteredOptions((option) => this.selectOptionEntityAsId(option) !== id);
+    const id = this.fromSelectOptionEntityToId(this.value);
+    return super.getFilteredOptions((option) => this.fromSelectOptionEntityToId(option) !== id);
   }
 
   /**

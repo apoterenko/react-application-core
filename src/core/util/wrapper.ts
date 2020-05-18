@@ -188,7 +188,7 @@ export const isConfirm = (wrapper: IConfirmWrapper): boolean => R.isNil(wrapper)
  * @param {IForceReloadWrapper} entity
  * @returns {boolean}
  */
-export const isForceReload = (entity: IForceReloadWrapper): boolean =>
+const isForceReload = (entity: IForceReloadWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.forceReload !== false, false);
 
 /**
@@ -744,3 +744,10 @@ export const isPeriodNavigatorUsed = (wrapper: IUsePeriodNavigatorWrapper): bool
  */
 export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.navigateBack !== false;
+
+/**
+ * @stable [18.05.2020]
+ */
+export class WrapperUtils {
+  public static readonly isForceReload = isForceReload;                                 /* @stable [18.05.2020] */
+}

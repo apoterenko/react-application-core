@@ -18,7 +18,6 @@ import {
   INamedEntity,
   IPhoneConfigEntity,
   IPlaceEntity,
-  ISelectOptionEntity,
   IUserEntity,
   MultiFieldEntityT,
   PlaceEntityValueT,
@@ -31,10 +30,11 @@ import {
   FieldUtils,
   ifNotNilThanValue,
   isFn,
-  isPrimitive,
   mapExtendedLabeledValueEntity,
   notNilValuesArrayFilter,
   PlaceUtils,
+  SelectOptionUtils,
+  TypeUtils,
 } from '../../util';
 import {
   AnyT,
@@ -59,7 +59,6 @@ export class FieldConverter implements IFieldConverter {
    * @stable [09.01.2020]
    */
   constructor() {
-    this.selectOptionEntityAsDisplayValue = this.selectOptionEntityAsDisplayValue.bind(this);
     this.zipCodeEntityAsDisplayValue = this.zipCodeEntityAsDisplayValue.bind(this);
 
     this.register({
@@ -85,7 +84,7 @@ export class FieldConverter implements IFieldConverter {
     this.register({
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
       to: FieldConverterTypesEnum.DISPLAY_VALUE,
-      converter: this.selectOptionEntityAsDisplayValue,
+      converter: this.$fromSelectOptionEntityToDisplayValue.bind(this),
     });
     this.register({
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
@@ -171,6 +170,19 @@ export class FieldConverter implements IFieldConverter {
     return this.convert({
       from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
       to: FieldConverterTypesEnum.ID,
+      value,
+    });
+  }
+
+  /**
+   * @stable [18.05.2020]
+   * @param {SelectValueT} value
+   * @returns {StringNumberT}
+   */
+  public fromSelectOptionEntityToDisplayValue(value: SelectValueT): StringNumberT {
+    return this.convert({
+      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      to: FieldConverterTypesEnum.DISPLAY_VALUE,
       value,
     });
   }
@@ -276,7 +288,7 @@ export class FieldConverter implements IFieldConverter {
     if (R.isNil(placeEntity)) {
       return placeEntity;
     }
-    if (isPrimitive(placeEntity)) {
+    if (TypeUtils.isPrimitive(placeEntity)) {
       return placeEntity as string;
     }
     const placeEntityAsObject = placeEntity as IPlaceEntity;
@@ -284,21 +296,12 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [28.01.2020]
+   * @stable [18.05.2020]
    * @param {SelectValueT} option
    * @returns {StringNumberT}
    */
-  protected selectOptionEntityAsDisplayValue(option: SelectValueT): StringNumberT {
-    if (R.isNil(option)) {
-      return option;
-    }
-    if (isPrimitive(option)) {
-      return option as StringNumberT;
-    }
-    const optionAsObject = option as ISelectOptionEntity;
-    return R.isNil(optionAsObject.label)
-      ? this.$fromSelectOptionEntityToId(option)
-      : this.t(optionAsObject.label, option);
+  protected $fromSelectOptionEntityToDisplayValue(option: SelectValueT): StringNumberT {
+    return SelectOptionUtils.fromSelectOptionEntityToDisplayValue(option);
   }
 
   /**
@@ -406,19 +409,12 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [16.05.2020]
+   * @stable [18.05.2020]
    * @param {SelectValueT} option
    * @returns {EntityIdT}
    */
   private $fromSelectOptionEntityToId(option: SelectValueT): EntityIdT {
-    if (R.isNil(option)) {
-      return option;
-    }
-    if (isPrimitive(option)) {
-      return option as StringNumberT;
-    }
-    const optionAsObject = option as ISelectOptionEntity;
-    return optionAsObject.value;
+    return SelectOptionUtils.fromSelectOptionEntityToId(option);
   }
 
   /**

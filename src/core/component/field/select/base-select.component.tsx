@@ -8,25 +8,26 @@ import {
 import {
   asMultiFieldAddedEntities,
   calc,
+  ConditionUtils,
   DelayedTask,
-  ifNotNilThanValue,
   inProgress,
   isAllowEmptyFilterValue,
   isAnchored,
   isDef,
   isExpandActionRendered,
   isFn,
-  isForceReload,
   isForceUseLocalFilter,
   isMenuRendered,
   isObjectNotEmpty,
-  isPrimitive,
   isUndef,
   joinClassName,
   nvl,
+  ObjectUtils,
   orNull,
   queryFilter,
   shallowClone,
+  TypeUtils,
+  WrapperUtils,
 } from '../../../util';
 import { BaseTextField } from '../text-field';
 import { Menu } from '../../menu';
@@ -45,7 +46,6 @@ import {
   ChangeEventT,
   FieldActionTypesEnum,
   FieldConstants,
-  FieldConverterTypesEnum,
   IBaseEvent,
   IComponentsSettingsEntity,
   IMenu,
@@ -229,7 +229,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       return super.getAttachmentElement();
     }
     const currentValue = this.value;
-    const value = isPrimitive(currentValue)
+    const value = TypeUtils.isPrimitive(currentValue)
       ? [{id: currentValue}] as IEntity[]
       : (asMultiFieldAddedEntities(this.value) || []);
 
@@ -301,7 +301,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       && !this.isValueObject(value)
       && isObjectNotEmpty(value)) {
 
-      const originalFilter = (option) => queryFilter(value, this.selectOptionEntityAsDisplayValue(option));
+      const originalFilter = (option) => queryFilter(value, this.fromSelectOptionEntityToDisplayValue(option));
 
       return this.options.filter(
         doesFilterExist
@@ -383,9 +383,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const hasCachedValue = !R.isNil($$cachedValue);
 
     if (!hasCachedValue && (!this.isQuickSearchEnabled || this.isValueObject(value))) {
-      const optionValue = this.selectOptionEntityAsId(value);
+      const optionValue = this.fromSelectOptionEntityToId(value);
       value = nvl(
-        R.find<ISelectOptionEntity>((option) => this.selectOptionEntityAsId(option) === optionValue, this.options),
+        R.find<ISelectOptionEntity>((option) => this.fromSelectOptionEntityToId(option) === optionValue, this.options),
         value
       );
     }
@@ -398,7 +398,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {AnyT}
    */
   protected decorateDisplayValue(value: AnyT): AnyT {
-    return this.selectOptionEntityAsDisplayValue(value);
+    return this.fromSelectOptionEntityToDisplayValue(value);
   }
 
   /**
@@ -426,15 +426,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
+   * @stable [18.05.2020]
+   * @param {AnyT} value
    * @returns {EntityIdT}
    */
-  protected selectOptionEntityAsId(value: AnyT): EntityIdT {
-    return this.fieldConverter.convert({
-      value,
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
-      to: FieldConverterTypesEnum.ID,
-    });
+  protected fromSelectOptionEntityToId(value: AnyT): EntityIdT {
+    return this.fieldConverter.fromSelectOptionEntityToId(value);
   }
 
   /**
@@ -449,7 +446,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
 
     const currentValue = this.decoratedDisplayValue;
-    const isCurrentValueNotEmpty = isObjectNotEmpty(currentValue);
+    const isCurrentValueNotEmpty = ObjectUtils.isObjectNotEmpty(currentValue);
     const $isAllowEmptyFilterValue = this.isAllowEmptyFilterValue;
 
     if (!$isAllowEmptyFilterValue && !isCurrentValueNotEmpty) {
@@ -480,7 +477,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {ISelectOptionEntity} option
    */
   private doSelectOption(option: ISelectOptionEntity): void {
-    this.onChangeManually(this.isPlainValueApplied ? this.selectOptionEntityAsId(option) : option);
+    this.onChangeManually(this.isPlainValueApplied ? this.fromSelectOptionEntityToId(option) : option);
     this.notifySelectOption(option);
     this.setFocus();
   }
@@ -611,10 +608,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [18.05.2020]
    */
   private cancelQueryFilterTask(): void {
-    ifNotNilThanValue(this.quickFilterQueryTask, (task) => task.stop());
+    ConditionUtils.ifNotNilThanValue(this.quickFilterQueryTask, (task) => task.stop());
   }
 
   /**
@@ -635,16 +632,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [18.05.2020]
    * @param {SelectValueT} value
    * @returns {StringNumberT}
    */
-  private selectOptionEntityAsDisplayValue(value: SelectValueT): StringNumberT {
-    return this.fieldConverter.convert({
-      value,
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
-      to: FieldConverterTypesEnum.DISPLAY_VALUE,
-    });
+  private fromSelectOptionEntityToDisplayValue(value: SelectValueT): StringNumberT {
+    return this.fieldConverter.fromSelectOptionEntityToDisplayValue(this.value);
   }
 
   /**
@@ -716,7 +709,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {boolean}
    */
   private get isForceReload(): boolean {
-    return isForceReload(this.props);
+    return WrapperUtils.isForceReload(this.props);
   }
 
   /**

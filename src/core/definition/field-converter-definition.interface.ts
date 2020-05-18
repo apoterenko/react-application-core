@@ -6,6 +6,7 @@ import {
   IFromWrapper,
   IToWrapper,
   IValueWrapper,
+  StringNumberT,
 } from '../definitions.interface';
 import {
   IExtendedLabeledValueEntity,
@@ -63,6 +64,7 @@ export interface IFieldConverter {
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
+  fromSelectOptionEntityToDisplayValue(option: SelectValueT): StringNumberT;
   fromSelectOptionEntityToId(option: SelectValueT): EntityIdT;
   register(config: IFieldConverterConfigEntity): void;
 }
