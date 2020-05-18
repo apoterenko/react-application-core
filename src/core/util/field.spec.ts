@@ -151,7 +151,24 @@ describe('util/field', () => {
         value: 'updatedValue1',
         keepChanges: true,
       });
-      expect(result).toEqual('updatedValue1');
+      expect(result).toEqual(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
+    });
+
+    it('test5', () => {
+      const result = FieldUtils.asActualFieldValue({
+        emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
+        value: FieldConstants.DISPLAY_EMPTY_VALUE,
+        keepChanges: true,
+      });
+      expect(result).toEqual(FieldConstants.DISPLAY_EMPTY_VALUE);
+    });
+
+    it('test6', () => {
+      const result = FieldUtils.asActualFieldValue({
+        emptyValue: FieldConstants.DISPLAY_EMPTY_VALUE,
+        value: FieldConstants.DISPLAY_EMPTY_VALUE,
+      });
+      expect(result).toEqual(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
     });
   });
 });
