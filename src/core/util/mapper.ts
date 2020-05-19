@@ -496,6 +496,7 @@ export class Mappers {
   public static readonly pagedEntity = GenericMappers.pagedEntity;
   public static readonly pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
   public static readonly paginatedEntity = GenericMappers.paginatedEntity;
+  public static readonly placeFieldProps = ComponentMappers.placeFieldProps;                                                                                 /* @stable [19.05.2020] */
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;         /* @stable [10.05.2020] */
   public static readonly queryFilterEntity = GenericMappers.queryFilterEntity;
   public static readonly queryFilterEntityAsQuery = GenericMappers.queryFilterEntityAsQuery;

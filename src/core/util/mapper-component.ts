@@ -1,8 +1,11 @@
 import { GenericMappers } from './mapper-generic';
 import {
+  DictionariesEnum,
+  IFieldsContainer,
   IFilterFormDialogContainerProps,
   IFormContainerProps,
   IFormProps,
+  IGenericBaseSelectEntity,
   IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
@@ -16,6 +19,19 @@ import {
 } from '../definition';
 import { Selectors } from './select';
 import { IEntity } from '../definitions.interface';
+
+/**
+ * @component-props-mapper
+ * @stable [19.05.2020]
+ *
+ * @param {IFieldsContainer} container
+ * @returns {IGenericBaseSelectEntity}
+ */
+const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEntity => ({
+  dictionary: DictionariesEnum.PLACES,
+  ...GenericMappers.dictionaryEntityAsSelectEntity(container.props.dictionaries.places),
+  onDictionaryFilterChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
+});
 
 /**
  * @component-props-mapper
@@ -203,6 +219,7 @@ export class ComponentMappers {
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static pageToolbarProps = mapPageToolbarProps;
+  public static placeFieldProps = mapPlaceFieldProps;                                                                     /* @stable [19.05.2020] */
   public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static searchToolbarProps = mapSearchToolbarProps;

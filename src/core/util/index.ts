@@ -13,7 +13,6 @@ export * from './error';
 export * from './event';
 export * from './factory';
 export * from './field';
-export * from './field-props';
 export * from './filter';
 export * from './fn';
 export * from './form';
