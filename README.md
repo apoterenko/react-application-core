@@ -84,6 +84,12 @@ The library is designed to quickly start develop the business applications are b
 * [_navigation-list-constant.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-constant.scss)
 * [_navigation-list-mixin.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-mixin.scss)
 
+#### TabPanel
+
+* [_tab-panel.scss (19.05.2020)](src/core/component/tab-panel/_tab-panel.scss)
+* [_tab-panel-constant.scss (19.05.2020)](src/core/component/tab-panel/_tab-panel-constant.scss)
+* [_tab-panel-mixin.scss (19.05.2020)](src/core/component/tab-panel/_tab-panel-mixin.scss)
+
 # Usage
 
 #### Containers
