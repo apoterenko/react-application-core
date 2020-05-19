@@ -93,7 +93,7 @@ export class FieldConstants {
  * @presets-entity
  * @stable [09.05.2020]
  */
-export interface IPresetsFieldEntity<TEntity = IEntity>
+export interface IPresetsFieldEntity
   extends IActionsWrapper<IFieldActionEntity[]>,
     IBindDictionaryWrapper,
     IDelayTimeoutWrapper,
@@ -121,6 +121,14 @@ export interface IPresetsFieldEntity<TEntity = IEntity>
 }
 
 /**
+ * @presets-entity
+ * @stable [19.05.2020]
+ */
+export interface IPresetsBaseTextFieldEntity
+  extends IPresetsFieldEntity {
+}
+
+/**
  * @redux-entity
  * @stable [08.05.2020]
  */
@@ -128,6 +136,14 @@ export interface IReduxFieldEntity
   extends IReduxLifeCycleEntity,
     IOriginalValueWrapper,
     IValueWrapper {
+}
+
+/**
+ * @redux-entity
+ * @stable [19.05.2020]
+ */
+export interface IReduxBaseTextFieldEntity
+  extends IReduxFieldEntity {
 }
 
 /**

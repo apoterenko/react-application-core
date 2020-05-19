@@ -1,12 +1,12 @@
 import {
   IAllowEmptyFilterValueWrapper,
   IAnchoredWrapper,
-  IDelayTimeoutWrapper,
   IDictionaryWrapper,
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
-  IForceUseLocalFilterWrapper,
+  IForciblyApplyLocalFilterWrapper,
   IMenuAnchorElementWrapper,
+  IOnDictionaryFilterChangeWrapper,
   IOptionsWrapper,
   IWaitingForOptionsWrapper,
   StringNumberT,
@@ -15,23 +15,46 @@ import {
   IMenuConfigurationEntity,
   IMenuItemEntity,
 } from './menu-definition.interface';
+import {
+  IPresetsBaseTextFieldEntity,
+  IReduxBaseTextFieldEntity,
+} from './field-definition.interface';
+import { IFluxPayloadQueryEntity } from './query-definition.interface';
 
 /**
- * @generic-entity
- * @stable [24.01.2020]
+ * @presets-entity
+ * @stable [19.05.2020]
  */
-export interface IGenericBaseSelectEntity
-  extends IAllowEmptyFilterValueWrapper,
+export interface IPresetsBaseSelectEntity
+  extends IPresetsBaseTextFieldEntity,
+    IAllowEmptyFilterValueWrapper,
     IAnchoredWrapper,
-    IDelayTimeoutWrapper,
     IDictionaryWrapper,
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
-    IForceUseLocalFilterWrapper,
+    IForciblyApplyLocalFilterWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
+    IOnDictionaryFilterChangeWrapper<string, IFluxPayloadQueryEntity> {
+}
+
+/**
+ * @redux-entity
+ * @stable [19.05.2020]
+ */
+export interface IReduxBaseSelectEntity
+  extends IReduxBaseTextFieldEntity,
     IOptionsWrapper<ISelectOptionEntity[]>,
     IWaitingForOptionsWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [19.05.2020]
+ */
+export interface IGenericBaseSelectEntity
+  extends IReduxBaseSelectEntity,
+    IPresetsBaseSelectEntity {
 }
 
 /**

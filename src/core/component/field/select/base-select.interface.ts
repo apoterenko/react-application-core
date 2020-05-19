@@ -1,10 +1,7 @@
 import {
   I$$cachedValueWrapper,
-  IOnDictionaryFilterChangeWrapper,
   IOnFilterChangeWrapper,
   IOpenMenuWrapper,
-  IPayloadWrapper,
-  IQueryWrapper,
 } from '../../../definitions.interface';
 import {
   IBaseEvent,
@@ -12,7 +9,6 @@ import {
   IGenericBaseSelectState,
   ISelectOptionEntity,
 } from '../../../definition';
-import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import {
   IBaseTextFieldProps,
 } from '../text-field/base-textfield.interface';
@@ -27,19 +23,10 @@ export interface IBaseSelectState
     I$$cachedValueWrapper<ISelectOptionEntity> {
 }
 
-/**
- * @stable [15.09.2018]
- */
-export interface IBasicSelectConfiguration extends IFieldProps2 {
-  onClose?(): void;
-}
-
 // TODO
 export interface IBaseSelectProps
-  extends IBasicSelectConfiguration,
-    IGenericBaseSelectEntity,
+  extends IGenericBaseSelectEntity,
     IBaseTextFieldProps,
-    IOnDictionaryFilterChangeWrapper<(dictionary: string, wrapper: IPayloadWrapper<IQueryWrapper>) => void>,
     IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
   inlineOptions?: boolean;

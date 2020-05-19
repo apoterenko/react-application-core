@@ -32,7 +32,7 @@ import {
   IFirstAllowedWrapper,
   IFocusedWrapper,
   IForceReloadWrapper,
-  IForceUseLocalFilterWrapper,
+  IForciblyApplyLocalFilterWrapper,
   IFullWrapper,
   IHeaderRenderedWrapper,
   IHeightRestrictedWrapper,
@@ -554,11 +554,11 @@ export const isAnchored = (wrapper: IAnchoredWrapper): boolean =>
 
 /**
  * @stable [01.02.2020]
- * @param {IForceUseLocalFilterWrapper} wrapper
+ * @param {IForciblyApplyLocalFilterWrapper} wrapper
  * @returns {boolean}
  */
-export const isForceUseLocalFilter = (wrapper: IForceUseLocalFilterWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.forceUseLocalFilter === true;
+export const isForceUseLocalFilter = (wrapper: IForciblyApplyLocalFilterWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.forciblyApplyLocalFilter === true;
 
 /**
  * @stable [16.01.2020]

@@ -186,7 +186,7 @@ export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
-export interface IForceUseLocalFilterWrapper { forceUseLocalFilter?: boolean; }
+export interface IForciblyApplyLocalFilterWrapper { forciblyApplyLocalFilter?: boolean; }
 export interface IFormattedNameWrapper { formattedName?: string; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }
@@ -338,9 +338,9 @@ export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClic
 export interface IOnCreateWrapper<TValue = {}> { onCreate?(value?: TValue): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
-export interface IOnDictionaryEmptyWrapper<T1, T2> { onDictionaryEmpty?(value1?: T1, value2?: T2): void; }
-export interface IOnDictionaryFilterChangeWrapper<TValue> { onDictionaryFilterChange?: TValue; }
-export interface IOnDictionaryLoadWrapper<T1 = {}, T2 = {}> { onDictionaryLoad?(value1?: T1, value2?: T2): void; }
+export interface IOnDictionaryEmptyWrapper<TValue1, TValue2> { onDictionaryEmpty?(value1?: TValue1, value2?: TValue2): void; }
+export interface IOnDictionaryFilterChangeWrapper<TValue1, TValue2> { onDictionaryFilterChange?(value1?: TValue1, value2?: TValue2): void; }
+export interface IOnDictionaryLoadWrapper<TValue1 = {}, TValue2 = {}> { onDictionaryLoad?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
 export interface IOnDrawerHeaderClickWrapper<TValue = {}> { onDrawerHeaderClick?(value?: TValue): void; }
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }

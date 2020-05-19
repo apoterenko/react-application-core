@@ -11,7 +11,6 @@ import {
   IExtendedLabeledValueEntity,
   IFormEntity,
   IFormTabPanelContainerProps,
-  IGenericBaseSelectEntity,
   IGenericChannelEntity,
   IGenericContainer,
   IGenericNotificationEntity,
@@ -23,7 +22,6 @@ import {
   IOperationEntity,
   IPresetsSelectableHoveredEntity,
   IReduxDictionariesEntity,
-  IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxSortDirectionsEntity,
   ISortDirectionEntity,
@@ -60,7 +58,6 @@ import {
   doesErrorExist,
   inProgress,
   isReady,
-  WrapperUtils,
 } from './wrapper';
 import {
   selectActiveValue,
@@ -341,20 +338,6 @@ export const mapApiEntity =
   };
 
 /**
- * @stable [28.01.2020]
- * @param {IReduxDictionaryEntity<TEntity>} dictionaryEntity
- * @param {(data: TEntity[]) => TResult} accessor
- * @returns {IGenericBaseSelectEntity}
- */
-export const mapDictionaryEntityField =
-  <TEntity, TResult = TEntity[]>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
-                                 accessor?: (data: TEntity[]) => TResult): IGenericBaseSelectEntity =>
-    ({
-      ...GenericMappers.waitingForOptions(WrapperUtils.isLoading(dictionaryEntity)),
-      ...GenericMappers.options(GenericMappers.dictionaryEntityAsSelectOptionEntities<TEntity>(dictionaryEntity, accessor)),
-    });
-
-/**
  * @stable [22.04.2020]
  * @param {INamedEntity} entity
  * @returns {IExtendedLabeledValueEntity}
@@ -492,6 +475,7 @@ export const mapUnsavedFormChangesDialogContainerProps =
  * @stable [05.05.2020]
  */
 export class Mappers {
+  public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                     /* @stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                     /* @stable [19.05.2020] */
   public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                     /* @stable [10.05.2020] */
   public static readonly entityAsExtendedFormEntity = GenericMappers.entityAsExtendedFormEntity;                                                             /* @stable [10.05.2020] */

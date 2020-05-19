@@ -35,6 +35,7 @@ import {
   IPrimaryFilterReduxFormEntity,
   IQueryFilterEntity,
   IReduxActiveQueryEntity,
+  IReduxBaseSelectEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxLifeCycleEntity,
@@ -47,7 +48,7 @@ import {
   ISelectOptionEntity,
 } from '../definition';
 import { Selectors } from './select';
-import { inProgress } from './wrapper';
+import { WrapperUtils } from './wrapper';
 import { isNewEntity } from './entity';
 import { nvl } from './nvl';
 import { TypeUtils } from './type';
@@ -101,7 +102,7 @@ const mapDisabled = (disabled: boolean): IDisabledWrapper =>
  * @param {IProgressWrapper} entity
  * @returns {IDisabledWrapper}
  */
-const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => mapDisabled(inProgress(entity));
+const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => mapDisabled(WrapperUtils.inProgress(entity));
 
 /**
  * @mapper
@@ -572,10 +573,25 @@ const mapDictionaryEntityAsSelectOptionEntities =
     );
 
 /**
+ * @stable [19.05.2020]
+ * @param {IReduxDictionaryEntity<TEntity>} entity
+ * @param {(data: TEntity[]) => TResult} accessor
+ * @returns {IReduxBaseSelectEntity}
+ */
+const mapDictionaryEntityAsSelectEntity =
+  <TEntity, TResult = TEntity[]>(entity: IReduxDictionaryEntity<TEntity>,
+                                 accessor?: (data: TEntity[]) => TResult): IReduxBaseSelectEntity =>
+    ({
+      ...mapWaitingForOptions(WrapperUtils.isLoading(entity)),
+      ...mapOptions(mapDictionaryEntityAsSelectOptionEntities<TEntity>(entity, accessor)),
+    });
+
+/**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
   public static readonly activeQueryEntity = mapActiveQueryEntity;                                                                                /* stable [07.05.2020] */
+  public static readonly dictionaryEntityAsSelectEntity = mapDictionaryEntityAsSelectEntity;                                                      /* stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;                                      /* stable [19.05.2020] */
   public static readonly disabled = mapDisabled;                                                                                                  /* stable [07.05.2020] */
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;                                                                      /* stable [08.05.2020] */

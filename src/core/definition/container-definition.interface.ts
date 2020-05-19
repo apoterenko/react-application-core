@@ -19,6 +19,7 @@ import { IStackWrapperEntity } from './stack-definition.interface';
 import { IUniversalStoreEntity } from './redux-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
+import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
  * @react-native-compatible
@@ -107,10 +108,10 @@ export interface IContainerCtor<TProps extends IContainerProps = IContainerProps
 
 /**
  * @container
- * @stable [29.02.2020]
+ * @stable [19.05.2020]
  */
 export interface IFieldsContainer
-  extends IGenericContainer<IContainerProps<IBaseDictionariesEntity>> {
+  extends IGenericContainer<IGenericContainerProps<IBaseDictionariesEntity>> {
 }
 
 /**

@@ -1,27 +1,18 @@
 import { IPlaceFieldProps } from '../definition';
-import { mapDictionaryEntityField } from './mapper';
+import { Mappers } from './mapper';
 import {
   DictionariesEnum,
   IFieldsContainer,
+  IGenericBaseSelectEntity,
 } from '../definition';
-import { IBaseSelectProps } from '../component/field/select/base-select.interface'; // TODO
-
-/**
- * @stable [29.02.2020]
- * @param {IFieldsContainer} container
- * @returns {IBaseSelectProps}
- */
-export const mapDictionaryFilterChangeProps = (container: IFieldsContainer): IBaseSelectProps => ({
-  onDictionaryFilterChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
-});
 
 /**
  * @stable [29.02.2020]
  * @param {IFieldsContainer} container
  * @returns {IPlaceFieldProps}
  */
-export const mapPlaceFieldProps = (container: IFieldsContainer): IPlaceFieldProps => ({
+export const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEntity => ({
   dictionary: DictionariesEnum.PLACES,
-  ...mapDictionaryEntityField(container.props.dictionaries.places),
-  ...mapDictionaryFilterChangeProps(container),
+  ...Mappers.dictionaryEntityAsSelectEntity(container.props.dictionaries.places),
+  onDictionaryFilterChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
 });

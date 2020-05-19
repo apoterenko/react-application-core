@@ -74,7 +74,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     this.getMenuAnchorElement = this.getMenuAnchorElement.bind(this);
     this.getMenuWidth = this.getMenuWidth.bind(this);
-    this.onClose = this.onClose.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onOptionsLoadDone = this.onOptionsLoadDone.bind(this);
@@ -273,7 +272,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
           options={this.getFilteredOptions()}
           onSelect={this.onSelect}
           onFilterChange={this.onFilterChange}
-          onClose={this.onClose}
           {...this.getMenuProps()}/>
       )
     );
@@ -360,17 +358,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       return;
     }
     onSelect(option);
-  }
-
-  /**
-   * @stable [10.09.2019]
-   */
-  protected onClose(): void {
-    const props = this.props;
-
-    if (isFn(props.onClose)) {
-      props.onClose();
-    }
   }
 
   /**
@@ -488,8 +475,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private onFilterChange(query: string): void {
     const props = this.props;
-    const onFilterChange = props.onFilterChange;
-    const onDictionaryFilterChange = props.onDictionaryFilterChange;
+    const {
+      onDictionaryFilterChange,
+      onFilterChange,
+    } = props;
+
     const dictionary = this.dictionary;
 
     BaseSelect.logger.debug((logger) => {

@@ -1,5 +1,6 @@
 import {
   IActiveWrapper,
+  IPayloadWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
 } from '../definitions.interface';
@@ -27,6 +28,14 @@ export interface IQueryFilterEntity
  */
 export interface IFluxQueryEntity
   extends IQueryWrapper {
+}
+
+/**
+ * @flux-entity
+ * @stable [08.05.2020]
+ */
+export interface IFluxPayloadQueryEntity
+  extends IPayloadWrapper<IFluxQueryEntity> {
 }
 
 /**
