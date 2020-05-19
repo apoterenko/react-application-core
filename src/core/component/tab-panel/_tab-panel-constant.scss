@@ -32,8 +32,8 @@ $rac-last-tab-border-radius: 0 $rac-primary-tab-border-radius-0 $rac-primary-tab
 $rac-tab-align-items: center !default;
 $rac-tab-background: $rac-primary-tab-color-1 !default;
 $rac-tab-border-bottom: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-0 !default;
-$rac-tab-border-left: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-2;
-$rac-tab-border-right: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-2;
+$rac-tab-border-left: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-2 !default;
+$rac-tab-border-right: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-2 !default;
 $rac-tab-border-top: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-0 !default;
 $rac-tab-border: unset !default;
 $rac-tab-content-font-size: $rac-primary-font-size-1 !default;
