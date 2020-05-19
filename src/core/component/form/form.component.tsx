@@ -19,6 +19,7 @@ import {
   calc,
   cloneReactNodes,
   defValuesFilter,
+  FilterUtils,
   FormUtils,
   getFormFieldValue,
   ifNotNilThanValue,
@@ -38,7 +39,6 @@ import {
   joinClassName,
   mapApiEntity,
   notNilValuesFilter,
-  objectValuesArrayFilter,
   orNull,
   selectChanges,
   selectError,
@@ -452,7 +452,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     } = props;
     const messages = this.settings.messages;
 
-    return objectValuesArrayFilter(
+    return FilterUtils.objectValuesArrayFilter(
       props.resetActionRendered && notNilValuesFilter<IButtonProps, IButtonProps>({
         type: 'reset',
         icon: props.resetIcon || IconsEnum.TIMES,

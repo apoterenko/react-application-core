@@ -146,11 +146,11 @@ export interface ISearchPlaceEntity
 
 /**
  * @default-entity
- * @stable [29.01.2020]
+ * @stable [19.05.2020]
  */
 export const DEFAULT_PLACE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
-  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
-  menuConfiguration: {heightRestricted: false},
+  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,                                                /* @stable [19.05.2020] */
+  menuConfiguration: {heightRestricted: false},                                        /* @stable [19.05.2020] */
 });
 
 /**

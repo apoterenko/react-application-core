@@ -86,11 +86,11 @@ export const SAME_ENTITY_PREDICATE =
     entity1 === entity2 || (!R.isNil(entity1) && !R.isNil(entity2) && entity1.id === entity2.id);
 
 /**
- * @stable [03.10.2019]
+ * @stable [19.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => TypeUtils.isObject(value);
+const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => TypeUtils.isObject(value);
 
 /**
  * @stable [03.04.2020]
@@ -215,11 +215,11 @@ const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicateT[]): 
   );
 
 /**
- * @stable [03.10.2019]
+ * @stable [19.05.2020]
  * @param {TValue} data
  * @returns {TValue[]}
  */
-export const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, OBJECT_VALUE_PREDICATE);
+const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, OBJECT_VALUE_PREDICATE);
 
 /**
  * @stable [16.05.2020]
@@ -354,4 +354,6 @@ export class FilterUtils {
   public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                       /* @stable [17.05.2020] */
   public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;                           /* @stable [18.05.2020] */
   public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */
+  public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;                             /* @stable [19.05.2020] */
+  public static readonly objectValuesArrayFilter = objectValuesArrayFilter;                           /* @stable [19.05.2020] */
 }

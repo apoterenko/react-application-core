@@ -6,8 +6,8 @@ import { BaseTextField } from '../text-field';
 import {
   downloadFile,
   downloadFileAsBlob,
+  FilterUtils,
   joinClassName,
-  objectValuesArrayFilter,
   orNull,
   uuid,
 } from '../../../util';
@@ -57,7 +57,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.openCameraDialog = this.openCameraDialog.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
 
-    const actions = objectValuesArrayFilter<IFieldActionEntity>(
+    const actions = FilterUtils.objectValuesArrayFilter<IFieldActionEntity>(
       props.useCamera && {type: FieldActionTypesEnum.VIDEO, onClick: this.openCameraDialog},
       {type: FieldActionTypesEnum.ATTACH_FILE, onClick: this.openFileDialog},
       props.useDownloadAction && {

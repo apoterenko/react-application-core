@@ -326,7 +326,7 @@ export interface IGenericBaseSelectState
 
 /**
  * @default-entity
- * @stable [15.01.2020]
+ * @stable [19.05.2020]
  */
 export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
   allowEmptyFilterValue: false,                                                             /* @stable [17.05.2020] */

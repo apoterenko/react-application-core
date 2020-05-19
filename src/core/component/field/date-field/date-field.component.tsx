@@ -2,21 +2,20 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  calc,
+  CalcUtils,
   coalesce,
+  ConditionUtils,
   defValuesFilter,
-  ifNotEmptyThanValue,
-  ifNotNilThanValue,
+  FilterUtils,
   isCalendarActionRendered,
-  isDef,
   isInline,
-  isObjectNotEmpty,
   isPeriodNavigatorUsed,
   isRangeEnabled,
   joinClassName,
   nvl,
-  objectValuesArrayFilter,
+  ObjectUtils,
   orNull,
+  TypeUtils,
 } from '../../../util';
 import {
   AnyT,
@@ -203,7 +202,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
     const {dialogConfiguration = {}} = props;
 
     const className = joinClassName(
-      !this.isInline && calc(dialogConfiguration.className),
+      !this.isInline && CalcUtils.calc(dialogConfiguration.className),
       CalendarDialogClassesEnum.CALENDAR_BASE_DIALOG,
       this.isInline
         ? CalendarDialogClassesEnum.CALENDAR_INLINE_DIALOG
@@ -369,7 +368,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
             {...defaultCalendarProps}
             gridConfiguration={{
               ...gridConfiguration,
-              wrapperClassName: joinClassName('rac-calendar-dialog__second-calendar', calc(gridConfiguration.className)),
+              wrapperClassName: joinClassName('rac-calendar-dialog__second-calendar', CalcUtils.calc(gridConfiguration.className)),
             }}
             calendarEntity={this.nextCalendarEntity}/>
         </div>
@@ -517,7 +516,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
     const previousPeriodModeEnabled = this.isPreviousPeriodModeEnabled;
     const aheadEntityPeriodMode = this.aheadEntityPeriodMode;
 
-    const buttonsElement = objectValuesArrayFilter(
+    const buttonsElement = FilterUtils.objectValuesArrayFilter(
       (!previousPeriodModeEnabled || DAYS_PERIODS.includes(aheadEntityPeriodMode)) && (
         <Button
           key='quick-action-day'
@@ -608,7 +607,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
         nextValue = this.dc.addMonthsAsDate(cfg);
         break;
     }
-    ifNotNilThanValue(nextValue, () => this.onChangeManually(nextValue));
+    ConditionUtils.ifNotNilThanValue(nextValue, () => this.onChangeManually(nextValue));
   }
 
   /**
@@ -776,7 +775,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @stable [11.03.2020]
    */
   private setFromDateFocus(): void {
-    ifNotNilThanValue(this.fromDateRef.current, (field) => field.setFocus());
+    ConditionUtils.ifNotNilThanValue(this.fromDateRef.current, (field) => field.setFocus());
   }
 
   /**
@@ -859,10 +858,10 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
     const acceptedValueAsRangeEntity = acceptedValue as IDatesRangeEntity;
 
     this.onDialogClose(() => {
-      ifNotEmptyThanValue(
+      ConditionUtils.ifNotEmptyThanValue(
         acceptedValue,
         () => {
-          if (!this.isRangeEnabled || isObjectNotEmpty(acceptedValueAsRangeEntity.from)) {
+          if (!this.isRangeEnabled || ObjectUtils.isObjectNotEmpty(acceptedValueAsRangeEntity.from)) {
             this.onChangeManually(acceptedValue);
           }
         });
@@ -881,19 +880,22 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
       const daysOfYearRange = this.dc.selectDaysOfYearRange(this.currentFromToDayOfYearEntity, calendarDayEntity);
       updatedState = {
         ...DateField.INITIAL_RANGE_PERIOD_STATE,
-        ...ifNotEmptyThanValue(daysOfYearRange.from, (from) => ({from: this.dc.fromDayOfYearEntityAsDate(from)})),
-        ...ifNotEmptyThanValue(daysOfYearRange.to, (to) => ({to: this.dc.fromDayOfYearEntityAsDate(to)})),
+        ...ConditionUtils.ifNotEmptyThanValue(daysOfYearRange.from, (from) => ({from: this.dc.fromDayOfYearEntityAsDate(from)})),
+        ...ConditionUtils.ifNotEmptyThanValue(daysOfYearRange.to, (to) => ({to: this.dc.fromDayOfYearEntityAsDate(to)})),
         periodMode: DatePeriodsEnum.CUSTOM,
       };
-      ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(updatedState.from)));
-      ifNotEmptyThanValue(updatedState.to, () => (updatedState.toDate = this.serializeValue(updatedState.to)));
+      ConditionUtils.ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(updatedState.from)));
+      ConditionUtils.ifNotEmptyThanValue(updatedState.to, () => (updatedState.toDate = this.serializeValue(updatedState.to)));
 
     } else {
       updatedState = {
         ...DateField.INITIAL_PERIOD_STATE,
         from: calendarDayEntity.date,
       };
-      ifNotEmptyThanValue(updatedState.from, () => (updatedState.fromDate = this.serializeValue(calendarDayEntity.date)));
+      ConditionUtils.ifNotEmptyThanValue(
+        updatedState.from,
+        () => (updatedState.fromDate = this.serializeValue(calendarDayEntity.date))
+      );
     }
 
     this.setState((prevState) => ({...updatedState, cursor: prevState.cursor}), this.setFromDateFocus);
@@ -1128,11 +1130,11 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    */
   private get currentFromToDayOfYearEntity(): IFromToDayOfYearEntity {
     return {
-      ...ifNotEmptyThanValue(
+      ...ConditionUtils.ifNotEmptyThanValue(
         this.fromDateFieldValue,
         (fromValue) => ({from: this.dc.asDayOfYearEntity({date: fromValue, inputFormat: this.fieldFormat})})
       ),
-      ...ifNotEmptyThanValue(
+      ...ConditionUtils.ifNotEmptyThanValue(
         this.toDateFieldValue,
         (toValue) => ({to: this.dc.asDayOfYearEntity({date: toValue, inputFormat: this.fieldFormat})})
       ),
@@ -1190,7 +1192,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
     const {from, periodMode, to} = this.state;
 
     if (![...DAYS_PERIODS, DatePeriodsEnum.CUSTOM].includes(this.selectedPeriodMode)
-      && (isObjectNotEmpty(from) || isObjectNotEmpty(to))) {
+      && (ObjectUtils.isObjectNotEmpty(from) || ObjectUtils.isObjectNotEmpty(to))) {
 
       return defValuesFilter<IDatesRangeEntity, IDatesRangeEntity>({
         from: from || this.valueAsDateFrom,
@@ -1222,7 +1224,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @returns {DatePeriodsEnum}
    */
   private get valueAsPeriodMode(): DatePeriodsEnum {
-    return ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.periodMode);
+    return ConditionUtils.ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.periodMode);
   }
 
   /**
@@ -1230,7 +1232,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @returns {DatePeriodsEnum}
    */
   private get valueAsDateFrom(): DateTimeLikeTypeT {
-    return ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.from);
+    return ConditionUtils.ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.from);
   }
 
   /**
@@ -1238,7 +1240,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @returns {DateTimeLikeTypeT}
    */
   private get valueAsDateTo(): DateTimeLikeTypeT {
-    return ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.to);
+    return ConditionUtils.ifNotNilThanValue(this.datesRangeEntity, (rangeEntity) => rangeEntity.to);
   }
 
   /**
@@ -1262,7 +1264,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @returns {DatePeriodsEnum}
    */
   private get aheadEntityPeriodMode(): DatePeriodsEnum {
-    return ifNotNilThanValue(this.aheadEntity, (aheadEntity) => aheadEntity.periodMode);
+    return ConditionUtils.ifNotNilThanValue(this.aheadEntity, (aheadEntity) => aheadEntity.periodMode);
   }
 
   /**
@@ -1271,7 +1273,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    */
   private get selectedPeriodMode(): DatePeriodsEnum {
     const {periodMode} = this.state;
-    return isDef(periodMode) ? periodMode : nvl(this.valueAsPeriodMode, DatePeriodsEnum.CUSTOM);
+    return TypeUtils.isDef(periodMode) ? periodMode : nvl(this.valueAsPeriodMode, DatePeriodsEnum.CUSTOM);
   }
 
   /**
@@ -1304,7 +1306,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
 
     return (
       this.isServiceDaySelected(currentFromToDayOfYearEntity)
-      && isObjectNotEmpty(currentFromToDayOfYearEntity.to)
+      && ObjectUtils.isObjectNotEmpty(currentFromToDayOfYearEntity.to)
       && (
         this.dc.isDayOfYearBelongToDaysOfYearRange({
           ...currentFromToDayOfYearEntity,
@@ -1324,7 +1326,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
 
     return (
       this.isServiceDaySelected(currentFromToDayOfYearEntity)
-      && isObjectNotEmpty(currentFromToDayOfYearEntity.from)
+      && ObjectUtils.isObjectNotEmpty(currentFromToDayOfYearEntity.from)
       && (
         this.dc.isDayOfYearBelongToDaysOfYearRange({
           ...currentFromToDayOfYearEntity,
@@ -1346,8 +1348,8 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
       this.isServiceDaySelected(currentFromToDayOfYearEntity) && (
         !this.isLastDaySelected(entity)
         && !this.isFirstDaySelected(entity)
-        && isObjectNotEmpty(currentFromToDayOfYearEntity.to)
-        && isObjectNotEmpty(currentFromToDayOfYearEntity.from)
+        && ObjectUtils.isObjectNotEmpty(currentFromToDayOfYearEntity.to)
+        && ObjectUtils.isObjectNotEmpty(currentFromToDayOfYearEntity.from)
       )
     );
   }
