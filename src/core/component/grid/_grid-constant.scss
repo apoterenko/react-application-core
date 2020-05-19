@@ -2,6 +2,17 @@
 @import '../_classes';
 
 /************************/
+/* @stable [19.05.2020] */
+/************************/
+$rac-primary-grid-color-0: $rac-primary-color-metis-0-3 !default;
+/**/
+$rac-primary-grid-size-0: 1px !default;
+
+/************************/
 /* @stable [18.05.2020] */
 /************************/
+$rac-grid-body-background: unset !default;
+$rac-grid-body-border-bottom: $rac-primary-grid-size-0 solid $rac-primary-grid-color-0 !default;
+$rac-grid-body-border-left: $rac-primary-grid-size-0 solid $rac-primary-grid-color-0 !default;
+$rac-grid-body-border-right: $rac-primary-grid-size-0 solid $rac-primary-grid-color-0 !default;
 $rac-grid-color: unset !default;

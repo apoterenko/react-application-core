@@ -84,8 +84,7 @@
     @include rac-form(                                                                        /* @stable [15.02.2019] */
       $rac-form-actions-margin: $rac-default-layout-form-actions-margin,
       $rac-form-actions-border-top: $rac-default-layout-form-actions-border-top,
-      $rac-form-actions-padding: $rac-default-layout-form-actions-padding,
-      $rac-form-actions-height: $rac-default-layout-form-actions-height
+      $rac-form-actions-padding: $rac-default-layout-form-actions-padding
     );
   }
 
