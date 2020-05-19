@@ -304,7 +304,7 @@ $rac-time-grid-time-header-column-content-letter-spacing: $rac-letter-spacing-0 
 /**/
 $rac-grid-wrapper-display: flex !default;
 $rac-grid-wrapper-flex-direction: row !default;
-$rac-grid-wrapper-flex: 1 !default;
+$rac-grid-wrapper-flex-grow: 1 !default;
 
 /* @stable [26.12.2018] */
 $rac-loading-icon-color: $rac-primary-color-poseidon-0 !default;
@@ -753,7 +753,6 @@ $rac-default-layout-main-body-content-display: $rac-default-layout-display-0 !de
 $rac-default-layout-main-body-content-flex-direction: column !default;
 $rac-default-layout-main-body-content-flex: 1 !default;
 $rac-default-layout-main-body-content-height: 100% !default;
-$rac-default-layout-main-body-content-padding: unset !default;
 $rac-default-layout-main-body-content-width: unset !default;
 $rac-default-layout-main-body-height: 100% !default;
 $rac-default-layout-main-body-overflow: auto !default;
@@ -872,7 +871,6 @@ $rac-calendar-day-wrapper-padding-bottom: $rac-calendar-offset-0 !default;
 $rac-calendar-day-wrapper-padding-top: $rac-calendar-offset-0 !default;
 $rac-calendar-head-background: unset !default;
 $rac-calendar-margin: 0 auto !default;
-$rac-calendar-selected-day-background: $rac-primary-color-metis-3 !default;
 $rac-calendar-today-color: $rac-primary-color-dia-0 !default;
 
 /************************/

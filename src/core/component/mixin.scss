@@ -1135,34 +1135,14 @@
 }
 
 /**
- * @stable [26.10.2019]
- */
-@mixin rac-grid-wrapper(
-  $rac-grid-wrapper-custom: unset,
-  /**/
-  $rac-grid-wrapper-display: unset,
-  $rac-grid-wrapper-flex-direction: unset,
-  $rac-grid-wrapper-flex: unset,
-  $rac-grid-wrapper-margin: unset
-) {
-  #{rac-cls(rac-grid-wrapper, $rac-grid-wrapper-custom)} {
-    @include rac-styles (
-      $rac-styles-display: $rac-grid-wrapper-display,
-      $rac-styles-flex-direction: $rac-grid-wrapper-flex-direction,
-      $rac-styles-flex: $rac-grid-wrapper-flex,
-      $rac-styles-margin: $rac-grid-wrapper-margin
-    )
-  }
-}
-
-/**
  * @stable [18.10.2019]
  */
 @mixin rac-grid (
-  $rac-grid-custom: unset,                                                        /* @stable [26.10.2019] */
   $rac-grid-column-custom: unset,                                                 /* @stable [26.10.2019] */
   $rac-grid-column-icon-custom: unset,                                            /* @stable [26.10.2019] */
+  $rac-grid-custom: unset,                                                        /* @stable [26.10.2019] */
   $rac-grid-row-custom: unset,                                                    /* @stable [26.10.2019] */
+  $rac-grid-wrapper-custom: unset,                                                /* @stable [19.05.2020] */
   /**/
   $rac-grid-body-background: unset,                                               /* @stable [17.02.2020] */
   $rac-grid-body-border-bottom: unset,                                            /* @stable [14.01.2020] */
@@ -1323,8 +1303,20 @@
   $rac-grid-row-total-font-weight: unset,                                         /* @stable [27.10.2019] */
   $rac-grid-row-width: unset,                                                     /* @stable [21.10.2019] */
   $rac-grid-table-layout: unset,                                                  /* @stable [26.10.2019] */
-  $rac-grid-width: unset                                                          /* @stable [18.10.2019] */
+  $rac-grid-width: unset,                                                         /* @stable [18.10.2019] */
+  $rac-grid-wrapper-display: unset,                                               /* @stable [19.05.2020] */
+  $rac-grid-wrapper-flex-direction: unset,                                        /* @stable [19.05.2020] */
+  $rac-grid-wrapper-flex-grow: unset,                                             /* @stable [19.05.2020] */
+  $rac-grid-wrapper-margin: unset                                                 /* @stable [19.05.2020] */
 ) {
+  #{rac-cls(rac-grid-wrapper, $rac-grid-wrapper-custom)} {
+    @include rac-styles (
+      $rac-styles-display: $rac-grid-wrapper-display,
+      $rac-styles-flex-direction: $rac-grid-wrapper-flex-direction,
+      $rac-styles-flex-grow: $rac-grid-wrapper-flex-grow,
+      $rac-styles-margin: $rac-grid-wrapper-margin
+    )
+  }
 
   #{rac-cls(rac-grid, $rac-grid-custom)} {
     @include rac-styles (
@@ -2453,6 +2445,7 @@
   $rac-main-body-content-flex-direction: unset,                                               /* @stable [05.02.2020] */
   $rac-main-body-content-flex: unset,                                                         /* @stable [05.02.2020] */
   $rac-main-body-content-height: unset,                                                       /* @stable [05.02.2020] */
+  $rac-main-body-content-last-child-margin: unset,                                            /* @stable [19.05.2020] */
   $rac-main-body-content-padding-top: unset,                                                  /* @stable [10.02.2020] */
   $rac-main-body-content-padding: unset,                                                      /* @stable [05.02.2020] */
   $rac-main-body-content-width: unset,                                                        /* @stable [05.02.2020] */
@@ -2482,16 +2475,25 @@
       $rac-styles-width: $rac-main-body-width
     );
 
-    @include rac-styles (
-      $rac-styles-custom: $rac-main-body-content-cls,
-      $rac-styles-display: $rac-main-body-content-display,
-      $rac-styles-flex-direction: $rac-main-body-content-flex-direction,
-      $rac-styles-flex: $rac-main-body-content-flex,
-      $rac-styles-height: $rac-main-body-content-height,
-      $rac-styles-padding-top: $rac-main-body-content-padding-top,
-      $rac-styles-padding: $rac-main-body-content-padding,
-      $rac-styles-width: $rac-main-body-content-width
-    );
+    #{rac-cls($rac-main-body-content-cls)} {
+      @include rac-styles (
+        $rac-styles-display: $rac-main-body-content-display,
+        $rac-styles-flex-direction: $rac-main-body-content-flex-direction,
+        $rac-styles-flex: $rac-main-body-content-flex,
+        $rac-styles-height: $rac-main-body-content-height,
+        $rac-styles-padding-top: $rac-main-body-content-padding-top,
+        $rac-styles-padding: $rac-main-body-content-padding,
+        $rac-styles-width: $rac-main-body-content-width
+      );
+
+      > {
+        :last-child {
+          @include rac-styles (
+            $rac-styles-margin: $rac-main-body-content-last-child-margin
+          );
+        }
+      }
+    }
   }
 }
 
@@ -2610,7 +2612,6 @@
   $rac-default-layout-custom: unset,
   $rac-default-layout-drawer-custom: unset,
   $rac-default-layout-header-custom: unset,
-  $rac-default-layout-main-custom: unset,
   $rac-default-layout-navigation-list-custom: unset,
   /**/
   $rac-default-layout-body-display: unset,                                                    /* @stable [04.02.2020] */
@@ -2657,6 +2658,7 @@
   $rac-default-layout-main-body-content-flex-direction: unset,                                /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-flex: unset,                                          /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-height: unset,                                        /* @stable [04.02.2020] */
+  $rac-default-layout-main-body-content-last-child-margin: unset,                             /* @stable [19.05.2020] */
   $rac-default-layout-main-body-content-padding-top: unset,                                   /* @stable [10.02.2020] */
   $rac-default-layout-main-body-content-padding: unset,                                       /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-width: unset,                                         /* @stable [04.02.2020] */
@@ -2749,12 +2751,12 @@
     );
 
     @include rac-main (
-      $rac-main-custom: $rac-default-layout-main-custom,
       $rac-main-background: $rac-default-layout-main-background,
       $rac-main-body-content-display: $rac-default-layout-main-body-content-display,
       $rac-main-body-content-flex-direction: $rac-default-layout-main-body-content-flex-direction,
       $rac-main-body-content-flex: $rac-default-layout-main-body-content-flex,
       $rac-main-body-content-height: $rac-default-layout-main-body-content-height,
+      $rac-main-body-content-last-child-margin: $rac-default-layout-main-body-content-last-child-margin,
       $rac-main-body-content-padding-top: $rac-default-layout-main-body-content-padding-top,
       $rac-main-body-content-padding: $rac-default-layout-main-body-content-padding,
       $rac-main-body-content-width: $rac-default-layout-main-body-content-width,
