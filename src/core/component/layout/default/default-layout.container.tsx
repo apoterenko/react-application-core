@@ -9,7 +9,7 @@ import {
   orNull,
   selectStackWrapperItemEntities,
 } from '../../../util';
-import { BasicContainer } from '../../base/basic.container';
+import { GenericContainer } from '../../base/generic.container';
 import {
   IDefaultLayoutContainerProps,
   IDefaultLayoutContainerState,
@@ -42,7 +42,7 @@ import {
 import { DefaultLayout } from './default-layout.component';
 import { NotificationContainer } from '../../notification';
 
-export class DefaultLayoutContainer extends BasicContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
+export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
   public static readonly defaultProps: IDefaultLayoutContainerProps = {
     subHeaderConfiguration: {},

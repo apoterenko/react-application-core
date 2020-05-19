@@ -571,49 +571,6 @@ $rac-viewer-preview-icon-not-hover-display: none !default;
 $rac-viewer-preview-icon-size: 40px !default;
 
 /************************/
-/* @stable [10.02.2020] */
-/************************/
-$rac-tab-panel-display-0: flex !default;
-/**/
-$rac-active-tab-after-background: unset !default;
-$rac-active-tab-after-bottom: unset !default;
-$rac-active-tab-after-box-shadow: unset !default;
-$rac-active-tab-after-content: unset !default;
-$rac-active-tab-after-height: unset !default;
-$rac-active-tab-after-position: unset !default;
-$rac-active-tab-after-width: unset !default;
-$rac-active-tab-background: unset !default;
-$rac-active-tab-border-bottom-color: unset !default;
-$rac-active-tab-border: unset !default;
-$rac-first-tab-border-radius: unset !default;
-$rac-inactive-tab-border-left-color: unset !default;
-$rac-inactive-tab-border-right-color: unset !default;
-$rac-last-tab-border-radius: unset !default;
-$rac-tab-align-items: center !default;
-$rac-tab-background: unset !default;
-$rac-tab-border-bottom: unset !default;
-$rac-tab-border-left: unset !default;
-$rac-tab-border-right: unset !default;
-$rac-tab-border-top: unset !default;
-$rac-tab-border: unset !default;
-$rac-tab-content-font-size: $rac-primary-font-size-1 !default;
-$rac-tab-content-font-weight: $rac-primary-font-weight-1 !default;
-$rac-tab-content-margin: unset !default;
-$rac-tab-content-padding: unset !default;
-$rac-tab-cursor: pointer !default;
-$rac-tab-display: $rac-tab-panel-display-0 !default;
-$rac-tab-icon-margin: unset !default;
-$rac-tab-icon-padding: unset !default;
-$rac-tab-panel-display: $rac-tab-panel-display-0 !default;
-$rac-tab-panel-flex: 1 !default;
-$rac-tab-panel-min-height: unset !default;
-$rac-tab-panel-wrapper-border-bottom: unset !default;
-$rac-tab-panel-wrapper-display: $rac-tab-panel-display-0 !default;
-$rac-tab-panel-wrapper-flex-shrink: 0 !default;
-$rac-tab-panel-wrapper-no-user-select: true !default;
-$rac-tab-position: relative !default;
-
-/************************/
 /* @stable [05.08.2018] */
 /************************/
 $rac-menu-dialog-icon-close-cls: rac-menu-dialog__icon-close;
@@ -763,8 +720,6 @@ $rac-snackbar-error-background-color: $color-11 !default;
 $rac-default-layout-full-cls: rac-default-layout-full;
 $rac-default-layout-mini-cls: rac-default-layout-mini;
 $rac-default-layout-without-sub-header-cls: rac-default-layout-without-sub-header;
-$rac-main-body-cls: rac-main__body;
-$rac-main-body-content-cls: rac-main__body-content;
 /**/
 $rac-default-layout-display-0: flex !default;
 /**/
@@ -808,12 +763,6 @@ $rac-default-layout-main-display: unset !default;
 $rac-default-layout-main-flex-direction: unset !default;
 $rac-default-layout-main-flex: 1 !default;
 $rac-default-layout-main-position: relative !default;
-$rac-default-layout-tab-panel-wrapper-border-bottom: unset !default;
-$rac-default-layout-tab-panel-wrapper-display: unset !default;
-$rac-default-layout-tab-panel-wrapper-flex-direction: unset !default;
-$rac-default-layout-tab-panel-wrapper-flex: unset !default;
-$rac-default-layout-tab-panel-wrapper-margin: unset !default;
-$rac-default-layout-tab-panel-wrapper-padding: unset !default;
 $rac-default-layout-without-sub-header-main-body-content-padding-top: unset !default;
 //
 $rac-default-layout-drawer-header-align-items: unset !default;
@@ -950,7 +899,3 @@ $rac-header-user-avatar-border-radius: $rac-header-size-0 / 2 !default;
 $rac-header-user-avatar-height: $rac-header-size-0 !default;
 $rac-header-user-avatar-margin: 0 $rac-primary-offset-1 0 0 !default;
 $rac-header-user-avatar-width: $rac-header-size-0 !default;
-$rac-header-user-info-color: unset !default;
-$rac-header-user-info-font-size: unset !default;
-$rac-header-user-info-font-weight: unset !default;
-$rac-header-user-info-margin: unset !default;

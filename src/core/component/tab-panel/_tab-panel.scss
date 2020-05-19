@@ -1,5 +1,5 @@
-@import '../constant';
-@import '../mixin';
+@import './_tab-panel-mixin';
+@import './_tab-panel-constant';
 
 .rac {
 
@@ -38,12 +38,11 @@
     $rac-tab-icon-margin: $rac-tab-icon-margin,
     $rac-tab-icon-padding: $rac-tab-icon-padding,
     $rac-tab-panel-display: $rac-tab-panel-display,
-    $rac-tab-panel-flex: $rac-tab-panel-flex,
+    $rac-tab-panel-flex-grow: $rac-tab-panel-flex-grow,
     $rac-tab-panel-min-height: $rac-tab-panel-min-height,
+    $rac-tab-panel-no-user-select: $rac-tab-panel-no-user-select,
     $rac-tab-panel-wrapper-border-bottom: $rac-tab-panel-wrapper-border-bottom,
     $rac-tab-panel-wrapper-display: $rac-tab-panel-wrapper-display,
-    $rac-tab-panel-wrapper-flex-shrink: $rac-tab-panel-wrapper-flex-shrink,
-    $rac-tab-panel-wrapper-no-user-select: $rac-tab-panel-wrapper-no-user-select,
     $rac-tab-position: $rac-tab-position
   );
 }

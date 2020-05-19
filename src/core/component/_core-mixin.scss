@@ -561,3 +561,38 @@
     }
   }
 }
+
+/**
+ * @stable [19.05.2020]
+ */
+@mixin rac-after (
+  $rac-after-background: unset,
+  $rac-after-bottom: unset,
+  $rac-after-box-shadow: unset,
+  $rac-after-color: unset,
+  $rac-after-content: unset,
+  $rac-after-font-size: unset,
+  $rac-after-height: unset,
+  $rac-after-left: unset,
+  $rac-after-position: unset,
+  $rac-after-right: unset,
+  $rac-after-top: unset,
+  $rac-after-width: unset
+) {
+  &::after {
+    @include rac-styles (
+      $rac-styles-background: $rac-after-background,
+      $rac-styles-bottom: $rac-after-bottom,
+      $rac-styles-box-shadow: $rac-after-box-shadow,
+      $rac-styles-color: $rac-after-color,
+      $rac-styles-content: $rac-after-content,
+      $rac-styles-font-size: $rac-after-font-size,
+      $rac-styles-height: $rac-after-height,
+      $rac-styles-left: $rac-after-left,
+      $rac-styles-position: $rac-after-position,
+      $rac-styles-right: $rac-after-right,
+      $rac-styles-top: $rac-after-top,
+      $rac-styles-width: $rac-after-width
+    );
+  }
+}

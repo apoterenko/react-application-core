@@ -1,5 +1,5 @@
 import {
-  IContainerProps,
+  IGenericContainerProps,
   IHeaderConfigurationEntity,
   IQueryFilterEntity,
 } from '../../../definition';
@@ -9,12 +9,12 @@ import {
   ISubHeaderConfigurationWrapper,
   ISubHeaderRenderedWrapper,
 } from '../../../definitions.interface';
-import { ISubHeaderConfiguration } from '../../../configurations-definitions.interface';  // TODO
+import { ISubHeaderConfiguration } from '../../../configurations-definitions.interface';
 
 /**
  * @stable [13.08.2018]
  */
-export interface IDefaultLayoutContainerEntity extends IContainerProps,
+export interface IDefaultLayoutContainerEntity extends IGenericContainerProps,
                                                        IQueryFilterEntity,
                                                        IProgressWrapper {
 }
@@ -22,19 +22,12 @@ export interface IDefaultLayoutContainerEntity extends IContainerProps,
 /**
  * @stable [31.05.2018]
  */
-export interface IDefaultLayoutContainerConfiguration
-  extends IContainerProps,
+export interface IDefaultLayoutContainerProps
+  extends IDefaultLayoutContainerEntity,
     IFooterWrapper,
     IHeaderConfigurationEntity,
     ISubHeaderRenderedWrapper,
     ISubHeaderConfigurationWrapper<ISubHeaderConfiguration> {
-}
-
-/**
- * @stable [31.05.2018]
- */
-export interface IDefaultLayoutContainerProps extends IDefaultLayoutContainerEntity,
-                                                      IDefaultLayoutContainerConfiguration {
 }
 
 /**

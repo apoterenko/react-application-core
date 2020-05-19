@@ -1,5 +1,6 @@
 @import '../../constant';
 @import '../../mixin';
+@import './_default-layout-constant';
 
 .rac {
 
@@ -59,7 +60,7 @@
     $rac-default-layout-tab-panel-wrapper-border-bottom: $rac-default-layout-tab-panel-wrapper-border-bottom,
     $rac-default-layout-tab-panel-wrapper-display: $rac-default-layout-tab-panel-wrapper-display,
     $rac-default-layout-tab-panel-wrapper-flex-direction: $rac-default-layout-tab-panel-wrapper-flex-direction,
-    $rac-default-layout-tab-panel-wrapper-flex: $rac-default-layout-tab-panel-wrapper-flex,
+    $rac-default-layout-tab-panel-wrapper-flex-grow: $rac-default-layout-tab-panel-wrapper-flex-grow,
     $rac-default-layout-tab-panel-wrapper-margin: $rac-default-layout-tab-panel-wrapper-margin,
     $rac-default-layout-tab-panel-wrapper-padding: $rac-default-layout-tab-panel-wrapper-padding
   );

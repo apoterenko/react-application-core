@@ -1,0 +1,53 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [19.05.2020] */
+/************************/
+$rac-primary-tab-border-radius-0: $rac-primary-border-radius-2 !default;
+/**/
+$rac-primary-tab-color-0: $rac-primary-color-metis-1 !default;
+$rac-primary-tab-color-1: $rac-primary-color-metis-0 !default;
+$rac-primary-tab-color-2: transparent !default;
+/**/
+$rac-primary-tab-border-size-0: 1px !default;
+
+/************************/
+/* @stable [19.05.2020] */
+/************************/
+$rac-active-tab-after-background: unset !default;
+$rac-active-tab-after-bottom: unset !default;
+$rac-active-tab-after-box-shadow: unset !default;
+$rac-active-tab-after-content: unset !default;
+$rac-active-tab-after-height: unset !default;
+$rac-active-tab-after-position: unset !default;
+$rac-active-tab-after-width: unset !default;
+$rac-active-tab-background: $rac-primary-color-ganymede-0 !default;
+$rac-active-tab-border-bottom-color: unset !default;
+$rac-active-tab-border: $rac-primary-tab-border-size-0 solid $rac-primary-tab-color-1 !default;
+$rac-first-tab-border-radius: $rac-primary-tab-border-radius-0 0 0 $rac-primary-tab-border-radius-0 !default;
+$rac-inactive-tab-border-left-color: $rac-primary-tab-color-0 !default;
+$rac-inactive-tab-border-right-color: $rac-primary-tab-color-0 !default;
+$rac-last-tab-border-radius: 0 $rac-primary-tab-border-radius-0 $rac-primary-tab-border-radius-0 0 !default;
+$rac-tab-align-items: center !default;
+$rac-tab-background: $rac-primary-tab-color-1 !default;
+$rac-tab-border-bottom: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-0 !default;
+$rac-tab-border-left: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-2;
+$rac-tab-border-right: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-2;
+$rac-tab-border-top: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-0 !default;
+$rac-tab-border: unset !default;
+$rac-tab-content-font-size: $rac-primary-font-size-1 !default;
+$rac-tab-content-font-weight: $rac-primary-font-weight-1 !default;
+$rac-tab-content-margin: unset !default;
+$rac-tab-content-padding: 0 $rac-primary-offset-3 !default;
+$rac-tab-cursor: pointer !default;
+$rac-tab-display: $rac-primary-display-0 !default;
+$rac-tab-icon-margin: 0 $rac-primary-offset-2 !default;
+$rac-tab-icon-padding: unset !default;
+$rac-tab-panel-display: $rac-primary-display-0 !default;
+$rac-tab-panel-flex-grow: unset !default;
+$rac-tab-panel-min-height: 32px !default;
+$rac-tab-panel-no-user-select: true !default;
+$rac-tab-panel-wrapper-border-bottom: unset !default;
+$rac-tab-panel-wrapper-display: unset !default;
+$rac-tab-position: relative !default;
