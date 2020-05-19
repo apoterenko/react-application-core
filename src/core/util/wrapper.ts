@@ -596,8 +596,7 @@ export const isAllowEmptyFilterValue = (wrapper: IAllowEmptyFilterValueWrapper):
  * @param {ILoadingWrapper} entity
  * @returns {boolean}
  */
-export const isLoading = (entity: ILoadingWrapper): boolean =>
-  R.isNil(entity) ? false : entity.loading === true;
+const isLoading = (entity: ILoadingWrapper): boolean => R.isNil(entity) ? false : entity.loading === true;
 
 /**
  * @stable [26.11.2019]
@@ -751,5 +750,6 @@ export class WrapperUtils {
   public static readonly inProgress = inProgress;                                       /* @stable [19.05.2020] */
   public static readonly isFieldRendered = isFieldRendered;                             /* @stable [18.05.2020] */
   public static readonly isForceReload = isForceReload;                                 /* @stable [18.05.2020] */
+  public static readonly isLoading = isLoading;                                         /* @stable [19.05.2020] */
   public static readonly isTouched = isTouched;                                         /* @stable [18.05.2020] */
 }

@@ -21,13 +21,11 @@ import {
   INamedEntity,
   INotificationWrapperEntity,
   IOperationEntity,
-  IOptionEntity,
   IPresetsSelectableHoveredEntity,
   IReduxDictionariesEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxSortDirectionsEntity,
-  ISelectOptionEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
   IStackItemEntity,
@@ -50,11 +48,9 @@ import {
   IEntityIdTWrapper,
   IErrorWrapper,
   INotificationWrapper,
-  IOptionsWrapper,
   IStackWrapper,
   ITransportWrapper,
   IUserWrapper,
-  IWaitingForOptionsWrapper,
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -63,16 +59,14 @@ import { TypeUtils } from './type';
 import {
   doesErrorExist,
   inProgress,
-  isLoading,
   isReady,
+  WrapperUtils,
 } from './wrapper';
 import {
   selectActiveValue,
   selectChannel,
-  selectData,
   selectDictionaries,
   selectEntityId,
-  selectForm,
   selectNotification,
   Selectors,
   selectQueue,
@@ -110,14 +104,6 @@ export const selectError =
     R.isNil(entity) ? UNDEF : entity.error;
 
 /**
- * TODO
- * @deprecated
- */
-export const selectEditableEntity =
-  <TEntity extends IEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>): IReduxFormEntity<TEntity> =>
-    selectForm(wrapper);
-
-/**
  * @stable [13.02.2020]
  * @param {IEffectsAction} action
  * @returns {TResult}
@@ -131,22 +117,6 @@ export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): T
  */
 export const mapEntityId = (id: EntityIdT): IEntityIdTWrapper =>
   defValuesFilter<IEntityIdTWrapper, IEntityIdTWrapper>({id});
-
-/**
- * @stable [29.01.2020]
- * @param {boolean} waitingForOptions
- * @returns {IWaitingForOptionsWrapper}
- */
-export const mapWaitingForOptions = (waitingForOptions: boolean): IWaitingForOptionsWrapper =>
-  defValuesFilter<IWaitingForOptionsWrapper, IWaitingForOptionsWrapper>({waitingForOptions});
-
-/**
- * @stable [28.01.2020]
- * @param {TValue} options
- * @returns {IOptionsWrapper<TValue>}
- */
-export const mapOptions = <TValue>(options: TValue): IOptionsWrapper<TValue> =>
-  defValuesFilter<IOptionsWrapper<TValue>, IOptionsWrapper<TValue>>({options});
 
 /**
  * @stable [13.11.2019]
@@ -371,53 +341,6 @@ export const mapApiEntity =
   };
 
 /**
- * @stable [11.10.2019]
- * @param {TEntity[] | TEntity} data
- * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
- */
-export const mapSelectOptions = <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<ISelectOptionEntity<TEntity>> =>
-  ConditionUtils.ifNotNilThanValue(
-    data,
-    (entities) => (
-      [].concat(entities)
-        .map(
-          (entity) => defValuesFilter<ISelectOptionEntity<TEntity>, ISelectOptionEntity<TEntity>>({
-            value: selectEntityId(entity),
-            label: entity.name,
-            disabled: entity.disabled,
-            rawData: entity,
-          })
-        )
-    ),
-    UNDEF_SYMBOL
-  );
-
-/**
- * @stable [28.01.2020]
- * @param {IReduxDictionaryEntity<TEntity>} dictionaryEntity
- * @param {(data: (TEntity[] | TEntity)) => AnyT} accessor
- * @returns {Array<ISelectOptionEntity<TEntity>>}
- */
-export const selectDictionaryEntityOptions =
-  <TEntity>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
-            accessor?: (data: TEntity | TEntity[]) => AnyT): Array<ISelectOptionEntity<TEntity>> =>
-    mapSelectOptions<TEntity>(
-      ConditionUtils.ifNotNilThanValue(
-        selectData<TEntity | TEntity[]>(dictionaryEntity),
-        (data) => TypeUtils.isFn(accessor) ? accessor(data) : data
-      )
-    );
-
-/**
- * @stable [28.01.2020]
- * @param {IReduxDictionaryEntity<TDictionaryEntity>} dictionaryEntity
- * @returns {boolean}
- */
-export const selectDictionaryEntityLoading =
-  <TDictionaryEntity>(dictionaryEntity: IReduxDictionaryEntity<TDictionaryEntity>): boolean =>
-    isLoading(dictionaryEntity);
-
-/**
  * @stable [28.01.2020]
  * @param {IReduxDictionaryEntity<TEntity>} dictionaryEntity
  * @param {(data: TEntity[]) => TResult} accessor
@@ -427,8 +350,8 @@ export const mapDictionaryEntityField =
   <TEntity, TResult = TEntity[]>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
                                  accessor?: (data: TEntity[]) => TResult): IGenericBaseSelectEntity =>
     ({
-      ...mapWaitingForOptions(selectDictionaryEntityLoading(dictionaryEntity)),
-      ...mapOptions(selectDictionaryEntityOptions<TEntity>(dictionaryEntity, accessor)),
+      ...GenericMappers.waitingForOptions(WrapperUtils.isLoading(dictionaryEntity)),
+      ...GenericMappers.options(GenericMappers.dictionaryEntityAsSelectOptionEntities<TEntity>(dictionaryEntity, accessor)),
     });
 
 /**
@@ -569,6 +492,7 @@ export const mapUnsavedFormChangesDialogContainerProps =
  * @stable [05.05.2020]
  */
 export class Mappers {
+  public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                     /* @stable [19.05.2020] */
   public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                     /* @stable [10.05.2020] */
   public static readonly entityAsExtendedFormEntity = GenericMappers.entityAsExtendedFormEntity;                                                             /* @stable [10.05.2020] */
   public static readonly filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;                                                   /* @stable [10.05.2020] */
@@ -584,6 +508,7 @@ export class Mappers {
   public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                         /* @stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                   /* @stable [08.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                     /* @stable [08.05.2020] */
+  public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                         /* @stable [19.05.2020] */
   public static readonly pagedEntity = GenericMappers.pagedEntity;
   public static readonly pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
   public static readonly paginatedEntity = GenericMappers.paginatedEntity;

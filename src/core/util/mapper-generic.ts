@@ -1,22 +1,25 @@
 import * as R from 'ramda';
 
 import {
+  AnyT,
   IDisabledWrapper,
   IEntity,
   IFormWrapper,
   ILayoutWrapper,
   IListWrapper,
+  IOptionsWrapper,
   IPrimaryFilterWrapper,
   IProgressWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
   ISecondaryFilterWrapper,
   ISectionNameWrapper,
+  IWaitingForOptionsWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { defValuesFilter } from './filter';
 import {
-  ifNotNilThanValue,
+  ConditionUtils,
   orUndef,
 } from './cond';
 import {
@@ -27,10 +30,12 @@ import {
   IFormEntity,
   ILayoutEntity,
   IListEntity,
+  IOptionEntity,
   IPrimaryFilterExtendedFormEntity,
   IPrimaryFilterReduxFormEntity,
   IQueryFilterEntity,
   IReduxActiveQueryEntity,
+  IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxLifeCycleEntity,
   IReduxPagedEntity,
@@ -39,11 +44,21 @@ import {
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
   ISecondaryFilterReduxFormEntity,
+  ISelectOptionEntity,
 } from '../definition';
 import { Selectors } from './select';
 import { inProgress } from './wrapper';
 import { isNewEntity } from './entity';
 import { nvl } from './nvl';
+import { TypeUtils } from './type';
+
+/**
+ * @stable [19.05.2020]
+ * @param {TValue} options
+ * @returns {IOptionsWrapper<TValue>}
+ */
+const mapOptions = <TValue>(options: TValue): IOptionsWrapper<TValue> =>
+  defValuesFilter<IOptionsWrapper<TValue>, IOptionsWrapper<TValue>>({options});
 
 /**
  * @mapper
@@ -53,6 +68,14 @@ import { nvl } from './nvl';
  */
 const mapLayout = <TValue>(layout: TValue): ILayoutWrapper<TValue> =>
   defValuesFilter<ILayoutWrapper<TValue>, ILayoutWrapper<TValue>>({layout});
+
+/**
+ * @stable [19.05.2020]
+ * @param {boolean} waitingForOptions
+ * @returns {IWaitingForOptionsWrapper}
+ */
+export const mapWaitingForOptions = (waitingForOptions: boolean): IWaitingForOptionsWrapper =>
+  defValuesFilter<IWaitingForOptionsWrapper, IWaitingForOptionsWrapper>({waitingForOptions});
 
 /**
  * @mapper
@@ -202,7 +225,7 @@ const mapQueryFilterEntityAsQuery = (entity: IQueryFilterEntity): IQueryWrapper 
  * @param {IReduxPagedEntity} entity
  * @returns {IReduxPagedEntity}
  */
-const mapPagedEntity = (entity: IReduxPagedEntity): IReduxPagedEntity => ifNotNilThanValue(
+const mapPagedEntity = (entity: IReduxPagedEntity): IReduxPagedEntity => ConditionUtils.ifNotNilThanValue(
   entity,
   () => defValuesFilter<IReduxPagedEntity, IReduxPagedEntity>({
     page: entity.page,
@@ -226,6 +249,47 @@ const mapExtendedEntity =
       newEntity: extendedEntity.newEntity,
       originalEntity: extendedEntity.originalEntity,
     });
+
+/**
+ * @stable [19.05.2020]
+ * @param {ISelectOptionEntity<TRawData>} entity
+ * @returns {ISelectOptionEntity<TRawData>}
+ */
+const mapSelectOptionEntity =
+  <TRawData = IEntity>(entity: ISelectOptionEntity<TRawData>): ISelectOptionEntity<TRawData> =>
+    defValuesFilter<ISelectOptionEntity<TRawData>, ISelectOptionEntity<TRawData>>({
+      disabled: entity.disabled,
+      label: entity.label,
+      rawData: entity.rawData,
+      value: entity.value,
+    });
+
+/**
+ * @stable [19.05.2020]
+ * @param {TEntity} entity
+ * @returns {ISelectOptionEntity<TEntity extends IOptionEntity>}
+ */
+const mapOptionEntityAsSelectOptionEntity =
+  <TEntity extends IOptionEntity>(entity: TEntity): ISelectOptionEntity<TEntity> =>
+    mapSelectOptionEntity<TEntity>({
+      value: entity.id,
+      label: entity.name,
+      disabled: entity.disabled,
+      rawData: entity,
+    });
+
+/**
+ * @stable [19.05.2020]
+ * @param {TEntity[] | TEntity} data
+ * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
+ */
+const mapOptionEntitiesAsSelectOptionEntities =
+  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<ISelectOptionEntity<TEntity>> =>
+    ConditionUtils.ifNotNilThanValue(
+      data,
+      () => [].concat(data).map((entity) => mapOptionEntityAsSelectOptionEntity(entity)),
+      UNDEF_SYMBOL
+    );
 
 /**
  * @mapper
@@ -314,7 +378,7 @@ const mapListSelectedExtendedFormEntityAsFinalEntity =
  * @param {IReduxActiveQueryEntity} entity
  * @returns {IReduxActiveQueryEntity}
  */
-const mapActiveQueryEntity = (entity: IReduxActiveQueryEntity): IReduxActiveQueryEntity => ifNotNilThanValue(
+const mapActiveQueryEntity = (entity: IReduxActiveQueryEntity): IReduxActiveQueryEntity => ConditionUtils.ifNotNilThanValue(
   entity,
   () => defValuesFilter<IReduxActiveQueryEntity, IReduxActiveQueryEntity>({
     active: entity.active,
@@ -329,7 +393,7 @@ const mapActiveQueryEntity = (entity: IReduxActiveQueryEntity): IReduxActiveQuer
  * @param {IReduxLifeCycleEntity} entity
  * @returns {IReduxLifeCycleEntity}
  */
-const mapLifeCycleEntity = (entity: IReduxLifeCycleEntity): IReduxLifeCycleEntity => ifNotNilThanValue(
+const mapLifeCycleEntity = (entity: IReduxLifeCycleEntity): IReduxLifeCycleEntity => ConditionUtils.ifNotNilThanValue(
   entity,
   () => defValuesFilter<IReduxLifeCycleEntity, IReduxLifeCycleEntity>({
     error: entity.error,
@@ -346,7 +410,7 @@ const mapLifeCycleEntity = (entity: IReduxLifeCycleEntity): IReduxLifeCycleEntit
  * @returns {IReduxPaginatedEntity}
  */
 const mapPaginatedEntity = (entity: IReduxPaginatedEntity): IReduxPaginatedEntity =>
-  ifNotNilThanValue(
+  ConditionUtils.ifNotNilThanValue(
     entity,
     () => defValuesFilter<IReduxPaginatedEntity, IReduxPaginatedEntity>({
       ...mapPagedEntity(entity),
@@ -366,7 +430,7 @@ const mapPaginatedEntity = (entity: IReduxPaginatedEntity): IReduxPaginatedEntit
  */
 const mapPaginatedEntityAsPagedEntity =
   (entity: IReduxPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       entity,
       () => mapPagedEntity({
         page: entity.lockPage ? entity.page : FIRST_PAGE,  // lockPage <=> backward, forward, last, first
@@ -492,10 +556,27 @@ const mapFullSearchFilter = <TFilter, TEntity = IEntity>(wrapper: IQueryFilterEn
 }) as TFilter;
 
 /**
+ * @stable [19.05.2020]
+ * @param {IReduxDictionaryEntity<TEntity>} dictionaryEntity
+ * @param {(data: (TEntity[] | TEntity)) => AnyT} accessor
+ * @returns {Array<ISelectOptionEntity<TEntity>>}
+ */
+const mapDictionaryEntityAsSelectOptionEntities =
+  <TEntity>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
+            accessor?: (data: TEntity | TEntity[]) => AnyT): Array<ISelectOptionEntity<TEntity>> =>
+    GenericMappers.optionEntitiesAsSelectOptionEntities(
+      ConditionUtils.ifNotNilThanValue(
+        Selectors.data(dictionaryEntity),
+        (data) => TypeUtils.isFn(accessor) ? accessor(data) : data
+      )
+    );
+
+/**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
   public static readonly activeQueryEntity = mapActiveQueryEntity;                                                                                /* stable [07.05.2020] */
+  public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;                                      /* stable [19.05.2020] */
   public static readonly disabled = mapDisabled;                                                                                                  /* stable [07.05.2020] */
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;                                                                      /* stable [08.05.2020] */
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                                                              /* stable [10.05.2020] */
@@ -509,6 +590,8 @@ export class GenericMappers {
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;                                      /* stable [09.05.2020] */
   public static readonly listSelectedExtendedFormEntityAsFinalEntity = mapListSelectedExtendedFormEntityAsFinalEntity;                            /* stable [10.05.2020] */
+  public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;                                          /* stable [19.05.2020] */
+  public static readonly options = mapOptions;                                                                                                    /* stable [19.05.2020] */
   public static readonly pagedEntity = mapPagedEntity;                                                                                            /* stable [07.05.2020] */
   public static readonly paginatedEntity = mapPaginatedEntity;                                                                                    /* stable [07.05.2020] */
   public static readonly paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                                                  /* stable [07.05.2020] */
@@ -521,4 +604,5 @@ export class GenericMappers {
   public static readonly secondaryFilterFormEntityAsFormEntity = mapSecondaryFilterFormEntityAsFormEntity;                                        /* stable [09.05.2020] */
   public static readonly sectionName = mapSectionName;                                                                                            /* stable [08.05.2020] */
   public static readonly sectionNameWrapper = mapSectionNameWrapper;                                                                              /* stable [08.05.2020] */
+  public static readonly waitingForOptions = mapWaitingForOptions;                                                                                /* stable [19.05.2020] */
 }
