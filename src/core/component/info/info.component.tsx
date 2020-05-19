@@ -39,7 +39,7 @@ export class Info extends GenericComponent<IInfoComponentProps> {
     const hasChildren = !R.isNil(props.children);
     const messages = this.settings.messages;
 
-    const result: ITextWrapper & IProgressWrapper<boolean> & IErrorWrapper<boolean> =
+    const result: ITextWrapper<string | boolean> & IProgressWrapper<boolean> & IErrorWrapper<boolean> =
       progress === true
         ? {text: messages.PLEASE_WAIT, progress: true}
         : (
@@ -65,7 +65,15 @@ export class Info extends GenericComponent<IInfoComponentProps> {
                                       ? emptyData as string
                                       : messages.NOT_DATA_FOUND
                                   )
-                                  : (message || (hasChildren ? message : messages.NO_DATA))
+                                  : (
+                                    message === false
+                                      ? null
+                                      : (
+                                        R.isNil(message)
+                                          ? (hasChildren ? message : messages.NO_DATA)
+                                          : message
+                                      )
+                                  )
                               ),
                             }
                         )

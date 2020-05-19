@@ -3,6 +3,7 @@ import * as React from 'react';
 import { AnyT } from '../../definitions.interface';
 import { UniversalList } from './universal-list.component';
 import { Info } from '../info';
+import { nvl } from '../../util';
 
 export abstract class BaseList<TProps extends any, // TODO Props
                                TState = {},
@@ -27,7 +28,7 @@ export abstract class BaseList<TProps extends any, // TODO Props
         error={error}
         message={emptyMessage}
         progress={progress}
-        emptyData={emptyData ? emptyDataMessage : emptyData}/>
+        emptyData={emptyData ? nvl(emptyDataMessage, emptyData) : emptyData}/>
     );
   }
 }

@@ -44,3 +44,10 @@ export const coalesce = <TValue = AnyT>(...v: TValue[]): TValue => R.find<TValue
  * @returns {TValue}
  */
 export const coalesceDef = <TValue = AnyT>(...v: TValue[]): TValue => R.find<TValue>((v0) => isDef(v0), v);
+
+/**
+ * @stable [19.05.2020]
+ */
+export class NvlUtils {
+  public static readonly coalesce = coalesce;                           /* @stable [19.05.2020] */
+}

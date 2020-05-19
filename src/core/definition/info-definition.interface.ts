@@ -15,7 +15,7 @@ export interface IPresetsInfoEntity
   extends IEmptyDataWrapper<boolean | string>,
     IErrorWrapper<boolean | string | Error | {}>,
     IFullWrapper,
-    IMessageWrapper,
+    IMessageWrapper<boolean | string>,
     IProgressWrapper<boolean | string> {
 }
 

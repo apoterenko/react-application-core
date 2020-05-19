@@ -125,7 +125,7 @@ export interface IGenericListEntity<TEntity = IEntity,
   extends IReduxListEntity<TEntity, TRawData>,
     IPresetsListEntity,
     IEmptyDataMessageWrapper,
-    IEmptyMessageWrapper,
+    IEmptyMessageWrapper<string | boolean>,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
     ISelectedElementEntity {
