@@ -4,7 +4,7 @@
 /************************/
 /* @stable [20.05.2020] */
 /************************/
-$rac-main-body-content-min-width: min-content !default;
+$rac-main-body-content-min-width: unset !default;  /* min-content (for right padding, but the chartjs doesn't allow) */
 $rac-main-flex-direction: unset !default;
 
 /************************/
