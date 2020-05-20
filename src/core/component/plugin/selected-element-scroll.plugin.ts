@@ -9,7 +9,7 @@ import {
   ISelectedElementComponentProps,
 } from '../../definition';
 import {
-  ifNotNilThanValue,
+  ConditionUtils,
   isRefreshOnUpdate,
 } from '../../util';
 
@@ -43,15 +43,16 @@ export class SelectedElementPlugin implements IGenericPlugin {
    * @stable [19.12.2019]
    */
   private refreshScrollPosition(): void {
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.selectedElement,
       (selectedElement) => {
         const self = this.selfRef;
+
         if (!this.domAccessor.isElementVisibleWithinParent(selectedElement, self)) {
           this.domAccessor.scrollTo(
             selectedElement,
             self,
-            ifNotNilThanValue(
+            ConditionUtils.ifNotNilThanValue(
               this.stickyElement,
               (stickyElement) => ({offsetTop: this.domAccessor.getHeight(stickyElement)}),
               {}
@@ -63,23 +64,26 @@ export class SelectedElementPlugin implements IGenericPlugin {
   }
 
   /**
-   * @stable [26.10.2019]
+   * @stable [20.05.2020]
    * @returns {Element}
    */
   private get selectedElement(): Element {
-    return this.domAccessor.findElement(
-      `.${this.component.props.selectedElementClassName}`, this.selfRef
+    return ConditionUtils.ifNotEmptyThanValue(
+      this.component.props.selectedElementClassName,
+      (selectedElementClassName) =>
+        this.domAccessor.findElement(this.domAccessor.asSelector(selectedElementClassName), this.selfRef)
     );
   }
 
   /**
-   * @stable [08.11.2019]
+   * @stable [20.05.2020]
    * @returns {Element}
    */
   private get stickyElement(): Element {
-    return ifNotNilThanValue(
+    return ConditionUtils.ifNotEmptyThanValue(
       this.component.props.stickyElementClassName,
-      (stickyElementClassName) => this.domAccessor.findElement(`.${stickyElementClassName}`, this.selfRef)
+      (stickyElementClassName) =>
+        this.domAccessor.findElement(this.domAccessor.asSelector(stickyElementClassName), this.selfRef)
     );
   }
 
@@ -88,6 +92,6 @@ export class SelectedElementPlugin implements IGenericPlugin {
    * @returns {HTMLElement}
    */
   private get selfRef(): HTMLElement {
-    return this.component.selfRef.current;
+    return this.component.actualRef.current;
   }
 }

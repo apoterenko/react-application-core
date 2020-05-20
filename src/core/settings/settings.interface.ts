@@ -5,6 +5,7 @@ import {
   DEFAULT_COMPONENTS_SETTINGS_ENTITY,
   DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_DATE_TIME_SETTINGS_ENTITY,
+  DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY,
   DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
   DEFAULT_MESSAGES_SETTINGS_ENTITY,
   DEFAULT_OAUTH_SETTINGS_ENTITY,
@@ -16,6 +17,7 @@ import {
   IComponentsSettingsEntity,
   ICurrencySettingsEntity,
   IDateTimeSettingsEntity,
+  IElementsMarkersSettingsEntity,
   IGoogleMapsSettingsEntity,
   IMessagesSettingsEntity,
   IOAuthSettingsEntity,
@@ -102,6 +104,7 @@ export interface ISettingsEntity {
   currency?: ICurrencySettingsEntity;
   dateTime?: IDateTimeSettings;
   downloadUrl?: string;
+  elementsMarkers?: IElementsMarkersSettingsEntity;
   emptyPictureUrl?: string;
   googleMaps?: IGoogleMapsSettingsEntity;
   messages?: IMessagesSettings;
@@ -182,6 +185,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   storage: DEFAULT_STORAGE_SETTINGS_ENTITY,
   currency: DEFAULT_CURRENCY_SETTINGS_ENTITY,
   components: DEFAULT_COMPONENTS_SETTINGS_ENTITY,
+  elementsMarkers: DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY,
   channel: {
     eventToListen: 'client-event-to-listen',
     eventToEmit: 'client-event-to-emit',

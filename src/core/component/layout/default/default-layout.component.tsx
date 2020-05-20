@@ -2,27 +2,24 @@ import * as React from 'react';
 
 import { GenericComponent } from '../../base/generic.component';
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
   inProgress,
   isBackActionRendered,
   isDrawerHeaderRendered,
-  isHeaderRendered,
   isSubHeaderRendered,
-  joinClassName,
   mapStoreEntity,
   mergeWithSystemProps,
   nvl,
-  orNull,
   selectStackWrapperItemEntities,
+  WrapperUtils,
 } from '../../../util';
 import { Drawer } from '../../drawer';
 import {
-  ElementsMarkersEnum,
+  DefaultLayoutClassesEnum,
   IDefaultLayoutProps,
   IHeaderProps,
   LayoutModesEnum,
-  UniversalScrollableContext,
-  UniversalStickyContext,
 } from '../../../definition';
 import { FlexLayout } from '../../layout/flex';
 import {
@@ -53,55 +50,51 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const stickyMarker = ElementsMarkersEnum.STICKY_ELEMENT_275B4646;
-    const selectedMarker = ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6;
 
     return (
-      <UniversalStickyContext.Provider value={stickyMarker}>
-        <UniversalScrollableContext.Provider value={selectedMarker}>
-          <div
-            className={
-              joinClassName(
-                'rac-default-layout',
-                calc(props.className),
-                isSubHeaderRendered(props) ? 'rac-default-layout-with-sub-header' : 'rac-default-layout-without-sub-header',
-                this.isLayoutFullModeEnabled ? 'rac-default-layout-full' : 'rac-default-layout-mini'
-              )
-            }>
-            {this.drawerElement}
-            <div className='rac-default-layout__body'>
-              {isHeaderRendered(props) && (props.header || this.headerElement)}
-              <Main
-                stickyElementClassName={stickyMarker}
-                selectedElementClassName={selectedMarker}
-                plugins={[
-                  PerfectScrollPlugin,
-                  SelectedElementPlugin,
-                  StickyHeaderPlugin
-                ]}>
-                {props.children}
-                {this.progressElement}
-              </Main>
-              {props.footer}
-            </div>
-          </div>
-        </UniversalScrollableContext.Provider>
-      </UniversalStickyContext.Provider>
+      <div
+        className={
+          ClsUtils.joinClassName(
+            DefaultLayoutClassesEnum.DEFAULT_LAYOUT,
+            CalcUtils.calc(props.className),
+            isSubHeaderRendered(props) ? 'rac-default-layout-with-sub-header' : 'rac-default-layout-without-sub-header',
+            this.isLayoutFullModeEnabled
+              ? DefaultLayoutClassesEnum.DEFAULT_LAYOUT_FULL
+              : DefaultLayoutClassesEnum.DEFAULT_LAYOUT_MINI
+          )
+        }>
+        {this.drawerElement}
+        {this.bodyElement}
+      </div>
     );
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [20.05.2020]
    * @returns {JSX.Element}
    */
-  private get progressElement(): JSX.Element {
-    return orNull(
-      this.isLayoutInProgress,
-      () => (
-        <Dialog
-          progress={true}
-          overlay={true}/>
-      )
+  private get bodyElement(): JSX.Element {
+    const elementsMarkers = this.settings.elementsMarkers;
+    const mergedProps = this.mergedProps;
+
+    return (
+      <div
+        className={DefaultLayoutClassesEnum.DEFAULT_LAYOUT_BODY}
+      >
+        {WrapperUtils.isHeaderRendered(mergedProps) && (mergedProps.header || this.headerElement)}
+        <Main
+          stickyElementClassName={elementsMarkers.stickyElement}
+          selectedElementClassName={elementsMarkers.selectedElement}
+          plugins={[
+            PerfectScrollPlugin,
+            SelectedElementPlugin,
+            StickyHeaderPlugin
+          ]}>
+          {this.props.children}
+          {this.isLayoutInProgress && <Dialog progress={true} overlay={true}/>}
+        </Main>
+        {WrapperUtils.isFooterRendered(mergedProps) && mergedProps.footer}
+      </div>
     );
   }
 
@@ -141,7 +134,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   private get drawerHeaderElement(): JSX.Element {
     return (
       <div
-        className='rac-default-layout__drawer-header'
+        className={DefaultLayoutClassesEnum.DEFAULT_LAYOUT_DRAWER_HEADER}
         onClick={this.onLogoMenuActionClick}
       >
         {this.drawerContentElement}

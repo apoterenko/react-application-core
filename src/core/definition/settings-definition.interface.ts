@@ -1,3 +1,4 @@
+import { ElementsMarkersEnum } from './dom-definition.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
 import { IButtonProps } from './button-definition.interface';
 import { IDefaultLayoutProps } from './layout-definition.interface';
@@ -78,6 +79,24 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
   uiLocale: 'en-US',
   uiCurrency: 'USD',
   uiShortCurrency: '$',
+});
+
+/**
+ * @settings-entity
+ * @stable [20.05.2020]
+ */
+export interface IElementsMarkersSettingsEntity {
+  selectedElement?: string;
+  stickyElement?: string;
+}
+
+/**
+ * @default-entity
+ * @stable [20.05.2020]
+ */
+export const DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY = Object.freeze<IElementsMarkersSettingsEntity>({
+  selectedElement: ElementsMarkersEnum.SELECTED_ELEMENT_817ACCF6,
+  stickyElement: ElementsMarkersEnum.STICKY_ELEMENT_275B4646,
 });
 
 /**

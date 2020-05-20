@@ -31,6 +31,7 @@ import {
   IFieldRenderedWrapper,
   IFirstAllowedWrapper,
   IFocusedWrapper,
+  IFooterRenderedWrapper,
   IForceReloadWrapper,
   IForciblyApplyLocalFilterWrapper,
   IFullWrapper,
@@ -340,11 +341,19 @@ export const isIndexed = (indexedEntity: IIndexedWrapper): boolean =>
 
 /**
  * @stable [03.01.2019]
- * @param {IHeaderRenderedWrapper} headerRendered
+ * @param {IHeaderRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isHeaderRendered = (headerRendered: IHeaderRenderedWrapper): boolean =>
-  ifNotNilThanValue(headerRendered, () => headerRendered.headerRendered !== false, false);
+export const isHeaderRendered = (wrapper: IHeaderRenderedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.headerRendered !== false;
+
+/**
+ * @stable [20.05.2020]
+ * @param {IFooterRenderedWrapper} wrapper
+ * @returns {boolean}
+ */
+const isFooterRendered = (wrapper: IFooterRenderedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.footerRendered !== false;
 
 /**
  * @stable [11.01.2020]
@@ -749,8 +758,10 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
 export class WrapperUtils {
   public static readonly inProgress = inProgress;                                       /* @stable [19.05.2020] */
   public static readonly isFieldRendered = isFieldRendered;                             /* @stable [18.05.2020] */
+  public static readonly isFooterRendered = isFooterRendered;                           /* @stable [20.05.2020] */
   public static readonly isForceReload = isForceReload;                                 /* @stable [18.05.2020] */
   public static readonly isFull = isFull;                                               /* @stable [20.05.2020] */
+  public static readonly isHeaderRendered = isHeaderRendered;                           /* @stable [20.05.2020] */
   public static readonly isLoading = isLoading;                                         /* @stable [19.05.2020] */
   public static readonly isTouched = isTouched;                                         /* @stable [18.05.2020] */
 }

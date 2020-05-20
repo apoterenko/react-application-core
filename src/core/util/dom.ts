@@ -282,6 +282,9 @@ export const isElementVisibleWithinParent = (element: Element, parent: Element):
 export const setStickyElementProperties = (stickyWrapperEl: Element,
                                            stickySelector: string,
                                            widthResolver = (stickyJEl: IJQueryElement) => stickyJEl.parent().width()): void => {
+  if (R.isNil(stickyWrapperEl)) {
+    return;
+  }
   const stickyWrapperJEl = toJqEl(stickyWrapperEl);
   if (R.isNil(stickyWrapperJEl) || R.isNil(stickyWrapperJEl.val())) {
     return;

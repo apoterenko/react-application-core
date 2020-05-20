@@ -115,6 +115,6 @@ export class StickyHeaderPlugin implements IGenericPlugin {
    * @returns {HTMLElement}
    */
   private get selfRef(): HTMLElement {
-    return this.component.selfRef.current;
+    return this.component.actualRef.current;
   }
 }

@@ -184,6 +184,7 @@ export interface IFirstAllowedWrapper { firstAllowed?: boolean; }
 export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFocusedWrapper { focused?: boolean; }
 export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
+export interface IFooterRenderedWrapper { footerRendered?: boolean; }
 export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
 export interface IForciblyApplyLocalFilterWrapper { forciblyApplyLocalFilter?: boolean; }

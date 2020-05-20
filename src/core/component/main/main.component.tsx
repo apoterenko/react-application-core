@@ -3,6 +3,8 @@ import * as React from 'react';
 import {
   IMainProps,
   MainClassesEnum,
+  UniversalScrollableContext,
+  UniversalStickyContext,
 } from '../../definition';
 import {
   CalcUtils,
@@ -22,21 +24,27 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
     const mergedProps = this.mergedProps;
 
     return (
-      <div
-        className={ClsUtils.joinClassName(
-          MainClassesEnum.MAIN,
-          WrapperUtils.isFull(mergedProps) && MainClassesEnum.FULL_MAIN,
-          CalcUtils.calc(mergedProps.className)
-        )}>
-        <div
-          ref={this.actualRef}
-          className={MainClassesEnum.MAIN_BODY}
-        >
-          <div className={MainClassesEnum.MAIN_BODY_CONTENT}>
-            {this.props.children}
+      <UniversalStickyContext.Provider value={mergedProps.stickyElementClassName}>
+        <UniversalScrollableContext.Provider value={mergedProps.selectedElementClassName}>
+          <div
+            className={
+              ClsUtils.joinClassName(
+                MainClassesEnum.MAIN,
+                WrapperUtils.isFull(mergedProps) && MainClassesEnum.FULL_MAIN,
+                CalcUtils.calc(mergedProps.className)
+              )
+            }>
+            <div
+              ref={this.actualRef}
+              className={MainClassesEnum.MAIN_BODY}
+            >
+              <div className={MainClassesEnum.MAIN_BODY_CONTENT}>
+                {this.props.children}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </UniversalScrollableContext.Provider>
+      </UniversalStickyContext.Provider>
     );
   }
 

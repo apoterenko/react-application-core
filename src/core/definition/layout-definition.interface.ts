@@ -2,8 +2,10 @@ import { IReduxXYEntity } from './xy-definition.interface';
 import {
   IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
+  IFooterRenderedWrapper,
   IFooterWrapper,
   IHeaderContentWrapper,
+  IHeaderRenderedWrapper,
   IHeaderWrapper,
   ILayoutModeWrapper,
   ILayoutWrapper,
@@ -44,16 +46,26 @@ export interface ILayoutEntity
 }
 
 /**
+ * @presets-entity
+ * @stable [20.05.2020]
+ */
+export interface IPresetsDefaultLayoutEntity
+  extends IFooterRenderedWrapper,
+    IFooterWrapper,
+    IHeaderRenderedWrapper,
+    IHeaderWrapper {
+}
+
+/**
  * @generic-entity
  * @stable [04.02.2020]
  */
 export interface IGenericDefaultLayoutEntity
-  extends IDrawerHeaderRenderedWrapper,
-    IFooterWrapper,
+  extends IPresetsDefaultLayoutEntity,
+    IDrawerHeaderRenderedWrapper,
     IGenericStoreEntity,
     IHeaderConfigurationEntity,
     IHeaderContentWrapper,
-    IHeaderWrapper,
     ILayoutEntity,
     ILayoutModeWrapper<LayoutModesEnum>,
     IProgressWrapper {
@@ -123,4 +135,16 @@ export enum LayoutClassesEnum {
   FORM_LAYOUT = 'rac-form-layout',
   FORM_LAYOUT_CONTENT = 'rac-form-layout__content',
   FORM_LAYOUT_TOP_HEADER = 'rac-form-layout__top-header',
+}
+
+/**
+ * @classes
+ * @stable [20.05.2020]
+ */
+export enum DefaultLayoutClassesEnum {
+  DEFAULT_LAYOUT = 'rac-default-layout',
+  DEFAULT_LAYOUT_BODY = 'rac-default-layout__body',
+  DEFAULT_LAYOUT_DRAWER_HEADER = 'rac-default-layout__drawer-header',
+  DEFAULT_LAYOUT_FULL = 'rac-default-layout-full',
+  DEFAULT_LAYOUT_MINI = 'rac-default-layout-mini',
 }

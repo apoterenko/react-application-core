@@ -257,7 +257,7 @@ export class DomAccessor implements IDomAccessor {
    * @returns {Element}
    */
   public findElement(selector: string, parent?: Element): Element {
-    return this.findElements(selector, parent)[0];
+    return R.isNil(selector) ? null : this.findElements(selector, parent)[0];
   }
 
   /**
@@ -544,7 +544,9 @@ export class DomAccessor implements IDomAccessor {
    * @returns {string}
    */
   public asSelector(selector: string): string {
-    return selector.startsWith('.') ? selector : `.${selector}`;
+    return R.isNil(selector)
+      ? selector
+      : selector.startsWith('.') ? selector : `.${selector}`;
   }
 
   /**
