@@ -139,11 +139,12 @@ const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL_VALUE_PREDICATE(value);
 
 /**
- * @stable [23.09.2019]
+ * @stable [20.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
+ * @constructor
  */
-export const STRING_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isString(value);
+const STRING_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isString(value);
 
 /**
  * @stable [17.05.2020]
@@ -356,4 +357,5 @@ export class FilterUtils {
   public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */
   public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;                             /* @stable [19.05.2020] */
   public static readonly objectValuesArrayFilter = objectValuesArrayFilter;                           /* @stable [19.05.2020] */
+  public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;                             /* @stable [20.05.2020] */
 }

@@ -1,0 +1,66 @@
+@import '../_core-mixin';
+
+/**
+ * @stable [20.05.2020]
+ */
+@mixin rac-main (
+  $rac-main-custom: unset,
+  /**/
+  $rac-main-background: unset,                                                                /* @stable [05.02.2020] */
+  $rac-main-body-content-display: unset,                                                      /* @stable [05.02.2020] */
+  $rac-main-body-content-flex-direction: unset,                                               /* @stable [05.02.2020] */
+  $rac-main-body-content-flex: unset,                                                         /* @stable [05.02.2020] */
+  $rac-main-body-content-height: unset,                                                       /* @stable [05.02.2020] */
+  $rac-main-body-content-last-child-flex-shrink: unset,                                       /* @stable [19.05.2020] */
+  $rac-main-body-content-last-child-padding: unset,                                           /* @stable [19.05.2020] */
+  $rac-main-body-content-padding-top: unset,                                                  /* @stable [10.02.2020] */
+  $rac-main-body-content-padding: unset,                                                      /* @stable [05.02.2020] */
+  $rac-main-body-content-width: unset,                                                        /* @stable [05.02.2020] */
+  $rac-main-body-height: unset,                                                               /* @stable [05.02.2020] */
+  $rac-main-body-overflow: unset,                                                             /* @stable [05.02.2020] */
+  $rac-main-body-position: unset,                                                             /* @stable [05.02.2020] */
+  $rac-main-body-width: unset,                                                                /* @stable [05.02.2020] */
+  $rac-main-display: unset,                                                                   /* @stable [05.02.2020] */
+  $rac-main-flex-direction: unset,                                                            /* @stable [05.02.2020] */
+  $rac-main-flex: unset,                                                                      /* @stable [05.02.2020] */
+  $rac-main-position: unset                                                                   /* @stable [05.02.2020] */
+) {
+  #{rac-cls($rac-main-cls, $rac-main-custom)} {
+    @include rac-styles (
+      $rac-styles-background: $rac-main-background,
+      $rac-styles-display: $rac-main-display,
+      $rac-styles-flex-direction: $rac-main-flex-direction,
+      $rac-styles-flex: $rac-main-flex,
+      $rac-styles-position: $rac-main-position
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: $rac-main-body-cls,
+      $rac-styles-height: $rac-main-body-height,
+      $rac-styles-overflow: $rac-main-body-overflow,
+      $rac-styles-position: $rac-main-body-position,
+      $rac-styles-width: $rac-main-body-width
+    );
+
+    #{rac-cls($rac-main-body-content-cls)} {
+      @include rac-styles (
+        $rac-styles-display: $rac-main-body-content-display,
+        $rac-styles-flex-direction: $rac-main-body-content-flex-direction,
+        $rac-styles-flex: $rac-main-body-content-flex,
+        $rac-styles-height: $rac-main-body-content-height,
+        $rac-styles-padding-top: $rac-main-body-content-padding-top,
+        $rac-styles-padding: $rac-main-body-content-padding,
+        $rac-styles-width: $rac-main-body-content-width
+      );
+
+      > {
+        :last-child {
+          @include rac-styles (
+            $rac-styles-flex-shrink: $rac-main-body-content-last-child-flex-shrink,
+            $rac-styles-padding: $rac-main-body-content-last-child-padding
+          );
+        }
+      }
+    }
+  }
+}
