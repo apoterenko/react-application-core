@@ -129,3 +129,5 @@ $rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-butto
 $rac-grid-head-column-sort-icon-cls: rac-grid-head-column__sort-icon;
 /**/
 $rac-grid-head-column-active-sort-icon-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__active-sort-icon';
+$rac-grid-head-column-sort-asc-action-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__sort-asc-action';
+$rac-grid-head-column-sort-desc-action-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__sort-desc-action';

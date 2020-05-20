@@ -1504,12 +1504,12 @@
       );
 
       @include rac-grid-column (
-        $rac-grid-column-icon-custom: rac-cls2($rac-grid-head-column-sort-icon-cls, rac-grid-column-sort-asc-action),
+        $rac-grid-column-icon-custom: $rac-grid-head-column-sort-asc-action-cls,
         $rac-grid-column-icon-margin: $rac-grid-head-column-sort-asc-action-margin
       );
 
       @include rac-grid-column (
-        $rac-grid-column-icon-custom: rac-cls2($rac-grid-head-column-sort-icon-cls, rac-grid-column-sort-desc-action),
+        $rac-grid-column-icon-custom: $rac-grid-head-column-sort-desc-action-cls,
         $rac-grid-column-icon-margin: $rac-grid-head-column-sort-desc-action-margin
       );
 

@@ -247,5 +247,7 @@ export const NOT_SELECTABLE_GRID_ENTITY = Object.freeze<IGridEntity>({
 export enum GridClassesEnum {
   GRID_HEAD = 'rac-grid-head',
   GRID_HEAD_COLUMN_ACTIVE_SORT_ICON = 'rac-grid-head-column__active-sort-icon',
+  GRID_HEAD_COLUMN_SORT_ASC_ACTION = 'rac-grid-head-column__sort-asc-action',
+  GRID_HEAD_COLUMN_SORT_DESC_ACTION = 'rac-grid-head-column__sort-desc-action',
   GRID_HEAD_COLUMN_SORT_ICON = 'rac-grid-head-column__sort-icon',
 }

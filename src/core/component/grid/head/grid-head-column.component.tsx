@@ -65,7 +65,7 @@ export class GridHeadColumn extends BaseGridColumn {
                 this.uiFactory.makeIcon({
                   className: joinClassName(
                     GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
-                    'rac-grid-column-sort-desc-action',
+                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_DESC_ACTION,
                     this.isDescSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
                   ),
                   type: 'bottom',
@@ -76,7 +76,7 @@ export class GridHeadColumn extends BaseGridColumn {
                 this.uiFactory.makeIcon({
                   className: joinClassName(
                     GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
-                    'rac-grid-column-sort-asc-action',
+                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_ASC_ACTION,
                     this.isAscSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
                   ),
                   type: 'top',
