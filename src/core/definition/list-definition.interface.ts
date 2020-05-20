@@ -52,7 +52,7 @@ import {
   FIRST_PAGE,
   IReduxPaginatedEntity,
 } from './page-definition.interface';
-import { ISelectedElementEntity } from './selected-element-definition.interface';
+import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsEntity } from './sort-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 
@@ -128,7 +128,7 @@ export interface IGenericListEntity<TEntity = IEntity,
     IEmptyMessageWrapper<string | boolean>,
     ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]>,
-    ISelectedElementEntity {
+    IPresetsSelectedElementEntity {
 }
 
 /**

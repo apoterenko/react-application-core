@@ -8,6 +8,7 @@ import {
   CalcUtils,
   ClsUtils,
   PropsUtils,
+  WrapperUtils,
 } from '../../util';
 import { EnhancedGenericComponent } from '../base/enhanced-generic.component';
 
@@ -22,7 +23,11 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
 
     return (
       <div
-        className={ClsUtils.joinClassName(MainClassesEnum.MAIN, CalcUtils.calc(mergedProps.className))}>
+        className={ClsUtils.joinClassName(
+          MainClassesEnum.MAIN,
+          WrapperUtils.isFull(mergedProps) && MainClassesEnum.FULL_MAIN,
+          CalcUtils.calc(mergedProps.className)
+        )}>
         <div
           ref={this.actualRef}
           className={MainClassesEnum.MAIN_BODY}

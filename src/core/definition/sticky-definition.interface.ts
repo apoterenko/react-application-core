@@ -4,18 +4,26 @@ import {
 import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
- * @entity
- * @stable [23.10.2019]
+ * @presets-entity
+ * @stable [20.05.2020]
  */
-export interface IStickyEntity
+export interface IPresetsStickyEntity
   extends IStickyElementClassNameWrapper {
 }
 
 /**
+ * @generic-entity
+ * @stable [20.05.2020]
+ */
+export interface IGenericStickyEntity
+  extends IPresetsStickyEntity {
+}
+
+/**
  * @props
- * @stable [23.10.2019]
+ * @stable [20.05.2020]
  */
 export interface IStickyComponentProps
   extends IGenericComponentProps,
-    IStickyEntity {
+    IGenericStickyEntity {
 }

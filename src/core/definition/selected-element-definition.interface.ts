@@ -3,21 +3,31 @@ import {
   ISelectedElementClassNameWrapper,
 } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IStickyEntity } from './sticky-definition.interface';
+import { IPresetsStickyEntity } from './sticky-definition.interface';
 
 /**
- * @stable [23.10.2019]
+ * @presets-entity
+ * @stable [20.05.2020]
  */
-export interface ISelectedElementEntity
+export interface IPresetsSelectedElementEntity
   extends ISelectedElementClassNameWrapper,
     IRefreshOnUpdateWrapper {
 }
 
 /**
- * @stable [23.10.2019]
+ * @generic-entity
+ * @stable [20.05.2020]
+ */
+export interface IGenericSelectedElementEntity
+  extends IPresetsSelectedElementEntity,
+    IPresetsStickyEntity {
+}
+
+/**
+ * @props
+ * @stable [20.05.2020]
  */
 export interface ISelectedElementComponentProps
   extends IGenericComponentProps,
-    ISelectedElementEntity,
-    IStickyEntity {
+    IGenericSelectedElementEntity {
 }

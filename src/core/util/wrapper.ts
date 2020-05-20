@@ -750,6 +750,7 @@ export class WrapperUtils {
   public static readonly inProgress = inProgress;                                       /* @stable [19.05.2020] */
   public static readonly isFieldRendered = isFieldRendered;                             /* @stable [18.05.2020] */
   public static readonly isForceReload = isForceReload;                                 /* @stable [18.05.2020] */
+  public static readonly isFull = isFull;                                               /* @stable [20.05.2020] */
   public static readonly isLoading = isLoading;                                         /* @stable [19.05.2020] */
   public static readonly isTouched = isTouched;                                         /* @stable [18.05.2020] */
 }

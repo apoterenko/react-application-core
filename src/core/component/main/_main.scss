@@ -1,0 +1,23 @@
+@import './_main-mixin';
+@import './_main-constant';
+
+.rac {
+
+  /**
+   * @main
+   * @stable [20.05.2020]
+   */
+  @include rac-main (
+    $rac-main-body-content-min-width: $rac-main-body-content-min-width,
+    $rac-main-flex-direction: $rac-main-flex-direction
+  );
+
+  /**
+   * @full-main
+   * @stable [20.05.2020]
+   */
+  @include rac-main (
+    $rac-main-custom: $rac-full-main-cls,
+    $rac-main-flex-grow: $rac-full-main-flex-grow
+  );
+}

@@ -1,0 +1,13 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [20.05.2020] */
+/************************/
+$rac-main-body-content-min-width: min-content !default;
+$rac-main-flex-direction: unset !default;
+
+/************************/
+/* @stable [20.05.2020] */
+/************************/
+$rac-full-main-flex-grow: $rac-primary-flex-grow-1 !default;
