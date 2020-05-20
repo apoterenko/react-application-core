@@ -31,21 +31,4 @@
     $rac-header-user-info-font-weight: $rac-header-user-info-font-weight,
     $rac-header-user-info-margin: $rac-header-user-info-margin
   );
-
-  .rac-sub-header__section-title {
-    font-weight: $rac-sub-header-section-title-font-weight;                              /* @stable [26.06.2018] */
-    font-size: $rac-sub-header-section-title-font-size;                                  /* @stable [26.06.2018] */
-    margin-left: $rac-sub-header-section-title-margin-left;                              /* @stable [26.06.2018] */
-    margin-right: $rac-sub-header-section-title-margin-right;                            /* @stable [29.06.2018] */
-  }
-
-  .rac-sub-header {
-
-    &.rac-sub-header__navigational {
-
-      .rac-sub-header__section-title {
-        padding-right: $rac-sub-header-section-title-padding-right;                          /* @stable [14.09.2018] */
-      }
-    }
-  }
 }

@@ -2596,17 +2596,13 @@
   $rac-default-layout-main-body-content-flex-direction: unset,                                /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-flex: unset,                                          /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-height: unset,                                        /* @stable [04.02.2020] */
-  $rac-default-layout-main-body-content-last-child-flex-shrink: unset,                        /* @stable [19.05.2020] */
-  $rac-default-layout-main-body-content-last-child-padding: unset,                            /* @stable [19.05.2020] */
   $rac-default-layout-main-body-content-min-width: unset,                                     /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-padding-top: unset,                                   /* @stable [10.02.2020] */
-  $rac-default-layout-main-body-content-padding: unset,                                       /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-width: unset,                                         /* @stable [04.02.2020] */
   $rac-default-layout-main-body-height: unset,                                                /* @stable [04.02.2020] */
   $rac-default-layout-main-body-overflow: unset,                                              /* @stable [05.02.2020] */
   $rac-default-layout-main-body-position: unset,                                              /* @stable [05.02.2020] */
   $rac-default-layout-main-body-width: unset,                                                 /* @stable [04.02.2020] */
-  $rac-default-layout-main-display: unset,                                                    /* @stable [04.02.2020] */
   $rac-default-layout-main-position: unset,                                                   /* @stable [05.02.2020] */
   $rac-default-layout-navigation-list-active-section-background: unset,                       /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-active-section-color: unset,                            /* @stable [07.02.2020] */
@@ -2694,17 +2690,13 @@
       $rac-main-body-content-flex-direction: $rac-default-layout-main-body-content-flex-direction,
       $rac-main-body-content-flex: $rac-default-layout-main-body-content-flex,
       $rac-main-body-content-height: $rac-default-layout-main-body-content-height,
-      $rac-main-body-content-last-child-flex-shrink: $rac-default-layout-main-body-content-last-child-flex-shrink,
-      $rac-main-body-content-last-child-padding: $rac-default-layout-main-body-content-last-child-padding,
       $rac-main-body-content-min-width: $rac-default-layout-main-body-content-min-width,
       $rac-main-body-content-padding-top: $rac-default-layout-main-body-content-padding-top,
-      $rac-main-body-content-padding: $rac-default-layout-main-body-content-padding,
       $rac-main-body-content-width: $rac-default-layout-main-body-content-width,
       $rac-main-body-height: $rac-default-layout-main-body-height,
       $rac-main-body-overflow: $rac-default-layout-main-body-overflow,
       $rac-main-body-position: $rac-default-layout-main-body-position,
       $rac-main-body-width: $rac-default-layout-main-body-width,
-      $rac-main-display: $rac-default-layout-main-display,
       $rac-main-position: $rac-default-layout-main-position
     );
 

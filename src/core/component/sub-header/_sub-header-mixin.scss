@@ -1,4 +1,5 @@
 @import '../_core-mixin';
+@import '../button/_button-mixin';
 
 /**
  * @stable [05.04.2020]
@@ -9,14 +10,34 @@
   $rac-sub-header-align-items: unset,                                                         /* @stable [05.04.2020] */
   $rac-sub-header-cursor: unset,                                                              /* @stable [05.04.2020] */
   $rac-sub-header-display: unset,                                                             /* @stable [05.04.2020] */
-  $rac-sub-header-flex-direction: unset                                                       /* @stable [05.04.2020] */
+  $rac-sub-header-flex-direction: unset,                                                      /* @stable [05.04.2020] */
+  $rac-sub-header-height: unset,                                                              /* @stable [20.05.2020] */
+  $rac-sub-header-navigation-action-margin-right: unset,                                      /* @stable [20.05.2020] */
+  $rac-sub-header-section-title-font-size: unset,                                             /* @stable [20.05.2020] */
+  $rac-sub-header-section-title-font-weight: unset,                                           /* @stable [20.05.2020] */
+  $rac-sub-header-section-title-margin-left: unset,                                           /* @stable [20.05.2020] */
+  $rac-sub-header-section-title-margin-right: unset                                           /* @stable [20.05.2020] */
 ) {
-  #{rac-cls(rac-sub-header, $rac-sub-header-custom)} {
+  #{rac-cls($rac-sub-header-cls, $rac-sub-header-custom)} {
     @include rac-styles (
       $rac-styles-align-items: $rac-sub-header-align-items,
       $rac-styles-cursor: $rac-sub-header-cursor,
       $rac-styles-display: $rac-sub-header-display,
-      $rac-styles-flex-direction: $rac-sub-header-flex-direction
+      $rac-styles-flex-direction: $rac-sub-header-flex-direction,
+      $rac-styles-height: $rac-sub-header-height
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: $rac-sub-header-section-title-cls,
+      $rac-styles-font-size: $rac-sub-header-section-title-font-size,
+      $rac-styles-font-weight: $rac-sub-header-section-title-font-weight,
+      $rac-styles-margin-left: $rac-sub-header-section-title-margin-left,
+      $rac-styles-margin-right: $rac-sub-header-section-title-margin-right
+    );
+
+    @include rac-button (
+      $rac-button-custom: rac-sub-header__navigation-action,
+      $rac-button-margin-right: $rac-sub-header-navigation-action-margin-right
     );
   }
 }

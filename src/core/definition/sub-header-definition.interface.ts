@@ -53,8 +53,7 @@ export interface ISubHeaderConfigurationEntity<TProps = ISubHeaderProps>
  */
 export enum SubHeaderClassesEnum {
   SUB_HEADER = 'rac-sub-header',
-  SUB_HEADER_NAVIGATIONAL = 'rac-sub-header__navigational',
-  SUB_HEADER_NAVIGATIONAL_ACTION = 'rac-sub-header__navigational-action',
+  SUB_HEADER_NAVIGATION_ACTION = 'rac-sub-header__navigation-action',
   SUB_HEADER_SECTION_TITLE = 'rac-sub-header__section-title',
   SUB_HEADER_SUB_BORDER = 'rac-sub-header__sub-border',
 }

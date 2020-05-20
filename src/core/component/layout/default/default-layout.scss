@@ -47,15 +47,11 @@
     $rac-default-layout-main-body-content-flex-direction: $rac-default-layout-main-body-content-flex-direction,
     $rac-default-layout-main-body-content-flex: $rac-default-layout-main-body-content-flex,
     $rac-default-layout-main-body-content-height: $rac-default-layout-main-body-content-height,
-    $rac-default-layout-main-body-content-last-child-flex-shrink: $rac-default-layout-main-body-content-last-child-flex-shrink,
-    $rac-default-layout-main-body-content-last-child-padding: $rac-default-layout-main-body-content-last-child-padding,
-    $rac-default-layout-main-body-content-padding: $rac-default-layout-main-body-content-padding,
     $rac-default-layout-main-body-content-width: $rac-default-layout-main-body-content-width,
     $rac-default-layout-main-body-height: $rac-default-layout-main-body-height,
     $rac-default-layout-main-body-overflow: $rac-default-layout-main-body-overflow,
     $rac-default-layout-main-body-position: $rac-default-layout-main-body-position,
     $rac-default-layout-main-body-width: $rac-default-layout-main-body-width,
-    $rac-default-layout-main-display: $rac-default-layout-main-display,
     $rac-default-layout-main-position: $rac-default-layout-main-position,
     $rac-default-layout-tab-panel-wrapper-border-bottom: $rac-default-layout-tab-panel-wrapper-border-bottom,
     $rac-default-layout-tab-panel-wrapper-margin: $rac-default-layout-tab-panel-wrapper-margin,
@@ -90,8 +86,6 @@
   .rac-default-layout {
 
     .rac-sub-header {
-      min-height: $rac-default-layout-sub-header-height;                                            /* @stable [13.10.2018] */
-      max-height: $rac-default-layout-sub-header-height;                                            /* @stable [13.10.2018] */
 
       @include rac-button(                                                                          /* @stable [01.11.2018] */
         $rac-button-custom: rac-button-navigation,

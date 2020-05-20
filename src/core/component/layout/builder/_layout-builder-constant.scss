@@ -2,6 +2,11 @@
 @import '../../_classes';
 
 /************************/
+/* @stable [20.05.2020] */
+/************************/
+$rac-primary-layout-builder-offset-0: $rac-primary-offset-5 !default;
+
+/************************/
 /* @stable [07.04.2020] */
 /************************/
 $rac-layout-builder-1-2-flex-grow: .5 !default;
@@ -11,7 +16,7 @@ $rac-layout-builder-column-view-flex-direction: $rac-primary-flex-direction-0 !d
 $rac-layout-builder-column-view-neighbor-child-margin: unset !default;
 $rac-layout-builder-row-view-display: $rac-primary-display-0 !default;
 $rac-layout-builder-row-view-flex-direction: $rac-primary-flex-direction-1 !default;
-$rac-layout-builder-row-view-neighbor-child-margin: 0 0 0 $rac-primary-default-layout-offset-5 !default;
+$rac-layout-builder-row-view-neighbor-child-margin: 0 0 0 $rac-primary-layout-builder-offset-0 !default;
 $rac-layout-builder-stretch-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-layout-builder-x1-flex-grow: 1 !default;
 $rac-layout-builder-x2-flex-grow: 2 !default;

@@ -8,7 +8,11 @@
    * @stable [20.05.2020]
    */
   @include rac-main (
+    $rac-main-body-content-child-flex-shrink: $rac-main-body-content-child-flex-shrink,
+    $rac-main-body-content-last-child-padding: $rac-main-body-content-last-child-padding,
     $rac-main-body-content-min-width: $rac-main-body-content-min-width,
+    $rac-main-body-content-padding: $rac-main-body-content-padding,
+    $rac-main-display: $rac-main-display,
     $rac-main-flex-direction: $rac-main-flex-direction
   );
 

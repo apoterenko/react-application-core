@@ -52,14 +52,13 @@ export class SubHeader extends GenericBaseComponent<ISubHeaderProps> {
         className={
           ClsUtils.joinClassName(
             SubHeaderClassesEnum.SUB_HEADER,
-            subBorder && SubHeaderClassesEnum.SUB_HEADER_SUB_BORDER,
-            navigationActionRendered && SubHeaderClassesEnum.SUB_HEADER_NAVIGATIONAL
+            subBorder && SubHeaderClassesEnum.SUB_HEADER_SUB_BORDER
           )}>
         {navigationActionRendered && (
           <Button
             icon={navigationActionIcon}
             onClick={onNavigationActionClick}
-            className={SubHeaderClassesEnum.SUB_HEADER_NAVIGATIONAL_ACTION}/>
+            className={SubHeaderClassesEnum.SUB_HEADER_NAVIGATION_ACTION}/>
         )}
         {
           TypeUtils.isFn(titleRenderer)

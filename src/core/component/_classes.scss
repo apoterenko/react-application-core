@@ -131,3 +131,9 @@ $rac-grid-head-column-sort-icon-cls: rac-grid-head-column__sort-icon;
 $rac-grid-head-column-active-sort-icon-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__active-sort-icon';
 $rac-grid-head-column-sort-asc-action-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__sort-asc-action';
 $rac-grid-head-column-sort-desc-action-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__sort-desc-action';
+
+/************************/
+/* @stable [20.05.2020] */
+/************************/
+$rac-sub-header-cls: rac-sub-header;
+$rac-sub-header-section-title-cls: rac-sub-header__section-title;

@@ -7,11 +7,11 @@
   $rac-main-custom: unset,
   /**/
   $rac-main-background: unset,                                                                /* @stable [05.02.2020] */
+  $rac-main-body-content-child-flex-shrink: unset,                                            /* @stable [19.05.2020] */
   $rac-main-body-content-display: unset,                                                      /* @stable [05.02.2020] */
   $rac-main-body-content-flex-direction: unset,                                               /* @stable [05.02.2020] */
   $rac-main-body-content-flex: unset,                                                         /* @stable [05.02.2020] */
   $rac-main-body-content-height: unset,                                                       /* @stable [05.02.2020] */
-  $rac-main-body-content-last-child-flex-shrink: unset,                                       /* @stable [19.05.2020] */
   $rac-main-body-content-last-child-padding: unset,                                           /* @stable [19.05.2020] */
   $rac-main-body-content-min-width: unset,                                                    /* @stable [05.02.2020] */
   $rac-main-body-content-padding-top: unset,                                                  /* @stable [10.02.2020] */
@@ -56,9 +56,14 @@
       );
 
       > {
+        & * {
+          @include rac-styles (
+            $rac-styles-flex-shrink: $rac-main-body-content-child-flex-shrink
+          );
+        }
+
         :last-child {
           @include rac-styles (
-            $rac-styles-flex-shrink: $rac-main-body-content-last-child-flex-shrink,
             $rac-styles-padding: $rac-main-body-content-last-child-padding
           );
         }
