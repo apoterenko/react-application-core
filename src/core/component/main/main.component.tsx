@@ -14,6 +14,10 @@ import {
 } from '../../util';
 import { EnhancedGenericComponent } from '../base/enhanced-generic.component';
 
+/**
+ * @component-impl
+ * @stable [20.05.2020]
+ */
 export class Main extends EnhancedGenericComponent<IMainProps> {
 
   /**
