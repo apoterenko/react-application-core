@@ -1,48 +1,81 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import {
-  isFn,
-  joinClassName,
+  ClsUtils,
+  PropsUtils,
+  TypeUtils,
 } from '../../util';
 import { Button } from '../button';
-import { GenericComponent } from '../base/generic.component';
-import { ISubHeaderConfiguration } from '../../configurations-definitions.interface';
-import { SubHeaderClassesEnum } from '../../definition';
+import { GenericBaseComponent } from '../base/generic-base.component';
+import {
+  IconsEnum,
+  ISubHeaderProps,
+  SubHeaderClassesEnum,
+} from '../../definition';
 
-export class SubHeader extends GenericComponent<ISubHeaderConfiguration> {
+/**
+ * @component-impl
+ * @stable [20.05.2020]
+ */
+export class SubHeader extends GenericBaseComponent<ISubHeaderProps> {
+
+  public static readonly defaultProps: ISubHeaderProps = {
+    navigationActionIcon: IconsEnum.BACK,
+  };
 
   /**
    * @stable [08.10.2018]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-    const headerTitle = (
-      <span className={SubHeaderClassesEnum.SECTION_TITLE}>{props.title}</span>
-    );
+    const mergedProps = this.mergedProps;
+    const {
+      items,
+      navigationActionIcon,
+      navigationActionRendered,
+      onNavigationActionClick,
+      subBorder,
+      title,
+      titleRenderer,
+    } = mergedProps;
+
+    const headerTitleElement = title === false
+      ? null
+      : (
+        <span className={SubHeaderClassesEnum.SUB_HEADER_SECTION_TITLE}>
+          {title}
+        </span>
+      );
 
     return (
       <div
         className={
-          joinClassName(
+          ClsUtils.joinClassName(
             SubHeaderClassesEnum.SUB_HEADER,
-            props.subBorder && 'rac-sub-header-bordered',
-            !R.isNil(props.navigationActionType) && 'rac-sub-header-navigated'
+            subBorder && SubHeaderClassesEnum.SUB_HEADER_SUB_BORDER,
+            navigationActionRendered && SubHeaderClassesEnum.SUB_HEADER_NAVIGATIONAL
           )}>
-        {props.navigationActionType && (
+        {navigationActionRendered && (
           <Button
-            icon={props.navigationActionType}
-            onClick={props.onNavigationActionClick}
-            className='rac-button-navigation'/>
+            icon={navigationActionIcon}
+            onClick={onNavigationActionClick}
+            className={SubHeaderClassesEnum.SUB_HEADER_NAVIGATIONAL_ACTION}/>
         )}
         {
-          isFn(props.titleRenderer)
-            ? props.titleRenderer(headerTitle)
-            : headerTitle
+          TypeUtils.isFn(titleRenderer)
+            ? titleRenderer(headerTitleElement)
+            : headerTitleElement
         }
-        {props.items}
+        {items}
       </div>
     );
+  }
+
+  /**
+   * @stable [20.05.2020]
+   * @returns {ISubHeaderProps}
+   */
+  private get mergedProps(): ISubHeaderProps {
+    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.subHeader);
   }
 }

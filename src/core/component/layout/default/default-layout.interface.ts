@@ -2,14 +2,13 @@ import {
   IGenericContainerProps,
   IHeaderConfigurationEntity,
   IQueryFilterEntity,
+  ISubHeaderConfigurationEntity,
 } from '../../../definition';
 import {
   IFooterWrapper,
   IProgressWrapper,
-  ISubHeaderConfigurationWrapper,
   ISubHeaderRenderedWrapper,
 } from '../../../definitions.interface';
-import { ISubHeaderConfiguration } from '../../../configurations-definitions.interface';
 
 /**
  * @stable [13.08.2018]
@@ -27,7 +26,7 @@ export interface IDefaultLayoutContainerProps
     IFooterWrapper,
     IHeaderConfigurationEntity,
     ISubHeaderRenderedWrapper,
-    ISubHeaderConfigurationWrapper<ISubHeaderConfiguration> {
+    ISubHeaderConfigurationEntity {
 }
 
 /**

@@ -98,7 +98,7 @@
         $rac-button-margin: $rac-default-layout-sub-header-button-navigation-margin
       );
 
-      &.rac-sub-header-bordered {
+      &.rac-sub-header__sub-border {
         border-bottom: $rac-default-layout-sub-header-bordered-border-bottom;                       /* @stable [22.10.2018] */
         margin: $rac-default-layout-sub-header-bordered-margin;                               /* @stable [18.12.2018] */
       }

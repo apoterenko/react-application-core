@@ -311,6 +311,8 @@ export interface IMonthWrapper<TValue = number> { month?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }
 export interface INameWrapper<TValue = string> { name?: TValue; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
+export interface INavigationActionIconWrapper { navigationActionIcon?: string; }
+export interface INavigationActionRenderedWrapper { navigationActionRendered?: boolean; }
 export interface INewEntityWrapper<TValue = boolean> { newEntity?: TValue; }
 export interface INextFormChangesWrapper<TValue> { nextFormChanges?: TValue; }
 export interface INextFormRouteWrapper { nextFormRoute?: string; }
@@ -354,6 +356,7 @@ export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
+export interface IOnNavigationActionClickWrapper { onNavigationActionClick?(): void; }
 export interface IOnNextWrapper<TValue = AnyT> { onNext?(value?: TValue): void; }
 export interface IOnPreviousWrapper<TValue = AnyT> { onPrevious?(value?: TValue): void; }
 export interface IOnRefreshClickWrapper<TValue = {}> { onRefreshClick?(value?: TValue): void; }
@@ -507,7 +510,7 @@ export interface ITabPanelWrapper<TValue = JSX.Element> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
 export interface ITimeWrapper<TValue = string> { time?: TValue; }
-export interface ITitleRendererWrapper<TValue> { titleRenderer?: TValue; }
+export interface ITitleRendererWrapper<TValue> { titleRenderer?(value?: TValue): JSX.Element; }
 export interface ITitleWrapper<TValue = string> { title?: TValue; }
 export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
@@ -632,13 +635,6 @@ export interface IOnBlurWrapper<TPayload = AnyT, TOnBlur = (payload: TPayload) =
  */
 export interface IClearValueWrapper<TClearValue = () => void> {
   clearValue: TClearValue;
-}
-
-/**
- * @stable [31.05.2018]
- */
-export interface INavigationActionTypeWrapper<TNavigationActionType = string> {
-  navigationActionType?: TNavigationActionType;
 }
 
 /**

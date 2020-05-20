@@ -1,38 +1,23 @@
-import * as React from 'react';
-
 import {
-  AnyT,
-  IEmptyDataWrapper,
   ICameraHeightWrapper,
   ICameraWidthWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
-  IOnFormChangeWrapper,
   IClearActionRenderedWrapper,
   IDisplayMessageWrapper,
-  IEmptyDataMessageWrapper,
-  IEmptyMessageWrapper,
   IErrorMessageRenderedWrapper,
-  IErrorMessageWrapper,
   IFieldConfigurationWrapper,
   IFilterFnWrapper,
   IFocusEvent,
-  IItemsWrapper,
   IKeyboardEvent,
   IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
   IMessageWrapper,
-  INavigationActionTypeWrapper,
   IOnBlurWrapper,
   IOnClearWrapper,
   IOnFocusWrapper,
   IOnSelectWrapper,
   ISorterWrapper,
-  ISubBorderWrapper,
-  ITitleRendererWrapper,
 } from './definitions.interface';
-import {
-  IOnNavigationActionClickWrapper,
-} from './react-definitions.interface';
 import {
   IBaseEvent,
   IBehavioralBaseFieldEntity,
@@ -99,23 +84,6 @@ export interface IFieldProps2 extends IComponentProps,
 
 export interface IFieldConfigurationEntity<TFieldProps extends IFieldProps2 = IFieldProps2>
   extends IFieldConfigurationWrapper<IFieldProps2> {
-}
-
-/* @stable - 08.04.2018 */
-export interface IUniversalMessageConfiguration extends IUniversalComponentEntity,
-                                                        IEmptyDataMessageWrapper,
-                                                        IErrorMessageWrapper,
-                                                        IEmptyMessageWrapper<React.ReactNode>,
-                                                        IEmptyDataWrapper {
-}
-
-// TODO
-export interface ISubHeaderConfiguration extends IComponentProps,
-                                                 IItemsWrapper<JSX.Element>,
-                                                 INavigationActionTypeWrapper,
-                                                 IOnNavigationActionClickWrapper,
-                                                 ITitleRendererWrapper<(originalElement) => JSX.Element>,
-                                                 ISubBorderWrapper {
 }
 
 /**

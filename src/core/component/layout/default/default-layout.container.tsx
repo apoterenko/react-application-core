@@ -59,7 +59,6 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
 
     this.onDrawerHeaderClick = this.onDrawerHeaderClick.bind(this);
     this.onHeaderMenuSelectItem = this.onHeaderMenuSelectItem.bind(this);
-    this.onHeaderNavigationActionClick = this.onHeaderNavigationActionClick.bind(this);
     this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
     this.onNavigationListClick = this.onNavigationListClick.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
@@ -108,18 +107,6 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
    */
   private onLogoMenuActionClick(): void {
     this.routerStoreProxy.navigate(this.settings.routes.home);
-  }
-
-  /**
-   * @stable [18.09.2018]
-   */
-  private onHeaderNavigationActionClick(): void {
-    const props = this.props;
-    const headerConfiguration = props.subHeaderConfiguration;
-
-    if (isFn(headerConfiguration.onNavigationActionClick)) {
-      headerConfiguration.onNavigationActionClick();
-    }
   }
 
   /**
@@ -172,10 +159,9 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
 
     return (
       <SubHeader
-        {...hasBackAction && ({navigationActionType: IconsEnum.BACK})}
-        {...props.subHeaderConfiguration}
+        navigationActionRendered={hasBackAction}
         title={title}
-        onNavigationActionClick={this.onHeaderNavigationActionClick}/>
+        {...props.subHeaderConfiguration}/>
     );
   }
 
