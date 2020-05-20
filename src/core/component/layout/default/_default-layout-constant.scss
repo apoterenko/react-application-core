@@ -2,11 +2,14 @@
 @import '../../_classes';
 
 /************************/
-/* @stable [19.04.2020] */
+/* @stable [19.05.2020] */
 /************************/
+$rac-default-layout-drawer-header-background: $rac-primary-color-metis-1 !default;
+$rac-default-layout-drawer-header-color: $rac-primary-color-metis-0-10 !default;
+$rac-default-layout-header-background: $rac-primary-color-metis-0 !default;
 $rac-default-layout-main-body-content-last-child-flex-shrink: $rac-primary-flex-shrink-0 !default;  /* Safari w.a. (Chrome ok) */
-$rac-default-layout-main-body-content-last-child-padding: unset !default;
-$rac-default-layout-main-body-content-padding: unset !default;
+$rac-default-layout-main-body-content-last-child-padding: 0 0 $rac-primary-default-layout-offset-0 0 !default;
+$rac-default-layout-main-body-content-padding: 0 $rac-primary-default-layout-offset-0 !default;
 $rac-default-layout-tab-panel-wrapper-border-bottom: unset !default;
 $rac-default-layout-tab-panel-wrapper-margin: unset !default;
 $rac-default-layout-tab-panel-wrapper-padding: unset !default;
