@@ -24,7 +24,7 @@ export class SubHeader extends GenericBaseComponent<ISubHeaderProps> {
   };
 
   /**
-   * @stable [08.10.2018]
+   * @stable [20.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
