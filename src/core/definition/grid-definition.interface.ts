@@ -71,6 +71,7 @@ import {
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IDeprecatedListEntity } from './list-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
  * @stable [18.10.2019]
@@ -170,11 +171,28 @@ export interface IGridRowConfigEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [23.10.2019]
+ * @presets-entity
+ * @stable [20.05.2020]
  */
-export interface IGridHeaderProps
-  extends IComponentProps,
-    IStickyHeadWrapper {
+export interface IPresetsGridHeadEntity
+  extends IStickyHeadWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [20.05.2020]
+ */
+export interface IGenericGridHeadEntity
+  extends IPresetsGridHeadEntity {
+}
+
+/**
+ * @props
+ * @stable [20.05.2020]
+ */
+export interface IGridHeadProps
+  extends IGenericComponentProps,
+    IGenericGridHeadEntity {
 }
 
 export interface IGridGenericEntity<TColumn, TEntity extends IEntity = IEntity>
@@ -221,3 +239,13 @@ export const NOT_SELECTABLE_GRID_ENTITY = Object.freeze<IGridEntity>({
   hovered: false,
   selectable: false,
 });
+
+/**
+ * @classes
+ * @stable [20.05.2020]
+ */
+export enum GridClassesEnum {
+  GRID_HEAD = 'rac-grid-head',
+  GRID_HEAD_COLUMN_ACTIVE_SORT_ICON = 'rac-grid-head-column__active-sort-icon',
+  GRID_HEAD_COLUMN_SORT_ICON = 'rac-grid-head-column__sort-icon',
+}

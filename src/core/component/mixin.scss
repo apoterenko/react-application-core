@@ -1488,7 +1488,7 @@
       );
 
       @include rac-grid-column (
-        $rac-grid-column-icon-custom: rac-grid-column-sort-icon,
+        $rac-grid-column-icon-custom: $rac-grid-head-column-sort-icon-cls,
         $rac-grid-column-icon-background: $rac-grid-head-column-sort-icon-background,
         $rac-grid-column-icon-border-radius: $rac-grid-head-column-sort-icon-border-radius,
         $rac-grid-column-icon-content-opacity: $rac-grid-head-column-sort-icon-content-opacity,
@@ -1497,19 +1497,19 @@
       );
 
       @include rac-grid-column (
-        $rac-grid-column-icon-custom: rac-cls2($rac-grid-column-sort-icon-cls, rac-grid-column-active-sort-icon),
+        $rac-grid-column-icon-custom: $rac-grid-head-column-active-sort-icon-cls,
         $rac-grid-column-icon-background: $rac-grid-head-column-active-sort-icon-background,
         $rac-grid-column-icon-color: $rac-grid-head-column-active-sort-icon-color,
         $rac-grid-column-icon-content-opacity: $rac-grid-head-column-active-sort-icon-content-opacity
       );
 
       @include rac-grid-column (
-        $rac-grid-column-icon-custom: rac-cls2($rac-grid-column-sort-icon-cls, rac-grid-column-sort-asc-action),
+        $rac-grid-column-icon-custom: rac-cls2($rac-grid-head-column-sort-icon-cls, rac-grid-column-sort-asc-action),
         $rac-grid-column-icon-margin: $rac-grid-head-column-sort-asc-action-margin
       );
 
       @include rac-grid-column (
-        $rac-grid-column-icon-custom: rac-cls2($rac-grid-column-sort-icon-cls, rac-grid-column-sort-desc-action),
+        $rac-grid-column-icon-custom: rac-cls2($rac-grid-head-column-sort-icon-cls, rac-grid-column-sort-desc-action),
         $rac-grid-column-icon-margin: $rac-grid-head-column-sort-desc-action-margin
       );
 

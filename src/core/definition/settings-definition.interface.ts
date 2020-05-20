@@ -5,6 +5,7 @@ import { IDefaultLayoutProps } from './layout-definition.interface';
 import { IDialogProps } from './dialog-definition.interface';
 import { IDrawerProps } from './drawer-definition.interface';
 import { IFieldProps } from './field-definition.interface';
+import { IGridHeadProps } from './grid-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
 import { IMainProps } from './main-definition.interface';
@@ -110,6 +111,7 @@ export interface IComponentsSettingsEntity {
   dialog?: IDialogProps;
   drawer?: IDrawerProps;
   field?: IFieldProps;
+  gridHead?: IGridHeadProps;
   header?: IHeaderProps;
   listItem?: IListItemProps;
   main?: IMainProps;

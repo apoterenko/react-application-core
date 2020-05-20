@@ -29,9 +29,9 @@ import { Field2 } from '../field';
 import { FlexLayout } from '../layout/flex';
 import { GridColumn } from './column';
 import {
-  GridHeader,
-  GridHeaderColumn,
-} from './header';
+  GridHead,
+  GridHeadColumn,
+} from './head';
 import { GridRow } from './row';
 import { IGridState } from './grid.interface';
 import {
@@ -77,10 +77,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         >
           {
             isHeaderRendered(props) && (
-              <GridHeader stickyHead={props.stickyHead}>
+              <GridHead stickyHead={props.stickyHead}>
                 {this.headRowElement}
                 {this.filterElement}
-              </GridHeader>
+              </GridHead>
             )
           }
           <tbody className='rac-grid-body'>
@@ -196,7 +196,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       <GridRow>
         {
           this.columnsConfiguration.map((column, columnNum) => (
-            <GridHeaderColumn
+            <GridHeadColumn
               key={this.toHeaderColumnKey(columnNum)}
               {...getGridColumnSortDirection(column, this.props)}
               name={column.name}
@@ -214,7 +214,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                   })
                 : this.getHeaderColumnContent(column, columnNum)
               }
-            </GridHeaderColumn>
+            </GridHeadColumn>
           ))
         }
       </GridRow>
@@ -359,13 +359,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           <GridRow filter={true}>
             {
               columns.map((column, columnNum) => (
-                <GridHeaderColumn
+                <GridHeadColumn
                   key={this.toFilterColumnKey(columnNum)}
                   index={columnNum}
                   {...column}
                 >
                   {this.getFilterColumn(column, columnNum)}
-                </GridHeaderColumn>
+                </GridHeadColumn>
               ))
             }
           </GridRow>

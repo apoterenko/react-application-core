@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  GridClassesEnum,
   IGridColumnProps,
   SortDirectionsEnum,
 } from '../../../definition';
@@ -14,7 +15,7 @@ import {
 } from '../../../util';
 import { BaseGridColumn } from '../base-column';
 
-export class GridHeaderColumn extends BaseGridColumn {
+export class GridHeadColumn extends BaseGridColumn {
 
   /**
    * @stable [17.10.2019]
@@ -63,9 +64,9 @@ export class GridHeaderColumn extends BaseGridColumn {
               {
                 this.uiFactory.makeIcon({
                   className: joinClassName(
-                    'rac-grid-column-sort-icon',
+                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
                     'rac-grid-column-sort-desc-action',
-                    this.isDescSortingEnabled && 'rac-grid-column-active-sort-icon'
+                    this.isDescSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
                   ),
                   type: 'bottom',
                   onClick: this.onChangeDescSortingActionClick,
@@ -74,9 +75,9 @@ export class GridHeaderColumn extends BaseGridColumn {
               {
                 this.uiFactory.makeIcon({
                   className: joinClassName(
-                    'rac-grid-column-sort-icon',
+                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
                     'rac-grid-column-sort-asc-action',
-                    this.isAscSortingEnabled && 'rac-grid-column-active-sort-icon'
+                    this.isAscSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
                   ),
                   type: 'top',
                   onClick: this.onChangeAscSortingActionClick,

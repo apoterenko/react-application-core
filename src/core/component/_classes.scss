@@ -122,3 +122,10 @@ $rac-full-button-cls: rac-full-button;
 $rac-button-decorated-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-filled-cls}';
 $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
 $rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-button-decorated-not-filled-cls}';
+
+/************************/
+/* @stable [20.05.2020] */
+/************************/
+$rac-grid-head-column-sort-icon-cls: rac-grid-head-column__sort-icon;
+/**/
+$rac-grid-head-column-active-sort-icon-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__active-sort-icon';
