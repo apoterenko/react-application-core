@@ -16,12 +16,12 @@ import { EnhancedGenericComponent } from '../base/enhanced-generic.component';
 
 /**
  * @component-impl
- * @stable [20.05.2020]
+ * @stable [22.05.2020]
  */
 export class Main extends EnhancedGenericComponent<IMainProps> {
 
   /**
-   * @stable [20.05.2020]
+   * @stable [22.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -60,7 +60,7 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
   }
 
   /**
-   * @stable [21.05.2020]
+   * @stable [22.05.2020]
    * @returns {IMainProps}
    */
   private get mergedProps(): IMainProps {

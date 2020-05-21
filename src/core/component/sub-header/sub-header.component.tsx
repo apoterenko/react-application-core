@@ -15,7 +15,7 @@ import {
 
 /**
  * @component-impl
- * @stable [20.05.2020]
+ * @stable [22.05.2020]
  */
 export class SubHeader extends GenericComponent<ISubHeaderProps> {
 
@@ -24,7 +24,7 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
   };
 
   /**
-   * @stable [20.05.2020]
+   * @stable [22.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -71,10 +71,10 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
   }
 
   /**
-   * @stable [20.05.2020]
+   * @stable [22.05.2020]
    * @returns {ISubHeaderProps}
    */
   private get mergedProps(): ISubHeaderProps {
-    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.subHeader);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.subHeader);
   }
 }
