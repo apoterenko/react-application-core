@@ -5,7 +5,6 @@ $opacity: .5 !default;
 $rac-opacity: .5 !default;
 $snackbar-z-index: 9999 !default;
 $color-1: #d50000 !default;
-$color-3: #e0e0e0 !default;
 $color-4: #989898 !default;
 $color-8: #d8ddde !default;
 $color-10: #e1e1e1 !default;
@@ -22,22 +21,11 @@ $rac-offset-6: 32px !default;
 $rac-offset-7: 40px !default;
 /**/
 $rac-color-0-12: rgba(18, 19, 15, .3) !default;
-/**/
-$rac-color-2-0: #f4e6bb !default;
-$rac-color-2-1: #f96f00 !default;
-$rac-color-2-3: #ffbf00 !default;
-
-/************************/
-/* @stable [02.02.2020] */
-/************************/
-$rac-opacity-0: .5 !default;
 
 /************************/
 /* @stable [29.01.2020] */
 /************************/
 /**/
-$rac-field-color-1: $rac-primary-color-metis-0-10 !default;
-$rac-field-height-0: 32px !default;
 $rac-field-height-1: 40px !default;
 /**/
 $rac-letter-spacing-0: 0 !default;
@@ -218,7 +206,7 @@ $rac-grid-column-content-self-field-border-color: unset !default;
 $rac-grid-column-content-self-field-border-radius: unset !default;
 $rac-grid-column-content-self-field-height: unset !default;
 $rac-grid-column-content-width: unset !default;
-$rac-grid-column-edited-content-after-color: $rac-color-2-1 !default;
+$rac-grid-column-edited-content-after-color: $rac-primary-color-aphrodite-0 !default;
 $rac-grid-column-edited-content-after-content: '◥' !default;
 $rac-grid-column-edited-content-after-font-size: 10px !default;
 $rac-grid-column-edited-content-after-height: 0 !default;
@@ -276,7 +264,7 @@ $rac-grid-row-odd-background: $rac-primary-color-metis-0 !default;
 $rac-grid-row-odd-border-radius: unset !default;
 $rac-grid-row-padding: unset !default;
 $rac-grid-row-selectable-cursor: pointer !default;
-$rac-grid-row-selected-background: $rac-color-2-0 !default;
+$rac-grid-row-selected-background: $rac-primary-color-ganymede-3 !default;
 $rac-grid-row-selected-font-weight: unset !default;
 $rac-grid-row-table-layout: fixed !default;
 $rac-grid-row-total-background: $rac-grid-color-3 !default;
@@ -460,7 +448,7 @@ $rac-date-field-calendars-dialog-quick-button-height: 32px !default;
 $rac-date-field-calendars-dialog-quick-button-neighbor-margin: 0 0 0 $rac-primary-offset-1 !default;
 $rac-date-field-calendars-dialog-range-explorer-date-content-next-margin: 0 0 0 $rac-primary-button-height-0 * 2 + $rac-offset-4 !default;
 $rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-offset-4 !default;
-$rac-date-field-calendars-selected-quick-action-background: $rac-color-2-3 !default;
+$rac-date-field-calendars-selected-quick-action-background: $rac-primary-color-ganymede-0 !default;
 $rac-date-field-calendars-selected-quick-action-content-color: $rac-primary-color-poseidon-0 !default;
 
 /************************/
@@ -510,7 +498,7 @@ $rac-switch-thumb-unchecked-disabled-opacity: $rac-switch-thumb--disabled-opacit
 
 /* @stable [15.12.2018] */
 $rac-filter-active-content: '●' !default;
-$rac-filter-active-color: $rac-color-2-1 !default;
+$rac-filter-active-color: $rac-primary-color-aphrodite-0 !default;
 $rac-filter-active-left: unset !default;
 $rac-filter-active-top: unset !default;
 $rac-filter-active-right: 8px !default;
@@ -579,7 +567,7 @@ $rac-modal-dialog-width: 100% !default;
 $rac-modal-dialog-z-index: $rac-primary-z-index-2 !default;
 /**/
 $rac-menu-dialog-base-text-field-margin: 0 0 $rac-primary-offset-1 0 !default;
-$rac-menu-dialog-base-text-self-field-background: $rac-field-color-1 !default;
+$rac-menu-dialog-base-text-self-field-background: $rac-primary-color-metis-0-10 !default;
 $rac-menu-dialog-base-text-self-field-height: $rac-field-height-1 !default;
 $rac-menu-dialog-body-background: unset !default;
 $rac-menu-dialog-body-justify-content: unset !default;
@@ -618,7 +606,7 @@ $rac-menu-anchored-dialog-list-item-icon-color: unset !default;
 $rac-menu-anchored-dialog-list-item-last-border-bottom-color: transparent !default;
 $rac-menu-anchored-dialog-list-item-line-height: unset !default;
 $rac-menu-anchored-dialog-list-item-odd-background: unset !default;
-$rac-menu-anchored-dialog-list-item-selected-background: $rac-color-2-3 !default;
+$rac-menu-anchored-dialog-list-item-selected-background: $rac-primary-color-ganymede-0 !default;
 $rac-menu-anchored-dialog-list-item-selected-color: $rac-primary-color-poseidon-0 !default;
 $rac-menu-anchored-dialog-list-margin: unset !default;
 $rac-menu-anchored-dialog-list-padding: $rac-primary-offset-1 0 !default;
@@ -710,8 +698,6 @@ $rac-default-layout-flex: 1 !default;
 $rac-default-layout-header-actions-align-items: unset !default;
 $rac-default-layout-header-actions-display: unset !default;
 $rac-default-layout-header-actions-margin: unset !default;
-$rac-default-layout-header-color: unset !default;
-$rac-default-layout-header-display: $rac-default-layout-display-0 !default;
 $rac-default-layout-header-flex-direction: unset !default;
 $rac-default-layout-header-flex: unset !default;
 $rac-default-layout-header-height: 56px !default;
@@ -751,11 +737,6 @@ $rac-default-layout-header-user-font-weight: $rac-primary-font-weight-2 !default
 $rac-default-layout-logo-menu-icon-color: $rac-primary-color-metis-0-10 !default;
 $rac-default-layout-logo-menu-icon-height: 100% !default;
 $rac-default-layout-logo-menu-icon-margin-right: $rac-primary-offset-3 !default;
-$rac-default-layout-notifications-background: $color-3 !default;
-$rac-default-layout-notifications-width: 400px !default;
-$rac-default-layout-sub-header-bordered-border-bottom: unset !default;
-$rac-default-layout-sub-header-bordered-margin: unset !default;
-$rac-default-layout-sub-header-button-navigation-margin: 0 16px 0 0 !default;
 
 /* @stable [25.09.2018] */
 $rac-chart-canvas-wrapper-width: 100% !default;

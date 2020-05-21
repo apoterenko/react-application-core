@@ -204,8 +204,19 @@ $rac-primary-color-elara-8: rgba(255, 255, 255, .8) !default;
 $rac-primary-color-artemis-3: #06aed5 !default;
 
 // ganymede
-$rac-primary-color-ganymede-0: #ffbf00 !default;
-$rac-primary-color-ganymede-1: #f4e6bb !default;
+$rac-primary-color-ganymede-0: rgb(255, 191, 0) !default;  // #ffbf00
+$rac-primary-color-ganymede-1: rgba(255, 191, 0, .1) !default;
+$rac-primary-color-ganymede-2: rgba(255, 191, 0, .2) !default;
+$rac-primary-color-ganymede-3: rgba(255, 191, 0, .3) !default;
+$rac-primary-color-ganymede-4: rgba(255, 191, 0, .4) !default;
+$rac-primary-color-ganymede-5: rgba(255, 191, 0, .5) !default;
+$rac-primary-color-ganymede-6: rgba(255, 191, 0, .6) !default;
+$rac-primary-color-ganymede-7: rgba(255, 191, 0, .7) !default;
+$rac-primary-color-ganymede-8: rgba(255, 191, 0, .8) !default;
+$rac-primary-color-ganymede-9: rgba(255, 191, 0, .9) !default;
+
+// aphrodite
+$rac-primary-color-aphrodite-0: #f96f00 !default;
 
 // dia
 $rac-primary-color-dia-0: #ed254e !default;
@@ -241,6 +252,11 @@ $rac-primary-odd-background-0: $rac-primary-color-metis-0 !default;
 /* @stable [04.05.2020] */
 /************************/
 $rac-primary-hover-background-0: $rac-primary-color-metis-1 !default;
+
+/************************/
+/* @stable [21.05.2020] */
+/************************/
+$rac-primary-selected-background-0: $rac-primary-color-ganymede-3 !default;
 
 /************************/
 /* @stable [14.05.2020] */

@@ -26,9 +26,6 @@
     $rac-default-layout-header-actions-align-items: $rac-default-layout-header-actions-align-items,
     $rac-default-layout-header-actions-display: $rac-default-layout-header-actions-display,
     $rac-default-layout-header-actions-margin: $rac-default-layout-header-actions-margin,
-    $rac-default-layout-header-background: $rac-default-layout-header-background,
-    $rac-default-layout-header-color: $rac-default-layout-header-color,
-    $rac-default-layout-header-display: $rac-default-layout-header-display,
     $rac-default-layout-header-flex-direction: $rac-default-layout-header-flex-direction,
     $rac-default-layout-header-flex: $rac-default-layout-header-flex,
     $rac-default-layout-header-height: $rac-default-layout-header-height,
@@ -81,31 +78,5 @@
       $rac-form-actions-border-top: $rac-default-layout-form-actions-border-top,
       $rac-form-actions-padding: $rac-default-layout-form-actions-padding
     );
-  }
-
-  .rac-default-layout {
-
-    .rac-sub-header {
-
-      @include rac-button(                                                                          /* @stable [01.11.2018] */
-        $rac-button-custom: rac-button-navigation,
-        $rac-button-margin: $rac-default-layout-sub-header-button-navigation-margin
-      );
-
-      &.rac-sub-header__sub-border {
-        border-bottom: $rac-default-layout-sub-header-bordered-border-bottom;                       /* @stable [22.10.2018] */
-        margin: $rac-default-layout-sub-header-bordered-margin;                               /* @stable [18.12.2018] */
-      }
-    }
-
-    .rac-notifications {                                                                      /* @stable [11.02.2019] */
-      @include rac-styles(
-        $rac-styles-position: absolute,
-        $rac-styles-right: 0,
-        $rac-styles-width: $rac-default-layout-notifications-width,
-        $rac-styles-height: 100%,
-        $rac-styles-background: $rac-default-layout-notifications-background
-      );
-    }
   }
 }

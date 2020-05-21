@@ -5,8 +5,6 @@ import { NavigationList } from '../../navigation-list';
 import { lazyInject } from '../../../di';
 import {
   ifNotEmptyThanValue,
-  isFn,
-  orNull,
   selectStackWrapperItemEntities,
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
@@ -16,7 +14,6 @@ import {
 } from './default-layout.interface';
 import { SubHeader } from '../../sub-header';
 import { NavigationMenuBuilder } from '../../../navigation';
-import { FlexLayout } from '../flex';
 import {
   IPayloadWrapper,
   StringNumberT,
@@ -28,7 +25,6 @@ import {
 } from '../layout.interface';
 import {
   HeaderUserMenuActionsEnum,
-  IconsEnum,
   IFluxXYEntity,
   IMenuItemEntity,
   INavigationListItemEntity,
@@ -146,7 +142,6 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
       <React.Fragment>
         {props.subHeaderRendered !== false && this.subHeaderElement}
         {this.props.children}
-        {this.notificationsElement}
       </React.Fragment>
     );
   }
@@ -162,21 +157,6 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
         navigationActionRendered={hasBackAction}
         title={title}
         {...props.subHeaderConfiguration}/>
-    );
-  }
-
-  /**
-   * @stable [11.02.2019]
-   * @returns {JSX.Element}
-   */
-  private get notificationsElement(): JSX.Element {
-    return orNull(
-      this.state.notifications,
-      () => (
-        <FlexLayout className='rac-notifications'>
-          3 new notifications
-        </FlexLayout>
-      )
     );
   }
 
