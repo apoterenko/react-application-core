@@ -11,7 +11,8 @@
     @include rac-styles (
       $rac-styles-color: $rac-base-color,
       $rac-styles-font-family: $rac-base-font-family,
-      $rac-styles-font-size: $rac-base-font-size
+      $rac-styles-font-size: $rac-base-font-size,
+      $rac-styles-font-weight: $rac-base-font-weight
     );
   }
 
