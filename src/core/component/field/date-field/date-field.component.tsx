@@ -158,13 +158,13 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
       <div
         className={DateFieldClassesEnum.DATE_FIELD_NAVIGATOR}>
         <Button
-          icon={IconsEnum.BACK}
+          icon={IconsEnum.ARROW_LEFT}
           mini={true}
           {...backActionConfiguration}
           onClick={this.subtractPeriod}/>
         {baseElement}
         <Button
-          icon={IconsEnum.FORWARD}
+          icon={IconsEnum.ARROW_RIGHT}
           mini={true}
           {...forwardActionConfiguration}
           onClick={this.addPeriod}/>
@@ -324,14 +324,14 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
         )}
         <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_RANGE_EXPLORER}>
           <Button
-            icon={IconsEnum.BACK}
+            icon={IconsEnum.ARROW_LEFT}
             mini={true}
             onClick={this.setPreviousMonth}/>
           <div className={CalendarDialogClassesEnum.CALENDAR_DIALOG_RANGE_EXPLORER_DATE}>
             {this.rangeExplorerDateElement}
           </div>
           <Button
-            icon={IconsEnum.FORWARD}
+            icon={IconsEnum.ARROW_RIGHT}
             mini={true}
             onClick={this.setNextMonth}/>
         </div>

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { IComponentProps } from './props-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
-  IBackActionConfigurationWrapper,
-  IBackActionRenderedWrapper,
+  INavigationActionConfigurationWrapper,
   IContentWrapper,
   IHeaderConfigurationWrapper,
   IMenuActionConfigurationWrapper,
+  INavigationActionRenderedWrapper,
   IOnSelectWrapper,
 } from '../definitions.interface';
 import {
@@ -26,34 +26,34 @@ export enum HeaderUserMenuActionsEnum {
 }
 
 /**
+ * @presets-entity
+ * @stable [21.05.2020]
+ */
+export interface IPresetsHeaderEntity
+  extends IContentWrapper<React.ReactNode | (() => React.ReactNode)>,
+    IGenericStoreEntity,
+    IMenuActionConfigurationWrapper<IButtonProps>,
+    IMenuConfigurationEntity,
+    INavigationActionConfigurationWrapper<IButtonProps>,
+    INavigationActionRenderedWrapper,
+    IOnSelectWrapper<IMenuItemEntity> {
+}
+
+/**
  * @generic-entity
  * @stable [06.02.2020]
  */
 export interface IGenericHeaderEntity
-  extends IBackActionConfigurationWrapper<IButtonProps>,
-    IBackActionRenderedWrapper,
-    IContentWrapper<React.ReactNode | (() => React.ReactNode)>,
-    IGenericStoreEntity,
-    IMenuActionConfigurationWrapper<IButtonProps>,
-    IMenuConfigurationEntity {
-}
-
-/**
- * @behavioral-entity
- * @stable [06.02.2020]
- */
-export interface IBehavioralHeaderEntity
-  extends IOnSelectWrapper<IMenuItemEntity> {
+  extends IPresetsHeaderEntity {
 }
 
 /**
  * @props
- * @stable [06.02.2020]
+ * @stable [21.05.2020]
  */
 export interface IHeaderProps
-  extends IComponentProps,
-    IGenericHeaderEntity,
-    IBehavioralHeaderEntity {
+  extends IGenericComponentProps,
+    IGenericHeaderEntity {
 }
 
 /**
@@ -71,9 +71,9 @@ export interface IHeaderConfigurationEntity
 export enum HeaderClassesEnum {
   HEADER = 'rac-header',
   HEADER_ACTIONS = 'rac-header__actions',
-  HEADER_BACK_ACTION = 'rac-header__back-action',
   HEADER_CONTENT = 'rac-header__content',
   HEADER_MENU_ACTION = 'rac-header__menu-action',
+  HEADER_NAVIGATION_ACTION = 'rac-header__navigation-action',
   HEADER_USER_AVATAR = 'rac-header__user-avatar',
   HEADER_USER_INFO = 'rac-header__user-info',
 }

@@ -12,7 +12,7 @@
   $rac-sub-header-display: unset,                                                             /* @stable [05.04.2020] */
   $rac-sub-header-flex-direction: unset,                                                      /* @stable [05.04.2020] */
   $rac-sub-header-height: unset,                                                              /* @stable [20.05.2020] */
-  $rac-sub-header-navigation-action-margin-right: unset,                                      /* @stable [20.05.2020] */
+  $rac-sub-header-navigation-action-margin: unset,                                            /* @stable [20.05.2020] */
   $rac-sub-header-section-title-font-size: unset,                                             /* @stable [20.05.2020] */
   $rac-sub-header-section-title-font-weight: unset,                                           /* @stable [20.05.2020] */
   $rac-sub-header-section-title-margin-left: unset,                                           /* @stable [20.05.2020] */
@@ -37,7 +37,7 @@
 
     @include rac-button (
       $rac-button-custom: rac-sub-header__navigation-action,
-      $rac-button-margin-right: $rac-sub-header-navigation-action-margin-right
+      $rac-button-margin: $rac-sub-header-navigation-action-margin
     );
   }
 }

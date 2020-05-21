@@ -5,10 +5,9 @@ import {
   CalcUtils,
   ClsUtils,
   inProgress,
-  isBackActionRendered,
   isDrawerHeaderRendered,
   isSubHeaderRendered,
-  mapStoreEntity,
+  Mappers,
   mergeWithSystemProps,
   nvl,
   selectStackWrapperItemEntities,
@@ -99,17 +98,20 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [28.03.2020]
+   * @stable [21.05.2020]
    * @returns {JSX.Element}
    */
   private get headerElement(): JSX.Element {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
+    const {
+      headerConfiguration,
+    } = mergedProps;
+
     return (
       <Header
-        {...props.headerConfiguration}
-        {...mapStoreEntity(props)} // TODO Replace with mapHeaderProps
-        backActionRendered={this.isHeaderBackActionRendered && (selectStackWrapperItemEntities(this.props) || []).length > 1}>
-      </Header>
+        {...Mappers.headerProps(mergedProps)}
+        navigationActionRendered={this.isNavigationActionRendered}
+        {...headerConfiguration}/>
     );
   }
 
@@ -196,14 +198,6 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [13.02.2020]
-   * @returns {boolean}
-   */
-  private get isHeaderBackActionRendered(): boolean {
-    return isBackActionRendered(this.mergedHeaderProps);
-  }
-
-  /**
    * @stable [28.03.2020]
    * @returns {IDefaultLayoutProps}
    */
@@ -217,6 +211,10 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
    */
   private get isLayoutInProgress(): boolean {
     return inProgress(this.props);
+  }
+
+  private get isNavigationActionRendered(): boolean {
+    return (selectStackWrapperItemEntities(this.props) || []).length > 1;
   }
 
   /**

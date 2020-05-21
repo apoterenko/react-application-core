@@ -17,6 +17,7 @@ import {
   IGenericStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
+  IHeaderProps,
   INamedEntity,
   INotificationWrapperEntity,
   IOperationEntity,
@@ -471,6 +472,8 @@ export const mapUnsavedFormChangesDialogContainerProps =
       proxyContainer,
     });
 
+const mapHeaderProps = (props: IHeaderProps): IHeaderProps => mapStoreEntity(props);
+
 /**
  * @stable [05.05.2020]
  */
@@ -487,6 +490,7 @@ export class Mappers {
   public static readonly formEntity = GenericMappers.formEntity;                                                                                             /* @stable [08.05.2020] */
   public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                 /* @stable [10.05.2020] */
   public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                 /* @stable [10.05.2020] */
+  public static readonly headerProps = mapHeaderProps;
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                           /* @stable [10.05.2020] */
   public static readonly listEntity = GenericMappers.listEntity;                                                                                             /* @stable [08.05.2020] */
   public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                         /* @stable [08.05.2020] */

@@ -27,6 +27,7 @@ import {
   faCommentDots,
   faCubes,
   faDollarSign,
+  faEllipsisH,
   faEraser,
   faExchangeAlt,
   faExclamation,
@@ -132,13 +133,6 @@ export class UiIconFactory implements IUiIconFactory {
           fillRule='evenodd'
           transform='translate(0 1)'
           xlinkHref='#580296fa-0ac3-471c-8d48-c71541b55b55'
-        />
-      </svg>
-    ),
-    [IconsEnum.BACK]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M10.59 18.94a1.485 1.485 0 0 1 0 2.121 1.534 1.534 0 0 1-2.147 0L.668 13.59A2.203 2.203 0 0 1 0 12c0-.6.237-1.167.666-1.59l7.775-7.47a1.538 1.538 0 0 1 2.151 0 1.488 1.488 0 0 1 0 2.12l-5.72 5.44H22.5c.83 0 1.5.67 1.5 1.5 0 .825-.672 1.5-1.5 1.5H4.869l5.722 5.441z'
         />
       </svg>
     ),
@@ -332,16 +326,6 @@ export class UiIconFactory implements IUiIconFactory {
         <path fill='currentColor' d='M24 20a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 20zm0-7.5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16a1.5 1.5 0 0 0 1.5-1.5zM24 5a1.5 1.5 0 0 0-1.5-1.5h-16a1.5 1.5 0 0 0 0 3h16A1.5 1.5 0 0 0 24 5zM1.5 21.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0-7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z'/>
       </svg>
     ),
-    'forward': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <defs>
-          <path id='4696442e-6afc-43cd-85c9-b7bb0e931cd2' d='M10.59 18.94a1.485 1.485 0 0 1 0 2.121 1.534 1.534 0 0 1-2.147 0L.668 13.59A2.203 2.203 0 0 1 0 12c0-.6.237-1.167.666-1.59l7.775-7.47a1.538 1.538 0 0 1 2.151 0 1.488 1.488 0 0 1 0 2.12l-5.72 5.44H22.5c.83 0 1.5.67 1.5 1.5 0 .825-.672 1.5-1.5 1.5H4.869l5.722 5.441z'
-          />
-        </defs>
-        <use fill='currentColor' transform='matrix(-1 0 0 1 24 0)' xlinkHref='#4696442e-6afc-43cd-85c9-b7bb0e931cd2' />
-      </svg>
-    ),
     'ok': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -428,19 +412,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    [IconsEnum.MORE]: (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' width='16' height='16' viewBox='0 0 16 16'
-      >
-        <defs>
-          <path
-            id='7ce1975f-1487-43ce-94b1-0ed9361b2fd7'
-            fill='currentColor'
-            d='M14 4.222a2 2 0 10.001-3.999 2 2 0 00-.001 4zm-6 0A2 2 0 108.001.223a2 2 0 00-.001 4zm-6 0A2 2 0 102.001.223a2 2 0 00-.001 4z'
-          />
-        </defs>
-        <use fillRule='evenodd' transform='translate(0 6)' xlinkHref='#7ce1975f-1487-43ce-94b1-0ed9361b2fd7'/>
-      </svg>
-    ),
   };
   // tslint:enable:max-line-length
 
@@ -449,6 +420,8 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.ANGLE_DOUBLE_RIGHT]: faAngleDoubleRight,
     [IconsEnum.ANGLE_LEFT]: faAngleLeft,
     [IconsEnum.ANGLE_RIGHT]: faAngleRight,
+    [IconsEnum.ARROW_LEFT]: faArrowLeft,
+    [IconsEnum.ARROW_RIGHT]: faArrowRight,
     [IconsEnum.ARROW_UP]: faArrowUp,
     [IconsEnum.BACKSPACE]: faBackspace,
     [IconsEnum.CALENDAR_ALT_REGULAR]: faCalendarAltRegular,
@@ -460,6 +433,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.CODEPEN]: faCodepen,
     [IconsEnum.COGS]: faCogs,
     [IconsEnum.DOLLAR_SIGN]: faDollarSign,
+    [IconsEnum.ELLIPSIS_H]: faEllipsisH,
     [IconsEnum.EXCLAMATION_CIRCLE]: faExclamationCircle,
     [IconsEnum.EXCLAMATION_TRIANGLE]: faExclamationTriangle,
     [IconsEnum.FILE_DOWNLOAD]: faFileDownload,
@@ -489,8 +463,6 @@ export class UiIconFactory implements IUiIconFactory {
     arrow_alt_circle_down: faArrowAltCircleDown,
     arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,
     arrow_down: faArrowDown,
-    arrow_left: faArrowLeft,
-    arrow_right: faArrowRight,
     chart_pie: faChartPie,
     check: faCheck,
     circle_regular: faCircleRegular,

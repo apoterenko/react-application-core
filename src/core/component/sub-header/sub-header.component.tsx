@@ -6,7 +6,7 @@ import {
   TypeUtils,
 } from '../../util';
 import { Button } from '../button';
-import { GenericBaseComponent } from '../base/generic-base.component';
+import { GenericComponent } from '../base/generic.component';
 import {
   IconsEnum,
   ISubHeaderProps,
@@ -17,10 +17,10 @@ import {
  * @component-impl
  * @stable [20.05.2020]
  */
-export class SubHeader extends GenericBaseComponent<ISubHeaderProps> {
+export class SubHeader extends GenericComponent<ISubHeaderProps> {
 
   public static readonly defaultProps: ISubHeaderProps = {
-    navigationActionIcon: IconsEnum.BACK,
+    navigationActionIcon: IconsEnum.ARROW_LEFT,
   };
 
   /**

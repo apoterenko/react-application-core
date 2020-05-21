@@ -1,6 +1,7 @@
 @import './button/_button-mixin';
 @import './card-list/_card-list-mixin';
 @import './form/_form-mixin';
+@import './header/_header-mixin';
 @import './icon/_icon-mixin';
 @import './info/_info-mixin';
 @import './layout/builder/_layout-builder-mixin';
@@ -2433,114 +2434,6 @@
     $rac-alignment-left: $rac-alignment-center-left,
     $rac-alignment-position: $rac-alignment-center-position
   );
-}
-
-/**
- * @stable [06.02.2020]
- */
-@mixin rac-header (
-  $rac-header-custom: unset,
-  /**/
-  $rac-header-actions-align-items: unset,                                                     /* @stable [06.02.2020] */
-  $rac-header-actions-display: unset,                                                         /* @stable [06.02.2020] */
-  $rac-header-actions-flex-direction: unset,                                                  /* @stable [06.02.2020] */
-  $rac-header-actions-flex: unset,                                                            /* @stable [06.02.2020] */
-  $rac-header-actions-margin: unset,                                                          /* @stable [06.02.2020] */
-  $rac-header-actions-padding: unset,                                                         /* @stable [06.02.2020] */
-  $rac-header-back-action-icon-color: unset,                                                  /* @stable [20.02.2020] */
-  $rac-header-back-action-margin: unset,                                                      /* @stable [10.02.2020] */
-  $rac-header-background: unset,                                                              /* @stable [06.02.2020] */
-  $rac-header-color: unset,                                                                   /* @stable [06.02.2020] */
-  $rac-header-content-align-items: unset,                                                     /* @stable [10.02.2020] */
-  $rac-header-content-display: unset,                                                         /* @stable [10.02.2020] */
-  $rac-header-content-flex-direction: unset,                                                  /* @stable [10.02.2020] */
-  $rac-header-content-flex: unset,                                                            /* @stable [10.02.2020] */
-  $rac-header-display: unset,                                                                 /* @stable [06.02.2020] */
-  $rac-header-flex-direction: unset,                                                          /* @stable [06.02.2020] */
-  $rac-header-flex: unset,                                                                    /* @stable [06.02.2020] */
-  $rac-header-height: unset,                                                                  /* @stable [06.02.2020] */
-  $rac-header-margin: unset,                                                                  /* @stable [06.02.2020] */
-  $rac-header-menu-action-background: unset,                                                  /* @stable [06.02.2020] */
-  $rac-header-menu-action-color: unset,                                                       /* @stable [12.02.2020] */
-  $rac-header-menu-action-icon-color: unset,                                                  /* @stable [20.02.2020] */
-  $rac-header-menu-action-icon-size: unset,                                                   /* @stable [13.02.2020] */
-  $rac-header-menu-action-position: unset,                                                    /* @stable [06.02.2020] */
-  $rac-header-menu-action-right: unset,                                                       /* @stable [06.02.2020] */
-  $rac-header-padding: unset,                                                                 /* @stable [06.02.2020] */
-  $rac-header-user-avatar-background-size: unset,                                             /* @stable [06.02.2020] */
-  $rac-header-user-avatar-border-radius: unset,                                               /* @stable [06.02.2020] */
-  $rac-header-user-avatar-height: unset,                                                      /* @stable [06.02.2020] */
-  $rac-header-user-avatar-margin: unset,                                                      /* @stable [06.02.2020] */
-  $rac-header-user-avatar-width: unset,                                                       /* @stable [06.02.2020] */
-  $rac-header-user-info-color: unset,                                                         /* @stable [10.02.2020] */
-  $rac-header-user-info-font-size: unset,                                                     /* @stable [10.02.2020] */
-  $rac-header-user-info-font-weight: unset,                                                   /* @stable [10.02.2020] */
-  $rac-header-user-info-margin: unset                                                         /* @stable [06.02.2020] */
-) {
-  #{rac-cls(rac-header, $rac-header-custom)} {
-    @include rac-styles (
-      $rac-styles-background: $rac-header-background,
-      $rac-styles-color: $rac-header-color,
-      $rac-styles-display: $rac-header-display,
-      $rac-styles-flex-direction: $rac-header-flex-direction,
-      $rac-styles-flex: $rac-header-flex,
-      $rac-styles-height: $rac-header-height,
-      $rac-styles-margin: $rac-header-margin,
-      $rac-styles-padding: $rac-header-padding
-    );
-
-    .rac-header__actions {
-      @include rac-styles (
-        $rac-styles-align-items: $rac-header-actions-align-items,
-        $rac-styles-display: $rac-header-actions-display,
-        $rac-styles-flex-direction: $rac-header-actions-flex-direction,
-        $rac-styles-flex: $rac-header-actions-flex,
-        $rac-styles-margin: $rac-header-actions-margin,
-        $rac-styles-padding: $rac-header-actions-padding
-      );
-    }
-
-    @include rac-styles (
-      $rac-styles-custom: rac-header__content,
-      $rac-styles-align-items: $rac-header-content-align-items,
-      $rac-styles-display: $rac-header-content-display,
-      $rac-styles-flex-direction: $rac-header-content-flex-direction,
-      $rac-styles-flex: $rac-header-content-flex
-    );
-
-    @include rac-styles (
-      $rac-styles-custom: rac-header__user-info,
-      $rac-styles-color: $rac-header-user-info-color,
-      $rac-styles-font-size: $rac-header-user-info-font-size,
-      $rac-styles-font-weight: $rac-header-user-info-font-weight,
-      $rac-styles-margin: $rac-header-user-info-margin
-    );
-
-    @include rac-styles (
-      $rac-styles-custom: rac-header__user-avatar,
-      $rac-styles-background-size: $rac-header-user-avatar-background-size,
-      $rac-styles-border-radius: $rac-header-user-avatar-border-radius,
-      $rac-styles-height: $rac-header-user-avatar-height,
-      $rac-styles-margin: $rac-header-user-avatar-margin,
-      $rac-styles-width: $rac-header-user-avatar-width
-    );
-
-    @include rac-button (
-      $rac-button-custom: rac-header__back-action,
-      $rac-button-icon-color: $rac-header-back-action-icon-color,
-      $rac-button-margin: $rac-header-back-action-margin
-    );
-
-    @include rac-button (
-      $rac-button-custom: rac-header__menu-action,
-      $rac-button-background: $rac-header-menu-action-background,
-      $rac-button-color: $rac-header-menu-action-color,
-      $rac-button-icon-color: $rac-header-menu-action-icon-color,
-      $rac-button-icon-size: $rac-header-menu-action-icon-size,
-      $rac-button-position: $rac-header-menu-action-position,
-      $rac-button-right: $rac-header-menu-action-right
-    );
-  }
 }
 
 /**

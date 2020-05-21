@@ -9,7 +9,6 @@ import {
   IAlwaysDirtyWrapper,
   IAlwaysResettableWrapper,
   IAnchoredWrapper,
-  IBackActionRenderedWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   ICheckModalWrapper,
@@ -696,15 +695,6 @@ export const isIconLeftAligned = (entity: IIconLeftAlignedWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.iconLeftAligned !== false, false);
 
 /**
- * @stable [13.02.2020]
- * @param {TWrapper} entity
- * @returns {boolean}
- */
-export const isBackActionRendered =
-  <TWrapper extends IBackActionRenderedWrapper = IBackActionRenderedWrapper>(entity: TWrapper): boolean =>
-    ifNotNilThanValue(entity, () => entity.backActionRendered !== false, false);
-
-/**
  * @stable [16.02.2020]
  * @param {IErrorMessageRenderedWrapper} wrapper
  * @returns {boolean}
@@ -756,12 +746,12 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  * @stable [18.05.2020]
  */
 export class WrapperUtils {
-  public static readonly inProgress = inProgress;                                       /* @stable [19.05.2020] */
-  public static readonly isFieldRendered = isFieldRendered;                             /* @stable [18.05.2020] */
-  public static readonly isFooterRendered = isFooterRendered;                           /* @stable [20.05.2020] */
-  public static readonly isForceReload = isForceReload;                                 /* @stable [18.05.2020] */
-  public static readonly isFull = isFull;                                               /* @stable [20.05.2020] */
-  public static readonly isHeaderRendered = isHeaderRendered;                           /* @stable [20.05.2020] */
-  public static readonly isLoading = isLoading;                                         /* @stable [19.05.2020] */
-  public static readonly isTouched = isTouched;                                         /* @stable [18.05.2020] */
+  public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
+  public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
+  public static readonly isFooterRendered = isFooterRendered;                              /* @stable [20.05.2020] */
+  public static readonly isForceReload = isForceReload;                                    /* @stable [18.05.2020] */
+  public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
+  public static readonly isHeaderRendered = isHeaderRendered;                              /* @stable [20.05.2020] */
+  public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
+  public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */
 }

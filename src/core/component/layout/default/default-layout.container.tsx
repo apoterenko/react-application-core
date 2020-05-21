@@ -75,7 +75,7 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
           {...props}
           headerConfiguration={{
             onSelect: this.onHeaderMenuSelectItem,
-            backActionConfiguration: {onClick: this.routerStoreProxy.navigateBack},
+            navigationActionConfiguration: {onClick: this.routerStoreProxy.navigateBack},
             ...props.headerConfiguration,
           }}
           onLogoMenuActionClick={this.onLogoMenuActionClick}

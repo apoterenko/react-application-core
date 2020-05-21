@@ -1,5 +1,4 @@
-@import '../constant';
-@import '../mixin';
+@import './_header-mixin';
 @import './_header-constant';
 
 .rac {
@@ -12,15 +11,17 @@
     $rac-header-actions-align-items: $rac-header-actions-align-items,
     $rac-header-actions-display: $rac-header-actions-display,
     $rac-header-actions-margin: $rac-header-actions-margin,
-    $rac-header-back-action-icon-color: $rac-header-back-action-icon-color,
-    $rac-header-back-action-margin: $rac-header-back-action-margin,
     $rac-header-content-align-items: $rac-header-content-align-items,
     $rac-header-content-display: $rac-header-content-display,
     $rac-header-content-flex-direction: $rac-header-content-flex-direction,
-    $rac-header-content-flex: $rac-header-content-flex,
+    $rac-header-content-flex-grow: $rac-header-content-flex-grow,
     $rac-header-menu-action-color: $rac-header-menu-action-color,
     $rac-header-menu-action-icon-color: $rac-header-menu-action-icon-color,
     $rac-header-menu-action-icon-size: $rac-header-menu-action-icon-size,
+    $rac-header-menu-action-position: $rac-header-menu-action-position,
+    $rac-header-menu-action-right: $rac-header-menu-action-right,
+    $rac-header-navigation-action-icon-color: $rac-header-navigation-action-icon-color,
+    $rac-header-navigation-action-margin: $rac-header-navigation-action-margin,
     $rac-header-user-avatar-background-size: $rac-header-user-avatar-background-size,
     $rac-header-user-avatar-border-radius: $rac-header-user-avatar-border-radius,
     $rac-header-user-avatar-height: $rac-header-user-avatar-height,

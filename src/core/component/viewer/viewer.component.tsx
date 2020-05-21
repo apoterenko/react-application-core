@@ -123,7 +123,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   protected get previewForwardActionElement(): JSX.Element {
     return (
       <Button
-        icon={IconsEnum.FORWARD}
+        icon={IconsEnum.ARROW_RIGHT}
         disabled={this.isPreviewForwardActionDisabled()}
         onClick={this.onForward}/>
     );
@@ -136,7 +136,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   protected get previewBackActionElement(): JSX.Element {
     return (
       <Button
-        icon={IconsEnum.BACK}
+        icon={IconsEnum.ARROW_LEFT}
         disabled={this.isPreviewBackActionDisabled()}
         onClick={this.onBack}/>
     );

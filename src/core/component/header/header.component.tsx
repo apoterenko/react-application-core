@@ -1,19 +1,17 @@
 import * as React from 'react';
 
 import {
-  calc,
-  ifNotNilThanValue,
-  isBackActionRendered,
-  joinClassName,
-  mergeWithSystemProps,
+  CalcUtils,
+  ClsUtils,
+  ConditionUtils,
+  PropsUtils,
 } from '../../util';
-import { BaseComponent } from '../base/base.component';
+import { GenericComponent } from '../base/generic.component';
 import { Button } from '../button';
 import {
-  DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY,
+  DefaultEntities,
   HeaderClassesEnum,
   HeaderUserMenuActionsEnum,
-  IButtonProps,
   IconsEnum,
   IHeaderProps,
   IMenuItemEntity,
@@ -22,24 +20,26 @@ import {
 import { Menu } from '../menu';
 import { Link } from '../link';
 
-export class Header extends BaseComponent<IHeaderProps> {
+/**
+ * @component-impl
+ * @stable [21.05.2020]
+ *
+ * Please use the "Mappers.headerProps"
+ */
+export class Header extends GenericComponent<IHeaderProps> {
 
-  private readonly defaultMenuProps: IMenuProps = {
+  private readonly defaultMenuProps = Object.freeze<IMenuProps>({
     options: [
       {label: this.settings.messages.SETTINGS, icon: IconsEnum.COGS, value: HeaderUserMenuActionsEnum.PROFILE},
       {label: this.settings.messages.LOG_OUT, icon: IconsEnum.SIGN_OUT_ALT, value: HeaderUserMenuActionsEnum.EXIT}
     ],
-  };
-
-  private readonly defaultMenuActionProps: IButtonProps = {
-    icon: IconsEnum.MORE,
-  };
+  });
 
   private readonly menuAnchorRef = React.createRef<HTMLButtonElement>();
   private readonly menuRef = React.createRef<Menu>();
 
   /**
-   * @stable [06.02.2020]
+   * @stable [21.05.2020]
    * @param {IHeaderProps} props
    */
   constructor(props: IHeaderProps) {
@@ -51,16 +51,27 @@ export class Header extends BaseComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [06.02.2020]
+   * @stable [21.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
     const mergedProps = this.mergedProps;
-    const {user} = mergedProps;
+    const {
+      routes,
+      urls,
+    } = this.settings;
+    const {
+      className,
+      user,
+    } = mergedProps;
+
     const headerContentElement = this.headerContentElement;
 
     return (
-      <div className={joinClassName(HeaderClassesEnum.HEADER, calc(mergedProps.className))}>
+      <div
+        ref={this.actualRef}
+        className={ClsUtils.joinClassName(HeaderClassesEnum.HEADER, CalcUtils.calc(className))}
+      >
         {
           headerContentElement && (
             <div className={HeaderClassesEnum.HEADER_CONTENT}>
@@ -71,12 +82,13 @@ export class Header extends BaseComponent<IHeaderProps> {
         <div className={HeaderClassesEnum.HEADER_ACTIONS}>
           {this.props.children}
           <Link
-            to={this.routes.profile}
+            to={routes.profile}
             className={HeaderClassesEnum.HEADER_USER_AVATAR}
-            style={{backgroundImage: this.domAccessor.asImageUrl(user.url || this.settings.urls.emptyAvatar)}}/>
+            style={{backgroundImage: this.domAccessor.asImageUrl(user.url || urls.emptyAvatar)}}/>
           <Link
-            to={this.routes.profile}
-            className={HeaderClassesEnum.HEADER_USER_INFO}>
+            to={routes.profile}
+            className={HeaderClassesEnum.HEADER_USER_INFO}
+          >
             {user.name}
           </Link>
           {this.menuActionElement}
@@ -86,24 +98,31 @@ export class Header extends BaseComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [24.03.2020]
+   * @stable [21.05.2020]
    * @returns {React.ReactNode}
    */
   private get headerContentElement(): React.ReactNode {
-    const {backActionConfiguration = {}} = this.mergedProps;
+    const mergedProps = this.mergedProps;
+    const {
+      navigationActionConfiguration = {},
+      navigationActionRendered,
+    } = mergedProps;
+
     const contentElement = this.contentElement;
 
-    if (this.isBackActionRendered) {
+    if (navigationActionRendered) {
       return (
         <React.Fragment>
           {
             <Button
-              icon={IconsEnum.LONG_ARROW_ALT_LEFT}
-              {...backActionConfiguration}
-              className={joinClassName(
-                HeaderClassesEnum.HEADER_BACK_ACTION,
-                calc(backActionConfiguration.className),
-              )}/>
+              icon={IconsEnum.ARROW_LEFT}
+              {...navigationActionConfiguration}
+              className={
+                ClsUtils.joinClassName(
+                  HeaderClassesEnum.HEADER_NAVIGATION_ACTION,
+                  CalcUtils.calc(navigationActionConfiguration.className),
+                )
+              }/>
           }
           {contentElement}
         </React.Fragment>
@@ -113,7 +132,7 @@ export class Header extends BaseComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [06.02.2020]
+   * @stable [21.05.2020]
    * @returns {JSX.Element}
    */
   private get menuActionElement(): JSX.Element {
@@ -126,9 +145,14 @@ export class Header extends BaseComponent<IHeaderProps> {
       <React.Fragment>
         <Button
           forwardedRef={this.menuAnchorRef}
-          {...this.defaultMenuActionProps}
+          icon={IconsEnum.ELLIPSIS_H}
           {...menuActionConfiguration}
-          className={joinClassName(HeaderClassesEnum.HEADER_MENU_ACTION, calc(menuActionConfiguration.className))}
+          className={
+            ClsUtils.joinClassName(
+              HeaderClassesEnum.HEADER_MENU_ACTION,
+              CalcUtils.calc(menuActionConfiguration.className)
+            )
+          }
           onClick={this.onMenuActionClick}
         />
         <Menu
@@ -136,29 +160,29 @@ export class Header extends BaseComponent<IHeaderProps> {
           {...this.defaultMenuProps}
           {...menuConfiguration}
           anchorElement={this.getMenuAnchorElement}
-          positionConfiguration={DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY}
+          positionConfiguration={DefaultEntities.DOM_RIGHT_POSITION_CONFIG_ENTITY}
           onSelect={this.onMenuItemSelect}/>
       </React.Fragment>
     );
   }
 
   /**
-   * @stable [24.03.2020]
+   * @stable [21.05.2020]
    * @param {IMenuItemEntity} menuItem
    */
   private onMenuItemSelect(menuItem: IMenuItemEntity): void {
-    ifNotNilThanValue(this.mergedProps.onSelect, (onSelect) => onSelect(menuItem));
+    ConditionUtils.ifNotNilThanValue(this.mergedProps.onSelect, (onSelect) => onSelect(menuItem));
   }
 
   /**
-   * @stable [06.02.2020]
+   * @stable [21.05.2020]
    */
   private onMenuActionClick(): void {
     this.menuRef.current.show();
   }
 
   /**
-   * @stable [06.02.2020]
+   * @stable [21.05.2020]
    * @returns {HTMLElement}
    */
   private getMenuAnchorElement(): HTMLElement {
@@ -166,26 +190,18 @@ export class Header extends BaseComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [24.03.2020]
+   * @stable [21.05.2020]
    * @returns {React.ReactNode}
    */
   private get contentElement(): React.ReactNode {
-    return calc(this.mergedProps.content, this);
+    return CalcUtils.calc(this.mergedProps.content, this);
   }
 
   /**
-   * @stable [12.02.2020]
-   * @returns {boolean}
-   */
-  private get isBackActionRendered(): boolean {
-    return isBackActionRendered(this.mergedProps);
-  }
-
-  /**
-   * @stable [24.03.2020]
+   * @stable [21.05.2020]
    * @returns {IHeaderProps}
    */
   private get mergedProps(): IHeaderProps {
-    return mergeWithSystemProps(this.props, this.settings.components.header);
+    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.header);
   }
 }

@@ -55,8 +55,7 @@ export interface IAutoCompleteWrapper<TValue = string> { autoComplete?: TValue; 
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IAutoUnsubscribingWrapper { autoUnsubscribing?: boolean; }
-export interface IBackActionConfigurationWrapper<TValue> { backActionConfiguration?: TValue; }
-export interface IBackActionRenderedWrapper { backActionRendered?: boolean; }
+export interface IBackActionConfigurationWrapper<TValue = boolean> { backActionConfiguration?: TValue; }
 export interface IBarcodeWrapper<TValue = string> { barcode?: TValue; }
 export interface IBasenameWrapper { basename?: string; }
 export interface IBeforeEnterWrapper<TValue> { beforeEnter?: TValue; }
@@ -311,6 +310,7 @@ export interface IMonthWrapper<TValue = number> { month?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }
 export interface INameWrapper<TValue = string> { name?: TValue; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
+export interface INavigationActionConfigurationWrapper<TValue> { navigationActionConfiguration?: TValue; }
 export interface INavigationActionIconWrapper { navigationActionIcon?: string; }
 export interface INavigationActionRenderedWrapper { navigationActionRendered?: boolean; }
 export interface INewEntityWrapper<TValue = boolean> { newEntity?: TValue; }

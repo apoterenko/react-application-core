@@ -839,28 +839,3 @@ $rac-calendar-day-wrapper-padding-top: $rac-calendar-offset-0 !default;
 $rac-calendar-head-background: unset !default;
 $rac-calendar-margin: 0 auto !default;
 $rac-calendar-today-color: $rac-primary-color-dia-0 !default;
-
-/************************/
-/* @stable [10.02.2020] */
-/************************/
-$rac-header-color-0: unset !default;
-$rac-header-display-0: flex !default;
-$rac-header-size-0: 24px !default;
-/**/
-$rac-header-actions-align-items: center !default;
-$rac-header-actions-display: $rac-header-display-0 !default;
-$rac-header-actions-margin: 0 0 0 auto !default;
-$rac-header-back-action-icon-color: $rac-header-color-0 !default;
-$rac-header-back-action-margin: 0 $rac-primary-offset-3 0 0 !default;
-$rac-header-content-align-items: center !default;
-$rac-header-content-display: $rac-header-display-0 !default;
-$rac-header-content-flex-direction: unset !default;
-$rac-header-content-flex: 1 !default;
-$rac-header-menu-action-color: unset !default;
-$rac-header-menu-action-icon-color:  $rac-header-color-0 !default;
-$rac-header-menu-action-icon-size: unset !default;
-$rac-header-user-avatar-background-size: cover !default;
-$rac-header-user-avatar-border-radius: $rac-header-size-0 / 2 !default;
-$rac-header-user-avatar-height: $rac-header-size-0 !default;
-$rac-header-user-avatar-margin: 0 $rac-primary-offset-1 0 0 !default;
-$rac-header-user-avatar-width: $rac-header-size-0 !default;
