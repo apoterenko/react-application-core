@@ -157,17 +157,18 @@ $rac-primary-icon-size-8: 40px !default;
 /* @stable [18.03.2020] */
 /************************/
 /* metis */
-$rac-primary-color-metis-0: rgba(0, 0, 0, .05) !default;
-$rac-primary-color-metis-0-0: #f0f0f0 !default;
-$rac-primary-color-metis-0-1: #f1f1f1 !default;
-$rac-primary-color-metis-0-2: #f2f2f2 !default;
-$rac-primary-color-metis-0-3: #f3f3f3 !default;
-$rac-primary-color-metis-0-4: #f4f4f4 !default;
-$rac-primary-color-metis-0-5: #f5f5f5 !default;
-$rac-primary-color-metis-0-6: #f6f6f6 !default;
-$rac-primary-color-metis-0-7: #f7f7f7 !default;
-$rac-primary-color-metis-0-8: #f8f8f8 !default;
-$rac-primary-color-metis-0-9: #f9f9f9 !default;
+$rac-primary-color-metis-0: rgb(0, 0, 0) !default;  // #000000
+$rac-primary-color-metis-05: rgba(0, 0, 0, .05) !default;
+$rac-primary-color-metis-05-0: #f0f0f0 !default;
+$rac-primary-color-metis-05-1: #f1f1f1 !default;
+$rac-primary-color-metis-05-2: #f2f2f2 !default;
+$rac-primary-color-metis-05-3: #f3f3f3 !default;
+$rac-primary-color-metis-05-4: #f4f4f4 !default;
+$rac-primary-color-metis-05-5: #f5f5f5 !default;
+$rac-primary-color-metis-05-6: #f6f6f6 !default;
+$rac-primary-color-metis-05-7: #f7f7f7 !default;
+$rac-primary-color-metis-05-8: #f8f8f8 !default;
+$rac-primary-color-metis-05-9: #f9f9f9 !default;
 /* metis */
 $rac-primary-color-metis-1: rgba(0, 0, 0, .1) !default;
 $rac-primary-color-metis-1-0: #e0e0e0 !default;
@@ -249,7 +250,7 @@ $rac-primary-shadow-offset-0: 0 6px 16px 0 !default;
 /************************/
 /* @stable [04.05.2020] */
 /************************/
-$rac-primary-odd-background-0: $rac-primary-color-metis-0 !default;
+$rac-primary-odd-background-0: $rac-primary-color-metis-05 !default;
 
 /************************/
 /* @stable [04.05.2020] */
