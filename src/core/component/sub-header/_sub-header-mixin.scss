@@ -16,7 +16,8 @@
   $rac-sub-header-section-title-font-size: unset,                                             /* @stable [20.05.2020] */
   $rac-sub-header-section-title-font-weight: unset,                                           /* @stable [20.05.2020] */
   $rac-sub-header-section-title-margin-left: unset,                                           /* @stable [20.05.2020] */
-  $rac-sub-header-section-title-margin-right: unset                                           /* @stable [20.05.2020] */
+  $rac-sub-header-section-title-margin-right: unset,                                          /* @stable [20.05.2020] */
+  $rac-sub-header-sub-border-border-bottom: unset                                             /* @stable [21.05.2020] */
 ) {
   #{rac-cls($rac-sub-header-cls, $rac-sub-header-custom)} {
     @include rac-styles (
@@ -33,6 +34,11 @@
       $rac-styles-font-weight: $rac-sub-header-section-title-font-weight,
       $rac-styles-margin-left: $rac-sub-header-section-title-margin-left,
       $rac-styles-margin-right: $rac-sub-header-section-title-margin-right
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-sub-header__sub-border,
+      $rac-styles-border-bottom: $rac-sub-header-sub-border-border-bottom
     );
 
     @include rac-button (

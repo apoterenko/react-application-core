@@ -2471,7 +2471,6 @@
   $rac-default-layout-header-flex-direction: unset,                                           /* @stable [06.02.2020] */
   $rac-default-layout-header-flex: unset,                                                     /* @stable [06.02.2020] */
   $rac-default-layout-header-height: unset,                                                   /* @stable [06.02.2020] */
-  $rac-default-layout-header-menu-action-background: unset,                                   /* @stable [06.02.2020] */
   $rac-default-layout-header-menu-action-position: unset,                                     /* @stable [06.02.2020] */
   $rac-default-layout-header-menu-action-right: unset,                                        /* @stable [06.02.2020] */
   $rac-default-layout-header-padding: unset,                                                  /* @stable [06.02.2020] */
@@ -2598,7 +2597,6 @@
       $rac-header-flex-direction: $rac-default-layout-header-flex-direction,
       $rac-header-flex: $rac-default-layout-header-flex,
       $rac-header-height: $rac-default-layout-header-height,
-      $rac-header-menu-action-background: $rac-default-layout-header-menu-action-background,
       $rac-header-menu-action-position: $rac-default-layout-header-menu-action-position,
       $rac-header-menu-action-right: $rac-default-layout-header-menu-action-right,
       $rac-header-padding: $rac-default-layout-header-padding,
