@@ -30,15 +30,23 @@ export const truncateStack = (stackEntity: IReduxStackEntity, section: string): 
 
 /**
  * @stable [21.05.2020]
+ * @param {IReduxStackEntity} entity
+ * @returns {boolean}
+ */
+const doesStackEntityContainChildren = (entity: IReduxStackEntity): boolean =>
+  (Selectors.stack(entity) || []).length > 1;
+
+/**
+ * @stable [21.05.2020]
  * @param {IReduxHolderStackEntity} entity
  * @returns {boolean}
  */
-const doesStackContainChildren = (entity: IReduxHolderStackEntity): boolean =>
-  (Selectors.stackItemEntities(entity) || []).length > 1;
+const doesHolderStackEntityContainChildren = (entity: IReduxHolderStackEntity): boolean =>
+  doesStackEntityContainChildren(Selectors.stack(entity));
 
 /**
  * @stable [21.05.2020]
  */
 export class StackUtils {
-  public static readonly doesStackContainChildren = doesStackContainChildren;                       /* @stable [21.05.2020] */
+  public static readonly doesHolderStackEntityContainChildren = doesHolderStackEntityContainChildren;  /* @stable [21.05.2020] */
 }

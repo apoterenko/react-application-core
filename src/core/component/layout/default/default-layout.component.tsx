@@ -218,7 +218,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
    * @returns {boolean}
    */
   private get isNavigationActionRendered(): boolean {
-    return StackUtils.doesStackContainChildren(this.originalProps);
+    return StackUtils.doesHolderStackEntityContainChildren(this.originalProps);
   }
 
   /**
