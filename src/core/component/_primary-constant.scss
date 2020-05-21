@@ -168,8 +168,6 @@ $rac-primary-color-metis-0-6: #f6f6f6 !default;
 $rac-primary-color-metis-0-7: #f7f7f7 !default;
 $rac-primary-color-metis-0-8: #f8f8f8 !default;
 $rac-primary-color-metis-0-9: #f9f9f9 !default;
-$rac-primary-color-metis-0-10: #ffffff !default;
-
 /* metis */
 $rac-primary-color-metis-1: rgba(0, 0, 0, .1) !default;
 $rac-primary-color-metis-1-0: #e0e0e0 !default;
@@ -188,9 +186,12 @@ $rac-primary-color-metis-4: rgba(0, 0, 0, .4) !default;
 $rac-primary-color-metis-5: rgba(0, 0, 0, .5) !default;
 $rac-primary-color-metis-6: rgba(0, 0, 0, .6) !default;
 $rac-primary-color-metis-7: rgba(0, 0, 0, .7) !default;
+$rac-primary-color-metis-8: rgba(0, 0, 0, .8) !default;
+$rac-primary-color-metis-9: rgba(0, 0, 0, .9) !default;
 
 /* elara */
-$rac-primary-color-elara-0: rgba(255, 255, 255, .05) !default;
+$rac-primary-color-elara-0: rgb(255, 255, 255) !default;  // #ffffff
+$rac-primary-color-elara-05: rgba(255, 255, 255, .05) !default;
 $rac-primary-color-elara-1: rgba(255, 255, 255, .1) !default;
 $rac-primary-color-elara-2: rgba(255, 255, 255, .2) !default;
 $rac-primary-color-elara-3: rgba(255, 255, 255, .3) !default;
@@ -199,11 +200,12 @@ $rac-primary-color-elara-5: rgba(255, 255, 255, .5) !default;
 $rac-primary-color-elara-6: rgba(255, 255, 255, .6) !default;
 $rac-primary-color-elara-7: rgba(255, 255, 255, .7) !default;
 $rac-primary-color-elara-8: rgba(255, 255, 255, .8) !default;
+$rac-primary-color-elara-9: rgba(255, 255, 255, .9) !default;
 
-/* elara */
+/* artemis */
 $rac-primary-color-artemis-3: #06aed5 !default;
 
-// ganymede
+/* ganymede */
 $rac-primary-color-ganymede-0: rgb(255, 191, 0) !default;  // #ffbf00
 $rac-primary-color-ganymede-1: rgba(255, 191, 0, .1) !default;
 $rac-primary-color-ganymede-2: rgba(255, 191, 0, .2) !default;
@@ -215,27 +217,28 @@ $rac-primary-color-ganymede-7: rgba(255, 191, 0, .7) !default;
 $rac-primary-color-ganymede-8: rgba(255, 191, 0, .8) !default;
 $rac-primary-color-ganymede-9: rgba(255, 191, 0, .9) !default;
 
-// aphrodite
+/* aphrodite */
 $rac-primary-color-aphrodite-0: #f96f00 !default;
 
-// dia
+/* dia */
 $rac-primary-color-dia-0: #ed254e !default;
 
-// hermes
+/* hermes */
 $rac-primary-color-hermes-0: rgb(91, 186, 111) !default;  // #5bba6f
-$rac-primary-color-hermes-0-0: rgba(91, 186, 111, .1) !default;
-$rac-primary-color-hermes-0-1: rgba(91, 186, 111, .2) !default;
-$rac-primary-color-hermes-0-2: rgba(91, 186, 111, .3) !default;
-$rac-primary-color-hermes-0-3: rgba(91, 186, 111, .4) !default;
-$rac-primary-color-hermes-0-4: rgba(91, 186, 111, .5) !default;
-$rac-primary-color-hermes-0-5: rgba(91, 186, 111, .6) !default;
-$rac-primary-color-hermes-0-6: rgba(91, 186, 111, .7) !default;
-$rac-primary-color-hermes-0-7: rgba(91, 186, 111, .8) !default;
-$rac-primary-color-hermes-0-8: rgba(91, 186, 111, .9) !default;
-/**/
-$rac-primary-color-hermes-1: #4eae60 !default;
+$rac-primary-color-hermes-1: rgba(91, 186, 111, .1) !default;
+$rac-primary-color-hermes-2: rgba(91, 186, 111, .2) !default;
+$rac-primary-color-hermes-3: rgba(91, 186, 111, .3) !default;
+$rac-primary-color-hermes-4: rgba(91, 186, 111, .4) !default;
+$rac-primary-color-hermes-5: rgba(91, 186, 111, .5) !default;
+$rac-primary-color-hermes-6: rgba(91, 186, 111, .6) !default;
+$rac-primary-color-hermes-7: rgba(91, 186, 111, .7) !default;
+$rac-primary-color-hermes-8: rgba(91, 186, 111, .8) !default;
+$rac-primary-color-hermes-9: rgba(91, 186, 111, .9) !default;
 
-// poseidon
+/* caerus */
+$rac-primary-color-caerus-0: #4eae60 !default;
+
+/* poseidon */
 $rac-primary-color-poseidon-0: #12130f !default;
 
 /************************/
