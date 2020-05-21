@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
-  INavigationActionConfigurationWrapper,
   IContentWrapper,
   IHeaderConfigurationWrapper,
   IMenuActionConfigurationWrapper,
+  INavigationActionConfigurationWrapper,
+  INavigationActionIconWrapper,
   INavigationActionRenderedWrapper,
   IOnSelectWrapper,
 } from '../definitions.interface';
@@ -35,6 +36,7 @@ export interface IPresetsHeaderEntity
     IMenuActionConfigurationWrapper<IButtonProps>,
     IMenuConfigurationEntity,
     INavigationActionConfigurationWrapper<IButtonProps>,
+    INavigationActionIconWrapper,
     INavigationActionRenderedWrapper,
     IOnSelectWrapper<IMenuItemEntity> {
 }

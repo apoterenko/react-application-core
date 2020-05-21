@@ -28,6 +28,10 @@ import { Link } from '../link';
  */
 export class Header extends GenericComponent<IHeaderProps> {
 
+  public static readonly defaultProps: IHeaderProps = {
+    navigationActionIcon: IconsEnum.ARROW_LEFT,
+  };
+
   private readonly defaultMenuProps = Object.freeze<IMenuProps>({
     options: [
       {label: this.settings.messages.SETTINGS, icon: IconsEnum.COGS, value: HeaderUserMenuActionsEnum.PROFILE},
@@ -115,7 +119,7 @@ export class Header extends GenericComponent<IHeaderProps> {
         <React.Fragment>
           {
             <Button
-              icon={IconsEnum.ARROW_LEFT}
+              icon={mergedProps.navigationActionIcon}
               {...navigationActionConfiguration}
               className={
                 ClsUtils.joinClassName(
