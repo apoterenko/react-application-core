@@ -2,7 +2,12 @@
 @import '../_classes';
 
 /************************/
-/* @stable [19.04.2020] */
+/* @stable [21.05.2020] */
+/************************/
+$rac-primary-header-size-0: $rac-primary-size-5 !default;
+
+/************************/
+/* @stable [21.05.2020] */
 /************************/
 $rac-header-actions-align-items: center !default;
 $rac-header-actions-display: $rac-primary-display-0 !default;
@@ -18,19 +23,12 @@ $rac-header-menu-action-position: unset !default;
 $rac-header-menu-action-right: unset !default;
 $rac-header-navigation-action-icon-color: unset !default;
 $rac-header-navigation-action-margin: 0 $rac-primary-offset-3 0 0 !default;
+$rac-header-user-avatar-background-size: cover !default;
+$rac-header-user-avatar-border-radius: 50% !default;
+$rac-header-user-avatar-height: $rac-primary-header-size-0 !default;
+$rac-header-user-avatar-margin: 0 $rac-primary-offset-1 0 0 !default;
+$rac-header-user-avatar-width: $rac-primary-header-size-0 !default;
 $rac-header-user-info-color: $rac-primary-color-poseidon-0 !default;
 $rac-header-user-info-font-size: $rac-primary-font-size-1 !default;
 $rac-header-user-info-font-weight: $rac-primary-font-weight-2 !default;
 $rac-header-user-info-margin: unset !default;
-
-/************************/
-/* @stable [10.02.2020] */
-/************************/
-$rac-header-size-0: 24px !default;
-/**/
-
-$rac-header-user-avatar-background-size: cover !default;
-$rac-header-user-avatar-border-radius: $rac-header-size-0 / 2 !default;
-$rac-header-user-avatar-height: $rac-header-size-0 !default;
-$rac-header-user-avatar-margin: 0 $rac-primary-offset-1 0 0 !default;
-$rac-header-user-avatar-width: $rac-header-size-0 !default;
