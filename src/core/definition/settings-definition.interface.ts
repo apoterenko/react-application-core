@@ -125,7 +125,9 @@ export interface IComponentsSettingsEntity {
  * @default-entity
  * @stable [24.03.2020]
  */
-export const DEFAULT_COMPONENTS_SETTINGS_ENTITY = Object.freeze<IComponentsSettingsEntity>({});
+export const DEFAULT_COMPONENTS_SETTINGS_ENTITY = Object.freeze<IComponentsSettingsEntity>({
+  header: {navigationActionRendered: false},
+});
 
 /**
  * @entity

@@ -8,12 +8,14 @@
    * @stable [20.05.2020]
    */
   @include rac-main (
+    $rac-main-background: $rac-main-background,
     $rac-main-body-content-child-flex-shrink: $rac-main-body-content-child-flex-shrink,
     $rac-main-body-content-last-child-padding: $rac-main-body-content-last-child-padding,
     $rac-main-body-content-min-width: $rac-main-body-content-min-width,
     $rac-main-body-content-padding: $rac-main-body-content-padding,
     $rac-main-display: $rac-main-display,
-    $rac-main-flex-direction: $rac-main-flex-direction
+    $rac-main-flex-direction: $rac-main-flex-direction,
+    $rac-main-position: $rac-main-position
   );
 
   /**
@@ -23,5 +25,14 @@
   @include rac-main (
     $rac-main-custom: $rac-full-main-cls,
     $rac-main-flex-grow: $rac-full-main-flex-grow
+  );
+
+  /**
+   * @main-with-sub-header
+   * @stable [21.05.2020]
+   */
+  @include rac-main (
+    $rac-main-custom: $rac-main-with-sub-header-cls,
+    $rac-main-body-content-padding-top: $rac-main-with-sub-header-body-content-padding-top
   );
 }

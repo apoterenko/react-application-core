@@ -141,6 +141,4 @@ export enum DefaultLayoutClassesEnum {
   DEFAULT_LAYOUT_DRAWER_HEADER = 'rac-default-layout__drawer-header',
   DEFAULT_LAYOUT_FULL = 'rac-default-layout-full',
   DEFAULT_LAYOUT_MINI = 'rac-default-layout-mini',
-  DEFAULT_LAYOUT_WITH_SUB_HEADER = 'rac-default-layout-with-sub-header',
-  DEFAULT_LAYOUT_WITHOUT_SUB_HEADER = 'rac-default-layout-without-sub-header',
 }

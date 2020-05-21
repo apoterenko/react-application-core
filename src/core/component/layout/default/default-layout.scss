@@ -36,7 +36,6 @@
     $rac-default-layout-header-user-avatar-margin: $rac-default-layout-header-user-avatar-margin,
     $rac-default-layout-header-user-avatar-width: $rac-default-layout-header-user-avatar-width,
     $rac-default-layout-header-user-info-margin: $rac-default-layout-header-user-info-margin,
-    $rac-default-layout-main-background: $rac-default-layout-main-background,
     $rac-default-layout-main-body-content-display: $rac-default-layout-main-body-content-display,
     $rac-default-layout-main-body-content-flex-direction: $rac-default-layout-main-body-content-flex-direction,
     $rac-default-layout-main-body-content-flex: $rac-default-layout-main-body-content-flex,
@@ -46,22 +45,12 @@
     $rac-default-layout-main-body-overflow: $rac-default-layout-main-body-overflow,
     $rac-default-layout-main-body-position: $rac-default-layout-main-body-position,
     $rac-default-layout-main-body-width: $rac-default-layout-main-body-width,
-    $rac-default-layout-main-position: $rac-default-layout-main-position,
     $rac-default-layout-tab-panel-wrapper-border-bottom: $rac-default-layout-tab-panel-wrapper-border-bottom,
     $rac-default-layout-tab-panel-wrapper-margin: $rac-default-layout-tab-panel-wrapper-margin,
     $rac-default-layout-tab-panel-wrapper-padding: $rac-default-layout-tab-panel-wrapper-padding,
     $rac-default-layout-form-actions-border-top: $rac-default-layout-form-actions-border-top,
     $rac-default-layout-form-actions-margin: $rac-default-layout-form-actions-margin,
     $rac-default-layout-form-actions-padding: $rac-default-layout-form-actions-padding
-  );
-
-  /**
-   * @$rac-default-layout-without-sub-header-cls
-   * @stable [10.02.2020]
-   */
-  @include rac-default-layout (
-    $rac-default-layout-custom: $rac-default-layout-without-sub-header-cls,
-    $rac-default-layout-main-body-content-padding-top: $rac-default-layout-without-sub-header-main-body-content-padding-top
   );
 
   .rac-default-layout {                                                                       /* @stable [13.02.2019] */

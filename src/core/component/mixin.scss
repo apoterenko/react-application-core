@@ -2475,19 +2475,16 @@
   $rac-default-layout-header-user-avatar-margin: unset,                                       /* @stable [06.02.2020] */
   $rac-default-layout-header-user-avatar-width: unset,                                        /* @stable [06.02.2020] */
   $rac-default-layout-header-user-info-margin: unset,                                         /* @stable [06.02.2020] */
-  $rac-default-layout-main-background: unset,                                                 /* @stable [05.02.2020] */
   $rac-default-layout-main-body-content-display: unset,                                       /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-flex-direction: unset,                                /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-flex: unset,                                          /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-height: unset,                                        /* @stable [04.02.2020] */
   $rac-default-layout-main-body-content-min-width: unset,                                     /* @stable [04.02.2020] */
-  $rac-default-layout-main-body-content-padding-top: unset,                                   /* @stable [10.02.2020] */
   $rac-default-layout-main-body-content-width: unset,                                         /* @stable [04.02.2020] */
   $rac-default-layout-main-body-height: unset,                                                /* @stable [04.02.2020] */
   $rac-default-layout-main-body-overflow: unset,                                              /* @stable [05.02.2020] */
   $rac-default-layout-main-body-position: unset,                                              /* @stable [05.02.2020] */
   $rac-default-layout-main-body-width: unset,                                                 /* @stable [04.02.2020] */
-  $rac-default-layout-main-position: unset,                                                   /* @stable [05.02.2020] */
   $rac-default-layout-navigation-list-active-section-background: unset,                       /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-active-section-color: unset,                            /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-expanded-section-background: unset,                     /* @stable [05.02.2020] */
@@ -2559,19 +2556,16 @@
     );
 
     @include rac-main (
-      $rac-main-background: $rac-default-layout-main-background,
       $rac-main-body-content-display: $rac-default-layout-main-body-content-display,
       $rac-main-body-content-flex-direction: $rac-default-layout-main-body-content-flex-direction,
       $rac-main-body-content-flex: $rac-default-layout-main-body-content-flex,
       $rac-main-body-content-height: $rac-default-layout-main-body-content-height,
       $rac-main-body-content-min-width: $rac-default-layout-main-body-content-min-width,
-      $rac-main-body-content-padding-top: $rac-default-layout-main-body-content-padding-top,
       $rac-main-body-content-width: $rac-default-layout-main-body-content-width,
       $rac-main-body-height: $rac-default-layout-main-body-height,
       $rac-main-body-overflow: $rac-default-layout-main-body-overflow,
       $rac-main-body-position: $rac-default-layout-main-body-position,
-      $rac-main-body-width: $rac-default-layout-main-body-width,
-      $rac-main-position: $rac-default-layout-main-position
+      $rac-main-body-width: $rac-default-layout-main-body-width
     );
 
     @include rac-header (

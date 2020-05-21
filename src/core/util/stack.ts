@@ -1,9 +1,11 @@
 import * as R from 'ramda';
 
 import {
+  IReduxHolderStackEntity,
   IReduxStackEntity,
   IReduxStackItemEntity,
 } from '../definition';
+import { Selectors } from './select';
 
 /**
  * @stable [19.12.2019]
@@ -25,3 +27,18 @@ export const truncateStack = (stackEntity: IReduxStackEntity, section: string): 
   stackEntity
     .stack
     .slice(0, findStackItemEntityIndexBySection(section, stackEntity) + 1);
+
+/**
+ * @stable [21.05.2020]
+ * @param {IReduxHolderStackEntity} entity
+ * @returns {boolean}
+ */
+const doesStackContainChildren = (entity: IReduxHolderStackEntity): boolean =>
+  (Selectors.stackItemEntities(entity) || []).length > 1;
+
+/**
+ * @stable [21.05.2020]
+ */
+export class StackUtils {
+  public static readonly doesStackContainChildren = doesStackContainChildren;                       /* @stable [21.05.2020] */
+}

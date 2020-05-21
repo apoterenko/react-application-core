@@ -13,6 +13,8 @@ $rac-full-main-cls: rac-full-main;
 $rac-main-body-cls: rac-main__body;
 $rac-main-body-content-cls: rac-main__body-content;
 $rac-main-cls: rac-main;
+/**/
+$rac-main-with-sub-header-cls: '#{$rac-main-cls}.rac-main-with-sub-header';
 
 /************************/
 /* @stable [14.05.2020] */
@@ -143,4 +145,3 @@ $rac-sub-header-section-title-cls: rac-sub-header__section-title;
 /************************/
 $rac-default-layout-full-cls: rac-default-layout-full;
 $rac-default-layout-mini-cls: rac-default-layout-mini;
-$rac-default-layout-without-sub-header-cls: rac-default-layout-without-sub-header;

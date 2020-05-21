@@ -7,6 +7,7 @@ import {
   Mappers,
   PropsUtils,
   Selectors,
+  StackUtils,
   WrapperUtils,
 } from '../../../util';
 import { Drawer } from '../../drawer';
@@ -53,7 +54,6 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   public render(): JSX.Element {
     const {
       className,
-      subHeaderRendered,
     } = this.mergedProps;
 
     return (
@@ -62,9 +62,6 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
           ClsUtils.joinClassName(
             DefaultLayoutClassesEnum.DEFAULT_LAYOUT,
             CalcUtils.calc(className),
-            subHeaderRendered
-              ? DefaultLayoutClassesEnum.DEFAULT_LAYOUT_WITH_SUB_HEADER
-              : DefaultLayoutClassesEnum.DEFAULT_LAYOUT_WITHOUT_SUB_HEADER,
             this.isLayoutFullModeEnabled
               ? DefaultLayoutClassesEnum.DEFAULT_LAYOUT_FULL
               : DefaultLayoutClassesEnum.DEFAULT_LAYOUT_MINI
@@ -216,8 +213,12 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
     this.props.onDrawerHeaderClick(this.layoutMode);
   }
 
+  /**
+   * @stable [21.05.2020]
+   * @returns {boolean}
+   */
   private get isNavigationActionRendered(): boolean {
-    return (Selectors.stackItemEntities(this.props) || []).length > 1;
+    return StackUtils.doesStackContainChildren(this.originalProps);
   }
 
   /**
