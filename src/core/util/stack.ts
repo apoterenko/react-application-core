@@ -1,27 +1,27 @@
 import * as R from 'ramda';
 
 import {
-  IGenericStackEntity,
-  IStackItemEntity,
+  IReduxStackEntity,
+  IReduxStackItemEntity,
 } from '../definition';
 
 /**
  * @stable [19.12.2019]
  * @param {string} currentSection
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @returns {number}
  */
 export const findStackItemEntityIndexBySection = (currentSection: string,
-                                                  stackEntity: IGenericStackEntity): number =>
-  R.findIndex<IStackItemEntity>((entry) => entry.section === currentSection, stackEntity.stack);
+                                                  stackEntity: IReduxStackEntity): number =>
+  R.findIndex<IReduxStackItemEntity>((entry) => entry.section === currentSection, stackEntity.stack);
 
 /**
  * @stable [19.12.2019]
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @param {string} section
- * @returns {IStackItemEntity[]}
+ * @returns {IReduxStackItemEntity[]}
  */
-export const truncateStack = (stackEntity: IGenericStackEntity, section: string): IStackItemEntity[] =>
+export const truncateStack = (stackEntity: IReduxStackEntity, section: string): IReduxStackItemEntity[] =>
   stackEntity
     .stack
     .slice(0, findStackItemEntityIndexBySection(section, stackEntity) + 1);

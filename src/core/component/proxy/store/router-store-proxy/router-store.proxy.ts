@@ -13,7 +13,7 @@ import { RouterActionBuilder } from '../../../../action';
 import {
   FilterUtils,
   handlerPropsFactory,
-  selectStackWrapperItemEntities,
+  Selectors,
 } from '../../../../util';
 
 export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
@@ -67,7 +67,7 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
    * @returns {React.ReactNode[]}
    */
   public buildNavigationSteps(factory: (cfg: IRouterStoreProxyFactoryConfigEntity) => JSX.Element): React.ReactNode[] {
-    const entities = selectStackWrapperItemEntities(this.props) || [];
+    const entities = Selectors.stackItemEntities(this.props) || [];
     const length = entities.length;
 
     return FilterUtils.notNilValuesArrayFilter(

@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux';
+import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import {
@@ -6,10 +6,10 @@ import {
   $RAC_STACK_POP_ACTION_TYPE,
   $RAC_STACK_PUSH_ACTION_TYPE,
   $RAC_STACK_REMOVE_ACTION_TYPE,
-  INITIAL_STACK_ENTITY,
-  IGenericStackEntity,
-  IStackItemEntity,
-  IStackPayloadEntity,
+  DefaultEntities,
+  IReduxStackEntity,
+  IReduxStackItemEntity,
+  IFluxStackEntity,
 } from '../../definition';
 import {
   getAdditionalStackSectionsToDestroy,
@@ -20,15 +20,15 @@ import {
 } from '../../util';
 
 /**
- * @stable [20.09.2019]
- * @param {IGenericStackEntity} state
- * @param {AnyAction} action
- * @returns {IGenericStackEntity}
+ * @stable [21.10.2019]
+ * @param {IReduxStackEntity} state
+ * @param {IEffectsAction} action
+ * @returns {IReduxStackEntity}
  */
-export const stackReducer = (state: IGenericStackEntity = INITIAL_STACK_ENTITY,
-                             action: AnyAction): IGenericStackEntity => {
+export const stackReducer = (state: IReduxStackEntity = DefaultEntities.INITIAL_REDUX_STACK_ENTITY,
+                             action: IEffectsAction): IReduxStackEntity => {
   const stack = state.stack;
-  const payloadEntity: IStackPayloadEntity = action.data;
+  const payloadEntity: IFluxStackEntity = action.data;
   const sectionsToDestroy: string[] = action.data;
 
   switch (action.type) {
@@ -38,9 +38,9 @@ export const stackReducer = (state: IGenericStackEntity = INITIAL_STACK_ENTITY,
     case $RAC_STACK_REMOVE_ACTION_TYPE:
       return {
         ...state,
-        stack: R.filter<IStackItemEntity>((entry) => !sectionsToDestroy.includes(entry.section), stack)
+        stack: R.filter<IReduxStackItemEntity>((entry) => !sectionsToDestroy.includes(entry.section), stack)
           .map(
-            (itm): IStackItemEntity =>
+            (itm): IReduxStackItemEntity =>
               ({
                 ...itm,
                 linkedSections: itm.linkedSections.filter((linkedSection) => !sectionsToDestroy.includes(linkedSection)),
@@ -51,13 +51,13 @@ export const stackReducer = (state: IGenericStackEntity = INITIAL_STACK_ENTITY,
      * @stable [20.09.2019]
      */
     case $RAC_STACK_PUSH_ACTION_TYPE:
-      const pushSection = payloadEntity.section;                          // Next section
-      const pushUrl = payloadEntity.url;                                  // Next section url (url path)
+      const pushSection = payloadEntity.section;                                          // Next section
+      const pushUrl = payloadEntity.url;                                                  // Next section url (url path)
       return {
         ...state,
-        destroySections: [...INITIAL_STACK_ENTITY.destroySections],       // Auto reset
+        destroySections: [...DefaultEntities.INITIAL_REDUX_STACK_ENTITY.destroySections], // Auto reset
         ...(
-          findStackItemEntityIndexBySection(pushSection, state) > -1      // If already inserted
+          findStackItemEntityIndexBySection(pushSection, state) > -1                      // If already inserted
             ? {}
             : {
               stack: [
@@ -76,13 +76,13 @@ export const stackReducer = (state: IGenericStackEntity = INITIAL_STACK_ENTITY,
       const additionalSectionsToDestroy = getAdditionalStackSectionsToDestroy(previousSection, state);
       return {
         ...state,
-        lock: INITIAL_STACK_ENTITY.lock,                                 // Auto reset
-        destroySections: [...INITIAL_STACK_ENTITY.destroySections],      // Auto reset
+        lock: DefaultEntities.INITIAL_REDUX_STACK_ENTITY.lock,                                 // Auto reset
+        destroySections: [...DefaultEntities.INITIAL_REDUX_STACK_ENTITY.destroySections],      // Auto reset
         ...(
           state.lock
             ? {}  // If there is a lock - do nothing
             : {
-              stack: truncateStack(state, previousSection).map((itm): IStackItemEntity =>
+              stack: truncateStack(state, previousSection).map((itm): IReduxStackItemEntity =>
                 ({
                   ...itm,
                   linkedSections: itm.linkedSections.filter((itm0) => !additionalSectionsToDestroy.includes(itm0)),
@@ -100,7 +100,7 @@ export const stackReducer = (state: IGenericStackEntity = INITIAL_STACK_ENTITY,
         ...state,
         lock: true,
         // If there is a lock - we should attach the next section to linked sections
-        stack: stack.map<IStackItemEntity>((entry, index): IStackItemEntity => (
+        stack: stack.map<IReduxStackItemEntity>((entry, index): IReduxStackItemEntity => (
           index === stack.length - 1
             ? {
               ...entry,

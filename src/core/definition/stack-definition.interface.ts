@@ -9,46 +9,48 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [20.09.2019]
+ * @initial-redux-entity
+ * @stable [21.05.2020]
  */
-export const INITIAL_STACK_ENTITY = Object.freeze<IGenericStackEntity>({
+export const INITIAL_REDUX_STACK_ENTITY = Object.freeze<IReduxStackEntity>({
   destroySections: [],
   lock: false,
   stack: [],
 });
 
 /**
- * @entity
- * @stable [18.12.2019]
+ * @redux-entity
+ * @stable [21.05.2020]
  */
-export interface IStackItemEntity
+export interface IReduxStackItemEntity
   extends ILinkedSectionsWrapper,
     ISectionWrapper,
     IUrlWrapper {
 }
 
 /**
- * @genric-entity
- * @stable [20.09.2019]
+ * @redux-entity
+ * @stable [21.05.2020]
  */
-export interface IGenericStackEntity
+export interface IReduxStackEntity
   extends IDestroySectionsWrapper,
     ILockWrapper,
-    IStackWrapper<IStackItemEntity[]> {
+    IStackWrapper<IReduxStackItemEntity[]> {
 }
 
 /**
- * @wrapper-entity
- * @stable [20.09.2019]
+ * @redux-holder-entity
+ * @stable [21.05.2020]
  */
-export interface IStackWrapperEntity<TEntity = IGenericStackEntity>
+export interface IReduxHolderStackEntity<TEntity = IReduxStackEntity>
   extends IStackWrapper<TEntity> {
 }
 
 /**
- * @stable [18.12.2019]
+ * @flux-entity
+ * @stable [21.05.2020]
  */
-export interface IStackPayloadEntity
+export interface IFluxStackEntity
   extends ISectionWrapper,
     IUrlWrapper {
 }

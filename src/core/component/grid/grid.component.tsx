@@ -16,7 +16,6 @@ import {
   isDef,
   isExpandActionRendered,
   isFn,
-  isHeaderRendered,
   isHighlightOdd,
   joinClassName,
   Mappers,
@@ -49,6 +48,10 @@ import {
 
 export class Grid extends BaseList<IGridProps, IGridState> {
 
+  public static readonly defaultProps: IGridProps = {
+    headerRendered: true,
+  };
+
   /**
    * @stable [07.06.2018]
    * @param {IGridProps} props
@@ -76,7 +79,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           className={joinClassName('rac-grid', calc(props.className))}
         >
           {
-            isHeaderRendered(props) && (
+            props.headerRendered && (
               <GridHead stickyHead={props.stickyHead}>
                 {this.headRowElement}
                 {this.filterElement}

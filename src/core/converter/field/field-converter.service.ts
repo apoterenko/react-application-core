@@ -18,7 +18,7 @@ import {
   INamedEntity,
   IPhoneConfigEntity,
   IPlaceEntity,
-  IUserEntity,
+  IReduxUserEntity,
   MultiFieldEntityT,
   PlaceEntityValueT,
   SelectValueT,
@@ -216,9 +216,9 @@ export class FieldConverter implements IFieldConverter {
   /**
    * @stable [14.03.2020]
    * @param {TValue} value
-   * @returns {IUserEntity}
+   * @returns {IReduxUserEntity}
    */
-  public fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity {
+  public fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity {
     return this.convert({
       from: FieldConverterTypesEnum.OAUTH_JWT_DECODED_INFO,
       to: FieldConverterTypesEnum.USER_ENTITY,
@@ -339,9 +339,9 @@ export class FieldConverter implements IFieldConverter {
   /**
    * @stable [14.03.2020]
    * @param {TValue} value
-   * @returns {IUserEntity}
+   * @returns {IReduxUserEntity}
    */
-  private $fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity {
+  private $fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity {
     return {id: -1, name: 'Anonymous'};
   }
 

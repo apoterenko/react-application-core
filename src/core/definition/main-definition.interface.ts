@@ -3,7 +3,10 @@ import {
   IPresetsStickyEntity,
 } from '../definition';
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
-import { IFullWrapper } from '../definitions.interface';
+import {
+  IFullWrapper,
+  ISubHeaderRenderedWrapper,
+} from '../definitions.interface';
 
 /**
  * @presets-entity
@@ -12,7 +15,8 @@ import { IFullWrapper } from '../definitions.interface';
 export interface IPresetsMainEntity
   extends IPresetsSelectedElementEntity,
     IPresetsStickyEntity,
-    IFullWrapper {
+    IFullWrapper,
+    ISubHeaderRenderedWrapper {
 }
 
 /**
@@ -41,4 +45,5 @@ export enum MainClassesEnum {
   MAIN = 'rac-main',
   MAIN_BODY = 'rac-main__body',
   MAIN_BODY_CONTENT = 'rac-main__body-content',
+  MAIN_WITH_SUB_HEADER = 'rac-main-with-sub-header',
 }

@@ -26,16 +26,23 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
    */
   public render(): JSX.Element {
     const mergedProps = this.mergedProps;
+    const {
+      className,
+      selectedElementClassName,
+      stickyElementClassName,
+      subHeaderRendered,
+    } = mergedProps;
 
     return (
-      <UniversalStickyContext.Provider value={mergedProps.stickyElementClassName}>
-        <UniversalScrollableContext.Provider value={mergedProps.selectedElementClassName}>
+      <UniversalStickyContext.Provider value={stickyElementClassName}>
+        <UniversalScrollableContext.Provider value={selectedElementClassName}>
           <div
             className={
               ClsUtils.joinClassName(
                 MainClassesEnum.MAIN,
                 WrapperUtils.isFull(mergedProps) && MainClassesEnum.FULL_MAIN,
-                CalcUtils.calc(mergedProps.className)
+                subHeaderRendered && MainClassesEnum.MAIN_WITH_SUB_HEADER,
+                CalcUtils.calc(className)
               )
             }>
             <div
@@ -53,10 +60,10 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
   }
 
   /**
-   * @stable [20.05.2020]
+   * @stable [21.05.2020]
    * @returns {IMainProps}
    */
   private get mergedProps(): IMainProps {
-    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.main);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.main);
   }
 }

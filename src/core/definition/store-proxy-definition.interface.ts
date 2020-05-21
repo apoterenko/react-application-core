@@ -12,7 +12,7 @@ import {
 import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
-import { IStackItemEntity } from './stack-definition.interface';
+import { IReduxStackItemEntity } from './stack-definition.interface';
 
 /**
  * @proxy
@@ -84,7 +84,7 @@ export interface INotificationStoreProxy {
  */
 export interface IRouterStoreProxyFactoryConfigEntity
   extends IFirstWrapper,
-    IItemWrapper<IStackItemEntity>,
+    IItemWrapper<IReduxStackItemEntity>,
     ILastWrapper {
 }
 

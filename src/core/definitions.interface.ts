@@ -269,7 +269,6 @@ export interface ILabelWrapper<TValue = string> { label?: TValue; }
 export interface ILastAllowedWrapper { lastAllowed?: boolean; }
 export interface ILastWrapper<TValue = boolean> { last?: TValue; }
 export interface ILatWrapper<TValue = number> { lat?: TValue; }
-export interface ILayoutModeWrapper<TValue> { layoutMode?: TValue; }
 export interface ILayoutWrapper<TValue> { layout?: TValue; }
 export interface ILazyLoadingWrapper { lazyLoading?: boolean; }
 export interface ILeftContentWrapper<TValue> { leftContent?: TValue; }
@@ -381,11 +380,11 @@ export interface IOutputTimeFormatWrapper { outputTimeFormat?: string; }
 export interface IOverlayClosableWrapper { overlayClosable?: boolean; }
 export interface IOverlayWrapper<TValue = boolean> { overlay?: TValue; }
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
-export interface IPageWrapper<TPage = number> { page?: TPage; }
+export interface IPageWrapper<TValue = number> { page?: TValue; }
 export interface IParamsWrapper<TValue = {}> { params?: TValue; }
 export interface IParentClassNameWrapper<TValue = string> { parentClassName?: TValue; }
 export interface IParentElementWrapper<TValue = Element> { parentElement?: TValue; }
-export interface IParentWrapper<TParent> { parent?: TParent; }
+export interface IParentWrapper<TValue> { parent?: TValue; }
 export interface IPartOfGroupWrapper { partOfGroup?: boolean; }
 export interface IPartsWrapper<TValue = string[]> { parts?: TValue; }
 export interface IPasswordWrapper<TValue = string> { password?: TValue; }
@@ -413,7 +412,7 @@ export interface IPrefixWrapper { prefix?: string; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IPreventManualChangesWrapper { preventManualChanges?: boolean; }
-export interface IPreviewPageWrapper<TPage = number> { previewPage?: TPage; }
+export interface IPreviewPageWrapper<TValue = number> { previewPage?: TValue; }
 export interface IPreviewScaleWrapper<TValue = number> { previewScale?: TValue; }
 export interface IPreviousActionWrapper<TValue> { previousAction?: TValue; }
 export interface IPreviousFormSectionWrapper { previousFormSection?: string; }
@@ -453,10 +452,10 @@ export interface IRequestProviderWrapper<TValue> { requestProvider?: TValue; }
 export interface IRequiredWrapper<TValue = boolean> { required?: TValue; }
 export interface IResetActionRenderedWrapper { resetActionRendered?: boolean; }
 export interface IResetConfigurationWrapper<TValue> { resetConfiguration?: TValue; }
-export interface IResetIconWrapper<TResetIcon = string> { resetIcon?: TResetIcon; }
+export interface IResetIconWrapper<TValue = string> { resetIcon?: TValue; }
 export interface IResetTextWrapper { resetText?: string; }
 export interface IResponseFactoryWrapper<TValue> { responseFactory?: TValue; }
-export interface IResponseReaderWrapper<TReader> { responseReader?: TReader; }
+export interface IResponseReaderWrapper<TValue> { responseReader?: TValue; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResultWrapper<TValue = {}> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
@@ -474,7 +473,7 @@ export interface ISectionWrapper<TValue = string> { section?: TValue; }
 export interface ISelectableWrapper<TValue = boolean> { selectable?: TValue; }
 export interface ISelectedDaysWrapper<TValue> { selectedDays?: TValue; }
 export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
-export interface ISelectedWrapper<TSelected = boolean> { selected?: TSelected; }
+export interface ISelectedWrapper<TValue = boolean> { selected?: TValue; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }

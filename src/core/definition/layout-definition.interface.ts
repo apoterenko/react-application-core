@@ -7,16 +7,17 @@ import {
   IHeaderContentWrapper,
   IHeaderRenderedWrapper,
   IHeaderWrapper,
-  ILayoutModeWrapper,
   ILayoutWrapper,
   IModeWrapper,
   IOnDrawerHeaderClickWrapper,
   IProgressWrapper,
+  ISubHeaderRenderedWrapper,
   ITopTitleWrapper,
 } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericStoreEntity } from './redux-definition.interface';
 import { IHeaderConfigurationEntity } from './header-definition.interface';
+import { ISubHeaderConfigurationEntity } from './sub-header-definition.interface';
 
 /**
  * @enum
@@ -38,11 +39,11 @@ export interface IReduxLayoutEntity
 }
 
 /**
- * @wrapper-entity
- * @stable [17.05.2020]
+ * @redux-holder-entity
+ * @stable [21.05.2020]
  */
-export interface ILayoutEntity
-  extends ILayoutWrapper<IReduxLayoutEntity> {
+export interface IReduxHolderLayoutEntity<TEntity = IReduxLayoutEntity>
+  extends ILayoutWrapper<TEntity> {
 }
 
 /**
@@ -52,8 +53,12 @@ export interface ILayoutEntity
 export interface IPresetsDefaultLayoutEntity
   extends IFooterRenderedWrapper,
     IFooterWrapper,
+    IHeaderConfigurationEntity,
     IHeaderRenderedWrapper,
-    IHeaderWrapper {
+    IHeaderWrapper,
+    IOnDrawerHeaderClickWrapper<LayoutModesEnum>,
+    ISubHeaderConfigurationEntity,
+    ISubHeaderRenderedWrapper {
 }
 
 /**
@@ -64,19 +69,9 @@ export interface IGenericDefaultLayoutEntity
   extends IPresetsDefaultLayoutEntity,
     IDrawerHeaderRenderedWrapper,
     IGenericStoreEntity,
-    IHeaderConfigurationEntity,
     IHeaderContentWrapper,
-    ILayoutEntity,
-    ILayoutModeWrapper<LayoutModesEnum>,
+    IReduxHolderLayoutEntity,
     IProgressWrapper {
-}
-
-/**
- * @behavioral-entity
- * @stable [04.02.2020]
- */
-export interface IBehavioralDefaultLayoutEntity
-  extends IOnDrawerHeaderClickWrapper<LayoutModesEnum> {
 }
 
 /**
@@ -85,8 +80,7 @@ export interface IBehavioralDefaultLayoutEntity
  */
 export interface IDefaultLayoutProps
   extends IGenericComponentProps,
-    IGenericDefaultLayoutEntity,
-    IBehavioralDefaultLayoutEntity {
+    IGenericDefaultLayoutEntity {
   navigationListElement?: any;
   onLogoMenuActionClick?: any;
 }
@@ -147,4 +141,6 @@ export enum DefaultLayoutClassesEnum {
   DEFAULT_LAYOUT_DRAWER_HEADER = 'rac-default-layout__drawer-header',
   DEFAULT_LAYOUT_FULL = 'rac-default-layout-full',
   DEFAULT_LAYOUT_MINI = 'rac-default-layout-mini',
+  DEFAULT_LAYOUT_WITH_SUB_HEADER = 'rac-default-layout-with-sub-header',
+  DEFAULT_LAYOUT_WITHOUT_SUB_HEADER = 'rac-default-layout-without-sub-header',
 }

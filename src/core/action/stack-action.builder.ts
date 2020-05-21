@@ -8,26 +8,26 @@ import {
   $RAC_STACK_POP_ACTION_TYPE,
   $RAC_STACK_PUSH_ACTION_TYPE,
   $RAC_STACK_REMOVE_ACTION_TYPE,
-  IStackPayloadEntity,
+  IFluxStackEntity,
 } from '../definition';
 
 export class StackActionBuilder {
 
   /**
    * @stable [19.12.2019]
-   * @param {IStackPayloadEntity} data
+   * @param {IFluxStackEntity} data
    * @returns {IEffectsAction}
    */
-  public static buildPushPlainAction(data: IStackPayloadEntity): IEffectsAction {
+  public static buildPushPlainAction(data: IFluxStackEntity): IEffectsAction {
     return {type: $RAC_STACK_PUSH_ACTION_TYPE, data};
   }
 
   /**
    * @stable [19.12.2019]
-   * @param {IStackPayloadEntity} data
+   * @param {IFluxStackEntity} data
    * @returns {IEffectsAction}
    */
-  public static buildPopPlainAction(data: IStackPayloadEntity): IEffectsAction {
+  public static buildPopPlainAction(data: IFluxStackEntity): IEffectsAction {
     return {type: $RAC_STACK_POP_ACTION_TYPE, data};
   }
 

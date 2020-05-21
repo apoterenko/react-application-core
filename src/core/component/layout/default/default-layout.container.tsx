@@ -5,14 +5,12 @@ import { NavigationList } from '../../navigation-list';
 import { lazyInject } from '../../../di';
 import {
   ifNotEmptyThanValue,
-  selectStackWrapperItemEntities,
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
 import {
   IDefaultLayoutContainerProps,
   IDefaultLayoutContainerState,
 } from './default-layout.interface';
-import { SubHeader } from '../../sub-header';
 import { NavigationMenuBuilder } from '../../../navigation';
 import {
   IPayloadWrapper,
@@ -65,6 +63,9 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
 
   public render(): JSX.Element {
     const props = this.props;
+    const activeItem = this.menuItems.find((item) => item.active);
+    const title = props.title || (activeItem && activeItem.label);
+
     return (
       <NotificationContainer {...props}>
         <DefaultLayout
@@ -74,10 +75,15 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
             navigationActionConfiguration: {onClick: this.routerStoreProxy.navigateBack},
             ...props.headerConfiguration,
           }}
+          subHeaderConfiguration={{
+            title,
+            ...props.subHeaderConfiguration,
+          }}
           onLogoMenuActionClick={this.onLogoMenuActionClick}
           onDrawerHeaderClick={this.onDrawerHeaderClick}
-          navigationListElement={this.navigationListElement}>
-          {this.mainElement}
+          navigationListElement={this.navigationListElement}
+        >
+          {this.props.children}
         </DefaultLayout>
       </NotificationContainer>
     );
@@ -128,35 +134,6 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
     this.dispatchActionByType<IPayloadWrapper<LayoutModesEnum>>(
       LAYOUT_MODE_UPDATE_ACTION_TYPE,
       {payload: layoutMode}
-    );
-  }
-
-  /**
-   * @stable [08.10.2018]
-   * @returns {JSX.Element}
-   */
-  private get mainElement(): JSX.Element {
-    const props = this.props;
-
-    return (
-      <React.Fragment>
-        {props.subHeaderRendered !== false && this.subHeaderElement}
-        {this.props.children}
-      </React.Fragment>
-    );
-  }
-
-  private get subHeaderElement(): JSX.Element {
-    const props = this.props;
-    const activeItem = this.menuItems.find((item) => item.active);
-    const title = props.title || (activeItem && activeItem.label);
-    const hasBackAction = (selectStackWrapperItemEntities(this.props) || []).length > 1; // TODO
-
-    return (
-      <SubHeader
-        navigationActionRendered={hasBackAction}
-        title={title}
-        {...props.subHeaderConfiguration}/>
     );
   }
 

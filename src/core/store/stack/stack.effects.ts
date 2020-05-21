@@ -15,7 +15,7 @@ import {
 import { getAllIndependentStackSections } from './stack.support';
 import {
   $RAC_STACK_PUSH_ACTION_TYPE,
-  IStackPayloadEntity,
+  IFluxStackEntity,
   IStoreEntity,
 } from '../../definition';
 
@@ -25,7 +25,7 @@ export class StackEffects {
 
   @EffectsService.effects($RAC_STACK_PUSH_ACTION_TYPE)
   public $onStackPush(action: IEffectsAction, state: IStoreEntity): IEffectsAction[] {
-    const payload: IStackPayloadEntity = action.data;
+    const payload: IFluxStackEntity = action.data;
     const destroyableSections = getAllIndependentStackSections(payload.section, state.stack);
 
     if (destroyableSections.length) {

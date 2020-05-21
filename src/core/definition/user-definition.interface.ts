@@ -9,22 +9,22 @@ import { INamedEntity } from './entity-definition.interface';
 import { IEntityReducerFactoryConfigEntity } from './redux-definition.interface';
 
 /**
- * @entity
- * @stable [27.09.2019]
+ * @redux-entity
+ * @stable [21.05.2020]
  */
-export interface IUserEntity
+export interface IReduxUserEntity
   extends INamedEntity,
-  IUrlWrapper,
+  ILoginWrapper,
   IPasswordWrapper,
-  ILoginWrapper {
+  IUrlWrapper {
 }
 
 /**
- * @wrapper-entity
- * @stable [27.09.2019]
+ * @redux-holder-entity
+ * @stable [21.05.2020]
  */
-export interface IUserWrapperEntity<TUser = IUserEntity>
-  extends IUserWrapper<TUser> {
+export interface IReduxHolderUserEntity<TEntity = IReduxUserEntity>
+  extends IUserWrapper<TEntity> {
 }
 
 /**

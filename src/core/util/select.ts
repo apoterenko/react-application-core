@@ -20,6 +20,7 @@ import {
   IFormWrapper,
   ILayoutWrapper,
   IListWrapper,
+  IModeWrapper,
   INotificationWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
@@ -41,14 +42,16 @@ import {
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
-import {
-  coalesce,
-} from './nvl';
+import { NvlUtils } from './nvl';
 import {
   IFormEntity,
   IListEntity,
   IPreviousActionWrapperEntity,
   IQueryFilterEntity,
+  IReduxHolderLayoutEntity,
+  IReduxHolderStackEntity,
+  IReduxStackItemEntity,
+  LayoutModesEnum,
   ToolbarToolsEnum,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
@@ -239,7 +242,7 @@ export const selectPreventEffects = (wrapper: IPreventEffectsWrapper): boolean =
 export const selectPreventEffectsFromAction = (wrapper: IEffectsAction): boolean =>
   R.isNil(wrapper)
     ? UNDEF
-    : coalesce(selectPreventEffects(wrapper.data), selectPreventEffects(wrapper.initialData));
+    : NvlUtils.coalesce(selectPreventEffects(wrapper.data), selectPreventEffects(wrapper.initialData));
 
 /**
  *
@@ -264,7 +267,7 @@ const selectListProgress = (entity: IListEntity): boolean => inProgress(selectLi
 export const selectPreviousActionFromAction = (wrapper: IEffectsAction): IEffectsAction =>
   R.isNil(wrapper)
     ? UNDEF
-    : coalesce(selectPreviousAction(wrapper.data), selectPreviousAction(wrapper.initialData));
+    : NvlUtils.coalesce(selectPreviousAction(wrapper.data), selectPreviousAction(wrapper.initialData));
 
 /**
  * @stable [26.03.2020]
@@ -323,7 +326,7 @@ export const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser =>
  * @param {IStackWrapper<TEntity>} wrapper
  * @returns {TEntity}
  */
-export const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity =>
+const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity =>
   R.isNil(wrapper) ? UNDEF : wrapper.stack;
 
 /**
@@ -348,6 +351,14 @@ const selectQuery = (wrapper: IQueryWrapper): string => R.isNil(wrapper) ? UNDEF
  */
 const selectLayout = <TEntity>(wrapper: ILayoutWrapper<TEntity>): TEntity =>
   R.isNil(wrapper) ? UNDEF : wrapper.layout;
+
+/**
+ * @stable [21.05.2020]
+ * @param {IModeWrapper<TEntity>} wrapper
+ * @returns {TEntity}
+ */
+const selectMode = <TEntity>(wrapper: IModeWrapper<TEntity>): TEntity =>
+  R.isNil(wrapper) ? UNDEF : wrapper.mode;
 
 /**
  * @stable [14.04.2020]
@@ -438,6 +449,33 @@ const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
   selectQuery(selectQueryFilter(entity));
 
 /**
+ * @stable [21.05.2020]
+ * @param {IReduxHolderStackEntity} entity
+ * @returns {IReduxStackItemEntity[]}
+ */
+const selectStackItemEntities = (entity: IReduxHolderStackEntity): IReduxStackItemEntity[] => selectStack(selectStack(entity));
+
+/**
+ * @stable [21.05.2020]
+ * @param {IReduxHolderLayoutEntity} entity
+ * @returns {LayoutModesEnum}
+ */
+const selectLayoutMode = (entity: IReduxHolderLayoutEntity): LayoutModesEnum => selectMode(selectLayout(entity));
+
+/**
+ * @stable [21.05.2020]
+ * @param {IReduxHolderLayoutEntity} merged
+ * @param {IReduxHolderLayoutEntity} original
+ * @returns {LayoutModesEnum}
+ */
+const selectMergedLayoutMode = (merged: IReduxHolderLayoutEntity,
+                                original: IReduxHolderLayoutEntity): LayoutModesEnum =>
+  NvlUtils.nvl(
+    selectLayoutMode(merged),
+    selectLayoutMode(original)
+  );
+
+/**
  * @stable [06.05.2020]
  */
 export class Selectors {
@@ -450,15 +488,19 @@ export class Selectors {
   public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */
   public static readonly formEntityChanges = selectFormEntityChanges;                                           /* @stable [11.05.2020] */
   public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */
+  public static readonly layoutMode = selectLayoutMode;                                                         /* @stable [21.05.2020] */
   public static readonly list = selectList;
   public static readonly listProgress = selectListProgress;                                                     /* @stable [08.05.2020] */
   public static readonly listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
   public static readonly listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
+  public static readonly mergedLayoutMode = selectMergedLayoutMode;                                             /* @stable [21.05.2020] */
   public static readonly primaryFilter = selectPrimaryFilter;                                                   /* @stable [10.05.2020] */
   public static readonly query = selectQuery;
   public static readonly queryFilter = selectQueryFilter;
   public static readonly queryFilterEntityQuery = selectQueryFilterEntityQuery;
   public static readonly secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
   public static readonly sectionName = selectSectionName;
+  public static readonly stack = selectStack;                                                                   /* @stable [21.05.2020] */
+  public static readonly stackItemEntities = selectStackItemEntities;                                           /* @stable [21.05.2020] */
   public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */
 }

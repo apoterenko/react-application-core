@@ -1,16 +1,16 @@
 import * as graphlib from '@dagrejs/graphlib';
 import * as R from 'ramda';
 
-import { IGenericStackEntity, IStackItemEntity } from '../../definition';
+import { IReduxStackEntity, IReduxStackItemEntity } from '../../definition';
 import { findStackItemEntityIndexBySection } from '../../util';
 
 /**
  * @stable [21.09.2019]
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @param {number} startingIndex
  * @returns {string[]}
  */
-export const collectStackMainSectionsByIndex = (stackEntity: IGenericStackEntity,
+export const collectStackMainSectionsByIndex = (stackEntity: IReduxStackEntity,
                                                 startingIndex: number): string [] => {
   if (startingIndex < 0) {
     return [];
@@ -28,21 +28,21 @@ export const collectStackMainSectionsByIndex = (stackEntity: IGenericStackEntity
 /**
  * @stable [21.09.2019]
  * @param {string} section
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @returns {string[]}
  */
 export const getAdditionalStackSectionsToDestroy = (section: string,
-                                                    stackEntity: IGenericStackEntity): string [] =>
+                                                    stackEntity: IReduxStackEntity): string [] =>
   collectStackMainSectionsByIndex(stackEntity, findStackItemEntityIndexBySection(section, stackEntity));
 
 /**
  * @stable [20.09.2019]
  * @param {string} currentSection
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @returns {string[][]}
  */
 export const toGraphComponents = (currentSection: string,
-                                  stackEntity: IGenericStackEntity): string[][] => {
+                                  stackEntity: IReduxStackEntity): string[][] => {
 
   const stack = stackEntity.stack;
 
@@ -79,13 +79,13 @@ export const toGraphComponents = (currentSection: string,
 /**
  * @stable [20.09.2019]
  * @param {string} currentSection
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @param {(linkedSections: string[]) => boolean} predicate
  * @returns {Set<string>}
  */
 export const findStackSectionsByPredicate = (
   currentSection: string,
-  stackEntity: IGenericStackEntity,
+  stackEntity: IReduxStackEntity,
   predicate: (linkedSections: string[]) => boolean): Set<string> => {
 
   const resultSections = new Set<string>();
@@ -102,10 +102,10 @@ export const findStackSectionsByPredicate = (
 /**
  * @stable [20.09.2019]
  * @param {string} currentSection
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @returns {Set<string>}
  */
-export const toAllIndependentStackSections = (currentSection: string, stackEntity: IGenericStackEntity): Set<string> => {
+export const toAllIndependentStackSections = (currentSection: string, stackEntity: IReduxStackEntity): Set<string> => {
   const result = new Set<string>();
   findStackSectionsByPredicate(
     currentSection,
@@ -120,8 +120,8 @@ export const toAllIndependentStackSections = (currentSection: string, stackEntit
 /**
  * @stable [20.09.2019]
  * @param {string} currentSection
- * @param {IGenericStackEntity} stackEntity
+ * @param {IReduxStackEntity} stackEntity
  * @returns {string[]}
  */
-export const getAllIndependentStackSections = (currentSection: string, stackEntity: IGenericStackEntity): string[] =>
+export const getAllIndependentStackSections = (currentSection: string, stackEntity: IReduxStackEntity): string[] =>
   Array.from(toAllIndependentStackSections(currentSection, stackEntity));

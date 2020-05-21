@@ -3,6 +3,7 @@ import * as React from 'react';
 import { AnyT } from '../../definitions.interface';
 import {
   IAsyncLibManager,
+  IComponentsSettingsEntity,
   IDomAccessor,
   IEnvironment,
   IEventManager,
@@ -67,6 +68,22 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   public get actualRef(): React.RefObject<TSelfRef> {
     return this.props.forwardedRef || this.selfRef;
+  }
+
+  /**
+   * @stable [21.05.2020]
+   * @returns {TProps}
+   */
+  protected get originalProps(): TProps {
+    return this.props;
+  }
+
+  /**
+   * @stable [21.05.2020]
+   * @returns {IComponentsSettingsEntity}
+   */
+  protected get componentsSettings(): IComponentsSettingsEntity {
+    return this.settings.components;
   }
 
   /**

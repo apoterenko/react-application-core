@@ -14,7 +14,7 @@ import {
   IGenericChannelEntity,
   IGenericContainer,
   IGenericNotificationEntity,
-  IGenericStackEntity,
+  IReduxStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
   IHeaderProps,
@@ -27,15 +27,14 @@ import {
   IReduxSortDirectionsEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
-  IStackItemEntity,
-  IStackWrapperEntity,
+  IReduxHolderStackEntity,
   ITabPanelEntity,
   ITransportEntity,
   ITransportWrapperEntity,
   IUniversalApplicationEntity,
   IUnsavedFormChangesDialogContainerProps,
-  IUserEntity,
-  IUserWrapperEntity,
+  IReduxUserEntity,
+  IReduxHolderUserEntity,
 } from '../definition';
 import {
   AnyT,
@@ -68,7 +67,6 @@ import {
   selectNotification,
   Selectors,
   selectQueue,
-  selectStack,
   selectToken,
   selectTransport,
   selectUser,
@@ -153,7 +151,7 @@ export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelEntity)
  * @param {TUser} user
  * @returns {IUserWrapper<TUser>}
  */
-export const mapUser = <TUser = IUserEntity>(user: TUser): IUserWrapper<TUser> =>
+export const mapUser = <TUser = IReduxUserEntity>(user: TUser): IUserWrapper<TUser> =>
   defValuesFilter<IUserWrapper<TUser>, IUserWrapper<TUser>>({user});
 
 /**
@@ -245,21 +243,21 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
 
 /**
  * @stable [30.03.2020]
- * @param {IUserWrapperEntity<TEntity>} wrapper
- * @returns {IUserWrapperEntity<TEntity>}
+ * @param {IReduxHolderUserEntity<TEntity>} wrapper
+ * @returns {IReduxHolderUserEntity<TEntity>}
  */
 export const mapUserWrapperEntity =
-  <TEntity = IUserEntity>(wrapper: IUserWrapperEntity<TEntity>): IUserWrapperEntity<TEntity> =>
+  <TEntity = IReduxUserEntity>(wrapper: IReduxHolderUserEntity<TEntity>): IReduxHolderUserEntity<TEntity> =>
     mapUser(selectUser(wrapper));
 
 /**
  * @stable [30.03.2020]
- * @param {IStackWrapperEntity<TEntity>} wrapper
- * @returns {IStackWrapperEntity<TEntity>}
+ * @param {IReduxHolderStackEntity<TEntity>} wrapper
+ * @returns {IReduxHolderStackEntity<TEntity>}
  */
 export const mapStackWrapperEntity =
-  <TEntity = IGenericStackEntity>(wrapper: IStackWrapperEntity<TEntity>): IStackWrapperEntity<TEntity> =>
-    mapStack(selectStack(wrapper));
+  <TEntity = IReduxStackEntity>(wrapper: IReduxHolderStackEntity<TEntity>): IReduxHolderStackEntity<TEntity> =>
+    mapStack(Selectors.stack(wrapper));
 
 /**
  * @stable [14.04.2020]
@@ -400,30 +398,6 @@ export const doesApplicationErrorExist = (entity: IUniversalApplicationEntity): 
  */
 export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity): boolean =>
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);
-
-/**
- * @stable [18.12.2019]
- * @param {IStackWrapperEntity} entity
- * @returns {IGenericStackEntity}
- */
-export const selectStackEntity = (entity: IStackWrapperEntity): IGenericStackEntity =>
-  ConditionUtils.ifNotNilThanValue(entity, () => entity.stack, UNDEF_SYMBOL);
-
-/**
- * @stable [18.12.2019]
- * @param {IGenericStackEntity} entity
- * @returns {IStackItemEntity[]}
- */
-export const selectStackItemEntities = (entity: IGenericStackEntity): IStackItemEntity[] =>
-  ConditionUtils.ifNotNilThanValue(entity, (data) => data.stack, UNDEF_SYMBOL);
-
-/**
- * @stable [18.12.2019]
- * @param {IStackWrapperEntity} entity
- * @returns {IStackItemEntity[]}
- */
-export const selectStackWrapperItemEntities = (entity: IStackWrapperEntity): IStackItemEntity[] =>
-  selectStackItemEntities(selectStackEntity(entity));
 
 /**
  * @stable [14.04.2020]

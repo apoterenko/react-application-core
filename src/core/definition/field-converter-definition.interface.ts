@@ -11,7 +11,7 @@ import {
 import {
   IExtendedLabeledValueEntity,
   INamedEntity,
-  IUserEntity,
+  IReduxUserEntity,
   MultiFieldEntityT,
   PlaceEntityValueT,
   SelectValueT,
@@ -61,7 +61,7 @@ export interface IFieldConverter {
   fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity;
-  fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IUserEntity;
+  fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
   fromSelectOptionEntityToDisplayValue(option: SelectValueT): StringNumberT;

@@ -4,20 +4,15 @@ import { GenericComponent } from '../../base/generic.component';
 import {
   CalcUtils,
   ClsUtils,
-  inProgress,
-  isDrawerHeaderRendered,
-  isSubHeaderRendered,
   Mappers,
-  mergeWithSystemProps,
-  nvl,
-  selectStackWrapperItemEntities,
+  PropsUtils,
+  Selectors,
   WrapperUtils,
 } from '../../../util';
 import { Drawer } from '../../drawer';
 import {
   DefaultLayoutClassesEnum,
   IDefaultLayoutProps,
-  IHeaderProps,
   LayoutModesEnum,
 } from '../../../definition';
 import { FlexLayout } from '../../layout/flex';
@@ -29,11 +24,19 @@ import {
 import { Header } from '../../header';
 import { Main } from '../../main';
 import { Dialog } from '../../dialog';
+import { SubHeader } from '../../sub-header';
 
 export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
 
+  public static readonly defaultProps: IDefaultLayoutProps = {
+    drawerHeaderRendered: true,
+    footerRendered: true,
+    headerRendered: true,
+    subHeaderRendered: true,
+  };
+
   /**
-   * @stable [04.02.2020]
+   * @stable [21.05.2020]
    * @param {IDefaultLayoutProps} props
    */
   constructor(props: IDefaultLayoutProps) {
@@ -44,19 +47,24 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [05.02.2020]
+   * @stable [21.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      className,
+      subHeaderRendered,
+    } = this.mergedProps;
 
     return (
       <div
         className={
           ClsUtils.joinClassName(
             DefaultLayoutClassesEnum.DEFAULT_LAYOUT,
-            CalcUtils.calc(props.className),
-            isSubHeaderRendered(props) ? 'rac-default-layout-with-sub-header' : 'rac-default-layout-without-sub-header',
+            CalcUtils.calc(className),
+            subHeaderRendered
+              ? DefaultLayoutClassesEnum.DEFAULT_LAYOUT_WITH_SUB_HEADER
+              : DefaultLayoutClassesEnum.DEFAULT_LAYOUT_WITHOUT_SUB_HEADER,
             this.isLayoutFullModeEnabled
               ? DefaultLayoutClassesEnum.DEFAULT_LAYOUT_FULL
               : DefaultLayoutClassesEnum.DEFAULT_LAYOUT_MINI
@@ -69,30 +77,44 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [20.05.2020]
+   * @stable [21.05.2020]
    * @returns {JSX.Element}
    */
   private get bodyElement(): JSX.Element {
-    const elementsMarkers = this.settings.elementsMarkers;
+    const {
+      selectedElement,
+      stickyElement,
+    } = this.settings.elementsMarkers;
+
     const mergedProps = this.mergedProps;
+    const {
+      footer,
+      footerRendered,
+      header,
+      headerRendered,
+      subHeaderRendered,
+    } = mergedProps;
 
     return (
       <div
         className={DefaultLayoutClassesEnum.DEFAULT_LAYOUT_BODY}
       >
-        {WrapperUtils.isHeaderRendered(mergedProps) && (mergedProps.header || this.headerElement)}
+        {headerRendered && (header || this.headerElement)}
         <Main
-          stickyElementClassName={elementsMarkers.stickyElement}
-          selectedElementClassName={elementsMarkers.selectedElement}
+          stickyElementClassName={stickyElement}
+          selectedElementClassName={selectedElement}
+          subHeaderRendered={subHeaderRendered}
           plugins={[
             PerfectScrollPlugin,
             SelectedElementPlugin,
             StickyHeaderPlugin
-          ]}>
+          ]}
+        >
+          {subHeaderRendered && this.subHeaderElement}
           {this.props.children}
           {this.isLayoutInProgress && <Dialog progress={true} overlay={true}/>}
         </Main>
-        {WrapperUtils.isFooterRendered(mergedProps) && mergedProps.footer}
+        {footerRendered && footer}
       </div>
     );
   }
@@ -116,21 +138,42 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
+   * @stable [21.05.2020]
+   * @returns {JSX.Element}
+   */
+  private get subHeaderElement(): JSX.Element {
+    const mergedProps = this.mergedProps;
+    const {
+      subHeaderConfiguration,
+    } = mergedProps;
+
+    return (
+      <SubHeader
+        navigationActionRendered={this.isNavigationActionRendered}
+        {...subHeaderConfiguration}/>
+    );
+  }
+
+  /**
    * @stable [04.02.2020]
    * @returns {JSX.Element}
    */
   private get drawerElement(): JSX.Element {
-    const isLayoutFullModeEnabled = this.isLayoutFullModeEnabled;
+    const {
+      drawerHeaderRendered,
+    } = this.mergedProps;
+
+    // TODO
     return (
-      <Drawer mini={!isLayoutFullModeEnabled}>
-        {this.isDrawerHeaderRendered && this.drawerHeaderElement}
+      <Drawer mini={!this.isLayoutFullModeEnabled}>
+        {drawerHeaderRendered && this.drawerHeaderElement}
         {this.props.navigationListElement}
       </Drawer>
     );
   }
 
   /**
-   * @stable [04.02.2020]
+   * @stable [21.05.2020]
    * @returns {JSX.Element}
    */
   private get drawerHeaderElement(): JSX.Element {
@@ -173,8 +216,12 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
     this.props.onDrawerHeaderClick(this.layoutMode);
   }
 
+  private get isNavigationActionRendered(): boolean {
+    return (Selectors.stackItemEntities(this.props) || []).length > 1;
+  }
+
   /**
-   * @stable [04.02.2020]
+   * @stable [21.05.2020]
    * @returns {boolean}
    */
   private get isLayoutFullModeEnabled(): boolean {
@@ -182,46 +229,29 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [28.03.2020]
-   * @returns {LayoutModesEnum}
-   */
-  private get layoutMode(): LayoutModesEnum {
-    return nvl(this.mergedProps.layoutMode, this.props.layout.mode);
-  }
-
-  /**
-   * @stable [28.03.2020]
-   * @returns {boolean}
-   */
-  private get isDrawerHeaderRendered(): boolean {
-    return isDrawerHeaderRendered(this.mergedProps);
-  }
-
-  /**
-   * @stable [28.03.2020]
-   * @returns {IDefaultLayoutProps}
-   */
-  private get mergedProps(): IDefaultLayoutProps {
-    return mergeWithSystemProps(this.props, this.settings.components.defaultLayout);
-  }
-
-  /**
-   * @stable [11.05.2020]
+   * @stable [21.05.2020]
    * @returns {boolean}
    */
   private get isLayoutInProgress(): boolean {
-    return inProgress(this.props);
-  }
-
-  private get isNavigationActionRendered(): boolean {
-    return (selectStackWrapperItemEntities(this.props) || []).length > 1;
+    return WrapperUtils.inProgress(this.mergedProps);
   }
 
   /**
-   * @stable [28.03.2020]
-   * @returns {IHeaderProps}
+   * @stable [21.05.2020]
+   * @returns {LayoutModesEnum}
    */
-  private get mergedHeaderProps(): IHeaderProps {
-    return mergeWithSystemProps(this.props.headerConfiguration, this.settings.components.header);
+  private get layoutMode(): LayoutModesEnum {
+    const mergedProps = this.mergedProps;
+    const originalProps = this.originalProps;
+
+    return Selectors.mergedLayoutMode(mergedProps, originalProps);
+  }
+
+  /**
+   * @stable [21.05.2020]
+   * @returns {IDefaultLayoutProps}
+   */
+  private get mergedProps(): IDefaultLayoutProps {
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.settings.components.defaultLayout);
   }
 }

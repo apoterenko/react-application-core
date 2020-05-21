@@ -50,4 +50,5 @@ export const coalesceDef = <TValue = AnyT>(...v: TValue[]): TValue => R.find<TVa
  */
 export class NvlUtils {
   public static readonly coalesce = coalesce;                           /* @stable [19.05.2020] */
+  public static readonly nvl = nvl;                                     /* @stable [21.05.2020] */
 }

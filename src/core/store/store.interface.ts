@@ -15,7 +15,7 @@ import {
   IReduxDictionariesEntity,
   IReduxLayoutEntity,
   IGenericNotificationEntity,
-  IGenericStackEntity,
+  IReduxStackEntity,
 } from '../definition';
 import { $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY } from '../definition';
 import { asyncLibReducer } from '../async-lib';

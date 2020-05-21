@@ -22,7 +22,6 @@ import {
   IDirtyWrapper,
   IDisabledWrapper,
   IDisplayValueRenderedOnlyWrapper,
-  IDrawerHeaderRenderedWrapper,
   IEditedWrapper,
   IErrorMessageRenderedWrapper,
   IErrorWrapper,
@@ -34,7 +33,6 @@ import {
   IForceReloadWrapper,
   IForciblyApplyLocalFilterWrapper,
   IFullWrapper,
-  IHeaderRenderedWrapper,
   IHeightRestrictedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
@@ -69,7 +67,6 @@ import {
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
-  ISubHeaderRenderedWrapper,
   ISyntheticCursorWrapper,
   ITouchedWrapper,
   IUseActionsWrapper,
@@ -337,22 +334,6 @@ export const isHighlightOdd = (wrapper: IHighlightOddWrapper, index: number): bo
  */
 export const isIndexed = (indexedEntity: IIndexedWrapper): boolean =>
   ifNotNilThanValue(indexedEntity, () => indexedEntity.indexed === true, false);
-
-/**
- * @stable [03.01.2019]
- * @param {IHeaderRenderedWrapper} wrapper
- * @returns {boolean}
- */
-export const isHeaderRendered = (wrapper: IHeaderRenderedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.headerRendered !== false;
-
-/**
- * @stable [20.05.2020]
- * @param {IFooterRenderedWrapper} wrapper
- * @returns {boolean}
- */
-const isFooterRendered = (wrapper: IFooterRenderedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.footerRendered !== false;
 
 /**
  * @stable [11.01.2020]
@@ -631,14 +612,6 @@ export const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.plainValue !== false, false);
 
 /**
- * @stable [10.02.2020]
- * @param {ISubHeaderRenderedWrapper} entity
- * @returns {boolean}
- */
-export const isSubHeaderRendered = (entity: ISubHeaderRenderedWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.subHeaderRendered !== false, false);
-
-/**
  * @stable [19.12.2019]
  * @param {IRefreshOnUpdateWrapper} entity
  * @returns {boolean}
@@ -719,14 +692,6 @@ export const isPreviewUsed = (wrapper: IUsePreviewWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.usePreview !== false;
 
 /**
- * @stable [28.03.2020]
- * @param {IDrawerHeaderRenderedWrapper} wrapper
- * @returns {boolean}
- */
-export const isDrawerHeaderRendered = (wrapper: IDrawerHeaderRenderedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.drawerHeaderRendered !== false;
-
-/**
  * @stable [25.03.2020]
  * @param {IUsePeriodNavigatorWrapper} wrapper
  * @returns {boolean}
@@ -748,10 +713,8 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
 export class WrapperUtils {
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
-  public static readonly isFooterRendered = isFooterRendered;                              /* @stable [20.05.2020] */
   public static readonly isForceReload = isForceReload;                                    /* @stable [18.05.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
-  public static readonly isHeaderRendered = isHeaderRendered;                              /* @stable [20.05.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
   public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */
 }

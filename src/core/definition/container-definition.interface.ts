@@ -13,9 +13,9 @@ import {
   IUniversalContainerProps,
 } from './props-definition.interface';
 import { IBaseDictionariesEntity } from './dictionary-definition.interface';
-import { ILayoutEntity } from './layout-definition.interface';
+import { IReduxHolderLayoutEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
-import { IStackWrapperEntity } from './stack-definition.interface';
+import { IReduxHolderStackEntity } from './stack-definition.interface';
 import { IUniversalStoreEntity } from './redux-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
@@ -55,7 +55,7 @@ export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}
  */
 export interface IContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalContainerEntity<TDictionaries, TPermissions>,
-    ILayoutEntity {
+    IReduxHolderLayoutEntity {
 }
 
 /**
@@ -67,7 +67,7 @@ export interface IWebContainerEntity
     ILocationWrapper<Location>,
     IRouteParamsWrapper,
     IQueryParamsWrapper<URLSearchParams>,
-    IStackWrapperEntity {
+    IReduxHolderStackEntity {
 }
 
 /**

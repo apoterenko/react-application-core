@@ -12,11 +12,11 @@ import {
   INotificationStoreProxy,
   IOperationEntity,
   IPermissionsManager,
+  IReduxUserEntity,
   IRouterStoreProxy,
   IStoreProxy,
   ITabPanelStoreProxy,
   IUserActivityManager,
-  IUserEntity,
 } from '../../definition';
 import {
   getDialogFormChangesConfirmStoreProxyFactory,
@@ -144,7 +144,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @stable [16.04.2020]
    * @returns {TUser}
    */
-  protected getUser<TUser extends IUserEntity>(): TUser {
+  protected getUser<TUser extends IReduxUserEntity>(): TUser {
     return this.props.user as TUser;
   }
 

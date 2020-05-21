@@ -1,18 +1,18 @@
 import {
   IChannelWrapperEntity,
   IDictionariesEntity,
-  ILayoutEntity,
+  IReduxHolderLayoutEntity,
   INotificationWrapperEntity,
-  IStackWrapperEntity,
+  IReduxHolderStackEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
-  IUserWrapperEntity,
+  IReduxHolderUserEntity,
 } from '../../definition';
 import {
   universalDefaultMappers,
 } from './universal-connector.mapper';
 
-export const layoutMapper = (state: ILayoutEntity): ILayoutEntity => ({
+export const layoutMapper = (state: IReduxHolderLayoutEntity): IReduxHolderLayoutEntity => ({
   layout: {
     ...state.layout,
   },
@@ -32,10 +32,10 @@ export const channelMapper = (state: IChannelWrapperEntity): IChannelWrapperEnti
 
 /**
  * @stable [18.09.2018]
- * @param {IStackWrapperEntity} state
- * @returns {IStackWrapperEntity}
+ * @param {IReduxHolderStackEntity} state
+ * @returns {IReduxHolderStackEntity}
  */
-export const stackMapper = (state: IStackWrapperEntity): IStackWrapperEntity => ({
+export const stackMapper = (state: IReduxHolderStackEntity): IReduxHolderStackEntity => ({
   stack: {
     ...state.stack,
   },

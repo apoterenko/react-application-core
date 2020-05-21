@@ -28,7 +28,7 @@ import {
   IExtendedEntity,
   IExtendedFormEntity,
   IFormEntity,
-  ILayoutEntity,
+  IReduxHolderLayoutEntity,
   IListEntity,
   IOptionEntity,
   IPrimaryFilterExtendedFormEntity,
@@ -464,10 +464,10 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
 /**
  * @mapper
  * @stable [08.05.2020]
- * @param {ILayoutEntity} wrapper
- * @returns {ILayoutEntity}
+ * @param {IReduxHolderLayoutEntity} wrapper
+ * @returns {IReduxHolderLayoutEntity}
  */
-const mapLayoutEntity = (wrapper: ILayoutEntity): ILayoutEntity => mapLayout(Selectors.layout(wrapper));
+const mapLayoutEntity = (wrapper: IReduxHolderLayoutEntity): IReduxHolderLayoutEntity => mapLayout(Selectors.layout(wrapper));
 
 /**
  * @mapper
