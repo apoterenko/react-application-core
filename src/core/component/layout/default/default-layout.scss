@@ -29,8 +29,6 @@
     $rac-default-layout-header-flex-direction: $rac-default-layout-header-flex-direction,
     $rac-default-layout-header-flex: $rac-default-layout-header-flex,
     $rac-default-layout-header-height: $rac-default-layout-header-height,
-    $rac-default-layout-header-menu-action-position: $rac-default-layout-header-menu-action-position,
-    $rac-default-layout-header-menu-action-right: $rac-default-layout-header-menu-action-right,
     $rac-default-layout-header-padding: $rac-default-layout-header-padding,
     $rac-default-layout-header-user-avatar-background-size: $rac-default-layout-header-user-avatar-background-size,
     $rac-default-layout-header-user-avatar-border-radius: $rac-default-layout-header-user-avatar-border-radius,
@@ -51,7 +49,10 @@
     $rac-default-layout-main-position: $rac-default-layout-main-position,
     $rac-default-layout-tab-panel-wrapper-border-bottom: $rac-default-layout-tab-panel-wrapper-border-bottom,
     $rac-default-layout-tab-panel-wrapper-margin: $rac-default-layout-tab-panel-wrapper-margin,
-    $rac-default-layout-tab-panel-wrapper-padding: $rac-default-layout-tab-panel-wrapper-padding
+    $rac-default-layout-tab-panel-wrapper-padding: $rac-default-layout-tab-panel-wrapper-padding,
+    $rac-default-layout-form-actions-border-top: $rac-default-layout-form-actions-border-top,
+    $rac-default-layout-form-actions-margin: $rac-default-layout-form-actions-margin,
+    $rac-default-layout-form-actions-padding: $rac-default-layout-form-actions-padding
   );
 
   /**
@@ -70,12 +71,6 @@
       $rac-icon-height: $rac-default-layout-logo-menu-icon-height,
       $rac-icon-margin: 0 0 0 auto,
       $rac-icon-padding: 0 16px
-    );
-
-    @include rac-form(                                                                        /* @stable [15.02.2019] */
-      $rac-form-actions-margin: $rac-default-layout-form-actions-margin,
-      $rac-form-actions-border-top: $rac-default-layout-form-actions-border-top,
-      $rac-form-actions-padding: $rac-default-layout-form-actions-padding
     );
   }
 }
