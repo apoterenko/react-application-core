@@ -57,6 +57,7 @@ The library is designed to quickly start develop the business applications are b
 * [PageToolbar (12.05.2020)](src/core/component/toolbar/page/page-toolbar.component.tsx)
 * [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
 * [SubHeader (22.05.2020)](src/core/component/sub-header/sub-header.component.tsx)
+* [SubHeaderLink (22.05.2020)](src/core/component/sub-header-link/sub-header-link.component.tsx)
 * [UnsavedFormChangesDialog (11.05.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
 
 #### @effects-proxy-factory
@@ -99,6 +100,12 @@ The library is designed to quickly start develop the business applications are b
 * [_navigation-list.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list.scss)
 * [_navigation-list-constant.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-constant.scss)
 * [_navigation-list-mixin.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-mixin.scss)
+
+#### SubHeaderLink
+
+* [_sub-header-link.scss (22.05.2020)](src/core/component/sub-header-link/_sub-header-link.scss)
+* [_sub-header-link-constant.scss (22.05.2020)](src/core/component/sub-header-link/_sub-header-link-constant.scss)
+* [_sub-header-link-mixin.scss (22.05.2020)](src/core/component/sub-header-link/_sub-header-link-mixin.scss)
 
 #### TabPanel
 
