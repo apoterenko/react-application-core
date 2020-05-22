@@ -40,15 +40,19 @@ export class SubHeaderLink extends GenericBaseComponent<ISubHeaderLinkProps> {
     return ConditionUtils.ifNotEmptyThanValue(
       contentElement,
       () => (
-        <span
-          className={ClsUtils.joinClassName(
-            SubHeaderLinkClasses.SUB_HEADER_LINK,
-            isActiveLink && SubHeaderLinkClasses.SUB_HEADER_LINK_ACTIVE
-          )}
-          {...isActiveLink && PropsUtils.buildClickHandlerProps(onClick, true, false)}
-        >
+        <span>
           {!first && separator}
-          {contentElement}
+          <span
+            className={
+              ClsUtils.joinClassName(
+                SubHeaderLinkClasses.SUB_HEADER_LINK,
+                isActiveLink && SubHeaderLinkClasses.SUB_HEADER_LINK_ACTIVE
+              )
+            }
+            {...isActiveLink && PropsUtils.buildClickHandlerProps(onClick, true, false)}
+          >
+            {contentElement}
+          </span>
         </span>
       )
     );

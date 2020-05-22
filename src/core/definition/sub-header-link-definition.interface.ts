@@ -41,6 +41,6 @@ export interface ISubHeaderLinkProps
  * @stable [22.05.2020]
  */
 export enum SubHeaderLinkClasses {
-  SUB_HEADER_LINK = 'sub-header-link',
-  SUB_HEADER_LINK_ACTIVE = 'sub-header-link__active',
+  SUB_HEADER_LINK = 'rac-sub-header-link',
+  SUB_HEADER_LINK_ACTIVE = 'rac-sub-header-link__active',
 }
