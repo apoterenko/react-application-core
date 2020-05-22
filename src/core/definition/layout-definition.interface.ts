@@ -1,5 +1,6 @@
 import { IReduxXYEntity } from './xy-definition.interface';
 import {
+  IDefaultLayoutConfigurationWrapper,
   IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
   IFooterRenderedWrapper,
@@ -17,6 +18,7 @@ import {
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericStoreEntity } from './redux-definition.interface';
 import { IHeaderConfigurationEntity } from './header-definition.interface';
+import { IMainConfigurationEntity } from './main-definition.interface';
 import { ISubHeaderConfigurationEntity } from './sub-header-definition.interface';
 
 /**
@@ -56,6 +58,7 @@ export interface IPresetsDefaultLayoutEntity
     IHeaderConfigurationEntity,
     IHeaderRenderedWrapper,
     IHeaderWrapper,
+    IMainConfigurationEntity,
     IOnDrawerHeaderClickWrapper<LayoutModesEnum>,
     ISubHeaderConfigurationEntity,
     ISubHeaderRenderedWrapper {
@@ -70,7 +73,6 @@ export interface IGenericDefaultLayoutEntity
     IDrawerHeaderRenderedWrapper,
     IGenericStoreEntity,
     IHeaderContentWrapper,
-    IReduxHolderLayoutEntity,
     IProgressWrapper {
 }
 
@@ -83,6 +85,14 @@ export interface IDefaultLayoutProps
     IGenericDefaultLayoutEntity {
   navigationListElement?: any;
   onLogoMenuActionClick?: any;
+}
+
+/**
+ * @configuration-entity
+ * @stable [22.05.2020]
+ */
+export interface IDefaultLayoutConfigurationEntity<TProps = IDefaultLayoutProps>
+  extends IDefaultLayoutConfigurationWrapper<TProps> {
 }
 
 /**

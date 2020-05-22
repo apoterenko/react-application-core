@@ -28,6 +28,7 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
     const mergedProps = this.mergedProps;
     const {
       className,
+      minWidthMinContent,
       selectedElementClassName,
       stickyElementClassName,
       subHeaderRendered,
@@ -42,6 +43,7 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
                 MainClassesEnum.MAIN,
                 WrapperUtils.isFull(mergedProps) && MainClassesEnum.FULL_MAIN,
                 subHeaderRendered && MainClassesEnum.MAIN_WITH_SUB_HEADER,
+                minWidthMinContent && MainClassesEnum.MAIN_WITH_MIN_CONTENT,
                 CalcUtils.calc(className)
               )
             }>

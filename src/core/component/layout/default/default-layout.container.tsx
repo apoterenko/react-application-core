@@ -38,10 +38,6 @@ import { NotificationContainer } from '../../notification';
 
 export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
 
-  public static readonly defaultProps: IDefaultLayoutContainerProps = {
-    subHeaderConfiguration: {},
-  };
-
   @lazyInject(NavigationMenuBuilder) private readonly navigationMenuBuilder: NavigationMenuBuilder;
 
   /**
@@ -64,9 +60,11 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
   public render(): JSX.Element {
     const props = this.props;
     const {
+      defaultLayoutConfiguration = {},
       headerConfiguration = {},
       subHeaderConfiguration = {},
     } = props;
+
     const activeItem = this.menuItems.find((item) => item.active);
     const title = props.title || (activeItem && activeItem.label);
 
@@ -74,6 +72,7 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
       <NotificationContainer {...props}>
         <DefaultLayout
           {...props}
+          {...defaultLayoutConfiguration}
           headerConfiguration={{
             onSelect: this.onHeaderMenuSelectItem,
             navigationActionConfiguration: {

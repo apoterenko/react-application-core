@@ -1,5 +1,6 @@
 import {
   IGenericContainerProps,
+  IDefaultLayoutConfigurationEntity,
   IHeaderConfigurationEntity,
   IQueryFilterEntity,
   ISubHeaderConfigurationEntity,
@@ -13,16 +14,18 @@ import {
 /**
  * @stable [13.08.2018]
  */
-export interface IDefaultLayoutContainerEntity extends IGenericContainerProps,
-                                                       IQueryFilterEntity,
-                                                       IProgressWrapper {
+export interface IDefaultLayoutContainerEntity
+  extends IDefaultLayoutConfigurationEntity,
+    IQueryFilterEntity,
+    IProgressWrapper {
 }
 
 /**
  * @stable [31.05.2018]
  */
 export interface IDefaultLayoutContainerProps
-  extends IDefaultLayoutContainerEntity,
+  extends IGenericContainerProps,
+    IDefaultLayoutContainerEntity,
     IFooterWrapper,
     IHeaderConfigurationEntity,
     ISubHeaderRenderedWrapper,

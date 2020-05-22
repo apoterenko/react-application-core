@@ -89,6 +89,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
       footerRendered,
       header,
       headerRendered,
+      mainConfiguration,
       subHeaderRendered,
     } = mergedProps;
 
@@ -106,6 +107,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
             SelectedElementPlugin,
             StickyHeaderPlugin
           ]}
+          {...mainConfiguration}
         >
           {subHeaderRendered && this.subHeaderElement}
           {this.props.children}

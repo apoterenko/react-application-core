@@ -120,6 +120,7 @@ export interface IDaysWrapper<TValue> { days?: TValue; }
 export interface IDayWrapper<TValue = number> { day?: TValue; }
 export interface IDecoratedWrapper { decorated?: boolean; }
 export interface IDefaultChangesWrapper<TChanges = {}> { defaultChanges?: TChanges; }
+export interface IDefaultLayoutConfigurationWrapper<TValue> { defaultLayoutConfiguration?: TValue; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDefaultWrapper { default?: boolean; }
@@ -288,6 +289,7 @@ export interface ILockPageWrapper<TValue = boolean> { lockPage?: TValue; }
 export interface ILockWrapper { lock?: boolean; }
 export interface ILoginWrapper<TValue = string> { login?: TValue; }
 export interface ILogoutWrapper<TValue = string> { logout?: TValue; }
+export interface IMainConfigurationWrapper<TValue> { mainConfiguration?: TValue; }
 export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
 export interface IMaskWrapper<TValue = Array<string | RegExp>> { mask?: TValue; }
@@ -305,6 +307,7 @@ export interface IMethodWrapper { method?: string; }
 export interface IMiddleWrapper<TValue = boolean> { middle?: TValue; }
 export interface IMinDateWrapper<TValue = string> { minDate?: TValue; }
 export interface IMiniWrapper { mini?: boolean; }
+export interface IMinWidthMinContentWrapper { minWidthMinContent?: boolean; }
 export interface IModeWrapper<TValue = string> { mode?: TValue; }
 export interface IMonthWrapper<TValue = number> { month?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }
