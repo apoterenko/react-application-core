@@ -9,7 +9,7 @@
    */
   @include rac-sub-header-link (
     $rac-sub-header-link-custom: $rac-sub-header-link-active-cls,
-    $rac-sub-header-link-color: $rac-sub-header-link-active-color,
-    $rac-sub-header-link-cursor: $rac-sub-header-link-active-cursor
+    $rac-sub-header-link-content-color: $rac-sub-header-link-active-content-color,
+    $rac-sub-header-link-content-cursor: $rac-sub-header-link-active-content-cursor
   );
 }
