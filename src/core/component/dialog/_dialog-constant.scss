@@ -18,7 +18,7 @@ $rac-dialog-body-content-flex-grow: $rac-primary-flex-grow-1 !default;
 $rac-dialog-body-content-overflow: unset !default;
 $rac-dialog-body-content-position: relative !default;   /* extra actions + perfect scroll */
 $rac-dialog-body-content-wrapper-display: $rac-primary-display-0 !default;
-$rac-dialog-body-content-wrapper-flex-direction: column !default;
+$rac-dialog-body-content-wrapper-flex-direction: $rac-primary-flex-direction-0 !default;
 $rac-dialog-body-content-wrapper-flex-grow: $rac-primary-flex-grow-1 !default;
 $rac-dialog-body-content-wrapper-position: relative !default;
 
@@ -49,7 +49,7 @@ $rac-default-dialog-body-background: $rac-primary-dialog-color-0 !default;
 $rac-default-dialog-body-border-radius: $rac-primary-border-radius-1 !default;
 $rac-default-dialog-body-content-wrapper-padding: 0 $rac-primary-offset-3 !default;
 $rac-default-dialog-body-display: $rac-primary-display-0 !default;
-$rac-default-dialog-body-flex-direction: column !default;
+$rac-default-dialog-body-flex-direction: $rac-primary-flex-direction-0 !default;
 $rac-default-dialog-body-flex-grow: $rac-primary-flex-grow-1 !default;
 $rac-default-dialog-body-max-height: $rac-primary-dialog-max-height-0 !default;
 $rac-default-dialog-body-max-width: $rac-primary-dialog-max-width-0 !default;

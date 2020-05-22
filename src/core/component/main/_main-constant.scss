@@ -6,9 +6,17 @@
 /************************/
 $rac-main-background: unset !default;
 $rac-main-body-content-child-flex-shrink: $rac-primary-flex-shrink-0 !default;
+$rac-main-body-content-display: $rac-primary-display-0 !default;
+$rac-main-body-content-flex-direction: $rac-primary-flex-direction-0 !default;
+$rac-main-body-content-height: 100% !default;
 $rac-main-body-content-last-child-padding: 0 0 $rac-primary-layout-offset-7 0 !default;
 $rac-main-body-content-min-width: unset !default;  /* min-content (for right padding, but the chartjs doesn't allow) */
 $rac-main-body-content-padding: $rac-primary-layout-offset-7 $rac-primary-layout-offset-7 0 $rac-primary-layout-offset-7 !default;
+$rac-main-body-content-width: unset !default;
+$rac-main-body-height: 100% !default;
+$rac-main-body-overflow: auto !default;
+$rac-main-body-position: absolute !default;
+$rac-main-body-width: 100% !default;
 $rac-main-display: unset !default;
 $rac-main-flex-direction: unset !default;
 $rac-main-position: relative !default;
