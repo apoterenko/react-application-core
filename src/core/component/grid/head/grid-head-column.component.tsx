@@ -2,16 +2,17 @@ import * as React from 'react';
 
 import {
   GridClassesEnum,
+  IconsEnum,
   IGridColumnProps,
   SortDirectionsEnum,
 } from '../../../definition';
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
+  ConditionUtils,
   ifNotFalseThanValue,
-  isFn,
-  joinClassName,
-  nvl,
-  orNull,
+  NvlUtils,
+  TypeUtils,
 } from '../../../util';
 import { BaseGridColumn } from '../base-column';
 
@@ -40,10 +41,10 @@ export class GridHeadColumn extends BaseGridColumn {
         <th
           style={{
             ...this.styles,
-            ...calc(props.headerStyles, props),
+            ...CalcUtils.calc(props.headerStyles, props),
           }}
-          colSpan={nvl(props.headerColSpan, props.colSpan)}
-          className={this.getClassName(calc(props.headerClassName, props), 'rac-no-user-select')}>
+          colSpan={NvlUtils.nvl(props.headerColSpan, props.colSpan)}
+          className={this.getClassName(CalcUtils.calc(props.headerClassName, props), 'rac-no-user-select')}>
           {this.columnContentElement}
         </th>
       )
@@ -63,23 +64,23 @@ export class GridHeadColumn extends BaseGridColumn {
             <div className='rac-grid-column-sort'>
               {
                 this.uiFactory.makeIcon({
-                  className: joinClassName(
+                  className: ClsUtils.joinClassName(
                     GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
                     GridClassesEnum.GRID_HEAD_COLUMN_SORT_DESC_ACTION,
                     this.isDescSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
                   ),
-                  type: 'bottom',
+                  type: IconsEnum.ARROW_DOWN,
                   onClick: this.onChangeDescSortingActionClick,
                 })
               }
               {
                 this.uiFactory.makeIcon({
-                  className: joinClassName(
+                  className: ClsUtils.joinClassName(
                     GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
                     GridClassesEnum.GRID_HEAD_COLUMN_SORT_ASC_ACTION,
                     this.isAscSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
                   ),
-                  type: 'top',
+                  type: IconsEnum.ARROW_UP,
                   onClick: this.onChangeAscSortingActionClick,
                 })
               }
@@ -95,14 +96,14 @@ export class GridHeadColumn extends BaseGridColumn {
    * @stable [18.10.2019]
    */
   private onChangeAscSortingActionClick(): void {
-    this.doSortingDirectionChange(orNull(!this.isAscSortingEnabled, SortDirectionsEnum.ASC));
+    this.doSortingDirectionChange(ConditionUtils.orNull(!this.isAscSortingEnabled, SortDirectionsEnum.ASC));
   }
 
   /**
    * @stable [18.10.2019]
    */
   private onChangeDescSortingActionClick(): void {
-    this.doSortingDirectionChange(orNull(!this.isDescSortingEnabled, SortDirectionsEnum.DESC));
+    this.doSortingDirectionChange(ConditionUtils.orNull(!this.isDescSortingEnabled, SortDirectionsEnum.DESC));
   }
 
   /**
@@ -111,7 +112,7 @@ export class GridHeadColumn extends BaseGridColumn {
    */
   private doSortingDirectionChange(direction: SortDirectionsEnum): void {
     const props = this.props;
-    if (isFn(props.onSortingDirectionChange)) {
+    if (TypeUtils.isFn(props.onSortingDirectionChange)) {
       props.onSortingDirectionChange({name: props.name, direction});
     }
   }
