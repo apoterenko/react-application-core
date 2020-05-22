@@ -88,6 +88,12 @@ The library is designed to quickly start develop the business applications are b
 * [_header-constant.scss (21.05.2020)](src/core/component/header/_header-constant.scss)
 * [_header-mixin.scss (21.05.2020)](src/core/component/header/_header-mixin.scss)
 
+#### Main
+
+* [_main.scss (22.05.2020)](src/core/component/main/_main.scss)
+* [_main-constant.scss (22.05.2020)](src/core/component/main/_main-constant.scss)
+* [_main-mixin.scss (22.05.2020)](src/core/component/main/_main-mixin.scss)
+
 #### NavigationList
 
 * [_navigation-list.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list.scss)
