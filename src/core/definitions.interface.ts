@@ -302,6 +302,7 @@ export interface IMergeStrategyWrapper<TValue> { mergeStrategy?: TValue; }
 export interface IMessagesWrapper<TValue> { messages?: TValue; }
 export interface IMessageWrapper<TValue = string> { message?: TValue; }
 export interface IMethodWrapper { method?: string; }
+export interface IMiddleWrapper<TValue = boolean> { middle?: TValue; }
 export interface IMinDateWrapper<TValue = string> { minDate?: TValue; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IModeWrapper<TValue = string> { mode?: TValue; }
@@ -475,6 +476,7 @@ export interface ISelectedDaysWrapper<TValue> { selectedDays?: TValue; }
 export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
 export interface ISelectedWrapper<TValue = boolean> { selected?: TValue; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
+export interface ISeparatorWrapper<TValue = string> { separator?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
 export interface IShowWrapper<TValue = {}> { show?(payload?: TValue): void; }

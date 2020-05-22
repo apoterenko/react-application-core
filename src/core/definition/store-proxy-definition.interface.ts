@@ -8,6 +8,7 @@ import {
   IGoBackWrapper,
   IItemWrapper,
   ILastWrapper,
+  IMiddleWrapper,
 } from '../definitions.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
@@ -85,7 +86,8 @@ export interface INotificationStoreProxy {
 export interface IRouterStoreProxyFactoryConfigEntity
   extends IFirstWrapper,
     IItemWrapper<IReduxStackItemEntity>,
-    ILastWrapper {
+    ILastWrapper,
+    IMiddleWrapper {
 }
 
 /**

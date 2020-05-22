@@ -1,0 +1,17 @@
+@import '../_core-mixin';
+/**
+ * @stable [22.045.2020]
+ */
+@mixin rac-sub-header-link (
+  $rac-sub-header-link-custom: unset,
+  /**/
+  $rac-sub-header-link-color: unset,                                                          /* @stable [22.05.2020] */
+  $rac-sub-header-link-cursor: unset                                                          /* @stable [22.05.2020] */
+) {
+  #{rac-cls($rac-sub-header-link-cls, $rac-sub-header-link-custom)} {
+    @include rac-styles (
+      $rac-styles-color: $rac-sub-header-link-color,
+      $rac-styles-cursor: $rac-sub-header-link-cursor
+    );
+  }
+}

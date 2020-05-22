@@ -10,6 +10,7 @@ import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
 import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
+import { ISubHeaderLinkProps } from './sub-header-link-definition.interface';
 import { ISubHeaderProps } from './sub-header-definition.interface';
 import { ITitleProps } from './title-definition.interface';
 
@@ -118,6 +119,7 @@ export interface IComponentsSettingsEntity {
   main?: IMainProps;
   navigationList?: INavigationListProps;
   subHeader?: ISubHeaderProps;
+  subHeaderLink?: ISubHeaderLinkProps;
   title?: ITitleProps;
 }
 

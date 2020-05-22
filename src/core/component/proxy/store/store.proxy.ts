@@ -12,11 +12,13 @@ import {
   IGenericStoreEntity,
   IStoreProxy,
 } from '../../../definition';
+import { ISettingsEntity } from '../../../settings';
 
 export class StoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
                         TProps extends IGenericContainerProps = IGenericContainerProps>
   implements IStoreProxy {
 
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Store) protected readonly appStore: Store<TStore>;
 
   /**

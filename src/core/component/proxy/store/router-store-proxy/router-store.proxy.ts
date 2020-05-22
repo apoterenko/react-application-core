@@ -3,16 +3,18 @@ import * as R from 'ramda';
 
 import { StoreProxy } from '../store.proxy';
 import {
+  DefaultEntities,
   IGenericContainer,
   IGenericContainerProps,
   IGenericStoreEntity,
+  IReduxStackItemEntity,
   IRouterStoreProxy,
   IRouterStoreProxyFactoryConfigEntity,
 } from '../../../../definition';
 import { RouterActionBuilder } from '../../../../action';
 import {
   FilterUtils,
-  handlerPropsFactory,
+  PropsUtils,
   Selectors,
 } from '../../../../util';
 
@@ -62,27 +64,42 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
   }
 
   /**
-   * @stable [19.12.2019]
+   * @stable [22.05.2020]
    * @param {(cfg: IRouterStoreProxyFactoryConfigEntity) => JSX.Element} factory
    * @returns {React.ReactNode[]}
    */
   public buildNavigationSteps(factory: (cfg: IRouterStoreProxyFactoryConfigEntity) => JSX.Element): React.ReactNode[] {
-    const entities = Selectors.stackItemEntities(this.props) || [];
-    const length = entities.length;
+    const steps: IReduxStackItemEntity[] = [
+      {
+        section: DefaultEntities.ROOT_SECTION,
+        url: this.settings.routes.home,
+      },
+      ...(Selectors.stackItemEntities(this.props) || [])
+    ];
+    const stepsCount = steps.length;
 
     return FilterUtils.notNilValuesArrayFilter(
-      ...entities.map((item, index) => {
-        const last = index === length - 1;
-        const stepElement = factory({item, first: index === 0, last});
+      ...steps.map((item, index) => {
+        const isFirst = index === 0;
+        const isLast = index === stepsCount - 1;
+        const isMiddle = !isFirst && !isLast;
+
+        const stepElement = factory({
+          first: isFirst,
+          item,
+          last: isLast,
+          middle: isMiddle,
+        });
+
         if (R.isNil(stepElement)) {
           return null;
         }
         return React.cloneElement(stepElement, {
           key: item.url,
           ...(
-            last
+            isLast
               ? {}
-              : handlerPropsFactory(() => this.goBack(length - entities.indexOf(item) - 1), true, false)
+              : PropsUtils.buildClickHandlerProps(() => this.goBack(stepsCount - steps.indexOf(item) - 1), true, false)
           ),
         });
       })

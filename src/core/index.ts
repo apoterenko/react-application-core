@@ -39,6 +39,7 @@ export * from './component/proxy';
 export * from './component/root';
 export * from './component/snackbar';
 export * from './component/sub-header';
+export * from './component/sub-header-link';
 export * from './component/tab-panel';
 export * from './component/title';
 export * from './component/toolbar';

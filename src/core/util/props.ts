@@ -60,5 +60,6 @@ export const handlerPropsFactory =
  * @stable [18.05.2020]
  */
 export class PropsUtils {
-  public static readonly mergeWithSystemProps = mergeWithSystemProps;                /* @stable [18.05.2020] */
+  public static readonly buildClickHandlerProps = handlerPropsFactory;                /* @stable [22.05.2020] */
+  public static readonly mergeWithSystemProps = mergeWithSystemProps;                 /* @stable [18.05.2020] */
 }

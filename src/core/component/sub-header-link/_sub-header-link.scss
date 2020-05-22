@@ -1,0 +1,15 @@
+@import './_sub-header-link-mixin';
+@import './_sub-header-link-constant';
+
+.rac {
+
+  /**
+   * @sub-header-link
+   * @stable [22.05.2020]
+   */
+  @include rac-sub-header-link (
+    $rac-sub-header-link-custom: $rac-sub-header-link-active-cls,
+    $rac-sub-header-link-color: $rac-sub-header-link-active-color,
+    $rac-sub-header-link-cursor: $rac-sub-header-link-active-cursor
+  );
+}

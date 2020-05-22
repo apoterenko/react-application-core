@@ -202,10 +202,10 @@ export class Header extends GenericComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [21.05.2020]
+   * @stable [22.05.2020]
    * @returns {IHeaderProps}
    */
   private get mergedProps(): IHeaderProps {
-    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.header);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.header);
   }
 }
