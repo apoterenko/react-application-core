@@ -63,6 +63,10 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
 
   public render(): JSX.Element {
     const props = this.props;
+    const {
+      headerConfiguration = {},
+      subHeaderConfiguration = {},
+    } = props;
     const activeItem = this.menuItems.find((item) => item.active);
     const title = props.title || (activeItem && activeItem.label);
 
@@ -72,12 +76,19 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
           {...props}
           headerConfiguration={{
             onSelect: this.onHeaderMenuSelectItem,
-            navigationActionConfiguration: {onClick: this.routerStoreProxy.navigateBack},
-            ...props.headerConfiguration,
+            navigationActionConfiguration: {
+              onClick: this.routerStoreProxy.navigateBack,
+              ...headerConfiguration.navigationActionConfiguration,
+            },
+            ...headerConfiguration,
           }}
           subHeaderConfiguration={{
             title,
-            ...props.subHeaderConfiguration,
+            navigationActionConfiguration: {
+              onClick: this.routerStoreProxy.navigateBack,
+              ...subHeaderConfiguration.navigationActionConfiguration,
+            },
+            ...subHeaderConfiguration,
           }}
           onLogoMenuActionClick={this.onLogoMenuActionClick}
           onDrawerHeaderClick={this.onDrawerHeaderClick}

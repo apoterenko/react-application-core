@@ -22,15 +22,11 @@ import { Link } from '../link';
 
 /**
  * @component-impl
- * @stable [21.05.2020]
+ * @stable [22.05.2020]
  *
  * Please use the "Mappers.headerProps"
  */
 export class Header extends GenericComponent<IHeaderProps> {
-
-  public static readonly defaultProps: IHeaderProps = {
-    navigationActionIcon: IconsEnum.ARROW_LEFT,
-  };
 
   private readonly defaultMenuProps = Object.freeze<IMenuProps>({
     options: [
@@ -119,7 +115,7 @@ export class Header extends GenericComponent<IHeaderProps> {
         <React.Fragment>
           {
             <Button
-              icon={mergedProps.navigationActionIcon}
+              icon={IconsEnum.ARROW_LEFT}
               {...navigationActionConfiguration}
               className={
                 ClsUtils.joinClassName(

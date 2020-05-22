@@ -95,7 +95,7 @@ export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStore
           return null;
         }
         return React.cloneElement(stepElement, {
-          key: item.url,
+          key: `navigation-step-key-${index}`,
           ...(
             isLast
               ? {}

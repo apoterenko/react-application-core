@@ -6,7 +6,6 @@ import {
   IHeaderConfigurationWrapper,
   IMenuActionConfigurationWrapper,
   INavigationActionConfigurationWrapper,
-  INavigationActionIconWrapper,
   INavigationActionRenderedWrapper,
   IOnSelectWrapper,
 } from '../definitions.interface';
@@ -15,7 +14,7 @@ import {
   IMenuItemEntity,
 } from './menu-definition.interface';
 import { IButtonProps } from './button-definition.interface';
-import { IGenericStoreEntity } from './redux-definition.interface';
+import { IReduxStoreEntity } from './redux-definition.interface';
 
 /**
  * @enum
@@ -27,16 +26,22 @@ export enum HeaderUserMenuActionsEnum {
 }
 
 /**
+ * @redux-entity
+ * @stable [22.05.2020]
+ */
+export interface IReduxHeaderEntity
+  extends IReduxStoreEntity {
+}
+
+/**
  * @presets-entity
  * @stable [21.05.2020]
  */
 export interface IPresetsHeaderEntity
   extends IContentWrapper<React.ReactNode | (() => React.ReactNode)>,
-    IGenericStoreEntity,
     IMenuActionConfigurationWrapper<IButtonProps>,
     IMenuConfigurationEntity,
     INavigationActionConfigurationWrapper<IButtonProps>,
-    INavigationActionIconWrapper,
     INavigationActionRenderedWrapper,
     IOnSelectWrapper<IMenuItemEntity> {
 }
@@ -46,7 +51,8 @@ export interface IPresetsHeaderEntity
  * @stable [06.02.2020]
  */
 export interface IGenericHeaderEntity
-  extends IPresetsHeaderEntity {
+  extends IPresetsHeaderEntity,
+    IReduxHeaderEntity {
 }
 
 /**

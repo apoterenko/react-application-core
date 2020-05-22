@@ -111,16 +111,24 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
 }
 
 /**
+ * @redux-entity
+ * @stable [22.05.2020]
+ */
+export interface IReduxStoreEntity
+  extends IReduxHolderLayoutEntity,
+    IReduxHolderStackEntity,
+    IReduxHolderUserEntity {
+}
+
+/**
  * @generic-entity
  * @stable [14.04.2020]
  */
 export interface IGenericStoreEntity<TDictionaries = {}>
-  extends IChannelWrapperEntity,
+  extends IReduxStoreEntity,
+    IChannelWrapperEntity,
     IDictionariesWrapper<TDictionaries>,
     INotificationWrapperEntity,
-    IReduxHolderLayoutEntity,
-    IReduxHolderStackEntity,
-    IReduxHolderUserEntity,
     ISectionNameWrapper, // TODO Move from this
     ITransportWrapperEntity {
 }

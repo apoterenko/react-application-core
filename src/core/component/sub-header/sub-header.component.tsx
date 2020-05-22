@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  CalcUtils,
   ClsUtils,
   PropsUtils,
   TypeUtils,
@@ -19,10 +20,6 @@ import {
  */
 export class SubHeader extends GenericComponent<ISubHeaderProps> {
 
-  public static readonly defaultProps: ISubHeaderProps = {
-    navigationActionIcon: IconsEnum.ARROW_LEFT,
-  };
-
   /**
    * @stable [22.05.2020]
    * @returns {JSX.Element}
@@ -31,9 +28,8 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
     const mergedProps = this.mergedProps;
     const {
       items,
-      navigationActionIcon,
+      navigationActionConfiguration = {},
       navigationActionRendered,
-      onNavigationActionClick,
       subBorder,
       title,
       titleRenderer,
@@ -56,9 +52,12 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
           )}>
         {navigationActionRendered && (
           <Button
-            icon={navigationActionIcon}
-            onClick={onNavigationActionClick}
-            className={SubHeaderClassesEnum.SUB_HEADER_NAVIGATION_ACTION}/>
+            icon={IconsEnum.ARROW_LEFT}
+            {...navigationActionConfiguration}
+            className={ClsUtils.joinClassName(
+              SubHeaderClassesEnum.SUB_HEADER_NAVIGATION_ACTION,
+              CalcUtils.calc(navigationActionConfiguration.className)
+            )}/>
         )}
         {
           TypeUtils.isFn(titleRenderer)

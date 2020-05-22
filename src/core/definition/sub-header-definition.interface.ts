@@ -1,13 +1,13 @@
 import {
   IItemsWrapper,
-  INavigationActionIconWrapper,
+  INavigationActionConfigurationWrapper,
   INavigationActionRenderedWrapper,
-  IOnNavigationActionClickWrapper,
   ISubBorderWrapper,
   ISubHeaderConfigurationWrapper,
   ITitleRendererWrapper,
 } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IButtonProps } from './button-definition.interface';
 
 /**
  * @presets-entity
@@ -15,9 +15,8 @@ import { IGenericComponentProps } from './generic-component-definition.interface
  */
 export interface IPresetsSubHeaderEntity
   extends IItemsWrapper<JSX.Element>,
-    INavigationActionIconWrapper,
+    INavigationActionConfigurationWrapper<IButtonProps>,
     INavigationActionRenderedWrapper,
-    IOnNavigationActionClickWrapper,
     ISubBorderWrapper,
     ITitleRendererWrapper<JSX.Element> {
 }
