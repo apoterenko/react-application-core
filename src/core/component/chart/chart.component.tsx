@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import { Chart as ChartJs } from 'chart.js';
 
 import { GenericComponent } from '../base/generic.component';
@@ -38,10 +37,8 @@ export class Chart extends GenericComponent<IChartProps> {
 
   /**
    * @stable [23.05.2020]
-   * @param {Readonly<IChartProps>} prevProps
-   * @param {Readonly<{}>} prevState
    */
-  public componentDidUpdate(prevProps: Readonly<IChartProps>, prevState: Readonly<{}>): void {
+  public componentDidUpdate(): void {
     this.refresh();
   }
 
@@ -51,7 +48,7 @@ export class Chart extends GenericComponent<IChartProps> {
    */
   public render(): JSX.Element {
     const mergedProps = this.mergedProps;
-    const items = FilterUtils.notNilValuesArrayFilter(
+    const items = FilterUtils.objectValuesArrayFilter(
       mergedProps.west,
       mergedProps.rendered && <React.Fragment/>,
       mergedProps.east
@@ -110,14 +107,17 @@ export class Chart extends GenericComponent<IChartProps> {
     if (this.chartJs) {
       this.chartJs.destroy(); // It's too heavy to call an update() and update partially
     }
-    const elId = this.canvasRef.current;
-    if (!R.isNil(elId)) {
-      this.chartJs = new ChartJs(elId.getContext('2d'), {
-        responsive: true,
-        maintainAspectRatio: false,
-        ...this.mergedProps.options,
-      });
-    }
+
+    ConditionUtils.ifNotNilThanValue(
+      this.canvasRef.current,
+      (elId) => {
+        this.chartJs = new ChartJs(elId.getContext('2d'), {
+          responsive: true,
+          maintainAspectRatio: false,
+          ...this.mergedProps.options,
+        });
+      }
+    );
   }
 
   /**
