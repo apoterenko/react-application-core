@@ -31,6 +31,7 @@ export class FlexLayout extends EnhancedGenericComponent<IFlexLayoutProps> {
             FlexLayoutClassesEnum.FLEX,
             props.alignItemsCenter && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_CENTER,
             props.alignItemsEnd && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_END,
+            props.alignItemsStart && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_START,
             props.alignItemsStretch && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_STRETCH,
             props.fullSize && ComponentClassesEnum.FULL_SIZE,
             props.justifyContentCenter && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_CENTER,

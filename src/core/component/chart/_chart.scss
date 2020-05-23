@@ -12,7 +12,11 @@
     $rac-chart-canvas-wrapper-position: $rac-chart-canvas-wrapper-position,
     $rac-chart-canvas-wrapper-width: $rac-chart-canvas-wrapper-width,
     $rac-chart-display: $rac-chart-display,
-    $rac-chart-position: $rac-chart-position
+    $rac-chart-east-display: $rac-chart-east-display,
+    $rac-chart-east-margin: $rac-chart-east-margin,
+    $rac-chart-position: $rac-chart-position,
+    $rac-chart-west-display: $rac-chart-west-display,
+    $rac-chart-west-margin: $rac-chart-west-margin
   );
 
   /**
@@ -22,5 +26,32 @@
   @include rac-chart (
     $rac-chart-custom: $rac-full-chart-cls,
     $rac-chart-flex-grow: $rac-full-chart-flex-grow
+  );
+
+  /**
+   * @chart-with-items-count-1
+   * @stable [23.05.2020]
+   */
+  @include rac-chart (
+    $rac-chart-custom: $rac-chart-with-items-count-1-cls,
+    $rac-chart-child-width: $rac-chart-with-items-count-1-child-width
+  );
+
+  /**
+   * @chart-with-items-count-2
+   * @stable [23.05.2020]
+   */
+  @include rac-chart (
+    $rac-chart-custom: $rac-chart-with-items-count-2-cls,
+    $rac-chart-child-width: $rac-chart-with-items-count-2-child-width
+  );
+
+  /**
+   * @chart-with-items-count-3
+   * @stable [23.05.2020]
+   */
+  @include rac-chart (
+    $rac-chart-custom: $rac-chart-with-items-count-3-cls,
+    $rac-chart-child-width: $rac-chart-with-items-count-3-child-width
   );
 }

@@ -55,5 +55,8 @@ export interface IChartProps
 export enum ChartClassesEnum {
   CHART = 'rac-chart',
   CHART_CANVAS_WRAPPER = 'rac-chart__canvas-wrapper',
+  CHART_EAST = 'rac-chart__east',
+  CHART_WEST = 'rac-chart__west',
+  CHART_WITH_ITEMS_COUNT = 'rac-chart-with-items-count-',
   FULL_CHART = 'rac-full-chart',
 }

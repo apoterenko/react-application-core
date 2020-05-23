@@ -58,6 +58,15 @@
   );
 
   /**
+   * @flex-align-items-start
+   * @stable [23.05.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-align-items-start,
+    $rac-styles-align-items: $rac-flex-align-items-start-align-items
+  );
+
+  /**
    * @flex-justify-content-center
    * @stable [10.04.2020]
    */

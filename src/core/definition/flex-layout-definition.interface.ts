@@ -1,6 +1,7 @@
 import {
   IAlignItemsCenterWrapper,
   IAlignItemsEndWrapper,
+  IAlignItemsStartWrapper,
   IAlignItemsStretchWrapper,
   IDisabledWrapper,
   IFullSizeWrapper,
@@ -23,6 +24,7 @@ import { IEnhancedGenericComponentProps } from './enhanced-generic-component-def
 export interface IPresetsFlexLayoutEntity
   extends IAlignItemsCenterWrapper,
     IAlignItemsEndWrapper,
+    IAlignItemsStartWrapper,
     IAlignItemsStretchWrapper,
     IDisabledWrapper,
     IFullSizeWrapper,
@@ -62,6 +64,7 @@ export enum FlexLayoutClassesEnum {
   FLEX = 'rac-flex',
   FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
   FLEX_ALIGN_ITEMS_END = 'rac-flex-align-items-end',
+  FLEX_ALIGN_ITEMS_START = 'rac-flex-align-items-start',
   FLEX_ALIGN_ITEMS_STRETCH = 'rac-flex-align-items-stretch',
   FLEX_JUSTIFY_CONTENT_CENTER = 'rac-flex-justify-content-center',
   FLEX_JUSTIFY_CONTENT_END = 'rac-flex-justify-content-end',

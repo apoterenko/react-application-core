@@ -37,6 +37,7 @@ export interface IAheadValueWrapper<TValue> { aheadValue?: TValue; }
 export interface IAliasWrapper<TValue = string> { alias?: TValue; }
 export interface IAlignItemsCenterWrapper { alignItemsCenter?: boolean; }
 export interface IAlignItemsEndWrapper { alignItemsEnd?: boolean; }
+export interface IAlignItemsStartWrapper { alignItemsStart?: boolean; }
 export interface IAlignItemsStretchWrapper { alignItemsStretch?: boolean; }
 export interface IAlignWrapper<TValue = string> { align?: TValue; }
 export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean; }

@@ -6,11 +6,22 @@
 /************************/
 $rac-chart-canvas-wrapper-height: 100% !default;
 $rac-chart-canvas-wrapper-position: absolute !default; /* Monitor resizer w.a. + $rac-main-body-content-min-width: min-content*/
-$rac-chart-canvas-wrapper-width: 100% !default;
+$rac-chart-canvas-wrapper-width: unset !default;
 $rac-chart-display: $rac-primary-display-0 !default;
+$rac-chart-east-display: $rac-primary-display-0 !default;
+$rac-chart-east-margin: 0 0 0 auto !default;
 $rac-chart-position: relative !default;                /* Monitor resizer w.a. + $rac-main-body-content-min-width: min-content*/
+$rac-chart-west-display: $rac-primary-display-0 !default;
+$rac-chart-west-margin: 0 auto 0 0 !default;
 
 /************************/
 /* @stable [23.05.2020] */
 /************************/
 $rac-full-chart-flex-grow: $rac-primary-flex-grow-1 !default;
+
+/************************/
+/* @stable [23.05.2020] */
+/************************/
+$rac-chart-with-items-count-1-child-width: 100% !default;
+$rac-chart-with-items-count-2-child-width: 50% !default;
+$rac-chart-with-items-count-3-child-width: 33.333% !default;

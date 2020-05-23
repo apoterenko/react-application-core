@@ -15,10 +15,15 @@
   $rac-chart-canvas-wrapper-padding: unset,
   $rac-chart-canvas-wrapper-position: unset,
   $rac-chart-canvas-wrapper-width: unset,
+  $rac-chart-child-width: unset,
   $rac-chart-display: unset,
+  $rac-chart-east-display: unset,
+  $rac-chart-east-margin: unset,
   $rac-chart-flex-grow: unset,
   $rac-chart-height: unset,
   $rac-chart-position: unset,
+  $rac-chart-west-display: unset,
+  $rac-chart-west-margin: unset,
   $rac-chart-width: unset
 ) {
   #{rac-cls($rac-chart-cls, $rac-chart-custom)} {
@@ -42,5 +47,25 @@
       $rac-styles-position: $rac-chart-canvas-wrapper-position,
       $rac-styles-width: $rac-chart-canvas-wrapper-width
     );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-chart__east,
+      $rac-styles-display: $rac-chart-east-display,
+      $rac-styles-margin: $rac-chart-east-margin
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-chart__west,
+      $rac-styles-display: $rac-chart-west-display,
+      $rac-styles-margin: $rac-chart-west-margin
+    );
+
+    > {
+      & * {
+        @include rac-styles (
+          $rac-styles-width: $rac-chart-child-width
+        );
+      }
+    }
   }
 }
