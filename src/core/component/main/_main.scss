@@ -43,13 +43,4 @@
     $rac-main-custom: $rac-main-with-sub-header-cls,
     $rac-main-body-content-padding-top: $rac-main-with-sub-header-body-content-padding-top
   );
-
-  /**
-   * @main-with-min-content
-   * @stable [22.05.2020]
-   */
-  @include rac-main (
-    $rac-main-custom: $rac-main-with-min-content-cls,
-    $rac-main-body-content-min-width: $rac-main-with-min-body-content-min-width
-  );
 }

@@ -1,0 +1,46 @@
+@import '../_core-mixin';
+
+/**
+ * @stable [23.05.2020]
+ */
+@mixin rac-chart(
+  $rac-chart-custom: unset,
+  /**/
+  $rac-chart-background: unset,
+  $rac-chart-border-color: unset,
+  $rac-chart-border-style: unset,
+  $rac-chart-border-width: unset,
+  $rac-chart-canvas-wrapper-height: unset,
+  $rac-chart-canvas-wrapper-margin: unset,
+  $rac-chart-canvas-wrapper-padding: unset,
+  $rac-chart-canvas-wrapper-position: unset,
+  $rac-chart-canvas-wrapper-width: unset,
+  $rac-chart-display: unset,
+  $rac-chart-flex-grow: unset,
+  $rac-chart-height: unset,
+  $rac-chart-position: unset,
+  $rac-chart-width: unset
+) {
+  #{rac-cls($rac-chart-cls, $rac-chart-custom)} {
+    @include rac-styles (
+      $rac-styles-background: $rac-chart-background,
+      $rac-styles-border-color: $rac-chart-border-color,
+      $rac-styles-border-style: $rac-chart-border-style,
+      $rac-styles-border-width: $rac-chart-border-width,
+      $rac-styles-display: $rac-chart-display,
+      $rac-styles-flex-grow: $rac-chart-flex-grow,
+      $rac-styles-height: $rac-chart-height,
+      $rac-styles-position: $rac-chart-position,
+      $rac-styles-width: $rac-chart-width
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-chart__canvas-wrapper,
+      $rac-styles-height: $rac-chart-canvas-wrapper-height,
+      $rac-styles-margin: $rac-chart-canvas-wrapper-margin,
+      $rac-styles-padding: $rac-chart-canvas-wrapper-padding,
+      $rac-styles-position: $rac-chart-canvas-wrapper-position,
+      $rac-styles-width: $rac-chart-canvas-wrapper-width
+    );
+  }
+}

@@ -14,7 +14,6 @@ $rac-main-body-cls: rac-main__body;
 $rac-main-body-content-cls: rac-main__body-content;
 $rac-main-cls: rac-main;
 /**/
-$rac-main-with-min-content-cls: '#{$rac-main-cls}.rac-main-with-min-content';
 $rac-main-with-sub-header-cls: '#{$rac-main-cls}.rac-main-with-sub-header';
 
 /************************/
@@ -152,3 +151,9 @@ $rac-default-layout-mini-cls: rac-default-layout-mini;
 /************************/
 $rac-sub-header-link-active-cls: rac-sub-header-link-active;
 $rac-sub-header-link-cls: rac-sub-header-link;
+
+/************************/
+/* @stable [23.05.2020] */
+/************************/
+$rac-chart-cls: rac-chart;
+$rac-full-chart-cls: rac-full-chart;

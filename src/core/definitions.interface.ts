@@ -146,6 +146,7 @@ export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: b
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
 export interface IDrawerHeaderRenderedWrapper { drawerHeaderRendered?: boolean; }
 export interface IDurationWrapper<TValue> { duration?: TValue; }
+export interface IEastWrapper<TValue = JSX.Element> { east?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
@@ -307,7 +308,6 @@ export interface IMethodWrapper { method?: string; }
 export interface IMiddleWrapper<TValue = boolean> { middle?: TValue; }
 export interface IMinDateWrapper<TValue = string> { minDate?: TValue; }
 export interface IMiniWrapper { mini?: boolean; }
-export interface IMinWidthMinContentWrapper { minWidthMinContent?: boolean; }
 export interface IModeWrapper<TValue = string> { mode?: TValue; }
 export interface IMonthWrapper<TValue = number> { month?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }
@@ -499,6 +499,7 @@ export interface IStreetNumberWrapper<TValue = string> { streetNumber?: TValue; 
 export interface IStreetWrapper<TValue = string> { street?: TValue; }
 export interface IStrictWrapper { strict?: boolean; }
 export interface IStyleWrapper<TValue> { style?: TValue; }
+export interface ISubBorderWrapper<TValue = boolean> { subBorder?: TValue; }
 export interface ISubHeaderConfigurationWrapper<TValue> { subHeaderConfiguration?: TValue; }
 export interface ISubHeaderRenderedWrapper { subHeaderRendered?: boolean; }
 export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TValue; }
@@ -557,6 +558,7 @@ export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }
 export interface IWarningWrapper<TValue = boolean> { warning?: TValue; }
+export interface IWestWrapper<TValue = JSX.Element> { west?: TValue; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 export interface IWrappedWrapper { wrapped?: boolean; }
@@ -710,20 +712,6 @@ export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
 }
 
 /**
- * @stable [24.09.2018]
- */
-export interface IWestWrapper<TWest = JSX.Element> {
-  west?: TWest;
-}
-
-/**
- * @stable [24.09.2018]
- */
-export interface IEastWrapper<TEast = JSX.Element> {
-  east?: TEast;
-}
-
-/**
  * @stable [27.04.2018]
  */
 export interface IOpenWrapper<TOpen = boolean> {
@@ -734,13 +722,6 @@ export interface IOpenWrapper<TOpen = boolean> {
  * @stable [07.06.2018]
  */
 export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends ITplWrapper<(item: TItem) => TResult> {
-}
-
-/**
- * @stable [22.10.2018]
- */
-export interface ISubBorderWrapper<TSubBorder = boolean> {
-  subBorder?: TSubBorder;
 }
 
 /**

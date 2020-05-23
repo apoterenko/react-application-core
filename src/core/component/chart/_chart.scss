@@ -1,0 +1,26 @@
+@import './_chart-mixin';
+@import './_chart-constant';
+
+.rac {
+
+  /**
+   * @chart
+   * @stable [23.05.2020]
+   */
+  @include rac-chart (
+    $rac-chart-canvas-wrapper-height: $rac-chart-canvas-wrapper-height,
+    $rac-chart-canvas-wrapper-position: $rac-chart-canvas-wrapper-position,
+    $rac-chart-canvas-wrapper-width: $rac-chart-canvas-wrapper-width,
+    $rac-chart-display: $rac-chart-display,
+    $rac-chart-position: $rac-chart-position
+  );
+
+  /**
+   * @full-chart
+   * @stable [23.05.2020]
+   */
+  @include rac-chart (
+    $rac-chart-custom: $rac-full-chart-cls,
+    $rac-chart-flex-grow: $rac-full-chart-flex-grow
+  );
+}

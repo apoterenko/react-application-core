@@ -1,6 +1,7 @@
 import { ElementsMarkersEnum } from './dom-definition.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
 import { IButtonProps } from './button-definition.interface';
+import { IChartProps } from './chart-definition.interface';
 import { IDefaultLayoutProps } from './layout-definition.interface';
 import { IDialogProps } from './dialog-definition.interface';
 import { IDrawerProps } from './drawer-definition.interface';
@@ -109,6 +110,7 @@ export const DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY = Object.freeze<IElementsM
 export interface IComponentsSettingsEntity {
   baseSelect?: IBaseSelectProps;
   button?: IButtonProps;
+  chart?: IChartProps;
   defaultLayout?: IDefaultLayoutProps;
   dialog?: IDialogProps;
   drawer?: IDrawerProps;

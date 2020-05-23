@@ -1,0 +1,16 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+/************************/
+/* @stable [23.05.2020] */
+/************************/
+$rac-chart-canvas-wrapper-height: 100% !default;
+$rac-chart-canvas-wrapper-position: absolute !default; /* Monitor resizer w.a. + $rac-main-body-content-min-width: min-content*/
+$rac-chart-canvas-wrapper-width: 100% !default;
+$rac-chart-display: $rac-primary-display-0 !default;
+$rac-chart-position: relative !default;                /* Monitor resizer w.a. + $rac-main-body-content-min-width: min-content*/
+
+/************************/
+/* @stable [23.05.2020] */
+/************************/
+$rac-full-chart-flex-grow: $rac-primary-flex-grow-1 !default;

@@ -1,5 +1,6 @@
 @import './button/_button-mixin';
 @import './card-list/_card-list-mixin';
+@import './chart/_chart-mixin';
 @import './drawer/_drawer-mixin';
 @import './form/_form-mixin';
 @import './header/_header-mixin';
@@ -1656,40 +1657,6 @@
 }
 
 /**
- * @stable [28.02.2019]
- */
-@mixin rac-chart(
-  $rac-chart-custom: unset,
-  $rac-chart-width: unset,
-  $rac-chart-border-width: unset,
-  $rac-chart-border-style: unset,
-  $rac-chart-border-color: unset,
-  $rac-chart-background: unset,
-  $rac-chart-canvas-wrapper-width: unset,
-  $rac-chart-canvas-wrapper-height: unset,
-  $rac-chart-canvas-wrapper-margin: unset,
-  $rac-chart-canvas-wrapper-padding: unset
-) {
-  #{rac-cls(rac-chart, $rac-chart-custom)} {
-    @include rac-styles(
-      $rac-styles-width: $rac-chart-width,
-      $rac-styles-border-width: $rac-chart-border-width,
-      $rac-styles-border-style: $rac-chart-border-style,
-      $rac-styles-border-color: $rac-chart-border-color,
-      $rac-styles-background: $rac-chart-background
-    );
-
-    @include rac-styles(
-      $rac-styles-custom: rac-chart-canvas-wrapper,
-      $rac-styles-width: $rac-chart-canvas-wrapper-width,
-      $rac-styles-height: $rac-chart-canvas-wrapper-height,
-      $rac-styles-margin: $rac-chart-canvas-wrapper-margin,
-      $rac-styles-padding: $rac-chart-canvas-wrapper-padding
-    );
-  }
-}
-
-/**
  * @stable [13.01.2019]
  */
 @mixin rac-keyboard (
@@ -2476,6 +2443,7 @@
   $rac-default-layout-header-user-avatar-margin: unset,                                       /* @stable [06.02.2020] */
   $rac-default-layout-header-user-avatar-width: unset,                                        /* @stable [06.02.2020] */
   $rac-default-layout-header-user-info-margin: unset,                                         /* @stable [06.02.2020] */
+  $rac-default-layout-main-body-content-min-width: unset,                                     /* @stable [23.05.2020] */
   $rac-default-layout-navigation-list-active-section-background: unset,                       /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-active-section-color: unset,                            /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-expanded-section-background: unset,                     /* @stable [05.02.2020] */
@@ -2561,6 +2529,10 @@
       $rac-header-user-avatar-margin: $rac-default-layout-header-user-avatar-margin,
       $rac-header-user-avatar-width: $rac-default-layout-header-user-avatar-width,
       $rac-header-user-info-margin: $rac-default-layout-header-user-info-margin
+    );
+
+    @include rac-main (
+      $rac-main-body-content-min-width: $rac-default-layout-main-body-content-min-width
     );
 
     #{rac-cls($rac-main-body-content-cls)} {

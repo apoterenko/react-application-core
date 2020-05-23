@@ -7,6 +7,7 @@ export * from './button-definition.interface';
 export * from './calendar-definition.interface';
 export * from './card-definition.interface';
 export * from './channel-definition.interface';
+export * from './chart-definition.interface';
 export * from './component-definition.interface';
 export * from './connector-definition.interface';
 export * from './container-definition.interface';
