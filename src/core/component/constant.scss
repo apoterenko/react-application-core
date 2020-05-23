@@ -15,11 +15,6 @@ $color-22: #f2f2f2 !default;
 /**/
 $rac-z-index-keyboard: 4 !default;
 /**/
-$rac-offset-4: 20px !default;
-$rac-offset-5: 24px !default;
-$rac-offset-6: 32px !default;
-$rac-offset-7: 40px !default;
-/**/
 $rac-color-0-12: rgba(18, 19, 15, .3) !default;
 
 /************************/
@@ -239,7 +234,7 @@ $rac-grid-head-column-sort-icon-content-opacity: .6 !default;
 $rac-grid-head-column-sort-icon-content-size: 8px !default;
 $rac-grid-head-column-sort-icon-size: unset !default;
 $rac-grid-head-column-sortable-content-flex-direction: column !default;
-$rac-grid-head-column-sortable-content-margin: $rac-offset-5 0 0 0 !default;
+$rac-grid-head-column-sortable-content-margin: $rac-primary-offset-5 0 0 0 !default;
 $rac-grid-head-column-sortable-content-sort-margin: unset !default;
 $rac-grid-head-column-sortable-content-sort-position: absolute !default;
 $rac-grid-head-column-sortable-content-sort-top: $rac-primary-offset-1 !default;
@@ -445,8 +440,8 @@ $rac-date-field-calendars-dialog-quick-button-background: $rac-primary-color-ela
 $rac-date-field-calendars-dialog-quick-button-content-color: $rac-primary-color-elara-0 !default;
 $rac-date-field-calendars-dialog-quick-button-height: 32px !default;
 $rac-date-field-calendars-dialog-quick-button-neighbor-margin: 0 0 0 $rac-primary-offset-1 !default;
-$rac-date-field-calendars-dialog-range-explorer-date-content-next-margin: 0 0 0 $rac-primary-button-height-0 * 2 + $rac-offset-4 !default;
-$rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-offset-4 !default;
+$rac-date-field-calendars-dialog-range-explorer-date-content-next-margin: 0 0 0 $rac-primary-button-height-0 * 2 + $rac-primary-offset-4 !default;
+$rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-primary-offset-4 !default;
 $rac-date-field-calendars-selected-quick-action-background: $rac-primary-color-ganymede-0 !default;
 $rac-date-field-calendars-selected-quick-action-content-color: $rac-primary-color-poseidon-0 !default;
 
@@ -694,7 +689,7 @@ $rac-default-layout-header-actions-margin: unset !default;
 $rac-default-layout-header-flex-direction: unset !default;
 $rac-default-layout-header-flex: unset !default;
 $rac-default-layout-header-height: 56px !default;
-$rac-default-layout-header-padding: 0 $rac-offset-7 !default;
+$rac-default-layout-header-padding: 0 $rac-primary-offset-8 !default;
 $rac-default-layout-header-user-avatar-background-size: unset !default;
 $rac-default-layout-header-user-avatar-border-radius: unset !default;
 $rac-default-layout-header-user-avatar-height: unset !default;
@@ -737,7 +732,7 @@ $rac-title-content-margin: unset !default;
 $rac-title-content-padding: 0 0 $rac-title-offset-0 0 !default;
 $rac-title-display: $rac-title-display-0 !default;
 $rac-title-flex: $rac-primary-flex-0 !default;
-$rac-title-margin: 0 0 $rac-offset-5 0 !default;
+$rac-title-margin: 0 0 $rac-primary-offset-5 0 !default;
 $rac-title-right-content-align-items: unset !default;
 $rac-title-right-content-color: unset !default;
 $rac-title-right-content-display: $rac-title-display-0 !default;

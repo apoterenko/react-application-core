@@ -1,6 +1,7 @@
 import {
   IAlignItemsCenterWrapper,
   IAlignItemsEndWrapper,
+  IAlignItemsStretchWrapper,
   IDisabledWrapper,
   IFullSizeWrapper,
   IFullWrapper,
@@ -16,12 +17,13 @@ import {
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 
 /**
- * @generic-entity
- * @stable [10.04.2020]
+ * @presets-entity
+ * @stable [23.05.2020]
  */
-export interface IGenericFlexLayoutEntity
+export interface IPresetsFlexLayoutEntity
   extends IAlignItemsCenterWrapper,
     IAlignItemsEndWrapper,
+    IAlignItemsStretchWrapper,
     IDisabledWrapper,
     IFullSizeWrapper,
     IFullWrapper,
@@ -48,7 +50,7 @@ export interface IBehavioralFlexLayoutEntity
  */
 export interface IFlexLayoutProps
   extends IEnhancedGenericComponentProps,
-    IGenericFlexLayoutEntity,
+    IPresetsFlexLayoutEntity,
     IBehavioralFlexLayoutEntity {
 }
 
@@ -60,6 +62,7 @@ export enum FlexLayoutClassesEnum {
   FLEX = 'rac-flex',
   FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
   FLEX_ALIGN_ITEMS_END = 'rac-flex-align-items-end',
+  FLEX_ALIGN_ITEMS_STRETCH = 'rac-flex-align-items-stretch',
   FLEX_JUSTIFY_CONTENT_CENTER = 'rac-flex-justify-content-center',
   FLEX_JUSTIFY_CONTENT_END = 'rac-flex-justify-content-end',
   FLEX_NO_SHRINK = 'rac-flex-no-shrink',

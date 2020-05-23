@@ -9,7 +9,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex,
-    $rac-styles-display: $rac-flex-layout-display
+    $rac-styles-display: $rac-flex-display
   );
 
   /**
@@ -18,7 +18,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-wrap,
-    $rac-styles-flex-wrap: $rac-flex-wrap-layout-flex-wrap
+    $rac-styles-flex-wrap: $rac-flex-wrap-flex-wrap
   );
 
   /**
@@ -27,7 +27,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-no-shrink,
-    $rac-styles-flex-shrink: $rac-flex-no-shrink-layout-flex-shrink
+    $rac-styles-flex-shrink: $rac-flex-no-shrink-flex-shrink
   );
 
   /**
@@ -36,7 +36,16 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-align-items-center,
-    $rac-styles-align-items: $rac-flex-align-items-center-layout-align-items
+    $rac-styles-align-items: $rac-flex-align-items-center-align-items
+  );
+
+  /**
+   * @flex-align-items-stretch
+   * @stable [23.05.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-align-items-stretch,
+    $rac-styles-align-items: $rac-flex-align-items-stretch-align-items
   );
 
   /**
@@ -45,7 +54,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-align-items-end,
-    $rac-styles-align-items: $rac-flex-align-items-end-layout-align-items
+    $rac-styles-align-items: $rac-flex-align-items-end-align-items
   );
 
   /**
@@ -54,7 +63,7 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-justify-content-center,
-    $rac-styles-justify-content: $rac-flex-justify-content-center-layout-justify-content
+    $rac-styles-justify-content: $rac-flex-justify-content-center-justify-content
   );
 
   /**
@@ -63,6 +72,6 @@
    */
   @include rac-styles (
     $rac-styles-custom: rac-flex-justify-content-end,
-    $rac-styles-justify-content: $rac-flex-justify-content-end-layout-justify-content
+    $rac-styles-justify-content: $rac-flex-justify-content-end-justify-content
   );
 }
