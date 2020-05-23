@@ -241,7 +241,17 @@ $rac-primary-color-hermes-9: rgba(91, 186, 111, .9) !default;
 $rac-primary-color-caerus-0: #4eae60 !default;
 
 /* poseidon */
-$rac-primary-color-poseidon-0: #12130f !default;
+$rac-primary-color-poseidon-0: rgb(18, 19, 15) !default;  // #12130f
+$rac-primary-color-poseidon-05: rgba(18, 19, 15, .05) !default;
+$rac-primary-color-poseidon-1: rgba(18, 19, 15, .1) !default;
+$rac-primary-color-poseidon-2: rgba(18, 19, 15, .2) !default;
+$rac-primary-color-poseidon-3: rgba(18, 19, 15, .3) !default;
+$rac-primary-color-poseidon-4: rgba(18, 19, 15, .4) !default;
+$rac-primary-color-poseidon-5: rgba(18, 19, 15, .5) !default;
+$rac-primary-color-poseidon-6: rgba(18, 19, 15, .6) !default;
+$rac-primary-color-poseidon-7: rgba(18, 19, 15, .7) !default;
+$rac-primary-color-poseidon-8: rgba(18, 19, 15, .8) !default;
+$rac-primary-color-poseidon-9: rgba(18, 19, 15, .9) !default;
 
 /************************/
 /* @stable [04.05.2020] */
@@ -285,3 +295,11 @@ $rac-primary-layout-offset-5: $rac-primary-offset-5 !default;
 $rac-primary-layout-offset-6: $rac-primary-offset-6 !default;
 $rac-primary-layout-offset-7: $rac-primary-offset-7 !default;
 $rac-primary-layout-offset-8: $rac-primary-offset-8 !default;
+
+/************************/
+/* @stable [24.05.2020] */
+/************************/
+$rac-primary-media-query-breakpoint-0: 480px !default;
+$rac-primary-media-query-breakpoint-1: 768px !default;
+$rac-primary-media-query-breakpoint-2: 992px !default;
+$rac-primary-media-query-breakpoint-3: 1200px !default;

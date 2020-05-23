@@ -11,6 +11,7 @@
   $rac-chart-border-style: unset,
   $rac-chart-border-width: unset,
   $rac-chart-canvas-wrapper-height: unset,
+  $rac-chart-canvas-wrapper-left: unset,
   $rac-chart-canvas-wrapper-margin: unset,
   $rac-chart-canvas-wrapper-padding: unset,
   $rac-chart-canvas-wrapper-position: unset,
@@ -42,6 +43,7 @@
     @include rac-styles (
       $rac-styles-custom: rac-chart__canvas-wrapper,
       $rac-styles-height: $rac-chart-canvas-wrapper-height,
+      $rac-styles-left: $rac-chart-canvas-wrapper-left,
       $rac-styles-margin: $rac-chart-canvas-wrapper-margin,
       $rac-styles-padding: $rac-chart-canvas-wrapper-padding,
       $rac-styles-position: $rac-chart-canvas-wrapper-position,

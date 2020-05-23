@@ -56,6 +56,8 @@
   $rac-styles-background-size: unset,
   $rac-styles-background: unset,
   $rac-styles-border-bottom-color: unset,
+  $rac-styles-border-bottom-left-radius: unset,
+  $rac-styles-border-bottom-right-radius: unset,
   $rac-styles-border-bottom: unset,
   $rac-styles-border-collapse: unset,
   $rac-styles-border-color: unset,
@@ -143,6 +145,8 @@
   @if $rac-styles-border != unset { border: $rac-styles-border; }
   @if $rac-styles-border-bottom != unset { border-bottom: $rac-styles-border-bottom; }
   @if $rac-styles-border-bottom-color != unset { border-bottom-color: $rac-styles-border-bottom-color; }
+  @if $rac-styles-border-bottom-left-radius != unset { border-bottom-left-radius: $rac-styles-border-bottom-left-radius; }
+  @if $rac-styles-border-bottom-right-radius != unset { border-bottom-right-radius: $rac-styles-border-bottom-right-radius; }
   @if $rac-styles-border-collapse != unset { border-collapse: $rac-styles-border-collapse; }
   @if $rac-styles-border-color != unset { border-color: $rac-styles-border-color; }
   @if $rac-styles-border-left != unset { border-left: $rac-styles-border-left; }
@@ -247,6 +251,8 @@
   $rac-styles-background-size: unset,
   $rac-styles-background: unset,
   $rac-styles-border-bottom-color: unset,
+  $rac-styles-border-bottom-left-radius: unset,
+  $rac-styles-border-bottom-right-radius: unset,
   $rac-styles-border-bottom: unset,
   $rac-styles-border-collapse: unset,
   $rac-styles-border-color: unset,
@@ -336,6 +342,8 @@
         $rac-styles-background-size: $rac-styles-background-size,
         $rac-styles-background: $rac-styles-background,
         $rac-styles-border-bottom-color: $rac-styles-border-bottom-color,
+        $rac-styles-border-bottom-left-radius: $rac-styles-border-bottom-left-radius,
+        $rac-styles-border-bottom-right-radius: $rac-styles-border-bottom-right-radius,
         $rac-styles-border-bottom: $rac-styles-border-bottom,
         $rac-styles-border-collapse: $rac-styles-border-collapse,
         $rac-styles-border-color: $rac-styles-border-color,
@@ -424,6 +432,8 @@
       $rac-styles-background-size: $rac-styles-background-size,
       $rac-styles-background: $rac-styles-background,
       $rac-styles-border-bottom-color: $rac-styles-border-bottom-color,
+      $rac-styles-border-bottom-left-radius: $rac-styles-border-bottom-left-radius,
+      $rac-styles-border-bottom-right-radius: $rac-styles-border-bottom-right-radius,
       $rac-styles-border-bottom: $rac-styles-border-bottom,
       $rac-styles-border-collapse: $rac-styles-border-collapse,
       $rac-styles-border-color: $rac-styles-border-color,
