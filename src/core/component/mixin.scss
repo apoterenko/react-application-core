@@ -2420,6 +2420,7 @@
   $rac-default-layout-drawer-header-background: unset,                                        /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-color: unset,                                             /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-cursor: unset,                                            /* @stable [04.02.2020] */
+  $rac-default-layout-drawer-header-display: unset,                                           /* @stable [25.05.2020] */
   $rac-default-layout-drawer-header-height: unset,                                            /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-position: unset,                                          /* @stable [04.02.2020] */
   $rac-default-layout-flex-direction: unset,                                                  /* @stable [04.02.2020] */
@@ -2469,6 +2470,7 @@
       $rac-styles-background: $rac-default-layout-drawer-header-background,
       $rac-styles-color: $rac-default-layout-drawer-header-color,
       $rac-styles-cursor: $rac-default-layout-drawer-header-cursor,
+      $rac-styles-display: $rac-default-layout-drawer-header-display,
       $rac-styles-height: $rac-default-layout-drawer-header-height,
       $rac-styles-position: $rac-default-layout-drawer-header-position
     );
