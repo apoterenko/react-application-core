@@ -22,6 +22,8 @@
   $rac-chart-east-margin: unset,
   $rac-chart-flex-grow: unset,
   $rac-chart-height: unset,
+  $rac-chart-margin-bottom: unset,
+  $rac-chart-min-height: unset,
   $rac-chart-overflow: unset,
   $rac-chart-position: unset,
   $rac-chart-west-display: unset,
@@ -37,6 +39,8 @@
       $rac-styles-display: $rac-chart-display,
       $rac-styles-flex-grow: $rac-chart-flex-grow,
       $rac-styles-height: $rac-chart-height,
+      $rac-styles-margin-bottom: $rac-chart-margin-bottom,
+      $rac-styles-min-height: $rac-chart-min-height,
       $rac-styles-overflow: $rac-chart-overflow,
       $rac-styles-position: $rac-chart-position,
       $rac-styles-width: $rac-chart-width
