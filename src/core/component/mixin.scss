@@ -2410,7 +2410,6 @@
  */
 @mixin rac-default-layout (
   $rac-default-layout-custom: unset,
-  $rac-default-layout-header-custom: unset,
   $rac-default-layout-navigation-list-custom: unset,
   /**/
   $rac-default-layout-body-display: unset,                                                    /* @stable [04.02.2020] */
@@ -2428,7 +2427,6 @@
   $rac-default-layout-form-actions-border-top: unset,                                         /* @stable [21.05.2020] */
   $rac-default-layout-form-actions-margin: unset,                                             /* @stable [21.05.2020] */
   $rac-default-layout-form-actions-padding: unset,                                            /* @stable [21.05.2020] */
-  $rac-default-layout-header-padding: unset,                                                  /* @stable [06.02.2020] */
   $rac-default-layout-navigation-list-active-section-background: unset,                       /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-active-section-color: unset,                            /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-expanded-section-background: unset,                     /* @stable [05.02.2020] */
@@ -2495,11 +2493,6 @@
       $rac-navigation-list-section-height: $rac-default-layout-navigation-list-section-height,
       $rac-navigation-list-section-margin: $rac-default-layout-navigation-list-section-margin,
       $rac-navigation-list-section-width: $rac-default-layout-navigation-list-section-width
-    );
-
-    @include rac-header (
-      $rac-header-custom: $rac-default-layout-header-custom,
-      $rac-header-padding: $rac-default-layout-header-padding
     );
 
     #{rac-cls($rac-main-body-content-cls)} {
