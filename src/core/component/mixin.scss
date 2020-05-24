@@ -2420,8 +2420,6 @@
   $rac-default-layout-drawer-header-background: unset,                                        /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-color: unset,                                             /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-cursor: unset,                                            /* @stable [04.02.2020] */
-  $rac-default-layout-drawer-header-display: unset,                                           /* @stable [04.02.2020] */
-  $rac-default-layout-drawer-header-flex-direction: unset,                                    /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-height: unset,                                            /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-position: unset,                                          /* @stable [04.02.2020] */
   $rac-default-layout-flex-direction: unset,                                                  /* @stable [04.02.2020] */
@@ -2429,7 +2427,6 @@
   $rac-default-layout-form-actions-border-top: unset,                                         /* @stable [21.05.2020] */
   $rac-default-layout-form-actions-margin: unset,                                             /* @stable [21.05.2020] */
   $rac-default-layout-form-actions-padding: unset,                                            /* @stable [21.05.2020] */
-  $rac-default-layout-header-height: unset,                                                   /* @stable [06.02.2020] */
   $rac-default-layout-header-padding: unset,                                                  /* @stable [06.02.2020] */
   $rac-default-layout-navigation-list-active-section-background: unset,                       /* @stable [07.02.2020] */
   $rac-default-layout-navigation-list-active-section-color: unset,                            /* @stable [07.02.2020] */
@@ -2472,8 +2469,6 @@
       $rac-styles-background: $rac-default-layout-drawer-header-background,
       $rac-styles-color: $rac-default-layout-drawer-header-color,
       $rac-styles-cursor: $rac-default-layout-drawer-header-cursor,
-      $rac-styles-display: $rac-default-layout-drawer-header-display,
-      $rac-styles-flex-direction: $rac-default-layout-drawer-header-flex-direction,
       $rac-styles-height: $rac-default-layout-drawer-header-height,
       $rac-styles-position: $rac-default-layout-drawer-header-position
     );
@@ -2502,7 +2497,6 @@
 
     @include rac-header (
       $rac-header-custom: $rac-default-layout-header-custom,
-      $rac-header-height: $rac-default-layout-header-height,
       $rac-header-padding: $rac-default-layout-header-padding
     );
 
