@@ -29,6 +29,7 @@ import {
   IFullWrapper,
   IKeepChangesWrapper,
   ILabelWrapper,
+  IMaskGuideWrapper,
   IMaskWrapper,
   IMenuRenderedWrapper,
   INameWrapper,
@@ -95,6 +96,7 @@ export class FieldConstants {
  */
 export interface IPresetsFieldEntity
   extends IActionsWrapper<IFieldActionEntity[]>,
+    IAutoFocusWrapper,
     IBindDictionaryWrapper,
     IDelayTimeoutWrapper,
     IDisplayNameWrapper,
@@ -102,6 +104,7 @@ export interface IPresetsFieldEntity
     IEmptyValueWrapper,
     IFormatWrapper,
     IFullWrapper,
+    IKeepChangesWrapper,
     ILabelWrapper,
     IMaskWrapper,
     INameWrapper,
@@ -114,6 +117,7 @@ export interface IPresetsFieldEntity
     IPlaceholderWrapper,
     IPlainValueWrapper,
     IPrefixLabelWrapper,
+    IPreventFocusWrapper,
     IReadOnlyWrapper,
     IRenderedWrapper,
     IRequiredWrapper,
@@ -125,7 +129,8 @@ export interface IPresetsFieldEntity
  * @stable [19.05.2020]
  */
 export interface IPresetsBaseTextFieldEntity
-  extends IPresetsFieldEntity {
+  extends IPresetsFieldEntity,
+    IMaskGuideWrapper {
 }
 
 /**
@@ -159,14 +164,11 @@ export interface IGenericFieldEntity2
   extends IGenericFieldEntity,
     IActionsPosition<FieldActionPositionsEnum>,
     IAutoCompleteWrapper,
-    IAutoFocusWrapper,
     IChangeableWrapper,
     IDefaultValueWrapper,
     IDisabledWrapper,
     IDisplayValueRenderedOnlyWrapper,
     IFieldRenderedWrapper,
-    IKeepChangesWrapper,
-    IPreventFocusWrapper,
     IPreventManualChangesWrapper,                                             /* @stable [03.02.2020] */
     IStepWrapper,
     ISyntheticCursorWrapper,

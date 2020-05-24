@@ -83,12 +83,20 @@ export interface IGridFilterEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
+ * @presets-entity
+ * @stable [24.05.2020]
+ */
+export interface IPresetsGridColumnEntity
+  extends IBoolWrapper,
+    IColSpanWrapper {
+}
+
+/**
  * @stable [17.10.2019]
  */
 export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
-  extends IAlignWrapper<CSS.TextAlignProperty>,
-    IBoolWrapper,
-    IColSpanWrapper,
+  extends IPresetsGridColumnEntity,
+    IAlignWrapper<CSS.TextAlignProperty>,
     IColumnColSpanWrapper,
     IColumnRenderedWrapper,
     IColumnTitleWrapper,

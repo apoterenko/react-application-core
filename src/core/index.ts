@@ -63,7 +63,6 @@ export * from './log';
 export * from './navigation';
 export * from './operation';
 export * from './permissions';
-export * from './react-definitions.interface';
 export * from './router';
 export * from './settings';
 export * from './storage';

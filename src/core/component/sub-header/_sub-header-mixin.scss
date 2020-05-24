@@ -13,6 +13,7 @@
   $rac-sub-header-flex-direction: unset,                                                      /* @stable [05.04.2020] */
   $rac-sub-header-height: unset,                                                              /* @stable [20.05.2020] */
   $rac-sub-header-navigation-action-margin: unset,                                            /* @stable [20.05.2020] */
+  $rac-sub-header-section-title-color: unset,                                                 /* @stable [24.05.2020] */
   $rac-sub-header-section-title-font-size: unset,                                             /* @stable [20.05.2020] */
   $rac-sub-header-section-title-font-weight: unset,                                           /* @stable [20.05.2020] */
   $rac-sub-header-section-title-margin-left: unset,                                           /* @stable [20.05.2020] */
@@ -31,6 +32,7 @@
 
     @include rac-styles (
       $rac-styles-custom: $rac-sub-header-section-title-cls,
+      $rac-styles-color: $rac-sub-header-section-title-color,
       $rac-styles-font-size: $rac-sub-header-section-title-font-size,
       $rac-styles-font-weight: $rac-sub-header-section-title-font-weight,
       $rac-styles-margin-left: $rac-sub-header-section-title-margin-left,

@@ -43,6 +43,7 @@ export * from './info-definition.interface';
 export * from './keyboard-definition.interface';
 export * from './layout-builder-definition.interface';
 export * from './layout-definition.interface';
+export * from './link-definition.interface';
 export * from './list-definition.interface';
 export * from './log-definition.interface';
 export * from './main-definition.interface';

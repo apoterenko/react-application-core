@@ -73,7 +73,6 @@ export interface IUniversalFieldProps
 export interface IFieldProps2 extends IComponentProps,
   IUniversalFieldProps,
   IBehavioralFieldEntity,
-  IMaskGuideWrapper,
   IMaskPlaceholderCharWrapper,
   IClearActionRenderedWrapper {
   minLength?: number;

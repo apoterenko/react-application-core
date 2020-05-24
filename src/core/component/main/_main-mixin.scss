@@ -8,6 +8,8 @@
   /**/
   $rac-main-background: unset,                                                                /* @stable [05.02.2020] */
   $rac-main-body-content-child-flex-shrink: unset,                                            /* @stable [19.05.2020] */
+  $rac-main-body-content-child-min-height: unset,                                             /* @stable [24.05.2020] */
+  $rac-main-body-content-child-min-width: unset,                                              /* @stable [24.05.2020] */
   $rac-main-body-content-display: unset,                                                      /* @stable [05.02.2020] */
   $rac-main-body-content-flex-direction: unset,                                               /* @stable [05.02.2020] */
   $rac-main-body-content-flex: unset,                                                         /* @stable [05.02.2020] */
@@ -58,7 +60,9 @@
       > {
         & * {
           @include rac-styles (
-            $rac-styles-flex-shrink: $rac-main-body-content-child-flex-shrink
+            $rac-styles-flex-shrink: $rac-main-body-content-child-flex-shrink,
+            $rac-styles-min-height: $rac-main-body-content-child-min-height,
+            $rac-styles-min-width: $rac-main-body-content-child-min-width
           );
         }
 

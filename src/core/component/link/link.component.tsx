@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { BaseComponent } from '../base/base.component';
-import { ILinkProps } from './link.interface';
+import { GenericBaseComponent } from '../base/generic-base.component';
+import { ILinkProps } from '../../definition';
 
-export class Link extends BaseComponent<ILinkProps> {
+/**
+ * @component-impl
+ * @stable [24.05.2020]
+ */
+export class Link extends GenericBaseComponent<ILinkProps> {
 
   /**
-   * @stable [11.08.2018]
+   * @stable [24.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {

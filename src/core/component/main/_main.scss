@@ -10,6 +10,8 @@
   @include rac-main (
     $rac-main-background: $rac-main-background,
     $rac-main-body-content-child-flex-shrink: $rac-main-body-content-child-flex-shrink,
+    $rac-main-body-content-child-min-height: $rac-main-body-content-child-min-height,
+    $rac-main-body-content-child-min-width: $rac-main-body-content-child-min-width,
     $rac-main-body-content-display: $rac-main-body-content-display,
     $rac-main-body-content-flex-direction: $rac-main-body-content-flex-direction,
     $rac-main-body-content-height: $rac-main-body-content-height,

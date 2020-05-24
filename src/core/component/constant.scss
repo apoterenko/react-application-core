@@ -225,7 +225,7 @@ $rac-grid-head-color: $rac-primary-color-elara-0 !default;
 $rac-grid-head-column-active-sort-icon-color: $rac-primary-color-poseidon-0 !default;
 $rac-grid-head-column-active-sort-icon-content-opacity: 1 !default;
 $rac-grid-head-column-content-font-size: $rac-primary-font-size-1 !default;
-$rac-grid-head-column-content-font-weight: $rac-primary-font-weight-1 !default;
+$rac-grid-head-column-content-font-weight: $rac-primary-font-weight-2 !default;
 $rac-grid-head-column-content-white-space: normal !default;
 $rac-grid-head-column-padding-bottom: $rac-primary-offset-1 !default;
 $rac-grid-head-column-padding-top: $rac-primary-offset-1 !default;
@@ -253,7 +253,7 @@ $rac-grid-head-padding-right: unset !default;
 $rac-grid-position: relative !default;
 $rac-grid-row-display: table !default;
 $rac-grid-row-group-expanded-background: unset !default;
-$rac-grid-row-grouped-font-weight: $rac-primary-font-weight-1 !default;
+$rac-grid-row-grouped-font-weight: $rac-primary-font-weight-2 !default;
 $rac-grid-row-odd-background: $rac-primary-color-metis-05 !default;
 $rac-grid-row-odd-border-radius: unset !default;
 $rac-grid-row-padding: unset !default;
@@ -264,7 +264,7 @@ $rac-grid-row-table-layout: fixed !default;
 $rac-grid-row-total-background: $rac-grid-color-3 !default;
 $rac-grid-row-total-border-left: unset !default;
 $rac-grid-row-total-border-right: unset !default;
-$rac-grid-row-total-font-weight: $rac-primary-font-weight-2 !default;
+$rac-grid-row-total-font-weight: $rac-primary-font-weight-4 !default;
 $rac-grid-row-width: 100% !default;
 /**/
 $rac-time-grid-column-hover-background-color: $color-10 !default;
@@ -392,12 +392,12 @@ $rac-self-field-input-background: 0 !default;
 $rac-self-field-input-border: 0 !default;
 $rac-self-field-input-color: $rac-primary-color-poseidon-0 !default;
 $rac-self-field-input-font-size: $rac-primary-font-size-0 !default;
-$rac-self-field-input-font-weight: $rac-primary-font-weight-1 !default;
+$rac-self-field-input-font-weight: $rac-primary-font-weight-2 !default;
 $rac-self-field-input-line-height: normal !default;
 $rac-self-field-input-padding: 0 $rac-primary-offset-3 !default;
 $rac-self-field-input-placeholder-color: $rac-color-0-12 !default;
 $rac-self-field-label-font-size: $rac-primary-font-size-0 !default;                                               /* @stable [17.02.2020]*/
-$rac-self-field-label-font-weight: $rac-primary-font-weight-1 !default;                                           /* @stable [17.02.2020]*/
+$rac-self-field-label-font-weight: $rac-primary-font-weight-2 !default;                                           /* @stable [17.02.2020]*/
 $rac-self-field-label-line-height: 14px !default;                                                         /* @stable [16.02.2020]*/
 $rac-self-field-label-overflow: hidden !default;                                                          /* @stable [16.02.2020]*/
 $rac-self-field-label-text-overflow: ellipsis !default;                                                   /* @stable [16.02.2020]*/
@@ -510,7 +510,7 @@ $rac-chip-background: $color-4 !default;
 $rac-chip-icon-width: $rac-icon-width0 !default;
 $rac-chip-icon-height: $rac-icon-height0 !default;
 $rac-chip-icon-color: $rac-primary-color-elara-0 !default;
-$rac-chip-description-font-weight: $rac-primary-font-weight-1 !default;
+$rac-chip-description-font-weight: $rac-primary-font-weight-2 !default;
 $rac-chip-description-max-width: 120px !default;
 $rac-chip-description-font-size: $rac-primary-font-size-0 !default;
 $rac-chip-description-line-height: 22px !default;
@@ -549,7 +549,7 @@ $rac-dialog-actions-margin: $rac-primary-offset-3 $rac-primary-offset-3 0 $rac-p
 $rac-dialog-actions-neighbor-child-margin: 0 0 0 $rac-primary-offset-1 !default;
 $rac-dialog-body-display: unset !default;
 $rac-dialog-body-title-border-bottom: 1px solid $rac-dialog-color-1 !default;
-$rac-dialog-body-title-font-weight: $rac-primary-font-weight-2 !default;
+$rac-dialog-body-title-font-weight: $rac-primary-font-weight-4 !default;
 $rac-dialog-body-title-margin: 0 $rac-primary-offset-3 $rac-primary-offset-3 $rac-primary-offset-3 !default;
 $rac-dialog-body-title-padding: 0 0 12px 0 !default;
 /**/
@@ -577,7 +577,7 @@ $rac-menu-dialog-empty-message-width: 100% !default;
 $rac-menu-dialog-list-background: $rac-dialog-color-0 !default;
 $rac-menu-dialog-list-item-box-sizing: border-box !default;
 $rac-menu-dialog-list-item-decorated-content-text-align: right !default;
-$rac-menu-dialog-list-item-font-weight: $rac-primary-font-weight-1 !default;
+$rac-menu-dialog-list-item-font-weight: $rac-primary-font-weight-2 !default;
 $rac-menu-dialog-list-item-line-height: $rac-primary-line-height-2 !default;
 $rac-menu-dialog-list-overflow: auto !default;
 /**/
@@ -706,7 +706,7 @@ $rac-default-layout-drawer-header-position: relative !default;
 /**/
 $rac-default-layout-header-user-color: $rac-primary-color-poseidon-0 !default;
 $rac-default-layout-header-user-font-size: 14px !default;
-$rac-default-layout-header-user-font-weight: $rac-primary-font-weight-2 !default;
+$rac-default-layout-header-user-font-weight: $rac-primary-font-weight-4 !default;
 $rac-default-layout-logo-menu-icon-color: $rac-primary-color-elara-0 !default;
 $rac-default-layout-logo-menu-icon-height: 100% !default;
 $rac-default-layout-logo-menu-icon-margin-right: $rac-primary-offset-3 !default;
@@ -726,7 +726,7 @@ $rac-title-content-edge-height: unset !default;
 $rac-title-content-edge-margin: unset !default;
 $rac-title-content-edge-width: unset !default;
 $rac-title-content-font-size: $rac-primary-font-size-2 !default;
-$rac-title-content-font-weight: $rac-primary-font-weight-2 !default;
+$rac-title-content-font-weight: $rac-primary-font-weight-4 !default;
 $rac-title-content-line-height: unset !default;
 $rac-title-content-margin: unset !default;
 $rac-title-content-padding: 0 0 $rac-title-offset-0 0 !default;
@@ -778,7 +778,7 @@ $rac-calendar-body-background: unset !default;
 $rac-calendar-body-border: 0 !default;
 $rac-calendar-cell-padding-left: 0 !default;
 $rac-calendar-cell-padding-right: 0 !default;
-$rac-calendar-current-day-font-weight: $rac-primary-font-weight-2 !default;
+$rac-calendar-current-day-font-weight: $rac-primary-font-weight-4 !default;
 $rac-calendar-day-border-radius: $rac-calendar-size-0 / 2 !default;
 $rac-calendar-day-cursor: pointer !default;
 $rac-calendar-day-margin: 0 auto !default;

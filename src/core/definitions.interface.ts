@@ -91,6 +91,7 @@ export interface ICloseActionConfigurationWrapper<TValue> { closeActionConfigura
 export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
 export interface ICloseTextWrapper { closeText?: string; }
 export interface ICodeWrapper<TValue = string> { code?: TValue; }
+export interface IColSpanWrapper { colSpan?: number; }
 export interface IColumnClassNameWrapper<TValue = string> { columnClassName?: TValue; }
 export interface IColumnNameWrapper { columnName?: string; }
 export interface IColumnRenderedWrapper { columnRendered?: boolean; }
@@ -295,6 +296,7 @@ export interface ILogoutWrapper<TValue = string> { logout?: TValue; }
 export interface IMainConfigurationWrapper<TValue> { mainConfiguration?: TValue; }
 export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
+export interface IMaskGuideWrapper<TValue = boolean> { maskGuide?: TValue; }
 export interface IMaskWrapper<TValue = Array<string | RegExp>> { mask?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
@@ -702,13 +704,6 @@ export interface IFontSizeWrapper {
 /**
  * @stable [04.05.2018]
  */
-export interface IMaskGuideWrapper<TMaskGuide = boolean> {
-  maskGuide?: TMaskGuide;
-}
-
-/**
- * @stable [04.05.2018]
- */
 export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
   maskPlaceholderChar?: TMaskPlaceholderChar;
 }
@@ -854,22 +849,8 @@ export interface IDeactivatedWrapper {
 /**
  * @stable [08.06.2018]
  */
-export interface ITypeIdWrapper<TTypeId = EntityIdT> {
-  typeId?: TTypeId;
-}
-
-/**
- * @stable [08.06.2018]
- */
 export interface ITypeNameWrapper {
   typeName?: string;
-}
-
-/**
- * @stable [10.09.2018]
- */
-export interface IColSpanWrapper {
-  colSpan?: number;
 }
 
 /**
@@ -891,16 +872,11 @@ export interface INotificationWrapper<TNotification> {
   notification?: TNotification;
 }
 
-/* @stable - 20.04.2018 */
-export interface IStringToWrapper extends IToWrapper<string> {
-}
-
 /**
  * @stable [10.09.2019]
  */
 export enum UniCodesEnum {
   ARROW_RIGHT = '\u27f6',
-  ASYMP = '\u2248',
   DASH = '\u2014',
   N_DASH = '\u2013',
   NO_BREAK_SPACE = '\u00a0',
