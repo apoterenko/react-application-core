@@ -1,0 +1,65 @@
+@import '../../form/_form-mixin';
+@import '../../tab-panel/_tab-panel-mixin';
+
+/**
+ * @stable [27.05.2020]
+ */
+@mixin rac-default-layout (
+  $rac-default-layout-custom: unset,
+  /**/
+  $rac-default-layout-body-display: unset,                                                    /* @stable [04.02.2020] */
+  $rac-default-layout-body-flex-direction: unset,                                             /* @stable [04.02.2020] */
+  $rac-default-layout-body-flex-grow: unset,                                                  /* @stable [27.05.2020] */
+  $rac-default-layout-display: unset,                                                         /* @stable [04.02.2020] */
+  $rac-default-layout-drawer-header-background: unset,                                        /* @stable [04.02.2020] */
+  $rac-default-layout-drawer-header-color: unset,                                             /* @stable [04.02.2020] */
+  $rac-default-layout-drawer-header-cursor: unset,                                            /* @stable [04.02.2020] */
+  $rac-default-layout-drawer-header-display: unset,                                           /* @stable [25.05.2020] */
+  $rac-default-layout-drawer-header-height: unset,                                            /* @stable [04.02.2020] */
+  $rac-default-layout-flex-grow: unset,                                                       /* @stable [04.02.2020] */
+  $rac-default-layout-form-actions-border-top: unset,                                         /* @stable [21.05.2020] */
+  $rac-default-layout-form-actions-margin: unset,                                             /* @stable [21.05.2020] */
+  $rac-default-layout-form-actions-padding: unset,                                            /* @stable [21.05.2020] */
+  $rac-default-layout-tab-panel-wrapper-border-bottom: unset,                                 /* @stable [04.02.2020] */
+  $rac-default-layout-tab-panel-wrapper-margin: unset,                                        /* @stable [04.02.2020] */
+  $rac-default-layout-tab-panel-wrapper-padding: unset                                        /* @stable [04.02.2020] */
+) {
+  #{rac-cls(rac-default-layout, $rac-default-layout-custom)} {
+    @include rac-styles (
+      $rac-styles-display: $rac-default-layout-display,
+      $rac-styles-flex-grow: $rac-default-layout-flex-grow
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-default-layout__body,
+      $rac-styles-display: $rac-default-layout-body-display,
+      $rac-styles-flex-direction: $rac-default-layout-body-flex-direction,
+      $rac-styles-flex-grow: $rac-default-layout-body-flex-grow
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-default-layout__drawer-header,
+      $rac-styles-background: $rac-default-layout-drawer-header-background,
+      $rac-styles-color: $rac-default-layout-drawer-header-color,
+      $rac-styles-cursor: $rac-default-layout-drawer-header-cursor,
+      $rac-styles-display: $rac-default-layout-drawer-header-display,
+      $rac-styles-height: $rac-default-layout-drawer-header-height
+    );
+
+    #{rac-cls($rac-main-body-content-cls)} {
+      > {
+        @include rac-tab-panel (
+          $rac-tab-panel-wrapper-border-bottom: $rac-default-layout-tab-panel-wrapper-border-bottom,
+          $rac-tab-panel-wrapper-margin: $rac-default-layout-tab-panel-wrapper-margin,
+          $rac-tab-panel-wrapper-padding: $rac-default-layout-tab-panel-wrapper-padding
+        );
+
+        @include rac-form (
+          $rac-form-actions-border-top: $rac-default-layout-form-actions-border-top,
+          $rac-form-actions-margin: $rac-default-layout-form-actions-margin,
+          $rac-form-actions-padding: $rac-default-layout-form-actions-padding
+        );
+      }
+    }
+  }
+}
