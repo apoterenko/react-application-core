@@ -1,6 +1,76 @@
 @import '../_core-mixin';
+@import '../button/_button-mixin';
 
 /**
- * @stable [05.04.2020]
+ * @stable [27.05.2020]
  */
-// TODO
+@mixin rac-form (
+  $rac-form-custom: unset,                                                      /* @stable [30.01.2020] */
+  /**/
+  $rac-form-actions-border-top: unset,                                          /* @stable [30.01.2020] */
+  $rac-form-actions-button-min-width: unset,                                    /* @stable [30.01.2020] */
+  $rac-form-actions-display: unset,                                             /* @stable [30.01.2020] */
+  $rac-form-actions-flex: unset,                                                /* @stable [23.03.2020] */
+  $rac-form-actions-height: unset,                                              /* @stable [30.01.2020] */
+  $rac-form-actions-justify-content: unset,                                     /* @stable [30.01.2020] */
+  $rac-form-actions-margin: unset,                                              /* @stable [09.11.2019] */
+  $rac-form-actions-neighbor-child-margin: unset,                               /* @stable [30.01.2020] */
+  $rac-form-actions-padding: unset,                                             /* @stable [30.01.2020] */
+  $rac-form-body-display: unset,                                                /* @stable [30.01.2020] */
+  $rac-form-body-flex: unset,                                                   /* @stable [30.01.2020] */
+  $rac-form-body-margin: unset,                                                 /* @stable [30.01.2020] */
+  $rac-form-border-bottom: unset,                                               /* @stable [30.01.2020] */
+  $rac-form-display: unset,                                                     /* @stable [13.02.2020] */
+  $rac-form-flex-basis: unset,                                                  /* @stable [11.04.2020] */
+  $rac-form-flex-direction: unset,                                              /* @stable [13.02.2020] */
+  $rac-form-flex-grow: unset,                                                   /* @stable [23.03.2020] */
+  $rac-form-flex-shrink: unset,                                                 /* @stable [11.04.2020] */
+  $rac-form-height: unset,                                                      /* @stable [30.01.2020] */
+  $rac-form-margin-top: unset,                                                  /* @stable [18.02.2020] */
+  $rac-form-margin: unset,                                                      /* @stable [30.01.2020] */
+  $rac-form-padding: unset,                                                     /* @stable [30.01.2020] */
+  $rac-form-position: unset                                                     /* @stable [30.01.2020] */
+) {
+  #{rac-cls(rac-form, $rac-form-custom)} {
+    @include rac-styles (
+      $rac-styles-border-bottom: $rac-form-border-bottom,
+      $rac-styles-display: $rac-form-display,
+      $rac-styles-flex-basis: $rac-form-flex-basis,
+      $rac-styles-flex-direction: $rac-form-flex-direction,
+      $rac-styles-flex-grow: $rac-form-flex-grow,
+      $rac-styles-flex-shrink: $rac-form-flex-shrink,
+      $rac-styles-height: $rac-form-height,
+      $rac-styles-margin-top: $rac-form-margin-top,
+      $rac-styles-margin: $rac-form-margin,
+      $rac-styles-padding: $rac-form-padding,
+      $rac-styles-position: $rac-form-position
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-form__body,
+      $rac-styles-display: $rac-form-body-display,
+      $rac-styles-flex: $rac-form-body-flex,
+      $rac-styles-margin: $rac-form-body-margin
+    );
+
+    .rac-form__actions {
+      @include rac-styles (
+        $rac-styles-border-top: $rac-form-actions-border-top,
+        $rac-styles-display: $rac-form-actions-display,
+        $rac-styles-flex: $rac-form-actions-flex,
+        $rac-styles-height: $rac-form-actions-height,
+        $rac-styles-justify-content: $rac-form-actions-justify-content,
+        $rac-styles-margin: $rac-form-actions-margin,
+        $rac-styles-padding: $rac-form-actions-padding
+      );
+
+      @include rac-neighbor-child (
+        $rac-neighbor-child-margin: $rac-form-actions-neighbor-child-margin
+      );
+
+      @include rac-button (
+        $rac-button-min-width: $rac-form-actions-button-min-width
+      );
+    }
+  }
+}
