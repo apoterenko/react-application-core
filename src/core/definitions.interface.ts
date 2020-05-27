@@ -147,6 +147,7 @@ export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: boolean; }
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
+export interface IDrawerHeaderLogoRenderedWrapper { drawerHeaderLogoRendered?: boolean; }
 export interface IDrawerHeaderRenderedWrapper { drawerHeaderRendered?: boolean; }
 export interface IDurationWrapper<TValue> { duration?: TValue; }
 export interface IEastWrapper<TValue = JSX.Element> { east?: TValue; }

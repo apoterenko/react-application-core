@@ -1,6 +1,7 @@
 import { IReduxXYEntity } from './xy-definition.interface';
 import {
   IDefaultLayoutConfigurationWrapper,
+  IDrawerHeaderLogoRenderedWrapper,
   IDrawerHeaderRenderedWrapper,
   IExpandedGroupsWrapper,
   IFooterRenderedWrapper,
@@ -53,7 +54,7 @@ export interface IReduxHolderLayoutEntity<TEntity = IReduxLayoutEntity>
  * @stable [27.05.2020]
  */
 export interface IPresetsDefaultLayoutEntity
-  extends
+  extends IDrawerHeaderLogoRenderedWrapper,
     IDrawerHeaderRenderedWrapper,
     IFooterRenderedWrapper,
     IFooterWrapper,
@@ -65,8 +66,7 @@ export interface IPresetsDefaultLayoutEntity
     IOnDrawerHeaderClickWrapper,
     IProgressWrapper,             /* Not a redux-property (!) because of "react state" */
     ISubHeaderConfigurationEntity,
-    ISubHeaderRenderedWrapper
-{
+    ISubHeaderRenderedWrapper {
 }
 
 /**
@@ -158,7 +158,9 @@ export enum DefaultLayoutClassesEnum {
   DEFAULT_LAYOUT = 'rac-default-layout',
   DEFAULT_LAYOUT_BODY = 'rac-default-layout__body',
   DEFAULT_LAYOUT_DRAWER_HEADER = 'rac-default-layout__drawer-header',
+  DEFAULT_LAYOUT_DRAWER_HEADER_LOGO = 'rac-default-layout__drawer-header-logo',
   DEFAULT_LAYOUT_DRAWER_HEADER_MENU_ACTION = 'rac-default-layout__drawer-header-menu-action',
+  DEFAULT_LAYOUT_DRAWER_HEADER_VERSION = 'rac-default-layout__drawer-header-version',
   DEFAULT_LAYOUT_FULL = 'rac-default-layout-full',
   DEFAULT_LAYOUT_MINI = 'rac-default-layout-mini',
 }

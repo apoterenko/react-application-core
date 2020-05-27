@@ -82,16 +82,6 @@ $rac-keyboard-portal-z-index: $rac-z-index-keyboard !default;
 $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
 
-/* @stable [26.06.2018] */
-$rac-profile-avatar-margin-left: 16px !default;
-$rac-profile-avatar-width: 64px !default;
-$rac-profile-avatar-height: $rac-profile-avatar-width !default;
-$rac-profile-avatar-background: $color-4 !default;
-$rac-profile-avatar-border-radius: $rac-profile-avatar-width / 2 !default;
-$rac-profile-app-version-top: 4px !default;
-$rac-profile-app-version-left: 4px !default;
-$rac-profile-app-version-font-size: 8px !default;
-
 /* @stable [21.01.2019] */
 $rac-calendar-dialog-size-0: 32px !default;
 $rac-calendar-dialog-size-1: $rac-calendar-dialog-size-0 / 2 !default;

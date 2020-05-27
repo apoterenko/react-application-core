@@ -18,10 +18,18 @@
   $rac-default-layout-drawer-header-cursor: unset,                                            /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-display: unset,                                           /* @stable [25.05.2020] */
   $rac-default-layout-drawer-header-height: unset,                                            /* @stable [04.02.2020] */
+  $rac-default-layout-drawer-header-logo-background: unset,                                   /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-logo-height: unset,                                       /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-logo-margin: unset,                                       /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-logo-width: unset,                                        /* @stable [27.05.2020] */
   $rac-default-layout-drawer-header-menu-action-color: unset,                                 /* @stable [27.05.2020] */
   $rac-default-layout-drawer-header-menu-action-height: unset,                                /* @stable [27.05.2020] */
   $rac-default-layout-drawer-header-menu-action-margin: unset,                                /* @stable [27.05.2020] */
   $rac-default-layout-drawer-header-menu-action-padding: unset,                               /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-version-font-size: unset,                                 /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-version-left: unset,                                      /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-version-position: unset,                                  /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-version-top: unset,                                       /* @stable [27.05.2020] */
   $rac-default-layout-flex-grow: unset,                                                       /* @stable [04.02.2020] */
   $rac-default-layout-form-actions-border-top: unset,                                         /* @stable [21.05.2020] */
   $rac-default-layout-form-actions-margin: unset,                                             /* @stable [21.05.2020] */
@@ -51,6 +59,22 @@
       $rac-styles-cursor: $rac-default-layout-drawer-header-cursor,
       $rac-styles-display: $rac-default-layout-drawer-header-display,
       $rac-styles-height: $rac-default-layout-drawer-header-height
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-default-layout__drawer-header-logo,
+      $rac-styles-background: $rac-default-layout-drawer-header-logo-background,
+      $rac-styles-height: $rac-default-layout-drawer-header-logo-height,
+      $rac-styles-margin: $rac-default-layout-drawer-header-logo-margin,
+      $rac-styles-width: $rac-default-layout-drawer-header-logo-width
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-default-layout__drawer-header-version,
+      $rac-styles-font-size: $rac-default-layout-drawer-header-version-font-size,
+      $rac-styles-left: $rac-default-layout-drawer-header-version-left,
+      $rac-styles-position: $rac-default-layout-drawer-header-version-position,
+      $rac-styles-top: $rac-default-layout-drawer-header-version-top
     );
 
     @include rac-icon (

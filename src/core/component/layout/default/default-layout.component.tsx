@@ -31,6 +31,7 @@ import { SubHeader } from '../../sub-header';
 export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
 
   public static readonly defaultProps: IDefaultLayoutProps = {
+    drawerHeaderLogoRendered: true,
     drawerHeaderRendered: true,
     footerRendered: true,
     headerRendered: true,
@@ -176,18 +177,27 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
    * @returns {JSX.Element}
    */
   private get drawerHeaderElement(): JSX.Element {
+    const {
+      drawerHeaderLogoRendered,
+      onDrawerHeaderClick,
+    } = this.mergedProps;
+
     return (
       <div
         className={DefaultLayoutClassesEnum.DEFAULT_LAYOUT_DRAWER_HEADER}
-        onClick={this.mergedProps.onDrawerHeaderClick}
+        onClick={onDrawerHeaderClick}
       >
         {
           ConditionUtils.ifNotNilThanValue(
             this.environment.appVersion,
-            (appVersion) => <div className='rac-profile-app-version'>{appVersion}</div>
+            (appVersion) => (
+              <div className={DefaultLayoutClassesEnum.DEFAULT_LAYOUT_DRAWER_HEADER_VERSION}>{appVersion}</div>
+            )
           )
         }
-        {this.isLayoutFullModeEnabled && <div className='rac-profile-avatar'/>}
+        {drawerHeaderLogoRendered && this.isLayoutFullModeEnabled && (
+          <div className={DefaultLayoutClassesEnum.DEFAULT_LAYOUT_DRAWER_HEADER_LOGO}/>
+        )}
         {this.uiFactory.makeIcon({
           type: IconsEnum.BARS,
           className: DefaultLayoutClassesEnum.DEFAULT_LAYOUT_DRAWER_HEADER_MENU_ACTION,
