@@ -224,7 +224,6 @@ export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
 export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
 export interface IHeaderConfigurationWrapper<TValue> { headerConfiguration?: TValue; }
-export interface IHeaderContentWrapper<TValue = React.ReactNode> { headerContent?: TValue; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeaderRendererWrapper<TPayload> { headerRenderer?(payload: TPayload): React.ReactNode; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
@@ -337,6 +336,7 @@ export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnApplyWrapper<TValue = {}> { onApply?(value?: TValue): void; }
 export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void; }
 export interface IOnBeforeSubmitWrapper<TValue = {}, TResult = void> { onBeforeSubmit?(value?: TValue): TResult; }
+export interface IOnChangeLayoutModeWrapper<TValue = {}> { onChangeLayoutMode?(value?: TValue): void; }
 export interface IOnChangePlaceWrapper<TValue = {}> { onChangePlace?(value?: TValue): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
@@ -352,7 +352,7 @@ export interface IOnDictionaryEmptyWrapper<TValue1, TValue2> { onDictionaryEmpty
 export interface IOnDictionaryFilterChangeWrapper<TValue1, TValue2> { onDictionaryFilterChange?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDictionaryLoadWrapper<TValue1 = {}, TValue2 = {}> { onDictionaryLoad?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
-export interface IOnDrawerHeaderClickWrapper<TValue = {}> { onDrawerHeaderClick?(value?: TValue): void; }
+export interface IOnDrawerHeaderClickWrapper { onDrawerHeaderClick?(): void; }
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TValue = {}> { onFilterClick?(value?: TValue): void; }
@@ -363,7 +363,6 @@ export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
-export interface IOnNavigationActionClickWrapper { onNavigationActionClick?(): void; }
 export interface IOnNextWrapper<TValue = AnyT> { onNext?(value?: TValue): void; }
 export interface IOnPreviousWrapper<TValue = AnyT> { onPrevious?(value?: TValue): void; }
 export interface IOnRefreshClickWrapper<TValue = {}> { onRefreshClick?(value?: TValue): void; }

@@ -5,20 +5,20 @@ import {
   IExpandedGroupsWrapper,
   IFooterRenderedWrapper,
   IFooterWrapper,
-  IHeaderContentWrapper,
   IHeaderRenderedWrapper,
   IHeaderWrapper,
   ILayoutWrapper,
   IModeWrapper,
+  IOnChangeLayoutModeWrapper,
   IOnDrawerHeaderClickWrapper,
   IProgressWrapper,
   ISubHeaderRenderedWrapper,
   ITopTitleWrapper,
 } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IGenericStoreEntity } from './redux-definition.interface';
 import { IHeaderConfigurationEntity } from './header-definition.interface';
 import { IMainConfigurationEntity } from './main-definition.interface';
+import { IReduxStoreEntity } from './redux-definition.interface';
 import { ISubHeaderConfigurationEntity } from './sub-header-definition.interface';
 
 /**
@@ -50,30 +50,40 @@ export interface IReduxHolderLayoutEntity<TEntity = IReduxLayoutEntity>
 
 /**
  * @presets-entity
- * @stable [20.05.2020]
+ * @stable [27.05.2020]
  */
 export interface IPresetsDefaultLayoutEntity
-  extends IFooterRenderedWrapper,
+  extends
+    IDrawerHeaderRenderedWrapper,
+    IFooterRenderedWrapper,
     IFooterWrapper,
     IHeaderConfigurationEntity,
     IHeaderRenderedWrapper,
     IHeaderWrapper,
     IMainConfigurationEntity,
-    IOnDrawerHeaderClickWrapper<LayoutModesEnum>,
+    IOnChangeLayoutModeWrapper,
+    IOnDrawerHeaderClickWrapper,
+    IProgressWrapper,             /* Not a redux-property (!) because of "react state" */
     ISubHeaderConfigurationEntity,
-    ISubHeaderRenderedWrapper {
+    ISubHeaderRenderedWrapper
+{
+}
+
+/**
+ * @redux-entity
+ * @stable [27.05.2020]
+ */
+export interface IReduxDefaultLayoutEntity
+  extends IReduxStoreEntity {
 }
 
 /**
  * @generic-entity
- * @stable [04.02.2020]
+ * @stable [27.05.2020]
  */
 export interface IGenericDefaultLayoutEntity
   extends IPresetsDefaultLayoutEntity,
-    IDrawerHeaderRenderedWrapper,
-    IGenericStoreEntity,
-    IHeaderContentWrapper,
-    IProgressWrapper {
+    IReduxDefaultLayoutEntity {
 }
 
 /**
@@ -83,8 +93,7 @@ export interface IGenericDefaultLayoutEntity
 export interface IDefaultLayoutProps
   extends IGenericComponentProps,
     IGenericDefaultLayoutEntity {
-  navigationListElement?: any;
-  onLogoMenuActionClick?: any;
+  navigationListElement?: any; // TODO
 }
 
 /**

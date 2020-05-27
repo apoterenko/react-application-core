@@ -4,6 +4,7 @@ import { GenericComponent } from '../../base/generic.component';
 import {
   CalcUtils,
   ClsUtils,
+  ConditionUtils,
   Mappers,
   PropsUtils,
   Selectors,
@@ -13,10 +14,10 @@ import {
 import { Drawer } from '../../drawer';
 import {
   DefaultLayoutClassesEnum,
+  IconsEnum,
   IDefaultLayoutProps,
   LayoutModesEnum,
 } from '../../../definition';
-import { FlexLayout } from '../../layout/flex';
 import {
   PerfectScrollPlugin,
   SelectedElementPlugin,
@@ -43,8 +44,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   constructor(props: IDefaultLayoutProps) {
     super(props);
 
-    this.onDrawerHeaderLogoClick = this.onDrawerHeaderLogoClick.bind(this);
-    this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
+    this.onDrawerHeaderMenuActionClick = this.onDrawerHeaderMenuActionClick.bind(this);
   }
 
   /**
@@ -172,47 +172,36 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [21.05.2020]
+   * @stable [27.05.2020]
    * @returns {JSX.Element}
    */
   private get drawerHeaderElement(): JSX.Element {
     return (
       <div
         className={DefaultLayoutClassesEnum.DEFAULT_LAYOUT_DRAWER_HEADER}
-        onClick={this.onLogoMenuActionClick}
+        onClick={this.mergedProps.onDrawerHeaderClick}
       >
-        {this.drawerContentElement}
+        {
+          ConditionUtils.ifNotNilThanValue(
+            this.environment.appVersion,
+            (appVersion) => <div className='rac-profile-app-version'>{appVersion}</div>
+          )
+        }
+        {this.isLayoutFullModeEnabled && <div className='rac-profile-avatar'/>}
+        {this.uiFactory.makeIcon({
+          type: IconsEnum.BARS,
+          className: 'rac-logo-menu-icon',
+          onClick: this.onDrawerHeaderMenuActionClick,
+        })}
       </div>
     );
   }
 
-  private get drawerContentElement(): JSX.Element {
-    const appVersion = this.environment.appVersion;
-    const isLayoutFullModeEnabled = this.isLayoutFullModeEnabled;
-
-    return (
-      <FlexLayout
-        row={true}
-        alignItemsCenter={true}
-        className='rac-profile'
-      >
-        {appVersion && <div className='rac-profile-app-version'>{appVersion}</div>}
-        {isLayoutFullModeEnabled && <div className='rac-profile-avatar'/>}
-        {this.uiFactory.makeIcon({
-          type: 'menu',
-          className: 'rac-logo-menu-icon',
-          onClick: this.onDrawerHeaderLogoClick,
-        })}
-      </FlexLayout>
-    );
-  }
-
-  private onLogoMenuActionClick(): void {
-    this.props.onLogoMenuActionClick();
-  }
-
-  private onDrawerHeaderLogoClick(): void {
-    this.props.onDrawerHeaderClick(this.layoutMode);
+  /**
+   * @stable [27.05.2020]
+   */
+  private onDrawerHeaderMenuActionClick(): void {
+    this.mergedProps.onChangeLayoutMode(this.layoutMode);
   }
 
   /**

@@ -44,7 +44,6 @@ import {
   faLock,
   faLongArrowAltLeft,
   faLongArrowAltRight,
-  faLongArrowAltUp,
   faMapMarkedAlt,
   faMapMarkerAlt,
   faMinus,
@@ -206,13 +205,6 @@ export class UiIconFactory implements IUiIconFactory {
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='16' height='16' viewBox='0 0 16 16'>
         <path fill='currentColor' d='M14 16H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zM2 2v12h12V2H2zm9 7H9v2a1 1 0 0 1-2 0V9H5a1 1 0 0 1 0-2h2V5a1 1 0 0 1 2 0v2h2a1 1 0 0 1 0 2z'
-        />
-      </svg>
-    ),
-    'menu': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M1.5 21h21a1.5 1.5 0 0 0 0-3h-21a1.5 1.5 0 0 0 0 3zm0-7.5h21a1.5 1.5 0 0 0 0-3h-21a1.5 1.5 0 0 0 0 3zm0-7.5h21a1.5 1.5 0 0 0 0-3h-21a1.5 1.5 0 0 0 0 3z'
         />
       </svg>
     ),
@@ -404,6 +396,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.ARROW_RIGHT]: faArrowRight,
     [IconsEnum.ARROW_UP]: faArrowUp,
     [IconsEnum.BACKSPACE]: faBackspace,
+    [IconsEnum.BARS]: faBars,
     [IconsEnum.CALENDAR_ALT_REGULAR]: faCalendarAltRegular,
     [IconsEnum.CHART_LINE]: faChartLine,
     [IconsEnum.CHECK_CIRCLE]: faCheckCircle,
@@ -466,11 +459,9 @@ export class UiIconFactory implements IUiIconFactory {
     location: faMapMarkerAlt,
     location_on: faMapMarkerAlt,
     lock: faLock,
-    long_arrow_alt_up: faLongArrowAltUp,
     loyalty: faGratipay,
     map_marked_alt: faMapMarkedAlt,
     map_marker_alt: faMapMarkerAlt,
-    menu: faBars,
     minus: faMinus,
     payment: faCreditCard,
     percent: faPercent,

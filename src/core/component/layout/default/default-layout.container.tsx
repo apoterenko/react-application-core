@@ -47,9 +47,9 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
   constructor(props: IDefaultLayoutContainerProps) {
     super(props);
 
-    this.onDrawerHeaderClick = this.onDrawerHeaderClick.bind(this);
+    this.onChangeLayoutMode = this.onChangeLayoutMode.bind(this);
     this.onHeaderMenuSelectItem = this.onHeaderMenuSelectItem.bind(this);
-    this.onLogoMenuActionClick = this.onLogoMenuActionClick.bind(this);
+    this.onDrawerHeaderClick = this.onDrawerHeaderClick.bind(this);
     this.onNavigationListClick = this.onNavigationListClick.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
     this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
@@ -89,8 +89,8 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
             },
             ...subHeaderConfiguration,
           }}
-          onLogoMenuActionClick={this.onLogoMenuActionClick}
           onDrawerHeaderClick={this.onDrawerHeaderClick}
+          onChangeLayoutMode={this.onChangeLayoutMode}
           navigationListElement={this.navigationListElement}
         >
           {this.props.children}
@@ -115,9 +115,9 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
   }
 
   /**
-   * @stable [17.10.2018]
+   * @stable [27.05.2020]
    */
-  private onLogoMenuActionClick(): void {
+  private onDrawerHeaderClick(): void {
     this.routerStoreProxy.navigate(this.settings.routes.home);
   }
 
@@ -140,7 +140,7 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
   /**
    * @stable [04.12.2019]
    */
-  private onDrawerHeaderClick(layoutMode: LayoutModesEnum): void {
+  private onChangeLayoutMode(layoutMode: LayoutModesEnum): void {
     this.dispatchActionByType<IPayloadWrapper<LayoutModesEnum>>(
       LAYOUT_MODE_UPDATE_ACTION_TYPE,
       {payload: layoutMode}
