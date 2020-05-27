@@ -85,6 +85,12 @@ The library is designed to quickly start develop the business applications are b
 * [_chart-constant.scss (23.05.2020)](src/core/component/chart/_chart-constant.scss)
 * [_chart-mixin.scss (23.05.2020)](src/core/component/chart/_chart-mixin.scss)
 
+#### DefaultLayout
+
+* [_default-layout.scss (27.05.2020)](src/core/component/layout/default/_default-layout.scss)
+* [_default-layout-constant.scss (27.05.2020)](src/core/component/layout/default/_default-layout-constant.scss)
+* [_default-layout-mixin.scss (27.05.2020)](src/core/component/layout/default/_default-layout-mixin.scss)
+
 #### Dialog
 
 * [_dialog.scss (11.05.2020)](src/core/component/dialog/_dialog.scss)
