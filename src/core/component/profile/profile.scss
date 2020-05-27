@@ -21,12 +21,4 @@
       border-radius: $rac-profile-avatar-border-radius;            /* @stable [26.06.2018] */
     }
   }
-
-  @include rac-icon(
-    $rac-icon-custom: rac-logo-menu-icon,
-    $rac-icon-color: $rac-default-layout-logo-menu-icon-color,
-    $rac-icon-height: $rac-default-layout-logo-menu-icon-height,
-    $rac-icon-margin: 0 0 0 auto,
-    $rac-icon-padding: 0 16px
-  );
 }

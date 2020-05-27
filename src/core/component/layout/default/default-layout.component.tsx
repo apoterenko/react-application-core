@@ -190,7 +190,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
         {this.isLayoutFullModeEnabled && <div className='rac-profile-avatar'/>}
         {this.uiFactory.makeIcon({
           type: IconsEnum.BARS,
-          className: 'rac-logo-menu-icon',
+          className: DefaultLayoutClassesEnum.DEFAULT_LAYOUT_DRAWER_HEADER_MENU_ACTION,
           onClick: this.onDrawerHeaderMenuActionClick,
         })}
       </div>

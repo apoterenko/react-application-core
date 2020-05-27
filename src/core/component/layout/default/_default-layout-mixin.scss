@@ -1,4 +1,5 @@
 @import '../../form/_form-mixin';
+@import '../../icon/_icon-mixin';
 @import '../../tab-panel/_tab-panel-mixin';
 
 /**
@@ -17,6 +18,10 @@
   $rac-default-layout-drawer-header-cursor: unset,                                            /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-display: unset,                                           /* @stable [25.05.2020] */
   $rac-default-layout-drawer-header-height: unset,                                            /* @stable [04.02.2020] */
+  $rac-default-layout-drawer-header-menu-action-color: unset,                                 /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-menu-action-height: unset,                                /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-menu-action-margin: unset,                                /* @stable [27.05.2020] */
+  $rac-default-layout-drawer-header-menu-action-padding: unset,                               /* @stable [27.05.2020] */
   $rac-default-layout-flex-grow: unset,                                                       /* @stable [04.02.2020] */
   $rac-default-layout-form-actions-border-top: unset,                                         /* @stable [21.05.2020] */
   $rac-default-layout-form-actions-margin: unset,                                             /* @stable [21.05.2020] */
@@ -46,6 +51,14 @@
       $rac-styles-cursor: $rac-default-layout-drawer-header-cursor,
       $rac-styles-display: $rac-default-layout-drawer-header-display,
       $rac-styles-height: $rac-default-layout-drawer-header-height
+    );
+
+    @include rac-icon (
+      $rac-icon-custom: rac-default-layout__drawer-header-menu-action,
+      $rac-icon-color: $rac-default-layout-drawer-header-menu-action-color,
+      $rac-icon-height: $rac-default-layout-drawer-header-menu-action-height,
+      $rac-icon-margin: $rac-default-layout-drawer-header-menu-action-margin,
+      $rac-icon-padding: $rac-default-layout-drawer-header-menu-action-padding
     );
 
     #{rac-cls($rac-main-body-content-cls)} {
