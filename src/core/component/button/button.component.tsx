@@ -2,17 +2,17 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
   handlerPropsFactory,
   hasIcon,
-  inProgress,
   isDecorated,
   isDisabled,
   isFull,
   isIconLeftAligned,
   isObjectNotEmpty,
-  joinClassName,
-  mergeWithSystemProps,
+  PropsUtils,
+  WrapperUtils,
 } from '../../util';
 import {
   ButtonClassesEnum,
@@ -170,9 +170,9 @@ export class Button extends GenericBaseComponent<IButtonProps> {
                        $hasContent: boolean,
                        $hasIcon: boolean): string {
 
-    return joinClassName(
+    return ClsUtils.joinClassName(
       ButtonClassesEnum.BUTTON,
-      calc($mergedProps.className),
+      CalcUtils.calc($mergedProps.className),
       $hasContent ? ButtonClassesEnum.BUTTON_FILLED : ButtonClassesEnum.BUTTON_NOT_FILLED,
       this.isFull($mergedProps) && ButtonClassesEnum.FULL_BUTTON,
       this.isDecorated($mergedProps) && $hasIcon && ButtonClassesEnum.BUTTON_DECORATED,
@@ -224,7 +224,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
    * @returns {boolean}
    */
   private isDisabled($mergedProps: IButtonProps): boolean {
-    return isDisabled($mergedProps) || inProgress($mergedProps);
+    return isDisabled($mergedProps) || WrapperUtils.inProgress($mergedProps);
   }
 
   /**
@@ -237,10 +237,10 @@ export class Button extends GenericBaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [13.05.2020]
+   * @stable [29.05.2020]
    * @returns {IButtonProps}
    */
   private get mergedProps(): IButtonProps {
-    return mergeWithSystemProps(this.props, this.settings.components.button);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.button);
   }
 }

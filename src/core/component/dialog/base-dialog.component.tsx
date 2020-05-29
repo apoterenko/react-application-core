@@ -21,8 +21,8 @@ import {
   isOverlayClosable,
   isScrollable,
   joinClassName,
-  mergeWithSystemProps,
   orNull,
+  PropsUtils,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
@@ -664,6 +664,6 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {TProps}
    */
   private get mergedProps(): TProps {
-    return mergeWithSystemProps(this.props, this.settings.components.dialog) as TProps;
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.dialog) as TProps;
   }
 }

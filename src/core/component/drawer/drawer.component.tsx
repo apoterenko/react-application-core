@@ -1,33 +1,40 @@
 import * as React from 'react';
 
 import {
-  calc,
-  joinClassName,
-  mergeWithSystemProps,
+  CalcUtils,
+  ClsUtils,
+  PropsUtils,
 } from '../../util';
-import { GenericComponent } from '../base/generic.component';
+import { GenericBaseComponent } from '../base/generic-base.component';
 import {
   DrawerClassesEnum,
   IDrawerProps,
 } from '../../definition';
 
-export class Drawer extends GenericComponent<IDrawerProps> {
+/**
+ * @component-impl
+ * @stable [29.05.2020]
+ */
+export class Drawer extends GenericBaseComponent<IDrawerProps> {
 
   /**
-   * @stable [23.12.2019]
+   * @stable [29.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const mergedProps = this.mergedProps;
+    const {
+      className,
+      mini,
+    } = this.mergedProps;
 
     return (
       <div
         ref={this.actualRef}
         className={
-          joinClassName(
+          ClsUtils.joinClassName(
             DrawerClassesEnum.DRAWER,
-            mergedProps.mini && DrawerClassesEnum.DRAWER_MINI,
-            calc(mergedProps.className)
+            mini && DrawerClassesEnum.DRAWER_MINI,
+            CalcUtils.calc(className)
           )}
       >
         {this.props.children}
@@ -36,10 +43,10 @@ export class Drawer extends GenericComponent<IDrawerProps> {
   }
 
   /**
-   * @stable [14.05.2020]
+   * @stable [29.05.2020]
    * @returns {IDrawerProps}
    */
   private get mergedProps(): IDrawerProps {
-    return mergeWithSystemProps(this.props, this.settings.components.drawer);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.drawer);
   }
 }

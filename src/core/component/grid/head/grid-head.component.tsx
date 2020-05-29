@@ -45,6 +45,6 @@ export class GridHead extends GenericBaseComponent<IGridHeadProps> {
    * @returns {IGridHeadProps}
    */
   private get mergedProps(): IGridHeadProps {
-    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.gridHead);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.gridHead);
   }
 }
