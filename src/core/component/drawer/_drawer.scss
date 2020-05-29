@@ -11,18 +11,63 @@
     $rac-drawer-background: $rac-drawer-background,
     $rac-drawer-display: $rac-drawer-display,
     $rac-drawer-flex-direction: $rac-drawer-flex-direction,
+    $rac-drawer-flex-shrink: $rac-drawer-flex-shrink,
     $rac-drawer-justify-content: $rac-drawer-justify-content,
     $rac-drawer-transform: $rac-drawer-transform,
-    $rac-drawer-width: $rac-drawer-width,
     $rac-drawer-z-index: $rac-drawer-z-index
   );
 
   /**
    * @drawer-mini
-   * @stable [14.05.2020]
+   * @stable [29.05.2020]
    */
   @include rac-drawer (
     $rac-drawer-custom: $rac-drawer-mini-cls,
     $rac-drawer-width: $rac-drawer-mini-width
   );
+
+  /**
+   * @media
+   * @stable [29.05.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-2-min) {
+
+    /**
+     * @drawer
+     * @stable [14.05.2020]
+     */
+    @include rac-drawer (
+      $rac-drawer-width: $rac-drawer-width
+    );
+  }
+
+  /**
+   * @media
+   * @stable [29.05.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-1-min) and (max-width: $rac-primary-media-query-breakpoint-1-max) {
+
+    /**
+     * @drawer
+     * @stable [14.05.2020]
+     */
+    @include rac-drawer (
+      $rac-drawer-width: $rac-drawer__media-query-breakpoint-1-min-max__width
+    );
+  }
+
+  /**
+   * @media
+   * @stable [29.05.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-0-min) and (max-width: $rac-primary-media-query-breakpoint-0-max) {
+
+    /**
+     * @drawer
+     * @stable [14.05.2020]
+     */
+    @include rac-drawer (
+      $rac-drawer-width: $rac-drawer__media-query-breakpoint-0-min-max__width
+    );
+  }
 }

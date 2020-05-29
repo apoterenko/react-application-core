@@ -9,6 +9,7 @@
   $rac-drawer-background: unset,                                                              /* @stable [14.05.2020] */
   $rac-drawer-display: unset,                                                                 /* @stable [14.05.2020] */
   $rac-drawer-flex-direction: unset,                                                          /* @stable [14.05.2020] */
+  $rac-drawer-flex-shrink: unset,                                                             /* @stable [27.05.2020] */
   $rac-drawer-justify-content: unset,                                                         /* @stable [14.05.2020] */
   $rac-drawer-transform: unset,                                                               /* @stable [14.05.2020] */
   $rac-drawer-width: unset,                                                                   /* @stable [14.05.2020] */
@@ -19,6 +20,7 @@
       $rac-styles-background: $rac-drawer-background,
       $rac-styles-display: $rac-drawer-display,
       $rac-styles-flex-direction: $rac-drawer-flex-direction,
+      $rac-styles-flex-shrink: $rac-drawer-flex-shrink,
       $rac-styles-justify-content: $rac-drawer-justify-content,
       $rac-styles-transform: $rac-drawer-transform,
       $rac-styles-width: $rac-drawer-width,

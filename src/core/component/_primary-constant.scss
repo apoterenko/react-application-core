@@ -155,6 +155,8 @@ $rac-primary-icon-size-5: 28px !default;
 $rac-primary-icon-size-6: 32px !default;
 $rac-primary-icon-size-7: 36px !default;
 $rac-primary-icon-size-8: 40px !default;
+$rac-primary-icon-size-9: 44px !default;
+$rac-primary-icon-size-10: 48px !default;
 
 /************************/
 /* @stable [18.03.2020] */
@@ -278,11 +280,6 @@ $rac-primary-selected-background-0: $rac-primary-color-ganymede-3 !default;
 /************************/
 /* @stable [21.05.2020] */
 /************************/
-$rac-primary-layout-width-0: $rac-primary-size-11 !default;
-
-/************************/
-/* @stable [21.05.2020] */
-/************************/
 $rac-primary-layout-border-0: 4px solid $rac-primary-color-metis-05 !default;
 
 /************************/
@@ -301,7 +298,28 @@ $rac-primary-layout-offset-8: $rac-primary-offset-8 !default;
 /************************/
 /* @stable [24.05.2020] */
 /************************/
-$rac-primary-media-query-breakpoint-0: 480px !default;
-$rac-primary-media-query-breakpoint-1: 768px !default;
-$rac-primary-media-query-breakpoint-2: 992px !default;
-$rac-primary-media-query-breakpoint-3: 1200px !default;
+// ##Device = Most of the Smartphones Mobiles (Portrait)
+// ##Screen = B/w 320px to 480px
+$rac-primary-media-query-breakpoint-0-min: 320px !default;
+$rac-primary-media-query-breakpoint-0-max: 480px !default;
+
+// ##Device = Low Resolution Tablets, Mobiles (Landscape)
+// ##Screen = B/w 481px to 767px
+$rac-primary-media-query-breakpoint-1-min: 481px !default;
+$rac-primary-media-query-breakpoint-1-max: 767px !default;
+
+// ##Device = Tablets, IPads (landscape + portrait)
+// ##Screen = B/w 768px to 1024px
+$rac-primary-media-query-breakpoint-2-min: 768px !default;
+$rac-primary-media-query-breakpoint-2-max: 1024px !default;
+$rac-primary-media-query-breakpoint-2-landscape: landscape !default;
+$rac-primary-media-query-breakpoint-2-portrait: portrait !default;
+
+// ##Device = Laptops, Desktops
+// ##Screen = B/w 1025px to 1280px
+$rac-primary-media-query-breakpoint-3-min: 1025px !default;
+$rac-primary-media-query-breakpoint-3-max: 1280px !default;
+
+// ##Device = Desktops
+// ##Screen = 1281px to higher resolution desktops
+$rac-primary-media-query-breakpoint-4-min: 1281px !default;

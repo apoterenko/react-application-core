@@ -7,6 +7,7 @@
 $rac-drawer-background: $rac-primary-color-metis-4 !default;
 $rac-drawer-display: $rac-primary-display-0 !default;
 $rac-drawer-flex-direction: $rac-primary-flex-direction-0 !default;
+$rac-drawer-flex-shrink: $rac-primary-flex-shrink-0 !default;
 $rac-drawer-justify-content: unset !default;
 $rac-drawer-transform: translate3d(0, 0, 0) !default; /* iOS fixed + z-index workaround */
 $rac-drawer-width: 220px !default;
@@ -15,4 +16,10 @@ $rac-drawer-z-index: $rac-primary-z-index-1 !default;
 /************************/
 /* @stable [14.05.2020] */
 /************************/
-$rac-drawer-mini-width: $rac-primary-layout-width-0 !default;
+$rac-drawer-mini-width: $rac-primary-size-11 !default;
+
+/************************/
+/* @stable [29.05.2020] */
+/************************/
+$rac-drawer__media-query-breakpoint-0-min-max__width: 180px !default;
+$rac-drawer__media-query-breakpoint-1-min-max__width: 200px !default;

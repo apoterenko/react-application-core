@@ -22,7 +22,6 @@
     $rac-navigation-list-group-section-font-weight: $rac-navigation-list-group-section-font-weight,
     $rac-navigation-list-group-section-height: $rac-navigation-list-group-section-height,
     $rac-navigation-list-group-section-text-transform: $rac-navigation-list-group-section-text-transform,
-    $rac-navigation-list-icon-width: $rac-navigation-list-icon-width,
     $rac-navigation-list-item-section-font-weight: $rac-navigation-list-item-section-font-weight,
     $rac-navigation-list-item-section-height: $rac-navigation-list-item-section-height,
     $rac-navigation-list-item-section-icon-visibility: $rac-navigation-list-item-section-icon-visibility,
@@ -62,4 +61,49 @@
     $rac-navigation-list-flex-basis: $rac-full-navigation-list-flex-basis,
     $rac-navigation-list-flex-grow: $rac-full-navigation-list-flex-grow
   );
+
+  /**
+   * @media
+   * @stable [29.05.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-2-min) {
+
+    /**
+     * @navigation-list
+     * @stable [29.05.2020]
+     */
+    @include rac-navigation-list (
+      $rac-navigation-list-icon-width: $rac-navigation-list-icon-width
+    );
+  }
+
+  /**
+   * @media
+   * @stable [29.05.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-1-min) and (max-width: $rac-primary-media-query-breakpoint-1-max) {
+
+    /**
+     * @drawer
+     * @stable [14.05.2020]
+     */
+    @include rac-navigation-list (
+      $rac-navigation-list-icon-width: $rac-navigation-list__media-query-breakpoint-1-min-max__icon-width
+    );
+  }
+
+  /**
+   * @media
+   * @stable [29.05.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-0-min) and (max-width: $rac-primary-media-query-breakpoint-0-max) {
+
+    /**
+     * @drawer
+     * @stable [14.05.2020]
+     */
+    @include rac-navigation-list (
+      $rac-navigation-list-icon-width: $rac-navigation-list__media-query-breakpoint-0-min-max__icon-width
+    );
+  }
 }
