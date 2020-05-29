@@ -96,6 +96,12 @@ The library is designed to quickly start develop the business applications are b
 * [_dialog.scss (11.05.2020)](src/core/component/dialog/_dialog.scss)
 * [_dialog-constant.scss (11.05.2020)](src/core/component/dialog/_dialog-constant.scss)
 
+#### Drawer
+
+* [_drawer.scss (29.05.2020)](src/core/component/drawer/_drawer.scss)
+* [_drawer-constant.scss (29.05.2020)](src/core/component/drawer/_drawer-constant.scss)
+* [_drawer-mixin.scss (29.05.2020)](src/core/component/drawer/_drawer-mixin.scss)
+
 #### Form
 
 * [_form.scss (27.05.2020)](src/core/component/form/_form.scss)
