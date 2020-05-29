@@ -299,8 +299,8 @@ $rac-primary-layout-offset-8: $rac-primary-offset-8 !default;
 /* @stable [24.05.2020] */
 /************************/
 // ##Device = Most of the Smartphones Mobiles (Portrait)
-// ##Screen = B/w 320px to 480px
-$rac-primary-media-query-breakpoint-0-min: 320px !default;
+// ##Screen = B/w 0 to 480px
+$rac-primary-media-query-breakpoint-0-min: 0 !default;
 $rac-primary-media-query-breakpoint-0-max: 480px !default;
 
 // ##Device = Low Resolution Tablets, Mobiles (Landscape)
