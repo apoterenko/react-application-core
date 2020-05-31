@@ -34,8 +34,8 @@
   $rac-form-layout-self-field-input-placeholder-font-size: unset,                         /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-text-align: unset,                                    /* @stable [30.10.2019] */
   $rac-form-layout-top-header-background-size: unset,                                     /* @stable [31.05.2020] */
-  $rac-form-layout-top-header-background: unset,
-  $rac-form-layout-top-header-height: unset,
+  $rac-form-layout-top-header-background: unset,                                          /* @stable [31.05.2020] */
+  $rac-form-layout-top-header-height: unset,                                              /* @stable [31.05.2020] */
   $rac-form-layout-top-header-margin: unset                                               /* @stable [31.05.2020] */
 ) {
   #{rac-cls(rac-form-layout, $rac-form-layout-custom)} {
