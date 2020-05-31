@@ -110,6 +110,12 @@ The library is designed to quickly start develop the business applications are b
 * [_form-constant.scss (27.05.2020)](src/core/component/form/_form-constant.scss)
 * [_form-mixin.scss (27.05.2020)](src/core/component/form/_form-mixin.scss)
 
+#### FormLayout
+
+* [_form-layout.scss (31.05.2020)](src/core/component/layout/form/_form-layout.scss)
+* [_form-layout-constant.scss (27.05.2020)](src/core/component/layout/form/_form-layoutconstant.scss)
+* [_form-layout-mixin.scss (27.05.2020)](src/core/component/layout/form/_form-layout-mixin.scss)
+
 #### Header
 
 * [_header.scss (21.05.2020)](src/core/component/header/_header.scss)
