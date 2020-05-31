@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 import {
-  calc,
-  joinClassName,
+  CalcUtils,
+  ClsUtils,
+  PropsUtils,
 } from '../../../util';
 import { GenericComponent } from '../../base/generic.component';
 import {
@@ -10,32 +11,47 @@ import {
   LayoutClassesEnum,
 } from '../../../definition';
 
+/**
+ * @component-impl
+ * @stable [31.05.2020]
+ */
 export class FormLayout extends GenericComponent<IFormLayoutProps> {
 
   /**
-   * @stable [08.05.2020]
+   * @stable [31.05.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      className,
+      topTitle,
+    } = this.mergedProps;
 
     return (
       <div className={
-        joinClassName(
-          calc(props.className),
-          LayoutClassesEnum.FORM_LAYOUT)
-      }>
+        ClsUtils.joinClassName(
+          CalcUtils.calc(className),
+          LayoutClassesEnum.FORM_LAYOUT
+        )}>
         <div className={LayoutClassesEnum.FORM_LAYOUT_CONTENT}>
           {
-            props.topTitle && (
+            topTitle && (
               <div className={LayoutClassesEnum.FORM_LAYOUT_TOP_HEADER}>
-                {this.t(props.topTitle)}
+                {this.t(topTitle)}
               </div>
             )
           }
-          {props.children}
+          {this.props.children}
         </div>
       </div>
     );
+  }
+
+  /**
+   * @stable [31.05.2020]
+   * @returns {IFormLayoutProps}
+   */
+  private get mergedProps(): IFormLayoutProps {
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.formLayout);
   }
 }

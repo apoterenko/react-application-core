@@ -105,11 +105,19 @@ export interface IDefaultLayoutConfigurationEntity<TProps = IDefaultLayoutProps>
 }
 
 /**
+ * @presets-entity
+ * @stable [27.05.2020]
+ */
+export interface IPresetsFormLayoutEntity
+  extends ITopTitleWrapper {
+}
+
+/**
  * @generic-entity
- * @stable [13.02.2020]
+ * @stable [27.05.2020]
  */
 export interface IGenericFormLayoutEntity
-  extends ITopTitleWrapper {
+  extends IPresetsFormLayoutEntity {
 }
 
 /**

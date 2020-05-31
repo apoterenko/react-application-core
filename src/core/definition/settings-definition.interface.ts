@@ -2,7 +2,10 @@ import { ElementsMarkersEnum } from './dom-definition.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
 import { IButtonProps } from './button-definition.interface';
 import { IChartProps } from './chart-definition.interface';
-import { IDefaultLayoutProps } from './layout-definition.interface';
+import {
+  IDefaultLayoutProps,
+  IFormLayoutProps,
+} from './layout-definition.interface';
 import { IDialogProps } from './dialog-definition.interface';
 import { IDrawerProps } from './drawer-definition.interface';
 import { IFieldProps } from './field-definition.interface';
@@ -115,6 +118,7 @@ export interface IComponentsSettingsEntity {
   dialog?: IDialogProps;
   drawer?: IDrawerProps;
   field?: IFieldProps;
+  formLayout?: IFormLayoutProps;
   gridHead?: IGridHeadProps;
   header?: IHeaderProps;
   listItem?: IListItemProps;
