@@ -224,10 +224,10 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [17.05.2020]
+   * @stable [31.05.2020]
    * @returns {TProps}
    */
   protected get mergedProps(): TProps {
-    return PropsUtils.mergeWithSystemProps(this.props, this.settings.components.field) as TProps;
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.field) as TProps;
   }
 }

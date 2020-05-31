@@ -250,10 +250,10 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [21.05.2020]
+   * @stable [31.05.2020]
    * @returns {IDefaultLayoutProps}
    */
   private get mergedProps(): IDefaultLayoutProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.settings.components.defaultLayout);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.defaultLayout);
   }
 }
