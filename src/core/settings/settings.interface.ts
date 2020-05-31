@@ -57,7 +57,6 @@ export interface IApplicationNumberSettings {
 export interface IMessagesSettings extends IMessagesSettingsEntity {
   acceptMessage?: string;
   accessDeniedMessage?: string;
-  confirmationMessage?: string;
   dataSaved?: string;
   dndMessage?: string;
   emptyMessage?: string;
@@ -131,7 +130,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     ...DEFAULT_MESSAGES_SETTINGS_ENTITY,
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
-    confirmationMessage: 'Confirmation',
     dataSaved: 'The data has been successfully saved.',
     dndMessage: 'Upload a file(s) here',
     emptyMessage: 'Start a search',
