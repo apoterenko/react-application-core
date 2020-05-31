@@ -14,8 +14,6 @@ $color-22: #f2f2f2 !default;
 
 /**/
 $rac-z-index-keyboard: 4 !default;
-/**/
-$rac-color-0-12: rgba(18, 19, 15, .3) !default;
 
 /************************/
 /* @stable [29.01.2020] */
@@ -280,7 +278,6 @@ $rac-chips-field-cls: rac-chips-field;
 $rac-field-actioned-cls: rac-field-actioned;
 $rac-field-busy-cls: rac-field-busy;
 $rac-field-disabled-cls: rac-field-disabled;
-$rac-field-focused-cls: rac-field-focused;
 $rac-field-input-caret-cls: rac-field-input-caret;
 $rac-field-labeled-cls: rac-field-labeled;
 $rac-field-not-focused-cls: rac-field-not-focused;
@@ -385,7 +382,6 @@ $rac-self-field-input-font-size: $rac-primary-font-size-0 !default;
 $rac-self-field-input-font-weight: $rac-primary-font-weight-2 !default;
 $rac-self-field-input-line-height: normal !default;
 $rac-self-field-input-padding: 0 $rac-primary-offset-3 !default;
-$rac-self-field-input-placeholder-color: $rac-color-0-12 !default;
 $rac-self-field-label-font-size: $rac-primary-font-size-0 !default;                                               /* @stable [17.02.2020]*/
 $rac-self-field-label-font-weight: $rac-primary-font-weight-2 !default;                                           /* @stable [17.02.2020]*/
 $rac-self-field-label-line-height: 14px !default;                                                         /* @stable [16.02.2020]*/
@@ -616,41 +612,6 @@ $rac-dnd-border: 1px dashed $color-4 !default;
 $rac-dnd-font-size: $rac-primary-font-size-0 !default;
 $rac-dnd-border-radius: 8px !default;
 $rac-dnd-padding: 24px 0 !default;
-
-/************************/
-/* @stable [13.02.2020] */
-/************************/
-$rac-form-layout-align-items: center !default;
-$rac-form-layout-background-size: cover !default;
-$rac-form-layout-background: unset !default;
-$rac-form-layout-content-border: unset !default;
-$rac-form-layout-content-margin: unset !default;
-$rac-form-layout-content-position: relative !default;
-$rac-form-layout-content-width: 280px !default;
-$rac-form-layout-display: flex !default;
-$rac-form-layout-field-margin: 0 0 $rac-primary-offset-1 0 !default;
-$rac-form-layout-flex-direction: unset !default;
-$rac-form-layout-flex: 1 !default;
-$rac-form-layout-form-actions-margin: $rac-primary-offset-3 0 0 0 !default;
-$rac-form-layout-justify-content: center !default;
-$rac-form-layout-self-field-background: unset !default;
-$rac-form-layout-self-field-border-radius: unset !default;
-$rac-form-layout-self-field-border: 0 !default;
-$rac-form-layout-self-field-focused-background: $rac-primary-color-elara-0 !default;
-$rac-form-layout-self-field-focused-icon-color: $rac-primary-color-metis-3 !default;
-$rac-form-layout-self-field-focused-input-color: $rac-primary-color-poseidon-0 !default;
-$rac-form-layout-self-field-focused-input-placeholder-color: $rac-color-0-12 !default;
-$rac-form-layout-self-field-height: unset !default;
-$rac-form-layout-self-field-icon-color: $rac-primary-color-elara-5 !default;
-$rac-form-layout-self-field-icon-padding: unset !default;
-$rac-form-layout-self-field-input-caret-bottom: unset !default;
-$rac-form-layout-self-field-input-color: unset !default;
-$rac-form-layout-self-field-input-font-size: unset !default;
-$rac-form-layout-self-field-input-placeholder-color: $rac-primary-color-elara-5 !default;
-$rac-form-layout-top-header-background-size: contain !default;
-$rac-form-layout-top-header-background: unset !default;
-$rac-form-layout-top-header-height: unset !default;
-$rac-form-layout-top-header-margin: unset !default;
 
 /* @stable [13.08.2018] */
 $rac-snackbar-z-index: $snackbar-z-index !default;

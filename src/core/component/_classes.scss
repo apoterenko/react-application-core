@@ -69,10 +69,19 @@ $rac-viewer-preview-icon-cls: rac-viewer__preview-icon;
 $rac-empty-picture-viewer-cls: '#{$rac-empty-viewer-cls}.#{$rac-picture-viewer-cls}';
 
 /************************/
+/* @stable [31.05.2020] */
+/************************/
+$rac-field-focused-cls: rac-field-focused;
+
+/************************/
 /* @stable [11.03.2020] */
 /************************/
 $rac-date-field__calendar-dialog-cls: rac-date-field__calendar-dialog;
 $rac-date-field__calendars-dialog-cls: rac-date-field__calendars-dialog;
+
+/************************/
+/* @stable [31.05.2020] */
+/************************/
 $rac-view-field-cls: rac-view-field;
 
 /************************/

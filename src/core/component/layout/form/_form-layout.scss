@@ -1,5 +1,5 @@
-@import '../../constant';
-@import '../../mixin';
+@import './_form-layout-constant';
+@import './_form-layout-mixin';
 
 .rac {
 
@@ -11,14 +11,13 @@
     $rac-form-layout-align-items: $rac-form-layout-align-items,
     $rac-form-layout-background-size: $rac-form-layout-background-size,
     $rac-form-layout-background: $rac-form-layout-background,
-    $rac-form-layout-content-border: $rac-form-layout-content-border,
     $rac-form-layout-content-margin: $rac-form-layout-content-margin,
     $rac-form-layout-content-position: $rac-form-layout-content-position,
     $rac-form-layout-content-width: $rac-form-layout-content-width,
     $rac-form-layout-display: $rac-form-layout-display,
     $rac-form-layout-field-margin: $rac-form-layout-field-margin,
     $rac-form-layout-flex-direction: $rac-form-layout-flex-direction,
-    $rac-form-layout-flex: $rac-form-layout-flex,
+    $rac-form-layout-flex-grow: $rac-form-layout-flex-grow,
     $rac-form-layout-form-actions-margin: $rac-form-layout-form-actions-margin,
     $rac-form-layout-justify-content: $rac-form-layout-justify-content,
     $rac-form-layout-self-field-background: $rac-form-layout-self-field-background,

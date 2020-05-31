@@ -57,27 +57,19 @@ export interface IApplicationNumberSettings {
 export interface IMessagesSettings extends IMessagesSettingsEntity {
   acceptMessage?: string;
   accessDeniedMessage?: string;
-  appNotReadyMessage?: string;
   confirmationMessage?: string;
-  continueMessage?: string;
   dataSaved?: string;
-  dialogTitleMessage?: string;
   dndMessage?: string;
-  emptyDataMessage?: string;
   emptyMessage?: string;
   errorMessage?: string;
-  invalidAddressMessage?: string;
   logoutNotificationMessage?: string;
   noItemsMessage?: string;
   requestCancelErrorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
   sorryMessage?: string;
   takeSnapshotMessage?: string;
-  unknownFileMessage?: string;
   waitingMessage?: string;
   waitMessage?: string;
-  welcomeMessage?: string;
-  yearMessage?: string;
 }
 
 export interface IAuthorizationSettings {
@@ -139,26 +131,19 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     ...DEFAULT_MESSAGES_SETTINGS_ENTITY,
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
-    appNotReadyMessage: 'App is being initialized...',
     confirmationMessage: 'Confirmation',
-    continueMessage: 'Continue',
     dataSaved: 'The data has been successfully saved.',
-    dialogTitleMessage: 'Notice',
     dndMessage: 'Upload a file(s) here',
-    emptyDataMessage: 'No data found',
     emptyMessage: 'Start a search',
     errorMessage: 'Something went wrong. There was a problem loading your data',
-    invalidAddressMessage: 'Invalid address',
     logoutNotificationMessage: 'You were logged out.',
     noItemsMessage: 'No items.',
     requestCancelErrorMessage: 'The request has been canceled by the user.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     sorryMessage: 'Sorry about that.',
     takeSnapshotMessage: 'Take a snapshot',
-    unknownFileMessage: 'Unknown file',
     waitingMessage: 'Waiting...',
     waitMessage: 'Please wait...',
-    yearMessage: 'Year',
   },
   oauth: DEFAULT_OAUTH_SETTINGS_ENTITY,
   routes: DEFAULT_ROUTES_SETTINGS_ENTITY,
