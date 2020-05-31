@@ -18,7 +18,6 @@
   $rac-form-layout-form-actions-margin: unset,                                            /* @stable [09.11.2019] */
   $rac-form-layout-justify-content: unset,                                                /* @stable [13.02.2020] */
   $rac-form-layout-self-field-background: unset,                                          /* @stable [30.10.2019] */
-  $rac-form-layout-self-field-border-radius: unset,                                       /* @stable [30.10.2019] */
   $rac-form-layout-self-field-border: unset,                                              /* @stable [30.10.2019] */
   $rac-form-layout-self-field-focused-background: unset,                                  /* @stable [30.10.2019] */
   $rac-form-layout-self-field-focused-icon-color: unset,                                  /* @stable [09.11.2019] */
@@ -51,7 +50,6 @@
     @include rac-field (
       $rac-field-margin: $rac-form-layout-field-margin,
       $rac-self-field-background: $rac-form-layout-self-field-background,
-      $rac-self-field-border-radius: $rac-form-layout-self-field-border-radius,
       $rac-self-field-border: $rac-form-layout-self-field-border,
       $rac-self-field-height: $rac-form-layout-self-field-height,
       $rac-self-field-icon-color: $rac-form-layout-self-field-icon-color,
