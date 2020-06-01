@@ -62,6 +62,7 @@ The library is designed to quickly start develop the business applications are b
 * [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
 * [SubHeader (22.05.2020)](src/core/component/sub-header/sub-header.component.tsx)
 * [SubHeaderLink (22.05.2020)](src/core/component/sub-header-link/sub-header-link.component.tsx)
+* [Title (01.06.2020)](src/core/component/title/title.component.tsx)
 * [UnsavedFormChangesDialog (11.05.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
 
 #### @effects-proxy-factory
@@ -146,6 +147,12 @@ The library is designed to quickly start develop the business applications are b
 * [_tab-panel.scss (19.05.2020)](src/core/component/tab-panel/_tab-panel.scss)
 * [_tab-panel-constant.scss (19.05.2020)](src/core/component/tab-panel/_tab-panel-constant.scss)
 * [_tab-panel-mixin.scss (19.05.2020)](src/core/component/tab-panel/_tab-panel-mixin.scss)
+
+#### Title
+
+* [_title.scss (01.06.2020)](src/core/component/title/_title.scss)
+* [_title-constant.scss (01.06.2020)](src/core/component/title/_title-constant.scss)
+* [_title-mixin.scss (01.06.2020)](src/core/component/title/_title-mixin.scss)
 
 # Usage
 
