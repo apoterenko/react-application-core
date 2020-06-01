@@ -7,7 +7,6 @@ import {
 } from '../../util';
 import {
   DI_TYPES,
-  getEventEmitter,
   getUiPlugins,
   staticInjector,
 } from '../../di';
@@ -15,7 +14,6 @@ import { AnyT } from '../../definitions.interface';
 import {
   GenericPluginCtorT,
   GenericPluginFactoryT,
-  IEventEmitter,
   IGenericPlugin,
   IRoutesEntity,
   IUniqueId,
@@ -91,15 +89,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
    */
   public getSelf(): Element {
     return this.selfRef.current || this.refs.self as any; // TODO any
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [17.01.2020]
-   * @returns {IEventEmitter}
-   */
-  protected get eventEmitter(): IEventEmitter {
-    return getEventEmitter();
   }
 
   /**

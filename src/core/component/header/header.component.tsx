@@ -14,8 +14,8 @@ import {
   HeaderUserMenuActionsEnum,
   IconsEnum,
   IHeaderProps,
-  IMenuItemEntity,
   IMenuProps,
+  IPresetsMenuItemEntity,
 } from '../../definition';
 import { Menu } from '../menu';
 import { Link } from '../link';
@@ -168,9 +168,9 @@ export class Header extends GenericComponent<IHeaderProps> {
 
   /**
    * @stable [21.05.2020]
-   * @param {IMenuItemEntity} menuItem
+   * @param {IPresetsMenuItemEntity} menuItem
    */
-  private onMenuItemSelect(menuItem: IMenuItemEntity): void {
+  private onMenuItemSelect(menuItem: IPresetsMenuItemEntity): void {
     ConditionUtils.ifNotNilThanValue(this.mergedProps.onSelect, (onSelect) => onSelect(menuItem));
   }
 

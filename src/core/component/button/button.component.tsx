@@ -7,10 +7,8 @@ import {
   handlerPropsFactory,
   hasIcon,
   isDecorated,
-  isDisabled,
   isFull,
-  isIconLeftAligned,
-  isObjectNotEmpty,
+  ObjectUtils,
   PropsUtils,
   WrapperUtils,
 } from '../../util';
@@ -54,7 +52,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
       );
     }
 
-    const $isIconLeftAligned = this.isIconLeftAligned($mergedProps);
+    const $isIconLeftAligned = WrapperUtils.isIconLeftAligned($mergedProps);
     const $disabled = this.isDisabled($mergedProps);
     const $iconElement = $hasIcon && this.getIconElement($mergedProps);
 
@@ -188,7 +186,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
    * @returns {boolean}
    */
   private hasContent(text): boolean {
-    return isObjectNotEmpty(this.props.children) || isObjectNotEmpty(text);
+    return ObjectUtils.isObjectNotEmpty(this.props.children) || ObjectUtils.isObjectNotEmpty(text);
   }
 
   /**
@@ -224,16 +222,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
    * @returns {boolean}
    */
   private isDisabled($mergedProps: IButtonProps): boolean {
-    return isDisabled($mergedProps) || WrapperUtils.inProgress($mergedProps);
-  }
-
-  /**
-   * @stable [13.05.2020]
-   * @param {IButtonProps} $mergedProps
-   * @returns {boolean}
-   */
-  private isIconLeftAligned($mergedProps: IButtonProps): boolean {
-    return isIconLeftAligned($mergedProps);
+    return WrapperUtils.isDisabled($mergedProps) || WrapperUtils.inProgress($mergedProps);
   }
 
   /**

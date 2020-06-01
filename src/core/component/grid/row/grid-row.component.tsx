@@ -3,13 +3,12 @@ import * as R from 'ramda';
 
 import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
-  calc,
-  handlerPropsFactory,
-  isFn,
-  isHovered,
-  isSelectable,
+  CalcUtils,
+  ClsUtils,
   isSyntheticEntity,
-  joinClassName,
+  PropsUtils,
+  TypeUtils,
+  WrapperUtils,
 } from '../../../util';
 import {
   IBaseEvent,
@@ -34,33 +33,36 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
    */
   public render(): JSX.Element {
     const props = this.props;
-    const entity = props.entity;
-    const syntheticEntity = isSyntheticEntity(entity);
-    const hovered = isHovered(props) && !syntheticEntity;
-    const selectable = isSelectable(props) && !syntheticEntity;
+    const {
+      rawData,
+    } = props;
+
+    const syntheticEntity = isSyntheticEntity(rawData);
+    const isHovered = WrapperUtils.isHovered(props) && !syntheticEntity;
+    const isSelectable = WrapperUtils.isSelectable(props) && !syntheticEntity;
 
     return (
       <UniversalScrollableContext.Consumer>
         {(selectedElementClassName) => (
           <tr
             ref={this.selfRef}
-            className={joinClassName(
+            className={ClsUtils.joinClassName(
               'rac-grid-row',
-              calc(props.className),
-              props.indexed && !R.isNil(entity) && `rac-grid-row-${entity.id}`,
+              CalcUtils.calc(props.className),
+              props.indexed && !R.isNil(rawData) && `rac-grid-row-${rawData.id}`,
               props.grouped && 'rac-grid-row-grouped',
               props.filter && 'rac-grid-row-filter',
               props.groupExpanded && 'rac-grid-row-group-expanded',
-              hovered && 'rac-grid-row-hovered',
+              isHovered && 'rac-grid-row-hovered',
               props.odd && 'rac-grid-row-odd',
               props.partOfGroup && 'rac-grid-row-part-of-group',
               props.total && 'rac-grid-row-total',
-              selectable && 'rac-grid-row-selectable',
+              isSelectable && 'rac-grid-row-selectable',
               props.selected && `rac-grid-row-selected ${selectedElementClassName}`
             )}
-            {...handlerPropsFactory(this.onClick, selectable && isFn(props.onClick), false)}
+            {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable && TypeUtils.isFn(props.onClick), false)}
           >
-            {props.children}
+            {this.props.children}
           </tr>
         )}
       </UniversalScrollableContext.Consumer>
@@ -73,6 +75,6 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
    */
   private onClick(event: IBaseEvent): void {
     const props = this.props;
-    props.onClick(props.entity);
+    props.onClick(props.rawData);
   }
 }

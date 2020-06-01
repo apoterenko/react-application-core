@@ -327,7 +327,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         key={rowKey}
         odd={highlightOdd}
         selected={this.isEntitySelected(entity)}
-        entity={entity}
+        rawData={entity}
         partOfGroup={isPartOfGroup}
         onClick={props.onSelect}
       >

@@ -13,10 +13,10 @@ import { Link } from '../link';
 import { Menu } from '../menu';
 import {
   IconsEnum,
-  IMenuItemEntity,
   INavigationListItemEntity,
   INavigationListProps,
   INavigationListState,
+  IPresetsMenuItemEntity,
   LayoutModesEnum,
   NAVIGATION_EXTRA_ITEM_TYPES,
   NavigationItemTypesEnum,
@@ -122,9 +122,9 @@ export class NavigationList
 
   /**
    * @stable [14.05.2020]
-   * @param {IMenuItemEntity<INavigationListItemEntity>} option
+   * @param {IPresetsMenuItemEntity<INavigationListItemEntity>} option
    */
-  private onPopupMenuItemSelect(option: IMenuItemEntity<INavigationListItemEntity>): void {
+  private onPopupMenuItemSelect(option: IPresetsMenuItemEntity<INavigationListItemEntity>): void {
     this.setState(
       {activeGroup: null},
       () => ifNotNilThanValue(this.props.onClick, (onClick) => onClick(option.rawData))

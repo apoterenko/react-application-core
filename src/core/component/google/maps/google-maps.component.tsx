@@ -31,7 +31,7 @@ import {
   IGoogleMapsSettingsEntity,
   ILatLngEntity,
   IMenu,
-  IMenuItemEntity,
+  IPresetsMenuItemEntity,
 } from '../../../definition';
 import { GenericComponent } from '../../base/generic.component';
 
@@ -346,9 +346,9 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
 
   /**
    * @stable [10.01.2020]
-   * @param {IMenuItemEntity} item
+   * @param {IPresetsMenuItemEntity} item
    */
-  private onMenuSelect(item: IMenuItemEntity): void {
+  private onMenuSelect(item: IPresetsMenuItemEntity): void {
     const props = this.props;
     if (TypeUtils.isFn(props.onSelect)) {
       props.onSelect({item, lat: this.lat, lng: this.lng});

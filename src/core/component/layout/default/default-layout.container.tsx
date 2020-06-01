@@ -24,8 +24,8 @@ import {
 import {
   HeaderUserMenuActionsEnum,
   IFluxXYEntity,
-  IMenuItemEntity,
   INavigationListItemEntity,
+  IPresetsMenuItemEntity,
   IReduxXYEntity,
   LayoutModesEnum,
 } from '../../../definition';
@@ -101,9 +101,9 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
 
   /**
    * @stable [06.02.2020]
-   * @param {IMenuItemEntity} item
+   * @param {IPresetsMenuItemEntity} item
    */
-  private onHeaderMenuSelectItem(item: IMenuItemEntity): void {
+  private onHeaderMenuSelectItem(item: IPresetsMenuItemEntity): void {
     switch (item.value) {
       case HeaderUserMenuActionsEnum.EXIT:
         this.routerStoreProxy.navigate(this.settings.routes.logout);

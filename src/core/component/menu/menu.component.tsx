@@ -20,7 +20,7 @@ import {
   queryFilter,
   subArray,
 } from '../../util';
-import { BaseComponent } from '../base/base.component';
+import { GenericComponent } from '../base/generic.component';
 import { BasicList } from '../list/basic/basic-list.component';
 import { Dialog } from '../dialog/dialog.component';
 import { ListItem } from '../list/item/list-item.component';
@@ -29,16 +29,16 @@ import {
   EventsEnum,
   IconsEnum,
   IMenu,
-  IMenuItemEntity,
   IMenuProps,
   IMenuState,
+  IPresetsMenuItemEntity,
   SyntheticEmitterEventsEnum,
 } from '../../definition';
 import { TextField } from '../field/text-field';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 
-export class Menu extends BaseComponent<IMenuProps, IMenuState>
-    implements IMenu {
+export class Menu extends GenericComponent<IMenuProps, IMenuState>
+  implements IMenu {
 
   public static readonly defaultProps: IMenuProps = {
     delayTimeout: 1000,
@@ -182,9 +182,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [23.11.2019]
-   * @param {IMenuItemEntity} option
+   * @param {IPresetsMenuItemEntity} option
    */
-  private onSelect(option: IMenuItemEntity): void {
+  private onSelect(option: IPresetsMenuItemEntity): void {
     const props = this.props;
     if (isFn(props.onSelect)) {
       props.onSelect(option);
@@ -256,7 +256,7 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
         full={!this.isAnchored}
         plugins={[PerfectScrollPlugin]}
       >
-        {items.map((option: IMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
+        {items.map((option: IPresetsMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
         {!items.length && <div className='rac-menu__empty-message'>{this.settings.messages.NO_DATA}</div>}
       </BasicList>
     );
@@ -264,13 +264,14 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [29.01.2020]
-   * @param {IMenuItemEntity} option
+   * @param {IPresetsMenuItemEntity} option
    * @param {number} index
    * @param {number} length
    * @returns {JSX.Element}
    */
-  private asItemElement(option: IMenuItemEntity, index: number, length: number): JSX.Element {
+  private asItemElement(option: IPresetsMenuItemEntity, index: number, length: number): JSX.Element {
     const props = this.props;
+
     return (
       <ListItem
         key={`menu-item-key-${option.value}`}
@@ -372,9 +373,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [23.11.2019]
-   * @returns {IMenuItemEntity[]}
+   * @returns {IPresetsMenuItemEntity[]}
    */
-  private get items(): IMenuItemEntity[] {
+  private get items(): IPresetsMenuItemEntity[] {
     const props = this.props;
 
     return !this.isFilterUsed || isRemoteFilterApplied(props)
@@ -400,9 +401,9 @@ export class Menu extends BaseComponent<IMenuProps, IMenuState>
 
   /**
    * @stable [17.06.2019]
-   * @param {IMenuItemEntity} itm
+   * @param {IPresetsMenuItemEntity} itm
    * @returns {StringNumberT}
    */
   private readonly optionValueFn =
-    (itm: IMenuItemEntity): StringNumberT => (itm.label ? this.t(itm.label) : itm.value)
+    (itm: IPresetsMenuItemEntity): StringNumberT => (itm.label ? this.t(itm.label) : itm.value)
 }

@@ -9,8 +9,8 @@ import {
   StringNumberT,
 } from '../definitions.interface';
 import {
-  IExtendedLabeledValueEntity,
   INamedEntity,
+  IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
   MultiFieldEntityT,
   PlaceEntityValueT,
@@ -60,7 +60,7 @@ export interface IFieldConverter {
   fromCronExpressionToCronParameter(value: string): string;
   fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
-  fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity;
+  fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;

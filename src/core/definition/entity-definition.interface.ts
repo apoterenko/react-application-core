@@ -12,6 +12,9 @@ import {
   IEntityIdTWrapper,
   IEntityIdWrapper,
   IEntityWrapper,
+  IHoveredWrapper,
+  IIconLeftAlignedWrapper,
+  IIconWrapper,
   IIndexWrapper,
   IKeyValue,
   ILabelWrapper,
@@ -22,31 +25,62 @@ import {
   IProgressWrapper,
   IRawDataWrapper,
   IRemoveWrapper,
+  IRendererWrapper,
+  ISelectableWrapper,
   ISelectedWrapper,
   ISourceWrapper,
   ITouchedWrapper,
+  ITplWrapper,
   IValidWrapper,
   IValueWrapper,
+  StringNumberT,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 
 /**
- * @entity
- * @stable [24.01.2020]
+ * @presets-entity
+ * @stable [01.06.2020]
  */
-export interface ILabeledValueEntity<TValue = AnyT>
+export interface IPresetsTemplateEntity<TRawData extends IEntity = IEntity>
+  extends IRendererWrapper<TRawData, number>,
+    ITplWrapper<TRawData> {
+}
+
+/**
+ * @presets-entity
+ * @stable [01.06.2020]
+ */
+export interface IPresetsIconEntity
+  extends IIconLeftAlignedWrapper,
+    IIconWrapper {
+}
+
+/**
+ * @presets-entity
+ * @stable [01.06.2020]
+ */
+export interface IPresetsLabeledValueEntity<TValue = AnyT>
   extends ILabelWrapper,
     IValueWrapper<TValue> {
 }
 
 /**
- * @entity
- * @stable [22.04.2020]
+ * @presets-entity
+ * @stable [01.06.2020]
  */
-export interface IExtendedLabeledValueEntity<TEntity extends IEntity = IEntity, TValue = EntityIdT>
-  extends ILabeledValueEntity<TValue>,
-    IRawDataWrapper<TEntity> {
+export interface IPresetsSelectableHoveredEntity
+  extends IHoveredWrapper,
+    ISelectableWrapper {
+}
+
+/**
+ * @presets-entity
+ * @stable [01.06.2020]
+ */
+export interface IPresetsRawDataLabeledValueEntity<TRawData = IEntity, TValue = EntityIdT>
+  extends IPresetsLabeledValueEntity<TValue>,
+    IRawDataWrapper<TRawData> {
 }
 
 /**

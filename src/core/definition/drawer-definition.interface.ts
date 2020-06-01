@@ -1,5 +1,5 @@
 import { IMiniWrapper } from '../definitions.interface';
-import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 
 /**
  * @presets-entity
@@ -22,7 +22,7 @@ export interface IGenericDrawerEntity
  * @stable [14.05.2020]
  */
 export interface IDrawerProps
-  extends IGenericComponentProps,
+  extends IGenericBaseComponentProps,
     IGenericDrawerEntity {
 }
 

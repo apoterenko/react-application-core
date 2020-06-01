@@ -6,6 +6,7 @@ import {
   IComponentsSettingsEntity,
   IDomAccessor,
   IEnvironment,
+  IEventEmitter,
   IEventManager,
   IFieldConverter,
   IGenericBaseComponentProps,
@@ -23,6 +24,7 @@ import {
   getDateConverter,
   getDomAccessor,
   getEnvironment,
+  getEventEmitter,
   getEventManager,
   getFieldConverter,
   getNumberConverter,
@@ -52,6 +54,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   private $dc: IDateConverter;
   private $domAccessor: IDomAccessor;
   private $environment: IEnvironment;
+  private $eventEmitter: IEventEmitter;
   private $eventManager: IEventManager;
   private $fieldConverter: IFieldConverter;
   private $nc: INumberConverter;
@@ -92,6 +95,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get settings(): ISettingsEntity {
     return this.$settings = this.$settings || getSettings();
+  }
+
+  /**
+   * @stable [01.06.2020]
+   * @returns {IEventEmitter}
+   */
+  protected get eventEmitter(): IEventEmitter {
+    return this.$eventEmitter = this.$eventEmitter || getEventEmitter();
   }
 
   /**

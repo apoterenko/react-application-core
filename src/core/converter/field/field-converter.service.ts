@@ -12,12 +12,12 @@ import {
   FieldConstants,
   FieldConverterTypesEnum,
   IDatesRangeEntity,
-  IExtendedLabeledValueEntity,
   IFieldConverter,
   IFieldConverterConfigEntity,
   INamedEntity,
   IPhoneConfigEntity,
   IPlaceEntity,
+  IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
   MultiFieldEntityT,
   PlaceEntityValueT,
@@ -26,11 +26,10 @@ import {
 } from '../../definition';
 import {
   asPlaceEntity,
+  ConditionUtils,
   CronEntity,
   FieldUtils,
   FilterUtils,
-  ifNotNilThanValue,
-  isFn,
   mapExtendedLabeledValueEntity,
   PlaceUtils,
   SelectOptionUtils,
@@ -146,7 +145,7 @@ export class FieldConverter implements IFieldConverter {
   public convert(config: IFieldConverterConfigEntity): AnyT {
     const {value} = config;
     const converter = this.converter(config);
-    if (!isFn(converter)) {
+    if (!TypeUtils.isFn(converter)) {
       throw new Error(`The converter is not registered! A config ${JSON.stringify(config)}:`);
     }
     return converter(value);
@@ -229,9 +228,9 @@ export class FieldConverter implements IFieldConverter {
   /**
    * @stable [22.04.2020]
    * @param {INamedEntity} value
-   * @returns {IExtendedLabeledValueEntity}
+   * @returns {IPresetsRawDataLabeledValueEntity}
    */
-  public fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity {
+  public fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity {
     return this.convert({
       from: FieldConverterTypesEnum.NAMED_ENTITY,
       to: FieldConverterTypesEnum.EXTENDED_LABELED_VALUE_ENTITY,
@@ -352,7 +351,7 @@ export class FieldConverter implements IFieldConverter {
    * @returns {string}
    */
   private $fromCronExpressionToCronParameter(value: string): string {
-    return ifNotNilThanValue(
+    return ConditionUtils.ifNotNilThanValue(
       value,
       () => CronEntity.newInstance().fromExpression(value).toExpression(),
       UNDEF_SYMBOL
@@ -362,10 +361,10 @@ export class FieldConverter implements IFieldConverter {
   /**
    * @stable [22.04.2020]
    * @param {INamedEntity} value
-   * @returns {IExtendedLabeledValueEntity}
+   * @returns {IPresetsRawDataLabeledValueEntity}
    */
-  private $fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IExtendedLabeledValueEntity {
-    return ifNotNilThanValue(
+  private $fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity {
+    return ConditionUtils.ifNotNilThanValue(
       value,
       () => mapExtendedLabeledValueEntity(value),
       UNDEF_SYMBOL

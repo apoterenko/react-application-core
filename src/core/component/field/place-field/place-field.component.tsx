@@ -3,12 +3,12 @@ import * as R from 'ramda';
 import * as BPromise from 'bluebird';
 
 import {
-  ifNotNilThanValue,
-  isObjectNotEmpty,
+  ClsUtils,
+  ConditionUtils,
   isPlaceActionRendered,
   isUseZipCode,
-  joinClassName,
   nvl,
+  ObjectUtils,
   orNull,
   uuid,
 } from '../../../util';
@@ -23,13 +23,13 @@ import {
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
-  IMenuItemEntity,
   IMenuProps,
   IPlaceEntity,
   IPlaceFieldProps,
   IPlaceFieldState,
   IPlaceGeoCodeRequestEntity,
   IPlaceSelectOptionEntity,
+  IPresetsMenuItemEntity,
   PlaceEntityValueT,
   PlaceMarkerActionsEnum,
 } from '../../../definition';
@@ -45,7 +45,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   private readonly dialogRef = React.createRef<Dialog>();
   private readonly googleMapsRef = React.createRef<GoogleMaps>();
-  private readonly googleMapsMenuOptions: IMenuItemEntity[] = [{
+  private readonly googleMapsMenuOptions: IPresetsMenuItemEntity[] = [{
     label: this.settings.messages.PUT_MARKER_HERE,
     value: PlaceMarkerActionsEnum.PUT_MARKER,
   }];
@@ -123,10 +123,10 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
             acceptDisabled={!this.isPlaceChanged}
             onDeactivate={this.onDialogDeactivate}
             onAccept={this.onDialogAccept}
-            className={joinClassName(this.props.dialogClassName, DialogClassesEnum.PLACE_DIALOG)}
+            className={ClsUtils.joinClassName(this.props.dialogClassName, DialogClassesEnum.PLACE_DIALOG)}
           >
             {
-              ifNotNilThanValue(
+              ConditionUtils.ifNotNilThanValue(
                 this.fromPlaceEntityToDisplayValue(nvl(placeEntity, this.value)),
                 (value) => (
                   <div className={DialogClassesEnum.PLACE_DIALOG_TITLE}>{value}</div>
@@ -151,7 +151,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-place-field');
+    return ClsUtils.joinClassName(super.getFieldClassName(), 'rac-place-field');
   }
 
   /**
@@ -179,7 +179,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
           (result) => {
             this.setState({progress: false});
 
-            if (isObjectNotEmpty(result)) {
+            if (ObjectUtils.isObjectNotEmpty(result)) {
               this.onGeoCodeRequestDone(result, option);
             }
             return result;
@@ -269,7 +269,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @stable [09.01.2020]
    */
   private cancelPlaceGeoCodeTask(): void {
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.placeGeoCodeTask,
       (promise) => {
         if (promise.isPending()) {
@@ -372,6 +372,6 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   private get hasMapInitialMarkers(): boolean {
     const {googleMapsConfiguration = {}} = this.props;
-    return isObjectNotEmpty(googleMapsConfiguration.initialMarkers);
+    return ObjectUtils.isObjectNotEmpty(googleMapsConfiguration.initialMarkers);
   }
 }
