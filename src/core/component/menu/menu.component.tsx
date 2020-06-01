@@ -6,19 +6,19 @@ import {
   UNDEF,
 } from '../../definitions.interface';
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
+  ConditionUtils,
   DelayedTask,
-  ifNotNilThanValue,
   isFilterUsed,
-  isFn,
   isHeightRestricted,
   isHighlightOdd,
   isMulti,
   isRemoteFilterApplied,
-  joinClassName,
   orNull,
   queryFilter,
   subArray,
+  TypeUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
 import { BasicList } from '../list/basic/basic-list.component';
@@ -98,9 +98,9 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
             positionConfiguration={props.positionConfiguration}
             anchorElement={props.anchorElement}
             className={
-              joinClassName(
+              ClsUtils.joinClassName(
                 DialogClassesEnum.MENU_DIALOG,
-                calc(props.className),
+                CalcUtils.calc(props.className),
                 isHeightRestricted(props) && 'rac-menu-height-restricted-dialog'
               )
             }
@@ -125,7 +125,6 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    */
   public componentWillUnmount() {
     this.clearAll();
-    super.componentWillUnmount();
 
     this.filterQueryTask = null;
   }
@@ -136,7 +135,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    */
   public show(callback?: () => void): void {
     this.setState({filter: UNDEF, opened: true}, () => {
-      if (isFn(callback)) {
+      if (TypeUtils.isFn(callback)) {
         callback();
       }
       this.onDialogAfterRender();
@@ -165,7 +164,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    */
   private notifyFilterChange(): void {
     const props = this.props;
-    if (isFn(props.onFilterChange)) {
+    if (TypeUtils.isFn(props.onFilterChange)) {
       props.onFilterChange(this.state.filter);
     }
   }
@@ -176,7 +175,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    */
   private onFilterValueChange(filter: string): void {
     this.setState(
-      {filter}, () => ifNotNilThanValue(this.filterQueryTask, (task) => task.start())
+      {filter}, () => ConditionUtils.ifNotNilThanValue(this.filterQueryTask, (task) => task.start())
     );
   }
 
@@ -186,7 +185,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    */
   private onSelect(option: IPresetsMenuItemEntity): void {
     const props = this.props;
-    if (isFn(props.onSelect)) {
+    if (TypeUtils.isFn(props.onSelect)) {
       props.onSelect(option);
     }
 
@@ -208,14 +207,14 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    * @stable [25.01.2020]
    */
   private onDialogActivate(): void {
-    ifNotNilThanValue(this.field, (field) => field.setFocus());
+    ConditionUtils.ifNotNilThanValue(this.field, (field) => field.setFocus());
   }
 
   /**
    * @stable [25.01.2020]
    */
   private onDialogAfterRender(): void {
-    ifNotNilThanValue(this.dialog, (dialog) => dialog.activate());
+    ConditionUtils.ifNotNilThanValue(this.dialog, (dialog) => dialog.activate());
 
     if (this.isAnchored) {
       this.clearAll();
@@ -239,7 +238,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    */
   private onDialogAfterDestroy(): void {
     const props = this.props;
-    if (isFn(props.onClose)) {
+    if (TypeUtils.isFn(props.onClose)) {
       props.onClose();
     }
   }
@@ -338,18 +337,18 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   private clearAll(): void {
     this.unsubscribeAllEvents();
 
-    ifNotNilThanValue(this.filterQueryTask, (task) => task.stop());
+    ConditionUtils.ifNotNilThanValue(this.filterQueryTask, (task) => task.stop());
   }
 
   /**
    * @stable [23.11.2019]
    */
   private unsubscribeAllEvents(): void {
-    if (isFn(this.scrollEventUnsubscriber)) {
+    if (TypeUtils.isFn(this.scrollEventUnsubscriber)) {
       this.scrollEventUnsubscriber();
       this.scrollEventUnsubscriber = null;
     }
-    if (isFn(this.resizeUnsubscriber)) {
+    if (TypeUtils.isFn(this.resizeUnsubscriber)) {
       this.resizeUnsubscriber();
       this.resizeUnsubscriber = null;
     }
