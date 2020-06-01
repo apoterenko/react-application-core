@@ -52,7 +52,7 @@ import {
 import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsEntity } from './sort-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IPresetsSimpleRowEntity } from './row-definition.interface';
+import { IPresetsRowEntity } from './row-definition.interface';
 
 /**
  * @stable [04.03.2020]
@@ -158,7 +158,7 @@ export interface IPresetsBaseListItemEntity<TRawData extends IEntity = IEntity>
  */
 export interface IPresetsListItemEntity<TRawData = IEntity>
   extends IPresetsBaseListItemEntity<TRawData>,
-    IPresetsSimpleRowEntity<TRawData>,
+    IPresetsRowEntity<TRawData>,
     IIndexWrapper {
 }
 
@@ -188,9 +188,7 @@ export interface IDeprecatedListEntity<TEntity = IEntity,
   extends IUniversalListEntity<any, TEntity, TRawData>, // TODO Remove later
     IChangesWrapper,
     IDeactivatedWrapper,
-    IHighlightOddWrapper,
-    IHoveredWrapper,
-    ISelectableWrapper {
+    IHighlightOddWrapper {
 }
 
 /**

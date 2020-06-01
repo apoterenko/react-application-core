@@ -58,7 +58,6 @@ import {
   IValueWrapper,
   IWidthWrapper,
   IWrapperClassNameWrapper,
-  StringNumberT,
 } from '../definitions.interface';
 import {
   ISortDirectionEntity,
@@ -68,7 +67,7 @@ import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IDeprecatedListEntity } from './list-definition.interface';
 import { IGenericBaseComponentProps } from './generic-component-definition.interface';
-import { IPresetsSimpleRowEntity } from './row-definition.interface';
+import { IPresetsRowEntity } from './row-definition.interface';
 
 /**
  * @stable [18.10.2019]
@@ -143,7 +142,7 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
  * @stable [01.06.2020]
  */
 export interface IPresetsGridRowEntity<TEntity extends IEntity = IEntity>
-  extends IPresetsSimpleRowEntity<TEntity> {
+  extends IPresetsRowEntity<TEntity> {
 }
 
 /**
