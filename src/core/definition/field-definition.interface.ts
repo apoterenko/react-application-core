@@ -62,7 +62,6 @@ import {
   StringNumberT,
   UNDEF,
 } from '../definitions.interface';
-import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
 import {
   DatesRangeValueT,
   DateTimeLikeTypeT,
@@ -78,6 +77,7 @@ import {
   IGenericComponentProps,
 } from './generic-component-definition.interface';
 import { IApiEntity } from './api-definition.interface';
+import { IPresetsBaseSelectEntity } from './select-definition.interface';
 
 /**
  * @stable [16.05.2020]
@@ -98,6 +98,7 @@ export interface IPresetsFieldEntity
   extends IActionsWrapper<IFieldActionEntity[]>,
     IAutoFocusWrapper,
     IBindDictionaryWrapper,
+    IChangeableWrapper,
     IDelayTimeoutWrapper,
     IDisplayNameWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
@@ -164,7 +165,6 @@ export interface IGenericFieldEntity2
   extends IGenericFieldEntity,
     IActionsPosition<FieldActionPositionsEnum>,
     IAutoCompleteWrapper,
-    IChangeableWrapper,
     IDefaultValueWrapper,
     IDisabledWrapper,
     IDisplayValueRenderedOnlyWrapper,
@@ -346,7 +346,7 @@ export interface IGenericBaseSelectState
  * @default-entity
  * @stable [19.05.2020]
  */
-export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>({
+export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IPresetsBaseSelectEntity>({
   allowEmptyFilterValue: false,                                                             /* @stable [17.05.2020] */
   anchored: true,                                                                           /* @stable [17.05.2020] */
   expandActionRendered: false,                                                              /* @stable [17.05.2020] */
@@ -355,11 +355,11 @@ export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IBaseSelectProps>
 
 /**
  * @default-entity
- * @stable [16.04.2020]
+ * @stable [01.06.2020]
  */
-export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity2>({
-  readOnly: true,
+export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IPresetsFieldEntity>({
   changeable: false,
+  readOnly: true,
 });
 
 /**

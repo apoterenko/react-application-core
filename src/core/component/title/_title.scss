@@ -1,15 +1,16 @@
-@import '../constant';
-@import '../mixin';
+@import './_title-constant';
+@import './_title-mixin';
 
 .rac {
 
   /**
    * @title
-   * @stable [09.02.2020]
+   * @stable [01.06.2020]
    */
   @include rac-title (
     $rac-title-align-items: $rac-title-align-items,
     $rac-title-border-bottom: $rac-title-border-bottom,
+    $rac-title-content-color: $rac-title-content-color,
     $rac-title-content-edge-background: $rac-title-content-edge-background,
     $rac-title-content-edge-border-radius: $rac-title-content-edge-border-radius,
     $rac-title-content-edge-box-shadow: $rac-title-content-edge-box-shadow,
@@ -23,12 +24,13 @@
     $rac-title-content-padding: $rac-title-content-padding,
     $rac-title-display: $rac-title-display,
     $rac-title-flex: $rac-title-flex,
+    $rac-title-justify-content: $rac-title-justify-content,
     $rac-title-margin: $rac-title-margin,
     $rac-title-right-content-align-items: $rac-title-right-content-align-items,
     $rac-title-right-content-color: $rac-title-right-content-color,
     $rac-title-right-content-display: $rac-title-right-content-display,
     $rac-title-right-content-flex-direction: $rac-title-right-content-flex-direction,
-    $rac-title-right-content-flex: $rac-title-right-content-flex,
+    $rac-title-right-content-flex-grow: $rac-title-right-content-flex-grow,
     $rac-title-right-content-font-size: $rac-title-right-content-font-size,
     $rac-title-right-content-font-weight: $rac-title-right-content-font-weight,
     $rac-title-right-content-justify-content: $rac-title-right-content-justify-content,

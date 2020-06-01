@@ -1,32 +1,34 @@
 import * as React from 'react';
 
 import {
-  calc,
-  joinClassName,
-  nvl,
+  CalcUtils,
+  ClsUtils,
+  PropsUtils,
 } from '../../util';
-import { BaseComponent } from '../base';
-import {
-  IComponentsSettingsEntity,
-  ITitleProps,
-} from '../../definition';
+import { ITitleProps } from '../../definition';
+import { GenericComponent } from '../base/generic.component';
 
-export class Title extends BaseComponent<ITitleProps> {
+/**
+ * @component-impl
+ * @stable [01.06.2020]
+ */
+export class Title extends GenericComponent<ITitleProps> {
 
   /**
-   * @stable [09.02.2020]
+   * @stable [01.06.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-    const {items} = props;
-    const contentBorder = nvl(this.systemSettings.contentBorder, props.contentBorder);
+    const {
+      className,
+      contentBorder,
+      items,
+    } = this.mergedProps;
 
     return (
-      <div className={joinClassName('rac-title', calc(props.className))}>
-        <div
-          className='rac-title__content'>
-          {this.t(props.children as string)}
+      <div className={ClsUtils.joinClassName('rac-title', CalcUtils.calc(className))}>
+        <div className='rac-title__content'>
+          {this.t(this.props.children as string)}
           {contentBorder && <div className='rac-title__content-edge'/>}
         </div>
         {items && (
@@ -39,11 +41,10 @@ export class Title extends BaseComponent<ITitleProps> {
   }
 
   /**
-   * @stable [09.02.2020]
+   * @stable [01.06.2020]
    * @returns {ITitleProps}
    */
-  private get systemSettings(): ITitleProps {
-    const {title = {}} = this.settings.components || {} as IComponentsSettingsEntity;
-    return title;
+  private get mergedProps(): ITitleProps {
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.title);
   }
 }
