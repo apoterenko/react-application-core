@@ -8,33 +8,33 @@ import {
   IDictionariesEntity,
   IExtendedEntity,
   IExtendedFormEntity,
-  IExtendedLabeledValueEntity,
   IFormEntity,
   IFormTabPanelContainerProps,
   IGenericChannelEntity,
   IGenericContainer,
   IGenericNotificationEntity,
-  IReduxStackEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
   IHeaderProps,
   INamedEntity,
   INotificationWrapperEntity,
   IOperationEntity,
+  IPresetsRawDataLabeledValueEntity,
   IPresetsSelectableHoveredEntity,
   IReduxDictionariesEntity,
   IReduxFormEntity,
+  IReduxHolderStackEntity,
+  IReduxHolderUserEntity,
   IReduxSortDirectionsEntity,
+  IReduxStackEntity,
+  IReduxUserEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
-  IReduxHolderStackEntity,
   ITabPanelEntity,
   ITransportEntity,
   ITransportWrapperEntity,
   IUniversalApplicationEntity,
   IUnsavedFormChangesDialogContainerProps,
-  IReduxUserEntity,
-  IReduxHolderUserEntity,
 } from '../definition';
 import {
   AnyT,
@@ -339,10 +339,10 @@ export const mapApiEntity =
 /**
  * @stable [22.04.2020]
  * @param {INamedEntity} entity
- * @returns {IExtendedLabeledValueEntity}
+ * @returns {IPresetsRawDataLabeledValueEntity}
  */
 export const mapExtendedLabeledValueEntity = (entity: INamedEntity) =>
-  defValuesFilter<IExtendedLabeledValueEntity, IExtendedLabeledValueEntity>({
+  defValuesFilter<IPresetsRawDataLabeledValueEntity, IPresetsRawDataLabeledValueEntity>({
     value: entity.id,
     label: entity.name || String(entity.id),
     rawData: entity,

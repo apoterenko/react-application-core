@@ -17,49 +17,51 @@ import {
   IOpenedWrapper,
   IOptionsWrapper,
   IProgressWrapper,
-  IRawDataWrapper,
   IRemoteFilterWrapper,
   IShowWrapper,
   IUseFilterWrapper,
 } from '../definitions.interface';
 import {
-  IBehavioralBaseListItemEntity,
-  IGenericBaseListItemEntity,
-} from './list-definition.interface';
-import { IComponent } from './component-definition.interface';
-import { IComponentProps } from './props-definition.interface';
+  IGenericComponent,
+  IGenericComponentProps,
+} from './generic-component-definition.interface';
 import { IPresetsBaseDialogEntity } from './dialog-definition.interface';
-import { IExtendedLabeledValueEntity } from './entity-definition.interface';
+import {
+  IPresetsRawDataLabeledValueEntity,
+  IPresetsTemplateEntity,
+} from './entity-definition.interface';
+import { IPresetsBaseListItemEntity } from './list-definition.interface';
 
 /**
- * @entity
- * @stable [02.10.2019]
+ * @presets-entity
+ * @stable [01.06.2020]
  */
-export interface IMenuItemEntity<TEntity extends IEntity = IEntity, TValue = EntityIdT>
-  extends IGenericBaseListItemEntity,
-    IExtendedLabeledValueEntity<TEntity, TValue> {
+export interface IPresetsMenuItemEntity<TRawData = IEntity, TValue = EntityIdT>
+  extends IPresetsBaseListItemEntity,
+    IPresetsRawDataLabeledValueEntity<TRawData, TValue> {
 }
 
 /**
- * @entity
- * @stable [02.10.2019]
+ * @presets-entity
+ * @stable [01.06.2020]
  */
-export interface IMenuItemStringValueEntity
-  extends IMenuItemEntity<IEntity, string> {
-}
-
-/**
- * @generic-entity
- * @stable [24.01.2020]
- */
-export interface IGenericMenuEntity<TOptionEntity extends IMenuItemEntity = IMenuItemEntity>
-  extends IPresetsBaseDialogEntity,
+export interface IPresetsMenuEntity
+  extends IPresetsTemplateEntity,
     IDelayTimeoutWrapper,
-    IFilterPlaceholderWrapper,
+    IFilterPlaceholderWrapper {
+}
+
+export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity = IPresetsMenuItemEntity>
+  extends IPresetsMenuEntity,
+    IPresetsBaseDialogEntity,
+    IFilterWrapper<(valueToFilter: string, item: IPresetsMenuItemEntity) => boolean>,
     IHeightRestrictedWrapper,
     IHighlightOddWrapper,
     IMaxCountWrapper,
     IMultiWrapper,
+    IOnCloseWrapper,
+    IOnFilterChangeWrapper<(query: string) => void>,
+    IOnSelectWrapper<IPresetsMenuItemEntity>,
     IOptionsWrapper<TOptionEntity[]>,
     IProgressWrapper,
     IRemoteFilterWrapper,
@@ -67,25 +69,12 @@ export interface IGenericMenuEntity<TOptionEntity extends IMenuItemEntity = IMen
 }
 
 /**
- * @behavioral-entity
- * @stable [24.01.2020]
- */
-export interface IBehavioralMenuEntity
-  extends IBehavioralBaseListItemEntity<IMenuItemEntity>,
-    IFilterWrapper<(valueToFilter: string, item: IMenuItemEntity) => boolean>,
-    IOnCloseWrapper,
-    IOnFilterChangeWrapper<(query: string) => void>,
-    IOnSelectWrapper<IMenuItemEntity> {
-}
-
-/**
  * @props
  * @stable [02.10.2019]
  */
 export interface IMenuProps
-  extends IComponentProps,
-    IGenericMenuEntity,
-    IBehavioralMenuEntity {
+  extends IGenericComponentProps,
+    IGenericMenuEntity {
 }
 
 /**
@@ -110,7 +99,7 @@ export interface IMenuConfigurationEntity<TProps extends IMenuProps = IMenuProps
  * @stable [18.06.2019]
  */
 export interface IMenu
-  extends IComponent<IMenuProps, IMenuState>,
+  extends IGenericComponent<IMenuProps, IMenuState>,
     IShowWrapper<() => void>,
     IIsOpenWrapper,
     IHideWrapper {

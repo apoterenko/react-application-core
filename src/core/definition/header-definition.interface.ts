@@ -11,7 +11,7 @@ import {
 } from '../definitions.interface';
 import {
   IMenuConfigurationEntity,
-  IMenuItemEntity,
+  IPresetsMenuItemEntity,
 } from './menu-definition.interface';
 import { IButtonProps } from './button-definition.interface';
 import { IReduxStoreEntity } from './redux-definition.interface';
@@ -43,7 +43,7 @@ export interface IPresetsHeaderEntity
     IMenuConfigurationEntity,
     INavigationActionConfigurationWrapper<IButtonProps>,
     INavigationActionRenderedWrapper,
-    IOnSelectWrapper<IMenuItemEntity> {
+    IOnSelectWrapper<IPresetsMenuItemEntity> {
 }
 
 /**

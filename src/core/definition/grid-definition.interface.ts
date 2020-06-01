@@ -34,12 +34,10 @@ import {
   IHeaderRendererWrapper,
   IHeaderWidthWrapper,
   IHighlightOddWrapper,
-  IHoveredWrapper,
   IIndexedWrapper,
   IIndexWrapper,
   ILocalFilterWrapper,
   INameWrapper,
-  IOddWrapper,
   IOnChangeBoolValueWrapper,
   IOnClickWrapper,
   IOnColumnClickWrapper,
@@ -50,8 +48,6 @@ import {
   IRenderedWrapper,
   IRendererWrapper,
   IRowNumWrapper,
-  ISelectableWrapper,
-  ISelectedWrapper,
   ISortableWrapper,
   ISorterWrapper,
   IStickyHeadWrapper,
@@ -71,7 +67,8 @@ import {
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IDeprecatedListEntity } from './list-definition.interface';
-import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import { IPresetsSimpleRowEntity } from './row-definition.interface';
 
 /**
  * @stable [18.10.2019]
@@ -138,23 +135,27 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
     IRendererWrapper<TEntity, IGridColumnProps<TEntity>, TEntity[]>,
     /**/
     ILocalFilterWrapper<IGridFilterEntity>,
-    ITplWrapper<((entity: TEntity, column?: IGridColumnProps<TEntity>, rowNum?: number) => StringNumberT)> {
+    ITplWrapper<TEntity, IGridColumnProps<TEntity>, number> {
+}
+
+/**
+ * @presets-entity
+ * @stable [01.06.2020]
+ */
+export interface IPresetsGridRowEntity<TEntity extends IEntity = IEntity>
+  extends IPresetsSimpleRowEntity<TEntity> {
 }
 
 /**
  * @stable [27.10.2019]
  */
 export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
-  extends IEntityWrapper<TEntity>,
-    ISelectedWrapper,
-    IOddWrapper,
+  extends IPresetsGridRowEntity<TEntity>,
     ITotalWrapper,
     IFilterWrapper<boolean>,
     IIndexedWrapper,
     IGroupedWrapper,
     IPartOfGroupWrapper,
-    IHoveredWrapper,
-    ISelectableWrapper,
     IGroupExpandedWrapper {
 }
 
@@ -163,8 +164,7 @@ export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
  */
 export interface IGridRowProps<TEntity extends IEntity = IEntity>
   extends IComponentProps,
-    IGenericGridRowEntity<TEntity>,
-    IOnClickWrapper<TEntity> {
+    IGenericGridRowEntity<TEntity> {
 }
 
 /**
@@ -199,7 +199,7 @@ export interface IGenericGridHeadEntity
  * @stable [20.05.2020]
  */
 export interface IGridHeadProps
-  extends IGenericComponentProps,
+  extends IGenericBaseComponentProps,
     IGenericGridHeadEntity {
 }
 

@@ -13,7 +13,7 @@ import {
 } from '../definitions.interface';
 import {
   IMenuConfigurationEntity,
-  IMenuItemEntity,
+  IPresetsMenuItemEntity,
 } from './menu-definition.interface';
 import {
   IPresetsBaseTextFieldEntity,
@@ -62,7 +62,7 @@ export interface IGenericBaseSelectEntity
  * @stable [25.01.2020]
  */
 export interface ISelectOptionEntity<TRawData = {}>
-  extends IMenuItemEntity<TRawData> {
+  extends IPresetsMenuItemEntity<TRawData> {
 }
 
 /**

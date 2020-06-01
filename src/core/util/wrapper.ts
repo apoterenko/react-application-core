@@ -362,7 +362,7 @@ export const isDisabled = (wrapper: IDisabledWrapper): boolean =>
  * @param {ISelectedWrapper} wrapper
  * @returns {boolean}
  */
-export const isSelected = (wrapper: ISelectedWrapper): boolean =>
+const isSelected = (wrapper: ISelectedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.selected === true;
 
 /**
@@ -370,7 +370,7 @@ export const isSelected = (wrapper: ISelectedWrapper): boolean =>
  * @param {ISelectableWrapper} wrapper
  * @returns {boolean}
  */
-export const isSelectable = (wrapper: ISelectableWrapper): boolean =>
+const isSelectable = (wrapper: ISelectableWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.selectable !== false;
 
 /**
@@ -378,7 +378,7 @@ export const isSelectable = (wrapper: ISelectableWrapper): boolean =>
  * @param {IHoveredWrapper} wrapper
  * @returns {boolean}
  */
-export const isHovered = (wrapper: IHoveredWrapper): boolean =>
+const isHovered = (wrapper: IHoveredWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.hovered !== false;
 
 /**
@@ -386,7 +386,7 @@ export const isHovered = (wrapper: IHoveredWrapper): boolean =>
  * @param {IOddWrapper} wrapper
  * @returns {boolean}
  */
-export const isOdd = (wrapper: IOddWrapper): boolean =>
+const isOdd = (wrapper: IOddWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.odd === true;
 
 /**
@@ -394,7 +394,7 @@ export const isOdd = (wrapper: IOddWrapper): boolean =>
  * @param {ILastWrapper} wrapper
  * @returns {boolean}
  */
-export const isLast = (wrapper: ILastWrapper): boolean =>
+const isLast = (wrapper: ILastWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.last === true;
 
 /**
@@ -654,7 +654,7 @@ export const isWrapped = (entity: IWrappedWrapper): boolean =>
  * @param {IIconLeftAlignedWrapper} entity
  * @returns {boolean}
  */
-export const isIconLeftAligned = (entity: IIconLeftAlignedWrapper): boolean =>
+const isIconLeftAligned = (entity: IIconLeftAlignedWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.iconLeftAligned !== false, false);
 
 /**
@@ -702,9 +702,16 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  */
 export class WrapperUtils {
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
+  public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isForceReload = isForceReload;                                    /* @stable [18.05.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
+  public static readonly isHovered = isHovered;                                            /* @stable [01.06.2020] */
+  public static readonly isIconLeftAligned = isIconLeftAligned;                            /* @stable [01.06.2020] */
+  public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
+  public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */
+  public static readonly isSelectable = isSelectable;                                      /* @stable [01.06.2020] */
+  public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
   public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */
 }

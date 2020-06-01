@@ -18,35 +18,32 @@ import {
   IGroupValueWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
-  IIconLeftAlignedWrapper,
-  IIconWrapper,
   IIndexWrapper,
   IItemConfigurationWrapper,
   IKeyValue,
-  ILastWrapper,
   IListConfigurationWrapper,
   IListWrapper,
   ILocalSortingWrapper,
-  IOddWrapper,
   IOnChangeFilterWrapper,
   IOnChangeHeaderWrapper,
   IOnChangeWrapper,
-  IOnClickWrapper,
   IOnCreateWrapper,
   IOnSelectWrapper,
   IOriginalDataWrapper,
   IRawDataWrapper,
-  IRendererWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
   ISorterWrapper,
-  ITplWrapper,
-  StringNumberT,
 } from '../definitions.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
-import { IReduxLifeCycleEntity } from './entity-definition.interface';
+import {
+  IPresetsIconEntity,
+  IPresetsSelectableHoveredEntity,
+  IPresetsTemplateEntity,
+  IReduxLifeCycleEntity,
+} from './entity-definition.interface';
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
@@ -55,6 +52,7 @@ import {
 import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsEntity } from './sort-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IPresetsSimpleRowEntity } from './row-definition.interface';
 
 /**
  * @stable [04.03.2020]
@@ -83,15 +81,6 @@ export interface IReduxPaginatedDataEntity<TEntity = IEntity,
 }
 
 /**
- * @presets-entity
- * @stable [10.05.2020]
- */
-export interface IPresetsSelectableHoveredEntity
-  extends IHoveredWrapper,
-    ISelectableWrapper {
-}
-
-/**
  * @redux-entity
  * @stable [08.05.2020]
  */
@@ -110,6 +99,7 @@ export interface IReduxListEntity<TEntity = IEntity,
  */
 export interface IPresetsListEntity
   extends IPresetsSelectableHoveredEntity,
+    IPresetsSelectedElementEntity,
     IFullWrapper,
     IGroupByWrapper<IGenericListGroupByEntity>,
     ISorterWrapper {
@@ -127,8 +117,7 @@ export interface IGenericListEntity<TEntity = IEntity,
     IEmptyDataMessageWrapper,
     IEmptyMessageWrapper<string | boolean>,
     ILocalSortingWrapper,
-    IOriginalDataWrapper<TEntity[]>,
-    IPresetsSelectedElementEntity {
+    IOriginalDataWrapper<TEntity[]> {
 }
 
 /**
@@ -154,55 +143,40 @@ export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
 }
 
 /**
- * @generic-entity
- * @stable [17.01.2020]
+ * @presets-entity
+ * @stable [01.06.2020]
  */
-export interface IGenericBaseListItemEntity
-  extends IPresetsSelectableHoveredEntity,
-    IDisabledWrapper,
-    IIconLeftAlignedWrapper,
-    IIconWrapper {
+export interface IPresetsBaseListItemEntity<TRawData extends IEntity = IEntity>
+  extends IPresetsTemplateEntity<TRawData>,
+    IPresetsIconEntity,
+    IDisabledWrapper {
+}
+
+/**
+ * @presets-entity
+ * @stable [01.06.2020]
+ */
+export interface IPresetsListItemEntity<TRawData = IEntity>
+  extends IPresetsBaseListItemEntity<TRawData>,
+    IPresetsSimpleRowEntity<TRawData>,
+    IIndexWrapper {
 }
 
 /**
  * @generic-entity
- * @stable [17.01.2020]
+ * @stable [01.06.2020]
  */
-export interface IGenericListItemEntity<TEntity extends IEntity = IEntity>
-  extends IGenericBaseListItemEntity,
-    IIndexWrapper,
-    ILastWrapper,
-    IOddWrapper,
-    IRawDataWrapper<TEntity>,
-    ISelectedWrapper {
-}
-
-/**
- * @behavioral-entity
- * @stable [30.01.2020]
- */
-export interface IBehavioralBaseListItemEntity<TEntity = IEntity>
-  extends IRendererWrapper<TEntity, number>,
-    ITplWrapper<(entity: TEntity) => StringNumberT> {
-}
-
-/**
- * @behavioral-entity
- * @stable [26.01.2020]
- */
-export interface IBehavioralListItemEntity<TEntity extends IEntity = IEntity>
-  extends IBehavioralBaseListItemEntity<TEntity>,
-    IOnClickWrapper<TEntity> {
+export interface IGenericListItemEntity<TEntity = IEntity>
+  extends IPresetsListItemEntity<TEntity> {
 }
 
 /**
  * @props
- * @stable [26.01.2020]
+ * @stable [01.06.2020]
  */
-export interface IListItemProps<TEntity extends IEntity = IEntity>
+export interface IListItemProps<TEntity = IEntity>
   extends IGenericBaseComponentProps,
-    IGenericListItemEntity<TEntity>,
-    IBehavioralListItemEntity<TEntity> {
+    IGenericListItemEntity<TEntity> {
 }
 
 /**

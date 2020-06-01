@@ -26,7 +26,6 @@
   $rac-form-layout-self-field-height: unset,                                              /* @stable [30.10.2019] */
   $rac-form-layout-self-field-icon-color: unset,                                          /* @stable [30.10.2019] */
   $rac-form-layout-self-field-icon-padding: unset,                                        /* @stable [09.11.2019] */
-  $rac-form-layout-self-field-input-caret-bottom: unset,                                  /* @stable [09.11.2019] */
   $rac-form-layout-self-field-input-color: unset,                                         /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-font-size: unset,                                     /* @stable [30.10.2019] */
   $rac-form-layout-self-field-input-placeholder-color: unset,                             /* @stable [30.10.2019] */
@@ -54,7 +53,6 @@
       $rac-self-field-height: $rac-form-layout-self-field-height,
       $rac-self-field-icon-color: $rac-form-layout-self-field-icon-color,
       $rac-self-field-icon-padding: $rac-form-layout-self-field-icon-padding,
-      $rac-self-field-input-caret-bottom: $rac-form-layout-self-field-input-caret-bottom,
       $rac-self-field-input-color: $rac-form-layout-self-field-input-color,
       $rac-self-field-input-font-size: $rac-form-layout-self-field-input-font-size,
       $rac-self-field-input-placeholder-color: $rac-form-layout-self-field-input-placeholder-color,

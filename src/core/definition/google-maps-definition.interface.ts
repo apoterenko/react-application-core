@@ -18,7 +18,7 @@ import {
   IZoomWrapper,
 } from '../definitions.interface';
 import { ILatLngEntity } from './place-definition.interface';
-import { IMenuItemEntity } from './menu-definition.interface';
+import { IPresetsMenuItemEntity } from './menu-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
@@ -26,7 +26,7 @@ import { IGenericComponentProps } from './generic-component-definition.interface
  * @stable [09.01.2020]
  */
 export interface IGoogleMapsMenuItemEntity
-  extends IItemWrapper<IMenuItemEntity>,
+  extends IItemWrapper<IPresetsMenuItemEntity>,
     ILatLngEntity {
 }
 
@@ -98,7 +98,7 @@ export enum GoogleMapsMapTypesEnum {
  */
 export interface IPresetsGoogleMapsEntity
   extends IInitialMarkersWrapper<google.maps.MarkerOptions[]>,
-    IMenuOptionsWrapper<IMenuItemEntity[]>,
+    IMenuOptionsWrapper<IPresetsMenuItemEntity[]>,
     IOnChangePlaceWrapper<IGoogleMapsMarkerPlaceEventEntity>,
     IOnClickPlaceWrapper<IGoogleMapsMarkerPlaceEventEntity>,
     IOnClickWrapper<IGoogleMapsEventEntity>,

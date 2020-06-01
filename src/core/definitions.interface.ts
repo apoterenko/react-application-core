@@ -533,7 +533,7 @@ export interface ITotalEntityWrapper<TValue = AnyT> { totalEntity?: TValue; }
 export interface ITotalWrapper<TValue = boolean> { total?: TValue; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface IToWrapper<TValue = string> { to?: TValue; }
-export interface ITplWrapper<TValue> { tpl?: TValue; }
+export interface ITplWrapper<T1 = {}, T2 = {}, T3 = {}> { tpl?(value1?: T1, value2?: T2, value3?: T3): StringNumberT; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface ITransportWrapper<TValue> { transport?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
@@ -713,12 +713,6 @@ export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
  */
 export interface IOpenWrapper<TOpen = boolean> {
   open?: TOpen;
-}
-
-/**
- * @stable [07.06.2018]
- */
-export interface ITplFnWrapper<TItem = IEntity, TResult = StringNumberT> extends ITplWrapper<(item: TItem) => TResult> {
 }
 
 /**
