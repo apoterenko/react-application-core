@@ -239,30 +239,6 @@
   }
 }
 
-/**
- * @stable [11.06.2019]
- */
-@mixin rac-shadow(
-  $background: unset,
-  $shadow: unset,
-  $shadow-offset: 0 6px 16px 0
-) {
-  @include rac-styles(
-    $rac-styles-background: $background
-  );
-  @if $shadow != unset {
-    @if $shadow == none {
-      @include rac-styles(
-        $rac-styles-box-shadow: $shadow
-      );
-    } @else {
-      @include rac-styles(
-        $rac-styles-box-shadow: $shadow-offset $shadow
-      );
-    }
-  }
-}
-
 // TODO deprecated
 @mixin rac-shadowed($background: unset,
                     $shadow: unset,

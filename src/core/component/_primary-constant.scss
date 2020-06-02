@@ -225,12 +225,42 @@ $rac-primary-color-ganymede-9: rgba(255, 191, 0, .9) !default;
 
 /* tartarus */
 $rac-primary-color-tartarus-0: rgb(242, 181, 0) !default;  // #f2b500
+$rac-primary-color-tartarus-1: rgba(242, 181, 0, .1) !default;
+$rac-primary-color-tartarus-2: rgba(242, 181, 0, .2) !default;
+$rac-primary-color-tartarus-3: rgba(242, 181, 0, .3) !default;
+$rac-primary-color-tartarus-4: rgba(242, 181, 0, .4) !default;
+$rac-primary-color-tartarus-5: rgba(242, 181, 0, .5) !default;
+$rac-primary-color-tartarus-6: rgba(242, 181, 0, .6) !default;
+$rac-primary-color-tartarus-7: rgba(242, 181, 0, .7) !default;
+$rac-primary-color-tartarus-8: rgba(242, 181, 0, .8) !default;
+$rac-primary-color-tartarus-9: rgba(242, 181, 0, .9) !default;
 
 /* aphrodite */
 $rac-primary-color-aphrodite-0: #f96f00 !default;
 
 /* dia */
-$rac-primary-color-dia-0: #ed254e !default;
+$rac-primary-color-dia-0: rgb(237, 37, 78) !default;  // #ed254e
+$rac-primary-color-dia-1: rgba(237, 37, 78, .1) !default;
+$rac-primary-color-dia-2: rgba(237, 37, 78, .2) !default;
+$rac-primary-color-dia-3: rgba(237, 37, 78, .3) !default;
+$rac-primary-color-dia-4: rgba(237, 37, 78, .4) !default;
+$rac-primary-color-dia-5: rgba(237, 37, 78, .5) !default;
+$rac-primary-color-dia-6: rgba(237, 37, 78, .6) !default;
+$rac-primary-color-dia-7: rgba(237, 37, 78, .7) !default;
+$rac-primary-color-dia-8: rgba(237, 37, 78, .8) !default;
+$rac-primary-color-dia-9: rgba(237, 37, 78, .9) !default;
+
+/* erebus */
+$rac-primary-color-erebus-0: rgb(224, 13, 58) !default;  // #e00d3a
+$rac-primary-color-erebus-1: rgba(224, 13, 58, .1) !default;
+$rac-primary-color-erebus-2: rgba(224, 13, 58, .2) !default;
+$rac-primary-color-erebus-3: rgba(224, 13, 58, .3) !default;
+$rac-primary-color-erebus-4: rgba(224, 13, 58, .4) !default;
+$rac-primary-color-erebus-5: rgba(224, 13, 58, .5) !default;
+$rac-primary-color-erebus-6: rgba(224, 13, 58, .6) !default;
+$rac-primary-color-erebus-7: rgba(224, 13, 58, .7) !default;
+$rac-primary-color-erebus-8: rgba(224, 13, 58, .8) !default;
+$rac-primary-color-erebus-9: rgba(224, 13, 58, .9) !default;
 
 /* hermes */
 $rac-primary-color-hermes-0: rgb(91, 186, 111) !default;  // #5bba6f
@@ -284,6 +314,8 @@ $rac-primary-label-color-0: $rac-primary-color-poseidon-0 !default;
 /* @stable [04.05.2020] */
 /************************/
 $rac-primary-shadow-offset-0: 0 6px 16px 0 !default;
+$rac-primary-shadow-offset-1: 0px 2px 12px 0px !default;
+$rac-primary-shadow-offset-2: 0px 2px 6px 0px !default;
 
 /************************/
 /* @stable [04.05.2020] */
