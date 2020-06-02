@@ -50,15 +50,6 @@ html, body {
     }
   }
 
-  @include rac-styles(                                                                        /* @stable [20.01.2019] */
-    $rac-styles-custom: rac-absolute-full,
-    $rac-styles-position: absolute,
-    $rac-styles-top: 0,
-    $rac-styles-left: 0,
-    $rac-styles-width: 100%,
-    $rac-styles-height: 100%
-  );
-
   @include rac-icon($rac-icon-custom: $rac-action-icon-cls,                                   /* @stable [07.03.2019] */
                     $rac-icon-size: $rac-action-icon-size,
                     $rac-icon-color: $rac-action-icon-color,

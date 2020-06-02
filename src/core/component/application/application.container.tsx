@@ -110,7 +110,7 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
   protected prepareMessage(message: IUiMessageConfigEntity): IUiMessageConfigEntity {
     return {
       ...message,
-      wrapperClassName: 'rac-application-message-wrapper',
+      wrapperClassName: 'rac-application-message',
     };
   }
 

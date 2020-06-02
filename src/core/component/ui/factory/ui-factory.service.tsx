@@ -12,7 +12,6 @@ import {
   ComponentClassesEnum,
   ErrorEventCategoriesEnum,
   IconClassesEnum,
-  IconsEnum,
   IDomAccessor,
   IEnvironment,
   IIconConfigEntity,
@@ -23,6 +22,7 @@ import {
   IUiIconFactory,
   IUiMessageConfigEntity,
   IUniversalStoreEntity,
+  UiFactoryClassesEnum,
 } from '../../../definition';
 import { ISettingsEntity } from '../../../settings';
 import {
@@ -107,7 +107,7 @@ export class UiFactory implements IUiFactory {
       return body;
     }
     return (
-      <div className={joinClassName(...this.getMessageWrapperClassNames(), cfg.wrapperClassName)}>
+      <div className={joinClassName(...this.getMessageClassNames(), cfg.wrapperClassName)}>
         {body}
       </div>
     );
@@ -236,8 +236,8 @@ export class UiFactory implements IUiFactory {
    * @stable [28.11.2019]
    * @returns {string[]}
    */
-  protected getMessageWrapperClassNames(): string[] {
-    return ['rac-message-wrapper', ComponentClassesEnum.FULL_SIZE, ComponentClassesEnum.FIXED];
+  protected getMessageClassNames(): string[] {
+    return [UiFactoryClassesEnum.MESSAGE, ComponentClassesEnum.FULL_SIZE, ComponentClassesEnum.FIXED];
   }
 
   /**
@@ -245,7 +245,7 @@ export class UiFactory implements IUiFactory {
    * @returns {string[]}
    */
   protected getMessageBodyClassNames(): string[] {
-    return ['rac-message-body', ComponentClassesEnum.ALIGNMENT_CENTER];
+    return [UiFactoryClassesEnum.MESSAGE_BODY, ComponentClassesEnum.ALIGNMENT_CENTER];
   }
 
   /**

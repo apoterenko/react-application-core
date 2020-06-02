@@ -1,5 +1,6 @@
-@import './mixin';
+@import './_core-mixin';
 @import './_core-constant';
+@import './icon/_icon-mixin';
 
 .rac {
 
@@ -294,20 +295,20 @@
 
   /**
    * @application-message
-   * @stable [28.11.2019]
+   * @stable [02.06.2020]
    */
-  @include rac-message-wrapper (
-    $rac-message-wrapper-custom: rac-application-message-wrapper,
+  @include rac-message (
+    $rac-message-custom: rac-application-message,
+    $rac-message-background-size: $rac-application-message-background-size,
+    $rac-message-background: $rac-application-message-background,
     $rac-message-body-color: $rac-application-message-body-color,
-    $rac-message-body-font-size: $rac-application-message-body-font-size,
-    $rac-message-wrapper-background-size: $rac-application-message-wrapper-background-size,
-    $rac-message-wrapper-background: $rac-application-message-wrapper-background
+    $rac-message-body-font-size: $rac-application-message-body-font-size
   );
 }
 
 /**
  * @perfect-scrollbar
- * @stable [06.12.2019]
+ * @stable [02.06.2020]
  */
 @include rac-perfect-scrollbar (
   $rac-perfect-scrollbar-custom: rac,

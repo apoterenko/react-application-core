@@ -76,3 +76,12 @@ export interface IUiMessageConfigEntity
     IClassNameWrapper,
     IWrapperClassNameWrapper {
 }
+
+/**
+ * @classes
+ * @stable [02.06.2020]
+ */
+export enum UiFactoryClassesEnum {
+  MESSAGE = 'rac-message',
+  MESSAGE_BODY = 'rac-message-body',
+}
