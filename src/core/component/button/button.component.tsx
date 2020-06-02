@@ -4,10 +4,7 @@ import * as R from 'ramda';
 import {
   CalcUtils,
   ClsUtils,
-  handlerPropsFactory,
-  hasIcon,
-  isDecorated,
-  isFull,
+  ConditionUtils,
   ObjectUtils,
   PropsUtils,
   WrapperUtils,
@@ -67,7 +64,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
             style={$mergedProps.style}
             className={className}
             disabled={$disabled}
-            {...handlerPropsFactory($mergedProps.onClick, !$disabled, $mergedProps.touched)}
+            {...PropsUtils.buildClickHandlerProps($mergedProps.onClick, !$disabled, $mergedProps.touched)}
             onMouseEnter={$mergedProps.onMouseEnter}
             onMouseLeave={$mergedProps.onMouseLeave}
           >
@@ -172,8 +169,8 @@ export class Button extends GenericBaseComponent<IButtonProps> {
       ButtonClassesEnum.BUTTON,
       CalcUtils.calc($mergedProps.className),
       $hasContent ? ButtonClassesEnum.BUTTON_FILLED : ButtonClassesEnum.BUTTON_NOT_FILLED,
-      this.isFull($mergedProps) && ButtonClassesEnum.FULL_BUTTON,
-      this.isDecorated($mergedProps) && $hasIcon && ButtonClassesEnum.BUTTON_DECORATED,
+      WrapperUtils.isFull($mergedProps) && ButtonClassesEnum.FULL_BUTTON,
+      WrapperUtils.isDecorated($mergedProps) && $hasIcon && ButtonClassesEnum.BUTTON_DECORATED,
       $mergedProps.mini && ButtonClassesEnum.BUTTON_MINI,
       $mergedProps.outlined && ButtonClassesEnum.BUTTON_OUTLINED,
       $mergedProps.raised && ButtonClassesEnum.BUTTON_RAISED
@@ -190,30 +187,15 @@ export class Button extends GenericBaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [13.05.2020]
+   * @stable [02.06.2020]
    * @param {IButtonProps} $mergedProps
    * @returns {boolean}
    */
   private hasIcon($mergedProps: IButtonProps): boolean {
-    return hasIcon($mergedProps);
-  }
-
-  /**
-   * @stable [13.05.2020]
-   * @param {IButtonProps} $mergedProps
-   * @returns {boolean}
-   */
-  private isFull($mergedProps: IButtonProps): boolean {
-    return isFull($mergedProps);
-  }
-
-  /**
-   * @stable [13.05.2020]
-   * @param {IButtonProps} $mergedProps
-   * @returns {boolean}
-   */
-  private isDecorated($mergedProps: IButtonProps): boolean {
-    return isDecorated($mergedProps);
+    return ConditionUtils.ifNotNilThanValue(
+      $mergedProps,
+      (entity) => !R.isNil(entity.icon) && entity.icon !== false, false
+    );
   }
 
   /**
@@ -226,10 +208,10 @@ export class Button extends GenericBaseComponent<IButtonProps> {
   }
 
   /**
-   * @stable [29.05.2020]
+   * @stable [02.06.2020]
    * @returns {IButtonProps}
    */
-  private get mergedProps(): IButtonProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.button);
+  protected get settingsProps(): IButtonProps {
+    return this.componentsSettings.button;
   }
 }

@@ -4,7 +4,6 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
-  PropsUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
 import { Button } from '../button';
@@ -198,10 +197,10 @@ export class Header extends GenericComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [22.05.2020]
+   * @stable [02.06.2020]
    * @returns {IHeaderProps}
    */
-  private get mergedProps(): IHeaderProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.header);
+  protected get settingsProps(): IHeaderProps {
+    return this.componentsSettings.header;
   }
 }

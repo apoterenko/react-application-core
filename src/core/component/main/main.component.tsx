@@ -9,7 +9,6 @@ import {
 import {
   CalcUtils,
   ClsUtils,
-  PropsUtils,
   WrapperUtils,
 } from '../../util';
 import { EnhancedGenericComponent } from '../base/enhanced-generic.component';
@@ -60,10 +59,10 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
   }
 
   /**
-   * @stable [22.05.2020]
+   * @stable [02.06.2020]
    * @returns {IMainProps}
    */
-  private get mergedProps(): IMainProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.main);
+  protected get settingsProps(): IMainProps {
+    return this.componentsSettings.main;
   }
 }

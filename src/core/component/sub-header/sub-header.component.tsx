@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
-  PropsUtils,
   TypeUtils,
 } from '../../util';
 import { Button } from '../button';
@@ -70,10 +69,10 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
   }
 
   /**
-   * @stable [22.05.2020]
+   * @stable [02.06.2020]
    * @returns {ISubHeaderProps}
    */
-  private get mergedProps(): ISubHeaderProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.subHeader);
+  protected get settingsProps(): ISubHeaderProps {
+    return this.componentsSettings.subHeader;
   }
 }

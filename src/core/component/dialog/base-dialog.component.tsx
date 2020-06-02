@@ -22,7 +22,6 @@ import {
   isScrollable,
   joinClassName,
   orNull,
-  PropsUtils,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
@@ -290,6 +289,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         callback.call(this);
       }
     });
+  }
+
+  /**
+   * @stable [11.05.2020]
+   * @returns {TProps}
+   */
+  protected get settingsProps(): TProps {
+    return this.componentsSettings.dialog as TProps;
   }
 
   /**
@@ -657,13 +664,5 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return isCheckModalNeeded(this.mergedProps) && (
       this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement)
     );
-  }
-
-  /**
-   * @stable [11.05.2020]
-   * @returns {TProps}
-   */
-  private get mergedProps(): TProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.dialog) as TProps;
   }
 }

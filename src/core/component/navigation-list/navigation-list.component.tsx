@@ -2,12 +2,10 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  ClsUtils,
+  ConditionUtils,
   FilterUtils,
-  ifNotNilThanValue,
-  isFull,
-  joinClassName,
-  mergeWithSystemProps,
-  orNull,
+  WrapperUtils,
 } from '../../util';
 import { Link } from '../link';
 import { Menu } from '../menu';
@@ -61,7 +59,7 @@ export class NavigationList
         className={this.asClassName($mergedProps)}
       >
         {$items.map((item) => this.toElement(item, $mergedProps))}
-        {ifNotNilThanValue(activeGroup, () => this.asPopupMenuElement($items, activeGroup))}
+        {ConditionUtils.ifNotNilThanValue(activeGroup, () => this.asPopupMenuElement($items, activeGroup))}
       </nav>
     );
   }
@@ -94,7 +92,7 @@ export class NavigationList
           <div
             ref={groupRef}
             key={this.asUniqueKey(item.label, 'label')}
-            className={joinClassName(
+            className={ClsUtils.joinClassName(
               this.asItemClassName(true, isGroupItemActive, $isExpanded),
               ind === this.props.items.lastIndexOf(item) && !$isExpanded && 'rac-navigation-list__last-section',
             )}
@@ -113,7 +111,7 @@ export class NavigationList
           </div>
         );
       default:
-        return orNull(
+        return ConditionUtils.orNull(
           $isGroup || $isFullModeEnabled && $isExpanded,
           () => this.asItemElement(item, $isGroup, $isFullModeEnabled, $isExpanded)
         );
@@ -127,7 +125,7 @@ export class NavigationList
   private onPopupMenuItemSelect(option: IPresetsMenuItemEntity<INavigationListItemEntity>): void {
     this.setState(
       {activeGroup: null},
-      () => ifNotNilThanValue(this.props.onClick, (onClick) => onClick(option.rawData))
+      () => ConditionUtils.ifNotNilThanValue(this.props.onClick, (onClick) => onClick(option.rawData))
     );
   }
 
@@ -141,7 +139,7 @@ export class NavigationList
                        $mergedProps: INavigationListProps,
                        $isFullModeEnabled: boolean): void {
     if ($isFullModeEnabled) {
-      ifNotNilThanValue($mergedProps.onGroupClick, (onGroupClick) => onGroupClick($entity));
+      ConditionUtils.ifNotNilThanValue($mergedProps.onGroupClick, (onGroupClick) => onGroupClick($entity));
     } else {
       this.setState({activeGroup: $entity}, () => this.menuRef.current.show());
     }
@@ -178,7 +176,10 @@ export class NavigationList
     if (NAVIGATION_EXTRA_ITEM_TYPES.includes(item.type)) {
       return null;
     }
-    return ifNotNilThanValue(item.parent, (parent) => orNull(parent.value === activeGroup.value, item));
+    return ConditionUtils.ifNotNilThanValue(
+      item.parent,
+      (parent) => ConditionUtils.orNull(parent.value === activeGroup.value, item)
+    );
   }
 
   private asPopupMenuElement($items: INavigationListItemEntity[],
@@ -235,7 +236,7 @@ export class NavigationList
   private asItemIconElement(item: INavigationListItemEntity, extraClassName?: string): JSX.Element {
     return this.uiFactory.makeIcon({
       type: item.icon || IconsEnum.LIST_UL,
-      className: joinClassName(
+      className: ClsUtils.joinClassName(
         NavigationListClassesEnum.NAVIGATION_LIST_SECTION_ICON,
         extraClassName
       ),
@@ -273,7 +274,7 @@ export class NavigationList
                           $isActive: boolean,
                           $isExpanded: boolean): string {
     return (
-      joinClassName(
+      ClsUtils.joinClassName(
         NavigationListClassesEnum.NAVIGATION_LIST_SECTION,
         $isGroup
           ? NavigationListClassesEnum.NAVIGATION_LIST_GROUP_SECTION
@@ -292,10 +293,10 @@ export class NavigationList
    */
   private asClassName($mergedProps: INavigationListProps): string {
     return (
-      joinClassName(
+      ClsUtils.joinClassName(
         NavigationListClassesEnum.NAVIGATION_LIST,
         !this.isFullLayoutModeEnabled($mergedProps) && NavigationListClassesEnum.MINI_NAVIGATION_LIST,
-        isFull($mergedProps) && NavigationListClassesEnum.FULL_NAVIGATION_LIST,
+        WrapperUtils.isFull($mergedProps) && NavigationListClassesEnum.FULL_NAVIGATION_LIST,
       )
     );
   }
@@ -310,11 +311,11 @@ export class NavigationList
   }
 
   /**
-   * @stable [14.05.2020]
+   * @stable [02.06.2020]
    * @returns {INavigationListProps}
    */
-  private get mergedProps(): INavigationListProps {
-    return mergeWithSystemProps(this.props, this.settings.components.navigationList);
+  protected get settingsProps(): INavigationListProps {
+    return this.componentsSettings.navigationList;
   }
 
   /**

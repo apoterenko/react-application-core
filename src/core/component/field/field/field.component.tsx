@@ -17,7 +17,6 @@ import {
   CalcUtils,
   ConditionUtils,
   FieldUtils,
-  PropsUtils,
   TypeUtils,
   WrapperUtils,
 } from '../../../util';
@@ -224,10 +223,10 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [31.05.2020]
+   * @stable [02.06.2020]
    * @returns {TProps}
    */
-  protected get mergedProps(): TProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.field) as TProps;
+  protected get settingsProps(): TProps {
+    return this.componentsSettings.field as TProps;
   }
 }

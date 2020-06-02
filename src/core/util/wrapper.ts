@@ -203,14 +203,6 @@ export const isFull = (entity: IFullWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.full !== false, false);
 
 /**
- * @stable [02.02.2020]
- * @param {IIconWrapper<boolean | string>} entity
- * @returns {boolean}
- */
-export const hasIcon = (entity: IIconWrapper<boolean | string>): boolean =>
-  ifNotNilThanValue(entity, () => !R.isNil(entity.icon) && entity.icon !== false, false);
-
-/**
  * @stable [24.01.2020]
  * @param {IScrollableWrapper} entity
  * @returns {boolean}
@@ -496,8 +488,8 @@ export const isSyntheticCursorUsed = (wrapper: ISyntheticCursorWrapper): boolean
  * @param {IDecoratedWrapper} wrapper
  * @returns {boolean}
  */
-export const isDecorated = (wrapper: IDecoratedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.decorated !== false, false);
+const isDecorated = (wrapper: IDecoratedWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.decorated !== false;
 
 /**
  * @stable [13.11.2019]
@@ -702,6 +694,7 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  */
 export class WrapperUtils {
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
+  public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isForceReload = isForceReload;                                    /* @stable [18.05.2020] */

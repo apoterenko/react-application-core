@@ -40,6 +40,7 @@ import {
   IDateConverter,
   INumberConverter,
 } from '../../converter';
+import { PropsUtils } from '../../util';
 
 export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IGenericBaseComponentProps,
   TState = {},
@@ -79,6 +80,22 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get originalProps(): TProps {
     return this.props;
+  }
+
+  /**
+   * @stable [02.06.2020]
+   * @returns {TProps}
+   */
+  protected get mergedProps(): TProps {
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.settingsProps);
+  }
+
+  /**
+   * @stable [02.06.2020]
+   * @returns {TProps}
+   */
+  protected get settingsProps(): TProps {
+    return null;
   }
 
   /**

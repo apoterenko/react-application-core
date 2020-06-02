@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
-  PropsUtils,
 } from '../../util';
 import { GenericBaseComponent } from '../base/generic-base.component';
 import {
@@ -43,10 +42,10 @@ export class Drawer extends GenericBaseComponent<IDrawerProps> {
   }
 
   /**
-   * @stable [29.05.2020]
+   * @stable [02.06.2020]
    * @returns {IDrawerProps}
    */
-  private get mergedProps(): IDrawerProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.drawer);
+  protected get settingsProps(): IDrawerProps {
+    return this.componentsSettings.drawer;
   }
 }

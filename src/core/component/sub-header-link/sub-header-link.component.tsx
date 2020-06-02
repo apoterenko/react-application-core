@@ -62,10 +62,10 @@ export class SubHeaderLink extends GenericBaseComponent<ISubHeaderLinkProps> {
   }
 
   /**
-   * @stable [22.05.2020]
+   * @stable [02.06.2020]
    * @returns {ISubHeaderLinkProps}
    */
-  private get mergedProps(): ISubHeaderLinkProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.subHeaderLink);
+  protected get settingsProps(): ISubHeaderLinkProps {
+    return this.componentsSettings.subHeaderLink;
   }
 }

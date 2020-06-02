@@ -5,10 +5,7 @@ import {
   IGridHeadProps,
   UniversalStickyContext,
 } from '../../../definition';
-import {
-  ClsUtils,
-  PropsUtils,
-} from '../../../util';
+import { ClsUtils } from '../../../util';
 import { GenericBaseComponent } from '../../base/generic-base.component';
 
 /**
@@ -41,10 +38,10 @@ export class GridHead extends GenericBaseComponent<IGridHeadProps> {
   }
 
   /**
-   * @stable [20.05.2020]
+   * @stable [02.06.2020]
    * @returns {IGridHeadProps}
    */
-  private get mergedProps(): IGridHeadProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.gridHead);
+  protected get settingsProps(): IGridHeadProps {
+    return this.componentsSettings.gridHead;
   }
 }

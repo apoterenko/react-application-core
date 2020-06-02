@@ -151,10 +151,10 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
   }
 
   /**
-   * @stable [01.06.2020]
+   * @stable [02.06.2020]
    * @returns {IListItemProps}
    */
-  private get mergedProps(): IListItemProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.listItem);
+  protected get settingsProps(): IListItemProps {
+    return this.componentsSettings.listItem;
   }
 }

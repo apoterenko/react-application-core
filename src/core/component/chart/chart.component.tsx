@@ -7,7 +7,6 @@ import {
   ClsUtils,
   ConditionUtils,
   FilterUtils,
-  PropsUtils,
   WrapperUtils,
 } from '../../util';
 import {
@@ -121,10 +120,10 @@ export class Chart extends GenericComponent<IChartProps> {
   }
 
   /**
-   * @stable [22.05.2020]
+   * @stable [02.06.2020]
    * @returns {IChartProps}
    */
-  private get mergedProps(): IChartProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.chart);
+  protected get settingsProps(): IChartProps {
+    return this.componentsSettings.chart;
   }
 }

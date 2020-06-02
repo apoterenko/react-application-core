@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
-  PropsUtils,
 } from '../../../util';
 import { GenericComponent } from '../../base/generic.component';
 import {
@@ -48,10 +47,10 @@ export class FormLayout extends GenericComponent<IFormLayoutProps> {
   }
 
   /**
-   * @stable [31.05.2020]
+   * @stable [02.06.2020]
    * @returns {IFormLayoutProps}
    */
-  private get mergedProps(): IFormLayoutProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.formLayout);
+  protected get settingsProps(): IFormLayoutProps {
+    return this.componentsSettings.formLayout;
   }
 }

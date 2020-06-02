@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
-  PropsUtils,
 } from '../../util';
 import { ITitleProps } from '../../definition';
 import { GenericComponent } from '../base/generic.component';
@@ -41,10 +40,10 @@ export class Title extends GenericComponent<ITitleProps> {
   }
 
   /**
-   * @stable [01.06.2020]
+   * @stable [02.06.2020]
    * @returns {ITitleProps}
    */
-  private get mergedProps(): ITitleProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettings.title);
+  protected get settingsProps(): ITitleProps {
+    return this.componentsSettings.title;
   }
 }
