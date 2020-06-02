@@ -316,3 +316,13 @@
   $rac-perfect-scrollbar-background-color: $rac-perfect-scrollbar-background-color,
   $rac-perfect-scrollbar-rail-background-color: $rac-perfect-scrollbar-rail-background-color
 );
+
+/**
+ * @scrollbar
+ * @stable [02.06.2020]
+ */
+@include rac-scrollbar (
+  $rac-scrollbar-size: $rac-scrollbar-size,
+  $rac-scrollbar-thumb-background: $rac-scrollbar-thumb-background,
+  $rac-scrollbar-track-background: $rac-scrollbar-track-background
+);

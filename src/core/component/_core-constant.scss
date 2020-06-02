@@ -122,3 +122,10 @@ $rac-application-message-body-font-size: unset !default;
 /************************/
 $rac-sticky-fixed-position: fixed !default;
 $rac-sticky-fixed-z-index: $rac-primary-z-index-0 !default;
+
+/************************/
+/* @stable [02.06.2020] */
+/************************/
+$rac-scrollbar-size: 6px !default;
+$rac-scrollbar-thumb-background: $rac-primary-color-poseidon-4 !default;
+$rac-scrollbar-track-background: transparent !default;

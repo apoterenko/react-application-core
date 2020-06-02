@@ -5,7 +5,6 @@ $opacity: .5 !default;
 $rac-opacity: .5 !default;
 $snackbar-z-index: 9999 !default;
 $color-4: #989898 !default;
-$color-8: #d8ddde !default;
 $color-10: #e1e1e1 !default;
 $color-11: #ff0000 !default;
 $color-17: #57fff1 !default;
@@ -39,11 +38,6 @@ $rac-triangle-color: $color-4 !default;
 
 /* @stable [26.06.2018] */
 $rac-min-width: unset !default;
-
-/* @stable [26.06.2018] */
-$rac-scrollbar-width: 6px !default;
-$rac-scrollbar-height: 6px !default;
-$rac-scrollbar-thumb-background-color: $color-8 !default;
 
 /* @stable [27.01.2019] */
 $rac-keyboard-background: unset !default;

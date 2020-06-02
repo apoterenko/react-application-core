@@ -734,22 +734,51 @@
  * @stable [02.06.2020]
  */
 @mixin rac-shadow (
-  $background: unset,
-  $shadow: unset,
-  $shadow-offset: 0 6px 16px 0
+  $rac-background: unset,
+  $rac-shadow: unset,
+  $rac-shadow-offset: 0 6px 16px 0
 ) {
   @include rac-styles (
-    $rac-styles-background: $background
+    $rac-styles-background: $rac-background
   );
-  @if $shadow != unset {
-    @if $shadow == none {
+  @if $rac-shadow != unset {
+    @if $rac-shadow == none {
       @include rac-styles (
-        $rac-styles-box-shadow: $shadow
+        $rac-styles-box-shadow: $rac-shadow
       );
     } @else {
       @include rac-styles (
-        $rac-styles-box-shadow: $shadow-offset $shadow
+        $rac-styles-box-shadow: $rac-shadow-offset $rac-shadow
       );
     }
+  }
+}
+
+/**
+ * @stable [02.06.2020]
+ */
+@mixin rac-scrollbar (
+  $rac-scrollbar-size: unset,
+  $rac-scrollbar-thumb-background: unset,
+  $rac-scrollbar-track-background: unset
+) {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width:  $rac-scrollbar-size;
+    height: $rac-scrollbar-size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $rac-scrollbar-thumb-background;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $rac-scrollbar-track-background;
+  }
+
+  // For Internet Explorer
+  & {
+    scrollbar-face-color: $rac-scrollbar-thumb-background;
+    scrollbar-track-color: $rac-scrollbar-track-background;
   }
 }
