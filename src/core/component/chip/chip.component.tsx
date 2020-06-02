@@ -1,37 +1,54 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../base';
-import { FlexLayout } from '../layout/flex';
-import { IChipProps } from './chip.interface';
-import { IconsEnum } from '../../definition';
+import { GenericComponent } from '../base';
+import {
+  IChipProps,
+  IconsEnum,
+} from '../../definition';
 
-export class Chip extends BaseComponent<IChipProps> {
+/**
+ * @component-impl
+ * @stable [02.06.2020]
+ */
+export class Chip extends GenericComponent<IChipProps> {
 
   /**
-   * @stable [09.04.2019]
+   * @stable [02.06.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      disabled,
+      onClick,
+    } = this.mergedProps;
+
+    const {children} = this.props;
+
     return (
       <div className='rac-chip'>
-        <FlexLayout
-          row={true}
-          alignItemsCenter={true}>
-          <span
-            className='rac-chip-description rac-overflow-ellipsis'
-            title={String(props.children)}>
-            {props.children}
-          </span>
-          {
-            this.uiFactory.makeIcon({
-              type: IconsEnum.TIMES,
-              disabled: props.disabled,
-              onClick: props.onClick,
-            })
-          }
-        </FlexLayout>
+        <span
+          className='rac-chip__content'
+          title={String(children)}
+        >
+          {children}
+        </span>
+        {
+          this.uiFactory.makeIcon({
+            className: 'rac-chip__close',
+            disabled,
+            onClick,
+            type: IconsEnum.TIMES,
+          })
+        }
       </div>
     );
+  }
+
+  /**
+   * @stable [02.06.2020]
+   * @returns {IChipProps}
+   */
+  protected get settingsProps(): IChipProps {
+    return this.componentsSettings.chip;
   }
 }

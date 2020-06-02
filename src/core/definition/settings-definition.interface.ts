@@ -1,7 +1,8 @@
 import { ElementsMarkersEnum } from './dom-definition.interface';
-import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TDO
+import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
 import { IButtonProps } from './button-definition.interface';
 import { IChartProps } from './chart-definition.interface';
+import { IChipProps } from './chip-definition.interface';
 import {
   IDefaultLayoutProps,
   IFormLayoutProps,
@@ -114,6 +115,7 @@ export interface IComponentsSettingsEntity {
   baseSelect?: IBaseSelectProps;
   button?: IButtonProps;
   chart?: IChartProps;
+  chip?: IChipProps;
   defaultLayout?: IDefaultLayoutProps;
   dialog?: IDialogProps;
   drawer?: IDrawerProps;

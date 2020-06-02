@@ -39,17 +39,6 @@ html, body {
     }
   }
 
-  .rac-triangle {
-    position: absolute;                                                             /* @stable [26.10.2018] */
-    width: 0;                                                                       /* @stable [26.10.2018] */
-    height: 0;                                                                      /* @stable [26.10.2018] */
-
-    &.rac-triangle-left-top {
-      border-left: $rac-triangle-size solid transparent;                            /* @stable [26.10.2018] */
-      border-top: $rac-triangle-size solid $rac-triangle-color;                     /* @stable [26.10.2018] */
-    }
-  }
-
   @include rac-icon($rac-icon-custom: $rac-action-icon-cls,                                   /* @stable [07.03.2019] */
                     $rac-icon-size: $rac-action-icon-size,
                     $rac-icon-color: $rac-action-icon-color,

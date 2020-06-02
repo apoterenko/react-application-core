@@ -4,13 +4,15 @@ import * as R from 'ramda';
 import { Chip } from '../../chip';
 import {
   coalesce,
-  joinClassName,
   NAME_ASC_SORTER_FN,
   uuid,
 } from '../../../util';
 import { EntityIdT } from '../../../definitions.interface';
 import { IChipsFieldProps, IChipsFieldState } from './chipsfield.interface';
-import { INamedEntity } from '../../../definition';
+import {
+  FieldClassesEnum,
+  INamedEntity,
+} from '../../../definition';
 import { MultiField } from '../multifield';
 
 export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
@@ -21,7 +23,7 @@ export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
    */
   protected getAttachmentElement(): JSX.Element {
     return (
-      <div className='rac-field-chips-wrapper'>
+      <div className={FieldClassesEnum.FIELD_CHIPS}>
         {R.sort((o1, o2) => NAME_ASC_SORTER_FN(o1.name, o2.name),
           this.multiFieldPlugin.activeValue).map((item) => {
             const id = coalesce(item.id, item.value, uuid());
@@ -38,10 +40,6 @@ export class ChipsField extends MultiField<IChipsFieldProps, IChipsFieldState> {
         )}
       </div>
     );
-  }
-
-  protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-chips-field');
   }
 
   /**

@@ -1,0 +1,49 @@
+@import '../_core-mixin';
+@import '../icon/_icon-mixin';
+
+/**
+ * @stable [02.06.2020]
+ */
+@mixin rac-chip (
+  $rac-chip-custom: unset,
+  /**/
+  $rac-chip-align-items: unset,                                                              /* @stable [02.06.2020] */                                                           /* @stable [09.02.2020] */
+  $rac-chip-background: unset,                                                               /* @stable [02.06.2020] */
+  $rac-chip-border-radius: unset,                                                            /* @stable [02.06.2020] */
+  $rac-chip-close-background: unset,                                                         /* @stable [02.06.2020] */
+  $rac-chip-close-content-size: unset,                                                       /* @stable [02.06.2020] */
+  $rac-chip-content-font-size: unset,                                                        /* @stable [02.06.2020] */
+  $rac-chip-content-padding: unset,                                                          /* @stable [02.06.2020] */
+  $rac-chip-display: unset,                                                                  /* @stable [02.06.2020] */
+  $rac-chip-justify-content: unset,                                                          /* @stable [02.06.2020] */
+  $rac-chip-margin: unset,                                                                   /* @stable [02.06.2020] */
+  $rac-chip-min-height: unset,                                                               /* @stable [02.06.2020] */
+  $rac-chip-padding: unset,                                                                  /* @stable [02.06.2020] */
+  $rac-chip-white-space: unset                                                               /* @stable [02.06.2020] */
+) {
+  #{rac-cls(rac-chip, $rac-chip-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-chip-align-items,
+      $rac-styles-background: $rac-chip-background,
+      $rac-styles-border-radius: $rac-chip-border-radius,
+      $rac-styles-display: $rac-chip-display,
+      $rac-styles-justify-content: $rac-chip-justify-content,
+      $rac-styles-margin: $rac-chip-margin,
+      $rac-styles-min-height: $rac-chip-min-height,
+      $rac-styles-padding: $rac-chip-padding,
+      $rac-styles-white-space: $rac-chip-white-space
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-chip__content,
+      $rac-styles-font-size: $rac-chip-content-font-size,
+      $rac-styles-padding: $rac-chip-content-padding
+    );
+
+    @include rac-icon (
+      $rac-icon-custom: rac-chip__close,
+      $rac-icon-background: $rac-chip-close-background,
+      $rac-icon-content-size: $rac-chip-close-content-size
+    );
+  }
+}

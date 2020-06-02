@@ -2,13 +2,11 @@
 @import './button/_button-constant';
 
 $opacity: .5 !default;
-$rac-opacity: .5 !default;
 $snackbar-z-index: 9999 !default;
 $color-4: #989898 !default;
 $color-10: #e1e1e1 !default;
 $color-11: #ff0000 !default;
 $color-17: #57fff1 !default;
-$color-22: #f2f2f2 !default;
 
 /**/
 $rac-z-index-keyboard: 4 !default;
@@ -18,8 +16,6 @@ $rac-z-index-keyboard: 4 !default;
 /************************/
 /**/
 $rac-field-height-1: 40px !default;
-/**/
-$rac-letter-spacing-0: 0 !default;
 /**/
 $rac-layout-offset-0: 24px !default;
 
@@ -31,10 +27,6 @@ $rac-action-icon-cursor: pointer !default;
 
 /* @stable [21.09.2018] */
 $html-overflow: hidden !default;
-
-/* @stable [27.10.2018] */
-$rac-triangle-size: 10px !default;
-$rac-triangle-color: $color-4 !default;
 
 /* @stable [26.06.2018] */
 $rac-min-width: unset !default;
@@ -248,9 +240,6 @@ $rac-grid-row-total-border-right: unset !default;
 $rac-grid-row-total-font-weight: $rac-primary-font-weight-4 !default;
 $rac-grid-row-width: 100% !default;
 /**/
-$rac-time-grid-column-hover-background-color: $color-10 !default;
-$rac-time-grid-time-header-column-content-letter-spacing: $rac-letter-spacing-0 !default;
-/**/
 $rac-grid-wrapper-display: flex !default;
 $rac-grid-wrapper-flex-direction: row !default;
 $rac-grid-wrapper-flex-grow: 1 !default;
@@ -267,7 +256,6 @@ $rac-base-select-cls: rac-base-select;
 $rac-base-text-cls: rac-base-text;
 $rac-checkbox-cls: rac-checkbox;
 $rac-checked-cls: rac-checked;
-$rac-chips-field-cls: rac-chips-field;
 $rac-field-actioned-cls: rac-field-actioned;
 $rac-field-busy-cls: rac-field-busy;
 $rac-field-disabled-cls: rac-field-disabled;
@@ -344,11 +332,9 @@ $rac-checkbox-self-field-input-wrapper-border-radius: $rac-primary-border-radius
 $rac-checkbox-self-field-input-wrapper-border: 1px solid $rac-checkbox-color-0 !default;
 $rac-checkbox-self-field-input-wrapper-justify-content: center !default;
 $rac-checkbox-self-field-input-wrapper-size: 16px !default;
-$rac-chips-field-min-height: unset !default;
 $rac-cron-field-labeled-self-field-label-position: $rac-field-label-position-0 !default;                  /* @stable [04.03.2020] */
 $rac-cron-field-labeled-self-field-label-top: -$rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
 $rac-cron-field-labeled-self-field-margin-top: $rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
-$rac-field-chips-wrapper-margin: 8px 0 0 0 !default;
 $rac-field-display: flex !default;
 $rac-field-flex-direction: column !default;
 $rac-field-help-text-font-size: 10px !default;
@@ -472,22 +458,6 @@ $rac-filter-active-top: unset !default;
 $rac-filter-active-right: 8px !default;
 $rac-filter-active-bottom: 18px !default;
 $rac-filter-active-font-size: 18px !default;
-
-/* @stable [24.06.2018] */
-$rac-chip-padding: 6px 20px !default;
-$rac-chip-margin-right: 8px !default;
-$rac-chip-margin-bottom: 4px !default;
-$rac-chip-border-radius: 16px !default;
-$rac-chip-color: $rac-primary-color-elara-0 !default;
-$rac-chip-background-size: contain !default;
-$rac-chip-background: $color-4 !default;
-$rac-chip-icon-width: $rac-icon-width0 !default;
-$rac-chip-icon-height: $rac-icon-height0 !default;
-$rac-chip-icon-color: $rac-primary-color-elara-0 !default;
-$rac-chip-description-font-weight: $rac-primary-font-weight-2 !default;
-$rac-chip-description-max-width: 120px !default;
-$rac-chip-description-font-size: $rac-primary-font-size-0 !default;
-$rac-chip-description-line-height: 22px !default;
 
 /************************/
 /* @stable [17.03.2020] */

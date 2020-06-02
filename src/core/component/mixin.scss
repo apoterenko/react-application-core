@@ -1,6 +1,7 @@
 @import './button/_button-mixin';
 @import './card-list/_card-list-mixin';
 @import './chart/_chart-mixin';
+@import './chip/_chip-mixin';
 @import './drawer/_drawer-mixin';
 @import './form/_form-mixin';
 @import './header/_header-mixin';
@@ -327,6 +328,10 @@
   $rac-field-align-items: unset,                                                    /* @stable [30.10.2019] */
   $rac-field-background: unset,                                                     /* @stable [09.02.2020] */
   $rac-field-border-radius: unset,                                                  /* @stable [09.02.2020] */
+  $rac-field-chips-chip-margin: unset,                                              /* @stable [02.06.2020] */
+  $rac-field-chips-display: unset,                                                  /* @stable [02.06.2020] */
+  $rac-field-chips-margin: unset,                                                   /* @stable [02.06.2020] */
+  $rac-field-chips-neighbor-child-margin: unset,                                    /* @stable [02.06.2020] */
   $rac-field-display: unset,                                                        /* @stable [28.10.2019] */
   $rac-field-flex-direction: unset,                                                 /* @stable [28.10.2019] */
   $rac-field-height: unset,
@@ -348,7 +353,6 @@
   $rac-field-margin-top: unset,
   $rac-field-margin: unset,                                                         /* @stable [30.10.2019] */
   $rac-field-max-width: unset,
-  $rac-field-min-height: unset,                                                     /* @stable [30.01.2020] */
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
   $rac-field-padding: unset,
   $rac-field-position: unset,                                                       /* @stable [15.02.2020] */
@@ -452,7 +456,6 @@
       $rac-styles-margin-top: $rac-field-margin-top,
       $rac-styles-margin: $rac-field-margin,
       $rac-styles-max-width: $rac-field-max-width,
-      $rac-styles-min-height: $rac-field-min-height,
       $rac-styles-overflow: $rac-field-overflow,
       $rac-styles-padding: $rac-field-padding,
       $rac-styles-position: $rac-field-position,
@@ -600,6 +603,21 @@
           $rac-viewer-margin: $rac-self-field-viewer-margin
         );
       }
+    }
+
+    > .rac-field__chips {
+      @include rac-styles (
+        $rac-styles-display: $rac-field-chips-display,
+        $rac-styles-margin: $rac-field-chips-margin
+      );
+
+      @include rac-chip (
+        $rac-chip-margin: $rac-field-chips-chip-margin
+      );
+
+      @include rac-neighbor-child (
+        $rac-neighbor-child-margin: $rac-field-chips-neighbor-child-margin
+      );
     }
 
     > .rac-field__inline-options {
