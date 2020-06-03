@@ -10,10 +10,8 @@ import {
   calc,
   ConditionUtils,
   DelayedTask,
-  inProgress,
   isAllowEmptyFilterValue,
   isAnchored,
-  isDef,
   isExpandActionRendered,
   isFn,
   isForceUseLocalFilter,
@@ -152,7 +150,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [11.01.2020]
    */
   public openMenu(): void {
-    if (this.isFieldBusy() || this.isMenuAlreadyRenderedAndOpened) {
+    if (this.isFieldBusy || this.isMenuAlreadyRenderedAndOpened) {
       return;
     }
     const $isForceReload = this.isForceReload;
@@ -210,7 +208,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     );
 
     if (isQuickSearchEnabled && !isLocalOptionsUsed) {
-      if (this.isFieldBusy()) {
+      if (this.isFieldBusy) {
         BaseSelect.logger.debug('[$BaseSelect][onClick] The field is busy. Do nothing...');
       } else {
         this.notifyQuickSearchFilterChange();
@@ -268,7 +266,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
           ref={this.menuRef}
           anchorElement={orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
           width={orNull(this.isMenuAnchored, () => this.getMenuWidth)}
-          progress={this.isFieldBusy()}
+          progress={this.isFieldBusy}
           options={this.getFilteredOptions()}
           onSelect={this.onSelect}
           onFilterChange={this.onFilterChange}
@@ -313,11 +311,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
+   * @stable [03.06.2020]
    * @returns {boolean}
    */
-  protected isFieldBusy(): boolean {
-    return inProgress(this.state);
+  protected get isFieldBusy(): boolean {
+    return WrapperUtils.inProgress(this.state);
   }
 
   /**
@@ -354,7 +352,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected notifySelectOption(option: ISelectOptionEntity): void {
     const onSelect = this.props.onSelect;
-    if (!isDef(option) || !isFn(onSelect)) {
+    if (!TypeUtils.isDef(option) || !TypeUtils.isFn(onSelect)) {
       return;
     }
     onSelect(option);
@@ -523,7 +521,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private startQuickSearchIfApplicable(noDelay = false): boolean {
     const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const isFieldBusy = this.isFieldBusy();
+    const isFieldBusy = this.isFieldBusy;
     const isLocalOptionsUsed = this.isLocalOptionsUsed;
 
     if (!isQuickSearchEnabled || isFieldBusy || isLocalOptionsUsed) {

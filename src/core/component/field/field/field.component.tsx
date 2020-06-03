@@ -10,6 +10,8 @@ import {
   IField,
   IFieldInputAttributes,
   IFieldProps,
+  IMaskedInputCtor,
+  InputElementT,
 } from '../../../definition';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import { IUniversalFieldState } from './field.interface';
@@ -18,6 +20,7 @@ import {
   ConditionUtils,
   FieldUtils,
   TypeUtils,
+  ValueUtils,
   WrapperUtils,
 } from '../../../util';
 import { Info } from '../../info';
@@ -27,12 +30,49 @@ export class Field<TProps extends IFieldProps,
   extends EnhancedGenericComponent<TProps, TState>
   implements IField<TProps, TState> {
 
+  protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
+
+  /**
+   * @stable [03.06.2020]
+   * @param {TProps} props
+   */
+  constructor(props: TProps) {
+    super(props);
+    this.state = {} as TState;
+
+    this.onChangeManually = this.onChangeManually.bind(this);
+  }
+
+  /**
+   * @stable [03.06.2020]
+   */
+  public componentDidMount(): void {
+    super.componentDidMount();
+
+    // Need to invoke a user validator if it exists (After F5, etc...)
+    this.validateValueAndSetCustomValidity(this.value);
+
+    if (this.mergedProps.autoFocus) {
+      this.setFocus();
+    }
+  }
+
   /**
    * @stable [17.05.2020]
    * @param {ChangeEventT} event
    */
   public onChange(event: ChangeEventT): void {
     this.onChangeValue(this.getRawValueFromEvent(event));
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @param {TValue} currentRawValue
+   */
+  public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
+    if (WrapperUtils.isPreventManualChanges(this.mergedProps)) {
+      this.onChangeValue(currentRawValue);
+    }
   }
 
   public setFocus(): void {
@@ -46,6 +86,26 @@ export class Field<TProps extends IFieldProps,
    */
   public getRawValueFromEvent(event: ChangeEventT): AnyT {
     return event.target.value;
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @returns {AnyT}
+   */
+  public get value(): AnyT {
+    const value = this.originalProps.value;
+    return this.isValueDefined(value) ? value : this.defaultValue;
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @returns {InputElementT}
+   */
+  public get input(): InputElementT {
+    return ConditionUtils.ifNotNilThanValue(
+      this.inputRef.current,
+      (input) => (input as IMaskedInputCtor).inputElement || input as InputElementT
+    );
   }
 
   /**
@@ -76,6 +136,21 @@ export class Field<TProps extends IFieldProps,
 
   protected validateField(rawValue: AnyT): void {
     // TODO
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @param {AnyT} value
+   * @returns {string}
+   */
+  protected validateValueAndSetCustomValidity(value: AnyT): string {
+    if (this.hasInput) {
+      this.input.setCustomValidity('');
+    }
+    if (this.isInputValid) {
+      return null;
+    }
+    return this.inputValidationMessage;
   }
 
   /**
@@ -168,16 +243,16 @@ export class Field<TProps extends IFieldProps,
    * @returns {JSX.Element}
    */
   protected get progressInfoElement(): JSX.Element {
-    return ConditionUtils.orNull(this.isFieldBusy(), () => <Info progress={true}/>);
+    return ConditionUtils.orNull(this.isFieldBusy, () => <Info progress={true}/>);
   }
 
   /**
-   * @stable [17.05.2020]
+   * @stable [03.06.2020]
    * @returns {AnyT}
    */
   protected get emptyValue(): AnyT {
-    const mergedProps = this.mergedProps;
-    return TypeUtils.isDef(mergedProps.emptyValue) ? mergedProps.emptyValue : this.originalEmptyValue;
+    const {emptyValue} = this.originalProps;
+    return TypeUtils.isDef(emptyValue) ? emptyValue : this.originalEmptyValue;
   }
 
   /**
@@ -189,15 +264,15 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [18.05.2020]
-   * @returns {boolean}
+   * @stable [03.06.2020]
+   * @returns {AnyT}
    */
-  protected get isFieldRendered(): boolean {
-    return WrapperUtils.isFieldRendered(this.props);
+  protected get defaultValue(): AnyT {
+    return this.originalProps.defaultValue;
   }
 
   /**
-   * @stable [18.05.2020]
+   * @stable [03.06.2020]
    * @param {AnyT} value
    * @returns {boolean}
    */
@@ -206,7 +281,15 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [18.05.2020]
+   * @stable [03.06.2020]
+   * @returns {boolean}
+   */
+  protected get isValuePresent(): boolean {
+    return ValueUtils.isValuePresent(this.value, this.emptyValue);
+  }
+
+  /**
+   * @stable [03.06.2020]
    * @param {AnyT} value
    * @returns {boolean}
    */
@@ -215,15 +298,55 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [19.05.2020]
+   * @stable [03.06.2020]
    * @returns {boolean}
    */
-  protected isFieldBusy(): boolean {
+  protected get isInputValid(): boolean {
+    return !this.hasInput || this.input.validity.valid;
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @returns {boolean}
+   */
+  protected get isFocusPrevented() {
+    return WrapperUtils.isFocusPrevented(this.mergedProps);
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @returns {boolean}
+   */
+  protected get isFieldBusy(): boolean {
     return WrapperUtils.inProgress(this.mergedProps);
   }
 
   /**
-   * @stable [02.06.2020]
+   * @stable [03.06.2020]
+   * @returns {boolean}
+   */
+  protected get isFieldRendered(): boolean {
+    return WrapperUtils.isFieldRendered(this.mergedProps);
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @returns {boolean}
+   */
+  protected get hasInput(): boolean {
+    return !R.isNil(this.inputRef.current);
+  }
+
+  /**
+   * @stable [03.06.2020]
+   * @returns {string}
+   */
+  protected get inputValidationMessage(): string {
+    return this.input.validationMessage;
+  }
+
+  /**
+   * @stable [03.06.2020]
    * @returns {TProps}
    */
   protected get settingsProps(): TProps {

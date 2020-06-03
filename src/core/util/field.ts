@@ -67,15 +67,6 @@ export const isFieldInactive = (props: IGenericFieldEntity2): boolean =>
   isDisabled(props) || isReadOnly(props) || inProgress(props);
 
 /**
- * @stable [30.10.2019]
- * @param {AnyT} value
- * @param {AnyT} emptyValue
- * @returns {boolean}
- */
-export const isValuePresent = (value: AnyT, emptyValue: AnyT): boolean =>
-  TypeUtils.isDef(value) && !R.equals(value, emptyValue);
-
-/**
  * @stable [27.08.2019]
  * @param {EntityIdT} key
  * @returns {string}

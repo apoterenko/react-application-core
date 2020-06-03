@@ -274,6 +274,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @returns {boolean}
    */
   private get isDownloadActionDisabled(): boolean {
-    return this.isDisabled || this.isFieldBusy() || this.isValueNotPresent;
+    return this.isDisabled || this.isFieldBusy || this.isValueNotPresent;
   }
 }

@@ -46,7 +46,6 @@ export class Field2<TProps extends IFieldProps2,
     implements IField<TProps, TState> {
 
   protected defaultActions: IFieldActionEntity[] = [];
-  protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
 
   /**
    * @stable [28.10.2019]
@@ -155,17 +154,6 @@ export class Field2<TProps extends IFieldProps2,
   }
 
   /**
-   * @stable [28.10.2019]
-   * @returns {InputElementT}
-   */
-  public get input(): InputElementT {
-    return ifNotNilThanValue(
-      this.inputRef.current,
-      (input) => (input as IMaskedInputCtor).inputElement || input as InputElementT
-    );
-  }
-
-  /**
    * @stable [29.10.2019]
    * @returns {JSX.Element}
    */
@@ -232,14 +220,6 @@ export class Field2<TProps extends IFieldProps2,
   }
 
   /**
-   * @stable [28.10.2019]
-   * @returns {boolean}
-   */
-  protected get hasInput(): boolean {
-    return !R.isNil(this.inputRef.current);
-  }
-
-  /**
    * @stable [20.08.2018]
    */
   protected removeFocus(): void {
@@ -276,7 +256,7 @@ export class Field2<TProps extends IFieldProps2,
     const minLength = props.minLength;                                                                      /* @stable [28.10.2019] */
     const name = props.name;                                                                                /* @stable [28.10.2019] */
     const pattern = this.getFieldPattern();                                                                 /* @stable [29.10.2019] */
-    const placeholder = orUndef(props.placeholder && !this.isFieldBusy(), () => this.t(props.placeholder)); /* @stable [29.10.2019] */
+    const placeholder = orUndef(props.placeholder && !this.isFieldBusy, () => this.t(props.placeholder));   /* @stable [29.10.2019] */
     const readOnly = this.isInactive;                                                                       /* @stable [28.10.2019] */
     const required = this.isRequired;                                                                       /* @stable [29.10.2019] */
     const rows = props.rows;                                                                                /* @stable [28.10.2019] */
@@ -319,7 +299,7 @@ export class Field2<TProps extends IFieldProps2,
       'rac-field',
       isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
       this.isRequired && 'rac-field-required',
-      this.isFieldBusy() && 'rac-field-busy',
+      this.isFieldBusy && 'rac-field-busy',
       this.isFieldInvalid() && 'rac-field-invalid',
       this.isValuePresent ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isChangeable ? 'rac-field-changeable' : 'rac-field-not-changeable',
@@ -340,32 +320,6 @@ export class Field2<TProps extends IFieldProps2,
    */
   protected getSelfElementClassName(): string {
     return FieldClassesEnum.FIELD_SELF;
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @returns {boolean}
-   */
-  protected isInputValid(): boolean {
-    return !this.hasInput || this.input.validity.valid;
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @returns {string}
-   */
-  protected getNativeInputValidationMessage(): string {
-    return this.input.validationMessage;
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @param {string} error
-   */
-  protected setNativeInputValidity(error: string): void {
-    if (this.hasInput) {
-      this.input.setCustomValidity(error);
-    }
   }
 
   /**

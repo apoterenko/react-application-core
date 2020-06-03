@@ -17,19 +17,15 @@ import {
   isFieldInactive,
   isFn,
   isFocused,
-  isFocusPrevented,
   isKeyboardOpen,
   isKeyboardUsed,
   isPlainValueApplied,
-  isPreventManualChanges,
   isReadOnly,
   isRequired,
   isSyntheticCursorUsed,
   isValid,
-  isValuePresent,
   isVisible,
   notNilValuesFilter,
-  TypeUtils,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -65,7 +61,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     super(props);
 
     this.onChange = this.onChange.bind(this);
-    this.onChangeManually = this.onChangeManually.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
@@ -73,28 +68,12 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
     this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
 
-    this.state = {} as TState;
-
     if (this.isKeyboardUsed && this.isSyntheticCursorUsed) {
       this.caretBlinkingTask = new DelayedTask(
         this.setCaretVisibility.bind(this),
         props.caretBlinkingFrequencyTimeout || UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
         true
       );
-    }
-  }
-
-  /**
-   * @stable [20.08.2018]
-   */
-  public componentDidMount(): void {
-    super.componentDidMount();
-
-    // Need to invoke a user validator if it exists (After F5, etc...)
-    this.validateValueAndSetCustomValidity(this.value);
-
-    if (this.props.autoFocus) {
-      this.setFocus();
     }
   }
 
@@ -135,16 +114,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     const props = this.props;
     if (isFn(props.onClear)) {
       props.onClear();
-    }
-  }
-
-  /**
-   * @stable [03.02.2020]
-   * @param {TValue} currentRawValue
-   */
-  public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
-    if (isPreventManualChanges(this.props)) {
-      this.onChangeValue(currentRawValue);
     }
   }
 
@@ -237,15 +206,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [09.05.2020]
-   * @returns {AnyT}
-   */
-  public get value(): AnyT {
-    const value = this.props.value;
-    return this.isValueDefined(value) ? value : this.defaultValue;
-  }
-
-  /**
    * @stable [29.10.2019]
    * @param {boolean} usePrintf
    * @param {AnyT} args
@@ -279,45 +239,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected isFieldInvalid(): boolean {
     return !isValid(this.props) || !R.isNil(this.error);
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @param {AnyT} value
-   * @returns {string}
-   */
-  protected validateValueAndSetCustomValidity(value: AnyT): string {
-    let error = null;
-    this.setNativeInputValidity('');
-
-    if (!this.isInputValid()) {
-      error = this.getNativeInputValidationMessage();
-    }
-    return error;
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {boolean}
-   */
-  protected isInputValid(): boolean {
-    return true;
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @returns {string}
-   */
-  protected getNativeInputValidationMessage(): string {
-    return null;
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @param {string} error
-   */
-  protected setNativeInputValidity(error: string): void {
-    // Do nothing
   }
 
   /**
@@ -461,7 +382,7 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     }
     const result = this.decoratedDisplayValue;
     return R.isNil(result)
-      ? (this.isFieldBusy() ? this.getWaitMessageElement() : result)
+      ? (this.isFieldBusy ? this.getWaitMessageElement() : result)
       : result;
   }
 
@@ -519,14 +440,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected isKeyboardOpen(): boolean {
     return isKeyboardOpen(this.state);
-  }
-
-  /**
-   * @stable [24.10.2019]
-   * @returns {boolean}
-   */
-  protected get isFocusPrevented() {
-    return isFocusPrevented(this.props);
   }
 
   /**
@@ -603,24 +516,8 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [21.12.2019]
    * @returns {boolean}
    */
-  protected get isValuePresent(): boolean {
-    return isValuePresent(this.value, this.emptyValue);
-  }
-
-  /**
-   * @stable [21.12.2019]
-   * @returns {boolean}
-   */
   protected get isDisplayValueDefined(): boolean {
     return isDef(this.props.displayValue);
-  }
-
-  /**
-   * @stable [21.12.2019]
-   * @returns {AnyT}
-   */
-  protected get defaultValue(): AnyT {
-    return this.props.defaultValue;
   }
 
   /**
@@ -628,7 +525,7 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {AnyT}
    */
   protected get displayValue(): AnyT {
-    return !this.isValuePresent || (this.isFocusPrevented && this.isFieldBusy())
+    return !this.isValuePresent || (this.isFocusPrevented && this.isFieldBusy)
       ? FieldConstants.DISPLAY_EMPTY_VALUE
       : this.decoratedDisplayValue;
   }
