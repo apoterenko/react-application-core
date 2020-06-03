@@ -109,11 +109,18 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [18.05.2020]
+   * @stable [03.06.2020]
    * @param {AnyT} currentRawValue
    */
   protected onChangeValue(currentRawValue: AnyT): void {
     const mergedProps = this.mergedProps;
+    const {
+      onChange,
+      onFormChange,
+    } = mergedProps;
+    const {
+      name,
+    } = this.originalProps;
 
     const actualFieldValue = FieldUtils.asActualFieldValue({
       ...mergedProps as {},
@@ -123,15 +130,8 @@ export class Field<TProps extends IFieldProps,
 
     this.validateField(actualFieldValue);
 
-    ConditionUtils.ifNotNilThanValue(
-      mergedProps.onChange,
-      (onChange) => onChange(actualFieldValue)
-    );
-
-    ConditionUtils.ifNotNilThanValue(
-      mergedProps.onFormChange,
-      (onFormChange) => onFormChange(mergedProps.name, actualFieldValue)
-    );
+    ConditionUtils.ifNotNilThanValue(onChange, () => onChange(actualFieldValue));
+    ConditionUtils.ifNotNilThanValue(onFormChange, () => onFormChange(name, actualFieldValue));
   }
 
   protected validateField(rawValue: AnyT): void {
@@ -160,7 +160,7 @@ export class Field<TProps extends IFieldProps,
    * @returns {AnyT}
    */
   protected getDecoratedDisplayValue(value: AnyT, forceApplyValue = false): AnyT {
-    const {displayValue} = this.props;
+    const {displayValue} = this.originalProps;
 
     return R.isNil(displayValue)
       ? this.decorateDisplayValue(value)
@@ -318,7 +318,7 @@ export class Field<TProps extends IFieldProps,
    * @returns {boolean}
    */
   protected get isFieldBusy(): boolean {
-    return WrapperUtils.inProgress(this.mergedProps);
+    return WrapperUtils.inProgress(this.originalProps);
   }
 
   /**
