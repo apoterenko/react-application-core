@@ -1,0 +1,38 @@
+@import '../../_primary-constant';
+@import '../../_classes';
+@import '../../constant';
+
+/************************/
+/* @stable [03.06.2020] */
+/************************/
+$rac-switch-self-field-height: $rac-primary-field-size-0 !default;
+$rac-switch-self-field-input-height: $rac-primary-size-5 !default;
+$rac-switch-self-field-input-width: $rac-primary-size-9 !default;
+$rac-switch-self-field-input-wrapper-background: $rac-primary-color-poseidon-2 !default;
+$rac-switch-self-field-input-wrapper-border-radius: 12px !default;
+$rac-switch-self-field-input-wrapper-box-shadow: unset !default;
+
+/************************/
+/* @stable [03.06.2020] */
+/************************/
+$rac-switch-thumb-background: $rac-primary-color-poseidon-7 !default;
+
+
+/* @stable [31.05.2019] */
+/**/
+$rac-switch-thumb--disabled-opacity: .5 !default;
+$rac-switch-thumb--offset: 2px !default;
+/**/
+$rac-switch-thumb--checked-transition: transform 300ms !default;
+$rac-switch-thumb-size: 20px !default;
+$rac-switch-thumb-top: $rac-switch-thumb--offset !default;
+$rac-switch-thumb-border-radius: $rac-switch-thumb-size / 2 !default;
+$rac-switch-thumb-position: absolute !default;
+$rac-switch-thumb-enabled-box-shadow: 0 2px 4px 0 $rac-primary-color-metis-2 !default;
+$rac-switch-thumb-checked-transform: translateX(calc(100% - 2px)) !default;
+$rac-switch-thumb-checked-transition: $rac-switch-thumb--checked-transition !default;
+$rac-switch-thumb-unchecked-transform: translateX($rac-switch-thumb--offset) !default;
+$rac-switch-thumb-unchecked-transition: $rac-switch-thumb--checked-transition !default;
+$rac-switch-thumb-checked-disabled-opacity: $rac-switch-thumb--disabled-opacity !default;
+$rac-switch-thumb-unchecked-enabled-opacity: unset !default;
+$rac-switch-thumb-unchecked-disabled-opacity: $rac-switch-thumb--disabled-opacity !default;

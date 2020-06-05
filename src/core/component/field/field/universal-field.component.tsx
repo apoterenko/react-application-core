@@ -23,7 +23,6 @@ import {
   isReadOnly,
   isRequired,
   isSyntheticCursorUsed,
-  isValid,
   isVisible,
   notNilValuesFilter,
 } from '../../../util';
@@ -91,29 +90,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     }
     if (isKeyboardUsed(prevProps) && !keyboardUsed) {
       this.closeVirtualKeyboard();
-    }
-  }
-
-  /**
-   * @stable [17.06.2018]
-   */
-  public resetError(): void {
-    this.validateField(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
-  }
-
-  /**
-   * @stable [20.08.2018]
-   */
-  public clearValue(): void {
-    this.setFocus();    // UX
-
-    if (this.isValuePresent) {
-      this.onChangeManually(this.emptyValue);
-    }
-
-    const props = this.props;
-    if (isFn(props.onClear)) {
-      props.onClear();
     }
   }
 
@@ -231,14 +207,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isRequired(): boolean {
     return isRequired(this.props);
-  }
-
-  /**
-   * @stable [05.10.2018]
-   * @returns {boolean}
-   */
-  protected isFieldInvalid(): boolean {
-    return !isValid(this.props) || !R.isNil(this.error);
   }
 
   /**
@@ -382,7 +350,7 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     }
     const result = this.decoratedDisplayValue;
     return R.isNil(result)
-      ? (this.isFieldBusy ? this.getWaitMessageElement() : result)
+      ? (this.isBusy ? this.getWaitMessageElement() : result)
       : result;
   }
 
@@ -475,14 +443,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [03.09.2018]
-   * @returns {string}
-   */
-  protected get error(): string {
-    return this.state.error;
-  }
-
-  /**
    * @stable [04.09.2018]
    */
   protected refreshCaretPosition(): void {
@@ -525,7 +485,7 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {AnyT}
    */
   protected get displayValue(): AnyT {
-    return !this.isValuePresent || (this.isFocusPrevented && this.isFieldBusy)
+    return !this.isValuePresent || (this.isFocusPrevented && this.isBusy)
       ? FieldConstants.DISPLAY_EMPTY_VALUE
       : this.decoratedDisplayValue;
   }
@@ -547,13 +507,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [03.09.2018]
-   */
-  protected removeFocus(): void {
-    // Do nothing
-  }
-
-  /**
    * @stable [22.03.2019]
    * @param {string} message
    * @param {string} className
@@ -561,15 +514,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected toMessageElement(message: string, className?: string): JSX.Element {
     return null;
-  }
-
-  /**
-   * @stable [31.07.2018]
-   * @param {AnyT} rawValue
-   */
-  protected validateField(rawValue: AnyT): void {
-    // State value cannot take an undefined value then we should pass a null value at least
-    this.setState({error: this.validateValueAndSetCustomValidity(rawValue)});
   }
 
   /**

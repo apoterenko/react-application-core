@@ -150,7 +150,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [11.01.2020]
    */
   public openMenu(): void {
-    if (this.isFieldBusy || this.isMenuAlreadyRenderedAndOpened) {
+    if (this.isBusy || this.isMenuAlreadyRenderedAndOpened) {
       return;
     }
     const $isForceReload = this.isForceReload;
@@ -208,7 +208,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     );
 
     if (isQuickSearchEnabled && !isLocalOptionsUsed) {
-      if (this.isFieldBusy) {
+      if (this.isBusy) {
         BaseSelect.logger.debug('[$BaseSelect][onClick] The field is busy. Do nothing...');
       } else {
         this.notifyQuickSearchFilterChange();
@@ -266,7 +266,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
           ref={this.menuRef}
           anchorElement={orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
           width={orNull(this.isMenuAnchored, () => this.getMenuWidth)}
-          progress={this.isFieldBusy}
+          progress={this.isBusy}
           options={this.getFilteredOptions()}
           onSelect={this.onSelect}
           onFilterChange={this.onFilterChange}
@@ -314,7 +314,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [03.06.2020]
    * @returns {boolean}
    */
-  protected get isFieldBusy(): boolean {
+  protected get isBusy(): boolean {
     return WrapperUtils.inProgress(this.state);
   }
 
@@ -521,7 +521,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private startQuickSearchIfApplicable(noDelay = false): boolean {
     const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const isFieldBusy = this.isFieldBusy;
+    const isFieldBusy = this.isBusy;
     const isLocalOptionsUsed = this.isLocalOptionsUsed;
 
     if (!isQuickSearchEnabled || isFieldBusy || isLocalOptionsUsed) {

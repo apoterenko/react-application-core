@@ -138,7 +138,7 @@ export const isValidateOnMount = (wrapper: IValidateOnMountWrapper): boolean =>
  * @param {IPreventManualChangesWrapper} wrapper
  * @returns {boolean}
  */
-const isPreventManualChanges = (wrapper: IPreventManualChangesWrapper): boolean =>
+const areManualChangesNotPrevented = (wrapper: IPreventManualChangesWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.preventManualChanges !== true;
 
 /**
@@ -693,6 +693,7 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  * @stable [18.05.2020]
  */
 export class WrapperUtils {
+  public static readonly areManualChangesNotPrevented = areManualChangesNotPrevented;      /* @stable [03.06.2020] */
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
@@ -705,8 +706,8 @@ export class WrapperUtils {
   public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
   public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */
-  public static readonly isPreventManualChanges = isPreventManualChanges;                  /* @stable [03.06.2020] */
   public static readonly isSelectable = isSelectable;                                      /* @stable [01.06.2020] */
   public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
   public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */
+  public static readonly isValid = isValid;                                                /* @stable [05.06.2020] */
 }

@@ -86,15 +86,6 @@ export class Field2<TProps extends IFieldProps2,
   }
 
   /**
-   * @stable [07.01.2019]
-   * @param {AnyT} currentRawValue
-   */
-  public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
-    this.updateInputBeforeHTML5Validation(currentRawValue);
-    super.onChangeManually(currentRawValue);
-  }
-
-  /**
    * @stable [17.06.2018]
    */
   public resetError(): void {
@@ -220,16 +211,6 @@ export class Field2<TProps extends IFieldProps2,
   }
 
   /**
-   * @stable [20.08.2018]
-   */
-  protected removeFocus(): void {
-    const input = this.input;
-    if (!R.isNil(input)) {
-      input.blur();
-    }
-  }
-
-  /**
    * @stable [11.01.2020]
    * @param {IBaseEvent} event
    */
@@ -256,7 +237,7 @@ export class Field2<TProps extends IFieldProps2,
     const minLength = props.minLength;                                                                      /* @stable [28.10.2019] */
     const name = props.name;                                                                                /* @stable [28.10.2019] */
     const pattern = this.getFieldPattern();                                                                 /* @stable [29.10.2019] */
-    const placeholder = orUndef(props.placeholder && !this.isFieldBusy, () => this.t(props.placeholder));   /* @stable [29.10.2019] */
+    const placeholder = orUndef(props.placeholder && !this.isBusy, () => this.t(props.placeholder));   /* @stable [29.10.2019] */
     const readOnly = this.isInactive;                                                                       /* @stable [28.10.2019] */
     const required = this.isRequired;                                                                       /* @stable [29.10.2019] */
     const rows = props.rows;                                                                                /* @stable [28.10.2019] */
@@ -299,8 +280,8 @@ export class Field2<TProps extends IFieldProps2,
       'rac-field',
       isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
       this.isRequired && 'rac-field-required',
-      this.isFieldBusy && 'rac-field-busy',
-      this.isFieldInvalid() && 'rac-field-invalid',
+      this.isBusy && 'rac-field-busy',
+      this.isInvalid && 'rac-field-invalid',
       this.isValuePresent ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isChangeable ? 'rac-field-changeable' : 'rac-field-not-changeable',
       this.isFocused ? 'rac-field-focused' : 'rac-field-not-focused',
@@ -350,17 +331,6 @@ export class Field2<TProps extends IFieldProps2,
     return props.actionsPosition === FieldActionPositionsEnum.LEFT
       ? defaultActions.concat(actions)
       : actions.concat(defaultActions);
-  }
-
-  /**
-   * @stable [17.06.2018]
-   * @param {AnyT} value
-   */
-  private updateInputBeforeHTML5Validation(value: AnyT): void {
-    if (this.hasInput) {
-      // We must update the field manually before calls HTML5 validation
-      this.input.value = value;
-    }
   }
 
   /**

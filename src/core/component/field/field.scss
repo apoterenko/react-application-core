@@ -5,6 +5,7 @@
 @import './cron-field/_cron-field';
 @import './date-field/_date-field';
 @import './place-field/_place-field';
+@import './switch/_switch';
 @import './text-field/_text-field';
 @import './view-field/_view-field';
 @import './_field-constant';
@@ -79,59 +80,9 @@
     $rac-self-field-input-wrapper-flex-direction: $rac-base-select-self-field-input-wrapper-flex-direction /* Menu */
   );
 
-  /**
-   * @checkbox
-   * @stable [23.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-checkbox-cls,
-    $rac-field-justify-content: $rac-checkbox-justify-content,
-    $rac-self-field-input-cursor: $rac-checkbox-self-field-input-cursor,
-    $rac-self-field-input-icon-color: $rac-checkbox-self-field-input-icon-color,
-    $rac-self-field-input-icon-size: $rac-checkbox-self-field-input-icon-size,
-    $rac-self-field-input-position: $rac-checkbox-self-field-input-position,
-    $rac-self-field-input-size: $rac-checkbox-self-field-input-size,
-    $rac-self-field-input-wrapper-align-items: $rac-checkbox-self-field-input-wrapper-align-items,
-    $rac-self-field-input-wrapper-border-radius: $rac-checkbox-self-field-input-wrapper-border-radius,
-    $rac-self-field-input-wrapper-border: $rac-checkbox-self-field-input-wrapper-border,
-    $rac-self-field-input-wrapper-justify-content: $rac-checkbox-self-field-input-wrapper-justify-content,
-    $rac-self-field-input-wrapper-size: $rac-checkbox-self-field-input-wrapper-size
-  );
-
-  /**
-   * @switch
-   * @stable [28.10.2019]
-   */
-  @include rac-field (
-    $rac-field-custom: $rac-switch-cls,
-    $rac-self-field-height: $rac-switch-self-field-height,
-    $rac-self-field-input-height: $rac-switch-self-field-input-height,
-    $rac-self-field-input-width: $rac-switch-self-field-input-width,
-    $rac-self-field-input-wrapper-background: $rac-switch-self-field-input-wrapper-background,
-    $rac-self-field-input-wrapper-border-radius: $rac-switch-self-field-input-wrapper-border-radius,
-    $rac-self-field-input-wrapper-box-shadow: $rac-switch-self-field-input-wrapper-box-shadow
-  );
-
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
                      $rac-self-field-height: $rac-text-area-height,
                      $rac-self-field-input-padding: $rac-text-area-input-padding);
-
-  @include rac-thumb(                                                                         /* @stable [31.05.2019] */
-    $rac-thumb-custom: $rac-switch-thumb-cls,
-    $rac-thumb-background: $rac-switch-thumb-background,
-    $rac-thumb-size: $rac-switch-thumb-size,
-    $rac-thumb-top: $rac-switch-thumb-top,
-    $rac-thumb-border-radius: $rac-switch-thumb-border-radius,
-    $rac-thumb-position: $rac-switch-thumb-position,
-    $rac-thumb-enabled-box-shadow: $rac-switch-thumb-enabled-box-shadow,
-    $rac-thumb-checked-transform: $rac-switch-thumb-checked-transform,
-    $rac-thumb-checked-transition: $rac-switch-thumb-checked-transition,
-    $rac-thumb-checked-disabled-opacity: $rac-switch-thumb-checked-disabled-opacity,
-    $rac-thumb-unchecked-transform: $rac-switch-thumb-unchecked-transform,
-    $rac-thumb-unchecked-transition: $rac-switch-thumb-unchecked-transition,
-    $rac-thumb-unchecked-enabled-opacity: $rac-switch-thumb-unchecked-enabled-opacity,
-    $rac-thumb-unchecked-disabled-opacity: $rac-switch-thumb-unchecked-disabled-opacity
-  );
 
   .rac-text-area-length-label {
     @include _rac-position-properties($rac-position: absolute,

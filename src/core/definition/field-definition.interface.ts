@@ -34,6 +34,7 @@ import {
   IMenuRenderedWrapper,
   INameWrapper,
   IOnChangeWrapper,
+  IOnClearWrapper,
   IOnClickWrapper,
   IOnDelayWrapper,
   IOnDictionaryEmptyWrapper,
@@ -112,6 +113,7 @@ export interface IPresetsFieldEntity
     IMaskWrapper,
     INameWrapper,
     IOnChangeWrapper,
+    IOnClearWrapper,
     IOnDelayWrapper,
     IOnDictionaryEmptyWrapper<string, IApiEntity>,
     IOnDictionaryLoadWrapper<{}, string>,
@@ -125,7 +127,8 @@ export interface IPresetsFieldEntity
     IReadOnlyWrapper,
     IRenderedWrapper,
     IRequiredWrapper,
-    ITypeWrapper<StringNumberT> {
+    ITypeWrapper<StringNumberT>,
+    IValidWrapper {
 }
 
 /**
@@ -142,8 +145,8 @@ export interface IPresetsBaseTextFieldEntity
  * @stable [08.05.2020]
  */
 export interface IReduxFieldEntity
-  extends IReduxLifeCycleEntity,
-    IOriginalValueWrapper,
+  extends IOriginalValueWrapper,
+    IReduxLifeCycleEntity,
     IValueWrapper {
 }
 
@@ -173,8 +176,7 @@ export interface IGenericFieldEntity2
     IStepWrapper,
     ISyntheticCursorWrapper,
     ITabIndexWrapper,
-    IUseKeyboardWrapper,
-    IValidWrapper {
+    IUseKeyboardWrapper {
 }
 
 /**

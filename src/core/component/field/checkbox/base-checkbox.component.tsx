@@ -6,7 +6,10 @@ import {
   IBaseCheckboxProps,
   IBaseCheckboxState,
 } from './checkbox.interface';
-import { IBaseEvent } from '../../../definition';
+import {
+  CheckboxClassesEnum,
+  IBaseEvent,
+} from '../../../definition';
 import {
   joinClassName,
   noop,
@@ -58,7 +61,7 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
   protected getFieldClassName(): string {
     return joinClassName(
       super.getFieldClassName(),
-      'rac-base-checkbox',
+      CheckboxClassesEnum.BASE_CHECKBOX,
       this.value ? 'rac-checked' : 'rac-unchecked'
     );
   }

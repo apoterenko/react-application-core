@@ -70,13 +70,35 @@ export class Field<TProps extends IFieldProps,
    * @param {TValue} currentRawValue
    */
   public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
-    if (WrapperUtils.isPreventManualChanges(this.mergedProps)) {
+    if (WrapperUtils.areManualChangesNotPrevented(this.mergedProps)) {
+      this.updateInputBeforeHTML5Validation(currentRawValue);
       this.onChangeValue(currentRawValue);
     }
   }
 
   public setFocus(): void {
     // Do nothing
+  }
+
+  /**
+   * @stable [05.06.2020]
+   */
+  public resetError(): void {
+    this.validateField(FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES);
+  }
+
+  /**
+   * @stable [05.06.2020]
+   */
+  public clearValue(): void {
+    this.setFocus();    // UX
+
+    if (this.isValuePresent) {
+      this.onChangeManually(this.emptyValue);
+    }
+
+    const {onClear} = this.mergedProps;
+    ConditionUtils.ifNotNilThanValue(onClear, () => onClear());
   }
 
   /**
@@ -109,6 +131,15 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [05.06.2020]
+   */
+  protected removeFocus(): void {
+    if (this.hasInput) {
+      this.input.blur();
+    }
+  }
+
+  /**
    * @stable [03.06.2020]
    * @param {AnyT} currentRawValue
    */
@@ -132,25 +163,6 @@ export class Field<TProps extends IFieldProps,
 
     ConditionUtils.ifNotNilThanValue(onChange, () => onChange(actualFieldValue));
     ConditionUtils.ifNotNilThanValue(onFormChange, () => onFormChange(name, actualFieldValue));
-  }
-
-  protected validateField(rawValue: AnyT): void {
-    // TODO
-  }
-
-  /**
-   * @stable [03.06.2020]
-   * @param {AnyT} value
-   * @returns {string}
-   */
-  protected validateValueAndSetCustomValidity(value: AnyT): string {
-    if (this.hasInput) {
-      this.input.setCustomValidity('');
-    }
-    if (this.isInputValid) {
-      return null;
-    }
-    return this.inputValidationMessage;
   }
 
   /**
@@ -243,7 +255,7 @@ export class Field<TProps extends IFieldProps,
    * @returns {JSX.Element}
    */
   protected get progressInfoElement(): JSX.Element {
-    return ConditionUtils.orNull(this.isFieldBusy, () => <Info progress={true}/>);
+    return ConditionUtils.orNull(this.isBusy, () => <Info progress={true}/>);
   }
 
   /**
@@ -314,10 +326,10 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [03.06.2020]
+   * @stable [05.06.2020]
    * @returns {boolean}
    */
-  protected get isFieldBusy(): boolean {
+  protected get isBusy(): boolean {
     return WrapperUtils.inProgress(this.originalProps);
   }
 
@@ -330,6 +342,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [05.06.2020]
+   * @returns {boolean}
+   */
+  protected get isInvalid(): boolean {
+    return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
+  }
+
+  /**
    * @stable [03.06.2020]
    * @returns {boolean}
    */
@@ -338,11 +358,11 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [03.06.2020]
+   * @stable [05.06.2020]
    * @returns {string}
    */
-  protected get inputValidationMessage(): string {
-    return this.input.validationMessage;
+  protected get error(): string {
+    return this.state.error;
   }
 
   /**
@@ -351,5 +371,48 @@ export class Field<TProps extends IFieldProps,
    */
   protected get settingsProps(): TProps {
     return this.componentsSettings.field as TProps;
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @param {AnyT} rawValue
+   */
+  private validateField(rawValue: AnyT): void {
+    this.setState({error: this.validateValueAndSetCustomValidity(rawValue)});
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @param {AnyT} value
+   * @returns {string}
+   */
+  private validateValueAndSetCustomValidity(value: AnyT): string {
+    if (this.hasInput) {
+      this.input.setCustomValidity('');
+    }
+    if (this.isInputValid) {
+      return null;
+    }
+    return this.inputValidationMessage;
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @param {AnyT} value
+   */
+  private updateInputBeforeHTML5Validation(value: AnyT): void {
+    if (!this.hasInput) {
+      return;
+    }
+    // We should update the field manually before calls the HTML5 validation
+    this.input.value = value;
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @returns {string}
+   */
+  private get inputValidationMessage(): string {
+    return this.input.validationMessage;
   }
 }

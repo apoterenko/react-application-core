@@ -2,9 +2,37 @@
 @import '../../_classes';
 
 /************************/
-/* @stable [09.04.2020] */
+/* @stable [03.06.2020] */
 /************************/
+$rac-primary-checkbox-color-0: $rac-primary-color-poseidon-5 !default;
+
+/************************/
+/* @stable [03.06.2020] */
+/************************/
+$rac-base-checkbox-checked-self-field-input-wrapper-background: $rac-primary-checkbox-color-0 !default;
+$rac-base-checkbox-self-field-align-items: center !default;
+$rac-base-checkbox-self-field-height: unset !default;
 $rac-base-checkbox-self-field-input-opacity: 0 !default;
 $rac-base-checkbox-self-field-input-wrapper-background: unset !default;
 $rac-base-checkbox-self-field-input-wrapper-flex-shrink: $rac-primary-flex-shrink-0 !default;
 $rac-base-checkbox-self-field-input-wrapper-position: relative !default;
+$rac-base-checkbox-self-field-label-color: unset !default;
+$rac-base-checkbox-self-field-label-font-size: unset !default;
+$rac-base-checkbox-self-field-label-line-height: $rac-primary-line-height-2 !default;
+$rac-base-checkbox-self-field-label-margin: 0 0 0 $rac-primary-offset-1 !default;
+
+/************************/
+/* @stable [03.06.2020] */
+/************************/
+$rac-checkbox-disabled-self-field-input-wrapper-opacity: $rac-primary-opacity-4 !default;
+$rac-checkbox-justify-content: unset !default;
+$rac-checkbox-self-field-input-cursor: pointer !default;
+$rac-checkbox-self-field-input-icon-color: $rac-primary-color-elara-0 !default;
+$rac-checkbox-self-field-input-icon-size: 10px !default;
+$rac-checkbox-self-field-input-position: absolute !default;
+$rac-checkbox-self-field-input-size: 100% !default;
+$rac-checkbox-self-field-input-wrapper-align-items: center !default;
+$rac-checkbox-self-field-input-wrapper-border-radius: $rac-primary-border-radius-1 !default;
+$rac-checkbox-self-field-input-wrapper-border: 1px solid $rac-primary-checkbox-color-0 !default;
+$rac-checkbox-self-field-input-wrapper-justify-content: center !default;
+$rac-checkbox-self-field-input-wrapper-size: $rac-primary-size-3 !default;
