@@ -29,3 +29,15 @@ export interface IThumbProps
   extends IGenericBaseComponentProps,
     IThumbGenericEntity {
 }
+
+/**
+ * @classes
+ * @stable [05.06.2020]
+ */
+export enum ThumbClassesEnum {
+  THUMB = 'rac-thumb',
+  THUMB_CHECKED = 'rac-thumb-checked',
+  THUMB_DISABLED = 'rac-thumb-disabled',
+  THUMB_ENABLED = 'rac-thumb-enabled',
+  THUMB_UNCHECKED= 'rac-thumb-unchecked',
+}

@@ -15,6 +15,7 @@
 @import './sub-header-link/_sub-header-link-mixin';
 @import './sub-header/_sub-header-mixin';
 @import './tab-panel/_tab-panel-mixin';
+@import './thumb/_thumb-mixin';
 @import './title/_title-mixin';
 @import './toolbar-tools/_toolbar-tools-mixin';
 @import './toolbar/_toolbar-mixin';
@@ -2038,75 +2039,6 @@
       $rac-icon-margin: $rac-menu-dialog-icon-close-margin,
       $rac-icon-size: $rac-menu-dialog-icon-close-size
     );
-  }
-}
-
-/**
- * @stable [31.05.2019]
- */
-@mixin rac-thumb(
-  $rac-thumb-custom: unset,
-  $rac-thumb-background: unset,
-  $rac-thumb-size: unset,
-  $rac-thumb-top: unset,
-  $rac-thumb-border-radius: unset,
-  $rac-thumb-position: unset,
-  $rac-thumb-enabled-box-shadow: unset,
-  $rac-thumb-checked-transform: unset,
-  $rac-thumb-checked-transition: unset,
-  $rac-thumb-checked-disabled-opacity: unset,
-  $rac-thumb-unchecked-transform: unset,
-  $rac-thumb-unchecked-transition: unset,
-  $rac-thumb-unchecked-disabled-opacity: unset,
-  $rac-thumb-unchecked-enabled-opacity: unset
-) {
-  #{rac-cls(rac-thumb, $rac-thumb-custom)} {
-
-    @include rac-styles(
-      $rac-styles-top: $rac-thumb-top,
-      $rac-styles-background: $rac-thumb-background,
-      $rac-styles-size: $rac-thumb-size,
-      $rac-styles-border-radius: $rac-thumb-border-radius,
-      $rac-styles-position: $rac-thumb-position
-    );
-
-    &.rac-thumb-enabled {
-      @include rac-styles(
-        $rac-styles-box-shadow: $rac-thumb-enabled-box-shadow
-      );
-    }
-
-    &.rac-thumb-checked {
-      @include rac-styles(
-        $rac-styles-transform: $rac-thumb-checked-transform,
-        $rac-styles-transition: $rac-thumb-checked-transition
-      );
-
-      &.rac-thumb-disabled {
-        @include rac-styles(
-          $rac-styles-opacity: $rac-thumb-checked-disabled-opacity
-        );
-      }
-    }
-
-    &.rac-thumb-unchecked {
-      @include rac-styles(
-        $rac-styles-transform: $rac-thumb-unchecked-transform,
-        $rac-styles-transition: $rac-thumb-unchecked-transition
-      );
-
-      &.rac-thumb-enabled {
-        @include rac-styles(
-          $rac-styles-opacity: $rac-thumb-unchecked-enabled-opacity
-        );
-      }
-
-      &.rac-thumb-disabled {
-        @include rac-styles(
-          $rac-styles-opacity: $rac-thumb-unchecked-disabled-opacity
-        );
-      }
-    }
   }
 }
 

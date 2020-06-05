@@ -1,10 +1,4 @@
-import { IBaseCheckboxProps, IBaseCheckboxState } from '../checkbox';
-
-/**
- * @stable [31.08.2018]
- */
-export interface ISwitchState extends IBaseCheckboxState {
-}
+import { IBaseCheckboxProps } from '../checkbox';
 
 /**
  * @stable [31.08.2018]

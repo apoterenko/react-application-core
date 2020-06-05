@@ -1,0 +1,88 @@
+@import '../_core-mixin';
+
+/**
+ * @stable [05.06.2020]
+ */
+@mixin rac-thumb (
+  $rac-thumb-custom: unset,
+  /**/
+  $rac-thumb-background: unset,
+  $rac-thumb-border-radius: unset,
+  $rac-thumb-checked-disabled-opacity: unset,
+  $rac-thumb-checked-enabled-opacity: unset,
+  $rac-thumb-checked-transform: unset,
+  $rac-thumb-checked-transition: unset,
+  $rac-thumb-disabled-box-shadow: unset,
+  $rac-thumb-enabled-box-shadow: unset,
+  $rac-thumb-position: unset,
+  $rac-thumb-size: unset,
+  $rac-thumb-top: unset,
+  $rac-thumb-unchecked-disabled-opacity: unset,
+  $rac-thumb-unchecked-enabled-opacity: unset,
+  $rac-thumb-unchecked-transform: unset,
+  $rac-thumb-unchecked-transition: unset
+) {
+  #{rac-cls(rac-thumb, $rac-thumb-custom)} {
+    @include rac-styles (
+      $rac-styles-background: $rac-thumb-background,
+      $rac-styles-border-radius: $rac-thumb-border-radius,
+      $rac-styles-position: $rac-thumb-position,
+      $rac-styles-size: $rac-thumb-size,
+      $rac-styles-top: $rac-thumb-top
+    );
+
+    /* thumb-enabled */
+    &.rac-thumb-enabled {
+      @include rac-styles (
+        $rac-styles-box-shadow: $rac-thumb-enabled-box-shadow
+      );
+    }
+
+    /* thumb-disabled */
+    &.rac-thumb-disabled {
+      @include rac-styles (
+        $rac-styles-box-shadow: $rac-thumb-disabled-box-shadow
+      );
+    }
+
+    /* thumb-checked */
+    &.rac-thumb-checked {
+      @include rac-styles (
+        $rac-styles-transform: $rac-thumb-checked-transform,
+        $rac-styles-transition: $rac-thumb-checked-transition
+      );
+
+      &.rac-thumb-enabled {
+        @include rac-styles (
+          $rac-styles-opacity: $rac-thumb-checked-enabled-opacity
+        );
+      }
+
+      &.rac-thumb-disabled {
+        @include rac-styles (
+          $rac-styles-opacity: $rac-thumb-checked-disabled-opacity
+        );
+      }
+    }
+
+    /* thumb-unchecked */
+    &.rac-thumb-unchecked {
+      @include rac-styles (
+        $rac-styles-transform: $rac-thumb-unchecked-transform,
+        $rac-styles-transition: $rac-thumb-unchecked-transition
+      );
+
+      &.rac-thumb-enabled {
+        @include rac-styles (
+          $rac-styles-opacity: $rac-thumb-unchecked-enabled-opacity
+        );
+      }
+
+      &.rac-thumb-disabled {
+        @include rac-styles (
+          $rac-styles-opacity: $rac-thumb-unchecked-disabled-opacity
+        );
+      }
+    }
+  }
+}

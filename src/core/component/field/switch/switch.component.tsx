@@ -1,17 +1,19 @@
 import * as React from 'react';
 
 import { BaseCheckbox } from '../checkbox';
-import { ISwitchProps, ISwitchState } from './switch.interface';
+import {
+  ISwitchProps,
+} from './switch.interface';
 import {
   ClsUtils,
 } from '../../../util';
 import { Thumb } from '../../thumb';
 import { SwitchClassesEnum } from '../../../definition';
 
-export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
+export class Switch extends BaseCheckbox<ISwitchProps> {
 
   /**
-   * @stable [26.05.2019]
+   * @stable [05.06.2020]
    * @returns {JSX.Element}
    */
   protected getInputElement(): JSX.Element {

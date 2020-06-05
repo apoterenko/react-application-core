@@ -4,7 +4,10 @@ import {
   CalcUtils,
   ClsUtils,
 } from '../../util';
-import { IThumbProps } from '../../definition';
+import {
+  IThumbProps,
+  ThumbClassesEnum,
+} from '../../definition';
 import { GenericBaseComponent } from '../base/generic-base.component';
 
 export class Thumb extends GenericBaseComponent<IThumbProps> {
@@ -16,9 +19,9 @@ export class Thumb extends GenericBaseComponent<IThumbProps> {
   public render(): JSX.Element {
     const {
       className,
-      disabled,
     } = this.mergedProps;
     const {
+      disabled,
       value,
     } = this.originalProps;
 
@@ -28,9 +31,9 @@ export class Thumb extends GenericBaseComponent<IThumbProps> {
         className={
           ClsUtils.joinClassName(
             CalcUtils.calc(className),
-            'rac-thumb',
-            disabled ? 'rac-thumb-disabled' : 'rac-thumb-enabled',
-            value ? 'rac-thumb-checked' : 'rac-thumb-unchecked'
+            ThumbClassesEnum.THUMB,
+            disabled ? ThumbClassesEnum.THUMB_DISABLED : ThumbClassesEnum.THUMB_ENABLED,
+            value ? ThumbClassesEnum.THUMB_CHECKED : ThumbClassesEnum.THUMB_UNCHECKED
           )
         }/>
     );
