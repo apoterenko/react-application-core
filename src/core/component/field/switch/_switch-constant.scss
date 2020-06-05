@@ -1,6 +1,11 @@
-@import '../../_primary-constant';
 @import '../../_classes';
-@import '../../constant';
+@import '../../_primary-constant';
+
+/************************/
+/* @stable [05.06.2020] */
+/************************/
+$rac-primary-switch-thumb-checked-transition: transform 300ms !default;
+$rac-primary-switch-thumb-offset: 2px !default;
 
 /************************/
 /* @stable [03.06.2020] */
@@ -16,21 +21,18 @@ $rac-switch-self-field-input-wrapper-box-shadow: unset !default;
 /************************/
 $rac-switch-thumb-background: $rac-primary-color-poseidon-7 !default;
 $rac-switch-thumb-border-radius: 50% !default;
+$rac-switch-thumb-checked-transform: translateX(calc(100% - #{$rac-primary-switch-thumb-offset})) !default;
+$rac-switch-thumb-checked-transition: $rac-primary-switch-thumb-checked-transition !default;
 $rac-switch-thumb-position: absolute !default;
+$rac-switch-thumb-top: $rac-primary-switch-thumb-offset !default;
+$rac-switch-thumb-unchecked-transform: translateX($rac-primary-switch-thumb-offset) !default;
+$rac-switch-thumb-unchecked-transition: $rac-primary-switch-thumb-checked-transition !default;
+
 
 
 /* @stable [31.05.2019] */
-/**/
-$rac-switch-thumb--offset: 2px !default;
-/**/
-$rac-switch-thumb--checked-transition: transform 300ms !default;
 $rac-switch-thumb-size: 20px !default;
-$rac-switch-thumb-top: $rac-switch-thumb--offset !default;
 $rac-switch-thumb-enabled-box-shadow: 0 2px 4px 0 $rac-primary-color-metis-2 !default;
-$rac-switch-thumb-checked-transform: translateX(calc(100% - 2px)) !default;
-$rac-switch-thumb-checked-transition: $rac-switch-thumb--checked-transition !default;
-$rac-switch-thumb-unchecked-transform: translateX($rac-switch-thumb--offset) !default;
-$rac-switch-thumb-unchecked-transition: $rac-switch-thumb--checked-transition !default;
 $rac-switch-thumb-checked-disabled-opacity: $rac-primary-opacity-4 !default;
 $rac-switch-thumb-unchecked-enabled-opacity: unset !default;
 $rac-switch-thumb-unchecked-disabled-opacity: $rac-primary-opacity-4 !default;

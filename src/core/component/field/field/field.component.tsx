@@ -52,7 +52,7 @@ export class Field<TProps extends IFieldProps,
     // Need to invoke a user validator if it exists (After F5, etc...)
     this.validateValueAndSetCustomValidity(this.value);
 
-    if (this.mergedProps.autoFocus) {
+    if (this.originalProps.autoFocus) {
       this.setFocus();
     }
   }
@@ -70,7 +70,7 @@ export class Field<TProps extends IFieldProps,
    * @param {TValue} currentRawValue
    */
   public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
-    if (WrapperUtils.areManualChangesNotPrevented(this.mergedProps)) {
+    if (this.areManualChangesNotPrevented) {
       this.updateInputBeforeHTML5Validation(currentRawValue);
       this.onChangeValue(currentRawValue);
     }
@@ -91,13 +91,13 @@ export class Field<TProps extends IFieldProps,
    * @stable [05.06.2020]
    */
   public clearValue(): void {
-    this.setFocus();    // UX
+    this.setFocus();
 
     if (this.isValuePresent) {
       this.onChangeManually(this.emptyValue);
     }
 
-    const {onClear} = this.mergedProps;
+    const {onClear} = this.originalProps;
     ConditionUtils.ifNotNilThanValue(onClear, () => onClear());
   }
 
@@ -144,17 +144,15 @@ export class Field<TProps extends IFieldProps,
    * @param {AnyT} currentRawValue
    */
   protected onChangeValue(currentRawValue: AnyT): void {
-    const mergedProps = this.mergedProps;
-    const {
-      onChange,
-      onFormChange,
-    } = mergedProps;
+    const originalProps = this.originalProps;
     const {
       name,
+      onChange,
+      onFormChange,
     } = this.originalProps;
 
     const actualFieldValue = FieldUtils.asActualFieldValue({
-      ...mergedProps as {},
+      ...originalProps as {},
       emptyValue: this.emptyValue,
       value: currentRawValue,
     });
@@ -309,6 +307,22 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [05.06.2020]
+   * @returns {boolean}
+   */
+  protected get isValueNotPresent(): boolean {
+    return !this.isValuePresent;
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @returns {boolean}
+   */
+  protected get isDisabled(): boolean {
+    return WrapperUtils.isDisabled(this.originalProps);
+  }
+
+  /**
    * @stable [03.06.2020]
    * @param {AnyT} value
    * @returns {boolean}
@@ -330,7 +344,7 @@ export class Field<TProps extends IFieldProps,
    * @returns {boolean}
    */
   protected get isFocusPrevented() {
-    return WrapperUtils.isFocusPrevented(this.mergedProps);
+    return WrapperUtils.isFocusPrevented(this.originalProps);
   }
 
   /**
@@ -338,7 +352,7 @@ export class Field<TProps extends IFieldProps,
    * @returns {boolean}
    */
   protected get isChangeable(): boolean {
-    return WrapperUtils.isChangeable(this.mergedProps);
+    return WrapperUtils.isChangeable(this.originalProps);
   }
 
   /**
@@ -354,7 +368,7 @@ export class Field<TProps extends IFieldProps,
    * @returns {boolean}
    */
   protected get isFieldRendered(): boolean {
-    return WrapperUtils.isFieldRendered(this.mergedProps);
+    return WrapperUtils.isFieldRendered(this.originalProps);
   }
 
   /**
@@ -422,6 +436,14 @@ export class Field<TProps extends IFieldProps,
     }
     // We should update the field manually before calls the HTML5 validation
     this.input.value = value;
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @returns {boolean}
+   */
+  private get areManualChangesNotPrevented(): boolean {
+    return WrapperUtils.areManualChangesNotPrevented(this.originalProps);
   }
 
   /**

@@ -90,9 +90,8 @@ $rac-view-field-cls: rac-view-field;
 /************************/
 $rac-base-checkbox-cls: rac-base-checkbox;
 $rac-checkbox-cls: rac-checkbox;
-$rac-checked-cls: rac-checked;
 /**/
-$rac-base-checkbox-checked-cls: '#{$rac-base-checkbox-cls}.#{$rac-checked-cls}';
+$rac-base-checkbox-checked-cls: '#{$rac-base-checkbox-cls}.rac-base-checkbox__checked';
 $rac-checkbox-disabled-cls: '#{$rac-checkbox-cls}.#{$rac-field-disabled-cls}';
 
 /************************/

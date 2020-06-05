@@ -11,7 +11,7 @@ import {
   IBaseEvent,
 } from '../../../definition';
 import {
-  joinClassName,
+  ClsUtils,
   noop,
   nvl,
 } from '../../../util';
@@ -55,14 +55,14 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
   }
 
   /**
-   * @stable [24.10.2019]
+   * @stable [05.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(
+    return ClsUtils.joinClassName(
       super.getFieldClassName(),
       CheckboxClassesEnum.BASE_CHECKBOX,
-      this.value ? 'rac-checked' : 'rac-unchecked'
+      this.value ? CheckboxClassesEnum.BASE_CHECKBOX_CHECKED : CheckboxClassesEnum.BASE_CHECKBOX_UNCHECKED
     );
   }
 
