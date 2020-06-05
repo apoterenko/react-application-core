@@ -5,6 +5,7 @@ import {
   ISwitchProps,
 } from './switch.interface';
 import {
+  CalcUtils,
   ClsUtils,
 } from '../../../util';
 import { Thumb } from '../../thumb';
@@ -17,10 +18,17 @@ export class Switch extends BaseCheckbox<ISwitchProps> {
    * @returns {JSX.Element}
    */
   protected getInputElement(): JSX.Element {
+    const {
+      thumbClassName,
+    } = this.mergedProps;
+
     return (
       <React.Fragment>
         <Thumb
-          className={SwitchClassesEnum.SWITCH_THUMB}
+          className={ClsUtils.joinClassName(
+            SwitchClassesEnum.SWITCH_THUMB,
+            CalcUtils.calc(thumbClassName)
+          )}
           disabled={this.isDisabled}
           value={this.value}
         />
