@@ -5,6 +5,7 @@ import {
   IFieldProps,
   IFormProps,
   IGenericFieldEntity2,
+  IPresetsFieldEntity,
   ITabProps,
 } from '../definition';
 import {
@@ -19,10 +20,10 @@ import {
 import {
   isAlwaysDirty,
   isAlwaysResettable,
-  isChangeable,
   isDirty,
   isDisabled,
   isValid,
+  WrapperUtils,
 } from './wrapper';
 import { isDef } from './type';
 import { nvl } from './nvl';
@@ -32,6 +33,18 @@ import {
   Selectors,
 } from './select';
 import { FormEntityUtils } from './form-entity';
+
+/**
+ * @stable [05.06.2020]
+ * @param {IFormProps} formProps
+ * @param {IPresetsFieldEntity} presetsFieldEntity
+ * @returns {boolean}
+ */
+const isFormFieldChangeable = (formProps: IFormProps,
+                               presetsFieldEntity: IPresetsFieldEntity): boolean =>
+  R.isNil(presetsFieldEntity.changeable)
+    ? WrapperUtils.isChangeable(formProps)
+    : WrapperUtils.isChangeable(presetsFieldEntity);
 
 /**
  * @stable [11.05.2020]
@@ -161,16 +174,6 @@ export const isFormFieldDisabled = (formProps: IFormProps,
   R.isNil(fieldProps.disabled) ? isFormDisabled(formProps) : isDisabled(fieldProps);
 
 /**
- * @stable [23.03.2020]
- * @param {IFormProps} formProps
- * @param {IGenericFieldEntity2} fieldProps
- * @returns {boolean}
- */
-export const isFormFieldChangeable = (formProps: IFormProps,
-                                      fieldProps: IGenericFieldEntity2): boolean =>
-  R.isNil(fieldProps.changeable) ? isChangeable(formProps) : isChangeable(fieldProps);
-
-/**
  * @stable [03.02.2020]
  * @param {IFormProps<TEntity extends IEntity>} formProps
  * @returns {boolean}
@@ -210,6 +213,7 @@ export class FormUtils {
   public static readonly fieldOriginalValue = getFormFieldOriginalValue;                            /* @stable [11.05.2020] */
   public static readonly inProgress = FormEntityUtils.inProgress;                                   /* @stable [11.05.2020] */
   public static readonly isChanged = FormEntityUtils.isChanged;                                     /* @stable [11.05.2020] */
+  public static readonly isFieldChangeable = isFormFieldChangeable;                                 /* @stable [05.06.2020] */
   public static readonly isTouched = FormEntityUtils.isTouched;                                     /* @stable [11.05.2020] */
   public static readonly isValid = isFormValid;                                                     /* @stable [11.05.2020] */
 }

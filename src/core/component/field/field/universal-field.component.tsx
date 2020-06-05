@@ -10,7 +10,6 @@ import {
   DelayedTask,
   ifNilThanValue,
   ifNotNilThanValue,
-  isChangeable,
   isDef,
   isDisabled,
   isDisplayValueRenderedOnly,
@@ -25,6 +24,7 @@ import {
   isSyntheticCursorUsed,
   isVisible,
   notNilValuesFilter,
+  WrapperUtils,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -255,14 +255,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isReadOnly(): boolean {
     return isReadOnly(this.props);
-  }
-
-  /**
-   * @stable [28.10.2019]
-   * @returns {boolean}
-   */
-  protected get isChangeable(): boolean {
-    return isChangeable(this.props);
   }
 
   /**

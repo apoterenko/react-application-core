@@ -27,7 +27,6 @@ import {
   isBoolean,
   isCompact,
   isFn,
-  isFormFieldChangeable,
   isFormFieldDisabled,
   isFormFieldReadOnly,
   isFormResettable,
@@ -302,7 +301,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @returns {boolean}
    */
   private isFieldChangeable(field: IField): boolean {
-    return isFormFieldChangeable(this.props, field.props);
+    return FormUtils.isFieldChangeable(this.props, field.props);
   }
 
   /**

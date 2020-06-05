@@ -448,7 +448,7 @@ export const isAcceptDisabled = (wrapper: IAcceptDisabledWrapper): boolean =>
  * @param {IChangeableWrapper} wrapper
  * @returns {boolean}
  */
-export const isChangeable = (wrapper: IChangeableWrapper): boolean =>
+const isChangeable = (wrapper: IChangeableWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.changeable !== false;
 
 /**
@@ -695,6 +695,7 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
 export class WrapperUtils {
   public static readonly areManualChangesNotPrevented = areManualChangesNotPrevented;      /* @stable [03.06.2020] */
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
+  public static readonly isChangeable = isChangeable;                                      /* @stable [05.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */

@@ -201,6 +201,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [05.06.2020]
+   * @returns {string}
+   */
+  protected getSelfElementClassName(): string {
+    return FieldClassesEnum.FIELD_SELF;
+  }
+
+  /**
    * @stable [18.05.2020]
    * @returns {JSX.Element}
    */
@@ -323,6 +331,14 @@ export class Field<TProps extends IFieldProps,
    */
   protected get isFocusPrevented() {
     return WrapperUtils.isFocusPrevented(this.mergedProps);
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @returns {boolean}
+   */
+  protected get isChangeable(): boolean {
+    return WrapperUtils.isChangeable(this.mergedProps);
   }
 
   /**

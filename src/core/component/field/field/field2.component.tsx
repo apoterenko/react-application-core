@@ -296,14 +296,6 @@ export class Field2<TProps extends IFieldProps2,
   }
 
   /**
-   * @stable [06.05.2020]
-   * @returns {string}
-   */
-  protected getSelfElementClassName(): string {
-    return FieldClassesEnum.FIELD_SELF;
-  }
-
-  /**
    * @stable [03.09.2018]
    * @param {string} message
    * @param {string} className
