@@ -11,7 +11,7 @@ $rac-primary-checkbox-color-0: $rac-primary-color-poseidon-5 !default;
 /************************/
 $rac-base-checkbox-checked-self-field-input-wrapper-background: $rac-primary-checkbox-color-0 !default;
 $rac-base-checkbox-self-field-align-items: center !default;
-$rac-base-checkbox-self-field-height: unset !default;
+$rac-base-checkbox-self-field-height: $rac-primary-field-size-0 !default;
 $rac-base-checkbox-self-field-input-opacity: 0 !default;
 $rac-base-checkbox-self-field-input-wrapper-background: unset !default;
 $rac-base-checkbox-self-field-input-wrapper-flex-shrink: $rac-primary-flex-shrink-0 !default;

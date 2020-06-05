@@ -11,7 +11,6 @@ import {
   ifNilThanValue,
   ifNotNilThanValue,
   isDef,
-  isDisabled,
   isDisplayValueRenderedOnly,
   isFieldInactive,
   isFn,
@@ -24,7 +23,6 @@ import {
   isSyntheticCursorUsed,
   isVisible,
   notNilValuesFilter,
-  WrapperUtils,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -194,14 +192,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [30.10.2019]
-   * @returns {boolean}
-   */
-  protected get isValueNotPresent(): boolean {
-    return !this.isValuePresent;
-  }
-
-  /**
    * @stable [29.10.2019]
    * @returns {boolean}
    */
@@ -239,14 +229,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isActive(): boolean {
     return !this.isInactive;
-  }
-
-  /**
-   * @stable [28.10.2019]
-   * @returns {boolean}
-   */
-  protected get isDisabled(): boolean {
-    return isDisabled(this.props);
   }
 
   /**

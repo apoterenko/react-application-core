@@ -2,8 +2,11 @@ import * as React from 'react';
 
 import { BaseCheckbox } from '../checkbox';
 import { ISwitchProps, ISwitchState } from './switch.interface';
-import { joinClassName } from '../../../util';
+import {
+  ClsUtils,
+} from '../../../util';
 import { Thumb } from '../../thumb';
+import { SwitchClassesEnum } from '../../../definition';
 
 export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
 
@@ -15,19 +18,20 @@ export class Switch extends BaseCheckbox<ISwitchProps, ISwitchState> {
     return (
       <React.Fragment>
         <Thumb
-          className='rac-switch__thumb'
+          className={SwitchClassesEnum.SWITCH_THUMB}
           disabled={this.isDisabled}
-          value={this.value}/>
+          value={this.value}
+        />
         {super.getInputElement()}
       </React.Fragment>
     );
   }
 
   /**
-   * @stable [28.10.2019]
+   * @stable [05.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-switch');
+    return ClsUtils.joinClassName(super.getFieldClassName(), SwitchClassesEnum.SWITCH);
   }
 }

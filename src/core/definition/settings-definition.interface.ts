@@ -17,6 +17,7 @@ import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
 import { ISubHeaderLinkProps } from './sub-header-link-definition.interface';
 import { ISubHeaderProps } from './sub-header-definition.interface';
+import { IThumbProps } from './thumb-definition.interface';
 import { ITitleProps } from './title-definition.interface';
 
 /**
@@ -128,6 +129,7 @@ export interface IComponentsSettingsEntity {
   navigationList?: INavigationListProps;
   subHeader?: ISubHeaderProps;
   subHeaderLink?: ISubHeaderLinkProps;
+  thumb?: IThumbProps;
   title?: ITitleProps;
 }
 

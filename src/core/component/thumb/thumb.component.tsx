@@ -1,25 +1,46 @@
 import * as React from 'react';
 
-import { joinClassName, calc } from '../../util';
-import { BaseComponent } from '../base';
-import { IThumbProps } from './thumb.interface';
+import {
+  CalcUtils,
+  ClsUtils,
+} from '../../util';
+import { IThumbProps } from '../../definition';
+import { GenericBaseComponent } from '../base/generic-base.component';
 
-export class Thumb extends BaseComponent<IThumbProps> {
+export class Thumb extends GenericBaseComponent<IThumbProps> {
 
   /**
-   * @stable [03.10.2018]
+   * @stable [05.06.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-    const {disabled, value} = props;
+    const {
+      className,
+      disabled,
+    } = this.mergedProps;
+    const {
+      value,
+    } = this.originalProps;
+
     return (
-      <div className={joinClassName(
-        calc(props.className),
-        'rac-thumb',
-        disabled ? 'rac-thumb-disabled' : 'rac-thumb-enabled',
-        value ? 'rac-thumb-checked' : 'rac-thumb-unchecked'
-      )}/>
+      <div
+        ref={this.actualRef}
+        className={
+          ClsUtils.joinClassName(
+            CalcUtils.calc(className),
+            'rac-thumb',
+            disabled ? 'rac-thumb-disabled' : 'rac-thumb-enabled',
+            value ? 'rac-thumb-checked' : 'rac-thumb-unchecked'
+          )
+        }/>
     );
+  }
+
+  /**
+   * @stable [05.06.2020]
+   * @returns {IChipProps}
+   */
+  protected get settingsProps(): IThumbProps {
+    return this.componentsSettings.thumb;
   }
 }
