@@ -28,6 +28,7 @@
   $rac-button-content-margin: unset,                                                 /* stable [02.02.2020 ] */
   $rac-button-content-padding: unset,                                                /* stable [24.01.2020 ] */
   $rac-button-content-text-align: unset,                                             /* stable [24.01.2020 ] */
+  $rac-button-content-text-transform: unset,                                         /* stable [05.06.2020 ] */
   $rac-button-content-white-space: unset,                                            /* stable [24.01.2020 ] */
   $rac-button-content-width: unset,                                                  /* stable [24.01.2020 ] */
   $rac-button-content-word-break: unset,                                             /* stable [02.02.2020 ] */
@@ -117,6 +118,7 @@
       $rac-styles-margin: $rac-button-content-margin,
       $rac-styles-padding: $rac-button-content-padding,
       $rac-styles-text-align: $rac-button-content-text-align,
+      $rac-styles-text-transform: $rac-button-content-text-transform,
       $rac-styles-white-space: $rac-button-content-white-space,
       $rac-styles-width: $rac-button-content-width,
       $rac-styles-word-break: $rac-button-content-word-break

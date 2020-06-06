@@ -1,4 +1,5 @@
 import {
+  IActionConfigurationWrapper,
   IDisabledWrapper,
   IFirstAllowedWrapper,
   IFullWrapper,
@@ -27,13 +28,15 @@ import { IGenericContainerProps } from './generic-container-definition.interface
 import { IFieldConfigurationEntity } from '../configurations-definitions.interface'; // TODO
 import { IReduxPaginatedLifeCycleEntity } from './page-definition.interface';
 import { IListEntity } from './list-definition.interface';
+import { IButtonProps } from './button-definition.interface';
 
 /**
  * @presets-entity
  * @stable [08.05.2020]
  */
 export interface IPresetsPageToolbarEntity
-  extends IFirstAllowedWrapper,
+  extends IActionConfigurationWrapper<IButtonProps>,
+    IFirstAllowedWrapper,
     IFullWrapper,
     ILastAllowedWrapper,
     INextIconWrapper,

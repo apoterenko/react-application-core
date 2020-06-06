@@ -1,4 +1,5 @@
 @import '../../_core-mixin';
+@import '../../button/_button-mixin';
 @import '../../icon/_icon-mixin';
 
 /**
@@ -7,6 +8,9 @@
 @mixin rac-page-toolbar (
   $rac-page-toolbar-custom: unset,
   /**/
+  $rac-page-toolbar-action-background: unset,                                            /* @stable [05.06.2020] */
+  $rac-page-toolbar-action-content-font-size: unset,                                     /* @stable [05.06.2020] */
+  $rac-page-toolbar-action-content-text-transform: unset,                                /* @stable [05.06.2020] */
   $rac-page-toolbar-align-items: unset,                                                  /* @stable [05.05.2020] */
   $rac-page-toolbar-background: unset,                                                   /* @stable [05.05.2020] */
   $rac-page-toolbar-border-top: unset,                                                   /* @stable [05.05.2020] */
@@ -45,6 +49,13 @@
     @include rac-styles (
       $rac-styles-custom: $rac-toolbar-content-cls,
       $rac-styles-display: $rac-page-toolbar-content-display
+    );
+
+    @include rac-button (
+      $rac-button-custom: $rac-toolbar-action-cls,
+      $rac-button-background: $rac-page-toolbar-action-background,
+      $rac-button-content-font-size: $rac-page-toolbar-action-content-font-size,
+      $rac-button-content-text-transform: $rac-page-toolbar-action-content-text-transform
     );
 
     @include rac-icon (

@@ -95,6 +95,9 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    * @returns {JSX.Element}
    */
   private get actionsElement(): JSX.Element {
+    const mergedProps = this.mergedProps;
+    const {actionConfiguration} = mergedProps;
+
     const props = this.props;
     const {
       FIRST,
@@ -114,6 +117,8 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
             $areActionsUsed
               ? (
                 <Button
+                  raised={true}
+                  {...actionConfiguration}
                   text={FIRST}
                   disabled={isPreviousActionDisabled}
                   className={ToolbarClassesEnum.TOOLBAR_ACTION}
@@ -133,6 +138,8 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
           $areActionsUsed
             ? (
               <Button
+                raised={true}
+                {...actionConfiguration}
                 text={PREVIOUS}
                 disabled={isPreviousActionDisabled}
                 className={ToolbarClassesEnum.TOOLBAR_ACTION}
@@ -152,6 +159,8 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
           $areActionsUsed
             ? (
               <Button
+                raised={true}
+                {...actionConfiguration}
                 text={NEXT}
                 disabled={isNextActionDisabled}
                 className={ToolbarClassesEnum.TOOLBAR_ACTION}
@@ -171,6 +180,8 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
             $areActionsUsed
               ? (
                 <Button
+                  raised={true}
+                  {...actionConfiguration}
                   text={LAST}
                   disabled={isNextActionDisabled}
                   className={ToolbarClassesEnum.TOOLBAR_ACTION}

@@ -18,6 +18,7 @@ export interface IAcceptDisabledWrapper { acceptDisabled?: boolean; }
 export interface IAcceptTextWrapper { acceptText?: string; }
 export interface IAccessConfigurationWrapper<TValue> { accessConfiguration?: TValue; }
 export interface IAccessDeniedWrapper<TValue> { accessDenied?: TValue; }
+export interface IActionConfigurationWrapper<TValue> { actionConfiguration?: TValue; }
 export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
 export interface IActionsPosition<TValue> { actionsPosition?: TValue; }
 export interface IActionsRenderedWrapper { actionsRendered?: boolean; }

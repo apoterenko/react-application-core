@@ -1,6 +1,6 @@
-@import '../../mixin';
 @import '../_toolbar-constant';
 @import './_page-toolbar-constant';
+@import './_page-toolbar-mixin';
 
 .rac {
 
@@ -9,6 +9,9 @@
    * @stable [05.05.2020]
    */
   @include rac-page-toolbar (
+    $rac-page-toolbar-action-background: $rac-page-toolbar-action-background,
+    $rac-page-toolbar-action-content-font-size: $rac-page-toolbar-action-content-font-size,
+    $rac-page-toolbar-action-content-text-transform: $rac-page-toolbar-action-content-text-transform,
     $rac-page-toolbar-align-items: $rac-page-toolbar-align-items,
     $rac-page-toolbar-border-top: $rac-page-toolbar-border-top,
     $rac-page-toolbar-content-display: $rac-page-toolbar-content-display,
