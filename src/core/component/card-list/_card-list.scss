@@ -17,7 +17,43 @@
     $rac-list-item-background: $rac-card-list-item-background,
     $rac-list-item-float: $rac-card-list-item-float,
     $rac-list-item-height: $rac-card-list-item-height,
+    $rac-list-item-padding: $rac-card-list-item-padding,
     $rac-list-item-width: $rac-card-list-item-width,
-    $rac-list-justify-content: $rac-card-list-justify-content
+    $rac-list-justify-content: $rac-card-list-justify-content,
+    $rac-list-margin: $rac-card-list-margin
   );
+
+  /**
+   * @media
+   * @stable [07.06.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-1-min) and (max-width: $rac-primary-media-query-breakpoint-1-max) {
+
+    /**
+     * @card-list
+     * @stable [07.06.2020]
+     */
+    @include rac-list (
+      $rac-list-custom: $rac-card-list-cls,
+      $rac-list-item-height: $rac-card-list-item__media-query-breakpoint-1-min-max__height,
+      $rac-list-item-width: $rac-card-list-item__media-query-breakpoint-1-min-max__width
+    );
+  }
+
+  /**
+   * @media
+   * @stable [07.06.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-0-min) and (max-width: $rac-primary-media-query-breakpoint-0-max) {
+
+    /**
+     * @card-list
+     * @stable [07.06.2020]
+     */
+    @include rac-list (
+      $rac-list-custom: $rac-card-list-cls,
+      $rac-list-item-height: $rac-card-list-item__media-query-breakpoint-0-min-max__height,
+      $rac-list-item-width: $rac-card-list-item__media-query-breakpoint-0-min-max__width
+    );
+  }
 }

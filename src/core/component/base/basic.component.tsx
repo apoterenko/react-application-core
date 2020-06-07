@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { calc } from '../../util';
+import { CalcUtils } from '../../util';
 import { EnhancedGenericComponent } from './enhanced-generic.component';
 
 export class BasicComponent extends EnhancedGenericComponent {
@@ -15,7 +15,7 @@ export class BasicComponent extends EnhancedGenericComponent {
       <div
         ref={this.actualRef}
         style={props.style}
-        className={calc(props.className)}
+        className={CalcUtils.calc(props.className)}
       >
         {props.children}
       </div>
