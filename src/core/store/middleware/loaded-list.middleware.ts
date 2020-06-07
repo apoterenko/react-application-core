@@ -10,9 +10,8 @@ import {
 } from '../../definition';
 import {
   $isValid,
+  ConditionUtils,
   FilterUtils,
-  ifNotEmptyThanValue,
-  orNull,
   selectValidFromAction,
   toListSection,
   WrapperUtils,
@@ -34,7 +33,7 @@ export const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddleware
  */
 export const makeLoadedListOnFormValidMiddleware =
   <TState = {}>(config: ILoadedListOnFormValidMiddlewareConfigEntity<TState>): IEffectsAction =>
-    orNull(
+    ConditionUtils.orNull(
       $isValid(selectValidFromAction(config.action)),
       () => makeLoadedListMiddleware(config)
     );
@@ -64,10 +63,10 @@ export const makeLoadedListOnToolbarToolsRefreshMiddleware =
  */
 export const makeUntouchedListMiddleware =
   <TState = {}>(config: IUntouchedListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
-    ifNotEmptyThanValue(
+    ConditionUtils.ifNotEmptyThanValue(
       FilterUtils.notNilValuesArrayFilter(
         makeDefaultFormChangesMiddleware(config),
-        orNull(
+        ConditionUtils.orNull(
           !WrapperUtils.isTouched(config.listAccessor(config.state)),
           () => makeLoadedListMiddleware(config)
         )

@@ -62,3 +62,10 @@ export const getRoutePathBySection = (section: string, connectorConfigs: Map<str
   });
   return routePath;
 };
+
+/**
+ * @stable [07.06.2020]
+ */
+export class RouteUtils {
+  public static readonly buildEntityRoute = buildEntityRoute;               /* @stable [07.06.2020] */
+}

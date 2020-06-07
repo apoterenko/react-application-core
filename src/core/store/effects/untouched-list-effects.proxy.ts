@@ -5,7 +5,7 @@ import {
 
 import { ConnectorActionBuilder } from '../../action';
 import { IUntouchedListMiddlewareConfigEntity } from '../../definition';
-import { makeUntouchedListMiddleware } from '../middleware';
+import { MiddlewareFactories } from '../middleware';
 import {
   nvl,
   toContainerSection,
@@ -35,7 +35,7 @@ export const makeUntouchedListEffectsProxy =
           ConnectorActionBuilder.buildInitActionType(nvl(toContainerSection(cfg), toListSection(cfg)))
         )
         public $onConnectorInit = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-          makeUntouchedListMiddleware({...cfg, action, state})
+          MiddlewareFactories.untouchedListMiddleware({...cfg, action, state})
       }
     }
   );
