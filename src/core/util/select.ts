@@ -473,6 +473,7 @@ export class Selectors {
   public static readonly activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
   public static readonly changes = selectChanges;
   public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */
+  public static readonly dataPayloadFromAction = selectDataPayloadFromAction;                                   /* @stable [08.06.2020] */
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
   public static readonly element = selectElement;                                                               /* @stable [08.06.2020] */
   public static readonly entity = selectEntity;

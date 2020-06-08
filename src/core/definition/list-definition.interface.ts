@@ -255,7 +255,6 @@ export interface IListContainerProps
  * @stable [04.05.2020]
  */
 export enum ListClassesEnum {
-  CARD = 'rac-card',
   CARD_LIST = 'rac-card-list',
   FULL_LIST = 'rac-full-list',
   LIST = 'rac-list',

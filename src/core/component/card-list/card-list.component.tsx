@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import {
-  calc,
-  isFull,
-  joinClassName,
+  CalcUtils,
+  ClsUtils,
+  WrapperUtils,
 } from '../../util';
 import {
   ICardListProps,
@@ -20,16 +20,18 @@ export class CardList extends BaseList<ICardListProps> {
    * @returns {JSX.Element}
    */
   protected getView(): JSX.Element {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
+    const {className} = mergedProps;
+
     return (
       <div
         ref={this.actualRef}
         className={
-          joinClassName(
+          ClsUtils.joinClassName(
             ListClassesEnum.LIST,
             ListClassesEnum.CARD_LIST,
-            isFull(props) && ListClassesEnum.FULL_LIST,
-            props.className
+            WrapperUtils.isFull(mergedProps) && ListClassesEnum.FULL_LIST,
+            className
           )
         }>
         {this.dataSource.map(this.getItem, this)}
@@ -53,12 +55,14 @@ export class CardList extends BaseList<ICardListProps> {
       <Card
         key={this.toRowKey(entity)}
         className={
-          joinClassName(
+          ClsUtils.joinClassName(
             ListClassesEnum.LIST_ITEM,
             `rac-list-item-${index}`,
-            calc(itemConfiguration.className, entity)
+            CalcUtils.calc(itemConfiguration.className, entity)
           )
         }
+        selected={this.isEntitySelected(entity)}
+        rawData={entity}
         onClick={onSelect}
       >
         {itemConfiguration.renderer(entity)}

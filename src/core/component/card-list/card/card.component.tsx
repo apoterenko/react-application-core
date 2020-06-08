@@ -1,32 +1,81 @@
 import * as React from 'react';
 
 import {
-  calc,
-  handlerPropsFactory,
-  joinClassName,
+  CalcUtils,
+  ClsUtils,
+  PropsUtils,
+  TypeUtils,
+  WrapperUtils,
 } from '../../../util';
 import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
+  CardClassesEnum,
   ICardProps,
-  ListClassesEnum,
+  UniversalScrollableContext,
 } from '../../../definition';
 
 export class Card extends GenericBaseComponent<ICardProps> {
 
   /**
-   * @stable [03.05.2020]
+   * @stable [08.06.2020]
+   * @param {ICardProps} props
+   */
+  constructor(props: ICardProps) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  /**
+   * @stable [08.06.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
+    const {
+      className,
+      onClick,
+    } = mergedProps;
+
     return (
-      <div
-        ref={this.selfRef}
-        className={joinClassName(ListClassesEnum.CARD, calc(props.className))}
-        {...handlerPropsFactory(props.onClick, true, false)}
-      >
-        {props.children}
-      </div>
+      <UniversalScrollableContext.Consumer>
+        {(selectedElementClassName) => (
+          <div
+            ref={this.actualRef}
+            className={
+              ClsUtils.joinClassName(
+                CardClassesEnum.CARD,
+                CalcUtils.calc(className),
+                ...WrapperUtils.isSelected(mergedProps)
+                  ? [CardClassesEnum.CARD_SELECTED, selectedElementClassName]
+                  : []
+              )
+            }
+            {
+              ...PropsUtils.buildClickHandlerProps(
+                this.onClick,
+                TypeUtils.isFn(onClick) && !WrapperUtils.isDisabled(mergedProps),
+                false
+              )
+            }
+          >
+            {this.props.children}
+          </div>
+        )}
+      </UniversalScrollableContext.Consumer>
     );
+  }
+
+  /**
+   * @stable [08.06.2020]
+   */
+  private onClick(): void {
+    const {
+      onClick,
+    } = this.mergedProps;
+    const {
+      rawData,
+    } = this.originalProps;
+
+    onClick(rawData);
   }
 }

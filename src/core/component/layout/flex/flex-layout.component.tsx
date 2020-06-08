@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
   fullFlexClassName,
-  handlerPropsFactory,
-  joinClassName,
+  PropsUtils,
 } from '../../../util';
 import {
   ComponentClassesEnum,
@@ -20,36 +20,55 @@ export class FlexLayout extends EnhancedGenericComponent<IFlexLayoutProps> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      alignItemsCenter,
+      alignItemsEnd,
+      alignItemsStart,
+      alignItemsStretch,
+      className,
+      disabled,
+      fullSize,
+      justifyContentCenter,
+      justifyContentEnd,
+      justifyContentSpaceBetween,
+      noShrink,
+      onClick,
+      row,
+      style,
+      title,
+      touched,
+      wrap,
+    } = this.mergedProps;
 
     return (
       <div
-        ref={this.selfRef}
+        ref={this.actualRef}
         className={
-          joinClassName(
-            calc(props.className),
+          ClsUtils.joinClassName(
+            CalcUtils.calc(className),
             FlexLayoutClassesEnum.FLEX,
-            props.alignItemsCenter && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_CENTER,
-            props.alignItemsEnd && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_END,
-            props.alignItemsStart && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_START,
-            props.alignItemsStretch && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_STRETCH,
-            props.fullSize && ComponentClassesEnum.FULL_SIZE,
-            props.justifyContentCenter && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_CENTER,
-            props.justifyContentEnd && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_END,
-            props.noShrink && FlexLayoutClassesEnum.FLEX_NO_SHRINK,
-            props.wrap && FlexLayoutClassesEnum.FLEX_WRAP,
             /**/
-            props.row ? 'rac-flex-row' : 'rac-flex-column',
+            alignItemsCenter && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_CENTER,
+            alignItemsEnd && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_END,
+            alignItemsStart && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_START,
+            alignItemsStretch && FlexLayoutClassesEnum.FLEX_ALIGN_ITEMS_STRETCH,
+            fullSize && ComponentClassesEnum.FULL_SIZE,
+            justifyContentCenter && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_CENTER,
+            justifyContentEnd && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_END,
+            justifyContentSpaceBetween && FlexLayoutClassesEnum.FLEX_JUSTIFY_CONTENT_SPACE_BETWEEN,
+            noShrink && FlexLayoutClassesEnum.FLEX_NO_SHRINK,
+            wrap && FlexLayoutClassesEnum.FLEX_WRAP,
             /**/
-            fullFlexClassName(props as any), // TODO
-            props.justifyContentSpaceBetween && 'rac-flex-justify-content-space-between'
+            row ? 'rac-flex-row' : 'rac-flex-column',
+            /**/
+            fullFlexClassName(this.props as any) // TODO
           )
         }
-        title={props.title as string}
-        style={props.style}
-        {...handlerPropsFactory(props.onClick, !calc(props.disabled), props.touched)}
+        title={title as string}
+        style={style}
+        {...PropsUtils.buildClickHandlerProps(onClick, !CalcUtils.calc(disabled), touched)}
       >
-        {props.children}
+        {this.props.children}
       </div>
     );
   }

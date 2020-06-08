@@ -16,13 +16,15 @@ import {
   IWrapWrapper,
 } from '../definitions.interface';
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
+import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
 
 /**
  * @presets-entity
  * @stable [23.05.2020]
  */
 export interface IPresetsFlexLayoutEntity
-  extends IAlignItemsCenterWrapper,
+  extends IPresetsSelectedElementEntity,
+    IAlignItemsCenterWrapper,
     IAlignItemsEndWrapper,
     IAlignItemsStartWrapper,
     IAlignItemsStretchWrapper,
@@ -68,6 +70,7 @@ export enum FlexLayoutClassesEnum {
   FLEX_ALIGN_ITEMS_STRETCH = 'rac-flex-align-items-stretch',
   FLEX_JUSTIFY_CONTENT_CENTER = 'rac-flex-justify-content-center',
   FLEX_JUSTIFY_CONTENT_END = 'rac-flex-justify-content-end',
+  FLEX_JUSTIFY_CONTENT_SPACE_BETWEEN = 'rac-flex-justify-content-space-between',
   FLEX_NO_SHRINK = 'rac-flex-no-shrink',
   FLEX_WRAP = 'rac-flex-wrap',
 }

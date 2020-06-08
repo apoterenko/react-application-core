@@ -597,12 +597,12 @@ export const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.plainValue !== false, false);
 
 /**
- * @stable [19.12.2019]
- * @param {IRefreshOnUpdateWrapper} entity
+ * @stable [08.06.2020]
+ * @param {IRefreshOnUpdateWrapper} wrapper
  * @returns {boolean}
  */
-export const isRefreshOnUpdate = (entity: IRefreshOnUpdateWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.refreshOnUpdate === true, false);
+const isRefreshOnUpdateNeeded = (wrapper: IRefreshOnUpdateWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.refreshOnUpdate === true;
 
 /**
  * @stable [28.01.2020]
@@ -710,6 +710,7 @@ export class WrapperUtils {
   public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
   public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */
+  public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
   public static readonly isSelectable = isSelectable;                                      /* @stable [01.06.2020] */
   public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
   public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */

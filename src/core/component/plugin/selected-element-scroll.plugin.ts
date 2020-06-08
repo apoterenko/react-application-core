@@ -10,7 +10,7 @@ import {
 } from '../../definition';
 import {
   ConditionUtils,
-  isRefreshOnUpdate,
+  WrapperUtils,
 } from '../../util';
 
 export class SelectedElementPlugin implements IGenericPlugin {
@@ -34,7 +34,7 @@ export class SelectedElementPlugin implements IGenericPlugin {
    * @stable [25.10.2019]
    */
   public componentDidUpdate() {
-    if (isRefreshOnUpdate(this.component.props)) {
+    if (WrapperUtils.isRefreshOnUpdateNeeded(this.originalProps)) {
       this.refreshScrollPosition();
     }
   }
@@ -69,7 +69,7 @@ export class SelectedElementPlugin implements IGenericPlugin {
    */
   private get selectedElement(): Element {
     return ConditionUtils.ifNotEmptyThanValue(
-      this.component.props.selectedElementClassName,
+      this.originalProps.selectedElementClassName,
       (selectedElementClassName) =>
         this.domAccessor.findElement(this.domAccessor.asSelector(selectedElementClassName), this.selfRef)
     );
@@ -81,10 +81,18 @@ export class SelectedElementPlugin implements IGenericPlugin {
    */
   private get stickyElement(): Element {
     return ConditionUtils.ifNotEmptyThanValue(
-      this.component.props.stickyElementClassName,
+      this.originalProps.stickyElementClassName,
       (stickyElementClassName) =>
         this.domAccessor.findElement(this.domAccessor.asSelector(stickyElementClassName), this.selfRef)
     );
+  }
+
+  /**
+   * @stable [08.06.2020]
+   * @returns {ISelectedElementComponentProps}
+   */
+  private get originalProps(): ISelectedElementComponentProps {
+    return this.component.props;
   }
 
   /**
