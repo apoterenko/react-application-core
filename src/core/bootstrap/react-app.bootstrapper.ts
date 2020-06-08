@@ -5,9 +5,8 @@ import {
 } from '../util';
 import {
   IContainerCtor,
-  IContainerProps,
 } from '../definition';
-import { makeBootstrapApp } from './universal-bootstrap-app.factory';
+import { bootstrapApp } from './bootstrap-app.factory';
 
 /**
  * @stable [20.09.2019]
@@ -16,7 +15,7 @@ import { makeBootstrapApp } from './universal-bootstrap-app.factory';
  */
 export const bootstrapReactApp = <TStoreEntity>(
   applicationContainer: IContainerCtor) => {
-  const componentClass = makeBootstrapApp(applicationContainer, {});
+  const componentClass = bootstrapApp(applicationContainer);
   render(
     new componentClass({}).render() as JSX.Element, // Isomorphic componentClass
     getElementById('appId'), // TODO settings

@@ -6,7 +6,6 @@ import { IKeyValue } from '../../definitions.interface';
 import {
   ConnectorMapperT,
   IUniversalContainerCtor,
-  IUniversalContainerProps,
   IUniversalStoreEntity,
 } from '../../definition';
 
@@ -18,7 +17,7 @@ const logger = LoggerFactory.makeLogger('universal-connector.factory');
  * @param {ConnectorMapperT<TStoreEntity extends IUniversalStoreEntity>} mappers
  * @returns {IUniversalContainerCtor}
  */
-export const universalConnectorFactory = <TStoreEntity extends IUniversalStoreEntity = IUniversalStoreEntity>(
+export const connectorFactory = <TStoreEntity extends IUniversalStoreEntity = IUniversalStoreEntity>(
   containerCtor: IUniversalContainerCtor,
   ...mappers: Array<ConnectorMapperT<TStoreEntity>>): IUniversalContainerCtor => {
 

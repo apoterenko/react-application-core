@@ -1,2 +1,2 @@
+export * from './bootstrap-app.factory';
 export * from './react-app.bootstrapper';
-export * from './universal-bootstrap-app.factory';

@@ -8,7 +8,7 @@ import {
   getDynamicRoutes,
   getDynamicSections,
 } from '../../di';
-import { universalConnectorFactory } from './universal-connector.factory';
+import { connectorFactory } from './connector.factory';
 import {
   IBasicConnectorEntity,
   IConnectorEntity,
@@ -40,7 +40,7 @@ export const basicConnector = <TStoreEntity extends IUniversalStoreEntity = IUni
         target}. The init and destroy actions are disabled.`
       );
     }
-    getDynamicRoutes().set(universalConnectorFactory<TStoreEntity>(finalTarget, ...config.mappers), config);
+    getDynamicRoutes().set(connectorFactory<TStoreEntity>(finalTarget, ...config.mappers), config);
   };
 
 /**

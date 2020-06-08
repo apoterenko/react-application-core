@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { IGenericStoreEntity } from './redux-definition.interface';
 import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 import {
@@ -44,4 +46,12 @@ export interface IGenericContainer<TProps extends IGenericContainerProps<TDictio
   notificationStoreProxy: INotificationStoreProxy;
   routerStoreProxy: IRouterStoreProxy;
   tabPanelStoreProxy: ITabPanelStoreProxy;
+}
+
+/**
+ * @ctor
+ * @stable [08.06.2020]
+ */
+export interface IGenericContainerCtor<TProps extends IGenericContainerProps = IGenericContainerProps, TState = {}>
+  extends React.ComponentClass<TProps, TState> {
 }
