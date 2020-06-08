@@ -5,9 +5,8 @@ import {
   IChainedMiddlewareConfigEntity,
 } from '../../definition';
 import {
-  $areEffectsPrevented,
   isFn,
-  selectPreventEffectsFromAction,
+  Selectors,
 } from '../../util';
 import {
   RouterActionBuilder,
@@ -21,7 +20,7 @@ import {
  */
 export const makeChainedMiddleware =
   <TPayload, TState>(config: IChainedMiddlewareConfigEntity<TState, TPayload>): IEffectsAction[] =>
-    $areEffectsPrevented(selectPreventEffectsFromAction(config.action))
+    Selectors.preventEffectsFromAction(config.action) === true
       ? []
       : (
         [

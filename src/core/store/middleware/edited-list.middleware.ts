@@ -7,21 +7,18 @@ import {
 import {
   IChainedMiddlewareConfigEntity,
   IEditedListMiddlewareConfigEntity,
-  ISelectedFluxEntity,
+  IFluxSelectedEntity,
 } from '../../definition';
 import {
   ListActionBuilder,
 } from '../../component/action.builder';
 import { makeChainedMiddleware } from './chained.middleware';
 import {
+  ConditionUtils,
   defValuesFilter,
   FilterUtils,
-  ifNotNilThanValue,
-  isObjectNotEmpty,
-  orNull,
-  selectPreventEffectsFromAction,
-  selectPreviousActionFromAction,
-  selectPreviousActionTypeFromAction,
+  ObjectUtils,
+  Selectors,
   selectSelectedEntityFromAction,
   toFormSection,
   toListSection,
@@ -50,7 +47,7 @@ const asChainedConfigEntity = <TPayload = {}, TState = {}, TDefaultChanges = {}>
  */
 export const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<{}, TState, TDefaultChanges>): IEffectsAction[] =>
-  ifNotNilThanValue(
+  ConditionUtils.ifNotNilThanValue(
     makeChainedMiddleware(asChainedConfigEntity(config)),
     (actions) => FilterUtils.notNilValuesArrayFilter(...actions, makeDefaultFormChangesMiddleware(config))
   );
@@ -70,10 +67,10 @@ export const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultC
     ? [
       ListActionBuilder.buildLazyLoadAction(
         toListSection(cfg),
-        defValuesFilter<ISelectedFluxEntity, ISelectedFluxEntity>({
+        defValuesFilter<IFluxSelectedEntity, IFluxSelectedEntity>({
           selected,
-          preventEffects: selectPreventEffectsFromAction(action),
-          previousAction: selectPreviousActionFromAction(action),
+          preventEffects: Selectors.preventEffectsFromAction(action),
+          previousAction: Selectors.previousActionFromAction(action),
         })
       )
     ]
@@ -88,14 +85,14 @@ export const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultC
 export const makeLazyLoadedEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>
 ): IEffectsAction[] => {
-  const action = config.action;
+  const {action} = config;
   const result = [
-    ...ifNotNilThanValue(
-      selectPreviousActionTypeFromAction(action),
+    ...ConditionUtils.ifNotNilThanValue(
+      Selectors.previousActionTypeFromAction(action),
       (previousActionType) => [EffectsAction.create(EffectsActionBuilder.buildDoneActionType(previousActionType))],
       []
     ),
     ...makeChainedMiddleware({...asChainedConfigEntity(config), payload: action.data}) || []
   ];
-  return orNull(isObjectNotEmpty(result), result);
+  return ConditionUtils.orNull(ObjectUtils.isObjectNotEmpty(result), result);
 };

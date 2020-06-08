@@ -151,6 +151,7 @@ export interface IPayloadEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
+ * @entity
  * @stable [19.01.2020]
  */
 export interface ISelectedEntity<TEntity extends IEntity = IEntity>

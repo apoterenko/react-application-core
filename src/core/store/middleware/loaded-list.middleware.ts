@@ -9,11 +9,11 @@ import {
   IUntouchedListMiddlewareConfigEntity,
 } from '../../definition';
 import {
-  $isValid,
   ConditionUtils,
   FilterUtils,
   selectValidFromAction,
   toListSection,
+  ValueUtils,
   WrapperUtils,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
@@ -34,7 +34,7 @@ export const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddleware
 export const makeLoadedListOnFormValidMiddleware =
   <TState = {}>(config: ILoadedListOnFormValidMiddlewareConfigEntity<TState>): IEffectsAction =>
     ConditionUtils.orNull(
-      $isValid(selectValidFromAction(config.action)),
+      ValueUtils.isValueValid(selectValidFromAction(config.action)),
       () => makeLoadedListMiddleware(config)
     );
 

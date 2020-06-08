@@ -2,7 +2,6 @@ import { IEntity } from '../definitions.interface';
 import { IFormEntity } from '../definition';
 import {
   inProgress,
-  isValid,
   WrapperUtils,
 } from './wrapper';
 import { Selectors } from './select';
@@ -22,7 +21,7 @@ const isFormEntityInProgress = <TEntity = IEntity>(entity: IFormEntity<TEntity>)
  * @returns {boolean}
  */
 const isFormEntityValid = <TEntity = IEntity>(entity: IFormEntity<TEntity>): boolean =>
-  isValid(Selectors.form(entity));
+  WrapperUtils.isValid(Selectors.form(entity));
 
 /**
  * @stable [11.05.2020]

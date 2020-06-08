@@ -54,21 +54,21 @@ export interface IEffectsActionEntity
 }
 
 /**
- * @wrapper-entity
- * @stable [20.10.2019]
+ * @entity
+ * @stable [08.06.2020]
  */
-export interface IPreviousActionWrapperEntity
+export interface IPreviousActionEntity
   extends IPreviousActionWrapper<IEffectsAction> {
 }
 
 /**
  * @flux-entity
- * @stable [27.03.2020]
+ * @stable [08.06.2020]
  */
-export interface ISelectedFluxEntity
-  extends ISelectedEntity,
-    IPreventEffectsWrapper,
-    IPreviousActionWrapperEntity {
+export interface IFluxSelectedEntity
+  extends IPreventEffectsWrapper,
+    IPreviousActionEntity,
+    ISelectedEntity {
 }
 
 /**

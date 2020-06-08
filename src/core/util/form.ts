@@ -22,7 +22,6 @@ import {
   isAlwaysResettable,
   isDirty,
   isDisabled,
-  isValid,
   WrapperUtils,
 } from './wrapper';
 import { isDef } from './type';
@@ -52,7 +51,7 @@ const isFormFieldChangeable = (formProps: IFormProps,
  * @returns {boolean}
  */
 const isFormValid = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  isValid(entity) && FormEntityUtils.inValid(entity);
+  WrapperUtils.isValid(entity) && FormEntityUtils.inValid(entity);
 
 /**
  * @stable [06.05.2020]

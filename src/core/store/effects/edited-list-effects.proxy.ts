@@ -7,8 +7,8 @@ import { IEditedListMiddlewareConfigEntity } from '../../definition';
 import { ListActionBuilder } from '../../component/action.builder';
 import {
   makeCreateEntityMiddleware,
-  makeLazyLoadedEntityMiddleware,
   makeSelectEntityMiddleware,
+  MiddlewareFactories,
 } from '../middleware';
 import { provideInSingleton } from '../../di';
 import { toListSection } from '../../util';
@@ -53,6 +53,6 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        */
       @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(toListSection(cfg)))
       public $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeLazyLoadedEntityMiddleware({...cfg, action, state})
+        MiddlewareFactories.lazyLoadedEntityMiddleware({...cfg, action, state})
     }
   };

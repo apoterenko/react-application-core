@@ -24,6 +24,7 @@ import {
   INotificationWrapper,
   IPayloadWrapper,
   IPreventEffectsWrapper,
+  IPreviousActionWrapper,
   IPrimaryFilterWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
@@ -36,7 +37,6 @@ import {
   ITabPanelWrapper,
   ITokenWrapper,
   ITransportWrapper,
-  ITypeWrapper,
   IUserWrapper,
   IValidWrapper,
   UNDEF,
@@ -46,7 +46,6 @@ import { NvlUtils } from './nvl';
 import {
   IFormEntity,
   IListEntity,
-  IPreviousActionWrapperEntity,
   IQueryFilterEntity,
   IReduxHolderLayoutEntity,
   IReduxHolderStackEntity,
@@ -54,7 +53,7 @@ import {
   LayoutModesEnum,
   ToolbarToolsEnum,
 } from '../definition';
-import { ifNotNilThanValue } from './cond';
+import { ConditionUtils } from './cond';
 import {
   inProgress,
   isDirty,
@@ -81,7 +80,7 @@ export const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): 
  * @param {IElementWrapper<TValue>} wrapper
  * @returns {TValue}
  */
-export const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue =>
+const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.element;
 
 /**
@@ -137,14 +136,6 @@ const selectFilter = <TValue = string>(wrapper: IFilterWrapper<TValue>): TValue 
  */
 const selectQueryFilter = <TValue = string>(wrapper: IQueryFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.queryFilter;
-
-/**
- * @stable [26.03.2020]
- * @param {ITypeWrapper<TValue>} wrapper
- * @returns {TValue}
- */
-export const selectType = <TValue>(wrapper: ITypeWrapper<TValue>): TValue =>
-  R.isNil(wrapper) ? UNDEF : wrapper.type;
 
 /**
  * @stable [29.02.2020]
@@ -231,7 +222,7 @@ export const selectValidFromAction = (wrapper: IEffectsAction): boolean =>
  * @param {IPreventEffectsWrapper} wrapper
  * @returns {boolean}
  */
-export const selectPreventEffects = (wrapper: IPreventEffectsWrapper): boolean =>
+const selectPreventEffects = (wrapper: IPreventEffectsWrapper): boolean =>
   R.isNil(wrapper) ? UNDEF : wrapper.preventEffects;
 
 /**
@@ -239,17 +230,17 @@ export const selectPreventEffects = (wrapper: IPreventEffectsWrapper): boolean =
  * @param {IEffectsAction} wrapper
  * @returns {boolean}
  */
-export const selectPreventEffectsFromAction = (wrapper: IEffectsAction): boolean =>
+const selectPreventEffectsFromAction = (wrapper: IEffectsAction): boolean =>
   R.isNil(wrapper)
     ? UNDEF
     : NvlUtils.coalesce(selectPreventEffects(wrapper.data), selectPreventEffects(wrapper.initialData));
 
 /**
- *
- * @param {IPreviousActionWrapperEntity} wrapper
- * @returns {IEffectsAction}
+ * @stable [08.06.2020]
+ * @param {IPreviousActionWrapper<TValue>} wrapper
+ * @returns {IPreviousActionWrapper<TValue>}
  */
-export const selectPreviousAction = (wrapper: IPreviousActionWrapperEntity): IEffectsAction =>
+const selectPreviousAction = <TValue>(wrapper: IPreviousActionWrapper<TValue>): IPreviousActionWrapper<TValue> =>
   R.isNil(wrapper) ? UNDEF : wrapper.previousAction;
 
 /**
@@ -264,7 +255,7 @@ const selectListProgress = (entity: IListEntity): boolean => inProgress(selectLi
  * @param {IEffectsAction} wrapper
  * @returns {IEffectsAction}
  */
-export const selectPreviousActionFromAction = (wrapper: IEffectsAction): IEffectsAction =>
+const selectPreviousActionFromAction = (wrapper: IEffectsAction): IEffectsAction =>
   R.isNil(wrapper)
     ? UNDEF
     : NvlUtils.coalesce(selectPreviousAction(wrapper.data), selectPreviousAction(wrapper.initialData));
@@ -274,10 +265,10 @@ export const selectPreviousActionFromAction = (wrapper: IEffectsAction): IEffect
  * @param {IEffectsAction} action
  * @returns {string}
  */
-export const selectPreviousActionTypeFromAction = (action: IEffectsAction): string =>
-  ifNotNilThanValue(
+const selectPreviousActionTypeFromAction = (action: IEffectsAction): string =>
+  ConditionUtils.ifNotNilThanValue(
     selectPreviousActionFromAction(action),
-    (previousAction) => selectType(previousAction),
+    (previousAction) => previousAction.type,
     UNDEF_SYMBOL
   );
 
@@ -295,7 +286,7 @@ export const selectSelected = <TEntity extends IEntity>(entity: ISelectedWrapper
  * @returns {TEntity}
  */
 export const selectSelectedEntityFromAction = <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity =>
-  ifNotNilThanValue(
+  ConditionUtils.ifNotNilThanValue(
     selectData(action),
     (data) => selectSelected(data),
     UNDEF_SYMBOL
@@ -307,7 +298,7 @@ export const selectSelectedEntityFromAction = <TEntity extends IEntity = IEntity
  * @returns {EntityIdT}
  */
 export const selectSelectedEntityIdFromAction = <TEntity extends IEntity = IEntity>(action: IEffectsAction): EntityIdT =>
-  ifNotNilThanValue(
+  ConditionUtils.ifNotNilThanValue(
     selectSelectedEntityFromAction(action),
     (entity: TEntity) => selectEntityId(entity),
     UNDEF_SYMBOL
@@ -483,6 +474,7 @@ export class Selectors {
   public static readonly changes = selectChanges;
   public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
+  public static readonly element = selectElement;                                                               /* @stable [08.06.2020] */
   public static readonly entity = selectEntity;
   public static readonly filter = selectFilter;
   public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */
@@ -494,6 +486,9 @@ export class Selectors {
   public static readonly listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
   public static readonly listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
   public static readonly mergedLayoutMode = selectMergedLayoutMode;                                             /* @stable [21.05.2020] */
+  public static readonly preventEffectsFromAction = selectPreventEffectsFromAction;                             /* @stable [08.06.2020] */
+  public static readonly previousActionFromAction = selectPreviousActionFromAction;                             /* @stable [08.05.2020] */
+  public static readonly previousActionTypeFromAction = selectPreviousActionTypeFromAction;                     /* @stable [08.05.2020] */
   public static readonly primaryFilter = selectPrimaryFilter;                                                   /* @stable [10.05.2020] */
   public static readonly query = selectQuery;
   public static readonly queryFilter = selectQueryFilter;

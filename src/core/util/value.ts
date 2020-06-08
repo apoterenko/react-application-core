@@ -8,14 +8,7 @@ import { AnyT } from '../definitions.interface';
  * @param {boolean} value
  * @returns {boolean}
  */
-export const $isValid = (value: boolean): boolean => value !== false;
-
-/**
- * @stable [27.03.2020]
- * @param {boolean} value
- * @returns {boolean}
- */
-export const $areEffectsPrevented = (value: boolean): boolean => value === true;
+const isValueValid = (value: boolean): boolean => value !== false;
 
 /**
  * @stable [03.06.2020]
@@ -31,4 +24,5 @@ const isValuePresent = (value: AnyT, emptyValue: AnyT): boolean =>
  */
 export class ValueUtils {
   public static readonly isValuePresent = isValuePresent;                                    /* @stable [03.06.2020] */
+  public static readonly isValueValid = isValueValid;                                        /* @stable [08.06.2020] */
 }

@@ -84,14 +84,17 @@ import {
   TypeUtils,
 } from './type';
 import { isOddNumber } from './calc';
-import { $isValid } from './value';
+import { ValueUtils } from './value';
 
 /**
- * @stable [03.02.2020]
+ * @stable [08.06.2020]
  * @param {IValidWrapper} wrapper
  * @returns {boolean}
  */
-export const isValid = (wrapper: IValidWrapper): boolean => R.isNil(wrapper) ? false : $isValid(wrapper.valid);
+const isValid = (wrapper: IValidWrapper): boolean =>
+  R.isNil(wrapper)
+    ? false
+    : ValueUtils.isValueValid(wrapper.valid);
 
 /**
  * @stable [03.02.2020]
