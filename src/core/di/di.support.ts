@@ -3,7 +3,7 @@ import { interfaces } from 'inversify';
 import { AnyT } from '../definitions.interface';
 import { appContainer, provideInSingletonDecorator } from './di.module';
 
-export const cachedServices = new Map();
+const cachedServices = new Map();
 
 /**
  * @stable [26.04.2018]
@@ -59,3 +59,13 @@ export const bindToConstantValue = <T>(contract: interfaces.ServiceIdentifier<T>
       ? appContainer.rebind(contract)
       : appContainer.bind(contract)
   ).toConstantValue(instance);
+
+/**
+ * @stable [08.06.2020]
+ */
+export class DiSupport {
+  public static readonly bindInSingleton = bindInSingleton;
+  public static readonly bindToConstantValue = bindToConstantValue;
+  public static readonly provideInSingleton = provideInSingleton;
+  public static readonly staticInjector = staticInjector;
+}

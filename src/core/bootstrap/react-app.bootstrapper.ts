@@ -3,9 +3,7 @@ import { render } from 'react-dom';
 import {
   getElementById,
 } from '../util';
-import {
-  IContainerCtor,
-} from '../definition';
+import { IGenericContainerCtor } from '../definition';
 import { bootstrapApp } from './bootstrap-app.factory';
 
 /**
@@ -13,8 +11,7 @@ import { bootstrapApp } from './bootstrap-app.factory';
  * @param {IContainerCtor} applicationContainer
  * @param {IBootstrapEntity} bootstrapEntity
  */
-export const bootstrapReactApp = <TStoreEntity>(
-  applicationContainer: IContainerCtor) => {
+export const bootstrapReactApp = <TStoreEntity>(applicationContainer: IGenericContainerCtor) => {
   const componentClass = bootstrapApp(applicationContainer);
   render(
     new componentClass({}).render() as JSX.Element, // Isomorphic componentClass
