@@ -213,7 +213,6 @@ export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
 export interface IGoBackWrapper { goBack?(depth?: number): void; }
 export interface IGoogleMapsConfigurationWrapper<TValue> { googleMapsConfiguration?: TValue; }
 export interface IGridConfigurationWrapper<TValue> { gridConfiguration?: TValue; }
-export interface IGroupableWrapper { groupable?: boolean; }
 export interface IGroupByWrapper<TValue> { groupBy?: TValue; }
 export interface IGroupedDataSorterWrapper<T1, T2> { groupedDataSorter?(t1?: T1, t2?: T1, t3?: T2, t4?: T2): number; }
 export interface IGroupedFieldNameWrapper { groupedFieldName?: string; }
@@ -319,7 +318,6 @@ export interface IMultiWrapper { multi?: boolean; }
 export interface INameWrapper<TValue = string> { name?: TValue; }
 export interface INavigateBackWrapper { navigateBack?: boolean; }
 export interface INavigationActionConfigurationWrapper<TValue> { navigationActionConfiguration?: TValue; }
-export interface INavigationActionIconWrapper { navigationActionIcon?: string; }
 export interface INavigationActionRenderedWrapper { navigationActionRendered?: boolean; }
 export interface INewEntityWrapper<TValue = boolean> { newEntity?: TValue; }
 export interface INextFormChangesWrapper<TValue> { nextFormChanges?: TValue; }
@@ -449,7 +447,6 @@ export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
 export interface IRemoteFilterWrapper { remoteFilter?: boolean; }
 export interface IRemoteSorterWrapper { remoteSorter?: boolean; }
 export interface IRemovedFilesWrapper<TValue> { removedFiles?: TValue; }
-export interface IRemovedWrapper<TValue = boolean> { removed?: TValue; }
 export interface IRemoveWrapper<TValue> { remove?: TValue; }
 export interface IRenderedWrapper { rendered?: boolean; }
 export interface IRendererWrapper<T1 = AnyT, T2 = AnyT, T3 = AnyT> { renderer?(t1: T1, t2?: T2, t3?: T3): JSX.Element; }
@@ -562,7 +559,6 @@ export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }
-export interface IWarningWrapper<TValue = boolean> { warning?: TValue; }
 export interface IWestWrapper<TValue = JSX.Element> { west?: TValue; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
