@@ -11,7 +11,7 @@ import { stackReducer } from './stack';
 import { channelsReducers } from '../channel';
 import { makeEntityReducer } from '../store/store.support';
 import {
-  IAsyncLibsEntity,
+  IReduxAsyncLibsEntity,
   IReduxDictionariesEntity,
   IReduxLayoutEntity,
   IGenericNotificationEntity,

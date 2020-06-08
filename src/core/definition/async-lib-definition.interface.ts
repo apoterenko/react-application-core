@@ -22,7 +22,8 @@ export interface IAsyncLibPayloadEntity
 }
 
 /**
- * @stable [09.01.2020]
+ * @config-entity
+ * @stable [08.06.2020]
  */
 export interface IAsyncLibConfigEntity
   extends IAliasWrapper,
@@ -40,31 +41,34 @@ export interface IAsyncLibManager {
 }
 
 /**
- * @stable [08.01.2020]
+ * @redux-entity
+ * @stable [08.06.2020]
  */
-export interface IAsyncLibEntity
+export interface IReduxAsyncLibEntity
   extends IDataWrapper<boolean>,
     ILoadingWrapper {
 }
 
 /**
- * @stable [08.01.2020]
+ * @redux-entity
+ * @stable [08.06.2020]
  */
-export interface IAsyncLibsEntity {
-  [alias: string]: IAsyncLibEntity;
+export interface IReduxAsyncLibsEntity {
+  [alias: string]: IReduxAsyncLibEntity;
 }
 
 /**
- * @stable [10.01.2020]
+ * @redux-holder-entity
+ * @stable [08.06.2020]
  */
-export interface IAsyncLibsWrapperEntity
-  extends IAsyncLibsWrapper<IAsyncLibsEntity> {
+export interface IReduxHolderAsyncLibsEntity<TEntity = IReduxAsyncLibsEntity>
+  extends IAsyncLibsWrapper<TEntity> {
 }
 
 /**
  * @stable [08.01.2020]
  */
-export const INITIAL_ASYNC_LIBS_ENTITY = Object.freeze<IAsyncLibsEntity>({});
+export const INITIAL_ASYNC_LIBS_ENTITY = Object.freeze<IReduxAsyncLibsEntity>({});
 
 /**
  * @stable [08.01.2020]

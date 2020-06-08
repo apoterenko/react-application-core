@@ -4,7 +4,6 @@ import {
   IActionWrapper,
   IDataWrapper,
   IDestroyWrapper,
-  IDictionariesWrapper,
   IInitialStateWrapper,
   IKeyValue,
   IListSectionWrapper,
@@ -23,16 +22,17 @@ import {
   ISelectWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
-import { IAsyncLibsWrapperEntity } from './async-lib-definition.interface';
 import { IChannelWrapperEntity } from './channel-definition.interface';
-import { IReduxHolderLayoutEntity } from './layout-definition.interface';
 import { INotificationWrapperEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
-import { ISelectedEntity } from './entity-definition.interface';
+import { IReduxHolderAsyncLibsEntity } from './async-lib-definition.interface';
+import { IReduxHolderDictionariesEntity } from './dictionary-definition.interface';
+import { IReduxHolderLayoutEntity } from './layout-definition.interface';
 import { IReduxHolderStackEntity } from './stack-definition.interface';
+import { IReduxHolderUserEntity } from './user-definition.interface';
+import { ISelectedEntity } from './entity-definition.interface';
 import { ITransportWrapperEntity } from './transport-definition.interface';
 import { IUniversalApplicationWrapperEntity } from './application-definition.interface';
-import { IReduxHolderUserEntity } from './user-definition.interface';
 
 /**
  * @stable [06.04.2020]
@@ -114,8 +114,10 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
  * @redux-entity
  * @stable [22.05.2020]
  */
-export interface IReduxStoreEntity
-  extends IReduxHolderLayoutEntity,
+export interface IReduxStoreEntity<TDictionaries = {}>
+  extends IReduxHolderAsyncLibsEntity,
+    IReduxHolderDictionariesEntity<TDictionaries>,
+    IReduxHolderLayoutEntity,
     IReduxHolderStackEntity,
     IReduxHolderUserEntity {
 }
@@ -125,9 +127,8 @@ export interface IReduxStoreEntity
  * @stable [14.04.2020]
  */
 export interface IGenericStoreEntity<TDictionaries = {}>
-  extends IReduxStoreEntity,
+  extends IReduxStoreEntity<TDictionaries>,
     IChannelWrapperEntity,
-    IDictionariesWrapper<TDictionaries>,
     INotificationWrapperEntity,
     ISectionNameWrapper, // TODO Move from this
     ITransportWrapperEntity {
@@ -146,8 +147,7 @@ export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
  * @stable [28.09.2019]
  */
 export interface IStoreEntity<TDictionaries = {}, TPermissions = {}>
-  extends IUniversalStoreEntity<TDictionaries, TPermissions>,
-    IAsyncLibsWrapperEntity {
+  extends IUniversalStoreEntity<TDictionaries, TPermissions> {
 }
 
 /**

@@ -1,12 +1,12 @@
 import {
   IChannelWrapperEntity,
-  IDictionariesEntity,
-  IReduxHolderLayoutEntity,
   INotificationWrapperEntity,
+  IReduxHolderDictionariesEntity,
+  IReduxHolderLayoutEntity,
   IReduxHolderStackEntity,
+  IReduxHolderUserEntity,
   ITransportWrapperEntity,
   IUniversalStoreEntity,
-  IReduxHolderUserEntity,
 } from '../../definition';
 import {
   universalDefaultMappers,

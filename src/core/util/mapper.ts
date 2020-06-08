@@ -5,7 +5,7 @@ import { defValuesFilter } from './filter';
 import {
   IApiEntity,
   IChannelWrapperEntity,
-  IDictionariesEntity,
+  IReduxHolderDictionariesEntity,
   IExtendedEntity,
   IExtendedFormEntity,
   IFormEntity,
@@ -288,11 +288,11 @@ export const mapTransportWrapperEntity =
 
 /**
  * @stable [28.03.2020]
- * @param {IDictionariesEntity<TDictionaries>} wrapper
- * @returns {IDictionariesEntity<TDictionaries>}
+ * @param {IReduxHolderDictionariesEntity<TDictionaries>} wrapper
+ * @returns {IReduxHolderDictionariesEntity<TDictionaries>}
  */
 export const mapDictionariesWrapperEntity =
-  <TDictionaries = IReduxDictionariesEntity>(wrapper: IDictionariesEntity<TDictionaries>): IDictionariesEntity<TDictionaries> =>
+  <TDictionaries = IReduxDictionariesEntity>(wrapper: IReduxHolderDictionariesEntity<TDictionaries>): IReduxHolderDictionariesEntity<TDictionaries> =>
     mapDictionaries(selectDictionaries(wrapper));
 
 /**
