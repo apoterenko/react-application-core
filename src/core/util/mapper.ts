@@ -346,12 +346,12 @@ export const mapStoreEntity =
     ({
       ...mapChannelWrapperEntity(entity),
       ...GenericMappers.holderDictionariesEntity(entity),
-      ...GenericMappers.layoutEntity(entity),
+      ...GenericMappers.holderLayoutEntity(entity),
       ...mapNotificationWrapperEntity(entity),
       ...GenericMappers.sectionNameWrapper(entity),
-      ...GenericMappers.stackEntity(entity),
+      ...GenericMappers.holderStackEntity(entity),
       ...mapTransportWrapperEntity(entity),
-      ...GenericMappers.userEntity(entity),
+      ...GenericMappers.holderUserEntity(entity),
     });
 
 /**
@@ -390,7 +390,7 @@ const mapHeaderProps = (props: IHeaderProps): IHeaderProps => mapStoreEntity(pro
  */
 export class Mappers {
   public static readonly holderDictionariesEntity = GenericMappers.holderDictionariesEntity;                                                                 /* @stable [09.06.2020] */
-  public static readonly userEntity = GenericMappers.userEntity;
+  public static readonly userEntity = GenericMappers.holderUserEntity;
   public static readonly storeEntity = GenericMappers.storeEntity;
   public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                     /* @stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                     /* @stable [19.05.2020] */

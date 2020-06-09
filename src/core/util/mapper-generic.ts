@@ -506,6 +506,8 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
 });
 
 /**
+ * @map-as-original
+ *
  * @stable [09.06.2020]
  * @param {IReduxHolderLayoutEntity<TEntity>} wrapper
  * @returns {IReduxHolderLayoutEntity<TEntity>}
@@ -515,6 +517,8 @@ const mapHolderLayoutEntity =
     mapLayout(Selectors.layout(wrapper));
 
 /**
+ * @map-as-original
+ *
  * @stable [09.06.2020]
  * @param {IReduxHolderStackEntity<TEntity>} wrapper
  * @returns {IReduxHolderStackEntity<TEntity>}
@@ -524,6 +528,8 @@ const mapHolderStackEntity =
     mapStack(Selectors.stack(wrapper));
 
 /**
+ * @map-as-original
+ *
  * @stable [09.06.2020]
  * @param {IReduxHolderUserEntity<TEntity>} wrapper
  * @returns {IReduxHolderUserEntity<TEntity>}
@@ -661,6 +667,8 @@ const mapDictionaryEntityAsSelectEntity =
     });
 
 /**
+ * @map-as-original
+ *
  * @stable [09.06.2020]
  * @param {IReduxStoreEntity<TDictionaries>} entity
  * @returns {IReduxStoreEntity<TDictionaries>}
@@ -689,7 +697,9 @@ export class GenericMappers {
   public static readonly formEntity = mapFormEntity;                                                                                              /* stable [08.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
   public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
-  public static readonly layoutEntity = mapHolderLayoutEntity;                                                                                          /* stable [08.05.2020] */
+  public static readonly holderLayoutEntity = mapHolderLayoutEntity;                                                                              /* stable [09.06.2020] */
+  public static readonly holderStackEntity = mapHolderStackEntity;                                                                                /* stable [09.06.2020] */
+  public static readonly holderUserEntity = mapHolderUserEntity;                                                                                  /* stable [09.06.2020] */
   public static readonly listEntity = mapListEntity;                                                                                              /* stable [07.05.2020] */
   public static readonly listEntityAsDisabled = mapListEntityAsDisabled;                                                                          /* stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
@@ -709,8 +719,6 @@ export class GenericMappers {
   public static readonly secondaryFilterFormEntityAsFormEntity = mapSecondaryFilterFormEntityAsFormEntity;                                        /* stable [09.05.2020] */
   public static readonly sectionName = mapSectionName;                                                                                            /* stable [08.05.2020] */
   public static readonly sectionNameWrapper = mapSectionNameWrapper;                                                                              /* stable [08.05.2020] */
-  public static readonly stackEntity = mapHolderStackEntity;
-  public static readonly storeEntity = mapStoreEntity;                                                                                  /* stable [09.06.2020] */
-  public static readonly userEntity = mapHolderUserEntity;
+  public static readonly storeEntity = mapStoreEntity;                                                                                            /* stable [09.06.2020] */
   public static readonly waitingForOptions = mapWaitingForOptions;                                                                                /* stable [19.05.2020] */
 }
