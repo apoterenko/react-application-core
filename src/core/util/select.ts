@@ -64,7 +64,7 @@ import {
  * @param {IQueueWrapper<TValue>} wrapper
  * @returns {TValue}
  */
-export const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue =>
+const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.queue;
 
 /**
@@ -72,7 +72,7 @@ export const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue =>
  * @param {IRawDataWrapper<TData>} wrapper
  * @returns {TData}
  */
-export const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): TValue =>
+const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.rawData;
 
 /**
@@ -309,7 +309,7 @@ export const selectSelectedEntityIdFromAction = <TEntity extends IEntity = IEnti
  * @param {IUserWrapper<TUser>} wrapper
  * @returns {TUser}
  */
-export const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser =>
+const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser =>
   R.isNil(wrapper) ? UNDEF : wrapper.user;
 
 /**
@@ -368,11 +368,11 @@ export const selectTransport = <TTransport>(wrapper: ITransportWrapper<TTranspor
   R.isNil(wrapper) ? UNDEF : wrapper.transport;
 
 /**
- * @stable [30.03.2020]
- * @param {IDictionariesWrapper<TDictionaries>} wrapper
- * @returns {TDictionaries}
+ * @stable [09.06.2020]
+ * @param {IDictionariesWrapper<TValue>} wrapper
+ * @returns {TValue}
  */
-export const selectDictionaries = <TDictionaries>(wrapper: IDictionariesWrapper<TDictionaries>): TDictionaries =>
+const selectDictionaries = <TValue>(wrapper: IDictionariesWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.dictionaries;
 
 /**
@@ -474,6 +474,7 @@ export class Selectors {
   public static readonly changes = selectChanges;
   public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */
   public static readonly dataPayloadFromAction = selectDataPayloadFromAction;                                   /* @stable [08.06.2020] */
+  public static readonly dictionaries = selectDictionaries;                                                     /* @stable [09.06.2020] */
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
   public static readonly element = selectElement;                                                               /* @stable [08.06.2020] */
   public static readonly entity = selectEntity;
@@ -494,9 +495,12 @@ export class Selectors {
   public static readonly query = selectQuery;
   public static readonly queryFilter = selectQueryFilter;
   public static readonly queryFilterEntityQuery = selectQueryFilterEntityQuery;
+  public static readonly queue = selectQueue;                                                                   /* @stable [09.06.2020] */
+  public static readonly rawData = selectRawData;                                                               /* @stable [09.06.2020] */
   public static readonly secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
   public static readonly sectionName = selectSectionName;
   public static readonly stack = selectStack;                                                                   /* @stable [21.05.2020] */
   public static readonly stackItemEntities = selectStackItemEntities;                                           /* @stable [21.05.2020] */
   public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */
+  public static readonly user = selectUser;                                                                     /* @stable [09.06.2020] */
 }

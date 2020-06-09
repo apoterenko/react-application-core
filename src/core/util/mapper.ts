@@ -5,7 +5,6 @@ import { defValuesFilter } from './filter';
 import {
   IApiEntity,
   IChannelWrapperEntity,
-  IReduxHolderDictionariesEntity,
   IExtendedEntity,
   IExtendedFormEntity,
   IFormEntity,
@@ -21,13 +20,8 @@ import {
   IOperationEntity,
   IPresetsRawDataLabeledValueEntity,
   IPresetsSelectableHoveredEntity,
-  IReduxDictionariesEntity,
   IReduxFormEntity,
-  IReduxHolderStackEntity,
-  IReduxHolderUserEntity,
   IReduxSortDirectionsEntity,
-  IReduxStackEntity,
-  IReduxUserEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
   ITabPanelEntity,
@@ -41,14 +35,11 @@ import {
   EntityIdT,
   IActiveValueWrapper,
   IChannelWrapper,
-  IDictionariesWrapper,
   IEntity,
   IEntityIdTWrapper,
   IErrorWrapper,
   INotificationWrapper,
-  IStackWrapper,
   ITransportWrapper,
-  IUserWrapper,
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -62,14 +53,11 @@ import {
 import {
   selectActiveValue,
   selectChannel,
-  selectDictionaries,
   selectEntityId,
   selectNotification,
   Selectors,
-  selectQueue,
   selectToken,
   selectTransport,
-  selectUser,
 } from './select';
 import { GenericMappers } from './mapper-generic';
 import { ComponentMappers } from './mapper-component';
@@ -88,7 +76,7 @@ export const selectTransportWrapperToken = (entity: ITransportWrapperEntity): st
  * @returns {string[]}
  */
 export const selectTransportWrapperQueue = (entity: ITransportWrapperEntity): string[] =>
-  selectQueue(selectTransport(entity));
+  Selectors.queue(selectTransport(entity));
 
 /**
  * @stable [13.02.2020]
@@ -147,22 +135,6 @@ export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelEntity)
   mapTabPanelEntity(Selectors.tabPanel(tabPanelWrapperEntity));
 
 /**
- * @stable [30.03.2020]
- * @param {TUser} user
- * @returns {IUserWrapper<TUser>}
- */
-export const mapUser = <TUser = IReduxUserEntity>(user: TUser): IUserWrapper<TUser> =>
-  defValuesFilter<IUserWrapper<TUser>, IUserWrapper<TUser>>({user});
-
-/**
- * @stable [14.04.2020]
- * @param {TValue} stack
- * @returns {IStackWrapper<TValue>}
- */
-export const mapStack = <TValue>(stack: TValue): IStackWrapper<TValue> =>
-  defValuesFilter<IStackWrapper<TValue>, IStackWrapper<TValue>>({stack});
-
-/**
  * @stable [14.04.2020]
  * @param {TValue} notification
  * @returns {INotificationWrapper<TValue>}
@@ -185,14 +157,6 @@ export const mapChannel = <TValue>(channel: TValue): IChannelWrapper<TValue> =>
  */
 export const mapTransport = <TValue>(transport: TValue): ITransportWrapper<TValue> =>
   defValuesFilter<ITransportWrapper<TValue>, ITransportWrapper<TValue>>({transport});
-
-/**
- * @stable [14.04.2020]
- * @param {TValue} dictionaries
- * @returns {IDictionariesWrapper<TValue>}
- */
-export const mapDictionaries = <TValue>(dictionaries: TValue): IDictionariesWrapper<TValue> =>
-    defValuesFilter<IDictionariesWrapper<TValue>, IDictionariesWrapper<TValue>>({dictionaries});
 
 /**
  * @stable [12.04.2020]
@@ -242,24 +206,6 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
 );
 
 /**
- * @stable [30.03.2020]
- * @param {IReduxHolderUserEntity<TEntity>} wrapper
- * @returns {IReduxHolderUserEntity<TEntity>}
- */
-export const mapUserWrapperEntity =
-  <TEntity = IReduxUserEntity>(wrapper: IReduxHolderUserEntity<TEntity>): IReduxHolderUserEntity<TEntity> =>
-    mapUser(selectUser(wrapper));
-
-/**
- * @stable [30.03.2020]
- * @param {IReduxHolderStackEntity<TEntity>} wrapper
- * @returns {IReduxHolderStackEntity<TEntity>}
- */
-export const mapStackWrapperEntity =
-  <TEntity = IReduxStackEntity>(wrapper: IReduxHolderStackEntity<TEntity>): IReduxHolderStackEntity<TEntity> =>
-    mapStack(Selectors.stack(wrapper));
-
-/**
  * @stable [14.04.2020]
  * @param {INotificationWrapperEntity<TEntity>} wrapper
  * @returns {INotificationWrapperEntity<TEntity>}
@@ -285,15 +231,6 @@ export const mapChannelWrapperEntity =
 export const mapTransportWrapperEntity =
   <TTransport = ITransportEntity>(wrapper: ITransportWrapperEntity<TTransport>): ITransportWrapperEntity<TTransport> =>
     mapTransport(selectTransport(wrapper));
-
-/**
- * @stable [28.03.2020]
- * @param {IReduxHolderDictionariesEntity<TDictionaries>} wrapper
- * @returns {IReduxHolderDictionariesEntity<TDictionaries>}
- */
-export const mapDictionariesWrapperEntity =
-  <TDictionaries = IReduxDictionariesEntity>(wrapper: IReduxHolderDictionariesEntity<TDictionaries>): IReduxHolderDictionariesEntity<TDictionaries> =>
-    mapDictionaries(selectDictionaries(wrapper));
 
 /**
  * @stable [12.04.2020]
@@ -408,13 +345,13 @@ export const mapStoreEntity =
   <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
     ({
       ...mapChannelWrapperEntity(entity),
-      ...mapDictionariesWrapperEntity(entity),
+      ...GenericMappers.holderDictionariesEntity(entity),
       ...GenericMappers.layoutEntity(entity),
       ...mapNotificationWrapperEntity(entity),
       ...GenericMappers.sectionNameWrapper(entity),
-      ...mapStackWrapperEntity(entity),
+      ...GenericMappers.stackEntity(entity),
       ...mapTransportWrapperEntity(entity),
-      ...mapUserWrapperEntity(entity),
+      ...GenericMappers.userEntity(entity),
     });
 
 /**
@@ -452,6 +389,9 @@ const mapHeaderProps = (props: IHeaderProps): IHeaderProps => mapStoreEntity(pro
  * @stable [05.05.2020]
  */
 export class Mappers {
+  public static readonly holderDictionariesEntity = GenericMappers.holderDictionariesEntity;                                                                 /* @stable [09.06.2020] */
+  public static readonly userEntity = GenericMappers.userEntity;
+  public static readonly storeEntity = GenericMappers.storeEntity;
   public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                     /* @stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                     /* @stable [19.05.2020] */
   public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                     /* @stable [10.05.2020] */

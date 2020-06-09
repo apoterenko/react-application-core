@@ -4,7 +4,7 @@ import { Dialog } from '../dialog.component';
 import { FilterFormDialogActionBuilder } from '../../../action';
 import { FormContainer } from '../../form';
 import {
-  DEFAULT_PRESETS_COMPACT_FORM_ENTITY,
+  DEFAULT_COMPACT_FORM_ENTITY,
   IFilterFormDialogContainerProps,
 } from '../../../definition';
 import {
@@ -65,7 +65,7 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
         onClose={this.onClearFilter}
       >
         <FormContainer
-          formConfiguration={DEFAULT_PRESETS_COMPACT_FORM_ENTITY}
+          formConfiguration={DEFAULT_COMPACT_FORM_ENTITY}
           {...Mappers.formContainerProps(props)}
         >
           {props.children}

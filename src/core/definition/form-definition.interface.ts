@@ -209,10 +209,10 @@ export interface IFormExtraButtonEntity
 }
 
 /**
- * @default-presets-entity
- * @stable [09.05.2020]
+ * @default-entity
+ * @stable [09.06.2020]
  */
-export const DEFAULT_PRESETS_COMPACT_FORM_ENTITY = Object.freeze<IPresetsFormEntity>({
+export const DEFAULT_COMPACT_FORM_ENTITY = Object.freeze<IPresetsFormEntity>({
   actionsRendered: false,
   compact: true,
 });

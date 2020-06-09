@@ -2,6 +2,7 @@ import * as R from 'ramda';
 
 import {
   AnyT,
+  IDictionariesWrapper,
   IDisabledWrapper,
   IEntity,
   IFormWrapper,
@@ -14,6 +15,8 @@ import {
   IQueryWrapper,
   ISecondaryFilterWrapper,
   ISectionNameWrapper,
+  IStackWrapper,
+  IUserWrapper,
   IWaitingForOptionsWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -28,7 +31,6 @@ import {
   IExtendedEntity,
   IExtendedFormEntity,
   IFormEntity,
-  IReduxHolderLayoutEntity,
   IListEntity,
   IOptionEntity,
   IPrimaryFilterExtendedFormEntity,
@@ -36,12 +38,21 @@ import {
   IQueryFilterEntity,
   IReduxActiveQueryEntity,
   IReduxBaseSelectEntity,
+  IReduxDictionariesEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
+  IReduxHolderDictionariesEntity,
+  IReduxHolderLayoutEntity,
+  IReduxHolderStackEntity,
+  IReduxHolderUserEntity,
+  IReduxLayoutEntity,
   IReduxLifeCycleEntity,
   IReduxPagedEntity,
   IReduxPaginatedEntity,
   IReduxPaginatedLifeCycleEntity,
+  IReduxStackEntity,
+  IReduxStoreEntity,
+  IReduxUserEntity,
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
   ISecondaryFilterReduxFormEntity,
@@ -54,7 +65,23 @@ import { nvl } from './nvl';
 import { TypeUtils } from './type';
 
 /**
- * @stable [19.05.2020]
+ * @stable [09.06.2020]
+ * @param {TValue} stack
+ * @returns {IStackWrapper<TValue>}
+ */
+const mapStack = <TValue>(stack: TValue): IStackWrapper<TValue> =>
+  defValuesFilter<IStackWrapper<TValue>, IStackWrapper<TValue>>({stack});
+
+/**
+ * @stable [09.06.2020]
+ * @param {TUser} user
+ * @returns {IUserWrapper<TUser>}
+ */
+const mapUser = <TUser>(user: TUser): IUserWrapper<TUser> =>
+  defValuesFilter<IUserWrapper<TUser>, IUserWrapper<TUser>>({user});
+
+/**
+ * @stable [09.06.2020]
  * @param {TValue} options
  * @returns {IOptionsWrapper<TValue>}
  */
@@ -62,8 +89,7 @@ const mapOptions = <TValue>(options: TValue): IOptionsWrapper<TValue> =>
   defValuesFilter<IOptionsWrapper<TValue>, IOptionsWrapper<TValue>>({options});
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @stable [09.06.2020]
  * @param {TValue} layout
  * @returns {ILayoutWrapper<TValue>}
  */
@@ -71,16 +97,15 @@ const mapLayout = <TValue>(layout: TValue): ILayoutWrapper<TValue> =>
   defValuesFilter<ILayoutWrapper<TValue>, ILayoutWrapper<TValue>>({layout});
 
 /**
- * @stable [19.05.2020]
+ * @stable [09.06.2020]
  * @param {boolean} waitingForOptions
  * @returns {IWaitingForOptionsWrapper}
  */
-export const mapWaitingForOptions = (waitingForOptions: boolean): IWaitingForOptionsWrapper =>
+const mapWaitingForOptions = (waitingForOptions: boolean): IWaitingForOptionsWrapper =>
   defValuesFilter<IWaitingForOptionsWrapper, IWaitingForOptionsWrapper>({waitingForOptions});
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @stable [09.06.2020]
  * @param {TForm} form
  * @returns {IFormWrapper<TForm>}
  */
@@ -88,8 +113,7 @@ const mapForm = <TForm>(form: TForm): IFormWrapper<TForm> =>
   defValuesFilter<IFormWrapper<TForm>, IFormWrapper<TForm>>({form});
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @stable [09.06.2020]
  * @param {boolean} disabled
  * @returns {IDisabledWrapper}
  */
@@ -97,16 +121,7 @@ const mapDisabled = (disabled: boolean): IDisabledWrapper =>
   defValuesFilter<IDisabledWrapper, IDisabledWrapper>({disabled});
 
 /**
- * @mapper
- * @stable [08.05.2020]
- * @param {IProgressWrapper} entity
- * @returns {IDisabledWrapper}
- */
-const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => mapDisabled(WrapperUtils.inProgress(entity));
-
-/**
- * @mapper
- * @stable [08.05.2020]
+ * @stable [09.06.2020]
  * @param {string} sectionName
  * @returns {ISectionNameWrapper}
  */
@@ -114,8 +129,9 @@ const mapSectionName = (sectionName: string): ISectionNameWrapper =>
   defValuesFilter<ISectionNameWrapper, ISectionNameWrapper>({sectionName});
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @map-as-wrapper
+ *
+ * @stable [09.06.2020]
  * @param {ISectionNameWrapper} wrapper
  * @returns {ISectionNameWrapper}
  */
@@ -123,8 +139,9 @@ const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrappe
   mapSectionName(Selectors.sectionName(wrapper));
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @map-as-wrapper
+ *
+ * @stable [09.06.2020]
  * @param {TList} list
  * @returns {IListWrapper<TList>}
  */
@@ -132,25 +149,9 @@ const mapList = <TList>(list: TList): IListWrapper<TList> =>
   defValuesFilter<IListWrapper<TList>, IListWrapper<TList>>({list});
 
 /**
- * @mapper
- * @stable [08.05.2020]
- * @param {IListEntity} entity
- * @returns {IListEntity}
- */
-const mapListEntity = (entity: IListEntity): IListEntity => mapList(Selectors.list(entity));
-
-/**
- * @mapper
- * @stable [08.05.2020]
- * @param {IListEntity} listEntity
- * @returns {IDisabledWrapper}
- */
-const mapListEntityAsDisabled = (listEntity: IListEntity): IDisabledWrapper =>
-  mapProgressAsDisabled(Selectors.list(listEntity));
-
-/**
- * @mapper
- * @stable [08.05.2020]
+ * @map-as-wrapper
+ *
+ * @stable [09.06.2020]
  * @param {TEntity} queryFilter
  * @returns {IQueryFilterWrapper<TEntity>}
  */
@@ -158,8 +159,9 @@ const mapQueryFilter = <TEntity = string>(queryFilter: TEntity): IQueryFilterWra
   defValuesFilter<IQueryFilterWrapper<TEntity>, IQueryFilterWrapper<TEntity>>({queryFilter});
 
 /**
- * @mapper
- * @stable [10.05.2020]
+ * @map-as-wrapper
+ *
+ * @stable [09.06.2020]
  * @param {TEntity} primaryFilter
  * @returns {IPrimaryFilterWrapper<TEntity>}
  */
@@ -167,8 +169,9 @@ const mapPrimaryFilter = <TEntity = string>(primaryFilter: TEntity): IPrimaryFil
   defValuesFilter<IPrimaryFilterWrapper<TEntity>, IPrimaryFilterWrapper<TEntity>>({primaryFilter});
 
 /**
- * @mapper
- * @stable [10.05.2020]
+ * @map-as-wrapper
+ *
+ * @stable [09.06.2020]
  * @param {TEntity} secondaryFilter
  * @returns {ISecondaryFilterWrapper<TEntity>}
  */
@@ -176,16 +179,28 @@ const mapSecondaryFilter = <TEntity = string>(secondaryFilter: TEntity): ISecond
   defValuesFilter<ISecondaryFilterWrapper<TEntity>, ISecondaryFilterWrapper<TEntity>>({secondaryFilter});
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @map-as-wrapper
+ *
+ * @stable [09.06.2020]
  * @param {string} query
  * @returns {IQueryWrapper}
  */
 const mapQuery = (query: string): IQueryWrapper => defValuesFilter<IQueryWrapper, IQueryWrapper>({query});
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @map-as-wrapper
+ *
+ * @stable [09.06.2020]
+ * @param {TValue} dictionaries
+ * @returns {IDictionariesWrapper<TValue>}
+ */
+const mapDictionaries = <TValue>(dictionaries: TValue): IDictionariesWrapper<TValue> =>
+  defValuesFilter<IDictionariesWrapper<TValue>, IDictionariesWrapper<TValue>>({dictionaries});
+
+/**
+ * @map-as-original
+ *
+ * @stable [09.06.2020]
  * @param {IQueryFilterEntity} entity
  * @returns {IQueryFilterEntity}
  */
@@ -193,13 +208,42 @@ const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
   mapQueryFilter(Selectors.queryFilter(entity));
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @map-as-original
+ *
+ * @stable [09.06.2020]
+ * @param {IListEntity} entity
+ * @returns {IListEntity}
+ */
+const mapListEntity = (entity: IListEntity): IListEntity => mapList(Selectors.list(entity));
+
+/**
+ * @map-as-original
+ *
+ * @stable [09.06.2020]
  * @param {IFormEntity<TEntity>} entity
  * @returns {IFormEntity<TEntity>}
  */
 const mapFormEntity = <TEntity = IEntity>(entity: IFormEntity<TEntity>): IFormEntity<TEntity> =>
   mapForm(Selectors.form(entity));
+
+/**
+ * @map-as
+ *
+ * @stable [09.06.2020]
+ * @param {IProgressWrapper} entity
+ * @returns {IDisabledWrapper}
+ */
+const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => mapDisabled(WrapperUtils.inProgress(entity));
+
+/**
+ * @map-as
+ *
+ * @stable [09.06.2020]
+ * @param {IListEntity} listEntity
+ * @returns {IDisabledWrapper}
+ */
+const mapListEntityAsDisabled = (listEntity: IListEntity): IDisabledWrapper =>
+  mapProgressAsDisabled(Selectors.list(listEntity));
 
 /**
  * @mapper
@@ -462,12 +506,42 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
 });
 
 /**
- * @mapper
- * @stable [08.05.2020]
- * @param {IReduxHolderLayoutEntity} wrapper
- * @returns {IReduxHolderLayoutEntity}
+ * @stable [09.06.2020]
+ * @param {IReduxHolderLayoutEntity<TEntity>} wrapper
+ * @returns {IReduxHolderLayoutEntity<TEntity>}
  */
-const mapLayoutEntity = (wrapper: IReduxHolderLayoutEntity): IReduxHolderLayoutEntity => mapLayout(Selectors.layout(wrapper));
+const mapHolderLayoutEntity =
+  <TEntity = IReduxLayoutEntity>(wrapper: IReduxHolderLayoutEntity<TEntity>): IReduxHolderLayoutEntity<TEntity> =>
+    mapLayout(Selectors.layout(wrapper));
+
+/**
+ * @stable [09.06.2020]
+ * @param {IReduxHolderStackEntity<TEntity>} wrapper
+ * @returns {IReduxHolderStackEntity<TEntity>}
+ */
+const mapHolderStackEntity =
+  <TEntity = IReduxStackEntity>(wrapper: IReduxHolderStackEntity<TEntity>): IReduxHolderStackEntity<TEntity> =>
+    mapStack(Selectors.stack(wrapper));
+
+/**
+ * @stable [09.06.2020]
+ * @param {IReduxHolderUserEntity<TEntity>} wrapper
+ * @returns {IReduxHolderUserEntity<TEntity>}
+ */
+const mapHolderUserEntity =
+  <TEntity = IReduxUserEntity>(wrapper: IReduxHolderUserEntity<TEntity>): IReduxHolderUserEntity<TEntity> =>
+    mapUser(Selectors.user(wrapper));
+
+/**
+ * @map-as-original
+ *
+ * @stable [09.06.2020]
+ * @param {IReduxHolderDictionariesEntity<TEntity>} wrapper
+ * @returns {IReduxHolderDictionariesEntity<TEntity>}
+ */
+const mapHolderDictionariesEntity =
+  <TEntity = IReduxDictionariesEntity>(wrapper: IReduxHolderDictionariesEntity<TEntity>): IReduxHolderDictionariesEntity<TEntity> =>
+    mapDictionaries(Selectors.dictionaries(wrapper));
 
 /**
  * @mapper
@@ -587,6 +661,20 @@ const mapDictionaryEntityAsSelectEntity =
     });
 
 /**
+ * @stable [09.06.2020]
+ * @param {IReduxStoreEntity<TDictionaries>} entity
+ * @returns {IReduxStoreEntity<TDictionaries>}
+ */
+const mapStoreEntity =
+  <TDictionaries = {}>(entity: IReduxStoreEntity<TDictionaries>): IReduxStoreEntity<TDictionaries> =>
+    ({
+      ...mapHolderDictionariesEntity(entity),
+      ...mapHolderLayoutEntity(entity),
+      ...mapHolderStackEntity(entity),
+      ...mapHolderUserEntity(entity),
+    });
+
+/**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
@@ -600,7 +688,8 @@ export class GenericMappers {
   public static readonly form = mapForm;                                                                                                          /* stable [08.05.2020] */
   public static readonly formEntity = mapFormEntity;                                                                                              /* stable [08.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
-  public static readonly layoutEntity = mapLayoutEntity;                                                                                          /* stable [08.05.2020] */
+  public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
+  public static readonly layoutEntity = mapHolderLayoutEntity;                                                                                          /* stable [08.05.2020] */
   public static readonly listEntity = mapListEntity;                                                                                              /* stable [07.05.2020] */
   public static readonly listEntityAsDisabled = mapListEntityAsDisabled;                                                                          /* stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
@@ -620,5 +709,8 @@ export class GenericMappers {
   public static readonly secondaryFilterFormEntityAsFormEntity = mapSecondaryFilterFormEntityAsFormEntity;                                        /* stable [09.05.2020] */
   public static readonly sectionName = mapSectionName;                                                                                            /* stable [08.05.2020] */
   public static readonly sectionNameWrapper = mapSectionNameWrapper;                                                                              /* stable [08.05.2020] */
+  public static readonly stackEntity = mapHolderStackEntity;
+  public static readonly storeEntity = mapStoreEntity;                                                                                  /* stable [09.06.2020] */
+  public static readonly userEntity = mapHolderUserEntity;
   public static readonly waitingForOptions = mapWaitingForOptions;                                                                                /* stable [19.05.2020] */
 }

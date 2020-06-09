@@ -5,9 +5,14 @@ export * from './component/application/application-action.builder';
 export * from './component/application/application.container';
 export * from './component/base/base.component';
 export * from './component/base/base.container';
+export * from './component/base/generic-base.component';                                 /* @stable [09.06.2020] */
+export * from './component/base/generic.container';                                      /* @stable [09.06.2020] */
+export * from './component/button/button.component';                                     /* @stable [09.06.2020] */
 export * from './component/connector/connector.mapper';
 export * from './component/connector/universal-connector.decorator';
 export * from './component/connector/universal-connector.mapper';
+export * from './component/form/form.container';                                         /* @stable [09.06.2020] */
+export * from './component/layout/flex/flex-layout.component';                           /* @stable [09.06.2020] */
 export * from './component/list/list-action.builder';
 export * from './component/list/list.interface';
 export * from './component/list/list.reducer';

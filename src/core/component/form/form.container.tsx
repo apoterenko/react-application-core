@@ -2,15 +2,15 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import { IKeyValue } from '../../definitions.interface';
-import { GenericContainer } from '../base';
-import { Form } from '../form';
+import { GenericContainer } from '../base/generic.container';
+import { Form } from '../form/form.component';
 import {
   IApiEntity,
   IFormContainerProps,
   IFormProps,
 } from '../../definition';
 import {
-  ifNotNilThanValue,
+  ConditionUtils,
   Mappers,
 } from '../../util';
 
@@ -65,7 +65,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
    */
   private onChange(payload: IKeyValue): void {
     this.formStoreProxy.dispatchFormChanges(payload);
-    ifNotNilThanValue(this.formConfiguration.onChange, (onChange) => onChange(payload));
+    ConditionUtils.ifNotNilThanValue(this.formConfiguration.onChange, (onChange) => onChange(payload));
   }
 
   /**
@@ -74,7 +74,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
    */
   private onValid(valid: boolean): void {
     this.formStoreProxy.dispatchFormValid(valid);
-    ifNotNilThanValue(this.formConfiguration.onValid, (onValid) => onValid(valid));
+    ConditionUtils.ifNotNilThanValue(this.formConfiguration.onValid, (onValid) => onValid(valid));
   }
 
   /**
@@ -82,7 +82,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
    */
   private onReset(): void {
     this.formStoreProxy.dispatchFormReset();
-    ifNotNilThanValue(this.formConfiguration.onReset, (onReset) => onReset());
+    ConditionUtils.ifNotNilThanValue(this.formConfiguration.onReset, (onReset) => onReset());
   }
 
   /**
@@ -91,7 +91,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
    */
   private onSubmit(apiEntity: IApiEntity): void {
     this.formStoreProxy.dispatchFormSubmit(apiEntity);
-    ifNotNilThanValue(this.formConfiguration.onSubmit, (onSubmit) => onSubmit(apiEntity));
+    ConditionUtils.ifNotNilThanValue(this.formConfiguration.onSubmit, (onSubmit) => onSubmit(apiEntity));
   }
 
   /**
