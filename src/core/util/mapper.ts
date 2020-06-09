@@ -344,14 +344,11 @@ export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity)
 export const mapStoreEntity =
   <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
     ({
+      ...GenericMappers.storeEntity(entity),
       ...mapChannelWrapperEntity(entity),
-      ...GenericMappers.holderDictionariesEntity(entity),
-      ...GenericMappers.holderLayoutEntity(entity),
       ...mapNotificationWrapperEntity(entity),
       ...GenericMappers.sectionNameWrapper(entity),
-      ...GenericMappers.holderStackEntity(entity),
       ...mapTransportWrapperEntity(entity),
-      ...GenericMappers.holderUserEntity(entity),
     });
 
 /**
@@ -389,9 +386,6 @@ const mapHeaderProps = (props: IHeaderProps): IHeaderProps => mapStoreEntity(pro
  * @stable [05.05.2020]
  */
 export class Mappers {
-  public static readonly holderDictionariesEntity = GenericMappers.holderDictionariesEntity;                                                                 /* @stable [09.06.2020] */
-  public static readonly userEntity = GenericMappers.holderUserEntity;
-  public static readonly storeEntity = GenericMappers.storeEntity;
   public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                     /* @stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                     /* @stable [19.05.2020] */
   public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                     /* @stable [10.05.2020] */
@@ -405,6 +399,8 @@ export class Mappers {
   public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                 /* @stable [10.05.2020] */
   public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                 /* @stable [10.05.2020] */
   public static readonly headerProps = mapHeaderProps;
+  public static readonly holderDictionariesEntity = GenericMappers.holderDictionariesEntity;                                                                 /* @stable [09.06.2020] */
+  public static readonly holderUserEntity = GenericMappers.holderUserEntity;                                                                                 /* @stable [09.06.2020] */
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                           /* @stable [10.05.2020] */
   public static readonly listEntity = GenericMappers.listEntity;                                                                                             /* @stable [08.05.2020] */
   public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                         /* @stable [08.05.2020] */
@@ -423,6 +419,7 @@ export class Mappers {
   public static readonly sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
   public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                               /* @stable [10.05.2020] */
+  public static readonly storeEntity = GenericMappers.storeEntity;                                                                                           /* @stable [09.06.2020] */
   public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                           /* @stable [09.05.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarTools = ComponentMappers.toolbarToolsContainerPropsAsToolbarTools;                               /* @stable [10.05.2020] */
   public static readonly toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps;                             /* @stable [10.05.2020] */

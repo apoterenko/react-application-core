@@ -133,5 +133,5 @@ export const listWrapperSelectedEntityMapper =
 export const universalDefaultMappers = [
   Mappers.holderDictionariesEntity,
   mapTransportWrapperEntity,
-  Mappers.userEntity
+  Mappers.holderUserEntity
 ];
