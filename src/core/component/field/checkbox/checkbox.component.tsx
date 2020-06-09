@@ -1,24 +1,31 @@
 import * as React from 'react';
 
 import { BaseCheckbox } from './base-checkbox.component';
-import { ICheckboxState, ICheckboxProps } from './checkbox.interface';
-import { joinClassName, orNull } from '../../../util';
+import { ICheckboxProps } from './checkbox.interface';
+import {
+  ClsUtils,
+  ConditionUtils,
+} from '../../../util';
+import {
+  CheckboxClassesEnum,
+  IconsEnum,
+} from '../../../definition';
 
-export class Checkbox extends BaseCheckbox<ICheckboxProps, ICheckboxState> {
+export class Checkbox extends BaseCheckbox<ICheckboxProps> {
 
   /**
-   * @stable [23.10.2019]
+   * @stable [09.06.2020]
    * @returns {JSX.Element}
    */
   protected get inputAttachmentElement(): JSX.Element {
-    return orNull(this.value, () => this.uiFactory.makeIcon('check-sign'));
+    return ConditionUtils.orNull(this.value, () => this.uiFactory.makeIcon(IconsEnum.CHECK));
   }
 
   /**
-   * @stable [23.10.2019]
+   * @stable [09.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-checkbox');
+    return ClsUtils.joinClassName(super.getFieldClassName(), CheckboxClassesEnum.CHECKBOX);
   }
 }

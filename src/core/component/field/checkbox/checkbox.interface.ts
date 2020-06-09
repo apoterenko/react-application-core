@@ -22,12 +22,6 @@ export interface IBaseCheckboxProps
 /**
  * @stable [31.08.2018]
  */
-export interface ICheckboxState extends IBaseCheckboxState {
-}
-
-/**
- * @stable [31.08.2018]
- */
 export interface ICheckboxProps extends IBaseCheckboxProps {
 }
 
