@@ -136,6 +136,12 @@ The library is designed to quickly start develop the business applications are b
 * [_navigation-list-constant.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-constant.scss)
 * [_navigation-list-mixin.scss (15.05.2020)](src/core/component/navigation-list/_navigation-list-mixin.scss)
 
+#### PageToolbar
+
+* [_page-toobar.scss (10.06.2020)](src/core/component/toolbar/page/_page-toobar.scss)
+* [_page-toobar-constant.scss (10.06.2020)](src/core/component/toolbar/page/_page-toobar-constant.scss)
+* [_page-toobar-mixin.scss (10.06.2020)](src/core/component/toolbar/page/_page-toobar-mixin.scss)
+
 #### SubHeaderLink
 
 * [_sub-header-link.scss (22.05.2020)](src/core/component/sub-header-link/_sub-header-link.scss)
