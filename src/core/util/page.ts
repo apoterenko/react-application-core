@@ -1,4 +1,4 @@
-import { ifNotNilThanValue } from '../util';
+import { ConditionUtils } from '../util';
 import {
   FIRST_PAGE,
   IReduxPaginatedEntity,
@@ -9,7 +9,7 @@ import {
  * @param {IReduxPaginatedEntity} entity
  * @returns {number}
  */
-export const pageCursorFrom =
+const pageCursorFrom =
   (entity: IReduxPaginatedEntity): number => 1 + (entity.page - FIRST_PAGE) * entity.pageSize;
 
 /**
@@ -17,8 +17,8 @@ export const pageCursorFrom =
  * @param {IReduxPaginatedEntity} entity
  * @returns {number}
  */
-export const pageCursorTo = (entity: IReduxPaginatedEntity): number =>
-  ifNotNilThanValue(
+const pageCursorTo = (entity: IReduxPaginatedEntity): number =>
+  ConditionUtils.ifNotNilThanValue(
     entity.pageSize,
     (pageSize) => Math.min(entity.page * pageSize, entity.totalCount)
   );
@@ -60,5 +60,7 @@ export class PageUtils {
   public static readonly isPageable = isPageable;
   public static readonly isPageCursorInEndPosition = isPageCursorInEndPosition;
   public static readonly isPageCursorInStartPosition = isPageCursorInStartPosition;
+  public static readonly pageCursorFrom = pageCursorFrom;
+  public static readonly pageCursorTo = pageCursorTo;
   public static readonly pagesCount = pagesCount;
 }

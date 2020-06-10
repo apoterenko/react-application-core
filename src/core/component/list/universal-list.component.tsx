@@ -3,9 +3,8 @@ import * as R from 'ramda';
 
 import {
   filterAndSortEntities,
-  pageCursorFrom,
-  pageCursorTo,
-  SAME_ENTITY_PREDICATE,
+  FilterUtils,
+  PageUtils,
   uuid,
 } from '../../util';
 import {
@@ -48,12 +47,12 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
   protected abstract getView(): JSX.Element;
 
   /**
-   * @stable [23.10.2019]
+   * @stable [10.06.2020]
    * @param {IEntity} entity
    * @returns {boolean}
    */
   protected isEntitySelected(entity: IEntity): boolean {
-    return SAME_ENTITY_PREDICATE(this.props.selected, entity);
+    return FilterUtils.SAME_ENTITY_PREDICATE(this.originalProps.selected, entity);
   }
 
   /**
@@ -110,14 +109,6 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
   }
 
   /**
-   * @stable [09.06.2018]
-   * @returns {React.ReactNode}
-   */
-  protected get emptyMessage(): string {
-    return this.props.emptyMessage;
-  }
-
-  /**
    * @stable [17.06.2018]
    * @returns {boolean}
    */
@@ -141,18 +132,18 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
   }
 
   /**
-   * @stable [09.05.2018]
+   * @stable [10.06.2020]
    * @returns {number}
    */
   private get fromNumber(): number {
-    return pageCursorFrom(this.props) - 1;
+    return PageUtils.pageCursorFrom(this.originalProps) - 1;
   }
 
   /**
-   * @stable [09.05.2018]
+   * @stable [10.06.2020]
    * @returns {number}
    */
   private get toNumber(): number {
-    return pageCursorTo(this.props);
+    return PageUtils.pageCursorTo(this.originalProps);
   }
 }

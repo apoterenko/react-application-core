@@ -15,6 +15,7 @@ import { IHeaderProps } from './header-definition.interface';
 import { IListItemProps } from './list-definition.interface';
 import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
+import { IPageToolbarProps } from './toolbar-definition.interface';
 import { ISubHeaderLinkProps } from './sub-header-link-definition.interface';
 import { ISubHeaderProps } from './sub-header-definition.interface';
 import { IThumbProps } from './thumb-definition.interface';
@@ -127,6 +128,7 @@ export interface IComponentsSettingsEntity {
   listItem?: IListItemProps;
   main?: IMainProps;
   navigationList?: INavigationListProps;
+  pageToolbar?: IPageToolbarProps;
   subHeader?: ISubHeaderProps;
   subHeaderLink?: ISubHeaderLinkProps;
   thumb?: IThumbProps;

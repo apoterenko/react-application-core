@@ -12,7 +12,8 @@
   $rac-page-toolbar-action-content-font-size: unset,                                     /* @stable [05.06.2020] */
   $rac-page-toolbar-action-content-padding: unset,                                       /* @stable [10.06.2020] */
   $rac-page-toolbar-action-content-text-transform: unset,                                /* @stable [05.06.2020] */
-  $rac-page-toolbar-action-middle-margin: unset,                                         /* @stable [10.06.2020] */
+  $rac-page-toolbar-action-first-margin: unset,                                          /* @stable [10.06.2020] */
+  $rac-page-toolbar-action-last-margin: unset,                                           /* @stable [10.06.2020] */
   $rac-page-toolbar-action-with-short-digit-format-content-padding: unset,               /* @stable [10.06.2020] */
   $rac-page-toolbar-align-items: unset,                                                  /* @stable [05.05.2020] */
   $rac-page-toolbar-background: unset,                                                   /* @stable [05.05.2020] */
@@ -30,6 +31,7 @@
   $rac-page-toolbar-pages-color: unset,                                                  /* @stable [05.05.2020] */
   $rac-page-toolbar-pages-display: unset,                                                /* @stable [10.06.2020] */
   $rac-page-toolbar-pages-font-size: unset,                                              /* @stable [05.05.2020] */
+  $rac-page-toolbar-pages-font-weight: unset,                                            /* @stable [10.06.2020] */
   $rac-page-toolbar-pages-margin: unset                                                  /* @stable [05.05.2020] */
 ) {
   #{rac-cls($rac-page-toolbar-cls, $rac-page-toolbar-custom)} {
@@ -50,6 +52,7 @@
       $rac-styles-color: $rac-page-toolbar-pages-color,
       $rac-styles-display: $rac-page-toolbar-pages-display,
       $rac-styles-font-size: $rac-page-toolbar-pages-font-size,
+      $rac-styles-font-weight: $rac-page-toolbar-pages-font-weight,
       $rac-styles-margin: $rac-page-toolbar-pages-margin
     );
 
@@ -67,8 +70,13 @@
     );
 
     @include rac-button (
-      $rac-button-custom: $rac-toolbar-action-middle-cls,
-      $rac-button-margin: $rac-page-toolbar-action-middle-margin
+      $rac-button-custom: $rac-toolbar-action-first-cls,
+      $rac-button-margin: $rac-page-toolbar-action-first-margin
+    );
+
+    @include rac-button (
+      $rac-button-custom: $rac-toolbar-action-last-cls,
+      $rac-button-margin: $rac-page-toolbar-action-last-margin
     );
 
     @include rac-button (

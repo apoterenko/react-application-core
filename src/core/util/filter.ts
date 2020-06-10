@@ -357,5 +357,6 @@ export class FilterUtils {
   public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */
   public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;                             /* @stable [19.05.2020] */
   public static readonly objectValuesArrayFilter = objectValuesArrayFilter;                           /* @stable [19.05.2020] */
+  public static readonly SAME_ENTITY_PREDICATE = SAME_ENTITY_PREDICATE;                               /* @stable [10.06.2020] */
   public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;                             /* @stable [20.05.2020] */
 }

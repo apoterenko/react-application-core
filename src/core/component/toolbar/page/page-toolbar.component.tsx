@@ -4,8 +4,6 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
-  pageCursorFrom,
-  pageCursorTo,
   PageUtils,
   WrapperUtils,
 } from '../../../util';
@@ -15,11 +13,11 @@ import {
   ToolbarClassesEnum,
 } from '../../../definition';
 import { GenericComponent } from '../../base/generic.component';
-import { Button } from '../../button';
+import { Button } from '../../button/button.component';
 
 /**
  * @component-impl
- * @stable [12.05.2020]
+ * @stable [10.06.2020]
  *
  * Please use the "Mappers.pageToolbarProps"
  */
@@ -90,7 +88,7 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
   }
 
   /**
-   * @stable [05.05.2020]
+   * @stable [10.06.2020]
    * @returns {JSX.Element}
    */
   private get actionsElement(): JSX.Element {
@@ -123,6 +121,9 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
     const isPreviousActionDisabled = this.isPreviousActionDisabled;
     const nextPageNumber = page + 1;
     const previousPageNumber = page - 1;
+    const pagesCount = this.pagesCount;
+    const isNextActionRendered = nextPageNumber < pagesCount;
+    const isPreviousActionRendered = previousPageNumber > 0;
 
     return (
       <React.Fragment>
@@ -135,7 +136,12 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
                   {...actionConfiguration}
                   text={FIRST}
                   disabled={isPreviousActionDisabled}
-                  className={ToolbarClassesEnum.TOOLBAR_ACTION}
+                  className={
+                    ClsUtils.joinClassName(
+                      ToolbarClassesEnum.TOOLBAR_ACTION,
+                      ToolbarClassesEnum.TOOLBAR_ACTION_FIRST
+                    )
+                  }
                   onClick={onFirst}/>
               )
               : (
@@ -151,19 +157,20 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
         {
           useActions
             ? (
-              <Button
-                raised={true}
-                {...actionConfiguration}
-                text={useShortDigitFormat ? String(previousPageNumber) : PREVIOUS}
-                disabled={isPreviousActionDisabled}
-                className={
-                  ClsUtils.joinClassName(
-                    ToolbarClassesEnum.TOOLBAR_ACTION,
-                    ToolbarClassesEnum.TOOLBAR_ACTION_MIDDLE,
-                    useShortDigitFormat && ToolbarClassesEnum.TOOLBAR_ACTION_WITH_SHORT_DIGIT_FORMAT
-                  )
-                }
-                onClick={onPrevious}/>
+              isPreviousActionRendered && (
+                <Button
+                  raised={true}
+                  {...actionConfiguration}
+                  text={useShortDigitFormat ? String(previousPageNumber) : PREVIOUS}
+                  disabled={isPreviousActionDisabled}
+                  className={
+                    ClsUtils.joinClassName(
+                      ToolbarClassesEnum.TOOLBAR_ACTION,
+                      useShortDigitFormat && ToolbarClassesEnum.TOOLBAR_ACTION_WITH_SHORT_DIGIT_FORMAT
+                    )
+                  }
+                  onClick={onPrevious}/>
+              )
             )
             : (
               this.uiFactory.makeIcon({
@@ -178,19 +185,20 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
         {
           useActions
             ? (
-              <Button
-                raised={true}
-                {...actionConfiguration}
-                text={useShortDigitFormat ? String(nextPageNumber) : NEXT}
-                disabled={isNextActionDisabled}
-                className={
-                  ClsUtils.joinClassName(
-                    ToolbarClassesEnum.TOOLBAR_ACTION,
-                    ToolbarClassesEnum.TOOLBAR_ACTION_MIDDLE,
-                    useShortDigitFormat && ToolbarClassesEnum.TOOLBAR_ACTION_WITH_SHORT_DIGIT_FORMAT
-                  )
-                }
-                onClick={onNext}/>
+              isNextActionRendered && (
+                <Button
+                  raised={true}
+                  {...actionConfiguration}
+                  text={useShortDigitFormat ? String(nextPageNumber) : NEXT}
+                  disabled={isNextActionDisabled}
+                  className={
+                    ClsUtils.joinClassName(
+                      ToolbarClassesEnum.TOOLBAR_ACTION,
+                      useShortDigitFormat && ToolbarClassesEnum.TOOLBAR_ACTION_WITH_SHORT_DIGIT_FORMAT
+                    )
+                  }
+                  onClick={onNext}/>
+              )
             )
             : (
               this.uiFactory.makeIcon({
@@ -210,7 +218,12 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
                   {...actionConfiguration}
                   text={LAST}
                   disabled={isNextActionDisabled}
-                  className={ToolbarClassesEnum.TOOLBAR_ACTION}
+                  className={
+                    ClsUtils.joinClassName(
+                      ToolbarClassesEnum.TOOLBAR_ACTION,
+                      ToolbarClassesEnum.TOOLBAR_ACTION_LAST
+                    )
+                  }
                   onClick={onLast}/>
               )
               : (
@@ -228,32 +241,39 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
   }
 
   /**
-   * @stable [05.05.2020]
+   * @stable [10.06.2020]
    * @returns {string}
    */
   private get pagesInfo(): string {
     const {
+      useShortDigitFormat,
       useShortFormat,
     } = this.mergedProps;
+
     const {
       page,
     } = this.originalProps;
+
     const {
       PAGES_INFO,
       SHORT_PAGES_INFO,
     } = this.settings.messages;
 
-    return this.t(
-      useShortFormat
-        ? SHORT_PAGES_INFO
-        : PAGES_INFO,
-      {
-        page,
-        count: useShortFormat ? this.pagesCount : this.totalCount,
-        from: this.fromNumber,
-        to: this.toNumber,
-      }
-    );
+    return useShortDigitFormat
+      ? String(page)
+      : (
+        this.t(
+          useShortFormat
+            ? SHORT_PAGES_INFO
+            : PAGES_INFO,
+          {
+            page,
+            count: useShortFormat ? this.pagesCount : this.totalCount,
+            from: this.fromNumber,
+            to: this.toNumber,
+          }
+        )
+      );
   }
 
   /**
@@ -281,19 +301,19 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
   }
 
   /**
-   * @stable [05.05.2020]
+   * @stable [10.06.2020]
    * @returns {number}
    */
   private get toNumber(): number {
-    return pageCursorTo(this.props);
+    return PageUtils.pageCursorTo(this.originalProps);
   }
 
   /**
-   * @stable [05.05.2020]
+   * @stable [10.06.2020]
    * @returns {number}
    */
   private get fromNumber(): number {
-    return pageCursorFrom(this.props);
+    return PageUtils.pageCursorFrom(this.originalProps);
   }
 
   /**
@@ -310,5 +330,13 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    */
   private get totalCount(): number {
     return this.originalProps.totalCount;
+  }
+
+  /**
+   * @stable [10.06.2020]
+   * @returns {IPageToolbarProps}
+   */
+  protected get settingsProps(): IPageToolbarProps {
+    return this.componentsSettings.pageToolbar;
   }
 }
