@@ -17,6 +17,7 @@ import {
   IPreviousIconWrapper,
   IToolbarConfigurationWrapper,
   IUseActionsWrapper,
+  IUseShortDigitFormatWrapper,
   IUseShortFormatWrapper,
 } from '../definitions.interface';
 import {
@@ -46,6 +47,7 @@ export interface IPresetsPageToolbarEntity
     IOnPreviousWrapper,
     IPreviousIconWrapper,
     IUseActionsWrapper,
+    IUseShortDigitFormatWrapper,
     IUseShortFormatWrapper {
 }
 
@@ -162,6 +164,8 @@ export enum ToolbarClassesEnum {
   PAGE_TOOLBAR = 'rac-page-toolbar',
   SEARCH_TOOLBAR = 'rac-search-toolbar',
   TOOLBAR_ACTION = 'rac-toolbar__action',
+  TOOLBAR_ACTION_MIDDLE = 'rac-toolbar__action-middle',
+  TOOLBAR_ACTION_WITH_SHORT_DIGIT_FORMAT = 'rac-toolbar__action-with-short-digit-format',
   TOOLBAR_CONTENT = 'rac-toolbar__content',
   TOOLBAR_ICON = 'rac-toolbar__icon',
   TOOLBAR_PAGES = 'rac-toolbar__pages',

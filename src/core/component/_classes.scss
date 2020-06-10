@@ -37,6 +37,9 @@ $rac-toolbar-content-cls: rac-toolbar__content;
 $rac-toolbar-icon-cls: rac-toolbar__icon;
 $rac-toolbar-pages-cls: rac-toolbar__pages;
 /**/
+$rac-toolbar-action-middle-cls: '#{$rac-toolbar-action-cls}.#{rac-toolbar__action-middle}';
+$rac-toolbar-action-with-short-digit-format-cls: '#{$rac-toolbar-action-cls}.#{rac-toolbar__action-with-short-digit-format}';
+/**/
 $rac-page-toolbar-cls: rac-page-toolbar;
 $rac-search-toolbar-cls: rac-search-toolbar;
 

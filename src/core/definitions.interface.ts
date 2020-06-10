@@ -548,6 +548,7 @@ export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }
 export interface IUsePreviewWrapper { usePreview?: boolean; }
 export interface IUserWrapper<TValue = string> { user?: TValue; }
+export interface IUseShortDigitFormatWrapper { useShortDigitFormat?: boolean; }
 export interface IUseShortFormatWrapper { useShortFormat?: boolean; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
 export interface IUseUppercaseWrapper { useUppercase?: boolean; }

@@ -27,7 +27,6 @@ import {
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
-  IFirstAllowedWrapper,
   IFocusedWrapper,
   IForceReloadWrapper,
   IForciblyApplyLocalFilterWrapper,
@@ -36,11 +35,9 @@ import {
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIconLeftAlignedWrapper,
-  IIconWrapper,
   IIndexedWrapper,
   IInlineWrapper,
   IKeyboardOpenWrapper,
-  ILastAllowedWrapper,
   ILastWrapper,
   ILoadingWrapper,
   IMenuRenderedWrapper,
@@ -67,7 +64,6 @@ import {
   ISortableWrapper,
   ISyntheticCursorWrapper,
   ITouchedWrapper,
-  IUseActionsWrapper,
   IUseFilterWrapper,
   IUseKeyboardWrapper,
   IUsePeriodNavigatorWrapper,
@@ -103,30 +99,6 @@ const isValid = (wrapper: IValidWrapper): boolean =>
  */
 const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.fieldRendered !== false;
-
-/**
- * @stable [05.05.2020]
- * @param {ILastAllowedWrapper} wrapper
- * @returns {boolean}
- */
-export const isLastAllowedWrapper = (wrapper: ILastAllowedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.lastAllowed !== false;
-
-/**
- * @stable [05.05.2020]
- * @param {IFirstAllowedWrapper} wrapper
- * @returns {boolean}
- */
-export const isFirstAllowedWrapper = (wrapper: IFirstAllowedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.firstAllowed !== false;
-
-/**
- * @stable [12.05.2020]
- * @param {IUseActionsWrapper} wrapper
- * @returns {boolean}
- */
-export const areActionsUsed = (wrapper: IUseActionsWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.useActions === true;
 
 /**
  * @stable [30.01.2020]

@@ -6,6 +6,7 @@ export * from './component/application/application.container';                  
 export * from './component/base/base.component';
 export * from './component/base/base.container';
 export * from './component/base/generic-base.component';                                 /* @stable [09.06.2020] */
+export * from './component/base/generic.component';                                      /* @stable [09.06.2020] */
 export * from './component/base/generic.container';                                      /* @stable [09.06.2020] */
 export * from './component/button/button.component';                                     /* @stable [09.06.2020] */
 export * from './component/connector/connector.mapper';
@@ -27,9 +28,10 @@ export * from './entities-definitions.interface';
 export * from './settings';                                                              /* @stable [09.06.2020] */
 export * from './store/effects/base.effects';
 export * from './store/effects/effects-by.decorator';
+export * from './store/effects/effects.factory';                                         /* @stable [09.06.2020] */
 export * from './store/effects/untouched-list-effects.proxy';
 export * from './store/store.factory';
 export * from './store/store.support';
 export * from './store/universal-store.factory';
-export * from './transport';
+export * from './transport';                                                             /* @stable [09.06.2020] */
 export * from './util';                                                                  /* @stable [08.06.2020] */

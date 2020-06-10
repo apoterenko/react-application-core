@@ -11,7 +11,10 @@
   @include rac-page-toolbar (
     $rac-page-toolbar-action-background: $rac-page-toolbar-action-background,
     $rac-page-toolbar-action-content-font-size: $rac-page-toolbar-action-content-font-size,
+    $rac-page-toolbar-action-content-padding: $rac-page-toolbar-action-content-padding,
     $rac-page-toolbar-action-content-text-transform: $rac-page-toolbar-action-content-text-transform,
+    $rac-page-toolbar-action-middle-margin: $rac-page-toolbar-action-middle-margin,
+    $rac-page-toolbar-action-with-short-digit-format-content-padding: $rac-page-toolbar-action-with-short-digit-format-content-padding,
     $rac-page-toolbar-align-items: $rac-page-toolbar-align-items,
     $rac-page-toolbar-border-top: $rac-page-toolbar-border-top,
     $rac-page-toolbar-content-display: $rac-page-toolbar-content-display,
@@ -21,7 +24,9 @@
     $rac-page-toolbar-icon-height: $rac-page-toolbar-icon-height,
     $rac-page-toolbar-icon-margin: $rac-page-toolbar-icon-margin,
     $rac-page-toolbar-justify-content: $rac-page-toolbar-justify-content,
+    $rac-page-toolbar-pages-align-items: $rac-page-toolbar-pages-align-items,
     $rac-page-toolbar-pages-color: $rac-page-toolbar-pages-color,
+    $rac-page-toolbar-pages-display: $rac-page-toolbar-pages-display,
     $rac-page-toolbar-pages-font-size: $rac-page-toolbar-pages-font-size,
     $rac-page-toolbar-pages-margin: $rac-page-toolbar-pages-margin
   );

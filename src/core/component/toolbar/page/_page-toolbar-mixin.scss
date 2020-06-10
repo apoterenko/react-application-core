@@ -10,7 +10,10 @@
   /**/
   $rac-page-toolbar-action-background: unset,                                            /* @stable [05.06.2020] */
   $rac-page-toolbar-action-content-font-size: unset,                                     /* @stable [05.06.2020] */
+  $rac-page-toolbar-action-content-padding: unset,                                       /* @stable [10.06.2020] */
   $rac-page-toolbar-action-content-text-transform: unset,                                /* @stable [05.06.2020] */
+  $rac-page-toolbar-action-middle-margin: unset,                                         /* @stable [10.06.2020] */
+  $rac-page-toolbar-action-with-short-digit-format-content-padding: unset,               /* @stable [10.06.2020] */
   $rac-page-toolbar-align-items: unset,                                                  /* @stable [05.05.2020] */
   $rac-page-toolbar-background: unset,                                                   /* @stable [05.05.2020] */
   $rac-page-toolbar-border-top: unset,                                                   /* @stable [05.05.2020] */
@@ -23,7 +26,9 @@
   $rac-page-toolbar-icon-margin: unset,                                                  /* @stable [05.05.2020] */
   $rac-page-toolbar-justify-content: unset,                                              /* @stable [05.05.2020] */
   $rac-page-toolbar-margin: unset,                                                       /* @stable [05.05.2020] */
+  $rac-page-toolbar-pages-align-items: unset,                                            /* @stable [10.06.2020] */
   $rac-page-toolbar-pages-color: unset,                                                  /* @stable [05.05.2020] */
+  $rac-page-toolbar-pages-display: unset,                                                /* @stable [10.06.2020] */
   $rac-page-toolbar-pages-font-size: unset,                                              /* @stable [05.05.2020] */
   $rac-page-toolbar-pages-margin: unset                                                  /* @stable [05.05.2020] */
 ) {
@@ -41,7 +46,9 @@
 
     @include rac-styles (
       $rac-styles-custom: $rac-toolbar-pages-cls,
+      $rac-styles-align-items: $rac-page-toolbar-pages-align-items,
       $rac-styles-color: $rac-page-toolbar-pages-color,
+      $rac-styles-display: $rac-page-toolbar-pages-display,
       $rac-styles-font-size: $rac-page-toolbar-pages-font-size,
       $rac-styles-margin: $rac-page-toolbar-pages-margin
     );
@@ -55,7 +62,18 @@
       $rac-button-custom: $rac-toolbar-action-cls,
       $rac-button-background: $rac-page-toolbar-action-background,
       $rac-button-content-font-size: $rac-page-toolbar-action-content-font-size,
+      $rac-button-content-padding: $rac-page-toolbar-action-content-padding,
       $rac-button-content-text-transform: $rac-page-toolbar-action-content-text-transform
+    );
+
+    @include rac-button (
+      $rac-button-custom: $rac-toolbar-action-middle-cls,
+      $rac-button-margin: $rac-page-toolbar-action-middle-margin
+    );
+
+    @include rac-button (
+      $rac-button-custom: $rac-toolbar-action-with-short-digit-format-cls,
+      $rac-button-content-padding: $rac-page-toolbar-action-with-short-digit-format-content-padding
     );
 
     @include rac-icon (

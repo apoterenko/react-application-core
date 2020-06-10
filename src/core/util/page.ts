@@ -28,14 +28,14 @@ export const pageCursorTo = (entity: IReduxPaginatedEntity): number =>
  * @param {IReduxPaginatedEntity} entity
  * @returns {number}
  */
-export const pagesCount = (entity: IReduxPaginatedEntity): number => Math.ceil(entity.totalCount / entity.pageSize);
+const pagesCount = (entity: IReduxPaginatedEntity): number => Math.ceil(entity.totalCount / entity.pageSize);
 
 /**
  * @stable [05.05.2020]
  * @param {IReduxPaginatedEntity} entity
  * @returns {boolean}
  */
-export const isPageCursorInEndPosition = (entity: IReduxPaginatedEntity): boolean =>
+const isPageCursorInEndPosition = (entity: IReduxPaginatedEntity): boolean =>
   pageCursorTo(entity) === entity.totalCount;
 
 /**
@@ -43,7 +43,7 @@ export const isPageCursorInEndPosition = (entity: IReduxPaginatedEntity): boolea
  * @param {IReduxPaginatedEntity} entity
  * @returns {boolean}
  */
-export const isPageCursorInStartPosition = (entity: IReduxPaginatedEntity): boolean =>
+const isPageCursorInStartPosition = (entity: IReduxPaginatedEntity): boolean =>
   entity.page === FIRST_PAGE;
 
 /**
@@ -51,4 +51,14 @@ export const isPageCursorInStartPosition = (entity: IReduxPaginatedEntity): bool
  * @param {IReduxPaginatedEntity} entity
  * @returns {boolean}
  */
-export const isPageable = (entity: IReduxPaginatedEntity): boolean => entity.totalCount > entity.pageSize;
+const isPageable = (entity: IReduxPaginatedEntity): boolean => entity.totalCount > entity.pageSize;
+
+/**
+ * @stable [10.06.2020]
+ */
+export class PageUtils {
+  public static readonly isPageable = isPageable;
+  public static readonly isPageCursorInEndPosition = isPageCursorInEndPosition;
+  public static readonly isPageCursorInStartPosition = isPageCursorInStartPosition;
+  public static readonly pagesCount = pagesCount;
+}
