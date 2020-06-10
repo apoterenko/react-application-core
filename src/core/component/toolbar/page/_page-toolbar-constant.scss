@@ -29,5 +29,11 @@ $rac-page-toolbar-pages-align-items: center !default;
 $rac-page-toolbar-pages-color: $rac-primary-color-poseidon-3 !default;
 $rac-page-toolbar-pages-display: $rac-primary-display-0 !default;
 $rac-page-toolbar-pages-font-size: $rac-primary-font-size-1 !default;
-$rac-page-toolbar-pages-font-weight:  unset !default;
+$rac-page-toolbar-pages-font-weight: unset !default;
 $rac-page-toolbar-pages-margin: 0 $rac-primary-offset-1 !default;
+
+/************************/
+/* @stable [10.06.2020] */
+/************************/
+$rac-page-toolbar__media-query-breakpoint-0-min-max__action-content-font-size: unset !default;
+$rac-page-toolbar__media-query-breakpoint-0-min-max__action-content-padding: unset !default;

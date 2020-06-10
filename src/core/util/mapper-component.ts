@@ -46,6 +46,13 @@ const mapFormProps = <TEntity = IEntity>(props: IFormProps<TEntity>): IFormProps
     ...GenericMappers.formEntity(props),
   });
 
+/**
+ * @map-component-as-original
+ * @stable [10.06.2020]
+ *
+ * @param {IPageToolbarProps} props
+ * @returns {IPageToolbarProps}
+ */
 const mapPageToolbarProps = (props: IPageToolbarProps): IPageToolbarProps =>
   GenericMappers.paginatedLifeCycleEntity(props);
 
@@ -176,6 +183,13 @@ const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolba
     ...props.toolbarConfiguration,
   });
 
+/**
+ * @map-container-as-component
+ * @stable [10.06.2020]
+ *
+ * @param {IPageToolbarContainerProps} props
+ * @returns {IPageToolbarProps}
+ */
 const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarContainerProps): IPageToolbarProps =>
   ({
     ...mapPageToolbarProps(Selectors.list(props)),
@@ -218,7 +232,6 @@ export class ComponentMappers {
   public static listContainerProps = mapListContainerProps;                                                               /* @stable [10.05.2020] */
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
-  public static pageToolbarProps = mapPageToolbarProps;
   public static placeFieldProps = mapPlaceFieldProps;                                                                     /* @stable [19.05.2020] */
   public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;

@@ -41,4 +41,20 @@
     $rac-page-toolbar-custom: $rac-full-toolbar-cls,
     $rac-page-toolbar-flex-grow: $rac-full-toolbar-flex-grow
   );
+
+  /**
+   * @media
+   * @stable [10.06.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-0-min) and (max-width: $rac-primary-media-query-breakpoint-0-max) {
+
+    /**
+     * @page-toolbar
+     * @stable [10.06.2020]
+     */
+    @include rac-page-toolbar (
+      $rac-page-toolbar-action-content-font-size: $rac-page-toolbar__media-query-breakpoint-0-min-max__action-content-font-size,
+      $rac-page-toolbar-action-content-padding: $rac-page-toolbar__media-query-breakpoint-0-min-max__action-content-padding
+    );
+  }
 }

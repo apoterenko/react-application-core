@@ -495,8 +495,9 @@ const mapListEntityAsPagedEntity = (entity: IListEntity, pageSize = DEFAULT_PAGE
   mapPaginatedEntityAsPagedEntity(Selectors.list(entity), pageSize);
 
 /**
- * @mapper
- * @stable [08.05.2020]
+ * @map-as-original
+ *
+ * @stable [10.06.2020]
  * @param {IReduxPaginatedLifeCycleEntity} entity
  * @returns {IReduxPaginatedLifeCycleEntity}
  */

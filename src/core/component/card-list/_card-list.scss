@@ -54,6 +54,8 @@
     @include rac-list (
       $rac-list-custom: $rac-card-list-cls,
       $rac-list-item-height: $rac-card-list__media-query-breakpoint-0-min-max__item-height,
+      $rac-list-item-margin: $rac-card-list__media-query-breakpoint-0-min-max__item-margin,
+      $rac-list-item-nth-child-2n-margin-left: $rac-card-list__media-query-breakpoint-0-min-max__item-nth-child-2n-margin-left,
       $rac-list-item-width: $rac-card-list__media-query-breakpoint-0-min-max__item-width
     );
   }
