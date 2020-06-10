@@ -44,9 +44,9 @@ The library is designed to quickly start develop the business applications are b
 
 * [FilterFormDialogContainer (09.05.2020)](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
 * [FormContainer (09.05.2020)](src/core/component/form/form.container.tsx)
-* [PageToolbarContainer](src/core/component/toolbar/page/page-toolbar.container.tsx)
+* [PageToolbarContainer (10.06.2020)](src/core/component/toolbar/page/page-toolbar.container.tsx)
 * [SearchToolbarContainer](src/core/component/toolbar/search/search-toolbar.container.tsx)
-* [ToolbarToolsContainer (10.05.2020)](src/core/component/toolbar-tools/toolbar-tools.container.tsx)
+* [ToolbarToolsContainer (10.06.2020)](src/core/component/toolbar-tools/toolbar-tools.container.tsx)
 
 #### @component-impl
 
