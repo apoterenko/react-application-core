@@ -209,12 +209,13 @@ const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProp
   });
 
 /**
- * @container-component-props-mapper
- * @stable [10.05.2020]
+ * @map-container-as-component
+ * @stable [10.06.2020]
+ *
  * @param {IToolbarToolsContainerProps} props
  * @returns {IToolbarToolsProps}
  */
-const mapToolbarToolsContainerPropsAsToolbarTools = (props: IToolbarToolsContainerProps): IToolbarToolsProps =>
+const mapToolbarToolsContainerPropsAsToolbarToolsProps = (props: IToolbarToolsContainerProps): IToolbarToolsProps =>
   ({
     ...props.toolbarTools,
     ...props.toolbarToolsConfiguration,
@@ -237,6 +238,6 @@ export class ComponentMappers {
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static searchToolbarProps = mapSearchToolbarProps;
   public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                               /* @stable [09.05.2020] */
-  public static toolbarToolsContainerPropsAsToolbarTools = mapToolbarToolsContainerPropsAsToolbarTools;                   /* @stable [10.05.2020] */
+  public static toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;         /* @stable [10.06.2020] */
   public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                 /* @stable [10.05.2020] */
 }

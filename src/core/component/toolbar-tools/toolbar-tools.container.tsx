@@ -39,7 +39,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
   public render(): JSX.Element {
     return (
       <ToolbarTools
-        {...Mappers.toolbarToolsContainerPropsAsToolbarTools(this.originalProps)}
+        {...Mappers.toolbarToolsContainerPropsAsToolbarToolsProps(this.originalProps)}
         onDownloadFileClick={this.onDownloadFileClick}
         onFilterClick={this.onFilterClick}
         onRefreshClick={this.onRefreshClick}

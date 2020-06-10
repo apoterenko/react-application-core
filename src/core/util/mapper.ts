@@ -421,6 +421,6 @@ export class Mappers {
   public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                               /* @stable [10.05.2020] */
   public static readonly storeEntity = GenericMappers.storeEntity;                                                                                           /* @stable [09.06.2020] */
   public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                           /* @stable [09.05.2020] */
-  public static readonly toolbarToolsContainerPropsAsToolbarTools = ComponentMappers.toolbarToolsContainerPropsAsToolbarTools;                               /* @stable [10.05.2020] */
+  public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = ComponentMappers.toolbarToolsContainerPropsAsToolbarToolsProps;                     /* @stable [10.06.2020] */
   public static readonly toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps;                             /* @stable [10.05.2020] */
 }
