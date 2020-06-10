@@ -138,9 +138,9 @@ The library is designed to quickly start develop the business applications are b
 
 #### PageToolbar
 
-* [_page-toobar.scss (10.06.2020)](src/core/component/toolbar/page/_page-toobar.scss)
-* [_page-toobar-constant.scss (10.06.2020)](src/core/component/toolbar/page/_page-toobar-constant.scss)
-* [_page-toobar-mixin.scss (10.06.2020)](src/core/component/toolbar/page/_page-toobar-mixin.scss)
+* [_page-toolbar.scss (10.06.2020)](src/core/component/toolbar/page/_page-toolbar.scss)
+* [_page-toolbar-constant.scss (10.06.2020)](src/core/component/toolbar/page/_page-toolbar-constant.scss)
+* [_page-toolbar-mixin.scss (10.06.2020)](src/core/component/toolbar/page/_page-toolbar-mixin.scss)
 
 #### SubHeaderLink
 
