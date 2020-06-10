@@ -4,7 +4,7 @@
 /************************/
 /* @stable [10.06.2020] */
 /************************/
-$rac-primary-page-toolbar-margin-0: $rac-primary-offset-1 !default;
+$rac-primary-page-toolbar-offset-0: $rac-primary-offset-1 !default;
 
 /************************/
 /* @stable [05.05.2020] */
@@ -13,8 +13,8 @@ $rac-page-toolbar-action-background: unset !default;
 $rac-page-toolbar-action-content-font-size: unset !default;
 $rac-page-toolbar-action-content-padding: unset !default;
 $rac-page-toolbar-action-content-text-transform: unset !default;
-$rac-page-toolbar-action-first-margin: 0 $rac-primary-page-toolbar-margin-0 0 0 !default;
-$rac-page-toolbar-action-last-margin: 0 0 0 $rac-primary-page-toolbar-margin-0 !default;
+$rac-page-toolbar-action-first-margin: 0 $rac-primary-page-toolbar-offset-0 0 0 !default;
+$rac-page-toolbar-action-last-margin: 0 0 0 $rac-primary-page-toolbar-offset-0 !default;
 $rac-page-toolbar-action-with-short-digit-format-content-padding: unset !default;
 $rac-page-toolbar-align-items: center !default;
 $rac-page-toolbar-border-top: unset !default;
