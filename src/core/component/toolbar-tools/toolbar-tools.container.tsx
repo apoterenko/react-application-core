@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { GenericContainer } from '../base';
 import {
-  isFn,
   Mappers,
+  TypeUtils,
 } from '../../util';
 import {
   IToolbarToolsContainerProps,
@@ -14,7 +14,7 @@ import { ToolbarToolsActionBuilder } from '../../action';
 
 /**
  * @component-container-impl
- * @stable [10.05.2020]
+ * @stable [10.06.2020]
  *
  * Please use the "Mappers.toolbarToolsContainerProps"
  */
@@ -39,7 +39,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
   public render(): JSX.Element {
     return (
       <ToolbarTools
-        {...Mappers.toolbarToolsContainerPropsAsToolbarTools(this.props)}
+        {...Mappers.toolbarToolsContainerPropsAsToolbarTools(this.originalProps)}
         onDownloadFileClick={this.onDownloadFileClick}
         onFilterClick={this.onFilterClick}
         onRefreshClick={this.onRefreshClick}
@@ -52,7 +52,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    */
   private onRefreshClick(): void {
     const props = this.toolbarToolsProps;
-    if (isFn(props.onRefreshClick)) {
+    if (TypeUtils.isFn(props.onRefreshClick)) {
       props.onRefreshClick();
     } else {
       this.dispatchPlainAction(ToolbarToolsActionBuilder.buildRefreshPlainAction(this.sectionName));
@@ -64,7 +64,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    */
   private onFilterClick(): void {
     const props = this.toolbarToolsProps;
-    if (isFn(props.onFilterClick)) {
+    if (TypeUtils.isFn(props.onFilterClick)) {
       props.onFilterClick();
     } else {
       this.dispatchPlainAction(ToolbarToolsActionBuilder.buildFilterPlainAction(this.sectionName));
@@ -76,7 +76,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    */
   private onDownloadFileClick(): void {
     const props = this.toolbarToolsProps;
-    if (isFn(props.onDownloadFileClick)) {
+    if (TypeUtils.isFn(props.onDownloadFileClick)) {
       props.onDownloadFileClick();
     } else {
       this.dispatchPlainAction(ToolbarToolsActionBuilder.buildDownloadFilePlainAction(this.sectionName));
@@ -88,6 +88,6 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    * @returns {IToolbarToolsProps}
    */
   private get toolbarToolsProps(): IToolbarToolsProps {
-    return this.props.toolbarToolsConfiguration || {};
+    return this.originalProps.toolbarToolsConfiguration || {};
   }
 }

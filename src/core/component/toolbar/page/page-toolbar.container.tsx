@@ -14,7 +14,7 @@ import { PageToolbarActionBuilder } from '../../../action';
 
 /**
  * @component-container-impl
- * @stable [06.05.2020]
+ * @stable [10.06.2020]
  *
  * Please use the "Mappers.pageToolbarContainerProps"
  */
