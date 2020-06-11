@@ -14,6 +14,7 @@ import {
   IColumnStylesWrapper,
   IColumnTitleWrapper,
   IColumnWidthWrapper,
+  IDeactivatedWrapper,
   IDirectionWrapper,
   IEditedWrapper,
   IEntity,
@@ -43,6 +44,7 @@ import {
   INameWrapper,
   IOnChangeBoolValueWrapper,
   IOnChangeFilterWrapper,
+  IOnChangeWrapper,
   IOnClickWrapper,
   IOnColumnClickWrapper,
   IOnColumnContentClickWrapper,
@@ -233,6 +235,8 @@ export interface IPresetsGridEntity<TEntity extends IEntity = IEntity>
     IChangesWrapper,
     IGroupByWrapper<IGenericListGroupByEntity>,
     ILocalSortingWrapper,
+    IDeactivatedWrapper,
+    IOnChangeWrapper<IFieldChangeEntity>,
     IOnChangeFilterWrapper<IFieldChangeEntity> {
   localFiltration?: boolean;  // TODO
   deactivated?: boolean;

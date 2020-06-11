@@ -4,7 +4,6 @@ import {
   AnyT,
   EntityIdT,
   IDataWrapper,
-  IDeactivatedWrapper,
   IDisabledWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
@@ -20,14 +19,12 @@ import {
   IKeyValue,
   IListConfigurationWrapper,
   IListWrapper,
-  IOnChangeWrapper,
   IOnSelectWrapper,
   IOriginalDataWrapper,
   IRawDataWrapper,
   ISelectedWrapper,
   ISorterWrapper,
 } from '../definitions.interface';
-import { IFieldChangeEntity } from './field-definition.interface';
 import { IGenericBaseComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import {
@@ -41,11 +38,11 @@ import {
   FIRST_PAGE,
   IReduxPaginatedEntity,
 } from './page-definition.interface';
-import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
-import { ISortDirectionsEntity } from './sort-definition.interface';
+import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IPresetsRowEntity } from './row-definition.interface';
-import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
+import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
+import { ISortDirectionsEntity } from './sort-definition.interface';
 
 /**
  * @stable [04.03.2020]
@@ -70,6 +67,7 @@ export interface IReduxPaginatedDataEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IReduxPaginatedEntity,
     IDataWrapper<TEntity[]>,
+    IOriginalDataWrapper<TEntity[]>,
     IRawDataWrapper<TRawData> {
 }
 
@@ -87,7 +85,7 @@ export interface IReduxListEntity<TEntity = IEntity,
 
 /**
  * @presets-entity
- * @stable [10.05.2020]
+ * @stable [11.06.2020]
  */
 export interface IPresetsListEntity<TEntity extends IEntity = IEntity>
   extends IPresetsSelectableHoveredEntity,                            /* @stable [11.06.2020] */
@@ -97,23 +95,19 @@ export interface IPresetsListEntity<TEntity extends IEntity = IEntity>
     IEmptyMessageWrapper<string | boolean>,                           /* @stable [11.06.2020] */
     IFilterWrapper<(entity: TEntity) => boolean>,                     /* @stable [11.06.2020] */
     IFullWrapper,                                                     /* @stable [11.06.2020] */
-    IOnChangeWrapper<IFieldChangeEntity>,
-    IOnSelectWrapper<TEntity>,
-    IDeactivatedWrapper,
-    IHighlightOddWrapper,
-    ISorterWrapper {
+    IHighlightOddWrapper,                                             /* @stable [11.06.2020] */
+    IOnSelectWrapper<TEntity>,                                        /* @stable [11.06.2020] */
+    ISorterWrapper {                                                  /* @stable [11.06.2020] */
 }
 
 /**
- * TODO IPresetsListEntity
  * @generic-entity
- * @stable [27.10.2019]
+ * @stable [11.06.2020]
  */
-export interface IGenericListEntity<TEntity = IEntity,
+export interface IGenericListEntity<TEntity extends IEntity = IEntity,
   TRawData = AnyT>
-  extends IReduxListEntity<TEntity, TRawData>,
-    IPresetsListEntity,
-    IOriginalDataWrapper<TEntity[]> {
+  extends IPresetsListEntity<TEntity>,
+    IReduxListEntity<TEntity, TRawData> {
 }
 
 /**
