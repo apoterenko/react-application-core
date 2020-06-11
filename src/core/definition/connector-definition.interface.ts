@@ -6,7 +6,7 @@ import {
   IMappersWrapper,
   IRouteConfigurationWrapper,
 } from '../definitions.interface';
-import { IUniversalContainerCtor } from './container-definition.interface';
+import { IGenericContainerCtor } from './generic-container-definition.interface';
 
 /**
  * @stable [16.11.2019]
@@ -43,10 +43,10 @@ export interface IConnectorEntity<TStoreEntity = {}, TAccessConfig = {}>
 }
 
 /**
- * @stable [19.12.2019]
+ * @stable [11.06.2020]
  */
-export interface IUniversalConnectorContainerFactory {
-  fromTarget(target: IUniversalContainerCtor, section: string): IUniversalContainerCtor;
+export interface IConnectorContainerFactory {
+  fromTarget(target: IGenericContainerCtor, section: string): IGenericContainerCtor;
 }
 
 /**

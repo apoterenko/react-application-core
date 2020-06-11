@@ -36,7 +36,7 @@ import {
   ITransport,
   IUiFactory,
   IUniversalComponentProps,
-  IUniversalConnectorContainerFactory,
+  IConnectorContainerFactory,
   IUniversalContainerProps,
   IUserActivityManager,
   ListStoreProxyFactoryT,
@@ -265,9 +265,9 @@ export const getDictionaryStoreProxyFactory = (): DictionaryStoreProxyFactoryT =
 
 /**
  * @stable [19.12.2019]
- * @returns {IUniversalConnectorContainerFactory}
+ * @returns {IConnectorContainerFactory}
  */
-export const getConnectorContainerFactory = (): IUniversalConnectorContainerFactory =>
+export const getConnectorContainerFactory = (): IConnectorContainerFactory =>
   staticInjector(DI_TYPES.ConnectorContainerFactory);
 
 /**
@@ -276,3 +276,11 @@ export const getConnectorContainerFactory = (): IUniversalConnectorContainerFact
  */
 export const getUserActivityManager = (): IUserActivityManager =>
   staticInjector(DI_TYPES.UserActivityManager);
+
+/**
+ * @stable [11.06.2020]
+ */
+export class DiServices {
+  public static readonly store = getStore;
+  public static readonly uiFactory = getUiFactory;
+}

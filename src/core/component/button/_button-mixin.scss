@@ -22,6 +22,7 @@
   $rac-button-border: unset,                                                         /* stable [02.02.2020 ] */
   $rac-button-color: unset,                                                          /* stable [02.02.2020 ] */
   $rac-button-content-color: unset,                                                  /* stable [02.02.2020 ] */
+  $rac-button-content-flex-grow: unset,                                              /* stable [11.06.2020 ] */
   $rac-button-content-font-size: unset,                                              /* stable [02.02.2020 ] */
   $rac-button-content-font-weight: unset,                                            /* stable [02.02.2020 ] */
   $rac-button-content-height: unset,                                                 /* stable [15.02.2020 ] */
@@ -112,6 +113,7 @@
     @include rac-styles (
       $rac-styles-custom: rac-button__content,
       $rac-styles-color: $rac-button-content-color,
+      $rac-styles-flex-grow: $rac-button-content-flex-grow,
       $rac-styles-font-size: $rac-button-content-font-size,
       $rac-styles-font-weight: $rac-button-content-font-weight,
       $rac-styles-height: $rac-button-content-height,
