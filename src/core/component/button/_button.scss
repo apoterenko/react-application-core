@@ -125,4 +125,19 @@
     $rac-button-flex-basis: $rac-full-button-flex-basis,
     $rac-button-flex-grow: $rac-full-button-flex-grow
   );
+
+  /**
+   * @media
+   * @stable [11.06.2020]
+   */
+  @media (min-width: $rac-primary-media-query-breakpoint-0-min) and (max-width: $rac-primary-media-query-breakpoint-0-max) {
+
+    /**
+     * @button
+     * @stable [11.06.2020]
+     */
+    @include rac-button (
+      $rac-button-height: $rac-button__media-query-breakpoint-0-min-max__height
+    );
+  }
 }
