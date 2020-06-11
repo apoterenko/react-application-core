@@ -345,7 +345,6 @@ export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; 
 export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
-export interface IOnCreateWrapper<TValue = {}> { onCreate?(value?: TValue): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryEmptyWrapper<TValue1, TValue2> { onDictionaryEmpty?(value1?: TValue1, value2?: TValue2): void; }
@@ -594,13 +593,6 @@ export interface IResetErrorWrapper<TResetError = () => void> {
  */
 export interface IOnChangeFilterWrapper<TChangedValue = AnyT, TOnChangeFilter = (value?: TChangedValue) => void> {
   onChangeFilter?: TOnChangeFilter;
-}
-
-/**
- * @stable [07.06.2018]
- */
-export interface IOnChangeHeaderWrapper<TChangedValue = AnyT, TOnChangeHeader = (value?: TChangedValue) => void> {
-  onChangeHeader?: TOnChangeHeader;
 }
 
 /**

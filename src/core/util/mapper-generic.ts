@@ -31,7 +31,7 @@ import {
   IExtendedEntity,
   IExtendedFormEntity,
   IFormEntity,
-  IListEntity,
+  IReduxHolderListEntity,
   IOptionEntity,
   IPrimaryFilterExtendedFormEntity,
   IPrimaryFilterReduxFormEntity,
@@ -211,10 +211,10 @@ const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
  * @map-as-original
  *
  * @stable [09.06.2020]
- * @param {IListEntity} entity
- * @returns {IListEntity}
+ * @param {IReduxHolderListEntity} entity
+ * @returns {IReduxHolderListEntity}
  */
-const mapListEntity = (entity: IListEntity): IListEntity => mapList(Selectors.list(entity));
+const mapListEntity = (entity: IReduxHolderListEntity): IReduxHolderListEntity => mapList(Selectors.list(entity));
 
 /**
  * @map-as-original
@@ -239,10 +239,10 @@ const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => ma
  * @map-as
  *
  * @stable [09.06.2020]
- * @param {IListEntity} listEntity
+ * @param {IReduxHolderListEntity} listEntity
  * @returns {IDisabledWrapper}
  */
-const mapListEntityAsDisabled = (listEntity: IListEntity): IDisabledWrapper =>
+const mapListEntityAsDisabled = (listEntity: IReduxHolderListEntity): IDisabledWrapper =>
   mapProgressAsDisabled(Selectors.list(listEntity));
 
 /**
@@ -394,12 +394,12 @@ const mapExtendedFormEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IRedu
 /**
  * @mapper
  * @stable [09.05.2020]
- * @param {IListEntity<TEntity>} listEntity
+ * @param {IReduxHolderListEntity<TEntity>} listEntity
  * @param {IReduxFormEntity<TEntity>} formEntity
  * @returns {IExtendedFormEntity<TEntity>}
  */
 const mapListSelectedEntityAsExtendedFormEntity =
-  <TEntity = IEntity>(listEntity: IListEntity<TEntity>,
+  <TEntity = IEntity>(listEntity: IReduxHolderListEntity<TEntity>,
                       formEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
     mapEntityAsExtendedFormEntity(
       formEntity,
@@ -408,12 +408,12 @@ const mapListSelectedEntityAsExtendedFormEntity =
 
 /**
  * @stable [10.05.2020]
- * @param {IListEntity<TEntity>} listEntity
+ * @param {IReduxHolderListEntity<TEntity>} listEntity
  * @param {IReduxFormEntity<TEntity>} formEntity
  * @returns {TEntity}
  */
 const mapListSelectedExtendedFormEntityAsFinalEntity =
-  <TEntity = IEntity>(listEntity: IListEntity<TEntity>,
+  <TEntity = IEntity>(listEntity: IReduxHolderListEntity<TEntity>,
                       formEntity: IReduxFormEntity<TEntity>): TEntity =>
     mapListSelectedEntityAsExtendedFormEntity<TEntity>(listEntity, formEntity).entity;
 
@@ -487,11 +487,11 @@ const mapPaginatedEntityAsPagedEntity =
 /**
  * @mapper
  * @stable [09.05.2020]
- * @param {IListEntity} entity
+ * @param {IReduxHolderListEntity} entity
  * @param {number} pageSize
  * @returns {IReduxPagedEntity}
  */
-const mapListEntityAsPagedEntity = (entity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
+const mapListEntityAsPagedEntity = (entity: IReduxHolderListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
   mapPaginatedEntityAsPagedEntity(Selectors.list(entity), pageSize);
 
 /**
@@ -627,10 +627,10 @@ const mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity =
 /**
  * @mapper
  * @stable [10.05.2020]
- * @param {IQueryFilterEntity & IListEntity<TEntity>} wrapper
+ * @param {IQueryFilterEntity & IReduxHolderListEntity<TEntity>} wrapper
  * @returns {TFilter}
  */
-const mapFullSearchFilter = <TFilter, TEntity = IEntity>(wrapper: IQueryFilterEntity & IListEntity<TEntity>): TFilter => ({
+const mapFullSearchFilter = <TFilter, TEntity = IEntity>(wrapper: IQueryFilterEntity & IReduxHolderListEntity<TEntity>): TFilter => ({
   ...mapQueryFilterEntityAsQuery(wrapper),
   ...mapListEntityAsPagedEntity(wrapper),
   ...mapPrimaryFilterEntityAsFinalEntity(wrapper),

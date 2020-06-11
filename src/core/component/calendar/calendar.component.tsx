@@ -1,24 +1,24 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../base/base.component';
+import { GenericComponent } from '../base/generic.component';
 import {
+  DefaultEntities,
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarProps,
   ICalendarWeekEntity,
   IGridColumnProps,
-  IDeprecatedListEntity,
   INITIAL_LIST_ENTITY,
-  NOT_SELECTABLE_GRID_ENTITY,
+  IReduxListEntity,
 } from '../../definition';
 import { Grid } from '../grid';
 import {
-  calc,
-  isFn,
-  joinClassName,
+  CalcUtils,
+  ClsUtils,
+  TypeUtils,
 } from '../../util';
 
-export class Calendar extends BaseComponent<ICalendarProps> {
+export class Calendar extends GenericComponent<ICalendarProps> {
 
   public static readonly defaultProps: ICalendarProps = {
     showOnlyCurrentDays: false,
@@ -30,9 +30,10 @@ export class Calendar extends BaseComponent<ICalendarProps> {
    */
   constructor(props: ICalendarProps) {
     super(props);
-    this.onClick = this.onClick.bind(this);
+
     this.getCellElement = this.getCellElement.bind(this);
     this.getColumnClassName = this.getColumnClassName.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   /**
@@ -43,7 +44,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     const props = this.props;
     const calendar = this.calendarEntity;
 
-    const listEntity: IDeprecatedListEntity = {
+    const listEntity: IReduxListEntity = {
       ...INITIAL_LIST_ENTITY,
       data: calendar.days,
     };
@@ -61,12 +62,12 @@ export class Calendar extends BaseComponent<ICalendarProps> {
 
     return (
       <Grid
-        {...NOT_SELECTABLE_GRID_ENTITY}
+        {...DefaultEntities.NOT_SELECTABLE_LIST_ENTITY}
         headerRendered={false}
         highlightOdd={false}
         {...props.gridConfiguration}
         columnsConfiguration={columns}
-        className={joinClassName('rac-calendar', calc(props.className))}
+        className={ClsUtils.joinClassName('rac-calendar', CalcUtils.calc(props.className))}
         {...listEntity}
       />
     );
@@ -84,7 +85,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     const isLastSelectedDay = this.isLastSelectedDay(entity);
     const isMiddleSelectedDay = this.isMiddleSelectedDay(entity);
 
-    return joinClassName(
+    return ClsUtils.joinClassName(
       entity.current && 'rac-calendar__current-day',
       entity.today && 'rac-calendar__today',
       isDaySelected && 'rac-calendar__selected-day',
@@ -102,7 +103,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
    */
   private isDaySelected(entity: ICalendarDayEntity): boolean {
     const {isSelected, selectedDays = []} = this.props;
-    return isFn(isSelected)
+    return TypeUtils.isFn(isSelected)
       ? isSelected(entity)
       : selectedDays.includes(entity.day) && entity.current;
   }
@@ -114,7 +115,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
    */
   private isFirstSelectedDay(entity: ICalendarDayEntity): boolean {
     const {isFirstSelected} = this.props;
-    return isFn(isFirstSelected) && isFirstSelected(entity);
+    return TypeUtils.isFn(isFirstSelected) && isFirstSelected(entity);
   }
 
   /**
@@ -124,7 +125,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
    */
   private isLastSelectedDay(entity: ICalendarDayEntity): boolean {
     const {isLastSelected} = this.props;
-    return isFn(isLastSelected) && isLastSelected(entity);
+    return TypeUtils.isFn(isLastSelected) && isLastSelected(entity);
   }
 
   /**
@@ -134,7 +135,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
    */
   private isMiddleSelectedDay(entity: ICalendarDayEntity): boolean {
     const {isMiddleSelected} = this.props;
-    return isFn(isMiddleSelected)
+    return TypeUtils.isFn(isMiddleSelected)
       ? isMiddleSelected(entity)
       : (!this.isFirstSelectedDay(entity) && !this.isLastSelectedDay(entity));
   }
@@ -152,7 +153,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
     if (props.showOnlyCurrentDays && !weekDayEntity.current) {
       return null;
     }
-    if (isFn(props.renderer)) {
+    if (TypeUtils.isFn(props.renderer)) {
       return props.renderer(weekDayEntity);
     }
     return <React.Fragment>{weekDayEntity.date.getDate()}</React.Fragment>;
@@ -164,7 +165,7 @@ export class Calendar extends BaseComponent<ICalendarProps> {
    */
   private onClick(payload: IGridColumnProps): void {
     const props = this.props;
-    if (isFn(props.onSelect)) {
+    if (TypeUtils.isFn(props.onSelect)) {
       props.onSelect(this.asCalendarDayEntity(payload));
     }
   }

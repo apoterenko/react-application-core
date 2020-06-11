@@ -1,14 +1,20 @@
 import * as React from 'react';
 
 import {
-  calc,
-  isFull,
-  joinClassName,
+  CalcUtils,
+  ClsUtils,
+  WrapperUtils,
 } from '../../../util';
+import {
+  IBasicListProps,
+  ListClassesEnum,
+} from '../../../definition';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
-import { IBasicListProps } from './basic-list.interface';
-import { ListClassesEnum } from '../../../definition';
 
+/**
+ * @component-impl
+ * @stable [11.06.2020]
+ */
 export class BasicList extends EnhancedGenericComponent<IBasicListProps> {
 
   /**
@@ -16,21 +22,32 @@ export class BasicList extends EnhancedGenericComponent<IBasicListProps> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
+    const {
+      className,
+    } = mergedProps;
 
     return (
       <ul
         ref={this.actualRef}
         className={
-          joinClassName(
+          ClsUtils.joinClassName(
             ListClassesEnum.LIST,
-            isFull(props) && ListClassesEnum.FULL_LIST,
-            calc(props.className)
+            WrapperUtils.isFull(mergedProps) && ListClassesEnum.FULL_LIST,
+            CalcUtils.calc(className)
           )
         }
       >
-        {props.children}
+        {this.props.children}
       </ul>
     );
+  }
+
+  /**
+   * @stable [11.06.2020]
+   * @returns {IBasicListProps}
+   */
+  protected get settingsProps(): IBasicListProps {
+    return this.componentsSettings.basicList;
   }
 }

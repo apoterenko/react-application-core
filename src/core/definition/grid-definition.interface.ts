@@ -4,6 +4,7 @@ import {
   EntityIdT,
   IAlignWrapper,
   IBoolWrapper,
+  IChangesWrapper,
   IColSpanWrapper,
   IColumnClassNameWrapper,
   IColumnColSpanWrapper,
@@ -22,6 +23,7 @@ import {
   IFilterRendererWrapper,
   IFilterWrapper,
   IGridConfigurationWrapper,
+  IGroupByWrapper,
   IGroupedDataSorterWrapper,
   IGroupedRowsWrapper,
   IGroupedWrapper,
@@ -37,8 +39,10 @@ import {
   IIndexedWrapper,
   IIndexWrapper,
   ILocalFilterWrapper,
+  ILocalSortingWrapper,
   INameWrapper,
   IOnChangeBoolValueWrapper,
+  IOnChangeFilterWrapper,
   IOnClickWrapper,
   IOnColumnClickWrapper,
   IOnColumnContentClickWrapper,
@@ -65,8 +69,15 @@ import {
 } from './sort-definition.interface';
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
-import { IDeprecatedListEntity } from './list-definition.interface';
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import {
+  IGenericListGroupByEntity,
+  IPresetsListEntity,
+  IReduxListEntity,
+} from './list-definition.interface';
+import {
+  IGenericBaseComponentProps,
+  IGenericComponentProps,
+} from './generic-component-definition.interface';
 import { IPresetsRowEntity } from './row-definition.interface';
 
 /**
@@ -213,8 +224,32 @@ export interface IGridGenericEntity<TColumn, TEntity extends IEntity = IEntity>
   ITotalEntityWrapper<TEntity> {
 }
 
-export interface IGridEntity<TEntity extends IEntity = IEntity>
-  extends IDeprecatedListEntity<TEntity>,
+/**
+ * @presets-entity
+ * @stable [11.06.2020]
+ */
+export interface IPresetsGridEntity<TEntity extends IEntity = IEntity>
+  extends IPresetsListEntity<TEntity>,
+    IChangesWrapper,
+    IGroupByWrapper<IGenericListGroupByEntity>,
+    ILocalSortingWrapper,
+    IOnChangeFilterWrapper<IFieldChangeEntity> {
+  localFiltration?: boolean;  // TODO
+  deactivated?: boolean;
+  highlightOdd?: boolean;
+}
+
+/**
+ * @redux-entity
+ * @stable [11.06.2020]
+ */
+export interface IReduxGridEntity<TEntity extends IEntity = IEntity>
+  extends IReduxListEntity<TEntity> {
+}
+
+export interface IGenericGridEntity<TEntity extends IEntity = IEntity>
+  extends IPresetsGridEntity<TEntity>,
+    IReduxGridEntity<TEntity>,
     IHeaderRenderedWrapper,
     IGridGenericEntity<IGridColumnProps, TEntity>,
     IWrapperClassNameWrapper,
@@ -223,11 +258,12 @@ export interface IGridEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [27.10.2019]
+ * @props
+ * @stable [11.06.2020]
  */
 export interface IGridProps
-  extends IComponentProps,
-    IGridEntity {
+  extends IGenericComponentProps,
+    IGenericGridEntity {
 }
 
 /**
@@ -237,15 +273,6 @@ export interface IGridProps
 export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps>
   extends IGridConfigurationWrapper<TProps> {
 }
-
-/**
- * TODO Use DEFAULT_NOT_SELECTABLE_LIST_ENTITY
- * @deprecated
- */
-export const NOT_SELECTABLE_GRID_ENTITY = Object.freeze<IGridEntity>({
-  hovered: false,
-  selectable: false,
-});
 
 /**
  * @classes

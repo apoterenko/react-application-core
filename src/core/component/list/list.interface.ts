@@ -14,7 +14,6 @@ export const LIST_UPDATE_ACTION_TYPE = 'list.update';
 export const LIST_MERGE_ACTION_TYPE = 'list.merge';
 export const LIST_INSERT_ACTION_TYPE = 'list.insert';
 export const LIST_REMOVE_ACTION_TYPE = 'list.remove';
-export const LIST_CHANGE_ACTION_TYPE = 'list.change';
 export const LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE = 'list.sorting.direction.change';
 export const LIST_NEXT_PAGE_ACTION_TYPE = 'list.next.page';
 export const LIST_PREVIOUS_PAGE_ACTION_TYPE = 'list.previous.page';

@@ -45,7 +45,7 @@ import {
 import { NvlUtils } from './nvl';
 import {
   IFormEntity,
-  IListEntity,
+  IReduxHolderListEntity,
   IQueryFilterEntity,
   IReduxHolderLayoutEntity,
   IReduxHolderStackEntity,
@@ -245,10 +245,10 @@ const selectPreviousAction = <TValue>(wrapper: IPreviousActionWrapper<TValue>): 
 
 /**
  * @stable [08.05.2020]
- * @param {IListEntity} entity
+ * @param {IReduxHolderListEntity} entity
  * @returns {boolean}
  */
-const selectListProgress = (entity: IListEntity): boolean => inProgress(selectList(entity));
+const selectListProgress = (entity: IReduxHolderListEntity): boolean => inProgress(selectList(entity));
 
 /**
  * @stable [26.03.2020]
@@ -392,10 +392,10 @@ const selectTabPanel = <TTabPanel>(entity: ITabPanelWrapper<TTabPanel>): TTabPan
 
 /**
  * @stable [08.05.2020]
- * @param {IListEntity<TEntity extends IEntity>} entity
+ * @param {IReduxHolderListEntity<TEntity extends IEntity>} entity
  * @returns {TEntity}
  */
-const selectListSelectedEntity = <TEntity extends IEntity>(entity: IListEntity<TEntity>): TEntity =>
+const selectListSelectedEntity = <TEntity extends IEntity>(entity: IReduxHolderListEntity<TEntity>): TEntity =>
   selectSelected(selectList(entity));
 
 /**
@@ -408,10 +408,10 @@ const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): TValue =
 
 /**
  * @stable [08.05.2020]
- * @param {IListEntity} entity
+ * @param {IReduxHolderListEntity} entity
  * @returns {TRawData}
  */
-const selectListRawData = <TRawData = AnyT>(entity: IListEntity): TRawData => selectRawData(selectList(entity));
+const selectListRawData = <TRawData = AnyT>(entity: IReduxHolderListEntity): TRawData => selectRawData(selectList(entity));
 
 /**
  * @stable [08.05.2020]

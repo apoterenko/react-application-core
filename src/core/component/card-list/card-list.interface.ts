@@ -1,6 +1,6 @@
 import {
   IContainerProps,
-  IListEntity,
+  IReduxHolderListEntity,
 } from '../../definition';
 import { IListConfigurationWrapper } from '../../definitions.interface';
 
@@ -8,6 +8,6 @@ import { IListConfigurationWrapper } from '../../definitions.interface';
  * @stable [05.05.2018]
  */
 export interface ICardListContainerProps extends IContainerProps,
-                                                 IListEntity,
+                                                 IReduxHolderListEntity,
                                                  IListConfigurationWrapper<any> { // TODO
 }

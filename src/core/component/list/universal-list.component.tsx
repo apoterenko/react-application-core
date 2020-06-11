@@ -26,7 +26,7 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
     const props = this.props;
 
     if (this.originalDataSourceDoesNotExist
-          || this.emptyData
+          || this.areDataMissing
           || props.progress
           || props.error) {
       return this.getMessage();
@@ -112,7 +112,7 @@ export abstract class UniversalList<TProps extends any,  // TODO Props
    * @stable [17.06.2018]
    * @returns {boolean}
    */
-  protected get emptyData(): boolean {
+  protected get areDataMissing(): boolean {
     if (this.originalDataSourceDoesNotExist) {
       return false; // It's important to show the difference between the conditions: length === 0 and data === null!
     }

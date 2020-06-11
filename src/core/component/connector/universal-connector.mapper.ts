@@ -16,8 +16,8 @@ import {
   IReduxFormEntity,
   IExtendedEntity,
   IExtendedFormEntity,
-  IDeprecatedListEntity,
-  IListEntity,
+  IGenericListEntity,
+  IReduxHolderListEntity,
   IReduxPagedEntity,
 } from '../../definition';
 import {
@@ -35,12 +35,12 @@ export const formMapper = (editableEntity: IReduxFormEntity): IExtendedFormEntit
 
 /**
  * @stable [16.05.2018]
- * @param {IDeprecatedListEntity} listEntity
+ * @param {IGenericListEntity} listEntity
  * @param {IDataMutatorEntity} dataMutator
- * @returns {IListEntity}
+ * @returns {IReduxHolderListEntity}
  */
-export const listMapper = (listEntity: IDeprecatedListEntity, dataMutator?: IDataMutatorEntity): IListEntity => {
-  const list: IDeprecatedListEntity = {
+export const listMapper = (listEntity: IGenericListEntity, dataMutator?: IDataMutatorEntity): IReduxHolderListEntity => {
+  const list: IGenericListEntity = {
     ...listEntity,
   };
   if (!R.isNil(dataMutator) && !R.isNil(list.data) && list.data.length > 0) {
@@ -57,7 +57,7 @@ export const listMapper = (listEntity: IDeprecatedListEntity, dataMutator?: IDat
 /**
  * @deprecated Use mapListPagedEntity
  */
-export const listEntityPageEntityFilterMapper = (listEntity: IDeprecatedListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity => ({
+export const listEntityPageEntityFilterMapper = (listEntity: IGenericListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity => ({
   page: listEntity.lockPage ? listEntity.page : FIRST_PAGE,
   pageSize,
 });
@@ -66,21 +66,21 @@ export const listEntityPageEntityFilterMapper = (listEntity: IDeprecatedListEnti
  * @deprecated Use mapListWrapperPagedEntity
  */
 export const listEntityWrapperPageEntityFilterMapper =
-  (listEntity: IListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
+  (listEntity: IReduxHolderListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
     listEntityPageEntityFilterMapper(listEntity.list, pageSize);
 
 /**
  * @stable [30.01.2019]
- * @param {IListEntity} listWrapperEntity
- * @returns {IDeprecatedListEntity}
+ * @param {IReduxHolderListEntity} listWrapperEntity
+ * @returns {IGenericListEntity}
  */
-export const listSelector = (listWrapperEntity: IListEntity): IDeprecatedListEntity =>
-  ifNotNilThanValue<IListEntity, IDeprecatedListEntity>(listWrapperEntity, () => listWrapperEntity.list);
+export const listSelector = (listWrapperEntity: IReduxHolderListEntity): IGenericListEntity =>
+  ifNotNilThanValue<IReduxHolderListEntity, IGenericListEntity>(listWrapperEntity, () => listWrapperEntity.list);
 
 /**
  * @deprecated Use mapListWrapperEntity
  */
-export const listWrapperMapper = (listWrapperEntity: IListEntity, dataMutator?: IDataMutatorEntity): IListEntity =>
+export const listWrapperMapper = (listWrapperEntity: IReduxHolderListEntity, dataMutator?: IDataMutatorEntity): IReduxHolderListEntity =>
   listMapper(listSelector(listWrapperEntity), dataMutator);
 
 /**
@@ -107,20 +107,20 @@ export const entityMapper = <TEntity extends IEntity>(entity: TEntity,
 /**
  * @deprecated
  */
-export const selectedEntitySelector = <TEntity extends IEntity>(listEntity: IDeprecatedListEntity): TEntity =>
+export const selectedEntitySelector = <TEntity extends IEntity>(listEntity: IGenericListEntity): TEntity =>
   orNull<TEntity>(listEntity, (): TEntity => listEntity.selected as TEntity);
 
 /**
  * @deprecated Use selectListSelectedEntity
  */
-export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IListEntity): TEntity =>
-  ifNotNilThanValue<IDeprecatedListEntity, TEntity>(listWrapperEntity.list, (list) => selectedEntitySelector<TEntity>(list));
+export const listSelectedEntitySelector = <TEntity extends IEntity>(listWrapperEntity: IReduxHolderListEntity): TEntity =>
+  ifNotNilThanValue<IGenericListEntity, TEntity>(listWrapperEntity.list, (list) => selectedEntitySelector<TEntity>(list));
 
 /**
  * @deprecated Use mapListSelectedExtendedEntity
  */
 export const listWrapperSelectedEntityMapper =
-  <TEntity extends IEntity>(listWrapperState: IListEntity,
+  <TEntity extends IEntity>(listWrapperState: IReduxHolderListEntity,
                             formEntity?: IReduxFormEntity): IEntityWrapper<TEntity> =>
     entityMapper<TEntity>(
       listSelectedEntitySelector<TEntity>(listWrapperState),

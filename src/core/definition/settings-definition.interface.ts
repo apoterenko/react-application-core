@@ -12,7 +12,10 @@ import { IDrawerProps } from './drawer-definition.interface';
 import { IFieldProps } from './field-definition.interface';
 import { IGridHeadProps } from './grid-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
-import { IListItemProps } from './list-definition.interface';
+import {
+  IBasicListProps,
+  IListItemProps,
+} from './list-definition.interface';
 import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
 import { IPageToolbarProps } from './toolbar-definition.interface';
@@ -115,6 +118,7 @@ export const DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY = Object.freeze<IElementsM
  */
 export interface IComponentsSettingsEntity {
   baseSelect?: IBaseSelectProps;
+  basicList?: IBasicListProps;
   button?: IButtonProps;
   chart?: IChartProps;
   chip?: IChipProps;

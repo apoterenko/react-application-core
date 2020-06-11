@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Grid } from '../../grid';
 import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
 import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
-import { toClassName } from '../../../util';
+import { ClsUtils } from '../../../util';
 import {
   IFieldChangeEntity,
-  IGenericListEntity,
+  IGenericGridEntity,
   INITIAL_LIST_ENTITY,
 } from '../../../definition';
 
@@ -28,7 +28,7 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
   protected getAttachmentElement(): JSX.Element {
     const props = this.props;
 
-    const gridListEntity: IGenericListEntity = {
+    const gridListEntity: IGenericGridEntity = {
       ...INITIAL_LIST_ENTITY,
       data: this.multiFieldPlugin.activeValue,
       changes: fromMultiItemEntitiesToFieldsChanges(this.multiFieldPlugin.editValue),
@@ -49,7 +49,7 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-gridfield');
+    return ClsUtils.joinClassName(super.getFieldClassName(), 'rac-gridfield');
   }
 
   /**

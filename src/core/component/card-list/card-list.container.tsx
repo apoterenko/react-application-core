@@ -11,7 +11,10 @@ export class CardListContainer extends BaseListContainer<ICardListContainerProps
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    return <CardList {...this.getComponentProps()}
-                     {...this.props.listConfiguration}/>;
+    return (
+      <CardList
+        {...this.getComponentProps()}
+        {...this.props.listConfiguration}/>
+    );
   }
 }

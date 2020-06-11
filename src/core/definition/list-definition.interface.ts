@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   AnyT,
   EntityIdT,
-  IChangesWrapper,
   IDataWrapper,
   IDeactivatedWrapper,
   IDisabledWrapper,
@@ -13,25 +12,18 @@ import {
   IFieldNameWrapper,
   IFilterWrapper,
   IFullWrapper,
-  IGroupByWrapper,
   IGroupedFieldNameWrapper,
   IGroupValueWrapper,
   IHighlightOddWrapper,
-  IHoveredWrapper,
   IIndexWrapper,
   IItemConfigurationWrapper,
   IKeyValue,
   IListConfigurationWrapper,
   IListWrapper,
-  ILocalSortingWrapper,
-  IOnChangeFilterWrapper,
-  IOnChangeHeaderWrapper,
   IOnChangeWrapper,
-  IOnCreateWrapper,
   IOnSelectWrapper,
   IOriginalDataWrapper,
   IRawDataWrapper,
-  ISelectableWrapper,
   ISelectedWrapper,
   ISorterWrapper,
 } from '../definitions.interface';
@@ -53,6 +45,7 @@ import { IPresetsSelectedElementEntity } from './selected-element-definition.int
 import { ISortDirectionsEntity } from './sort-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IPresetsRowEntity } from './row-definition.interface';
+import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 
 /**
  * @stable [04.03.2020]
@@ -89,19 +82,25 @@ export interface IReduxListEntity<TEntity = IEntity,
   extends IReduxPaginatedDataEntity<TEntity, TRawData>,
     IReduxLifeCycleEntity,
     ISortDirectionsEntity,
-    ISelectedWrapper<TEntity>,
-    IChangesWrapper {
+    ISelectedWrapper<TEntity> {
 }
 
 /**
  * @presets-entity
  * @stable [10.05.2020]
  */
-export interface IPresetsListEntity
-  extends IPresetsSelectableHoveredEntity,
-    IPresetsSelectedElementEntity,
-    IFullWrapper,
-    IGroupByWrapper<IGenericListGroupByEntity>,
+export interface IPresetsListEntity<TEntity extends IEntity = IEntity>
+  extends IPresetsSelectableHoveredEntity,                            /* @stable [11.06.2020] */
+    IPresetsSelectedElementEntity,                                    /* @stable [11.06.2020] */
+    IListItemConfigurationEntity,                                     /* @stable [11.06.2020] */
+    IEmptyDataMessageWrapper,                                         /* @stable [11.06.2020] */
+    IEmptyMessageWrapper<string | boolean>,                           /* @stable [11.06.2020] */
+    IFilterWrapper<(entity: TEntity) => boolean>,                     /* @stable [11.06.2020] */
+    IFullWrapper,                                                     /* @stable [11.06.2020] */
+    IOnChangeWrapper<IFieldChangeEntity>,
+    IOnSelectWrapper<TEntity>,
+    IDeactivatedWrapper,
+    IHighlightOddWrapper,
     ISorterWrapper {
 }
 
@@ -114,32 +113,7 @@ export interface IGenericListEntity<TEntity = IEntity,
   TRawData = AnyT>
   extends IReduxListEntity<TEntity, TRawData>,
     IPresetsListEntity,
-    IEmptyDataMessageWrapper,
-    IEmptyMessageWrapper<string | boolean>,
-    ILocalSortingWrapper,
     IOriginalDataWrapper<TEntity[]> {
-}
-
-/**
- * @behavioral-entity
- * @stable [04.03.2020]
- */
-export interface IBehavioralListEntity<TEntity = IEntity>
-  extends IFilterWrapper<(entity: TEntity) => boolean>,
-    IOnChangeWrapper<IFieldChangeEntity>,
-    IOnCreateWrapper,
-    IOnSelectWrapper<TEntity> {
-}
-
-export interface IUniversalListEntity<TItemConfiguration extends IKeyValue,
-  TEntity = IEntity,
-  TRawData = AnyT>
-  extends IGenericListEntity<TEntity, TRawData>,
-    IBehavioralListEntity<TEntity>,
-    IOnChangeHeaderWrapper<IFieldChangeEntity>,
-    IOnChangeFilterWrapper<IFieldChangeEntity>,
-    IItemConfigurationWrapper<TItemConfiguration> {
-  localFiltration?: boolean;
 }
 
 /**
@@ -180,23 +154,21 @@ export interface IListItemProps<TEntity = IEntity>
 }
 
 /**
- * @deprecated Use IGenericListEntity & IListProps
- * TODO Destroy it
+ * @configuration-entity
+ * @stable [11.06.2020]
  */
-export interface IDeprecatedListEntity<TEntity = IEntity,
-  TRawData = AnyT>
-  extends IUniversalListEntity<any, TEntity, TRawData>, // TODO Remove later
-    IChangesWrapper,
-    IDeactivatedWrapper,
-    IHighlightOddWrapper {
+export interface IListItemConfigurationEntity<TProps = IListItemProps>
+  extends IItemConfigurationWrapper<TProps> {
 }
 
 /**
- * @entity
- * @stable [08.05.2020]
+ * @redux-holder-entity
+ * @stable [11.06.2020]
  */
-export interface IListEntity<TEntity = IEntity, TRawData = AnyT>
-  extends IListWrapper<IReduxListEntity<TEntity, TRawData>> {
+export interface IReduxHolderListEntity<TEntity = IEntity,
+  TRawData = AnyT,
+  TList = IReduxListEntity<TEntity, TRawData>>
+  extends IListWrapper<TList> {
 }
 
 /**
@@ -213,7 +185,7 @@ export interface IListConfigurationEntity<TProps extends IListProps = IListProps
  */
 export interface IListProps
   extends IGenericComponentProps,
-    IDeprecatedListEntity {
+    IGenericListEntity {
 }
 
 /**
@@ -228,7 +200,7 @@ export interface ICardListProps
  * @stable [30.03.2020]
  */
 export interface IGenericListContainerEntity
-  extends IListEntity,
+  extends IReduxHolderListEntity,
     IListConfigurationEntity {
 }
 
@@ -238,7 +210,7 @@ export interface IGenericListContainerEntity
  */
 export interface IBaseListContainerProps
   extends IGenericContainerProps,
-    IListEntity {
+    IReduxHolderListEntity {
 }
 
 /**
@@ -248,6 +220,15 @@ export interface IBaseListContainerProps
 export interface IListContainerProps
   extends IGenericContainerProps,
     IGenericListContainerEntity {
+}
+
+/**
+ * @props
+ * @stable [11.06.2020]
+ */
+export interface IBasicListProps
+  extends IEnhancedGenericComponentProps,
+    IGenericListEntity {
 }
 
 /**
@@ -274,7 +255,6 @@ export enum ListClassesEnum {
  * @stable [20.10.2019]
  */
 export const INITIAL_LIST_ENTITY = Object.freeze<IReduxListEntity>({
-  changes: {},
   data: null,
   directions: {},
   lockPage: false,

@@ -21,14 +21,18 @@ export abstract class BaseList<TProps extends any, // TODO Props
       error,
       progress,
     } = this.props;
-    const emptyData = this.emptyData;
+    const areDataMissing = this.areDataMissing;
 
     return (
       <Info
         error={error}
         message={emptyMessage}
         progress={progress}
-        emptyData={emptyData ? nvl(emptyDataMessage, emptyData) : emptyData}/>
+        emptyData={
+          areDataMissing
+            ? nvl(emptyDataMessage, areDataMissing)
+            : areDataMissing
+        }/>
     );
   }
 }

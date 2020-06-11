@@ -25,16 +25,15 @@ import { ListActionBuilder } from './list-action.builder';
 import {
   EntityMergeStrategiesEnum,
   FIRST_PAGE,
-  IFieldChangeEntity,
-  IGenericListEntity,
   IModifyEntityPayloadEntity,
   INITIAL_LIST_ENTITY,
+  IReduxListEntity,
   IReduxSortDirectionsEntity,
   ISortDirectionPayloadEntity,
 } from '../../definition';
 
-export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
-                            action: IEffectsAction): IGenericListEntity => {
+export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
+                            action: IEffectsAction): IReduxListEntity => {
   const section = toSection(action);
   let modifyDataPayload;
 
@@ -51,19 +50,6 @@ export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
           ...isMulti(sdPayload) ? state.directions : {},
           [sdPayload.name]: ifNotNilThanValue(sdPayload.direction, () => mapSortDirectionEntity(sdPayload)),
         }),
-      };
-    case ListActionBuilder.buildChangeActionType(section):
-      const fieldChangeEntity: IFieldChangeEntity = action.data;
-      const fieldChangeEntityId = fieldChangeEntity.rawData.id;
-      return {
-        ...state,
-        changes: {
-          ...state.changes,
-          [fieldChangeEntityId]: {
-            ...(state.changes || {})[fieldChangeEntityId],
-            [fieldChangeEntity.name]: fieldChangeEntity.value,
-          },
-        },
       };
     case ListActionBuilder.buildFirstPageActionType(section):
       return {
@@ -122,7 +108,7 @@ export const listReducer = (state: IGenericListEntity = INITIAL_LIST_ENTITY,
         ...INITIAL_LIST_ENTITY,
       };
     case ListActionBuilder.buildLoadDoneActionType(section):
-      const listEntity: IGenericListEntity = action.data;
+      const listEntity: IReduxListEntity = action.data;
       if (R.isNil(listEntity)) {
         // A request auto-cancelling
         return state;

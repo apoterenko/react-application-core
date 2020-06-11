@@ -22,7 +22,6 @@ import {
 } from '../../definition';
 import { applySection, toActionPrefix } from '../../util';
 import {
-  LIST_CHANGE_ACTION_TYPE,
   LIST_DESELECT_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
   LIST_FIRST_PAGE_ACTION_TYPE,
@@ -53,10 +52,6 @@ export class ListActionBuilder {
    */
   public static buildSortingDirectionChangeActionType(section: string): string {
     return `${section}.${LIST_SORTING_DIRECTION_CHANGE_ACTION_TYPE}`;
-  }
-
-  public static buildChangeActionType(section: string): string {
-    return `${section}.${LIST_CHANGE_ACTION_TYPE}`;
   }
 
   public static buildFirstPageActionType(section: string): string {

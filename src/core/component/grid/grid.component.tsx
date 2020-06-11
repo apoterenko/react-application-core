@@ -141,18 +141,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @stable [07.06.2018]
    * @param {IFieldChangeEntity} payload
    */
-  private onChangeHeaderField(payload: IFieldChangeEntity): void {
-    const props = this.props;
-
-    if (props.onChangeHeader) {
-      props.onChangeHeader(payload);
-    }
-  }
-
-  /**
-   * @stable [07.06.2018]
-   * @param {IFieldChangeEntity} payload
-   */
   private onChangeFilterField(payload: IFieldChangeEntity): void {
     const props = this.props;
 
@@ -175,16 +163,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @returns {React.ReactNode}
    */
   private getHeaderColumnContent(column: IGridColumnProps, columnNum: number): React.ReactNode {
-    if (column.bool) {
-      const name = this.toHeaderFieldName(columnNum);
-      return (
-        <Checkbox
-          {...this.getDefaultFieldProps()}
-          name={name}
-          value={this.toCheckboxFieldValue(name)}
-          onChange={(value) => this.onChangeHeaderField({value, name})}/>
-      );
-    } else if (isFn(column.headerRenderer)) {
+    if (isFn(column.headerRenderer)) {
       return column.headerRenderer(column);
     }
     return this.t(column.title as string);

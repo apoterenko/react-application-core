@@ -14,7 +14,7 @@ import {
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IButtonProps } from './button-definition.interface';
-import { IListEntity } from './list-definition.interface';
+import { IReduxHolderListEntity } from './list-definition.interface';
 import { IFormEntity } from './form-definition.interface';
 
 /**
@@ -100,7 +100,7 @@ export interface IToolbarToolsConfigurationEntity<TProps = IToolbarToolsProps>
  */
 export interface IGenericToolbarToolsContainerEntity<TProps = IToolbarToolsProps>
   extends IFormEntity,
-    IListEntity,
+    IReduxHolderListEntity,
     IToolbarToolsConfigurationEntity<TProps>,
     IToolbarToolsEntity {
 }
