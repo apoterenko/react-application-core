@@ -4,7 +4,6 @@ export * from './bootstrap/react-app.bootstrapper';
 export * from './component/application/application-action.builder';
 export * from './component/application/application.container';                           /* @stable [09.06.2020] */
 export * from './component/base/base.component';
-export * from './component/base/base.container';
 export * from './component/base/generic-base.component';                                 /* @stable [09.06.2020] */
 export * from './component/base/generic.component';                                      /* @stable [09.06.2020] */
 export * from './component/base/generic.container';                                      /* @stable [09.06.2020] */

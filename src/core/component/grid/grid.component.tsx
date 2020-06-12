@@ -288,6 +288,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @returns {JSX.Element}
    */
   private getRow(rowConfig: IGridRowConfigEntity): JSX.Element {
+    const {
+      changes = {},
+    } = this.originalProps;
+
     const props = this.props;
     const {
       entity,
@@ -296,7 +300,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       rowNum,
     } = rowConfig;
     const rowKey = this.toRowKey(entity);
-    const entityChanges = props.changes[entity.id];
+    const entityChanges = changes[entity.id];
     const hasChanges = !R.isNil(entityChanges);
     const isPartOfGroup = !R.isNil(groupedRows);
 

@@ -2,8 +2,6 @@ import * as R from 'ramda';
 
 import {
   ifNotNilThanValue,
-  Mappers,
-  mapTransportWrapperEntity,
   orNull,
 } from '../../util';
 import {
@@ -127,11 +125,3 @@ export const listWrapperSelectedEntityMapper =
       formEntity
     );
 
-/**
- * @stable [29.05.2018]
- */
-export const universalDefaultMappers = [
-  Mappers.holderDictionariesEntity,
-  mapTransportWrapperEntity,
-  Mappers.holderUserEntity
-];

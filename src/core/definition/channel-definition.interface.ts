@@ -10,42 +10,43 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [20.04.2019]
+ * @redux-entity
+ * @stable [12.06.2020]
  */
-export interface IChannelMessageEntity
+export interface IReduxChannelMessageEntity
   extends IIpWrapper,
     INameWrapper,
     IDataWrapper<AnyT>,
-    IFilterWrapper<(message: IChannelMessageEntity) => boolean> { // TODO Method + generic entity
+    IFilterWrapper<(message: IReduxChannelMessageEntity) => boolean> { // TODO Method + generic entity
 }
 
 /**
- * @generic-entity
- * @stable [20.04.2019]
+ * @redux-entity
+ * @stable [12.06.2020]
  */
-export interface IGenericChannelEntity
-  extends IMessagesWrapper<IChannelMessageEntity[]>,
+export interface IReduxChannelEntity
+  extends IMessagesWrapper<IReduxChannelMessageEntity[]>,
     IConnectedWrapper {
 }
 
 /**
- * @generic-entity
- * @stable [14.04.2020]
+ * @redux-entity
+ * @stable [12.06.2020]
  */
-export interface IGenericChannelsEntity
-  extends Record<string, IGenericChannelEntity> {
+export interface IReduxChannelsEntity
+  extends Record<string, IReduxChannelEntity> {
 }
 
 /**
- * @wrapper-entity
- * @stable [20.04.2019]
+ * @redux-holder-entity
+ * @stable [12.06.2020]
  */
-export interface IChannelWrapperEntity<TEntity = IGenericChannelsEntity>
+export interface IReduxHolderChannelEntity<TEntity = IReduxChannelsEntity>
   extends IChannelWrapper<TEntity> {
 }
 
 /**
  * @stable [24.09.2019]
  */
-export const INITIAL_CHANNELS_ENTITY = Object.freeze<IGenericChannelsEntity>({
+export const INITIAL_CHANNELS_ENTITY = Object.freeze<IReduxChannelsEntity>({
 });

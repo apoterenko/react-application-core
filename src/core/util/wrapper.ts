@@ -69,16 +69,12 @@ import {
   IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
-  IValidateOnMountWrapper,
   IValidWrapper,
   IVisibleWrapper,
   IWrappedWrapper,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
-import {
-  isBoolean,
-  TypeUtils,
-} from './type';
+import { TypeUtils } from './type';
 import { isOddNumber } from './calc';
 import { ValueUtils } from './value';
 
@@ -99,14 +95,6 @@ const isValid = (wrapper: IValidWrapper): boolean =>
  */
 const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.fieldRendered !== false;
-
-/**
- * @stable [30.01.2020]
- * @param {IValidateOnMountWrapper} wrapper
- * @returns {boolean}
- */
-export const isValidateOnMount = (wrapper: IValidateOnMountWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.validateOnMount !== false;
 
 /**
  * @stable [03.02.2020]
@@ -233,7 +221,7 @@ export const isOverlayClosable = (entity: IOverlayClosableWrapper): boolean =>
 export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean =>
   ifNotNilThanValue(
     entity, () =>
-      isBoolean(entity.error)
+      TypeUtils.isBoolean(entity.error)
         ? entity.error === true
         : !R.isNil(entity.error),
     false

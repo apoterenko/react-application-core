@@ -3,6 +3,8 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { AnyT } from '../../definitions.interface';
 import { GenericBaseComponent } from './generic-base.component';
 import {
+  DynamicRoutesT,
+  IAuth,
   IDialogFormChangesConfirmStoreProxy,
   IDictionaryStoreProxy,
   IFormStoreProxy,
@@ -19,6 +21,7 @@ import {
   IUserActivityManager,
 } from '../../definition';
 import {
+  DiServices,
   getDialogFormChangesConfirmStoreProxyFactory,
   getDictionaryStoreProxyFactory,
   getFormStoreProxyFactory,
@@ -39,8 +42,10 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   extends GenericBaseComponent<TProps, TState, TSelfRef>
   implements IGenericContainer<TProps> {
 
+  private $auth: IAuth;
   private $dfccStoreProxy: IDialogFormChangesConfirmStoreProxy;
   private $dictionaryStoreProxy: IDictionaryStoreProxy;
+  private $dynamicRoutes: DynamicRoutesT;
   private $formStoreProxy: IFormStoreProxy;
   private $listStoreProxy: IListStoreProxy;
   private $notificationStoreProxy: INotificationStoreProxy;
@@ -188,5 +193,21 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    */
   protected get userActivityManager(): IUserActivityManager {
     return this.$userActivityManager = this.$userActivityManager || getUserActivityManager();
+  }
+
+  /**
+   * @stable [12.06.2020]
+   * @returns {IAuth}
+   */
+  protected get auth(): IAuth {
+    return this.$auth = this.$auth || DiServices.auth();
+  }
+
+  /**
+   * @stable [12.06.2020]
+   * @returns {DynamicRoutesT}
+   */
+  protected get dynamicRoutes(): DynamicRoutesT {
+    return this.$dynamicRoutes = this.$dynamicRoutes || DiServices.dynamicRoutes();
   }
 }

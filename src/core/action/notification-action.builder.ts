@@ -4,13 +4,13 @@ import {
 } from 'redux-effects-promise';
 
 import {
-  $RAC_NOTIFICATION_CLEAR_ACTION_TYPE,
-  $RAC_NOTIFICATION_ERROR_ACTION_TYPE,
-  $RAC_NOTIFICATION_INFO_ACTION_TYPE,
-  IGenericNotificationEntity,
+  $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE,
+  $_RAC_NOTIFICATION_ERROR_ACTION_TYPE,
+  $_RAC_NOTIFICATION_INFO_ACTION_TYPE,
+  IFluxNotificationEntity,
 } from '../definition';
 import {
-  selectErrorFromAction,
+  Selectors,
   TypeUtils,
 } from '../util';
 
@@ -42,8 +42,8 @@ export class NotificationActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildPlainInfoAction(info: string): IEffectsAction {
-    const notificationEntity: IGenericNotificationEntity = {info};
-    return {type: $RAC_NOTIFICATION_INFO_ACTION_TYPE, data: notificationEntity};
+    const notificationEntity: IFluxNotificationEntity = {info};
+    return {type: $_RAC_NOTIFICATION_INFO_ACTION_TYPE, data: notificationEntity};
   }
 
   /**
@@ -52,12 +52,12 @@ export class NotificationActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildPlainErrorAction(error: string | IEffectsAction): IEffectsAction {
-    const notificationEntity: IGenericNotificationEntity = {
+    const notificationEntity: IFluxNotificationEntity = {
       error: TypeUtils.isString(error)
         ? error as string
-        : selectErrorFromAction(error as IEffectsAction),
+        : Selectors.error(error as IEffectsAction),
     };
-    return {type: $RAC_NOTIFICATION_ERROR_ACTION_TYPE, data: notificationEntity};
+    return {type: $_RAC_NOTIFICATION_ERROR_ACTION_TYPE, data: notificationEntity};
   }
 
   /**
@@ -65,6 +65,6 @@ export class NotificationActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildPlainClearAction(): IEffectsAction {
-    return {type: $RAC_NOTIFICATION_CLEAR_ACTION_TYPE};
+    return {type: $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE};
   }
 }

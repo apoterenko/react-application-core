@@ -1,11 +1,11 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  $RAC_NOTIFICATION_CLEAR_ACTION_TYPE,
-  $RAC_NOTIFICATION_ERROR_ACTION_TYPE,
-  $RAC_NOTIFICATION_INFO_ACTION_TYPE,
+  $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE,
+  $_RAC_NOTIFICATION_ERROR_ACTION_TYPE,
+  $_RAC_NOTIFICATION_INFO_ACTION_TYPE,
   INITIAL_NOTIFICATION_ENTITY,
-  IGenericNotificationEntity,
+  IReduxNotificationEntity,
 } from '../../definition';
 import {
   selectData,
@@ -14,25 +14,25 @@ import {
 
 /**
  * @stable [13.02.2020]
- * @param {IGenericNotificationEntity} state
+ * @param {IReduxNotificationEntity} state
  * @param {IEffectsAction} action
- * @returns {IGenericNotificationEntity}
+ * @returns {IReduxNotificationEntity}
  */
-export const notificationReducer = (state: IGenericNotificationEntity = INITIAL_NOTIFICATION_ENTITY,
-                                    action: IEffectsAction): IGenericNotificationEntity => {
-  const notificationEntity = selectData<IGenericNotificationEntity>(action);
+export const notificationReducer = (state: IReduxNotificationEntity = INITIAL_NOTIFICATION_ENTITY,
+                                    action: IEffectsAction): IReduxNotificationEntity => {
+  const notificationEntity = selectData<IReduxNotificationEntity>(action);
   switch (action.type) {
-    case $RAC_NOTIFICATION_INFO_ACTION_TYPE:
+    case $_RAC_NOTIFICATION_INFO_ACTION_TYPE:
       return {
         ...state,
         info: notificationEntity.info,
       };
-    case $RAC_NOTIFICATION_ERROR_ACTION_TYPE:
+    case $_RAC_NOTIFICATION_ERROR_ACTION_TYPE:
       return {
         ...state,
         error: asErrorMessage(notificationEntity.error).message,
       };
-    case $RAC_NOTIFICATION_CLEAR_ACTION_TYPE:
+    case $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE:
       return {
         ...INITIAL_NOTIFICATION_ENTITY,
       };

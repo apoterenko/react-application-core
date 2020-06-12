@@ -1,9 +1,12 @@
 import * as R from 'ramda';
 import * as React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+} from 'react-router-dom';
 
 import { BaseRootContainer } from './base-root.container';
-import { isObjectNotEmpty } from '../../util';
+import { ObjectUtils } from '../../util';
 
 export class PrivateRootContainer extends BaseRootContainer {
 
@@ -12,16 +15,22 @@ export class PrivateRootContainer extends BaseRootContainer {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
+    const {
+      accessDenied,
+      signIn,
+    } = this.settings.routes;
+
     return (
       <Route
         render={() => {
           if (this.auth.isAuthorized()) {
-            const props = this.props;
-            const Component = props.container;
-            const accessConfiguration = props.accessConfiguration;
+            const {
+              accessConfiguration,
+            } = this.props;
+            const Component = this.props.container;
 
-            return isObjectNotEmpty(accessConfiguration) && !this.hasPermission(accessConfiguration)
-              ? <Redirect to={this.routes.accessDenied}/>
+            return ObjectUtils.isObjectNotEmpty(accessConfiguration) && !this.hasPermission(accessConfiguration)
+              ? <Redirect to={accessDenied}/>
               : (
                 <Component
                   routeParams={this.routeParams}
@@ -29,8 +38,14 @@ export class PrivateRootContainer extends BaseRootContainer {
               );
           } else {
             const queryParams = this.queryParams.toString();
-            const {signIn} = this.routes;
-            return <Redirect to={R.isEmpty(queryParams) ? signIn : `${signIn}/?${queryParams}`}/>;
+            return (
+              <Redirect
+                to={
+                  R.isEmpty(queryParams)
+                    ? signIn
+                    : `${signIn}/?${queryParams}`
+                }/>
+            );
           }
         }}/>
     );

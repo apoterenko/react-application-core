@@ -11,7 +11,7 @@ import {
 } from '../../di';
 import { IKeyValue } from '../../definitions.interface';
 import {
-  DynamicRoutesMapT,
+  DynamicRoutesT,
   IAuth,
   IPermissionsManager,
   IRoutesEntity,
@@ -102,9 +102,9 @@ export class UniversalContainer<TProps extends IUniversalContainerProps = IUnive
   /**
    * @react-native-compatible
    * @stable [16.11.2019]
-   * @returns {DynamicRoutesMapT}
+   * @returns {DynamicRoutesT}
    */
-  protected get dynamicRoutes(): DynamicRoutesMapT {
+  protected get dynamicRoutes(): DynamicRoutesT {
     return getDynamicRoutes();
   }
 }

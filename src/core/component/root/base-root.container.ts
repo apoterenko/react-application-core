@@ -1,17 +1,17 @@
 import { Redirect, Route } from 'react-router-dom';
 
 import { IKeyValue } from '../../definitions.interface';
-import { BaseContainer } from '../../component/base/base.container';
+import { GenericContainer } from '../../component/base/generic.container';
 import {
   ROOT_SECTION,
 } from './root.interface';
 import {
   getURLSearchParams,
-  isFn,
+  TypeUtils,
 } from '../../util';
 import { IBaseRootContainerProps } from '../../definition';
 
-export class BaseRootContainer extends BaseContainer<IBaseRootContainerProps> {
+export class BaseRootContainer extends GenericContainer<IBaseRootContainerProps> {
 
   public static readonly defaultProps: IBaseRootContainerProps = {
     sectionName: ROOT_SECTION,
@@ -24,7 +24,7 @@ export class BaseRootContainer extends BaseContainer<IBaseRootContainerProps> {
   constructor(props: IBaseRootContainerProps) {
     super(props);
 
-    if (isFn(props.beforeEnter)) {
+    if (TypeUtils.isFn(props.beforeEnter)) {
       props.beforeEnter();
     }
   }
@@ -33,7 +33,7 @@ export class BaseRootContainer extends BaseContainer<IBaseRootContainerProps> {
    * @stable [16.11.2019]
    */
   public componentDidMount(): void {
-    if (isFn(this.props.afterEnter)) {
+    if (TypeUtils.isFn(this.props.afterEnter)) {
       this.props.afterEnter();
     }
   }

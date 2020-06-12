@@ -16,6 +16,7 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IEntityWrapper,
+  IErrorWrapper,
   IFilterWrapper,
   IFormWrapper,
   ILayoutWrapper,
@@ -120,6 +121,14 @@ const selectPrimaryFilter = <TValue>(wrapper: IPrimaryFilterWrapper<TValue>): TV
  */
 const selectList = <TValue>(wrapper: IListWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.list;
+
+/**
+ * @stable [12.06.2020]
+ * @param {IErrorWrapper<TValue>} entity
+ * @returns {TValue}
+ */
+const selectError = <TValue = AnyT>(entity: IErrorWrapper<TValue>): TValue =>
+  R.isNil(entity) ? UNDEF : entity.error;
 
 /**
  * @stable [09.04.2020]
@@ -325,7 +334,7 @@ const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity =>
  * @param {INotificationWrapper<TEntity>} wrapper
  * @returns {TEntity}
  */
-export const selectNotification = <TEntity>(wrapper: INotificationWrapper<TEntity>): TEntity =>
+const selectNotification = <TEntity>(wrapper: INotificationWrapper<TEntity>): TEntity =>
   R.isNil(wrapper) ? UNDEF : wrapper.notification;
 
 /**
@@ -356,7 +365,7 @@ const selectMode = <TEntity>(wrapper: IModeWrapper<TEntity>): TEntity =>
  * @param {IChannelWrapper<TEntity>} wrapper
  * @returns {TEntity}
  */
-export const selectChannel = <TEntity>(wrapper: IChannelWrapper<TEntity>): TEntity =>
+const selectChannel = <TEntity>(wrapper: IChannelWrapper<TEntity>): TEntity =>
   R.isNil(wrapper) ? UNDEF : wrapper.channel;
 
 /**
@@ -364,7 +373,7 @@ export const selectChannel = <TEntity>(wrapper: IChannelWrapper<TEntity>): TEnti
  * @param {ITransportWrapper<TTransport>} wrapper
  * @returns {TTransport}
  */
-export const selectTransport = <TTransport>(wrapper: ITransportWrapper<TTransport>): TTransport =>
+const selectTransport = <TTransport>(wrapper: ITransportWrapper<TTransport>): TTransport =>
   R.isNil(wrapper) ? UNDEF : wrapper.transport;
 
 /**
@@ -472,12 +481,14 @@ const selectMergedLayoutMode = (merged: IReduxHolderLayoutEntity,
 export class Selectors {
   public static readonly activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
   public static readonly changes = selectChanges;
+  public static readonly channel = selectChannel;                                                               /* @stable [12.06.2020] */
   public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */
   public static readonly dataPayloadFromAction = selectDataPayloadFromAction;                                   /* @stable [08.06.2020] */
   public static readonly dictionaries = selectDictionaries;                                                     /* @stable [09.06.2020] */
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
   public static readonly element = selectElement;                                                               /* @stable [08.06.2020] */
   public static readonly entity = selectEntity;
+  public static readonly error = selectError;                                                                   /* @stable [12.06.2020] */
   public static readonly filter = selectFilter;
   public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */
   public static readonly formEntityChanges = selectFormEntityChanges;                                           /* @stable [11.05.2020] */
@@ -488,6 +499,7 @@ export class Selectors {
   public static readonly listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
   public static readonly listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
   public static readonly mergedLayoutMode = selectMergedLayoutMode;                                             /* @stable [21.05.2020] */
+  public static readonly notification = selectNotification;                                                     /* @stable [12.06.2020] */
   public static readonly preventEffectsFromAction = selectPreventEffectsFromAction;                             /* @stable [08.06.2020] */
   public static readonly previousActionFromAction = selectPreviousActionFromAction;                             /* @stable [08.05.2020] */
   public static readonly previousActionTypeFromAction = selectPreviousActionTypeFromAction;                     /* @stable [08.05.2020] */
@@ -502,5 +514,6 @@ export class Selectors {
   public static readonly stack = selectStack;                                                                   /* @stable [21.05.2020] */
   public static readonly stackItemEntities = selectStackItemEntities;                                           /* @stable [21.05.2020] */
   public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */
+  public static readonly transport = selectTransport;                                                           /* @stable [12.06.2020] */
   public static readonly user = selectUser;                                                                     /* @stable [09.06.2020] */
 }

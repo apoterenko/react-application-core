@@ -2,12 +2,14 @@ import * as R from 'ramda';
 
 import {
   AnyT,
+  IChannelWrapper,
   IDictionariesWrapper,
   IDisabledWrapper,
   IEntity,
   IFormWrapper,
   ILayoutWrapper,
   IListWrapper,
+  INotificationWrapper,
   IOptionsWrapper,
   IPrimaryFilterWrapper,
   IProgressWrapper,
@@ -16,6 +18,7 @@ import {
   ISecondaryFilterWrapper,
   ISectionNameWrapper,
   IStackWrapper,
+  ITransportWrapper,
   IUserWrapper,
   IWaitingForOptionsWrapper,
   UNDEF_SYMBOL,
@@ -30,28 +33,34 @@ import {
   FIRST_PAGE,
   IExtendedEntity,
   IExtendedFormEntity,
-  IReduxHolderFormEntity,
-  IReduxHolderListEntity,
   IOptionEntity,
   IPrimaryFilterExtendedFormEntity,
   IPrimaryFilterReduxFormEntity,
   IQueryFilterEntity,
   IReduxActiveQueryEntity,
   IReduxBaseSelectEntity,
+  IReduxChannelEntity,
   IReduxDictionariesEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
+  IReduxHolderChannelEntity,
   IReduxHolderDictionariesEntity,
+  IReduxHolderFormEntity,
   IReduxHolderLayoutEntity,
+  IReduxHolderListEntity,
+  IReduxHolderNotificationEntity,
   IReduxHolderStackEntity,
+  IReduxHolderTransportEntity,
   IReduxHolderUserEntity,
   IReduxLayoutEntity,
   IReduxLifeCycleEntity,
+  IReduxNotificationEntity,
   IReduxPagedEntity,
   IReduxPaginatedEntity,
   IReduxPaginatedLifeCycleEntity,
   IReduxStackEntity,
   IReduxStoreEntity,
+  IReduxTransportEntity,
   IReduxUserEntity,
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
@@ -127,6 +136,36 @@ const mapDisabled = (disabled: boolean): IDisabledWrapper =>
  */
 const mapSectionName = (sectionName: string): ISectionNameWrapper =>
   defValuesFilter<ISectionNameWrapper, ISectionNameWrapper>({sectionName});
+
+/**
+ * @map-as-wrapper
+ *
+ * @stable [12.06.2020]
+ * @param {TValue} notification
+ * @returns {INotificationWrapper<TValue>}
+ */
+const mapNotification = <TValue>(notification: TValue): INotificationWrapper<TValue> =>
+  defValuesFilter<INotificationWrapper<TValue>, INotificationWrapper<TValue>>({notification});
+
+/**
+ * @map-as-wrapper
+ *
+ * @stable [12.06.2020]
+ * @param {TValue} transport
+ * @returns {ITransportWrapper<TValue>}
+ */
+const mapTransport = <TValue>(transport: TValue): ITransportWrapper<TValue> =>
+  defValuesFilter<ITransportWrapper<TValue>, ITransportWrapper<TValue>>({transport});
+
+/**
+ * @map-as-wrapper
+ *
+ * @stable [12.06.2020]
+ * @param {TValue} channel
+ * @returns {IChannelWrapper<TValue>}
+ */
+const mapChannel = <TValue>(channel: TValue): IChannelWrapper<TValue> =>
+  defValuesFilter<IChannelWrapper<TValue>, IChannelWrapper<TValue>>({channel});
 
 /**
  * @map-as-wrapper
@@ -225,6 +264,39 @@ const mapHolderListEntity = (entity: IReduxHolderListEntity): IReduxHolderListEn
  */
 const mapHolderFormEntity = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): IReduxHolderFormEntity<TEntity> =>
   mapForm(Selectors.form(entity));
+
+/**
+ * @map-as-original
+ *
+ * @stable [12.06.2020]
+ * @param {IReduxHolderChannelEntity<TEntity>} entity
+ * @returns {IReduxHolderChannelEntity<TEntity>}
+ */
+const mapHolderChannelEntity =
+  <TEntity = IReduxChannelEntity>(entity: IReduxHolderChannelEntity<TEntity>): IReduxHolderChannelEntity<TEntity> =>
+    mapChannel(Selectors.channel(entity));
+
+/**
+ * @map-as-original
+ *
+ * @stable [12.06.2020]
+ * @param {IReduxHolderNotificationEntity<TEntity>} entity
+ * @returns {IReduxHolderNotificationEntity<TEntity>}
+ */
+const mapHolderNotificationEntity =
+  <TEntity = IReduxNotificationEntity>(entity: IReduxHolderNotificationEntity<TEntity>): IReduxHolderNotificationEntity<TEntity> =>
+    mapNotification(Selectors.notification(entity));
+
+/**
+ * @map-as-original
+ *
+ * @stable [12.06.2020]
+ * @param {IReduxHolderTransportEntity<TEntity>} entity
+ * @returns {IReduxHolderTransportEntity<TEntity>}
+ */
+const mapHolderTransportEntity =
+  <TEntity = IReduxTransportEntity>(entity: IReduxHolderTransportEntity<TEntity>): IReduxHolderTransportEntity<TEntity> =>
+    mapTransport(Selectors.transport(entity));
 
 /**
  * @map-as
@@ -677,9 +749,12 @@ const mapDictionaryEntityAsSelectEntity =
 const mapStoreEntity =
   <TDictionaries = {}>(entity: IReduxStoreEntity<TDictionaries>): IReduxStoreEntity<TDictionaries> =>
     ({
+      ...mapHolderChannelEntity(entity),
       ...mapHolderDictionariesEntity(entity),
       ...mapHolderLayoutEntity(entity),
+      ...mapHolderNotificationEntity(entity),
       ...mapHolderStackEntity(entity),
+      ...mapHolderTransportEntity(entity),
       ...mapHolderUserEntity(entity),
     });
 
@@ -699,6 +774,8 @@ export class GenericMappers {
   public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
   public static readonly holderFormEntity = mapHolderFormEntity;                                                                                  /* stable [12.06.2020] */
   public static readonly holderListEntity = mapHolderListEntity;                                                                                  /* stable [12.06.2020] */
+  public static readonly holderNotificationEntity = mapHolderNotificationEntity;                                                                  /* stable [12.06.2020] */
+  public static readonly holderTransportEntity = mapHolderTransportEntity;                                                                        /* stable [12.06.2020] */
   public static readonly holderUserEntity = mapHolderUserEntity;                                                                                  /* stable [09.06.2020] */
   public static readonly listEntityAsDisabled = mapListEntityAsDisabled;                                                                          /* stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */

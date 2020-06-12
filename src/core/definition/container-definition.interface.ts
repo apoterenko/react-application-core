@@ -14,7 +14,7 @@ import {
 } from './props-definition.interface';
 import { IBaseDictionariesEntity } from './dictionary-definition.interface';
 import { IReduxHolderLayoutEntity } from './layout-definition.interface';
-import { INotificationWrapperEntity } from './notification-definition.interface';
+import { IReduxHolderNotificationEntity } from './notification-definition.interface';
 import { IReduxHolderStackEntity } from './stack-definition.interface';
 import { IUniversalStoreEntity } from './redux-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
@@ -45,7 +45,7 @@ export const UniversalIdProviderContext = React.createContext(null);
  */
 export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalStoreEntity<TDictionaries, TPermissions>,
-    INotificationWrapperEntity,
+    IReduxHolderNotificationEntity,
     ISectionNameWrapper,
     ITitleWrapper<string | boolean> {
 }

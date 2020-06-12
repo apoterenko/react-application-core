@@ -9,7 +9,7 @@ import { ISettingsEntity } from '../settings';
 import {
   DialogFormChangesConfirmStoreProxyFactoryT,
   DictionaryStoreProxyFactoryT,
-  DynamicRoutesMapT,
+  DynamicRoutesT,
   DynamicSectionsMapT,
   FormStoreProxyFactoryT,
   GenericPluginFactoryT,
@@ -75,9 +75,9 @@ export const getPermissionsManager = <TPermission = {}>(): IPermissionsManager<T
 
 /**
  * @stable [16.11.2019]
- * @returns {DynamicRoutesMapT}
+ * @returns {DynamicRoutesT}
  */
-export const getDynamicRoutes = (): DynamicRoutesMapT => staticInjector(DI_TYPES.DynamicRoutes);
+export const getDynamicRoutes = (): DynamicRoutesT => staticInjector(DI_TYPES.DynamicRoutes);
 
 /**
  * @stable [17.11.2019]
@@ -281,6 +281,8 @@ export const getUserActivityManager = (): IUserActivityManager =>
  * @stable [11.06.2020]
  */
 export class DiServices {
+  public static readonly auth = getAuth;
+  public static readonly dynamicRoutes = getDynamicRoutes;
   public static readonly store = getStore;
   public static readonly uiFactory = getUiFactory;
 }

@@ -1,22 +1,17 @@
-import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
   IApiEntity,
-  IChannelWrapperEntity,
   IExtendedEntity,
   IExtendedFormEntity,
   IReduxHolderFormEntity,
   IFormTabPanelContainerProps,
-  IGenericChannelEntity,
   IGenericContainer,
-  IGenericNotificationEntity,
   IGenericStoreEntity,
   IGenericTabPanelEntity,
   IHeaderProps,
   INamedEntity,
-  INotificationWrapperEntity,
   IOperationEntity,
   IPresetsRawDataLabeledValueEntity,
   IPresetsSelectableHoveredEntity,
@@ -25,8 +20,7 @@ import {
   ISortDirectionEntity,
   ISortDirectionsEntity,
   ITabPanelEntity,
-  ITransportEntity,
-  ITransportWrapperEntity,
+  IReduxHolderTransportEntity,
   IUniversalApplicationEntity,
   IUnsavedFormChangesDialogContainerProps,
 } from '../definition';
@@ -34,13 +28,8 @@ import {
   AnyT,
   EntityIdT,
   IActiveValueWrapper,
-  IChannelWrapper,
   IEntity,
   IEntityIdTWrapper,
-  IErrorWrapper,
-  INotificationWrapper,
-  ITransportWrapper,
-  UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { ConditionUtils } from './cond';
@@ -52,47 +41,28 @@ import {
 } from './wrapper';
 import {
   selectActiveValue,
-  selectChannel,
   selectEntityId,
-  selectNotification,
   Selectors,
   selectToken,
-  selectTransport,
 } from './select';
 import { GenericMappers } from './mapper-generic';
 import { ComponentMappers } from './mapper-component';
 
 /**
  * @stable [17.11.2019]
- * @param {ITransportWrapperEntity} entity
+ * @param {IReduxHolderTransportEntity} entity
  * @returns {string}
  */
-export const selectTransportWrapperToken = (entity: ITransportWrapperEntity): string =>
-  selectToken(selectTransport(entity));
+export const selectTransportWrapperToken = (entity: IReduxHolderTransportEntity): string =>
+  selectToken(Selectors.transport(entity));
 
 /**
  * @stable [25.11.2019]
- * @param {ITransportWrapperEntity} entity
+ * @param {IReduxHolderTransportEntity} entity
  * @returns {string[]}
  */
-export const selectTransportWrapperQueue = (entity: ITransportWrapperEntity): string[] =>
-  Selectors.queue(selectTransport(entity));
-
-/**
- * @stable [13.02.2020]
- * @param {TErrorWrapper} entity
- * @returns {TResult}
- */
-export const selectError =
-  <TResult = AnyT, TErrorWrapper extends IErrorWrapper<TResult> = IErrorWrapper<TResult>>(entity: TErrorWrapper): TResult =>
-    R.isNil(entity) ? UNDEF : entity.error;
-
-/**
- * @stable [13.02.2020]
- * @param {IEffectsAction} action
- * @returns {TResult}
- */
-export const selectErrorFromAction = <TResult = AnyT>(action: IEffectsAction): TResult => selectError(action);
+export const selectTransportWrapperQueue = (entity: IReduxHolderTransportEntity): string[] =>
+  Selectors.queue(Selectors.transport(entity));
 
 /**
  * @stable [20.10.2019]
@@ -133,30 +103,6 @@ export const mapTabPanelEntity = (tabPanel: IGenericTabPanelEntity): ITabPanelEn
  */
 export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelEntity): ITabPanelEntity =>
   mapTabPanelEntity(Selectors.tabPanel(tabPanelWrapperEntity));
-
-/**
- * @stable [14.04.2020]
- * @param {TValue} notification
- * @returns {INotificationWrapper<TValue>}
- */
-export const mapNotification = <TValue>(notification: TValue): INotificationWrapper<TValue> =>
-  defValuesFilter<INotificationWrapper<TValue>, INotificationWrapper<TValue>>({notification});
-
-/**
- * @stable [14.04.2020]
- * @param {TValue} channel
- * @returns {IChannelWrapper<TValue>}
- */
-export const mapChannel = <TValue>(channel: TValue): IChannelWrapper<TValue> =>
-  defValuesFilter<IChannelWrapper<TValue>, IChannelWrapper<TValue>>({channel});
-
-/**
- * @stable [14.04.2020]
- * @param {TValue} transport
- * @returns {ITransportWrapper<TValue>}
- */
-export const mapTransport = <TValue>(transport: TValue): ITransportWrapper<TValue> =>
-  defValuesFilter<ITransportWrapper<TValue>, ITransportWrapper<TValue>>({transport});
 
 /**
  * @stable [12.04.2020]
@@ -204,33 +150,6 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
   }),
   UNDEF_SYMBOL
 );
-
-/**
- * @stable [14.04.2020]
- * @param {INotificationWrapperEntity<TEntity>} wrapper
- * @returns {INotificationWrapperEntity<TEntity>}
- */
-export const mapNotificationWrapperEntity =
-  <TEntity = IGenericNotificationEntity>(wrapper: INotificationWrapperEntity<TEntity>): INotificationWrapperEntity<TEntity> =>
-    mapNotification(selectNotification(wrapper));
-
-/**
- * @stable [14.04.2020]
- * @param {IChannelWrapperEntity<TEntity>} wrapper
- * @returns {IChannelWrapperEntity<TEntity>}
- */
-export const mapChannelWrapperEntity =
-  <TEntity = IGenericChannelEntity>(wrapper: IChannelWrapperEntity<TEntity>): IChannelWrapperEntity<TEntity> =>
-    mapChannel(selectChannel(wrapper));
-
-/**
- * @stable [28.03.2020]
- * @param {ITransportWrapperEntity<TTransport>} wrapper
- * @returns {ITransportWrapperEntity<TTransport>}
- */
-export const mapTransportWrapperEntity =
-  <TTransport = ITransportEntity>(wrapper: ITransportWrapperEntity<TTransport>): ITransportWrapperEntity<TTransport> =>
-    mapTransport(selectTransport(wrapper));
 
 /**
  * @stable [12.04.2020]
@@ -306,11 +225,11 @@ export const hasQueueOperations = (queue: string[],
 
 /**
  * @stable [25.11.2019]
- * @param {ITransportWrapperEntity} entity
+ * @param {IReduxHolderTransportEntity} entity
  * @param {string | IOperationEntity} operations
  * @returns {boolean}
  */
-export const hasTransportWrapperQueueOperations = (entity: ITransportWrapperEntity,
+export const hasTransportWrapperQueueOperations = (entity: IReduxHolderTransportEntity,
                                                    ...operations: Array<string | IOperationEntity>): boolean =>
   hasQueueOperations(selectTransportWrapperQueue(entity), ...operations);
 
@@ -337,18 +256,13 @@ export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity)
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);
 
 /**
- * @stable [14.04.2020]
- * @param {IGenericStoreEntity<TDictionaries>} entity
- * @returns {IGenericStoreEntity<TDictionaries>}
+ * @deprecated
  */
 export const mapStoreEntity =
   <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
     ({
-      ...GenericMappers.storeEntity(entity),
-      ...mapChannelWrapperEntity(entity),
-      ...mapNotificationWrapperEntity(entity),
       ...GenericMappers.sectionNameWrapper(entity),
-      ...mapTransportWrapperEntity(entity),
+      ...GenericMappers.storeEntity(entity),
     });
 
 /**
@@ -398,10 +312,9 @@ export class Mappers {
   public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                 /* @stable [10.05.2020] */
   public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                 /* @stable [10.05.2020] */
   public static readonly headerProps = mapHeaderProps;
-  public static readonly holderDictionariesEntity = GenericMappers.holderDictionariesEntity;                                                                 /* @stable [09.06.2020] */
   public static readonly holderFormEntity = GenericMappers.holderFormEntity;                                                                                 /* @stable [12.06.2020] */
   public static readonly holderListEntity = GenericMappers.holderListEntity;                                                                                 /* @stable [12.06.2020] */
-  public static readonly holderUserEntity = GenericMappers.holderUserEntity;                                                                                 /* @stable [09.06.2020] */
+  public static readonly holderTransportEntity = GenericMappers.holderTransportEntity;                                                                       /* @stable [12.06.2020] */
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                           /* @stable [10.05.2020] */
   public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                         /* @stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                   /* @stable [08.05.2020] */

@@ -11,21 +11,21 @@ import {
   CHANNEL_DISCONNECT_MESSAGE,
 } from './channel.interface';
 import {
-  IChannelMessageEntity,
-  IGenericChannelsEntity,
+  IReduxChannelMessageEntity,
+  IReduxChannelsEntity,
   INITIAL_CHANNELS_ENTITY,
 } from '../definition';
 
 /**
  * @stable [21.05.2018]
- * @param {IGenericChannelsEntity} state
+ * @param {IReduxChannelsEntity} state
  * @param {AnyAction} action
- * @returns {IGenericChannelsEntity}
+ * @returns {IReduxChannelsEntity}
  */
-export function channelReducer(state: IGenericChannelsEntity = INITIAL_CHANNELS_ENTITY,
-                               action: AnyAction): IGenericChannelsEntity {
+export function channelReducer(state: IReduxChannelsEntity = INITIAL_CHANNELS_ENTITY,
+                               action: AnyAction): IReduxChannelsEntity {
   let current;
-  const message: IChannelMessageEntity = action.data;
+  const message: IReduxChannelMessageEntity = action.data;
   switch (action.type) {
     case $CHANNEL_CONNECTED_ACTION_TYPE:
       return {

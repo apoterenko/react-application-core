@@ -16,32 +16,30 @@ import {
   UniversalIdProviderContext,
 } from '../../definition';
 import {
-  calc,
+  CalcUtils,
   cloneReactNodes,
+  ClsUtils,
+  ConditionUtils,
   defValuesFilter,
   FilterUtils,
   FormUtils,
   getFormFieldValue,
   ifNotNilThanValue,
   isActionsRendered,
-  isBoolean,
   isCompact,
-  isFn,
   isFormFieldDisabled,
   isFormFieldReadOnly,
   isFormResettable,
   isFormSubmittable,
-  isFull,
   isNewEntity,
   isObjectNotEmpty,
-  isValidateOnMount,
-  joinClassName,
   mapApiEntity,
   notNilValuesFilter,
+  ObjectUtils,
   orNull,
   selectChanges,
-  selectError,
   TypeUtils,
+  WrapperUtils,
 } from '../../util';
 import {
   AnyT,
@@ -57,6 +55,11 @@ import {
 } from '../../di';
 
 export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
+
+  public static readonly defaultProps: IFormProps = {
+    validateOnMount: true,
+  };
+
   private static readonly logger = LoggerFactory.makeLogger('Form');
 
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
@@ -123,10 +126,10 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [12.06.2020]
    */
   public componentDidMount(): void {
-    if (isValidateOnMount(this.props)) {
+    if (this.mergedProps.validateOnMount) {
       this.throwOnValid();
     }
   }
@@ -135,9 +138,9 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @stable [23.04.2020]
    */
   public submit(): void {
-    const {onSubmit} = this.props;
+    const {onSubmit} = this.mergedProps;
 
-    if (isFn(onSubmit)) {
+    if (TypeUtils.isFn(onSubmit)) {
       onSubmit(this.apiEntity);
     }
   }
@@ -148,8 +151,9 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @param {AnyT} value
    */
   private onChange(name: string, value: AnyT): void {
-    const {onChange} = this.props;
-    if (isFn(onChange)) {
+    const {onChange} = this.mergedProps;
+
+    if (TypeUtils.isFn(onChange)) {
       if (isObjectNotEmpty(name)) {
         onChange({[name]: value});
         this.throwOnValid();
@@ -164,9 +168,9 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @param {IField} field
    */
   private onFieldDictionaryEmpty(field: IField): void {
-    const {onDictionaryEmpty} = this.props;
+    const {onDictionaryEmpty} = this.mergedProps;
 
-    if (isFn(onDictionaryEmpty)) {
+    if (TypeUtils.isFn(onDictionaryEmpty)) {
       onDictionaryEmpty(field.props.bindDictionary, this.apiEntity);
     }
   }
@@ -177,25 +181,27 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @param {AnyT} items
    */
   private onFieldDictionaryLoad(field: IField, items: AnyT): void {
-    const {onDictionaryLoad} = this.props;
+    const {onDictionaryLoad} = this.mergedProps;
 
-    if (isFn(onDictionaryLoad)) {
+    if (TypeUtils.isFn(onDictionaryLoad)) {
       onDictionaryLoad(items, field.props.bindDictionary);
     }
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [12.06.2020]
    */
   private throwOnValid(): void {
     const {
-      onValid,
       valid,
-    } = this.props;
+    } = this.originalProps;
 
-    if (isFn(onValid)) {
-      onValid(isBoolean(valid) || this.selfRef.current.checkValidity());
-    }
+    ConditionUtils.ifNotNilThanValue(
+      this.mergedProps.onValid,
+      (onValid) => onValid(
+        TypeUtils.isBoolean(valid) || this.actualRef.current.checkValidity()
+      )
+    );
   }
 
   /**
@@ -206,16 +212,17 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [12.06.2020]
    * @param {IBaseEvent} event
    */
   private onSubmit(event?: IBaseEvent): void {
     this.domAccessor.cancelEvent(event);
 
-    const {onBeforeSubmit} = this.props;
-    const apiEntity = this.apiEntity;
+    const {onBeforeSubmit} = this.mergedProps;
 
-    if (isFn(onBeforeSubmit)) {
+    if (TypeUtils.isFn(onBeforeSubmit)) {
+      const apiEntity = this.apiEntity;
+
       if (onBeforeSubmit(apiEntity) !== false) {
         this.submit();
       }
@@ -225,16 +232,13 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [12.06.2020]
    * @param {IBaseEvent} event
    */
   private onReset(event: IBaseEvent): void {
     this.domAccessor.cancelEvent(event);
 
-    const onReset = this.props.onReset;
-    if (isFn(onReset)) {
-      onReset();
-    }
+    ConditionUtils.ifNotNilThanValue(this.mergedProps.onReset, (onReset) => onReset());
   }
 
   /**
@@ -343,7 +347,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     let resultProps: IFieldProps2;
     if (TypeUtils.isString(props)) {
       resultProps = {label: props as string};
-    } else if (isFn(props)) {
+    } else if (TypeUtils.isFn(props)) {
       resultProps = (props as (field) => IFieldProps2)(field);
     } else {
       resultProps = props as IFieldProps2;
@@ -358,7 +362,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   private get formActionsElement(): JSX.Element {
     const props = this.props;
     const actions = this.actions;
-    const actualActions = isFn(props.actionsFactory) ? props.actionsFactory(actions) : actions;
+    const actualActions = TypeUtils.isFn(props.actionsFactory) ? props.actionsFactory(actions) : actions;
 
     return (
       <React.Fragment>
@@ -400,12 +404,12 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               ...(
                 fieldProps.bindDictionary && ({
                   ...(
-                    !isFn(fieldProps.onDictionaryEmpty)
+                    !TypeUtils.isFn(fieldProps.onDictionaryEmpty)
                       ? ({onDictionaryEmpty: () => this.onFieldDictionaryEmpty(field)})
                       : {}
                   ),
                   ...(
-                    !isFn(fieldProps.onDictionaryLoad)
+                    !TypeUtils.isFn(fieldProps.onDictionaryLoad)
                       ? ({onDictionaryLoad: (itms) => this.onFieldDictionaryLoad(field, itms)})
                       : {}
                   ),
@@ -431,11 +435,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [03.02.2020]
+   * @stable [12.06.2020]
    * @returns {boolean}
    */
   private get hasError(): boolean {
-    return isObjectNotEmpty(selectError(this.form));
+    return ObjectUtils.isObjectNotEmpty(this.form.error);
   }
 
   /**
@@ -489,40 +493,43 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [18.04.2020]
+   * @stable [12.06.2020]
    * @returns {string}
    */
   private get className(): string {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
+    const {
+      className,
+    } = mergedProps;
 
-    return joinClassName(
+    return ClsUtils.joinClassName(
       FormClassesEnum.FORM,
-      isFull(props) && FormClassesEnum.FULL_FORM,
-      calc(props.className)
+      WrapperUtils.isFull(mergedProps) && FormClassesEnum.FULL_FORM,
+      CalcUtils.calc(className)
     );
   }
 
   /**
-   * @stable [18.04.2020]
+   * @stable [12.06.2020]
    * @returns {IReduxFormEntity<IEntity>}
    */
   private get form(): IReduxFormEntity<IEntity> {
-    return this.props.form;
+    return this.originalProps.form;
   }
 
   /**
-   * @stable [18.04.2020]
+   * @stable [12.06.2020]
    * @returns {IEntity}
    */
   private get originalEntity(): IEntity {
-    return this.props.originalEntity;
+    return this.originalProps.originalEntity;
   }
 
   /**
-   * @stable [18.04.2020]
+   * @stable [12.06.2020]
    * @returns {IEntity}
    */
   private get entity(): IEntity {
-    return this.props.entity;
+    return this.originalProps.entity;
   }
 }

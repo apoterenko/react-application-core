@@ -6,19 +6,27 @@ import {
 } from '../definitions.interface';
 
 /**
- * @generic-entity
- * @stable [24.09.2019]
+ * @redux-entity
+ * @stable [12.06.2020]
  */
-export interface IGenericNotificationEntity
+export interface IReduxNotificationEntity
   extends IErrorWrapper<string>,
     IInfoWrapper {
 }
 
 /**
- * @wrapper-entity
- * @stable [24.09.2019]
+ * @flux-entity
+ * @stable [12.06.2020]
  */
-export interface INotificationWrapperEntity<TEntity = IGenericNotificationEntity>
+export interface IFluxNotificationEntity
+  extends IReduxNotificationEntity {
+}
+
+/**
+ * @redux-holder-entity
+ * @stable [12.06.2020]
+ */
+export interface IReduxHolderNotificationEntity<TEntity = IReduxNotificationEntity>
   extends INotificationWrapper<TEntity> {
 }
 
@@ -26,14 +34,14 @@ export interface INotificationWrapperEntity<TEntity = IGenericNotificationEntity
  * @initial-entity
  * @stable [24.09.2019]
  */
-export const INITIAL_NOTIFICATION_ENTITY = Object.freeze<IGenericNotificationEntity>({
+export const INITIAL_NOTIFICATION_ENTITY = Object.freeze<IReduxNotificationEntity>({
   error: null,
   info: null,
 });
 
 /**
- * @stable [13.02.2020]
+ * @stable [12.06.2020]
  */
-export const $RAC_NOTIFICATION_INFO_ACTION_TYPE = `${ACTION_PREFIX}notification.info`;
-export const $RAC_NOTIFICATION_ERROR_ACTION_TYPE = `${ACTION_PREFIX}notification.error`;
-export const $RAC_NOTIFICATION_CLEAR_ACTION_TYPE = `${ACTION_PREFIX}notification.clear`;
+export const $_RAC_NOTIFICATION_INFO_ACTION_TYPE = `${ACTION_PREFIX}notification.info`;
+export const $_RAC_NOTIFICATION_ERROR_ACTION_TYPE = `${ACTION_PREFIX}notification.error`;
+export const $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE = `${ACTION_PREFIX}notification.clear`;

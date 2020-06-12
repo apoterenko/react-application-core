@@ -21,7 +21,7 @@ import {
   ITypeWrapper,
   IUrlWrapper,
 } from '../definitions.interface';
-import { IUniversalContainerCtor } from './container-definition.interface';
+import { IGenericContainerCtor } from './generic-container-definition.interface';
 import { IConnectorEntity } from './connector-definition.interface';
 
 /**
@@ -96,9 +96,9 @@ export interface IRouteEntity
 export type RoutePredicateT = (entity: IRouteEntity) => boolean;
 
 /**
- * @stable [16.11.2019]
+ * @stable [12.06.2020]
  */
-export type DynamicRoutesMapT = Map<IUniversalContainerCtor, IConnectorEntity>;
+export type DynamicRoutesT = Map<IGenericContainerCtor, IConnectorEntity>;
 
 /**
  * @stable [09.10.2019]

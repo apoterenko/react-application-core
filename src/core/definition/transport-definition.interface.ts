@@ -322,10 +322,10 @@ export interface ITransportTokenAccessor
 }
 
 /**
- * @entity
- * @stable [24.09.2019]
+ * @redux-entity
+ * @stable [12.06.2020]
  */
-export interface ITransportEntity
+export interface IReduxTransportEntity
   extends ITokenWrapper,
     IQueueWrapper<string[]> {
 }
@@ -334,23 +334,23 @@ export interface ITransportEntity
  * @flux-entity
  * @stable [17.03.2020]
  */
-export interface ITransportFluxEntity
+export interface IFluxTransportEntity
   extends IOperationIdWrapper,
     ITokenWrapper {
 }
 
 /**
- * @wrapper-entity
- * @stable [24.09.2019]
+ * @redux-holder-entity
+ * @stable [12.06.2020]
  */
-export interface ITransportWrapperEntity<TTransport = ITransportEntity>
+export interface IReduxHolderTransportEntity<TTransport = IReduxTransportEntity>
   extends ITransportWrapper<TTransport> {
 }
 
 /**
  * @stable [24.09.2019]
  */
-export const INITIAL_TRANSPORT_ENTITY = Object.freeze<ITransportEntity>({
+export const INITIAL_TRANSPORT_ENTITY = Object.freeze<IReduxTransportEntity>({
   queue: [],
   token: null,
 });

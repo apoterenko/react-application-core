@@ -22,16 +22,16 @@ import {
   ISelectWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
-import { IChannelWrapperEntity } from './channel-definition.interface';
-import { INotificationWrapperEntity } from './notification-definition.interface';
+import { IReduxHolderNotificationEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
 import { IReduxHolderAsyncLibsEntity } from './async-lib-definition.interface';
+import { IReduxHolderChannelEntity } from './channel-definition.interface';
 import { IReduxHolderDictionariesEntity } from './dictionary-definition.interface';
 import { IReduxHolderLayoutEntity } from './layout-definition.interface';
 import { IReduxHolderStackEntity } from './stack-definition.interface';
+import { IReduxHolderTransportEntity } from './transport-definition.interface';
 import { IReduxHolderUserEntity } from './user-definition.interface';
 import { ISelectedEntity } from './entity-definition.interface';
-import { ITransportWrapperEntity } from './transport-definition.interface';
 import { IUniversalApplicationWrapperEntity } from './application-definition.interface';
 
 /**
@@ -116,9 +116,12 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
  */
 export interface IReduxStoreEntity<TDictionaries = {}>
   extends IReduxHolderAsyncLibsEntity,
+    IReduxHolderChannelEntity,
     IReduxHolderDictionariesEntity<TDictionaries>,
     IReduxHolderLayoutEntity,
+    IReduxHolderNotificationEntity,
     IReduxHolderStackEntity,
+    IReduxHolderTransportEntity,
     IReduxHolderUserEntity {
 }
 
@@ -128,10 +131,7 @@ export interface IReduxStoreEntity<TDictionaries = {}>
  */
 export interface IGenericStoreEntity<TDictionaries = {}>
   extends IReduxStoreEntity<TDictionaries>,
-    IChannelWrapperEntity,
-    INotificationWrapperEntity,
-    ISectionNameWrapper, // TODO Move from this
-    ITransportWrapperEntity {
+    ISectionNameWrapper {// TODO Move from this
 }
 
 /**

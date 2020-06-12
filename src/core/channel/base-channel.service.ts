@@ -18,7 +18,7 @@ import {
 } from './channel.interface';
 import { PayloadWrapper } from './protocol';
 import {
-  IChannelMessageEntity,
+  IReduxChannelMessageEntity,
   IStoreEntity,
 } from '../definition';
 
@@ -80,7 +80,7 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IC
 
     this.appStore.dispatch({
       type: $CHANNEL_MESSAGE_ACTION_TYPE,
-      data: defValuesFilter<IChannelMessageEntity, IChannelMessageEntity>({
+      data: defValuesFilter<IReduxChannelMessageEntity, IReduxChannelMessageEntity>({
         ip, name: messageName, data: this.toMessage(payload),
       }),
     });

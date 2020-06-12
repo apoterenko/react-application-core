@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { FlexLayout } from '../../layout/flex';
-import { basicConnector, defaultMappers } from '../../connector';
-import { BaseContainer } from '../../base';
+import { basicConnector } from '../../connector';
+import { GenericContainer } from '../../base';
 import { DefaultLayoutContainer } from '../../layout';
 import { ACCESS_DENIED_SECTION } from './access-denied.interface';
 import {
   ContainerVisibilityTypesEnum,
-  IContainerProps,
+  IGenericContainerProps,
   IStoreEntity,
 } from '../../../definition';
 
@@ -16,13 +16,11 @@ import {
     type: ContainerVisibilityTypesEnum.PRIVATE,
     path: 'access/denied',
   },
-  mappers: [
-    ...defaultMappers
-  ],
+  mappers: [],
 })
-export class AccessDeniedContainer extends BaseContainer {
+export class AccessDeniedContainer extends GenericContainer {
 
-  public static defaultProps: IContainerProps = {
+  public static defaultProps: IGenericContainerProps = {
     sectionName: ACCESS_DENIED_SECTION,
   };
 

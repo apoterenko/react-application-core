@@ -10,7 +10,7 @@ import {
   ifNotNilThanValue,
   isApplicationInProgress,
   isApplicationMessageVisible,
-  isBoolean,
+  TypeUtils,
 } from '../../util';
 import {
   $RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE,
@@ -20,6 +20,7 @@ import {
   ContainerVisibilityTypesEnum,
   IConnectorEntity,
   IContainerCtor,
+  IGenericContainerCtor,
   IRouteEntity,
   IStorageSettingsEntity,
   IUniversalUiMessageConfigEntity,
@@ -27,17 +28,17 @@ import {
 } from '../../definition';
 import { ApplicationActionBuilder } from './application-action.builder';
 import { IUniversalApplicationContainerProps } from './universal-application.interface';
-import { UniversalContainer } from '../base/universal.container';
+import { GenericContainer } from '../base/generic.container';
 
 export abstract class UniversalApplicationContainer<TProps extends IUniversalApplicationContainerProps>
-  extends UniversalContainer<TProps> {
+  extends GenericContainer<TProps> {
 
   public static readonly defaultProps: IUniversalApplicationContainerProps = {
     sectionName: APPLICATION_SECTION,
   };
 
   private static readonly logger = LoggerFactory.makeLogger('UniversalApplicationContainer');
-  private readonly extraRoutes = new Map<IContainerCtor, IConnectorEntity>();
+  private readonly extraRoutes = new Map<IGenericContainerCtor, IConnectorEntity>();
 
   /**
    * @stable [17.11.2019]
@@ -59,10 +60,10 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [17.11.2019]
    */
   public componentDidMount(): void {
-    this.dispatchCustomType(ApplicationActionBuilder.buildMountActionType());
+    this.storeProxy.dispatchActionByType(ApplicationActionBuilder.buildMountActionType());
 
     if (this.storageSettings.appStateSyncEnabled) {
-      this.dispatchCustomType($RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
+      this.storeProxy.dispatchActionByType($RAC_STORAGE_REGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
     }
   }
 
@@ -71,7 +72,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   public componentWillUnmount(): void {
     if (this.storageSettings.appStateSyncEnabled) {
-      this.dispatchCustomType($RAC_STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
+      this.storeProxy.dispatchActionByType($RAC_STORAGE_UNREGISTER_SYNC_APP_STATE_TASK_ACTION_TYPE);
       this.syncAppState();
     }
   }
@@ -80,7 +81,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @stable [18.11.2019]
    */
   protected syncAppState(): void {
-    this.dispatchCustomType($RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE);
+    this.storeProxy.dispatchActionByType($RAC_STORAGE_SYNC_APP_STATE_ACTION_TYPE);
   }
 
   /**
@@ -138,7 +139,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   }
 
   protected registerLogoutRoute(): void {
-    const loginContainer = this.lookupDynamicContainerByRoutePath(this.routes.signIn);
+    const loginContainer = this.lookupDynamicContainerByRoutePath(this.settings.routes.signIn);
     if (!loginContainer) {
       UniversalApplicationContainer.logger.debug(
         '[$UniversalApplicationContainer][registerLogoutRoute] The login route is not registered.'
@@ -149,7 +150,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
         {
           routeConfiguration: {
             type: ContainerVisibilityTypesEnum.PUBLIC,
-            path: this.routes.logout,
+            path: this.settings.routes.logout,
             beforeEnter: this.onBeforeLogout,   // Web
             onEnter: this.onBeforeLogout,       // ReactNative
           },
@@ -167,7 +168,8 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    */
   protected onBeforeLogout(): void {
     UniversalApplicationContainer.logger.debug('[$UniversalApplicationContainer][onBeforeLogout] Send a logout action.');
-    this.dispatchCustomType(ApplicationActionBuilder.buildLogoutActionType());
+
+    this.storeProxy.dispatchActionByType(ApplicationActionBuilder.buildLogoutActionType());
   }
 
   /**
@@ -200,7 +202,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
           this.doesErrorExist
             ? (
               this.uiFactory.makeReactError(
-                isBoolean(props.error)
+                TypeUtils.isBoolean(props.error)
                   ? new Error(this.settings.messages.UNKNOWN_ERROR)
                   : new Error(String(props.error)),
                 false

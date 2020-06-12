@@ -152,11 +152,13 @@ export const DEFAULT_COMPONENTS_SETTINGS_ENTITY = Object.freeze<IComponentsSetti
  * @stable [09.01.2020]
  */
 export interface IRoutesSettingsEntity {
+  accessDenied?: string;
   home?: string;
   logout?: string;
   oauthCallback?: string;
   oauthSignIn?: string;
   profile?: string;
+  signIn?: string;
 }
 
 /**
