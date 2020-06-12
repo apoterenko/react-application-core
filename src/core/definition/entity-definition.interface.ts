@@ -4,8 +4,6 @@ import {
   IActiveValueWrapper,
   IAddWrapper,
   IChangesWrapper,
-  IDefaultChangesWrapper,
-  IDirtyWrapper,
   IDisabledWrapper,
   IEditWrapper,
   IEntity,
@@ -16,7 +14,6 @@ import {
   IIconLeftAlignedWrapper,
   IIconWrapper,
   IIndexWrapper,
-  IKeyValue,
   ILabelWrapper,
   INameWrapper,
   INewEntityWrapper,
@@ -31,9 +28,7 @@ import {
   ISourceWrapper,
   ITouchedWrapper,
   ITplWrapper,
-  IValidWrapper,
   IValueWrapper,
-  StringNumberT,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
@@ -103,19 +98,6 @@ export interface IExtendedEntity<TEntity = IEntity>
     IEntityWrapper<TEntity>,
     INewEntityWrapper,
     IOriginalEntityWrapper<TEntity> {
-}
-
-/**
- * @redux-entity
- * @stable [08.05.2020]
- */
-export interface IReduxFormEntity<TChanges = IKeyValue>
-  extends IReduxLifeCycleEntity,
-    IReduxActiveValueEntity,
-    IChangesWrapper<TChanges>,
-    IDefaultChangesWrapper<TChanges>,
-    IDirtyWrapper,
-    IValidWrapper {
 }
 
 /**

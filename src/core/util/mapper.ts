@@ -7,7 +7,7 @@ import {
   IChannelWrapperEntity,
   IExtendedEntity,
   IExtendedFormEntity,
-  IFormEntity,
+  IReduxHolderFormEntity,
   IFormTabPanelContainerProps,
   IGenericChannelEntity,
   IGenericContainer,
@@ -361,22 +361,22 @@ export const mapStoreEntity =
 export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps): IFormTabPanelContainerProps =>
   ({
     ...GenericMappers.sectionNameWrapper(props),
-    ...GenericMappers.formEntity(props),
+    ...GenericMappers.holderFormEntity(props),
   });
 
 /**
  * @container-props-mapper
  * @stable [23.04.2020]
  *
- * @param {IFormEntity<TEntity>} props
+ * @param {IReduxHolderFormEntity<TEntity>} props
  * @param {IGenericContainer} proxyContainer
  * @returns {IUnsavedFormChangesDialogContainerProps}
  */
 export const mapUnsavedFormChangesDialogContainerProps =
-  <TEntity = IEntity>(props: IFormEntity<TEntity>,
+  <TEntity = IEntity>(props: IReduxHolderFormEntity<TEntity>,
                       proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps =>
     ({
-      dialogConfiguration: GenericMappers.formEntity(props),
+      dialogConfiguration: GenericMappers.holderFormEntity(props),
       proxyContainer,
     });
 
@@ -395,14 +395,14 @@ export class Mappers {
   public static readonly form = GenericMappers.form;                                                                                                         /* @stable [08.05.2020] */
   public static readonly formContainerProps = ComponentMappers.formContainerProps;                                                                           /* @stable [08.05.2020] */
   public static readonly formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                                                     /* @stable [09.05.2020] */
-  public static readonly formEntity = GenericMappers.formEntity;                                                                                             /* @stable [08.05.2020] */
   public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                 /* @stable [10.05.2020] */
   public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                 /* @stable [10.05.2020] */
   public static readonly headerProps = mapHeaderProps;
   public static readonly holderDictionariesEntity = GenericMappers.holderDictionariesEntity;                                                                 /* @stable [09.06.2020] */
+  public static readonly holderFormEntity = GenericMappers.holderFormEntity;                                                                                 /* @stable [12.06.2020] */
+  public static readonly holderListEntity = GenericMappers.holderListEntity;                                                                                 /* @stable [12.06.2020] */
   public static readonly holderUserEntity = GenericMappers.holderUserEntity;                                                                                 /* @stable [09.06.2020] */
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                           /* @stable [10.05.2020] */
-  public static readonly listEntity = GenericMappers.listEntity;                                                                                             /* @stable [08.05.2020] */
   public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                         /* @stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                   /* @stable [08.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                     /* @stable [08.05.2020] */

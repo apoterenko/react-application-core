@@ -7,13 +7,17 @@ import {
   IAlwaysDirtyWrapper,
   IAlwaysResettableWrapper,
   IChangeableWrapper,
+  IChangesWrapper,
   ICompactWrapper,
+  IDefaultChangesWrapper,
+  IDirtyWrapper,
   IDisabledWrapper,
   IEntity,
   IFormConfigurationWrapper,
   IFormIdWrapper,
   IFormWrapper,
   IFullWrapper,
+  IKeyValue,
   IOnBeforeSubmitWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
@@ -37,7 +41,8 @@ import {
 } from '../definitions.interface';
 import {
   IExtendedEntity,
-  IReduxFormEntity,
+  IReduxActiveValueEntity,
+  IReduxLifeCycleEntity,
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import {
@@ -49,10 +54,23 @@ import { IGenericComponentProps } from './generic-component-definition.interface
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
- * @entity
- * @stable [09.05.2020]
+ * @redux-entity
+ * @stable [08.05.2020]
  */
-export interface IFormEntity<TEntity = IEntity>
+export interface IReduxFormEntity<TChanges = IKeyValue>
+  extends IReduxLifeCycleEntity,
+    IReduxActiveValueEntity,
+    IChangesWrapper<TChanges>,
+    IDefaultChangesWrapper<TChanges>,
+    IDirtyWrapper,
+    IValidWrapper {
+}
+
+/**
+ * @redux-holder-entity
+ * @stable [12.06.2020]
+ */
+export interface IReduxHolderFormEntity<TEntity = IEntity>
   extends IFormWrapper<IReduxFormEntity<TEntity>> {
 }
 
@@ -61,7 +79,7 @@ export interface IFormEntity<TEntity = IEntity>
  * @stable [08.05.2020]
  */
 export interface IExtendedFormEntity<TEntity = IEntity>
-  extends IFormEntity<TEntity>,
+  extends IReduxHolderFormEntity<TEntity>,
     IExtendedEntity<TEntity> {
 }
 
@@ -94,7 +112,7 @@ export interface IPrimaryFilterReduxFormEntity<TEntity = IEntity>
  * @stable [10.05.2020]
  */
 export interface IPrimaryFilterFormEntity<TEntity = IEntity>
-  extends IPrimaryFilterWrapper<IFormEntity<TEntity>> {
+  extends IPrimaryFilterWrapper<IReduxHolderFormEntity<TEntity>> {
 }
 
 /**
@@ -102,7 +120,7 @@ export interface IPrimaryFilterFormEntity<TEntity = IEntity>
  * @stable [10.05.2020]
  */
 export interface ISecondaryFilterFormEntity<TEntity = IEntity>
-  extends ISecondaryFilterWrapper<IFormEntity<TEntity>> {
+  extends ISecondaryFilterWrapper<IReduxHolderFormEntity<TEntity>> {
 }
 
 /**

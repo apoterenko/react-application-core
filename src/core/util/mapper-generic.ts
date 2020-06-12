@@ -30,7 +30,7 @@ import {
   FIRST_PAGE,
   IExtendedEntity,
   IExtendedFormEntity,
-  IFormEntity,
+  IReduxHolderFormEntity,
   IReduxHolderListEntity,
   IOptionEntity,
   IPrimaryFilterExtendedFormEntity,
@@ -210,20 +210,20 @@ const mapQueryFilterEntity = (entity: IQueryFilterEntity): IQueryFilterEntity =>
 /**
  * @map-as-original
  *
- * @stable [09.06.2020]
+ * @stable [12.06.2020]
  * @param {IReduxHolderListEntity} entity
  * @returns {IReduxHolderListEntity}
  */
-const mapListEntity = (entity: IReduxHolderListEntity): IReduxHolderListEntity => mapList(Selectors.list(entity));
+const mapHolderListEntity = (entity: IReduxHolderListEntity): IReduxHolderListEntity => mapList(Selectors.list(entity));
 
 /**
  * @map-as-original
  *
- * @stable [09.06.2020]
- * @param {IFormEntity<TEntity>} entity
- * @returns {IFormEntity<TEntity>}
+ * @stable [12.06.2020]
+ * @param {IReduxHolderFormEntity<TEntity>} entity
+ * @returns {IReduxHolderFormEntity<TEntity>}
  */
-const mapFormEntity = <TEntity = IEntity>(entity: IFormEntity<TEntity>): IFormEntity<TEntity> =>
+const mapHolderFormEntity = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): IReduxHolderFormEntity<TEntity> =>
   mapForm(Selectors.form(entity));
 
 /**
@@ -249,11 +249,11 @@ const mapListEntityAsDisabled = (listEntity: IReduxHolderListEntity): IDisabledW
  * @mapper
  * @stable [09.05.2020]
  * @param {ISecondaryFilterFormEntity<TEntity>} entity
- * @returns {IFormEntity<TEntity>}
+ * @returns {IReduxHolderFormEntity<TEntity>}
  */
 const mapSecondaryFilterFormEntityAsFormEntity =
-  <TEntity = IEntity>(entity: ISecondaryFilterFormEntity<TEntity>): IFormEntity<TEntity> =>
-    mapFormEntity(Selectors.secondaryFilter(entity));
+  <TEntity = IEntity>(entity: ISecondaryFilterFormEntity<TEntity>): IReduxHolderFormEntity<TEntity> =>
+    mapHolderFormEntity(Selectors.secondaryFilter(entity));
 
 /**
  * @mapper
@@ -695,13 +695,11 @@ export class GenericMappers {
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                                                              /* stable [10.05.2020] */
   public static readonly extendedEntity = mapExtendedEntity;                                                                                      /* stable [08.05.2020] */
   public static readonly form = mapForm;                                                                                                          /* stable [08.05.2020] */
-  public static readonly formEntity = mapFormEntity;                                                                                              /* stable [08.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
   public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
-  public static readonly holderLayoutEntity = mapHolderLayoutEntity;                                                                              /* stable [09.06.2020] */
-  public static readonly holderStackEntity = mapHolderStackEntity;                                                                                /* stable [09.06.2020] */
+  public static readonly holderFormEntity = mapHolderFormEntity;                                                                                  /* stable [12.06.2020] */
+  public static readonly holderListEntity = mapHolderListEntity;                                                                                  /* stable [12.06.2020] */
   public static readonly holderUserEntity = mapHolderUserEntity;                                                                                  /* stable [09.06.2020] */
-  public static readonly listEntity = mapListEntity;                                                                                              /* stable [07.05.2020] */
   public static readonly listEntityAsDisabled = mapListEntityAsDisabled;                                                                          /* stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;                                      /* stable [09.05.2020] */

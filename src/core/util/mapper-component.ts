@@ -43,7 +43,7 @@ const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEnti
 const mapFormProps = <TEntity = IEntity>(props: IFormProps<TEntity>): IFormProps<TEntity> =>
   ({
     ...GenericMappers.extendedEntity(props),
-    ...GenericMappers.formEntity(props),
+    ...GenericMappers.holderFormEntity(props),
   });
 
 /**
@@ -62,7 +62,7 @@ const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps 
 const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageToolbarContainerProps =>
   ({
     ...GenericMappers.sectionNameWrapper(props),
-    ...GenericMappers.listEntity(props),
+    ...GenericMappers.holderListEntity(props),
   });
 
 /**
@@ -75,7 +75,7 @@ const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageT
 const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps =>
   ({
     ...GenericMappers.extendedEntity(props),
-    ...GenericMappers.formEntity(props),
+    ...GenericMappers.holderFormEntity(props),
     ...GenericMappers.sectionNameWrapper(props),
   });
 
@@ -88,7 +88,7 @@ const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps 
  */
 const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
   ({
-    ...GenericMappers.listEntity(props),
+    ...GenericMappers.holderListEntity(props),
     ...GenericMappers.sectionNameWrapper(props),
   });
 
@@ -173,7 +173,7 @@ const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): IS
   ({
     ...GenericMappers.sectionNameWrapper(props),
     ...GenericMappers.queryFilterEntity(props),
-    ...GenericMappers.listEntity(props),
+    ...GenericMappers.holderListEntity(props),
   });
 
 const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolbarContainerProps): ISearchToolbarProps =>

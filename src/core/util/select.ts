@@ -44,7 +44,7 @@ import {
 } from '../definitions.interface';
 import { NvlUtils } from './nvl';
 import {
-  IFormEntity,
+  IReduxHolderFormEntity,
   IReduxHolderListEntity,
   IQueryFilterEntity,
   IReduxHolderLayoutEntity,
@@ -415,10 +415,10 @@ const selectListRawData = <TRawData = AnyT>(entity: IReduxHolderListEntity): TRa
 
 /**
  * @stable [08.05.2020]
- * @param {IFormEntity<TEntity>} entity
+ * @param {IReduxHolderFormEntity<TEntity>} entity
  * @returns {TEntity}
  */
-const selectFormEntityChanges = <TEntity = IEntity>(entity: IFormEntity<TEntity>): TEntity =>
+const selectFormEntityChanges = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): TEntity =>
   selectChanges(selectForm(entity));
 
 /**
