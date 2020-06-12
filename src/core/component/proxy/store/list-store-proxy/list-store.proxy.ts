@@ -2,12 +2,12 @@ import { ListActionBuilder } from '../../../action.builder';
 import {
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
   IListStoreProxy,
 } from '../../../../definition';
 import { StoreProxy } from '../store.proxy';
 
-export class ListStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class ListStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                             TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements IListStoreProxy {

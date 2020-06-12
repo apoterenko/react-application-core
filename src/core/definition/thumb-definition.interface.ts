@@ -2,7 +2,7 @@ import {
   IDisabledWrapper,
   IValueWrapper,
 } from '../definitions.interface';
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
  * @presets-entity
@@ -26,7 +26,7 @@ export interface IThumbGenericEntity
  * @stable [05.06.2020]
  */
 export interface IThumbProps
-  extends IGenericBaseComponentProps,
+  extends IGenericComponentProps,
     IThumbGenericEntity {
 }
 

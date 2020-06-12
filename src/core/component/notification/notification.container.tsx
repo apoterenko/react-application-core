@@ -3,11 +3,11 @@ import * as R from 'ramda';
 
 import { IUniversalContainerProps } from '../../definition';
 import { NotificationActionBuilder } from '../../action';
-import { nvl } from '../../util';
+import { NvlUtils } from '../../util';
 import { Snackbar } from '../snackbar';
-import { UniversalContainer } from '../base/universal.container';
+import { GenericContainer } from '../base/generic.container';
 
-export class NotificationContainer extends UniversalContainer {
+export class NotificationContainer extends GenericContainer {
 
   /**
    * @stable [13.02.2020]
@@ -41,7 +41,7 @@ export class NotificationContainer extends UniversalContainer {
 
     return (
       <Snackbar
-        message={nvl(notification.error, notification.info)}
+        message={NvlUtils.nvl(notification.error, notification.info)}
         error={hasError}
         afterShow={this.clearCurrentNotification}>
       </Snackbar>
@@ -49,9 +49,9 @@ export class NotificationContainer extends UniversalContainer {
   }
 
   /**
-   * @stable [13.02.2020]
+   * @stable [12.06.2020]
    */
   private clearCurrentNotification(): void {
-    this.appStore.dispatch(NotificationActionBuilder.buildPlainClearAction());
+    this.dispatchPlainAction(NotificationActionBuilder.buildPlainClearAction());
   }
 }

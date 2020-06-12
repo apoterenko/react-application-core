@@ -6,12 +6,12 @@ import {
   IDisabledWrapper,
   IMessageWrapper,
   IOnClickWrapper,
+  ITitleWrapper,
   ITouchedWrapper,
   ITypeWrapper,
   IWrapperClassNameWrapper,
   IWrapperWrapper,
 } from '../definitions.interface';
-import { IGenericBaseComponentEntity } from './generic-component-definition.interface';
 
 export interface IUiIconFactory {
 
@@ -53,9 +53,11 @@ export interface IUiFactory extends IUiIconFactory {
  * @stable [18.03.2020]
  */
 export interface IIconConfigEntity
-  extends IGenericBaseComponentEntity<HTMLDivElement>,
+  extends React.RefAttributes<HTMLDivElement>,
+    IClassNameWrapper,
     IDisabledWrapper,
     IOnClickWrapper,
+    ITitleWrapper,
     ITouchedWrapper,
     ITypeWrapper {
 }

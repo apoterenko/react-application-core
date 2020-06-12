@@ -4,11 +4,11 @@ import {
   IFormStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
 } from '../../../../definition';
 import { StoreProxy } from '../store.proxy';
 
-export class FormStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class FormStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                             TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements IFormStoreProxy {

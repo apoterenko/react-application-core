@@ -17,7 +17,6 @@ import {
   IRemoteSorterWrapper,
   IReplaceRouteWrapper,
   IReplaceWrapper,
-  ISectionNameWrapper,
   ISectionWrapper,
   ISelectWrapper,
   IUpdateWrapper,
@@ -126,19 +125,10 @@ export interface IReduxStoreEntity<TDictionaries = {}>
 }
 
 /**
- * @generic-entity
- * @stable [14.04.2020]
- */
-export interface IGenericStoreEntity<TDictionaries = {}>
-  extends IReduxStoreEntity<TDictionaries>,
-    ISectionNameWrapper {// TODO Move from this
-}
-
-/**
  * @stable [28.09.2019]
  */
 export interface IUniversalStoreEntity<TDictionaries = {}, TPermissions = {}>
-  extends IGenericStoreEntity<TDictionaries>,
+  extends IReduxStoreEntity<TDictionaries>,
     IUniversalApplicationWrapperEntity,
     IPermissionsWrapperEntity<TPermissions> {
 }

@@ -20,7 +20,6 @@ import {
   IKeyValue,
   IOnBeforeSubmitWrapper,
   IOnChangeWrapper,
-  IOnClickWrapper,
   IOnDictionaryEmptyWrapper,
   IOnDictionaryLoadWrapper,
   IOnResetWrapper,
@@ -222,8 +221,7 @@ export interface IFormConfigurationEntity<TProps extends IFormProps = IFormProps
  * @deprecated
  */
 export interface IFormExtraButtonEntity
-  extends IGenericButtonEntity,
-    IOnClickWrapper<IApiEntity> {
+  extends IGenericButtonEntity {
 }
 
 /**

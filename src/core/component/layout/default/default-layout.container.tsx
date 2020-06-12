@@ -4,13 +4,10 @@ import * as R from 'ramda';
 import { NavigationList } from '../../navigation-list';
 import { lazyInject } from '../../../di';
 import {
-  ifNotEmptyThanValue,
+  ConditionUtils,
+  NvlUtils,
 } from '../../../util';
 import { GenericContainer } from '../../base/generic.container';
-import {
-  IDefaultLayoutContainerProps,
-  IDefaultLayoutContainerState,
-} from './default-layout.interface';
 import { NavigationMenuBuilder } from '../../../navigation';
 import {
   IPayloadWrapper,
@@ -23,6 +20,7 @@ import {
 } from '../layout.interface';
 import {
   HeaderUserMenuActionsEnum,
+  IDefaultLayoutContainerProps,
   IFluxXYEntity,
   INavigationListItemEntity,
   IPresetsMenuItemEntity,
@@ -36,7 +34,7 @@ import {
 import { DefaultLayout } from './default-layout.component';
 import { NotificationContainer } from '../../notification';
 
-export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutContainerProps, IDefaultLayoutContainerState> {
+export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutContainerProps> {
 
   @lazyInject(NavigationMenuBuilder) private readonly navigationMenuBuilder: NavigationMenuBuilder;
 
@@ -53,20 +51,27 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
     this.onNavigationListClick = this.onNavigationListClick.bind(this);
     this.onNavigationListGroupClick = this.onNavigationListGroupClick.bind(this);
     this.onNavigationListScroll = this.onNavigationListScroll.bind(this);
-
-    this.state = {notifications: false};
   }
 
   public render(): JSX.Element {
-    const props = this.props;
     const {
       defaultLayoutConfiguration = {},
+    } = this.mergedProps;
+
+    const props = this.props;
+    const {
       headerConfiguration = {},
       subHeaderConfiguration = {},
     } = props;
 
-    const activeItem = this.menuItems.find((item) => item.active);
-    const title = props.title || (activeItem && activeItem.label);
+    const title = NvlUtils.coalesce(
+      headerConfiguration.title,
+      subHeaderConfiguration.title,
+      ConditionUtils.ifNotNilThanValue(
+        this.menuItems.find((item) => item.active),
+        (activeItem) => activeItem && activeItem.label
+      )
+    );
 
     return (
       <NotificationContainer {...props}>
@@ -80,14 +85,15 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
               ...headerConfiguration.navigationActionConfiguration,
             },
             ...headerConfiguration,
+            title,
           }}
           subHeaderConfiguration={{
-            title,
             navigationActionConfiguration: {
               onClick: this.routerStoreProxy.navigateBack,
               ...subHeaderConfiguration.navigationActionConfiguration,
             },
             ...subHeaderConfiguration,
+            title,
           }}
           onDrawerHeaderClick={this.onDrawerHeaderClick}
           onChangeLayoutMode={this.onChangeLayoutMode}
@@ -164,7 +170,7 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
    * @param {INavigationListItemEntity} item
    */
   private onNavigationListClick(item: INavigationListItemEntity): void {
-    ifNotEmptyThanValue(item.link, (link) => this.routerStoreProxy.navigate(link));
+    ConditionUtils.ifNotEmptyThanValue(item.link, (link) => this.routerStoreProxy.navigate(link));
   }
 
   private onNavigationListGroupClick(item: INavigationListItemEntity): void {

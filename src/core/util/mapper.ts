@@ -8,7 +8,6 @@ import {
   IReduxHolderFormEntity,
   IFormTabPanelContainerProps,
   IGenericContainer,
-  IGenericStoreEntity,
   IGenericTabPanelEntity,
   IHeaderProps,
   INamedEntity,
@@ -256,16 +255,6 @@ export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity)
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);
 
 /**
- * @deprecated
- */
-export const mapStoreEntity =
-  <TDictionaries = {}>(entity: IGenericStoreEntity<TDictionaries>): IGenericStoreEntity<TDictionaries> =>
-    ({
-      ...GenericMappers.sectionNameWrapper(entity),
-      ...GenericMappers.storeEntity(entity),
-    });
-
-/**
  * @container-props-mapper
  * @stable [13.04.2020]
  *
@@ -294,12 +283,13 @@ export const mapUnsavedFormChangesDialogContainerProps =
       proxyContainer,
     });
 
-const mapHeaderProps = (props: IHeaderProps): IHeaderProps => mapStoreEntity(props);
+const mapHeaderProps = (props: IHeaderProps): IHeaderProps => GenericMappers.storeEntity(props);
 
 /**
  * @stable [05.05.2020]
  */
 export class Mappers {
+  public static readonly defaultLayoutContainerProps = ComponentMappers.defaultLayoutContainerProps;                                                         /* @stable [12.06.2020] */
   public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                     /* @stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                     /* @stable [19.05.2020] */
   public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                     /* @stable [10.05.2020] */

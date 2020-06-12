@@ -25,7 +25,7 @@ import {
   ISelectedWrapper,
   ISorterWrapper,
 } from '../definitions.interface';
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import {
   IPresetsIconEntity,
@@ -39,7 +39,6 @@ import {
   IReduxPaginatedEntity,
 } from './page-definition.interface';
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
-import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IPresetsRowEntity } from './row-definition.interface';
 import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsEntity } from './sort-definition.interface';
@@ -143,7 +142,7 @@ export interface IGenericListItemEntity<TEntity = IEntity>
  * @stable [01.06.2020]
  */
 export interface IListItemProps<TEntity = IEntity>
-  extends IGenericBaseComponentProps,
+  extends IGenericComponentProps,
     IGenericListItemEntity<TEntity> {
 }
 

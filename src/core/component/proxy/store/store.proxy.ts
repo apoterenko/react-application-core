@@ -9,12 +9,12 @@ import {
 import {
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
   IStoreProxy,
 } from '../../../definition';
 import { ISettingsEntity } from '../../../settings';
 
-export class StoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class StoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                         TProps extends IGenericContainerProps = IGenericContainerProps>
   implements IStoreProxy {
 

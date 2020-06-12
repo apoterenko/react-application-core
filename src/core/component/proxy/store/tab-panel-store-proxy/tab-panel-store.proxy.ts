@@ -2,12 +2,12 @@ import { TabPanelActionBuilder } from '../../../../action';
 import {
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
   ITabPanelStoreProxy,
 } from '../../../../definition';
 import { StoreProxy } from '../store.proxy';
 
-export class TabPanelStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class TabPanelStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                                 TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements ITabPanelStoreProxy {

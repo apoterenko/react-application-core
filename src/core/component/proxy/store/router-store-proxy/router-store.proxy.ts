@@ -6,7 +6,7 @@ import {
   DefaultEntities,
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
   IReduxStackItemEntity,
   IRouterStoreProxy,
   IRouterStoreProxyFactoryConfigEntity,
@@ -18,7 +18,7 @@ import {
   Selectors,
 } from '../../../../util';
 
-export class RouterStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class RouterStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                               TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements IRouterStoreProxy {

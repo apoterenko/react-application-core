@@ -48,7 +48,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [21.05.2020]
+   * @stable [12.06.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -58,6 +58,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
 
     return (
       <div
+        ref={this.actualRef}
         className={
           ClsUtils.joinClassName(
             DefaultLayoutClassesEnum.DEFAULT_LAYOUT,

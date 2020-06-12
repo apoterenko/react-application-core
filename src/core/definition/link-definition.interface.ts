@@ -1,4 +1,4 @@
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
   IOnClickWrapper,
   IToWrapper,
@@ -25,6 +25,6 @@ export interface IGenericLinkEntity
  * @stable [24.05.2020]
  */
 export interface ILinkProps
-  extends IGenericBaseComponentProps,
+  extends IGenericComponentProps,
     IGenericLinkEntity {
 }

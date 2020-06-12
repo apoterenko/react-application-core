@@ -2,7 +2,7 @@ import {
   IDisabledWrapper,
   IEntity,
 } from '../definitions.interface';
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IPresetsRowEntity } from './row-definition.interface';
 
 /**
@@ -27,7 +27,7 @@ export interface IGenericCardEntity<TRawData extends IEntity = IEntity>
  * @stable [04.05.2020]
  */
 export interface ICardProps<TRawData extends IEntity = IEntity>
-  extends IGenericBaseComponentProps,
+  extends IGenericComponentProps,
     IGenericCardEntity<TRawData> {
 }
 

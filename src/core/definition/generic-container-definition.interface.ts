@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { IGenericStoreEntity } from './redux-definition.interface';
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import { IReduxStoreEntity } from './redux-definition.interface';
 import {
   IDialogFormChangesConfirmStoreProxy,
   IDictionaryStoreProxy,
@@ -12,22 +11,36 @@ import {
   IStoreProxy,
   ITabPanelStoreProxy,
 } from './store-proxy-definition.interface';
-import { IPropsWrapper } from '../definitions.interface';
+import {
+  AnyT,
+  IPropsWrapper,
+  ISectionNameWrapper,
+} from '../definitions.interface';
+import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+
+/**
+ * @presets-entity
+ * @stable [12.06.2020]
+ */
+export interface IPresetsContainerEntity
+  extends ISectionNameWrapper {
+}
 
 /**
  * @generic-entity
  * @stable [30.03.2020]
  */
 export interface IGenericContainerEntity<TDictionaries = {}>
-  extends IGenericStoreEntity<TDictionaries> {
+  extends IReduxStoreEntity<TDictionaries>,
+    IPresetsContainerEntity {
 }
 
 /**
  * @props
  * @stable [30.03.2020]
  */
-export interface IGenericContainerProps<TDictionaries = {}>
-  extends IGenericBaseComponentProps,
+export interface IGenericContainerProps<TDictionaries = {}, TComponent = AnyT>
+  extends IGenericBaseComponentProps<TComponent>,
     IGenericContainerEntity<TDictionaries> {
 }
 

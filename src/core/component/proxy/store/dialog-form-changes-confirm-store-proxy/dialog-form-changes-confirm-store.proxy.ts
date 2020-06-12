@@ -6,7 +6,7 @@ import {
   IDialogFormChangesConfirmStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
   IRouterStoreProxy,
   IRouterStoreProxyFactoryConfigEntity,
   RouterStoreProxyFactoryT,
@@ -17,7 +17,7 @@ import {
 } from '../../../../di';
 import { UNDEF } from '../../../../definitions.interface';
 
-export class DialogFormChangesConfirmStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class DialogFormChangesConfirmStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                                                 TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements IDialogFormChangesConfirmStoreProxy {

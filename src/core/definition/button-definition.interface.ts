@@ -20,13 +20,13 @@ import {
   ITypeWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
-import { IComponentProps } from './props-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**
  * @generic-entity
  * @stable [02.02.2020]
  */
-export interface IGenericBaseButtonEntity
+export interface IGenericBaseButtonEntity // TODO ?
   extends IDisabledWrapper {
 }
 
@@ -43,6 +43,9 @@ export interface IGenericButtonEntity
     IIconLeftAlignedWrapper,
     IIconWrapper<string | boolean>,
     IMiniWrapper,
+    IOnClickWrapper,
+    IOnMouseEnterWrapper,
+    IOnMouseLeaveWrapper,
     IOutlinedWrapper,
     IProgressMessageWrapper,
     IProgressWrapper,
@@ -54,23 +57,12 @@ export interface IGenericButtonEntity
 }
 
 /**
- * @behavioral-entity
- * @stable [24.01.2020]
- */
-export interface IBehavioralButtonEntity
-  extends IOnClickWrapper,
-    IOnMouseEnterWrapper,
-    IOnMouseLeaveWrapper {
-}
-
-/**
  * @props
  * @stable [27.09.2019]
  */
 export interface IButtonProps
-  extends IComponentProps,
-    IGenericButtonEntity,
-    IBehavioralButtonEntity {
+  extends IGenericComponentProps,
+    IGenericButtonEntity {
 }
 
 /**

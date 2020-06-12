@@ -3,13 +3,11 @@ import { IBaseSelectProps } from '../component/field/select/base-select.interfac
 import { IButtonProps } from './button-definition.interface';
 import { IChartProps } from './chart-definition.interface';
 import { IChipProps } from './chip-definition.interface';
-import {
-  IDefaultLayoutProps,
-  IFormLayoutProps,
-} from './layout-definition.interface';
+import { IDefaultLayoutProps } from './default-layout-definition.interface';
 import { IDialogProps } from './dialog-definition.interface';
 import { IDrawerProps } from './drawer-definition.interface';
 import { IFieldProps } from './field-definition.interface';
+import { IFormLayoutProps } from './layout-definition.interface';
 import { IGridHeadProps } from './grid-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import {

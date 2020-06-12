@@ -5,10 +5,10 @@ import {
   IDictionaryStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
 } from '../../../../definition';
 
-export class DictionaryStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class DictionaryStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                                   TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements IDictionaryStoreProxy {

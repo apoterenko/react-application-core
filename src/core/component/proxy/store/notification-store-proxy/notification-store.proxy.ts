@@ -1,13 +1,13 @@
 import {
   IGenericContainer,
   IGenericContainerProps,
-  IGenericStoreEntity,
+  IReduxStoreEntity,
   INotificationStoreProxy,
 } from '../../../../definition';
 import { StoreProxy } from '../store.proxy';
 import { NotificationActionBuilder } from '../../../../action';
 
-export class NotificationStoreProxy<TStore extends IGenericStoreEntity = IGenericStoreEntity,
+export class NotificationStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
                                     TProps extends IGenericContainerProps = IGenericContainerProps>
   extends StoreProxy<TStore, TProps>
   implements INotificationStoreProxy {

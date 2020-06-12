@@ -97,7 +97,7 @@ export interface IBehavioralSearchToolbarEntity
  * @stable [06.05.2020]
  */
 export interface ISearchToolbarProps
-  extends IGenericContainerProps,
+  extends IGenericComponentProps,
     IGenericSearchToolbarEntity,
     IBehavioralSearchToolbarEntity {
 }

@@ -1,6 +1,7 @@
 import { GenericMappers } from './mapper-generic';
 import {
   DictionariesEnum,
+  IDefaultLayoutContainerProps,
   IFieldsContainer,
   IFilterFormDialogContainerProps,
   IFormContainerProps,
@@ -222,6 +223,20 @@ const mapToolbarToolsContainerPropsAsToolbarToolsProps = (props: IToolbarToolsCo
   });
 
 /**
+ * @map-container-as-original
+ * @stable [12.06.2020]
+ *
+ * @param {IDefaultLayoutContainerProps} entity
+ * @returns {IDefaultLayoutContainerProps}
+ */
+const mapDefaultLayoutContainerProps =
+  <TDictionaries = {}>(entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
+    ({
+      ...GenericMappers.sectionNameWrapper(entity),
+      ...GenericMappers.storeEntity(entity),
+    });
+
+/**
  * @stable [06.05.2020]
  */
 export class ComponentMappers {
@@ -234,10 +249,10 @@ export class ComponentMappers {
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static placeFieldProps = mapPlaceFieldProps;                                                                     /* @stable [19.05.2020] */
+  public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;                                            /* @stable [12.06.2020] */
+  public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;        /* @stable [12.06.2020] */
   public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
-  public static searchToolbarProps = mapSearchToolbarProps;
   public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                               /* @stable [09.05.2020] */
-  public static toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;         /* @stable [10.06.2020] */
   public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                 /* @stable [10.05.2020] */
 }

@@ -9,13 +9,21 @@ import {
 } from '../definitions.interface';
 
 /**
- * @generic-entity
- * @stable [27.02.2020]
+ * @presets-entity
+ * @stable [12.06.2020]
  */
-export interface IGenericBaseComponentEntity<TComponent = AnyT>
+export interface IPresetsBaseComponentEntity<TComponent = AnyT>
   extends React.RefAttributes<TComponent>,
+    IForwardedRefWrapper<React.RefObject<AnyT>> {
+}
+
+/**
+ * @presets-entity
+ * @stable [12.06.2020]
+ */
+export interface IPresetsComponentEntity<TComponent = AnyT>
+  extends IPresetsBaseComponentEntity<TComponent>,
     IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
-    IForwardedRefWrapper<React.RefObject<AnyT>>,
     IStyleWrapper<React.CSSProperties>,
     ITitleWrapper<string | boolean> {
 }
@@ -24,16 +32,24 @@ export interface IGenericBaseComponentEntity<TComponent = AnyT>
  * @generic-entity
  * @stable [27.02.2020]
  */
+export interface IGenericBaseComponentEntity<TComponent = AnyT>
+  extends IPresetsBaseComponentEntity<TComponent> {
+}
+
+/**
+ * @generic-entity
+ * @stable [27.02.2020]
+ */
 export interface IGenericComponentEntity<TComponent = AnyT>
-  extends IGenericBaseComponentEntity<TComponent> {
+  extends IPresetsComponentEntity<TComponent> {
 }
 
 /**
  * @props
  * @stable [30.03.2020]
  */
-export interface IGenericBaseComponentProps
-  extends IGenericBaseComponentEntity {
+export interface IGenericBaseComponentProps<TComponent = AnyT>
+  extends IGenericBaseComponentEntity<TComponent> {
 }
 
 /**
