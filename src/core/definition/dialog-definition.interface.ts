@@ -33,9 +33,6 @@ import {
   IGenericComponentProps,
 } from './generic-component-definition.interface';
 import { IDomPositionConfigurationEntity } from './dom-definition.interface';
-import { IExtendedFormEntity } from './form-definition.interface';
-import { IProxyContainerEntity } from './container-definition.interface';
-import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
  * @presets-entity
@@ -122,30 +119,11 @@ export interface IDialogState
 }
 
 /**
- * @configuration-entity
- * @stable [15.01.2020]
+ * @configuration-holder-entity
+ * @stable [15.06.2020]
  */
-export interface IDialogConfigurationEntity<TProps extends IDialogProps = IDialogProps>
+export interface IConfigurationHolderDialogEntity<TProps extends IDialogProps = IDialogProps>
   extends IDialogConfigurationWrapper<TProps> {
-}
-
-/**
- * @props
- * @stable [30.01.2020]
- */
-export interface IUnsavedFormChangesDialogProps
-  extends IDialogProps,
-    IExtendedFormEntity {
-}
-
-/**
- * @props
- * @stable [05.04.2020]
- */
-export interface IUnsavedFormChangesDialogContainerProps
-  extends IGenericContainerProps,
-    IProxyContainerEntity,
-    IDialogConfigurationEntity<IUnsavedFormChangesDialogProps> {
 }
 
 /**

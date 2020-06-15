@@ -27,7 +27,7 @@
 ) {
   #{rac-cls(rac-form, $rac-form-custom)} {
     @include rac-styles (
-      $rac-styles-bottom: $rac-form-border-bottom,
+      $rac-styles-border-bottom: $rac-form-border-bottom,
       $rac-styles-display: $rac-form-display,
       $rac-styles-flex-direction: $rac-form-flex-direction,
       $rac-styles-flex-grow: $rac-form-flex-grow,

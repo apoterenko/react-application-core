@@ -170,9 +170,9 @@ export interface IFluxActiveValueEntity
 }
 
 /**
- * @redux-entity
- * @stable [08.05.2020]
+ * @redux-holder-entity
+ * @stable [15.06.2020]
  */
-export interface IReduxActiveValueEntity
+export interface IReduxHolderActiveValueEntity
   extends IActiveValueWrapper<number> {
 }

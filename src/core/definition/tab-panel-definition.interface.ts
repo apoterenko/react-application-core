@@ -17,7 +17,7 @@ import {
 } from '../definitions.interface';
 import { IBaseEvent } from './event-definition.interface';
 import { IReduxHolderFormEntity } from './form-definition.interface';
-import { IReduxActiveValueEntity } from './entity-definition.interface';
+import { IReduxHolderActiveValueEntity } from './entity-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
@@ -54,7 +54,7 @@ export interface ITabProps
  * @stable [17.05.2020]
  */
 export interface IReduxTabPanelEntity
-  extends IReduxActiveValueEntity {
+  extends IReduxHolderActiveValueEntity {
 }
 
 /**

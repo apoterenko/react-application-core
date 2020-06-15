@@ -71,24 +71,6 @@ export interface IWebContainerEntity
 }
 
 /**
- * @react-native-compatible
- * @stable [27.09.2019]
- */
-export interface IUniversalContainer<TProps extends IUniversalContainerProps = IUniversalContainerProps, TState = {}>
-  extends React.Component<TProps, TState> {
-}
-
-/**
- * @deprecated
- */
-export interface IContainer<TProps extends IContainerProps<TDictionaries, TPermissions> = IContainerProps<TDictionaries, TPermissions>,
-  TState = {},
-  TDictionaries = {},
-  TPermissions = {}>
-  extends IUniversalContainer<TProps, TState> {
-}
-
-/**
  * @deprecated
  */
 export interface IUniversalContainerCtor<
@@ -115,9 +97,9 @@ export interface IFieldsContainer
 }
 
 /**
- * @entity
- * @stable [05.04.2020]
+ * @holder-entity
+ * @stable [15.06.2020]
  */
-export interface IProxyContainerEntity<TProxyContainer extends IGenericContainer = IGenericContainer>
-  extends IProxyContainerWrapper<TProxyContainer> {
+export interface IHolderProxyContainerEntity<TContainer extends IGenericContainer = IGenericContainer>
+  extends IProxyContainerWrapper<TContainer> {
 }

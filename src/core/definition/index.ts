@@ -92,6 +92,7 @@ export * from './translation-definition.interface';
 export * from './transport-definition.interface';
 export * from './ui-factory-definition.interface';
 export * from './unique-id-definition.interface';
+export * from './unsaved-form-changes-dialog-definition.interface';
 export * from './user-activity-defenition.interface';
 export * from './user-definition.interface';
 export * from './validation-definition.interface';

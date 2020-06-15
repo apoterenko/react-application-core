@@ -5,9 +5,7 @@ import {
   IApiEntity,
   IExtendedEntity,
   IExtendedFormEntity,
-  IReduxHolderFormEntity,
   IFormTabPanelContainerProps,
-  IGenericContainer,
   IGenericTabPanelEntity,
   IHeaderProps,
   INamedEntity,
@@ -21,7 +19,6 @@ import {
   ITabPanelEntity,
   IReduxHolderTransportEntity,
   IUniversalApplicationEntity,
-  IUnsavedFormChangesDialogContainerProps,
 } from '../definition';
 import {
   AnyT,
@@ -267,63 +264,52 @@ export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps
     ...GenericMappers.holderFormEntity(props),
   });
 
-/**
- * @container-props-mapper
- * @stable [23.04.2020]
- *
- * @param {IReduxHolderFormEntity<TEntity>} props
- * @param {IGenericContainer} proxyContainer
- * @returns {IUnsavedFormChangesDialogContainerProps}
- */
-export const mapUnsavedFormChangesDialogContainerProps =
-  <TEntity = IEntity>(props: IReduxHolderFormEntity<TEntity>,
-                      proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps =>
-    ({
-      dialogConfiguration: GenericMappers.holderFormEntity(props),
-      proxyContainer,
-    });
-
 const mapHeaderProps = (props: IHeaderProps): IHeaderProps => GenericMappers.storeEntity(props);
 
 /**
  * @stable [05.05.2020]
  */
+// tslint:disable:max-line-length
 export class Mappers {
-  public static readonly defaultLayoutContainerProps = ComponentMappers.defaultLayoutContainerProps;                                                         /* @stable [12.06.2020] */
-  public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                     /* @stable [19.05.2020] */
-  public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                     /* @stable [19.05.2020] */
-  public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                     /* @stable [10.05.2020] */
-  public static readonly entityAsExtendedFormEntity = GenericMappers.entityAsExtendedFormEntity;                                                             /* @stable [10.05.2020] */
-  public static readonly filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;                                                   /* @stable [10.05.2020] */
-  public static readonly filterFormDialogSecondaryFilterContainerProps = ComponentMappers.filterFormDialogSecondaryFilterContainerProps;                     /* @stable [10.05.2020] */
-  public static readonly form = GenericMappers.form;                                                                                                         /* @stable [08.05.2020] */
-  public static readonly formContainerProps = ComponentMappers.formContainerProps;                                                                           /* @stable [08.05.2020] */
-  public static readonly formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                                                     /* @stable [09.05.2020] */
-  public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                 /* @stable [10.05.2020] */
-  public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                 /* @stable [10.05.2020] */
+  public static readonly defaultLayoutContainerProps = ComponentMappers.defaultLayoutContainerProps;                                                                                        /* @stable [12.06.2020] */
+  public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                                                    /* @stable [19.05.2020] */
+  public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                                                    /* @stable [19.05.2020] */
+  public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                                                    /* @stable [10.05.2020] */
+  public static readonly entityAsExtendedFormEntity = GenericMappers.entityAsExtendedFormEntity;                                                                                            /* @stable [10.05.2020] */
+  public static readonly filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;                                                                                  /* @stable [10.05.2020] */
+  public static readonly filterFormDialogSecondaryFilterContainerProps = ComponentMappers.filterFormDialogSecondaryFilterContainerProps;                                                    /* @stable [10.05.2020] */
+  public static readonly form = GenericMappers.form;                                                                                                                                        /* @stable [08.05.2020] */
+  public static readonly formContainerProps = ComponentMappers.formContainerProps;                                                                                                          /* @stable [08.05.2020] */
+  public static readonly formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                                                                                    /* @stable [09.05.2020] */
+  public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                                                /* @stable [10.05.2020] */
+  public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                                                /* @stable [10.05.2020] */
   public static readonly headerProps = mapHeaderProps;
-  public static readonly holderFormEntity = GenericMappers.holderFormEntity;                                                                                 /* @stable [12.06.2020] */
-  public static readonly holderListEntity = GenericMappers.holderListEntity;                                                                                 /* @stable [12.06.2020] */
-  public static readonly holderTransportEntity = GenericMappers.holderTransportEntity;                                                                       /* @stable [12.06.2020] */
-  public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                           /* @stable [10.05.2020] */
-  public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                         /* @stable [08.05.2020] */
-  public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                   /* @stable [08.05.2020] */
-  public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                     /* @stable [08.05.2020] */
-  public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                         /* @stable [19.05.2020] */
+  public static readonly holderFormEntity = GenericMappers.holderFormEntity;                                                                                                                /* @stable [12.06.2020] */
+  public static readonly holderListEntity = GenericMappers.holderListEntity;                                                                                                                /* @stable [12.06.2020] */
+  public static readonly holderTransportEntity = GenericMappers.holderTransportEntity;                                                                                                      /* @stable [12.06.2020] */
+  public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                                                          /* @stable [10.05.2020] */
+  public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                                                        /* @stable [08.05.2020] */
+  public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                                                  /* @stable [08.05.2020] */
+  public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                                                    /* @stable [08.05.2020] */
+  public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                                                        /* @stable [19.05.2020] */
   public static readonly pagedEntity = GenericMappers.pagedEntity;
   public static readonly pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
+  public static readonly pageToolbarContainerPropsAsPageToolbarProps = ComponentMappers.pageToolbarContainerPropsAsPageToolbarProps;                                                        /* @stable [15.06.2020] */
   public static readonly paginatedEntity = GenericMappers.paginatedEntity;
-  public static readonly placeFieldProps = ComponentMappers.placeFieldProps;                                                                                 /* @stable [19.05.2020] */
-  public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;         /* @stable [10.05.2020] */
+  public static readonly placeFieldProps = ComponentMappers.placeFieldProps;                                                                                                                /* @stable [19.05.2020] */
+  public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;                                        /* @stable [10.05.2020] */
   public static readonly queryFilterEntity = GenericMappers.queryFilterEntity;
   public static readonly queryFilterEntityAsQuery = GenericMappers.queryFilterEntityAsQuery;
   public static readonly searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
-  public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = GenericMappers.secondaryFilterEntityAsSecondaryFilterExtendedFormEntity; /* @stable [10.05.2020] */
+  public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = GenericMappers.secondaryFilterEntityAsSecondaryFilterExtendedFormEntity;                                /* @stable [10.05.2020] */
   public static readonly sectionNameWrapper = GenericMappers.sectionNameWrapper;
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
-  public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                               /* @stable [10.05.2020] */
-  public static readonly storeEntity = GenericMappers.storeEntity;                                                                                           /* @stable [09.06.2020] */
-  public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                           /* @stable [09.05.2020] */
-  public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = ComponentMappers.toolbarToolsContainerPropsAsToolbarToolsProps;                     /* @stable [10.06.2020] */
-  public static readonly toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps;                             /* @stable [10.05.2020] */
+  public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                                                              /* @stable [10.05.2020] */
+  public static readonly storeEntity = GenericMappers.storeEntity;                                                                                                                          /* @stable [09.06.2020] */
+  public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                                                          /* @stable [09.05.2020] */
+  public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = ComponentMappers.toolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [10.06.2020] */
+  public static readonly toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps;                                                            /* @stable [10.05.2020] */
+  public static readonly unsavedFormChangesDialogContainerProps = ComponentMappers.unsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
+  public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = ComponentMappers.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.06.2020] */
 }
+// tslint:enable:max-line-length

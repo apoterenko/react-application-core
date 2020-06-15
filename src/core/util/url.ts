@@ -123,3 +123,10 @@ export const appendUrlArgs = (initialUrl: string, args: IKeyValue) => {
   }
   return url.valueOf();
 };
+
+/**
+ * @stable [14.06.2020]
+ */
+export class UrlUtils {
+  public static readonly buildEncodedURI = buildEncodedURI;
+}

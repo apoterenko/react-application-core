@@ -2,25 +2,25 @@ import * as R from 'ramda';
 
 import {
   IPresetsTabEntity,
-  IReduxActiveValueEntity,
+  IReduxHolderActiveValueEntity,
   ITabPanelEntity,
 } from '../definition';
 import { Selectors } from './select';
 
 /**
  * @stable [17.05.2020]
- * @param {IReduxActiveValueEntity} entity
- * @param {IPresetsTabEntity} tab
+ * @param {IReduxHolderActiveValueEntity} holderActiveValueEntity
+ * @param {IPresetsTabEntity} tabEntity
  * @returns {boolean}
  */
-const isTabActive = (entity: IReduxActiveValueEntity,
-                     tab: IPresetsTabEntity): boolean =>
-  R.isNil(entity)
+const isTabActive = (holderActiveValueEntity: IReduxHolderActiveValueEntity,
+                     tabEntity: IPresetsTabEntity): boolean =>
+  R.isNil(holderActiveValueEntity)
     ? false
     : (
-      R.isNil(entity.activeValue)
-        ? !!tab.active
-        : entity.activeValue === tab.value
+      R.isNil(holderActiveValueEntity.activeValue)
+        ? !!tabEntity.active
+        : holderActiveValueEntity.activeValue === tabEntity.value
     );
 
 /**

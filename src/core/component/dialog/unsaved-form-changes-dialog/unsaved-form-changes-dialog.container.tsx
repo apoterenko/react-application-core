@@ -1,29 +1,34 @@
 import * as React from 'react';
 
-import { IUnsavedFormChangesDialogContainerProps } from '../../../definition';
 import { GenericContainer } from '../../base/generic.container';
+import { IUnsavedFormChangesDialogContainerProps } from '../../../definition';
+import { Mappers } from '../../../util';
 import { UnsavedFormChangesDialog } from './unsaved-form-changes-dialog.component';
 
+/**
+ * @component-container-impl
+ * @stable [15.06.2020]
+ *
+ * Please use the "Mappers.unsavedFormChangesDialogContainerProps"
+ */
 export class UnsavedFormChangesDialogContainer
   extends GenericContainer<IUnsavedFormChangesDialogContainerProps> {
 
   /**
-   * @stable [05.04.2020]
+   * @stable [15.06.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
+    const originalProps = this.originalProps;
     const {
-      dialogConfiguration,
-      proxyContainer,
-    } = this.props;
-
-    const proxy = proxyContainer.dfccStoreProxy;
+      dfccStoreProxy,
+    } = originalProps.proxyContainer;
 
     return (
       <UnsavedFormChangesDialog
-        {...dialogConfiguration}
-        ref={proxy.getDialogRef()}
-        onAccept={proxy.goBack}/>
+        {...Mappers.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps(originalProps)}
+        ref={dfccStoreProxy.getDialogRef()}
+        onAccept={dfccStoreProxy.goBack}/>
     );
   }
 }

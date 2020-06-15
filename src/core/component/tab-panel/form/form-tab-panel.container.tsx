@@ -3,7 +3,7 @@ import * as React from 'react';
 import { TabPanelContainer } from '../tab-panel.container';
 import {
   IFormTabPanelContainerProps,
-  IReduxActiveValueEntity,
+  IReduxHolderActiveValueEntity,
 } from '../../../definition';
 
 /**
@@ -32,9 +32,9 @@ export class FormTabPanelContainer extends TabPanelContainer<IFormTabPanelContai
 
   /**
    * @stable [12.04.2020]
-   * @returns {IReduxActiveValueEntity}
+   * @returns {IReduxHolderActiveValueEntity}
    */
-  protected get activeValueEntity(): IReduxActiveValueEntity {
+  protected get activeValueEntity(): IReduxHolderActiveValueEntity {
     return this.props.form;
   }
 }

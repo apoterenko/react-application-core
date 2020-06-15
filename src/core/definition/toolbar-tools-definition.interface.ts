@@ -47,6 +47,9 @@ export interface IPresetsToolbarToolsEntity
     IDisabledWrapper,
     IFullWrapper,
     ILeftContentWrapper<JSX.Element>,
+    IOnDownloadFileClickWrapper,
+    IOnFilterClickWrapper,
+    IOnRefreshClickWrapper,
     IRightContentWrapper<JSX.Element> {
 }
 
@@ -59,21 +62,11 @@ export interface IGenericToolbarToolsEntity
 }
 
 /**
- * @entity
- * @stable [10.05.2020]
+ * @presets-holder-entity
+ * @stable [15.05.2020]
  */
-export interface IToolbarToolsEntity
-  extends IToolbarToolsWrapper<IGenericToolbarToolsEntity> {
-}
-
-/**
- * @behavioral-entity
- * @stable [22.04.2020]
- */
-export interface IBehavioralToolbarToolsEntity
-  extends IOnDownloadFileClickWrapper,
-    IOnFilterClickWrapper,
-    IOnRefreshClickWrapper {
+export interface IPresetsHolderToolbarToolsEntity
+  extends IToolbarToolsWrapper<IPresetsToolbarToolsEntity> {
 }
 
 /**
@@ -82,27 +75,26 @@ export interface IBehavioralToolbarToolsEntity
  */
 export interface IToolbarToolsProps
   extends IGenericComponentProps,
-    IGenericToolbarToolsEntity,
-    IBehavioralToolbarToolsEntity {
+    IGenericToolbarToolsEntity {
 }
 
 /**
- * @configuration-entity
- * @stable [22.04.2020]
+ * @configuration-holder-entity
+ * @stable [15.06.2020]
  */
-export interface IToolbarToolsConfigurationEntity<TProps = IToolbarToolsProps>
+export interface IConfigurationHolderToolbarToolsEntity<TProps = IToolbarToolsProps>
   extends IToolbarToolsConfigurationWrapper<TProps> {
 }
 
 /**
  * @generic-container-entity
- * @stable [22.04.2020]
+ * @stable [15.06.2020]
  */
 export interface IGenericToolbarToolsContainerEntity<TProps = IToolbarToolsProps>
-  extends IReduxHolderFormEntity,
-    IReduxHolderListEntity,
-    IToolbarToolsConfigurationEntity<TProps>,
-    IToolbarToolsEntity {
+  extends IConfigurationHolderToolbarToolsEntity<TProps>,
+    IPresetsHolderToolbarToolsEntity,
+    IReduxHolderFormEntity,
+    IReduxHolderListEntity {
 }
 
 /**

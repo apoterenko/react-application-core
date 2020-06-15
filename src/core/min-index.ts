@@ -17,6 +17,8 @@ export * from './component/layout/flex/flex-layout.component';                  
 export * from './component/list/list-action.builder';
 export * from './component/list/list.interface';
 export * from './component/list/list.reducer';
+export * from './component/plugin/perfect-scroll.plugin';                                /* @stable [14.06.2020] */
+export * from './component/plugin/selected-element-scroll.plugin';                       /* @stable [14.06.2020] */
 export * from './component/toolbar/page/page-toolbar.container';                         /* @stable [10.06.2020] */
 export * from './component/ui/factory/icon/ui-icon-factory.service';                     /* @stable [09.06.2020] */
 export * from './configurations-definitions.interface';

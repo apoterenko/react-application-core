@@ -7,6 +7,7 @@ import {
   IFormContainerProps,
   IFormProps,
   IGenericBaseSelectEntity,
+  IGenericContainer,
   IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
@@ -17,6 +18,8 @@ import {
   ISecondaryFilterFormEntity,
   IToolbarToolsContainerProps,
   IToolbarToolsProps,
+  IUnsavedFormChangesDialogContainerProps,
+  IUnsavedFormChangesDialogProps,
 } from '../definition';
 import { Selectors } from './select';
 import { IEntity } from '../definitions.interface';
@@ -198,6 +201,20 @@ const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarConta
   });
 
 /**
+ * @map-container-as-component
+ * @stable [15.06.2020]
+ *
+ * @param {IUnsavedFormChangesDialogContainerProps} props
+ * @returns {IUnsavedFormChangesDialogProps}
+ */
+const mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps =
+  (props: IUnsavedFormChangesDialogContainerProps): IUnsavedFormChangesDialogProps =>
+    ({
+      ...GenericMappers.holderFormEntity(props),
+      ...props.dialogConfiguration,
+    });
+
+/**
  * @container-component-props-mapper
  * @stable [09.05.2020]
  * @param {IFormContainerProps} props
@@ -229,30 +246,47 @@ const mapToolbarToolsContainerPropsAsToolbarToolsProps = (props: IToolbarToolsCo
  * @param {IDefaultLayoutContainerProps} entity
  * @returns {IDefaultLayoutContainerProps}
  */
-const mapDefaultLayoutContainerProps =
-  <TDictionaries = {}>(entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
+const mapDefaultLayoutContainerProps = (entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
+  ({
+    ...GenericMappers.sectionNameWrapper(entity),
+    ...GenericMappers.storeEntity(entity),
+  });
+
+/**
+ * @map-container-as-original
+ * @stable [15.06.2020]
+ *
+ * @param {IUnsavedFormChangesDialogContainerProps} props
+ * @param {IGenericContainer} proxyContainer
+ * @returns {IUnsavedFormChangesDialogContainerProps}
+ */
+const mapUnsavedFormChangesDialogContainerProps =
+  (props: IUnsavedFormChangesDialogContainerProps,
+   proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps =>
     ({
-      ...GenericMappers.sectionNameWrapper(entity),
-      ...GenericMappers.storeEntity(entity),
+      ...GenericMappers.holderFormEntity(props),
+      proxyContainer,
     });
 
 /**
  * @stable [06.05.2020]
  */
 export class ComponentMappers {
-  public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                       /* @stable [10.05.2020] */
-  public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;         /* @stable [10.05.2020] */
-  public static formContainerProps = mapFormContainerProps;                                                               /* @stable [10.05.2020] */
-  public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;                                         /* @stable [10.05.2020] */
-  public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                     /* @stable [10.05.2020] */
-  public static listContainerProps = mapListContainerProps;                                                               /* @stable [10.05.2020] */
+  public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                                                                           /* @stable [10.05.2020] */
+  public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;                                                             /* @stable [10.05.2020] */
+  public static formContainerProps = mapFormContainerProps;                                                                                                                   /* @stable [10.05.2020] */
+  public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;                                                                                             /* @stable [10.05.2020] */
+  public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                                                                         /* @stable [10.05.2020] */
+  public static listContainerProps = mapListContainerProps;                                                                                                                   /* @stable [10.05.2020] */
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
-  public static placeFieldProps = mapPlaceFieldProps;                                                                     /* @stable [19.05.2020] */
-  public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;                                            /* @stable [12.06.2020] */
-  public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;        /* @stable [12.06.2020] */
+  public static placeFieldProps = mapPlaceFieldProps;                                                                                                                         /* @stable [19.05.2020] */
+  public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;                                                                                        /* @stable [12.06.2020] */
+  public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [12.06.2020] */
+  public static readonly unsavedFormChangesDialogContainerProps = mapUnsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
+  public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.05.2020] */
   public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
-  public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                               /* @stable [09.05.2020] */
-  public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                 /* @stable [10.05.2020] */
+  public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                                                                                   /* @stable [09.05.2020] */
+  public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                                                                     /* @stable [10.05.2020] */
 }

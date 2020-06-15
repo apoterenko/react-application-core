@@ -6,7 +6,8 @@ import {
   IFormProps,
   IGenericFieldEntity2,
   IPresetsFieldEntity,
-  ITabProps,
+  IPresetsTabEntity,
+  IReduxHolderFormEntity,
 } from '../definition';
 import {
   AnyT,
@@ -195,14 +196,14 @@ export const isFormResettable = <TEntity extends IEntity = IEntity>(formProps: I
   );
 
 /**
- * @stable [23.03.2020]
- * @param {IFormProps<TEntity extends IEntity>} formProps
- * @param {ITabProps} tab
+ * @stable [15.06.2020]
+ * @param {IReduxHolderFormEntity<TEntity extends IEntity>} holderFormEntity
+ * @param {IPresetsTabEntity} tabEntity
  * @returns {boolean}
  */
-export const isFormTabActive = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>,
-                                                                   tab: ITabProps): boolean =>
-  TabUtils.isActive(selectForm(formProps), tab);
+const isFormTabActive = <TEntity extends IEntity = IEntity>(holderFormEntity: IReduxHolderFormEntity<TEntity>,
+                                                            tabEntity: IPresetsTabEntity): boolean =>
+  TabUtils.isActive(Selectors.form(holderFormEntity), tabEntity);
 
 /**
  * @stable [11.05.2020]
@@ -213,6 +214,7 @@ export class FormUtils {
   public static readonly inProgress = FormEntityUtils.inProgress;                                   /* @stable [11.05.2020] */
   public static readonly isChanged = FormEntityUtils.isChanged;                                     /* @stable [11.05.2020] */
   public static readonly isFieldChangeable = isFormFieldChangeable;                                 /* @stable [05.06.2020] */
+  public static readonly isTabActive = isFormTabActive;                                             /* @stable [15.06.2020] */
   public static readonly isTouched = FormEntityUtils.isTouched;                                     /* @stable [11.05.2020] */
   public static readonly isValid = isFormValid;                                                     /* @stable [11.05.2020] */
 }
