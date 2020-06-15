@@ -180,13 +180,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'plus': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='16' height='16' viewBox='0 0 16 16'>
-        <path fill='currentColor' d='M7 9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 2 0v6h6a1 1 0 0 1 0 2H9v6a1 1 0 0 1-2 0V9z'
-        />
-      </svg>
-    ),
     'user': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -199,12 +192,6 @@ export class UiIconFactory implements IUiIconFactory {
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M13.5 21h1.505c.824 0 1.495.666 1.495 1.5 0 .828-.68 1.5-1.495 1.5h-6.01A1.495 1.495 0 0 1 7.5 22.5c0-.828.68-1.5 1.495-1.5H10.5V9H9.015a1.5 1.5 0 1 1 0-3h2.97c.84 0 1.515.666 1.515 1.5V21zM11.25 4.5a2.25 2.25 0 1 0-.002-4.502A2.25 2.25 0 0 0 11.25 4.5z'
         />
-      </svg>
-    ),
-    'minus': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M1.5 13.5a1.5 1.5 0 0 1 0-3h21a1.5 1.5 0 0 1 0 3h-21z'/>
       </svg>
     ),
     [IconsEnum.SEARCH_MAGNIFIER]: (
@@ -363,6 +350,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.LIST_UL]: faListUl,
     [IconsEnum.LONG_ARROW_ALT_LEFT]: faLongArrowAltLeft,
     [IconsEnum.LONG_ARROW_ALT_RIGHT]: faLongArrowAltRight,
+    [IconsEnum.MINUS]: faMinus,
     [IconsEnum.MINUS_CIRCLE]: faMinusCircle,
     [IconsEnum.PAPERCLIP]: faPaperclip,
     [IconsEnum.PEOPLE_CARRY]: faPeopleCarry,
@@ -409,7 +397,6 @@ export class UiIconFactory implements IUiIconFactory {
     loyalty: faGratipay,
     map_marked_alt: faMapMarkedAlt,
     map_marker_alt: faMapMarkerAlt,
-    minus: faMinus,
     payment: faCreditCard,
     percent: faPercent,
     plus: faPlus,

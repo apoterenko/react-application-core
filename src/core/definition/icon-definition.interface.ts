@@ -31,11 +31,12 @@ export enum IconsEnum {
   LIST_UL = 'list-ul',                                                    /* https://fontawesome.com/ */
   LONG_ARROW_ALT_LEFT = 'long-arrow-alt-left',                            /* https://fontawesome.com/ */
   LONG_ARROW_ALT_RIGHT = 'long-arrow-alt-right',                          /* https://fontawesome.com/ */
+  MINUS = 'minus',                                                        /* https://fontawesome.com/ */
   MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
   PAPERCLIP = 'paperclip',                                                /* https://fontawesome.com/ */
   PEOPLE_CARRY = 'people-carry',                                          /* https://fontawesome.com/ */
   PHONE = 'phone',
-  PLUS = 'plus',
+  PLUS = 'plus',                                                          /* https://fontawesome.com/ */
   PRINT = 'print',
   RECEIPT = 'receipt',                                                    /* https://fontawesome.com/ */
   SEARCH = 'search',                                                      /* https://fontawesome.com/ */

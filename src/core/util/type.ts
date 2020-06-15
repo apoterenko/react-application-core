@@ -110,4 +110,5 @@ export class TypeUtils {
   public static readonly isObject = isObject;                                     /* @stable [16.05.2020] */
   public static readonly isPrimitive = isPrimitive;                               /* @stable [16.05.2020] */
   public static readonly isString = isString;                                     /* @stable [16.05.2020] */
+  public static readonly isUndef = isUndef;                                       /* @stable [16.05.2020] */
 }
