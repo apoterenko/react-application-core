@@ -1,6 +1,9 @@
 import { injectable } from 'inversify';
 
-import { lazyInject, DI_TYPES } from '../../di';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 import {
   IOperationEntity,
   ITransport,

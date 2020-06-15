@@ -87,6 +87,7 @@ export enum ComponentClassesEnum {
   FLEX_X3 = 'rac-flex-x3',
   FLEX_X4 = 'rac-flex-x4',
   FULL_SIZE = 'rac-full-size',
+  INVISIBLE = 'rac-invisible',
   IOS = 'rac-ios',
   MAC = 'rac-mac',
   MARGIN_LEFT_AUTO = 'rac-margin-left-auto',
@@ -99,4 +100,5 @@ export enum ComponentClassesEnum {
   RELATIVE = 'rac-relative',
   SAFARI = 'rac-safari',
   STRONG = 'rac-strong',
+  VISIBILITY_HIDDEN = 'rac-visibility-hidden',
 }

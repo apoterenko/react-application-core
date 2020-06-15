@@ -4,6 +4,7 @@ import { ListActionBuilder } from '../../component/action.builder';
 import {
   ILoadedListMiddlewareConfigEntity,
   ILoadedListOnFormValidMiddlewareConfigEntity,
+  ILoadedListOnNavigateToPageMiddlewareConfigEntity,
   ILoadedListOnTabActivateMiddlewareConfigEntity,
   ILoadedListOnToolbarToolsRefreshConfigEntity,
   IUntouchedListMiddlewareConfigEntity,
@@ -73,3 +74,51 @@ export const makeUntouchedListMiddleware =
       ),
       (actions) => actions
     );
+
+/**
+ * @stable [15.06.2020]
+ * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
+ * @returns {IEffectsAction[]}
+ */
+export const makeLoadedListOnNavigateToPreviousPageMiddleware =
+  <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
+    [
+      ListActionBuilder.buildPreviousPageAction(toListSection(cfg)),
+      makeLoadedListMiddleware(cfg)
+    ];
+
+/**
+ * @stable [15.06.2020]
+ * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
+ * @returns {IEffectsAction[]}
+ */
+export const makeLoadedListOnNavigateToNextPageMiddleware =
+  <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
+    [
+      ListActionBuilder.buildNextPageAction(toListSection(cfg)),
+      makeLoadedListMiddleware(cfg)
+    ];
+
+/**
+ * @stable [15.06.2020]
+ * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
+ * @returns {IEffectsAction[]}
+ */
+export const makeLoadedListOnNavigateToFirstPageMiddleware =
+  <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
+    [
+      ListActionBuilder.buildFirstPageAction(toListSection(cfg)),
+      makeLoadedListMiddleware(cfg)
+    ];
+
+/**
+ * @stable [15.06.2020]
+ * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
+ * @returns {IEffectsAction[]}
+ */
+export const makeLoadedListOnNavigateToLastPageMiddleware =
+  <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
+    [
+      ListActionBuilder.buildLastPageAction(toListSection(cfg)),
+      makeLoadedListMiddleware(cfg)
+    ];

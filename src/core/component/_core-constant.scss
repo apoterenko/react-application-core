@@ -38,6 +38,23 @@ $rac-strong-font-weight: $rac-primary-font-weight-4 !default;
 $rac-break-word-word-break: break-word !default;
 
 /************************/
+/* @stable [15.06.2020] */
+/************************/
+$rac-invisible-left: -10000px !important !default;
+$rac-invisible-position: absolute !important !default;
+$rac-invisible-top: -10000px !important !default;
+
+/************************/
+/* @stable [15.06.2020] */
+/************************/
+$rac-visibility-hidden-visibility: hidden !important !default;
+
+/************************/
+/* @stable [15.06.2020] */
+/************************/
+$rac-display-none-display: none !important !default;
+
+/************************/
 /* @stable [11.04.2020] */
 /************************/
 $rac-nowrap-white-space: nowrap !default;

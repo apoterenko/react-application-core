@@ -8,6 +8,7 @@ import {
   trueValuesArrayFilter,
 } from './filter';
 import {
+  ComponentClassesEnum,
   IJQueryElement,
   IReduxXYEntity,
 } from '../definition';
@@ -188,7 +189,7 @@ export const toJqEl = <TJqElement extends IJQueryElement = IJQueryElement>(sourc
 export const downloadFileAsBlobUrl = (url: string, fileName?: string): void => {
   const loader = createElement<HTMLAnchorElement>('a');
   try {
-    addClassNames(loader, 'rac-invisible');
+    addClassNames(loader, ComponentClassesEnum.INVISIBLE);
 
     loader.download = nvl(fileName, url);
     loader.href = url;

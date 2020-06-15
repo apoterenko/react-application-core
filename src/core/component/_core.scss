@@ -243,22 +243,31 @@
 
   /**
    * @styling
-   * @stable [25.10.2019]
+   * @stable [15.06.2020]
    */
   @include rac-styles (
     $rac-styles-custom: rac-invisible,
-    $rac-styles-position: absolute !important,
-    $rac-styles-top: -10000px,
-    $rac-styles-left: -10000px
+    $rac-styles-left: $rac-invisible-left,
+    $rac-styles-position: $rac-invisible-position,
+    $rac-styles-top: $rac-invisible-top
   );
 
   /**
    * @styling
-   * @stable [24.11.2019]
+   * @stable [15.06.2020]
    */
   @include rac-styles (
     $rac-styles-custom: rac-display-none,
-    $rac-styles-display: none !important
+    $rac-styles-display: $rac-display-none-display
+  );
+
+  /**
+   * @styling
+   * @stable [15.06.2020]
+   */
+  @include rac-styles (
+    $rac-styles-custom: rac-visibility-hidden,
+    $rac-styles-visibility: $rac-visibility-hidden-visibility
   );
 
   /**

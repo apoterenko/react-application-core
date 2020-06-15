@@ -4,11 +4,11 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
+  ConditionUtils,
   isClearActionRendered,
-  isFn,
   isInline,
-  joinClassName,
   nvl,
   orNull,
   parseValueAtPx,
@@ -25,6 +25,7 @@ import {
   IBaseTextFieldState,
 } from './base-textfield.interface';
 import {
+  ComponentClassesEnum,
   EventsEnum,
   FieldActionTypesEnum,
   IBaseEvent,
@@ -74,7 +75,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {string}
    */
   protected getSelfElementClassName(): string {
-    return joinClassName(super.getSelfElementClassName(), 'rac-text-field'); // TODO Deprecated rac-text-field
+    return ClsUtils.joinClassName(
+      super.getSelfElementClassName(),
+      'rac-text-field'
+    ); // TODO Deprecated rac-text-field
   }
 
   /**
@@ -125,15 +129,18 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [30.10.2019]
+   * @stable [15.06.2020]
    */
   protected onCloseVirtualKeyboard(): void {
     super.onCloseVirtualKeyboard();
 
-    if (isFn(this.keyboardListenerUnsubscriber)) {
-      this.keyboardListenerUnsubscriber();
-      this.keyboardListenerUnsubscriber = null;
-    }
+    ConditionUtils.ifNotNilThanValue(
+      this.keyboardListenerUnsubscriber,
+      () => {
+        this.keyboardListenerUnsubscriber();
+        this.keyboardListenerUnsubscriber = null;
+      }
+    );
   }
 
   /**
@@ -159,7 +166,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-base-text');
+    return ClsUtils.joinClassName(super.getFieldClassName(), 'rac-base-text');
   }
 
   /**
@@ -182,10 +189,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return (
       <span
         ref={this.mirrorInputRef}
-        className={joinClassName(
+        className={ClsUtils.joinClassName(
           this.getInputElementProps().className,
           'rac-field-input-mirror',
-          'rac-invisible'
+          ComponentClassesEnum.INVISIBLE
         )}>
         {content}
       </span>
@@ -228,7 +235,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {boolean}
    */
   protected isFieldActionDisabled(action: IFieldActionEntity): boolean {
-    return calc(action.disabled) || this.isInactive;
+    return CalcUtils.calc(action.disabled) || this.isInactive;
   }
 
   /**

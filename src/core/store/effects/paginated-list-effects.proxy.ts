@@ -3,47 +3,71 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import { ListActionBuilder } from '../../component/action.builder';
-import { provideInSingleton } from '../../di';
+import { ILoadedListOnNavigateToPageMiddlewareConfigEntity } from '../../definition';
+import { MiddlewareFactories } from '../middleware';
 import { PageToolbarActionBuilder } from '../../action';
+import { provideInSingleton } from '../../di';
+import { toListSection } from '../../util';
 
-export function makePaginatedListEffectsProxy(section: string): () => void {
-  return (): void => {
+/**
+ * @stable [15.06.2020]
+ * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
+ * @returns {() => void}
+ */
+export const makePaginatedListEffectsProxy =
+  <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>) => (
+    (): void => {
 
-    @provideInSingleton(Effects)
-    class Effects {
+      @provideInSingleton(Effects)
+      class Effects {
 
-      @EffectsService.effects(PageToolbarActionBuilder.buildPreviousPageActionType(section))
-      public $onPrevious(): IEffectsAction[] {
-        return [
-          ListActionBuilder.buildPreviousPageAction(section),
-          ListActionBuilder.buildLoadAction(section)
-        ];
-      }
+        /**
+         * @stable [15.06.2020]
+         * @param {IEffectsAction} action
+         * @param {TState} state
+         * @returns {IEffectsAction[]}
+         */
+        @EffectsService.effects(
+          PageToolbarActionBuilder.buildPreviousPageActionType(toListSection(cfg))
+        )
+        public $onPrevious = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+          MiddlewareFactories.loadedListOnNavigateToPreviousPageMiddleware({...cfg, action, state})
 
-      @EffectsService.effects(PageToolbarActionBuilder.buildNextPageActionType(section))
-      public $onNext(): IEffectsAction[] {
-        return [
-          ListActionBuilder.buildNextPageAction(section),
-          ListActionBuilder.buildLoadAction(section)
-        ];
-      }
+        /**
+         * @stable [15.06.2020]
+         * @param {IEffectsAction} action
+         * @param {TState} state
+         * @returns {IEffectsAction[]}
+         */
+        @EffectsService.effects(
+          PageToolbarActionBuilder.buildNextPageActionType(toListSection(cfg))
+        )
+        public $onNext = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+          MiddlewareFactories.loadedListOnNavigateToNextPageMiddleware({...cfg, action, state})
 
-      @EffectsService.effects(PageToolbarActionBuilder.buildFirstPageActionType(section))
-      public $onFirst(): IEffectsAction[] {
-        return [
-          ListActionBuilder.buildFirstPageAction(section),
-          ListActionBuilder.buildLoadAction(section)
-        ];
-      }
+        /**
+         * @stable [15.06.2020]
+         * @param {IEffectsAction} action
+         * @param {TState} state
+         * @returns {IEffectsAction[]}
+         */
+        @EffectsService.effects(
+          PageToolbarActionBuilder.buildFirstPageActionType(toListSection(cfg))
+        )
+        public $onFirst = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+          MiddlewareFactories.loadedListOnNavigateToFirstPageMiddleware({...cfg, action, state})
 
-      @EffectsService.effects(PageToolbarActionBuilder.buildLastPageActionType(section))
-      public $onLast(): IEffectsAction[] {
-        return [
-          ListActionBuilder.buildLastPageAction(section),
-          ListActionBuilder.buildLoadAction(section)
-        ];
+        /**
+         * @stable [15.06.2020]
+         * @param {IEffectsAction} action
+         * @param {TState} state
+         * @returns {IEffectsAction[]}
+         */
+        @EffectsService.effects(
+          PageToolbarActionBuilder.buildLastPageActionType(toListSection(cfg))
+        )
+        public $onLast = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+          MiddlewareFactories.loadedListOnNavigateToLastPageMiddleware({...cfg, action, state})
       }
     }
-  };
-}
+  );

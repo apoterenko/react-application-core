@@ -102,6 +102,14 @@ export interface ILoadedListOnTabActivateMiddlewareConfigEntity<TState = {}>
 
 /**
  * @config-entity
+ * @stable [15.06.2020]
+ */
+export interface ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState = {}>
+  extends ILoadedListMiddlewareConfigEntity<TState> {
+}
+
+/**
+ * @config-entity
  * @stable [11.04.2020]
  */
 export interface ILoadedListOnToolbarToolsRefreshConfigEntity<TState = {}>
