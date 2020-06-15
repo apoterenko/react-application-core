@@ -47,6 +47,7 @@ The library is designed to quickly start develop the business applications are b
 * [PageToolbarContainer (10.06.2020)](src/core/component/toolbar/page/page-toolbar.container.tsx)
 * [SearchToolbarContainer](src/core/component/toolbar/search/search-toolbar.container.tsx)
 * [ToolbarToolsContainer (10.06.2020)](src/core/component/toolbar-tools/toolbar-tools.container.tsx)
+* [UnsavedFormChangesDialogContainer (15.06.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.container.tsx)
 
 #### @component-impl
 
