@@ -49,7 +49,7 @@ import {
   IMenu,
   IMenuProps,
   IMultiItemEntity,
-  ISelectOptionEntity,
+  IPresetsSelectOptionEntity,
   SelectValueT,
 } from '../../../definition';
 
@@ -286,9 +286,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   /**
    * @stable [31.01.2020]
    * @param {(option: ISelectOptionEntity) => boolean} filter
-   * @returns {ISelectOptionEntity[]}
+   * @returns {IPresetsSelectOptionEntity[]}
    */
-  protected getFilteredOptions(filter?: (option: ISelectOptionEntity) => boolean): ISelectOptionEntity[] {
+  protected getFilteredOptions(filter?: (option: IPresetsSelectOptionEntity) => boolean): IPresetsSelectOptionEntity[] {
     const value = this.value;
     const doesFilterExist = isFn(filter);
 
@@ -336,9 +336,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [28.01.2020]
-   * @param {ISelectOptionEntity} option
+   * @param {IPresetsSelectOptionEntity} option
    */
-  protected onSelect(option: ISelectOptionEntity): void {
+  protected onSelect(option: IPresetsSelectOptionEntity): void {
     if (this.isPlainValueApplied) {
       this.saveCachedValue(shallowClone(option), () => this.doSelectOption(option));
     } else {
@@ -348,9 +348,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [11.01.2020]
-   * @param {ISelectOptionEntity} option
+   * @param {IPresetsSelectOptionEntity} option
    */
-  protected notifySelectOption(option: ISelectOptionEntity): void {
+  protected notifySelectOption(option: IPresetsSelectOptionEntity): void {
     const onSelect = this.props.onSelect;
     if (!TypeUtils.isDef(option) || !TypeUtils.isFn(onSelect)) {
       return;
@@ -370,7 +370,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (!hasCachedValue && (!this.isQuickSearchEnabled || this.isValueObject(value))) {
       const optionValue = this.fromSelectOptionEntityToId(value);
       value = nvl(
-        R.find<ISelectOptionEntity>((option) => this.fromSelectOptionEntityToId(option) === optionValue, this.options),
+        R.find<IPresetsSelectOptionEntity>((option) => this.fromSelectOptionEntityToId(option) === optionValue, this.options),
         value
       );
     }
@@ -388,9 +388,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [11.01.2020]
-   * @returns {ISelectOptionEntity[]}
+   * @returns {IPresetsSelectOptionEntity[]}
    */
-  protected get options(): ISelectOptionEntity[] {
+  protected get options(): IPresetsSelectOptionEntity[] {
     return nvl(this.props.options, []);
   }
 
@@ -459,9 +459,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [28.01.2020]
-   * @param {ISelectOptionEntity} option
+   * @param {IPresetsSelectOptionEntity} option
    */
-  private doSelectOption(option: ISelectOptionEntity): void {
+  private doSelectOption(option: IPresetsSelectOptionEntity): void {
     this.onChangeManually(this.isPlainValueApplied ? this.fromSelectOptionEntityToId(option) : option);
     this.notifySelectOption(option);
     this.setFocus();
@@ -612,10 +612,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [30.01.2020]
-   * @param {ISelectOptionEntity} value
+   * @param {IPresetsSelectOptionEntity} value
    * @param {() => void} callback
    */
-  private saveCachedValue(value?: ISelectOptionEntity, callback?: () => void): void {
+  private saveCachedValue(value?: IPresetsSelectOptionEntity, callback?: () => void): void {
     this.setState({$$cachedValue: value}, callback);
   }
 
@@ -727,9 +727,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [30.01.2020]
-   * @returns {ISelectOptionEntity}
+   * @returns {IPresetsSelectOptionEntity}
    */
-  private get $$cashedValue(): ISelectOptionEntity {
+  private get $$cashedValue(): IPresetsSelectOptionEntity {
     return this.state.$$cachedValue;
   }
 

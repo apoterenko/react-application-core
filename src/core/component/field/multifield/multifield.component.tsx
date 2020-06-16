@@ -7,12 +7,12 @@ import { MultiFieldPlugin } from './multifield.plugin';
 import { toClassName } from '../../../util';
 import {
   IMultiItemEntity,
-  ISelectOptionEntity,
+  IPresetsSelectOptionEntity,
   MultiFieldEntityT,
 } from '../../../definition';
 
-export class MultiField<TProps extends IMultiFieldProps,
-                        TState extends IMultiFieldState>
+export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
+                        TState extends IMultiFieldState = IMultiFieldState>
   extends BaseSelect<TProps, TState>
   implements IMultiField {
 
@@ -83,9 +83,9 @@ export class MultiField<TProps extends IMultiFieldProps,
 
   /**
    * @stable [11.08.2018]
-   * @param {ISelectOptionEntity} option
+   * @param {IPresetsSelectOptionEntity} option
    */
-  protected onSelect(option: ISelectOptionEntity): void {
+  protected onSelect(option: IPresetsSelectOptionEntity): void {
     this.multiFieldPlugin.onAddItem({id: option.value, rawData: option.rawData});
 
     const props = this.props;
@@ -120,10 +120,10 @@ export class MultiField<TProps extends IMultiFieldProps,
 
   /**
    * @stable [19.06.2018]
-   * @param {ISelectOptionEntity[]} options
-   * @returns {ISelectOptionEntity[]}
+   * @param {IPresetsSelectOptionEntity[]} options
+   * @returns {IPresetsSelectOptionEntity[]}
    */
-  protected getFilteredOptions(): ISelectOptionEntity[] {
+  protected getFilteredOptions(): IPresetsSelectOptionEntity[] {
     const activeValue = this.multiFieldPlugin.activeValue;
 
     return this.props.ignoreSelectedValue

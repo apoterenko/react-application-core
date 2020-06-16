@@ -1,10 +1,12 @@
 import {
+  EntityIdT,
   IAllowEmptyFilterValueWrapper,
   IAnchoredWrapper,
   IDictionaryWrapper,
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
   IForciblyApplyLocalFilterWrapper,
+  IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
   IOnDictionaryFilterChangeWrapper,
   IOptionsWrapper,
@@ -33,6 +35,7 @@ export interface IPresetsBaseSelectEntity
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
     IForciblyApplyLocalFilterWrapper,
+    IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
     IOnDictionaryFilterChangeWrapper<string, IFluxPayloadQueryEntity> {
@@ -44,7 +47,7 @@ export interface IPresetsBaseSelectEntity
  */
 export interface IReduxBaseSelectEntity
   extends IReduxBaseTextFieldEntity,
-    IOptionsWrapper<ISelectOptionEntity[]>,
+    IOptionsWrapper<IPresetsSelectOptionEntity[]>,
     IWaitingForOptionsWrapper {
 }
 
@@ -58,14 +61,14 @@ export interface IGenericBaseSelectEntity
 }
 
 /**
- * @entity
- * @stable [25.01.2020]
+ * @presets-entity
+ * @stable [16.06.2020]
  */
-export interface ISelectOptionEntity<TRawData = {}>
+export interface IPresetsSelectOptionEntity<TRawData = {}, TValue = EntityIdT>
   extends IPresetsMenuItemEntity<TRawData> {
 }
 
 /**
  * @stable [12.04.2020]
  */
-export type SelectValueT = ISelectOptionEntity | StringNumberT;
+export type SelectValueT = IPresetsSelectOptionEntity | StringNumberT;

@@ -34,6 +34,7 @@ import {
   IExtendedEntity,
   IExtendedFormEntity,
   IOptionEntity,
+  IPresetsSelectOptionEntity,
   IPrimaryFilterExtendedFormEntity,
   IPrimaryFilterReduxFormEntity,
   IQueryFilterEntity,
@@ -65,7 +66,6 @@ import {
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
   ISecondaryFilterReduxFormEntity,
-  ISelectOptionEntity,
 } from '../definition';
 import { Selectors } from './select';
 import { WrapperUtils } from './wrapper';
@@ -369,12 +369,12 @@ const mapExtendedEntity =
 
 /**
  * @stable [19.05.2020]
- * @param {ISelectOptionEntity<TRawData>} entity
- * @returns {ISelectOptionEntity<TRawData>}
+ * @param {IPresetsSelectOptionEntity<TRawData>} entity
+ * @returns {IPresetsSelectOptionEntity<TRawData>}
  */
 const mapSelectOptionEntity =
-  <TRawData = IEntity>(entity: ISelectOptionEntity<TRawData>): ISelectOptionEntity<TRawData> =>
-    defValuesFilter<ISelectOptionEntity<TRawData>, ISelectOptionEntity<TRawData>>({
+  <TRawData = IEntity>(entity: IPresetsSelectOptionEntity<TRawData>): IPresetsSelectOptionEntity<TRawData> =>
+    defValuesFilter<IPresetsSelectOptionEntity<TRawData>, IPresetsSelectOptionEntity<TRawData>>({
       disabled: entity.disabled,
       label: entity.label,
       rawData: entity.rawData,
@@ -384,10 +384,10 @@ const mapSelectOptionEntity =
 /**
  * @stable [19.05.2020]
  * @param {TEntity} entity
- * @returns {ISelectOptionEntity<TEntity extends IOptionEntity>}
+ * @returns {IPresetsSelectOptionEntity<TEntity extends IOptionEntity>}
  */
 const mapOptionEntityAsSelectOptionEntity =
-  <TEntity extends IOptionEntity>(entity: TEntity): ISelectOptionEntity<TEntity> =>
+  <TEntity extends IOptionEntity>(entity: TEntity): IPresetsSelectOptionEntity<TEntity> =>
     mapSelectOptionEntity<TEntity>({
       value: entity.id,
       label: entity.name,
@@ -398,10 +398,10 @@ const mapOptionEntityAsSelectOptionEntity =
 /**
  * @stable [19.05.2020]
  * @param {TEntity[] | TEntity} data
- * @returns {Array<ISelectOptionEntity<TEntity extends IOptionEntity>>}
+ * @returns {Array<IPresetsSelectOptionEntity<TEntity extends IOptionEntity>>}
  */
 const mapOptionEntitiesAsSelectOptionEntities =
-  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<ISelectOptionEntity<TEntity>> =>
+  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<IPresetsSelectOptionEntity<TEntity>> =>
     ConditionUtils.ifNotNilThanValue(
       data,
       () => [].concat(data).map((entity) => mapOptionEntityAsSelectOptionEntity(entity)),
@@ -713,11 +713,11 @@ const mapFullSearchFilter = <TFilter, TEntity = IEntity>(wrapper: IQueryFilterEn
  * @stable [19.05.2020]
  * @param {IReduxDictionaryEntity<TEntity>} dictionaryEntity
  * @param {(data: (TEntity[] | TEntity)) => AnyT} accessor
- * @returns {Array<ISelectOptionEntity<TEntity>>}
+ * @returns {Array<IPresetsSelectOptionEntity<TEntity>>}
  */
 const mapDictionaryEntityAsSelectOptionEntities =
   <TEntity>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
-            accessor?: (data: TEntity | TEntity[]) => AnyT): Array<ISelectOptionEntity<TEntity>> =>
+            accessor?: (data: TEntity | TEntity[]) => AnyT): Array<IPresetsSelectOptionEntity<TEntity>> =>
     GenericMappers.optionEntitiesAsSelectOptionEntities(
       ConditionUtils.ifNotNilThanValue(
         Selectors.data(dictionaryEntity),

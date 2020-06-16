@@ -1,2 +1,1 @@
-export * from './chipsfield.component';
-export * from './chipsfield.interface';
+export * from './chips-field.component';

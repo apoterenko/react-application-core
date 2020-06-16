@@ -7,7 +7,7 @@ import {
   IBaseEvent,
   IGenericBaseSelectEntity,
   IGenericBaseSelectState,
-  ISelectOptionEntity,
+  IPresetsSelectOptionEntity,
 } from '../../../definition';
 import {
   IBaseTextFieldProps,
@@ -20,7 +20,7 @@ import { IField2State } from '../field/field.interface';
 export interface IBaseSelectState
   extends IField2State,
     IGenericBaseSelectState,
-    I$$cachedValueWrapper<ISelectOptionEntity> {
+    I$$cachedValueWrapper<IPresetsSelectOptionEntity> {
 }
 
 // TODO
@@ -29,8 +29,7 @@ export interface IBaseSelectProps
     IBaseTextFieldProps,
     IOnFilterChangeWrapper<(query: string) => void> {
   icon?: string; // TODO
-  inlineOptions?: boolean;
-  onSelect?(option: ISelectOptionEntity): void;
+  onSelect?(option: IPresetsSelectOptionEntity): void;
 }
 
 export interface IBaseSelect

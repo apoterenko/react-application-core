@@ -24,7 +24,7 @@ import {
   DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
 } from './field-definition.interface';
 import { IGoogleMapsConfigurationEntity } from './google-maps-definition.interface';
-import { ISelectOptionEntity } from './select-definition.interface';
+import { IPresetsSelectOptionEntity } from './select-definition.interface';
 
 /**
  * @stable [09.01.2020]
@@ -69,7 +69,7 @@ export type PlaceEntityValueT = IPlaceEntity | string;
  * @stable [09.01.2020]
  */
 export interface IPlaceSelectOptionEntity
-  extends ISelectOptionEntity<IPlaceEntity> {
+  extends IPresetsSelectOptionEntity<IPlaceEntity> {
 }
 
 /**

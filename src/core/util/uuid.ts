@@ -24,3 +24,10 @@ export const uuid = (onlyChars = false): string => {
  */
 export const makeUniqueValueObjects = <TObject extends IValueWrapper = IValueWrapper>(...objects: TObject[]): TObject[] =>
   objects.map((object, index): TObject => ({...object as {}, value: index} as TObject));
+
+/**
+ * @stable [16.06.2020]
+ */
+export class UuidUtils {
+  public static readonly uuid = uuid;
+}

@@ -15,7 +15,7 @@ export const NUMBER_COMPARATOR = (a: AnyT, b: AnyT): number => a - b;
  * @param {StringNumberT} value2
  * @returns {number}
  */
-export const NAME_ASC_SORTER_FN = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
+const NAME_ASC_SORTER = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
   nvl(`${value1}`, '').localeCompare(`${value2}`);
 
 /**
@@ -53,3 +53,10 @@ export const ID_ASC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntit
  */
 export const ID_DESC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntity, item2: TEntity): number =>
   VALUE_DESC_SORTER_FN(item1.id, item2.id);
+
+/**
+ * @stable [16.06.2020]
+ */
+export class SortUtils {
+  public static readonly NAME_ASC_SORTER = NAME_ASC_SORTER;
+}

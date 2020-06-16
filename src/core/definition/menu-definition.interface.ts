@@ -1,7 +1,6 @@
 import {
   EntityIdT,
   IDelayTimeoutWrapper,
-  IEntity,
   IFilterPlaceholderWrapper,
   IFilterWrapper,
   IHeightRestrictedWrapper,
@@ -36,7 +35,7 @@ import { IPresetsBaseListItemEntity } from './list-definition.interface';
  * @presets-entity
  * @stable [01.06.2020]
  */
-export interface IPresetsMenuItemEntity<TRawData = IEntity, TValue = EntityIdT>
+export interface IPresetsMenuItemEntity<TRawData = {}, TValue = EntityIdT>
   extends IPresetsBaseListItemEntity,
     IPresetsRawDataLabeledValueEntity<TRawData, TValue> {
 }

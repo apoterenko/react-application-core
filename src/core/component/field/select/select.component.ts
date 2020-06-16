@@ -3,7 +3,7 @@ import {
   ISelectProps,
   ISelectState,
 } from './select.interface';
-import { ISelectOptionEntity } from '../../../definition';
+import { IPresetsSelectOptionEntity } from '../../../definition';
 import { joinClassName } from '../../../util';
 
 export class Select extends BaseSelect<ISelectProps, ISelectState> {
@@ -14,9 +14,9 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
 
   /**
    * @stable [28.01.2020]
-   * @returns {ISelectOptionEntity[]}
+   * @returns {IPresetsSelectOptionEntity[]}
    */
-  protected getFilteredOptions(): ISelectOptionEntity[] {
+  protected getFilteredOptions(): IPresetsSelectOptionEntity[] {
     const id = this.fromSelectOptionEntityToId(this.value);
     return super.getFilteredOptions((option) => this.fromSelectOptionEntityToId(option) !== id);
   }

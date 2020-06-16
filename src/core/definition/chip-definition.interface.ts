@@ -31,3 +31,13 @@ export interface IChipProps
   extends IGenericComponentProps,
     IGenericChipEntity {
 }
+
+/**
+ * @classes
+ * @stable [24.03.2020]
+ */
+export enum ChipClassesEnum {
+  CHIP = 'rac-chip',
+  CHIP_CLOSE = 'rac-chip__close',
+  CHIP_CONTENT = 'rac-chip__content',
+}

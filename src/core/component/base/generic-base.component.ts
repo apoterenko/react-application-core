@@ -83,6 +83,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   }
 
   /**
+   * @stable [16.06.2020]
+   * @returns {React.ReactNode}
+   */
+  protected get originalChildren(): React.ReactNode {
+    return this.props.children;
+  }
+
+  /**
    * @stable [02.06.2020]
    * @returns {TProps}
    */

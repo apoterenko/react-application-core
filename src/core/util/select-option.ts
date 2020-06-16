@@ -6,7 +6,7 @@ import {
 } from '../definitions.interface';
 import { TypeUtils } from './type';
 import {
-  ISelectOptionEntity,
+  IPresetsSelectOptionEntity,
   SelectValueT,
 } from '../definition';
 import { getTranslator } from '../di/di.services';
@@ -23,7 +23,7 @@ const fromSelectOptionEntityToId = (option: SelectValueT): EntityIdT => {
   if (TypeUtils.isPrimitive(option)) {
     return option as StringNumberT;
   }
-  const optionAsObject = option as ISelectOptionEntity;
+  const optionAsObject = option as IPresetsSelectOptionEntity;
   return optionAsObject.value;
 };
 
@@ -39,7 +39,7 @@ const fromSelectOptionEntityToDisplayValue = (option: SelectValueT): StringNumbe
   if (TypeUtils.isPrimitive(option)) {
     return option as StringNumberT;
   }
-  const optionAsObject = option as ISelectOptionEntity;
+  const optionAsObject = option as IPresetsSelectOptionEntity;
   const {label} = optionAsObject;
 
   return R.isNil(label)

@@ -247,6 +247,7 @@ export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
+export interface IInlineOptionsWrapper { inlineOptions?: boolean; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
 export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }

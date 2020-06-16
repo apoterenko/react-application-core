@@ -2,9 +2,14 @@ import * as React from 'react';
 
 import { GenericComponent } from '../base';
 import {
+  ChipClassesEnum,
   IChipProps,
   IconsEnum,
 } from '../../definition';
+import {
+  CalcUtils,
+  ClsUtils,
+} from '../../util';
 
 /**
  * @component-impl
@@ -18,23 +23,26 @@ export class Chip extends GenericComponent<IChipProps> {
    */
   public render(): JSX.Element {
     const {
+      className,
       disabled,
       onClick,
     } = this.mergedProps;
 
-    const {children} = this.props;
-
     return (
-      <div className='rac-chip'>
+      <div
+        className={ClsUtils.joinClassName(
+          ChipClassesEnum.CHIP,
+          CalcUtils.calc(className))
+        }>
         <span
-          className='rac-chip__content'
-          title={String(children)}
+          className={ChipClassesEnum.CHIP_CONTENT}
+          title={String(this.originalChildren)}
         >
-          {children}
+          {this.originalChildren}
         </span>
         {
           this.uiFactory.makeIcon({
-            className: 'rac-chip__close',
+            className: ChipClassesEnum.CHIP_CLOSE,
             disabled,
             onClick,
             type: IconsEnum.TIMES,
