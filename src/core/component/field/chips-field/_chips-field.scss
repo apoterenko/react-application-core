@@ -1,4 +1,6 @@
 @import '../../mixin';
+@import '../../chip/chip-mixin';
+@import '../../classes';
 @import './_chips-field-constant';
 
 .rac {
@@ -8,8 +10,16 @@
    * @stable [02.06.2020]
    */
   @include rac-field (
-    $rac-field-chips-chip-margin: $rac-field-chips-chip-margin,
     $rac-field-chips-margin: $rac-field-chips-margin,
     $rac-field-chips-neighbor-child-margin: $rac-field-chips-neighbor-child-margin
+  );
+
+  /**
+   * @field-chip
+   * @stable [16.06.2020]
+   */
+  @include rac-chip (
+    $rac-chip-custom: $rac-field-chip-cls,
+    $rac-chip-margin: $rac-field-chip-margin
   );
 }

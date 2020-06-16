@@ -329,7 +329,6 @@
   $rac-field-align-items: unset,                                                    /* @stable [30.10.2019] */
   $rac-field-background: unset,                                                     /* @stable [09.02.2020] */
   $rac-field-border-radius: unset,                                                  /* @stable [09.02.2020] */
-  $rac-field-chips-chip-margin: unset,                                              /* @stable [02.06.2020] */
   $rac-field-chips-display: unset,                                                  /* @stable [02.06.2020] */
   $rac-field-chips-margin: unset,                                                   /* @stable [02.06.2020] */
   $rac-field-chips-neighbor-child-margin: unset,                                    /* @stable [02.06.2020] */
@@ -610,10 +609,6 @@
       @include rac-styles (
         $rac-styles-display: $rac-field-chips-display,
         $rac-styles-margin: $rac-field-chips-margin
-      );
-
-      @include rac-chip (
-        $rac-chip-margin: $rac-field-chips-chip-margin
       );
 
       @include rac-neighbor-child (

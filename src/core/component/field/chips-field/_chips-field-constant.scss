@@ -4,6 +4,10 @@
 /************************/
 /* @stable [02.06.2020] */
 /************************/
-$rac-field-chips-chip-margin: 0 $rac-primary-offset-1 $rac-primary-offset-1 0 !default;
 $rac-field-chips-margin: $rac-primary-offset-1 0 0 0 !default;
 $rac-field-chips-neighbor-child-margin: unset !default;
+
+/************************/
+/* @stable [16.06.2020] */
+/************************/
+$rac-field-chip-margin: 0 $rac-primary-offset-1 $rac-primary-offset-1 0 !default;

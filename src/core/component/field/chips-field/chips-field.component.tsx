@@ -27,7 +27,7 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
       <div
         className={ChipsFieldClassesEnum.FIELD_CHIPS}
       >
-        {this.chips.map((item) => this.getChipElement(item, this.mergedProps))}
+        {this.chips.map((item) => this.getChipElement(item, mergedProps))}
       </div>
     );
   }
