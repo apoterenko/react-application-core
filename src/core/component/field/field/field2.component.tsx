@@ -71,7 +71,7 @@ export class Field2<TProps extends IFieldProps2,
         {this.selfElement}
         {this.getMessageElement()}
         {this.getErrorMessageElement()}
-        {this.getAttachmentElement()}
+        {this.attachmentElement}
         {this.getKeyboardElement()}
       </div>
     );
@@ -200,14 +200,6 @@ export class Field2<TProps extends IFieldProps2,
         </label>
       )
     );
-  }
-
-  /**
-   * @stable [16.02.2020]
-   * @returns {JSX.Element}
-   */
-  protected getAttachmentElement(): JSX.Element {
-    return null;
   }
 
   /**

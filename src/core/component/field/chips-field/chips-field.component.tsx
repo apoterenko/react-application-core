@@ -10,25 +10,41 @@ import {
 } from '../../../util';
 import {
   ChipsFieldClassesEnum,
+  FieldClassesEnum,
   IChipsFieldProps,
   INamedEntity,
 } from '../../../definition';
 import { MultiField } from '../multifield/multifield.component';
 
+/**
+ * @component-impl
+ * @stable [16.06.2020]
+ */
 export class ChipsField extends MultiField<IChipsFieldProps> {
 
   /**
    * @stable [16.06.2020]
    * @returns {JSX.Element}
    */
-  protected getAttachmentElement(): JSX.Element {
+  protected get attachmentElement(): JSX.Element {
     const mergedProps = this.mergedProps;
     return (
       <div
-        className={ChipsFieldClassesEnum.FIELD_CHIPS}
+        className={FieldClassesEnum.FIELD_ATTACHMENT}
       >
         {this.chips.map((item) => this.getChipElement(item, mergedProps))}
       </div>
+    );
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    return ClsUtils.joinClassName(
+      super.getFieldClassName(),
+      ChipsFieldClassesEnum.CHIPS_FIELD
     );
   }
 
@@ -47,14 +63,16 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
 
     return (
       <Chip
-        key={id}
         id={id}
+        key={`key-${id}`}
         disabled={this.isInactive}
+        className={
+          ClsUtils.joinClassName(
+            chipClassName,
+            ChipsFieldClassesEnum.CHIPS_FIELD_CHIP
+          )
+        }
         onClick={() => this.onDelete(item)}
-        className={ClsUtils.joinClassName(
-          chipClassName,
-          ChipsFieldClassesEnum.FIELD_CHIP
-        )}
       >
         {item.name}
       </Chip>

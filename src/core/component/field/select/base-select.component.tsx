@@ -13,11 +13,9 @@ import {
   isAllowEmptyFilterValue,
   isAnchored,
   isExpandActionRendered,
-  isFn,
   isForceUseLocalFilter,
   isMenuRendered,
   isObjectNotEmpty,
-  isUndef,
   joinClassName,
   nvl,
   ObjectUtils,
@@ -163,7 +161,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         onDictionaryEmpty,
       } = this.props;
 
-      if (isFn(onDictionaryEmpty)) {
+      if (TypeUtils.isFn(onDictionaryEmpty)) {
         BaseSelect.logger.debug('[$BaseSelect][openMenu] The onDictionaryEmpty callback is defined, need to load options...');
 
         this.setState({progress: true}, () => onDictionaryEmpty(this.dictionary));
@@ -201,7 +199,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     super.onClick(event);
 
     const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const isLocalOptionsUsed = this.isLocalOptionsUsed;
+    const isLocalOptionsUsed = this.areLocalOptionsUsed;
 
     BaseSelect.logger.debug(
       '[$BaseSelect][onClick] isQuickSearchEnabled:', isQuickSearchEnabled, ', isLocalOptionsUsed:', isLocalOptionsUsed
@@ -218,12 +216,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
   }
 
-  protected getAttachmentElement(): JSX.Element {
+  protected get attachmentElement(): JSX.Element {
     const props = this.props;
 
     // TODO
     if (!props.inlineOptions) {
-      return super.getAttachmentElement();
+      return null;
     }
     const currentValue = this.value;
     const value = TypeUtils.isPrimitive(currentValue)
@@ -290,10 +288,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected getFilteredOptions(filter?: (option: IPresetsSelectOptionEntity) => boolean): IPresetsSelectOptionEntity[] {
     const value = this.value;
-    const doesFilterExist = isFn(filter);
+    const doesFilterExist = TypeUtils.isFn(filter);
 
     if (this.isQuickSearchEnabled
-      && (this.isForceUseLocalFilter || this.isLocalOptionsUsed)
+      && (this.isForceUseLocalFilter || this.areLocalOptionsUsed)
       && !this.isValueObject(value)
       && isObjectNotEmpty(value)) {
 
@@ -468,30 +466,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [01.02.2020]
+   * @stable [16.06.2020]
    * @param {string} query
    */
   private onFilterChange(query: string): void {
-    const props = this.props;
+    const mergedProps = this.mergedProps;
     const {
       onDictionaryFilterChange,
-      onFilterChange,
-    } = props;
+    } = mergedProps;
 
-    const dictionary = this.dictionary;
-
-    BaseSelect.logger.debug((logger) => {
-      logger.write(
-        '[$BaseSelect][onFilterChange] onFilterChange:', isFn(onFilterChange) || '[-]',
-        ', onDictionaryFilterChange:', isFn(onDictionaryFilterChange) || '[-]',
-        ', dictionary:', dictionary);
-    });
-
-    if (isFn(onFilterChange)) {
-      onFilterChange(query);
-    }
-    if (isFn(onDictionaryFilterChange)) {
-      onDictionaryFilterChange(dictionary, {payload: {query}});
+    if (TypeUtils.isFn(onDictionaryFilterChange)) {
+      onDictionaryFilterChange(this.dictionary, {payload: {query}});
     }
   }
 
@@ -522,7 +507,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private startQuickSearchIfApplicable(noDelay = false): boolean {
     const isQuickSearchEnabled = this.isQuickSearchEnabled;
     const isFieldBusy = this.isBusy;
-    const isLocalOptionsUsed = this.isLocalOptionsUsed;
+    const isLocalOptionsUsed = this.areLocalOptionsUsed;
 
     if (!isQuickSearchEnabled || isFieldBusy || isLocalOptionsUsed) {
       BaseSelect.logger.debug(
@@ -552,7 +537,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.renderAndShowMenu();
 
     const props = this.props;
-    if (isFn(props.onDictionaryLoad)) {
+    if (TypeUtils.isFn(props.onDictionaryLoad)) {
       props.onDictionaryLoad(this.getFilteredOptions());
     }
   }
@@ -669,11 +654,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
+   * @stable [16.06.2020]
    * @returns {boolean}
    */
-  private get isLocalOptionsUsed(): boolean {
-    return isUndef(this.props.waitingForOptions);
+  private get areLocalOptionsUsed(): boolean {
+    return TypeUtils.isUndef(this.originalProps.waitingForOptions);
   }
 
   /**

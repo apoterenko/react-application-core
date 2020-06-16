@@ -241,6 +241,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [16.06.2020]
+   * @returns {JSX.Element}
+   */
+  protected get attachmentElement(): JSX.Element {
+    return null;
+  }
+
+  /**
    * @stable [18.05.2020]
    * @returns {JSX.Element}
    */

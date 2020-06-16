@@ -105,7 +105,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    * @stable [09.01.2020]
    * @returns {JSX.Element}
    */
-  protected getAttachmentElement(): JSX.Element {
+  protected get attachmentElement(): JSX.Element {
     const {
       dialogOpened,
       placeEntity,

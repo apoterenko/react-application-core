@@ -26,10 +26,8 @@ export interface IBaseSelectState
 // TODO
 export interface IBaseSelectProps
   extends IGenericBaseSelectEntity,
-    IBaseTextFieldProps,
-    IOnFilterChangeWrapper<(query: string) => void> {
+    IBaseTextFieldProps {
   icon?: string; // TODO
-  onSelect?(option: IPresetsSelectOptionEntity): void;
 }
 
 export interface IBaseSelect

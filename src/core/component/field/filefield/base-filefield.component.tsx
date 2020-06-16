@@ -109,7 +109,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @stable [03.08.2018]
    * @returns {JSX.Element}
    */
-  protected getAttachmentElement(): JSX.Element {
+  protected get attachmentElement(): JSX.Element {
     const state = this.state;
     const props = this.props;
     const messages = this.settings.messages;

@@ -9,6 +9,7 @@ import {
   IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
   IOnDictionaryFilterChangeWrapper,
+  IOnSelectWrapper,
   IOptionsWrapper,
   IWaitingForOptionsWrapper,
   StringNumberT,
@@ -38,7 +39,8 @@ export interface IPresetsBaseSelectEntity
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
-    IOnDictionaryFilterChangeWrapper<string, IFluxPayloadQueryEntity> {
+    IOnDictionaryFilterChangeWrapper<string, IFluxPayloadQueryEntity>,
+    IOnSelectWrapper<IPresetsSelectOptionEntity> {
 }
 
 /**

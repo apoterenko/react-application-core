@@ -6,12 +6,13 @@
 .rac {
 
   /**
-   * @field
-   * @stable [02.06.2020]
+   * @chips-field
+   * @stable [16.06.2020]
    */
   @include rac-field (
-    $rac-field-chips-margin: $rac-field-chips-margin,
-    $rac-field-chips-neighbor-child-margin: $rac-field-chips-neighbor-child-margin
+    $rac-field-custom: $rac-chips-field-cls,
+    $rac-field-attachment-margin: $rac-chips-field-attachment-margin,
+    $rac-field-attachment-neighbor-child-margin: $rac-chips-field-attachment-neighbor-child-margin
   );
 
   /**
@@ -19,7 +20,7 @@
    * @stable [16.06.2020]
    */
   @include rac-chip (
-    $rac-chip-custom: $rac-field-chip-cls,
+    $rac-chip-custom: $rac-chips-field-chip-cls,
     $rac-chip-margin: $rac-field-chip-margin
   );
 }

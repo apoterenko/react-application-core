@@ -196,7 +196,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @stable [09.01.2020]
    * @returns {JSX.Element}
    */
-  protected getAttachmentElement(): JSX.Element {
+  protected get attachmentElement(): JSX.Element {
     const props = this.props;
     const {dialogOpened} = this.state;
     const {dialogConfiguration = {}} = props;

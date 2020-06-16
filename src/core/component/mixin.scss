@@ -327,11 +327,11 @@
   $rac-field-custom: unset,
   /**/
   $rac-field-align-items: unset,                                                    /* @stable [30.10.2019] */
+  $rac-field-attachment-display: unset,                                             /* @stable [02.06.2020] */
+  $rac-field-attachment-margin: unset,                                              /* @stable [02.06.2020] */
+  $rac-field-attachment-neighbor-child-margin: unset,                               /* @stable [02.06.2020] */
   $rac-field-background: unset,                                                     /* @stable [09.02.2020] */
   $rac-field-border-radius: unset,                                                  /* @stable [09.02.2020] */
-  $rac-field-chips-display: unset,                                                  /* @stable [02.06.2020] */
-  $rac-field-chips-margin: unset,                                                   /* @stable [02.06.2020] */
-  $rac-field-chips-neighbor-child-margin: unset,                                    /* @stable [02.06.2020] */
   $rac-field-display: unset,                                                        /* @stable [28.10.2019] */
   $rac-field-flex-direction: unset,                                                 /* @stable [28.10.2019] */
   $rac-field-height: unset,
@@ -605,14 +605,14 @@
       }
     }
 
-    > .rac-field__chips {
+    > .rac-field__attachment {
       @include rac-styles (
-        $rac-styles-display: $rac-field-chips-display,
-        $rac-styles-margin: $rac-field-chips-margin
+        $rac-styles-display: $rac-field-attachment-display,
+        $rac-styles-margin: $rac-field-attachment-margin
       );
 
       @include rac-neighbor-child (
-        $rac-neighbor-child-margin: $rac-field-chips-neighbor-child-margin
+        $rac-neighbor-child-margin: $rac-field-attachment-neighbor-child-margin
       );
     }
 
