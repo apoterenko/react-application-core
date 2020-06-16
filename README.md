@@ -52,6 +52,7 @@ The library is designed to quickly start develop the business applications are b
 #### @component-impl
 
 * [Chart (23.05.2020)](src/core/component/chart/chart.component.tsx)
+* [Chip (02.06.2020)](src/core/component/chip/chip.component.tsx)
 * [Dialog & BaseDialog (11.05.2020)](src/core/component/dialog/base-dialog.component.tsx)
 * [Drawer (29.05.2020)](src/core/component/drawer/drawer.component.tsx)
 * [FormLayout (31.05.2020)](src/core/component/layout/form/form-layout.component.tsx)
@@ -89,6 +90,12 @@ The library is designed to quickly start develop the business applications are b
 * [_chart.scss (23.05.2020)](src/core/component/chart/_chart.scss)
 * [_chart-constant.scss (23.05.2020)](src/core/component/chart/_chart-constant.scss)
 * [_chart-mixin.scss (23.05.2020)](src/core/component/chart/_chart-mixin.scss)
+
+#### Chip
+
+* [_chip.scss (02.06.2020)](src/core/component/chip/_chip.scss)
+* [_chip-constant.scss (02.06.2020)](src/core/component/chip/_chip-constant.scss)
+* [_chip-mixin.scss (02.06.2020)](src/core/component/chip/_chip-mixin.scss)
 
 #### DefaultLayout
 
