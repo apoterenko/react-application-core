@@ -1,26 +1,11 @@
 import {
   IEntity,
-  IIgnoreSelectedValueWrapper,
 } from '../../../definitions.interface';
 import {
+  IField,
   IMultiItemEntity,
   MultiFieldEntityT,
-  IField,
 } from '../../../definition';
-import { IBaseSelectState, IBaseSelectProps } from '../select/base-select.interface';
-
-/**
- * @stable [01.06.2018]
- */
-export interface IMultiFieldState extends IBaseSelectState {
-}
-
-/**
- * @stable [01.06.2018]
- */
-export interface IMultiFieldProps extends IBaseSelectProps,
-                                          IIgnoreSelectedValueWrapper {
-}
 
 /**
  * @stable [04.07.2018]

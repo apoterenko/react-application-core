@@ -1,13 +1,20 @@
 import * as React from 'react';
 
-import { EntityIdT, IKeyboardEvent, AnyT } from '../../../definitions.interface';
-import { BaseSelect } from '../../field/select';
-import { IMultiFieldState, IMultiFieldProps, IMultiField } from './multifield.interface';
-import { MultiFieldPlugin } from './multifield.plugin';
-import { toClassName } from '../../../util';
 import {
+  AnyT,
+  EntityIdT,
+  IKeyboardEvent,
+} from '../../../definitions.interface';
+import { BaseSelect } from '../../field/select';
+import { IMultiField } from './multifield.interface';
+import { MultiFieldPlugin } from './multifield.plugin';
+import { ClsUtils } from '../../../util';
+import {
+  IMultiFieldProps,
+  IMultiFieldState,
   IMultiItemEntity,
   IPresetsSelectOptionEntity,
+  MultiFieldClassesEnum,
   MultiFieldEntityT,
 } from '../../../definition';
 
@@ -26,7 +33,10 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
     preventFocus: true,
   };
 
-  public multiFieldPlugin = new MultiFieldPlugin(this);
+  /**
+   * @stable [16.06.2020]
+   */
+  protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
 
   /**
    * @stable [01.06.2018]
@@ -119,24 +129,33 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
-   * @stable [19.06.2018]
-   * @param {IPresetsSelectOptionEntity[]} options
+   * @stable [16.06.2020]
    * @returns {IPresetsSelectOptionEntity[]}
    */
   protected getFilteredOptions(): IPresetsSelectOptionEntity[] {
     const activeValue = this.multiFieldPlugin.activeValue;
+    const {
+      selectedValueIgnored,
+    } = this.mergedProps;
 
-    return this.props.ignoreSelectedValue
+    return selectedValueIgnored
       ? this.options
-      : this.options.filter((option) => !activeValue.find((item) => item.id === option.value));
+      : (
+        this.options.filter(
+          (option) => !activeValue.find((item) => item.id === this.fromSelectOptionEntityToId(option))
+        )
+      );
   }
 
   /**
-   * @stable [21.09.2018]
+   * @stable [16.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return toClassName(super.getFieldClassName(), 'rac-multi-field');
+    return ClsUtils.joinClassName(
+      super.getFieldClassName(),
+      MultiFieldClassesEnum.MULTI_FIELD
+    );
   }
 
   /**

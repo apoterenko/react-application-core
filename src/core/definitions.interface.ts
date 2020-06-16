@@ -84,6 +84,7 @@ export interface IChannelsWrapper<TValue = string> { channels?: TValue; }
 export interface IChannelWrapper<TValue = string> { channel?: TValue; }
 export interface ICheckModalWrapper { checkModal?: boolean; }
 export interface IChildrenWrapper<TValue> { children?: TValue; }
+export interface IChipClassNameWrapper { chipClassName?: string; }
 export interface ICityWrapper<TValue = string> { city?: TValue; }
 export interface IClassNameWrapper<TValue = string> { className?: TValue; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
@@ -241,7 +242,6 @@ export interface IIconLeftAlignedWrapper { iconLeftAligned?: boolean; }
 export interface IIconWrapper<TValue = string> { icon?: TValue; }
 export interface IIdWrapper<TValue = number> { id?: TValue; }
 export interface IIgnoreEnterKeyWrapper { ignoreEnterKey?: boolean; }
-export interface IIgnoreSelectedValueWrapper { ignoreSelectedValue?: boolean; }
 export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
@@ -479,6 +479,7 @@ export interface ISectionWrapper<TValue = string> { section?: TValue; }
 export interface ISelectableWrapper<TValue = boolean> { selectable?: TValue; }
 export interface ISelectedDaysWrapper<TValue> { selectedDays?: TValue; }
 export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
+export interface ISelectedValueIgnoredWrapper { selectedValueIgnored?: boolean; }
 export interface ISelectedWrapper<TValue = boolean> { selected?: TValue; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISeparatorWrapper<TValue = string> { separator?: TValue; }

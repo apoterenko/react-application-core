@@ -54,6 +54,7 @@ export * from './main-definition.interface';
 export * from './menu-definition.interface';
 export * from './middleware-definition.interface';
 export * from './modify-payload-definition.interface';
+export * from './multi-field-definition.interface';
 export * from './navigation-list-definition.interface';
 export * from './notification-definition.interface';
 export * from './oauth-definition.interface';

@@ -1,11 +1,31 @@
-import { IMultiFieldProps } from '../component/field/multifield/multifield.interface'; // TODO
+import { IChipClassNameWrapper } from '../definitions.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IGenericMultiFieldEntity } from './multi-field-definition.interface';
 
 /**
- * @stable [01.06.2018]
+ * @presets-entity
+ * @stable [16.06.2020]
+ */
+export interface IPresetsChipsFieldEntity
+  extends IChipClassNameWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [16.06.2020]
+ */
+export interface IGenericChipsFieldEntity
+  extends IPresetsChipsFieldEntity,
+    IGenericMultiFieldEntity {
+}
+
+/**
+ * @props
+ * @stable [16.06.2020]
  */
 export interface IChipsFieldProps
-  extends IMultiFieldProps {
-  chipClassName?: string; // TODO
+  extends IGenericComponentProps,
+    IGenericChipsFieldEntity {
 }
 
 /**
