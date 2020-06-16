@@ -1,4 +1,5 @@
 import {
+  IClosableWrapper,
   IDisabledWrapper,
   IEntityIdTWrapper,
   IOnClickWrapper,
@@ -10,7 +11,8 @@ import { IGenericComponentProps } from './generic-component-definition.interface
  * @stable [02.06.2020]
  */
 export interface IPresetsChipEntity
-  extends IDisabledWrapper,
+  extends IClosableWrapper,
+    IDisabledWrapper,
     IEntityIdTWrapper,
     IOnClickWrapper {
 }

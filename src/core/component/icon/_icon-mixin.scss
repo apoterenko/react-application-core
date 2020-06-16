@@ -8,7 +8,9 @@
   /**/
   $rac-icon-align-items: unset,                                             /* @stable [15.01.2020] */
   $rac-icon-background: unset,                                              /* @stable [15.01.2020] */
+  $rac-icon-border-bottom-right-radius: unset,                              /* @stable [16.06.2020] */
   $rac-icon-border-radius: unset,                                           /* @stable [15.01.2020] */
+  $rac-icon-border-top-right-radius: unset,                                 /* @stable [16.06.2020] */
   $rac-icon-border: unset,                                                  /* @stable [15.01.2020] */
   $rac-icon-bottom: unset,                                                  /* @stable [15.01.2020] */
   $rac-icon-color: unset,                                                   /* @stable [09.11.2019] */
@@ -41,7 +43,9 @@
     @include rac-styles (
       $rac-styles-align-items: $rac-icon-align-items,
       $rac-styles-background: $rac-icon-background,
+      $rac-styles-border-bottom-right-radius: $rac-icon-border-bottom-right-radius,
       $rac-styles-border-radius: $rac-icon-border-radius,
+      $rac-styles-border-top-right-radius: $rac-icon-border-top-right-radius,
       $rac-styles-border: $rac-icon-border,
       $rac-styles-bottom: $rac-icon-bottom,
       $rac-styles-color: $rac-icon-color,

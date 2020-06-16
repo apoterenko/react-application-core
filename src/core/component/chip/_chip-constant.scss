@@ -2,14 +2,27 @@
 @import '../_classes';
 
 /************************/
+/* @stable [16.06.2020] */
+/************************/
+$rac-primary-chip-border-radius: $rac-primary-border-radius-1 !default;
+
+/************************/
 /* @stable [02.06.2020] */
 /************************/
-$rac-chip-align-items: center !default;
+$rac-chip-align-items: unset !default;
 $rac-chip-background: $rac-primary-color-poseidon-05 !default;
-$rac-chip-border-radius: $rac-primary-border-radius-1 !default;
-$rac-chip-close-background: $rac-primary-color-poseidon-1 !default;
+$rac-chip-border-radius: $rac-primary-chip-border-radius !default;
+$rac-chip-close-background: $rac-primary-color-poseidon-05 !default;
+$rac-chip-close-border-bottom-right-radius: $rac-primary-chip-border-radius !default;
+$rac-chip-close-border-top-right-radius: $rac-primary-chip-border-radius !default;
+$rac-chip-close-color: $rac-primary-color-poseidon-3 !default;
 $rac-chip-close-content-size: $rac-primary-size-2 !default;
+$rac-chip-close-height: auto !default;
+$rac-chip-close-width: $rac-primary-size-5 !default;
+$rac-chip-content-align-items: center !default;
+$rac-chip-content-display: $rac-primary-display-2 !default;
 $rac-chip-content-font-size: $rac-primary-font-size-0 !default;
-$rac-chip-content-padding: $rac-primary-offset-0 $rac-primary-offset-1 !default;
+$rac-chip-content-padding: 0 $rac-primary-offset-1 !default;
+$rac-chip-cursor: default !default;
 $rac-chip-display: $rac-primary-display-2 !default;
 $rac-chip-min-height: $rac-primary-size-5 !default;

@@ -87,6 +87,7 @@
   $rac-styles-border-right: unset,
   $rac-styles-border-spacing: unset,
   $rac-styles-border-style: unset,
+  $rac-styles-border-top-right-radius: unset,
   $rac-styles-border-top: unset,
   $rac-styles-border-width: unset,
   $rac-styles-border: unset,
@@ -176,6 +177,7 @@
   @if $rac-styles-border-spacing != unset { border-spacing: $rac-styles-border-spacing; }
   @if $rac-styles-border-style != unset { border-style: $rac-styles-border-style; }
   @if $rac-styles-border-top != unset { border-top: $rac-styles-border-top; }
+  @if $rac-styles-border-top-right-radius != unset { border-top-right-radius: $rac-styles-border-top-right-radius; }
   @if $rac-styles-border-width != unset { border-width: $rac-styles-border-width; }
   @if $rac-styles-bottom != unset { bottom: $rac-styles-bottom; }
   @if $rac-styles-box-shadow != unset { box-shadow: $rac-styles-box-shadow; }
@@ -282,6 +284,7 @@
   $rac-styles-border-right: unset,
   $rac-styles-border-spacing: unset,
   $rac-styles-border-style: unset,
+  $rac-styles-border-top-right-radius: unset,
   $rac-styles-border-top: unset,
   $rac-styles-border-width: unset,
   $rac-styles-border: unset,
@@ -373,6 +376,7 @@
         $rac-styles-border-right: $rac-styles-border-right,
         $rac-styles-border-spacing: $rac-styles-border-spacing,
         $rac-styles-border-style: $rac-styles-border-style,
+        $rac-styles-border-top-right-radius: $rac-styles-border-top-right-radius,
         $rac-styles-border-top: $rac-styles-border-top,
         $rac-styles-border-width: $rac-styles-border-width,
         $rac-styles-border: $rac-styles-border,
@@ -463,6 +467,7 @@
       $rac-styles-border-right: $rac-styles-border-right,
       $rac-styles-border-spacing: $rac-styles-border-spacing,
       $rac-styles-border-style: $rac-styles-border-style,
+      $rac-styles-border-top-right-radius: $rac-styles-border-top-right-radius,
       $rac-styles-border-top: $rac-styles-border-top,
       $rac-styles-border-width: $rac-styles-border-width,
       $rac-styles-border: $rac-styles-border,

@@ -17,6 +17,10 @@ import {
  */
 export class Chip extends GenericComponent<IChipProps> {
 
+  public static readonly defaultProps: IChipProps = {
+    closable: true,
+  };
+
   /**
    * @stable [02.06.2020]
    * @returns {JSX.Element}
@@ -24,6 +28,7 @@ export class Chip extends GenericComponent<IChipProps> {
   public render(): JSX.Element {
     const {
       className,
+      closable,
       disabled,
       onClick,
     } = this.mergedProps;
@@ -41,7 +46,7 @@ export class Chip extends GenericComponent<IChipProps> {
           {this.originalChildren}
         </span>
         {
-          this.uiFactory.makeIcon({
+          closable && this.uiFactory.makeIcon({
             className: ChipClassesEnum.CHIP_CLOSE,
             disabled,
             onClick,
