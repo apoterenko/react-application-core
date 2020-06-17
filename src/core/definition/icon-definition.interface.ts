@@ -34,6 +34,7 @@ export enum IconsEnum {
   MINUS = 'minus',                                                        /* https://fontawesome.com/ */
   MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
   PAPERCLIP = 'paperclip',                                                /* https://fontawesome.com/ */
+  PENCIL_ALT = 'pencil-alt',                                              /* https://fontawesome.com/ */
   PEOPLE_CARRY = 'people-carry',                                          /* https://fontawesome.com/ */
   PHONE = 'phone',
   PLUS = 'plus',                                                          /* https://fontawesome.com/ */
