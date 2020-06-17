@@ -25,7 +25,7 @@ export const DEFAULT_MAX_PAGED_ENTITY = Object.freeze<IReduxPagedEntity>({
 
 /**
  * @default-entity
- * @stable [12.10.2019]
+ * @stable [17.06.2020]
  */
 export const DEFAULT_PAGED_ENTITY = Object.freeze<IReduxPagedEntity>({
   page: FIRST_PAGE,

@@ -282,6 +282,7 @@ export const getUserActivityManager = (): IUserActivityManager =>
  */
 export class DiServices {
   public static readonly auth = getAuth;
+  public static readonly dateConverter = getDateConverter;
   public static readonly dynamicRoutes = getDynamicRoutes;
   public static readonly store = getStore;
   public static readonly translator = getTranslator;

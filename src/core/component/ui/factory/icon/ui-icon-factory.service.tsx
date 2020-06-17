@@ -194,11 +194,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    [IconsEnum.SEARCH_MAGNIFIER]: (
-      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M17.583 16.52l5.95 5.945c.707.707-.354 1.768-1.061 1.061l-5.95-5.945A9.96 9.96 0 0 1 10 20C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10a9.96 9.96 0 0 1-2.417 6.52zM10 18.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17z'/>
-      </svg>
-    ),
     'password': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
@@ -244,13 +239,6 @@ export class UiIconFactory implements IUiIconFactory {
           />
         </defs>
         <use fill='currentColor' fillRule='evenodd' xlinkHref='#61000029-3ad6-4fb3-a4a7-c6e231a79d7a' />
-      </svg>
-    ),
-    'icons-search': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M21.442 23.555a1.481 1.481 0 0 0 2.119 0 1.53 1.53 0 0 0 0-2.145l-4.62-4.62a10.474 10.474 0 0 0 2.079-6.28C21.02 4.707 16.314 0 10.51 0 4.707 0 0 4.705 0 10.51c0 5.806 4.705 10.511 10.51 10.511 2.363 0 4.546-.78 6.3-2.096l4.633 4.63zM3.003 10.51a7.507 7.507 0 1 1 15.014 0 7.506 7.506 0 1 1-15.012 0h-.002z'
-        />
       </svg>
     ),
     'id': (
