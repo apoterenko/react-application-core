@@ -465,14 +465,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [21.12.2019]
-   * @returns {AnyT}
-   */
-  protected get decoratedDisplayValue(): AnyT {
-    return this.getDecoratedDisplayValue(this.value);
-  }
-
-  /**
    * @stable [16.01.2020]
    * @returns {string}
    */

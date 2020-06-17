@@ -98,6 +98,7 @@ export interface IPresetsFieldEntity
     IDelayTimeoutWrapper,
     IDisabledWrapper,
     IDisplayNameWrapper,
+    IDisplayValueRenderedOnlyWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IEmptyValueWrapper,
     IFieldRenderedWrapper,
@@ -149,7 +150,6 @@ export interface IGenericFieldEntity
 export interface IGenericFieldEntity2
   extends IGenericFieldEntity,
     IAutoCompleteWrapper,
-    IDisplayValueRenderedOnlyWrapper,
     IStepWrapper,
     ISyntheticCursorWrapper,
     ITabIndexWrapper,

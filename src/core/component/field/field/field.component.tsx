@@ -194,6 +194,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [17.06.2020]
+   * @returns {AnyT}
+   */
+  protected get decoratedDisplayValue(): AnyT {
+    return this.getDecoratedDisplayValue(this.value);
+  }
+
+  /**
    * @stable [18.05.2020]
    * @param {AnyT} value
    * @returns {AnyT}
