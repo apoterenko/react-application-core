@@ -7,6 +7,7 @@ import {
   FieldClassesEnum,
   FieldComposedInputAttributesT,
   FieldConstants,
+  IBaseEvent,
   IField,
   IFieldInputAttributes,
   IFieldProps,
@@ -41,6 +42,7 @@ export class Field<TProps extends IFieldProps,
     this.state = {} as TState;
 
     this.onChangeManually = this.onChangeManually.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   /**
@@ -96,13 +98,11 @@ export class Field<TProps extends IFieldProps,
     if (this.isValuePresent) {
       this.onChangeManually(this.emptyValue);
     }
-
-    const {onClear} = this.originalProps;
-    ConditionUtils.ifNotNilThanValue(onClear, () => onClear());
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onClear, (onClear) => onClear());
   }
 
   /**
-   * @stable [17.05.2020]
+   * @stable [17.06.2020]
    * @param {ChangeEventT} event
    * @returns {AnyT}
    */
@@ -111,11 +111,13 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [03.06.2020]
+   * @stable [17.06.2020]
    * @returns {AnyT}
    */
   public get value(): AnyT {
-    const value = this.originalProps.value;
+    const {
+      value,
+    } = this.originalProps;
     return this.isValueDefined(value) ? value : this.defaultValue;
   }
 
@@ -137,6 +139,16 @@ export class Field<TProps extends IFieldProps,
     if (this.hasInput) {
       this.input.blur();
     }
+  }
+
+  /**
+   * @stable [17.06.2020]
+   * @param {IBaseEvent} event
+   */
+  protected onClick(event: IBaseEvent): void {
+    this.domAccessor.cancelEvent(event);
+
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onClick, (onClick) => onClick(event));
   }
 
   /**

@@ -7,12 +7,13 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
-  isClearActionRendered,
   isInline,
   nvl,
+  ObjectUtils,
   orNull,
   parseValueAtPx,
   toJqEl,
+  WrapperUtils,
 } from '../../../util';
 import {
   IChangeEvent,
@@ -27,6 +28,7 @@ import {
 import {
   ComponentClassesEnum,
   EventsEnum,
+  FieldActionPositionsEnum,
   FieldActionTypesEnum,
   IBaseEvent,
   IFieldActionEntity,
@@ -42,20 +44,22 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 
-  private readonly mirrorInputRef = React.createRef<HTMLElement>();
-  private readonly keyboardRef = React.createRef<Keyboard>();
+  protected defaultActions: IFieldActionEntity[] = [];
   private keyboardListenerUnsubscriber: () => void;
+  private readonly keyboardRef = React.createRef<Keyboard>();
+  private readonly mirrorInputRef = React.createRef<HTMLElement>();
 
   /**
-   * @stable [25.02.2019]
-   * @param {TProps} props
+   * @stable [17.06.2020]
+   * @param {TProps} originalProps
    */
-  constructor(props: TProps) {
-    super(props);
-    this.onKeyboardChange = this.onKeyboardChange.bind(this);
-    this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
+  constructor(originalProps: TProps) {
+    super(originalProps);
 
-    if (isClearActionRendered(props)) {
+    this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
+    this.onKeyboardChange = this.onKeyboardChange.bind(this);
+
+    if (WrapperUtils.isClearActionRendered(this.originalProps)) {
       this.addClearAction();
     }
   }
@@ -239,21 +243,11 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [01.12.2019]
-   * @returns {IFieldActionEntity[]}
+   * @stable [17.06.2020]
+   * @returns {boolean}
    */
-  protected getFieldActions(): IFieldActionEntity[] {
-    const isValuePresent = this.isValuePresent;
-
-    return super.getFieldActions().filter(
-      (action) => {
-        switch (action.type) {
-          case FieldActionTypesEnum.CLOSE:
-            return isValuePresent;
-        }
-        return true;
-      }
-    );
+  protected get isActioned(): boolean {
+    return ObjectUtils.isObjectNotEmpty(this.fieldActions);
   }
 
   /**
@@ -318,7 +312,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return (
       <React.Fragment>
         {
-          this.getFieldActions().map(
+          this.fieldActions.map(
             (action, index) => (
               <React.Fragment key={`field-action-key-${index}`}>
                 {
@@ -352,5 +346,33 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    */
   private get isKeyboardInline(): boolean {
     return isInline(this.getKeyboardProps());
+  }
+
+  /**
+   * @stable [17.06.2020]
+   * @returns {IFieldActionEntity[]}
+   */
+  private get fieldActions(): IFieldActionEntity[] {
+    const mergedProps = this.mergedProps;
+
+    const {
+      actions = [],
+      actionsPosition,
+    } = mergedProps;
+
+    const defaultActions = this.defaultActions || [];
+    const fieldActions = actionsPosition === FieldActionPositionsEnum.LEFT
+      ? defaultActions.concat(actions)
+      : actions.concat(defaultActions);
+
+    return fieldActions.filter(
+      (action) => {
+        switch (action.type) {
+          case FieldActionTypesEnum.CLOSE:
+            return this.isValuePresent;
+        }
+        return true;
+      }
+    );
   }
 }

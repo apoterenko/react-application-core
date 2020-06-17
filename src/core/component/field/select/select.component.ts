@@ -1,10 +1,11 @@
 import { BaseSelect } from './base-select.component';
 import {
+  IPresetsSelectOptionEntity,
   ISelectProps,
   ISelectState,
-} from './select.interface';
-import { IPresetsSelectOptionEntity } from '../../../definition';
-import { joinClassName } from '../../../util';
+  SelectClassesEnum,
+} from '../../../definition';
+import { ClsUtils } from '../../../util';
 
 export class Select extends BaseSelect<ISelectProps, ISelectState> {
 
@@ -22,10 +23,10 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
   }
 
   /**
-   * @stable [30.11.2019]
+   * @stable [17.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-select');
+    return ClsUtils.joinClassName(super.getFieldClassName(), SelectClassesEnum.SELECT);
   }
 }

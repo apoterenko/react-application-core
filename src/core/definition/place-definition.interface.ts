@@ -19,7 +19,10 @@ import {
   IZipCodeWrapper,
 } from '../definitions.interface';
 import { INamedEntity } from './entity-definition.interface';
-import { IBaseSelectProps, IBaseSelectState } from '../component/field/select/base-select.interface'; // TODO
+import {
+  IBaseSelectProps,
+  IBaseSelectState,
+} from './select-definition.interface';
 import {
   DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
 } from './field-definition.interface';

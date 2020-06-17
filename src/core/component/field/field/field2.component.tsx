@@ -7,15 +7,12 @@ import {
   defValuesFilter,
   ifNotNilThanValue,
   isErrorMessageRendered,
-  isFn,
   isFull,
   joinClassName,
   orNull,
   orUndef,
 } from '../../../util';
 import {
-  AnyT,
-  IChangeEvent,
   IKeyboardEvent,
   UniCodesEnum,
   } from '../../../definitions.interface';
@@ -25,17 +22,10 @@ import {
 import { UniversalField } from './universal-field.component';
 import {
   ComponentClassesEnum,
-  FieldActionPositionsEnum,
-  FieldClassesEnum,
-  IBaseEvent,
   IComponentsSettingsEntity,
   IField,
-  IFieldActionEntity,
   FieldComposedInputAttributesT,
-  IFieldInputAttributes,
   IJQueryElement,
-  IMaskedInputCtor,
-  InputElementT,
 } from '../../../definition';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
 
@@ -44,17 +34,6 @@ export class Field2<TProps extends IFieldProps2,
     extends UniversalField<TProps,
                            TState>
     implements IField<TProps, TState> {
-
-  protected defaultActions: IFieldActionEntity[] = [];
-
-  /**
-   * @stable [28.10.2019]
-   * @param {TProps} props
-   */
-  constructor(props: TProps) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
 
   /**
    * @stable [26.05.2019]
@@ -203,19 +182,6 @@ export class Field2<TProps extends IFieldProps2,
   }
 
   /**
-   * @stable [11.01.2020]
-   * @param {IBaseEvent} event
-   */
-  protected onClick(event: IBaseEvent): void {
-    this.domAccessor.cancelEvent(event);
-
-    const props = this.props;
-    if (isFn(props.onClick)) {
-      props.onClick(event);
-    }
-  }
-
-  /**
    * @stable [30.10.2019]
    * @returns {FieldComposedInputAttributesT}
    */
@@ -280,11 +246,15 @@ export class Field2<TProps extends IFieldProps2,
       this.isDisabled && 'rac-field-disabled',
       this.isReadOnly && 'rac-field-readonly',
       this.isFocusPrevented && 'rac-field-prevent-focus',
-      !R.isEmpty(this.getFieldActions()) && 'rac-field-actioned',
+      this.isActioned && 'rac-field-actioned',
       props.label && 'rac-field-labeled',
       props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
       calc<string>(props.className)
     );
+  }
+
+  protected get isActioned(): boolean {
+    return false;
   }
 
   /**
@@ -301,20 +271,6 @@ export class Field2<TProps extends IFieldProps2,
         {message ? this.t(message) : UniCodesEnum.NO_BREAK_SPACE}
       </div>
     );
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @returns {IFieldActionEntity[]}
-   */
-  protected getFieldActions(): IFieldActionEntity[] {
-    const props = this.props;
-    const defaultActions = this.defaultActions || [];
-    const actions = props.actions || [];
-
-    return props.actionsPosition === FieldActionPositionsEnum.LEFT
-      ? defaultActions.concat(actions)
-      : actions.concat(defaultActions);
   }
 
   /**

@@ -2,7 +2,7 @@ import { ISelectedValueIgnoredWrapper } from '../definitions.interface';
 import {
   IBaseSelectProps,
   IBaseSelectState,
-} from '../component/field/select/base-select.interface';
+} from './select-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 
 /**

@@ -22,24 +22,22 @@ import {
   TypeUtils,
   WrapperUtils,
 } from '../../../util';
-import { BaseTextField } from '../text-field';
+import { BaseTextField } from '../text-field/base-textfield.component';
 import { Menu } from '../../menu';
+import { InlineOption } from '../../inline-option';
 import {
   AnyT,
   EntityIdT,
   StringNumberT,
 } from '../../../definitions.interface';
 import {
-  IBaseSelect,
-  IBaseSelectProps,
-  IBaseSelectState,
-} from './base-select.interface';
-import {
   ChangeEventT,
   FieldActionTypesEnum,
   FieldClassesEnum,
   FieldConstants,
   IBaseEvent,
+  IBaseSelectProps,
+  IBaseSelectState,
   IMenu,
   IMenuProps,
   IMultiItemEntity,
@@ -47,12 +45,10 @@ import {
   SelectClassesEnum,
   SelectValueT,
 } from '../../../definition';
-import { InlineOption } from '../../inline-option';
 
 export class BaseSelect<TProps extends IBaseSelectProps,
                         TState extends IBaseSelectState>
-  extends BaseTextField<TProps, TState>
-  implements IBaseSelect {
+  extends BaseTextField<TProps, TState> {
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseSelect');
 

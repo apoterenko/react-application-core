@@ -45,6 +45,7 @@ import {
   filterAndSortGridOriginalDataSource,
   getGridColumnSortDirection,
 } from './grid.support';
+import { ITextFieldProps } from '../field/text-field/textfield.interface';
 
 export class Grid extends BaseList<IGridProps, IGridState> {
 
@@ -269,7 +270,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       }
       if (this.isElementField(renderEl)) {
         const name = this.toFilterFieldName(column, columnNum);
-        return React.cloneElement<IFieldProps2>(renderEl, {
+        return React.cloneElement<ITextFieldProps>(renderEl, {
           value: this.toFilterFieldValue(name),
           placeholder: this.settings.messages.SEARCH,
           clearActionRendered: true,

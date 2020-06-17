@@ -2,7 +2,6 @@ import {
   ICameraHeightWrapper,
   ICameraWidthWrapper,
   ICaretBlinkingFrequencyTimeoutWrapper,
-  IClearActionRenderedWrapper,
   IDisplayMessageWrapper,
   IErrorMessageRenderedWrapper,
   IFieldConfigurationWrapper,
@@ -19,7 +18,6 @@ import {
 import {
   IBaseEvent,
   IBehavioralBaseFieldEntity,
-  IBehavioralFieldEntity,
   IComponentProps,
   IGenericFieldEntity2,
   IKeyboardConfigurationEntity,
@@ -69,9 +67,7 @@ export interface IUniversalFieldProps
 /* @stable - 11.04.2018 */
 export interface IFieldProps2 extends IComponentProps,
   IUniversalFieldProps,
-  IBehavioralFieldEntity,
-  IMaskPlaceholderCharWrapper,
-  IClearActionRenderedWrapper {
+  IMaskPlaceholderCharWrapper {
   minLength?: number;
   maxLength?: number;
   rows?: number;

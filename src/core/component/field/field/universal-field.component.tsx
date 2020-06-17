@@ -196,7 +196,7 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @returns {boolean}
    */
   protected get isRequired(): boolean {
-    return isRequired(this.props);
+    return isRequired(this.originalProps);
   }
 
   /**

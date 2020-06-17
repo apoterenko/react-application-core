@@ -372,7 +372,7 @@ export const isCalendarActionRendered = (wrapper: ICalendarActionRenderedWrapper
  * @param {IClearActionRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isClearActionRendered = (wrapper: IClearActionRenderedWrapper): boolean =>
+const isClearActionRendered = (wrapper: IClearActionRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.clearActionRendered !== false;
 
 /**
@@ -650,6 +650,7 @@ export class WrapperUtils {
   public static readonly areManualChangesNotPrevented = areManualChangesNotPrevented;      /* @stable [03.06.2020] */
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
   public static readonly isChangeable = isChangeable;                                      /* @stable [05.06.2020] */
+  public static readonly isClearActionRendered = isClearActionRendered;                    /* @stable [17.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */

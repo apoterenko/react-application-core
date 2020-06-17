@@ -9,7 +9,7 @@ import {
   ITypeWrapper,
 } from '../definitions.interface';
 import { CronPeriodsEnum } from './cron-definition.interface';
-import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
+import { IBaseSelectProps } from './select-definition.interface';
 import {
   IGenericContainer,
   IGenericContainerProps,

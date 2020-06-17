@@ -1,5 +1,5 @@
 import { ElementsMarkersEnum } from './dom-definition.interface';
-import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
+import { IBaseSelectProps } from './select-definition.interface';
 import {
   IBasicListProps,
   IListItemProps,

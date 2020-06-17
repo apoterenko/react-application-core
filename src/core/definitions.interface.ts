@@ -20,7 +20,7 @@ export interface IAccessConfigurationWrapper<TValue> { accessConfiguration?: TVa
 export interface IAccessDeniedWrapper<TValue> { accessDenied?: TValue; }
 export interface IActionConfigurationWrapper<TValue> { actionConfiguration?: TValue; }
 export interface IActionsFactoryWrapper<TValue> { actionsFactory?: TValue; }
-export interface IActionsPosition<TValue> { actionsPosition?: TValue; }
+export interface IActionsPositionWrapper<TValue> { actionsPosition?: TValue; }
 export interface IActionsRenderedWrapper { actionsRendered?: boolean; }
 export interface IActionsWrapper<TValue> { actions?: TValue; }
 export interface IActionWrapper<TValue> { action?: TValue; }
@@ -374,7 +374,6 @@ export interface IOnSortingDirectionChangeWrapper<TValue> { onSortingDirectionCh
 export interface IOnSubmitWrapper<TValue = {}> { onSubmit?(value?: TValue): void; }
 export interface IOnValidWrapper<TValue = boolean> { onValid?(value?: TValue): void; }
 export interface IOpenedWrapper<TValue = boolean> { opened?: TValue; }
-export interface IOpenMenuWrapper<TValue> { openMenu?(value?: TValue): void; }
 export interface IOperationIdWrapper { operationId?: string; }
 export interface IOperationWrapper<TValue = IIdWrapper<string>> { operation?: TValue; }
 export interface IOptionsWrapper<TValue> { options?: TValue; }

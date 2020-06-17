@@ -1,5 +1,6 @@
 import {
   EntityIdT,
+  I$$cachedValueWrapper,
   IAllowEmptyFilterValueWrapper,
   IAnchoredWrapper,
   IDictionaryWrapper,
@@ -9,9 +10,11 @@ import {
   IInlineOptionClassNameClassName,
   IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
+  IMenuRenderedWrapper,
   IOnDictionaryFilterChangeWrapper,
   IOnSelectWrapper,
   IOptionsWrapper,
+  IProgressWrapper,
   IWaitingForOptionsWrapper,
   StringNumberT,
 } from '../definitions.interface';
@@ -22,8 +25,11 @@ import {
 import {
   IPresetsBaseTextFieldEntity,
   IReduxBaseTextFieldEntity,
-} from './field-definition.interface';
+} from './text-field-definition.interface';
 import { IFluxPayloadQueryEntity } from './query-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IBaseTextFieldProps } from '../component/field/text-field/base-textfield.interface';
+import { IField2State } from '../component/field/field/field.interface';
 
 /**
  * @presets-entity
@@ -78,10 +84,58 @@ export interface IPresetsSelectOptionEntity<TRawData = {}, TValue = EntityIdT>
 export type SelectValueT = IPresetsSelectOptionEntity | StringNumberT;
 
 /**
+ * @generic-state
+ * @stable [11.01.2020]
+ */
+export interface IGenericBaseSelectState
+  extends IMenuRenderedWrapper,
+    IProgressWrapper {
+}
+
+/**
+ * @stable [06.10.2018]
+ */
+export interface IBaseSelectState
+  extends IField2State,
+    IGenericBaseSelectState,
+    I$$cachedValueWrapper<IPresetsSelectOptionEntity> {
+}
+
+// TODO
+export interface IBaseSelectProps
+  extends IGenericBaseSelectEntity,
+    IBaseTextFieldProps {
+  icon?: string; // TODO
+}
+
+// TODO
+export interface ISelectState
+  extends IBaseSelectState {
+}
+
+/**
+ * @generic-entity
+ * @stable [17.06.2020]
+ */
+export interface IGenericSelectEntity
+  extends IGenericBaseSelectEntity {
+}
+
+/**
+ * @props
+ * @stable [17.06.2020]
+ */
+export interface ISelectProps
+  extends IGenericComponentProps,
+    IGenericSelectEntity {
+}
+
+/**
  * @classes
  * @stable [16.06.2020]
  */
 export enum SelectClassesEnum {
   BASE_SELECT = 'rac-base-select',
   BASE_SELECT_INLINE_OPTION = 'rac-base-select__inline-option',
+  SELECT = 'rac-select',
 }

@@ -7,8 +7,6 @@ import {
 import {
   AnyT,
   EntityIdT,
-  IActionsPosition,
-  IActionsWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   IBindDictionaryWrapper,
@@ -29,9 +27,7 @@ import {
   IFullWrapper,
   IKeepChangesWrapper,
   ILabelWrapper,
-  IMaskGuideWrapper,
   IMaskWrapper,
-  IMenuRenderedWrapper,
   INameWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
@@ -47,7 +43,6 @@ import {
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
-  IProgressWrapper,
   IRawDataWrapper,
   IReadOnlyWrapper,
   IRenderedWrapper,
@@ -96,8 +91,7 @@ export class FieldConstants {
  * @stable [09.05.2020]
  */
 export interface IPresetsFieldEntity
-  extends IActionsWrapper<IFieldActionEntity[]>,
-    IAutoFocusWrapper,
+  extends IAutoFocusWrapper,                                                      /* @stable [17.06.2020] */
     IBindDictionaryWrapper,
     IChangeableWrapper,
     IDefaultValueWrapper,
@@ -115,6 +109,7 @@ export interface IPresetsFieldEntity
     INameWrapper,
     IOnChangeWrapper,
     IOnClearWrapper,
+    IOnClickWrapper,                                                              /* @stable [17.06.2020] */
     IOnDelayWrapper,
     IOnDictionaryEmptyWrapper<string, IApiEntity>,
     IOnDictionaryLoadWrapper<{}, string>,
@@ -133,15 +128,6 @@ export interface IPresetsFieldEntity
 }
 
 /**
- * @presets-entity
- * @stable [19.05.2020]
- */
-export interface IPresetsBaseTextFieldEntity
-  extends IPresetsFieldEntity,
-    IMaskGuideWrapper {
-}
-
-/**
  * @redux-entity
  * @stable [08.05.2020]
  */
@@ -149,14 +135,6 @@ export interface IReduxFieldEntity
   extends IOriginalValueWrapper,
     IReduxLifeCycleEntity,
     IValueWrapper {
-}
-
-/**
- * @redux-entity
- * @stable [19.05.2020]
- */
-export interface IReduxBaseTextFieldEntity
-  extends IReduxFieldEntity {
 }
 
 /**
@@ -170,7 +148,6 @@ export interface IGenericFieldEntity
 
 export interface IGenericFieldEntity2
   extends IGenericFieldEntity,
-    IActionsPosition<FieldActionPositionsEnum>,
     IAutoCompleteWrapper,
     IDisplayValueRenderedOnlyWrapper,
     IStepWrapper,
@@ -185,14 +162,6 @@ export interface IGenericFieldEntity2
  */
 export interface IBehavioralBaseFieldEntity
   extends IOnChangeWrapper {
-}
-
-/**
- * @behavioral-entity
- * @stable [02.02.2020]
- */
-export interface IBehavioralFieldEntity
-  extends IOnClickWrapper {
 }
 
 /**
@@ -294,7 +263,8 @@ export interface IFieldTextAreaAttributes
 export type FieldComposedInputAttributesT = IFieldInputAttributes | IFieldTextAreaAttributes;
 
 /**
- * @stable [30.10.2019]
+ * @enum
+ * @stable [17.06.2020]
  */
 export enum FieldActionPositionsEnum {
   LEFT,
@@ -333,15 +303,6 @@ export type DateFieldRangeValueT = DatesRangeValueT | DateTimeLikeTypeT;
  */
 export interface IGenericBaseCheckboxEntity
   extends IDisableLabelWrapper {
-}
-
-/**
- * @generic-state
- * @stable [11.01.2020]
- */
-export interface IGenericBaseSelectState
-  extends IMenuRenderedWrapper,
-    IProgressWrapper {
 }
 
 /**
