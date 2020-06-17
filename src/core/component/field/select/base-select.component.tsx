@@ -6,20 +6,17 @@ import {
 } from 'ts-smart-logger';
 
 import {
-  asMultiFieldAddedEntities,
-  calc,
+  CalcUtils,
+  ClsUtils,
   ConditionUtils,
   DelayedTask,
   isAllowEmptyFilterValue,
   isAnchored,
-  isExpandActionRendered,
   isForceUseLocalFilter,
-  isMenuRendered,
   isObjectNotEmpty,
-  joinClassName,
-  nvl,
+  NvlUtils,
   ObjectUtils,
-  orNull,
+  PropsUtils,
   queryFilter,
   shallowClone,
   TypeUtils,
@@ -30,7 +27,6 @@ import { Menu } from '../../menu';
 import {
   AnyT,
   EntityIdT,
-  IEntity,
   StringNumberT,
 } from '../../../definitions.interface';
 import {
@@ -41,15 +37,17 @@ import {
 import {
   ChangeEventT,
   FieldActionTypesEnum,
+  FieldClassesEnum,
   FieldConstants,
   IBaseEvent,
-  IComponentsSettingsEntity,
   IMenu,
   IMenuProps,
   IMultiItemEntity,
   IPresetsSelectOptionEntity,
+  SelectClassesEnum,
   SelectValueT,
 } from '../../../definition';
+import { InlineOption } from '../../inline-option';
 
 export class BaseSelect<TProps extends IBaseSelectProps,
                         TState extends IBaseSelectState>
@@ -72,13 +70,23 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.getMenuWidth = this.getMenuWidth.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
+    this.onInlineOptionClick = this.onInlineOptionClick.bind(this);
     this.onOptionsLoadDone = this.onOptionsLoadDone.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
     if (this.isExpandActionRendered) {
+      const mergedProps = this.mergedProps;
+      const originalProps = this.originalProps;
+      const {
+        icon,
+      } = mergedProps;
+
       this.defaultActions = [
-        {type: this.systemBaseSelectProps.icon || props.icon || FieldActionTypesEnum.DROP_DOWN, onClick: this.onDropDownClick},
+        {
+          type: icon || originalProps.icon || FieldActionTypesEnum.DROP_DOWN,
+          onClick: this.onDropDownClick,
+        },
         ...this.defaultActions
       ];
     }
@@ -216,35 +224,44 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
   }
 
+  /**
+   * @stable [16.06.2020]
+   * @returns {JSX.Element}
+   */
   protected get attachmentElement(): JSX.Element {
-    const props = this.props;
+    const {
+      inlineOptions,
+    } = this.originalProps;
 
-    // TODO
-    if (!props.inlineOptions) {
+    if (!inlineOptions) {
       return null;
     }
+    const {
+      inlineOptionClassName,
+    } = this.mergedProps;
     const currentValue = this.value;
-    const value = TypeUtils.isPrimitive(currentValue)
-      ? [{id: currentValue}] as IEntity[]
-      : (asMultiFieldAddedEntities(this.value) || []);
 
     return (
-      <div className='rac-field__inline-options'>
+      <div
+        className={FieldClassesEnum.FIELD_ATTACHMENT}
+      >
         {this.options.map((option) => {
-            const isSelected = value.find((itm) => itm.id === option.value);
+            const id = this.fromSelectOptionEntityToId(option);
+            const isInlineOptionSelected = this.isInlineOptionSelected(id, currentValue);
+
             return (
-              <div
-                key={`inline-option-key-${option.value}`}
-                className={joinClassName(
-                  'rac-field__inline-option',
-                  isSelected && 'rac-field__inline-option-active',
-                )}
-                onClick={() => isSelected
-                  ? this.deleteItem({id: option.value})
-                  : this.onSelect(option)}
-              >
-                {option.label}
-              </div>
+              <InlineOption
+                key={`inline-option-key-${id}`}
+                option={option}
+                selected={isInlineOptionSelected}
+                className={
+                  ClsUtils.joinClassName(
+                    inlineOptionClassName,
+                    SelectClassesEnum.BASE_SELECT_INLINE_OPTION
+                  )
+                }
+                onClick={() => this.onInlineOptionClick(option, isInlineOptionSelected)}
+              />
             );
           }
         )}
@@ -257,13 +274,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {JSX.Element}
    */
   protected get inputAttachmentElement(): JSX.Element {
-    return orNull(
+    return ConditionUtils.orNull(
       this.isMenuRendered,   // To improve a performance
       () => (
         <Menu
           ref={this.menuRef}
-          anchorElement={orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
-          width={orNull(this.isMenuAnchored, () => this.getMenuWidth)}
+          anchorElement={ConditionUtils.orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
+          width={ConditionUtils.orNull(this.isMenuAnchored, () => this.getMenuWidth)}
           progress={this.isBusy}
           options={this.getFilteredOptions()}
           onSelect={this.onSelect}
@@ -317,19 +334,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [16.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-base-select');
-  }
-
-  /**
-   * @stable [21.12.2019]
-   * @returns {AnyT}
-   */
-  protected get originalEmptyValue(): AnyT {
-    return FieldConstants.VALUE_TO_RESET;
+    return ClsUtils.joinClassName(
+      super.getFieldClassName(),
+      SelectClassesEnum.BASE_SELECT
+    );
   }
 
   /**
@@ -342,6 +354,26 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     } else {
       this.doSelectOption(option);
     }
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @param {IPresetsSelectOptionEntity} option
+   * @param {boolean} isInlineOptionSelected
+   */
+  protected onInlineOptionClick(option: IPresetsSelectOptionEntity,
+                                isInlineOptionSelected: boolean): void {
+    this.onSelect(option);
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @param {EntityIdT} id
+   * @param {AnyT} currentValue
+   * @returns {boolean}
+   */
+  protected isInlineOptionSelected(id: EntityIdT, currentValue: AnyT): boolean {
+    return this.fromSelectOptionEntityToId(currentValue) === id;
   }
 
   /**
@@ -366,9 +398,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const hasCachedValue = !R.isNil($$cachedValue);
 
     if (!hasCachedValue && (!this.isQuickSearchEnabled || this.isValueObject(value))) {
-      const optionValue = this.fromSelectOptionEntityToId(value);
-      value = nvl(
-        R.find<IPresetsSelectOptionEntity>((option) => this.fromSelectOptionEntityToId(option) === optionValue, this.options),
+      const id = this.fromSelectOptionEntityToId(value);
+      value = NvlUtils.nvl(
+        R.find((option) => this.fromSelectOptionEntityToId(option) === id, this.options),
         value
       );
     }
@@ -385,19 +417,19 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [16.06.2020]
    * @returns {IPresetsSelectOptionEntity[]}
    */
   protected get options(): IPresetsSelectOptionEntity[] {
-    return nvl(this.props.options, []);
+    return NvlUtils.nvl(this.originalProps.options, []);
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [16.06.2020]
    * @returns {boolean}
    */
   protected get isExpandActionRendered(): boolean {
-    return isExpandActionRendered(this.props);
+    return WrapperUtils.isExpandActionRendered(this.mergedProps);
   }
 
   /**
@@ -415,6 +447,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected fromSelectOptionEntityToId(value: AnyT): EntityIdT {
     return this.fieldConverter.fromSelectOptionEntityToId(value);
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @returns {TProps}
+   */
+  protected getSettingsProps(): TProps {
+    return PropsUtils.mergeWithSystemProps<TProps>(
+      super.getSettingsProps(),
+      this.componentsSettings.baseSelect as TProps
+    );
   }
 
   /**
@@ -614,7 +657,23 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [29.01.2020]
+   * @stable [16.06.2020]
+   * @returns {number}
+   */
+  private getMenuWidth(): number {
+    return this.domAccessor.getWidth(this.actualRef.current);
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @returns {AnyT}
+   */
+  protected get originalEmptyValue(): AnyT {
+    return FieldConstants.VALUE_TO_RESET;
+  }
+
+  /**
+   * @stable [16.06.2020]
    * @returns {boolean}
    */
   private get isQuickSearchEnabled(): boolean {
@@ -622,35 +681,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [24.01.2020]
-   * @returns {number}
-   */
-  private getMenuWidth(): number {
-    return this.domAccessor.getWidth(this.selfRef.current);
-  }
-
-  /**
    * @stable [11.01.2020]
    * @returns {number}
    */
   private get delayTimeout(): number {
-    return nvl(this.props.delayTimeout, 1000);
-  }
-
-  /**
-   * @stable [15.01.2020]
-   * @returns {boolean}
-   */
-  private get doOptionsExist(): boolean {
-    return !R.isNil(this.props.options);
-  }
-
-  /**
-   * @stable [22.01.2020]
-   * @returns {boolean}
-   */
-  private get isMenuRendered(): boolean {
-    return isMenuRendered(this.state);
+    return NvlUtils.nvl(this.props.delayTimeout, 1000);
   }
 
   /**
@@ -678,36 +713,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [31.01.2020]
-   * @returns {boolean}
-   */
-  private get isForceReload(): boolean {
-    return WrapperUtils.isForceReload(this.props);
-  }
-
-  /**
-   * @stable [11.01.2020]
-   * @returns {boolean}
-   */
-  private get isMenuAlreadyRenderedAndOpened(): boolean {
-    const menu = this.menu;
-    return !R.isNil(menu) && menu.isOpen();
-  }
-
-  /**
    * @stable [24.01.2020]
    * @returns {HTMLElement}
    */
   private getMenuAnchorElement(): HTMLElement {
-    return calc<HTMLElement>(this.props.menuAnchorElement) || this.input;
-  }
-
-  /**
-   * @stable [30.11.2019]
-   * @returns {IMenu}
-   */
-  private get menu(): IMenu {
-    return this.menuRef.current;
+    return CalcUtils.calc<HTMLElement>(this.props.menuAnchorElement) || this.input;
   }
 
   /**
@@ -724,15 +734,47 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private get dictionary(): string {
     const {dictionary, bindDictionary} = this.props;
-    return nvl(dictionary, bindDictionary); // bindDictionary is used by Form
+    return NvlUtils.nvl(dictionary, bindDictionary); // bindDictionary is used by Form
   }
 
   /**
-   * @stable [17.02.2020]
-   * @returns {TProps}
+   * @stable [16.06.2020]
+   * @returns {boolean}
    */
-  private get systemBaseSelectProps(): TProps {
-    const {baseSelect = {}} = this.settings.components || {} as IComponentsSettingsEntity;
-    return baseSelect as TProps;
+  private get doOptionsExist(): boolean {
+    return !R.isNil(this.originalProps.options);
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @returns {boolean}
+   */
+  private get isMenuAlreadyRenderedAndOpened(): boolean {
+    const menu = this.menu;
+    return !R.isNil(menu) && menu.isOpen();
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @returns {boolean}
+   */
+  private get isForceReload(): boolean {
+    return WrapperUtils.isForceReload(this.mergedProps);
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @returns {boolean}
+   */
+  private get isMenuRendered(): boolean {
+    return this.state.menuRendered;
+  }
+
+  /**
+   * @stable [16.06.2020]
+   * @returns {IMenu}
+   */
+  private get menu(): IMenu {
+    return this.menuRef.current;
   }
 }

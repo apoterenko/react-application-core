@@ -35,10 +35,12 @@ export class Chip extends GenericComponent<IChipProps> {
 
     return (
       <div
+        ref={this.actualRef}
         className={ClsUtils.joinClassName(
           ChipClassesEnum.CHIP,
           CalcUtils.calc(className))
-        }>
+        }
+      >
         <span
           className={ChipClassesEnum.CHIP_CONTENT}
           title={String(this.originalChildren)}

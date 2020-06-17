@@ -142,7 +142,7 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
       ? this.options
       : (
         this.options.filter(
-          (option) => !activeValue.find((item) => item.id === this.fromSelectOptionEntityToId(option))
+          (option) => !activeValue.some((item) => item.id === this.fromSelectOptionEntityToId(option))
         )
       );
   }

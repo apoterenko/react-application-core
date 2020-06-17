@@ -9,7 +9,7 @@ import {
   IPresetsSelectOptionEntity,
   SelectValueT,
 } from '../definition';
-import { getTranslator } from '../di/di.services';
+import { DiServices } from '../di/di.services';
 
 /**
  * @stable [18.05.2020]
@@ -44,7 +44,7 @@ const fromSelectOptionEntityToDisplayValue = (option: SelectValueT): StringNumbe
 
   return R.isNil(label)
     ? fromSelectOptionEntityToId(option)
-    : getTranslator()(label, option);
+    : DiServices.translator()(label, option);
 };
 
 /**

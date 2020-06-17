@@ -1,0 +1,38 @@
+@import '../_core-mixin';
+
+/**
+ * @stable [16.06.2020]
+ */
+@mixin rac-inline-option (
+  $rac-inline-option-custom: unset,
+  /**/
+  $rac-inline-option-align-items: unset,                                                      /* @stable [17.06.2020] */                                                           /* @stable [09.02.2020] */
+  $rac-inline-option-background: unset,                                                       /* @stable [17.06.2020] */
+  $rac-inline-option-border-radius: unset,                                                    /* @stable [17.06.2020] */
+  $rac-inline-option-color: unset,                                                            /* @stable [17.06.2020] */
+  $rac-inline-option-cursor: unset,                                                           /* @stable [17.06.2020] */
+  $rac-inline-option-display: unset,                                                          /* @stable [17.06.2020] */
+  $rac-inline-option-font-weight: unset,                                                      /* @stable [17.06.2020] */
+  $rac-inline-option-justify-content: unset,                                                  /* @stable [17.06.2020] */
+  $rac-inline-option-margin: unset,                                                           /* @stable [17.06.2020] */
+  $rac-inline-option-min-height: unset,                                                       /* @stable [17.06.2020] */
+  $rac-inline-option-padding: unset,                                                          /* @stable [17.06.2020] */
+  $rac-inline-option-white-space: unset                                                       /* @stable [17.06.2020] */
+) {
+  #{rac-cls($rac-inline-option-cls, $rac-inline-option-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-inline-option-align-items,
+      $rac-styles-background: $rac-inline-option-background,
+      $rac-styles-border-radius: $rac-inline-option-border-radius,
+      $rac-styles-color: $rac-inline-option-color,
+      $rac-styles-cursor: $rac-inline-option-cursor,
+      $rac-styles-display: $rac-inline-option-display,
+      $rac-styles-font-weight: $rac-inline-option-font-weight,
+      $rac-styles-justify-content: $rac-inline-option-justify-content,
+      $rac-styles-margin: $rac-inline-option-margin,
+      $rac-styles-min-height: $rac-inline-option-min-height,
+      $rac-styles-padding: $rac-inline-option-padding,
+      $rac-styles-white-space: $rac-inline-option-white-space
+    );
+  }
+}

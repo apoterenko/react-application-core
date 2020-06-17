@@ -40,7 +40,6 @@ import {
   IKeyboardOpenWrapper,
   ILastWrapper,
   ILoadingWrapper,
-  IMenuRenderedWrapper,
   IMultiWrapper,
   INavigateBackWrapper,
   IOddWrapper,
@@ -357,7 +356,7 @@ const isLast = (wrapper: ILastWrapper): boolean =>
  * @param {IExpandActionRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isExpandActionRendered  = (wrapper: IExpandActionRenderedWrapper): boolean =>
+const isExpandActionRendered  = (wrapper: IExpandActionRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.expandActionRendered !== false;
 
 /**
@@ -469,14 +468,6 @@ export const isMulti = (wrapper: IMultiWrapper): boolean =>
  */
 export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.remoteFilter === true, false);
-
-/**
- * @stable [11.01.2020]
- * @param {IMenuRenderedWrapper} wrapper
- * @returns {boolean}
- */
-export const isMenuRendered = (wrapper: IMenuRenderedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.menuRendered === true, false);
 
 /**
  * @stable [24.01.2020]
@@ -661,6 +652,7 @@ export class WrapperUtils {
   public static readonly isChangeable = isChangeable;                                      /* @stable [05.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
+  public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isForceReload = isForceReload;                                    /* @stable [18.05.2020] */

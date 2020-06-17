@@ -247,6 +247,7 @@ export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
+export interface IInlineOptionClassNameClassName { inlineOptionClassName?: string; }
 export interface IInlineOptionsWrapper { inlineOptions?: boolean; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
@@ -377,6 +378,7 @@ export interface IOpenMenuWrapper<TValue> { openMenu?(value?: TValue): void; }
 export interface IOperationIdWrapper { operationId?: string; }
 export interface IOperationWrapper<TValue = IIdWrapper<string>> { operation?: TValue; }
 export interface IOptionsWrapper<TValue> { options?: TValue; }
+export interface IOptionWrapper<TValue> { option?: TValue; }
 export interface IOrderWrapper<TValue = number> { order?: TValue; }
 export interface IOriginalDataWrapper<TValue = IEntity[]> { originalData?: TValue; }
 export interface IOriginalEntityWrapper<TValue> { originalEntity?: TValue; }

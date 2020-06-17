@@ -284,5 +284,6 @@ export class DiServices {
   public static readonly auth = getAuth;
   public static readonly dynamicRoutes = getDynamicRoutes;
   public static readonly store = getStore;
+  public static readonly translator = getTranslator;
   public static readonly uiFactory = getUiFactory;
 }

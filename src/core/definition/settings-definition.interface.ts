@@ -1,5 +1,9 @@
 import { ElementsMarkersEnum } from './dom-definition.interface';
 import { IBaseSelectProps } from '../component/field/select/base-select.interface';  // TODO
+import {
+  IBasicListProps,
+  IListItemProps,
+} from './list-definition.interface';
 import { IButtonProps } from './button-definition.interface';
 import { IChartProps } from './chart-definition.interface';
 import { IChipProps } from './chip-definition.interface';
@@ -10,10 +14,7 @@ import { IFieldProps } from './field-definition.interface';
 import { IFormLayoutProps } from './layout-definition.interface';
 import { IGridHeadProps } from './grid-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
-import {
-  IBasicListProps,
-  IListItemProps,
-} from './list-definition.interface';
+import { IInlineOptionProps } from './inline-option-definition.interface';
 import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
 import { IPageToolbarProps } from './toolbar-definition.interface';
@@ -127,6 +128,7 @@ export interface IComponentsSettingsEntity {
   formLayout?: IFormLayoutProps;
   gridHead?: IGridHeadProps;
   header?: IHeaderProps;
+  inlineOption?: IInlineOptionProps;
   listItem?: IListItemProps;
   main?: IMainProps;
   navigationList?: INavigationListProps;

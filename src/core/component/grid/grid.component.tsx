@@ -14,13 +14,13 @@ import {
   coalesce,
   ifNotNilThanValue,
   isDef,
-  isExpandActionRendered,
   isFn,
   isHighlightOdd,
   joinClassName,
   Mappers,
   orNull,
   orUndef,
+  WrapperUtils,
 } from '../../util';
 import { BaseList } from '../list';
 import { Checkbox } from '../field';
@@ -726,10 +726,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [27.10.2019]
+   * @stable [16.06.2020]
    * @returns {boolean}
    */
   private get isExpandActionRendered(): boolean {
-    return isExpandActionRendered(this.props);
+    return WrapperUtils.isExpandActionRendered(this.mergedProps);
   }
 }

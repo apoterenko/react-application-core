@@ -1,7 +1,6 @@
 export * from './base.effects';
 export * from './destroyed-container-effects.proxy';
 export * from './edited-list-effects.proxy';
-export * from './effects-by.decorator';
 export * from './effects.factory';
 export * from './failed-effects.proxy';
 export * from './filter-form-dialog-effects.proxy';

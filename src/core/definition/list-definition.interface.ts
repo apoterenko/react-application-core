@@ -240,7 +240,7 @@ export enum ListClassesEnum {
   LIST_ITEM_LAST = 'rac-list-item__last',
   LIST_ITEM_ODD = 'rac-list-item__odd',
   LIST_ITEM_SELECTABLE = 'rac-list-item__selectable',
-  LIST_ITEM_SELECTED = 'rac-list-item__selected',
+  LIST_ITEM_SELECTED = 'rac-list-item__selected', // TODO -> rac-list-item-selected
   LIST_ITEM_UNSELECTED = 'rac-list-item__unselected',
 }
 

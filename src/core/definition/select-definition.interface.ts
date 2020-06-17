@@ -6,6 +6,7 @@ import {
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
   IForciblyApplyLocalFilterWrapper,
+  IInlineOptionClassNameClassName,
   IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
   IOnDictionaryFilterChangeWrapper,
@@ -36,6 +37,7 @@ export interface IPresetsBaseSelectEntity
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
     IForciblyApplyLocalFilterWrapper,
+    IInlineOptionClassNameClassName,
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
@@ -74,3 +76,12 @@ export interface IPresetsSelectOptionEntity<TRawData = {}, TValue = EntityIdT>
  * @stable [12.04.2020]
  */
 export type SelectValueT = IPresetsSelectOptionEntity | StringNumberT;
+
+/**
+ * @classes
+ * @stable [16.06.2020]
+ */
+export enum SelectClassesEnum {
+  BASE_SELECT = 'rac-base-select',
+  BASE_SELECT_INLINE_OPTION = 'rac-base-select__inline-option',
+}

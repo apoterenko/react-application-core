@@ -92,6 +92,11 @@ $rac-date-field__calendar-dialog-cls: rac-date-field__calendar-dialog;
 $rac-date-field__calendars-dialog-cls: rac-date-field__calendars-dialog;
 
 /************************/
+/* @stable [17.06.2020] */
+/************************/
+$rac-base-select-cls: rac-base-select;
+
+/************************/
 /* @stable [31.05.2020] */
 /************************/
 $rac-view-field-cls: rac-view-field;
@@ -110,6 +115,12 @@ $rac-checkbox-disabled-cls: '#{$rac-checkbox-cls}.#{$rac-field-disabled-cls}';
 /************************/
 $rac-switch-cls: rac-switch;
 $rac-switch-thumb-cls: rac-switch__thumb;
+
+/************************/
+/* @stable [16.06.2020] */
+/************************/
+$rac-inline-option-selected-cls: rac-inline-option-selected;
+$rac-inline-option-cls: rac-inline-option;
 
 /************************/
 /* @stable [26.03.2020] */

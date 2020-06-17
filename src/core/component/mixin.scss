@@ -7,6 +7,7 @@
 @import './header/_header-mixin';
 @import './icon/_icon-mixin';
 @import './info/_info-mixin';
+@import './inline-option/_inline-option';
 @import './layout/_layout-mixin';
 @import './layout/builder/_layout-builder-mixin';
 @import './list/_list-mixin';
@@ -337,17 +338,6 @@
   $rac-field-height: unset,
   $rac-field-help-text-font-size: unset,
   $rac-field-help-text-line-height: unset,
-  $rac-field-inline-option-active-background: unset,
-  $rac-field-inline-option-align-items: unset,
-  $rac-field-inline-option-background: unset,
-  $rac-field-inline-option-border-radius: unset,
-  $rac-field-inline-option-color: unset,
-  $rac-field-inline-option-display: unset,
-  $rac-field-inline-option-font-weight: unset,
-  $rac-field-inline-option-height: unset,
-  $rac-field-inline-option-padding: unset,
-  $rac-field-inline-options-display: unset,
-  $rac-field-inline-options-neighbor-child-margin: unset,
   $rac-field-justify-content: unset,                                                /* @stable [28.10.2019] */
   $rac-field-label-margin: unset,
   $rac-field-margin-top: unset,
@@ -439,9 +429,7 @@
   $rac-self-field-viewer-content-border-radius: unset,                              /* @stable [18.03.2020] */
   $rac-self-field-viewer-content-max-height: unset,                                 /* @stable [18.03.2020] */
   $rac-self-field-viewer-content-max-width: unset,                                  /* @stable [18.03.2020] */
-  $rac-self-field-viewer-margin: unset,                                             /* @stable [18.03.2020] */
-  $rac-text-field-filter-active-after-bottom: unset,
-  $rac-text-field-filter-active-after-left: unset
+  $rac-self-field-viewer-margin: unset                                              /* @stable [18.03.2020] */
 ) {
 
   #{rac-cls(rac-field, $rac-field-custom)} {
@@ -613,43 +601,6 @@
 
       @include rac-neighbor-child (
         $rac-neighbor-child-margin: $rac-field-attachment-neighbor-child-margin
-      );
-    }
-
-    > .rac-field__inline-options {
-      @include rac-styles (
-        $rac-styles-display: $rac-field-inline-options-display
-      );
-
-      @include rac-neighbor-child (
-        $rac-neighbor-child-margin: $rac-field-inline-options-neighbor-child-margin
-      );
-
-      > .rac-field__inline-option {
-        @include rac-styles (
-          $rac-styles-align-items: $rac-field-inline-option-align-items,
-          $rac-styles-background: $rac-field-inline-option-background,
-          $rac-styles-border-radius: $rac-field-inline-option-border-radius,
-          $rac-styles-color: $rac-field-inline-option-color,
-          $rac-styles-display: $rac-field-inline-option-display,
-          $rac-styles-font-weight: $rac-field-inline-option-font-weight,
-          $rac-styles-height: $rac-field-inline-option-height,
-          $rac-styles-padding: $rac-field-inline-option-padding
-        );
-
-        &.rac-field__inline-option-active {
-          @include rac-styles (
-            $rac-styles-background: $rac-field-inline-option-active-background
-          );
-        }
-      }
-    }
-
-    > .rac-text-field {
-
-      @include rac-filter-active(
-        $rac-filter-active-after-bottom: $rac-text-field-filter-active-after-bottom,
-        $rac-filter-active-after-left: $rac-text-field-filter-active-after-left
       );
     }
   }

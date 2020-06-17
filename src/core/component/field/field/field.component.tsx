@@ -233,6 +233,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [16.06.2020]
+   * @returns {TProps}
+   */
+  protected getSettingsProps(): TProps {
+    return this.componentsSettings.field as TProps;
+  }
+
+  /**
    * @stable [18.05.2020]
    * @returns {JSX.Element}
    */
@@ -408,7 +416,7 @@ export class Field<TProps extends IFieldProps,
    * @returns {TProps}
    */
   protected get settingsProps(): TProps {
-    return this.componentsSettings.field as TProps;
+    return this.getSettingsProps();
   }
 
   /**

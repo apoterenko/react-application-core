@@ -1,0 +1,14 @@
+@import '../../mixin';
+@import './_select-constant';
+
+.rac {
+
+  /**
+   * @base-select
+   * @stable [17.06.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-select-cls,
+    $rac-field-attachment-neighbor-child-margin: $rac-base-select-attachment-neighbor-child-margin
+  );
+}

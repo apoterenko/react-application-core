@@ -22,7 +22,6 @@ export * from './definitions.interface';                                        
 export * from './di';                                                                    /* @stable [08.06.2020] */
 export * from './settings';                                                              /* @stable [09.06.2020] */
 export * from './store/effects/base.effects';                                            /* @stable [15.06.2020] */
-export * from './store/effects/effects-by.decorator';
 export * from './store/effects/effects.factory';                                         /* @stable [09.06.2020] */
 export * from './store/store.factory';
 export * from './store/store.support';

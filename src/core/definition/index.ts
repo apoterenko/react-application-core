@@ -44,6 +44,7 @@ export * from './grid-definition.interface';
 export * from './header-definition.interface';
 export * from './icon-definition.interface';
 export * from './info-definition.interface';
+export * from './inline-option-definition.interface';
 export * from './keyboard-definition.interface';
 export * from './layout-builder-definition.interface';
 export * from './layout-definition.interface';
