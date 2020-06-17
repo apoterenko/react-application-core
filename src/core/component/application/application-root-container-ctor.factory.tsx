@@ -4,21 +4,21 @@ import { Provider } from 'react-redux';
 import {
   IGenericContainerCtor,
   IGenericContainerProps,
-} from '../definition';
-import { ApplicationActionBuilder } from '../component/application/application-action.builder';
-import { GenericContainer } from '../component/base/generic.container';
-import { getStore } from '../di';
-import { connectorFactory } from '../component/connector/connector.factory';
+} from '../../definition';
+import { DiServices } from '../../di';
+import { ApplicationActionBuilder } from './application-action.builder';
+import { GenericContainer } from '../base/generic.container';
+import { connectorFactory } from '../connector/connector.factory';
 
 /**
- * @stable [08.06.2020]
- * @param {IGenericContainerCtor} applicationContainer
+ * @stable [17.06.2020]
+ * @param {IGenericContainerCtor} container
  * @param {IGenericContainerProps} initialProps
  * @returns {IGenericContainerCtor}
  */
-export const bootstrapApp =
-  (applicationContainer: IGenericContainerCtor, initialProps?: IGenericContainerProps): IGenericContainerCtor => {
-  const Component = connectorFactory(applicationContainer, (state) => ({...state.application}));
+export const makeApplicationRootContainerCtor =
+  (container: IGenericContainerCtor, initialProps?: IGenericContainerProps): IGenericContainerCtor => {
+  const Component = connectorFactory(container, (state) => ({...state.application}));
 
   return class extends GenericContainer {
 
@@ -40,7 +40,9 @@ export const bootstrapApp =
      */
     public render(): JSX.Element {
       return (
-        <Provider store={getStore()}>
+        <Provider
+          store={DiServices.store()}
+        >
           <Component {...initialProps}/>
         </Provider>
       );

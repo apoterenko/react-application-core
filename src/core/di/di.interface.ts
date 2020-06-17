@@ -35,6 +35,7 @@ export const DI_TYPES = Object.freeze({
   PermissionsManager: Symbol('PermissionsManager'),
   PhoneConverter: Symbol('PhoneConverter'),
   PlacesApi: Symbol('PlacesApi'),
+  ReactBootstrapper: Symbol('ReactBootstrapper'),
   Router: Symbol('Router'),
   RouterStoreProxyFactory: Symbol('RouterStoreProxyFactory'),
   Routes: Symbol('Routes'),

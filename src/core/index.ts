@@ -2,7 +2,6 @@ export * from './action';
 export * from './application';
 export * from './async-lib';
 export * from './auth';
-export * from './bootstrap';
 export * from './channel';
 export * from './component/access';
 export * from './component/application';

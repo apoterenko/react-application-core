@@ -16,6 +16,8 @@ import {
   GenericPluginsMapT,
   IAsyncLibManager,
   IAuth,
+  IBootstrapper,
+  IConnectorContainerFactory,
   IConnectorEntity,
   IDomAccessor,
   IEnvironment,
@@ -36,7 +38,6 @@ import {
   ITransport,
   IUiFactory,
   IUniversalComponentProps,
-  IConnectorContainerFactory,
   IUniversalContainerProps,
   IUserActivityManager,
   ListStoreProxyFactoryT,
@@ -278,13 +279,29 @@ export const getUserActivityManager = (): IUserActivityManager =>
   staticInjector(DI_TYPES.UserActivityManager);
 
 /**
+ * @stable [17.06.2020]
+ * @returns {IBootstrapper}
+ */
+export const getWebBootstrapper = (): IBootstrapper =>
+  staticInjector(DI_TYPES.WebBootstrapper);
+
+/**
+ * @stable [17.06.2020]
+ * @returns {IBootstrapper}
+ */
+export const getReactBootstrapper = (): IBootstrapper =>
+  staticInjector(DI_TYPES.ReactBootstrapper);
+
+/**
  * @stable [11.06.2020]
  */
 export class DiServices {
   public static readonly auth = getAuth;
   public static readonly dateConverter = getDateConverter;
   public static readonly dynamicRoutes = getDynamicRoutes;
+  public static readonly reactBootstrapper = getReactBootstrapper;
   public static readonly store = getStore;
   public static readonly translator = getTranslator;
   public static readonly uiFactory = getUiFactory;
+  public static readonly webBootstrapper = getWebBootstrapper;
 }

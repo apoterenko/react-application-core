@@ -1,7 +1,10 @@
-import { bindInSingleton, DI_TYPES } from '../../di';
+import {
+  DI_TYPES,
+  DiSupport,
+} from '../../di';
 import { WebBootstrapper } from './web-bootstrapper.service';
 
 /**
- * @stable [01.10.2019]
+ * @stable [17.06.2020]
  */
-bindInSingleton(DI_TYPES.WebBootstrapper, WebBootstrapper);
+DiSupport.bindInSingleton(DI_TYPES.WebBootstrapper, WebBootstrapper);

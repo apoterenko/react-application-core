@@ -2,10 +2,10 @@ import { injectable } from 'inversify';
 
 import {
   appendUrlArgs,
-  ifNotNilThanValue,
-  isFn,
+  ConditionUtils,
   nvl,
   orNull,
+  TypeUtils,
 } from '../../util';
 import {
   DI_TYPES,
@@ -50,10 +50,10 @@ export class WebBootstrapper implements IBootstrapper {
     } = this.settings;
     const googleMapsKey = this.environment.googleMapsKey;
 
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       nvl(asyncLibraries, googleMapsKey),
       () => {
-        ifNotNilThanValue(
+        ConditionUtils.ifNotNilThanValue(
           asyncLibraries.googleMaps,
           (googleMapsLibCfg) => {
             this.registerAsyncLibrary({
@@ -138,7 +138,7 @@ export class WebBootstrapper implements IBootstrapper {
       this.gtag('js', new Date());
       this.gtag('config', environment.googleKey);
 
-      if (isFn(this.window.ga)) {
+      if (TypeUtils.isFn(this.window.ga)) {
         this.window.ga('create', environment.googleKey, 'auto');
       }
     }

@@ -9,17 +9,18 @@ import { defaultReducers } from './store.interface';
 import { IStoreEntity } from '../definition';
 
 /**
- * @stable [11.03.2020]
- * @param {ReducersMapObject} reducers
+ * @stable [17.06.2020]
+ * @param {TReducers} reducers
  * @param {Middleware[]} appMiddlewares
  * @returns {Promise<Store<IStoreEntity>>}
  */
-export const makeStore = (reducers: ReducersMapObject,
-                          appMiddlewares?: Middleware[]): Promise<Store<IStoreEntity>> =>
-  buildUniversalStore<IStoreEntity>(
-    {
-      ...defaultReducers,
-      ...reducers,
-    },
-    appMiddlewares
-  );
+export const makeStore =
+  <TReducers = ReducersMapObject>(reducers: TReducers,
+                                  appMiddlewares?: Middleware[]): Promise<Store<IStoreEntity>> =>
+    buildUniversalStore<IStoreEntity>( // TODO
+      {
+        ...defaultReducers,
+        ...reducers as {},
+      },
+      appMiddlewares
+    );
