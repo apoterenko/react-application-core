@@ -22,9 +22,10 @@ import {
 import { UniversalField } from './universal-field.component';
 import {
   ComponentClassesEnum,
+  FieldClassesEnum,
+  FieldComposedInputAttributesT,
   IComponentsSettingsEntity,
   IField,
-  FieldComposedInputAttributesT,
   IJQueryElement,
 } from '../../../definition';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
@@ -235,10 +236,9 @@ export class Field2<TProps extends IFieldProps2,
     const props = this.props;
 
     return joinClassName(
-      'rac-field',
+      super.getFieldClassName(),
       isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
       this.isRequired && 'rac-field-required',
-      this.isBusy && 'rac-field-busy',
       this.isInvalid && 'rac-field-invalid',
       this.isValuePresent ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isChangeable ? 'rac-field-changeable' : 'rac-field-not-changeable',
@@ -246,10 +246,8 @@ export class Field2<TProps extends IFieldProps2,
       this.isDisabled && 'rac-field-disabled',
       this.isReadOnly && 'rac-field-readonly',
       this.isFocusPrevented && 'rac-field-prevent-focus',
-      this.isActioned && 'rac-field-actioned',
       props.label && 'rac-field-labeled',
-      props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed',
-      calc<string>(props.className)
+      props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed'
     );
   }
 

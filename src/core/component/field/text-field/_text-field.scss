@@ -1,5 +1,6 @@
 @import '../../constant';
 @import '../../mixin';
+@import './_text-field-constant';
 
 .rac {
 
@@ -8,7 +9,7 @@
    * @stable [23.10.2019]
    */
   @include rac-field (
-    $rac-field-custom: $rac-base-text-cls,
+    $rac-field-custom: $rac-base-text-field-cls,
     $rac-field-background: $rac-base-text-background,
     $rac-field-border-radius: $rac-base-text-border-radius,
     $rac-field-overflow: $rac-base-text-overflow,
@@ -19,8 +20,9 @@
     $rac-self-field-input-caret-font-size: $rac-base-text-self-field-input-caret-font-size,
     $rac-self-field-input-caret-position: $rac-base-text-self-field-input-caret-position,
     $rac-self-field-input-mirror-width: $rac-base-text-self-field-input-mirror-width,
+    $rac-self-field-input-padding: $rac-base-text-field-self-field-input-padding,
     $rac-self-field-input-resize: $rac-base-text-self-field-input-resize,
-    $rac-self-field-input-width: $rac-base-text-self-field-input-width,
+    $rac-self-field-input-width: $rac-base-text-field-self-field-input-width,
     $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex,
     $rac-self-field-overflow: $rac-base-text-self-field-overflow
   );
@@ -51,20 +53,21 @@
   );
 
   /**
-   * @base-text-busy
-   * @stable [30.01.2020]
+   * @base-text-field-busy
+   * @stable [18.06.2020]
    */
   @include rac-field (
-    $rac-field-custom: $rac-base-text-busy-cls,
-    $rac-self-field-input-opacity: $rac-base-text-busy-self-field-input-opacity
+    $rac-field-custom: $rac-base-text-field-busy-cls,
+    $rac-self-field-input-opacity: $rac-base-text-field-busy-self-field-input-opacity
   );
 
   /**
-   * @base-text-actioned
-   * @stable [30.10.2019]
+   * @base-text-field-actioned
+   * @stable [18.06.2020]
    */
   @include rac-field (
-    $rac-field-custom: $rac-base-text-actioned-cls,
-    $rac-self-field-input-width: $rac-base-text-actioned-self-field-input-width
+    $rac-field-custom: $rac-base-text-field-actioned-cls,
+    $rac-self-field-input-padding: $rac-base-text-field-actioned-self-field-input-padding,
+    $rac-self-field-input-width: $rac-base-text-field-actioned-self-field-input-width
   );
 }

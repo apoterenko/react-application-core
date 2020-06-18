@@ -35,6 +35,7 @@ import {
   IJQueryElement,
   IKeyboardProps,
   KeyboardClassNamesEnum,
+  TextFieldClassesEnum,
   TouchEventsEnum,
 } from '../../../definition';
 
@@ -166,11 +167,14 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [23.10.2019]
+   * @stable [18.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return ClsUtils.joinClassName(super.getFieldClassName(), 'rac-base-text');
+    return ClsUtils.joinClassName(
+      super.getFieldClassName(),
+      TextFieldClassesEnum.BASE_TEXT_FIELD
+    );
   }
 
   /**

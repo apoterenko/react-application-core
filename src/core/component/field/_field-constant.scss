@@ -4,6 +4,9 @@
 /************************/
 /* @stable [18.05.2020] */
 /************************/
+$rac-field-display: $rac-primary-display-0 !default;
+$rac-field-flex-direction: $rac-primary-flex-direction-0 !default;
+$rac-self-field-background: unset !default;
 $rac-self-field-icon-color: $rac-primary-input-icon-color-0 !default;
 $rac-self-field-icon-height: 100% !default;
 $rac-self-field-icon-padding: 0 $rac-primary-offset-1 0 0 !default;

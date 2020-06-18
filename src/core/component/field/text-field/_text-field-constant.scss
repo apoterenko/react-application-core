@@ -1,0 +1,17 @@
+@import '../../_classes';
+@import '../../_primary-constant';
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-primary-base-text-field-offset-0: $rac-primary-offset-1 !default;
+$rac-primary-base-text-field-offset-1: $rac-primary-offset-3 !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-base-text-field-actioned-self-field-input-padding: 0 $rac-primary-base-text-field-offset-0 0 $rac-primary-base-text-field-offset-1 !default;
+$rac-base-text-field-actioned-self-field-input-width: calc(100% - #{$rac-primary-base-text-field-offset-0 + $rac-primary-base-text-field-offset-1}) !default;
+$rac-base-text-field-busy-self-field-input-opacity: 0 !default;
+$rac-base-text-field-self-field-input-padding: 0 $rac-primary-base-text-field-offset-1 !default;
+$rac-base-text-field-self-field-input-width: calc(100% - #{$rac-primary-base-text-field-offset-1 * 2}) !default;

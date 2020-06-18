@@ -32,3 +32,11 @@ export interface IPresetsBaseTextFieldEntity
     IErrorMessageRenderedWrapper,
     IMaskGuideWrapper {
 }
+
+/**
+ * @classes
+ * @stable [18.06.2020]
+ */
+export enum TextFieldClassesEnum {
+  BASE_TEXT_FIELD = 'rac-base-text-field',
+}

@@ -18,6 +18,7 @@ import { EnhancedGenericComponent } from '../../base/enhanced-generic.component'
 import { IUniversalFieldState } from './field.interface';
 import {
   CalcUtils,
+  ClsUtils,
   ConditionUtils,
   FieldUtils,
   TypeUtils,
@@ -261,6 +262,24 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [18.06.2020]
+   * @returns {string}
+   */
+  protected getFieldClassName(): string {
+    const originalProps = this.originalProps;
+    const {
+      className,
+    } = originalProps;
+
+    return ClsUtils.joinClassName(
+      FieldClassesEnum.FIELD,
+      this.isBusy && FieldClassesEnum.FIELD_BUSY,
+      this.isActioned && FieldClassesEnum.FIELD_ACTIONED,
+      CalcUtils.calc<string>(className)
+    );
+  }
+
+  /**
    * @stable [18.05.2020]
    * @returns {JSX.Element}
    */
@@ -397,6 +416,14 @@ export class Field<TProps extends IFieldProps,
    */
   protected get isBusy(): boolean {
     return WrapperUtils.inProgress(this.originalProps);
+  }
+
+  /**
+   * @stable [18.06.2020]
+   * @returns {boolean}
+   */
+  protected get isActioned(): boolean {
+    return false;
   }
 
   /**

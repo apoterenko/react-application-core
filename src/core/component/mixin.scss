@@ -380,7 +380,7 @@
   $rac-self-field-input-icon-size: unset,                                           /* @stable [23.10.2019] */
   $rac-self-field-input-line-height: unset,                                         /* @stable [30.10.2019] */
   $rac-self-field-input-mirror-width: unset,                                        /* @stable [09.11.2019] */
-  $rac-self-field-input-opacity: unset,
+  $rac-self-field-input-opacity: unset,                                             /* @stable [18.06.2020] */
   $rac-self-field-input-padding: unset,                                             /* @stable [30.10.2019] */
   $rac-self-field-input-placeholder-color: unset,                                   /* @stable [30.10.2019] */
   $rac-self-field-input-placeholder-font-size: unset,                               /* @stable [30.10.2019] */
@@ -747,7 +747,7 @@
       );
 
       @include rac-field (
-        $rac-field-custom: $rac-base-text-cls,
+        $rac-field-custom: $rac-base-text-field-cls,
         $rac-self-field-background: $rac-grid-column-content-base-text-self-field-background
       );
     }
@@ -1973,7 +1973,7 @@
     );
 
     @include rac-field (
-      $rac-field-custom: $rac-base-text-cls,
+      $rac-field-custom: $rac-base-text-field-cls,
       $rac-field-margin: $rac-menu-dialog-base-text-field-margin,
       $rac-self-field-background: $rac-menu-dialog-base-text-self-field-background,
       $rac-self-field-height: $rac-menu-dialog-base-text-self-field-height
@@ -2263,7 +2263,7 @@
       );
 
       @include rac-field (
-        $rac-field-custom: $rac-base-text-cls,
+        $rac-field-custom: $rac-base-text-field-cls,
         $rac-field-width: $rac-calendar-dialog-footer-input-width,
         $rac-self-field-background: $rac-calendar-dialog-footer-input-self-field-background,
         $rac-self-field-height: $rac-calendar-dialog-footer-self-field-height,

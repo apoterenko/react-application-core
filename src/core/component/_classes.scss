@@ -111,6 +111,16 @@ $rac-base-checkbox-checked-cls: '#{$rac-base-checkbox-cls}.rac-base-checkbox__ch
 $rac-checkbox-disabled-cls: '#{$rac-checkbox-cls}.#{$rac-field-disabled-cls}';
 
 /************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-base-text-field-cls: rac-base-text-field;
+$rac-field-actioned-cls: rac-field-actioned;
+$rac-field-busy-cls: rac-field-busy;
+/**/
+$rac-base-text-field-actioned-cls: '#{$rac-base-text-field-cls}.#{$rac-field-actioned-cls}';
+$rac-base-text-field-busy-cls: '#{$rac-base-text-field-cls}.#{$rac-field-busy-cls}';
+
+/************************/
 /* @stable [03.06.2020] */
 /************************/
 $rac-switch-cls: rac-switch;
