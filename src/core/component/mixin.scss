@@ -581,7 +581,7 @@
                 $rac-placeholder-padding: $rac-self-field-input-placeholder-padding
               );
 
-              &.rac-field-input-mirror {
+              &.rac-field__input-mirror {
                 @include rac-styles (
                   $rac-styles-width: $rac-self-field-input-mirror-width
                 );

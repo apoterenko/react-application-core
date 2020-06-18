@@ -26,6 +26,7 @@ import {
   EventsEnum,
   FieldActionPositionsEnum,
   FieldActionTypesEnum,
+  FieldClassesEnum,
   IBaseEvent,
   IBaseTextFieldProps,
   IBaseTextFieldState,
@@ -192,11 +193,14 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return (
       <span
         ref={this.mirrorInputRef}
-        className={ClsUtils.joinClassName(
-          this.getInputElementProps().className,
-          'rac-field-input-mirror',
-          ComponentClassesEnum.INVISIBLE
-        )}>
+        className={
+          ClsUtils.joinClassName(
+            this.getInputElementProps().className,
+            FieldClassesEnum.FIELD_INPUT_MIRROR,
+            ComponentClassesEnum.INVISIBLE
+          )
+        }
+      >
         {content}
       </span>
     );
