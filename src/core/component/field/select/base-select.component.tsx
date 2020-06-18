@@ -22,7 +22,7 @@ import {
   TypeUtils,
   WrapperUtils,
 } from '../../../util';
-import { BaseTextField } from '../text-field/base-textfield.component';
+import { BaseTextField } from '../text-field/base-text-field.component';
 import { Menu } from '../../menu';
 import { InlineOption } from '../../inline-option';
 import {

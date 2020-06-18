@@ -97,31 +97,25 @@
 
     &.rac-field-invalid {
 
-      .rac-text-field {
-        border-color: $rac-text-field-invalid-border-color;                      /* @stable [05.10.2018] */
-      }
+      // .rac-text-field {
+      //  border-color: $rac-text-field-invalid-border-color;                      /* @stable [05.10.2018] */
+      // }
     }
 
     &.rac-field-not-changeable {
 
-      & > .rac-text-field {
-        border-bottom: $rac-text-field-not-changeable-border-bottom;             /* @stable [06.10.2018] */
-        border-right: $rac-text-field-not-changeable-border-right;               /* @stable [06.10.2018] */
-        border-left: $rac-text-field-not-changeable-border-left;                 /* @stable [06.10.2018] */
-      }
-
       &.rac-field-label-not-prefixed {
 
-        & > .rac-text-field {
+        // & > .rac-text-field {
 
-          & > .rac-field__input-wrapper {
+        //  & > .rac-field__input-wrapper {
 
-            & > .rac-field-input {
-              padding-left: $rac-text-field-input-not-changeable-padding-left;   /* @stable [06.10.2018] */
-              padding-right: $rac-text-field-input-not-changeable-padding-right; /* @stable [06.10.2018] */
-            }
-          }
-        }
+        //    & > .rac-field-input {
+        //      padding-left: $rac-text-field-input-not-changeable-padding-left;   /* @stable [06.10.2018] */
+        //      padding-right: $rac-text-field-input-not-changeable-padding-right; /* @stable [06.10.2018] */
+        //    }
+        //  }
+        // }
       }
     }
 
@@ -141,14 +135,14 @@
       left: $rac-field-prefix-label-left;                             /* @stable [03.10.2018] */
     }
 
-    .rac-text-field {
+    // .rac-text-field {
 
-      .rac-field-input {
+    //  .rac-field-input {
 
-        &:-webkit-autofill {
-          transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
-        }
-      }
-    }
+    //    &:-webkit-autofill {
+    //      transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
+    //    }
+    //  }
+    // }
   }
 }

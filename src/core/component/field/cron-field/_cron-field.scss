@@ -1,5 +1,6 @@
 @import '../../constant';
 @import '../../mixin';
+@import './_cron-field-constant';
 
 .rac {
 
@@ -9,7 +10,7 @@
    */
   @include rac-field (
     $rac-field-custom: $rac-cron-field-cls,
-    $rac-self-field-input-wrapper-flex: $rac-cron-field-self-field-input-wrapper-flex
+    $rac-self-field-input-wrapper-flex-grow: $rac-cron-field-self-field-input-wrapper-flex-grow
   );
 
   /**

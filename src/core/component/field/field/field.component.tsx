@@ -273,8 +273,9 @@ export class Field<TProps extends IFieldProps,
 
     return ClsUtils.joinClassName(
       FieldClassesEnum.FIELD,
-      this.isBusy && FieldClassesEnum.FIELD_BUSY,
       this.isActioned && FieldClassesEnum.FIELD_ACTIONED,
+      this.isBusy && FieldClassesEnum.FIELD_BUSY,
+      this.isChangeable ? FieldClassesEnum.FIELD_CHANGEABLE : FieldClassesEnum.FIELD_NOT_CHANGEABLE,
       CalcUtils.calc<string>(className)
     );
   }

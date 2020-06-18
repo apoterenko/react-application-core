@@ -1,8 +1,6 @@
 import {
   IBaseTextFieldProps,
   IBaseTextFieldState,
-} from '../text-field/base-textfield.interface';
-import {
   IGenericDateFieldEntity,
   IGenericDateFieldState,
 } from '../../../definition';

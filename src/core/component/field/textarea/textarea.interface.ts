@@ -1,7 +1,7 @@
 import {
   IBaseTextFieldState,
   IBaseTextFieldProps,
-} from '../text-field';
+} from '../../../definition';
 
 export interface ITextAreaInternalState extends IBaseTextFieldState {
 }

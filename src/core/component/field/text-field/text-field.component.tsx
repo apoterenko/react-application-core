@@ -1,19 +1,30 @@
-import { ITextFieldProps, ITextFieldState } from './textfield.interface';
-import { BaseTextField } from './base-textfield.component';
-import { joinClassName } from '../../../util';
+import {
+  ITextFieldProps,
+  ITextFieldState,
+  TextFieldClassesEnum,
+} from '../../../definition';
+import { BaseTextField } from './base-text-field.component';
+import { ClsUtils } from '../../../util';
 
+/**
+ * @component-impl
+ * @stable [18.06.2020]
+ */
 export class TextField extends BaseTextField<ITextFieldProps,
-                                             ITextFieldState> {
+  ITextFieldState> {
 
   public static readonly defaultProps: ITextFieldProps = {
     clearActionRendered: false,
   };
 
   /**
-   * @stable [22.02.2019]
+   * @stable [18.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-text');
+    return ClsUtils.joinClassName(
+      super.getFieldClassName(),
+      TextFieldClassesEnum.TEXT_FIELD
+    );
   }
 }

@@ -40,12 +40,12 @@ import {
   IGridProps,
   IGridRowConfigEntity,
   ISortDirectionEntity,
+  ITextFieldProps,
 } from '../../definition';
 import {
   filterAndSortGridOriginalDataSource,
   getGridColumnSortDirection,
 } from './grid.support';
-import { ITextFieldProps } from '../field/text-field/textfield.interface';
 
 export class Grid extends BaseList<IGridProps, IGridState> {
 

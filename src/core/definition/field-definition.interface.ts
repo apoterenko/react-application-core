@@ -334,6 +334,8 @@ export enum FieldClassesEnum {
   FIELD_ACTIONED = 'rac-field-actioned',
   FIELD_ATTACHMENT = 'rac-field__attachment',
   FIELD_BUSY = 'rac-field-busy',
+  FIELD_CHANGEABLE = 'rac-field-changeable',
   FIELD_INPUT_WRAPPER = 'rac-field__input-wrapper',
+  FIELD_NOT_CHANGEABLE = 'rac-field-not-changeable',
   FIELD_SELF = 'rac-field__self',
 }

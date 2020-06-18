@@ -335,7 +335,7 @@
   $rac-field-border-radius: unset,                                                  /* @stable [09.02.2020] */
   $rac-field-display: unset,                                                        /* @stable [28.10.2019] */
   $rac-field-flex-direction: unset,                                                 /* @stable [28.10.2019] */
-  $rac-field-height: unset,
+  $rac-field-height: unset,                                                         /* @stable [18.06.2020] */
   $rac-field-help-text-font-size: unset,
   $rac-field-help-text-line-height: unset,
   $rac-field-justify-content: unset,                                                /* @stable [28.10.2019] */
@@ -344,17 +344,19 @@
   $rac-field-margin: unset,                                                         /* @stable [30.10.2019] */
   $rac-field-max-width: unset,
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
-  $rac-field-padding: unset,
   $rac-field-position: unset,                                                       /* @stable [15.02.2020] */
   $rac-field-right: unset,                                                          /* @stable [15.02.2020] */
   $rac-field-top: unset,                                                            /* @stable [15.02.2020] */
-  $rac-field-width: unset,
+  $rac-field-width: unset,                                                          /* @stable [18.06.2020] */
   $rac-self-field-align-items: unset,                                               /* @stable [24.10.2019] */
   $rac-self-field-background: unset,                                                /* @stable [21.10.2019] */
+  $rac-self-field-border-bottom: unset,                                             /* @stable [18.06.2020] */
   $rac-self-field-border-color: unset,                                              /* @stable [21.10.2019] */
+  $rac-self-field-border-left: unset,                                               /* @stable [18.06.2020] */
   $rac-self-field-border-radius: unset,                                             /* @stable [21.10.2019] */
+  $rac-self-field-border-right: unset,                                              /* @stable [18.06.2020] */
   $rac-self-field-border: unset,                                                    /* @stable [30.10.2019] */
-  $rac-self-field-box-sizing: unset,
+  $rac-self-field-box-sizing: unset,                                                /* @stable [18.06.2020] */
   $rac-self-field-display: unset,                                                   /* @stable [23.10.2019] */
   $rac-self-field-flex-direction: unset,                                            /* @stable [16.02.2020] */
   $rac-self-field-height: unset,                                                    /* @stable [15.02.2020] */
@@ -398,8 +400,8 @@
   $rac-self-field-input-wrapper-box-shadow: unset,                                  /* @stable [30.01.2020] */
   $rac-self-field-input-wrapper-display: unset,                                     /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-flex-direction: unset,                              /* @stable [23.10.2019] */
+  $rac-self-field-input-wrapper-flex-grow: unset,                                   /* @stable [18.06.2020] */
   $rac-self-field-input-wrapper-flex-shrink: unset,                                 /* @stable [09.04.2020] */
-  $rac-self-field-input-wrapper-flex: unset,                                        /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-justify-content: unset,                             /* @stable [23.10.2019] */
   $rac-self-field-input-wrapper-opacity: unset,                                     /* @stable [15.02.2020] */
   $rac-self-field-input-wrapper-position: unset,                                    /* @stable [23.10.2019] */
@@ -445,7 +447,6 @@
       $rac-styles-margin: $rac-field-margin,
       $rac-styles-max-width: $rac-field-max-width,
       $rac-styles-overflow: $rac-field-overflow,
-      $rac-styles-padding: $rac-field-padding,
       $rac-styles-position: $rac-field-position,
       $rac-styles-right: $rac-field-right,
       $rac-styles-top: $rac-field-top,
@@ -463,8 +464,11 @@
       @include rac-styles (
         $rac-styles-align-items: $rac-self-field-align-items,
         $rac-styles-background: $rac-self-field-background,
+        $rac-styles-border-bottom: $rac-self-field-border-bottom,
         $rac-styles-border-color: $rac-self-field-border-color,
+        $rac-styles-border-left: $rac-self-field-border-left,
         $rac-styles-border-radius: $rac-self-field-border-radius,
+        $rac-styles-border-right: $rac-self-field-border-right,
         $rac-styles-border: $rac-self-field-border,
         $rac-styles-box-sizing: $rac-self-field-box-sizing,
         $rac-styles-display: $rac-self-field-display,
@@ -527,8 +531,8 @@
             $rac-styles-box-shadow: $rac-self-field-input-wrapper-box-shadow,
             $rac-styles-display: $rac-self-field-input-wrapper-display,
             $rac-styles-flex-direction: $rac-self-field-input-wrapper-flex-direction,
+            $rac-styles-flex-grow: $rac-self-field-input-wrapper-flex-grow,
             $rac-styles-flex-shrink: $rac-self-field-input-wrapper-flex-shrink,
-            $rac-styles-flex: $rac-self-field-input-wrapper-flex,
             $rac-styles-justify-content: $rac-self-field-input-wrapper-justify-content,
             $rac-styles-opacity: $rac-self-field-input-wrapper-opacity,
             $rac-styles-position: $rac-self-field-input-wrapper-position,

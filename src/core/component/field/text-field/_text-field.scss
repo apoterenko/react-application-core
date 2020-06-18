@@ -5,26 +5,26 @@
 .rac {
 
   /**
-   * @base-text
-   * @stable [23.10.2019]
+   * @base-text-field
+   * @stable [18.06.2020]
    */
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-cls,
-    $rac-field-background: $rac-base-text-background,
-    $rac-field-border-radius: $rac-base-text-border-radius,
-    $rac-field-overflow: $rac-base-text-overflow,
-    $rac-self-field-background: $rac-base-text-self-field-background,
-    $rac-self-field-border-radius: $rac-base-text-self-field-border-radius,
-    $rac-self-field-border: $rac-base-text-self-field-border,
-    $rac-self-field-height: $rac-base-text-self-field-height,
+    $rac-field-background: $rac-base-text-field-background,
+    $rac-field-border-radius: $rac-base-text-field-border-radius,
+    $rac-field-overflow: $rac-base-text-field-overflow,
+    $rac-self-field-background: $rac-base-text-field-self-field-background,
+    $rac-self-field-border-radius: $rac-base-text-field-self-field-border-radius,
+    $rac-self-field-border: $rac-base-text-field-self-field-border,
+    $rac-self-field-height: $rac-base-text-field-self-field-height,
     $rac-self-field-input-caret-font-size: $rac-base-text-self-field-input-caret-font-size,
     $rac-self-field-input-caret-position: $rac-base-text-self-field-input-caret-position,
     $rac-self-field-input-mirror-width: $rac-base-text-self-field-input-mirror-width,
     $rac-self-field-input-padding: $rac-base-text-field-self-field-input-padding,
-    $rac-self-field-input-resize: $rac-base-text-self-field-input-resize,
+    $rac-self-field-input-resize: $rac-base-text-field-self-field-input-resize,
     $rac-self-field-input-width: $rac-base-text-field-self-field-input-width,
-    $rac-self-field-input-wrapper-flex: $rac-base-text-self-field-input-wrapper-flex,
-    $rac-self-field-overflow: $rac-base-text-self-field-overflow
+    $rac-self-field-input-wrapper-flex-grow: $rac-base-text-field-self-field-input-wrapper-flex-grow,
+    $rac-self-field-overflow: $rac-base-text-field-self-field-overflow
   );
 
   /**
@@ -69,5 +69,16 @@
     $rac-field-custom: $rac-base-text-field-actioned-cls,
     $rac-self-field-input-padding: $rac-base-text-field-actioned-self-field-input-padding,
     $rac-self-field-input-width: $rac-base-text-field-actioned-self-field-input-width
+  );
+
+  /**
+   * @base-text-field-not-changeable
+   * @stable [18.06.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-field-not-changeable-cls,
+    $rac-self-field-border-bottom: $rac-base-text-field-not-changeable-self-field-border-bottom,
+    $rac-self-field-border-left: $rac-base-text-field-not-changeable-self-field-border-left,
+    $rac-self-field-border-right: $rac-base-text-field-not-changeable-self-field-border-right
   );
 }

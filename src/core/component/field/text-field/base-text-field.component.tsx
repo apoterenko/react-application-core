@@ -22,15 +22,13 @@ import {
 import { Field2 } from '../field';
 import { Keyboard } from '../../keyboard';
 import {
-  IBaseTextFieldProps,
-  IBaseTextFieldState,
-} from './base-textfield.interface';
-import {
   ComponentClassesEnum,
   EventsEnum,
   FieldActionPositionsEnum,
   FieldActionTypesEnum,
   IBaseEvent,
+  IBaseTextFieldProps,
+  IBaseTextFieldState,
   IFieldActionEntity,
   IJQueryElement,
   IKeyboardProps,
@@ -73,17 +71,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return R.isNil(this.getFieldMask())
       ? super.getInputElement()
       : this.getMaskedInputElement();
-  }
-
-  /**
-   * @stable [24.10.2019]
-   * @returns {string}
-   */
-  protected getSelfElementClassName(): string {
-    return ClsUtils.joinClassName(
-      super.getSelfElementClassName(),
-      'rac-text-field'
-    ); // TODO Deprecated rac-text-field
   }
 
   /**

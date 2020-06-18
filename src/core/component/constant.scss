@@ -269,8 +269,6 @@ $rac-field-label-position-0: absolute !default;
 $rac-field-offset-0: 20px !default;
 /**/
 $rac-base-select-self-field-input-wrapper-flex-direction: column !default;
-$rac-base-text-background: unset !default;                                                                /* @stable [16.02.2020]*/
-$rac-base-text-border-radius: unset !default;                                                             /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-flex-direction: unset !default;                                         /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-left: unset !default;                                             /* @stable [16.02.2020]*/
 $rac-base-text-labeled-self-field-label-position: $rac-field-label-position-0 !default;                   /* @stable [04.03.2020]*/
@@ -280,18 +278,10 @@ $rac-base-text-labeled-self-field-label-width: 100% !default;                   
 $rac-base-text-labeled-self-field-margin-top: $rac-field-offset-0 !default;                               /* @stable [04.03.2020]*/
 $rac-base-text-labeled-self-field-padding-top: unset !default;                                            /* @stable [16.02.2020]*/
 $rac-base-text-labeled-value-not-present-self-field-margin-top: unset !default;                           /* @stable [16.02.2020]*/
-$rac-base-text-overflow: unset !default;                                                                  /* @stable [16.02.2020]*/
-$rac-base-text-self-field-background: unset !default;                                                     /* @stable [16.02.2020]*/
-$rac-base-text-self-field-border-radius: $rac-primary-border-radius-1 !default;
-$rac-base-text-self-field-border: 1px solid $rac-primary-color-metis-1 !default;
-$rac-base-text-self-field-height: $rac-primary-field-size-0 !default;
 $rac-base-text-self-field-input-caret-color: $rac-primary-color-poseidon-0 !default;
 $rac-base-text-self-field-input-caret-font-size: 24px !default;
 $rac-base-text-self-field-input-caret-position: absolute !default;
 $rac-base-text-self-field-input-mirror-width: auto !default;
-$rac-base-text-self-field-input-resize: none !default;
-$rac-base-text-self-field-input-wrapper-flex: 1 !default;
-$rac-base-text-self-field-overflow: unset !default;                                                       /* @stable [16.02.2020]*/
 $rac-cron-field-labeled-self-field-label-position: $rac-field-label-position-0 !default;                  /* @stable [04.03.2020] */
 $rac-cron-field-labeled-self-field-label-top: -$rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
 $rac-cron-field-labeled-self-field-margin-top: $rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
@@ -327,9 +317,6 @@ $rac-text-field-filter-active-after-left: 7px !default;
 $rac-text-field-input-not-changeable-padding-left: 0 !default;
 $rac-text-field-input-not-changeable-padding-right: 0 !default;
 $rac-text-field-invalid-border-color: $color-11 !default;
-$rac-text-field-not-changeable-border-bottom: unset !default;
-$rac-text-field-not-changeable-border-left: unset !default;
-$rac-text-field-not-changeable-border-right: unset !default;
 /**/
 $rac-date-field-calendar-base-dialog-range-explorer-date-justify-content: center !default;
 /**/
@@ -521,7 +508,6 @@ $rac-google-maps-position: relative !default;
 
 /* @stable [16.12.2019] */
 $rac-cron-days-cls: rac-cron-days;
-$rac-cron-field-cls: rac-cron-field;
 /**/
 $rac-cron-field-labeled-cls: '#{$rac-cron-field-cls}.#{$rac-field-labeled-cls}';
 /**/
@@ -530,7 +516,6 @@ $rac-cron-calendar-wrapper-background: $rac-primary-color-metis-05 !default;
 $rac-cron-calendar-wrapper-border-radius: $rac-primary-border-radius-1 !default;
 $rac-cron-calendar-wrapper-flex: 1 !default;
 $rac-cron-calendar-wrapper-padding: 6px $rac-primary-offset-0 !default;
-$rac-cron-field-self-field-input-wrapper-flex: 1 !default;
 
 /* @stable [21.01.2020] */
 $rac-calendar-current-day-cls: rac-calendar__current-day;

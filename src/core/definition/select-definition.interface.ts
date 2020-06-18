@@ -23,12 +23,12 @@ import {
   IPresetsMenuItemEntity,
 } from './menu-definition.interface';
 import {
+  IBaseTextFieldProps,
   IPresetsBaseTextFieldEntity,
   IReduxBaseTextFieldEntity,
 } from './text-field-definition.interface';
 import { IFluxPayloadQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IBaseTextFieldProps } from '../component/field/text-field/base-textfield.interface';
 import { IField2State } from '../component/field/field/field.interface';
 
 /**

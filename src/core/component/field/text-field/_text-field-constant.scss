@@ -10,8 +10,33 @@ $rac-primary-base-text-field-offset-1: $rac-primary-offset-3 !default;
 /************************/
 /* @stable [18.06.2020] */
 /************************/
+$rac-base-text-field-background: unset !default;
+$rac-base-text-field-border-radius: unset !default;
+$rac-base-text-field-overflow: unset !default;
+$rac-base-text-field-self-field-background: unset !default;
+$rac-base-text-field-self-field-border-radius: $rac-primary-border-radius-1 !default;
+$rac-base-text-field-self-field-border: 1px solid $rac-primary-color-metis-1 !default;
+$rac-base-text-field-self-field-height: $rac-primary-field-size-0 !default;
+$rac-base-text-field-self-field-input-padding: 0 $rac-primary-base-text-field-offset-1 !default;
+$rac-base-text-field-self-field-input-resize: none !default;
+$rac-base-text-field-self-field-input-width: calc(100% - #{$rac-primary-base-text-field-offset-1 * 2}) !default;
+$rac-base-text-field-self-field-input-wrapper-flex-grow: $rac-primary-flex-grow-1 !default;
+$rac-base-text-field-self-field-overflow: unset !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-base-text-field-busy-self-field-input-opacity: 0 !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-base-text-field-not-changeable-self-field-border-bottom: 0 !default;
+$rac-base-text-field-not-changeable-self-field-border-left: 0 !default;
+$rac-base-text-field-not-changeable-self-field-border-right: 0 !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
 $rac-base-text-field-actioned-self-field-input-padding: 0 $rac-primary-base-text-field-offset-0 0 $rac-primary-base-text-field-offset-1 !default;
 $rac-base-text-field-actioned-self-field-input-width: calc(100% - #{$rac-primary-base-text-field-offset-0 + $rac-primary-base-text-field-offset-1}) !default;
-$rac-base-text-field-busy-self-field-input-opacity: 0 !default;
-$rac-base-text-field-self-field-input-padding: 0 $rac-primary-base-text-field-offset-1 !default;
-$rac-base-text-field-self-field-input-width: calc(100% - #{$rac-primary-base-text-field-offset-1 * 2}) !default;
