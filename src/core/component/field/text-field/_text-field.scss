@@ -81,4 +81,24 @@
     $rac-self-field-border-left: $rac-base-text-field-not-changeable-self-field-border-left,
     $rac-self-field-border-right: $rac-base-text-field-not-changeable-self-field-border-right
   );
+
+  /**
+   * @base-text-field-not-changeable-not-prefixed
+   * @stable [18.06.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-field-not-changeable-not-prefixed-cls,
+    $rac-self-field-input-padding: $rac-base-text-field-not-changeable-not-prefixed-self-field-input-padding,
+    $rac-self-field-input-width: $rac-base-text-field-not-changeable-not-prefixed-self-field-input-width
+  );
+
+  /**
+   * @base-text-field-not-changeable-prefixed
+   * @stable [18.06.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-text-field-not-changeable-prefixed-cls,
+    $rac-self-field-input-padding: $rac-base-text-field-not-changeable-prefixed-self-field-input-padding,
+    $rac-self-field-input-width: $rac-base-text-field-not-changeable-prefixed-self-field-input-width
+  );
 }

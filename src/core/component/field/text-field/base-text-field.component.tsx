@@ -158,9 +158,16 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
+    const {
+      prefixLabel,
+    } = this.originalProps;
+
     return ClsUtils.joinClassName(
       super.getFieldClassName(),
-      TextFieldClassesEnum.BASE_TEXT_FIELD
+      TextFieldClassesEnum.BASE_TEXT_FIELD,
+      prefixLabel
+        ? TextFieldClassesEnum.BASE_TEXT_FIELD_LABEL_PREFIXED
+        : TextFieldClassesEnum.BASE_TEXT_FIELD_LABEL_NOT_PREFIXED
     );
   }
 
@@ -344,12 +351,14 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    * @returns {IFieldActionEntity[]}
    */
   private get fieldActions(): IFieldActionEntity[] {
-    const mergedProps = this.mergedProps;
-
+    if (this.isReadOnly) {
+      return [];
+    }
+    const originalProps = this.originalProps;
     const {
       actions = [],
       actionsPosition,
-    } = mergedProps;
+    } = originalProps;
 
     const defaultActions = this.defaultActions || [];
     const fieldActions = actionsPosition === FieldActionPositionsEnum.LEFT

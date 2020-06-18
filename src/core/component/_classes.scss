@@ -114,6 +114,8 @@ $rac-checkbox-disabled-cls: '#{$rac-checkbox-cls}.#{$rac-field-disabled-cls}';
 /* @stable [18.06.2020] */
 /************************/
 $rac-base-text-field-cls: rac-base-text-field;
+$rac-base-text-field-label-not-prefixed-cls: rac-base-text-field-label-not-prefixed;
+$rac-base-text-field-label-prefixed-cls: rac-base-text-field-label-prefixed;
 $rac-cron-field-cls: rac-cron-field;
 $rac-field-actioned-cls: rac-field-actioned;
 $rac-field-busy-cls: rac-field-busy;
@@ -124,6 +126,9 @@ $rac-base-text-field-actioned-cls: '#{$rac-base-text-field-cls}.#{$rac-field-act
 $rac-base-text-field-busy-cls: '#{$rac-base-text-field-cls}.#{$rac-field-busy-cls}';
 $rac-base-text-field-changeable-cls: '#{$rac-base-text-field-cls}.#{$rac-field-changeable-cls}';
 $rac-base-text-field-not-changeable-cls: '#{$rac-base-text-field-cls}.#{$rac-field-not-changeable-cls}';
+/**/
+$rac-base-text-field-not-changeable-not-prefixed-cls: '#{$rac-base-text-field-label-not-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
+$rac-base-text-field-not-changeable-prefixed-cls: '#{$rac-base-text-field-label-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
 
 /************************/
 /* @stable [03.06.2020] */
@@ -147,6 +152,11 @@ $rac-date-field-navigator-cls: rac-date-field-navigator;
 /************************/
 $rac-error-info-cls: rac-error-info;
 $rac-full-info-cls: rac-full-info;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-action-icon-cls: rac-action-icon;
 
 /************************/
 /* @stable [23.03.2020] */

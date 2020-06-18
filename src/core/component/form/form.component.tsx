@@ -13,6 +13,7 @@ import {
   IFieldsPresets,
   IFormProps,
   IReduxFormEntity,
+  ITextFieldProps,
   UniversalIdProviderContext,
 } from '../../definition';
 import {
@@ -388,10 +389,10 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
       cloneReactNodes<IFieldProps2>(
         this,
         (field: IField) => {
-          const fieldProps = field.props;
+          const fieldProps: ITextFieldProps = field.props; // TODO Props
           const predefinedOptions = this.getPredefinedFieldProps(field);
 
-          return defValuesFilter<IFieldProps2, IFieldProps2>(
+          return defValuesFilter<ITextFieldProps, ITextFieldProps>(
             {
               value: this.getFieldValue(field),
               originalValue: this.getFieldOriginalValue(field),
@@ -419,7 +420,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               ...predefinedOptions,
 
               // The fields props have a higher priority
-              ...defValuesFilter<IFieldProps, IFieldProps>({
+              ...defValuesFilter<ITextFieldProps, ITextFieldProps>({
                 label: fieldProps.label,
                 placeholder: fieldProps.placeholder,
                 prefixLabel: fieldProps.prefixLabel,

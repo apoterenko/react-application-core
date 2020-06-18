@@ -4,6 +4,7 @@ import {
   IClearActionRenderedWrapper,
   IErrorMessageRenderedWrapper,
   IMaskGuideWrapper,
+  IPrefixLabelWrapper,
 } from '../definitions.interface';
 import {
   FieldActionPositionsEnum,
@@ -32,7 +33,8 @@ export interface IPresetsBaseTextFieldEntity
     IActionsWrapper<IFieldActionEntity[]>,
     IClearActionRenderedWrapper,
     IErrorMessageRenderedWrapper,
-    IMaskGuideWrapper {
+    IMaskGuideWrapper,
+    IPrefixLabelWrapper {
 }
 
 /**
@@ -72,5 +74,7 @@ export interface ITextFieldProps
  */
 export enum TextFieldClassesEnum {
   BASE_TEXT_FIELD = 'rac-base-text-field',
+  BASE_TEXT_FIELD_LABEL_NOT_PREFIXED = 'rac-base-text-field-label-not-prefixed',
+  BASE_TEXT_FIELD_LABEL_PREFIXED = 'rac-base-text-field-label-prefixed',
   TEXT_FIELD = 'rac-text-field',
 }

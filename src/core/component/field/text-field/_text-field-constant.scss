@@ -40,3 +40,15 @@ $rac-base-text-field-not-changeable-self-field-border-right: 0 !default;
 /************************/
 $rac-base-text-field-actioned-self-field-input-padding: 0 $rac-primary-base-text-field-offset-0 0 $rac-primary-base-text-field-offset-1 !default;
 $rac-base-text-field-actioned-self-field-input-width: calc(100% - #{$rac-primary-base-text-field-offset-0 + $rac-primary-base-text-field-offset-1}) !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-base-text-field-not-changeable-not-prefixed-self-field-input-padding: 0 !default;
+$rac-base-text-field-not-changeable-not-prefixed-self-field-input-width: 100% !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-base-text-field-not-changeable-prefixed-self-field-input-padding: 0 0 0 $rac-primary-base-text-field-offset-1 !default;
+$rac-base-text-field-not-changeable-prefixed-self-field-input-width: calc(100% - #{$rac-primary-base-text-field-offset-1}) !default;

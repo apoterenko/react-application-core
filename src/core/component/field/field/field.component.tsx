@@ -444,6 +444,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [18.06.2020]
+   * @returns {boolean}
+   */
+  protected get isReadOnly(): boolean {
+    return WrapperUtils.isReadOnly(this.originalProps);
+  }
+
+  /**
    * @stable [03.06.2020]
    * @returns {boolean}
    */

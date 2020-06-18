@@ -18,7 +18,6 @@ import {
   isKeyboardOpen,
   isKeyboardUsed,
   isPlainValueApplied,
-  isReadOnly,
   isRequired,
   isSyntheticCursorUsed,
   isVisible,
@@ -229,14 +228,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isActive(): boolean {
     return !this.isInactive;
-  }
-
-  /**
-   * @stable [29.10.2019]
-   * @returns {boolean}
-   */
-  protected get isReadOnly(): boolean {
-    return isReadOnly(this.props);
   }
 
   /**

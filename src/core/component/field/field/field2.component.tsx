@@ -245,8 +245,7 @@ export class Field2<TProps extends IFieldProps2,
       this.isDisabled && 'rac-field-disabled',
       this.isReadOnly && 'rac-field-readonly',
       this.isFocusPrevented && 'rac-field-prevent-focus',
-      props.label && 'rac-field-labeled',
-      props.prefixLabel ? 'rac-field-label-prefixed' : 'rac-field-label-not-prefixed'
+      props.label && 'rac-field-labeled'
     );
   }
 

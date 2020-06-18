@@ -380,7 +380,8 @@ const isClearActionRendered = (wrapper: IClearActionRenderedWrapper): boolean =>
  * @param {IReadOnlyWrapper} wrapper
  * @returns {boolean}
  */
-export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean => R.isNil(wrapper) ? false : wrapper.readOnly === true;
+export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.readOnly === true;
 
 /**
  * @stable [22.01.2020]
@@ -663,6 +664,7 @@ export class WrapperUtils {
   public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
   public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */
+  public static readonly isReadOnly = isReadOnly;                                          /* @stable [18.06.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
   public static readonly isSelectable = isSelectable;                                      /* @stable [01.06.2020] */
   public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
