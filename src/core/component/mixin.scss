@@ -344,6 +344,7 @@
   $rac-field-margin: unset,                                                         /* @stable [30.10.2019] */
   $rac-field-max-width: unset,
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
+  $rac-field-padding: unset,                                                        /* @stable [18.06.2020] */
   $rac-field-position: unset,                                                       /* @stable [15.02.2020] */
   $rac-field-right: unset,                                                          /* @stable [15.02.2020] */
   $rac-field-top: unset,                                                            /* @stable [15.02.2020] */
@@ -447,6 +448,7 @@
       $rac-styles-margin: $rac-field-margin,
       $rac-styles-max-width: $rac-field-max-width,
       $rac-styles-overflow: $rac-field-overflow,
+      $rac-styles-padding: $rac-field-padding,
       $rac-styles-position: $rac-field-position,
       $rac-styles-right: $rac-field-right,
       $rac-styles-top: $rac-field-top,

@@ -165,6 +165,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return ClsUtils.joinClassName(
       super.getFieldClassName(),
       TextFieldClassesEnum.BASE_TEXT_FIELD,
+      this.isActioned && TextFieldClassesEnum.BASE_TEXT_FIELD_ACTIONED,
       prefixLabel
         ? TextFieldClassesEnum.BASE_TEXT_FIELD_LABEL_PREFIXED
         : TextFieldClassesEnum.BASE_TEXT_FIELD_LABEL_NOT_PREFIXED
@@ -238,14 +239,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
    */
   protected isFieldActionDisabled(action: IFieldActionEntity): boolean {
     return CalcUtils.calc(action.disabled) || this.isInactive;
-  }
-
-  /**
-   * @stable [17.06.2020]
-   * @returns {boolean}
-   */
-  protected get isActioned(): boolean {
-    return ObjectUtils.isObjectNotEmpty(this.fieldActions);
   }
 
   /**
@@ -374,5 +367,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
         return true;
       }
     );
+  }
+
+  /**
+   * @stable [18.06.2020]
+   * @returns {boolean}
+   */
+  private get isActioned(): boolean {
+    return ObjectUtils.isObjectNotEmpty(this.fieldActions);
   }
 }

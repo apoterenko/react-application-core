@@ -239,7 +239,6 @@ export class Field2<TProps extends IFieldProps2,
       super.getFieldClassName(),
       isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
       this.isRequired && 'rac-field-required',
-      this.isInvalid && 'rac-field-invalid',
       this.isValuePresent ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isFocused ? 'rac-field-focused' : 'rac-field-not-focused',
       this.isDisabled && 'rac-field-disabled',
@@ -247,10 +246,6 @@ export class Field2<TProps extends IFieldProps2,
       this.isFocusPrevented && 'rac-field-prevent-focus',
       props.label && 'rac-field-labeled'
     );
-  }
-
-  protected get isActioned(): boolean {
-    return false;
   }
 
   /**

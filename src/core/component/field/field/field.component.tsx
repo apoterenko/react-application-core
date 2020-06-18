@@ -273,9 +273,9 @@ export class Field<TProps extends IFieldProps,
 
     return ClsUtils.joinClassName(
       FieldClassesEnum.FIELD,
-      this.isActioned && FieldClassesEnum.FIELD_ACTIONED,
       this.isBusy && FieldClassesEnum.FIELD_BUSY,
       this.isChangeable ? FieldClassesEnum.FIELD_CHANGEABLE : FieldClassesEnum.FIELD_NOT_CHANGEABLE,
+      this.isInvalid && FieldClassesEnum.FIELD_INVALID,
       CalcUtils.calc<string>(className)
     );
   }
@@ -407,24 +407,8 @@ export class Field<TProps extends IFieldProps,
    * @stable [05.06.2020]
    * @returns {boolean}
    */
-  protected get isChangeable(): boolean {
-    return WrapperUtils.isChangeable(this.originalProps);
-  }
-
-  /**
-   * @stable [05.06.2020]
-   * @returns {boolean}
-   */
   protected get isBusy(): boolean {
     return WrapperUtils.inProgress(this.originalProps);
-  }
-
-  /**
-   * @stable [18.06.2020]
-   * @returns {boolean}
-   */
-  protected get isActioned(): boolean {
-    return false;
   }
 
   /**
@@ -433,14 +417,6 @@ export class Field<TProps extends IFieldProps,
    */
   protected get isFieldRendered(): boolean {
     return WrapperUtils.isFieldRendered(this.originalProps);
-  }
-
-  /**
-   * @stable [05.06.2020]
-   * @returns {boolean}
-   */
-  protected get isInvalid(): boolean {
-    return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
   }
 
   /**
@@ -516,6 +492,22 @@ export class Field<TProps extends IFieldProps,
    */
   private get areManualChangesNotPrevented(): boolean {
     return WrapperUtils.areManualChangesNotPrevented(this.originalProps);
+  }
+
+  /**
+   * @stable [18.06.2020]
+   * @returns {boolean}
+   */
+  private get isInvalid(): boolean {
+    return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
+  }
+
+  /**
+   * @stable [18.06.2020]
+   * @returns {boolean}
+   */
+  private get isChangeable(): boolean {
+    return WrapperUtils.isChangeable(this.originalProps);
   }
 
   /**
