@@ -278,6 +278,7 @@ export class Field<TProps extends IFieldProps,
       this.isBusy && FieldClassesEnum.FIELD_BUSY,
       this.isChangeable ? FieldClassesEnum.FIELD_CHANGEABLE : FieldClassesEnum.FIELD_NOT_CHANGEABLE,
       this.isInvalid && FieldClassesEnum.FIELD_INVALID,
+      this.isValuePresent ? FieldClassesEnum.FIELD_VALUE_PRESENT : FieldClassesEnum.FIELD_VALUE_NOT_PRESENT,
       CalcUtils.calc<string>(className)
     );
   }

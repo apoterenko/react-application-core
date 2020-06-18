@@ -29,7 +29,7 @@
 
   /**
    * @base-text-labeled
-   * @stable [16.02.2020]
+   * @stable [18.06.2020]
    */
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-labeled-cls,
@@ -44,12 +44,12 @@
   );
 
   /**
-   * @base-text-labeled-value-not-present
-   * @stable [16.02.2020]
+   * @base-text-field-labeled-value-not-present
+   * @stable [18.06.2020]
    */
   @include rac-field (
-    $rac-field-custom: $rac-base-text-labeled-value-not-present-cls,
-    $rac-self-field-margin-top: $rac-base-text-labeled-value-not-present-self-field-margin-top
+    $rac-field-custom: $rac-base-text-field-labeled-value-not-present-cls,
+    $rac-self-field-margin-top: $rac-base-text-field-labeled-value-not-present-self-field-margin-top
   );
 
   /**

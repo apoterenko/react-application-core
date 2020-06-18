@@ -235,7 +235,6 @@ export class Field2<TProps extends IFieldProps2,
       super.getFieldClassName(),
       isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
       this.isRequired && 'rac-field-required',
-      this.isValuePresent ? 'rac-field-value-present' : 'rac-field-value-not-present',
       this.isFocused ? 'rac-field-focused' : 'rac-field-not-focused',
       this.isDisabled && 'rac-field-disabled',
       this.isReadOnly && 'rac-field-readonly',

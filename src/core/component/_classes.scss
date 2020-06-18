@@ -123,12 +123,15 @@ $rac-field-changeable-cls: rac-field-changeable;
 $rac-field-invalid-cls: rac-field-invalid;
 $rac-field-labeled-cls: rac-field-labeled;
 $rac-field-not-changeable-cls: rac-field-not-changeable;
+$rac-field-value-not-present-cls: rac-field-value-not-present;
+$rac-field-value-present-cls: rac-field-value-present;
 /**/
 $rac-base-text-field-busy-cls: '#{$rac-base-text-field-cls}.#{$rac-field-busy-cls}';
 $rac-base-text-field-invalid-cls: '#{$rac-base-text-field-cls}.#{$rac-field-invalid-cls}';
 $rac-base-text-field-labeled-cls: '#{$rac-base-text-field-cls}.#{$rac-field-labeled-cls}';
 $rac-base-text-field-not-changeable-cls: '#{$rac-base-text-field-cls}.#{$rac-field-not-changeable-cls}';
 /**/
+$rac-base-text-field-labeled-value-not-present-cls: '#{$rac-base-text-field-labeled-cls}.#{$rac-field-value-not-present-cls}';
 $rac-base-text-field-not-changeable-not-prefixed-cls: '#{$rac-base-text-field-label-not-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
 $rac-base-text-field-not-changeable-prefixed-cls: '#{$rac-base-text-field-label-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
 
