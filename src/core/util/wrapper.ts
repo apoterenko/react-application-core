@@ -609,7 +609,7 @@ const isIconLeftAligned = (entity: IIconLeftAlignedWrapper): boolean =>
  * @param {IErrorMessageRenderedWrapper} wrapper
  * @returns {boolean}
  */
-export const isErrorMessageRendered = (wrapper: IErrorMessageRenderedWrapper): boolean =>
+const isErrorMessageRendered = (wrapper: IErrorMessageRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.errorMessageRendered !== false;
 
 /**
@@ -654,6 +654,7 @@ export class WrapperUtils {
   public static readonly isClearActionRendered = isClearActionRendered;                    /* @stable [17.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
+  public static readonly isErrorMessageRendered = isErrorMessageRendered;                  /* @stable [18.06.2020] */
   public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */

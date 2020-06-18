@@ -2,11 +2,9 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  calc,
   cancelEvent,
   defValuesFilter,
   ifNotNilThanValue,
-  isErrorMessageRendered,
   isFull,
   joinClassName,
   orNull,
@@ -22,9 +20,7 @@ import {
 import { UniversalField } from './universal-field.component';
 import {
   ComponentClassesEnum,
-  FieldClassesEnum,
   FieldComposedInputAttributesT,
-  IComponentsSettingsEntity,
   IField,
   IJQueryElement,
 } from '../../../definition';
@@ -243,8 +239,7 @@ export class Field2<TProps extends IFieldProps2,
       this.isFocused ? 'rac-field-focused' : 'rac-field-not-focused',
       this.isDisabled && 'rac-field-disabled',
       this.isReadOnly && 'rac-field-readonly',
-      this.isFocusPrevented && 'rac-field-prevent-focus',
-      props.label && 'rac-field-labeled'
+      this.isFocusPrevented && 'rac-field-prevent-focus'
     );
   }
 
@@ -270,22 +265,5 @@ export class Field2<TProps extends IFieldProps2,
    */
   protected get jqInput(): IJQueryElement {
     return this.domAccessor.asJqEl(this.input);
-  }
-
-  /**
-   * @stable [16.02.2020]
-   * @returns {boolean}
-   */
-  private get isErrorMessageRendered(): boolean {
-    return isErrorMessageRendered(this.systemProps) && isErrorMessageRendered(this.props);
-  }
-
-  /**
-   * @stable [16.02.2020]
-   * @returns {TProps}
-   */
-  private get systemProps(): TProps {
-    const {field = {}} = this.settings.components || {} as IComponentsSettingsEntity;
-    return field as TProps;
   }
 }

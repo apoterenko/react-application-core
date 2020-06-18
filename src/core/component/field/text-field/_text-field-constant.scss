@@ -26,7 +26,24 @@ $rac-base-text-field-self-field-overflow: unset !default;
 /************************/
 /* @stable [18.06.2020] */
 /************************/
+$rac-base-text-field-labeled-self-field-flex-direction: unset !default;
+$rac-base-text-field-labeled-self-field-label-left: unset !default;
+$rac-base-text-field-labeled-self-field-label-position: $rac-primary-field-position-0 !default;
+$rac-base-text-field-labeled-self-field-label-top: -$rac-primary-field-offset-0 !default;
+$rac-base-text-field-labeled-self-field-label-white-space: nowrap !default;
+$rac-base-text-field-labeled-self-field-label-width: 100% !default;
+$rac-base-text-field-labeled-self-field-margin-top: $rac-primary-field-offset-0 !default;
+$rac-base-text-field-labeled-self-field-padding-top: unset !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
 $rac-base-text-field-busy-self-field-input-opacity: 0 !default;
+
+/************************/
+/* @stable [18.06.2020] */
+/************************/
+$rac-base-text-field-invalid-self-field-border-color: $rac-primary-color-dia-0 !default;
 
 /************************/
 /* @stable [18.06.2020] */

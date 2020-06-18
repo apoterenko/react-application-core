@@ -21,6 +21,7 @@ import {
   IDisplayValueWrapper,
   IEmptyValueWrapper,
   IEntity,
+  IErrorMessageRenderedWrapper,
   IFieldRenderedWrapper,
   IFieldsWrapper,
   IFormatWrapper,
@@ -100,6 +101,7 @@ export interface IPresetsFieldEntity
     IDisplayValueRenderedOnlyWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,
     IEmptyValueWrapper,
+    IErrorMessageRenderedWrapper,                                                 /* @stable [18.06.2020] */
     IFieldRenderedWrapper,
     IFormatWrapper,
     IFullWrapper,
@@ -334,6 +336,7 @@ export enum FieldClassesEnum {
   FIELD_CHANGEABLE = 'rac-field-changeable',
   FIELD_INPUT_WRAPPER = 'rac-field__input-wrapper',
   FIELD_INVALID = 'rac-field-invalid',
+  FIELD_LABELED = 'rac-field-labeled',
   FIELD_NOT_CHANGEABLE = 'rac-field-not-changeable',
   FIELD_SELF = 'rac-field__self',
 }

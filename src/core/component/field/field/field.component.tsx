@@ -269,10 +269,12 @@ export class Field<TProps extends IFieldProps,
     const originalProps = this.originalProps;
     const {
       className,
+      label,
     } = originalProps;
 
     return ClsUtils.joinClassName(
       FieldClassesEnum.FIELD,
+      label && FieldClassesEnum.FIELD_LABELED,
       this.isBusy && FieldClassesEnum.FIELD_BUSY,
       this.isChangeable ? FieldClassesEnum.FIELD_CHANGEABLE : FieldClassesEnum.FIELD_NOT_CHANGEABLE,
       this.isInvalid && FieldClassesEnum.FIELD_INVALID,
@@ -360,6 +362,14 @@ export class Field<TProps extends IFieldProps,
    */
   protected get isValuePresent(): boolean {
     return ValueUtils.isValuePresent(this.value, this.emptyValue);
+  }
+
+  /**
+   * @stable [18.06.2020]
+   * @returns {boolean}
+   */
+  protected get isErrorMessageRendered(): boolean {
+    return WrapperUtils.isErrorMessageRendered(this.mergedProps);
   }
 
   /**
