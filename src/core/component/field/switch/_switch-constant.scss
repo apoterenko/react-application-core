@@ -4,19 +4,19 @@
 /************************/
 /* @stable [05.06.2020] */
 /************************/
-$rac-primary-switch-self-field-input-height: $rac-primary-size-5 !default;
-$rac-primary-switch-self-field-input-width: $rac-primary-size-9 !default;
-$rac-primary-switch-thumb-checked-transition: transform 300ms !default;
-$rac-primary-switch-thumb-disabled-opacity: $rac-primary-opacity-4 !default;
-$rac-primary-switch-thumb-size: $rac-primary-size-4 !default;
+$rac-primary-switch-opacity-0: $rac-primary-opacity-4 !default;
+$rac-primary-switch-size-0: $rac-primary-size-4 !default;
+$rac-primary-switch-size-1: $rac-primary-size-5 !default;
+$rac-primary-switch-size-2: $rac-primary-size-9 !default;
+$rac-primary-switch-transition-0: transform 300ms !default;
 /**/
-$rac-primary-switch-thumb-offset: ($rac-primary-switch-self-field-input-height - $rac-primary-switch-thumb-size) / 2 !default;
+$rac-primary-switch-offset-0: ($rac-primary-switch-size-1 - $rac-primary-switch-size-0) / 2 !default;
 
 /************************/
 /* @stable [03.06.2020] */
 /************************/
-$rac-switch-self-field-input-height: $rac-primary-switch-self-field-input-height !default;
-$rac-switch-self-field-input-width: $rac-primary-switch-self-field-input-width !default;
+$rac-switch-self-field-input-height: $rac-primary-switch-size-1 !default;
+$rac-switch-self-field-input-width: $rac-primary-switch-size-2 !default;
 $rac-switch-self-field-input-wrapper-background: $rac-primary-color-poseidon-1 !default;
 $rac-switch-self-field-input-wrapper-border-radius: 12px !default;
 $rac-switch-self-field-input-wrapper-box-shadow: unset !default;
@@ -26,15 +26,15 @@ $rac-switch-self-field-input-wrapper-box-shadow: unset !default;
 /************************/
 $rac-switch-thumb-background: $rac-primary-color-poseidon-7 !default;
 $rac-switch-thumb-border-radius: 50% !default;
-$rac-switch-thumb-checked-disabled-opacity: $rac-primary-switch-thumb-disabled-opacity !default;
+$rac-switch-thumb-checked-disabled-opacity: $rac-primary-switch-opacity-0 !default;
 $rac-switch-thumb-checked-enabled-opacity: unset !default;
-$rac-switch-thumb-checked-transform: translateX(calc(#{$rac-primary-switch-self-field-input-width} - #{$rac-primary-switch-thumb-size} - #{$rac-primary-switch-thumb-offset})) !default;
-$rac-switch-thumb-checked-transition: $rac-primary-switch-thumb-checked-transition !default;
+$rac-switch-thumb-checked-transform: translateX(calc(#{$rac-primary-switch-size-2} - #{$rac-primary-switch-size-0} - #{$rac-primary-switch-offset-0})) !default;
+$rac-switch-thumb-checked-transition: $rac-primary-switch-transition-0 !default;
 $rac-switch-thumb-enabled-box-shadow: 0 2px 4px 0 $rac-primary-color-poseidon-2 !default;
 $rac-switch-thumb-position: absolute !default;
-$rac-switch-thumb-size: $rac-primary-switch-thumb-size !default;
-$rac-switch-thumb-top: $rac-primary-switch-thumb-offset !default;
-$rac-switch-thumb-unchecked-disabled-opacity: $rac-primary-switch-thumb-disabled-opacity !default;
+$rac-switch-thumb-size: $rac-primary-switch-size-0 !default;
+$rac-switch-thumb-top: $rac-primary-switch-offset-0 !default;
+$rac-switch-thumb-unchecked-disabled-opacity: $rac-primary-switch-opacity-0 !default;
 $rac-switch-thumb-unchecked-enabled-opacity: unset !default;
-$rac-switch-thumb-unchecked-transform: translateX($rac-primary-switch-thumb-offset) !default;
-$rac-switch-thumb-unchecked-transition: $rac-primary-switch-thumb-checked-transition !default;
+$rac-switch-thumb-unchecked-transform: translateX($rac-primary-switch-offset-0) !default;
+$rac-switch-thumb-unchecked-transition: $rac-primary-switch-transition-0 !default;
