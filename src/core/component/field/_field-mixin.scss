@@ -50,6 +50,7 @@
   $rac-self-field-info-height: unset,                                               /* @stable [19.05.2020] */
   $rac-self-field-info-position: unset,                                             /* @stable [19.05.2020] */
   $rac-self-field-info-width: unset,                                                /* @stable [19.05.2020] */
+  $rac-self-field-input-autofill-transition: unset,                                 /* @stable [19.06.2020] */
   $rac-self-field-input-background: unset,                                          /* @stable [30.10.2019] */
   $rac-self-field-input-border: unset,                                              /* @stable [30.10.2019] */
   $rac-self-field-input-caret-bottom: unset,                                        /* @stable [09.11.2019] */
@@ -255,6 +256,12 @@
               &.rac-field__input-mirror {
                 @include rac-styles (
                   $rac-styles-width: $rac-self-field-input-mirror-width
+                );
+              }
+
+              &:-webkit-autofill {
+                @include rac-styles (
+                  $rac-styles-transition: $rac-self-field-input-autofill-transition
                 );
               }
             }

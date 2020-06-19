@@ -59,15 +59,6 @@
     $rac-self-field-input-cursor: $rac-field-prevent-focus-self-field-input-cursor
   );
 
-  /**
-   * @base-select
-   * @stable [23.10.2019]
-   */
-  @include rac-field (
-          $rac-field-custom: $rac-base-select-cls,
-          $rac-self-field-input-wrapper-flex-direction: $rac-base-select-self-field-input-wrapper-flex-direction /* Menu */
-  );
-
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
   $rac-self-field-height: $rac-text-area-height,
   $rac-self-field-input-padding: $rac-text-area-input-padding);
@@ -115,15 +106,5 @@
       color: $rac-field-prefix-label-color;                           /* @stable [19.09.2018] */
       left: $rac-field-prefix-label-left;                             /* @stable [03.10.2018] */
     }
-
-    // .rac-text-field {
-
-    //  .rac-field-input {
-
-    //    &:-webkit-autofill {
-    //      transition: background-color 10000s ease-in-out 0s;         /* @stable [19.09.2018] Will never do. */
-    //    }
-    //  }
-    // }
   }
 }

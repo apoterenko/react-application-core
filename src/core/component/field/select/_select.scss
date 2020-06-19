@@ -1,14 +1,15 @@
+@import '../../inline-option/_inline-option-mixin';
 @import '../_field-mixin';
 @import './_select-constant';
 
 .rac {
 
   /**
-   * @base-select
-   * @stable [17.06.2020]
+   * @base-select-inline-option
+   * @stable [19.06.2020]
    */
-  @include rac-field (
-    $rac-field-custom: $rac-base-select-cls,
-    $rac-field-attachment-neighbor-child-margin: $rac-base-select-attachment-neighbor-child-margin
+  @include rac-inline-option (
+    $rac-inline-option-custom: $rac-base-select-inline-option-cls,
+    $rac-inline-option-margin: $rac-base-select-inline-option-margin
   );
 }

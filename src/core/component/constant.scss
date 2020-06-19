@@ -258,7 +258,6 @@ $rac-base-text-focused-cls: '#{$rac-base-text-field-cls}.#{$rac-field-focused-cl
 $rac-field-label-position-0: absolute !default;
 $rac-field-offset-0: 20px !default;
 /**/
-$rac-base-select-self-field-input-wrapper-flex-direction: column !default;
 $rac-base-text-self-field-input-caret-color: $rac-primary-color-poseidon-0 !default;
 $rac-cron-field-labeled-self-field-label-position: $rac-field-label-position-0 !default;                  /* @stable [04.03.2020] */
 $rac-cron-field-labeled-self-field-label-top: -$rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
