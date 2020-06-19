@@ -2,11 +2,12 @@
 @import '../_classes';
 
 /************************/
-/* @stable [18.05.2020] */
+/* @stable [19.06.2020] */
 /************************/
 $rac-field-display: $rac-primary-display-0 !default;
 $rac-field-flex-direction: $rac-primary-flex-direction-0 !default;
 $rac-self-field-background: unset !default;
+$rac-self-field-display: $rac-primary-display-0 !default;
 $rac-self-field-icon-color: $rac-primary-input-icon-color-0 !default;
 $rac-self-field-icon-height: 100% !default;
 $rac-self-field-icon-padding: 0 $rac-primary-offset-1 0 0 !default;
@@ -17,3 +18,4 @@ $rac-self-field-input-color: $rac-primary-input-color-0 !default;
 $rac-self-field-input-placeholder-color: $rac-primary-input-placeholder-color-0 !default;
 $rac-self-field-input-wrapper-display: $rac-primary-display-0 !default;
 $rac-self-field-label-color: $rac-primary-label-color-0 !default;
+$rac-self-field-position: relative !default;
