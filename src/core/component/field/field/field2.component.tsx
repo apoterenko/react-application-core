@@ -252,7 +252,7 @@ export class Field2<TProps extends IFieldProps2,
     return (
       <div
         title={message}
-        className={joinClassName('rac-field-help-text', className)}>
+        className={joinClassName('rac-field__help-text', className)}>
         {message ? this.t(message) : UniCodesEnum.NO_BREAK_SPACE}
       </div>
     );

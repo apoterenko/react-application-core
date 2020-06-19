@@ -265,8 +265,6 @@ $rac-base-text-self-field-input-caret-color: $rac-primary-color-poseidon-0 !defa
 $rac-cron-field-labeled-self-field-label-position: $rac-field-label-position-0 !default;                  /* @stable [04.03.2020] */
 $rac-cron-field-labeled-self-field-label-top: -$rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
 $rac-cron-field-labeled-self-field-margin-top: $rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
-$rac-field-help-text-font-size: 10px !default;
-$rac-field-help-text-line-height: 16px !default;
 $rac-field-prefix-label-color: $rac-primary-color-poseidon-0 !default;
 $rac-field-prefix-label-left: 6px !default;
 $rac-field-prevent-focus-self-field-input-cursor: default !default;
@@ -275,17 +273,6 @@ $rac-field-required-self-field-label-after-font-size: $rac-primary-font-size-0 !
 $rac-field-required-self-field-label-after-margin-left: 2px !default;
 $rac-field-required-self-field-label-after-position: absolute !default;
 $rac-field-required-self-field-label-after-right: unset !default;
-$rac-self-field-box-sizing: border-box !default;
-$rac-self-field-input-background: 0 !default;
-$rac-self-field-input-border: 0 !default;
-$rac-self-field-input-font-size: $rac-primary-font-size-0 !default;
-$rac-self-field-input-font-weight: $rac-primary-font-weight-2 !default;
-$rac-self-field-input-line-height: normal !default;
-$rac-self-field-label-font-size: $rac-primary-font-size-0 !default;                                               /* @stable [17.02.2020]*/
-$rac-self-field-label-font-weight: $rac-primary-font-weight-2 !default;                                           /* @stable [17.02.2020]*/
-$rac-self-field-label-line-height: 14px !default;                                                         /* @stable [16.02.2020]*/
-$rac-self-field-label-overflow: hidden !default;                                                          /* @stable [16.02.2020]*/
-$rac-self-field-label-text-overflow: ellipsis !default;                                                   /* @stable [16.02.2020]*/
 $rac-text-area-height: 100% !default;
 $rac-text-area-input-padding: $rac-primary-offset-3 !default;
 $rac-text-area-length-label-color: $rac-primary-color-poseidon-0 !default;
