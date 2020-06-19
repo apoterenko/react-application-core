@@ -70,27 +70,4 @@
     $rac-self-field-label-opacity: $rac-field-disabled-self-field-label-opacity,
     $rac-self-field-prefix-label-opacity: $rac-field-disabled-self-field-prefix-label-opacity
   );
-
-  @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
-  $rac-self-field-height: $rac-text-area-height,
-  $rac-self-field-input-padding: $rac-text-area-input-padding);
-
-  /*.rac-text-area-length-label {
-    @include _rac-position-properties($rac-position: absolute,
-                                      $rac-position-right: 8px,
-                                      $rac-position-top: 2px);
-
-    font-size: $rac-text-area-length-label-font-size;
-    color: $rac-text-area-length-label-color;
-  }*/
-
-  .rac-field {
-
-    &.rac-field-disabled {
-      .rac-dnd {
-        opacity: $opacity;                                            /* @stable [03.08.2018] */
-        cursor: default !important;                                   /* @stable [21.09.2018] */
-      }
-    }
-  }
 }
