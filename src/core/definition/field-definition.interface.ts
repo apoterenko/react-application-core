@@ -339,6 +339,7 @@ export enum FieldClassesEnum {
   FIELD_INVALID = 'rac-field-invalid',
   FIELD_LABELED = 'rac-field-labeled',
   FIELD_NOT_CHANGEABLE = 'rac-field-not-changeable',
+  FIELD_REQUIRED = 'rac-field-required',
   FIELD_SELF = 'rac-field__self',
   FIELD_VALUE_NOT_PRESENT = 'rac-field-value-not-present',
   FIELD_VALUE_PRESENT = 'rac-field-value-present',

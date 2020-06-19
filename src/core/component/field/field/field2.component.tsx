@@ -108,20 +108,6 @@ export class Field2<TProps extends IFieldProps2,
 
   /**
    * @stable [29.10.2019]
-   */
-  public setFocus(): void {
-    ifNotNilThanValue(
-      this.input,
-      (input) => {
-        if (!this.isFocusPrevented) {
-          input.focus();
-        }
-      }
-    );
-  }
-
-  /**
-   * @stable [29.10.2019]
    * @returns {JSX.Element}
    */
   protected getKeyboardElement(): JSX.Element {
@@ -234,7 +220,6 @@ export class Field2<TProps extends IFieldProps2,
     return joinClassName(
       super.getFieldClassName(),
       isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
-      this.isRequired && 'rac-field-required',
       this.isFocused ? 'rac-field-focused' : 'rac-field-not-focused',
       this.isDisabled && 'rac-field-disabled',
       this.isReadOnly && 'rac-field-readonly',

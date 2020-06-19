@@ -4,30 +4,35 @@
 /************************/
 /* @stable [19.06.2020] */
 /************************/
-$rac-field-display: $rac-primary-display-0 !default;
-$rac-field-flex-direction: $rac-primary-flex-direction-0 !default;
-$rac-field-help-text-font-size: 10px !default;
-$rac-field-help-text-line-height: 16px !default;
-$rac-self-field-background: unset !default;
-$rac-self-field-box-sizing: border-box !default;
-$rac-self-field-display: $rac-primary-display-0 !default;
-$rac-self-field-info-height: 100% !default;
-$rac-self-field-info-position: absolute !default;
-$rac-self-field-info-width: 100% !default;
-$rac-self-field-input-background: none !default;
-$rac-self-field-input-border: none !default;
-$rac-self-field-input-color: $rac-primary-input-color-0 !default;
-$rac-self-field-input-font-size: $rac-primary-font-size-0 !default;
-$rac-self-field-input-placeholder-color: $rac-primary-input-placeholder-color-0 !default;
-$rac-self-field-input-wrapper-display: $rac-primary-display-0 !default;
-$rac-self-field-label-color: $rac-primary-label-color-0 !default;
-$rac-self-field-position: relative !default;
+$rac-field-display: $rac-primary-display-0 !default;                                          /* @stable [19.06.2020] */
+$rac-field-flex-direction: $rac-primary-flex-direction-0 !default;                            /* @stable [19.06.2020] */
+$rac-field-help-text-font-size: 10px !default;                                                /* @stable [19.06.2020] */
+$rac-field-help-text-line-height: $rac-primary-line-height-2 !default;                        /* @stable [19.06.2020] */
+$rac-self-field-background: unset !default;                                                   /* @stable [19.06.2020] */
+$rac-self-field-box-sizing: border-box !default;                                              /* @stable [19.06.2020] */
+$rac-self-field-display: $rac-primary-display-0 !default;                                     /* @stable [19.06.2020] */
+$rac-self-field-info-height: 100% !default;                                                   /* @stable [19.06.2020] */
+$rac-self-field-info-position: absolute !default;                                             /* @stable [19.06.2020] */
+$rac-self-field-info-width: 100% !default;                                                    /* @stable [19.06.2020] */
+$rac-self-field-input-wrapper-display: $rac-primary-display-0 !default;                       /* @stable [19.06.2020] */
+$rac-self-field-label-color: $rac-primary-color-poseidon-0 !default;                          /* @stable [19.06.2020] */
+$rac-self-field-label-font-size: $rac-primary-font-size-0 !default;                           /* @stable [19.06.2020] */
+$rac-self-field-label-font-weight: unset !default;                                            /* @stable [19.06.2020] */
+$rac-self-field-label-line-height: $rac-primary-line-height-2 !default;                       /* @stable [19.06.2020] */
+$rac-self-field-label-overflow: hidden !default;                                              /* @stable [19.06.2020] */
+$rac-self-field-label-text-overflow: ellipsis !default;                                       /* @stable [19.06.2020] */
+$rac-self-field-position: relative !default;                                                  /* @stable [19.06.2020] */
 
+/************************/
+/* @stable [19.06.2020] */
+/************************/
+$rac-field-required-self-field-label-after-content: '*' !default;
+$rac-field-required-self-field-label-after-font-size: $rac-primary-font-size-0 !default;
+$rac-field-required-self-field-label-after-margin-left: 2px !default;
+$rac-field-required-self-field-label-after-position: absolute !default;
+$rac-field-required-self-field-label-after-right: unset !default;
 
-$rac-self-field-input-font-weight: $rac-primary-font-weight-2 !default;
-$rac-self-field-input-line-height: normal !default;
-$rac-self-field-label-font-size: $rac-primary-font-size-0 !default;                                               /* @stable [17.02.2020]*/
-$rac-self-field-label-font-weight: $rac-primary-font-weight-2 !default;                                           /* @stable [17.02.2020]*/
-$rac-self-field-label-line-height: 14px !default;                                                         /* @stable [16.02.2020]*/
-$rac-self-field-label-overflow: hidden !default;                                                          /* @stable [16.02.2020]*/
-$rac-self-field-label-text-overflow: ellipsis !default;                                                   /* @stable [16.02.2020]*/
+/************************/
+/* @stable [19.06.2020] */
+/************************/
+$rac-field-prevent-focus-self-field-input-cursor: pointer !default;

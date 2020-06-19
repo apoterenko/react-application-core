@@ -79,8 +79,18 @@ export class Field<TProps extends IFieldProps,
     }
   }
 
+  /**
+   * @stable [19.06.2020]
+   */
   public setFocus(): void {
-    // Do nothing
+    ConditionUtils.ifNotNilThanValue(
+      this.input,
+      (input) => {
+        if (!this.isFocusPrevented) {
+          input.focus();
+        }
+      }
+    );
   }
 
   /**
@@ -278,6 +288,7 @@ export class Field<TProps extends IFieldProps,
       this.isBusy && FieldClassesEnum.FIELD_BUSY,
       this.isChangeable ? FieldClassesEnum.FIELD_CHANGEABLE : FieldClassesEnum.FIELD_NOT_CHANGEABLE,
       this.isInvalid && FieldClassesEnum.FIELD_INVALID,
+      this.isRequired && FieldClassesEnum.FIELD_REQUIRED,
       this.isValuePresent ? FieldClassesEnum.FIELD_VALUE_PRESENT : FieldClassesEnum.FIELD_VALUE_NOT_PRESENT,
       CalcUtils.calc<string>(className)
     );
@@ -324,16 +335,19 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [03.06.2020]
+   * @stable [19.06.2020]
    * @returns {AnyT}
    */
   protected get emptyValue(): AnyT {
-    const {emptyValue} = this.originalProps;
+    const {
+      emptyValue,
+    } = this.originalProps;
+
     return TypeUtils.isDef(emptyValue) ? emptyValue : this.originalEmptyValue;
   }
 
   /**
-   * @stable [17.05.2020]
+   * @stable [19.06.2020]
    * @returns {AnyT}
    */
   protected get originalEmptyValue(): AnyT {
@@ -341,7 +355,7 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [03.06.2020]
+   * @stable [19.06.2020]
    * @returns {AnyT}
    */
   protected get defaultValue(): AnyT {
@@ -349,7 +363,17 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [03.06.2020]
+   * @stable [19.06.2020]
+   * @returns {AnyT}
+   */
+  protected get displayValue(): AnyT {
+    return !this.isValuePresent || (this.isFocusPrevented && this.isBusy)
+      ? FieldConstants.DISPLAY_EMPTY_VALUE
+      : this.decoratedDisplayValue;
+  }
+
+  /**
+   * @stable [19.06.2020]
    * @param {AnyT} value
    * @returns {boolean}
    */
@@ -371,6 +395,14 @@ export class Field<TProps extends IFieldProps,
    */
   protected get isErrorMessageRendered(): boolean {
     return WrapperUtils.isErrorMessageRendered(this.mergedProps);
+  }
+
+  /**
+   * @stable [19.06.2020]
+   * @returns {boolean}
+   */
+  protected get isRequired(): boolean {
+    return WrapperUtils.isRequired(this.originalProps);
   }
 
   /**

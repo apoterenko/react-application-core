@@ -18,7 +18,6 @@ import {
   isKeyboardOpen,
   isKeyboardUsed,
   isPlainValueApplied,
-  isRequired,
   isSyntheticCursorUsed,
   isVisible,
   notNilValuesFilter,
@@ -188,14 +187,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     return usePrintf
       ? Printf.sprintf(this.t(this.props.displayMessage), ...args)
       : FieldConstants.DISPLAY_EMPTY_VALUE;
-  }
-
-  /**
-   * @stable [29.10.2019]
-   * @returns {boolean}
-   */
-  protected get isRequired(): boolean {
-    return isRequired(this.originalProps);
   }
 
   /**
@@ -443,16 +434,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueDefined(): boolean {
     return isDef(this.props.displayValue);
-  }
-
-  /**
-   * @stable [28.01.2020]
-   * @returns {AnyT}
-   */
-  protected get displayValue(): AnyT {
-    return !this.isValuePresent || (this.isFocusPrevented && this.isBusy)
-      ? FieldConstants.DISPLAY_EMPTY_VALUE
-      : this.decoratedDisplayValue;
   }
 
   /**
