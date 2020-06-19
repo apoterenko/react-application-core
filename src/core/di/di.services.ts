@@ -40,6 +40,7 @@ import {
   IUniversalComponentProps,
   IUniversalContainerProps,
   IUserActivityManager,
+  IViewerLocator,
   ListStoreProxyFactoryT,
   NotificationStoreProxyFactoryT,
   RouterStoreProxyFactoryT,
@@ -108,7 +109,13 @@ export const getMultiEntityDatabaseStorage = (): IStorage => staticInjector(DI_T
  * @stable [18.03.2020]
  * @returns {IUiFactory}
  */
-export const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UiFactory);
+const getUiFactory = (): IUiFactory => staticInjector(DI_TYPES.UiFactory);
+
+/**
+ * @stable [19.06.2020]
+ * @returns {IViewerLocator}
+ */
+const getViewerLocator = (): IViewerLocator => staticInjector(DI_TYPES.ViewerLocator);
 
 /**
  * @stable [21.04.2020]
@@ -282,7 +289,7 @@ export const getUserActivityManager = (): IUserActivityManager =>
  * @stable [17.06.2020]
  * @returns {IBootstrapper}
  */
-export const getWebBootstrapper = (): IBootstrapper =>
+const getWebBootstrapper = (): IBootstrapper =>
   staticInjector(DI_TYPES.WebBootstrapper);
 
 /**
@@ -303,5 +310,6 @@ export class DiServices {
   public static readonly store = getStore;
   public static readonly translator = getTranslator;
   public static readonly uiFactory = getUiFactory;
+  public static readonly viewerLocator = getViewerLocator;
   public static readonly webBootstrapper = getWebBootstrapper;
 }

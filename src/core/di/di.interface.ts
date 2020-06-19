@@ -60,5 +60,6 @@ export const DI_TYPES = Object.freeze({
   UiPlugins: Symbol('UiPlugins'),
   UserActivityManager: Symbol('UserActivityManager'),
   VersionProcessor: Symbol('VersionProcessor'),
+  ViewerLocator: Symbol('ViewerLocator'),
   WebBootstrapper: Symbol('WebBootstrapper'),
 });

@@ -559,6 +559,7 @@ export interface IUuidWrapper { uuid?: string; }
 export interface IValidateOnMountWrapper { validateOnMount?: boolean; }
 export interface IValidWrapper { valid?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
+export interface IViewerClassNameWrapper { viewerClassName?: string; }
 export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }

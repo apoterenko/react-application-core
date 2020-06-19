@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { joinClassName } from '../../../util';
-import { Viewer } from '../viewer.component';
 import {
   IPictureViewerProps,
   ViewerClassesEnum,
 } from '../../../definition';
+import { ClsUtils } from '../../../util';
+import { Viewer } from '../viewer.component';
 
 export class PictureViewer extends Viewer<IPictureViewerProps> {
 
@@ -24,11 +24,14 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
   }
 
   /**
-   * @stable [18.03.2020]
+   * @stable [19.06.2020]
    * @returns {string}
    */
   protected getClassName(): string {
-    return joinClassName(super.getClassName(), ViewerClassesEnum.PICTURE_VIEWER);
+    return ClsUtils.joinClassName(
+      super.getClassName(),
+      ViewerClassesEnum.PICTURE_VIEWER
+    );
   }
 
   /**

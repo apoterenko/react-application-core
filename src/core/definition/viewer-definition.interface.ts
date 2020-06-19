@@ -14,7 +14,10 @@ import {
   IUsePreviewWrapper,
   IWidthWrapper,
 } from '../definitions.interface';
-import { IComponentProps } from './props-definition.interface';
+import {
+  IGenericComponentCtor,
+  IGenericComponentProps,
+} from './generic-component-definition.interface';
 
 /**
  * @base-entity
@@ -79,7 +82,7 @@ export interface IViewerState
  * @stable [19.09.2018]
  */
 export interface IViewerProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericViewerEntity {
 }
 
@@ -88,7 +91,7 @@ export interface IViewerProps
  * @stable [16.03.2020]
  */
 export interface IPdfViewerProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericPdfViewerEntity {
 }
 
@@ -97,7 +100,7 @@ export interface IPdfViewerProps
  * @stable [16.03.2020]
  */
 export interface IPictureViewerProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericPictureViewerEntity {
 }
 
@@ -141,6 +144,31 @@ export interface IGenericPdfPlugin {
   setPage(page: number): IGenericPdfPlugin;
   setScale(scale: number): IGenericPdfPlugin;
   setSrc(src: string): IGenericPdfPlugin;
+}
+
+/**
+ * @stable [19.06.2020]
+ */
+export enum ViewersEnum {
+  PDF,
+  PICTURE,
+}
+
+/**
+ * @ctor
+ * @stable [19.06.2020]
+ */
+export interface IViewerCtor
+  extends IGenericComponentCtor<IViewerProps, IViewerState> {
+}
+
+/**
+ * @service
+ * @stable [19.06.2020]
+ */
+export interface IViewerLocator {
+  register(name: ViewersEnum, ctor: IViewerCtor): void;
+  resolve(name: ViewersEnum): IViewerCtor;
 }
 
 /**

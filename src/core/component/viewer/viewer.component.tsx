@@ -2,19 +2,16 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
   coalesce,
   inProgress,
-  isFull,
   isOpened,
   isPreviewUsed,
-  joinClassName,
   nvl,
   ObjectUtils,
+  WrapperUtils,
 } from '../../util';
-import { BaseComponent } from '../base';
-import { Dialog } from '../dialog';
-import { PictureViewer } from '../viewer';
 import {
   ComponentClassesEnum,
   DialogClassesEnum,
@@ -22,17 +19,20 @@ import {
   IViewerProps,
   IViewerState,
   ViewerClassesEnum,
+  ViewersEnum,
 } from '../../definition';
 import {
   AnyT,
   UNDEF,
 } from '../../definitions.interface';
-import { Button } from '../button';
-import { Info } from '../info';
+import { Button } from '../button/button.component';
+import { Dialog } from '../dialog/dialog.component';
+import { GenericComponent } from '../base/generic.component';
+import { Info } from '../info/info.component';
 
 export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
                              TState extends IViewerState = IViewerState>
-  extends BaseComponent<TProps, TState> {
+  extends GenericComponent<TProps, TState> {
 
   private static readonly DEFAULT_PAGE = 1;
 
@@ -64,8 +64,6 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @param {TState} prevState
    */
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
-    super.componentDidUpdate(prevProps, prevState);
-
     if (this.hasSrcChanges(prevProps, prevState)) {
       this.refreshOnSrcChanges();
     } else if (this.hasInternalChanges(prevProps, prevState)) {
@@ -77,8 +75,6 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @stable [16.03.2020]
    */
   public componentDidMount(): void {
-    super.componentDidMount();
-
     this.refreshOnSrcChanges();
   }
 
@@ -207,18 +203,21 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [19.06.2020]
    * @returns {string}
    */
   protected getClassName(): string {
-    const props = this.props;
+    const originalProps = this.originalProps;
+    const {
+      className,
+    } = this.originalProps;
 
-    return joinClassName(
+    return ClsUtils.joinClassName(
       ViewerClassesEnum.VIEWER,
       this.isSrcAbsent && ViewerClassesEnum.EMPTY_VIEWER,
       this.isInfoRendered && ViewerClassesEnum.INFO_VIEWER,
-      isFull(props) && ViewerClassesEnum.FULL_VIEWER,
-      calc<string>(props.className)
+      WrapperUtils.isFull(originalProps) && ViewerClassesEnum.FULL_VIEWER,
+      CalcUtils.calc<string>(className)
     );
   }
 
@@ -421,21 +420,25 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [18.03.2020]
+   * @stable [19.06.2020]
    * @returns {React.ReactNode}
    */
   private get bodyElement(): React.ReactNode {
-    const messages = this.settings.messages;
+    const {
+      AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE,
+    } = this.settings.messages;
+
+    const Component = this.viewerLocator.resolve(ViewersEnum.PICTURE);
 
     return this.isInfoRendered
       ? (
         <Info
           progress={this.inProgress}
-          error={messages.AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE}/>
+          error={AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE}/>
       )
       : (
         this.isActualSrcAbsent
-          ? <PictureViewer/>
+          ? <Component/>
           : this.getContentElement()
       );
   }
@@ -472,7 +475,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
       this.canPreview && (
         this.uiFactory.makeIcon({
           type: IconsEnum.SEARCH_PLUS,
-          className: joinClassName(
+          className: ClsUtils.joinClassName(
             ComponentClassesEnum.ALIGNMENT_CENTER,
             ViewerClassesEnum.VIEWER_PREVIEW_ICON
           ),

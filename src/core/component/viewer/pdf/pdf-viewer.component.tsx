@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ifNotNilThanValue } from '../../../util';
+import { ConditionUtils } from '../../../util';
 import {
   IGenericPdfPlugin,
   IPdfViewerProps,
@@ -37,15 +37,13 @@ export class PdfViewer extends Viewer {
   public componentWillUnmount(): void {
     this.pdfRendererPlugin.cancel();
     this.pdfRendererPlugin = null;
-
-    super.componentWillUnmount();
   }
 
   /**
    * @stable [16.03.2020]
    */
   protected refreshOnSrcChanges(): void {
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.actualSrc,
       (src) => {
         // This plugin can't process the null value

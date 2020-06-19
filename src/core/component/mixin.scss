@@ -331,6 +331,7 @@
   $rac-field-attachment-display: unset,                                             /* @stable [02.06.2020] */
   $rac-field-attachment-margin: unset,                                              /* @stable [02.06.2020] */
   $rac-field-attachment-neighbor-child-margin: unset,                               /* @stable [02.06.2020] */
+  $rac-field-attachment-position: unset,                                            /* @stable [19.06.2020] */
   $rac-field-background: unset,                                                     /* @stable [09.02.2020] */
   $rac-field-border-radius: unset,                                                  /* @stable [09.02.2020] */
   $rac-field-display: unset,                                                        /* @stable [28.10.2019] */
@@ -428,11 +429,7 @@
   $rac-self-field-margin: unset,                                                    /* @stable [28.10.2019] */
   $rac-self-field-overflow: unset,                                                  /* @stable [16.02.2020] */
   $rac-self-field-padding-top: unset,                                               /* @stable [16.02.2020] */
-  $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
-  $rac-self-field-viewer-content-border-radius: unset,                              /* @stable [18.03.2020] */
-  $rac-self-field-viewer-content-max-height: unset,                                 /* @stable [18.03.2020] */
-  $rac-self-field-viewer-content-max-width: unset,                                  /* @stable [18.03.2020] */
-  $rac-self-field-viewer-margin: unset                                              /* @stable [18.03.2020] */
+  $rac-self-field-position: unset                                                   /* @stable [30.10.2019] */
 ) {
 
   #{rac-cls(rac-field, $rac-field-custom)} {
@@ -589,20 +586,14 @@
             }
           }
         }
-
-        @include rac-viewer (
-          $rac-viewer-content-border-radius: $rac-self-field-viewer-content-border-radius,
-          $rac-viewer-content-max-height: $rac-self-field-viewer-content-max-height,
-          $rac-viewer-content-max-width: $rac-self-field-viewer-content-max-width,
-          $rac-viewer-margin: $rac-self-field-viewer-margin
-        );
       }
     }
 
     > .rac-field__attachment {
       @include rac-styles (
         $rac-styles-display: $rac-field-attachment-display,
-        $rac-styles-margin: $rac-field-attachment-margin
+        $rac-styles-margin: $rac-field-attachment-margin,
+        $rac-styles-position: $rac-field-attachment-position
       );
 
       @include rac-neighbor-child (

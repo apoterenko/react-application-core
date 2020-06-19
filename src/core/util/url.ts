@@ -60,11 +60,11 @@ export const getUrlProtocol = (): string => URI().protocol();
 export const getURLSearchParams = (search: string): URLSearchParams => new URLSearchParams(search);
 
 /**
- * @stable [19.09.2019]
+ * @stable [19.06.2020]
  * @param {string} uri
  * @returns {boolean}
  */
-export const isAbsoluteURI = (uri: string): boolean => URI(uri).is('absolute');
+const isAbsoluteURI = (uri: string): boolean => URI(uri).is('absolute');
 
 /**
  * @stable [11.09.2018]
@@ -129,4 +129,5 @@ export const appendUrlArgs = (initialUrl: string, args: IKeyValue) => {
  */
 export class UrlUtils {
   public static readonly buildEncodedURI = buildEncodedURI;
+  public static readonly isAbsoluteURI = isAbsoluteURI;
 }

@@ -3,26 +3,31 @@ import * as R from 'ramda';
 import * as BPromise from 'bluebird';
 
 import {
+  ClsUtils,
   defValuesFilter,
   detectBlobMimeType,
-  isAbsoluteURI,
-  joinClassName,
+  UrlUtils,
 } from '../../../util';
-import { Field2, toLastAddedMultiItemEntityId } from '../../field';
-import { FlexLayout } from '../../layout/flex';
-import { PictureViewer, Viewer } from '../../viewer';
-import { IViewFieldProps, IViewFieldState } from './view-field.interface';
 import {
-  IFieldInputAttributes,
+  Field2,
+  toLastAddedMultiItemEntityId,
+} from '../../field';
+import {
+  FieldClassesEnum,
+  IViewFieldProps,
+  IViewFieldState,
   MimeTypesEnum,
   TransportMethodsEnum,
+  ViewersEnum,
+  ViewFieldClassesEnum,
 } from '../../../definition';
-import { PdfViewer } from '../../viewer/pdf/pdf-viewer.component';
 
 export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
 
   public static readonly defaultProps: IViewFieldProps = {
-    viewer: PictureViewer,
+    errorMessageRendered: false,
+    fieldRendered: false,
+    viewer: ViewersEnum.PICTURE,
   };
 
   private previousValue: string;
@@ -46,7 +51,7 @@ export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
   }
 
   /**
-   * @stable [29.07.2019]
+   * @stable [19.06.2020]
    * @returns {Promise<void>}
    */
   public async componentDidMount(): Promise<void> {
@@ -55,7 +60,7 @@ export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
   }
 
   /**
-   * @stable [29.07.2019]
+   * @stable [19.06.2020]
    * @param {IViewFieldProps} prevProps
    * @param {IViewFieldState} prevState
    * @returns {Promise<void>}
@@ -66,55 +71,62 @@ export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
   }
 
   /**
-   * @stable [27.06.2018]
+   * @stable [19.06.2020]
    * @returns {JSX.Element}
    */
-  public render(): JSX.Element {
+  protected get attachmentElement(): JSX.Element {
     return (
-      <div className={this.getFieldClassName()}>
-        <FlexLayout
-          ref={this.selfRef}
-          className={this.getSelfElementClassName()}>
-          {this.getInputElement()}
-          {this.viewElement}
-        </FlexLayout>
+      <div
+        className={FieldClassesEnum.FIELD_ATTACHMENT}
+      >
+        {this.viewElement}
       </div>
     );
   }
 
   /**
-   * @stable [27.06.2018]
-   * @returns {IFieldInputAttributes}
-   */
-  protected getInputElementProps(): IFieldInputAttributes {
-    return {
-      ...super.getInputElementProps() as IFieldInputAttributes,
-      type: 'hidden',
-    };
-  }
-
-  /**
-   * @stable [27.06.2018]
+   * @stable [19.06.2020]
    * @returns {JSX.Element}
    */
   private get viewElement(): JSX.Element {
-    const {viewer, usePreview} = this.props;
-    const viewer0 = this.state.type === MimeTypesEnum.APPLICATION_PDF ? PdfViewer : viewer;
-    const Component = viewer0 as { new(): Viewer };
+    const {
+      usePreview,
+      viewer,
+      viewerClassName,
+    } = this.originalProps;
+    const {
+      type,
+      url,
+    } = this.state;
+
+    const $viewer = type === MimeTypesEnum.APPLICATION_PDF
+      ? ViewersEnum.PDF
+      : viewer;
+    const Component = this.viewerLocator.resolve($viewer);
 
     return (
       <Component
+        className={
+          ClsUtils.joinClassName(
+            viewerClassName,
+            ViewFieldClassesEnum.VIEW_FIELD_VIEWER
+          )
+        }
+        src={url}
         usePreview={usePreview}
-        src={this.state.url}/>
+      />
     );
   }
 
   /**
-   * @stable [25.03.2019]
+   * @stable [19.06.2020]
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-view-field');
+    return ClsUtils.joinClassName(
+      super.getFieldClassName(),
+      ViewFieldClassesEnum.VIEW_FIELD
+    );
   }
 
   /**
@@ -189,7 +201,7 @@ export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
     let url;
     let type;
 
-    if (isAbsoluteURI(currentValue)) {
+    if (UrlUtils.isAbsoluteURI(currentValue)) {
       url = currentValue;
 
       if (detectFileType) {

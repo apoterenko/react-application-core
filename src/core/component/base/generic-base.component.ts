@@ -16,9 +16,11 @@ import {
   IStorage,
   ITransport,
   IUiFactory,
+  IViewerLocator,
   TranslatorT,
 } from '../../definition';
 import {
+  DiServices,
   getAsyncLibManager,
   getDatabaseStorage,
   getDateConverter,
@@ -33,7 +35,6 @@ import {
   getSettings,
   getTranslator,
   getTransport,
-  getUiFactory,
 } from '../../di';
 import { ISettingsEntity } from '../../settings';
 import {
@@ -65,6 +66,7 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   private $t: TranslatorT;
   private $transport: ITransport;
   private $uiFactory: IUiFactory;
+  private $viewerLocator: IViewerLocator;
 
   /**
    * @stable [04.05.2020]
@@ -219,11 +221,11 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   }
 
   /**
-   * @stable [18.03.2020]
+   * @stable [19.06.2020]
    * @returns {IUiFactory}
    */
   protected get uiFactory(): IUiFactory {
-    return this.$uiFactory = this.$uiFactory || getUiFactory();
+    return this.$uiFactory = this.$uiFactory || DiServices.uiFactory();
   }
 
   /**
@@ -232,5 +234,13 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get domAccessor(): IDomAccessor {
     return this.$domAccessor = this.$domAccessor || getDomAccessor();
+  }
+
+  /**
+   * @stable [19.06.2020]
+   * @returns {IViewerLocator}
+   */
+  protected get viewerLocator(): IViewerLocator {
+    return this.$viewerLocator = this.$viewerLocator || DiServices.viewerLocator();
   }
 }
