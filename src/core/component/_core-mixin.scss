@@ -787,3 +787,54 @@
     scrollbar-track-color: $rac-scrollbar-track-background;
   }
 }
+
+/**
+ * @stable [19.06.2020]
+ */
+@mixin rac-placeholder (
+  $rac-placeholder-color: unset,
+  $rac-placeholder-font-size: unset,
+  $rac-placeholder-line-height: unset,
+  $rac-placeholder-padding: unset
+) {
+  &::-webkit-input-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &::-moz-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &:-ms-input-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &:-moz-placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+  &::placeholder {
+    @include rac-styles (
+      $rac-styles-color: $rac-placeholder-color,
+      $rac-styles-font-size: $rac-placeholder-font-size,
+      $rac-styles-line-height: $rac-placeholder-line-height,
+      $rac-styles-padding: $rac-placeholder-padding
+    );
+  }
+}

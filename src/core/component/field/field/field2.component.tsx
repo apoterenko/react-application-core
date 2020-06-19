@@ -171,7 +171,7 @@ export class Field2<TProps extends IFieldProps2,
     return ifNotNilThanValue(
       this.getLabel(),
       (label) => (
-        <label className='rac-field-label'>
+        <label className='rac-field__label'>
           {this.t(label)}
         </label>
       )
@@ -202,7 +202,7 @@ export class Field2<TProps extends IFieldProps2,
     const value = this.displayValue;                                                                        /* @stable [28.10.2019] */
 
     const result = defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
-      className: 'rac-field-input rac-flex-x1',
+      className: 'rac-field__input rac-flex-x1',
       autoComplete, cols, disabled, maxLength, minLength, name, pattern,
       placeholder, readOnly, rows, step, tabIndex, type, value, required,
       ...(

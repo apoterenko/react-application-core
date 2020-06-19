@@ -214,7 +214,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
     return orNull(
       this.isSyntheticCursorUsed && this.isKeyboardOpen() && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
-        <div className='rac-field-input-caret'
+        <div className='rac-field__input-caret'
              style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft')) - textOffset}}>
           |
         </div>
