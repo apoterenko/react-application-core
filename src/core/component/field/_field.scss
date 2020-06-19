@@ -59,6 +59,17 @@
     $rac-self-field-input-cursor: $rac-field-prevent-focus-self-field-input-cursor
   );
 
+  /**
+   * @field-disabled
+   * @stable [19.06.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-field-disabled-cls,
+    $rac-self-field-input-cursor: $rac-field-disabled-self-field-input-cursor,
+    $rac-self-field-input-opacity: $rac-field-disabled-self-field-input-opacity,
+    $rac-self-field-label-opacity: $rac-field-disabled-self-field-label-opacity
+  );
+
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
   $rac-self-field-height: $rac-text-area-height,
   $rac-self-field-input-padding: $rac-text-area-input-padding);
@@ -92,10 +103,7 @@
     }
 
     &.rac-field-disabled {
-
-      label,
       .rac-dnd,
-      .rac-field__input,
       .rac-field-prefix-label {
         opacity: $opacity;                                            /* @stable [03.08.2018] */
         cursor: default !important;                                   /* @stable [21.09.2018] */

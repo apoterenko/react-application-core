@@ -36,3 +36,10 @@ $rac-field-required-self-field-label-after-right: unset !default;
 /* @stable [19.06.2020] */
 /************************/
 $rac-field-prevent-focus-self-field-input-cursor: pointer !default;
+
+/************************/
+/* @stable [19.06.2020] */
+/************************/
+$rac-field-disabled-self-field-input-cursor: $rac-primary-field-cursor-0 !default;
+$rac-field-disabled-self-field-input-opacity: $rac-primary-field-opacity-0 !default;
+$rac-field-disabled-self-field-label-opacity: $rac-primary-field-opacity-0 !default;
