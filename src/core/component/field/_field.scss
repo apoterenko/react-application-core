@@ -85,34 +85,11 @@
 
   .rac-field {
 
-    &.rac-field-not-changeable {
-
-      &.rac-field-label-not-prefixed {
-
-        // & > .rac-text-field {
-
-        //  & > .rac-field__input-wrapper {
-
-        //    & > .rac-field-input {
-        //      padding-left: $rac-text-field-input-not-changeable-padding-left;   /* @stable [06.10.2018] */
-        //      padding-right: $rac-text-field-input-not-changeable-padding-right; /* @stable [06.10.2018] */
-        //    }
-        //  }
-        // }
-      }
-    }
-
     &.rac-field-disabled {
-      .rac-dnd,
-      .rac-field-prefix-label {
+      .rac-dnd {
         opacity: $opacity;                                            /* @stable [03.08.2018] */
         cursor: default !important;                                   /* @stable [21.09.2018] */
       }
-    }
-
-    .rac-field-prefix-label {
-      color: $rac-field-prefix-label-color;                           /* @stable [19.09.2018] */
-      left: $rac-field-prefix-label-left;                             /* @stable [03.10.2018] */
     }
   }
 }

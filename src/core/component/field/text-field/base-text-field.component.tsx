@@ -223,20 +223,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps,
   }
 
   /**
-   * @stable [15.09.2018]
-   * @returns {JSX.Element}
-   */
-  protected get prefixLabelElement(): JSX.Element {
-    const props = this.props;
-    return (
-      orNull(
-        props.prefixLabel,
-        <span className='rac-field-prefix-label rac-absolute-left-center-position'>{props.prefixLabel}</span>
-      )
-    );
-  }
-
-  /**
    * @stable [28.10.2019]
    * @param {} action
    * @returns {boolean}

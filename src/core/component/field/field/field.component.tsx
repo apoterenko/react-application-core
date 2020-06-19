@@ -230,11 +230,39 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [05.06.2020]
-   * @returns {string}
+   * @stable [19.06.2020]
+   * @returns {JSX.Element}
    */
-  protected getSelfElementClassName(): string {
-    return FieldClassesEnum.FIELD_SELF;
+  protected get selfElement(): JSX.Element {
+    const {
+      style,
+    } = this.originalProps;
+
+    if (this.isFieldRendered) {
+      return (
+        <div
+          ref={this.actualRef}
+          style={style}
+          title={this.title}
+          className={FieldClassesEnum.FIELD_SELF}
+        >
+          {this.prefixLabelElement}
+          {this.inputWrapperElement}
+          {this.actionsElement}
+          {this.labelElement}
+          {this.progressInfoElement}
+        </div>
+      );
+    }
+    return this.inputWrapperElement;
+  }
+
+  /**
+   * @stable [22.01.2020]
+   * @returns {JSX.Element}
+   */
+  protected get actionsElement(): JSX.Element {
+    return null;
   }
 
   /**
@@ -293,6 +321,14 @@ export class Field<TProps extends IFieldProps,
       this.isValuePresent ? FieldClassesEnum.FIELD_VALUE_PRESENT : FieldClassesEnum.FIELD_VALUE_NOT_PRESENT,
       CalcUtils.calc<string>(className)
     );
+  }
+
+  /**
+   * @stable [19.06.2020]
+   * @returns {string}
+   */
+  protected getLabel(): string {
+    return this.originalProps.label;
   }
 
   /**
@@ -531,7 +567,7 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [05.06.2020]
+   * @stable [19.06.2020]
    * @returns {boolean}
    */
   private get areManualChangesNotPrevented(): boolean {
@@ -539,7 +575,7 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [18.06.2020]
+   * @stable [19.06.2020]
    * @returns {boolean}
    */
   private get isInvalid(): boolean {
@@ -547,7 +583,7 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [18.06.2020]
+   * @stable [19.06.2020]
    * @returns {boolean}
    */
   private get isChangeable(): boolean {
@@ -555,7 +591,59 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [05.06.2020]
+   * @stable [19.06.2020]
+   * @returns {JSX.Element}
+   */
+  private get labelElement(): JSX.Element {
+    return ConditionUtils.ifNotNilThanValue(
+      this.getLabel(),
+      (label) => (
+        <label
+          className={FieldClassesEnum.FIELD_LABEL}
+        >
+          {this.t(label)}
+        </label>
+      )
+    );
+  }
+
+  /**
+   * @stable [19.06.2020]
+   * @returns {JSX.Element}
+   */
+  private get prefixLabelElement(): JSX.Element {
+    const {
+      prefixLabel,
+    } = this.originalProps;
+
+    return (
+      ConditionUtils.ifNotNilThanValue(
+        prefixLabel,
+        () => (
+          <span
+            className={FieldClassesEnum.FIELD_PREFIX_LABEL}
+          >
+            {prefixLabel}
+          </span>
+        )
+      )
+    );
+  }
+
+  /**
+   * @stable [19.06.2020]
+   * @returns {string}
+   */
+  private get title(): string {
+    const {
+      title,
+    } = this.originalProps;
+
+    return title || ConditionUtils.orNull(this.isFocusPrevented, () => this.displayValue);
+  }
+
+  /**
+   * @stable [19.06.2020]
    * @returns {string}
    */
   private get inputValidationMessage(): string {

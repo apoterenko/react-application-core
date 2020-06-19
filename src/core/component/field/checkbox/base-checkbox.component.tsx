@@ -67,12 +67,17 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
   }
 
   /**
-   * @stable [16.01.2020]
+   * @stable [19.06.2020]
    * @returns {string}
    */
   protected getLabel(): string {
+    const {
+      disableLabel,
+    } = this.mergedProps;
+    const originalLabel = super.getLabel();
+
     return this.value
-      ? super.getLabel()
-      : nvl(this.props.disableLabel, super.getLabel());
+      ? originalLabel
+      : disableLabel || originalLabel;
   }
 }

@@ -4,7 +4,6 @@ import * as R from 'ramda';
 import {
   cancelEvent,
   defValuesFilter,
-  ifNotNilThanValue,
   isFull,
   joinClassName,
   orNull,
@@ -122,46 +121,6 @@ export class Field2<TProps extends IFieldProps2,
     return this.isErrorMessageRendered
       ? this.toMessageElement(this.error, 'rac-field-error-text')
       : null;
-  }
-
-  /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
-   */
-  protected get selfElement(): JSX.Element {
-    const props = this.props;
-    if (this.isFieldRendered) {
-      return (
-        <div
-          ref={this.actualRef}
-          style={props.style}
-          title={this.getTitle()}
-          className={this.getSelfElementClassName()}
-        >
-          {this.prefixLabelElement}
-          {this.inputWrapperElement}
-          {this.actionsElement}
-          {this.labelElement}
-          {this.progressInfoElement}
-        </div>
-      );
-    }
-    return this.inputWrapperElement;
-  }
-
-  protected getTitle(): string {
-    return this.props.title as string || orNull(this.isFocusPrevented, () => this.displayValue);
-  }
-
-  protected get labelElement(): JSX.Element {
-    return ifNotNilThanValue(
-      this.getLabel(),
-      (label) => (
-        <label className='rac-field__label'>
-          {this.t(label)}
-        </label>
-      )
-    );
   }
 
   /**

@@ -4,7 +4,6 @@ import {
   IClearActionRenderedWrapper,
   IErrorMessageRenderedWrapper,
   IMaskGuideWrapper,
-  IPrefixLabelWrapper,
 } from '../definitions.interface';
 import {
   FieldActionPositionsEnum,
@@ -33,8 +32,7 @@ export interface IPresetsBaseTextFieldEntity
     IActionsWrapper<IFieldActionEntity[]>,
     IClearActionRenderedWrapper,
     IErrorMessageRenderedWrapper,
-    IMaskGuideWrapper,
-    IPrefixLabelWrapper {
+    IMaskGuideWrapper {
 }
 
 /**

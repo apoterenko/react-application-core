@@ -110,7 +110,11 @@
   $rac-self-field-margin: unset,                                                    /* @stable [28.10.2019] */
   $rac-self-field-overflow: unset,                                                  /* @stable [16.02.2020] */
   $rac-self-field-padding-top: unset,                                               /* @stable [16.02.2020] */
-  $rac-self-field-position: unset                                                   /* @stable [30.10.2019] */
+  $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
+  $rac-self-field-prefix-label-align-items: unset,                                  /* @stable [19.06.2020] */
+  $rac-self-field-prefix-label-display: unset,                                      /* @stable [19.06.2020] */
+  $rac-self-field-prefix-label-height: unset,                                       /* @stable [19.06.2020] */
+  $rac-self-field-prefix-label-position: unset                                      /* @stable [19.06.2020] */
 ) {
 
   #{rac-cls($rac-field-cls, $rac-field-custom)} {
@@ -154,6 +158,14 @@
       );
 
       > {
+        @include rac-styles (
+          $rac-styles-custom: rac-field__prefix-label,
+          $rac-styles-align-items: $rac-self-field-prefix-label-align-items,
+          $rac-styles-display: $rac-self-field-prefix-label-display,
+          $rac-styles-height: $rac-self-field-prefix-label-height,
+          $rac-styles-position: $rac-self-field-prefix-label-position
+        );
+
         .rac-field__label {
           @include rac-styles (
             $rac-styles-color: $rac-self-field-label-color,

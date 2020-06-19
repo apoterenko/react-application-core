@@ -280,22 +280,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
-   */
-  protected get actionsElement(): JSX.Element {
-    return null;
-  }
-
-  /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
-   */
-  protected get prefixLabelElement(): JSX.Element {
-    return null;
-  }
-
-  /**
    * @react-native-compatible
    * @stable [28.01.2020]
    * @returns {React.ReactNode}
@@ -434,14 +418,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueDefined(): boolean {
     return isDef(this.props.displayValue);
-  }
-
-  /**
-   * @stable [16.01.2020]
-   * @returns {string}
-   */
-  protected getLabel(): string {
-    return this.props.label;
   }
 
   /**

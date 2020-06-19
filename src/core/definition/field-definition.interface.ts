@@ -41,6 +41,7 @@ import {
   IPatternWrapper,
   IPlaceholderWrapper,
   IPlainValueWrapper,
+  IPrefixLabelWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
   IRawDataWrapper,
@@ -119,6 +120,7 @@ export interface IPresetsFieldEntity
     IPatternWrapper,
     IPlaceholderWrapper,
     IPlainValueWrapper,
+    IPrefixLabelWrapper,                                                          /* @stable [18.06.2020] */
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,
     IReadOnlyWrapper,                                                             /* @stable [18.06.2020] */
@@ -338,8 +340,10 @@ export enum FieldClassesEnum {
   FIELD_INPUT_MIRROR = 'rac-field__input-mirror',
   FIELD_INPUT_WRAPPER = 'rac-field__input-wrapper',
   FIELD_INVALID = 'rac-field-invalid',
+  FIELD_LABEL = 'rac-field__label',
   FIELD_LABELED = 'rac-field-labeled',
   FIELD_NOT_CHANGEABLE = 'rac-field-not-changeable',
+  FIELD_PREFIX_LABEL = 'rac-field__prefix-label',
   FIELD_REQUIRED = 'rac-field-required',
   FIELD_SELF = 'rac-field__self',
   FIELD_VALUE_NOT_PRESENT = 'rac-field-value-not-present',
