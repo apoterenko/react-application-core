@@ -6,9 +6,10 @@
 /************************/
 $rac-primary-tab-border-radius-0: $rac-primary-border-radius-2 !default;
 /**/
-$rac-primary-tab-color-0: $rac-primary-color-metis-1 !default;
+$rac-primary-tab-color-0: $rac-primary-color-metis-05 !default;
 $rac-primary-tab-color-1: $rac-primary-color-metis-05 !default;
 $rac-primary-tab-color-2: transparent !default;
+$rac-primary-tab-color-3: $rac-primary-color-poseidon-0 !default;
 /**/
 $rac-primary-tab-border-size-0: 1px !default;
 
@@ -36,6 +37,7 @@ $rac-tab-border-left: solid $rac-primary-tab-border-size-0 $rac-primary-tab-colo
 $rac-tab-border-right: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-2 !default;
 $rac-tab-border-top: solid $rac-primary-tab-border-size-0 $rac-primary-tab-color-0 !default;
 $rac-tab-border: unset !default;
+$rac-tab-content-color: $rac-primary-tab-color-3 !default;
 $rac-tab-content-font-size: $rac-primary-font-size-1 !default;
 $rac-tab-content-font-weight: unset !default;
 $rac-tab-content-margin: unset !default;

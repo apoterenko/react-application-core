@@ -30,6 +30,7 @@
   $rac-tab-border-right: unset,                                                               /* @stable [10.02.2020] */
   $rac-tab-border-top: unset,                                                                 /* @stable [10.02.2020] */
   $rac-tab-border: unset,                                                                     /* @stable [10.02.2020] */
+  $rac-tab-content-color: unset,                                                              /* @stable [19.06.2020] */
   $rac-tab-content-font-size: unset,                                                          /* @stable [10.02.2020] */
   $rac-tab-content-font-weight: unset,                                                        /* @stable [10.02.2020] */
   $rac-tab-content-margin: unset,                                                             /* @stable [10.02.2020] */
@@ -182,6 +183,7 @@
 
     @include rac-styles (
       $rac-styles-custom: rac-tab-panel__tab-content,
+      $rac-styles-color: $rac-tab-content-color,
       $rac-styles-font-size: $rac-tab-content-font-size,
       $rac-styles-font-weight: $rac-tab-content-font-weight,
       $rac-styles-margin: $rac-tab-content-margin,

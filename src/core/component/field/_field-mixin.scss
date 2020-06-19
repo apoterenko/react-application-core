@@ -112,9 +112,11 @@
   $rac-self-field-padding-top: unset,                                               /* @stable [16.02.2020] */
   $rac-self-field-position: unset,                                                  /* @stable [30.10.2019] */
   $rac-self-field-prefix-label-align-items: unset,                                  /* @stable [19.06.2020] */
+  $rac-self-field-prefix-label-color: unset,                                        /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-display: unset,                                      /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-height: unset,                                       /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-justify-content: unset,                              /* @stable [19.06.2020] */
+  $rac-self-field-prefix-label-opacity: unset,                                      /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-position: unset,                                     /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-width: unset                                         /* @stable [19.06.2020] */
 ) {
@@ -163,9 +165,11 @@
         @include rac-styles (
           $rac-styles-custom: rac-field__prefix-label,
           $rac-styles-align-items: $rac-self-field-prefix-label-align-items,
+          $rac-styles-color: $rac-self-field-prefix-label-color,
           $rac-styles-display: $rac-self-field-prefix-label-display,
           $rac-styles-height: $rac-self-field-prefix-label-height,
           $rac-styles-justify-content: $rac-self-field-prefix-label-justify-content,
+          $rac-styles-opacity: $rac-self-field-prefix-label-opacity,
           $rac-styles-position: $rac-self-field-prefix-label-position,
           $rac-styles-width: $rac-self-field-prefix-label-width
         );

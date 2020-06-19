@@ -67,7 +67,8 @@
     $rac-field-custom: $rac-field-disabled-cls,
     $rac-self-field-input-cursor: $rac-field-disabled-self-field-input-cursor,
     $rac-self-field-input-opacity: $rac-field-disabled-self-field-input-opacity,
-    $rac-self-field-label-opacity: $rac-field-disabled-self-field-label-opacity
+    $rac-self-field-label-opacity: $rac-field-disabled-self-field-label-opacity,
+    $rac-self-field-prefix-label-opacity: $rac-field-disabled-self-field-prefix-label-opacity
   );
 
   @include rac-field($rac-field-custom: rac-text-area,                                        /* @stable [22.11.2018] */
