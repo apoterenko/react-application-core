@@ -49,18 +49,6 @@ html, body {
 
   @include rac-icon($rac-icon-custom: rac-cls2($rac-action-icon-cls, rac-disabled-icon),/* @stable [07.03.2019] */
                     $rac-icon-cursor: default);
-
-  @include rac-filter-active(                                                                 /* @stable [15.12.2018] */
-    $rac-filter-active-position: relative,
-    $rac-filter-active-after-position: absolute,
-    $rac-filter-active-after-left: $rac-filter-active-left,
-    $rac-filter-active-after-right: $rac-filter-active-right,
-    $rac-filter-active-after-top: $rac-filter-active-top,
-    $rac-filter-active-after-bottom: $rac-filter-active-bottom,
-    $rac-filter-active-after-font-size: $rac-filter-active-font-size,
-    $rac-filter-active-after-content: $rac-filter-active-content,
-    $rac-filter-active-after-color: $rac-filter-active-color
-  );
 }
 
 // Root [FRAMEWORK-]
@@ -84,11 +72,5 @@ html, body {
     -webkit-appearance: none;         /* @stable [06.06.2018] */
     -moz-appearance: none;            /* @stable [06.06.2018] */
     margin: 0;                        /* @stable [06.06.2018] */
-  }
-
-  .rac-absolute-left-center-position {
-    position: absolute;                 /* @stable [24.08.2018] */
-    top: 50%;                           /* @stable [24.08.2018] */
-    transform: translateY(-50%);        /* @stable [24.08.2018] */
   }
 }

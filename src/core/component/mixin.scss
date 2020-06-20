@@ -88,37 +88,6 @@
 }
 
 /**
- * @stable [15.12.2018]
- */
-@mixin rac-filter-active($rac-filter-active-position: unset,
-                         $rac-filter-active-after-position: unset,
-                         $rac-filter-active-after-left: unset,
-                         $rac-filter-active-after-right: unset,
-                         $rac-filter-active-after-top: unset,
-                         $rac-filter-active-after-bottom: unset,
-                         $rac-filter-active-after-font-size: unset,
-                         $rac-filter-active-after-content: unset,
-                         $rac-filter-active-after-color: unset) {
-
-  .rac-filter-active {
-    @include rac-styles(
-      $rac-styles-position: $rac-filter-active-position
-    );
-
-    @include rac-after(
-      $rac-after-position: $rac-filter-active-after-position,
-      $rac-after-left: $rac-filter-active-after-left,
-      $rac-after-top: $rac-filter-active-after-top,
-      $rac-after-right: $rac-filter-active-after-right,
-      $rac-after-bottom: $rac-filter-active-after-bottom,
-      $rac-after-font-size: $rac-filter-active-after-font-size,
-      $rac-after-content: $rac-filter-active-after-content,
-      $rac-after-color: $rac-filter-active-after-color
-    );
-  }
-}
-
-/**
  * @deprecated
  */
 @mixin _rac-position-properties($rac-position-left: unset,
