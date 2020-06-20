@@ -19,9 +19,11 @@
    */
   @include rac-field (
     $rac-field-display: $rac-field-display,
+    $rac-field-error-message-color: $rac-field-error-message-color,
     $rac-field-flex-direction: $rac-field-flex-direction,
-    $rac-field-help-text-font-size: $rac-field-help-text-font-size,
-    $rac-field-help-text-line-height: $rac-field-help-text-line-height,
+    $rac-field-message-color: $rac-field-message-color,
+    $rac-field-message-font-size: $rac-field-message-font-size,
+    $rac-field-message-line-height: $rac-field-message-line-height,
     $rac-self-field-background: $rac-self-field-background,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing,
     $rac-self-field-display: $rac-self-field-display,

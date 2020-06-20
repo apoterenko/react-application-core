@@ -16,13 +16,15 @@
   $rac-field-background: unset,                                                     /* @stable [19.06.2020] */
   $rac-field-border-radius: unset,                                                  /* @stable [19.06.2020] */
   $rac-field-display: unset,                                                        /* @stable [19.06.2020] */
+  $rac-field-error-message-color: unset,                                            /* @stable [20.06.2020] */
   $rac-field-flex-direction: unset,                                                 /* @stable [19.06.2020] */
   $rac-field-height: unset,                                                         /* @stable [19.06.2020] */
-  $rac-field-help-text-font-size: unset,                                            /* @stable [19.06.2020] */
-  $rac-field-help-text-line-height: unset,                                          /* @stable [19.06.2020] */
   $rac-field-justify-content: unset,                                                /* @stable [19.06.2020] */
   $rac-field-margin-top: unset,                                                     /* @stable [19.06.2020] */
   $rac-field-margin: unset,                                                         /* @stable [19.06.2020] */
+  $rac-field-message-color: unset,                                                  /* @stable [20.06.2020] */
+  $rac-field-message-font-size: unset,                                              /* @stable [19.06.2020] */
+  $rac-field-message-line-height: unset,                                            /* @stable [19.06.2020] */
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
   $rac-field-padding: unset,                                                        /* @stable [18.06.2020] */
   $rac-field-position: unset,                                                       /* @stable [15.02.2020] */
@@ -306,9 +308,16 @@
     > {
       .rac-field__message {
         @include rac-styles(
-          $rac-styles-font-size: $rac-field-help-text-font-size,
-          $rac-styles-line-height: $rac-field-help-text-line-height
+          $rac-styles-color: $rac-field-message-color,
+          $rac-styles-font-size: $rac-field-message-font-size,
+          $rac-styles-line-height: $rac-field-message-line-height
         );
+
+        &.rac-field__error-message {
+          @include rac-styles(
+            $rac-styles-color: $rac-field-error-message-color
+          );
+        }
       }
 
       .rac-field__attachment {

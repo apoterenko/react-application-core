@@ -22,6 +22,15 @@
   );
 
   /**
+   * @base-checkbox-disabled
+   * @stable [20.06.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-base-checkbox-disabled-cls,
+    $rac-self-field-input-opacity: $rac-base-checkbox-disabled-self-field-input-opacity
+  );
+
+  /**
    * @base-checkbox-checked
    * @stable [15.02.2020]
    */
