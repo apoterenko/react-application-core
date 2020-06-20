@@ -8,7 +8,6 @@ import {
   IFocusEvent,
   IKeyboardEvent,
   IMaskPlaceholderCharWrapper,
-  IMessageWrapper,
   IOnBlurWrapper,
   IOnFocusWrapper,
   IOnSelectWrapper,
@@ -57,7 +56,6 @@ export interface IUniversalFieldProps
           IOnFocusWrapper<IFocusEvent>,
           IOnBlurWrapper<IFocusEvent>,
           IDisplayMessageWrapper,
-          IMessageWrapper,
           IKeyboardConfigurationEntity,
           ICaretBlinkingFrequencyTimeoutWrapper {
 }

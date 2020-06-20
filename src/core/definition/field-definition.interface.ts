@@ -30,6 +30,7 @@ import {
   ILabelWrapper,
   IMaskWrapper,
   IMaxLengthWrapper,
+  IMessageWrapper,
   IMinLengthWrapper,
   INameWrapper,
   IOnChangeWrapper,
@@ -97,8 +98,6 @@ export interface IPresetsFieldEntity
   extends IAutoFocusWrapper,                                                      /* @stable [17.06.2020] */
     IBindDictionaryWrapper,
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
-    IMinLengthWrapper,                                                            /* @stable [20.06.2020] */
-    IMaxLengthWrapper,                                                            /* @stable [20.06.2020] */
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */
     IDelayTimeoutWrapper,
     IDisabledWrapper,
@@ -113,6 +112,9 @@ export interface IPresetsFieldEntity
     IKeepChangesWrapper,
     ILabelWrapper,
     IMaskWrapper,
+    IMaxLengthWrapper,                                                            /* @stable [20.06.2020] */
+    IMessageWrapper,                                                              /* @stable [20.06.2020] */
+    IMinLengthWrapper,                                                            /* @stable [20.06.2020] */
     INameWrapper,
     IOnChangeWrapper,
     IOnClearWrapper,
@@ -131,6 +133,7 @@ export interface IPresetsFieldEntity
     IRenderedWrapper,
     IRequiredWrapper,
     ITypeWrapper<StringNumberT>,
+    IUseKeyboardWrapper,                                                          /* @stable [20.06.2020] */
     IValidWrapper {
 }
 
@@ -158,8 +161,7 @@ export interface IGenericFieldEntity2
     IAutoCompleteWrapper,
     IStepWrapper,
     ISyntheticCursorWrapper,
-    ITabIndexWrapper,
-    IUseKeyboardWrapper {
+    ITabIndexWrapper {
 }
 
 /**
@@ -341,12 +343,14 @@ export enum FieldClassesEnum {
   FIELD_BUSY = 'rac-field-busy',
   FIELD_CHANGEABLE = 'rac-field-changeable',
   FIELD_DISABLED = 'rac-field-disabled',
+  FIELD_ERROR_MESSAGE = 'rac-field__error-message',
   FIELD_INPUT_LABEL = 'rac-field__input-label',
   FIELD_INPUT_MIRROR = 'rac-field__input-mirror',
   FIELD_INPUT_WRAPPER = 'rac-field__input-wrapper',
   FIELD_INVALID = 'rac-field-invalid',
   FIELD_LABEL = 'rac-field__label',
   FIELD_LABELED = 'rac-field-labeled',
+  FIELD_MESSAGE = 'rac-field__message',
   FIELD_NOT_CHANGEABLE = 'rac-field-not-changeable',
   FIELD_PREFIX_LABEL = 'rac-field__prefix-label',
   FIELD_REQUIRED = 'rac-field-required',

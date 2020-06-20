@@ -37,7 +37,6 @@ import {
   IIconLeftAlignedWrapper,
   IIndexedWrapper,
   IInlineWrapper,
-  IKeyboardOpenWrapper,
   ILastWrapper,
   ILoadingWrapper,
   IMultiWrapper,
@@ -56,7 +55,6 @@ import {
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
   IRemoteFilterWrapper,
-  IRequiredWrapper,
   IScrollableWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
@@ -64,7 +62,6 @@ import {
   ISyntheticCursorWrapper,
   ITouchedWrapper,
   IUseFilterWrapper,
-  IUseKeyboardWrapper,
   IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
@@ -225,14 +222,6 @@ export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean
         : !R.isNil(entity.error),
     false
   );
-
-/**
- * @stable [24.10.2019]
- * @param {IUseKeyboardWrapper} wrapper
- * @returns {boolean}
- */
-export const isKeyboardUsed = (wrapper: IUseKeyboardWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.useKeyboard === true, false);
 
 /**
  * @stable [25.10.2019]
@@ -421,22 +410,6 @@ const isChangeable = (wrapper: IChangeableWrapper): boolean =>
  */
 export const isAlwaysResettable = (wrapper: IAlwaysResettableWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.alwaysResettable === true;
-
-/**
- * @stable [28.10.2019]
- * @param {IKeyboardOpenWrapper} wrapper
- * @returns {boolean}
- */
-export const isKeyboardOpen = (wrapper: IKeyboardOpenWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.keyboardOpen === true, false);
-
-/**
- * @stable [19.06.2020]
- * @param {IRequiredWrapper} wrapper
- * @returns {boolean}
- */
-const isRequired = (wrapper: IRequiredWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.required === true, false);
 
 /**
  * @stable [30.10.2019]
@@ -667,7 +640,6 @@ export class WrapperUtils {
   public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */
   public static readonly isReadOnly = isReadOnly;                                          /* @stable [18.06.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
-  public static readonly isRequired = isRequired;                                          /* @stable [19.06.2020] */
   public static readonly isSelectable = isSelectable;                                      /* @stable [01.06.2020] */
   public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
   public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */

@@ -2,16 +2,13 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  cancelEvent,
   defValuesFilter,
   isFull,
   joinClassName,
-  orNull,
   orUndef,
 } from '../../../util';
 import {
   IKeyboardEvent,
-  UniCodesEnum,
   } from '../../../definitions.interface';
 import {
   IField2State,
@@ -30,27 +27,6 @@ export class Field2<TProps extends IFieldProps2,
     extends UniversalField<TProps,
                            TState>
     implements IField<TProps, TState> {
-
-  /**
-   * @stable [26.05.2019]
-   * @returns {JSX.Element}
-   */
-  public render(): JSX.Element {
-    return (
-      <div
-        className={this.getFieldClassName()}
-        onClick={cancelEvent}
-      >
-        {this.props.children}
-        {this.getDisplayValueElement()}
-        {this.selfElement}
-        {this.getMessageElement()}
-        {this.getErrorMessageElement()}
-        {this.attachmentElement}
-        {this.getKeyboardElement()}
-      </div>
-    );
-  }
 
   /**
    * @stable [29.10.2019]
@@ -103,24 +79,6 @@ export class Field2<TProps extends IFieldProps2,
     }
 
     super.onKeyDown(event);
-  }
-
-  /**
-   * @stable [29.10.2019]
-   * @returns {JSX.Element}
-   */
-  protected getKeyboardElement(): JSX.Element {
-    return orNull(this.isKeyboardUsed && this.isKeyboardOpen(), () => this.keyboardElement);
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {JSX.Element}
-   */
-  protected getErrorMessageElement(): JSX.Element {
-    return this.isErrorMessageRendered
-      ? this.toMessageElement(this.error, 'rac-field-error-text')
-      : null;
   }
 
   /**
@@ -182,22 +140,6 @@ export class Field2<TProps extends IFieldProps2,
       this.isFocused ? 'rac-field-focused' : 'rac-field-not-focused',
       this.isReadOnly && 'rac-field-readonly',
       this.isFocusPrevented && 'rac-field-prevent-focus'
-    );
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @param {string} message
-   * @param {string} className
-   * @returns {JSX.Element}
-   */
-  protected toMessageElement(message: string, className?: string): JSX.Element {
-    return (
-      <div
-        title={message}
-        className={joinClassName('rac-field__help-text', className)}>
-        {message ? this.t(message) : UniCodesEnum.NO_BREAK_SPACE}
-      </div>
     );
   }
 

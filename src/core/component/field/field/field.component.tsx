@@ -1,7 +1,10 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { AnyT } from '../../../definitions.interface';
+import {
+  AnyT,
+  UniCodesEnum,
+} from '../../../definitions.interface';
 import {
   ChangeEventT,
   FieldClassesEnum,
@@ -14,7 +17,6 @@ import {
   IMaskedInputCtor,
   InputElementT,
 } from '../../../definition';
-import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import { IUniversalFieldState } from './field.interface';
 import {
   CalcUtils,
@@ -26,6 +28,7 @@ import {
   WrapperUtils,
 } from '../../../util';
 import { Info } from '../../info';
+import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 
 export class Field<TProps extends IFieldProps,
   TState extends IUniversalFieldState>  // TODO
@@ -35,15 +38,47 @@ export class Field<TProps extends IFieldProps,
   protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
 
   /**
-   * @stable [03.06.2020]
+   * @stable [20.06.2020]
    * @param {TProps} props
    */
   constructor(props: TProps) {
     super(props);
+
     this.state = {} as TState;
 
     this.onChangeManually = this.onChangeManually.bind(this);
     this.onClick = this.onClick.bind(this);
+  }
+
+  /**
+   * @stable [20.06.2020]
+   * @returns {JSX.Element}
+   */
+  public render(): JSX.Element {
+    const {
+      message,
+    } = this.originalProps;
+
+    return (
+      <div
+        className={this.getFieldClassName()}
+        onClick={this.domAccessor.cancelEvent}
+      >
+        {this.originalChildren}
+        {this.displayValueElement}
+        {this.selfElement}
+        {ConditionUtils.ifNotNilThanValue(message, () => this.messageElement(message))}
+        {ConditionUtils.orNull(
+          this.isErrorMessageRendered,
+          () => this.messageElement(this.error, FieldClassesEnum.FIELD_ERROR_MESSAGE)
+        )}
+        {this.attachmentElement}
+        {ConditionUtils.orNull(
+          this.isKeyboardUsed && this.isKeyboardOpen(),
+          () => this.keyboardElement
+        )}
+      </div>
+    );
   }
 
   /**
@@ -150,6 +185,14 @@ export class Field<TProps extends IFieldProps,
     if (this.hasInput) {
       this.input.blur();
     }
+  }
+
+  protected get displayValueElement(): React.ReactNode {
+    return null; // TODO
+  }
+
+  protected get keyboardElement(): JSX.Element {
+    return null; // TODO
   }
 
   /**
@@ -410,6 +453,14 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
+   * @stable [20.06.2020]
+   * @returns {boolean}
+   */
+  protected isKeyboardOpen(): boolean {
+    return this.state.keyboardOpen;
+  }
+
+  /**
    * @stable [19.06.2020]
    * @param {AnyT} value
    * @returns {boolean}
@@ -419,7 +470,7 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [03.06.2020]
+   * @stable [20.06.2020]
    * @returns {boolean}
    */
   protected get isValuePresent(): boolean {
@@ -427,35 +478,35 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [18.06.2020]
-   * @returns {boolean}
+   * @stable [20.06.2020]
+   * @returns {boolean | undefined}
    */
-  protected get isErrorMessageRendered(): boolean {
-    return WrapperUtils.isErrorMessageRendered(this.mergedProps);
+  protected get isKeyboardUsed() {
+    return this.originalProps.useKeyboard;
   }
 
   /**
-   * @stable [19.06.2020]
+   * @stable [20.06.2020]
    * @returns {boolean}
    */
   protected get isRequired(): boolean {
-    return WrapperUtils.isRequired(this.originalProps);
+    return this.originalProps.required;
   }
 
   /**
-   * @stable [05.06.2020]
+   * @stable [20.06.2020]
+   * @returns {boolean}
+   */
+  protected get isDisabled(): boolean {
+    return this.originalProps.disabled;
+  }
+
+  /**
+   * @stable [20.06.2020]
    * @returns {boolean}
    */
   protected get isValueNotPresent(): boolean {
     return !this.isValuePresent;
-  }
-
-  /**
-   * @stable [05.06.2020]
-   * @returns {boolean}
-   */
-  protected get isDisabled(): boolean {
-    return WrapperUtils.isDisabled(this.originalProps);
   }
 
   /**
@@ -516,14 +567,6 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [05.06.2020]
-   * @returns {string}
-   */
-  protected get error(): string {
-    return this.state.error;
-  }
-
-  /**
    * @stable [03.06.2020]
    * @returns {TProps}
    */
@@ -567,31 +610,24 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {boolean}
+   * @stable [20.06.2020]
+   * @param {string} message
+   * @param {string} className
+   * @returns {JSX.Element}
    */
-  private get areManualChangesNotPrevented(): boolean {
-    return WrapperUtils.areManualChangesNotPrevented(this.originalProps);
+  private messageElement(message: string, className?: string): JSX.Element {
+    return (
+      <div
+        title={message}
+        className={ClsUtils.joinClassName(FieldClassesEnum.FIELD_MESSAGE, className)}
+      >
+        {message ? this.t(message) : UniCodesEnum.NO_BREAK_SPACE}
+      </div>
+    );
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {boolean}
-   */
-  private get isInvalid(): boolean {
-    return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
-  }
-
-  /**
-   * @stable [19.06.2020]
-   * @returns {boolean}
-   */
-  private get isChangeable(): boolean {
-    return WrapperUtils.isChangeable(this.originalProps);
-  }
-
-  /**
-   * @stable [19.06.2020]
+   * @stable [20.06.2020]
    * @returns {JSX.Element}
    */
   private get labelElement(): JSX.Element {
@@ -608,7 +644,7 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [19.06.2020]
+   * @stable [20.06.2020]
    * @returns {JSX.Element}
    */
   private get prefixLabelElement(): JSX.Element {
@@ -631,7 +667,7 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [19.06.2020]
+   * @stable [20.06.2020]
    * @returns {string}
    */
   private get title(): string {
@@ -643,10 +679,50 @@ export class Field<TProps extends IFieldProps,
   }
 
   /**
-   * @stable [19.06.2020]
+   * @stable [20.06.2020]
+   * @returns {boolean}
+   */
+  private get isErrorMessageRendered(): boolean {
+    return WrapperUtils.isErrorMessageRendered(this.mergedProps);
+  }
+
+  /**
+   * @stable [20.06.2020]
+   * @returns {boolean}
+   */
+  private get areManualChangesNotPrevented(): boolean {
+    return WrapperUtils.areManualChangesNotPrevented(this.originalProps);
+  }
+
+  /**
+   * @stable [20.06.2020]
+   * @returns {boolean}
+   */
+  private get isChangeable(): boolean {
+    return WrapperUtils.isChangeable(this.originalProps);
+  }
+
+  /**
+   * @stable [20.06.2020]
+   * @returns {boolean}
+   */
+  private get isInvalid(): boolean {
+    return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
+  }
+
+  /**
+   * @stable [20.06.2020]
    * @returns {string}
    */
   private get inputValidationMessage(): string {
     return this.input.validationMessage;
+  }
+
+  /**
+   * @stable [20.06.2020]
+   * @returns {string}
+   */
+  private get error(): string {
+    return this.state.error;
   }
 }

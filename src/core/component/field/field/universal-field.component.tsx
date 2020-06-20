@@ -9,14 +9,11 @@ import {
 import {
   DelayedTask,
   ifNilThanValue,
-  ifNotNilThanValue,
   isDef,
   isDisplayValueRenderedOnly,
   isFieldInactive,
   isFn,
   isFocused,
-  isKeyboardOpen,
-  isKeyboardUsed,
   isPlainValueApplied,
   isSyntheticCursorUsed,
   isVisible,
@@ -80,11 +77,16 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
     super.componentDidUpdate(prevProps, prevState);
 
-    const keyboardUsed = this.isKeyboardUsed;
-    if (keyboardUsed && this.isKeyboardOpen() && !R.equals(this.value, prevProps.value)) {
+    const {
+      useKeyboard,
+      value,
+    } = prevProps;
+
+    const $isKeyboardUsed = this.isKeyboardUsed;
+    if ($isKeyboardUsed && this.isKeyboardOpen() && !R.equals(this.value, value)) {
       this.refreshCaretPosition();
     }
-    if (isKeyboardUsed(prevProps) && !keyboardUsed) {
+    if (useKeyboard && !$isKeyboardUsed) {
       this.closeVirtualKeyboard();
     }
   }
@@ -284,7 +286,7 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [28.01.2020]
    * @returns {React.ReactNode}
    */
-  protected getDisplayValueElement(): React.ReactNode {
+  protected get displayValueElement(): React.ReactNode {
     if (!this.isDisplayValueRenderedOnly) {
       return null;
     }
@@ -343,22 +345,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [28.10.2019]
-   * @returns {boolean}
-   */
-  protected isKeyboardOpen(): boolean {
-    return isKeyboardOpen(this.state);
-  }
-
-  /**
-   * @stable [24.10.2019]
-   * @returns {boolean}
-   */
-  protected get isKeyboardUsed() {
-    return isKeyboardUsed(this.props);
-  }
-
-  /**
    * @stable [28.01.2020]
    * @returns {boolean}
    */
@@ -372,14 +358,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueRenderedOnly() {
     return isDisplayValueRenderedOnly(this.props);
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {JSX.Element}
-   */
-  protected getMessageElement(): JSX.Element {
-    return ifNotNilThanValue(this.props.message, (message) => this.toMessageElement(message));
   }
 
   /**
@@ -418,16 +396,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueDefined(): boolean {
     return isDef(this.props.displayValue);
-  }
-
-  /**
-   * @stable [22.03.2019]
-   * @param {string} message
-   * @param {string} className
-   * @returns {JSX.Element}
-   */
-  protected toMessageElement(message: string, className?: string): JSX.Element {
-    return null;
   }
 
   /**

@@ -304,7 +304,7 @@
     }
 
     > {
-      .rac-field__help-text {
+      .rac-field__message {
         @include rac-styles(
           $rac-styles-font-size: $rac-field-help-text-font-size,
           $rac-styles-line-height: $rac-field-help-text-line-height
