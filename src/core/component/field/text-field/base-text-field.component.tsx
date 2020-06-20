@@ -38,8 +38,8 @@ import {
   TouchEventsEnum,
 } from '../../../definition';
 
-export class BaseTextField<TProps extends IBaseTextFieldProps,
-                           TState extends IBaseTextFieldState>
+export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldProps,
+                           TState extends IBaseTextFieldState = IBaseTextFieldState>
     extends Field2<TProps, TState> {
 
   private static readonly DEFAULT_MASK_GUIDE = false;

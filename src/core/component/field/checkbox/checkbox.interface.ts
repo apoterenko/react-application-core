@@ -1,4 +1,4 @@
-import { IField2State } from '../field';
+import { IField2State } from '../field/field.interface';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import {
   IFieldInputAttributes,

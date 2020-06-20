@@ -29,6 +29,8 @@ import {
   IKeepChangesWrapper,
   ILabelWrapper,
   IMaskWrapper,
+  IMaxLengthWrapper,
+  IMinLengthWrapper,
   INameWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
@@ -94,8 +96,10 @@ export class FieldConstants {
 export interface IPresetsFieldEntity
   extends IAutoFocusWrapper,                                                      /* @stable [17.06.2020] */
     IBindDictionaryWrapper,
-    IChangeableWrapper,
-    IDefaultValueWrapper,
+    IChangeableWrapper,                                                           /* @stable [20.06.2020] */
+    IMinLengthWrapper,                                                            /* @stable [20.06.2020] */
+    IMaxLengthWrapper,                                                            /* @stable [20.06.2020] */
+    IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */
     IDelayTimeoutWrapper,
     IDisabledWrapper,
     IDisplayNameWrapper,
@@ -337,6 +341,7 @@ export enum FieldClassesEnum {
   FIELD_BUSY = 'rac-field-busy',
   FIELD_CHANGEABLE = 'rac-field-changeable',
   FIELD_DISABLED = 'rac-field-disabled',
+  FIELD_INPUT_LABEL = 'rac-field__input-label',
   FIELD_INPUT_MIRROR = 'rac-field__input-mirror',
   FIELD_INPUT_WRAPPER = 'rac-field__input-wrapper',
   FIELD_INVALID = 'rac-field-invalid',

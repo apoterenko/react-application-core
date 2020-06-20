@@ -134,6 +134,7 @@ $rac-base-text-field-busy-cls: '#{$rac-base-text-field-cls}.#{$rac-field-busy-cl
 $rac-base-text-field-invalid-cls: '#{$rac-base-text-field-cls}.#{$rac-field-invalid-cls}';
 $rac-base-text-field-labeled-cls: '#{$rac-base-text-field-cls}.#{$rac-field-labeled-cls}';
 $rac-base-text-field-not-changeable-cls: '#{$rac-base-text-field-cls}.#{$rac-field-not-changeable-cls}';
+$rac-text-area-cls: '#{$rac-base-text-field-cls}.rac-text-area';
 /**/
 $rac-base-text-field-labeled-value-not-present-cls: '#{$rac-base-text-field-labeled-cls}.#{$rac-field-value-not-present-cls}';
 $rac-base-text-field-not-changeable-not-prefixed-cls: '#{$rac-base-text-field-label-not-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';

@@ -86,6 +86,7 @@ export * from './sub-header-definition.interface';
 export * from './sub-header-link-definition.interface';
 export * from './switch-definition.interface';
 export * from './tab-panel-definition.interface';
+export * from './text-area-definition.interface';
 export * from './text-field-definition.interface';
 export * from './thumb-definition.interface';
 export * from './title-definition.interface';

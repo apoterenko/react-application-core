@@ -1,0 +1,20 @@
+@import '../_field-mixin';
+@import './_text-area-constant';
+
+.rac {
+
+  /**
+   * @text-area
+   * @stable [20.06.2020]
+   */
+  @include rac-field (
+    $rac-field-custom: $rac-text-area-cls,
+    $rac-self-field-height: $rac-text-area-self-field-height,
+    $rac-self-field-input-label-color: $rac-text-area-self-field-input-label-color,
+    $rac-self-field-input-label-font-size: $rac-text-area-self-field-input-label-font-size,
+    $rac-self-field-input-label-position: $rac-text-area-self-field-input-label-position,
+    $rac-self-field-input-label-right: $rac-text-area-self-field-input-label-right,
+    $rac-self-field-input-label-top: $rac-text-area-self-field-input-label-top,
+    $rac-self-field-input-padding: $rac-text-area-self-field-input-padding
+  );
+}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
-import { BaseTextField } from '../text-field';
+import { BaseTextField } from '../text-field/base-text-field.component';
 import {
   downloadFile,
   downloadFileAsBlob,
@@ -11,20 +11,20 @@ import {
   orNull,
   uuid,
 } from '../../../util';
-import { DnD } from '../../dnd';
+import { DnD } from '../../dnd/dnd.component';
 import {
   EntityIdT,
   IKeyboardEvent,
   AnyT,
 } from '../../../definitions.interface';
-import { MultiFieldPlugin } from '../multifield';
+import { MultiFieldPlugin } from '../multifield/multifield.plugin';
 import {
   IBaseFileFieldState,
   IBaseFileFieldProps,
 } from './basic-filefield.interface';
 import { toLastAddedMultiItemEntityId } from '../multifield';
-import { Dialog } from '../../dialog';
-import { WebCamera } from '../../web-camera';
+import { Dialog } from '../../dialog/dialog.component';
+import { WebCamera } from '../../web-camera/web-camera.component';
 import {
   FieldActionTypesEnum,
   IBaseEvent,

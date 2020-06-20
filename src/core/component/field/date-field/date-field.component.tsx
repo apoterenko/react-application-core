@@ -51,10 +51,10 @@ import {
   IDateFieldProps,
   IDateFieldState,
 } from './date-field.interface';
-import { BaseTextField } from '../text-field';
-import { Button } from '../../button';
-import { Calendar } from '../../calendar';
-import { Dialog } from '../../dialog';
+import { BaseTextField } from '../text-field/base-text-field.component';
+import { Button } from '../../button/button.component';
+import { Calendar } from '../../calendar/calendar.component';
+import { Dialog } from '../../dialog/dialog.component';
 
 export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
 

@@ -10,8 +10,7 @@ import {
 } from '../../../util';
 import {
   Field2,
-  toLastAddedMultiItemEntityId,
-} from '../../field';
+} from '../field/field2.component';
 import {
   FieldClassesEnum,
   IViewFieldProps,
@@ -21,6 +20,7 @@ import {
   ViewersEnum,
   ViewFieldClassesEnum,
 } from '../../../definition';
+import { toLastAddedMultiItemEntityId } from '../multifield/multifield.support';
 
 export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
 

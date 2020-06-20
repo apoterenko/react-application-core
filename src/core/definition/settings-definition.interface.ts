@@ -299,6 +299,7 @@ export interface IMessagesSettingsEntity {
   LAST_WEEK?: string;
   LAST_YEAR?: string;
   LOG_OUT?: string;
+  MAX_LENGTH_OF?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   NEXT?: string;
   NO_AVAILABLE_ITEMS_TO_SELECT?: string;
@@ -364,6 +365,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   LAST_WEEK: 'Last week',
   LAST_YEAR: 'Last year',
   LOG_OUT: 'Log out',
+  MAX_LENGTH_OF: '{length} of {maxLength}',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   NEXT: 'Next',
   NO_AVAILABLE_ITEMS_TO_SELECT: 'No available items to select',

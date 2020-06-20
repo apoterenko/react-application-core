@@ -1,4 +1,3 @@
-export * from './date-range';
 export * from './cron-field';
 export * from './date-field';
 export * from './field';
@@ -8,7 +7,7 @@ export * from './multifield';
 export * from './text-field';
 export * from './select';
 export * from './gridfield';
-export * from './textarea';
+export * from './text-area';
 export * from './switch';
 export * from './checkbox';
 export * from './chips-field';
