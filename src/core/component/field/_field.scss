@@ -24,6 +24,7 @@
     $rac-field-message-color: $rac-field-message-color,
     $rac-field-message-font-size: $rac-field-message-font-size,
     $rac-field-message-line-height: $rac-field-message-line-height,
+    $rac-field-message-margin: $rac-field-message-margin,
     $rac-self-field-background: $rac-self-field-background,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing,
     $rac-self-field-display: $rac-self-field-display,
@@ -68,6 +69,7 @@
    */
   @include rac-field (
     $rac-field-custom: $rac-field-disabled-cls,
+    $rac-field-message-opacity: $rac-field-disabled-field-message-opacity,
     $rac-self-field-input-cursor: $rac-field-disabled-self-field-input-cursor,
     $rac-self-field-input-opacity: $rac-field-disabled-self-field-input-opacity,
     $rac-self-field-label-opacity: $rac-field-disabled-self-field-label-opacity,

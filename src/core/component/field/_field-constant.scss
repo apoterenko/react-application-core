@@ -10,6 +10,7 @@ $rac-field-flex-direction: $rac-primary-flex-direction-0 !default;              
 $rac-field-message-color: $rac-primary-color-poseidon-5 !default;                             /* @stable [20.06.2020] */
 $rac-field-message-font-size: 10px !default;                                                  /* @stable [19.06.2020] */
 $rac-field-message-line-height: $rac-primary-line-height-2 !default;                          /* @stable [19.06.2020] */
+$rac-field-message-margin: 2px 0 0 0 !default;                                                /* @stable [21.06.2020] */
 $rac-self-field-background: unset !default;                                                   /* @stable [19.06.2020] */
 $rac-self-field-box-sizing: border-box !default;                                              /* @stable [19.06.2020] */
 $rac-self-field-display: $rac-primary-display-0 !default;                                     /* @stable [19.06.2020] */
@@ -42,6 +43,7 @@ $rac-field-prevent-focus-self-field-input-cursor: pointer !default;
 /************************/
 /* @stable [19.06.2020] */
 /************************/
+$rac-field-disabled-field-message-opacity: $rac-primary-field-opacity-0 !default;
 $rac-field-disabled-self-field-input-cursor: default !default;
 $rac-field-disabled-self-field-input-opacity: $rac-primary-field-opacity-0 !default;
 $rac-field-disabled-self-field-label-opacity: $rac-primary-field-opacity-0 !default;

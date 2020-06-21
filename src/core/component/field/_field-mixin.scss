@@ -25,6 +25,8 @@
   $rac-field-message-color: unset,                                                  /* @stable [20.06.2020] */
   $rac-field-message-font-size: unset,                                              /* @stable [19.06.2020] */
   $rac-field-message-line-height: unset,                                            /* @stable [19.06.2020] */
+  $rac-field-message-margin: unset,                                                 /* @stable [21.06.2020] */
+  $rac-field-message-opacity: unset,                                                /* @stable [21.06.2020] */
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
   $rac-field-padding: unset,                                                        /* @stable [18.06.2020] */
   $rac-field-position: unset,                                                       /* @stable [15.02.2020] */
@@ -307,14 +309,16 @@
 
     > {
       .rac-field__message {
-        @include rac-styles(
+        @include rac-styles (
           $rac-styles-color: $rac-field-message-color,
           $rac-styles-font-size: $rac-field-message-font-size,
-          $rac-styles-line-height: $rac-field-message-line-height
+          $rac-styles-line-height: $rac-field-message-line-height,
+          $rac-styles-margin: $rac-field-message-margin,
+          $rac-styles-opacity: $rac-field-message-opacity
         );
 
         &.rac-field__error-message {
-          @include rac-styles(
+          @include rac-styles (
             $rac-styles-color: $rac-field-error-message-color
           );
         }
