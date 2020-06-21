@@ -267,6 +267,22 @@ export const DEFAULT_URLS_SETTINGS_ENTITY = Object.freeze<IUrlsSettingsEntity>({
 });
 
 /**
+ * @entity
+ * @stable [21.06.2020]
+ */
+export interface IKeyboardSettings {
+  caretBlinkingFrequency?: number;
+}
+
+/**
+ * @default-entity
+ * @stable [21.06.2020]
+ */
+export const DEFAULT_KEYBOARD_SETTINGS_ENTITY = Object.freeze<IKeyboardSettings>({
+  caretBlinkingFrequency: 400,
+});
+
+/**
  * @stable [07.10.2019]
  */
 export interface IMessagesSettingsEntity {

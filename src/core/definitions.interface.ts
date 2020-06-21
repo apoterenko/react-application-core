@@ -77,6 +77,7 @@ export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayload = AnyT> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICaptureWrapper { capture?: boolean; }
+export interface ICaretBlinkingFrequencyWrapper { caretBlinkingFrequency?: number; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TValue = IValueWrapper> extends React.ChangeEvent<TValue> {}
 export interface IChangesWrapper<TValue = {}> { changes?: TValue; }
@@ -771,13 +772,6 @@ export interface ICameraHeightWrapper {
  */
 export interface IFileNameWrapper {
   fileName?: string;
-}
-
-/**
- * @stable [03.09.2018]
- */
-export interface ICaretBlinkingFrequencyTimeoutWrapper {
-  caretBlinkingFrequencyTimeout?: number;
 }
 
 /**

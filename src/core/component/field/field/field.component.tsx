@@ -30,13 +30,13 @@ import {
   ConditionUtils,
   DelayedTask,
   FieldUtils,
+  FilterUtils,
   isDef,
-  ObjectUtils,
   TypeUtils,
   ValueUtils,
   WrapperUtils,
 } from '../../../util';
-import { Info } from '../../info';
+import { Info } from '../../info/info.component';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import { Keyboard } from '../../keyboard/keyboard.component';
 
@@ -50,14 +50,15 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   protected caretBlinkingTask: DelayedTask; // Used with a synthetic keyboard together
   protected keyboardListenerUnsubscriber: () => void;
   /**/
+  protected readonly inputMirrorRef = React.createRef<HTMLElement>(); // TODO -> private
   private readonly keyboardRef = React.createRef<HTMLElement>();
 
   /**
    * @stable [21.06.2020]
-   * @param {TProps} props
+   * @param {TProps} originalProps
    */
-  constructor(props: TProps) {
-    super(props);
+  constructor(originalProps: TProps) {
+    super(originalProps);
 
     this.state = {} as TState;
 
@@ -68,6 +69,18 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
+
+    if (this.isKeyboardUsed && this.isCursorUsed) {
+      const {
+        caretBlinkingFrequency,
+      } = this.mergedProps;
+
+      this.caretBlinkingTask = new DelayedTask(
+        this.setCaretVisibility.bind(this),
+        caretBlinkingFrequency || this.settings.keyboard.caretBlinkingFrequency,
+        true
+      );
+    }
   }
 
   /**
@@ -93,10 +106,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
           () => this.messageElement(this.error, FieldClassesEnum.FIELD_ERROR_MESSAGE)
         )}
         {this.attachmentElement}
-        {ConditionUtils.orNull(
-          this.isKeyboardUsed && this.isKeyboardOpen(),
-          () => this.keyboardElement
-        )}
+        {ConditionUtils.orNull(this.isKeyboardUsed && this.isKeyboardOpen(), () => this.keyboardElement)}
       </div>
     );
   }
@@ -140,7 +150,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
 
     if (this.isKeyboardUsed) {
       if (this.isKeyboardOpen()
-        && ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.value, value)) {
+        && !R.equals(this.originalProps.value, value)) {
         this.refreshCaretPosition();
       }
     } else if (useKeyboard) { // Previous props
@@ -297,10 +307,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
         this.refreshCaretPosition();
       }
     });
-  }
-
-  protected refreshCaretPosition(): void {
-    // TODO
   }
 
   /**
@@ -530,6 +536,11 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     return ConditionUtils.orNull(this.isBusy, () => <Info progress={true}/>);
   }
 
+  // TODO
+  protected get isCursorUsed(): boolean {
+    return WrapperUtils.isCursorUsed(this.originalProps);
+  }
+
   /**
    * @stable [19.06.2020]
    * @returns {AnyT}
@@ -583,6 +594,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   protected isValueObject(value: AnyT): boolean {
     return TypeUtils.isObject(value);
+  }
+
+  /**
+   * @stable [21.06.2020]
+   * @returns {boolean}
+   */
+  protected get isPlainValueApplied(): boolean {
+    return WrapperUtils.isPlainValueApplied(this.mergedProps);
   }
 
   /**
@@ -688,6 +707,26 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   protected get settingsProps(): TProps {
     return this.getSettingsProps();
+  }
+
+  /**
+   * @stable [21.06.2020]
+   */
+  private refreshCaretPosition(): void {
+    this.setState(
+      {caretPosition: this.caretPosition},
+      () => this.input.scrollLeft = this.input.scrollWidth
+    );
+  }
+
+  /**
+   * @stable [21.06.2020]
+   */
+  private setCaretVisibility(): void {
+    this.setState((prevState) => FilterUtils.notNilValuesFilter<IFieldState, IFieldState>({
+      caretVisibility: !prevState.caretVisibility,
+      caretPosition: ConditionUtils.ifNilThanValue(prevState.caretPosition, () => this.caretPosition),
+    }));
   }
 
   /**
@@ -832,6 +871,27 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     } = this.originalProps;
 
     return title || ConditionUtils.orNull(this.isFocusPrevented, () => this.displayValue);
+  }
+
+  /**
+   * @stable [21.06.2020]
+   * @returns {number}
+   */
+  private get caretPosition(): number {
+    return this.isValuePresent
+      ? Math.min(
+        this.domAccessor.getWidth(this.inputMirrorRef.current),
+        this.domAccessor.getWidth(this.input)
+      )
+      : 0;
+  }
+
+  protected get jqInput(): any {
+    return null; // TODO
+  }
+
+  protected get jMirrorInput(): any {
+    return null; // TODO
   }
 
   /**

@@ -6,9 +6,6 @@ import MaskedTextInput from 'react-text-mask';
 import {
   CalcUtils,
   ClsUtils,
-  ConditionUtils,
-  DelayedTask,
-  FilterUtils,
   nvl,
   ObjectUtils,
   orNull,
@@ -25,13 +22,10 @@ import {
   FieldActionPositionsEnum,
   FieldActionTypesEnum,
   FieldClassesEnum,
-  IBaseEvent,
   IBaseTextFieldProps,
   IBaseTextFieldState,
   IFieldActionEntity,
-  IFieldState,
   IJQueryElement,
-  KeyboardClassNamesEnum,
   TextFieldClassesEnum,
 } from '../../../definition';
 
@@ -42,7 +36,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   private static readonly DEFAULT_MASK_GUIDE = false;
 
   protected defaultActions: IFieldActionEntity[] = [];
-  private readonly mirrorInputRef = React.createRef<HTMLElement>();
 
   /**
    * @stable [17.06.2020]
@@ -54,18 +47,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     if (WrapperUtils.isClearActionRendered(this.originalProps)) {
       this.addClearAction();
     }
-
-    if (this.isKeyboardUsed && this.isCursorUsed) {
-      const {
-        caretBlinkingFrequencyTimeout,
-      } = originalProps;
-
-      this.caretBlinkingTask = new DelayedTask(
-        this.setCaretVisibility.bind(this),
-        caretBlinkingFrequencyTimeout || 400,
-        true
-      );
-    }
   }
 
   /**
@@ -76,24 +57,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     return R.isNil(this.getFieldMask())
       ? super.getInputElement()
       : this.getMaskedInputElement();
-  }
-
-  /**
-   * @stable [04.09.2018]
-   */
-  protected refreshCaretPosition(): void {
-    super.refreshCaretPosition();
-    this.input.scrollLeft = this.input.scrollWidth;
-  }
-
-  /**
-   * @stable [04.09.2018]
-   * @returns {number}
-   */
-  protected getCaretPosition(): number {
-    return this.isValuePresent
-      ? Math.min(this.jMirrorInput.width(), this.jqInput.width())
-      : 0;
   }
 
   /**
@@ -134,7 +97,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
 
     return (
       <span
-        ref={this.mirrorInputRef}
+        ref={this.inputMirrorRef}
         className={
           ClsUtils.joinClassName(
             this.getInputElementProps().className,
@@ -171,13 +134,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
    */
   protected isFieldActionDisabled(action: IFieldActionEntity): boolean {
     return CalcUtils.calc(action.disabled) || this.isInactive;
-  }
-
-  /**
-   * TODO domAccessor
-   */
-  private get jMirrorInput(): IJQueryElement {
-    return toJqEl(this.mirrorInputRef.current);
   }
 
   /**
@@ -234,19 +190,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [21.06.2020]
-   */
-  private setCaretVisibility(): void {
-    this.setState((prevState) => FilterUtils.notNilValuesFilter<IFieldState, IFieldState>({
-      caretVisibility: !prevState.caretVisibility,
-      caretPosition: ConditionUtils.ifNilThanValue(
-        prevState.caretPosition,
-        () => this.getCaretPosition()
-      ),
-    }));
-  }
-
-  /**
    * @stable [17.06.2020]
    * @returns {IFieldActionEntity[]}
    */
@@ -274,14 +217,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
         return true;
       }
     );
-  }
-
-  /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
-   */
-  private get isCursorUsed(): boolean {
-    return WrapperUtils.isCursorUsed(this.originalProps);
   }
 
   /**

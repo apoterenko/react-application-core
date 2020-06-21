@@ -66,7 +66,6 @@ import {
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
   IValidWrapper,
-  IVisibleWrapper,
   IWrappedWrapper,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
@@ -222,14 +221,6 @@ export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean
         : !R.isNil(entity.error),
     false
   );
-
-/**
- * @stable [25.10.2019]
- * @param {IVisibleWrapper} wrapper
- * @returns {boolean}
- */
-export const isVisible = (wrapper: IVisibleWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.visible !== false, false);
 
 /**
  * @stable [30.01.2020]
@@ -518,7 +509,7 @@ export const isUseZipCode = (entity: IUseZipCodeWrapper): boolean =>
  * @param {IPlainValueWrapper} entity
  * @returns {boolean}
  */
-export const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
+const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.plainValue !== false, false);
 
 /**
@@ -640,6 +631,7 @@ export class WrapperUtils {
   public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
   public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */
+  public static readonly isPlainValueApplied = isPlainValueApplied;                        /* @stable [21.06.2020] */
   public static readonly isReadOnly = isReadOnly;                                          /* @stable [18.06.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
   public static readonly isSelectable = isSelectable;                                      /* @stable [01.06.2020] */

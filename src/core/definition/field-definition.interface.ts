@@ -10,6 +10,7 @@ import {
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   IBindDictionaryWrapper,
+  ICaretBlinkingFrequencyWrapper,
   ICaretPositionWrapper,
   ICaretVisibilityWrapper,
   IChangeableWrapper,
@@ -105,6 +106,7 @@ export interface IPresetsFieldEntity
   extends IKeyboardConfigurationEntity,                                           /* @stable [21.06.2020] */
     IAutoFocusWrapper,                                                            /* @stable [17.06.2020] */
     IBindDictionaryWrapper,
+    ICaretBlinkingFrequencyWrapper,                                               /* @stable [21.06.2020] */
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */
     IDelayTimeoutWrapper,
@@ -134,7 +136,7 @@ export interface IPresetsFieldEntity
     IOnFormChangeWrapper,
     IPatternWrapper,
     IPlaceholderWrapper,
-    IPlainValueWrapper,
+    IPlainValueWrapper,                                                           /* @stable [21.06.2020] */
     IPrefixLabelWrapper,                                                          /* @stable [18.06.2020] */
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,
@@ -142,6 +144,7 @@ export interface IPresetsFieldEntity
     IRenderedWrapper,
     IRequiredWrapper,
     ITypeWrapper<StringNumberT>,
+    IUseCursorWrapper,                                                            /* @stable [21.06.2020] */
     IUseKeyboardWrapper,                                                          /* @stable [20.06.2020] */
     IValidWrapper {
 }
@@ -169,7 +172,6 @@ export interface IGenericFieldEntity2
   extends IGenericFieldEntity,
     IAutoCompleteWrapper,
     IStepWrapper,
-    IUseCursorWrapper,
     ITabIndexWrapper {
 }
 

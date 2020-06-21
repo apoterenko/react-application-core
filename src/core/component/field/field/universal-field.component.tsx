@@ -12,8 +12,6 @@ import {
   isFieldInactive,
   isFn,
   isFocused,
-  isPlainValueApplied,
-  isVisible,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -190,14 +188,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [25.10.2019]
-   * @returns {boolean}
-   */
-  protected get isVisible(): boolean {
-    return isVisible(this.props);
-  }
-
-  /**
    * @stable [30.10.2019]
    * @param {IFocusEvent} event
    */
@@ -238,38 +228,8 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [28.01.2020]
    * @returns {boolean}
    */
-  protected get isPlainValueApplied(): boolean {
-    return isPlainValueApplied(this.props);
-  }
-
-  /**
-   * @stable [28.01.2020]
-   * @returns {boolean}
-   */
   protected get isDisplayValueRenderedOnly() {
     return isDisplayValueRenderedOnly(this.props);
-  }
-
-  /**
-   * @stable [04.09.2018]
-   */
-  protected refreshCaretPosition(): void {
-    const caretPosition = this.getCaretPosition();
-    this.setState({caretPosition});
-
-    UniversalField.logger.debug(
-      `[$UniversalField][refreshCaretPosition] A caret position ${caretPosition} for the field ${
-        this.props.name} had been refreshed.`
-    );
-  }
-
-  /**
-   * @stable [04.09.2018]
-   * @returns {number}
-   */
-  protected getCaretPosition(): number {
-    // Need to implement
-    return 0;
   }
 
   /**

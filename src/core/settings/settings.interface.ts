@@ -19,6 +19,7 @@ import {
   IDateTimeSettingsEntity,
   IElementsMarkersSettingsEntity,
   IGoogleMapsSettingsEntity,
+  IKeyboardSettings,
   IMessagesSettingsEntity,
   IOAuthSettingsEntity,
   IPhoneSettingsEntity,
@@ -98,6 +99,7 @@ export interface ISettingsEntity {
   elementsMarkers?: IElementsMarkersSettingsEntity;
   emptyPictureUrl?: string;
   googleMaps?: IGoogleMapsSettingsEntity;
+  keyboard?: IKeyboardSettings;
   messages?: IMessagesSettings;
   metaFilesUrl?: string;
   number?: IApplicationNumberSettings;
@@ -143,6 +145,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     waitingMessage: 'Waiting...',
     waitMessage: 'Please wait...',
   },
+  keyboard: DefaultEntities.KEYBOARD_SETTINGS_ENTITY,
   oauth: DEFAULT_OAUTH_SETTINGS_ENTITY,
   routes: DEFAULT_ROUTES_SETTINGS_ENTITY,
   asyncLibraries: DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,

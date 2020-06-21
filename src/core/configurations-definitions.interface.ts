@@ -1,7 +1,7 @@
 import {
   ICameraHeightWrapper,
   ICameraWidthWrapper,
-  ICaretBlinkingFrequencyTimeoutWrapper,
+  ICaretBlinkingFrequencyWrapper,
   IDisplayMessageWrapper,
   IFieldConfigurationWrapper,
   IFilterFnWrapper,
@@ -51,7 +51,7 @@ export interface IUniversalFieldProps
           IUniversalKeyboardHandlersConfiguration<IKeyboardEvent>,
           IOnBlurWrapper<IFocusEvent>,
           IDisplayMessageWrapper,
-          ICaretBlinkingFrequencyTimeoutWrapper {
+          ICaretBlinkingFrequencyWrapper {
 }
 
 /* @stable - 11.04.2018 */
