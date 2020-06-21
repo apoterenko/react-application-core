@@ -8,9 +8,6 @@ import {
   ClsUtils,
   nvl,
   ObjectUtils,
-  orNull,
-  parseValueAtPx,
-  toJqEl,
   WrapperUtils,
 } from '../../../util';
 import {
@@ -25,7 +22,6 @@ import {
   IBaseTextFieldProps,
   IBaseTextFieldState,
   IFieldActionEntity,
-  IJQueryElement,
   TextFieldClassesEnum,
 } from '../../../definition';
 
@@ -83,7 +79,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
    * @returns {JSX.Element}
    */
   protected get mirrorInputElement(): JSX.Element {
-    if (!this.isKeyboardUsed || !this.isCursorUsed || this.isValueNotPresent) {
+    if (!this.isKeyboardAndCursorUsed || this.isValueNotPresent) {
       return null;
     }
 
@@ -108,22 +104,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
       >
         {content}
       </span>
-    );
-  }
-
-  // TODO
-  protected get inputCaretElement(): JSX.Element {
-    const state = this.state;
-    const textOffset = 2;
-
-    return orNull(
-      this.isCursorUsed && this.isKeyboardOpen() && state.caretVisibility && !R.isNil(state.caretPosition),
-      () => (
-        <div className='rac-field__input-caret'
-             style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft')) - textOffset}}>
-          |
-        </div>
-      )
     );
   }
 

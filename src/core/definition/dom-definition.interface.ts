@@ -127,7 +127,6 @@ export interface IDomAccessor {
   addClassNames(element: Element, ...clsNames: string[]): void;
   addClassNamesToRootElement(...clsName: string[]): void;
   addRootElement(): Element;
-  applyPosition(source: Element, position: string, value: number | (() => number)): void;
   asImageUrl(url: string): string;
   asJqEl<TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement;
   asSelector(selector: string): string;
@@ -147,6 +146,7 @@ export interface IDomAccessor {
   getHeight(source: Element): number;
   getParents(cfg: IDomParentConfigEntity): IJQueryElement;
   getParentsAsElements(cfg: IDomParentConfigEntity): Element[];
+  getProperty(source: Element, property: string): string;
   getScrollInfo(el: Element): IReduxXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;

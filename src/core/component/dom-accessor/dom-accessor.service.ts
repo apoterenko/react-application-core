@@ -130,15 +130,13 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [23.11.2019]
+   * @stable [21.06.2020]
    * @param {Element} source
-   * @param {string} position
-   * @param {number | (() => number)} value
+   * @param {string} property
+   * @returns {string}
    */
-  public applyPosition(source: Element, position: string, value: number | (() => number)): void {
-    if (!R.isNil(value)) {
-      this.asJqEl(source).css(position, `${calc(value)}px`);
-    }
+  public getProperty(source: Element, property: string): string {
+    return this.asJqEl(source).css(property);
   }
 
   /**

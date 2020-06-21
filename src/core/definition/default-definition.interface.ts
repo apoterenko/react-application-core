@@ -11,7 +11,6 @@ import { DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY } from './dom-definition.inter
 import { INITIAL_REDUX_STACK_ENTITY } from './stack-definition.interface';
 import {
   DEFAULT_COMPONENTS_SETTINGS_ENTITY,
-  DEFAULT_KEYBOARD_SETTINGS_ENTITY,
 } from './settings-definition.interface';
 import {
   DEFAULT_COMPACT_FORM_ENTITY,
@@ -29,7 +28,6 @@ export class DefaultEntities {
   public static readonly COMPONENTS_SETTINGS_ENTITY = DEFAULT_COMPONENTS_SETTINGS_ENTITY;               /* @stable [21.05.2020] */
   public static readonly DOM_RIGHT_POSITION_CONFIG_ENTITY = DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY;   /* @stable [21.05.2020] */
   public static readonly INITIAL_REDUX_STACK_ENTITY = INITIAL_REDUX_STACK_ENTITY;                       /* @stable [21.05.2020] */
-  public static readonly KEYBOARD_SETTINGS_ENTITY = DEFAULT_KEYBOARD_SETTINGS_ENTITY;                   /* @stable [21.06.2020] */
   public static readonly NOT_CHANGEABLE_FIELD_ENTITY = DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY;             /* @stable [01.06.2020] */
   public static readonly NOT_SELECTABLE_LIST_ENTITY = DEFAULT_NOT_SELECTABLE_LIST_ENTITY;               /* @stable [19.05.2020] */
   public static readonly PAGED_ENTITY = DEFAULT_PAGED_ENTITY;                                           /* @stable [17.06.2020] */

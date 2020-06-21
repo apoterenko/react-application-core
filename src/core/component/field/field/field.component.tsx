@@ -70,14 +70,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     this.onFocus = this.onFocus.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
 
-    if (this.isKeyboardUsed && this.isCursorUsed) {
+    if (this.isKeyboardAndCursorUsed) {
       const {
         caretBlinkingFrequency,
       } = this.mergedProps;
 
       this.caretBlinkingTask = new DelayedTask(
         this.setCaretVisibility.bind(this),
-        caretBlinkingFrequency || this.settings.keyboard.caretBlinkingFrequency,
+        caretBlinkingFrequency || 400,
         true
       );
     }
@@ -521,14 +521,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [18.05.2020]
-   * @returns {JSX.Element}
-   */
-  protected get inputCaretElement(): JSX.Element {
-    return null;
-  }
-
-  /**
    * @stable [19.05.2020]
    * @returns {JSX.Element}
    */
@@ -539,6 +531,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   // TODO
   protected get isCursorUsed(): boolean {
     return WrapperUtils.isCursorUsed(this.originalProps);
+  }
+
+  /**
+   * @stable [21.06.2020]
+   * @returns {boolean}
+   */
+  protected get isKeyboardAndCursorUsed(): boolean {
+    return this.isKeyboardUsed && this.isCursorUsed;
   }
 
   /**
@@ -857,6 +857,38 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
             {prefixLabel}
           </span>
         )
+      )
+    );
+  }
+
+  /**
+   * @stable [21.06.2020]
+   * @returns {JSX.Element}
+   */
+  private get inputCaretElement(): JSX.Element {
+    const {
+      caretPosition,
+      caretVisibility,
+    } = this.state;
+
+    return ConditionUtils.ifNotNilThanValue(
+      caretPosition,
+      () => ConditionUtils.orNull(
+        this.isCursorUsed && this.isKeyboardOpen() && caretVisibility,
+        () => {
+          const textOffset = 2;
+          const paddingLeft = parseFloat(this.domAccessor.getProperty(this.input, 'paddingLeft'));
+          const left = caretPosition + paddingLeft - textOffset;
+
+          return (
+            <div
+              className={FieldClassesEnum.FIELD_INPUT_CARET}
+              style={{left}}
+            >
+              |
+            </div>
+          );
+        }
       )
     );
   }

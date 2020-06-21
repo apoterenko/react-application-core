@@ -358,6 +358,7 @@ export enum FieldClassesEnum {
   FIELD_CHANGEABLE = 'rac-field-changeable',
   FIELD_DISABLED = 'rac-field-disabled',
   FIELD_ERROR_MESSAGE = 'rac-field__error-message',
+  FIELD_INPUT_CARET = 'rac-field__input-caret',
   FIELD_INPUT_LABEL = 'rac-field__input-label',
   FIELD_INPUT_MIRROR = 'rac-field__input-mirror',
   FIELD_INPUT_WRAPPER = 'rac-field__input-wrapper',
