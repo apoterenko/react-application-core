@@ -918,14 +918,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       : 0;
   }
 
-  protected get jqInput(): any {
-    return null; // TODO
-  }
-
-  protected get jMirrorInput(): any {
-    return null; // TODO
-  }
-
   /**
    * @stable [21.06.2020]
    * @returns {boolean}

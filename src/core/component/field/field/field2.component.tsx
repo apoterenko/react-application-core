@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import {
   defValuesFilter,
@@ -13,7 +12,6 @@ import {
   FieldComposedInputAttributesT,
   IField,
   IFieldState,
-  IJQueryElement,
   IKeyboardEvent,
 } from '../../../definition';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
@@ -115,13 +113,5 @@ export class Field2<TProps extends IFieldProps2,
       this.isReadOnly && 'rac-field-readonly',
       this.isFocusPrevented && 'rac-field-prevent-focus'
     );
-  }
-
-  /**
-   * @stable [29.09.2019]
-   * @returns {IJQueryElement}
-   */
-  protected get jqInput(): IJQueryElement {
-    return this.domAccessor.asJqEl(this.input);
   }
 }
