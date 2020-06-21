@@ -7,7 +7,8 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
-  isInline,
+  DelayedTask,
+  FilterUtils,
   nvl,
   ObjectUtils,
   orNull,
@@ -23,7 +24,6 @@ import { Field2 } from '../field';
 import { Keyboard } from '../../keyboard';
 import {
   ComponentClassesEnum,
-  EventsEnum,
   FieldActionPositionsEnum,
   FieldActionTypesEnum,
   FieldClassesEnum,
@@ -31,11 +31,10 @@ import {
   IBaseTextFieldProps,
   IBaseTextFieldState,
   IFieldActionEntity,
+  IFieldState,
   IJQueryElement,
-  IKeyboardProps,
   KeyboardClassNamesEnum,
   TextFieldClassesEnum,
-  TouchEventsEnum,
 } from '../../../definition';
 
 export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldProps,
@@ -45,7 +44,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   private static readonly DEFAULT_MASK_GUIDE = false;
 
   protected defaultActions: IFieldActionEntity[] = [];
-  private keyboardListenerUnsubscriber: () => void;
   private readonly keyboardRef = React.createRef<Keyboard>();
   private readonly mirrorInputRef = React.createRef<HTMLElement>();
 
@@ -56,11 +54,56 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   constructor(originalProps: TProps) {
     super(originalProps);
 
+    this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
+    this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
     this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
 
     if (WrapperUtils.isClearActionRendered(this.originalProps)) {
       this.addClearAction();
+    }
+
+    if (this.isKeyboardUsed && this.isCursorUsed) {
+      const {
+        caretBlinkingFrequencyTimeout,
+      } = originalProps;
+
+      this.caretBlinkingTask = new DelayedTask(
+        this.setCaretVisibility.bind(this),
+        caretBlinkingFrequencyTimeout || 400,
+        true
+      );
+    }
+  }
+
+  /**
+   * @stable [21.06.2020]
+   */
+  public componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this.onCloseVirtualKeyboard();
+  }
+
+  /**
+   * @stable [21.06.2020]
+   * @param {TProps} prevProps
+   * @param {TState} prevState
+   */
+  public componentDidUpdate(prevProps: TProps, prevState: TState): void {
+    super.componentDidUpdate(prevProps, prevState);
+
+    const {
+      useKeyboard,
+      value,
+    } = prevProps;
+
+    if (this.isKeyboardUsed) {
+      if (this.isKeyboardOpen()
+        && ObjectUtils.isCurrentValueNotEqualPreviousValue(this.value, value)) {
+        this.refreshCaretPosition();
+      }
+    } else if (useKeyboard) { // Previous props
+      this.closeVirtualKeyboard();
     }
   }
 
@@ -98,34 +141,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [02.02.2020]
-   * @returns {IKeyboardProps}
-   */
-  protected getKeyboardProps(): IKeyboardProps {
-    return this.props.keyboardConfiguration || {};
-  }
-
-  /**
-   * @stable [02.02.2020]
-   */
-  protected openVirtualKeyboard(): void {
-    super.openVirtualKeyboard(() => {
-      if (!this.isKeyboardInline) {
-        this.keyboardListenerUnsubscriber = this.domAccessor.captureEvent({
-          element: this.environment.document,
-          callback: this.onDocumentClickHandler,
-          capture: true,
-          eventName: this.environment.touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
-        });
-      }
-    });
-  }
-
-  /**
-   * @stable [15.06.2020]
+   * @stable [21.06.2020]
    */
   protected onCloseVirtualKeyboard(): void {
-    super.onCloseVirtualKeyboard();
+    ConditionUtils.ifNotNilThanValue(this.caretBlinkingTask, (caretBlinkingTask) => caretBlinkingTask.stop());
 
     ConditionUtils.ifNotNilThanValue(
       this.keyboardListenerUnsubscriber,
@@ -178,7 +197,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
    * @returns {JSX.Element}
    */
   protected get mirrorInputElement(): JSX.Element {
-    if (!this.isKeyboardUsed || !this.isSyntheticCursorUsed || this.isValueNotPresent) {
+    if (!this.isKeyboardUsed || !this.isCursorUsed || this.isValueNotPresent) {
       return null;
     }
 
@@ -212,7 +231,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     const textOffset = 2;
 
     return orNull(
-      this.isSyntheticCursorUsed && this.isKeyboardOpen() && state.caretVisibility && !R.isNil(state.caretPosition),
+      this.isCursorUsed && this.isKeyboardOpen() && state.caretVisibility && !R.isNil(state.caretPosition),
       () => (
         <div className='rac-field__input-caret'
              style={{left: state.caretPosition + parseValueAtPx(this.jqInput.css('paddingLeft')) - textOffset}}>
@@ -220,6 +239,21 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
         </div>
       )
     );
+  }
+
+  // TODO
+  protected onDocumentClickHandler(e: IBaseEvent): void {
+    const element = event.target as HTMLElement;
+    const keyboardEl = this.keyboardRef.current.getSelf();
+    if (!keyboardEl) {
+      return;
+    }
+
+    if (this.domAccessor.getParentsAsElements({parentClassName: KeyboardClassNamesEnum.KEYBOARD, element})
+        .includes(keyboardEl)) {
+      return;
+    }
+    this.closeVirtualKeyboard();
   }
 
   /**
@@ -232,21 +266,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [16.02.2019]
-   * @param {IBaseEvent} e
+   * @stable [21.06.2020]
    */
-  private onDocumentClickHandler(e: IBaseEvent): void {
-    const element = event.target as HTMLElement;
-    const keyboardEl = this.keyboardRef.current.getSelf();
-    if (!keyboardEl) {
-      return;
-    }
-
-    if (this.domAccessor.getParentsAsElements({parentClassName: KeyboardClassNamesEnum.KEYBOARD, element})
-        .includes(keyboardEl)) {
-      return;
-    }
-    this.closeVirtualKeyboard();
+  private closeVirtualKeyboard(): void {
+    this.setState({keyboardOpen: false}, this.onCloseVirtualKeyboard);
   }
 
   /**
@@ -322,11 +345,16 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [02.02.2020]
-   * @returns {boolean}
+   * @stable [21.06.2020]
    */
-  private get isKeyboardInline(): boolean {
-    return isInline(this.getKeyboardProps());
+  private setCaretVisibility(): void {
+    this.setState((prevState) => FilterUtils.notNilValuesFilter<IFieldState, IFieldState>({
+      caretVisibility: !prevState.caretVisibility,
+      caretPosition: ConditionUtils.ifNilThanValue(
+        prevState.caretPosition,
+        () => this.getCaretPosition()
+      ),
+    }));
   }
 
   /**
@@ -360,7 +388,15 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [18.06.2020]
+   * @stable [21.06.2020]
+   * @returns {boolean}
+   */
+  private get isCursorUsed(): boolean {
+    return WrapperUtils.isCursorUsed(this.originalProps);
+  }
+
+  /**
+   * @stable [21.06.2020]
    * @returns {boolean}
    */
   private get isActioned(): boolean {

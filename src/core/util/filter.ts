@@ -354,6 +354,7 @@ export class FilterUtils {
   public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                           /* @stable [18.05.2020] */
   public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                       /* @stable [17.05.2020] */
   public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;                           /* @stable [18.05.2020] */
+  public static readonly notNilValuesFilter = notNilValuesFilter;                                     /* @stable [21.06.2020] */
   public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */
   public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;                             /* @stable [19.05.2020] */
   public static readonly objectValuesArrayFilter = objectValuesArrayFilter;                           /* @stable [19.05.2020] */

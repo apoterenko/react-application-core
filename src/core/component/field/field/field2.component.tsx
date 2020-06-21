@@ -10,31 +10,21 @@ import {
 import {
   IKeyboardEvent,
   } from '../../../definitions.interface';
-import {
-  IField2State,
-} from './field.interface';
 import { UniversalField } from './universal-field.component';
 import {
   ComponentClassesEnum,
   FieldComposedInputAttributesT,
   IField,
+  IFieldState,
   IJQueryElement,
 } from '../../../definition';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
 
 export class Field2<TProps extends IFieldProps2,
-                   TState extends IField2State = IField2State>
+                   TState extends IFieldState = IFieldState>
     extends UniversalField<TProps,
                            TState>
     implements IField<TProps, TState> {
-
-  /**
-   * @stable [29.10.2019]
-   */
-  public componentWillUnmount(): void {
-    super.componentWillUnmount();
-    this.onCloseVirtualKeyboard();
-  }
 
   /**
    * @stable [17.06.2018]

@@ -3,10 +3,12 @@ import * as R from 'ramda';
 
 import {
   AnyT,
+  IFocusEvent,
   UniCodesEnum,
 } from '../../../definitions.interface';
 import {
   ChangeEventT,
+  EventsEnum,
   FieldClassesEnum,
   FieldComposedInputAttributesT,
   FieldConstants,
@@ -14,15 +16,20 @@ import {
   IField,
   IFieldInputAttributes,
   IFieldProps,
+  IFieldState,
+  IKeyboardProps,
   IMaskedInputCtor,
   InputElementT,
+  TouchEventsEnum,
 } from '../../../definition';
-import { IUniversalFieldState } from './field.interface';
 import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
+  DelayedTask,
   FieldUtils,
+  isDef,
+  isInline,
   TypeUtils,
   ValueUtils,
   WrapperUtils,
@@ -30,12 +37,13 @@ import {
 import { Info } from '../../info';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 
-export class Field<TProps extends IFieldProps,
-  TState extends IUniversalFieldState>  // TODO
+export class Field<TProps extends IFieldProps, TState extends IFieldState>
   extends EnhancedGenericComponent<TProps, TState>
   implements IField<TProps, TState> {
 
   protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
+  protected caretBlinkingTask: DelayedTask; // Used with a synthetic keyboard together
+  protected keyboardListenerUnsubscriber: () => void;
 
   /**
    * @stable [20.06.2020]
@@ -48,6 +56,7 @@ export class Field<TProps extends IFieldProps,
 
     this.onChangeManually = this.onChangeManually.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
 
   /**
@@ -193,6 +202,56 @@ export class Field<TProps extends IFieldProps,
 
   protected get keyboardElement(): JSX.Element {
     return null; // TODO
+  }
+
+  /**
+   * @stable [21.06.2020]
+   * @param {IFocusEvent} event
+   */
+  protected onFocus(event: IFocusEvent): void {
+    if (this.isFocusPrevented || this.isKeyboardUsed) {
+      this.removeFocus(); // Prevent native keyboard opening during use of a synthetic keyboard
+
+      if (this.isKeyboardUsed) {
+        this.openVirtualKeyboard();
+      }
+    } else {
+      this.setState(
+        {focused: true},
+        () => ConditionUtils.ifNotNilThanValue(this.originalProps.onFocus, (onFocus) => onFocus(event))
+      );
+    }
+  }
+
+  protected openVirtualKeyboard(): void {
+    if (this.isKeyboardOpen()) {
+      return;
+    }
+    this.setState({keyboardOpen: true}, () => {
+      if (!this.isKeyboardInline) {
+        this.keyboardListenerUnsubscriber = this.domAccessor.captureEvent({
+          element: this.environment.document,
+          callback: this.onDocumentClickHandler,
+          capture: true,
+          eventName: this.environment.touchedPlatform ? TouchEventsEnum.TOUCH_START : EventsEnum.MOUSE_DOWN,
+        });
+      }
+
+      if (isDef(this.caretBlinkingTask)) {
+        this.caretBlinkingTask.start();
+
+        // Need to refresh a caret position right after keyboard opening
+        this.refreshCaretPosition();
+      }
+    });
+  }
+
+  protected onDocumentClickHandler(e: IBaseEvent): void {
+    // TODO
+  }
+
+  protected refreshCaretPosition(): void {
+    // TODO
   }
 
   /**
@@ -372,6 +431,10 @@ export class Field<TProps extends IFieldProps,
    */
   protected getLabel(): string {
     return this.originalProps.label;
+  }
+
+  protected getKeyboardProps(): IKeyboardProps {
+    return this.props.keyboardConfiguration || {};
   }
 
   /**
@@ -708,6 +771,11 @@ export class Field<TProps extends IFieldProps,
    */
   private get isInvalid(): boolean {
     return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
+  }
+
+  // TODO
+  protected get isKeyboardInline(): boolean {
+    return isInline(this.getKeyboardProps());
   }
 
   /**

@@ -8,11 +8,11 @@ import {
 import {
   FieldActionPositionsEnum,
   IFieldActionEntity,
+  IFieldState,
   IPresetsFieldEntity,
   IReduxFieldEntity,
 } from './field-definition.interface';
 import { IFieldProps2 } from '../configurations-definitions.interface';
-import { IField2State } from '../component/field/field/field.interface';
 
 /**
  * @redux-entity
@@ -39,7 +39,7 @@ export interface IPresetsBaseTextFieldEntity
  * @stable [25.02.2019]
  */
 export interface IBaseTextFieldState
-  extends IField2State {
+  extends IFieldState {
 }
 
 /**

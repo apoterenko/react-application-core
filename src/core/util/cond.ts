@@ -119,6 +119,7 @@ export const ifNotTrueThanValue = <TResult>(value: boolean,
  * @stable [16.05.2020]
  */
 export class ConditionUtils {
+  public static readonly ifNilThanValue = ifNilThanValue;                         /* @stable [21.06.2020] */
   public static readonly ifNotEmptyThanValue = ifNotEmptyThanValue;               /* @stable [16.05.2020] */
   public static readonly ifNotNilThanValue = ifNotNilThanValue;                   /* @stable [16.05.2020] */
   public static readonly orNull = orNull;                                         /* @stable [18.05.2020] */

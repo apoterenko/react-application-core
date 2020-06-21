@@ -360,6 +360,7 @@ export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
 export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
 export interface IOnFilterClickWrapper<TValue = {}> { onFilterClick?(value?: TValue): void; }
 export interface IOnFirstWrapper<TValue = AnyT> { onFirst?(value?: TValue): void; }
+export interface IOnFocusWrapper<TValue = {}> { onFocus?(value?: TValue): void; }
 export interface IOnFormChangeWrapper<TValue1 = string, TValue2 = AnyT> { onFormChange?(value1?: TValue1, value?: TValue2): void; }
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
@@ -512,7 +513,6 @@ export interface ISubmitConfigurationWrapper<TValue> { submitConfiguration?: TVa
 export interface ISubmitIconWrapper<TValue = string> { submitIcon?: TValue; }
 export interface ISubmitTextWrapper { submitText?: string; }
 export interface ISucceedTextWrapper<TValue = string> { succeedText?: TValue; }
-export interface ISyntheticCursorWrapper<TValue = boolean> { syntheticCursor?: TValue; }
 export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelConfigurationWrapper<TValue> { tabPanelConfiguration?: TValue; }
 export interface ITabPanelSectionWrapper<TValue = string> { tabPanelSection?: TValue; }
@@ -547,6 +547,7 @@ export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
 export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 export interface IUrlWrapper<TValue = string> { url?: TValue; }
 export interface IUseActionsWrapper { useActions?: boolean; }
+export interface IUseCursorWrapper<TValue = boolean> { useCursor?: TValue; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }
@@ -620,13 +621,6 @@ export interface IOnChangeManuallyWrapper<TOnChangeManually = (...args) => void>
  */
 export interface IGetValueWrapper<TValue = AnyT> {
   getValue?(): TValue;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IOnFocusWrapper<TPayload = AnyT, TOnFocus = (payload: TPayload) => void> {
-  onFocus?: TOnFocus;
 }
 
 /**
@@ -737,12 +731,6 @@ export interface IPositionWrapper<TPosition = number> {
  */
 export interface IErrorMessageWrapper<TErrorMessage = string> {
   errorMessage?: TErrorMessage;
-}
-
-/**
- * @stable [17.06.2018]
- */
-export interface IStringErrorWrapper extends IErrorWrapper<string> {
 }
 
 /**

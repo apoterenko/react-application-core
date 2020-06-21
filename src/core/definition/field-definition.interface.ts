@@ -10,6 +10,8 @@ import {
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
   IBindDictionaryWrapper,
+  ICaretPositionWrapper,
+  ICaretVisibilityWrapper,
   IChangeableWrapper,
   IClassNameWrapper,
   IDefaultValueWrapper,
@@ -22,11 +24,14 @@ import {
   IEmptyValueWrapper,
   IEntity,
   IErrorMessageRenderedWrapper,
+  IErrorWrapper,
   IFieldRenderedWrapper,
   IFieldsWrapper,
+  IFocusEvent,
   IFormatWrapper,
   IFullWrapper,
   IKeepChangesWrapper,
+  IKeyboardOpenWrapper,
   ILabelWrapper,
   IMaskWrapper,
   IMaxLengthWrapper,
@@ -39,6 +44,7 @@ import {
   IOnDelayWrapper,
   IOnDictionaryEmptyWrapper,
   IOnDictionaryLoadWrapper,
+  IOnFocusWrapper,
   IOnFormChangeWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
@@ -52,10 +58,10 @@ import {
   IRenderedWrapper,
   IRequiredWrapper,
   IStepWrapper,
-  ISyntheticCursorWrapper,
   ITabIndexWrapper,
   ITitleWrapper,
   ITypeWrapper,
+  IUseCursorWrapper,
   IUseKeyboardWrapper,
   IValidWrapper,
   IValueWrapper,
@@ -115,13 +121,14 @@ export interface IPresetsFieldEntity
     IMaxLengthWrapper,                                                            /* @stable [20.06.2020] */
     IMessageWrapper,                                                              /* @stable [20.06.2020] */
     IMinLengthWrapper,                                                            /* @stable [20.06.2020] */
-    INameWrapper,
-    IOnChangeWrapper,
+    INameWrapper,                                                                 /* @stable [21.06.2020] */
+    IOnChangeWrapper,                                                             /* @stable [21.06.2020] */
     IOnClearWrapper,
     IOnClickWrapper,                                                              /* @stable [17.06.2020] */
     IOnDelayWrapper,
     IOnDictionaryEmptyWrapper<string, IApiEntity>,
     IOnDictionaryLoadWrapper<{}, string>,
+    IOnFocusWrapper<IFocusEvent>,                                                 /* @stable [21.06.2020] */
     IOnFormChangeWrapper,
     IPatternWrapper,
     IPlaceholderWrapper,
@@ -154,22 +161,15 @@ export interface IReduxFieldEntity
 export interface IGenericFieldEntity
   extends IPresetsFieldEntity,
     IReduxFieldEntity {
+  keyboardConfiguration?: any; // TODO
 }
 
 export interface IGenericFieldEntity2
   extends IGenericFieldEntity,
     IAutoCompleteWrapper,
     IStepWrapper,
-    ISyntheticCursorWrapper,
+    IUseCursorWrapper,
     ITabIndexWrapper {
-}
-
-/**
- * @behavioral-entity
- * @stable [02.02.2020]
- */
-export interface IBehavioralBaseFieldEntity
-  extends IOnChangeWrapper {
 }
 
 /**
@@ -200,11 +200,22 @@ export interface IFieldProps
 }
 
 /**
+ * @stable [04.09.2018]
+ */
+export interface IFieldState
+  extends IErrorWrapper<string>,
+    IKeyboardOpenWrapper,
+    ICaretVisibilityWrapper,
+    ICaretPositionWrapper {
+  focused?: boolean; // TODO
+}
+
+/**
  * @component
  * @stable [09.05.2020]
  */
 export interface IField<TProps extends IFieldProps = IFieldProps,
-  TState = {}>
+  TState extends IFieldState = IFieldState>
   extends IGenericComponent<TProps, TState>,
     IOnChangeWrapper,
     IValueWrapper {

@@ -27,9 +27,9 @@ import {
   IPresetsBaseTextFieldEntity,
   IReduxBaseTextFieldEntity,
 } from './text-field-definition.interface';
+import { IFieldState } from './field-definition.interface';
 import { IFluxPayloadQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IField2State } from '../component/field/field/field.interface';
 
 /**
  * @presets-entity
@@ -96,7 +96,7 @@ export interface IGenericBaseSelectState
  * @stable [06.10.2018]
  */
 export interface IBaseSelectState
-  extends IField2State,
+  extends IFieldState,
     IGenericBaseSelectState,
     I$$cachedValueWrapper<IPresetsSelectOptionEntity> {
 }

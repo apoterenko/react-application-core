@@ -8,7 +8,7 @@ import {
   IViewerClassNameWrapper,
   IViewerWrapper,
 } from '../definitions.interface';
-import { IField2State } from '../component/field/field/field.interface';
+import { IFieldState } from './field-definition.interface';
 import { ITransportRequestEntity } from './transport-definition.interface';
 import { ViewersEnum } from './viewer-definition.interface';
 
@@ -44,7 +44,7 @@ export interface IViewFieldProps
  * @stable [29.07.2019]
  */
 export interface IViewFieldState
-  extends IField2State,
+  extends IFieldState,
     IUrlWrapper,
     ITypeWrapper {
 }

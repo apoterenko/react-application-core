@@ -59,8 +59,8 @@ import {
   ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
-  ISyntheticCursorWrapper,
   ITouchedWrapper,
+  IUseCursorWrapper,
   IUseFilterWrapper,
   IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
@@ -412,12 +412,12 @@ export const isAlwaysResettable = (wrapper: IAlwaysResettableWrapper): boolean =
   R.isNil(wrapper) ? false : wrapper.alwaysResettable === true;
 
 /**
- * @stable [30.10.2019]
- * @param {ISyntheticCursorWrapper} wrapper
+ * @stable [21.06.2020]
+ * @param {IUseCursorWrapper} wrapper
  * @returns {boolean}
  */
-export const isSyntheticCursorUsed = (wrapper: ISyntheticCursorWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.syntheticCursor !== false, false);
+const isCursorUsed = (wrapper: IUseCursorWrapper): boolean =>
+  ifNotNilThanValue(wrapper, () => wrapper.useCursor !== false, false);
 
 /**
  * @stable [24.01.2020]
@@ -625,6 +625,7 @@ export class WrapperUtils {
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
   public static readonly isChangeable = isChangeable;                                      /* @stable [05.06.2020] */
   public static readonly isClearActionRendered = isClearActionRendered;                    /* @stable [17.06.2020] */
+  public static readonly isCursorUsed = isCursorUsed;                                      /* @stable [21.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isErrorMessageRendered = isErrorMessageRendered;                  /* @stable [18.06.2020] */

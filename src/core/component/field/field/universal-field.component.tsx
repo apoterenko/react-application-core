@@ -8,16 +8,13 @@ import {
 
 import {
   DelayedTask,
-  ifNilThanValue,
   isDef,
   isDisplayValueRenderedOnly,
   isFieldInactive,
   isFn,
   isFocused,
   isPlainValueApplied,
-  isSyntheticCursorUsed,
   isVisible,
-  notNilValuesFilter,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -27,23 +24,18 @@ import {
   IKeyboardEvent,
 } from '../../../definitions.interface';
 import {
-  IUniversalFieldState,
-} from './field.interface';
-import {
   FieldConstants,
   IBaseEvent,
+  IFieldState,
 } from '../../../definition';
 import { Field } from './field.component';
 
 export class UniversalField<TProps extends IUniversalFieldProps,
-  TState extends IUniversalFieldState>
+  TState extends IFieldState>
   extends Field<TProps, TState>
   implements IGenericField2<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('UniversalField');
-  private static DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT = 400;
-
-  private caretBlinkingTask: DelayedTask; // Used with a synthetic keyboard together
 
   /**
    * @stable [17.06.2018]
@@ -53,42 +45,9 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     super(props);
 
     this.onChange = this.onChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
-    this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
-
-    if (this.isKeyboardUsed && this.isSyntheticCursorUsed) {
-      this.caretBlinkingTask = new DelayedTask(
-        this.setCaretVisibility.bind(this),
-        props.caretBlinkingFrequencyTimeout || UniversalField.DEFAULT_CARET_BLINKING_FREQUENCY_TIMEOUT,
-        true
-      );
-    }
-  }
-
-  /**
-   * @stable [04.09.2018]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
-   */
-  public componentDidUpdate(prevProps: TProps, prevState: TState): void {
-    super.componentDidUpdate(prevProps, prevState);
-
-    const {
-      useKeyboard,
-      value,
-    } = prevProps;
-
-    const $isKeyboardUsed = this.isKeyboardUsed;
-    if ($isKeyboardUsed && this.isKeyboardOpen() && !R.equals(this.value, value)) {
-      this.refreshCaretPosition();
-    }
-    if (useKeyboard && !$isKeyboardUsed) {
-      this.closeVirtualKeyboard();
-    }
   }
 
   /**
@@ -243,27 +202,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    * @stable [30.10.2019]
    * @param {IFocusEvent} event
    */
-  protected onFocus(event: IFocusEvent): void {
-    if (this.isFocusPrevented || this.isKeyboardUsed) {
-      this.removeFocus(); // Prevent native keyboard opening during use of a synthetic keyboard
-
-      if (this.isKeyboardUsed) {
-        this.openVirtualKeyboard();
-      }
-    } else {
-      this.setState({focused: true});
-    }
-
-    const props = this.props;
-    if (isFn(props.onFocus)) {
-      props.onFocus(event);
-    }
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @param {IFocusEvent} event
-   */
   protected onBlur(event: IFocusEvent): void {
     this.setState({focused: false});
 
@@ -271,14 +209,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     if (isFn(props.onBlur)) {
       props.onBlur(event);
     }
-  }
-
-  /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
-   */
-  protected get keyboardElement(): JSX.Element {
-    return null;
   }
 
   /**
@@ -303,45 +233,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected getWaitMessageElement(): React.ReactNode {
     return this.settings.messages.PLEASE_WAIT;
-  }
-
-  /**
-   * @stable [28.10.2019]
-   */
-  protected openVirtualKeyboard(callback?: () => void): void {
-    if (this.isKeyboardOpen()) {
-      return;
-    }
-    this.setState({keyboardOpen: true}, () => {
-      if (isFn(callback)) {
-        callback();
-      }
-      if (isDef(this.caretBlinkingTask)) {
-        this.caretBlinkingTask.start();
-
-        /**
-         * @bugfix [08.05.2019]
-         * Need to refresh a caret position right after keyboard opening
-         */
-        this.refreshCaretPosition();
-      }
-    });
-  }
-
-  /**
-   * @stable [28.10.2019]
-   */
-  protected closeVirtualKeyboard(): void {
-    this.setState({keyboardOpen: false}, this.onCloseVirtualKeyboard);
-  }
-
-  /**
-   * @stable [28.10.2019]
-   */
-  protected onCloseVirtualKeyboard(): void {
-    if (isDef(this.caretBlinkingTask)) {
-      this.caretBlinkingTask.stop();
-    }
   }
 
   /**
@@ -383,28 +274,10 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [30.10.2019]
-   * @returns {boolean}
-   */
-  protected get isSyntheticCursorUsed(): boolean {
-    return isSyntheticCursorUsed(this.props);
-  }
-
-  /**
    * @stable [21.12.2019]
    * @returns {boolean}
    */
   protected get isDisplayValueDefined(): boolean {
     return isDef(this.props.displayValue);
-  }
-
-  /**
-   * @stable [09.11.2019]
-   */
-  private setCaretVisibility(): void {
-    this.setState((prevState) => notNilValuesFilter<IUniversalFieldState, IUniversalFieldState>({
-      caretVisibility: !prevState.caretVisibility,
-      caretPosition: ifNilThanValue(prevState.caretPosition, () => this.getCaretPosition()),
-    }));
   }
 }

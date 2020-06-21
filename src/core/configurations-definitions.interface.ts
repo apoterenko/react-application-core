@@ -9,16 +9,13 @@ import {
   IKeyboardEvent,
   IMaskPlaceholderCharWrapper,
   IOnBlurWrapper,
-  IOnFocusWrapper,
   IOnSelectWrapper,
   ISorterWrapper,
 } from './definitions.interface';
 import {
   IBaseEvent,
-  IBehavioralBaseFieldEntity,
   IComponentProps,
   IGenericFieldEntity2,
-  IKeyboardConfigurationEntity,
   IUniversalComponentEntity,
 } from './definition';
 
@@ -50,13 +47,10 @@ export interface IWebCameraConfiguration extends IComponentProps,
  */
 export interface IUniversalFieldProps
   extends IGenericFieldEntity2,
-          IBehavioralBaseFieldEntity,
           IUniversalComponentEntity,
           IUniversalKeyboardHandlersConfiguration<IKeyboardEvent>,
-          IOnFocusWrapper<IFocusEvent>,
           IOnBlurWrapper<IFocusEvent>,
           IDisplayMessageWrapper,
-          IKeyboardConfigurationEntity,
           ICaretBlinkingFrequencyTimeoutWrapper {
 }
 
