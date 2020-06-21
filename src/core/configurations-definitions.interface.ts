@@ -5,8 +5,6 @@ import {
   IDisplayMessageWrapper,
   IFieldConfigurationWrapper,
   IFilterFnWrapper,
-  IFocusEvent,
-  IKeyboardEvent,
   IMaskPlaceholderCharWrapper,
   IOnBlurWrapper,
   IOnSelectWrapper,
@@ -15,6 +13,8 @@ import {
 import {
   IBaseEvent,
   IComponentProps,
+  IFocusEvent,
+  IKeyboardEvent,
   IGenericFieldEntity2,
   IUniversalComponentEntity,
 } from './definition';

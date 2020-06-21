@@ -14,7 +14,6 @@ import {
 import { DnD } from '../../dnd/dnd.component';
 import {
   EntityIdT,
-  IKeyboardEvent,
   AnyT,
 } from '../../../definitions.interface';
 import { MultiFieldPlugin } from '../multifield/multifield.plugin';
@@ -29,6 +28,7 @@ import {
   FieldActionTypesEnum,
   IBaseEvent,
   IFieldActionEntity,
+  IKeyboardEvent,
 } from '../../../definition';
 
 export class BaseFileField<TProps extends IBaseFileFieldProps,

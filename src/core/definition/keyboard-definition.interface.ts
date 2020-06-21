@@ -15,7 +15,7 @@ import {
   IWidthWrapper,
 } from '../definitions.interface';
 import { IField } from './field-definition.interface';
-import { IComponentProps } from './props-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericBaseButtonEntity } from './button-definition.interface';
 
 /**
@@ -92,7 +92,7 @@ export interface IGenericKeyboardKeyEntity
  * @stable [02.02.2020]
  */
 export interface IKeyboardKeyProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IBehavioralKeyboardKeyEntity,
     IGenericBaseButtonEntity,
     IGenericKeyboardKeyEntity {
@@ -123,7 +123,7 @@ export interface IBehavioralKeyboardEntity
  * @stable [02.02.2020]
  */
 export interface IKeyboardProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericKeyboardEntity,
     IBehavioralKeyboardEntity {
 }

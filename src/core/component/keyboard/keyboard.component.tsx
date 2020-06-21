@@ -11,7 +11,7 @@ import {
   nvl,
   orNull,
 } from '../../util';
-import { BaseComponent } from '../base';
+import { GenericComponent } from '../base/generic.component';
 import {
   KEYBOARD_QWERTY_LAYOUT,
   KEYBOARD_QWERTY_DIGITAL_LAYOUT,
@@ -28,7 +28,7 @@ import {
   KeyboardKeyValueT,
 } from '../../definition';
 
-export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
+export class Keyboard extends GenericComponent<IKeyboardProps, IKeyboardState> {
 
   public static defaultProps: IKeyboardProps = {
     layout: [KEYBOARD_QWERTY_LAYOUT, KEYBOARD_QWERTY_DIGITAL_LAYOUT],
@@ -56,7 +56,7 @@ export class Keyboard extends BaseComponent<IKeyboardProps, IKeyboardState> {
 
     const el = (
       <div
-        ref={this.selfRef}
+        ref={this.actualRef}
         className={joinClassName(
           KeyboardClassNamesEnum.KEYBOARD,
           'rac-no-user-select',

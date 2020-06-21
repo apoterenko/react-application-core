@@ -27,7 +27,6 @@ import {
   IErrorWrapper,
   IFieldRenderedWrapper,
   IFieldsWrapper,
-  IFocusEvent,
   IFormatWrapper,
   IFullWrapper,
   IKeepChangesWrapper,
@@ -84,6 +83,8 @@ import {
 } from './generic-component-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IPresetsBaseSelectEntity } from './select-definition.interface';
+import { IKeyboardConfigurationEntity } from './keyboard-definition.interface';
+import { IFocusEvent } from './event-definition.interface';
 
 /**
  * @stable [16.05.2020]
@@ -101,7 +102,8 @@ export class FieldConstants {
  * @stable [09.05.2020]
  */
 export interface IPresetsFieldEntity
-  extends IAutoFocusWrapper,                                                      /* @stable [17.06.2020] */
+  extends IKeyboardConfigurationEntity,                                           /* @stable [21.06.2020] */
+    IAutoFocusWrapper,                                                            /* @stable [17.06.2020] */
     IBindDictionaryWrapper,
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */
@@ -161,7 +163,6 @@ export interface IReduxFieldEntity
 export interface IGenericFieldEntity
   extends IPresetsFieldEntity,
     IReduxFieldEntity {
-  keyboardConfiguration?: any; // TODO
 }
 
 export interface IGenericFieldEntity2

@@ -7,11 +7,25 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [31.08.2019]
+ * @stable [21.06.2020]
  */
 export interface IBaseEvent
   extends Partial<Event> {
   nativeEvent?: Event;
+}
+
+/**
+ * @stable [21.06.2020]
+ */
+export interface IFocusEvent<TValue = {}>
+  extends React.FocusEvent<TValue> {
+}
+
+/**
+ * @stable [21.06.2020]
+ */
+export interface IKeyboardEvent<TValue = {}>
+  extends React.KeyboardEvent<TValue> {
 }
 
 /**

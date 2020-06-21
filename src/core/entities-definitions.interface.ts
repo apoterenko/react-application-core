@@ -11,8 +11,6 @@ import {
   IKeyValue,
   INameWrapper,
   IOnChangeManuallyWrapper,
-  IOnChangeWrapper,
-  IResetErrorWrapper,
   ISetFocusWrapper,
   ISorterWrapper,
   ITimeWrapper,
@@ -23,7 +21,6 @@ import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from '.
 import {
   IEnvironment,
   IGenericComponent,
-  IReduxLifeCycleEntity,
 } from './definition';
 
 /**
@@ -43,7 +40,6 @@ export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversal
           IValueWrapper,
           ISetFocusWrapper,
           IClearValueWrapper,
-          IResetErrorWrapper,
           IOnChangeManuallyWrapper {
 }
 
@@ -52,10 +48,6 @@ export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversal
  */
 export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
-}
-
-/* @stable [23.04.2018] */
-export interface IUniversalMessageEntity extends IReduxLifeCycleEntity {
 }
 
 /**

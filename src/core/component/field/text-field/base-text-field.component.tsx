@@ -17,11 +17,9 @@ import {
   WrapperUtils,
 } from '../../../util';
 import {
-  IChangeEvent,
   UniCodesEnum,
 } from '../../../definitions.interface';
 import { Field2 } from '../field';
-import { Keyboard } from '../../keyboard';
 import {
   ComponentClassesEnum,
   FieldActionPositionsEnum,
@@ -44,7 +42,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   private static readonly DEFAULT_MASK_GUIDE = false;
 
   protected defaultActions: IFieldActionEntity[] = [];
-  private readonly keyboardRef = React.createRef<Keyboard>();
   private readonly mirrorInputRef = React.createRef<HTMLElement>();
 
   /**
@@ -53,11 +50,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
    */
   constructor(originalProps: TProps) {
     super(originalProps);
-
-    this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
-    this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
-    this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
-    this.onKeyboardChange = this.onKeyboardChange.bind(this);
 
     if (WrapperUtils.isClearActionRendered(this.originalProps)) {
       this.addClearAction();
@@ -77,37 +69,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [21.06.2020]
-   */
-  public componentWillUnmount(): void {
-    super.componentWillUnmount();
-    this.onCloseVirtualKeyboard();
-  }
-
-  /**
-   * @stable [21.06.2020]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
-   */
-  public componentDidUpdate(prevProps: TProps, prevState: TState): void {
-    super.componentDidUpdate(prevProps, prevState);
-
-    const {
-      useKeyboard,
-      value,
-    } = prevProps;
-
-    if (this.isKeyboardUsed) {
-      if (this.isKeyboardOpen()
-        && ObjectUtils.isCurrentValueNotEqualPreviousValue(this.value, value)) {
-        this.refreshCaretPosition();
-      }
-    } else if (useKeyboard) { // Previous props
-      this.closeVirtualKeyboard();
-    }
-  }
-
-  /**
    * @stable [25.02.2019]
    * @returns {JSX.Element}
    */
@@ -115,44 +76,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     return R.isNil(this.getFieldMask())
       ? super.getInputElement()
       : this.getMaskedInputElement();
-  }
-
-  /**
-   * @stable [03.09.2018]
-   * @returns {JSX.Element}
-   */
-  protected get keyboardElement(): JSX.Element {
-    return (
-      <Keyboard
-        ref={this.keyboardRef}
-        field={this}
-        onClose={this.closeVirtualKeyboard}
-        onChange={this.onKeyboardChange}
-        {...this.getKeyboardProps()}/>
-    );
-  }
-
-  /**
-   * @stable [13.01.2019]
-   * @returns {boolean}
-   */
-  protected isKeyboardOpen(): boolean {
-    return super.isKeyboardOpen() || this.isKeyboardInline;
-  }
-
-  /**
-   * @stable [21.06.2020]
-   */
-  protected onCloseVirtualKeyboard(): void {
-    ConditionUtils.ifNotNilThanValue(this.caretBlinkingTask, (caretBlinkingTask) => caretBlinkingTask.stop());
-
-    ConditionUtils.ifNotNilThanValue(
-      this.keyboardListenerUnsubscriber,
-      () => {
-        this.keyboardListenerUnsubscriber();
-        this.keyboardListenerUnsubscriber = null;
-      }
-    );
   }
 
   /**
@@ -241,21 +164,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     );
   }
 
-  // TODO
-  protected onDocumentClickHandler(e: IBaseEvent): void {
-    const element = event.target as HTMLElement;
-    const keyboardEl = this.keyboardRef.current.getSelf();
-    if (!keyboardEl) {
-      return;
-    }
-
-    if (this.domAccessor.getParentsAsElements({parentClassName: KeyboardClassNamesEnum.KEYBOARD, element})
-        .includes(keyboardEl)) {
-      return;
-    }
-    this.closeVirtualKeyboard();
-  }
-
   /**
    * @stable [28.10.2019]
    * @param {} action
@@ -263,25 +171,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
    */
   protected isFieldActionDisabled(action: IFieldActionEntity): boolean {
     return CalcUtils.calc(action.disabled) || this.isInactive;
-  }
-
-  /**
-   * @stable [21.06.2020]
-   */
-  private closeVirtualKeyboard(): void {
-    this.setState({keyboardOpen: false}, this.onCloseVirtualKeyboard);
-  }
-
-  /**
-   * @stable [04.09.2018]
-   * @param {string} rawValue
-   */
-  private onKeyboardChange(rawValue: string): void {
-    // Synthetic event creation to reduce source code
-    const syntheticEvent = {target: {value: rawValue}} as IChangeEvent;
-
-    // To handle various field types, NumberField, etc..
-    this.onChangeManually(this.getRawValueFromEvent(syntheticEvent));
   }
 
   /**

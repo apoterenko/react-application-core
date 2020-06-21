@@ -6,12 +6,11 @@ import {
 import {
   AnyT,
   IChangeEvent,
-  IKeyboardEvent,
 } from '../../../../definitions.interface';
 import { IGenericField2 } from '../../../../entities-definitions.interface';
 import {
-  IField,
   IGenericPlugin,
+  IKeyboardEvent,
 } from '../../../../definition';
 
 export class DelayedChangesFieldPlugin implements IGenericPlugin {

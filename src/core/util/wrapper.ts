@@ -636,6 +636,7 @@ export class WrapperUtils {
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
   public static readonly isHovered = isHovered;                                            /* @stable [01.06.2020] */
   public static readonly isIconLeftAligned = isIconLeftAligned;                            /* @stable [01.06.2020] */
+  public static readonly isInline = isInline;                                              /* @stable [21.06.2020] */
   public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
   public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */

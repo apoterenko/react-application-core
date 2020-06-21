@@ -7,9 +7,6 @@ import {
   joinClassName,
   orUndef,
 } from '../../../util';
-import {
-  IKeyboardEvent,
-  } from '../../../definitions.interface';
 import { UniversalField } from './universal-field.component';
 import {
   ComponentClassesEnum,
@@ -17,6 +14,7 @@ import {
   IField,
   IFieldState,
   IJQueryElement,
+  IKeyboardEvent,
 } from '../../../definition';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
 
@@ -25,20 +23,6 @@ export class Field2<TProps extends IFieldProps2,
     extends UniversalField<TProps,
                            TState>
     implements IField<TProps, TState> {
-
-  /**
-   * @stable [17.06.2018]
-   */
-  public resetError(): void {
-    if (!R.isNil(this.input.required)) {
-      // Because of Flux-architecture (chicken-and-egg dilemma)
-      // This flag is being set by a redux engine on a new cycle
-      // Need to reset: required, pattern, etc...
-
-      this.input.required = false;
-    }
-    super.resetError();
-  }
 
   /**
    * @stable [03.09.2018]

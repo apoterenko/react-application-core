@@ -190,7 +190,6 @@ export interface IFilterWrapper<TValue = string> { filter?: TValue; }
 export interface IFirstAllowedWrapper { firstAllowed?: boolean; }
 export interface IFirstWrapper<TValue = boolean> { first?: TValue; }
 export interface IFocusedWrapper { focused?: boolean; }
-export interface IFocusEvent<TTarget = {}> extends React.FocusEvent<TTarget> {}
 export interface IFooterRenderedWrapper { footerRendered?: boolean; }
 export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
@@ -267,7 +266,6 @@ export interface IJustifyContentEndWrapper { justifyContentEnd?: boolean; }
 export interface IJustifyContentSpaceBetweenWrapper { justifyContentSpaceBetween?: boolean; }
 export interface IKeepChangesWrapper { keepChanges?: boolean; }
 export interface IKeyboardConfigurationWrapper<TValue> { keyboardConfiguration?: TValue; }
-export interface IKeyboardEvent<TValue = {}> extends React.KeyboardEvent<TValue> { }
 export interface IKeyboardKeyConfigurationWrapper<TValue> { keyboardKeyConfiguration?: TValue; }
 export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
 export interface IKeyValue extends Record<string, AnyT> {}
@@ -586,13 +584,6 @@ export interface IZoomWrapper { zoom?: number; }
  */
 export interface ISetFocusWrapper<TSetFocus = () => void> {
   setFocus: TSetFocus;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IResetErrorWrapper<TResetError = () => void> {
-  resetError: TResetError;
 }
 
 /**

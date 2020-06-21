@@ -3,13 +3,13 @@ import * as React from 'react';
 import {
   AnyT,
   EntityIdT,
-  IKeyboardEvent,
 } from '../../../definitions.interface';
 import { BaseSelect } from '../../field/select/base-select.component';
 import { IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 import { ClsUtils } from '../../../util';
 import {
+  IKeyboardEvent,
   IMultiFieldProps,
   IMultiFieldState,
   IMultiItemEntity,

@@ -7,7 +7,6 @@ import {
 } from 'ts-smart-logger';
 
 import {
-  DelayedTask,
   isDef,
   isDisplayValueRenderedOnly,
   isFieldInactive,
@@ -20,13 +19,13 @@ import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
 import {
   AnyT,
-  IFocusEvent,
-  IKeyboardEvent,
 } from '../../../definitions.interface';
 import {
   FieldConstants,
   IBaseEvent,
   IFieldState,
+  IFocusEvent,
+  IKeyboardEvent,
 } from '../../../definition';
 import { Field } from './field.component';
 
