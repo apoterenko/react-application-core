@@ -482,6 +482,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
+   * @stable [22.06.2020]
+   * @returns {Array<string | RegExp>}
+   */
+  protected getFieldMask(): Array<string | RegExp> {
+    return this.originalProps.mask;
+  }
+
+  /**
    * @stable [21.06.2020]
    * @returns {IKeyboardProps}
    */
@@ -692,6 +700,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   protected get isReadOnly(): boolean {
     return WrapperUtils.isReadOnly(this.originalProps);
+  }
+
+  /**
+   * @stable [22.06.2020]
+   * @returns {boolean}
+   */
+  protected get isDisplayValueDefined(): boolean {
+    return TypeUtils.isDef(this.originalProps.displayValue);
   }
 
   /**

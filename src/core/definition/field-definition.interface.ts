@@ -114,7 +114,7 @@ export interface IPresetsFieldEntity
     IDisabledWrapper,
     IDisplayNameWrapper,
     IDisplayValueRenderedOnlyWrapper,
-    IDisplayValueWrapper<string | ((value: AnyT) => string)>,
+    IDisplayValueWrapper<string | ((value: AnyT) => string)>,                     /* @stable [22.06.2020] */
     IEmptyValueWrapper,
     IErrorMessageRenderedWrapper,                                                 /* @stable [18.06.2020] */
     IFieldRenderedWrapper,
@@ -122,7 +122,7 @@ export interface IPresetsFieldEntity
     IFullWrapper,
     IKeepChangesWrapper,
     ILabelWrapper,
-    IMaskWrapper,
+    IMaskWrapper,                                                                 /* @stable [22.06.2020] */
     IMaxLengthWrapper,                                                            /* @stable [20.06.2020] */
     IMessageWrapper,                                                              /* @stable [20.06.2020] */
     IMinLengthWrapper,                                                            /* @stable [20.06.2020] */

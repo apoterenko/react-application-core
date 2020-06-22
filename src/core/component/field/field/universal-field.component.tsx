@@ -7,7 +7,6 @@ import {
 } from 'ts-smart-logger';
 
 import {
-  isDef,
   isDisplayValueRenderedOnly,
   isFieldInactive,
   isFn,
@@ -148,14 +147,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
 
   /**
    * @stable [17.06.2018]
-   * @returns {Array<string | RegExp>}
-   */
-  protected getFieldMask(): Array<string | RegExp> {
-    return this.props.mask;
-  }
-
-  /**
-   * @stable [17.06.2018]
    * @returns {string}
    */
   protected getFieldPattern(): string {
@@ -221,13 +212,5 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isDisplayValueRenderedOnly() {
     return isDisplayValueRenderedOnly(this.props);
-  }
-
-  /**
-   * @stable [21.12.2019]
-   * @returns {boolean}
-   */
-  protected get isDisplayValueDefined(): boolean {
-    return isDef(this.props.displayValue);
   }
 }
