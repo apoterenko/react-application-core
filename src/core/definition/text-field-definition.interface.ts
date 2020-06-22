@@ -36,7 +36,8 @@ export interface IPresetsBaseTextFieldEntity
 }
 
 /**
- * @stable [25.02.2019]
+ * @state
+ * @stable [22.06.2020]
  */
 export interface IBaseTextFieldState
   extends IFieldState {

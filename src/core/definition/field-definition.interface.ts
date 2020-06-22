@@ -28,6 +28,7 @@ import {
   IErrorWrapper,
   IFieldRenderedWrapper,
   IFieldsWrapper,
+  IFocusedWrapper,
   IFormatWrapper,
   IFullWrapper,
   IKeepChangesWrapper,
@@ -203,14 +204,15 @@ export interface IFieldProps
 }
 
 /**
- * @stable [04.09.2018]
+ * @state
+ * @stable [22.06.2020]
  */
 export interface IFieldState
-  extends IErrorWrapper<string>,
-    IKeyboardOpenWrapper,
+  extends ICaretPositionWrapper,
     ICaretVisibilityWrapper,
-    ICaretPositionWrapper {
-  focused?: boolean; // TODO
+    IErrorWrapper<string>,
+    IFocusedWrapper,
+    IKeyboardOpenWrapper {
 }
 
 /**
@@ -358,6 +360,7 @@ export enum FieldClassesEnum {
   FIELD_CHANGEABLE = 'rac-field-changeable',
   FIELD_DISABLED = 'rac-field-disabled',
   FIELD_ERROR_MESSAGE = 'rac-field__error-message',
+  FIELD_FOCUSED = 'rac-field-focused',
   FIELD_INPUT_CARET = 'rac-field__input-caret',
   FIELD_INPUT_LABEL = 'rac-field__input-label',
   FIELD_INPUT_MIRROR = 'rac-field__input-mirror',
@@ -367,6 +370,7 @@ export enum FieldClassesEnum {
   FIELD_LABELED = 'rac-field-labeled',
   FIELD_MESSAGE = 'rac-field__message',
   FIELD_NOT_CHANGEABLE = 'rac-field-not-changeable',
+  FIELD_NOT_FOCUSED = 'rac-field-not-focused',
   FIELD_PREFIX_LABEL = 'rac-field__prefix-label',
   FIELD_REQUIRED = 'rac-field-required',
   FIELD_SELF = 'rac-field__self',

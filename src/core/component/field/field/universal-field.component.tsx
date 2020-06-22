@@ -11,7 +11,6 @@ import {
   isDisplayValueRenderedOnly,
   isFieldInactive,
   isFn,
-  isFocused,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -177,14 +176,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected get isActive(): boolean {
     return !this.isInactive;
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @returns {boolean}
-   */
-  protected get isFocused(): boolean {
-    return this.isKeyboardUsed ? this.isKeyboardOpen() : isFocused(this.state);
   }
 
   /**

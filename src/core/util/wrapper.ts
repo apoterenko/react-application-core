@@ -27,7 +27,6 @@ import {
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
-  IFocusedWrapper,
   IForceReloadWrapper,
   IForciblyApplyLocalFilterWrapper,
   IFullWrapper,
@@ -229,14 +228,6 @@ export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean
  */
 export const isActionsRendered = (wrapper: IActionsRenderedWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.actionsRendered !== false, false);
-
-/**
- * @stable [30.10.2019]
- * @param {IFocusedWrapper} wrapper
- * @returns {boolean}
- */
-export const isFocused = (wrapper: IFocusedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.focused === true, false);
 
 /**
  * @stable [06.03.2020]

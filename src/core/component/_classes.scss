@@ -74,13 +74,20 @@ $rac-viewer-preview-icon-cls: rac-viewer__preview-icon;
 $rac-empty-picture-viewer-cls: '#{$rac-empty-viewer-cls}.#{$rac-picture-viewer-cls}';
 
 /************************/
-/* @stable [31.05.2020] */
+/* @stable [22.06.2020] */
 /************************/
 $rac-field-cls: rac-field;
+$rac-field-busy-cls: rac-field-busy;
+$rac-field-changeable-cls: rac-field-changeable;
 $rac-field-disabled-cls: rac-field-disabled;
 $rac-field-focused-cls: rac-field-focused;
+$rac-field-invalid-cls: rac-field-invalid;
+$rac-field-labeled-cls: rac-field-labeled;
+$rac-field-not-changeable-cls: rac-field-not-changeable;
 $rac-field-prevent-focus-cls: rac-field-prevent-focus;
 $rac-field-required-cls: rac-field-required;
+$rac-field-value-not-present-cls: rac-field-value-not-present;
+$rac-field-value-present-cls: rac-field-value-present;
 
 /************************/
 /* @stable [16.06.2020] */
@@ -106,6 +113,11 @@ $rac-base-select-inline-option-cls: rac-base-select__inline-option;
 $rac-view-field-cls: rac-view-field;
 
 /************************/
+/* @stable [22.06.2020] */
+/************************/
+$rac-cron-field-cls: rac-cron-field;
+
+/************************/
 /* @stable [03.06.2020] */
 /************************/
 $rac-base-checkbox-cls: rac-base-checkbox;
@@ -113,6 +125,7 @@ $rac-checkbox-cls: rac-checkbox;
 /**/
 $rac-base-checkbox-checked-cls: '#{$rac-base-checkbox-cls}.rac-base-checkbox__checked';
 $rac-base-checkbox-disabled-cls: '#{$rac-base-checkbox-cls}.#{$rac-field-disabled-cls}';
+/**/
 $rac-checkbox-disabled-cls: '#{$rac-checkbox-cls}.#{$rac-field-disabled-cls}';
 
 /************************/
@@ -122,24 +135,21 @@ $rac-base-text-field-actioned-cls: rac-base-text-field-actioned;
 $rac-base-text-field-cls: rac-base-text-field;
 $rac-base-text-field-label-not-prefixed-cls: rac-base-text-field-label-not-prefixed;
 $rac-base-text-field-label-prefixed-cls: rac-base-text-field-label-prefixed;
-$rac-cron-field-cls: rac-cron-field;
-$rac-field-busy-cls: rac-field-busy;
-$rac-field-changeable-cls: rac-field-changeable;
-$rac-field-invalid-cls: rac-field-invalid;
-$rac-field-labeled-cls: rac-field-labeled;
-$rac-field-not-changeable-cls: rac-field-not-changeable;
-$rac-field-value-not-present-cls: rac-field-value-not-present;
-$rac-field-value-present-cls: rac-field-value-present;
 /**/
 $rac-base-text-field-busy-cls: '#{$rac-base-text-field-cls}.#{$rac-field-busy-cls}';
+$rac-base-text-field-focused-cls: '#{$rac-base-text-field-cls}.#{$rac-field-focused-cls}';
 $rac-base-text-field-invalid-cls: '#{$rac-base-text-field-cls}.#{$rac-field-invalid-cls}';
 $rac-base-text-field-labeled-cls: '#{$rac-base-text-field-cls}.#{$rac-field-labeled-cls}';
 $rac-base-text-field-not-changeable-cls: '#{$rac-base-text-field-cls}.#{$rac-field-not-changeable-cls}';
-$rac-text-area-cls: '#{$rac-base-text-field-cls}.rac-text-area';
 /**/
 $rac-base-text-field-labeled-value-not-present-cls: '#{$rac-base-text-field-labeled-cls}.#{$rac-field-value-not-present-cls}';
 $rac-base-text-field-not-changeable-not-prefixed-cls: '#{$rac-base-text-field-label-not-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
 $rac-base-text-field-not-changeable-prefixed-cls: '#{$rac-base-text-field-label-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
+
+/************************/
+/* @stable [22.06.2020] */
+/************************/
+$rac-text-area-cls: '#{$rac-base-text-field-cls}.rac-text-area';
 
 /************************/
 /* @stable [03.06.2020] */

@@ -465,6 +465,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       this.isBusy && FieldClassesEnum.FIELD_BUSY,
       this.isChangeable ? FieldClassesEnum.FIELD_CHANGEABLE : FieldClassesEnum.FIELD_NOT_CHANGEABLE,
       this.isDisabled && FieldClassesEnum.FIELD_DISABLED,
+      this.isFocused ? FieldClassesEnum.FIELD_FOCUSED : FieldClassesEnum.FIELD_NOT_FOCUSED,
       this.isInvalid && FieldClassesEnum.FIELD_INVALID,
       this.isRequired && FieldClassesEnum.FIELD_REQUIRED,
       this.isValuePresent ? FieldClassesEnum.FIELD_VALUE_PRESENT : FieldClassesEnum.FIELD_VALUE_NOT_PRESENT,
@@ -948,6 +949,16 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   private get isInvalid(): boolean {
     return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
+  }
+
+  /**
+   * @stable [22.06.2020]
+   * @returns {boolean}
+   */
+  private get isFocused(): boolean {
+    return this.isKeyboardUsed
+      ? this.isKeyboardOpen()
+      : this.state.focused;
   }
 
   /**

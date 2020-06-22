@@ -78,6 +78,7 @@ export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayloa
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICaptureWrapper { capture?: boolean; }
 export interface ICaretBlinkingFrequencyWrapper { caretBlinkingFrequency?: number; }
+export interface ICaretPositionWrapper { caretPosition?: number; }
 export interface ICaretVisibilityWrapper { caretVisibility?: boolean; }
 export interface IChangeableWrapper { changeable?: boolean; }
 export interface IChangeEvent<TValue = IValueWrapper> extends React.ChangeEvent<TValue> {}
@@ -773,13 +774,6 @@ export interface ICameraHeightWrapper {
  */
 export interface IFileNameWrapper {
   fileName?: string;
-}
-
-/**
- * @stable [04.09.2018]
- */
-export interface ICaretPositionWrapper {
-  caretPosition?: number;
 }
 
 /**
