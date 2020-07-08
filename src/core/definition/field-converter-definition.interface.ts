@@ -28,7 +28,6 @@ export enum FieldConverterTypesEnum {
   DEFINED_ENTITIES = 'DEFINED_ENTITIES',
   DISPLAY_VALUE = 'DISPLAY_VALUE',
   ENTITIES = 'ENTITIES',
-  EXTENDED_LABELED_VALUE_ENTITY = 'EXTENDED_LABELED_VALUE_ENTITY',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
   MULTI_FIELD_ENTITY = 'MULTI_FIELD_ENTITY',
@@ -36,7 +35,8 @@ export enum FieldConverterTypesEnum {
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
   PLACE_PARAMETER = 'PLACE_PARAMETER',
-  SELECT_OPTION_ENTITY = 'SELECT_OPTION_ENTITY',
+  RAW_DATA_LABELED_VALUE_ENTITY = 'RAW_DATA_LABELED_VALUE_ENTITY',
+  SELECT_VALUE = 'SELECT_VALUE',
   USER_ENTITY = 'USER_ENTITY',
   ZIP_CODE_ENTITY = 'ZIP_CODE_ENTITY',
 }
@@ -60,11 +60,11 @@ export interface IFieldConverter {
   fromCronExpressionToCronParameter(value: string): string;
   fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
   fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
-  fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;
+  fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                             /* @stable [08.07.2020] */
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
-  fromSelectOptionEntityToDisplayValue(option: SelectValueT): StringNumberT;
-  fromSelectOptionEntityToId(option: SelectValueT): EntityIdT;
+  fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;
+  fromSelectValueToId(value: SelectValueT): EntityIdT;
   register(config: IFieldConverterConfigEntity): void;
 }

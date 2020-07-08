@@ -33,7 +33,9 @@ import {
   FIRST_PAGE,
   IExtendedEntity,
   IExtendedFormEntity,
+  INamedEntity,
   IOptionEntity,
+  IPresetsRawDataLabeledValueEntity,
   IPresetsSelectOptionEntity,
   IPrimaryFilterExtendedFormEntity,
   IPrimaryFilterReduxFormEntity,
@@ -310,12 +312,30 @@ const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => ma
 /**
  * @map-as
  *
- * @stable [09.06.2020]
+ * @stable [08.07.2020]
  * @param {IReduxHolderListEntity} listEntity
  * @returns {IDisabledWrapper}
  */
-const mapListEntityAsDisabled = (listEntity: IReduxHolderListEntity): IDisabledWrapper =>
+const mapHolderListEntityAsDisabled = (listEntity: IReduxHolderListEntity): IDisabledWrapper =>
   mapProgressAsDisabled(Selectors.list(listEntity));
+
+/**
+ * @stable [08.07.2020]
+ * @param {INamedEntity} entity
+ * @returns {IPresetsRawDataLabeledValueEntity}
+ */
+const mapNamedEntityAsRawDataLabeledValueEntity =
+  (entity: INamedEntity): IPresetsRawDataLabeledValueEntity => ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => (
+      defValuesFilter<IPresetsRawDataLabeledValueEntity, IPresetsRawDataLabeledValueEntity>({
+        value: entity.id,
+        label: entity.name || String(entity.id),
+        rawData: entity,
+      })
+    ),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @mapper
@@ -774,13 +794,14 @@ export class GenericMappers {
   public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
   public static readonly holderFormEntity = mapHolderFormEntity;                                                                                  /* stable [12.06.2020] */
   public static readonly holderListEntity = mapHolderListEntity;                                                                                  /* stable [12.06.2020] */
+  public static readonly holderListEntityAsDisabled = mapHolderListEntityAsDisabled;                                                              /* stable [08.07.2020] */
   public static readonly holderNotificationEntity = mapHolderNotificationEntity;                                                                  /* stable [12.06.2020] */
   public static readonly holderTransportEntity = mapHolderTransportEntity;                                                                        /* stable [12.06.2020] */
   public static readonly holderUserEntity = mapHolderUserEntity;                                                                                  /* stable [09.06.2020] */
-  public static readonly listEntityAsDisabled = mapListEntityAsDisabled;                                                                          /* stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;                                      /* stable [09.05.2020] */
   public static readonly listSelectedExtendedFormEntityAsFinalEntity = mapListSelectedExtendedFormEntityAsFinalEntity;                            /* stable [10.05.2020] */
+  public static readonly namedEntityAsRawDataLabeledValueEntity = mapNamedEntityAsRawDataLabeledValueEntity;                                      /* stable [08.07.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;                                          /* stable [19.05.2020] */
   public static readonly options = mapOptions;                                                                                                    /* stable [19.05.2020] */
   public static readonly pagedEntity = mapPagedEntity;                                                                                            /* stable [07.05.2020] */

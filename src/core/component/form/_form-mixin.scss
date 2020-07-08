@@ -13,7 +13,10 @@
   $rac-form-actions-margin: unset,                                              /* @stable [09.11.2019] */
   $rac-form-actions-neighbor-child-margin: unset,                               /* @stable [30.01.2020] */
   $rac-form-actions-padding: unset,                                             /* @stable [30.01.2020] */
+  $rac-form-body-display: unset,                                                /* @stable [30.06.2020] */
+  $rac-form-body-flex-direction: unset,                                         /* @stable [30.06.2020] */
   $rac-form-body-flex-grow: unset,                                              /* @stable [27.05.2020] */
+  $rac-form-body-justify-content: unset,                                        /* @stable [30.06.2020] */
   $rac-form-body-margin: unset,                                                 /* @stable [27.05.2020] */
   $rac-form-border-bottom: unset,                                               /* @stable [27.05.2020] */
   $rac-form-display: unset,                                                     /* @stable [13.02.2020] */
@@ -40,8 +43,11 @@
 
     @include rac-styles (
       $rac-styles-custom: rac-form__body,
+      $rac-styles-display: $rac-form-body-display,
+      $rac-styles-flex-direction: $rac-form-body-flex-direction,
       $rac-styles-flex-grow: $rac-form-body-flex-grow,
-      $rac-styles-margin: $rac-form-body-margin
+      $rac-styles-justify-content: $rac-form-body-justify-content,
+      $rac-styles-margin: $rac-form-body-margin,
     );
 
     .rac-form__actions {

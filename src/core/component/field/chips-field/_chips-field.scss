@@ -1,4 +1,4 @@
-@import '../../chip/chip-mixin';
+@import '../../inline-option/inline-option-mixin';
 @import '../_field-mixin';
 @import './_chips-field-constant';
 
@@ -15,11 +15,11 @@
   );
 
   /**
-   * @field-chip
-   * @stable [16.06.2020]
+   * @chips-field-inline-option
+   * @stable [08.07.2020]
    */
-  @include rac-chip (
-    $rac-chip-custom: $rac-chips-field-chip-cls,
-    $rac-chip-margin: $rac-field-chip-margin
+  @include rac-inline-option (
+    $rac-inline-option-custom: $rac-chips-field-inline-option-cls,
+    $rac-inline-option-margin: $rac-chips-field-inline-option-margin
   );
 }

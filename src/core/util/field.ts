@@ -74,13 +74,11 @@ export const isFieldInactive = (props: IGenericFieldEntity2): boolean =>
 export const dynamicFieldName = (key: EntityIdT): string => `$$dynamicField-${key}`;
 
 /**
- * @stable [21.11.2019]
- * @param {TEntity} object
- * @param {EntityIdT} key
- * @returns {AnyT}
+ * @stable [29.06.2020]
+ * @param object
+ * @param key
  */
-export const dynamicFieldValue = <TEntity extends IEntity>(object: TEntity, key: EntityIdT): AnyT =>
-  Reflect.get(object, dynamicFieldName(key));
+const dynamicFieldValue = <TEntity = IEntity>(object: TEntity, key: EntityIdT): AnyT => object[dynamicFieldName(key)];
 
 /**
  * @stable [28.08.2019]
@@ -326,4 +324,6 @@ export class FieldUtils {
   public static asActualFieldValue = asActualFieldValue;                                                 /* @stable [16.05.2020] */
   public static fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
   public static fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
+  public static readonly dynamicFieldName = dynamicFieldName;                                            /* @stable [29.06.2020] */
+  public static readonly dynamicFieldValue = dynamicFieldValue;                                          /* @stable [29.06.2020] */
 }

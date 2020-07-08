@@ -6,7 +6,6 @@ import {
 } from './list-definition.interface';
 import { IButtonProps } from './button-definition.interface';
 import { IChartProps } from './chart-definition.interface';
-import { IChipProps } from './chip-definition.interface';
 import { IDefaultLayoutProps } from './default-layout-definition.interface';
 import { IDialogProps } from './dialog-definition.interface';
 import { IDrawerProps } from './drawer-definition.interface';
@@ -120,7 +119,6 @@ export interface IComponentsSettingsEntity {
   basicList?: IBasicListProps;
   button?: IButtonProps;
   chart?: IChartProps;
-  chip?: IChipProps;
   defaultLayout?: IDefaultLayoutProps;
   dialog?: IDialogProps;
   drawer?: IDrawerProps;

@@ -9,7 +9,6 @@ export * from './card-definition.interface';
 export * from './channel-definition.interface';
 export * from './chart-definition.interface';
 export * from './checkbox-definition.interface';
-export * from './chip-definition.interface';
 export * from './chips-field-definition.interface';
 export * from './component-definition.interface';
 export * from './connector-definition.interface';

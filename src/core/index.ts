@@ -10,7 +10,6 @@ export * from './component/base';
 export * from './component/button';
 export * from './component/card-list';
 export * from './component/chart';
-export * from './component/chip';
 export * from './component/connector';
 export * from './component/controlled-field';
 export * from './component/dialog';

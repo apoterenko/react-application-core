@@ -142,7 +142,6 @@ export enum DialogClassesEnum {
   DIALOG_EXTRA_ACTIONS = 'rac-dialog__extra-actions',
   DIALOG_PROGRESS_ICON = 'rac-dialog__progress-icon',
   INLINE_DIALOG = 'rac-inline-dialog',
-  MENU_DIALOG = 'rac-menu-dialog',
   MODAL_DIALOG = 'rac-modal-dialog',
   NOT_ANCHORED_DIALOG = 'rac-not-anchored-dialog',
   NOT_TRANSPARENT_DIALOG = 'rac-not-transparent-dialog',

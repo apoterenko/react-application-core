@@ -1,5 +1,5 @@
-@import '../constant';
-@import '../mixin';
+@import '../constant'; // TODO
+@import './_menu-mixin';
 @import './_menu-constant';
 
 .rac {
@@ -8,10 +8,7 @@
    * @menu-dialog
    * @stable [11.11.2019]
    */
-  @include rac-menu-dialog (
-    $rac-menu-dialog-base-text-field-margin: $rac-menu-dialog-base-text-field-margin,
-    $rac-menu-dialog-base-text-self-field-background: $rac-menu-dialog-base-text-self-field-background,
-    $rac-menu-dialog-base-text-self-field-height: $rac-menu-dialog-base-text-self-field-height,
+  @include rac-menu (
     $rac-menu-dialog-body-background: $rac-menu-dialog-body-background,
     $rac-menu-dialog-body-justify-content: $rac-menu-dialog-body-justify-content,
     $rac-menu-dialog-empty-message-align-items: $rac-menu-dialog-empty-message-align-items,
@@ -23,25 +20,33 @@
     $rac-menu-dialog-empty-message-justify-content: $rac-menu-dialog-empty-message-justify-content,
     $rac-menu-dialog-empty-message-padding: $rac-menu-dialog-empty-message-padding,
     $rac-menu-dialog-empty-message-width: $rac-menu-dialog-empty-message-width,
-    $rac-menu-dialog-icon-close-color: $rac-menu-dialog-icon-close-color,
-    $rac-menu-dialog-icon-close-margin: $rac-menu-dialog-icon-close-margin,
-    $rac-menu-dialog-icon-close-size: $rac-menu-dialog-icon-close-size,
-    $rac-menu-dialog-list-background: $rac-menu-dialog-list-background,
     $rac-menu-dialog-list-item-box-sizing: $rac-menu-dialog-list-item-box-sizing,
     $rac-menu-dialog-list-item-decorated-content-text-align: $rac-menu-dialog-list-item-decorated-content-text-align,
     $rac-menu-dialog-list-item-font-size: $rac-menu-dialog-list-item-font-size,
     $rac-menu-dialog-list-item-font-weight: $rac-menu-dialog-list-item-font-weight,
     $rac-menu-dialog-list-item-line-height: $rac-menu-dialog-list-item-line-height,
-    $rac-menu-dialog-list-item-min-height: $rac-menu-dialog-list-item-min-height,
-    $rac-menu-dialog-list-overflow: $rac-menu-dialog-list-overflow
+    $rac-menu-dialog-list-item-min-height: $rac-menu-list-item-min-height,
+    $rac-menu-filter-background: $rac-menu-filter-background,
+    $rac-menu-filter-height: $rac-menu-filter-height,
+    $rac-menu-filter-margin: $rac-menu-filter-margin,
+    $rac-menu-icon-close-color: $rac-menu-icon-close-color,
+    $rac-menu-icon-close-margin: $rac-menu-icon-close-margin,
+    $rac-menu-icon-close-position: $rac-menu-icon-close-position,
+    $rac-menu-icon-close-right: $rac-menu-icon-close-right,
+    $rac-menu-icon-close-size: $rac-menu-icon-close-size,
+    $rac-menu-icon-close-top: $rac-menu-icon-close-top,
+    $rac-menu-inline-options-display: $rac-menu-inline-options-display,
+    $rac-menu-inline-options-flex-wrap: $rac-menu-inline-options-flex-wrap,
+    $rac-menu-list-background: $rac-menu-list-background,
+    $rac-menu-list-overflow: $rac-menu-list-overflow
   );
 
   /**
-   * @menu-not-anchored-dialog
+   * @menu-not-anchored
    * @stable [24.01.2020]
    */
-  @include rac-menu-dialog (
-    $rac-menu-dialog-custom: rac-not-anchored-dialog,
+  @include rac-menu (
+    $rac-menu-custom: $rac-not-anchored-dialog-cls,
     $rac-menu-dialog-align-items: $rac-menu-not-anchored-dialog-align-items,
     $rac-menu-dialog-body-display: $rac-menu-not-anchored-dialog-body-display,
     $rac-menu-dialog-body-height: $rac-menu-not-anchored-dialog-body-height,
@@ -49,15 +54,18 @@
     $rac-menu-dialog-display: $rac-menu-not-anchored-dialog-display,
     $rac-menu-dialog-justify-content: $rac-menu-not-anchored-dialog-justify-content,
     $rac-menu-dialog-list-border-radius: $rac-menu-not-anchored-dialog-list-border-radius,
-    $rac-menu-dialog-list-item-odd-background: $rac-menu-not-anchored-dialog-list-item-odd-background
+    $rac-menu-inline-option-background: $rac-menu-not-anchored-inline-option-background,
+    $rac-menu-inline-option-content-color: $rac-menu-not-anchored-inline-option-content-color,
+    $rac-menu-inline-option-margin: $rac-menu-not-anchored-inline-option-margin,
+    $rac-menu-list-item-odd-background: $rac-menu-not-anchored-list-item-odd-background
   );
 
   /**
    * @menu-anchored-dialog
    * @stable [25.01.2020]
    */
-  @include rac-menu-dialog (
-    $rac-menu-dialog-custom: rac-anchored-dialog,
+  @include rac-menu (
+    $rac-menu-custom: $rac-anchored-dialog-cls,
     $rac-menu-dialog-body-background: $rac-menu-anchored-dialog-body-background,
     $rac-menu-dialog-body-content-wrapper-background: $rac-menu-anchored-dialog-body-content-wrapper-background,
     $rac-menu-dialog-body-content-wrapper-border-radius: $rac-menu-anchored-dialog-body-content-wrapper-border-radius,
@@ -67,7 +75,6 @@
     $rac-menu-dialog-body-margin: $rac-menu-anchored-dialog-body-margin,
     $rac-menu-dialog-body-min-width: $rac-menu-anchored-dialog-body-min-width,
     $rac-menu-dialog-body-z-index: $rac-menu-anchored-dialog-z-index,
-    $rac-menu-dialog-list-background: $rac-menu-anchored-dialog-list-background,
     $rac-menu-dialog-list-item-border-bottom: $rac-menu-anchored-dialog-list-item-border-bottom,
     $rac-menu-dialog-list-item-color: $rac-menu-anchored-dialog-list-item-color,
     $rac-menu-dialog-list-item-font-size: $rac-menu-anchored-dialog-list-item-font-size,
@@ -77,19 +84,20 @@
     $rac-menu-dialog-list-item-icon-color: $rac-menu-anchored-dialog-list-item-icon-color,
     $rac-menu-dialog-list-item-last-border-bottom-color: $rac-menu-anchored-dialog-list-item-last-border-bottom-color,
     $rac-menu-dialog-list-item-line-height: $rac-menu-anchored-dialog-list-item-line-height,
-    $rac-menu-dialog-list-item-odd-background: $rac-menu-anchored-dialog-list-item-odd-background,
     $rac-menu-dialog-list-item-selected-background: $rac-menu-anchored-dialog-list-item-selected-background,
     $rac-menu-dialog-list-item-selected-color: $rac-menu-anchored-dialog-list-item-selected-color,
     $rac-menu-dialog-list-margin: $rac-menu-anchored-dialog-list-margin,
-    $rac-menu-dialog-list-padding: $rac-menu-anchored-dialog-list-padding
+    $rac-menu-dialog-list-padding: $rac-menu-anchored-dialog-list-padding,
+    $rac-menu-list-background: $rac-menu-anchored-list-background,
+    $rac-menu-list-item-odd-background: $rac-menu-anchored-list-item-odd-background
   );
 
   /**
    * @menu-anchored-height-restricted-dialog
    * @stable [25.01.2020]
    */
-  @include rac-menu-dialog (
-    $rac-menu-dialog-custom: rac-cls2(rac-anchored-dialog, rac-menu-height-restricted-dialog),
-    $rac-menu-dialog-list-max-height: $rac-menu-anchored-height-restricted-dialog-max-height
+  @include rac-menu (
+    $rac-menu-custom: $rac-menu-anchored-height-restricted-cls,
+    $rac-menu-list-max-height: $rac-menu-anchored-height-restricted-list-max-height
   );
 }

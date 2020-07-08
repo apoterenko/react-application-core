@@ -1,16 +1,19 @@
 @import '../_primary-constant';
 @import '../_classes';
 
+$rac-primary-inline-option-border-radius: $rac-primary-border-radius-1 !default;              /* @stable [08.07.2020] */
+
 /************************/
 /* @stable [16.06.2020] */
 /************************/
-$rac-inline-option-align-items: center !default;
-$rac-inline-option-background: $rac-primary-color-poseidon-05 !default;
-$rac-inline-option-border-radius: $rac-primary-border-radius-6 !default;
-$rac-inline-option-color: $rac-primary-color-elara-0 !default;
-$rac-inline-option-cursor: pointer !default;
-$rac-inline-option-display: $rac-primary-display-2 !default;
-$rac-inline-option-font-weight: unset !default;
+$rac-inline-option-background: $rac-primary-color-poseidon-05 !default;                       /* @stable [08.07.2020] */
+$rac-inline-option-border-radius: $rac-primary-inline-option-border-radius !default;          /* @stable [08.07.2020] */
+$rac-inline-option-content-align-items: center !default;                                      /* @stable [08.07.2020] */
+$rac-inline-option-content-color: $rac-primary-color-elara-0 !default;
+$rac-inline-option-content-cursor: unset !default;                                            /* @stable [08.07.2020] */
+$rac-inline-option-content-display: $rac-primary-display-2 !default;                          /* @stable [08.07.2020] */
+$rac-inline-option-content-font-weight: unset !default;                                       /* @stable [08.07.2020] */
+$rac-inline-option-display: $rac-primary-display-2 !default;                                  /* @stable [08.07.2020] */
 $rac-inline-option-min-height: $rac-primary-size-7 !default;
 $rac-inline-option-padding: 0 $rac-primary-offset-3 !default;
 
@@ -18,4 +21,4 @@ $rac-inline-option-padding: 0 $rac-primary-offset-3 !default;
 /* @stable [16.06.2020] */
 /************************/
 $rac-inline-option-selected-background: $rac-primary-color-poseidon-2 !default;
-$rac-inline-option-selected-color: unset !default;
+$rac-inline-option-selected-content-color: unset !default;

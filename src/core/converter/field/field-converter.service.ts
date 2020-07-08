@@ -30,7 +30,7 @@ import {
   CronEntity,
   FieldUtils,
   FilterUtils,
-  mapExtendedLabeledValueEntity,
+  Mappers,
   PlaceUtils,
   SelectOptionUtils,
   TypeUtils,
@@ -58,6 +58,7 @@ export class FieldConverter implements IFieldConverter {
    * @stable [09.01.2020]
    */
   constructor() {
+    this.fromNamedEntityToRawDataLabeledValueEntity = this.fromNamedEntityToRawDataLabeledValueEntity.bind(this);
     this.zipCodeEntityAsDisplayValue = this.zipCodeEntityAsDisplayValue.bind(this);
 
     this.register({
@@ -81,14 +82,14 @@ export class FieldConverter implements IFieldConverter {
       converter: this.$fromPlaceEntityToPlaceParameter.bind(this),
     });
     this.register({
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      from: FieldConverterTypesEnum.SELECT_VALUE,
       to: FieldConverterTypesEnum.DISPLAY_VALUE,
-      converter: this.$fromSelectOptionEntityToDisplayValue.bind(this),
+      converter: this.$fromSelectValueToDisplayValue.bind(this),
     });
     this.register({
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      from: FieldConverterTypesEnum.SELECT_VALUE,
       to: FieldConverterTypesEnum.ID,
-      converter: this.$fromSelectOptionEntityToId.bind(this),
+      converter: this.$fromSelectValueToId.bind(this),
     });
     this.register({
       from: FieldConverterTypesEnum.DATES_RANGE_ENTITY,
@@ -112,8 +113,8 @@ export class FieldConverter implements IFieldConverter {
     });
     this.register({
       from: FieldConverterTypesEnum.NAMED_ENTITY,
-      to: FieldConverterTypesEnum.EXTENDED_LABELED_VALUE_ENTITY,
-      converter: this.$fromNamedEntityToExtendedLabeledValueEntity.bind(this),
+      to: FieldConverterTypesEnum.RAW_DATA_LABELED_VALUE_ENTITY,
+      converter: this.$fromNamedEntityToRawDataLabeledValueEntity.bind(this),
     });
     this.register({
       from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
@@ -161,13 +162,13 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [16.05.2020]
+   * @stable [08.07.2020]
    * @param {SelectValueT} value
    * @returns {EntityIdT}
    */
-  public fromSelectOptionEntityToId(value: SelectValueT): EntityIdT {
+  public fromSelectValueToId(value: SelectValueT): EntityIdT {
     return this.convert({
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      from: FieldConverterTypesEnum.SELECT_VALUE,
       to: FieldConverterTypesEnum.ID,
       value,
     });
@@ -178,9 +179,9 @@ export class FieldConverter implements IFieldConverter {
    * @param {SelectValueT} value
    * @returns {StringNumberT}
    */
-  public fromSelectOptionEntityToDisplayValue(value: SelectValueT): StringNumberT {
+  public fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT {
     return this.convert({
-      from: FieldConverterTypesEnum.SELECT_OPTION_ENTITY,
+      from: FieldConverterTypesEnum.SELECT_VALUE,
       to: FieldConverterTypesEnum.DISPLAY_VALUE,
       value,
     });
@@ -226,14 +227,14 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [22.04.2020]
+   * @stable [08.07.2020]
    * @param {INamedEntity} value
    * @returns {IPresetsRawDataLabeledValueEntity}
    */
-  public fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity {
+  public fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity {
     return this.convert({
       from: FieldConverterTypesEnum.NAMED_ENTITY,
-      to: FieldConverterTypesEnum.EXTENDED_LABELED_VALUE_ENTITY,
+      to: FieldConverterTypesEnum.RAW_DATA_LABELED_VALUE_ENTITY,
       value,
     });
   }
@@ -299,8 +300,8 @@ export class FieldConverter implements IFieldConverter {
    * @param {SelectValueT} option
    * @returns {StringNumberT}
    */
-  protected $fromSelectOptionEntityToDisplayValue(option: SelectValueT): StringNumberT {
-    return SelectOptionUtils.fromSelectOptionEntityToDisplayValue(option);
+  protected $fromSelectValueToDisplayValue(option: SelectValueT): StringNumberT {
+    return SelectOptionUtils.fromSelectValueToDisplayValue(option);
   }
 
   /**
@@ -359,16 +360,12 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [22.04.2020]
+   * @stable [08.07.2020]
    * @param {INamedEntity} value
    * @returns {IPresetsRawDataLabeledValueEntity}
    */
-  private $fromNamedEntityToExtendedLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity {
-    return ConditionUtils.ifNotNilThanValue(
-      value,
-      () => mapExtendedLabeledValueEntity(value),
-      UNDEF_SYMBOL
-    );
+  private $fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity {
+    return Mappers.namedEntityAsRawDataLabeledValueEntity(value);
   }
 
   /**
@@ -409,11 +406,11 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [18.05.2020]
-   * @param {SelectValueT} option
+   * @param {SelectValueT} value
    * @returns {EntityIdT}
    */
-  private $fromSelectOptionEntityToId(option: SelectValueT): EntityIdT {
-    return SelectOptionUtils.fromSelectOptionEntityToId(option);
+  private $fromSelectValueToId(value: SelectValueT): EntityIdT {
+    return SelectOptionUtils.fromSelectValueToId(value);
   }
 
   /**

@@ -87,7 +87,6 @@ export interface IChannelsWrapper<TValue = string> { channels?: TValue; }
 export interface IChannelWrapper<TValue = string> { channel?: TValue; }
 export interface ICheckModalWrapper { checkModal?: boolean; }
 export interface IChildrenWrapper<TValue> { children?: TValue; }
-export interface IChipClassNameWrapper { chipClassName?: string; }
 export interface ICityWrapper<TValue = string> { city?: TValue; }
 export interface IClassNameWrapper<TValue = string> { className?: TValue; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
@@ -250,7 +249,7 @@ export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
 export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
 export interface IInlineOptionClassNameClassName { inlineOptionClassName?: string; }
-export interface IInlineOptionsWrapper { inlineOptions?: boolean; }
+export interface IInlineOptionsWrapper<TValue = boolean> { inlineOptions?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
 export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }
@@ -347,7 +346,7 @@ export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): vo
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
 export interface IOnClickPlaceWrapper<TValue = {}> { onClickPlace?(value?: TValue): void; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
-export interface IOnCloseWrapper<TValue = void> { onClose?(): TValue; }
+export interface IOnCloseWrapper<TValue = {}> { onClose?(value?: TValue): void; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
@@ -365,6 +364,7 @@ export interface IOnFocusWrapper<TValue = {}> { onFocus?(value?: TValue): void; 
 export interface IOnFormChangeWrapper<TValue1 = string, TValue2 = AnyT> { onFormChange?(value1?: TValue1, value?: TValue2): void; }
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
+export interface IOnInlineOptionCloseWrapper<TValue = {}> { onInlineOptionClose?(value?: TValue): void; }
 export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }

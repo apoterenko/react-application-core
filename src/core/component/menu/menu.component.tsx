@@ -11,11 +11,9 @@ import {
   ConditionUtils,
   DelayedTask,
   isFilterUsed,
-  isHeightRestricted,
   isHighlightOdd,
   isMulti,
   isRemoteFilterApplied,
-  orNull,
   queryFilter,
   subArray,
   TypeUtils,
@@ -25,23 +23,25 @@ import { BasicList } from '../list/basic/basic-list.component';
 import { Dialog } from '../dialog/dialog.component';
 import { ListItem } from '../list/item/list-item.component';
 import {
-  DialogClassesEnum,
   EventsEnum,
   IconsEnum,
   IMenu,
   IMenuProps,
   IMenuState,
   IPresetsMenuItemEntity,
+  MenuClassesEnum,
   SyntheticEmitterEventsEnum,
 } from '../../definition';
 import { TextField } from '../field/text-field';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
+import { InlineOption } from '../inline-option/inline-option.component';
 
 export class Menu extends GenericComponent<IMenuProps, IMenuState>
   implements IMenu {
 
   public static readonly defaultProps: IMenuProps = {
     delayTimeout: 1000,
+    heightRestricted: true,
     filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
@@ -81,41 +81,50 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      anchorElement,
+      className,
+      heightRestricted,
+      inline,
+      positionConfiguration,
+      width,
+    } = this.originalProps;
+    const {
+      opened,
+    } = this.state;
 
-    return (
-      orNull(
-        this.state.opened,
-        () => (
-          <Dialog
-            ref={this.dialogRef}
-            closable={false}
-            acceptable={false}
-            default={false}
-            scrollable={false}
-            inline={props.inline}
-            width={props.width}
-            positionConfiguration={props.positionConfiguration}
-            anchorElement={props.anchorElement}
-            className={
-              ClsUtils.joinClassName(
-                DialogClassesEnum.MENU_DIALOG,
-                CalcUtils.calc(props.className),
-                isHeightRestricted(props) && 'rac-menu-height-restricted-dialog'
-              )
-            }
-            onActivate={this.onDialogActivate}
-            onDeactivate={this.onDialogDeactivate}
-          >
-            {!this.isAnchored && (
-              <React.Fragment>
-                {this.closeActionElement}
-                {this.isFilterUsed && this.filterElement}
-              </React.Fragment>
-            )}
-            {this.listElement}
-          </Dialog>
-        )
+    return ConditionUtils.orNull(
+      opened,
+      () => (
+        <Dialog
+          ref={this.dialogRef}
+          closable={false}
+          acceptable={false}
+          default={false}
+          scrollable={false}
+          inline={inline}
+          width={width}
+          positionConfiguration={positionConfiguration}
+          anchorElement={anchorElement}
+          className={
+            ClsUtils.joinClassName(
+              MenuClassesEnum.MENU,
+              CalcUtils.calc(className),
+              heightRestricted && MenuClassesEnum.MENU_HEIGHT_RESTRICTED
+            )
+          }
+          onActivate={this.onDialogActivate}
+          onDeactivate={this.onDialogDeactivate}
+        >
+          {!this.isAnchored && (
+            <React.Fragment>
+              {this.closeActionElement}
+              {this.inlineOptionsElement}
+              {this.isFilterUsed && this.filterElement}
+            </React.Fragment>
+          )}
+          {this.listElement}
+        </Dialog>
       )
     );
   }
@@ -248,7 +257,15 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    * @returns {JSX.Element}
    */
   private get listElement(): JSX.Element {
-    const items = subArray(this.items, this.props.maxCount);
+    const {
+      NO_DATA,
+    } = this.settings.messages;
+    const {
+      maxCount,
+    } = this.originalProps;
+
+    const items = subArray(this.items, maxCount);
+
     return (
       <BasicList
         forwardedRef={this.listElementRef}
@@ -256,7 +273,13 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
         plugins={[PerfectScrollPlugin]}
       >
         {items.map((option: IPresetsMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
-        {!items.length && <div className='rac-menu__empty-message'>{this.settings.messages.NO_DATA}</div>}
+        {!items.length && (
+          <div
+            className={MenuClassesEnum.MENU_EMPTY_MESSAGE}
+          >
+            {NO_DATA}
+          </div>
+        )}
       </BasicList>
     );
   }
@@ -290,6 +313,34 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
+   * @stable [08.07.2020]
+   * @returns {JSX.Element}
+   */
+  private get inlineOptionsElement(): JSX.Element {
+    const {
+      inlineOptions,
+      onInlineOptionClose,
+    } = this.originalProps;
+
+    return ConditionUtils.ifNotNilThanValue(
+      inlineOptions,
+      () => (
+        <div
+          className={MenuClassesEnum.MENU_INLINE_OPTIONS}
+        >
+          {inlineOptions.map((option) => (
+            <InlineOption
+              key={`inline-option-key-${this.fieldConverter.fromSelectValueToId(option)}`}
+              option={option}
+              onClose={onInlineOptionClose}
+            />
+          ))}
+        </div>
+      )
+    );
+  }
+
+  /**
    * @stable [17.01.2020]
    * @returns {JSX.Element}
    */
@@ -304,19 +355,20 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
         value={state.filter}
         placeholder={props.filterPlaceholder || this.settings.messages.SEARCH}
         errorMessageRendered={false}
+        className={MenuClassesEnum.MENU_FILTER}
         onChange={this.onFilterValueChange}/>
     );
   }
 
   /**
-   * @stable [06.07.2019]
+   * @stable [07.07.2020]
    * @returns {JSX.Element}
    */
   private get closeActionElement(): JSX.Element {
     return (
       this.uiFactory.makeIcon({
         type: IconsEnum.TIMES,
-        className: 'rac-menu-dialog__icon-close',
+        className: MenuClassesEnum.MENU_ICON_CLOSE,
         onClick: this.hide,
       })
     );

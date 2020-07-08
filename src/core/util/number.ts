@@ -81,3 +81,10 @@ export const roundedByPrecisionProportion = (value: number,
                                              offValue = ONE_DOLLAR_VALUE,
                                              precisionValue = DEFAULT_CURRENCY_PRECISION_VALUE): number =>
   roundByPrecision(roundedProportion(value, total, offValue), precisionValue);
+
+/**
+ * @stable [29.06.2020]
+ */
+export class NumberUtils {
+  public static readonly roundByPrecision = roundByPrecision;
+}

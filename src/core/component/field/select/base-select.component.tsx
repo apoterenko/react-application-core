@@ -23,7 +23,7 @@ import {
   WrapperUtils,
 } from '../../../util';
 import { BaseTextField } from '../text-field/base-text-field.component';
-import { Menu } from '../../menu';
+import { Menu } from '../../menu/menu.component';
 import { InlineOption } from '../../inline-option';
 import {
   AnyT,
@@ -242,7 +242,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         className={FieldClassesEnum.FIELD_ATTACHMENT}
       >
         {this.options.map((option) => {
-            const id = this.fromSelectOptionEntityToId(option);
+            const id = this.fromSelectValueToId(option);
             const isInlineOptionSelected = this.isInlineOptionSelected(id, currentValue);
 
             return (
@@ -308,7 +308,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       && !this.isValueObject(value)
       && isObjectNotEmpty(value)) {
 
-      const originalFilter = (option) => queryFilter(value, this.fromSelectOptionEntityToDisplayValue(option));
+      const originalFilter = (option) => queryFilter(value, this.fromSelectValueToDisplayValue(option));
 
       return this.options.filter(
         doesFilterExist
@@ -365,11 +365,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   /**
    * @stable [16.06.2020]
    * @param {EntityIdT} id
-   * @param {AnyT} currentValue
+   * @param {SelectValueT} currentValue
    * @returns {boolean}
    */
-  protected isInlineOptionSelected(id: EntityIdT, currentValue: AnyT): boolean {
-    return this.fromSelectOptionEntityToId(currentValue) === id;
+  protected isInlineOptionSelected(id: EntityIdT, currentValue: SelectValueT): boolean {
+    return this.fromSelectValueToId(currentValue) === id;
   }
 
   /**
@@ -386,17 +386,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
   /**
    * @stable [28.01.2020]
-   * @param {AnyT} value
+   * @param {SelectValueT} value
    * @returns {AnyT}
    */
-  protected getDecoratedDisplayValue(value: AnyT): AnyT {
+  protected getDecoratedDisplayValue(value: SelectValueT): AnyT {
     const $$cachedValue = this.$$cashedValue;
     const hasCachedValue = !R.isNil($$cachedValue);
 
     if (!hasCachedValue && (!this.isQuickSearchEnabled || this.isValueObject(value))) {
-      const id = this.fromSelectOptionEntityToId(value);
+      const id = this.fromSelectValueToId(value);
       value = NvlUtils.nvl(
-        R.find((option) => this.fromSelectOptionEntityToId(option) === id, this.options),
+        R.find((option) => this.fromSelectValueToId(option) === id, this.options),
         value
       );
     }
@@ -409,7 +409,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {AnyT}
    */
   protected decorateDisplayValue(value: AnyT): AnyT {
-    return this.fromSelectOptionEntityToDisplayValue(value);
+    return this.fromSelectValueToDisplayValue(value);
   }
 
   /**
@@ -437,12 +437,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [18.05.2020]
-   * @param {AnyT} value
+   * @stable [08.07.2020]
+   * @param {SelectValueT} value
    * @returns {EntityIdT}
    */
-  protected fromSelectOptionEntityToId(value: AnyT): EntityIdT {
-    return this.fieldConverter.fromSelectOptionEntityToId(value);
+  protected fromSelectValueToId(value: SelectValueT): EntityIdT {
+    return this.fieldConverter.fromSelectValueToId(value);
   }
 
   /**
@@ -499,7 +499,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param {IPresetsSelectOptionEntity} option
    */
   private doSelectOption(option: IPresetsSelectOptionEntity): void {
-    this.onChangeManually(this.isPlainValueApplied ? this.fromSelectOptionEntityToId(option) : option);
+    this.onChangeManually(this.isPlainValueApplied ? this.fromSelectValueToId(option) : option);
     this.notifySelectOption(option);
     this.setFocus();
   }
@@ -644,12 +644,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [18.05.2020]
+   * @stable [08.07.2020]
    * @param {SelectValueT} value
    * @returns {StringNumberT}
    */
-  private fromSelectOptionEntityToDisplayValue(value: SelectValueT): StringNumberT {
-    return this.fieldConverter.fromSelectOptionEntityToDisplayValue(value);
+  private fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT {
+    return this.fieldConverter.fromSelectValueToDisplayValue(value);
   }
 
   /**

@@ -122,6 +122,7 @@ export class ConditionUtils {
   public static readonly ifNilThanValue = ifNilThanValue;                         /* @stable [21.06.2020] */
   public static readonly ifNotEmptyThanValue = ifNotEmptyThanValue;               /* @stable [16.05.2020] */
   public static readonly ifNotNilThanValue = ifNotNilThanValue;                   /* @stable [16.05.2020] */
+  public static readonly orEmpty = orEmpty;                                       /* @stable [27.06.2020] */
   public static readonly orNull = orNull;                                         /* @stable [18.05.2020] */
   public static readonly orUndef = orUndef;                                       /* @stable [01.06.2020] */
 }

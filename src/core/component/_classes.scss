@@ -47,11 +47,12 @@ $rac-search-toolbar-cls: rac-search-toolbar;
 /************************/
 /* @stable [11.03.2020] */
 /************************/
+$rac-anchored-dialog-cls: rac-anchored-dialog;
 $rac-confirm-dialog-cls: rac-confirm-dialog;
 $rac-default-dialog-cls: rac-default-dialog;
 $rac-inline-dialog-cls: rac-inline-dialog;
-$rac-menu-dialog-cls: rac-menu-dialog;
 $rac-modal-dialog-cls: rac-modal-dialog;
+$rac-not-anchored-dialog-cls: rac-not-anchored-dialog;
 $rac-not-transparent-dialog-cls: rac-not-transparent-dialog;
 $rac-overlay-dialog-cls: rac-overlay-dialog;
 $rac-place-dialog-cls: rac-place-dialog;
@@ -92,8 +93,8 @@ $rac-field-value-present-cls: rac-field-value-present;
 /************************/
 /* @stable [16.06.2020] */
 /************************/
-$rac-chips-field-chip-cls: rac-chips-field__chip;
 $rac-chips-field-cls: rac-chips-field;
+$rac-chips-field-inline-option-cls: rac-chips-field__inline-option;
 
 /************************/
 /* @stable [11.03.2020] */
@@ -145,6 +146,11 @@ $rac-base-text-field-not-changeable-cls: '#{$rac-base-text-field-cls}.#{$rac-fie
 $rac-base-text-field-labeled-value-not-present-cls: '#{$rac-base-text-field-labeled-cls}.#{$rac-field-value-not-present-cls}';
 $rac-base-text-field-not-changeable-not-prefixed-cls: '#{$rac-base-text-field-label-not-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
 $rac-base-text-field-not-changeable-prefixed-cls: '#{$rac-base-text-field-label-prefixed-cls}.#{$rac-base-text-field-not-changeable-cls}';
+
+/************************/
+/* @stable [08.07.2020] */
+/************************/
+$rac-text-field-cls: rac-text-field;
 
 /************************/
 /* @stable [22.06.2020] */
@@ -258,3 +264,15 @@ $rac-full-chart-cls: rac-full-chart;
 /* @stable [02.06.2020] */
 /************************/
 $rac-alignment-center-cls: rac-alignment-center;
+
+/************************/
+/* @stable [07.07.2020] */
+/************************/
+$rac-menu-cls: rac-menu;
+$rac-menu-empty-message-cls: rac-menu__empty-message;
+$rac-menu-height-restricted-cls: rac-menu-height-restricted;
+$rac-menu-icon-close-cls: rac-menu__icon-close;
+$rac-menu-inline-options-cls: rac-menu__inline-options;
+/**/
+$rac-menu-anchored-height-restricted-cls: '#{$rac-anchored-dialog-cls}.#{$rac-menu-height-restricted-cls}';
+$rac-menu-filter-cls: 'rac-menu__filter.#{$rac-text-field-cls}';

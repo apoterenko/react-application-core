@@ -10,12 +10,13 @@ import { MultiFieldPlugin } from './multifield.plugin';
 import { ClsUtils } from '../../../util';
 import {
   IKeyboardEvent,
+  IMenuProps,
   IMultiFieldProps,
   IMultiFieldState,
   IMultiItemEntity,
+  IPresetsRawDataLabeledValueEntity,
   IPresetsSelectOptionEntity,
   MultiFieldClassesEnum,
-  MultiFieldEntityT,
 } from '../../../definition';
 
 export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
@@ -37,6 +38,15 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
    * @stable [16.06.2020]
    */
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
+
+  /**
+   * @stable [08.07.2020]
+   * @param {TProps} originalProps
+   */
+  constructor(originalProps: TProps) {
+    super(originalProps);
+    this.onMenuInlineOptionClose = this.onMenuInlineOptionClose.bind(this);
+  }
 
   /**
    * @stable [01.06.2018]
@@ -129,6 +139,18 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
+   * @stable [08.07.2020]
+   * @returns {IMenuProps}
+   */
+  protected getMenuProps(): IMenuProps {
+    return {
+      inlineOptions: this.menuInlineOptions,
+      onInlineOptionClose: this.onMenuInlineOptionClose,
+      ...super.getMenuProps(),
+    };
+  }
+
+  /**
    * @stable [16.06.2020]
    * @returns {IPresetsSelectOptionEntity[]}
    */
@@ -142,7 +164,7 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
       ? this.options
       : (
         this.options.filter(
-          (option) => !activeValue.some((item) => item.id === this.fromSelectOptionEntityToId(option))
+          (option) => !activeValue.some((item) => item.id === this.fromSelectValueToId(option))
         )
       );
   }
@@ -166,5 +188,22 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   protected decorateDisplayValue(value: AnyT): string {
     const len = this.multiFieldPlugin.getActiveValueLength(value);
     return this.buildDisplayMessage(len > 0, len);
+  }
+
+  /**
+   * @stable [08.07.2020]
+   * @param {IPresetsRawDataLabeledValueEntity} option
+   */
+  private onMenuInlineOptionClose(option: IPresetsRawDataLabeledValueEntity): void {
+    this.onDelete({id: this.fieldConverter.fromSelectValueToId(option)});
+  }
+
+  /**
+   * @stable [08.07.2020]
+   * @returns {IPresetsRawDataLabeledValueEntity[]}
+   */
+  private get menuInlineOptions(): IPresetsRawDataLabeledValueEntity[] {
+    const activeValue = this.multiFieldPlugin.activeValue;
+    return activeValue.map(this.fieldConverter.fromNamedEntityToRawDataLabeledValueEntity);
   }
 }

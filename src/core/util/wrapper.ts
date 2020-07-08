@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import {
   IAcceptableWrapper,
   IAcceptDisabledWrapper,
-  IActionsRenderedWrapper,
   IAllowEmptyFilterValueWrapper,
   IAllowSingleTabWrapper,
   IAlwaysDirtyWrapper,
@@ -15,7 +14,6 @@ import {
   IClearActionRenderedWrapper,
   IClosableWrapper,
   ICloseDisabledWrapper,
-  ICompactWrapper,
   IConfirmWrapper,
   IDecoratedWrapper,
   IDefaultWrapper,
@@ -30,7 +28,6 @@ import {
   IForceReloadWrapper,
   IForciblyApplyLocalFilterWrapper,
   IFullWrapper,
-  IHeightRestrictedWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIconLeftAlignedWrapper,
@@ -97,13 +94,6 @@ const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
  */
 const areManualChangesNotPrevented = (wrapper: IPreventManualChangesWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.preventManualChanges !== true;
-
-/**
- * @stable [30.01.2020]
- * @param {ICompactWrapper} wrapper
- * @returns {boolean}
- */
-export const isCompact = (wrapper: ICompactWrapper): boolean => R.isNil(wrapper) ? false : wrapper.compact === true;
 
 /**
  * @stable [30.01.2020]
@@ -220,14 +210,6 @@ export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean
         : !R.isNil(entity.error),
     false
   );
-
-/**
- * @stable [30.01.2020]
- * @param {IActionsRenderedWrapper} wrapper
- * @returns {boolean}
- */
-export const isActionsRendered = (wrapper: IActionsRenderedWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.actionsRendered !== false, false);
 
 /**
  * @stable [06.03.2020]
@@ -455,14 +437,6 @@ const isTouched = (wrapper: ITouchedWrapper): boolean => R.isNil(wrapper) ? fals
  */
 export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.useFilter === true;
-
-/**
- * @stable [25.01.2020]
- * @param {IHeightRestrictedWrapper} wrapper
- * @returns {boolean}
- */
-export const isHeightRestricted = (wrapper: IHeightRestrictedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.heightRestricted !== false;
 
 /**
  * @stable [28.01.2020]

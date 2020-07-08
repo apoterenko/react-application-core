@@ -26,8 +26,6 @@ import {
   FormUtils,
   getFormFieldValue,
   ifNotNilThanValue,
-  isActionsRendered,
-  isCompact,
   isFormFieldDisabled,
   isFormFieldReadOnly,
   isFormResettable,
@@ -58,6 +56,7 @@ import {
 export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
   public static readonly defaultProps: IFormProps = {
+    actionsRendered: true,
     validateOnMount: true,
   };
 
@@ -66,11 +65,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
 
   /**
-   * @stable [08.05.2020]
-   * @param {IFormProps} props
+   * @stable [30.06.2020]
+   * @param {IFormProps} originalProps
    */
-  constructor(props: IFormProps) {
-    super(props);
+  constructor(originalProps: IFormProps) {
+    super(originalProps);
 
     this.doSubmit = this.doSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -79,24 +78,29 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [30.06.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-    const {formId} = props;
+    const {
+      actionsRendered,
+      compact,
+      formId,
+      style,
+    } = this.originalProps;
     const nodes = this.formNodes;
 
     const formElement = (
       <form
-        ref={this.selfRef}
-        style={props.style}
+        ref={this.actualRef}
+        style={style}
         autoComplete='off'
         onReset={this.onReset}
         onSubmit={this.onSubmit}
-        className={this.className}>
+        className={this.className}
+      >
         {
-          isCompact(props)
+          compact
             ? nodes
             : (
               <div className={FormClassesEnum.FORM_BODY}>
@@ -105,7 +109,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
             )
         }
         {
-          isActionsRendered(props) && (
+          actionsRendered && (
             <div className={FormClassesEnum.FORM_ACTIONS}>
               {this.formActionsElement}
             </div>
@@ -120,30 +124,27 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
     return (
       <UniversalIdProviderContext.Provider
-        value={formId}>
+        value={formId}
+      >
         {formElement}
       </UniversalIdProviderContext.Provider>
     );
   }
 
   /**
-   * @stable [12.06.2020]
+   * @stable [30.06.2020]
    */
   public componentDidMount(): void {
-    if (this.mergedProps.validateOnMount) {
+    if (this.originalProps.validateOnMount) {
       this.throwOnValid();
     }
   }
 
   /**
-   * @stable [23.04.2020]
+   * @stable [30.06.2020]
    */
   public submit(): void {
-    const {onSubmit} = this.mergedProps;
-
-    if (TypeUtils.isFn(onSubmit)) {
-      onSubmit(this.apiEntity);
-    }
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onSubmit, (onSubmit) => onSubmit(this.apiEntity));
   }
 
   /**
@@ -306,7 +307,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @returns {boolean}
    */
   private isFieldChangeable(field: IField): boolean {
-    return FormUtils.isFieldChangeable(this.props, field.props);
+    return FormUtils.isFieldChangeable(this.originalProps, field.props);
   }
 
   /**
@@ -315,7 +316,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @returns {AnyT}
    */
   private getFieldValue(field: IField): AnyT {
-    return getFormFieldValue(this.props, field.props);
+    return getFormFieldValue(this.originalProps, field.props);
   }
 
   /**
@@ -324,7 +325,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @returns {AnyT}
    */
   private getFieldOriginalValue(field: IField): AnyT {
-    return FormUtils.fieldOriginalValue(this.props, field.props);
+    return FormUtils.fieldOriginalValue(this.originalProps, field.props);
   }
 
   /**
@@ -334,7 +335,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @returns {AnyT}
    */
   private getFieldDisplayValue(field: IField, defaultProps: IFieldProps): AnyT {
-    return FormUtils.fieldDisplayValue(this.props, field.props, defaultProps);
+    return FormUtils.fieldDisplayValue(this.originalProps, field.props, defaultProps);
   }
 
   /**
@@ -498,14 +499,14 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @returns {string}
    */
   private get className(): string {
-    const mergedProps = this.mergedProps;
+    const originalProps = this.originalProps;
     const {
       className,
-    } = mergedProps;
+    } = originalProps;
 
     return ClsUtils.joinClassName(
       FormClassesEnum.FORM,
-      WrapperUtils.isFull(mergedProps) && FormClassesEnum.FULL_FORM,
+      WrapperUtils.isFull(originalProps) && FormClassesEnum.FULL_FORM,
       CalcUtils.calc(className)
     );
   }

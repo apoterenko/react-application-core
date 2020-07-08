@@ -1,19 +1,25 @@
 import {
+  IClosableWrapper,
+  IDisabledWrapper,
   IOnClickWrapper,
+  IOnCloseWrapper,
   IOptionWrapper,
   ISelectedWrapper,
 } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IPresetsSelectOptionEntity } from './select-definition.interface';
+import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface';
 
 /**
  * @presets-entity
  * @stable [16.06.2020]
  */
 export interface IPresetsInlineOptionEntity
-  extends ISelectedWrapper,
-    IOptionWrapper<IPresetsSelectOptionEntity>,
-    IOnClickWrapper {
+  extends IClosableWrapper,
+    IDisabledWrapper,
+    IOnClickWrapper<IPresetsRawDataLabeledValueEntity>,
+    IOnCloseWrapper<IPresetsRawDataLabeledValueEntity>,
+    IOptionWrapper<IPresetsRawDataLabeledValueEntity>,
+    ISelectedWrapper {
 }
 
 /**
@@ -39,5 +45,8 @@ export interface IInlineOptionProps
  */
 export enum InlineOptionClassesEnum {
   INLINE_OPTION = 'rac-inline-option',
+  INLINE_OPTION_CLOSE = 'rac-inline-option__close',
+  INLINE_OPTION_CONTENT = 'rac-inline-option__content',
+  INLINE_OPTION_DISABLED = 'rac-inline-option-disabled',
   INLINE_OPTION_SELECTED = 'rac-inline-option-selected',
 }

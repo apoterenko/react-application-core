@@ -8,20 +8,17 @@ import {
   IFormTabPanelContainerProps,
   IGenericTabPanelEntity,
   IHeaderProps,
-  INamedEntity,
   IOperationEntity,
-  IPresetsRawDataLabeledValueEntity,
   IPresetsSelectableHoveredEntity,
   IReduxFormEntity,
+  IReduxHolderTransportEntity,
   IReduxSortDirectionsEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
   ITabPanelEntity,
-  IReduxHolderTransportEntity,
   IUniversalApplicationEntity,
 } from '../definition';
 import {
-  AnyT,
   EntityIdT,
   IActiveValueWrapper,
   IEntity,
@@ -189,18 +186,6 @@ export const mapApiEntity =
   };
 
 /**
- * @stable [22.04.2020]
- * @param {INamedEntity} entity
- * @returns {IPresetsRawDataLabeledValueEntity}
- */
-export const mapExtendedLabeledValueEntity = (entity: INamedEntity) =>
-  defValuesFilter<IPresetsRawDataLabeledValueEntity, IPresetsRawDataLabeledValueEntity>({
-    value: entity.id,
-    label: entity.name || String(entity.id),
-    rawData: entity,
-  });
-
-/**
  * @stable [25.11.2019]
  * @param {string[]} queue
  * @param {string | IOperationEntity} operations
@@ -286,11 +271,12 @@ export class Mappers {
   public static readonly headerProps = mapHeaderProps;
   public static readonly holderFormEntity = GenericMappers.holderFormEntity;                                                                                                                /* @stable [12.06.2020] */
   public static readonly holderListEntity = GenericMappers.holderListEntity;                                                                                                                /* @stable [12.06.2020] */
+  public static readonly holderListEntityAsDisabled = GenericMappers.holderListEntityAsDisabled;                                                                                            /* @stable [08.07.2020] */
   public static readonly holderTransportEntity = GenericMappers.holderTransportEntity;                                                                                                      /* @stable [12.06.2020] */
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                                                          /* @stable [10.05.2020] */
-  public static readonly listEntityAsDisabled = GenericMappers.listEntityAsDisabled;                                                                                                        /* @stable [08.05.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                                                  /* @stable [08.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                                                    /* @stable [08.05.2020] */
+  public static readonly namedEntityAsRawDataLabeledValueEntity = GenericMappers.namedEntityAsRawDataLabeledValueEntity;                                                                    /* @stable [08.07.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                                                        /* @stable [19.05.2020] */
   public static readonly pagedEntity = GenericMappers.pagedEntity;
   public static readonly pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;

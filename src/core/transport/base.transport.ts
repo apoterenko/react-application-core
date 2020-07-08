@@ -110,8 +110,8 @@ export class BaseTransport {
    * @param {SelectValueT} value
    * @returns {EntityIdT}
    */
-  protected fromSelectOptionEntityToId = (value: SelectValueT): EntityIdT =>
-    this.fieldConverter.fromSelectOptionEntityToId(value)
+  protected fromSelectValueToId = (value: SelectValueT): EntityIdT =>
+    this.fieldConverter.fromSelectValueToId(value)
 
   /**
    * @stable [29.08.2019]

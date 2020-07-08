@@ -13,14 +13,14 @@ import { ListItem } from './item';
 export class List extends BaseList<IListProps, {}, BasicList> {
 
   /**
-   * @stable [04.05.2020]
+   * @stable [08.07.2020]
    * @returns {JSX.Element}
    */
   protected getView(): JSX.Element {
     return (
       <BasicList
-        forwardedRef={this.selfRef}
-        {...this.props}
+        forwardedRef={this.actualRef}
+        {...this.mergedProps}
       >
         {this.dataSource.map(this.getItem, this)}
       </BasicList>

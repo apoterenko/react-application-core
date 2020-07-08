@@ -30,6 +30,7 @@ import {
 import { IFieldState } from './field-definition.interface';
 import { IFluxPayloadQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface';
 
 /**
  * @presets-entity
@@ -81,7 +82,7 @@ export interface IPresetsSelectOptionEntity<TRawData = {}, TValue = EntityIdT>
 /**
  * @stable [12.04.2020]
  */
-export type SelectValueT = IPresetsSelectOptionEntity | StringNumberT;
+export type SelectValueT = IPresetsRawDataLabeledValueEntity | StringNumberT;
 
 /**
  * @generic-state

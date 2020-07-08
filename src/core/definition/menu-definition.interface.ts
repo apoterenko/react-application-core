@@ -6,12 +6,14 @@ import {
   IHeightRestrictedWrapper,
   IHideWrapper,
   IHighlightOddWrapper,
+  IInlineOptionsWrapper,
   IIsOpenWrapper,
   IMaxCountWrapper,
   IMenuConfigurationWrapper,
   IMultiWrapper,
   IOnCloseWrapper,
   IOnFilterChangeWrapper,
+  IOnInlineOptionCloseWrapper,
   IOnSelectWrapper,
   IOpenedWrapper,
   IOptionsWrapper,
@@ -47,7 +49,9 @@ export interface IPresetsMenuItemEntity<TRawData = {}, TValue = EntityIdT>
 export interface IPresetsMenuEntity
   extends IPresetsTemplateEntity,
     IDelayTimeoutWrapper,
-    IFilterPlaceholderWrapper {
+    IFilterPlaceholderWrapper,
+    IOnInlineOptionCloseWrapper<IPresetsRawDataLabeledValueEntity>,
+    IInlineOptionsWrapper<IPresetsRawDataLabeledValueEntity[]> {
 }
 
 export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity = IPresetsMenuItemEntity>
@@ -120,3 +124,16 @@ export const DEFAULT_REMOTE_FILTERED_MENU_ENTITY = Object.freeze<IMenuProps>({
   ...DEFAULT_FILTERED_MENU_ENTITY,
   remoteFilter: true,
 });
+
+/**
+ * @classes
+ * @stable [07.07.2020]
+ */
+export enum MenuClassesEnum {
+  MENU = 'rac-menu',
+  MENU_EMPTY_MESSAGE = 'rac-menu__empty-message',
+  MENU_FILTER = 'rac-menu__filter',
+  MENU_HEIGHT_RESTRICTED = 'rac-menu-height-restricted',
+  MENU_ICON_CLOSE = 'rac-menu__icon-close',
+  MENU_INLINE_OPTIONS = 'rac-menu__inline-options',
+}

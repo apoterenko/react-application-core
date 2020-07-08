@@ -6,7 +6,7 @@ import {
 } from '../definitions.interface';
 import { TypeUtils } from './type';
 import {
-  IPresetsSelectOptionEntity,
+  IPresetsRawDataLabeledValueEntity,
   SelectValueT,
 } from '../definition';
 import { DiServices } from '../di/di.services';
@@ -16,14 +16,14 @@ import { DiServices } from '../di/di.services';
  * @param {SelectValueT} option
  * @returns {EntityIdT}
  */
-const fromSelectOptionEntityToId = (option: SelectValueT): EntityIdT => {
+const fromSelectValueToId = (option: SelectValueT): EntityIdT => {
   if (R.isNil(option)) {
     return option;
   }
   if (TypeUtils.isPrimitive(option)) {
     return option as StringNumberT;
   }
-  const optionAsObject = option as IPresetsSelectOptionEntity;
+  const optionAsObject = option as IPresetsRawDataLabeledValueEntity;
   return optionAsObject.value;
 };
 
@@ -32,18 +32,19 @@ const fromSelectOptionEntityToId = (option: SelectValueT): EntityIdT => {
  * @param {SelectValueT} option
  * @returns {StringNumberT}
  */
-const fromSelectOptionEntityToDisplayValue = (option: SelectValueT): StringNumberT => {
+const fromSelectValueToDisplayValue = (option: SelectValueT): StringNumberT => {
   if (R.isNil(option)) {
     return option;
   }
   if (TypeUtils.isPrimitive(option)) {
     return option as StringNumberT;
   }
-  const optionAsObject = option as IPresetsSelectOptionEntity;
-  const {label} = optionAsObject;
+  const {
+    label,
+  } = option as IPresetsRawDataLabeledValueEntity;
 
   return R.isNil(label)
-    ? fromSelectOptionEntityToId(option)
+    ? fromSelectValueToId(option)
     : DiServices.translator()(label, option);
 };
 
@@ -51,6 +52,6 @@ const fromSelectOptionEntityToDisplayValue = (option: SelectValueT): StringNumbe
  * @stable [18.05.2020]
  */
 export class SelectOptionUtils {
-  public static readonly fromSelectOptionEntityToDisplayValue = fromSelectOptionEntityToDisplayValue;     /* @stable [18.05.2020] */
-  public static readonly fromSelectOptionEntityToId = fromSelectOptionEntityToId;                         /* @stable [18.05.2020] */
+  public static readonly fromSelectValueToDisplayValue = fromSelectValueToDisplayValue;                   /* @stable [08.07.2020] */
+  public static readonly fromSelectValueToId = fromSelectValueToId;                                       /* @stable [08.07.2020] */
 }

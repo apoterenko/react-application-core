@@ -1,12 +1,10 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { Chip } from '../../chip';
+import { InlineOption } from '../../inline-option';
 import {
   ClsUtils,
-  NvlUtils,
   SortUtils,
-  UuidUtils,
 } from '../../../util';
 import {
   ChipsFieldClassesEnum,
@@ -23,16 +21,15 @@ import { MultiField } from '../multifield/multifield.component';
 export class ChipsField extends MultiField<IChipsFieldProps> {
 
   /**
-   * @stable [16.06.2020]
+   * @stable [08.07.2020]
    * @returns {JSX.Element}
    */
   protected get attachmentElement(): JSX.Element {
-    const mergedProps = this.mergedProps;
     return (
       <div
         className={FieldClassesEnum.FIELD_ATTACHMENT}
       >
-        {this.chips.map((item) => this.getChipElement(item, mergedProps))}
+        {this.inlineOptions.map((item) => this.getInlineOptionElement(item))}
       </div>
     );
   }
@@ -49,33 +46,28 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
   }
 
   /**
-   * @stable [16.06.2020]
+   * @stable [08.07.2020]
    * @param {INamedEntity} item
-   * @param {IChipsFieldProps} mergedProps
    * @returns {JSX.Element}
    */
-  private getChipElement(item: INamedEntity, mergedProps: IChipsFieldProps): JSX.Element {
+  private getInlineOptionElement(item: INamedEntity): JSX.Element {
     const {
-      chipClassName,
-    } = mergedProps;
-
-    const id = NvlUtils.coalesce(item.id, UuidUtils.uuid());
+      inlineOptionClassName,
+    } = this.originalProps;
 
     return (
-      <Chip
-        id={id}
-        key={`key-${id}`}
+      <InlineOption
+        key={`key-${item.id}`}
         disabled={this.isInactive}
         className={
           ClsUtils.joinClassName(
-            chipClassName,
-            ChipsFieldClassesEnum.CHIPS_FIELD_CHIP
+            inlineOptionClassName,
+            ChipsFieldClassesEnum.CHIPS_FIELD_INLINE_OPTION
           )
         }
-        onClick={() => this.onDelete(item)}
-      >
-        {item.name}
-      </Chip>
+        option={this.fieldConverter.fromNamedEntityToRawDataLabeledValueEntity(item)}
+        onClose={() => this.onDelete(item)}
+      />
     );
   }
 
@@ -83,7 +75,7 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
    * @stable [16.06.2020]
    * @returns {INamedEntity[]}
    */
-  private get chips(): INamedEntity[] {
+  private get inlineOptions(): INamedEntity[] {
     return R.sort(
       (o1, o2) => SortUtils.NAME_ASC_SORTER(o1.name, o2.name),
       this.multiFieldPlugin.activeValue

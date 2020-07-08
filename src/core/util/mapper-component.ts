@@ -144,7 +144,7 @@ const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToo
   ({
     ...GenericMappers.sectionNameWrapper(props),
     toolbarTools: {
-      ...GenericMappers.listEntityAsDisabled(props),
+      ...GenericMappers.holderListEntityAsDisabled(props),
       activeTools: Selectors.activeToolbarToolsFromDirtyWrapper(Selectors.form(props)) || [],
     },
   });
@@ -183,7 +183,7 @@ const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): IS
 const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolbarContainerProps): ISearchToolbarProps =>
   ({
     ...mapSearchToolbarProps(Selectors.queryFilter(props)),
-    ...GenericMappers.listEntityAsDisabled(props),
+    ...GenericMappers.holderListEntityAsDisabled(props),
     ...props.toolbarConfiguration,
   });
 

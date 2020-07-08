@@ -2,6 +2,43 @@
 @import '../_classes';
 
 /************************/
-/* @stable [18.04.2020] */
+/* @stable [07.07.2020] */
 /************************/
-$rac-menu-dialog-list-item-min-height: 32px !default;
+$rac-primary-menu-size-0: $rac-primary-offset-8 !default;
+
+/************************/
+/* @stable [07.07.2020] */
+/************************/
+$rac-menu-filter-background: $rac-primary-color-elara-0 !default;
+$rac-menu-filter-height: $rac-primary-size-9 !default;
+$rac-menu-filter-margin: 0 0 $rac-primary-offset-1 0 !default;
+$rac-menu-icon-close-color: $rac-primary-color-elara-0 !default;
+$rac-menu-icon-close-margin: unset !default;
+$rac-menu-icon-close-position: fixed !default;
+$rac-menu-icon-close-right: $rac-primary-menu-size-0 !default;
+$rac-menu-icon-close-size: $rac-primary-menu-size-0 !default;
+$rac-menu-icon-close-top: $rac-primary-menu-size-0 !default;
+$rac-menu-inline-options-display: $rac-primary-display-0 !default;
+$rac-menu-inline-options-flex-wrap: wrap !default;
+$rac-menu-list-background: $rac-primary-color-elara-0 !default;
+$rac-menu-list-item-min-height: $rac-primary-size-7 !default;
+$rac-menu-list-overflow: auto !default;
+
+/************************/
+/* @stable [08.07.2020] */
+/************************/
+$rac-menu-anchored-list-background: 0 !default;
+$rac-menu-anchored-list-item-odd-background: unset !default;
+
+/************************/
+/* @stable [08.07.2020] */
+/************************/
+$rac-menu-anchored-height-restricted-list-max-height: 200px !default;
+
+/************************/
+/* @stable [08.07.2020] */
+/************************/
+$rac-menu-not-anchored-inline-option-background: $rac-primary-color-ganymede-0 !default;
+$rac-menu-not-anchored-inline-option-content-color: $rac-primary-color-poseidon-0 !default;
+$rac-menu-not-anchored-inline-option-margin: 0 10px $rac-primary-offset-1 0 !default;
+$rac-menu-not-anchored-list-item-odd-background: unset !default;

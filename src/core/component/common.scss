@@ -11,6 +11,10 @@ html, body {
   overflow: $html-overflow;                                                         /* @stable [21.09.2018] */
 }
 
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
 // Rac [FRAMEWORK-]
 .rac {
 

@@ -8,13 +8,14 @@
    * @stable [16.06.2020]
    */
   @include rac-inline-option (
-    $rac-inline-option-align-items: $rac-inline-option-align-items,
     $rac-inline-option-background: $rac-inline-option-background,
     $rac-inline-option-border-radius: $rac-inline-option-border-radius,
-    $rac-inline-option-color: $rac-inline-option-color,
-    $rac-inline-option-cursor: $rac-inline-option-cursor,
+    $rac-inline-option-content-align-items: $rac-inline-option-content-align-items,
+    $rac-inline-option-content-color: $rac-inline-option-content-color,
+    $rac-inline-option-content-cursor: $rac-inline-option-content-cursor,
+    $rac-inline-option-content-display: $rac-inline-option-content-display,
+    $rac-inline-option-content-font-weight: $rac-inline-option-content-font-weight,
     $rac-inline-option-display: $rac-inline-option-display,
-    $rac-inline-option-font-weight: $rac-inline-option-font-weight,
     $rac-inline-option-min-height: $rac-inline-option-min-height,
     $rac-inline-option-padding: $rac-inline-option-padding
   );
@@ -26,6 +27,6 @@
   @include rac-inline-option (
     $rac-inline-option-custom: $rac-inline-option-selected-cls,
     $rac-inline-option-background: $rac-inline-option-selected-background,
-    $rac-inline-option-color: $rac-inline-option-selected-color
+    $rac-inline-option-content-color: $rac-inline-option-selected-content-color
   );
 }
