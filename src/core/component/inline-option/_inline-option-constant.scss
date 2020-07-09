@@ -1,21 +1,33 @@
 @import '../_primary-constant';
 @import '../_classes';
 
-$rac-primary-inline-option-border-radius: $rac-primary-border-radius-1 !default;              /* @stable [08.07.2020] */
+/************************/
+/* @stable [09.07.2020] */
+/************************/
+$rac-primary-inline-option-border-radius: $rac-primary-border-radius-1 !default;                         /* @stable [08.07.2020] */
 
 /************************/
 /* @stable [16.06.2020] */
 /************************/
-$rac-inline-option-background: $rac-primary-color-poseidon-05 !default;                       /* @stable [08.07.2020] */
-$rac-inline-option-border-radius: $rac-primary-inline-option-border-radius !default;          /* @stable [08.07.2020] */
-$rac-inline-option-content-align-items: center !default;                                      /* @stable [08.07.2020] */
-$rac-inline-option-content-color: $rac-primary-color-elara-0 !default;
-$rac-inline-option-content-cursor: unset !default;                                            /* @stable [08.07.2020] */
-$rac-inline-option-content-display: $rac-primary-display-2 !default;                          /* @stable [08.07.2020] */
-$rac-inline-option-content-font-weight: unset !default;                                       /* @stable [08.07.2020] */
-$rac-inline-option-display: $rac-primary-display-2 !default;                                  /* @stable [08.07.2020] */
-$rac-inline-option-min-height: $rac-primary-size-7 !default;
-$rac-inline-option-padding: 0 $rac-primary-offset-3 !default;
+$rac-inline-option-background: $rac-primary-color-poseidon-05 !default;                                  /* @stable [08.07.2020] */
+$rac-inline-option-border-radius: $rac-primary-inline-option-border-radius !default;                     /* @stable [08.07.2020] */
+$rac-inline-option-close-background: $rac-primary-color-poseidon-05 !default;                            /* @stable [09.07.2020] */
+$rac-inline-option-close-border-bottom-right-radius: $rac-primary-inline-option-border-radius !default;  /* @stable [08.07.2020] */
+$rac-inline-option-close-border-top-right-radius: $rac-primary-inline-option-border-radius !default;     /* @stable [08.07.2020] */
+$rac-inline-option-close-color: $rac-primary-color-poseidon-3 !default;                                  /* @stable [09.07.2020] */
+$rac-inline-option-close-content-size: $rac-primary-size-2 !default;                                     /* @stable [08.07.2020] */
+$rac-inline-option-close-height: auto !default;                                                          /* @stable [08.07.2020] */
+$rac-inline-option-close-width: $rac-primary-size-5 !default;                                            /* @stable [09.07.2020] */
+$rac-inline-option-content-align-items: center !default;                                                 /* @stable [08.07.2020] */
+$rac-inline-option-content-color: $rac-primary-color-poseidon-0 !default;                                /* @stable [09.07.2020] */
+$rac-inline-option-content-cursor: default !default;                                                     /* @stable [08.07.2020] */
+$rac-inline-option-content-display: $rac-primary-display-2 !default;                                     /* @stable [08.07.2020] */
+$rac-inline-option-content-font-size: $rac-primary-font-size-0 !default;                                 /* @stable [09.07.2020] */
+$rac-inline-option-content-font-weight: unset !default;                                                  /* @stable [08.07.2020] */
+$rac-inline-option-content-padding: 0 $rac-primary-offset-1 !default;                                    /* @stable [09.07.2020] */
+$rac-inline-option-display: $rac-primary-display-2 !default;                                             /* @stable [08.07.2020] */
+$rac-inline-option-min-height: $rac-primary-size-5 !default;                                             /* @stable [08.07.2020] */
+$rac-inline-option-padding: unset !default;                                                              /* @stable [09.07.2020] */
 
 /************************/
 /* @stable [16.06.2020] */

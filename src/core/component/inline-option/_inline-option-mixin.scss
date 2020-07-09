@@ -9,35 +9,31 @@
   /**/
   $rac-inline-option-background: unset,                                                       /* @stable [08.07.2020] */
   $rac-inline-option-border-radius: unset,                                                    /* @stable [08.07.2020] */
-  $rac-inline-option-close-background: unset,                                                 /* @stable [          ] */
-  $rac-inline-option-close-border-bottom-right-radius: unset,                                 /* @stable [          ] */
-  $rac-inline-option-close-border-top-right-radius: unset,                                    /* @stable [          ] */
-  $rac-inline-option-close-color: unset,                                                      /* @stable [          ] */
-  $rac-inline-option-close-content-size: unset,                                               /* @stable [          ] */
-  $rac-inline-option-close-height: unset,                                                     /* @stable [          ] */
-  $rac-inline-option-close-width: unset,                                                      /* @stable [          ] */
+  $rac-inline-option-close-background: unset,                                                 /* @stable [09.07.2020] */
+  $rac-inline-option-close-border-bottom-right-radius: unset,                                 /* @stable [09.07.2020] */
+  $rac-inline-option-close-border-top-right-radius: unset,                                    /* @stable [09.07.2020] */
+  $rac-inline-option-close-color: unset,                                                      /* @stable [08.07.2020] */
+  $rac-inline-option-close-content-size: unset,                                               /* @stable [09.07.2020] */
+  $rac-inline-option-close-height: unset,                                                     /* @stable [09.07.2020] */
+  $rac-inline-option-close-width: unset,                                                      /* @stable [08.07.2020] */
   $rac-inline-option-content-align-items: unset,                                              /* @stable [08.07.2020] */
   $rac-inline-option-content-color: unset,                                                    /* @stable [08.07.2020] */
   $rac-inline-option-content-cursor: unset,                                                   /* @stable [08.07.2020] */
   $rac-inline-option-content-display: unset,                                                  /* @stable [08.07.2020] */
-  $rac-inline-option-content-font-size: unset,                                                /* @stable [          ] */
+  $rac-inline-option-content-font-size: unset,                                                /* @stable [09.07.2020] */
   $rac-inline-option-content-font-weight: unset,                                              /* @stable [08.07.2020] */
-  $rac-inline-option-content-padding: unset,                                                  /* @stable [          ] */
-  $rac-inline-option-cursor: unset,                                                           /* @stable [          ] */
+  $rac-inline-option-content-padding: unset,                                                  /* @stable [09.07.2020] */
   $rac-inline-option-display: unset,                                                          /* @stable [08.07.2020] */
-  $rac-inline-option-justify-content: unset,                                                  /* @stable [          ] */
   $rac-inline-option-margin: unset,                                                           /* @stable [08.07.2020] */
-  $rac-inline-option-min-height: unset,                                                       /* @stable [          ] */
-  $rac-inline-option-padding: unset,                                                          /* @stable [          ] */
-  $rac-inline-option-white-space: unset                                                       /* @stable [          ] */
+  $rac-inline-option-min-height: unset,                                                       /* @stable [09.07.2020] */
+  $rac-inline-option-padding: unset,                                                          /* @stable [08.07.2020] */
+  $rac-inline-option-white-space: unset                                                       /* @stable [09.07.2020] */
 ) {
   #{rac-cls($rac-inline-option-cls, $rac-inline-option-custom)} {
     @include rac-styles (
       $rac-styles-background: $rac-inline-option-background,
       $rac-styles-border-radius: $rac-inline-option-border-radius,
-      $rac-styles-cursor: $rac-inline-option-cursor,
       $rac-styles-display: $rac-inline-option-display,
-      $rac-styles-justify-content: $rac-inline-option-justify-content,
       $rac-styles-margin: $rac-inline-option-margin,
       $rac-styles-min-height: $rac-inline-option-min-height,
       $rac-styles-padding: $rac-inline-option-padding,
