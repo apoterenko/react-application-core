@@ -37,8 +37,14 @@ $rac-menu-anchored-height-restricted-list-max-height: 200px !default;
 /* @stable [08.07.2020] */
 /************************/
 $rac-menu-not-anchored-inline-option-background: $rac-primary-color-ganymede-0 !default;
-$rac-menu-not-anchored-inline-option-content-color: $rac-primary-color-poseidon-0 !default;
+$rac-menu-not-anchored-inline-option-close-background: $rac-primary-color-poseidon-0 !default;
+$rac-menu-not-anchored-inline-option-close-color: $rac-primary-color-elara-0 !default;
+$rac-menu-not-anchored-inline-option-close-content-size: $rac-primary-size-3 !default;
+$rac-menu-not-anchored-inline-option-close-width: $rac-primary-size-7 !default;
+$rac-menu-not-anchored-inline-option-content-color: unset !default;
+$rac-menu-not-anchored-inline-option-content-font-size: $rac-primary-font-size-1 !default;
 $rac-menu-not-anchored-inline-option-margin: 0 10px $rac-primary-offset-1 0 !default;
+$rac-menu-not-anchored-inline-option-min-height: $rac-primary-size-7 !default;
 $rac-menu-not-anchored-inline-options-display: $rac-primary-display-0 !default;
 $rac-menu-not-anchored-inline-options-flex-wrap: wrap !default;
 $rac-menu-not-anchored-inline-options-margin: 0 0 $rac-primary-offset-1 0 !default;

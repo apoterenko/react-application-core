@@ -1,59 +1,53 @@
 @import '../_primary-constant';
 @import '../_classes';
 
-/************************/
-/* @stable [14.05.2020] */
-/************************/
-$rac-primary-navigation-list-size-0: 32px !default;                                                        /* @stable */
+// @stable [14.05.2020]
+$rac-primary-navigation-list-size-0: 32px !default;                                                        // @stable
 
 /************************/
 /* @stable [05.04.2020] */
 /************************/
-$rac-navigation-list-active-section-background: $rac-primary-color-ganymede-0 !default;                    /* @stable */
-$rac-navigation-list-active-section-color: $rac-primary-color-poseidon-0 !default;                         /* @stable */
-$rac-navigation-list-active-section-icon-color:  $rac-primary-color-poseidon-3 !default;                   /* @stable */
-$rac-navigation-list-expand-icon-height: $rac-primary-icon-size-1 !default;                                /* @stable */
-$rac-navigation-list-expand-icon-margin: 0 0 0 auto !default;                                              /* @stable */
-$rac-navigation-list-expand-icon-size: unset !default;                                                     /* @stable */
-$rac-navigation-list-expand-icon-width: unset !default;                                                    /* @stable */
-$rac-navigation-list-expanded-section-background: $rac-primary-color-metis-2 !default;                     /* @stable */
-$rac-navigation-list-group-section-color: unset !default;                                                  /* @stable */
-$rac-navigation-list-group-section-cursor: pointer !default;                                               /* @stable */
-$rac-navigation-list-group-section-font-size: unset !default;                                              /* @stable */
-$rac-navigation-list-group-section-font-weight: $rac-primary-font-weight-4 !default;                       /* @stable */
-$rac-navigation-list-group-section-height: $rac-primary-size-9 !default;                                   /* @stable */
-$rac-navigation-list-group-section-text-transform: unset !default;                                         /* @stable */
-$rac-navigation-list-icon-width: $rac-primary-icon-size-10 !default;                                       /* @stable */
-$rac-navigation-list-item-section-font-weight: unset !default;                                             /* @stable */
-$rac-navigation-list-item-section-height: $rac-primary-size-7 !default;                                    /* @stable */
-$rac-navigation-list-item-section-icon-visibility: unset  !default;                                        /* @stable */
-$rac-navigation-list-last-section-margin: unset !default;                                                  /* @stable */
-$rac-navigation-list-no-user-select: true !default;                                                        /* @stable */
-$rac-navigation-list-overflow: auto !default;                                                              /* @stable */
-$rac-navigation-list-position: relative !default;                                                          /* @stable */
-$rac-navigation-list-section-align-items: center !default;                                                 /* @stable */
-$rac-navigation-list-section-color: $rac-primary-color-elara-0 !default;                                   /* @stable */
-$rac-navigation-list-section-display: $rac-primary-display-0 !default;                                     /* @stable */
-$rac-navigation-list-section-flex-direction: unset !default;                                               /* @stable */
-$rac-navigation-list-section-font-size: $rac-primary-font-size-0 !default;                                 /* @stable */
-$rac-navigation-list-section-hover-outline: unset !default;                                                /* @stable */
-$rac-navigation-list-section-icon-color: $rac-primary-color-elara-3 !default;                              /* @stable */
-$rac-navigation-list-section-word-break: break-word !default;                                              /* @stable */
+$rac-navigation-list-active-section-background: $rac-primary-color-ganymede-0 !default;                    // @stable
+$rac-navigation-list-active-section-color: $rac-primary-color-poseidon-0 !default;                         // @stable
+$rac-navigation-list-active-section-icon-color:  $rac-primary-color-poseidon-3 !default;                   // @stable
+$rac-navigation-list-expand-icon-height: $rac-primary-icon-size-1 !default;                                // @stable
+$rac-navigation-list-expand-icon-margin: 0 0 0 auto !default;                                              // @stable
+$rac-navigation-list-expand-icon-size: unset !default;                                                     // @stable
+$rac-navigation-list-expand-icon-width: unset !default;                                                    // @stable
+$rac-navigation-list-expanded-section-background: $rac-primary-color-metis-2 !default;                     // @stable
+$rac-navigation-list-group-section-color: unset !default;                                                  // @stable
+$rac-navigation-list-group-section-cursor: pointer !default;                                               // @stable
+$rac-navigation-list-group-section-font-size: unset !default;                                              // @stable
+$rac-navigation-list-group-section-font-weight: $rac-primary-font-weight-4 !default;                       // @stable
+$rac-navigation-list-group-section-height: $rac-primary-size-9 !default;                                   // @stable
+$rac-navigation-list-group-section-text-transform: unset !default;                                         // @stable
+$rac-navigation-list-icon-width: $rac-primary-icon-size-10 !default;                                       // @stable
+$rac-navigation-list-item-section-font-weight: unset !default;                                             // @stable
+$rac-navigation-list-item-section-height: $rac-primary-size-7 !default;                                    // @stable
+$rac-navigation-list-item-section-icon-visibility: unset  !default;                                        // @stable
+$rac-navigation-list-last-section-margin: unset !default;                                                  // @stable
+$rac-navigation-list-no-user-select: true !default;                                                        // @stable
+$rac-navigation-list-overflow: auto !default;                                                              // @stable
+$rac-navigation-list-position: relative !default;                                                          // @stable
+$rac-navigation-list-section-align-items: center !default;                                                 // @stable
+$rac-navigation-list-section-color: $rac-primary-color-elara-0 !default;                                   // @stable
+$rac-navigation-list-section-display: $rac-primary-display-0 !default;                                     // @stable
+$rac-navigation-list-section-flex-direction: unset !default;                                               // @stable
+$rac-navigation-list-section-font-size: $rac-primary-font-size-0 !default;                                 // @stable
+$rac-navigation-list-section-hover-outline: unset !default;                                                // @stable
+$rac-navigation-list-section-icon-color: $rac-primary-color-elara-3 !default;                              // @stable
+$rac-navigation-list-section-word-break: break-word !default;                                              // @stable
 
-/************************/
-/* @stable [14.05.2020] */
-/************************/
-$rac-mini-navigation-list-icon-width: 100% !default;                                                       /* @stable */
-$rac-mini-navigation-list-section-border-radius: $rac-primary-border-radius-1 !default;                    /* @stable */
-$rac-mini-navigation-list-section-height: $rac-primary-navigation-list-size-0 !default;                    /* @stable */
-$rac-mini-navigation-list-section-margin: 2px auto !default;                                               /* @stable */
-$rac-mini-navigation-list-section-width: $rac-primary-navigation-list-size-0 !default;                     /* @stable */
+// @stable [14.05.2020]
+$rac-mini-navigation-list-icon-width: 100% !default;                                                       // @stable
+$rac-mini-navigation-list-section-border-radius: $rac-primary-border-radius-1 !default;                    // @stable
+$rac-mini-navigation-list-section-height: $rac-primary-navigation-list-size-0 !default;                    // @stable
+$rac-mini-navigation-list-section-margin: 2px auto !default;                                               // @stable
+$rac-mini-navigation-list-section-width: $rac-primary-navigation-list-size-0 !default;                     // @stable
 
-/************************/
-/* @stable [14.05.2020] */
-/************************/
-$rac-full-navigation-list-flex-basis: $rac-primary-flex-basis-1 !default;                                  /* @stable */
-$rac-full-navigation-list-flex-grow: $rac-primary-flex-grow-1 !default;                                    /* @stable */
+// @stable [14.05.2020]
+$rac-full-navigation-list-flex-basis: $rac-primary-flex-basis-1 !default;                                  // @stable
+$rac-full-navigation-list-flex-grow: $rac-primary-flex-grow-1 !default;                                    // @stable
 
 /************************/
 /* @stable [27.05.2020] */

@@ -67,8 +67,14 @@
   $rac-menu-icon-close-size: unset,                                                /* @stable [07.07.2020] */
   $rac-menu-icon-close-top: unset,                                                 /* @stable [07.07.2020] */
   $rac-menu-inline-option-background: unset,                                       /* @stable [08.07.2020] */
+  $rac-menu-inline-option-close-background: unset,                                 /* @stable [09.07.2020] */
+  $rac-menu-inline-option-close-color: unset,                                      /* @stable [09.07.2020] */
+  $rac-menu-inline-option-close-content-size: unset,                               /* @stable [09.07.2020] */
+  $rac-menu-inline-option-close-width: unset,                                      /* @stable [09.07.2020] */
   $rac-menu-inline-option-content-color: unset,                                    /* @stable [08.07.2020] */
+  $rac-menu-inline-option-content-font-size: unset,                                /* @stable [09.07.2020] */
   $rac-menu-inline-option-margin: unset,                                           /* @stable [08.07.2020] */
+  $rac-menu-inline-option-min-height: unset,                                       /* @stable [09.07.2020] */
   $rac-menu-inline-options-display: unset,                                         /* @stable [08.07.2020] */
   $rac-menu-inline-options-flex-wrap: unset,                                       /* @stable [08.07.2020] */
   $rac-menu-inline-options-margin: unset,                                          /* @stable [08.07.2020] */
@@ -166,8 +172,14 @@
 
       @include rac-inline-option (
         $rac-inline-option-background: $rac-menu-inline-option-background,
+        $rac-inline-option-close-background: $rac-menu-inline-option-close-background,
+        $rac-inline-option-close-color: $rac-menu-inline-option-close-color,
+        $rac-inline-option-close-content-size: $rac-menu-inline-option-close-content-size,
+        $rac-inline-option-close-width: $rac-menu-inline-option-close-width,
         $rac-inline-option-content-color: $rac-menu-inline-option-content-color,
-        $rac-inline-option-margin: $rac-menu-inline-option-margin
+        $rac-inline-option-content-font-size: $rac-menu-inline-option-content-font-size,
+        $rac-inline-option-margin: $rac-menu-inline-option-margin,
+        $rac-inline-option-min-height: $rac-menu-inline-option-min-height
       );
     }
   }
