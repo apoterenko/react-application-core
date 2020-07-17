@@ -35,6 +35,7 @@ import {
 import { TextField } from '../field/text-field';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import { InlineOption } from '../inline-option/inline-option.component';
+import { BasicComponent } from '../base/basic.component';
 
 export class Menu extends GenericComponent<IMenuProps, IMenuState>
   implements IMenu {
@@ -270,7 +271,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
       <BasicList
         forwardedRef={this.listElementRef}
         full={!this.isAnchored}
-        plugins={[PerfectScrollPlugin]}
+        plugins={PerfectScrollPlugin}
       >
         {items.map((option: IPresetsMenuItemEntity, index: number) => this.asItemElement(option, index, items.length))}
         {!items.length && (
@@ -325,7 +326,8 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
     return ConditionUtils.ifNotNilThanValue(
       inlineOptions,
       () => (
-        <div
+        <BasicComponent
+          plugins={PerfectScrollPlugin}
           className={MenuClassesEnum.MENU_INLINE_OPTIONS}
         >
           {inlineOptions.map((option) => (
@@ -335,7 +337,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
               onClose={onInlineOptionClose}
             />
           ))}
-        </div>
+        </BasicComponent>
       )
     );
   }

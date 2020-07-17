@@ -78,6 +78,8 @@
   $rac-menu-inline-options-display: unset,                                         /* @stable [08.07.2020] */
   $rac-menu-inline-options-flex-wrap: unset,                                       /* @stable [08.07.2020] */
   $rac-menu-inline-options-margin: unset,                                          /* @stable [08.07.2020] */
+  $rac-menu-inline-options-max-height: unset,                                      /* @stable [08.07.2020] */
+  $rac-menu-inline-options-position: unset,                                        /* @stable [08.07.2020] */
   $rac-menu-list-background: unset,                                                /* @stable [08.07.2020] */
   $rac-menu-list-item-odd-background: unset,                                       /* @stable [08.07.2020] */
   $rac-menu-list-max-height: unset,                                                /* @stable [08.07.2020] */
@@ -167,7 +169,9 @@
       @include rac-styles (
         $rac-styles-display: $rac-menu-inline-options-display,
         $rac-styles-flex-wrap: $rac-menu-inline-options-flex-wrap,
-        $rac-styles-margin: $rac-menu-inline-options-margin
+        $rac-styles-margin: $rac-menu-inline-options-margin,
+        $rac-styles-max-height: $rac-menu-inline-options-max-height,
+        $rac-styles-position: $rac-menu-inline-options-position
       );
 
       @include rac-inline-option (

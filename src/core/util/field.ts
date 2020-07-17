@@ -321,9 +321,9 @@ export const buildNewPhantomMultiItem =
  * @stable [16.05.2020]
  */
 export class FieldUtils {
-  public static asActualFieldValue = asActualFieldValue;                                                 /* @stable [16.05.2020] */
-  public static fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
-  public static fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
-  public static readonly dynamicFieldName = dynamicFieldName;                                            /* @stable [29.06.2020] */
-  public static readonly dynamicFieldValue = dynamicFieldValue;                                          /* @stable [29.06.2020] */
+  public static readonly asActualFieldValue = asActualFieldValue;                                                 /* @stable [16.05.2020] */
+  public static readonly dynamicFieldName = dynamicFieldName;                                                     /* @stable [29.06.2020] */
+  public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
+  public static readonly fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
+  public static readonly fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
 }

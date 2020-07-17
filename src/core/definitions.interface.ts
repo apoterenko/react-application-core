@@ -289,6 +289,7 @@ export interface IListWrapper<TValue> { list?: TValue; }
 export interface ILngWrapper<TValue = number> { lng?: TValue; }
 export interface ILoadingWrapper { loading?: boolean; }
 export interface ILocalFilterWrapper<TValue = {}> { localFilter?(payload?: TValue): boolean; }
+export interface ILocalPaginationWrapper<TValue = boolean> { localPagination?: TValue; }
 export interface ILocalSortingWrapper { localSorting?: boolean; }
 export interface ILocationWrapper<TValue> { location?: TValue; }
 export interface ILockPageWrapper<TValue = boolean> { lockPage?: TValue; }
@@ -391,6 +392,7 @@ export interface IOutputFormatWrapper { outputFormat?: string; }
 export interface IOutputTimeFormatWrapper { outputTimeFormat?: string; }
 export interface IOverlayClosableWrapper { overlayClosable?: boolean; }
 export interface IOverlayWrapper<TValue = boolean> { overlay?: TValue; }
+export interface IPagesCountWrapper { pagesCount?: number; }
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
 export interface IPageWrapper<TValue = number> { page?: TValue; }
 export interface IParamsWrapper<TValue = {}> { params?: TValue; }
@@ -475,6 +477,7 @@ export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbol
 export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
 export interface IRowNumWrapper { rowNum?: number; }
+export interface IRowsWrapper<TValue> { rows?: TValue; }
 export interface IRowWrapper<TValue = boolean> { row?: TValue; }
 export interface IScaleWrapper<TValue = number> { scale?: TValue; }
 export interface IScrollableWrapper { scrollable?: boolean; }

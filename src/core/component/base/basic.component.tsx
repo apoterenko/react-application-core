@@ -10,14 +10,19 @@ export class BasicComponent extends EnhancedGenericComponent {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const originalProps = this.originalProps;
+    const {
+      className,
+      style,
+    } = originalProps;
+
     return (
       <div
         ref={this.actualRef}
-        style={props.style}
-        className={CalcUtils.calc(props.className)}
+        style={style}
+        className={CalcUtils.calc(className)}
       >
-        {props.children}
+        {this.originalChildren}
       </div>
     );
   }

@@ -10,7 +10,7 @@ import {
   ListClassesEnum,
 } from '../../definition';
 import { IEntity } from '../../definitions.interface';
-import { BaseList } from '../list';
+import { BaseList } from '../list/base-list.component';
 import { Card } from './card';
 
 export class CardList extends BaseList<ICardListProps> {

@@ -10,9 +10,10 @@ import { IReduxLifeCycleEntity } from './entity-definition.interface';
 /**
  * @stable [18.05.2020]
  */
-export const FIRST_PAGE = 1;
-export const DEFAULT_PAGE_SIZE = 50;
+export const DEFAULT_LOCAL_PAGE_SIZE = 20;
 export const DEFAULT_MAX_PAGE_SIZE = 1000000;
+export const DEFAULT_PAGE_SIZE = 50;
+export const FIRST_PAGE = 1;
 
 /**
  * @default-entity
