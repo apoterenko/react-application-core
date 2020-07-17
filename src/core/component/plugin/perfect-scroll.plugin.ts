@@ -15,8 +15,8 @@ import {
   lazyInject,
 } from '../../di';
 import {
-  ifNotNilThanValue,
-  isFn,
+  ConditionUtils,
+  TypeUtils,
 } from '../../util';
 
 export class PerfectScrollPlugin implements IGenericPlugin {
@@ -24,6 +24,7 @@ export class PerfectScrollPlugin implements IGenericPlugin {
   @lazyInject(DI_TYPES.EventEmitter) private readonly eventEmitter: IEventEmitter;
 
   private ps;
+  private refreshUnsubscriber: () => void;
   private resizeUnsubscriber: () => void;
   private scrollUnsubscriber: () => void;
 
@@ -65,7 +66,7 @@ export class PerfectScrollPlugin implements IGenericPlugin {
     if (R.isNil(this.ps)) {
       return;
     }
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.selfRef,
       (selfRef) => {
         // When a node has a changeable dynamic class and in the second time a registered 'ps' class is not recovered
@@ -106,6 +107,11 @@ export class PerfectScrollPlugin implements IGenericPlugin {
       eventName: EventsEnum.RESIZE,
       callback: this.doUpdate,
     });
+
+    this.refreshUnsubscriber = this.eventEmitter.subscribe({
+      callback: this.doUpdate,
+      eventName: SyntheticEmitterEventsEnum.REFRESH,
+    });
   }
 
   /**
@@ -124,14 +130,19 @@ export class PerfectScrollPlugin implements IGenericPlugin {
       this.ps = null;
     }
 
-    if (isFn(this.resizeUnsubscriber)) {
+    if (TypeUtils.isFn(this.resizeUnsubscriber)) {
       this.resizeUnsubscriber();
       this.resizeUnsubscriber = null;
     }
 
-    if (isFn(this.scrollUnsubscriber)) {
+    if (TypeUtils.isFn(this.scrollUnsubscriber)) {
       this.scrollUnsubscriber();
       this.scrollUnsubscriber = null;
+    }
+
+    if (TypeUtils.isFn(this.refreshUnsubscriber)) {
+      this.refreshUnsubscriber();
+      this.refreshUnsubscriber = null;
     }
   }
 

@@ -37,11 +37,11 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
     if (!this.isToolbarVisible) {
       return null;
     }
-    const mergedProps = this.mergedProps;
+    const originalProps = this.originalProps;
     const {
       className,
       style,
-    } = mergedProps;
+    } = originalProps;
 
     return (
       <div
@@ -49,7 +49,7 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
         style={style}
         className={ClsUtils.joinClassName(
           ToolbarClassesEnum.PAGE_TOOLBAR,
-          WrapperUtils.isFull(mergedProps) && ToolbarClassesEnum.FULL_TOOLBAR,
+          WrapperUtils.isFull(originalProps) && ToolbarClassesEnum.FULL_TOOLBAR,
           CalcUtils.calc(className),
         )}
       >

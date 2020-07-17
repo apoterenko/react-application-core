@@ -10,6 +10,7 @@ import {
  * @stable [17.01.2020]
  */
 export enum SyntheticEmitterEventsEnum {
+  REFRESH = 'refresh',
   SCROLL = 'scroll',
 }
 

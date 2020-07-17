@@ -19,11 +19,15 @@ import {
   IKeyValue,
   IListConfigurationWrapper,
   IListWrapper,
+  ILocalPaginationWrapper,
   IOnSelectWrapper,
   IOriginalDataWrapper,
+  IPagesCountWrapper,
   IRawDataWrapper,
+  IRowsWrapper,
   ISelectedWrapper,
   ISorterWrapper,
+  ITotalCountWrapper,
 } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
@@ -95,6 +99,7 @@ export interface IPresetsListEntity<TEntity extends IEntity = IEntity>
     IFilterWrapper<(entity: TEntity) => boolean>,                     /* @stable [11.06.2020] */
     IFullWrapper,                                                     /* @stable [11.06.2020] */
     IHighlightOddWrapper,                                             /* @stable [11.06.2020] */
+    ILocalPaginationWrapper,                                          /* @stable [16.07.2020] */
     IOnSelectWrapper<TEntity>,                                        /* @stable [11.06.2020] */
     ISorterWrapper {                                                  /* @stable [11.06.2020] */
 }
@@ -179,6 +184,16 @@ export interface IListConfigurationEntity<TProps extends IListProps = IListProps
 export interface IListProps
   extends IGenericComponentProps,
     IGenericListEntity {
+}
+
+/**
+ * @config-entity
+ * @stable [16.07.2020]
+ */
+export interface IListRowsConfigEntity
+  extends IPagesCountWrapper,
+    IRowsWrapper<JSX.Element[]>,
+    ITotalCountWrapper {
 }
 
 /**

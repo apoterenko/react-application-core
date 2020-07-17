@@ -30,4 +30,5 @@ export interface IGridState
   extends IFilterChangesWrapper,
     IExpandedGroupsWrapper<IKeyValue>,
     IExpandedAllGroupsWrapper {
+  page?: number; // TODO
 }

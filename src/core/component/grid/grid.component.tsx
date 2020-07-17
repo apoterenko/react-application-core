@@ -20,6 +20,7 @@ import {
   Mappers,
   orNull,
   orUndef,
+  PageUtils,
   WrapperUtils,
 } from '../../util';
 import { BaseList } from '../list';
@@ -34,11 +35,13 @@ import {
 import { GridRow } from './row';
 import { IGridState } from './grid.interface';
 import {
+  DefaultEntities,
   GroupValueRendererT,
   IFieldChangeEntity,
   IGridColumnProps,
   IGridProps,
   IGridRowConfigEntity,
+  IListRowsConfigEntity,
   ISortDirectionEntity,
   ITextFieldProps,
 } from '../../definition';
@@ -61,7 +64,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     super(props);
     this.onExpandAllGroups = this.onExpandAllGroups.bind(this);
 
-    this.state = {filterChanges: {}, expandedGroups: {}, expandedAllGroups: false};
+    this.state = {
+      filterChanges: {},
+      expandedGroups: {},
+      expandedAllGroups: false,
+      page: DefaultEntities.FIRST_PAGE,
+    };
   }
 
   /**
@@ -71,6 +79,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   protected getView(): JSX.Element {
     const props = this.props;
     const dataSource = this.dataSource;
+    const rowsConfig = this.isGrouped
+      ? this.getGroupedRows(dataSource)
+      : {
+        rows: dataSource.map((entity, rowNum) => this.getRow({entity, rowNum, highlightOdd: isHighlightOdd(props, rowNum)})),
+      };
 
     return (
       <div className={joinClassName('rac-grid-wrapper', props.wrapperClassName)}>
@@ -89,14 +102,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
           }
           <tbody className='rac-grid-body'>
             {props.topTotal !== false && this.totalRowElement}
-            {
-              this.isGrouped
-                ? this.getGroupedRows(dataSource)
-                : dataSource.map((entity, rowNum) => this.getRow({entity, rowNum, highlightOdd: isHighlightOdd(props, rowNum)}))
-            }
+            {rowsConfig.rows}
             {props.topTotal === false && this.totalRowElement}
           </tbody>
         </table>
+        {this.getPageToolbarElement(rowsConfig)}
       </div>
     );
   }
@@ -147,6 +157,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
     if (props.localFiltration) {
       this.setState({
+        page: DefaultEntities.FIRST_PAGE,
         filterChanges: {
           ...this.state.filterChanges,
           [payload.name]: payload.value,
@@ -503,17 +514,19 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return `data-total-column-${columnNum}`;
   }
 
-  /**
-   * @stable [06.09.2018]
-   * @param {IEntity[]} dataSource
-   * @returns {JSX.Element[]}
-   */
-  private getGroupedRows(dataSource: IEntity[]): JSX.Element[] {
+  private getGroupedRows(dataSource: IEntity[]): IListRowsConfigEntity {
     if (R.isEmpty(dataSource)) {
-      return [];
+      return {
+        rows: [],
+        totalCount: 0,
+      };
     }
-    const props = this.props;
-    const groupedDataSorter = props.groupedDataSorter;
+    const originalProps = this.originalProps;
+    const {
+      groupedDataSorter,
+      localPagination,
+      pageSize,
+    } = originalProps;
 
     const preparedDataSource = isFn(groupedDataSorter)
       ? R.sort(
@@ -555,17 +568,29 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     let groupingRowNum = 0;
     const rows = [];
 
+    let rowIndex = 0;
+    const from = (this.state.page - 1) * pageSize;
+    const to = from + pageSize;
+
     // See the comment at the top
     groupValuesSet.forEach((groupValue) => {
-      const groupedRows = groupedDataSourceMap.get(groupValue);
-      const highlightOdd = isHighlightOdd(props, groupingRowNum++);
-      rows.push(this.getGroupingRow({value: groupValue, groupedRows, highlightOdd}));
+      if (!localPagination || rowIndex >= from && rowIndex < to) {
+        const groupedRows = groupedDataSourceMap.get(groupValue);
+        const highlightOdd = isHighlightOdd(originalProps, groupingRowNum++);
+        rows.push(this.getGroupingRow({value: groupValue, groupedRows, highlightOdd}));
 
-      if (this.isGroupedRowExpanded(groupValue)) {
-        groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows, highlightOdd})));
+        if (this.isGroupedRowExpanded(groupValue)) {
+          groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows, highlightOdd})));
+        }
       }
+      rowIndex++;
     });
-    return rows;
+
+    return {
+      pagesCount: PageUtils.pagesCount({totalCount: groupValuesSet.size, pageSize}),
+      rows,
+      totalCount: groupValuesSet.size,
+    };
   }
 
   /**
