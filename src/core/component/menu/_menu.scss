@@ -4,10 +4,8 @@
 
 .rac {
 
-  /**
-   * @menu-dialog
-   * @stable [11.11.2019]
-   */
+  // @menu
+  // @stable [11.11.2019]
   @include rac-menu (
     $rac-menu-dialog-body-background: $rac-menu-dialog-body-background,
     $rac-menu-dialog-body-justify-content: $rac-menu-dialog-body-justify-content,
@@ -39,10 +37,8 @@
     $rac-menu-list-overflow: $rac-menu-list-overflow
   );
 
-  /**
-   * @menu-not-anchored
-   * @stable [24.01.2020]
-   */
+  // @menu-not-anchored
+  // @stable [24.01.2020]
   @include rac-menu (
     $rac-menu-custom: $rac-not-anchored-dialog-cls,
     $rac-menu-apply-action-margin: $rac-menu-not-anchored-apply-action-margin,
@@ -71,10 +67,8 @@
     $rac-menu-list-item-odd-background: $rac-menu-not-anchored-list-item-odd-background
   );
 
-  /**
-   * @menu-anchored-dialog
-   * @stable [25.01.2020]
-   */
+  // @menu-anchored
+  // @stable [25.01.2020]
   @include rac-menu (
     $rac-menu-custom: $rac-anchored-dialog-cls,
     $rac-menu-dialog-body-background: $rac-menu-anchored-dialog-body-background,
@@ -103,10 +97,8 @@
     $rac-menu-list-item-odd-background: $rac-menu-anchored-list-item-odd-background
   );
 
-  /**
-   * @menu-anchored-height-restricted-dialog
-   * @stable [25.01.2020]
-   */
+  // @menu-anchored-height-restricted
+  // @stable [25.01.2020]
   @include rac-menu (
     $rac-menu-custom: $rac-menu-anchored-height-restricted-cls,
     $rac-menu-list-max-height: $rac-menu-anchored-height-restricted-list-max-height

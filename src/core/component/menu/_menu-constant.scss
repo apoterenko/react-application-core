@@ -26,6 +26,8 @@ $rac-menu-anchored-list-item-odd-background: unset !default;
 $rac-menu-anchored-height-restricted-list-max-height: 200px !default;
 
 // @stable [08.07.2020]
+$rac-menu-not-anchored-apply-action-margin: $rac-primary-offset-1 auto 0 auto !default;
+$rac-menu-not-anchored-apply-action-width: 160px !default;
 $rac-menu-not-anchored-inline-option-background: $rac-primary-color-ganymede-0 !default;
 $rac-menu-not-anchored-inline-option-close-background: $rac-primary-color-poseidon-0 !default;
 $rac-menu-not-anchored-inline-option-close-color: $rac-primary-color-elara-0 !default;
