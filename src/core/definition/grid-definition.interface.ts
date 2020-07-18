@@ -283,9 +283,12 @@ export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps
  * @stable [20.05.2020]
  */
 export enum GridClassesEnum {
+  GRID_COLUMN_CONTENT = 'rac-grid-column__content',
   GRID_HEAD = 'rac-grid-head',
   GRID_HEAD_COLUMN_ACTIVE_SORT_ICON = 'rac-grid-head-column__active-sort-icon',
   GRID_HEAD_COLUMN_SORT_ASC_ACTION = 'rac-grid-head-column__sort-asc-action',
   GRID_HEAD_COLUMN_SORT_DESC_ACTION = 'rac-grid-head-column__sort-desc-action',
   GRID_HEAD_COLUMN_SORT_ICON = 'rac-grid-head-column__sort-icon',
+  GRID_ROW = 'rac-grid-row',
+  GRID_ROW_FILTER = 'rac-grid-row-filter',
 }

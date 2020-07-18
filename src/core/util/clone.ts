@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { calc, isPrimitive, uuid, ifNotNilThanValue } from '../util';
+import { calc, isPrimitive, uuid } from '../util';
 import { IEntity, UNDEF_SYMBOL } from '../definitions.interface';
+import { ConditionUtils } from './cond';
 
 /**
  * @stable [24.01.2019]
@@ -10,7 +11,11 @@ import { IEntity, UNDEF_SYMBOL } from '../definitions.interface';
  * @returns {TEntity}
  */
 export const shallowClone = <TEntity extends IEntity>(entity: TEntity): TEntity =>
-  ifNotNilThanValue(entity, (): TEntity => ({...entity as {}} as TEntity), UNDEF_SYMBOL);
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => ({...entity as {}} as TEntity),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [14.06.2018]
@@ -54,3 +59,10 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
       }
     },
   );
+
+/**
+ * @stable [18.07.2020]
+ */
+export class CloneUtils {
+  public static readonly shallowClone = shallowClone;
+}

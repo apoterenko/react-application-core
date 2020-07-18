@@ -131,6 +131,7 @@ export const DEFAULT_REMOTE_FILTERED_MENU_ENTITY = Object.freeze<IMenuProps>({
  */
 export enum MenuClassesEnum {
   MENU = 'rac-menu',
+  MENU_APPLY_ACTION = 'rac-menu__apply-action',
   MENU_EMPTY_MESSAGE = 'rac-menu__empty-message',
   MENU_FILTER = 'rac-menu__filter',
   MENU_HEIGHT_RESTRICTED = 'rac-menu-height-restricted',

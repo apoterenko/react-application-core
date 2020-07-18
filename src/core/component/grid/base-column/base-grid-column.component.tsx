@@ -13,7 +13,10 @@ import {
   nvl,
   TypeUtils,
 } from '../../../util';
-import { IGridColumnProps } from '../../../definition';
+import {
+  GridClassesEnum,
+  IGridColumnProps,
+} from '../../../definition';
 
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   extends GenericBaseComponent<TProps> {
@@ -69,7 +72,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    */
   protected getColumnContentProps(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     return {
-      className: 'rac-grid-column-content',
+      className: GridClassesEnum.GRID_COLUMN_CONTENT,
     };
   }
 

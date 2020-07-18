@@ -12,8 +12,8 @@ import {
   DelayedTask,
   isFilterUsed,
   isHighlightOdd,
-  isMulti,
   isRemoteFilterApplied,
+  ObjectUtils,
   queryFilter,
   subArray,
   TypeUtils,
@@ -36,6 +36,7 @@ import { TextField } from '../field/text-field';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import { InlineOption } from '../inline-option/inline-option.component';
 import { BasicComponent } from '../base/basic.component';
+import { Button } from '../button/button.component';
 
 export class Menu extends GenericComponent<IMenuProps, IMenuState>
   implements IMenu {
@@ -125,6 +126,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
             </React.Fragment>
           )}
           {this.listElement}
+          {this.applyActionsElement}
         </Dialog>
       )
     );
@@ -194,12 +196,17 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    * @param {IPresetsMenuItemEntity} option
    */
   private onSelect(option: IPresetsMenuItemEntity): void {
-    const props = this.props;
-    if (TypeUtils.isFn(props.onSelect)) {
-      props.onSelect(option);
+    const originalProps = this.originalProps;
+    const {
+      multi,
+      onSelect,
+    } = originalProps;
+
+    if (TypeUtils.isFn(onSelect)) {
+      onSelect(option);
     }
 
-    if (isMulti(props) && this.items.length > 1) {
+    if (multi && this.items.length > 1) {
       // Because a "Flux Cycle", to prevent empty list after updating
       return;
     }
@@ -338,6 +345,29 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
             />
           ))}
         </BasicComponent>
+      )
+    );
+  }
+
+  /**
+   * @stable [17.07.2020]
+   */
+  private get applyActionsElement(): JSX.Element {
+    const {
+      inlineOptions,
+      multi,
+    } = this.originalProps;
+
+    return ConditionUtils.orNull(
+      multi,
+      () => (
+        <Button
+          raised={true}
+          disabled={!ObjectUtils.isObjectNotEmpty(inlineOptions)}
+          icon={IconsEnum.CHECK_CIRCLE}
+          text={this.settings.messages.APPLY}
+          className={MenuClassesEnum.MENU_APPLY_ACTION}
+          onClick={this.hide}/>
       )
     );
   }

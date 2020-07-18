@@ -46,7 +46,7 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const originalProps = this.originalProps;
     const {
       APPLY,
       CLEAR_ALL,
@@ -66,9 +66,9 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
       >
         <FormContainer
           formConfiguration={DEFAULT_COMPACT_FORM_ENTITY}
-          {...Mappers.formContainerProps(props)}
+          {...Mappers.formContainerProps(originalProps)}
         >
-          {props.children}
+          {this.originalChildren}
         </FormContainer>
       </Dialog>
     );

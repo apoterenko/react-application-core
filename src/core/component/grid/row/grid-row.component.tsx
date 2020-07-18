@@ -11,6 +11,7 @@ import {
   WrapperUtils,
 } from '../../../util';
 import {
+  GridClassesEnum,
   IBaseEvent,
   IGridRowProps,
   UniversalScrollableContext,
@@ -32,35 +33,42 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const originalProps = this.originalProps;
     const {
+      className,
+      filter,
+      indexed,
+      onClick,
       rawData,
-    } = props;
+      selected,
+    } = originalProps;
 
     const syntheticEntity = isSyntheticEntity(rawData);
-    const isHovered = WrapperUtils.isHovered(props) && !syntheticEntity;
-    const isSelectable = WrapperUtils.isSelectable(props) && !syntheticEntity;
+    const isHovered = WrapperUtils.isHovered(originalProps) && !syntheticEntity;
+    const isSelectable = WrapperUtils.isSelectable(originalProps) && !syntheticEntity;
 
     return (
       <UniversalScrollableContext.Consumer>
         {(selectedElementClassName) => (
           <tr
-            ref={this.selfRef}
-            className={ClsUtils.joinClassName(
-              'rac-grid-row',
-              CalcUtils.calc(props.className),
-              props.indexed && !R.isNil(rawData) && `rac-grid-row-${rawData.id}`,
-              props.grouped && 'rac-grid-row-grouped',
-              props.filter && 'rac-grid-row-filter',
-              props.groupExpanded && 'rac-grid-row-group-expanded',
-              isHovered && 'rac-grid-row-hovered',
-              props.odd && 'rac-grid-row-odd',
-              props.partOfGroup && 'rac-grid-row-part-of-group',
-              props.total && 'rac-grid-row-total',
-              isSelectable && 'rac-grid-row-selectable',
-              props.selected && `rac-grid-row-selected ${selectedElementClassName}`
-            )}
-            {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable && TypeUtils.isFn(props.onClick), false)}
+            ref={this.actualRef}
+            className={
+              ClsUtils.joinClassName(
+                GridClassesEnum.GRID_ROW,
+                CalcUtils.calc(className),
+                indexed && !R.isNil(rawData) && `rac-grid-row-${rawData.id}`,
+                originalProps.grouped && 'rac-grid-row-grouped',
+                filter && GridClassesEnum.GRID_ROW_FILTER,
+                originalProps.groupExpanded && 'rac-grid-row-group-expanded',
+                isHovered && 'rac-grid-row-hovered',
+                originalProps.odd && 'rac-grid-row-odd',
+                originalProps.partOfGroup && 'rac-grid-row-part-of-group',
+                originalProps.total && 'rac-grid-row-total',
+                isSelectable && 'rac-grid-row-selectable',
+                selected && `rac-grid-row-selected ${selectedElementClassName}`
+              )
+            }
+            {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable && TypeUtils.isFn(onClick), false)}
           >
             {this.props.children}
           </tr>

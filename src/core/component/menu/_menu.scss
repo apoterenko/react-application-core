@@ -45,6 +45,8 @@
    */
   @include rac-menu (
     $rac-menu-custom: $rac-not-anchored-dialog-cls,
+    $rac-menu-apply-action-margin: $rac-menu-not-anchored-apply-action-margin,
+    $rac-menu-apply-action-width: $rac-menu-not-anchored-apply-action-width,
     $rac-menu-dialog-align-items: $rac-menu-not-anchored-dialog-align-items,
     $rac-menu-dialog-body-display: $rac-menu-not-anchored-dialog-body-display,
     $rac-menu-dialog-body-height: $rac-menu-not-anchored-dialog-body-height,

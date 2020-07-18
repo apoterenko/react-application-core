@@ -172,7 +172,10 @@ $rac-button-decorated-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-fi
 $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-button-not-filled-cls}';
 $rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-button-decorated-not-filled-cls}';
 
-// @stable [20.05.2020]
+// @stable [18.07.2020]
+$rac-grid-column-cls: rac-grid-column;
+$rac-grid-column-content-cls: rac-grid-column__content;
+$rac-grid-column-sort-cls: rac-grid-column-sort;
 $rac-grid-head-column-sort-icon-cls: rac-grid-head-column__sort-icon;
 //
 $rac-grid-head-column-active-sort-icon-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__active-sort-icon';
@@ -203,6 +206,7 @@ $rac-alignment-center-cls: rac-alignment-center;
 
 // @stable [07.07.2020]
 $rac-menu-cls: rac-menu;
+$rac-menu-apply-action-cls: rac-menu__apply-action;
 $rac-menu-empty-message-cls: rac-menu__empty-message;
 $rac-menu-height-restricted-cls: rac-menu-height-restricted;
 $rac-menu-icon-close-cls: rac-menu__icon-close;

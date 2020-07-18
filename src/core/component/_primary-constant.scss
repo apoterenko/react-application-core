@@ -1,6 +1,4 @@
-/************************/
-/* @stable [17.03.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-flex-grow-0: 0 !default;
 $rac-primary-flex-grow-0-0: .1 !default;
 $rac-primary-flex-grow-0-1: .2 !default;
@@ -9,20 +7,18 @@ $rac-primary-flex-grow-0-3: .333 !default;
 $rac-primary-flex-grow-0-4: .5 !default;
 $rac-primary-flex-grow-0-5: .75 !default;
 $rac-primary-flex-grow-1: 1 !default;
-/**/
+//
 $rac-primary-flex-basis-0: 0% !default;
 $rac-primary-flex-basis-1: 0 !default;
 $rac-primary-flex-basis-2: auto !default;
-/**/
+//
 $rac-primary-flex-shrink-0: 0 !default;
 $rac-primary-flex-shrink-1: 1 !default;
-/**/
+//
 $rac-primary-flex-0: $rac-primary-flex-grow-0 $rac-primary-flex-shrink-0 $rac-primary-flex-basis-2 !default;
 $rac-primary-flex-1: initial !default;
 
-/************************/
-/* @stable [17.03.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-display-0: flex !default;
 $rac-primary-display-1: block !default;
 $rac-primary-display-2: inline-flex !default;
@@ -31,31 +27,23 @@ $rac-primary-display-2: inline-flex !default;
 $rac-primary-flex-direction-0: column !default;
 $rac-primary-flex-direction-1: row !default;
 
-/************************/
-/* @stable [08.04.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-z-index-0: 1 !default;
 $rac-primary-z-index-1: 2 !default;
 $rac-primary-z-index-2: 3 !default;
 $rac-primary-z-index-3: 4 !default;
 $rac-primary-z-index-max: 1000000 !default;
 
-/************************/
-/* @stable [18.03.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-line-height-0-0: 1.14 !default;
 $rac-primary-line-height-1-0: 1.2 !default;
 $rac-primary-line-height-1-1: 1.25 !default;
 $rac-primary-line-height-2: 1.33 !default;
 
-/************************/
-/* @stable [18.03.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-margin-0: 0 auto !default;
 
-/************************/
-/* @stable [27.04.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-max-width-0: 10vw !default;
 $rac-primary-max-width-1: 20vw !default;
 $rac-primary-max-width-2: 30vw !default;
@@ -65,9 +53,7 @@ $rac-primary-max-width-5: 60vw !default;
 $rac-primary-max-width-6: 70vw !default;
 $rac-primary-max-width-7: 80vw !default;
 
-/************************/
-/* @stable [18.03.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-font-size-0: 12px !default;
 $rac-primary-font-size-1: 14px !default;
 $rac-primary-font-size-2: 16px !default;
@@ -76,18 +62,14 @@ $rac-primary-font-size-4: 20px !default;
 $rac-primary-font-size-5: 22px !default;
 $rac-primary-font-size-6: 24px !default;
 
-/************************/
-/* @stable [10.04.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-font-weight-0: 300 !default;
 $rac-primary-font-weight-1: 400 !default;
 $rac-primary-font-weight-2: 500 !default;
 $rac-primary-font-weight-3: 600 !default;
 $rac-primary-font-weight-4: 700 !default;
 
-/************************/
-/* @stable [18.03.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-offset-0: 4px !default;
 $rac-primary-offset-1: 8px !default;
 $rac-primary-offset-2: 12px !default;
@@ -98,9 +80,7 @@ $rac-primary-offset-6: 32px !default;
 $rac-primary-offset-7: 36px !default;
 $rac-primary-offset-8: 40px !default;
 
-/************************/
-/* @stable [14.04.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-size-0: 4px !default;
 $rac-primary-size-1: 8px !default;
 $rac-primary-size-2: 12px !default;
@@ -118,9 +98,7 @@ $rac-primary-size-13: 56px !default;
 $rac-primary-size-14: 60px !default;
 $rac-primary-size-15: 64px !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-opacity-0: .1 !default;
 $rac-primary-opacity-1: .2 !default;
 $rac-primary-opacity-2: .3 !default;
@@ -130,9 +108,7 @@ $rac-primary-opacity-5: .6 !default;
 $rac-primary-opacity-6: .7 !default;
 $rac-primary-opacity-7: .8 !default;
 
-/************************/
-/* @stable [11.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-border-radius-0: 2px !default;
 $rac-primary-border-radius-1: 3px !default;
 $rac-primary-border-radius-2: 4px !default;
@@ -141,9 +117,7 @@ $rac-primary-border-radius-4: 6px !default;
 $rac-primary-border-radius-5: 7px !default;
 $rac-primary-border-radius-6: 8px !default;
 
-/************************/
-/* @stable [26.03.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-icon-size-0: 8px !default;
 $rac-primary-icon-size-1: 12px !default;
 $rac-primary-icon-size-2: 16px !default;
@@ -156,10 +130,8 @@ $rac-primary-icon-size-8: 40px !default;
 $rac-primary-icon-size-9: 44px !default;
 $rac-primary-icon-size-10: 48px !default;
 
-/************************/
-/* @stable [18.03.2020] */
-/************************/
-/* metis */
+// @stable [17.07.2020]
+// metis
 $rac-primary-color-metis-0: rgb(0, 0, 0) !default;  // #000000
 $rac-primary-color-metis-05: rgba(0, 0, 0, .05) !default;
 $rac-primary-color-metis-05-0: #f0f0f0 !default;
@@ -172,7 +144,7 @@ $rac-primary-color-metis-05-6: #f6f6f6 !default;
 $rac-primary-color-metis-05-7: #f7f7f7 !default;
 $rac-primary-color-metis-05-8: #f8f8f8 !default;
 $rac-primary-color-metis-05-9: #f9f9f9 !default;
-/* metis */
+// metis
 $rac-primary-color-metis-1: rgba(0, 0, 0, .1) !default;
 $rac-primary-color-metis-1-0: #e0e0e0 !default;
 $rac-primary-color-metis-1-1: #e1e1e1 !default;
@@ -183,7 +155,7 @@ $rac-primary-color-metis-1-5: #e5e5e5 !default;
 $rac-primary-color-metis-1-6: #e6e6e6 !default;
 $rac-primary-color-metis-1-7: #e7e7e7 !default;
 $rac-primary-color-metis-1-8: #e8e8e8 !default;
-/* metis */
+// metis
 $rac-primary-color-metis-2: rgba(0, 0, 0, .2) !default;
 $rac-primary-color-metis-3: rgba(0, 0, 0, .3) !default;
 $rac-primary-color-metis-4: rgba(0, 0, 0, .4) !default;
@@ -193,7 +165,7 @@ $rac-primary-color-metis-7: rgba(0, 0, 0, .7) !default;
 $rac-primary-color-metis-8: rgba(0, 0, 0, .8) !default;
 $rac-primary-color-metis-9: rgba(0, 0, 0, .9) !default;
 
-/* elara */
+// elara
 $rac-primary-color-elara-0: rgb(255, 255, 255) !default;  // #ffffff
 $rac-primary-color-elara-05: rgba(255, 255, 255, .05) !default;
 $rac-primary-color-elara-1: rgba(255, 255, 255, .1) !default;
@@ -206,10 +178,10 @@ $rac-primary-color-elara-7: rgba(255, 255, 255, .7) !default;
 $rac-primary-color-elara-8: rgba(255, 255, 255, .8) !default;
 $rac-primary-color-elara-9: rgba(255, 255, 255, .9) !default;
 
-/* artemis */
+// artemis
 $rac-primary-color-artemis-3: #06aed5 !default;
 
-/* ganymede */
+// ganymede
 $rac-primary-color-ganymede-0: rgb(255, 191, 0) !default;  // #ffbf00
 $rac-primary-color-ganymede-1: rgba(255, 191, 0, .1) !default;
 $rac-primary-color-ganymede-2: rgba(255, 191, 0, .2) !default;
@@ -221,7 +193,7 @@ $rac-primary-color-ganymede-7: rgba(255, 191, 0, .7) !default;
 $rac-primary-color-ganymede-8: rgba(255, 191, 0, .8) !default;
 $rac-primary-color-ganymede-9: rgba(255, 191, 0, .9) !default;
 
-/* tartarus */
+// tartarus
 $rac-primary-color-tartarus-0: rgb(242, 181, 0) !default;  // #f2b500
 $rac-primary-color-tartarus-1: rgba(242, 181, 0, .1) !default;
 $rac-primary-color-tartarus-2: rgba(242, 181, 0, .2) !default;
@@ -233,10 +205,10 @@ $rac-primary-color-tartarus-7: rgba(242, 181, 0, .7) !default;
 $rac-primary-color-tartarus-8: rgba(242, 181, 0, .8) !default;
 $rac-primary-color-tartarus-9: rgba(242, 181, 0, .9) !default;
 
-/* aphrodite */
+// aphrodite
 $rac-primary-color-aphrodite-0: #f96f00 !default;
 
-/* dia */
+// dia
 $rac-primary-color-dia-0: rgb(237, 37, 78) !default;  // #ed254e
 $rac-primary-color-dia-1: rgba(237, 37, 78, .1) !default;
 $rac-primary-color-dia-2: rgba(237, 37, 78, .2) !default;
@@ -248,7 +220,7 @@ $rac-primary-color-dia-7: rgba(237, 37, 78, .7) !default;
 $rac-primary-color-dia-8: rgba(237, 37, 78, .8) !default;
 $rac-primary-color-dia-9: rgba(237, 37, 78, .9) !default;
 
-/* erebus */
+// erebus
 $rac-primary-color-erebus-0: rgb(224, 13, 58) !default;  // #e00d3a
 $rac-primary-color-erebus-1: rgba(224, 13, 58, .1) !default;
 $rac-primary-color-erebus-2: rgba(224, 13, 58, .2) !default;
@@ -260,7 +232,7 @@ $rac-primary-color-erebus-7: rgba(224, 13, 58, .7) !default;
 $rac-primary-color-erebus-8: rgba(224, 13, 58, .8) !default;
 $rac-primary-color-erebus-9: rgba(224, 13, 58, .9) !default;
 
-/* hermes */
+// hermes
 $rac-primary-color-hermes-0: rgb(91, 186, 111) !default;  // #5bba6f
 $rac-primary-color-hermes-1: rgba(91, 186, 111, .1) !default;
 $rac-primary-color-hermes-2: rgba(91, 186, 111, .2) !default;
@@ -272,7 +244,7 @@ $rac-primary-color-hermes-7: rgba(91, 186, 111, .7) !default;
 $rac-primary-color-hermes-8: rgba(91, 186, 111, .8) !default;
 $rac-primary-color-hermes-9: rgba(91, 186, 111, .9) !default;
 
-/* caerus */
+// caerus
 $rac-primary-color-caerus-0: rgb(78, 174, 96) !default;  // #4eae60
 $rac-primary-color-caerus-1: rgba(78, 174, 96, .1) !default;
 $rac-primary-color-caerus-2: rgba(78, 174, 96, .2) !default;
@@ -284,7 +256,7 @@ $rac-primary-color-caerus-7: rgba(78, 174, 96, .7) !default;
 $rac-primary-color-caerus-8: rgba(78, 174, 96, .8) !default;
 $rac-primary-color-caerus-9: rgba(78, 174, 96, .9) !default;
 
-/* poseidon */
+// poseidon
 $rac-primary-color-poseidon-0: rgb(18, 19, 15) !default;  // #12130f
 $rac-primary-color-poseidon-05: rgba(18, 19, 15, .05) !default;
 $rac-primary-color-poseidon-1: rgba(18, 19, 15, .1) !default;
@@ -297,45 +269,31 @@ $rac-primary-color-poseidon-7: rgba(18, 19, 15, .7) !default;
 $rac-primary-color-poseidon-8: rgba(18, 19, 15, .8) !default;
 $rac-primary-color-poseidon-9: rgba(18, 19, 15, .9) !default;
 
-/************************/
-/* @stable [04.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-shadow-offset-0: 0 6px 16px 0 !default;
 $rac-primary-shadow-offset-1: 0px 2px 12px 0px !default;
 $rac-primary-shadow-offset-2: 0px 2px 6px 0px !default;
 
-/************************/
-/* @stable [04.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-odd-background-0: $rac-primary-color-metis-05 !default;
 
-/************************/
-/* @stable [04.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-hover-background-0: $rac-primary-color-metis-1 !default;
 
-/************************/
-/* @stable [21.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-selected-background-0: $rac-primary-color-ganymede-3 !default;
 
-/************************/
-/* @stable [21.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-layout-border-0: 4px solid $rac-primary-color-metis-05 !default;
 
-/************************/
-/* @stable [19.06.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-field-size-0: 32px !default;
-/**/
+//
 $rac-primary-field-opacity-0: $rac-primary-opacity-4 !default;
-/**/
+//
 $rac-primary-field-offset-0: $rac-primary-offset-3 !default;
 
-/************************/
-/* @stable [20.05.2020] */
-/************************/
+// @stable [17.07.2020]
 $rac-primary-layout-offset-0: $rac-primary-offset-0 !default;
 $rac-primary-layout-offset-1: $rac-primary-offset-1 !default;
 $rac-primary-layout-offset-2: $rac-primary-offset-2 !default;
@@ -346,9 +304,7 @@ $rac-primary-layout-offset-6: $rac-primary-offset-6 !default;
 $rac-primary-layout-offset-7: $rac-primary-offset-7 !default;
 $rac-primary-layout-offset-8: $rac-primary-offset-8 !default;
 
-/************************/
-/* @stable [24.05.2020] */
-/************************/
+// @stable [17.07.2020]
 // ##Device = Most of the Smartphones Mobiles (Portrait)
 // ##Screen = B/w 0 to 480px
 $rac-primary-media-query-breakpoint-0-min: 0 !default;

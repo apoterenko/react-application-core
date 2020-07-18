@@ -1,4 +1,5 @@
 @import '../_core-mixin';
+@import '../button/_button-mixin';
 @import '../field/_field-mixin';
 @import '../icon/_icon-mixin';
 @import '../inline-option/_inline-option-mixin';
@@ -10,6 +11,8 @@
 @mixin rac-menu (
   $rac-menu-custom: unset,
   /**/
+  $rac-menu-apply-action-margin: unset,                                            /* @stable [17.07.2020] */
+  $rac-menu-apply-action-width: unset,                                             /* @stable [17.07.2020] */
   $rac-menu-dialog-align-items: unset,                                             /* @stable [25.01.2020] */
   $rac-menu-dialog-body-background: unset,                                         /* @stable [11.11.2019] */
   $rac-menu-dialog-body-content-wrapper-background: unset,                         /* @stable [25.01.2020] */
@@ -163,6 +166,12 @@
       $rac-field-margin: $rac-menu-filter-margin,
       $rac-self-field-background: $rac-menu-filter-background,
       $rac-self-field-height: $rac-menu-filter-height
+    );
+
+    @include rac-button (
+      $rac-button-custom: $rac-menu-apply-action-cls,
+      $rac-button-margin: $rac-menu-apply-action-margin,
+      $rac-button-width: $rac-menu-apply-action-width
     );
 
     #{rac-cls($rac-menu-inline-options-cls)} {

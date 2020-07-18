@@ -1,4 +1,8 @@
-import { EffectsService, IEffectsAction } from 'redux-effects-promise';
+import {
+  EffectsActionBuilder,
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
 
 import { provideInSingleton } from '../../di';
 import {
@@ -25,6 +29,14 @@ export const makeFailedEffectsProxy = (actionType: string,
     }
   }
 };
+
+/**
+ * @stable [18.07.2020]
+ * @param {string} actionType
+ * @returns {() => void}
+ */
+export const makeErrorEffectsProxy = (actionType: string) =>
+  makeFailedEffectsProxy(EffectsActionBuilder.buildErrorActionType(actionType));
 
 /**
  * @stable [03.04.2019]

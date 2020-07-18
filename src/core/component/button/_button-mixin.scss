@@ -60,6 +60,7 @@
   $rac-button-margin-right: unset,                                                   /* stable [20.05.2020 ] */
   $rac-button-margin-top: unset,                                                     /* stable [24.01.2020 ] */
   $rac-button-margin: unset,                                                         /* stable [02.02.2020 ] */
+  $rac-button-max-width: unset,                                                      /* stable [17.07.2020 ] */
   $rac-button-min-width: unset,                                                      /* stable [02.02.2020 ] */
   $rac-button-opacity: unset,                                                        /* stable [02.02.2020 ] */
   $rac-button-overflow: unset,                                                       /* stable [11.03.2020 ] */
@@ -90,6 +91,7 @@
       $rac-styles-margin : $rac-button-margin,
       $rac-styles-margin-right: $rac-button-margin-right,
       $rac-styles-margin-top: $rac-button-margin-top,
+      $rac-styles-max-width : $rac-button-max-width,
       $rac-styles-min-width : $rac-button-min-width,
       $rac-styles-opacity: $rac-button-opacity,
       $rac-styles-overflow: $rac-button-overflow,
