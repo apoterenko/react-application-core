@@ -599,9 +599,15 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @returns {JSX.Element}
    */
   private getGroupingRow(config: IGridRowConfigEntity): JSX.Element {
-    const props = this.props;
-    const {value, groupedRows, highlightOdd} = config;
-    const groupBy = props.groupBy;
+    const {
+      groupedRows,
+      highlightOdd,
+      value,
+    } = config;
+    const {
+      groupBy,
+    } = this.originalProps;
+
     const groupValue = groupBy.groupValue;
     const isGroupValueArray = Array.isArray(groupValue);
     const isExpanded = this.isGroupedRowExpanded(value);
@@ -611,7 +617,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     return (
       <GridRow
         key={this.toGroupedRowKey(value)}
-        grouped={true}
+        group={true}
         odd={highlightOdd}
         groupExpanded={isExpanded}>
         {

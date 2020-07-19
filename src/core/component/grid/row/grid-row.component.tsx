@@ -41,6 +41,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
     const {
       className,
       filter,
+      group,
       hovered,
       indexed,
       onClick,
@@ -63,7 +64,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                 GridClassesEnum.GRID_ROW,
                 CalcUtils.calc(className),
                 indexed && !R.isNil(rawData) && `rac-grid-row-${rawData.id}`,
-                originalProps.grouped && 'rac-grid-row-grouped',
+                group && GridClassesEnum.GRID_ROW_GROUP,
                 filter && GridClassesEnum.GRID_ROW_FILTER,
                 originalProps.groupExpanded && 'rac-grid-row-group-expanded',
                 isHovered && 'rac-grid-row-hovered',

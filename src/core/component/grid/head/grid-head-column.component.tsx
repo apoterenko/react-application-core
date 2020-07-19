@@ -54,12 +54,7 @@ export class GridHeadColumn extends BaseGridColumn {
             ...CalcUtils.calc(headerStyles, originalProps),
           }}
           colSpan={NvlUtils.nvl(headerColSpan, colSpan)}
-          className={
-            this.getClassName(
-              CalcUtils.calc(headerClassName, originalProps),
-              'rac-no-user-select'  // TODO
-            )
-          }
+          className={this.getClassName(CalcUtils.calc(headerClassName, originalProps))}
         >
           {this.columnContentElement}
         </th>
@@ -127,13 +122,17 @@ export class GridHeadColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [18.10.2019]
+   * @stable [19.07.2020]
    * @param {SortDirectionsEnum} direction
    */
   private doSortingDirectionChange(direction: SortDirectionsEnum): void {
-    const props = this.props;
-    if (TypeUtils.isFn(props.onSortingDirectionChange)) {
-      props.onSortingDirectionChange({name: props.name, direction});
+    const {
+      name,
+      onSortingDirectionChange,
+    } = this.originalProps;
+
+    if (TypeUtils.isFn(onSortingDirectionChange)) {
+      onSortingDirectionChange({name, direction});
     }
   }
 

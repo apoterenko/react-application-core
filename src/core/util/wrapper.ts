@@ -31,7 +31,6 @@ import {
   IHighlightOddWrapper,
   IHoveredWrapper,
   IIconLeftAlignedWrapper,
-  IIndexedWrapper,
   IInlineWrapper,
   ILastWrapper,
   ILoadingWrapper,
@@ -231,14 +230,6 @@ export const isHighlightOdd = (wrapper: IHighlightOddWrapper, index: number): bo
     : (
       wrapper.highlightOdd !== false && (TypeUtils.isNumber(index) ? isOddNumber(index) : false)
     );
-
-/**
- * @stable [26.10.2019]
- * @param {IIndexedWrapper} indexedEntity
- * @returns {boolean}
- */
-export const isIndexed = (indexedEntity: IIndexedWrapper): boolean =>
-  ifNotNilThanValue(indexedEntity, () => indexedEntity.indexed === true, false);
 
 /**
  * @stable [26.10.2019]

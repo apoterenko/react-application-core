@@ -2,15 +2,14 @@ import * as React from 'react';
 
 import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
-  calc,
   defValuesFilter,
   ifNotNilThanValue,
   isEdited,
-  isIndexed,
   isOddNumber,
   isSortable,
   joinClassName,
   nvl,
+  CalcUtils,
   TypeUtils,
 } from '../../../util';
 import {
@@ -38,15 +37,22 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    * @returns {string}
    */
   protected getClassName(...classNames: string[]): string {
-    const props = this.props;
+    const originalProps = this.originalProps;
+    const {
+      align,
+      className,
+      index,
+      indexed,
+    } = originalProps;
+
     return joinClassName(
-      'rac-grid-column',
-      calc<string>(props.className),
-      isIndexed(props) && TypeUtils.isNumber(props.index) && `rac-grid-column-${props.index}`,
-      isOddNumber(props.index) && 'rac-grid-column-odd',
-      isEdited(props) && 'rac-grid-column-edited',
-      isSortable(props) && 'rac-grid-column-sortable',
-      props.align && `rac-grid-column-align-${props.align}`,
+      GridClassesEnum.GRID_COLUMN,
+      CalcUtils.calc<string>(className),
+      indexed && TypeUtils.isNumber(index) && `rac-grid-column-${index}`,
+      isOddNumber(originalProps.index) && 'rac-grid-column-odd',
+      isEdited(originalProps) && 'rac-grid-column-edited',
+      isSortable(originalProps) && 'rac-grid-column-sortable',
+      align && `rac-grid-column-align-${align}`,
       ...classNames
     );
   }
@@ -57,7 +63,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    */
   protected get columnContentElement(): JSX.Element {
     return ifNotNilThanValue(
-      this.props.children,
+      this.originalChildren,
       (children) => (
         <div {...this.getColumnContentProps()}>
           {this.getColumnContentElement(children)}

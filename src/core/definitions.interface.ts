@@ -219,9 +219,9 @@ export interface IGroupByWrapper<TValue> { groupBy?: TValue; }
 export interface IGroupedDataSorterWrapper<T1, T2> { groupedDataSorter?(t1?: T1, t2?: T1, t3?: T2, t4?: T2): number; }
 export interface IGroupedFieldNameWrapper { groupedFieldName?: string; }
 export interface IGroupedRowsWrapper<TValue> { groupedRows?: TValue; }
-export interface IGroupedWrapper { grouped?: boolean; }
 export interface IGroupExpandedWrapper { groupExpanded?: boolean; }
 export interface IGroupValueWrapper<TValue> { groupValue?: TValue; }
+export interface IGroupWrapper { group?: boolean; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }
 export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }

@@ -27,7 +27,7 @@ import {
   IGroupByWrapper,
   IGroupedDataSorterWrapper,
   IGroupedRowsWrapper,
-  IGroupedWrapper,
+  IGroupWrapper,
   IGroupExpandedWrapper,
   IHeaderClassNameWrapper,
   IHeaderColSpanWrapper,
@@ -166,7 +166,7 @@ export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
     ITotalWrapper,
     IFilterWrapper<boolean>,
     IIndexedWrapper,
-    IGroupedWrapper,
+    IGroupWrapper,
     IPartOfGroupWrapper,
     IGroupExpandedWrapper {
 }
@@ -283,6 +283,7 @@ export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps
  * @stable [20.05.2020]
  */
 export enum GridClassesEnum {
+  GRID_COLUMN = 'rac-grid-column',
   GRID_COLUMN_CONTENT = 'rac-grid-column__content',
   GRID_COLUMN_SORT_ACTIONS = 'rac-grid-column__sort-actions',
   GRID_HEAD = 'rac-grid-head',
@@ -292,6 +293,7 @@ export enum GridClassesEnum {
   GRID_HEAD_COLUMN_SORT_ICON = 'rac-grid-head-column__sort-icon',
   GRID_ROW = 'rac-grid-row',
   GRID_ROW_FILTER = 'rac-grid-row-filter',
+  GRID_ROW_GROUP = 'rac-grid-row-group',
   GRID_ROW_SELECTABLE = 'rac-grid-row-selectable',
   GRID_ROW_SELECTED = 'rac-grid-row-selected',
 }
