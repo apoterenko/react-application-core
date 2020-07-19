@@ -65,7 +65,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                 originalProps.partOfGroup && 'rac-grid-row-part-of-group',
                 originalProps.total && 'rac-grid-row-total',
                 isSelectable && 'rac-grid-row-selectable',
-                selected && `rac-grid-row-selected ${selectedElementClassName}`
+                selected && `${GridClassesEnum.GRID_ROW_SELECTED} ${selectedElementClassName}`
               )
             }
             {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable && TypeUtils.isFn(onClick), false)}

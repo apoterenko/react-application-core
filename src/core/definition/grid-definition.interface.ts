@@ -291,4 +291,5 @@ export enum GridClassesEnum {
   GRID_HEAD_COLUMN_SORT_ICON = 'rac-grid-head-column__sort-icon',
   GRID_ROW = 'rac-grid-row',
   GRID_ROW_FILTER = 'rac-grid-row-filter',
+  GRID_ROW_SELECTED = 'rac-grid-row-selected',
 }
