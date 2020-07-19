@@ -8,7 +8,6 @@ import {
   isSyntheticEntity,
   PropsUtils,
   TypeUtils,
-  WrapperUtils,
 } from '../../../util';
 import {
   GridClassesEnum,
@@ -18,6 +17,11 @@ import {
 } from '../../../definition';
 
 export class GridRow extends GenericBaseComponent<IGridRowProps> {
+
+  public static readonly defaultProps: IGridRowProps = {
+    hovered: true,
+    selectable: true,
+  };
 
   /**
    * @stable [23.10.2019]
@@ -37,15 +41,17 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
     const {
       className,
       filter,
+      hovered,
       indexed,
       onClick,
       rawData,
+      selectable,
       selected,
     } = originalProps;
 
     const syntheticEntity = isSyntheticEntity(rawData);
-    const isHovered = WrapperUtils.isHovered(originalProps) && !syntheticEntity;
-    const isSelectable = WrapperUtils.isSelectable(originalProps) && !syntheticEntity;
+    const isHovered = hovered && !syntheticEntity;
+    const isSelectable = selectable && !syntheticEntity;
 
     return (
       <UniversalScrollableContext.Consumer>
@@ -64,13 +70,13 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                 originalProps.odd && 'rac-grid-row-odd',
                 originalProps.partOfGroup && 'rac-grid-row-part-of-group',
                 originalProps.total && 'rac-grid-row-total',
-                isSelectable && 'rac-grid-row-selectable',
+                isSelectable && GridClassesEnum.GRID_ROW_SELECTABLE,
                 selected && `${GridClassesEnum.GRID_ROW_SELECTED} ${selectedElementClassName}`
               )
             }
             {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable && TypeUtils.isFn(onClick), false)}
           >
-            {this.props.children}
+            {this.originalChildren}
           </tr>
         )}
       </UniversalScrollableContext.Consumer>

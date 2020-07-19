@@ -7,17 +7,20 @@ $rac-primary-grid-color-0: $rac-primary-color-metis-05-3 !default;
 $rac-primary-grid-size-0: 1px !default;
 
 // @stable [18.07.2020]
-$rac-grid-body-background: unset !default;
+$rac-grid-body-background: unset !default;                                                                                     // @stable [19.07.2020]
 $rac-grid-body-border-bottom: $rac-primary-grid-size-0 solid $rac-primary-grid-color-0 !default;                               // @stable [19.07.2020]
 $rac-grid-body-border-left: $rac-primary-grid-size-0 solid $rac-primary-grid-color-0 !default;                                 // @stable [19.07.2020]
 $rac-grid-body-border-right: $rac-primary-grid-size-0 solid $rac-primary-grid-color-0 !default;                                // @stable [19.07.2020]
 $rac-grid-body-column-content-base-text-field-self-field-background: $rac-primary-color-elara-0 !default;                      // @stable [18.07.2020]
 $rac-grid-color: unset !default;
 $rac-grid-column-content-font-size: $rac-primary-font-size-0 !default;
+$rac-grid-column-content-sort-actions-position: absolute !default;                                                             // @stable [19.07.2020]
+$rac-grid-column-content-sort-actions-white-space: nowrap !default;                                                            // @stable [19.07.2020]
 $rac-grid-head-column-active-sort-icon-background: $rac-primary-color-ganymede-0 !default;
 $rac-grid-head-column-sort-asc-action-margin: 0 0 0 $rac-primary-offset-1 !default;
 $rac-grid-head-column-sort-desc-action-margin: unset !default;
 $rac-grid-head-column-sort-icon-background: $rac-primary-color-elara-3 !default;
 $rac-grid-head-row-filter-column-content-base-text-field-self-field-background: 0 !default;                                    // @stable [18.07.2020]
 $rac-grid-head-row-filter-column-content-base-text-field-self-field-icon-color: $rac-primary-color-elara-7 !default;           // @stable [18.07.2020]
+$rac-grid-row-selectable-cursor: pointer !default;                                                                             // @stable [19.07.2020]
 $rac-grid-row-selected-background: $rac-primary-color-ganymede-3 !default;                                                     // @stable [19.07.2020]

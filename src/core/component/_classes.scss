@@ -175,8 +175,9 @@ $rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-butto
 // @stable [18.07.2020]
 $rac-grid-column-cls: rac-grid-column;
 $rac-grid-column-content-cls: rac-grid-column__content;
-$rac-grid-column-sort-cls: rac-grid-column-sort;
+$rac-grid-column-sort-actions-cls: rac-grid-column__sort-actions;
 $rac-grid-head-column-sort-icon-cls: rac-grid-head-column__sort-icon;
+$rac-grid-row-selectable-cls: rac-grid-row-selectable;
 $rac-grid-row-selected-cls: rac-grid-row-selected;
 //
 $rac-grid-head-column-active-sort-icon-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__active-sort-icon';

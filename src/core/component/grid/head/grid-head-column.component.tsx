@@ -10,13 +10,16 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
-  ifNotFalseThanValue,
   NvlUtils,
   TypeUtils,
 } from '../../../util';
 import { BaseGridColumn } from '../base-column';
 
 export class GridHeadColumn extends BaseGridColumn {
+
+  public static readonly defaultProps: IGridColumnProps = {
+    headerRendered: true,
+  };
 
   /**
    * @stable [17.10.2019]
@@ -33,18 +36,31 @@ export class GridHeadColumn extends BaseGridColumn {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const originalProps = this.originalProps;
+    const {
+      colSpan,
+      headerClassName,
+      headerColSpan,
+      headerRendered,
+      headerStyles,
+    } = originalProps;
 
-    return ifNotFalseThanValue(
-      props.headerRendered,
+    return ConditionUtils.orNull(
+      headerRendered,
       () => (
         <th
           style={{
             ...this.styles,
-            ...CalcUtils.calc(props.headerStyles, props),
+            ...CalcUtils.calc(headerStyles, originalProps),
           }}
-          colSpan={NvlUtils.nvl(props.headerColSpan, props.colSpan)}
-          className={this.getClassName(CalcUtils.calc(props.headerClassName, props), 'rac-no-user-select')}>
+          colSpan={NvlUtils.nvl(headerColSpan, colSpan)}
+          className={
+            this.getClassName(
+              CalcUtils.calc(headerClassName, originalProps),
+              'rac-no-user-select'  // TODO
+            )
+          }
+        >
           {this.columnContentElement}
         </th>
       )
@@ -57,11 +73,15 @@ export class GridHeadColumn extends BaseGridColumn {
    * @returns {React.ReactNode}
    */
   protected getColumnContentElement(children: React.ReactNode): React.ReactNode {
+    const {
+      sortable,
+    } = this.originalProps;
+
     return (
       <React.Fragment>
         {
-          this.props.sortable && (
-            <div className='rac-grid-column-sort'>
+          sortable && (
+            <div className={GridClassesEnum.GRID_COLUMN_SORT_ACTIONS}>
               {
                 this.uiFactory.makeIcon({
                   className: ClsUtils.joinClassName(
