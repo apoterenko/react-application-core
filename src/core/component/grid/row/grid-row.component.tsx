@@ -11,7 +11,6 @@ import {
 } from '../../../util';
 import {
   GridClassesEnum,
-  IBaseEvent,
   IGridRowProps,
   UniversalScrollableContext,
 } from '../../../definition';
@@ -24,11 +23,12 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
   };
 
   /**
-   * @stable [23.10.2019]
-   * @param {IGridRowProps} props
+   * @stable [19.07.2020]
+   * @param {IGridRowProps} originalProps
    */
-  constructor(props: IGridRowProps) {
-    super(props);
+  constructor(originalProps: IGridRowProps) {
+    super(originalProps);
+
     this.onClick = this.onClick.bind(this);
   }
 
@@ -45,14 +45,18 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
       hovered,
       indexed,
       onClick,
+      onGroupClick,
       rawData,
       selectable,
       selected,
     } = originalProps;
 
-    const syntheticEntity = isSyntheticEntity(rawData);
-    const isHovered = hovered && !syntheticEntity;
-    const isSelectable = selectable && !syntheticEntity;
+    const isSelectable = selectable && (
+      group
+        ? TypeUtils.isFn(onGroupClick)
+        : TypeUtils.isFn(onClick)
+    ) && !isSyntheticEntity(rawData);
+    const isHovered = hovered && isSelectable;
 
     return (
       <UniversalScrollableContext.Consumer>
@@ -75,7 +79,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                 selected && `${GridClassesEnum.GRID_ROW_SELECTED} ${selectedElementClassName}`
               )
             }
-            {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable && TypeUtils.isFn(onClick), false)}
+            {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable, false)}
           >
             {this.originalChildren}
           </tr>
@@ -85,11 +89,24 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
   }
 
   /**
-   * @stable [23.10.2019]
-   * @param {IBaseEvent} event
+   * @stable [19.07.2020]
    */
-  private onClick(event: IBaseEvent): void {
-    const props = this.props;
-    props.onClick(props.rawData);
+  private onClick(): void {
+    const {
+      group,
+      onClick,
+      onGroupClick,
+      rawData,
+    } = this.originalProps;
+
+    if (group) {
+      if (TypeUtils.isFn(onGroupClick)) {
+        onGroupClick(rawData);
+      }
+    } else {
+      if (TypeUtils.isFn(onClick)) {
+        onClick(rawData);
+      }
+    }
   }
 }

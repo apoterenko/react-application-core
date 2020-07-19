@@ -27,8 +27,8 @@ import {
   IGroupByWrapper,
   IGroupedDataSorterWrapper,
   IGroupedRowsWrapper,
-  IGroupWrapper,
   IGroupExpandedWrapper,
+  IGroupWrapper,
   IHeaderClassNameWrapper,
   IHeaderColSpanWrapper,
   IHeaderColumnClassNameWrapper,
@@ -48,6 +48,7 @@ import {
   IOnClickWrapper,
   IOnColumnClickWrapper,
   IOnColumnContentClickWrapper,
+  IOnGroupClickWrapper,
   IOnSortingDirectionChangeWrapper,
   IPartOfGroupWrapper,
   IQueryWrapper,
@@ -155,7 +156,8 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
  * @stable [01.06.2020]
  */
 export interface IPresetsGridRowEntity<TEntity extends IEntity = IEntity>
-  extends IPresetsRowEntity<TEntity> {
+  extends IPresetsRowEntity<TEntity>,
+    IOnGroupClickWrapper<TEntity> {
 }
 
 /**
