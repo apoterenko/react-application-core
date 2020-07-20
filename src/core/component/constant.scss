@@ -8,27 +8,24 @@ $color-10: #e1e1e1 !default;
 $color-11: #ff0000 !default;
 $color-17: #57fff1 !default;
 
-/**/
+//
 $rac-z-index-keyboard: 4 !default;
 
-/************************/
-/* @stable [29.01.2020] */
-/************************/
-/**/
+//
 $rac-layout-offset-0: 24px !default;
 
-/* @stable [07.03.2019] */
+//
 $rac-action-icon-size: unset !default;
 $rac-action-icon-color: unset !default;
 $rac-action-icon-cursor: pointer !default;
 
-/* @stable [21.09.2018] */
+//
 $html-overflow: hidden !default;
 
-/* @stable [26.06.2018] */
+//
 $rac-min-width: unset !default;
 
-/* @stable [27.01.2019] */
+//
 $rac-keyboard-background: unset !default;
 $rac-keyboard-border-radius: 5px 5px 0 0 !default;
 $rac-keyboard-border: unset !default;
@@ -58,16 +55,16 @@ $rac-keyboard-portal-bottom: 0 !default;
 $rac-keyboard-portal-position: fixed !default;
 $rac-keyboard-portal-z-index: $rac-z-index-keyboard !default;
 
-/* @stable [24.06.2018] */
+//
 $rac-icon-width0: 12px !default;
 $rac-icon-height0: 12px !default;
 
-/* @stable [21.01.2019] */
+//
 $rac-calendar-dialog-size-0: 32px !default;
 $rac-calendar-dialog-size-1: $rac-calendar-dialog-size-0 / 2 !default;
 $rac-calendar-dialog-color-0: $rac-primary-color-poseidon-0 !default;
 $rac-calendar-dialog-border-0: 1px solid $rac-primary-color-elara-2 !default;
-/**/
+//
 $rac-calendar-base-dialog-range-explorer-align-items: center !default;
 $rac-calendar-base-dialog-range-explorer-date-content-flex: 1 !default;
 $rac-calendar-base-dialog-range-explorer-date-content-text-align: center !default;
@@ -76,7 +73,7 @@ $rac-calendar-base-dialog-range-explorer-date-flex: 1 !default;
 $rac-calendar-base-dialog-range-explorer-display: flex !default;
 $rac-calendar-base-dialog-range-explorer-flex-direction: row !default;
 $rac-calendar-base-dialog-range-explorer-margin: 0 0 $rac-primary-offset-1 0 !default;
-/**/
+//
 $rac-calendar-dialog-body-background: $rac-calendar-dialog-color-0 !default;
 $rac-calendar-dialog-body-content-padding: unset !default;
 $rac-calendar-dialog-calendar-body-border-bottom: unset !default;
@@ -107,23 +104,21 @@ $rac-calendar-dialog-range-button-mini-icon-size: $rac-primary-icon-size-2 !defa
 $rac-calendar-dialog-range-explorer-date-font-size: $rac-primary-font-size-1 !default;
 $rac-calendar-dialog-range-explorer-date: $rac-primary-color-elara-0 !default;
 
-/* @stable [22.06.2018] */
+//
 $rac-grid-column-align-center-cls: rac-grid-column-align-center;
 $rac-grid-column-align-right-cls: rac-grid-column-align-right;
 $rac-grid-column-edited-cls: rac-grid-column-edited;
 $rac-grid-column-sortable-cls: rac-grid-column-sortable;
 $rac-grid-row-group-expanded-cls: rac-grid-row-group-expanded;
 $rac-grid-row-odd-cls: rac-grid-row-odd;
-$rac-grid-row-part-of-group-cls: rac-grid-row-part-of-group;
 $rac-grid-row-total-cls: rac-grid-row-total;
-/**/
+//
 $rac-grid-color-0: $rac-primary-color-poseidon-0 !default;
 $rac-grid-color-1: $rac-primary-color-metis-05-3 !default;
 $rac-grid-color-2: $rac-primary-color-metis-3 !default;
 $rac-grid-color-3: $rac-primary-color-metis-1-5 !default;
-$rac-grid-color-5: $rac-primary-color-metis-05 !default;
 $rac-grid-offset-0: $rac-primary-offset-1 !default;
-/**/
+//
 $rac-grid-body-column-content-position: unset !default;
 $rac-grid-body-column-padding-bottom: $rac-primary-offset-1 !default;
 $rac-grid-body-column-padding-top: $rac-primary-offset-1 !default;
@@ -133,7 +128,6 @@ $rac-grid-body-overflow: unset !default;
 $rac-grid-body-padding: unset !default;
 $rac-grid-body-row-border-bottom: unset !default;
 $rac-grid-body-row-box-sizing: border-box !default;
-$rac-grid-body-row-part-of-group-border-bottom: 1px solid $rac-grid-color-5 !default;
 $rac-grid-border-collapse: collapse !default;
 $rac-grid-column-align-center-content-align-items: center !default;
 $rac-grid-column-align-center-content-self-field-input-text-align: center !default;
@@ -216,35 +210,35 @@ $rac-grid-row-total-border-left: unset !default;
 $rac-grid-row-total-border-right: unset !default;
 $rac-grid-row-total-font-weight: $rac-primary-font-weight-4 !default;
 $rac-grid-row-width: 100% !default;
-/**/
+//
 $rac-grid-wrapper-display: flex !default;
 $rac-grid-wrapper-flex-direction: column !default;
 $rac-grid-wrapper-flex-grow: 1 !default;
 
-/* @stable [26.12.2018] */
+//
 $rac-loading-icon-color: $rac-primary-color-poseidon-0 !default;
 $rac-loading-message-font-size: $rac-primary-font-size-0 !default;
 $rac-loading-message-color: $rac-primary-color-poseidon-0 !default;
 $rac-loading-message-margin: 0 0 0 8px !default;
 
-/* @stable [17.09.2018] */
+//
 $rac-field-not-focused-cls: rac-field-not-focused;
 $rac-unchecked-cls: rac-unchecked;
-/**/
+//
 $rac-field-label-position-0: absolute !default;
 $rac-field-offset-0: 20px !default;
-/**/
+//
 $rac-base-text-self-field-input-caret-color: $rac-primary-color-poseidon-0 !default;
-$rac-cron-field-labeled-self-field-label-position: $rac-field-label-position-0 !default;                  /* @stable [04.03.2020] */
-$rac-cron-field-labeled-self-field-label-top: -$rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
-$rac-cron-field-labeled-self-field-margin-top: $rac-field-offset-0 !default;                              /* @stable [04.03.2020] */
-/**/
+$rac-cron-field-labeled-self-field-label-position: $rac-field-label-position-0 !default;
+$rac-cron-field-labeled-self-field-label-top: -$rac-field-offset-0 !default;
+$rac-cron-field-labeled-self-field-margin-top: $rac-field-offset-0 !default;
+//
 $rac-date-field-calendar-base-dialog-range-explorer-date-justify-content: center !default;
-/**/
+//
 $rac-date-field-calendar-dialog-body-height: 342px !default;
 $rac-date-field-calendar-dialog-body-max-width: 304px !default;
 $rac-date-field-calendar-dialog-footer-action-width: 72px !default;
-/**/
+//
 $rac-date-field-calendars-dialog-body-height: 422px !default;
 $rac-date-field-calendars-dialog-body-max-width: 608px !default;
 $rac-date-field-calendars-dialog-calendar-first-selected-day-border-radius: $rac-calendar-dialog-size-1 0 0 $rac-calendar-dialog-size-1 !default;
@@ -263,17 +257,13 @@ $rac-date-field-calendars-dialog-second-calendar-margin: 0 0 0 $rac-primary-offs
 $rac-date-field-calendars-selected-quick-action-background: $rac-primary-color-ganymede-0 !default;
 $rac-date-field-calendars-selected-quick-action-content-color: $rac-primary-color-poseidon-0 !default;
 
-/************************/
-/* @stable [16.03.2020] */
-/************************/
+//
 $rac-place-dialog-body-height: 80vh !default;
 $rac-place-dialog-body-min-width: 90vw !default;
 $rac-place-dialog-title-font-size: $rac-primary-font-size-0 !default;
 $rac-place-dialog-title-margin: 0 0 $rac-primary-offset-3 0 !default;
 
-/************************/
-/* @stable [16.03.2020] */
-/************************/
+//
 $rac-preview-dialog-body-content-padding: 0 $rac-primary-offset-3 !default;
 $rac-preview-dialog-body-content-wrapper-overflow: hidden !default;
 $rac-preview-dialog-body-content-wrapper-padding: 0 !default;
@@ -287,9 +277,7 @@ $rac-preview-dialog-extra-actions-right: $rac-primary-offset-3 !default;
 $rac-preview-dialog-extra-actions-top: 50% !default;
 $rac-preview-dialog-extra-actions-transform: translateY(-50%) !default;
 
-/************************/
-/* @stable [17.03.2020] */
-/************************/
+//
 $rac-empty-picture-viewer-align-items: center !default;
 $rac-empty-picture-viewer-display: $rac-primary-display-0 !default;
 $rac-empty-picture-viewer-justify-content: center !default;
@@ -302,13 +290,11 @@ $rac-viewer-preview-icon-color: $rac-primary-color-metis-3 !default;
 $rac-viewer-preview-icon-not-hover-display: none !default;
 $rac-viewer-preview-icon-size: 40px !default;
 
-/************************/
-/* @stable [05.08.2018] */
-/************************/
+//
 $rac-dialog-color-1: $rac-primary-color-metis-1 !default;
 $rac-dialog-height-0: 80vh !default;
 $rac-dialog-width-0: 50vw !default;
-/**/
+//
 $rac-dialog-action-height: unset !default;
 $rac-dialog-action-width: 160px !default;
 $rac-dialog-actions-display: $rac-primary-display-0 !default;
@@ -321,14 +307,14 @@ $rac-dialog-body-title-border-bottom: 1px solid $rac-dialog-color-1 !default;
 $rac-dialog-body-title-font-weight: $rac-primary-font-weight-4 !default;
 $rac-dialog-body-title-margin: 0 $rac-primary-offset-3 $rac-primary-offset-3 $rac-primary-offset-3 !default;
 $rac-dialog-body-title-padding: 0 0 12px 0 !default;
-/**/
+//
 $rac-modal-dialog-height: 100% !default;
 $rac-modal-dialog-left: 0 !default;
 $rac-modal-dialog-position: absolute !default;
 $rac-modal-dialog-top: 0 !default;
 $rac-modal-dialog-width: 100% !default;
 $rac-modal-dialog-z-index: $rac-primary-z-index-2 !default;
-/**/
+//
 $rac-menu-dialog-body-background: unset !default;
 $rac-menu-dialog-body-justify-content: unset !default;
 $rac-menu-dialog-empty-message-align-items: center !default;
@@ -345,7 +331,7 @@ $rac-menu-dialog-list-item-decorated-content-text-align: right !default;
 $rac-menu-dialog-list-item-font-size: unset !default;
 $rac-menu-dialog-list-item-font-weight: unset !default;
 $rac-menu-dialog-list-item-line-height: $rac-primary-line-height-2 !default;
-/**/
+//
 $rac-menu-anchored-dialog-body-background: unset !default;
 $rac-menu-anchored-dialog-body-content-wrapper-background: $rac-primary-color-poseidon-0 !default;
 $rac-menu-anchored-dialog-body-content-wrapper-border-radius: $rac-primary-border-radius-1 !default;
@@ -368,7 +354,7 @@ $rac-menu-anchored-dialog-list-item-selected-color: $rac-primary-color-poseidon-
 $rac-menu-anchored-dialog-list-margin: unset !default;
 $rac-menu-anchored-dialog-list-padding: $rac-primary-offset-1 0 !default;
 $rac-menu-anchored-dialog-z-index: $rac-primary-z-index-2 !default;
-/**/
+//
 $rac-menu-not-anchored-dialog-align-items: center !default;
 $rac-menu-not-anchored-dialog-body-display: $rac-primary-display-0 !default;
 $rac-menu-not-anchored-dialog-body-height: $rac-dialog-height-0 !default;
@@ -377,13 +363,13 @@ $rac-menu-not-anchored-dialog-display: $rac-primary-display-0 !default;
 $rac-menu-not-anchored-dialog-justify-content: center !default;
 $rac-menu-not-anchored-dialog-list-border-radius: $rac-primary-border-radius-1 !default;
 
-/* @stable [03.08.2018] */
+//
 $rac-dnd-border: 1px dashed $color-4 !default;
 $rac-dnd-font-size: $rac-primary-font-size-0 !default;
 $rac-dnd-border-radius: 8px !default;
 $rac-dnd-padding: 24px 0 !default;
 
-/* @stable [13.08.2018] */
+//
 $rac-snackbar-z-index: $snackbar-z-index !default;
 $rac-snackbar-background-color: $rac-primary-color-poseidon-0 !default;
 $rac-snackbar-text-font-size: $rac-primary-font-size-0 !default;
@@ -395,34 +381,34 @@ $rac-snackbar-button-color: $rac-primary-color-elara-0 !default;
 $rac-snackbar-error-button-color: $rac-snackbar-button-color !default;
 $rac-snackbar-error-background-color: $color-11 !default;
 
-/* @stable [24.03.2019] */
+//
 $rac-google-maps-body-flex: 1 !default;
 $rac-google-maps-display: flex !default;
 $rac-google-maps-flex: 1 !default;
 $rac-google-maps-position: relative !default;
 
-/* @stable [16.12.2019] */
+//
 $rac-cron-days-cls: rac-cron-days;
-/**/
+//
 $rac-cron-field-labeled-cls: '#{$rac-cron-field-cls}.#{$rac-field-labeled-cls}';
-/**/
+//
 $rac-cron-calendar-width: 240px !default;
 $rac-cron-calendar-wrapper-background: $rac-primary-color-metis-05 !default;
 $rac-cron-calendar-wrapper-border-radius: $rac-primary-border-radius-1 !default;
 $rac-cron-calendar-wrapper-flex: 1 !default;
 $rac-cron-calendar-wrapper-padding: 6px $rac-primary-offset-0 !default;
 
-/* @stable [21.01.2020] */
+//
 $rac-calendar-current-day-cls: rac-calendar__current-day;
 $rac-calendar-first-selected-day-cls: rac-calendar__first-selected-day;
 $rac-calendar-last-selected-day-cls: rac-calendar__last-selected-day;
 $rac-calendar-middle-selected-day-cls: rac-calendar__middle-selected-day;
 $rac-calendar-selected-day-cls: rac-calendar__selected-day;
 $rac-calendar-today-cls: rac-calendar__today;
-/**/
+//
 $rac-calendar-size-0: 28px !default;
 $rac-calendar-offset-0: 2px !default;
-/**/
+//
 $rac-calendar-body-background: unset !default;
 $rac-calendar-body-border: 0 !default;
 $rac-calendar-cell-padding-left: 0 !default;

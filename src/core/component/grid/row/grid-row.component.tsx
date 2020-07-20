@@ -46,6 +46,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
       indexed,
       onClick,
       onGroupClick,
+      partOfGroup,
       rawData,
       selectable,
       selected,
@@ -67,15 +68,15 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
               ClsUtils.joinClassName(
                 GridClassesEnum.GRID_ROW,
                 CalcUtils.calc(className),
-                indexed && !R.isNil(rawData) && `rac-grid-row-${rawData.id}`,
-                group && GridClassesEnum.GRID_ROW_GROUP,
                 filter && GridClassesEnum.GRID_ROW_FILTER,
-                originalProps.groupExpanded && 'rac-grid-row-group-expanded',
+                group && GridClassesEnum.GRID_ROW_GROUP,
+                indexed && !R.isNil(rawData) && `rac-grid-row-${rawData.id}`,
                 isHovered && 'rac-grid-row-hovered',
-                originalProps.odd && 'rac-grid-row-odd',
-                originalProps.partOfGroup && 'rac-grid-row-part-of-group',
-                originalProps.total && 'rac-grid-row-total',
                 isSelectable && GridClassesEnum.GRID_ROW_SELECTABLE,
+                originalProps.groupExpanded && 'rac-grid-row-group-expanded',
+                originalProps.odd && 'rac-grid-row-odd',
+                originalProps.total && 'rac-grid-row-total',
+                partOfGroup && GridClassesEnum.GRID_ROW_PART_OF_GROUP,
                 selected && `${GridClassesEnum.GRID_ROW_SELECTED} ${selectedElementClassName}`
               )
             }

@@ -354,6 +354,7 @@
   $rac-grid-row-border-left: unset,                                           /* @stable [11.11.2019] */
   $rac-grid-row-border-radius: unset,                                         /* @stable [17.02.2020] */
   $rac-grid-row-border-right: unset,                                          /* @stable [11.11.2019] */
+  $rac-grid-row-border-top: unset,                                                            /* @stable [20.07.2020] */
   $rac-grid-row-box-sizing: unset,                                            /* @stable [11.11.2019] */
   $rac-grid-row-cursor: unset,                                                /* @stable [21.10.2019] */
   $rac-grid-row-display: unset,                                               /* @stable [11.11.2019] */
@@ -371,6 +372,7 @@
       $rac-styles-border-left: $rac-grid-row-border-left,
       $rac-styles-border-radius: $rac-grid-row-border-radius,
       $rac-styles-border-right: $rac-grid-row-border-right,
+      $rac-styles-border-top: $rac-grid-row-border-top,
       $rac-styles-box-sizing: $rac-grid-row-box-sizing,
       $rac-styles-cursor: $rac-grid-row-cursor,
       $rac-styles-display: $rac-grid-row-display,
@@ -434,7 +436,7 @@
   $rac-grid-body-row-border-bottom: unset,                                        /* @stable [22.10.2019] */
   $rac-grid-body-row-box-sizing: unset,                                           /* @stable [11.11.2019] */
   $rac-grid-body-row-hover-background: unset,                                                 /* @stable [19.07.2020] */
-  $rac-grid-body-row-part-of-group-border-bottom: unset,                          /* @stable [11.11.2019] */
+  $rac-grid-body-row-part-of-group-border-top: unset,                                         /* @stable [20.07.2020] */
   $rac-grid-border-bottom: unset,                                                 /* @stable [14.01.2020] */
   $rac-grid-border-collapse: unset,                                               /* @stable [26.10.2019] */
   $rac-grid-border-spacing: unset,                                                /* @stable [26.10.2019] */
@@ -633,9 +635,10 @@
       $rac-grid-row-font-weight: $rac-grid-row-group-font-weight
     );
 
+    // @stable [20.07.2020]
     @include rac-grid-row (
       $rac-grid-row-custom: $rac-grid-row-part-of-group-cls,
-      $rac-grid-row-border-bottom: $rac-grid-body-row-part-of-group-border-bottom
+      $rac-grid-row-border-top: $rac-grid-body-row-part-of-group-border-top
     );
 
     // @stable [19.07.2020]

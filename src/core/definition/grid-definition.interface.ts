@@ -241,8 +241,6 @@ export interface IPresetsGridEntity<TEntity extends IEntity = IEntity>
     IOnChangeWrapper<IFieldChangeEntity>,
     IOnChangeFilterWrapper<IFieldChangeEntity> {
   localFiltration?: boolean;  // TODO
-  deactivated?: boolean;
-  highlightOdd?: boolean;
 }
 
 /**
@@ -296,6 +294,7 @@ export enum GridClassesEnum {
   GRID_ROW = 'rac-grid-row',
   GRID_ROW_FILTER = 'rac-grid-row-filter',
   GRID_ROW_GROUP = 'rac-grid-row-group',
+  GRID_ROW_PART_OF_GROUP = 'rac-grid-row-part-of-group',
   GRID_ROW_SELECTABLE = 'rac-grid-row-selectable',
   GRID_ROW_SELECTED = 'rac-grid-row-selected',
 }
