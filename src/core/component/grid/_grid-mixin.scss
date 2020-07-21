@@ -24,6 +24,7 @@
   $rac-grid-column-content-base-text-field-self-field-border-radius: unset,                   /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-height: unset,                          /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-icon-color: unset,                      /* @stable [21.07.2020] */
+  $rac-grid-column-content-base-text-field-self-field-icon-padding: unset,                    /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-color: unset,                     /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-padding: unset,                   /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-text-align: unset,                /* @stable [21.07.2020] */
@@ -141,6 +142,7 @@
         $rac-self-field-border-radius: $rac-grid-column-content-base-text-field-self-field-border-radius,
         $rac-self-field-height: $rac-grid-column-content-base-text-field-self-field-height,
         $rac-self-field-icon-color: $rac-grid-column-content-base-text-field-self-field-icon-color,
+        $rac-self-field-icon-padding: $rac-grid-column-content-base-text-field-self-field-icon-padding,
         $rac-self-field-input-color: $rac-grid-column-content-base-text-field-self-field-input-color,
         $rac-self-field-input-padding:  $rac-grid-column-content-base-text-field-self-field-input-padding,
         $rac-self-field-input-text-align: $rac-grid-column-content-base-text-field-self-field-input-text-align
@@ -172,6 +174,7 @@
   $rac-grid-column-content-base-text-field-self-field-border-radius: unset,                   /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-height: unset,                          /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-icon-color: unset,                      /* @stable [21.07.2020] */
+  $rac-grid-column-content-base-text-field-self-field-icon-padding: unset,                    /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-color: unset,                     /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-padding: unset,                   /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-text-align: unset,                /* @stable [21.07.2020] */
@@ -279,6 +282,7 @@
       $rac-grid-column-content-base-text-field-self-field-border-radius: $rac-grid-column-content-base-text-field-self-field-border-radius,
       $rac-grid-column-content-base-text-field-self-field-height: $rac-grid-column-content-base-text-field-self-field-height,
       $rac-grid-column-content-base-text-field-self-field-icon-color: $rac-grid-column-content-base-text-field-self-field-icon-color,
+      $rac-grid-column-content-base-text-field-self-field-icon-padding: $rac-grid-column-content-base-text-field-self-field-icon-padding,
       $rac-grid-column-content-base-text-field-self-field-input-color: $rac-grid-column-content-base-text-field-self-field-input-color,
       $rac-grid-column-content-base-text-field-self-field-input-padding: $rac-grid-column-content-base-text-field-self-field-input-padding,
       $rac-grid-column-content-base-text-field-self-field-input-text-align: $rac-grid-column-content-base-text-field-self-field-input-text-align,
@@ -439,6 +443,7 @@
   $rac-grid-column-border-radius: unset,                                          /* @stable [21.10.2019] */
   $rac-grid-column-content-align-items: unset,                                    /* @stable [21.10.2019] */
   $rac-grid-column-content-background: unset,                                     /* @stable [11.11.2019] */
+  $rac-grid-column-content-base-text-field-self-field-icon-padding: unset,                    /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-padding: unset,                   /* @stable [21.07.2020] */
   $rac-grid-column-content-base-text-field-self-field-input-text-align: unset,                /* @stable [21.07.2020] */
   $rac-grid-column-content-border-radius: unset,                                  /* @stable [04.01.2020] */
@@ -644,6 +649,7 @@
       $rac-grid-column-border-radius: $rac-grid-column-border-radius,
       $rac-grid-column-content-align-items: $rac-grid-column-content-align-items,
       $rac-grid-column-content-background: $rac-grid-column-content-background,
+      $rac-grid-column-content-base-text-field-self-field-icon-padding: $rac-grid-column-content-base-text-field-self-field-icon-padding,
       $rac-grid-column-content-base-text-field-self-field-input-padding: $rac-grid-column-content-base-text-field-self-field-input-padding,
       $rac-grid-column-content-base-text-field-self-field-input-text-align: $rac-grid-column-content-base-text-field-self-field-input-text-align,
       $rac-grid-column-content-border-radius: $rac-grid-column-content-border-radius,
