@@ -3,9 +3,8 @@ import * as React from 'react';
 import {
   CalcUtils,
   ConditionUtils,
-  handlerPropsFactory,
   NvlUtils,
-  orUndef,
+  PropsUtils,
   TypeUtils,
 } from '../../../util';
 import { BaseGridColumn } from '../base-column';
@@ -18,17 +17,18 @@ export class GridColumn extends BaseGridColumn {
   };
 
   /**
-   * @stable [18.10.2019]
-   * @param {IGridColumnProps} props
+   * @stable [21.07.2020]
+   * @param {IGridColumnProps} originalProps
    */
-  constructor(props: IGridColumnProps) {
-    super(props);
+  constructor(originalProps: IGridColumnProps) {
+    super(originalProps);
+
     this.onColumnClick = this.onColumnClick.bind(this);
     this.onColumnContentClick = this.onColumnContentClick.bind(this);
   }
 
   /**
-   * @stable [18.10.2019]
+   * @stable [21.07.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -56,9 +56,11 @@ export class GridColumn extends BaseGridColumn {
           colSpan={NvlUtils.nvl(columnColSpan, colSpan)}
           className={this.getClassName(CalcUtils.calc(columnClassName, originalProps))}
           title={
-            columnTitle || orUndef(TypeUtils.isPrimitive(originalChildren), () => String(originalChildren))
+            columnTitle || ConditionUtils.orUndef(
+              TypeUtils.isPrimitive(originalChildren), () => String(originalChildren)
+            )
           }
-          {...handlerPropsFactory(this.onColumnClick, TypeUtils.isFn(onColumnClick), false)}
+          {...PropsUtils.buildClickHandlerProps(this.onColumnClick, TypeUtils.isFn(onColumnClick), false)}
         >
           {this.columnContentElement}
         </td>
@@ -67,30 +69,42 @@ export class GridColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [04.01.2020]
+   * @stable [21.07.2020]
    * @returns {React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>}
    */
   protected getColumnContentProps(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    const props = this.props;
+    const originalProps = this.originalProps;
+    const {
+      onColumnContentClick,
+    } = originalProps;
+
     return {
       ...super.getColumnContentProps(),
-      ...handlerPropsFactory(this.onColumnContentClick, TypeUtils.isFn(props.onColumnContentClick), false),
+      ...PropsUtils.buildClickHandlerProps(this.onColumnContentClick, TypeUtils.isFn(onColumnContentClick), false),
     };
   }
 
   /**
-   * @stable [18.10.2019]
+   * @stable [21.07.2020]
    */
   private onColumnClick(): void {
-    const props = this.props;
-    props.onColumnClick(props);
+    const originalProps = this.originalProps;
+    const {
+      onColumnClick,
+    } = originalProps;
+
+    onColumnClick(originalProps);
   }
 
   /**
-   * @stable [04.01.2020]
+   * @stable [21.07.2020]
    */
   private onColumnContentClick(): void {
-    const props = this.props;
-    props.onColumnContentClick(props);
+    const originalProps = this.originalProps;
+    const {
+      onColumnContentClick,
+    } = originalProps;
+
+    onColumnContentClick(originalProps);
   }
 }
