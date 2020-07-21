@@ -178,15 +178,15 @@ $rac-grid-column-align-right-cls: rac-grid-column-align-right;
 $rac-grid-column-cls: rac-grid-column;
 $rac-grid-column-content-cls: rac-grid-column__content;
 $rac-grid-column-sort-actions-cls: rac-grid-column__sort-actions;
-$rac-grid-head-column-sort-icon-cls: rac-grid-head-column__sort-icon;
 $rac-grid-row-group-cls: rac-grid-row-group;
 $rac-grid-row-part-of-group-cls: rac-grid-row-part-of-group;
 $rac-grid-row-selectable-cls: rac-grid-row-selectable;
 $rac-grid-row-selected-cls: rac-grid-row-selected;
+$rac-grid-sort-action-cls: rac-grid__sort-action;
 //
-$rac-grid-head-column-active-sort-icon-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__active-sort-icon';
-$rac-grid-head-column-sort-asc-action-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__sort-asc-action';
-$rac-grid-head-column-sort-desc-action-cls: '#{$rac-grid-head-column-sort-icon-cls}.rac-grid-head-column__sort-desc-action';
+$rac-grid-active-sort-action-cls: '#{$rac-grid-sort-action-cls}.rac-grid__active-sort-action';
+$rac-grid-asc-sort-action-cls: '#{$rac-grid-sort-action-cls}.rac-grid__asc-sort-action';
+$rac-grid-desc-sort-action-cls: '#{$rac-grid-sort-action-cls}.rac-grid__desc-sort-action';
 
 // @stable [20.05.2020]
 $rac-sub-header-cls: rac-sub-header;

@@ -80,9 +80,9 @@ export class GridHeadColumn extends BaseGridColumn {
               {
                 this.uiFactory.makeIcon({
                   className: ClsUtils.joinClassName(
-                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
-                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_DESC_ACTION,
-                    this.isDescSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
+                    GridClassesEnum.GRID_SORT_ACTION,
+                    GridClassesEnum.GRID_DESC_SORT_ACTION,
+                    this.isDescSortingEnabled && GridClassesEnum.GRID_ACTIVE_SORT_ACTION
                   ),
                   type: IconsEnum.ARROW_DOWN,
                   onClick: this.onChangeDescSortingActionClick,
@@ -91,9 +91,9 @@ export class GridHeadColumn extends BaseGridColumn {
               {
                 this.uiFactory.makeIcon({
                   className: ClsUtils.joinClassName(
-                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_ICON,
-                    GridClassesEnum.GRID_HEAD_COLUMN_SORT_ASC_ACTION,
-                    this.isAscSortingEnabled && GridClassesEnum.GRID_HEAD_COLUMN_ACTIVE_SORT_ICON
+                    GridClassesEnum.GRID_SORT_ACTION,
+                    GridClassesEnum.GRID_ASC_SORT_ACTION,
+                    this.isAscSortingEnabled && GridClassesEnum.GRID_ACTIVE_SORT_ACTION
                   ),
                   type: IconsEnum.ARROW_UP,
                   onClick: this.onChangeAscSortingActionClick,
