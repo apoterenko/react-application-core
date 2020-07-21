@@ -173,6 +173,8 @@ $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-butto
 $rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-button-decorated-not-filled-cls}';
 
 // @stable [18.07.2020]
+$rac-grid-column-align-center-cls: rac-grid-column-align-center;
+$rac-grid-column-align-right-cls: rac-grid-column-align-right;
 $rac-grid-column-cls: rac-grid-column;
 $rac-grid-column-content-cls: rac-grid-column__content;
 $rac-grid-column-sort-actions-cls: rac-grid-column__sort-actions;

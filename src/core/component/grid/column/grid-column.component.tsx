@@ -1,18 +1,21 @@
 import * as React from 'react';
 
 import {
-  calc,
+  CalcUtils,
+  ConditionUtils,
   handlerPropsFactory,
-  ifNotFalseThanValue,
-  isFn,
-  isPrimitive,
-  nvl,
+  NvlUtils,
   orUndef,
+  TypeUtils,
 } from '../../../util';
 import { BaseGridColumn } from '../base-column';
 import { IGridColumnProps } from '../../../definition';
 
 export class GridColumn extends BaseGridColumn {
+
+  public static readonly defaultProps: IGridColumnProps = {
+    columnRendered: true,
+  };
 
   /**
    * @stable [18.10.2019]
@@ -29,21 +32,33 @@ export class GridColumn extends BaseGridColumn {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
-    const children = props.children;
+    const originalProps = this.originalProps;
+    const originalChildren = this.originalChildren;
+    const {
+      colSpan,
+      columnClassName,
+      columnColSpan,
+      columnRendered,
+      columnStyles,
+      columnTitle,
+      columnWidth,
+      onColumnClick,
+    } = originalProps;
 
-    return ifNotFalseThanValue(
-      props.columnRendered,
+    return ConditionUtils.orNull(
+      columnRendered,
       () => (
         <td
           style={{
-            ...this.getStyle({width: props.columnWidth}),
-            ...calc(props.columnStyles, props),
+            ...this.getStyle({width: columnWidth}),
+            ...CalcUtils.calc(columnStyles, originalProps),
           }}
-          colSpan={nvl(props.columnColSpan, props.colSpan)}
-          className={this.getClassName(calc(props.columnClassName, props))}
-          title={props.columnTitle || orUndef(isPrimitive(children), () => String(children))}
-          {...handlerPropsFactory(this.onColumnClick, isFn(props.onColumnClick), false)}
+          colSpan={NvlUtils.nvl(columnColSpan, colSpan)}
+          className={this.getClassName(CalcUtils.calc(columnClassName, originalProps))}
+          title={
+            columnTitle || orUndef(TypeUtils.isPrimitive(originalChildren), () => String(originalChildren))
+          }
+          {...handlerPropsFactory(this.onColumnClick, TypeUtils.isFn(onColumnClick), false)}
         >
           {this.columnContentElement}
         </td>
@@ -59,7 +74,7 @@ export class GridColumn extends BaseGridColumn {
     const props = this.props;
     return {
       ...super.getColumnContentProps(),
-      ...handlerPropsFactory(this.onColumnContentClick, isFn(props.onColumnContentClick), false),
+      ...handlerPropsFactory(this.onColumnContentClick, TypeUtils.isFn(props.onColumnContentClick), false),
     };
   }
 

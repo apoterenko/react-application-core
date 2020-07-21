@@ -105,8 +105,6 @@ $rac-calendar-dialog-range-explorer-date-font-size: $rac-primary-font-size-1 !de
 $rac-calendar-dialog-range-explorer-date: $rac-primary-color-elara-0 !default;
 
 //
-$rac-grid-column-align-center-cls: rac-grid-column-align-center;
-$rac-grid-column-align-right-cls: rac-grid-column-align-right;
 $rac-grid-column-edited-cls: rac-grid-column-edited;
 $rac-grid-column-sortable-cls: rac-grid-column-sortable;
 $rac-grid-row-group-expanded-cls: rac-grid-row-group-expanded;
@@ -129,16 +127,10 @@ $rac-grid-body-padding: unset !default;
 $rac-grid-body-row-border-bottom: unset !default;
 $rac-grid-body-row-box-sizing: border-box !default;
 $rac-grid-border-collapse: collapse !default;
-$rac-grid-column-align-center-content-align-items: center !default;
-$rac-grid-column-align-center-content-self-field-input-text-align: center !default;
-$rac-grid-column-align-center-content-text-align: center !default;
 $rac-grid-column-align-center-sortable-content-align-items: normal !default;
 $rac-grid-column-align-center-sortable-content-justify-content: center !default;
 $rac-grid-column-align-center-sortable-content-sort-left: 50% !default;
 $rac-grid-column-align-center-sortable-content-sort-transform: translateX(-50%) !default;
-$rac-grid-column-align-right-content-align-items: flex-end !default;
-$rac-grid-column-align-right-content-self-field-input-text-align: right !default;
-$rac-grid-column-align-right-content-text-align: right !default;
 $rac-grid-column-content-button-content-font-size: $rac-primary-font-size-0 !default;
 $rac-grid-column-content-button-height: 32px !default;
 $rac-grid-column-content-button-hover-background: $rac-button-raised-background;
@@ -148,9 +140,6 @@ $rac-grid-column-content-button-icon-size: unset !default;
 $rac-grid-column-content-display: flex !default;
 $rac-grid-column-content-flex-direction: column !default;
 $rac-grid-column-content-flex: 1 !default;
-$rac-grid-column-content-self-field-border-color: unset !default;
-$rac-grid-column-content-self-field-border-radius: unset !default;
-$rac-grid-column-content-self-field-height: unset !default;
 $rac-grid-column-content-width: unset !default;
 $rac-grid-column-edited-content-after-color: $rac-primary-color-aphrodite-0 !default;
 $rac-grid-column-edited-content-after-content: '◥' !default;

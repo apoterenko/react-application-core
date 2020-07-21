@@ -121,15 +121,20 @@
     $rac-styles-width: $rac-grid-offset-0 * 2
   );
 
-  /**
-   * @grid
-   * @stable [21.10.2019]
-   */
+  // @stable [21.07.2020]
   @include rac-grid (
     $rac-grid-column-custom: $rac-grid-column-align-center-cls,
     $rac-grid-column-content-align-items: $rac-grid-column-align-center-content-align-items,
-    // $rac-grid-column-content-self-field-input-text-align: $rac-grid-column-align-center-content-self-field-input-text-align,
+    $rac-grid-column-content-base-text-field-self-field-input-text-align: $rac-grid-column-align-center-content-base-text-field-self-field-input-text-align,
     $rac-grid-column-content-text-align: $rac-grid-column-align-center-content-text-align
+  );
+
+  // @stable [21.07.2020]
+  @include rac-grid (
+    $rac-grid-column-custom: $rac-grid-column-align-right-cls,
+    $rac-grid-column-content-align-items: $rac-grid-column-align-right-content-align-items,
+    $rac-grid-column-content-base-text-field-self-field-input-text-align: $rac-grid-column-align-right-content-base-text-field-self-field-input-text-align,
+    $rac-grid-column-content-text-align: $rac-grid-column-align-right-content-text-align
   );
 
   /**
@@ -142,16 +147,5 @@
     $rac-grid-column-content-justify-content: $rac-grid-column-align-center-sortable-content-justify-content,
     $rac-grid-column-content-sort-left: $rac-grid-column-align-center-sortable-content-sort-left,
     $rac-grid-column-content-sort-transform: $rac-grid-column-align-center-sortable-content-sort-transform
-  );
-
-  /**
-   * @grid
-   * @stable [22.10.2019]
-   */
-  @include rac-grid (
-    $rac-grid-column-custom: $rac-grid-column-align-right-cls,
-    $rac-grid-column-content-align-items: $rac-grid-column-align-right-content-align-items,
-    // $rac-grid-column-content-self-field-input-text-align: $rac-grid-column-align-right-content-self-field-input-text-align,
-    $rac-grid-column-content-text-align: $rac-grid-column-align-right-content-text-align
   );
 }

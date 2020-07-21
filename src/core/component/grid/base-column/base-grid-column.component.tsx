@@ -48,11 +48,11 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     return joinClassName(
       GridClassesEnum.GRID_COLUMN,
       CalcUtils.calc<string>(className),
-      indexed && TypeUtils.isNumber(index) && `rac-grid-column-${index}`,
-      isOddNumber(originalProps.index) && 'rac-grid-column-odd',
-      isEdited(originalProps) && 'rac-grid-column-edited',
-      isSortable(originalProps) && 'rac-grid-column-sortable',
       align && `rac-grid-column-align-${align}`,
+      indexed && TypeUtils.isNumber(index) && `rac-grid-column-${index}`,
+      isEdited(originalProps) && 'rac-grid-column-edited',
+      isOddNumber(originalProps.index) && 'rac-grid-column-odd',
+      isSortable(originalProps) && 'rac-grid-column-sortable',
       ...classNames
     );
   }
