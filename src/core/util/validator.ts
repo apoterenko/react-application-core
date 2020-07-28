@@ -2,7 +2,6 @@ import * as R from 'ramda';
 
 import {
   isDigit,
-  isNumberLike,
   TypeUtils,
 } from './type';
 import {
@@ -19,7 +18,7 @@ import {
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const numberLikeChecker = (value: AnyT): boolean => isNumberLike(value);
+export const numberLikeChecker = (value: AnyT): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
 
 /**
  * @stable [06.12.2019]

@@ -18,16 +18,17 @@ export const uuid = (onlyChars = false): string => {
 };
 
 /**
- * @stable [14.08.2018]
- * @param {TObject} objects
- * @returns {TObject[]}
+ * @stable [28.07.2020]
+ * @param objects
  */
-export const makeUniqueValueObjects = <TObject extends IValueWrapper = IValueWrapper>(...objects: TObject[]): TObject[] =>
-  objects.map((object, index): TObject => ({...object as {}, value: index} as TObject));
+export const makeUniqueValueableObjects =
+  <TObject extends IValueWrapper = IValueWrapper>(...objects: TObject[]): TObject[] =>
+    objects.map((object, index): TObject => ({...object as {}, value: index} as TObject));
 
 /**
  * @stable [16.06.2020]
  */
 export class UuidUtils {
+  public static readonly uniqueValueableObjects = makeUniqueValueableObjects;
   public static readonly uuid = uuid;
 }

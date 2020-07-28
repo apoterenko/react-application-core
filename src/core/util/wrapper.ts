@@ -4,7 +4,6 @@ import {
   IAcceptableWrapper,
   IAcceptDisabledWrapper,
   IAllowEmptyFilterValueWrapper,
-  IAllowSingleTabWrapper,
   IAlwaysDirtyWrapper,
   IAlwaysResettableWrapper,
   IAnchoredWrapper,
@@ -61,7 +60,6 @@ import {
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
   IValidWrapper,
-  IWrappedWrapper,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
 import { TypeUtils } from './type';
@@ -499,22 +497,6 @@ export const isAlwaysDirty = (entity: IAlwaysDirtyWrapper): boolean =>
  */
 export const isDirty = (entity: IDirtyWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.dirty === true, false);
-
-/**
- * @stable [12.02.2020]
- * @param {IAllowSingleTabWrapper} entity
- * @returns {boolean}
- */
-export const isAllowSingleTab = (entity: IAllowSingleTabWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.allowSingleTab === true, false);
-
-/**
- * @stable [12.02.2020]
- * @param {IWrappedWrapper} entity
- * @returns {boolean}
- */
-export const isWrapped = (entity: IWrappedWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.wrapped !== false, false);
 
 /**
  * @stable [12.02.2020]

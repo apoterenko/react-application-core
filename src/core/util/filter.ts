@@ -160,12 +160,11 @@ const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value);
 const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => TypeUtils.isDef(value);
 
 /**
- * @stable [30.01.2020]
- * @param {string} key
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [28.07.2020]
+ * @param key
+ * @param value
  */
-const NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => TypeUtils.isPositiveOrNegativeNumberLike(value);
+const POSITIVE_OR_NEGATIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => TypeUtils.isPositiveOrNegativeNumberLike(value);
 
 /**
  * @stable [24.07.2020]
@@ -270,12 +269,11 @@ export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyV
   filterByPredicate<TSource, TResult>(source, DEF_KEY_VALUE_PREDICATE);
 
 /**
- * @stable [30.01.2020]
- * @param {TSource} source
- * @returns {TResult}
+ * @stable [28.07.2020]
+ * @param source
  */
-const numberLikeValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
-  filterByPredicate<TSource, TResult>(source, NUMBER_LIKE_KEY_VALUE_PREDICATE);
+const positiveOrNegativeNumberLikeValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, POSITIVE_OR_NEGATIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE);
 
 /**
  * @stable [31.01.2019]
@@ -348,19 +346,19 @@ export const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
  * @stable [15.05.2020]
  */
 export class FilterUtils {
-  public static readonly defValuesArrayFilter = defValuesArrayFilter;                                 /* @stable [15.05.2020] */
-  public static readonly defValuesFilter = defValuesFilter;                                           /* @stable [27.07.2020] */
-  public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;       /* @stable [15.05.2020] */
-  public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                     /* @stable [15.05.2020] */
-  public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;               /* @stable [15.05.2020] */
-  public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                           /* @stable [18.05.2020] */
-  public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                       /* @stable [17.05.2020] */
-  public static readonly notEmptyValuesFilter = notEmptyValuesFilter;                                 /* @stable [24.07.2020] */
-  public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;                           /* @stable [18.05.2020] */
-  public static readonly notNilValuesFilter = notNilValuesFilter;                                     /* @stable [21.06.2020] */
-  public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */
-  public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;                             /* @stable [19.05.2020] */
-  public static readonly objectValuesArrayFilter = objectValuesArrayFilter;                           /* @stable [19.05.2020] */
-  public static readonly SAME_ENTITY_PREDICATE = SAME_ENTITY_PREDICATE;                               /* @stable [10.06.2020] */
-  public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;                             /* @stable [20.05.2020] */
+  public static readonly defValuesArrayFilter = defValuesArrayFilter;                                              /* @stable [15.05.2020] */
+  public static readonly defValuesFilter = defValuesFilter;                                                        /* @stable [27.07.2020] */
+  public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;                    /* @stable [15.05.2020] */
+  public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                                  /* @stable [15.05.2020] */
+  public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;                            /* @stable [15.05.2020] */
+  public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                                        /* @stable [18.05.2020] */
+  public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                                    /* @stable [17.05.2020] */
+  public static readonly notEmptyValuesFilter = notEmptyValuesFilter;                                              /* @stable [24.07.2020] */
+  public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;                                        /* @stable [18.05.2020] */
+  public static readonly notNilValuesFilter = notNilValuesFilter;                                                  /* @stable [21.06.2020] */
+  public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;                                          /* @stable [19.05.2020] */
+  public static readonly objectValuesArrayFilter = objectValuesArrayFilter;                                        /* @stable [19.05.2020] */
+  public static readonly positiveOrNegativeNumberLikeValuesFilter = positiveOrNegativeNumberLikeValuesFilter;      /* @stable [28.07.2020] */
+  public static readonly SAME_ENTITY_PREDICATE = SAME_ENTITY_PREDICATE;                                            /* @stable [10.06.2020] */
+  public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;                                          /* @stable [20.05.2020] */
 }

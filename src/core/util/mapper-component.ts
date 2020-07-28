@@ -61,7 +61,7 @@ const mapPageToolbarProps = (props: IPageToolbarProps): IPageToolbarProps =>
   GenericMappers.paginatedLifeCycleEntity(props);
 
 const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps =>
-  GenericMappers.activeQueryEntity(props);
+  GenericMappers.queryFilterEntity(props);
 
 const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageToolbarContainerProps =>
   ({
@@ -160,7 +160,7 @@ const mapToolbarToolsSecondaryFilterContainerProps =
   (props: IToolbarToolsContainerProps & ISecondaryFilterFormEntity): IToolbarToolsContainerProps =>
     mapToolbarToolsContainerProps({
       ...asToolbarToolsContainerProps(props),
-      ...GenericMappers.secondaryFilterFormEntityAsFormEntity(props),
+      ...GenericMappers.secondaryFilterFormEntityAsHolderFormEntity(props),
     });
 
 /**
@@ -176,7 +176,7 @@ const asToolbarToolsContainerProps =
 const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): ISearchToolbarContainerProps =>
   ({
     ...GenericMappers.sectionNameWrapper(props),
-    ...GenericMappers.queryFilterEntity(props),
+    ...GenericMappers.holderQueryFilterEntity(props),
     ...GenericMappers.holderListEntity(props),
   });
 

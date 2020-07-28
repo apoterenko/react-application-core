@@ -41,6 +41,7 @@ export * from './select-option';
 export * from './sort';
 export * from './stack';
 export * from './storage';
+export * from './string';
 export * from './style';
 export * from './tab';
 export * from './task';

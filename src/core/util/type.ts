@@ -41,21 +41,14 @@ export const isNotNumber = (value: AnyT): boolean => !isNumber(value);
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isDigit = (value: AnyT): boolean => isNumber(value) && RegexpConstants.DIGITAL.test(String(value));
+export const isDigit = (value: AnyT): boolean => isNumber(value) && RegexpConstants.POSITIVE_INTEGER.test(String(value));
 
 /**
- * @stable [01.08.2018]
+ * @stable [22.07.2020]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isNumberLike = (value: AnyT): boolean => /^-?[0-9]\d*(\.\d+)?$/.test(String(value));
-
-/**
- * @stable [06.12.2019]
- * @param {AnyT} value
- * @returns {boolean}
- */
-export const isPriceLike = (value: AnyT): boolean => RegexpConstants.PRICE.test(String(value));
+const isPositiveOrNegativeNumberLike = (value: AnyT): boolean => RegexpConstants.POSITIVE_OR_NEGATIVE_NUMBER.test(`${value}`);
 
 /**
  * @stable [06.12.2019]
@@ -103,12 +96,13 @@ export const toType = <TResult>(result: TResult): TResult => result;
  * @stable [16.05.2020]
  */
 export class TypeUtils {
-  public static readonly isBoolean = isBoolean;                                   /* @stable [12.06.2020] */
-  public static readonly isDef = isDef;                                           /* @stable [16.05.2020] */
-  public static readonly isFn = isFn;                                             /* @stable [16.05.2020] */
-  public static readonly isNumber = isNumber;                                     /* @stable [16.05.2020] */
-  public static readonly isObject = isObject;                                     /* @stable [16.05.2020] */
-  public static readonly isPrimitive = isPrimitive;                               /* @stable [16.05.2020] */
-  public static readonly isString = isString;                                     /* @stable [16.05.2020] */
-  public static readonly isUndef = isUndef;                                       /* @stable [16.05.2020] */
+  public static readonly isBoolean = isBoolean;                                                 /* @stable [12.06.2020] */
+  public static readonly isDef = isDef;                                                         /* @stable [16.05.2020] */
+  public static readonly isFn = isFn;                                                           /* @stable [16.05.2020] */
+  public static readonly isNumber = isNumber;                                                   /* @stable [16.05.2020] */
+  public static readonly isObject = isObject;                                                   /* @stable [16.05.2020] */
+  public static readonly isPositiveOrNegativeNumberLike = isPositiveOrNegativeNumberLike;       /* @stable [22.07.2020] */
+  public static readonly isPrimitive = isPrimitive;                                             /* @stable [16.05.2020] */
+  public static readonly isString = isString;                                                   /* @stable [16.05.2020] */
+  public static readonly isUndef = isUndef;                                                     /* @stable [16.05.2020] */
 }
