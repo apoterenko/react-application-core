@@ -5,6 +5,8 @@ import {
   IAlignWrapper,
   IBoolWrapper,
   IChangesWrapper,
+  IClosableWrapper,
+  IClosedWrapper,
   IColSpanWrapper,
   IColumnClassNameWrapper,
   IColumnColSpanWrapper,
@@ -46,6 +48,7 @@ import {
   IOnChangeFilterWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
+  IOnCloseWrapper,
   IOnColumnClickWrapper,
   IOnColumnContentClickWrapper,
   IOnGroupClickWrapper,
@@ -58,6 +61,7 @@ import {
   ISortableWrapper,
   ISorterWrapper,
   IStickyHeadWrapper,
+  ITitleWrapper,
   ITopTotalWrapper,
   ITotalEntityWrapper,
   ITotalWrapper,
@@ -98,7 +102,11 @@ export interface IGridFilterEntity<TEntity extends IEntity = IEntity>
  */
 export interface IPresetsGridColumnEntity
   extends IBoolWrapper,
-    IColSpanWrapper {
+    IClosableWrapper,
+    IClosedWrapper,
+    IColSpanWrapper,
+    IOnCloseWrapper,
+    ITitleWrapper {
 }
 
 /**
@@ -130,7 +138,7 @@ export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
  * @stable [18.10.2019]
  */
 export interface IGridColumnProps<TEntity extends IEntity = IEntity>
-  extends IComponentProps,
+  extends IGenericBaseComponentProps,
     IGenericGridColumnEntity<TEntity>,
     IOnClickWrapper<ISortDirectionEntity>,
     IOnColumnClickWrapper<IGridColumnProps<TEntity>>,
@@ -286,6 +294,7 @@ export enum GridClassesEnum {
   GRID_ACTIVE_SORT_ACTION = 'rac-grid__active-sort-action',
   GRID_ASC_SORT_ACTION = 'rac-grid__asc-sort-action',
   GRID_COLUMN = 'rac-grid-column',
+  GRID_COLUMN_CLOSE_WRAPPER = 'rac-grid-column__close-wrapper',
   GRID_COLUMN_CONTENT = 'rac-grid-column__content',
   GRID_COLUMN_SORT_ACTIONS = 'rac-grid-column__sort-actions',
   GRID_DESC_SORT_ACTION = 'rac-grid__desc-sort-action',

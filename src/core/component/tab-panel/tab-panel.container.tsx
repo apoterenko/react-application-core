@@ -36,7 +36,7 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
         onClick={this.onTabClick}
         onDeactivate={this.onDeactivate}
       >
-        {props.children}
+        {this.originalChildren}
       </TabPanel>
     );
   }

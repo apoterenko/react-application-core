@@ -63,7 +63,7 @@
   $rac-tab-panel-wrapper-padding: unset,                                                      /* @stable [04.02.2020] */
   $rac-tab-position: unset                                                                    /* @stable [19.02.2020] */
 ) {
-  #{rac-cls(rac-tab-panel__wrapper, $rac-tab-panel-wrapper-custom)} {
+  #{rac-cls($rac-tab-panel-wrapper-cls, $rac-tab-panel-wrapper-custom)} {
     @include rac-styles (
       $rac-styles-border-bottom: $rac-tab-panel-wrapper-border-bottom,
       $rac-styles-display: $rac-tab-panel-wrapper-display,
@@ -75,7 +75,7 @@
     );
   }
 
-  #{rac-cls(rac-tab-panel, $rac-tab-panel-custom)} {
+  #{rac-cls($rac-tab-panel-cls, $rac-tab-panel-custom)} {
     @include rac-styles (
       $rac-styles-border-bottom: $rac-tab-panel-border-bottom,
       $rac-styles-display: $rac-tab-panel-display,

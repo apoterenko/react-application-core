@@ -6,14 +6,9 @@ import {
   IPlacesWrapper,
 } from '../definitions.interface';
 import {
-  FIRST_PAGE,
+  DEFAULT_PAGED_ENTITY,
   IReduxPagedEntity,
 } from './page-definition.interface';
-
-/**
- * @stable [08.05.2020]
- */
-export const DEFAULT_DICTIONARY_PAGE_SIZE = 300;
 
 /**
  * @initial-redux-entity
@@ -40,8 +35,8 @@ export enum DictionariesEnum {
  * @stable [08.05.2020]
  */
 export const DEFAULT_DICTIONARY_PAGED_ENTITY = Object.freeze<IReduxPagedEntity>({
-  page: FIRST_PAGE,
-  pageSize: DEFAULT_DICTIONARY_PAGE_SIZE,
+  ...DEFAULT_PAGED_ENTITY,
+  pageSize: 300,
 });
 
 /**

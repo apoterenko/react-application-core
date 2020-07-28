@@ -1,5 +1,5 @@
 import {
-  IExpandedAllGroupsWrapper,
+  IAllGroupsExpandedWrapper,
   IExpandedGroupsWrapper,
   IFilterChangesWrapper,
   IGridConfigurationWrapper,
@@ -29,6 +29,7 @@ export interface IGridContainerProps extends IContainerProps,
 export interface IGridState
   extends IFilterChangesWrapper,
     IExpandedGroupsWrapper<IKeyValue>,
-    IExpandedAllGroupsWrapper {
+    IAllGroupsExpandedWrapper {
   page?: number; // TODO
+  closed?: boolean;
 }

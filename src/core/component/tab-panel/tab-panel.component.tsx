@@ -2,56 +2,62 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  calc,
+  CalcUtils,
+  ClsUtils,
   ifNotNilThanValue,
-  isAllowSingleTab,
   isFn,
   isOddNumber,
-  isWrapped,
-  joinClassName,
+  TypeUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
 import {
   IBaseEvent,
   ITabPanelProps,
   ITabProps,
+  TabPanelClassesEnum,
 } from '../../definition';
 
 export class TabPanel extends GenericComponent<ITabPanelProps> {
+
+  public static readonly defaultProps: ITabPanelProps = {
+    wrapped: true,
+  };
 
   /**
    * @stable [12.02.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
     const {
-      children,
+      allowSingleTab,
       className,
       items,
+      wrapped,
       wrapperClassName,
-    } = props;
+    } = this.originalProps;
 
-    if (items.length <= 1 && !isAllowSingleTab(props)) {
+    if (items.length <= 1 && !allowSingleTab) {
       return null;
     }
     const activeValue = this.activeValue;
 
     const bodyEl = (
       <div
-        ref={this.selfRef}
+        ref={this.actualRef}
         className={
-          joinClassName(
-            'rac-tab-panel',
-            calc(className)
+          ClsUtils.joinClassName(
+            TabPanelClassesEnum.TAB_PANEL,
+            CalcUtils.calc(className)
           )}>
         {items.map((tab, index) => this.asTabElement(tab, index, activeValue))}
-        {children}
+        {this.originalChildren}
       </div>
     );
-    if (isWrapped(props)) {
+
+    if (wrapped) {
       return (
-        <div className={joinClassName('rac-tab-panel__wrapper', calc(wrapperClassName))}>
+        <div
+          className={ClsUtils.joinClassName(TabPanelClassesEnum.TAB_PANEL_WRAPPER, CalcUtils.calc(wrapperClassName))}>
           {bodyEl}
         </div>
       );
@@ -60,36 +66,40 @@ export class TabPanel extends GenericComponent<ITabPanelProps> {
   }
 
   /**
-   * @stable [02.09.2018]
+   * @stable [28.07.2020]
    */
   public componentWillUnmount(): void {
     this.onDeactivateValue();
   }
 
   /**
-   * @stable [10.02.2020]
-   * @param {IBaseEvent} event
-   * @param {ITabProps} tab
+   * @stable [28.07.2020]
+   * @param event
+   * @param tab
    */
   private onTabClick(event: IBaseEvent, tab: ITabProps): void {
-    this.domAccessor.cancelEvent(event);
+    const {
+      onClick,
+    } = this.originalProps;
 
-    const props = this.props;
+    this.domAccessor.cancelEvent(event);
     this.onDeactivateValue();
 
-    if (isFn(props.onClick)) {
-      props.onClick(tab);
+    if (TypeUtils.isFn(onClick)) {
+      onClick(tab);
     }
   }
 
   /**
-   * @stable [12.02.2020]
+   * @stable [28.07.2020]
    */
   private onDeactivateValue(): void {
-    const {onDeactivate} = this.props;
+    const {
+      onDeactivate,
+    } = this.originalProps;
 
-    if (isFn(onDeactivate)) {
-      onDeactivate(this.activeValue); // Is a previous value here
+    if (TypeUtils.isFn(onDeactivate)) {
+      onDeactivate(this.activeValue); // Previous value is here
     }
   }
 
@@ -118,7 +128,7 @@ export class TabPanel extends GenericComponent<ITabPanelProps> {
       <div
         key={`rac-tab-key-${tab.value}`}
         className={
-          joinClassName(
+          ClsUtils.joinClassName(
             'rac-tab-panel__tab',
             isActiveTab ? 'rac-tab-panel__active-tab' : 'rac-tab-panel__inactive-tab',
             isFirstTab && 'rac-tab-panel__first-tab',

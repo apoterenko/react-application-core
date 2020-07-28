@@ -6,14 +6,18 @@ import {
   IMarkerWrapper,
   IMenuOptionsWrapper,
   INameWrapper,
-  IOnChangePlaceWrapper,
-  IOnClickPlaceWrapper,
   IOnClickWrapper,
   IOnInitWrapper,
+  IOnMarkerClickWrapper,
+  IOnMarkerDragEndWrapper,
+  IOnMarkerDragStartWrapper,
+  IOnMarkerEnterWrapper,
+  IOnMarkerLeaveWrapper,
   IOnSelectWrapper,
   IOptionsWrapper,
   IPointsWrapper,
   IRefreshMapWrapper,
+  ITrackableWrapper,
   IVisibleWrapper,
   IZoomWrapper,
 } from '../definitions.interface';
@@ -56,7 +60,7 @@ export interface IGoogleMapsHeatMapLayerConfigEntity
  * @entity
  * @stable [23.01.2020]
  */
-export interface IGoogleMapsMarkerPlaceEventEntity
+export interface IGoogleMapsMarkerInfoEntity
   extends IEventWrapper<IGoogleMapsEventEntity>,
     IItemWrapper<google.maps.Marker>,
     ILatLngEntity,
@@ -99,10 +103,13 @@ export enum GoogleMapsMapTypesEnum {
 export interface IPresetsGoogleMapsEntity
   extends IInitialMarkersWrapper<google.maps.MarkerOptions[]>,
     IMenuOptionsWrapper<IPresetsMenuItemEntity[]>,
-    IOnChangePlaceWrapper<IGoogleMapsMarkerPlaceEventEntity>,
-    IOnClickPlaceWrapper<IGoogleMapsMarkerPlaceEventEntity>,
     IOnClickWrapper<IGoogleMapsEventEntity>,
     IOnInitWrapper,
+    IOnMarkerClickWrapper<IGoogleMapsMarkerInfoEntity>,
+    IOnMarkerDragEndWrapper<IGoogleMapsMarkerInfoEntity>,
+    IOnMarkerDragStartWrapper<IGoogleMapsMarkerInfoEntity>,
+    IOnMarkerEnterWrapper,
+    IOnMarkerLeaveWrapper,
     IOnSelectWrapper<IGoogleMapsMenuItemEntity>,
     IOptionsWrapper<google.maps.MapOptions> {
 }
@@ -133,6 +140,15 @@ export interface IGoogleMapsConfigurationEntity
 }
 
 /**
+ * @config-entity
+ * @stable [28.07.2020]
+ */
+export interface IGoogleMapsMarkerOptionConfigEntity
+  extends google.maps.MarkerOptions,
+    ITrackableWrapper {
+}
+
+/**
  * @component
  * @stable [09.01.2020]
  */
@@ -140,10 +156,19 @@ export interface IGoogleMaps {
   isInitialized: boolean;
   addDirectionPolyline(directionCfg: google.maps.DirectionsRequest, polylineCfg: google.maps.PolylineOptions): void;
   addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void;
-  addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker;
+  addMarker(cfg?: IGoogleMapsMarkerOptionConfigEntity, name?: string): google.maps.Marker;
   addPolyline(polylineCfg: google.maps.PolylineOptions): google.maps.Polyline;
   fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
   getMarkers(): Map<string, google.maps.Marker>;
   refreshMarker(cfg: IGoogleMapsMarkerConfigEntity): void;
   removeMarker(name: string): void;
+}
+
+/**
+ * @classes
+ * @stable [28.07.2020]
+ */
+export enum GoogleMapsClassesEnum {
+  GOOGLE_MAPS = 'rac-google-maps',
+  GOOGLE_MAPS_BODY = 'rac-google-maps__body',
 }

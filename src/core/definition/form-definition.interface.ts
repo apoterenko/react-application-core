@@ -91,18 +91,18 @@ export interface IFluxValidEntity
 }
 
 /**
- * @entity
- * @stable [10.05.2020]
+ * @redux-holder-entity
+ * @stable [27.07.2020]
  */
-export interface ISecondaryFilterReduxFormEntity<TEntity = IEntity>
+export interface IReduxHolderSecondaryFilterFormEntity<TEntity = IEntity>
   extends ISecondaryFilterWrapper<IReduxFormEntity<TEntity>> {
 }
 
 /**
- * @entity
- * @stable [10.05.2020]
+ * @redux-holder-entity
+ * @stable [27.07.2020]
  */
-export interface IPrimaryFilterReduxFormEntity<TEntity = IEntity>
+export interface IReduxHolderPrimaryFilterFormEntity<TEntity = IEntity>
   extends IPrimaryFilterWrapper<IReduxFormEntity<TEntity>> {
 }
 

@@ -1,9 +1,6 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
-export const LIST_LOAD_ACTION_TYPE = 'list.load';
 export const LIST_LAZY_LOAD_ACTION_TYPE = 'list.lazy.load';
-export const LIST_LOAD_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(LIST_LOAD_ACTION_TYPE);
-export const LIST_LOAD_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(LIST_LOAD_ACTION_TYPE);
 export const LIST_LAZY_LOAD_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(LIST_LAZY_LOAD_ACTION_TYPE);
 export const LIST_LAZY_LOAD_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(LIST_LAZY_LOAD_ACTION_TYPE);
 export const LIST_UN_TOUCH_ACTION_TYPE = 'list.untouch';

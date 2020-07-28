@@ -7,6 +7,7 @@ import {
 import {
   asErrorMessage,
   buildEntityByMergeStrategy,
+  ConditionUtils,
   doesArrayContainEntity,
   ifNotNilThanValue,
   isMulti,
@@ -15,9 +16,10 @@ import {
   mergeArrayItem,
   notNilValuesFilter,
   nvl,
+  NvlUtils,
   SAME_ENTITY_PREDICATE,
   selectData,
-  selectDataPayloadFromAction,
+  Selectors,
   selectSelectedEntityFromAction,
   toSection,
 } from '../../util';
@@ -188,7 +190,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildInsertActionType(section):
-      modifyDataPayload = nvl(modifyDataPayload, selectDataPayloadFromAction<IModifyEntityPayloadEntity>(action));
+      modifyDataPayload = nvl(modifyDataPayload, Selectors.dataPayloadFromAction<IModifyEntityPayloadEntity>(action));
       const doesEntityExist = doesArrayContainEntity(state.data, modifyDataPayload);
       const mergedData = mergeArrayItem<IEntityIdTWrapper>(
         state.data,
@@ -214,13 +216,13 @@ export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
       /**
        * @stable [08.06.2019]
        */
-      const removedEntity = selectDataPayloadFromAction(action);
+      const removedEntity = Selectors.dataPayloadFromAction(action);
       const filteredData = state.data.filter((entity) => !SAME_ENTITY_PREDICATE(entity, removedEntity));
       return {
         ...state,
-        selected: ifNotNilThanValue(
+        selected: ConditionUtils.ifNotNilThanValue(
           state.selected,
-          (selectedEntity) => nvl(filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
+          (selectedEntity) => NvlUtils.nvl(filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
         ),
         data: filteredData,
         totalCount: filteredData.length === state.data.length ? state.totalCount : --state.totalCount,

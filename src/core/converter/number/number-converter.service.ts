@@ -7,7 +7,6 @@ import {
 } from '../../di';
 import {
   isFn,
-  isNumberLike,
   isUndef,
   TypeUtils,
 } from '../../util';
@@ -190,7 +189,7 @@ export class NumberConverter implements INumberConverter {
    * @returns {string}
    */
   private useFormatter(value: StringNumberT, formatter: Intl.NumberFormat): string {
-    return R.isNil(value) || !isNumberLike(value)
+    return R.isNil(value) || !TypeUtils.isPositiveOrNegativeNumberLike(value)
       ? ''
       : formatter.format(this.asNumber(value));
   }

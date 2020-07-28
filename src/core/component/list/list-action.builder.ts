@@ -18,9 +18,15 @@ import {
   ISelectedEntity,
   LIST_CANCEL_LOAD_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
+  LIST_LOAD_ACTION_TYPE,
+  LIST_LOAD_DONE_ACTION_TYPE,
+  LIST_LOAD_ERROR_ACTION_TYPE,
   LIST_SELECT_ACTION_TYPE,
 } from '../../definition';
-import { applySection, toActionPrefix } from '../../util';
+import {
+  applySection,
+  SectionUtils,
+} from '../../util';
 import {
   LIST_DESELECT_ACTION_TYPE,
   LIST_DESTROY_ACTION_TYPE,
@@ -30,9 +36,6 @@ import {
   LIST_LAZY_LOAD_ACTION_TYPE,
   LIST_LAZY_LOAD_DONE_ACTION_TYPE,
   LIST_LAZY_LOAD_ERROR_ACTION_TYPE,
-  LIST_LOAD_ACTION_TYPE,
-  LIST_LOAD_DONE_ACTION_TYPE,
-  LIST_LOAD_ERROR_ACTION_TYPE,
   LIST_MERGE_ACTION_TYPE,
   LIST_NEXT_PAGE_ACTION_TYPE,
   LIST_PREVIOUS_PAGE_ACTION_TYPE,
@@ -76,7 +79,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLoadActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_LOAD_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_LOAD_ACTION_TYPE}`;
   }
 
   /**
@@ -85,7 +88,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildCancelLoadActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_CANCEL_LOAD_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_CANCEL_LOAD_ACTION_TYPE}`;
   }
 
   /**
@@ -94,7 +97,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLazyLoadActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_LAZY_LOAD_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_LAZY_LOAD_ACTION_TYPE}`;
   }
 
   /**
@@ -103,7 +106,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLazyLoadDoneActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_LAZY_LOAD_DONE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_LAZY_LOAD_DONE_ACTION_TYPE}`;
   }
 
   /**
@@ -112,7 +115,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildUnTouchActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_UN_TOUCH_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_UN_TOUCH_ACTION_TYPE}`;
   }
 
   /**
@@ -121,16 +124,15 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLoadDoneActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_LOAD_DONE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_LOAD_DONE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [31.08.2018]
-   * @param {string} section
-   * @returns {string}
+   * @stable [26.07.2020]
+   * @param section
    */
   public static buildLoadErrorActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_LOAD_ERROR_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_LOAD_ERROR_ACTION_TYPE}`;
   }
 
   /**
@@ -139,7 +141,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildLazyLoadErrorActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
   }
 
   /**
@@ -148,7 +150,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildSelectActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_SELECT_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_SELECT_ACTION_TYPE}`;
   }
 
   /**
@@ -170,7 +172,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildRemoveActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_REMOVE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_REMOVE_ACTION_TYPE}`;
   }
 
   public static buildUpdateActionType(section: string): string {
@@ -183,7 +185,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildCreateActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_CREATE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_CREATE_ACTION_TYPE}`;
   }
 
   /**
@@ -201,7 +203,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildDestroyActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_DESTROY_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_DESTROY_ACTION_TYPE}`;
   }
 
   /**
@@ -210,7 +212,7 @@ export class ListActionBuilder {
    * @returns {string}
    */
   public static buildResetActionType(section: string): string {
-    return `${toActionPrefix(section)}.${LIST_RESET_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${LIST_RESET_ACTION_TYPE}`;
   }
 
   /**

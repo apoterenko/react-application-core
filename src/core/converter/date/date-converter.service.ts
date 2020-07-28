@@ -11,6 +11,7 @@ import {
   IKeyValue,
 } from '../../definitions.interface';
 import {
+  ConditionUtils,
   defValuesFilter,
   ifNotNilThanValue,
   isObjectNotEmpty,
@@ -1318,7 +1319,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   private processValidMomentDate<TResult>(cfg: IDateTimeConfigEntity, handler: (date: MomentT) => TResult): TResult {
     const momentDate = this.asMomentDate(cfg);
-    return orNull(momentDate.isValid(), () => handler(momentDate));
+    return ConditionUtils.orNull(momentDate.isValid(), () => handler(momentDate));
   }
 
   /**

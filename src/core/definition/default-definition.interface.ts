@@ -21,6 +21,7 @@ import {
   DEFAULT_PAGINATED_SINGLE_ENTITY,
   FIRST_PAGE,
 } from './page-definition.interface';
+import { DEFAULT_DICTIONARY_PAGED_ENTITY } from './dictionary-definition.interface';
 
 /**
  * @stable [17.05.2020]
@@ -28,6 +29,8 @@ import {
 export class DefaultEntities {
   public static readonly COMPACT_FORM_ENTITY = DEFAULT_COMPACT_FORM_ENTITY;                             /* @stable [09.06.2020] */
   public static readonly COMPONENTS_SETTINGS_ENTITY = DEFAULT_COMPONENTS_SETTINGS_ENTITY;               /* @stable [21.05.2020] */
+  public static readonly CURRENCY_PRECISION_VALUE = 2;                                                  /* @stable [24.07.2020] */
+  public static readonly DICTIONARY_PAGED_ENTITY = DEFAULT_DICTIONARY_PAGED_ENTITY;                     /* @stable [26.07.2020] */
   public static readonly DOM_RIGHT_POSITION_CONFIG_ENTITY = DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY;   /* @stable [21.05.2020] */
   public static readonly FIRST_PAGE = FIRST_PAGE;                                                       /* @stable [16.07.2020] */
   public static readonly INITIAL_REDUX_STACK_ENTITY = INITIAL_REDUX_STACK_ENTITY;                       /* @stable [21.05.2020] */

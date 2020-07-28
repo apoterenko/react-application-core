@@ -3,7 +3,8 @@ import { IEffectsAction } from 'redux-effects-promise';
 import {
   IFluxActiveValueEntity,
   IGenericTabPanelEntity,
-  INITIAL_TAB_PANEL_ENTITY,
+  INITIAL_REDUX_TAB_PANEL_ENTITY,
+  IReduxTabPanelEntity,
 } from '../../definition';
 import { TabPanelActionBuilder } from '../../action';
 import { toSection } from '../../util';
@@ -14,8 +15,8 @@ import { toSection } from '../../util';
  * @param {IEffectsAction} action
  * @returns {IGenericTabPanelEntity}
  */
-export const tabPanelReducer = (state: IGenericTabPanelEntity = INITIAL_TAB_PANEL_ENTITY,
-                                action: IEffectsAction): IGenericTabPanelEntity => {
+export const tabPanelReducer = (state: IReduxTabPanelEntity = INITIAL_REDUX_TAB_PANEL_ENTITY,
+                                action: IEffectsAction): IReduxTabPanelEntity => {
   const section = toSection(action);
   const activeValueFluxEntity: IFluxActiveValueEntity = action.data;
 

@@ -22,18 +22,19 @@ export class GridHeadColumn extends BaseGridColumn {
   };
 
   /**
-   * @stable [17.10.2019]
-   * @param {IGridColumnProps} props
+   * @stable [28.07.2020]
+   * @param originalProps
    */
-  constructor(props: IGridColumnProps) {
-    super(props);
-    this.onChangeAscSortingActionClick = this.onChangeAscSortingActionClick.bind(this);
-    this.onChangeDescSortingActionClick = this.onChangeDescSortingActionClick.bind(this);
+  constructor(originalProps: IGridColumnProps) {
+    super(originalProps);
+
+    this.onAscSortingActionClick = this.onAscSortingActionClick.bind(this);
+    this.onCloseClick = this.onCloseClick.bind(this);
+    this.onDescSortingActionClick = this.onDescSortingActionClick.bind(this);
   }
 
   /**
-   * @stable [17.10.2019]
-   * @returns {JSX.Element}
+   * @stable [28.07.2020]
    */
   public render(): JSX.Element {
     const originalProps = this.originalProps;
@@ -63,12 +64,14 @@ export class GridHeadColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [22.10.2019]
-   * @param {React.ReactNode} children
-   * @returns {React.ReactNode}
+   * @stable [28.07.2020]
+   * @param children
    */
   protected getColumnContentElement(children: React.ReactNode): React.ReactNode {
     const {
+      closable,
+      closed,
+      onClose,
       sortable,
     } = this.originalProps;
 
@@ -85,7 +88,7 @@ export class GridHeadColumn extends BaseGridColumn {
                     this.isDescSortingEnabled && GridClassesEnum.GRID_ACTIVE_SORT_ACTION
                   ),
                   type: IconsEnum.ARROW_DOWN,
-                  onClick: this.onChangeDescSortingActionClick,
+                  onClick: this.onDescSortingActionClick,
                 })
               }
               {
@@ -96,28 +99,52 @@ export class GridHeadColumn extends BaseGridColumn {
                     this.isAscSortingEnabled && GridClassesEnum.GRID_ACTIVE_SORT_ACTION
                   ),
                   type: IconsEnum.ARROW_UP,
-                  onClick: this.onChangeAscSortingActionClick,
+                  onClick: this.onAscSortingActionClick,
                 })
               }
             </div>
           )
         }
-        {children}
+        {
+          closable && TypeUtils.isFn(onClose)
+            ? (
+              <div className={GridClassesEnum.GRID_COLUMN_CLOSE_WRAPPER}>
+                {children}
+                {this.uiFactory.makeIcon({
+                  type: closed ? IconsEnum.CHEVRON_DOWN : IconsEnum.CHEVRON_UP,
+                  onClick: this.onCloseClick,
+                })}
+              </div>
+            )
+            : children
+        }
       </React.Fragment>
     );
   }
 
   /**
-   * @stable [18.10.2019]
+   * @stable [28.07.2020]
    */
-  private onChangeAscSortingActionClick(): void {
+  private onCloseClick(): void {
+    const {
+      closed,
+      onClose,
+    } = this.originalProps;
+
+    onClose(!closed);
+  }
+
+  /**
+   * @stable [28.07.2020]
+   */
+  private onAscSortingActionClick(): void {
     this.doSortingDirectionChange(ConditionUtils.orNull(!this.isAscSortingEnabled, SortDirectionsEnum.ASC));
   }
 
   /**
-   * @stable [18.10.2019]
+   * @stable [28.07.2020]
    */
-  private onChangeDescSortingActionClick(): void {
+  private onDescSortingActionClick(): void {
     this.doSortingDirectionChange(ConditionUtils.orNull(!this.isDescSortingEnabled, SortDirectionsEnum.DESC));
   }
 
@@ -137,26 +164,23 @@ export class GridHeadColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [18.10.2019]
-   * @returns {boolean}
+   * @stable [28.07.2020]
    */
   private get isDescSortingEnabled(): boolean {
-    return this.props.direction === SortDirectionsEnum.DESC;
+    return this.originalProps.direction === SortDirectionsEnum.DESC;
   }
 
   /**
-   * @stable [18.10.2019]
-   * @returns {boolean}
+   * @stable [28.07.2020]
    */
   private get isAscSortingEnabled(): boolean {
-    return this.props.direction === SortDirectionsEnum.ASC;
+    return this.originalProps.direction === SortDirectionsEnum.ASC;
   }
 
   /**
-   * @stable [18.10.2019]
-   * @returns {React.CSSProperties}
+   * @stable [28.07.2020]
    */
   private get styles(): React.CSSProperties {
-    return this.getStyle({width: this.props.headerWidth});
+    return this.getStyle({width: this.originalProps.headerWidth});
   }
 }
