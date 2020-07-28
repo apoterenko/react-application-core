@@ -18,11 +18,11 @@ import {
   ISearchPlacesEntity,
 } from '../../../definition';
 import {
-  ifNotNilThanValue,
-  isFn,
-  isObjectNotEmpty,
-  notNilValuesFilter,
-  nvl,
+  ConditionUtils,
+  FilterUtils,
+  NvlUtils,
+  ObjectUtils,
+  TypeUtils,
 } from '../../../util';
 import {
   AnyT,
@@ -42,11 +42,11 @@ export class GooglePlaceApi implements IPlaceApi {
    * @returns {Bluebird<IPlaceEntity[]> | AnyT}
    */
   public getPlaceGeoCode(req: IPlaceGeoCodeRequestEntity): BPromise<IPlaceEntity[]> | AnyT {
-    const request = notNilValuesFilter<google.maps.GeocoderRequest, google.maps.GeocoderRequest>({
+    const request = FilterUtils.notNilValuesFilter<google.maps.GeocoderRequest, google.maps.GeocoderRequest>({
       placeId: req.placeId,
       ...(
-        ifNotNilThanValue(
-          nvl(req.lat, req.lng),
+        ConditionUtils.ifNotNilThanValue(
+          NvlUtils.nvl(req.lat, req.lng),
           () => ({location: {lat: req.lat, lng: req.lng}})
         )
       ),
@@ -55,12 +55,12 @@ export class GooglePlaceApi implements IPlaceApi {
       new google.maps.Geocoder().geocode(
         request,
         (result) => {
-          if (isObjectNotEmpty(result)) {
+          if (ObjectUtils.isObjectNotEmpty(result)) {
             const converter = this.fieldConverter.converter({
               from: FieldConverterTypesEnum.GEO_CODER_RESULT,
               to: FieldConverterTypesEnum.PLACE_ENTITY,
             });
-            if (isFn(converter)) {
+            if (TypeUtils.isFn(converter)) {
               resolve(result.map(converter));
             } else {
               resolve(result);
@@ -78,7 +78,7 @@ export class GooglePlaceApi implements IPlaceApi {
    * @returns {Bluebird<ISearchPlaceEntity[]> | AnyT}
    */
   public searchPlaces(request: ISearchPlacesEntity): BPromise<ISearchPlaceEntity[]> | AnyT {
-    request = nvl(request, {});
+    request = NvlUtils.nvl(request, {});
     const {query = ' '} = request;
 
     return this.makePromise((resolve) => {
@@ -111,8 +111,8 @@ export class GooglePlaceApi implements IPlaceApi {
     const {componentRestrictions = {}} = googleMaps;
     const {country = {}} = componentRestrictions || {};
 
-    return notNilValuesFilter({
-      componentRestrictions: notNilValuesFilter({country: nvl(requestCountry, country)}),
+    return FilterUtils.notNilValuesFilter({
+      componentRestrictions: FilterUtils.notNilValuesFilter({country: NvlUtils.nvl(requestCountry, country)}),
     });
   }
 

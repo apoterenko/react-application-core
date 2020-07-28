@@ -14,18 +14,17 @@ import {
 } from '../definition';
 
 /**
- * @stable [06.12.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [29.07.2020]
+ * @param value
  */
-export const numberLikeChecker = (value: AnyT): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
+const positiveOrNegativeNumberLikeChecker = (value: AnyT): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
 
 /**
  * @stable [06.12.2019]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const optionalNumberLikeChecker = (value: AnyT): boolean => R.isNil(value) || numberLikeChecker(value);
+export const optionalNumberLikeChecker = (value: AnyT): boolean => R.isNil(value) || positiveOrNegativeNumberLikeChecker(value);
 
 /**
  * @stable [06.12.2019]
@@ -54,8 +53,8 @@ export const digitChecker = (value): boolean => isDigit(value);
 export const ValidationRules = {
   [ValidatorRuleEnum.DIGIT]: digitChecker,
   [ValidatorRuleEnum.NOT_EMPTY_STRING]: notEmptyString,
-  [ValidatorRuleEnum.NUMBER_LIKE]: numberLikeChecker,
   [ValidatorRuleEnum.OPTIONAL_NUMBER_LIKE]: optionalNumberLikeChecker,
+  [ValidatorRuleEnum.POSITIVE_OR_NEGATIVE_NUMBER_LIKE]: positiveOrNegativeNumberLikeChecker,
   [ValidatorRuleEnum.STRING]: stringChecker,
 };
 

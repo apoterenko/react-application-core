@@ -136,10 +136,10 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
             <GoogleMaps
               {...props.googleMapsConfiguration}
               ref={this.googleMapsRef}
+              menuOptions={this.googleMapsMenuOptions}
               onSelect={this.onDialogMenuActionSelect}
               onInit={this.initPlaceMarker}
-              onChangePlace={this.refreshGeocodeInfo}
-              menuOptions={this.googleMapsMenuOptions}/>
+              onMarkerDragEnd={this.refreshGeocodeInfo}/>
           </Dialog>
         );
       }
