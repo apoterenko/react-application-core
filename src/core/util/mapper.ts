@@ -4,18 +4,14 @@ import { defValuesFilter } from './filter';
 import {
   IApiEntity,
   IExtendedEntity,
-  IExtendedFormEntity,
   IFormTabPanelContainerProps,
-  IGenericTabPanelEntity,
   IHeaderProps,
   IOperationEntity,
   IPresetsSelectableHoveredEntity,
-  IReduxFormEntity,
   IReduxHolderTransportEntity,
   IReduxSortDirectionsEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
-  ITabPanelEntity,
   IUniversalApplicationEntity,
 } from '../definition';
 import {
@@ -40,6 +36,7 @@ import {
 } from './select';
 import { GenericMappers } from './mapper-generic';
 import { ComponentMappers } from './mapper-component';
+import { MapAsWrapperUtils } from './map-as-wrapper';
 
 /**
  * @stable [17.11.2019]
@@ -82,36 +79,12 @@ export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrappe
   mapEntityId(selectEntityId(entity));
 
 /**
- * @stable [10.02.2020]
- * @param {IGenericTabPanelEntity} tabPanel
- * @returns {ITabPanelEntity}
- */
-export const mapTabPanelEntity = (tabPanel: IGenericTabPanelEntity): ITabPanelEntity =>
-  defValuesFilter<ITabPanelEntity, ITabPanelEntity>({tabPanel});
-
-/**
- * @stable [21.11.2019]
- * @param {ITabPanelEntity} tabPanelWrapperEntity
- * @returns {ITabPanelEntity}
- */
-export const mapTabPanelWrapperEntity = (tabPanelWrapperEntity: ITabPanelEntity): ITabPanelEntity =>
-  mapTabPanelEntity(Selectors.tabPanel(tabPanelWrapperEntity));
-
-/**
  * @stable [12.04.2020]
  * @param {TActiveValue} activeValue
  * @returns {IActiveValueWrapper<TActiveValue>}
  */
 export const mapActiveValue = <TActiveValue>(activeValue: TActiveValue): IActiveValueWrapper<TActiveValue> =>
   defValuesFilter<IActiveValueWrapper<TActiveValue>, IActiveValueWrapper<TActiveValue>>({activeValue});
-
-/**
- * TODO
- * @deprecated Use mapForm
- */
-export const mapEditableEntity =
-  <TEntity extends IEntity = IEntity>(form: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
-    defValuesFilter<IExtendedFormEntity<TEntity>, IExtendedFormEntity<TEntity>>({form});
 
 /**
  * @stable [04.05.2020]
@@ -151,13 +124,6 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
  */
 export const mapActiveValueWrapper = <TValue>(wrapper: IActiveValueWrapper<TValue>): IActiveValueWrapper<TValue> =>
   mapActiveValue(selectActiveValue(wrapper));
-
-/**
- * @deprecated
- */
-export const mapNewExtendedEntity =
-  <TEntity extends IEntity = IEntity>(editableEntity: IReduxFormEntity<TEntity>): IExtendedEntity<TEntity> =>
-    GenericMappers.entityAsExtendedEntity(editableEntity);
 
 /**
  * @stable [23.12.2019]
@@ -263,7 +229,7 @@ export class Mappers {
   public static readonly entityAsExtendedFormEntity = GenericMappers.entityAsExtendedFormEntity;                                                                                            /* @stable [10.05.2020] */
   public static readonly filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;                                                                                  /* @stable [10.05.2020] */
   public static readonly filterFormDialogSecondaryFilterContainerProps = ComponentMappers.filterFormDialogSecondaryFilterContainerProps;                                                    /* @stable [10.05.2020] */
-  public static readonly form = GenericMappers.form;                                                                                                                                        /* @stable [08.05.2020] */
+  public static readonly form = MapAsWrapperUtils.form;                                                                                                                                     /* @stable [27.07.2020] */
   public static readonly formContainerProps = ComponentMappers.formContainerProps;                                                                                                          /* @stable [08.05.2020] */
   public static readonly formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                                                                                    /* @stable [09.05.2020] */
   public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                                                /* @stable [10.05.2020] */
@@ -272,6 +238,9 @@ export class Mappers {
   public static readonly holderFormEntity = GenericMappers.holderFormEntity;                                                                                                                /* @stable [12.06.2020] */
   public static readonly holderListEntity = GenericMappers.holderListEntity;                                                                                                                /* @stable [12.06.2020] */
   public static readonly holderListEntityAsDisabled = GenericMappers.holderListEntityAsDisabled;                                                                                            /* @stable [08.07.2020] */
+  public static readonly holderQueryFilterEntity = GenericMappers.holderQueryFilterEntity;                                                                                                  /* @stable [26.07.2020] */
+  public static readonly holderQueryFilterEntityAsQuery = GenericMappers.holderQueryFilterEntityAsQuery;                                                                                    /* @stable [27.07.2020] */
+  public static readonly holderTabPanelEntity = GenericMappers.holderTabPanelEntity;                                                                                                        /* @stable [27.07.2020] */
   public static readonly holderTransportEntity = GenericMappers.holderTransportEntity;                                                                                                      /* @stable [12.06.2020] */
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                                                          /* @stable [10.05.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                                                  /* @stable [08.05.2020] */
@@ -284,8 +253,6 @@ export class Mappers {
   public static readonly paginatedEntity = GenericMappers.paginatedEntity;
   public static readonly placeFieldProps = ComponentMappers.placeFieldProps;                                                                                                                /* @stable [19.05.2020] */
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;                                        /* @stable [10.05.2020] */
-  public static readonly queryFilterEntity = GenericMappers.queryFilterEntity;
-  public static readonly queryFilterEntityAsQuery = GenericMappers.queryFilterEntityAsQuery;
   public static readonly searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = GenericMappers.secondaryFilterEntityAsSecondaryFilterExtendedFormEntity;                                /* @stable [10.05.2020] */
   public static readonly sectionNameWrapper = GenericMappers.sectionNameWrapper;

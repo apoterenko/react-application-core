@@ -46,9 +46,9 @@ import {
 import { NvlUtils } from './nvl';
 import {
   IReduxHolderFormEntity,
-  IReduxHolderListEntity,
-  IQueryFilterEntity,
   IReduxHolderLayoutEntity,
+  IReduxHolderListEntity,
+  IReduxHolderQueryFilterEntity,
   IReduxHolderStackEntity,
   IReduxStackItemEntity,
   LayoutModesEnum,
@@ -195,19 +195,17 @@ export const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>):
   R.isNil(wrapper) ? UNDEF : wrapper.activeValue;
 
 /**
- * @stable [30.03.2020]
- * @param {IPayloadWrapper<TPayload>} wrapper
- * @returns {TPayload}
+ * @stable [26.07.2020]
+ * @param wrapper
  */
-export const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload =>
+const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload =>
   R.isNil(wrapper) ? UNDEF : wrapper.payload;
 
 /**
- * @stable [30.03.2020]
- * @param {IEffectsAction} action
- * @returns {TPayload}
+ * @stable [26.07.2020]
+ * @param action
  */
-export const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
+const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
   selectPayload(selectData(action));
 
 /**
@@ -282,36 +280,28 @@ const selectPreviousActionTypeFromAction = (action: IEffectsAction): string =>
   );
 
 /**
- * @stable [27.03.2020]
- * @param {ISelectedWrapper<TEntity extends IEntity>} entity
- * @returns {TEntity}
+ * @stable [27.07.2020]
+ * @param entity
  */
-export const selectSelected = <TEntity extends IEntity>(entity: ISelectedWrapper<TEntity>): TEntity =>
+const selectSelected = <TEntity = IEntity>(entity: ISelectedWrapper<TEntity>): TEntity =>
   R.isNil(entity) ? UNDEF : entity.selected;
 
 /**
- * @stable [27.03.2020]
+ * @stable [21.07.2020]
  * @param {IEffectsAction} action
  * @returns {TEntity}
  */
-export const selectSelectedEntityFromAction = <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity =>
-  ConditionUtils.ifNotNilThanValue(
-    selectData(action),
-    (data) => selectSelected(data),
-    UNDEF_SYMBOL
-  );
+export const selectSelectedEntityFromAction = <TEntity = IEntity>(action: IEffectsAction): TEntity =>
+  selectSelected(selectData(action));
 
 /**
- * @stable [27.03.2020]
+ * @stable [21.07.2020]
  * @param {IEffectsAction} action
  * @returns {EntityIdT}
  */
-export const selectSelectedEntityIdFromAction = <TEntity extends IEntity = IEntity>(action: IEffectsAction): EntityIdT =>
-  ConditionUtils.ifNotNilThanValue(
-    selectSelectedEntityFromAction(action),
-    (entity: TEntity) => selectEntityId(entity),
-    UNDEF_SYMBOL
-  );
+export const selectSelectedEntityIdFromAction =
+  <TEntity extends IEntity = IEntity>(action: IEffectsAction): EntityIdT =>
+    selectEntityId(selectSelectedEntityFromAction(action));
 
 /**
  * @stable [30.03.2020]
@@ -442,10 +432,10 @@ const selectActiveToolbarToolsFromDirtyWrapper = (wrapper: IDirtyWrapper): Toolb
 
 /**
  * @stable [07.05.2020]
- * @param {IQueryFilterEntity} entity
+ * @param {IReduxHolderQueryFilterEntity} entity
  * @returns {string}
  */
-const selectQueryFilterEntityQuery = (entity: IQueryFilterEntity): string =>
+const selectQueryFilterEntityQuery = (entity: IReduxHolderQueryFilterEntity): string =>
   selectQuery(selectQueryFilter(entity));
 
 /**
@@ -511,6 +501,9 @@ export class Selectors {
   public static readonly rawData = selectRawData;                                                               /* @stable [09.06.2020] */
   public static readonly secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
   public static readonly sectionName = selectSectionName;
+  public static readonly selected = selectSelected;                                                             /* @stable [27.07.2020] */
+  public static readonly selectedEntityFromAction = selectSelectedEntityFromAction;                             /* @stable [21.07.2020] */
+  public static readonly selectedEntityIdFromAction = selectSelectedEntityIdFromAction;                         /* @stable [21.07.2020] */
   public static readonly stack = selectStack;                                                                   /* @stable [21.05.2020] */
   public static readonly stackItemEntities = selectStackItemEntities;                                           /* @stable [21.05.2020] */
   public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */

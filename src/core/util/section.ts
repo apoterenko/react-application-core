@@ -46,9 +46,8 @@ export const applySection =
     }) as TResult;
 
 /**
- * @stable [31.08.2018]
- * @param {string} section
- * @returns {string}
+ * @stable [26.07.2020]
+ * @param section
  */
 export const toActionPrefix = (section: string): string => `${ACTION_PREFIX}${section}`;
 
@@ -117,3 +116,10 @@ export const toFormSection =
 export const toTabPanelSection =
   <TState = {}>(cfg: ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
     toConfigSection(cfg.tabPanelSection, cfg);
+
+/**
+ * @stable [26.07.2020]
+ */
+export class SectionUtils {
+  public static readonly actionPrefix = toActionPrefix;
+}

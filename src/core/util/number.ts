@@ -1,15 +1,14 @@
 import {
-  DEFAULT_CURRENCY_PRECISION_VALUE,
   ONE_DOLLAR_VALUE,
 } from '../definitions.interface';
+import { DefaultEntities } from '../definition/default-definition.interface';
 
 /**
- * @stable [05.05.2019]
- * @param {number} num
- * @param {number} precision
- * @returns {number}
+ * @stable [24.07.2020]
+ * @param num
+ * @param precision
  */
-export const roundByPrecision = (num: number, precision = DEFAULT_CURRENCY_PRECISION_VALUE): number =>
+const roundByPrecision = (num: number, precision = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
   Number(`${Math.round(Number(`${num}e${precision}`))}e-${precision}`);
 
 /**
@@ -22,15 +21,18 @@ export const roundDownByDivider = (num: number, divider: number): number =>
   Math.floor(num - num % divider);
 
 /**
- * @stable [13.05.2019]
- * @param {number} num
- * @param {number} precision
- * @returns {number}
+ * @stable [24.07.2020]
+ * @param num
  */
-export const invertCurrency = (num: number, precision = DEFAULT_CURRENCY_PRECISION_VALUE): number => {
-  const result = roundByPrecision(num, precision); // To exclude the "-0" case
-  return result === 0 ? result : result * -1;
-};
+const invert = (num: number): number => num === 0 ? num : num * -1; // To exclude the "-0" case
+
+/**
+ * @stable [24.07.2020]
+ * @param num
+ * @param precision
+ */
+const invertCurrency = (num: number, precision = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
+  invert(roundByPrecision(num, precision));
 
 /**
  * @stable [26.06.2019]
@@ -79,12 +81,14 @@ export const roundedProportion = (value: number, total: number, offValue = ONE_D
 export const roundedByPrecisionProportion = (value: number,
                                              total: number,
                                              offValue = ONE_DOLLAR_VALUE,
-                                             precisionValue = DEFAULT_CURRENCY_PRECISION_VALUE): number =>
+                                             precisionValue = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
   roundByPrecision(roundedProportion(value, total, offValue), precisionValue);
 
 /**
  * @stable [29.06.2020]
  */
 export class NumberUtils {
+  public static readonly invert = invert;
+  public static readonly invertCurrency = invertCurrency;
   public static readonly roundByPrecision = roundByPrecision;
 }
