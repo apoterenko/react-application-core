@@ -3,8 +3,8 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { toSection } from '../../util';
 import {
   IFluxQueryEntity,
-  INITIAL_REDUX_ACTIVE_QUERY_ENTITY,
-  IReduxActiveQueryEntity,
+  INITIAL_REDUX_QUERY_FILTER_ENTITY,
+  IReduxQueryFilterEntity,
 } from '../../definition';
 import { FilterActionBuilder } from '../../action';
 
@@ -12,12 +12,12 @@ import { FilterActionBuilder } from '../../action';
  * @reducer
  * @stable [08.05.2020]
  *
- * @param {IReduxActiveQueryEntity} state
+ * @param {IReduxQueryFilterEntity} state
  * @param {IEffectsAction} action
- * @returns {IReduxActiveQueryEntity}
+ * @returns {IReduxQueryFilterEntity}
  */
-export const queryFilterReducer = (state: IReduxActiveQueryEntity = INITIAL_REDUX_ACTIVE_QUERY_ENTITY,
-                                   action: IEffectsAction): IReduxActiveQueryEntity => {
+export const queryFilterReducer = (state: IReduxQueryFilterEntity = INITIAL_REDUX_QUERY_FILTER_ENTITY,
+                                   action: IEffectsAction): IReduxQueryFilterEntity => {
   const section = toSection(action);
   const actionData: IFluxQueryEntity = action.data;
 
@@ -34,7 +34,7 @@ export const queryFilterReducer = (state: IReduxActiveQueryEntity = INITIAL_REDU
       };
     case FilterActionBuilder.buildDestroyActionType(section):
       return {
-        ...INITIAL_REDUX_ACTIVE_QUERY_ENTITY,
+        ...INITIAL_REDUX_QUERY_FILTER_ENTITY,
       };
   }
   return state;

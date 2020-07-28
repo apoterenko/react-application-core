@@ -13,7 +13,6 @@ import {
   isDef,
   isEvent,
   isFn,
-  isNumberLike,
   TypeUtils,
 } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
@@ -154,12 +153,11 @@ const STRING_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isString(value);
 const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value);
 
 /**
- * @stable [03.10.2018]
- * @param {string} key
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [27.07.2020]
+ * @param key
+ * @param value
  */
-export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value);
+const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => TypeUtils.isDef(value);
 
 /**
  * @stable [30.01.2020]
@@ -167,13 +165,13 @@ export const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isDef(value
  * @param {AnyT} value
  * @returns {boolean}
  */
-const NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => isNumberLike(value);
+const NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => TypeUtils.isPositiveOrNegativeNumberLike(value);
 
 /**
- * @stable [31.03.2019]
- * @param {string} key
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [24.07.2020]
+ * @param key
+ * @param value
+ * @constructor
  */
 const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_EMPTY_VALUE_PREDICATE(value);
 
@@ -264,6 +262,10 @@ export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends I
   return filterByPredicate<TSource, TResult>(source, excludeFieldsPredicateFactory(...fields));
 }
 
+/**
+ * @stable [27.07.2020]
+ * @param source
+ */
 export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, DEF_KEY_VALUE_PREDICATE);
 
@@ -288,9 +290,8 @@ export const notNilValuesFilter = <TSource extends IKeyValue, TResult extends IK
  * @param {TSource} source
  * @returns {TResult}
  */
-export const notEmptyValuesFilter =
-  <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
-    filterByPredicate<TSource, TResult>(source, NOT_EMPTY_KEY_VALUE_PREDICATE);
+const notEmptyValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, NOT_EMPTY_KEY_VALUE_PREDICATE);
 
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);
@@ -348,11 +349,13 @@ export const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
  */
 export class FilterUtils {
   public static readonly defValuesArrayFilter = defValuesArrayFilter;                                 /* @stable [15.05.2020] */
+  public static readonly defValuesFilter = defValuesFilter;                                           /* @stable [27.07.2020] */
   public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;       /* @stable [15.05.2020] */
   public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                     /* @stable [15.05.2020] */
   public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;               /* @stable [15.05.2020] */
   public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                           /* @stable [18.05.2020] */
   public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                       /* @stable [17.05.2020] */
+  public static readonly notEmptyValuesFilter = notEmptyValuesFilter;                                 /* @stable [24.07.2020] */
   public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;                           /* @stable [18.05.2020] */
   public static readonly notNilValuesFilter = notNilValuesFilter;                                     /* @stable [21.06.2020] */
   public static readonly numberLikeValuesFilter = numberLikeValuesFilter;                             /* @stable [15.05.2020] */

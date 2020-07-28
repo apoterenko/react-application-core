@@ -16,10 +16,10 @@ import {
   IWrapperClassNameWrapper,
 } from '../definitions.interface';
 import { IBaseEvent } from './event-definition.interface';
-import { IReduxHolderFormEntity } from './form-definition.interface';
-import { IReduxHolderActiveValueEntity } from './entity-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
+import { IReduxHolderActiveValueEntity } from './entity-definition.interface';
+import { IReduxHolderFormEntity } from './form-definition.interface';
 
 /**
  * @presets-entity
@@ -91,11 +91,11 @@ export interface ITabPanelProps
 }
 
 /**
- * @wrapper-entity
- * @stable [17.05.2020]
+ * @redux-holder-entity
+ * @stable [27.07.2020]
  */
-export interface ITabPanelEntity
-  extends ITabPanelWrapper<IReduxTabPanelEntity> {
+export interface IReduxHolderTabPanelEntity<TEntity = IReduxTabPanelEntity>
+  extends ITabPanelWrapper<TEntity> {
 }
 
 /**
@@ -112,7 +112,7 @@ export interface ITabPanelConfigurationEntity
  */
 export interface IGenericTabPanelContainerEntity
   extends ITabPanelConfigurationEntity,
-    ITabPanelEntity {
+    IReduxHolderTabPanelEntity {
 }
 
 /**
@@ -134,10 +134,10 @@ export interface IFormTabPanelContainerProps<TEntity = IEntity>
 }
 
 /**
- * @initial-entity
- * @stable [12.04.2020]
+ * @initial-redux-entity
+ * @stable [28.07.2020]
  */
-export const INITIAL_TAB_PANEL_ENTITY = Object.freeze<IGenericTabPanelEntity>({});
+export const INITIAL_REDUX_TAB_PANEL_ENTITY = Object.freeze<IReduxTabPanelEntity>({});
 
 /**
  * @stable [12.04.2020]
@@ -145,3 +145,12 @@ export const INITIAL_TAB_PANEL_ENTITY = Object.freeze<IGenericTabPanelEntity>({}
 export const TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE = 'tab.panel.active.value';
 export const TAB_PANEL_DESTROY_ACTION_TYPE = 'tab.panel.destroy';
 export const TAB_PANEL_INACTIVE_VALUE_ACTION_TYPE = 'tab.panel.inactive.value';
+
+/**
+ * @classes
+ * @stable [26.03.2020]
+ */
+export enum TabPanelClassesEnum {
+  TAB_PANEL = 'rac-tab-panel',
+  TAB_PANEL_WRAPPER = 'rac-tab-panel-wrapper',
+}

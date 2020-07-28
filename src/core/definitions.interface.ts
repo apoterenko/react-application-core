@@ -5,7 +5,6 @@ export type AnyT = any;
 export type StringNumberT = number | string;
 export type EntityIdT = StringNumberT;
 export const ONE_DOLLAR_VALUE = 1;
-export const DEFAULT_CURRENCY_PRECISION_VALUE = 2;
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
@@ -41,6 +40,7 @@ export interface IAlignItemsEndWrapper { alignItemsEnd?: boolean; }
 export interface IAlignItemsStartWrapper { alignItemsStart?: boolean; }
 export interface IAlignItemsStretchWrapper { alignItemsStretch?: boolean; }
 export interface IAlignWrapper<TValue = string> { align?: TValue; }
+export interface IAllGroupsExpandedWrapper { allGroupsExpanded?: boolean; }
 export interface IAllowEmptyFilterValueWrapper { allowEmptyFilterValue?: boolean; }
 export interface IAllowSingleTabWrapper { allowSingleTab?: boolean; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
@@ -93,6 +93,7 @@ export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
 export interface ICloseActionConfigurationWrapper<TValue> { closeActionConfiguration?: TValue; }
 export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
+export interface IClosedWrapper { closed?: boolean; }
 export interface ICloseTextWrapper { closeText?: string; }
 export interface ICodeWrapper<TValue = string> { code?: TValue; }
 export interface IColSpanWrapper { colSpan?: number; }
@@ -173,7 +174,6 @@ export interface IEventNameWrapper { eventName?: string; }
 export interface IEventWrapper<TValue = Event> { event?: TValue; }
 export interface IExactWrapper { exact?: boolean; }
 export interface IExpandActionRenderedWrapper { expandActionRendered?: boolean; }
-export interface IExpandedAllGroupsWrapper { expandedAllGroups?: boolean; }
 export interface IExpandedGroupsWrapper<TValue = {}> { expandedGroups?: TValue; }
 export interface IExtraActionsWrapper<TValue> { extraActions?: TValue; }
 export interface IExtraParamsWrapper<TValue> { extraParams?: TValue; }
@@ -342,10 +342,8 @@ export interface IOnApplyWrapper<TValue = {}> { onApply?(value?: TValue): void; 
 export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void; }
 export interface IOnBeforeSubmitWrapper<TValue = {}, TResult = void> { onBeforeSubmit?(value?: TValue): TResult; }
 export interface IOnChangeLayoutModeWrapper<TValue = {}> { onChangeLayoutMode?(value?: TValue): void; }
-export interface IOnChangePlaceWrapper<TValue = {}> { onChangePlace?(value?: TValue): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
-export interface IOnClickPlaceWrapper<TValue = {}> { onClickPlace?(value?: TValue): void; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
 export interface IOnCloseWrapper<TValue = {}> { onClose?(value?: TValue): void; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
@@ -367,6 +365,11 @@ export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValu
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnInlineOptionCloseWrapper<TValue = {}> { onInlineOptionClose?(value?: TValue): void; }
 export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
+export interface IOnMarkerClickWrapper<TValue = {}> { onMarkerClick?(value?: TValue): void; }
+export interface IOnMarkerDragEndWrapper<TValue = {}> { onMarkerDragEnd?(value?: TValue): void; }
+export interface IOnMarkerDragStartWrapper<TValue = {}> { onMarkerDragStart?(value?: TValue): void; }
+export interface IOnMarkerEnterWrapper<TValue = {}> { onMarkerEnter?(value?: TValue): void; }
+export interface IOnMarkerLeaveWrapper<TValue = {}> { onMarkerLeave?(value?: TValue): void; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
 export interface IOnNextWrapper<TValue = AnyT> { onNext?(value?: TValue): void; }
@@ -521,7 +524,7 @@ export interface ITabIndexWrapper { tabIndex?: number; }
 export interface ITabPanelConfigurationWrapper<TValue> { tabPanelConfiguration?: TValue; }
 export interface ITabPanelSectionWrapper<TValue = string> { tabPanelSection?: TValue; }
 export interface ITabPanelsSectionsWrapper<TValue> { tabPanelsSections?: TValue; }
-export interface ITabPanelWrapper<TValue = JSX.Element> { tabPanel?: TValue; }
+export interface ITabPanelWrapper<TValue> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
 export interface ITimeWrapper<TValue = string> { time?: TValue; }
@@ -540,6 +543,7 @@ export interface ITotalWrapper<TValue = boolean> { total?: TValue; }
 export interface ITouchedWrapper { touched?: boolean; }
 export interface IToWrapper<TValue = string> { to?: TValue; }
 export interface ITplWrapper<T1 = {}, T2 = {}, T3 = {}> { tpl?(value1?: T1, value2?: T2, value3?: T3): StringNumberT; }
+export interface ITrackableWrapper { trackable?: boolean; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface ITransportWrapper<TValue> { transport?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }

@@ -5,27 +5,27 @@ import * as BPromise from 'bluebird';
 import { Menu } from '../../menu';
 import {
   CalcUtils,
+  ClsUtils,
+  ConditionUtils,
   DelayedTask,
   EVENT_VALUE_PREDICATE,
-  ifNotEmptyThanValue,
-  ifNotNilThanValue,
   isArrayNotEmpty,
-  joinClassName,
-  nvl,
+  NvlUtils,
   ObjectUtils,
-  orNull,
   TypeUtils,
-  uuid,
+  UuidUtils,
 } from '../../../util';
 import {
   AsyncLibsEnum,
   EventsEnum,
+  GoogleMapsClassesEnum,
   GoogleMapsMapTypesEnum,
   IGoogleMaps,
   IGoogleMapsEventEntity,
   IGoogleMapsHeatMapLayerConfigEntity,
   IGoogleMapsMarkerConfigEntity,
-  IGoogleMapsMarkerPlaceEventEntity,
+  IGoogleMapsMarkerOptionConfigEntity,
+  IGoogleMapsMarkerInfoEntity,
   IGoogleMapsMenuContextEntity,
   IGoogleMapsProps,
   IGoogleMapsSettingsEntity,
@@ -45,6 +45,8 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
 
   private clickEventListener: google.maps.MapsEventListener;
   private dbClickEventListener: google.maps.MapsEventListener;
+  private directionsService: google.maps.DirectionsService;
+  private draggedMarkerId: string;
   private googleMapsLibTask: BPromise<void>;
   private heatMapLayer: google.maps.visualization.HeatmapLayer;
   private map: google.maps.Map;
@@ -53,7 +55,6 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   private openMenuTask: DelayedTask;
   private readonly menuRef = React.createRef<Menu>();
   private wheelListenerUnsubscriber: () => void;
-  private directionsService: google.maps.DirectionsService;
 
   /**
    * @stable [10.01.2020]
@@ -67,6 +68,8 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.onMapClick = this.onMapClick.bind(this);
     this.onMapDbClick = this.onMapDbClick.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.onMarkerMouseOut = this.onMarkerMouseOut.bind(this);
+    this.onMarkerMouseOver = this.onMarkerMouseOver.bind(this);
     this.onMenuSelect = this.onMenuSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
@@ -76,19 +79,22 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
+   * @stable [28.07.2020]
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      className,
+      style,
+    } = this.originalProps;
+
     return (
       <div
-        style={props.style}
-        className={joinClassName('rac-google-maps', CalcUtils.calc(props.className))}
+        style={style}
+        className={ClsUtils.joinClassName(GoogleMapsClassesEnum.GOOGLE_MAPS, CalcUtils.calc(className))}
       >
         <div
           ref={this.actualRef}
-          className='rac-google-maps__body'/>
+          className={GoogleMapsClassesEnum.GOOGLE_MAPS_BODY}/>
         {this.menuElement}
       </div>
     );
@@ -118,7 +124,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
       this.wheelListenerUnsubscriber();
       this.wheelListenerUnsubscriber = null;
     }
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.openMenuTask,
       (task) => {
         task.stop();
@@ -135,19 +141,18 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [22.01.2020]
-   * @param {google.maps.MarkerOptions} cfg
-   * @param {string} name
-   * @returns {google.maps.Marker}
+   * @stable [28.07.2020]
+   * @param cfg
+   * @param name
    */
-  public addMarker(cfg?: google.maps.MarkerOptions, name?: string): google.maps.Marker {
-    const config: google.maps.MarkerOptions = {
+  public addMarker(cfg?: IGoogleMapsMarkerOptionConfigEntity, name?: string): google.maps.Marker {
+    const config: IGoogleMapsMarkerOptionConfigEntity = {
       anchorPoint: new google.maps.Point(0, -29),
       position: null,
       ...cfg,
       map: this.map,
     };
-    const markerId = name || uuid();
+    const markerId = name || UuidUtils.uuid();
     const marker = new google.maps.Marker(config);
     this.markers.set(markerId, marker);
 
@@ -155,7 +160,12 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
       this.addMakerListener('click', markerId, marker, (event) => this.onMarkerClick(event, markerId, marker));
     }
     if (config.draggable) {
+      this.addMakerListener('dragstart', markerId, marker, (event) => this.onMarkerDragStart(event, markerId, marker));
       this.addMakerListener('dragend', markerId, marker, (event) => this.onMarkerDragEnd(event, markerId, marker));
+    }
+    if (config.trackable) {
+      this.addMakerListener('mouseover', markerId, marker, (event) => this.onMarkerMouseOver(event, markerId, marker));
+      this.addMakerListener('mouseout', markerId, marker, (event) => this.onMarkerMouseOut(event, markerId, marker));
     }
     return marker;
   }
@@ -165,7 +175,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {string} name
    */
   public removeMarker(name: string): void {
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.markers.get(name),
       (marker) => {
         marker.unbindAll();
@@ -255,7 +265,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     if (cfg.refreshMap) {
       this.refreshMap(
         isArrayOfPointsNotEmpty ? points[0] : this.mapsSettings,
-        nvl(cfg.zoom, this.mapsSettings.zoom)
+        NvlUtils.nvl(cfg.zoom, this.mapsSettings.zoom)
       );
     }
   }
@@ -288,7 +298,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @returns {JSX.Element}
    */
   private get menuElement(): JSX.Element {
-    return orNull(
+    return ConditionUtils.orNull(
       this.haveMenuOptions,
       () => (
         <Menu
@@ -309,9 +319,16 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {google.maps.Marker} marker
    */
   private onMarkerDragEnd(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
-    const props = this.props;
-    if (TypeUtils.isFn(props.onChangePlace)) {
-      props.onChangePlace(this.asPlaceEventPayload(event, markerId, marker));
+    const {
+      onMarkerDragEnd,
+    } = this.originalProps;
+
+    this.draggedMarkerId = null;
+
+    if (TypeUtils.isFn(onMarkerDragEnd)) {
+      onMarkerDragEnd(this.asMarkerInfo(event, markerId, marker));
+
+      // 156543.03392 * Math.cos(this.map.getCenter().lat() * Math.PI / 180) / Math.pow(2, this.map.getZoom())
     }
   }
 
@@ -320,24 +337,82 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {IGoogleMapsEventEntity} event
    * @param {string} markerId
    * @param {google.maps.Marker} marker
+   */
+  private onMarkerDragStart(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+    const {
+      onMarkerDragStart,
+    } = this.originalProps;
+
+    this.draggedMarkerId = markerId;
+
+    if (TypeUtils.isFn(onMarkerDragStart)) {
+      onMarkerDragStart(this.asMarkerInfo(event, markerId, marker));
+    }
+  }
+
+  /**
+   * @stable [28.07.2020]
+   * @param event
+   * @param markerId
+   * @param marker
+   */
+  private onMarkerMouseOver(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+    const {
+      onMarkerEnter,
+    } = this.originalProps;
+
+    if (this.draggedMarkerId === markerId) {
+      return;
+    }
+    if (TypeUtils.isFn(onMarkerEnter)) {
+      onMarkerEnter();
+    }
+  }
+
+  /**
+   * @stable [28.07.2020]
+   * @param event
+   * @param markerId
+   * @param marker
+   */
+  private onMarkerMouseOut(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+    const {
+      onMarkerLeave,
+    } = this.originalProps;
+
+    if (this.draggedMarkerId === markerId) {
+      return;
+    }
+    if (TypeUtils.isFn(onMarkerLeave)) {
+      onMarkerLeave();
+    }
+  }
+
+  /**
+   * @stable [28.07.2020]
+   * @param event
+   * @param markerId
+   * @param marker
    */
   private onMarkerClick(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
-    const props = this.props;
-    if (TypeUtils.isFn(props.onClickPlace)) {
-      props.onClickPlace(this.asPlaceEventPayload(event, markerId, marker));
+    const {
+      onMarkerClick,
+    } = this.originalProps;
+
+    if (TypeUtils.isFn(onMarkerClick)) {
+      onMarkerClick(this.asMarkerInfo(event, markerId, marker));
     }
   }
 
   /**
-   * @stable [03.02.2020]
-   * @param {IGoogleMapsEventEntity} event
-   * @param {string} markerId
-   * @param {google.maps.Marker} marker
-   * @returns {IGoogleMapsMarkerPlaceEventEntity}
+   * @stable [28.07.2020]
+   * @param event
+   * @param markerId
+   * @param marker
    */
-  private asPlaceEventPayload(event: IGoogleMapsEventEntity,
-                              markerId: string,
-                              marker: google.maps.Marker): IGoogleMapsMarkerPlaceEventEntity {
+  private asMarkerInfo(event: IGoogleMapsEventEntity,
+                       markerId: string,
+                       marker: google.maps.Marker): IGoogleMapsMarkerInfoEntity {
     const position = marker.getPosition();
     const lat = position.lat();
     const lng = position.lng();
@@ -345,13 +420,16 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [10.01.2020]
-   * @param {IPresetsMenuItemEntity} item
+   * @stable [28.07.2020]
+   * @param item
    */
   private onMenuSelect(item: IPresetsMenuItemEntity): void {
-    const props = this.props;
-    if (TypeUtils.isFn(props.onSelect)) {
-      props.onSelect({item, lat: this.lat, lng: this.lng});
+    const {
+      onSelect,
+    } = this.originalProps;
+
+    if (TypeUtils.isFn(onSelect)) {
+      onSelect({item, lat: this.lat, lng: this.lng});
     }
   }
 
@@ -360,24 +438,26 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {IGoogleMapsEventEntity} payload
    */
   private onMapClick(payload: IGoogleMapsEventEntity): void {
-    const props = this.props;
+    const {
+      onClick,
+    } = this.originalProps;
 
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       payload.pixel,
       () => {
         const event = R.find(EVENT_VALUE_PREDICATE, R.values(payload)) as MouseEvent;
         const lat = payload.latLng.lat();
         const lng = payload.latLng.lng();
 
-        ifNotNilThanValue(
+        ConditionUtils.ifNotNilThanValue(
           this.openMenuTask,
           (openMenuTask) => openMenuTask.start<IGoogleMapsMenuContextEntity>({event, lat, lng})
         );
       }
     );
 
-    if (TypeUtils.isFn(props.onClick)) {
-      props.onClick(payload);
+    if (TypeUtils.isFn(onClick)) {
+      onClick(payload);
     }
   }
 
@@ -386,7 +466,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {IGoogleMapsEventEntity} event
    */
   private onMapDbClick(event: IGoogleMapsEventEntity): void {
-    ifNotNilThanValue(this.openMenuTask, (openMenuTask) => openMenuTask.stop());
+    ConditionUtils.ifNotNilThanValue(this.openMenuTask, (openMenuTask) => openMenuTask.stop());
   }
 
   /**
@@ -402,14 +482,14 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [22.01.2020]
+   * @stable [28.07.2020]
    */
   private onGoogleMapsReady(): void {
-    const props = this.props;
     const {
       initialMarkers,
+      onInit,
       options = {},
-    } = props;
+    } = this.originalProps;
 
     // google.maps.MapTypeId enum is loaded as a lazy resource (within a lazy loaded script)
     const mapTypes = new Map();
@@ -428,7 +508,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.clickEventListener = google.maps.event.addListener(this.map, 'click', this.onMapClick);
     this.dbClickEventListener = google.maps.event.addListener(this.map, 'dblclick', this.onMapDbClick);
 
-    ifNotEmptyThanValue(
+    ConditionUtils.ifNotEmptyThanValue(
       initialMarkers,
       () => {
         initialMarkers.forEach((cfg, index) => {
@@ -446,7 +526,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
       }
     );
 
-    ifNotNilThanValue(props.onInit, (onInit) => onInit(this.map));
+    ConditionUtils.ifNotNilThanValue(onInit, () => onInit(this.map));
   }
 
   /**
@@ -468,11 +548,11 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [03.02.2020]
-   * @param {string} eventName
-   * @param {string} markerId
-   * @param {google.maps.Marker} marker
-   * @param {() => void} callback
+   * @stable [28.07.2020]
+   * @param eventName
+   * @param markerId
+   * @param marker
+   * @param callback
    */
   private addMakerListener(eventName: string,
                            markerId: string,
@@ -495,28 +575,28 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.markers.forEach((marker) => marker.unbindAll());
     this.markers.clear();
 
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.clickEventListener,
       (listener) => {
         listener.remove();
         this.clickEventListener = null;
       }
     );
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.dbClickEventListener,
       (listener) => {
         listener.remove();
         this.dbClickEventListener = null;
       }
     );
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.heatMapLayer,
       (heatMapLayer) => {
         heatMapLayer.unbindAll();
         this.heatMapLayer = null;
       }
     );
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.map,
       (map) => {
         map.unbindAll();
@@ -530,7 +610,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @returns {boolean}
    */
   private get haveMenuOptions(): boolean {
-    return ObjectUtils.isObjectNotEmpty(this.props.menuOptions);
+    return ObjectUtils.isObjectNotEmpty(this.originalProps.menuOptions);
   }
 
   /**

@@ -1,10 +1,6 @@
-import { Component, ComponentClass, ComponentLifecycle } from 'react';
-
 import {
   IClearValueWrapper,
   IDateWrapper,
-  IEntity,
-  IFilterWrapper,
   IFromDateFromTimeEntity,
   IGetValueWrapper,
   IIdWrapper,
@@ -12,7 +8,6 @@ import {
   INameWrapper,
   IOnChangeManuallyWrapper,
   ISetFocusWrapper,
-  ISorterWrapper,
   ITimeWrapper,
   IToDateToTimeEntity,
   IValueWrapper,
@@ -48,13 +43,6 @@ export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversal
  */
 export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
-}
-
-/**
- * @stable [16.05.2018]
- */
-export interface IDataMutatorEntity<TEntity = IEntity> extends IFilterWrapper<(entity: TEntity) => boolean>,
-                                                               ISorterWrapper<(entity1: TEntity, entity2: TEntity) => number> {
 }
 
 /**

@@ -39,19 +39,17 @@ export const makeErrorEffectsProxy = (actionType: string) =>
   makeFailedEffectsProxy(EffectsActionBuilder.buildErrorActionType(actionType));
 
 /**
- * @stable [03.04.2019]
- * @param {string} actionType
- * @returns {() => void}
+ * @stable [26.07.2020]
+ * @param actionType
  */
-export const makeFailedFormEffectsProxy = (actionType: string) =>
+export const makeFormSubmitErrorEffectsProxy = (actionType: string) =>
   makeFailedEffectsProxy(FormActionBuilder.buildSubmitErrorActionType(actionType));
 
 /**
- * @stable [23.12.2018]
- * @param {string} section
- * @returns {() => void}
+ * @stable [26.07.2020]
+ * @param section
  */
-export const makeFailedListLoadEffectsProxy = (section: string): () => void =>
+export const makeListLoadErrorEffectsProxy = (section: string): () => void =>
   makeFailedEffectsProxy(ListActionBuilder.buildLoadErrorActionType(section));
 
 /**

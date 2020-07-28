@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
   AnyT,
@@ -289,4 +290,8 @@ export const DEFAULT_NOT_SELECTABLE_LIST_ENTITY = Object.freeze<IPresetsListEnti
  */
 export const LIST_CANCEL_LOAD_ACTION_TYPE = 'list.cancel.load';
 export const LIST_CREATE_ACTION_TYPE = 'list.create';
+export const LIST_LOAD_ACTION_TYPE = 'list.load';
 export const LIST_SELECT_ACTION_TYPE = 'list.select';
+/**/
+export const LIST_LOAD_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(LIST_LOAD_ACTION_TYPE);
+export const LIST_LOAD_ERROR_ACTION_TYPE = EffectsActionBuilder.buildErrorActionType(LIST_LOAD_ACTION_TYPE);

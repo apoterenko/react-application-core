@@ -7,19 +7,19 @@ import {
 
 /**
  * @redux-entity
- * @stable [08.05.2020]
+ * @stable [26.07.2020]
  */
-export interface IReduxActiveQueryEntity
+export interface IReduxQueryFilterEntity
   extends IActiveWrapper,
     IQueryWrapper {
 }
 
 /**
- * @entity
- * @stable [04.04.2020]
+ * @redux-holder-entity
+ * @stable [26.07.2020]
  */
-export interface IQueryFilterEntity
-  extends IQueryFilterWrapper<IReduxActiveQueryEntity> {
+export interface IReduxHolderQueryFilterEntity
+  extends IQueryFilterWrapper<IReduxQueryFilterEntity> {
 }
 
 /**
@@ -42,6 +42,6 @@ export interface IFluxPayloadQueryEntity
  * @initial-redux-entity
  * @stable [08.05.2020]
  */
-export const INITIAL_REDUX_ACTIVE_QUERY_ENTITY = Object.freeze<IReduxActiveQueryEntity>({
+export const INITIAL_REDUX_QUERY_FILTER_ENTITY = Object.freeze<IReduxQueryFilterEntity>({
   query: '',
 });
