@@ -49,6 +49,10 @@ $rac-progress-dialog-cls: rac-progress-dialog;
 //
 $rac-overlay-filter-cls: rac-overlay-filter;
 
+// @stable [28.07.2020]
+$rac-tab-panel-cls: rac-tab-panel;
+$rac-tab-panel-wrapper-cls: rac-tab-panel-wrapper;
+
 // @stable [11.03.2020]
 $rac-empty-viewer-cls: rac-empty-viewer;
 $rac-full-viewer-cls: rac-full-viewer;
@@ -175,6 +179,7 @@ $rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-butto
 // @stable [18.07.2020]
 $rac-grid-column-align-center-cls: rac-grid-column-align-center;
 $rac-grid-column-align-right-cls: rac-grid-column-align-right;
+$rac-grid-column-close-wrapper-cls: rac-grid-column__close-wrapper;
 $rac-grid-column-cls: rac-grid-column;
 $rac-grid-column-content-cls: rac-grid-column__content;
 $rac-grid-column-sort-actions-cls: rac-grid-column__sort-actions;
