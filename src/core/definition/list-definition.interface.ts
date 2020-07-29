@@ -39,8 +39,7 @@ import {
   IReduxLifeCycleEntity,
 } from './entity-definition.interface';
 import {
-  DEFAULT_PAGE_SIZE,
-  FIRST_PAGE,
+  DEFAULT_PAGED_ENTITY,
   IReduxPaginatedEntity,
 } from './page-definition.interface';
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
@@ -261,14 +260,14 @@ export enum ListClassesEnum {
 }
 
 /**
- * @stable [20.10.2019]
+ * @initial-redux-entity
+ * @stable [29.07.2020]
  */
-export const INITIAL_LIST_ENTITY = Object.freeze<IReduxListEntity>({
+export const INITIAL_REDUX_LIST_ENTITY = Object.freeze<IReduxListEntity>({
+  ...DEFAULT_PAGED_ENTITY,
   data: null,
   directions: {},
   lockPage: false,
-  page: FIRST_PAGE,
-  pageSize: DEFAULT_PAGE_SIZE,
   progress: false,
   rawData: null,
   selected: null,

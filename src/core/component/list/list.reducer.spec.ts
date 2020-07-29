@@ -5,7 +5,7 @@ import { listReducer } from './list.reducer';
 import { ListActionBuilder } from './list-action.builder';
 import {
   EntityMergeStrategiesEnum,
-  INITIAL_LIST_ENTITY,
+  INITIAL_REDUX_LIST_ENTITY,
 } from '../../definition';
 
 const TEST_SECTION = 'test';
@@ -16,7 +16,7 @@ describe('list.reducer', () => {
     // Update
     it('test1', () => {
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_LIST_ENTITY, {
+        Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
           data: [
             {id: 1, field1: 'value1', field2: 'value3'},
             {id: 2, field1: 'value2', field2: 'value4'},
@@ -32,7 +32,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value3'},
           {id: 2, field1: 'value20', field2: 'value4'},
@@ -46,7 +46,7 @@ describe('list.reducer', () => {
     // Update
     it('test2', () => {
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_LIST_ENTITY, {
+        Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
           data: [
             {id: 1, field1: 'value1', field2: 'value3'},
             {id: 2, field1: 'value2', field2: 'value4'},
@@ -63,7 +63,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value3'},
           {id: 2, field1: 'value20'},
@@ -77,7 +77,7 @@ describe('list.reducer', () => {
     // Update
     it('test3', () => {
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_LIST_ENTITY, {
+        Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
           data: [
             {id: 1, field1: 'value1', field2: 'value3'},
             {id: 2, field1: 'value2', field2: 'value4'},
@@ -94,7 +94,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value3'},
           {id: 2, field1: 'value20', field2: 'value4'},
@@ -109,7 +109,7 @@ describe('list.reducer', () => {
     // Update
     it('test4', () => {
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_LIST_ENTITY, {
+        Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
           data: [
             {id: 1, field1: 'value1', field2: 'value3'},
             {id: 2, field1: 'value2', field2: 'value4'},
@@ -127,7 +127,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value3'},
           {id: 2, field1: 'value20'},
@@ -142,7 +142,7 @@ describe('list.reducer', () => {
     // Insert
     it('test5', () => {
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_LIST_ENTITY, {
+        Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
           data: [
             {id: 1, field1: 'value1', field2: 'value3'},
             {id: 2, field1: 'value2', field2: 'value4'}
@@ -157,7 +157,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value3'},
           {id: 2, field1: 'value2', field2: 'value4'},
@@ -172,7 +172,7 @@ describe('list.reducer', () => {
     // Insert
     it('test6', () => {
       const reducedList = listReducer(
-        Object.assign({}, INITIAL_LIST_ENTITY, {
+        Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
           data: [
             {id: 1, field1: 'value1', field2: 'value3'},
             {id: 2, field1: 'value2', field2: 'value4'}
@@ -188,7 +188,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value3'},
           {id: 2, field1: 'value2', field2: 'value4'},
@@ -203,7 +203,7 @@ describe('list.reducer', () => {
     // Insert
     it('test7', () => {
       const reducedList = listReducer(
-        INITIAL_LIST_ENTITY,
+        INITIAL_REDUX_LIST_ENTITY,
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
           payload: {
             id: 1,
@@ -212,7 +212,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value2'}
         ],
@@ -225,7 +225,7 @@ describe('list.reducer', () => {
     // Insert
     it('test8', () => {
       const reducedList = listReducer(
-        INITIAL_LIST_ENTITY,
+        INITIAL_REDUX_LIST_ENTITY,
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
           payload: {
             id: 1,
@@ -235,7 +235,7 @@ describe('list.reducer', () => {
         })
       );
 
-      const result = Object.assign({}, INITIAL_LIST_ENTITY, {
+      const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
           {id: 1, field1: 'value1', field2: 'value2'}
         ],

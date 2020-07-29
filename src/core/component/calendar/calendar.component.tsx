@@ -8,7 +8,7 @@ import {
   ICalendarProps,
   ICalendarWeekEntity,
   IGridColumnProps,
-  INITIAL_LIST_ENTITY,
+  INITIAL_REDUX_LIST_ENTITY,
   IReduxListEntity,
 } from '../../definition';
 import { Grid } from '../grid';
@@ -45,7 +45,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
     const calendar = this.calendarEntity;
 
     const listEntity: IReduxListEntity = {
-      ...INITIAL_LIST_ENTITY,
+      ...INITIAL_REDUX_LIST_ENTITY,
       data: calendar.days,
     };
 

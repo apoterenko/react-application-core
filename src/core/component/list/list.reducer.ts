@@ -28,13 +28,13 @@ import {
   EntityMergeStrategiesEnum,
   FIRST_PAGE,
   IModifyEntityPayloadEntity,
-  INITIAL_LIST_ENTITY,
+  INITIAL_REDUX_LIST_ENTITY,
   IReduxListEntity,
   IReduxSortDirectionsEntity,
   ISortDirectionPayloadEntity,
 } from '../../definition';
 
-export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
+export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
                             action: IEffectsAction): IReduxListEntity => {
   const section = toSection(action);
   let modifyDataPayload;
@@ -89,7 +89,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
       };
     case ListActionBuilder.buildLoadActionType(section):
       return {
-        ...INITIAL_LIST_ENTITY,
+        ...INITIAL_REDUX_LIST_ENTITY,
         progress: true,
         touched: true,
         lockPage: state.lockPage,
@@ -107,7 +107,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
     case ListActionBuilder.buildResetActionType(section):
     case ListActionBuilder.buildDestroyActionType(section):
       return {
-        ...INITIAL_LIST_ENTITY,
+        ...INITIAL_REDUX_LIST_ENTITY,
       };
     case ListActionBuilder.buildLoadDoneActionType(section):
       const listEntity: IReduxListEntity = action.data;
@@ -134,7 +134,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
               ),
             }
         ),
-        page: state.lockPage ? listEntity.page : INITIAL_LIST_ENTITY.page,
+        page: state.lockPage ? listEntity.page : INITIAL_REDUX_LIST_ENTITY.page,
       };
       // In the case of a silent reload
       const oldSelectedEntity = resultState.selected;
@@ -149,7 +149,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_LIST_ENTITY,
     case ListActionBuilder.buildLazyLoadErrorActionType(section):
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {
-        ...INITIAL_LIST_ENTITY,
+        ...INITIAL_REDUX_LIST_ENTITY,
         error: asErrorMessage(action.error).message,
       };
 

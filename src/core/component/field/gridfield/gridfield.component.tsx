@@ -7,7 +7,7 @@ import { ClsUtils } from '../../../util';
 import {
   IFieldChangeEntity,
   IGenericGridEntity,
-  INITIAL_LIST_ENTITY,
+  INITIAL_REDUX_LIST_ENTITY,
 } from '../../../definition';
 
 export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
@@ -29,7 +29,7 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
     const props = this.props;
 
     const gridListEntity: IGenericGridEntity = {
-      ...INITIAL_LIST_ENTITY,
+      ...INITIAL_REDUX_LIST_ENTITY,
       data: this.multiFieldPlugin.activeValue,
       changes: fromMultiItemEntitiesToFieldsChanges(this.multiFieldPlugin.editValue),
     };

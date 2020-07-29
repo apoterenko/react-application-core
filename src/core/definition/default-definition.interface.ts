@@ -6,7 +6,10 @@ import {
   DEFAULT_PLACE_FIELD_ENTITY,
   DEFAULT_ZIP_CODE_FIELD_ENTITY,
 } from './place-definition.interface';
-import { DEFAULT_NOT_SELECTABLE_LIST_ENTITY } from './list-definition.interface';
+import {
+  DEFAULT_NOT_SELECTABLE_LIST_ENTITY,
+  INITIAL_REDUX_LIST_ENTITY,
+} from './list-definition.interface';
 import { DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY } from './dom-definition.interface';
 import { INITIAL_REDUX_STACK_ENTITY } from './stack-definition.interface';
 import {
@@ -33,6 +36,7 @@ export class DefaultEntities {
   public static readonly DICTIONARY_PAGED_ENTITY = DEFAULT_DICTIONARY_PAGED_ENTITY;                     /* @stable [26.07.2020] */
   public static readonly DOM_RIGHT_POSITION_CONFIG_ENTITY = DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY;   /* @stable [21.05.2020] */
   public static readonly FIRST_PAGE = FIRST_PAGE;                                                       /* @stable [16.07.2020] */
+  public static readonly INITIAL_REDUX_LIST_ENTITY = INITIAL_REDUX_LIST_ENTITY;                         /* @stable [29.07.2020] */
   public static readonly INITIAL_REDUX_STACK_ENTITY = INITIAL_REDUX_STACK_ENTITY;                       /* @stable [21.05.2020] */
   public static readonly LOCAL_PAGE_SIZE = DEFAULT_LOCAL_PAGE_SIZE;                                     /* @stable [16.07.2020] */
   public static readonly NOT_CHANGEABLE_FIELD_ENTITY = DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY;             /* @stable [01.06.2020] */
