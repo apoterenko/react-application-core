@@ -40,7 +40,6 @@ import {
   IReduxHolderQueryFilterEntity,
   IReduxHolderSecondaryFilterFormEntity,
   IReduxHolderStackEntity,
-  IReduxHolderTabPanelEntity,
   IReduxHolderTransportEntity,
   IReduxHolderUserEntity,
   IReduxLayoutEntity,
@@ -52,7 +51,6 @@ import {
   IReduxQueryFilterEntity,
   IReduxStackEntity,
   IReduxStoreEntity,
-  IReduxTabPanelEntity,
   IReduxTransportEntity,
   IReduxUserEntity,
   ISecondaryFilterExtendedFormEntity,
@@ -128,16 +126,6 @@ const mapHolderChannelEntity =
 const mapHolderNotificationEntity =
   <TEntity = IReduxNotificationEntity>(entity: IReduxHolderNotificationEntity<TEntity>): IReduxHolderNotificationEntity<TEntity> =>
     MapAsWrapperUtils.notification(Selectors.notification(entity));
-
-/**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param entity
- */
-export const mapHolderTabPanelEntity =
-  <TEntity = IReduxTabPanelEntity>(entity: IReduxHolderTabPanelEntity<TEntity>): IReduxHolderTabPanelEntity =>
-    MapAsWrapperUtils.tabPanel(Selectors.tabPanel(entity));
 
 /**
  * @map-as-original
@@ -659,7 +647,6 @@ export class GenericMappers {
   public static readonly holderNotificationEntity = mapHolderNotificationEntity;                                                                  /* stable [12.06.2020] */
   public static readonly holderQueryFilterEntity = mapHolderQueryFilterEntity;                                                                    /* stable [26.07.2020] */
   public static readonly holderQueryFilterEntityAsQuery = mapHolderQueryFilterEntityAsQuery;                                                      /* stable [27.07.2020] */
-  public static readonly holderTabPanelEntity = mapHolderTabPanelEntity;                                                                          /* stable [27.07.2020] */
   public static readonly holderTransportEntity = mapHolderTransportEntity;                                                                        /* stable [12.06.2020] */
   public static readonly holderUserEntity = mapHolderUserEntity;                                                                                  /* stable [09.06.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */

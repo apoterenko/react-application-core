@@ -40,7 +40,7 @@ import {
 } from '../definitions.interface';
 import {
   IExtendedEntity,
-  IReduxHolderActiveValueEntity,
+  IReduxActiveValueHolderEntity,
   IReduxLifeCycleEntity,
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
@@ -57,7 +57,7 @@ import { IGenericContainerProps } from './generic-container-definition.interface
  * @stable [08.05.2020]
  */
 export interface IReduxFormEntity<TChanges = IKeyValue>
-  extends IReduxHolderActiveValueEntity,
+  extends IReduxActiveValueHolderEntity,
     IReduxLifeCycleEntity,
     IChangesWrapper<TChanges>,
     IDefaultChangesWrapper<TChanges>,

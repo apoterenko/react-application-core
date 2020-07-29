@@ -1,41 +1,43 @@
-import * as R from 'ramda';
-
 import {
   IPresetsTabEntity,
-  IReduxHolderActiveValueEntity,
-  ITabPanelEntity,
+  IReduxActiveValueHolderEntity,
+  IReduxTabPanelHolderEntity,
 } from '../definition';
 import { Selectors } from './select';
+import { ConditionUtils } from './cond';
 
 /**
- * @stable [17.05.2020]
- * @param {IReduxHolderActiveValueEntity} holderActiveValueEntity
- * @param {IPresetsTabEntity} tabEntity
- * @returns {boolean}
+ * @stable [29.07.2020]
+ * @param activeValueHolderEntity
+ * @param tabEntity
  */
-const isTabActive = (holderActiveValueEntity: IReduxHolderActiveValueEntity,
+const isTabActive = (activeValueHolderEntity: IReduxActiveValueHolderEntity,
                      tabEntity: IPresetsTabEntity): boolean =>
-  R.isNil(holderActiveValueEntity)
-    ? false
-    : (
-      R.isNil(holderActiveValueEntity.activeValue)
-        ? !!tabEntity.active
-        : holderActiveValueEntity.activeValue === tabEntity.value
-    );
+  ConditionUtils.ifNotNilThanValue(
+    activeValueHolderEntity,
+    () => (
+      ConditionUtils.ifNotNilThanValue(
+        activeValueHolderEntity.activeValue,
+        (activeValue) => activeValue === tabEntity.value,
+        !!tabEntity.active
+      )
+    ),
+    false
+  );
 
 /**
- * @stable [17.05.2020]
- * @param {ITabPanelEntity} wrapper
- * @param {IPresetsTabEntity} tab
- * @returns {boolean}
+ * @stable [29.07.2020]
+ * @param tabPanelHolderEntity
+ * @param tabEntity
  */
-const isTabEntityActive = (wrapper: ITabPanelEntity,
-                           tab: IPresetsTabEntity): boolean => isTabActive(Selectors.tabPanel(wrapper), tab);
+const isTabHolderActive = (tabPanelHolderEntity: IReduxTabPanelHolderEntity,
+                           tabEntity: IPresetsTabEntity): boolean =>
+  isTabActive(Selectors.tabPanel(tabPanelHolderEntity), tabEntity);
 
 /**
  * @stable [17.05.2020]
  */
 export class TabUtils {
   public static isActive = isTabActive;                              /* @stable [17.05.2020] */
-  public static isEntityActive = isTabEntityActive;                  /* @stable [17.05.2020] */
+  public static isHolderActive = isTabHolderActive;                  /* @stable [17.05.2020] */
 }

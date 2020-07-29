@@ -18,7 +18,7 @@ import {
 import { IBaseEvent } from './event-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
-import { IReduxHolderActiveValueEntity } from './entity-definition.interface';
+import { IReduxActiveValueHolderEntity } from './entity-definition.interface';
 import { IReduxHolderFormEntity } from './form-definition.interface';
 
 /**
@@ -54,7 +54,7 @@ export interface ITabProps
  * @stable [17.05.2020]
  */
 export interface IReduxTabPanelEntity
-  extends IReduxHolderActiveValueEntity {
+  extends IReduxActiveValueHolderEntity {
 }
 
 /**
@@ -92,17 +92,17 @@ export interface ITabPanelProps
 
 /**
  * @redux-holder-entity
- * @stable [27.07.2020]
+ * @stable [29.07.2020]
  */
-export interface IReduxHolderTabPanelEntity<TEntity = IReduxTabPanelEntity>
+export interface IReduxTabPanelHolderEntity<TEntity = IReduxTabPanelEntity>
   extends ITabPanelWrapper<TEntity> {
 }
 
 /**
  * @configuration-entity
- * @stable [10.02.2020]
+ * @stable [29.07.2020]
  */
-export interface ITabPanelConfigurationEntity
+export interface IConfigurationTabPanelEntity
   extends ITabPanelConfigurationWrapper<ITabPanelProps> {
 }
 
@@ -111,8 +111,8 @@ export interface ITabPanelConfigurationEntity
  * @stable [12.02.2020]
  */
 export interface IGenericTabPanelContainerEntity
-  extends ITabPanelConfigurationEntity,
-    IReduxHolderTabPanelEntity {
+  extends IConfigurationTabPanelEntity,
+    IReduxTabPanelHolderEntity {
 }
 
 /**

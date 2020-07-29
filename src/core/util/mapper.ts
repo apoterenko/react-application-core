@@ -37,6 +37,7 @@ import {
 import { GenericMappers } from './mapper-generic';
 import { ComponentMappers } from './mapper-component';
 import { MapAsWrapperUtils } from './map-as-wrapper';
+import { MapAsOriginalUtils } from './map-as-original';
 
 /**
  * @stable [17.11.2019]
@@ -240,7 +241,6 @@ export class Mappers {
   public static readonly holderListEntityAsDisabled = GenericMappers.holderListEntityAsDisabled;                                                                                            /* @stable [08.07.2020] */
   public static readonly holderQueryFilterEntity = GenericMappers.holderQueryFilterEntity;                                                                                                  /* @stable [26.07.2020] */
   public static readonly holderQueryFilterEntityAsQuery = GenericMappers.holderQueryFilterEntityAsQuery;                                                                                    /* @stable [27.07.2020] */
-  public static readonly holderTabPanelEntity = GenericMappers.holderTabPanelEntity;                                                                                                        /* @stable [27.07.2020] */
   public static readonly holderTransportEntity = GenericMappers.holderTransportEntity;                                                                                                      /* @stable [12.06.2020] */
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                                                          /* @stable [10.05.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                                                  /* @stable [08.05.2020] */
@@ -259,6 +259,7 @@ export class Mappers {
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
   public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                                                              /* @stable [10.05.2020] */
   public static readonly storeEntity = GenericMappers.storeEntity;                                                                                                                          /* @stable [09.06.2020] */
+  public static readonly tabPanelHolderEntity = MapAsOriginalUtils.tabPanelHolderEntity;                                                                                                    /* @stable [29.07.2020] */
   public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                                                          /* @stable [09.05.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = ComponentMappers.toolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [10.06.2020] */
   public static readonly toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps;                                                            /* @stable [10.05.2020] */

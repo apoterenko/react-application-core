@@ -3,7 +3,7 @@ import * as React from 'react';
 import { GenericContainer } from '../base/generic.container';
 import { TabPanel } from './tab-panel.component';
 import {
-  IReduxHolderActiveValueEntity,
+  IReduxActiveValueHolderEntity,
   ITabPanelContainerProps,
   ITabProps,
 } from '../../definition';
@@ -59,9 +59,9 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
 
   /**
    * @stable [12.04.2020]
-   * @returns {IReduxHolderActiveValueEntity}
+   * @returns {IReduxActiveValueHolderEntity}
    */
-  protected get activeValueEntity(): IReduxHolderActiveValueEntity {
+  protected get activeValueEntity(): IReduxActiveValueHolderEntity {
     return this.props.tabPanel;
   }
 
