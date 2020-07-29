@@ -16,6 +16,8 @@
     "tsc-build": "node_modules/.bin/tsc --p tsconfig.json"
   },
   "dependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@dagrejs/graphlib": "^2.1.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
