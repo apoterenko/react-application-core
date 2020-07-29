@@ -33,11 +33,13 @@ export enum IconsEnum {
   LONG_ARROW_ALT_RIGHT = 'long-arrow-alt-right',                          /* https://fontawesome.com/ */
   MINUS = 'minus',                                                        /* https://fontawesome.com/ */
   MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
+  MINUS_SQUARE_REGULAR = 'minus-square-regular',                          /* https://fontawesome.com/ */
   PAPERCLIP = 'paperclip',                                                /* https://fontawesome.com/ */
   PENCIL_ALT = 'pencil-alt',                                              /* https://fontawesome.com/ */
   PEOPLE_CARRY = 'people-carry',                                          /* https://fontawesome.com/ */
   PHONE = 'phone',
   PLUS = 'plus',                                                          /* https://fontawesome.com/ */
+  PLUS_SQUARE_REGULAR = 'plus-square-regular',                            /* https://fontawesome.com/ */
   PRINT = 'print',
   RECEIPT = 'receipt',                                                    /* https://fontawesome.com/ */
   SEARCH = 'search',                                                      /* https://fontawesome.com/ */

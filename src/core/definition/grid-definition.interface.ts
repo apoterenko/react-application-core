@@ -193,7 +193,9 @@ export interface IGridRowProps<TEntity extends IEntity = IEntity>
  * @stable [06.12.2019]
  */
 export interface IGridRowConfigEntity<TEntity extends IEntity = IEntity>
-  extends IEntityWrapper<TEntity>,
+  extends IColumnsConfigurationWrapper<IGridColumnProps[]>,
+    IEntityWrapper<TEntity>,
+    IExpandActionRenderedWrapper,
     IGroupedRowsWrapper<TEntity[]>,
     IHighlightOddWrapper,
     IRowNumWrapper,
