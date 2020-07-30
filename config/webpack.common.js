@@ -57,11 +57,15 @@ module.exports.define = function (options) {
         },
         {
           test: /\.js$/,
-          include: [helpers.root('node_modules/@material')],
+          include: [
+            helpers.root('node_modules/@material'),
+            helpers.root('node_modules/camelcase')
+          ],
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['env']
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread']
             }
           }
         },
