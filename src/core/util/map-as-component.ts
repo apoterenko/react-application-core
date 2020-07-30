@@ -1,4 +1,5 @@
 import {
+  IFormContainerProps,
   IFormTabPanelContainerProps,
   ITabPanelContainerProps,
   ITabPanelProps,
@@ -38,6 +39,19 @@ const mapFormTabPanelContainerProps = (formTabPanelContainer: IFormTabPanelConta
 });
 
 /**
+ * @map-as-container
+ *
+ * @stable [30.07.2020]
+ * @param formContainerProps
+ */
+const mapFormContainerProps = (formContainerProps: IFormContainerProps): IFormContainerProps =>
+  ({
+    ...MapAsOriginalUtils.extendedEntity(formContainerProps),
+    ...MapAsOriginalUtils.formHolderEntity(formContainerProps),
+    ...MapAsOriginalUtils.sectionNameWrapper(formContainerProps),
+  });
+
+/**
  * @map-container-as-component
  *
  * @stable [30.07.2020]
@@ -63,6 +77,7 @@ const mapFormTabPanelContainerPropsAsTabPanelProps = (formTabPanelContainer: IFo
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
+  public static readonly formContainerProps = mapFormContainerProps;
   public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
   public static readonly formTabPanelContainerPropsAsTabPanelProps = mapFormTabPanelContainerPropsAsTabPanelProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;

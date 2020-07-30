@@ -10,9 +10,9 @@ import {
 
 /**
  * @presets-entity
- * @stable [12.06.2020]
+ * @stable [30.07.2020]
  */
-export interface IPresetsBaseComponentEntity<TComponent = AnyT>
+export interface IPresetsRefComponentEntity<TComponent = AnyT>
   extends React.RefAttributes<TComponent>,
     IForwardedRefWrapper<React.RefObject<AnyT>> {
 }
@@ -21,11 +21,19 @@ export interface IPresetsBaseComponentEntity<TComponent = AnyT>
  * @presets-entity
  * @stable [12.06.2020]
  */
-export interface IPresetsComponentEntity<TComponent = AnyT>
-  extends IPresetsBaseComponentEntity<TComponent>,
-    IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+export interface IPresetsBaseComponentEntity
+  extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
     IStyleWrapper<React.CSSProperties>,
     ITitleWrapper<string | boolean> {
+}
+
+/**
+ * @presets-entity
+ * @stable [12.06.2020]
+ */
+export interface IPresetsComponentEntity<TComponent = AnyT>
+  extends IPresetsRefComponentEntity<TComponent>,
+    IPresetsBaseComponentEntity {
 }
 
 /**
@@ -33,7 +41,7 @@ export interface IPresetsComponentEntity<TComponent = AnyT>
  * @stable [27.02.2020]
  */
 export interface IGenericBaseComponentEntity<TComponent = AnyT>
-  extends IPresetsBaseComponentEntity<TComponent> {
+  extends IPresetsRefComponentEntity<TComponent> {
 }
 
 /**

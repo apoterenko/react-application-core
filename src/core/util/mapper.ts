@@ -200,7 +200,7 @@ export class Mappers {
   public static readonly filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;                                                                                  /* @stable [10.05.2020] */
   public static readonly filterFormDialogSecondaryFilterContainerProps = ComponentMappers.filterFormDialogSecondaryFilterContainerProps;                                                    /* @stable [10.05.2020] */
   public static readonly form = MapAsWrapperUtils.form;                                                                                                                                     /* @stable [27.07.2020] */
-  public static readonly formContainerProps = ComponentMappers.formContainerProps;                                                                                                          /* @stable [08.05.2020] */
+  public static readonly formContainerProps = MapAsComponentUtils.formContainerProps;                                                                                                       /* @stable [30.07.2020] */
   public static readonly formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                                                                                    /* @stable [09.05.2020] */
   public static readonly formHolderEntity = MapAsOriginalUtils.formHolderEntity;                                                                                                            /* @stable [30.07.2020] */
   public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                                                /* @stable [10.05.2020] */

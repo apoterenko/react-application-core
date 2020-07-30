@@ -196,21 +196,6 @@ const mapPagedEntity = (entity: IReduxPagedEntity): IReduxPagedEntity =>
   );
 
 /**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param extendedEntity
- */
-const mapExtendedEntity = <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IExtendedEntity<TEntity> =>
-  FilterUtils.defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
-    changes: extendedEntity.changes,
-    entity: extendedEntity.entity,
-    entityId: extendedEntity.entityId,
-    newEntity: extendedEntity.newEntity,
-    originalEntity: extendedEntity.originalEntity,
-  });
-
-/**
  * @stable [19.05.2020]
  * @param {IPresetsSelectOptionEntity<TRawData>} entity
  * @returns {IPresetsSelectOptionEntity<TRawData>}
@@ -272,7 +257,7 @@ const mapEntityAsExtendedEntity =
       originalEntity = {...defaultChanges as {}, ...entity as {}};
     }
 
-    return mapExtendedEntity({
+    return MapAsOriginalUtils.extendedEntity({
       changes,
       entity: {...originalEntity as {}, ...changes as {}},
       entityId: ConditionUtils.orUndef(!newEntity, () => entity.id),
@@ -619,7 +604,6 @@ export class GenericMappers {
   public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;                                      /* stable [19.05.2020] */
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;                                                                      /* stable [08.05.2020] */
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                                                              /* stable [10.05.2020] */
-  public static readonly extendedEntity = mapExtendedEntity;                                                                                      /* stable [08.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
   public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
   public static readonly holderListEntity = mapHolderListEntity;                                                                                  /* stable [12.06.2020] */

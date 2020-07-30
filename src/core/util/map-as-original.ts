@@ -1,4 +1,5 @@
 import {
+  IExtendedEntity,
   IReduxActiveValueHolderEntity,
   IReduxFormHolderEntity,
   IReduxTabPanelEntity,
@@ -10,6 +11,7 @@ import {
   IEntity,
   ISectionNameWrapper,
 } from '../definitions.interface';
+import { FilterUtils } from './filter';
 
 /**
  * @map-as-original
@@ -49,10 +51,26 @@ const mapFormHolderEntity = <TEntity = IEntity>(entity: IReduxFormHolderEntity<T
   MapAsWrapperUtils.form(Selectors.form(entity));
 
 /**
+ * @map-as-original
+ *
+ * @stable [27.07.2020]
+ * @param extendedEntity
+ */
+const mapExtendedEntity = <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IExtendedEntity<TEntity> =>
+  FilterUtils.defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
+    changes: extendedEntity.changes,
+    entity: extendedEntity.entity,
+    entityId: extendedEntity.entityId,
+    newEntity: extendedEntity.newEntity,
+    originalEntity: extendedEntity.originalEntity,
+  });
+
+/**
  * @stable [27.07.2020]
  */
 export class MapAsOriginalUtils {
   public static readonly activeValueHolderEntity = mapActiveValueHolderEntity;
+  public static readonly extendedEntity = mapExtendedEntity;
   public static readonly formHolderEntity = mapFormHolderEntity;
   public static readonly sectionNameWrapper = mapSectionNameWrapper;
   public static readonly tabPanelHolderEntity = mapTabPanelHolderEntity;
