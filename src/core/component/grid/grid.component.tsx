@@ -33,12 +33,14 @@ import { GridRow } from './row';
 import { IGridState } from './grid.interface';
 import {
   DefaultEntities,
+  GridClassesEnum,
   GroupValueRendererT,
   IconsEnum,
   IFieldChangeEntity,
   IGridColumnProps,
   IGridProps,
   IGridRowConfigEntity,
+  IIconConfigEntity,
   IListRowsConfigEntity,
   ISortDirectionEntity,
   ITextFieldProps,
@@ -204,9 +206,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       allGroupsExpanded,
       closed,
     } = this.state;
+    const {
+      onSortingDirectionChange,
+    } = this.originalProps;
 
-    const expandActionRendered = this.isExpandActionRendered;
-    const {isGrouped, props} = this;
+    const isExpandActionRendered = this.isExpandActionRendered;
+    const isGrouped = this.isGrouped;
 
     return (
       <GridRow>
@@ -218,18 +223,23 @@ export class Grid extends BaseList<IGridProps, IGridState> {
               name={column.name}
               index={columnNum}
               closed={closed}
-              onSortingDirectionChange={(payload: ISortDirectionEntity) =>
-                props.onSortingDirectionChange({...payload, index: columnNum, multi: false})}
+              onSortingDirectionChange={(payload: ISortDirectionEntity) => onSortingDirectionChange({
+                ...payload,
+                index: columnNum,
+                multi: false,
+              })}
               onClose={this.onHeadColumnClose}
               {...column}
             >
-              { // TODO (duplication)
-                expandActionRendered && isGrouped && columnNum === 0 // TODO index 0 (duplication)
-                ? this.uiFactory.makeIcon({
-                    type: allGroupsExpanded ? 'close-list' : 'open-list',
-                    onClick: this.onHeadColumnExpandAllGroups,
-                  })
-                : this.getHeaderColumnContent(column, columnNum)
+              {
+                isExpandActionRendered && isGrouped && this.isExpandGroupColumn(columnNum)
+                  ? (
+                    this.makeExpandIcon(
+                      allGroupsExpanded,
+                      {onClick: this.onHeadColumnExpandAllGroups}
+                    )
+                  )
+                  : this.getHeaderColumnContent(column, columnNum)
               }
             </GridHeadColumn>
           ))
@@ -494,14 +504,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [10.10.2018]
-   * @returns {IGridColumnProps[]}
-   */
-  private get columnsConfiguration(): IGridColumnProps[] {
-    return R.filter<IGridColumnProps>((column) => column.rendered !== false, this.props.columnsConfiguration);
-  }
-
-  /**
    * @stable [27.12.2018]
    * @returns {string}
    */
@@ -658,16 +660,14 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                 {...column}
               >
                 {
-                  columnNum === 0
+                  this.isExpandGroupColumn(columnNum)
                     ? (
                       expandActionRendered
                         ? (
-                          this.uiFactory.makeIcon({
-                            type: groupExpanded
-                              ? IconsEnum.MINUS_SQUARE_REGULAR
-                              : IconsEnum.PLUS_SQUARE_REGULAR,
-                            onClick: () => this.onExpandGroup(value, !groupExpanded),
-                          })
+                          this.makeExpandIcon(
+                            groupExpanded,
+                            {onClick: () => this.onExpandGroup(value, !groupExpanded)}
+                          )
                         )
                         : (
                           TypeUtils.isFn(groupValue)
@@ -741,6 +741,21 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable [30.07.2020]
+   * @param groupExpanded
+   * @param cfg
+   */
+  private makeExpandIcon(groupExpanded: boolean, cfg: IIconConfigEntity): JSX.Element {
+    return this.uiFactory.makeIcon({
+      className: GridClassesEnum.GRID_EXPAND_ACTION,
+      type: groupExpanded
+        ? IconsEnum.MINUS_SQUARE_REGULAR
+        : IconsEnum.PLUS_SQUARE_REGULAR,
+      ...cfg,
+    });
+  }
+
+  /**
+   * @stable [30.07.2020]
    * @param entity
    */
   private extractGroupValue(entity: IEntity): AnyT {
@@ -773,17 +788,34 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
   /**
    * @stable [30.07.2020]
+   * @param columnNum
+   */
+  private isExpandGroupColumn(columnNum: number): boolean {
+    return columnNum === 0;
+  }
+
+  /**
+   * @stable [30.07.2020]
    */
   private get areGroupsReady(): boolean {
     return this.isGrouped && this.originalProps.groupBy.areGroupsReady;
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [30.07.2020]
    */
   private get isExpandActionRendered(): boolean {
     return WrapperUtils.isExpandActionRendered(this.mergedProps);
+  }
+
+  /**
+   * @stable [30.07.2020]
+   */
+  private get columnsConfiguration(): IGridColumnProps[] {
+    const {
+      columnsConfiguration,
+    } = this.originalProps;
+    return R.filter<IGridColumnProps>((column) => column.rendered !== false, columnsConfiguration);
   }
 
   /**

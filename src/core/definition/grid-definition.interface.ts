@@ -301,6 +301,7 @@ export enum GridClassesEnum {
   GRID_COLUMN_CONTENT = 'rac-grid-column__content',
   GRID_COLUMN_SORT_ACTIONS = 'rac-grid-column__sort-actions',
   GRID_DESC_SORT_ACTION = 'rac-grid__desc-sort-action',
+  GRID_EXPAND_ACTION = 'rac-grid__expand-action',
   GRID_HEAD = 'rac-grid-head',
   GRID_ROW = 'rac-grid-row',
   GRID_ROW_FILTER = 'rac-grid-row-filter',

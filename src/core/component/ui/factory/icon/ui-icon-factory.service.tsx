@@ -169,20 +169,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'close-list': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='16' height='16' viewBox='0 0 16 16'>
-        <path fill='currentColor' d='M14 16H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zM2 2v12h12V2H2zm9 7H5a1 1 0 0 1 0-2h6a1 1 0 0 1 0 2z'
-        />
-      </svg>
-    ),
-    'open-list': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='16' height='16' viewBox='0 0 16 16'>
-        <path fill='currentColor' d='M14 16H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zM2 2v12h12V2H2zm9 7H9v2a1 1 0 0 1-2 0V9H5a1 1 0 0 1 0-2h2V5a1 1 0 0 1 2 0v2h2a1 1 0 0 1 0 2z'
-        />
-      </svg>
-    ),
     'user': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>
