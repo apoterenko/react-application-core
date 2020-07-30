@@ -23,6 +23,7 @@ import {
 } from '../definition';
 import { Selectors } from './select';
 import { IEntity } from '../definitions.interface';
+import { MapAsOriginalUtils } from './map-as-original';
 
 /**
  * @component-props-mapper
@@ -65,7 +66,7 @@ const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps 
 
 const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageToolbarContainerProps =>
   ({
-    ...GenericMappers.sectionNameWrapper(props),
+    ...MapAsOriginalUtils.sectionNameWrapper(props),
     ...GenericMappers.holderListEntity(props),
   });
 
@@ -80,7 +81,7 @@ const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps 
   ({
     ...GenericMappers.extendedEntity(props),
     ...GenericMappers.holderFormEntity(props),
-    ...GenericMappers.sectionNameWrapper(props),
+    ...MapAsOriginalUtils.sectionNameWrapper(props),
   });
 
 /**
@@ -93,7 +94,7 @@ const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps 
 const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
   ({
     ...GenericMappers.holderListEntity(props),
-    ...GenericMappers.sectionNameWrapper(props),
+    ...MapAsOriginalUtils.sectionNameWrapper(props),
   });
 
 /**
@@ -105,7 +106,7 @@ const mapListContainerProps = (props: IListContainerProps): IListContainerProps 
  */
 const mapFormPrimaryFilterContainerProps = (props: IFormContainerProps & IPrimaryFilterExtendedFormEntity): IFormContainerProps =>
   ({
-    ...GenericMappers.sectionNameWrapper(props),
+    ...MapAsOriginalUtils.sectionNameWrapper(props),
     ...Selectors.primaryFilter(props),
   });
 
@@ -129,7 +130,7 @@ const mapFilterFormDialogContainerProps = (props: IFilterFormDialogContainerProp
 const mapFilterFormDialogSecondaryFilterContainerProps =
   (props: IFilterFormDialogContainerProps & ISecondaryFilterExtendedFormEntity): IFilterFormDialogContainerProps =>
     ({
-      ...GenericMappers.sectionNameWrapper(props),
+      ...MapAsOriginalUtils.sectionNameWrapper(props),
       ...Selectors.secondaryFilter(props),
     });
 
@@ -142,7 +143,7 @@ const mapFilterFormDialogSecondaryFilterContainerProps =
  */
 const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToolbarToolsContainerProps =>
   ({
-    ...GenericMappers.sectionNameWrapper(props),
+    ...MapAsOriginalUtils.sectionNameWrapper(props),
     toolbarTools: {
       ...GenericMappers.holderListEntityAsDisabled(props),
       activeTools: Selectors.activeToolbarToolsFromDirtyWrapper(Selectors.form(props)) || [],
@@ -175,7 +176,7 @@ const asToolbarToolsContainerProps =
 
 const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): ISearchToolbarContainerProps =>
   ({
-    ...GenericMappers.sectionNameWrapper(props),
+    ...MapAsOriginalUtils.sectionNameWrapper(props),
     ...GenericMappers.holderQueryFilterEntity(props),
     ...GenericMappers.holderListEntity(props),
   });
@@ -248,7 +249,7 @@ const mapToolbarToolsContainerPropsAsToolbarToolsProps = (props: IToolbarToolsCo
  */
 const mapDefaultLayoutContainerProps = (entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
   ({
-    ...GenericMappers.sectionNameWrapper(entity),
+    ...MapAsOriginalUtils.sectionNameWrapper(entity),
     ...GenericMappers.storeEntity(entity),
   });
 

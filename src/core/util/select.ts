@@ -187,11 +187,10 @@ export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData =>
   R.isNil(wrapper) ? UNDEF : wrapper.data;
 
 /**
- * @stable [12.04.2020]
- * @param {IActiveValueWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [30.07.2020]
+ * @param wrapper
  */
-export const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue =>
+const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.activeValue;
 
 /**
@@ -470,6 +469,7 @@ const selectMergedLayoutMode = (merged: IReduxHolderLayoutEntity,
  */
 export class Selectors {
   public static readonly activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
+  public static readonly activeValue = selectActiveValue;                                                       /* @stable [30.07.2020] */
   public static readonly changes = selectChanges;
   public static readonly channel = selectChannel;                                                               /* @stable [12.06.2020] */
   public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */

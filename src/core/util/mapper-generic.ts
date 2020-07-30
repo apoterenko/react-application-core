@@ -6,7 +6,6 @@ import {
   IEntity,
   IProgressWrapper,
   IQueryWrapper,
-  ISectionNameWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import {
@@ -68,15 +67,6 @@ import { MapAsWrapperUtils } from './map-as-wrapper';
  * @map-as-original
  * @map-as-wrapper
  */
-
-/**
- * @map-as-original
- *
- * @stable [26.07.2020]
- * @param wrapper
- */
-const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrapper =>
-  MapAsWrapperUtils.sectionName(Selectors.sectionName(wrapper));
 
 /**
  * @map-as-original
@@ -661,6 +651,5 @@ export class GenericMappers {
   public static readonly queryFilterEntity = mapQueryFilterEntity;                                                                                /* stable [27.07.2020] */
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity;  /* stable [10.05.2020] */
   public static readonly secondaryFilterFormEntityAsHolderFormEntity = mapSecondaryFilterFormEntityAsHolderFormEntity;                            /* stable [27.07.2020] */
-  public static readonly sectionNameWrapper = mapSectionNameWrapper;                                                                              /* stable [08.05.2020] */
   public static readonly storeEntity = mapStoreEntity;                                                                                            /* stable [09.06.2020] */
 }

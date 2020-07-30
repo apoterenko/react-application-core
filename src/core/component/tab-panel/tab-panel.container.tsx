@@ -3,36 +3,39 @@ import * as React from 'react';
 import { GenericContainer } from '../base/generic.container';
 import { TabPanel } from './tab-panel.component';
 import {
-  IReduxActiveValueHolderEntity,
   ITabPanelContainerProps,
+  ITabPanelProps,
   ITabProps,
 } from '../../definition';
-import { mapActiveValueWrapper } from '../../util';
+import { Mappers } from '../../util';
 
+/**
+ * @component-container-impl
+ * @stable [30.07.2020]
+ *
+ * Please use the "Mappers.tabPanelContainerProps"
+ */
 export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPanelContainerProps>
   extends GenericContainer<TProps> {
 
   /**
-   * @stable [12.04.2020]
-   * @param {TProps} props
+   * @stable [30.07.2020]
+   * @param originalProps
    */
-  constructor(props: TProps) {
-    super(props);
+  constructor(originalProps: TProps) {
+    super(originalProps);
 
     this.onDeactivate = this.onDeactivate.bind(this);
     this.onTabClick = this.onTabClick.bind(this);
   }
 
   /**
-   * @stable [12.04.2020]
-   * @returns {JSX.Element}
+   * @stable [30.07.2020]
    */
   public render(): JSX.Element {
-    const props = this.props;
     return (
       <TabPanel
-        {...mapActiveValueWrapper(this.activeValueEntity)}
-        {...props.tabPanelConfiguration}
+        {...this.tabPanelProps}
         onClick={this.onTabClick}
         onDeactivate={this.onDeactivate}
       >
@@ -58,11 +61,10 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
   }
 
   /**
-   * @stable [12.04.2020]
-   * @returns {IReduxActiveValueHolderEntity}
+   * @stable [30.07.2020]
    */
-  protected get activeValueEntity(): IReduxActiveValueHolderEntity {
-    return this.props.tabPanel;
+  protected get tabPanelProps(): ITabPanelProps {
+    return Mappers.tabPanelContainerPropsAsTabPanelProps(this.originalProps);
   }
 
   /**

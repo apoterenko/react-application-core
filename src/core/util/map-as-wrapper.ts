@@ -1,4 +1,5 @@
 import {
+  IActiveValueWrapper,
   IChannelWrapper,
   IDictionariesWrapper,
   IDisabledWrapper,
@@ -192,9 +193,19 @@ const mapDictionaries = <TValue>(dictionaries: TValue): IDictionariesWrapper<TVa
   FilterUtils.defValuesFilter<IDictionariesWrapper<TValue>, IDictionariesWrapper<TValue>>({dictionaries});
 
 /**
+ * @map-as-wrapper
+ *
+ * @stable [30.07.2020]
+ * @param activeValue
+ */
+const mapActiveValue = <TValue>(activeValue: TValue): IActiveValueWrapper<TValue> =>
+  FilterUtils.defValuesFilter<IActiveValueWrapper<TValue>, IActiveValueWrapper<TValue>>({activeValue});
+
+/**
  * @stable [27.07.2020]
  */
 export class MapAsWrapperUtils {
+  public static readonly activeValue = mapActiveValue;                                                         /* stable [30.07.2020] */
   public static readonly channel = mapChannel;                                                                 /* stable [27.07.2020] */
   public static readonly dictionaries = mapDictionaries;                                                       /* stable [27.07.2020] */
   public static readonly disabled = mapDisabled;                                                               /* stable [07.05.2020] */

@@ -16,7 +16,6 @@ import {
 } from '../definition';
 import {
   EntityIdT,
-  IActiveValueWrapper,
   IEntity,
   IEntityIdTWrapper,
   UNDEF_SYMBOL,
@@ -29,15 +28,15 @@ import {
   isReady,
 } from './wrapper';
 import {
-  selectActiveValue,
   selectEntityId,
   Selectors,
   selectToken,
 } from './select';
-import { GenericMappers } from './mapper-generic';
 import { ComponentMappers } from './mapper-component';
-import { MapAsWrapperUtils } from './map-as-wrapper';
+import { GenericMappers } from './mapper-generic';
+import { MapAsComponentUtils } from './map-as-component';
 import { MapAsOriginalUtils } from './map-as-original';
+import { MapAsWrapperUtils } from './map-as-wrapper';
 
 /**
  * @stable [17.11.2019]
@@ -80,14 +79,6 @@ export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrappe
   mapEntityId(selectEntityId(entity));
 
 /**
- * @stable [12.04.2020]
- * @param {TActiveValue} activeValue
- * @returns {IActiveValueWrapper<TActiveValue>}
- */
-export const mapActiveValue = <TActiveValue>(activeValue: TActiveValue): IActiveValueWrapper<TActiveValue> =>
-  defValuesFilter<IActiveValueWrapper<TActiveValue>, IActiveValueWrapper<TActiveValue>>({activeValue});
-
-/**
  * @stable [04.05.2020]
  * @mapper
  *
@@ -117,14 +108,6 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
   }),
   UNDEF_SYMBOL
 );
-
-/**
- * @stable [12.04.2020]
- * @param {IActiveValueWrapper<TValue>} wrapper
- * @returns {IActiveValueWrapper<TValue>}
- */
-export const mapActiveValueWrapper = <TValue>(wrapper: IActiveValueWrapper<TValue>): IActiveValueWrapper<TValue> =>
-  mapActiveValue(selectActiveValue(wrapper));
 
 /**
  * @stable [23.12.2019]
@@ -212,7 +195,7 @@ export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity)
  */
 export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps): IFormTabPanelContainerProps =>
   ({
-    ...GenericMappers.sectionNameWrapper(props),
+    ...MapAsOriginalUtils.sectionNameWrapper(props),
     ...GenericMappers.holderFormEntity(props),
   });
 
@@ -255,10 +238,12 @@ export class Mappers {
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;                                        /* @stable [10.05.2020] */
   public static readonly searchToolbarContainerProps = ComponentMappers.searchToolbarContainerProps;
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = GenericMappers.secondaryFilterEntityAsSecondaryFilterExtendedFormEntity;                                /* @stable [10.05.2020] */
-  public static readonly sectionNameWrapper = GenericMappers.sectionNameWrapper;
+  public static readonly sectionNameWrapper = MapAsOriginalUtils.sectionNameWrapper;                                                                                                        /* @stable [30.07.2020] */
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
   public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                                                              /* @stable [10.05.2020] */
   public static readonly storeEntity = GenericMappers.storeEntity;                                                                                                                          /* @stable [09.06.2020] */
+  public static readonly tabPanelContainerProps = MapAsComponentUtils.tabPanelContainerProps;                                                                                               /* @stable [30.07.2020] */
+  public static readonly tabPanelContainerPropsAsTabPanelProps = MapAsComponentUtils.tabPanelContainerPropsAsTabPanelProps;                                                                 /* @stable [30.07.2020] */
   public static readonly tabPanelHolderEntity = MapAsOriginalUtils.tabPanelHolderEntity;                                                                                                    /* @stable [29.07.2020] */
   public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                                                          /* @stable [09.05.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = ComponentMappers.toolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [10.06.2020] */
