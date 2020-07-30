@@ -1,19 +1,14 @@
-import * as React from 'react';
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
   AnyT,
-  EntityIdT,
   IDataWrapper,
   IDisabledWrapper,
   IEmptyDataMessageWrapper,
   IEmptyMessageWrapper,
   IEntity,
-  IFieldNameWrapper,
   IFilterWrapper,
   IFullWrapper,
-  IGroupedFieldNameWrapper,
-  IGroupValueWrapper,
   IHighlightOddWrapper,
   IIndexWrapper,
   IItemConfigurationWrapper,
@@ -46,21 +41,6 @@ import { IEnhancedGenericComponentProps } from './enhanced-generic-component-def
 import { IPresetsRowEntity } from './row-definition.interface';
 import { IPresetsSelectedElementEntity } from './selected-element-definition.interface';
 import { ISortDirectionsEntity } from './sort-definition.interface';
-
-/**
- * @stable [04.03.2020]
- */
-export type GroupValueRendererT = (groupedRowValue: EntityIdT, groupedRows: IEntity[]) => React.ReactNode;
-
-/**
- * @generic-entity
- * @stable [04.03.2020]
- */
-export interface IGenericListGroupByEntity
-  extends IFieldNameWrapper,
-    IGroupedFieldNameWrapper,
-    IGroupValueWrapper<GroupValueRendererT | GroupValueRendererT[]> {
-}
 
 /**
  * @redux-entity

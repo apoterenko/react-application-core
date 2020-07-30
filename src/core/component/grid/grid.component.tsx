@@ -545,22 +545,22 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const preparedDataSource = isFn(groupedDataSorter)
       ? R.sort(
           (entity1, entity2) =>
-            groupedDataSorter(this.extractGroupFieldValue(entity1), this.extractGroupFieldValue(entity2), entity1, entity2),
+            groupedDataSorter(this.extractGroupValue(entity1), this.extractGroupValue(entity2), entity1, entity2),
           dataSource
         )
       : dataSource;
 
     const groupedDataSourceMap = new Map();
     const groupValuesSet = new Set<EntityIdT>(); // To save original ordering
-    const isGroupedByReadyData = this.isGroupedByReadyData;
+    const areGroupsReady = this.areGroupsReady;
 
     preparedDataSource.forEach((entity) => {
       let groupedDataSourceEntities;
-      const groupFieldValue = this.extractGroupFieldValue(entity);
+      const groupValue = this.extractGroupValue(entity);
 
-      if (isGroupedByReadyData) {
+      if (areGroupsReady) {
         groupValuesSet.add(entity.id);
-        groupedDataSourceMap.set(entity.id, groupFieldValue);
+        groupedDataSourceMap.set(entity.id, groupValue);
       } else {
         /**
          * See https://www.ecma-international.org/ecma-262/6.0/#sec-set-objects
@@ -569,11 +569,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
          * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/add
          * The add() method appends a new element with a specified value to the end of a Set object.
          */
-        groupValuesSet.add(groupFieldValue);
+        groupValuesSet.add(groupValue);
 
-        groupedDataSourceEntities = groupedDataSourceMap.get(groupFieldValue);
-        if (!groupedDataSourceMap.has(groupFieldValue)) {
-          groupedDataSourceMap.set(groupFieldValue, groupedDataSourceEntities = []);
+        groupedDataSourceEntities = groupedDataSourceMap.get(groupValue);
+        if (!groupedDataSourceMap.has(groupValue)) {
+          groupedDataSourceMap.set(groupValue, groupedDataSourceEntities = []);
         }
         groupedDataSourceEntities.push(entity);
       }
@@ -593,9 +593,20 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       if (!localPagination || rowIndex >= from && rowIndex < to) {
         const groupedRows = groupedDataSourceMap.get(groupValue);
         const highlightOdd = isHighlightOdd(originalProps, groupingRowNum++);
-        rows.push(this.getGroupRow({value: groupValue, groupedRows, highlightOdd, columnsConfiguration, expandActionRendered}));
+        const groupExpanded = this.isGroupExpanded(groupValue);
 
-        if (this.isGroupRowExpanded(groupValue)) {
+        rows.push(
+          this.getGroupRow({
+            columnsConfiguration,
+            expandActionRendered,
+            groupedRows,
+            groupExpanded,
+            highlightOdd,
+            value: groupValue,
+          })
+        );
+
+        if (groupExpanded) {
           groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows, highlightOdd})));
         }
       }
@@ -621,18 +632,17 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       columnsConfiguration,
       expandActionRendered,
       groupedRows,
+      groupExpanded,
       highlightOdd,
       value,
     } = config;
-
-    const isGroupRowExpanded = this.isGroupRowExpanded(value);
 
     return (
       <GridRow
         key={this.asGroupRowKey(value)}
         odd={highlightOdd}
         group={true}
-        groupExpanded={isGroupRowExpanded}
+        groupExpanded={groupExpanded}
       >
         {
           columnsConfiguration.map((column, columnNum) => {
@@ -653,10 +663,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
                       expandActionRendered
                         ? (
                           this.uiFactory.makeIcon({
-                            type: isGroupRowExpanded
+                            type: groupExpanded
                               ? IconsEnum.MINUS_SQUARE_REGULAR
                               : IconsEnum.PLUS_SQUARE_REGULAR,
-                            onClick: () => this.onExpandGroup(value, !isGroupRowExpanded),
+                            onClick: () => this.onExpandGroup(value, !groupExpanded),
                           })
                         )
                         : (
@@ -702,13 +712,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [29.12.2019]
-   * @param {EntityIdT} groupedRowValue
-   * @param {boolean} expanded
+   * @stable [30.07.2020]
+   * @param groupValue
+   * @param expanded
    */
-  private onExpandGroup(groupedRowValue: EntityIdT, expanded: boolean): void {
+  private onExpandGroup(groupValue: EntityIdT, expanded: boolean): void {
     this.setState(
-      (previousState) => ({expandedGroups: {...previousState.expandedGroups, [groupedRowValue]: expanded}})
+      (previousState) => ({expandedGroups: {...previousState.expandedGroups, [groupValue]: expanded}})
     );
   }
 
@@ -730,20 +740,22 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [29.12.2019]
-   * @param {IEntity} entity
-   * @returns {AnyT}
+   * @stable [30.07.2020]
+   * @param entity
    */
-  private extractGroupFieldValue(entity: IEntity): AnyT {
-    const groupBy = this.props.groupBy;
-    return Reflect.get(entity, groupBy.groupedFieldName || groupBy.fieldName);
+  private extractGroupValue(entity: IEntity): AnyT {
+    const {
+      groupName,
+    } = this.originalProps.groupBy;
+
+    return Reflect.get(entity, groupName);
   }
 
   /**
    * @stable [30.07.2020]
    * @param groupRowValue
    */
-  private isGroupRowExpanded(groupRowValue: EntityIdT): boolean {
+  private isGroupExpanded(groupRowValue: EntityIdT): boolean {
     const {
       allGroupsExpanded,
       expandedGroups,
@@ -753,19 +765,17 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [29.12.2019]
-   * @returns {boolean}
+   * @stable [30.07.2020]
    */
   private get isGrouped(): boolean {
-    return isDef(this.props.groupBy);
+    return TypeUtils.isDef(this.originalProps.groupBy);
   }
 
   /**
-   * @stable [29.12.2019]
-   * @returns {boolean}
+   * @stable [30.07.2020]
    */
-  private get isGroupedByReadyData(): boolean {
-    return this.isGrouped && isDef(this.props.groupBy.groupedFieldName);
+  private get areGroupsReady(): boolean {
+    return this.isGrouped && this.originalProps.groupBy.areGroupsReady;
   }
 
   /**

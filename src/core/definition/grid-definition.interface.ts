@@ -77,7 +77,6 @@ import {
 import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import {
-  IGenericListGroupByEntity,
   IPresetsListEntity,
   IReduxListEntity,
 } from './list-definition.interface';
@@ -86,6 +85,7 @@ import {
   IGenericComponentProps,
 } from './generic-component-definition.interface';
 import { IPresetsRowEntity } from './row-definition.interface';
+import { IPresetsGroupByEntity } from './group-definition.interface';
 
 /**
  * @stable [18.10.2019]
@@ -197,6 +197,7 @@ export interface IGridRowConfigEntity<TEntity extends IEntity = IEntity>
     IEntityWrapper<TEntity>,
     IExpandActionRenderedWrapper,
     IGroupedRowsWrapper<TEntity[]>,
+    IGroupExpandedWrapper,
     IHighlightOddWrapper,
     IRowNumWrapper,
     IValueWrapper {
@@ -245,7 +246,7 @@ export interface IGridGenericEntity<TColumn, TEntity extends IEntity = IEntity>
 export interface IPresetsGridEntity<TEntity extends IEntity = IEntity>
   extends IPresetsListEntity<TEntity>,
     IChangesWrapper,
-    IGroupByWrapper<IGenericListGroupByEntity>,
+    IGroupByWrapper<IPresetsGroupByEntity>,
     ILocalSortingWrapper,
     IDeactivatedWrapper,
     IOnChangeWrapper<IFieldChangeEntity>,

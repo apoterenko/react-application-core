@@ -51,6 +51,7 @@ export interface IApiEntityWrapper<TValue> { apiEntity?: TValue; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TValue> { application?: TValue; }
 export interface IAreaWrapper<TValue = string> { area?: TValue; }
+export interface IAreGroupsReadyWrapper { areGroupsReady?: boolean; }
 export interface IAsyncLibsWrapper<TValue> { asyncLibs?: TValue; }
 export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IAuthWrapper<TValue = string> { auth?: TValue; }
@@ -179,7 +180,6 @@ export interface IExtraActionsWrapper<TValue> { extraActions?: TValue; }
 export interface IExtraParamsWrapper<TValue> { extraParams?: TValue; }
 export interface IFactorWrapper<TValue = number> { factor?: TValue; }
 export interface IFieldConfigurationWrapper<TValue> { fieldConfiguration?: TValue; }
-export interface IFieldNameWrapper { fieldName?: string; }
 export interface IFieldRenderedWrapper { fieldRendered?: boolean; }
 export interface IFieldsWrapper<TValue = {}> { fields?: TValue; }
 export interface IFieldWrapper<TValue> { field?: TValue; }
@@ -217,9 +217,9 @@ export interface IGoogleMapsConfigurationWrapper<TValue> { googleMapsConfigurati
 export interface IGridConfigurationWrapper<TValue> { gridConfiguration?: TValue; }
 export interface IGroupByWrapper<TValue> { groupBy?: TValue; }
 export interface IGroupedDataSorterWrapper<T1, T2> { groupedDataSorter?(t1?: T1, t2?: T1, t3?: T2, t4?: T2): number; }
-export interface IGroupedFieldNameWrapper { groupedFieldName?: string; }
 export interface IGroupedRowsWrapper<TValue> { groupedRows?: TValue; }
 export interface IGroupExpandedWrapper { groupExpanded?: boolean; }
+export interface IGroupNameWrapper { groupName?: string; }
 export interface IGroupValueWrapper<TValue> { groupValue?: TValue; }
 export interface IGroupWrapper { group?: boolean; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }

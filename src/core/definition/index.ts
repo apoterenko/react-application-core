@@ -40,6 +40,7 @@ export * from './generic-component-definition.interface';
 export * from './generic-container-definition.interface';
 export * from './google-maps-definition.interface';
 export * from './grid-definition.interface';
+export * from './group-definition.interface';
 export * from './header-definition.interface';
 export * from './icon-definition.interface';
 export * from './info-definition.interface';
