@@ -3,12 +3,13 @@ import * as React from 'react';
 import { TabPanelContainer } from '../tab-panel.container';
 import {
   IFormTabPanelContainerProps,
-  IReduxActiveValueHolderEntity,
+  ITabPanelProps,
 } from '../../../definition';
+import { Mappers } from '../../../util';
 
 /**
  * @component-container-impl
- * @stable [09.05.2020]
+ * @stable [30.07.2020]
  *
  * Please use the "Mappers.formTabPanelContainerProps"
  */
@@ -31,10 +32,9 @@ export class FormTabPanelContainer extends TabPanelContainer<IFormTabPanelContai
   }
 
   /**
-   * @stable [12.04.2020]
-   * @returns {IReduxActiveValueHolderEntity}
+   * @stable [30.07.2020]
    */
-  protected get activeValueEntity(): IReduxActiveValueHolderEntity {
-    return this.props.form;
+  protected get tabPanelProps(): ITabPanelProps {
+    return Mappers.formTabPanelContainerPropsAsTabPanelProps(this.originalProps);
   }
 }

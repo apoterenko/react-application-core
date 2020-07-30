@@ -29,9 +29,9 @@ import {
   IReduxDictionariesEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
+  IReduxFormHolderEntity,
   IReduxHolderChannelEntity,
   IReduxHolderDictionariesEntity,
-  IReduxHolderFormEntity,
   IReduxHolderLayoutEntity,
   IReduxHolderListEntity,
   IReduxHolderNotificationEntity,
@@ -61,6 +61,7 @@ import { isNewEntity } from './entity';
 import { NvlUtils } from './nvl';
 import { TypeUtils } from './type';
 import { MapAsWrapperUtils } from './map-as-wrapper';
+import { MapAsOriginalUtils } from './map-as-original';
 
 /**
  * @map-as
@@ -86,16 +87,6 @@ const mapHolderQueryFilterEntity = (entity: IReduxHolderQueryFilterEntity): IRed
  * @returns {IReduxHolderListEntity}
  */
 const mapHolderListEntity = (entity: IReduxHolderListEntity): IReduxHolderListEntity => MapAsWrapperUtils.list(Selectors.list(entity));
-
-/**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param {IReduxHolderFormEntity<TEntity>} entity
- * @returns {IReduxHolderFormEntity<TEntity>}
- */
-const mapHolderFormEntity = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): IReduxHolderFormEntity<TEntity> =>
-  MapAsWrapperUtils.form(Selectors.form(entity));
 
 /**
  * @map-as-original
@@ -175,8 +166,8 @@ const mapNamedEntityAsRawDataLabeledValueEntity =
  * @param entity
  */
 const mapSecondaryFilterFormEntityAsHolderFormEntity =
-  <TEntity = IEntity>(entity: ISecondaryFilterFormEntity<TEntity>): IReduxHolderFormEntity<TEntity> =>
-    mapHolderFormEntity(Selectors.secondaryFilter(entity));
+  <TEntity = IEntity>(entity: ISecondaryFilterFormEntity<TEntity>): IReduxFormHolderEntity<TEntity> =>
+    MapAsOriginalUtils.formHolderEntity(Selectors.secondaryFilter(entity));
 
 /**
  * @map-as
@@ -631,7 +622,6 @@ export class GenericMappers {
   public static readonly extendedEntity = mapExtendedEntity;                                                                                      /* stable [08.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
   public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
-  public static readonly holderFormEntity = mapHolderFormEntity;                                                                                  /* stable [12.06.2020] */
   public static readonly holderListEntity = mapHolderListEntity;                                                                                  /* stable [12.06.2020] */
   public static readonly holderListEntityAsDisabled = mapHolderListEntityAsDisabled;                                                              /* stable [08.07.2020] */
   public static readonly holderNotificationEntity = mapHolderNotificationEntity;                                                                  /* stable [12.06.2020] */

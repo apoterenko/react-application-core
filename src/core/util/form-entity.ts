@@ -1,5 +1,5 @@
 import { IEntity } from '../definitions.interface';
-import { IReduxHolderFormEntity } from '../definition';
+import { IReduxFormHolderEntity } from '../definition';
 import {
   inProgress,
   WrapperUtils,
@@ -9,34 +9,34 @@ import { isObjectNotEmpty } from './object';
 
 /**
  * @stable [11.05.2020]
- * @param {IReduxHolderFormEntity<TEntity>} entity
+ * @param {IReduxFormHolderEntity<TEntity>} entity
  * @returns {boolean}
  */
-const isFormEntityInProgress = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): boolean =>
+const isFormEntityInProgress = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
   inProgress(Selectors.form(entity));
 
 /**
  * @stable [11.05.2020]
- * @param {IReduxHolderFormEntity<TEntity>} entity
+ * @param {IReduxFormHolderEntity<TEntity>} entity
  * @returns {boolean}
  */
-const isFormEntityValid = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): boolean =>
+const isFormEntityValid = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
   WrapperUtils.isValid(Selectors.form(entity));
 
 /**
  * @stable [11.05.2020]
- * @param {IReduxHolderFormEntity<TEntity>} entity
+ * @param {IReduxFormHolderEntity<TEntity>} entity
  * @returns {boolean}
  */
-const isFormEntityChanged = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): boolean =>
+const isFormEntityChanged = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
   isObjectNotEmpty(Selectors.formEntityChanges(entity));
 
 /**
  * @stable [11.05.2020]
- * @param {IReduxHolderFormEntity<TEntity>} entity
+ * @param {IReduxFormHolderEntity<TEntity>} entity
  * @returns {boolean}
  */
-const isFormEntityTouched = <TEntity = IEntity>(entity: IReduxHolderFormEntity<TEntity>): boolean =>
+const isFormEntityTouched = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
   WrapperUtils.isTouched(Selectors.form(entity));
 
 /**

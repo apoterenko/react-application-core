@@ -1,11 +1,15 @@
 import {
   IReduxActiveValueHolderEntity,
+  IReduxFormHolderEntity,
   IReduxTabPanelEntity,
   IReduxTabPanelHolderEntity,
 } from '../definition';
 import { Selectors } from './select';
 import { MapAsWrapperUtils } from './map-as-wrapper';
-import { ISectionNameWrapper } from '../definitions.interface';
+import {
+  IEntity,
+  ISectionNameWrapper,
+} from '../definitions.interface';
 
 /**
  * @map-as-original
@@ -36,10 +40,20 @@ const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrappe
   MapAsWrapperUtils.sectionName(Selectors.sectionName(wrapper));
 
 /**
+ * @map-as-original
+ *
+ * @stable [30.07.2020]
+ * @param entity
+ */
+const mapFormHolderEntity = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): IReduxFormHolderEntity<TEntity> =>
+  MapAsWrapperUtils.form(Selectors.form(entity));
+
+/**
  * @stable [27.07.2020]
  */
 export class MapAsOriginalUtils {
   public static readonly activeValueHolderEntity = mapActiveValueHolderEntity;
+  public static readonly formHolderEntity = mapFormHolderEntity;
   public static readonly sectionNameWrapper = mapSectionNameWrapper;
   public static readonly tabPanelHolderEntity = mapTabPanelHolderEntity;
 }

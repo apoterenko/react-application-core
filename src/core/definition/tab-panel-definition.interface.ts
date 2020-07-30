@@ -19,7 +19,7 @@ import { IBaseEvent } from './event-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IReduxActiveValueHolderEntity } from './entity-definition.interface';
-import { IReduxHolderFormEntity } from './form-definition.interface';
+import { IReduxFormHolderEntity } from './form-definition.interface';
 
 /**
  * @presets-entity
@@ -108,7 +108,7 @@ export interface IConfigurationTabPanelEntity
 
 /**
  * @generic-container-entity
- * @stable [12.02.2020]
+ * @stable [30.07.2020]
  */
 export interface IGenericTabPanelContainerEntity
   extends IConfigurationTabPanelEntity,
@@ -125,12 +125,21 @@ export interface ITabPanelContainerProps
 }
 
 /**
+ * @generic-container-entity
+ * @stable [30.07.2020]
+ */
+export interface IGenericFormTabPanelContainerEntity<TEntity = IEntity>
+  extends IConfigurationTabPanelEntity,
+    IReduxFormHolderEntity<TEntity> {
+}
+
+/**
  * @props
- * @stable [12.04.2020]
+ * @stable [30.07.2020]
  */
 export interface IFormTabPanelContainerProps<TEntity = IEntity>
-  extends ITabPanelContainerProps,
-    IReduxHolderFormEntity<TEntity> {
+  extends IGenericContainerProps,
+    IGenericFormTabPanelContainerEntity<TEntity> {
 }
 
 /**

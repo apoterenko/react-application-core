@@ -4,7 +4,6 @@ import { defValuesFilter } from './filter';
 import {
   IApiEntity,
   IExtendedEntity,
-  IFormTabPanelContainerProps,
   IHeaderProps,
   IOperationEntity,
   IPresetsSelectableHoveredEntity,
@@ -186,19 +185,6 @@ export const doesApplicationErrorExist = (entity: IUniversalApplicationEntity): 
 export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity): boolean =>
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);
 
-/**
- * @container-props-mapper
- * @stable [13.04.2020]
- *
- * @param {IFormTabPanelContainerProps} props
- * @returns {IFormTabPanelContainerProps}
- */
-export const mapFormTabPanelContainerProps = (props: IFormTabPanelContainerProps): IFormTabPanelContainerProps =>
-  ({
-    ...MapAsOriginalUtils.sectionNameWrapper(props),
-    ...GenericMappers.holderFormEntity(props),
-  });
-
 const mapHeaderProps = (props: IHeaderProps): IHeaderProps => GenericMappers.storeEntity(props);
 
 /**
@@ -216,10 +202,12 @@ export class Mappers {
   public static readonly form = MapAsWrapperUtils.form;                                                                                                                                     /* @stable [27.07.2020] */
   public static readonly formContainerProps = ComponentMappers.formContainerProps;                                                                                                          /* @stable [08.05.2020] */
   public static readonly formContainerPropsAsFormProps = ComponentMappers.formContainerPropsAsFormProps;                                                                                    /* @stable [09.05.2020] */
+  public static readonly formHolderEntity = MapAsOriginalUtils.formHolderEntity;                                                                                                            /* @stable [30.07.2020] */
   public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                                                /* @stable [10.05.2020] */
+  public static readonly formTabPanelContainerProps = MapAsComponentUtils.formTabPanelContainerProps;                                                                                       /* @stable [30.07.2020] */
+  public static readonly formTabPanelContainerPropsAsTabPanelProps = MapAsComponentUtils.formTabPanelContainerPropsAsTabPanelProps;                                                         /* @stable [30.07.2020] */
   public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                                                /* @stable [10.05.2020] */
   public static readonly headerProps = mapHeaderProps;
-  public static readonly holderFormEntity = GenericMappers.holderFormEntity;                                                                                                                /* @stable [12.06.2020] */
   public static readonly holderListEntity = GenericMappers.holderListEntity;                                                                                                                /* @stable [12.06.2020] */
   public static readonly holderListEntityAsDisabled = GenericMappers.holderListEntityAsDisabled;                                                                                            /* @stable [08.07.2020] */
   public static readonly holderQueryFilterEntity = GenericMappers.holderQueryFilterEntity;                                                                                                  /* @stable [26.07.2020] */

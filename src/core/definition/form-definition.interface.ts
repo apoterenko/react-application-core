@@ -67,9 +67,9 @@ export interface IReduxFormEntity<TChanges = IKeyValue>
 
 /**
  * @redux-holder-entity
- * @stable [12.06.2020]
+ * @stable [30.07.2020]
  */
-export interface IReduxHolderFormEntity<TEntity = IEntity>
+export interface IReduxFormHolderEntity<TEntity = IEntity>
   extends IFormWrapper<IReduxFormEntity<TEntity>> {
 }
 
@@ -78,7 +78,7 @@ export interface IReduxHolderFormEntity<TEntity = IEntity>
  * @stable [08.05.2020]
  */
 export interface IExtendedFormEntity<TEntity = IEntity>
-  extends IReduxHolderFormEntity<TEntity>,
+  extends IReduxFormHolderEntity<TEntity>,
     IExtendedEntity<TEntity> {
 }
 
@@ -111,7 +111,7 @@ export interface IReduxHolderPrimaryFilterFormEntity<TEntity = IEntity>
  * @stable [10.05.2020]
  */
 export interface IPrimaryFilterFormEntity<TEntity = IEntity>
-  extends IPrimaryFilterWrapper<IReduxHolderFormEntity<TEntity>> {
+  extends IPrimaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
 }
 
 /**
@@ -119,7 +119,7 @@ export interface IPrimaryFilterFormEntity<TEntity = IEntity>
  * @stable [10.05.2020]
  */
 export interface ISecondaryFilterFormEntity<TEntity = IEntity>
-  extends ISecondaryFilterWrapper<IReduxHolderFormEntity<TEntity>> {
+  extends ISecondaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
 }
 
 /**

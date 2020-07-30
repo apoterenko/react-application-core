@@ -7,7 +7,7 @@ import {
   IGenericFieldEntity2,
   IPresetsFieldEntity,
   IPresetsTabEntity,
-  IReduxHolderFormEntity,
+  IReduxFormHolderEntity,
 } from '../definition';
 import {
   AnyT,
@@ -197,11 +197,11 @@ export const isFormResettable = <TEntity extends IEntity = IEntity>(formProps: I
 
 /**
  * @stable [15.06.2020]
- * @param {IReduxHolderFormEntity<TEntity extends IEntity>} holderFormEntity
+ * @param {IReduxFormHolderEntity<TEntity extends IEntity>} holderFormEntity
  * @param {IPresetsTabEntity} tabEntity
  * @returns {boolean}
  */
-const isFormTabActive = <TEntity extends IEntity = IEntity>(holderFormEntity: IReduxHolderFormEntity<TEntity>,
+const isFormTabActive = <TEntity extends IEntity = IEntity>(holderFormEntity: IReduxFormHolderEntity<TEntity>,
                                                             tabEntity: IPresetsTabEntity): boolean =>
   TabUtils.isActive(Selectors.form(holderFormEntity), tabEntity);
 

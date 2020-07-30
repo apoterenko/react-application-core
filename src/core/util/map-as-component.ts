@@ -1,4 +1,5 @@
 import {
+  IFormTabPanelContainerProps,
   ITabPanelContainerProps,
   ITabPanelProps,
 } from '../definition';
@@ -26,6 +27,17 @@ const mapTabPanelContainerProps = (tabPanelContainer: ITabPanelContainerProps): 
 });
 
 /**
+ * @map-as-container
+ *
+ * @stable [30.07.2020]
+ * @param formTabPanelContainer
+ */
+const mapFormTabPanelContainerProps = (formTabPanelContainer: IFormTabPanelContainerProps): IFormTabPanelContainerProps => ({
+  ...MapAsOriginalUtils.formHolderEntity(formTabPanelContainer),
+  ...MapAsOriginalUtils.sectionNameWrapper(formTabPanelContainer),
+});
+
+/**
  * @map-container-as-component
  *
  * @stable [30.07.2020]
@@ -37,9 +49,22 @@ const mapTabPanelContainerPropsAsTabPanelProps = (tabPanelContainer: ITabPanelCo
 });
 
 /**
+ * @map-container-as-component
+ *
+ * @stable [30.07.2020]
+ * @param formTabPanelContainer
+ */
+const mapFormTabPanelContainerPropsAsTabPanelProps = (formTabPanelContainer: IFormTabPanelContainerProps): ITabPanelProps => ({
+  ...mapTabPanelProps(Selectors.form(formTabPanelContainer)),
+  ...formTabPanelContainer.tabPanelConfiguration,
+});
+
+/**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
+  public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
+  public static readonly formTabPanelContainerPropsAsTabPanelProps = mapFormTabPanelContainerPropsAsTabPanelProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
 }

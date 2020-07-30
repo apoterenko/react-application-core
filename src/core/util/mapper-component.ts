@@ -48,7 +48,7 @@ const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEnti
 const mapFormProps = <TEntity = IEntity>(props: IFormProps<TEntity>): IFormProps<TEntity> =>
   ({
     ...GenericMappers.extendedEntity(props),
-    ...GenericMappers.holderFormEntity(props),
+    ...MapAsOriginalUtils.formHolderEntity(props),
   });
 
 /**
@@ -80,7 +80,7 @@ const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageT
 const mapFormContainerProps = (props: IFormContainerProps): IFormContainerProps =>
   ({
     ...GenericMappers.extendedEntity(props),
-    ...GenericMappers.holderFormEntity(props),
+    ...MapAsOriginalUtils.formHolderEntity(props),
     ...MapAsOriginalUtils.sectionNameWrapper(props),
   });
 
@@ -211,7 +211,7 @@ const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarConta
 const mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps =
   (props: IUnsavedFormChangesDialogContainerProps): IUnsavedFormChangesDialogProps =>
     ({
-      ...GenericMappers.holderFormEntity(props),
+      ...MapAsOriginalUtils.formHolderEntity(props),
       ...props.dialogConfiguration,
     });
 
@@ -265,7 +265,7 @@ const mapUnsavedFormChangesDialogContainerProps =
   (props: IUnsavedFormChangesDialogContainerProps,
    proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps =>
     ({
-      ...GenericMappers.holderFormEntity(props),
+      ...MapAsOriginalUtils.formHolderEntity(props),
       proxyContainer,
     });
 

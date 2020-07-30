@@ -6,14 +6,14 @@ import { IEntity } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IHolderProxyContainerEntity } from './container-definition.interface';
-import { IReduxHolderFormEntity } from './form-definition.interface';
+import { IReduxFormHolderEntity } from './form-definition.interface';
 
 /**
  * @redux-holder-entity
  * @stable [15.06.2020]
  */
 export interface IReduxHolderUnsavedFormChangesDialogEntity<TEntity = IEntity>
-  extends IReduxHolderFormEntity<TEntity> {
+  extends IReduxFormHolderEntity<TEntity> {
 }
 
 /**
