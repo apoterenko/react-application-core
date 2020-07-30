@@ -9,13 +9,13 @@ import {
 } from '../../definitions.interface';
 import {
   calc,
-  coalesce,
   ifNotNilThanValue,
   isDef,
   isFn,
   isHighlightOdd,
   joinClassName,
   Mappers,
+  NvlUtils,
   orNull,
   orUndef,
   PageUtils,
@@ -51,23 +51,26 @@ import {
 export class Grid extends BaseList<IGridProps, IGridState> {
 
   public static readonly defaultProps: IGridProps = {
+    expandedGroups: {},
     headerRendered: true,
   };
 
   /**
    * @stable [07.06.2018]
-   * @param {IGridProps} props
+   * @param {IGridProps} originalProps
    */
-  constructor(props: IGridProps) {
-    super(props);
+  constructor(originalProps: IGridProps) {
+    super(originalProps);
 
     this.onHeadColumnClose = this.onHeadColumnClose.bind(this);
     this.onHeadColumnExpandAllGroups = this.onHeadColumnExpandAllGroups.bind(this);
 
+    const {
+      expandedGroups,
+    } = originalProps;
+
     this.state = {
-      allGroupsExpanded: false,
-      closed: false,
-      expandedGroups: {},
+      expandedGroups,
       filterChanges: {},
       page: DefaultEntities.FIRST_PAGE,
     };
@@ -710,22 +713,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [03.09.2018]
-   * @param {EntityIdT} groupedRowValue
-   * @returns {boolean}
-   */
-  private isGroupRowExpanded(groupedRowValue: EntityIdT): boolean {
-    const state = this.state;
-    const props = this.props;
-
-    return coalesce(
-      ifNotNilThanValue(state.expandedGroups, (expandedGroups) => expandedGroups[groupedRowValue]),
-      ifNotNilThanValue(props.expandedGroups, (expandedGroups) => expandedGroups[groupedRowValue]),
-      state.allGroupsExpanded
-    );
-  }
-
-  /**
    * @stable [28.07.2020]
    * @param closed
    */
@@ -750,6 +737,19 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   private extractGroupFieldValue(entity: IEntity): AnyT {
     const groupBy = this.props.groupBy;
     return Reflect.get(entity, groupBy.groupedFieldName || groupBy.fieldName);
+  }
+
+  /**
+   * @stable [30.07.2020]
+   * @param groupRowValue
+   */
+  private isGroupRowExpanded(groupRowValue: EntityIdT): boolean {
+    const {
+      allGroupsExpanded,
+      expandedGroups,
+    } = this.state;
+
+    return NvlUtils.nvl(expandedGroups[groupRowValue], allGroupsExpanded);
   }
 
   /**
