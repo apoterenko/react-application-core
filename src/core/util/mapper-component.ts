@@ -7,8 +7,6 @@ import {
   IFormContainerProps,
   IGenericBaseSelectEntity,
   IGenericContainer,
-  IListContainerProps,
-  IPageToolbarContainerProps,
   IPrimaryFilterExtendedFormEntity,
   ISearchToolbarContainerProps,
   ISearchToolbarProps,
@@ -38,25 +36,6 @@ const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEnti
 
 const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps =>
   GenericMappers.queryFilterEntity(props);
-
-const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageToolbarContainerProps =>
-  ({
-    ...MapAsOriginalUtils.sectionNameWrapper(props),
-    ...MapAsOriginalUtils.listHolderEntity(props),
-  });
-
-/**
- * @container-props-mapper
- * @stable [10.05.2020]
- *
- * @param {IListContainerProps} props
- * @returns {IListContainerProps}
- */
-const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
-  ({
-    ...MapAsOriginalUtils.listHolderEntity(props),
-    ...MapAsOriginalUtils.sectionNameWrapper(props),
-  });
 
 /**
  * @container-props-mapper
@@ -212,8 +191,6 @@ export class ComponentMappers {
   public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                                                                           /* @stable [10.05.2020] */
   public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;                                                             /* @stable [10.05.2020] */
   public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                                                                         /* @stable [10.05.2020] */
-  public static listContainerProps = mapListContainerProps;                                                                                                                   /* @stable [10.05.2020] */
-  public static pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static placeFieldProps = mapPlaceFieldProps;                                                                                                                         /* @stable [19.05.2020] */
   public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;                                                                                        /* @stable [12.06.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [12.06.2020] */

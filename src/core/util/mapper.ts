@@ -184,14 +184,14 @@ export class Mappers {
   public static readonly holderListEntityAsDisabled = GenericMappers.holderListEntityAsDisabled;                                                                                            /* @stable [08.07.2020] */
   public static readonly holderQueryFilterEntity = GenericMappers.holderQueryFilterEntity;                                                                                                  /* @stable [26.07.2020] */
   public static readonly holderQueryFilterEntityAsQuery = GenericMappers.holderQueryFilterEntityAsQuery;                                                                                    /* @stable [27.07.2020] */
-  public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                                                          /* @stable [10.05.2020] */
+  public static readonly listContainerProps = MapAsComponentUtils.listContainerProps;                                                                                                       /* @stable [31.07.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                                                  /* @stable [08.05.2020] */
   public static readonly listHolderEntity = MapAsOriginalUtils.listHolderEntity;                                                                                                            /* @stable [31.07.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                                                    /* @stable [08.05.2020] */
   public static readonly namedEntityAsRawDataLabeledValueEntity = GenericMappers.namedEntityAsRawDataLabeledValueEntity;                                                                    /* @stable [08.07.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                                                        /* @stable [19.05.2020] */
   public static readonly pagedEntity = MapAsOriginalUtils.pagedEntity;                                                                                                                      /* @stable [31.07.2020] */
-  public static readonly pageToolbarContainerProps = ComponentMappers.pageToolbarContainerProps;
+  public static readonly pageToolbarContainerProps = MapAsComponentUtils.pageToolbarContainerProps;                                                                                         /* @stable [31.07.2020] */
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = MapAsComponentUtils.pageToolbarContainerPropsAsPageToolbarProps;                                                     /* @stable [31.07.2020] */
   public static readonly paginatedEntity = MapAsOriginalUtils.paginatedEntity;                                                                                                              /* @stable [31.07.2020] */
   public static readonly placeFieldProps = ComponentMappers.placeFieldProps;                                                                                                                /* @stable [19.05.2020] */
@@ -209,7 +209,6 @@ export class Mappers {
   public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                                                          /* @stable [09.05.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = ComponentMappers.toolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [10.06.2020] */
   public static readonly toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps;                                                            /* @stable [10.05.2020] */
-  public static readonly transportHolderEntity = MapAsOriginalUtils.transportHolderEntity;                                                                                                  /* @stable [31.07.2020] */
   public static readonly unsavedFormChangesDialogContainerProps = ComponentMappers.unsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = ComponentMappers.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.06.2020] */
 }

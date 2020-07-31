@@ -2,6 +2,7 @@ import {
   IFormContainerProps,
   IFormProps,
   IFormTabPanelContainerProps,
+  IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
   ITabPanelContainerProps,
@@ -55,6 +56,17 @@ const mapTabPanelContainerProps = (tabPanelContainer: ITabPanelContainerProps): 
 /**
  * @map-as-container
  *
+ * @stable [31.07.2020]
+ * @param pageToolbarContainer
+ */
+const mapPageToolbarContainerProps = (pageToolbarContainer: IPageToolbarContainerProps): IPageToolbarContainerProps => ({
+  ...MapAsOriginalUtils.listHolderEntity(pageToolbarContainer),
+  ...MapAsOriginalUtils.sectionNameWrapper(pageToolbarContainer),
+});
+
+/**
+ * @map-as-container
+ *
  * @stable [30.07.2020]
  * @param formTabPanelContainer
  */
@@ -75,6 +87,17 @@ const mapFormContainerProps = (formContainerProps: IFormContainerProps): IFormCo
     ...MapAsOriginalUtils.formHolderEntity(formContainerProps),
     ...MapAsOriginalUtils.sectionNameWrapper(formContainerProps),
   });
+
+/**
+ * @map-as-container
+ *
+ * @stable [31.07.2020]
+ * @param props
+ */
+const mapListContainerProps = (props: IListContainerProps): IListContainerProps => ({
+  ...MapAsOriginalUtils.listHolderEntity(props),
+  ...MapAsOriginalUtils.sectionNameWrapper(props),
+});
 
 /**
  * @map-container-as-component
@@ -130,6 +153,8 @@ export class MapAsComponentUtils {
   public static readonly formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
   public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
   public static readonly formTabPanelContainerPropsAsTabPanelProps = mapFormTabPanelContainerPropsAsTabPanelProps;
+  public static readonly listContainerProps = mapListContainerProps;
+  public static readonly pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
