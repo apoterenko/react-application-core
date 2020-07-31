@@ -143,7 +143,7 @@ export interface IListItemConfigurationEntity<TProps = IListItemProps>
  * @redux-holder-entity
  * @stable [11.06.2020]
  */
-export interface IReduxHolderListEntity<TEntity = IEntity,
+export interface IReduxListHolderEntity<TEntity = IEntity,
   TRawData = AnyT,
   TList = IReduxListEntity<TEntity, TRawData>>
   extends IListWrapper<TList> {
@@ -188,7 +188,7 @@ export interface ICardListProps
  * @stable [30.03.2020]
  */
 export interface IGenericListContainerEntity
-  extends IReduxHolderListEntity,
+  extends IReduxListHolderEntity,
     IListConfigurationEntity {
 }
 
@@ -198,7 +198,7 @@ export interface IGenericListContainerEntity
  */
 export interface IBaseListContainerProps
   extends IGenericContainerProps,
-    IReduxHolderListEntity {
+    IReduxListHolderEntity {
 }
 
 /**

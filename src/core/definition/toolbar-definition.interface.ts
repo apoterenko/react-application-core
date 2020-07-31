@@ -28,7 +28,7 @@ import { IGenericComponentProps } from './generic-component-definition.interface
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IFieldConfigurationEntity } from '../configurations-definitions.interface'; // TODO
 import { IReduxPaginatedLifeCycleEntity } from './page-definition.interface';
-import { IReduxHolderListEntity } from './list-definition.interface';
+import { IReduxListHolderEntity } from './list-definition.interface';
 import { IButtonProps } from './button-definition.interface';
 
 /**
@@ -132,7 +132,7 @@ export interface ISearchToolbarConfigurationEntity
  * @stable [06.05.2020]
  */
 export interface IGenericSearchToolbarContainerEntity
-  extends IReduxHolderListEntity,
+  extends IReduxListHolderEntity,
     IReduxHolderQueryFilterEntity,
     ISearchToolbarConfigurationEntity {
 }
@@ -142,7 +142,7 @@ export interface IGenericSearchToolbarContainerEntity
  * @stable [06.05.2020]
  */
 export interface IGenericPageToolbarContainerEntity
-  extends IReduxHolderListEntity,
+  extends IReduxListHolderEntity,
     IPageToolbarConfigurationEntity {
 }
 

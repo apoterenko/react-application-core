@@ -1,6 +1,8 @@
 import {
   IFormContainerProps,
   IFormTabPanelContainerProps,
+  IPageToolbarContainerProps,
+  IPageToolbarProps,
   ITabPanelContainerProps,
   ITabPanelProps,
 } from '../definition';
@@ -15,6 +17,15 @@ import { Selectors } from './select';
  */
 const mapTabPanelProps = (tabPanel: ITabPanelProps): ITabPanelProps =>
   MapAsOriginalUtils.activeValueHolderEntity(tabPanel);
+
+/**
+ * @map-as-component
+ *
+ * @stable [31.07.2020]
+ * @param pageToolbar
+ */
+const mapPageToolbarProps = (pageToolbar: IPageToolbarProps): IPageToolbarProps =>
+  MapAsOriginalUtils.paginatedLifeCycleEntity(pageToolbar);
 
 /**
  * @map-as-container
@@ -74,12 +85,23 @@ const mapFormTabPanelContainerPropsAsTabPanelProps = (formTabPanelContainer: IFo
 });
 
 /**
+ * @stable [31.07.2020]
+ * @param pageToolbarContainer
+ */
+const mapPageToolbarContainerPropsAsPageToolbarProps = (pageToolbarContainer: IPageToolbarContainerProps): IPageToolbarProps =>
+  ({
+    ...mapPageToolbarProps(Selectors.list(pageToolbarContainer)),
+    ...pageToolbarContainer.toolbarConfiguration,
+  });
+
+/**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
   public static readonly formContainerProps = mapFormContainerProps;
   public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
   public static readonly formTabPanelContainerPropsAsTabPanelProps = mapFormTabPanelContainerPropsAsTabPanelProps;
+  public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
 }

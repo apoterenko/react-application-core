@@ -1,20 +1,14 @@
 import * as React from 'react';
 
 import { GenericContainer } from '../../base/generic.container';
-import {
-  IPageToolbarContainerProps,
-  IPageToolbarProps,
-} from '../../../definition';
-import {
-  ConditionUtils,
-  Mappers,
-} from '../../../util';
+import { IPageToolbarContainerProps } from '../../../definition';
+import { Mappers } from '../../../util';
 import { PageToolbar } from './page-toolbar.component';
 import { PageToolbarActionBuilder } from '../../../action';
 
 /**
  * @component-container-impl
- * @stable [10.06.2020]
+ * @stable [31.07.2020]
  *
  * Please use the "Mappers.pageToolbarContainerProps"
  */
@@ -34,7 +28,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
   }
 
   /**
-   * @stable [10.06.2020]
+   * @stable [31.07.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
@@ -46,7 +40,7 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
         onNext={this.onNext}
         onPrevious={this.onPrevious}
       >
-        {this.props.children}
+        {this.originalChildren}
       </PageToolbar>
     );
   }
@@ -56,7 +50,6 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onNext(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildNextPagePlainAction(this.sectionName));
-    ConditionUtils.ifNotNilThanValue(this.toolbarConfiguration.onNext, (onNext) => onNext());
   }
 
   /**
@@ -64,7 +57,6 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onPrevious(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildPreviousPagePlainAction(this.sectionName));
-    ConditionUtils.ifNotNilThanValue(this.toolbarConfiguration.onPrevious, (onPrevious) => onPrevious());
   }
 
   /**
@@ -72,7 +64,6 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onLast(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildLastPagePlainAction(this.sectionName));
-    ConditionUtils.ifNotNilThanValue(this.toolbarConfiguration.onLast, (onLast) => onLast());
   }
 
   /**
@@ -80,14 +71,5 @@ export class PageToolbarContainer extends GenericContainer<IPageToolbarContainer
    */
   private onFirst(): void {
     this.dispatchPlainAction(PageToolbarActionBuilder.buildFirstPagePlainAction(this.sectionName));
-    ConditionUtils.ifNotNilThanValue(this.toolbarConfiguration.onFirst, (onFirst) => onFirst());
-  }
-
-  /**
-   * @stable [06.05.2020]
-   * @returns {IPageToolbarProps}
-   */
-  private get toolbarConfiguration(): IPageToolbarProps {
-    return this.originalProps.toolbarConfiguration || {};
   }
 }

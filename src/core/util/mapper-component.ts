@@ -10,7 +10,6 @@ import {
   IGenericContainer,
   IListContainerProps,
   IPageToolbarContainerProps,
-  IPageToolbarProps,
   IPrimaryFilterExtendedFormEntity,
   ISearchToolbarContainerProps,
   ISearchToolbarProps,
@@ -52,23 +51,13 @@ const mapFormProps = <TEntity = IEntity>(props: IFormProps<TEntity>): IFormProps
     ...MapAsOriginalUtils.formHolderEntity(props),
   });
 
-/**
- * @map-component-as-original
- * @stable [10.06.2020]
- *
- * @param {IPageToolbarProps} props
- * @returns {IPageToolbarProps}
- */
-const mapPageToolbarProps = (props: IPageToolbarProps): IPageToolbarProps =>
-  GenericMappers.paginatedLifeCycleEntity(props);
-
 const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps =>
   GenericMappers.queryFilterEntity(props);
 
 const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageToolbarContainerProps =>
   ({
     ...MapAsOriginalUtils.sectionNameWrapper(props),
-    ...GenericMappers.holderListEntity(props),
+    ...MapAsOriginalUtils.listHolderEntity(props),
   });
 
 /**
@@ -80,7 +69,7 @@ const mapPageToolbarContainerProps = (props: IPageToolbarContainerProps): IPageT
  */
 const mapListContainerProps = (props: IListContainerProps): IListContainerProps =>
   ({
-    ...GenericMappers.holderListEntity(props),
+    ...MapAsOriginalUtils.listHolderEntity(props),
     ...MapAsOriginalUtils.sectionNameWrapper(props),
   });
 
@@ -165,26 +154,13 @@ const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): IS
   ({
     ...MapAsOriginalUtils.sectionNameWrapper(props),
     ...GenericMappers.holderQueryFilterEntity(props),
-    ...GenericMappers.holderListEntity(props),
+    ...MapAsOriginalUtils.listHolderEntity(props),
   });
 
 const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolbarContainerProps): ISearchToolbarProps =>
   ({
     ...mapSearchToolbarProps(Selectors.queryFilter(props)),
     ...GenericMappers.holderListEntityAsDisabled(props),
-    ...props.toolbarConfiguration,
-  });
-
-/**
- * @map-container-as-component
- * @stable [10.06.2020]
- *
- * @param {IPageToolbarContainerProps} props
- * @returns {IPageToolbarProps}
- */
-const mapPageToolbarContainerPropsAsPageToolbarProps = (props: IPageToolbarContainerProps): IPageToolbarProps =>
-  ({
-    ...mapPageToolbarProps(Selectors.list(props)),
     ...props.toolbarConfiguration,
   });
 
@@ -266,7 +242,6 @@ export class ComponentMappers {
   public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                                                                         /* @stable [10.05.2020] */
   public static listContainerProps = mapListContainerProps;                                                                                                                   /* @stable [10.05.2020] */
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;
-  public static pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static placeFieldProps = mapPlaceFieldProps;                                                                                                                         /* @stable [19.05.2020] */
   public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;                                                                                        /* @stable [12.06.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [12.06.2020] */

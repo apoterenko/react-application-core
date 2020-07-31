@@ -8,8 +8,13 @@ import {
   IReduxFormHolderEntity,
   IReduxLayoutEntity,
   IReduxLayoutHolderEntity,
+  IReduxLifeCycleEntity,
+  IReduxListHolderEntity,
   IReduxNotificationEntity,
   IReduxNotificationHolderEntity,
+  IReduxPagedEntity,
+  IReduxPaginatedEntity,
+  IReduxPaginatedLifeCycleEntity,
   IReduxStackEntity,
   IReduxStackHolderEntity,
   IReduxStoreEntity,
@@ -24,9 +29,80 @@ import { Selectors } from './select';
 import { MapAsWrapperUtils } from './map-as-wrapper';
 import {
   IEntity,
-  ISectionNameWrapper,
+  ISectionNameWrapper, UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { FilterUtils } from './filter';
+import { ConditionUtils } from './cond';
+
+/**
+ * @map-as-original
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapLifeCycleEntity = (entity: IReduxLifeCycleEntity): IReduxLifeCycleEntity =>
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => FilterUtils.defValuesFilter<IReduxLifeCycleEntity, IReduxLifeCycleEntity>({
+      error: entity.error,
+      progress: entity.progress,
+      touched: entity.touched,
+    }),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @map-as-original
+ *
+ * @stable [27.07.2020]
+ * @param extendedEntity
+ */
+const mapExtendedEntity = <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IExtendedEntity<TEntity> =>
+  ConditionUtils.ifNotNilThanValue(
+    extendedEntity,
+    () => FilterUtils.defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
+      changes: extendedEntity.changes,
+      entity: extendedEntity.entity,
+      entityId: extendedEntity.entityId,
+      newEntity: extendedEntity.newEntity,
+      originalEntity: extendedEntity.originalEntity,
+    }),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @map-as-original
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapPagedEntity = (entity: IReduxPagedEntity): IReduxPagedEntity =>
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => FilterUtils.defValuesFilter<IReduxPagedEntity, IReduxPagedEntity>({
+      page: entity.page,
+      pageSize: entity.pageSize,
+    }),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @map-as-original
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapPaginatedEntity = (entity: IReduxPaginatedEntity): IReduxPaginatedEntity =>
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => FilterUtils.defValuesFilter<IReduxPaginatedEntity, IReduxPaginatedEntity>({
+      ...mapPagedEntity(entity),
+      lockPage: entity.lockPage,
+      totalAmount: entity.totalAmount,
+      totalCount: entity.totalCount,
+    }),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @map-as-original
@@ -46,6 +122,17 @@ const mapTabPanelHolderEntity =
  */
 const mapActiveValueHolderEntity = (entity: IReduxActiveValueHolderEntity): IReduxActiveValueHolderEntity =>
   MapAsWrapperUtils.activeValue(Selectors.activeValue(entity));
+
+/**
+ * @map-as-original
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IReduxPaginatedLifeCycleEntity => ({
+  ...mapLifeCycleEntity(entity),
+  ...mapPaginatedEntity(entity),
+});
 
 /**
  * @map-as-original
@@ -138,17 +225,10 @@ const mapTransportHolderEntity =
 /**
  * @map-as-original
  *
- * @stable [27.07.2020]
- * @param extendedEntity
+ * @stable [31.07.2020]
+ * @param entity
  */
-const mapExtendedEntity = <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IExtendedEntity<TEntity> =>
-  FilterUtils.defValuesFilter<IExtendedEntity<TEntity>, IExtendedEntity<TEntity>>({
-    changes: extendedEntity.changes,
-    entity: extendedEntity.entity,
-    entityId: extendedEntity.entityId,
-    newEntity: extendedEntity.newEntity,
-    originalEntity: extendedEntity.originalEntity,
-  });
+const mapListHolderEntity = (entity: IReduxListHolderEntity): IReduxListHolderEntity => MapAsWrapperUtils.list(Selectors.list(entity));
 
 /**
  * @map-as-original
@@ -175,6 +255,10 @@ export class MapAsOriginalUtils {
   public static readonly activeValueHolderEntity = mapActiveValueHolderEntity;
   public static readonly extendedEntity = mapExtendedEntity;
   public static readonly formHolderEntity = mapFormHolderEntity;
+  public static readonly listHolderEntity = mapListHolderEntity;
+  public static readonly pagedEntity = mapPagedEntity;
+  public static readonly paginatedEntity = mapPaginatedEntity;
+  public static readonly paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;
   public static readonly sectionNameWrapper = mapSectionNameWrapper;
   public static readonly stackHolderEntity = mapStackHolderEntity;
   public static readonly storeEntity = mapStoreEntity;

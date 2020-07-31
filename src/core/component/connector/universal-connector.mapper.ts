@@ -7,7 +7,7 @@ import {
   IReduxFormEntity,
   IExtendedFormEntity,
   IGenericListEntity,
-  IReduxHolderListEntity,
+  IReduxListHolderEntity,
   IReduxPagedEntity,
 } from '../../definition';
 
@@ -32,7 +32,7 @@ export const listEntityPageEntityFilterMapper = (listEntity: IGenericListEntity,
  * @deprecated Use mapListWrapperPagedEntity
  */
 export const listEntityWrapperPageEntityFilterMapper =
-  (listEntity: IReduxHolderListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
+  (listEntity: IReduxListHolderEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
     listEntityPageEntityFilterMapper(listEntity.list, pageSize);
 
 /**

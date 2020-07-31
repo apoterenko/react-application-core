@@ -5,7 +5,7 @@ import {
   IGridConfigurationWrapper,
   IKeyValue,
 } from '../../definitions.interface';
-import { IContainerProps, IReduxHolderListEntity, IGridProps } from '../../definition';
+import { IContainerProps, IReduxListHolderEntity, IGridProps } from '../../definition';
 
 /**
  * @stable [10.09.2018]
@@ -21,7 +21,7 @@ export interface ITimeGridBuilderConfigEntity {
 
 // TODO
 export interface IGridContainerProps extends IContainerProps,
-                                             IReduxHolderListEntity,
+                                             IReduxListHolderEntity,
                                              IGridConfigurationWrapper<IGridProps> {
 }
 

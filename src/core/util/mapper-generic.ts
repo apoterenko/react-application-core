@@ -25,14 +25,12 @@ import {
   IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxFormHolderEntity,
-  IReduxHolderListEntity,
+  IReduxListHolderEntity,
   IReduxHolderPrimaryFilterFormEntity,
   IReduxHolderQueryFilterEntity,
   IReduxHolderSecondaryFilterFormEntity,
-  IReduxLifeCycleEntity,
   IReduxPagedEntity,
   IReduxPaginatedEntity,
-  IReduxPaginatedLifeCycleEntity,
   IReduxQueryFilterEntity,
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
@@ -61,15 +59,6 @@ const mapHolderQueryFilterEntity = (entity: IReduxHolderQueryFilterEntity): IRed
   MapAsWrapperUtils.queryFilter(Selectors.queryFilter(entity));
 
 /**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param {IReduxHolderListEntity} entity
- * @returns {IReduxHolderListEntity}
- */
-const mapHolderListEntity = (entity: IReduxHolderListEntity): IReduxHolderListEntity => MapAsWrapperUtils.list(Selectors.list(entity));
-
-/**
  * @map-as
  *
  * @stable [09.06.2020]
@@ -82,10 +71,10 @@ const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper => Ma
  * @map-as
  *
  * @stable [08.07.2020]
- * @param {IReduxHolderListEntity} listEntity
+ * @param {IReduxListHolderEntity} listEntity
  * @returns {IDisabledWrapper}
  */
-const mapHolderListEntityAsDisabled = (listEntity: IReduxHolderListEntity): IDisabledWrapper =>
+const mapHolderListEntityAsDisabled = (listEntity: IReduxListHolderEntity): IDisabledWrapper =>
   mapProgressAsDisabled(Selectors.list(listEntity));
 
 /**
@@ -127,23 +116,6 @@ const mapSecondaryFilterFormEntityAsHolderFormEntity =
  */
 const mapHolderQueryFilterEntityAsQuery = (entity: IReduxHolderQueryFilterEntity): IQueryWrapper =>
   MapAsWrapperUtils.query(Selectors.queryFilterEntityQuery(entity));
-
-/**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param {IReduxPagedEntity} entity
- * @returns {IReduxPagedEntity}
- */
-const mapPagedEntity = (entity: IReduxPagedEntity): IReduxPagedEntity =>
-  ConditionUtils.ifNotNilThanValue(
-    entity,
-    () => FilterUtils.defValuesFilter<IReduxPagedEntity, IReduxPagedEntity>({
-      page: entity.page,
-      pageSize: entity.pageSize,
-    }),
-    UNDEF_SYMBOL
-  );
 
 /**
  * @stable [19.05.2020]
@@ -219,7 +191,7 @@ const mapExtendedFormEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IRedu
  * @param formEntity
  */
 const mapListSelectedEntityAsExtendedFormEntity =
-  <TEntity = IEntity>(holderListEntity: IReduxHolderListEntity<TEntity>,
+  <TEntity = IEntity>(holderListEntity: IReduxListHolderEntity<TEntity>,
                       formEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
     mapEntityAsExtendedFormEntity(
       formEntity,
@@ -228,12 +200,12 @@ const mapListSelectedEntityAsExtendedFormEntity =
 
 /**
  * @stable [10.05.2020]
- * @param {IReduxHolderListEntity<TEntity>} listEntity
+ * @param {IReduxListHolderEntity<TEntity>} listEntity
  * @param {IReduxFormEntity<TEntity>} formEntity
  * @returns {TEntity}
  */
 const mapListSelectedExtendedFormEntityAsFinalEntity =
-  <TEntity = IEntity>(listEntity: IReduxHolderListEntity<TEntity>,
+  <TEntity = IEntity>(listEntity: IReduxListHolderEntity<TEntity>,
                       formEntity: IReduxFormEntity<TEntity>): TEntity =>
     mapListSelectedEntityAsExtendedFormEntity<TEntity>(listEntity, formEntity).entity;
 
@@ -254,42 +226,6 @@ const mapQueryFilterEntity = (entity: IReduxQueryFilterEntity): IReduxQueryFilte
   );
 
 /**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param entity
- */
-const mapLifeCycleEntity = (entity: IReduxLifeCycleEntity): IReduxLifeCycleEntity =>
-  ConditionUtils.ifNotNilThanValue(
-    entity,
-    () => FilterUtils.defValuesFilter<IReduxLifeCycleEntity, IReduxLifeCycleEntity>({
-      error: entity.error,
-      progress: entity.progress,
-      touched: entity.touched,
-    }),
-    UNDEF_SYMBOL
-  );
-
-/**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param {IReduxPaginatedEntity} entity
- * @returns {IReduxPaginatedEntity}
- */
-const mapPaginatedEntity = (entity: IReduxPaginatedEntity): IReduxPaginatedEntity =>
-  ConditionUtils.ifNotNilThanValue(
-    entity,
-    () => FilterUtils.defValuesFilter<IReduxPaginatedEntity, IReduxPaginatedEntity>({
-      ...mapPagedEntity(entity),
-      lockPage: entity.lockPage,
-      totalAmount: entity.totalAmount,
-      totalCount: entity.totalCount,
-    }),
-    UNDEF_SYMBOL
-  );
-
-/**
  * @mapper
  * @stable [09.05.2020]
  * @param {IReduxPaginatedEntity} entity
@@ -300,7 +236,7 @@ const mapPaginatedEntityAsPagedEntity =
   (entity: IReduxPaginatedEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
     ConditionUtils.ifNotNilThanValue(
       entity,
-      () => mapPagedEntity({
+      () => MapAsOriginalUtils.pagedEntity({
         page: entity.lockPage ? entity.page : FIRST_PAGE,  // lockPage <=> backward, forward, last, first
         pageSize,
       }),
@@ -310,24 +246,12 @@ const mapPaginatedEntityAsPagedEntity =
 /**
  * @mapper
  * @stable [09.05.2020]
- * @param {IReduxHolderListEntity} entity
+ * @param {IReduxListHolderEntity} entity
  * @param {number} pageSize
  * @returns {IReduxPagedEntity}
  */
-const mapListEntityAsPagedEntity = (entity: IReduxHolderListEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
+const mapListEntityAsPagedEntity = (entity: IReduxListHolderEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
   mapPaginatedEntityAsPagedEntity(Selectors.list(entity), pageSize);
-
-/**
- * @map-as-original
- *
- * @stable [10.06.2020]
- * @param {IReduxPaginatedLifeCycleEntity} entity
- * @returns {IReduxPaginatedLifeCycleEntity}
- */
-const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IReduxPaginatedLifeCycleEntity => ({
-  ...mapLifeCycleEntity(entity),
-  ...mapPaginatedEntity(entity),
-});
 
 /**
  * @mapper
@@ -410,7 +334,7 @@ const mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity =
  * @param cfg
  */
 const mapFullSearchFilter =
-  <TFilter, TEntity = IEntity>(wrapper: IReduxHolderQueryFilterEntity & IReduxHolderListEntity<TEntity>,
+  <TFilter, TEntity = IEntity>(wrapper: IReduxHolderQueryFilterEntity & IReduxListHolderEntity<TEntity>,
                                cfg = {paging: true}): TFilter => ({
     /* query */
     ...mapHolderQueryFilterEntityAsQuery(wrapper),
@@ -461,7 +385,6 @@ export class GenericMappers {
   public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;                                      /* stable [19.05.2020] */
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                                                              /* stable [10.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
-  public static readonly holderListEntity = mapHolderListEntity;                                                                                  /* stable [12.06.2020] */
   public static readonly holderListEntityAsDisabled = mapHolderListEntityAsDisabled;                                                              /* stable [08.07.2020] */
   public static readonly holderQueryFilterEntity = mapHolderQueryFilterEntity;                                                                    /* stable [26.07.2020] */
   public static readonly holderQueryFilterEntityAsQuery = mapHolderQueryFilterEntityAsQuery;                                                      /* stable [27.07.2020] */
@@ -470,9 +393,6 @@ export class GenericMappers {
   public static readonly listSelectedExtendedFormEntityAsFinalEntity = mapListSelectedExtendedFormEntityAsFinalEntity;                            /* stable [10.05.2020] */
   public static readonly namedEntityAsRawDataLabeledValueEntity = mapNamedEntityAsRawDataLabeledValueEntity;                                      /* stable [08.07.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;                                          /* stable [19.05.2020] */
-  public static readonly pagedEntity = mapPagedEntity;                                                                                            /* stable [07.05.2020] */
-  public static readonly paginatedEntity = mapPaginatedEntity;                                                                                    /* stable [07.05.2020] */
-  public static readonly paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;                                                                  /* stable [07.05.2020] */
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = mapPrimaryFilterEntityAsPrimaryFilterExtendedFormEntity;          /* stable [10.05.2020] */
   public static readonly queryFilterEntity = mapQueryFilterEntity;                                                                                /* stable [27.07.2020] */
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity;  /* stable [10.05.2020] */
