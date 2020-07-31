@@ -17,7 +17,6 @@ import {
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  IExtendedEntity,
   IExtendedFormEntity,
   INamedEntity,
   IOptionEntity,
@@ -57,11 +56,10 @@ import {
 } from '../definition';
 import { Selectors } from './select';
 import { WrapperUtils } from './wrapper';
-import { isNewEntity } from './entity';
-import { NvlUtils } from './nvl';
 import { TypeUtils } from './type';
 import { MapAsWrapperUtils } from './map-as-wrapper';
 import { MapAsOriginalUtils } from './map-as-original';
+import { MapAsUtils } from './map-as';
 
 /**
  * @map-as
@@ -237,36 +235,6 @@ const mapOptionEntitiesAsSelectOptionEntities =
     );
 
 /**
- * @map-as
- *
- * @stable [27.07.2020]
- * @param formEntity
- * @param entity
- */
-const mapEntityAsExtendedEntity =
-  <TEntity extends IEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
-                                      entity?: TEntity): IExtendedEntity<TEntity> => {
-    const newEntity = isNewEntity(entity);
-    const {
-      changes,
-      defaultChanges,
-    } = formEntity || {} as IReduxFormEntity<TEntity>;
-    let originalEntity;
-
-    if (!R.isNil(NvlUtils.nvl(defaultChanges, entity))) {
-      originalEntity = {...defaultChanges as {}, ...entity as {}};
-    }
-
-    return MapAsOriginalUtils.extendedEntity({
-      changes,
-      entity: {...originalEntity as {}, ...changes as {}},
-      entityId: ConditionUtils.orUndef(!newEntity, () => entity.id),
-      newEntity,
-      originalEntity,
-    });
-  };
-
-/**
  * @mapper
  * @stable [10.05.2020]
  * @param {IReduxFormEntity<TEntity>} formEntity
@@ -277,7 +245,7 @@ const mapEntityAsExtendedFormEntity = <TEntity = IEntity>(formEntity: IReduxForm
                                                           entity?: TEntity): IExtendedFormEntity<TEntity> =>
   ({
     ...MapAsWrapperUtils.form(formEntity),
-    ...mapEntityAsExtendedEntity(formEntity, entity),
+    ...MapAsUtils.entityAsExtendedEntity(formEntity, entity),
   });
 
 /**
@@ -602,7 +570,6 @@ const mapStoreEntity =
 export class GenericMappers {
   public static readonly dictionaryEntityAsSelectEntity = mapDictionaryEntityAsSelectEntity;                                                      /* stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;                                      /* stable [19.05.2020] */
-  public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;                                                                      /* stable [08.05.2020] */
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                                                              /* stable [10.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
   public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */

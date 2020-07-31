@@ -2,8 +2,6 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
-  IApiEntity,
-  IExtendedEntity,
   IHeaderProps,
   IOperationEntity,
   IPresetsSelectableHoveredEntity,
@@ -15,7 +13,6 @@ import {
 } from '../definition';
 import {
   EntityIdT,
-  IEntity,
   IEntityIdTWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
@@ -27,7 +24,6 @@ import {
   isReady,
 } from './wrapper';
 import {
-  selectEntityId,
   Selectors,
   selectToken,
 } from './select';
@@ -35,6 +31,7 @@ import { ComponentMappers } from './mapper-component';
 import { GenericMappers } from './mapper-generic';
 import { MapAsComponentUtils } from './map-as-component';
 import { MapAsOriginalUtils } from './map-as-original';
+import { MapAsUtils } from './map-as';
 import { MapAsWrapperUtils } from './map-as-wrapper';
 
 /**
@@ -75,7 +72,7 @@ export const mapSortDirectionsWrapperEntity = (directions: IReduxSortDirectionsE
  * @returns {IEntityIdTWrapper}
  */
 export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrapper =>
-  mapEntityId(selectEntityId(entity));
+  mapEntityId(Selectors.entityId(entity));
 
 /**
  * @stable [04.05.2020]
@@ -107,32 +104,6 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
   }),
   UNDEF_SYMBOL
 );
-
-/**
- * @stable [23.12.2019]
- * @param {IExtendedEntity<TEntity>} extendedEntity
- * @returns {IApiEntity<TEntity>}
- */
-export const mapApiEntity =
-  <TEntity = IEntity>(extendedEntity: IExtendedEntity<TEntity>): IApiEntity<TEntity> => {
-    const {
-      changes,
-      entity,
-      originalEntity,
-    } = extendedEntity;
-
-    const entityId = selectEntityId(entity);
-    const newEntity = R.isNil(entityId);
-
-    return defValuesFilter<IApiEntity<TEntity>, IApiEntity<TEntity>>({
-      changes,
-      diff: newEntity ? entity : changes,
-      entity,
-      entityId,
-      newEntity,
-      originalEntity,
-    });
-  };
 
 /**
  * @stable [25.11.2019]
@@ -195,8 +166,10 @@ export class Mappers {
   public static readonly defaultLayoutContainerProps = ComponentMappers.defaultLayoutContainerProps;                                                                                        /* @stable [12.06.2020] */
   public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                                                    /* @stable [19.05.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                                                    /* @stable [19.05.2020] */
-  public static readonly entityAsExtendedEntity = GenericMappers.entityAsExtendedEntity;                                                                                                    /* @stable [10.05.2020] */
+  public static readonly entityAsExtendedEntity = MapAsUtils.entityAsExtendedEntity;                                                                                                        /* @stable [31.07.2020] */
   public static readonly entityAsExtendedFormEntity = GenericMappers.entityAsExtendedFormEntity;                                                                                            /* @stable [10.05.2020] */
+  public static readonly extendedEntity = MapAsOriginalUtils.extendedEntity;                                                                                                                /* @stable [31.07.2020] */
+  public static readonly extendedEntityAsApiEntity = MapAsUtils.extendedEntityAsApiEntity;                                                                                                  /* @stable [31.07.2020] */
   public static readonly filterFormDialogContainerProps = ComponentMappers.filterFormDialogContainerProps;                                                                                  /* @stable [10.05.2020] */
   public static readonly filterFormDialogSecondaryFilterContainerProps = ComponentMappers.filterFormDialogSecondaryFilterContainerProps;                                                    /* @stable [10.05.2020] */
   public static readonly form = MapAsWrapperUtils.form;                                                                                                                                     /* @stable [27.07.2020] */

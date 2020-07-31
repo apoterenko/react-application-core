@@ -85,11 +85,10 @@ const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue 
   R.isNil(wrapper) ? UNDEF : wrapper.element;
 
 /**
- * @stable [27.03.2020]
- * @param {IEntityIdTWrapper} entity
- * @returns {EntityIdT}
+ * @stable [31.07.2020]
+ * @param entity
  */
-export const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(entity) ? UNDEF : entity.id;
+const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(entity) ? UNDEF : entity.id;
 
 /**
  * @stable [29.02.2020]
@@ -478,6 +477,7 @@ export class Selectors {
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
   public static readonly element = selectElement;                                                               /* @stable [08.06.2020] */
   public static readonly entity = selectEntity;
+  public static readonly entityId = selectEntityId;                                                             /* @stable [31.07.2020] */
   public static readonly error = selectError;                                                                   /* @stable [12.06.2020] */
   public static readonly filter = selectFilter;
   public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */

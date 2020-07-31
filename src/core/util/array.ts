@@ -13,7 +13,7 @@ import {
   SAME_ENTITY_PREDICATE,
 } from './filter';
 import { nvl } from './nvl';
-import { isNewEntity } from './entity';
+import { EntityUtils } from './entity';
 
 /**
  * @stable [16.12.2018]
@@ -65,7 +65,7 @@ export const mergeArrayItem = <TValue extends IKeyValue>(array: TValue[],
                                                          predicate = SAME_ENTITY_PREDICATE,
                                                          itemFactory?: (previousItem: TValue) => TValue): TValue[] => {
   const array0 = array || [];
-  const hasEntity = doesArrayContainEntity(array0, initialItem, predicate);
+  const hasEntity = doesArrayContainExistedEntity(array0, initialItem, predicate);
   const isMergedItemFactoryFn = isFn(itemFactory);
   const result = hasEntity
     ? array0
@@ -85,17 +85,28 @@ export const mergeArrayItem = <TValue extends IKeyValue>(array: TValue[],
 };
 
 /**
- * @stable [19.10.2019]
- * @param {TEntity[]} data
- * @param {IEntityIdTWrapper} entity
- * @param {<TEntity extends IEntityIdTWrapper>(entity1: TEntity, entity2: TEntity) => boolean} redicate
- * @returns {boolean}
+ * @stable [31.07.2020]
+ * @param data
+ * @param entity
+ * @param predicate
  */
-export const doesArrayContainEntity =
+const doesArrayContainEntity =
   <TEntity extends IEntity = IEntity>(data: TEntity[],
-                                      entity?: IEntityIdTWrapper,
-                                      redicate = SAME_ENTITY_PREDICATE): boolean =>
-    !isNewEntity(entity) && R.any((item) => redicate(item, entity), data || []);
+                                      entity: IEntityIdTWrapper,
+                                      predicate = SAME_ENTITY_PREDICATE): boolean =>
+    R.any((item) => predicate(item, entity), data || []);
+
+/**
+ * @stable [31.07.2020]
+ * @param data
+ * @param entity
+ * @param predicate
+ */
+const doesArrayContainExistedEntity =
+  <TEntity extends IEntity = IEntity>(data: TEntity[],
+                                      entity: IEntityIdTWrapper,
+                                      predicate = SAME_ENTITY_PREDICATE): boolean =>
+    !EntityUtils.isNewEntity(entity) && doesArrayContainEntity(data, entity, predicate);
 
 /**
  * @stable [31.08.2019]
@@ -108,3 +119,11 @@ export const areArrayValuesNotNil = (...values: AnyT[]): boolean =>
     () => FilterUtils.notNilValuesArrayFilter(...values).length === values.length,
     false
   );
+
+/**
+ * @stable [31.07.2020]
+ */
+export class ArrayUtils {
+  public static readonly doesArrayContainEntity = doesArrayContainEntity;
+  public static readonly doesArrayContainExistedEntity = doesArrayContainExistedEntity;
+}

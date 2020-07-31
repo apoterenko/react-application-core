@@ -22,6 +22,7 @@ import {
   ClsUtils,
   ConditionUtils,
   defValuesFilter,
+  EntityUtils,
   FilterUtils,
   FormUtils,
   getFormFieldValue,
@@ -30,13 +31,11 @@ import {
   isFormFieldReadOnly,
   isFormResettable,
   isFormSubmittable,
-  isNewEntity,
   isObjectNotEmpty,
-  mapApiEntity,
+  Mappers,
   notNilValuesFilter,
   ObjectUtils,
   orNull,
-  selectChanges,
   TypeUtils,
   WrapperUtils,
 } from '../../util';
@@ -268,11 +267,10 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [03.02.2020]
-   * @returns {boolean}
+   * @stable [31.07.2020]
    */
   private get isFormOfNewEntity(): boolean {
-    return isNewEntity(this.props.entity);
+    return EntityUtils.isNewEntity(this.originalProps.entity);
   }
 
   /**
@@ -437,14 +435,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [12.06.2020]
-   * @returns {boolean}
-   */
-  private get hasError(): boolean {
-    return ObjectUtils.isObjectNotEmpty(this.form.error);
-  }
-
-  /**
    * @stable [13.02.2020]
    * @returns {IButtonProps[]}
    */
@@ -483,18 +473,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [18.04.2020]
-   * @returns {IApiEntity}
-   */
-  public get apiEntity(): IApiEntity {
-    return mapApiEntity({
-      changes: selectChanges(this.form),
-      entity: this.entity,
-      originalEntity: this.originalEntity,
-    });
-  }
-
-  /**
    * @stable [12.06.2020]
    * @returns {string}
    */
@@ -512,26 +490,23 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [12.06.2020]
-   * @returns {IReduxFormEntity<IEntity>}
+   * @stable [31.07.2020]
+   */
+  public get apiEntity(): IApiEntity {
+    return Mappers.extendedEntityAsApiEntity(Mappers.extendedEntity(this.originalProps));
+  }
+
+  /**
+   * @stable [31.07.2020]
+   */
+  private get hasError(): boolean {
+    return ObjectUtils.isObjectNotEmpty(this.form.error);
+  }
+
+  /**
+   * @stable [31.07.2020]
    */
   private get form(): IReduxFormEntity<IEntity> {
     return this.originalProps.form;
-  }
-
-  /**
-   * @stable [12.06.2020]
-   * @returns {IEntity}
-   */
-  private get originalEntity(): IEntity {
-    return this.originalProps.originalEntity;
-  }
-
-  /**
-   * @stable [12.06.2020]
-   * @returns {IEntity}
-   */
-  private get entity(): IEntity {
-    return this.originalProps.entity;
   }
 }

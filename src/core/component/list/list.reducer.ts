@@ -5,10 +5,10 @@ import {
   IEntityIdTWrapper,
 } from '../../definitions.interface';
 import {
+  ArrayUtils,
   asErrorMessage,
   buildEntityByMergeStrategy,
   ConditionUtils,
-  doesArrayContainEntity,
   ifNotNilThanValue,
   isMulti,
   mapIdentifiedEntity,
@@ -191,7 +191,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
      */
     case ListActionBuilder.buildInsertActionType(section):
       modifyDataPayload = nvl(modifyDataPayload, Selectors.dataPayloadFromAction<IModifyEntityPayloadEntity>(action));
-      const doesEntityExist = doesArrayContainEntity(state.data, modifyDataPayload);
+      const doesEntityExist = ArrayUtils.doesArrayContainExistedEntity(state.data, modifyDataPayload);
       const mergedData = mergeArrayItem<IEntityIdTWrapper>(
         state.data,
         mapIdentifiedEntity(modifyDataPayload),

@@ -13,11 +13,10 @@ import { ifNotNilThanValue } from './cond';
 import { isPrimitive } from './type';
 
 /**
- * @stable [21.04.2020]
- * @param {TEntity} entity
- * @returns {boolean}
+ * @stable [31.07.2020]
+ * @param entity
  */
-export const isNewEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
+const isNewEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
   R.isNil(entity) || R.isNil(entity.id);
 
 /**
@@ -62,3 +61,10 @@ export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): stri
  */
 export const isNotMultiEntity = (value: MultiFieldEntityT | EntityIdT): boolean =>
   Array.isArray(value) || isPrimitive(value);
+
+/**
+ * @stable [31.07.2020]
+ */
+export class EntityUtils {
+  public static readonly isNewEntity = isNewEntity;
+}
