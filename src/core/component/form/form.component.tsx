@@ -21,7 +21,6 @@ import {
   cloneReactNodes,
   ClsUtils,
   ConditionUtils,
-  defValuesFilter,
   EntityUtils,
   FilterUtils,
   FormUtils,
@@ -46,7 +45,6 @@ import {
 import { GenericComponent } from '../base';
 import { Button } from '../button';
 import { Field2 } from '../field';
-import { IFieldProps2 } from '../../configurations-definitions.interface';  // TODO
 import {
   DI_TYPES,
   lazyInject,
@@ -61,7 +59,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
   private static readonly logger = LoggerFactory.makeLogger('Form');
 
-  @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets;
+  @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets; // TODO Replace with settings
 
   /**
    * @stable [30.06.2020]
@@ -339,18 +337,18 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   /**
    * @stable [03.02.2020]
    * @param {IField} field
-   * @returns {IFieldProps2}
+   * @returns {IFieldProps}
    */
-  private getPredefinedFieldProps(field: IField): IFieldProps2 {
+  private getPredefinedFieldProps(field: IField): IFieldProps {
     const props = this.fieldsPresets[field.props.name];
 
-    let resultProps: IFieldProps2;
+    let resultProps: IFieldProps;
     if (TypeUtils.isString(props)) {
       resultProps = {label: props as string};
     } else if (TypeUtils.isFn(props)) {
-      resultProps = (props as (field) => IFieldProps2)(field);
+      resultProps = (props as (field) => IFieldProps)(field);
     } else {
-      resultProps = props as IFieldProps2;
+      resultProps = props as IFieldProps;
     }
     return resultProps;
   }
@@ -385,13 +383,13 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    */
   private get formNodes(): React.ReactNode[] {
     return (
-      cloneReactNodes<IFieldProps2>(
+      cloneReactNodes<IFieldProps>(
         this,
         (field: IField) => {
           const fieldProps: ITextFieldProps = field.props; // TODO Props
           const predefinedOptions = this.getPredefinedFieldProps(field);
 
-          return defValuesFilter<ITextFieldProps, ITextFieldProps>(
+          return FilterUtils.defValuesFilter<ITextFieldProps, ITextFieldProps>(
             {
               value: this.getFieldValue(field),
               originalValue: this.getFieldOriginalValue(field),
@@ -419,7 +417,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               ...predefinedOptions,
 
               // The fields props have a higher priority
-              ...defValuesFilter<ITextFieldProps, ITextFieldProps>({
+              ...FilterUtils.defValuesFilter<ITextFieldProps, ITextFieldProps>({
                 label: fieldProps.label,
                 placeholder: fieldProps.placeholder,
                 prefixLabel: fieldProps.prefixLabel,
