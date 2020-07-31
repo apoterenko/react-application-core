@@ -201,6 +201,7 @@ export class Mappers {
   public static readonly sectionNameWrapper = MapAsOriginalUtils.sectionNameWrapper;                                                                                                        /* @stable [30.07.2020] */
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
   public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                                                              /* @stable [10.05.2020] */
+  public static readonly storeBaseEntity = MapAsOriginalUtils.storeBaseEntity;                                                                                                              /* @stable [31.07.2020] */
   public static readonly storeEntity = MapAsOriginalUtils.storeEntity;                                                                                                                      /* @stable [31.07.2020] */
   public static readonly tabPanelContainerProps = MapAsComponentUtils.tabPanelContainerProps;                                                                                               /* @stable [30.07.2020] */
   public static readonly tabPanelContainerPropsAsTabPanelProps = MapAsComponentUtils.tabPanelContainerPropsAsTabPanelProps;                                                                 /* @stable [30.07.2020] */

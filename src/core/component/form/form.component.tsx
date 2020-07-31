@@ -491,7 +491,10 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @stable [31.07.2020]
    */
   public get apiEntity(): IApiEntity {
-    return Mappers.extendedEntityAsApiEntity(Mappers.extendedEntity(this.originalProps));
+    return Mappers.extendedEntityAsApiEntity({
+      ...Mappers.extendedEntity(this.originalProps),
+      changes: this.form.changes,
+    });
   }
 
   /**

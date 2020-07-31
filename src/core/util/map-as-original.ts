@@ -236,15 +236,27 @@ const mapListHolderEntity = (entity: IReduxListHolderEntity): IReduxListHolderEn
  * @stable [31.07.2020]
  * @param entity
  */
-const mapStoreEntity =
+const mapStoreBaseEntity =
   <TDictionaries = {}>(entity: IReduxStoreEntity<TDictionaries>): IReduxStoreEntity<TDictionaries> =>
     ({
       ...mapChannelHolderEntity(entity),
       ...mapDictionariesHolderEntity(entity),
-      ...mapLayoutHolderEntity(entity),
       ...mapNotificationHolderEntity(entity),
-      ...mapStackHolderEntity(entity),
       ...mapTransportHolderEntity(entity),
+    });
+
+/**
+ * @map-as-original
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapStoreEntity =
+  <TDictionaries = {}>(entity: IReduxStoreEntity<TDictionaries>): IReduxStoreEntity<TDictionaries> =>
+    ({
+      ...mapStoreBaseEntity(entity),
+      ...mapLayoutHolderEntity(entity),
+      ...mapStackHolderEntity(entity),
       ...mapUserHolderEntity(entity),
     });
 
@@ -261,6 +273,7 @@ export class MapAsOriginalUtils {
   public static readonly paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;
   public static readonly sectionNameWrapper = mapSectionNameWrapper;
   public static readonly stackHolderEntity = mapStackHolderEntity;
+  public static readonly storeBaseEntity = mapStoreBaseEntity;
   public static readonly storeEntity = mapStoreEntity;
   public static readonly tabPanelHolderEntity = mapTabPanelHolderEntity;
   public static readonly transportHolderEntity = mapTransportHolderEntity;
