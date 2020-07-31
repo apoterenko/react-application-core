@@ -23,11 +23,11 @@ import {
 export class FormContainer extends GenericContainer<IFormContainerProps> {
 
   /**
-   * @stable [09.05.2020]
-   * @param {IFormContainerProps} props
+   * @stable [31.07.2020]
+   * @param {IFormContainerProps} originalProps
    */
-  constructor(props: IFormContainerProps) {
-    super(props);
+  constructor(originalProps: IFormContainerProps) {
+    super(originalProps);
 
     this.onChange = this.onChange.bind(this);
     this.onDictionaryEmpty = this.onDictionaryEmpty.bind(this);
@@ -38,15 +38,12 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [09.05.2020]
-   * @returns {JSX.Element}
+   * @stable [31.07.2020]
    */
   public render(): JSX.Element {
-    const props = this.props;
-
     return (
       <Form
-        {...Mappers.formContainerPropsAsFormProps(props)}
+        {...Mappers.formContainerPropsAsFormProps(this.originalProps)}
         onChange={this.onChange}
         onDictionaryEmpty={this.onDictionaryEmpty}
         onDictionaryLoad={this.onDictionaryLoad}
@@ -54,7 +51,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
         onSubmit={this.onSubmit}
         onValid={this.onValid}
       >
-        {props.children}
+        {this.originalChildren}
       </Form>
     );
   }

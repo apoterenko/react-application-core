@@ -1,5 +1,6 @@
 import {
   IFormContainerProps,
+  IFormProps,
   IFormTabPanelContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
@@ -8,6 +9,7 @@ import {
 } from '../definition';
 import { MapAsOriginalUtils } from './map-as-original';
 import { Selectors } from './select';
+import { IEntity } from '../definitions.interface';
 
 /**
  * @map-as-component
@@ -26,6 +28,18 @@ const mapTabPanelProps = (tabPanel: ITabPanelProps): ITabPanelProps =>
  */
 const mapPageToolbarProps = (pageToolbar: IPageToolbarProps): IPageToolbarProps =>
   MapAsOriginalUtils.paginatedLifeCycleEntity(pageToolbar);
+
+/**
+ * @map-as-component
+ *
+ * @stable [31.07.2020]
+ * @param props
+ */
+const mapFormProps = <TEntity = IEntity>(props: IFormProps<TEntity>): IFormProps<TEntity> =>
+  ({
+    ...MapAsOriginalUtils.extendedEntity(props),
+    ...MapAsOriginalUtils.formHolderEntity(props),
+  });
 
 /**
  * @map-as-container
@@ -85,6 +99,20 @@ const mapFormTabPanelContainerPropsAsTabPanelProps = (formTabPanelContainer: IFo
 });
 
 /**
+ * @map-container-as-component
+ *
+ * @stable [31.07.2020]
+ * @param props
+ */
+const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProps =>
+  ({
+    ...mapFormProps(props),
+    ...props.formConfiguration,
+  });
+
+/**
+ * @map-container-as-component
+ *
  * @stable [31.07.2020]
  * @param pageToolbarContainer
  */
@@ -99,6 +127,7 @@ const mapPageToolbarContainerPropsAsPageToolbarProps = (pageToolbarContainer: IP
  */
 export class MapAsComponentUtils {
   public static readonly formContainerProps = mapFormContainerProps;
+  public static readonly formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
   public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
   public static readonly formTabPanelContainerPropsAsTabPanelProps = mapFormTabPanelContainerPropsAsTabPanelProps;
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;

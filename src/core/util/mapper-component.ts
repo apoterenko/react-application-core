@@ -5,7 +5,6 @@ import {
   IFieldsContainer,
   IFilterFormDialogContainerProps,
   IFormContainerProps,
-  IFormProps,
   IGenericBaseSelectEntity,
   IGenericContainer,
   IListContainerProps,
@@ -21,7 +20,6 @@ import {
   IUnsavedFormChangesDialogProps,
 } from '../definition';
 import { Selectors } from './select';
-import { IEntity } from '../definitions.interface';
 import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsComponentUtils } from './map-as-component';
 
@@ -37,19 +35,6 @@ const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEnti
   ...GenericMappers.dictionaryEntityAsSelectEntity(container.props.dictionaries.places),
   onDictionaryFilterChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
 });
-
-/**
- * @component-props-mapper
- * @stable [09.05.2020]
- *
- * @param {IFormProps<TEntity>} props
- * @returns {IFormProps<TEntity>}
- */
-const mapFormProps = <TEntity = IEntity>(props: IFormProps<TEntity>): IFormProps<TEntity> =>
-  ({
-    ...MapAsOriginalUtils.extendedEntity(props),
-    ...MapAsOriginalUtils.formHolderEntity(props),
-  });
 
 const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps =>
   GenericMappers.queryFilterEntity(props);
@@ -179,18 +164,6 @@ const mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps =
     });
 
 /**
- * @container-component-props-mapper
- * @stable [09.05.2020]
- * @param {IFormContainerProps} props
- * @returns {IFormProps}
- */
-const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProps =>
-  ({
-    ...mapFormProps(props),
-    ...props.formConfiguration,
-  });
-
-/**
  * @map-container-as-component
  * @stable [10.06.2020]
  *
@@ -238,7 +211,6 @@ const mapUnsavedFormChangesDialogContainerProps =
 export class ComponentMappers {
   public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                                                                           /* @stable [10.05.2020] */
   public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;                                                             /* @stable [10.05.2020] */
-  public static formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;                                                                                             /* @stable [10.05.2020] */
   public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                                                                         /* @stable [10.05.2020] */
   public static listContainerProps = mapListContainerProps;                                                                                                                   /* @stable [10.05.2020] */
   public static pageToolbarContainerProps = mapPageToolbarContainerProps;

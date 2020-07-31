@@ -4,6 +4,7 @@ import { FilterUtils } from './filter';
 import {
   IApiEntity,
   IExtendedEntity,
+  IExtendedFormEntity,
   IReduxFormEntity,
 } from '../definition';
 import {
@@ -12,6 +13,7 @@ import {
 import { ConditionUtils } from './cond';
 import { EntityUtils } from './entity';
 import { MapAsOriginalUtils } from './map-as-original';
+import { MapAsWrapperUtils } from './map-as-wrapper';
 import { NvlUtils } from './nvl';
 import { Selectors } from './select';
 
@@ -73,9 +75,24 @@ const mapEntityAsExtendedEntity =
   };
 
 /**
+ * @map-as
+ *
+ * @stable [31.07.2020]
+ * @param formEntity
+ * @param entity
+ */
+const mapEntityAsExtendedFormEntity = <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
+                                                          entity?: TEntity): IExtendedFormEntity<TEntity> =>
+  ({
+    ...MapAsWrapperUtils.form(formEntity),
+    ...mapEntityAsExtendedEntity(formEntity, entity),
+  });
+
+/**
  * @stable [31.07.2020]
  */
 export class MapAsUtils {
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;
+  public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;
   public static readonly extendedEntityAsApiEntity = mapExtendedEntityAsApiEntity;
 }
