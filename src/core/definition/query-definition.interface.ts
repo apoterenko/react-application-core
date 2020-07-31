@@ -18,7 +18,7 @@ export interface IReduxQueryFilterEntity
  * @redux-holder-entity
  * @stable [26.07.2020]
  */
-export interface IReduxHolderQueryFilterEntity
+export interface IReduxQueryFilterHolderEntity
   extends IQueryFilterWrapper<IReduxQueryFilterEntity> {
 }
 

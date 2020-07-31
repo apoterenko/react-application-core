@@ -21,8 +21,8 @@ import {
   IUseShortFormatWrapper,
 } from '../definitions.interface';
 import {
-  IReduxHolderQueryFilterEntity,
   IReduxQueryFilterEntity,
+  IReduxQueryFilterHolderEntity,
 } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
@@ -133,7 +133,7 @@ export interface ISearchToolbarConfigurationEntity
  */
 export interface IGenericSearchToolbarContainerEntity
   extends IReduxListHolderEntity,
-    IReduxHolderQueryFilterEntity,
+    IReduxQueryFilterHolderEntity,
     ISearchToolbarConfigurationEntity {
 }
 

@@ -8,8 +8,6 @@ import {
   IGenericBaseSelectEntity,
   IGenericContainer,
   IPrimaryFilterExtendedFormEntity,
-  ISearchToolbarContainerProps,
-  ISearchToolbarProps,
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
   IToolbarToolsContainerProps,
@@ -20,6 +18,7 @@ import {
 import { Selectors } from './select';
 import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsComponentUtils } from './map-as-component';
+import { MapAsUtils } from './map-as';
 
 /**
  * @component-props-mapper
@@ -33,9 +32,6 @@ const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEnti
   ...GenericMappers.dictionaryEntityAsSelectEntity(container.props.dictionaries.places),
   onDictionaryFilterChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
 });
-
-const mapSearchToolbarProps = (props: ISearchToolbarProps): ISearchToolbarProps =>
-  GenericMappers.queryFilterEntity(props);
 
 /**
  * @container-props-mapper
@@ -85,7 +81,7 @@ const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToo
   ({
     ...MapAsOriginalUtils.sectionNameWrapper(props),
     toolbarTools: {
-      ...GenericMappers.holderListEntityAsDisabled(props),
+      ...MapAsUtils.listHolderEntityAsDisabled(props),
       activeTools: Selectors.activeToolbarToolsFromDirtyWrapper(Selectors.form(props)) || [],
     },
   });
@@ -113,20 +109,6 @@ const mapToolbarToolsSecondaryFilterContainerProps =
  */
 const asToolbarToolsContainerProps =
   <TProps>(props: TProps): IToolbarToolsContainerProps => props as IToolbarToolsContainerProps;
-
-const mapSearchToolbarContainerProps = (props: ISearchToolbarContainerProps): ISearchToolbarContainerProps =>
-  ({
-    ...MapAsOriginalUtils.sectionNameWrapper(props),
-    ...GenericMappers.holderQueryFilterEntity(props),
-    ...MapAsOriginalUtils.listHolderEntity(props),
-  });
-
-const mapSearchToolbarContainerPropsAsSearchToolbarProps = (props: ISearchToolbarContainerProps): ISearchToolbarProps =>
-  ({
-    ...mapSearchToolbarProps(Selectors.queryFilter(props)),
-    ...GenericMappers.holderListEntityAsDisabled(props),
-    ...props.toolbarConfiguration,
-  });
 
 /**
  * @map-container-as-component
@@ -196,8 +178,6 @@ export class ComponentMappers {
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [12.06.2020] */
   public static readonly unsavedFormChangesDialogContainerProps = mapUnsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.05.2020] */
-  public static searchToolbarContainerProps = mapSearchToolbarContainerProps;
-  public static searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static toolbarToolsContainerProps = mapToolbarToolsContainerProps;                                                                                                   /* @stable [09.05.2020] */
   public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                                                                     /* @stable [10.05.2020] */
 }

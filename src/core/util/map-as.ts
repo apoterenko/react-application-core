@@ -6,9 +6,12 @@ import {
   IExtendedEntity,
   IExtendedFormEntity,
   IReduxFormEntity,
+  IReduxListHolderEntity,
 } from '../definition';
 import {
+  IDisabledWrapper,
   IEntity,
+  IProgressWrapper,
 } from '../definitions.interface';
 import { ConditionUtils } from './cond';
 import { EntityUtils } from './entity';
@@ -16,6 +19,7 @@ import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsWrapperUtils } from './map-as-wrapper';
 import { NvlUtils } from './nvl';
 import { Selectors } from './select';
+import { WrapperUtils } from './wrapper';
 
 /**
  * @map-as
@@ -89,10 +93,29 @@ const mapEntityAsExtendedFormEntity = <TEntity = IEntity>(formEntity: IReduxForm
   });
 
 /**
+ * @map-as
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapProgressAsDisabled = (entity: IProgressWrapper): IDisabledWrapper =>
+  MapAsWrapperUtils.disabled(WrapperUtils.inProgress(entity));
+
+/**
+ * @map-as
+ *
+ * @stable [31.07.2020]
+ * @param listEntity
+ */
+const mapListHolderEntityAsDisabled = (listEntity: IReduxListHolderEntity): IDisabledWrapper =>
+  mapProgressAsDisabled(Selectors.list(listEntity));
+
+/**
  * @stable [31.07.2020]
  */
 export class MapAsUtils {
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;
   public static readonly extendedEntityAsApiEntity = mapExtendedEntityAsApiEntity;
+  public static readonly listHolderEntityAsDisabled = mapListHolderEntityAsDisabled;
 }

@@ -5,12 +5,15 @@ import {
   IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
+  ISearchToolbarContainerProps,
+  ISearchToolbarProps,
   ITabPanelContainerProps,
   ITabPanelProps,
 } from '../definition';
-import { MapAsOriginalUtils } from './map-as-original';
-import { Selectors } from './select';
 import { IEntity } from '../definitions.interface';
+import { MapAsOriginalUtils } from './map-as-original';
+import { MapAsUtils } from './map-as';
+import { Selectors } from './select';
 
 /**
  * @map-as-component
@@ -25,6 +28,15 @@ const mapTabPanelProps = (tabPanel: ITabPanelProps): ITabPanelProps =>
  * @map-as-component
  *
  * @stable [31.07.2020]
+ * @param searchToolbar
+ */
+const mapSearchToolbarProps = (searchToolbar: ISearchToolbarProps): ISearchToolbarProps =>
+  MapAsOriginalUtils.queryFilterEntity(searchToolbar);
+
+/**
+ * @map-as-component
+ *
+ * @stable [31.07.2020]
  * @param pageToolbar
  */
 const mapPageToolbarProps = (pageToolbar: IPageToolbarProps): IPageToolbarProps =>
@@ -34,12 +46,12 @@ const mapPageToolbarProps = (pageToolbar: IPageToolbarProps): IPageToolbarProps 
  * @map-as-component
  *
  * @stable [31.07.2020]
- * @param props
+ * @param form
  */
-const mapFormProps = <TEntity = IEntity>(props: IFormProps<TEntity>): IFormProps<TEntity> =>
+const mapFormProps = <TEntity = IEntity>(form: IFormProps<TEntity>): IFormProps<TEntity> =>
   ({
-    ...MapAsOriginalUtils.extendedEntity(props),
-    ...MapAsOriginalUtils.formHolderEntity(props),
+    ...MapAsOriginalUtils.extendedEntity(form),
+    ...MapAsOriginalUtils.formHolderEntity(form),
   });
 
 /**
@@ -79,24 +91,36 @@ const mapFormTabPanelContainerProps = (formTabPanelContainer: IFormTabPanelConta
  * @map-as-container
  *
  * @stable [30.07.2020]
- * @param formContainerProps
+ * @param formContainer
  */
-const mapFormContainerProps = (formContainerProps: IFormContainerProps): IFormContainerProps =>
+const mapFormContainerProps = (formContainer: IFormContainerProps): IFormContainerProps =>
   ({
-    ...MapAsOriginalUtils.extendedEntity(formContainerProps),
-    ...MapAsOriginalUtils.formHolderEntity(formContainerProps),
-    ...MapAsOriginalUtils.sectionNameWrapper(formContainerProps),
+    ...MapAsOriginalUtils.extendedEntity(formContainer),
+    ...MapAsOriginalUtils.formHolderEntity(formContainer),
+    ...MapAsOriginalUtils.sectionNameWrapper(formContainer),
   });
 
 /**
  * @map-as-container
  *
  * @stable [31.07.2020]
- * @param props
+ * @param listContainer
  */
-const mapListContainerProps = (props: IListContainerProps): IListContainerProps => ({
-  ...MapAsOriginalUtils.listHolderEntity(props),
-  ...MapAsOriginalUtils.sectionNameWrapper(props),
+const mapListContainerProps = (listContainer: IListContainerProps): IListContainerProps => ({
+  ...MapAsOriginalUtils.listHolderEntity(listContainer),
+  ...MapAsOriginalUtils.sectionNameWrapper(listContainer),
+});
+
+/**
+ * @map-as-container
+ *
+ * @stable [31.07.2020]
+ * @param searchToolbarContainer
+ */
+const mapSearchToolbarContainerProps = (searchToolbarContainer: ISearchToolbarContainerProps): ISearchToolbarContainerProps => ({
+  ...MapAsOriginalUtils.listHolderEntity(searchToolbarContainer),
+  ...MapAsOriginalUtils.queryFilterHolderEntity(searchToolbarContainer),
+  ...MapAsOriginalUtils.sectionNameWrapper(searchToolbarContainer),
 });
 
 /**
@@ -125,13 +149,12 @@ const mapFormTabPanelContainerPropsAsTabPanelProps = (formTabPanelContainer: IFo
  * @map-container-as-component
  *
  * @stable [31.07.2020]
- * @param props
+ * @param formContainer
  */
-const mapFormContainerPropsAsFormProps = (props: IFormContainerProps): IFormProps =>
-  ({
-    ...mapFormProps(props),
-    ...props.formConfiguration,
-  });
+const mapFormContainerPropsAsFormProps = (formContainer: IFormContainerProps): IFormProps => ({
+  ...mapFormProps(formContainer),
+  ...formContainer.formConfiguration,
+});
 
 /**
  * @map-container-as-component
@@ -146,6 +169,18 @@ const mapPageToolbarContainerPropsAsPageToolbarProps = (pageToolbarContainer: IP
   });
 
 /**
+ * @map-container-as-component
+ *
+ * @stable [31.07.2020]
+ * @param searchToolbarContainer
+ */
+const mapSearchToolbarContainerPropsAsSearchToolbarProps = (searchToolbarContainer: ISearchToolbarContainerProps): ISearchToolbarProps => ({
+  ...mapSearchToolbarProps(Selectors.queryFilter(searchToolbarContainer)),
+  ...searchToolbarContainer.toolbarConfiguration,
+  ...MapAsUtils.listHolderEntityAsDisabled(searchToolbarContainer),
+});
+
+/**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
@@ -156,6 +191,8 @@ export class MapAsComponentUtils {
   public static readonly listContainerProps = mapListContainerProps;
   public static readonly pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
+  public static readonly searchToolbarContainerProps = mapSearchToolbarContainerProps;
+  public static readonly searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
 }

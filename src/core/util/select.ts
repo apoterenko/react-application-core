@@ -46,9 +46,9 @@ import {
 import { NvlUtils } from './nvl';
 import {
   IReduxFormHolderEntity,
-  IReduxListHolderEntity,
-  IReduxHolderQueryFilterEntity,
   IReduxLayoutHolderEntity,
+  IReduxListHolderEntity,
+  IReduxQueryFilterHolderEntity,
   IReduxStackHolderEntity,
   IReduxStackItemEntity,
   LayoutModesEnum,
@@ -430,10 +430,10 @@ const selectActiveToolbarToolsFromDirtyWrapper = (wrapper: IDirtyWrapper): Toolb
 
 /**
  * @stable [07.05.2020]
- * @param {IReduxHolderQueryFilterEntity} entity
+ * @param {IReduxQueryFilterHolderEntity} entity
  * @returns {string}
  */
-const selectQueryFilterEntityQuery = (entity: IReduxHolderQueryFilterEntity): string =>
+const selectQueryFilterEntityQuery = (entity: IReduxQueryFilterHolderEntity): string =>
   selectQuery(selectQueryFilter(entity));
 
 /**

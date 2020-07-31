@@ -15,6 +15,8 @@ import {
   IReduxPagedEntity,
   IReduxPaginatedEntity,
   IReduxPaginatedLifeCycleEntity,
+  IReduxQueryFilterEntity,
+  IReduxQueryFilterHolderEntity,
   IReduxStackEntity,
   IReduxStackHolderEntity,
   IReduxStoreEntity,
@@ -107,6 +109,22 @@ const mapPaginatedEntity = (entity: IReduxPaginatedEntity): IReduxPaginatedEntit
 /**
  * @map-as-original
  *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapQueryFilterEntity = (entity: IReduxQueryFilterEntity): IReduxQueryFilterEntity =>
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => FilterUtils.defValuesFilter<IReduxQueryFilterEntity, IReduxQueryFilterEntity>({
+      active: entity.active,
+      query: entity.query,
+    }),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @map-as-original
+ *
  * @stable [29.07.2020]
  * @param entity
  */
@@ -133,6 +151,15 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
   ...mapLifeCycleEntity(entity),
   ...mapPaginatedEntity(entity),
 });
+
+/**
+ * @map-as-original
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapQueryFilterHolderEntity = (entity: IReduxQueryFilterHolderEntity): IReduxQueryFilterHolderEntity =>
+  MapAsWrapperUtils.queryFilter(Selectors.queryFilter(entity));
 
 /**
  * @map-as-original
@@ -271,11 +298,10 @@ export class MapAsOriginalUtils {
   public static readonly pagedEntity = mapPagedEntity;
   public static readonly paginatedEntity = mapPaginatedEntity;
   public static readonly paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;
+  public static readonly queryFilterEntity = mapQueryFilterEntity;
+  public static readonly queryFilterHolderEntity = mapQueryFilterHolderEntity;
   public static readonly sectionNameWrapper = mapSectionNameWrapper;
-  public static readonly stackHolderEntity = mapStackHolderEntity;
   public static readonly storeBaseEntity = mapStoreBaseEntity;
   public static readonly storeEntity = mapStoreEntity;
   public static readonly tabPanelHolderEntity = mapTabPanelHolderEntity;
-  public static readonly transportHolderEntity = mapTransportHolderEntity;
-  public static readonly userHolderEntity = mapUserHolderEntity;
 }
