@@ -13,9 +13,9 @@ import {
   IUniversalContainerProps,
 } from './props-definition.interface';
 import { IBaseDictionariesEntity } from './dictionary-definition.interface';
-import { IReduxHolderLayoutEntity } from './layout-definition.interface';
-import { IReduxHolderNotificationEntity } from './notification-definition.interface';
-import { IReduxHolderStackEntity } from './stack-definition.interface';
+import { IReduxLayoutHolderEntity } from './layout-definition.interface';
+import { IReduxNotificationHolderEntity } from './notification-definition.interface';
+import { IReduxStackHolderEntity } from './stack-definition.interface';
 import { IUniversalStoreEntity } from './redux-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
@@ -45,7 +45,7 @@ export const UniversalIdProviderContext = React.createContext(null);
  */
 export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalStoreEntity<TDictionaries, TPermissions>,
-    IReduxHolderNotificationEntity,
+    IReduxNotificationHolderEntity,
     ISectionNameWrapper,
     ITitleWrapper<string | boolean> {
 }
@@ -55,7 +55,7 @@ export interface IUniversalContainerEntity<TDictionaries = {}, TPermissions = {}
  */
 export interface IContainerEntity<TDictionaries = {}, TPermissions = {}>
   extends IUniversalContainerEntity<TDictionaries, TPermissions>,
-    IReduxHolderLayoutEntity {
+    IReduxLayoutHolderEntity {
 }
 
 /**
@@ -67,7 +67,7 @@ export interface IWebContainerEntity
     ILocationWrapper<Location>,
     IRouteParamsWrapper,
     IQueryParamsWrapper<URLSearchParams>,
-    IReduxHolderStackEntity {
+    IReduxStackHolderEntity {
 }
 
 /**

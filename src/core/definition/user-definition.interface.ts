@@ -23,7 +23,7 @@ export interface IReduxUserEntity
  * @redux-holder-entity
  * @stable [21.05.2020]
  */
-export interface IReduxHolderUserEntity<TEntity = IReduxUserEntity>
+export interface IReduxUserHolderEntity<TEntity = IReduxUserEntity>
   extends IUserWrapper<TEntity> {
 }
 

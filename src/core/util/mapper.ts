@@ -5,8 +5,8 @@ import {
   IHeaderProps,
   IOperationEntity,
   IPresetsSelectableHoveredEntity,
-  IReduxHolderTransportEntity,
   IReduxSortDirectionsEntity,
+  IReduxTransportHolderEntity,
   ISortDirectionEntity,
   ISortDirectionsEntity,
   IUniversalApplicationEntity,
@@ -36,18 +36,18 @@ import { MapAsWrapperUtils } from './map-as-wrapper';
 
 /**
  * @stable [17.11.2019]
- * @param {IReduxHolderTransportEntity} entity
+ * @param {IReduxTransportHolderEntity} entity
  * @returns {string}
  */
-export const selectTransportWrapperToken = (entity: IReduxHolderTransportEntity): string =>
+export const selectTransportWrapperToken = (entity: IReduxTransportHolderEntity): string =>
   selectToken(Selectors.transport(entity));
 
 /**
  * @stable [25.11.2019]
- * @param {IReduxHolderTransportEntity} entity
+ * @param {IReduxTransportHolderEntity} entity
  * @returns {string[]}
  */
-export const selectTransportWrapperQueue = (entity: IReduxHolderTransportEntity): string[] =>
+export const selectTransportWrapperQueue = (entity: IReduxTransportHolderEntity): string[] =>
   Selectors.queue(Selectors.transport(entity));
 
 /**
@@ -126,11 +126,11 @@ export const hasQueueOperations = (queue: string[],
 
 /**
  * @stable [25.11.2019]
- * @param {IReduxHolderTransportEntity} entity
+ * @param {IReduxTransportHolderEntity} entity
  * @param {string | IOperationEntity} operations
  * @returns {boolean}
  */
-export const hasTransportWrapperQueueOperations = (entity: IReduxHolderTransportEntity,
+export const hasTransportWrapperQueueOperations = (entity: IReduxTransportHolderEntity,
                                                    ...operations: Array<string | IOperationEntity>): boolean =>
   hasQueueOperations(selectTransportWrapperQueue(entity), ...operations);
 
@@ -156,7 +156,7 @@ export const doesApplicationErrorExist = (entity: IUniversalApplicationEntity): 
 export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity): boolean =>
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);
 
-const mapHeaderProps = (props: IHeaderProps): IHeaderProps => GenericMappers.storeEntity(props);
+const mapHeaderProps = (props: IHeaderProps): IHeaderProps => MapAsOriginalUtils.storeEntity(props);
 
 /**
  * @stable [05.05.2020]
@@ -185,7 +185,6 @@ export class Mappers {
   public static readonly holderListEntityAsDisabled = GenericMappers.holderListEntityAsDisabled;                                                                                            /* @stable [08.07.2020] */
   public static readonly holderQueryFilterEntity = GenericMappers.holderQueryFilterEntity;                                                                                                  /* @stable [26.07.2020] */
   public static readonly holderQueryFilterEntityAsQuery = GenericMappers.holderQueryFilterEntityAsQuery;                                                                                    /* @stable [27.07.2020] */
-  public static readonly holderTransportEntity = GenericMappers.holderTransportEntity;                                                                                                      /* @stable [12.06.2020] */
   public static readonly listContainerProps = ComponentMappers.listContainerProps;                                                                                                          /* @stable [10.05.2020] */
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                                                  /* @stable [08.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                                                    /* @stable [08.05.2020] */
@@ -202,13 +201,14 @@ export class Mappers {
   public static readonly sectionNameWrapper = MapAsOriginalUtils.sectionNameWrapper;                                                                                                        /* @stable [30.07.2020] */
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
   public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                                                              /* @stable [10.05.2020] */
-  public static readonly storeEntity = GenericMappers.storeEntity;                                                                                                                          /* @stable [09.06.2020] */
+  public static readonly storeEntity = MapAsOriginalUtils.storeEntity;                                                                                                                      /* @stable [31.07.2020] */
   public static readonly tabPanelContainerProps = MapAsComponentUtils.tabPanelContainerProps;                                                                                               /* @stable [30.07.2020] */
   public static readonly tabPanelContainerPropsAsTabPanelProps = MapAsComponentUtils.tabPanelContainerPropsAsTabPanelProps;                                                                 /* @stable [30.07.2020] */
   public static readonly tabPanelHolderEntity = MapAsOriginalUtils.tabPanelHolderEntity;                                                                                                    /* @stable [29.07.2020] */
   public static readonly toolbarToolsContainerProps = ComponentMappers.toolbarToolsContainerProps;                                                                                          /* @stable [09.05.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = ComponentMappers.toolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [10.06.2020] */
   public static readonly toolbarToolsSecondaryFilterContainerProps = ComponentMappers.toolbarToolsSecondaryFilterContainerProps;                                                            /* @stable [10.05.2020] */
+  public static readonly transportHolderEntity = MapAsOriginalUtils.transportHolderEntity;                                                                                                  /* @stable [31.07.2020] */
   public static readonly unsavedFormChangesDialogContainerProps = ComponentMappers.unsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = ComponentMappers.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.06.2020] */
 }

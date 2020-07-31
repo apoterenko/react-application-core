@@ -42,7 +42,7 @@ export interface IReduxStackEntity
  * @redux-holder-entity
  * @stable [21.05.2020]
  */
-export interface IReduxHolderStackEntity<TEntity = IReduxStackEntity>
+export interface IReduxStackHolderEntity<TEntity = IReduxStackEntity>
   extends IStackWrapper<TEntity> {
 }
 

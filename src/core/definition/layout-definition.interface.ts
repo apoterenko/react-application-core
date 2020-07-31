@@ -29,7 +29,7 @@ export interface IReduxLayoutEntity
  * @redux-holder-entity
  * @stable [21.05.2020]
  */
-export interface IReduxHolderLayoutEntity<TEntity = IReduxLayoutEntity>
+export interface IReduxLayoutHolderEntity<TEntity = IReduxLayoutEntity>
   extends ILayoutWrapper<TEntity> {
 }
 

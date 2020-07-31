@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 
 import {
-  IReduxHolderStackEntity,
   IReduxStackEntity,
+  IReduxStackHolderEntity,
   IReduxStackItemEntity,
 } from '../definition';
 import { Selectors } from './select';
@@ -38,10 +38,10 @@ const doesStackEntityContainChildren = (entity: IReduxStackEntity): boolean =>
 
 /**
  * @stable [21.05.2020]
- * @param {IReduxHolderStackEntity} entity
+ * @param {IReduxStackHolderEntity} entity
  * @returns {boolean}
  */
-const doesHolderStackEntityContainChildren = (entity: IReduxHolderStackEntity): boolean =>
+const doesHolderStackEntityContainChildren = (entity: IReduxStackHolderEntity): boolean =>
   doesStackEntityContainChildren(Selectors.stack(entity));
 
 /**

@@ -13,7 +13,7 @@ import {
 import {
   IReduxChannelMessageEntity,
   IReduxChannelsEntity,
-  INITIAL_CHANNELS_ENTITY,
+  INITIAL_REDUX_CHANNELS_ENTITY,
 } from '../definition';
 
 /**
@@ -22,7 +22,7 @@ import {
  * @param {AnyAction} action
  * @returns {IReduxChannelsEntity}
  */
-export function channelReducer(state: IReduxChannelsEntity = INITIAL_CHANNELS_ENTITY,
+export function channelReducer(state: IReduxChannelsEntity = INITIAL_REDUX_CHANNELS_ENTITY,
                                action: AnyAction): IReduxChannelsEntity {
   let current;
   const message: IReduxChannelMessageEntity = action.data;
@@ -58,7 +58,7 @@ export function channelReducer(state: IReduxChannelsEntity = INITIAL_CHANNELS_EN
           return {
             ...state,
             [message.ip]: {
-              ...INITIAL_CHANNELS_ENTITY,
+              ...INITIAL_REDUX_CHANNELS_ENTITY,
               connected: true,
             },
           };
@@ -66,7 +66,7 @@ export function channelReducer(state: IReduxChannelsEntity = INITIAL_CHANNELS_EN
           return {
             ...state,
             [message.ip]: {
-              ...INITIAL_CHANNELS_ENTITY,
+              ...INITIAL_REDUX_CHANNELS_ENTITY,
               connected: false,
             },
           };

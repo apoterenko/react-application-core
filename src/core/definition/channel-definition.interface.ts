@@ -41,12 +41,12 @@ export interface IReduxChannelsEntity
  * @redux-holder-entity
  * @stable [12.06.2020]
  */
-export interface IReduxHolderChannelEntity<TEntity = IReduxChannelsEntity>
+export interface IReduxChannelHolderEntity<TEntity = IReduxChannelsEntity>
   extends IChannelWrapper<TEntity> {
 }
 
 /**
- * @stable [24.09.2019]
+ * @initial-redux-entity
+ * @stable [31.07.2020]
  */
-export const INITIAL_CHANNELS_ENTITY = Object.freeze<IReduxChannelsEntity>({
-});
+export const INITIAL_REDUX_CHANNELS_ENTITY = Object.freeze<IReduxChannelsEntity>({});

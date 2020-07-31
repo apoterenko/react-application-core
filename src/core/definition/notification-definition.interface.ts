@@ -26,15 +26,15 @@ export interface IFluxNotificationEntity
  * @redux-holder-entity
  * @stable [12.06.2020]
  */
-export interface IReduxHolderNotificationEntity<TEntity = IReduxNotificationEntity>
+export interface IReduxNotificationHolderEntity<TEntity = IReduxNotificationEntity>
   extends INotificationWrapper<TEntity> {
 }
 
 /**
- * @initial-entity
- * @stable [24.09.2019]
+ * @initial-redux-entity
+ * @stable [31.07.2020]
  */
-export const INITIAL_NOTIFICATION_ENTITY = Object.freeze<IReduxNotificationEntity>({
+export const INITIAL_REDUX_NOTIFICATION_ENTITY = Object.freeze<IReduxNotificationEntity>({
   error: null,
   info: null,
 });

@@ -61,14 +61,15 @@ export interface IReduxAsyncLibsEntity {
  * @redux-holder-entity
  * @stable [08.06.2020]
  */
-export interface IReduxHolderAsyncLibsEntity<TEntity = IReduxAsyncLibsEntity>
+export interface IReduxAsyncLibsHolderEntity<TEntity = IReduxAsyncLibsEntity>
   extends IAsyncLibsWrapper<TEntity> {
 }
 
 /**
- * @stable [08.01.2020]
+ * @initial-redux-entity
+ * @stable [31.07.2020]
  */
-export const INITIAL_ASYNC_LIBS_ENTITY = Object.freeze<IReduxAsyncLibsEntity>({});
+export const INITIAL_REDUX_ASYNC_LIBS_ENTITY = Object.freeze<IReduxAsyncLibsEntity>({});
 
 /**
  * @stable [08.01.2020]

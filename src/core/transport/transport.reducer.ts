@@ -5,7 +5,7 @@ import {
 import {
   $_RAC_TRANSPORT_DESTROY_TOKEN_ACTION_TYPE,
   $_RAC_TRANSPORT_UPDATE_TOKEN_ACTION_TYPE,
-  INITIAL_TRANSPORT_ENTITY,
+  INITIAL_REDUX_TRANSPORT_ENTITY,
   IReduxTransportEntity,
   IFluxTransportEntity,
 } from '../definition';
@@ -21,7 +21,7 @@ import {
   selectData,
 } from '../util';
 
-export function transportReducer(state: IReduxTransportEntity = INITIAL_TRANSPORT_ENTITY,
+export function transportReducer(state: IReduxTransportEntity = INITIAL_REDUX_TRANSPORT_ENTITY,
                                  action: IEffectsAction): IReduxTransportEntity {
   const payloadData = selectData<IFluxTransportEntity>(action);
   const operationId = ifNotNilThanValue(payloadData, (data) => data.operationId);
@@ -45,7 +45,7 @@ export function transportReducer(state: IReduxTransportEntity = INITIAL_TRANSPOR
       };
     case TRANSPORT_DESTROY_ACTION_TYPE: {
       return {
-          ...INITIAL_TRANSPORT_ENTITY,
+          ...INITIAL_REDUX_TRANSPORT_ENTITY,
       };
     }
     case $_RAC_TRANSPORT_UPDATE_TOKEN_ACTION_TYPE:

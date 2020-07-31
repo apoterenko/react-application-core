@@ -4,7 +4,7 @@ import {
   $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE,
   $_RAC_NOTIFICATION_ERROR_ACTION_TYPE,
   $_RAC_NOTIFICATION_INFO_ACTION_TYPE,
-  INITIAL_NOTIFICATION_ENTITY,
+  INITIAL_REDUX_NOTIFICATION_ENTITY,
   IReduxNotificationEntity,
 } from '../../definition';
 import {
@@ -18,7 +18,7 @@ import {
  * @param {IEffectsAction} action
  * @returns {IReduxNotificationEntity}
  */
-export const notificationReducer = (state: IReduxNotificationEntity = INITIAL_NOTIFICATION_ENTITY,
+export const notificationReducer = (state: IReduxNotificationEntity = INITIAL_REDUX_NOTIFICATION_ENTITY,
                                     action: IEffectsAction): IReduxNotificationEntity => {
   const notificationEntity = selectData<IReduxNotificationEntity>(action);
   switch (action.type) {
@@ -34,7 +34,7 @@ export const notificationReducer = (state: IReduxNotificationEntity = INITIAL_NO
       };
     case $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE:
       return {
-        ...INITIAL_NOTIFICATION_ENTITY,
+        ...INITIAL_REDUX_NOTIFICATION_ENTITY,
       };
   }
   return state;

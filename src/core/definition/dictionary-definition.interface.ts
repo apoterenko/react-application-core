@@ -69,6 +69,6 @@ export interface IReduxDictionariesEntity
  * @redux-holder-entity
  * @stable [08.06.2020]
  */
-export interface IReduxHolderDictionariesEntity<TEntity = IReduxDictionariesEntity>
+export interface IReduxDictionariesHolderEntity<TEntity = IReduxDictionariesEntity>
   extends IDictionariesWrapper<TEntity> {
 }

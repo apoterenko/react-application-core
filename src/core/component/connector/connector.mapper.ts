@@ -1,8 +1,8 @@
 import {
-  IReduxHolderNotificationEntity,
+  IReduxNotificationHolderEntity,
 } from '../../definition';
 
-export const notificationMapper = (state: IReduxHolderNotificationEntity): IReduxHolderNotificationEntity => ({
+export const notificationMapper = (state: IReduxNotificationHolderEntity): IReduxNotificationHolderEntity => ({
   notification: {
     ...state.notification,
   },

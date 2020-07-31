@@ -7,7 +7,7 @@ import {
   DynamicSectionsMapT,
   INavigationListItemEntity,
   IPermissionsManager,
-  IReduxHolderStackEntity,
+  IReduxStackHolderEntity,
   NavigationItemTypesEnum,
 } from '../definition';
 import {
@@ -22,7 +22,7 @@ export class NavigationMenuBuilder {
   @lazyInject(DI_TYPES.Menu) private readonly menu: INavigationListItemEntity[];
   @lazyInject(DI_TYPES.PermissionsManager) private readonly permissionsManager: IPermissionsManager;
 
-  public provide(wrapperEntity: IReduxHolderStackEntity): INavigationListItemEntity[] {
+  public provide(wrapperEntity: IReduxStackHolderEntity): INavigationListItemEntity[] {
     let menuItems: INavigationListItemEntity[] = [];
     this.menu.forEach((item) => {
       const itemChildren = item.children;

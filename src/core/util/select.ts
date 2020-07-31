@@ -46,10 +46,10 @@ import {
 import { NvlUtils } from './nvl';
 import {
   IReduxFormHolderEntity,
-  IReduxHolderLayoutEntity,
   IReduxHolderListEntity,
   IReduxHolderQueryFilterEntity,
-  IReduxHolderStackEntity,
+  IReduxLayoutHolderEntity,
+  IReduxStackHolderEntity,
   IReduxStackItemEntity,
   LayoutModesEnum,
   ToolbarToolsEnum,
@@ -438,26 +438,26 @@ const selectQueryFilterEntityQuery = (entity: IReduxHolderQueryFilterEntity): st
 
 /**
  * @stable [21.05.2020]
- * @param {IReduxHolderStackEntity} entity
+ * @param {IReduxStackHolderEntity} entity
  * @returns {IReduxStackItemEntity[]}
  */
-const selectStackItemEntities = (entity: IReduxHolderStackEntity): IReduxStackItemEntity[] => selectStack(selectStack(entity));
+const selectStackItemEntities = (entity: IReduxStackHolderEntity): IReduxStackItemEntity[] => selectStack(selectStack(entity));
 
 /**
  * @stable [21.05.2020]
- * @param {IReduxHolderLayoutEntity} entity
+ * @param {IReduxLayoutHolderEntity} entity
  * @returns {LayoutModesEnum}
  */
-const selectLayoutMode = (entity: IReduxHolderLayoutEntity): LayoutModesEnum => selectMode(selectLayout(entity));
+const selectLayoutMode = (entity: IReduxLayoutHolderEntity): LayoutModesEnum => selectMode(selectLayout(entity));
 
 /**
  * @stable [21.05.2020]
- * @param {IReduxHolderLayoutEntity} merged
- * @param {IReduxHolderLayoutEntity} original
+ * @param {IReduxLayoutHolderEntity} merged
+ * @param {IReduxLayoutHolderEntity} original
  * @returns {LayoutModesEnum}
  */
-const selectMergedLayoutMode = (merged: IReduxHolderLayoutEntity,
-                                original: IReduxHolderLayoutEntity): LayoutModesEnum =>
+const selectMergedLayoutMode = (merged: IReduxLayoutHolderEntity,
+                                original: IReduxLayoutHolderEntity): LayoutModesEnum =>
   NvlUtils.nvl(
     selectLayoutMode(merged),
     selectLayoutMode(original)

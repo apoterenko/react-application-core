@@ -237,7 +237,7 @@ const mapToolbarToolsContainerPropsAsToolbarToolsProps = (props: IToolbarToolsCo
 const mapDefaultLayoutContainerProps = (entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
   ({
     ...MapAsOriginalUtils.sectionNameWrapper(entity),
-    ...GenericMappers.storeEntity(entity),
+    ...MapAsOriginalUtils.storeEntity(entity),
   });
 
 /**

@@ -1,5 +1,3 @@
-import * as R from 'ramda';
-
 import {
   AnyT,
   IDisabledWrapper,
@@ -24,33 +22,18 @@ import {
   IPresetsSelectOptionEntity,
   IPrimaryFilterExtendedFormEntity,
   IReduxBaseSelectEntity,
-  IReduxChannelEntity,
-  IReduxDictionariesEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxFormHolderEntity,
-  IReduxHolderChannelEntity,
-  IReduxHolderDictionariesEntity,
-  IReduxHolderLayoutEntity,
   IReduxHolderListEntity,
-  IReduxHolderNotificationEntity,
   IReduxHolderPrimaryFilterFormEntity,
   IReduxHolderQueryFilterEntity,
   IReduxHolderSecondaryFilterFormEntity,
-  IReduxHolderStackEntity,
-  IReduxHolderTransportEntity,
-  IReduxHolderUserEntity,
-  IReduxLayoutEntity,
   IReduxLifeCycleEntity,
-  IReduxNotificationEntity,
   IReduxPagedEntity,
   IReduxPaginatedEntity,
   IReduxPaginatedLifeCycleEntity,
   IReduxQueryFilterEntity,
-  IReduxStackEntity,
-  IReduxStoreEntity,
-  IReduxTransportEntity,
-  IReduxUserEntity,
   ISecondaryFilterExtendedFormEntity,
   ISecondaryFilterFormEntity,
 } from '../definition';
@@ -85,37 +68,6 @@ const mapHolderQueryFilterEntity = (entity: IReduxHolderQueryFilterEntity): IRed
  * @returns {IReduxHolderListEntity}
  */
 const mapHolderListEntity = (entity: IReduxHolderListEntity): IReduxHolderListEntity => MapAsWrapperUtils.list(Selectors.list(entity));
-
-/**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param entity
- */
-const mapHolderChannelEntity =
-  <TEntity = IReduxChannelEntity>(entity: IReduxHolderChannelEntity<TEntity>): IReduxHolderChannelEntity<TEntity> =>
-    MapAsWrapperUtils.channel(Selectors.channel(entity));
-
-/**
- * @map-as-original
- *
- * @stable [27.07.2020]
- * @param entity
- */
-const mapHolderNotificationEntity =
-  <TEntity = IReduxNotificationEntity>(entity: IReduxHolderNotificationEntity<TEntity>): IReduxHolderNotificationEntity<TEntity> =>
-    MapAsWrapperUtils.notification(Selectors.notification(entity));
-
-/**
- * @map-as-original
- *
- * @stable [12.06.2020]
- * @param {IReduxHolderTransportEntity<TEntity>} entity
- * @returns {IReduxHolderTransportEntity<TEntity>}
- */
-const mapHolderTransportEntity =
-  <TEntity = IReduxTransportEntity>(entity: IReduxHolderTransportEntity<TEntity>): IReduxHolderTransportEntity<TEntity> =>
-    MapAsWrapperUtils.transport(Selectors.transport(entity));
 
 /**
  * @map-as
@@ -378,50 +330,6 @@ const mapPaginatedLifeCycleEntity = (entity: IReduxPaginatedLifeCycleEntity): IR
 });
 
 /**
- * @map-as-original
- *
- * @stable [09.06.2020]
- * @param {IReduxHolderLayoutEntity<TEntity>} wrapper
- * @returns {IReduxHolderLayoutEntity<TEntity>}
- */
-const mapHolderLayoutEntity =
-  <TEntity = IReduxLayoutEntity>(wrapper: IReduxHolderLayoutEntity<TEntity>): IReduxHolderLayoutEntity<TEntity> =>
-    MapAsWrapperUtils.layout(Selectors.layout(wrapper));
-
-/**
- * @map-as-original
- *
- * @stable [09.06.2020]
- * @param {IReduxHolderStackEntity<TEntity>} wrapper
- * @returns {IReduxHolderStackEntity<TEntity>}
- */
-const mapHolderStackEntity =
-  <TEntity = IReduxStackEntity>(wrapper: IReduxHolderStackEntity<TEntity>): IReduxHolderStackEntity<TEntity> =>
-    MapAsWrapperUtils.stack(Selectors.stack(wrapper));
-
-/**
- * @map-as-original
- *
- * @stable [09.06.2020]
- * @param {IReduxHolderUserEntity<TEntity>} wrapper
- * @returns {IReduxHolderUserEntity<TEntity>}
- */
-const mapHolderUserEntity =
-  <TEntity = IReduxUserEntity>(wrapper: IReduxHolderUserEntity<TEntity>): IReduxHolderUserEntity<TEntity> =>
-    MapAsWrapperUtils.user(Selectors.user(wrapper));
-
-/**
- * @map-as-original
- *
- * @stable [09.06.2020]
- * @param {IReduxHolderDictionariesEntity<TEntity>} wrapper
- * @returns {IReduxHolderDictionariesEntity<TEntity>}
- */
-const mapHolderDictionariesEntity =
-  <TEntity = IReduxDictionariesEntity>(wrapper: IReduxHolderDictionariesEntity<TEntity>): IReduxHolderDictionariesEntity<TEntity> =>
-    MapAsWrapperUtils.dictionaries(Selectors.dictionaries(wrapper));
-
-/**
  * @mapper
  * @stable [10.05.2020]
  * @param {IReduxHolderPrimaryFilterFormEntity<TEntity>} formEntity
@@ -546,25 +454,6 @@ const mapDictionaryEntityAsSelectEntity =
     });
 
 /**
- * @map-as-original
- *
- * @stable [09.06.2020]
- * @param {IReduxStoreEntity<TDictionaries>} entity
- * @returns {IReduxStoreEntity<TDictionaries>}
- */
-const mapStoreEntity =
-  <TDictionaries = {}>(entity: IReduxStoreEntity<TDictionaries>): IReduxStoreEntity<TDictionaries> =>
-    ({
-      ...mapHolderChannelEntity(entity),
-      ...mapHolderDictionariesEntity(entity),
-      ...mapHolderLayoutEntity(entity),
-      ...mapHolderNotificationEntity(entity),
-      ...mapHolderStackEntity(entity),
-      ...mapHolderTransportEntity(entity),
-      ...mapHolderUserEntity(entity),
-    });
-
-/**
  * @stable [06.05.2020]
  */
 export class GenericMappers {
@@ -572,14 +461,10 @@ export class GenericMappers {
   public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;                                      /* stable [19.05.2020] */
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;                                                              /* stable [10.05.2020] */
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
-  public static readonly holderDictionariesEntity = mapHolderDictionariesEntity;                                                                  /* stable [09.06.2020] */
   public static readonly holderListEntity = mapHolderListEntity;                                                                                  /* stable [12.06.2020] */
   public static readonly holderListEntityAsDisabled = mapHolderListEntityAsDisabled;                                                              /* stable [08.07.2020] */
-  public static readonly holderNotificationEntity = mapHolderNotificationEntity;                                                                  /* stable [12.06.2020] */
   public static readonly holderQueryFilterEntity = mapHolderQueryFilterEntity;                                                                    /* stable [26.07.2020] */
   public static readonly holderQueryFilterEntityAsQuery = mapHolderQueryFilterEntityAsQuery;                                                      /* stable [27.07.2020] */
-  public static readonly holderTransportEntity = mapHolderTransportEntity;                                                                        /* stable [12.06.2020] */
-  public static readonly holderUserEntity = mapHolderUserEntity;                                                                                  /* stable [09.06.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;                                      /* stable [09.05.2020] */
   public static readonly listSelectedExtendedFormEntityAsFinalEntity = mapListSelectedExtendedFormEntityAsFinalEntity;                            /* stable [10.05.2020] */
@@ -592,5 +477,4 @@ export class GenericMappers {
   public static readonly queryFilterEntity = mapQueryFilterEntity;                                                                                /* stable [27.07.2020] */
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity;  /* stable [10.05.2020] */
   public static readonly secondaryFilterFormEntityAsHolderFormEntity = mapSecondaryFilterFormEntityAsHolderFormEntity;                            /* stable [27.07.2020] */
-  public static readonly storeEntity = mapStoreEntity;                                                                                            /* stable [09.06.2020] */
 }

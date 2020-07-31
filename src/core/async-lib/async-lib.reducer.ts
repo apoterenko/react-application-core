@@ -4,7 +4,7 @@ import {
   $RAC_ASYNC_LIB_LOAD_ACTION_TYPE,
   $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE,
   IAsyncLibPayloadEntity,
-  INITIAL_ASYNC_LIBS_ENTITY,
+  INITIAL_REDUX_ASYNC_LIBS_ENTITY,
   IReduxAsyncLibsEntity,
 } from '../definition';
 
@@ -14,7 +14,7 @@ import {
  * @param {AnyAction} action
  * @returns {IReduxAsyncLibsEntity}
  */
-export const asyncLibReducer = (state: IReduxAsyncLibsEntity = INITIAL_ASYNC_LIBS_ENTITY,
+export const asyncLibReducer = (state: IReduxAsyncLibsEntity = INITIAL_REDUX_ASYNC_LIBS_ENTITY,
                                 action: AnyAction): IReduxAsyncLibsEntity => {
   const actionData: IAsyncLibPayloadEntity = action.data;
 

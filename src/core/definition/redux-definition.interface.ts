@@ -21,15 +21,15 @@ import {
   ISelectWrapper,
   IUpdateWrapper,
 } from '../definitions.interface';
-import { IReduxHolderNotificationEntity } from './notification-definition.interface';
 import { IPermissionsWrapperEntity } from './permission-definition.interface';
-import { IReduxHolderAsyncLibsEntity } from './async-lib-definition.interface';
-import { IReduxHolderChannelEntity } from './channel-definition.interface';
-import { IReduxHolderDictionariesEntity } from './dictionary-definition.interface';
-import { IReduxHolderLayoutEntity } from './layout-definition.interface';
-import { IReduxHolderStackEntity } from './stack-definition.interface';
-import { IReduxHolderTransportEntity } from './transport-definition.interface';
-import { IReduxHolderUserEntity } from './user-definition.interface';
+import { IReduxAsyncLibsHolderEntity } from './async-lib-definition.interface';
+import { IReduxChannelHolderEntity } from './channel-definition.interface';
+import { IReduxDictionariesHolderEntity } from './dictionary-definition.interface';
+import { IReduxLayoutHolderEntity } from './layout-definition.interface';
+import { IReduxNotificationHolderEntity } from './notification-definition.interface';
+import { IReduxStackHolderEntity } from './stack-definition.interface';
+import { IReduxTransportHolderEntity } from './transport-definition.interface';
+import { IReduxUserHolderEntity } from './user-definition.interface';
 import { ISelectedEntity } from './entity-definition.interface';
 import { IUniversalApplicationWrapperEntity } from './application-definition.interface';
 
@@ -114,14 +114,14 @@ export interface IStateSerializer<TState extends IStoreEntity = IStoreEntity> {
  * @stable [22.05.2020]
  */
 export interface IReduxStoreEntity<TDictionaries = {}>
-  extends IReduxHolderAsyncLibsEntity,
-    IReduxHolderChannelEntity,
-    IReduxHolderDictionariesEntity<TDictionaries>,
-    IReduxHolderLayoutEntity,
-    IReduxHolderNotificationEntity,
-    IReduxHolderStackEntity,
-    IReduxHolderTransportEntity,
-    IReduxHolderUserEntity {
+  extends IReduxAsyncLibsHolderEntity,
+    IReduxChannelHolderEntity,
+    IReduxDictionariesHolderEntity<TDictionaries>,
+    IReduxLayoutHolderEntity,
+    IReduxNotificationHolderEntity,
+    IReduxStackHolderEntity,
+    IReduxTransportHolderEntity,
+    IReduxUserHolderEntity {
 }
 
 /**

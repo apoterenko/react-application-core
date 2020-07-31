@@ -343,14 +343,15 @@ export interface IFluxTransportEntity
  * @redux-holder-entity
  * @stable [12.06.2020]
  */
-export interface IReduxHolderTransportEntity<TTransport = IReduxTransportEntity>
+export interface IReduxTransportHolderEntity<TTransport = IReduxTransportEntity>
   extends ITransportWrapper<TTransport> {
 }
 
 /**
- * @stable [24.09.2019]
+ * @initial-redux-entity
+ * @stable [31.07.2020]
  */
-export const INITIAL_TRANSPORT_ENTITY = Object.freeze<IReduxTransportEntity>({
+export const INITIAL_REDUX_TRANSPORT_ENTITY = Object.freeze<IReduxTransportEntity>({
   queue: [],
   token: null,
 });
