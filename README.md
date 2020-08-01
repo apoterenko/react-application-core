@@ -405,39 +405,65 @@ class RolesEffects extends BaseEffects<IApi> {
 }
 ```
 
-###### Role effects
+###### Access group effects
 
 ```typescript
-import { IEffectsAction, EffectsService } from 'redux-effects-promise';
-
 import {
-  provideInSingleton,
-  FormActionBuilder,
-  IApiEntity,
+  EffectsService,
+  IEffectsAction,
+} from 'redux-effects-promise';
+import {
   BaseEffects,
-  makeSucceedFormEffectsProxy,
-  makeFailedFormEffectsProxy,
+  CustomActionBuilder,
+  DiSupport,
   effectsBy,
+  EffectsFactories,
+  FormActionBuilder,
+  ListActionBuilder,
+  RouterActionBuilder,
+  Selectors,
 } from 'react-application-core';
 
-import { ROLES_SECTION } from '../roles.interface';
-import { ROLE_SECTION } from './role.interface';
-import { IApi } from '../../../api/api.interface';
-import { IRoleEntity } from '../../permission.interface';
+import { IPosAccessGroupEntity } from 'pos';
 
-@provideInSingleton(RoleEffects)
+import { IApi } from '../../../api';
+import { IPortalState } from '../../../app.interface';
+import { PA_GROUP_SECTION } from './portal-access-group.interface';
+import { PA_GROUPS_SECTION } from '../portal-access-groups.interface';
+import { PortalRoutes } from '../../../app.routes';
+
+@DiSupport.provideInSingleton(PortalAccessGroupEffects)
 @effectsBy(
-    makeFailedFormEffectsProxy(ROLE_SECTION),
-    makeSucceedFormEffectsProxy({
-      listSection: ROLES_SECTION,
-      formSection: ROLE_SECTION,
-    })
+  EffectsFactories.formSubmitErrorEffectsProxy(PA_GROUP_SECTION),
+  EffectsFactories.succeedEditedListEffectsProxy({
+    listSection: PA_GROUPS_SECTION,
+    formSection: PA_GROUP_SECTION,
+  })
 )
-class RoleEffects extends BaseEffects<IApi> {
+class PortalAccessGroupEffects extends BaseEffects<IApi> {
 
-  @EffectsService.effects(FormActionBuilder.buildSubmitActionType(ROLE_SECTION))
-  public onSaveRole(action: IEffectsAction): Promise<IRoleEntity> {
-    return this.api.saveRole(action.data as IApiEntity<IRoleEntity>);
+  /**
+   * @stable [01.08.2020]
+   * @param action
+   */
+  @EffectsService.effects(FormActionBuilder.buildSubmitActionType(PA_GROUP_SECTION))
+  public $onSaveAccessGroup = (action: IEffectsAction): Promise<IPosAccessGroupEntity> =>
+    this.api.saveAccessGroup(action.data)
+
+  /**
+   * @stable [01.08.2020]
+   * @param action
+   * @param state
+   */
+  @EffectsService.effects(CustomActionBuilder.buildCustomDeleteActionType(PA_GROUP_SECTION))
+  public async $onDeleteAccessGroup(action: IEffectsAction, state: IPortalState): Promise<IEffectsAction[]> {
+    await this.api.deleteAccessGroup(
+      Selectors.listSelectedEntity<IPosAccessGroupEntity>(state.access.accessGroups).id
+    );
+    return [
+      ListActionBuilder.buildLoadAction(PA_GROUPS_SECTION),
+      RouterActionBuilder.buildReplaceAction(PortalRoutes.ACCESS_GROUPS)
+    ];
   }
 }
 ```
