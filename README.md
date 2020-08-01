@@ -42,7 +42,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @component-container-impl
 
-* [FilterFormDialogContainer (09.05.2020)](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
+* [FilterFormDialogContainer (01.08.2020)](src/core/component/dialog/filter-form-dialog/filter-form-dialog.container.tsx)
 * [FormContainer (09.05.2020)](src/core/component/form/form.container.tsx)
 * [FormTabPanelContainer (30.07.2020)](src/core/component/tab-panel/form/form-tab-panel.container.tsx)
 * [PageToolbarContainer (31.07.2020)](src/core/component/toolbar/page/page-toolbar.container.tsx)
