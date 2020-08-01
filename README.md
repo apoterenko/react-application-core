@@ -68,6 +68,7 @@ The library is designed to quickly start develop the business applications are b
 * [SubHeader (22.05.2020)](src/core/component/sub-header/sub-header.component.tsx)
 * [SubHeaderLink (22.05.2020)](src/core/component/sub-header-link/sub-header-link.component.tsx)
 * [Title (01.06.2020)](src/core/component/title/title.component.tsx)
+* [ToolbarTools (01.08.2020)](src/core/component/toolbar-tools/toolbar-tools.component.tsx)
 * [UnsavedFormChangesDialog (11.05.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
 
 #### @effects-proxy-factory
@@ -90,6 +91,10 @@ The library is designed to quickly start develop the business applications are b
 * [map-container-as-component](src/core/util/map-as-component.ts)
 * [map-entity-as-container](src/core/util/map-as-component.ts)
 * [mapper](src/core/util/mapper.ts)
+
+#### @configuration-entity
+
+* [IConfigurationToolbarToolsEntity](src/core/definition/toolbar-tools-definition.interface.ts)
 
 # Theme customization (styling)
 
