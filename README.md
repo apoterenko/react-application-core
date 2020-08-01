@@ -80,6 +80,14 @@ The library is designed to quickly start develop the business applications are b
 * [formReducer](src/core/component/form/form.reducer.ts)
 * [queryFilterReducer](src/core/component/filter/query-filter.reducer.ts)
 
+#### @map
+
+* [map-as-component](src/core/util/map-as-component.ts)
+* [map-as-original](src/core/util/map-as-original.ts)
+* [map-as-wrapper](src/core/util/map-as-wrapper.ts)
+* [map-as](src/core/util/map-as.ts)
+* [mapper](src/core/util/mapper.ts)
+
 # Theme customization (styling)
 
 #### Button
