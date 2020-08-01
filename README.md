@@ -83,9 +83,12 @@ The library is designed to quickly start develop the business applications are b
 #### @map
 
 * [map-as-component](src/core/util/map-as-component.ts)
+* [map-as-container](src/core/util/map-as-component.ts)
 * [map-as-original](src/core/util/map-as-original.ts)
 * [map-as-wrapper](src/core/util/map-as-wrapper.ts)
 * [map-as](src/core/util/map-as.ts)
+* [map-container-as-component](src/core/util/map-as-component.ts)
+* [map-entity-as-container](src/core/util/map-as-component.ts)
 * [mapper](src/core/util/mapper.ts)
 
 # Theme customization (styling)
