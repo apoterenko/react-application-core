@@ -22,15 +22,13 @@ import {
   IReduxBaseSelectEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
-  IReduxFormHolderEntity,
-  IReduxHolderPrimaryFilterFormEntity,
-  IReduxHolderSecondaryFilterFormEntity,
+  IReduxPrimaryFilterFormEntity,
+  IReduxSecondaryFilterFormEntity,
   IReduxListHolderEntity,
   IReduxPagedEntity,
   IReduxPaginatedEntity,
   IReduxQueryFilterHolderEntity,
   ISecondaryFilterExtendedFormEntity,
-  IReduxSecondaryFilterFormHolderEntity,
 } from '../definition';
 import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsUtils } from './map-as';
@@ -65,16 +63,6 @@ const mapNamedEntityAsRawDataLabeledValueEntity =
       ),
       UNDEF_SYMBOL
     );
-
-/**
- * @map-as
- *
- * @stable [27.07.2020]
- * @param entity
- */
-const mapSecondaryFilterFormEntityAsHolderFormEntity =
-  <TEntity = IEntity>(entity: IReduxSecondaryFilterFormHolderEntity<TEntity>): IReduxFormHolderEntity<TEntity> =>
-    MapAsOriginalUtils.formHolderEntity(Selectors.secondaryFilter(entity));
 
 /**
  * @map-as
@@ -194,34 +182,34 @@ const mapListEntityAsPagedEntity = (entity: IReduxListHolderEntity, pageSize = D
 /**
  * @mapper
  * @stable [10.05.2020]
- * @param {IReduxHolderPrimaryFilterFormEntity<TEntity>} formEntity
+ * @param {IReduxPrimaryFilterFormEntity<TEntity>} formEntity
  * @param {TEntity} entity
  * @returns {TEntity}
  */
-const mapPrimaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxHolderPrimaryFilterFormEntity<TEntity>,
+const mapPrimaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxPrimaryFilterFormEntity<TEntity>,
                                                                 entity?: TEntity): TEntity =>
   mapExtendedFormEntityAsFinalEntity(Selectors.primaryFilter(formEntity), entity);
 
 /**
  * @mapper
  * @stable [10.05.2020]
- * @param {IReduxHolderSecondaryFilterFormEntity<TEntity>} formEntity
+ * @param {IReduxSecondaryFilterFormEntity<TEntity>} formEntity
  * @param {TEntity} entity
  * @returns {TEntity}
  */
-const mapSecondaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxHolderSecondaryFilterFormEntity<TEntity>,
+const mapSecondaryFilterEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxSecondaryFilterFormEntity<TEntity>,
                                                                   entity?: TEntity): TEntity =>
   mapExtendedFormEntityAsFinalEntity(Selectors.secondaryFilter(formEntity), entity);
 
 /**
  * @mapper
  * @stable [10.05.2020]
- * @param {IReduxHolderPrimaryFilterFormEntity<TEntity>} wrapper
+ * @param {IReduxPrimaryFilterFormEntity<TEntity>} wrapper
  * @param {TEntity} entity
  * @returns {IPrimaryFilterExtendedFormEntity<TEntity>}
  */
 const mapPrimaryFilterEntityAsPrimaryFilterExtendedFormEntity =
-  <TEntity = IEntity>(wrapper: IReduxHolderPrimaryFilterFormEntity<TEntity>,
+  <TEntity = IEntity>(wrapper: IReduxPrimaryFilterFormEntity<TEntity>,
                       entity?: TEntity): IPrimaryFilterExtendedFormEntity<TEntity> =>
     mapEntityAsPrimaryFilterExtendedFormEntity(Selectors.primaryFilter(wrapper), entity);
 
@@ -256,12 +244,12 @@ const mapEntityAsSecondaryFilterExtendedFormEntity =
 /**
  * @mapper
  * @stable [10.05.2020]
- * @param {IReduxHolderSecondaryFilterFormEntity<TEntity>} wrapper
+ * @param {IReduxSecondaryFilterFormEntity<TEntity>} wrapper
  * @param {TEntity} entity
  * @returns {ISecondaryFilterExtendedFormEntity<TEntity>}
  */
 const mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity =
-  <TEntity = IEntity>(wrapper: IReduxHolderSecondaryFilterFormEntity<TEntity>,
+  <TEntity = IEntity>(wrapper: IReduxSecondaryFilterFormEntity<TEntity>,
                       entity?: TEntity): ISecondaryFilterExtendedFormEntity<TEntity> =>
     mapEntityAsSecondaryFilterExtendedFormEntity(Selectors.secondaryFilter(wrapper), entity);
 
@@ -330,5 +318,4 @@ export class GenericMappers {
   public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;                                          /* stable [19.05.2020] */
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = mapPrimaryFilterEntityAsPrimaryFilterExtendedFormEntity;          /* stable [10.05.2020] */
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity;  /* stable [10.05.2020] */
-  public static readonly secondaryFilterFormEntityAsHolderFormEntity = mapSecondaryFilterFormEntityAsHolderFormEntity;                            /* stable [27.07.2020] */
 }

@@ -91,35 +91,11 @@ export interface IFluxValidEntity
 }
 
 /**
- * @redux-holder-entity
+ * @redux-holder-entity TODO
  * @stable [27.07.2020]
  */
-export interface IReduxHolderSecondaryFilterFormEntity<TEntity = IEntity>
-  extends ISecondaryFilterWrapper<IReduxFormEntity<TEntity>> {
-}
-
-/**
- * @redux-holder-entity
- * @stable [27.07.2020]
- */
-export interface IReduxHolderPrimaryFilterFormEntity<TEntity = IEntity>
+export interface IReduxPrimaryFilterFormEntity<TEntity = IEntity>
   extends IPrimaryFilterWrapper<IReduxFormEntity<TEntity>> {
-}
-
-/**
- * @redux-holder-entity
- * @stable [01.08.2020]
- */
-export interface IReduxPrimaryFilterFormHolderEntity<TEntity = IEntity>
-  extends IPrimaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
-}
-
-/**
- * @redux-holder-entity
- * @stable [01.08.2020]
- */
-export interface IReduxSecondaryFilterFormHolderEntity<TEntity = IEntity>
-  extends ISecondaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
 }
 
 /**
@@ -131,11 +107,35 @@ export interface IPrimaryFilterExtendedFormEntity<TEntity = IEntity>
 }
 
 /**
+ * @redux-holder-entity
+ * @stable [01.08.2020]
+ */
+export interface IReduxPrimaryFilterFormHolderEntity<TEntity = IEntity>
+  extends IPrimaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
+}
+
+/**
+ * @redux-holder-entity TODO
+ * @stable [27.07.2020]
+ */
+export interface IReduxSecondaryFilterFormEntity<TEntity = IEntity>
+  extends ISecondaryFilterWrapper<IReduxFormEntity<TEntity>> {
+}
+
+/**
  * @entity
  * @stable [01.08.2020]
  */
 export interface ISecondaryFilterExtendedFormEntity<TEntity = IEntity>
   extends ISecondaryFilterWrapper<IExtendedFormEntity<TEntity>> {
+}
+
+/**
+ * @redux-holder-entity
+ * @stable [01.08.2020]
+ */
+export interface IReduxSecondaryFilterFormHolderEntity<TEntity = IEntity>
+  extends ISecondaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
 }
 
 /**

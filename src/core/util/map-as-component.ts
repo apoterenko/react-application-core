@@ -1,4 +1,5 @@
 import {
+  IDefaultLayoutContainerProps,
   IFormContainerProps,
   IFormProps,
   IFormTabPanelContainerProps,
@@ -6,6 +7,8 @@ import {
   IPageToolbarContainerProps,
   IPageToolbarProps,
   IPrimaryFilterExtendedFormEntity,
+  IReduxPrimaryFilterFormHolderEntity,
+  IReduxSecondaryFilterFormHolderEntity,
   ISearchToolbarContainerProps,
   ISearchToolbarProps,
   ISecondaryFilterExtendedFormEntity,
@@ -158,6 +161,18 @@ const mapToolbarToolsContainerProps = (toolbarToolsContainer: IToolbarToolsConta
 });
 
 /**
+ * @map-as-container
+ *
+ * @stable [01.08.2020]
+ * @param entity
+ */
+const mapDefaultLayoutContainerProps = (entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
+  ({
+    ...MapAsOriginalUtils.sectionNameWrapper(entity),
+    ...MapAsOriginalUtils.storeEntity(entity),
+  });
+
+/**
  * @map-container-as-component
  *
  * @stable [30.07.2020]
@@ -253,9 +268,36 @@ const mapSecondaryFilterExtendedFormEntityAsFormContainerProps =
   });
 
 /**
+ * @map-entity-as-container
+ *
+ * @stable [01.08.2020]
+ * @param entity
+ */
+const mapPrimaryFilterFormHolderEntityAsToolbarToolsContainerProps =
+  (entity: IToolbarToolsContainerProps & IReduxPrimaryFilterFormHolderEntity): IToolbarToolsContainerProps =>
+    mapToolbarToolsContainerProps({
+      ...MapAsOriginalUtils.formHolderEntity(Selectors.primaryFilter(entity)),
+      ...entity as IToolbarToolsContainerProps,
+    });
+
+/**
+ * @map-entity-as-container
+ *
+ * @stable [01.08.2020]
+ * @param entity
+ */
+const mapSecondaryFilterFormHolderEntityAsToolbarToolsContainerProps =
+  (entity: IToolbarToolsContainerProps & IReduxSecondaryFilterFormHolderEntity): IToolbarToolsContainerProps =>
+    mapToolbarToolsContainerProps({
+      ...MapAsOriginalUtils.formHolderEntity(Selectors.secondaryFilter(entity)),
+      ...entity as IToolbarToolsContainerProps,
+    });
+
+/**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
+  public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;
   public static readonly formContainerProps = mapFormContainerProps;
   public static readonly formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
   public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
@@ -264,9 +306,11 @@ export class MapAsComponentUtils {
   public static readonly pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static readonly primaryFilterExtendedFormEntityAsFormContainerProps = mapPrimaryFilterExtendedFormEntityAsFormContainerProps;
+  public static readonly primaryFilterFormHolderEntityAsToolbarToolsContainerProps = mapPrimaryFilterFormHolderEntityAsToolbarToolsContainerProps;
   public static readonly searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static readonly searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
   public static readonly secondaryFilterExtendedFormEntityAsFormContainerProps = mapSecondaryFilterExtendedFormEntityAsFormContainerProps;
+  public static readonly secondaryFilterFormHolderEntityAsToolbarToolsContainerProps = mapSecondaryFilterFormHolderEntityAsToolbarToolsContainerProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
   public static readonly toolbarToolsContainerProps = mapToolbarToolsContainerProps;

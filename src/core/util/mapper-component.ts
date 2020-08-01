@@ -1,14 +1,11 @@
 import { GenericMappers } from './mapper-generic';
 import {
   DictionariesEnum,
-  IDefaultLayoutContainerProps,
   IFieldsContainer,
   IFilterFormDialogContainerProps,
   IGenericBaseSelectEntity,
   IGenericContainer,
-  IReduxSecondaryFilterFormHolderEntity,
   ISecondaryFilterExtendedFormEntity,
-  IToolbarToolsContainerProps,
   IUnsavedFormChangesDialogContainerProps,
   IUnsavedFormChangesDialogProps,
 } from '../definition';
@@ -54,30 +51,6 @@ const mapFilterFormDialogSecondaryFilterContainerProps =
     });
 
 /**
- * @container-props-mapper
- * @stable [10.05.2020]
- *
- * @param {IToolbarToolsContainerProps & IReduxSecondaryFilterFormHolderEntity} props
- * @returns {IToolbarToolsContainerProps}
- */
-const mapToolbarToolsSecondaryFilterContainerProps =
-  (props: IToolbarToolsContainerProps & IReduxSecondaryFilterFormHolderEntity): IToolbarToolsContainerProps => null;
-   /* mapToolbarToolsContainerProps({
-      ...asToolbarToolsContainerProps(props),
-      ...GenericMappers.secondaryFilterFormEntityAsHolderFormEntity(props),
-    });*/
-
-/**
- * @container-props-as
- * @stable [09.05.2020]
- *
- * @param {TProps} props
- * @returns {IToolbarToolsContainerProps}
- */
-const asToolbarToolsContainerProps =
-  <TProps>(props: TProps): IToolbarToolsContainerProps => props as IToolbarToolsContainerProps;
-
-/**
  * @map-container-as-component
  * @stable [15.06.2020]
  *
@@ -90,19 +63,6 @@ const mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps =
       ...MapAsOriginalUtils.formHolderEntity(props),
       ...props.dialogConfiguration,
     });
-
-/**
- * @map-container-as-original
- * @stable [12.06.2020]
- *
- * @param {IDefaultLayoutContainerProps} entity
- * @returns {IDefaultLayoutContainerProps}
- */
-const mapDefaultLayoutContainerProps = (entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
-  ({
-    ...MapAsOriginalUtils.sectionNameWrapper(entity),
-    ...MapAsOriginalUtils.storeEntity(entity),
-  });
 
 /**
  * @map-container-as-original
@@ -127,8 +87,6 @@ export class ComponentMappers {
   public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                                                                           /* @stable [10.05.2020] */
   public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;                                                             /* @stable [10.05.2020] */
   public static placeFieldProps = mapPlaceFieldProps;                                                                                                                         /* @stable [19.05.2020] */
-  public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;                                                                                        /* @stable [12.06.2020] */
   public static readonly unsavedFormChangesDialogContainerProps = mapUnsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.05.2020] */
-  public static toolbarToolsSecondaryFilterContainerProps = mapToolbarToolsSecondaryFilterContainerProps;                                                                     /* @stable [10.05.2020] */
 }
