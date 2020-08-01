@@ -9,7 +9,6 @@ import {
   IOnRefreshClickWrapper,
   IRightContentWrapper,
   IToolbarToolsConfigurationWrapper,
-  IToolbarToolsWrapper,
 } from '../definitions.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
@@ -62,14 +61,6 @@ export interface IGenericToolbarToolsEntity
 }
 
 /**
- * @presets-holder-entity
- * @stable [15.05.2020]
- */
-export interface IPresetsHolderToolbarToolsEntity
-  extends IToolbarToolsWrapper<IPresetsToolbarToolsEntity> {
-}
-
-/**
  * @props
  * @stable [22.04.2020]
  */
@@ -79,10 +70,10 @@ export interface IToolbarToolsProps
 }
 
 /**
- * @configuration-holder-entity
+ * @configuration-entity
  * @stable [15.06.2020]
  */
-export interface IConfigurationHolderToolbarToolsEntity<TProps = IToolbarToolsProps>
+export interface IConfigurationToolbarToolsEntity<TProps = IToolbarToolsProps>
   extends IToolbarToolsConfigurationWrapper<TProps> {
 }
 
@@ -91,8 +82,7 @@ export interface IConfigurationHolderToolbarToolsEntity<TProps = IToolbarToolsPr
  * @stable [15.06.2020]
  */
 export interface IGenericToolbarToolsContainerEntity<TProps = IToolbarToolsProps>
-  extends IConfigurationHolderToolbarToolsEntity<TProps>,
-    IPresetsHolderToolbarToolsEntity,
+  extends IConfigurationToolbarToolsEntity<TProps>,
     IReduxFormHolderEntity,
     IReduxListHolderEntity {
 }

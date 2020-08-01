@@ -491,12 +491,11 @@ export const isAlwaysDirty = (entity: IAlwaysDirtyWrapper): boolean =>
   R.isNil(entity) ? false : entity.alwaysDirty === true;
 
 /**
- * @stable [26.12.2019]
- * @param {IDirtyWrapper} entity
- * @returns {boolean}
+ * @stable [01.08.2020]
+ * @param entity
  */
 export const isDirty = (entity: IDirtyWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.dirty === true, false);
+  R.isNil(entity) ? false : entity.dirty === true;
 
 /**
  * @stable [12.02.2020]
@@ -556,6 +555,7 @@ export class WrapperUtils {
   public static readonly isClearActionRendered = isClearActionRendered;                    /* @stable [17.06.2020] */
   public static readonly isCursorUsed = isCursorUsed;                                      /* @stable [21.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
+  public static readonly isDirty = isDirty;                                                /* @stable [01.08.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isErrorMessageRendered = isErrorMessageRendered;                  /* @stable [18.06.2020] */
   public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */

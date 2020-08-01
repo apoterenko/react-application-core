@@ -21,7 +21,6 @@ import {
 import {
   isAlwaysDirty,
   isAlwaysResettable,
-  isDirty,
   isDisabled,
   WrapperUtils,
 } from './wrapper';
@@ -145,7 +144,7 @@ export const isFormDirty = <TEntity = IEntity>(entity: IFormProps<TEntity>): boo
   ifNotNilThanValue(
     entity,
     () => (
-      isAlwaysDirty(entity) || ifNotNilThanValue(selectForm(entity), (form) => isDirty(form), false)
+      isAlwaysDirty(entity) || ifNotNilThanValue(selectForm(entity), (form) => WrapperUtils.isDirty(form), false)
     ),
     false
   );

@@ -57,7 +57,7 @@ import {
 import { ConditionUtils } from './cond';
 import {
   inProgress,
-  isDirty,
+  WrapperUtils,
 } from './wrapper';
 
 /**
@@ -138,9 +138,8 @@ const selectFilter = <TValue = string>(wrapper: IFilterWrapper<TValue>): TValue 
   R.isNil(wrapper) ? UNDEF : wrapper.filter;
 
 /**
- * @stable [07.05.2020]
- * @param {IQueryFilterWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [01.08.2020]
+ * @param wrapper
  */
 const selectQueryFilter = <TValue = string>(wrapper: IQueryFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.queryFilter;
@@ -419,14 +418,18 @@ const selectFormEntityChanges = <TEntity = IEntity>(entity: IReduxFormHolderEnti
   selectChanges(selectForm(entity));
 
 /**
- * @stable [08.05.2020]
- * @param {IDirtyWrapper} wrapper
- * @returns {ToolbarToolsEnum[]}
+ * @stable [01.08.2020]
+ * @param wrapper
  */
 const selectActiveToolbarToolsFromDirtyWrapper = (wrapper: IDirtyWrapper): ToolbarToolsEnum[] =>
-  isDirty(wrapper)
-    ? [ToolbarToolsEnum.FILTER]
-    : [];
+  R.isNil(wrapper)
+    ? UNDEF
+    : (
+      ConditionUtils.orUndef(
+        WrapperUtils.isDirty(wrapper),
+        () => [ToolbarToolsEnum.FILTER]
+      )
+    );
 
 /**
  * @stable [07.05.2020]

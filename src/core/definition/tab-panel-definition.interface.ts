@@ -102,8 +102,8 @@ export interface IReduxTabPanelHolderEntity<TEntity = IReduxTabPanelEntity>
  * @configuration-entity
  * @stable [29.07.2020]
  */
-export interface IConfigurationTabPanelEntity
-  extends ITabPanelConfigurationWrapper<ITabPanelProps> {
+export interface IConfigurationTabPanelEntity<TProps = ITabPanelProps>
+  extends ITabPanelConfigurationWrapper<TProps> {
 }
 
 /**

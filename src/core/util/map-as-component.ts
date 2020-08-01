@@ -11,11 +11,16 @@ import {
   ISecondaryFilterExtendedFormEntity,
   ITabPanelContainerProps,
   ITabPanelProps,
+  IToolbarToolsContainerProps,
+  IToolbarToolsProps,
 } from '../definition';
 import {
   IEntity,
   ISectionNameWrapper,
+  UNDEF_SYMBOL,
 } from '../definitions.interface';
+import { ConditionUtils } from './cond';
+import { FilterUtils } from './filter';
 import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsUtils } from './map-as';
 import { Selectors } from './select';
@@ -55,6 +60,22 @@ const mapPageToolbarProps = (pageToolbar: IPageToolbarProps): IPageToolbarProps 
  */
 const mapFormProps = <TEntity = IEntity>(form: IFormProps<TEntity>): IFormProps<TEntity> =>
   MapAsOriginalUtils.extendedFormEntity(form);
+
+/**
+ * @map-as-component
+ *
+ * @stable [01.08.2020]
+ * @param toolbarTools
+ */
+const mapToolbarToolsProps = (toolbarTools: IToolbarToolsProps): IToolbarToolsProps =>
+  ConditionUtils.ifNotNilThanValue(
+    toolbarTools,
+    () => FilterUtils.defValuesFilter<IToolbarToolsProps, IToolbarToolsProps>({
+      disabled: toolbarTools.disabled,
+      activeTools: toolbarTools.activeTools,
+    }),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @map-as-container
@@ -125,6 +146,18 @@ const mapSearchToolbarContainerProps = (searchToolbarContainer: ISearchToolbarCo
 });
 
 /**
+ * @map-as-container
+ *
+ * @stable [01.08.2020]
+ * @param toolbarToolsContainer
+ */
+const mapToolbarToolsContainerProps = (toolbarToolsContainer: IToolbarToolsContainerProps): IToolbarToolsContainerProps => ({
+  ...MapAsOriginalUtils.formHolderEntity(toolbarToolsContainer),
+  ...MapAsOriginalUtils.listHolderEntity(toolbarToolsContainer),
+  ...MapAsOriginalUtils.sectionNameWrapper(toolbarToolsContainer),
+});
+
+/**
  * @map-container-as-component
  *
  * @stable [30.07.2020]
@@ -182,6 +215,20 @@ const mapSearchToolbarContainerPropsAsSearchToolbarProps = (searchToolbarContain
 });
 
 /**
+ * @map-container-as-component
+ *
+ * @stable [01.08.2020]
+ * @param toolbarToolsContainer
+ */
+const mapToolbarToolsContainerPropsAsToolbarToolsProps = (toolbarToolsContainer: IToolbarToolsContainerProps): IToolbarToolsProps => ({
+  ...mapToolbarToolsProps({
+    activeTools: Selectors.activeToolbarToolsFromDirtyWrapper(Selectors.form(toolbarToolsContainer)),
+  }),
+  ...toolbarToolsContainer.toolbarToolsConfiguration,
+  ...MapAsUtils.listHolderEntityAsDisabled(toolbarToolsContainer),
+});
+
+/**
  * @map-entity-as-container
  *
  * @stable [31.07.2020]
@@ -222,4 +269,6 @@ export class MapAsComponentUtils {
   public static readonly secondaryFilterExtendedFormEntityAsFormContainerProps = mapSecondaryFilterExtendedFormEntityAsFormContainerProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
+  public static readonly toolbarToolsContainerProps = mapToolbarToolsContainerProps;
+  public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;
 }

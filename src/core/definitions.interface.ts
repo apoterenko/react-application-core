@@ -534,7 +534,6 @@ export interface ITodayWrapper<TValue> { today?: TValue; }
 export interface ITokenWrapper<TToken = string> { token?: TToken; }
 export interface IToolbarConfigurationWrapper<TValue> { toolbarConfiguration?: TValue; }
 export interface IToolbarToolsConfigurationWrapper<TValue> { toolbarToolsConfiguration?: TValue; }
-export interface IToolbarToolsWrapper<TValue> { toolbarTools?: TValue; }
 export interface ITopTotalWrapper { topTotal?: boolean; }
 export interface ITotalAmountWrapper<TValue = number> { totalAmount?: TValue; }
 export interface ITotalCountWrapper<TValue = number> { totalCount?: TValue; }

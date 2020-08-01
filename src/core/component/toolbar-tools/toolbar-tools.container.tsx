@@ -14,7 +14,7 @@ import { ToolbarToolsActionBuilder } from '../../action';
 
 /**
  * @component-container-impl
- * @stable [10.06.2020]
+ * @stable [01.08.2020]
  *
  * Please use the "Mappers.toolbarToolsContainerProps"
  */
@@ -51,9 +51,10 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    * @stable [10.03.2019]
    */
   private onRefreshClick(): void {
-    const props = this.toolbarToolsProps;
-    if (TypeUtils.isFn(props.onRefreshClick)) {
-      props.onRefreshClick();
+    const {onRefreshClick} = this.toolbarToolsConfiguration;
+
+    if (TypeUtils.isFn(onRefreshClick)) {
+      onRefreshClick();
     } else {
       this.dispatchPlainAction(ToolbarToolsActionBuilder.buildRefreshPlainAction(this.sectionName));
     }
@@ -63,9 +64,10 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    * @stable [22.04.2020]
    */
   private onFilterClick(): void {
-    const props = this.toolbarToolsProps;
-    if (TypeUtils.isFn(props.onFilterClick)) {
-      props.onFilterClick();
+    const {onFilterClick} = this.toolbarToolsConfiguration;
+
+    if (TypeUtils.isFn(onFilterClick)) {
+      onFilterClick();
     } else {
       this.dispatchPlainAction(ToolbarToolsActionBuilder.buildFilterPlainAction(this.sectionName));
     }
@@ -75,9 +77,10 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    * @stable [22.04.2020]
    */
   private onDownloadFileClick(): void {
-    const props = this.toolbarToolsProps;
-    if (TypeUtils.isFn(props.onDownloadFileClick)) {
-      props.onDownloadFileClick();
+    const {onDownloadFileClick} = this.toolbarToolsConfiguration;
+
+    if (TypeUtils.isFn(onDownloadFileClick)) {
+      onDownloadFileClick();
     } else {
       this.dispatchPlainAction(ToolbarToolsActionBuilder.buildDownloadFilePlainAction(this.sectionName));
     }
@@ -87,7 +90,7 @@ export class ToolbarToolsContainer extends GenericContainer<IToolbarToolsContain
    * @stable [22.04.2020]
    * @returns {IToolbarToolsProps}
    */
-  private get toolbarToolsProps(): IToolbarToolsProps {
+  private get toolbarToolsConfiguration(): IToolbarToolsProps {
     return this.originalProps.toolbarToolsConfiguration || {};
   }
 }
