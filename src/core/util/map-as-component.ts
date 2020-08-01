@@ -115,6 +115,13 @@ const mapPageToolbarContainerProps = (pageToolbarContainer: IPageToolbarContaine
   ...MapAsOriginalUtils.sectionNameWrapper(pageToolbarContainer),
 });
 
+/**
+ * @map-as-container
+ *
+ * @stable [01.08.2020]
+ * @param unsavedFormChangesDialogContainer
+ * @param proxyContainer
+ */
 const mapUnsavedFormChangesDialogContainerProps = (unsavedFormChangesDialogContainer: IUnsavedFormChangesDialogContainerProps,
                                                    proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps => ({
   ...MapAsOriginalUtils.formHolderEntity(unsavedFormChangesDialogContainer),
