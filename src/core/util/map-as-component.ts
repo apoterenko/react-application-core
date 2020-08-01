@@ -3,6 +3,7 @@ import {
   IFormContainerProps,
   IFormProps,
   IFormTabPanelContainerProps,
+  IGenericContainer,
   IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
@@ -74,7 +75,7 @@ const mapFormProps = <TEntity = IEntity>(form: IFormProps<TEntity>): IFormProps<
  */
 const mapUnsavedFormChangesDialogProps =
   <TEntity = IEntity>(unsavedFormChangesDialog: IUnsavedFormChangesDialogProps): IUnsavedFormChangesDialogProps =>
-    MapAsOriginalUtils.extendedFormEntity(unsavedFormChangesDialog);
+    MapAsOriginalUtils.formHolderEntity(unsavedFormChangesDialog);
 
 /**
  * @map-as-component
@@ -112,6 +113,12 @@ const mapTabPanelContainerProps = (tabPanelContainer: ITabPanelContainerProps): 
 const mapPageToolbarContainerProps = (pageToolbarContainer: IPageToolbarContainerProps): IPageToolbarContainerProps => ({
   ...MapAsOriginalUtils.listHolderEntity(pageToolbarContainer),
   ...MapAsOriginalUtils.sectionNameWrapper(pageToolbarContainer),
+});
+
+const mapUnsavedFormChangesDialogContainerProps = (unsavedFormChangesDialogContainer: IUnsavedFormChangesDialogContainerProps,
+                                                   proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps => ({
+  ...MapAsOriginalUtils.formHolderEntity(unsavedFormChangesDialogContainer),
+  proxyContainer,
 });
 
 /**
@@ -340,6 +347,8 @@ export class MapAsComponentUtils {
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
   public static readonly toolbarToolsContainerProps = mapToolbarToolsContainerProps;
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;
+  public static readonly toolbarToolsProps = mapToolbarToolsProps;
+  public static readonly unsavedFormChangesDialogContainerProps = mapUnsavedFormChangesDialogContainerProps;
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;
   public static readonly unsavedFormChangesDialogProps = mapUnsavedFormChangesDialogProps;
 }

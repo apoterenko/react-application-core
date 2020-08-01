@@ -16,15 +16,15 @@ import {
 
 /**
  * @component-container-impl
- * @stable [09.05.2020]
+ * @stable [01.08.2020]
  *
  * Please use the "Mappers.formContainerProps"
  */
 export class FormContainer extends GenericContainer<IFormContainerProps> {
 
   /**
-   * @stable [31.07.2020]
-   * @param {IFormContainerProps} originalProps
+   * @stable [01.08.2020]
+   * @param originalProps
    */
   constructor(originalProps: IFormContainerProps) {
     super(originalProps);
@@ -38,7 +38,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [31.07.2020]
+   * @stable [01.08.2020]
    */
   public render(): JSX.Element {
     return (
@@ -57,8 +57,8 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [23.04.2020]
-   * @param {IKeyValue} payload
+   * @stable [01.08.2020]
+   * @param payload
    */
   private onChange(payload: IKeyValue): void {
     this.formStoreProxy.dispatchFormChanges(payload);
@@ -66,8 +66,8 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [18.04.2020]
-   * @param {boolean} valid
+   * @stable [01.08.2020]
+   * @param valid
    */
   private onValid(valid: boolean): void {
     this.formStoreProxy.dispatchFormValid(valid);
@@ -75,7 +75,7 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [18.04.2020]
+   * @stable [01.08.2020]
    */
   private onReset(): void {
     this.formStoreProxy.dispatchFormReset();
@@ -83,8 +83,8 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [15.04.2020]
-   * @param {IApiEntity} apiEntity
+   * @stable [01.08.2020]
+   * @param apiEntity
    */
   private onSubmit(apiEntity: IApiEntity): void {
     this.formStoreProxy.dispatchFormSubmit(apiEntity);
@@ -92,17 +92,17 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} dictionary
-   * @param {IApiEntity} apiEntity
+   * @stable [01.08.2020]
+   * @param dictionary
+   * @param apiEntity
    */
   private onDictionaryEmpty(dictionary: string, apiEntity: IApiEntity): void {
     this.dictionaryStoreProxy.dispatchLoadDictionary(dictionary, apiEntity);
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {{}} items
+   * @stable [01.08.2020]
+   * @param items
    */
   private onDictionaryLoad(items: {}): void {
     const noAvailableItemsToSelect = this.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
@@ -113,10 +113,9 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   }
 
   /**
-   * @stable [18.04.2020]
-   * @returns {IFormProps}
+   * @stable [01.08.2020]
    */
   private get formConfiguration(): IFormProps {
-    return this.props.formConfiguration || {};
+    return this.originalProps.formConfiguration || {};
   }
 }

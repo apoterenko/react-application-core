@@ -212,7 +212,8 @@ export class Mappers {
   public static readonly tabPanelHolderEntity = MapAsOriginalUtils.tabPanelHolderEntity;                                                                                                    /* @stable [29.07.2020] */
   public static readonly toolbarToolsContainerProps = MapAsComponentUtils.toolbarToolsContainerProps;                                                                                       /* @stable [01.08.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = MapAsComponentUtils.toolbarToolsContainerPropsAsToolbarToolsProps;                                                 /* @stable [01.08.2020] */
-  public static readonly unsavedFormChangesDialogContainerProps = ComponentMappers.unsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
+  public static readonly toolbarToolsProps = MapAsComponentUtils.toolbarToolsProps;                                                                                                         /* @stable [01.08.2020] */
+  public static readonly unsavedFormChangesDialogContainerProps = MapAsComponentUtils.unsavedFormChangesDialogContainerProps;                                                               /* @stable [01.08.2020] */
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = MapAsComponentUtils.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps; /* @stable [01.08.2020] */
   public static readonly unsavedFormChangesDialogProps = MapAsComponentUtils.unsavedFormChangesDialogProps;                                                                                 /* @stable [01.08.2020] */
 }
