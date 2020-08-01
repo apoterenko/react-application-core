@@ -5,12 +5,17 @@ import {
   IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
+  IPrimaryFilterExtendedFormEntity,
   ISearchToolbarContainerProps,
   ISearchToolbarProps,
+  ISecondaryFilterExtendedFormEntity,
   ITabPanelContainerProps,
   ITabPanelProps,
 } from '../definition';
-import { IEntity } from '../definitions.interface';
+import {
+  IEntity,
+  ISectionNameWrapper,
+} from '../definitions.interface';
 import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsUtils } from './map-as';
 import { Selectors } from './select';
@@ -49,10 +54,7 @@ const mapPageToolbarProps = (pageToolbar: IPageToolbarProps): IPageToolbarProps 
  * @param form
  */
 const mapFormProps = <TEntity = IEntity>(form: IFormProps<TEntity>): IFormProps<TEntity> =>
-  ({
-    ...MapAsOriginalUtils.extendedEntity(form),
-    ...MapAsOriginalUtils.formHolderEntity(form),
-  });
+  MapAsOriginalUtils.extendedFormEntity(form);
 
 /**
  * @map-as-container
@@ -95,8 +97,7 @@ const mapFormTabPanelContainerProps = (formTabPanelContainer: IFormTabPanelConta
  */
 const mapFormContainerProps = (formContainer: IFormContainerProps): IFormContainerProps =>
   ({
-    ...MapAsOriginalUtils.extendedEntity(formContainer),
-    ...MapAsOriginalUtils.formHolderEntity(formContainer),
+    ...MapAsOriginalUtils.extendedFormEntity(formContainer),
     ...MapAsOriginalUtils.sectionNameWrapper(formContainer),
   });
 
@@ -181,6 +182,30 @@ const mapSearchToolbarContainerPropsAsSearchToolbarProps = (searchToolbarContain
 });
 
 /**
+ * @map-entity-as-container
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapPrimaryFilterExtendedFormEntityAsFormContainerProps =
+  <TValue = IEntity>(entity: ISectionNameWrapper & IPrimaryFilterExtendedFormEntity<TValue>): IFormContainerProps => ({
+    ...MapAsOriginalUtils.sectionNameWrapper(entity),
+    ...Selectors.primaryFilter(entity),
+  });
+
+/**
+ * @map-entity-as-container
+ *
+ * @stable [31.07.2020]
+ * @param entity
+ */
+const mapSecondaryFilterExtendedFormEntityAsFormContainerProps =
+  <TValue = IEntity>(entity: ISectionNameWrapper & ISecondaryFilterExtendedFormEntity<TValue>): IFormContainerProps => ({
+    ...MapAsOriginalUtils.sectionNameWrapper(entity),
+    ...Selectors.secondaryFilter(entity),
+  });
+
+/**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
@@ -191,8 +216,10 @@ export class MapAsComponentUtils {
   public static readonly listContainerProps = mapListContainerProps;
   public static readonly pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
+  public static readonly primaryFilterExtendedFormEntityAsFormContainerProps = mapPrimaryFilterExtendedFormEntityAsFormContainerProps;
   public static readonly searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static readonly searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
+  public static readonly secondaryFilterExtendedFormEntityAsFormContainerProps = mapSecondaryFilterExtendedFormEntityAsFormContainerProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
 }

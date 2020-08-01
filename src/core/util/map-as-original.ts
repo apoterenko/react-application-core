@@ -1,5 +1,6 @@
 import {
   IExtendedEntity,
+  IExtendedFormEntity,
   IReduxActiveValueHolderEntity,
   IReduxChannelEntity,
   IReduxChannelHolderEntity,
@@ -260,6 +261,17 @@ const mapListHolderEntity = (entity: IReduxListHolderEntity): IReduxListHolderEn
 /**
  * @map-as-original
  *
+ * @stable [01.08.2020]
+ * @param form
+ */
+const mapExtendedFormEntity = <TEntity = IEntity>(form: IExtendedFormEntity<TEntity>): IExtendedFormEntity<TEntity> => ({
+  ...MapAsOriginalUtils.extendedEntity(form),
+  ...MapAsOriginalUtils.formHolderEntity(form),
+});
+
+/**
+ * @map-as-original
+ *
  * @stable [31.07.2020]
  * @param entity
  */
@@ -293,6 +305,7 @@ const mapStoreEntity =
 export class MapAsOriginalUtils {
   public static readonly activeValueHolderEntity = mapActiveValueHolderEntity;
   public static readonly extendedEntity = mapExtendedEntity;
+  public static readonly extendedFormEntity = mapExtendedFormEntity;
   public static readonly formHolderEntity = mapFormHolderEntity;
   public static readonly listHolderEntity = mapListHolderEntity;
   public static readonly pagedEntity = mapPagedEntity;

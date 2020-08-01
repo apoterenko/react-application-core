@@ -107,24 +107,24 @@ export interface IReduxHolderPrimaryFilterFormEntity<TEntity = IEntity>
 }
 
 /**
- * @entity
- * @stable [10.05.2020]
+ * @redux-holder-entity
+ * @stable [01.08.2020]
  */
-export interface IPrimaryFilterFormEntity<TEntity = IEntity>
+export interface IReduxPrimaryFilterFormHolderEntity<TEntity = IEntity>
   extends IPrimaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
 }
 
 /**
- * @entity
- * @stable [10.05.2020]
+ * @redux-holder-entity
+ * @stable [01.08.2020]
  */
-export interface ISecondaryFilterFormEntity<TEntity = IEntity>
+export interface IReduxSecondaryFilterFormHolderEntity<TEntity = IEntity>
   extends ISecondaryFilterWrapper<IReduxFormHolderEntity<TEntity>> {
 }
 
 /**
  * @entity
- * @stable [10.05.2020]
+ * @stable [01.08.2020]
  */
 export interface IPrimaryFilterExtendedFormEntity<TEntity = IEntity>
   extends IPrimaryFilterWrapper<IExtendedFormEntity<TEntity>> {
@@ -132,7 +132,7 @@ export interface IPrimaryFilterExtendedFormEntity<TEntity = IEntity>
 
 /**
  * @entity
- * @stable [10.05.2020]
+ * @stable [01.08.2020]
  */
 export interface ISecondaryFilterExtendedFormEntity<TEntity = IEntity>
   extends ISecondaryFilterWrapper<IExtendedFormEntity<TEntity>> {

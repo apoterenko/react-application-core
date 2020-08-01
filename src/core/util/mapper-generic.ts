@@ -30,7 +30,7 @@ import {
   IReduxPaginatedEntity,
   IReduxQueryFilterHolderEntity,
   ISecondaryFilterExtendedFormEntity,
-  ISecondaryFilterFormEntity,
+  IReduxSecondaryFilterFormHolderEntity,
 } from '../definition';
 import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsUtils } from './map-as';
@@ -73,7 +73,7 @@ const mapNamedEntityAsRawDataLabeledValueEntity =
  * @param entity
  */
 const mapSecondaryFilterFormEntityAsHolderFormEntity =
-  <TEntity = IEntity>(entity: ISecondaryFilterFormEntity<TEntity>): IReduxFormHolderEntity<TEntity> =>
+  <TEntity = IEntity>(entity: IReduxSecondaryFilterFormHolderEntity<TEntity>): IReduxFormHolderEntity<TEntity> =>
     MapAsOriginalUtils.formHolderEntity(Selectors.secondaryFilter(entity));
 
 /**

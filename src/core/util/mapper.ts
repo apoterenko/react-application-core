@@ -176,7 +176,6 @@ export class Mappers {
   public static readonly formContainerProps = MapAsComponentUtils.formContainerProps;                                                                                                       /* @stable [30.07.2020] */
   public static readonly formContainerPropsAsFormProps = MapAsComponentUtils.formContainerPropsAsFormProps;                                                                                 /* @stable [31.07.2020] */
   public static readonly formHolderEntity = MapAsOriginalUtils.formHolderEntity;                                                                                                            /* @stable [30.07.2020] */
-  public static readonly formPrimaryFilterContainerProps = ComponentMappers.formPrimaryFilterContainerProps;                                                                                /* @stable [10.05.2020] */
   public static readonly formTabPanelContainerProps = MapAsComponentUtils.formTabPanelContainerProps;                                                                                       /* @stable [30.07.2020] */
   public static readonly formTabPanelContainerPropsAsTabPanelProps = MapAsComponentUtils.formTabPanelContainerPropsAsTabPanelProps;                                                         /* @stable [30.07.2020] */
   public static readonly fullSearchFilter = GenericMappers.fullSearchFilter;                                                                                                                /* @stable [10.05.2020] */
@@ -195,10 +194,12 @@ export class Mappers {
   public static readonly paginatedEntity = MapAsOriginalUtils.paginatedEntity;                                                                                                              /* @stable [31.07.2020] */
   public static readonly placeFieldProps = ComponentMappers.placeFieldProps;                                                                                                                /* @stable [19.05.2020] */
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = GenericMappers.primaryFilterEntityAsPrimaryFilterExtendedFormEntity;                                        /* @stable [10.05.2020] */
+  public static readonly primaryFilterExtendedFormEntityAsFormContainerProps = MapAsComponentUtils.primaryFilterExtendedFormEntityAsFormContainerProps;                                     /* @stable [01.08.2020] */
   public static readonly queryFilterHolderEntity = MapAsOriginalUtils.queryFilterHolderEntity;                                                                                              /* @stable [31.07.2020] */
   public static readonly searchToolbarContainerProps = MapAsComponentUtils.searchToolbarContainerProps;                                                                                     /* @stable [31.07.2020] */
   public static readonly searchToolbarContainerPropsAsSearchToolbarProps = MapAsComponentUtils.searchToolbarContainerPropsAsSearchToolbarProps;                                             /* @stable [31.07.2020] */
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = GenericMappers.secondaryFilterEntityAsSecondaryFilterExtendedFormEntity;                                /* @stable [10.05.2020] */
+  public static readonly secondaryFilterExtendedFormEntityAsFormContainerProps = MapAsComponentUtils.secondaryFilterExtendedFormEntityAsFormContainerProps;                                 /* @stable [01.08.2020] */
   public static readonly sectionNameWrapper = MapAsOriginalUtils.sectionNameWrapper;                                                                                                        /* @stable [30.07.2020] */
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
   public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                                                              /* @stable [10.05.2020] */

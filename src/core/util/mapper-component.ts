@@ -4,12 +4,10 @@ import {
   IDefaultLayoutContainerProps,
   IFieldsContainer,
   IFilterFormDialogContainerProps,
-  IFormContainerProps,
   IGenericBaseSelectEntity,
   IGenericContainer,
-  IPrimaryFilterExtendedFormEntity,
+  IReduxSecondaryFilterFormHolderEntity,
   ISecondaryFilterExtendedFormEntity,
-  ISecondaryFilterFormEntity,
   IToolbarToolsContainerProps,
   IToolbarToolsProps,
   IUnsavedFormChangesDialogContainerProps,
@@ -32,19 +30,6 @@ const mapPlaceFieldProps = (container: IFieldsContainer): IGenericBaseSelectEnti
   ...GenericMappers.dictionaryEntityAsSelectEntity(container.props.dictionaries.places),
   onDictionaryFilterChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
 });
-
-/**
- * @container-props-mapper
- * @stable [10.05.2020]
- *
- * @param {IFormContainerProps & IPrimaryFilterExtendedFormEntity} props
- * @returns {IFormContainerProps}
- */
-const mapFormPrimaryFilterContainerProps = (props: IFormContainerProps & IPrimaryFilterExtendedFormEntity): IFormContainerProps =>
-  ({
-    ...MapAsOriginalUtils.sectionNameWrapper(props),
-    ...Selectors.primaryFilter(props),
-  });
 
 /**
  * @container-props-mapper
@@ -90,11 +75,11 @@ const mapToolbarToolsContainerProps = (props: IToolbarToolsContainerProps): IToo
  * @container-props-mapper
  * @stable [10.05.2020]
  *
- * @param {IToolbarToolsContainerProps & ISecondaryFilterFormEntity} props
+ * @param {IToolbarToolsContainerProps & IReduxSecondaryFilterFormHolderEntity} props
  * @returns {IToolbarToolsContainerProps}
  */
 const mapToolbarToolsSecondaryFilterContainerProps =
-  (props: IToolbarToolsContainerProps & ISecondaryFilterFormEntity): IToolbarToolsContainerProps =>
+  (props: IToolbarToolsContainerProps & IReduxSecondaryFilterFormHolderEntity): IToolbarToolsContainerProps =>
     mapToolbarToolsContainerProps({
       ...asToolbarToolsContainerProps(props),
       ...GenericMappers.secondaryFilterFormEntityAsHolderFormEntity(props),
@@ -172,7 +157,6 @@ const mapUnsavedFormChangesDialogContainerProps =
 export class ComponentMappers {
   public static filterFormDialogContainerProps = mapFilterFormDialogContainerProps;                                                                                           /* @stable [10.05.2020] */
   public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;                                                             /* @stable [10.05.2020] */
-  public static formPrimaryFilterContainerProps = mapFormPrimaryFilterContainerProps;                                                                                         /* @stable [10.05.2020] */
   public static placeFieldProps = mapPlaceFieldProps;                                                                                                                         /* @stable [19.05.2020] */
   public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;                                                                                        /* @stable [12.06.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;                                                    /* @stable [12.06.2020] */

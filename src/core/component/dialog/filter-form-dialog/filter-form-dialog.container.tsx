@@ -15,18 +15,18 @@ import { GenericContainer } from '../../base/generic.container';
 
 /**
  * @component-container-impl
- * @stable [09.05.2020]
+ * @stable [01.08.2020]
  *
  * Please use the "Mappers.filterFormDialogContainerProps"
  */
 export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialogContainerProps> {
 
   /**
-   * @stable [23.04.2020]
-   * @param {IFilterFormDialogContainerProps} props
+   * @stable [01.08.2020]
+   * @param {IFilterFormDialogContainerProps} originalProps
    */
-  constructor(props: IFilterFormDialogContainerProps) {
-    super(props);
+  constructor(originalProps: IFilterFormDialogContainerProps) {
+    super(originalProps);
 
     this.onAcceptFilter = this.onAcceptFilter.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
@@ -36,7 +36,7 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
    * @stable [23.04.2020]
    */
   public componentWillUnmount() {
-    if (this.props.autoReset) {
+    if (this.originalProps.autoReset) {
       this.dispatchPlainAction(FilterFormDialogActionBuilder.buildResetPlainAction(this.sectionName));
     }
   }
@@ -95,8 +95,8 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
    * @returns {boolean}
    */
   private get canAccept(): boolean {
-    const props = this.props;
-    return FormUtils.isValid(props) && this.isFormTouched; // The only default changes do not allow accepting (!)
+    const originalProps = this.originalProps;
+    return FormUtils.isValid(originalProps) && this.isFormTouched; // The only default changes do not allow accepting (!)
   }
 
   /**
@@ -104,6 +104,6 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
    * @returns {boolean}
    */
   private get isFormTouched(): boolean {
-    return FormUtils.isTouched(this.props);
+    return FormUtils.isTouched(this.originalProps);
   }
 }
