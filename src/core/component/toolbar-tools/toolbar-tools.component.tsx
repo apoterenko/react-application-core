@@ -33,6 +33,24 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
   /**
    * @stable [01.08.2020]
    */
+  private defaultActions: Record<StringNumberT, IButtonProps> = {
+    [ToolbarToolsEnum.FILTER]: {
+      icon: IconsEnum.FILTER,
+      onClick: this.originalProps.onFilterClick,
+    },
+    [ToolbarToolsEnum.DOWNLOAD_FILE]: {
+      icon: IconsEnum.FILE_DOWNLOAD,
+      onClick: this.originalProps.onDownloadFileClick,
+    },
+    [ToolbarToolsEnum.REFRESH]: {
+      icon: IconsEnum.SYNC,
+      onClick: this.originalProps.onRefreshClick,
+    },
+  };
+
+  /**
+   * @stable [01.08.2020]
+   */
   public render(): JSX.Element {
     const originalProps = this.originalProps;
     const {
@@ -46,6 +64,7 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
 
     return (
       <div
+        ref={this.actualRef}
         className={
           ClsUtils.joinClassName(
             ToolbarToolsClassesEnum.TOOLBAR_TOOLS,
@@ -78,25 +97,5 @@ export class ToolbarTools extends GenericComponent<IToolbarToolsProps> {
         {rightContent}
       </div>
     );
-  }
-
-  /**
-   * @stable [01.08.2020]
-   */
-  private get defaultActions(): Record<StringNumberT, IButtonProps> {
-    return ({
-      [ToolbarToolsEnum.FILTER]: {
-        icon: IconsEnum.FILTER,
-        onClick: this.originalProps.onFilterClick,
-      },
-      [ToolbarToolsEnum.DOWNLOAD_FILE]: {
-        icon: IconsEnum.FILE_DOWNLOAD,
-        onClick: this.originalProps.onDownloadFileClick,
-      },
-      [ToolbarToolsEnum.REFRESH]: {
-        icon: IconsEnum.SYNC,
-        onClick: this.originalProps.onRefreshClick,
-      },
-    });
   }
 }
