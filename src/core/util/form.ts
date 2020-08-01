@@ -32,6 +32,7 @@ import {
   Selectors,
 } from './select';
 import { FormEntityUtils } from './form-entity';
+import { ObjectUtils } from './object';
 
 /**
  * @stable [05.06.2020]
@@ -67,7 +68,7 @@ const getFieldValueByName = <TEntity = IEntity>(formEntity: IExtendedFormEntity<
       ifNotNilThanValue(
         (
           R.isNil(formEntity.entity)
-            ? Selectors.formEntityChanges(formEntity)
+            ? Selectors.formHolderEntityChanges(formEntity)
             : formEntity.entity
         ),
         (data) => data[fieldName],
@@ -205,14 +206,21 @@ const isFormTabActive = <TEntity extends IEntity = IEntity>(holderFormEntity: IR
   TabUtils.isActive(Selectors.form(holderFormEntity), tabEntity);
 
 /**
+ * @stable [01.08.2020]
+ * @param entity
+ */
+const isFormHolderEntityChanged = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
+  ObjectUtils.isObjectNotEmpty(Selectors.formHolderEntityChanges(entity));
+
+/**
  * @stable [11.05.2020]
  */
 export class FormUtils {
   public static readonly fieldDisplayValue = getFormFieldDisplayValue;                              /* @stable [11.05.2020] */
   public static readonly fieldOriginalValue = getFormFieldOriginalValue;                            /* @stable [11.05.2020] */
   public static readonly inProgress = FormEntityUtils.inProgress;                                   /* @stable [11.05.2020] */
-  public static readonly isChanged = FormEntityUtils.isChanged;                                     /* @stable [11.05.2020] */
   public static readonly isFieldChangeable = isFormFieldChangeable;                                 /* @stable [05.06.2020] */
+  public static readonly isFormHolderEntityChanged = isFormHolderEntityChanged;                     /* @stable [01.08.2020] */
   public static readonly isTabActive = isFormTabActive;                                             /* @stable [15.06.2020] */
   public static readonly isTouched = FormEntityUtils.isTouched;                                     /* @stable [11.05.2020] */
   public static readonly isValid = isFormValid;                                                     /* @stable [11.05.2020] */

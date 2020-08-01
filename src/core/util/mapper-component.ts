@@ -51,20 +51,6 @@ const mapFilterFormDialogSecondaryFilterContainerProps =
     });
 
 /**
- * @map-container-as-component
- * @stable [15.06.2020]
- *
- * @param {IUnsavedFormChangesDialogContainerProps} props
- * @returns {IUnsavedFormChangesDialogProps}
- */
-const mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps =
-  (props: IUnsavedFormChangesDialogContainerProps): IUnsavedFormChangesDialogProps =>
-    ({
-      ...MapAsOriginalUtils.formHolderEntity(props),
-      ...props.dialogConfiguration,
-    });
-
-/**
  * @map-container-as-original
  * @stable [15.06.2020]
  *
@@ -88,5 +74,4 @@ export class ComponentMappers {
   public static filterFormDialogSecondaryFilterContainerProps = mapFilterFormDialogSecondaryFilterContainerProps;                                                             /* @stable [10.05.2020] */
   public static placeFieldProps = mapPlaceFieldProps;                                                                                                                         /* @stable [19.05.2020] */
   public static readonly unsavedFormChangesDialogContainerProps = mapUnsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
-  public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.05.2020] */
 }

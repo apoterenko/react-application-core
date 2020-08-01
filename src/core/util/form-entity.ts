@@ -5,7 +5,6 @@ import {
   WrapperUtils,
 } from './wrapper';
 import { Selectors } from './select';
-import { isObjectNotEmpty } from './object';
 
 /**
  * @stable [11.05.2020]
@@ -28,14 +27,6 @@ const isFormEntityValid = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEn
  * @param {IReduxFormHolderEntity<TEntity>} entity
  * @returns {boolean}
  */
-const isFormEntityChanged = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
-  isObjectNotEmpty(Selectors.formEntityChanges(entity));
-
-/**
- * @stable [11.05.2020]
- * @param {IReduxFormHolderEntity<TEntity>} entity
- * @returns {boolean}
- */
 const isFormEntityTouched = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
   WrapperUtils.isTouched(Selectors.form(entity));
 
@@ -45,6 +36,5 @@ const isFormEntityTouched = <TEntity = IEntity>(entity: IReduxFormHolderEntity<T
 export class FormEntityUtils {
   public static readonly inProgress = isFormEntityInProgress;                                 /* @stable [11.05.2020] */
   public static readonly inValid = isFormEntityValid;                                         /* @stable [11.05.2020] */
-  public static readonly isChanged = isFormEntityChanged;                                     /* @stable [11.05.2020] */
   public static readonly isTouched = isFormEntityTouched;                                     /* @stable [11.05.2020] */
 }

@@ -7,9 +7,9 @@ import { BaseDialog } from '../base-dialog.component';
 
 /**
  * @component-impl
- * @stable [11.05.2020]
+ * @stable [01.08.2020]
  *
- * Please use the "Mappers.TODO"
+ * Please use the "Mappers.unsavedFormChangesDialogProps"
  */
 export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDialogProps> {
 
@@ -22,7 +22,7 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
    * @param {IActivateDialogConfigEntity} payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
-    if (FormUtils.isChanged(this.originalProps)) { // We can't use dirty flag because of the default changes (!)
+    if (FormUtils.isFormHolderEntityChanged(this.originalProps)) { // We can't use dirty flag because of the default changes (!)
       super.activate(payload);
     } else {
       this.onAcceptClick();
@@ -44,7 +44,7 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
   protected get title(): string | boolean {
     const {
       title,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     return title === false
       ? title

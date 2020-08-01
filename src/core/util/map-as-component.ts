@@ -16,6 +16,8 @@ import {
   ITabPanelProps,
   IToolbarToolsContainerProps,
   IToolbarToolsProps,
+  IUnsavedFormChangesDialogContainerProps,
+  IUnsavedFormChangesDialogProps,
 } from '../definition';
 import {
   IEntity,
@@ -63,6 +65,16 @@ const mapPageToolbarProps = (pageToolbar: IPageToolbarProps): IPageToolbarProps 
  */
 const mapFormProps = <TEntity = IEntity>(form: IFormProps<TEntity>): IFormProps<TEntity> =>
   MapAsOriginalUtils.extendedFormEntity(form);
+
+/**
+ * @map-as-component
+ *
+ * @stable [01.08.2020]
+ * @param unsavedFormChangesDialog
+ */
+const mapUnsavedFormChangesDialogProps =
+  <TEntity = IEntity>(unsavedFormChangesDialog: IUnsavedFormChangesDialogProps): IUnsavedFormChangesDialogProps =>
+    MapAsOriginalUtils.extendedFormEntity(unsavedFormChangesDialog);
 
 /**
  * @map-as-component
@@ -244,6 +256,19 @@ const mapToolbarToolsContainerPropsAsToolbarToolsProps = (toolbarToolsContainer:
 });
 
 /**
+ * @map-container-as-component
+ *
+ * @stable [01.08.2020]
+ * @param unsavedFormChangesDialogContainer
+ */
+const mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps =
+  (unsavedFormChangesDialogContainer: IUnsavedFormChangesDialogContainerProps): IUnsavedFormChangesDialogProps =>
+    ({
+      ...mapUnsavedFormChangesDialogProps(unsavedFormChangesDialogContainer),
+      ...unsavedFormChangesDialogContainer.dialogConfiguration,
+    });
+
+/**
  * @map-entity-as-container
  *
  * @stable [31.07.2020]
@@ -315,4 +340,6 @@ export class MapAsComponentUtils {
   public static readonly tabPanelContainerPropsAsTabPanelProps = mapTabPanelContainerPropsAsTabPanelProps;
   public static readonly toolbarToolsContainerProps = mapToolbarToolsContainerProps;
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;
+  public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;
+  public static readonly unsavedFormChangesDialogProps = mapUnsavedFormChangesDialogProps;
 }

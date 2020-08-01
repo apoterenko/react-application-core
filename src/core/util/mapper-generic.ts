@@ -13,7 +13,6 @@ import {
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  IExtendedFormEntity,
   INamedEntity,
   IOptionEntity,
   IPresetsRawDataLabeledValueEntity,
@@ -22,12 +21,12 @@ import {
   IReduxBaseSelectEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
-  IReduxPrimaryFilterFormEntity,
-  IReduxSecondaryFilterFormEntity,
   IReduxListHolderEntity,
   IReduxPagedEntity,
   IReduxPaginatedEntity,
+  IReduxPrimaryFilterFormEntity,
   IReduxQueryFilterHolderEntity,
+  IReduxSecondaryFilterFormEntity,
   ISecondaryFilterExtendedFormEntity,
 } from '../definition';
 import { MapAsOriginalUtils } from './map-as-original';
@@ -124,32 +123,6 @@ const mapOptionEntitiesAsSelectOptionEntities =
 const mapExtendedFormEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
                                                                entity?: TEntity): TEntity =>
   MapAsUtils.entityAsExtendedFormEntity(formEntity, entity).entity;
-
-/**
- * @map-as
- *
- * @stable [27.07.2020]
- * @param holderListEntity
- * @param formEntity
- */
-const mapListSelectedEntityAsExtendedFormEntity =
-  <TEntity = IEntity>(holderListEntity: IReduxListHolderEntity<TEntity>,
-                      formEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
-    MapAsUtils.entityAsExtendedFormEntity(
-      formEntity,
-      Selectors.listSelectedEntity(holderListEntity)
-    );
-
-/**
- * @stable [10.05.2020]
- * @param {IReduxListHolderEntity<TEntity>} listEntity
- * @param {IReduxFormEntity<TEntity>} formEntity
- * @returns {TEntity}
- */
-const mapListSelectedExtendedFormEntityAsFinalEntity =
-  <TEntity = IEntity>(listEntity: IReduxListHolderEntity<TEntity>,
-                      formEntity: IReduxFormEntity<TEntity>): TEntity =>
-    mapListSelectedEntityAsExtendedFormEntity<TEntity>(listEntity, formEntity).entity;
 
 /**
  * @mapper
@@ -312,8 +285,6 @@ export class GenericMappers {
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
   public static readonly holderQueryFilterEntityAsQuery = mapHolderQueryFilterEntityAsQuery;                                                      /* stable [27.07.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
-  public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;                                      /* stable [09.05.2020] */
-  public static readonly listSelectedExtendedFormEntityAsFinalEntity = mapListSelectedExtendedFormEntityAsFinalEntity;                            /* stable [10.05.2020] */
   public static readonly namedEntityAsRawDataLabeledValueEntity = mapNamedEntityAsRawDataLabeledValueEntity;                                      /* stable [08.07.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;                                          /* stable [19.05.2020] */
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = mapPrimaryFilterEntityAsPrimaryFilterExtendedFormEntity;          /* stable [10.05.2020] */

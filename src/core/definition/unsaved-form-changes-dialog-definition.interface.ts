@@ -1,18 +1,18 @@
 import {
-  IConfigurationHolderDialogEntity,
+  IConfigurationDialogEntity,
   IGenericDialogEntity,
 } from './dialog-definition.interface';
 import { IEntity } from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
-import { IHolderProxyContainerEntity } from './container-definition.interface';
+import { IProxyContainerHolderEntity } from './container-definition.interface';
 import { IReduxFormHolderEntity } from './form-definition.interface';
 
 /**
  * @redux-holder-entity
- * @stable [15.06.2020]
+ * @stable [01.08.2020]
  */
-export interface IReduxHolderUnsavedFormChangesDialogEntity<TEntity = IEntity>
+export interface IReduxUnsavedFormChangesDialogHolderEntity<TEntity = IEntity>
   extends IReduxFormHolderEntity<TEntity> {
 }
 
@@ -22,7 +22,7 @@ export interface IReduxHolderUnsavedFormChangesDialogEntity<TEntity = IEntity>
  */
 export interface IGenericUnsavedFormChangesDialogEntity
   extends IGenericDialogEntity,
-    IReduxHolderUnsavedFormChangesDialogEntity {
+    IReduxUnsavedFormChangesDialogHolderEntity {
 }
 
 /**
@@ -39,9 +39,9 @@ export interface IUnsavedFormChangesDialogProps
  * @stable [15.06.2020]
  */
 export interface IGenericUnsavedFormChangesDialogContainerEntity<TProps = IUnsavedFormChangesDialogProps>
-  extends IConfigurationHolderDialogEntity<TProps>,
-    IHolderProxyContainerEntity,
-    IReduxHolderUnsavedFormChangesDialogEntity {
+  extends IConfigurationDialogEntity<TProps>,
+    IProxyContainerHolderEntity,
+    IReduxUnsavedFormChangesDialogHolderEntity {
 }
 
 /**

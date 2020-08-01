@@ -410,11 +410,10 @@ const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): TValue =
 const selectListRawData = <TRawData = AnyT>(entity: IReduxListHolderEntity): TRawData => selectRawData(selectList(entity));
 
 /**
- * @stable [08.05.2020]
- * @param {IReduxFormHolderEntity<TEntity>} entity
- * @returns {TEntity}
+ * @stable [01.08.2020]
+ * @param entity
  */
-const selectFormEntityChanges = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): TEntity =>
+const selectFormHolderEntityChanges = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): TEntity =>
   selectChanges(selectForm(entity));
 
 /**
@@ -484,7 +483,7 @@ export class Selectors {
   public static readonly error = selectError;                                                                   /* @stable [12.06.2020] */
   public static readonly filter = selectFilter;
   public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */
-  public static readonly formEntityChanges = selectFormEntityChanges;                                           /* @stable [11.05.2020] */
+  public static readonly formHolderEntityChanges = selectFormHolderEntityChanges;                               /* @stable [01.08.2020] */
   public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */
   public static readonly layoutMode = selectLayoutMode;                                                         /* @stable [21.05.2020] */
   public static readonly list = selectList;

@@ -111,6 +111,33 @@ const mapListHolderEntityAsDisabled = (listEntity: IReduxListHolderEntity): IDis
   mapProgressAsDisabled(Selectors.list(listEntity));
 
 /**
+ * @map-as
+ *
+ * @stable [01.08.2020]
+ * @param listHolderEntity
+ * @param formEntity
+ */
+const mapListSelectedEntityAsExtendedFormEntity =
+  <TEntity = IEntity>(listHolderEntity: IReduxListHolderEntity<TEntity>,
+                      formEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
+    MapAsUtils.entityAsExtendedFormEntity(
+      formEntity,
+      Selectors.listSelectedEntity(listHolderEntity)
+    );
+
+/**
+ * @map-as
+ *
+ * @stable [01.08.2020]
+ * @param listHolderEntity
+ * @param formEntity
+ */
+const mapListSelectedEntityAsFinalEntity =
+  <TEntity = IEntity>(listHolderEntity: IReduxListHolderEntity<TEntity>,
+                      formEntity: IReduxFormEntity<TEntity>): TEntity =>
+    mapListSelectedEntityAsExtendedFormEntity<TEntity>(listHolderEntity, formEntity).entity;
+
+/**
  * @stable [31.07.2020]
  */
 export class MapAsUtils {
@@ -118,4 +145,6 @@ export class MapAsUtils {
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;
   public static readonly extendedEntityAsApiEntity = mapExtendedEntityAsApiEntity;
   public static readonly listHolderEntityAsDisabled = mapListHolderEntityAsDisabled;
+  public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;
+  public static readonly listSelectedEntityAsFinalEntity = mapListSelectedEntityAsFinalEntity;
 }

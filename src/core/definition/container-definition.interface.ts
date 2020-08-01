@@ -98,8 +98,8 @@ export interface IFieldsContainer
 
 /**
  * @holder-entity
- * @stable [15.06.2020]
+ * @stable [01.08.2020]
  */
-export interface IHolderProxyContainerEntity<TContainer extends IGenericContainer = IGenericContainer>
+export interface IProxyContainerHolderEntity<TContainer extends IGenericContainer = IGenericContainer>
   extends IProxyContainerWrapper<TContainer> {
 }

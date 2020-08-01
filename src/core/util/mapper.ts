@@ -185,7 +185,8 @@ export class Mappers {
   public static readonly listEntityAsPagedEntity = GenericMappers.listEntityAsPagedEntity;                                                                                                  /* @stable [08.05.2020] */
   public static readonly listHolderEntity = MapAsOriginalUtils.listHolderEntity;                                                                                                            /* @stable [31.07.2020] */
   public static readonly listHolderEntityAsDisabled = MapAsUtils.listHolderEntityAsDisabled;                                                                                                /* @stable [31.07.2020] */
-  public static readonly listSelectedEntityAsExtendedFormEntity = GenericMappers.listSelectedEntityAsExtendedFormEntity;                                                                    /* @stable [08.05.2020] */
+  public static readonly listSelectedEntityAsExtendedFormEntity = MapAsUtils.listSelectedEntityAsExtendedFormEntity;                                                                        /* @stable [01.08.2020] */
+  public static readonly listSelectedEntityAsFinalEntity = MapAsUtils.listSelectedEntityAsFinalEntity;                                                                                      /* @stable [01.08.2020] */
   public static readonly namedEntityAsRawDataLabeledValueEntity = GenericMappers.namedEntityAsRawDataLabeledValueEntity;                                                                    /* @stable [08.07.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                                                        /* @stable [19.05.2020] */
   public static readonly pagedEntity = MapAsOriginalUtils.pagedEntity;                                                                                                                      /* @stable [31.07.2020] */
@@ -204,7 +205,6 @@ export class Mappers {
   public static readonly secondaryFilterFormHolderEntityAsToolbarToolsContainerProps = MapAsComponentUtils.secondaryFilterFormHolderEntityAsToolbarToolsContainerProps;                     /* @stable [01.08.2020] */
   public static readonly sectionNameWrapper = MapAsOriginalUtils.sectionNameWrapper;                                                                                                        /* @stable [30.07.2020] */
   public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
-  public static readonly selectedExtendedFormEntityAsFinalEntity = GenericMappers.listSelectedExtendedFormEntityAsFinalEntity;                                                              /* @stable [10.05.2020] */
   public static readonly storeBaseEntity = MapAsOriginalUtils.storeBaseEntity;                                                                                                              /* @stable [31.07.2020] */
   public static readonly storeEntity = MapAsOriginalUtils.storeEntity;                                                                                                                      /* @stable [31.07.2020] */
   public static readonly tabPanelContainerProps = MapAsComponentUtils.tabPanelContainerProps;                                                                                               /* @stable [30.07.2020] */
@@ -213,6 +213,7 @@ export class Mappers {
   public static readonly toolbarToolsContainerProps = MapAsComponentUtils.toolbarToolsContainerProps;                                                                                       /* @stable [01.08.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = MapAsComponentUtils.toolbarToolsContainerPropsAsToolbarToolsProps;                                                 /* @stable [01.08.2020] */
   public static readonly unsavedFormChangesDialogContainerProps = ComponentMappers.unsavedFormChangesDialogContainerProps;                                                                  /* @stable [15.06.2020] */
-  public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = ComponentMappers.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;    /* @stable [15.06.2020] */
+  public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = MapAsComponentUtils.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps; /* @stable [01.08.2020] */
+  public static readonly unsavedFormChangesDialogProps = MapAsComponentUtils.unsavedFormChangesDialogProps;                                                                                 /* @stable [01.08.2020] */
 }
 // tslint:enable:max-line-length
