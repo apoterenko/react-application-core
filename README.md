@@ -69,7 +69,7 @@ The library is designed to quickly start develop the business applications are b
 * [SubHeaderLink (22.05.2020)](src/core/component/sub-header-link/sub-header-link.component.tsx)
 * [Title (01.06.2020)](src/core/component/title/title.component.tsx)
 * [ToolbarTools (01.08.2020)](src/core/component/toolbar-tools/toolbar-tools.component.tsx)
-* [UnsavedFormChangesDialog (11.05.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
+* [UnsavedFormChangesDialog (01.08.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
 
 #### @effects-proxy-factory
 
@@ -94,7 +94,13 @@ The library is designed to quickly start develop the business applications are b
 
 #### @configuration-entity
 
+* [IConfigurationDialogEntity](src/core/definition/dialog-definition.interface.ts)
 * [IConfigurationToolbarToolsEntity](src/core/definition/toolbar-tools-definition.interface.ts)
+
+#### @redux-holder-entity
+
+* [IReduxFormHolderEntity](src/core/definition/form-definition.interface.ts)
+* [IReduxUnsavedFormChangesDialogHolderEntity](src/core/definition/unsaved-form-changes-dialog-definition.interface.ts)
 
 # Theme customization (styling)
 
