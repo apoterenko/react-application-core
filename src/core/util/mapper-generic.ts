@@ -13,9 +13,7 @@ import {
 import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  INamedEntity,
   IOptionEntity,
-  IPresetsRawDataLabeledValueEntity,
   IPresetsSelectOptionEntity,
   IPrimaryFilterExtendedFormEntity,
   IReduxBaseSelectEntity,
@@ -35,33 +33,6 @@ import { MapAsWrapperUtils } from './map-as-wrapper';
 import { Selectors } from './select';
 import { TypeUtils } from './type';
 import { WrapperUtils } from './wrapper';
-
-/**
- * @map-as
- * @map-as-original
- * @map-as-wrapper
- */
-
-/**
- * @map-as
- *
- * @stable [08.07.2020]
- * @param {INamedEntity} entity
- * @returns {IPresetsRawDataLabeledValueEntity}
- */
-const mapNamedEntityAsRawDataLabeledValueEntity =
-  (entity: INamedEntity): IPresetsRawDataLabeledValueEntity =>
-    ConditionUtils.ifNotNilThanValue(
-      entity,
-      () => (
-        FilterUtils.defValuesFilter<IPresetsRawDataLabeledValueEntity, IPresetsRawDataLabeledValueEntity>({
-          value: entity.id,
-          label: entity.name || String(entity.id),
-          rawData: entity,
-        })
-      ),
-      UNDEF_SYMBOL
-    );
 
 /**
  * @map-as
@@ -285,7 +256,6 @@ export class GenericMappers {
   public static readonly fullSearchFilter = mapFullSearchFilter;                                                                                  /* stable [10.05.2020] */
   public static readonly holderQueryFilterEntityAsQuery = mapHolderQueryFilterEntityAsQuery;                                                      /* stable [27.07.2020] */
   public static readonly listEntityAsPagedEntity = mapListEntityAsPagedEntity;                                                                    /* stable [09.05.2020] */
-  public static readonly namedEntityAsRawDataLabeledValueEntity = mapNamedEntityAsRawDataLabeledValueEntity;                                      /* stable [08.07.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;                                          /* stable [19.05.2020] */
   public static readonly primaryFilterEntityAsPrimaryFilterExtendedFormEntity = mapPrimaryFilterEntityAsPrimaryFilterExtendedFormEntity;          /* stable [10.05.2020] */
   public static readonly secondaryFilterEntityAsSecondaryFilterExtendedFormEntity = mapSecondaryFilterEntityAsSecondaryFilterExtendedFormEntity;  /* stable [10.05.2020] */

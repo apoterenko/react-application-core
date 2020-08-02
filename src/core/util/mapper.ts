@@ -186,7 +186,7 @@ export class Mappers {
   public static readonly listHolderEntityAsDisabled = MapAsUtils.listHolderEntityAsDisabled;                                                                                                /* @stable [31.07.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = MapAsUtils.listSelectedEntityAsExtendedFormEntity;                                                                        /* @stable [01.08.2020] */
   public static readonly listSelectedEntityAsFinalEntity = MapAsUtils.listSelectedEntityAsFinalEntity;                                                                                      /* @stable [01.08.2020] */
-  public static readonly namedEntityAsRawDataLabeledValueEntity = GenericMappers.namedEntityAsRawDataLabeledValueEntity;                                                                    /* @stable [08.07.2020] */
+  public static readonly namedEntityAsRawDataLabeledValueEntity = MapAsUtils.namedEntityAsRawDataLabeledValueEntity;                                                                        /* @stable [02.08.2020] */
   public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                                                        /* @stable [19.05.2020] */
   public static readonly pagedEntity = MapAsOriginalUtils.pagedEntity;                                                                                                                      /* @stable [31.07.2020] */
   public static readonly pageToolbarContainerProps = MapAsComponentUtils.pageToolbarContainerProps;                                                                                         /* @stable [31.07.2020] */

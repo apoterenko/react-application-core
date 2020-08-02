@@ -5,6 +5,8 @@ import {
   IApiEntity,
   IExtendedEntity,
   IExtendedFormEntity,
+  INamedEntity,
+  IPresetsRawDataLabeledValueEntity,
   IReduxFormEntity,
   IReduxListHolderEntity,
 } from '../definition';
@@ -12,6 +14,7 @@ import {
   IDisabledWrapper,
   IEntity,
   IProgressWrapper,
+  UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { ConditionUtils } from './cond';
 import { EntityUtils } from './entity';
@@ -138,6 +141,25 @@ const mapListSelectedEntityAsFinalEntity =
     mapListSelectedEntityAsExtendedFormEntity<TEntity>(listHolderEntity, formEntity).entity;
 
 /**
+ * @map-as
+ *
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const mapNamedEntityAsRawDataLabeledValueEntity = (entity: INamedEntity): IPresetsRawDataLabeledValueEntity =>
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => (
+      FilterUtils.defValuesFilter<IPresetsRawDataLabeledValueEntity, IPresetsRawDataLabeledValueEntity>({
+        value: entity.id,
+        label: entity.name || String(entity.id),
+        rawData: entity,
+      })
+    ),
+    UNDEF_SYMBOL
+  );
+
+/**
  * @stable [31.07.2020]
  */
 export class MapAsUtils {
@@ -147,4 +169,5 @@ export class MapAsUtils {
   public static readonly listHolderEntityAsDisabled = mapListHolderEntityAsDisabled;
   public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;
   public static readonly listSelectedEntityAsFinalEntity = mapListSelectedEntityAsFinalEntity;
+  public static readonly namedEntityAsRawDataLabeledValueEntity = mapNamedEntityAsRawDataLabeledValueEntity;
 }
