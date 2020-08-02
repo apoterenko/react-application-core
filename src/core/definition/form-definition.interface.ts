@@ -45,8 +45,8 @@ import {
 } from './entity-definition.interface';
 import { IApiEntity } from './api-definition.interface';
 import {
-  IButtonConfigurationEntity,
   IButtonProps,
+  IConfigurationButtonEntity,
   IGenericButtonEntity,
 } from './button-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
@@ -91,8 +91,8 @@ export interface IFluxValidEntity
 }
 
 /**
- * @redux-holder-entity TODO
- * @stable [27.07.2020]
+ * @redux-entity
+ * @stable [02.08.2020]
  */
 export interface IReduxPrimaryFilterFormEntity<TEntity = IEntity>
   extends IPrimaryFilterWrapper<IReduxFormEntity<TEntity>> {
@@ -115,8 +115,8 @@ export interface IReduxPrimaryFilterFormHolderEntity<TEntity = IEntity>
 }
 
 /**
- * @redux-holder-entity TODO
- * @stable [27.07.2020]
+ * @redux-entity
+ * @stable [02.08.2020]
  */
 export interface IReduxSecondaryFilterFormEntity<TEntity = IEntity>
   extends ISecondaryFilterWrapper<IReduxFormEntity<TEntity>> {
@@ -147,7 +147,7 @@ export interface IPresetsFormEntity<TEntity = IEntity>
     IActionsRenderedWrapper,
     IAlwaysDirtyWrapper,
     IAlwaysResettableWrapper,
-    IButtonConfigurationEntity,
+    IConfigurationButtonEntity,
     IChangeableWrapper,
     ICompactWrapper,
     IDisabledWrapper,

@@ -67,10 +67,10 @@ export interface IButtonProps
 
 /**
  * @configuration-entity
- * @stable [24.01.2020]
+ * @stable [02.08.2020]
  */
-export interface IButtonConfigurationEntity
-  extends IButtonConfigurationWrapper<IButtonProps> {
+export interface IConfigurationButtonEntity<TProps = IButtonProps>
+  extends IButtonConfigurationWrapper<TProps> {
 }
 
 /**

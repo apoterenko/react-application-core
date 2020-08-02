@@ -324,7 +324,7 @@ const mapSecondaryFilterExtendedFormEntityAsFormContainerProps =
 const mapPrimaryFilterFormHolderEntityAsToolbarToolsContainerProps =
   (entity: IToolbarToolsContainerProps & IReduxPrimaryFilterFormHolderEntity): IToolbarToolsContainerProps =>
     mapToolbarToolsContainerProps({
-      ...MapAsOriginalUtils.formHolderEntity(Selectors.primaryFilter(entity)),
+      ...Selectors.primaryFilter(entity),
       ...entity as IToolbarToolsContainerProps,
     });
 
@@ -337,7 +337,7 @@ const mapPrimaryFilterFormHolderEntityAsToolbarToolsContainerProps =
 const mapSecondaryFilterFormHolderEntityAsToolbarToolsContainerProps =
   (entity: IToolbarToolsContainerProps & IReduxSecondaryFilterFormHolderEntity): IToolbarToolsContainerProps =>
     mapToolbarToolsContainerProps({
-      ...MapAsOriginalUtils.formHolderEntity(Selectors.secondaryFilter(entity)),
+      ...Selectors.secondaryFilter(entity),
       ...entity as IToolbarToolsContainerProps,
     });
 
