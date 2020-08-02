@@ -165,7 +165,7 @@ const mapHeaderProps = (props: IHeaderProps): IHeaderProps => MapAsOriginalUtils
 export class Mappers {
   public static readonly defaultLayoutContainerProps = MapAsComponentUtils.defaultLayoutContainerProps;                                                                                     /* @stable [01.08.2020] */
   public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                                                    /* @stable [19.05.2020] */
-  public static readonly dictionaryEntityAsSelectOptionEntities = GenericMappers.dictionaryEntityAsSelectOptionEntities;                                                                    /* @stable [19.05.2020] */
+  public static readonly dictionaryEntityAsSelectOptionEntities = MapAsUtils.dictionaryEntityAsSelectOptionEntities;                                                                        /* @stable [02.08.2020] */
   public static readonly entityAsExtendedEntity = MapAsUtils.entityAsExtendedEntity;                                                                                                        /* @stable [31.07.2020] */
   public static readonly entityAsExtendedFormEntity = MapAsUtils.entityAsExtendedFormEntity;                                                                                                /* @stable [31.07.2020] */
   public static readonly entityAsFullSearchFilter = MapAsUtils.entityAsFullSearchFilter;                                                                                                    /* @stable [02.08.2020] */
@@ -187,7 +187,7 @@ export class Mappers {
   public static readonly listSelectedEntityAsExtendedFormEntity = MapAsUtils.listSelectedEntityAsExtendedFormEntity;                                                                        /* @stable [01.08.2020] */
   public static readonly listSelectedEntityAsFinalEntity = MapAsUtils.listSelectedEntityAsFinalEntity;                                                                                      /* @stable [01.08.2020] */
   public static readonly namedEntityAsRawDataLabeledValueEntity = MapAsUtils.namedEntityAsRawDataLabeledValueEntity;                                                                        /* @stable [02.08.2020] */
-  public static readonly optionEntitiesAsSelectOptionEntities = GenericMappers.optionEntitiesAsSelectOptionEntities;                                                                        /* @stable [19.05.2020] */
+  public static readonly optionEntitiesAsSelectOptionEntities = MapAsUtils.optionEntitiesAsSelectOptionEntities;                                                                            /* @stable [02.08.2020] */
   public static readonly pagedEntity = MapAsOriginalUtils.pagedEntity;                                                                                                                      /* @stable [31.07.2020] */
   public static readonly pageToolbarContainerProps = MapAsComponentUtils.pageToolbarContainerProps;                                                                                         /* @stable [31.07.2020] */
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = MapAsComponentUtils.pageToolbarContainerPropsAsPageToolbarProps;                                                     /* @stable [31.07.2020] */

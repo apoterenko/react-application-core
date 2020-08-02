@@ -8,8 +8,11 @@ import {
   IExtendedEntity,
   IExtendedFormEntity,
   INamedEntity,
+  IOptionEntity,
   IPresetsRawDataLabeledValueEntity,
+  IPresetsSelectOptionEntity,
   IPrimaryFilterExtendedFormEntity,
+  IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxListHolderEntity,
   IReduxPagedEntity,
@@ -20,6 +23,7 @@ import {
   ISecondaryFilterExtendedFormEntity,
 } from '../definition';
 import {
+  AnyT,
   IDisabledWrapper,
   IEntity,
   IProgressWrapper,
@@ -32,6 +36,7 @@ import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsWrapperUtils } from './map-as-wrapper';
 import { NvlUtils } from './nvl';
 import { Selectors } from './select';
+import { TypeUtils } from './type';
 import { WrapperUtils } from './wrapper';
 
 /**
@@ -291,9 +296,56 @@ const mapEntityAsFullSearchFilter =
   }) as TFilter;
 
 /**
+ * @map-as
+ *
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const mapOptionEntityAsSelectOptionEntity =
+  <TEntity extends IOptionEntity>(entity: TEntity): IPresetsSelectOptionEntity<TEntity> =>
+    MapAsOriginalUtils.selectOptionEntity<TEntity>({
+      disabled: entity.disabled,
+      label: entity.name,
+      rawData: entity,
+      value: entity.id,
+    });
+
+/**
+ * @map-as
+ *
+ * @stable [02.08.2020]
+ * @param data
+ */
+const mapOptionEntitiesAsSelectOptionEntities =
+  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<IPresetsSelectOptionEntity<TEntity>> =>
+    ConditionUtils.ifNotNilThanValue(
+      data,
+      () => [].concat(data).map((entity) => mapOptionEntityAsSelectOptionEntity(entity)),
+      UNDEF_SYMBOL
+    );
+
+/**
+ * @map-as
+ *
+ * @stable [02.08.2020]
+ * @param dictionaryEntity
+ * @param accessor
+ */
+const mapDictionaryEntityAsSelectOptionEntities =
+  <TEntity>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
+            accessor?: (data: TEntity | TEntity[]) => AnyT): Array<IPresetsSelectOptionEntity<TEntity>> =>
+    mapOptionEntitiesAsSelectOptionEntities(
+      ConditionUtils.ifNotNilThanValue(
+        Selectors.data(dictionaryEntity),
+        (data) => TypeUtils.isFn(accessor) ? accessor(data) : data
+      )
+    );
+
+/**
  * @stable [31.07.2020]
  */
 export class MapAsUtils {
+  public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;
   public static readonly entityAsFullSearchFilter = mapEntityAsFullSearchFilter;
@@ -304,6 +356,8 @@ export class MapAsUtils {
   public static readonly listSelectedEntityAsExtendedFormEntity = mapListSelectedEntityAsExtendedFormEntity;
   public static readonly listSelectedEntityAsFinalEntity = mapListSelectedEntityAsFinalEntity;
   public static readonly namedEntityAsRawDataLabeledValueEntity = mapNamedEntityAsRawDataLabeledValueEntity;
+  public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;
+  public static readonly optionEntityAsSelectOptionEntity = mapOptionEntityAsSelectOptionEntity;
   public static readonly primaryFilterFormEntityAsPrimaryFilterExtendedFormEntity = mapPrimaryFilterFormEntityAsPrimaryFilterExtendedFormEntity;
   public static readonly queryFilterHolderEntityAsQuery = mapQueryFilterHolderEntityAsQuery;
   public static readonly secondaryFilterFormEntityAsSecondaryFilterExtendedFormEntity = mapSecondaryFilterFormEntityAsSecondaryFilterExtendedFormEntity;

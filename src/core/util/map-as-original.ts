@@ -1,6 +1,7 @@
 import {
   IExtendedEntity,
   IExtendedFormEntity,
+  IPresetsSelectOptionEntity,
   IReduxActiveValueHolderEntity,
   IReduxChannelEntity,
   IReduxChannelHolderEntity,
@@ -36,6 +37,24 @@ import {
 } from '../definitions.interface';
 import { FilterUtils } from './filter';
 import { ConditionUtils } from './cond';
+
+/**
+ * @map-as-original
+ *
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const mapSelectOptionEntity = <TValue = IEntity>(entity: IPresetsSelectOptionEntity<TValue>): IPresetsSelectOptionEntity<TValue> =>
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => FilterUtils.defValuesFilter<IPresetsSelectOptionEntity<TValue>, IPresetsSelectOptionEntity<TValue>>({
+      disabled: entity.disabled,
+      label: entity.label,
+      rawData: entity.rawData,
+      value: entity.value,
+    }),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @map-as-original
@@ -314,6 +333,7 @@ export class MapAsOriginalUtils {
   public static readonly queryFilterEntity = mapQueryFilterEntity;
   public static readonly queryFilterHolderEntity = mapQueryFilterHolderEntity;
   public static readonly sectionNameWrapper = mapSectionNameWrapper;
+  public static readonly selectOptionEntity = mapSelectOptionEntity;
   public static readonly storeBaseEntity = mapStoreBaseEntity;
   public static readonly storeEntity = mapStoreEntity;
   public static readonly tabPanelHolderEntity = mapTabPanelHolderEntity;
