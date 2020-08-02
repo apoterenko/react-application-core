@@ -176,7 +176,7 @@ export interface IPresetsFormEntity<TEntity = IEntity>
  * @generic-entity
  * @stable [09.05.2020]
  */
-interface IGenericFormEntity<TEntity = IEntity>
+export interface IGenericFormEntity<TEntity = IEntity>
   extends IExtendedFormEntity<TEntity>,
     IPresetsFormEntity {
 }

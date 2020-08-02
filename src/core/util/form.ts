@@ -5,6 +5,7 @@ import {
   IFieldProps,
   IFormProps,
   IGenericFieldEntity2,
+  IGenericFormEntity,
   IPresetsFieldEntity,
   IPresetsTabEntity,
   IReduxFormHolderEntity,
@@ -31,8 +32,42 @@ import {
   selectForm,
   Selectors,
 } from './select';
-import { FormEntityUtils } from './form-entity';
 import { ObjectUtils } from './object';
+
+/**
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const isFormHolderEntityTouched = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
+  WrapperUtils.isTouched(Selectors.form(entity));
+
+/**
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const isFormHolderEntityInProgress = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
+  WrapperUtils.inProgress(Selectors.form(entity));
+
+/**
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const isFormHolderEntityChanged = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
+  ObjectUtils.isObjectNotEmpty(Selectors.formHolderEntityChanges(entity));
+
+/**
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const isFormHolderEntityValid = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
+  WrapperUtils.isValid(Selectors.form(entity));
+
+/**
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const isGenericFormEntityValid = <TEntity = IEntity>(entity: IGenericFormEntity<TEntity>): boolean =>
+  WrapperUtils.isValid(entity) && isFormHolderEntityValid(entity);
 
 /**
  * @stable [05.06.2020]
@@ -45,14 +80,6 @@ const isFormFieldChangeable = (formProps: IFormProps,
   R.isNil(presetsFieldEntity.changeable)
     ? WrapperUtils.isChangeable(formProps)
     : WrapperUtils.isChangeable(presetsFieldEntity);
-
-/**
- * @stable [11.05.2020]
- * @param {IFormProps<TEntity>} entity
- * @returns {boolean}
- */
-const isFormValid = <TEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  WrapperUtils.isValid(entity) && FormEntityUtils.inValid(entity);
 
 /**
  * @stable [06.05.2020]
@@ -134,7 +161,7 @@ const getFormFieldOriginalValue = <TEntity = IEntity>(entity: IExtendedFormEntit
  * @returns {boolean}
  */
 export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  R.isNil(entity) ? false : (isDisabled(entity) || FormEntityUtils.inProgress(entity));
+  R.isNil(entity) ? false : (isDisabled(entity) || isFormHolderEntityInProgress(entity));
 
 /**
  * @stable [23.04.2020]
@@ -179,7 +206,7 @@ export const isFormFieldDisabled = (formProps: IFormProps,
  * @returns {boolean}
  */
 export const isFormSubmittable = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>): boolean =>
-  isFormValid(formProps)
+  isGenericFormEntityValid(formProps)
   && isFormDirty(formProps)
   && !isFormDisabled(formProps);
 
@@ -206,22 +233,15 @@ const isFormTabActive = <TEntity extends IEntity = IEntity>(holderFormEntity: IR
   TabUtils.isActive(Selectors.form(holderFormEntity), tabEntity);
 
 /**
- * @stable [01.08.2020]
- * @param entity
- */
-const isFormHolderEntityChanged = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): boolean =>
-  ObjectUtils.isObjectNotEmpty(Selectors.formHolderEntityChanges(entity));
-
-/**
  * @stable [11.05.2020]
  */
 export class FormUtils {
   public static readonly fieldDisplayValue = getFormFieldDisplayValue;                              /* @stable [11.05.2020] */
   public static readonly fieldOriginalValue = getFormFieldOriginalValue;                            /* @stable [11.05.2020] */
-  public static readonly inProgress = FormEntityUtils.inProgress;                                   /* @stable [11.05.2020] */
+  public static readonly inProgress = isFormHolderEntityInProgress;                                 /* @stable [02.08.2020] */
+  public static readonly isChanged = isFormHolderEntityChanged;                                     /* @stable [02.08.2020] */
   public static readonly isFieldChangeable = isFormFieldChangeable;                                 /* @stable [05.06.2020] */
-  public static readonly isFormHolderEntityChanged = isFormHolderEntityChanged;                     /* @stable [01.08.2020] */
   public static readonly isTabActive = isFormTabActive;                                             /* @stable [15.06.2020] */
-  public static readonly isTouched = FormEntityUtils.isTouched;                                     /* @stable [11.05.2020] */
-  public static readonly isValid = isFormValid;                                                     /* @stable [11.05.2020] */
+  public static readonly isTouched = isFormHolderEntityTouched;                                     /* @stable [02.08.2020] */
+  public static readonly isValid = isGenericFormEntityValid;                                        /* @stable [02.08.2020] */
 }

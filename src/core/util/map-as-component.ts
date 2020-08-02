@@ -1,5 +1,6 @@
 import {
   IDefaultLayoutContainerProps,
+  IFilterFormDialogContainerProps,
   IFormContainerProps,
   IFormProps,
   IFormTabPanelContainerProps,
@@ -190,13 +191,21 @@ const mapToolbarToolsContainerProps = (toolbarToolsContainer: IToolbarToolsConta
  * @map-as-container
  *
  * @stable [01.08.2020]
- * @param entity
+ * @param defaultLayoutContainer
  */
-const mapDefaultLayoutContainerProps = (entity: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps =>
-  ({
-    ...MapAsOriginalUtils.sectionNameWrapper(entity),
-    ...MapAsOriginalUtils.storeEntity(entity),
-  });
+const mapDefaultLayoutContainerProps = (defaultLayoutContainer: IDefaultLayoutContainerProps): IDefaultLayoutContainerProps => ({
+  ...MapAsOriginalUtils.sectionNameWrapper(defaultLayoutContainer),
+  ...MapAsOriginalUtils.storeEntity(defaultLayoutContainer),
+});
+
+/**
+ * @map-as-container
+ *
+ * @stable [02.08.2020]
+ * @param filterFormDialogContainer
+ */
+const mapFilterFormDialogContainerProps = (filterFormDialogContainer: IFilterFormDialogContainerProps): IFilterFormDialogContainerProps =>
+  MapAsComponentUtils.formContainerProps(filterFormDialogContainer);
 
 /**
  * @map-container-as-component
@@ -333,10 +342,35 @@ const mapSecondaryFilterFormHolderEntityAsToolbarToolsContainerProps =
     });
 
 /**
+ * @map-entity-as-container
+ *
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const mapSecondaryFilterExtendedFormEntityAsFilterFormDialogContainerProps =
+  (entity: IFilterFormDialogContainerProps & ISecondaryFilterExtendedFormEntity): IFilterFormDialogContainerProps => ({
+    ...MapAsOriginalUtils.sectionNameWrapper(entity),
+    ...Selectors.secondaryFilter(entity),
+  });
+
+/**
+ * @map-entity-as-container
+ *
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const mapPrimaryFilterExtendedFormEntityAsFilterFormDialogContainerProps =
+  (entity: IFilterFormDialogContainerProps & IPrimaryFilterExtendedFormEntity): IFilterFormDialogContainerProps => ({
+    ...MapAsOriginalUtils.sectionNameWrapper(entity),
+    ...Selectors.primaryFilter(entity),
+  });
+
+/**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
   public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;
+  public static readonly filterFormDialogContainerProps = mapFilterFormDialogContainerProps;
   public static readonly formContainerProps = mapFormContainerProps;
   public static readonly formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
   public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
@@ -344,10 +378,12 @@ export class MapAsComponentUtils {
   public static readonly listContainerProps = mapListContainerProps;
   public static readonly pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
+  public static readonly primaryFilterExtendedFormEntityAsFilterFormDialogContainerProps = mapPrimaryFilterExtendedFormEntityAsFilterFormDialogContainerProps;
   public static readonly primaryFilterExtendedFormEntityAsFormContainerProps = mapPrimaryFilterExtendedFormEntityAsFormContainerProps;
   public static readonly primaryFilterFormHolderEntityAsToolbarToolsContainerProps = mapPrimaryFilterFormHolderEntityAsToolbarToolsContainerProps;
   public static readonly searchToolbarContainerProps = mapSearchToolbarContainerProps;
   public static readonly searchToolbarContainerPropsAsSearchToolbarProps = mapSearchToolbarContainerPropsAsSearchToolbarProps;
+  public static readonly secondaryFilterExtendedFormEntityAsFilterFormDialogContainerProps = mapSecondaryFilterExtendedFormEntityAsFilterFormDialogContainerProps;
   public static readonly secondaryFilterExtendedFormEntityAsFormContainerProps = mapSecondaryFilterExtendedFormEntityAsFormContainerProps;
   public static readonly secondaryFilterFormHolderEntityAsToolbarToolsContainerProps = mapSecondaryFilterFormHolderEntityAsToolbarToolsContainerProps;
   public static readonly tabPanelContainerProps = mapTabPanelContainerProps;

@@ -22,7 +22,7 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
    * @param {IActivateDialogConfigEntity} payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
-    if (FormUtils.isFormHolderEntityChanged(this.originalProps)) { // We can't use dirty flag because of the default changes (!)
+    if (FormUtils.isChanged(this.originalProps)) { // We can't use dirty flag because of the default changes (!)
       super.activate(payload);
     } else {
       this.onAcceptClick();

@@ -17,7 +17,6 @@ export * from './field';
 export * from './filter';
 export * from './fn';
 export * from './form';
-export * from './form-entity';
 export * from './join';
 export * from './json';
 export * from './mapper';
