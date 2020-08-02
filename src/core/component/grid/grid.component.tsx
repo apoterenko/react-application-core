@@ -53,7 +53,6 @@ import {
 export class Grid extends BaseList<IGridProps, IGridState> {
 
   public static readonly defaultProps: IGridProps = {
-    expandedGroups: {},
     headerRendered: true,
   };
 
@@ -67,12 +66,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     this.onHeadColumnClose = this.onHeadColumnClose.bind(this);
     this.onHeadColumnExpandAllGroups = this.onHeadColumnExpandAllGroups.bind(this);
 
-    const {
-      expandedGroups,
-    } = originalProps;
-
     this.state = {
-      expandedGroups,
       filterChanges: {},
       page: DefaultEntities.FIRST_PAGE,
     };
@@ -775,8 +769,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       allGroupsExpanded,
       expandedGroups,
     } = this.state;
-
-    return NvlUtils.nvl(expandedGroups[groupRowValue], allGroupsExpanded);
+    const $expandedGroups = NvlUtils.coalesce(
+      expandedGroups,
+      this.originalProps.expandedGroups,
+      {}
+    );
+    return NvlUtils.nvl($expandedGroups[groupRowValue], allGroupsExpanded);
   }
 
   /**
