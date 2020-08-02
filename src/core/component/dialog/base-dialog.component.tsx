@@ -6,7 +6,6 @@ import { Button } from '../button';
 import {
   calc,
   handlerPropsFactory,
-  inProgress,
   isAcceptable,
   isAcceptDisabled,
   isCheckModalNeeded,
@@ -22,6 +21,7 @@ import {
   isScrollable,
   joinClassName,
   orNull,
+  WrapperUtils,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
@@ -601,11 +601,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [02.08.2020]
    */
   private get isDialogInProgress(): boolean {
-    return inProgress(this.mergedProps);
+    return WrapperUtils.inProgress(this.originalProps);
   }
 
   /**

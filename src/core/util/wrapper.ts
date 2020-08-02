@@ -101,11 +101,10 @@ const isFocusPrevented = (wrapper: IPreventFocusWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.preventFocus === true;
 
 /**
- * @stable [03.02.2020]
- * @param {IProgressWrapper} wrapper
- * @returns {boolean}
+ * @stable [02.08.2020]
+ * @param wrapper
  */
-export const inProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrapper) ? false : wrapper.progress === true;
+const inProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrapper) ? false : wrapper.progress === true;
 
 /**
  * @stable [15.01.2020]

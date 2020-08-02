@@ -695,11 +695,24 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [18.06.2020]
-   * @returns {boolean}
+   * @stable [02.08.2020]
    */
   protected get isReadOnly(): boolean {
-    return WrapperUtils.isReadOnly(this.originalProps);
+    return FieldUtils.isFieldReadOnly(this.originalProps);
+  }
+
+  /**
+   * @stable [02.08.2020]
+   */
+  protected get isInactive(): boolean {
+    return FieldUtils.isFieldInactive(this.originalProps);
+  }
+
+  /**
+   * @stable [02.08.2020]
+   */
+  protected get isActive(): boolean {
+    return !this.isInactive;
   }
 
   /**

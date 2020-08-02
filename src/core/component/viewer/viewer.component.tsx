@@ -5,7 +5,6 @@ import {
   CalcUtils,
   ClsUtils,
   coalesce,
-  inProgress,
   isOpened,
   isPreviewUsed,
   nvl,
@@ -248,11 +247,10 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   protected abstract gePreviewElement(): JSX.Element;
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [02.08.2020]
    */
   protected get inProgress(): boolean {
-    return inProgress(this.state);
+    return WrapperUtils.inProgress(this.state);
   }
 
   /**

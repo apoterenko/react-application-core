@@ -20,8 +20,8 @@ import { ConditionUtils } from './cond';
 import { TypeUtils } from './type';
 import {
   doesErrorExist,
-  inProgress,
   isReady,
+  WrapperUtils,
 } from './wrapper';
 import {
   Selectors,
@@ -139,7 +139,7 @@ export const hasTransportWrapperQueueOperations = (entity: IReduxTransportHolder
  * @param {IUniversalApplicationEntity} entity
  * @returns {boolean}
  */
-export const isApplicationInProgress = (entity: IUniversalApplicationEntity): boolean => inProgress(entity);
+export const isApplicationInProgress = (entity: IUniversalApplicationEntity): boolean => WrapperUtils.inProgress(entity);
 
 /**
  * @stable [28.11.2019]

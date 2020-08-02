@@ -10,8 +10,10 @@ import {
 } from '../definitions.interface';
 import {
   FieldConstants,
+  IGenericFieldEntity,
   IGenericFieldEntity2,
   IMultiItemEntity,
+  IPresetsFieldEntity,
   IReduxMultiEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
@@ -27,9 +29,8 @@ import { TypeUtils } from './type';
 import { nvl } from './nvl';
 import { shallowClone } from './clone';
 import {
-  inProgress,
   isDisabled,
-  isReadOnly,
+  WrapperUtils,
 } from './wrapper';
 import { defValuesFilter } from './filter';
 
@@ -59,12 +60,17 @@ const asActualFieldValue = (config: IGenericFieldEntity2): AnyT => {
 };
 
 /**
- * @stable [28.10.2019]
- * @param {IGenericFieldEntity2} props
- * @returns {boolean}
+ * @stable [02.08.2020]
+ * @param entity
  */
-export const isFieldInactive = (props: IGenericFieldEntity2): boolean =>
-  isDisabled(props) || isReadOnly(props) || inProgress(props);
+const isFieldInactive = (entity: IGenericFieldEntity): boolean =>
+  isDisabled(entity) || WrapperUtils.isReadOnly(entity) || WrapperUtils.inProgress(entity);
+
+/**
+ * @stable [02.08.2020]
+ * @param entity
+ */
+const isFieldReadOnly = (entity: IPresetsFieldEntity): boolean => WrapperUtils.isReadOnly(entity);
 
 /**
  * @stable [27.08.2019]
@@ -326,4 +332,6 @@ export class FieldUtils {
   public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
   public static readonly fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
   public static readonly fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
+  public static readonly isFieldInactive = isFieldInactive;                                                       /* @stable [02.08.2020] */
+  public static readonly isFieldReadOnly = isFieldReadOnly;                                                       /* @stable [02.08.2020] */
 }

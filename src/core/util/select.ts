@@ -55,10 +55,7 @@ import {
   ToolbarToolsEnum,
 } from '../definition';
 import { ConditionUtils } from './cond';
-import {
-  inProgress,
-  WrapperUtils,
-} from './wrapper';
+import { WrapperUtils } from './wrapper';
 
 /**
  * @stable [30.03.2020]
@@ -252,7 +249,7 @@ const selectPreviousAction = <TValue>(wrapper: IPreviousActionWrapper<TValue>): 
  * @param {IReduxListHolderEntity} entity
  * @returns {boolean}
  */
-const selectListProgress = (entity: IReduxListHolderEntity): boolean => inProgress(selectList(entity));
+const selectListProgress = (entity: IReduxListHolderEntity): boolean => WrapperUtils.inProgress(selectList(entity));
 
 /**
  * @stable [26.03.2020]

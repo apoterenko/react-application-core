@@ -8,7 +8,6 @@ import {
 
 import {
   isDisplayValueRenderedOnly,
-  isFieldInactive,
   isFn,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
@@ -151,22 +150,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
    */
   protected getFieldPattern(): string {
     return this.props.pattern;
-  }
-
-  /**
-   * @stable [28.10.2019]
-   * @returns {boolean}
-   */
-  protected get isInactive(): boolean {
-    return isFieldInactive(this.props);
-  }
-
-  /**
-   * @stable [28.10.2019]
-   * @returns {boolean}
-   */
-  protected get isActive(): boolean {
-    return !this.isInactive;
   }
 
   /**
