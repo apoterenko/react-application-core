@@ -205,7 +205,7 @@ const mapDefaultLayoutContainerProps = (defaultLayoutContainer: IDefaultLayoutCo
  * @param filterFormDialogContainer
  */
 const mapFilterFormDialogContainerProps = (filterFormDialogContainer: IFilterFormDialogContainerProps): IFilterFormDialogContainerProps =>
-  MapAsComponentUtils.formContainerProps(filterFormDialogContainer);
+  mapFormContainerProps(filterFormDialogContainer);
 
 /**
  * @map-container-as-component

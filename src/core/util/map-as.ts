@@ -169,7 +169,7 @@ const mapQueryFilterHolderEntityAsQuery = (entity: IReduxQueryFilterHolderEntity
  */
 const mapFormEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
                                                        entity?: TEntity): TEntity =>
-  MapAsUtils.entityAsExtendedFormEntity(formEntity, entity).entity;
+  mapEntityAsExtendedFormEntity(formEntity, entity).entity;
 
 /**
  * @map-as
@@ -181,7 +181,7 @@ const mapFormEntityAsFinalEntity = <TEntity = IEntity>(formEntity: IReduxFormEnt
 const mapListSelectedEntityAsExtendedFormEntity =
   <TEntity = IEntity>(listHolderEntity: IReduxListHolderEntity<TEntity>,
                       formEntity: IReduxFormEntity<TEntity>): IExtendedFormEntity<TEntity> =>
-    MapAsUtils.entityAsExtendedFormEntity(
+    mapEntityAsExtendedFormEntity(
       formEntity,
       Selectors.listSelectedEntity(listHolderEntity)
     );
@@ -228,7 +228,7 @@ const mapFormEntityAsPrimaryFilterExtendedFormEntity =
   <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
                       entity?: TEntity): IPrimaryFilterExtendedFormEntity<TEntity> =>
     MapAsWrapperUtils.primaryFilter(
-      MapAsUtils.entityAsExtendedFormEntity(formEntity, entity)
+      mapEntityAsExtendedFormEntity(formEntity, entity)
     );
 
 /**
@@ -242,7 +242,7 @@ const mapFormEntityAsSecondaryFilterExtendedFormEntity =
   <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
                       entity?: TEntity): ISecondaryFilterExtendedFormEntity<TEntity> =>
     MapAsWrapperUtils.secondaryFilter(
-      MapAsUtils.entityAsExtendedFormEntity(formEntity, entity)
+      mapEntityAsExtendedFormEntity(formEntity, entity)
     );
 
 /**

@@ -265,8 +265,8 @@ const mapListHolderEntity = (entity: IReduxListHolderEntity): IReduxListHolderEn
  * @param form
  */
 const mapExtendedFormEntity = <TEntity = IEntity>(form: IExtendedFormEntity<TEntity>): IExtendedFormEntity<TEntity> => ({
-  ...MapAsOriginalUtils.extendedEntity(form),
-  ...MapAsOriginalUtils.formHolderEntity(form),
+  ...mapExtendedEntity(form),
+  ...mapFormHolderEntity(form),
 });
 
 /**
