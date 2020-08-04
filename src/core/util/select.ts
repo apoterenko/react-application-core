@@ -199,7 +199,7 @@ const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload =
  * @stable [26.07.2020]
  * @param action
  */
-const selectDataPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
+const selectPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
   selectPayload(selectData(action));
 
 /**
@@ -471,7 +471,6 @@ export class Selectors {
   public static readonly changes = selectChanges;
   public static readonly channel = selectChannel;                                                               /* @stable [12.06.2020] */
   public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */
-  public static readonly dataPayloadFromAction = selectDataPayloadFromAction;                                   /* @stable [08.06.2020] */
   public static readonly dictionaries = selectDictionaries;                                                     /* @stable [09.06.2020] */
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
   public static readonly element = selectElement;                                                               /* @stable [08.06.2020] */
@@ -489,6 +488,7 @@ export class Selectors {
   public static readonly listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
   public static readonly mergedLayoutMode = selectMergedLayoutMode;                                             /* @stable [21.05.2020] */
   public static readonly notification = selectNotification;                                                     /* @stable [12.06.2020] */
+  public static readonly payloadFromAction = selectPayloadFromAction;                                           /* @stable [08.06.2020] */
   public static readonly preventEffectsFromAction = selectPreventEffectsFromAction;                             /* @stable [08.06.2020] */
   public static readonly previousActionFromAction = selectPreviousActionFromAction;                             /* @stable [08.05.2020] */
   public static readonly previousActionTypeFromAction = selectPreviousActionTypeFromAction;                     /* @stable [08.05.2020] */

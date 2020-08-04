@@ -114,12 +114,11 @@ export class BaseTransport {
     this.fieldConverter.fromSelectValueToId(value)
 
   /**
-   * @stable [29.08.2019]
-   * @param {StringNumberT} value
-   * @param {(value: number) => number} converter
-   * @returns {number}
+   * @stable [04.08.2020]
+   * @param value
+   * @param converter
    */
-  protected prepareNumberValue = (value: StringNumberT, converter?: (value: number) => number): number =>
+  protected numberParameter = (value: StringNumberT, converter?: (value: number) => number): number =>
     this.nc.numberParameter(value, converter)
 
   /**

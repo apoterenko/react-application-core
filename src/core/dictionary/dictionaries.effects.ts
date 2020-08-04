@@ -28,5 +28,5 @@ export class DictionariesEffects {
    */
   @EffectsService.effects(DictionariesActionBuilder.buildLoadActionType(DictionariesEnum.PLACES))
   public $onSearchPlaces = (action: IEffectsAction): Promise<ISearchPlaceEntity[]> =>
-    this.placesApi.searchPlaces(Selectors.dataPayloadFromAction<ISearchPlacesEntity>(action))
+    this.placesApi.searchPlaces(Selectors.payloadFromAction<ISearchPlacesEntity>(action))
 }

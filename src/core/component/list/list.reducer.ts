@@ -190,7 +190,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildInsertActionType(section):
-      modifyDataPayload = nvl(modifyDataPayload, Selectors.dataPayloadFromAction<IModifyEntityPayloadEntity>(action));
+      modifyDataPayload = nvl(modifyDataPayload, Selectors.payloadFromAction<IModifyEntityPayloadEntity>(action));
       const doesEntityExist = ArrayUtils.doesArrayContainExistedEntity(state.data, modifyDataPayload);
       const mergedData = mergeArrayItem<IEntityIdTWrapper>(
         state.data,
@@ -216,7 +216,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
       /**
        * @stable [08.06.2019]
        */
-      const removedEntity = Selectors.dataPayloadFromAction(action);
+      const removedEntity = Selectors.payloadFromAction(action);
       const filteredData = state.data.filter((entity) => !SAME_ENTITY_PREDICATE(entity, removedEntity));
       return {
         ...state,
