@@ -376,7 +376,7 @@ const mapPrimaryFilterExtendedFormEntityAsFilterFormDialogContainerProps =
 /**
  * @stable [07.08.2020]
  */
-interface IDictionariesContainerAsSelectPropsConfigEntity<TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
+export interface IDictionariesContainerAsSelectPropsConfigEntity<TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
   TEntity = IEntity,
   TResult = TEntity[]> {
   container: IDictionariesContainer<TDictionary>;
@@ -411,7 +411,7 @@ const mapDictionariesContainerAsSelectProps = <TDictionary extends IReduxBaseDic
 /**
  * @stable [07.08.2020]
  */
-interface IDictionariesContainerAsParameterizedSelectPropsConfigEntity<
+export interface IDictionariesContainerAsParameterizedSelectPropsConfigEntity<
   TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
   TEntity = IEntity,
   TResult = TEntity[],
