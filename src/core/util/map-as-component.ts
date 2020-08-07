@@ -385,7 +385,6 @@ const mapDictionariesContainerAsSelectProps =
     dictionaryEntityResolver: (dictionaries: TDictionary) => IReduxDictionaryEntity): IBaseSelectProps =>
     ({
       ...MapAsUtils.dictionaryEntityAsSelectEntity(dictionaryEntityResolver(container.props.dictionaries)),
-      onDictionaryEmpty: container.dictionaryStoreProxy.dispatchLoadDictionary,
       onDictionaryLoad: (items: {}) => {
         const noAvailableItemsToSelect = container.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
 
@@ -393,6 +392,8 @@ const mapDictionariesContainerAsSelectProps =
           container.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
         }
       },
+      onDictionaryChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
+      onDictionaryEmpty: container.dictionaryStoreProxy.dispatchLoadDictionary,
     });
 
 /**
