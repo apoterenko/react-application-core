@@ -1,4 +1,5 @@
 import {
+  AnyT,
   EntityIdT,
   I$$cachedValueWrapper,
   IAllowEmptyFilterValueWrapper,
@@ -12,6 +13,7 @@ import {
   IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
   IOnDictionaryChangeWrapper,
+  IOnDictionaryEmptyWrapper,
   IOnSelectWrapper,
   IOptionsWrapper,
   IProgressWrapper,
@@ -30,7 +32,10 @@ import {
 import { IFieldState } from './field-definition.interface';
 import { IFluxPayloadQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface';
+import {
+  IFluxPayloadEntity,
+  IPresetsRawDataLabeledValueEntity,
+} from './entity-definition.interface';
 
 /**
  * @presets-entity
@@ -48,6 +53,7 @@ export interface IPresetsBaseSelectEntity
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
+    IOnDictionaryEmptyWrapper<string, IFluxPayloadEntity>,
     IOnDictionaryChangeWrapper<string, IFluxPayloadQueryEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity> {
 }

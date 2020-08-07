@@ -25,12 +25,10 @@ import {
   FilterUtils,
   FormUtils,
   getFormFieldValue,
-  ifNotNilThanValue,
   isFormFieldDisabled,
   isFormFieldReadOnly,
   isFormResettable,
   isFormSubmittable,
-  isObjectNotEmpty,
   Mappers,
   notNilValuesFilter,
   ObjectUtils,
@@ -145,15 +143,18 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [23.04.2020]
-   * @param {string} name
-   * @param {AnyT} value
+   * @stable [07.08.2020]
+   * @param name
+   * @param value
+   * @private
    */
   private onChange(name: string, value: AnyT): void {
-    const {onChange} = this.mergedProps;
+    const {
+      onChange,
+    } = this.originalProps;
 
     if (TypeUtils.isFn(onChange)) {
-      if (isObjectNotEmpty(name)) {
+      if (ObjectUtils.isObjectNotEmpty(name)) {
         onChange({[name]: value});
         this.throwOnValid();
       } else {
@@ -163,41 +164,17 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {IField} field
-   */
-  private onFieldDictionaryEmpty(field: IField): void {
-    const {onDictionaryEmpty} = this.mergedProps;
-
-    if (TypeUtils.isFn(onDictionaryEmpty)) {
-      onDictionaryEmpty(field.props.bindDictionary, this.apiEntity);
-    }
-  }
-
-  /**
-   * @stable [09.05.2020]
-   * @param {IField} field
-   * @param {AnyT} items
-   */
-  private onFieldDictionaryLoad(field: IField, items: AnyT): void {
-    const {onDictionaryLoad} = this.mergedProps;
-
-    if (TypeUtils.isFn(onDictionaryLoad)) {
-      onDictionaryLoad(items, field.props.bindDictionary);
-    }
-  }
-
-  /**
-   * @stable [12.06.2020]
+   * @stable [07.08.2020]
    */
   private throwOnValid(): void {
     const {
+      onValid,
       valid,
     } = this.originalProps;
 
     ConditionUtils.ifNotNilThanValue(
-      this.mergedProps.onValid,
-      (onValid) => onValid(
+      onValid,
+      () => onValid(
         TypeUtils.isBoolean(valid) || this.actualRef.current.checkValidity()
       )
     );
@@ -358,9 +335,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @returns {JSX.Element}
    */
   private get formActionsElement(): JSX.Element {
-    const props = this.props;
+    const {
+      actionsFactory,
+    } = this.originalProps;
     const actions = this.actions;
-    const actualActions = TypeUtils.isFn(props.actionsFactory) ? props.actionsFactory(actions) : actions;
+    const actualActions = TypeUtils.isFn(actionsFactory) ? actionsFactory(actions) : actions;
 
     return (
       <React.Fragment>
@@ -370,7 +349,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               <Button
                 key={`form-action-${action.text || index}`}
                 {...action}
-                onClick={ifNotNilThanValue(action.onClick, () => () => action.onClick(this.apiEntity))}/>
+                onClick={ConditionUtils.ifNotNilThanValue(action.onClick, (onClick) => () => onClick(this.apiEntity))}/>
             )
           )}
       </React.Fragment>
@@ -398,21 +377,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
               disabled: this.isFieldDisabled(field),
               changeable: this.isFieldChangeable(field),
               onFormChange: this.onChange,
-
-              ...(
-                fieldProps.bindDictionary && ({
-                  ...(
-                    !TypeUtils.isFn(fieldProps.onDictionaryEmpty)
-                      ? ({onDictionaryEmpty: () => this.onFieldDictionaryEmpty(field)})
-                      : {}
-                  ),
-                  ...(
-                    !TypeUtils.isFn(fieldProps.onDictionaryLoad)
-                      ? ({onDictionaryLoad: (itms) => this.onFieldDictionaryLoad(field, itms)})
-                      : {}
-                  ),
-                })
-              ),
 
               ...predefinedOptions,
 

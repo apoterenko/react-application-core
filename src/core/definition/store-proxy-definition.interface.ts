@@ -14,6 +14,7 @@ import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
 import { IReduxStackItemEntity } from './stack-definition.interface';
+import { IFluxPayloadEntity } from './entity-definition.interface';
 
 /**
  * @proxy
@@ -115,7 +116,8 @@ export interface IRouterStoreProxy
  * @stable [30.03.2020]
  */
 export interface IDictionaryStoreProxy {
-  dispatchLoadDictionary<TData = {}>(dictionary: string, data?: TData);
+  dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>);
+  dispatchLoadDictionaryOnEmpty<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>);
 }
 
 /**

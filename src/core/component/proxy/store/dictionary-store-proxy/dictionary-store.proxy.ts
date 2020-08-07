@@ -1,8 +1,8 @@
 import { StoreProxy } from '../store.proxy';
 import { DictionariesActionBuilder } from '../../../../action';
 import {
-  IApiEntity,
   IDictionaryStoreProxy,
+  IFluxPayloadEntity,
   IGenericContainer,
   IGenericContainerProps,
   IReduxStoreEntity,
@@ -19,15 +19,36 @@ export class DictionaryStoreProxy<TStore extends IReduxStoreEntity = IReduxStore
    */
   constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
-    this.dispatchLoadDictionary = this.dispatchLoadDictionary.bind(this);
+
+    this.dispatchLoadDictionaryOnChange = this.dispatchLoadDictionaryOnChange.bind(this);
+    this.dispatchLoadDictionaryOnEmpty = this.dispatchLoadDictionaryOnEmpty.bind(this);
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} dictionary
-   * @param {IApiEntity} apiEntity
+   * @stable [07.08.2020]
+   * @param dictionary
+   * @param payload
    */
-  public dispatchLoadDictionary(dictionary: string, apiEntity?: IApiEntity): void {
-    this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, apiEntity));
+  public dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>): void {
+    this.dispatchLoadDictionary(dictionary, payload);
+  }
+
+  /**
+   * @stable [07.08.2020]
+   * @param dictionary
+   * @param payload
+   */
+  public dispatchLoadDictionaryOnEmpty<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>): void {
+    this.dispatchLoadDictionary(dictionary, payload);
+  }
+
+  /**
+   * @stable [07.08.2020]
+   * @param dictionary
+   * @param payload
+   * @private
+   */
+  private dispatchLoadDictionary<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>): void {
+    this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, payload));
   }
 }

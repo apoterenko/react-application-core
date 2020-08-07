@@ -1,9 +1,9 @@
 import {
   IActiveWrapper,
-  IPayloadWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
 } from '../definitions.interface';
+import { IFluxPayloadEntity } from './entity-definition.interface';
 
 /**
  * @redux-entity
@@ -35,7 +35,7 @@ export interface IFluxQueryEntity
  * @stable [08.05.2020]
  */
 export interface IFluxPayloadQueryEntity
-  extends IPayloadWrapper<IFluxQueryEntity> {
+  extends IFluxPayloadEntity<IFluxQueryEntity> {
 }
 
 /**

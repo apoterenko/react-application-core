@@ -131,7 +131,6 @@ export interface IPresetsFieldEntity
     IOnClearWrapper,
     IOnClickWrapper,                                                              /* @stable [17.06.2020] */
     IOnDelayWrapper,
-    IOnDictionaryEmptyWrapper<string, IApiEntity>,
     IOnDictionaryLoadWrapper<{}, string>,
     IOnFocusWrapper<IFocusEvent>,                                                 /* @stable [21.06.2020] */
     IOnFormChangeWrapper,

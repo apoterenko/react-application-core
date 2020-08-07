@@ -6,6 +6,7 @@ import {
   IDefaultLayoutContainerProps,
   IDictionariesContainer,
   IFilterFormDialogContainerProps,
+  IFluxPayloadEntity,
   IFormContainerProps,
   IFormProps,
   IFormTabPanelContainerProps,
@@ -373,32 +374,78 @@ const mapPrimaryFilterExtendedFormEntityAsFilterFormDialogContainerProps =
   });
 
 /**
+ * @stable [07.08.2020]
+ */
+interface IDictionariesContainerAsSelectPropsConfigEntity<TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
+  TEntity = IEntity,
+  TResult = TEntity[]> {
+  container: IDictionariesContainer<TDictionary>;
+  dataResolver?: (data: TEntity[]) => TResult;
+  dictionaryEntityResolver: (dictionaries: TDictionary) => IReduxDictionaryEntity;
+}
+
+/**
  * @map-container-as-component
  *
  * @stable [07.08.2020]
- * @param container
- * @param dictionaryEntityResolver
- * @param accessor
+ * @param cfg
  */
-const mapDictionariesContainerAsSelectProps =
+const mapDictionariesContainerAsSelectProps = <TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
+  TEntity = IEntity,
+  TResult = TEntity[]>(
+  cfg: IDictionariesContainerAsSelectPropsConfigEntity<TDictionary, TEntity, TResult>
+): IBaseSelectProps =>
+  ({
+    ...MapAsUtils.dictionaryEntityAsSelectEntity(cfg.dictionaryEntityResolver(cfg.container.props.dictionaries), cfg.dataResolver),
+    onDictionaryLoad: (items: {}) => {
+      const noAvailableItemsToSelect = cfg.container.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
+
+      if (noAvailableItemsToSelect && R.isEmpty(items)) {
+        cfg.container.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
+      }
+    },
+    onDictionaryChange: cfg.container.dictionaryStoreProxy.dispatchLoadDictionaryOnChange,
+    onDictionaryEmpty: cfg.container.dictionaryStoreProxy.dispatchLoadDictionaryOnEmpty,
+  });
+
+/**
+ * @stable [07.08.2020]
+ */
+interface IDictionariesContainerAsParameterizedSelectPropsConfigEntity<
+  TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
+  TEntity = IEntity,
+  TResult = TEntity[],
+  TPayload = {}> extends IDictionariesContainerAsSelectPropsConfigEntity<TDictionary, TEntity, TResult> {
+  payloadResolver?: () => TPayload;
+}
+
+/**
+ * @map-container-as-component
+ *
+ * @stable [07.08.2020]
+ * @param cfg
+ */
+const mapDictionariesContainerAsParameterizedSelectProps =
   <TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
     TEntity = IEntity,
-    TResult = TEntity[]>(
-    container: IDictionariesContainer<TDictionary>,
-    dictionaryEntityResolver: (dictionaries: TDictionary) => IReduxDictionaryEntity,
-    accessor?: (data: TEntity[]) => TResult): IBaseSelectProps =>
-    ({
-      ...MapAsUtils.dictionaryEntityAsSelectEntity(dictionaryEntityResolver(container.props.dictionaries), accessor),
-      onDictionaryLoad: (items: {}) => {
-        const noAvailableItemsToSelect = container.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
+    TResult = TEntity[],
+    TPayload = {}>(
+    cfg: IDictionariesContainerAsParameterizedSelectPropsConfigEntity<TDictionary, TEntity, TResult, TPayload>
+  ): IBaseSelectProps => {
+    const originalProps = mapDictionariesContainerAsSelectProps(cfg);
+    const buildParameterizedPayloadWrapper =
+      (payloadWrapper = {}) => R.mergeDeepLeft<IFluxPayloadEntity, IFluxPayloadEntity>({
+        payload: cfg.payloadResolver(),
+      }, payloadWrapper);
 
-        if (noAvailableItemsToSelect && R.isEmpty(items)) {
-          container.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
-        }
-      },
-      onDictionaryChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
-      onDictionaryEmpty: container.dictionaryStoreProxy.dispatchLoadDictionary,
-    });
+    return {
+      ...originalProps,
+      onDictionaryEmpty: (_, payloadWrapper) =>
+        originalProps.onDictionaryEmpty(_, buildParameterizedPayloadWrapper(payloadWrapper)),
+      onDictionaryChange: (_, payloadWrapper) =>
+        originalProps.onDictionaryChange(_, buildParameterizedPayloadWrapper(payloadWrapper)),
+    };
+  };
 
 /**
  * @map-container-as-component
@@ -409,13 +456,14 @@ const mapDictionariesContainerAsSelectProps =
 const mapDictionariesContainerAsPlaceFieldProps = (container: IDictionariesContainer): IBaseSelectProps => ({
   ...MapAsUtils.dictionaryEntityAsSelectEntity(container.props.dictionaries.places),
   dictionary: DictionariesEnum.PLACES,
-  onDictionaryChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
+  onDictionaryChange: container.dictionaryStoreProxy.dispatchLoadDictionaryOnChange,
 });
 
 /**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
+  public static readonly dictionariesContainerAsParameterizedSelectProps = mapDictionariesContainerAsParameterizedSelectProps;
   public static readonly containerAsUnsavedFormChangesDialogContainerProps = mapContainerAsUnsavedFormChangesDialogContainerProps;
   public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;
   public static readonly dictionariesContainerAsPlaceFieldProps = mapDictionariesContainerAsPlaceFieldProps;

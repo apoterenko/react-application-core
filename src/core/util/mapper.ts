@@ -163,6 +163,7 @@ const mapHeaderProps = (props: IHeaderProps): IHeaderProps => MapAsOriginalUtils
 export class Mappers {
   public static readonly containerAsUnsavedFormChangesDialogContainerProps = MapAsComponentUtils.containerAsUnsavedFormChangesDialogContainerProps;                                         /* @stable [06.08.2020] */
   public static readonly defaultLayoutContainerProps = MapAsComponentUtils.defaultLayoutContainerProps;                                                                                     /* @stable [01.08.2020] */
+  public static readonly dictionariesContainerAsParameterizedSelectProps = MapAsComponentUtils.dictionariesContainerAsParameterizedSelectProps;                                             /* @stable [07.08.2020] */
   public static readonly dictionariesContainerAsPlaceFieldProps = MapAsComponentUtils.dictionariesContainerAsPlaceFieldProps;                                                               /* @stable [07.08.2020] */
   public static readonly dictionariesContainerAsSelectProps = MapAsComponentUtils.dictionariesContainerAsSelectProps;                                                                       /* @stable [07.08.2020] */
   public static readonly dictionaryEntityAsSelectEntity = MapAsUtils.dictionaryEntityAsSelectEntity;                                                                                        /* @stable [06.08.2020] */

@@ -166,7 +166,7 @@ export interface IReduxMultiEntity<TEntity extends IEntity = IEntity>
  * @stable [12.04.2020]
  */
 export interface IFluxActiveValueEntity
-  extends IPayloadWrapper<number> {
+  extends IFluxPayloadEntity<number> {
 }
 
 /**
@@ -175,4 +175,12 @@ export interface IFluxActiveValueEntity
  */
 export interface IReduxActiveValueHolderEntity
   extends IActiveValueWrapper<number> {
+}
+
+/**
+ * @flux-entity
+ * @stable [07.08.2020]
+ */
+export interface IFluxPayloadEntity<TEntity = {}>
+  extends IPayloadWrapper<TEntity> {
 }

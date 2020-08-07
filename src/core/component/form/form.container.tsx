@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { IKeyValue } from '../../definitions.interface';
 import { GenericContainer } from '../base/generic.container';
@@ -30,8 +29,6 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
     super(originalProps);
 
     this.onChange = this.onChange.bind(this);
-    this.onDictionaryEmpty = this.onDictionaryEmpty.bind(this);
-    this.onDictionaryLoad = this.onDictionaryLoad.bind(this);
     this.onReset = this.onReset.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onValid = this.onValid.bind(this);
@@ -45,8 +42,6 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
       <Form
         {...Mappers.formContainerPropsAsFormProps(this.originalProps)}
         onChange={this.onChange}
-        onDictionaryEmpty={this.onDictionaryEmpty}
-        onDictionaryLoad={this.onDictionaryLoad}
         onReset={this.onReset}
         onSubmit={this.onSubmit}
         onValid={this.onValid}
@@ -89,27 +84,6 @@ export class FormContainer extends GenericContainer<IFormContainerProps> {
   private onSubmit(apiEntity: IApiEntity): void {
     this.formStoreProxy.dispatchFormSubmit(apiEntity);
     ConditionUtils.ifNotNilThanValue(this.formConfiguration.onSubmit, (onSubmit) => onSubmit(apiEntity));
-  }
-
-  /**
-   * @stable [01.08.2020]
-   * @param dictionary
-   * @param apiEntity
-   */
-  private onDictionaryEmpty(dictionary: string, apiEntity: IApiEntity): void {
-    this.dictionaryStoreProxy.dispatchLoadDictionary(dictionary, apiEntity);
-  }
-
-  /**
-   * @stable [01.08.2020]
-   * @param items
-   */
-  private onDictionaryLoad(items: {}): void {
-    const noAvailableItemsToSelect = this.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
-
-    if (noAvailableItemsToSelect && R.isEmpty(items)) {
-      this.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
-    }
   }
 
   /**
