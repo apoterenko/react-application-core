@@ -378,13 +378,17 @@ const mapPrimaryFilterExtendedFormEntityAsFilterFormDialogContainerProps =
  * @stable [07.08.2020]
  * @param container
  * @param dictionaryEntityResolver
+ * @param accessor
  */
 const mapDictionariesContainerAsSelectProps =
-  <TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity>(
+  <TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity,
+    TEntity = IEntity,
+    TResult = TEntity[]>(
     container: IDictionariesContainer<TDictionary>,
-    dictionaryEntityResolver: (dictionaries: TDictionary) => IReduxDictionaryEntity): IBaseSelectProps =>
+    dictionaryEntityResolver: (dictionaries: TDictionary) => IReduxDictionaryEntity,
+    accessor?: (data: TEntity[]) => TResult): IBaseSelectProps =>
     ({
-      ...MapAsUtils.dictionaryEntityAsSelectEntity(dictionaryEntityResolver(container.props.dictionaries)),
+      ...MapAsUtils.dictionaryEntityAsSelectEntity(dictionaryEntityResolver(container.props.dictionaries), accessor),
       onDictionaryLoad: (items: {}) => {
         const noAvailableItemsToSelect = container.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
 
