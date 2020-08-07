@@ -13,7 +13,7 @@ import {
   EventsEnum,
   IBaseRootContainerProps,
   IConnectorEntity,
-  IContainerCtor,
+  IGenericContainerCtor,
   IRouter,
   IRouterWrapperEntity,
   IStoreEntity,
@@ -66,11 +66,11 @@ export class ApplicationContainer<TStoreEntity extends IStoreEntity = IStoreEnti
 
   /**
    * @stable [16.11.2019]
-   * @param {IContainerCtor} ctor
+   * @param {IGenericContainerCtor} ctor
    * @param {IConnectorEntity} connectorEntity
    * @returns {JSX.Element}
    */
-  protected buildRoute(ctor: IContainerCtor,
+  protected buildRoute(ctor: IGenericContainerCtor,
                        connectorEntity: IConnectorEntity): JSX.Element {
     const routeEntity = connectorEntity.routeConfiguration;
     const Component = routeEntity.type === ContainerVisibilityTypesEnum.PRIVATE

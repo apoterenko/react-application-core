@@ -14,7 +14,7 @@ import {
   IGenericContainer,
   IGenericContainerProps,
 } from './generic-container-definition.interface';
-import { IBaseDictionariesEntity } from './dictionary-definition.interface';
+import { IReduxBaseDictionariesEntity } from './dictionary-definition.interface';
 import { IExtendedEntity } from './entity-definition.interface';
 import { IFieldProps2 } from '../configurations-definitions.interface';  // TODO
 import { IGenericCronEntity } from './cron-definition.interface';
@@ -40,7 +40,7 @@ export interface IControlledFieldConfigEntity<
   TDictionaries = {},
   TPermissions = {},
   TProps extends IFieldProps2 = IFieldProps2>
-  extends IContainerWrapper<IGenericContainer<IGenericContainerProps<IBaseDictionariesEntity> & IExtendedEntity>>,
+  extends IContainerWrapper<IGenericContainer<IGenericContainerProps<IReduxBaseDictionariesEntity> & IExtendedEntity>>,
     IFieldsWrapper<TControlledFieldItemEntity[]>,
     IFieldWrapper<TProps> {
 }
@@ -102,7 +102,7 @@ export enum ControlledPlaceFieldItemsEnum {
 export interface IControlledPlaceFieldConfigEntity
   extends IControlledFieldConfigEntity<IControlledPlaceFieldItemEntity,
     ControlledPlaceFieldItemsEnum,
-    IBaseDictionariesEntity,
+    IReduxBaseDictionariesEntity,
     {},
     IPlaceFieldProps> {
 }

@@ -7,6 +7,7 @@ import {
   IStyleWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
+import { ISettingsEntity } from '../settings/settings.interface';
 
 /**
  * @presets-entity
@@ -79,6 +80,7 @@ export interface IGenericComponent<TProps extends IGenericComponentProps = IGene
     React.Component<TProps, TState> {
   actualRef: React.RefObject<TSelfRef>;
   selfRef: React.RefObject<TSelfRef>;
+  settings: ISettingsEntity;
 }
 
 /**

@@ -19,7 +19,6 @@ import {
   APPLICATION_SECTION,
   ContainerVisibilityTypesEnum,
   IConnectorEntity,
-  IContainerCtor,
   IGenericContainerCtor,
   IRouteEntity,
   IStorageSettingsEntity,
@@ -101,9 +100,9 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
   /**
    * @stable [17.11.2019]
    * @param {string} path
-   * @returns {IContainerCtor}
+   * @returns {IGenericContainerCtor}
    */
-  protected lookupDynamicContainerByRoutePath(path: string): IContainerCtor {
+  protected lookupDynamicContainerByRoutePath(path: string): IGenericContainerCtor {
     if (!path) {
       UniversalApplicationContainer.logger.warn(
         '[$UniversalApplicationContainer][lookupDynamicContainerByRoutePath] The path is empty'
@@ -131,10 +130,10 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
 
   /**
    * @stable [17.11.2019]
-   * @param {IContainerCtor} container
+   * @param {IGenericContainerCtor} container
    * @param {IConnectorEntity} config
    */
-  protected registerExtraRoute(container: IContainerCtor, config: IConnectorEntity): void {
+  protected registerExtraRoute(container: IGenericContainerCtor, config: IConnectorEntity): void {
     this.extraRoutes.set(container, config);
   }
 
@@ -174,11 +173,11 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
 
   /**
    * @stable [16.11.2019]
-   * @param {IContainerCtor} ctor
+   * @param {IGenericContainerCtor} ctor
    * @param {IConnectorEntity} connectorEntity
    * @returns {JSX.Element}
    */
-  protected abstract buildRoute(ctor: IContainerCtor, connectorEntity: IConnectorEntity): JSX.Element;
+  protected abstract buildRoute(ctor: IGenericContainerCtor, connectorEntity: IConnectorEntity): JSX.Element;
 
   /**
    * @stable [17.11.2019]
@@ -228,11 +227,11 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
 
   /**
    * @stable [17.11.2019]
-   * @param {Map<IContainerCtor, IConnectorEntity>} map
+   * @param {Map<IGenericContainerCtor, IConnectorEntity>} map
    * @param {RoutePredicateT} routePredicate
    * @returns {JSX.Element[]}
    */
-  private buildRoutes(map: Map<IContainerCtor, IConnectorEntity>,
+  private buildRoutes(map: Map<IGenericContainerCtor, IConnectorEntity>,
                       routePredicate: RoutePredicateT): JSX.Element[] {
     const routesToDebug = [];
     const result = [];

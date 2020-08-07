@@ -20,7 +20,6 @@ export * from './form';
 export * from './join';
 export * from './json';
 export * from './mapper';
-export * from './mapper-component';
 export * from './merge-strategy';
 export * from './number';
 export * from './nvl';

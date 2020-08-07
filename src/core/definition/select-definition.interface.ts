@@ -11,7 +11,7 @@ import {
   IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
-  IOnDictionaryFilterChangeWrapper,
+  IOnDictionaryChangeWrapper,
   IOnSelectWrapper,
   IOptionsWrapper,
   IProgressWrapper,
@@ -48,7 +48,7 @@ export interface IPresetsBaseSelectEntity
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
-    IOnDictionaryFilterChangeWrapper<string, IFluxPayloadQueryEntity>,
+    IOnDictionaryChangeWrapper<string, IFluxPayloadQueryEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity> {
 }
 

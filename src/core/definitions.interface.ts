@@ -350,8 +350,8 @@ export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TVa
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
+export interface IOnDictionaryChangeWrapper<TValue1, TValue2> { onDictionaryChange?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDictionaryEmptyWrapper<TValue1, TValue2> { onDictionaryEmpty?(value1?: TValue1, value2?: TValue2): void; }
-export interface IOnDictionaryFilterChangeWrapper<TValue1, TValue2> { onDictionaryFilterChange?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDictionaryLoadWrapper<TValue1 = {}, TValue2 = {}> { onDictionaryLoad?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
 export interface IOnDrawerHeaderClickWrapper { onDrawerHeaderClick?(): void; }
@@ -439,7 +439,6 @@ export interface IPrimaryFilterWrapper<TValue> { primaryFilter?: TValue; }
 export interface IProfileWrapper<TValue> { profile?: TValue; }
 export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TValue; }
 export interface IProgressWrapper<TValue = boolean> { progress?: TValue; }
-export interface IPropsWrapper<TValue> { props?: TValue; }
 export interface IProxyContainerWrapper<TValue> { proxyContainer?: TValue; }
 export interface IQueryFilterWrapper<TValue> { queryFilter?: TValue; }
 export interface IQueryParamsWrapper<TValue> { queryParams?: TValue; }

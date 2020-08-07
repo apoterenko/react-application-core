@@ -9,6 +9,10 @@ import {
   DEFAULT_PAGED_ENTITY,
   IReduxPagedEntity,
 } from './page-definition.interface';
+import {
+  IGenericContainer,
+  IGenericContainerProps,
+} from './generic-container-definition.interface';
 
 /**
  * @initial-redux-entity
@@ -49,10 +53,10 @@ export interface IReduxDictionaryEntity<TData = IKeyValue>
 }
 
 /**
- * @entity
+ * @redux-entity
  * @stable [08.05.2020]
  */
-export interface IBaseDictionariesEntity
+export interface IReduxBaseDictionariesEntity
   extends IPlacesWrapper<IReduxDictionaryEntity<{}>> {
 }
 
@@ -61,7 +65,7 @@ export interface IBaseDictionariesEntity
  * @stable [08.05.2020]
  */
 export interface IReduxDictionariesEntity
-  extends IBaseDictionariesEntity {
+  extends IReduxBaseDictionariesEntity {
   [dictionary: string]: IReduxDictionaryEntity<{}>;
 }
 
@@ -71,4 +75,12 @@ export interface IReduxDictionariesEntity
  */
 export interface IReduxDictionariesHolderEntity<TEntity = IReduxDictionariesEntity>
   extends IDictionariesWrapper<TEntity> {
+}
+
+/**
+ * @container
+ * @stable [07.08.2020]
+ */
+export interface IDictionariesContainer<TDictionary extends IReduxBaseDictionariesEntity = IReduxBaseDictionariesEntity>
+  extends IGenericContainer<IGenericContainerProps<TDictionary>> {
 }

@@ -8,18 +8,13 @@ import {
   ISectionNameWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
-import {
-  IContainerProps,
-  IUniversalContainerProps,
-} from './props-definition.interface';
-import { IBaseDictionariesEntity } from './dictionary-definition.interface';
+import { IUniversalContainerProps } from './props-definition.interface';
 import { IReduxLayoutHolderEntity } from './layout-definition.interface';
 import { IReduxNotificationHolderEntity } from './notification-definition.interface';
 import { IReduxStackHolderEntity } from './stack-definition.interface';
 import { IUniversalStoreEntity } from './redux-definition.interface';
 import { IWebComponentEntity } from './component-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
-import { IGenericContainerProps } from './generic-container-definition.interface';
 
 /**
  * @react-native-compatible
@@ -79,21 +74,6 @@ export interface IUniversalContainerCtor<
   TDictionaries = {},
   TPermissions = {}>
   extends React.ComponentClass<TProps, TState> {
-}
-
-/**
- * @deprecated
- */
-export interface IContainerCtor<TProps extends IContainerProps = IContainerProps, TState = {}>
-  extends IUniversalContainerCtor<TProps, TState> {
-}
-
-/**
- * @container
- * @stable [19.05.2020]
- */
-export interface IFieldsContainer
-  extends IGenericContainer<IGenericContainerProps<IBaseDictionariesEntity>> {
 }
 
 /**

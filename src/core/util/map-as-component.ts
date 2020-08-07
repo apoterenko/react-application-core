@@ -1,5 +1,10 @@
+import * as R from 'ramda';
+
 import {
+  DictionariesEnum,
+  IBaseSelectProps,
   IDefaultLayoutContainerProps,
+  IDictionariesContainer,
   IFilterFormDialogContainerProps,
   IFormContainerProps,
   IFormProps,
@@ -9,6 +14,9 @@ import {
   IPageToolbarContainerProps,
   IPageToolbarProps,
   IPrimaryFilterExtendedFormEntity,
+  IReduxBaseDictionariesEntity,
+  IReduxDictionariesEntity,
+  IReduxDictionaryEntity,
   IReduxPrimaryFilterFormHolderEntity,
   IReduxSecondaryFilterFormHolderEntity,
   ISearchToolbarContainerProps,
@@ -117,17 +125,16 @@ const mapPageToolbarContainerProps = (pageToolbarContainer: IPageToolbarContaine
 });
 
 /**
- * @map-as-container
+ * @map-entity-as-container
  *
- * @stable [01.08.2020]
- * @param unsavedFormChangesDialogContainer
+ * @stable [06.08.2020]
  * @param proxyContainer
  */
-const mapUnsavedFormChangesDialogContainerProps = (unsavedFormChangesDialogContainer: IUnsavedFormChangesDialogContainerProps,
-                                                   proxyContainer: IGenericContainer): IUnsavedFormChangesDialogContainerProps => ({
-  ...MapAsOriginalUtils.formHolderEntity(unsavedFormChangesDialogContainer),
-  proxyContainer,
-});
+const mapContainerAsUnsavedFormChangesDialogContainerProps =
+  (proxyContainer: IGenericContainer<IUnsavedFormChangesDialogContainerProps>): IUnsavedFormChangesDialogContainerProps => ({
+    ...MapAsOriginalUtils.formHolderEntity(proxyContainer.props),
+    proxyContainer,
+  });
 
 /**
  * @map-as-container
@@ -366,10 +373,48 @@ const mapPrimaryFilterExtendedFormEntityAsFilterFormDialogContainerProps =
   });
 
 /**
+ * @map-container-as-component
+ *
+ * @stable [07.08.2020]
+ * @param container
+ * @param dictionaryEntityResolver
+ */
+const mapDictionariesContainerAsSelectProps =
+  <TDictionary extends IReduxBaseDictionariesEntity = IReduxDictionariesEntity>(
+    container: IDictionariesContainer<TDictionary>,
+    dictionaryEntityResolver: (dictionaries: TDictionary) => IReduxDictionaryEntity): IBaseSelectProps =>
+    ({
+      ...MapAsUtils.dictionaryEntityAsSelectEntity(dictionaryEntityResolver(container.props.dictionaries)),
+      onDictionaryEmpty: container.dictionaryStoreProxy.dispatchLoadDictionary,
+      onDictionaryLoad: (items: {}) => {
+        const noAvailableItemsToSelect = container.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
+
+        if (noAvailableItemsToSelect && R.isEmpty(items)) {
+          container.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
+        }
+      },
+    });
+
+/**
+ * @map-container-as-component
+ *
+ * @stable [07.08.2020]
+ * @param container
+ */
+const mapDictionariesContainerAsPlaceFieldProps = (container: IDictionariesContainer): IBaseSelectProps => ({
+  ...MapAsUtils.dictionaryEntityAsSelectEntity(container.props.dictionaries.places),
+  dictionary: DictionariesEnum.PLACES,
+  onDictionaryChange: container.dictionaryStoreProxy.dispatchLoadDictionary,
+});
+
+/**
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
+  public static readonly containerAsUnsavedFormChangesDialogContainerProps = mapContainerAsUnsavedFormChangesDialogContainerProps;
   public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;
+  public static readonly dictionariesContainerAsPlaceFieldProps = mapDictionariesContainerAsPlaceFieldProps;
+  public static readonly dictionariesContainerAsSelectProps = mapDictionariesContainerAsSelectProps;
   public static readonly filterFormDialogContainerProps = mapFilterFormDialogContainerProps;
   public static readonly formContainerProps = mapFormContainerProps;
   public static readonly formContainerPropsAsFormProps = mapFormContainerPropsAsFormProps;
@@ -391,7 +436,6 @@ export class MapAsComponentUtils {
   public static readonly toolbarToolsContainerProps = mapToolbarToolsContainerProps;
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = mapToolbarToolsContainerPropsAsToolbarToolsProps;
   public static readonly toolbarToolsProps = mapToolbarToolsProps;
-  public static readonly unsavedFormChangesDialogContainerProps = mapUnsavedFormChangesDialogContainerProps;
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = mapUnsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps;
   public static readonly unsavedFormChangesDialogProps = mapUnsavedFormChangesDialogProps;
 }

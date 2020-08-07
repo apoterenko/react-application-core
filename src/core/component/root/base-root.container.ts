@@ -1,5 +1,3 @@
-import { Redirect, Route } from 'react-router-dom';
-
 import { IKeyValue } from '../../definitions.interface';
 import { GenericContainer } from '../../component/base/generic.container';
 import {

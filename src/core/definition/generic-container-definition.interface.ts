@@ -13,10 +13,12 @@ import {
 } from './store-proxy-definition.interface';
 import {
   AnyT,
-  IPropsWrapper,
   ISectionNameWrapper,
 } from '../definitions.interface';
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import {
+  IGenericBaseComponentProps,
+  IGenericComponent,
+} from './generic-component-definition.interface';
 
 /**
  * @presets-entity
@@ -50,7 +52,7 @@ export interface IGenericContainerProps<TDictionaries = {}, TComponent = AnyT>
  */
 export interface IGenericContainer<TProps extends IGenericContainerProps<TDictionaries> = IGenericContainerProps<TDictionaries>,
   TDictionaries = {}>
-  extends IPropsWrapper<TProps>,
+  extends IGenericComponent<TProps>,
     IStoreProxy {
   dfccStoreProxy: IDialogFormChangesConfirmStoreProxy;
   dictionaryStoreProxy: IDictionaryStoreProxy;

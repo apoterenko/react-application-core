@@ -10,7 +10,7 @@ export class PublicRootContainer extends BaseRootContainer {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const Component = this.props.container;
+    const Component = this.originalProps.container;
     return (
       <Route
         render={() => (

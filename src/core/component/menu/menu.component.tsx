@@ -172,12 +172,14 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [23.11.2019]
+   * @stable [07.08.2020]
+   * @private
    */
   private notifyFilterChange(): void {
-    const props = this.props;
-    if (TypeUtils.isFn(props.onFilterChange)) {
-      props.onFilterChange(this.state.filter);
+    const {onFilterChange} = this.originalProps;
+
+    if (TypeUtils.isFn(onFilterChange)) {
+      onFilterChange(this.state.filter);
     }
   }
 

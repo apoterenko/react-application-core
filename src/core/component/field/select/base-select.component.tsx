@@ -163,7 +163,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if ($isForceReload || !$doOptionsExist) {
       const {
         onDictionaryEmpty,
-      } = this.props;
+      } = this.originalProps;
 
       if (TypeUtils.isFn(onDictionaryEmpty)) {
         BaseSelect.logger.debug('[$BaseSelect][openMenu] The onDictionaryEmpty callback is defined, need to load options...');
@@ -505,17 +505,16 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
+   * @stable [07.08.2020]
    * @param {string} query
    */
   private onFilterChange(query: string): void {
-    const mergedProps = this.mergedProps;
     const {
-      onDictionaryFilterChange,
-    } = mergedProps;
+      onDictionaryChange,
+    } = this.originalProps;
 
-    if (TypeUtils.isFn(onDictionaryFilterChange)) {
-      onDictionaryFilterChange(this.dictionary, {payload: {query}});
+    if (TypeUtils.isFn(onDictionaryChange)) {
+      onDictionaryChange(this.dictionary, {payload: {query}});
     }
   }
 
@@ -545,13 +544,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   private startQuickSearchIfApplicable(noDelay = false): boolean {
     const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const isFieldBusy = this.isBusy;
+    const isBusy = this.isBusy;
     const isLocalOptionsUsed = this.areLocalOptionsUsed;
 
-    if (!isQuickSearchEnabled || isFieldBusy || isLocalOptionsUsed) {
+    if (!isQuickSearchEnabled || isBusy || isLocalOptionsUsed) {
       BaseSelect.logger.debug(
         '[$BaseSelect][startQuickSearchIfApplicable] Can\'t start a search because of isQuickSearchEnabled:',
-        isQuickSearchEnabled, ', isFieldBusy:', isFieldBusy, ', isLocalOptionsUsed:', isLocalOptionsUsed
+        isQuickSearchEnabled, ', isBusy:', isBusy, ', isLocalOptionsUsed:', isLocalOptionsUsed
       );
 
       if (!this.isMenuAlreadyRenderedAndOpened
@@ -729,8 +728,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {string}
    */
   private get dictionary(): string {
-    const {dictionary, bindDictionary} = this.props;
-    return NvlUtils.nvl(dictionary, bindDictionary); // bindDictionary is used by Form
+    const {
+      bindDictionary,
+      dictionary,
+    } = this.originalProps;
+    return NvlUtils.nvl(dictionary, bindDictionary); // The "bindDictionary" is used by Form
   }
 
   /**

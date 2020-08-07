@@ -12,6 +12,7 @@ import {
   IPresetsRawDataLabeledValueEntity,
   IPresetsSelectOptionEntity,
   IPrimaryFilterExtendedFormEntity,
+  IReduxBaseSelectEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxListHolderEntity,
@@ -342,9 +343,24 @@ const mapDictionaryEntityAsSelectOptionEntities =
     );
 
 /**
+ * @map-as
+ *
+ * @stable [06.08.2020]
+ * @param entity
+ * @param accessor
+ */
+const mapDictionaryEntityAsSelectEntity =
+  <TEntity, TResult = TEntity[]>(entity: IReduxDictionaryEntity<TEntity>,
+                                 accessor?: (data: TEntity[]) => TResult): IReduxBaseSelectEntity => ({
+    ...MapAsWrapperUtils.waitingForOptions(WrapperUtils.isLoading(entity)),
+    ...MapAsWrapperUtils.options(MapAsUtils.dictionaryEntityAsSelectOptionEntities(entity, accessor)),
+  });
+
+/**
  * @stable [31.07.2020]
  */
 export class MapAsUtils {
+  public static readonly dictionaryEntityAsSelectEntity = mapDictionaryEntityAsSelectEntity;
   public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;
@@ -357,7 +373,6 @@ export class MapAsUtils {
   public static readonly listSelectedEntityAsFinalEntity = mapListSelectedEntityAsFinalEntity;
   public static readonly namedEntityAsRawDataLabeledValueEntity = mapNamedEntityAsRawDataLabeledValueEntity;
   public static readonly optionEntitiesAsSelectOptionEntities = mapOptionEntitiesAsSelectOptionEntities;
-  public static readonly optionEntityAsSelectOptionEntity = mapOptionEntityAsSelectOptionEntity;
   public static readonly primaryFilterFormEntityAsPrimaryFilterExtendedFormEntity = mapPrimaryFilterFormEntityAsPrimaryFilterExtendedFormEntity;
   public static readonly queryFilterHolderEntityAsQuery = mapQueryFilterHolderEntityAsQuery;
   public static readonly secondaryFilterFormEntityAsSecondaryFilterExtendedFormEntity = mapSecondaryFilterFormEntityAsSecondaryFilterExtendedFormEntity;

@@ -77,6 +77,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
   }
 
   /**
+   * @stable [18.03.2020]
+   * @returns {ISettingsEntity}
+   */
+  public get settings(): ISettingsEntity {
+    return this.$settings = this.$settings || getSettings();
+  }
+
+  /**
    * @stable [21.05.2020]
    * @returns {TProps}
    */
@@ -114,14 +122,6 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    */
   protected get componentsSettings(): IComponentsSettingsEntity {
     return this.settings.components;
-  }
-
-  /**
-   * @stable [18.03.2020]
-   * @returns {ISettingsEntity}
-   */
-  protected get settings(): ISettingsEntity {
-    return this.$settings = this.$settings || getSettings();
   }
 
   /**

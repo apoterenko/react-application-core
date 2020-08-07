@@ -27,8 +27,6 @@ import {
   Selectors,
   selectToken,
 } from './select';
-import { ComponentMappers } from './mapper-component';
-import { GenericMappers } from './mapper-generic';
 import { MapAsComponentUtils } from './map-as-component';
 import { MapAsOriginalUtils } from './map-as-original';
 import { MapAsUtils } from './map-as';
@@ -163,8 +161,11 @@ const mapHeaderProps = (props: IHeaderProps): IHeaderProps => MapAsOriginalUtils
  */
 // tslint:disable:max-line-length
 export class Mappers {
+  public static readonly containerAsUnsavedFormChangesDialogContainerProps = MapAsComponentUtils.containerAsUnsavedFormChangesDialogContainerProps;                                         /* @stable [06.08.2020] */
   public static readonly defaultLayoutContainerProps = MapAsComponentUtils.defaultLayoutContainerProps;                                                                                     /* @stable [01.08.2020] */
-  public static readonly dictionaryEntityAsSelectEntity = GenericMappers.dictionaryEntityAsSelectEntity;                                                                                    /* @stable [19.05.2020] */
+  public static readonly dictionariesContainerAsPlaceFieldProps = MapAsComponentUtils.dictionariesContainerAsPlaceFieldProps;                                                               /* @stable [07.08.2020] */
+  public static readonly dictionariesContainerAsSelectProps = MapAsComponentUtils.dictionariesContainerAsSelectProps;                                                                       /* @stable [07.08.2020] */
+  public static readonly dictionaryEntityAsSelectEntity = MapAsUtils.dictionaryEntityAsSelectEntity;                                                                                        /* @stable [06.08.2020] */
   public static readonly dictionaryEntityAsSelectOptionEntities = MapAsUtils.dictionaryEntityAsSelectOptionEntities;                                                                        /* @stable [02.08.2020] */
   public static readonly entityAsExtendedEntity = MapAsUtils.entityAsExtendedEntity;                                                                                                        /* @stable [31.07.2020] */
   public static readonly entityAsExtendedFormEntity = MapAsUtils.entityAsExtendedFormEntity;                                                                                                /* @stable [31.07.2020] */
@@ -192,7 +193,6 @@ export class Mappers {
   public static readonly pageToolbarContainerProps = MapAsComponentUtils.pageToolbarContainerProps;                                                                                         /* @stable [31.07.2020] */
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = MapAsComponentUtils.pageToolbarContainerPropsAsPageToolbarProps;                                                     /* @stable [31.07.2020] */
   public static readonly paginatedEntity = MapAsOriginalUtils.paginatedEntity;                                                                                                              /* @stable [31.07.2020] */
-  public static readonly placeFieldProps = ComponentMappers.placeFieldProps;                                                                                                                /* @stable [19.05.2020] */
   public static readonly primaryFilterExtendedFormEntityAsFilterFormDialogContainerProps = MapAsComponentUtils.primaryFilterExtendedFormEntityAsFilterFormDialogContainerProps;             /* @stable [02.08.2020] */
   public static readonly primaryFilterExtendedFormEntityAsFormContainerProps = MapAsComponentUtils.primaryFilterExtendedFormEntityAsFormContainerProps;                                     /* @stable [01.08.2020] */
   public static readonly primaryFilterFormEntityAsPrimaryFilterExtendedFormEntity = MapAsUtils.primaryFilterFormEntityAsPrimaryFilterExtendedFormEntity;                                    /* @stable [02.08.2020] */
@@ -215,7 +215,6 @@ export class Mappers {
   public static readonly toolbarToolsContainerProps = MapAsComponentUtils.toolbarToolsContainerProps;                                                                                       /* @stable [01.08.2020] */
   public static readonly toolbarToolsContainerPropsAsToolbarToolsProps = MapAsComponentUtils.toolbarToolsContainerPropsAsToolbarToolsProps;                                                 /* @stable [01.08.2020] */
   public static readonly toolbarToolsProps = MapAsComponentUtils.toolbarToolsProps;                                                                                                         /* @stable [01.08.2020] */
-  public static readonly unsavedFormChangesDialogContainerProps = MapAsComponentUtils.unsavedFormChangesDialogContainerProps;                                                               /* @stable [01.08.2020] */
   public static readonly unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps = MapAsComponentUtils.unsavedFormChangesDialogContainerPropsAsUnsavedFormChangesDialogProps; /* @stable [01.08.2020] */
   public static readonly unsavedFormChangesDialogProps = MapAsComponentUtils.unsavedFormChangesDialogProps;                                                                                 /* @stable [01.08.2020] */
 }
