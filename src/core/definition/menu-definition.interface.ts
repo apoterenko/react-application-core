@@ -50,8 +50,9 @@ export interface IPresetsMenuEntity
   extends IPresetsTemplateEntity,
     IDelayTimeoutWrapper,
     IFilterPlaceholderWrapper,
+    IInlineOptionsWrapper<IPresetsRawDataLabeledValueEntity[]>,
     IOnInlineOptionCloseWrapper<IPresetsRawDataLabeledValueEntity>,
-    IInlineOptionsWrapper<IPresetsRawDataLabeledValueEntity[]> {
+    IUseFilterWrapper {
 }
 
 export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity = IPresetsMenuItemEntity>
@@ -67,8 +68,7 @@ export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity
     IOnSelectWrapper<IPresetsMenuItemEntity>,
     IOptionsWrapper<TOptionEntity[]>,
     IProgressWrapper,
-    IRemoteFilterWrapper,
-    IUseFilterWrapper {
+    IRemoteFilterWrapper {
 }
 
 /**
@@ -110,9 +110,9 @@ export interface IMenu
 
 /**
  * @default-entity
- * @stable [24.01.2020]
+ * @stable [08.08.2020]
  */
-export const DEFAULT_FILTERED_MENU_ENTITY = Object.freeze<IMenuProps>({
+export const DEFAULT_FILTERED_MENU_ENTITY = Object.freeze<IPresetsMenuEntity>({
   useFilter: true,
 });
 
