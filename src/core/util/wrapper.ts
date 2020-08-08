@@ -24,8 +24,6 @@ import {
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
-  IForceReloadWrapper,
-  IForciblyApplyLocalFilterWrapper,
   IFullWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
@@ -119,14 +117,6 @@ export const isCheckModalNeeded = <TEntity extends ICheckModalWrapper = ICheckMo
  * @returns {boolean}
  */
 export const isConfirm = (wrapper: IConfirmWrapper): boolean => R.isNil(wrapper) ? false : wrapper.confirm === true;
-
-/**
- * @stable [31.01.2020]
- * @param {IForceReloadWrapper} entity
- * @returns {boolean}
- */
-const isForceReload = (entity: IForceReloadWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.forceReload !== false, false);
 
 /**
  * @stable [28.11.2019]
@@ -395,14 +385,6 @@ export const isAnchored = (wrapper: IAnchoredWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.anchored === true, false);
 
 /**
- * @stable [01.02.2020]
- * @param {IForciblyApplyLocalFilterWrapper} wrapper
- * @returns {boolean}
- */
-export const isForceUseLocalFilter = (wrapper: IForciblyApplyLocalFilterWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.forciblyApplyLocalFilter === true;
-
-/**
  * @stable [16.01.2020]
  * @param {ITouchedWrapper} wrapper
  * @returns {boolean}
@@ -551,7 +533,6 @@ export class WrapperUtils {
   public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
-  public static readonly isForceReload = isForceReload;                                    /* @stable [18.05.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
   public static readonly isHovered = isHovered;                                            /* @stable [01.06.2020] */
   public static readonly isIconLeftAligned = isIconLeftAligned;                            /* @stable [01.06.2020] */

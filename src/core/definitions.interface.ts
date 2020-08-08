@@ -195,7 +195,6 @@ export interface IFocusedWrapper { focused?: boolean; }
 export interface IFooterRenderedWrapper { footerRendered?: boolean; }
 export interface IFooterWrapper<TValue = JSX.Element> { footer?: TValue; }
 export interface IForceReloadWrapper { forceReload?: boolean; }
-export interface IForciblyApplyLocalFilterWrapper { forciblyApplyLocalFilter?: boolean; }
 export interface IFormattedNameWrapper { formattedName?: string; }
 export interface IFormatWrapper<TValue = string> { format?: TValue; }
 export interface IFormConfigurationWrapper<TFormConfiguration> { formConfiguration?: TFormConfiguration; }

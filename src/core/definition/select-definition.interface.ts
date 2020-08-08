@@ -1,5 +1,4 @@
 import {
-  AnyT,
   EntityIdT,
   I$$cachedValueWrapper,
   IAllowEmptyFilterValueWrapper,
@@ -7,7 +6,6 @@ import {
   IDictionaryWrapper,
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
-  IForciblyApplyLocalFilterWrapper,
   IInlineOptionClassNameClassName,
   IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
@@ -17,6 +15,7 @@ import {
   IOnSelectWrapper,
   IOptionsWrapper,
   IProgressWrapper,
+  IRemoteFilterWrapper,
   IWaitingForOptionsWrapper,
   StringNumberT,
 } from '../definitions.interface';
@@ -48,14 +47,14 @@ export interface IPresetsBaseSelectEntity
     IDictionaryWrapper,
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
-    IForciblyApplyLocalFilterWrapper,
     IInlineOptionClassNameClassName,
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
-    IOnDictionaryEmptyWrapper<string, IFluxPayloadEntity>,
     IOnDictionaryChangeWrapper<string, IFluxPayloadQueryEntity>,
-    IOnSelectWrapper<IPresetsSelectOptionEntity> {
+    IOnDictionaryEmptyWrapper<string, IFluxPayloadEntity>,
+    IOnSelectWrapper<IPresetsSelectOptionEntity>,
+    IRemoteFilterWrapper {
 }
 
 /**

@@ -10,13 +10,11 @@ import {
   ClsUtils,
   ConditionUtils,
   DelayedTask,
+  FilterUtils,
   isAnchored,
-  isForceUseLocalFilter,
-  isObjectNotEmpty,
   NvlUtils,
   ObjectUtils,
   PropsUtils,
-  queryFilter,
   shallowClone,
   TypeUtils,
   WrapperUtils,
@@ -292,35 +290,33 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected getMenuProps(): IMenuProps {
     return {
-      remoteFilter: !this.areLocalOptionsUsed,
+      remoteFilter: this.isRemoteFilterUsed,
       ...this.originalProps.menuConfiguration,
     };
   }
 
   /**
-   * @stable [31.01.2020]
-   * @param {(option: ISelectOptionEntity) => boolean} filter
-   * @returns {IPresetsSelectOptionEntity[]}
+   * @stable [08.08.2020]
+   * @param filter
+   * @protected
    */
   protected getFilteredOptions(filter?: (option: IPresetsSelectOptionEntity) => boolean): IPresetsSelectOptionEntity[] {
     const value = this.value;
+    let actualFilter = filter;
     const doesFilterExist = TypeUtils.isFn(filter);
 
     if (this.isQuickSearchEnabled
-      && (this.isForceUseLocalFilter || this.areLocalOptionsUsed)
+      && !this.isRemoteFilterUsed
       && !this.isValueObject(value)
-      && isObjectNotEmpty(value)) {
+      && ObjectUtils.isObjectNotEmpty(value)) {
 
-      const originalFilter = (option) => queryFilter(value, this.fromSelectValueToDisplayValue(option));
-
-      return this.options.filter(
-        doesFilterExist
-          ? (option) => originalFilter(option) && filter(option)
-          : originalFilter
-      );
+      const queryFilter = (option) => FilterUtils.queryFilter(value, this.fromSelectValueToDisplayValue(option));
+      actualFilter = doesFilterExist
+        ? (option) => queryFilter(option) && filter(option)
+        : queryFilter;
     }
-    return doesFilterExist
-      ? this.options.filter(filter)
+    return TypeUtils.isFn(actualFilter)
+      ? this.options.filter(actualFilter)
       : this.options;
   }
 
@@ -460,7 +456,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
+   * @stable [08.08.2020]
+   * @private
    */
   private notifyQuickSearchFilterChange(): void {
     if (this.isValueObject(this.value)) {
@@ -472,9 +469,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     const currentValue = this.decoratedDisplayValue;
     const isCurrentValueEmpty = !ObjectUtils.isObjectNotEmpty(currentValue);
-    const isAllowEmptyFilterValue = this.isAllowEmptyFilterValue;
 
-    if (!isAllowEmptyFilterValue && isCurrentValueEmpty) {
+    if (!this.isAllowEmptyFilterValue && isCurrentValueEmpty) {
       BaseSelect.logger.debug('[$BaseSelect][notifyQuickSearchFilterChange] The decorated value is empty. Do nothing...');
       return;
     }
@@ -707,14 +703,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [01.02.2020]
-   * @returns {boolean}
-   */
-  private get isForceUseLocalFilter(): boolean {
-    return isForceUseLocalFilter(this.props);
-  }
-
-  /**
    * @stable [24.01.2020]
    * @returns {HTMLElement}
    */
@@ -764,7 +752,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @returns {boolean}
    */
   private get isForceReload(): boolean {
-    return WrapperUtils.isForceReload(this.mergedProps);
+    return this.originalProps.forceReload !== false;
+  }
+
+  /**
+   * @stable [08.08.2020]
+   * @private
+   */
+  private get isRemoteFilterUsed(): boolean {
+    return this.originalProps.remoteFilter !== false && !this.areLocalOptionsUsed;
   }
 
   /**
