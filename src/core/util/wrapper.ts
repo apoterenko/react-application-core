@@ -48,7 +48,6 @@ import {
   IReadOnlyWrapper,
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
-  IRemoteFilterWrapper,
   IScrollableWrapper,
   ISelectableWrapper,
   ISelectedWrapper,
@@ -388,14 +387,6 @@ export const isMulti = (wrapper: IMultiWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.multi === true, false);
 
 /**
- * @stable [23.11.2019]
- * @param {IRemoteFilterWrapper} wrapper
- * @returns {boolean}
- */
-export const isRemoteFilterApplied = (wrapper: IRemoteFilterWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.remoteFilter === true, false);
-
-/**
  * @stable [24.01.2020]
  * @param {IAnchoredWrapper} wrapper
  * @returns {boolean}
@@ -427,11 +418,10 @@ export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.useFilter === true;
 
 /**
- * @stable [28.01.2020]
- * @param {IAllowEmptyFilterValueWrapper} wrapper
- * @returns {boolean}
+ * @stable [08.08.2020]
+ * @param wrapper
  */
-export const isAllowEmptyFilterValue = (wrapper: IAllowEmptyFilterValueWrapper): boolean =>
+const isAllowEmptyFilterValue = (wrapper: IAllowEmptyFilterValueWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.allowEmptyFilterValue !== false;
 
 /**
@@ -550,6 +540,7 @@ export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
 export class WrapperUtils {
   public static readonly areManualChangesNotPrevented = areManualChangesNotPrevented;      /* @stable [03.06.2020] */
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
+  public static readonly isAllowEmptyFilterValue = isAllowEmptyFilterValue;                /* @stable [08.08.2020] */
   public static readonly isChangeable = isChangeable;                                      /* @stable [05.06.2020] */
   public static readonly isClearActionRendered = isClearActionRendered;                    /* @stable [17.06.2020] */
   public static readonly isCursorUsed = isCursorUsed;                                      /* @stable [21.06.2020] */

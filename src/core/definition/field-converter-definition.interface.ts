@@ -64,7 +64,7 @@ export interface IFieldConverter {
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
-  fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;
+  fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                              /* @stable [08.08.2020] */
   fromSelectValueToId(value: SelectValueT): EntityIdT;
   register(config: IFieldConverterConfigEntity): void;
 }

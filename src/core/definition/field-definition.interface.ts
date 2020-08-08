@@ -83,8 +83,6 @@ import {
   IGenericComponent,
   IGenericComponentProps,
 } from './generic-component-definition.interface';
-import { IApiEntity } from './api-definition.interface';
-import { IPresetsBaseSelectEntity } from './select-definition.interface';
 import { IKeyboardConfigurationEntity } from './keyboard-definition.interface';
 import { IFocusEvent } from './event-definition.interface';
 
@@ -327,17 +325,6 @@ export type DateFieldRangeValueT = DatesRangeValueT | DateTimeLikeTypeT;
 export interface IGenericBaseCheckboxEntity
   extends IDisableLabelWrapper {
 }
-
-/**
- * @default-entity
- * @stable [19.05.2020]
- */
-export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IPresetsBaseSelectEntity>({
-  allowEmptyFilterValue: false,                                                             /* @stable [17.05.2020] */
-  anchored: true,                                                                           /* @stable [17.05.2020] */
-  expandActionRendered: false,                                                              /* @stable [17.05.2020] */
-  preventFocus: false,                                                                      /* @stable [17.05.2020] */
-});
 
 /**
  * @default-entity

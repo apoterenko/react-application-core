@@ -10,9 +10,7 @@ import {
   ClsUtils,
   ConditionUtils,
   DelayedTask,
-  isFilterUsed,
   isHighlightOdd,
-  isRemoteFilterApplied,
   ObjectUtils,
   queryFilter,
   subArray,
@@ -56,11 +54,11 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   private resizeUnsubscriber: () => void;
 
   /**
-   * @stable [24.01.2020]
-   * @param {IMenuProps} props
+   * @stable [08.08.2020]
+   * @param originalProps
    */
-  constructor(props: IMenuProps) {
-    super(props);
+  constructor(originalProps: IMenuProps) {
+    super(originalProps);
 
     this.hide = this.hide.bind(this);
     this.onDialogActivate = this.onDialogActivate.bind(this);
@@ -74,7 +72,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
     this.state = {opened: false};
 
     if (this.isFilterUsed) {
-      this.filterQueryTask = new DelayedTask(this.notifyFilterChange.bind(this), props.delayTimeout);
+      this.filterQueryTask = new DelayedTask(this.notifyFilterChange.bind(this), originalProps.delayTimeout);
     }
   }
 
@@ -164,8 +162,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [29.11.2018]
-   * @returns {boolean}
+   * @stable [08.08.2020]
    */
   public isOpen(): boolean {
     return this.state.opened;
@@ -176,7 +173,9 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    * @private
    */
   private notifyFilterChange(): void {
-    const {onFilterChange} = this.originalProps;
+    const {
+      onFilterChange,
+    } = this.originalProps;
 
     if (TypeUtils.isFn(onFilterChange)) {
       onFilterChange(this.state.filter);
@@ -184,8 +183,9 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [24.01.2020]
-   * @param {string} filter
+   * @stable [08.08.2020]
+   * @param filter
+   * @private
    */
   private onFilterValueChange(filter: string): void {
     this.setState(
@@ -216,7 +216,8 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [06.01.2020]
+   * @stable [08.08.2020]
+   * @private
    */
   private onDialogDeactivate(): void {
     this.setState({opened: false});
@@ -395,30 +396,28 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [07.07.2020]
-   * @returns {JSX.Element}
+   * @stable [08.08.2020]
+   * @private
    */
   private get closeActionElement(): JSX.Element {
-    return (
-      this.uiFactory.makeIcon({
-        type: IconsEnum.TIMES,
-        className: MenuClassesEnum.MENU_ICON_CLOSE,
-        onClick: this.hide,
-      })
-    );
+    return this.uiFactory.makeIcon({
+      type: IconsEnum.TIMES,
+      className: MenuClassesEnum.MENU_ICON_CLOSE,
+      onClick: this.hide,
+    });
   }
 
   /**
-   * @stable [04.05.2020]
-   * @param {HTMLElement} element
-   * @returns {boolean}
+   * @stable [08.08.2020]
+   * @param element
+   * @private
    */
   private scrollEventCallbackCondition(element: HTMLElement): boolean {
     return element !== this.listElementRef.current;
   }
 
   /**
-   * @stable [24.01.2020]
+   * @stable [08.08.2020]
    */
   private clearAll(): void {
     this.unsubscribeAllEvents();
@@ -427,7 +426,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [23.11.2019]
+   * @stable [08.08.2020]
    */
   private unsubscribeAllEvents(): void {
     if (TypeUtils.isFn(this.scrollEventUnsubscriber)) {
@@ -441,53 +440,57 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [24.01.2020]
-   * @returns {boolean}
-   */
-  private get isAnchored(): boolean {
-    return !R.isNil(this.props.anchorElement);
-  }
-
-  /**
-   * @stable [23.11.2019]
-   * @returns {boolean}
-   */
-  private get isFilterUsed(): boolean {
-    return isFilterUsed(this.props);
-  }
-
-  /**
-   * @stable [23.11.2019]
-   * @returns {IPresetsMenuItemEntity[]}
+   * @stable [08.08.2020]
+   * @private
    */
   private get items(): IPresetsMenuItemEntity[] {
-    const props = this.props;
+    const {
+      filter,
+      options,
+      remoteFilter,
+    } = this.originalProps;
+    const stateFilter = this.state.filter;
 
-    return !this.isFilterUsed || isRemoteFilterApplied(props)
-      ? props.options
-      : props.options.filter((option) => props.filter(this.state.filter, option));
+    return !this.isFilterUsed || remoteFilter
+      ? options
+      : options.filter((option) => filter(stateFilter, option));
   }
 
   /**
-   * @stable [07.06.2018]
-   * @returns {TextField}
+   * @stable [08.08.2020]
+   * @private
+   */
+  private get isFilterUsed(): boolean {
+    return this.originalProps.useFilter;
+  }
+
+  /**
+   * @stable [08.08.2020]
+   * @private
+   */
+  private get isAnchored(): boolean {
+    return !R.isNil(this.originalProps.anchorElement);
+  }
+
+  /**
+   * @stable [08.08.2020]
+   * @private
    */
   private get field(): TextField {
     return this.fieldRef.current;
   }
 
   /**
-   * @stable [17.06.2019]
-   * @returns {Dialog}
+   * @stable [08.08.2020]
+   * @private
    */
   private get dialog(): Dialog {
     return this.dialogRef.current;
   }
 
   /**
-   * @stable [17.06.2019]
-   * @param {IPresetsMenuItemEntity} itm
-   * @returns {StringNumberT}
+   * @stable [08.08.2020]
+   * @param itm
    */
   private readonly optionValueFn =
     (itm: IPresetsMenuItemEntity): StringNumberT => (itm.label ? this.t(itm.label) : itm.value)

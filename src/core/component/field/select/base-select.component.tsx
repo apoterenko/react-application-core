@@ -10,7 +10,6 @@ import {
   ClsUtils,
   ConditionUtils,
   DelayedTask,
-  isAllowEmptyFilterValue,
   isAnchored,
   isForceUseLocalFilter,
   isObjectNotEmpty,
@@ -196,20 +195,21 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
-   * @param {IBaseEvent} event
+   * @stable [08.08.2020]
+   * @param event
+   * @protected
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
 
     const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const isLocalOptionsUsed = this.areLocalOptionsUsed;
+    const areLocalOptionsUsed = this.areLocalOptionsUsed;
 
     BaseSelect.logger.debug(
-      '[$BaseSelect][onClick] isQuickSearchEnabled:', isQuickSearchEnabled, ', isLocalOptionsUsed:', isLocalOptionsUsed
+      '[$BaseSelect][onClick] isQuickSearchEnabled:', isQuickSearchEnabled, ', areLocalOptionsUsed:', areLocalOptionsUsed
     );
 
-    if (isQuickSearchEnabled && !isLocalOptionsUsed) {
+    if (isQuickSearchEnabled && !areLocalOptionsUsed) {
       if (this.isBusy) {
         BaseSelect.logger.debug('[$BaseSelect][onClick] The field is busy. Do nothing...');
       } else {
@@ -287,11 +287,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.01.2020]
-   * @returns {IMenuProps}
+   * @stable [08.08.2020]
+   * @protected
    */
   protected getMenuProps(): IMenuProps {
-    return this.props.menuConfiguration;
+    return {
+      remoteFilter: !this.areLocalOptionsUsed,
+      ...this.originalProps.menuConfiguration,
+    };
   }
 
   /**
@@ -429,11 +432,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
-   * @returns {boolean}
+   * @stable [08.08.2020]
+   * @protected
    */
   protected get isAllowEmptyFilterValue(): boolean {
-    return isAllowEmptyFilterValue(this.props);
+    return WrapperUtils.isAllowEmptyFilterValue(this.originalProps);
   }
 
   /**
@@ -468,10 +471,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
 
     const currentValue = this.decoratedDisplayValue;
-    const isCurrentValueNotEmpty = ObjectUtils.isObjectNotEmpty(currentValue);
-    const $isAllowEmptyFilterValue = this.isAllowEmptyFilterValue;
+    const isCurrentValueEmpty = !ObjectUtils.isObjectNotEmpty(currentValue);
+    const isAllowEmptyFilterValue = this.isAllowEmptyFilterValue;
 
-    if (!$isAllowEmptyFilterValue && !isCurrentValueNotEmpty) {
+    if (!isAllowEmptyFilterValue && isCurrentValueEmpty) {
       BaseSelect.logger.debug('[$BaseSelect][notifyQuickSearchFilterChange] The decorated value is empty. Do nothing...');
       return;
     }
@@ -569,14 +572,18 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
+   * @stable [08.08.2020]
+   * @private
    */
   private onOptionsLoadDone(): void {
     this.renderAndShowMenu();
 
-    const props = this.props;
-    if (TypeUtils.isFn(props.onDictionaryLoad)) {
-      props.onDictionaryLoad(this.getFilteredOptions());
+    const {
+      onDictionaryLoad,
+    } = this.originalProps;
+
+    if (TypeUtils.isFn(onDictionaryLoad)) {
+      onDictionaryLoad(this.getFilteredOptions());
     }
   }
 

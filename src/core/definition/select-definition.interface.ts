@@ -138,6 +138,17 @@ export interface ISelectProps
 }
 
 /**
+ * @default-entity
+ * @stable [19.05.2020]
+ */
+export const DEFAULT_QUICK_SEARCH_FIELD_ENTITY = Object.freeze<IPresetsBaseSelectEntity>({
+  allowEmptyFilterValue: false,                                                             /* @stable [17.05.2020] */
+  anchored: true,                                                                           /* @stable [17.05.2020] */
+  expandActionRendered: false,                                                              /* @stable [17.05.2020] */
+  preventFocus: false,                                                                      /* @stable [17.05.2020] */
+});
+
+/**
  * @classes
  * @stable [16.06.2020]
  */

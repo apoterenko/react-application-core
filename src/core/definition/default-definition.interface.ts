@@ -1,6 +1,5 @@
 import {
   DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY,
-  DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
 } from './field-definition.interface';
 import {
   DEFAULT_PLACE_FIELD_ENTITY,
@@ -25,6 +24,7 @@ import {
   FIRST_PAGE,
 } from './page-definition.interface';
 import { DEFAULT_DICTIONARY_PAGED_ENTITY } from './dictionary-definition.interface';
+import { DEFAULT_QUICK_SEARCH_FIELD_ENTITY } from './select-definition.interface';
 
 /**
  * @stable [17.05.2020]

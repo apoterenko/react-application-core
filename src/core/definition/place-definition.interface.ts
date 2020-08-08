@@ -23,11 +23,11 @@ import {
   IBaseSelectProps,
   IBaseSelectState,
 } from './select-definition.interface';
+import { IGoogleMapsConfigurationEntity } from './google-maps-definition.interface';
 import {
   DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
-} from './field-definition.interface';
-import { IGoogleMapsConfigurationEntity } from './google-maps-definition.interface';
-import { IPresetsSelectOptionEntity } from './select-definition.interface';
+  IPresetsSelectOptionEntity,
+} from './select-definition.interface';
 
 /**
  * @stable [09.01.2020]
