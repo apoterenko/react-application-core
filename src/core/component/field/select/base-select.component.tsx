@@ -719,15 +719,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [01.02.2020]
+   * @stable [08.08.2020]
    * @returns {string}
    */
   private get dictionary(): string {
-    const {
-      bindDictionary,
-      dictionary,
-    } = this.originalProps;
-    return NvlUtils.nvl(dictionary, bindDictionary); // The "bindDictionary" is used by Form
+    return this.originalProps.dictionary;
   }
 
   /**

@@ -9,7 +9,6 @@ import {
   EntityIdT,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
-  IBindDictionaryWrapper,
   ICaretBlinkingFrequencyWrapper,
   ICaretPositionWrapper,
   ICaretVisibilityWrapper,
@@ -43,7 +42,6 @@ import {
   IOnClearWrapper,
   IOnClickWrapper,
   IOnDelayWrapper,
-  IOnDictionaryEmptyWrapper,
   IOnDictionaryLoadWrapper,
   IOnFocusWrapper,
   IOnFormChangeWrapper,
@@ -104,7 +102,6 @@ export class FieldConstants {
 export interface IPresetsFieldEntity
   extends IKeyboardConfigurationEntity,                                           /* @stable [21.06.2020] */
     IAutoFocusWrapper,                                                            /* @stable [17.06.2020] */
-    IBindDictionaryWrapper,
     ICaretBlinkingFrequencyWrapper,                                               /* @stable [21.06.2020] */
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */

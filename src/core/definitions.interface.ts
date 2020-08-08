@@ -63,7 +63,6 @@ export interface IBackActionConfigurationWrapper<TValue = boolean> { backActionC
 export interface IBarcodeWrapper<TValue = string> { barcode?: TValue; }
 export interface IBasenameWrapper { basename?: string; }
 export interface IBeforeEnterWrapper<TValue> { beforeEnter?: TValue; }
-export interface IBindDictionaryWrapper<TValue = string> { bindDictionary?: TValue; }
 export interface IBirthdayWrapper { birthday?: string; }
 export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
