@@ -35,7 +35,6 @@ import {
   IBaseEvent,
   IBaseSelectProps,
   IBaseSelectState,
-  IMenu,
   IMenuProps,
   IMultiItemEntity,
   IPresetsSelectOptionEntity,
@@ -84,18 +83,18 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       ];
     }
     if (this.isQuickSearchEnabled) {
-      this.quickFilterQueryTask = new DelayedTask(this.notifyQuickSearchFilterChange.bind(this), this.delayTimeout);
+      this.quickFilterQueryTask = new DelayedTask(this.onFilterChange.bind(this), this.delayTimeout);
     }
   }
 
   /**
-   * @stable [11.01.2020]
-   * @param {IBaseEvent} event
+   * @stable [09.08.2020]
+   * @param event
    */
   public onChange(event: ChangeEventT): void {
     super.onChange(event);
 
-    this.startQuickSearchIfApplicable();
+    this.onQueryTaskStart();
   }
 
   /**
@@ -146,43 +145,35 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [09.08.2020]
    */
   public openMenu(): void {
     if (this.isBusy || this.isMenuAlreadyRenderedAndOpened) {
       return;
     }
-    const $isForceReload = this.isForceReload;
-    const $doOptionsExist = this.doOptionsExist;
+    const areLocalOptionsUsed = this.areLocalOptionsUsed;
+    const doOptionsExist = this.doOptionsExist;
+    const isForceReload = this.isForceReload;
 
-    BaseSelect.logger.debug('[$BaseSelect][openMenu] isForceReload:', $isForceReload, ', doOptionsExist:', $doOptionsExist);
+    BaseSelect.logger.debug(
+      '[$BaseSelect][openMenu] isForceReload:', isForceReload,
+      ', doOptionsExist:', doOptionsExist,
+      ', areLocalOptionsUsed:', areLocalOptionsUsed
+    );
 
-    if ($isForceReload || !$doOptionsExist) {
-      const {
-        onDictionaryEmpty,
-      } = this.originalProps;
-
-      if (TypeUtils.isFn(onDictionaryEmpty)) {
-        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onDictionaryEmpty callback is defined, need to load options...');
-
-        this.setState({progress: true}, () => onDictionaryEmpty(this.dictionary));
-      } else {
-        BaseSelect.logger.debug('[$BaseSelect][openMenu] The onDictionaryEmpty callback is not defined, menu show needed...');
-
-        // Try open empty dialog menu to remote search
-        this.renderAndShowMenu(!this.isQuickSearchEnabled);
-      }
+    if ((isForceReload || !doOptionsExist) && !areLocalOptionsUsed) {
+      this.onFilterChange();
     } else {
-      this.renderAndShowMenu();
+      this.showMenu();
     }
   }
 
   /**
-   * @stable [16.01.2020]
-   * @param {IBaseEvent} event
+   * @stable [09.08.2020]
+   * @param event
    */
   public onKeyEnter(event: IBaseEvent): void {
-    if (this.startQuickSearchIfApplicable(true)) {
+    if (this.onQueryTaskStart(true)) {
       this.domAccessor.cancelEvent(event);
     }
     super.onKeyEnter(event);
@@ -200,22 +191,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
 
-    const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const areLocalOptionsUsed = this.areLocalOptionsUsed;
-
-    BaseSelect.logger.debug(
-      '[$BaseSelect][onClick] isQuickSearchEnabled:', isQuickSearchEnabled, ', areLocalOptionsUsed:', areLocalOptionsUsed
-    );
-
-    if (isQuickSearchEnabled && !areLocalOptionsUsed) {
-      if (this.isBusy) {
-        BaseSelect.logger.debug('[$BaseSelect][onClick] The field is busy. Do nothing...');
-      } else {
-        this.notifyQuickSearchFilterChange();
-      }
-    } else {
-      this.openMenu();
-    }
+    this.openMenu();
   }
 
   /**
@@ -289,10 +265,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @protected
    */
   protected getMenuProps(): IMenuProps {
-    return {
-      remoteFilter: this.isRemoteFilterUsed,
+    return FilterUtils.defValuesFilter<IMenuProps, IMenuProps>({
+      filter: ConditionUtils.orUndef(this.isRemoteFilterUsed, () => null), // To prevent menu local options filtration
       ...this.originalProps.menuConfiguration,
-    };
+    });
   }
 
   /**
@@ -321,11 +297,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [03.06.2020]
-   * @returns {boolean}
+   * @stable [09.08.2020]
+   * @protected
    */
   protected get isBusy(): boolean {
-    return WrapperUtils.inProgress(this.state);
+    return this.state.progress;
   }
 
   /**
@@ -456,36 +432,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [08.08.2020]
+   * @stable [09.08.2020]
+   * @param event
    * @private
-   */
-  private notifyQuickSearchFilterChange(): void {
-    if (this.isValueObject(this.value)) {
-      // Why we should search the same value object instance?
-
-      BaseSelect.logger.debug('[$BaseSelect][notifyQuickSearchFilterChange] The value is an object. Do nothing...');
-      return;
-    }
-
-    const currentValue = this.decoratedDisplayValue;
-    const isCurrentValueEmpty = !ObjectUtils.isObjectNotEmpty(currentValue);
-
-    if (!this.isAllowEmptyFilterValue && isCurrentValueEmpty) {
-      BaseSelect.logger.debug('[$BaseSelect][notifyQuickSearchFilterChange] The decorated value is empty. Do nothing...');
-      return;
-    }
-    this.setState({progress: true}, () => {
-      BaseSelect.logger.debug(
-        '[$BaseSelect][notifyQuickSearchFilterChange] The onFilterChange method is being call. The current value:', currentValue
-      );
-
-      this.onFilterChange(currentValue);
-    });
-  }
-
-  /**
-   * @stable [11.01.2020]
-   * @param {IBaseEvent} event
    */
   private onDropDownClick(event: IBaseEvent): void {
     this.domAccessor.cancelEvent(event);
@@ -504,67 +453,66 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [07.08.2020]
-   * @param {string} query
+   * @stable [16.01.2020]
    */
-  private onFilterChange(query: string): void {
+  private onQueryTaskStart(noDelay = false): boolean {
+    if (this.isBusy) {
+      return;
+    }
+    this.hideMenu();
+
+    if (noDelay) {
+      this.cancelQueryFilterTask();
+      this.onFilterChange();
+    } else {
+      this.quickFilterQueryTask.start();
+    }
+    return true;
+  }
+
+  /**
+   * @stable [09.08.2020]
+   * @private
+   */
+  private onFilterChange(): void {
     const {
       onDictionaryChange,
     } = this.originalProps;
 
-    if (TypeUtils.isFn(onDictionaryChange)) {
-      onDictionaryChange(this.dictionary, {payload: {query}});
+    if (!TypeUtils.isFn(onDictionaryChange)) {
+      BaseSelect.logger.debug(
+        '[$BaseSelect][onFilterChange] The onDictionaryChange callback is not defined. Do nothing..'
+      );
+      return;
     }
+
+    const query = this.decoratedDisplayValue;
+    if (this.isQuickSearchEnabled) {
+      const isQueryEmpty = !ObjectUtils.isObjectNotEmpty(query);
+
+      if (!this.isAllowEmptyFilterValue && isQueryEmpty) {
+        BaseSelect.logger.debug('[$BaseSelect][onFilterChange] The query is empty. Do nothing...');
+        return;
+      }
+    }
+
+    this.setState({progress: true}, () => {
+      BaseSelect.logger.debug(
+        '[$BaseSelect][onFilterChange] The onDictionaryChange callback is being called. Query:', query
+      );
+      onDictionaryChange(this.dictionary, {payload: {query}});
+    });
   }
 
   /**
-   * @stable [11.01.2020]
+   * @stable [09.08.2020]
+   * @private
    */
   private hideMenu(): void {
-    if (this.isMenuAlreadyRenderedAndOpened) {
-      this.setState({menuRendered: false});
+    if (!this.isMenuAlreadyRenderedAndOpened) {
+      return;
     }
-  }
-
-  /**
-   * @stable [12.01.2020]
-   * @param {boolean} force
-   */
-  private renderAndShowMenu(force = false): void {
-    if (force || !R.isEmpty(this.getFilteredOptions())) {
-      this.setState({menuRendered: true}, () => this.menu.show());
-    } else {
-      BaseSelect.logger.debug('[$BaseSelect][renderAndShowMenu] The options are empty. The menu does not show.');
-    }
-  }
-
-  /**
-   * @stable [16.01.2020]
-   */
-  private startQuickSearchIfApplicable(noDelay = false): boolean {
-    const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const isBusy = this.isBusy;
-    const isLocalOptionsUsed = this.areLocalOptionsUsed;
-
-    if (!isQuickSearchEnabled || isBusy || isLocalOptionsUsed) {
-      BaseSelect.logger.debug(
-        '[$BaseSelect][startQuickSearchIfApplicable] Can\'t start a search because of isQuickSearchEnabled:',
-        isQuickSearchEnabled, ', isBusy:', isBusy, ', isLocalOptionsUsed:', isLocalOptionsUsed
-      );
-
-      if (!this.isMenuAlreadyRenderedAndOpened
-        && isQuickSearchEnabled
-        && isLocalOptionsUsed) {
-        this.renderAndShowMenu(true);
-      }
-      return false;
-    }
-    if (this.isPlainValueApplied) {
-      this.clearCachedValue(() => this.hideMenuAndStartQuickSearch(noDelay));
-    } else {
-      this.hideMenuAndStartQuickSearch(noDelay);
-    }
-    return true;
+    this.setState({menuRendered: false});
   }
 
   /**
@@ -572,7 +520,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @private
    */
   private onOptionsLoadDone(): void {
-    this.renderAndShowMenu();
+    this.showMenu();
 
     const {
       onDictionaryLoad,
@@ -580,21 +528,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     if (TypeUtils.isFn(onDictionaryLoad)) {
       onDictionaryLoad(this.getFilteredOptions());
-    }
-  }
-
-  /**
-   * @stable [30.01.2020]
-   * @param {boolean} noDelay
-   */
-  private hideMenuAndStartQuickSearch(noDelay = false): void {
-    this.hideMenu();
-
-    if (noDelay) {
-      this.cancelQueryFilterTask();
-      this.notifyQuickSearchFilterChange();
-    } else {
-      this.quickFilterQueryTask.start();
     }
   }
 
@@ -622,10 +555,23 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [18.05.2020]
+   * @stable [09.08.2020]
+   * @private
    */
   private cancelQueryFilterTask(): void {
     ConditionUtils.ifNotNilThanValue(this.quickFilterQueryTask, (task) => task.stop());
+  }
+
+  /**
+   * @stable [09.08.2020]
+   * @private
+   */
+  private showMenu(): void {
+    if (!R.isEmpty(this.getFilteredOptions())) {
+      this.setState({menuRendered: true}, () => this.menu.show());
+    } else {
+      BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
+    }
   }
 
   /**
@@ -768,10 +714,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {IMenu}
+   * @stable [09.08.2020]
+   * @private
    */
-  private get menu(): IMenu {
+  private get menu(): Menu {
     return this.menuRef.current;
   }
 }

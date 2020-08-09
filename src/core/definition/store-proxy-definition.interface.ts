@@ -117,7 +117,6 @@ export interface IRouterStoreProxy
  */
 export interface IDictionaryStoreProxy {
   dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>);
-  dispatchLoadDictionaryOnEmpty<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>);
 }
 
 /**

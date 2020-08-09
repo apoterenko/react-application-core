@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  StringNumberT,
   UNDEF,
 } from '../../definitions.interface';
 import {
@@ -10,39 +9,37 @@ import {
   ClsUtils,
   ConditionUtils,
   DelayedTask,
+  FilterUtils,
   isHighlightOdd,
   ObjectUtils,
-  queryFilter,
   subArray,
   TypeUtils,
 } from '../../util';
-import { GenericComponent } from '../base/generic.component';
-import { BasicList } from '../list/basic/basic-list.component';
-import { Dialog } from '../dialog/dialog.component';
-import { ListItem } from '../list/item/list-item.component';
 import {
   EventsEnum,
   IconsEnum,
-  IMenu,
   IMenuProps,
   IMenuState,
   IPresetsMenuItemEntity,
   MenuClassesEnum,
   SyntheticEmitterEventsEnum,
 } from '../../definition';
-import { TextField } from '../field/text-field';
-import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
-import { InlineOption } from '../inline-option/inline-option.component';
 import { BasicComponent } from '../base/basic.component';
+import { BasicList } from '../list/basic/basic-list.component';
 import { Button } from '../button/button.component';
+import { Dialog } from '../dialog/dialog.component';
+import { GenericComponent } from '../base/generic.component';
+import { InlineOption } from '../inline-option/inline-option.component';
+import { ListItem } from '../list/item/list-item.component';
+import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
+import { TextField } from '../field/text-field';
 
-export class Menu extends GenericComponent<IMenuProps, IMenuState>
-  implements IMenu {
+export class Menu extends GenericComponent<IMenuProps, IMenuState> {
 
   public static readonly defaultProps: IMenuProps = {
     delayTimeout: 1000,
+    filter: (query, entity) => FilterUtils.queryFilter(query, entity.label || entity.value),
     heightRestricted: true,
-    filter: (query, entity) => queryFilter(query, entity.label || entity.value),
   };
 
   private readonly dialogRef = React.createRef<Dialog>();
@@ -153,7 +150,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [18.06.2019]
+   * @stable [09.08.2020]
    */
   public hide(): void {
     this.clearAll();
@@ -194,8 +191,9 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [23.11.2019]
-   * @param {IPresetsMenuItemEntity} option
+   * @stable [09.08.2020]
+   * @param option
+   * @private
    */
   private onSelect(option: IPresetsMenuItemEntity): void {
     const originalProps = this.originalProps;
@@ -216,18 +214,19 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
+   * @stable [09.08.2020]
+   * @private
+   */
+  private onDialogActivate(): void {
+    ConditionUtils.ifNotNilThanValue(this.field, (field) => field.setFocus());
+  }
+
+  /**
    * @stable [08.08.2020]
    * @private
    */
   private onDialogDeactivate(): void {
     this.setState({opened: false});
-  }
-
-  /**
-   * @stable [25.01.2020]
-   */
-  private onDialogActivate(): void {
-    ConditionUtils.ifNotNilThanValue(this.field, (field) => field.setFocus());
   }
 
   /**
@@ -303,29 +302,38 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
    * @returns {JSX.Element}
    */
   private asItemElement(option: IPresetsMenuItemEntity, index: number, length: number): JSX.Element {
-    const props = this.props;
+    const {
+      renderer,
+      tpl,
+    } = this.originalProps;
+    const {
+      disabled,
+      icon,
+      iconLeftAligned,
+      value,
+    } = option;
 
     return (
       <ListItem
-        key={`menu-item-key-${option.value}`}
-        disabled={option.disabled}
-        icon={option.icon}
-        iconLeftAligned={option.iconLeftAligned}
-        rawData={option}
-        odd={isHighlightOdd(props, index)}
+        key={`menu-item-key-${value}`}
+        disabled={disabled}
+        icon={icon}
+        iconLeftAligned={iconLeftAligned}
         last={index === length - 1}
-        renderer={props.renderer}
-        tpl={props.tpl}
+        odd={isHighlightOdd(this.originalProps, index)}
+        rawData={option}
+        renderer={renderer}
+        tpl={tpl}
         onClick={this.onSelect}
       >
-        {this.optionValueFn(option)}
+        {this.fieldConverter.fromSelectValueToDisplayValue(option)}
       </ListItem>
     );
   }
 
   /**
-   * @stable [08.07.2020]
-   * @returns {JSX.Element}
+   * @stable [09.08.2020]
+   * @private
    */
   private get inlineOptionsElement(): JSX.Element {
     const {
@@ -353,7 +361,8 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.07.2020]
+   * @stable [09.08.2020]
+   * @private
    */
   private get applyActionsElement(): JSX.Element {
     const {
@@ -376,21 +385,23 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [17.01.2020]
-   * @returns {JSX.Element}
+   * @stable [09.08.2020]
+   * @private
    */
   private get filterElement(): JSX.Element {
-    const props = this.props;
-    const state = this.state;
+    const {
+      filterPlaceholder,
+    } = this.originalProps;
+    const {filter} = this.state;
 
     return (
       <TextField
         ref={this.fieldRef}
-        full={false}
-        value={state.filter}
-        placeholder={props.filterPlaceholder || this.settings.messages.SEARCH}
+        value={filter}
         errorMessageRendered={false}
+        full={false}
         className={MenuClassesEnum.MENU_FILTER}
+        placeholder={filterPlaceholder || this.settings.messages.SEARCH}
         onChange={this.onFilterValueChange}/>
     );
   }
@@ -440,20 +451,19 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   }
 
   /**
-   * @stable [08.08.2020]
+   * @stable [09.08.2020]
    * @private
    */
   private get items(): IPresetsMenuItemEntity[] {
     const {
       filter,
       options,
-      remoteFilter,
     } = this.originalProps;
-    const stateFilter = this.state.filter;
+    const query = this.state.filter;
 
-    return !this.isFilterUsed || remoteFilter
-      ? options
-      : options.filter((option) => filter(stateFilter, option));
+    return this.isFilterUsed && TypeUtils.isFn(filter)
+      ? options.filter((option) => filter(query, option))
+      : options;
   }
 
   /**
@@ -487,11 +497,4 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState>
   private get dialog(): Dialog {
     return this.dialogRef.current;
   }
-
-  /**
-   * @stable [08.08.2020]
-   * @param itm
-   */
-  private readonly optionValueFn =
-    (itm: IPresetsMenuItemEntity): StringNumberT => (itm.label ? this.t(itm.label) : itm.value)
 }

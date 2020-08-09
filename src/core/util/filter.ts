@@ -16,7 +16,10 @@ import {
   TypeUtils,
 } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
-import { isObjectNotEmpty } from './object';
+import {
+  isObjectNotEmpty,
+  ObjectUtils,
+} from './object';
 
 export type KeyValuePredicateT = (key: string, value: AnyT) => boolean;
 export type ValuePredicateT = (value: AnyT) => boolean;
@@ -327,17 +330,23 @@ export const findByType = <TValue extends ITypeWrapper<TType>, TType>(data: TVal
   data.find((itm) => itm.type === type);
 
 /**
- * @stable [08.06.2018]
- * @param {string} query
- * @param {EntityIdT} items
- * @returns {boolean}
+ * @stable [09.08.2020]
+ * @param query
+ * @param items
  */
-export const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
-  if (R.isNil(query) || R.isEmpty(query)) {
+const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
+  if (!ObjectUtils.isObjectNotEmpty(query)) {
     return true;
   }
   let result = false;
-  items.map((v) => (TypeUtils.isString(v) ? v as string : R.isNil(v) ? '' : String(v)).toUpperCase())
+  items
+    .map(
+      (item) => (
+        TypeUtils.isString(item)
+          ? item as string
+          : R.isNil(item) ? '' : String(item)
+      ).toUpperCase()
+    )
     .forEach((v) => result = result || v.includes(query.toUpperCase()));
   return result;
 };

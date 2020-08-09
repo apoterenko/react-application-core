@@ -22,6 +22,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
 
   public static readonly defaultProps: IButtonProps = {
     full: false,
+    iconLeftAligned: true,
     touched: false,
     type: 'button',
   };
@@ -31,6 +32,9 @@ export class Button extends GenericBaseComponent<IButtonProps> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
+    const {
+      iconLeftAligned,
+    } = this.originalProps;
     const $mergedProps = this.mergedProps;
     const $text = this.getText($mergedProps);
     const $hasContent = this.hasContent($text);
@@ -49,7 +53,6 @@ export class Button extends GenericBaseComponent<IButtonProps> {
       );
     }
 
-    const $isIconLeftAligned = WrapperUtils.isIconLeftAligned($mergedProps);
     const $disabled = this.isDisabled($mergedProps);
     const $iconElement = $hasIcon && this.getIconElement($mergedProps);
 
@@ -68,9 +71,9 @@ export class Button extends GenericBaseComponent<IButtonProps> {
             onMouseEnter={$mergedProps.onMouseEnter}
             onMouseLeave={$mergedProps.onMouseLeave}
           >
-            {$isIconLeftAligned && $iconElement}
+            {iconLeftAligned && $iconElement}
             {this.getContentElement($hasContent, $text)}
-            {!$isIconLeftAligned && $iconElement}
+            {!iconLeftAligned && $iconElement}
           </button>
         )}
       </UniversalIdProviderContext.Consumer>

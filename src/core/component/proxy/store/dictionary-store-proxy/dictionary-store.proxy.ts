@@ -21,7 +21,6 @@ export class DictionaryStoreProxy<TStore extends IReduxStoreEntity = IReduxStore
     super(container);
 
     this.dispatchLoadDictionaryOnChange = this.dispatchLoadDictionaryOnChange.bind(this);
-    this.dispatchLoadDictionaryOnEmpty = this.dispatchLoadDictionaryOnEmpty.bind(this);
   }
 
   /**
@@ -30,15 +29,6 @@ export class DictionaryStoreProxy<TStore extends IReduxStoreEntity = IReduxStore
    * @param payload
    */
   public dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>): void {
-    this.dispatchLoadDictionary(dictionary, payload);
-  }
-
-  /**
-   * @stable [07.08.2020]
-   * @param dictionary
-   * @param payload
-   */
-  public dispatchLoadDictionaryOnEmpty<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>): void {
     this.dispatchLoadDictionary(dictionary, payload);
   }
 

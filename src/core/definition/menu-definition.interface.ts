@@ -4,10 +4,8 @@ import {
   IFilterPlaceholderWrapper,
   IFilterWrapper,
   IHeightRestrictedWrapper,
-  IHideWrapper,
   IHighlightOddWrapper,
   IInlineOptionsWrapper,
-  IIsOpenWrapper,
   IMaxCountWrapper,
   IMenuConfigurationWrapper,
   IMultiWrapper,
@@ -18,14 +16,9 @@ import {
   IOpenedWrapper,
   IOptionsWrapper,
   IProgressWrapper,
-  IRemoteFilterWrapper,
-  IShowWrapper,
   IUseFilterWrapper,
 } from '../definitions.interface';
-import {
-  IGenericComponent,
-  IGenericComponentProps,
-} from './generic-component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IPresetsBaseDialogEntity } from './dialog-definition.interface';
 import {
   IPresetsRawDataLabeledValueEntity,
@@ -67,8 +60,7 @@ export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity
     IOnFilterChangeWrapper<(query: string) => void>,
     IOnSelectWrapper<IPresetsMenuItemEntity>,
     IOptionsWrapper<TOptionEntity[]>,
-    IProgressWrapper,
-    IRemoteFilterWrapper {
+    IProgressWrapper {
 }
 
 /**
@@ -98,17 +90,6 @@ export interface IMenuConfigurationEntity<TProps extends IMenuProps = IMenuProps
 }
 
 /**
- * @component
- * @stable [18.06.2019]
- */
-export interface IMenu
-  extends IGenericComponent<IMenuProps, IMenuState>,
-    IShowWrapper<() => void>,
-    IIsOpenWrapper,
-    IHideWrapper {
-}
-
-/**
  * @default-entity
  * @stable [08.08.2020]
  */
@@ -117,12 +98,11 @@ export const DEFAULT_FILTERED_MENU_ENTITY = Object.freeze<IPresetsMenuEntity>({
 });
 
 /**
- * @default-entity
- * @stable [24.01.2020]
+ * @deprecated
+ * TODO
  */
 export const DEFAULT_REMOTE_FILTERED_MENU_ENTITY = Object.freeze<IMenuProps>({
   ...DEFAULT_FILTERED_MENU_ENTITY,
-  remoteFilter: true,
 });
 
 /**

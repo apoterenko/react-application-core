@@ -27,7 +27,6 @@ import {
   IFullWrapper,
   IHighlightOddWrapper,
   IHoveredWrapper,
-  IIconLeftAlignedWrapper,
   IInlineWrapper,
   ILastWrapper,
   ILoadingWrapper,
@@ -469,14 +468,6 @@ export const isDirty = (entity: IDirtyWrapper): boolean =>
   R.isNil(entity) ? false : entity.dirty === true;
 
 /**
- * @stable [12.02.2020]
- * @param {IIconLeftAlignedWrapper} entity
- * @returns {boolean}
- */
-const isIconLeftAligned = (entity: IIconLeftAlignedWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.iconLeftAligned !== false, false);
-
-/**
  * @stable [16.02.2020]
  * @param {IErrorMessageRenderedWrapper} wrapper
  * @returns {boolean}
@@ -535,7 +526,6 @@ export class WrapperUtils {
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
   public static readonly isHovered = isHovered;                                            /* @stable [01.06.2020] */
-  public static readonly isIconLeftAligned = isIconLeftAligned;                            /* @stable [01.06.2020] */
   public static readonly isInline = isInline;                                              /* @stable [21.06.2020] */
   public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
   public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */

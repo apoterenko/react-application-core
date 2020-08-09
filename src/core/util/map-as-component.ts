@@ -405,7 +405,6 @@ const mapDictionariesContainerAsSelectProps = <TDictionary extends IReduxBaseDic
       }
     },
     onDictionaryChange: cfg.container.dictionaryStoreProxy.dispatchLoadDictionaryOnChange,
-    onDictionaryEmpty: cfg.container.dictionaryStoreProxy.dispatchLoadDictionaryOnEmpty,
   });
 
 /**
@@ -440,8 +439,6 @@ const mapDictionariesContainerAsParameterizedSelectProps =
 
     return {
       ...originalProps,
-      onDictionaryEmpty: (_, payloadWrapper) =>
-        originalProps.onDictionaryEmpty(_, buildParameterizedPayloadWrapper(payloadWrapper)),
       onDictionaryChange: (_, payloadWrapper) =>
         originalProps.onDictionaryChange(_, buildParameterizedPayloadWrapper(payloadWrapper)),
     };

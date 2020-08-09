@@ -21,47 +21,51 @@ import { ISelectedElementClassNameWrapper } from '../../../definitions.interface
  */
 export class ListItem extends GenericBaseComponent<IListItemProps> {
 
+  public static readonly defaultProps: IListItemProps = {
+    iconLeftAligned: true,
+  };
+
   /**
    * @stable [01.06.2020]
-   * @param {IListItemProps} props
+   * @param {IListItemProps} originalProps
    */
-  constructor(props: IListItemProps) {
-    super(props);
+  constructor(originalProps: IListItemProps) {
+    super(originalProps);
     this.onClick = this.onClick.bind(this);
   }
 
   /**
-   * @stable [01.06.2020]
-   * @returns {JSX.Element}
+   * @stable [09.08.2020]
    */
   public render(): JSX.Element {
-    const mergedProps = this.mergedProps;
+    const originalProps = this.originalProps;
     const {
+      iconLeftAligned,
       index,
       rawData,
       renderer,
       tpl,
-    } = mergedProps;
+    } = originalProps;
 
     return (
       <UniversalScrollableContext.Consumer>
         {(selectedElementClassName) => {
-          const itemProps = this.getItemProps({selectedElementClassName}, mergedProps);
+          const itemProps = this.getItemProps({selectedElementClassName}, originalProps);
 
           return (
             TypeUtils.isFn(renderer)
               ? React.cloneElement(renderer(rawData, index), itemProps)
               : (
                 <li {...itemProps}>
-                  {WrapperUtils.isIconLeftAligned(mergedProps) && this.getIconElement(mergedProps)}
-                  <div className={ListClassesEnum.LIST_ITEM_CONTENT}>
-                    {
-                      TypeUtils.isFn(tpl)
-                        ? tpl(rawData)
-                        : this.props.children
-                    }
+                  {iconLeftAligned && this.getIconElement(originalProps)}
+                  <div
+                    className={ListClassesEnum.LIST_ITEM_CONTENT}
+                  >
+                    {TypeUtils.isFn(tpl)
+                      ? tpl(rawData)
+                      : this.originalChildren}
                   </div>
-                  {!WrapperUtils.isIconLeftAligned(mergedProps) && this.getIconElement(mergedProps)}
+                  {!iconLeftAligned && this.getIconElement(originalProps)}
                 </li>
               )
           );
@@ -121,13 +125,13 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
   }
 
   /**
-   * @stable [01.06.2020]
+   * @stable [09.08.2020]
    */
   private onClick(): void {
     const {
       onClick,
       rawData,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     onClick(rawData);
   }

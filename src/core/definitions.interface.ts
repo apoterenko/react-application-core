@@ -349,7 +349,6 @@ export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClic
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryChangeWrapper<TValue1, TValue2> { onDictionaryChange?(value1?: TValue1, value2?: TValue2): void; }
-export interface IOnDictionaryEmptyWrapper<TValue1, TValue2> { onDictionaryEmpty?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDictionaryLoadWrapper<TValue1 = {}, TValue2 = {}> { onDictionaryLoad?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
 export interface IOnDrawerHeaderClickWrapper { onDrawerHeaderClick?(): void; }

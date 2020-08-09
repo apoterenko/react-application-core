@@ -24,13 +24,12 @@ import {
   IGoogleMapsEventEntity,
   IGoogleMapsHeatMapLayerConfigEntity,
   IGoogleMapsMarkerConfigEntity,
-  IGoogleMapsMarkerOptionConfigEntity,
   IGoogleMapsMarkerInfoEntity,
+  IGoogleMapsMarkerOptionConfigEntity,
   IGoogleMapsMenuContextEntity,
   IGoogleMapsProps,
   IGoogleMapsSettingsEntity,
   ILatLngEntity,
-  IMenu,
   IPresetsMenuItemEntity,
 } from '../../../definition';
 import { GenericComponent } from '../../base/generic.component';
@@ -622,10 +621,10 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [10.01.2020]
-   * @returns {IMenu}
+   * @stable [09.08.2020]
+   * @private
    */
-  private get menu(): IMenu {
+  private get menu(): Menu {
     return this.menuRef.current;
   }
 }

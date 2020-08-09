@@ -11,7 +11,6 @@ import {
   IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
   IOnDictionaryChangeWrapper,
-  IOnDictionaryEmptyWrapper,
   IOnSelectWrapper,
   IOptionsWrapper,
   IProgressWrapper,
@@ -52,7 +51,6 @@ export interface IPresetsBaseSelectEntity
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
     IOnDictionaryChangeWrapper<string, IFluxPayloadQueryEntity>,
-    IOnDictionaryEmptyWrapper<string, IFluxPayloadEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity>,
     IRemoteFilterWrapper {
 }

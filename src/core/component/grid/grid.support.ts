@@ -4,13 +4,13 @@ import {
   calc,
   defValuesFilter,
   FieldUtils,
+  FilterUtils,
   isFn,
   join,
   makeArray,
   normalizeTime,
   orNull,
   orUndef,
-  queryFilter,
   toClassName,
 } from '../../util';
 import { UNI_CODES, IEntity, EntityIdT } from '../../definitions.interface';
@@ -177,7 +177,7 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
     const filterChanges = state.filterChanges;
     const changedColumns = Object.keys(filterChanges);
     const defaultLocalFilter = (cfg: IGridFilterEntity) =>
-      queryFilter(cfg.query, cfg.entity[cfg.columnName]);
+      FilterUtils.queryFilter(cfg.query, cfg.entity[cfg.columnName]);
 
     if (changedColumns.length > 0) {
       source = source.filter((entity) => {
