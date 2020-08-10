@@ -121,7 +121,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
             </React.Fragment>
           )}
           {this.listElement}
-          {this.applyActionsElement}
+          {!this.isAnchored && this.applyActionsElement}
         </Dialog>
       )
     );

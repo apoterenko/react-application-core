@@ -30,18 +30,14 @@ import {
 import { IFieldState } from './field-definition.interface';
 import { IFluxPayloadQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import {
-  IFluxPayloadEntity,
-  IPresetsRawDataLabeledValueEntity,
-} from './entity-definition.interface';
+import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface';
 
 /**
  * @presets-entity
  * @stable [19.05.2020]
  */
 export interface IPresetsBaseSelectEntity
-  extends IPresetsBaseTextFieldEntity,
-    IAllowEmptyFilterValueWrapper,
+  extends IAllowEmptyFilterValueWrapper,
     IAnchoredWrapper,
     IDictionaryWrapper,
     IExpandActionRenderedWrapper,
@@ -52,7 +48,10 @@ export interface IPresetsBaseSelectEntity
     IMenuConfigurationEntity,
     IOnDictionaryChangeWrapper<string, IFluxPayloadQueryEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity>,
-    IRemoteFilterWrapper {
+    IOptionsWrapper<IPresetsSelectOptionEntity[]>,
+    IPresetsBaseTextFieldEntity,
+    IRemoteFilterWrapper,
+    IWaitingForOptionsWrapper {
 }
 
 /**
@@ -60,9 +59,7 @@ export interface IPresetsBaseSelectEntity
  * @stable [19.05.2020]
  */
 export interface IReduxBaseSelectEntity
-  extends IReduxBaseTextFieldEntity,
-    IOptionsWrapper<IPresetsSelectOptionEntity[]>,
-    IWaitingForOptionsWrapper {
+  extends IReduxBaseTextFieldEntity {
 }
 
 /**

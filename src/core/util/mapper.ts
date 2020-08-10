@@ -200,7 +200,6 @@ export class Mappers {
   public static readonly primaryFilterExtendedFormEntityAsFormContainerProps = MapAsComponentUtils.primaryFilterExtendedFormEntityAsFormContainerProps;                                     /* @stable [01.08.2020] */
   public static readonly primaryFilterFormEntityAsPrimaryFilterExtendedFormEntity = MapAsUtils.primaryFilterFormEntityAsPrimaryFilterExtendedFormEntity;                                    /* @stable [02.08.2020] */
   public static readonly primaryFilterFormHolderEntityAsToolbarToolsContainerProps = MapAsComponentUtils.primaryFilterFormHolderEntityAsToolbarToolsContainerProps;                         /* @stable [01.08.2020] */
-  public static readonly progressWrapper = MapAsOriginalUtils.progressWrapper;                                                                                                              /* @stable [10.08.2020] */
   public static readonly queryFilterHolderEntity = MapAsOriginalUtils.queryFilterHolderEntity;                                                                                              /* @stable [31.07.2020] */
   public static readonly queryFilterHolderEntityAsQuery = MapAsUtils.queryFilterHolderEntityAsQuery;                                                                                        /* @stable [02.08.2020] */
   public static readonly searchToolbarContainerProps = MapAsComponentUtils.searchToolbarContainerProps;                                                                                     /* @stable [31.07.2020] */

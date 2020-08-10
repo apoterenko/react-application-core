@@ -15,6 +15,7 @@ import {
 export interface IDateConverter<TDate = Date> {
   appOnlineLifeTimeInHours: number;
   appOnlineLifeTimeInSeconds: number;
+  weekdays: string[];
   addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;

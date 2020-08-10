@@ -98,22 +98,22 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [29.01.2020]
-   * @param {Readonly<TProps extends IBaseSelectProps>} prevProps
-   * @param {Readonly<TState extends IBaseSelectState>} prevState
+   * @stable [10.08.2020]
+   * @param prevProps
+   * @param prevState
    */
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
     super.componentDidUpdate(prevProps, prevState);
-    const props = this.props;
+    const originalProps = this.originalProps;
 
     if (this.state.progress
-      && !props.waitingForOptions && prevProps.waitingForOptions) {
+      && !originalProps.waitingForOptions && prevProps.waitingForOptions) {
       // We can't use progress props because it is reserved
       // The new data have come
       this.setState({progress: false}, this.onOptionsLoadDone);
     }
 
-    this.tryResetCachedValue(props, prevProps);
+    this.tryResetCachedValue(originalProps, prevProps);
   }
 
   /**
@@ -148,7 +148,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [09.08.2020]
    */
   public openMenu(): void {
-    if (this.isBusy || this.isMenuAlreadyRenderedAndOpened) {
+    if (this.isBusy || this.isMenuAlreadyOpened) {
       return;
     }
     const areLocalOptionsUsed = this.areLocalOptionsUsed;
@@ -164,7 +164,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if ((isForceReload || !doOptionsExist) && !areLocalOptionsUsed) {
       this.onFilterChange();
     } else {
-      this.showMenu();
+      this.showMenu(this.getFilteredOptions());
     }
   }
 
@@ -509,26 +509,25 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @private
    */
   private hideMenu(): void {
-    if (!this.isMenuAlreadyRenderedAndOpened) {
+    if (!this.isMenuAlreadyOpened) {
       return;
     }
     this.setState({menuRendered: false});
   }
 
   /**
-   * @stable [08.08.2020]
+   * @stable [10.08.2020]
    * @private
    */
   private onOptionsLoadDone(): void {
-    this.showMenu();
+    const filteredOptions = this.getFilteredOptions();
+    BaseSelect.logger.debug('[$BaseSelect][onOptionsLoadDone] The options have been loaded successfully. The options:', filteredOptions);
 
-    const {
-      onDictionaryLoad,
-    } = this.originalProps;
-
-    if (TypeUtils.isFn(onDictionaryLoad)) {
-      onDictionaryLoad(this.getFilteredOptions());
+    if (!this.isMenuAlreadyOpened) {
+      this.showMenu(filteredOptions);
     }
+
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onDictionaryLoad, (onDictionaryLoad) => onDictionaryLoad(filteredOptions));
   }
 
   /**
@@ -563,12 +562,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.08.2020]
+   * @stable [10.08.2020]
+   * @param filteredOptions
    * @private
    */
-  private showMenu(): void {
-    if (!R.isEmpty(this.getFilteredOptions())) {
+  private showMenu(filteredOptions: IPresetsSelectOptionEntity[]): void {
+    if (!R.isEmpty(filteredOptions)) {
       this.setState({menuRendered: true}, () => this.menu.show());
+
+      BaseSelect.logger.debug('[$BaseSelect][showMenu] The menu has been shown...');
     } else {
       BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
     }
@@ -665,33 +667,32 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [08.08.2020]
-   * @returns {string}
+   * @stable [10.08.2020]
+   * @private
    */
   private get dictionary(): string {
     return this.originalProps.dictionary;
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @private
    */
   private get doOptionsExist(): boolean {
     return !R.isNil(this.originalProps.options);
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @private
    */
-  private get isMenuAlreadyRenderedAndOpened(): boolean {
-    const menu = this.menu;
-    return !R.isNil(menu) && menu.isOpen();
+  private get isMenuAlreadyOpened(): boolean {
+    return ConditionUtils.ifNotNilThanValue(this.menu, (menu) => menu.isOpen(), false);
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @private
    */
   private get isForceReload(): boolean {
     return this.originalProps.forceReload !== false;
@@ -706,8 +707,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @private
    */
   private get isMenuRendered(): boolean {
     return this.state.menuRendered;

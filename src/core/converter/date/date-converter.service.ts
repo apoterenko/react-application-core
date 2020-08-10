@@ -41,12 +41,10 @@ import {
 
 @injectable()
 export class DateConverter implements IDateConverter<MomentT> {
+  public static readonly WEEKDAYS = moment.weekdays();
   private static WEEKDAYS_SHORT = moment.weekdaysShort()
       .slice(1, 7)
       .concat(moment.weekdaysShort()[0]);
-  private static WEEKDAYS = moment.weekdays()
-      .slice(1, 7)
-      .concat(moment.weekdays()[0]);
 
   private static DEFAULT_SHORTEST_ISO_WEEKDAYS = ['M', 'T', 'W', 'TH', 'F', 'SA', 'SU'];
   private static DEFAULT_SHORTEST_WEEKDAYS = [
@@ -63,6 +61,13 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   constructor() {
     this.environment.setVariable(EnvironmentGlobalVariablesEnum.DATE_CONVERTER, this);
+  }
+
+  /**
+   * @stable [10.08.2020]
+   */
+  public get weekdays(): string[] {
+    return moment.weekdays();
   }
 
   /**

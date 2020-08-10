@@ -9,10 +9,10 @@ import {
   IExtendedFormEntity,
   INamedEntity,
   IOptionEntity,
+  IPresetsBaseSelectEntity,
   IPresetsRawDataLabeledValueEntity,
   IPresetsSelectOptionEntity,
   IPrimaryFilterExtendedFormEntity,
-  IReduxBaseSelectEntity,
   IReduxDictionaryEntity,
   IReduxFormEntity,
   IReduxListHolderEntity,
@@ -369,7 +369,7 @@ const mapDictionaryEntityAsSelectOptionEntities =
  */
 const mapDictionaryEntityAsSelectEntity =
   <TEntity, TResult = TEntity[]>(entity: IReduxDictionaryEntity<TEntity>,
-                                 accessor?: (data: TEntity[]) => TResult): IReduxBaseSelectEntity => ({
+                                 accessor?: (data: TEntity[]) => TResult): IPresetsBaseSelectEntity => ({
     ...MapAsWrapperUtils.waitingForOptions(WrapperUtils.inProgress(entity)),
     ...MapAsWrapperUtils.options(MapAsUtils.dictionaryEntityAsSelectOptionEntities(entity, accessor)),
   });
