@@ -125,8 +125,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
-   * @param {IBaseEvent} event
+   * @stable [10.08.2020]
+   * @param event
    */
   public onKeyEscape(event: IBaseEvent): void {
     super.onKeyEscape(event);
@@ -443,20 +443,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
-   * @param {IPresetsSelectOptionEntity} option
-   */
-  private doSelectOption(option: IPresetsSelectOptionEntity): void {
-    this.onChangeManually(this.isPlainValueApplied ? this.fromSelectValueToId(option) : option);
-    this.notifySelectOption(option);
-    this.setFocus();
-  }
-
-  /**
-   * @stable [16.01.2020]
+   * @stable [10.08.2020]
+   * @param noDelay
+   * @private
    */
   private onQueryTaskStart(noDelay = false): boolean {
-    if (this.isBusy) {
+    if (this.isBusy || !this.isRemoteFilterUsed) {
       return;
     }
     this.hideMenu();
@@ -505,17 +497,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.08.2020]
-   * @private
-   */
-  private hideMenu(): void {
-    if (!this.isMenuAlreadyOpened) {
-      return;
-    }
-    this.setState({menuRendered: false});
-  }
-
-  /**
    * @stable [10.08.2020]
    * @private
    */
@@ -528,6 +509,28 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     }
 
     ConditionUtils.ifNotNilThanValue(this.originalProps.onDictionaryLoad, (onDictionaryLoad) => onDictionaryLoad(filteredOptions));
+  }
+
+  /**
+   * @stable [10.08.2020]
+   * @param option
+   * @private
+   */
+  private doSelectOption(option: IPresetsSelectOptionEntity): void {
+    this.onChangeManually(this.isPlainValueApplied ? this.fromSelectValueToId(option) : option);
+    this.notifySelectOption(option);
+    this.setFocus();
+  }
+
+  /**
+   * @stable [09.08.2020]
+   * @private
+   */
+  private hideMenu(): void {
+    if (!this.isMenuAlreadyOpened) {
+      return;
+    }
+    this.setState({menuRendered: false});
   }
 
   /**
