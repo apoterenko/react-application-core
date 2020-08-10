@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 
-import { AnyT, UNDEF, UNDEF_SYMBOL } from '../definitions.interface';
-import { ifNotNilThanValue } from './cond';
+import { AnyT, UNDEF } from '../definitions.interface';
 import { isDef } from '../util';
 import { isObjectNotEmpty } from './object';
 
@@ -11,17 +10,6 @@ import { isObjectNotEmpty } from './object';
  * @returns {AnyT}
  */
 export const undefEmpty = (v: AnyT): AnyT => isObjectNotEmpty(v) ? v : UNDEF;
-
-/**
- * @stable [05.08.2018]
- * @param {AnyT} v
- * @returns {AnyT}
- */
-export const trimmedUndefEmpty = (v: AnyT): AnyT => ifNotNilThanValue(
-  undefEmpty(v),
-  (result) => String(result).trim(),
-  UNDEF_SYMBOL
-);
 
 /**
  * @stable [05.08.2018]

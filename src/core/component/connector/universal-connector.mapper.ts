@@ -1,24 +1,10 @@
 import {
-  IEntity,
-} from '../../definitions.interface';
-import {
   DEFAULT_PAGE_SIZE,
   FIRST_PAGE,
-  IReduxFormEntity,
-  IExtendedFormEntity,
   IGenericListEntity,
   IReduxListHolderEntity,
   IReduxPagedEntity,
 } from '../../definition';
-
-/**
- * @deprecated mapEditableEntity
- */
-export const formMapper = (editableEntity: IReduxFormEntity): IExtendedFormEntity => ({
-  form: {
-    ...editableEntity,
-  },
-});
 
 /**
  * @deprecated Use mapListPagedEntity
@@ -34,9 +20,3 @@ export const listEntityPageEntityFilterMapper = (listEntity: IGenericListEntity,
 export const listEntityWrapperPageEntityFilterMapper =
   (listEntity: IReduxListHolderEntity, pageSize = DEFAULT_PAGE_SIZE): IReduxPagedEntity =>
     listEntityPageEntityFilterMapper(listEntity.list, pageSize);
-
-/**
- * @deprecated Use selectChanges
- */
-export const editableEntityChangesSelector = <TResult extends IEntity = IEntity>(entity: IReduxFormEntity): TResult =>
-  entity.changes as TResult;
