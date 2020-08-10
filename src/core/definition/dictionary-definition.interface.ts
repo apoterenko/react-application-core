@@ -2,8 +2,8 @@ import {
   IDataWrapper,
   IDictionariesWrapper,
   IKeyValue,
-  ILoadingWrapper,
   IPlacesWrapper,
+  IProgressWrapper,
 } from '../definitions.interface';
 import {
   DEFAULT_PAGED_ENTITY,
@@ -49,7 +49,7 @@ export const DEFAULT_DICTIONARY_PAGED_ENTITY = Object.freeze<IReduxPagedEntity>(
  */
 export interface IReduxDictionaryEntity<TData = IKeyValue>
   extends IDataWrapper<TData[] | TData>,
-    ILoadingWrapper {
+    IProgressWrapper {
 }
 
 /**

@@ -27,6 +27,7 @@ import {
   IPreventEffectsWrapper,
   IPreviousActionWrapper,
   IPrimaryFilterWrapper,
+  IProgressWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
   IQueueWrapper,
@@ -369,11 +370,16 @@ const selectDictionaries = <TValue>(wrapper: IDictionariesWrapper<TValue>): TVal
   R.isNil(wrapper) ? UNDEF : wrapper.dictionaries;
 
 /**
- * @stable [30.03.2020]
- * @param {ISectionNameWrapper} wrapper
- * @returns {string}
+ * @stable [10.08.2020]
+ * @param wrapper
  */
 const selectSectionName = (wrapper: ISectionNameWrapper): string => R.isNil(wrapper) ? UNDEF : wrapper.sectionName;
+
+/**
+ * @stable [10.08.2020]
+ * @param wrapper
+ */
+const selectProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrapper) ? UNDEF : wrapper.progress;
 
 /**
  * @stable [17.05.2020]
@@ -493,6 +499,7 @@ export class Selectors {
   public static readonly previousActionFromAction = selectPreviousActionFromAction;                             /* @stable [08.05.2020] */
   public static readonly previousActionTypeFromAction = selectPreviousActionTypeFromAction;                     /* @stable [08.05.2020] */
   public static readonly primaryFilter = selectPrimaryFilter;                                                   /* @stable [10.05.2020] */
+  public static readonly progress = selectProgress;                                                             /* @stable [10.08.2020] */
   public static readonly query = selectQuery;
   public static readonly queryFilter = selectQueryFilter;
   public static readonly queryFilterEntityQuery = selectQueryFilterEntityQuery;

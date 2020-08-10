@@ -25,7 +25,10 @@ import {
 } from './page-definition.interface';
 import { DEFAULT_DICTIONARY_PAGED_ENTITY } from './dictionary-definition.interface';
 import { DEFAULT_QUICK_SEARCH_FIELD_ENTITY } from './select-definition.interface';
-import { DEFAULT_FILTERED_MENU_ENTITY } from './menu-definition.interface';
+import {
+  DEFAULT_FILTERED_MENU_ENTITY,
+  DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY,
+} from './menu-definition.interface';
 
 /**
  * @stable [17.05.2020]
@@ -48,5 +51,6 @@ export class DefaultEntities {
   public static readonly PLACE_FIELD_ENTITY = DEFAULT_PLACE_FIELD_ENTITY;                               /* @stable [19.05.2020] */
   public static readonly QUICK_SEARCH_FIELD_ENTITY = DEFAULT_QUICK_SEARCH_FIELD_ENTITY;                 /* @stable [17.05.2020] */
   public static readonly ROOT_SECTION = 'root';                                                         /* @stable [22.05.2020] */
+  public static readonly UNLIMITED_HEIGHT_MENU_ENTITY = DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY;           /* @stable [10.08.2020] */
   public static readonly ZIP_CODE_FIELD_ENTITY = DEFAULT_ZIP_CODE_FIELD_ENTITY;                         /* @stable [17.05.2020] */
 }

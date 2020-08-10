@@ -33,6 +33,7 @@ import { Selectors } from './select';
 import { MapAsWrapperUtils } from './map-as-wrapper';
 import {
   IEntity,
+  IProgressWrapper,
   ISectionNameWrapper, UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { FilterUtils } from './filter';
@@ -213,6 +214,15 @@ const mapSectionNameWrapper = (wrapper: ISectionNameWrapper): ISectionNameWrappe
 /**
  * @map-as-original
  *
+ * @stable [10.08.2020]
+ * @param wrapper
+ */
+const mapProgressWrapper = (wrapper: IProgressWrapper): IProgressWrapper =>
+  MapAsWrapperUtils.progress(Selectors.progress(wrapper));
+
+/**
+ * @map-as-original
+ *
  * @stable [30.07.2020]
  * @param entity
  */
@@ -330,6 +340,7 @@ export class MapAsOriginalUtils {
   public static readonly pagedEntity = mapPagedEntity;
   public static readonly paginatedEntity = mapPaginatedEntity;
   public static readonly paginatedLifeCycleEntity = mapPaginatedLifeCycleEntity;
+  public static readonly progressWrapper = mapProgressWrapper;
   public static readonly queryFilterEntity = mapQueryFilterEntity;
   public static readonly queryFilterHolderEntity = mapQueryFilterHolderEntity;
   public static readonly sectionNameWrapper = mapSectionNameWrapper;

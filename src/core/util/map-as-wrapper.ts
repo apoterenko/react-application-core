@@ -9,6 +9,7 @@ import {
   INotificationWrapper,
   IOptionsWrapper,
   IPrimaryFilterWrapper,
+  IProgressWrapper,
   IQueryFilterWrapper,
   IQueryWrapper,
   ISecondaryFilterWrapper,
@@ -40,6 +41,15 @@ const mapStack = <TValue>(stack: TValue): IStackWrapper<TValue> =>
  */
 const mapUser = <TUser>(user: TUser): IUserWrapper<TUser> =>
   FilterUtils.defValuesFilter<IUserWrapper<TUser>, IUserWrapper<TUser>>({user});
+
+/**
+ * @map-as-wrapper
+ *
+ * @stable [10.08.2020]
+ * @param progress
+ */
+const mapProgress = <TValue>(progress: TValue): IProgressWrapper<TValue> =>
+  FilterUtils.defValuesFilter<IProgressWrapper<TValue>, IProgressWrapper<TValue>>({progress});
 
 /**
  * @map-as-wrapper
@@ -215,6 +225,7 @@ export class MapAsWrapperUtils {
   public static readonly notification = mapNotification;                                                       /* stable [27.07.2020] */
   public static readonly options = mapOptions;                                                                 /* stable [19.05.2020] */
   public static readonly primaryFilter = mapPrimaryFilter;                                                     /* stable [27.07.2020] */
+  public static readonly progress = mapProgress;                                                               /* stable [10.08.2020] */
   public static readonly query = mapQuery;                                                                     /* stable [08.05.2020] */
   public static readonly queryFilter = mapQueryFilter;                                                         /* stable [08.05.2020] */
   public static readonly secondaryFilter = mapSecondaryFilter;                                                 /* stable [27.07.2020] */

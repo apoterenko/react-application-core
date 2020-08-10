@@ -1,14 +1,11 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import {
-  selectData,
-  toSection,
-} from '../util';
+import { toSection } from '../util';
 import { DictionariesActionBuilder } from '../action';
 import {
+  IFluxSectionDataEntity,
   INITIAL_REDUX_DICTIONARIES_ENTITY,
   IReduxDictionariesEntity,
-  IFluxSectionDataEntity,
 } from '../definition';
 
 /**
@@ -31,7 +28,7 @@ export const dictionariesReducer = (state: IReduxDictionariesEntity = INITIAL_RE
         ...state,
         [section]: {
           data: null,
-          loading: true,
+          progress: true,
         },
       };
     case DictionariesActionBuilder.buildSetActionType(section):
@@ -47,7 +44,7 @@ export const dictionariesReducer = (state: IReduxDictionariesEntity = INITIAL_RE
         ...state,
         [section]: {
           data: action.data,  // Data from redux-effects-promise
-          loading: false,
+          progress: false,
         },
       };
     case DictionariesActionBuilder.buildLoadErrorActionType(section):
@@ -55,7 +52,7 @@ export const dictionariesReducer = (state: IReduxDictionariesEntity = INITIAL_RE
         ...state,
         [section]: {
           ...state[section],
-          loading: false,
+          progress: false,
         },
       };
   }

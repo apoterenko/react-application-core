@@ -43,6 +43,7 @@ export interface IPresetsMenuEntity
   extends IPresetsTemplateEntity,
     IDelayTimeoutWrapper,
     IFilterPlaceholderWrapper,
+    IHeightRestrictedWrapper,
     IInlineOptionsWrapper<IPresetsRawDataLabeledValueEntity[]>,
     IOnInlineOptionCloseWrapper<IPresetsRawDataLabeledValueEntity>,
     IUseFilterWrapper {
@@ -52,7 +53,6 @@ export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity
   extends IPresetsMenuEntity,
     IPresetsBaseDialogEntity,
     IFilterWrapper<(valueToFilter: string, item: IPresetsMenuItemEntity) => boolean>,
-    IHeightRestrictedWrapper,
     IHighlightOddWrapper,
     IMaxCountWrapper,
     IMultiWrapper,
@@ -95,6 +95,14 @@ export interface IMenuConfigurationEntity<TProps extends IMenuProps = IMenuProps
  */
 export const DEFAULT_FILTERED_MENU_ENTITY = Object.freeze<IPresetsMenuEntity>({
   useFilter: true,
+});
+
+/**
+ * @default-entity
+ * @stable [08.08.2020]
+ */
+export const DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY = Object.freeze<IPresetsMenuEntity>({
+  heightRestricted: false,
 });
 
 /**

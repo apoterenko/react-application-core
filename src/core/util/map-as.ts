@@ -160,6 +160,24 @@ const mapListHolderEntityAsDisabled = (listEntity: IReduxListHolderEntity): IDis
 /**
  * @map-as
  *
+ * @stable [10.08.2020]
+ * @param dictionaryEntity
+ */
+const mapDictionaryEntityAsDisabled = (dictionaryEntity: IReduxDictionaryEntity): IDisabledWrapper =>
+  mapProgressAsDisabled(dictionaryEntity);
+
+/**
+ * @map-as
+ *
+ * @stable [10.08.2020]
+ * @param dictionaryEntity
+ */
+const mapDictionaryEntityAsProgress = (dictionaryEntity: IReduxDictionaryEntity): IProgressWrapper =>
+  MapAsOriginalUtils.progressWrapper(dictionaryEntity);
+
+/**
+ * @map-as
+ *
  * @stable [02.08.2020]
  * @param entity
  */
@@ -352,7 +370,7 @@ const mapDictionaryEntityAsSelectOptionEntities =
 const mapDictionaryEntityAsSelectEntity =
   <TEntity, TResult = TEntity[]>(entity: IReduxDictionaryEntity<TEntity>,
                                  accessor?: (data: TEntity[]) => TResult): IReduxBaseSelectEntity => ({
-    ...MapAsWrapperUtils.waitingForOptions(WrapperUtils.isLoading(entity)),
+    ...MapAsWrapperUtils.waitingForOptions(WrapperUtils.inProgress(entity)),
     ...MapAsWrapperUtils.options(MapAsUtils.dictionaryEntityAsSelectOptionEntities(entity, accessor)),
   });
 
@@ -360,6 +378,8 @@ const mapDictionaryEntityAsSelectEntity =
  * @stable [31.07.2020]
  */
 export class MapAsUtils {
+  public static readonly dictionaryEntityAsDisabled = mapDictionaryEntityAsDisabled;
+  public static readonly dictionaryEntityAsProgress = mapDictionaryEntityAsProgress;
   public static readonly dictionaryEntityAsSelectEntity = mapDictionaryEntityAsSelectEntity;
   public static readonly dictionaryEntityAsSelectOptionEntities = mapDictionaryEntityAsSelectOptionEntities;
   public static readonly entityAsExtendedEntity = mapEntityAsExtendedEntity;
