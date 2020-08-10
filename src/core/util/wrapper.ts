@@ -6,7 +6,6 @@ import {
   IAllowEmptyFilterValueWrapper,
   IAlwaysDirtyWrapper,
   IAlwaysResettableWrapper,
-  IAnchoredWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   ICheckModalWrapper,
@@ -374,14 +373,6 @@ const isDecorated = (wrapper: IDecoratedWrapper): boolean =>
  */
 export const isMulti = (wrapper: IMultiWrapper): boolean =>
   ifNotNilThanValue(wrapper, () => wrapper.multi === true, false);
-
-/**
- * @stable [24.01.2020]
- * @param {IAnchoredWrapper} wrapper
- * @returns {boolean}
- */
-export const isAnchored = (wrapper: IAnchoredWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.anchored === true, false);
 
 /**
  * @stable [16.01.2020]

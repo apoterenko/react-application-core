@@ -11,7 +11,6 @@ import {
   ConditionUtils,
   DelayedTask,
   FilterUtils,
-  isAnchored,
   NvlUtils,
   ObjectUtils,
   PropsUtils,
@@ -112,7 +111,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [31.01.2020]
+   * @stable [10.08.2020]
    */
   public componentWillUnmount(): void {
     super.componentWillUnmount();
@@ -298,8 +297,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {string}
+   * @stable [10.08.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(
@@ -321,9 +320,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @param {IPresetsSelectOptionEntity} option
-   * @param {boolean} isInlineOptionSelected
+   * @stable [10.08.2020]
+   * @param option
+   * @param isInlineOptionSelected
+   * @protected
    */
   protected onInlineOptionClick(option: IPresetsSelectOptionEntity,
                                 isInlineOptionSelected: boolean): void {
@@ -331,10 +331,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @param {EntityIdT} id
-   * @param {SelectValueT} currentValue
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @param id
+   * @param currentValue
+   * @protected
    */
   protected isInlineOptionSelected(id: EntityIdT, currentValue: SelectValueT): boolean {
     return this.fromSelectValueToId(currentValue) === id;
@@ -372,17 +372,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [28.01.2020]
-   * @param {AnyT} value
-   * @returns {AnyT}
+   * @stable [10.08.2020]
+   * @param value
+   * @protected
    */
   protected decorateDisplayValue(value: AnyT): AnyT {
     return this.fromSelectValueToDisplayValue(value);
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {IPresetsSelectOptionEntity[]}
+   * @stable [10.08.2020]
+   * @protected
    */
   protected get options(): IPresetsSelectOptionEntity[] {
     return NvlUtils.nvl(this.originalProps.options, []);
@@ -405,9 +405,9 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [08.07.2020]
-   * @param {SelectValueT} value
-   * @returns {EntityIdT}
+   * @stable [10.08.2020]
+   * @param value
+   * @protected
    */
   protected fromSelectValueToId(value: SelectValueT): EntityIdT {
     return this.fieldConverter.fromSelectValueToId(value);
@@ -609,68 +609,68 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [08.07.2020]
-   * @param {SelectValueT} value
-   * @returns {StringNumberT}
+   * @stable [10.08.2020]
+   * @param value
+   * @private
    */
   private fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT {
     return this.fieldConverter.fromSelectValueToDisplayValue(value);
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {number}
+   * @stable [10.08.2020]
+   * @private
    */
   private getMenuWidth(): number {
     return this.domAccessor.getWidth(this.actualRef.current);
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {AnyT}
+   * @stable [10.08.2020]
+   * @protected
    */
   protected get originalEmptyValue(): AnyT {
     return FieldConstants.VALUE_TO_RESET;
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @private
    */
   private get isQuickSearchEnabled(): boolean {
     return !this.isFocusPrevented;
   }
 
   /**
-   * @stable [11.01.2020]
-   * @returns {number}
+   * @stable [10.08.2020]
+   * @private
    */
   private get delayTimeout(): number {
-    return NvlUtils.nvl(this.props.delayTimeout, 1000);
+    return NvlUtils.nvl(this.mergedProps.delayTimeout, 1000);
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @private
    */
   private get areLocalOptionsUsed(): boolean {
     return TypeUtils.isUndef(this.originalProps.waitingForOptions);
   }
 
   /**
-   * @stable [24.01.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @private
    */
   private get isMenuAnchored(): boolean {
-    return isAnchored(this.props);
+    return this.originalProps.anchored;
   }
 
   /**
-   * @stable [24.01.2020]
-   * @returns {HTMLElement}
+   * @stable [10.08.2020]
+   * @private
    */
   private getMenuAnchorElement(): HTMLElement {
-    return CalcUtils.calc<HTMLElement>(this.props.menuAnchorElement) || this.input;
+    return CalcUtils.calc<HTMLElement>(this.originalProps.menuAnchorElement) || this.input;
   }
 
   /**
