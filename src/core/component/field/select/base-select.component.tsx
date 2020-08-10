@@ -164,7 +164,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if ((isForceReload || !doOptionsExist) && !areLocalOptionsUsed) {
       this.onFilterChange();
     } else {
-      this.showMenu(this.getFilteredOptions());
+      this.showMenu();
     }
   }
 
@@ -448,16 +448,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @private
    */
   private onQueryTaskStart(noDelay = false): boolean {
-    if (this.isBusy || !this.isRemoteFilterUsed) {
-      return;
+    if (this.isBusy) {
+      return false;
     }
-    this.hideMenu();
+    if (this.isRemoteFilterUsed) {
+      this.hideMenu();
 
-    if (noDelay) {
-      this.cancelQueryFilterTask();
-      this.onFilterChange();
+      if (noDelay) {
+        this.cancelQueryFilterTask();
+        this.onFilterChange();
+      } else {
+        this.quickFilterQueryTask.start();
+      }
     } else {
-      this.quickFilterQueryTask.start();
+      this.showMenu();
     }
     return true;
   }
@@ -504,9 +508,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const filteredOptions = this.getFilteredOptions();
     BaseSelect.logger.debug('[$BaseSelect][onOptionsLoadDone] The options have been loaded successfully. The options:', filteredOptions);
 
-    if (!this.isMenuAlreadyOpened) {
-      this.showMenu(filteredOptions);
-    }
+    this.showMenu(filteredOptions);
 
     ConditionUtils.ifNotNilThanValue(this.originalProps.onDictionaryLoad, (onDictionaryLoad) => onDictionaryLoad(filteredOptions));
   }
@@ -520,17 +522,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.onChangeManually(this.isPlainValueApplied ? this.fromSelectValueToId(option) : option);
     this.notifySelectOption(option);
     this.setFocus();
-  }
-
-  /**
-   * @stable [09.08.2020]
-   * @private
-   */
-  private hideMenu(): void {
-    if (!this.isMenuAlreadyOpened) {
-      return;
-    }
-    this.setState({menuRendered: false});
   }
 
   /**
@@ -569,7 +560,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @param filteredOptions
    * @private
    */
-  private showMenu(filteredOptions: IPresetsSelectOptionEntity[]): void {
+  private showMenu(filteredOptions = this.getFilteredOptions()): void {
+    if (this.isMenuAlreadyOpened) {
+      return;
+    }
     if (!R.isEmpty(filteredOptions)) {
       this.setState({menuRendered: true}, () => this.menu.show());
 
@@ -577,6 +571,17 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     } else {
       BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
     }
+  }
+
+  /**
+   * @stable [09.08.2020]
+   * @private
+   */
+  private hideMenu(): void {
+    if (!this.isMenuAlreadyOpened) {
+      return;
+    }
+    this.setState({menuRendered: false});
   }
 
   /**
