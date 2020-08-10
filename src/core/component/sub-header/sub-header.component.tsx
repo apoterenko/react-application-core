@@ -72,7 +72,7 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
    * @stable [02.06.2020]
    * @returns {ISubHeaderProps}
    */
-  protected get settingsProps(): ISubHeaderProps {
+  protected get componentsSettingsProps(): ISubHeaderProps {
     return this.componentsSettings.subHeader;
   }
 }

@@ -295,7 +295,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [11.05.2020]
    * @returns {TProps}
    */
-  protected get settingsProps(): TProps {
+  protected get componentsSettingsProps(): TProps {
     return this.componentsSettings.dialog as TProps;
   }
 

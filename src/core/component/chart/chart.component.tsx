@@ -123,7 +123,7 @@ export class Chart extends GenericComponent<IChartProps> {
    * @stable [02.06.2020]
    * @returns {IChartProps}
    */
-  protected get settingsProps(): IChartProps {
+  protected get componentsSettingsProps(): IChartProps {
     return this.componentsSettings.chart;
   }
 }

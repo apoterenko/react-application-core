@@ -47,7 +47,7 @@ export class BasicList extends EnhancedGenericComponent<IBasicListProps> {
    * @stable [11.06.2020]
    * @returns {IBasicListProps}
    */
-  protected get settingsProps(): IBasicListProps {
+  protected get componentsSettingsProps(): IBasicListProps {
     return this.componentsSettings.basicList;
   }
 }

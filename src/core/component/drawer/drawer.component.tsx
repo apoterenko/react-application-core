@@ -45,7 +45,7 @@ export class Drawer extends GenericBaseComponent<IDrawerProps> {
    * @stable [02.06.2020]
    * @returns {IDrawerProps}
    */
-  protected get settingsProps(): IDrawerProps {
+  protected get componentsSettingsProps(): IDrawerProps {
     return this.componentsSettings.drawer;
   }
 }

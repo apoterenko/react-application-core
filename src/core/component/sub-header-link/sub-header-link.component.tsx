@@ -65,7 +65,7 @@ export class SubHeaderLink extends GenericBaseComponent<ISubHeaderLinkProps> {
    * @stable [02.06.2020]
    * @returns {ISubHeaderLinkProps}
    */
-  protected get settingsProps(): ISubHeaderLinkProps {
+  protected get componentsSettingsProps(): ISubHeaderLinkProps {
     return this.componentsSettings.subHeaderLink;
   }
 }

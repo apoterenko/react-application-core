@@ -43,7 +43,7 @@ export class Thumb extends GenericBaseComponent<IThumbProps> {
    * @stable [05.06.2020]
    * @returns {IChipProps}
    */
-  protected get settingsProps(): IThumbProps {
+  protected get componentsSettingsProps(): IThumbProps {
     return this.componentsSettings.thumb;
   }
 }

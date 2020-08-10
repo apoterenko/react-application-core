@@ -43,7 +43,7 @@ export class Title extends GenericComponent<ITitleProps> {
    * @stable [02.06.2020]
    * @returns {ITitleProps}
    */
-  protected get settingsProps(): ITitleProps {
+  protected get componentsSettingsProps(): ITitleProps {
     return this.componentsSettings.title;
   }
 }

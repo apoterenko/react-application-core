@@ -41,7 +41,7 @@ export class GridHead extends GenericBaseComponent<IGridHeadProps> {
    * @stable [02.06.2020]
    * @returns {IGridHeadProps}
    */
-  protected get settingsProps(): IGridHeadProps {
+  protected get componentsSettingsProps(): IGridHeadProps {
     return this.componentsSettings.gridHead;
   }
 }

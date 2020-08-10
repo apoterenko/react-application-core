@@ -86,7 +86,7 @@ export class InlineOption extends GenericComponent<IInlineOptionProps> {
    * @stable [16.06.2020]
    * @returns {IInlineOptionProps}
    */
-  protected get settingsProps(): IInlineOptionProps {
+  protected get componentsSettingsProps(): IInlineOptionProps {
     return this.componentsSettings.inlineOption;
   }
 

@@ -498,10 +498,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {TProps}
+   * @stable [10.08.2020]
+   * @protected
    */
-  protected getSettingsProps(): TProps {
+  protected getComponentsSettingsProps(): TProps {
     return this.componentsSettings.field as TProps;
   }
 
@@ -735,8 +735,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [03.06.2020]
    * @returns {TProps}
    */
-  protected get settingsProps(): TProps {
-    return this.getSettingsProps();
+  protected get componentsSettingsProps(): TProps {
+    return this.getComponentsSettingsProps();
   }
 
   /**

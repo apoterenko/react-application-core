@@ -253,7 +253,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
    * @stable [02.06.2020]
    * @returns {IDefaultLayoutProps}
    */
-  protected get settingsProps(): IDefaultLayoutProps {
+  protected get componentsSettingsProps(): IDefaultLayoutProps {
     return this.componentsSettings.defaultLayout;
   }
 }

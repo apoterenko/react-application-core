@@ -158,7 +158,7 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
    * @stable [02.06.2020]
    * @returns {IListItemProps}
    */
-  protected get settingsProps(): IListItemProps {
+  protected get componentsSettingsProps(): IListItemProps {
     return this.componentsSettings.listItem;
   }
 }

@@ -200,7 +200,7 @@ export class Header extends GenericComponent<IHeaderProps> {
    * @stable [02.06.2020]
    * @returns {IHeaderProps}
    */
-  protected get settingsProps(): IHeaderProps {
+  protected get componentsSettingsProps(): IHeaderProps {
     return this.componentsSettings.header;
   }
 }

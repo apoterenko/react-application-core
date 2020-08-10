@@ -106,14 +106,6 @@ export const DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY = Object.freeze<IPresetsMenuEn
 });
 
 /**
- * @deprecated
- * TODO
- */
-export const DEFAULT_REMOTE_FILTERED_MENU_ENTITY = Object.freeze<IMenuProps>({
-  ...DEFAULT_FILTERED_MENU_ENTITY,
-});
-
-/**
  * @classes
  * @stable [07.07.2020]
  */

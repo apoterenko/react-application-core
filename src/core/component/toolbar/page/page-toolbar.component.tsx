@@ -336,7 +336,7 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
    * @stable [10.06.2020]
    * @returns {IPageToolbarProps}
    */
-  protected get settingsProps(): IPageToolbarProps {
+  protected get componentsSettingsProps(): IPageToolbarProps {
     return this.componentsSettings.pageToolbar;
   }
 }

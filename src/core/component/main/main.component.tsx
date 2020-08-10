@@ -62,7 +62,7 @@ export class Main extends EnhancedGenericComponent<IMainProps> {
    * @stable [02.06.2020]
    * @returns {IMainProps}
    */
-  protected get settingsProps(): IMainProps {
+  protected get componentsSettingsProps(): IMainProps {
     return this.componentsSettings.main;
   }
 }

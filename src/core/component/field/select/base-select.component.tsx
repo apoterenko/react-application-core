@@ -52,31 +52,26 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   private readonly quickFilterQueryTask: DelayedTask;
 
   /**
-   * @stable [30.11.2019]
-   * @param {TProps} props
+   * @stable [10.08.2020]
+   * @param originalProps
    */
-  constructor(props: TProps) {
-    super(props);
+  constructor(originalProps: TProps) {
+    super(originalProps);
 
     this.getMenuAnchorElement = this.getMenuAnchorElement.bind(this);
     this.getMenuWidth = this.getMenuWidth.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onInlineOptionClick = this.onInlineOptionClick.bind(this);
+    this.onMenuFilterChange = this.onMenuFilterChange.bind(this);
     this.onOptionsLoadDone = this.onOptionsLoadDone.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
     if (this.isExpandActionRendered) {
-      const mergedProps = this.mergedProps;
-      const originalProps = this.originalProps;
-      const {
-        icon,
-      } = mergedProps;
-
       this.defaultActions = [
         {
-          type: icon || originalProps.icon || FieldActionTypesEnum.DROP_DOWN,
+          type: this.mergedProps.icon || FieldActionTypesEnum.DROP_DOWN,
           onClick: this.onDropDownClick,
         },
         ...this.defaultActions
@@ -200,15 +195,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected get attachmentElement(): JSX.Element {
     const {
+      inlineOptionClassName,
       inlineOptions,
     } = this.originalProps;
 
     if (!inlineOptions) {
       return null;
     }
-    const {
-      inlineOptionClassName,
-    } = this.mergedProps;
     const currentValue = this.value;
 
     return (
@@ -254,7 +247,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
           progress={this.isBusy}
           options={this.getFilteredOptions()}
           onSelect={this.onSelect}
-          onFilterChange={this.onFilterChange}
+          onFilterChange={this.onMenuFilterChange}
           {...this.getMenuProps()}/>
       )
     );
@@ -396,8 +389,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {boolean}
+   * @stable [10.08.2020]
+   * @protected
    */
   protected get isExpandActionRendered(): boolean {
     return WrapperUtils.isExpandActionRendered(this.mergedProps);
@@ -421,12 +414,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {TProps}
+   * @stable [10.08.2020]
+   * @protected
    */
-  protected getSettingsProps(): TProps {
+  protected getComponentsSettingsProps(): TProps {
     return PropsUtils.mergeWithSystemProps<TProps>(
-      super.getSettingsProps(),
+      super.getComponentsSettingsProps(),
       this.componentsSettings.baseSelect as TProps
     );
   }
@@ -464,6 +457,20 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       this.showMenu();
     }
     return true;
+  }
+
+  /**
+   * @stable [10.08.2020]
+   * @private
+   */
+  private onMenuFilterChange(): void {
+    if (!this.isRemoteFilterUsed) {
+      // In case of "API init data + a local filter"
+
+      BaseSelect.logger.debug('[$BaseSelect][onMenuFilterChange] The remote filter is down. Do nothing..');
+      return;
+    }
+    this.onFilterChange();
   }
 
   /**

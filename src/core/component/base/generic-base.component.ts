@@ -105,14 +105,14 @@ export class GenericBaseComponent<TProps extends IGenericBaseComponentProps = IG
    * @returns {TProps}
    */
   protected get mergedProps(): TProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.settingsProps);
+    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettingsProps);
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {TProps}
+   * @stable [10.08.2020]
+   * @protected
    */
-  protected get settingsProps(): TProps {
+  protected get componentsSettingsProps(): TProps {
     return null;
   }
 

@@ -50,7 +50,7 @@ export class FormLayout extends GenericComponent<IFormLayoutProps> {
    * @stable [02.06.2020]
    * @returns {IFormLayoutProps}
    */
-  protected get settingsProps(): IFormLayoutProps {
+  protected get componentsSettingsProps(): IFormLayoutProps {
     return this.componentsSettings.formLayout;
   }
 }

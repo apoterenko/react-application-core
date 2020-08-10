@@ -314,7 +314,7 @@ export class NavigationList
    * @stable [02.06.2020]
    * @returns {INavigationListProps}
    */
-  protected get settingsProps(): INavigationListProps {
+  protected get componentsSettingsProps(): INavigationListProps {
     return this.componentsSettings.navigationList;
   }
 

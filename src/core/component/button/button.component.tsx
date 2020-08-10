@@ -214,7 +214,7 @@ export class Button extends GenericBaseComponent<IButtonProps> {
    * @stable [02.06.2020]
    * @returns {IButtonProps}
    */
-  protected get settingsProps(): IButtonProps {
+  protected get componentsSettingsProps(): IButtonProps {
     return this.componentsSettings.button;
   }
 }
