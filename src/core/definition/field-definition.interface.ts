@@ -101,6 +101,7 @@ export class FieldConstants {
  */
 export interface IPresetsFieldEntity
   extends IKeyboardConfigurationEntity,                                           /* @stable [21.06.2020] */
+    IAutoCompleteWrapper,                                                         /* @stable [11.08.2020] */
     IAutoFocusWrapper,                                                            /* @stable [17.06.2020] */
     ICaretBlinkingFrequencyWrapper,                                               /* @stable [21.06.2020] */
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
@@ -165,7 +166,6 @@ export interface IGenericFieldEntity
 
 export interface IGenericFieldEntity2
   extends IGenericFieldEntity,
-    IAutoCompleteWrapper,
     IStepWrapper,
     ITabIndexWrapper {
 }
@@ -297,7 +297,7 @@ export interface IFieldsPresets {
  * @default-entity
  * @stable [24.11.2019]
  */
-export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IGenericFieldEntity2>({
+export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IPresetsFieldEntity>({
   autoComplete: 'new-password',
 });
 

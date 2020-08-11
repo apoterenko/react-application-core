@@ -64,7 +64,7 @@ export * from './page-definition.interface';
 export * from './perfect-scrollable-definition.interface';
 export * from './permission-definition.interface';
 export * from './phone-definition.interface';
-export * from './place-definition.interface';
+export * from './place-field-definition.interface';
 export * from './plugin-definition.interface';
 export * from './props-definition.interface';
 export * from './query-definition.interface';

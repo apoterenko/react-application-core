@@ -13,7 +13,7 @@ import { IOperationEntity } from './operation-definition.interface';
 import {
   IPlaceGeoCodeRequestEntity,
   ISearchPlacesEntity,
-} from './place-definition.interface';
+} from './place-field-definition.interface';
 
 /**
  * @entity

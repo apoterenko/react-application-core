@@ -22,12 +22,15 @@ import { INamedEntity } from './entity-definition.interface';
 import {
   IBaseSelectProps,
   IBaseSelectState,
+  IPresetsBaseSelectEntity,
 } from './select-definition.interface';
 import { IGoogleMapsConfigurationEntity } from './google-maps-definition.interface';
 import {
   DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
   IPresetsSelectOptionEntity,
 } from './select-definition.interface';
+import { DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY } from './field-definition.interface';
+import { DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY } from './menu-definition.interface';
 
 /**
  * @stable [09.01.2020]
@@ -83,14 +86,23 @@ export interface IPlaceEntityWrapperEntity<TCity = string>
 }
 
 /**
+ * @presets-entity
+ * @stable [11.08.2020]
+ */
+export interface IPresetsPlaceFieldEntity
+  extends IPresetsBaseSelectEntity,
+    IPlaceActionRenderedWrapper,
+    IUseZipCodeWrapper {
+}
+
+/**
  * @generic-entity
  * @stable [09.01.2020]
  */
 export interface IGenericPlaceFieldEntity
-  extends IDialogClassNameWrapper,
-    IGoogleMapsConfigurationEntity,
-    IPlaceActionRenderedWrapper,
-    IUseZipCodeWrapper {
+  extends IPresetsPlaceFieldEntity,
+    IDialogClassNameWrapper,
+    IGoogleMapsConfigurationEntity {
 }
 
 /**
@@ -143,26 +155,25 @@ export interface IPlaceGeoCodeRequestEntity
  * @stable [10.01.2020]
  */
 export interface ISearchPlaceEntity
-  extends INamedEntity,
-    IPlaceIdWrapper {
+  extends INamedEntity {
 }
 
 /**
  * @default-entity
- * @stable [19.05.2020]
+ * @stable [11.08.2020]
  */
-export const DEFAULT_PLACE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
-  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,                                                /* @stable [19.05.2020] */
-  menuConfiguration: {heightRestricted: false},                                        /* @stable [19.05.2020] */
+export const DEFAULT_PLACE_FIELD_ENTITY = Object.freeze<IPresetsPlaceFieldEntity>({
+  ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
+  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,
+  menuConfiguration: DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY,
 });
 
 /**
  * @default-entity
- * @stable [15.01.2020]
+ * @stable [11.08.2020]
  */
 export const DEFAULT_ZIP_CODE_FIELD_ENTITY = Object.freeze<IPlaceFieldProps>({
-  ...DEFAULT_QUICK_SEARCH_FIELD_ENTITY,                                                /* @stable [17.05.2020] */
-  menuConfiguration: {useFilter: false, heightRestricted: false},                      /* @stable [17.05.2020] */
-  placeActionRendered: false,                                                          /* @stable [17.05.2020] */
-  useZipCode: true,                                                                    /* @stable [17.05.2020] */
+  ...DEFAULT_PLACE_FIELD_ENTITY,                                                       /* @stable [11.08.2020] */
+  placeActionRendered: false,                                                          /* @stable [11.08.2020] */
+  useZipCode: true,                                                                    /* @stable [11.08.2020] */
 });

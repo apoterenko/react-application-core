@@ -258,9 +258,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @protected
    */
   protected getMenuProps(): IMenuProps {
+    const {
+      menuConfiguration,
+    } = this.originalProps;
+
     return FilterUtils.defValuesFilter<IMenuProps, IMenuProps>({
       filter: ConditionUtils.orUndef(this.isRemoteFilterUsed, () => null), // To prevent menu local options filtration
-      ...this.originalProps.menuConfiguration,
+      ...menuConfiguration,
     });
   }
 

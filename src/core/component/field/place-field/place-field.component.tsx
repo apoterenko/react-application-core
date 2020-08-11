@@ -9,21 +9,18 @@ import {
   isUseZipCode,
   nvl,
   ObjectUtils,
-  orNull,
   uuid,
 } from '../../../util';
 import { BaseSelect } from '../select/base-select.component';
 import { Dialog } from '../../dialog';
 import { GoogleMaps } from '../../google';
 import {
-  DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   DefaultEntities,
   DialogClassesEnum,
   FieldConverterTypesEnum,
   IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
-  IMenuProps,
   IPlaceEntity,
   IPlaceFieldProps,
   IPlaceFieldState,
@@ -38,8 +35,7 @@ import { EntityIdT } from '../../../definitions.interface';
 export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
   public static readonly defaultProps: IPlaceFieldProps = {
-    ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
-    preventFocus: true,
+    ...DefaultEntities.PLACE_FIELD_ENTITY,
   };
   private static readonly PLACE_MARKER = uuid();
 
@@ -83,11 +79,12 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [11.01.2020]
-   * @param {IPlaceSelectOptionEntity} option
+   * @stable [11.08.2020]
+   * @param option
+   * @protected
    */
   protected onSelect(option: IPlaceSelectOptionEntity): void {
-    this.refreshGeocodeInfo({placeId: option.rawData.placeId}, option);
+    this.refreshGeocodeInfo({placeId: this.fromSelectValueToId(option) as string}, option);
   }
 
   /**
@@ -110,9 +107,11 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
       dialogOpened,
       placeEntity,
     } = this.state;
-    const props = this.props;
+    const {
+      googleMapsConfiguration,
+    } = this.mergedProps;
 
-    return orNull(
+    return ConditionUtils.orNull(
       dialogOpened,  // To improve a performance
       () => {
         return (
@@ -134,7 +133,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
               )
             }
             <GoogleMaps
-              {...props.googleMapsConfiguration}
+              {...googleMapsConfiguration}
               ref={this.googleMapsRef}
               menuOptions={this.googleMapsMenuOptions}
               onSelect={this.onDialogMenuActionSelect}
@@ -152,17 +151,6 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(super.getFieldClassName(), 'rac-place-field');
-  }
-
-  /**
-   * @stable [09.01.2020]
-   * @returns {IMenuProps}
-   */
-  protected getMenuProps(): IMenuProps {
-    return {
-      ...DefaultEntities.FILTERED_MENU_ENTITY,
-      ...super.getMenuProps(),
-    };
   }
 
   /**

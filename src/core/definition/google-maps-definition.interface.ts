@@ -21,7 +21,7 @@ import {
   IVisibleWrapper,
   IZoomWrapper,
 } from '../definitions.interface';
-import { ILatLngEntity } from './place-definition.interface';
+import { ILatLngEntity } from './place-field-definition.interface';
 import { IPresetsMenuItemEntity } from './menu-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 

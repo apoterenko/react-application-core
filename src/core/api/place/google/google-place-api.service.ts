@@ -23,6 +23,7 @@ import {
   NvlUtils,
   ObjectUtils,
   TypeUtils,
+  UuidUtils,
 } from '../../../util';
 import {
   AnyT,
@@ -91,9 +92,8 @@ export class GooglePlaceApi implements IPlaceApi {
         (result: Array<google.maps.places.AutocompletePrediction & IEntityIdTWrapper>) => {
           resolve(
             (result || []).map((entity): ISearchPlaceEntity => ({
-              id: entity.id,
+              id: entity.place_id || UuidUtils.uuid(),
               name: entity.description,
-              placeId: entity.place_id,
             }))
           );
         },

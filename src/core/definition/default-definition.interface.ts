@@ -1,10 +1,11 @@
 import {
+  DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY,
 } from './field-definition.interface';
 import {
   DEFAULT_PLACE_FIELD_ENTITY,
   DEFAULT_ZIP_CODE_FIELD_ENTITY,
-} from './place-definition.interface';
+} from './place-field-definition.interface';
 import {
   DEFAULT_NOT_SELECTABLE_LIST_ENTITY,
   INITIAL_REDUX_LIST_ENTITY,
@@ -19,7 +20,6 @@ import {
 } from './form-definition.interface';
 import {
   DEFAULT_LOCAL_PAGE_SIZE,
-  DEFAULT_PAGED_ENTITY,
   DEFAULT_PAGINATED_SINGLE_ENTITY,
   FIRST_PAGE,
 } from './page-definition.interface';
@@ -44,11 +44,11 @@ export class DefaultEntities {
   public static readonly INITIAL_REDUX_LIST_ENTITY = INITIAL_REDUX_LIST_ENTITY;                         /* @stable [29.07.2020] */
   public static readonly INITIAL_REDUX_STACK_ENTITY = INITIAL_REDUX_STACK_ENTITY;                       /* @stable [21.05.2020] */
   public static readonly LOCAL_PAGE_SIZE = DEFAULT_LOCAL_PAGE_SIZE;                                     /* @stable [16.07.2020] */
+  public static readonly NO_AUTO_COMPLETE_FIELD_ENTITY = DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY;         /* @stable [11.08.2020] */
   public static readonly NOT_CHANGEABLE_FIELD_ENTITY = DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY;             /* @stable [01.06.2020] */
   public static readonly NOT_SELECTABLE_LIST_ENTITY = DEFAULT_NOT_SELECTABLE_LIST_ENTITY;               /* @stable [19.05.2020] */
-  public static readonly PAGED_ENTITY = DEFAULT_PAGED_ENTITY;                                           /* @stable [17.06.2020] */
   public static readonly PAGINATED_SINGLE_ENTITY = DEFAULT_PAGINATED_SINGLE_ENTITY;                     /* @stable [17.06.2020] */
-  public static readonly PLACE_FIELD_ENTITY = DEFAULT_PLACE_FIELD_ENTITY;                               /* @stable [19.05.2020] */
+  public static readonly PLACE_FIELD_ENTITY = DEFAULT_PLACE_FIELD_ENTITY;                               /* @stable [11.08.2020] */
   public static readonly QUICK_SEARCH_FIELD_ENTITY = DEFAULT_QUICK_SEARCH_FIELD_ENTITY;                 /* @stable [17.05.2020] */
   public static readonly ROOT_SECTION = 'root';                                                         /* @stable [22.05.2020] */
   public static readonly UNLIMITED_HEIGHT_MENU_ENTITY = DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY;           /* @stable [10.08.2020] */
