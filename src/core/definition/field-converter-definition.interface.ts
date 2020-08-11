@@ -65,6 +65,6 @@ export interface IFieldConverter {
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
   fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                              /* @stable [08.08.2020] */
-  fromSelectValueToId(value: SelectValueT): EntityIdT;
+  fromSelectValueToId(value: SelectValueT): EntityIdT;                                                                            /* @stable [11.08.2020] */
   register(config: IFieldConverterConfigEntity): void;
 }

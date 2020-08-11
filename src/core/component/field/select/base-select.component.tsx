@@ -34,6 +34,7 @@ import {
   IBaseEvent,
   IBaseSelectProps,
   IBaseSelectState,
+  IFluxQueryEntity,
   IMenuProps,
   IMultiItemEntity,
   IPresetsSelectOptionEntity,
@@ -156,7 +157,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     );
 
     if ((isForceReload || !doOptionsExist) && !areLocalOptionsUsed) {
-      this.onFilterChange();
+      this.onFilterChange(false);
     } else {
       this.showMenu();
     }
@@ -474,10 +475,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.08.2020]
+   * @stable [11.08.2020]
+   * @param applyQuery
    * @private
    */
-  private onFilterChange(): void {
+  private onFilterChange(applyQuery = true): void {
     const {
       onDictionaryChange,
     } = this.originalProps;
@@ -489,7 +491,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       return;
     }
 
-    const query = this.decoratedDisplayValue;
+    const query = ConditionUtils.orUndef(applyQuery, () => this.decoratedDisplayValue);
     if (this.isQuickSearchEnabled) {
       const isQueryEmpty = !ObjectUtils.isObjectNotEmpty(query);
 
@@ -503,20 +505,25 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       BaseSelect.logger.debug(
         '[$BaseSelect][onFilterChange] The onDictionaryChange callback is being called. Query:', query
       );
-      onDictionaryChange(this.dictionary, {payload: {query}});
+      onDictionaryChange(this.dictionary, {
+        payload: FilterUtils.defValuesFilter<IFluxQueryEntity, IFluxQueryEntity>({query}),
+      });
     });
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [11.08.2020]
    * @private
    */
   private onOptionsLoadDone(): void {
     const filteredOptions = this.getFilteredOptions();
-    BaseSelect.logger.debug('[$BaseSelect][onOptionsLoadDone] The options have been loaded successfully. The options:', filteredOptions);
+
+    BaseSelect.logger.debug(
+      '[$BaseSelect][onOptionsLoadDone] The options have been loaded successfully. The options:',
+      filteredOptions
+    );
 
     this.showMenu(filteredOptions);
-
     ConditionUtils.ifNotNilThanValue(this.originalProps.onDictionaryLoad, (onDictionaryLoad) => onDictionaryLoad(filteredOptions));
   }
 
@@ -563,18 +570,19 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [11.08.2020]
    * @param filteredOptions
    * @private
    */
-  private showMenu(filteredOptions = this.getFilteredOptions()): void {
+  private showMenu(filteredOptions?: IPresetsSelectOptionEntity[]): void {
     if (this.isMenuAlreadyOpened) {
       return;
     }
-    if (!R.isEmpty(filteredOptions)) {
+
+    if (!R.isEmpty(filteredOptions || this.getFilteredOptions())) {
       this.setState({menuRendered: true}, () => this.menu.show());
 
-      BaseSelect.logger.debug('[$BaseSelect][showMenu] The menu has been shown...');
+      BaseSelect.logger.debug('[$BaseSelect][showMenu] The menu has been shown.');
     } else {
       BaseSelect.logger.debug('[$BaseSelect][showMenu] The options are empty. The menu does not show.');
     }
