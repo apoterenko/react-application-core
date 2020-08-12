@@ -2,7 +2,6 @@ import * as R from 'ramda';
 
 import { defValuesFilter } from './filter';
 import {
-  IHeaderProps,
   IOperationEntity,
   IPresetsSelectableHoveredEntity,
   IReduxSortDirectionsEntity,
@@ -154,8 +153,6 @@ export const doesApplicationErrorExist = (entity: IUniversalApplicationEntity): 
 export const isApplicationMessageVisible = (entity: IUniversalApplicationEntity): boolean =>
   isApplicationInProgress(entity) || doesApplicationErrorExist(entity) || !isReady(entity);
 
-const mapHeaderProps = (props: IHeaderProps): IHeaderProps => MapAsOriginalUtils.storeEntity(props);
-
 /**
  * @stable [05.05.2020]
  */
@@ -163,6 +160,7 @@ const mapHeaderProps = (props: IHeaderProps): IHeaderProps => MapAsOriginalUtils
 export class Mappers {
   public static readonly containerAsUnsavedFormChangesDialogContainerProps = MapAsComponentUtils.containerAsUnsavedFormChangesDialogContainerProps;                                         /* @stable [06.08.2020] */
   public static readonly defaultLayoutContainerProps = MapAsComponentUtils.defaultLayoutContainerProps;                                                                                     /* @stable [01.08.2020] */
+  public static readonly defaultLayoutPropsAsHeaderProps = MapAsComponentUtils.defaultLayoutPropsAsHeaderProps;                                                                             /* @stable [12.08.2020] */
   public static readonly dictionariesContainerAsParameterizedSelectProps = MapAsComponentUtils.dictionariesContainerAsParameterizedSelectProps;                                             /* @stable [07.08.2020] */
   public static readonly dictionariesContainerAsPlaceFieldProps = MapAsComponentUtils.dictionariesContainerAsPlaceFieldProps;                                                               /* @stable [07.08.2020] */
   public static readonly dictionariesContainerAsSelectProps = MapAsComponentUtils.dictionariesContainerAsSelectProps;                                                                       /* @stable [07.08.2020] */
@@ -183,7 +181,6 @@ export class Mappers {
   public static readonly formHolderEntity = MapAsOriginalUtils.formHolderEntity;                                                                                                            /* @stable [30.07.2020] */
   public static readonly formTabPanelContainerProps = MapAsComponentUtils.formTabPanelContainerProps;                                                                                       /* @stable [30.07.2020] */
   public static readonly formTabPanelContainerPropsAsTabPanelProps = MapAsComponentUtils.formTabPanelContainerPropsAsTabPanelProps;                                                         /* @stable [30.07.2020] */
-  public static readonly headerProps = mapHeaderProps;
   public static readonly listContainerProps = MapAsComponentUtils.listContainerProps;                                                                                                       /* @stable [31.07.2020] */
   public static readonly listHolderEntity = MapAsOriginalUtils.listHolderEntity;                                                                                                            /* @stable [31.07.2020] */
   public static readonly listHolderEntityAsDisabled = MapAsUtils.listHolderEntityAsDisabled;                                                                                                /* @stable [31.07.2020] */

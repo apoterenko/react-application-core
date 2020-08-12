@@ -120,20 +120,14 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [21.05.2020]
-   * @returns {JSX.Element}
+   * @stable [12.08.2020]
+   * @private
    */
   private get headerElement(): JSX.Element {
-    const mergedProps = this.mergedProps;
-    const {
-      headerConfiguration,
-    } = mergedProps;
-
     return (
       <Header
-        {...Mappers.headerProps(mergedProps)}
-        navigationActionRendered={this.isNavigationActionRendered}
-        {...headerConfiguration}/>
+        {...Mappers.defaultLayoutPropsAsHeaderProps(this.originalProps)}
+        navigationActionRendered={this.isNavigationActionRendered}/>
     );
   }
 

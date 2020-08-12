@@ -4,6 +4,7 @@ import {
   DictionariesEnum,
   IBaseSelectProps,
   IDefaultLayoutContainerProps,
+  IDefaultLayoutProps,
   IDictionariesContainer,
   IFilterFormDialogContainerProps,
   IFluxPayloadEntity,
@@ -11,6 +12,7 @@ import {
   IFormProps,
   IFormTabPanelContainerProps,
   IGenericContainer,
+  IHeaderProps,
   IListContainerProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
@@ -261,6 +263,18 @@ const mapPageToolbarContainerPropsAsPageToolbarProps = (pageToolbarContainer: IP
   });
 
 /**
+ * @map-component-as-component
+ *
+ * @stable [12.08.2020]
+ * @param defaultLayout
+ */
+const mapDefaultLayoutPropsAsHeaderProps = (defaultLayout: IDefaultLayoutProps): IHeaderProps =>
+  ({
+    ...MapAsOriginalUtils.storeEntity(defaultLayout),
+    ...defaultLayout.headerConfiguration,
+  });
+
+/**
  * @map-container-as-component
  *
  * @stable [31.07.2020]
@@ -460,9 +474,10 @@ const mapDictionariesContainerAsPlaceFieldProps = (container: IDictionariesConta
  * @stable [30.07.2020]
  */
 export class MapAsComponentUtils {
-  public static readonly dictionariesContainerAsParameterizedSelectProps = mapDictionariesContainerAsParameterizedSelectProps;
   public static readonly containerAsUnsavedFormChangesDialogContainerProps = mapContainerAsUnsavedFormChangesDialogContainerProps;
   public static readonly defaultLayoutContainerProps = mapDefaultLayoutContainerProps;
+  public static readonly defaultLayoutPropsAsHeaderProps = mapDefaultLayoutPropsAsHeaderProps;
+  public static readonly dictionariesContainerAsParameterizedSelectProps = mapDictionariesContainerAsParameterizedSelectProps;
   public static readonly dictionariesContainerAsPlaceFieldProps = mapDictionariesContainerAsPlaceFieldProps;
   public static readonly dictionariesContainerAsSelectProps = mapDictionariesContainerAsSelectProps;
   public static readonly filterFormDialogContainerProps = mapFilterFormDialogContainerProps;
