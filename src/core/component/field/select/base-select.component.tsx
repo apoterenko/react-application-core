@@ -454,7 +454,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
       if (noDelay) {
         this.cancelQueryFilterTask();
-        this.onFilterChange();
+        this.onFilterChange(true);
       } else {
         this.quickFilterQueryTask.start();
       }
@@ -468,22 +468,22 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @stable [10.08.2020]
    * @private
    */
-  private onMenuFilterChange(): void {
+  private onMenuFilterChange(query: string): void {
     if (!this.isRemoteFilterUsed) {
       // In case of "API init data + a local filter"
 
       BaseSelect.logger.debug('[$BaseSelect][onMenuFilterChange] The remote filter is down. Do nothing..');
       return;
     }
-    this.onFilterChange();
+    this.onFilterChange(true, query);
   }
 
   /**
-   * @stable [11.08.2020]
+   * @stable [13.08.2020]
    * @param applyQuery
-   * @private
+   * @param query
    */
-  private onFilterChange(applyQuery = true): void {
+  private onFilterChange(applyQuery: boolean, query?: string): void {
     const {
       onDictionaryChange,
     } = this.originalProps;
@@ -494,10 +494,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       );
       return;
     }
-
-    const query = ConditionUtils.orUndef(applyQuery, () => this.decoratedDisplayValue);
-    if (this.isQuickSearchEnabled) {
-      const isQueryEmpty = !ObjectUtils.isObjectNotEmpty(query);
+    const isQuickSearchEnabled = this.isQuickSearchEnabled;
+    const $query = ConditionUtils.orUndef(
+      applyQuery,
+      () => isQuickSearchEnabled
+        ? this.decoratedDisplayValue
+        : query
+    );
+    if (isQuickSearchEnabled) {
+      const isQueryEmpty = !ObjectUtils.isObjectNotEmpty($query);
 
       if (!this.isAllowEmptyFilterValue && isQueryEmpty) {
         BaseSelect.logger.debug('[$BaseSelect][onFilterChange] The query is empty. Do nothing...');
@@ -507,10 +512,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     this.setState({progress: true}, () => {
       BaseSelect.logger.debug(
-        '[$BaseSelect][onFilterChange] The onDictionaryChange callback is being called. Query:', query
+        '[$BaseSelect][onFilterChange] The onDictionaryChange callback is being called. Query:', $query
       );
       onDictionaryChange(this.dictionary, {
-        payload: FilterUtils.defValuesFilter<IFluxQueryEntity, IFluxQueryEntity>({query}),
+        payload: FilterUtils.defValuesFilter<IFluxQueryEntity, IFluxQueryEntity>({query: $query}),
       });
     });
   }
