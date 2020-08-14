@@ -7,6 +7,7 @@ import {
   downloadFileAsBlobUrl,
   join,
   orUndef,
+  StringUtils,
 } from '../util';
 import { AnyT } from '../definitions.interface';
 import {
@@ -41,7 +42,6 @@ import {
 import {
   asMultiFieldMappedEntitiesIds,
   entitiesAsStorageTasks,
-  toStringParameter,
 } from '../util';
 import { IDateConverter } from '../converter';
 
@@ -122,11 +122,16 @@ export class BaseTransport {
     this.nc.numberParameter(value, converter)
 
   /**
-   * @stable [13.10.2019]
-   * @param {AnyT} value
-   * @returns {AnyT}
+   * @stable [14.08.2020]
+   * @param value
    */
-  protected prepareStringValue = (value: AnyT): AnyT => toStringParameter(value);
+  protected stringParameter = (value: AnyT): AnyT => StringUtils.asStringParameter(value);
+
+  /**
+   * @stable [14.08.2020]
+   * @param value
+   */
+  protected queryParameter = (value: string): string => StringUtils.asStringParameter(value, true);
 
   /**
    * @stable [25.07.2019]

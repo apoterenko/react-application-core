@@ -1,15 +1,10 @@
 import * as R from 'ramda';
 
-import { AnyT, UNDEF } from '../definitions.interface';
+import {
+  AnyT,
+  UNDEF,
+} from '../definitions.interface';
 import { isDef } from '../util';
-import { isObjectNotEmpty } from './object';
-
-/**
- * @stable [05.08.2018]
- * @param {AnyT} v
- * @returns {AnyT}
- */
-export const undefEmpty = (v: AnyT): AnyT => isObjectNotEmpty(v) ? v : UNDEF;
 
 /**
  * @stable [05.08.2018]

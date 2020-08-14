@@ -94,7 +94,7 @@ export interface IReduxLifeCycleEntity
  */
 export interface IExtendedEntity<TEntity = IEntity>
   extends IChangesWrapper<TEntity>,
-    IEntityIdWrapper<EntityIdT>,
+    IEntityIdWrapper,
     IEntityWrapper<TEntity>,
     INewEntityWrapper,
     IOriginalEntityWrapper<TEntity> {
