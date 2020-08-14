@@ -61,7 +61,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     this.getMenuAnchorElement = this.getMenuAnchorElement.bind(this);
     this.getMenuWidth = this.getMenuWidth.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
-    this.onFilterChange = this.onFilterChange.bind(this);
     this.onInlineOptionClick = this.onInlineOptionClick.bind(this);
     this.onMenuFilterChange = this.onMenuFilterChange.bind(this);
     this.onOptionsLoadDone = this.onOptionsLoadDone.bind(this);
@@ -78,7 +77,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       ];
     }
     if (this.isQuickSearchEnabled) {
-      this.quickFilterQueryTask = new DelayedTask(this.onFilterChange.bind(this), this.delayTimeout);
+      this.quickFilterQueryTask = new DelayedTask(this.doFilterChange.bind(this), this.delayTimeout);
     }
   }
 
@@ -149,15 +148,21 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     const areLocalOptionsUsed = this.areLocalOptionsUsed;
     const doOptionsExist = this.doOptionsExist;
     const isForceReload = this.isForceReload;
+    const isQuickSearchEnabled = this.isQuickSearchEnabled;
 
     BaseSelect.logger.debug(
       '[$BaseSelect][openMenu] isForceReload:', isForceReload,
       ', doOptionsExist:', doOptionsExist,
-      ', areLocalOptionsUsed:', areLocalOptionsUsed
+      ', areLocalOptionsUsed:', areLocalOptionsUsed,
+      ', isQuickSearchEnabled:', isQuickSearchEnabled
     );
 
     if ((isForceReload || !doOptionsExist) && !areLocalOptionsUsed) {
-      this.onFilterChange(false);
+      if (isQuickSearchEnabled) {
+        this.doFilterChange();
+      } else {
+        this.onFilterChange();
+      }
     } else {
       this.showMenu();
     }
@@ -430,6 +435,13 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
+   * @stable [14.08.2020]
+   */
+  private doFilterChange(): void {
+    this.onFilterChange(this.decoratedDisplayValue);
+  }
+
+  /**
    * @stable [09.08.2020]
    * @param event
    * @private
@@ -454,7 +466,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
       if (noDelay) {
         this.cancelQueryFilterTask();
-        this.onFilterChange(true);
+        this.doFilterChange();
       } else {
         this.quickFilterQueryTask.start();
       }
@@ -475,15 +487,14 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       BaseSelect.logger.debug('[$BaseSelect][onMenuFilterChange] The remote filter is down. Do nothing..');
       return;
     }
-    this.onFilterChange(true, query);
+    this.onFilterChange(query);
   }
 
   /**
    * @stable [13.08.2020]
-   * @param applyQuery
    * @param query
    */
-  private onFilterChange(applyQuery: boolean, query?: string): void {
+  private onFilterChange(query?: string): void {
     const {
       onDictionaryChange,
     } = this.originalProps;
@@ -494,17 +505,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       );
       return;
     }
-    const isQuickSearchEnabled = this.isQuickSearchEnabled;
-    const $query = ConditionUtils.orUndef(
-      applyQuery,
-      () => isQuickSearchEnabled
-        ? this.decoratedDisplayValue
-        : query
-    );
-    if (isQuickSearchEnabled) {
-      const isQueryEmpty = !ObjectUtils.isObjectNotEmpty($query);
+    if (this.isQuickSearchEnabled) {
+      const isQueryEmpty = !ObjectUtils.isObjectNotEmpty(query);
 
-      if (!this.isAllowEmptyFilterValue && isQueryEmpty) {
+      if (isQueryEmpty && !this.isAllowEmptyFilterValue) {
         BaseSelect.logger.debug('[$BaseSelect][onFilterChange] The query is empty. Do nothing...');
         return;
       }
@@ -512,10 +516,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     this.setState({progress: true}, () => {
       BaseSelect.logger.debug(
-        '[$BaseSelect][onFilterChange] The onDictionaryChange callback is being called. Query:', $query
+        '[$BaseSelect][onFilterChange] The onDictionaryChange callback is being called. Query:', query
       );
       onDictionaryChange(this.dictionary, {
-        payload: FilterUtils.defValuesFilter<IFluxQueryEntity, IFluxQueryEntity>({query: $query}),
+        payload: FilterUtils.defValuesFilter<IFluxQueryEntity, IFluxQueryEntity>({query}),
       });
     });
   }
