@@ -61,7 +61,7 @@ The library is designed to quickly start develop the business applications are b
 * [FormLayout (31.05.2020)](src/core/component/layout/form/form-layout.component.tsx)
 * [GridHead (20.05.2020)](src/core/component/grid/head/grid-head.component.tsx)
 * [Header (22.05.2020)](src/core/component/header/header.component.tsx)
-* [ListItem (01.06.2020)](src/core/component/list/item/list-item.component.tsx)
+* [ListItem (17.08.2020)](src/core/component/list/item/list-item.component.tsx)
 * [Main (22.05.2020)](src/core/component/main/main.component.tsx)
 * [PageToolbar (10.06.2020)](src/core/component/toolbar/page/page-toolbar.component.tsx)
 * [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
