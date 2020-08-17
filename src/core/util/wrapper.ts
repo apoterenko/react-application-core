@@ -24,14 +24,9 @@ import {
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
   IFullWrapper,
-  IHighlightOddWrapper,
-  IHoveredWrapper,
   IInlineWrapper,
-  ILastWrapper,
-  ILoadingWrapper,
   IMultiWrapper,
   INavigateBackWrapper,
-  IOddWrapper,
   IOpenedWrapper,
   IOverlayClosableWrapper,
   IOverlayWrapper,
@@ -45,12 +40,10 @@ import {
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
   IScrollableWrapper,
-  ISelectableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
   ITouchedWrapper,
   IUseCursorWrapper,
-  IUseFilterWrapper,
   IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
@@ -58,7 +51,6 @@ import {
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
 import { TypeUtils } from './type';
-import { isOddNumber } from './calc';
 import { ValueUtils } from './value';
 
 /**
@@ -203,19 +195,6 @@ export const isRangeEnabled = (wrapper: IRangeEnabledWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.rangeEnabled === true;
 
 /**
- * @stable [04.05.2020]
- * @param {IHighlightOddWrapper} wrapper
- * @param {number} index
- * @returns {boolean}
- */
-export const isHighlightOdd = (wrapper: IHighlightOddWrapper, index: number): boolean =>
-  R.isNil(wrapper)
-    ? false
-    : (
-      wrapper.highlightOdd !== false && (TypeUtils.isNumber(index) ? isOddNumber(index) : false)
-    );
-
-/**
  * @stable [26.10.2019]
  * @param {IEditedWrapper} editedEntity
  * @returns {boolean}
@@ -246,38 +225,6 @@ export const isDisabled = (wrapper: IDisabledWrapper): boolean =>
  */
 const isSelected = (wrapper: ISelectedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.selected === true;
-
-/**
- * @stable [03.02.2020]
- * @param {ISelectableWrapper} wrapper
- * @returns {boolean}
- */
-const isSelectable = (wrapper: ISelectableWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.selectable !== false;
-
-/**
- * @stable [03.02.2020]
- * @param {IHoveredWrapper} wrapper
- * @returns {boolean}
- */
-const isHovered = (wrapper: IHoveredWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.hovered !== false;
-
-/**
- * @stable [04.05.2020]
- * @param {IOddWrapper} wrapper
- * @returns {boolean}
- */
-const isOdd = (wrapper: IOddWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.odd === true;
-
-/**
- * @stable [04.05.2020]
- * @param {ILastWrapper} wrapper
- * @returns {boolean}
- */
-const isLast = (wrapper: ILastWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.last === true;
 
 /**
  * @stable [03.02.2020]
@@ -382,26 +329,11 @@ export const isMulti = (wrapper: IMultiWrapper): boolean =>
 const isTouched = (wrapper: ITouchedWrapper): boolean => R.isNil(wrapper) ? false : wrapper.touched === true;
 
 /**
- * @stable [23.11.2019]
- * @param {IUseFilterWrapper} wrapper
- * @returns {boolean}
- */
-export const isFilterUsed = (wrapper: IUseFilterWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.useFilter === true;
-
-/**
  * @stable [08.08.2020]
  * @param wrapper
  */
 const isAllowEmptyFilterValue = (wrapper: IAllowEmptyFilterValueWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.allowEmptyFilterValue !== false;
-
-/**
- * @stable [28.01.2020]
- * @param {ILoadingWrapper} entity
- * @returns {boolean}
- */
-const isLoading = (entity: ILoadingWrapper): boolean => R.isNil(entity) ? false : entity.loading === true;
 
 /**
  * @stable [26.11.2019]
@@ -516,15 +448,10 @@ export class WrapperUtils {
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
-  public static readonly isHovered = isHovered;                                            /* @stable [01.06.2020] */
   public static readonly isInline = isInline;                                              /* @stable [21.06.2020] */
-  public static readonly isLast = isLast;                                                  /* @stable [01.06.2020] */
-  public static readonly isLoading = isLoading;                                            /* @stable [19.05.2020] */
-  public static readonly isOdd = isOdd;                                                    /* @stable [01.06.2020] */
   public static readonly isPlainValueApplied = isPlainValueApplied;                        /* @stable [21.06.2020] */
   public static readonly isReadOnly = isReadOnly;                                          /* @stable [18.06.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
-  public static readonly isSelectable = isSelectable;                                      /* @stable [01.06.2020] */
   public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
   public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */
   public static readonly isValid = isValid;                                                /* @stable [05.06.2020] */

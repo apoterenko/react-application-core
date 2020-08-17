@@ -18,14 +18,13 @@ import { EnhancedGenericComponent } from '../../base/enhanced-generic.component'
 export class BasicList extends EnhancedGenericComponent<IBasicListProps> {
 
   /**
-   * @stable [04.05.2020]
-   * @returns {JSX.Element}
+   * @stable [17.08.2020]
    */
   public render(): JSX.Element {
-    const mergedProps = this.mergedProps;
+    const originalProps = this.originalProps;
     const {
       className,
-    } = mergedProps;
+    } = originalProps;
 
     return (
       <ul
@@ -33,19 +32,18 @@ export class BasicList extends EnhancedGenericComponent<IBasicListProps> {
         className={
           ClsUtils.joinClassName(
             ListClassesEnum.LIST,
-            WrapperUtils.isFull(mergedProps) && ListClassesEnum.FULL_LIST,
+            WrapperUtils.isFull(originalProps) && ListClassesEnum.FULL_LIST,
             CalcUtils.calc(className)
           )
         }
       >
-        {this.props.children}
+        {this.originalChildren}
       </ul>
     );
   }
 
   /**
-   * @stable [11.06.2020]
-   * @returns {IBasicListProps}
+   * @stable [17.08.2020]
    */
   protected get componentsSettingsProps(): IBasicListProps {
     return this.componentsSettings.basicList;

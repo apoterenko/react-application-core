@@ -85,10 +85,17 @@ export const roundedByPrecisionProportion = (value: number,
   roundByPrecision(roundedProportion(value, total, offValue), precisionValue);
 
 /**
+ * @stable [17.08.2020]
+ * @param value
+ */
+const isOddNumber = (value: number): boolean => value % 2 !== 0;
+
+/**
  * @stable [29.06.2020]
  */
 export class NumberUtils {
   public static readonly invert = invert;
   public static readonly invertCurrency = invertCurrency;
+  public static readonly isOddNumber = isOddNumber;
   public static readonly roundByPrecision = roundByPrecision;
 }

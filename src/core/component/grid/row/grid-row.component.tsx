@@ -5,7 +5,8 @@ import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
   CalcUtils,
   ClsUtils,
-  isSyntheticEntity,
+  EntityUtils,
+  HighlightUtils,
   PropsUtils,
   TypeUtils,
 } from '../../../util';
@@ -19,12 +20,11 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
 
   public static readonly defaultProps: IGridRowProps = {
     hovered: true,
-    selectable: true,
   };
 
   /**
-   * @stable [19.07.2020]
-   * @param {IGridRowProps} originalProps
+   * @stable [17.08.2020]
+   * @param originalProps
    */
   constructor(originalProps: IGridRowProps) {
     super(originalProps);
@@ -38,26 +38,34 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
    */
   public render(): JSX.Element {
     const originalProps = this.originalProps;
+    const mergedProps = this.mergedProps;
     const {
       className,
+      disabled,
+      entity,
       filter,
       group,
-      hovered,
       indexed,
       onClick,
       onGroupClick,
       partOfGroup,
-      rawData,
       selectable,
       selected,
     } = originalProps;
+    const {
+      hovered,
+    } = mergedProps;
 
-    const isSelectable = selectable && (
-      group
-        ? TypeUtils.isFn(onGroupClick)
-        : TypeUtils.isFn(onClick)
-    ) && !isSyntheticEntity(rawData);
-    const isHovered = hovered && isSelectable;
+    const isOddHighlighted = HighlightUtils.isOddHighlighted(mergedProps);
+
+    const isSelectable = selectable
+      && !disabled
+      && (
+        group
+          ? TypeUtils.isFn(onGroupClick)
+          : TypeUtils.isFn(onClick)
+      )
+      && !EntityUtils.isPhantomEntity(entity);
 
     return (
       <UniversalScrollableContext.Consumer>
@@ -70,14 +78,18 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                 CalcUtils.calc(className),
                 filter && GridClassesEnum.GRID_ROW_FILTER,
                 group && GridClassesEnum.GRID_ROW_GROUP,
-                indexed && !R.isNil(rawData) && `rac-grid-row-${rawData.id}`,
-                isHovered && 'rac-grid-row-hovered',
+                hovered && GridClassesEnum.GRID_ROW_HOVERED,
+                indexed && !R.isNil(entity) && `rac-grid-row-${entity.id}`,
+                isOddHighlighted && GridClassesEnum.GRID_ROW_ODD,
                 isSelectable && GridClassesEnum.GRID_ROW_SELECTABLE,
                 originalProps.groupExpanded && 'rac-grid-row-group-expanded',
-                originalProps.odd && 'rac-grid-row-odd',
                 originalProps.total && 'rac-grid-row-total',
                 partOfGroup && GridClassesEnum.GRID_ROW_PART_OF_GROUP,
-                selected && `${GridClassesEnum.GRID_ROW_SELECTED} ${selectedElementClassName}`
+                ...isSelectable && (
+                  selected
+                    ? [GridClassesEnum.GRID_ROW_SELECTED, selectedElementClassName]
+                    : [GridClassesEnum.GRID_ROW_UNSELECTED]
+                )
               )
             }
             {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable, false)}
@@ -94,20 +106,27 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
    */
   private onClick(): void {
     const {
+      entity,
       group,
       onClick,
       onGroupClick,
-      rawData,
     } = this.originalProps;
 
     if (group) {
       if (TypeUtils.isFn(onGroupClick)) {
-        onGroupClick(rawData);
+        onGroupClick(entity);
       }
     } else {
       if (TypeUtils.isFn(onClick)) {
-        onClick(rawData);
+        onClick(entity);
       }
     }
+  }
+
+  /**
+   * @stable [17.08.2020]
+   */
+  protected get componentsSettingsProps(): IGridRowProps {
+    return this.componentsSettings.gridRow;
   }
 }

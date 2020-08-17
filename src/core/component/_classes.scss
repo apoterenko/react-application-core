@@ -152,10 +152,11 @@ $rac-full-form-cls: rac-full-form;
 $rac-card-list-cls: rac-card-list;
 $rac-full-list-cls: rac-full-list;
 $rac-list-cls: rac-list;
-$rac-list-item-decorated-cls: rac-list-item__decorated;
-$rac-list-item-odd-cls: rac-list-item__odd;
-$rac-list-item-selectable-cls: rac-list-item__selectable;
-$rac-list-item-selected-cls: rac-list-item__selected;
+$rac-list-item-decorated-cls: rac-list-item-decorated;
+$rac-list-item-last-cls: rac-list-item-last;
+$rac-list-item-odd-cls: rac-list-item-odd;
+$rac-list-item-selectable-cls: rac-list-item-selectable;
+$rac-list-item-selected-cls: rac-list-item-selected;
 //
 $rac-ps-list-cls: '#{$rac-list-cls}.ps'; // Perfect scrollbar plugin
 
@@ -184,6 +185,7 @@ $rac-grid-column-cls: rac-grid-column;
 $rac-grid-column-content-cls: rac-grid-column__content;
 $rac-grid-column-sort-actions-cls: rac-grid-column__sort-actions;
 $rac-grid-row-group-cls: rac-grid-row-group;
+$rac-grid-row-odd-cls: rac-grid-row-odd;
 $rac-grid-row-part-of-group-cls: rac-grid-row-part-of-group;
 $rac-grid-row-selectable-cls: rac-grid-row-selectable;
 $rac-grid-row-selected-cls: rac-grid-row-selected;

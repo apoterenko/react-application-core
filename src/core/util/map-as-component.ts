@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import {
   DictionariesEnum,
   IBaseSelectProps,
+  IBasicListProps,
   IDefaultLayoutContainerProps,
   IDefaultLayoutProps,
   IDictionariesContainer,
@@ -14,6 +15,7 @@ import {
   IGenericContainer,
   IHeaderProps,
   IListContainerProps,
+  IListProps,
   IPageToolbarContainerProps,
   IPageToolbarProps,
   IPrimaryFilterExtendedFormEntity,
@@ -275,6 +277,18 @@ const mapDefaultLayoutPropsAsHeaderProps = (defaultLayout: IDefaultLayoutProps):
   });
 
 /**
+ * @map-component-as-component
+ *
+ * @stable [17.08.2020]
+ * @param list
+ */
+const mapListPropsAsBasicListProps = (list: IListProps): IBasicListProps =>
+  FilterUtils.defValuesFilter<IBasicListProps, IBasicListProps>({
+    className: list.className,
+    full: list.full,
+  });
+
+/**
  * @map-container-as-component
  *
  * @stable [31.07.2020]
@@ -486,6 +500,7 @@ export class MapAsComponentUtils {
   public static readonly formTabPanelContainerProps = mapFormTabPanelContainerProps;
   public static readonly formTabPanelContainerPropsAsTabPanelProps = mapFormTabPanelContainerPropsAsTabPanelProps;
   public static readonly listContainerProps = mapListContainerProps;
+  public static readonly listPropsAsBasicListProps = mapListPropsAsBasicListProps;
   public static readonly pageToolbarContainerProps = mapPageToolbarContainerProps;
   public static readonly pageToolbarContainerPropsAsPageToolbarProps = mapPageToolbarContainerPropsAsPageToolbarProps;
   public static readonly primaryFilterExtendedFormEntityAsFilterFormDialogContainerProps = mapPrimaryFilterExtendedFormEntityAsFilterFormDialogContainerProps;

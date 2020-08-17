@@ -10,7 +10,6 @@ import {
   IFilterWrapper,
   IFullWrapper,
   IHighlightOddWrapper,
-  IIndexWrapper,
   IItemConfigurationWrapper,
   IKeyValue,
   IListConfigurationWrapper,
@@ -29,7 +28,6 @@ import { IGenericComponentProps } from './generic-component-definition.interface
 import { IGenericContainerProps } from './generic-container-definition.interface';
 import {
   IPresetsIconEntity,
-  IPresetsSelectableHoveredEntity,
   IPresetsTemplateEntity,
   IReduxLifeCycleEntity,
 } from './entity-definition.interface';
@@ -71,14 +69,12 @@ export interface IReduxListEntity<TEntity = IEntity,
  * @stable [11.06.2020]
  */
 export interface IPresetsListEntity<TEntity extends IEntity = IEntity>
-  extends IPresetsSelectableHoveredEntity,                            /* @stable [11.06.2020] */
-    IPresetsSelectedElementEntity,                                    /* @stable [11.06.2020] */
+  extends IPresetsSelectedElementEntity,                              /* @stable [11.06.2020] */
     IListItemConfigurationEntity,                                     /* @stable [11.06.2020] */
     IEmptyDataMessageWrapper,                                         /* @stable [11.06.2020] */
     IEmptyMessageWrapper<string | boolean>,                           /* @stable [11.06.2020] */
     IFilterWrapper<(entity: TEntity) => boolean>,                     /* @stable [11.06.2020] */
     IFullWrapper,                                                     /* @stable [11.06.2020] */
-    IHighlightOddWrapper,                                             /* @stable [11.06.2020] */
     ILocalPaginationWrapper,                                          /* @stable [16.07.2020] */
     IOnSelectWrapper<TEntity>,                                        /* @stable [11.06.2020] */
     ISorterWrapper {                                                  /* @stable [11.06.2020] */
@@ -106,12 +102,11 @@ export interface IPresetsBaseListItemEntity<TRawData extends IEntity = IEntity>
 
 /**
  * @presets-entity
- * @stable [01.06.2020]
+ * @stable [17.08.2020]
  */
 export interface IPresetsListItemEntity<TRawData = IEntity>
   extends IPresetsBaseListItemEntity<TRawData>,
-    IPresetsRowEntity<TRawData>,
-    IIndexWrapper {
+    IPresetsRowEntity<TRawData> {
 }
 
 /**
@@ -229,14 +224,14 @@ export enum ListClassesEnum {
   LIST = 'rac-list',
   LIST_ITEM = 'rac-list-item',
   LIST_ITEM_CONTENT = 'rac-list-item__content',
-  LIST_ITEM_DECORATED = 'rac-list-item__decorated',
-  LIST_ITEM_HOVERED = 'rac-list-item__hovered',
+  LIST_ITEM_DECORATED = 'rac-list-item-decorated',
+  LIST_ITEM_HOVERED = 'rac-list-item-hovered',
   LIST_ITEM_ICON = 'rac-list-item__icon',
-  LIST_ITEM_LAST = 'rac-list-item__last',
-  LIST_ITEM_ODD = 'rac-list-item__odd',
-  LIST_ITEM_SELECTABLE = 'rac-list-item__selectable',
-  LIST_ITEM_SELECTED = 'rac-list-item__selected', // TODO -> rac-list-item-selected
-  LIST_ITEM_UNSELECTED = 'rac-list-item__unselected',
+  LIST_ITEM_LAST = 'rac-list-item-last',
+  LIST_ITEM_ODD = 'rac-list-item-odd',
+  LIST_ITEM_SELECTABLE = 'rac-list-item-selectable',
+  LIST_ITEM_SELECTED = 'rac-list-item-selected',
+  LIST_ITEM_UNSELECTED = 'rac-list-item-unselected',
 }
 
 /**
@@ -259,9 +254,8 @@ export const INITIAL_REDUX_LIST_ENTITY = Object.freeze<IReduxListEntity>({
  * @default-entity
  * @stable [04.05.2020]
  */
-export const DEFAULT_NOT_SELECTABLE_LIST_ENTITY = Object.freeze<IPresetsListEntity>({
-  hovered: false,
-  selectable: false,
+export const DEFAULT_SELECTABLE_LIST_ITEM_ENTITY = Object.freeze<IPresetsListItemEntity>({
+  selectable: true,
 });
 
 /**

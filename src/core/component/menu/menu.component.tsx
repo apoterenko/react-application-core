@@ -10,12 +10,12 @@ import {
   ConditionUtils,
   DelayedTask,
   FilterUtils,
-  isHighlightOdd,
   ObjectUtils,
   subArray,
   TypeUtils,
 } from '../../util';
 import {
+  DefaultEntities,
   EventsEnum,
   IconsEnum,
   IMenuProps,
@@ -295,11 +295,10 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
   }
 
   /**
-   * @stable [29.01.2020]
-   * @param {IPresetsMenuItemEntity} option
-   * @param {number} index
-   * @param {number} length
-   * @returns {JSX.Element}
+   * @stable [18.08.2020]
+   * @param option
+   * @param index
+   * @param length
    */
   private asItemElement(option: IPresetsMenuItemEntity, index: number, length: number): JSX.Element {
     const {
@@ -315,13 +314,13 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
 
     return (
       <ListItem
+        {...DefaultEntities.SELECTABLE_LIST_ITEM_ENTITY}
         key={`menu-item-key-${value}`}
         disabled={disabled}
+        entity={option}
         icon={icon}
         iconLeftAligned={iconLeftAligned}
         last={index === length - 1}
-        odd={isHighlightOdd(this.originalProps, index)}
-        rawData={option}
         renderer={renderer}
         tpl={tpl}
         onClick={this.onSelect}

@@ -6,8 +6,8 @@ import {
   ConditionUtils,
   FilterUtils,
   isEdited,
-  isOddNumber,
   isSortable,
+  NumberUtils,
   NvlUtils,
   TypeUtils,
 } from '../../../util';
@@ -47,7 +47,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
       align && `rac-grid-column-align-${align}`,
       indexed && TypeUtils.isNumber(index) && `rac-grid-column-${index}`,
       isEdited(originalProps) && 'rac-grid-column-edited',
-      isOddNumber(originalProps.index) && 'rac-grid-column-odd',
+      NumberUtils.isOddNumber(index) && 'rac-grid-column-odd',
       isSortable(originalProps) && 'rac-grid-column-sortable',
       ...classNames
     );

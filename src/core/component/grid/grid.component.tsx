@@ -12,9 +12,7 @@ import {
   ifNotNilThanValue,
   isDef,
   isFn,
-  isHighlightOdd,
   joinClassName,
-  Mappers,
   NvlUtils,
   orNull,
   orUndef,
@@ -92,7 +90,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const rowsConfig = this.isGrouped
       ? this.getGroupedRows(dataSource)
       : {
-        rows: dataSource.map((entity, rowNum) => this.getRow({entity, rowNum, highlightOdd: isHighlightOdd(this.originalProps, rowNum)})),
+        rows: dataSource.map((entity, rowNum) => this.getRow({entity, rowNum})),
       };
 
     return (
@@ -335,7 +333,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     const {
       entity,
       groupedRows,
-      highlightOdd,
       rowNum,
     } = rowConfig;
     const rowKey = this.toRowKey(entity);
@@ -345,11 +342,10 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
     return (
       <GridRow
-        {...Mappers.selectableHoveredEntity(props)}
         key={rowKey}
-        odd={highlightOdd}
+        index={rowNum}
         selected={this.isEntitySelected(entity)}
-        rawData={entity}
+        entity={entity}
         partOfGroup={isPartOfGroup}
         onClick={props.onSelect}
       >
@@ -588,7 +584,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     groupValuesSet.forEach((groupValue) => {
       if (!localPagination || rowIndex >= from && rowIndex < to) {
         const groupedRows = groupedDataSourceMap.get(groupValue);
-        const highlightOdd = isHighlightOdd(originalProps, groupingRowNum++);
+        const index = groupingRowNum++;
         const groupExpanded = this.isGroupExpanded(groupValue);
 
         rows.push(
@@ -597,13 +593,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
             expandActionRendered,
             groupedRows,
             groupExpanded,
-            highlightOdd,
+            index,
             value: groupValue,
           })
         );
 
         if (groupExpanded) {
-          groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows, highlightOdd})));
+          groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows})));
         }
       }
       rowIndex++;
@@ -629,15 +625,15 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       expandActionRendered,
       groupedRows,
       groupExpanded,
-      highlightOdd,
+      index,
       value,
     } = config;
 
     return (
       <GridRow
         key={this.asGroupRowKey(value)}
-        odd={highlightOdd}
         group={true}
+        index={index}
         groupExpanded={groupExpanded}
       >
         {

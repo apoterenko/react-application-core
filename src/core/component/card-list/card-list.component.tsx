@@ -62,7 +62,7 @@ export class CardList extends BaseList<ICardListProps> {
           )
         }
         selected={this.isEntitySelected(entity)}
-        rawData={entity}
+        entity={entity}
         onClick={onSelect}
       >
         {itemConfiguration.renderer(entity)}

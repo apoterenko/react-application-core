@@ -11,7 +11,10 @@ import { IDialogProps } from './dialog-definition.interface';
 import { IDrawerProps } from './drawer-definition.interface';
 import { IFieldProps } from './field-definition.interface';
 import { IFormLayoutProps } from './layout-definition.interface';
-import { IGridHeadProps } from './grid-definition.interface';
+import {
+  IGridHeadProps,
+  IGridRowProps,
+} from './grid-definition.interface';
 import { IHeaderProps } from './header-definition.interface';
 import { IInlineOptionProps } from './inline-option-definition.interface';
 import { IMainProps } from './main-definition.interface';
@@ -125,6 +128,7 @@ export interface IComponentsSettingsEntity {
   field?: IFieldProps;
   formLayout?: IFormLayoutProps;
   gridHead?: IGridHeadProps;
+  gridRow?: IGridRowProps;
   header?: IHeaderProps;
   inlineOption?: IInlineOptionProps;
   listItem?: IListItemProps;

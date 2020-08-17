@@ -26,14 +26,12 @@ import {
 } from '../../../definition';
 import { ISettingsEntity } from '../../../settings';
 import {
-  getCurrentUrlPath,
-  handlerPropsFactory,
-  ifNotNilThanValue,
-  joinClassName,
-} from '../../../util';
-import {
   CalcUtils,
+  ClsUtils,
+  getCurrentUrlPath,
+  ifNotNilThanValue,
   nvl,
+  PropsUtils,
   TypeUtils,
 } from '../../../util';
 
@@ -73,10 +71,10 @@ export class UiFactory implements IUiFactory {
       <div
         ref={config.ref}
         title={config.title as string}
-        className={joinClassName(
+        className={ClsUtils.joinClassName(
           IconClassesEnum.ICON,
           TypeUtils.isFn(config.onClick) && (
-            joinClassName(
+            ClsUtils.joinClassName(
               IconClassesEnum.ACTION_ICON,
               `rac-action-${config.type}-icon`
             )
@@ -84,7 +82,7 @@ export class UiFactory implements IUiFactory {
           config.disabled && IconClassesEnum.DISABLED_ICON,
           CalcUtils.calc(config.className),
         )}
-        {...handlerPropsFactory(config.onClick, !config.disabled, nvl(config.touched, false))}
+        {...PropsUtils.buildClickHandlerProps(config.onClick, !config.disabled, nvl(config.touched, false))}
       >
         {this.uiIconFactory.makeIcon(config)}
       </div>
@@ -99,7 +97,7 @@ export class UiFactory implements IUiFactory {
   public makeMessage(cfg: IUiMessageConfigEntity): React.ReactNode {
     const {message, wrapper = true} = cfg;
     const body = (
-      <div className={joinClassName(...this.getMessageBodyClassNames(), cfg.className)}>
+      <div className={ClsUtils.joinClassName(...this.getMessageBodyClassNames(), cfg.className)}>
         {message}
       </div>
     );
@@ -107,7 +105,7 @@ export class UiFactory implements IUiFactory {
       return body;
     }
     return (
-      <div className={joinClassName(...this.getMessageClassNames(), cfg.wrapperClassName)}>
+      <div className={ClsUtils.joinClassName(...this.getMessageClassNames(), cfg.wrapperClassName)}>
         {body}
       </div>
     );
@@ -150,8 +148,8 @@ export class UiFactory implements IUiFactory {
     }
 
     return (
-      <div className={joinClassName(...this.getErrorWrapperClassNames())}>
-        <div className={joinClassName(...this.getErrorClassNames())}>
+      <div className={ClsUtils.joinClassName(...this.getErrorWrapperClassNames())}>
+        <div className={ClsUtils.joinClassName(...this.getErrorClassNames())}>
           {this.makeReactErrorBodyElement(e)}
         </div>
       </div>
@@ -271,8 +269,8 @@ export class UiFactory implements IUiFactory {
   protected makeReactRestartActionElement(): JSX.Element {
     return (
       <button
-        {...handlerPropsFactory(this.onRestartAndReload)}
-        className={joinClassName(...this.getRestartActionClassName())}>
+        {...PropsUtils.buildClickHandlerProps(this.onRestartAndReload)}
+        className={ClsUtils.joinClassName(...this.getRestartActionClassName())}>
         {this.settings.messages.RESTART_APP}
       </button>
     );

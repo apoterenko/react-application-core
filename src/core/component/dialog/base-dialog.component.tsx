@@ -5,7 +5,6 @@ import * as R from 'ramda';
 import { Button } from '../button';
 import {
   calc,
-  handlerPropsFactory,
   isAcceptable,
   isAcceptDisabled,
   isCheckModalNeeded,
@@ -21,6 +20,7 @@ import {
   isScrollable,
   joinClassName,
   orNull,
+  PropsUtils,
   WrapperUtils,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
@@ -85,7 +85,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
           <div
             ref={this.actualRef}
             className={this.dialogClassName}
-            {...handlerPropsFactory(this.onDialogClick, modal, false)}
+            {...PropsUtils.buildClickHandlerProps(this.onDialogClick, modal, false)}
           >
             {this.dialogBodyElement}
           </div>

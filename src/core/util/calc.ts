@@ -13,13 +13,6 @@ export const calc = <TResult, TPayload = AnyT>(result: TResult | ((payload?: TPa
     : result as TResult;
 
 /**
- * @stable [04.10.2018]
- * @param {number} value
- * @returns {boolean}
- */
-export const isOddNumber = (value: number): boolean => value % 2 !== 0;
-
-/**
  * @stable [18.05.2020]
  */
 export class CalcUtils {

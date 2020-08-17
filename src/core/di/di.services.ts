@@ -306,6 +306,7 @@ export class DiServices {
   public static readonly auth = getAuth;
   public static readonly dateConverter = getDateConverter;
   public static readonly dynamicRoutes = getDynamicRoutes;
+  public static readonly environment = getEnvironment;
   public static readonly numberConverter = getNumberConverter;
   public static readonly reactBootstrapper = getReactBootstrapper;
   public static readonly store = getStore;

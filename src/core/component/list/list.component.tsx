@@ -4,23 +4,19 @@ import { BaseList } from './base-list.component';
 import { BasicList } from './basic';
 import { IEntity } from '../../definitions.interface';
 import { IListProps } from '../../definition';
-import {
-  isHighlightOdd,
-  Mappers,
-} from '../../util';
 import { ListItem } from './item';
+import { Mappers } from '../../util';
 
 export class List extends BaseList<IListProps, {}, BasicList> {
 
   /**
-   * @stable [08.07.2020]
-   * @returns {JSX.Element}
+   * @stable [17.08.2020]
    */
   protected getView(): JSX.Element {
     return (
       <BasicList
         forwardedRef={this.actualRef}
-        {...this.mergedProps}
+        {...Mappers.listPropsAsBasicListProps(this.originalProps)}
       >
         {this.dataSource.map(this.getItem, this)}
       </BasicList>
@@ -28,25 +24,25 @@ export class List extends BaseList<IListProps, {}, BasicList> {
   }
 
   /**
-   * @stable [13.09.2018]
-   * @param {IEntity} entity
-   * @param {number} index
-   * @returns {JSX.Element}
+   * @stable [17.08.2020]
+   * @param entity
+   * @param index
    */
   protected getItem(entity: IEntity, index: number): JSX.Element {
-    const props = this.props;
-    const rowKey = this.toRowKey(entity);
+    const originalProps = this.originalProps;
+    const {
+      itemConfiguration,
+      onSelect,
+    } = originalProps;
 
     return (
       <ListItem
-        {...Mappers.selectableHoveredEntity(props)}
-        key={rowKey}
         index={index}
-        rawData={entity}
+        entity={entity}
         selected={this.isEntitySelected(entity)}
-        odd={isHighlightOdd(props, index)}
-        onClick={props.onSelect}
-        {...props.itemConfiguration}/>
+        onClick={onSelect}
+        {...itemConfiguration}
+        key={this.toRowKey(entity)}/>
     );
   }
 }

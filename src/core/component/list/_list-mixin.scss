@@ -9,6 +9,7 @@
   /**/
   $rac-list-item-align-items: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-background: unset,                                               /* @stable [27.10.2019] */
+  $rac-list-item-border-bottom-color: unset,                                      /* @stable [17.08.2020] */
   $rac-list-item-border-bottom: unset,                                            /* @stable [09.11.2019] */
   $rac-list-item-border-left: unset,                                              /* @stable [09.11.2019] */
   $rac-list-item-border-radius: unset,                                            /* @stable [25.01.2020] */
@@ -33,7 +34,6 @@
   $rac-list-item-hover-color: unset,                                              /* @stable [27.01.2020] */
   $rac-list-item-icon-background: unset,                                          /* @stable [26.01.2020] */
   $rac-list-item-icon-color: unset,                                               /* @stable [26.01.2020] */
-  $rac-list-item-last-border-bottom-color: unset,                                 /* @stable [29.10.2019] */
   $rac-list-item-line-height: unset,                                              /* @stable [27.10.2019] */
   $rac-list-item-margin: unset,                                                   /* @stable [04.05.2020] */
   $rac-list-item-min-height: unset,                                               /* @stable [25.01.2020] */
@@ -48,6 +48,7 @@
     @include rac-styles (
       $rac-styles-align-items: $rac-list-item-align-items,
       $rac-styles-background: $rac-list-item-background,
+      $rac-styles-border-bottom-color: $rac-list-item-border-bottom-color,
       $rac-styles-border-bottom: $rac-list-item-border-bottom,
       $rac-styles-border-left: $rac-list-item-border-left,
       $rac-styles-border-radius: $rac-list-item-border-radius,
@@ -88,13 +89,7 @@
       );
     }
 
-    &.rac-list-item__last {
-      @include rac-styles (
-        $rac-styles-border-bottom-color: $rac-list-item-last-border-bottom-color
-      );
-    }
-
-    &.rac-list-item__hovered {
+    &.rac-list-item-hovered {
       &:hover {
         @include rac-styles (
           $rac-styles-background: $rac-list-item-hover-background,
@@ -226,7 +221,6 @@
       $rac-list-item-hover-color: $rac-list-item-hover-color,
       $rac-list-item-icon-background: $rac-list-item-icon-background,
       $rac-list-item-icon-color: $rac-list-item-icon-color,
-      $rac-list-item-last-border-bottom-color: $rac-list-item-last-border-bottom-color,
       $rac-list-item-line-height: $rac-list-item-line-height,
       $rac-list-item-margin: $rac-list-item-margin,
       $rac-list-item-min-height: $rac-list-item-min-height,
@@ -241,10 +235,7 @@
     @include rac-list-item (
       $rac-list-item-custom: $rac-list-item-selected-cls,
       $rac-list-item-background: $rac-list-item-selected-background,
-      $rac-list-item-color: $rac-list-item-selected-color,
-      $rac-list-item-hover-background: $rac-list-item-hover-background,
-      $rac-list-item-hover-border-bottom: $rac-list-item-hover-border-bottom,
-      $rac-list-item-hover-color: $rac-list-item-hover-color
+      $rac-list-item-color: $rac-list-item-selected-color
     );
 
     @include rac-list-item (
@@ -255,14 +246,17 @@
     @include rac-list-item (
       $rac-list-item-custom: rac-not-cls($rac-list-item-selected-cls, $rac-list-item-odd-cls),
       $rac-list-item-background: $rac-list-item-odd-background,
-      $rac-list-item-hover-background: $rac-list-item-hover-background,
-      $rac-list-item-hover-border-bottom: $rac-list-item-hover-border-bottom,
-      $rac-list-item-hover-color: $rac-list-item-hover-color
+      $rac-list-item-hover-background: $rac-list-item-hover-background
     );
 
     @include rac-list-item (
       $rac-list-item-custom: $rac-list-item-decorated-cls,
       $rac-list-item-content-text-align: $rac-list-item-decorated-content-text-align
+    );
+
+    @include rac-list-item (
+      $rac-list-item-custom: $rac-list-item-last-cls,
+      $rac-list-item-border-bottom-color: $rac-list-item-last-border-bottom-color
     );
   }
 }

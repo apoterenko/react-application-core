@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import { defValuesFilter } from './filter';
 import {
   IOperationEntity,
-  IPresetsSelectableHoveredEntity,
   IReduxSortDirectionsEntity,
   IReduxTransportHolderEntity,
   ISortDirectionEntity,
@@ -70,23 +69,6 @@ export const mapSortDirectionsWrapperEntity = (directions: IReduxSortDirectionsE
  */
 export const mapIdentifiedEntity = (entity: IEntityIdTWrapper): IEntityIdTWrapper =>
   mapEntityId(Selectors.entityId(entity));
-
-/**
- * @stable [04.05.2020]
- * @mapper
- *
- * @param {IPresetsSelectableHoveredEntity} entity
- * @returns {IPresetsSelectableHoveredEntity}
- */
-const mapSelectableHoveredEntity =
-  (entity: IPresetsSelectableHoveredEntity): IPresetsSelectableHoveredEntity => ConditionUtils.ifNotNilThanValue(
-    entity,
-    () => defValuesFilter<IPresetsSelectableHoveredEntity, IPresetsSelectableHoveredEntity>({
-      hovered: entity.hovered,
-      selectable: entity.selectable,
-    }),
-    UNDEF_SYMBOL
-  );
 
 /**
  * @stable [13.11.2019]
@@ -185,6 +167,7 @@ export class Mappers {
   public static readonly listHolderEntity = MapAsOriginalUtils.listHolderEntity;                                                                                                            /* @stable [31.07.2020] */
   public static readonly listHolderEntityAsDisabled = MapAsUtils.listHolderEntityAsDisabled;                                                                                                /* @stable [31.07.2020] */
   public static readonly listHolderEntityAsPagedEntity = MapAsUtils.listHolderEntityAsPagedEntity;                                                                                          /* @stable [02.08.2020] */
+  public static readonly listPropsAsBasicListProps = MapAsComponentUtils.listPropsAsBasicListProps;                                                                                         /* @stable [17.08.2020] */
   public static readonly listSelectedEntityAsExtendedFormEntity = MapAsUtils.listSelectedEntityAsExtendedFormEntity;                                                                        /* @stable [01.08.2020] */
   public static readonly listSelectedEntityAsFinalEntity = MapAsUtils.listSelectedEntityAsFinalEntity;                                                                                      /* @stable [01.08.2020] */
   public static readonly namedEntityAsRawDataLabeledValueEntity = MapAsUtils.namedEntityAsRawDataLabeledValueEntity;                                                                        /* @stable [02.08.2020] */
@@ -206,7 +189,6 @@ export class Mappers {
   public static readonly secondaryFilterFormEntityAsSecondaryFilterExtendedFormEntity = MapAsUtils.secondaryFilterFormEntityAsSecondaryFilterExtendedFormEntity;                            /* @stable [02.08.2020] */
   public static readonly secondaryFilterFormHolderEntityAsToolbarToolsContainerProps = MapAsComponentUtils.secondaryFilterFormHolderEntityAsToolbarToolsContainerProps;                     /* @stable [01.08.2020] */
   public static readonly sectionNameWrapper = MapAsOriginalUtils.sectionNameWrapper;                                                                                                        /* @stable [30.07.2020] */
-  public static readonly selectableHoveredEntity = mapSelectableHoveredEntity;
   public static readonly storeBaseEntity = MapAsOriginalUtils.storeBaseEntity;                                                                                                              /* @stable [31.07.2020] */
   public static readonly storeEntity = MapAsOriginalUtils.storeEntity;                                                                                                                      /* @stable [31.07.2020] */
   public static readonly tabPanelContainerProps = MapAsComponentUtils.tabPanelContainerProps;                                                                                               /* @stable [30.07.2020] */

@@ -232,7 +232,6 @@ export interface IHeaderWidthWrapper { headerWidth?: number; }
 export interface IHeaderWrapper<TValue = JSX.Element> { header?: TValue; }
 export interface IHeightRestrictedWrapper { heightRestricted?: boolean; }
 export interface IHeightWrapper { height?: number; }
-export interface IHideWrapper { hide?(): void; }
 export interface IHighlightOddWrapper { highlightOdd?: boolean; }
 export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
@@ -255,7 +254,6 @@ export interface IIpWrapper<TIp = string> { ip?: TIp; }
 export interface IIsFirstSelectedWrapper<TValue> { isFirstSelected?(payload?: TValue): boolean; }
 export interface IIsLastSelectedWrapper<TValue> { isLastSelected?(payload?: TValue): boolean; }
 export interface IIsMiddleSelectedWrapper<TValue> { isMiddleSelected?(payload?: TValue): boolean; }
-export interface IIsOpenWrapper { isOpen?(): boolean; }
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }
 export interface IItemConfigurationWrapper<TValue> { itemConfiguration?: TValue; }
@@ -333,7 +331,6 @@ export interface INextWrapper<TValue> { next?: TValue; }
 export interface INoAuthWrapper { noAuth?: boolean; }
 export interface INoCacheWrapper { noCache?: boolean; }
 export interface INoShrinkWrapper { noShrink?: boolean; }
-export interface IOddWrapper { odd?: boolean; }
 export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnApplyWrapper<TValue = {}> { onApply?(value?: TValue): void; }
@@ -492,7 +489,6 @@ export interface ISelectWrapper<TValue = string> { select?: TValue; }
 export interface ISeparatorWrapper<TValue = string> { separator?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
-export interface IShowWrapper<TValue = {}> { show?(payload?: TValue): void; }
 export interface ISignInWrapper<TValue> { signIn?: TValue; }
 export interface ISortableWrapper { sortable?: boolean; }
 export interface ISorterWrapper<TValue = IEntity> { sorter?(entity1: TValue, entity2: TValue): number; }

@@ -20,11 +20,10 @@ const isNewEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolea
   R.isNil(entity) || R.isNil(entity.id);
 
 /**
- * @stable [08.05.2020]
- * @param {TEntity} entity
- * @returns {boolean}
+ * @stable [17.08.2020]
+ * @param entity
  */
-export const isSyntheticEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
+const isPhantomEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
   !isNewEntity(entity) && entity.id < 0;
 
 /**
@@ -67,4 +66,5 @@ export const isNotMultiEntity = (value: MultiFieldEntityT | EntityIdT): boolean 
  */
 export class EntityUtils {
   public static readonly isNewEntity = isNewEntity;
+  public static readonly isPhantomEntity = isPhantomEntity;
 }

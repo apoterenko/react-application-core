@@ -6,7 +6,7 @@ import {
   ClsUtils,
   ifNotNilThanValue,
   isFn,
-  isOddNumber,
+  NumberUtils,
   TypeUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
@@ -133,7 +133,7 @@ export class TabPanel extends GenericComponent<ITabPanelProps> {
             isActiveTab ? 'rac-tab-panel__active-tab' : 'rac-tab-panel__inactive-tab',
             isFirstTab && 'rac-tab-panel__first-tab',
             isLastTab && 'rac-tab-panel__last-tab',
-            isOddNumber(index) && 'rac-tab-panel__odd-tab',
+            NumberUtils.isOddNumber(index) && 'rac-tab-panel__odd-tab',
             isAfterActiveTab && 'rac-tab-panel__after-active-tab',
             isBeforeActiveTab && 'rac-tab-panel__before-active-tab'
           )

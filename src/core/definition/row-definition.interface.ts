@@ -1,22 +1,26 @@
 import {
   IEntity,
+  IEntityWrapper,
+  IHoveredWrapper,
   ILastWrapper,
-  IOddWrapper,
   IOnClickWrapper,
-  IRawDataWrapper,
+  ISelectableWrapper,
   ISelectedWrapper,
 } from '../definitions.interface';
-import { IPresetsSelectableHoveredEntity } from './entity-definition.interface';
+import {
+  IPresetsHighlightedEntity,
+} from './entity-definition.interface';
 
 /**
  * @presets-entity
- * @stable [01.06.2020]
+ * @stable [17.08.2020]
  */
-export interface IPresetsRowEntity<TRawData extends IEntity = IEntity>
-  extends IPresetsSelectableHoveredEntity,
+export interface IPresetsRowEntity<TEntity extends IEntity = IEntity>
+  extends IPresetsHighlightedEntity,
+    IEntityWrapper<TEntity>,
+    IHoveredWrapper,
     ILastWrapper,
-    IOddWrapper,
-    IOnClickWrapper<TRawData>,
-    IRawDataWrapper<TRawData>,
+    IOnClickWrapper<TEntity>,
+    ISelectableWrapper,
     ISelectedWrapper {
 }

@@ -62,7 +62,6 @@ export class Calendar extends GenericComponent<ICalendarProps> {
 
     return (
       <Grid
-        {...DefaultEntities.NOT_SELECTABLE_LIST_ENTITY}
         headerRendered={false}
         highlightOdd={false}
         {...props.gridConfiguration}

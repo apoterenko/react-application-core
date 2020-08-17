@@ -10,7 +10,7 @@ import {
   IEntityIdTWrapper,
   IEntityIdWrapper,
   IEntityWrapper,
-  IHoveredWrapper,
+  IHighlightOddWrapper,
   IIconLeftAlignedWrapper,
   IIconWrapper,
   IIndexWrapper,
@@ -23,7 +23,6 @@ import {
   IRawDataWrapper,
   IRemoveWrapper,
   IRendererWrapper,
-  ISelectableWrapper,
   ISelectedWrapper,
   ISourceWrapper,
   ITouchedWrapper,
@@ -44,6 +43,15 @@ export interface IPresetsTemplateEntity<TRawData extends IEntity = IEntity>
 
 /**
  * @presets-entity
+ * @stable [17.08.2020]
+ */
+export interface IPresetsHighlightedEntity
+  extends IHighlightOddWrapper,
+    IIndexWrapper {
+}
+
+/**
+ * @presets-entity
  * @stable [01.06.2020]
  */
 export interface IPresetsIconEntity
@@ -58,15 +66,6 @@ export interface IPresetsIconEntity
 export interface IPresetsLabeledValueEntity<TValue = AnyT>
   extends ILabelWrapper,
     IValueWrapper<TValue> {
-}
-
-/**
- * @presets-entity
- * @stable [01.06.2020]
- */
-export interface IPresetsSelectableHoveredEntity
-  extends IHoveredWrapper,
-    ISelectableWrapper {
 }
 
 /**

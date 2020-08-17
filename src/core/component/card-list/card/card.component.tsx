@@ -73,9 +73,9 @@ export class Card extends GenericBaseComponent<ICardProps> {
       onClick,
     } = this.mergedProps;
     const {
-      rawData,
+      entity,
     } = this.originalProps;
 
-    onClick(rawData);
+    onClick(entity);
   }
 }

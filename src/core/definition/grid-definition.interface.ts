@@ -18,6 +18,7 @@ import {
   IColumnWidthWrapper,
   IDeactivatedWrapper,
   IDirectionWrapper,
+  IDisabledWrapper,
   IEditedWrapper,
   IEntity,
   IEntityWrapper,
@@ -174,9 +175,12 @@ export interface IPresetsGridRowEntity<TEntity extends IEntity = IEntity>
 export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
   extends IPresetsGridRowEntity<TEntity>,
     ITotalWrapper,
+    IIndexWrapper,
+    IHighlightOddWrapper,
     IFilterWrapper<boolean>,
     IIndexedWrapper,
     IGroupWrapper,
+    IDisabledWrapper,
     IPartOfGroupWrapper,
     IGroupExpandedWrapper {
 }
@@ -193,12 +197,12 @@ export interface IGridRowProps<TEntity extends IEntity = IEntity>
  * @stable [06.12.2019]
  */
 export interface IGridRowConfigEntity<TEntity extends IEntity = IEntity>
-  extends IColumnsConfigurationWrapper<IGridColumnProps[]>,
+  extends IIndexWrapper,
+    IColumnsConfigurationWrapper<IGridColumnProps[]>,
     IEntityWrapper<TEntity>,
     IExpandActionRenderedWrapper,
     IGroupedRowsWrapper<TEntity[]>,
     IGroupExpandedWrapper,
-    IHighlightOddWrapper,
     IRowNumWrapper,
     IValueWrapper {
 }
@@ -249,6 +253,7 @@ export interface IPresetsGridEntity<TEntity extends IEntity = IEntity>
     IGroupByWrapper<IPresetsGroupByEntity>,
     ILocalSortingWrapper,
     IDeactivatedWrapper,
+    IHighlightOddWrapper,
     IOnChangeWrapper<IFieldChangeEntity>,
     IOnChangeFilterWrapper<IFieldChangeEntity> {
   localFiltration?: boolean;  // TODO
@@ -306,8 +311,11 @@ export enum GridClassesEnum {
   GRID_ROW = 'rac-grid-row',
   GRID_ROW_FILTER = 'rac-grid-row-filter',
   GRID_ROW_GROUP = 'rac-grid-row-group',
+  GRID_ROW_HOVERED = 'rac-grid-row-hovered',
+  GRID_ROW_ODD = 'rac-grid-row-odd',
   GRID_ROW_PART_OF_GROUP = 'rac-grid-row-part-of-group',
   GRID_ROW_SELECTABLE = 'rac-grid-row-selectable',
   GRID_ROW_SELECTED = 'rac-grid-row-selected',
+  GRID_ROW_UNSELECTED = 'rac-grid-row-unselected',
   GRID_SORT_ACTION = 'rac-grid__sort-action',
 }
