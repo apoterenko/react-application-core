@@ -259,6 +259,14 @@ export const DEFAULT_SELECTABLE_LIST_ITEM_ENTITY = Object.freeze<IPresetsListIte
 });
 
 /**
+ * @default-entity
+ * @stable [04.05.2020]
+ */
+export const DEFAULT_NOT_HOVERED_LIST_ITEM_ENTITY = Object.freeze<IPresetsListItemEntity>({
+  hovered: false,
+});
+
+/**
  * @stable [30.03.2020]
  */
 export const LIST_CANCEL_LOAD_ACTION_TYPE = 'list.cancel.load';

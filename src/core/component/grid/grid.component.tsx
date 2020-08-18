@@ -607,8 +607,12 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    */
   private getGroupRow(config: IGridRowConfigEntity): JSX.Element {
     const {
+      groupBy,
+      itemConfiguration,
+    } = this.originalProps;
+    const {
       groupValue,
-    } = this.originalProps.groupBy;
+    } = groupBy;
     const {
       columnsConfiguration,
       expandActionRendered,
@@ -624,6 +628,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
         group={true}
         index={rowNum}
         groupExpanded={groupExpanded}
+        {...itemConfiguration}
       >
         {
           columnsConfiguration.map((column, columnNum) => {
