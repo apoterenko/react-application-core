@@ -3,9 +3,8 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
-  EntityUtils,
-  HighlightUtils,
   PropsUtils,
+  RowUtils,
   TypeUtils,
 } from '../../../util';
 import { GenericBaseComponent } from '../../base/generic-base.component';
@@ -86,24 +85,15 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
     const originalProps = this.originalProps;
     const {
       className,
-      disabled,
-      entity,
       icon,
       last,
-      onClick,
-      selectable,
       selected,
     } = originalProps;
-    const {
-      hovered,
-    } = mergedProps;
 
-    const isOddHighlighted = HighlightUtils.isOddHighlighted(mergedProps);
-
-    const isSelectable = selectable
-      && !disabled
-      && TypeUtils.isFn(onClick)
-      && !EntityUtils.isPhantomEntity(entity);
+    const isHovered = RowUtils.isHovered(mergedProps);
+    const isOddHighlighted = RowUtils.isOddHighlighted(mergedProps);
+    const isSelectable = RowUtils.isSelectable(originalProps);
+    const isIndexed = RowUtils.isIndexed(originalProps);
 
     return (
       {
@@ -111,11 +101,11 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
         className: ClsUtils.joinClassName(
           ListClassesEnum.LIST_ITEM,
           CalcUtils.calc(className),
-          hovered && ListClassesEnum.LIST_ITEM_HOVERED,
           icon && ListClassesEnum.LIST_ITEM_DECORATED,
-          last && ListClassesEnum.LIST_ITEM_LAST,  // We can't use :not(:last-child) because of PerfectScrollbar Plugin
+          isHovered && ListClassesEnum.LIST_ITEM_HOVERED,
           isOddHighlighted && ListClassesEnum.LIST_ITEM_ODD,
           isSelectable && ListClassesEnum.LIST_ITEM_SELECTABLE,
+          last && ListClassesEnum.LIST_ITEM_LAST,  // We can't use :not(:last-child) because of PerfectScrollbar Plugin
           ...isSelectable && (
             selected
               ? [ListClassesEnum.LIST_ITEM_SELECTED, selectedElementClassName]

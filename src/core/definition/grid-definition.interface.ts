@@ -52,7 +52,6 @@ import {
   IOnCloseWrapper,
   IOnColumnClickWrapper,
   IOnColumnContentClickWrapper,
-  IOnGroupClickWrapper,
   IOnSortingDirectionChangeWrapper,
   IPartOfGroupWrapper,
   IQueryWrapper,
@@ -165,7 +164,7 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
  */
 export interface IPresetsGridRowEntity<TEntity extends IEntity = IEntity>
   extends IPresetsRowEntity<TEntity>,
-    IOnGroupClickWrapper<TEntity> {
+    IPartOfGroupWrapper {
 }
 
 /**
@@ -174,13 +173,8 @@ export interface IPresetsGridRowEntity<TEntity extends IEntity = IEntity>
 export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
   extends IPresetsGridRowEntity<TEntity>,
     ITotalWrapper,
-    IIndexWrapper,
-    IHighlightOddWrapper,
     IFilterWrapper<boolean>,
-    IIndexedWrapper,
     IGroupWrapper,
-    IDisabledWrapper,
-    IPartOfGroupWrapper,
     IGroupExpandedWrapper {
 }
 

@@ -554,7 +554,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       }
     });
 
-    let groupRowNum = 0;
     const rows = [];
     const columnsConfiguration = this.columnsConfiguration;
     const expandActionRendered = this.isExpandActionRendered;
@@ -568,27 +567,22 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       if (!localPagination || rowIndex >= from && rowIndex < to) {
         const groupedRows = groupedDataSourceMap.get(groupValue);
         const groupExpanded = this.isGroupExpanded(groupValue);
+        const cfg = {
+          columnsConfiguration,
+          groupedRows,
+          rowNum: rowIndex,
+        };
 
         rows.push(
-          this.getGroupRow({
-            columnsConfiguration,
+          this.getGroupRowElement({
+            ...cfg,
             expandActionRendered,
-            groupedRows,
             groupExpanded,
-            rowNum: groupRowNum++,
             value: groupValue,
           })
         );
-
         if (groupExpanded) {
-          groupedRows.forEach((entity, rowNum) => rows.push(
-            this.getRowElement({
-              columnsConfiguration,
-              entity,
-              groupedRows,
-              rowNum,
-            })
-          ));
+          groupedRows.forEach((entity) => rows.push(this.getRowElement({...cfg, entity})));
         }
       }
       rowIndex++;
@@ -605,7 +599,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @stable [29.07.2020]
    * @param config
    */
-  private getGroupRow(config: IGridRowConfigEntity): JSX.Element {
+  private getGroupRowElement(config: IGridRowConfigEntity): JSX.Element {
     const {
       groupBy,
       itemConfiguration,
@@ -624,11 +618,11 @@ export class Grid extends BaseList<IGridProps, IGridState> {
 
     return (
       <GridRow
+        {...itemConfiguration}
         key={this.asGroupRowKey(value)}
         group={true}
         index={rowNum}
         groupExpanded={groupExpanded}
-        {...itemConfiguration}
       >
         {
           columnsConfiguration.map((column, columnNum) => {

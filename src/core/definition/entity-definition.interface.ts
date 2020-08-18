@@ -10,7 +10,6 @@ import {
   IEntityIdTWrapper,
   IEntityIdWrapper,
   IEntityWrapper,
-  IHighlightOddWrapper,
   IIconLeftAlignedWrapper,
   IIconWrapper,
   IIndexWrapper,
@@ -39,15 +38,6 @@ import { IFieldChangeEntity } from './field-definition.interface';
 export interface IPresetsTemplateEntity<TRawData extends IEntity = IEntity>
   extends IRendererWrapper<TRawData, number>,
     ITplWrapper<TRawData> {
-}
-
-/**
- * @presets-entity
- * @stable [17.08.2020]
- */
-export interface IPresetsHighlightedEntity
-  extends IHighlightOddWrapper,
-    IIndexWrapper {
 }
 
 /**

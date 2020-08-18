@@ -1,13 +1,11 @@
 import * as React from 'react';
-import * as R from 'ramda';
 
 import { GenericBaseComponent } from '../../base/generic-base.component';
 import {
   CalcUtils,
   ClsUtils,
-  EntityUtils,
-  HighlightUtils,
   PropsUtils,
+  RowUtils,
   TypeUtils,
 } from '../../../util';
 import {
@@ -41,31 +39,17 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
     const mergedProps = this.mergedProps;
     const {
       className,
-      disabled,
       entity,
       filter,
       group,
-      indexed,
-      onClick,
-      onGroupClick,
       partOfGroup,
-      selectable,
       selected,
     } = originalProps;
-    const {
-      hovered,
-    } = mergedProps;
 
-    const isOddHighlighted = HighlightUtils.isOddHighlighted(mergedProps);
-
-    const isSelectable = selectable
-      && !disabled
-      && (
-        group
-          ? TypeUtils.isFn(onGroupClick)
-          : TypeUtils.isFn(onClick)
-      )
-      && !EntityUtils.isPhantomEntity(entity);
+    const isHovered = RowUtils.isHovered(mergedProps);
+    const isOddHighlighted = RowUtils.isOddHighlighted(mergedProps);
+    const isSelectable = RowUtils.isSelectable(originalProps);
+    const isIndexed = RowUtils.isIndexed(originalProps);
 
     return (
       <UniversalScrollableContext.Consumer>
@@ -78,8 +62,8 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                 CalcUtils.calc(className),
                 filter && GridClassesEnum.GRID_ROW_FILTER,
                 group && GridClassesEnum.GRID_ROW_GROUP,
-                hovered && GridClassesEnum.GRID_ROW_HOVERED,
-                indexed && !R.isNil(entity) && `rac-grid-row-${entity.id}`,
+                isHovered && GridClassesEnum.GRID_ROW_HOVERED,
+                isIndexed && `rac-grid-row-${entity.id}`,
                 isOddHighlighted && GridClassesEnum.GRID_ROW_ODD,
                 isSelectable && GridClassesEnum.GRID_ROW_SELECTABLE,
                 originalProps.groupExpanded && 'rac-grid-row-group-expanded',
@@ -107,19 +91,11 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
   private onClick(): void {
     const {
       entity,
-      group,
       onClick,
-      onGroupClick,
     } = this.originalProps;
 
-    if (group) {
-      if (TypeUtils.isFn(onGroupClick)) {
-        onGroupClick(entity);
-      }
-    } else {
-      if (TypeUtils.isFn(onClick)) {
-        onClick(entity);
-      }
+    if (TypeUtils.isFn(onClick)) {
+      onClick(entity);
     }
   }
 
