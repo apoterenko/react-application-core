@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "declaration": true,
-    "baseUrl": "src",
-    "rootDir": "src",
-    "outDir": "",
+    "incremental": true,
     "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "",
+    "rootDir": "src",
+    "sourceMap": true,
+    "target": "es5",
     "lib": [
       "es7",
       "dom"
