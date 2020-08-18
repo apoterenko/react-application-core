@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { IFieldProps2, } from '../../configurations-definitions.interface';
 import {
   AnyT,
   EntityIdT,
@@ -9,11 +8,13 @@ import {
 } from '../../definitions.interface';
 import {
   calc,
+  FieldUtils,
   ifNotNilThanValue,
   isDef,
   isFn,
   joinClassName,
   NvlUtils,
+  ObjectUtils,
   orNull,
   orUndef,
   PageUtils,
@@ -21,13 +22,10 @@ import {
   WrapperUtils,
 } from '../../util';
 import { BaseList } from '../list';
-import {
-  Checkbox,
-  Field2,
-} from '../field';
+import { Field } from '../field/field/field.component';
 import { GridColumn } from './column';
 import { GridHead, GridHeadColumn, } from './head';
-import { GridRow } from './row';
+import { GridRow } from './row/grid-row.component';
 import { IGridState } from './grid.interface';
 import {
   DefaultEntities,
@@ -35,6 +33,8 @@ import {
   GroupValueRendererT,
   IconsEnum,
   IFieldChangeEntity,
+  IFieldProps,
+  IGridColumnConfigEntity,
   IGridColumnProps,
   IGridProps,
   IGridRowConfigEntity,
@@ -51,6 +51,7 @@ import {
 export class Grid extends BaseList<IGridProps, IGridState> {
 
   public static readonly defaultProps: IGridProps = {
+    changes: {},
     headerRendered: true,
   };
 
@@ -87,10 +88,15 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     } = this.originalProps;
 
     const dataSource = this.dataSource;
+    const columnsConfiguration = this.columnsConfiguration;
     const rowsConfig = this.isGrouped
       ? this.getGroupedRows(dataSource)
       : {
-        rows: dataSource.map((entity, rowNum) => this.getRow({entity, rowNum})),
+        rows: dataSource.map((entity, rowNum) => this.getRowElement({
+          columnsConfiguration,
+          entity,
+          rowNum,
+        })),
       };
 
     return (
@@ -240,50 +246,52 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     );
   }
 
-  /**
-   * @stable [07.06.2018]
-   * @param {IEntity} entity
-   * @param {IGridColumnProps} column
-   * @param {number} columnNum
-   * @param {number} rowNum
-   * @param {IEntity[]} groupedRows
-   * @returns {React.ReactNode}
-   */
-  private getColumn(entity: IEntity,
-                    column: IGridColumnProps,
-                    columnNum: number,
-                    rowNum: number,
-                    groupedRows?: IEntity[]): React.ReactNode {
-    const name = this.toFieldName(entity, column, columnNum);
-    if (column.bool) {
-      return (
-        <Checkbox
-          {...this.getDefaultFieldProps()}
-          name={name}
-          value={this.toCheckboxFieldValue(name)}
-          onChange={(value) => this.onChangeGroupingRowField({value, name, rawData: entity})}/>
-      );
-    } else if (column.tpl) {
-      return column.tpl(entity, column, rowNum);
-    } else if (column.renderer) {
-      const renderEl = column.renderer(entity, column, groupedRows);
+  private getColumn(cfg: IGridColumnConfigEntity): React.ReactNode {
+    const {
+      disabled,
+    } = this.originalProps;
+    const {
+      column,
+      entity,
+      groupedRows,
+      rowNum,
+    } = cfg;
+    const {
+      tpl,
+      renderer,
+    } = column;
+    const columnName = column.name;
+
+    if (TypeUtils.isFn(tpl)) {
+      return tpl(entity, column, rowNum);
+    } else if (TypeUtils.isFn(renderer)) {
+      const renderEl = renderer(entity, column, groupedRows);
       if (R.isNil(renderEl)) {
         return renderEl;
       }
       if (this.isElementField(renderEl)) {
-        const props = renderEl.props;
-        const propsValue = props.value;
-        return React.cloneElement<IFieldProps2>(renderEl, {
-          ...this.getDefaultFieldProps(props),
-          name: column.name,
+        const fieldProps = renderEl.props;
+        const {
+          readOnly,
+          value,
+        } = fieldProps;
+
+        return React.cloneElement<IFieldProps>(renderEl, {
+          errorMessageRendered: false,
           keepChanges: true,
-          value: isDef(propsValue) ? propsValue : Reflect.get(entity, column.name),
-          onChange: (value) => this.onChangeRowField({value, name, rawData: entity}),
+          name: columnName,
+          readOnly: NvlUtils.nvl(readOnly, disabled),
+          value: isDef(value) ? value : Reflect.get(entity, columnName),
+          onChange: ($value) => this.onChangeRowField({
+            value: $value,
+            name: this.asFieldName(cfg),
+            rawData: entity,
+          }),
         });
       }
       return renderEl;
-    } else if (column.name) {
-      return Reflect.get(entity, column.name);
+    } else if (columnName) {
+      return Reflect.get(entity, columnName);
     }
     return null;
   }
@@ -320,37 +328,41 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [06.12.2019]
-   * @param {IGridRowConfigEntity} rowConfig
-   * @returns {JSX.Element}
+   * @stable [18.08.2020]
+   * @param cfg
    */
-  private getRow(rowConfig: IGridRowConfigEntity): JSX.Element {
+  private getRowElement(cfg: IGridRowConfigEntity): JSX.Element {
+    const originalProps = this.originalProps;
     const {
-      changes = {},
-    } = this.originalProps;
+      changes,
+      onSelect,
+      itemConfiguration,
+    } = originalProps;
 
-    const props = this.props;
     const {
+      columnsConfiguration,
       entity,
       groupedRows,
       rowNum,
-    } = rowConfig;
+    } = cfg;
+
     const rowKey = this.toRowKey(entity);
     const entityChanges = changes[entity.id];
-    const hasChanges = !R.isNil(entityChanges);
-    const isPartOfGroup = !R.isNil(groupedRows);
+    const hasChanges = ObjectUtils.isObjectNotEmpty(entityChanges);
+    const isPartOfGroup = TypeUtils.isDef(groupedRows);
 
     return (
       <GridRow
-        key={rowKey}
-        index={rowNum}
-        selected={this.isEntitySelected(entity)}
         entity={entity}
+        index={rowNum}
         partOfGroup={isPartOfGroup}
-        onClick={props.onSelect}
+        selected={this.isEntitySelected(entity)}
+        onClick={onSelect}
+        {...itemConfiguration}
+        key={rowKey}
       >
         {
-          this.columnsConfiguration.map((column, columnNum) => (
+          columnsConfiguration.map((column, columnNum) => (
             <GridColumn
               index={columnNum}
               edited={hasChanges && column.name in entityChanges}
@@ -358,7 +370,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
               {...column}
               key={`${rowKey}-${columnNum}`}
             >
-              {this.getColumn(entity, column, columnNum, rowNum, groupedRows)}
+              {this.getColumn({...cfg, column, columnNum})}
             </GridColumn>
           ))
         }
@@ -407,25 +419,24 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable [07.06.2018]
-   * @returns {IFieldProps2}
+   * @stable [18.08.2020]
+   * @param cfg
    */
-  private getDefaultFieldProps(fieldProps?: IFieldProps2): IFieldProps2 {
-    return {
-      errorMessageRendered: false,
-      readOnly: (fieldProps && fieldProps.readOnly) || this.props.deactivated,
-    };
+  private asFieldName(cfg: IGridColumnConfigEntity): string {
+    const {
+      column,
+      columnNum,
+      entity,
+    } = cfg;
+    return column.name || FieldUtils.dynamicFieldName(`${entity.id}-${columnNum}`);   // Infinity scroll supporting
   }
 
   /**
-   * @stable [07.06.2018]
-   * @param {IEntity} entity
-   * @param {IGridColumnProps} column
-   * @param {number} columnNum
-   * @returns {string}
+   * @stable [18.08.2020]
+   * @param element
    */
-  private toFieldName(entity: IEntity, column: IGridColumnProps, columnNum: number): string {
-    return column.name || `$$dynamic-field-${entity.id}-${columnNum}`;   // Infinity scroll supporting
+  private isElementField(element: JSX.Element): boolean {
+    return Field.isPrototypeOf(element.type);
   }
 
   /**
@@ -463,34 +474,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    */
   private toHeaderColumnKey(columnNum: number): string {
     return `grid-header-column-${columnNum}`;
-  }
-
-  /**
-   * @stable - 06.04.2018
-   * @param {string} fieldName
-   * @returns {AnyT}
-   */
-  private toFieldValue(fieldName: string): AnyT {
-    return this.props.changes[fieldName];
-  }
-
-  /**
-   * @stable - 06.04.2018
-   * @param {string} fieldName
-   * @returns {AnyT}
-   */
-  private toCheckboxFieldValue(fieldName: string): AnyT {
-    const fieldValue = this.toFieldValue(fieldName);
-    return isDef(fieldValue) ? fieldValue : false;
-  }
-
-  /**
-   * @stable [07.06.2018]
-   * @param {JSX.Element} renderEl
-   * @returns {boolean}
-   */
-  private isElementField(renderEl: JSX.Element): boolean {
-    return Field2.isPrototypeOf(renderEl.type);
   }
 
   /**
@@ -571,7 +554,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       }
     });
 
-    let groupingRowNum = 0;
+    let groupRowNum = 0;
     const rows = [];
     const columnsConfiguration = this.columnsConfiguration;
     const expandActionRendered = this.isExpandActionRendered;
@@ -584,7 +567,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
     groupValuesSet.forEach((groupValue) => {
       if (!localPagination || rowIndex >= from && rowIndex < to) {
         const groupedRows = groupedDataSourceMap.get(groupValue);
-        const index = groupingRowNum++;
         const groupExpanded = this.isGroupExpanded(groupValue);
 
         rows.push(
@@ -593,13 +575,20 @@ export class Grid extends BaseList<IGridProps, IGridState> {
             expandActionRendered,
             groupedRows,
             groupExpanded,
-            index,
+            rowNum: groupRowNum++,
             value: groupValue,
           })
         );
 
         if (groupExpanded) {
-          groupedRows.forEach((entity, rowNum) => rows.push(this.getRow({entity, rowNum, groupedRows})));
+          groupedRows.forEach((entity, rowNum) => rows.push(
+            this.getRowElement({
+              columnsConfiguration,
+              entity,
+              groupedRows,
+              rowNum,
+            })
+          ));
         }
       }
       rowIndex++;
@@ -625,7 +614,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       expandActionRendered,
       groupedRows,
       groupExpanded,
-      index,
+      rowNum,
       value,
     } = config;
 
@@ -633,7 +622,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
       <GridRow
         key={this.asGroupRowKey(value)}
         group={true}
-        index={index}
+        index={rowNum}
         groupExpanded={groupExpanded}
       >
         {

@@ -68,7 +68,6 @@ export interface IBlobDataContentTypeWrapper { blobDataContentType?: string; }
 export interface IBlobDataWrapper<TValue = Blob> { blobData?: TValue; }
 export interface IBlobResponseWrapper<TValue = boolean> { blobResponse?: TValue; }
 export interface IBlobUrlWrapper { blobUrl?: string; }
-export interface IBoolWrapper { bool?: boolean; }
 export interface IButtonConfigurationWrapper<TValue> { buttonConfiguration?: TValue; }
 export interface ICalendarActionRenderedWrapper { calendarActionRendered?: boolean; }
 export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?: TValue; }
@@ -99,11 +98,13 @@ export interface ICodeWrapper<TValue = string> { code?: TValue; }
 export interface IColSpanWrapper { colSpan?: number; }
 export interface IColumnClassNameWrapper<TValue = string> { columnClassName?: TValue; }
 export interface IColumnNameWrapper { columnName?: string; }
+export interface IColumnNumWrapper { columnNum?: number; }
 export interface IColumnRenderedWrapper { columnRendered?: boolean; }
 export interface IColumnsConfigurationWrapper<TValue> { columnsConfiguration?: TValue; }
 export interface IColumnStylesWrapper<TValue> { columnStyles?: TValue; }
 export interface IColumnTitleWrapper<TValue = string> { columnTitle?: TValue; }
 export interface IColumnWidthWrapper { columnWidth?: number; }
+export interface IColumnWrapper<TValue> { column?: TValue; }
 export interface ICompactWrapper<TValue = boolean> { compact?: TValue; }
 export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
@@ -786,13 +787,6 @@ export interface IFilterFormWrapper<TFilterForm> {
  */
 export interface IAfterShowWrapper<TAfterShow = () => void> {
   afterShow?: TAfterShow;
-}
-
-/**
- * @stable [02.06.2018]
- */
-export interface IDeactivatedWrapper {
-  deactivated?: boolean;
 }
 
 /**

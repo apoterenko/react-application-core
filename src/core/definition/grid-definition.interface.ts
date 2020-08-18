@@ -3,7 +3,6 @@ import * as CSS from 'csstype';
 import {
   EntityIdT,
   IAlignWrapper,
-  IBoolWrapper,
   IChangesWrapper,
   IClosableWrapper,
   IClosedWrapper,
@@ -11,12 +10,13 @@ import {
   IColumnClassNameWrapper,
   IColumnColSpanWrapper,
   IColumnNameWrapper,
+  IColumnNumWrapper,
   IColumnRenderedWrapper,
   IColumnsConfigurationWrapper,
   IColumnStylesWrapper,
   IColumnTitleWrapper,
   IColumnWidthWrapper,
-  IDeactivatedWrapper,
+  IColumnWrapper,
   IDirectionWrapper,
   IDisabledWrapper,
   IEditedWrapper,
@@ -102,8 +102,7 @@ export interface IGridFilterEntity<TEntity extends IEntity = IEntity>
  * @stable [24.05.2020]
  */
 export interface IPresetsGridColumnEntity
-  extends IBoolWrapper,
-    IClosableWrapper,
+  extends IClosableWrapper,
     IClosedWrapper,
     IColSpanWrapper,
     IOnCloseWrapper,
@@ -194,17 +193,27 @@ export interface IGridRowProps<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [06.12.2019]
+ * @config-entity
+ * @stable [18.08.2020]
  */
 export interface IGridRowConfigEntity<TEntity extends IEntity = IEntity>
-  extends IIndexWrapper,
-    IColumnsConfigurationWrapper<IGridColumnProps[]>,
+  extends IColumnsConfigurationWrapper<IGridColumnProps[]>,
     IEntityWrapper<TEntity>,
     IExpandActionRenderedWrapper,
     IGroupedRowsWrapper<TEntity[]>,
     IGroupExpandedWrapper,
     IRowNumWrapper,
     IValueWrapper {
+}
+
+/**
+ * @config-entity
+ * @stable [18.08.2020]
+ */
+export interface IGridColumnConfigEntity<TEntity extends IEntity = IEntity>
+  extends IGridRowConfigEntity<TEntity>,
+    IColumnNumWrapper,
+    IColumnWrapper<IGridColumnProps> {
 }
 
 /**
@@ -252,7 +261,7 @@ export interface IPresetsGridEntity<TEntity extends IEntity = IEntity>
     IChangesWrapper,
     IGroupByWrapper<IPresetsGroupByEntity>,
     ILocalSortingWrapper,
-    IDeactivatedWrapper,
+    IDisabledWrapper,
     IHighlightOddWrapper,
     IOnChangeWrapper<IFieldChangeEntity>,
     IOnChangeFilterWrapper<IFieldChangeEntity> {

@@ -3,8 +3,12 @@ import * as React from 'react';
 import { Grid } from '../../grid';
 import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
 import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
-import { ClsUtils } from '../../../util';
 import {
+  ClsUtils,
+  TypeUtils,
+} from '../../../util';
+import {
+  DefaultEntities,
   IFieldChangeEntity,
   IGenericGridEntity,
   INITIAL_REDUX_LIST_ENTITY,
@@ -26,7 +30,13 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
    * @returns {JSX.Element}
    */
   protected get attachmentElement(): JSX.Element {
-    const props = this.props;
+    const {
+      gridConfiguration = {},
+    } = this.originalProps;
+    const {
+      itemConfiguration,
+      onSelect,
+    } = gridConfiguration;
 
     const gridListEntity: IGenericGridEntity = {
       ...INITIAL_REDUX_LIST_ENTITY,
@@ -35,12 +45,21 @@ export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
     };
 
     return (
-      <Grid emptyMessage={this.settings.messages.noItemsMessage}
-            emptyDataMessage={this.settings.messages.noItemsMessage}
-            {...gridListEntity}
-            {...props.gridConfiguration}
-            onChange={this.onChangeRowField}
-            deactivated={this.isInactive}/>
+      <Grid
+        emptyMessage={this.settings.messages.noItemsMessage}
+        emptyDataMessage={this.settings.messages.noItemsMessage}
+        {...gridListEntity}
+        {...gridConfiguration}
+        itemConfiguration={{
+          ...itemConfiguration,
+          ...(
+            TypeUtils.isFn(onSelect)
+              ? DefaultEntities.SELECTABLE_LIST_ITEM_ENTITY
+              : {}
+          ),
+        }}
+        onChange={this.onChangeRowField}
+        disabled={this.isInactive}/>
     );
   }
 
