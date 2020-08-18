@@ -147,6 +147,7 @@ export abstract class BaseList<TProps extends IKeyValue,  // TODO Props
   protected get dataSource(): IEntity[] {
     const filteredAndSortedEntities = filterAndSortEntities(
       this.filterAndSortOriginalDataSourceUsingLocalFiltersAndSorters(),
+      // @ts-ignore TODO
       this.props
     );
     const toNumber = this.toNumber;

@@ -42,7 +42,7 @@ import {
   IEnvironment,
   IEventManager,
   IJQueryElement,
-  IReduxXYEntity,
+  IPresetsXYEntity,
   IScrollConfigEntity,
   TouchEventsEnum,
 } from '../../definition';
@@ -476,9 +476,9 @@ export class DomAccessor implements IDomAccessor {
   /**
    * @stable [01.12.2018]
    * @param {Element} el
-   * @returns {IReduxXYEntity}
+   * @returns {IPresetsXYEntity}
    */
-  public getScrollInfo(el: Element): IReduxXYEntity {
+  public getScrollInfo(el: Element): IPresetsXYEntity {
     return {x: getScrollLeft(el), y: getScrollTop(el)};
   }
 
@@ -493,15 +493,15 @@ export class DomAccessor implements IDomAccessor {
 
   /**
    * @stable [08.11.2019]
-   * @param {IReduxXYEntity | Element} payload
+   * @param {IPresetsXYEntity | Element} payload
    * @param {Element} parent
    * @param {IScrollConfigEntity} config
    */
-  public scrollTo(payload: IReduxXYEntity | Element, parent?: Element, config?: IScrollConfigEntity): void {
+  public scrollTo(payload: IPresetsXYEntity | Element, parent?: Element, config?: IScrollConfigEntity): void {
     if (R.isNil(payload)) {
       return;
     }
-    const xyEntity = payload as IReduxXYEntity;
+    const xyEntity = payload as IPresetsXYEntity;
     const el = payload as Element;
     if (el instanceof Element) {
       scrollIntoView(el, parent, config);

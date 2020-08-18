@@ -1,7 +1,7 @@
 import JQuery from 'jquery';
 
 import { IBaseEvent } from './event-definition.interface';
-import { IReduxXYEntity } from './xy-definition.interface';
+import { IPresetsXYEntity } from './xy-definition.interface';
 import {
   IAutoUnsubscribingWrapper,
   ICallbackWrapper,
@@ -51,7 +51,7 @@ export interface ICaptureEventConfigEntity
   extends IAutoUnsubscribingWrapper,
     ICallbackWrapper<(event?: IBaseEvent) => void>,
     ICaptureWrapper,
-    IConditionWrapper<() => void>,
+    IConditionWrapper<() => boolean>,
     IElementWrapper<Element | EventTarget>,
     IEventNameWrapper,
     IParentElementWrapper<Element | EventTarget> {
@@ -147,7 +147,7 @@ export interface IDomAccessor {
   getParents(cfg: IDomParentConfigEntity): IJQueryElement;
   getParentsAsElements(cfg: IDomParentConfigEntity): Element[];
   getProperty(source: Element, property: string): string;
-  getScrollInfo(el: Element): IReduxXYEntity;
+  getScrollInfo(el: Element): IPresetsXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;
   getWidth(source: Element): number;
@@ -162,7 +162,7 @@ export interface IDomAccessor {
   removeChild(child: Element, parentEl?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
   removeClassNamesFromRootElement(...clsNames: string[]);
-  scrollTo(payload: IReduxXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
+  scrollTo(payload: IPresetsXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
   setPosition(cfg: IDomPositionConfigEntity): void;
   setScrollLeft(el: Element, left: number): void;
   setScrollTop(el: Element, top: number): void;

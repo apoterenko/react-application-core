@@ -20,7 +20,7 @@ export enum SyntheticEmitterEventsEnum {
 export interface IEventEmitterSubscribeEntity
   extends IAutoUnsubscribingWrapper,
     ICallbackWrapper,
-    IConditionWrapper<(...args: AnyT[]) => void>,
+    IConditionWrapper<(...args: AnyT[]) => boolean>,
     IEventNameWrapper {
 }
 

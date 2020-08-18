@@ -5,10 +5,10 @@ import {
 import { IFluxPayloadEntity } from './entity-definition.interface';
 
 /**
- * @redux-entity
+ * @presets-entity
  * @stable [08.05.2020]
  */
-export interface IReduxXYEntity
+export interface IPresetsXYEntity
   extends IXWrapper,
     IYWrapper {
 }
@@ -18,5 +18,5 @@ export interface IReduxXYEntity
  * @stable [08.05.2020]
  */
 export interface IFluxXYEntity
-  extends IFluxPayloadEntity<IReduxXYEntity> {
+  extends IFluxPayloadEntity<IPresetsXYEntity> {
 }

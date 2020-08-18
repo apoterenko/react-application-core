@@ -105,8 +105,10 @@ export interface ICronPlainEntity {
 /**
  * @stable [15.11.2019]
  */
-export interface ICronEntity<TEntity extends ICronEntity = ICronEntity<TEntity>>
-  extends ICronPlainEntity {
+export interface ICronEntity<
+    // @ts-ignore TODO
+    TEntity extends ICronEntity = ICronEntity<TEntity>
+  > extends ICronPlainEntity {
   addDaysOfMonths(...values: number[]): TEntity;
   addDaysOfWeeks(...values: number[]): TEntity;
   asPeriodType(): CronPeriodsEnum;

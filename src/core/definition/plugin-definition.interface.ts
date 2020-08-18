@@ -27,6 +27,7 @@ export type GenericPluginFactoryT =
  * @stable [10.04.2020]
  */
 export type GenericPluginCtorT
+  // @ts-ignore TODO
   <TComponent extends IGenericComponent<TProps, TState> = IGenericComponent<TProps, TState>,
     TProps extends IGenericComponentProps = IGenericComponentProps,
     TState = {}>

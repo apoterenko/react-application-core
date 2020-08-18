@@ -24,7 +24,7 @@ import {
   IFluxXYEntity,
   INavigationListItemEntity,
   IPresetsMenuItemEntity,
-  IReduxXYEntity,
+  IPresetsXYEntity,
   LayoutModesEnum,
 } from '../../../definition';
 import {
@@ -129,9 +129,9 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
 
   /**
    * @stable [23.12.2019]
-   * @param {IReduxXYEntity} xy
+   * @param {IPresetsXYEntity} xy
    */
-  private onNavigationListScroll(xy: IReduxXYEntity): void {
+  private onNavigationListScroll(xy: IPresetsXYEntity): void {
     this.dispatchActionByType<IFluxXYEntity>(LAYOUT_XY_UPDATE_ACTION_TYPE, {payload: xy});
   }
 

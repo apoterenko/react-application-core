@@ -27,8 +27,10 @@ import {
   AnyT,
   IDisabledWrapper,
   IEntity,
+  IPrimaryFilterWrapper,
   IProgressWrapper,
   IQueryWrapper,
+  ISecondaryFilterWrapper,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { ConditionUtils } from './cond';
@@ -301,7 +303,10 @@ const mapSecondaryFilterFormEntityAsSecondaryFilterExtendedFormEntity =
  * @param cfg
  */
 const mapEntityAsFullSearchFilter =
-  <TFilter, TEntity = IEntity>(entity: IReduxQueryFilterHolderEntity & IReduxListHolderEntity<TEntity>,
+  <TFilter, TEntity = IEntity>(entity: IReduxQueryFilterHolderEntity
+                                          & IReduxListHolderEntity<TEntity>
+                                          & IPrimaryFilterWrapper<TFilter>
+                                          & ISecondaryFilterWrapper<TFilter>,
                                cfg = {paging: true}): TFilter => ({
     /* query */
     ...mapQueryFilterHolderEntityAsQuery(entity),

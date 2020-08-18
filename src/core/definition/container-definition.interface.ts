@@ -69,6 +69,7 @@ export interface IWebContainerEntity
  * @deprecated
  */
 export interface IUniversalContainerCtor<
+  // @ts-ignore
   TProps extends IUniversalContainerProps<TDictionaries, TPermissions> = IUniversalContainerProps<TDictionaries, TPermissions>,
   TState = {},
   TDictionaries = {},

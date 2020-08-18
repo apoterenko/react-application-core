@@ -50,8 +50,11 @@ export interface IGenericContainerProps<TDictionaries = {}, TComponent = AnyT>
  * @container
  * @stable [30.03.2020]
  */
-export interface IGenericContainer<TProps extends IGenericContainerProps<TDictionaries> = IGenericContainerProps<TDictionaries>,
-  TDictionaries = {}>
+export interface IGenericContainer<
+    // @ts-ignore
+    TProps extends IGenericContainerProps<TDictionaries> = IGenericContainerProps<TDictionaries>,
+    TDictionaries = {}
+  >
   extends IGenericComponent<TProps>,
     IStoreProxy {
   dfccStoreProxy: IDialogFormChangesConfirmStoreProxy;

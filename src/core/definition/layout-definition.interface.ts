@@ -1,4 +1,4 @@
-import { IReduxXYEntity } from './xy-definition.interface';
+import { IPresetsXYEntity } from './xy-definition.interface';
 import {
   IExpandedGroupsWrapper,
   ILayoutWrapper,
@@ -22,7 +22,7 @@ export enum LayoutModesEnum {
 export interface IReduxLayoutEntity
   extends IExpandedGroupsWrapper<{}>,
     IModeWrapper<LayoutModesEnum>,
-    IReduxXYEntity {
+    IPresetsXYEntity {
 }
 
 /**

@@ -10,7 +10,7 @@ import {
 import {
   ComponentClassesEnum,
   IJQueryElement,
-  IReduxXYEntity,
+  IPresetsXYEntity,
 } from '../definition';
 import { joinClassName } from './cls';
 
@@ -249,9 +249,9 @@ export const hasClasses = (target: Element, ...classNames: string[]): boolean =>
 /**
  * @stable [01.12.2018]
  * @param {Element} element
- * @param {IReduxXYEntity} xyEntity
+ * @param {IPresetsXYEntity} xyEntity
  */
-export const scrollTo = (element: Element, xyEntity: IReduxXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);
+export const scrollTo = (element: Element, xyEntity: IPresetsXYEntity): void => element.scrollTo(xyEntity.x, xyEntity.y);
 
 /**
  * @stable [26.10.2019]
@@ -332,10 +332,17 @@ export const setStickyElementProperties = (stickyWrapperEl: Element,
 };
 
 /**
- * @stable [03.04.2019]
- * @param {Element & {mozRequestFullScreen?: () => void; msRequestFullscreen?: () => void}} elem
+ * @stable [18.08.2020]
+ * @param elem
  */
-export const openFullScreen = (elem: Element & { mozRequestFullScreen?: () => void; msRequestFullscreen?: () => void; }) => {
+export const openFullScreen = (
+  elem: Element
+    & {
+    mozRequestFullScreen?: () => void;
+    msRequestFullscreen?: () => void;
+    webkitRequestFullscreen?: () => void;
+  }
+  ) => {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
   } else if (isFn(elem.mozRequestFullScreen)) { /* Firefox */

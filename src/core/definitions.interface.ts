@@ -73,6 +73,7 @@ export interface ICalendarActionRenderedWrapper { calendarActionRendered?: boole
 export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?: TValue; }
 export interface ICalendarEntityConfigurationWrapper<TValue> { calendarEntityConfiguration?: TValue; }
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
+// @ts-ignore
 export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayload = AnyT> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICaptureWrapper { capture?: boolean; }
