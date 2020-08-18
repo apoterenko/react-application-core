@@ -39,13 +39,11 @@ import {
   IHeaderRenderedWrapper,
   IHeaderRendererWrapper,
   IHeaderWidthWrapper,
-  IHighlightOddWrapper,
   IIndexedWrapper,
   IIndexWrapper,
   ILocalFilterWrapper,
   ILocalSortingWrapper,
   INameWrapper,
-  IOnChangeBoolValueWrapper,
   IOnChangeFilterWrapper,
   IOnChangeWrapper,
   IOnClickWrapper,
@@ -256,7 +254,6 @@ export interface IPresetsGridEntity<TEntity extends IEntity = IEntity>
     IGroupByWrapper<IPresetsGroupByEntity>,
     ILocalSortingWrapper,
     IDisabledWrapper,
-    IHighlightOddWrapper,
     IOnChangeWrapper<IFieldChangeEntity>,
     IOnChangeFilterWrapper<IFieldChangeEntity> {
   localFiltration?: boolean;  // TODO
@@ -275,9 +272,7 @@ export interface IGenericGridEntity<TEntity extends IEntity = IEntity>
     IReduxGridEntity<TEntity>,
     IHeaderRenderedWrapper,
     IGridGenericEntity<IGridColumnProps, TEntity>,
-    IWrapperClassNameWrapper,
-    /**/
-    IOnChangeBoolValueWrapper<IFieldChangeEntity> {
+    IWrapperClassNameWrapper {
 }
 
 /**

@@ -158,18 +158,6 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @stable [07.06.2018]
    * @param {IFieldChangeEntity} payload
    */
-  private onChangeGroupingRowField(payload: IFieldChangeEntity): void {
-    const props = this.props;
-
-    if (props.onChangeBoolValue) {
-      props.onChangeBoolValue(payload);
-    }
-  }
-
-  /**
-   * @stable [07.06.2018]
-   * @param {IFieldChangeEntity} payload
-   */
   private onChangeFilterField(payload: IFieldChangeEntity): void {
     const props = this.props;
 

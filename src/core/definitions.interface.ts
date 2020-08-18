@@ -596,13 +596,6 @@ export interface IOnChangeFilterWrapper<TChangedValue = AnyT, TOnChangeFilter = 
 }
 
 /**
- * @stable [07.06.2018]
- */
-export interface IOnChangeBoolValueWrapper<TChangedValue = AnyT, TOnChangeGrouping = (value?: TChangedValue) => void> {
-  onChangeBoolValue?(value?: TChangedValue): void;
-}
-
-/**
  * @stable [18.05.2018]
  */
 export interface IOnChangeManuallyWrapper<TOnChangeManually = (...args) => void> {

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { GenericComponent } from '../base/generic.component';
 import {
-  DefaultEntities,
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarProps,
@@ -63,7 +62,6 @@ export class Calendar extends GenericComponent<ICalendarProps> {
     return (
       <Grid
         headerRendered={false}
-        highlightOdd={false}
         {...props.gridConfiguration}
         columnsConfiguration={columns}
         className={ClsUtils.joinClassName('rac-calendar', CalcUtils.calc(props.className))}
