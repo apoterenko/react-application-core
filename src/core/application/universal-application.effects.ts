@@ -111,7 +111,7 @@ export class UniversalApplicationEffects<TApi> extends BaseEffects<TApi> {
   @EffectsService.effects($RAC_APPLICATION_PREPARE_ACTION_TYPE)
   public $onPrepare(action: IEffectsAction,
                     state: IUniversalStoreEntity): Promise<AnyT> | IEffectsAction[] | IEffectsAction {
-    return ApplicationActionBuilder.buildReadyAction();
+    return [ApplicationActionBuilder.buildReadyAction()];
   }
 
   /**

@@ -267,7 +267,7 @@ export interface IKeepChangesWrapper { keepChanges?: boolean; }
 export interface IKeyboardConfigurationWrapper<TValue> { keyboardConfiguration?: TValue; }
 export interface IKeyboardKeyConfigurationWrapper<TValue> { keyboardKeyConfiguration?: TValue; }
 export interface IKeyboardOpenWrapper { keyboardOpen?: boolean; }
-export interface IKeyValue extends Record<string, AnyT> {}
+export interface IKeyValue { [index: string]: AnyT; }
 export interface IKeyWrapper<TValue = string> { key?: TValue; }
 export interface ILabelWrapper<TValue = string> { label?: TValue; }
 export interface ILastAllowedWrapper { lastAllowed?: boolean; }

@@ -139,7 +139,7 @@ export interface IPresetsFieldEntity
     IReadOnlyWrapper,                                                             /* @stable [18.06.2020] */
     IRenderedWrapper,
     IRequiredWrapper,
-    ITypeWrapper<StringNumberT>,
+    ITypeWrapper,
     IUseCursorWrapper,                                                            /* @stable [21.06.2020] */
     IUseKeyboardWrapper,                                                          /* @stable [20.06.2020] */
     IValidWrapper {

@@ -76,7 +76,7 @@ export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
  * @config-entity
  * @stable [17.12.2019]
  */
-export interface IDateTimeConfigEntity<TDate = Date>
+export interface IDateTimeConfigEntity<TDate>
   extends IDateWrapper<DateTimeLikeTypeT | TDate>,
     IDurationWrapper<StringNumberT>,
     IIndexWrapper,

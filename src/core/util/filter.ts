@@ -24,7 +24,7 @@ import {
 export type KeyValuePredicateT = (key: string, value: AnyT) => boolean;
 export type ValuePredicateT = (value: AnyT) => boolean;
 
-export function cloneUsingFilters<TSource extends IKeyValue, TResult extends IKeyValue>(
+export function cloneUsingFilters<TSource, TResult>(
     source: TSource, ...predicates: KeyValuePredicateT[]
 ): TResult {
   const sourceWithObjectValues = filterByPredicate<TSource, TResult>(source, ...predicates.concat(OBJECT_KEY_VALUE_PREDICATE));

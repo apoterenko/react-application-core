@@ -9,7 +9,6 @@ import {
   IEntity,
   IFilterWrapper,
   IFullWrapper,
-  IHighlightOddWrapper,
   IItemConfigurationWrapper,
   IKeyValue,
   IListConfigurationWrapper,
@@ -157,7 +156,7 @@ export interface IListConfigurationEntity<TProps extends IListProps = IListProps
  * @stable [27.10.2019]
  */
 export interface IListProps
-  extends IGenericComponentProps,
+  extends IEnhancedGenericComponentProps,
     IGenericListEntity {
 }
 

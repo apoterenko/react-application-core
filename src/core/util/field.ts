@@ -182,11 +182,12 @@ export const asMultiFieldEditedEntities =
       const cachedResultItem = resultItems.get(editedItemId);
 
       // Collect the changes
-      const editedItem0 = cachedResultItem || shallowClone<TEntity>(cachedSourceItems.get(editedItemId));
-      editedItem0[editedItem.name] = editedItem.value;
+      const $editedItem = cachedResultItem || shallowClone<TEntity>(cachedSourceItems.get(editedItemId));
+      // @ts-ignore TODO
+      $editedItem[editedItem.name] = editedItem.value;
 
       if (R.isNil(cachedResultItem)) {
-        resultItems.set(editedItemId, editedItem0);
+        resultItems.set(editedItemId, $editedItem);
       }
     });
     return Array.from(resultItems.values());
