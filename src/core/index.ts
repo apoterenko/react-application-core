@@ -3,7 +3,6 @@ export * from './application';
 export * from './async-lib';
 export * from './auth';
 export * from './channel';
-export * from './component/access';
 export * from './component/application';
 export * from './component/barcode';
 export * from './component/base';

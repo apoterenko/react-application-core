@@ -27,8 +27,8 @@ export class NumberConverter implements INumberConverter {
   /**
    * @stable [22.10.2018]
    */
-  private defaultCurrencyFormatOptions = {style: 'currency', currency: this.settings.currency.uiCurrency};
-  private currencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultCurrencyFormatOptions);
+  private readonly defaultCurrencyFormatOptions;
+  private readonly currencyFormatter;
 
   private defaultIntegerFormatOptions: Intl.NumberFormatOptions = {
     maximumFractionDigits: 0,
@@ -43,11 +43,8 @@ export class NumberConverter implements INumberConverter {
   /**
    * @stable [22.10.2018]
    */
-  private defaultIntegerCurrencyFormatOptions: Intl.NumberFormatOptions = {
-    ...this.defaultCurrencyFormatOptions,
-    ...this.defaultIntegerFormatOptions,
-  };
-  private integerCurrencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultIntegerCurrencyFormatOptions);
+  private readonly defaultIntegerCurrencyFormatOptions: Intl.NumberFormatOptions;
+  private readonly integerCurrencyFormatter;
 
   /**
    * @stable [22.10.2018]
@@ -59,6 +56,14 @@ export class NumberConverter implements INumberConverter {
     this.integerCurrency = this.integerCurrency.bind(this);
     this.integerFormat = this.integerFormat.bind(this);
     this.fractionalFormat = this.fractionalFormat.bind(this);
+
+    this.defaultCurrencyFormatOptions = {style: 'currency', currency: this.settings.currency.uiCurrency};
+    this.currencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultCurrencyFormatOptions);
+    this.defaultIntegerCurrencyFormatOptions = {
+      ...this.defaultCurrencyFormatOptions,
+      ...this.defaultIntegerFormatOptions,
+    };
+    this.integerCurrencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultIntegerCurrencyFormatOptions);
   }
 
   /**

@@ -2,6 +2,7 @@ import '../api/api.module';
 import '../async-lib/async-lib.module';
 import '../bootstrap/bootstrap.module';
 import '../channel/socket/socket-channel.module';
+// import '../component/access/access.module';
 import '../component/dom-accessor/dom-accessor.module';
 import '../component/field/field.module';
 import '../component/full-screen/full-screen.module';
