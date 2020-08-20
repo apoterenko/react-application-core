@@ -23,7 +23,7 @@ import {
 } from '../../definition';
 
 export abstract class BaseList<TProps extends IKeyValue,  // TODO Props
-  TState extends any = any,
+  TState extends {page?: number} = any,
   TSelfRef = AnyT>
   extends UniversalComponent<TProps, TState, TSelfRef> {
 

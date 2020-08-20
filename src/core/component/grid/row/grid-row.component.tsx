@@ -73,7 +73,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                   selected
                     ? [GridClassesEnum.GRID_ROW_SELECTED, selectedElementClassName]
                     : [GridClassesEnum.GRID_ROW_UNSELECTED]
-                )
+                ) || []
               )
             }
             {...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable, false)}

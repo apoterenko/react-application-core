@@ -112,7 +112,7 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
             selected
               ? [ListClassesEnum.LIST_ITEM_SELECTED, selectedElementClassName]
               : [ListClassesEnum.LIST_ITEM_UNSELECTED]
-          )
+          ) || []
         ),
         ...PropsUtils.buildClickHandlerProps(this.onClick, isSelectable, false),
       }
