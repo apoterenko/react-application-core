@@ -1,6 +1,5 @@
 import {
   NumberUtils,
-  roundedByPrecisionProportion,
 } from './number';
 
 describe('util/number', () => {
@@ -18,12 +17,12 @@ describe('util/number', () => {
 
   describe('roundedByPrecisionProportion', () => {
     it('test1', () => {
-      const value = roundedByPrecisionProportion(20, 999.99);
+      const value = NumberUtils.roundedByPrecisionProportion(20, 999.99);
       expect(value).toEqual(200.99);
     });
 
     it('test2', () => {
-      const value = roundedByPrecisionProportion(17, 12.35);
+      const value = NumberUtils.roundedByPrecisionProportion(17, 12.35);
       expect(value).toEqual(2.35);
     });
   });

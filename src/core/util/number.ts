@@ -62,17 +62,16 @@ const roundedProportion = (value: number, total: number, offValue = DefaultEntit
 };
 
 /**
- * @stable [12.09.2019]
- * @param {number} value
- * @param {number} total
- * @param {number} offValue
- * @param {number} precisionValue
- * @returns {number}
+ * @stable [20.08.2020]
+ * @param value
+ * @param total
+ * @param offValue
+ * @param precisionValue
  */
-export const roundedByPrecisionProportion = (value: number,
-                                             total: number,
-                                             offValue = DefaultEntities.UNIT_OF_CURRENCY,
-                                             precisionValue = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
+const roundedByPrecisionProportion = (value: number,
+                                      total: number,
+                                      offValue = DefaultEntities.UNIT_OF_CURRENCY,
+                                      precisionValue = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
   roundByPrecision(roundedProportion(value, total, offValue), precisionValue);
 
 /**
@@ -92,6 +91,7 @@ export class NumberUtils {
   public static readonly residueRoundDownByDivider = residueRoundDownByDivider;
   public static readonly roundByPrecision = roundByPrecision;
   public static readonly roundDownByDivider = roundDownByDivider;
+  public static readonly roundedByPrecisionProportion = roundedByPrecisionProportion;
   public static readonly roundedPercent = roundedPercent;
   public static readonly roundedProportion = roundedProportion;
 }
