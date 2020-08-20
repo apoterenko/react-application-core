@@ -4,7 +4,6 @@ import { IBaseEvent } from './definition';
 export type AnyT = any;
 export type StringNumberT = number | string;
 export type EntityIdT = StringNumberT;
-export const ONE_DOLLAR_VALUE = 1;
 export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');

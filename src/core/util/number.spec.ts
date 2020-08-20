@@ -1,17 +1,17 @@
 import {
-  roundedProportion,
+  NumberUtils,
   roundedByPrecisionProportion,
 } from './number';
 
 describe('util/number', () => {
   describe('roundedProportion', () => {
     it('test1', () => {
-      const value = roundedProportion(20, 999.99);
+      const value = NumberUtils.roundedProportion(20, 999.99);
       expect(value).toEqual(200.98999999999995);
     });
 
     it('test2', () => {
-      const value = roundedProportion(17, 12.35);
+      const value = NumberUtils.roundedProportion(17, 12.35);
       expect(value).toEqual(2.3499999999999988);
     });
   });

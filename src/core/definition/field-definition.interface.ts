@@ -295,7 +295,7 @@ export interface IFieldsPresets {
 
 /**
  * @default-entity
- * @stable [24.11.2019]
+ * @stable [19.08.2020]
  */
 export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IPresetsFieldEntity>({
   autoComplete: 'new-password',
@@ -303,7 +303,7 @@ export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IPresetsField
 
 /**
  * @default-entity
- * @stable [24.11.2019]
+ * @stable [19.08.2020]
  */
 export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity2>({
   ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,

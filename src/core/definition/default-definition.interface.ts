@@ -1,6 +1,7 @@
 import {
   DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY,
+  DEFAULT_PASSWORD_FIELD_ENTITY,
 } from './field-definition.interface';
 import {
   DEFAULT_PLACE_FIELD_ENTITY,
@@ -49,10 +50,12 @@ export class DefaultEntities {
   public static readonly NOT_CHANGEABLE_FIELD_ENTITY = DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY;             /* @stable [01.06.2020] */
   public static readonly NOT_HOVERED_LIST_ITEM_ENTITY = DEFAULT_NOT_HOVERED_LIST_ITEM_ENTITY;           /* @stable [19.05.2020] */
   public static readonly PAGINATED_SINGLE_ENTITY = DEFAULT_PAGINATED_SINGLE_ENTITY;                     /* @stable [17.06.2020] */
+  public static readonly PASSWORD_FIELD_ENTITY = DEFAULT_PASSWORD_FIELD_ENTITY;                         /* @stable [19.08.2020] */
   public static readonly PLACE_FIELD_ENTITY = DEFAULT_PLACE_FIELD_ENTITY;                               /* @stable [11.08.2020] */
   public static readonly QUICK_SEARCH_FIELD_ENTITY = DEFAULT_QUICK_SEARCH_FIELD_ENTITY;                 /* @stable [17.05.2020] */
   public static readonly ROOT_SECTION = 'root';                                                         /* @stable [22.05.2020] */
   public static readonly SELECTABLE_LIST_ITEM_ENTITY = DEFAULT_SELECTABLE_LIST_ITEM_ENTITY;             /* @stable [19.05.2020] */
+  public static readonly UNIT_OF_CURRENCY = 1;                                                          /* @stable [20.08.2020] */
   public static readonly UNLIMITED_HEIGHT_MENU_ENTITY = DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY;           /* @stable [10.08.2020] */
   public static readonly ZIP_CODE_FIELD_ENTITY = DEFAULT_ZIP_CODE_FIELD_ENTITY;                         /* @stable [17.05.2020] */
 }

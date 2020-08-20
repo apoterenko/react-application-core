@@ -1,6 +1,3 @@
-import {
-  ONE_DOLLAR_VALUE,
-} from '../definitions.interface';
 import { DefaultEntities } from '../definition/default-definition.interface';
 
 /**
@@ -12,12 +9,11 @@ const roundByPrecision = (num: number, precision = DefaultEntities.CURRENCY_PREC
   Number(`${Math.round(Number(`${num}e${precision}`))}e-${precision}`);
 
 /**
- * @stable [05.05.2019]
- * @param {number} num
- * @param {number} divider
- * @returns {number}
+ * @stable [20.08.2020]
+ * @param num
+ * @param divider
  */
-export const roundDownByDivider = (num: number, divider: number): number =>
+const roundDownByDivider = (num: number, divider: number): number =>
   Math.floor(num - num % divider);
 
 /**
@@ -27,47 +23,42 @@ export const roundDownByDivider = (num: number, divider: number): number =>
 const invert = (num: number): number => num === 0 ? num : num * -1; // To exclude the "-0" case
 
 /**
- * @stable [24.07.2020]
+ * @stable [20.08.2020]
+ * @param value
+ * @param total
+ */
+const percent = (value: number, total: number): number => total === 0 ? 0 : (value * 100) / total;
+
+/**
+ * @stable [20.08.2020]
+ * @param value
+ * @param total
+ */
+const roundedPercent = (value: number, total: number): number => Math.round(percent(value, total));
+
+/**
+ * @stable [20.08.2020]
+ * @param value
+ * @param total
+ */
+const proportion = (value: number, total: number) => (value * total) / 100;
+
+/**
+ * @stable [20.08.2020]
+ * @param divider
  * @param num
- * @param precision
  */
-const invertCurrency = (num: number, precision = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
-  invert(roundByPrecision(num, precision));
+const residueRoundDownByDivider = (num: number, divider = DefaultEntities.UNIT_OF_CURRENCY): number => num - roundDownByDivider(num, divider);
 
 /**
- * @stable [26.06.2019]
- * @param {number} value
- * @param {number} total
- * @returns {number}
+ * @stable [20.08.2020]
+ * @param value
+ * @param total
+ * @param offValue
  */
-export const percent = (value: number, total: number): number => total === 0 ? 0 : (value * 100) / total;
-
-/**
- * @stable [12.09.2019]
- * @param {number} value
- * @param {number} total
- * @returns {number}
- */
-export const proportion = (value: number, total: number) => (value * total) / 100;
-
-/**
- * @stable [12.09.2019]
- * @param {number} value
- * @param {number} total
- * @returns {number}
- */
-export const residueRoundDownByDivider = (value: number, total: number): number => total - roundDownByDivider(total, value);
-
-/**
- * @stable [12.09.2019]
- * @param {number} value
- * @param {number} total
- * @param {number} offValue
- * @returns {number}
- */
-export const roundedProportion = (value: number, total: number, offValue = ONE_DOLLAR_VALUE): number => {
-  const result0 = proportion(value, total);
-  return result0 + residueRoundDownByDivider(offValue, total - result0);
+const roundedProportion = (value: number, total: number, offValue = DefaultEntities.UNIT_OF_CURRENCY): number => {
+  const result = proportion(value, total);
+  return result + residueRoundDownByDivider(total - result, offValue);
 };
 
 /**
@@ -80,7 +71,7 @@ export const roundedProportion = (value: number, total: number, offValue = ONE_D
  */
 export const roundedByPrecisionProportion = (value: number,
                                              total: number,
-                                             offValue = ONE_DOLLAR_VALUE,
+                                             offValue = DefaultEntities.UNIT_OF_CURRENCY,
                                              precisionValue = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
   roundByPrecision(roundedProportion(value, total, offValue), precisionValue);
 
@@ -95,7 +86,12 @@ const isOddNumber = (value: number): boolean => value % 2 !== 0;
  */
 export class NumberUtils {
   public static readonly invert = invert;
-  public static readonly invertCurrency = invertCurrency;
   public static readonly isOddNumber = isOddNumber;
+  public static readonly percent = percent;
+  public static readonly proportion = proportion;
+  public static readonly residueRoundDownByDivider = residueRoundDownByDivider;
   public static readonly roundByPrecision = roundByPrecision;
+  public static readonly roundDownByDivider = roundDownByDivider;
+  public static readonly roundedPercent = roundedPercent;
+  public static readonly roundedProportion = roundedProportion;
 }

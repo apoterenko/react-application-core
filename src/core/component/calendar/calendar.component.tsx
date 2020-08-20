@@ -21,6 +21,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
 
   public static readonly defaultProps: ICalendarProps = {
     showOnlyCurrentDays: false,
+    gridConfiguration: {},
   };
 
   /**
@@ -40,7 +41,10 @@ export class Calendar extends GenericComponent<ICalendarProps> {
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      className,
+      gridConfiguration,
+    } = this.originalProps;
     const calendar = this.calendarEntity;
 
     const listEntity: IReduxListEntity = {
@@ -62,9 +66,14 @@ export class Calendar extends GenericComponent<ICalendarProps> {
     return (
       <Grid
         headerRendered={false}
-        {...props.gridConfiguration}
+        {...gridConfiguration}
+        itemConfiguration={{
+          ...gridConfiguration.itemConfiguration,
+          highlightOdd: false,
+          hovered: false,
+        }}
         columnsConfiguration={columns}
-        className={ClsUtils.joinClassName('rac-calendar', CalcUtils.calc(props.className))}
+        className={ClsUtils.joinClassName('rac-calendar', CalcUtils.calc(className))}
         {...listEntity}
       />
     );
