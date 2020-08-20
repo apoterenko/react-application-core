@@ -318,8 +318,10 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
         key={`menu-item-key-${value}`}
         disabled={disabled}
         entity={option}
+        highlightOdd={!this.isAnchored}
         icon={icon}
         iconLeftAligned={iconLeftAligned}
+        index={index}
         last={index === length - 1}
         renderer={renderer}
         tpl={tpl}

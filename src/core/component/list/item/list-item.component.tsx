@@ -85,6 +85,7 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
     const originalProps = this.originalProps;
     const {
       className,
+      entity,
       icon,
       last,
       selected,
@@ -103,6 +104,7 @@ export class ListItem extends GenericBaseComponent<IListItemProps> {
           CalcUtils.calc(className),
           icon && ListClassesEnum.LIST_ITEM_DECORATED,
           isHovered && ListClassesEnum.LIST_ITEM_HOVERED,
+          isIndexed && `${ListClassesEnum.LIST_ITEM}-${entity.id}`,
           isOddHighlighted && ListClassesEnum.LIST_ITEM_ODD,
           isSelectable && ListClassesEnum.LIST_ITEM_SELECTABLE,
           last && ListClassesEnum.LIST_ITEM_LAST,  // We can't use :not(:last-child) because of PerfectScrollbar Plugin

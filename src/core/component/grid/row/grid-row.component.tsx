@@ -63,7 +63,7 @@ export class GridRow extends GenericBaseComponent<IGridRowProps> {
                 filter && GridClassesEnum.GRID_ROW_FILTER,
                 group && GridClassesEnum.GRID_ROW_GROUP,
                 isHovered && GridClassesEnum.GRID_ROW_HOVERED,
-                isIndexed && `rac-grid-row-${entity.id}`,
+                isIndexed && `${GridClassesEnum.GRID_ROW}-${entity.id}`,
                 isOddHighlighted && GridClassesEnum.GRID_ROW_ODD,
                 isSelectable && GridClassesEnum.GRID_ROW_SELECTABLE,
                 originalProps.groupExpanded && 'rac-grid-row-group-expanded',
