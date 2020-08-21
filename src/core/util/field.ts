@@ -13,7 +13,6 @@ import {
   IGenericFieldEntity,
   IGenericFieldEntity2,
   IMultiItemEntity,
-  IPresetsFieldEntity,
   IReduxMultiEntity,
   MultiFieldEntityT,
   NotMultiFieldEntityT,
@@ -65,12 +64,6 @@ const asActualFieldValue = (config: IGenericFieldEntity2): AnyT => {
  */
 const isFieldInactive = (entity: IGenericFieldEntity): boolean =>
   isDisabled(entity) || WrapperUtils.isReadOnly(entity) || WrapperUtils.inProgress(entity);
-
-/**
- * @stable [02.08.2020]
- * @param entity
- */
-const isFieldReadOnly = (entity: IPresetsFieldEntity): boolean => WrapperUtils.isReadOnly(entity);
 
 /**
  * @stable [27.08.2019]
@@ -334,5 +327,4 @@ export class FieldUtils {
   public static readonly fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
   public static readonly fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
   public static readonly isFieldInactive = isFieldInactive;                                                       /* @stable [02.08.2020] */
-  public static readonly isFieldReadOnly = isFieldReadOnly;                                                       /* @stable [02.08.2020] */
 }

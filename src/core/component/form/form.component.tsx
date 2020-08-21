@@ -26,7 +26,6 @@ import {
   FormUtils,
   getFormFieldValue,
   isFormFieldDisabled,
-  isFormFieldReadOnly,
   isFormResettable,
   isFormSubmittable,
   Mappers,
@@ -257,30 +256,12 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [25.09.2019]
-   * @param {IField} field
-   * @returns {boolean}
-   */
-  private isFieldReadOnly(field: IField): boolean {
-    return isFormFieldReadOnly(this.props, field.props);
-  }
-
-  /**
    * @stable [23.03.2020]
    * @param {IField} field
    * @returns {boolean}
    */
   private isFieldDisabled(field: IField): boolean {
     return isFormFieldDisabled(this.props, field.props);
-  }
-
-  /**
-   * @stable [23.03.2020]
-   * @param {IField} field
-   * @returns {boolean}
-   */
-  private isFieldChangeable(field: IField): boolean {
-    return FormUtils.isFieldChangeable(this.originalProps, field.props);
   }
 
   /**
@@ -469,7 +450,23 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [31.07.2020]
+   * @stable [21.08.2020]
+   * @param field
+   */
+  private isFieldReadOnly(field: IField): boolean {
+    return FormUtils.isFieldReadOnly(this.originalProps, field.props);
+  }
+
+  /**
+   * @stable [21.08.2020]
+   * @param field
+   */
+  private isFieldChangeable(field: IField): boolean {
+    return FormUtils.isFieldChangeable(this.originalProps, field.props);
+  }
+
+  /**
+   * @stable [21.08.2020]
    */
   private get form(): IReduxFormEntity<IEntity> {
     return this.originalProps.form;

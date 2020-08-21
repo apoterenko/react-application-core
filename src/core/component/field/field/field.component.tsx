@@ -45,9 +45,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   implements IField<TProps, TState> {
 
   public static readonly defaultProps: IFieldProps = {
-    changeable: true,
     fieldRendered: true,
-    readOnly: false,
   };
 
   /**/
@@ -664,7 +662,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [21.08.2020]
    */
   protected get isReadOnly(): boolean {
-    return this.originalProps.readOnly;
+    return WrapperUtils.isReadOnly(this.originalProps);
   }
 
   /**
@@ -987,7 +985,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [21.08.2020]
    */
   private get isChangeable(): boolean {
-    return this.originalProps.changeable;
+    return WrapperUtils.isChangeable(this.originalProps);
   }
 
   /**

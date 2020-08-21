@@ -21,7 +21,6 @@ import {
   IErrorMessageRenderedWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
-  IFieldRenderedWrapper,
   IFullWrapper,
   IMultiWrapper,
   INavigateBackWrapper,
@@ -63,14 +62,6 @@ const isValid = (wrapper: IValidWrapper): boolean =>
 
 /**
  * @stable [03.02.2020]
- * @param {IFieldRenderedWrapper} wrapper
- * @returns {boolean}
- */
-const isFieldRendered = (wrapper: IFieldRenderedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.fieldRendered !== false;
-
-/**
- * @stable [03.02.2020]
  * @param {IPreventManualChangesWrapper} wrapper
  * @returns {boolean}
  */
@@ -84,6 +75,20 @@ const areManualChangesNotPrevented = (wrapper: IPreventManualChangesWrapper): bo
  */
 const isFocusPrevented = (wrapper: IPreventFocusWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.preventFocus === true;
+
+/**
+ * @stable [22.08.2020]
+ * @param wrapper
+ */
+const isChangeable = (wrapper: IChangeableWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.changeable !== false;
+
+/**
+ * @stable [22.08.2020]
+ * @param wrapper
+ */
+const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
+  R.isNil(wrapper) ? false : wrapper.readOnly === true;
 
 /**
  * @stable [02.08.2020]
@@ -249,14 +254,6 @@ const isClearActionRendered = (wrapper: IClearActionRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.clearActionRendered !== false;
 
 /**
- * @stable [03.02.2020]
- * @param {IReadOnlyWrapper} wrapper
- * @returns {boolean}
- */
-export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.readOnly === true;
-
-/**
  * @stable [11.05.2020]
  * @param {ICloseDisabledWrapper} wrapper
  * @returns {boolean}
@@ -271,14 +268,6 @@ export const isCloseDisabled = (wrapper: ICloseDisabledWrapper): boolean =>
  */
 export const isAcceptDisabled = (wrapper: IAcceptDisabledWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.acceptDisabled === true;
-
-/**
- * @stable [23.03.2020]
- * @param {IChangeableWrapper} wrapper
- * @returns {boolean}
- */
-const isChangeable = (wrapper: IChangeableWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.changeable !== false;
 
 /**
  * @stable [23.03.2020]
@@ -420,7 +409,7 @@ export class WrapperUtils {
   public static readonly areManualChangesNotPrevented = areManualChangesNotPrevented;      /* @stable [03.06.2020] */
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
   public static readonly isAllowEmptyFilterValue = isAllowEmptyFilterValue;                /* @stable [08.08.2020] */
-  public static readonly isChangeable = isChangeable;                                      /* @stable [05.06.2020] */
+  public static readonly isChangeable = isChangeable;                                      /* @stable [22.08.2020] */
   public static readonly isClearActionRendered = isClearActionRendered;                    /* @stable [17.06.2020] */
   public static readonly isCursorUsed = isCursorUsed;                                      /* @stable [21.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
@@ -428,11 +417,10 @@ export class WrapperUtils {
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isErrorMessageRendered = isErrorMessageRendered;                  /* @stable [18.06.2020] */
   public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */
-  public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
   public static readonly isPlainValueApplied = isPlainValueApplied;                        /* @stable [21.06.2020] */
-  public static readonly isReadOnly = isReadOnly;                                          /* @stable [18.06.2020] */
+  public static readonly isReadOnly = isReadOnly;                                          /* @stable [22.08.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
   public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
   public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */
