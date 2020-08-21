@@ -13,12 +13,14 @@ import {
 import {
   ClsUtils,
   noop,
-  nvl,
+  PropsUtils,
 } from '../../../util';
 
 export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
                           TState extends IBaseCheckboxState = IBaseCheckboxState>
   extends Field2<TProps, TState> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseCheckboxProps>({}, Field2);
 
   /**
    * @stable [31.08.2018]

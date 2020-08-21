@@ -7,11 +7,14 @@ import {
 import {
   CalcUtils,
   ClsUtils,
+  PropsUtils,
 } from '../../../util';
 import { Thumb } from '../../thumb';
 import { SwitchClassesEnum } from '../../../definition';
 
 export class Switch extends BaseCheckbox<ISwitchProps> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ISwitchProps>({}, BaseCheckbox);
 
   /**
    * @stable [05.06.2020]

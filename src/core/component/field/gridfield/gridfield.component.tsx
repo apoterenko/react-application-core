@@ -5,6 +5,7 @@ import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
 import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
 import {
   ClsUtils,
+  PropsUtils,
   TypeUtils,
 } from '../../../util';
 import {
@@ -15,6 +16,8 @@ import {
 } from '../../../definition';
 
 export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IGridFieldProps>({}, MultiField);
 
   /**
    * @stable [02.06.2018]

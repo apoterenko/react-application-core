@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import { InlineOption } from '../../inline-option';
 import {
   ClsUtils,
+  PropsUtils,
   SortUtils,
 } from '../../../util';
 import {
@@ -19,6 +20,8 @@ import { MultiField } from '../multifield/multifield.component';
  * @stable [16.06.2020]
  */
 export class ChipsField extends MultiField<IChipsFieldProps> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IChipsFieldProps>({}, MultiField);
 
   /**
    * @stable [08.07.2020]

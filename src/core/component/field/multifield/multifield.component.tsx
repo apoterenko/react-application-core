@@ -7,7 +7,10 @@ import {
 import { BaseSelect } from '../../field/select/base-select.component';
 import { IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
-import { ClsUtils } from '../../../util';
+import {
+  ClsUtils,
+  PropsUtils,
+} from '../../../util';
 import {
   IKeyboardEvent,
   IMenuProps,
@@ -24,15 +27,12 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   extends BaseSelect<TProps, TState>
   implements IMultiField {
 
-  /**
-   * @stable [01.06.2018]
-   */
-  public static defaultProps: IMultiFieldProps = {
-    displayMessage: '%d value(s)',
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IMultiFieldProps>({
     clearActionRendered: false,
+    displayMessage: '%d value(s)',
     errorMessageRendered: false,
     preventFocus: true,
-  };
+  }, BaseSelect);
 
   /**
    * @stable [16.06.2020]

@@ -5,6 +5,7 @@ import { ICheckboxProps } from './checkbox.interface';
 import {
   ClsUtils,
   ConditionUtils,
+  PropsUtils,
 } from '../../../util';
 import {
   CheckboxClassesEnum,
@@ -12,6 +13,8 @@ import {
 } from '../../../definition';
 
 export class Checkbox extends BaseCheckbox<ICheckboxProps> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ICheckboxProps>({}, BaseCheckbox);
 
   /**
    * @stable [09.06.2020]

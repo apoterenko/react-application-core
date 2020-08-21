@@ -9,6 +9,7 @@ import {
   isUseZipCode,
   nvl,
   ObjectUtils,
+  PropsUtils,
   uuid,
 } from '../../../util';
 import { BaseSelect } from '../select/base-select.component';
@@ -34,9 +35,10 @@ import { EntityIdT } from '../../../definitions.interface';
 
 export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
 
-  public static readonly defaultProps: IPlaceFieldProps = {
-    ...DefaultEntities.PLACE_FIELD_ENTITY,
-  };
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IPlaceFieldProps>(
+    DefaultEntities.PLACE_FIELD_ENTITY,
+    BaseSelect
+  );
   private static readonly PLACE_MARKER = uuid();
 
   private readonly dialogRef = React.createRef<Dialog>();

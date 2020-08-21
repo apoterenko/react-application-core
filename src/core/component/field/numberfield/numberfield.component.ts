@@ -1,4 +1,4 @@
-import { toClassName } from '../../../util';
+import { PropsUtils, toClassName } from '../../../util';
 import { BaseTextField } from '../text-field/base-text-field.component';
 import { IApplicationNumberSettings } from '../../../settings';
 import {
@@ -14,10 +14,10 @@ import {
 export class NumberField extends BaseTextField<INumberFieldInternalProps,
                                                 INumberFieldInternalState> {
 
-  // We can't use number type because an input field throws an empty value on change if valid = false
-  public static defaultProps: INumberFieldInternalProps = {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<INumberFieldInternalProps>({
     clearActionRendered: false,
-  };
+    // We can't use number type because an input field throws an empty value on change if valid = false
+  }, BaseTextField);
 
   public getRawValueFromEvent(event: ChangeEventT): number | string {
     return this.nc.number(super.getRawValueFromEvent(event));
