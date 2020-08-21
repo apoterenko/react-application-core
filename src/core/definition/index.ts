@@ -32,6 +32,7 @@ export * from './event-emitter-definition.interface';
 export * from './field-converter-definition.interface';
 export * from './field-definition.interface';
 export * from './file-definition.interface';
+export * from './file-field-definition.interface';
 export * from './filter-definition.interface';
 export * from './filter-form-dialog-definition.interface';
 export * from './flex-layout-definition.interface';

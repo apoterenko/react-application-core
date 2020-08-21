@@ -9,6 +9,7 @@ import {
   FilterUtils,
   joinClassName,
   orNull,
+  PropsUtils,
   uuid,
 } from '../../../util';
 import { DnD } from '../../dnd/dnd.component';
@@ -17,16 +18,14 @@ import {
   AnyT,
 } from '../../../definitions.interface';
 import { MultiFieldPlugin } from '../multifield/multifield.plugin';
-import {
-  IBaseFileFieldState,
-  IBaseFileFieldProps,
-} from './basic-filefield.interface';
 import { toLastAddedMultiItemEntityId } from '../multifield';
 import { Dialog } from '../../dialog/dialog.component';
 import { WebCamera } from '../../web-camera/web-camera.component';
 import {
   FieldActionTypesEnum,
   IBaseEvent,
+  IBaseFileFieldProps,
+  IBaseFileFieldState,
   IFieldActionEntity,
   IKeyboardEvent,
 } from '../../../definition';
@@ -34,6 +33,8 @@ import {
 export class BaseFileField<TProps extends IBaseFileFieldProps,
                            TState extends IBaseFileFieldState>
     extends BaseTextField<TProps, TState> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseFileFieldProps>({}, BaseTextField);
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
@@ -160,7 +161,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-filefield');
+    return joinClassName(super.getFieldClassName(), 'rac-file-field');
   }
 
   /**
