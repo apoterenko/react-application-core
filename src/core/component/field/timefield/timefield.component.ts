@@ -4,11 +4,14 @@ import {
   ITimeFieldInternalState,
   ITimeFieldInternalProps,
 } from './timefield.interface';
+import { PropsUtils } from '../../../util';
 
 export class TimeField extends BaseTextField<ITimeFieldInternalProps,
                                               ITimeFieldInternalState> {
 
-  protected getFieldMask(): Array<string|RegExp> {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ITimeFieldInternalProps>({}, BaseTextField);
+
+  protected getFieldMask(): (string|RegExp)[] {
     return super.getFieldMask() ||
       (this.props.useShortMask ? this.dateTimeSettings.uiShortTimeMask : this.dateTimeSettings.uiTimeMask);
   }

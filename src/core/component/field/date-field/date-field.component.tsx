@@ -14,6 +14,7 @@ import {
   nvl,
   ObjectUtils,
   orNull,
+  PropsUtils,
   TypeUtils,
 } from '../../../util';
 import {
@@ -57,11 +58,11 @@ import { Dialog } from '../../dialog/dialog.component';
 
 export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
 
-  public static readonly defaultProps: IDateFieldProps = {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IDateFieldProps>({
     periodStep: 1,
     periodType: DatePeriodsEnum.MONTH,
     preventFocus: true,
-  };
+  }, BaseTextField);
 
   private static readonly INITIAL_PERIOD_DATE_VALUE = null;
 

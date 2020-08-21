@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   ClsUtils,
   ConditionUtils,
+  PropsUtils,
 } from '../../../util';
 import {
   FieldClassesEnum,
@@ -18,9 +19,9 @@ import { BaseTextField } from '../text-field';
  */
 export class TextArea extends BaseTextField<ITextAreaProps> {
 
-  public static defaultProps: ITextAreaProps = {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ITextAreaProps>({
     clearActionRendered: false,
-  };
+  }, BaseTextField);
 
   /**
    * @stable [20.06.2020]
