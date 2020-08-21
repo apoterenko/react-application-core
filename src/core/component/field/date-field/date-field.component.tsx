@@ -8,7 +8,6 @@ import {
   defValuesFilter,
   FilterUtils,
   isCalendarActionRendered,
-  isInline,
   isPeriodNavigatorUsed,
   isRangeEnabled,
   joinClassName,
@@ -290,15 +289,15 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    * @returns {string}
    */
   protected getFieldPattern(): string {
-    return orNull(this.isFieldMaskOrPatternNeeded, () => super.getFieldPattern() || this.dateTimeSettings.uiDatePattern);
+    return orNull(this.isFieldMaskOrPatternApplicable, () => super.getFieldPattern() || this.dateTimeSettings.uiDatePattern);
   }
 
   /**
    * @stable [09.03.2020]
    * @returns {Array<string | RegExp>}
    */
-  protected getFieldMask(): Array<string|RegExp> {
-    return orNull(this.isFieldMaskOrPatternNeeded, () => super.getFieldMask() || this.dateTimeSettings.uiDateMask);
+  protected getFieldMask(): (string | RegExp)[] {
+    return orNull(this.isFieldMaskOrPatternApplicable, () => super.getFieldMask() || this.dateTimeSettings.uiDateMask);
   }
 
   /**
@@ -1383,18 +1382,17 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
   }
 
   /**
-   * @stable [06.03.2020]
-   * @returns {boolean}
+   * @stable [21.08.2020]
    */
   private get isInline(): boolean {
-    return isInline(this.props);
+    return this.originalProps.inline;
   }
 
   /**
    * @stable [26.03.2020]
    * @returns {boolean}
    */
-  private get isFieldMaskOrPatternNeeded(): boolean {
+  private get isFieldMaskOrPatternApplicable(): boolean {
     return !this.isDisplayValueDefined && !this.isRangeEnabled && !this.isPeriodNavigatorUsed;
   }
 

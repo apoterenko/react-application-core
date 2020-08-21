@@ -44,6 +44,12 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   extends EnhancedGenericComponent<TProps, TState>
   implements IField<TProps, TState> {
 
+  public static readonly defaultProps: IFieldProps = {
+    changeable: true,
+    fieldRendered: true,
+    readOnly: false,
+  };
+
   /**/
   protected readonly inputRef = React.createRef<InputElementT | IMaskedInputCtor>();
   /**/
@@ -84,14 +90,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {JSX.Element}
+   * @stable [21.08.2020]
    */
   public render(): JSX.Element {
-    const {
-      message,
-    } = this.originalProps;
-
     return (
       <div
         className={this.getFieldClassName()}
@@ -100,7 +101,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
         {this.originalChildren}
         {this.displayValueElement}
         {this.selfElement}
-        {ConditionUtils.ifNotNilThanValue(message, () => this.messageElement(message))}
+        {ConditionUtils.ifNotNilThanValue(this.originalProps.message, (message) => this.messageElement(message))}
         {ConditionUtils.orNull(
           this.isErrorMessageRendered,
           () => this.messageElement(this.error, FieldClassesEnum.FIELD_ERROR_MESSAGE)
@@ -252,8 +253,24 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     }
   }
 
+  /**
+   * @stable [21.08.2020]
+   */
   protected get displayValueElement(): React.ReactNode {
-    return null; // TODO
+    if (!this.originalProps.displayValueRenderedOnly) {
+      return null;
+    }
+    const result = this.decoratedDisplayValue;
+    return R.isNil(result)
+      ? (this.isBusy ? this.waitMessageElement : result)
+      : result;
+  }
+
+  /**
+   * @stable [21.08.2020]
+   */
+  protected get waitMessageElement(): React.ReactNode {
+    return this.settings.messages.PLEASE_WAIT;
   }
 
   private get keyboardElement(): JSX.Element {
@@ -387,34 +404,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {JSX.Element}
-   */
-  protected get selfElement(): JSX.Element {
-    const {
-      style,
-    } = this.originalProps;
-
-    if (this.isFieldRendered) {
-      return (
-        <div
-          ref={this.actualRef}
-          style={style}
-          title={this.title}
-          className={FieldClassesEnum.FIELD_SELF}
-        >
-          {this.prefixLabelElement}
-          {this.inputWrapperElement}
-          {this.actionsElement}
-          {this.labelElement}
-          {this.progressInfoElement}
-        </div>
-      );
-    }
-    return this.inputWrapperElement;
-  }
-
-  /**
    * @stable [22.01.2020]
    * @returns {JSX.Element}
    */
@@ -474,67 +463,52 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {string}
+   * @stable [21.08.2020]
    */
   protected getLabel(): string {
     return this.originalProps.label;
   }
 
   /**
-   * @stable [22.06.2020]
-   * @returns {Array<string | RegExp>}
+   * @stable [21.08.2020]
    */
-  protected getFieldMask(): Array<string | RegExp> {
+  protected getFieldMask(): (string | RegExp)[] {
     return this.originalProps.mask;
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {IKeyboardProps}
+   * @stable [21.08.2020]
    */
   protected getKeyboardProps(): IKeyboardProps {
     return this.mergedProps.keyboardConfiguration || {};
   }
 
   /**
-   * @stable [10.08.2020]
-   * @protected
+   * @stable [21.08.2020]
    */
   protected getComponentsSettingsProps(): TProps {
     return this.componentsSettings.field as TProps;
   }
 
   /**
-   * @stable [18.05.2020]
-   * @returns {JSX.Element}
+   * @stable [21.08.2020]
    */
   protected get inputAttachmentElement(): JSX.Element {
     return null;
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {JSX.Element}
+   * @stable [21.08.2020]
    */
   protected get attachmentElement(): JSX.Element {
     return null;
   }
 
   /**
-   * @stable [18.05.2020]
-   * @returns {JSX.Element}
+   * @stable [21.08.2020]
    */
   protected get mirrorInputElement(): JSX.Element {
     return null;
-  }
-
-  /**
-   * @stable [19.05.2020]
-   * @returns {JSX.Element}
-   */
-  protected get progressInfoElement(): JSX.Element {
-    return ConditionUtils.orNull(this.isBusy, () => <Info progress={true}/>);
   }
 
   // TODO
@@ -687,18 +661,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [03.06.2020]
-   * @returns {boolean}
-   */
-  protected get isFieldRendered(): boolean {
-    return WrapperUtils.isFieldRendered(this.originalProps);
-  }
-
-  /**
-   * @stable [02.08.2020]
+   * @stable [21.08.2020]
    */
   protected get isReadOnly(): boolean {
-    return FieldUtils.isFieldReadOnly(this.originalProps);
+    return this.originalProps.readOnly;
   }
 
   /**
@@ -835,10 +801,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @param {string} message
-   * @param {string} className
-   * @returns {JSX.Element}
+   * @stable [21.08.2020]
+   * @param message
+   * @param className
    */
   private messageElement(message: string, className?: string): JSX.Element {
     return (
@@ -852,16 +817,35 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {JSX.Element}
+   * @stable [21.08.2020]
+   */
+  private get selfElement(): JSX.Element {
+    if (this.isFieldRendered) {
+      return (
+        <div
+          ref={this.actualRef}
+          style={this.originalProps.style}
+          title={this.title}
+          className={FieldClassesEnum.FIELD_SELF}
+        >
+          {this.prefixLabelElement}
+          {this.inputWrapperElement}
+          {this.actionsElement}
+          {this.labelElement}
+          {this.progressInfoElement}
+        </div>
+      );
+    }
+    return this.inputWrapperElement;
+  }
+
+  /**
+   * @stable [21.08.2020]
    */
   private get labelElement(): JSX.Element {
-    return ConditionUtils.ifNotNilThanValue(
-      this.getLabel(),
+    return ConditionUtils.ifNotNilThanValue(this.getLabel(),
       (label) => (
-        <label
-          className={FieldClassesEnum.FIELD_LABEL}
-        >
+        <label className={FieldClassesEnum.FIELD_LABEL}>
           {this.t(label)}
         </label>
       )
@@ -869,21 +853,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {JSX.Element}
+   * @stable [21.08.2020]
    */
   private get prefixLabelElement(): JSX.Element {
-    const {
-      prefixLabel,
-    } = this.originalProps;
-
     return (
-      ConditionUtils.ifNotNilThanValue(
-        prefixLabel,
-        () => (
-          <span
-            className={FieldClassesEnum.FIELD_PREFIX_LABEL}
-          >
+      ConditionUtils.ifNotNilThanValue(this.originalProps.prefixLabel,
+        (prefixLabel) => (
+          <span className={FieldClassesEnum.FIELD_PREFIX_LABEL}>
             {prefixLabel}
           </span>
         )
@@ -924,8 +900,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {string}
+   * @stable [21.08.2020]
+   */
+  private get progressInfoElement(): JSX.Element {
+    return ConditionUtils.orNull(this.isBusy, () => <Info progress={true}/>);
+  }
+
+  /**
+   * @stable [21.08.2020]
    */
   private get title(): string {
     const {
@@ -949,8 +931,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
+   * @stable [21.08.2020]
    */
   private get isErrorMessageRendered(): boolean {
     return WrapperUtils.isErrorMessageRendered(this.mergedProps);
@@ -968,21 +949,12 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [21.06.2020]
    * @returns {boolean}
    */
-  private get isChangeable(): boolean {
-    return WrapperUtils.isChangeable(this.originalProps);
-  }
-
-  /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
-   */
   private get isInvalid(): boolean {
     return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
   }
 
   /**
-   * @stable [22.06.2020]
-   * @returns {boolean}
+   * @stable [21.08.2020]
    */
   private get isFocused(): boolean {
     return this.isKeyboardUsed
@@ -991,26 +963,37 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
+   * @stable [21.08.2020]
    */
   private get isInlineKeyboard(): boolean {
-    return WrapperUtils.isInline(this.getKeyboardProps());
+    return this.getKeyboardProps().inline;
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {string}
+   * @stable [21.08.2020]
    */
   private get inputValidationMessage(): string {
     return this.input.validationMessage;
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {string}
+   * @stable [21.08.2020]
    */
   private get error(): string {
     return this.state.error;
+  }
+
+  /**
+   * @stable [21.08.2020]
+   */
+  private get isChangeable(): boolean {
+    return this.originalProps.changeable;
+  }
+
+  /**
+   * @stable [21.08.2020]
+   */
+  private get isFieldRendered(): boolean {
+    return this.originalProps.fieldRendered;
   }
 }

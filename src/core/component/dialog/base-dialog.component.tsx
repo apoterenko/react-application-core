@@ -13,7 +13,6 @@ import {
   isConfirm,
   isDefault,
   isFn,
-  isInline,
   isOpened,
   isOverlay,
   isOverlayClosable,
@@ -545,11 +544,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [21.08.2020]
    */
   private get isInline(): boolean {
-    return isInline(this.mergedProps);
+    return this.originalProps.inline;
   }
 
   /**

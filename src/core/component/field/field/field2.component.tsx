@@ -5,6 +5,7 @@ import {
   isFull,
   joinClassName,
   orUndef,
+  PropsUtils,
 } from '../../../util';
 import { UniversalField } from './universal-field.component';
 import {
@@ -21,6 +22,8 @@ export class Field2<TProps extends IFieldProps2,
     extends UniversalField<TProps,
                            TState>
     implements IField<TProps, TState> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IFieldProps2>({}, UniversalField);
 
   /**
    * @stable [03.09.2018]

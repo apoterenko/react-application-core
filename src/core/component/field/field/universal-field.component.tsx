@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import * as Printf from 'sprintf-js';
 import {
   ILogger,
@@ -7,8 +6,8 @@ import {
 } from 'ts-smart-logger';
 
 import {
-  isDisplayValueRenderedOnly,
   isFn,
+  PropsUtils,
 } from '../../../util';
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
@@ -30,6 +29,8 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   implements IGenericField2<TProps, TState> {
 
   protected static logger = LoggerFactory.makeLogger('UniversalField');
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IUniversalFieldProps>({}, Field);
 
   /**
    * @stable [17.06.2018]
@@ -163,37 +164,5 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     if (isFn(props.onBlur)) {
       props.onBlur(event);
     }
-  }
-
-  /**
-   * @react-native-compatible
-   * @stable [28.01.2020]
-   * @returns {React.ReactNode}
-   */
-  protected get displayValueElement(): React.ReactNode {
-    if (!this.isDisplayValueRenderedOnly) {
-      return null;
-    }
-    const result = this.decoratedDisplayValue;
-    return R.isNil(result)
-      ? (this.isBusy ? this.getWaitMessageElement() : result)
-      : result;
-  }
-
-  /**
-   * @stable [23.12.2019]
-   * @react-native-compatible
-   * @returns {React.ReactNode}
-   */
-  protected getWaitMessageElement(): React.ReactNode {
-    return this.settings.messages.PLEASE_WAIT;
-  }
-
-  /**
-   * @stable [28.01.2020]
-   * @returns {boolean}
-   */
-  protected get isDisplayValueRenderedOnly() {
-    return isDisplayValueRenderedOnly(this.props);
   }
 }

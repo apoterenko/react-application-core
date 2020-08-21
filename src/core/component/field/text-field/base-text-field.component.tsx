@@ -8,6 +8,7 @@ import {
   ClsUtils,
   nvl,
   ObjectUtils,
+  PropsUtils,
   WrapperUtils,
 } from '../../../util';
 import {
@@ -28,6 +29,8 @@ import {
 export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldProps,
                            TState extends IBaseTextFieldState = IBaseTextFieldState>
     extends Field2<TProps, TState> {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseTextFieldProps>({}, Field2);
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 

@@ -5,13 +5,16 @@ import {
   ISelectState,
   SelectClassesEnum,
 } from '../../../definition';
-import { ClsUtils } from '../../../util';
+import {
+  ClsUtils,
+  PropsUtils,
+} from '../../../util';
 
 export class Select extends BaseSelect<ISelectProps, ISelectState> {
 
-  public static readonly defaultProps: ISelectProps = {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ISelectProps>({
     preventFocus: true,
-  };
+  }, BaseSelect);
 
   /**
    * @stable [28.01.2020]

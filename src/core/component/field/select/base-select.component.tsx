@@ -46,6 +46,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
                         TState extends IBaseSelectState>
   extends BaseTextField<TProps, TState> {
 
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseSelectProps>({}, BaseTextField);
+
   protected static readonly logger = LoggerFactory.makeLogger('BaseSelect');
 
   private readonly menuRef = React.createRef<Menu>();

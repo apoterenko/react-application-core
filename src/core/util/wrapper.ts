@@ -17,14 +17,12 @@ import {
   IDefaultWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
-  IDisplayValueRenderedOnlyWrapper,
   IEditedWrapper,
   IErrorMessageRenderedWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
   IFieldRenderedWrapper,
   IFullWrapper,
-  IInlineWrapper,
   IMultiWrapper,
   INavigateBackWrapper,
   IOpenedWrapper,
@@ -259,13 +257,6 @@ export const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.readOnly === true;
 
 /**
- * @stable [22.01.2020]
- * @param {IInlineWrapper} wrapper
- * @returns {boolean}
- */
-export const isInline = (wrapper: IInlineWrapper): boolean => R.isNil(wrapper) ? false : wrapper.inline === true;
-
-/**
  * @stable [11.05.2020]
  * @param {ICloseDisabledWrapper} wrapper
  * @returns {boolean}
@@ -368,14 +359,6 @@ const isRefreshOnUpdateNeeded = (wrapper: IRefreshOnUpdateWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.refreshOnUpdate === true;
 
 /**
- * @stable [28.01.2020]
- * @param {IDisplayValueRenderedOnlyWrapper} entity
- * @returns {boolean}
- */
-export const isDisplayValueRenderedOnly = (entity: IDisplayValueRenderedOnlyWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.displayValueRenderedOnly === true, false);
-
-/**
  * @stable [23.04.2020]
  * @param {IAlwaysDirtyWrapper} entity
  * @returns {boolean}
@@ -448,7 +431,6 @@ export class WrapperUtils {
   public static readonly isFieldRendered = isFieldRendered;                                /* @stable [18.05.2020] */
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
-  public static readonly isInline = isInline;                                              /* @stable [21.06.2020] */
   public static readonly isPlainValueApplied = isPlainValueApplied;                        /* @stable [21.06.2020] */
   public static readonly isReadOnly = isReadOnly;                                          /* @stable [18.06.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */

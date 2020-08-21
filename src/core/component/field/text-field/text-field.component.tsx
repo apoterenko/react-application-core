@@ -4,18 +4,20 @@ import {
   TextFieldClassesEnum,
 } from '../../../definition';
 import { BaseTextField } from './base-text-field.component';
-import { ClsUtils } from '../../../util';
+import {
+  ClsUtils,
+  PropsUtils,
+} from '../../../util';
 
 /**
  * @component-impl
- * @stable [18.06.2020]
+ * @stable [21.08.2020]
  */
-export class TextField extends BaseTextField<ITextFieldProps,
-  ITextFieldState> {
+export class TextField extends BaseTextField<ITextFieldProps, ITextFieldState> {
 
-  public static readonly defaultProps: ITextFieldProps = {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ITextFieldProps>({
     clearActionRendered: false,
-  };
+  }, BaseTextField);
 
   /**
    * @stable [18.06.2020]

@@ -5,7 +5,6 @@ import * as R from 'ramda';
 import { ENV } from '../../env';
 import {
   calc,
-  isInline,
   TypeUtils,
   joinClassName,
   nvl,
@@ -31,6 +30,7 @@ import {
 export class Keyboard extends GenericComponent<IKeyboardProps, IKeyboardState> {
 
   public static defaultProps: IKeyboardProps = {
+    inline: false,
     layout: [KEYBOARD_QWERTY_LAYOUT, KEYBOARD_QWERTY_DIGITAL_LAYOUT],
   };
 
@@ -144,11 +144,10 @@ export class Keyboard extends GenericComponent<IKeyboardProps, IKeyboardState> {
   }
 
   /**
-   * @stable [02.02.2020]
-   * @returns {boolean}
+   * @stable [21.08.2020]
    */
   private get isInline(): boolean {
-    return isInline(this.props);
+    return this.originalProps.inline;
   }
 
   /**

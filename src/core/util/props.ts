@@ -1,25 +1,38 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
+import {
+  IBaseEvent,
+  IGenericComponentCtor,
+  IGenericComponentProps,
+} from '../definition';
 import { cancelEvent } from './event';
 import { DiServices } from '../di/di.services';
-import { IBaseEvent } from '../definition';
 import { IKeyValue } from '../definitions.interface';
 import { TypeUtils } from './type';
 
 /**
- * @stable [24.03.2020]
- * @param {TProps} props
- * @param {TProps} systemProps
- * @returns {TProps}
+ * @stable [21.08.2020]
+ * @param props
+ * @param systemProps
  */
-export const mergeWithSystemProps = <TProps = IKeyValue>(props: TProps, systemProps: TProps): TProps =>
+const mergeWithSystemProps = <TProps = IKeyValue>(props: TProps, systemProps: TProps): TProps =>
   R.isNil(systemProps)
     ? props
     : ({
       ...props as {},
       ...systemProps as {},
     } as TProps);
+
+/**
+ * @stable [21.08.2020]
+ * @param childProps
+ * @param parent
+ */
+const mergeWithParentDefaultProps =
+  <TChildProps extends IGenericComponentProps, TParentCtor extends IGenericComponentCtor = IGenericComponentCtor>(
+    childProps: TChildProps,
+    parent: TParentCtor) => R.mergeDeepLeft(childProps, parent.defaultProps || {});
 
 /**
  * @stable [18.08.2020]
@@ -56,5 +69,6 @@ const buildClickHandlerProps =
  */
 export class PropsUtils {
   public static readonly buildClickHandlerProps = buildClickHandlerProps;                /* @stable [22.05.2020] */
+  public static readonly mergeWithParentDefaultProps = mergeWithParentDefaultProps;      /* @stable [21.08.2020] */
   public static readonly mergeWithSystemProps = mergeWithSystemProps;                    /* @stable [18.05.2020] */
 }
