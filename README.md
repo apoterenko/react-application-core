@@ -67,6 +67,7 @@ The library is designed to quickly start develop the business applications are b
 * [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
 * [SubHeader (22.05.2020)](src/core/component/sub-header/sub-header.component.tsx)
 * [SubHeaderLink (22.05.2020)](src/core/component/sub-header-link/sub-header-link.component.tsx)
+* [TextField (21.08.2020)](src/core/component/field/text-field/text-field.component.tsx)
 * [Title (01.06.2020)](src/core/component/title/title.component.tsx)
 * [ToolbarTools (01.08.2020)](src/core/component/toolbar-tools/toolbar-tools.component.tsx)
 * [UnsavedFormChangesDialog (01.08.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
