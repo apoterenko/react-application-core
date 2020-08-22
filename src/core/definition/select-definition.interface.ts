@@ -37,7 +37,8 @@ import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface
  * @stable [19.05.2020]
  */
 export interface IPresetsBaseSelectEntity
-  extends IAllowEmptyFilterValueWrapper,
+  extends IPresetsBaseTextFieldEntity,
+    IAllowEmptyFilterValueWrapper,
     IAnchoredWrapper,
     IDictionaryWrapper,
     IExpandActionRenderedWrapper,
@@ -49,7 +50,6 @@ export interface IPresetsBaseSelectEntity
     IOnDictionaryChangeWrapper<string, IFluxPayloadQueryEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity>,
     IOptionsWrapper<IPresetsSelectOptionEntity[]>,
-    IPresetsBaseTextFieldEntity,
     IRemoteFilterWrapper,
     IWaitingForOptionsWrapper {
 }
