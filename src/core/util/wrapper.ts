@@ -4,7 +4,6 @@ import {
   IAcceptableWrapper,
   IAcceptDisabledWrapper,
   IAllowEmptyFilterValueWrapper,
-  IAlwaysDirtyWrapper,
   IAlwaysResettableWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
@@ -346,14 +345,6 @@ const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
  */
 const isRefreshOnUpdateNeeded = (wrapper: IRefreshOnUpdateWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.refreshOnUpdate === true;
-
-/**
- * @stable [23.04.2020]
- * @param {IAlwaysDirtyWrapper} entity
- * @returns {boolean}
- */
-export const isAlwaysDirty = (entity: IAlwaysDirtyWrapper): boolean =>
-  R.isNil(entity) ? false : entity.alwaysDirty === true;
 
 /**
  * @stable [01.08.2020]

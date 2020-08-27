@@ -97,9 +97,8 @@ export class BaseTransport {
       this.fieldConverter.fromMultiFieldEntityToEntities(entity)
 
   /**
-   * @stable [16.05.2020]
-   * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
-   * @returns {TEntity[]}
+   * @stable [23.08.2020]
+   * @param entity
    */
   protected fromMultiFieldEntityToDefinedEntities =
     <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>

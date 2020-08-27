@@ -51,6 +51,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
   public static readonly defaultProps: IFormProps = {
     actionsRendered: true,
+    alwaysDirty: false,
     validateOnMount: true,
   };
 
@@ -207,13 +208,14 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [12.06.2020]
-   * @param {IBaseEvent} event
+   * @stable [27.08.2020]
+   * @param event
+   * @private
    */
   private onReset(event: IBaseEvent): void {
     this.domAccessor.cancelEvent(event);
 
-    ConditionUtils.ifNotNilThanValue(this.mergedProps.onReset, (onReset) => onReset());
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onReset, (onReset) => onReset());
   }
 
   /**

@@ -21,7 +21,6 @@ import {
   ifNotNilThanValue,
 } from './cond';
 import {
-  isAlwaysDirty,
   isAlwaysResettable,
   isDisabled,
   WrapperUtils,
@@ -68,6 +67,20 @@ const isFormHolderEntityValid = <TEntity = IEntity>(entity: IReduxFormHolderEnti
  */
 const isGenericFormEntityValid = <TEntity = IEntity>(entity: IGenericFormEntity<TEntity>): boolean =>
   WrapperUtils.isValid(entity) && isFormHolderEntityValid(entity);
+
+/**
+ * @stable [27.08.2020]
+ * @param entity
+ */
+const isGenericFormEntityDisabled = <TEntity = IEntity>(entity: IGenericFormEntity<TEntity>): boolean =>
+  WrapperUtils.isDisabled(entity) || isFormHolderEntityInProgress(entity);
+
+/**
+ * @stable [27.08.2020]
+ * @param formProps
+ */
+const isGenericFormEntityReady = <TEntity = IEntity>(formProps: IGenericFormEntity<TEntity>): boolean =>
+  isGenericFormEntityValid(formProps) && !isGenericFormEntityDisabled(formProps);
 
 /**
  * @stable [06.05.2020]
@@ -144,14 +157,6 @@ const getFormFieldOriginalValue = <TEntity = IEntity>(entity: IExtendedFormEntit
     );
 
 /**
- * @stable [23.03.2020]
- * @param {IFormProps<TEntity extends IEntity>} entity
- * @returns {boolean}
- */
-export const isFormDisabled = <TEntity extends IEntity = IEntity>(entity: IFormProps<TEntity>): boolean =>
-  R.isNil(entity) ? false : (isDisabled(entity) || isFormHolderEntityInProgress(entity));
-
-/**
  * @stable [23.04.2020]
  * @param {IFormProps<TEntity>} entity
  * @returns {boolean}
@@ -160,7 +165,7 @@ export const isFormDirty = <TEntity = IEntity>(entity: IFormProps<TEntity>): boo
   ifNotNilThanValue(
     entity,
     () => (
-      isAlwaysDirty(entity) || ifNotNilThanValue(selectForm(entity), (form) => WrapperUtils.isDirty(form), false)
+      entity.alwaysDirty || ifNotNilThanValue(selectForm(entity), (form) => WrapperUtils.isDirty(form), false)
     ),
     false
   );
@@ -195,7 +200,7 @@ const isFormFieldChangeable = (formEntity: IPresetsFormEntity,
  */
 export const isFormFieldDisabled = (formProps: IFormProps,
                                     fieldProps: IGenericFieldEntity2): boolean =>
-  R.isNil(fieldProps.disabled) ? isFormDisabled(formProps) : isDisabled(fieldProps);
+  R.isNil(fieldProps.disabled) ? isGenericFormEntityDisabled(formProps) : isDisabled(fieldProps);
 
 /**
  * @stable [03.02.2020]
@@ -203,9 +208,7 @@ export const isFormFieldDisabled = (formProps: IFormProps,
  * @returns {boolean}
  */
 export const isFormSubmittable = <TEntity extends IEntity = IEntity>(formProps: IFormProps<TEntity>): boolean =>
-  isGenericFormEntityValid(formProps)
-  && isFormDirty(formProps)
-  && !isFormDisabled(formProps);
+  isGenericFormEntityReady(formProps) && isFormDirty(formProps);
 
 /**
  * @stable [23.03.2020]
@@ -216,7 +219,7 @@ export const isFormResettable = <TEntity extends IEntity = IEntity>(formProps: I
   isAlwaysResettable(formProps)
   || (
     isFormDirty(formProps)
-    && !isFormDisabled(formProps)
+    && !isGenericFormEntityDisabled(formProps)
   );
 
 /**
@@ -237,8 +240,10 @@ export class FormUtils {
   public static readonly fieldOriginalValue = getFormFieldOriginalValue;                            /* @stable [11.05.2020] */
   public static readonly inProgress = isFormHolderEntityInProgress;                                 /* @stable [02.08.2020] */
   public static readonly isChanged = isFormHolderEntityChanged;                                     /* @stable [02.08.2020] */
+  public static readonly isDisabled = isGenericFormEntityDisabled;                                  /* @stable [27.08.2020] */
   public static readonly isFieldChangeable = isFormFieldChangeable;                                 /* @stable [05.06.2020] */
   public static readonly isFieldReadOnly = isFormFieldReadOnly;                                     /* @stable [21.08.2020] */
+  public static readonly isReady = isGenericFormEntityReady;                                        /* @stable [27.08.2020] */
   public static readonly isTabActive = isFormTabActive;                                             /* @stable [15.06.2020] */
   public static readonly isTouched = isFormHolderEntityTouched;                                     /* @stable [02.08.2020] */
   public static readonly isValid = isGenericFormEntityValid;                                        /* @stable [02.08.2020] */
