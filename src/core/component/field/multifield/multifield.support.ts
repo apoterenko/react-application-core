@@ -2,7 +2,6 @@ import * as R from 'ramda';
 
 import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions.interface';
 import {
-  asMultiFieldEditedEntities,
   buildMultiItemEntity,
   ifNotNilThanValue,
   isDef,
@@ -59,19 +58,9 @@ export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiF
 export function fromMultiFieldValueToEditedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
   multiFieldValue: MultiFieldValueT<TItem>,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = asMultiFieldEditedEntities<TItem>(multiFieldValue);
+  const result = MultiFieldUtils.multiFieldValueAsEditEntities<TItem>(multiFieldValue);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
-
-/**
- * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
- * @param {IMultiItemEntity[]} defaultValue
- * @returns {IMultiItemEntity[]}
- */
-export const extractMultiRemoveItemEntities = (value: MultiFieldValueT,
-                                               defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
-  MultiFieldUtils.multiFieldValueAsEntities(value, (currentValue) => currentValue.remove, defaultValue);
 
 /**
  * @stable [02.07.2018]
@@ -124,7 +113,7 @@ export const buildMultiEditItemEntityPayload = <TEntity extends IEntity = IEntit
   nextFieldValueFn: (multiItemEntity: IMultiItemEntity, entity: TEntity) => AnyT): IMultiItemEntity => {
 
   const sourceMultiItemEntities = extractMultiSourceItemEntities(multiFieldValue);
-  const editedMultiItemEntities = MultiFieldUtils.multiFieldValueAsEditEntities(multiFieldValue);
+  const editedMultiItemEntities = MultiFieldUtils.multiFieldValueAsMultiItemEditEntities(multiFieldValue);
 
   const editedMultiItemEntity = editedMultiItemEntities.find(predicate);
   const sourceMultiItemEntity = sourceMultiItemEntities.find(predicate);

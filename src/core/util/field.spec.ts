@@ -1,5 +1,4 @@
 import {
-  asMultiFieldEditedEntities,
   asOrderedMultiFieldEntities,
   FieldUtils,
 } from './field';
@@ -7,26 +6,27 @@ import {
   UNDEF,
 } from '../definitions.interface';
 import { FieldConstants } from '../definition';
+import { MultiFieldUtils } from './multi-field';
 
 describe('util/field', () => {
   describe('asMultiFieldEditedEntities', () => {
     it('test1', () => {
-      const editedEntities = asMultiFieldEditedEntities(UNDEF);
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities(UNDEF);
       expect(editedEntities).toEqual(UNDEF);
     });
 
     it('test2', () => {
-      const editedEntities = asMultiFieldEditedEntities(null);
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities(null);
       expect(editedEntities).toEqual(UNDEF);
     });
 
     it('test3', () => {
-      const editedEntities = asMultiFieldEditedEntities([{id: 1}]);
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities([{id: 1}]);
       expect(editedEntities).toEqual([]);
     });
 
     it('test4', () => {
-      const editedEntities = asMultiFieldEditedEntities({
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities({
         add: [],
         remove: [],
         edit: [{id: 1, name: 'field1', value: 101}],
@@ -36,7 +36,7 @@ describe('util/field', () => {
     });
 
     it('test5', () => {
-      const editedEntities = asMultiFieldEditedEntities({
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities({
         add: [],
         remove: [],
         edit: [{id: 2, name: 'field1', value: 201}],
@@ -54,7 +54,7 @@ describe('util/field', () => {
       const entity3 = {id: 3, field1: 300};
       cachedMap.set(entity3.id, entity3);
 
-      const editedEntities = asMultiFieldEditedEntities({
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities({
         add: [],
         remove: [],
         edit: [{id: 2, name: 'field1', value: 201}],

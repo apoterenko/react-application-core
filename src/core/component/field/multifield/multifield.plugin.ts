@@ -11,7 +11,6 @@ import {
 } from './multifield.interface';
 import {
   extractMultiAddItemEntities,
-  extractMultiRemoveItemEntities,
   extractMultiSourceItemEntities,
   fromMultiItemEntityToEntity,
   toMultiFieldChangesEntityOnDelete,
@@ -140,7 +139,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {IMultiItemEntity[]}
    */
   public get editValue(): IMultiItemEntity[] {
-    return MultiFieldUtils.multiFieldValueAsEditEntities(this.value);
+    return MultiFieldUtils.multiFieldValueAsMultiItemEditEntities(this.value);
   }
 
   /**
@@ -177,11 +176,11 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [23.06.2018]
-   * @returns {IMultiItemEntity[]}
+   * @stable [29.08.2020]
+   * @private
    */
-  private get removeValue(): IMultiItemEntity[] {
-    return extractMultiRemoveItemEntities(this.value);
+  private get removeValue(): IEntity[] {
+    return MultiFieldUtils.multiFieldValueAsMultiItemRemoveEntities(this.value);
   }
 
   /**

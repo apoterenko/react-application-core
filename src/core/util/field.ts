@@ -25,7 +25,6 @@ import {
 } from './array';
 import { TypeUtils } from './type';
 import { NvlUtils } from './nvl';
-import { CloneUtils } from './clone';
 import {
   isDisabled,
   WrapperUtils,
@@ -124,7 +123,7 @@ const fromMultiFieldValueToEntities = <TEntity extends IEntity = IEntity>(entity
   sourceEntities.forEach((itm) => cachedSourceEntities.set(itm.id, itm));
 
   // Pass a map to optimize
-  const editedEntities = asMultiFieldEditedEntities<TEntity>(entity, cachedSourceEntities);
+  const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities<TEntity>(entity, cachedSourceEntities);
   const cachedEditedEntities = new Map<EntityIdT, TEntity>();
   if (ObjectUtils.isObjectNotEmpty(editedEntities)) {
     editedEntities.forEach((itm) => cachedEditedEntities.set(itm.id, itm));
@@ -146,43 +145,6 @@ const fromMultiFieldValueToEntities = <TEntity extends IEntity = IEntity>(entity
 const fromMultiFieldValueToDefinedEntities =
   <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
     fromMultiFieldValueToEntities(entity) || [];
-
-/**
- * @stable [12.10.2019]
- * @param {MultiFieldValueT} entity
- * @param {Map<EntityIdT, TItem extends IEntity>} mappedSourcedItems
- * @returns {TItem[]}
- */
-export const asMultiFieldEditedEntities =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>,
-                                      mappedSourcedItems?: Map<EntityIdT, TEntity>): TEntity[] => {
-    const multiEntity = entity as IReduxMultiEntity<TEntity>;
-    if (R.isNil(entity)) {
-      return UNDEF;
-    }
-    if (MultiFieldUtils.isNotMultiEntity(entity)) {
-      return [];
-    }
-    const resultItems = new Map<EntityIdT, TEntity>();
-    const cachedSourceItems = mappedSourcedItems || new Map<EntityIdT, TEntity>();
-    if (R.isNil(mappedSourcedItems)) {
-      multiEntity.source.forEach((sourceEntity) => cachedSourceItems.set(sourceEntity.id, sourceEntity));
-    }
-
-    multiEntity.edit.forEach((editedItem) => {
-      const editedItemId = editedItem.id;
-      const cachedResultItem = resultItems.get(editedItemId);
-
-      // Collect the changes
-      const $editedItem = cachedResultItem || CloneUtils.shallowClone<TEntity>(cachedSourceItems.get(editedItemId));
-      Reflect.set($editedItem, editedItem.name, editedItem.value);
-
-      if (R.isNil(cachedResultItem)) {
-        resultItems.set(editedItemId, $editedItem);
-      }
-    });
-    return Array.from(resultItems.values());
-  };
 
 /**
  * @stable [22.11.2019]
