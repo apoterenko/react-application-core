@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   AnyT,
   EntityIdT,
+  IEntity,
 } from '../../../definitions.interface';
 import { BaseSelect } from '../../field/select/base-select.component';
 import { IMultiField } from './multifield.interface';
@@ -70,10 +71,10 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
-   * @stable [19.08.2018]
-   * @param {IMultiItemEntity} item
+   * @stable [29.08.2020]
+   * @param item
    */
-  public deleteItem(item: IMultiItemEntity): void {
+  public deleteItem(item: IEntity): void {
     this.onDelete(item);
   }
 
@@ -115,10 +116,11 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
-   * @stable [01.06.2018]
-   * @param {IMultiItemEntity} item
+   * @stable [29.08.2020]
+   * @param item
+   * @protected
    */
-  protected onDelete(item: IMultiItemEntity): void {
+  protected onDelete(item: IEntity): void {
     this.multiFieldPlugin.onDeleteItem(item);
   }
 

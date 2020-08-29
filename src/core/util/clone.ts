@@ -2,15 +2,13 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
-  calc,
-  TypeUtils,
-  uuid,
-} from '../util';
-import {
   IEntity,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
+import { CalcUtils } from './calc';
 import { ConditionUtils } from './cond';
+import { TypeUtils } from './type';
+import { UuidUtils } from './uuid';
 
 /**
  * @stable [29.08.2020]
@@ -43,7 +41,7 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
         return child;
       } else {
         const reactChild = child as React.FunctionComponentElement<{ children: React.ReactChild[] }>;
-        const ref = reactChild.ref || uuid();
+        const ref = reactChild.ref || UuidUtils.uuid();
         const canMergeProps = mergePropsPredicate(reactChild);
 
         const canRender = renderPredicate ? renderPredicate(reactChild) : true;
@@ -55,7 +53,7 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
           {
             ...(canMergeProps && {
               ref,
-              ...calc<TProps>(mergedProps, reactChild) as {},
+              ...CalcUtils.calc<TProps>(mergedProps, reactChild) as {},
             }),
             children: cloneReactNodes<TProps>(reactChild, mergedProps, mergePropsPredicate, renderPredicate),
           }

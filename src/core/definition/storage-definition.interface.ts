@@ -6,7 +6,7 @@ import {
   IIdWrapper,
   IRemovedFilesWrapper,
 } from '../definitions.interface';
-import { ENV } from '../env';
+import { ENV } from '../env/env.interface';
 import { FilterUtils } from '../util/filter';
 
 /**

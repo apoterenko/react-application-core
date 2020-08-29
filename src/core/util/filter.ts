@@ -10,29 +10,30 @@ import {
 } from '../definitions.interface';
 import { FieldConstants } from '../definition/field-definition.interface';
 import {
-  isDef,
-  TypeUtils,
-} from './type';
+  KeyValuePredicateT,
+  ValuePredicateT,
+} from '../definition/filter-definition.interface';
+import { TypeUtils } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
 import {
   isObjectNotEmpty,
   ObjectUtils,
 } from './object';
-import {
-  KeyValuePredicateT,
-  ValuePredicateT,
-} from '../definition/filter-definition.interface';
 
-export const cloneUsingFilters = <TSource, TResult>(
-  source: TSource,
-  ...predicates: KeyValuePredicateT[]
-): TResult => {
+/**
+ * @stable [29.08.2020]
+ * @param source
+ * @param predicates
+ */
+const cloneByFilters = <TSource, TResult>(source: TSource, ...predicates: KeyValuePredicateT[]): TResult => {
   const sourceWithObjectValues = filterByPredicate(source, ...predicates.concat(OBJECT_KEY_VALUE_PREDICATE));
-  const result: TResult = {...filterByPredicate(source, ...predicates.concat(NOT_OBJECT_KEY_VALUE_PREDICATE)) as {}} as TResult;
-  Object.keys(sourceWithObjectValues).forEach((key) => {
-    result[key] = cloneUsingFilters(sourceWithObjectValues[key], ...predicates);
-  });
-  return result;
+  const sourceWithoutObjectValue = filterByPredicate(source, ...predicates.concat(NOT_OBJECT_KEY_VALUE_PREDICATE));
+
+  const result = {...sourceWithoutObjectValue};
+  Object
+    .keys(sourceWithObjectValues)
+    .forEach((key) => (result[key] = cloneByFilters(sourceWithObjectValues[key], ...predicates)));
+  return result as TResult;
 }
 
 /**
@@ -113,12 +114,11 @@ const OBJECT_KEY_VALUE_PREDICATE = (key: string, value: unknown): boolean => OBJ
 const NOT_OBJECT_VALUE_PREDICATE = (value: unknown): boolean => !OBJECT_VALUE_PREDICATE(value);
 
 /**
- * @stable [03.10.2019]
- * @param {string} key
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param key
+ * @param value
  */
-export const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_OBJECT_VALUE_PREDICATE(value);
+const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_OBJECT_VALUE_PREDICATE(value);
 
 /**
  * @stable [18.05.2020]
@@ -175,7 +175,7 @@ const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_EMPTY
  * @param {AnyT} value
  * @returns {boolean}
  */
-const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
+const DEF_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isDef(value);
 
 /**
  * @stable [22.10.2019]
@@ -347,6 +347,7 @@ const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
  * @stable [15.05.2020]
  */
 export class FilterUtils {
+  public static readonly cloneByFilters = cloneByFilters;                                                          /* @stable [29.08.2020] */
   public static readonly defValuesArrayFilter = defValuesArrayFilter;                                              /* @stable [15.05.2020] */
   public static readonly defValuesFilter = defValuesFilter;                                                        /* @stable [27.07.2020] */
   public static readonly EVENT_VALUE_PREDICATE = EVENT_VALUE_PREDICATE;                                            /* @stable [29.08.2020] */

@@ -1,5 +1,4 @@
 import {
-  cloneUsingFilters,
   defValuesFilter,
   excludeFieldsFilter,
   excludeIdFieldFilter,
@@ -153,70 +152,70 @@ describe('util/filter', () => {
   describe('cloneUsingFilters', () => {
     it('test1', () => {
       const o = { key1: 'value1', key2: { key3: 'value3' } };
-      const clonedObject = cloneUsingFilters(o);
+      const clonedObject = FilterUtils.cloneByFilters(o);
 
       expect(clonedObject).toEqual({ key1: 'value1', key2: { key3: 'value3' } });
     });
 
     it('test2', () => {
       const o = { key1: 'value1', key2: { key3: 'value3' } };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key3');
 
       expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
     });
 
     it('test3', () => {
       const o = { key1: 'value1', key2: { key3: 'value3' } };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key2');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key2');
 
       expect(clonedObject).toEqual({ key1: 'value1' });
     });
 
     it('test4', () => {
       const o = { key1: 'value1', key2: [1, 2, 3] };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key2');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key2');
 
       expect(clonedObject).toEqual({ key1: 'value1' });
     });
 
     it('test5', () => {
       const o = { key1: 'value1', key2: { key3: null } };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key3');
 
       expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
     });
 
     it('test6', () => {
       const o = { key1: 'value1', key2: { key3: UNDEF } };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key3');
 
       expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
     });
 
     it('test7', () => {
       const o = { key1: 'value1', key2: { key3: 0 } };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key3');
 
       expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
     });
 
     it('test8', () => {
       const o = {};
-      const clonedObject = cloneUsingFilters(o);
+      const clonedObject = FilterUtils.cloneByFilters(o);
 
       expect(clonedObject).toEqual({});
     });
 
     it('test9', () => {
       const o = { key1: 'value1', key2: { key3: new Date() } };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key3');
 
       expect(clonedObject).toEqual({ key1: 'value1', key2: {} });
     });
 
     it('test10', () => {
       const o = { key1: 'value1', key2: { key3: { key4: { key3: 'value3' } }, key7: { key8: null, key9: null } } };
-      const clonedObject = cloneUsingFilters(o, (key) => key !== 'key3' && key !== 'key9');
+      const clonedObject = FilterUtils.cloneByFilters(o, (key) => key !== 'key3' && key !== 'key9');
 
       expect(clonedObject).toEqual(
         { key1: 'value1', key2: { key7: { key8: null } } }

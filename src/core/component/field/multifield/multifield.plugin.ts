@@ -68,7 +68,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @stable [01.06.2018]
    * @param {IMultiItemEntity} item
    */
-  public onDeleteItem(item: IMultiItemEntity): void {
+  public onDeleteItem(item: IEntity): void {
     this.onChangeManually(this.toChangesPayload(this.onDelete(item)));
   }
 
@@ -100,7 +100,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @param {IMultiItemEntity} item
    * @returns {IMultiFieldChangesEntity}
    */
-  public onDelete(item: IMultiItemEntity): IMultiFieldChangesEntity {
+  public onDelete(item: IEntity): IMultiFieldChangesEntity {
     return toMultiFieldChangesEntityOnDelete(item, this.addValue, this.removeValue, this.editValue, this.originalValue);
   }
 
