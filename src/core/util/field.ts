@@ -113,7 +113,7 @@ const fromMultiFieldValueToEntities = <TEntity extends IEntity = IEntity>(entity
   if (R.isNil(entity)) {
     return UNDEF;
   }
-  if (MultiFieldUtils.isNotMultiFieldValue(entity)) {
+  if (MultiFieldUtils.isNotMultiEntity(entity)) {
     return entity as TEntity[];
   }
   const multiEntity = entity as IReduxMultiEntity<TEntity>;
@@ -160,7 +160,7 @@ export const asMultiFieldEditedEntities =
     if (R.isNil(entity)) {
       return UNDEF;
     }
-    if (MultiFieldUtils.isNotMultiFieldValue(entity)) {
+    if (MultiFieldUtils.isNotMultiEntity(entity)) {
       return [];
     }
     const resultItems = new Map<EntityIdT, TEntity>();
@@ -194,20 +194,12 @@ export const asMultiFieldAddedEntities =
     if (R.isNil(entity)) {
       return UNDEF;
     }
-    if (MultiFieldUtils.isNotMultiFieldValue(entity)) {
+    if (MultiFieldUtils.isNotMultiEntity(entity)) {
       return [];
     }
     const multiEntity = entity as IReduxMultiEntity;
     return multiEntity.add as TEntity[];
   };
-
-/**
- * @stable [14.10.2019]
- * @param {NotMultiFieldValueT} value
- * @returns {IEntity[]}
- */
-export const asEntitiesArray = <TEntity extends IEntity = IEntity>(value: NotMultiFieldValueT<TEntity>): TEntity[] =>
-  TypeUtils.isPrimitive(value) ? [{id: value} as TEntity] : value as TEntity[];
 
 /**
  * @stable [14.10.2019]
@@ -217,8 +209,8 @@ export const asEntitiesArray = <TEntity extends IEntity = IEntity>(value: NotMul
 export const asMultiFieldEntitiesLength = (value: MultiFieldValueOrEntityIdT): number => ifNotNilThanValue(
   value,
   () => (
-    MultiFieldUtils.isNotMultiFieldValue(value)
-      ? asEntitiesArray(value as NotMultiFieldValueT)
+    MultiFieldUtils.isNotMultiEntity(value)
+      ? MultiFieldUtils.notMultiFieldValueAsEntities(value as NotMultiFieldValueT)
       : fromMultiFieldValueToEntities(value as IReduxMultiEntity)
   ).length,
   0

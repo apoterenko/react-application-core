@@ -1,6 +1,7 @@
 import {
   asMultiFieldEntitiesLength,
   isFn,
+  MultiFieldUtils,
 } from '../../../util';
 import { IEntity } from '../../../definitions.interface';
 import { ICrossPlatformField } from '../../../entities-definitions.interface';
@@ -10,7 +11,6 @@ import {
 } from './multifield.interface';
 import {
   extractMultiAddItemEntities,
-  extractMultiEditItemEntities,
   extractMultiRemoveItemEntities,
   extractMultiSourceItemEntities,
   fromMultiItemEntityToEntity,
@@ -140,7 +140,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {IMultiItemEntity[]}
    */
   public get editValue(): IMultiItemEntity[] {
-    return extractMultiEditItemEntities(this.value);
+    return MultiFieldUtils.multiFieldValueAsEditEntities(this.value);
   }
 
   /**

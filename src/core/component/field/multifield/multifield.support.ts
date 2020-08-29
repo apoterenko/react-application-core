@@ -2,7 +2,6 @@ import * as R from 'ramda';
 
 import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions.interface';
 import {
-  asEntitiesArray,
   asMultiFieldEditedEntities,
   buildMultiItemEntity,
   ifNotNilThanValue,
@@ -21,7 +20,6 @@ import {
   IMultiItemEntity,
   MultiFieldValueT,
   MultiFieldSingleValueT,
-  NotMultiFieldValueT,
 } from '../../../definition';
 
 /**
@@ -68,40 +66,12 @@ export function fromMultiFieldValueToEditedEntities<TItem extends IEntity = IEnt
 /**
  * @stable [23.06.2018]
  * @param {MultiFieldValueT} value
- * @param {(value: IMultiEntity) => IMultiItemEntity[]} converter
- * @param {IEntity[]} defaultValue
- * @returns {IMultiItemEntity[] | IEntity[]}
- */
-export const extractMultiItemEntities = (value: MultiFieldValueT,
-                                         converter: (value: IReduxMultiEntity) => IMultiItemEntity[],
-                                         defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
-  MultiFieldUtils.isNotMultiFieldValue(value)
-    ? (
-      isDef(defaultValue)
-        ? defaultValue
-        : asEntitiesArray(value as NotMultiFieldValueT)
-    )
-    : (R.isNil(value) ? [] : converter(value as IReduxMultiEntity));
-
-/**
- * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
- * @param {IMultiItemEntity[]} defaultValue
- * @returns {IMultiItemEntity[]}
- */
-export const extractMultiEditItemEntities = (value: MultiFieldValueT,
-                                             defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
-  extractMultiItemEntities(value, (currentValue) => currentValue.edit, defaultValue);
-
-/**
- * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
 export const extractMultiRemoveItemEntities = (value: MultiFieldValueT,
                                                defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
-  extractMultiItemEntities(value, (currentValue) => currentValue.remove, defaultValue);
+  MultiFieldUtils.multiFieldValueAsEntities(value, (currentValue) => currentValue.remove, defaultValue);
 
 /**
  * @stable [02.07.2018]
@@ -111,7 +81,7 @@ export const extractMultiRemoveItemEntities = (value: MultiFieldValueT,
  */
 export const extractMultiAddItemEntities = (value: MultiFieldValueT,
                                             defaultValue: IMultiItemEntity[] = []): IEntity[] =>
-  extractMultiItemEntities(value, (currentValue) => currentValue.add, defaultValue);
+  MultiFieldUtils.multiFieldValueAsEntities(value, (currentValue) => currentValue.add, defaultValue);
 
 /**
  * @stable [23.06.2018]
@@ -121,7 +91,7 @@ export const extractMultiAddItemEntities = (value: MultiFieldValueT,
  */
 export const extractMultiSourceItemEntities = (value: MultiFieldValueT,
                                                defaultValue?: IEntity[]): IEntity[] =>
-  extractMultiItemEntities(value, (currentValue) => currentValue.source, defaultValue);
+  MultiFieldUtils.multiFieldValueAsEntities(value, (currentValue) => currentValue.source, defaultValue);
 
 /**
  * @stable [02.07.2018]
@@ -154,7 +124,7 @@ export const buildMultiEditItemEntityPayload = <TEntity extends IEntity = IEntit
   nextFieldValueFn: (multiItemEntity: IMultiItemEntity, entity: TEntity) => AnyT): IMultiItemEntity => {
 
   const sourceMultiItemEntities = extractMultiSourceItemEntities(multiFieldValue);
-  const editedMultiItemEntities = extractMultiEditItemEntities(multiFieldValue);
+  const editedMultiItemEntities = MultiFieldUtils.multiFieldValueAsEditEntities(multiFieldValue);
 
   const editedMultiItemEntity = editedMultiItemEntities.find(predicate);
   const sourceMultiItemEntity = sourceMultiItemEntities.find(predicate);
@@ -278,7 +248,7 @@ export const toFilteredMultiEntity = <TEntity extends IEntity>(multiEntity: Mult
                                                                addFilter?: (entity: TEntity) => boolean,
                                                                editFilter?: (entity: TEntity) => boolean,
                                                                removeFilter?: (entity: TEntity) => boolean): IReduxMultiEntity => {
-  if (R.isNil(multiEntity) || MultiFieldUtils.isNotMultiFieldValue(multiEntity)) {
+  if (R.isNil(multiEntity) || MultiFieldUtils.isNotMultiEntity(multiEntity)) {
     return UNDEF;
   }
   const multiEntity0 = multiEntity as IReduxMultiEntity;
