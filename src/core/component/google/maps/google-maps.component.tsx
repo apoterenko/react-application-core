@@ -8,7 +8,7 @@ import {
   ClsUtils,
   ConditionUtils,
   DelayedTask,
-  EVENT_VALUE_PREDICATE,
+  FilterUtils,
   isArrayNotEmpty,
   NvlUtils,
   ObjectUtils,
@@ -444,7 +444,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     ConditionUtils.ifNotNilThanValue(
       payload.pixel,
       () => {
-        const event = R.find(EVENT_VALUE_PREDICATE, R.values(payload)) as MouseEvent;
+        const event = R.find(FilterUtils.EVENT_VALUE_PREDICATE, R.values(payload)) as MouseEvent;
         const lat = payload.latLng.lat();
         const lng = payload.latLng.lng();
 

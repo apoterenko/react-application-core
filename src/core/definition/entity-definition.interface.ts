@@ -130,27 +130,6 @@ export interface ISelectedEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [02.10.2019]
- */
-export interface IMultiItemEntity
-  extends IEntityIdTWrapper,
-    IFieldChangeEntity,
-    INewEntityWrapper,
-    IIndexWrapper {
-}
-
-/**
- * @redux-entity
- * @stable [08.05.2020]
- */
-export interface IReduxMultiEntity<TEntity extends IEntity = IEntity>
-  extends IAddWrapper<TEntity[]>,
-    IEditWrapper<IMultiItemEntity[]>,
-    IRemoveWrapper<TEntity[]>,
-    ISourceWrapper<TEntity[]> {
-}
-
-/**
  * @flux-entity
  * @stable [12.04.2020]
  */

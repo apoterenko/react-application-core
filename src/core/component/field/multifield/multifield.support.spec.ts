@@ -211,7 +211,7 @@ describe('multifield.support', () => {
     });
   });
 
-  describe('fromMultiFieldEntityToEntitiesIds', () => {
+  describe('asMultiFieldMappedEntitiesIds', () => {
     it('test1', () => {
       const ids = asMultiFieldMappedEntitiesIds({
         add: [],
@@ -320,7 +320,7 @@ describe('multifield.support', () => {
     });
   });
 
-  describe('fromMultiFieldEntityToEntities', () => {
+  describe('asMultiFieldMappedEntities', () => {
     it('test1', () => {
       const data = asMultiFieldMappedEntities(
         [{id: 100, name: 'name100'}, {id: 200, name: 'name200'}],

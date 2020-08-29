@@ -8,10 +8,10 @@ import {
   ifNotNilThanValue,
   isDef,
   isFn,
-  isNotMultiEntity,
-  isPrimitive,
+  MultiFieldUtils,
   orUndef,
   toType,
+  TypeUtils,
 } from '../../../util';
 import {
   IMultiFieldChangesEntity,
@@ -19,9 +19,9 @@ import {
 import {
   IReduxMultiEntity,
   IMultiItemEntity,
-  MultiFieldEntityT,
+  MultiFieldValueT,
   MultiFieldSingleValueT,
-  NotMultiFieldEntityT,
+  NotMultiFieldValueT,
 } from '../../../definition';
 
 /**
@@ -33,7 +33,7 @@ export const toLastAddedMultiItemEntityId = (multiFieldEntity: MultiFieldSingleV
   ifNotNilThanValue(
     multiFieldEntity,
     () => (
-      isPrimitive(multiFieldEntity)
+      TypeUtils.isPrimitive(multiFieldEntity)
         ? multiFieldEntity as EntityIdT
         : (
           ifNotNilThanValue(
@@ -46,80 +46,80 @@ export const toLastAddedMultiItemEntityId = (multiFieldEntity: MultiFieldSingleV
 
 /**
  * @stable [04.07.2018]
- * @param {MultiFieldEntityT} multiFieldEntity
+ * @param {MultiFieldValueT} multiFieldEntity
  * @returns {EntityIdT[]}
  */
-export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiFieldEntityT): EntityIdT[] =>
-  fromMultiFieldEntityToEditedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
+export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiFieldValueT): EntityIdT[] =>
+  fromMultiFieldValueToEditedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
 
 /**
  * @stable [18.08.2018]
- * @param {MultiFieldEntityT} multiFieldEntity
+ * @param {MultiFieldValueT} multiFieldValue
  * @param {(entity: TItem, index: number) => TResult} mapper
  * @returns {TResult[]}
  */
-export function fromMultiFieldEntityToEditedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
-  multiFieldEntity: MultiFieldEntityT<TItem>,
+export function fromMultiFieldValueToEditedEntities<TItem extends IEntity = IEntity, TResult = IEntity>(
+  multiFieldValue: MultiFieldValueT<TItem>,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
-  const result = asMultiFieldEditedEntities<TItem>(multiFieldEntity);
+  const result = asMultiFieldEditedEntities<TItem>(multiFieldValue);
   return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldEntityT} value
+ * @param {MultiFieldValueT} value
  * @param {(value: IMultiEntity) => IMultiItemEntity[]} converter
  * @param {IEntity[]} defaultValue
  * @returns {IMultiItemEntity[] | IEntity[]}
  */
-export const extractMultiItemEntities = (value: MultiFieldEntityT,
+export const extractMultiItemEntities = (value: MultiFieldValueT,
                                          converter: (value: IReduxMultiEntity) => IMultiItemEntity[],
                                          defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
-  isNotMultiEntity(value)
+  MultiFieldUtils.isNotMultiFieldValue(value)
     ? (
       isDef(defaultValue)
         ? defaultValue
-        : asEntitiesArray(value as NotMultiFieldEntityT)
+        : asEntitiesArray(value as NotMultiFieldValueT)
     )
     : (R.isNil(value) ? [] : converter(value as IReduxMultiEntity));
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldEntityT} value
+ * @param {MultiFieldValueT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
-export const extractMultiEditItemEntities = (value: MultiFieldEntityT,
+export const extractMultiEditItemEntities = (value: MultiFieldValueT,
                                              defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.edit, defaultValue);
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldEntityT} value
+ * @param {MultiFieldValueT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IMultiItemEntity[]}
  */
-export const extractMultiRemoveItemEntities = (value: MultiFieldEntityT,
+export const extractMultiRemoveItemEntities = (value: MultiFieldValueT,
                                                defaultValue: IMultiItemEntity[] = []): IMultiItemEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.remove, defaultValue);
 
 /**
  * @stable [02.07.2018]
- * @param {MultiFieldEntityT} value
+ * @param {MultiFieldValueT} value
  * @param {IMultiItemEntity[]} defaultValue
  * @returns {IEntity[]}
  */
-export const extractMultiAddItemEntities = (value: MultiFieldEntityT,
+export const extractMultiAddItemEntities = (value: MultiFieldValueT,
                                             defaultValue: IMultiItemEntity[] = []): IEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.add, defaultValue);
 
 /**
  * @stable [23.06.2018]
- * @param {MultiFieldEntityT} value
+ * @param {MultiFieldValueT} value
  * @param {IEntity[]} defaultValue
  * @returns {IEntity[]}
  */
-export const extractMultiSourceItemEntities = (value: MultiFieldEntityT,
+export const extractMultiSourceItemEntities = (value: MultiFieldValueT,
                                                defaultValue?: IEntity[]): IEntity[] =>
   extractMultiItemEntities(value, (currentValue) => currentValue.source, defaultValue);
 
@@ -142,14 +142,14 @@ export const fromMultiItemEntityToEntity = (entity: IEntity | IMultiItemEntity):
 /**
  * @stable [23.06.2018]
  * @param {string} fieldName
- * @param {MultiFieldEntityT} multiFieldValue
+ * @param {MultiFieldValueT} multiFieldValue
  * @param {(itm: IMultiItemEntity) => boolean} predicate
  * @param {(itm: IMultiItemEntity) => AnyT} nextFieldValueFn
  * @returns {IMultiItemEntity}
  */
 export const buildMultiEditItemEntityPayload = <TEntity extends IEntity = IEntity>(
   fieldName: string,
-  multiFieldValue: MultiFieldEntityT,
+  multiFieldValue: MultiFieldValueT,
   predicate: (itm: IMultiItemEntity) => boolean,
   nextFieldValueFn: (multiItemEntity: IMultiItemEntity, entity: TEntity) => AnyT): IMultiItemEntity => {
 
@@ -266,19 +266,19 @@ export const toMultiFieldChangesEntityOnDelete = (item: IMultiItemEntity,
 
 /**
  * @stable [07.03.2019]
- * @param {MultiFieldEntityT<TEntity extends IEntity>} multiEntity
- * @param {MultiFieldEntityT<TEntity extends IEntity>} updatedSource
+ * @param {MultiFieldValueT<TEntity extends IEntity>} multiEntity
+ * @param {MultiFieldValueT<TEntity extends IEntity>} updatedSource
  * @param {(entity: TEntity) => boolean} addFilter
  * @param {(entity: TEntity) => boolean} editFilter
  * @param {(entity: TEntity) => boolean} removeFilter
  * @returns {IReduxMultiEntity}
  */
-export const toFilteredMultiEntity = <TEntity extends IEntity>(multiEntity: MultiFieldEntityT<TEntity>,
-                                                               updatedSource: MultiFieldEntityT<TEntity>,
+export const toFilteredMultiEntity = <TEntity extends IEntity>(multiEntity: MultiFieldValueT<TEntity>,
+                                                               updatedSource: MultiFieldValueT<TEntity>,
                                                                addFilter?: (entity: TEntity) => boolean,
                                                                editFilter?: (entity: TEntity) => boolean,
                                                                removeFilter?: (entity: TEntity) => boolean): IReduxMultiEntity => {
-  if (R.isNil(multiEntity) || isNotMultiEntity(multiEntity)) {
+  if (R.isNil(multiEntity) || MultiFieldUtils.isNotMultiFieldValue(multiEntity)) {
     return UNDEF;
   }
   const multiEntity0 = multiEntity as IReduxMultiEntity;

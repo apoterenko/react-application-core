@@ -65,25 +65,22 @@ const isBoolean = (value: AnyT): boolean => typeof value === 'boolean';
 const isString = (value: AnyT): boolean => typeof value === 'string';
 
 /**
- * @stable [17.05.2020]
- * @param {AnyT} v
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param v
  */
-export const isPrimitive = (v: AnyT): boolean => isNumber(v) || isString(v) || isBoolean(v);
+const isPrimitive = (v: unknown): boolean => isNumber(v) || isString(v) || isBoolean(v);
 
 /**
- * @stable [18.05.2020]
- * @param {AnyT} v
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param v
  */
-const isObject = (v: AnyT): boolean => Object.prototype.toString.call(v) === '[object Object]';
+const isObject = (v: unknown): boolean => Object.prototype.toString.call(v) === '[object Object]';
 
 /**
- * @stable [03.04.2020]
- * @param {AnyT} v
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param v
  */
-export const isEvent = (v: AnyT): boolean => v instanceof Event;
+const isEvent = (v: unknown): boolean => v instanceof Event;
 
 /**
  * @stable [06.12.2018]
@@ -98,6 +95,7 @@ export const toType = <TResult>(result: TResult): TResult => result;
 export class TypeUtils {
   public static readonly isBoolean = isBoolean;                                                 /* @stable [12.06.2020] */
   public static readonly isDef = isDef;                                                         /* @stable [16.05.2020] */
+  public static readonly isEvent = isEvent;                                                     /* @stable [29.08.2020] */
   public static readonly isFn = isFn;                                                           /* @stable [16.05.2020] */
   public static readonly isNumber = isNumber;                                                   /* @stable [16.05.2020] */
   public static readonly isObject = isObject;                                                   /* @stable [16.05.2020] */

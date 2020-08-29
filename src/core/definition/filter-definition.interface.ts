@@ -1,4 +1,10 @@
 /**
+ * @stable [29.08.2020]
+ */
+export type KeyValuePredicateT = (key: string, value: unknown) => boolean;
+export type ValuePredicateT = (value: unknown) => boolean;
+
+/**
  * @stable [27.04.2020]
  */
 export const FILTER_ACTIVATE_ACTION_TYPE = 'filter.activate';

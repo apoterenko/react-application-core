@@ -19,7 +19,7 @@ import {
   IPlaceEntity,
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
-  MultiFieldEntityT,
+  MultiFieldValueT,
   PlaceEntityValueT,
   SelectValueT,
   TranslatorT,
@@ -117,14 +117,14 @@ export class FieldConverter implements IFieldConverter {
       converter: this.$fromNamedEntityToRawDataLabeledValueEntity.bind(this),
     });
     this.register({
-      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.ENTITIES,
-      converter: this.$fromMultiFieldEntityToEntities.bind(this),
+      converter: this.$fromMultiFieldValueToEntities.bind(this),
     });
     this.register({
-      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.DEFINED_ENTITIES,
-      converter: this.$fromMultiFieldEntityToDefinedEntities.bind(this),
+      converter: this.$fromMultiFieldValueToDefinedEntities.bind(this),
     });
   }
 
@@ -255,12 +255,12 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [16.05.2020]
-   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+   * @param {MultiFieldValueT<TEntity extends IEntity>} value
    * @returns {TEntity[]}
    */
-  public fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
+  public fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
     return this.convert({
-      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.ENTITIES,
       value,
     });
@@ -268,12 +268,12 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [16.05.2020]
-   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+   * @param {MultiFieldValueT<TEntity extends IEntity>} value
    * @returns {TEntity[]}
    */
-  public fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
+  public fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
     return this.convert({
-      from: FieldConverterTypesEnum.MULTI_FIELD_ENTITY,
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.DEFINED_ENTITIES,
       value,
     });
@@ -387,21 +387,21 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [16.05.2020]
-   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
-   * @returns {TEntity[]}
+   * @stable [29.08.2020]
+   * @param value
+   * @private
    */
-  private $fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
-    return FieldUtils.fromMultiFieldEntityToEntities(value);
+  private $fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
+    return FieldUtils.fromMultiFieldValueToEntities(value);
   }
 
   /**
-   * @stable [16.05.2020]
-   * @param {MultiFieldEntityT<TEntity extends IEntity>} value
-   * @returns {TEntity[]}
+   * @stable [29.08.2020]
+   * @param value
+   * @private
    */
-  private $fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>): TEntity[] {
-    return FieldUtils.fromMultiFieldEntityToDefinedEntities(value);
+  private $fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
+    return FieldUtils.fromMultiFieldValueToDefinedEntities(value);
   }
 
   /**

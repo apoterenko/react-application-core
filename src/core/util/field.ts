@@ -14,24 +14,25 @@ import {
   IGenericFieldEntity2,
   IMultiItemEntity,
   IReduxMultiEntity,
-  MultiFieldEntityT,
-  NotMultiFieldEntityT,
+  MultiFieldValueOrEntityIdT,
+  MultiFieldValueT,
+  NotMultiFieldValueT,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
 import {
   arrayNextMinNegativeValue,
-  isArrayNotEmpty,
   makeArray,
 } from './array';
-import { isNotMultiEntity } from './entity';
 import { TypeUtils } from './type';
-import { nvl } from './nvl';
-import { shallowClone } from './clone';
+import { NvlUtils } from './nvl';
+import { CloneUtils } from './clone';
 import {
   isDisabled,
   WrapperUtils,
 } from './wrapper';
 import { defValuesFilter } from './filter';
+import { ObjectUtils } from './object';
+import { MultiFieldUtils } from './multi-field';
 
 /**
  * @stable [18.05.2020]
@@ -105,15 +106,14 @@ export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
   fromDynamicFieldsArray<EntityIdT>(array, (itm) => itm, valueAccessor);
 
 /**
- * @stable [16.05.2020]
- * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
- * @returns {TEntity[]}
+ * @stable [29.08.2020]
+ * @param entity
  */
-const fromMultiFieldEntityToEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
+const fromMultiFieldValueToEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] => {
   if (R.isNil(entity)) {
     return UNDEF;
   }
-  if (isNotMultiEntity(entity)) {
+  if (MultiFieldUtils.isNotMultiFieldValue(entity)) {
     return entity as TEntity[];
   }
   const multiEntity = entity as IReduxMultiEntity<TEntity>;
@@ -126,7 +126,7 @@ const fromMultiFieldEntityToEntities = <TEntity extends IEntity = IEntity>(entit
   // Pass a map to optimize
   const editedEntities = asMultiFieldEditedEntities<TEntity>(entity, cachedSourceEntities);
   const cachedEditedEntities = new Map<EntityIdT, TEntity>();
-  if (isArrayNotEmpty(editedEntities)) {
+  if (ObjectUtils.isObjectNotEmpty(editedEntities)) {
     editedEntities.forEach((itm) => cachedEditedEntities.set(itm.id, itm));
   }
 
@@ -135,33 +135,32 @@ const fromMultiFieldEntityToEntities = <TEntity extends IEntity = IEntity>(entit
 
   return multiEntity.add.concat(
     Array.from(cachedSourceEntities.values())
-      .map((itm) => nvl(cachedEditedEntities.get(itm.id), itm))
+      .map((itm) => NvlUtils.nvl(cachedEditedEntities.get(itm.id), itm))
   );
 };
 
 /**
- * @stable [16.05.2020]
- * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
- * @returns {TEntity[]}
+ * @stable [29.08.2020]
+ * @param entity
  */
-const fromMultiFieldEntityToDefinedEntities =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
-    fromMultiFieldEntityToEntities(entity) || [];
+const fromMultiFieldValueToDefinedEntities =
+  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
+    fromMultiFieldValueToEntities(entity) || [];
 
 /**
  * @stable [12.10.2019]
- * @param {MultiFieldEntityT} entity
+ * @param {MultiFieldValueT} entity
  * @param {Map<EntityIdT, TItem extends IEntity>} mappedSourcedItems
  * @returns {TItem[]}
  */
 export const asMultiFieldEditedEntities =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>,
+  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>,
                                       mappedSourcedItems?: Map<EntityIdT, TEntity>): TEntity[] => {
     const multiEntity = entity as IReduxMultiEntity<TEntity>;
     if (R.isNil(entity)) {
       return UNDEF;
     }
-    if (isNotMultiEntity(entity)) {
+    if (MultiFieldUtils.isNotMultiFieldValue(entity)) {
       return [];
     }
     const resultItems = new Map<EntityIdT, TEntity>();
@@ -175,9 +174,8 @@ export const asMultiFieldEditedEntities =
       const cachedResultItem = resultItems.get(editedItemId);
 
       // Collect the changes
-      const $editedItem = cachedResultItem || shallowClone<TEntity>(cachedSourceItems.get(editedItemId));
-      // @ts-ignore TODO
-      $editedItem[editedItem.name] = editedItem.value;
+      const $editedItem = cachedResultItem || CloneUtils.shallowClone<TEntity>(cachedSourceItems.get(editedItemId));
+      Reflect.set($editedItem, editedItem.name, editedItem.value);
 
       if (R.isNil(cachedResultItem)) {
         resultItems.set(editedItemId, $editedItem);
@@ -188,15 +186,15 @@ export const asMultiFieldEditedEntities =
 
 /**
  * @stable [22.11.2019]
- * @param {MultiFieldEntityT} entity
+ * @param {MultiFieldValueT} entity
  * @returns {TEntity[]}
  */
 export const asMultiFieldAddedEntities =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] => {
+  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] => {
     if (R.isNil(entity)) {
       return UNDEF;
     }
-    if (isNotMultiEntity(entity)) {
+    if (MultiFieldUtils.isNotMultiFieldValue(entity)) {
       return [];
     }
     const multiEntity = entity as IReduxMultiEntity;
@@ -205,37 +203,37 @@ export const asMultiFieldAddedEntities =
 
 /**
  * @stable [14.10.2019]
- * @param {NotMultiFieldEntityT} value
+ * @param {NotMultiFieldValueT} value
  * @returns {IEntity[]}
  */
-export const asEntitiesArray = <TEntity extends IEntity = IEntity>(value: NotMultiFieldEntityT<TEntity>): TEntity[] =>
+export const asEntitiesArray = <TEntity extends IEntity = IEntity>(value: NotMultiFieldValueT<TEntity>): TEntity[] =>
   TypeUtils.isPrimitive(value) ? [{id: value} as TEntity] : value as TEntity[];
 
 /**
  * @stable [14.10.2019]
- * @param {MultiFieldEntityT | EntityIdT} value
+ * @param {MultiFieldValueOrEntityIdT} value
  * @returns {number}
  */
-export const asMultiFieldEntitiesLength = (value: MultiFieldEntityT | EntityIdT): number => ifNotNilThanValue(
+export const asMultiFieldEntitiesLength = (value: MultiFieldValueOrEntityIdT): number => ifNotNilThanValue(
   value,
   () => (
-    isNotMultiEntity(value)
-      ? asEntitiesArray(value as NotMultiFieldEntityT)
-      : fromMultiFieldEntityToEntities(value as IReduxMultiEntity)
+    MultiFieldUtils.isNotMultiFieldValue(value)
+      ? asEntitiesArray(value as NotMultiFieldValueT)
+      : fromMultiFieldValueToEntities(value as IReduxMultiEntity)
   ).length,
   0
 );
 
 /**
  * @stable [14.10.2019]
- * @param {MultiFieldEntityT<TEntity extends IEntity>} value
+ * @param {MultiFieldValueT<TEntity extends IEntity>} value
  * @param {number} entitiesCountLimit
  * @returns {TEntity[]}
  */
-export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldEntityT<TEntity>,
+export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>,
                                                                                entitiesCountLimit: number): TEntity[] => {
   const result = makeArray(entitiesCountLimit);
-  const multiFieldEntities = fromMultiFieldEntityToEntities(value);
+  const multiFieldEntities = fromMultiFieldValueToEntities(value);
 
   if (Array.isArray(multiFieldEntities)) {
     let cursor = 0;
@@ -255,26 +253,26 @@ export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(v
 
 /**
  * @stable [14.10.2019]
- * @param {MultiFieldEntityT<TEntity extends IEntity>} multiFieldEntity
+ * @param {MultiFieldValueT<TEntity extends IEntity>} multiFieldEntity
  * @param {(entity: TEntity, index: number) => TResult} mapper
  * @returns {TResult[]}
  */
 export const asMultiFieldMappedEntities =
-  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldEntityT<TEntity> | EntityIdT[],
+  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity> | EntityIdT[],
                                                          mapper: (entity: TEntity, index: number) => TResult): TResult[] =>
     ifNotNilThanValue(
-      fromMultiFieldEntityToEntities(multiFieldEntity as MultiFieldEntityT<TEntity>),
+      fromMultiFieldValueToEntities(multiFieldEntity as MultiFieldValueT<TEntity>),
       (result) => result.map(mapper),
       UNDEF_SYMBOL
     );
 
 /**
  * @stable [14.10.2019]
- * @param {MultiFieldEntityT<TEntity extends IEntity> | EntityIdT[]} multiFieldEntity
+ * @param {MultiFieldValueT<TEntity extends IEntity> | EntityIdT[]} multiFieldEntity
  * @returns {EntityIdT[]}
  */
 export const asMultiFieldMappedEntitiesIds =
-  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldEntityT<TEntity> | EntityIdT[]): EntityIdT[] =>
+  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity> | EntityIdT[]): EntityIdT[] =>
     asMultiFieldMappedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
 
 /**
@@ -307,12 +305,12 @@ export const multiEntityFactory =
 /**
  * @stable [19.11.2019]
  * @param {TEntity} original
- * @param {MultiFieldEntityT<TEntity extends IEntity>} multiFieldEntity
+ * @param {MultiFieldValueT<TEntity extends IEntity>} multiFieldEntity
  * @returns {{id: number}}
  */
 export const buildNewPhantomMultiItem =
   <TEntity extends IEntity = IEntity>(original: TEntity,
-                                      multiFieldEntity: MultiFieldEntityT<TEntity>): TEntity => ({
+                                      multiFieldEntity: MultiFieldValueT<TEntity>): TEntity => ({
     ...original as AnyT,
     id: arrayNextMinNegativeValue(asMultiFieldMappedEntitiesIds(multiFieldEntity) as number[] || []),
   });
@@ -324,7 +322,7 @@ export class FieldUtils {
   public static readonly asActualFieldValue = asActualFieldValue;                                                 /* @stable [16.05.2020] */
   public static readonly dynamicFieldName = dynamicFieldName;                                                     /* @stable [29.06.2020] */
   public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
-  public static readonly fromMultiFieldEntityToDefinedEntities = fromMultiFieldEntityToDefinedEntities;           /* @stable [16.05.2020] */
-  public static readonly fromMultiFieldEntityToEntities = fromMultiFieldEntityToEntities;                         /* @stable [16.05.2020] */
+  public static readonly fromMultiFieldValueToDefinedEntities = fromMultiFieldValueToDefinedEntities;             /* @stable [16.05.2020] */
+  public static readonly fromMultiFieldValueToEntities = fromMultiFieldValueToEntities;                           /* @stable [16.05.2020] */
   public static readonly isFieldInactive = isFieldInactive;                                                       /* @stable [02.08.2020] */
 }

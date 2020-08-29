@@ -64,7 +64,6 @@ import {
   IUseKeyboardWrapper,
   IValidWrapper,
   IValueWrapper,
-  StringNumberT,
   UNDEF,
 } from '../definitions.interface';
 import {
@@ -74,7 +73,6 @@ import {
 import { IComponentCtor } from './component-definition.interface';
 import {
   IReduxLifeCycleEntity,
-  IReduxMultiEntity,
 } from './entity-definition.interface';
 import { IFieldProps2 } from '../configurations-definitions.interface';
 import {
@@ -83,6 +81,7 @@ import {
 } from './generic-component-definition.interface';
 import { IKeyboardConfigurationEntity } from './keyboard-definition.interface';
 import { IFocusEvent } from './event-definition.interface';
+import { IReduxMultiEntity } from './multi-entity-definition.interface';
 
 /**
  * @stable [16.05.2020]
@@ -221,11 +220,12 @@ export interface IField<TProps extends IFieldProps = IFieldProps,
 }
 
 /**
- * @stable [02.10.2019]
+ * @stable [29.08.2020]
  */
-export type MultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | IReduxMultiEntity;
+export type MultiFieldValueT<TEntity extends IEntity = IEntity> = TEntity[] | IReduxMultiEntity;
 export type MultiFieldSingleValueT = IReduxMultiEntity | EntityIdT;
-export type NotMultiFieldEntityT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
+export type NotMultiFieldValueT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
+export type MultiFieldValueOrEntityIdT = MultiFieldValueT | EntityIdT;
 
 /**
  * @stable [30.10.2019]

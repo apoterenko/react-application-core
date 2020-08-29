@@ -1,16 +1,13 @@
 import * as R from 'ramda';
 
 import {
-  EntityIdT,
   IEntity,
   IEntityIdTWrapper,
 } from '../definitions.interface';
 import {
   IExtendedEntity,
-  MultiFieldEntityT,
 } from '../definition';
 import { ifNotNilThanValue } from './cond';
-import { isPrimitive } from './type';
 
 /**
  * @stable [31.07.2020]
@@ -52,14 +49,6 @@ export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): stri
   () => `${entity.id}${ifNotNilThanValue(entity.name, (name) => `-${name.replace(/ /g, '_')}`, '')}`,
   ''
 );
-
-/**
- * @stable [12.10.2019]
- * @param {MultiFieldEntityT | EntityIdT} value
- * @returns {boolean}
- */
-export const isNotMultiEntity = (value: MultiFieldEntityT | EntityIdT): boolean =>
-  Array.isArray(value) || isPrimitive(value);
 
 /**
  * @stable [31.07.2020]

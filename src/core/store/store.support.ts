@@ -11,13 +11,11 @@ import {
 import * as R from 'ramda';
 
 import {
+  CloneUtils,
   coalesce,
   coalesceDef,
-  isPrimitive,
-  isUndef,
-  shallowClone,
   toSection,
-  toType,
+  TypeUtils,
 } from '../util';
 import {
   IPayloadWrapper,
@@ -92,9 +90,9 @@ export const entityReducerFactory = (
         const defEntity = coalesceDef(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
 
         return R.isNil(entity)
-          ? (isUndef(defEntity) ? state : defEntity)
+          ? (TypeUtils.isUndef(defEntity) ? state : defEntity)
           : (
-            isPrimitive(entity)
+            TypeUtils.isPrimitive(entity)
               ? entity
               : (
                 Array.isArray(entity)
@@ -102,7 +100,7 @@ export const entityReducerFactory = (
                   : (
                     R.isNil(replacedWrapper.replaced)
                       ? {...state, ...entity}
-                      : shallowClone(entity)
+                      : CloneUtils.shallowClone(entity)
                   )
               )
           );
@@ -135,17 +133,17 @@ export const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (s
         const defEntity = coalesceDef(selectedEntity, updatedEntity, replacedEntity);
 
         return R.isNil(entity)
-          ? (isUndef(defEntity) ? state : defEntity)
+          ? (TypeUtils.isUndef(defEntity) ? state : defEntity)
           : (
-            isPrimitive(entity)
+            TypeUtils.isPrimitive(entity)
               ? entity
               : (
                 Array.isArray(entity)
                   ? [...entity]
                   : (
                     R.isNil(replacedEntity)
-                      ? {...state, ...entity}  // Select or update
-                      : shallowClone(entity)   // Replace
+                      ? {...state, ...entity}             // Select or update
+                      : CloneUtils.shallowClone(entity)   // Replace
                   )
               )
           );

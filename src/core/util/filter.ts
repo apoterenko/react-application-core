@@ -11,8 +11,6 @@ import {
 import { FieldConstants } from '../definition/field-definition.interface';
 import {
   isDef,
-  isEvent,
-  isFn,
   TypeUtils,
 } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
@@ -20,38 +18,39 @@ import {
   isObjectNotEmpty,
   ObjectUtils,
 } from './object';
+import {
+  KeyValuePredicateT,
+  ValuePredicateT,
+} from '../definition/filter-definition.interface';
 
-export type KeyValuePredicateT = (key: string, value: AnyT) => boolean;
-export type ValuePredicateT = (value: AnyT) => boolean;
-
-export function cloneUsingFilters<TSource, TResult>(
-    source: TSource, ...predicates: KeyValuePredicateT[]
-): TResult {
-  const sourceWithObjectValues = filterByPredicate<TSource, TResult>(source, ...predicates.concat(OBJECT_KEY_VALUE_PREDICATE));
-  const result: TResult = {...filterByPredicate<TSource, TResult>(source, ...predicates.concat(NOT_OBJECT_KEY_VALUE_PREDICATE)) as {}} as TResult;
+export const cloneUsingFilters = <TSource, TResult>(
+  source: TSource,
+  ...predicates: KeyValuePredicateT[]
+): TResult => {
+  const sourceWithObjectValues = filterByPredicate(source, ...predicates.concat(OBJECT_KEY_VALUE_PREDICATE));
+  const result: TResult = {...filterByPredicate(source, ...predicates.concat(NOT_OBJECT_KEY_VALUE_PREDICATE)) as {}} as TResult;
   Object.keys(sourceWithObjectValues).forEach((key) => {
-    result[key] = cloneUsingFilters<TSource, TResult>(sourceWithObjectValues[key], ...predicates);
+    result[key] = cloneUsingFilters(sourceWithObjectValues[key], ...predicates);
   });
   return result;
 }
 
 /**
- * @stable [11.08.2018]
- * @param {TSource} source
- * @param {KeyValuePredicateT} predicates
- * @returns {TResult}
+ * @stable [29.08.2020]
+ * @param source
+ * @param predicates
  */
-export const filterByPredicate =
+const filterByPredicate =
   <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource,
                                                          ...predicates: KeyValuePredicateT[]): TResult =>
     R.pickBy<TSource, TResult>(
       (value, key): boolean => predicates.length > 1
         ? (
-          (predicates as Array<KeyValuePredicateT | boolean>)
+          (predicates as (KeyValuePredicateT | boolean)[])
             .reduce(
               (prevValue, curValue): boolean =>
                 (curValue as KeyValuePredicateT)(key, value) && (
-                  isFn(prevValue)
+                  TypeUtils.isFn(prevValue)
                     ? (prevValue as KeyValuePredicateT)(key, value)
                     : prevValue as boolean
                 )
@@ -88,33 +87,30 @@ export const SAME_ENTITY_PREDICATE =
     entity1 === entity2 || (!R.isNil(entity1) && !R.isNil(entity2) && entity1.id === entity2.id);
 
 /**
- * @stable [19.05.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param value
+ * @constructor
  */
-const OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => TypeUtils.isObject(value);
+const OBJECT_VALUE_PREDICATE = (value: unknown): boolean => TypeUtils.isObject(value);
 
 /**
- * @stable [03.04.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param value
  */
-export const EVENT_VALUE_PREDICATE = (value: AnyT): boolean => isEvent(value);
+const EVENT_VALUE_PREDICATE = (value: unknown): boolean => TypeUtils.isEvent(value);
 
 /**
- * @stable [03.10.2019]
- * @param {string} key
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param key
+ * @param value
  */
-export const OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT): boolean => OBJECT_VALUE_PREDICATE(value);
+const OBJECT_KEY_VALUE_PREDICATE = (key: string, value: unknown): boolean => OBJECT_VALUE_PREDICATE(value);
 
 /**
- * @stable [03.10.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [29.08.2020]
+ * @param value
  */
-export const NOT_OBJECT_VALUE_PREDICATE = (value: AnyT): boolean => !OBJECT_VALUE_PREDICATE(value);
+const NOT_OBJECT_VALUE_PREDICATE = (value: unknown): boolean => !OBJECT_VALUE_PREDICATE(value);
 
 /**
  * @stable [03.10.2019]
@@ -128,7 +124,6 @@ export const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_
  * @stable [18.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
 
@@ -144,7 +139,6 @@ export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL
  * @stable [20.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 const STRING_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isString(value);
 
@@ -173,9 +167,8 @@ const POSITIVE_OR_NEGATIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value
  * @stable [24.07.2020]
  * @param key
  * @param value
- * @constructor
  */
-const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_EMPTY_VALUE_PREDICATE(value);
+const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_EMPTY_VALUE_PREDICATE(value);
 
 /**
  * @stable [16.05.2020]
@@ -188,7 +181,6 @@ const DEF_VALUE_PREDICATE = (value: AnyT) => isDef(value);
  * @stable [22.10.2019]
  * @param {AnyT} value
  * @returns {boolean}
- * @constructor
  */
 export const TRUE_VALUE_PREDICATE = (value: AnyT) => value === true;
 
@@ -201,7 +193,7 @@ export const TRUE_VALUE_PREDICATE = (value: AnyT) => value === true;
 const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicateT[]): TValue[] =>
   R.filter<TValue>(
     (value) => predicates.length > 1
-      ? (predicates as Array<ValuePredicateT | boolean>)
+      ? (predicates as (ValuePredicateT | boolean)[])
         .reduce(
           (prevValue, curValue) => (
             (curValue as ValuePredicateT)(value) && (
@@ -357,9 +349,10 @@ const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
 export class FilterUtils {
   public static readonly defValuesArrayFilter = defValuesArrayFilter;                                              /* @stable [15.05.2020] */
   public static readonly defValuesFilter = defValuesFilter;                                                        /* @stable [27.07.2020] */
+  public static readonly EVENT_VALUE_PREDICATE = EVENT_VALUE_PREDICATE;                                            /* @stable [29.08.2020] */
   public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;                    /* @stable [15.05.2020] */
-  public static readonly EXCLUDE_ID_FIELD_PREDICATE = EXCLUDE_ID_FIELD_PREDICATE;                                  /* @stable [15.05.2020] */
   public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;                            /* @stable [15.05.2020] */
+  public static readonly filterByPredicate = filterByPredicate;                                                    /* @stable [29.08.2020] */
   public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                                        /* @stable [18.05.2020] */
   public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                                    /* @stable [17.05.2020] */
   public static readonly notEmptyValuesFilter = notEmptyValuesFilter;                                              /* @stable [24.07.2020] */

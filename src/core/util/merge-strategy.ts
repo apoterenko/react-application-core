@@ -5,7 +5,7 @@ import {
   IModifyEntityPayloadEntity,
 } from '../definition';
 import { IEntity } from '../definitions.interface';
-import { shallowClone } from './clone';
+import { CloneUtils } from './clone';
 
 /**
  * @stable [19.10.2019]
@@ -26,6 +26,6 @@ export const getActualMergeStrategy = (mergeStrategy: EntityMergeStrategiesEnum)
 export const buildEntityByMergeStrategy =
   <TEntity extends IEntity = IEntity>(payload: IModifyEntityPayloadEntity<TEntity>, entity?: TEntity): TEntity => (
     getActualMergeStrategy(payload.mergeStrategy) === EntityMergeStrategiesEnum.OVERRIDE
-      ? shallowClone(payload.changes)
+      ? CloneUtils.shallowClone(payload.changes)
       : Object.assign({}, entity || {}, payload.changes)
   );

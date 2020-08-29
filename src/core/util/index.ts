@@ -21,6 +21,7 @@ export * from './join';
 export * from './json';
 export * from './mapper';
 export * from './merge-strategy';
+export * from './multi-field';
 export * from './number';
 export * from './nvl';
 export * from './object';

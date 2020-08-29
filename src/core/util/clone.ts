@@ -1,28 +1,32 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { calc, isPrimitive, uuid } from '../util';
-import { IEntity, UNDEF_SYMBOL } from '../definitions.interface';
+import {
+  calc,
+  TypeUtils,
+  uuid,
+} from '../util';
+import {
+  IEntity,
+  UNDEF_SYMBOL,
+} from '../definitions.interface';
 import { ConditionUtils } from './cond';
 
 /**
- * @stable [24.01.2019]
- * @param {TEntity} entity
- * @returns {TEntity}
+ * @stable [29.08.2020]
+ * @param entity
  */
-export const shallowClone = <TEntity extends IEntity>(entity: TEntity): TEntity =>
-  ConditionUtils.ifNotNilThanValue(
-    entity,
-    () => ({...entity as {}} as TEntity),
-    UNDEF_SYMBOL
-  );
+const shallowClone = <TEntity extends IEntity>(entity: TEntity): TEntity => ConditionUtils.ifNotNilThanValue(
+  entity,
+  () => ({...entity as {}} as TEntity),
+  UNDEF_SYMBOL
+);
 
 /**
- * @stable [14.06.2018]
- * @param {T} o
- * @returns {T}
+ * @stable [29.08.2020]
+ * @param o
  */
-export const clone = <T>(o: T): T => R.clone<T>(o);
+const clone = <TValue>(o: TValue): TValue => R.clone<TValue>(o);
 
 export type RenderPredicateT = (child: JSX.Element) => boolean;
 
@@ -35,7 +39,7 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
     (child) => {
       if (R.isNil(child)) {
         return null;
-      } else if (isPrimitive(child)) {
+      } else if (TypeUtils.isPrimitive(child)) {
         return child;
       } else {
         const reactChild = child as React.FunctionComponentElement<{ children: React.ReactChild[] }>;
@@ -64,5 +68,6 @@ export const cloneReactNodes = <TProps>(component: JSX.Element | React.Component
  * @stable [18.07.2020]
  */
 export class CloneUtils {
+  public static readonly clone = clone;
   public static readonly shallowClone = shallowClone;
 }

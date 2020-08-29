@@ -3,7 +3,7 @@ import {
   defValuesFilter,
   excludeFieldsFilter,
   excludeIdFieldFilter,
-  filterByPredicate,
+  FilterUtils,
 } from './filter';
 import { FieldConstants } from '../definition/field-definition.interface';
 import { UNDEF } from '../definitions.interface';
@@ -11,7 +11,7 @@ import { UNDEF } from '../definitions.interface';
 describe('util/filter', () => {
   describe('filterByPredicate', () => {
     it('test1', () => {
-      const filteredObject = filterByPredicate({
+      const filteredObject = FilterUtils.filterByPredicate({
         key1: 'value1',
         key2: 'value2',
       }, (key, value) => key !== 'key1');
@@ -22,7 +22,7 @@ describe('util/filter', () => {
     });
 
     it('test2', () => {
-      const filteredObject = filterByPredicate({
+      const filteredObject = FilterUtils.filterByPredicate({
         key1: 'value1',
         key2: 'value2',
       }, (key, value) => key !== 'key3');
@@ -34,7 +34,7 @@ describe('util/filter', () => {
     });
 
     it('test3', () => {
-      const filteredObject = filterByPredicate({
+      const filteredObject = FilterUtils.filterByPredicate({
           key1: 'value1',
           key2: 'value2',
         }, (key, value) => key !== 'key2',
@@ -44,7 +44,7 @@ describe('util/filter', () => {
     });
 
     it('test4', () => {
-      const filteredObject = filterByPredicate({
+      const filteredObject = FilterUtils.filterByPredicate({
           key1: 'value1',
           key2: 'value2',
         }, (key, value) => key !== 'key1',

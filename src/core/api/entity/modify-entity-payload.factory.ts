@@ -1,9 +1,10 @@
 import { IEffectsAction } from 'redux-effects-promise';
 import { injectable } from 'inversify';
 import { LoggerFactory } from 'ts-smart-logger';
+import * as R from 'ramda';
 
 import { IEntity } from '../../definitions.interface';
-import { isPrimitive, ifNotNilThanValue } from '../../util';
+import { TypeUtils } from '../../util';
 import {
   EntityMergeStrategiesEnum,
   IApiEntity,
@@ -22,27 +23,30 @@ export class ModifyEntityPayloadFactory implements IModifyEntityPayloadFactory {
    * @returns {IModifyEntityPayloadWrapperEntity}
    */
   public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapperEntity {
-    const apiEntity = action.initialData as IApiEntity;
+    const {
+      entityId,
+      changes,
+    } = action.initialData as IApiEntity;
     const responseData = action.data;
     const responseEntity = responseData as IEntity;
-    const doesResponseDataNotPrimitiveAndExist = ifNotNilThanValue(responseData, () => !isPrimitive(responseData), false);
+    const isResponseDataObject = !R.isNil(responseData) && !TypeUtils.isPrimitive(responseData);
 
     const result: IModifyEntityPayloadWrapperEntity = {
       payload: {
-        id: doesResponseDataNotPrimitiveAndExist
-            ? responseEntity.id
-            : apiEntity.entityId,
-        mergeStrategy: doesResponseDataNotPrimitiveAndExist
-            ? EntityMergeStrategiesEnum.OVERRIDE
-            : EntityMergeStrategiesEnum.MERGE,
-        changes: doesResponseDataNotPrimitiveAndExist
-            ? responseEntity
-            : apiEntity.changes,
+        id: isResponseDataObject
+          ? responseEntity.id
+          : entityId,
+        mergeStrategy: isResponseDataObject
+          ? EntityMergeStrategiesEnum.OVERRIDE
+          : EntityMergeStrategiesEnum.MERGE,
+        changes: isResponseDataObject
+          ? responseEntity
+          : changes,
       },
     };
 
     ModifyEntityPayloadFactory.logger.debug(
-        '[$ModifyEntityPayloadFactory][makeInstance] Payload wrapper:', result, ', action:', action
+      '[$ModifyEntityPayloadFactory][makeInstance] Payload wrapper:', result, ', action:', action
     );
     return result;
   }

@@ -23,7 +23,7 @@ import {
   IGridFilterEntity,
   IGridProps,
   ISortDirectionEntity,
-  MultiFieldEntityT,
+  MultiFieldValueT,
   SortDirectionsEnum,
 } from '../../definition';
 
@@ -199,11 +199,11 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
 
 /**
  * @stable [29.12.2019]
- * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
+ * @param {MultiFieldValueT<TEntity extends IEntity>} entity
  * @param {(item: TEntity) => EntityIdT} groupValueAccessor
  * @returns {Record<EntityIdT, boolean>}
  */
 export const asExpandedGridGroups =
-  <TEntity extends IEntity>(entity: MultiFieldEntityT<TEntity>,
+  <TEntity extends IEntity>(entity: MultiFieldValueT<TEntity>,
                             groupValueAccessor: (item: TEntity) => EntityIdT = (item) => item.id): Record<EntityIdT, boolean> =>
-    R.mergeAll((FieldUtils.fromMultiFieldEntityToEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
+    R.mergeAll((FieldUtils.fromMultiFieldValueToEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));

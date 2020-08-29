@@ -7,6 +7,7 @@ import {
 
 import {
   CalcUtils,
+  CloneUtils,
   ClsUtils,
   ConditionUtils,
   DelayedTask,
@@ -14,7 +15,6 @@ import {
   NvlUtils,
   ObjectUtils,
   PropsUtils,
-  shallowClone,
   TypeUtils,
   WrapperUtils,
 } from '../../../util';
@@ -325,7 +325,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    */
   protected onSelect(option: IPresetsSelectOptionEntity): void {
     if (this.isPlainValueApplied) {
-      this.saveCachedValue(shallowClone(option), () => this.doSelectOption(option));
+      this.saveCachedValue(CloneUtils.shallowClone(option), () => this.doSelectOption(option));
     } else {
       this.doSelectOption(option);
     }

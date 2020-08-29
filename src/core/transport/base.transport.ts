@@ -29,8 +29,9 @@ import {
   IStorage,
   ITransport,
   ITransportRequestEntity,
-  MultiFieldEntityT,
   MultiFieldSingleValueT,
+  MultiFieldValueOrEntityIdT,
+  MultiFieldValueT,
   SelectValueT,
 } from '../definition';
 import {
@@ -88,21 +89,20 @@ export class BaseTransport {
     this.fieldConverter.fromPlaceEntityToPlaceParameter(value)
 
   /**
-   * @stable [16.05.2020]
-   * @param {MultiFieldEntityT<TEntity extends IEntity>} entity
-   * @returns {TEntity[]}
+   * @stable [29.08.2020]
+   * @param entity
    */
-  protected fromMultiFieldEntityToEntities =
-    <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
-      this.fieldConverter.fromMultiFieldEntityToEntities(entity)
+  protected fromMultiFieldValueToEntities =
+    <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
+      this.fieldConverter.fromMultiFieldValueToEntities(entity)
 
   /**
    * @stable [23.08.2020]
    * @param entity
    */
-  protected fromMultiFieldEntityToDefinedEntities =
-    <TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[] =>
-      this.fieldConverter.fromMultiFieldEntityToDefinedEntities(entity)
+  protected fromMultiFieldValueToDefinedEntities =
+    <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
+      this.fieldConverter.fromMultiFieldValueToDefinedEntities(entity)
 
   /**
    * @stable [16.05.2020]
@@ -143,10 +143,10 @@ export class BaseTransport {
 
   /**
    * @stable [26.12.2019]
-   * @param {MultiFieldEntityT | EntityIdT[]} value
+   * @param {MultiFieldValueOrEntityIdT} value
    * @returns {EntityIdT[]}
    */
-  protected prepareMultiEntitiesIdsValue(value: MultiFieldEntityT | EntityIdT[]): EntityIdT[] {
+  protected prepareMultiEntitiesIdsValue(value: MultiFieldValueT | EntityIdT[]): EntityIdT[] {
     return asMultiFieldMappedEntitiesIds(value);
   }
 
@@ -167,7 +167,7 @@ export class BaseTransport {
    */
   protected doSaveMultiEntities<TEntity>(
     entity: TEntity,
-    ...fieldsValuesResolvers: Array<(entity: TEntity) => MultiFieldSingleValueT>): Promise<IMultiEntityStorageSetEntity[]> {
+    ...fieldsValuesResolvers: ((entity: TEntity) => MultiFieldSingleValueT)[]): Promise<IMultiEntityStorageSetEntity[]> {
 
     return entitiesAsStorageTasks<TEntity>(
       entity,

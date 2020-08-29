@@ -20,7 +20,7 @@ import {
 import {
   IFieldConverter,
   IMultiItemEntity,
-  MultiFieldEntityT,
+  MultiFieldValueT,
 } from '../../../definition';
 import {
   DI_TYPES,
@@ -118,7 +118,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @returns {IEntity[]}
    */
   public get activeValue(): IEntity[] {
-    return this.fieldConverter.fromMultiFieldEntityToDefinedEntities({
+    return this.fieldConverter.fromMultiFieldValueToDefinedEntities({
       source: this.originalValue,
       remove: this.removeValue,
       add: this.addValue,
@@ -128,10 +128,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
    * @stable [02.06.2018]
-   * @param {MultiFieldEntityT} value
+   * @param {MultiFieldValueT} value
    * @returns {number}
    */
-  public getActiveValueLength(value: MultiFieldEntityT): number {
+  public getActiveValueLength(value: MultiFieldValueT): number {
     return asMultiFieldEntitiesLength(value);
   }
 
@@ -153,18 +153,18 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
    * @stable [01.06.2018]
-   * @param {MultiFieldEntityT} payload
+   * @param {MultiFieldValueT} payload
    */
-  private onChangeManually(payload: MultiFieldEntityT): void {
+  private onChangeManually(payload: MultiFieldValueT): void {
     this.field.onChangeManually(payload, this.getActiveValueLength(payload));
   }
 
   /**
    * @stable [01.06.2018]
    * @param {IMultiFieldChangesEntity} result
-   * @returns {MultiFieldEntityT}
+   * @returns {MultiFieldValueT}
    */
-  private toChangesPayload(result: IMultiFieldChangesEntity): MultiFieldEntityT {
+  private toChangesPayload(result: IMultiFieldChangesEntity): MultiFieldValueT {
     const add = result.addArray;
     const remove = result.removeArray;
     const edit = result.editArray;
@@ -186,9 +186,9 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
 
   /**
    * @stable [28.11.2018]
-   * @returns {MultiFieldEntityT}
+   * @returns {MultiFieldValueT}
    */
-  private get value(): MultiFieldEntityT {
+  private get value(): MultiFieldValueT {
     const field = this.field;
     return isFn(field.getValue) ? field.getValue() : field.value;
   }

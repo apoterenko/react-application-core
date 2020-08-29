@@ -4,7 +4,7 @@ import {
 import {
   IField,
   IMultiItemEntity,
-  MultiFieldEntityT,
+  MultiFieldValueT,
 } from '../../../definition';
 
 /**
@@ -15,7 +15,7 @@ export interface IMultiFieldPlugin {
   editValue: IMultiItemEntity[];
   addValue: IMultiItemEntity[];
   originalValue: IMultiItemEntity[];
-  getActiveValueLength(entity: MultiFieldEntityT): number;
+  getActiveValueLength(entity: MultiFieldValueT): number;
   onAdd(item: IMultiItemEntity): IMultiFieldChangesEntity;
   onDelete(item: IMultiItemEntity): IMultiFieldChangesEntity;
   onAddItem(item: IMultiItemEntity): void;

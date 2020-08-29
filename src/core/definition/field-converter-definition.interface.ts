@@ -12,7 +12,7 @@ import {
   INamedEntity,
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
-  MultiFieldEntityT,
+  MultiFieldValueT,
   PlaceEntityValueT,
   SelectValueT,
 } from '../definition';
@@ -30,7 +30,7 @@ export enum FieldConverterTypesEnum {
   ENTITIES = 'ENTITIES',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
-  MULTI_FIELD_ENTITY = 'MULTI_FIELD_ENTITY',
+  MULTI_FIELD_VALUE = 'MULTI_FIELD_VALUE',
   NAMED_ENTITY = 'NAMED_ENTITY',
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
@@ -58,8 +58,8 @@ export interface IFieldConverter {
   convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
   converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
   fromCronExpressionToCronParameter(value: string): string;
-  fromMultiFieldEntityToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];        /* @stable [17.07.2020] */
-  fromMultiFieldEntityToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldEntityT<TEntity>): TEntity[];
+  fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];          /* @stable [29.08.2020] */
+  fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                 /* @stable [29.08.2020] */
   fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                             /* @stable [08.07.2020] */
   fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
