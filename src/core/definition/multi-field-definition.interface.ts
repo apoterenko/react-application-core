@@ -7,6 +7,7 @@ import {
   IBaseSelectState,
 } from './select-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IReduxMultiEntity } from './multi-entity-definition.interface';
 import { MultiFieldValueT } from './field-definition.interface';
 
 /**
@@ -52,6 +53,15 @@ export interface IMultiFieldValueFilterConfigEntity<TEntity = IEntity> {
   editFilter?: (entity: TEntity) => boolean,
   removeFilter?: (entity: TEntity) => boolean,
   sourceEntities: MultiFieldValueT<TEntity>,
+}
+
+/**
+ * @config-entity
+ * @stable [02.09.2020]
+ */
+export interface IMultiFieldValueConcatConfigEntity<TEntity = IEntity> {
+  concatEntity?: IReduxMultiEntity<TEntity>,
+  currentEntity: MultiFieldValueT<TEntity>,
 }
 
 /**

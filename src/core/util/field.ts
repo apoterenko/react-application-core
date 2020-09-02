@@ -237,19 +237,6 @@ export const buildMultiItemEntity = <TEntity extends IEntity = IEntity>(name: st
   defValuesFilter<IMultiItemEntity, IMultiItemEntity>({id: rawData.id, value, name, rawData, newEntity});
 
 /**
- * @stable [22.11.2019]
- * @param {Partial<IReduxMultiEntity<TEntity extends IEntity>>} initial
- * @returns {IReduxMultiEntity<TEntity extends IEntity>}
- */
-export const multiEntityFactory =
-  <TEntity extends IEntity = IEntity>(initial: Partial<IReduxMultiEntity<TEntity>>): IReduxMultiEntity<TEntity> => ({
-    add: initial.add || [],
-    edit: initial.edit || [],
-    remove: initial.remove || [],
-    source: initial.source || [],
-  });
-
-/**
  * @stable [19.11.2019]
  * @param {TEntity} original
  * @param {MultiFieldValueT<TEntity extends IEntity>} multiFieldEntity

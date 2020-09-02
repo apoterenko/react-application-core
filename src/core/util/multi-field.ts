@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 
 import {
+  IMultiFieldValueConcatConfigEntity,
   IMultiFieldValueFilterConfigEntity,
   IMultiItemEntity,
   IReduxMultiEntity,
@@ -19,6 +20,18 @@ import {
 } from '../definitions.interface';
 import { CloneUtils } from './clone';
 import { FilterUtils } from './filter';
+
+/**
+ * @stable [03.09.2020]
+ * @param initial
+ */
+const fromMultiEntity =
+  <TEntity extends IEntity = IEntity>(initial: IReduxMultiEntity<TEntity>): IReduxMultiEntity<TEntity> => ({
+    add: initial.add || [],
+    edit: initial.edit || [],
+    remove: initial.remove || [],
+    source: initial.source || [],
+  });
 
 /**
  * @stable [29.08.2020]
@@ -155,11 +168,44 @@ const filterMultiFieldValue =
   };
 
 /**
+ * @stable [03.09.2020]
+ * @param cfg
+ */
+const concatMultiFieldValue =
+  <TEntity extends IEntity>(cfg: IMultiFieldValueConcatConfigEntity<TEntity>): IReduxMultiEntity => {
+    const {
+      concatEntity,
+      currentEntity,
+    } = cfg;
+    if (R.isNil(currentEntity) || MultiFieldUtils.isNotMultiEntity(currentEntity)) {
+      return UNDEF;
+    }
+    if (R.isNil(concatEntity)) {
+      return currentEntity as IReduxMultiEntity;
+    }
+    const $currentEntity = currentEntity as IReduxMultiEntity;
+    const $concatEntity = fromMultiEntity(concatEntity);
+
+    const add = $currentEntity.add.concat($concatEntity.add);
+    const edit = $currentEntity.edit.concat($concatEntity.edit);
+    const remove = $currentEntity.remove.concat($concatEntity.remove);
+
+    return {
+      ...$currentEntity,
+      add,
+      edit,
+      remove,
+    };
+  };
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
   public static readonly asMultiItemEntity = asMultiItemEntity;
+  public static readonly concatMultiFieldValue = concatMultiFieldValue;
   public static readonly filterMultiFieldValue = filterMultiFieldValue;
+  public static readonly fromMultiEntity = fromMultiEntity;
   public static readonly isNotMultiEntity = isNotMultiEntity;
   public static readonly multiFieldValueAsEditEntities = multiFieldValueAsEditEntities;
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;
