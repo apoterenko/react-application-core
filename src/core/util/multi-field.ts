@@ -20,6 +20,8 @@ import {
 } from '../definitions.interface';
 import { CloneUtils } from './clone';
 import { FilterUtils } from './filter';
+import { NvlUtils } from './nvl';
+import { ObjectUtils } from './object';
 
 /**
  * @stable [03.09.2020]
@@ -56,9 +58,9 @@ const notMultiFieldValueAsEntities =
  * @param converter
  * @param defaultValue
  */
-const multiFieldValueAsEntities = (value: MultiFieldValueT,
-                                   converter: (value: IReduxMultiEntity) => IMultiItemEntity[],
-                                   defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
+const extractEntitiesFromMultiFieldValue = (value: MultiFieldValueT,
+                                            converter: (value: IReduxMultiEntity) => IMultiItemEntity[],
+                                            defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
   isNotMultiEntity(value)
     ? (
       TypeUtils.isDef(defaultValue)
@@ -74,7 +76,7 @@ const multiFieldValueAsEntities = (value: MultiFieldValueT,
  */
 const multiFieldValueAsMultiItemEditEntities = (value: MultiFieldValueT,
                                                 defaultValue: IEntity[] = []): IMultiItemEntity[] =>
-  multiFieldValueAsEntities(value, (currentValue) => currentValue.edit, defaultValue);
+  extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.edit, defaultValue);
 
 /**
  * @stable [29.08.2020]
@@ -83,7 +85,7 @@ const multiFieldValueAsMultiItemEditEntities = (value: MultiFieldValueT,
  */
 const multiFieldValueAsMultiItemRemoveEntities = (value: MultiFieldValueT,
                                                   defaultValue: IEntity[] = []): IEntity[] =>
-  MultiFieldUtils.multiFieldValueAsEntities(value, (currentValue) => currentValue.remove, defaultValue);
+  extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.remove, defaultValue);
 
 /**
  * @stable [29.08.2020]
@@ -97,7 +99,7 @@ const multiFieldValueAsEditEntities =
     if (R.isNil(entity)) {
       return UNDEF;
     }
-    if (MultiFieldUtils.isNotMultiEntity(entity)) {
+    if (isNotMultiEntity(entity)) {
       return [];
     }
     const resultItems = new Map<EntityIdT, TEntity>();
@@ -148,7 +150,7 @@ const filterMultiFieldValue =
       removeFilter,
       sourceEntities,
     } = cfg;
-    if (R.isNil(currentEntity) || MultiFieldUtils.isNotMultiEntity(currentEntity)) {
+    if (R.isNil(currentEntity) || isNotMultiEntity(currentEntity)) {
       return UNDEF;
     }
     const $currentEntity = currentEntity as IReduxMultiEntity;
@@ -177,7 +179,7 @@ const concatMultiFieldValue =
       concatEntity,
       currentEntity,
     } = cfg;
-    if (R.isNil(currentEntity) || MultiFieldUtils.isNotMultiEntity(currentEntity)) {
+    if (R.isNil(currentEntity) || isNotMultiEntity(currentEntity)) {
       return UNDEF;
     }
     if (R.isNil(concatEntity)) {
@@ -199,11 +201,46 @@ const concatMultiFieldValue =
   };
 
 /**
+ * @stable [03.09.2020]
+ * @param entity
+ */
+const multiFieldValueAsEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] => {
+  if (R.isNil(entity)) {
+    return UNDEF;
+  }
+  if (isNotMultiEntity(entity)) {
+    return entity as TEntity[];
+  }
+  const multiEntity = entity as IReduxMultiEntity<TEntity>;
+  const sourceEntities = multiEntity.source || [];
+
+  // Fill a cache
+  const cachedSourceEntities = new Map<EntityIdT, TEntity>();
+  sourceEntities.forEach((itm) => cachedSourceEntities.set(itm.id, itm));
+
+  // Pass a map to optimize
+  const editedEntities = multiFieldValueAsEditEntities<TEntity>(entity, cachedSourceEntities);
+  const cachedEditedEntities = new Map<EntityIdT, TEntity>();
+  if (ObjectUtils.isObjectNotEmpty(editedEntities)) {
+    editedEntities.forEach((itm) => cachedEditedEntities.set(itm.id, itm));
+  }
+
+  // Remove the deleted entities
+  multiEntity.remove.forEach((itm) => cachedSourceEntities.delete(itm.id));
+
+  return multiEntity.add.concat(
+    Array.from(cachedSourceEntities.values())
+      .map((itm) => NvlUtils.nvl(cachedEditedEntities.get(itm.id), itm))
+  );
+};
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
   public static readonly asMultiItemEntity = asMultiItemEntity;
   public static readonly concatMultiFieldValue = concatMultiFieldValue;
+  public static readonly extractEntitiesFromMultiFieldValue = extractEntitiesFromMultiFieldValue;
   public static readonly filterMultiFieldValue = filterMultiFieldValue;
   public static readonly fromMultiEntity = fromMultiEntity;
   public static readonly isNotMultiEntity = isNotMultiEntity;

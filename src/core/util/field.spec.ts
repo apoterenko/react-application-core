@@ -6,7 +6,7 @@ import {
   UNDEF,
 } from '../definitions.interface';
 import { FieldConstants } from '../definition';
-import { MultiFieldUtils } from './multi-field';
+import { MultiFieldUtils } from './multi-field';  // TODO
 
 describe('util/field', () => {
   describe('asMultiFieldEditedEntities', () => {
@@ -66,7 +66,7 @@ describe('util/field', () => {
 
   describe('FieldUtils.fromMultiFieldValueToEntities', () => {
     it('test1', () => {
-      const editedEntities = FieldUtils.fromMultiFieldValueToEntities({
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEntities({
         add: [{id: 2, field1: 200}],
         remove: [],
         edit: [{id: 1, name: 'field1', value: 101}],
@@ -77,7 +77,7 @@ describe('util/field', () => {
 
     it('test2', () => {
       const entity = {id: 1, field1: 100};
-      const editedEntities = FieldUtils.fromMultiFieldValueToEntities({
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEntities({
         add: [],
         remove: [entity],
         edit: [],
@@ -87,7 +87,7 @@ describe('util/field', () => {
     });
 
     it('test3', () => {
-      const editedEntities = FieldUtils.fromMultiFieldValueToEntities({
+      const editedEntities = MultiFieldUtils.multiFieldValueAsEntities({
         add: [],
         remove: [],
         edit: [

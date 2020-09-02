@@ -31,6 +31,7 @@ import {
   FieldUtils,
   FilterUtils,
   Mappers,
+  MultiFieldUtils,
   PlaceUtils,
   SelectOptionUtils,
   TypeUtils,
@@ -392,7 +393,7 @@ export class FieldConverter implements IFieldConverter {
    * @private
    */
   private $fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
-    return FieldUtils.fromMultiFieldValueToEntities(value);
+    return MultiFieldUtils.multiFieldValueAsEntities(value);
   }
 
   /**

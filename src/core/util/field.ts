@@ -24,13 +24,11 @@ import {
   makeArray,
 } from './array';
 import { TypeUtils } from './type';
-import { NvlUtils } from './nvl';
 import {
   isDisabled,
   WrapperUtils,
 } from './wrapper';
 import { defValuesFilter } from './filter';
-import { ObjectUtils } from './object';
 import { MultiFieldUtils } from './multi-field';
 
 /**
@@ -108,43 +106,9 @@ export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
  * @stable [29.08.2020]
  * @param entity
  */
-const fromMultiFieldValueToEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] => {
-  if (R.isNil(entity)) {
-    return UNDEF;
-  }
-  if (MultiFieldUtils.isNotMultiEntity(entity)) {
-    return entity as TEntity[];
-  }
-  const multiEntity = entity as IReduxMultiEntity<TEntity>;
-  const sourceEntities = multiEntity.source || [];
-
-  // Fill a cache
-  const cachedSourceEntities = new Map<EntityIdT, TEntity>();
-  sourceEntities.forEach((itm) => cachedSourceEntities.set(itm.id, itm));
-
-  // Pass a map to optimize
-  const editedEntities = MultiFieldUtils.multiFieldValueAsEditEntities<TEntity>(entity, cachedSourceEntities);
-  const cachedEditedEntities = new Map<EntityIdT, TEntity>();
-  if (ObjectUtils.isObjectNotEmpty(editedEntities)) {
-    editedEntities.forEach((itm) => cachedEditedEntities.set(itm.id, itm));
-  }
-
-  // Remove the deleted entities
-  multiEntity.remove.forEach((itm) => cachedSourceEntities.delete(itm.id));
-
-  return multiEntity.add.concat(
-    Array.from(cachedSourceEntities.values())
-      .map((itm) => NvlUtils.nvl(cachedEditedEntities.get(itm.id), itm))
-  );
-};
-
-/**
- * @stable [29.08.2020]
- * @param entity
- */
 const fromMultiFieldValueToDefinedEntities =
   <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
-    fromMultiFieldValueToEntities(entity) || [];
+    MultiFieldUtils.multiFieldValueAsEntities(entity) || [];
 
 /**
  * @stable [22.11.2019]
@@ -173,7 +137,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldValueOrEntityIdT): n
   () => (
     MultiFieldUtils.isNotMultiEntity(value)
       ? MultiFieldUtils.notMultiFieldValueAsEntities(value as NotMultiFieldValueT)
-      : fromMultiFieldValueToEntities(value as IReduxMultiEntity)
+      : MultiFieldUtils.multiFieldValueAsEntities(value as IReduxMultiEntity)
   ).length,
   0
 );
@@ -187,7 +151,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldValueOrEntityIdT): n
 export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>,
                                                                                entitiesCountLimit: number): TEntity[] => {
   const result = makeArray(entitiesCountLimit);
-  const multiFieldEntities = fromMultiFieldValueToEntities(value);
+  const multiFieldEntities = MultiFieldUtils.multiFieldValueAsEntities(value);
 
   if (Array.isArray(multiFieldEntities)) {
     let cursor = 0;
@@ -215,7 +179,7 @@ export const asMultiFieldMappedEntities =
   <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity> | EntityIdT[],
                                                          mapper: (entity: TEntity, index: number) => TResult): TResult[] =>
     ifNotNilThanValue(
-      fromMultiFieldValueToEntities(multiFieldEntity as MultiFieldValueT<TEntity>),
+      MultiFieldUtils.multiFieldValueAsEntities(multiFieldEntity as MultiFieldValueT<TEntity>),
       (result) => result.map(mapper),
       UNDEF_SYMBOL
     );
@@ -257,6 +221,5 @@ export class FieldUtils {
   public static readonly dynamicFieldName = dynamicFieldName;                                                     /* @stable [29.06.2020] */
   public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
   public static readonly fromMultiFieldValueToDefinedEntities = fromMultiFieldValueToDefinedEntities;             /* @stable [16.05.2020] */
-  public static readonly fromMultiFieldValueToEntities = fromMultiFieldValueToEntities;                           /* @stable [16.05.2020] */
   public static readonly isFieldInactive = isFieldInactive;                                                       /* @stable [02.08.2020] */
 }

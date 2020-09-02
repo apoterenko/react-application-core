@@ -74,7 +74,7 @@ export function fromMultiFieldValueToEditedEntities<TItem extends IEntity = IEnt
  */
 export const extractMultiAddItemEntities = (value: MultiFieldValueT,
                                             defaultValue: IMultiItemEntity[] = []): IEntity[] =>
-  MultiFieldUtils.multiFieldValueAsEntities(value, (currentValue) => currentValue.add, defaultValue);
+  MultiFieldUtils.extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.add, defaultValue);
 
 /**
  * @stable [23.06.2018]
@@ -84,7 +84,7 @@ export const extractMultiAddItemEntities = (value: MultiFieldValueT,
  */
 export const extractMultiSourceItemEntities = (value: MultiFieldValueT,
                                                defaultValue?: IEntity[]): IEntity[] =>
-  MultiFieldUtils.multiFieldValueAsEntities(value, (currentValue) => currentValue.source, defaultValue);
+  MultiFieldUtils.extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.source, defaultValue);
 
 /**
  * @stable [02.07.2018]

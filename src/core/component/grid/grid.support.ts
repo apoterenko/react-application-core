@@ -3,11 +3,11 @@ import * as R from 'ramda';
 import {
   calc,
   defValuesFilter,
-  FieldUtils,
   FilterUtils,
   isFn,
   join,
   makeArray,
+  MultiFieldUtils,
   normalizeTime,
   orNull,
   orUndef,
@@ -206,4 +206,4 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
 export const asExpandedGridGroups =
   <TEntity extends IEntity>(entity: MultiFieldValueT<TEntity>,
                             groupValueAccessor: (item: TEntity) => EntityIdT = (item) => item.id): Record<EntityIdT, boolean> =>
-    R.mergeAll((FieldUtils.fromMultiFieldValueToEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
+    R.mergeAll((MultiFieldUtils.multiFieldValueAsEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
