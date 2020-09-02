@@ -42,7 +42,6 @@ describe('form.reducer', () => {
           dirty: true,
           touched: true,
           valid: true,
-          validateAfterReset: true,
         },
         FormActionBuilder.buildResetPlainAction(TEST_SECTION)
       );
@@ -51,6 +50,7 @@ describe('form.reducer', () => {
         activeValue: 1,
         changes: {},
         defaultChanges: {},
+        validateAfterReset: true,
       };
       expect(reducedForm).toEqual(result);
     });
