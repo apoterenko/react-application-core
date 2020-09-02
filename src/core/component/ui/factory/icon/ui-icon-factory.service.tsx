@@ -59,7 +59,6 @@ import {
   faSearchMinus,
   faSearchPlus,
   faShieldAlt,
-  faShippingFast,
   faSignInAlt,
   faSignOutAlt,
   faSpinner,
@@ -137,16 +136,6 @@ export class UiIconFactory implements IUiIconFactory {
            width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M19.5 24h-15a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3H6c0-3.315 2.685-6 6-6s6 2.685 6 6h1.5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3zM12 3a3 3 0 0 0-3 3h6a3 3 0 0 0-3-3zm7.5 6h-15v12h15V9zM12 12a3 3 0 1 1 0 6 3 3 0 1 1 0-6z'
         />
-      </svg>
-    ),
-    'circle': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <defs>
-          <path id='59c5b385-2d73-41c8-8f66-bd296326c848' d='M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm0-3a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z'
-          />
-        </defs>
-        <use fill='currentColor' fillRule='evenodd' xlinkHref='#59c5b385-2d73-41c8-8f66-bd296326c848' />
       </svg>
     ),
     'home': (
@@ -306,6 +295,7 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.CHECK_CIRCLE]: faCheckCircle,
     [IconsEnum.CHEVRON_DOWN]: faChevronDown,
     [IconsEnum.CHEVRON_UP]: faChevronUp,
+    [IconsEnum.CIRCLE_REGULAR]: faCircleRegular,
     [IconsEnum.CLOCK_REGULAR]: faClockRegular,
     [IconsEnum.CODEPEN]: faCodepen,
     [IconsEnum.COGS]: faCogs,
@@ -345,7 +335,6 @@ export class UiIconFactory implements IUiIconFactory {
     adversal: faAdversal,
     arrow_alt_circle_right_regular: faArrowAltCircleRightRegular,
     chart_pie: faChartPie,
-    circle_regular: faCircleRegular,
     clear_all: faEraser,
     cloud: faCloud,
     comments_regular: faCommentsRegular,
@@ -375,7 +364,6 @@ export class UiIconFactory implements IUiIconFactory {
     question: faQuestion,
     remove: faMinus,
     save: faSave,
-    shipping_fast: faShippingFast,
     signIn: faSignInAlt,
     sms: faCommentDots,
     spa: faCannabis,

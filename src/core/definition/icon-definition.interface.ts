@@ -18,6 +18,7 @@ export enum IconsEnum {
   CHECK_CIRCLE = 'check-circle',                                          /* https://fontawesome.com/ */
   CHEVRON_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */
   CHEVRON_UP = 'chevron-up',                                              /* https://fontawesome.com/ */
+  CIRCLE_REGULAR = 'circle-regular',                                      /* https://fontawesome.com/ */
   CLOCK_REGULAR = 'clock-regular',                                        /* https://fontawesome.com/ */
   CODEPEN = 'codepen',                                                    /* https://fontawesome.com/ */
   COGS = 'cogs',                                                          /* https://fontawesome.com/ */

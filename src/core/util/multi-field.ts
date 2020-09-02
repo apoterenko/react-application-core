@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 
 import {
+  IMultiFieldValueFilterConfigEntity,
   IMultiItemEntity,
   IReduxMultiEntity,
   MultiFieldValueOrEntityIdT,
@@ -122,10 +123,43 @@ const asMultiItemEntity =
     FilterUtils.defValuesFilter<IMultiItemEntity, IMultiItemEntity>({id: rawData.id, value, name, rawData, newEntity});
 
 /**
+ * @stable [02.09.2020]
+ * @param cfg
+ */
+const filterMultiFieldValue =
+  <TEntity extends IEntity>(cfg: IMultiFieldValueFilterConfigEntity<TEntity>): IReduxMultiEntity => {
+    const {
+      addFilter,
+      currentEntity,
+      editFilter,
+      removeFilter,
+      sourceEntities,
+    } = cfg;
+    if (R.isNil(currentEntity) || MultiFieldUtils.isNotMultiEntity(currentEntity)) {
+      return UNDEF;
+    }
+    const $currentEntity = currentEntity as IReduxMultiEntity;
+    const add = TypeUtils.isFn(addFilter) ? $currentEntity.add.filter(addFilter) : $currentEntity.add;
+    const edit = TypeUtils.isFn(editFilter) ? $currentEntity.edit.filter(editFilter) : $currentEntity.edit;
+    const remove = TypeUtils.isFn(removeFilter) ? $currentEntity.remove.filter(removeFilter) : $currentEntity.remove;
+
+    if (add.length === 0 && edit.length === 0 && remove.length === 0) {
+      return UNDEF;
+    }
+    return {
+      add,
+      edit,
+      remove,
+      source: sourceEntities as TEntity[],
+    };
+  };
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
   public static readonly asMultiItemEntity = asMultiItemEntity;
+  public static readonly filterMultiFieldValue = filterMultiFieldValue;
   public static readonly isNotMultiEntity = isNotMultiEntity;
   public static readonly multiFieldValueAsEditEntities = multiFieldValueAsEditEntities;
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;

@@ -1,9 +1,13 @@
-import { ISelectedValueIgnoredWrapper } from '../definitions.interface';
+import {
+  IEntity,
+  ISelectedValueIgnoredWrapper,
+} from '../definitions.interface';
 import {
   IBaseSelectProps,
   IBaseSelectState,
 } from './select-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
+import { MultiFieldValueT } from './field-definition.interface';
 
 /**
  * @stable [01.06.2018]
@@ -36,6 +40,18 @@ export interface IGenericMultiFieldEntity
 export interface IMultiFieldProps
   extends IGenericComponentProps,
     IGenericMultiFieldEntity {
+}
+
+/**
+ * @config-entity
+ * @stable [02.09.2020]
+ */
+export interface IMultiFieldValueFilterConfigEntity<TEntity = IEntity> {
+  addFilter?: (entity: TEntity) => boolean,
+  currentEntity: MultiFieldValueT<TEntity>,
+  editFilter?: (entity: TEntity) => boolean,
+  removeFilter?: (entity: TEntity) => boolean,
+  sourceEntities: MultiFieldValueT<TEntity>,
 }
 
 /**

@@ -1,14 +1,18 @@
 import * as R from 'ramda';
 
-import { IEntity, EntityIdT, UNDEF, AnyT, IKeyValue } from '../../../definitions.interface';
+import {
+  AnyT,
+  EntityIdT,
+  IEntity,
+  IKeyValue,
+  UNDEF,
+} from '../../../definitions.interface';
 import {
   buildMultiItemEntity,
   ifNotNilThanValue,
   isDef,
-  isFn,
   MultiFieldUtils,
   orUndef,
-  toType,
   TypeUtils,
 } from '../../../util';
 import {
@@ -221,36 +225,4 @@ export const toMultiFieldChangesEntityOnDelete = (item: IMultiItemEntity,
     // We just now have removed deleted item from addValue array
   }
   return {addArray, removeArray, editArray};
-};
-
-/**
- * @stable [07.03.2019]
- * @param {MultiFieldValueT<TEntity extends IEntity>} multiEntity
- * @param {MultiFieldValueT<TEntity extends IEntity>} updatedSource
- * @param {(entity: TEntity) => boolean} addFilter
- * @param {(entity: TEntity) => boolean} editFilter
- * @param {(entity: TEntity) => boolean} removeFilter
- * @returns {IReduxMultiEntity}
- */
-export const toFilteredMultiEntity = <TEntity extends IEntity>(multiEntity: MultiFieldValueT<TEntity>,
-                                                               updatedSource: MultiFieldValueT<TEntity>,
-                                                               addFilter?: (entity: TEntity) => boolean,
-                                                               editFilter?: (entity: TEntity) => boolean,
-                                                               removeFilter?: (entity: TEntity) => boolean): IReduxMultiEntity => {
-  if (R.isNil(multiEntity) || MultiFieldUtils.isNotMultiEntity(multiEntity)) {
-    return UNDEF;
-  }
-  const multiEntity0 = multiEntity as IReduxMultiEntity;
-  const add = isFn(addFilter) ? multiEntity0.add.filter(addFilter) : multiEntity0.add;
-  const edit = isFn(editFilter) ? multiEntity0.edit.filter(editFilter) : multiEntity0.edit;
-  const remove = isFn(removeFilter) ? multiEntity0.remove.filter(removeFilter) : multiEntity0.remove;
-  if (add.length === 0 && edit.length === 0 && remove.length === 0) {
-    return UNDEF;
-  }
-  return toType<IReduxMultiEntity>({
-    add,
-    edit,
-    remove,
-    source: updatedSource as TEntity[],
-  });
 };
