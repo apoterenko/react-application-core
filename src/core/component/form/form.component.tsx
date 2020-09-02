@@ -129,13 +129,18 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [01.09.2020]
+   * @stable [02.09.2020]
    * @param prevProps
    */
   public componentDidUpdate(prevProps: IFormProps): void {
-    if (this.form.validateAfterReset) {
-      this.doValid();
-    }
+    ConditionUtils.ifNotNilThanValue(
+      this.form,
+      (form) => {
+        if (form.validateAfterReset) {
+          this.doValid();
+        }
+      }
+    );
   }
 
   /**
