@@ -11,11 +11,13 @@ import {
   TypeUtils,
 } from './type';
 import {
+  AnyT,
   EntityIdT,
   IEntity,
   UNDEF,
 } from '../definitions.interface';
 import { CloneUtils } from './clone';
+import { FilterUtils } from './filter';
 
 /**
  * @stable [29.08.2020]
@@ -106,9 +108,24 @@ const multiFieldValueAsEditEntities =
   };
 
 /**
+ * @stable [31.08.2020]
+ * @param name
+ * @param value
+ * @param rawData
+ * @param newEntity
+ */
+const asMultiItemEntity =
+  <TEntity extends IEntity = IEntity>(name: string,
+                                      value: AnyT,
+                                      rawData: TEntity,
+                                      newEntity?: boolean): IMultiItemEntity =>
+    FilterUtils.defValuesFilter<IMultiItemEntity, IMultiItemEntity>({id: rawData.id, value, name, rawData, newEntity});
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
+  public static readonly asMultiItemEntity = asMultiItemEntity;
   public static readonly isNotMultiEntity = isNotMultiEntity;
   public static readonly multiFieldValueAsEditEntities = multiFieldValueAsEditEntities;
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;

@@ -5,7 +5,6 @@ import { LoggerFactory } from 'ts-smart-logger';
 import {
   FormClassesEnum,
   IApiEntity,
-  IBaseEvent,
   IButtonProps,
   IconsEnum,
   IField,
@@ -29,9 +28,7 @@ import {
   isFormResettable,
   isFormSubmittable,
   Mappers,
-  notNilValuesFilter,
   ObjectUtils,
-  orNull,
   TypeUtils,
   WrapperUtils,
 } from '../../util';
@@ -41,7 +38,7 @@ import {
 } from '../../definitions.interface';
 import { GenericComponent } from '../base';
 import { Button } from '../button';
-import { Field2 } from '../field';
+import { Field } from '../field/field/field.component';
 import {
   DI_TYPES,
   lazyInject,
@@ -60,21 +57,19 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   @lazyInject(DI_TYPES.FieldsPresets) private readonly fieldsPresets: IFieldsPresets; // TODO Replace with settings
 
   /**
-   * @stable [30.06.2020]
-   * @param {IFormProps} originalProps
+   * @stable [02.09.2020]
+   * @param originalProps
    */
   constructor(originalProps: IFormProps) {
     super(originalProps);
 
+    this.doReset = this.doReset.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onReset = this.onReset.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
-   * @stable [30.06.2020]
-   * @returns {JSX.Element}
+   * @stable [02.09.2020]
    */
   public render(): JSX.Element {
     const {
@@ -90,8 +85,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
         ref={this.actualRef}
         style={style}
         autoComplete='off'
-        onReset={this.onReset}
-        onSubmit={this.onSubmit}
         className={this.className}
       >
         {
@@ -131,7 +124,17 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    */
   public componentDidMount(): void {
     if (this.originalProps.validateOnMount) {
-      this.throwOnValid();
+      this.doValid();
+    }
+  }
+
+  /**
+   * @stable [01.09.2020]
+   * @param prevProps
+   */
+  public componentDidUpdate(prevProps: IFormProps): void {
+    if (this.form.validateAfterReset) {
+      this.doValid();
     }
   }
 
@@ -156,7 +159,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     if (TypeUtils.isFn(onChange)) {
       if (ObjectUtils.isObjectNotEmpty(name)) {
         onChange({[name]: value});
-        this.throwOnValid();
+        this.doValid();
       } else {
         Form.logger.warn('[$Form][onChange] The field has no name. The field value:', value);
       }
@@ -166,7 +169,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   /**
    * @stable [07.08.2020]
    */
-  private throwOnValid(): void {
+  private doValid(): void {
     const {
       onValid,
       valid,
@@ -181,20 +184,12 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [30.01.2020]
+   * @stable [01.09.2020]
    */
   private doSubmit(): void {
-    this.onSubmit();
-  }
-
-  /**
-   * @stable [12.06.2020]
-   * @param {IBaseEvent} event
-   */
-  private onSubmit(event?: IBaseEvent): void {
-    this.domAccessor.cancelEvent(event);
-
-    const {onBeforeSubmit} = this.mergedProps;
+    const {
+      onBeforeSubmit,
+    } = this.originalProps;
 
     if (TypeUtils.isFn(onBeforeSubmit)) {
       const apiEntity = this.apiEntity;
@@ -208,14 +203,16 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [27.08.2020]
-   * @param event
+   * @stable [01.09.2020]
    * @private
    */
-  private onReset(event: IBaseEvent): void {
-    this.domAccessor.cancelEvent(event);
-
-    ConditionUtils.ifNotNilThanValue(this.originalProps.onReset, (onReset) => onReset());
+  private doReset(): void {
+    ConditionUtils.ifNotNilThanValue(
+      this.originalProps.onReset,
+      (onReset) => {
+        onReset();
+      }
+    );
   }
 
   /**
@@ -314,8 +311,8 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [13.02.2020]
-   * @returns {JSX.Element}
+   * @stable [02.09.2020]
+   * @private
    */
   private get formActionsElement(): JSX.Element {
     const {
@@ -373,46 +370,56 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
             }
           );
         },
-        (child) => Field2.isPrototypeOf(child.type),
+        (child) => Field.isPrototypeOf(child.type),
         (child) => (child.props as IFieldProps).rendered,
       )
     );
   }
 
   /**
-   * @stable [13.02.2020]
-   * @returns {IButtonProps[]}
+   * @stable [02.09.2020]
+   * @private
    */
   private get actions(): IButtonProps[] {
-    const props = this.props;
     const {
       buttonConfiguration = {},
+      resetActionRendered,
       resetConfiguration = {},
+      resetIcon,
+      resetText,
       submitConfiguration = {},
-    } = props;
+      submitIcon,
+      submitText,
+    } = this.originalProps;
     const messages = this.settings.messages;
 
     return FilterUtils.objectValuesArrayFilter(
-      props.resetActionRendered && notNilValuesFilter<IButtonProps, IButtonProps>({
-        type: 'reset',
-        icon: props.resetIcon || IconsEnum.TIMES,
+      resetActionRendered && FilterUtils.notNilValuesFilter<IButtonProps, IButtonProps>({
+        icon: resetIcon || IconsEnum.TIMES,
+        text: resetText || messages.RESET,
+        type: 'button',
+        /**/
         disabled: !this.isFormResettable,
-        text: props.resetText || messages.RESET,
+        /**/
+        onClick: this.doReset,
+        /**/
         ...buttonConfiguration,
         ...resetConfiguration,
-        onClick: null,
       }),
-      notNilValuesFilter<IButtonProps, IButtonProps>({
-        type: 'submit',
-        icon: this.isFormValid ? (props.submitIcon || IconsEnum.CHECK_CIRCLE) : 'exclamation',
-        raised: true,
+      FilterUtils.notNilValuesFilter<IButtonProps, IButtonProps>({
+        icon: this.isFormValid ? (submitIcon || IconsEnum.CHECK_CIRCLE) : IconsEnum.EXCLAMATION,
+        text: submitText || (this.isFormOfNewEntity ? messages.CREATE : messages.SAVE),
+        type: 'button',
+        /**/
         disabled: !this.isFormSubmittable,
-        progress: this.isFormBusy,
         error: this.hasError,
-        text: props.submitText || (this.isFormOfNewEntity ? messages.CREATE : messages.SAVE),
+        progress: this.isFormBusy,
+        raised: true,
+        /**/
+        onClick: this.doSubmit,
+        /**/
         ...buttonConfiguration,
         ...submitConfiguration,
-        onClick: orNull(submitConfiguration.type === 'button', () => this.doSubmit),
       })
     );
   }

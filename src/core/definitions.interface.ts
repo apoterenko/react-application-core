@@ -297,7 +297,7 @@ export interface IMainConfigurationWrapper<TValue> { mainConfiguration?: TValue;
 export interface IMappersWrapper<TValue> { mappers?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
 export interface IMaskGuideWrapper<TValue = boolean> { maskGuide?: TValue; }
-export interface IMaskWrapper<TValue = Array<string | RegExp>> { mask?: TValue; }
+export interface IMaskWrapper<TValue = (string | RegExp)[]> { mask?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
 export interface IMaxLengthWrapper { maxLength?: number; }
@@ -559,6 +559,7 @@ export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; 
 export interface IUseUppercaseWrapper { useUppercase?: boolean; }
 export interface IUseZipCodeWrapper { useZipCode?: boolean; }
 export interface IUuidWrapper { uuid?: string; }
+export interface IValidateAfterResetWrapper { validateAfterReset?: boolean; }
 export interface IValidateOnMountWrapper { validateOnMount?: boolean; }
 export interface IValidWrapper { valid?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }

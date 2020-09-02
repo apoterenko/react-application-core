@@ -1,12 +1,16 @@
+import * as R from 'ramda';
+
 import { DefaultEntities } from '../definition/default-definition.interface';
 
 /**
- * @stable [24.07.2020]
+ * @stable [01.09.2020]
  * @param num
  * @param precision
  */
 const roundByPrecision = (num: number, precision = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
-  Number(`${Math.round(Number(`${num}e${precision}`))}e-${precision}`);
+  R.isNil(num)
+    ? num
+    : Number(`${Math.round(Number(`${num}e${precision}`))}e-${precision}`);
 
 /**
  * @stable [20.08.2020]

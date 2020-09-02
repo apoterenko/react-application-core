@@ -229,14 +229,7 @@ export const asMultiFieldMappedEntitiesIds =
   <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity> | EntityIdT[]): EntityIdT[] =>
     asMultiFieldMappedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
 
-/**
- * @stable [22.11.2019]
- * @param {string} name
- * @param {AnyT} value
- * @param {TEntity} rawData
- * @param {boolean} newEntity
- * @returns {IMultiItemEntity}
- */
+// TODO Deprecated
 export const buildMultiItemEntity = <TEntity extends IEntity = IEntity>(name: string,
                                                                         value: AnyT,
                                                                         rawData: TEntity,

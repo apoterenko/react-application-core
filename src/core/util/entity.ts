@@ -24,17 +24,15 @@ const isPhantomEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): bo
   !isNewEntity(entity) && entity.id < 0;
 
 /**
- * @stable [03.02.2020]
- * @param {IExtendedEntity<TEntity extends IEntity>} entity
- * @returns {boolean}
+ * @stable [01.09.2020]
+ * @param entity
  */
-export const isNewExtendedEntity = <TEntity extends IEntity>(entity: IExtendedEntity<TEntity>): boolean =>
+const isNewExtendedEntity = <TEntity extends IEntity>(entity: IExtendedEntity<TEntity>): boolean =>
   R.isNil(entity) || entity.newEntity === true;
 
 /**
- * @stable [01.10.2019]
- * @param {IExtendedEntity<TEntity extends IEntity>} extendedEntity
- * @returns {boolean}
+ * @stable [01.09.2020]
+ * @param extendedEntity
  */
 export const doesExtendedEntityExist = <TEntity extends IEntity>(extendedEntity: IExtendedEntity<TEntity>): boolean =>
   !isNewExtendedEntity(extendedEntity);
@@ -54,6 +52,7 @@ export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): stri
  * @stable [31.07.2020]
  */
 export class EntityUtils {
+  public static readonly doesExtendedEntityExist = doesExtendedEntityExist;
   public static readonly isNewEntity = isNewEntity;
   public static readonly isPhantomEntity = isPhantomEntity;
 }

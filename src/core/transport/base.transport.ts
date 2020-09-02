@@ -6,12 +6,16 @@ import {
   defValuesFilter,
   downloadFileAsBlobUrl,
   join,
+  NumberUtils,
   orUndef,
   StringUtils,
 } from '../util';
 import { AnyT } from '../definitions.interface';
 import {
+  DefaultEntities,
   IEnvironment,
+  INamedEntity,
+  IPresetsRawDataLabeledValueEntity,
   IUpdateEntity,
 } from '../definition';
 import {
@@ -97,6 +101,13 @@ export class BaseTransport {
       this.fieldConverter.fromMultiFieldValueToEntities(entity)
 
   /**
+   * @stable [01.09.2020]
+   * @param value
+   */
+  protected fromNamedEntityToRawDataLabeledValueEntity = (value: INamedEntity): IPresetsRawDataLabeledValueEntity =>
+    this.fieldConverter.fromNamedEntityToRawDataLabeledValueEntity(value)
+
+  /**
    * @stable [23.08.2020]
    * @param entity
    */
@@ -105,9 +116,8 @@ export class BaseTransport {
       this.fieldConverter.fromMultiFieldValueToDefinedEntities(entity)
 
   /**
-   * @stable [16.05.2020]
-   * @param {SelectValueT} value
-   * @returns {EntityIdT}
+   * @stable [01.09.2020]
+   * @param value
    */
   protected fromSelectValueToId = (value: SelectValueT): EntityIdT =>
     this.fieldConverter.fromSelectValueToId(value)
@@ -131,6 +141,14 @@ export class BaseTransport {
    * @param value
    */
   protected queryParameter = (value: string): string => StringUtils.asStringParameter(value, true);
+
+  /**
+   * @stable [01.09.2020]
+   * @param value
+   * @param precision
+   */
+  protected roundByPrecision = (value: number, precision = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
+    NumberUtils.roundByPrecision(value, precision);
 
   /**
    * @stable [25.07.2019]

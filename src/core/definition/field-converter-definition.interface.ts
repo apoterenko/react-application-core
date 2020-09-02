@@ -1,5 +1,4 @@
 import {
-  AnyT,
   EntityIdT,
   IConverterWrapper,
   IEntity,
@@ -45,7 +44,7 @@ export enum FieldConverterTypesEnum {
  * @stable [09.01.2020]
  */
 export interface IFieldConverterConfigEntity
-  extends IConverterWrapper<(value: AnyT) => AnyT>,
+  extends IConverterWrapper<(value: unknown) => unknown>,
     IFromWrapper<FieldConverterTypesEnum>,
     IToWrapper<FieldConverterTypesEnum>,
     IValueWrapper {
@@ -55,16 +54,16 @@ export interface IFieldConverterConfigEntity
  * @stable [09.01.2020]
  */
 export interface IFieldConverter {
-  convert<TResult = AnyT>(config: IFieldConverterConfigEntity): TResult;
-  converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT;
+  convert<TResult = unknown>(config: IFieldConverterConfigEntity): TResult;                                                       /* @stable [01.09.2020] */
+  converter(config: IFieldConverterConfigEntity): (value: unknown) => unknown;                                                    /* @stable [01.09.2020] */
   fromCronExpressionToCronParameter(value: string): string;
   fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];          /* @stable [29.08.2020] */
   fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                 /* @stable [29.08.2020] */
   fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                             /* @stable [08.07.2020] */
-  fromOAuthJwtDecodedInfoToUserEntity<TValue = AnyT>(value: TValue): IReduxUserEntity;
+  fromOAuthJwtDecodedInfoToUserEntity<TValue = unknown>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
   fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                              /* @stable [08.08.2020] */
   fromSelectValueToId(value: SelectValueT): EntityIdT;                                                                            /* @stable [11.08.2020] */
-  register(config: IFieldConverterConfigEntity): void;
+  register(config: IFieldConverterConfigEntity): void;                                                                            /* @stable [01.09.2020] */
 }

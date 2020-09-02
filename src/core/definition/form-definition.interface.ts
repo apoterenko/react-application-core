@@ -34,6 +34,7 @@ import {
   ISubmitConfigurationWrapper,
   ISubmitIconWrapper,
   ISubmitTextWrapper,
+  IValidateAfterResetWrapper,
   IValidateOnMountWrapper,
   IValidWrapper,
 } from '../definitions.interface';
@@ -61,6 +62,7 @@ export interface IReduxFormEntity<TChanges = IKeyValue>
     IChangesWrapper<TChanges>,
     IDefaultChangesWrapper<TChanges>,
     IDirtyWrapper,
+    IValidateAfterResetWrapper,
     IValidWrapper {
 }
 
