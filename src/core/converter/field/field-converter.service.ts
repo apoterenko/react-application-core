@@ -124,6 +124,11 @@ export class FieldConverter implements IFieldConverter {
     });
     this.register({
       from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
+      to: FieldConverterTypesEnum.EDIT_ENTITIES,
+      converter: this.$fromMultiFieldValueToEditEntities.bind(this),
+    });
+    this.register({
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.DEFINED_ENTITIES,
       converter: this.$fromMultiFieldValueToDefinedEntities.bind(this),
     });
@@ -268,6 +273,18 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
+   * @stable [03.09.2020]
+   * @param value
+   */
+  public fromMultiFieldValueToEditEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
+    return this.convert({
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
+      to: FieldConverterTypesEnum.EDIT_ENTITIES,
+      value,
+    });
+  }
+
+  /**
    * @stable [16.05.2020]
    * @param {MultiFieldValueT<TEntity extends IEntity>} value
    * @returns {TEntity[]}
@@ -394,6 +411,15 @@ export class FieldConverter implements IFieldConverter {
    */
   private $fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
     return MultiFieldUtils.multiFieldValueAsEntities(value);
+  }
+
+  /**
+   * @stable [03.09.2020]
+   * @param value
+   * @private
+   */
+  private $fromMultiFieldValueToEditEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
+    return MultiFieldUtils.multiFieldValueAsEditEntities(value);
   }
 
   /**

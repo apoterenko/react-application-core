@@ -26,6 +26,7 @@ export enum FieldConverterTypesEnum {
   DATES_RANGE_VALUE = 'DATES_RANGE_VALUE',
   DEFINED_ENTITIES = 'DEFINED_ENTITIES',
   DISPLAY_VALUE = 'DISPLAY_VALUE',
+  EDIT_ENTITIES = 'EDIT_ENTITIES',
   ENTITIES = 'ENTITIES',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
@@ -58,6 +59,7 @@ export interface IFieldConverter {
   converter(config: IFieldConverterConfigEntity): (value: unknown) => unknown;                                                    /* @stable [01.09.2020] */
   fromCronExpressionToCronParameter(value: string): string;
   fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];          /* @stable [29.08.2020] */
+  fromMultiFieldValueToEditEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[];              /* @stable [03.09.2020] */
   fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                 /* @stable [29.08.2020] */
   fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                             /* @stable [08.07.2020] */
   fromOAuthJwtDecodedInfoToUserEntity<TValue = unknown>(value: TValue): IReduxUserEntity;
