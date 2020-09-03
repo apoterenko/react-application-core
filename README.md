@@ -104,6 +104,10 @@ The library is designed to quickly start develop the business applications are b
 * [IReduxFormHolderEntity](src/core/definition/form-definition.interface.ts)
 * [IReduxUnsavedFormChangesDialogHolderEntity](src/core/definition/unsaved-form-changes-dialog-definition.interface.ts)
 
+# Utils
+
+* [multi-field](src/core/util/multi-field.ts)
+
 # Theme customization (styling)
 
 #### Button
