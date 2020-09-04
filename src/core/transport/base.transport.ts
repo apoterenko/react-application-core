@@ -8,6 +8,7 @@ import {
   join,
   NumberUtils,
   orUndef,
+  StorageUtils,
   StringUtils,
 } from '../util';
 import { AnyT } from '../definitions.interface';
@@ -46,7 +47,6 @@ import {
 } from '../di';
 import {
   asMultiFieldMappedEntitiesIds,
-  entitiesAsStorageTasks,
 } from '../util';
 import { IDateConverter } from '../converter';
 
@@ -151,6 +151,13 @@ export class BaseTransport {
     NumberUtils.roundByPrecision(value, precision);
 
   /**
+   * @stable [04.09.2020]
+   * @param result
+   */
+  protected asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string =>
+    StorageUtils.asSingleAddedFileId(result);
+
+  /**
    * @stable [25.07.2019]
    * @param {string} value
    * @returns {string}
@@ -178,16 +185,16 @@ export class BaseTransport {
   }
 
   /**
-   * @stable [03.04.2020]
-   * @param {TEntity} entity
-   * @param {Array<(entity: TEntity) => MultiFieldSingleValueT>} fieldsValuesResolvers
-   * @returns {Promise<IMultiEntityStorageSetEntity[]>}
+   * @stable [04.09.2020]
+   * @param entity
+   * @param fieldsValuesResolvers
+   * @protected
    */
   protected doSaveMultiEntities<TEntity>(
     entity: TEntity,
     ...fieldsValuesResolvers: ((entity: TEntity) => MultiFieldSingleValueT)[]): Promise<IMultiEntityStorageSetEntity[]> {
 
-    return entitiesAsStorageTasks<TEntity>(
+    return StorageUtils.entitiesAsStorageTasks<TEntity>(
       entity,
       fieldsValuesResolvers,
       (fileName, file) => this.multiEntityDatabaseStorage.set(fileName, file)

@@ -1,49 +1,42 @@
 import {
-  IReduxMultiEntity,
   IMultiEntityStorageSetEntity,
   MultiFieldSingleValueT,
 } from '../definition';
-import { isDef } from './type';
-import { isObjectNotEmpty } from './object';
-import { orNull, ifNotNilThanValue } from './cond';
-import {
-  IEntity,
-  UNDEF_SYMBOL,
-} from '../definitions.interface';
-import { uuid } from './uuid';
+import { ConditionUtils } from './cond';
+import { TypeUtils } from './type';
+import { UNDEF_SYMBOL } from '../definitions.interface';
+import { UuidUtils } from './uuid';
 
 /**
- * @stable [02.10.2019]
- * @param {TEntity} changes
- * @param {Array<(entity: TEntity) => MultiFieldSingleValueT>} fieldsValuesResolvers
- * @param {(fileName: string, value: MultiFieldSingleValueT) => Promise<IMultiEntityStorageSetEntity>} storageProcessor
- * @returns {Promise<IMultiEntityStorageSetEntity[]>}
+ * @stable [04.09.2020]
+ * @param changes
+ * @param fieldsValuesResolvers
+ * @param storageProcessor
  */
-export const entitiesAsStorageTasks =
-  <TEntity>(changes: TEntity,
-            fieldsValuesResolvers: Array<(entity: TEntity) => MultiFieldSingleValueT>,
-            storageProcessor: (fileName: string, value: MultiFieldSingleValueT) =>
-              Promise<IMultiEntityStorageSetEntity>): Promise<IMultiEntityStorageSetEntity[]> => {
-    const tasks = [];
-    fieldsValuesResolvers.forEach((fieldValueResolver, index) => {
+const entitiesAsStorageTasks = <TEntity>(
+  changes: TEntity,
+  fieldsValuesResolvers: ((entity: TEntity) => MultiFieldSingleValueT)[],
+  storageProcessor: (fileName: string, value: MultiFieldSingleValueT) => Promise<IMultiEntityStorageSetEntity>
+): Promise<IMultiEntityStorageSetEntity[]> =>
+  Promise.all(
+    fieldsValuesResolvers.map((fieldValueResolver) => {
       const fieldValueChange = fieldValueResolver(changes);
-      tasks.push(
-        orNull(isDef(fieldValueChange), () => storageProcessor(uuid(), fieldValueChange))
+      return ConditionUtils.orNull(
+        TypeUtils.isDef(fieldValueChange),
+        () => storageProcessor(UuidUtils.uuid(), fieldValueChange)
       );
-    });
-    return orNull(isObjectNotEmpty(tasks), () => Promise.all(tasks));
-  };
+    })
+  );
 
 /**
- * @stable [02.10.2019]
- * @param {IMultiEntityStorageSetEntity} result
- * @returns {string}
+ * @stable [04.09.2020]
+ * @param result
  */
 export const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string =>
-  ifNotNilThanValue(
+  ConditionUtils.ifNotNilThanValue(
     result,
     () => (
-      ifNotNilThanValue(
+      ConditionUtils.ifNotNilThanValue(
         result.addedFiles[0],
         (entity) => entity.id,
         UNDEF_SYMBOL
@@ -51,3 +44,11 @@ export const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): strin
     ),
     UNDEF_SYMBOL
   );
+
+/**
+ * @stable [04.09.2020]
+ */
+export class StorageUtils {
+  public static readonly asSingleAddedFileId = asSingleAddedFileId;
+  public static readonly entitiesAsStorageTasks = entitiesAsStorageTasks;
+}

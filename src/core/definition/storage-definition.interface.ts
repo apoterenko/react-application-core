@@ -82,7 +82,7 @@ export interface IAddedFileEntity
 }
 
 /**
- * @stable [02.10.2019]
+ * @stable [04.09.2020]
  */
 export interface IMultiEntityStorageSetEntity
   extends IAddedFilesWrapper<IAddedFileEntity[]>,
