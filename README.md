@@ -107,6 +107,7 @@ The library is designed to quickly start develop the business applications are b
 # Utils
 
 * [MultiFieldUtils](src/core/util/multi-field.ts)
+* [StorageUtils](src/core/util/storage.ts)
 
 # Theme customization (styling)
 
