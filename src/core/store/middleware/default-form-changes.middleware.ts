@@ -3,20 +3,19 @@ import { IEffectsAction } from 'redux-effects-promise';
 import { FormActionBuilder } from '../../action';
 import { IDefaultFormChangesMiddlewareConfigEntity } from '../../definition';
 import {
-  calc,
-  isObjectNotEmpty,
-  orNull,
+  CalcUtils,
+  ConditionUtils,
+  ObjectUtils,
   toFormSection,
 } from '../../util';
 
 /**
- * @stable [03.04.2020]
- * @param {IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>} cfg
- * @returns {IEffectsAction}
+ * @stable [04.09.2020]
+ * @param cfg
  */
 export const makeDefaultFormChangesMiddleware =
   <TChanges = {}, TState = {}>(cfg: IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>): IEffectsAction =>
-    orNull(
-      isObjectNotEmpty(cfg.defaultChanges) && isObjectNotEmpty(toFormSection(cfg)),
-      () => FormActionBuilder.buildDefaultChangesAction(toFormSection(cfg), calc(cfg.defaultChanges))
+    ConditionUtils.orNull(
+      ObjectUtils.isObjectNotEmpty(cfg.defaultChanges) && ObjectUtils.isObjectNotEmpty(toFormSection(cfg)),
+      () => FormActionBuilder.buildDefaultChangesAction(toFormSection(cfg), CalcUtils.calc(cfg.defaultChanges))
     );

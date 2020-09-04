@@ -15,11 +15,9 @@ import {
 import { makeChainedMiddleware } from './chained.middleware';
 import {
   ConditionUtils,
-  defValuesFilter,
   FilterUtils,
   ObjectUtils,
   Selectors,
-  selectSelectedEntityFromAction,
   toFormSection,
   toListSection,
 } from '../../util';
@@ -41,9 +39,8 @@ const asChainedConfigEntity = <TPayload = {}, TState = {}, TDefaultChanges = {}>
   });
 
 /**
- * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TState, TDefaultChanges>} config
- * @returns {IEffectsAction[]}
+ * @stable [04.09.2020]
+ * @param config
  */
 export const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<{}, TState, TDefaultChanges>): IEffectsAction[] =>
@@ -61,13 +58,13 @@ export const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultC
   cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>): IEffectsAction[] => {
 
   const action = cfg.action;
-  const selected = selectSelectedEntityFromAction<TPayload>(action);
+  const selected = Selectors.selectedEntityFromAction<TPayload>(action);
 
   return cfg.lazyLoading
     ? [
       ListActionBuilder.buildLazyLoadAction(
         toListSection(cfg),
-        defValuesFilter<IFluxSelectedEntity, IFluxSelectedEntity>({
+        FilterUtils.defValuesFilter<IFluxSelectedEntity, IFluxSelectedEntity>({
           selected,
           preventEffects: Selectors.preventEffectsFromAction(action),
           previousAction: Selectors.previousActionFromAction(action),
