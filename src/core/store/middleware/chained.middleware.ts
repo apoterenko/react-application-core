@@ -5,8 +5,8 @@ import {
   IChainedMiddlewareConfigEntity,
 } from '../../definition';
 import {
-  isFn,
   Selectors,
+  TypeUtils,
 } from '../../util';
 import {
   RouterActionBuilder,
@@ -14,9 +14,8 @@ import {
 } from '../../action';
 
 /**
- * @stable [26.03.2020]
- * @param {IChainedMiddlewareConfigEntity<TState, TPayload>} config
- * @returns {IEffectsAction[]}
+ * @stable [04.09.2020]
+ * @param config
  */
 export const makeChainedMiddleware =
   <TPayload, TState>(config: IChainedMiddlewareConfigEntity<TState, TPayload>): IEffectsAction[] =>
@@ -25,12 +24,12 @@ export const makeChainedMiddleware =
       : (
         [
           StackActionBuilder.buildLockAction(
-            isFn(config.nextSection)
+            TypeUtils.isFn(config.nextSection)
               ? (config.nextSection as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
               : config.nextSection as string
           ),
           RouterActionBuilder.buildNavigateAction(
-            isFn(config.path)
+            TypeUtils.isFn(config.path)
               ? (config.path as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
               : config.path as string
           )

@@ -13,13 +13,6 @@ import {
 } from '../../definition';
 
 /**
- * @stable [06.07.2018]
- */
-export interface IFilteredListMiddlewareConfig extends IListSectionWrapper,
-                                                       IEffectsActionEntity {
-}
-
-/**
  * @stable [22.08.2018]
  */
 export interface ISucceedRelatedFormMiddlewareConfig<TEntity extends IEntity = IEntity,
