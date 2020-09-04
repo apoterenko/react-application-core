@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import {
   IMultiFieldValueConcatConfigEntity,
   IMultiFieldValueFilterConfigEntity,
+  IMultiFieldValueMergeConfigEntity,
   IMultiItemEntity,
   IReduxMultiEntity,
   MultiFieldValueOrEntityIdT,
@@ -235,6 +236,22 @@ const multiFieldValueAsEntities = <TEntity extends IEntity = IEntity>(entity: Mu
 };
 
 /**
+ * @stable [04.09.2020]
+ * @param cfg
+ */
+const multiFieldValueAsMergedTrueEntities =
+  <TEntity extends IEntity>(cfg: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> => {
+    const {
+      entity,
+      groupValueAccessor = (item) => item.id,
+    } = cfg;
+
+    return R.mergeAll(
+      (multiFieldValueAsEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true}))
+    );
+  }
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
@@ -246,6 +263,7 @@ export class MultiFieldUtils {
   public static readonly isNotMultiEntity = isNotMultiEntity;
   public static readonly multiFieldValueAsEditEntities = multiFieldValueAsEditEntities;
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;
+  public static readonly multiFieldValueAsMergedTrueEntities = multiFieldValueAsMergedTrueEntities;
   public static readonly multiFieldValueAsMultiItemEditEntities = multiFieldValueAsMultiItemEditEntities;
   public static readonly multiFieldValueAsMultiItemRemoveEntities = multiFieldValueAsMultiItemRemoveEntities;
   public static readonly notMultiFieldValueAsEntities = notMultiFieldValueAsEntities;

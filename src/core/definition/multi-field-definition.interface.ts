@@ -1,4 +1,5 @@
 import {
+  EntityIdT,
   IEntity,
   ISelectedValueIgnoredWrapper,
 } from '../definitions.interface';
@@ -48,11 +49,11 @@ export interface IMultiFieldProps
  * @stable [02.09.2020]
  */
 export interface IMultiFieldValueFilterConfigEntity<TEntity = IEntity> {
-  addFilter?: (entity: TEntity) => boolean,
-  currentEntity: MultiFieldValueT<TEntity>,
-  editFilter?: (entity: TEntity) => boolean,
-  removeFilter?: (entity: TEntity) => boolean,
-  sourceEntities: MultiFieldValueT<TEntity>,
+  addFilter?: (entity: TEntity) => boolean;
+  currentEntity: MultiFieldValueT<TEntity>;
+  editFilter?: (entity: TEntity) => boolean;
+  removeFilter?: (entity: TEntity) => boolean;
+  sourceEntities: MultiFieldValueT<TEntity>;
 }
 
 /**
@@ -60,8 +61,17 @@ export interface IMultiFieldValueFilterConfigEntity<TEntity = IEntity> {
  * @stable [02.09.2020]
  */
 export interface IMultiFieldValueConcatConfigEntity<TEntity = IEntity> {
-  concatEntity?: IReduxMultiEntity<TEntity>,
-  currentEntity: MultiFieldValueT<TEntity>,
+  concatEntity?: IReduxMultiEntity<TEntity>;
+  currentEntity: MultiFieldValueT<TEntity>;
+}
+
+/**
+ * @config-entity
+ * @stable [04.09.2020]
+ */
+export interface IMultiFieldValueMergeConfigEntity<TEntity = IEntity> {
+  entity: MultiFieldValueT<TEntity>
+  groupValueAccessor: (item: TEntity) => EntityIdT
 }
 
 /**

@@ -8,6 +8,7 @@ import {
   StringNumberT,
 } from '../definitions.interface';
 import {
+  IMultiFieldValueMergeConfigEntity,
   INamedEntity,
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
@@ -30,7 +31,9 @@ export enum FieldConverterTypesEnum {
   ENTITIES = 'ENTITIES',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
+  MERGED_TRUE_ENTITIES = 'MERGED_TRUE_ENTITIES',
   MULTI_FIELD_VALUE = 'MULTI_FIELD_VALUE',
+  MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY = 'MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY',
   NAMED_ENTITY = 'NAMED_ENTITY',
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
@@ -55,17 +58,20 @@ export interface IFieldConverterConfigEntity
  * @stable [09.01.2020]
  */
 export interface IFieldConverter {
-  convert<TResult = unknown>(config: IFieldConverterConfigEntity): TResult;                                                       /* @stable [01.09.2020] */
-  converter(config: IFieldConverterConfigEntity): (value: unknown) => unknown;                                                    /* @stable [01.09.2020] */
+  // tslint:disable:max-line-length
+  convert<TResult = unknown>(config: IFieldConverterConfigEntity): TResult;                                                                                                     /* @stable [01.09.2020] */
+  converter(config: IFieldConverterConfigEntity): (value: unknown) => unknown;                                                                                                  /* @stable [01.09.2020] */
   fromCronExpressionToCronParameter(value: string): string;
-  fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];          /* @stable [29.08.2020] */
-  fromMultiFieldValueToEditEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[];              /* @stable [03.09.2020] */
-  fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                 /* @stable [29.08.2020] */
-  fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                             /* @stable [08.07.2020] */
+  fromMultiFieldValueMergeConfigEntityToMergedTrueEntities<TEntity extends IEntity = IEntity>(value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean>;   /* @stable [04.09.2020] */
+  fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                                                        /* @stable [29.08.2020] */
+  fromMultiFieldValueToEditEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[];                                                            /* @stable [03.09.2020] */
+  fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                                                               /* @stable [29.08.2020] */
+  fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                                                                           /* @stable [08.07.2020] */
   fromOAuthJwtDecodedInfoToUserEntity<TValue = unknown>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
-  fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                              /* @stable [08.08.2020] */
-  fromSelectValueToId(value: SelectValueT): EntityIdT;                                                                            /* @stable [11.08.2020] */
-  register(config: IFieldConverterConfigEntity): void;                                                                            /* @stable [01.09.2020] */
+  fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                                                                            /* @stable [08.08.2020] */
+  fromSelectValueToId(value: SelectValueT): EntityIdT;                                                                                                                          /* @stable [11.08.2020] */
+  register(config: IFieldConverterConfigEntity): void;                                                                                                                          /* @stable [01.09.2020] */
+  // tslint:enable:max-line-length
 }

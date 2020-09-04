@@ -2,6 +2,7 @@ import * as R from 'ramda';
 
 import {
   AnyT,
+  StringNumberT,
   UNDEF,
 } from '../definitions.interface';
 import { TypeUtils } from './type';
@@ -37,32 +38,33 @@ const isCurrentValueNotEqualPreviousValue = (current: AnyT, previous: AnyT): boo
   isObjectNotEmpty(current) && !R.equals(current, previous);
 
 /**
- * @stable [17.04.2020]
- * @param {TValue} object
- * @param {(o, key) => any} mergeFn
- * @returns {TValue}
+ * @stable [04.09.2020]
+ * @param object
+ * @param mergeFn
+ * @param keyAccessor
  */
-const buildValuesObjectBy = <TValue>(object: TValue, mergeFn = (o, key) => o[key]): TValue =>
+const buildValuesObjectBy = <TValue>(object: TValue,
+                                     mergeFn = (o, key) => o[key],
+                                     keyAccessor = (o, key) => key): Record<StringNumberT, AnyT> =>
   R.isNil(object)
     ? object
-    : R.mergeAll(Object.keys(object).map((key) => ({[key]: mergeFn(object, key)})));
+    : R.mergeAll(Object.keys(object).map((key) => ({[keyAccessor(object, key)]: mergeFn(object, key)})));
 
 /**
- * @stable [15.05.2020]
- * @param {TValue} object
- * @returns {TValue}
+ * @stable [04.09.2020]
+ * @param object
  */
-const buildUndefValuesObject = <TValue>(object: TValue): TValue => buildValuesObjectBy(object, () => UNDEF);
+const buildUndefValuesObject = <TValue>(object: TValue): Record<StringNumberT, AnyT> => buildValuesObjectBy(object, () => UNDEF);
 
 /**
- * @stable [16.05.2020]
- * @param {TValue} object
- * @returns {TValue}
+ * @stable [04.09.2020]
+ * @param object
  */
-const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): TValue => buildValuesObjectBy(object, (o, key) => {
-  const value = object[key];
-  return isObjectNotEmpty(value) ? value : null;
-});
+const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): Record<StringNumberT, AnyT> =>
+  buildValuesObjectBy(object, (o, key) => {
+    const value = object[key];
+    return isObjectNotEmpty(value) ? value : null;
+  });
 
 /**
  * @stable [15.05.2020]
@@ -72,5 +74,6 @@ export class ObjectUtils {
   public static buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
   public static buildValuesObjectBy =  buildValuesObjectBy;                                      /* @stable [15.05.2020] */
   public static isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
+  public static isObjectEmpty = isObjectEmpty;                                                   /* @stable [04.09.2020] */
   public static isObjectNotEmpty = isObjectNotEmpty;                                             /* @stable [15.05.2020] */
 }

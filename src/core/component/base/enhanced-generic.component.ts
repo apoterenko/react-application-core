@@ -2,8 +2,8 @@ import * as R from 'ramda';
 
 import {
   isFn,
-  isObjectEmpty,
   isObjectNotEmpty,
+  ObjectUtils,
 } from '../../util';
 import { AnyT } from '../../definitions.interface';
 import {
@@ -92,7 +92,7 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
   private initPlugins(): void {
     const plugins = this.uiPlugins;
 
-    if (!isObjectEmpty(plugins)) {
+    if (!ObjectUtils.isObjectEmpty(plugins)) {
       const dynamicPluginsFactories = plugins.get(this.constructor as IGenericComponentCtor);
       if (isObjectNotEmpty(dynamicPluginsFactories)) {
         dynamicPluginsFactories.forEach((dynamicPluginFactory) => this.registerPlugin(dynamicPluginFactory(this)));

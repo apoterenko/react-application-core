@@ -14,6 +14,7 @@ import {
   IDatesRangeEntity,
   IFieldConverter,
   IFieldConverterConfigEntity,
+  IMultiFieldValueMergeConfigEntity,
   INamedEntity,
   IPhoneConfigEntity,
   IPlaceEntity,
@@ -131,6 +132,11 @@ export class FieldConverter implements IFieldConverter {
       from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.DEFINED_ENTITIES,
       converter: this.$fromMultiFieldValueToDefinedEntities.bind(this),
+    });
+    this.register({
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY,
+      to: FieldConverterTypesEnum.MERGED_TRUE_ENTITIES,
+      converter: this.$fromMultiFieldValueMergeConfigEntityToMergedTrueEntities.bind(this),
     });
   }
 
@@ -268,6 +274,19 @@ export class FieldConverter implements IFieldConverter {
     return this.convert({
       from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.ENTITIES,
+      value,
+    });
+  }
+
+  /**
+   * @stable [04.09.2020]
+   * @param value
+   */
+  public fromMultiFieldValueMergeConfigEntityToMergedTrueEntities<TEntity extends IEntity = IEntity>(
+    value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> {
+    return this.convert({
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY,
+      to: FieldConverterTypesEnum.MERGED_TRUE_ENTITIES,
       value,
     });
   }
@@ -429,6 +448,16 @@ export class FieldConverter implements IFieldConverter {
    */
   private $fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
     return FieldUtils.fromMultiFieldValueToDefinedEntities(value);
+  }
+
+  /**
+   * @stable [04.09.2020]
+   * @param value
+   * @private
+   */
+  private $fromMultiFieldValueMergeConfigEntityToMergedTrueEntities<TEntity extends IEntity = IEntity>(
+    value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> {
+    return MultiFieldUtils.multiFieldValueAsMergedTrueEntities(value);
   }
 
   /**

@@ -9,11 +9,16 @@ import {
   makeArray,
   MultiFieldUtils,
   normalizeTime,
+  ObjectUtils,
   orNull,
   orUndef,
   toClassName,
 } from '../../util';
-import { UNI_CODES, IEntity, EntityIdT } from '../../definitions.interface';
+import {
+  EntityIdT,
+  IEntity,
+  UNI_CODES,
+} from '../../definitions.interface';
 import {
   IGridState,
   ITimeGridBuilderConfigEntity,
@@ -206,4 +211,6 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
 export const asExpandedGridGroups =
   <TEntity extends IEntity>(entity: MultiFieldValueT<TEntity>,
                             groupValueAccessor: (item: TEntity) => EntityIdT = (item) => item.id): Record<EntityIdT, boolean> =>
-    R.mergeAll((MultiFieldUtils.multiFieldValueAsEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true})));
+    R.mergeAll((MultiFieldUtils.multiFieldValueAsEntities<TEntity>(entity) || [])
+      .map((item) => ({[groupValueAccessor(item)]: true})));
+
