@@ -516,7 +516,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get acceptable(): boolean {
-    return isAcceptable(this.mergedProps);
+    return isAcceptable(this.originalProps);
   }
 
   /**
@@ -524,7 +524,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {boolean}
    */
   private get closable(): boolean {
-    return isClosable(this.mergedProps);
+    return isClosable(this.originalProps);
   }
 
   /**

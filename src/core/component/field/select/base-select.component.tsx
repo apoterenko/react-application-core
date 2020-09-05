@@ -353,11 +353,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [11.01.2020]
-   * @param {IPresetsSelectOptionEntity} option
+   * @stable [05.09.2020]
+   * @param option
+   * @protected
    */
   protected notifySelectOption(option: IPresetsSelectOptionEntity): void {
-    const onSelect = this.props.onSelect;
+    const {
+      onSelect,
+    } = this.originalProps;
+
     if (!TypeUtils.isDef(option) || !TypeUtils.isFn(onSelect)) {
       return;
     }
