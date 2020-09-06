@@ -80,6 +80,15 @@ const multiFieldValueAsMultiItemEditEntities = (value: MultiFieldValueT,
   extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.edit, defaultValue);
 
 /**
+ * @stable [06.09.2020]
+ * @param value
+ * @param defaultValue
+ */
+const multiFieldValueAsMultiItemAddEntities = (value: MultiFieldValueT,
+                                               defaultValue: IEntity[] = []): IEntity[] =>
+  extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.add, defaultValue);
+
+/**
  * @stable [29.08.2020]
  * @param value
  * @param defaultValue
@@ -264,6 +273,7 @@ export class MultiFieldUtils {
   public static readonly multiFieldValueAsEditEntities = multiFieldValueAsEditEntities;
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;
   public static readonly multiFieldValueAsMergedTrueEntities = multiFieldValueAsMergedTrueEntities;
+  public static readonly multiFieldValueAsMultiItemAddEntities = multiFieldValueAsMultiItemAddEntities;
   public static readonly multiFieldValueAsMultiItemEditEntities = multiFieldValueAsMultiItemEditEntities;
   public static readonly multiFieldValueAsMultiItemRemoveEntities = multiFieldValueAsMultiItemRemoveEntities;
   public static readonly notMultiFieldValueAsEntities = notMultiFieldValueAsEntities;

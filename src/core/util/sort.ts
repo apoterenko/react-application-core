@@ -19,12 +19,11 @@ const NAME_ASC_SORTER = <TEntity extends IEntity>(value1: StringNumberT, value2:
   nvl(`${value1}`, '').localeCompare(`${value2}`);
 
 /**
- * @stable [07.03.2019]
- * @param {number} value1
- * @param {number} value2
- * @returns {number}
+ * @stable [06.09.2020]
+ * @param value1
+ * @param value2
  */
-export const VALUE_DESC_SORTER_FN = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
+export const VALUE_DESC_SORTER = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
   VALUE_ASC_SORTER_FN(value1, value2) * -1;
 
 /**
@@ -52,11 +51,12 @@ export const ID_ASC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntit
  * @returns {number}
  */
 export const ID_DESC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntity, item2: TEntity): number =>
-  VALUE_DESC_SORTER_FN(item1.id, item2.id);
+  VALUE_DESC_SORTER(item1.id, item2.id);
 
 /**
  * @stable [16.06.2020]
  */
 export class SortUtils {
   public static readonly NAME_ASC_SORTER = NAME_ASC_SORTER;
+  public static readonly VALUE_DESC_SORTER = VALUE_DESC_SORTER;
 }

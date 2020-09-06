@@ -7,7 +7,7 @@ import {
   IKeyValue,
 } from '../definitions.interface';
 import { ifNotNilThanValue } from './cond';
-import { isFn } from './type';
+import { TypeUtils } from './type';
 import {
   FilterUtils,
   SAME_ENTITY_PREDICATE,
@@ -53,34 +53,34 @@ export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
   ifNotNilThanValue(array, () => array.slice(0, Math.min(array.length, nvl(limit, array.length))));
 
 /**
- * @stable [04.10.2019]
- * @param {TValue[]} array
- * @param {TValue} initialItem
- * @param {(entity1: IEntity, entity2: IEntity) => boolean} predicate
- * @param {(previousItem: TValue) => TValue} itemFactory
- * @returns {TValue[]}
+ * @stable [06.09.2020]
+ * @param array
+ * @param item
+ * @param predicate
+ * @param itemFactory
  */
-export const mergeArrayItem = <TValue extends IKeyValue>(array: TValue[],
-                                                         initialItem: TValue,
-                                                         predicate = SAME_ENTITY_PREDICATE,
-                                                         itemFactory?: (previousItem: TValue) => TValue): TValue[] => {
-  const array0 = array || [];
-  const hasEntity = doesArrayContainExistedEntity(array0, initialItem, predicate);
-  const isMergedItemFactoryFn = isFn(itemFactory);
+export const mergeArrayItem = <TValue = IKeyValue>(array: TValue[],
+                                                   item: TValue,
+                                                   predicate = SAME_ENTITY_PREDICATE,
+                                                   itemFactory?: ($item: TValue) => TValue): TValue[] => {
+  const $array = array || [];
+  const hasEntity = doesArrayContainExistedEntity($array, item, predicate);
+  const hasItemFactory = TypeUtils.isFn(itemFactory);
   const result = hasEntity
-    ? array0
-    : [...array0, isMergedItemFactoryFn ? itemFactory(initialItem) : initialItem];
+    ? $array
+    : [...$array, hasItemFactory ? itemFactory(item) : item];
+
   if (!hasEntity) {
     return result;
   }
   return result.map(
-    (itm) => predicate(itm, initialItem)
+    ($item) => predicate($item, item)
       ? (
-        isMergedItemFactoryFn
-          ? itemFactory(itm)      // Custom creating
-          : initialItem           // Replace
+        hasItemFactory
+          ? itemFactory($item)      // Custom creating
+          : item                    // Replace
       )
-      : itm
+      : $item
   );
 };
 
@@ -126,4 +126,5 @@ export const areArrayValuesNotNil = (...values: AnyT[]): boolean =>
 export class ArrayUtils {
   public static readonly doesArrayContainEntity = doesArrayContainEntity;
   public static readonly doesArrayContainExistedEntity = doesArrayContainExistedEntity;
+  public static readonly mergeArrayItem = mergeArrayItem;
 }

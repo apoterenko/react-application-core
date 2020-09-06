@@ -25,7 +25,7 @@ import { join } from './join';
 import {
   NUMBER_COMPARATOR,
   VALUE_ASC_SORTER_FN,
-  VALUE_DESC_SORTER_FN,
+  VALUE_DESC_SORTER,
 } from './sort';
 import { orNull } from './cond';
 import { StringNumberT } from '../definitions.interface';
@@ -127,7 +127,7 @@ const toCronPart = (values: number[],
         break;
       case CronPartTypesEnum.DAY_OF_WEEK:
         const lastDays = R
-          .sort<number>(VALUE_DESC_SORTER_FN, values.filter((v) => v < 0))
+          .sort<number>(VALUE_DESC_SORTER, values.filter((v) => v < 0))
           .map((v) => `${toCronLastDayOfWeek(v)}${CRON_LAST_DAY_SYMBOL}`);
         const positiveDays = values.filter((v) => v >= 0);
         result = [
