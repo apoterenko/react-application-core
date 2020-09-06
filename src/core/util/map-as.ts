@@ -341,7 +341,7 @@ const mapOptionEntityAsSelectOptionEntity =
  * @param data
  */
 const mapOptionEntitiesAsSelectOptionEntities =
-  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): Array<IPresetsSelectOptionEntity<TEntity>> =>
+  <TEntity extends IOptionEntity>(data: TEntity[] | TEntity): IPresetsSelectOptionEntity<TEntity>[] =>
     ConditionUtils.ifNotNilThanValue(
       data,
       () => [].concat(data).map((entity) => mapOptionEntityAsSelectOptionEntity(entity)),
@@ -357,7 +357,7 @@ const mapOptionEntitiesAsSelectOptionEntities =
  */
 const mapDictionaryEntityAsSelectOptionEntities =
   <TEntity>(dictionaryEntity: IReduxDictionaryEntity<TEntity>,
-            accessor?: (data: TEntity | TEntity[]) => AnyT): Array<IPresetsSelectOptionEntity<TEntity>> =>
+            accessor?: (data: TEntity | TEntity[]) => AnyT): IPresetsSelectOptionEntity<TEntity>[] =>
     mapOptionEntitiesAsSelectOptionEntities(
       ConditionUtils.ifNotNilThanValue(
         Selectors.data(dictionaryEntity),
