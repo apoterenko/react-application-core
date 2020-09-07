@@ -1,27 +1,42 @@
 import * as R from 'ramda';
 
 import { TypeUtils } from './type';
-import {
-  AnyT,
-  IKeyValue,
-} from '../definitions.interface';
+import { IKeyValue } from '../definitions.interface';
 import {
   IValidationResultEntity,
   ValidationRulesEnum,
 } from '../definition';
 
 /**
+ * @stable [07.09.2020]
+ * @param value
+ */
+const positiveNumberChecker = (value: unknown): boolean => TypeUtils.isPositiveNumber(value);
+
+/**
+ * @stable [07.09.2020]
+ * @param value
+ */
+const positiveOrNegativeNumberChecker = (value: unknown): boolean => TypeUtils.isNumber(value);
+
+/**
+ * @stable [07.09.2020]
+ * @param value
+ */
+const positiveNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveNumberLike(value);
+
+/**
  * @stable [29.07.2020]
  * @param value
  */
-const positiveOrNegativeNumberLikeChecker = (value: AnyT): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
+const positiveOrNegativeNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
 
 /**
  * @stable [06.12.2019]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const optionalNumberLikeChecker = (value: AnyT): boolean => R.isNil(value) || positiveOrNegativeNumberLikeChecker(value);
+export const optionalNumberLikeChecker = (value: unknown): boolean => R.isNil(value) || positiveOrNegativeNumberLikeChecker(value);
 
 /**
  * @stable [07.09.2020]
@@ -33,21 +48,17 @@ const stringChecker = (value): boolean => TypeUtils.isString(value);
  * @stable [07.09.2020]
  * @param value
  */
-const notEmptyStringChecker = (value: AnyT): boolean => stringChecker(value) && !R.isEmpty(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const positiveNumberChecker = (value): boolean => TypeUtils.isPositiveNumber(value);
+const notEmptyStringChecker = (value: unknown): boolean => stringChecker(value) && !R.isEmpty(value);
 
 /**
  * @stable [28.01.2019]
  */
 export const ValidationRules = {
-  [ValidationRulesEnum.POSITIVE_NUMBER]: positiveNumberChecker,
   [ValidationRulesEnum.NOT_EMPTY_STRING]: notEmptyStringChecker,
   [ValidationRulesEnum.OPTIONAL_NUMBER_LIKE]: optionalNumberLikeChecker,
+  [ValidationRulesEnum.POSITIVE_NUMBER]: positiveNumberChecker,
+  [ValidationRulesEnum.POSITIVE_NUMBER_LIKE]: positiveNumberLikeChecker,
+  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER]: positiveOrNegativeNumberChecker,
   [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER_LIKE]: positiveOrNegativeNumberLikeChecker,
   [ValidationRulesEnum.STRING]: stringChecker,
 };

@@ -1,4 +1,3 @@
-import { AnyT } from '../definitions.interface';
 import { RegexpConstants } from '../definition/regexp-definition.interface';
 
 /**
@@ -6,60 +5,66 @@ import { RegexpConstants } from '../definition/regexp-definition.interface';
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isDef = (value: AnyT): boolean => !isUndef(value);
+export const isDef = (value: unknown): boolean => !isUndef(value);
 
 /**
  * @stable [02.10.2019]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isUndef = (value: AnyT): boolean => typeof value === 'undefined';
+export const isUndef = (value: unknown): boolean => typeof value === 'undefined';
 
 /**
  * @stable [02.10.2019]
  * @param {AnyT} value
  * @returns {boolean}
  */
-export const isFn = (value: AnyT): boolean => typeof value === 'function';
+export const isFn = (value: unknown): boolean => typeof value === 'function';
 
 /**
  * @stable [07.09.2020]
  * @param value
  */
-const isNumber = (value: AnyT): boolean => typeof value === 'number' && !isNaN(value);
+const isNumber = (value: unknown): boolean => typeof value === 'number' && !isNaN(value);
 
 /**
  * @stable [07.09.2020]
  * @param value
  */
-export const isNotNumber = (value: AnyT): boolean => !isNumber(value);
+const isNotNumber = (value: unknown): boolean => !isNumber(value);
 
 /**
  * @stable [07.09.2020]
  * @param value
  */
-const isPositiveNumber = (value: AnyT): boolean => isNumber(value) && value >= 0;
+const isPositiveNumber = (value: unknown): boolean => isNumber(value) && value >= 0;
+
+/**
+ * @stable [07.09.2020]
+ * @param value
+ */
+const isPositiveNumberLike = (value: unknown): boolean => RegexpConstants.POSITIVE_NUMBER.test(`${value}`);
 
 /**
  * @stable [22.07.2020]
  * @param {AnyT} value
  * @returns {boolean}
  */
-const isPositiveOrNegativeNumberLike = (value: AnyT): boolean => RegexpConstants.POSITIVE_OR_NEGATIVE_NUMBER.test(`${value}`);
+const isPositiveOrNegativeNumberLike = (value: unknown): boolean => RegexpConstants.POSITIVE_OR_NEGATIVE_NUMBER.test(`${value}`);
 
 /**
  * @stable [06.12.2019]
  * @param {AnyT} value
  * @returns {boolean}
  */
-const isBoolean = (value: AnyT): boolean => typeof value === 'boolean';
+const isBoolean = (value: unknown): boolean => typeof value === 'boolean';
 
 /**
  * @stable [17.05.2020]
  * @param {AnyT} value
  * @returns {boolean}
  */
-const isString = (value: AnyT): boolean => typeof value === 'string';
+const isString = (value: unknown): boolean => typeof value === 'string';
 
 /**
  * @stable [29.08.2020]
@@ -94,9 +99,11 @@ export class TypeUtils {
   public static readonly isDef = isDef;                                                         /* @stable [16.05.2020] */
   public static readonly isEvent = isEvent;                                                     /* @stable [29.08.2020] */
   public static readonly isFn = isFn;                                                           /* @stable [16.05.2020] */
+  public static readonly isNotNumber = isNotNumber;                                             /* @stable [07.09.2020] */
   public static readonly isNumber = isNumber;                                                   /* @stable [16.05.2020] */
   public static readonly isObject = isObject;                                                   /* @stable [16.05.2020] */
   public static readonly isPositiveNumber = isPositiveNumber;                                   /* @stable [07.09.2020] */
+  public static readonly isPositiveNumberLike = isPositiveNumberLike;                           /* @stable [07.09.2020] */
   public static readonly isPositiveOrNegativeNumberLike = isPositiveOrNegativeNumberLike;       /* @stable [22.07.2020] */
   public static readonly isPrimitive = isPrimitive;                                             /* @stable [16.05.2020] */
   public static readonly isString = isString;                                                   /* @stable [16.05.2020] */

@@ -11,12 +11,14 @@ export enum ValidationRulesEnum {
   OPTIONAL_NUMBER_LIKE,
   OPTIONAL_STRING,
   POSITIVE_NUMBER,
+  POSITIVE_NUMBER_LIKE,
+  POSITIVE_OR_NEGATIVE_NUMBER,
   POSITIVE_OR_NEGATIVE_NUMBER_LIKE,
   STRING,
 }
 
 /**
- * @stable [06.12.2019]
+ * @stable [07.09.2020]
  */
 export interface IValidationResultEntity
   extends IDataWrapper<Record<string, Record<ValidationRulesEnum, boolean>>>,
