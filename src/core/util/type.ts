@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import { RegexpConstants } from '../definition/regexp-definition.interface';
 
 /**
@@ -53,6 +55,20 @@ const isPositiveNumberLike = (value: unknown): boolean => RegexpConstants.POSITI
 const isPositiveOrNegativeNumberLike = (value: unknown): boolean => RegexpConstants.POSITIVE_OR_NEGATIVE_NUMBER.test(`${value}`);
 
 /**
+ * @stable [07.09.2020]
+ * @param value
+ */
+const isPositiveOrNegativeOptionalNumberLike = (value: unknown): boolean =>
+  R.isNil(value) || isPositiveOrNegativeNumberLike(value);
+
+/**
+ * @stable [07.09.2020]
+ * @param value
+ */
+const isPositiveOptionalNumberLike = (value: unknown): boolean =>
+  R.isNil(value) || isPositiveNumberLike(value);
+
+/**
  * @stable [06.12.2019]
  * @param {AnyT} value
  * @returns {boolean}
@@ -95,17 +111,19 @@ export const toType = <TResult>(result: TResult): TResult => result;
  * @stable [16.05.2020]
  */
 export class TypeUtils {
-  public static readonly isBoolean = isBoolean;                                                 /* @stable [12.06.2020] */
-  public static readonly isDef = isDef;                                                         /* @stable [16.05.2020] */
-  public static readonly isEvent = isEvent;                                                     /* @stable [29.08.2020] */
-  public static readonly isFn = isFn;                                                           /* @stable [16.05.2020] */
-  public static readonly isNotNumber = isNotNumber;                                             /* @stable [07.09.2020] */
-  public static readonly isNumber = isNumber;                                                   /* @stable [16.05.2020] */
-  public static readonly isObject = isObject;                                                   /* @stable [16.05.2020] */
-  public static readonly isPositiveNumber = isPositiveNumber;                                   /* @stable [07.09.2020] */
-  public static readonly isPositiveNumberLike = isPositiveNumberLike;                           /* @stable [07.09.2020] */
-  public static readonly isPositiveOrNegativeNumberLike = isPositiveOrNegativeNumberLike;       /* @stable [22.07.2020] */
-  public static readonly isPrimitive = isPrimitive;                                             /* @stable [16.05.2020] */
-  public static readonly isString = isString;                                                   /* @stable [16.05.2020] */
-  public static readonly isUndef = isUndef;                                                     /* @stable [16.05.2020] */
+  public static readonly isBoolean = isBoolean;                                                             /* @stable [12.06.2020] */
+  public static readonly isDef = isDef;                                                                     /* @stable [16.05.2020] */
+  public static readonly isEvent = isEvent;                                                                 /* @stable [29.08.2020] */
+  public static readonly isFn = isFn;                                                                       /* @stable [16.05.2020] */
+  public static readonly isNotNumber = isNotNumber;                                                         /* @stable [07.09.2020] */
+  public static readonly isNumber = isNumber;                                                               /* @stable [16.05.2020] */
+  public static readonly isObject = isObject;                                                               /* @stable [16.05.2020] */
+  public static readonly isPositiveNumber = isPositiveNumber;                                               /* @stable [07.09.2020] */
+  public static readonly isPositiveNumberLike = isPositiveNumberLike;                                       /* @stable [07.09.2020] */
+  public static readonly isPositiveOptionalNumberLike = isPositiveOptionalNumberLike;                       /* @stable [07.09.2020] */
+  public static readonly isPositiveOrNegativeNumberLike = isPositiveOrNegativeNumberLike;                   /* @stable [22.07.2020] */
+  public static readonly isPositiveOrNegativeOptionalNumberLike = isPositiveOrNegativeOptionalNumberLike;   /* @stable [07.09.2020] */
+  public static readonly isPrimitive = isPrimitive;                                                         /* @stable [16.05.2020] */
+  public static readonly isString = isString;                                                               /* @stable [16.05.2020] */
+  public static readonly isUndef = isUndef;                                                                 /* @stable [16.05.2020] */
 }

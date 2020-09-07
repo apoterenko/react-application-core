@@ -32,11 +32,18 @@ const positiveNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPosit
 const positiveOrNegativeNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
 
 /**
- * @stable [06.12.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [07.09.2020]
+ * @param value
  */
-export const optionalNumberLikeChecker = (value: unknown): boolean => R.isNil(value) || positiveOrNegativeNumberLikeChecker(value);
+const positiveOrNegativeOptionalNumberLikeChecker = (value: unknown): boolean =>
+  TypeUtils.isPositiveOrNegativeOptionalNumberLike(value);
+
+/**
+ * @stable [07.09.2020]
+ * @param value
+ */
+const positiveOptionalNumberLikeChecker = (value: unknown): boolean =>
+  TypeUtils.isPositiveOptionalNumberLike(value);
 
 /**
  * @stable [07.09.2020]
@@ -55,11 +62,12 @@ const notEmptyStringChecker = (value: unknown): boolean => stringChecker(value) 
  */
 export const ValidationRules = {
   [ValidationRulesEnum.NOT_EMPTY_STRING]: notEmptyStringChecker,
-  [ValidationRulesEnum.OPTIONAL_NUMBER_LIKE]: optionalNumberLikeChecker,
   [ValidationRulesEnum.POSITIVE_NUMBER]: positiveNumberChecker,
   [ValidationRulesEnum.POSITIVE_NUMBER_LIKE]: positiveNumberLikeChecker,
+  [ValidationRulesEnum.POSITIVE_OPTIONAL_NUMBER_LIKE]: positiveOptionalNumberLikeChecker,
   [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER]: positiveOrNegativeNumberChecker,
   [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER_LIKE]: positiveOrNegativeNumberLikeChecker,
+  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_OPTIONAL_NUMBER_LIKE]: positiveOrNegativeOptionalNumberLikeChecker,
   [ValidationRulesEnum.STRING]: stringChecker,
 };
 
