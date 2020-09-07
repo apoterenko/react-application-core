@@ -1,16 +1,13 @@
 import * as R from 'ramda';
 
-import {
-  isDigit,
-  TypeUtils,
-} from './type';
+import { TypeUtils } from './type';
 import {
   AnyT,
   IKeyValue,
 } from '../definitions.interface';
 import {
   IValidationResultEntity,
-  ValidatorRuleEnum,
+  ValidationRulesEnum,
 } from '../definition';
 
 /**
@@ -27,35 +24,32 @@ const positiveOrNegativeNumberLikeChecker = (value: AnyT): boolean => TypeUtils.
 export const optionalNumberLikeChecker = (value: AnyT): boolean => R.isNil(value) || positiveOrNegativeNumberLikeChecker(value);
 
 /**
- * @stable [06.12.2019]
+ * @stable [07.09.2020]
  * @param value
- * @returns {boolean}
  */
-export const stringChecker = (value): boolean => TypeUtils.isString(value);
+const stringChecker = (value): boolean => TypeUtils.isString(value);
 
 /**
- * @stable [06.12.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [07.09.2020]
+ * @param value
  */
-export const notEmptyString = (value: AnyT): boolean => !R.isEmpty(value) && stringChecker(value);
+const notEmptyStringChecker = (value: AnyT): boolean => stringChecker(value) && !R.isEmpty(value);
 
 /**
- * @stable [06.12.2019]
+ * @stable [07.09.2020]
  * @param value
- * @returns {boolean}
  */
-export const digitChecker = (value): boolean => isDigit(value);
+const positiveNumberChecker = (value): boolean => TypeUtils.isPositiveNumber(value);
 
 /**
  * @stable [28.01.2019]
  */
 export const ValidationRules = {
-  [ValidatorRuleEnum.DIGIT]: digitChecker,
-  [ValidatorRuleEnum.NOT_EMPTY_STRING]: notEmptyString,
-  [ValidatorRuleEnum.OPTIONAL_NUMBER_LIKE]: optionalNumberLikeChecker,
-  [ValidatorRuleEnum.POSITIVE_OR_NEGATIVE_NUMBER_LIKE]: positiveOrNegativeNumberLikeChecker,
-  [ValidatorRuleEnum.STRING]: stringChecker,
+  [ValidationRulesEnum.POSITIVE_NUMBER]: positiveNumberChecker,
+  [ValidationRulesEnum.NOT_EMPTY_STRING]: notEmptyStringChecker,
+  [ValidationRulesEnum.OPTIONAL_NUMBER_LIKE]: optionalNumberLikeChecker,
+  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER_LIKE]: positiveOrNegativeNumberLikeChecker,
+  [ValidationRulesEnum.STRING]: stringChecker,
 };
 
 /**
@@ -65,7 +59,7 @@ export const ValidationRules = {
  * @returns {IValidationResultEntity}
  */
 export const validate =
-  <TEntity extends IKeyValue = IKeyValue>(payloads: { [K in keyof TEntity]?: ValidatorRuleEnum[] },
+  <TEntity extends IKeyValue = IKeyValue>(payloads: { [K in keyof TEntity]?: ValidationRulesEnum[] },
                                           checkedObject: TEntity): IValidationResultEntity => {
     const data = Object.create(null);
     let valid = true;

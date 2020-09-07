@@ -4,13 +4,13 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [06.12.2019]
+ * @stable [07.09.2020]
  */
-export enum ValidatorRuleEnum {
-  DIGIT,
+export enum ValidationRulesEnum {
   NOT_EMPTY_STRING,
   OPTIONAL_NUMBER_LIKE,
   OPTIONAL_STRING,
+  POSITIVE_NUMBER,
   POSITIVE_OR_NEGATIVE_NUMBER_LIKE,
   STRING,
 }
@@ -19,6 +19,6 @@ export enum ValidatorRuleEnum {
  * @stable [06.12.2019]
  */
 export interface IValidationResultEntity
-  extends IValidWrapper,
-    IDataWrapper<Record<string, Record<ValidatorRuleEnum, boolean>>> {
+  extends IDataWrapper<Record<string, Record<ValidationRulesEnum, boolean>>>,
+    IValidWrapper {
 }

@@ -23,25 +23,22 @@ export const isUndef = (value: AnyT): boolean => typeof value === 'undefined';
 export const isFn = (value: AnyT): boolean => typeof value === 'function';
 
 /**
- * @stable [01.08.2018]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [07.09.2020]
+ * @param value
  */
 const isNumber = (value: AnyT): boolean => typeof value === 'number' && !isNaN(value);
 
 /**
- * @stable [17.04.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [07.09.2020]
+ * @param value
  */
 export const isNotNumber = (value: AnyT): boolean => !isNumber(value);
 
 /**
- * @stable [06.12.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [07.09.2020]
+ * @param value
  */
-export const isDigit = (value: AnyT): boolean => isNumber(value) && RegexpConstants.POSITIVE_INTEGER.test(String(value));
+const isPositiveNumber = (value: AnyT): boolean => isNumber(value) && value >= 0;
 
 /**
  * @stable [22.07.2020]
@@ -99,6 +96,7 @@ export class TypeUtils {
   public static readonly isFn = isFn;                                                           /* @stable [16.05.2020] */
   public static readonly isNumber = isNumber;                                                   /* @stable [16.05.2020] */
   public static readonly isObject = isObject;                                                   /* @stable [16.05.2020] */
+  public static readonly isPositiveNumber = isPositiveNumber;                                   /* @stable [07.09.2020] */
   public static readonly isPositiveOrNegativeNumberLike = isPositiveOrNegativeNumberLike;       /* @stable [22.07.2020] */
   public static readonly isPrimitive = isPrimitive;                                             /* @stable [16.05.2020] */
   public static readonly isString = isString;                                                   /* @stable [16.05.2020] */
