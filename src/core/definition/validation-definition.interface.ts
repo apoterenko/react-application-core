@@ -4,11 +4,11 @@ import {
 } from '../definitions.interface';
 
 /**
+ * @enum
  * @stable [07.09.2020]
  */
 export enum ValidationRulesEnum {
   NOT_EMPTY_STRING,
-  OPTIONAL_STRING,
   POSITIVE_NUMBER,
   POSITIVE_NUMBER_LIKE,
   POSITIVE_OPTIONAL_NUMBER_LIKE,

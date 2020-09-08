@@ -1,6 +1,6 @@
 import Tooltip from 'tooltip.js';
 
-import { isDef, isUndef } from '../../util';
+import { TypeUtils } from '../../util';
 import { IGenericTooltipPlugin } from './generic-tooltip.interface';
 import { IGenericTooltipEntity } from '../../definition';
 
@@ -30,7 +30,7 @@ export class GenericTooltipPlugin implements IGenericTooltipPlugin {
    * @stable [27.05.2019]
    */
   public destroy(): void {
-    if (isDef(this.tooltipInstance)) {
+    if (TypeUtils.isDef(this.tooltipInstance)) {
       this.tooltipInstance.dispose();
       this.tooltipInstance = null;
     }

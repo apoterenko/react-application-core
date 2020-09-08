@@ -7,7 +7,6 @@ import {
 } from '../../di';
 import {
   isFn,
-  isUndef,
   TypeUtils,
 } from '../../util';
 import { ISettingsEntity } from '../../settings';
@@ -119,7 +118,7 @@ export class NumberConverter implements INumberConverter {
    * @returns {number}
    */
   public numberParameter(value: StringNumberT, converter?: (value: number) => number): number {
-    if (isUndef(value)) {
+    if (TypeUtils.isUndef(value)) {
       return UNDEF;
     }
     if (value === null) {

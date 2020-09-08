@@ -10,11 +10,10 @@ import { RegexpConstants } from '../definition/regexp-definition.interface';
 export const isDef = (value: unknown): boolean => !isUndef(value);
 
 /**
- * @stable [02.10.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [08.09.2020]
+ * @param value
  */
-export const isUndef = (value: unknown): boolean => typeof value === 'undefined';
+const isUndef = (value: unknown): boolean => typeof value === 'undefined';
 
 /**
  * @stable [02.10.2019]
@@ -48,9 +47,8 @@ const isPositiveNumber = (value: unknown): boolean => isNumber(value) && value >
 const isPositiveNumberLike = (value: unknown): boolean => RegexpConstants.POSITIVE_NUMBER.test(`${value}`);
 
 /**
- * @stable [22.07.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [08.09.2020]
+ * @param value
  */
 const isPositiveOrNegativeNumberLike = (value: unknown): boolean => RegexpConstants.POSITIVE_OR_NEGATIVE_NUMBER.test(`${value}`);
 
@@ -69,18 +67,22 @@ const isPositiveOptionalNumberLike = (value: unknown): boolean =>
   R.isNil(value) || isPositiveNumberLike(value);
 
 /**
- * @stable [06.12.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [08.09.2020]
+ * @param value
  */
 const isBoolean = (value: unknown): boolean => typeof value === 'boolean';
 
 /**
- * @stable [17.05.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [08.09.2020]
+ * @param value
  */
 const isString = (value: unknown): boolean => typeof value === 'string';
+
+/**
+ * @stable [08.09.2020]
+ * @param value
+ */
+const isNotEmptyString = (value: unknown): boolean => isString(value) && !R.isEmpty(value);
 
 /**
  * @stable [29.08.2020]
@@ -116,6 +118,7 @@ export class TypeUtils {
   public static readonly isDef = isDef;                                                                     /* @stable [16.05.2020] */
   public static readonly isEvent = isEvent;                                                                 /* @stable [29.08.2020] */
   public static readonly isFn = isFn;                                                                       /* @stable [16.05.2020] */
+  public static readonly isNotEmptyString = isNotEmptyString;                                               /* @stable [08.09.2020] */
   public static readonly isNotNumber = isNotNumber;                                                         /* @stable [07.09.2020] */
   public static readonly isNumber = isNumber;                                                               /* @stable [16.05.2020] */
   public static readonly isObject = isObject;                                                               /* @stable [16.05.2020] */

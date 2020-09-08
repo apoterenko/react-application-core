@@ -26,7 +26,7 @@ const positiveOrNegativeNumberChecker = (value: unknown): boolean => TypeUtils.i
 const positiveNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveNumberLike(value);
 
 /**
- * @stable [29.07.2020]
+ * @stable [07.09.2020]
  * @param value
  */
 const positiveOrNegativeNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
@@ -42,8 +42,7 @@ const positiveOrNegativeOptionalNumberLikeChecker = (value: unknown): boolean =>
  * @stable [07.09.2020]
  * @param value
  */
-const positiveOptionalNumberLikeChecker = (value: unknown): boolean =>
-  TypeUtils.isPositiveOptionalNumberLike(value);
+const positiveOptionalNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveOptionalNumberLike(value);
 
 /**
  * @stable [07.09.2020]
@@ -55,12 +54,12 @@ const stringChecker = (value): boolean => TypeUtils.isString(value);
  * @stable [07.09.2020]
  * @param value
  */
-const notEmptyStringChecker = (value: unknown): boolean => stringChecker(value) && !R.isEmpty(value);
+const notEmptyStringChecker = (value: unknown): boolean => TypeUtils.isNotEmptyString(value);
 
 /**
- * @stable [28.01.2019]
+ * @stable [08.09.2020]
  */
-export const ValidationRules = {
+const ValidationRules = {
   [ValidationRulesEnum.NOT_EMPTY_STRING]: notEmptyStringChecker,
   [ValidationRulesEnum.POSITIVE_NUMBER]: positiveNumberChecker,
   [ValidationRulesEnum.POSITIVE_NUMBER_LIKE]: positiveNumberLikeChecker,
@@ -72,21 +71,28 @@ export const ValidationRules = {
 };
 
 /**
- * @stable [17.04.2020]
- * @param {{[K in keyof TEntity]?: ValidatorRuleEnum[]}} payloads
- * @param {TEntity} checkedObject
- * @returns {IValidationResultEntity}
+ * @stable [08.09.2020]
+ * @param payloads
+ * @param checkedObject
  */
-export const validate =
+const validate =
   <TEntity extends IKeyValue = IKeyValue>(payloads: { [K in keyof TEntity]?: ValidationRulesEnum[] },
                                           checkedObject: TEntity): IValidationResultEntity => {
     const data = Object.create(null);
     let valid = true;
 
     R.forEachObjIndexed((rules, fieldName) => {
-      const res = {};
-      rules.forEach((ruleId) => valid = valid && (res[ruleId] = ValidationRules[ruleId](checkedObject[fieldName])));
+      const res = Object.create(null);
       data[fieldName] = res;
+      rules.forEach((ruleId) => valid = valid && (res[ruleId] = ValidationRules[ruleId](checkedObject[fieldName])));
     }, payloads);
+
     return {valid, data};
   };
+
+/**
+ * @stable [08.09.2020]
+ */
+export class ValidatorUtils {
+  public static readonly validate = validate;
+}
