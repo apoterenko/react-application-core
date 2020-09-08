@@ -5,10 +5,7 @@ import {
   lazyInject,
   DI_TYPES,
 } from '../../di';
-import {
-  isFn,
-  TypeUtils,
-} from '../../util';
+import { TypeUtils } from '../../util';
 import { ISettingsEntity } from '../../settings';
 import { INumberConverter } from './number-converter.interface';
 import {
@@ -66,9 +63,8 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
-   * @stable [25.12.2019]
-   * @param {StringNumberT} value
-   * @returns {number}
+   * @stable [09.09.2020]
+   * @param value
    */
   public asNumber(value: StringNumberT): number {
     return this.number(value, false) as number;
@@ -90,10 +86,9 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
-   * @stable [19.12.2019]
-   * @param {StringNumberT} value
-   * @param {boolean} returnString
-   * @returns {StringNumberT}
+   * @stable [09.09.2020]
+   * @param value
+   * @param returnString
    */
   public number(value: StringNumberT, returnString = true): StringNumberT {
     if (TypeUtils.isNumber(value)) {
@@ -103,7 +98,13 @@ export class NumberConverter implements INumberConverter {
     if (R.isNil(vAsString)) {
       return value;
     }
-    const normalizedValue = vAsString.startsWith('.') ? `0${vAsString}` : vAsString;
+    const normalizedValue = vAsString.startsWith('-.')
+      ? `-0${vAsString.substring(1, vAsString.length)}`
+      : (
+        vAsString.startsWith('.')
+          ? `0${vAsString}`
+          : vAsString
+      );
     const result = parseFloat(normalizedValue);
 
     return (isNaN(result) || (!R.equals(String(result), normalizedValue) && returnString))
@@ -128,7 +129,7 @@ export class NumberConverter implements INumberConverter {
       return null;
     }
     const v = this.asNumber(value);
-    return isFn(converter) ? converter(v) : v;
+    return TypeUtils.isFn(converter) ? converter(v) : v;
   }
 
   public format(value: string | number, formatter: {format(...args): string} = this.defaultFormatter): string {
