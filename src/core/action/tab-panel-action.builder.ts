@@ -9,73 +9,67 @@ import {
   TAB_PANEL_DESTROY_ACTION_TYPE,
   TAB_PANEL_INACTIVE_VALUE_ACTION_TYPE,
 } from '../definition';
-import {
-  applySection,
-  toActionPrefix,
-} from '../util';
+import { SectionUtils } from '../util';
 
+/**
+ * @action-builder
+ * @stable [08.09.2020]
+ */
 export class TabPanelActionBuilder {
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildActiveValueActionType(section: string): string {
-    return `${toActionPrefix(section)}.${TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildInactiveValueActionType(section: string): string {
-    return `${toActionPrefix(section)}.${TAB_PANEL_INACTIVE_VALUE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${TAB_PANEL_INACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyActionType(section: string): string {
-    return `${toActionPrefix(section)}.${TAB_PANEL_DESTROY_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${TAB_PANEL_DESTROY_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyPlainAction(section: string): IEffectsAction {
-    return {type: this.buildDestroyActionType(section), data: applySection(section)};
+    return {type: this.buildDestroyActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @param {IFluxActiveValueEntity} payload
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param payload
    */
   public static buildActiveValuePlainAction(section: string, payload: IFluxActiveValueEntity): IEffectsAction {
-    return {type: this.buildActiveValueActionType(section), data: applySection(section, payload)};
+    return {type: this.buildActiveValueActionType(section), data: SectionUtils.applySection(section, payload)};
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @param {IFluxActiveValueEntity} payload
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param payload
    */
   public static buildInactiveValuePlainAction(section: string, payload: IFluxActiveValueEntity): IEffectsAction {
-    return {type: this.buildInactiveValueActionType(section), data: applySection(section, payload)};
+    return {type: this.buildInactiveValueActionType(section), data: SectionUtils.applySection(section, payload)};
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyAction(section: string): IEffectsAction {
     const plainAction = this.buildDestroyPlainAction(section);

@@ -4,10 +4,7 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import {
-  applySection,
-  toActionPrefix,
-} from '../util';
+import { SectionUtils } from '../util';
 import {
   DICTIONARY_DESTROY_ACTION_TYPE,
   DICTIONARY_LOAD_ACTION_TYPE,
@@ -16,67 +13,60 @@ import {
 
 /**
  * @action-builder
- * @stable [09.05.2020]
+ * @stable [08.09.2020]
  */
 export class DictionariesActionBuilder {
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildLoadActionType(section: string): string {
-    return `${toActionPrefix(section)}.${DICTIONARY_LOAD_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${DICTIONARY_LOAD_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [09.05.2020]
-   * @returns {string}
+   * @stable [08.09.2020]
    */
   public static buildDestroyActionType(): string {
-    return `${toActionPrefix('all')}.${DICTIONARY_DESTROY_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix('all')}.${DICTIONARY_DESTROY_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildLoadDoneActionType(section: string): string {
-    return EffectsActionBuilder.buildDoneActionType(`${toActionPrefix(section)}.${DICTIONARY_LOAD_ACTION_TYPE}`);
+    return EffectsActionBuilder.buildDoneActionType(`${SectionUtils.actionPrefix(section)}.${DICTIONARY_LOAD_ACTION_TYPE}`);
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildLoadErrorActionType(section: string): string {
-    return EffectsActionBuilder.buildErrorActionType(`${toActionPrefix(section)}.${DICTIONARY_LOAD_ACTION_TYPE}`);
+    return EffectsActionBuilder.buildErrorActionType(`${SectionUtils.actionPrefix(section)}.${DICTIONARY_LOAD_ACTION_TYPE}`);
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSetActionType(section: string): string {
-    return `${toActionPrefix(section)}.${DICTIONARY_SET_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${DICTIONARY_SET_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [09.05.2020]
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
    */
   public static buildDestroyAction(): IEffectsAction {
     return EffectsAction.create(DictionariesActionBuilder.buildDestroyActionType());
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} section
-   * @param {TData} data
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param data
    */
   public static buildLoadAction<TData = {}>(section: string, data?: TData): IEffectsAction {
     const plainAction = this.buildLoadPlainAction(section, data);
@@ -84,10 +74,9 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} section
-   * @param {TData[] | TData} data
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param data
    */
   public static buildSetAction<TData = {}>(section: string, data?: TData | TData[]): IEffectsAction {
     const plainAction = this.buildSetPlainAction(section, data);
@@ -95,28 +84,26 @@ export class DictionariesActionBuilder {
   }
 
   /**
-   * @stable [30.03.2020]
-   * @param {string} section
-   * @param {TData} data
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param data
    */
   public static buildLoadPlainAction<TData = {}>(section: string, data?: TData): IEffectsAction {
     return {
       type: this.buildLoadActionType(section),
-      data: applySection(section, data),
+      data: SectionUtils.applySection(section, data),
     };
   }
 
   /**
-   * @stable [09.05.2020]
-   * @param {string} section
-   * @param {TData[] | TData} data
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param data
    */
   public static buildSetPlainAction<TData = {}>(section: string, data?: TData | TData[]): IEffectsAction {
     return {
       type: this.buildSetActionType(section),
-      data: applySection(section, data),
+      data: SectionUtils.applySection(section, data),
     };
   }
 }

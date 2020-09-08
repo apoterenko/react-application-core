@@ -45,7 +45,7 @@ export const applySection =
  * @stable [26.07.2020]
  * @param section
  */
-export const toActionPrefix = (section: string): string => `${ACTION_PREFIX}${section}`;
+const actionPrefix = (section: string): string => `${ACTION_PREFIX}${section}`;
 
 /**
  * @stable [05.12.2019]
@@ -117,6 +117,6 @@ export const toTabPanelSection =
  * @stable [26.07.2020]
  */
 export class SectionUtils {
-  public static readonly actionPrefix = toActionPrefix;
+  public static readonly actionPrefix = actionPrefix;
   public static readonly applySection = applySection;
 }

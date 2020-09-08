@@ -3,10 +3,7 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import {
-  applySection,
-  toActionPrefix,
-} from '../util';
+import { SectionUtils } from '../util';
 import {
   FieldConstants,
   FORM_ACTIVE_VALUE_ACTION_TYPE,
@@ -31,152 +28,136 @@ import { IKeyValue } from '../definitions.interface';
 
 /**
  * @action-builder
- * @stable [08.05.2020]
+ * @stable [08.09.2020]
  */
 export class FormActionBuilder {
 
   /**
-   * @stable [21.01.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_DESTROY_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_DESTROY_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [26.08.2018]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildClearActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_CLEAR_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_CLEAR_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [02.10.2018]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildChangeActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_CHANGE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_CHANGE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [20.12.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDefaultChangeActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_DEFAULT_CHANGE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_DEFAULT_CHANGE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [24.02.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildResetActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_RESET_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_RESET_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [03.04.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildValidActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_VALID_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_VALID_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [14.08.2018]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildActiveValueActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_ACTIVE_VALUE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_ACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildInactiveValueActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_INACTIVE_VALUE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_INACTIVE_VALUE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [02.04.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSubmitActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_SUBMIT_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_SUBMIT_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [17.04.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildProgressActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_PROGRESS_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_PROGRESS_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [02.04.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSubmitDoneActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_SUBMIT_DONE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_SUBMIT_DONE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSubmitFinishActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_SUBMIT_FINISH_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_SUBMIT_FINISH_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [03.04.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSubmitErrorActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FORM_SUBMIT_ERROR_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [02.04.2019]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSubmitDoneAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildSubmitDoneActionType(section), applySection(section));
+    return EffectsAction.create(this.buildSubmitDoneActionType(section), SectionUtils.applySection(section));
   }
 
   /**
-   * @stable [24.02.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildResetAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildResetActionType(section), applySection(section));
+    return EffectsAction.create(this.buildResetActionType(section), SectionUtils.applySection(section));
   }
 
   /**
-   * @stable [17.04.2019]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildProgressAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildProgressActionType(section), applySection(section));
+    return EffectsAction.create(this.buildProgressActionType(section), SectionUtils.applySection(section));
   }
 
   /**
@@ -191,9 +172,8 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSubmitFinishAction(section: string): IEffectsAction {
     const plainAction = this.buildSubmitFinishPlainAction(section);
@@ -201,19 +181,17 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [21.01.2019]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildDestroyActionType(section), applySection(section));
+    return EffectsAction.create(this.buildDestroyActionType(section), SectionUtils.applySection(section));
   }
 
   /**
-   * @stable [03.02.2020]
-   * @param {string} section
-   * @param {string} fieldName
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param fieldName
    */
   public static buildClearAction(section: string, fieldName: string): IEffectsAction {
     const plainAction = this.buildClearPlainAction(section, fieldName);
@@ -221,10 +199,9 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @param {TData} changes
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param changes
    */
   public static buildChangesAction<TData = {}>(section: string, changes: TData): IEffectsAction {
     const plainAction = this.buildChangesPlainAction(section, changes);
@@ -232,10 +209,9 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @param {TData} changes
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param changes
    */
   public static buildDefaultChangesAction<TData = {}>(section: string,
                                                       changes: TData): IEffectsAction {
@@ -244,109 +220,103 @@ export class FormActionBuilder {
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @param {string} fieldName
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param fieldName
    */
   public static buildClearPlainAction(section: string, fieldName: string): IEffectsAction {
     return {
       type: this.buildClearActionType(section),
-      data: applySection(section, this.buildChangesPayload({[fieldName]: FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES})),
+      data: SectionUtils.applySection(
+        section,
+        this.buildChangesPayload({[fieldName]: FieldConstants.VALUE_TO_CLEAR_DIRTY_CHANGES})
+      ),
     };
   }
 
   /**
-   * @stable [11.09.2019]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildResetPlainAction(section: string): IEffectsAction {
-    return {type: this.buildResetActionType(section), data: applySection(section)};
+    return {type: this.buildResetActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [01.03.2020]
-   * @param {string} section
-   * @param {IApiEntity} apiEntity
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param apiEntity
    */
   public static buildSubmitPlainAction(section: string, apiEntity: IApiEntity): IEffectsAction {
-    return {type: this.buildSubmitActionType(section), data: applySection(section, apiEntity)};
+    return {type: this.buildSubmitActionType(section), data: SectionUtils.applySection(section, apiEntity)};
   }
 
-  /***
-   * @stable [03.02.2020]
-   * @param {string} section
-   * @param {boolean} valid
-   * @returns {IEffectsAction}
+  /**
+   * @stable [08.09.2020]
+   * @param section
+   * @param valid
    */
   public static buildValidPlainAction(section: string, valid: boolean): IEffectsAction {
     const fluxEntity: IFluxValidEntity = {valid};
-    return {type: this.buildValidActionType(section), data: applySection(section, fluxEntity)};
+    return {type: this.buildValidActionType(section), data: SectionUtils.applySection(section, fluxEntity)};
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @param {number} payload
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param payload
    */
   public static buildActiveValuePlainAction(section: string, payload: number): IEffectsAction {
     const fluxEntity: IFluxActiveValueEntity = {payload};
-    return {type: this.buildActiveValueActionType(section), data: applySection(section, fluxEntity)};
+    return {type: this.buildActiveValueActionType(section), data: SectionUtils.applySection(section, fluxEntity)};
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {string} section
-   * @param {number} payload
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param payload
    */
   public static buildInactiveValuePlainAction(section: string, payload: number): IEffectsAction {
     const fluxEntity: IFluxActiveValueEntity = {payload};
-    return {type: this.buildInactiveValueActionType(section), data: applySection(section, fluxEntity)};
+    return {type: this.buildInactiveValueActionType(section), data: SectionUtils.applySection(section, fluxEntity)};
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildSubmitFinishPlainAction(section: string): IEffectsAction {
-    return {type: this.buildSubmitFinishActionType(section), data: applySection(section)};
+    return {type: this.buildSubmitFinishActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @param {TData} changes
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param changes
    */
   public static buildChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
     return {
       type: this.buildChangeActionType(section),
-      data: applySection(section, this.buildChangesPayload(changes)),
+      data: SectionUtils.applySection(section, this.buildChangesPayload(changes)),
     };
   }
 
   /**
-   * @stable [01.04.2020]
-   * @param {string} section
-   * @param {TData} changes
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param changes
    */
   public static buildDefaultChangesPlainAction<TData = {}>(section: string, changes: TData): IEffectsAction {
     return {
       type: this.buildDefaultChangeActionType(section),
-      data: applySection(section, this.buildChangesPayload(changes)),
+      data: SectionUtils.applySection(section, this.buildChangesPayload(changes)),
     };
   }
 
   /**
-   * @stable [08.05.2020]
-   * @param {IKeyValue} fields
-   * @returns {IFluxFieldsChangesEntity}
+   * @stable [08.09.2020]
+   * @param fields
+   * @private
    */
   private static buildChangesPayload(fields: IKeyValue): IFluxFieldsChangesEntity {
     return {fields};

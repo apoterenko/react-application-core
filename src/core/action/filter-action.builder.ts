@@ -3,10 +3,7 @@ import {
   IEffectsAction,
 } from 'redux-effects-promise';
 
-import {
-  applySection,
-  toActionPrefix,
-} from '../util';
+import { SectionUtils } from '../util';
 import {
   FILTER_ACTIVATE_ACTION_TYPE,
   FILTER_APPLY_ACTION_TYPE,
@@ -18,106 +15,95 @@ import {
 
 /**
  * @action-builder
- * @stable [08.05.2020]
+ * @stable [08.09.2020]
  */
 export class FilterActionBuilder {
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildApplyActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_APPLY_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_APPLY_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildChangeActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_CHANGE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_CHANGE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDeactivateActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_DEACTIVATE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_DEACTIVATE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildActivateActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_ACTIVATE_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_ACTIVATE_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_DESTROY_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_DESTROY_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildApplyPlainAction(section: string): IEffectsAction {
-    return {type: this.buildApplyActionType(section), data: applySection(section)};
+    return {type: this.buildApplyActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildActivatePlainAction(section: string): IEffectsAction {
-    return {type: this.buildActivateActionType(section), data: applySection(section)};
+    return {type: this.buildActivateActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDeactivatePlainAction(section: string): IEffectsAction {
-    return {type: this.buildDeactivateActionType(section), data: applySection(section)};
+    return {type: this.buildDeactivateActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @param {string} query
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
+   * @param query
    */
   public static buildChangePlainAction(section: string, query: string): IEffectsAction {
     const fluxEntity: IFluxQueryEntity = {query};
-    return {type: this.buildChangeActionType(section), data: applySection(section, fluxEntity)};
+    return {type: this.buildChangeActionType(section), data: SectionUtils.applySection(section, fluxEntity)};
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyPlainAction(section: string): IEffectsAction {
-    return {type: this.buildDestroyActionType(section), data: applySection(section)};
+    return {type: this.buildDestroyActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [27.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildDestroyAction(section: string): IEffectsAction {
     const plainAction = this.buildDestroyPlainAction(section);
