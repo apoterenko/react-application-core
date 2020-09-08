@@ -4,7 +4,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 import {
   asErrorMessage,
   FilterUtils,
-  toSection,
+  Selectors,
   TypeUtils,
 } from '../../util';
 import {
@@ -34,7 +34,7 @@ const isDirty = (changes, defaultChanges) => !R.isEmpty(changes) || !R.isEmpty(d
  */
 export const formReducer = (state: IReduxFormEntity = INITIAL_REDUX_FORM_ENTITY,
                             action: IEffectsAction): IReduxFormEntity => {
-  const section = toSection(action);
+  const section = Selectors.sectionFromAction(action);
   const actionType = action.type;
   const actionData = action.data;
   let defaultChanges;

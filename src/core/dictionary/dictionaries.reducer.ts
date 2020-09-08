@@ -1,6 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { toSection } from '../util';
+import { Selectors } from '../util';
 import { DictionariesActionBuilder } from '../action';
 import {
   IFluxSectionDataEntity,
@@ -16,7 +16,7 @@ import {
  */
 export const dictionariesReducer = (state: IReduxDictionariesEntity = INITIAL_REDUX_DICTIONARIES_ENTITY,
                                     action: IEffectsAction): IReduxDictionariesEntity => {
-  const section = toSection(action);
+  const section = Selectors.sectionFromAction(action);
 
   switch (action.type) {
     case DictionariesActionBuilder.buildDestroyActionType():

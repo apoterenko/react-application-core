@@ -34,6 +34,7 @@ import {
   IRawDataWrapper,
   ISecondaryFilterWrapper,
   ISectionNameWrapper,
+  ISectionWrapper,
   ISelectedWrapper,
   IStackWrapper,
   ITabPanelWrapper,
@@ -275,6 +276,24 @@ const selectPreviousActionTypeFromAction = (action: IEffectsAction): string =>
   );
 
 /**
+ * @stable [08.09.2020]
+ * @param action
+ */
+const selectSectionFromAction = (action: IEffectsAction): string =>
+  NvlUtils.nvl(
+    ConditionUtils.ifNotNilThanValue(
+      action.data,
+      (data: ISectionWrapper) => data.section,
+      UNDEF_SYMBOL
+    ),
+    ConditionUtils.ifNotNilThanValue(
+      action.initialData,
+      (initialData: ISectionWrapper) => initialData.section,
+      UNDEF_SYMBOL
+    )
+  );
+
+/**
  * @stable [27.07.2020]
  * @param entity
  */
@@ -506,6 +525,7 @@ export class Selectors {
   public static readonly queue = selectQueue;                                                                   /* @stable [09.06.2020] */
   public static readonly rawData = selectRawData;                                                               /* @stable [09.06.2020] */
   public static readonly secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
+  public static readonly sectionFromAction = selectSectionFromAction;                                           /* @stable [08.09.2020] */
   public static readonly sectionName = selectSectionName;
   public static readonly selected = selectSelected;                                                             /* @stable [27.07.2020] */
   public static readonly selectedEntityFromAction = selectSelectedEntityFromAction;                             /* @stable [21.07.2020] */

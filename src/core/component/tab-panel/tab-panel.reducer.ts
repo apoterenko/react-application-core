@@ -7,7 +7,7 @@ import {
   IReduxTabPanelEntity,
 } from '../../definition';
 import { TabPanelActionBuilder } from '../../action';
-import { toSection } from '../../util';
+import { Selectors } from '../../util';
 
 /**
  * @stable [12.04.2020]
@@ -17,7 +17,7 @@ import { toSection } from '../../util';
  */
 export const tabPanelReducer = (state: IReduxTabPanelEntity = INITIAL_REDUX_TAB_PANEL_ENTITY,
                                 action: IEffectsAction): IReduxTabPanelEntity => {
-  const section = toSection(action);
+  const section = Selectors.sectionFromAction(action);
   const activeValueFluxEntity: IFluxActiveValueEntity = action.data;
 
   switch (action.type) {

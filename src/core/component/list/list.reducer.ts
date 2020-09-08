@@ -21,7 +21,6 @@ import {
   selectData,
   Selectors,
   selectSelectedEntityFromAction,
-  toSection,
 } from '../../util';
 import { ListActionBuilder } from './list-action.builder';
 import {
@@ -36,7 +35,7 @@ import {
 
 export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
                             action: IEffectsAction): IReduxListEntity => {
-  const section = toSection(action);
+  const section = Selectors.sectionFromAction(action);
   let modifyDataPayload;
 
   switch (action.type) {

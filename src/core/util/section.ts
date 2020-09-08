@@ -1,9 +1,6 @@
-import { IEffectsAction } from 'redux-effects-promise';
-
 import {
   ACTION_PREFIX,
   IKeyValue,
-  ISectionWrapper,
 } from '../definitions.interface';
 import {
   IActionStateEntity,
@@ -17,7 +14,6 @@ import {
 import { CalcUtils } from './calc';
 import { ConditionUtils } from './cond';
 import { FilterUtils } from './filter';
-import { NvlUtils } from './nvl';
 import { TypeUtils } from './type';
 
 /**
@@ -46,23 +42,6 @@ export const applySection =
  * @param section
  */
 const actionPrefix = (section: string): string => `${ACTION_PREFIX}${section}`;
-
-/**
- * @stable [05.12.2019]
- * @param {IEffectsAction} action
- * @returns {string}
- */
-export const toSection = (action: IEffectsAction): string =>
-  NvlUtils.nvl(
-    ConditionUtils.ifNotNilThanValue(
-      action.data,
-      (data: ISectionWrapper) => data.section
-    ),
-    ConditionUtils.ifNotNilThanValue(
-      action.initialData,
-      (initialData: ISectionWrapper) => initialData.section
-    )
-  );
 
 /**
  * @stable [11.04.2020]

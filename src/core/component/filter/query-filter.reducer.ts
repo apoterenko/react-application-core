@@ -1,6 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { toSection } from '../../util';
+import { Selectors } from '../../util';
 import {
   IFluxQueryEntity,
   INITIAL_REDUX_QUERY_FILTER_ENTITY,
@@ -18,7 +18,7 @@ import { FilterActionBuilder } from '../../action';
  */
 export const queryFilterReducer = (state: IReduxQueryFilterEntity = INITIAL_REDUX_QUERY_FILTER_ENTITY,
                                    action: IEffectsAction): IReduxQueryFilterEntity => {
-  const section = toSection(action);
+  const section = Selectors.sectionFromAction(action);
   const actionData: IFluxQueryEntity = action.data;
 
   switch (action.type) {

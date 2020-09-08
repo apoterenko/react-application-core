@@ -14,7 +14,7 @@ import {
   CloneUtils,
   coalesce,
   coalesceDef,
-  toSection,
+  Selectors,
   TypeUtils,
 } from '../util';
 import {
@@ -37,7 +37,7 @@ export type FilterT = (action: IEffectsAction) => boolean;
  */
 export function reducerSectionFilter(customSection: string): FilterT {
   let section;
-  return (action) => (!(section = toSection(action)) || customSection === section);
+  return (action) => (!(section = Selectors.sectionFromAction(action)) || customSection === section);
 }
 
 /**
