@@ -1,70 +1,63 @@
-import {
-  IEffectsAction,
-} from 'redux-effects-promise';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   FILTER_FORM_DIALOG_ACCEPT_ACTION_TYPE,
   FILTER_FORM_DIALOG_CLEAR_ACTION_TYPE,
   FILTER_FORM_DIALOG_RESET_ACTION_TYPE,
 } from '../definition';
-import {
-  toActionPrefix,
-  applySection
-} from '../util';
+import { SectionUtils } from '../util';
 
+/**
+ * @action-builder
+ * @stable [08.09.2020]
+ */
 export class FilterFormDialogActionBuilder {
 
   /**
-   * @stable [12.03.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildResetActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_FORM_DIALOG_RESET_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_FORM_DIALOG_RESET_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [10.03.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildAcceptActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_FORM_DIALOG_ACCEPT_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_FORM_DIALOG_ACCEPT_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [10.03.2019]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildClearActionType(section: string): string {
-    return `${toActionPrefix(section)}.${FILTER_FORM_DIALOG_CLEAR_ACTION_TYPE}`;
+    return `${SectionUtils.actionPrefix(section)}.${FILTER_FORM_DIALOG_CLEAR_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [23.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildResetPlainAction(section: string): IEffectsAction {
-    return {type: this.buildResetActionType(section), data: applySection(section)};
+    return {type: this.buildResetActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [23.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildAcceptPlainAction(section: string): IEffectsAction {
-    return {type: this.buildAcceptActionType(section), data: applySection(section)};
+    return {type: this.buildAcceptActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**
-   * @stable [23.04.2020]
-   * @param {string} section
-   * @returns {IEffectsAction}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildClearPlainAction(section: string): IEffectsAction {
-    return {type: this.buildClearActionType(section), data: applySection(section)};
+    return {type: this.buildClearActionType(section), data: SectionUtils.applySection(section)};
   }
 }

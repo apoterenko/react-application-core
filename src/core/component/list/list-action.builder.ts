@@ -18,6 +18,9 @@ import {
   ISelectedEntity,
   LIST_CANCEL_LOAD_ACTION_TYPE,
   LIST_CREATE_ACTION_TYPE,
+  LIST_LAZY_LOAD_ACTION_TYPE,
+  LIST_LAZY_LOAD_DONE_ACTION_TYPE,
+  LIST_LAZY_LOAD_ERROR_ACTION_TYPE,
   LIST_LOAD_ACTION_TYPE,
   LIST_LOAD_DONE_ACTION_TYPE,
   LIST_LOAD_ERROR_ACTION_TYPE,
@@ -33,9 +36,6 @@ import {
   LIST_FIRST_PAGE_ACTION_TYPE,
   LIST_INSERT_ACTION_TYPE,
   LIST_LAST_PAGE_ACTION_TYPE,
-  LIST_LAZY_LOAD_ACTION_TYPE,
-  LIST_LAZY_LOAD_DONE_ACTION_TYPE,
-  LIST_LAZY_LOAD_ERROR_ACTION_TYPE,
   LIST_MERGE_ACTION_TYPE,
   LIST_NEXT_PAGE_ACTION_TYPE,
   LIST_PREVIOUS_PAGE_ACTION_TYPE,
@@ -92,21 +92,27 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [03.06.2018]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildLazyLoadActionType(section: string): string {
     return `${SectionUtils.actionPrefix(section)}.${LIST_LAZY_LOAD_ACTION_TYPE}`;
   }
 
   /**
-   * @stable [03.06.2018]
-   * @param {string} section
-   * @returns {string}
+   * @stable [08.09.2020]
+   * @param section
    */
   public static buildLazyLoadDoneActionType(section: string): string {
     return `${SectionUtils.actionPrefix(section)}.${LIST_LAZY_LOAD_DONE_ACTION_TYPE}`;
+  }
+
+  /**
+   * @stable [08.09.2020]
+   * @param section
+   */
+  public static buildLazyLoadErrorActionType(section: string): string {
+    return `${SectionUtils.actionPrefix(section)}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
   }
 
   /**
@@ -133,15 +139,6 @@ export class ListActionBuilder {
    */
   public static buildLoadErrorActionType(section: string): string {
     return `${SectionUtils.actionPrefix(section)}.${LIST_LOAD_ERROR_ACTION_TYPE}`;
-  }
-
-  /**
-   * @stable [04.06.2018]
-   * @param {string} section
-   * @returns {string}
-   */
-  public static buildLazyLoadErrorActionType(section: string): string {
-    return `${SectionUtils.actionPrefix(section)}.${LIST_LAZY_LOAD_ERROR_ACTION_TYPE}`;
   }
 
   /**

@@ -6,39 +6,35 @@ import {
   ISectionWrapper,
 } from '../definitions.interface';
 import {
-  ifNotEmptyThanValue,
-  ifNotNilThanValue,
-} from './cond';
-import {
   IActionStateEntity,
   IContainerMiddlewareConfigEntity,
+  IFluxSectionDataEntity,
   IFormMiddlewareConfigEntity,
   IListMiddlewareConfigEntity,
-  IFluxSectionDataEntity,
   ITabPanelMiddlewareConfigEntity,
   SectionT,
 } from '../definition';
-import { nvl } from './nvl';
-import { toType } from './type';
-import { calc } from './calc';
-import { defValuesFilter } from './filter';
+import { CalcUtils } from './calc';
+import { ConditionUtils } from './cond';
+import { FilterUtils } from './filter';
+import { NvlUtils } from './nvl';
+import { TypeUtils } from './type';
 
 /**
- * @stable [04.12.2019]
- * @param {string} section
- * @param {IKeyValue | IKeyValue[]} data
- * @returns {TResult}
+ * @stable [08.09.2020]
+ * @param section
+ * @param data
  */
 export const applySection =
   <TResult extends IFluxSectionDataEntity = IFluxSectionDataEntity>(section: string, data?: IKeyValue | IKeyValue[]): TResult =>
     ({
       section,
       ...(
-        ifNotEmptyThanValue(
+        ConditionUtils.ifNotEmptyThanValue(
           data,
           () => (
             Array.isArray(data)
-              ? toType<IFluxSectionDataEntity>({data})
+              ? TypeUtils.asType<IFluxSectionDataEntity>({data})
               : data
           )
         )
@@ -57,12 +53,12 @@ export const toActionPrefix = (section: string): string => `${ACTION_PREFIX}${se
  * @returns {string}
  */
 export const toSection = (action: IEffectsAction): string =>
-  nvl(
-    ifNotNilThanValue(
+  NvlUtils.nvl(
+    ConditionUtils.ifNotNilThanValue(
       action.data,
       (data: ISectionWrapper) => data.section
     ),
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       action.initialData,
       (initialData: ISectionWrapper) => initialData.section
     )
@@ -76,9 +72,9 @@ export const toSection = (action: IEffectsAction): string =>
  */
 const toConfigSection =
   <TState = {}>(section: SectionT<TState>, cfg: IActionStateEntity<TState>): string =>
-    calc(
+    CalcUtils.calc(
       section,
-      defValuesFilter<IActionStateEntity<TState>, IActionStateEntity<TState>>({action: cfg.action, state: cfg.state})
+      FilterUtils.defValuesFilter<IActionStateEntity<TState>, IActionStateEntity<TState>>({action: cfg.action, state: cfg.state})
     );
 
 /**
@@ -122,4 +118,5 @@ export const toTabPanelSection =
  */
 export class SectionUtils {
   public static readonly actionPrefix = toActionPrefix;
+  public static readonly applySection = applySection;
 }

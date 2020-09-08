@@ -10,7 +10,7 @@ import {
   coalesce,
   ifNotNilThanValue,
   notNilValuesFilter,
-  toType,
+  asType,
 } from '../util';
 import { IKeyValue } from '../definitions.interface';
 import {
@@ -122,7 +122,7 @@ export class Transport implements ITransport {
 
     this.store.dispatch({
       type: TRANSPORT_REQUEST_ERROR_ACTION_TYPE,
-      data: toType<ITransportResponseEntity>({
+      data: asType<ITransportResponseEntity>({
         ...this.toResponseMetaEntity(req),
         ...responseEntity,
       }),
@@ -137,7 +137,7 @@ export class Transport implements ITransport {
   private onRequestDone(req: ITransportRequestEntity, responseEntity: ITransportResponseEntity): void {
     this.store.dispatch({
       type: $RAC_TRANSPORT_REQUEST_DONE_ACTION_TYPE,
-      data: toType<ITransportResponseEntity>({
+      data: asType<ITransportResponseEntity>({
         ...this.toResponseMetaEntity(req),
         ...responseEntity,
       }),

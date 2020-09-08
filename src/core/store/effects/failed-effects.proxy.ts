@@ -39,6 +39,13 @@ export const makeErrorEffectsProxy = (actionType: string) =>
   makeFailedEffectsProxy(EffectsActionBuilder.buildErrorActionType(actionType));
 
 /**
+ * @stable [08.09.2020]
+ * @param section
+ */
+export const makeListLazyLoadErrorEffectsProxy = (section: string): () => void =>
+  makeFailedEffectsProxy(ListActionBuilder.buildLazyLoadErrorActionType(section));
+
+/**
  * @stable [26.07.2020]
  * @param actionType
  */
@@ -51,14 +58,6 @@ export const makeFormSubmitErrorEffectsProxy = (actionType: string) =>
  */
 export const makeListLoadErrorEffectsProxy = (section: string): () => void =>
   makeFailedEffectsProxy(ListActionBuilder.buildLoadErrorActionType(section));
-
-/**
- * @stable [23.12.2018]
- * @param {string} section
- * @returns {() => void}
- */
-export const makeFailedListLazyLoadEffectsProxy = (section: string): () => void =>
-  makeFailedEffectsProxy(ListActionBuilder.buildLazyLoadErrorActionType(section));
 
 /**
  * @stable [25.11.2019]

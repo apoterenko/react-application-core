@@ -8,7 +8,7 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { AnyT, UNDEF, IKeyValue } from '../../definitions.interface';
 import { BaseChannel } from '../base-channel.service';
-import { createScript, isFn, toType, isArrayNotEmpty } from '../../util';
+import { createScript, isFn, asType, isArrayNotEmpty } from '../../util';
 import {
   CHANNEL_CONNECT_EVENT,
   CHANNEL_DISCONNECT_EVENT,
@@ -78,7 +78,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
 
     $.connection.hub.url = hubUrl;
     if (!R.isNil(config) && isFn(config.query)) {
-      $.connection.hub.qs = toType<() => IKeyValue>(config.query)();
+      $.connection.hub.qs = asType<() => IKeyValue>(config.query)();
     }
     Reflect.set($.connection.hub, 'baseUrl', this.settings.signalRUrl);
 
@@ -118,7 +118,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity, Sig
             case CHANNEL_SEND_EVENT:
               try {
                 if (areSpecificChannelsPresent) {
-                  const payload = toType<ISignalRChannelMessageEntity>(args[0]);
+                  const payload = asType<ISignalRChannelMessageEntity>(args[0]);
                   if (R.isNil(payload.channel)) {
                     SignalRChannel.logger.warn(
                       `[$SignalRChannel][onSignalRInitialize][${CHANNEL_SEND_EVENT

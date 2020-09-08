@@ -105,12 +105,13 @@ const isEvent = (v: unknown): boolean => v instanceof Event;
  * @param {TResult} result
  * @returns {TResult}
  */
-export const toType = <TResult>(result: TResult): TResult => result;
+export const asType = <TResult>(result: TResult): TResult => result;
 
 /**
  * @stable [16.05.2020]
  */
 export class TypeUtils {
+  public static readonly asType = asType;                                                                   /* @stable [08.09.2020] */
   public static readonly isBoolean = isBoolean;                                                             /* @stable [12.06.2020] */
   public static readonly isDef = isDef;                                                                     /* @stable [16.05.2020] */
   public static readonly isEvent = isEvent;                                                                 /* @stable [29.08.2020] */
