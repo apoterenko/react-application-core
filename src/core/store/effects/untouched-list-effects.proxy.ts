@@ -7,16 +7,16 @@ import { ConnectorActionBuilder } from '../../action';
 import { IUntouchedListMiddlewareConfigEntity } from '../../definition';
 import { MiddlewareFactories } from '../middleware';
 import {
-  nvl,
-  toContainerSection,
-  toListSection,
+  NvlUtils,
+  SectionUtils,
 } from '../../util';
 import { provideInSingleton } from '../../di';
 
 /**
- * @stable [27.03.2020]
- * @param {IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges>} cfg
- * @returns {() => void}
+ * @effects-proxy-factory
+ * @stable [09.09.2020]
+ *
+ * @param cfg
  */
 export const makeUntouchedListEffectsProxy =
   <TState = {}, TDefaultFormChanges = {}>(cfg: IUntouchedListMiddlewareConfigEntity<TState, TDefaultFormChanges>) => (
@@ -26,13 +26,14 @@ export const makeUntouchedListEffectsProxy =
       class Effects {
 
         /**
-         * @stable [29.03.2020]
-         * @param {IEffectsAction} action
-         * @param {TState} state
-         * @returns {IEffectsAction[]}
+         * @stable [09.09.2020]
+         * @param action
+         * @param state
          */
         @EffectsService.effects(
-          ConnectorActionBuilder.buildInitActionType(nvl(toContainerSection(cfg), toListSection(cfg)))
+          ConnectorActionBuilder.buildInitActionType(
+            NvlUtils.nvl(SectionUtils.asContainerSection(cfg), SectionUtils.asListSection(cfg))
+          )
         )
         public $onConnectorInit = (action: IEffectsAction, state: TState): IEffectsAction[] =>
           MiddlewareFactories.untouchedListMiddleware({...cfg, action, state})

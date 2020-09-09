@@ -56,20 +56,18 @@ const asConfigSection =
     );
 
 /**
- * @stable [11.04.2020]
- * @param {IListMiddlewareConfigEntity<TState> & IActionStateEntity<TState>} cfg
- * @returns {string}
+ * @stable [09.09.2020]
+ * @param cfg
  */
-export const toListSection =
+const asListSection =
   <TState = {}>(cfg: IListMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
     asConfigSection(cfg.listSection, cfg);
 
 /**
- * @stable [11.04.2020]
- * @param {IContainerMiddlewareConfigEntity<TState> & IActionStateEntity<TState>} cfg
- * @returns {string}
+ * @stable [09.09.2020]
+ * @param cfg
  */
-export const toContainerSection =
+const asContainerSection =
   <TState = {}>(cfg: IContainerMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
     asConfigSection(cfg.containerSection, cfg);
 
@@ -96,5 +94,7 @@ export const toTabPanelSection =
 export class SectionUtils {
   public static readonly actionPrefix = actionPrefix;
   public static readonly applySection = applySection;
+  public static readonly asContainerSection = asContainerSection;
   public static readonly asFormSection = asFormSection;
+  public static readonly asListSection = asListSection;
 }

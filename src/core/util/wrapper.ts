@@ -386,11 +386,10 @@ export const isPeriodNavigatorUsed = (wrapper: IUsePeriodNavigatorWrapper): bool
   R.isNil(wrapper) ? false : wrapper.usePeriodNavigator === true;
 
 /**
- * @stable [11.04.2020]
- * @param {INavigateBackWrapper} wrapper
- * @returns {boolean}
+ * @stable [09.09.2020]
+ * @param wrapper
  */
-export const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
+const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.navigateBack !== false;
 
 /**
@@ -410,6 +409,7 @@ export class WrapperUtils {
   public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
+  public static readonly isNavigateBackNeeded = isNavigateBackNeeded;                      /* @stable [09.09.2020] */
   public static readonly isPlainValueApplied = isPlainValueApplied;                        /* @stable [21.06.2020] */
   public static readonly isReadOnly = isReadOnly;                                          /* @stable [22.08.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */

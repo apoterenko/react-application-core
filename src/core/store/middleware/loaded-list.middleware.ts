@@ -12,25 +12,23 @@ import {
 import {
   ConditionUtils,
   FilterUtils,
+  SectionUtils,
   selectValidFromAction,
-  toListSection,
   ValueUtils,
   WrapperUtils,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
 /**
- * @stable [29.03.2020]
- * @param {ILoadedListMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction}
+ * @stable [09.09.2020]
+ * @param cfg
  */
 export const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddlewareConfigEntity<TState>): IEffectsAction =>
-  ListActionBuilder.buildLoadAction(toListSection(cfg));
+  ListActionBuilder.buildLoadAction(SectionUtils.asListSection(cfg));
 
 /**
- * @stable [29.03.2020]
- * @param {ILoadedListOnFormValidMiddlewareConfigEntity<TState>} config
- * @returns {IEffectsAction}
+ * @stable [09.09.2020]
+ * @param config
  */
 export const makeLoadedListOnFormValidMiddleware =
   <TState = {}>(config: ILoadedListOnFormValidMiddlewareConfigEntity<TState>): IEffectsAction =>
@@ -40,27 +38,24 @@ export const makeLoadedListOnFormValidMiddleware =
     );
 
 /**
- * @stable [29.03.2020]
- * @param {ILoadedListOnTabActivateMiddlewareConfigEntity<TState>} config
- * @returns {IEffectsAction}
+ * @stable [09.09.2020]
+ * @param config
  */
 export const makeLoadedListOnTabActivateMiddleware =
   <TState = {}>(config: ILoadedListOnTabActivateMiddlewareConfigEntity<TState>): IEffectsAction =>
     makeLoadedListMiddleware(config);
 
 /**
- * @stable [11.04.2020]
- * @param {ILoadedListOnToolbarToolsRefreshConfigEntity<TState>} config
- * @returns {IEffectsAction}
+ * @stable [09.09.2020]
+ * @param config
  */
 export const makeLoadedListOnToolbarToolsRefreshMiddleware =
   <TState = {}>(config: ILoadedListOnToolbarToolsRefreshConfigEntity<TState>): IEffectsAction =>
     makeLoadedListMiddleware(config);
 
 /**
- * @stable [29.03.2020]
- * @param {IUntouchedListMiddlewareConfigEntity<TState>} config
- * @returns {IEffectsAction[]}
+ * @stable [09.09.2020]
+ * @param config
  */
 export const makeUntouchedListMiddleware =
   <TState = {}>(config: IUntouchedListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
@@ -76,49 +71,45 @@ export const makeUntouchedListMiddleware =
     );
 
 /**
- * @stable [15.06.2020]
- * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
+ * @stable [09.09.2020]
+ * @param cfg
  */
 export const makeLoadedListOnNavigateToPreviousPageMiddleware =
   <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
-      ListActionBuilder.buildPreviousPageAction(toListSection(cfg)),
+      ListActionBuilder.buildPreviousPageAction(SectionUtils.asListSection(cfg)),
       makeLoadedListMiddleware(cfg)
     ];
 
 /**
- * @stable [15.06.2020]
- * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
+ * @stable [09.09.2020]
+ * @param cfg
  */
 export const makeLoadedListOnNavigateToNextPageMiddleware =
   <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
-      ListActionBuilder.buildNextPageAction(toListSection(cfg)),
+      ListActionBuilder.buildNextPageAction(SectionUtils.asListSection(cfg)),
       makeLoadedListMiddleware(cfg)
     ];
 
 /**
- * @stable [15.06.2020]
- * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
+ * @stable [09.09.2020]
+ * @param cfg
  */
 export const makeLoadedListOnNavigateToFirstPageMiddleware =
   <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
-      ListActionBuilder.buildFirstPageAction(toListSection(cfg)),
+      ListActionBuilder.buildFirstPageAction(SectionUtils.asListSection(cfg)),
       makeLoadedListMiddleware(cfg)
     ];
 
 /**
- * @stable [15.06.2020]
- * @param {ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
+ * @stable [09.09.2020]
+ * @param cfg
  */
 export const makeLoadedListOnNavigateToLastPageMiddleware =
   <TState = {}>(cfg: ILoadedListOnNavigateToPageMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
-      ListActionBuilder.buildLastPageAction(toListSection(cfg)),
+      ListActionBuilder.buildLastPageAction(SectionUtils.asListSection(cfg)),
       makeLoadedListMiddleware(cfg)
     ];

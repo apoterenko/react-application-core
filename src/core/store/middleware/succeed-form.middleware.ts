@@ -3,12 +3,10 @@ import { IEffectsAction } from 'redux-effects-promise';
 import {
   ConditionUtils,
   getRoutePath,
-  isNavigateBackNeeded,
-  isObjectNotEmpty,
   NvlUtils,
+  ObjectUtils,
   SectionUtils,
-  toContainerSection,
-  toListSection,
+  WrapperUtils,
 } from '../../util';
 import {
   FormActionBuilder,
@@ -31,7 +29,6 @@ import {
   DiServices,
   getDynamicSections,
   getModifyEntityPayloadFactory,
-  getSettings,
   staticInjector,
 } from '../../di';
 import { ISettingsEntity } from '../../settings';
@@ -48,7 +45,7 @@ export const makeSucceedFormMiddleware = (cfg?: ISucceedFormMiddlewareConfigEnti
   const actualFormSection = SectionUtils.asFormSection(cfg);
   return [
     ...(
-      isNavigateBackNeeded(cfg) || !isObjectNotEmpty(actualFormSection)
+      WrapperUtils.isNavigateBackNeeded(cfg) || !ObjectUtils.isObjectNotEmpty(actualFormSection)
         ? [RouterActionBuilder.buildBackAction()]
         : [FormActionBuilder.buildSubmitDoneAction(actualFormSection)]
     ),
@@ -57,7 +54,9 @@ export const makeSucceedFormMiddleware = (cfg?: ISucceedFormMiddlewareConfigEnti
         ? []
         : [
           NotificationActionBuilder.buildInfoAction(
-            DiServices.translator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
+            DiServices.translator()(
+              succeedText as string || DiServices.settings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED
+            )
           )
         ]
     )
@@ -116,7 +115,7 @@ export const makeSucceedEditedListMiddleware =
       succeedText,
     } = cfg;
 
-    const actualListSection = toListSection(cfg);
+    const actualListSection = SectionUtils.asListSection(cfg);
 
     return [
       ListActionBuilder.buildMergeAction(
@@ -124,10 +123,12 @@ export const makeSucceedEditedListMiddleware =
         getModifyEntityPayloadFactory().makeInstance(action)
       ),
       ...(
-        isNavigateBackNeeded(cfg)
+        WrapperUtils.isNavigateBackNeeded(cfg)
           ? [
             RouterActionBuilder.buildReplaceAction(
-              getRoutePath(getDynamicSections().get(NvlUtils.nvl(toContainerSection(cfg), actualListSection)))
+              getRoutePath(getDynamicSections().get(
+                NvlUtils.nvl(SectionUtils.asContainerSection(cfg), actualListSection))
+              )
             )
           ]
           : []
@@ -137,7 +138,9 @@ export const makeSucceedEditedListMiddleware =
           ? []
           : [
             NotificationActionBuilder.buildInfoAction(
-              DiServices.translator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
+              DiServices.translator()(
+                succeedText as string || DiServices.settings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED
+              )
             )
           ]
       )

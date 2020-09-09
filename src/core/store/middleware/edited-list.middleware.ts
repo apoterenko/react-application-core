@@ -19,7 +19,6 @@ import {
   ObjectUtils,
   SectionUtils,
   Selectors,
-  toListSection,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
 
@@ -50,11 +49,10 @@ export const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
   );
 
 /**
- * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} cfg
- * @returns {IEffectsAction[]}
+ * @stable [09.09.2020]
+ * @param cfg
  */
-export const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
+const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>): IEffectsAction[] => {
 
   const action = cfg.action;
@@ -63,7 +61,7 @@ export const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultC
   return cfg.lazyLoading
     ? [
       ListActionBuilder.buildLazyLoadAction(
-        toListSection(cfg),
+        SectionUtils.asListSection(cfg),
         FilterUtils.defValuesFilter<IFluxSelectedEntity, IFluxSelectedEntity>({
           selected,
           preventEffects: Selectors.preventEffectsFromAction(action),
@@ -93,3 +91,10 @@ export const makeLazyLoadedEntityMiddleware = <TPayload = {}, TState = {}, TDefa
   ];
   return ConditionUtils.orNull(ObjectUtils.isObjectNotEmpty(result), result);
 };
+
+/**
+ * @stable [09.09.2020]
+ */
+export class EditedListMiddlewareFactories {
+  public static readonly selectEntityMiddleware = makeSelectEntityMiddleware;
+}

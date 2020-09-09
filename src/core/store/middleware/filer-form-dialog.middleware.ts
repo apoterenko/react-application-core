@@ -1,12 +1,9 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { ListActionBuilder } from '../../component/list/list-action.builder';
 import { FormActionBuilder } from '../../action';
 import { IFilterFormDialogMiddlewareConfigEntity } from '../../definition';
-import {
-  SectionUtils,
-  toListSection,
-} from '../../util';
+import { ListActionBuilder } from '../../component/list/list-action.builder';
+import { SectionUtils } from '../../util';
 
 /**
  * @stable [23.04.2020]
@@ -17,7 +14,7 @@ export const makeFilterFormDialogClearMiddleware =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
       FormActionBuilder.buildResetAction(SectionUtils.asFormSection(cfg)),
-      ListActionBuilder.buildLoadAction(toListSection(cfg))
+      ListActionBuilder.buildLoadAction(SectionUtils.asListSection(cfg))
     ];
 
 /**
@@ -30,10 +27,9 @@ export const makeFilterFormDialogResetMiddleware =
     FormActionBuilder.buildResetAction(SectionUtils.asFormSection(cfg));
 
 /**
- * @stable [23.04.2020]
- * @param {IFilterFormDialogMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction}
+ * @stable [09.09.2020]
+ * @param cfg
  */
 export const makeFilterFormDialogAcceptMiddleware =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity<TState>): IEffectsAction =>
-    ListActionBuilder.buildLoadAction(toListSection(cfg));
+    ListActionBuilder.buildLoadAction(SectionUtils.asListSection(cfg));

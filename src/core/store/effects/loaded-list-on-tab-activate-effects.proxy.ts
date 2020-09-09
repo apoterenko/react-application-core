@@ -4,8 +4,8 @@ import {
 } from 'redux-effects-promise';
 
 import {
-  nvl,
-  toListSection,
+  NvlUtils,
+  SectionUtils,
   toTabPanelSection,
 } from '../../util';
 import { ILoadedListOnTabActivateMiddlewareConfigEntity } from '../../definition';
@@ -26,11 +26,14 @@ export const makeLoadedListOnTabActivateEffectsProxy =
       class Effects {
 
         /**
-         * @stable [12.04.2020]
-         * @returns {IEffectsAction}
+         * @stable [09.09.2020]
+         * @param action
+         * @param state
          */
         @EffectsService.effects(
-          TabPanelActionBuilder.buildActiveValueActionType(nvl(toTabPanelSection(cfg), toListSection(cfg)))
+          TabPanelActionBuilder.buildActiveValueActionType(
+            NvlUtils.nvl(toTabPanelSection(cfg), SectionUtils.asListSection(cfg))
+          )
         )
         public $onTabActivate = (action: IEffectsAction, state: TState): IEffectsAction =>
           makeLoadedListOnTabActivateMiddleware({...cfg, action, state})

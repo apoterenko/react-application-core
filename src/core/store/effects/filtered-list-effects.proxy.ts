@@ -8,7 +8,6 @@ import { FilterActionBuilder } from '../../action';
 import {
   NvlUtils,
   SectionUtils,
-  toListSection,
 } from '../../util';
 import { IFilteredListMiddlewareConfigEntity } from '../../definition';
 import {
@@ -35,7 +34,7 @@ export const makeFilteredListEffectsProxy = <TState = {}>(cfg: IFilteredListMidd
        */
       @EffectsService.effects(
         FilterActionBuilder.buildApplyActionType(
-          NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+          NvlUtils.nvl(SectionUtils.asFormSection(cfg), SectionUtils.asListSection(cfg))
         )
       )
       public $onApply = (action: IEffectsAction, state: TState): IEffectsAction[] =>
@@ -48,7 +47,7 @@ export const makeFilteredListEffectsProxy = <TState = {}>(cfg: IFilteredListMidd
        */
       @EffectsService.effects(
         FilterActionBuilder.buildDeactivateActionType(
-          NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+          NvlUtils.nvl(SectionUtils.asFormSection(cfg), SectionUtils.asListSection(cfg))
         )
       )
       public $onDeactivate = (action: IEffectsAction, state: TState): IEffectsAction[] =>

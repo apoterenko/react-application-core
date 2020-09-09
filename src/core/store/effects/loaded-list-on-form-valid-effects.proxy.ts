@@ -6,7 +6,6 @@ import {
 import {
   NvlUtils,
   SectionUtils,
-  toListSection,
 } from '../../util';
 import { FormActionBuilder } from '../../action';
 import { ILoadedListOnFormValidMiddlewareConfigEntity } from '../../definition';
@@ -32,7 +31,7 @@ export const makeLoadedListOnFormValidEffectsProxy =
          */
         @EffectsService.effects(
           FormActionBuilder.buildValidActionType(
-            NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+            NvlUtils.nvl(SectionUtils.asFormSection(cfg), SectionUtils.asListSection(cfg))
           )
         )
         public $onFormValid = (action: IEffectsAction, state: TState): IEffectsAction =>

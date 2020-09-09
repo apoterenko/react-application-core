@@ -309,6 +309,7 @@ export class DiServices {
   public static readonly environment = getEnvironment;
   public static readonly numberConverter = getNumberConverter;
   public static readonly reactBootstrapper = getReactBootstrapper;
+  public static readonly settings = getSettings;
   public static readonly store = getStore;
   public static readonly translator = getTranslator;
   public static readonly uiFactory = getUiFactory;

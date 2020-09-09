@@ -3,7 +3,6 @@ import { IEffectsAction } from 'redux-effects-promise';
 import {
   NvlUtils,
   SectionUtils,
-  toListSection,
 } from '../../util';
 import { IFilteredListMiddlewareConfigEntity } from '../../definition';
 import { FilterActionBuilder } from '../../action';
@@ -30,7 +29,7 @@ export const makeFilteredListDeactivateMiddleware =
   <TState = {}>(cfg: IFilteredListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
       FilterActionBuilder.buildDestroyAction(
-        NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+        NvlUtils.nvl(SectionUtils.asFormSection(cfg), SectionUtils.asListSection(cfg))
       ),
       makeLoadedListMiddleware(cfg)
     ];

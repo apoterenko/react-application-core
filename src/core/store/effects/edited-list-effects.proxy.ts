@@ -7,11 +7,10 @@ import { IEditedListMiddlewareConfigEntity } from '../../definition';
 import { ListActionBuilder } from '../../component/action.builder';
 import {
   makeCreateEntityMiddleware,
-  makeSelectEntityMiddleware,
   MiddlewareFactories,
 } from '../middleware';
 import { provideInSingleton } from '../../di';
-import { toListSection } from '../../util';
+import { SectionUtils } from '../../util';
 
 /**
  * @stable [03.04.2020]
@@ -26,32 +25,29 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
     class Effects {
 
       /**
-       * @stable [09.10.2019]
-       * @param {IEffectsAction} action
-       * @param {TState} state
-       * @returns {IEffectsAction[]}
+       * @stable [09.09.2020]
+       * @param action
+       * @param state
        */
-      @EffectsService.effects(ListActionBuilder.buildCreateActionType(toListSection(cfg)))
+      @EffectsService.effects(ListActionBuilder.buildCreateActionType(SectionUtils.asListSection(cfg)))
       public $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         makeCreateEntityMiddleware({...cfg, action, state})
 
       /**
-       * @stable [09.10.2019]
-       * @param {IEffectsAction} action
-       * @param {TState} state
-       * @returns {IEffectsAction[]}
+       * @stable [09.09.2020]
+       * @param action
+       * @param state
        */
-      @EffectsService.effects(ListActionBuilder.buildSelectActionType(toListSection(cfg)))
+      @EffectsService.effects(ListActionBuilder.buildSelectActionType(SectionUtils.asListSection(cfg)))
       public $onEntitySelect = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeSelectEntityMiddleware({...cfg, action, state})
+        MiddlewareFactories.selectEntityMiddleware({...cfg, action, state})
 
       /**
-       * @stable [20.10.2019]
-       * @param {IEffectsAction} action
-       * @param {TState} state
-       * @returns {IEffectsAction[]}
+       * @stable [09.09.2020]
+       * @param action
+       * @param state
        */
-      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(toListSection(cfg)))
+      @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(SectionUtils.asListSection(cfg)))
       public $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         MiddlewareFactories.lazyLoadedEntityMiddleware({...cfg, action, state})
     }
