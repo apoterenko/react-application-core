@@ -1,19 +1,17 @@
 import { LoggerFactory } from 'ts-smart-logger';
 
+import { ConditionUtils } from '../../util';
 import {
-  ifNotNilThanValue,
-} from '../../util';
-import {
+  DiServices,
   getConnectorContainerFactory,
   getDynamicRoutes,
-  getDynamicSections,
 } from '../../di';
 import { connectorFactory } from './connector.factory';
 import {
   IBasicConnectorEntity,
   IConnectorEntity,
-  IUniversalContainerCtor,
-  IUniversalContainerProps,
+  IGenericContainerCtor,
+  IReduxStoreEntity,
   IUniversalStoreEntity,
 } from '../../definition';
 
@@ -24,15 +22,15 @@ const logger = LoggerFactory.makeLogger('universal-connector.decorator');
  * @param {IBasicConnectorEntity<TStoreEntity>} config
  * @returns {(target: IContainerClassEntity) => void}
  */
-export const basicConnector = <TStoreEntity extends IUniversalStoreEntity = IUniversalStoreEntity>(
+export const basicConnector = <TStoreEntity extends IReduxStoreEntity = IReduxStoreEntity>(
   config: IBasicConnectorEntity<TStoreEntity>
 ) =>
-  (target: IUniversalContainerCtor): void => {
+  (target: IGenericContainerCtor): void => {
     let finalTarget = target;
 
-    const section = ifNotNilThanValue(target.defaultProps, (defaultProps) => defaultProps.sectionName);
+    const section = ConditionUtils.ifNotNilThanValue(target.defaultProps, (defaultProps) => defaultProps.sectionName);
     if (section) {
-      getDynamicSections().set(section, config);
+      DiServices.dynamicSections().set(section, config);
       finalTarget = getConnectorContainerFactory().fromTarget(target, section);
     } else {
       logger.warn(

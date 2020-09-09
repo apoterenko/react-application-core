@@ -2,9 +2,9 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   ConditionUtils,
-  getRoutePath,
   NvlUtils,
   ObjectUtils,
+  RouteUtils,
   SectionUtils,
   WrapperUtils,
 } from '../../util';
@@ -27,7 +27,6 @@ import {
 import {
   DI_TYPES,
   DiServices,
-  getDynamicSections,
   staticInjector,
 } from '../../di';
 import { ISettingsEntity } from '../../settings';
@@ -103,11 +102,10 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
 };
 
 /**
- * @stable [11.04.2020]
- * @param {ISucceedEditedListMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
+ * @stable [10.09.2020]
+ * @param cfg
  */
-export const makeSucceedEditedListMiddleware =
+const makeSucceedEditedListMiddleware =
   <TState = {}>(cfg: ISucceedEditedListMiddlewareConfigEntity<TState>): IEffectsAction[] => {
     const {
       action,
@@ -125,8 +123,10 @@ export const makeSucceedEditedListMiddleware =
         WrapperUtils.isNavigateBackNeeded(cfg)
           ? [
             RouterActionBuilder.buildReplaceAction(
-              getRoutePath(getDynamicSections().get(
-                NvlUtils.nvl(SectionUtils.asContainerSection(cfg), actualListSection))
+              RouteUtils.asRoutePath(
+                DiServices.dynamicSections().get(
+                  NvlUtils.nvl(SectionUtils.asContainerSection(cfg), actualListSection)
+                )
               )
             )
           ]
@@ -145,3 +145,10 @@ export const makeSucceedEditedListMiddleware =
       )
     ];
   };
+
+/**
+ * @stable [10.09.2020]
+ */
+export class SucceedFormMiddlewareFactories {
+  public static readonly succeedEditedListMiddleware = makeSucceedEditedListMiddleware;
+}

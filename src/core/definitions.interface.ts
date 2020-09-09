@@ -4,7 +4,6 @@ import { IBaseEvent } from './definition';
 export type AnyT = any;
 export type StringNumberT = number | string;
 export type EntityIdT = StringNumberT;
-export const NEW_OPTION = 'new';
 export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export const ACTION_PREFIX = '$$-RAC-';

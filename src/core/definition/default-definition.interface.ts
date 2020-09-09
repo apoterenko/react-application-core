@@ -49,6 +49,7 @@ export class DefaultEntities {
   public static readonly INITIAL_REDUX_LIST_ENTITY = INITIAL_REDUX_LIST_ENTITY;                         /* @stable [29.07.2020] */
   public static readonly INITIAL_REDUX_STACK_ENTITY = INITIAL_REDUX_STACK_ENTITY;                       /* @stable [21.05.2020] */
   public static readonly LOCAL_PAGE_SIZE = DEFAULT_LOCAL_PAGE_SIZE;                                     /* @stable [16.07.2020] */
+  public static readonly NEW_OPTION = 'new';                                                            /* @stable [10.09.2020] */
   public static readonly NO_AUTO_COMPLETE_FIELD_ENTITY = DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY;         /* @stable [11.08.2020] */
   public static readonly NOT_CHANGEABLE_FIELD_ENTITY = DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY;             /* @stable [01.06.2020] */
   public static readonly NOT_HOVERED_LIST_ITEM_ENTITY = DEFAULT_NOT_HOVERED_LIST_ITEM_ENTITY;           /* @stable [19.05.2020] */

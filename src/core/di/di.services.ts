@@ -82,10 +82,9 @@ export const getPermissionsManager = <TPermission = {}>(): IPermissionsManager<T
 export const getDynamicRoutes = (): DynamicRoutesT => staticInjector(DI_TYPES.DynamicRoutes);
 
 /**
- * @stable [17.11.2019]
- * @returns {DynamicSectionsMapT}
+ * @stable [10.09.2020]
  */
-export const getDynamicSections = (): DynamicSectionsMapT => staticInjector(DI_TYPES.DynamicSections);
+const getDynamicSections = (): DynamicSectionsMapT => staticInjector(DI_TYPES.DynamicSections);
 
 /**
  * @stable [16.11.2019]
@@ -305,6 +304,7 @@ export class DiServices {
   public static readonly auth = getAuth;
   public static readonly dateConverter = getDateConverter;
   public static readonly dynamicRoutes = getDynamicRoutes;
+  public static readonly dynamicSections = getDynamicSections;
   public static readonly environment = getEnvironment;
   public static readonly modifyEntityPayloadFactory = getModifyEntityPayloadFactory;
   public static readonly numberConverter = getNumberConverter;

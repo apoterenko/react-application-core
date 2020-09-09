@@ -11,7 +11,10 @@ import {
   makeLoadedListOnNavigateToPreviousPageMiddleware,
   makeUntouchedListMiddleware,
 } from './loaded-list.middleware';
-import { makeSucceedFormMiddleware } from './succeed-form.middleware';
+import {
+  makeSucceedFormMiddleware,
+  SucceedFormMiddlewareFactories,
+} from './succeed-form.middleware';
 import { FilterFormDialogMiddlewareFactories } from './filer-form-dialog.middleware';
 import { FilteredListMiddlewareFactories } from './filtered-list.middleware';
 import { DestroyedContainerMiddlewareFactories } from './destroyed-container.middleware';
@@ -34,6 +37,7 @@ export class MiddlewareFactories {
   public static readonly loadedListOnNavigateToNextPageMiddleware = makeLoadedListOnNavigateToNextPageMiddleware;
   public static readonly loadedListOnNavigateToPreviousPageMiddleware = makeLoadedListOnNavigateToPreviousPageMiddleware;
   public static readonly selectEntityMiddleware = EditedListMiddlewareFactories.selectEntityMiddleware;
+  public static readonly succeedEditedListMiddleware = SucceedFormMiddlewareFactories.succeedEditedListMiddleware;
   public static readonly succeedFormMiddleware = makeSucceedFormMiddleware;
   public static readonly untouchedListMiddleware = makeUntouchedListMiddleware;
 }
