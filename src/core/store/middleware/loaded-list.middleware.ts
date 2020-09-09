@@ -23,7 +23,7 @@ import { makeDefaultFormChangesMiddleware } from './default-form-changes.middlew
  * @stable [09.09.2020]
  * @param cfg
  */
-export const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddlewareConfigEntity<TState>): IEffectsAction =>
+const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddlewareConfigEntity<TState>): IEffectsAction =>
   ListActionBuilder.buildLoadAction(SectionUtils.asListSection(cfg));
 
 /**
@@ -113,3 +113,10 @@ export const makeLoadedListOnNavigateToLastPageMiddleware =
       ListActionBuilder.buildLastPageAction(SectionUtils.asListSection(cfg)),
       makeLoadedListMiddleware(cfg)
     ];
+
+/**
+ * @stable [09.09.2020]
+ */
+export class LoadedListMiddlewareFactories {
+  public static readonly loadedListMiddleware = makeLoadedListMiddleware;
+}

@@ -1,35 +1,37 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
-import {
-  NvlUtils,
-  SectionUtils,
-} from '../../util';
-import { IFilteredListMiddlewareConfigEntity } from '../../definition';
 import { FilterActionBuilder } from '../../action';
-import { makeLoadedListMiddleware } from './loaded-list.middleware';
+import { IFilteredListMiddlewareConfigEntity } from '../../definition';
+import { LoadedListMiddlewareFactories } from './loaded-list.middleware';
+import { SectionUtils } from '../../util';
 
 /**
- * @stable [27.04.2020]
- * @middleware
- *
- * @param {IFilteredListMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
- */
-export const makeFilteredListApplyMiddleware =
-  <TState = {}>(cfg: IFilteredListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
-    [makeLoadedListMiddleware(cfg)];
-
-/**
- * @stable [27.04.2020]
+ * @stable [09.09.2020]
  * @middleware
  *
  * @param cfg
  */
-export const makeFilteredListDeactivateMiddleware =
+const makeFilteredListApplyMiddleware =
+  <TState = {}>(cfg: IFilteredListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
+    [LoadedListMiddlewareFactories.loadedListMiddleware(cfg)];
+
+/**
+ * @stable [09.09.2020]
+ * @middleware
+ *
+ * @param cfg
+ */
+const makeFilteredListDeactivateMiddleware =
   <TState = {}>(cfg: IFilteredListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
-      FilterActionBuilder.buildDestroyAction(
-        NvlUtils.nvl(SectionUtils.asFormSection(cfg), SectionUtils.asListSection(cfg))
-      ),
-      makeLoadedListMiddleware(cfg)
+      FilterActionBuilder.buildDestroyAction(SectionUtils.asFormOrListSection(cfg)),
+      LoadedListMiddlewareFactories.loadedListMiddleware(cfg)
     ];
+
+/**
+ * @stable [09.09.2020]
+ */
+export class FilteredListMiddlewareFactories {
+  public static readonly filteredListApplyMiddleware = makeFilteredListApplyMiddleware;
+  public static readonly filteredListDeactivateMiddleware = makeFilteredListDeactivateMiddleware;
+}

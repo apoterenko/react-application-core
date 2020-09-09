@@ -2,27 +2,25 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { FormActionBuilder } from '../../action';
 import { IFilterFormDialogMiddlewareConfigEntity } from '../../definition';
-import { ListActionBuilder } from '../../component/list/list-action.builder';
+import { LoadedListMiddlewareFactories } from './loaded-list.middleware';
 import { SectionUtils } from '../../util';
 
 /**
- * @stable [23.04.2020]
- * @param {IFilterFormDialogMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
+ * @stable [09.09.2020]
+ * @param cfg
  */
-export const makeFilterFormDialogClearMiddleware =
+const makeFilterFormDialogClearMiddleware =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
       FormActionBuilder.buildResetAction(SectionUtils.asFormSection(cfg)),
-      ListActionBuilder.buildLoadAction(SectionUtils.asListSection(cfg))
+      LoadedListMiddlewareFactories.loadedListMiddleware(cfg)
     ];
 
 /**
- * @stable [23.04.2020]
- * @param {IFilterFormDialogMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction}
+ * @stable [09.09.2020]
+ * @param cfg
  */
-export const makeFilterFormDialogResetMiddleware =
+const makeFilterFormDialogResetMiddleware =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity<TState>): IEffectsAction =>
     FormActionBuilder.buildResetAction(SectionUtils.asFormSection(cfg));
 
@@ -30,6 +28,15 @@ export const makeFilterFormDialogResetMiddleware =
  * @stable [09.09.2020]
  * @param cfg
  */
-export const makeFilterFormDialogAcceptMiddleware =
+const makeFilterFormDialogAcceptMiddleware =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity<TState>): IEffectsAction =>
-    ListActionBuilder.buildLoadAction(SectionUtils.asListSection(cfg));
+    LoadedListMiddlewareFactories.loadedListMiddleware(cfg);
+
+/**
+ * @stable [09.09.2020]
+ */
+export class FilterFormDialogMiddlewareFactories {
+  public static readonly filterFormDialogAcceptMiddleware = makeFilterFormDialogAcceptMiddleware;
+  public static readonly filterFormDialogClearMiddleware = makeFilterFormDialogClearMiddleware;
+  public static readonly filterFormDialogResetMiddleware = makeFilterFormDialogResetMiddleware;
+}

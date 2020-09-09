@@ -14,6 +14,7 @@ import {
 import { CalcUtils } from './calc';
 import { ConditionUtils } from './cond';
 import { FilterUtils } from './filter';
+import { NvlUtils } from './nvl';
 import { TypeUtils } from './type';
 
 /**
@@ -80,6 +81,14 @@ const asFormSection =
     asConfigSection(cfg.formSection, cfg);
 
 /**
+ * @stable [09.09.2020]
+ * @param cfg
+ */
+const asFormOrListSection =
+  <TState = {}>(cfg: IFormMiddlewareConfigEntity<TState> & IListMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
+    NvlUtils.nvl(asFormSection(cfg), asListSection(cfg));
+
+/**
  * @stable [12.04.2020]
  * @param {ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>} cfg
  * @returns {string}
@@ -95,6 +104,7 @@ export class SectionUtils {
   public static readonly actionPrefix = actionPrefix;
   public static readonly applySection = applySection;
   public static readonly asContainerSection = asContainerSection;
+  public static readonly asFormOrListSection = asFormOrListSection;
   public static readonly asFormSection = asFormSection;
   public static readonly asListSection = asListSection;
 }
