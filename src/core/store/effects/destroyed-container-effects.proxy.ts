@@ -8,7 +8,7 @@ import {
   DestroyedContainerTypesEnum,
   IDestroyedContainerMiddlewareConfigEntity,
 } from '../../definition';
-import { makeDestroyedContainerMiddleware } from '../middleware';
+import { MiddlewareFactories } from '../middleware';
 import { ListActionBuilder } from '../../component/action.builder';
 import {
   FilterActionBuilder,
@@ -48,6 +48,6 @@ export const makeDestroyedContainerEffectsProxy = (config: IDestroyedContainerMi
     class Effects {
 
       @EffectsService.effects(actionType(config))
-      public $onDestroy = (): IEffectsAction[] => makeDestroyedContainerMiddleware(config)
+      public $onDestroy = (): IEffectsAction[] => MiddlewareFactories.destroyedContainerMiddleware(config)
     }
   };

@@ -14,13 +14,12 @@ import {
 } from '../../action';
 
 /**
- * @stable [27.04.2020]
+ * @stable [10.09.2020]
  * @middleware
  *
- * @param {IDestroyedContainerMiddlewareConfigEntity} config
- * @returns {IEffectsAction[]}
+ * @param config
  */
-export const makeDestroyedContainerMiddleware =
+const makeDestroyedContainerMiddleware =
   (config: IDestroyedContainerMiddlewareConfigEntity): IEffectsAction[] =>
     [
       ...(config.tabPanelsSections || [])
@@ -34,3 +33,10 @@ export const makeDestroyedContainerMiddleware =
       ...(config.customActions || [])
         .map((customAction) => EffectsAction.create(customAction))
     ];
+
+/**
+ * @stable [10.09.2020]
+ */
+export class DestroyedContainerMiddlewareFactories {
+  public static readonly destroyedContainerMiddleware = makeDestroyedContainerMiddleware;
+}
