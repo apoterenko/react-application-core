@@ -6,8 +6,8 @@ import {
 import { provideInSingleton } from '../../di';
 import { FilterActionBuilder } from '../../action';
 import {
-  nvl,
-  toFormSection,
+  NvlUtils,
+  SectionUtils,
   toListSection,
 } from '../../util';
 import { IFilteredListMiddlewareConfigEntity } from '../../definition';
@@ -20,8 +20,7 @@ import {
  * @effects-proxy-factory
  * @stable [27.04.2020]
  *
- * @param {IFilteredListMiddlewareConfigEntity<TState>} cfg
- * @returns {() => void}
+ * @param cfg
  */
 export const makeFilteredListEffectsProxy = <TState = {}>(cfg: IFilteredListMiddlewareConfigEntity<TState>) =>
   ((): void => {
@@ -30,22 +29,28 @@ export const makeFilteredListEffectsProxy = <TState = {}>(cfg: IFilteredListMidd
     class Effects {
 
       /**
-       * @stable [27.04.2020]
-       * @param {IEffectsAction} action
-       * @param {TState} state
-       * @returns {IEffectsAction[]}
+       * @stable [09.09.2020]
+       * @param action
+       * @param state
        */
-      @EffectsService.effects(FilterActionBuilder.buildApplyActionType(nvl(toFormSection(cfg), toListSection(cfg))))
+      @EffectsService.effects(
+        FilterActionBuilder.buildApplyActionType(
+          NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+        )
+      )
       public $onApply = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         makeFilteredListApplyMiddleware({...cfg, action, state})
 
       /**
-       * @stable [27.04.2020]
-       * @param {IEffectsAction} action
-       * @param {TState} state
-       * @returns {IEffectsAction[]}
+       * @stable [09.09.2020]
+       * @param action
+       * @param state
        */
-      @EffectsService.effects(FilterActionBuilder.buildDeactivateActionType(nvl(toFormSection(cfg), toListSection(cfg))))
+      @EffectsService.effects(
+        FilterActionBuilder.buildDeactivateActionType(
+          NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+        )
+      )
       public $onDeactivate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         makeFilteredListDeactivateMiddleware({...cfg, action, state})
     }

@@ -17,8 +17,8 @@ import {
   ConditionUtils,
   FilterUtils,
   ObjectUtils,
+  SectionUtils,
   Selectors,
-  toFormSection,
   toListSection,
 } from '../../util';
 import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
@@ -31,9 +31,9 @@ import { makeDefaultFormChangesMiddleware } from './default-form-changes.middlew
 const asChainedConfigEntity = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>
 ): IChainedMiddlewareConfigEntity<TState, TPayload> =>
-  ({
+  FilterUtils.defValuesFilter<IChainedMiddlewareConfigEntity<TState, TPayload>, IChainedMiddlewareConfigEntity<TState, TPayload>>({
     action: cfg.action,
-    nextSection: toFormSection(cfg),
+    nextSection: SectionUtils.asFormSection(cfg),
     path: cfg.path,
     state: cfg.state,
   });

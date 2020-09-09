@@ -6,7 +6,7 @@ import {
   CalcUtils,
   ConditionUtils,
   ObjectUtils,
-  toFormSection,
+  SectionUtils,
 } from '../../util';
 
 /**
@@ -16,6 +16,6 @@ import {
 export const makeDefaultFormChangesMiddleware =
   <TChanges = {}, TState = {}>(cfg: IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>): IEffectsAction =>
     ConditionUtils.orNull(
-      ObjectUtils.isObjectNotEmpty(cfg.defaultChanges) && ObjectUtils.isObjectNotEmpty(toFormSection(cfg)),
-      () => FormActionBuilder.buildDefaultChangesAction(toFormSection(cfg), CalcUtils.calc(cfg.defaultChanges))
+      ObjectUtils.isObjectNotEmpty(cfg.defaultChanges) && ObjectUtils.isObjectNotEmpty(SectionUtils.asFormSection(cfg)),
+      () => FormActionBuilder.buildDefaultChangesAction(SectionUtils.asFormSection(cfg), CalcUtils.calc(cfg.defaultChanges))
     );

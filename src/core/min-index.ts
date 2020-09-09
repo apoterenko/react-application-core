@@ -21,6 +21,7 @@ export * from './di';                                                           
 export * from './settings';                                                              /* @stable [09.06.2020] */
 export * from './store/effects/base.effects';                                            /* @stable [15.06.2020] */
 export * from './store/effects/effects.factory';                                         /* @stable [09.06.2020] */
+export * from './store/middleware/middleware.factory';                                   /* @stable [09.09.2020] */
 export * from './store/store.factory';                                                   /* @stable [17.06.2020] */
 export * from './store/store.support';
 export * from './transport';                                                             /* @stable [09.06.2020] */

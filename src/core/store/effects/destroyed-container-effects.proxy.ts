@@ -36,10 +36,9 @@ const actionType = (cfg: IDestroyedContainerMiddlewareConfigEntity): string => {
 
 /**
  * @effects-proxy-factory
- * @stable [27.04.2020]
+ * @stable [09.09.2020]
  *
- * @param {IDestroyedContainerMiddlewareConfigEntity} config
- * @returns {() => void}
+ * @param config
  */
 export const makeDestroyedContainerEffectsProxy = (config: IDestroyedContainerMiddlewareConfigEntity): () => void =>
   (): void => {

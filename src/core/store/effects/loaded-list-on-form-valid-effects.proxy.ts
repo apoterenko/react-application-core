@@ -4,8 +4,8 @@ import {
 } from 'redux-effects-promise';
 
 import {
-  nvl,
-  toFormSection,
+  NvlUtils,
+  SectionUtils,
   toListSection,
 } from '../../util';
 import { FormActionBuilder } from '../../action';
@@ -26,12 +26,15 @@ export const makeLoadedListOnFormValidEffectsProxy =
       class Effects {
 
         /**
-         * @stable [12.04.2020]
-         * @param {IEffectsAction} action
-         * @param {TState} state
-         * @returns {IEffectsAction}
+         * @stable [09.09.2020]
+         * @param action
+         * @param state
          */
-        @EffectsService.effects(FormActionBuilder.buildValidActionType(nvl(toFormSection(cfg), toListSection(cfg))))
+        @EffectsService.effects(
+          FormActionBuilder.buildValidActionType(
+            NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+          )
+        )
         public $onFormValid = (action: IEffectsAction, state: TState): IEffectsAction =>
           makeLoadedListOnFormValidMiddleware({...cfg, action, state})
       }

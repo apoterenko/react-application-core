@@ -1,0 +1,78 @@
+{
+  "result": {
+    "id": "20253",
+    "dealerId": 210083,
+    "storeId": 1,
+    "distributor": {
+      "id": 2,
+      "name": "1234 species(non-arm's length)"
+    },
+    "distributorIntegration": {
+      "id": 1038,
+      "name": "GREENFIELD ORGANIX",
+      "licenseNumber": "C11-0000939-LIC",
+      "channelId": 1
+    },
+    "deliveryDate": "2020-08-21T00:00:00+00:00",
+    "totalProductQty": 0.0000,
+    "totalDistributorProductQty": 257.0,
+    "totalRegularAmount": 0.000000,
+    "totalDiscountAmount": 0.000000,
+    "totalDeliveryChargesAmount": 0.000000,
+    "totalTaxAmount": 0.000000,
+    "totalPayAmount": 0.000000,
+    "totalSubtotalAmount": 0.000000,
+    "totalOwedAmount": 0.000000,
+    "externalOrderId": "0000907593",
+    "isOrderDiscount": false,
+    "isCashOnDelivery": false,
+    "origin": "Metrc",
+    "orderStatus": {
+      "id": 2,
+      "name": "Ordered"
+    },
+    "financialStatus": {
+      "id": 1,
+      "name": "Not paid"
+    },
+    "creator": {
+      "id": "4",
+      "name": "J.A.R.V.I.S "
+    },
+    "creationDate": "2020-08-24T14:13:53+00:00",
+    "positions": [
+      {
+        "id": "10590",
+        "distributorProduct": {
+          "price": 9.961128404669260700389105058,
+          "externalTrackCode": "1A4060300006154000136185",
+          "product": {
+            "uom": {
+              "id": 13,
+              "name": "Each",
+              "abbr": "EA"
+            },
+            "price": 66.00,
+            "productClassId": 3,
+            "id": "106",
+            "name": "657567 1 EACH"
+          },
+          "productQty": 1.0000,
+          "hasPartialReception": false,
+          "id": "10625",
+          "name": "Dime 1/8 FW - Sundae Driver"
+        },
+        "distributorProductQty": 257.0,
+        "externalTrackCode": "1A4060300006154000136185",
+        "positionProductQty": 257.0000,
+        "isDiscountProductPriceRounded": false,
+        "isTradeSample": false,
+        "isTestingSample": false,
+        "useInternalBarcode": false,
+        "taxes": []
+      }
+    ],
+    "payments": []
+  },
+  "id": "4f8b35d2-8728-4f9c-a210-cb9d3f3dd08b"
+}

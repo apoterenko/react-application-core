@@ -1,13 +1,13 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
+  ConditionUtils,
   getRoutePath,
-  ifNotNilThanValue,
   isNavigateBackNeeded,
   isObjectNotEmpty,
-  nvl,
+  NvlUtils,
+  SectionUtils,
   toContainerSection,
-  toFormSection,
   toListSection,
 } from '../../util';
 import {
@@ -28,10 +28,10 @@ import {
 } from '../../definition';
 import {
   DI_TYPES,
+  DiServices,
   getDynamicSections,
   getModifyEntityPayloadFactory,
   getSettings,
-  getTranslator,
   staticInjector,
 } from '../../di';
 import { ISettingsEntity } from '../../settings';
@@ -45,7 +45,7 @@ export const makeSucceedFormMiddleware = (cfg?: ISucceedFormMiddlewareConfigEnti
   cfg = cfg || {} as ISucceedFormMiddlewareConfigEntity;
   const {succeedText} = cfg;
 
-  const actualFormSection = toFormSection(cfg);
+  const actualFormSection = SectionUtils.asFormSection(cfg);
   return [
     ...(
       isNavigateBackNeeded(cfg) || !isObjectNotEmpty(actualFormSection)
@@ -57,7 +57,7 @@ export const makeSucceedFormMiddleware = (cfg?: ISucceedFormMiddlewareConfigEnti
         ? []
         : [
           NotificationActionBuilder.buildInfoAction(
-            getTranslator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
+            DiServices.translator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
           )
         ]
     )
@@ -84,7 +84,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
   const payloadWrapper: IModifyEntityPayloadWrapperEntity = {payload: {id: parentEntity.id, changes}};
 
   return [
-    ...ifNotNilThanValue(
+    ...ConditionUtils.ifNotNilThanValue(
       config.listSection,
       (listSection) => (
         [
@@ -97,7 +97,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
       []
     ),
     NotificationActionBuilder.buildInfoAction(
-      getTranslator()(
+      DiServices.translator()(
         config.succeedText || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
       )
     )
@@ -127,7 +127,7 @@ export const makeSucceedEditedListMiddleware =
         isNavigateBackNeeded(cfg)
           ? [
             RouterActionBuilder.buildReplaceAction(
-              getRoutePath(getDynamicSections().get(nvl(toContainerSection(cfg), actualListSection)))
+              getRoutePath(getDynamicSections().get(NvlUtils.nvl(toContainerSection(cfg), actualListSection)))
             )
           ]
           : []
@@ -137,7 +137,7 @@ export const makeSucceedEditedListMiddleware =
           ? []
           : [
             NotificationActionBuilder.buildInfoAction(
-              getTranslator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
+              DiServices.translator()(succeedText as string || getSettings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED)
             )
           ]
       )

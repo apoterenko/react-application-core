@@ -44,12 +44,11 @@ export const applySection =
 const actionPrefix = (section: string): string => `${ACTION_PREFIX}${section}`;
 
 /**
- * @stable [11.04.2020]
- * @param {SectionT<TState>} section
- * @param {IActionStateEntity<TState>} cfg
- * @returns {string}
+ * @stable [09.09.2020]
+ * @param section
+ * @param cfg
  */
-const toConfigSection =
+const asConfigSection =
   <TState = {}>(section: SectionT<TState>, cfg: IActionStateEntity<TState>): string =>
     CalcUtils.calc(
       section,
@@ -63,7 +62,7 @@ const toConfigSection =
  */
 export const toListSection =
   <TState = {}>(cfg: IListMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
-    toConfigSection(cfg.listSection, cfg);
+    asConfigSection(cfg.listSection, cfg);
 
 /**
  * @stable [11.04.2020]
@@ -72,16 +71,15 @@ export const toListSection =
  */
 export const toContainerSection =
   <TState = {}>(cfg: IContainerMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
-    toConfigSection(cfg.containerSection, cfg);
+    asConfigSection(cfg.containerSection, cfg);
 
 /**
- * @stable [11.04.2020]
- * @param {IFormMiddlewareConfigEntity<TState> & IActionStateEntity<TState>} cfg
- * @returns {string}
+ * @stable [09.09.2020]
+ * @param cfg
  */
-export const toFormSection =
+const asFormSection =
   <TState = {}>(cfg: IFormMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
-    toConfigSection(cfg.formSection, cfg);
+    asConfigSection(cfg.formSection, cfg);
 
 /**
  * @stable [12.04.2020]
@@ -90,7 +88,7 @@ export const toFormSection =
  */
 export const toTabPanelSection =
   <TState = {}>(cfg: ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
-    toConfigSection(cfg.tabPanelSection, cfg);
+    asConfigSection(cfg.tabPanelSection, cfg);
 
 /**
  * @stable [26.07.2020]
@@ -98,4 +96,5 @@ export const toTabPanelSection =
 export class SectionUtils {
   public static readonly actionPrefix = actionPrefix;
   public static readonly applySection = applySection;
+  public static readonly asFormSection = asFormSection;
 }

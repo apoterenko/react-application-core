@@ -1,8 +1,8 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  nvl,
-  toFormSection,
+  NvlUtils,
+  SectionUtils,
   toListSection,
 } from '../../util';
 import { IFilteredListMiddlewareConfigEntity } from '../../definition';
@@ -24,12 +24,13 @@ export const makeFilteredListApplyMiddleware =
  * @stable [27.04.2020]
  * @middleware
  *
- * @param {IFilteredListMiddlewareConfigEntity<TState>} cfg
- * @returns {IEffectsAction[]}
+ * @param cfg
  */
 export const makeFilteredListDeactivateMiddleware =
   <TState = {}>(cfg: IFilteredListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
-      FilterActionBuilder.buildDestroyAction(nvl(toFormSection(cfg), toListSection(cfg))),
+      FilterActionBuilder.buildDestroyAction(
+        NvlUtils.nvl(SectionUtils.asFormSection(cfg), toListSection(cfg))
+      ),
       makeLoadedListMiddleware(cfg)
     ];

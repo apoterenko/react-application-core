@@ -4,7 +4,7 @@ import { ListActionBuilder } from '../../component/list/list-action.builder';
 import { FormActionBuilder } from '../../action';
 import { IFilterFormDialogMiddlewareConfigEntity } from '../../definition';
 import {
-  toFormSection,
+  SectionUtils,
   toListSection,
 } from '../../util';
 
@@ -16,7 +16,7 @@ import {
 export const makeFilterFormDialogClearMiddleware =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     [
-      FormActionBuilder.buildResetAction(toFormSection(cfg)),
+      FormActionBuilder.buildResetAction(SectionUtils.asFormSection(cfg)),
       ListActionBuilder.buildLoadAction(toListSection(cfg))
     ];
 
@@ -27,7 +27,7 @@ export const makeFilterFormDialogClearMiddleware =
  */
 export const makeFilterFormDialogResetMiddleware =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity<TState>): IEffectsAction =>
-    FormActionBuilder.buildResetAction(toFormSection(cfg));
+    FormActionBuilder.buildResetAction(SectionUtils.asFormSection(cfg));
 
 /**
  * @stable [23.04.2020]

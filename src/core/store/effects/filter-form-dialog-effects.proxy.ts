@@ -11,10 +11,11 @@ import {
 } from '../middleware';
 import { FilterFormDialogActionBuilder } from '../../action';
 import { IFilterFormDialogMiddlewareConfigEntity } from '../../definition';
-import { toFormSection } from '../../util';
+import { SectionUtils } from '../../util';
 
 /**
- * @stable [23.04.2020]
+ * @effects-proxy-factory
+ * @stable [09.09.2020]
  */
 export const makeFilterFormDialogEffectsProxy =
   <TState = {}>(cfg: IFilterFormDialogMiddlewareConfigEntity) => {
@@ -25,32 +26,29 @@ export const makeFilterFormDialogEffectsProxy =
       class Effects {
 
         /**
-         * @stable [23.04.2020]
-         * @param {IEffectsAction} action
-         * @param {TState} state
-         * @returns {IEffectsAction}
+         * @stable [09.09.2020]
+         * @param action
+         * @param state
          */
-        @EffectsService.effects(FilterFormDialogActionBuilder.buildAcceptActionType(toFormSection(cfg)))
+        @EffectsService.effects(FilterFormDialogActionBuilder.buildAcceptActionType(SectionUtils.asFormSection(cfg)))
         public $onAccept = (action: IEffectsAction, state: TState): IEffectsAction =>
           makeFilterFormDialogAcceptMiddleware({...cfg, action, state})
 
         /**
-         * @stable [23.04.2020]
-         * @param {IEffectsAction} action
-         * @param {TState} state
-         * @returns {IEffectsAction[]}
+         * @stable [09.09.2020]
+         * @param action
+         * @param state
          */
-        @EffectsService.effects(FilterFormDialogActionBuilder.buildClearActionType(toFormSection(cfg)))
+        @EffectsService.effects(FilterFormDialogActionBuilder.buildClearActionType(SectionUtils.asFormSection(cfg)))
         public $onClear = (action: IEffectsAction, state: TState): IEffectsAction[] =>
           makeFilterFormDialogClearMiddleware({...cfg, action, state})
 
         /**
-         * @stable [23.04.2020]
-         * @param {IEffectsAction} action
-         * @param {TState} state
-         * @returns {IEffectsAction}
+         * @stable [09.09.2020]
+         * @param action
+         * @param state
          */
-        @EffectsService.effects(FilterFormDialogActionBuilder.buildResetActionType(toFormSection(cfg)))
+        @EffectsService.effects(FilterFormDialogActionBuilder.buildResetActionType(SectionUtils.asFormSection(cfg)))
         public $onReset = (action: IEffectsAction, state: TState): IEffectsAction =>
           makeFilterFormDialogResetMiddleware({...cfg, action, state})
       }

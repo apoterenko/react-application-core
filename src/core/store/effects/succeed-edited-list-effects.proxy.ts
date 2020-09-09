@@ -7,12 +7,13 @@ import { FormActionBuilder } from '../../action';
 import { ISucceedEditedListMiddlewareConfigEntity } from '../../definition';
 import { makeSucceedEditedListMiddleware } from '../middleware';
 import { provideInSingleton } from '../../di';
-import { toFormSection } from '../../util';
+import { SectionUtils } from '../../util';
 
 /**
- * @stable [11.04.2020]
- * @param {ISucceedEditedListMiddlewareConfigEntity<TState>} config
- * @returns {() => void}
+ * @effects-proxy-factory
+ * @stable [09.09.2020]
+ *
+ * @param config
  */
 export const makeSucceedEditedListEffectsProxy = <TState = {}>(config: ISucceedEditedListMiddlewareConfigEntity<TState>) =>
   (): void => {
@@ -21,12 +22,11 @@ export const makeSucceedEditedListEffectsProxy = <TState = {}>(config: ISucceedE
     class Effects {
 
       /**
-       * @stable [11.04.2020]
-       * @param {IEffectsAction} action
-       * @param {TState} state
-       * @returns {IEffectsAction[]}
+       * @stable [09.09.2020]
+       * @param action
+       * @param state
        */
-      @EffectsService.effects(FormActionBuilder.buildSubmitDoneActionType(toFormSection(config)))
+      @EffectsService.effects(FormActionBuilder.buildSubmitDoneActionType(SectionUtils.asFormSection(config)))
       public $onFormSubmitDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
         makeSucceedEditedListMiddleware({...config, action, state})
     }
