@@ -1,7 +1,7 @@
 import { Store } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { applySection } from '../../../util';
+import { SectionUtils } from '../../../util';
 import {
   DI_TYPES,
   lazyInject,
@@ -34,7 +34,7 @@ export class StoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
    * @param {TChanges} data
    */
   public dispatch<TChanges = {}>(type: string, data?: TChanges): void {
-    this.dispatchActionByType(`${this.sectionName}.${type}`, applySection(this.sectionName, data));
+    this.dispatchActionByType(`${this.sectionName}.${type}`, SectionUtils.applySection(this.sectionName, data));
   }
 
   /**

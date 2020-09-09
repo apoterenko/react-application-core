@@ -214,10 +214,9 @@ export const getFieldConverter = (): IFieldConverter => staticInjector(DI_TYPES.
 export const getStateSerializer = (): IStateSerializer => staticInjector(DI_TYPES.StateSerializer);
 
 /**
- * @stable [09.10.2019]
- * @returns {IModifyEntityPayloadFactory}
+ * @stable [10.09.2020]
  */
-export const getModifyEntityPayloadFactory = (): IModifyEntityPayloadFactory => staticInjector(DI_TYPES.ModifyEntityPayloadFactory);
+const getModifyEntityPayloadFactory = (): IModifyEntityPayloadFactory => staticInjector(DI_TYPES.ModifyEntityPayloadFactory);
 
 /**
  * @stable [27.11.2019]
@@ -307,6 +306,7 @@ export class DiServices {
   public static readonly dateConverter = getDateConverter;
   public static readonly dynamicRoutes = getDynamicRoutes;
   public static readonly environment = getEnvironment;
+  public static readonly modifyEntityPayloadFactory = getModifyEntityPayloadFactory;
   public static readonly numberConverter = getNumberConverter;
   public static readonly reactBootstrapper = getReactBootstrapper;
   public static readonly settings = getSettings;

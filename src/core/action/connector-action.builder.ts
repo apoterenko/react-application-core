@@ -7,7 +7,7 @@ import {
   $RAC_CONNECTED_CONTAINER_DESTROY_ACTION_TYPE,
   $RAC_CONNECTED_CONTAINER_INIT_ACTION_TYPE,
 } from '../definition';
-import { applySection } from '../util';
+import { SectionUtils } from '../util';
 
 export class ConnectorActionBuilder {
 
@@ -17,7 +17,7 @@ export class ConnectorActionBuilder {
    * @returns {IEffectsAction}
    */
   public static buildInitPlainAction(section: string): IEffectsAction {
-    return {type: this.buildInitActionType(section), data: applySection(section)};
+    return {type: this.buildInitActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**

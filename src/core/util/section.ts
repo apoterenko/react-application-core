@@ -22,8 +22,9 @@ import { TypeUtils } from './type';
  * @param section
  * @param data
  */
-export const applySection =
-  <TResult extends IFluxSectionDataEntity = IFluxSectionDataEntity>(section: string, data?: IKeyValue | IKeyValue[]): TResult =>
+const applySection =
+  <TResult extends IFluxSectionDataEntity = IFluxSectionDataEntity, TData = IKeyValue | IKeyValue[]>(
+    section: string, data?: TData): TResult =>
     ({
       section,
       ...(

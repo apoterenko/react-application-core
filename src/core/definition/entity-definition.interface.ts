@@ -2,17 +2,14 @@ import {
   AnyT,
   EntityIdT,
   IActiveValueWrapper,
-  IAddWrapper,
   IChangesWrapper,
   IDisabledWrapper,
-  IEditWrapper,
   IEntity,
   IEntityIdTWrapper,
   IEntityIdWrapper,
   IEntityWrapper,
   IIconLeftAlignedWrapper,
   IIconWrapper,
-  IIndexWrapper,
   ILabelWrapper,
   INameWrapper,
   INewEntityWrapper,
@@ -20,16 +17,13 @@ import {
   IPayloadWrapper,
   IProgressWrapper,
   IRawDataWrapper,
-  IRemoveWrapper,
   IRendererWrapper,
   ISelectedWrapper,
-  ISourceWrapper,
   ITouchedWrapper,
   ITplWrapper,
   IValueWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
-import { IFieldChangeEntity } from './field-definition.interface';
 
 /**
  * @presets-entity
@@ -108,10 +102,19 @@ export interface IOptionEntity
 }
 
 /**
- * @stable [19.01.2020]
+ * @flux-entity
+ * @stable [10.09.2020]
  */
-export interface IPayloadEntityId
+export interface IFluxPayloadEntityIdEntity
   extends IPayloadWrapper<EntityIdT> {
+}
+
+/**
+ * @flux-entity
+ * @stable [10.09.2020]
+ */
+export interface IFluxPayloadEntityIdTWrapperEntity
+  extends IPayloadWrapper<IEntityIdTWrapper> {
 }
 
 /**

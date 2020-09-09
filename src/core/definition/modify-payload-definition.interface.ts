@@ -9,7 +9,8 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [19.10.2019]
+ * @entity
+ * @stable [10.09.2020]
  */
 export interface IModifyEntityPayloadEntity<TEntity extends IEntity = IEntity>
   extends IEntityIdTWrapper,
@@ -18,14 +19,16 @@ export interface IModifyEntityPayloadEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @stable [09.10.2019]
+ * @flux-entity
+ * @stable [10.09.2020]
  */
-export interface IModifyEntityPayloadWrapperEntity
+export interface IFluxModifyEntityPayloadEntity
   extends IPayloadWrapper<IModifyEntityPayloadEntity> {
 }
 
 /**
- * @stable [09.10.2019]
+ * @enum
+ * @stable [10.09.2020]
  */
 export enum EntityMergeStrategiesEnum {
   MERGE,
@@ -33,8 +36,8 @@ export enum EntityMergeStrategiesEnum {
 }
 
 /**
- * @stable [09.10.2019]
+ * @stable [10.09.2020]
  */
 export interface IModifyEntityPayloadFactory {
-  makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapperEntity;
+  makeInstance(action: IEffectsAction): IFluxModifyEntityPayloadEntity;
 }

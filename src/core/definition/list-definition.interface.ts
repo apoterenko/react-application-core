@@ -272,6 +272,7 @@ export const LIST_CANCEL_LOAD_ACTION_TYPE = 'list.cancel.load';
 export const LIST_CREATE_ACTION_TYPE = 'list.create';
 export const LIST_LAZY_LOAD_ACTION_TYPE = 'list.lazy.load';
 export const LIST_LOAD_ACTION_TYPE = 'list.load';
+export const LIST_MERGE_ACTION_TYPE = 'list.merge';
 export const LIST_SELECT_ACTION_TYPE = 'list.select';
 /**/
 export const LIST_LAZY_LOAD_DONE_ACTION_TYPE = EffectsActionBuilder.buildDoneActionType(LIST_LAZY_LOAD_ACTION_TYPE);

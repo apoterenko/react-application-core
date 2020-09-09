@@ -1,11 +1,9 @@
-import {
-  LIST_MERGE_ACTION_TYPE,
-} from './list.interface';
 import { listReducer } from './list.reducer';
 import { ListActionBuilder } from './list-action.builder';
 import {
   EntityMergeStrategiesEnum,
   INITIAL_REDUX_LIST_ENTITY,
+  LIST_MERGE_ACTION_TYPE,
 } from '../../definition';
 
 const TEST_SECTION = 'test';

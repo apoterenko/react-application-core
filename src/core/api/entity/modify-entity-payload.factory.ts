@@ -9,7 +9,7 @@ import {
   EntityMergeStrategiesEnum,
   IApiEntity,
   IModifyEntityPayloadFactory,
-  IModifyEntityPayloadWrapperEntity,
+  IFluxModifyEntityPayloadEntity,
 } from '../../definition';
 
 @injectable()
@@ -20,9 +20,9 @@ export class ModifyEntityPayloadFactory implements IModifyEntityPayloadFactory {
   /**
    * @stable [09.10.2019]
    * @param {IEffectsAction} action
-   * @returns {IModifyEntityPayloadWrapperEntity}
+   * @returns {IFluxModifyEntityPayloadEntity}
    */
-  public makeInstance(action: IEffectsAction): IModifyEntityPayloadWrapperEntity {
+  public makeInstance(action: IEffectsAction): IFluxModifyEntityPayloadEntity {
     const {
       entityId,
       changes,
@@ -31,7 +31,7 @@ export class ModifyEntityPayloadFactory implements IModifyEntityPayloadFactory {
     const responseEntity = responseData as IEntity;
     const isResponseDataObject = !R.isNil(responseData) && !TypeUtils.isPrimitive(responseData);
 
-    const result: IModifyEntityPayloadWrapperEntity = {
+    const result: IFluxModifyEntityPayloadEntity = {
       payload: {
         id: isResponseDataObject
           ? responseEntity.id
