@@ -17,71 +17,59 @@ import {
 @injectable()
 export class NumberConverter implements INumberConverter {
 
-  @lazyInject(DI_TYPES.Settings) private settings: ISettingsEntity;
-  private defaultFormatter = new Intl.NumberFormat();
+  @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  private readonly defaultFormatter = new Intl.NumberFormat();
+  private readonly currencyFormatter: Intl.NumberFormat;
+  private readonly integerCurrencyFormatter: Intl.NumberFormat;
 
   /**
    * @stable [22.10.2018]
    */
-  private readonly defaultCurrencyFormatOptions;
-  private readonly currencyFormatter;
+  private readonly defaultCurrencyFormatOptions: Intl.NumberFormatOptions;
 
-  private defaultIntegerFormatOptions: Intl.NumberFormatOptions = {
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0,
-  };
-  private integerFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultIntegerFormatOptions);
-  private fractionalFormatter = new Intl.NumberFormat(this.uiLocale, {
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  });
+  private integerFormatter = new Intl.NumberFormat(this.locale, this.integerFormatOptions);
+  private fractionalFormatter = new Intl.NumberFormat(this.locale, this.fractionalFormatOptions);
 
   /**
    * @stable [22.10.2018]
    */
   private readonly defaultIntegerCurrencyFormatOptions: Intl.NumberFormatOptions;
-  private readonly integerCurrencyFormatter;
 
   /**
    * @stable [22.10.2018]
    */
   constructor() {
-    this.id = this.id.bind(this);
-    this.format = this.format.bind(this);
     this.currency = this.currency.bind(this);
+    this.format = this.format.bind(this);
+    this.fractionalFormat = this.fractionalFormat.bind(this);
+    this.id = this.id.bind(this);
     this.integerCurrency = this.integerCurrency.bind(this);
     this.integerFormat = this.integerFormat.bind(this);
-    this.fractionalFormat = this.fractionalFormat.bind(this);
 
-    this.defaultCurrencyFormatOptions = {style: 'currency', currency: this.settings.currency.uiCurrency};
-    this.currencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultCurrencyFormatOptions);
+    this.defaultCurrencyFormatOptions = {style: 'currency', currency: this.settings.currency.currency};
+    this.currencyFormatter = new Intl.NumberFormat(this.locale, this.defaultCurrencyFormatOptions);
     this.defaultIntegerCurrencyFormatOptions = {
       ...this.defaultCurrencyFormatOptions,
-      ...this.defaultIntegerFormatOptions,
+      ...this.integerFormatOptions,
     };
-    this.integerCurrencyFormatter = new Intl.NumberFormat(this.uiLocale, this.defaultIntegerCurrencyFormatOptions);
+    this.integerCurrencyFormatter = new Intl.NumberFormat(this.locale, this.defaultIntegerCurrencyFormatOptions);
   }
 
   /**
    * @stable [09.09.2020]
    * @param value
-   */
-  public asNumber(value: StringNumberT): number {
-    return this.number(value, false) as number;
-  }
-
-  /**
-   * @stable [28.09.2018]
-   * @param {StringNumberT} value
-   * @param {number} radix
-   * @returns {StringNumberT}
+   * @param radix
    */
   public integer(value: StringNumberT, radix = 10): StringNumberT {
     if (TypeUtils.isNumber(value)) {
       return value;
     }
-    const valueAsString = value as string;
-    const result = parseInt(valueAsString, radix);
+    const vAsString = value as string;
+    if (R.isNil(vAsString)) {
+      return value;
+    }
+    const result = parseInt(vAsString, radix);
     return isNaN(result) ? value : result;
   }
 
@@ -113,6 +101,14 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
+   * @stable [09.09.2020]
+   * @param value
+   */
+  public asNumber(value: StringNumberT): number {
+    return this.number(value, false) as number;
+  }
+
+  /**
    * @stable [29.08.2019]
    * @param {StringNumberT} value
    * @param {(value: number) => number} converter
@@ -141,27 +137,25 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
-   * @stable [25.04.2020]
-   * @param {StringNumberT} value
-   * @returns {string}
+   * @stable [09.09.2020]
+   * @param value
    */
   public integerFormat(value: StringNumberT): string {
-    return this.useFormatter(value, this.integerFormatter);
+    return this.doFormat(value, this.integerFormatter);
   }
 
   /**
-   * @stable [25.04.2020]
-   * @param {StringNumberT} value
-   * @returns {string}
+   * @stable [09.09.2020]
+   * @param value
    */
   public fractionalFormat(value: StringNumberT): string {
-    return this.useFormatter(value, this.fractionalFormatter);
+    return this.doFormat(value, this.fractionalFormatter);
   }
 
   public currency(value: number | string, options?: Intl.NumberFormatOptions): string {
     if (options) {
       const currencyFormatter0 = new Intl.NumberFormat(
-          this.uiLocale,
+          this.locale,
           {...this.defaultCurrencyFormatOptions, ...options}
       );
       return this.format(value, currencyFormatter0);
@@ -170,40 +164,62 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
-   * @stable [01.09.2018]
-   * @param {EntityIdT} value
-   * @returns {string}
+   * @stable [09.09.2020]
+   * @param value
    */
   public id(value: EntityIdT): string {
     return `#${value}`;
   }
 
   /**
-   * @stable [01.09.2018]
-   * @param {EntityIdT} value
-   * @returns {string}
+   * @stable [09.09.2020]
+   * @param value
    */
   public internalId(value: EntityIdT): string {
     return `(#${value})`;
   }
 
   /**
-   * @stable [25.04.2020]
-   * @param {StringNumberT} value
-   * @param {Intl.NumberFormat} formatter
-   * @returns {string}
+   * @stable [09.09.2020]
+   * @param value
+   * @param formatter
+   * @private
    */
-  private useFormatter(value: StringNumberT, formatter: Intl.NumberFormat): string {
+  private doFormat(value: StringNumberT, formatter: Intl.NumberFormat): string {
     return R.isNil(value) || !TypeUtils.isPositiveOrNegativeNumberLike(value)
-      ? ''
+      ? this.settings.numberConverter.na
       : formatter.format(this.asNumber(value));
   }
 
   /**
-   * @stable [22.10.2018]
-   * @returns {string}
+   * @stable [09.09.2020]
+   * @private
    */
-  private get uiLocale(): string {
-    return this.settings.currency.uiLocale;
+  private get currencyFormatOptions(): Intl.NumberFormatOptions {
+    return {style: 'currency', currency: this.settings.currency.currency};
+  }
+
+  /**
+   * @stable [09.09.2020]
+   * @private
+   */
+  private get integerFormatOptions(): Intl.NumberFormatOptions {
+    return this.settings.currency.integerFormatOptions;
+  }
+
+  /**
+   * @stable [09.09.2020]
+   * @private
+   */
+  private get fractionalFormatOptions(): Intl.NumberFormatOptions {
+    return this.settings.currency.fractionalFormatOptions;
+  }
+
+  /**
+   * @stable [09.09.2020]
+   * @private
+   */
+  private get locale(): string {
+    return this.settings.currency.locale;
   }
 }

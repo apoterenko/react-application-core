@@ -34,6 +34,37 @@ export enum StartDaysOfWeekEnum {
 }
 
 /**
+ * @entity
+ * @stable [09.09.2020]
+ */
+export interface ICurrencySettingsEntity {
+  currency?: string;
+  fractionalFormatOptions?: Intl.NumberFormatOptions;
+  integerFormatOptions?: Intl.NumberFormatOptions;
+  locale?: string;
+  shortCurrency?: string;
+}
+
+/**
+ * @default-entity
+ * @stable [09.09.2020]
+ */
+export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsEntity>({
+  currency: 'USD',
+  fractionalFormatOptions: {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  },
+  integerFormatOptions: {
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  },
+  locale: 'en-US',
+  shortCurrency: '$',
+});
+
+
+/**
  * @stable [25.12.2019]
  */
 export interface IDateTimeSettingsEntity {
@@ -43,7 +74,7 @@ export interface IDateTimeSettingsEntity {
   minDate?: Date;
   startDayOfWeek?: StartDaysOfWeekEnum;
   uiDateFormat?: string;
-  uiDateMask?: Array<string|RegExp>;
+  uiDateMask?: (string|RegExp)[];
   uiDatePattern?: string;
   uiDefaultTime?: string;
   uiTimeFormat?: string;
@@ -76,24 +107,6 @@ Reflect.defineProperty(defaultDateTimeSettingsEntity, 'currentDate', {
  * @stable [25.12.2019]
  */
 export const DEFAULT_DATE_TIME_SETTINGS_ENTITY = Object.freeze<IDateTimeSettingsEntity>(defaultDateTimeSettingsEntity);
-
-/**
- * @stable [29.11.0219]
- */
-export interface ICurrencySettingsEntity {
-  uiLocale?: string;
-  uiCurrency?: string;
-  uiShortCurrency?: string;
-}
-
-/**
- * @stable [15.10.2019]
- */
-export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsEntity>({
-  uiLocale: 'en-US',
-  uiCurrency: 'USD',
-  uiShortCurrency: '$',
-});
 
 /**
  * @settings-entity
@@ -239,7 +252,7 @@ export const DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY = Object.freeze<IGoogleMapsSett
  */
 export interface IPhoneSettingsEntity {
   countryAbbr?: string;
-  uiMask?: Array<string|RegExp>;
+  uiMask?: (string|RegExp)[];
 }
 
 /**
@@ -302,6 +315,7 @@ export interface IMessagesSettingsEntity {
   LAST_YEAR?: string;
   LOG_OUT?: string;
   MAX_LENGTH_OF?: string;
+  NA?: string;
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED?: string;
   NEXT?: string;
   NO_AVAILABLE_ITEMS_TO_SELECT?: string;
@@ -368,6 +382,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   LAST_YEAR: 'Last year',
   LOG_OUT: 'Log out',
   MAX_LENGTH_OF: '{length} of {maxLength}',
+  NA: 'N/A',
   NEW_APP_VERSION_HAS_BEEN_DEPLOYED: 'The app has been updated! Let\'s go to the main page',
   NEXT: 'Next',
   NO_AVAILABLE_ITEMS_TO_SELECT: 'No available items to select',
@@ -398,4 +413,20 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   WAITING: 'Waiting...',
   YEAR: 'Year',
   YESTERDAY: 'Yesterday',
+});
+
+/**
+ * @entity
+ * @stable [09.09.2020]
+ */
+export interface INumberConverterSettingsEntity {
+  na?: string;
+}
+
+/**
+ * @default-entity
+ * @stable [06.02.2020]
+ */
+export const DEFAULT_NUMBER_CONVERTER_SETTINGS_ENTITY = Object.freeze<INumberConverterSettingsEntity>({
+  na: DEFAULT_MESSAGES_SETTINGS_ENTITY.NA,
 });

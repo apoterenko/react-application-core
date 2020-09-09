@@ -2,7 +2,6 @@ import { ENV } from '../env';
 import { prepareUrl } from '../util';
 import {
   DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
-  DEFAULT_CURRENCY_SETTINGS_ENTITY,
   DEFAULT_DATE_TIME_SETTINGS_ENTITY,
   DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY,
   DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
@@ -20,6 +19,7 @@ import {
   IElementsMarkersSettingsEntity,
   IGoogleMapsSettingsEntity,
   IMessagesSettingsEntity,
+  INumberConverterSettingsEntity,
   IOAuthSettingsEntity,
   IPhoneSettingsEntity,
   IRoutesSettingsEntity,
@@ -41,8 +41,8 @@ export interface IDateTimeSettings extends IDateTimeSettingsEntity {
   uiMonthFormat?: string;    // UI format
   pstDateFormat?: string;                 // UI PST format
   pstTimeFormat?: string;                 // UI PST format
-  uiTimeMask?: Array<string|RegExp>;      // UI mask
-  uiShortTimeMask?: Array<string|RegExp>; // UI mask
+  uiTimeMask?: (string|RegExp)[];         // UI mask
+  uiShortTimeMask?: (string|RegExp)[];    // UI mask
   uiTimePattern?: string;                 // UI pattern
   uiShortTimePattern?: string;            // UI pattern
 }
@@ -101,6 +101,7 @@ export interface ISettingsEntity {
   messages?: IMessagesSettings;
   metaFilesUrl?: string;
   number?: IApplicationNumberSettings;
+  numberConverter?: INumberConverterSettingsEntity;
   oauth?: IOAuthSettingsEntity;
   persistenceStorage?: StorageTypesEnum;
   phone?: IPhoneSettingsEntity;
@@ -164,11 +165,12 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   number: {
     uiPattern: RegexpEnum.NUMBER,
   },
+  components: DefaultEntities.COMPONENTS_SETTINGS_ENTITY,
+  currency: DefaultEntities.CURRENCY_SETTINGS_ENTITY,
+  elementsMarkers: DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY,
+  numberConverter: DefaultEntities.NUMBER_CONVERTER_SETTINGS_ENTITY,
   phone: DEFAULT_PHONE_SETTINGS_ENTITY,
   storage: DEFAULT_STORAGE_SETTINGS_ENTITY,
-  currency: DEFAULT_CURRENCY_SETTINGS_ENTITY,
-  components: DefaultEntities.COMPONENTS_SETTINGS_ENTITY,
-  elementsMarkers: DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY,
   channel: {
     eventToListen: 'client-event-to-listen',
     eventToEmit: 'client-event-to-emit',
