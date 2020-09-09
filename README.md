@@ -76,8 +76,9 @@ The library is designed to quickly start develop the business applications are b
 
 #### @effects-proxy-factory
 
-* [makeDestroyedContainerEffectsProxy](src/core/store/effects/destroyed-container-effects.proxy.ts)
+* [makeDestroyedContainerEffectsProxy (09.09.2020)](src/core/store/effects/destroyed-container-effects.proxy.ts)
 * [makeFilteredListEffectsProxy](src/core/store/effects/filtered-list-effects.proxy.ts)
+* [makeSucceedEditedListEffectsProxy (09.09.2020)](src/core/store/effects/succeed-edited-list-effects.proxy.ts)
 
 #### @reducer
 
