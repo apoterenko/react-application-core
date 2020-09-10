@@ -13,7 +13,6 @@ import {
   isMulti,
   mapIdentifiedEntity,
   mapSortDirectionEntity,
-  mergeArrayItem,
   notNilValuesFilter,
   nvl,
   NvlUtils,
@@ -191,7 +190,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
     case ListActionBuilder.buildInsertActionType(section):
       modifyDataPayload = nvl(modifyDataPayload, Selectors.payloadFromAction<IModifyEntityPayloadEntity>(action));
       const doesEntityExist = ArrayUtils.doesArrayContainExistedEntity(state.data, modifyDataPayload);
-      const mergedData = mergeArrayItem<IEntityIdTWrapper>(
+      const mergedData = ArrayUtils.mergeArrayItem<IEntityIdTWrapper>(
         state.data,
         mapIdentifiedEntity(modifyDataPayload),
         SAME_ENTITY_PREDICATE,

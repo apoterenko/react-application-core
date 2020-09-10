@@ -59,10 +59,10 @@ export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
  * @param predicate
  * @param itemFactory
  */
-export const mergeArrayItem = <TValue = IKeyValue>(array: TValue[],
-                                                   item: TValue,
-                                                   predicate = SAME_ENTITY_PREDICATE,
-                                                   itemFactory?: ($item: TValue) => TValue): TValue[] => {
+const mergeArrayItem = <TValue = IKeyValue>(array: TValue[],
+                                            item: TValue,
+                                            predicate = SAME_ENTITY_PREDICATE,
+                                            itemFactory?: ($item: TValue) => TValue): TValue[] => {
   const $array = array || [];
   const hasEntity = doesArrayContainExistedEntity($array, item, predicate);
   const hasItemFactory = TypeUtils.isFn(itemFactory);

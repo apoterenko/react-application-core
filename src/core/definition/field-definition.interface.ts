@@ -80,7 +80,10 @@ import {
   IGenericComponentProps,
 } from './generic-component-definition.interface';
 import { IKeyboardConfigurationEntity } from './keyboard-definition.interface';
-import { IFocusEvent } from './event-definition.interface';
+import {
+  IBaseEvent,
+  IFocusEvent,
+} from './event-definition.interface';
 import { IReduxMultiEntity } from './multi-entity-definition.interface';
 
 /**
@@ -142,6 +145,7 @@ export interface IPresetsFieldEntity
     IUseCursorWrapper,                                                            /* @stable [21.06.2020] */
     IUseKeyboardWrapper,                                                          /* @stable [20.06.2020] */
     IValidWrapper {
+  onKeyEnter?(event: IBaseEvent): void;                                           /* @stable [10.09.2020] */
 }
 
 /**

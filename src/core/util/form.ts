@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 
 import {
+  IExtendedEntity,
   IExtendedFormEntity,
   IFieldProps,
   IFormProps,
@@ -17,7 +18,7 @@ import {
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import {
-  ifNotEmptyThanValue,
+  ConditionUtils,
   ifNotNilThanValue,
 } from './cond';
 import {
@@ -25,7 +26,7 @@ import {
   isDisabled,
   WrapperUtils,
 } from './wrapper';
-import { isDef } from './type';
+import { TypeUtils } from './type';
 import { TabUtils } from './tab';
 import {
   selectForm,
@@ -83,29 +84,27 @@ const isGenericFormEntityReady = <TEntity = IEntity>(formProps: IGenericFormEnti
   isGenericFormEntityValid(formProps) && !isGenericFormEntityDisabled(formProps);
 
 /**
- * @stable [06.05.2020]
- * @param {IExtendedFormEntity<TEntity>} formEntity
- * @param {string} fieldName
- * @returns {AnyT}
+ * @stable [10.09.2020]
+ * @param extendedFormEntity
+ * @param fieldName
  */
-const getFieldValueByName = <TEntity = IEntity>(formEntity: IExtendedFormEntity<TEntity>,
-                                                fieldName: string): AnyT => (
-  ifNotEmptyThanValue(
+const getFieldValueByName = <TEntity = IEntity>(extendedFormEntity: IExtendedFormEntity<TEntity>,
+                                                fieldName: string): unknown =>
+  ConditionUtils.ifNotEmptyThanValue(
     fieldName,
     () => (
-      ifNotNilThanValue(
+      ConditionUtils.ifNotNilThanValue(
         (
-          R.isNil(formEntity.entity)
-            ? Selectors.formHolderEntityChanges(formEntity)
-            : formEntity.entity
+          R.isNil(extendedFormEntity.entity)
+            ? Selectors.formHolderEntityChanges(extendedFormEntity)
+            : extendedFormEntity.entity
         ),
         (data) => data[fieldName],
         UNDEF_SYMBOL
       )
     ),
     UNDEF_SYMBOL
-  )
-);
+  );
 
 /**
  * @stable [06.05.2020]
@@ -115,7 +114,7 @@ const getFieldValueByName = <TEntity = IEntity>(formEntity: IExtendedFormEntity<
  */
 export const getFormFieldValue = <TEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>,
                                                      fieldProps: IGenericFieldEntity2): AnyT =>
-  isDef(fieldProps.value)
+  TypeUtils.isDef(fieldProps.value)
     ? fieldProps.value
     : getFieldValueByName(wrapper, fieldProps.name);
 
@@ -129,29 +128,32 @@ export const getFormFieldValue = <TEntity = IEntity>(wrapper: IExtendedFormEntit
 const getFormFieldDisplayValue = <TEntity = IEntity>(formEntity: IExtendedFormEntity<TEntity>,
                                                      fieldProps: IFieldProps,
                                                      defaultFieldProps?: IFieldProps): AnyT =>
-  isDef(fieldProps.displayValue)
+  TypeUtils.isDef(fieldProps.displayValue)
     ? fieldProps.displayValue
     : (
       getFieldValueByName(
         formEntity,
-        fieldProps.displayName || ifNotNilThanValue(defaultFieldProps, () => defaultFieldProps.displayName)
+        fieldProps.displayName || ConditionUtils.ifNotNilThanValue(defaultFieldProps, () => defaultFieldProps.displayName)
       )
     );
 
 /**
- * @stable [11.05.2020]
- * @param {IExtendedFormEntity<TEntity>} entity
- * @param {IFieldProps} fieldProps
- * @returns {AnyT}
+ * @stable [10.09.2020]
+ * @param entity
+ * @param fieldProps
  */
-const getFormFieldOriginalValue = <TEntity = IEntity>(entity: IExtendedFormEntity<TEntity>,
-                                                      fieldProps: IFieldProps): AnyT =>
-  isDef(fieldProps.originalValue)
+const getFormFieldOriginalValue = <TEntity = IEntity>(entity: IExtendedEntity<TEntity>,
+                                                      fieldProps: IFieldProps): unknown =>
+  TypeUtils.isDef(fieldProps.originalValue)
     ? fieldProps.originalValue
     : (
-      ifNotNilThanValue(
+      ConditionUtils.ifNotNilThanValue(
         entity.originalEntity,
-        (originalEntity) => ifNotEmptyThanValue(fieldProps.name, (fieldName) => originalEntity[fieldName], UNDEF_SYMBOL),
+        (originalEntity) => ConditionUtils.ifNotEmptyThanValue(
+          fieldProps.name,
+          (fieldName) => originalEntity[fieldName],
+          UNDEF_SYMBOL
+        ),
         UNDEF_SYMBOL
       )
     );

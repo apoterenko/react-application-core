@@ -11,6 +11,7 @@ import {
   IFieldProps,
   IFieldsPresets,
   IFormProps,
+  IKeyboardEvent,
   IReduxFormEntity,
   ITextFieldProps,
   UniversalIdProviderContext,
@@ -66,6 +67,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     this.doReset = this.doReset.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   /**
@@ -86,6 +88,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
         style={style}
         autoComplete='off'
         className={this.className}
+        onKeyDown={this.onKeyDown}
       >
         {
           compact
@@ -148,6 +151,21 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    */
   public submit(): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onSubmit, (onSubmit) => onSubmit(this.apiEntity));
+  }
+
+  /**
+   * @stable [11.09.2020]
+   * @param event
+   * @private
+   */
+  private onKeyDown(event: IKeyboardEvent): void {
+    const key = event.key;
+
+    switch (key) {
+      case 'Enter':
+        this.doSubmit();
+        break;
+    }
   }
 
   /**
@@ -278,11 +296,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [11.05.2020]
-   * @param {IField} field
-   * @returns {AnyT}
+   * @stable [10.09.2020]
+   * @param field
+   * @private
    */
-  private getFieldOriginalValue(field: IField): AnyT {
+  private getFieldOriginalValue(field: IField): unknown {
     return FormUtils.fieldOriginalValue(this.originalProps, field.props);
   }
 

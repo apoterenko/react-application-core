@@ -12,7 +12,7 @@ import {
   IToDateToTimeEntity,
   IValueWrapper,
 } from './definitions.interface';
-import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from './configurations-definitions.interface';
+import { IUniversalFieldProps } from './configurations-definitions.interface';
 import {
   IGenericComponent,
 } from './definition';
@@ -30,7 +30,6 @@ export interface IDateTimeEntity extends IDateWrapper,
 export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversalFieldProps,
                                  TState = {}>
   extends IGenericComponent<TProps, TState>,
-          IUniversalKeyboardHandlersConfiguration,
           IValueWrapper,
           ISetFocusWrapper,
           IClearValueWrapper,

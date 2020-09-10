@@ -186,6 +186,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
+   * @stable [10.09.2020]
+   * @param event
+   */
+  public onKeyEnter(event: IBaseEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyEnter, (onKeyEnter) => onKeyEnter(event));
+  }
+
+  /**
    * @stable [21.06.2020]
    */
   public setFocus(): void {
