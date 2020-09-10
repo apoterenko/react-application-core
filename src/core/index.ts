@@ -54,7 +54,6 @@ export * from './definitions.interface';
 export * from './di';
 export * from './dictionary';
 export * from './entities-definitions.interface';
-export * from './env';
 export * from './event';
 export * from './lock';
 export * from './log';

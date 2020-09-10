@@ -6,14 +6,15 @@ import {
   AnyT,
   IKeyValue,
 } from '../definitions.interface';
-import { ENV } from './env.interface';
 import {
   getCurrentUrlPath,
   getFullPath,
   getSectionFullPath,
   getUrlQueryParams,
+  JsonUtils,
 } from '../util';
 import {
+  DefaultEntities,
   EnvironmentGlobalVariablesEnum,
   IEnvironment,
 } from '../definition';
@@ -22,13 +23,16 @@ import {
 export class Environment implements IEnvironment {
   private static readonly logger = LoggerFactory.makeLogger('Environment');
 
-  public readonly appProfile = ENV.appProfile;
-  public readonly appVersion = ENV.appVersion;
-  public readonly basePath = ENV.basePath;
-  public readonly document = ENV.document;
-  public readonly host = ENV.host;
-  public readonly prodMode = ENV.prodMode;
-  public readonly window = ENV.window;
+  public readonly appProfile = DefaultEntities.ENVIRONMENT_ENTITY.appProfile;
+  public readonly appVersion = DefaultEntities.ENVIRONMENT_ENTITY.appVersion;
+  public readonly basePath = DefaultEntities.ENVIRONMENT_ENTITY.basePath;
+  public readonly devMode = DefaultEntities.ENVIRONMENT_ENTITY.devMode;
+  public readonly document = DefaultEntities.ENVIRONMENT_ENTITY.document;
+  public readonly host = DefaultEntities.ENVIRONMENT_ENTITY.host;
+  public readonly normalizedBasePath = DefaultEntities.ENVIRONMENT_ENTITY.normalizedBasePath;
+  public readonly port = DefaultEntities.ENVIRONMENT_ENTITY.port;
+  public readonly prodMode = DefaultEntities.ENVIRONMENT_ENTITY.prodMode;
+  public readonly window = DefaultEntities.ENVIRONMENT_ENTITY.window;
 
   /**
    * @stable [08.10.2019]
@@ -53,7 +57,7 @@ export class Environment implements IEnvironment {
       windowsPhonePlatform: this.windowsPhonePlatform,
       windowsPlatform: this.windowsPlatform,
     };
-    Environment.logger.info(`[$Environment] ${JSON.stringify(payload)}`);
+    Environment.logger.info(`[$Environment] ${JsonUtils.formatJson(payload)}`);
 
     this.setVariable(EnvironmentGlobalVariablesEnum.ENVIRONMENT, this);
   }

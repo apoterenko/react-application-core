@@ -1,5 +1,4 @@
 import * as R from 'ramda';
-import * as URI from 'urijs';
 
 import {
   IEntity,
@@ -19,13 +18,6 @@ export function buildRoute(path: string, params: IKeyValue): string {
   });
   return path;
 }
-
-/**
- * @stable [01.12.2018]
- * @param {string} path
- * @returns {string}
- */
-export const buildNormalizedPath = (path: string): string => URI('/').segment(new URI(path).segment()).toString() || '/';
 
 /**
  * @stable [10.09.2020]

@@ -33,6 +33,7 @@ import {
   DEFAULT_FILTERED_MENU_ENTITY,
   DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY,
 } from './menu-definition.interface';
+import { DEFAULT_ENVIRONMENT_ENTITY } from './env-definition.interface';
 
 /**
  * @stable [17.05.2020]
@@ -44,6 +45,7 @@ export class DefaultEntities {
   public static readonly CURRENCY_SETTINGS_ENTITY = DEFAULT_CURRENCY_SETTINGS_ENTITY;                   /* @stable [09.09.2020] */
   public static readonly DICTIONARY_PAGED_ENTITY = DEFAULT_DICTIONARY_PAGED_ENTITY;                     /* @stable [26.07.2020] */
   public static readonly DOM_RIGHT_POSITION_CONFIG_ENTITY = DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY;   /* @stable [21.05.2020] */
+  public static readonly ENVIRONMENT_ENTITY = DEFAULT_ENVIRONMENT_ENTITY;                               /* @stable [10.09.2020] */
   public static readonly FILTERED_MENU_ENTITY = DEFAULT_FILTERED_MENU_ENTITY;                           /* @stable [08.08.2020] */
   public static readonly FIRST_PAGE = FIRST_PAGE;                                                       /* @stable [16.07.2020] */
   public static readonly INITIAL_REDUX_LIST_ENTITY = INITIAL_REDUX_LIST_ENTITY;                         /* @stable [29.07.2020] */
@@ -56,6 +58,7 @@ export class DefaultEntities {
   public static readonly NUMBER_CONVERTER_SETTINGS_ENTITY = DEFAULT_NUMBER_CONVERTER_SETTINGS_ENTITY;   /* @stable [09.09.2020] */
   public static readonly PAGINATED_SINGLE_ENTITY = DEFAULT_PAGINATED_SINGLE_ENTITY;                     /* @stable [17.06.2020] */
   public static readonly PASSWORD_FIELD_ENTITY = DEFAULT_PASSWORD_FIELD_ENTITY;                         /* @stable [19.08.2020] */
+  public static readonly PATH_SEPARATOR = '#';                                                          /* @stable [10.09.2020] */
   public static readonly PLACE_FIELD_ENTITY = DEFAULT_PLACE_FIELD_ENTITY;                               /* @stable [11.08.2020] */
   public static readonly QUICK_SEARCH_FIELD_ENTITY = DEFAULT_QUICK_SEARCH_FIELD_ENTITY;                 /* @stable [17.05.2020] */
   public static readonly ROOT_SECTION = 'root';                                                         /* @stable [22.05.2020] */

@@ -1,4 +1,3 @@
-import { ENV } from '../env';
 import { prepareUrl } from '../util';
 import {
   DEFAULT_ASYNC_LIBRARIES_SETTINGS_ENTITY,
@@ -114,8 +113,8 @@ export interface ISettingsEntity {
 }
 
 export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
-  signalRUrl: prepareUrl(ENV.basePath + '/api/'),
-  downloadUrl: prepareUrl(ENV.basePath + '/api/download/?params='),
+  signalRUrl: prepareUrl(DefaultEntities.ENVIRONMENT_ENTITY.basePath + '/api/'),
+  downloadUrl: prepareUrl(DefaultEntities.ENVIRONMENT_ENTITY.basePath + '/api/download/?params='),
   emptyPictureUrl: 'media/no_avatar.jpg',
   companyName: 'Test company',
   transport: {
@@ -123,8 +122,8 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     withCredentials: true,
     blobDataContentType: 'application/octet-stream',
     formDataContentType: 'multipart/form-data',
-    apiUrl: prepareUrl(ENV.basePath + '/api/'),
-    blobUrl: prepareUrl(ENV.basePath + '/api/blobs/upload/'),
+    apiUrl: prepareUrl(DefaultEntities.ENVIRONMENT_ENTITY.basePath + '/api/'),
+    blobUrl: prepareUrl(DefaultEntities.ENVIRONMENT_ENTITY.basePath + '/api/blobs/upload/'),
     uniqueParamName: '_dc',
   },
   messages: {

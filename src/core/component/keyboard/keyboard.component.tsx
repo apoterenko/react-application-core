@@ -2,13 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as R from 'ramda';
 
-import { ENV } from '../../env';
 import {
   calc,
-  TypeUtils,
   joinClassName,
   nvl,
   orNull,
+  TypeUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
 import {
@@ -99,7 +98,7 @@ export class Keyboard extends GenericComponent<IKeyboardProps, IKeyboardState> {
       </div>
     );
 
-    return this.isInline ? el : ReactDOM.createPortal(el, ENV.documentBody);  // TODO Dialog
+    return this.isInline ? el : ReactDOM.createPortal(el, this.domAccessor.documentBody);  // TODO Dialog
   }
 
   /**

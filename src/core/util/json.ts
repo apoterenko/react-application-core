@@ -6,12 +6,11 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [17.09.2019]
- * @param {IKeyValue} o
- * @param {number} space
- * @returns {string}
+ * @stable [10.09.2020]
+ * @param o
+ * @param space
  */
-export const formatJson = (o: IKeyValue, space = 4) => JSON.stringify(o, null, space);
+const formatJson = (o: IKeyValue, space = 4) => JSON.stringify(o, null, space);
 
 /**
  * @stable [13.03.2020]
@@ -35,3 +34,10 @@ export const parseJson = <TResult = IKeyValue>(o: string): TResult => {
  * @returns {string}
  */
 export const serializeJson = <TObject = AnyT>(o: TObject): string => JSON.stringify(o);
+
+/**
+ * @stable [10.09.2020]
+ */
+export class JsonUtils {
+  public static readonly formatJson = formatJson;
+}

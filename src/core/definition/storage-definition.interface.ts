@@ -6,8 +6,6 @@ import {
   IIdWrapper,
   IRemovedFilesWrapper,
 } from '../definitions.interface';
-import { ENV } from '../env/env.interface';
-import { FilterUtils } from '../util/filter';
 
 /**
  * @stable [24.09.2019]
@@ -22,15 +20,6 @@ export enum StorageEventCategoriesEnum {
 export enum StorageEventsEnum {
   SYNC_APP_STATE = 'sync:app:state',
 }
-
-/**
- * @stable [16.09.2019]
- */
-export const STORAGE_PATH_SEPARATOR = '#';
-export const STORAGE_NOT_VERSIONED_KEY =
-  FilterUtils.notEmptyValuesArrayFilter(ENV.appProfile, ENV.port, ENV.normalizedBasePath).join(STORAGE_PATH_SEPARATOR);
-export const STORAGE_VERSIONED_KEY =
-  FilterUtils.notEmptyValuesArrayFilter(ENV.appVersion, STORAGE_NOT_VERSIONED_KEY).join(STORAGE_PATH_SEPARATOR);
 
 /**
  * @stable [17.11.2019]

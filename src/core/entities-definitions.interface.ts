@@ -14,7 +14,6 @@ import {
 } from './definitions.interface';
 import { IUniversalKeyboardHandlersConfiguration, IUniversalFieldProps } from './configurations-definitions.interface';
 import {
-  IEnvironment,
   IGenericComponent,
 } from './definition';
 
@@ -43,25 +42,6 @@ export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversal
  */
 export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
-}
-
-/**
- * @stable [12.09.2018]
- */
-export interface IEnvironmentEntity
-  extends IEnvironment {
-  version?: string;
-  devModeEnabled?: boolean;
-  documentBody?: Element;
-  googleMapsKey?: string;
-  normalizedBasePath?: string;
-  platformName?: string;
-  port?: string;
-  stageMode?: boolean;
-  rnPlatform?: boolean;
-  rnPlatformName?: string;
-  appPath?(): string;
-  buildAppPath?(path: string): string;
 }
 
 /**

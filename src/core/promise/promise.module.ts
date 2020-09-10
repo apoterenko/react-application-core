@@ -1,13 +1,13 @@
 import * as Promise from 'bluebird';
 
-import { ENV } from '../env';
+import { DefaultEntities } from '../definition';
 
 /**
- * @stable [27.05.2018]
+ * @stable [10.09.2020]
  */
 Promise.config({
-  warnings: true,
-  longStackTraces: true,
   cancellation: true,
-  monitoring: !ENV.prodMode,
+  longStackTraces: true,
+  monitoring: !DefaultEntities.ENVIRONMENT_ENTITY.prodMode,
+  warnings: true,
 });

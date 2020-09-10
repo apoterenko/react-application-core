@@ -1,8 +1,11 @@
 import {
+  DefaultEntities,
+  IEnvironment,
   IMultiEntityStorageSetEntity,
   MultiFieldSingleValueT,
 } from '../definition';
 import { ConditionUtils } from './cond';
+import { FilterUtils } from './filter';
 import { TypeUtils } from './type';
 import { UNDEF_SYMBOL } from '../definitions.interface';
 import { UuidUtils } from './uuid';
@@ -46,9 +49,29 @@ export const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): strin
   );
 
 /**
+ * @stable [10.09.2020]
+ * @param env
+ */
+const asNotVersionedKey = (env: IEnvironment): string =>
+  FilterUtils
+    .notEmptyValuesArrayFilter(env.appProfile, env.port, env.normalizedBasePath)
+    .join(DefaultEntities.PATH_SEPARATOR);
+
+/**
+ * @stable [10.09.2020]
+ * @param env
+ */
+const asVersionedKey = (env: IEnvironment): string =>
+  FilterUtils
+    .notEmptyValuesArrayFilter(env.appVersion, asNotVersionedKey(env))
+    .join(DefaultEntities.PATH_SEPARATOR);
+
+/**
  * @stable [04.09.2020]
  */
 export class StorageUtils {
+  public static readonly asNotVersionedKey = asNotVersionedKey;
   public static readonly asSingleAddedFileId = asSingleAddedFileId;
+  public static readonly asVersionedKey = asVersionedKey;
   public static readonly entitiesAsStorageTasks = entitiesAsStorageTasks;
 }

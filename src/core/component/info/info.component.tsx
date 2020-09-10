@@ -3,10 +3,10 @@ import * as R from 'ramda';
 
 import {
   CalcUtils,
-  formatJson,
   isFull,
   isStringNotEmpty,
   joinClassName,
+  JsonUtils,
   TypeUtils,
 } from '../../util';
 import {
@@ -56,7 +56,7 @@ export class Info extends GenericComponent<IInfoComponentProps> {
                         ? {text: ((error as Error).stack), error: true}
                         : (
                           TypeUtils.isObject(error)
-                            ? {text: formatJson(error as {}), error: true}
+                            ? {text: JsonUtils.formatJson(error as {}), error: true}
                             : {
                               text: (
                                 emptyData

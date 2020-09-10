@@ -19,9 +19,9 @@ import {
   getSettings,
   getStorage,
 } from '../di';
-import { ENV } from '../env';
-import { nvl } from '../util';
+import { NvlUtils } from '../util';
 import { universalReducers } from '../store/universal-default-reducers.interface';
+import { DefaultEntities } from '../definition';
 
 // TODO Make a service
 export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
@@ -31,13 +31,13 @@ export async function buildUniversalStore<TState>(reducers: ReducersMapObject,
   const storageSettings = getSettings().storage || {};
   let preloadedState = {} as TState;
   if (storageSettings.appStateSyncEnabled) {
-    preloadedState = nvl(await getStorage().get(storageSettings.appStateKeyName), preloadedState);
+    preloadedState = NvlUtils.nvl(await getStorage().get(storageSettings.appStateKeyName), preloadedState);
   }
 
   const store = createStore(
     (state) => state,
     preloadedState,
-    (ENV.prodMode || ENV.rnPlatform) && !ENV.devModeEnabled
+    DefaultEntities.ENVIRONMENT_ENTITY.prodMode && !DefaultEntities.ENVIRONMENT_ENTITY.devMode
       ? applyMiddleware(...middlewares)
       : composeWithDevTools(applyMiddleware(...middlewares)),
   );

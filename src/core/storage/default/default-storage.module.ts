@@ -1,7 +1,17 @@
 import { DefaultStorage } from './default-storage.service';
-import { appContainer, DI_TYPES, getSettings } from '../../di';
-import { STORAGE_VERSIONED_KEY } from '../../definition';
+import {
+  appContainer,
+  DI_TYPES,
+  DiServices,
+} from '../../di';
+import { StorageUtils } from '../../util';
+import { DefaultEntities } from '../../definition';
 
-appContainer.bind(DI_TYPES.Storage).toConstantValue(
-  new DefaultStorage(STORAGE_VERSIONED_KEY, getSettings)
-);
+/**
+ * @stable [10.09.2020]
+ */
+appContainer
+  .bind(DI_TYPES.Storage)
+  .toConstantValue(
+    new DefaultStorage(StorageUtils.asVersionedKey(DefaultEntities.ENVIRONMENT_ENTITY), DiServices.settings)
+  );
