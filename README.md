@@ -74,10 +74,11 @@ The library is designed to quickly start develop the business applications are b
 * [ToolbarTools (01.08.2020)](src/core/component/toolbar-tools/toolbar-tools.component.tsx)
 * [UnsavedFormChangesDialog (01.08.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
 
-#### @effects-proxy-factory
+#### @effects-proxy-factory [EffectsFactories](src/core/store/effects/effects.factory.ts)
 
 * [makeDestroyedContainerEffectsProxy (09.09.2020)](src/core/store/effects/destroyed-container-effects.proxy.ts)
 * [makeFilteredListEffectsProxy (09.09.2020)](src/core/store/effects/filtered-list-effects.proxy.ts)
+* [makeFilterFormDialogEffectsProxy (09.09.2020)](src/core/store/effects/filter-form-dialog-effects.proxy.ts)
 * [makeSucceedEditedListEffectsProxy (10.09.2020)](src/core/store/effects/succeed-edited-list-effects.proxy.ts)
 
 #### @reducer
