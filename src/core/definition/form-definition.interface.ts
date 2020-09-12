@@ -1,7 +1,6 @@
 import { EffectsActionBuilder } from 'redux-effects-promise';
 
 import {
-  AnyT,
   IActionsFactoryWrapper,
   IActionsRenderedWrapper,
   IAlwaysDirtyWrapper,
@@ -156,7 +155,7 @@ export interface IPresetsFormEntity<TEntity = IEntity>
     IFullWrapper,
     IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
     IOnChangeWrapper,
-    IOnDictionaryLoadWrapper<(items: AnyT, dictionary?: string) => void>,
+    IOnDictionaryLoadWrapper<(items: unknown, dictionary?: string) => void>,
     IOnResetWrapper,
     IOnSubmitWrapper<IApiEntity<TEntity>>,
     IOnValidWrapper,
@@ -231,25 +230,6 @@ export interface IFormExtraButtonEntity
 export const DEFAULT_COMPACT_FORM_ENTITY = Object.freeze<IPresetsFormEntity>({
   actionsRendered: false,
   compact: true,
-});
-
-/**
- * @default-entity
- * @stable [21.02.2020]
- */
-export const DEFAULT_FORM_FIELD_CONTROLLER_ENTITY = Object.freeze<IGenericFormEntity>({
-  actionsRendered: false,
-  compact: true,
-  full: false,
-});
-
-/**
- * @default-entity
- * @stable [21.02.2020]
- */
-export const DEFAULT_FULL_FORM_FIELD_CONTROLLER_ENTITY = Object.freeze<IGenericFormEntity>({
-  ...DEFAULT_FORM_FIELD_CONTROLLER_ENTITY,
-  full: true,
 });
 
 /**
