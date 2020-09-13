@@ -60,9 +60,8 @@ export const makeListLoadErrorEffectsProxy = (section: string): () => void =>
   makeFailedEffectsProxy(ListActionBuilder.buildLoadErrorActionType(section));
 
 /**
- * @stable [25.11.2019]
- * @param {string} section
- * @returns {() => void}
+ * @stable [14.09.2020]
+ * @param section
  */
-export const makeFailedConnectorInitEffectsProxy = (section: string): () => void =>
+export const makeConnectorInitErrorEffectsProxy = (section: string): () => void =>
   makeFailedEffectsProxy(ConnectorActionBuilder.buildInitErrorActionType(section));

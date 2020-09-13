@@ -52,6 +52,7 @@ export enum IconsEnum {
   SPINNER = 'spinner',                                                    /* https://fontawesome.com/ */
   SYNC = 'sync',                                                          /* https://fontawesome.com/ */
   TIMES = 'times',                                                        /* https://fontawesome.com/ */
+  TIMES_CIRCLE = 'times-circle',                                          /* https://fontawesome.com/ */
   TRASH_ALT_REGULAR = 'trash-alt-regular',                                /* https://fontawesome.com/ */
   UNDO = 'undo',                                                          /* https://fontawesome.com/ */
   VIDEO = 'video',                                                        /* https://fontawesome.com/ */
