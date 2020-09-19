@@ -79,7 +79,11 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
           return this.uiFactory.makeReactError(error);
         }
         try {
-          return super.render();
+          if (TypeUtils.isFn(super.render)) {
+            return super.render();
+          } else {
+            return null;
+          }
         } catch (e) {
           ConnectorContainerFactory.logger.error(`[$ConnectorContainerFactory][render] Error:`, error);
 
@@ -91,8 +95,8 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
        * @stable [11.06.2020]
        */
       public componentWillUnmount(): void {
-        this.dispatch(StackActionBuilder.buildPopPlainAction({section}));
-        this.dispatch(ConnectorActionBuilder.buildDestroyPlainAction(section));
+        this.$dispatch(StackActionBuilder.buildPopPlainAction({section}));
+        this.$dispatch(ConnectorActionBuilder.buildDestroyPlainAction(section));
 
         ConnectorContainerFactory.logger.debug(
           `[$ConnectorContainerFactory][componentWillUnmount] Section: ${section}`
@@ -107,8 +111,8 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
        * @stable [11.06.2020]
        */
       public componentDidMount(): void {
-        this.dispatch(StackActionBuilder.buildPushPlainAction({section, url: environment.path}));
-        this.dispatch(ConnectorActionBuilder.buildInitPlainAction(section));
+        this.$dispatch(StackActionBuilder.buildPushPlainAction({section, url: environment.path}));
+        this.$dispatch(ConnectorActionBuilder.buildInitPlainAction(section));
 
         ConnectorContainerFactory.logger.debug(
           `[$ConnectorContainerFactory][componentDidMount] Section: ${section}`
@@ -135,7 +139,7 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
         if (ObjectUtils.isCurrentValueNotEqualPreviousValue(this.state.error, prevState.error)) {
           const rootPathOfFirstStackItem = this.rootPathOfFirstStackItem;
           if (rootPathOfFirstStackItem) {
-            this.dispatch(RouterActionBuilder.buildNavigatePlainAction(rootPathOfFirstStackItem));
+            this.$dispatch(RouterActionBuilder.buildNavigatePlainAction(rootPathOfFirstStackItem));
           }
         }
       }
@@ -146,8 +150,11 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
        * @param errorInfo
        */
       public componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-        ConnectorContainerFactory.logger.error(`[$ConnectorContainerFactory][componentDidCatch] Error:`, error);
+        if (TypeUtils.isFn(super.componentDidCatch)) {
+          super.componentDidCatch(error, errorInfo);
+        }
 
+        ConnectorContainerFactory.logger.error(`[$ConnectorContainerFactory][componentDidCatch] Error:`, error);
         this.setState({error});
       }
 
@@ -155,7 +162,7 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
        * @stable [19.09.2020]
        * @param action
        */
-      private dispatch(action: IEffectsAction): void {
+      private $dispatch(action: IEffectsAction): void {
         this.originalProps.dispatch(action);
       }
 
