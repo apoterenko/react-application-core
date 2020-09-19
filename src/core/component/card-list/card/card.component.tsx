@@ -7,14 +7,14 @@ import {
   TypeUtils,
   WrapperUtils,
 } from '../../../util';
-import { GenericBaseComponent } from '../../base/generic-base.component';
+import { GenericComponent } from '../../base/generic.component';
 import {
   CardClassesEnum,
   ICardProps,
   UniversalScrollableContext,
 } from '../../../definition';
 
-export class Card extends GenericBaseComponent<ICardProps> {
+export class Card extends GenericComponent<ICardProps> {
 
   /**
    * @stable [08.06.2020]

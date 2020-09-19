@@ -7,7 +7,7 @@ import {
   RowUtils,
   TypeUtils,
 } from '../../../util';
-import { GenericBaseComponent } from '../../base/generic-base.component';
+import { GenericComponent } from '../../base/generic.component';
 import {
   IListItemProps,
   ListClassesEnum,
@@ -18,7 +18,7 @@ import {
  * @component-impl
  * @stable [17.08.2020]
  */
-export class ListItem extends GenericBaseComponent<IListItemProps> {
+export class ListItem extends GenericComponent<IListItemProps> {
 
   public static readonly defaultProps: IListItemProps = {
     hovered: true,

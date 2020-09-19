@@ -97,7 +97,6 @@ export class WebBootstrapper implements IBootstrapper {
     };
 
     this.initGA();
-    this.initErrorHandler();
     this.initAsyncLibraries();
 
     switch (document.readyState) {
@@ -120,13 +119,6 @@ export class WebBootstrapper implements IBootstrapper {
       this.domAccessor.addRootElement(),
       orNull(this.bSettings.flexEnabled, 'rac-flex') // TODO Drop later
     );
-  }
-
-  /**
-   * @stable [01.10.2019]
-   */
-  protected initErrorHandler(): void {
-    this.domAccessor.defineGlobalErrorHandler((e) => this.uiFactory.makeWindowError(e));
   }
 
   /**

@@ -4,7 +4,7 @@ import {
   CalcUtils,
   ClsUtils,
 } from '../../util';
-import { GenericBaseComponent } from '../base/generic-base.component';
+import { GenericComponent } from '../base/generic.component';
 import {
   DrawerClassesEnum,
   IDrawerProps,
@@ -14,7 +14,7 @@ import {
  * @component-impl
  * @stable [29.05.2020]
  */
-export class Drawer extends GenericBaseComponent<IDrawerProps> {
+export class Drawer extends GenericComponent<IDrawerProps> {
 
   /**
    * @stable [29.05.2020]

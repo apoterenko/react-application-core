@@ -101,9 +101,14 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
         }
         {
           actionsRendered && (
-            <div className={FormClassesEnum.FORM_ACTIONS}>
-              {this.formActionsElement}
-            </div>
+            ConditionUtils.ifNotEmptyThanValue(
+              this.formActionsElements,
+              (formActionsElements) => (
+                <div className={FormClassesEnum.FORM_ACTIONS}>
+                  {formActionsElements}
+                </div>
+              )
+            )
           )
         }
       </form>
@@ -337,25 +342,28 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    * @stable [02.09.2020]
    * @private
    */
-  private get formActionsElement(): JSX.Element {
+  private get formActionsElements(): JSX.Element[] {
     const {
       actionsFactory,
     } = this.originalProps;
     const actions = this.actions;
-    const actualActions = TypeUtils.isFn(actionsFactory) ? actionsFactory(actions) : actions;
+
+    const actualActions = FilterUtils.notNilValuesArrayFilter<IButtonProps>(
+      ...TypeUtils.isFn(actionsFactory)
+        ? actionsFactory(actions)
+        : actions
+    );
 
     return (
-      <React.Fragment>
-        {actualActions
-          .map(
-            (action, index) => (
-              <Button
-                key={`form-action-${action.text || index}`}
-                {...action}
-                onClick={ConditionUtils.ifNotNilThanValue(action.onClick, (onClick) => () => onClick(this.apiEntity))}/>
-            )
-          )}
-      </React.Fragment>
+      actualActions
+        .map(
+          (action, index) => (
+            <Button
+              key={`form-action-${action.text || index}`}
+              {...action}
+              onClick={ConditionUtils.ifNotNilThanValue(action.onClick, (onClick) => () => onClick(this.apiEntity))}/>
+          )
+        )
     );
   }
 

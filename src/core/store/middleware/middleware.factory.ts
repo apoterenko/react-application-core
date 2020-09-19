@@ -15,9 +15,10 @@ import {
   makeSucceedFormMiddleware,
   SucceedFormMiddlewareFactories,
 } from './succeed-form.middleware';
-import { FilterFormDialogMiddlewareFactories } from './filer-form-dialog.middleware';
-import { FilteredListMiddlewareFactories } from './filtered-list.middleware';
+import { DefaultFormChangesMiddlewareFactories } from './default-form-changes.middleware';
 import { DestroyedContainerMiddlewareFactories } from './destroyed-container.middleware';
+import { FilteredListMiddlewareFactories } from './filtered-list.middleware';
+import { FilterFormDialogMiddlewareFactories } from './filer-form-dialog.middleware';
 
 /**
  * @stable [07.06.2020]
@@ -25,6 +26,7 @@ import { DestroyedContainerMiddlewareFactories } from './destroyed-container.mid
 export class MiddlewareFactories {
   public static readonly chainedMiddleware = makeChainedMiddleware;
   public static readonly createEntityMiddleware = makeCreateEntityMiddleware;
+  public static readonly defaultFormChangesMiddleware = DefaultFormChangesMiddlewareFactories.defaultFormChangesMiddleware;
   public static readonly destroyedContainerMiddleware = DestroyedContainerMiddlewareFactories.destroyedContainerMiddleware;
   public static readonly filteredListApplyMiddleware = FilteredListMiddlewareFactories.filteredListApplyMiddleware;
   public static readonly filteredListDeactivateMiddleware = FilteredListMiddlewareFactories.filteredListDeactivateMiddleware;

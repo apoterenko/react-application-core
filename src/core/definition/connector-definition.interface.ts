@@ -2,6 +2,7 @@ import { IRouteEntity } from './router-definition.interface';
 import {
   ACTION_PREFIX,
   IAccessConfigurationWrapper,
+  IErrorWrapper,
   IKeyValue,
   IMappersWrapper,
   IRouteConfigurationWrapper,
@@ -30,7 +31,7 @@ export interface IRouteConfigurationEntity
  * @stable [16.11.2019]
  */
 export interface IBasicConnectorEntity<TStoreEntity>
-  extends IMappersWrapper<Array<ConnectorMapperT<TStoreEntity>>>,
+  extends IMappersWrapper<ConnectorMapperT<TStoreEntity>[]>,
     IRouteConfigurationEntity {
 }
 
@@ -50,7 +51,15 @@ export interface IConnectorContainerFactory {
 }
 
 /**
- * @stable [25.11.2019]
+ * @state
+ * @stable [19.09.2020]
+ */
+export interface IGenericConnectorContainerState
+  extends IErrorWrapper<Error> {
+}
+
+/**
+ * @stable [19.09.2020]
  */
 export const $RAC_CONNECTED_CONTAINER_DESTROY_ACTION_TYPE = `${ACTION_PREFIX}connected.container.destroy`;
 export const $RAC_CONNECTED_CONTAINER_INIT_ACTION_TYPE = `${ACTION_PREFIX}connected.container.init`;

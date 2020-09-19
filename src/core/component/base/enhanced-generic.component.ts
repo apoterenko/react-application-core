@@ -1,9 +1,8 @@
 import * as R from 'ramda';
 
 import {
-  isFn,
-  isObjectNotEmpty,
   ObjectUtils,
+  TypeUtils,
 } from '../../util';
 import { AnyT } from '../../definitions.interface';
 import {
@@ -25,62 +24,63 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
   private $uiPlugins: GenericPluginsMapT;
 
   /**
-   * @stable [21.04.2020]
-   * @param {TProps} props
+   * @stable [19.09.2020]
+   * @param originalProps
    */
-  constructor(props: TProps) {
-    super(props);
+  constructor(originalProps: TProps) {
+    super(originalProps);
+
     this.initPlugins();
   }
 
   /**
-   * @stable [21.04.2020]
+   * @stable [19.09.2020]
    */
   public componentDidMount(): void {
-    this.plugins.forEach((plugin) => isFn(plugin.componentDidMount) && plugin.componentDidMount());
+    this.plugins.forEach((plugin) => TypeUtils.isFn(plugin.componentDidMount) && plugin.componentDidMount());
   }
 
   /**
    * @stable [21.04.2020]
    */
   public componentWillUnmount(): void {
-    this.plugins.forEach((plugin) => isFn(plugin.componentWillUnmount) && plugin.componentWillUnmount());
+    this.plugins.forEach((plugin) => TypeUtils.isFn(plugin.componentWillUnmount) && plugin.componentWillUnmount());
   }
 
   /**
-   * @stable [21.04.2020]
-   * @param {Readonly<TProps extends IEnhancedGenericComponentProps>} prevProps
-   * @param {Readonly<TState>} prevState
-   * @param {never} prevContext
+   * @stable [19.09.2020]
+   * @param prevProps
+   * @param prevState
+   * @param prevContext
    */
   public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>, prevContext?: never): void {
     this.plugins.forEach(
-      (plugin) => isFn(plugin.componentDidUpdate) && plugin.componentDidUpdate(prevProps, prevState, prevContext)
+      (plugin) => TypeUtils.isFn(plugin.componentDidUpdate) && plugin.componentDidUpdate(prevProps, prevState, prevContext)
     );
   }
 
   /**
-   * @stable [21.04.2020]
-   * @param {Readonly<TProps extends IEnhancedGenericComponentProps>} prevProps
-   * @param {Readonly<TState>} prevState
+   * @stable [19.09.2020]
+   * @param prevProps
+   * @param prevState
    */
   public getSnapshotBeforeUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
     this.plugins.forEach((plugin) =>
-      isFn(plugin.getSnapshotBeforeUpdate) && plugin.getSnapshotBeforeUpdate(prevProps, prevState));
+      TypeUtils.isFn(plugin.getSnapshotBeforeUpdate) && plugin.getSnapshotBeforeUpdate(prevProps, prevState));
 
     return null;
   }
 
   /**
-   * @stable [10.04.2020]
-   * @param {GenericPluginCtorT | IGenericPlugin} pluginObject
+   * @stable [19.09.2020]
+   * @param pluginObject
    */
   protected registerPlugin(pluginObject: GenericPluginCtorT | IGenericPlugin): void {
     if (R.isNil(pluginObject)) {
       return;
     }
     this.plugins.push(
-      isFn(pluginObject)
+      TypeUtils.isFn(pluginObject)
         ? Reflect.construct(pluginObject as GenericPluginCtorT, [this])
         : pluginObject
     );
@@ -94,7 +94,7 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
 
     if (!ObjectUtils.isObjectEmpty(plugins)) {
       const dynamicPluginsFactories = plugins.get(this.constructor as IGenericComponentCtor);
-      if (isObjectNotEmpty(dynamicPluginsFactories)) {
+      if (ObjectUtils.isObjectNotEmpty(dynamicPluginsFactories)) {
         dynamicPluginsFactories.forEach((dynamicPluginFactory) => this.registerPlugin(dynamicPluginFactory(this)));
       }
     }
@@ -103,8 +103,7 @@ export class EnhancedGenericComponent<TProps extends IEnhancedGenericComponentPr
   }
 
   /**
-   * @stable [21.04.2020]
-   * @returns {GenericPluginsMapT}
+   * @stable [19.09.2020]
    */
   private get uiPlugins(): GenericPluginsMapT {
     return this.$uiPlugins = this.$uiPlugins || getUiPlugins();

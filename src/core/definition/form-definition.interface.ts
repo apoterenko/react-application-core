@@ -143,7 +143,7 @@ export interface IReduxSecondaryFilterFormHolderEntity<TEntity = IEntity>
  * @stable [08.05.2020]
  */
 export interface IPresetsFormEntity<TEntity = IEntity>
-  extends IActionsFactoryWrapper<(defaultActions: IFormExtraButtonEntity[]) => IFormExtraButtonEntity[]>,
+  extends IActionsFactoryWrapper<(defaultActions: IGenericButtonEntity[]) => IGenericButtonEntity[]>,
     IActionsRenderedWrapper,
     IAlwaysDirtyWrapper,
     IAlwaysResettableWrapper,
@@ -213,14 +213,6 @@ export interface IFormContainerProps<TEntity = IEntity, TDictionaries = {}>
  */
 export interface IFormConfigurationEntity<TProps extends IFormProps = IFormProps>
   extends IFormConfigurationWrapper<TProps> {
-}
-
-/**
- * TODO Replace with IPressetsButtonEntity
- * @deprecated
- */
-export interface IFormExtraButtonEntity
-  extends IGenericButtonEntity {
 }
 
 /**

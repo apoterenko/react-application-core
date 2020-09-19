@@ -16,9 +16,9 @@ import {
   UniversalIdProviderContext,
 } from '../../definition';
 import { Link } from '../link';
-import { GenericBaseComponent } from '../base/generic-base.component';
+import { GenericComponent } from '../base/generic.component';
 
-export class Button extends GenericBaseComponent<IButtonProps> {
+export class Button extends GenericComponent<IButtonProps> {
 
   public static readonly defaultProps: IButtonProps = {
     full: false,

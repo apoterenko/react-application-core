@@ -10,12 +10,25 @@ import {
 } from '../../util';
 
 /**
- * @stable [04.09.2020]
+ * @stable [19.09.2020]
  * @param cfg
  */
-export const makeDefaultFormChangesMiddleware =
-  <TChanges = {}, TState = {}>(cfg: IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>): IEffectsAction =>
-    ConditionUtils.orNull(
-      ObjectUtils.isObjectNotEmpty(cfg.defaultChanges) && ObjectUtils.isObjectNotEmpty(SectionUtils.asFormSection(cfg)),
-      () => FormActionBuilder.buildDefaultChangesAction(SectionUtils.asFormSection(cfg), CalcUtils.calc(cfg.defaultChanges))
+const makeDefaultFormChangesMiddleware =
+  <TChanges = {}, TState = {}>(cfg: IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>): IEffectsAction => {
+    const {
+      defaultChanges,
+    } = cfg;
+    const formSection = SectionUtils.asFormSection(cfg);
+
+    return ConditionUtils.orNull(
+      ObjectUtils.isObjectNotEmpty(defaultChanges) && ObjectUtils.isObjectNotEmpty(formSection),
+      () => FormActionBuilder.buildDefaultChangesAction(formSection, CalcUtils.calc(defaultChanges))
     );
+  };
+
+/**
+ * @stable [19.09.2020]
+ */
+export class DefaultFormChangesMiddlewareFactories {
+  public static readonly defaultFormChangesMiddleware = makeDefaultFormChangesMiddleware;
+}

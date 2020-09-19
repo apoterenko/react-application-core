@@ -8,9 +8,9 @@ import {
   IThumbProps,
   ThumbClassesEnum,
 } from '../../definition';
-import { GenericBaseComponent } from '../base/generic-base.component';
+import { GenericComponent } from '../base/generic.component';
 
-export class Thumb extends GenericBaseComponent<IThumbProps> {
+export class Thumb extends GenericComponent<IThumbProps> {
 
   /**
    * @stable [05.06.2020]

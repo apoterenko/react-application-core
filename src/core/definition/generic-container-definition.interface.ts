@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import { IReduxStoreEntity } from './redux-definition.interface';
 import {
@@ -13,11 +14,12 @@ import {
 } from './store-proxy-definition.interface';
 import {
   AnyT,
+  IDispatchWrapper,
   ISectionNameWrapper,
 } from '../definitions.interface';
 import {
-  IGenericBaseComponentProps,
   IGenericComponent,
+  IGenericComponentProps,
 } from './generic-component-definition.interface';
 
 /**
@@ -25,7 +27,8 @@ import {
  * @stable [12.06.2020]
  */
 export interface IPresetsContainerEntity
-  extends ISectionNameWrapper {
+  extends IDispatchWrapper<IEffectsAction>,
+    ISectionNameWrapper {
 }
 
 /**
@@ -42,7 +45,7 @@ export interface IGenericContainerEntity<TDictionaries = {}>
  * @stable [30.03.2020]
  */
 export interface IGenericContainerProps<TDictionaries = {}, TComponent = AnyT>
-  extends IGenericBaseComponentProps<TComponent>,
+  extends IGenericComponentProps<TComponent>,
     IGenericContainerEntity<TDictionaries> {
 }
 

@@ -26,7 +26,6 @@ import {
   removeClassNames,
   scrollIntoView,
   scrollTo,
-  sequence,
   setScrollLeft,
   setScrollTop,
 } from '../../util';
@@ -297,19 +296,6 @@ export class DomAccessor implements IDomAccessor {
    */
   public addClassNamesToRootElement(...clsName: string[]): void {
     addClassNames(this.rootElement, ...clsName);
-  }
-
-  /**
-   * @stable [30.09.2019]
-   * @param {(e: Error) => void} callback
-   */
-  public defineGlobalErrorHandler(callback: (e: Error) => void): void {
-    this.window.onerror = sequence(
-      this.window.onerror,
-      (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => {
-        callback(error || new Error(message));
-      }
-    );
   }
 
   /**

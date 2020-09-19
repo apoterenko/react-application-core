@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import {
   isFn,
   isObjectNotEmpty,
-  patchRenderMethod,
 } from '../../util';
 import {
   DI_TYPES,
@@ -21,7 +20,7 @@ import {
   IUniversalComponentCtor,
   IUniversalComponentProps,
 } from '../../definition';
-import { GenericBaseComponent } from './generic-base.component';
+import { GenericComponent } from './generic.component';
 
 /**
  * TODO
@@ -30,7 +29,7 @@ import { GenericBaseComponent } from './generic-base.component';
 export class UniversalComponent<TProps extends IUniversalComponentProps = IUniversalComponentProps,
                                 TState = {},
                                 TSelfRef = AnyT>
-  extends GenericBaseComponent<TProps, TState, TSelfRef>
+  extends GenericComponent<TProps, TState, TSelfRef>
   implements IUniversalComponent<TProps, TState> {
 
   protected readonly plugins: IGenericPlugin[] = [];
@@ -43,7 +42,6 @@ export class UniversalComponent<TProps extends IUniversalComponentProps = IUnive
     super(props);
 
     this.initPlugins();
-    patchRenderMethod(this);
   }
 
   /**

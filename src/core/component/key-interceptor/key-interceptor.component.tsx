@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { GenericBaseComponent } from '../base/generic-base.component';
+import { GenericComponent } from '../base/generic.component';
 import {
   DelayedTask,
   isFn,
@@ -12,7 +12,7 @@ import {
 } from '../../definition';
 import { IKeyInterceptorProps } from './key-interceptor.interface';
 
-export class KeyInterceptor extends GenericBaseComponent<IKeyInterceptorProps> {
+export class KeyInterceptor extends GenericComponent<IKeyInterceptorProps> {
 
   public static readonly defaultProps: IKeyInterceptorProps = {
     delayTimeout: 300,

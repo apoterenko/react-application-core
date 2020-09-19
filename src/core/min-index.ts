@@ -1,7 +1,6 @@
 export * from './action';                                                                /* @stable [08.06.2020] */
 export * from './application/application.effects';                                       /* @stable [15.06.2020  */
 export * from './component/application/application-action.builder';
-export * from './component/base/generic-base.component';                                 /* @stable [09.06.2020] */
 export * from './component/base/generic.component';                                      /* @stable [09.06.2020] */
 export * from './component/base/generic.container';                                      /* @stable [09.06.2020] */
 export * from './component/button/button.component';                                     /* @stable [09.06.2020] */

@@ -20,12 +20,11 @@ import {
   SectionUtils,
   Selectors,
 } from '../../util';
-import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
+import { DefaultFormChangesMiddlewareFactories } from './default-form-changes.middleware';
 
 /**
- * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} cfg
- * @returns {IChainedMiddlewareConfigEntity<TState, TPayload>}
+ * @stable [19.09.2020]
+ * @param cfg
  */
 const asChainedConfigEntity = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>
@@ -45,7 +44,10 @@ export const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<{}, TState, TDefaultChanges>): IEffectsAction[] =>
   ConditionUtils.ifNotNilThanValue(
     makeChainedMiddleware(asChainedConfigEntity(config)),
-    (actions) => FilterUtils.notNilValuesArrayFilter(...actions, makeDefaultFormChangesMiddleware(config))
+    (actions) => FilterUtils.notNilValuesArrayFilter(
+      ...actions,
+      DefaultFormChangesMiddlewareFactories.defaultFormChangesMiddleware(config)
+    )
   );
 
 /**

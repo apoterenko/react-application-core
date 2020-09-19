@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GenericBaseComponent } from '../base/generic-base.component';
+import { GenericComponent } from '../base/generic.component';
 import {
   ISubHeaderLinkProps,
   SubHeaderLinkClasses,
@@ -15,7 +15,7 @@ import {
  * @component-impl
  * @stable [22.05.2020]
  */
-export class SubHeaderLink extends GenericBaseComponent<ISubHeaderLinkProps> {
+export class SubHeaderLink extends GenericComponent<ISubHeaderLinkProps> {
 
   public static readonly defaultProps: ISubHeaderLinkProps = {
     separator: ' / ',

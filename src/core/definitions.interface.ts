@@ -149,6 +149,7 @@ export interface IDirectionWrapper<TValue = string> { direction?: TValue; }
 export interface IDirtyWrapper { dirty?: boolean; }
 export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisableLabelWrapper { disableLabel?: string; }
+export interface IDispatchWrapper<TValue = unknown> { dispatch?(value: TValue): void; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: boolean; }
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
@@ -470,6 +471,7 @@ export interface IResultWrapper<TValue = {}> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
 export interface IRightContentWrapper<TValue> { rightContent?: TValue; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
+export interface IRootPathWrapper { rootPath?: string; }
 export interface IRouteConfigurationWrapper<TValue> { routeConfiguration?: TValue; }
 export interface IRouteParamsWrapper<TValue = IKeyValue> { routeParams?: TValue; }
 export interface IRowNumWrapper { rowNum?: number; }

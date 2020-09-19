@@ -4,7 +4,7 @@ import * as R from 'ramda';
 
 import { Button } from '../button';
 import {
-  calc,
+  CalcUtils,
   isAcceptable,
   isAcceptDisabled,
   isCheckModalNeeded,
@@ -12,7 +12,6 @@ import {
   isCloseDisabled,
   isConfirm,
   isDefault,
-  isFn,
   isOpened,
   isOverlay,
   isOverlayClosable,
@@ -20,6 +19,7 @@ import {
   joinClassName,
   orNull,
   PropsUtils,
+  TypeUtils,
   WrapperUtils,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
@@ -126,16 +126,16 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         onDeactivate,
       } = payload || {} as IActivateDialogConfigEntity;
 
-      if (isFn(onDeactivate)) {
+      if (TypeUtils.isFn(onDeactivate)) {
         this.$onDeactivateCallback = onDeactivate;
       }
-      if (isFn(onActivate)) {
+      if (TypeUtils.isFn(onActivate)) {
         onActivate.call(this);
       }
 
-      const mergedProps = this.mergedProps;
-      if (isFn(mergedProps.onActivate)) {
-        mergedProps.onActivate();
+      const originalProps = this.originalProps;
+      if (TypeUtils.isFn(originalProps.onActivate)) {
+        originalProps.onActivate();
       }
     });
   }
@@ -154,7 +154,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     }
 
     this.doClose(() => {
-      if (isFn(onAccept)) {
+      if (TypeUtils.isFn(onAccept)) {
         onAccept();
       }
     });
@@ -166,10 +166,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   protected onCloseClick(): void {
     const {
       onClose,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     this.doClose(() => {
-      if (isFn(onClose)) {
+      if (TypeUtils.isFn(onClose)) {
         onClose();
       }
     });
@@ -244,7 +244,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.domAccessor.setPosition({
       ...positionConfiguration,
       element: this.$bodyRef.current,
-      of: calc(anchorElement),
+      of: CalcUtils.calc(anchorElement),
     });
 
     this.$closeEventUnsubscriber = this.domAccessor.captureEvent({
@@ -277,22 +277,21 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.setState({opened: false}, () => {
       this.onDestroy();
 
-      if (isFn(this.$onDeactivateCallback)) {
+      if (TypeUtils.isFn(this.$onDeactivateCallback)) {
         this.$onDeactivateCallback.call(this);
         this.$onDeactivateCallback = null;
       }
-      if (isFn(onDeactivate)) {
+      if (TypeUtils.isFn(onDeactivate)) {
         onDeactivate();
       }
-      if (isFn(callback)) {
+      if (TypeUtils.isFn(callback)) {
         callback.call(this);
       }
     });
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {TProps}
+   * @stable [19.09.2020]
    */
   protected get componentsSettingsProps(): TProps {
     return this.componentsSettings.dialog as TProps;
@@ -354,7 +353,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return (
       <div
         ref={this.$bodyRef}
-        style={{width: calc(mergedProps.width)}}
+        style={{width: CalcUtils.calc(mergedProps.width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
@@ -460,7 +459,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [11.05.2020]
    */
   private unsubscribeEvents(): void {
-    if (isFn(this.$closeEventUnsubscriber)) {
+    if (TypeUtils.isFn(this.$closeEventUnsubscriber)) {
       this.$closeEventUnsubscriber();
       this.$closeEventUnsubscriber = null;
     }
@@ -620,10 +619,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   private get dialogClassName(): string {
     const {
       className,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     return joinClassName(
-      calc(className),
+      CalcUtils.calc(className),
       DialogClassesEnum.DIALOG,
 
       this.isOverlay && DialogClassesEnum.OVERLAY_DIALOG,

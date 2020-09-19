@@ -317,9 +317,8 @@ const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser =>
   R.isNil(wrapper) ? UNDEF : wrapper.user;
 
 /**
- * @stable [30.03.2020]
- * @param {IStackWrapper<TEntity>} wrapper
- * @returns {TEntity}
+ * @stable [18.09.2020]
+ * @param wrapper
  */
 const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity =>
   R.isNil(wrapper) ? UNDEF : wrapper.stack;
@@ -452,11 +451,20 @@ const selectQueryFilterEntityQuery = (entity: IReduxQueryFilterHolderEntity): st
   selectQuery(selectQueryFilter(entity));
 
 /**
- * @stable [21.05.2020]
- * @param {IReduxStackHolderEntity} entity
- * @returns {IReduxStackItemEntity[]}
+ * @stable [18.09.2020]
+ * @param entity
  */
 const selectStackItemEntities = (entity: IReduxStackHolderEntity): IReduxStackItemEntity[] => selectStack(selectStack(entity));
+
+/**
+ * @stable [18.09.2020]
+ * @param entity
+ */
+const selectFirstStackItemEntity = (entity: IReduxStackHolderEntity): IReduxStackItemEntity =>
+  ConditionUtils.ifNotEmptyThanValue(
+    selectStackItemEntities(entity),
+    (stackItemEntities) => stackItemEntities[0]
+  );
 
 /**
  * @stable [21.05.2020]
@@ -494,6 +502,7 @@ export class Selectors {
   public static readonly entityId = selectEntityId;                                                             /* @stable [31.07.2020] */
   public static readonly error = selectError;                                                                   /* @stable [12.06.2020] */
   public static readonly filter = selectFilter;
+  public static readonly firstStackItemEntity = selectFirstStackItemEntity;                                     /* @stable [18.09.2020] */
   public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */
   public static readonly formHolderEntityChanges = selectFormHolderEntityChanges;                               /* @stable [01.08.2020] */
   public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */

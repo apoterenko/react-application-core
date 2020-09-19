@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GenericBaseComponent } from '../../base/generic-base.component';
+import { GenericComponent } from '../../base/generic.component';
 import {
   CalcUtils,
   ClsUtils,
@@ -14,7 +14,7 @@ import {
   UniversalScrollableContext,
 } from '../../../definition';
 
-export class GridRow extends GenericBaseComponent<IGridRowProps> {
+export class GridRow extends GenericComponent<IGridRowProps> {
 
   public static readonly defaultProps: IGridRowProps = {
     hovered: true,

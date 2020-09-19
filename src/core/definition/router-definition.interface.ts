@@ -16,6 +16,7 @@ import {
   IParamsWrapper,
   IPathWrapper,
   IProfileWrapper,
+  IRootPathWrapper,
   ISignInWrapper,
   IStateWrapper,
   ITypeWrapper,
@@ -87,6 +88,7 @@ export interface IRouteEntity
     IKeyWrapper,
     IOnEnterWrapper<() => void>,
     IPathWrapper<string | (() => string)>,
+    IRootPathWrapper,
     ITypeWrapper<ContainerVisibilityTypesEnum> {
 }
 

@@ -17,7 +17,7 @@ import {
   ValueUtils,
   WrapperUtils,
 } from '../../util';
-import { makeDefaultFormChangesMiddleware } from './default-form-changes.middleware';
+import { DefaultFormChangesMiddlewareFactories } from './default-form-changes.middleware';
 
 /**
  * @stable [09.09.2020]
@@ -61,7 +61,7 @@ export const makeUntouchedListMiddleware =
   <TState = {}>(config: IUntouchedListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
     ConditionUtils.ifNotEmptyThanValue(
       FilterUtils.notNilValuesArrayFilter(
-        makeDefaultFormChangesMiddleware(config),
+        DefaultFormChangesMiddlewareFactories.defaultFormChangesMiddleware(config),
         ConditionUtils.orNull(
           !WrapperUtils.isTouched(config.listAccessor(config.state)),
           () => makeLoadedListMiddleware(config)

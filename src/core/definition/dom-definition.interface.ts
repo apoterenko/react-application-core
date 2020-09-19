@@ -135,7 +135,6 @@ export interface IDomAccessor {
   captureEventWithinElement(cfg: ICaptureEventConfigEntity);
   createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parentEl?: Element): TElement;
   createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement>;
-  defineGlobalErrorHandler(callback: (e: Error) => void): void;
   disableFullScreen(element?: Element);
   enableFullScreen(element?: Element);
   findElement(selector: string, parent?: Element): Element;

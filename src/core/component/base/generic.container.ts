@@ -1,7 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import { AnyT } from '../../definitions.interface';
-import { GenericBaseComponent } from './generic-base.component';
+import { GenericComponent } from './generic.component';
 import {
   DynamicRoutesT,
   IAuth,
@@ -39,7 +39,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   TState = {},
   TSelfRef = AnyT,
   TPermission = {}>
-  extends GenericBaseComponent<TProps, TState, TSelfRef>
+  extends GenericComponent<TProps, TState, TSelfRef>
   implements IGenericContainer<TProps> {
 
   private $auth: IAuth;
@@ -150,7 +150,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @returns {TUser}
    */
   protected getUser<TUser extends IReduxUserEntity>(): TUser {
-    return this.props.user as TUser;
+    return this.originalProps.user as TUser;
   }
 
   /**
@@ -158,7 +158,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @param {string | IOperationEntity} operations
    * @returns {boolean}
    */
-  protected hasTransportWorkingOperations(...operations: Array<string | IOperationEntity>): boolean {
+  protected hasTransportWorkingOperations(...operations: (string | IOperationEntity)[]): boolean {
     return hasTransportWrapperQueueOperations(this.props, ...operations);
   }
 

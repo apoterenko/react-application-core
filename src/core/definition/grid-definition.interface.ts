@@ -59,7 +59,6 @@ import {
   ISortableWrapper,
   ISorterWrapper,
   IStickyHeadWrapper,
-  ITitleWrapper,
   ITopTotalWrapper,
   ITotalEntityWrapper,
   ITotalWrapper,
@@ -72,16 +71,12 @@ import {
   ISortDirectionEntity,
   SortDirectionsEnum,
 } from './sort-definition.interface';
-import { IComponentProps } from './props-definition.interface';
 import { IFieldChangeEntity } from './field-definition.interface';
 import {
   IPresetsListEntity,
   IReduxListEntity,
 } from './list-definition.interface';
-import {
-  IGenericBaseComponentProps,
-  IGenericComponentProps,
-} from './generic-component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IPresetsRowEntity } from './row-definition.interface';
 import { IPresetsGroupByEntity } from './group-definition.interface';
 
@@ -102,8 +97,7 @@ export interface IPresetsGridColumnEntity
   extends IClosableWrapper,
     IClosedWrapper,
     IColSpanWrapper,
-    IOnCloseWrapper,
-    ITitleWrapper {
+    IOnCloseWrapper {
 }
 
 /**
@@ -135,7 +129,7 @@ export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
  * @stable [18.10.2019]
  */
 export interface IGridColumnProps<TEntity extends IEntity = IEntity>
-  extends IGenericBaseComponentProps,
+  extends IGenericComponentProps,
     IGenericGridColumnEntity<TEntity>,
     IOnClickWrapper<ISortDirectionEntity>,
     IOnColumnClickWrapper<IGridColumnProps<TEntity>>,
@@ -180,7 +174,7 @@ export interface IGenericGridRowEntity<TEntity extends IEntity = IEntity>
  * @stable [23.10.2019]
  */
 export interface IGridRowProps<TEntity extends IEntity = IEntity>
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericGridRowEntity<TEntity> {
 }
 
@@ -229,7 +223,7 @@ export interface IGenericGridHeadEntity
  * @stable [20.05.2020]
  */
 export interface IGridHeadProps
-  extends IGenericBaseComponentProps,
+  extends IGenericComponentProps,
     IGenericGridHeadEntity {
 }
 

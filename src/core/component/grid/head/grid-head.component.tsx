@@ -6,13 +6,13 @@ import {
   UniversalStickyContext,
 } from '../../../definition';
 import { ClsUtils } from '../../../util';
-import { GenericBaseComponent } from '../../base/generic-base.component';
+import { GenericComponent } from '../../base/generic.component';
 
 /**
  * @component-impl
  * @stable [20.05.2020]
  */
-export class GridHead extends GenericBaseComponent<IGridHeadProps> {
+export class GridHead extends GenericComponent<IGridHeadProps> {
 
   /**
    * @stable [20.05.2020]

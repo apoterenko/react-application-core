@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GenericBaseComponent } from '../../base/generic-base.component';
+import { GenericComponent } from '../../base/generic.component';
 import {
   ClsUtils,
   ConditionUtils,
@@ -17,7 +17,7 @@ import {
 } from '../../../definition';
 
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
-  extends GenericBaseComponent<TProps> {
+  extends GenericComponent<TProps> {
 
   /**
    * @stable [28.07.2020]

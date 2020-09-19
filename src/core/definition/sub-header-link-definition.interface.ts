@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IGenericBaseComponentProps } from './generic-component-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
   IOnClickWrapper,
   ISeparatorWrapper,
@@ -32,7 +32,7 @@ export interface IGenericSubHeaderLinkEntity
  * @stable [22.05.2020]
  */
 export interface ISubHeaderLinkProps
-  extends IGenericBaseComponentProps,
+  extends IGenericComponentProps,
     IGenericSubHeaderLinkEntity {
 }
 
