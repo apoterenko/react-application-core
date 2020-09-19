@@ -15,11 +15,10 @@ import { TypeUtils } from './type';
 export const isObjectNotEmpty = <TValue>(o: AnyT): boolean => !R.isNil(o) && !R.isEmpty(o);
 
 /**
- * @stable [18.04.2020]
- * @param {AnyT} o
- * @returns {boolean}
+ * @stable [19.09.2020]
+ * @param o
  */
-export const isObjectEmpty = <TValue>(o: AnyT): boolean => !isObjectNotEmpty(o);
+const isObjectEmpty = <TValue>(o: unknown): boolean => !isObjectNotEmpty(o);
 
 /**
  * @stable [18.03.2020]

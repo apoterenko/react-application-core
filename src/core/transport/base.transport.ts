@@ -16,6 +16,7 @@ import {
   DefaultEntities,
   IEnvironment,
   INamedEntity,
+  IPhoneConverter,
   IPresetsRawDataLabeledValueEntity,
   IUpdateEntity,
 } from '../definition';
@@ -55,6 +56,7 @@ export class BaseTransport {
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.FieldConverter) protected readonly fieldConverter: IFieldConverter;
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
+  @lazyInject(DI_TYPES.PhoneConverter) protected readonly pc: IPhoneConverter;
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
 
@@ -129,6 +131,12 @@ export class BaseTransport {
    */
   protected numberParameter = (value: StringNumberT, converter?: (value: number) => number): number =>
     this.nc.numberParameter(value, converter)
+
+  /**
+   * @stable [19.09.2020]
+   * @param value
+   */
+  protected phoneParameter = (value: StringNumberT): string => this.pc.phoneParameter({value})
 
   /**
    * @stable [14.08.2020]
