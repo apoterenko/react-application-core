@@ -54,17 +54,17 @@ export const makeLoadedListOnToolbarToolsRefreshMiddleware =
     makeLoadedListMiddleware(config);
 
 /**
- * @stable [09.09.2020]
- * @param config
+ * @stable [20.09.2020]
+ * @param cfg
  */
-export const makeUntouchedListMiddleware =
-  <TState = {}>(config: IUntouchedListMiddlewareConfigEntity<TState>): IEffectsAction[] =>
+const makeUntouchedListMiddleware =
+  <TState = {}, TDefaultChanges = {}>(cfg: IUntouchedListMiddlewareConfigEntity<TState, TDefaultChanges>): IEffectsAction[] =>
     ConditionUtils.ifNotEmptyThanValue(
       FilterUtils.notNilValuesArrayFilter(
-        DefaultFormChangesMiddlewareFactories.defaultFormChangesMiddleware(config),
+        DefaultFormChangesMiddlewareFactories.defaultFormChangesMiddleware(cfg),
         ConditionUtils.orNull(
-          !WrapperUtils.isTouched(config.listAccessor(config.state)),
-          () => makeLoadedListMiddleware(config)
+          !WrapperUtils.isTouched(cfg.listAccessor(cfg.state)),
+          () => makeLoadedListMiddleware(cfg)
         )
       ),
       (actions) => actions
@@ -119,4 +119,5 @@ export const makeLoadedListOnNavigateToLastPageMiddleware =
  */
 export class LoadedListMiddlewareFactories {
   public static readonly loadedListMiddleware = makeLoadedListMiddleware;
+  public static readonly untouchedListMiddleware = makeUntouchedListMiddleware;
 }

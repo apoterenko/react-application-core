@@ -60,11 +60,9 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
       constructor(originalProps: IGenericContainerProps) {
         super(originalProps);
 
-        this.state = {};
+        this.state = this.state || {};
 
-        ConnectorContainerFactory.logger.debug(
-          `[$ConnectorContainerFactory][constructor] Section: ${section}`
-        );
+        ConnectorContainerFactory.logger.debug(`[$ConnectorContainerFactory][constructor] Section: ${section}`);
       }
 
       /**

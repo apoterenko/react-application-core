@@ -5,11 +5,11 @@ import {
   makeLazyLoadedEntityMiddleware,
 } from './edited-list.middleware';
 import {
+  LoadedListMiddlewareFactories,
   makeLoadedListOnNavigateToFirstPageMiddleware,
   makeLoadedListOnNavigateToLastPageMiddleware,
   makeLoadedListOnNavigateToNextPageMiddleware,
   makeLoadedListOnNavigateToPreviousPageMiddleware,
-  makeUntouchedListMiddleware,
 } from './loaded-list.middleware';
 import {
   makeSucceedFormMiddleware,
@@ -41,5 +41,5 @@ export class MiddlewareFactories {
   public static readonly selectEntityMiddleware = EditedListMiddlewareFactories.selectEntityMiddleware;
   public static readonly succeedEditedListMiddleware = SucceedFormMiddlewareFactories.succeedEditedListMiddleware;
   public static readonly succeedFormMiddleware = makeSucceedFormMiddleware;
-  public static readonly untouchedListMiddleware = makeUntouchedListMiddleware;
+  public static readonly untouchedListMiddleware = LoadedListMiddlewareFactories.untouchedListMiddleware;
 }

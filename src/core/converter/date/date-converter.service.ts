@@ -13,8 +13,8 @@ import {
 import {
   ConditionUtils,
   defValuesFilter,
-  isObjectNotEmpty,
   nvl,
+  ObjectUtils,
   orNull,
   orUndef,
   TypeUtils,
@@ -128,7 +128,7 @@ export class DateConverter implements IDateConverter<MomentT> {
       date,
       outputFormat,
     } = cfg;
-    if (date instanceof Date || isObjectNotEmpty(date)) {
+    if (date instanceof Date || ObjectUtils.isObjectNotEmpty(date)) {
       return this.processValidMomentDate(cfg, (mDate) => mDate.format(outputFormat)) || String(date);
     } else {
       return '';

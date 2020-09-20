@@ -22,7 +22,7 @@ const makeDefaultFormChangesMiddleware =
 
     return ConditionUtils.orNull(
       ObjectUtils.isObjectNotEmpty(defaultChanges) && ObjectUtils.isObjectNotEmpty(formSection),
-      () => FormActionBuilder.buildDefaultChangesAction(formSection, CalcUtils.calc(defaultChanges))
+      () => FormActionBuilder.buildDefaultChangesAction(formSection, CalcUtils.calc(defaultChanges, cfg))
     );
   };
 

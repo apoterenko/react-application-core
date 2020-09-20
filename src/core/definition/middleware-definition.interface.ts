@@ -2,28 +2,28 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   IContainerSectionWrapper,
+  ICustomActionsWrapper,
   IDefaultChangesWrapper,
+  IFiltersSectionsWrapper,
   IFormSectionWrapper,
+  IFormsSectionsWrapper,
   ILazyLoadingWrapper,
   IListAccessorWrapper,
   IListSectionWrapper,
+  IListsSectionsWrapper,
   INavigateBackWrapper,
   INextSectionWrapper,
   IPathWrapper,
   IPayloadWrapper,
-  IStateWrapper,
-  ICustomActionsWrapper,
-  IFiltersSectionsWrapper,
-  IFormsSectionsWrapper,
-  ITabPanelsSectionsWrapper,
-  ITypeWrapper,
-  IListsSectionsWrapper,
   ISectionNameWrapper,
+  IStateWrapper,
   ISucceedTextWrapper,
   ITabPanelSectionWrapper,
+  ITabPanelsSectionsWrapper,
+  ITypeWrapper,
 } from '../definitions.interface';
 import { IEffectsActionEntity } from './redux-definition.interface';
-import { IGenericListEntity } from './list-definition.interface';
+import { IReduxListEntity } from './list-definition.interface';
 
 /**
  * @stable [19.10.2019]
@@ -132,7 +132,7 @@ export interface ILoadedListOnFormValidMiddlewareConfigEntity<TState = {}>
 export interface IUntouchedListMiddlewareConfigEntity<TState = {}, TDefaultChanges = {}>
   extends IContainerMiddlewareConfigEntity<TState>,
     IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>,
-    IListAccessorWrapper<(state: TState) => IGenericListEntity>,
+    IListAccessorWrapper<(state: TState) => IReduxListEntity>,
     ILoadedListMiddlewareConfigEntity<TState> {
 }
 
@@ -141,7 +141,8 @@ export interface IUntouchedListMiddlewareConfigEntity<TState = {}, TDefaultChang
  * @stable [29.03.2020]
  */
 export interface IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges = {}, TState = {}>
-  extends IDefaultChangesWrapper<TDefaultChanges | (() => TDefaultChanges)>,
+  extends IActionStateEntity<TState>,
+    IDefaultChangesWrapper<TDefaultChanges | ((cfg?: IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>) => TDefaultChanges)>,
     IFormMiddlewareConfigEntity<TState> {
 }
 
