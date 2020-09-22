@@ -6,17 +6,17 @@ import {
 import {
   NvlUtils,
   SectionUtils,
-  toTabPanelSection,
 } from '../../util';
 import { ILoadedListOnTabActivateMiddlewareConfigEntity } from '../../definition';
-import { makeLoadedListOnTabActivateMiddleware } from '../middleware';
+import { MiddlewareFactories } from '../middleware';
 import { provideInSingleton } from '../../di';
 import { TabPanelActionBuilder } from '../../action';
 
 /**
- * @stable [29.03.2020]
- * @param {ILoadedListOnTabActivateMiddlewareConfigEntity<TState>} cfg
- * @returns {() => void}
+ * @effects-proxy-factory
+ * @stable [22.09.2020]
+ *
+ * @param cfg
  */
 export const makeLoadedListOnTabActivateEffectsProxy =
   <TState = {}>(cfg: ILoadedListOnTabActivateMiddlewareConfigEntity<TState>) => (
@@ -32,11 +32,11 @@ export const makeLoadedListOnTabActivateEffectsProxy =
          */
         @EffectsService.effects(
           TabPanelActionBuilder.buildActiveValueActionType(
-            NvlUtils.nvl(toTabPanelSection(cfg), SectionUtils.asListSection(cfg))
+            NvlUtils.nvl(SectionUtils.asTabPanelSection(cfg), SectionUtils.asListSection(cfg))
           )
         )
         public $onTabActivate = (action: IEffectsAction, state: TState): IEffectsAction =>
-          makeLoadedListOnTabActivateMiddleware({...cfg, action, state})
+          MiddlewareFactories.loadedListOnTabActivateMiddleware({...cfg, action, state})
       }
     }
   );

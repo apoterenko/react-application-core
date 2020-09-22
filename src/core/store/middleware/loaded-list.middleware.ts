@@ -38,10 +38,10 @@ export const makeLoadedListOnFormValidMiddleware =
     );
 
 /**
- * @stable [09.09.2020]
+ * @stable [22.09.2020]
  * @param config
  */
-export const makeLoadedListOnTabActivateMiddleware =
+const makeLoadedListOnTabActivateMiddleware =
   <TState = {}>(config: ILoadedListOnTabActivateMiddlewareConfigEntity<TState>): IEffectsAction =>
     makeLoadedListMiddleware(config);
 
@@ -119,5 +119,6 @@ export const makeLoadedListOnNavigateToLastPageMiddleware =
  */
 export class LoadedListMiddlewareFactories {
   public static readonly loadedListMiddleware = makeLoadedListMiddleware;
+  public static readonly loadedListOnTabActivateMiddleware = makeLoadedListOnTabActivateMiddleware;
   public static readonly untouchedListMiddleware = makeUntouchedListMiddleware;
 }

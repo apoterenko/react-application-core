@@ -38,6 +38,7 @@ export class MiddlewareFactories {
   public static readonly loadedListOnNavigateToLastPageMiddleware = makeLoadedListOnNavigateToLastPageMiddleware;
   public static readonly loadedListOnNavigateToNextPageMiddleware = makeLoadedListOnNavigateToNextPageMiddleware;
   public static readonly loadedListOnNavigateToPreviousPageMiddleware = makeLoadedListOnNavigateToPreviousPageMiddleware;
+  public static readonly loadedListOnTabActivateMiddleware = LoadedListMiddlewareFactories.loadedListOnTabActivateMiddleware;
   public static readonly selectEntityMiddleware = EditedListMiddlewareFactories.selectEntityMiddleware;
   public static readonly succeedEditedListMiddleware = SucceedFormMiddlewareFactories.succeedEditedListMiddleware;
   public static readonly succeedFormMiddleware = makeSucceedFormMiddleware;

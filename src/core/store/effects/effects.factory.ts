@@ -1,7 +1,7 @@
 import { makeEditedListEffectsProxy } from './edited-list-effects.proxy';
 import {
-  makeErrorEffectsProxy,
   makeConnectorInitErrorEffectsProxy,
+  makeErrorEffectsProxy,
   makeFormSubmitErrorEffectsProxy,
   makeListLazyLoadErrorEffectsProxy,
   makeListLoadErrorEffectsProxy,
@@ -10,6 +10,7 @@ import { makeDestroyedContainerEffectsProxy } from './destroyed-container-effect
 import { makeFilteredListEffectsProxy } from './filtered-list-effects.proxy';
 import { makeFilterFormDialogEffectsProxy } from './filter-form-dialog-effects.proxy';
 import { makeLoadedListOnFormValidEffectsProxy } from './loaded-list-on-form-valid-effects.proxy';
+import { makeLoadedListOnTabActivateEffectsProxy } from './loaded-list-on-tab-activate-effects.proxy';
 import { makePaginatedListEffectsProxy } from './paginated-list-effects.proxy';
 import { makeSucceedEditedListEffectsProxy } from './succeed-edited-list-effects.proxy';
 import { makeToolbarToolsEffectsProxy } from './toolbar-tools-effects.proxy';
@@ -29,6 +30,7 @@ export class EffectsFactories {
   public static readonly listLazyLoadErrorEffectsProxy = makeListLazyLoadErrorEffectsProxy;
   public static readonly listLoadErrorEffectsProxy = makeListLoadErrorEffectsProxy;
   public static readonly loadedListOnFormValidEffectsProxy = makeLoadedListOnFormValidEffectsProxy;
+  public static readonly loadedListOnTabActivateEffectsProxy = makeLoadedListOnTabActivateEffectsProxy;
   public static readonly paginatedListEffectsProxy = makePaginatedListEffectsProxy;
   public static readonly succeedEditedListEffectsProxy = makeSucceedEditedListEffectsProxy;
   public static readonly toolbarToolsEffectsProxy = makeToolbarToolsEffectsProxy;

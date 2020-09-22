@@ -35,6 +35,15 @@ import {
 import { ObjectUtils } from './object';
 
 /**
+ * @stable [22.09.2020]
+ * @param holderFormEntity
+ * @param tabEntity
+ */
+const isFormHolderEntityTabActive = <TEntity = IEntity>(holderFormEntity: IReduxFormHolderEntity<TEntity>,
+                                                        tabEntity: IPresetsTabEntity): boolean =>
+  TabUtils.isActive(Selectors.form(holderFormEntity), tabEntity);
+
+/**
  * @stable [02.08.2020]
  * @param entity
  */
@@ -225,16 +234,6 @@ export const isFormResettable = <TEntity extends IEntity = IEntity>(formProps: I
   );
 
 /**
- * @stable [15.06.2020]
- * @param {IReduxFormHolderEntity<TEntity extends IEntity>} holderFormEntity
- * @param {IPresetsTabEntity} tabEntity
- * @returns {boolean}
- */
-const isFormTabActive = <TEntity extends IEntity = IEntity>(holderFormEntity: IReduxFormHolderEntity<TEntity>,
-                                                            tabEntity: IPresetsTabEntity): boolean =>
-  TabUtils.isActive(Selectors.form(holderFormEntity), tabEntity);
-
-/**
  * @stable [11.05.2020]
  */
 export class FormUtils {
@@ -246,7 +245,7 @@ export class FormUtils {
   public static readonly isFieldChangeable = isFormFieldChangeable;                                 /* @stable [05.06.2020] */
   public static readonly isFieldReadOnly = isFormFieldReadOnly;                                     /* @stable [21.08.2020] */
   public static readonly isReady = isGenericFormEntityReady;                                        /* @stable [27.08.2020] */
-  public static readonly isTabActive = isFormTabActive;                                             /* @stable [15.06.2020] */
+  public static readonly isTabActive = isFormHolderEntityTabActive;                                 /* @stable [15.06.2020] */
   public static readonly isTouched = isFormHolderEntityTouched;                                     /* @stable [02.08.2020] */
   public static readonly isValid = isGenericFormEntityValid;                                        /* @stable [02.08.2020] */
 }

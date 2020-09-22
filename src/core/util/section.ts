@@ -90,13 +90,11 @@ const asFormOrListSection =
     NvlUtils.nvl(asFormSection(cfg), asListSection(cfg));
 
 /**
- * @stable [12.04.2020]
- * @param {ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>} cfg
- * @returns {string}
+ * @stable [22.09.2020]
+ * @param cfg
  */
-export const toTabPanelSection =
-  <TState = {}>(cfg: ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
-    asConfigSection(cfg.tabPanelSection, cfg);
+const asTabPanelSection = <TState = {}>(cfg: ITabPanelMiddlewareConfigEntity<TState> & IActionStateEntity<TState>): string =>
+  asConfigSection(cfg.tabPanelSection, cfg);
 
 /**
  * @stable [26.07.2020]
@@ -108,4 +106,5 @@ export class SectionUtils {
   public static readonly asFormOrListSection = asFormOrListSection;
   public static readonly asFormSection = asFormSection;
   public static readonly asListSection = asListSection;
+  public static readonly asTabPanelSection = asTabPanelSection;
 }
