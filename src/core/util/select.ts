@@ -89,48 +89,43 @@ const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue 
 const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(entity) ? UNDEF : entity.id;
 
 /**
- * @stable [29.02.2020]
- * @param {IFormWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [22.09.2020]
+ * @param wrapper
  */
-export const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue => R.isNil(wrapper) ? UNDEF : wrapper.form;
+const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue =>
+  R.isNil(wrapper) ? UNDEF : wrapper.form;
 
 /**
- * @stable [08.05.2020]
- * @param {ISecondaryFilterWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [22.09.2020]
+ * @param wrapper
  */
 const selectSecondaryFilter = <TValue>(wrapper: ISecondaryFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.secondaryFilter;
 
 /**
- * @stable [10.05.2020]
- * @param {IPrimaryFilterWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [22.09.2020]
+ * @param wrapper
  */
 const selectPrimaryFilter = <TValue>(wrapper: IPrimaryFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.primaryFilter;
 
 /**
- * @stable [27.03.2020]
- * @param {IListWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [22.09.2020]
+ * @param wrapper
  */
 const selectList = <TValue>(wrapper: IListWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.list;
 
 /**
- * @stable [12.06.2020]
- * @param {IErrorWrapper<TValue>} entity
- * @returns {TValue}
+ * @stable [22.09.2020]
+ * @param entity
  */
 const selectError = <TValue = AnyT>(entity: IErrorWrapper<TValue>): TValue =>
   R.isNil(entity) ? UNDEF : entity.error;
 
 /**
- * @stable [09.04.2020]
- * @param {IFilterWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [22.09.2020]
+ * @param wrapper
  */
 const selectFilter = <TValue = string>(wrapper: IFilterWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.filter;

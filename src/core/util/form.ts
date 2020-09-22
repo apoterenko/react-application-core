@@ -28,10 +28,7 @@ import {
 } from './wrapper';
 import { TypeUtils } from './type';
 import { TabUtils } from './tab';
-import {
-  selectForm,
-  Selectors,
-} from './select';
+import { Selectors } from './select';
 import { ObjectUtils } from './object';
 
 /**
@@ -176,7 +173,7 @@ export const isFormDirty = <TEntity = IEntity>(entity: IFormProps<TEntity>): boo
   ifNotNilThanValue(
     entity,
     () => (
-      entity.alwaysDirty || ifNotNilThanValue(selectForm(entity), (form) => WrapperUtils.isDirty(form), false)
+      entity.alwaysDirty || ifNotNilThanValue(Selectors.form(entity), (form) => WrapperUtils.isDirty(form), false)
     ),
     false
   );
