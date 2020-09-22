@@ -79,6 +79,7 @@ The library is designed to quickly start develop the business applications are b
 * [makeDestroyedContainerEffectsProxy (09.09.2020)](src/core/store/effects/destroyed-container-effects.proxy.ts)
 * [makeFilteredListEffectsProxy (09.09.2020)](src/core/store/effects/filtered-list-effects.proxy.ts)
 * [makeFilterFormDialogEffectsProxy (09.09.2020)](src/core/store/effects/filter-form-dialog-effects.proxy.ts)
+* [makeLoadedListOnTabActivateEffectsProxy (22.09.2020)](src/core/store/effects/loaded-list-on-tab-activate-effects.proxy.ts)
 * [makeSucceedEditedListEffectsProxy (10.09.2020)](src/core/store/effects/succeed-edited-list-effects.proxy.ts)
 
 #### @reducer
