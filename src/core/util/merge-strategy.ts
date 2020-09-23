@@ -2,7 +2,7 @@ import * as R from 'ramda';
 
 import {
   EntityMergeStrategiesEnum,
-  IModifyEntityPayloadEntity,
+  IModifyEntity,
 } from '../definition';
 import { IEntity } from '../definitions.interface';
 import { CloneUtils } from './clone';
@@ -19,12 +19,12 @@ export const getActualMergeStrategy = (mergeStrategy: EntityMergeStrategiesEnum)
 
 /**
  * @stable [19.10.2019]
- * @param {IModifyEntityPayloadEntity<TEntity extends IEntity>} payload
+ * @param {IModifyEntity<TEntity extends IEntity>} payload
  * @param {TEntity} entity
  * @returns {TEntity}
  */
 export const buildEntityByMergeStrategy =
-  <TEntity extends IEntity = IEntity>(payload: IModifyEntityPayloadEntity<TEntity>, entity?: TEntity): TEntity => (
+  <TEntity extends IEntity = IEntity>(payload: IModifyEntity<TEntity>, entity?: TEntity): TEntity => (
     getActualMergeStrategy(payload.mergeStrategy) === EntityMergeStrategiesEnum.OVERRIDE
       ? CloneUtils.shallowClone(payload.changes)
       : Object.assign({}, entity || {}, payload.changes)

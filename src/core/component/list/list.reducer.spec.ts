@@ -23,10 +23,8 @@ describe('list.reducer', () => {
           totalCount: 3,
         }),
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 2,
-            changes: {field1: 'value20'},
-          },
+          id: 2,
+          changes: {field1: 'value20'},
         })
       );
 
@@ -53,11 +51,9 @@ describe('list.reducer', () => {
           totalCount: 3,
         }),
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 2,
-            changes: {id: 2, field1: 'value20'},
-            mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,
-          },
+          id: 2,
+          changes: {id: 2, field1: 'value20'},
+          mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,
         })
       );
 
@@ -85,10 +81,8 @@ describe('list.reducer', () => {
           totalCount: 3,
         }),
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 2,
-            changes: {id: 2, field1: 'value20'},
-          },
+          id: 2,
+          changes: {id: 2, field1: 'value20'},
         })
       );
 
@@ -117,11 +111,9 @@ describe('list.reducer', () => {
           totalCount: 3,
         }),
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 2,
-            changes: {id: 2, field1: 'value20'},
-            mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,
-          },
+          id: 2,
+          changes: {id: 2, field1: 'value20'},
+          mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,
         })
       );
 
@@ -148,10 +140,8 @@ describe('list.reducer', () => {
           totalCount: 2,
         }),
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 3,
-            changes: {id: 3, field1: 'value3', field2: 'value5'},
-          },
+          id: 3,
+          changes: {id: 3, field1: 'value3', field2: 'value5'},
         })
       );
 
@@ -178,11 +168,9 @@ describe('list.reducer', () => {
           totalCount: 2,
         }),
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 3,
-            changes: {id: 3, field1: 'value3', field2: 'value5'},
-            mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,  // Will ignored because "Insert"
-          },
+          id: 3,
+          changes: {id: 3, field1: 'value3', field2: 'value5'},
+          mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,  // Will ignored because "Insert"
         })
       );
 
@@ -203,10 +191,8 @@ describe('list.reducer', () => {
       const reducedList = listReducer(
         INITIAL_REDUX_LIST_ENTITY,
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 1,
-            changes: {id: 1, field1: 'value1', field2: 'value2'},
-          },
+          id: 1,
+          changes: {id: 1, field1: 'value1', field2: 'value2'},
         })
       );
 
@@ -225,11 +211,9 @@ describe('list.reducer', () => {
       const reducedList = listReducer(
         INITIAL_REDUX_LIST_ENTITY,
         ListActionBuilder.buildMergePlainAction(TEST_SECTION, {
-          payload: {
-            id: 1,
-            changes: {id: 1, field1: 'value1', field2: 'value2'},
-            mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,  // Will ignored because "Insert"
-          },
+          id: 1,
+          changes: {id: 1, field1: 'value1', field2: 'value2'},
+          mergeStrategy: EntityMergeStrategiesEnum.OVERRIDE,  // Will ignored because "Insert"
         })
       );
 

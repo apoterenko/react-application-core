@@ -20,7 +20,7 @@ import {
 import { ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
 import {
   IApiEntity,
-  IFluxModifyEntityPayloadEntity,
+  IFluxModifyEntity,
   ISucceedEditedListMiddlewareConfigEntity,
   ISucceedFormMiddlewareConfigEntity,
 } from '../../definition';
@@ -78,7 +78,7 @@ export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
     );
 
   const changes = config.makeRelatedChanges(relatedEntities);
-  const payloadWrapper: IFluxModifyEntityPayloadEntity = {payload: {id: parentEntity.id, changes}};
+  const payloadWrapper: IFluxModifyEntity = {payload: {id: parentEntity.id, changes}};
 
   return [
     ...ConditionUtils.ifNotNilThanValue(
@@ -115,10 +115,7 @@ const makeSucceedEditedListMiddleware =
     const actualListSection = SectionUtils.asListSection(cfg);
 
     return [
-      ListActionBuilder.buildMergeAction(
-        actualListSection,
-        DiServices.modifyEntityPayloadFactory().makeInstance(action)
-      ),
+      ListActionBuilder.buildMergeAction(actualListSection, DiServices.modifyEntityFactory().makeInstance(action)),
       ...(
         WrapperUtils.isNavigateBackNeeded(cfg)
           ? [

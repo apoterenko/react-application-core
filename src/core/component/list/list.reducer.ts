@@ -25,7 +25,7 @@ import { ListActionBuilder } from './list-action.builder';
 import {
   EntityMergeStrategiesEnum,
   FIRST_PAGE,
-  IModifyEntityPayloadEntity,
+  IModifyEntity,
   INITIAL_REDUX_LIST_ENTITY,
   IReduxListEntity,
   IReduxSortDirectionsEntity,
@@ -188,7 +188,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildInsertActionType(section):
-      modifyDataPayload = nvl(modifyDataPayload, Selectors.payloadFromAction<IModifyEntityPayloadEntity>(action));
+      modifyDataPayload = nvl(modifyDataPayload, Selectors.payloadFromAction<IModifyEntity>(action));
       const doesEntityExist = ArrayUtils.doesArrayContainExistedEntity(state.data, modifyDataPayload);
       const mergedData = ArrayUtils.mergeArrayItem<IEntityIdTWrapper>(
         state.data,

@@ -33,6 +33,7 @@
   $rac-field-right: unset,                                                          /* @stable [15.02.2020] */
   $rac-field-top: unset,                                                            /* @stable [15.02.2020] */
   $rac-field-width: unset,                                                          /* @stable [18.06.2020] */
+  $rac-field-word-break: unset,                                                     /* @stable [23.09.2020] */
   $rac-self-field-align-items: unset,                                               /* @stable [24.10.2019] */
   $rac-self-field-background: unset,                                                /* @stable [21.10.2019] */
   $rac-self-field-border-bottom: unset,                                             /* @stable [18.06.2020] */
@@ -146,7 +147,8 @@
       $rac-styles-position: $rac-field-position,
       $rac-styles-right: $rac-field-right,
       $rac-styles-top: $rac-field-top,
-      $rac-styles-width: $rac-field-width
+      $rac-styles-width: $rac-field-width,
+      $rac-styles-word-break: $rac-field-word-break
     );
 
     > .rac-field__self {

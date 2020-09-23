@@ -1,4 +1,4 @@
-import '../api/entity/modify-entity-payload-factory.module';
+import '../api/entity/modify-entity-factory.module';
 import '../async-lib/async-lib.module';
 import '../bootstrap/bootstrap.module';
 import '../component/dom-accessor/dom-accessor.module';

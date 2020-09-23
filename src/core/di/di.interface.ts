@@ -26,7 +26,7 @@ export const DI_TYPES = Object.freeze({
   LogManager: Symbol('LogManager'),
   LogManagerEventPayloadFactory: Symbol('LogManagerEventPayloadFactory'),
   Menu: Symbol('Menu'),
-  ModifyEntityPayloadFactory: Symbol('ModifyEntityPayloadFactory'),
+  ModifyEntityFactory: Symbol('ModifyEntityFactory'),
   MultiEntityDatabaseStorage: Symbol('MultiEntityDatabaseStorage'),
   NotificationStoreProxyFactory: Symbol('NotificationStoreProxyFactory'),
   NotVersionedPersistentStorage: Symbol('NotVersionedPersistentStorage'),

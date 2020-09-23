@@ -12,33 +12,23 @@ import {
   DynamicRoutesT,
   DynamicSectionsMapT,
   FormStoreProxyFactoryT,
-  GenericPluginFactoryT,
   GenericPluginsMapT,
   IAsyncLibManager,
   IAuth,
   IBootstrapper,
   IConnectorContainerFactory,
-  IConnectorEntity,
   IDomAccessor,
   IEnvironment,
   IEventEmitter,
   IEventManager,
   IFieldConverter,
-  IFormStoreProxy,
-  IGenericComponentCtor,
-  ILogManager,
-  IModifyEntityPayloadFactory,
+  IModifyEntityFactory,
   IPermissionsManager,
   IPhoneConverter,
   IPlaceApi,
-  IRoutesEntity,
-  IStateSerializer,
   IStorage,
-  IStoreEntity,
   ITransport,
   IUiFactory,
-  IUniversalComponentProps,
-  IUniversalContainerProps,
   IUserActivityManager,
   IViewerLocator,
   ListStoreProxyFactoryT,
@@ -135,12 +125,6 @@ export const getTranslator = (): TranslatorT => staticInjector(DI_TYPES.Translat
 export const getSettings = (): ISettingsEntity => staticInjector(DI_TYPES.Settings);
 
 /**
- * @stable [06.02.2020]
- * @returns {IRoutesEntity}
- */
-export const getRoutes = (): IRoutesEntity => staticInjector(DI_TYPES.Routes);
-
-/**
  * @stable [29.07.2019]
  * @returns {IStorage}
  */
@@ -178,12 +162,6 @@ export const getStorage = (): IStorage => staticInjector(DI_TYPES.Storage);
 
 /**
  * @stable [24.09.2019]
- * @returns {ILogManager}
- */
-export const getLogManager = (): ILogManager => staticInjector(DI_TYPES.LogManager);
-
-/**
- * @stable [24.09.2019]
  * @returns {IEventManager}
  */
 export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.EventManager);
@@ -207,15 +185,9 @@ export const getPlaceApi = (): IPlaceApi => staticInjector(DI_TYPES.PlacesApi);
 export const getFieldConverter = (): IFieldConverter => staticInjector(DI_TYPES.FieldConverter);
 
 /**
- * @stable [24.09.2019]
- * @returns {IEventManager}
- */
-export const getStateSerializer = (): IStateSerializer => staticInjector(DI_TYPES.StateSerializer);
-
-/**
  * @stable [10.09.2020]
  */
-const getModifyEntityPayloadFactory = (): IModifyEntityPayloadFactory => staticInjector(DI_TYPES.ModifyEntityPayloadFactory);
+const getModifyEntityFactory = (): IModifyEntityFactory => staticInjector(DI_TYPES.ModifyEntityFactory);
 
 /**
  * @stable [27.11.2019]
@@ -306,7 +278,7 @@ export class DiServices {
   public static readonly dynamicRoutes = getDynamicRoutes;
   public static readonly dynamicSections = getDynamicSections;
   public static readonly environment = getEnvironment;
-  public static readonly modifyEntityPayloadFactory = getModifyEntityPayloadFactory;
+  public static readonly modifyEntityFactory = getModifyEntityFactory;
   public static readonly numberConverter = getNumberConverter;
   public static readonly reactBootstrapper = getReactBootstrapper;
   public static readonly settings = getSettings;

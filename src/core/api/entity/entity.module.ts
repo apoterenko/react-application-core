@@ -1,1 +1,1 @@
-import './modify-entity-payload-factory.module';
+import './modify-entity-factory.module';
