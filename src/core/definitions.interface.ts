@@ -660,14 +660,6 @@ export interface IToTimeWrapper<TToTime = string> {
   toTime?: TToTime;
 }
 
-export interface IFromDateFromTimeEntity extends IFromDateWrapper,
-                                                 IFromTimeWrapper {
-}
-
-export interface IToDateToTimeEntity extends IToDateWrapper,
-                                             IToTimeWrapper {
-}
-
 export interface IFromDateToDateEntity extends IFromDateWrapper,
                                                IToDateWrapper {
 }

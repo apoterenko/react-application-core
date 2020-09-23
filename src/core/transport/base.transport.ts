@@ -42,7 +42,6 @@ import {
 } from '../definition';
 import {
   DI_TYPES,
-  getDateConverter,
   getMultiEntityDatabaseStorage,
   lazyInject,
 } from '../di';
@@ -53,6 +52,7 @@ import { IDateConverter } from '../converter';
 
 @injectable()
 export class BaseTransport {
+  @lazyInject(DI_TYPES.DateConverter) protected readonly dc: IDateConverter;
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.FieldConverter) protected readonly fieldConverter: IFieldConverter;
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
@@ -207,15 +207,6 @@ export class BaseTransport {
       fieldsValuesResolvers,
       (fileName, file) => this.multiEntityDatabaseStorage.set(fileName, file)
     );
-  }
-
-  /**
-   * @lazy
-   * @stable [03.04.2020]
-   * @returns {IDateConverter}
-   */
-  protected get dc(): IDateConverter {
-    return getDateConverter();
   }
 
   /**

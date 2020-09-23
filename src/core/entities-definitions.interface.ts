@@ -1,7 +1,6 @@
 import {
   IClearValueWrapper,
   IDateWrapper,
-  IFromDateFromTimeEntity,
   IGetValueWrapper,
   IIdWrapper,
   IKeyValue,
@@ -9,7 +8,6 @@ import {
   IOnChangeManuallyWrapper,
   ISetFocusWrapper,
   ITimeWrapper,
-  IToDateToTimeEntity,
   IValueWrapper,
 } from './definitions.interface';
 import { IUniversalFieldProps } from './configurations-definitions.interface';
@@ -41,14 +39,6 @@ export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversal
  */
 export interface INamedNumericEntity extends IIdWrapper,
                                              INameWrapper {
-}
-
-/**
- * TODO
- * @deprecated
- */
-export interface IFromDateFromTimeToDateToTimeEntity extends IFromDateFromTimeEntity,
-                                                             IToDateToTimeEntity {
 }
 
 /**

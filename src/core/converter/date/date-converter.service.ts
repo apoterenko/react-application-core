@@ -63,6 +63,13 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [23.09.2020]
+   */
+  public get uiDateFormat(): string {
+    return this.dateTimeSettings.uiDateFormat;
+  }
+
+  /**
    * @stable [10.08.2020]
    */
   public get weekdays(): string[] {
@@ -972,40 +979,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [25.08.2018]
-   * @param {number} monthsAgo
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} inputFormat
-   * @returns {Date}
-   */
-  public getLastDayOfMonth(monthsAgo = 1,
-                           date: DateTimeLikeTypeT = this.currentDate,
-                           inputFormat = this.dateTimeSettings.uiDateFormat): Date {
-    const momentDate = this.toMomentDate(date, inputFormat);
-    return orNull(
-      momentDate.isValid(),
-      () => momentDate.subtract(monthsAgo, 'months').endOf('month').toDate()
-    );
-  }
-
-  /**
-   * @stable [25.08.2018]
-   * @param {number} monthsAgo
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} inputFormat
-   * @returns {Date}
-   */
-  public getFirstDayOfMonth(monthsAgo = 0,
-                            date: DateTimeLikeTypeT = this.currentDate,
-                            inputFormat = this.dateTimeSettings.uiDateFormat): Date {
-    const momentDate = this.toMomentDate(date, inputFormat);
-    return orNull(
-      momentDate.isValid(),
-      () => momentDate.subtract(monthsAgo, 'months').startOf('month').toDate()
-    );
-  }
-
-  /**
    * @stable [22.01.2020]
    * @param {IPersonAgeConfigEntity} cfg
    * @returns {number}
@@ -1359,10 +1332,6 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   private get timeFormat(): string {
     return this.dateTimeSettings.timeFormat;
-  }
-
-  private get uiDateFormat(): string {
-    return this.dateTimeSettings.uiDateFormat;
   }
 
   /**

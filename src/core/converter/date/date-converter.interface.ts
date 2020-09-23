@@ -15,6 +15,7 @@ import {
 export interface IDateConverter<TDate = Date> {
   appOnlineLifeTimeInHours: number;
   appOnlineLifeTimeInSeconds: number;
+  uiDateFormat: string;
   weekdays: string[];
   addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
@@ -126,12 +127,6 @@ export interface IDateConverter<TDate = Date> {
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
   tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
-  getFirstDayOfMonth(monthsAgo?: number,
-                     date?: DateTimeLikeTypeT,
-                     inputFormat?: string): Date;
-  getLastDayOfMonth(monthsAgo?: number,
-                    date?: DateTimeLikeTypeT,
-                    inputFormat?: string): Date;
   get30DaysAgo(): Date;
   getXDaysAgo(days: number): Date;
   getLocalizedWeekday(index: number): string;
