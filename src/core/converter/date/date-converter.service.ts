@@ -1326,6 +1326,9 @@ export class DateConverter implements IDateConverter<MomentT> {
     return this.dateTimeSettings.dateTimeFormat;
   }
 
+  /**
+   * @stable [24.09.2020]
+   */
   private get dateFormat(): string {
     return this.dateTimeSettings.dateFormat;
   }

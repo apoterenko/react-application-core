@@ -26,7 +26,7 @@ export function buildRoute(path: string, params: IKeyValue): string {
  */
 export const buildEntityRoute = <TEntity extends IEntity>(path: string,
                                                           entity?: TEntity): string =>
-  buildRoute(path, {id: entity ? entity.id : DefaultEntities.NEW_OPTION});
+  buildRoute(path, {id: entity ? entity.id : DefaultEntities.NEW});
 
 /**
  * @stable [10.09.2020]

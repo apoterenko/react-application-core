@@ -8,6 +8,7 @@ import {
 import {
   ClsUtils,
   ConditionUtils,
+  NvlUtils,
   PropsUtils,
 } from '../../util';
 
@@ -22,8 +23,7 @@ export class SubHeaderLink extends GenericComponent<ISubHeaderLinkProps> {
   };
 
   /**
-   * @stable [22.05.2020]
-   * @returns {JSX.Element}
+   * @stable [24.09.2020]
    */
   public render(): JSX.Element {
     const {
@@ -32,10 +32,10 @@ export class SubHeaderLink extends GenericComponent<ISubHeaderLinkProps> {
       onClick,
       separator,
       text,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     const isActiveLink = !last && !first;
-    const contentElement = text || this.props.children;
+    const contentElement = NvlUtils.nvl(text, this.originalChildren);
 
     return ConditionUtils.ifNotEmptyThanValue(
       contentElement,
@@ -62,8 +62,7 @@ export class SubHeaderLink extends GenericComponent<ISubHeaderLinkProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {ISubHeaderLinkProps}
+   * @stable [24.09.2020]
    */
   protected get componentsSettingsProps(): ISubHeaderLinkProps {
     return this.componentsSettings.subHeaderLink;

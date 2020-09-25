@@ -228,3 +228,6 @@ $rac-menu-inline-options-cls: rac-menu__inline-options;
 //
 $rac-menu-anchored-height-restricted-cls: '#{$rac-anchored-dialog-cls}.#{$rac-menu-height-restricted-cls}';
 $rac-menu-filter-cls: 'rac-menu__filter.#{$rac-text-field-cls}';
+
+// @stable [24.09.2020]
+$rac-title-cls: rac-title;

@@ -39,7 +39,7 @@
   $rac-title-right-content-padding: unset,                                                    /* @stable [09.02.2020] */
   $rac-title-white-space: unset                                                               /* @stable [09.02.2020] */
 ) {
-  #{rac-cls(rac-title, $rac-title-custom)} {
+  #{rac-cls($rac-title-cls, $rac-title-custom)} {
     @include rac-styles (
       $rac-styles-align-items: $rac-title-align-items,
       $rac-styles-border-bottom: $rac-title-border-bottom,

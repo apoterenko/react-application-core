@@ -34,6 +34,7 @@ export class MiddlewareFactories {
   public static readonly filterFormDialogClearMiddleware = FilterFormDialogMiddlewareFactories.filterFormDialogClearMiddleware;
   public static readonly filterFormDialogResetMiddleware = FilterFormDialogMiddlewareFactories.filterFormDialogResetMiddleware;
   public static readonly lazyLoadedEntityMiddleware = makeLazyLoadedEntityMiddleware;
+  public static readonly loadedListMiddleware = LoadedListMiddlewareFactories.loadedListMiddleware;
   public static readonly loadedListOnNavigateToFirstPageMiddleware = makeLoadedListOnNavigateToFirstPageMiddleware;
   public static readonly loadedListOnNavigateToLastPageMiddleware = makeLoadedListOnNavigateToLastPageMiddleware;
   public static readonly loadedListOnNavigateToNextPageMiddleware = makeLoadedListOnNavigateToNextPageMiddleware;
