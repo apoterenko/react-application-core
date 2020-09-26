@@ -55,6 +55,8 @@ export enum IconsEnum {
   TIMES_CIRCLE = 'times-circle',                                          /* https://fontawesome.com/ */
   TRASH_ALT_REGULAR = 'trash-alt-regular',                                /* https://fontawesome.com/ */
   UNDO = 'undo',                                                          /* https://fontawesome.com/ */
+  USER = 'user',                                                          /* https://fontawesome.com/ */
+  USER_REGULAR = 'user-regular',                                          /* https://fontawesome.com/ */
   VIDEO = 'video',                                                        /* https://fontawesome.com/ */
 }
 

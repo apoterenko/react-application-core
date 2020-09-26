@@ -73,6 +73,7 @@ import {
   faTruckMoving,
   faUndo,
   faUnlockAlt,
+  faUser,
   faUserEdit,
   faUsers,
   faUserShield,
@@ -102,7 +103,7 @@ import {
   faSave,
   faStopCircle,
   faTrashAlt as faTrashAltRegular,
-  faUser,
+  faUser as faUserRegular,
   faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
 
@@ -154,13 +155,6 @@ export class UiIconFactory implements IUiIconFactory {
     'sale': (
       <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor' d='M5.5 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 3a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm13 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 3a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm.272-19.895a1.501 1.501 0 0 1 2.121 0 1.501 1.501 0 0 1 0 2.121L5.226 20.893a1.501 1.501 0 0 1-2.12 0 1.501 1.501 0 0 1 0-2.12L18.771 3.104z'
-        />
-      </svg>
-    ),
-    'user': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M19.5 7.5C19.5 3.36 16.14 0 12 0 7.86 0 4.5 3.36 4.5 7.5a7.483 7.483 0 0 0 2.625 5.7A10.49 10.49 0 0 0 1.5 22.5a1.5 1.5 0 0 0 3 0c0-4.14 3.36-7.5 7.5-7.5 4.14 0 7.5 3.36 7.5 7.5a1.5 1.5 0 0 0 3 0c0-4.04-2.28-7.545-5.625-9.3A7.483 7.483 0 0 0 19.5 7.5zM12 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z'
         />
       </svg>
     ),
@@ -330,6 +324,8 @@ export class UiIconFactory implements IUiIconFactory {
     [IconsEnum.TIMES_CIRCLE]: faTimesCircle,
     [IconsEnum.TRASH_ALT_REGULAR]: faTrashAltRegular,
     [IconsEnum.UNDO]: faUndo,
+    [IconsEnum.USER]: faUser,
+    [IconsEnum.USER_REGULAR]: faUserRegular,
     [IconsEnum.VIDEO]: faVideo,
     add: faPlus,
     address_card: faAddressCard,
@@ -375,7 +371,6 @@ export class UiIconFactory implements IUiIconFactory {
     truck: faTruck,
     truck_moving: faTruckMoving,
     unlock_alt: faUnlockAlt,
-    user: faUser,
     user_circle: faUserCircle,
     user_edit: faUserEdit,
     user_shield: faUserShield,
