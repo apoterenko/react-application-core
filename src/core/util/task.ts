@@ -14,9 +14,9 @@ export class DelayedTask
    * @param period
    * @param repeat
    */
-  constructor(private task: (context?: unknown) => void,
-              private period = 0,
-              private repeat = false) {
+  constructor(private readonly task: (context?: unknown) => void,
+              private readonly period = 0,
+              private readonly repeat = false) {
   }
 
   /**
