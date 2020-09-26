@@ -1,69 +1,78 @@
-import * as R from 'ramda';
-
-import {
-  AnyT,
-  IProgressWrapper,
-} from '../definitions.interface';
-import { getEnvironment } from '../di/di.services';
+import { DiServices } from '../di/di.services';
+import { IProgressWrapper } from '../definitions.interface';
+import { TypeUtils } from './type';
 
 export class DelayedTask
   implements IProgressWrapper {
 
   private taskId: number;
-  private context: AnyT;
+  private context: unknown;
 
   /**
-   * @stable [13.10.2019]
-   * @param {(context?: AnyT) => void} task
-   * @param {number} period
-   * @param {boolean} repeat
+   * @stable [26.09.2020]
+   * @param task
+   * @param period
+   * @param repeat
    */
-  constructor(private task: (context?: AnyT) => void,
+  constructor(private task: (context?: unknown) => void,
               private period = 0,
               private repeat = false) {
   }
 
   /**
-   * @stable [13.10.2019]
-   * @returns {boolean}
+   * @stable [26.09.2020]
    */
   public get progress(): boolean {
-    return !R.isNil(this.taskId);
+    return TypeUtils.isNumber(this.taskId);
   }
 
   /**
-   * @stable [29.07.2018]
-   * @param {AnyT} context
+   * @stable [26.09.2020]
+   * @param context
    */
-  public start<TContext = AnyT>(context?: TContext): void {
+  public start<TContext = unknown>(context?: TContext): void {
     this.context = context;
     this.launchTask();
   }
 
   /**
-   * @stable [29.07.2018]
+   * @stable [26.09.2020]
+   * @param context
+   */
+  public startImmediately<TContext = unknown>(context?: TContext): void {
+    this.context = context;
+    this.launchTask(true);
+  }
+
+  /**
+   * @stable [26.09.2020]
    */
   public stop(): void {
-    if (R.isNil(this.taskId)) {
+    if (!TypeUtils.isNumber(this.taskId)) {
       return;
     }
+
     clearTimeout(this.taskId);
     this.taskId = null;
   }
 
   /**
-   * @stable [29.07.2018]
+   * @stable [26.09.2020]
    */
-  private launchTask(): void {
+  private launchTask(startImmediately = false): void {
     this.stop();
-    this.taskId = getEnvironment().window.setTimeout(() => this.onTaskDone(), this.period);
+    this.taskId = DiServices.environment().window.setTimeout(() => this.onTaskDone(), this.period);
+
+    if (startImmediately) {
+      this.callTask();
+    }
   }
 
   /**
-   * @stable [29.07.2018]
+   * @stable [26.09.2020]
    */
   private onTaskDone(): void {
-    this.task.call(null, this.context);
+    this.callTask();
 
     if (this.repeat) {
       this.launchTask();
@@ -71,5 +80,12 @@ export class DelayedTask
       this.taskId = null;
       this.context = null;
     }
+  }
+
+  /**
+   * @stable [26.09.2020]
+   */
+  private callTask(): void {
+    this.task.call(null, this.context);
   }
 }

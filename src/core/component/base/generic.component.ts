@@ -28,7 +28,6 @@ import {
   getEnvironment,
   getEventEmitter,
   getEventManager,
-  getFieldConverter,
   getNumberConverter,
   getPhoneConverter,
   getPlaceApi,
@@ -161,11 +160,10 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
   }
 
   /**
-   * @stable [21.04.2020]
-   * @returns {IFieldConverter}
+   * @stable [27.09.2020]
    */
   protected get fieldConverter(): IFieldConverter {
-    return this.$fieldConverter = this.$fieldConverter || getFieldConverter();
+    return this.$fieldConverter = this.$fieldConverter || DiServices.fieldConverter();
   }
 
   /**

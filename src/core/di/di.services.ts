@@ -179,10 +179,9 @@ export const getAsyncLibManager = (): IAsyncLibManager => staticInjector(DI_TYPE
 export const getPlaceApi = (): IPlaceApi => staticInjector(DI_TYPES.PlacesApi);
 
 /**
- * @stable [09.01.2020]
- * @returns {IFieldConverter}
+ * @stable [27.09.2020]
  */
-export const getFieldConverter = (): IFieldConverter => staticInjector(DI_TYPES.FieldConverter);
+const getFieldConverter = (): IFieldConverter => staticInjector(DI_TYPES.FieldConverter);
 
 /**
  * @stable [10.09.2020]
@@ -278,6 +277,7 @@ export class DiServices {
   public static readonly dynamicRoutes = getDynamicRoutes;
   public static readonly dynamicSections = getDynamicSections;
   public static readonly environment = getEnvironment;
+  public static readonly fieldConverter = getFieldConverter;
   public static readonly modifyEntityFactory = getModifyEntityFactory;
   public static readonly numberConverter = getNumberConverter;
   public static readonly reactBootstrapper = getReactBootstrapper;
