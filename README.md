@@ -112,6 +112,7 @@ The library is designed to quickly start develop the business applications are b
 
 * [MultiFieldUtils](src/core/util/multi-field.ts)
 * [StorageUtils](src/core/util/storage.ts)
+* [ValidatorUtils](src/core/util/validator.ts)
 
 # Theme customization (styling)
 
