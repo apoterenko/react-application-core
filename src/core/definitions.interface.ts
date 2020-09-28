@@ -221,6 +221,7 @@ export interface IGroupExpandedWrapper { groupExpanded?: boolean; }
 export interface IGroupNameWrapper { groupName?: string; }
 export interface IGroupValueWrapper<TValue> { groupValue?: TValue; }
 export interface IGroupWrapper { group?: boolean; }
+export interface IHasPreviousWrapper { hasPrevious?: boolean; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }
 export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }

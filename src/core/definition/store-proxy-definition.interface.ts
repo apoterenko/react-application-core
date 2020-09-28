@@ -6,15 +6,16 @@ import {
   IEntity,
   IFirstWrapper,
   IGoBackWrapper,
+  IHasPreviousWrapper,
   IItemWrapper,
   ILastWrapper,
   IMiddleWrapper,
 } from '../definitions.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
+import { IFluxPayloadEntity } from './entity-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
 import { IReduxStackItemEntity } from './stack-definition.interface';
-import { IFluxPayloadEntity } from './entity-definition.interface';
 
 /**
  * @proxy
@@ -86,6 +87,7 @@ export interface INotificationStoreProxy {
  */
 export interface IRouterStoreProxyFactoryConfigEntity
   extends IFirstWrapper,
+    IHasPreviousWrapper,
     IItemWrapper<IReduxStackItemEntity>,
     ILastWrapper,
     IMiddleWrapper {

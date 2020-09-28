@@ -28,6 +28,7 @@ export class SubHeaderLink extends GenericComponent<ISubHeaderLinkProps> {
   public render(): JSX.Element {
     const {
       first,
+      hasPrevious,
       last,
       onClick,
       separator,
@@ -49,7 +50,7 @@ export class SubHeaderLink extends GenericComponent<ISubHeaderLinkProps> {
             )
           }
         >
-          {!first && separator}
+          {hasPrevious && separator}
           <span
             className={SubHeaderLinkClasses.SUB_HEADER_LINK_CONTENT}
             {...isActiveLink && PropsUtils.buildClickHandlerProps(onClick, true, false)}

@@ -13,6 +13,7 @@ import {
 } from '../../../../definition';
 import { RouterActionBuilder } from '../../../../action';
 import {
+  ConditionUtils,
   FilterUtils,
   PropsUtils,
   Selectors,
@@ -77,6 +78,7 @@ export class RouterStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEnti
       ...(Selectors.stackItemEntities(this.props) || [])
     ];
     const stepsCount = steps.length;
+    let hasPrevious = false;
 
     return FilterUtils.notNilValuesArrayFilter(
       ...steps.map((item, index) => {
@@ -86,22 +88,26 @@ export class RouterStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEnti
 
         const stepElement = factory({
           first: isFirst,
+          hasPrevious,
           item,
           last: isLast,
           middle: isMiddle,
         });
+        hasPrevious = !R.isNil(stepElement);
 
-        if (R.isNil(stepElement)) {
-          return null;
-        }
-        return React.cloneElement(stepElement, {
-          key: `navigation-step-key-${index}`,
-          ...(
-            isLast
-              ? {}
-              : PropsUtils.buildClickHandlerProps(() => this.goBack(stepsCount - steps.indexOf(item) - 1), true, false)
-          ),
-        });
+        return ConditionUtils.ifNotNilThanValue(
+          stepElement,
+          () => (
+            React.cloneElement(stepElement, {
+              key: `navigation-step-key-${index}`,
+              ...(
+                isLast
+                  ? {}
+                  : PropsUtils.buildClickHandlerProps(() => this.goBack(stepsCount - steps.indexOf(item) - 1), true, false)
+              ),
+            })
+          )
+        );
       })
     );
   }
