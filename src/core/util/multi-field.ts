@@ -14,7 +14,6 @@ import {
   TypeUtils,
 } from './type';
 import {
-  AnyT,
   EntityIdT,
   IEntity,
   UNDEF,
@@ -142,7 +141,7 @@ const multiFieldValueAsEditEntities =
  */
 const asMultiItemEntity =
   <TEntity extends IEntity = IEntity>(name: string,
-                                      value: AnyT,
+                                      value: unknown,
                                       rawData: TEntity,
                                       newEntity?: boolean): IMultiItemEntity =>
     FilterUtils.defValuesFilter<IMultiItemEntity, IMultiItemEntity>({id: rawData.id, value, name, rawData, newEntity});

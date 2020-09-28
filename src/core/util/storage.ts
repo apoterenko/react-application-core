@@ -35,7 +35,7 @@ const entitiesAsStorageTasks = <TEntity>(
  * @stable [04.09.2020]
  * @param result
  */
-export const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string =>
+const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string =>
   ConditionUtils.ifNotNilThanValue(
     result,
     () => (
