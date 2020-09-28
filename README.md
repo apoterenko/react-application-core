@@ -110,9 +110,9 @@ The library is designed to quickly start develop the business applications are b
 
 # Utils
 
-* [MultiFieldUtils](src/core/util/multi-field.ts)
-* [StorageUtils](src/core/util/storage.ts)
-* [ValidatorUtils](src/core/util/validator.ts)
+* [MultiFieldUtils (29.08.2020)](src/core/util/multi-field.ts)
+* [StorageUtils (04.09.2020)](src/core/util/storage.ts)
+* [ValidatorUtils (08.09.2020)](src/core/util/validator.ts)
 
 # Theme customization (styling)
 
