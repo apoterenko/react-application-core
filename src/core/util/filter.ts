@@ -121,19 +121,30 @@ const NOT_OBJECT_VALUE_PREDICATE = (value: unknown): boolean => !OBJECT_VALUE_PR
 const NOT_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_OBJECT_VALUE_PREDICATE(value);
 
 /**
- * @stable [18.05.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [28.09.2020]
+ * @param value
  */
-const NOT_NIL_VALUE_PREDICATE = (value: AnyT) => !R.isNil(value);
+const NOT_NIL_VALUE_PREDICATE = (value: unknown) => !R.isNil(value);
 
 /**
- * @stable [03.10.2019]
- * @param {string} key
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [28.09.2020]
+ * @param value
  */
-export const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => NOT_NIL_VALUE_PREDICATE(value);
+const NIL_VALUE_PREDICATE = (value: unknown) => R.isNil(value);
+
+/**
+ * @stable [28.09.2020]
+ * @param key
+ * @param value
+ */
+const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_NIL_VALUE_PREDICATE(value);
+
+/**
+ * @stable [28.09.2020]
+ * @param key
+ * @param value
+ */
+const NIL_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NIL_VALUE_PREDICATE(value);
 
 /**
  * @stable [20.05.2020]
@@ -279,6 +290,13 @@ export const notNilValuesFilter = <TSource extends IKeyValue, TResult extends IK
   filterByPredicate<TSource, TResult>(source, NOT_NIL_KEY_VALUE_PREDICATE);
 
 /**
+ * @stable [28.09.2020]
+ * @param source
+ */
+const nilValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, NIL_KEY_VALUE_PREDICATE);
+
+/**
  * @stable [08.05.2020]
  * @param {TSource} source
  * @returns {TResult}
@@ -354,6 +372,7 @@ export class FilterUtils {
   public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;                    /* @stable [15.05.2020] */
   public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;                            /* @stable [15.05.2020] */
   public static readonly filterByPredicate = filterByPredicate;                                                    /* @stable [29.08.2020] */
+  public static readonly nilValuesFilter = nilValuesFilter;                                                        /* @stable [28.09.2020] */
   public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                                        /* @stable [18.05.2020] */
   public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                                    /* @stable [17.05.2020] */
   public static readonly notEmptyValuesFilter = notEmptyValuesFilter;                                              /* @stable [24.07.2020] */

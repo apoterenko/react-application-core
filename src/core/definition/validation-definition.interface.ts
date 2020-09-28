@@ -8,6 +8,8 @@ import {
  * @stable [07.09.2020]
  */
 export enum ValidationRulesEnum {
+  NOT_EMPTY_MULTI_ENTITY,
+  NOT_EMPTY_OBJECT,
   NOT_EMPTY_STRING,
   POSITIVE_NUMBER,
   POSITIVE_NUMBER_LIKE,

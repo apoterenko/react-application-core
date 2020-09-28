@@ -6,14 +6,11 @@ import {
   IEntityIdTWrapper,
   IKeyValue,
 } from '../definitions.interface';
-import { ifNotNilThanValue } from './cond';
-import { TypeUtils } from './type';
-import {
-  FilterUtils,
-  SAME_ENTITY_PREDICATE,
-} from './filter';
-import { nvl } from './nvl';
 import { EntityUtils } from './entity';
+import { FilterUtils } from './filter';
+import { ifNotNilThanValue } from './cond';
+import { nvl } from './nvl';
+import { TypeUtils } from './type';
 
 /**
  * @stable [16.12.2018]
@@ -61,7 +58,7 @@ export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
  */
 const mergeArrayItem = <TValue = IKeyValue>(array: TValue[],
                                             item: TValue,
-                                            predicate = SAME_ENTITY_PREDICATE,
+                                            predicate = FilterUtils.SAME_ENTITY_PREDICATE,
                                             itemFactory?: ($item: TValue) => TValue): TValue[] => {
   const $array = array || [];
   const hasEntity = doesArrayContainExistedEntity($array, item, predicate);
@@ -93,7 +90,7 @@ const mergeArrayItem = <TValue = IKeyValue>(array: TValue[],
 const doesArrayContainEntity =
   <TEntity extends IEntity = IEntity>(data: TEntity[],
                                       entity: IEntityIdTWrapper,
-                                      predicate = SAME_ENTITY_PREDICATE): boolean =>
+                                      predicate = FilterUtils.SAME_ENTITY_PREDICATE): boolean =>
     R.any((item) => predicate(item, entity), data || []);
 
 /**
@@ -105,26 +102,13 @@ const doesArrayContainEntity =
 const doesArrayContainExistedEntity =
   <TEntity extends IEntity = IEntity>(data: TEntity[],
                                       entity: IEntityIdTWrapper,
-                                      predicate = SAME_ENTITY_PREDICATE): boolean =>
+                                      predicate = FilterUtils.SAME_ENTITY_PREDICATE): boolean =>
     !EntityUtils.isNewEntity(entity) && doesArrayContainEntity(data, entity, predicate);
-
-/**
- * @stable [31.08.2019]
- * @param {AnyT} values
- * @returns {boolean}
- */
-export const areArrayValuesNotNil = (...values: AnyT[]): boolean =>
-  ifNotNilThanValue(
-    values,
-    () => FilterUtils.notNilValuesArrayFilter(...values).length === values.length,
-    false
-  );
 
 /**
  * @stable [31.07.2020]
  */
 export class ArrayUtils {
-  public static readonly doesArrayContainEntity = doesArrayContainEntity;
   public static readonly doesArrayContainExistedEntity = doesArrayContainExistedEntity;
   public static readonly mergeArrayItem = mergeArrayItem;
 }

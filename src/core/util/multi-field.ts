@@ -258,7 +258,7 @@ const multiFieldValueAsMergedTrueEntities =
     return R.mergeAll(
       (multiFieldValueAsEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true}))
     );
-  }
+  };
 
 /**
  * @stable [29.08.2020]

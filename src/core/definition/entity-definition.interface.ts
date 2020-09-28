@@ -118,13 +118,6 @@ export interface IFluxPayloadEntityIdTWrapperEntity
 }
 
 /**
- * @stable [19.01.2020]
- */
-export interface IPayloadEntity<TEntity extends IEntity = IEntity>
-  extends IPayloadWrapper<TEntity> {
-}
-
-/**
  * @entity
  * @stable [19.01.2020]
  */
@@ -134,10 +127,18 @@ export interface ISelectedEntity<TEntity extends IEntity = IEntity>
 
 /**
  * @flux-entity
- * @stable [12.04.2020]
+ * @stable [27.09.2020]
  */
-export interface IFluxActiveValueEntity
+export interface IFluxNumberEntity
   extends IFluxPayloadEntity<number> {
+}
+
+/**
+ * @flux-entity
+ * @stable [27.09.2020]
+ */
+export interface IFluxStringEntity
+  extends IFluxPayloadEntity<string> {
 }
 
 /**

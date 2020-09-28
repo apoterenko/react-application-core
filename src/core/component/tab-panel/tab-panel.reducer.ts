@@ -1,7 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  IFluxActiveValueEntity,
+  IFluxNumberEntity,
   IGenericTabPanelEntity,
   INITIAL_REDUX_TAB_PANEL_ENTITY,
   IReduxTabPanelEntity,
@@ -18,7 +18,7 @@ import { Selectors } from '../../util';
 export const tabPanelReducer = (state: IReduxTabPanelEntity = INITIAL_REDUX_TAB_PANEL_ENTITY,
                                 action: IEffectsAction): IReduxTabPanelEntity => {
   const section = Selectors.sectionFromAction(action);
-  const activeValueFluxEntity: IFluxActiveValueEntity = action.data;
+  const activeValueFluxEntity: IFluxNumberEntity = action.data;
 
   switch (action.type) {
     case TabPanelActionBuilder.buildDestroyActionType(section):

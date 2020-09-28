@@ -79,6 +79,7 @@ export interface IDateConverter<TDate = Date> {
   getShortestWeekday(cfg: IDateTimeConfigEntity<TDate>): string;
   getShortestWeekdays(cfg?: IDateTimeConfigEntity<TDate>): string[];
   isDateBelongToDatesRange(cfg: IMinMaxDatesRangeConfigEntity): boolean;
+  isDateValid(cfg: IDateTimeConfigEntity<TDate>): boolean;
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
   isDayOfYearEqualOtherDayOfYear(entity1: IDayOfYearEntity, entity2: IDayOfYearEntity): boolean;
   selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;

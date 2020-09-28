@@ -79,10 +79,28 @@ const isBoolean = (value: unknown): boolean => typeof value === 'boolean';
 const isString = (value: unknown): boolean => typeof value === 'string';
 
 /**
+ * @stable [28.09.2020]
+ * @param value
+ */
+const isEmpty = (value: unknown): boolean => R.isEmpty(value);
+
+/**
+ * @stable [28.09.2020]
+ * @param value
+ */
+const isNotEmpty = (value: unknown): boolean => !isEmpty(value);
+
+/**
  * @stable [08.09.2020]
  * @param value
  */
-const isNotEmptyString = (value: unknown): boolean => isString(value) && !R.isEmpty(value);
+const isNotEmptyString = (value: unknown): boolean => isString(value) && isNotEmpty(value);
+
+/**
+ * @stable [28.09.2020]
+ * @param value
+ */
+const isNotEmptyObject = (value: unknown): boolean => isObject(value) && isNotEmpty(value);
 
 /**
  * @stable [29.08.2020]
@@ -118,6 +136,7 @@ export class TypeUtils {
   public static readonly isDef = isDef;                                                                     /* @stable [16.05.2020] */
   public static readonly isEvent = isEvent;                                                                 /* @stable [29.08.2020] */
   public static readonly isFn = isFn;                                                                       /* @stable [16.05.2020] */
+  public static readonly isNotEmptyObject = isNotEmptyObject;                                               /* @stable [28.09.2020] */
   public static readonly isNotEmptyString = isNotEmptyString;                                               /* @stable [08.09.2020] */
   public static readonly isNotNumber = isNotNumber;                                                         /* @stable [07.09.2020] */
   public static readonly isNumber = isNumber;                                                               /* @stable [16.05.2020] */

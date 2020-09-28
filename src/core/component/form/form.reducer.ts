@@ -8,7 +8,7 @@ import {
   TypeUtils,
 } from '../../util';
 import {
-  IFluxActiveValueEntity,
+  IFluxNumberEntity,
   IFluxFieldsChangesEntity,
   IFluxValidEntity,
   INITIAL_REDUX_FORM_ENTITY,
@@ -85,7 +85,7 @@ export const formReducer = (state: IReduxFormEntity = INITIAL_REDUX_FORM_ENTITY,
        */
       return {
         ...state,
-        activeValue: (actionData as IFluxActiveValueEntity).payload,
+        activeValue: (actionData as IFluxNumberEntity).payload,
       };
     case FormActionBuilder.buildProgressActionType(section):
     case FormActionBuilder.buildSubmitActionType(section):

@@ -6,6 +6,8 @@ import {
   IValidationResultEntity,
   ValidationRulesEnum,
 } from '../definition';
+import { MultiFieldUtils } from './multi-field';
+import { ObjectUtils } from './object';
 
 /**
  * @stable [07.09.2020]
@@ -57,9 +59,24 @@ const stringChecker = (value): boolean => TypeUtils.isString(value);
 const notEmptyStringChecker = (value: unknown): boolean => TypeUtils.isNotEmptyString(value);
 
 /**
+ * @stable [28.09.2020]
+ * @param value
+ */
+const notEmptyObjectChecker = (value: unknown): boolean => TypeUtils.isNotEmptyObject(value);
+
+/**
+ * @stable [28.09.2020]
+ * @param value
+ */
+const notEmptyMultiEntityChecker = (value: unknown): boolean =>
+  ObjectUtils.isObjectNotEmpty(MultiFieldUtils.multiFieldValueAsEntities(value));
+
+/**
  * @stable [08.09.2020]
  */
 const ValidationRules = {
+  [ValidationRulesEnum.NOT_EMPTY_MULTI_ENTITY]: notEmptyMultiEntityChecker,
+  [ValidationRulesEnum.NOT_EMPTY_OBJECT]: notEmptyObjectChecker,
   [ValidationRulesEnum.NOT_EMPTY_STRING]: notEmptyStringChecker,
   [ValidationRulesEnum.POSITIVE_NUMBER]: positiveNumberChecker,
   [ValidationRulesEnum.POSITIVE_NUMBER_LIKE]: positiveNumberLikeChecker,
@@ -76,7 +93,7 @@ const ValidationRules = {
  * @param checkedObject
  */
 const validate =
-  <TEntity extends IKeyValue = IKeyValue>(payloads: { [K in keyof TEntity]?: ValidationRulesEnum[] },
+  <TEntity extends IKeyValue = IKeyValue>(payloads: { [K in keyof TEntity]?: ValidationRulesEnum | ValidationRulesEnum[] },
                                           checkedObject: TEntity): IValidationResultEntity => {
     const data = Object.create(null);
     let valid = true;
@@ -84,7 +101,8 @@ const validate =
     R.forEachObjIndexed((rules, fieldName) => {
       const res = Object.create(null);
       data[fieldName] = res;
-      rules.forEach((ruleId) => valid = valid && (res[ruleId] = ValidationRules[ruleId](checkedObject[fieldName])));
+      [].concat(rules)
+        .forEach((ruleId) => valid = valid && (res[ruleId] = ValidationRules[ruleId](checkedObject[fieldName])));
     }, payloads);
 
     return {valid, data};

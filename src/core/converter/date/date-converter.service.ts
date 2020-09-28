@@ -1185,6 +1185,15 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [28.09.2020]
+   * @param cfg
+   */
+  public isDateValid(cfg?: ICalendarConfigEntity): boolean {
+    const date = this.asDate(cfg);
+    return date instanceof Date && date.getFullYear() >= 1900;
+  }
+
+  /**
    * @stable [03.01.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {ICalendarEntity}

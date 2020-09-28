@@ -4,7 +4,7 @@ import {
 } from 'redux-effects-promise';
 
 import {
-  IFluxActiveValueEntity,
+  IFluxNumberEntity,
   TAB_PANEL_ACTIVE_VALUE_ACTION_TYPE,
   TAB_PANEL_DESTROY_ACTION_TYPE,
   TAB_PANEL_INACTIVE_VALUE_ACTION_TYPE,
@@ -54,7 +54,7 @@ export class TabPanelActionBuilder {
    * @param section
    * @param payload
    */
-  public static buildActiveValuePlainAction(section: string, payload: IFluxActiveValueEntity): IEffectsAction {
+  public static buildActiveValuePlainAction(section: string, payload: IFluxNumberEntity): IEffectsAction {
     return {type: this.buildActiveValueActionType(section), data: SectionUtils.applySection(section, payload)};
   }
 
@@ -63,7 +63,7 @@ export class TabPanelActionBuilder {
    * @param section
    * @param payload
    */
-  public static buildInactiveValuePlainAction(section: string, payload: IFluxActiveValueEntity): IEffectsAction {
+  public static buildInactiveValuePlainAction(section: string, payload: IFluxNumberEntity): IEffectsAction {
     return {type: this.buildInactiveValueActionType(section), data: SectionUtils.applySection(section, payload)};
   }
 

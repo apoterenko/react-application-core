@@ -337,6 +337,15 @@ export const DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IPresetsFieldEn
 });
 
 /**
+ * @default-entity
+ * @stable [27.09.2020]
+ */
+export const DEFAULT_CHANGEABLE_FIELD_ENTITY = Object.freeze<IPresetsFieldEntity>({
+  changeable: true,
+  readOnly: false,
+});
+
+/**
  * @classes
  * @stable [26.03.2020]
  */

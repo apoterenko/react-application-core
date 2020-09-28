@@ -20,7 +20,7 @@ import {
   FORM_SUBMIT_FINISH_ACTION_TYPE,
   FORM_VALID_ACTION_TYPE,
   IApiEntity,
-  IFluxActiveValueEntity,
+  IFluxNumberEntity,
   IFluxFieldsChangesEntity,
   IFluxValidEntity,
 } from '../definition';
@@ -267,7 +267,7 @@ export class FormActionBuilder {
    * @param payload
    */
   public static buildActiveValuePlainAction(section: string, payload: number): IEffectsAction {
-    const fluxEntity: IFluxActiveValueEntity = {payload};
+    const fluxEntity: IFluxNumberEntity = {payload};
     return {type: this.buildActiveValueActionType(section), data: SectionUtils.applySection(section, fluxEntity)};
   }
 
@@ -277,7 +277,7 @@ export class FormActionBuilder {
    * @param payload
    */
   public static buildInactiveValuePlainAction(section: string, payload: number): IEffectsAction {
-    const fluxEntity: IFluxActiveValueEntity = {payload};
+    const fluxEntity: IFluxNumberEntity = {payload};
     return {type: this.buildInactiveValueActionType(section), data: SectionUtils.applySection(section, fluxEntity)};
   }
 

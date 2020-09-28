@@ -1,4 +1,5 @@
 import {
+  DEFAULT_CHANGEABLE_FIELD_ENTITY,
   DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY,
   DEFAULT_PASSWORD_FIELD_ENTITY,
@@ -40,6 +41,7 @@ import { DEFAULT_ENVIRONMENT_ENTITY } from './env-definition.interface';
  * @stable [17.05.2020]
  */
 export class DefaultEntities {
+  public static readonly CHANGEABLE_FIELD_ENTITY = DEFAULT_CHANGEABLE_FIELD_ENTITY;                     /* @stable [27.09.2020] */
   public static readonly COMPACT_FORM_ENTITY = DEFAULT_COMPACT_FORM_ENTITY;                             /* @stable [09.06.2020] */
   public static readonly COMPONENTS_SETTINGS_ENTITY = DEFAULT_COMPONENTS_SETTINGS_ENTITY;               /* @stable [21.05.2020] */
   public static readonly CURRENCY_PRECISION_VALUE = 2;                                                  /* @stable [24.07.2020] */
