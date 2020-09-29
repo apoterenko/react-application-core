@@ -19,6 +19,7 @@ import {
   IPhoneConverter,
   IPresetsRawDataLabeledValueEntity,
   IUpdateEntity,
+  MultiFieldValueOrEntitiesIdsT,
 } from '../definition';
 import {
   EntityIdT,
@@ -36,7 +37,6 @@ import {
   ITransport,
   ITransportRequestEntity,
   MultiFieldSingleValueT,
-  MultiFieldValueOrEntityIdT,
   MultiFieldValueT,
   SelectValueT,
 } from '../definition';
@@ -46,7 +46,7 @@ import {
   lazyInject,
 } from '../di';
 import {
-  asMultiFieldMappedEntitiesIds,
+  MultiFieldUtils,
 } from '../util';
 import { IDateConverter } from '../converter';
 
@@ -175,12 +175,11 @@ export class BaseTransport {
   }
 
   /**
-   * @stable [26.12.2019]
-   * @param {MultiFieldValueOrEntityIdT} value
-   * @returns {EntityIdT[]}
+   * @stable [30.09.2020]
+   * @param value
    */
-  protected prepareMultiEntitiesIdsValue(value: MultiFieldValueT | EntityIdT[]): EntityIdT[] {
-    return asMultiFieldMappedEntitiesIds(value);
+  protected multiFieldValueAsEntitiesIds<TEntity extends IEntity = IEntity>(value: MultiFieldValueOrEntitiesIdsT<TEntity>): EntityIdT[] {
+    return MultiFieldUtils.multiFieldValueAsEntitiesIds(value);
   }
 
   /**

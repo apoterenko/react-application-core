@@ -6,7 +6,6 @@ import {
   IEntity,
   IKeyValue,
   UNDEF,
-  UNDEF_SYMBOL,
 } from '../definitions.interface';
 import {
   FieldConstants,
@@ -169,30 +168,6 @@ export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(v
   return result;
 };
 
-/**
- * @stable [14.10.2019]
- * @param {MultiFieldValueT<TEntity extends IEntity>} multiFieldEntity
- * @param {(entity: TEntity, index: number) => TResult} mapper
- * @returns {TResult[]}
- */
-export const asMultiFieldMappedEntities =
-  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity> | EntityIdT[],
-                                                         mapper: (entity: TEntity, index: number) => TResult): TResult[] =>
-    ifNotNilThanValue(
-      MultiFieldUtils.multiFieldValueAsEntities(multiFieldEntity as MultiFieldValueT<TEntity>),
-      (result) => result.map(mapper),
-      UNDEF_SYMBOL
-    );
-
-/**
- * @stable [14.10.2019]
- * @param {MultiFieldValueT<TEntity extends IEntity> | EntityIdT[]} multiFieldEntity
- * @returns {EntityIdT[]}
- */
-export const asMultiFieldMappedEntitiesIds =
-  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity> | EntityIdT[]): EntityIdT[] =>
-    asMultiFieldMappedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
-
 // TODO Deprecated
 export const buildMultiItemEntity = <TEntity extends IEntity = IEntity>(name: string,
                                                                         value: AnyT,
@@ -210,7 +185,7 @@ export const buildNewPhantomMultiItem =
   <TEntity extends IEntity = IEntity>(original: TEntity,
                                       multiFieldEntity: MultiFieldValueT<TEntity>): TEntity => ({
     ...original as AnyT,
-    id: arrayNextMinNegativeValue(asMultiFieldMappedEntitiesIds(multiFieldEntity) as number[] || []),
+    id: arrayNextMinNegativeValue(MultiFieldUtils.multiFieldValueAsEntitiesIds(multiFieldEntity) as number[] || []),
   });
 
 /**

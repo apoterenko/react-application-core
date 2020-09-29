@@ -230,6 +230,7 @@ export type MultiFieldValueT<TEntity extends IEntity = IEntity> = TEntity[] | IR
 export type MultiFieldSingleValueT = IReduxMultiEntity | EntityIdT;
 export type NotMultiFieldValueT<TEntity extends IEntity = IEntity> = TEntity[] | EntityIdT;
 export type MultiFieldValueOrEntityIdT = MultiFieldValueT | EntityIdT;
+export type MultiFieldValueOrEntitiesIdsT<TEntity extends IEntity = IEntity> = MultiFieldValueT<TEntity> | EntityIdT[];
 
 /**
  * @stable [30.10.2019]

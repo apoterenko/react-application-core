@@ -6,6 +6,7 @@ import {
   IMultiFieldValueMergeConfigEntity,
   IMultiItemEntity,
   IReduxMultiEntity,
+  MultiFieldValueOrEntitiesIdsT,
   MultiFieldValueOrEntityIdT,
   MultiFieldValueT,
   NotMultiFieldValueT,
@@ -17,8 +18,10 @@ import {
   EntityIdT,
   IEntity,
   UNDEF,
+  UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { CloneUtils } from './clone';
+import { ConditionUtils } from './cond';
 import { FilterUtils } from './filter';
 import { NvlUtils } from './nvl';
 import { ObjectUtils } from './object';
@@ -260,6 +263,30 @@ const multiFieldValueAsMergedTrueEntities =
   };
 
 /**
+ * @stable [29.09.2020]
+ * @param multiFieldEntity
+ * @param mapper
+ */
+const multiFieldValueAsMappedEntities =
+  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity>,
+                                                         mapper: (entity: TEntity, index: number) => TResult): TResult[] =>
+    ConditionUtils.ifNotNilThanValue(
+      multiFieldValueAsEntities(multiFieldEntity),
+      (result) => result.map(mapper),
+      UNDEF_SYMBOL
+    );
+
+/**
+ * @stable [30.09.2020]
+ * @param multiFieldEntity
+ */
+const multiFieldValueAsEntitiesIds = <TEntity extends IEntity = IEntity>(multiFieldEntity: MultiFieldValueOrEntitiesIdsT<TEntity>): EntityIdT[] =>
+  multiFieldValueAsMappedEntities(
+    multiFieldEntity as MultiFieldValueT<TEntity>,
+    (entity: IEntity) => entity.id
+  );
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
@@ -271,6 +298,8 @@ export class MultiFieldUtils {
   public static readonly isNotMultiEntity = isNotMultiEntity;
   public static readonly multiFieldValueAsEditEntities = multiFieldValueAsEditEntities;
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;
+  public static readonly multiFieldValueAsEntitiesIds = multiFieldValueAsEntitiesIds;
+  public static readonly multiFieldValueAsMappedEntities = multiFieldValueAsMappedEntities;
   public static readonly multiFieldValueAsMergedTrueEntities = multiFieldValueAsMergedTrueEntities;
   public static readonly multiFieldValueAsMultiItemAddEntities = multiFieldValueAsMultiItemAddEntities;
   public static readonly multiFieldValueAsMultiItemEditEntities = multiFieldValueAsMultiItemEditEntities;
