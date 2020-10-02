@@ -41,6 +41,7 @@
   $rac-list-item-no-user-select: unset,                                           /* @stable [29.01.2020] */
   $rac-list-item-nth-child-2n-margin-left: unset,                                 /* @stable [10.06.2020] */
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
+  $rac-list-item-position: unset,                                                 /* @stable [30.09.2020] */
   $rac-list-item-text-align: unset,                                               /* @stable [24.02.2020] */
   $rac-list-item-width: unset                                                     /* @stable [09.11.2019] */
 ) {
@@ -70,6 +71,7 @@
       $rac-styles-min-height: $rac-list-item-min-height,
       $rac-styles-no-user-select: $rac-list-item-no-user-select,
       $rac-styles-padding: $rac-list-item-padding,
+      $rac-styles-position: $rac-list-item-position,
       $rac-styles-text-align: $rac-list-item-text-align,
       $rac-styles-width: $rac-list-item-width
     );
@@ -158,6 +160,7 @@
   $rac-list-item-nth-child-2n-margin-left: unset,                                 /* @stable [10.06.2020] */
   $rac-list-item-odd-background: unset,                                           /* @stable [26.01.2020] */
   $rac-list-item-padding: unset,                                                  /* @stable [09.11.2019] */
+  $rac-list-item-position: unset,                                                 /* @stable [30.09.2020] */
   $rac-list-item-selectable-cursor: unset,                                        /* @stable [05.05.2020] */
   $rac-list-item-selected-background: unset,                                      /* @stable [27.10.2019] */
   $rac-list-item-selected-color: unset,                                           /* @stable [27.10.2019] */
@@ -228,6 +231,7 @@
       $rac-list-item-no-user-select: $rac-list-item-no-user-select,
       $rac-list-item-nth-child-2n-margin-left: $rac-list-item-nth-child-2n-margin-left,
       $rac-list-item-padding: $rac-list-item-padding,
+      $rac-list-item-position: $rac-list-item-position,
       $rac-list-item-text-align: $rac-list-item-text-align,
       $rac-list-item-width: $rac-list-item-width
     );

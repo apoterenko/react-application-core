@@ -183,6 +183,9 @@
 @mixin rac-viewer (
   $rac-viewer-custom: unset,
   /**/
+  $rac-viewer-bottom: unset,
+  $rac-viewer-left: unset,
+  $rac-viewer-position: unset,
   $rac-viewer-align-items: unset,                                             /* @stable [18.03.2020] */
   $rac-viewer-content-border-radius: unset,                                   /* @stable [18.03.2020] */
   $rac-viewer-content-display: unset,                                         /* @stable [18.03.2020] */
@@ -204,11 +207,14 @@
   #{rac-cls($rac-viewer-cls, $rac-viewer-custom)} {
     @include rac-styles (
       $rac-styles-align-items: $rac-viewer-align-items,
+      $rac-styles-bottom: $rac-viewer-bottom,
       $rac-styles-display: $rac-viewer-display,
       $rac-styles-flex-grow: $rac-viewer-flex-grow,
       $rac-styles-flex: $rac-viewer-flex,
       $rac-styles-justify-content: $rac-viewer-justify-content,
-      $rac-styles-margin: $rac-viewer-margin
+      $rac-styles-left: $rac-viewer-left,
+      $rac-styles-margin: $rac-viewer-margin,
+      $rac-styles-position: $rac-viewer-position
     );
 
     &:not(:hover) {
