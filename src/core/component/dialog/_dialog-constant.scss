@@ -7,7 +7,6 @@
 $rac-primary-dialog-background-0: $rac-primary-color-metis-7 !default;
 $rac-primary-dialog-color-0: $rac-primary-color-elara-0 !default;
 $rac-primary-dialog-max-height-0: 80vh !default;
-$rac-primary-dialog-max-width-0: 50vw !default;
 
 /************************/
 /* @stable [11.05.2020] */
@@ -31,6 +30,9 @@ $rac-confirm-dialog-body-content-wrapper-text-align: justify !default;
 $rac-confirm-dialog-body-flex: $rac-primary-flex-1 !default;
 $rac-confirm-dialog-body-max-width: $rac-primary-max-width-2 !default;
 
+// @stable [04.10.2020]
+$rac-default-wide-dialog-body-max-width: $rac-primary-max-width-7 !default;
+
 /************************/
 /* @stable [27.04.2020] */
 /************************/
@@ -52,7 +54,7 @@ $rac-default-dialog-body-display: $rac-primary-display-0 !default;
 $rac-default-dialog-body-flex-direction: $rac-primary-flex-direction-0 !default;
 $rac-default-dialog-body-flex-grow: $rac-primary-flex-grow-1 !default;
 $rac-default-dialog-body-max-height: $rac-primary-dialog-max-height-0 !default;
-$rac-default-dialog-body-max-width: $rac-primary-dialog-max-width-0 !default;
+$rac-default-dialog-body-max-width: $rac-primary-max-width-4 !default;
 $rac-default-dialog-body-padding: $rac-primary-offset-3 0 !default;
 $rac-default-dialog-display: $rac-primary-display-0 !default;
 $rac-default-dialog-justify-content: center !default;
