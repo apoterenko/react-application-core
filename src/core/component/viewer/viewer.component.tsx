@@ -4,10 +4,9 @@ import * as R from 'ramda';
 import {
   CalcUtils,
   ClsUtils,
-  coalesce,
   isOpened,
   isPreviewUsed,
-  nvl,
+  NvlUtils,
   ObjectUtils,
   WrapperUtils,
 } from '../../util';
@@ -78,17 +77,17 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {JSX.Element}
+   * @stable [02.10.2020]
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {style} = this.originalProps;
 
     return (
       <div
-        style={props.style}
+        style={style}
         className={this.getClassName()}
       >
+        {this.originalChildren}
         {this.bodyElement}
         {this.previewIconElement}
         {this.previewDialogElement}
@@ -350,15 +349,14 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {number}
    */
   protected get actualOrDefaultPage(): number {
-    return nvl(this.actualPage, Viewer.DEFAULT_PAGE);
+    return NvlUtils.nvl(this.actualPage, Viewer.DEFAULT_PAGE);
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {number}
+   * @stable [02.10.2020]
    */
   protected get actualPage(): number {
-    return nvl(this.state.page, this.props.page);
+    return NvlUtils.nvl(this.state.page, this.originalProps.page);
   }
 
   /**
@@ -366,7 +364,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {number}
    */
   protected get actualOrDefaultPreviewPage(): number {
-    return nvl(this.actualPreviewPage, Viewer.DEFAULT_PAGE);
+    return NvlUtils.nvl(this.actualPreviewPage, Viewer.DEFAULT_PAGE);
   }
 
   /**
@@ -374,23 +372,21 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {number}
    */
   protected get actualPreviewPage(): number {
-    return nvl(this.state.previewPage, this.props.previewPage);
+    return NvlUtils.nvl(this.state.previewPage, this.props.previewPage);
   }
 
   /**
-   * @stable [23.03.2020]
-   * @returns {number}
+   * @stable [02.10.2020]
    */
   protected get actualOrDefaultPreviewScale(): number {
-    return coalesce(this.state.previewScale, this.props.previewScale, this.defaultScale);
+    return NvlUtils.coalesce(this.state.previewScale, this.originalProps.previewScale, this.defaultScale);
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {number}
+   * @stable [02.10.2020]
    */
   protected get actualOrDefaultScale(): number {
-    return coalesce(this.state.scale, this.props.scale, this.defaultScale);
+    return NvlUtils.coalesce(this.state.scale, this.originalProps.scale, this.defaultScale);
   }
 
   /**

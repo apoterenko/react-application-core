@@ -18,9 +18,9 @@ import {
   TouchEventsEnum,
 } from '../../definition';
 import {
+  ConditionUtils,
   DelayedTask,
-  ifNotNilThanValue,
-  isFn,
+  TypeUtils,
 } from '../../util';
 
 @injectable()
@@ -53,7 +53,10 @@ export class UserActivityManager implements IUserActivityManager {
     if (!R.isNil(this.inactivityTask)) {
       this.cancel();
     }
-    const {callback, timeout} = cfg;
+    const {
+      callback,
+      timeout,
+    } = cfg;
 
     this.touchStartEventUnsubscriber = this.domAccessor.captureEvent({
       eventName: TouchEventsEnum.TOUCH_START,
@@ -91,7 +94,7 @@ export class UserActivityManager implements IUserActivityManager {
    * @stable [19.01.2020]
    */
   public suspend(): void {
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.inactivityTask,
       (inactivityTask) => {
         this.suspended = true;
@@ -106,7 +109,7 @@ export class UserActivityManager implements IUserActivityManager {
    * @stable [19.01.2020]
    */
   public resume(): void {
-    ifNotNilThanValue(
+    ConditionUtils.ifNotNilThanValue(
       this.inactivityTask,
       (inactivityTask) => {
         this.suspended = false;
@@ -123,26 +126,26 @@ export class UserActivityManager implements IUserActivityManager {
   public cancel(): void {
     this.suspended = false;
 
-    ifNotNilThanValue(this.inactivityTask, (inactivityTask) => inactivityTask.stop());
+    ConditionUtils.ifNotNilThanValue(this.inactivityTask, (inactivityTask) => inactivityTask.stop());
     this.inactivityTask = null;
 
-    if (isFn(this.touchStartEventUnsubscriber)) {
+    if (TypeUtils.isFn(this.touchStartEventUnsubscriber)) {
       this.touchStartEventUnsubscriber();
       this.touchStartEventUnsubscriber = null;
     }
-    if (isFn(this.touchMoveEventUnsubscriber)) {
+    if (TypeUtils.isFn(this.touchMoveEventUnsubscriber)) {
       this.touchMoveEventUnsubscriber();
       this.touchMoveEventUnsubscriber = null;
     }
-    if (isFn(this.mouseDownEventUnsubscriber)) {
+    if (TypeUtils.isFn(this.mouseDownEventUnsubscriber)) {
       this.mouseDownEventUnsubscriber();
       this.mouseDownEventUnsubscriber = null;
     }
-    if (isFn(this.mouseMoveEventUnsubscriber)) {
+    if (TypeUtils.isFn(this.mouseMoveEventUnsubscriber)) {
       this.mouseMoveEventUnsubscriber();
       this.mouseMoveEventUnsubscriber = null;
     }
-    if (isFn(this.keyPressEventUnsubscriber)) {
+    if (TypeUtils.isFn(this.keyPressEventUnsubscriber)) {
       this.keyPressEventUnsubscriber();
       this.keyPressEventUnsubscriber = null;
     }

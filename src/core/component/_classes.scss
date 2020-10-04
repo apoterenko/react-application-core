@@ -46,6 +46,9 @@ $rac-overlay-dialog-cls: rac-overlay-dialog;
 $rac-place-dialog-cls: rac-place-dialog;
 $rac-preview-dialog-cls: rac-preview-dialog;
 $rac-progress-dialog-cls: rac-progress-dialog;
+$rac-wide-dialog-cls: rac-wide-dialog;
+//
+$rac-default-wide-dialog-cls: '#{$rac-default-dialog-cls}.#{$rac-wide-dialog-cls}';
 //
 $rac-overlay-filter-cls: rac-overlay-filter;
 

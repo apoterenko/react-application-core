@@ -2,7 +2,10 @@ import {
   IActivateDialogConfigEntity,
   IUnsavedFormChangesDialogProps,
 } from '../../../definition';
-import { FormUtils } from '../../../util';
+import {
+  FormUtils,
+  PropsUtils,
+} from '../../../util';
 import { BaseDialog } from '../base-dialog.component';
 
 /**
@@ -13,9 +16,9 @@ import { BaseDialog } from '../base-dialog.component';
  */
 export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDialogProps> {
 
-  public static readonly defaultProps: IUnsavedFormChangesDialogProps = {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IUnsavedFormChangesDialogProps>({
     confirm: true,
-  };
+  }, BaseDialog);
 
   /**
    * @stable [11.05.2020]

@@ -51,6 +51,13 @@
     $rac-dialog-justify-content: $rac-default-dialog-justify-content
   );
 
+  // @default-wide-dialog
+  // @stable [04.10.2020]
+  @include rac-dialog (
+    $rac-dialog-custom: $rac-default-wide-dialog-cls,
+    $rac-dialog-body-max-width: $rac-default-wide-dialog-body-max-width
+  );
+
   /**
    * @modal-dialog
    * @stable [31.01.2020]

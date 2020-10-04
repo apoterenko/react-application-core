@@ -25,6 +25,7 @@ import {
   IOverlayWrapper,
   IProgressWrapper,
   IScrollableWrapper,
+  IWideWrapper,
   IWidthWrapper,
 } from '../definitions.interface';
 import { IButtonProps } from './button-definition.interface';
@@ -71,7 +72,8 @@ export interface IPresetsDialogEntity
     IOverlayClosableWrapper,
     IOverlayWrapper,
     IProgressWrapper,
-    IScrollableWrapper {
+    IScrollableWrapper,
+    IWideWrapper {
 }
 
 /**
@@ -153,4 +155,5 @@ export enum DialogClassesEnum {
   PREVIEW_DIALOG = 'rac-preview-dialog',
   PROGRESS_DIALOG = 'rac-progress-dialog',
   TRANSPARENT_DIALOG = 'rac-transparent-dialog',
+  WIDE_DIALOG = 'rac-wide-dialog',
 }

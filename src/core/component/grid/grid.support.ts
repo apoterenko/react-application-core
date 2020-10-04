@@ -25,7 +25,7 @@ import {
 } from './grid.interface';
 import {
   IGridColumnProps,
-  IGridFilterEntity,
+  IGridFilterConfigEntity,
   IGridProps,
   ISortDirectionEntity,
   MultiFieldValueT,
@@ -181,7 +181,7 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
   if (props.localFiltration) {
     const filterChanges = state.filterChanges;
     const changedColumns = Object.keys(filterChanges);
-    const defaultLocalFilter = (cfg: IGridFilterEntity) =>
+    const defaultLocalFilter = (cfg: IGridFilterConfigEntity) =>
       FilterUtils.queryFilter(cfg.query, cfg.entity[cfg.columnName]);
 
     if (changedColumns.length > 0) {

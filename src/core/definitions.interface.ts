@@ -570,6 +570,7 @@ export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }
 export interface IWestWrapper<TValue = JSX.Element> { west?: TValue; }
+export interface IWideWrapper { wide?: boolean; }
 export interface IWidthWrapper<TValue = number> { width?: TValue; }
 export interface IWithCredentialsWrapper { withCredentials?: boolean; }
 export interface IWrappedWrapper { wrapped?: boolean; }

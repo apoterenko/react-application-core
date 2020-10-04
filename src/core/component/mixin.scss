@@ -183,6 +183,7 @@
 @mixin rac-viewer (
   $rac-viewer-custom: unset,
   /**/
+  $rac-viewer-right: unset,
   $rac-viewer-bottom: unset,
   $rac-viewer-left: unset,
   $rac-viewer-position: unset,
@@ -214,7 +215,8 @@
       $rac-styles-justify-content: $rac-viewer-justify-content,
       $rac-styles-left: $rac-viewer-left,
       $rac-styles-margin: $rac-viewer-margin,
-      $rac-styles-position: $rac-viewer-position
+      $rac-styles-position: $rac-viewer-position,
+      $rac-styles-right: $rac-viewer-right
     );
 
     &:not(:hover) {

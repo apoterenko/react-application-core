@@ -5,19 +5,17 @@ import * as R from 'ramda';
 import { Button } from '../button';
 import {
   CalcUtils,
+  ClsUtils,
+  ConditionUtils,
   isAcceptable,
   isAcceptDisabled,
   isCheckModalNeeded,
   isClosable,
   isCloseDisabled,
-  isConfirm,
-  isDefault,
   isOpened,
   isOverlay,
   isOverlayClosable,
   isScrollable,
-  joinClassName,
-  orNull,
   PropsUtils,
   TypeUtils,
   WrapperUtils,
@@ -45,6 +43,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                         TState extends IDialogState = IDialogState>
   extends GenericComponent<TProps, TState>
   implements IDialog<TProps, TState> {
+
+  public static readonly defaultProps: IDialogProps = {
+    default: true,
+  };
 
   private $closeEventUnsubscriber: () => void;
   private $onDeactivateCallback: () => void;
@@ -74,7 +76,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {React.ReactNode}
    */
   public render(): React.ReactNode {
-    return orNull(
+    return ConditionUtils.orNull(
       isOpened(this.state),
       () => {
         const inline = this.isInline;
@@ -302,14 +304,14 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @returns {JSX.Element}
    */
   private get actionsElement(): JSX.Element {
-    return orNull(
+    return ConditionUtils.orNull(
       this.closable || this.acceptable,
       () => {
         const mergedProps = this.mergedProps;
         return (
           <div className={DialogClassesEnum.DIALOG_ACTIONS}>
             {
-              orNull(
+              ConditionUtils.orNull(
                 this.closable,
                 () => (
                   <Button
@@ -323,7 +325,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
               )
             }
             {
-              orNull(
+              ConditionUtils.orNull(
                 this.acceptable,
                 () => (
                   <Button
@@ -550,11 +552,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [04.10.2020]
    */
   private get isDefault(): boolean {
-    return isDefault(this.mergedProps);
+    return this.originalProps.default;
   }
 
   /**
@@ -566,11 +567,17 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [04.10.2020]
    */
   private get isConfirm(): boolean {
-    return isConfirm(this.mergedProps);
+    return this.originalProps.confirm;
+  }
+
+  /**
+   * @stable [04.10.2020]
+   */
+  private get isWide(): boolean {
+    return this.originalProps.wide;
   }
 
   /**
@@ -621,7 +628,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       className,
     } = this.originalProps;
 
-    return joinClassName(
+    return ClsUtils.joinClassName(
       CalcUtils.calc(className),
       DialogClassesEnum.DIALOG,
 
@@ -630,9 +637,10 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
       this.isModal && DialogClassesEnum.MODAL_DIALOG,
 
       !this.isOverlay && (
-        joinClassName(
-          this.isDefault && DialogClassesEnum.DEFAULT_DIALOG,
+        ClsUtils.joinClassName(
           this.isConfirm && DialogClassesEnum.CONFIRM_DIALOG,
+          this.isDefault && DialogClassesEnum.DEFAULT_DIALOG,
+          this.isWide && DialogClassesEnum.WIDE_DIALOG,
 
           this.isAnchored
             ? DialogClassesEnum.ANCHORED_DIALOG

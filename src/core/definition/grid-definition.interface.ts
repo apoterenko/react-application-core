@@ -81,12 +81,13 @@ import { IPresetsRowEntity } from './row-definition.interface';
 import { IPresetsGroupByEntity } from './group-definition.interface';
 
 /**
- * @stable [18.10.2019]
+ * @config-entity
+ * @stable [04.10.2020]
  */
-export interface IGridFilterEntity<TEntity extends IEntity = IEntity>
-  extends IQueryWrapper,
-    IColumnNameWrapper,
-    IEntityWrapper<TEntity> {
+export interface IGridFilterConfigEntity<TEntity = IEntity>
+  extends IColumnNameWrapper,
+    IEntityWrapper<TEntity>,
+    IQueryWrapper {
 }
 
 /**
@@ -146,7 +147,7 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
     IHeaderRendererWrapper<IGridColumnProps<TEntity>>,
     IRendererWrapper<TEntity, IGridColumnProps<TEntity>, TEntity[]>,
     /**/
-    ILocalFilterWrapper<IGridFilterEntity>,
+    ILocalFilterWrapper<IGridFilterConfigEntity>,
     ITplWrapper<TEntity, IGridColumnProps<TEntity>, number> {
 }
 

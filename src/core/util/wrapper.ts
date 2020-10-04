@@ -11,9 +11,7 @@ import {
   IClearActionRenderedWrapper,
   IClosableWrapper,
   ICloseDisabledWrapper,
-  IConfirmWrapper,
   IDecoratedWrapper,
-  IDefaultWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
   IEditedWrapper,
@@ -104,13 +102,6 @@ export const isCheckModalNeeded = <TEntity extends ICheckModalWrapper = ICheckMo
   R.isNil(wrapper) ? false : wrapper.checkModal === true;
 
 /**
- * @stable [11.03.2020]
- * @param {IConfirmWrapper} wrapper
- * @returns {boolean}
- */
-export const isConfirm = (wrapper: IConfirmWrapper): boolean => R.isNil(wrapper) ? false : wrapper.confirm === true;
-
-/**
  * @stable [28.11.2019]
  * @param {IReadyWrapper} entity
  * @returns {boolean}
@@ -133,14 +124,6 @@ export const isFull = (entity: IFullWrapper): boolean =>
  */
 export const isScrollable = (entity: IScrollableWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.scrollable !== false, false);
-
-/**
- * @stable [24.01.2020]
- * @param {IDefaultWrapper} entity
- * @returns {boolean}
- */
-export const isDefault = (entity: IDefaultWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.default !== false, false);
 
 /**
  * @stable [11.05.2020]
