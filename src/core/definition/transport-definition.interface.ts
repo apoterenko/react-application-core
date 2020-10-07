@@ -55,6 +55,7 @@ import {
 export enum TransportEventCategoriesEnum {
   TRANSPORT = 'transport',
   TRANSPORT_ERROR = 'transport:error',
+  TRANSPORT_RESPONSE_LENGTH = 'transport:response:length',
 }
 
 /**

@@ -183,6 +183,7 @@
 @mixin rac-viewer (
   $rac-viewer-custom: unset,
   /**/
+  $rac-viewer-content-position: unset,
   $rac-viewer-right: unset,
   $rac-viewer-bottom: unset,
   $rac-viewer-left: unset,
@@ -242,6 +243,7 @@
         $rac-styles-margin: $rac-viewer-content-margin,
         $rac-styles-max-height: $rac-viewer-content-max-height,
         $rac-styles-max-width: $rac-viewer-content-max-width,
+        $rac-styles-position: $rac-viewer-content-position,
         $rac-styles-size: $rac-viewer-content-size,
         $rac-styles-width: $rac-viewer-content-width
       );

@@ -1,4 +1,3 @@
-import { AnyT } from '../definitions.interface';
 import {
   DefaultEntities,
   IStorage,
@@ -19,7 +18,7 @@ export abstract class BaseStorage implements IStorage {
    * @param key
    * @param value
    */
-  public abstract set(key: string, value: AnyT): Promise<boolean>;
+  public abstract set(key: string, value: unknown): Promise<boolean>;
 
   /**
    * @stable [10.09.2020]

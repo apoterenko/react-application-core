@@ -1,9 +1,9 @@
 import { AnyT } from '../../definitions.interface';
 import { BaseStorage } from '../base-storage.service';
 import {
+  JsonUtils,
   nvl,
   parseJson,
-  serializeJson,
 } from '../../util';
 import { ISettingsEntity } from '../../settings';
 import { StorageTypesEnum } from '../../definition';
@@ -23,13 +23,12 @@ export class DefaultStorage extends BaseStorage {
   }
 
   /**
-   * @stable [28.07.2019]
-   * @param {string} key
-   * @param {AnyT} value
-   * @returns {Promise<boolean>}
+   * @stable [07.10.2020]
+   * @param key
+   * @param value
    */
-  public async set(key: string, value: AnyT): Promise<boolean> {
-    this.storage.setItem(this.toKey(key), serializeJson(value));
+  public async set(key: string, value: unknown): Promise<boolean> {
+    this.storage.setItem(this.toKey(key), JsonUtils.serializeJson(value));
     return true;
   }
 

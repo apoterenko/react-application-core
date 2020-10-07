@@ -29,15 +29,15 @@ export const parseJson = <TResult = IKeyValue>(o: string): TResult => {
 };
 
 /**
- * @stable [13.03.2020]
- * @param {TObject} o
- * @returns {string}
+ * @stable [07.10.2020]
+ * @param o
  */
-export const serializeJson = <TObject = AnyT>(o: TObject): string => JSON.stringify(o);
+const serializeJson = <TObject = unknown>(o: TObject): string => JSON.stringify(o);
 
 /**
  * @stable [10.09.2020]
  */
 export class JsonUtils {
   public static readonly formatJson = formatJson;
+  public static readonly serializeJson = serializeJson;
 }

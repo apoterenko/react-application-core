@@ -7,10 +7,12 @@ import {
   lazyInject,
 } from '../di';
 import {
-  coalesce,
-  ifNotNilThanValue,
-  notNilValuesFilter,
   asType,
+  coalesce,
+  ConditionUtils,
+  ifNotNilThanValue,
+  JsonUtils,
+  notNilValuesFilter,
 } from '../util';
 import { IKeyValue } from '../definitions.interface';
 import {
@@ -92,7 +94,23 @@ export class Transport implements ITransport {
       throw responseFactoryEntity;
     } else {
       this.onRequestDone(req, responseFactoryEntity);
-      return responseFactoryEntity.result as TResponse;
+      const response = responseFactoryEntity.result as TResponse;
+
+      try {
+        ConditionUtils.ifNotNilThanValue(
+          JsonUtils.serializeJson(response),
+          (serializedJson) => {
+            this.logManager.send(
+              TransportEventCategoriesEnum.TRANSPORT_RESPONSE_LENGTH,
+              this.toLogEventName(req),
+              serializedJson.length
+            );
+          }
+        );
+      } catch (e) {
+        Transport.logger.warn('[$Transport][request] Error:', e);
+      }
+      return response;
     }
   }
 
