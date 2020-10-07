@@ -25,7 +25,6 @@ import {
   IOverlayClosableWrapper,
   IOverlayWrapper,
   IPlaceActionRenderedWrapper,
-  IPlainValueWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
   IProgressWrapper,
@@ -314,14 +313,6 @@ export const isUseZipCode = (entity: IUseZipCodeWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.useZipCode === true, false);
 
 /**
- * @stable [14.01.2020]
- * @param {IPlainValueWrapper} entity
- * @returns {boolean}
- */
-const isPlainValueApplied = (entity: IPlainValueWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.plainValue !== false, false);
-
-/**
  * @stable [08.06.2020]
  * @param {IRefreshOnUpdateWrapper} wrapper
  * @returns {boolean}
@@ -393,7 +384,6 @@ export class WrapperUtils {
   public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
   public static readonly isNavigateBackNeeded = isNavigateBackNeeded;                      /* @stable [09.09.2020] */
-  public static readonly isPlainValueApplied = isPlainValueApplied;                        /* @stable [21.06.2020] */
   public static readonly isReadOnly = isReadOnly;                                          /* @stable [22.08.2020] */
   public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
   public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */

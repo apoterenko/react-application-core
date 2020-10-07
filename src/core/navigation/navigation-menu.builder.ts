@@ -13,6 +13,7 @@ import {
 import {
   getRoutePathBySection,
   ifNotNilThanValue,
+  TypeUtils,
 } from '../util';
 
 @provideInSingleton(NavigationMenuBuilder)
@@ -28,14 +29,14 @@ export class NavigationMenuBuilder {
       const itemChildren = item.children;
 
       if (item.type === NavigationItemTypesEnum.GROUP
-            && Array.isArray(itemChildren)
-            && itemChildren.length > 0) {
+        && Array.isArray(itemChildren)
+        && itemChildren.length > 0) {
         const filteredChildren = itemChildren.filter((itm) => this.isAccessible(itm));
 
         if (filteredChildren.length) {
           menuItems = menuItems
-              .concat(item.label ? {...item, type: NavigationItemTypesEnum.SUB_HEADER} : [])
-              .concat(filteredChildren.map((itm): INavigationListItemEntity => ({...itm, parent: item})));
+            .concat(TypeUtils.isDef(item.label) ? {...item, type: NavigationItemTypesEnum.SUB_HEADER} : [])
+            .concat(filteredChildren.map((itm): INavigationListItemEntity => ({...itm, parent: item})));
         }
       } else if (this.isAccessible(item)) {
         menuItems.push({...item});

@@ -43,7 +43,7 @@ export interface INavigationListItemEntity<TAccessConfiguration = {}>
     IActiveWrapper,
     IChildrenWrapper<INavigationListItemEntity[]>,
     IIconWrapper,
-    ILabelWrapper,
+    ILabelWrapper<string | (() => string)>,
     ILinkWrapper,
     IParentWrapper<INavigationListItemEntity>,
     IRelatedLinksWrapper<string[]>,

@@ -135,14 +135,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
   }
 
   /**
-   * @stable [17.06.2018]
-   * @returns {string}
-   */
-  protected getFieldPattern(): string {
-    return this.props.pattern;
-  }
-
-  /**
    * @stable [30.10.2019]
    * @param {IFocusEvent} event
    */

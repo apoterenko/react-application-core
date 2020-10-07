@@ -420,6 +420,7 @@ export interface IPluginsWrapper<TValue> { plugins?: TValue; }
 export interface IPointsWrapper<TValue> { points?: TValue; }
 export interface IPopupWrapper<TValue = boolean> { popup?: TValue; }
 export interface IPositionConfigurationWrapper<TValue> { positionConfiguration?: TValue; }
+export interface IPosUseKeyboardOnMobilePlatformOnlyWrapper { useKeyboardOnMobilePlatformOnly?: boolean; }
 export interface IPrefixLabelWrapper { prefixLabel?: string; }
 export interface IPrefixWrapper { prefix?: string; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }

@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import { NavigationList } from '../../navigation-list';
 import { lazyInject } from '../../../di';
 import {
+  CalcUtils,
   ConditionUtils,
   NvlUtils,
 } from '../../../util';
@@ -69,7 +70,7 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
       subHeaderConfiguration.title,
       ConditionUtils.ifNotNilThanValue(
         this.menuItems.find((item) => item.active),
-        (activeItem) => activeItem && activeItem.label
+        (activeItem) => activeItem && CalcUtils.calc(activeItem.label)
       )
     );
 
@@ -99,7 +100,7 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
           onChangeLayoutMode={this.onChangeLayoutMode}
           navigationListElement={this.navigationListElement}
         >
-          {this.props.children}
+          {this.originalChildren}
         </DefaultLayout>
       </NotificationContainer>
     );

@@ -49,6 +49,7 @@ import {
   IPatternWrapper,
   IPlaceholderWrapper,
   IPlainValueWrapper,
+  IPosUseKeyboardOnMobilePlatformOnlyWrapper,
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
@@ -135,6 +136,7 @@ export interface IPresetsFieldEntity
     IPatternWrapper,
     IPlaceholderWrapper,
     IPlainValueWrapper,                                                           /* @stable [21.06.2020] */
+    IPosUseKeyboardOnMobilePlatformOnlyWrapper,                                   /* @stable [07.10.2020] */
     IPrefixLabelWrapper,                                                          /* @stable [18.06.2020] */
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 
 import {
+  CalcUtils,
   ClsUtils,
   ConditionUtils,
   FilterUtils,
@@ -77,7 +78,7 @@ export class NavigationList
                     $mergedProps: INavigationListProps): JSX.Element {
     const $isExpanded = this.isItemExpanded(item);
     const $isFullModeEnabled = this.isFullLayoutModeEnabled(this.mergedProps);
-    const $label = this.t(item.label);
+    const $label = this.asItemLabel(item);
     const $isGroup = R.isNil(item.parent);
 
     switch (item.type) {
@@ -91,7 +92,7 @@ export class NavigationList
         return (
           <div
             ref={groupRef}
-            key={this.asUniqueKey(item.label, 'label')}
+            key={this.asUniqueKey(this.asItemLabel(item), 'label')}
             className={ClsUtils.joinClassName(
               this.asItemClassName(true, isGroupItemActive, $isExpanded),
               ind === this.props.items.lastIndexOf(item) && !$isExpanded && 'rac-navigation-list__last-section',
@@ -194,7 +195,7 @@ export class NavigationList
         }}
         heightRestricted={false}
         options={FilterUtils.notNilValuesArrayFilter(...$items.map((item) => this.asPopupMenuItem(item, $activeGroup)))
-          .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.t(itm.label), rawData: itm}))}
+          .map((itm) => ({value: this.asUniqueKey(itm.link, 'link'), label: this.asItemLabel(itm), rawData: itm}))}
         anchorElement={this.asPopupMenuAnchorElement}
         onSelect={this.onPopupMenuItemSelect}/>
     );
@@ -212,7 +213,7 @@ export class NavigationList
                         $isGroup: boolean,
                         $isFullModeEnabled: boolean,
                         $isExpanded: boolean): JSX.Element {
-    const $label = this.t(item.label);
+    const $label = this.asItemLabel(item);
 
     return (
       <Link
@@ -311,20 +312,26 @@ export class NavigationList
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {INavigationListProps}
+   * @stable [06.10.2020]
+   * @param item
    */
-  protected get componentsSettingsProps(): INavigationListProps {
-    return this.componentsSettings.navigationList;
+  private asItemLabel(item: INavigationListItemEntity): string {
+    return ConditionUtils.ifNotNilThanValue(item.label, (label) => this.t(CalcUtils.calc(label)));
   }
 
   /**
-   * @stable [14.05.2020]
-   * @param {string} link
-   * @param {string} prefix
-   * @returns {string}
+   * @stable [06.10.2020]
+   * @param link
+   * @param prefix
    */
   private asUniqueKey(link: string, prefix: string): string {
     return `navigation-list-key-${link}-${prefix}`;
+  }
+
+  /**
+   * @stable [06.10.2020]
+   */
+  protected get componentsSettingsProps(): INavigationListProps {
+    return this.componentsSettings.navigationList;
   }
 }

@@ -46,6 +46,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
 
   public static readonly defaultProps: IFieldProps = {
     fieldRendered: true,
+    plainValue: true,
+    useKeyboardOnMobilePlatformOnly: false,
   };
 
   /**/
@@ -260,6 +262,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
+   * @stable [07.10.2020]
+   */
+  protected getFieldPattern(): string {
+    return this.originalProps.pattern;
+  }
+
+  /**
    * @stable [21.08.2020]
    */
   protected get displayValueElement(): React.ReactNode {
@@ -402,11 +411,23 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [18.05.2020]
-   * @returns {FieldComposedInputAttributesT}
+   * @stable [07.10.2020]
    */
   protected getInputElementProps(): FieldComposedInputAttributesT {
-    return {}; // TODO
+    const originalProps = this.originalProps;
+    const {
+      maxLength,
+      minLength,
+    } = originalProps;
+    const pattern = this.getFieldPattern();
+    const required = this.isRequired;
+
+    return FilterUtils.defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
+      maxLength,
+      minLength,
+      pattern,
+      required,
+    });
   }
 
   /**
@@ -523,16 +544,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
+   * @stable [07.10.2020]
    */
   protected get isKeyboardAndCursorUsed(): boolean {
     return this.isKeyboardUsed && this.isCursorUsed;
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {AnyT}
+   * @stable [07.10.2020]
    */
   protected get emptyValue(): AnyT {
     const {
@@ -543,24 +562,21 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {AnyT}
+   * @stable [07.10.2020]
    */
   protected get originalEmptyValue(): AnyT {
     return FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {AnyT}
+   * @stable [07.10.2020]
    */
   protected get defaultValue(): AnyT {
     return this.originalProps.defaultValue;
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {AnyT}
+   * @stable [07.10.2020]
    */
   protected get displayValue(): AnyT {
     return !this.isValuePresent || (this.isFocusPrevented && this.isBusy)
@@ -569,74 +585,77 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {boolean}
+   * @stable [07.10.2020]
    */
   protected isKeyboardOpen(): boolean {
     return this.state.keyboardOpen || this.isInlineKeyboard;
   }
 
   /**
-   * @stable [19.06.2020]
-   * @param {AnyT} value
-   * @returns {boolean}
+   * @stable [07.10.2020]
+   * @param value
    */
   protected isValueObject(value: AnyT): boolean {
     return TypeUtils.isObject(value);
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
+   * @stable [07.10.2020]
    */
   protected get isPlainValueApplied(): boolean {
-    return WrapperUtils.isPlainValueApplied(this.mergedProps);
+    return this.originalProps.plainValue;
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {boolean}
+   * @stable [07.10.2020]
    */
   protected get isValuePresent(): boolean {
     return ValueUtils.isValuePresent(this.value, this.emptyValue);
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {boolean | undefined}
+   * @stable [07.10.2020]
    */
   protected get isKeyboardUsed() {
-    return this.originalProps.useKeyboard;
+    const {
+      useKeyboard,
+    } = this.originalProps;
+
+    if (this.mergedProps.useKeyboardOnMobilePlatformOnly) {
+      if (this.environment.mobilePlatform) {
+        return useKeyboard;
+      } else {
+        return false;
+      }
+    } else {
+      return useKeyboard;
+    }
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {boolean}
+   * @stable [07.10.2020]
    */
   protected get isRequired(): boolean {
     return this.originalProps.required;
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {boolean}
+   * @stable [07.10.2020]
    */
   protected get isDisabled(): boolean {
     return this.originalProps.disabled;
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {boolean}
+   * @stable [07.10.2020]
    */
   protected get isValueNotPresent(): boolean {
     return !this.isValuePresent;
   }
 
   /**
-   * @stable [03.06.2020]
-   * @param {AnyT} value
-   * @returns {boolean}
+   * @stable [07.10.2020]
+   * @param value
    */
   protected isValueDefined(value: AnyT): boolean {
     return TypeUtils.isDef(value);
