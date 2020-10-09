@@ -7,6 +7,7 @@ import {
   IMenuActionConfigurationWrapper,
   INavigationActionConfigurationWrapper,
   INavigationActionRenderedWrapper,
+  IOnCommentClickWrapper,
   IOnSelectWrapper,
 } from '../definitions.interface';
 import {
@@ -43,6 +44,7 @@ export interface IPresetsHeaderEntity
     IMenuConfigurationEntity,
     INavigationActionConfigurationWrapper<IButtonProps>,
     INavigationActionRenderedWrapper,
+    IOnCommentClickWrapper,
     IOnSelectWrapper<IPresetsMenuItemEntity> {
 }
 
@@ -79,6 +81,7 @@ export interface IHeaderConfigurationEntity
 export enum HeaderClassesEnum {
   HEADER = 'rac-header',
   HEADER_ACTIONS = 'rac-header__actions',
+  HEADER_CHAT_ACTION = 'rac-header__chat-action',
   HEADER_CONTENT = 'rac-header__content',
   HEADER_MENU_ACTION = 'rac-header__menu-action',
   HEADER_NAVIGATION_ACTION = 'rac-header__navigation-action',

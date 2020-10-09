@@ -8,6 +8,7 @@ import {
   Mappers,
   Selectors,
   StackUtils,
+  TypeUtils,
   WrapperUtils,
 } from '../../../util';
 import { Drawer } from '../../drawer';
@@ -22,9 +23,9 @@ import {
   SelectedElementPlugin,
   StickyHeaderPlugin,
 } from '../../plugin';
+import { Dialog } from '../../dialog';
 import { Header } from '../../header';
 import { Main } from '../../main';
-import { Dialog } from '../../dialog';
 import { SubHeader } from '../../sub-header';
 
 export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
@@ -37,24 +38,26 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
     subHeaderRendered: true,
   };
 
-  /**
-   * @stable [21.05.2020]
-   * @param {IDefaultLayoutProps} props
-   */
-  constructor(props: IDefaultLayoutProps) {
-    super(props);
+  private readonly chatDialogRef = React.createRef<Dialog>();
 
+  /**
+   * @stable [09.10.2020]
+   * @param originalProps
+   */
+  constructor(originalProps: IDefaultLayoutProps) {
+    super(originalProps);
+
+    this.onChatDialogClose = this.onChatDialogClose.bind(this);
     this.onDrawerHeaderMenuActionClick = this.onDrawerHeaderMenuActionClick.bind(this);
   }
 
   /**
-   * @stable [12.06.2020]
-   * @returns {JSX.Element}
+   * @stable [09.10.2020]
    */
   public render(): JSX.Element {
     const {
       className,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     return (
       <div
@@ -70,8 +73,16 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
         }>
         {this.drawerElement}
         {this.bodyElement}
+        {this.chatDialogElement}
       </div>
     );
+  }
+
+  /**
+   * @stable [09.10.2020]
+   */
+  private onChatDialogClose(): void {
+    this.chatDialogRef.current.close();
   }
 
   /**
@@ -120,6 +131,34 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
+   * @stable [09.10.2020]
+   */
+  private get chatDialogElement(): JSX.Element {
+    const {
+      chatDialogContent,
+    } = this.mergedProps;
+
+    return (
+      <Dialog
+        ref={this.chatDialogRef}
+        acceptable={false}
+        closable={false}
+        default={false}
+        inline={true}
+        className={DefaultLayoutClassesEnum.CHAT_DIALOG}
+        onDeactivate={() => {
+          // TODO
+        }}
+      >
+        {CalcUtils.calc(chatDialogContent, {
+          defaultLayoutProps: this.originalProps,
+          onClose: this.onChatDialogClose,
+        })}
+      </Dialog>
+    );
+  }
+
+  /**
    * @stable [12.08.2020]
    * @private
    */
@@ -127,7 +166,22 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
     return (
       <Header
         {...Mappers.defaultLayoutPropsAsHeaderProps(this.originalProps)}
-        navigationActionRendered={this.isNavigationActionRendered}/>
+        navigationActionRendered={this.isNavigationActionRendered}
+        onCommentClick={this.commentClickHandler}/>
+    );
+  }
+
+  /**
+   * @stable [09.10.2020]
+   */
+  private get commentClickHandler(): () => void {
+    const {
+      chatDialogContent,
+    } = this.mergedProps;
+
+    return ConditionUtils.orUndef(
+      TypeUtils.isDef(chatDialogContent),
+      () => () => this.chatDialogRef.current.activate()
     );
   }
 
@@ -173,8 +227,10 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   private get drawerHeaderElement(): JSX.Element {
     const {
       drawerHeaderLogoRendered,
-      onDrawerHeaderClick,
     } = this.mergedProps;
+    const {
+      onDrawerHeaderClick,
+    } = this.originalProps;
 
     return (
       <div

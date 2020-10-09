@@ -1,5 +1,9 @@
+import * as React from 'react';
+
 import {
+  IChatDialogContentWrapper,
   IDefaultLayoutConfigurationWrapper,
+  IDefaultLayoutPropsWrapper,
   IDrawerHeaderLogoRenderedWrapper,
   IDrawerHeaderRenderedWrapper,
   IFooterRenderedWrapper,
@@ -7,6 +11,7 @@ import {
   IHeaderRenderedWrapper,
   IHeaderWrapper,
   IOnChangeLayoutModeWrapper,
+  IOnCloseWrapper,
   IOnDrawerHeaderClickWrapper,
   IProgressWrapper,
   ISubHeaderRenderedWrapper,
@@ -19,11 +24,21 @@ import { IReduxStoreEntity } from './redux-definition.interface';
 import { ISubHeaderConfigurationEntity } from './sub-header-definition.interface';
 
 /**
+ * @config-entity
+ * @stable [09.10.2020]
+ */
+export interface IDefaultLayoutChatConfigEntity<TProps extends IPresetsDefaultLayoutEntity<{}> = IPresetsDefaultLayoutEntity<{}>>
+  extends IDefaultLayoutPropsWrapper<TProps>,
+    IOnCloseWrapper {
+}
+
+/**
  * @presets-entity
  * @stable [27.05.2020]
  */
-export interface IPresetsDefaultLayoutEntity
-  extends IDrawerHeaderLogoRenderedWrapper,
+export interface IPresetsDefaultLayoutEntity<TProps extends IPresetsDefaultLayoutEntity<{}> = IPresetsDefaultLayoutEntity<{}>>
+  extends IChatDialogContentWrapper<(cfg: IDefaultLayoutChatConfigEntity<TProps>) => React.ReactNode>,
+    IDrawerHeaderLogoRenderedWrapper,
     IDrawerHeaderRenderedWrapper,
     IFooterRenderedWrapper,
     IFooterWrapper,
@@ -50,8 +65,8 @@ export interface IReduxDefaultLayoutEntity
  * @generic-entity
  * @stable [27.05.2020]
  */
-export interface IGenericDefaultLayoutEntity
-  extends IPresetsDefaultLayoutEntity,
+export interface IGenericDefaultLayoutEntity<TProps extends IGenericDefaultLayoutEntity<{}> = IGenericDefaultLayoutEntity<{}>>
+  extends IPresetsDefaultLayoutEntity<TProps>,
     IReduxDefaultLayoutEntity {
 }
 
@@ -59,9 +74,9 @@ export interface IGenericDefaultLayoutEntity
  * @props
  * @stable [04.02.2020]
  */
-export interface IDefaultLayoutProps
+export interface IDefaultLayoutProps<TProps extends IDefaultLayoutProps<{}> = IDefaultLayoutProps<{}>>
   extends IGenericComponentProps,
-    IGenericDefaultLayoutEntity {
+    IGenericDefaultLayoutEntity<TProps> {
   navigationListElement?: any; // TODO
 }
 
@@ -105,6 +120,7 @@ export interface IDefaultLayoutContainerProps
  * @stable [20.05.2020]
  */
 export enum DefaultLayoutClassesEnum {
+  CHAT_DIALOG = 'rac-default-layout__chat-dialog',
   DEFAULT_LAYOUT = 'rac-default-layout',
   DEFAULT_LAYOUT_BODY = 'rac-default-layout__body',
   DEFAULT_LAYOUT_DRAWER_HEADER = 'rac-default-layout__drawer-header',

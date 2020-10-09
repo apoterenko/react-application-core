@@ -23,6 +23,7 @@ export enum IconsEnum {
   CLOCK_REGULAR = 'clock-regular',                                        /* https://fontawesome.com/ */
   CODEPEN = 'codepen',                                                    /* https://fontawesome.com/ */
   COGS = 'cogs',                                                          /* https://fontawesome.com/ */
+  COMMENT = 'comment',                                                    /* https://fontawesome.com/ */
   DOLLAR_SIGN = 'dollar-sign',                                            /* https://fontawesome.com/ */
   ELLIPSIS_H = 'ellipsis-h',                                              /* https://fontawesome.com/ */
   EXCLAMATION = 'exclamation',                                            /* https://fontawesome.com/ */

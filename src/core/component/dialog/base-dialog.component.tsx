@@ -143,6 +143,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
+   * @stable [09.10.2020]
+   */
+  public close(): void {
+    this.onCloseClick();
+  }
+
+  /**
    * @stable [11.05.2020]
    */
   protected onAcceptClick(): void {

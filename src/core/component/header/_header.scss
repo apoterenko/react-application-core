@@ -3,15 +3,13 @@
 
 .rac {
 
-  /**
-   * @header
-   * @stable [10.02.2020]
-   */
+  // @stable [09.10.2020]
   @include rac-header (
     $rac-header-actions-align-items: $rac-header-actions-align-items,
     $rac-header-actions-display: $rac-header-actions-display,
     $rac-header-actions-margin: $rac-header-actions-margin,
     $rac-header-background: $rac-header-background,
+    $rac-header-chat-action-margin: $rac-header-chat-action-margin,
     $rac-header-content-align-items: $rac-header-content-align-items,
     $rac-header-content-display: $rac-header-content-display,
     $rac-header-content-flex-direction: $rac-header-content-flex-direction,

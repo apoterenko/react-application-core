@@ -14,6 +14,7 @@
   $rac-header-actions-margin: unset,                                                          /* @stable [06.02.2020] */
   $rac-header-actions-padding: unset,                                                         /* @stable [06.02.2020] */
   $rac-header-background: unset,                                                              /* @stable [06.02.2020] */
+  $rac-header-chat-action-margin: unset,                                                      /* @stable [09.10.2020] */
   $rac-header-color: unset,                                                                   /* @stable [06.02.2020] */
   $rac-header-content-align-items: unset,                                                     /* @stable [10.02.2020] */
   $rac-header-content-display: unset,                                                         /* @stable [10.02.2020] */
@@ -104,6 +105,11 @@
       $rac-button-icon-size: $rac-header-menu-action-icon-size,
       $rac-button-position: $rac-header-menu-action-position,
       $rac-button-right: $rac-header-menu-action-right
+    );
+
+    @include rac-icon (
+      $rac-icon-custom: rac-header__chat-action,
+      $rac-icon-margin: $rac-header-chat-action-margin
     );
   }
 }

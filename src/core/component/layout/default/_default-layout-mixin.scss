@@ -1,3 +1,4 @@
+@import '../../dialog/_dialog-mixin';
 @import '../../form/_form-mixin';
 @import '../../icon/_icon-mixin';
 @import '../../tab-panel/_tab-panel-mixin';
@@ -11,6 +12,9 @@
   $rac-default-layout-body-display: unset,                                                    /* @stable [04.02.2020] */
   $rac-default-layout-body-flex-direction: unset,                                             /* @stable [04.02.2020] */
   $rac-default-layout-body-flex-grow: unset,                                                  /* @stable [27.05.2020] */
+  $rac-default-layout-chat-dialog-body-content-wrapper-border-radius: unset,                  /* @stable [09.10.2020] */
+  $rac-default-layout-chat-dialog-bottom: unset,                                              /* @stable [09.10.2020] */
+  $rac-default-layout-chat-dialog-right: unset,                                               /* @stable [09.10.2020] */
   $rac-default-layout-display: unset,                                                         /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-align-items: unset,                                       /* @stable [27.05.2020] */
   $rac-default-layout-drawer-header-background: unset,                                        /* @stable [04.02.2020] */
@@ -83,6 +87,13 @@
       $rac-icon-height: $rac-default-layout-drawer-header-menu-action-height,
       $rac-icon-margin: $rac-default-layout-drawer-header-menu-action-margin,
       $rac-icon-padding: $rac-default-layout-drawer-header-menu-action-padding
+    );
+
+    @include rac-dialog (
+      $rac-dialog-custom: rac-default-layout__chat-dialog,
+      $rac-dialog-body-content-wrapper-border-radius: $rac-default-layout-chat-dialog-body-content-wrapper-border-radius,
+      $rac-dialog-bottom: $rac-default-layout-chat-dialog-bottom,
+      $rac-dialog-right: $rac-default-layout-chat-dialog-right
     );
 
     #{rac-cls($rac-main-body-content-cls)} {

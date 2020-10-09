@@ -83,6 +83,7 @@ export interface IChangeEvent<TValue = IValueWrapper> extends React.ChangeEvent<
 export interface IChangesWrapper<TValue = {}> { changes?: TValue; }
 export interface IChannelsWrapper<TValue = string> { channels?: TValue; }
 export interface IChannelWrapper<TValue = string> { channel?: TValue; }
+export interface IChatDialogContentWrapper<TValue = React.ReactNode> { chatDialogContent?: TValue; }
 export interface ICheckModalWrapper { checkModal?: boolean; }
 export interface IChildrenWrapper<TValue> { children?: TValue; }
 export interface ICityWrapper<TValue = string> { city?: TValue; }
@@ -129,6 +130,7 @@ export interface IDayWrapper<TValue = number> { day?: TValue; }
 export interface IDecoratedWrapper { decorated?: boolean; }
 export interface IDefaultChangesWrapper<TChanges = {}> { defaultChanges?: TChanges; }
 export interface IDefaultLayoutConfigurationWrapper<TValue> { defaultLayoutConfiguration?: TValue; }
+export interface IDefaultLayoutPropsWrapper<TValue> { defaultLayoutProps?: TValue; }
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDefaultWrapper { default?: boolean; }
@@ -345,6 +347,7 @@ export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; 
 export interface IOnCloseWrapper<TValue = {}> { onClose?(value?: TValue): void; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
+export interface IOnCommentClickWrapper { onCommentClick?(): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryChangeWrapper<TValue1, TValue2> { onDictionaryChange?(value1?: TValue1, value2?: TValue2): void; }

@@ -19,7 +19,6 @@ import {
   DefaultEntities,
   DialogClassesEnum,
   FieldConverterTypesEnum,
-  IDialog,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
   IPlaceEntity,
@@ -333,10 +332,9 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [09.01.2020]
-   * @returns {IDialog}
+   * @stable [09.10.2020]
    */
-  private get dialog(): IDialog {
+  private get dialog(): Dialog {
     return this.dialogRef.current;
   }
 

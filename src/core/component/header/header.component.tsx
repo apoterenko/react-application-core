@@ -4,6 +4,7 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
+  TypeUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
 import { Button } from '../button';
@@ -38,11 +39,11 @@ export class Header extends GenericComponent<IHeaderProps> {
   private readonly menuRef = React.createRef<Menu>();
 
   /**
-   * @stable [21.05.2020]
-   * @param {IHeaderProps} props
+   * @stable [09.10.2020]
+   * @param originalProps
    */
-  constructor(props: IHeaderProps) {
-    super(props);
+  constructor(originalProps: IHeaderProps) {
+    super(originalProps);
 
     this.getMenuAnchorElement = this.getMenuAnchorElement.bind(this);
     this.onMenuActionClick = this.onMenuActionClick.bind(this);
@@ -50,19 +51,19 @@ export class Header extends GenericComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [21.05.2020]
-   * @returns {JSX.Element}
+   * @stable [09.10.2020]
    */
   public render(): JSX.Element {
-    const mergedProps = this.mergedProps;
+    const originalProps = this.originalProps;
     const {
       routes,
       urls,
     } = this.settings;
     const {
       className,
+      onCommentClick,
       user,
-    } = mergedProps;
+    } = originalProps;
 
     const headerContentElement = this.headerContentElement;
 
@@ -78,8 +79,17 @@ export class Header extends GenericComponent<IHeaderProps> {
             </div>
           )
         }
-        <div className={HeaderClassesEnum.HEADER_ACTIONS}>
-          {this.props.children}
+        <div
+          className={HeaderClassesEnum.HEADER_ACTIONS}
+        >
+          {this.originalChildren}
+          {
+            TypeUtils.isFn(onCommentClick) && this.uiFactory.makeIcon({
+              type: IconsEnum.COMMENT,
+              className: HeaderClassesEnum.HEADER_CHAT_ACTION,
+              onClick: onCommentClick,
+            })
+          }
           <Link
             to={routes.profile}
             className={HeaderClassesEnum.HEADER_USER_AVATAR}
