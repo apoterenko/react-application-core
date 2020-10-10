@@ -14,6 +14,7 @@
   $rac-default-layout-body-flex-grow: unset,                                                  /* @stable [27.05.2020] */
   $rac-default-layout-chat-dialog-body-content-wrapper-border-radius: unset,                  /* @stable [09.10.2020] */
   $rac-default-layout-chat-dialog-bottom: unset,                                              /* @stable [09.10.2020] */
+  $rac-default-layout-chat-dialog-box-shadow: unset,                                          /* @stable [10.10.2020] */
   $rac-default-layout-chat-dialog-right: unset,                                               /* @stable [09.10.2020] */
   $rac-default-layout-display: unset,                                                         /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-align-items: unset,                                       /* @stable [27.05.2020] */
@@ -93,6 +94,7 @@
       $rac-dialog-custom: rac-default-layout__chat-dialog,
       $rac-dialog-body-content-wrapper-border-radius: $rac-default-layout-chat-dialog-body-content-wrapper-border-radius,
       $rac-dialog-bottom: $rac-default-layout-chat-dialog-bottom,
+      $rac-dialog-box-shadow: $rac-default-layout-chat-dialog-box-shadow,
       $rac-dialog-right: $rac-default-layout-chat-dialog-right
     );
 

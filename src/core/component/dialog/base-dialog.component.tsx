@@ -14,7 +14,6 @@ import {
   isCloseDisabled,
   isOpened,
   isOverlay,
-  isOverlayClosable,
   isScrollable,
   PropsUtils,
   TypeUtils,
@@ -45,6 +44,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   implements IDialog<TProps, TState> {
 
   public static readonly defaultProps: IDialogProps = {
+    closableOverlay: true,
     default: true,
   };
 
@@ -353,16 +353,18 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {JSX.Element}
+   * @stable [10.10.2020]
    */
   private get dialogBodyElement(): JSX.Element {
-    const mergedProps = this.mergedProps;
+    const {
+      closableOverlay,
+      width,
+    } = this.originalProps;
 
     return (
       <div
         ref={this.$bodyRef}
-        style={{width: CalcUtils.calc(mergedProps.width)}}
+        style={{width: CalcUtils.calc(width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
       >
@@ -391,7 +393,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                     )
                 }
                 {this.isOverlay
-                  ? isOverlayClosable(mergedProps) && this.closeOverlayActionElement
+                  ? closableOverlay && this.closeOverlayActionElement
                   : this.actionsElement}
               </React.Fragment>
             )
@@ -513,7 +515,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     return (
       this.uiFactory.makeIcon({
         type: IconsEnum.TIMES,
-        className: DialogClassesEnum.OVERLAY_DIALOG_CLOSE_ICON,
+        className: DialogClassesEnum.OVERLAY_CLOSE_ICON,
         onClick: this.doClose,
       })
     );

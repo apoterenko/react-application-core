@@ -1,12 +1,8 @@
 @import '../_primary-constant';
 @import '../_classes';
 
-/************************/
-/* @stable [27.04.2020] */
-/************************/
+// @stable [10.10.2020]
 $rac-primary-dialog-background-0: $rac-primary-color-metis-7 !default;
-$rac-primary-dialog-color-0: $rac-primary-color-elara-0 !default;
-$rac-primary-dialog-max-height-0: 80vh !default;
 
 /************************/
 /* @stable [11.05.2020] */
@@ -38,22 +34,20 @@ $rac-default-wide-dialog-body-max-width: $rac-primary-max-width-7 !default;
 /************************/
 $rac-not-transparent-dialog-background: $rac-primary-dialog-background-0 !default;
 
-/************************/
-/* @stable [27.04.2020] */
-/************************/
+// @stable [10.10.2020]
 $rac-inline-dialog-position: absolute !default;
 
 /************************/
 /* @stable [27.04.2020] */
 /************************/
 $rac-default-dialog-align-items: center !default;
-$rac-default-dialog-body-background: $rac-primary-dialog-color-0 !default;
+$rac-default-dialog-body-background: $rac-primary-color-elara-0 !default;
 $rac-default-dialog-body-border-radius: $rac-primary-border-radius-1 !default;
 $rac-default-dialog-body-content-wrapper-padding: 0 $rac-primary-offset-3 !default;
 $rac-default-dialog-body-display: $rac-primary-display-0 !default;
 $rac-default-dialog-body-flex-direction: $rac-primary-flex-direction-0 !default;
 $rac-default-dialog-body-flex-grow: $rac-primary-flex-grow-1 !default;
-$rac-default-dialog-body-max-height: $rac-primary-dialog-max-height-0 !default;
+$rac-default-dialog-body-max-height: 80vh !default;
 $rac-default-dialog-body-max-width: $rac-primary-max-width-4 !default;
 $rac-default-dialog-body-padding: $rac-primary-offset-3 0 !default;
 $rac-default-dialog-display: $rac-primary-display-0 !default;
@@ -89,3 +83,79 @@ $rac-progress-dialog-progress-icon-size: 64px !default;
 /************************/
 $rac-overlay-filter-name: blur !default;
 $rac-overlay-filter-value: 2px !default;
+
+// @stable [10.10.2020]
+$rac-modal-dialog-height: 100% !default;
+$rac-modal-dialog-left: 0 !default;
+$rac-modal-dialog-position: absolute !default;
+$rac-modal-dialog-top: 0 !default;
+$rac-modal-dialog-width: 100% !default;
+$rac-modal-dialog-z-index: $rac-primary-z-index-2 !default;
+
+
+
+//
+$rac-dialog-color-1: $rac-primary-color-metis-1 !default;
+$rac-dialog-height-0: 80vh !default;
+$rac-dialog-width-0: 50vw !default;
+//
+$rac-dialog-action-height: unset !default;
+$rac-dialog-action-width: 160px !default;
+$rac-dialog-actions-display: $rac-primary-display-0 !default;
+$rac-dialog-actions-flex: $rac-primary-flex-0 !default;
+$rac-dialog-actions-justify-content: center !default;
+$rac-dialog-actions-margin: $rac-primary-offset-3 $rac-primary-offset-3 0 $rac-primary-offset-3 !default;
+$rac-dialog-actions-neighbor-child-margin: 0 0 0 $rac-primary-offset-1 !default;
+$rac-dialog-body-display: unset !default;
+$rac-dialog-body-title-border-bottom: 1px solid $rac-dialog-color-1 !default;
+$rac-dialog-body-title-font-weight: $rac-primary-font-weight-4 !default;
+$rac-dialog-body-title-margin: 0 $rac-primary-offset-3 $rac-primary-offset-3 $rac-primary-offset-3 !default;
+$rac-dialog-body-title-padding: 0 0 12px 0 !default;
+//
+$rac-menu-dialog-body-background: unset !default;
+$rac-menu-dialog-body-justify-content: unset !default;
+$rac-menu-dialog-empty-message-align-items: center !default;
+$rac-menu-dialog-empty-message-color: $rac-primary-color-elara-0 !default;
+$rac-menu-dialog-empty-message-display: $rac-primary-display-0 !default;
+$rac-menu-dialog-empty-message-flex: unset !default;
+$rac-menu-dialog-empty-message-font-size: $rac-primary-font-size-0 !default;
+$rac-menu-dialog-empty-message-height: 100% !default;
+$rac-menu-dialog-empty-message-justify-content: center !default;
+$rac-menu-dialog-empty-message-padding: unset !default;
+$rac-menu-dialog-empty-message-width: 100% !default;
+$rac-menu-dialog-list-item-box-sizing: border-box !default;
+$rac-menu-dialog-list-item-decorated-content-text-align: right !default;
+$rac-menu-dialog-list-item-font-size: unset !default;
+$rac-menu-dialog-list-item-font-weight: unset !default;
+$rac-menu-dialog-list-item-line-height: $rac-primary-line-height-2 !default;
+//
+$rac-menu-anchored-dialog-body-background: unset !default;
+$rac-menu-anchored-dialog-body-content-wrapper-background: $rac-primary-color-poseidon-0 !default;
+$rac-menu-anchored-dialog-body-content-wrapper-border-radius: $rac-primary-border-radius-1 !default;
+$rac-menu-anchored-dialog-body-content-wrapper-box-shadow: 0 5px 10px 0 $rac-primary-color-metis-2 !default;
+$rac-menu-anchored-dialog-body-content-wrapper-margin: unset !default;
+$rac-menu-anchored-dialog-body-display: inline-block !default;
+$rac-menu-anchored-dialog-body-margin: unset !default;
+$rac-menu-anchored-dialog-body-min-width: 160px !default;
+$rac-menu-anchored-dialog-list-item-border-bottom: 1px solid $rac-primary-color-elara-1 !default;
+$rac-menu-anchored-dialog-list-item-color: $rac-primary-color-elara-0 !default;
+$rac-menu-anchored-dialog-list-item-font-size: unset !default;
+$rac-menu-anchored-dialog-list-item-hover-background: $rac-primary-color-elara-2 !default;
+$rac-menu-anchored-dialog-list-item-hover-border-bottom: 1px solid transparent !default;
+$rac-menu-anchored-dialog-list-item-hover-color: $rac-primary-color-elara-0 !default;
+$rac-menu-anchored-dialog-list-item-icon-color: unset !default;
+$rac-menu-anchored-dialog-list-item-last-border-bottom-color: transparent !default;
+$rac-menu-anchored-dialog-list-item-line-height: unset !default;
+$rac-menu-anchored-dialog-list-item-selected-background: $rac-primary-color-ganymede-0 !default;
+$rac-menu-anchored-dialog-list-item-selected-color: $rac-primary-color-poseidon-0 !default;
+$rac-menu-anchored-dialog-list-margin: unset !default;
+$rac-menu-anchored-dialog-list-padding: $rac-primary-offset-1 0 !default;
+$rac-menu-anchored-dialog-z-index: $rac-primary-z-index-2 !default;
+//
+$rac-menu-not-anchored-dialog-align-items: center !default;
+$rac-menu-not-anchored-dialog-body-display: $rac-primary-display-0 !default;
+$rac-menu-not-anchored-dialog-body-height: $rac-dialog-height-0 !default;
+$rac-menu-not-anchored-dialog-body-width: $rac-dialog-width-0 !default;
+$rac-menu-not-anchored-dialog-display: $rac-primary-display-0 !default;
+$rac-menu-not-anchored-dialog-justify-content: center !default;
+$rac-menu-not-anchored-dialog-list-border-radius: $rac-primary-border-radius-1 !default;

@@ -1,0 +1,238 @@
+@import '../_core-mixin';
+@import '../button/_button-mixin';
+@import '../icon/_icon-mixin';
+
+// @stable [10.10.2020]
+@mixin rac-dialog (
+  $rac-dialog-custom: unset,
+  /**/
+  $rac-dialog-actions-action-height: unset,
+  $rac-dialog-actions-action-width: unset,
+  $rac-dialog-actions-display: unset,
+  $rac-dialog-actions-flex: unset,
+  $rac-dialog-actions-justify-content: unset,
+  $rac-dialog-actions-margin: unset,
+  $rac-dialog-actions-neighbor-child-margin: unset,
+  $rac-dialog-align-items: unset,
+  $rac-dialog-background: unset,
+  $rac-dialog-body-align-items: unset,
+  $rac-dialog-body-background: unset,
+  $rac-dialog-body-border-radius: unset,
+  $rac-dialog-body-content-align-items: unset,
+  $rac-dialog-body-content-background: unset,
+  $rac-dialog-body-content-border-radius: unset,
+  $rac-dialog-body-content-box-shadow: unset,
+  $rac-dialog-body-content-display: unset,
+  $rac-dialog-body-content-flex-grow: unset,
+  $rac-dialog-body-content-flex: unset,
+  $rac-dialog-body-content-margin: unset,
+  $rac-dialog-body-content-overflow: unset,
+  $rac-dialog-body-content-padding: unset,
+  $rac-dialog-body-content-position: unset,
+  $rac-dialog-body-content-wrapper-align-items: unset,
+  $rac-dialog-body-content-wrapper-background: unset,
+  $rac-dialog-body-content-wrapper-border-radius: unset,
+  $rac-dialog-body-content-wrapper-box-shadow: unset,
+  $rac-dialog-body-content-wrapper-display: unset,
+  $rac-dialog-body-content-wrapper-flex-direction: unset,
+  $rac-dialog-body-content-wrapper-flex-grow: unset,
+  $rac-dialog-body-content-wrapper-flex: unset,
+  $rac-dialog-body-content-wrapper-font-size: unset,
+  $rac-dialog-body-content-wrapper-justify-content: unset,
+  $rac-dialog-body-content-wrapper-line-height: unset,
+  $rac-dialog-body-content-wrapper-margin: unset,
+  $rac-dialog-body-content-wrapper-overflow: unset,
+  $rac-dialog-body-content-wrapper-padding: unset,
+  $rac-dialog-body-content-wrapper-position: unset,
+  $rac-dialog-body-content-wrapper-text-align: unset,
+  $rac-dialog-body-display: unset,
+  $rac-dialog-body-flex-direction: unset,
+  $rac-dialog-body-flex-grow: unset,
+  $rac-dialog-body-flex: unset,
+  $rac-dialog-body-height: unset,
+  $rac-dialog-body-justify-content: unset,
+  $rac-dialog-body-margin: unset,
+  $rac-dialog-body-max-height: unset,
+  $rac-dialog-body-max-width: unset,
+  $rac-dialog-body-min-height: unset,
+  $rac-dialog-body-min-width: unset,
+  $rac-dialog-body-padding: unset,
+  $rac-dialog-body-position: unset,
+  $rac-dialog-body-title-border-bottom: unset,
+  $rac-dialog-body-title-font-weight: unset,
+  $rac-dialog-body-title-margin: unset,
+  $rac-dialog-body-title-padding: unset,
+  $rac-dialog-body-width: unset,
+  $rac-dialog-body-z-index: unset,
+  $rac-dialog-bottom: unset,
+  $rac-dialog-box-shadow: unset,
+  $rac-dialog-display: unset,
+  $rac-dialog-extra-actions-action-background: unset,
+  $rac-dialog-extra-actions-action-border-radius: unset,
+  $rac-dialog-extra-actions-neighbor-child-margin: unset,
+  $rac-dialog-extra-actions-position: unset,
+  $rac-dialog-extra-actions-right: unset,
+  $rac-dialog-extra-actions-top: unset,
+  $rac-dialog-extra-actions-transform: unset,
+  $rac-dialog-height: unset,
+  $rac-dialog-justify-content: unset,
+  $rac-dialog-left: unset,
+  $rac-dialog-opacity: unset,
+  $rac-dialog-overlay-close-icon-color: unset,
+  $rac-dialog-overlay-close-icon-content-size: unset,
+  $rac-dialog-overlay-close-icon-position: unset,
+  $rac-dialog-overlay-close-icon-right: unset,
+  $rac-dialog-overlay-close-icon-size: unset,
+  $rac-dialog-overlay-close-icon-top: unset,
+  $rac-dialog-position: unset,
+  $rac-dialog-progress-icon-size: unset,
+  $rac-dialog-right: unset,
+  $rac-dialog-top: unset,
+  $rac-dialog-width: unset,
+  $rac-dialog-z-index: unset
+) {
+  #{rac-cls(rac-dialog, $rac-dialog-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-dialog-align-items,
+      $rac-styles-background: $rac-dialog-background,
+      $rac-styles-bottom: $rac-dialog-bottom,
+      $rac-styles-box-shadow: $rac-dialog-box-shadow,
+      $rac-styles-display: $rac-dialog-display,
+      $rac-styles-height: $rac-dialog-height,
+      $rac-styles-justify-content: $rac-dialog-justify-content,
+      $rac-styles-left: $rac-dialog-left,
+      $rac-styles-opacity: $rac-dialog-opacity,
+      $rac-styles-position: $rac-dialog-position,
+      $rac-styles-right: $rac-dialog-right,
+      $rac-styles-top: $rac-dialog-top,
+      $rac-styles-width: $rac-dialog-width,
+      $rac-styles-z-index: $rac-dialog-z-index
+    );
+
+    > {
+      .rac-dialog__body {
+        @include rac-styles (
+          $rac-styles-align-items: $rac-dialog-body-align-items,
+          $rac-styles-background: $rac-dialog-body-background,
+          $rac-styles-border-radius: $rac-dialog-body-border-radius,
+          $rac-styles-display: $rac-dialog-body-display,
+          $rac-styles-flex-direction: $rac-dialog-body-flex-direction,
+          $rac-styles-flex-grow: $rac-dialog-body-flex-grow,
+          $rac-styles-flex: $rac-dialog-body-flex,
+          $rac-styles-height: $rac-dialog-body-height,
+          $rac-styles-justify-content: $rac-dialog-body-justify-content,
+          $rac-styles-margin: $rac-dialog-body-margin,
+          $rac-styles-max-height: $rac-dialog-body-max-height,
+          $rac-styles-max-width: $rac-dialog-body-max-width,
+          $rac-styles-min-height: $rac-dialog-body-min-height,
+          $rac-styles-min-width: $rac-dialog-body-min-width,
+          $rac-styles-padding: $rac-dialog-body-padding,
+          $rac-styles-position: $rac-dialog-body-position,
+          $rac-styles-width: $rac-dialog-body-width,
+          $rac-styles-z-index: $rac-dialog-body-z-index
+        );
+
+        > {
+          @include rac-icon (
+            $rac-icon-custom: rac-dialog__progress-icon,
+            $rac-icon-size: $rac-dialog-progress-icon-size
+          );
+
+          @include rac-icon (
+            $rac-icon-custom: rac-dialog__overlay-close-icon,
+            $rac-icon-color: $rac-dialog-overlay-close-icon-color,
+            $rac-icon-content-size: $rac-dialog-overlay-close-icon-content-size,
+            $rac-icon-position: $rac-dialog-overlay-close-icon-position,
+            $rac-icon-right: $rac-dialog-overlay-close-icon-right,
+            $rac-icon-size: $rac-dialog-overlay-close-icon-size,
+            $rac-icon-top: $rac-dialog-overlay-close-icon-top
+          );
+        }
+
+        > {
+          .rac-dialog__body-content-wrapper {
+            @include rac-styles (
+              $rac-styles-align-items: $rac-dialog-body-content-wrapper-align-items,
+              $rac-styles-background: $rac-dialog-body-content-wrapper-background,
+              $rac-styles-border-radius: $rac-dialog-body-content-wrapper-border-radius,
+              $rac-styles-box-shadow: $rac-dialog-body-content-wrapper-box-shadow,
+              $rac-styles-display: $rac-dialog-body-content-wrapper-display,
+              $rac-styles-flex-direction: $rac-dialog-body-content-wrapper-flex-direction,
+              $rac-styles-flex-grow: $rac-dialog-body-content-wrapper-flex-grow,
+              $rac-styles-flex: $rac-dialog-body-content-wrapper-flex,
+              $rac-styles-font-size: $rac-dialog-body-content-wrapper-font-size,
+              $rac-styles-justify-content: $rac-dialog-body-content-wrapper-justify-content,
+              $rac-styles-line-height: $rac-dialog-body-content-wrapper-line-height,
+              $rac-styles-margin: $rac-dialog-body-content-wrapper-margin,
+              $rac-styles-overflow: $rac-dialog-body-content-wrapper-overflow,
+              $rac-styles-padding: $rac-dialog-body-content-wrapper-padding,
+              $rac-styles-position: $rac-dialog-body-content-wrapper-position,
+              $rac-styles-text-align: $rac-dialog-body-content-wrapper-text-align
+            );
+
+            > {
+              @include rac-styles (
+                $rac-styles-custom: rac-dialog__body-content,
+                $rac-styles-align-items: $rac-dialog-body-content-align-items,
+                $rac-styles-background: $rac-dialog-body-content-background,
+                $rac-styles-border-radius: $rac-dialog-body-content-border-radius,
+                $rac-styles-box-shadow: $rac-dialog-body-content-box-shadow,
+                $rac-styles-display: $rac-dialog-body-content-display,
+                $rac-styles-flex-grow: $rac-dialog-body-content-flex-grow,
+                $rac-styles-flex: $rac-dialog-body-content-flex,
+                $rac-styles-margin: $rac-dialog-body-content-margin,
+                $rac-styles-overflow: $rac-dialog-body-content-overflow,
+                $rac-styles-padding: $rac-dialog-body-content-padding,
+                $rac-styles-position: $rac-dialog-body-content-position
+              );
+
+              .rac-dialog__extra-actions {
+                @include rac-styles (
+                  $rac-styles-position: $rac-dialog-extra-actions-position,
+                  $rac-styles-right: $rac-dialog-extra-actions-right,
+                  $rac-styles-top: $rac-dialog-extra-actions-top,
+                  $rac-styles-transform: $rac-dialog-extra-actions-transform
+                );
+
+                @include rac-button (
+                  $rac-button-background: $rac-dialog-extra-actions-action-background,
+                  $rac-button-border-radius: $rac-dialog-extra-actions-action-border-radius
+                );
+
+                @include rac-neighbor-child (
+                  $rac-neighbor-child-margin: $rac-dialog-extra-actions-neighbor-child-margin
+                );
+              }
+            }
+          }
+
+          .rac-dialog__actions {
+            @include rac-styles (
+              $rac-styles-display: $rac-dialog-actions-display,
+              $rac-styles-flex: $rac-dialog-actions-flex,
+              $rac-styles-justify-content: $rac-dialog-actions-justify-content,
+              $rac-styles-margin: $rac-dialog-actions-margin
+            );
+
+            @include rac-button (
+              $rac-button-height: $rac-dialog-actions-action-height,
+              $rac-button-width: $rac-dialog-actions-action-width
+            );
+
+            @include rac-neighbor-child (
+              $rac-neighbor-child-margin: $rac-dialog-actions-neighbor-child-margin
+            );
+          }
+
+          @include rac-styles (
+            $rac-styles-custom: rac-dialog__body-title,
+            $rac-styles-border-bottom: $rac-dialog-body-title-border-bottom,
+            $rac-styles-font-weight: $rac-dialog-body-title-font-weight,
+            $rac-styles-margin: $rac-dialog-body-title-margin,
+            $rac-styles-padding: $rac-dialog-body-title-padding
+          );
+        }
+      }
+    }
+  }
+}

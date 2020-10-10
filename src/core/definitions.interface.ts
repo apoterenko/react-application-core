@@ -72,7 +72,7 @@ export interface ICalendarConfigurationWrapper<TValue> { calendarConfiguration?:
 export interface ICalendarEntityConfigurationWrapper<TValue> { calendarEntityConfiguration?: TValue; }
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 // @ts-ignore
-export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayload = AnyT> { callback?: TValue; }
+export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayload = unknown> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICaptureWrapper { capture?: boolean; }
 export interface ICaretBlinkingFrequencyWrapper { caretBlinkingFrequency?: number; }
@@ -89,6 +89,7 @@ export interface IChildrenWrapper<TValue> { children?: TValue; }
 export interface ICityWrapper<TValue = string> { city?: TValue; }
 export interface IClassNameWrapper<TValue = string> { className?: TValue; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
+export interface IClosableOverlayWrapper { closableOverlay?: boolean; }
 export interface IClosableWrapper { closable?: boolean; }
 export interface ICloseActionConfigurationWrapper<TValue> { closeActionConfiguration?: TValue; }
 export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
@@ -392,7 +393,6 @@ export interface IOriginalValueWrapper<TValue = AnyT> { originalValue?: TValue; 
 export interface IOutlinedWrapper { outlined?: boolean; }
 export interface IOutputFormatWrapper { outputFormat?: string; }
 export interface IOutputTimeFormatWrapper { outputTimeFormat?: string; }
-export interface IOverlayClosableWrapper { overlayClosable?: boolean; }
 export interface IOverlayWrapper<TValue = boolean> { overlay?: TValue; }
 export interface IPagesCountWrapper { pagesCount?: number; }
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
