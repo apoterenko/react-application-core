@@ -21,8 +21,8 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
   }, BaseDialog);
 
   /**
-   * @stable [11.05.2020]
-   * @param {IActivateDialogConfigEntity} payload
+   * @stable [10.10.2020]
+   * @param payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
     if (FormUtils.isChanged(this.originalProps)) { // We can't use dirty flag because of the default changes (!)
@@ -33,16 +33,14 @@ export class UnsavedFormChangesDialog extends BaseDialog<IUnsavedFormChangesDial
   }
 
   /**
-   * @stable [15.06.2020]
-   * @returns {string}
+   * @stable [10.10.2020]
    */
   protected get acceptText(): string {
     return this.mergedProps.acceptText || this.settings.messages.DIALOG_DISCARD;
   }
 
   /**
-   * @stable [15.06.2020]
-   * @returns {string | boolean}
+   * @stable [10.10.2020]
    */
   protected get title(): string | boolean {
     const {

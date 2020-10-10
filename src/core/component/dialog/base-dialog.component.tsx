@@ -7,17 +7,8 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
-  isAcceptable,
-  isAcceptDisabled,
-  isCheckModalNeeded,
-  isClosable,
-  isCloseDisabled,
-  isOpened,
-  isOverlay,
-  isScrollable,
   PropsUtils,
   TypeUtils,
-  WrapperUtils,
 } from '../../util';
 import { PerfectScrollPlugin } from '../plugin/perfect-scroll.plugin';
 import {
@@ -36,7 +27,7 @@ import { GenericComponent } from '../base/generic.component';
 
 /**
  * @component-impl
- * @stable [11.05.2020]
+ * @stable [10.10.2020]
  */
 export class BaseDialog<TProps extends IDialogProps = IDialogProps,
                         TState extends IDialogState = IDialogState>
@@ -44,21 +35,24 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   implements IDialog<TProps, TState> {
 
   public static readonly defaultProps: IDialogProps = {
+    acceptable: true,
+    closable: true,
     closableOverlay: true,
     default: true,
+    scrollable: true,
   };
 
   private $closeEventUnsubscriber: () => void;
   private $onDeactivateCallback: () => void;
   private $isCheckNeededAndAnotherModalDialogOpen: boolean;
-  private readonly $bodyRef = React.createRef<HTMLDivElement>();
+  private readonly bodyRef = React.createRef<HTMLDivElement>();
 
   /**
-   *  @stable [11.05.2020]
-   * @param {TProps} props
+   * @stable [10.10.2020]
+   * @param originalProps
    */
-  constructor(props: TProps) {
-    super(props);
+  constructor(originalProps: TProps) {
+    super(originalProps);
 
     this.doClose = this.doClose.bind(this);
     this.onAcceptClick = this.onAcceptClick.bind(this);
@@ -72,12 +66,11 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {React.ReactNode}
+   * @stable [10.10.2020]
    */
   public render(): React.ReactNode {
     return ConditionUtils.orNull(
-      isOpened(this.state),
+      this.state.opened,
       () => {
         const inline = this.isInline;
         const modal = this.isModal;
@@ -99,25 +92,26 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   public componentDidMount(): void {
     this.showOverlayIfApplicable();
+
     if (this.isOverlay) {
       this.activate();
     }
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   public componentWillUnmount(): void {
    this.onDestroy();
   }
 
   /**
-   * @stable [11.05.2020]
-   * @param {IActivateDialogConfigEntity} payload
+   * @stable [10.10.2020]
+   * @param payload
    */
   public activate(payload?: IActivateDialogConfigEntity): void {
     this.setState({opened: true}, () => {
@@ -143,20 +137,20 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [09.10.2020]
+   * @stable [10.10.2020]
    */
   public close(): void {
     this.onCloseClick();
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   protected onAcceptClick(): void {
     const {
       onAccept,
       onBeforeAccept,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     if (onBeforeAccept) {
       onBeforeAccept();
@@ -170,7 +164,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   protected onCloseClick(): void {
     const {
@@ -185,38 +179,35 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {string}
+   * @stable [10.10.2020]
    */
   protected get title(): string | boolean {
-    return this.mergedProps.title;
+    return this.originalProps.title;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {string}
+   * @stable [10.10.2020]
    */
   protected get closeText(): string {
     return this.mergedProps.closeText || this.settings.messages.DIALOG_CANCEL;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {string}
+   * @stable [10.10.2020]
    */
   protected get acceptText(): string {
     return this.mergedProps.acceptText || this.settings.messages.DIALOG_ACCEPT;
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   private onDialogClick(): void {
     this.doClose();
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   private onDocumentClickCapture(event: IBaseEvent): void {
     const element = event.target as HTMLElement;
@@ -229,7 +220,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   private onDestroy(): void {
     this.closeOverlayIfApplicable();
@@ -237,7 +228,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   private onAfterRender(): void {
     if (!this.isAnchored) {
@@ -248,11 +239,11 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const {
       anchorElement,
       positionConfiguration,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     this.domAccessor.setPosition({
       ...positionConfiguration,
-      element: this.$bodyRef.current,
+      element: this.bodyRef.current,
       of: CalcUtils.calc(anchorElement),
     });
 
@@ -275,13 +266,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @param {() => void} callback
+   * @stable [10.10.2020]
+   * @param callback
    */
   private doClose(callback?: () => void): void {
     const {
       onDeactivate,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     this.setState({opened: false}, () => {
       this.onDestroy();
@@ -300,55 +291,51 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [19.09.2020]
-   */
-  protected get componentsSettingsProps(): TProps {
-    return this.componentsSettings.dialog as TProps;
-  }
-
-  /**
-   * @stable [11.05.2020]
-   * @returns {JSX.Element}
+   * @stable [10.10.2020]
    */
   private get actionsElement(): JSX.Element {
+    const {
+      acceptActionConfiguration,
+      acceptDisabled,
+      closeActionConfiguration,
+      closeDisabled,
+    } = this.originalProps;
+
     return ConditionUtils.orNull(
       this.closable || this.acceptable,
-      () => {
-        const mergedProps = this.mergedProps;
-        return (
-          <div className={DialogClassesEnum.DIALOG_ACTIONS}>
-            {
-              ConditionUtils.orNull(
-                this.closable,
-                () => (
-                  <Button
-                    icon={IconsEnum.TIMES}
-                    {...mergedProps.closeActionConfiguration}
-                    disabled={isCloseDisabled(mergedProps)}
-                    onClick={this.onCloseClick}>
-                    {this.t(this.closeText)}
-                  </Button>
-                )
+      () => (
+        <div className={DialogClassesEnum.DIALOG_ACTIONS}>
+          {
+            ConditionUtils.orNull(
+              this.closable,
+              () => (
+                <Button
+                  icon={IconsEnum.TIMES}
+                  {...closeActionConfiguration}
+                  disabled={closeDisabled}
+                  onClick={this.onCloseClick}>
+                  {this.t(this.closeText)}
+                </Button>
               )
-            }
-            {
-              ConditionUtils.orNull(
-                this.acceptable,
-                () => (
-                  <Button
-                    icon={IconsEnum.CHECK_CIRCLE}
-                    raised={true}
-                    {...mergedProps.acceptActionConfiguration}
-                    disabled={isAcceptDisabled(mergedProps)}
-                    onClick={this.onAcceptClick}>
-                    {this.t(this.acceptText)}
-                  </Button>
-                )
+            )
+          }
+          {
+            ConditionUtils.orNull(
+              this.acceptable,
+              () => (
+                <Button
+                  icon={IconsEnum.CHECK_CIRCLE}
+                  raised={true}
+                  {...acceptActionConfiguration}
+                  disabled={acceptDisabled}
+                  onClick={this.onAcceptClick}>
+                  {this.t(this.acceptText)}
+                </Button>
               )
-            }
-          </div>
-        );
-      }
+            )
+          }
+        </div>
+      )
     );
   }
 
@@ -363,7 +350,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
 
     return (
       <div
-        ref={this.$bodyRef}
+        ref={this.bodyRef}
         style={{width: CalcUtils.calc(width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
@@ -403,8 +390,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {JSX.Element}
+   * @stable [10.10.2020]
    */
   private get titleElement(): JSX.Element {
     const title = this.title;
@@ -422,8 +408,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {JSX.Element}
+   * @stable [10.10.2020]
    */
   private get extraActionsElement(): JSX.Element {
     return (
@@ -431,7 +416,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         {
           this.hasExtraActions && (
             <div className={DialogClassesEnum.DIALOG_EXTRA_ACTIONS}>
-              {this.mergedProps.extraActions}
+              {this.originalProps.extraActions}
             </div>
           )
         }
@@ -440,34 +425,33 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {JSX.Element}
+   * @stable [10.10.2020]
    */
   private get bodyElement(): JSX.Element {
-    const {children} = this.props;
+    const originalChildren = this.originalChildren;
 
     return (
       <React.Fragment>
         {
           this.hasExtraActions
             ? (
-              children && (
+              originalChildren && (
                 <BasicComponent
                   className={DialogClassesEnum.DIALOG_BODY_CONTENT}
                   plugins={this.wrapperPlugins}
                 >
-                  {children}
+                  {originalChildren}
                 </BasicComponent>
               )
             )
-            : children
+            : originalChildren
         }
       </React.Fragment>
     );
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   private unsubscribeEvents(): void {
     if (TypeUtils.isFn(this.$closeEventUnsubscriber)) {
@@ -477,7 +461,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   private showOverlayIfApplicable(): void {
     if (this.isOverlay) {
@@ -486,7 +470,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
+   * @stable [10.10.2020]
    */
   private closeOverlayIfApplicable(): void {
     if (this.isOverlay) {
@@ -495,8 +479,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {JSX.Element}
+   * @stable [10.10.2020]
    */
   private get progressElement(): JSX.Element {
     return (
@@ -508,8 +491,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {JSX.Element}
+   * @stable [10.10.2020]
    */
   private get closeOverlayActionElement(): JSX.Element {
     return (
@@ -522,115 +504,105 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get acceptable(): boolean {
-    return isAcceptable(this.originalProps);
+    return this.originalProps.acceptable;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get closable(): boolean {
-    return isClosable(this.originalProps);
+    return this.originalProps.closable;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {Element}
+   * @stable [10.10.2020]
    */
   private get portalElement(): Element {
     return this.domAccessor.documentBody;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get isAnchored(): boolean {
-    return !R.isNil(this.mergedProps.anchorElement);
+    return !R.isNil(this.originalProps.anchorElement);
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [10.10.2020]
    */
   private get isInline(): boolean {
     return this.originalProps.inline;
   }
 
   /**
-   * @stable [04.10.2020]
+   * @stable [10.10.2020]
    */
   private get isDefault(): boolean {
     return this.originalProps.default;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get isOverlay(): boolean {
-    return isOverlay(this.mergedProps);
+    return this.originalProps.overlay;
   }
 
   /**
-   * @stable [04.10.2020]
+   * @stable [10.10.2020]
    */
   private get isConfirm(): boolean {
     return this.originalProps.confirm;
   }
 
   /**
-   * @stable [04.10.2020]
+   * @stable [10.10.2020]
    */
   private get isWide(): boolean {
     return this.originalProps.wide;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get isModal(): boolean {
     return (!this.isInline && !this.isAnchored) || this.isOverlay;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get hasExtraActions(): boolean {
-    return !R.isNil(this.mergedProps.extraActions);
+    return !R.isNil(this.originalProps.extraActions);
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get isScrollable(): boolean {
-    return isScrollable(this.mergedProps);
+    return this.mergedProps.scrollable;
   }
 
   /**
-   * @stable [02.08.2020]
+   * @stable [10.10.2020]
    */
   private get isDialogInProgress(): boolean {
-    return WrapperUtils.inProgress(this.originalProps);
+    return this.originalProps.progress;
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {GenericPluginCtorT[]}
+   * @stable [10.10.2020]
    */
   private get wrapperPlugins(): GenericPluginCtorT[] {
     return this.isScrollable ? [PerfectScrollPlugin] : [];
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {string}
+   * @stable [10.10.2020]
    */
   private get dialogClassName(): string {
     const {
@@ -670,12 +642,18 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   }
 
   /**
-   * @stable [11.05.2020]
-   * @returns {boolean}
+   * @stable [10.10.2020]
    */
   private get isCheckNeededAndAnotherModalDialogOpen(): boolean {
-    return isCheckModalNeeded(this.mergedProps) && (
+    return this.originalProps.checkModal && (
       this.domAccessor.hasElements(DialogClassesEnum.MODAL_DIALOG, this.portalElement)
     );
+  }
+
+  /**
+   * @stable [10.10.2020]
+   */
+  protected get componentsSettingsProps(): TProps {
+    return this.componentsSettings.dialog as TProps;
   }
 }

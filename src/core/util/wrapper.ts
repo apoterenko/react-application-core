@@ -1,16 +1,11 @@
 import * as R from 'ramda';
 
 import {
-  IAcceptableWrapper,
-  IAcceptDisabledWrapper,
   IAllowEmptyFilterValueWrapper,
   IAlwaysResettableWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
-  ICheckModalWrapper,
   IClearActionRenderedWrapper,
-  IClosableWrapper,
-  ICloseDisabledWrapper,
   IDecoratedWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
@@ -22,7 +17,6 @@ import {
   IMultiWrapper,
   INavigateBackWrapper,
   IOpenedWrapper,
-  IOverlayWrapper,
   IPlaceActionRenderedWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
@@ -31,7 +25,6 @@ import {
   IReadOnlyWrapper,
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
-  IScrollableWrapper,
   ISelectedWrapper,
   ISortableWrapper,
   ITouchedWrapper,
@@ -92,14 +85,6 @@ const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
 const inProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrapper) ? false : wrapper.progress === true;
 
 /**
- * @stable [15.01.2020]
- * @param {TEntity} wrapper
- * @returns {boolean}
- */
-export const isCheckModalNeeded = <TEntity extends ICheckModalWrapper = ICheckModalWrapper>(wrapper: TEntity): boolean =>
-  R.isNil(wrapper) ? false : wrapper.checkModal === true;
-
-/**
  * @stable [28.11.2019]
  * @param {IReadyWrapper} entity
  * @returns {boolean}
@@ -114,38 +99,6 @@ export const isReady = (entity: IReadyWrapper): boolean =>
  */
 export const isFull = (entity: IFullWrapper): boolean =>
   ifNotNilThanValue(entity, () => entity.full !== false, false);
-
-/**
- * @stable [24.01.2020]
- * @param {IScrollableWrapper} entity
- * @returns {boolean}
- */
-export const isScrollable = (entity: IScrollableWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.scrollable !== false, false);
-
-/**
- * @stable [11.05.2020]
- * @param {IOverlayWrapper} entity
- * @returns {boolean}
- */
-export const isOverlay = (entity: IOverlayWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.overlay === true, false);
-
-/**
- * @stable [11.05.2020]
- * @param {IAcceptableWrapper} entity
- * @returns {boolean}
- */
-export const isAcceptable = (entity: IAcceptableWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.acceptable !== false, false);
-
-/**
- * @stable [11.05.2020]
- * @param {IClosableWrapper} entity
- * @returns {boolean}
- */
-export const isClosable = (entity: IClosableWrapper): boolean =>
-  ifNotNilThanValue(entity, () => entity.closable !== false, false);
 
 /**
  * @stable [28.11.2019]
@@ -224,22 +177,6 @@ export const isCalendarActionRendered = (wrapper: ICalendarActionRenderedWrapper
  */
 const isClearActionRendered = (wrapper: IClearActionRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.clearActionRendered !== false;
-
-/**
- * @stable [11.05.2020]
- * @param {ICloseDisabledWrapper} wrapper
- * @returns {boolean}
- */
-export const isCloseDisabled = (wrapper: ICloseDisabledWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.closeDisabled === true;
-
-/**
- * @stable [11.05.2020]
- * @param {IAcceptDisabledWrapper} wrapper
- * @returns {boolean}
- */
-export const isAcceptDisabled = (wrapper: IAcceptDisabledWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.acceptDisabled === true;
 
 /**
  * @stable [23.03.2020]
