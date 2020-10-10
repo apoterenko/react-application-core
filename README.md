@@ -144,6 +144,7 @@ The library is designed to quickly start develop the business applications are b
 
 * [_dialog.scss (11.05.2020)](src/core/component/dialog/_dialog.scss)
 * [_dialog-constant.scss (11.05.2020)](src/core/component/dialog/_dialog-constant.scss)
+* [_dialog-mixin.scss (10.10.2020)](src/core/component/dialog/_dialog-mixin.scss)
 
 #### Drawer
 
