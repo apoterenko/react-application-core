@@ -87,19 +87,13 @@
     $rac-dialog-body-max-width: $rac-confirm-dialog-body-max-width
   );
 
-  /**
-   * @not-transparent-dialog
-   * @stable [31.01.2020]
-   */
+  // @stable [10.10.2020]
   @include rac-dialog (
     $rac-dialog-custom: $rac-not-transparent-dialog-cls,
     $rac-dialog-background: $rac-not-transparent-dialog-background
   );
 
-  /**
-   * @overlay-dialog
-   * @stable [11.05.2020]
-   */
+  // @stable [10.10.2020]
   @include rac-dialog (
     $rac-dialog-custom: $rac-overlay-dialog-cls,
     $rac-dialog-align-items: $rac-overlay-dialog-align-items,
@@ -110,12 +104,12 @@
     $rac-dialog-display: $rac-overlay-dialog-display,
     $rac-dialog-justify-content: $rac-overlay-dialog-justify-content,
     $rac-dialog-opacity: $rac-overlay-dialog-opacity,
-    $rac-dialog-overlay-close-icon-color: $rac-overlay-dialog-close-icon-color,
-    $rac-dialog-overlay-close-icon-content-size: $rac-overlay-dialog-close-icon-content-size,
-    $rac-dialog-overlay-close-icon-position: $rac-overlay-dialog-close-icon-position,
-    $rac-dialog-overlay-close-icon-right: $rac-overlay-dialog-close-icon-right,
-    $rac-dialog-overlay-close-icon-size: $rac-overlay-dialog-close-icon-size,
-    $rac-dialog-overlay-close-icon-top: $rac-overlay-dialog-close-icon-top
+    $rac-dialog-overlay-close-icon-color: $rac-overlay-dialog-overlay-close-icon-color,
+    $rac-dialog-overlay-close-icon-content-size: $rac-overlay-dialog-overlay-close-icon-content-size,
+    $rac-dialog-overlay-close-icon-position: $rac-overlay-dialog-overlay-close-icon-position,
+    $rac-dialog-overlay-close-icon-right: $rac-overlay-dialog-overlay-close-icon-right,
+    $rac-dialog-overlay-close-icon-size: $rac-overlay-dialog-overlay-close-icon-size,
+    $rac-dialog-overlay-close-icon-top: $rac-overlay-dialog-overlay-close-icon-top
   );
 
   /**

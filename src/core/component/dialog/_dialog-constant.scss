@@ -29,9 +29,7 @@ $rac-confirm-dialog-body-max-width: $rac-primary-max-width-2 !default;
 // @stable [04.10.2020]
 $rac-default-wide-dialog-body-max-width: $rac-primary-max-width-7 !default;
 
-/************************/
-/* @stable [27.04.2020] */
-/************************/
+// @stable [10.10.2020]
 $rac-not-transparent-dialog-background: $rac-primary-dialog-background-0 !default;
 
 // @stable [10.10.2020]
@@ -53,23 +51,21 @@ $rac-default-dialog-body-padding: $rac-primary-offset-3 0 !default;
 $rac-default-dialog-display: $rac-primary-display-0 !default;
 $rac-default-dialog-justify-content: center !default;
 
-/************************/
-/* @stable [11.05.2020] */
-/************************/
+// @stable [10.10.2020]
 $rac-overlay-dialog-align-items: unset !default;
 $rac-overlay-dialog-background: $rac-primary-dialog-background-0 !default;
 $rac-overlay-dialog-body-content-wrapper-overflow: auto !default;
 $rac-overlay-dialog-body-display: $rac-primary-display-0 !default;
 $rac-overlay-dialog-body-flex-grow: $rac-primary-flex-grow-1 !default;
-$rac-overlay-dialog-close-icon-color: $rac-primary-color-elara-0 !default;
-$rac-overlay-dialog-close-icon-content-size: $rac-primary-size-5 !default;
-$rac-overlay-dialog-close-icon-position: absolute !default;
-$rac-overlay-dialog-close-icon-right: $rac-primary-offset-3 !default;
-$rac-overlay-dialog-close-icon-size: $rac-primary-size-13 !default;
-$rac-overlay-dialog-close-icon-top: $rac-primary-offset-3 !default;
 $rac-overlay-dialog-display: $rac-primary-display-0 !default;
 $rac-overlay-dialog-justify-content: unset !default;
 $rac-overlay-dialog-opacity: unset !default;
+$rac-overlay-dialog-overlay-close-icon-color: $rac-primary-color-elara-0 !default;
+$rac-overlay-dialog-overlay-close-icon-content-size: $rac-primary-size-5 !default;
+$rac-overlay-dialog-overlay-close-icon-position: absolute !default;
+$rac-overlay-dialog-overlay-close-icon-right: $rac-primary-offset-3 !default;
+$rac-overlay-dialog-overlay-close-icon-size: $rac-primary-size-13 !default;
+$rac-overlay-dialog-overlay-close-icon-top: $rac-primary-offset-3 !default;
 
 /************************/
 /* @stable [11.05.2020] */
