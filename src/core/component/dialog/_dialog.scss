@@ -26,10 +26,7 @@
     $rac-dialog-body-title-padding: $rac-dialog-body-title-padding
   );
 
-  /**
-   * @default-dialog
-   * @stable [24.01.2020]
-   */
+  // @stable [10.10.2020]
   @include rac-dialog (
     $rac-dialog-custom: $rac-default-dialog-cls,
     $rac-dialog-align-items: $rac-default-dialog-align-items,
@@ -111,10 +108,7 @@
     $rac-dialog-progress-icon-size: $rac-progress-dialog-progress-icon-size
   );
 
-  /**
-   * @overlay-background
-   * @stable [11.05.2020]
-   */
+  // @stable [10.10.2020]
   @include rac-filter (
     $rac-filter-custom: $rac-overlay-filter-cls,
     $rac-filter-name: $rac-overlay-filter-name,
