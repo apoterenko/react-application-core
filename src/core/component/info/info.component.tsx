@@ -3,9 +3,8 @@ import * as R from 'ramda';
 
 import {
   CalcUtils,
-  isFull,
+  ClsUtils,
   isStringNotEmpty,
-  joinClassName,
   JsonUtils,
   TypeUtils,
 } from '../../util';
@@ -23,11 +22,19 @@ import {
 
 export class Info extends GenericComponent<IInfoComponentProps> {
 
+  public static readonly defaultProps: IInfoComponentProps = {
+    full: true,
+  };
+
   /**
    * @stable [03.04.2020]
    * @returns {JSX.Element}
    */
   public render(): JSX.Element {
+    const {
+      full,
+    } = this.originalProps;
+
     const props = this.props;
     const {
       emptyData,
@@ -84,9 +91,9 @@ export class Info extends GenericComponent<IInfoComponentProps> {
 
     return (
       <div className={
-        joinClassName(
+        ClsUtils.joinClassName(
           InfoClassesEnum.INFO,
-          isFull(props) && InfoClassesEnum.FULL_INFO,
+          full && InfoClassesEnum.FULL_INFO,
           result.error && InfoClassesEnum.ERROR_INFO,
           result.progress && InfoClassesEnum.PROGRESS_INFO,
           !result.error && !result.progress && InfoClassesEnum.MESSAGE_INFO,

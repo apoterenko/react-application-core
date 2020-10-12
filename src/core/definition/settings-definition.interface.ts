@@ -19,6 +19,7 @@ import { IHeaderProps } from './header-definition.interface';
 import { IInlineOptionProps } from './inline-option-definition.interface';
 import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
+import { INumberFieldProps } from '../component/field/numberfield/numberfield.interface';  // TODO
 import { IPageToolbarProps } from './toolbar-definition.interface';
 import { ISubHeaderLinkProps } from './sub-header-link-definition.interface';
 import { ISubHeaderProps } from './sub-header-definition.interface';
@@ -147,6 +148,7 @@ export interface IComponentsSettingsEntity {
   listItem?: IListItemProps;
   main?: IMainProps;
   navigationList?: INavigationListProps;
+  numberField?: INumberFieldProps;
   pageToolbar?: IPageToolbarProps;
   subHeader?: ISubHeaderProps;
   subHeaderLink?: ISubHeaderLinkProps;

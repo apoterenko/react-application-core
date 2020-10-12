@@ -3,7 +3,7 @@ import { BaseTextField } from '../text-field/base-text-field.component';
 import { IApplicationNumberSettings } from '../../../settings';
 import {
   INumberFieldInternalState,
-  INumberFieldInternalProps,
+  INumberFieldProps,
 } from './numberfield.interface';
 import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
 import {
@@ -11,10 +11,10 @@ import {
   IKeyboardProps,
 } from '../../../definition';
 
-export class NumberField extends BaseTextField<INumberFieldInternalProps,
-                                                INumberFieldInternalState> {
+export class NumberField extends BaseTextField<INumberFieldProps,
+  INumberFieldInternalState> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<INumberFieldInternalProps>({
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<INumberFieldProps>({
     clearActionRendered: false,
     // We can't use number type because an input field throws an empty value on change if valid = false
   }, BaseTextField);
@@ -48,5 +48,16 @@ export class NumberField extends BaseTextField<INumberFieldInternalProps,
    */
   protected getFieldClassName(): string {
     return toClassName(super.getFieldClassName(), 'rac-number-field');
+  }
+
+  /**
+   * @stable [12.10.2020]
+   * @protected
+   */
+  protected getComponentsSettingsProps(): INumberFieldProps {
+    return PropsUtils.mergeWithSystemProps<INumberFieldProps>(
+      super.getComponentsSettingsProps(),
+      this.componentsSettings.numberField
+    );
   }
 }

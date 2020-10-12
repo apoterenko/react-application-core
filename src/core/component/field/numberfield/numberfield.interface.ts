@@ -6,5 +6,5 @@ import {
 export interface INumberFieldInternalState extends IBaseTextFieldState {
 }
 
-export interface INumberFieldInternalProps extends IBaseTextFieldProps {
+export interface INumberFieldProps extends IBaseTextFieldProps {
 }

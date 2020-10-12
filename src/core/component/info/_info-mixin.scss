@@ -24,6 +24,7 @@
   $rac-info-text-font-size: unset,                                                   /* @stable [18.03.2020] */
   $rac-info-text-justify-content: unset,                                             /* @stable [18.03.2020] */
   $rac-info-text-line-height: unset,                                                 /* @stable [18.03.2020] */
+  $rac-info-text-text-align: unset,                                                  /* @stable [12.10.2020] */
   $rac-info-width: unset                                                             /* @stable [19.05.2020] */
 ) {
   #{rac-cls(rac-info, $rac-info-custom)} {
@@ -49,7 +50,8 @@
           $rac-styles-flex: $rac-info-text-flex,
           $rac-styles-font-size: $rac-info-text-font-size,
           $rac-styles-justify-content: $rac-info-text-justify-content,
-          $rac-styles-line-height: $rac-info-text-line-height
+          $rac-styles-line-height: $rac-info-text-line-height,
+          $rac-styles-text-align: $rac-info-text-text-align
         );
 
         @include rac-icon (
