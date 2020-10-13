@@ -1,6 +1,6 @@
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import {
-  IFieldInputAttributes,
+  IFieldInputProps,
   IFieldState,
   IGenericBaseCheckboxEntity,
 } from '../../../definition';
@@ -29,5 +29,5 @@ export interface ICheckboxProps extends IBaseCheckboxProps {
 /**
  * @stable [31.08.2018]
  */
-export interface IBaseCheckboxInputProps extends IFieldInputAttributes {
+export interface IBaseCheckboxInputProps extends IFieldInputProps {
 }

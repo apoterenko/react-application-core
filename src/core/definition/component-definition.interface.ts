@@ -18,7 +18,7 @@ import { IGenericComponentEntity } from './generic-component-definition.interfac
  * @deprecated
  */
 export interface IWebComponentEntity
-  extends IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+  extends IClassNameWrapper<string | ((...args: unknown[]) => string)>,
     IStyleWrapper<React.CSSProperties> {
 }
 

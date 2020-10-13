@@ -5,7 +5,6 @@ import {
   IAlwaysResettableWrapper,
   ICalendarActionRenderedWrapper,
   IChangeableWrapper,
-  IClearActionRenderedWrapper,
   IDecoratedWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
@@ -28,7 +27,6 @@ import {
   ISelectedWrapper,
   ISortableWrapper,
   ITouchedWrapper,
-  IUseCursorWrapper,
   IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
@@ -171,28 +169,12 @@ export const isCalendarActionRendered = (wrapper: ICalendarActionRenderedWrapper
   R.isNil(wrapper) ? false : wrapper.calendarActionRendered !== false;
 
 /**
- * @stable [03.02.2020]
- * @param {IClearActionRenderedWrapper} wrapper
- * @returns {boolean}
- */
-const isClearActionRendered = (wrapper: IClearActionRenderedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.clearActionRendered !== false;
-
-/**
  * @stable [23.03.2020]
  * @param {IAlwaysResettableWrapper} wrapper
  * @returns {boolean}
  */
 export const isAlwaysResettable = (wrapper: IAlwaysResettableWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.alwaysResettable === true;
-
-/**
- * @stable [21.06.2020]
- * @param {IUseCursorWrapper} wrapper
- * @returns {boolean}
- */
-const isCursorUsed = (wrapper: IUseCursorWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.useCursor !== false, false);
 
 /**
  * @stable [24.01.2020]
@@ -302,8 +284,6 @@ export class WrapperUtils {
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
   public static readonly isAllowEmptyFilterValue = isAllowEmptyFilterValue;                /* @stable [08.08.2020] */
   public static readonly isChangeable = isChangeable;                                      /* @stable [22.08.2020] */
-  public static readonly isClearActionRendered = isClearActionRendered;                    /* @stable [17.06.2020] */
-  public static readonly isCursorUsed = isCursorUsed;                                      /* @stable [21.06.2020] */
   public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
   public static readonly isDirty = isDirty;                                                /* @stable [01.08.2020] */
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */

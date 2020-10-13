@@ -9,7 +9,6 @@ import {
   nvl,
   ObjectUtils,
   PropsUtils,
-  WrapperUtils,
 } from '../../../util';
 import {
   UniCodesEnum,
@@ -30,20 +29,22 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
                            TState extends IBaseTextFieldState = IBaseTextFieldState>
     extends Field2<TProps, TState> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseTextFieldProps>({}, Field2);
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseTextFieldProps>({
+    clearActionRendered: true,
+  }, Field2);
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 
   protected defaultActions: IFieldActionEntity[] = [];
 
   /**
-   * @stable [17.06.2020]
-   * @param {TProps} originalProps
+   * @stable [14.10.2020]
+   * @param originalProps
    */
   constructor(originalProps: TProps) {
     super(originalProps);
 
-    if (WrapperUtils.isClearActionRendered(this.originalProps)) {
+    if (originalProps.clearActionRendered) {
       this.addClearAction();
     }
   }

@@ -267,17 +267,19 @@ export interface IMaskedInputCtor
 }
 
 /**
+ * @props
  * @stable [18.05.2020]
  */
-export interface IFieldInputAttributes
+export interface IFieldInputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     RefAttributes<HTMLInputElement> {
 }
 
 /**
- * @stable [18.05.2020]
+ * @props
+ * @stable [14.10.2020]
  */
-export interface IFieldTextAreaAttributes
+export interface IFieldTextAreaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement>,
     RefAttributes<HTMLTextAreaElement> {
 }
@@ -285,7 +287,7 @@ export interface IFieldTextAreaAttributes
 /**
  * @stable [18.05.2020]
  */
-export type FieldComposedInputAttributesT = IFieldInputAttributes | IFieldTextAreaAttributes;
+export type FieldComposedInputAttributesT = IFieldInputProps | IFieldTextAreaProps;
 
 /**
  * @enum

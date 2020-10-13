@@ -100,7 +100,14 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
    * @protected
    */
   protected get mergedProps(): TProps {
-    return PropsUtils.mergeWithSystemProps(this.originalProps, this.componentsSettingsProps);
+    const originalProps = this.originalProps;
+    const {
+      noMergedProps,
+    } = originalProps;
+
+    return noMergedProps
+      ? originalProps
+      : PropsUtils.mergeWithSystemProps(originalProps, this.componentsSettingsProps);
   }
 
   /**

@@ -7,7 +7,7 @@ import {
 } from '../../../util';
 import {
   FieldClassesEnum,
-  IFieldTextAreaAttributes,
+  IFieldTextAreaProps,
   ITextAreaProps,
   TextAreaClassesEnum,
 } from '../../../definition';
@@ -28,7 +28,7 @@ export class TextArea extends BaseTextField<ITextAreaProps> {
    * @returns {JSX.Element}
    */
   protected getInputElement(): JSX.Element {
-    return <textarea {...this.getInputElementProps() as IFieldTextAreaAttributes}/>;
+    return <textarea {...this.getInputElementProps() as IFieldTextAreaProps}/>;
   }
 
   /**

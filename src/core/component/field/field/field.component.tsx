@@ -14,7 +14,7 @@ import {
   FieldConstants,
   IBaseEvent,
   IField,
-  IFieldInputAttributes,
+  IFieldInputProps,
   IFieldProps,
   IFieldState,
   IFocusEvent,
@@ -47,6 +47,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   public static readonly defaultProps: IFieldProps = {
     fieldRendered: true,
     plainValue: true,
+    useCursor: true,
     useKeyboardOnMobilePlatformOnly: false,
   };
 
@@ -107,7 +108,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
           () => this.messageElement(this.error, FieldClassesEnum.FIELD_ERROR_MESSAGE)
         )}
         {this.attachmentElement}
-        {ConditionUtils.orNull(this.isKeyboardUsed && this.isKeyboardOpen(), () => this.keyboardElement)}
+        {ConditionUtils.orNull(this.isKeyboardUsed && this.isKeyboardOpen, () => this.keyboardElement)}
       </div>
     );
   }
@@ -139,22 +140,16 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
+   * @stable [13.10.2020]
+   * @param prevProps
+   * @param prevState
    */
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
-    const {
-      useKeyboard,
-      value,
-    } = prevProps;
-
     if (this.isKeyboardUsed) {
-      if (this.isKeyboardOpen()
-        && !R.equals(this.originalProps.value, value)) {
+      if (this.isKeyboardOpen && !R.equals(this.originalProps.value, prevProps.value)) {
         this.refreshCaretPosition();
       }
-    } else if (useKeyboard) { // Previous props
+    } else if (prevProps.useKeyboard) {
       this.closeVirtualKeyboard();
     }
 
@@ -271,19 +266,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   /**
    * @stable [21.08.2020]
    */
-  protected get displayValueElement(): React.ReactNode {
-    if (!this.originalProps.displayValueRenderedOnly) {
-      return null;
-    }
-    const result = this.decoratedDisplayValue;
-    return R.isNil(result)
-      ? (this.isBusy ? this.waitMessageElement : result)
-      : result;
-  }
-
-  /**
-   * @stable [21.08.2020]
-   */
   protected get waitMessageElement(): React.ReactNode {
     return this.settings.messages.PLEASE_WAIT;
   }
@@ -319,7 +301,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   protected openVirtualKeyboard(): void {
-    if (this.isKeyboardOpen()) {
+    if (this.isKeyboardOpen) {
       return;
     }
     this.setState({keyboardOpen: true}, () => {
@@ -457,11 +439,11 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [18.05.2020]
-   * @returns {JSX.Element}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected getInputElement(): JSX.Element {
-    return <input {...this.getInputElementProps() as IFieldInputAttributes}/>;
+    return <input {...this.getInputElementProps() as IFieldInputProps}/>;
   }
 
   /**
@@ -538,9 +520,12 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     return null;
   }
 
-  // TODO
+  /**
+   * @stable [13.10.2020]
+   * @protected
+   */
   protected get isCursorUsed(): boolean {
-    return WrapperUtils.isCursorUsed(this.originalProps);
+    return this.originalProps.useCursor;
   }
 
   /**
@@ -582,13 +567,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     return !this.isValuePresent || (this.isFocusPrevented && this.isBusy)
       ? FieldConstants.DISPLAY_EMPTY_VALUE
       : this.decoratedDisplayValue;
-  }
-
-  /**
-   * @stable [07.10.2020]
-   */
-  protected isKeyboardOpen(): boolean {
-    return this.state.keyboardOpen || this.isInlineKeyboard;
   }
 
   /**
@@ -905,7 +883,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     return ConditionUtils.ifNotNilThanValue(
       caretPosition,
       () => ConditionUtils.orNull(
-        this.isCursorUsed && this.isKeyboardOpen() && caretVisibility,
+        this.isCursorUsed && this.isKeyboardOpen && caretVisibility,
         () => {
           const textOffset = 2;
           const paddingLeft = parseFloat(this.domAccessor.getProperty(this.input, 'paddingLeft'));
@@ -922,6 +900,19 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
         }
       )
     );
+  }
+
+  /**
+   * @stable [14.10.2020]
+   */
+  private get displayValueElement(): React.ReactNode {
+    if (!this.originalProps.displayValueRenderedOnly) {
+      return null;
+    }
+    const result = this.decoratedDisplayValue;
+    return R.isNil(result)
+      ? (this.isBusy ? this.waitMessageElement : result)
+      : result;
   }
 
   /**
@@ -983,7 +974,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   private get isFocused(): boolean {
     return this.isKeyboardUsed
-      ? this.isKeyboardOpen()
+      ? this.isKeyboardOpen
       : this.state.focused;
   }
 
@@ -1013,6 +1004,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   private get isChangeable(): boolean {
     return WrapperUtils.isChangeable(this.originalProps);
+  }
+
+  /**
+   * @stable [13.10.2020]
+   */
+  private get isKeyboardOpen(): boolean {
+    return this.state.keyboardOpen || this.isInlineKeyboard;
   }
 
   /**

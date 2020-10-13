@@ -4,6 +4,7 @@ import {
   AnyT,
   IClassNameWrapper,
   IForwardedRefWrapper,
+  INoMergedPropsWrapper,
   IStyleWrapper,
   ITitleWrapper,
 } from '../definitions.interface';
@@ -15,8 +16,9 @@ import { ISettingsEntity } from '../settings/settings.interface';
  */
 export interface IPresetsComponentEntity<TComponent = AnyT>
   extends React.RefAttributes<TComponent>,
-    IClassNameWrapper<string | ((...args: AnyT[]) => string)>,
+    IClassNameWrapper<string | ((...args: unknown[]) => string)>,
     IForwardedRefWrapper<React.RefObject<AnyT>>,
+    INoMergedPropsWrapper,
     IStyleWrapper<React.CSSProperties>,
     ITitleWrapper<string | boolean> {
 }
