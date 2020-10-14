@@ -1,9 +1,7 @@
 @import '../_primary-constant';
 @import '../_classes';
 
-/************************/
-/* @stable [19.06.2020] */
-/************************/
+// @stable [19.06.2020]
 $rac-field-display: $rac-primary-display-0 !default;                                          /* @stable [19.06.2020] */
 $rac-field-error-message-color: $rac-primary-color-dia-0 !default;                            /* @stable [20.06.2020] */
 $rac-field-flex-direction: $rac-primary-flex-direction-0 !default;                            /* @stable [19.06.2020] */
@@ -17,6 +15,7 @@ $rac-self-field-display: $rac-primary-display-0 !default;                       
 $rac-self-field-info-height: 100% !default;                                                   /* @stable [19.06.2020] */
 $rac-self-field-info-position: absolute !default;                                             /* @stable [19.06.2020] */
 $rac-self-field-info-width: 100% !default;                                                    /* @stable [19.06.2020] */
+$rac-self-field-input-flex-grow: $rac-primary-flex-grow-1 !default;                           /* @stable [14.10.2020] */
 $rac-self-field-input-wrapper-display: $rac-primary-display-0 !default;                       /* @stable [19.06.2020] */
 $rac-self-field-label-color: $rac-primary-color-poseidon-0 !default;                          /* @stable [19.06.2020] */
 $rac-self-field-label-font-size: $rac-primary-font-size-0 !default;                           /* @stable [19.06.2020] */
@@ -26,9 +25,7 @@ $rac-self-field-label-overflow: hidden !default;                                
 $rac-self-field-label-text-overflow: ellipsis !default;                                       /* @stable [19.06.2020] */
 $rac-self-field-position: relative !default;                                                  /* @stable [19.06.2020] */
 
-/************************/
-/* @stable [19.06.2020] */
-/************************/
+// @stable [19.06.2020]
 $rac-field-required-self-field-label-after-content: '*' !default;
 $rac-field-required-self-field-label-after-font-size: $rac-primary-font-size-0 !default;
 $rac-field-required-self-field-label-after-margin-left: 2px !default;
@@ -38,9 +35,7 @@ $rac-field-required-self-field-label-after-right: unset !default;
 // @stable [14.10.2020]
 $rac-field-prevent-focus-self-field-input-cursor: pointer !default;
 
-/************************/
-/* @stable [19.06.2020] */
-/************************/
+// @stable [19.06.2020]
 $rac-field-disabled-field-message-opacity: $rac-primary-field-opacity-0 !default;
 $rac-field-disabled-self-field-input-cursor: default !default;
 $rac-field-disabled-self-field-input-opacity: $rac-primary-field-opacity-0 !default;

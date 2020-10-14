@@ -480,15 +480,18 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     const placeholder = ConditionUtils.orUndef($props.placeholder && !this.isBusy, () => this.t($props.placeholder));
     const required = this.isRequired;
     const value = this.displayValue;
+    const ref = this.inputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>;
 
     return FilterUtils.defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
       autoComplete,
+      className: FieldClassesEnum.INPUT,
       disabled,
       maxLength,
       minLength,
       name,
       pattern,
       placeholder,
+      ref,
       required,
       tabIndex,
       type,

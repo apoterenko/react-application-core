@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {
   defValuesFilter,
-  isFull,
   joinClassName,
   PropsUtils,
 } from '../../../util';
@@ -31,13 +30,12 @@ export class Field2<TProps extends IFieldProps2,
     const readOnly = this.isInactive;                                                                       /* @stable [28.10.2019] */
 
     const result = defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
-      className: 'rac-field__input rac-flex-x1',
       readOnly,
     });
+
     return {
       ...super.getInputElementProps(),
       ...result,
-      ref: this.inputRef,
     } as FieldComposedInputAttributesT;
   }
 
