@@ -8,11 +8,11 @@ import {
 import {
   FieldActionPositionsEnum,
   IFieldActionEntity,
-  IFieldProps,
   IFieldState,
   IPresetsFieldEntity,
   IReduxFieldEntity,
 } from './field-definition.interface';
+import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 
 /**
  * @redux-entity
@@ -44,11 +44,21 @@ export interface IBaseTextFieldState
 }
 
 /**
- * @stable [25.02.2019]
+ * @generic-entity
+ * @stable [14.10.2020]
+ */
+export interface IGenericBaseTextFieldEntity
+  extends IPresetsBaseTextFieldEntity,
+    IReduxBaseTextFieldEntity {
+}
+
+/**
+ * @props
+ * @stable [14.10.2020]
  */
 export interface IBaseTextFieldProps
-  extends IPresetsBaseTextFieldEntity,
-    IFieldProps {
+  extends IEnhancedGenericComponentProps,
+    IGenericBaseTextFieldEntity {
 }
 
 /**

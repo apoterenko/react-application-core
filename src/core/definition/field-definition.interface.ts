@@ -80,7 +80,6 @@ import {
 } from './entity-definition.interface';
 import {
   IGenericComponent,
-  IGenericComponentProps,
 } from './generic-component-definition.interface';
 import { IKeyboardConfigurationEntity } from './keyboard-definition.interface';
 import {
@@ -88,6 +87,7 @@ import {
   IFocusEvent,
 } from './event-definition.interface';
 import { IReduxMultiEntity } from './multi-entity-definition.interface';
+import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 
 /**
  * @stable [16.05.2020]
@@ -204,7 +204,7 @@ export interface IFluxFieldsChangesEntity
  * @stable [09.05.2020]
  */
 export interface IFieldProps
-  extends IGenericComponentProps,
+  extends IEnhancedGenericComponentProps,
     IGenericFieldEntity {
 }
 
