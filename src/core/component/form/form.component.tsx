@@ -12,6 +12,7 @@ import {
   IFieldsPresets,
   IFormProps,
   IKeyboardEvent,
+  IPresetsFieldEntity,
   IReduxFormEntity,
   ITextFieldProps,
   UniversalIdProviderContext,
@@ -391,8 +392,8 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
 
               ...predefinedOptions,
 
-              // The fields props have a higher priority
-              ...FilterUtils.defValuesFilter<ITextFieldProps, ITextFieldProps>({
+              // The fields props have a higher priority TODO Remove predefined options
+              ...FilterUtils.defValuesFilter<IPresetsFieldEntity, IPresetsFieldEntity>({
                 label: fieldProps.label,
                 placeholder: fieldProps.placeholder,
                 prefixLabel: fieldProps.prefixLabel,

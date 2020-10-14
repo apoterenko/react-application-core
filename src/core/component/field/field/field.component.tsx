@@ -46,10 +46,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   implements IField<TProps, TState> {
 
   public static readonly defaultProps: IFieldProps = {
-    autoComplete: 'off',
     fieldRendered: true,
     plainValue: true,
-    type: 'text',
     useCursor: true,
     useKeyboardOnMobilePlatformOnly: false,
   };
@@ -504,10 +502,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     const {
       name,
       tabIndex,
-      type,
+      type = 'text',
     } = $props;
     const {
-      autoComplete,
+      autoComplete = 'off',
       maxLength,
       minLength,
     } = this.mergedProps;
