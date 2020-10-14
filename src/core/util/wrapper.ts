@@ -18,7 +18,6 @@ import {
   IOpenedWrapper,
   IPlaceActionRenderedWrapper,
   IPreventFocusWrapper,
-  IPreventManualChangesWrapper,
   IProgressWrapper,
   IRangeEnabledWrapper,
   IReadOnlyWrapper,
@@ -45,14 +44,6 @@ const isValid = (wrapper: IValidWrapper): boolean =>
   R.isNil(wrapper)
     ? false
     : ValueUtils.isValueValid(wrapper.valid);
-
-/**
- * @stable [03.02.2020]
- * @param {IPreventManualChangesWrapper} wrapper
- * @returns {boolean}
- */
-const areManualChangesNotPrevented = (wrapper: IPreventManualChangesWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.preventManualChanges !== true;
 
 /**
  * @stable [30.01.2020]
@@ -280,7 +271,6 @@ const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  * @stable [18.05.2020]
  */
 export class WrapperUtils {
-  public static readonly areManualChangesNotPrevented = areManualChangesNotPrevented;      /* @stable [03.06.2020] */
   public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
   public static readonly isAllowEmptyFilterValue = isAllowEmptyFilterValue;                /* @stable [08.08.2020] */
   public static readonly isChangeable = isChangeable;                                      /* @stable [22.08.2020] */

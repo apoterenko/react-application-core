@@ -46,8 +46,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   implements IField<TProps, TState> {
 
   public static readonly defaultProps: IFieldProps = {
+    autoComplete: 'off',
     fieldRendered: true,
     plainValue: true,
+    type: 'text',
     useCursor: true,
     useKeyboardOnMobilePlatformOnly: false,
   };
@@ -174,7 +176,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @param currentRawValue
    */
   public onChangeManually<TValue = unknown>(currentRawValue: TValue): void {
-    if (!this.areManualChangesNotPrevented) {
+    if (this.areManualChangesPrevented) {
       return;
     }
     ConditionUtils.ifNotNilThanValue(
@@ -498,21 +500,36 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [07.10.2020]
    */
   protected getInputElementProps(): FieldComposedInputAttributesT {
-    const originalProps = this.originalProps;
+    const $props = this.originalProps;
     const {
+      name,
+      tabIndex,
+      type,
+    } = $props;
+    const {
+      autoComplete,
       maxLength,
       minLength,
-      tabIndex,
-    } = originalProps;
+    } = this.mergedProps;
+
+    const disabled = this.isDisabled;
     const pattern = this.getFieldPattern();
+    const placeholder = ConditionUtils.orUndef($props.placeholder && !this.isBusy, () => this.t($props.placeholder));
     const required = this.isRequired;
+    const value = this.displayValue;
 
     return FilterUtils.defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
+      autoComplete,
+      disabled,
       maxLength,
       minLength,
+      name,
       pattern,
+      placeholder,
       required,
       tabIndex,
+      type,
+      value,
       ...(
         this.isActive
           ? {
@@ -529,29 +546,11 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get actionsElement(): JSX.Element {
     return null;
-  }
-
-  /**
-   * @stable [18.05.2020]
-   * @returns {JSX.Element}
-   */
-  protected get inputWrapperElement(): JSX.Element {
-    if (this.isFieldRendered) {
-      return (
-        <div className={FieldClassesEnum.FIELD_INPUT_WRAPPER}>
-          {this.getInputElement()}
-          {this.mirrorInputElement}
-          {this.inputCaretElement}
-          {this.inputAttachmentElement}
-        </div>
-      );
-    }
-    return this.inputAttachmentElement;
   }
 
   /**
@@ -1051,6 +1050,26 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
+   * @stable [14.10.2020]
+   * @protected
+   */
+  private get inputWrapperElement(): JSX.Element {
+    if (this.isFieldRendered) {
+      return (
+        <div
+          className={FieldClassesEnum.FIELD_INPUT_WRAPPER}
+        >
+          {this.getInputElement()}
+          {this.mirrorInputElement}
+          {this.inputCaretElement}
+          {this.inputAttachmentElement}
+        </div>
+      );
+    }
+    return this.inputAttachmentElement;
+  }
+
+  /**
    * @stable [21.08.2020]
    */
   private get title(): string {
@@ -1062,15 +1081,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {number}
+   * @stable [14.10.2020]
+   * @private
    */
   private get caretPosition(): number {
+    const da = this.domAccessor;
+
     return this.isValuePresent
-      ? Math.min(
-        this.domAccessor.getWidth(this.inputMirrorRef.current),
-        this.domAccessor.getWidth(this.input)
-      )
+      ? Math.min(da.getWidth(this.inputMirrorRef.current), da.getWidth(this.input))
       : 0;
   }
 
@@ -1085,25 +1103,15 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [21.06.2020]
    * @returns {boolean}
    */
-  private get areManualChangesNotPrevented(): boolean {
-    return WrapperUtils.areManualChangesNotPrevented(this.originalProps);
-  }
-
-  /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
-   */
   private get isInvalid(): boolean {
     return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [14.10.2020]
    */
   private get isFocused(): boolean {
-    return this.isKeyboardUsed
-      ? this.isKeyboardOpen
-      : this.state.focused;
+    return this.isKeyboardUsed ? this.isKeyboardOpen : this.state.focused;
   }
 
   /**
@@ -1121,14 +1129,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.08.2020]
-   */
-  private get error(): string {
-    return this.state.error;
-  }
-
-  /**
-   * @stable [21.08.2020]
+   * @stable [14.10.2020]
    */
   private get isChangeable(): boolean {
     return WrapperUtils.isChangeable(this.originalProps);
@@ -1142,9 +1143,24 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [14.10.2020]
    */
   private get isFieldRendered(): boolean {
     return this.originalProps.fieldRendered;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @private
+   */
+  private get areManualChangesPrevented(): boolean {
+    return this.originalProps.preventManualChanges;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   */
+  private get error(): string {
+    return this.state.error;
   }
 }

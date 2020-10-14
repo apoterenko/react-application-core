@@ -1,10 +1,9 @@
-import { IFieldProps2 } from '../../../configurations-definitions.interface';
-import { IGenericCronEntity } from '../../../definition';
+import { IGenericCronEntity, IFieldProps } from '../../../definition';
 
 /**
  * @stable [15.12.2019]
  */
 export interface ICronFieldProps
-  extends IFieldProps2,
+  extends IFieldProps,
     IGenericCronEntity {
 }

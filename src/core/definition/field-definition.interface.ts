@@ -112,7 +112,7 @@ export interface IPresetsFieldEntity
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */
     IDelayTimeoutWrapper,
-    IDisabledWrapper,
+    IDisabledWrapper,                                                             /* @stable [14.10.2020] */
     IDisplayMessageWrapper,                                                       /* @stable [14.10.2020] */
     IDisplayNameWrapper,
     IDisplayValueRenderedOnlyWrapper,
@@ -144,7 +144,7 @@ export interface IPresetsFieldEntity
     IPosUseKeyboardOnMobilePlatformOnlyWrapper,                                   /* @stable [07.10.2020] */
     IPrefixLabelWrapper,                                                          /* @stable [18.06.2020] */
     IPreventFocusWrapper,
-    IPreventManualChangesWrapper,
+    IPreventManualChangesWrapper,                                                 /* @stable [14.10.2020] */
     IReadOnlyWrapper,                                                             /* @stable [18.06.2020] */
     IRenderedWrapper,
     IRequiredWrapper,
