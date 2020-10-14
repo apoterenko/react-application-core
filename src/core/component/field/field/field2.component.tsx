@@ -68,15 +68,13 @@ export class Field2<TProps extends IFieldProps2,
     const name = props.name;                                                                                /* @stable [28.10.2019] */
     const placeholder = orUndef(props.placeholder && !this.isBusy, () => this.t(props.placeholder));   /* @stable [29.10.2019] */
     const readOnly = this.isInactive;                                                                       /* @stable [28.10.2019] */
-    const step = props.step;                                                                                /* @stable [28.10.2019] */
-    const tabIndex = props.tabIndex;                                                                        /* @stable [28.10.2019] */
     const type = props.type || 'text';                                                                      /* @stable [28.10.2019] */
     const value = this.displayValue;                                                                        /* @stable [28.10.2019] */
 
     const result = defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
       className: 'rac-field__input rac-flex-x1',
       autoComplete, disabled, name,
-      placeholder, readOnly, step, tabIndex, type, value,
+      placeholder, readOnly, type, value,
       ...(
         this.isActive
           ? {

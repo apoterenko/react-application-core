@@ -18,6 +18,7 @@ import {
   IDelayTimeoutWrapper,
   IDisabledWrapper,
   IDisableLabelWrapper,
+  IDisplayMessageWrapper,
   IDisplayNameWrapper,
   IDisplayValueRenderedOnlyWrapper,
   IDisplayValueWrapper,
@@ -38,6 +39,7 @@ import {
   IMessageWrapper,
   IMinLengthWrapper,
   INameWrapper,
+  IOnBlurWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
   IOnClickWrapper,
@@ -57,7 +59,6 @@ import {
   IReadOnlyWrapper,
   IRenderedWrapper,
   IRequiredWrapper,
-  IStepWrapper,
   ITabIndexWrapper,
   ITitleWrapper,
   ITypeWrapper,
@@ -111,6 +112,7 @@ export interface IPresetsFieldEntity
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */
     IDelayTimeoutWrapper,
     IDisabledWrapper,
+    IDisplayMessageWrapper,                                                       /* @stable [14.10.2020] */
     IDisplayNameWrapper,
     IDisplayValueRenderedOnlyWrapper,
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,                     /* @stable [22.06.2020] */
@@ -132,6 +134,7 @@ export interface IPresetsFieldEntity
     IOnDelayWrapper,
     IOnDictionaryLoadWrapper<{}, string>,
     IOnFocusWrapper<IFocusEvent>,                                                 /* @stable [21.06.2020] */
+    IOnBlurWrapper<IFocusEvent>,                                                  /* @stable [21.06.2020] */
     IOnFormChangeWrapper,
     IPatternWrapper,
     IPlaceholderWrapper,
@@ -143,6 +146,7 @@ export interface IPresetsFieldEntity
     IReadOnlyWrapper,                                                             /* @stable [18.06.2020] */
     IRenderedWrapper,
     IRequiredWrapper,
+    ITabIndexWrapper,                                                             /* @stable [14.10.2020] */
     ITypeWrapper,
     IUseCursorWrapper,                                                            /* @stable [21.06.2020] */
     IUseKeyboardWrapper,                                                          /* @stable [20.06.2020] */
@@ -167,12 +171,6 @@ export interface IReduxFieldEntity
 export interface IGenericFieldEntity
   extends IPresetsFieldEntity,
     IReduxFieldEntity {
-}
-
-export interface IGenericFieldEntity2
-  extends IGenericFieldEntity,
-    IStepWrapper,
-    ITabIndexWrapper {
 }
 
 /**
@@ -314,7 +312,7 @@ export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IPresetsField
  * @default-entity
  * @stable [19.08.2020]
  */
-export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity2>({
+export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IGenericFieldEntity>({
   ...DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   type: 'password',
 });

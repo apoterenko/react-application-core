@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import * as Printf from 'sprintf-js';
 
 import {
   AnyT,
@@ -31,7 +32,6 @@ import {
   DelayedTask,
   FieldUtils,
   FilterUtils,
-  isDef,
   TypeUtils,
   ValueUtils,
   WrapperUtils,
@@ -70,6 +70,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     this.state = {} as TState;
 
     this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.onChangeManually = this.onChangeManually.bind(this);
     this.onClick = this.onClick.bind(this);
     this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
@@ -300,6 +301,18 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     }
   }
 
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @protected
+   */
+  protected onBlur(event: IFocusEvent): void {
+    this.setState(
+      {focused: false},
+      () => ConditionUtils.ifNotNilThanValue(this.originalProps.onBlur, (onBlur) => onBlur(event))
+    );
+  }
+
   protected openVirtualKeyboard(): void {
     if (this.isKeyboardOpen) {
       return;
@@ -314,7 +327,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
         });
       }
 
-      if (isDef(this.caretBlinkingTask)) {
+      if (TypeUtils.isDef(this.caretBlinkingTask)) {
         this.caretBlinkingTask.start();
 
         // Need to refresh a caret position right after keyboard opening
@@ -400,6 +413,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     const {
       maxLength,
       minLength,
+      tabIndex,
     } = originalProps;
     const pattern = this.getFieldPattern();
     const required = this.isRequired;
@@ -409,6 +423,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       minLength,
       pattern,
       required,
+      tabIndex,
     });
   }
 
@@ -444,6 +459,18 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   protected getInputElement(): JSX.Element {
     return <input {...this.getInputElementProps() as IFieldInputProps}/>;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param usePrintf
+   * @param args
+   * @protected
+   */
+  protected buildDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
+    return usePrintf
+      ? Printf.sprintf(this.t(this.originalProps.displayMessage), ...args)
+      : FieldConstants.DISPLAY_EMPTY_VALUE;
   }
 
   /**

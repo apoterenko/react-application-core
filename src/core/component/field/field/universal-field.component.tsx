@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as Printf from 'sprintf-js';
 import {
   ILogger,
   LoggerFactory,
@@ -12,13 +11,8 @@ import {
 import { IGenericField2 } from '../../../entities-definitions.interface';
 import { IUniversalFieldProps } from '../../../configurations-definitions.interface';
 import {
-  AnyT,
-} from '../../../definitions.interface';
-import {
-  FieldConstants,
   IBaseEvent,
   IFieldState,
-  IFocusEvent,
   IKeyboardEvent,
 } from '../../../definition';
 import { Field } from './field.component';
@@ -40,7 +34,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     super(props);
 
     this.onChange = this.onChange.bind(this);
-    this.onBlur = this.onBlur.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
   }
@@ -119,31 +112,6 @@ export class UniversalField<TProps extends IUniversalFieldProps,
     const props = this.props;
     if (isFn(props.onKeyArrowUp)) {
       props.onKeyArrowUp(event);
-    }
-  }
-
-  /**
-   * @stable [29.10.2019]
-   * @param {boolean} usePrintf
-   * @param {AnyT} args
-   * @returns {string}
-   */
-  protected buildDisplayMessage(usePrintf: boolean, ...args: AnyT[]): string {
-    return usePrintf
-      ? Printf.sprintf(this.t(this.props.displayMessage), ...args)
-      : FieldConstants.DISPLAY_EMPTY_VALUE;
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @param {IFocusEvent} event
-   */
-  protected onBlur(event: IFocusEvent): void {
-    this.setState({focused: false});
-
-    const props = this.props;
-    if (isFn(props.onBlur)) {
-      props.onBlur(event);
     }
   }
 }

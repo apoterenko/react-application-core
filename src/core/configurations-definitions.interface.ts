@@ -5,16 +5,15 @@ import {
   IDisplayMessageWrapper,
   IFieldConfigurationWrapper,
   IFilterFnWrapper,
-  IOnBlurWrapper,
   IOnSelectWrapper,
   ISorterWrapper,
 } from './definitions.interface';
 import {
   IBaseEvent,
   IComponentProps,
-  IFocusEvent,
+  IFieldProps,
+  IGenericFieldEntity,
   IKeyboardEvent,
-  IGenericFieldEntity2,
   IUniversalComponentEntity,
 } from './definition';
 
@@ -45,10 +44,9 @@ export interface IWebCameraConfiguration extends IComponentProps,
  * @stable [31.07.2018]
  */
 export interface IUniversalFieldProps
-  extends IGenericFieldEntity2,
+  extends IGenericFieldEntity,
           IUniversalComponentEntity,
           IUniversalKeyboardHandlersConfiguration<IKeyboardEvent>,
-          IOnBlurWrapper<IFocusEvent>,
           IDisplayMessageWrapper,
           ICaretBlinkingFrequencyWrapper {
 }
@@ -58,8 +56,8 @@ export interface IFieldProps2 extends IComponentProps,
   IUniversalFieldProps {
 }
 
-export interface IFieldConfigurationEntity<TFieldProps extends IFieldProps2 = IFieldProps2>
-  extends IFieldConfigurationWrapper<IFieldProps2> {
+export interface IFieldConfigurationEntity<TFieldProps extends IFieldProps = IFieldProps>
+  extends IFieldConfigurationWrapper<IFieldProps> {
 }
 
 /**

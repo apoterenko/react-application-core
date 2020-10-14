@@ -10,7 +10,7 @@ import {
 import {
   FieldConstants,
   IGenericFieldEntity,
-  IGenericFieldEntity2,
+  IGenericFieldEntity,
   IMultiItemEntity,
   IReduxMultiEntity,
   MultiFieldValueOrEntityIdT,
@@ -32,10 +32,10 @@ import { MultiFieldUtils } from './multi-field';
 
 /**
  * @stable [18.05.2020]
- * @param {IGenericFieldEntity2} config
+ * @param {IGenericFieldEntity} config
  * @returns {AnyT}
  */
-const asActualFieldValue = (config: IGenericFieldEntity2): AnyT => {
+const asActualFieldValue = (config: IGenericFieldEntity): AnyT => {
   const {
     emptyValue,
     keepChanges,

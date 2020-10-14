@@ -8,6 +8,7 @@ import {
 import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
 import {
   ChangeEventT,
+  IFieldInputProps,
   IKeyboardProps,
 } from '../../../definition';
 
@@ -51,11 +52,26 @@ export class NumberField extends BaseTextField<INumberFieldProps,
   }
 
   /**
+   * @stable [14.10.2020]
+   * @protected
+   */
+  protected getInputElementProps(): IFieldInputProps {
+    const {
+      step,
+    } = this.originalProps;
+
+    return {
+      ...super.getInputElementProps() as IFieldInputProps,
+      step,
+    };
+  }
+
+  /**
    * @stable [12.10.2020]
    * @protected
    */
   protected getComponentsSettingsProps(): INumberFieldProps {
-    return PropsUtils.mergeWithSystemProps<INumberFieldProps>(
+    return PropsUtils.mergeWithSystemProps(
       super.getComponentsSettingsProps(),
       this.componentsSettings.numberField
     );

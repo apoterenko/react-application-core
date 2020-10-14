@@ -153,6 +153,7 @@ export interface IDirtyWrapper { dirty?: boolean; }
 export interface IDisabledWrapper<TValue = boolean> { disabled?: TValue; }
 export interface IDisableLabelWrapper { disableLabel?: string; }
 export interface IDispatchWrapper<TValue = unknown> { dispatch?(value: TValue): void; }
+export interface IDisplayMessageWrapper<TValue = string> { displayMessage?: TValue; }
 export interface IDisplayNameWrapper { displayName?: string; }
 export interface IDisplayValueRenderedOnlyWrapper { displayValueRenderedOnly?: boolean; }
 export interface IDisplayValueWrapper<TValue = string> { displayValue?: TValue; }
@@ -342,6 +343,7 @@ export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnApplyWrapper<TValue = {}> { onApply?(value?: TValue): void; }
 export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void; }
 export interface IOnBeforeSubmitWrapper<TValue = {}, TResult = void> { onBeforeSubmit?(value?: TValue): TResult; }
+export interface IOnBlurWrapper<TValue = {}> { onBlur?(value?: TValue): void; }
 export interface IOnChangeLayoutModeWrapper<TValue = {}> { onChangeLayoutMode?(value?: TValue): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
@@ -619,13 +621,6 @@ export interface IGetValueWrapper<TValue = AnyT> {
 }
 
 /**
- * @stable [18.05.2018]
- */
-export interface IOnBlurWrapper<TPayload = AnyT, TOnBlur = (payload: TPayload) => void> {
-  onBlur?: TOnBlur;
-}
-
-/**
  * @stable [06.06.2018]
  */
 export interface IClearValueWrapper<TClearValue = () => void> {
@@ -788,13 +783,6 @@ export interface ITypeNameWrapper {
  */
 export interface IColumnColSpanWrapper {
   columnColSpan?: number;
-}
-
-/**
- * @stable [18.06.2018]
- */
-export interface IDisplayMessageWrapper<TDisplayMessage = string> {
-  displayMessage?: TDisplayMessage;
 }
 
 /* @stable - 15.04.2018 */

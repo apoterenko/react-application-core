@@ -24,7 +24,7 @@ export class TextArea extends BaseTextField<ITextAreaProps> {
   }, BaseTextField);
 
   /**
-   * IFieldTextAreaProps
+   * @stable [14.10.2020]
    * @protected
    */
   protected getInputElementProps(): IFieldTextAreaProps {
@@ -83,6 +83,17 @@ export class TextArea extends BaseTextField<ITextAreaProps> {
     return ClsUtils.joinClassName(
       super.getFieldClassName(),
       TextAreaClassesEnum.TEXT_AREA
+    );
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @protected
+   */
+  protected getComponentsSettingsProps(): ITextAreaProps {
+    return PropsUtils.mergeWithSystemProps(
+      super.getComponentsSettingsProps(),
+      this.componentsSettings.textarea
     );
   }
 }

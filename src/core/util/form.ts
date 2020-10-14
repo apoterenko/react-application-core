@@ -5,7 +5,7 @@ import {
   IExtendedFormEntity,
   IFieldProps,
   IFormProps,
-  IGenericFieldEntity2,
+  IGenericFieldEntity,
   IGenericFormEntity,
   IPresetsFieldEntity,
   IPresetsFormEntity,
@@ -115,11 +115,11 @@ const getFieldValueByName = <TEntity = IEntity>(extendedFormEntity: IExtendedFor
 /**
  * @stable [06.05.2020]
  * @param {IExtendedFormEntity<TEntity>} wrapper
- * @param {IGenericFieldEntity2} fieldProps
+ * @param {IGenericFieldEntity} fieldProps
  * @returns {AnyT}
  */
 export const getFormFieldValue = <TEntity = IEntity>(wrapper: IExtendedFormEntity<TEntity>,
-                                                     fieldProps: IGenericFieldEntity2): AnyT =>
+                                                     fieldProps: IGenericFieldEntity): AnyT =>
   TypeUtils.isDef(fieldProps.value)
     ? fieldProps.value
     : getFieldValueByName(wrapper, fieldProps.name);
@@ -203,11 +203,11 @@ const isFormFieldChangeable = (formEntity: IPresetsFormEntity,
 /**
  * @stable [23.03.2020]
  * @param {IFormProps} formProps
- * @param {IGenericFieldEntity2} fieldProps
+ * @param {IGenericFieldEntity} fieldProps
  * @returns {boolean}
  */
 export const isFormFieldDisabled = (formProps: IFormProps,
-                                    fieldProps: IGenericFieldEntity2): boolean =>
+                                    fieldProps: IGenericFieldEntity): boolean =>
   R.isNil(fieldProps.disabled) ? isGenericFormEntityDisabled(formProps) : isDisabled(fieldProps);
 
 /**
