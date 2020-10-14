@@ -476,11 +476,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     } = this.mergedProps;
 
     const disabled = this.isDisabled;
+    const isActive = this.isActive;
     const pattern = this.getFieldPattern();
     const placeholder = ConditionUtils.orUndef($props.placeholder && !this.isBusy, () => this.t($props.placeholder));
+    const readOnly = !isActive;
+    const ref = this.inputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>;
     const required = this.isRequired;
     const value = this.displayValue;
-    const ref = this.inputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>;
 
     return FilterUtils.defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
       autoComplete,
@@ -491,13 +493,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       name,
       pattern,
       placeholder,
+      readOnly,
       ref,
       required,
       tabIndex,
       type,
       value,
       ...(
-        this.isActive
+        isActive
           ? {
             onBlur: this.onBlur,
             onChange: this.onChange,
@@ -731,10 +734,11 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [02.08.2020]
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get isInactive(): boolean {
-    return FieldUtils.isFieldInactive(this.originalProps);
+    return FieldUtils.isInactive(this.originalProps);
   }
 
   /**

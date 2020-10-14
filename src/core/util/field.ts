@@ -22,10 +22,6 @@ import {
   makeArray,
 } from './array';
 import { TypeUtils } from './type';
-import {
-  isDisabled,
-  WrapperUtils,
-} from './wrapper';
 import { defValuesFilter } from './filter';
 import { MultiFieldUtils } from './multi-field';
 
@@ -54,11 +50,11 @@ const asActualFieldValue = (config: IGenericFieldEntity): unknown => {
 };
 
 /**
- * @stable [02.08.2020]
+ * @stable [14.10.2020]
  * @param entity
  */
 const isFieldInactive = (entity: IGenericFieldEntity): boolean =>
-  isDisabled(entity) || WrapperUtils.isReadOnly(entity) || WrapperUtils.inProgress(entity);
+  entity.disabled || entity.readOnly || entity.progress;
 
 /**
  * @stable [27.08.2019]
@@ -195,5 +191,5 @@ export class FieldUtils {
   public static readonly dynamicFieldName = dynamicFieldName;                                                     /* @stable [29.06.2020] */
   public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
   public static readonly fromMultiFieldValueToDefinedEntities = fromMultiFieldValueToDefinedEntities;             /* @stable [16.05.2020] */
-  public static readonly isFieldInactive = isFieldInactive;                                                       /* @stable [02.08.2020] */
+  public static readonly isInactive = isFieldInactive;                                                            /* @stable [02.08.2020] */
 }
