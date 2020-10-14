@@ -213,7 +213,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
 
     return (
       <div
-        className={FieldClassesEnum.FIELD_ATTACHMENT}
+        className={FieldClassesEnum.ATTACHMENT}
       >
         {this.options.map((option) => {
             const id = this.fromSelectValueToId(option);

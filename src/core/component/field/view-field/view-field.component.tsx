@@ -77,7 +77,7 @@ export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
   protected get attachmentElement(): JSX.Element {
     return (
       <div
-        className={FieldClassesEnum.FIELD_ATTACHMENT}
+        className={FieldClassesEnum.ATTACHMENT}
       >
         {this.viewElement}
       </div>

@@ -50,6 +50,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     fieldRendered: true,
     plainValue: true,
     useCursor: true,
+    full: true,
     useKeyboardOnMobilePlatformOnly: false,
   };
 
@@ -111,7 +112,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
         {ConditionUtils.ifNotNilThanValue(this.originalProps.message, (message) => this.messageElement(message))}
         {ConditionUtils.orNull(
           this.isErrorMessageRendered,
-          () => this.messageElement(this.error, FieldClassesEnum.FIELD_ERROR_MESSAGE)
+          () => this.messageElement(this.error, FieldClassesEnum.ERROR_MESSAGE)
         )}
         {this.attachmentElement}
         {ConditionUtils.orNull(this.isKeyboardUsed && this.isKeyboardOpen, () => this.keyboardElement)}
@@ -548,14 +549,15 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
 
     return ClsUtils.joinClassName(
       FieldClassesEnum.FIELD,
-      label && FieldClassesEnum.FIELD_LABELED,
-      this.isBusy && FieldClassesEnum.FIELD_BUSY,
-      this.isChangeable ? FieldClassesEnum.FIELD_CHANGEABLE : FieldClassesEnum.FIELD_NOT_CHANGEABLE,
-      this.isDisabled && FieldClassesEnum.FIELD_DISABLED,
-      this.isFocused ? FieldClassesEnum.FIELD_FOCUSED : FieldClassesEnum.FIELD_NOT_FOCUSED,
-      this.isInvalid && FieldClassesEnum.FIELD_INVALID,
-      this.isRequired && FieldClassesEnum.FIELD_REQUIRED,
-      this.isValuePresent ? FieldClassesEnum.FIELD_VALUE_PRESENT : FieldClassesEnum.FIELD_VALUE_NOT_PRESENT,
+      label && FieldClassesEnum.LABELED,
+      this.isBusy && FieldClassesEnum.BUSY,
+      this.isChangeable ? FieldClassesEnum.CHANGEABLE : FieldClassesEnum.NOT_CHANGEABLE,
+      this.isDisabled && FieldClassesEnum.DISABLED,
+      this.isFocused ? FieldClassesEnum.FOCUSED : FieldClassesEnum.NOT_FOCUSED,
+      this.isFocusPrevented && FieldClassesEnum.PREVENT_FOCUS,
+      this.isInvalid && FieldClassesEnum.INVALID,
+      this.isRequired && FieldClassesEnum.REQUIRED,
+      this.isValuePresent ? FieldClassesEnum.VALUE_PRESENT : FieldClassesEnum.VALUE_NOT_PRESENT,
       CalcUtils.calc<string>(className)
     );
   }
@@ -877,7 +879,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     return (
       <div
         title={message}
-        className={ClsUtils.joinClassName(FieldClassesEnum.FIELD_MESSAGE, className)}
+        className={ClsUtils.joinClassName(FieldClassesEnum.MESSAGE, className)}
       >
         {message ? this.t(message) : UniCodesEnum.NO_BREAK_SPACE}
       </div>
@@ -894,7 +896,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
           ref={this.actualRef}
           style={this.originalProps.style}
           title={this.title}
-          className={FieldClassesEnum.FIELD_SELF}
+          className={FieldClassesEnum.SELF}
         >
           {this.prefixLabelElement}
           {this.inputWrapperElement}
@@ -914,7 +916,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     return ConditionUtils.ifNotNilThanValue(
       this.getLabel(),
       (label) => (
-        <label className={FieldClassesEnum.FIELD_LABEL}>
+        <label className={FieldClassesEnum.LABEL}>
           {this.t(label)}
         </label>
       )
@@ -929,7 +931,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       ConditionUtils.ifNotNilThanValue(
         this.originalProps.prefixLabel,
         (prefixLabel) => (
-          <span className={FieldClassesEnum.FIELD_PREFIX_LABEL}>
+          <span className={FieldClassesEnum.PREFIX_LABEL}>
             {prefixLabel}
           </span>
         )
@@ -958,7 +960,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
 
           return (
             <div
-              className={FieldClassesEnum.FIELD_INPUT_CARET}
+              className={FieldClassesEnum.INPUT_CARET}
               style={{left}}
             >
               |
@@ -997,7 +999,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     if (this.isFieldRendered) {
       return (
         <div
-          className={FieldClassesEnum.FIELD_INPUT_WRAPPER}
+          className={FieldClassesEnum.INPUT_WRAPPER}
         >
           {this.getInputElement()}
           {this.mirrorInputElement}

@@ -30,7 +30,7 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
   protected get attachmentElement(): JSX.Element {
     return (
       <div
-        className={FieldClassesEnum.FIELD_ATTACHMENT}
+        className={FieldClassesEnum.ATTACHMENT}
       >
         {this.inlineOptions.map((item) => this.getInlineOptionElement(item))}
       </div>

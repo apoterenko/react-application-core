@@ -50,9 +50,8 @@ export class Field2<TProps extends IFieldProps2,
 
     return joinClassName(
       super.getFieldClassName(),
-      isFull(props) && ComponentClassesEnum.FLEX_X1, // TODO full-field
-      this.isReadOnly && 'rac-field-readonly',
-      this.isFocusPrevented && 'rac-field-prevent-focus'
+      props.full && ComponentClassesEnum.FLEX_X1, // TODO full-field
+      this.isReadOnly && 'rac-field-readonly'
     );
   }
 }

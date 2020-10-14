@@ -64,7 +64,7 @@ export class TextArea extends BaseTextField<ITextAreaProps> {
       maxLength,
       () => (
         <label
-          className={FieldClassesEnum.FIELD_INPUT_LABEL}
+          className={FieldClassesEnum.INPUT_LABEL}
         >
           {this.t(MAX_LENGTH_OF, {
             length: (this.value || '').length,

@@ -54,10 +54,7 @@
     $rac-self-field-label-after-right: $rac-field-required-self-field-label-after-right
   );
 
-  /**
-   * @field-prevent-focus
-   * @stable [19.06.2020]
-   */
+  // @stable [14.10.2020]
   @include rac-field (
     $rac-field-custom: $rac-field-prevent-focus-cls,
     $rac-self-field-input-cursor: $rac-field-prevent-focus-self-field-input-cursor

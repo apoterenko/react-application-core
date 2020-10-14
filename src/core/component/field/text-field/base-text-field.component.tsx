@@ -101,7 +101,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
         className={
           ClsUtils.joinClassName(
             this.getInputElementProps().className,
-            FieldClassesEnum.FIELD_INPUT_MIRROR,
+            FieldClassesEnum.INPUT_MIRROR,
             ComponentClassesEnum.INVISIBLE
           )
         }
