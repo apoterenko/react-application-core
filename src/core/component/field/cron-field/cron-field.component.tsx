@@ -9,7 +9,7 @@ import {
   joinClassName,
   makeArray,
 } from '../../../util';
-import { Field2 } from '../field/field2.component';
+import { Field } from '../field/field.component';
 import {
   CRON_ALL_DAYS_OF_MONTH_VALUES,
   CRON_ALL_DAYS_OF_WEEK_VALUES,
@@ -21,7 +21,7 @@ import {
 } from '../../../definition';
 import { Calendar } from '../../calendar';
 
-export class CronField extends Field2<ICronFieldProps> {
+export class CronField extends Field<ICronFieldProps> {
 
   public static readonly defaultProps: ICronFieldProps = {
     period: CronPeriodsEnum.MONTHLY,

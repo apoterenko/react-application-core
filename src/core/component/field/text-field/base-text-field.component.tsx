@@ -13,7 +13,7 @@ import {
 import {
   UniCodesEnum,
 } from '../../../definitions.interface';
-import { Field2 } from '../field';
+import { Field } from '../field/field.component';
 import {
   ComponentClassesEnum,
   FieldActionPositionsEnum,
@@ -27,11 +27,11 @@ import {
 
 export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldProps,
                            TState extends IBaseTextFieldState = IBaseTextFieldState>
-    extends Field2<TProps, TState> {
+    extends Field<TProps, TState> {
 
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseTextFieldProps>({
     clearActionRendered: true,
-  }, Field2);
+  }, Field);
 
   private static readonly DEFAULT_MASK_GUIDE = false;
 

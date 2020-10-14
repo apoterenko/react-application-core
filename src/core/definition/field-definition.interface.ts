@@ -378,6 +378,7 @@ export enum FieldClassesEnum {
   ERROR_MESSAGE = 'rac-field__error-message',
   FIELD = 'rac-field',
   FOCUSED = 'rac-field-focused',
+  FULL = 'rac-full-field',
   INPUT = 'rac-field__input',
   INPUT_CARET = 'rac-field__input-caret',
   INPUT_LABEL = 'rac-field__input-label',

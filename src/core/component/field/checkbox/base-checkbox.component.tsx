@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Field2 } from '../../field';
+import { Field } from '../field/field.component';
 import {
   IBaseCheckboxInputProps,
   IBaseCheckboxProps,
@@ -18,9 +18,9 @@ import {
 
 export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
                           TState extends IBaseCheckboxState = IBaseCheckboxState>
-  extends Field2<TProps, TState> {
+  extends Field<TProps, TState> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseCheckboxProps>({}, Field2);
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseCheckboxProps>({}, Field);
 
   /**
    * @stable [31.08.2018]

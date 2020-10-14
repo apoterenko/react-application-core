@@ -68,9 +68,9 @@ $rac-viewer-preview-icon-cls: rac-viewer__preview-icon;
 $rac-empty-picture-viewer-cls: '#{$rac-empty-viewer-cls}.#{$rac-picture-viewer-cls}';
 
 // @stable [22.06.2020]
-$rac-field-cls: rac-field;
 $rac-field-busy-cls: rac-field-busy;
 $rac-field-changeable-cls: rac-field-changeable;
+$rac-field-cls: rac-field;
 $rac-field-disabled-cls: rac-field-disabled;
 $rac-field-focused-cls: rac-field-focused;
 $rac-field-invalid-cls: rac-field-invalid;
@@ -80,6 +80,7 @@ $rac-field-prevent-focus-cls: rac-field-prevent-focus;
 $rac-field-required-cls: rac-field-required;
 $rac-field-value-not-present-cls: rac-field-value-not-present;
 $rac-field-value-present-cls: rac-field-value-present;
+$rac-full-field-cls: rac-full-field;
 
 // @stable [16.06.2020]
 $rac-chips-field-cls: rac-chips-field;

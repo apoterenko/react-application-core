@@ -8,9 +8,7 @@ import {
   detectBlobMimeType,
   UrlUtils,
 } from '../../../util';
-import {
-  Field2,
-} from '../field/field2.component';
+import { Field } from '../field/field.component';
 import {
   FieldClassesEnum,
   IViewFieldProps,
@@ -22,7 +20,7 @@ import {
 } from '../../../definition';
 import { toLastAddedMultiItemEntityId } from '../multifield/multifield.support';
 
-export class ViewField extends Field2<IViewFieldProps, IViewFieldState> {
+export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
 
   public static readonly defaultProps: IViewFieldProps = {
     errorMessageRendered: false,

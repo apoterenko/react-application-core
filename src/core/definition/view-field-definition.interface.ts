@@ -1,4 +1,3 @@
-import { IFieldProps2 } from '../configurations-definitions.interface';
 import {
   IDetectFileTypeTransportConfigurationWrapper,
   IDetectFileTypeWrapper,
@@ -8,7 +7,10 @@ import {
   IViewerClassNameWrapper,
   IViewerWrapper,
 } from '../definitions.interface';
-import { IFieldState } from './field-definition.interface';
+import {
+  IFieldProps,
+  IFieldState,
+} from './field-definition.interface';
 import { ITransportRequestEntity } from './transport-definition.interface';
 import { ViewersEnum } from './viewer-definition.interface';
 
@@ -33,7 +35,7 @@ export interface IGenericViewFieldEntity
  * TODO IViewFieldEntity
  */
 export interface IViewFieldProps
-  extends IFieldProps2,
+  extends IFieldProps,
     IGenericViewFieldEntity,
     IUsePreviewWrapper,
     IDetectFileTypeWrapper,

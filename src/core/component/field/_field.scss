@@ -57,6 +57,12 @@
 
   // @stable [14.10.2020]
   @include rac-field (
+    $rac-field-custom: $rac-full-field-cls,
+    $rac-field-flex-grow: $rac-full-field-flex-grow
+  );
+
+  // @stable [14.10.2020]
+  @include rac-field (
     $rac-field-custom: $rac-field-prevent-focus-cls,
     $rac-self-field-input-cursor: $rac-field-prevent-focus-self-field-input-cursor
   );

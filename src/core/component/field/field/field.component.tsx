@@ -42,7 +42,7 @@ import { Info } from '../../info/info.component';
 import { EnhancedGenericComponent } from '../../base/enhanced-generic.component';
 import { Keyboard } from '../../keyboard/keyboard.component';
 
-export class Field<TProps extends IFieldProps, TState extends IFieldState>
+export class Field<TProps extends IFieldProps, TState extends IFieldState = IFieldState>
   extends EnhancedGenericComponent<TProps, TState>
   implements IField<TProps, TState> {
 
@@ -543,18 +543,19 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {string}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
-    const originalProps = this.originalProps;
     const {
       className,
+      full,
       label,
-    } = originalProps;
+    } = this.originalProps;
 
     return ClsUtils.joinClassName(
       FieldClassesEnum.FIELD,
+      full && FieldClassesEnum.FULL,
       label && FieldClassesEnum.LABELED,
       this.isBusy && FieldClassesEnum.BUSY,
       this.isChangeable ? FieldClassesEnum.CHANGEABLE : FieldClassesEnum.NOT_CHANGEABLE,
@@ -564,7 +565,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       this.isInvalid && FieldClassesEnum.INVALID,
       this.isRequired && FieldClassesEnum.REQUIRED,
       this.isValuePresent ? FieldClassesEnum.VALUE_PRESENT : FieldClassesEnum.VALUE_NOT_PRESENT,
-      CalcUtils.calc<string>(className)
+      CalcUtils.calc(className)
     );
   }
 

@@ -18,6 +18,7 @@
   $rac-field-display: unset,                                                        /* @stable [19.06.2020] */
   $rac-field-error-message-color: unset,                                            /* @stable [20.06.2020] */
   $rac-field-flex-direction: unset,                                                 /* @stable [19.06.2020] */
+  $rac-field-flex-grow: unset,                                                      /* @stable [19.06.2020] */
   $rac-field-height: unset,                                                         /* @stable [19.06.2020] */
   $rac-field-justify-content: unset,                                                /* @stable [19.06.2020] */
   $rac-field-margin-top: unset,                                                     /* @stable [19.06.2020] */
@@ -139,6 +140,7 @@
       $rac-styles-border-radius: $rac-field-border-radius,
       $rac-styles-display: $rac-field-display,
       $rac-styles-flex-direction: $rac-field-flex-direction,
+      $rac-styles-flex-grow: $rac-field-flex-grow,
       $rac-styles-height: $rac-field-height,
       $rac-styles-justify-content: $rac-field-justify-content,
       $rac-styles-margin-top: $rac-field-margin-top,
