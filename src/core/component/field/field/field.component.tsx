@@ -63,8 +63,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   private readonly keyboardRef = React.createRef<HTMLElement>();
 
   /**
-   * @stable [21.06.2020]
-   * @param {TProps} originalProps
+   * @stable [14.10.2020]
+   * @param originalProps
    */
   constructor(originalProps: TProps) {
     super(originalProps);
@@ -346,13 +346,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   protected getFieldPattern(): string {
     return this.originalProps.pattern;
-  }
-
-  /**
-   * @stable [21.08.2020]
-   */
-  protected get waitMessageElement(): React.ReactNode {
-    return this.settings.messages.PLEASE_WAIT;
   }
 
   private get keyboardElement(): JSX.Element {
@@ -710,27 +703,19 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [03.06.2020]
-   * @returns {boolean}
-   */
-  protected get isInputValid(): boolean {
-    return !this.hasInput || this.input.validity.valid;
-  }
-
-  /**
-   * @stable [03.06.2020]
-   * @returns {boolean}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get isFocusPrevented() {
-    return WrapperUtils.isFocusPrevented(this.originalProps);
+    return this.originalProps.preventFocus;
   }
 
   /**
-   * @stable [05.06.2020]
-   * @returns {boolean}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get isBusy(): boolean {
-    return WrapperUtils.inProgress(this.originalProps);
+    return this.originalProps.progress;
   }
 
   /**
@@ -745,13 +730,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   protected get isInactive(): boolean {
     return FieldUtils.isFieldInactive(this.originalProps);
-  }
-
-  /**
-   * @stable [02.08.2020]
-   */
-  protected get isActive(): boolean {
-    return !this.isInactive;
   }
 
   /**
@@ -933,7 +911,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [21.08.2020]
    */
   private get labelElement(): JSX.Element {
-    return ConditionUtils.ifNotNilThanValue(this.getLabel(),
+    return ConditionUtils.ifNotNilThanValue(
+      this.getLabel(),
       (label) => (
         <label className={FieldClassesEnum.FIELD_LABEL}>
           {this.t(label)}
@@ -943,11 +922,12 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [14.10.2020]
    */
   private get prefixLabelElement(): JSX.Element {
     return (
-      ConditionUtils.ifNotNilThanValue(this.originalProps.prefixLabel,
+      ConditionUtils.ifNotNilThanValue(
+        this.originalProps.prefixLabel,
         (prefixLabel) => (
           <span className={FieldClassesEnum.FIELD_PREFIX_LABEL}>
             {prefixLabel}
@@ -997,8 +977,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       return null;
     }
     const result = this.decoratedDisplayValue;
+
     return R.isNil(result)
-      ? (this.isBusy ? this.waitMessageElement : result)
+      ? (this.isBusy ? this.settings.messages.PLEASE_WAIT : result)
       : result;
   }
 
@@ -1113,6 +1094,21 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   private get isRequired(): boolean {
     return this.originalProps.required;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @private
+   */
+  private get isInputValid(): boolean {
+    return !this.hasInput || this.input.validity.valid;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   */
+  private get isActive(): boolean {
+    return !this.isInactive;
   }
 
   /**

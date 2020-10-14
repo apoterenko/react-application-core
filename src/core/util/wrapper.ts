@@ -17,7 +17,6 @@ import {
   INavigateBackWrapper,
   IOpenedWrapper,
   IPlaceActionRenderedWrapper,
-  IPreventFocusWrapper,
   IProgressWrapper,
   IRangeEnabledWrapper,
   IReadOnlyWrapper,
@@ -44,14 +43,6 @@ const isValid = (wrapper: IValidWrapper): boolean =>
   R.isNil(wrapper)
     ? false
     : ValueUtils.isValueValid(wrapper.valid);
-
-/**
- * @stable [30.01.2020]
- * @param {IPreventFocusWrapper} wrapper
- * @returns {boolean}
- */
-const isFocusPrevented = (wrapper: IPreventFocusWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.preventFocus === true;
 
 /**
  * @stable [22.08.2020]
@@ -279,7 +270,6 @@ export class WrapperUtils {
   public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
   public static readonly isErrorMessageRendered = isErrorMessageRendered;                  /* @stable [18.06.2020] */
   public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */
-  public static readonly isFocusPrevented = isFocusPrevented;                              /* @stable [03.06.2020] */
   public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
   public static readonly isNavigateBackNeeded = isNavigateBackNeeded;                      /* @stable [09.09.2020] */
   public static readonly isReadOnly = isReadOnly;                                          /* @stable [22.08.2020] */

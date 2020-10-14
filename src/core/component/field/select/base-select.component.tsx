@@ -301,7 +301,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.08.2020]
+   * @stable [14.10.2020]
    * @protected
    */
   protected get isBusy(): boolean {
