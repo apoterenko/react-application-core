@@ -19,6 +19,7 @@ import {
   IFieldProps,
   IFieldState,
   IFocusEvent,
+  IGenericFieldEntity,
   IKeyboardEvent,
   IKeyboardProps,
   IMaskedInputCtor,
@@ -235,7 +236,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   /**
    * @stable [14.10.2020]
    * @param event
-   * @private
    */
   public onKeyDown(event: IKeyboardEvent): void {
     const key = event.key;
@@ -284,7 +284,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   /**
    * @stable [14.10.2020]
    * @param event
-   * @protected
    */
   public onKeyBackspace(event: IKeyboardEvent): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyBackspace, (onKeyBackspace) => onKeyBackspace(event));
@@ -293,7 +292,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   /**
    * @stable [14.10.2020]
    * @param event
-   * @protected
    */
   public onKeyTab(event: IKeyboardEvent): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyTab, (onKeyTab) => onKeyTab(event));
@@ -302,7 +300,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   /**
    * @stable [14.10.2020]
    * @param event
-   * @protected
    */
   public onKeyEscape(event: IBaseEvent): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyEscape, (onKeyEscape) => onKeyEscape(event));
@@ -311,7 +308,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   /**
    * @stable [14.10.2020]
    * @param event
-   * @protected
    */
   public onKeyArrowDown(event: IKeyboardEvent): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyArrowDown, (onKeyArrowDown) => onKeyArrowDown(event));
@@ -320,7 +316,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   /**
    * @stable [14.10.2020]
    * @param event
-   * @protected
    */
   public onKeyArrowUp(event: IKeyboardEvent): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyArrowUp, (onKeyArrowUp) => onKeyArrowUp(event));
@@ -433,30 +428,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     this.domAccessor.cancelEvent(event);
 
     ConditionUtils.ifNotNilThanValue(this.originalProps.onClick, (onClick) => onClick(event));
-  }
-
-  /**
-   * @stable [03.06.2020]
-   * @param {AnyT} currentRawValue
-   */
-  protected onChangeValue(currentRawValue: AnyT): void {
-    const originalProps = this.originalProps;
-    const {
-      name,
-      onChange,
-      onFormChange,
-    } = this.originalProps;
-
-    const actualFieldValue = FieldUtils.asActualFieldValue({
-      ...originalProps as {},
-      emptyValue: this.emptyValue,
-      value: currentRawValue,
-    });
-
-    this.validateField(actualFieldValue);
-
-    ConditionUtils.ifNotNilThanValue(onChange, () => onChange(actualFieldValue));
-    ConditionUtils.ifNotNilThanValue(onFormChange, () => onFormChange(name, actualFieldValue));
   }
 
   /**
@@ -695,7 +666,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [07.10.2020]
+   * @stable [14.10.2020]
    * @param value
    */
   protected isValueObject(value: AnyT): boolean {
@@ -703,43 +674,17 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [07.10.2020]
+   * @stable [14.10.2020]
    */
   protected get isPlainValueApplied(): boolean {
     return this.originalProps.plainValue;
   }
 
   /**
-   * @stable [07.10.2020]
+   * @stable [14.10.2020]
    */
   protected get isValuePresent(): boolean {
     return ValueUtils.isValuePresent(this.value, this.emptyValue);
-  }
-
-  /**
-   * @stable [07.10.2020]
-   */
-  protected get isKeyboardUsed() {
-    const {
-      useKeyboard,
-    } = this.originalProps;
-
-    if (this.mergedProps.useKeyboardOnMobilePlatformOnly) {
-      if (this.environment.mobilePlatform) {
-        return useKeyboard;
-      } else {
-        return false;
-      }
-    } else {
-      return useKeyboard;
-    }
-  }
-
-  /**
-   * @stable [07.10.2020]
-   */
-  protected get isRequired(): boolean {
-    return this.originalProps.required;
   }
 
   /**
@@ -821,14 +766,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    * @stable [14.10.2020]
    * @protected
    */
-  protected get hasInput(): boolean {
-    return !R.isNil(this.inputRef.current);
-  }
-
-  /**
-   * @stable [14.10.2020]
-   * @protected
-   */
   protected get componentsSettingsProps(): TProps {
     return this.getComponentsSettingsProps();
   }
@@ -873,7 +810,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
     if (this.isInputValid) {
       return null;
     }
-    return this.inputValidationMessage;
+    return this.input.validationMessage;
   }
 
   /**
@@ -881,6 +818,31 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   private closeVirtualKeyboard(): void {
     this.setState({keyboardOpen: false}, this.onCloseVirtualKeyboard);
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param currentRawValue
+   * @private
+   */
+  private onChangeValue(currentRawValue: unknown): void {
+    const originalProps = this.originalProps;
+    const {
+      name,
+      onChange,
+      onFormChange,
+    } = originalProps;
+
+    const actualFieldValue = FieldUtils.asActualFieldValue({
+      ...originalProps as IGenericFieldEntity,
+      emptyValue: this.emptyValue,
+      value: currentRawValue,
+    });
+
+    this.validateField(actualFieldValue);
+
+    ConditionUtils.ifNotNilThanValue(onChange, () => onChange(actualFieldValue));
+    ConditionUtils.ifNotNilThanValue(onFormChange, () => onFormChange(name, actualFieldValue));
   }
 
   /**
@@ -1049,7 +1011,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
 
   /**
    * @stable [14.10.2020]
-   * @protected
    */
   private get inputWrapperElement(): JSX.Element {
     if (this.isFieldRendered) {
@@ -1120,10 +1081,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [14.10.2020]
    */
-  private get inputValidationMessage(): string {
-    return this.input.validationMessage;
+  private get hasInput(): boolean {
+    return !R.isNil(this.inputRef.current);
   }
 
   /**
@@ -1145,6 +1106,32 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
    */
   private get isFieldRendered(): boolean {
     return this.originalProps.fieldRendered;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   */
+  private get isRequired(): boolean {
+    return this.originalProps.required;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   */
+  private get isKeyboardUsed() {
+    const {
+      useKeyboard,
+    } = this.originalProps;
+
+    if (this.mergedProps.useKeyboardOnMobilePlatformOnly) {
+      if (this.environment.mobilePlatform) {
+        return useKeyboard;
+      } else {
+        return false;
+      }
+    } else {
+      return useKeyboard;
+    }
   }
 
   /**

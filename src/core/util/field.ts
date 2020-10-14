@@ -30,11 +30,10 @@ import { defValuesFilter } from './filter';
 import { MultiFieldUtils } from './multi-field';
 
 /**
- * @stable [18.05.2020]
- * @param {IGenericFieldEntity} config
- * @returns {AnyT}
+ * @stable [14.10.2020]
+ * @param config
  */
-const asActualFieldValue = (config: IGenericFieldEntity): AnyT => {
+const asActualFieldValue = (config: IGenericFieldEntity): unknown => {
   const {
     emptyValue,
     keepChanges,

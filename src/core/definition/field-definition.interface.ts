@@ -174,7 +174,7 @@ export interface IReduxFieldEntity
 
 /**
  * @generic-entity
- * @stable [09.05.2020]
+ * @stable [14.10.2020]
  */
 export interface IGenericFieldEntity
   extends IPresetsFieldEntity,
