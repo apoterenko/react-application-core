@@ -52,7 +52,7 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
     EventUtils.cancelEvent(event);
 
     this.delayedTask.stop();
-    this.doDelay(this.currentValue);
+    this.doDelay();
   }
 
   /**
@@ -73,10 +73,9 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
 
   /**
    * @stable [14.10.2020]
-   * @param value
    * @private
    */
-  private doDelay(value: AnyT): void {
-    ConditionUtils.ifNotNilThanValue(this.component.props.onDelay, (onDelay) => onDelay(value));
+  private doDelay(): void {
+    ConditionUtils.ifNotNilThanValue(this.component.props.onDelay, (onDelay) => onDelay());
   }
 }
