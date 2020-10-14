@@ -5,7 +5,6 @@ import {
   IDisplayMessageWrapper,
   IFieldConfigurationWrapper,
   IFilterFnWrapper,
-  IMaskPlaceholderCharWrapper,
   IOnBlurWrapper,
   IOnSelectWrapper,
   ISorterWrapper,
@@ -56,10 +55,7 @@ export interface IUniversalFieldProps
 
 /* @stable - 11.04.2018 */
 export interface IFieldProps2 extends IComponentProps,
-  IUniversalFieldProps,
-  IMaskPlaceholderCharWrapper {
-  rows?: number;
-  cols?: number;
+  IUniversalFieldProps {
 }
 
 export interface IFieldConfigurationEntity<TFieldProps extends IFieldProps2 = IFieldProps2>

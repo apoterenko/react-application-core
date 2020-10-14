@@ -18,17 +18,13 @@ import {
   ICronEntity,
   ICronPlainEntity,
 } from '../definition';
-import { getNumberConverter } from '../di/di.services';
-import { TypeUtils } from './type';
+import { DiServices } from '../di/di.services';
 import { isObjectNotEmpty } from './object';
 import { join } from './join';
-import {
-  NUMBER_COMPARATOR,
-  VALUE_ASC_SORTER_FN,
-  VALUE_DESC_SORTER,
-} from './sort';
 import { orNull } from './cond';
+import { SortUtils } from './sort';
 import { StringNumberT } from '../definitions.interface';
+import { TypeUtils } from './type';
 
 // Examples:
 //   1) * * * * * *
@@ -127,7 +123,7 @@ const toCronPart = (values: number[],
         break;
       case CronPartTypesEnum.DAY_OF_WEEK:
         const lastDays = R
-          .sort<number>(VALUE_DESC_SORTER, values.filter((v) => v < 0))
+          .sort<number>(SortUtils.VALUE_DESC_SORTER, values.filter((v) => v < 0))
           .map((v) => `${toCronLastDayOfWeek(v)}${CRON_LAST_DAY_SYMBOL}`);
         const positiveDays = values.filter((v) => v >= 0);
         result = [
@@ -162,7 +158,7 @@ const fromCronPart = (cronPart: string,
   if (!isObjectNotEmpty(cronPart)) {
     return [];
   }
-  const nc = getNumberConverter();
+  const nc = DiServices.numberConverter();
   const availableRanges = CRON_PART_TYPE_RANGES[partType];
 
   const values = [];
@@ -203,7 +199,7 @@ const fromCronPart = (cronPart: string,
       }
     }
   });
-  return Array.from(new Set(values)).sort(NUMBER_COMPARATOR);
+  return Array.from(new Set(values)).sort(SortUtils.NUMBER_COMPARATOR);
 };
 
 /**
@@ -555,12 +551,12 @@ export class CronEntity implements ICronEntity {
   }
 
   /**
-   * @stable [14.12.2019]
-   * @param {number} values
-   * @returns {CronEntity}
+   * @stable [14.10.2020]
+   * @param values
+   * @private
    */
   private normalize(values: number[]): number[] {
-    return R.sort(VALUE_ASC_SORTER_FN, Array.from(new Set(values)));
+    return R.sort(SortUtils.VALUE_ASC_SORTER, Array.from(new Set(values)));
   }
 
   /**

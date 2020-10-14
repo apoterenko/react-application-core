@@ -1,38 +1,39 @@
-import { IEntity, StringNumberT, AnyT } from '../definitions.interface';
-import { nvl } from '../util';
+import {
+  IEntity,
+  StringNumberT,
+  AnyT,
+} from '../definitions.interface';
+import { NvlUtils } from '../util';
 
 /**
- * @stable [08.11.2019]
- * @param {AnyT} a
- * @param {AnyT} b
- * @returns {number}
+ * @stable [14.10.2020]
+ * @param a
+ * @param b
  */
-export const NUMBER_COMPARATOR = (a: AnyT, b: AnyT): number => a - b;
+const NUMBER_COMPARATOR = (a: AnyT, b: AnyT): number => a - b;
 
 /**
- * @stable [09.04.2019]
- * @param {StringNumberT} value1
- * @param {StringNumberT} value2
- * @returns {number}
+ * @stable [14.10.2020]
+ * @param value1
+ * @param value2
  */
 const NAME_ASC_SORTER = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
-  nvl(`${value1}`, '').localeCompare(`${value2}`);
+  NvlUtils.nvl(`${value1}`, '').localeCompare(`${value2}`);
 
 /**
  * @stable [06.09.2020]
  * @param value1
  * @param value2
  */
-export const VALUE_DESC_SORTER = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
-  VALUE_ASC_SORTER_FN(value1, value2) * -1;
+const VALUE_DESC_SORTER = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
+  VALUE_ASC_SORTER(value1, value2) * -1;
 
 /**
- * @stable [08.03.2019]
- * @param {StringNumberT} value1
- * @param {StringNumberT} value2
- * @returns {number}
+ * @stable [14.10.2020]
+ * @param value1
+ * @param value2
  */
-export const VALUE_ASC_SORTER_FN = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
+const VALUE_ASC_SORTER = <TEntity extends IEntity>(value1: StringNumberT, value2: StringNumberT): number =>
   value1 === value2 ? 0 : NUMBER_COMPARATOR(value1, value2);
 
 /**
@@ -42,7 +43,7 @@ export const VALUE_ASC_SORTER_FN = <TEntity extends IEntity>(value1: StringNumbe
  * @returns {number}
  */
 export const ID_ASC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEntity, item2: TEntity): number =>
-  VALUE_ASC_SORTER_FN(item1.id, item2.id);
+  VALUE_ASC_SORTER(item1.id, item2.id);
 
 /**
  * @stable [13.05.2019]
@@ -58,5 +59,7 @@ export const ID_DESC_ENTITIES_SORTER_FN = <TEntity extends IEntity>(item1: TEnti
  */
 export class SortUtils {
   public static readonly NAME_ASC_SORTER = NAME_ASC_SORTER;
+  public static readonly NUMBER_COMPARATOR = NUMBER_COMPARATOR;
+  public static readonly VALUE_ASC_SORTER = VALUE_ASC_SORTER;
   public static readonly VALUE_DESC_SORTER = VALUE_DESC_SORTER;
 }

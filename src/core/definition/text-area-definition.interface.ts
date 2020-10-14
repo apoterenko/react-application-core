@@ -3,6 +3,8 @@ import { IBaseTextFieldProps } from './text-field-definition.interface';
 // TODO
 export interface ITextAreaProps
   extends IBaseTextFieldProps {
+  rows?: number;
+  cols?: number;
 }
 
 /**

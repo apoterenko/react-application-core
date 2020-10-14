@@ -24,16 +24,33 @@ export class TextArea extends BaseTextField<ITextAreaProps> {
   }, BaseTextField);
 
   /**
-   * @stable [20.06.2020]
-   * @returns {JSX.Element}
+   * IFieldTextAreaProps
+   * @protected
+   */
+  protected getInputElementProps(): IFieldTextAreaProps {
+    const {
+      cols,
+      rows,
+    } = this.originalProps;
+
+    return {
+      ...super.getInputElementProps() as IFieldTextAreaProps,
+      cols,
+      rows,
+    };
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @protected
    */
   protected getInputElement(): JSX.Element {
     return <textarea {...this.getInputElementProps() as IFieldTextAreaProps}/>;
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {JSX.Element}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get inputAttachmentElement(): JSX.Element {
     const {
@@ -59,8 +76,8 @@ export class TextArea extends BaseTextField<ITextAreaProps> {
   }
 
   /**
-   * @stable [20.06.2020]
-   * @returns {string}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(

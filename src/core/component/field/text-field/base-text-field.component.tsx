@@ -131,7 +131,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     return (
       <MaskedTextInput
         guide={nvl(props.maskGuide, BaseTextField.DEFAULT_MASK_GUIDE)}
-        placeholderChar={nvl(props.maskPlaceholderChar, UniCodesEnum.SPACE)}
+        placeholderChar={UniCodesEnum.SPACE}
         mask={mask}
         {...this.getInputElementProps()}/>
     );

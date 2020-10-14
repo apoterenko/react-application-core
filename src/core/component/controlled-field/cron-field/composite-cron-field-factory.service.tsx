@@ -9,6 +9,7 @@ import {
   FieldConstants,
   ICompositeCronFieldConfigEntity,
   ICompositeCronFieldItemEntity,
+  IPresetsFieldEntity,
 } from '../../../definition';
 import { ControlledFieldFactory } from '../controlled-field-factory.service';
 import {
@@ -26,7 +27,7 @@ import {
   ifNotNilThanValue,
   isDef,
   isFn,
-  nvl,
+  NvlUtils,
 } from '../../../util';
 import { IDateConverter } from '../../../converter';
 import {
@@ -34,7 +35,6 @@ import {
   StringNumberT,
   UNDEF,
 } from '../../../definitions.interface';
-import { IFieldProps2 } from '../../../configurations-definitions.interface';
 import { ISettingsEntity } from '../../../settings';
 
 @provideInSingleton(CompositeCronFieldFactory)
@@ -314,11 +314,11 @@ export class CompositeCronFieldFactory
   }
 
   /**
-   * @stable [09.04.2020]
-   * @param {IFieldProps2} props
-   * @returns {string}
+   * @stable [14.10.2020]
+   * @param originalProps
+   * @private
    */
-  private getFieldFormat(props: IFieldProps2): string {
-    return nvl(props.format, this.settings.dateTime.uiDateFormat);
+  private getFieldFormat(originalProps: IPresetsFieldEntity): string {
+    return NvlUtils.nvl(originalProps.format, this.settings.dateTime.uiDateFormat);
   }
 }

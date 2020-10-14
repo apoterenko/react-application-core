@@ -679,13 +679,6 @@ export interface IFontSizeWrapper {
 }
 
 /**
- * @stable [04.05.2018]
- */
-export interface IMaskPlaceholderCharWrapper<TMaskPlaceholderChar = string> {
-  maskPlaceholderChar?: TMaskPlaceholderChar;
-}
-
-/**
  * @stable [27.04.2018]
  */
 export interface IOpenWrapper<TOpen = boolean> {
