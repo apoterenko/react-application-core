@@ -53,7 +53,7 @@ const ID_DESC_SORTER = <TEntity extends IEntity>(item1: TEntity, item2: TEntity)
   VALUE_DESC_SORTER(item1.id, item2.id);
 
 /**
- * @stable [16.06.2020]
+ * @stable [14.10.2020]
  */
 export class SortUtils {
   public static readonly ID_ASC_SORTER = ID_ASC_SORTER;
