@@ -121,15 +121,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
-   * @param event
-   */
-  public onKeyEscape(event: IBaseEvent): void {
-    super.onKeyEscape(event);
-    this.hideMenu();
-  }
-
-  /**
    * @stable [30.01.2020]
    */
   public clearValue(): void {
@@ -138,6 +129,16 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (this.isPlainValueApplied) {
       this.clearCachedValue();
     }
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @protected
+   */
+  public onKeyEscape(event: IBaseEvent): void {
+    super.onKeyEscape(event);
+    this.hideMenu();
   }
 
   /**
@@ -186,13 +187,12 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [08.08.2020]
+   * @stable [14.10.2020]
    * @param event
    * @protected
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
-
     this.openMenu();
   }
 

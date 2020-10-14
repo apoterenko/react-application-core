@@ -1,14 +1,16 @@
 import {
-  cancelEvent,
+  ConditionUtils,
   DelayedTask,
+  EventUtils,
+  NvlUtils,
   sequence,
 } from '../../../../util';
 import {
   AnyT,
   IChangeEvent,
 } from '../../../../definitions.interface';
-import { IGenericField2 } from '../../../../entities-definitions.interface';
 import {
+  IField,
   IGenericPlugin,
   IKeyboardEvent,
 } from '../../../../definition';
@@ -20,13 +22,13 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
   private delayedTask: DelayedTask;
 
   /**
-   * @stable [18.05.2018]
-   * @param {IGenericField2} component
+   * @stable [14.10.2020]
+   * @param component
    */
-  constructor(private component: /*IField*/ any) { // TODO Fix props typings
+  constructor(private component: IField) {
     this.delayedTask = new DelayedTask(
       this.doDelay.bind(this),
-      component.props.delayTimeout || DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT
+      NvlUtils.nvl(component.props.delayTimeout, DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT)
     );
 
     component.onChange = sequence(component.onChange, this.onChange, this);
@@ -42,11 +44,13 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
   }
 
   /**
-   * @stable [04.05.2018]
-   * @param {IKeyboardEvent} event
+   * @stable [14.10.2020]
+   * @param event
+   * @private
    */
   private onKeyEnter(event: IKeyboardEvent): void {
-    cancelEvent(event);
+    EventUtils.cancelEvent(event);
+
     this.delayedTask.stop();
     this.doDelay(this.currentValue);
   }
@@ -68,12 +72,11 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
   }
 
   /**
-   * @stable [04.05.2018]
-   * @param {AnyT} value
+   * @stable [14.10.2020]
+   * @param value
+   * @private
    */
   private doDelay(value: AnyT): void {
-    if (this.component.props.onDelay) {
-      this.component.props.onDelay(value);
-    }
+    ConditionUtils.ifNotNilThanValue(this.component.props.onDelay, (onDelay) => onDelay(value));
   }
 }

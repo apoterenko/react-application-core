@@ -19,6 +19,7 @@ import {
   IFieldProps,
   IFieldState,
   IFocusEvent,
+  IKeyboardEvent,
   IKeyboardProps,
   IMaskedInputCtor,
   InputElementT,
@@ -71,12 +72,15 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
 
     this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
     this.onBlur = this.onBlur.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onChangeManually = this.onChangeManually.bind(this);
     this.onClick = this.onClick.bind(this);
     this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
     this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
 
     if (this.isKeyboardAndCursorUsed) {
       const {
@@ -166,10 +170,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @param {TValue} currentRawValue
+   * @stable [14.10.2020]
+   * @param currentRawValue
    */
-  public onChangeManually<TValue = AnyT>(currentRawValue: TValue): void {
+  public onChangeManually<TValue = unknown>(currentRawValue: TValue): void {
     if (!this.areManualChangesNotPrevented) {
       return;
     }
@@ -181,14 +185,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       }
     );
     this.onChangeValue(currentRawValue);
-  }
-
-  /**
-   * @stable [10.09.2020]
-   * @param event
-   */
-  public onKeyEnter(event: IBaseEvent): void {
-    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyEnter, (onKeyEnter) => onKeyEnter(event));
   }
 
   /**
@@ -218,23 +214,116 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [21.06.2020]
-   * @param {ChangeEventT} event
-   * @returns {AnyT}
+   * @stable [14.10.2020]
+   * @param event
    */
   public getRawValueFromEvent(event: ChangeEventT): AnyT {
     return event.target.value;
   }
 
   /**
-   * @stable [17.06.2020]
-   * @returns {AnyT}
+   * @stable [14.10.2020]
    */
   public get value(): AnyT {
     const {
       value,
     } = this.originalProps;
+
     return this.isValueDefined(value) ? value : this.defaultValue;
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @private
+   */
+  public onKeyDown(event: IKeyboardEvent): void {
+    const key = event.key;
+
+    switch (key) {
+      case 'Tab':
+        this.onKeyTab(event);
+        break;
+      case 'Enter':
+        this.onKeyEnter(event);
+        break;
+      case 'Escape':
+        this.onKeyEscape(event);
+        break;
+      case 'ArrowDown':
+        this.onKeyArrowDown(event);
+        break;
+      case 'ArrowUp':
+        this.onKeyArrowUp(event);
+        break;
+      case 'Backspace':
+        this.onKeyBackspace(event);
+        break;
+    }
+
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyDown, (onKeyDown) => onKeyDown(event));
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   */
+  public onKeyEnter(event: IBaseEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyEnter, (onKeyEnter) => onKeyEnter(event));
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @private
+   */
+  public onKeyUp(event: IKeyboardEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyUp, (onKeyUp) => onKeyUp(event));
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @protected
+   */
+  public onKeyBackspace(event: IKeyboardEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyBackspace, (onKeyBackspace) => onKeyBackspace(event));
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @protected
+   */
+  public onKeyTab(event: IKeyboardEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyTab, (onKeyTab) => onKeyTab(event));
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @protected
+   */
+  public onKeyEscape(event: IBaseEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyEscape, (onKeyEscape) => onKeyEscape(event));
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @protected
+   */
+  public onKeyArrowDown(event: IKeyboardEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyArrowDown, (onKeyArrowDown) => onKeyArrowDown(event));
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   * @protected
+   */
+  public onKeyArrowUp(event: IKeyboardEvent): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onKeyArrowUp, (onKeyArrowUp) => onKeyArrowUp(event));
   }
 
   /**
@@ -424,6 +513,18 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
       pattern,
       required,
       tabIndex,
+      ...(
+        this.isActive
+          ? {
+            onBlur: this.onBlur,
+            onChange: this.onChange,
+            onClick: this.onClick,
+            onFocus: this.onFocus,
+            onKeyDown: this.onKeyDown,
+            onKeyUp: this.onKeyUp,
+          }
+          : {}
+      ),
     });
   }
 
@@ -712,24 +813,24 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState>
   }
 
   /**
-   * @stable [22.06.2020]
-   * @returns {boolean}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get isDisplayValueDefined(): boolean {
     return TypeUtils.isDef(this.originalProps.displayValue);
   }
 
   /**
-   * @stable [03.06.2020]
-   * @returns {boolean}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get hasInput(): boolean {
     return !R.isNil(this.inputRef.current);
   }
 
   /**
-   * @stable [03.06.2020]
-   * @returns {TProps}
+   * @stable [14.10.2020]
+   * @protected
    */
   protected get componentsSettingsProps(): TProps {
     return this.getComponentsSettingsProps();

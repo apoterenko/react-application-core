@@ -40,6 +40,7 @@ import {
   IMinLengthWrapper,
   INameWrapper,
   IOnBlurWrapper,
+  IOnChangeManuallyWrapper,
   IOnChangeWrapper,
   IOnClearWrapper,
   IOnClickWrapper,
@@ -47,6 +48,7 @@ import {
   IOnDictionaryLoadWrapper,
   IOnFocusWrapper,
   IOnFormChangeWrapper,
+  IOnKeyEnterWrapper,
   IOriginalValueWrapper,
   IPatternWrapper,
   IPlaceholderWrapper,
@@ -76,7 +78,6 @@ import { IComponentCtor } from './component-definition.interface';
 import {
   IReduxLifeCycleEntity,
 } from './entity-definition.interface';
-import { IFieldProps2 } from '../configurations-definitions.interface';
 import {
   IGenericComponent,
   IGenericComponentProps,
@@ -107,7 +108,7 @@ export interface IPresetsFieldEntity
   extends IKeyboardConfigurationEntity,                                           /* @stable [21.06.2020] */
     IAutoCompleteWrapper,                                                         /* @stable [11.08.2020] */
     IAutoFocusWrapper,                                                            /* @stable [17.06.2020] */
-    ICaretBlinkingFrequencyWrapper,                                               /* @stable [21.06.2020] */
+    ICaretBlinkingFrequencyWrapper,                                               /* @stable [14.10.2020] */
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */
     IDelayTimeoutWrapper,
@@ -128,14 +129,15 @@ export interface IPresetsFieldEntity
     IMessageWrapper,                                                              /* @stable [20.06.2020] */
     IMinLengthWrapper,                                                            /* @stable [20.06.2020] */
     INameWrapper,                                                                 /* @stable [21.06.2020] */
+    IOnBlurWrapper<IFocusEvent>,                                                  /* @stable [21.06.2020] */
     IOnChangeWrapper,                                                             /* @stable [21.06.2020] */
     IOnClearWrapper,
     IOnClickWrapper,                                                              /* @stable [17.06.2020] */
     IOnDelayWrapper,
     IOnDictionaryLoadWrapper<{}, string>,
     IOnFocusWrapper<IFocusEvent>,                                                 /* @stable [21.06.2020] */
-    IOnBlurWrapper<IFocusEvent>,                                                  /* @stable [21.06.2020] */
     IOnFormChangeWrapper,
+    IOnKeyEnterWrapper,                                                           /* @stable [14.10.2020] */
     IPatternWrapper,
     IPlaceholderWrapper,
     IPlainValueWrapper,                                                           /* @stable [21.06.2020] */
@@ -151,7 +153,13 @@ export interface IPresetsFieldEntity
     IUseCursorWrapper,                                                            /* @stable [21.06.2020] */
     IUseKeyboardWrapper,                                                          /* @stable [20.06.2020] */
     IValidWrapper {
-  onKeyEnter?(event: IBaseEvent): void;                                           /* @stable [10.09.2020] */
+  onKeyArrowDown?(event: IBaseEvent): void;
+  onKeyArrowUp?(event: IBaseEvent): void;
+  onKeyBackspace?(event: IBaseEvent): void;
+  onKeyDown?(event: IBaseEvent): void;
+  onKeyEscape?(event: IBaseEvent): void;
+  onKeyTab?(event: IBaseEvent): void;
+  onKeyUp?(event: IBaseEvent): void;
 }
 
 /**
@@ -214,13 +222,23 @@ export interface IFieldState
 
 /**
  * @component
+ * @stable [14.10.2020]
+ */
+export interface IUniversalField
+  extends IOnChangeManuallyWrapper,
+    IValueWrapper {
+}
+
+/**
+ * @component
  * @stable [09.05.2020]
  */
 export interface IField<TProps extends IFieldProps = IFieldProps,
   TState extends IFieldState = IFieldState>
   extends IGenericComponent<TProps, TState>,
+    IUniversalField,
     IOnChangeWrapper,
-    IValueWrapper {
+    IOnKeyEnterWrapper {
 }
 
 /**
@@ -297,7 +315,7 @@ export enum FieldActionPositionsEnum {
 }
 
 export interface IFieldsPresets {
-  [fieldName: string]: string | IFieldProps2 | ((field) => IFieldProps2 | string);
+  [fieldName: string]: string | IPresetsFieldEntity | ((field) => IPresetsFieldEntity | string);
 }
 
 /**

@@ -4,13 +4,13 @@ import {
   IOnSelectWrapper,
   IRobotDetectionMinSymbolsCountWrapper,
 } from '../../definitions.interface';
-import { IUniversalComponentProps } from '../../definition';
+import { IGenericComponentProps } from '../../definition';
 
 /**
  * @stable [08.10.2019]
  */
 export interface IKeyInterceptorProps
-  extends IUniversalComponentProps,
+  extends IGenericComponentProps,
     IDelayTimeoutWrapper,
     IIgnoreEnterKeyWrapper,
     IOnSelectWrapper<string>,

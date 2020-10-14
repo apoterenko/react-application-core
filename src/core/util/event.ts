@@ -39,3 +39,10 @@ export const cancelEvent = <TEvent extends IBaseEvent>(event: TEvent,
   }
   event.stopPropagation();
 };
+
+/**
+ * @stable [14.10.2020]
+ */
+export class EventUtils {
+  public static readonly cancelEvent = cancelEvent;
+}

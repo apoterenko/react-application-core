@@ -1,10 +1,8 @@
 import {
   asMultiFieldEntitiesLength,
-  isFn,
   MultiFieldUtils,
 } from '../../../util';
 import { IEntity } from '../../../definitions.interface';
-import { ICrossPlatformField } from '../../../entities-definitions.interface';
 import {
   IMultiFieldChangesEntity,
   IMultiFieldPlugin,
@@ -19,6 +17,7 @@ import {
 import {
   IFieldConverter,
   IMultiItemEntity,
+  IUniversalField,
   MultiFieldValueT,
 } from '../../../definition';
 import {
@@ -30,10 +29,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   @lazyInject(DI_TYPES.FieldConverter) private readonly fieldConverter: IFieldConverter;
 
   /**
-   * @stable [28.11.2018]
-   * @param {ICrossPlatformField} field
+   * @stable [14.10.2020]
+   * @param field
    */
-  constructor(private field: ICrossPlatformField) {
+  constructor(private readonly field: IUniversalField) {
   }
 
   /**
@@ -113,8 +112,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [16.05.2020]
-   * @returns {IEntity[]}
+   * @stable [14.10.2020]
    */
   public get activeValue(): IEntity[] {
     return this.fieldConverter.fromMultiFieldValueToDefinedEntities({
@@ -155,7 +153,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @param {MultiFieldValueT} payload
    */
   private onChangeManually(payload: MultiFieldValueT): void {
-    this.field.onChangeManually(payload, this.getActiveValueLength(payload));
+    this.field.onChangeManually(payload);
   }
 
   /**
@@ -184,11 +182,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [28.11.2018]
-   * @returns {MultiFieldValueT}
+   * @stable [14.10.2020]
+   * @private
    */
   private get value(): MultiFieldValueT {
-    const field = this.field;
-    return isFn(field.getValue) ? field.getValue() : field.value;
+    return this.field.value;
   }
 }

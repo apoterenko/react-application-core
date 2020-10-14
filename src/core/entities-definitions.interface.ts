@@ -1,37 +1,16 @@
 import {
-  IClearValueWrapper,
   IDateWrapper,
-  IGetValueWrapper,
   IIdWrapper,
   IKeyValue,
   INameWrapper,
-  IOnChangeManuallyWrapper,
-  ISetFocusWrapper,
   ITimeWrapper,
-  IValueWrapper,
 } from './definitions.interface';
-import { IUniversalFieldProps } from './configurations-definitions.interface';
-import {
-  IGenericComponent,
-} from './definition';
 
 /**
  * @stable [16.06.2018]
  */
 export interface IDateTimeEntity extends IDateWrapper,
                                          ITimeWrapper {
-}
-
-/**
- * @stable [18.06.2018]
- */
-export interface IGenericField2<TProps extends IUniversalFieldProps = IUniversalFieldProps,
-                                 TState = {}>
-  extends IGenericComponent<TProps, TState>,
-          IValueWrapper,
-          ISetFocusWrapper,
-          IClearValueWrapper,
-          IOnChangeManuallyWrapper {
 }
 
 /**
@@ -62,13 +41,4 @@ export interface INativeMaterialComponent {
   destroy();
   unlisten(event: string, callback: () => void);
   listen(event: string, callback: () => void);
-}
-
-/**
- * TODO
- * @deprecated
- */
-export interface ICrossPlatformField extends IOnChangeManuallyWrapper,
-                                             IGetValueWrapper,
-                                             IValueWrapper {
 }

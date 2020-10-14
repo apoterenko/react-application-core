@@ -10,14 +10,13 @@ import {
 import {
   FieldConstants,
   IGenericFieldEntity,
-  IGenericFieldEntity,
   IMultiItemEntity,
   IReduxMultiEntity,
   MultiFieldValueOrEntityIdT,
   MultiFieldValueT,
   NotMultiFieldValueT,
 } from '../definition';
-import { ifNotNilThanValue } from './cond';
+import { ConditionUtils } from './cond';
 import {
   arrayNextMinNegativeValue,
   makeArray,
@@ -131,15 +130,16 @@ export const asMultiFieldAddedEntities =
  * @param {MultiFieldValueOrEntityIdT} value
  * @returns {number}
  */
-export const asMultiFieldEntitiesLength = (value: MultiFieldValueOrEntityIdT): number => ifNotNilThanValue(
-  value,
-  () => (
-    MultiFieldUtils.isNotMultiEntity(value)
-      ? MultiFieldUtils.notMultiFieldValueAsEntities(value as NotMultiFieldValueT)
-      : MultiFieldUtils.multiFieldValueAsEntities(value as IReduxMultiEntity)
-  ).length,
-  0
-);
+export const asMultiFieldEntitiesLength = (value: MultiFieldValueOrEntityIdT): number =>
+  ConditionUtils.ifNotNilThanValue(
+    value,
+    () => (
+      MultiFieldUtils.isNotMultiEntity(value)
+        ? MultiFieldUtils.notMultiFieldValueAsEntities(value as NotMultiFieldValueT)
+        : MultiFieldUtils.multiFieldValueAsEntities(value as IReduxMultiEntity)
+    ).length,
+    0
+  );
 
 /**
  * @stable [14.10.2019]

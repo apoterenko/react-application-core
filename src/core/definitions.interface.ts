@@ -110,7 +110,7 @@ export interface ICompactWrapper<TValue = boolean> { compact?: TValue; }
 export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
 export interface IConditionWrapper<TValue> { condition?: TValue; }
 export interface IConfirmWrapper { confirm?: boolean; }
-export interface IConnectedWrapper<TConnected = boolean> { connected?: TConnected; }
+export interface IConnectedWrapper<TValue = boolean> { connected?: TValue; }
 export interface IContainerSectionWrapper<TValue = string> { containerSection?: TValue; }
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }
@@ -345,6 +345,7 @@ export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void
 export interface IOnBeforeSubmitWrapper<TValue = {}, TResult = void> { onBeforeSubmit?(value?: TValue): TResult; }
 export interface IOnBlurWrapper<TValue = {}> { onBlur?(value?: TValue): void; }
 export interface IOnChangeLayoutModeWrapper<TValue = {}> { onChangeLayoutMode?(value?: TValue): void; }
+export interface IOnChangeManuallyWrapper<TValue = AnyT> { onChangeManually?(value?: TValue): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
@@ -353,7 +354,7 @@ export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TVa
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
 export interface IOnCommentClickWrapper { onCommentClick?(): void; }
 export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
-export interface IOnDelayWrapper { onDelay?(): void; }
+export interface IOnDelayWrapper { onDelay?(a?: any): void; }
 export interface IOnDictionaryChangeWrapper<TValue1, TValue2> { onDictionaryChange?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDictionaryLoadWrapper<TValue1 = {}, TValue2 = {}> { onDictionaryLoad?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
@@ -367,6 +368,7 @@ export interface IOnFormChangeWrapper<TValue1 = string, TValue2 = AnyT> { onForm
 export interface IOnGroupClickWrapper<TValue = {}> { onGroupClick?(value?: TValue): void; }
 export interface IOnInitWrapper<TValue = {}> { onInit?(value?: TValue): void; }
 export interface IOnInlineOptionCloseWrapper<TValue = {}> { onInlineOptionClose?(value?: TValue): void; }
+export interface IOnKeyEnterWrapper<TValue = IBaseEvent> { onKeyEnter?(value?: TValue): void; }
 export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; }
 export interface IOnMarkerClickWrapper<TValue = {}> { onMarkerClick?(value?: TValue): void; }
 export interface IOnMarkerDragEndWrapper<TValue = {}> { onMarkerDragEnd?(value?: TValue): void; }
@@ -593,31 +595,10 @@ export interface IZoneWrapper<TValue = string> { zone?: TValue; }
 export interface IZoomWrapper { zoom?: number; }
 
 /**
- * @stable [18.05.2018]
- */
-export interface ISetFocusWrapper<TSetFocus = () => void> {
-  setFocus: TSetFocus;
-}
-
-/**
  * @stable [07.06.2018]
  */
 export interface IOnChangeFilterWrapper<TChangedValue = AnyT, TOnChangeFilter = (value?: TChangedValue) => void> {
   onChangeFilter?: TOnChangeFilter;
-}
-
-/**
- * @stable [18.05.2018]
- */
-export interface IOnChangeManuallyWrapper<TOnChangeManually = (...args) => void> {
-  onChangeManually?: TOnChangeManually;
-}
-
-/**
- * @stable [28.11.2018]
- */
-export interface IGetValueWrapper<TValue = AnyT> {
-  getValue?(): TValue;
 }
 
 /**

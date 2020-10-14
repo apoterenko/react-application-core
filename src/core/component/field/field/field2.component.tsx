@@ -7,54 +7,22 @@ import {
   orUndef,
   PropsUtils,
 } from '../../../util';
-import { UniversalField } from './universal-field.component';
 import {
   ComponentClassesEnum,
   FieldComposedInputAttributesT,
   IField,
   IFieldState,
-  IKeyboardEvent,
 } from '../../../definition';
 import { IFieldProps2 } from '../../../configurations-definitions.interface';
+import { Field } from './field.component';
 
 export class Field2<TProps extends IFieldProps2,
                    TState extends IFieldState = IFieldState>
-    extends UniversalField<TProps,
+    extends Field<TProps,
                            TState>
     implements IField<TProps, TState> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IFieldProps2>({}, UniversalField);
-
-  /**
-   * @stable [03.09.2018]
-   * @param {IKeyboardEvent} event
-   */
-  public onKeyDown(event: IKeyboardEvent): void {
-    const key = event.key;
-
-    switch (key) {
-      case 'Tab':
-        this.onKeyTab(event);
-        break;
-      case 'Enter':
-        this.onKeyEnter(event);
-        break;
-      case 'Escape':
-        this.onKeyEscape(event);
-        break;
-      case 'ArrowDown':
-        this.onKeyArrowDown(event);
-        break;
-      case 'ArrowUp':
-        this.onKeyArrowUp(event);
-        break;
-      case 'Backspace':
-        this.onKeyBackspace(event);
-        break;
-    }
-
-    super.onKeyDown(event);
-  }
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IFieldProps2>({}, Field);
 
   /**
    * @stable [30.10.2019]
@@ -75,18 +43,6 @@ export class Field2<TProps extends IFieldProps2,
       className: 'rac-field__input rac-flex-x1',
       autoComplete, disabled, name,
       placeholder, readOnly, type, value,
-      ...(
-        this.isActive
-          ? {
-            onBlur: this.onBlur,
-            onChange: this.onChange,
-            onClick: this.onClick,
-            onFocus: this.onFocus,
-            onKeyDown: this.onKeyDown,
-            onKeyUp: this.onKeyUp,
-          }
-          : {}
-      ),
     });
     return {
       ...super.getInputElementProps(),
