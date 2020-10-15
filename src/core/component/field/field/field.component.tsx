@@ -323,10 +323,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [03.06.2020]
-   * @returns {InputElementT}
+   * @stable [15.10.2020]
+   * @protected
    */
-  public get input(): InputElementT {
+  protected get input(): InputElementT {
     return ConditionUtils.ifNotNilThanValue(
       this.inputRef.current,
       (input) => (input as IMaskedInputCtor).inputElement || input as InputElementT

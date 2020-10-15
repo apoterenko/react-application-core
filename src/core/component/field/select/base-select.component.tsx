@@ -46,7 +46,10 @@ export class BaseSelect<TProps extends IBaseSelectProps,
                         TState extends IBaseSelectState>
   extends BaseTextField<TProps, TState> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseSelectProps>({}, BaseTextField);
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseSelectProps>({
+    forceReload: true,
+    remoteFilter: true,
+  }, BaseTextField);
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseSelect');
 
@@ -60,8 +63,6 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   constructor(originalProps: TProps) {
     super(originalProps);
 
-    this.getMenuAnchorElement = this.getMenuAnchorElement.bind(this);
-    this.getMenuWidth = this.getMenuWidth.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onInlineOptionClick = this.onInlineOptionClick.bind(this);
     this.onMenuFilterChange = this.onMenuFilterChange.bind(this);
@@ -249,8 +250,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
       () => (
         <Menu
           ref={this.menuRef}
-          anchorElement={ConditionUtils.orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
-          width={ConditionUtils.orNull(this.isMenuAnchored, () => this.getMenuWidth)}
+          anchorElement={ConditionUtils.orNull(this.isMenuAnchored, () => this.menuAnchorElement)}
+          width={ConditionUtils.orNull(this.isMenuAnchored, () => this.menuWidth)}
           progress={this.isBusy}
           options={this.getFilteredOptions()}
           onSelect={this.onSelect}
@@ -636,7 +637,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @param value
    * @private
    */
@@ -645,15 +646,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
-   * @private
-   */
-  private getMenuWidth(): number {
-    return this.domAccessor.getWidth(this.actualRef.current);
-  }
-
-  /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @protected
    */
   protected get originalEmptyValue(): AnyT {
@@ -661,7 +654,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get isQuickSearchEnabled(): boolean {
@@ -669,7 +662,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get delayTimeout(): number {
@@ -677,7 +670,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get areLocalOptionsUsed(): boolean {
@@ -685,7 +678,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get isMenuAnchored(): boolean {
@@ -693,11 +686,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
-  private getMenuAnchorElement(): HTMLElement {
-    return CalcUtils.calc<HTMLElement>(this.originalProps.menuAnchorElement) || this.input;
+  private get menuAnchorElement(): HTMLElement {
+    return CalcUtils.calc(this.originalProps.menuAnchorElement) || this.input;
   }
 
   /**
@@ -709,7 +702,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get dictionary(): string {
@@ -717,7 +710,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get doOptionsExist(): boolean {
@@ -725,7 +718,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get isMenuAlreadyOpened(): boolean {
@@ -733,23 +726,23 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get isForceReload(): boolean {
-    return this.originalProps.forceReload !== false;
+    return this.originalProps.forceReload;
   }
 
   /**
-   * @stable [08.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get isRemoteFilterUsed(): boolean {
-    return this.originalProps.remoteFilter !== false && !this.areLocalOptionsUsed;
+    return this.originalProps.remoteFilter && !this.areLocalOptionsUsed;
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [15.10.2020]
    * @private
    */
   private get isMenuRendered(): boolean {
@@ -757,7 +750,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.08.2020]
+   * @stable [15.10.2020]
+   * @private
+   */
+  private get menuWidth(): number {
+    return this.domAccessor.getWidth(this.actualRef.current);
+  }
+
+  /**
+   * @stable [15.10.2020]
    * @private
    */
   private get menu(): Menu {
