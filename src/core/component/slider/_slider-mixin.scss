@@ -1,0 +1,39 @@
+@import '../_core-mixin';
+
+// @stable [16.10.2020]
+@mixin rac-slider (
+  $rac-slider-custom: unset,
+  /**/
+  $rac-slider-connect-background: unset,
+  $rac-slider-handle-background: unset,
+  $rac-slider-handle-border-radius: unset,
+  $rac-slider-handle-border: unset,
+  $rac-slider-handle-box-shadow: unset,
+  $rac-slider-target-background: unset,
+  $rac-slider-target-border-radius: unset,
+  $rac-slider-target-border: unset,
+  $rac-slider-target-box-shadow: unset
+) {
+  #{rac-cls(rac-slider, $rac-slider-custom)} {
+    @include rac-styles (
+      $rac-styles-custom: noUi-target,
+      $rac-styles-background: $rac-slider-target-background,
+      $rac-styles-border-radius: $rac-slider-target-border-radius,
+      $rac-styles-border: $rac-slider-target-border,
+      $rac-styles-box-shadow: $rac-slider-target-box-shadow
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: noUi-connect,
+      $rac-styles-background: $rac-slider-connect-background
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: noUi-handle,
+      $rac-styles-background: $rac-slider-handle-background,
+      $rac-styles-border-radius: $rac-slider-handle-border-radius,
+      $rac-styles-border: $rac-slider-handle-border,
+      $rac-styles-box-shadow: $rac-slider-handle-box-shadow
+    );
+  }
+}

@@ -109,12 +109,12 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
         {this.originalChildren}
         {this.displayValueElement}
         {this.selfElement}
+        {this.attachmentElement}
         {ConditionUtils.ifNotNilThanValue(this.originalProps.message, (message) => this.messageElement(message))}
         {ConditionUtils.orNull(
           this.isErrorMessageRendered,
           () => this.messageElement(this.error, FieldClassesEnum.ERROR_MESSAGE)
         )}
-        {this.attachmentElement}
         {ConditionUtils.orNull(this.isKeyboardUsed && this.isKeyboardOpen, () => this.keyboardElement)}
       </div>
     );
@@ -608,6 +608,23 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @stable [21.08.2020]
    */
   protected get attachmentElement(): JSX.Element {
+    return ConditionUtils.ifNotNilThanValue(
+      this.attachmentBodyElement,
+      (attachmentBodyElement) => (
+        <div
+          className={FieldClassesEnum.ATTACHMENT}
+        >
+          {attachmentBodyElement}
+        </div>
+      )
+    );
+  }
+
+  /**
+   * @stable [15.10.2020]
+   * @protected
+   */
+  protected get attachmentBodyElement(): JSX.Element {
     return null;
   }
 

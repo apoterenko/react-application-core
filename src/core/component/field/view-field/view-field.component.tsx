@@ -10,7 +10,6 @@ import {
 } from '../../../util';
 import { Field } from '../field/field.component';
 import {
-  FieldClassesEnum,
   IViewFieldProps,
   IViewFieldState,
   MimeTypesEnum,
@@ -32,11 +31,12 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
   private detectorFileTypeTask: BPromise<IViewFieldState>;
 
   /**
-   * @stable [29.07.2019]
-   * @param {IViewFieldProps} props
+   * @stable [16.10.2020]
+   * @param originalProps
    */
-  constructor(props: IViewFieldProps) {
-    super(props);
+  constructor(originalProps: IViewFieldProps) {
+    super(originalProps);
+
     this.state = {url: null, type: null};
   }
 
@@ -49,8 +49,7 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {Promise<void>}
+   * @stable [16.10.2020]
    */
   public async componentDidMount(): Promise<void> {
     super.componentDidMount();
@@ -58,10 +57,9 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
   }
 
   /**
-   * @stable [19.06.2020]
-   * @param {IViewFieldProps} prevProps
-   * @param {IViewFieldState} prevState
-   * @returns {Promise<void>}
+   * @stable [16.10.2020]
+   * @param prevProps
+   * @param prevState
    */
   public async componentDidUpdate(prevProps: IViewFieldProps, prevState: IViewFieldState): Promise<void> {
     super.componentDidUpdate(prevProps, prevState);
@@ -69,24 +67,10 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {JSX.Element}
+   * @stable [16.10.2020]
+   * @protected
    */
-  protected get attachmentElement(): JSX.Element {
-    return (
-      <div
-        className={FieldClassesEnum.ATTACHMENT}
-      >
-        {this.viewElement}
-      </div>
-    );
-  }
-
-  /**
-   * @stable [19.06.2020]
-   * @returns {JSX.Element}
-   */
-  private get viewElement(): JSX.Element {
+  protected get attachmentBodyElement(): JSX.Element {
     const {
       usePreview,
       viewer,
@@ -117,8 +101,8 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {string}
+   * @stable [16.10.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(

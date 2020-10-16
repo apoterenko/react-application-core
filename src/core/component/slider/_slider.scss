@@ -1,0 +1,38 @@
+@import '~nouislider/distribute/nouislider';
+@import './_slider-constant';
+@import './_slider-mixin';
+
+.rac {
+
+  // @stable [16.10.2020]
+  @include rac-slider (
+    $rac-slider-connect-background: $rac-slider-connect-background,
+    $rac-slider-handle-background: $rac-slider-handle-background,
+    $rac-slider-handle-border-radius: $rac-slider-handle-border-radius,
+    $rac-slider-handle-border: $rac-slider-handle-border,
+    $rac-slider-handle-box-shadow: $rac-slider-handle-box-shadow,
+    $rac-slider-target-background: $rac-slider-target-background,
+    $rac-slider-target-border-radius: $rac-slider-target-border-radius,
+    $rac-slider-target-border: $rac-slider-target-border,
+    $rac-slider-target-box-shadow: $rac-slider-target-box-shadow
+  );
+
+  .noUi-horizontal {
+    height: 8px;
+
+    .noUi-handle {
+      width: 16px;
+      height: 16px;
+      right: -13px;
+      top: -4px;
+      cursor: pointer;
+    }
+  }
+  .noUi-vertical {
+    width: 8px;
+  }
+
+  .noUi-handle:before, .noUi-handle:after {
+    background: 0;
+  }
+}

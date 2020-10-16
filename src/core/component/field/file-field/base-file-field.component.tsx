@@ -8,7 +8,6 @@ import {
   downloadFileAsBlob,
   FilterUtils,
   joinClassName,
-  orNull,
   PropsUtils,
   uuid,
 } from '../../../util';
@@ -110,41 +109,41 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @stable [03.08.2018]
    * @returns {JSX.Element}
    */
-  protected get attachmentElement(): JSX.Element {
-    const state = this.state;
-    const props = this.props;
+  protected get attachmentBodyElement(): JSX.Element {
+    const {
+      useCamera,
+    } = this.originalProps;
     const messages = this.settings.messages;
 
     const dndElement = (
-      <DnD ref={this.dndRef}
-           disabled={this.isInactive}
-           onSelect={this.onSelect}/>
+      <DnD
+        ref={this.dndRef}
+        disabled={this.isInactive}
+        onSelect={this.onSelect}/>
     );
-    if (!props.useCamera) {
+
+    if (!useCamera) {
       return dndElement;
     }
     return (
-      <div className='rac-dnd-wrapper'>
+      <React.Fragment>
         {dndElement}
         {
-          orNull(
-            this.state.opened,
-            () => (
-              <Dialog
-                ref={this.cameraDialogRef}
-                title={messages.takeSnapshotMessage}
-                acceptText={messages.acceptMessage}
-                onDeactivate={this.onCameraDialogDeactivate}
-                onBeforeAccept={this.onCameraDialogAccept}
-              >
-                <WebCamera
-                  ref={this.cameraRef}
-                  onSelect={this.onCameraSnapshotSelect}/>
-              </Dialog>
-            )
+          this.state.opened && (
+            <Dialog
+              ref={this.cameraDialogRef}
+              title={messages.takeSnapshotMessage}
+              acceptText={messages.acceptMessage}
+              onDeactivate={this.onCameraDialogDeactivate}
+              onBeforeAccept={this.onCameraDialogAccept}
+            >
+              <WebCamera
+                ref={this.cameraRef}
+                onSelect={this.onCameraSnapshotSelect}/>
+            </Dialog>
           )
         }
-      </div>
+      </React.Fragment>
     );
   }
 

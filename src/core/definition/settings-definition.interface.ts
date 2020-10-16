@@ -21,6 +21,7 @@ import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
 import { INumberFieldProps } from '../component/field/numberfield/numberfield.interface';  // TODO
 import { IPageToolbarProps } from './toolbar-definition.interface';
+import { ISliderProps } from './slider-definition.interface';
 import { ISubHeaderLinkProps } from './sub-header-link-definition.interface';
 import { ISubHeaderProps } from './sub-header-definition.interface';
 import { ITextAreaProps } from './text-area-definition.interface';
@@ -151,6 +152,7 @@ export interface IComponentsSettingsEntity {
   navigationList?: INavigationListProps;
   numberField?: INumberFieldProps;
   pageToolbar?: IPageToolbarProps;
+  slider?: ISliderProps;
   subHeader?: ISubHeaderProps;
   subHeaderLink?: ISubHeaderLinkProps;
   textarea?: ITextAreaProps;

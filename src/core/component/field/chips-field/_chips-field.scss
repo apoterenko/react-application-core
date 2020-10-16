@@ -4,20 +4,13 @@
 
 .rac {
 
-  /**
-   * @chips-field
-   * @stable [16.06.2020]
-   */
+  // @stable [16.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-chips-field-cls,
-    $rac-field-attachment-margin: $rac-chips-field-attachment-margin,
     $rac-field-attachment-neighbor-child-margin: $rac-chips-field-attachment-neighbor-child-margin
   );
 
-  /**
-   * @chips-field-inline-option
-   * @stable [08.07.2020]
-   */
+  // @stable [08.07.2020]
   @include rac-inline-option (
     $rac-inline-option-custom: $rac-chips-field-inline-option-cls,
     $rac-inline-option-margin: $rac-chips-field-inline-option-margin

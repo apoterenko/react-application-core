@@ -1,0 +1,16 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+// @stable [16.10.2020]
+$rac-primary-slider-background-0: $rac-primary-color-metis-1-0 !default;
+
+// @stable [16.10.2020]
+$rac-slider-connect-background: $rac-primary-slider-background-0 !default;
+$rac-slider-handle-background: $rac-primary-slider-background-0 !default;
+$rac-slider-handle-border-radius: 50% !default;
+$rac-slider-handle-border: 0 !default;
+$rac-slider-handle-box-shadow: none !default;
+$rac-slider-target-background: $rac-primary-color-metis-05 !default;
+$rac-slider-target-border-radius: $rac-primary-size-1 !default;
+$rac-slider-target-border: 0 !default;
+$rac-slider-target-box-shadow: none !default;

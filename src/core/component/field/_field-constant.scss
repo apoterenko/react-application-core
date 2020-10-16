@@ -2,6 +2,7 @@
 @import '../_classes';
 
 // @stable [19.06.2020]
+$rac-field-attachment-margin: $rac-primary-offset-1 0 0 0 !default;                           /* @stable [16.10.2020] */
 $rac-field-display: $rac-primary-display-0 !default;                                          /* @stable [19.06.2020] */
 $rac-field-error-message-color: $rac-primary-color-dia-0 !default;                            /* @stable [20.06.2020] */
 $rac-field-flex-direction: $rac-primary-flex-direction-0 !default;                            /* @stable [19.06.2020] */

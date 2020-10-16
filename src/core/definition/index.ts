@@ -79,6 +79,8 @@ export * from './scrolled-definition.interface';
 export * from './select-definition.interface';
 export * from './selected-element-definition.interface';
 export * from './settings-definition.interface';
+export * from './slider-definition.interface';
+export * from './slider-field-definition.interface';
 export * from './sort-definition.interface';
 export * from './stack-definition.interface';
 export * from './sticky-definition.interface';

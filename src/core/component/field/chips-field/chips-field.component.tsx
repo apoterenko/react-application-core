@@ -9,7 +9,6 @@ import {
 } from '../../../util';
 import {
   ChipsFieldClassesEnum,
-  FieldClassesEnum,
   IChipsFieldProps,
   INamedEntity,
 } from '../../../definition';
@@ -24,16 +23,14 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IChipsFieldProps>({}, MultiField);
 
   /**
-   * @stable [08.07.2020]
-   * @returns {JSX.Element}
+   * @stable [15.10.2020]
+   * @protected
    */
-  protected get attachmentElement(): JSX.Element {
+  protected get attachmentBodyElement(): JSX.Element {
     return (
-      <div
-        className={FieldClassesEnum.ATTACHMENT}
-      >
+      <React.Fragment>
         {this.inlineOptions.map((item) => this.getInlineOptionElement(item))}
-      </div>
+      </React.Fragment>
     );
   }
 

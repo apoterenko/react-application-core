@@ -31,7 +31,6 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IMultiFieldProps>({
     clearActionRendered: false,
     displayMessage: '%d value(s)',
-    errorMessageRendered: false,
     preventFocus: true,
   }, BaseSelect);
 

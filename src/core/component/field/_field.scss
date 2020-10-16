@@ -4,6 +4,7 @@
 @import './date-field/_date-field';
 @import './place-field/_place-field';
 @import './select/_select';
+@import './slider-field/_slider-field';
 @import './switch/_switch';
 @import './text-area/_text-area';
 @import './text-field/_text-field';
@@ -13,11 +14,9 @@
 
 .rac {
 
-  /**
-   * @field
-   * @stable [19.06.2020]
-   */
+  // @stable [16.10.2020]
   @include rac-field (
+    $rac-field-attachment-margin: $rac-field-attachment-margin,
     $rac-field-display: $rac-field-display,
     $rac-field-error-message-color: $rac-field-error-message-color,
     $rac-field-flex-direction: $rac-field-flex-direction,

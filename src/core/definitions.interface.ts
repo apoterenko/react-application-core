@@ -306,6 +306,7 @@ export interface IMaskWrapper<TValue = (string | RegExp)[]> { mask?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
 export interface IMaxDateWrapper<TValue = string> { maxDate?: TValue; }
 export interface IMaxLengthWrapper { maxLength?: number; }
+export interface IMaxWrapper { max?: number; }
 export interface IMenuActionConfigurationWrapper<TValue> { menuActionConfiguration?: TValue; }
 export interface IMenuAnchorElementWrapper<TValue> { menuAnchorElement?: TValue; }
 export interface IMenuConfigurationWrapper<TValue> { menuConfiguration?: TValue; }
@@ -319,6 +320,7 @@ export interface IMiddleWrapper<TValue = boolean> { middle?: TValue; }
 export interface IMinDateWrapper<TValue = string> { minDate?: TValue; }
 export interface IMiniWrapper { mini?: boolean; }
 export interface IMinLengthWrapper { minLength?: number; }
+export interface IMinWrapper { min?: number; }
 export interface IModeWrapper<TValue = string> { mode?: TValue; }
 export interface IMonthWrapper<TValue = number> { month?: TValue; }
 export interface IMultiWrapper { multi?: boolean; }

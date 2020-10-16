@@ -11,6 +11,8 @@ import {
   IIconLeftAlignedWrapper,
   IIconWrapper,
   ILabelWrapper,
+  IMaxWrapper,
+  IMinWrapper,
   INameWrapper,
   INewEntityWrapper,
   IOriginalEntityWrapper,
@@ -24,6 +26,15 @@ import {
   IValueWrapper,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
+
+/**
+ * @presets-entity
+ * @stable [15.10.2020]
+ */
+export interface IPresetsMinMaxEntity
+  extends IMaxWrapper,
+    IMinWrapper {
+}
 
 /**
  * @presets-entity

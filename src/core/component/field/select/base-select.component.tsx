@@ -198,24 +198,22 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [16.06.2020]
-   * @returns {JSX.Element}
+   * @stable [16.10.2020]
+   * @protected
    */
-  protected get attachmentElement(): JSX.Element {
+  protected get attachmentBodyElement(): JSX.Element {
     const {
       inlineOptionClassName,
       inlineOptions,
     } = this.originalProps;
 
-    if (!inlineOptions) {
+    if (R.isNil(inlineOptions)) {
       return null;
     }
     const currentValue = this.value;
 
     return (
-      <div
-        className={FieldClassesEnum.ATTACHMENT}
-      >
+      <React.Fragment>
         {this.options.map((option) => {
             const id = this.fromSelectValueToId(option);
             const isInlineOptionSelected = this.isInlineOptionSelected(id, currentValue);
@@ -236,7 +234,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
             );
           }
         )}
-      </div>
+      </React.Fragment>
     );
   }
 
