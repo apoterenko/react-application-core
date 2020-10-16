@@ -17,7 +17,7 @@ import {
   UNDEF,
 } from '../../definitions.interface';
 import { GenericComponent } from '../base/generic.component';
-import { NumberField } from '../field';
+import { NumberField } from '../field/numberfield/numberfield.component';
 
 /**
  * @component-impl
@@ -109,20 +109,25 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
    */
   protected get valuesElement(): JSX.Element {
     const minMaxEntity = this.minMaxEntity;
+    const {
+      fieldConfiguration,
+    } = this.mergedProps;
 
     return (
       <div
         className={SliderClassesEnum.SLIDER_FIELDS_WRAPPER}
       >
         <NumberField
-          value={minMaxEntity.min}
           errorMessageRendered={false}
           full={false}
+          {...fieldConfiguration}
+          value={minMaxEntity.min}
           onChange={this.onMinValueChange}/>
         <NumberField
-          value={minMaxEntity.max}
           errorMessageRendered={false}
           full={false}
+          {...fieldConfiguration}
+          value={minMaxEntity.max}
           onChange={this.onMaxValueChange}/>
       </div>
     )
@@ -161,7 +166,7 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
    * @param max
    * @private
    */
-  private onChangeValues(min: number, max: number): void {
+  private onChangeValues(min: StringNumberT, max: StringNumberT): void {
     this.setState(
       {
         min: UNDEF,
@@ -177,13 +182,11 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
    * @private
    */
   private onMinValueChange(value: StringNumberT): void {
-    this.setState(
-      {min: this.nc.number(value)},
-      () => {
-        const minMaxEntity = this.minMaxEntity;
-        this.slider.set([minMaxEntity.min, minMaxEntity.max])
-      }
-    );
+    const min = value;
+    const max = this.minMaxEntity.max;
+
+    this.slider.set([min, max]);
+    this.onChangeValues(min, max);
   }
 
   /**
@@ -192,13 +195,11 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
    * @private
    */
   private onMaxValueChange(value: StringNumberT): void {
-    this.setState(
-      {max: this.nc.number(value)},
-      () => {
-        const minMaxEntity = this.minMaxEntity;
-        this.slider.set([minMaxEntity.min, minMaxEntity.max])
-      }
-    );
+    const min = this.minMaxEntity.min;
+    const max = value;
+
+    this.slider.set([min, max]);
+    this.onChangeValues(min, max);
   }
 
   /**

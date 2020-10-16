@@ -1,10 +1,12 @@
 import { IPresetsMinMaxEntity } from './entity-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
+  IFieldConfigurationWrapper,
   IOnChangeWrapper,
   IStepWrapper,
   IValueWrapper,
 } from '../definitions.interface';
+import { INumberFieldProps } from '../component/field/numberfield/numberfield.interface';  // TODO
 
 /**
  * @presets-entity
@@ -12,6 +14,7 @@ import {
  */
 export interface IPresetsSliderBaseEntity
   extends IPresetsMinMaxEntity,
+    IFieldConfigurationWrapper<INumberFieldProps>,
     IStepWrapper {
 }
 

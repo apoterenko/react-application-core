@@ -33,6 +33,7 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
    */
   protected get attachmentBodyElement(): JSX.Element {
     const {
+      fieldConfiguration,
       max,
       min,
       step,
@@ -40,6 +41,7 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
 
     return (
       <Slider
+        fieldConfiguration={fieldConfiguration}
         max={max}
         min={min}
         step={step}

@@ -6,8 +6,10 @@
   $rac-slider-custom: unset,
   /**/
   $rac-slider-connect-background: unset,
+  $rac-slider-fields-wrapper-base-text-field-self-field-background: unset,
+  $rac-slider-fields-wrapper-base-text-field-self-field-input-text-align: unset,
+  $rac-slider-fields-wrapper-base-text-field-width: unset,
   $rac-slider-fields-wrapper-display: unset,
-  $rac-slider-fields-wrapper-field-width: unset,
   $rac-slider-fields-wrapper-flex-direction: unset,
   $rac-slider-fields-wrapper-neighbor-child-margin: unset,
   $rac-slider-handle-background: unset,
@@ -28,19 +30,26 @@
   $rac-slider-vertical-width: unset
 ) {
   #{rac-cls(rac-slider, $rac-slider-custom)} {
-    .rac-slider__fields-wrapper {
-      @include rac-styles (
-        $rac-styles-display: $rac-slider-fields-wrapper-display,
-        $rac-styles-flex-direction: $rac-slider-fields-wrapper-flex-direction
-      );
+    > {
+      .rac-slider__fields-wrapper {
+        @include rac-styles (
+          $rac-styles-display: $rac-slider-fields-wrapper-display,
+          $rac-styles-flex-direction: $rac-slider-fields-wrapper-flex-direction
+        );
 
-      @include rac-field (
-        $rac-field-width: $rac-slider-fields-wrapper-field-width
-      );
+        > {
+          @include rac-field (
+            $rac-field-custom: $rac-base-text-field-cls,
+            $rac-field-width: $rac-slider-fields-wrapper-base-text-field-width,
+            $rac-self-field-background: $rac-slider-fields-wrapper-base-text-field-self-field-background,
+            $rac-self-field-input-text-align: $rac-slider-fields-wrapper-base-text-field-self-field-input-text-align
+          );
+        }
 
-      @include rac-neighbor-child (
-        $rac-neighbor-child-margin: $rac-slider-fields-wrapper-neighbor-child-margin
-      );
+        @include rac-neighbor-child (
+          $rac-neighbor-child-margin: $rac-slider-fields-wrapper-neighbor-child-margin
+        );
+      }
     }
 
     @include rac-styles (

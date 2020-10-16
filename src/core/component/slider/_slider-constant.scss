@@ -6,11 +6,12 @@ $rac-primary-slider-background-0: $rac-primary-color-metis-1-0 !default;
 $rac-primary-slider-background-1: $rac-primary-color-metis-05 !default;
 $rac-primary-slider-size-0: $rac-primary-size-1 !default;
 $rac-primary-slider-size-1: $rac-primary-size-3 !default;
-
 // @stable [16.10.2020]
 $rac-slider-connect-background: $rac-primary-slider-background-0 !default;
+$rac-slider-fields-wrapper-base-text-field-self-field-background: unset !default;
+$rac-slider-fields-wrapper-base-text-field-self-field-input-text-align: center !default;
+$rac-slider-fields-wrapper-base-text-field-width: 72px !default;
 $rac-slider-fields-wrapper-display: $rac-primary-display-0 !default;
-$rac-slider-fields-wrapper-field-width: 72px !default;
 $rac-slider-fields-wrapper-flex-direction: unset !default;
 $rac-slider-fields-wrapper-neighbor-child-margin: 0 0 $rac-primary-offset-1 auto !default;
 $rac-slider-handle-background: $rac-primary-slider-background-0 !default;
