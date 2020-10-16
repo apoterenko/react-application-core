@@ -6,13 +6,21 @@
   /**/
   $rac-slider-connect-background: unset,
   $rac-slider-handle-background: unset,
+  $rac-slider-handle-before-after-content: unset,
   $rac-slider-handle-border-radius: unset,
   $rac-slider-handle-border: unset,
   $rac-slider-handle-box-shadow: unset,
+  $rac-slider-horizontal-handle-cursor: unset,
+  $rac-slider-horizontal-handle-height: unset,
+  $rac-slider-horizontal-handle-right: unset,
+  $rac-slider-horizontal-handle-top: unset,
+  $rac-slider-horizontal-handle-width: unset,
+  $rac-slider-horizontal-height: unset,
   $rac-slider-target-background: unset,
   $rac-slider-target-border-radius: unset,
   $rac-slider-target-border: unset,
-  $rac-slider-target-box-shadow: unset
+  $rac-slider-target-box-shadow: unset,
+  $rac-slider-vertical-width: unset
 ) {
   #{rac-cls(rac-slider, $rac-slider-custom)} {
     @include rac-styles (
@@ -28,12 +36,41 @@
       $rac-styles-background: $rac-slider-connect-background
     );
 
-    @include rac-styles (
-      $rac-styles-custom: noUi-handle,
-      $rac-styles-background: $rac-slider-handle-background,
-      $rac-styles-border-radius: $rac-slider-handle-border-radius,
-      $rac-styles-border: $rac-slider-handle-border,
-      $rac-styles-box-shadow: $rac-slider-handle-box-shadow
-    );
+    .noUi-handle {
+      @include rac-styles (
+        $rac-styles-background: $rac-slider-handle-background,
+        $rac-styles-border-radius: $rac-slider-handle-border-radius,
+        $rac-styles-border: $rac-slider-handle-border,
+        $rac-styles-box-shadow: $rac-slider-handle-box-shadow
+      );
+
+      &:before,
+      &:after {
+        @include rac-styles (
+          $rac-styles-content: $rac-slider-handle-before-after-content
+        );
+      }
+    }
+
+    .noUi-horizontal {
+      @include rac-styles (
+        $rac-styles-height: $rac-slider-horizontal-height
+      );
+
+      @include rac-styles (
+        $rac-styles-custom: noUi-handle,
+        $rac-styles-cursor: $rac-slider-horizontal-handle-cursor,
+        $rac-styles-height: $rac-slider-horizontal-handle-height,
+        $rac-styles-right: $rac-slider-horizontal-handle-right,
+        $rac-styles-top: $rac-slider-horizontal-handle-top,
+        $rac-styles-width: $rac-slider-horizontal-handle-width
+      );
+    }
+
+    .noUi-vertical {
+      @include rac-styles (
+        $rac-styles-width: $rac-slider-vertical-width
+      );
+    }
   }
 }

@@ -3,14 +3,25 @@
 
 // @stable [16.10.2020]
 $rac-primary-slider-background-0: $rac-primary-color-metis-1-0 !default;
+$rac-primary-slider-background-1: $rac-primary-color-metis-05 !default;
+$rac-primary-slider-size-0: $rac-primary-size-1 !default;
+$rac-primary-slider-size-1: $rac-primary-size-3 !default;
 
 // @stable [16.10.2020]
 $rac-slider-connect-background: $rac-primary-slider-background-0 !default;
 $rac-slider-handle-background: $rac-primary-slider-background-0 !default;
+$rac-slider-handle-before-after-content: none !default;
 $rac-slider-handle-border-radius: 50% !default;
 $rac-slider-handle-border: 0 !default;
 $rac-slider-handle-box-shadow: none !default;
-$rac-slider-target-background: $rac-primary-color-metis-05 !default;
+$rac-slider-horizontal-handle-cursor: pointer !default;
+$rac-slider-horizontal-handle-height: $rac-primary-slider-size-1 !default;
+$rac-slider-horizontal-handle-right: -9px !default;
+$rac-slider-horizontal-handle-top: -4px !default;
+$rac-slider-horizontal-handle-width: $rac-primary-slider-size-1 !default;
+$rac-slider-horizontal-height: $rac-primary-slider-size-0 !default;
+$rac-slider-target-background: $rac-primary-slider-background-1 !default;
 $rac-slider-target-border-radius: $rac-primary-size-1 !default;
 $rac-slider-target-border: 0 !default;
 $rac-slider-target-box-shadow: none !default;
+$rac-slider-vertical-width: $rac-primary-slider-size-0 !default;

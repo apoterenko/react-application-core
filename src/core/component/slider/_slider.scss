@@ -8,31 +8,20 @@
   @include rac-slider (
     $rac-slider-connect-background: $rac-slider-connect-background,
     $rac-slider-handle-background: $rac-slider-handle-background,
+    $rac-slider-handle-before-after-content: $rac-slider-handle-before-after-content,
     $rac-slider-handle-border-radius: $rac-slider-handle-border-radius,
     $rac-slider-handle-border: $rac-slider-handle-border,
     $rac-slider-handle-box-shadow: $rac-slider-handle-box-shadow,
+    $rac-slider-horizontal-handle-cursor: $rac-slider-horizontal-handle-cursor,
+    $rac-slider-horizontal-handle-height: $rac-slider-horizontal-handle-height,
+    $rac-slider-horizontal-handle-right: $rac-slider-horizontal-handle-right,
+    $rac-slider-horizontal-handle-top: $rac-slider-horizontal-handle-top,
+    $rac-slider-horizontal-handle-width: $rac-slider-horizontal-handle-width,
+    $rac-slider-horizontal-height: $rac-slider-horizontal-height,
     $rac-slider-target-background: $rac-slider-target-background,
     $rac-slider-target-border-radius: $rac-slider-target-border-radius,
     $rac-slider-target-border: $rac-slider-target-border,
-    $rac-slider-target-box-shadow: $rac-slider-target-box-shadow
+    $rac-slider-target-box-shadow: $rac-slider-target-box-shadow,
+    $rac-slider-vertical-width: $rac-slider-vertical-width
   );
-
-  .noUi-horizontal {
-    height: 8px;
-
-    .noUi-handle {
-      width: 16px;
-      height: 16px;
-      right: -13px;
-      top: -4px;
-      cursor: pointer;
-    }
-  }
-  .noUi-vertical {
-    width: 8px;
-  }
-
-  .noUi-handle:before, .noUi-handle:after {
-    background: 0;
-  }
 }
