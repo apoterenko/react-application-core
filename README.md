@@ -67,6 +67,7 @@ The library is designed to quickly start develop the business applications are b
 * [Main (22.05.2020)](src/core/component/main/main.component.tsx)
 * [PageToolbar (10.06.2020)](src/core/component/toolbar/page/page-toolbar.component.tsx)
 * [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
+* [Slider (16.10.2020)](src/core/component/slider/slider.component.tsx)
 * [SubHeader (22.05.2020)](src/core/component/sub-header/sub-header.component.tsx)
 * [SubHeaderLink (22.05.2020)](src/core/component/sub-header-link/sub-header-link.component.tsx)
 * [TextField (21.08.2020)](src/core/component/field/text-field/text-field.component.tsx)
