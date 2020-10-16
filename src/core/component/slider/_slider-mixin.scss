@@ -1,10 +1,15 @@
 @import '../_core-mixin';
+@import '../field/_field-mixin';
 
 // @stable [16.10.2020]
 @mixin rac-slider (
   $rac-slider-custom: unset,
   /**/
   $rac-slider-connect-background: unset,
+  $rac-slider-fields-wrapper-display: unset,
+  $rac-slider-fields-wrapper-field-width: unset,
+  $rac-slider-fields-wrapper-flex-direction: unset,
+  $rac-slider-fields-wrapper-neighbor-child-margin: unset,
   $rac-slider-handle-background: unset,
   $rac-slider-handle-before-after-content: unset,
   $rac-slider-handle-border-radius: unset,
@@ -23,6 +28,21 @@
   $rac-slider-vertical-width: unset
 ) {
   #{rac-cls(rac-slider, $rac-slider-custom)} {
+    .rac-slider__fields-wrapper {
+      @include rac-styles (
+        $rac-styles-display: $rac-slider-fields-wrapper-display,
+        $rac-styles-flex-direction: $rac-slider-fields-wrapper-flex-direction
+      );
+
+      @include rac-field (
+        $rac-field-width: $rac-slider-fields-wrapper-field-width
+      );
+
+      @include rac-neighbor-child (
+        $rac-neighbor-child-margin: $rac-slider-fields-wrapper-neighbor-child-margin
+      );
+    }
+
     @include rac-styles (
       $rac-styles-custom: noUi-target,
       $rac-styles-background: $rac-slider-target-background,

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Field } from '../field/field.component';
 import {
+  DefaultEntities,
   IFieldInputProps,
   ISliderFieldProps,
   ISliderFieldState,
@@ -23,8 +24,7 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
   extends Field<TProps, TState> {
 
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ISliderProps>({
-    min: 0,
-    max: 100,
+    ...DefaultEntities.SLIDER_ENTITY,
   }, Field);
 
   /**
@@ -35,12 +35,14 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
     const {
       max,
       min,
-    } = this.originalProps;
+      step,
+    } = this.mergedProps;
 
     return (
       <Slider
         max={max}
         min={min}
+        step={step}
         value={this.value}
         onChange={this.onChangeManually}/>
     );
@@ -55,6 +57,17 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
       ...super.getInputElementProps() as IFieldInputProps,
       type: 'hidden',
     };
+  }
+
+  /**
+   * @stable [16.10.2020]
+   * @protected
+   */
+  protected getComponentsSettingsProps(): TProps {
+    return PropsUtils.mergeWithSystemProps<TProps>(
+      super.getComponentsSettingsProps(),
+      this.componentsSettings.sliderField as TProps
+    );
   }
 
   /**

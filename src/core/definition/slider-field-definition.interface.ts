@@ -4,7 +4,7 @@ import {
   IPresetsFieldEntity,
   IReduxFieldEntity,
 } from './field-definition.interface';
-import { IPresetsMinMaxEntity } from './entity-definition.interface';
+import { IPresetsSliderBaseEntity } from './slider-definition.interface';
 
 /**
  * @presets-entity
@@ -12,7 +12,7 @@ import { IPresetsMinMaxEntity } from './entity-definition.interface';
  */
 export interface IPresetsSliderFieldEntity
   extends IPresetsFieldEntity,
-    IPresetsMinMaxEntity {
+    IPresetsSliderBaseEntity {
 }
 
 /**

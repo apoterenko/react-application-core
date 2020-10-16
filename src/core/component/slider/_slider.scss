@@ -7,6 +7,10 @@
   // @stable [16.10.2020]
   @include rac-slider (
     $rac-slider-connect-background: $rac-slider-connect-background,
+    $rac-slider-fields-wrapper-display: $rac-slider-fields-wrapper-display,
+    $rac-slider-fields-wrapper-field-width: $rac-slider-fields-wrapper-field-width,
+    $rac-slider-fields-wrapper-flex-direction: $rac-slider-fields-wrapper-flex-direction,
+    $rac-slider-fields-wrapper-neighbor-child-margin: $rac-slider-fields-wrapper-neighbor-child-margin,
     $rac-slider-handle-background: $rac-slider-handle-background,
     $rac-slider-handle-before-after-content: $rac-slider-handle-before-after-content,
     $rac-slider-handle-border-radius: $rac-slider-handle-border-radius,

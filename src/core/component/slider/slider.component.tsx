@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as noUiSlider from 'nouislider';
 
 import {
+  DefaultEntities,
   IPresetsMinMaxEntity,
   ISliderProps,
   ISliderState,
@@ -11,8 +12,12 @@ import {
   ConditionUtils,
   NvlUtils,
 } from '../../util';
-import { UNDEF } from '../../definitions.interface';
+import {
+  StringNumberT,
+  UNDEF,
+} from '../../definitions.interface';
 import { GenericComponent } from '../base/generic.component';
+import { NumberField } from '../field';
 
 /**
  * @component-impl
@@ -23,11 +28,11 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
   extends GenericComponent<TProps, TState> {
 
   public static readonly defaultProps: ISliderProps = {
-    min: 0,
-    max: 100,
+    ...DefaultEntities.SLIDER_ENTITY,
   };
 
   private readonly attachmentRef = React.createRef<HTMLDivElement>();
+  private slider;
 
   /**
    * @stable [16.10.2020]
@@ -37,6 +42,9 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
     super(originalProps);
 
     this.state = {} as TState;
+
+    this.onMaxValueChange = this.onMaxValueChange.bind(this);
+    this.onMinValueChange = this.onMinValueChange.bind(this);
   }
 
   /**
@@ -62,20 +70,29 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
     const {
       max,
       min,
+      step,
     } = this.mergedProps;
     const minMaxEntity = this.minMaxEntity;
 
-    const slider = noUiSlider.create(this.attachmentRef.current, {
+    this.slider = noUiSlider.create(this.attachmentRef.current, {
       start: [NvlUtils.nvl(minMaxEntity.min, min), NvlUtils.nvl(minMaxEntity.max, max)],
       connect: true,
+      step,
       range: {
         'max': max,
         'min': min,
       },
     });
 
-    slider.on('change.one', (data) => this.onChangeValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
-    slider.on('update.one', (data) => this.onUpdateValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
+    this.slider.on('change.one', (data) => this.onChangeValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
+    this.slider.on('update.one', (data) => this.onUpdateValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
+  }
+
+  /**
+   * @stable [16.10.2020]
+   */
+  public componentWillUnmount(): void {
+    this.slider = null;
   }
 
   /**
@@ -94,32 +111,21 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
     const minMaxEntity = this.minMaxEntity;
 
     return (
-      <div>
-        <span
-          className={SliderClassesEnum.SLIDER_VALUE}
-        >
-          {minMaxEntity.min}
-        </span>
-        {this.separatorElement}
-        <span
-          className={SliderClassesEnum.SLIDER_VALUE}
-        >
-          {minMaxEntity.max}
-        </span>
+      <div
+        className={SliderClassesEnum.SLIDER_FIELDS_WRAPPER}
+      >
+        <NumberField
+          value={minMaxEntity.min}
+          errorMessageRendered={false}
+          full={false}
+          onChange={this.onMinValueChange}/>
+        <NumberField
+          value={minMaxEntity.max}
+          errorMessageRendered={false}
+          full={false}
+          onChange={this.onMaxValueChange}/>
       </div>
     )
-  }
-
-  /**
-   * @stable [15.10.2020]
-   * @protected
-   */
-  protected get separatorElement(): JSX.Element {
-    return (
-      <React.Fragment>
-        &nbsp;-&nbsp;
-      </React.Fragment>
-    );
   }
 
   /**
@@ -162,6 +168,36 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
         max: UNDEF,
       },
       () => this.onChangeManually({min, max})
+    );
+  }
+
+  /**
+   * @stable [16.10.2020]
+   * @param value
+   * @private
+   */
+  private onMinValueChange(value: StringNumberT): void {
+    this.setState(
+      {min: this.nc.number(value)},
+      () => {
+        const minMaxEntity = this.minMaxEntity;
+        this.slider.set([minMaxEntity.min, minMaxEntity.max])
+      }
+    );
+  }
+
+  /**
+   * @stable [16.10.2020]
+   * @param value
+   * @private
+   */
+  private onMaxValueChange(value: StringNumberT): void {
+    this.setState(
+      {max: this.nc.number(value)},
+      () => {
+        const minMaxEntity = this.minMaxEntity;
+        this.slider.set([minMaxEntity.min, minMaxEntity.max])
+      }
     );
   }
 

@@ -2,6 +2,7 @@ import { IPresetsMinMaxEntity } from './entity-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
   IOnChangeWrapper,
+  IStepWrapper,
   IValueWrapper,
 } from '../definitions.interface';
 
@@ -9,8 +10,17 @@ import {
  * @presets-entity
  * @stable [15.10.2020]
  */
-export interface IPresetsSliderEntity
+export interface IPresetsSliderBaseEntity
   extends IPresetsMinMaxEntity,
+    IStepWrapper {
+}
+
+/**
+ * @presets-entity
+ * @stable [15.10.2020]
+ */
+export interface IPresetsSliderEntity
+  extends IPresetsSliderBaseEntity,
     IOnChangeWrapper<IPresetsMinMaxEntity>,
     IValueWrapper<IPresetsMinMaxEntity> {
 }
@@ -41,10 +51,19 @@ export interface ISliderState
 }
 
 /**
+ * @stable [16.10.2020]
+ */
+export const DEFAULT_SLIDER_ENTITY = Object.freeze<IPresetsSliderBaseEntity>({
+  max: 100,
+  min: 0,
+  step: 1,
+});
+
+/**
  * @stable [15.10.2020]
  * @enum
  */
 export enum SliderClassesEnum {
   SLIDER = 'rac-slider',
-  SLIDER_VALUE = 'rac-slider__value',
+  SLIDER_FIELDS_WRAPPER = 'rac-slider__fields-wrapper',
 }

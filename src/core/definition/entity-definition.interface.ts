@@ -24,6 +24,7 @@ import {
   ITouchedWrapper,
   ITplWrapper,
   IValueWrapper,
+  StringNumberT,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
 
@@ -32,8 +33,8 @@ import { IErrorEntity } from './error-definition.interface';
  * @stable [15.10.2020]
  */
 export interface IPresetsMinMaxEntity
-  extends IMaxWrapper,
-    IMinWrapper {
+  extends IMaxWrapper<StringNumberT>,
+    IMinWrapper<StringNumberT> {
 }
 
 /**
