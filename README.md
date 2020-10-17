@@ -58,6 +58,7 @@ The library is designed to quickly start develop the business applications are b
 * [Chip (02.06.2020)](src/core/component/chip/chip.component.tsx)
 * [ChipsField (16.06.2020)](src/core/component/field/chips-field/chips-field.component.tsx)
 * [Dialog & BaseDialog (10.10.2020)](src/core/component/dialog/base-dialog.component.tsx)
+* [DnD (18.10.2020)](src/core/component/dnd/dnd.component.tsx)
 * [Drawer (29.05.2020)](src/core/component/drawer/drawer.component.tsx)
 * [FileField (21.08.2020)](src/core/component/field/file-field/file-field.component.tsx)
 * [FormLayout (31.05.2020)](src/core/component/layout/form/form-layout.component.tsx)
