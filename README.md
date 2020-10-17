@@ -150,6 +150,12 @@ The library is designed to quickly start develop the business applications are b
 * [_dialog-constant.scss (10.10.2020)](src/core/component/dialog/_dialog-constant.scss)
 * [_dialog-mixin.scss (10.10.2020)](src/core/component/dialog/_dialog-mixin.scss)
 
+#### DnD
+
+* [_dnd.scss (18.10.2020)](src/core/component/dnd/_dnd.scss)
+* [_dnd-constant.scss (18.10.2020)](src/core/component/dnd/_dnd-constant.scss)
+* [_dnd-mixin.scss (18.10.2020)](src/core/component/dnd/_dnd-mixin.scss)
+
 #### Drawer
 
 * [_drawer.scss (29.05.2020)](src/core/component/drawer/_drawer.scss)
