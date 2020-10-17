@@ -13,12 +13,12 @@
 ) {
   #{rac-cls(rac-dnd, $rac-dnd-custom)} {
     @include rac-styles (
-      $rac-dnd-cursor: $rac-dnd-cursor,
-      $rac-dnd-text-align: $rac-dnd-text-align,
       $rac-styles-border-radius: $rac-dnd-border-radius,
       $rac-styles-border: $rac-dnd-border,
+      $rac-styles-cursor: $rac-dnd-cursor,
       $rac-styles-font-size: $rac-dnd-font-size,
-      $rac-styles-padding: $rac-dnd-padding
+      $rac-styles-padding: $rac-dnd-padding,
+      $rac-styles-text-align: $rac-dnd-text-align
     );
   }
 }
