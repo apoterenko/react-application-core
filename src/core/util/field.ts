@@ -50,13 +50,6 @@ const asActualFieldValue = (config: IGenericFieldEntity): unknown => {
 };
 
 /**
- * @stable [14.10.2020]
- * @param entity
- */
-const isFieldInactive = (entity: IGenericFieldEntity): boolean =>
-  entity.disabled || entity.readOnly || entity.progress;
-
-/**
  * @stable [27.08.2019]
  * @param {EntityIdT} key
  * @returns {string}
@@ -191,5 +184,4 @@ export class FieldUtils {
   public static readonly dynamicFieldName = dynamicFieldName;                                                     /* @stable [29.06.2020] */
   public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
   public static readonly fromMultiFieldValueToDefinedEntities = fromMultiFieldValueToDefinedEntities;             /* @stable [16.05.2020] */
-  public static readonly isInactive = isFieldInactive;                                                            /* @stable [02.08.2020] */
 }

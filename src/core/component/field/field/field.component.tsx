@@ -475,19 +475,17 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       minLength,
     } = this.mergedProps;
 
-    const disabled = this.isDisabled;
-    const isActive = this.isActive;
+    const ref = this.inputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>;
     const pattern = this.getFieldPattern();
     const placeholder = ConditionUtils.orUndef($props.placeholder && !this.isBusy, () => this.t($props.placeholder));
-    const readOnly = !isActive;
-    const ref = this.inputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>;
+    const readOnly = this.isReadOnly;
     const required = this.isRequired;
     const value = this.displayValue;
 
     return FilterUtils.defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
       autoComplete,
       className: FieldClassesEnum.INPUT,
-      disabled,
+      disabled: this.isInactive,
       maxLength,
       minLength,
       name,
@@ -500,7 +498,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       type,
       value,
       ...(
-        isActive
+        this.isActive
           ? {
             onBlur: this.onBlur,
             onChange: this.onChange,
@@ -709,13 +707,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   /**
    * @stable [07.10.2020]
    */
-  protected get isDisabled(): boolean {
-    return this.originalProps.disabled;
-  }
-
-  /**
-   * @stable [07.10.2020]
-   */
   protected get isValueNotPresent(): boolean {
     return !this.isValuePresent;
   }
@@ -737,7 +728,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [18.10.2020]
    * @protected
    */
   protected get isBusy(): boolean {
@@ -745,18 +736,25 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [18.10.2020]
    */
-  protected get isReadOnly(): boolean {
-    return WrapperUtils.isReadOnly(this.originalProps);
+  protected get isDisabled(): boolean {
+    return this.originalProps.disabled;
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [18.10.2020]
+   */
+  protected get isReadOnly(): boolean {
+    return this.originalProps.readOnly;
+  }
+
+  /**
+   * @stable [18.10.2020]
    * @protected
    */
   protected get isInactive(): boolean {
-    return FieldUtils.isInactive(this.originalProps);
+    return this.isDisabled || this.isReadOnly || this.isBusy;
   }
 
   /**

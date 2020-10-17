@@ -57,7 +57,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   acceptMessage?: string;
   accessDeniedMessage?: string;
   dataSaved?: string;
-  dndMessage?: string;
   emptyMessage?: string;
   errorMessage?: string;
   logoutNotificationMessage?: string;
@@ -131,7 +130,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     acceptMessage: 'Accept',
     accessDeniedMessage: 'The access is restricted for you.',
     dataSaved: 'The data has been successfully saved.',
-    dndMessage: 'Upload a file(s) here',
     emptyMessage: 'Start a search',
     errorMessage: 'Something went wrong. There was a problem loading your data',
     logoutNotificationMessage: 'You were logged out.',

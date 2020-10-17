@@ -379,8 +379,8 @@ export interface IOnMarkerEnterWrapper<TValue = {}> { onMarkerEnter?(value?: TVa
 export interface IOnMarkerLeaveWrapper<TValue = {}> { onMarkerLeave?(value?: TValue): void; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
-export interface IOnNextWrapper<TValue = AnyT> { onNext?(value?: TValue): void; }
-export interface IOnPreviousWrapper<TValue = AnyT> { onPrevious?(value?: TValue): void; }
+export interface IOnNextWrapper<TValue = {}> { onNext?(value?: TValue): void; }
+export interface IOnPreviousWrapper<TValue = {}> { onPrevious?(value?: TValue): void; }
 export interface IOnRefreshClickWrapper<TValue = {}> { onRefreshClick?(value?: TValue): void; }
 export interface IOnResetWrapper { onReset?(): void; }
 export interface IOnScrollWrapper<TValue = {}> { onScroll?(value?: TValue): void; }
@@ -560,7 +560,9 @@ export interface IUrlFactoryWrapper<TValue> { urlFactory?: TValue; }
 export interface IUrlProviderWrapper<TValue> { urlProvider?: TValue; }
 export interface IUrlWrapper<TValue = string> { url?: TValue; }
 export interface IUseActionsWrapper { useActions?: boolean; }
+export interface IUseCameraWrapper { useCamera?: boolean; }
 export interface IUseCursorWrapper<TValue = boolean> { useCursor?: TValue; }
+export interface IUseDndWrapper { useDnd?: boolean; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }
@@ -657,13 +659,6 @@ export interface IFontSizeWrapper {
 }
 
 /**
- * @stable [27.04.2018]
- */
-export interface IOpenWrapper<TOpen = boolean> {
-  open?: TOpen;
-}
-
-/**
  * @stable [14.05.2018]
  */
 export interface IFilterFnWrapper<TFilteredItem = IEntity, TFilter = (item: TFilteredItem) => boolean>
@@ -710,13 +705,6 @@ export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
  */
 export interface IUseDownloadActionWrapper {
   useDownloadAction?: boolean;
-}
-
-/**
- * @stable [28.06.2018]
- */
-export interface IUseCameraWrapper {
-  useCamera?: boolean;
 }
 
 /**

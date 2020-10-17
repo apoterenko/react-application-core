@@ -350,6 +350,7 @@ export interface IMessagesSettingsEntity {
   THIS_WEEK?: string;
   TODAY?: string;
   UNKNOWN_ERROR?: string;
+  UPLOAD_FILES_HERE?: string;
   USER?: string;
   WAITING?: string;
   YEAR?: string;
@@ -417,6 +418,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   THIS_WEEK: 'This week',
   TODAY: 'Today',
   UNKNOWN_ERROR: 'Unknown error',
+  UPLOAD_FILES_HERE: 'Upload a file(s) here',
   USER: 'User',
   WAITING: 'Waiting...',
   YEAR: 'Year',

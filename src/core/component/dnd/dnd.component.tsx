@@ -1,65 +1,70 @@
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
 
-import { BaseComponent } from '../base';
+import { GenericComponent } from '../base/generic.component';
+import { ConditionUtils } from '../../util';
 import {
+  DndClassesEnum,
   IDndProps,
-  INativeDropZoneComponent,
-} from './dnd.interface';
+} from '../../definition';
 
-export class DnD extends BaseComponent<IDndProps> {
+export class DnD extends GenericComponent<IDndProps> {
+
+  private readonly dropzoneRef = React.createRef<{ open(): void; }>();
 
   /**
-   * @stable [03.08.2018]
-   * @param {IDndProps} props
+   * @stable [17.10.2020]
+   * @param originalProps
    */
-  constructor(props: IDndProps) {
-    super(props);
+  constructor(originalProps: IDndProps) {
+    super(originalProps);
+
     this.onDrop = this.onDrop.bind(this);
   }
 
   /**
-   * @stable [03.08.2018]
-   * @returns {JSX.Element}
+   * @stable [18.10.2020]
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      disabled,
+    } = this.originalProps;
+
     return (
-        <Dropzone ref='dropZone'
-                  className='rac-dnd'
-                  disabled={props.disabled}
-                  style={{}}
-                  onDrop={this.onDrop}>
-          {this.t(this.settings.messages.dndMessage)}
-          {props.children}
-        </Dropzone>
+      <Dropzone
+        ref={this.dropzoneRef}
+        disabled={disabled}
+        onDrop={this.onDrop}
+      >
+        {({getRootProps, getInputProps}) => (
+          <React.Fragment>
+            <div
+              {...getRootProps()}
+              className={DndClassesEnum.DND}
+            >
+              <input {...getInputProps()} />
+              {this.t(this.settings.messages.UPLOAD_FILES_HERE)}
+              {this.originalChildren}
+            </div>
+          </React.Fragment>
+        )}
+      </Dropzone>
     );
   }
 
   /**
-   * @stable [03.08.2018]
+   * @stable [17.10.2020]
    */
   public open(): void {
-    this.dropZone.open();
+    this.dropzoneRef.current.open();
   }
 
   /**
-   * @stable [03.08.2018]
-   * @param {File[]} files
+   * @stable [17.10.2020]
+   * @param files
+   * @private
    */
   private onDrop(files: File[]): void {
-    const props = this.props;
-
-    if (props.onSelect) {
-      props.onSelect(files);
-    }
-  }
-
-  /**
-   * @stable [03.08.2018]
-   * @returns {INativeDropZoneComponent}
-   */
-  private get dropZone(): INativeDropZoneComponent {
-    return this.refs.dropZone as INativeDropZoneComponent;
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onSelect, (onSelect) => onSelect(files));
   }
 }

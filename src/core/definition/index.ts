@@ -21,6 +21,7 @@ export * from './default-definition.interface';
 export * from './default-layout-definition.interface';
 export * from './dialog-definition.interface';
 export * from './dictionary-definition.interface';
+export * from './dnd-definition.interface';
 export * from './dom-definition.interface';
 export * from './drawer-definition.interface';
 export * from './enhanced-generic-component-definition.interface';
