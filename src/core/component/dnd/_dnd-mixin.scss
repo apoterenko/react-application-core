@@ -1,0 +1,24 @@
+@import '../_core-mixin';
+
+// @stable [18.10.2020]
+@mixin rac-dnd (
+  $rac-dnd-custom: unset,
+  //
+  $rac-dnd-border-radius: unset,
+  $rac-dnd-border: unset,
+  $rac-dnd-cursor: unset,
+  $rac-dnd-font-size: unset,
+  $rac-dnd-padding: unset,
+  $rac-dnd-text-align: unset
+) {
+  #{rac-cls(rac-dnd, $rac-dnd-custom)} {
+    @include rac-styles (
+      $rac-dnd-cursor: $rac-dnd-cursor,
+      $rac-dnd-text-align: $rac-dnd-text-align,
+      $rac-styles-border-radius: $rac-dnd-border-radius,
+      $rac-styles-border: $rac-dnd-border,
+      $rac-styles-font-size: $rac-dnd-font-size,
+      $rac-styles-padding: $rac-dnd-padding
+    );
+  }
+}

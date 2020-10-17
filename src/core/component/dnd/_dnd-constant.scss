@@ -1,0 +1,10 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+// @stable [18.10.2020]
+$rac-dnd-border-radius: $rac-primary-border-radius-6 !default;
+$rac-dnd-border: 1px dashed $rac-primary-color-metis-1 !default;
+$rac-dnd-cursor: pointer !default;
+$rac-dnd-font-size: $rac-primary-font-size-0 !default;
+$rac-dnd-padding: $rac-primary-offset-5 0 !default;
+$rac-dnd-text-align: center !default;

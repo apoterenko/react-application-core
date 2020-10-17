@@ -8,9 +8,11 @@ import {
   IDndProps,
 } from '../../definition';
 
-export class DnD extends GenericComponent<IDndProps> {
-
-  private readonly dropzoneRef = React.createRef<{ open(): void; }>();
+/**
+ * @component-impl
+ * @stable [18.10.2020]
+ */
+export class DnD extends GenericComponent<IDndProps, {}, { open(): void; }> {
 
   /**
    * @stable [17.10.2020]
@@ -32,7 +34,7 @@ export class DnD extends GenericComponent<IDndProps> {
 
     return (
       <Dropzone
-        ref={this.dropzoneRef}
+        ref={this.actualRef}
         disabled={disabled}
         onDrop={this.onDrop}
       >
@@ -56,7 +58,7 @@ export class DnD extends GenericComponent<IDndProps> {
    * @stable [17.10.2020]
    */
   public open(): void {
-    this.dropzoneRef.current.open();
+    this.actualRef.current.open();
   }
 
   /**

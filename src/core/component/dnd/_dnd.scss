@@ -1,0 +1,15 @@
+@import './_dnd-constant';
+@import './_dnd-mixin';
+
+.rac {
+
+  // @stable [18.10.2020]
+  @include rac-dnd (
+    $rac-dnd-border-radius: $rac-dnd-border-radius,
+    $rac-dnd-border: $rac-dnd-border,
+    $rac-dnd-cursor: $rac-dnd-cursor,
+    $rac-dnd-font-size: $rac-dnd-font-size,
+    $rac-dnd-padding: $rac-dnd-padding,
+    $rac-dnd-text-align: $rac-dnd-text-align
+  );
+}
