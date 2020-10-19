@@ -66,6 +66,7 @@
     "camelcase": "^6.0.0",
     "chart.js": "2.7.2",
     "classlist-polyfill": "^1.2.0",
+    "compressorjs": "1.0.6",
     "copy-webpack-plugin": "^4.0.1",
     "core-js": "^2.4.1",
     "cron-converter": "0.0.12",
