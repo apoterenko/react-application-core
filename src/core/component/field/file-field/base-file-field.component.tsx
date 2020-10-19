@@ -48,11 +48,11 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   private readonly dndRef = React.createRef<DnD>();
 
   /**
-   * @stable [30.10.2019]
-   * @param {TProps} props
+   * @stable [20.10.2020]
+   * @param originalProps
    */
-  constructor(props: TProps) {
-    super(props);
+  constructor(originalProps: TProps) {
+    super(originalProps);
 
     this.downloadFile = this.downloadFile.bind(this);
     this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
@@ -62,14 +62,25 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.openCameraDialog = this.openCameraDialog.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
 
+    const {
+      useCamera,
+      useDownloadAction,
+    } = originalProps;
+
     const actions = FilterUtils.objectValuesArrayFilter<IFieldActionEntity>(
-      props.useCamera && {type: FieldActionTypesEnum.VIDEO, onClick: this.openCameraDialog},
-      {type: FieldActionTypesEnum.ATTACH_FILE, onClick: this.openFileDialog},
-      props.useDownloadAction && {
+      useCamera && ({
+        type: FieldActionTypesEnum.VIDEO,
+        onClick: this.openCameraDialog,
+      }),
+      ({
+        type: FieldActionTypesEnum.ATTACH_FILE,
+        onClick: this.openFileDialog,
+      }),
+      useDownloadAction && ({
         type: FieldActionTypesEnum.DOWNLOAD,
         disabled: () => this.isDownloadActionDisabled,
         onClick: this.downloadFile,
-      }
+      })
     );
     this.defaultActions = [...actions, ...this.defaultActions];
   }
@@ -88,20 +99,23 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [28.06.2018]
-   * @param {IKeyboardEvent} event
+   * @stable [20.10.2020]
+   * @param event
    */
-  public onKeyBackspace(event: IKeyboardEvent): void {
+  public async onKeyBackspace(event: IKeyboardEvent): Promise<void> {
     super.onKeyBackspace(event);
-    this.clearValue();
+    await this.clearValue();
   }
 
   /**
-   * @stable [19.10.2020]
+   * @stable [20.10.2020]
    * @protected
    */
   protected async doClearValue(): Promise<void> {
     const activeValue = this.multiFieldPlugin.activeValue[0];
+    if (R.isNil(activeValue)) {
+      return;
+    }
     await this.clearValueById(activeValue.id);
   }
 
@@ -111,10 +125,9 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @protected
    */
   protected onClick(event: IBaseEvent): void {
-    if (this.isNativeFileFieldUsed) {
-      this.doClick(event);
-    } else {
-      super.onClick(event);
+    super.onClick(event);
+
+    if (!this.isNativeFileFieldUsed) {
       this.openFileDialog(event);
     }
   }
@@ -285,13 +298,10 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     await this.onSelect([blob]);
   }
 
-  private get dnd(): DnD {
-    return this.dndRef.current;
-  }
-
   /**
-   * @stable [02.08.2018]
-   * @param {IBaseEvent} event
+   * @stable [19.10.2020]
+   * @param event
+   * @private
    */
   private openCameraDialog(event: IBaseEvent): void {
     this.setState({opened: true}, () => this.cameraDialog.activate());
@@ -336,24 +346,8 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [15.02.2020]
-   * @returns {Dialog}
-   */
-  private get cameraDialog(): Dialog {
-    return this.cameraDialogRef.current;
-  }
-
-  /**
-   * @stable [14.02.2020]
-   * @returns {WebCamera}
-   */
-  private get camera(): WebCamera {
-    return this.cameraRef.current;
-  }
-
-  /**
-   * @stable [30.10.2019]
-   * @returns {boolean}
+   * @stable [19.10.2020]
+   * @private
    */
   private get isDownloadActionDisabled(): boolean {
     return this.isDisabled || this.isBusy || this.isValueNotPresent;
@@ -365,5 +359,29 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    */
   private get isNativeFileFieldUsed(): boolean {
     return this.environment.mobilePlatform;
+  }
+
+  /**
+   * @stable [20.10.2020]
+   * @private
+   */
+  private get camera(): WebCamera {
+    return this.cameraRef.current;
+  }
+
+  /**
+   * @stable [20.10.2020]
+   * @private
+   */
+  private get cameraDialog(): Dialog {
+    return this.cameraDialogRef.current;
+  }
+
+  /**
+   * @stable [20.10.2020]
+   * @private
+   */
+  private get dnd(): DnD {
+    return this.dndRef.current;
   }
 }

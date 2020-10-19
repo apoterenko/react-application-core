@@ -77,6 +77,7 @@
   $rac-self-field-input-line-height: unset,                                         /* @stable [30.10.2019] */
   $rac-self-field-input-mirror-width: unset,                                        /* @stable [09.11.2019] */
   $rac-self-field-input-opacity: unset,                                             /* @stable [19.06.2020] */
+  $rac-self-field-input-overflow: unset,                                            /* @stable [19.10.2020] */
   $rac-self-field-input-padding: unset,                                             /* @stable [30.10.2019] */
   $rac-self-field-input-placeholder-color: unset,                                   /* @stable [30.10.2019] */
   $rac-self-field-input-placeholder-font-size: unset,                               /* @stable [30.10.2019] */
@@ -281,6 +282,7 @@
                 $rac-styles-height: $rac-self-field-input-height,
                 $rac-styles-line-height: $rac-self-field-input-line-height,
                 $rac-styles-opacity: $rac-self-field-input-opacity,
+                $rac-styles-overflow: $rac-self-field-input-overflow,
                 $rac-styles-padding: $rac-self-field-input-padding,
                 $rac-styles-position: $rac-self-field-input-position,
                 $rac-styles-resize: $rac-self-field-input-resize,

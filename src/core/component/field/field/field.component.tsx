@@ -431,15 +431,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   protected onClick(event: IBaseEvent): void {
     this.doCancelEvent(event);
-    this.doClick(event);
-  }
-
-  /**
-   * @stable [18.10.2020]
-   * @param event
-   * @protected
-   */
-  protected doClick(event: IBaseEvent): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onClick, (onClick) => onClick(event));
   }
 
