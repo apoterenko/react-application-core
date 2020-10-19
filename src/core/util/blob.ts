@@ -20,10 +20,8 @@ export const readBlobBytes = async (blob: Blob, length?: number): Promise<number
   const fileReader = new FileReader();
   fileReader.onloadend = (evt) => {
     const target = evt.target;
-    // @ts-ignore TODO
     if (target.readyState === FileReader.DONE) {
-      // @ts-ignore TODO
-      resolve(Array.from(new Uint8Array(target.result)));
+      resolve(Array.from(new Uint8Array(target.result as ArrayBuffer)));
     }
   };
   fileReader.readAsArrayBuffer(blob.slice(0, nvl(length, blob.size)));

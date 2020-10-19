@@ -7,8 +7,10 @@ import {
 import {
   AnyT,
   EntityIdT,
+  IAcceptWrapper,
   IAutoCompleteWrapper,
   IAutoFocusWrapper,
+  ICaptureWrapper,
   ICaretBlinkingFrequencyWrapper,
   ICaretPositionWrapper,
   ICaretVisibilityWrapper,
@@ -106,8 +108,10 @@ export class FieldConstants {
  */
 export interface IPresetsFieldEntity
   extends IKeyboardConfigurationEntity,                                           /* @stable [21.06.2020] */
+    IAcceptWrapper,                                                               /* @stable [18.10.2020] */
     IAutoCompleteWrapper,                                                         /* @stable [11.08.2020] */
     IAutoFocusWrapper,                                                            /* @stable [17.06.2020] */
+    ICaptureWrapper<string>,                                                      /* @stable [19.10.2020] */
     ICaretBlinkingFrequencyWrapper,                                               /* @stable [14.10.2020] */
     IChangeableWrapper,                                                           /* @stable [20.06.2020] */
     IDefaultValueWrapper,                                                         /* @stable [20.06.2020] */

@@ -4,13 +4,14 @@ import { LoggerFactory, ILogger } from 'ts-smart-logger';
 
 import { BaseTextField } from '../text-field/base-text-field.component';
 import {
+  ClsUtils,
   ConditionUtils,
   downloadFile,
   downloadFileAsBlob,
   FilterUtils,
-  joinClassName,
+  NvlUtils,
   PropsUtils,
-  uuid,
+  UuidUtils,
 } from '../../../util';
 import { DnD } from '../../dnd/dnd.component';
 import {
@@ -22,11 +23,15 @@ import { toLastAddedMultiItemEntityId } from '../multifield';
 import { Dialog } from '../../dialog/dialog.component';
 import { WebCamera } from '../../web-camera/web-camera.component';
 import {
+  ChangeEventT,
+  ComponentClassesEnum,
   FieldActionTypesEnum,
+  FieldConstants,
   IBaseEvent,
   IBaseFileFieldProps,
   IBaseFileFieldState,
   IFieldActionEntity,
+  IFieldInputProps,
   IKeyboardEvent,
 } from '../../../definition';
 
@@ -34,9 +39,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
                            TState extends IBaseFileFieldState>
     extends BaseTextField<TProps, TState> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseFileFieldProps>({
-    useDnd: true,
-  }, BaseTextField);
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseFileFieldProps>({}, BaseTextField);
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
@@ -51,7 +54,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   constructor(props: TProps) {
     super(props);
 
-    this.doSelectBlob = this.doSelectBlob.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
     this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
     this.onCameraDialogDeactivate = this.onCameraDialogDeactivate.bind(this);
@@ -73,12 +75,16 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [28.06.2018]
-   * @param {IBaseEvent} event
+   * @stable [19.10.2020]
+   * @param event
    */
-  public onKeyEnter(event: IBaseEvent): void {
-    super.onKeyEnter(event);
-    this.openFileDialog(event);
+  public async onChange(event: ChangeEventT): Promise<void> {
+    if (this.isNativeFileFieldUsed) {
+      const files = (event.target as { files?: Blob[] }).files;
+      await this.onSelect(files);
+    } else {
+      await super.onChange(event);
+    }
   }
 
   /**
@@ -90,22 +96,39 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     this.clearValue();
   }
 
-  public clearValue(): void {
+  /**
+   * @stable [19.10.2020]
+   * @protected
+   */
+  protected async doClearValue(): Promise<void> {
     const activeValue = this.multiFieldPlugin.activeValue[0];
-    if (!R.isNil(activeValue)) {
-      const currentValue = activeValue.id;
-      this.databaseStorage.remove(currentValue as string);
-      this.multiFieldPlugin.onDeleteItem({id: currentValue});
+    await this.clearValueById(activeValue.id);
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @param event
+   * @protected
+   */
+  protected onClick(event: IBaseEvent): void {
+    if (this.isNativeFileFieldUsed) {
+      this.doClick(event);
+    } else {
+      super.onClick(event);
+      this.openFileDialog(event);
     }
   }
 
   /**
-   * @stable [28.06.2018]
-   * @param {IBaseEvent} event
+   * @stable [19.10.2020]
+   * @param event
+   * @protected
    */
-  protected onClick(event: IBaseEvent): void {
-    super.onClick(event);
-    this.openFileDialog(event);
+  protected doCancelEvent(event: IBaseEvent): void {
+    if (this.isNativeFileFieldUsed) {
+      return;
+    }
+    super.doCancelEvent(event);
   }
 
   /**
@@ -115,11 +138,10 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   protected get attachmentBodyElement(): JSX.Element {
     const {
       useCamera,
-      useDnd,
     } = this.mergedProps;
 
     const dndElement = ConditionUtils.orNull(
-      useDnd,
+      !this.isNativeFileFieldUsed,
       () => (
         <DnD
           ref={this.dndRef}
@@ -167,15 +189,43 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @returns {string}
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-file-field');
+    return ClsUtils.joinClassName(super.getFieldClassName(), 'rac-file-field');
   }
 
   /**
-   * @stable [14.01.2019]
-   * @param {AnyT} value
-   * @returns {string}
+   * @stable [14.10.2020]
+   * @protected
+   */
+  protected getInputElementProps(): IFieldInputProps {
+    const attributes = super.getInputElementProps() as IFieldInputProps;
+
+    return {
+      ...attributes,
+      capture: NvlUtils.nvl(
+        attributes.capture,
+        this.environment.mobilePlatform ? 'environment' : 'user'
+      ),
+      ...(
+        this.isNativeFileFieldUsed
+          ? {
+            className: ClsUtils.joinClassName(attributes.className, ComponentClassesEnum.TRANSPARENT),
+            type: 'file',
+          }
+          : {}
+      ),
+    };
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @param value
+   * @protected
    */
   protected decorateDisplayValue(value: AnyT): string {
+    if (this.isNativeFileFieldUsed) {
+      return FieldConstants.DISPLAY_EMPTY_VALUE;
+    }
+
     const len = this.multiFieldPlugin.getActiveValueLength(value);
     return this.buildDisplayMessage(len > 0, len);
   }
@@ -195,34 +245,44 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [19.12.2018]
-   * @param {Blob[]} file
+   * @stable [19.10.2020]
+   * @param files
+   * @private
    */
-  private onSelect(file: Blob[]): void {
-    if (!this.props.multi) {
-      this.clearValue();
-    }
-    this.doSelectBlob(file[0]);
-  }
+  private async onSelect(files: Blob[]): Promise<void> {
+    const {
+      multi,
+    } = this.originalProps;
 
-  /**
-   * @stable [02.08.2018]
-   * @param {Blob} blob
-   */
-  private async doSelectBlob(blob: Blob): Promise<void> {
-    const url = uuid();
-    await this.databaseStorage.set(url, blob);
-    this.multiFieldPlugin.onAddItem({id: url});
+    const file = files[0];  // Before async call of clearValue (!)
+
+    if (!multi) {
+      await this.clearValue();
+    }
+    await this.doAddBlob(file);
 
     this.setFocus();
   }
 
   /**
-   * @stable [01.08.2019]
-   * @param {Blob} blob
+   * @stable [19.10.2020]
+   * @param blob
+   * @private
    */
-  private onCameraSnapshotSelect(blob: Blob): void {
-    this.onSelect([blob]);
+  private async doAddBlob(blob: Blob): Promise<void> {
+    const url = UuidUtils.uuid();
+    await this.databaseStorage.set(url, blob);
+
+    this.multiFieldPlugin.onAddItem({id: url});
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @param blob
+   * @private
+   */
+  private async onCameraSnapshotSelect(blob: Blob): Promise<void> {
+    await this.onSelect([blob]);
   }
 
   private get dnd(): DnD {
@@ -238,11 +298,26 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [28.06.2018]
-   * @param {IBaseEvent} event
+   * @stable [19.10.2020]
+   * @param event
+   * @private
    */
   private openFileDialog(event: IBaseEvent): void {
-    this.dnd.open();
+    if (this.isNativeFileFieldUsed) {
+      this.input.click();
+    } else {
+      this.dnd.open();
+    }
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @param id
+   * @private
+   */
+  private async clearValueById(id: EntityIdT): Promise<void> {
+    await this.databaseStorage.remove(id as string);
+    this.multiFieldPlugin.onDeleteItem({id});
   }
 
   /**
@@ -282,5 +357,13 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    */
   private get isDownloadActionDisabled(): boolean {
     return this.isDisabled || this.isBusy || this.isValueNotPresent;
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @private
+   */
+  private get isNativeFileFieldUsed(): boolean {
+    return this.environment.mobilePlatform;
   }
 }

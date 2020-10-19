@@ -75,6 +75,7 @@ export enum ComponentClassesEnum {
   CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR = 'rac-calendar-dialog__range-input-separator',   // TODO
   CHROME = 'rac-chrome',
   DESKTOP = 'rac-desktop',
+  DISPLAY_NONE = 'rac-display-none',
   FIXED = 'rac-fixed',
   FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
   FLEX_ALIGN_ITEMS_END = 'rac-flex-align-items-end',
@@ -101,5 +102,6 @@ export enum ComponentClassesEnum {
   RELATIVE = 'rac-relative',
   SAFARI = 'rac-safari',
   STRONG = 'rac-strong',
+  TRANSPARENT = 'rac-transparent',
   VISIBILITY_HIDDEN = 'rac-visibility-hidden',
 }

@@ -55,6 +55,7 @@ export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IAuthWrapper<TValue = string> { auth?: TValue; }
 export interface IAutoCompleteWrapper<TValue = string> { autoComplete?: TValue; }
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
+export interface IAcceptWrapper<TValue = string> { accept?: TValue; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IAutoUnsubscribingWrapper { autoUnsubscribing?: boolean; }
 export interface IBackActionConfigurationWrapper<TValue = boolean> { backActionConfiguration?: TValue; }
@@ -74,7 +75,7 @@ export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 // @ts-ignore
 export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayload = unknown> { callback?: TValue; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
-export interface ICaptureWrapper { capture?: boolean; }
+export interface ICaptureWrapper<TValue = boolean> { capture?: TValue; }
 export interface ICaretBlinkingFrequencyWrapper { caretBlinkingFrequency?: number; }
 export interface ICaretPositionWrapper { caretPosition?: number; }
 export interface ICaretVisibilityWrapper { caretVisibility?: boolean; }
@@ -562,7 +563,6 @@ export interface IUrlWrapper<TValue = string> { url?: TValue; }
 export interface IUseActionsWrapper { useActions?: boolean; }
 export interface IUseCameraWrapper { useCamera?: boolean; }
 export interface IUseCursorWrapper<TValue = boolean> { useCursor?: TValue; }
-export interface IUseDndWrapper { useDnd?: boolean; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }

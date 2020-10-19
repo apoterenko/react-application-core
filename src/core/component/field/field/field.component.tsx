@@ -73,6 +73,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
     this.state = {} as TState;
 
     this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
+    this.doCancelEvent = this.doCancelEvent.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onChangeManually = this.onChangeManually.bind(this);
@@ -104,7 +105,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
     return (
       <div
         className={this.getFieldClassName()}
-        onClick={this.domAccessor.cancelEvent}
+        onClick={this.doCancelEvent}
       >
         {this.originalChildren}
         {this.displayValueElement}
@@ -164,10 +165,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [21.06.2020]
-   * @param {ChangeEventT} event
+   * @stable [19.10.2020]
+   * @param event
    */
-  public onChange(event: ChangeEventT): void {
+  public async onChange(event: ChangeEventT): Promise<void> {
     this.onChangeValue(this.getRawValueFromEvent(event));
   }
 
@@ -183,7 +184,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       this.input,
       (input) => {
         // We should update the field manually before calls the HTML5 validation
-        input.value = String(currentRawValue);
+        input.value = this.getDecoratedDisplayValue(currentRawValue);
       }
     );
     this.onChangeValue(currentRawValue);
@@ -201,26 +202,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
         }
       }
     );
-  }
-
-  /**
-   * @stable [21.06.2020]
-   */
-  public clearValue(): void {
-    this.setFocus();
-
-    if (this.isValuePresent) {
-      this.onChangeManually(this.emptyValue);
-    }
-    ConditionUtils.ifNotNilThanValue(this.originalProps.onClear, (onClear) => onClear());
-  }
-
-  /**
-   * @stable [14.10.2020]
-   * @param event
-   */
-  public getRawValueFromEvent(event: ChangeEventT): AnyT {
-    return event.target.value;
   }
 
   /**
@@ -323,6 +304,35 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
+   * @stable [19.10.2020]
+   * @protected
+   */
+  protected async clearValue(): Promise<void> {
+    if (this.isValuePresent) {
+      await this.doClearValue();
+    }
+
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onClear, (onClear) => onClear());
+    this.setFocus();
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @protected
+   */
+  protected async doClearValue(): Promise<void> {
+    this.onChangeManually(this.emptyValue);
+  }
+
+  /**
+   * @stable [14.10.2020]
+   * @param event
+   */
+  protected getRawValueFromEvent(event: ChangeEventT): AnyT {
+    return event.target.value;
+  }
+
+  /**
    * @stable [15.10.2020]
    * @protected
    */
@@ -415,13 +425,31 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [17.06.2020]
-   * @param {IBaseEvent} event
+   * @stable [18.10.2020]
+   * @param event
+   * @protected
    */
   protected onClick(event: IBaseEvent): void {
-    this.domAccessor.cancelEvent(event);
+    this.doCancelEvent(event);
+    this.doClick(event);
+  }
 
+  /**
+   * @stable [18.10.2020]
+   * @param event
+   * @protected
+   */
+  protected doClick(event: IBaseEvent): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onClick, (onClick) => onClick(event));
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @param event
+   * @protected
+   */
+  protected doCancelEvent(event: IBaseEvent): void {
+    this.domAccessor.cancelEvent(event);
   }
 
   /**
@@ -431,7 +459,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @returns {AnyT}
    */
   protected getDecoratedDisplayValue(value: AnyT, forceApplyValue = false): AnyT {
-    const {displayValue} = this.originalProps;
+    const {
+      displayValue,
+    } = this.originalProps;
 
     return R.isNil(displayValue)
       ? this.decorateDisplayValue(value)
@@ -443,8 +473,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [17.06.2020]
-   * @returns {AnyT}
+   * @stable [19.10.2020]
+   * @protected
    */
   protected get decoratedDisplayValue(): AnyT {
     return this.getDecoratedDisplayValue(this.value);
@@ -470,7 +500,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       type = 'text',
     } = $props;
     const {
+      accept,
       autoComplete = 'off',
+      capture,
       maxLength,
       minLength,
     } = this.mergedProps;
@@ -483,7 +515,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
     const value = this.displayValue;
 
     return FilterUtils.defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
+      accept,
       autoComplete,
+      capture,
       className: FieldClassesEnum.INPUT,
       disabled: this.isInactive,
       maxLength,

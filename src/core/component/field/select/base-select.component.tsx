@@ -85,12 +85,11 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [09.08.2020]
+   * @stable [19.10.2020]
    * @param event
    */
-  public onChange(event: ChangeEventT): void {
-    super.onChange(event);
-
+  public async onChange(event: ChangeEventT): Promise<void> {
+    await super.onChange(event);
     this.onQueryTaskStart();
   }
 
@@ -124,8 +123,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   /**
    * @stable [30.01.2020]
    */
-  public clearValue(): void {
-    super.clearValue();
+  protected async clearValue(): Promise<void> {
+    await super.clearValue();
 
     if (this.isPlainValueApplied) {
       this.clearCachedValue();

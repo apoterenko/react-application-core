@@ -7,7 +7,6 @@ import {
   IMultiWrapper,
   IOpenedWrapper,
   IUseCameraWrapper,
-  IUseDndWrapper,
   IUseDownloadActionWrapper,
 } from '../definitions.interface';
 
@@ -19,7 +18,6 @@ export interface IBaseFileFieldState
 // TODO Props
 export interface IBaseFileFieldProps extends IBaseTextFieldProps,
   IUseCameraWrapper,
-  IUseDndWrapper,
   IUseDownloadActionWrapper,
   IFileNameWrapper,
   IMultiWrapper {

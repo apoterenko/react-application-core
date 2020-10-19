@@ -261,13 +261,18 @@
     $rac-styles-display: $rac-display-none-display
   );
 
-  /**
-   * @styling
-   * @stable [15.06.2020]
-   */
+  // @styling
+  // @stable [15.06.2020]
   @include rac-styles (
     $rac-styles-custom: rac-visibility-hidden,
     $rac-styles-visibility: $rac-visibility-hidden-visibility
+  );
+
+  // @styling
+  // @stable [18.10.2020]
+  @include rac-styles (
+    $rac-styles-custom: rac-transparent,
+    $rac-styles-opacity: $rac-transparent-opacity
   );
 
   /**

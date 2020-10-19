@@ -5,6 +5,7 @@ export * from './blob';
 export * from './calc';
 export * from './clone';
 export * from './cls';
+export * from './compressor';
 export * from './cond';
 export * from './cron';
 export * from './dom';
