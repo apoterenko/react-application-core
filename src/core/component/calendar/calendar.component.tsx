@@ -147,22 +147,29 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {ICalendarWeekEntity} item
-   * @param {IGridColumnProps<ICalendarDayEntity>} column
-   * @returns {JSX.Element}
+   * @stable [20.10.2020]
+   * @param item
+   * @param column
+   * @private
    */
   private getCellElement(item: ICalendarWeekEntity, column: IGridColumnProps<ICalendarDayEntity>): JSX.Element {
-    const props = this.props;
+    const {
+      renderer,
+      showOnlyCurrentDays,
+    } = this.originalProps;
     const weekDayEntity: ICalendarDayEntity = item[column.index];
 
-    if (props.showOnlyCurrentDays && !weekDayEntity.current) {
+    if (showOnlyCurrentDays && !weekDayEntity.current) {
       return null;
     }
-    if (TypeUtils.isFn(props.renderer)) {
-      return props.renderer(weekDayEntity);
+    if (TypeUtils.isFn(renderer)) {
+      return renderer(weekDayEntity);
     }
-    return <React.Fragment>{weekDayEntity.date.getDate()}</React.Fragment>;
+    return (
+      <React.Fragment>
+        {weekDayEntity.date.getDate()}
+      </React.Fragment>
+    );
   }
 
   /**

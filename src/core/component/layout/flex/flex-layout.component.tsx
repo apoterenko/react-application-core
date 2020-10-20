@@ -31,11 +31,14 @@ export class FlexLayout extends EnhancedGenericComponent<IFlexLayoutProps> {
       justifyContentCenter,
       justifyContentEnd,
       justifyContentSpaceBetween,
-      noShrink,
       onClick,
-      row,
       style,
       title,
+    } = this.originalProps;
+
+    const {
+      noShrink,
+      row,
       touched,
       wrap,
     } = this.mergedProps;
@@ -68,7 +71,7 @@ export class FlexLayout extends EnhancedGenericComponent<IFlexLayoutProps> {
         style={style}
         {...PropsUtils.buildClickHandlerProps(onClick, !CalcUtils.calc(disabled), touched)}
       >
-        {this.props.children}
+        {this.originalChildren}
       </div>
     );
   }

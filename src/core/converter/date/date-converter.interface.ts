@@ -65,6 +65,7 @@ export interface IDateConverter<TDate = Date> {
   dateAsPstTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
+  equal(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean;
   fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<TDate>): string;
@@ -126,14 +127,10 @@ export interface IDateConverter<TDate = Date> {
   isDateBelongsToCurrentWeek(date?: DateTimeLikeTypeT, inputFormat?: string): boolean;
   toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict?: boolean): moment.Moment;
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
-  tryConvertToDate(date: DateTimeLikeTypeT, inputFormat?: string): DateTimeLikeTypeT;
   tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
   get30DaysAgo(): Date;
   getXDaysAgo(days: number): Date;
-  getLocalizedWeekday(index: number): string;
   getLocalizedWeekdayShort(index: number): string;
   isSameMonth(date1: Date, date2: Date): boolean;
-  isSameDay(date1: Date, date2: Date): boolean;
   isWeekend(day: number): boolean;
-  combine(dateAsString: string, timeAsString: string): string;
 }

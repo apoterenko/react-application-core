@@ -40,7 +40,6 @@ import {
 
 @injectable()
 export class DateConverter implements IDateConverter<MomentT> {
-  public static readonly WEEKDAYS = moment.weekdays();
   private static WEEKDAYS_SHORT = moment.weekdaysShort()
       .slice(1, 7)
       .concat(moment.weekdaysShort()[0]);
@@ -93,10 +92,9 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [08.01.2020]
-   * @param {DateTimeLikeTypeT} date1
-   * @param {DateTimeLikeTypeT} date2
-   * @returns {number}
+   * @stable [20.10.2020]
+   * @param date1
+   * @param date2
    */
   public compare(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): number {
     const date1$ = date1 as Date;
@@ -109,6 +107,15 @@ export class DateConverter implements IDateConverter<MomentT> {
           ? date1$ === date2$ ? 0 : (date1$ > date2$ ? 1 : -1)
           : NaN
       );
+  }
+
+  /**
+   * @stable [20.10.2020]
+   * @param date1
+   * @param date2
+   */
+  public equal(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean {
+    return this.compare(date1, date2) === 0;
   }
 
   /**
@@ -631,14 +638,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @deprecated
-   */
-  public tryConvertToDate(date: DateTimeLikeTypeT, inputFormat = this.dateFormat): DateTimeLikeTypeT {
-    const momentDate = this.toMomentDate(date, inputFormat);
-    return momentDate.isValid() ? momentDate.toDate() : date;
-  }
-
-  /**
    * @stable [06.06.2019]
    * @param {DateTimeLikeTypeT} date
    * @param {string | undefined} inputFormat
@@ -930,10 +929,6 @@ export class DateConverter implements IDateConverter<MomentT> {
     return this.dateAsUiDateString({...cfg, date: this.getCurrentDate()});
   }
 
-  public getLocalizedWeekday(index: number): string {
-    return DateConverter.WEEKDAYS[index];
-  }
-
   public getLocalizedWeekdayShort(index: number): string {
     return DateConverter.WEEKDAYS_SHORT[index];
   }
@@ -998,22 +993,8 @@ export class DateConverter implements IDateConverter<MomentT> {
     );
   }
 
-  public isSameDay(date1: Date, date2: Date): boolean {
-    return this.isSameMonth(date1, date2) && date1.getDate() === date2.getDate();
-  }
-
   public isWeekend(day: number): boolean {
     return day === 0 || day === 6;
-  }
-
-  /**
-   * @stable [24.11.2018]
-   * @param {string} dateAsString
-   * @param {string} timeAsString
-   * @returns {string}
-   */
-  public combine(dateAsString: string, timeAsString: string): string {
-    return [dateAsString, timeAsString].join(' ');
   }
 
   /**
