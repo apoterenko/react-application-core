@@ -58,6 +58,7 @@
   // @stable [14.10.2020]
   @include rac-field (
     $rac-field-custom: $rac-full-field-cls,
+    $rac-field-flex-basis: $rac-full-field-flex-basis,
     $rac-field-flex-grow: $rac-full-field-flex-grow
   );
 
