@@ -501,8 +501,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
     const ref = this.inputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>;
     const pattern = this.getFieldPattern();
     const placeholder = ConditionUtils.orUndef($props.placeholder && !this.isBusy, () => this.t($props.placeholder));
-    const readOnly = this.isReadOnly;
+    const readOnly = this.isInactive;
     const required = this.isRequired;
+    const disabled = this.isDisabled;
     const value = this.displayValue;
 
     return FilterUtils.defValuesFilter<FieldComposedInputAttributesT, FieldComposedInputAttributesT>({
@@ -510,7 +511,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       autoComplete,
       capture,
       className: FieldClassesEnum.INPUT,
-      disabled: this.isInactive,
+      disabled,
       maxLength,
       minLength,
       name,

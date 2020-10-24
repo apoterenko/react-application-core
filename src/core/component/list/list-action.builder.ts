@@ -371,6 +371,15 @@ export class ListActionBuilder {
   }
 
   /**
+   * @stable [25.10.2020]
+   * @param section
+   */
+  public static buildCancelLoadAction(section: string): IEffectsAction {
+    const plainAction = this.buildCancelLoadPlainAction(section);
+    return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
    * @stable [10.09.2020]
    * @param section
    */

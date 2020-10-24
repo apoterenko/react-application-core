@@ -161,11 +161,11 @@ export interface IChainedMiddlewareConfigEntity<TState, TPayload = {}>
  * @config-entity
  * @stable [26.03.2020]
  */
-export interface IEditedListMiddlewareConfigEntity<TPayload = {}, TState = {}, TDefaultChanges = {}>
+export interface IEditedListMiddlewareConfigEntity<TPathPayload = {}, TState = {}, TDefaultChanges = {}>
   extends IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>,
     ILazyLoadingWrapper,
     ILoadedListMiddlewareConfigEntity<TState>,
-    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>> {
+    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPathPayload>> {
 }
 
 /**
@@ -177,6 +177,7 @@ export interface ISucceedEditedListMiddlewareConfigEntity<TState = {}>
     IContainerMiddlewareConfigEntity<TState>,
     IFormMiddlewareConfigEntity<TState>,
     INavigateBackWrapper,
+    IPathWrapper,
     ISucceedTextWrapper<string | boolean> {
 }
 

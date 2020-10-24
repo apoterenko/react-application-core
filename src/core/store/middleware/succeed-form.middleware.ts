@@ -1,6 +1,7 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
+  CalcUtils,
   ConditionUtils,
   NvlUtils,
   ObjectUtils,
@@ -109,6 +110,7 @@ const makeSucceedEditedListMiddleware =
   <TState = {}>(cfg: ISucceedEditedListMiddlewareConfigEntity<TState>): IEffectsAction[] => {
     const {
       action,
+      path,
       succeedText,
     } = cfg;
 
@@ -120,7 +122,7 @@ const makeSucceedEditedListMiddleware =
         WrapperUtils.isNavigateBackNeeded(cfg)
           ? [
             RouterActionBuilder.buildReplaceAction(
-              RouteUtils.asRoutePath(
+              path || RouteUtils.asRoutePath(
                 DiServices.dynamicSections().get(
                   NvlUtils.nvl(SectionUtils.asContainerSection(cfg), actualListSection)
                 )
