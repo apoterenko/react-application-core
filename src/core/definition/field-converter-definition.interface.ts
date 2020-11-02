@@ -39,6 +39,7 @@ export enum FieldConverterTypesEnum {
   PLACE_ENTITY = 'PLACE_ENTITY',
   PLACE_PARAMETER = 'PLACE_PARAMETER',
   RAW_DATA_LABELED_VALUE_ENTITY = 'RAW_DATA_LABELED_VALUE_ENTITY',
+  RAW_VALUE = 'RAW_VALUE',
   SELECT_VALUE = 'SELECT_VALUE',
   USER_ENTITY = 'USER_ENTITY',
   ZIP_CODE_ENTITY = 'ZIP_CODE_ENTITY',
@@ -72,6 +73,7 @@ export interface IFieldConverter {
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
   fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                                                                            /* @stable [08.08.2020] */
   fromSelectValueToId(value: SelectValueT): EntityIdT;                                                                                                                          /* @stable [11.08.2020] */
+  fromSelectValueToRawValue<TEntity = IEntity>(value: SelectValueT): TEntity;                                                                                                   /* @stable [28.10.2020] */
   register(config: IFieldConverterConfigEntity): void;                                                                                                                          /* @stable [01.09.2020] */
   // tslint:enable:max-line-length
 }

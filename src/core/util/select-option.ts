@@ -2,7 +2,9 @@ import * as R from 'ramda';
 
 import {
   EntityIdT,
+  IEntity,
   StringNumberT,
+  UNDEF,
 } from '../definitions.interface';
 import { TypeUtils } from './type';
 import {
@@ -25,6 +27,24 @@ const fromSelectValueToId = (option: SelectValueT): EntityIdT => {
   }
   const optionAsObject = option as IPresetsRawDataLabeledValueEntity;
   return optionAsObject.value;
+};
+
+/**
+ * @stable [28.10.2020]
+ * @param option
+ */
+const fromSelectValueToRawValue = <TEntity = IEntity>(option: SelectValueT): TEntity => {
+  if (R.isNil(option)) {
+    return option;
+  }
+  if (TypeUtils.isPrimitive(option)) {
+    return UNDEF;
+  }
+  const {
+    rawData,
+  } = option as IPresetsRawDataLabeledValueEntity;
+
+  return rawData as TEntity;
 };
 
 /**
@@ -54,4 +74,5 @@ const fromSelectValueToDisplayValue = (option: SelectValueT): StringNumberT => {
 export class SelectOptionUtils {
   public static readonly fromSelectValueToDisplayValue = fromSelectValueToDisplayValue;                   /* @stable [08.07.2020] */
   public static readonly fromSelectValueToId = fromSelectValueToId;                                       /* @stable [08.07.2020] */
+  public static readonly fromSelectValueToRawValue = fromSelectValueToRawValue;                           /* @stable [28.10.2020] */
 }

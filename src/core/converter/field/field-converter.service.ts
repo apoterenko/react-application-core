@@ -138,6 +138,11 @@ export class FieldConverter implements IFieldConverter {
       to: FieldConverterTypesEnum.MERGED_TRUE_ENTITIES,
       converter: this.$fromMultiFieldValueMergeConfigEntityToMergedTrueEntities.bind(this),
     });
+    this.register({
+      from: FieldConverterTypesEnum.SELECT_VALUE,
+      to: FieldConverterTypesEnum.RAW_VALUE,
+      converter: this.$fromSelectValueToRawValue.bind(this),
+    });
   }
 
   /**
@@ -182,6 +187,18 @@ export class FieldConverter implements IFieldConverter {
     return this.convert({
       from: FieldConverterTypesEnum.SELECT_VALUE,
       to: FieldConverterTypesEnum.ID,
+      value,
+    });
+  }
+
+  /**
+   * @stable [28.10.2020]
+   * @param value
+   */
+  public fromSelectValueToRawValue<TEntity = IEntity>(value: SelectValueT): TEntity {
+    return this.convert({
+      from: FieldConverterTypesEnum.SELECT_VALUE,
+      to: FieldConverterTypesEnum.RAW_VALUE,
       value,
     });
   }
@@ -462,11 +479,20 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [18.05.2020]
-   * @param {SelectValueT} value
-   * @returns {EntityIdT}
+   * @param value
+   * @private
    */
   private $fromSelectValueToId(value: SelectValueT): EntityIdT {
     return SelectOptionUtils.fromSelectValueToId(value);
+  }
+
+  /**
+   * @stable [28.10.2020]
+   * @param value
+   * @private
+   */
+  private $fromSelectValueToRawValue<TEntity = IEntity>(value: SelectValueT): TEntity {
+    return SelectOptionUtils.fromSelectValueToRawValue(value);
   }
 
   /**
