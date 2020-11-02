@@ -14,9 +14,8 @@ import {
 import { DiServices } from '../di/di.services';
 
 /**
- * @stable [18.05.2020]
- * @param {SelectValueT} option
- * @returns {EntityIdT}
+ * 02.11.2020
+ * @param option
  */
 const fromSelectValueToId = (option: SelectValueT): EntityIdT => {
   if (R.isNil(option)) {
@@ -30,7 +29,7 @@ const fromSelectValueToId = (option: SelectValueT): EntityIdT => {
 };
 
 /**
- * @stable [28.10.2020]
+ * 02.11.2020
  * @param option
  */
 const fromSelectValueToRawValue = <TEntity = IEntity>(option: SelectValueT): TEntity => {
@@ -48,9 +47,8 @@ const fromSelectValueToRawValue = <TEntity = IEntity>(option: SelectValueT): TEn
 };
 
 /**
- * @stable [18.05.2020]
- * @param {SelectValueT} option
- * @returns {StringNumberT}
+ * 02.11.2020
+ * @param option
  */
 const fromSelectValueToDisplayValue = (option: SelectValueT): StringNumberT => {
   if (R.isNil(option)) {
@@ -69,10 +67,10 @@ const fromSelectValueToDisplayValue = (option: SelectValueT): StringNumberT => {
 };
 
 /**
- * @stable [18.05.2020]
+ * @stable [02.11.2020]
  */
 export class SelectOptionUtils {
-  public static readonly fromSelectValueToDisplayValue = fromSelectValueToDisplayValue;                   /* @stable [08.07.2020] */
-  public static readonly fromSelectValueToId = fromSelectValueToId;                                       /* @stable [08.07.2020] */
-  public static readonly fromSelectValueToRawValue = fromSelectValueToRawValue;                           /* @stable [28.10.2020] */
+  public static readonly fromSelectValueToDisplayValue = fromSelectValueToDisplayValue;                   /* @stable [02.11.2020] */
+  public static readonly fromSelectValueToId = fromSelectValueToId;                                       /* @stable [02.11.2020] */
+  public static readonly fromSelectValueToRawValue = fromSelectValueToRawValue;                           /* @stable [02.11.2020] */
 }

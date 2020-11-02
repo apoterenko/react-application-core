@@ -5,7 +5,6 @@ import {
   EntityIdT,
   IEntity,
   IKeyValue,
-  UNDEF,
 } from '../definitions.interface';
 import {
   FieldConstants,
@@ -64,29 +63,29 @@ export const dynamicFieldName = (key: EntityIdT): string => `$$dynamicField-${ke
 const dynamicFieldValue = <TEntity = IEntity>(object: TEntity, key: EntityIdT): AnyT => object[dynamicFieldName(key)];
 
 /**
- * @stable [28.08.2019]
- * @param {TEntity[]} array
- * @param {(itm: TEntity) => EntityIdT} keyAccessor
- * @param {(itm: TEntity) => EntityIdT} valueAccessor
- * @returns {IKeyValue}
+ * @stable [27.10.2020]
+ * @param array
+ * @param keyAccessor
+ * @param valueAccessor
  */
-export const fromDynamicFieldsArray = <TEntity extends IEntity | EntityIdT>(array: TEntity[],
-                                                                            keyAccessor: (itm: TEntity) => EntityIdT,
-                                                                            valueAccessor: (itm: TEntity) => EntityIdT): IKeyValue =>
+const asDynamicObject = <TEntity extends IEntity | EntityIdT, TResult = IKeyValue>(
+  array: TEntity[],
+  keyAccessor: (itm: TEntity) => EntityIdT,
+  valueAccessor: (itm: TEntity) => EntityIdT
+): TResult =>
   R.mergeAll(array.map((itm) => ({
       [dynamicFieldName(keyAccessor(itm))]: valueAccessor(itm),
     }))
   );
 
 /**
- * @stable [14.02.2020]
- * @param {EntityIdT[]} array
- * @param {(itm: EntityIdT) => AnyT} valueAccessor
- * @returns {IKeyValue}
+ * @stable [28.10.2020]
+ * @param array
+ * @param valueAccessor
  */
-export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
-                                          valueAccessor: (itm: EntityIdT) => AnyT): IKeyValue =>
-  fromDynamicFieldsArray<EntityIdT>(array, (itm) => itm, valueAccessor);
+const asDynamicObjectFromIds = <TResult = IKeyValue>(array: EntityIdT[],
+                                                     valueAccessor: (itm: EntityIdT) => AnyT): TResult =>
+  asDynamicObject<EntityIdT, TResult>(array, (itm) => itm, valueAccessor);
 
 /**
  * @stable [29.08.2020]
@@ -95,23 +94,6 @@ export const fromDynamicFieldsIdsArray = (array: EntityIdT[],
 const fromMultiFieldValueToDefinedEntities =
   <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
     MultiFieldUtils.multiFieldValueAsEntities(entity) || [];
-
-/**
- * @stable [22.11.2019]
- * @param {MultiFieldValueT} entity
- * @returns {TEntity[]}
- */
-export const asMultiFieldAddedEntities =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] => {
-    if (R.isNil(entity)) {
-      return UNDEF;
-    }
-    if (MultiFieldUtils.isNotMultiEntity(entity)) {
-      return [];
-    }
-    const multiEntity = entity as IReduxMultiEntity;
-    return multiEntity.add as TEntity[];
-  };
 
 /**
  * @stable [14.10.2019]
@@ -157,6 +139,9 @@ export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(v
 };
 
 // TODO Deprecated
+/**
+ * @deprecated
+ */
 export const buildMultiItemEntity = <TEntity extends IEntity = IEntity>(name: string,
                                                                         value: AnyT,
                                                                         rawData: TEntity,
@@ -181,6 +166,8 @@ export const buildNewPhantomMultiItem =
  */
 export class FieldUtils {
   public static readonly asActualFieldValue = asActualFieldValue;                                                 /* @stable [16.05.2020] */
+  public static readonly asDynamicObject = asDynamicObject;                                                       /* @stable [27.10.2020] */
+  public static readonly asDynamicObjectFromIds = asDynamicObjectFromIds;                                         /* @stable [28.10.2020] */
   public static readonly dynamicFieldName = dynamicFieldName;                                                     /* @stable [29.06.2020] */
   public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
   public static readonly fromMultiFieldValueToDefinedEntities = fromMultiFieldValueToDefinedEntities;             /* @stable [16.05.2020] */
