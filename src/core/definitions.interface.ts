@@ -710,20 +710,6 @@ export interface IUseDownloadActionWrapper {
 /**
  * @stable [28.06.2018]
  */
-export interface ICameraWidthWrapper {
-  cameraWidth?: number;
-}
-
-/**
- * @stable [28.06.2018]
- */
-export interface ICameraHeightWrapper {
-  cameraHeight?: number;
-}
-
-/**
- * @stable [28.06.2018]
- */
 export interface IFileNameWrapper {
   fileName?: string;
 }

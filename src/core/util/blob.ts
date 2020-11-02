@@ -2,12 +2,11 @@ import { MimeTypesEnum } from '../definition';
 import { nvl } from './nvl';
 
 /**
- * @stable [01.08.2019]
- * @param {string} url
- * @param {RequestInit} options
- * @returns {Promise<Blob>}
+ * @stable [02.11.2020]
+ * @param url
+ * @param options
  */
-export const fromUrlToBlob = (url: string, options?: RequestInit): Promise<Blob> =>
+const fromUrlToBlob = (url: string, options?: RequestInit): Promise<Blob> =>
   fetch(url, {mode: 'cors', ...options}).then((r) => r.blob());
 
 /**
@@ -69,3 +68,10 @@ export const detectBlobMimeType = async (blob: Blob): Promise<MimeTypesEnum | st
   const bytes = await readBlobBytesAsString(blob, 4);
   return getBlobMimeType(bytes);
 };
+
+/**
+ * @stable [02.11.2020]
+ */
+export class BlobUtils {
+  public static readonly fromUrlToBlob = fromUrlToBlob;
+}

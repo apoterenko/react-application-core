@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import * as R from 'ramda';
 
-import { fromUrlToBlob } from './blob';
+import { BlobUtils } from './blob';
 import { isFn } from './type';
 import { nvl } from './nvl';
 import {
@@ -206,7 +206,7 @@ export const downloadFileAsBlobUrl = (url: string, fileName?: string): void => {
  */
 export const downloadFile = async (url: string, fileName?: string): Promise<void> =>
   //  Force apply file name via the proxy-link. Download attribute doesn't work in case of outer UUID link
-  downloadFileAsBlob(await fromUrlToBlob(url), fileName);
+  downloadFileAsBlob(await BlobUtils.fromUrlToBlob(url), fileName);
 
 /**
  * @stable [30.08.2019]
