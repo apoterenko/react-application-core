@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import { InlineOption } from '../../inline-option';
 import {
   ClsUtils,
+  ObjectUtils,
   PropsUtils,
   SortUtils,
 } from '../../../util';
@@ -27,9 +28,14 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
    * @protected
    */
   protected get attachmentBodyElement(): JSX.Element {
+    const inlineOptions = this.inlineOptions;
+    if (ObjectUtils.isObjectEmpty(inlineOptions)) {
+      return null;
+    }
+
     return (
       <React.Fragment>
-        {this.inlineOptions.map((item) => this.getInlineOptionElement(item))}
+        {inlineOptions.map((item) => this.getInlineOptionElement(item))}
       </React.Fragment>
     );
   }

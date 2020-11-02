@@ -5,17 +5,13 @@ import {
 
 import { IEditedListMiddlewareConfigEntity } from '../../definition';
 import { ListActionBuilder } from '../../component/action.builder';
-import {
-  makeCreateEntityMiddleware,
-  MiddlewareFactories,
-} from '../middleware';
+import { MiddlewareFactories } from '../middleware';
 import { provideInSingleton } from '../../di';
 import { SectionUtils } from '../../util';
 
 /**
- * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} cfg
- * @returns {() => void}
+ * @stable [28.10.2020]
+ * @param cfg
  */
 export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>) =>
@@ -31,7 +27,7 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        */
       @EffectsService.effects(ListActionBuilder.buildCreateActionType(SectionUtils.asListSection(cfg)))
       public $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        makeCreateEntityMiddleware({...cfg, action, state})
+        MiddlewareFactories.createEntityMiddleware({...cfg, action, state})
 
       /**
        * @stable [09.09.2020]

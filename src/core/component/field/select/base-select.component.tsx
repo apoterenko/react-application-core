@@ -209,11 +209,15 @@ export class BaseSelect<TProps extends IBaseSelectProps,
     if (R.isNil(inlineOptions)) {
       return null;
     }
-    const currentValue = this.value;
+    const options = this.options;
+    if (R.isEmpty(options)) {
+      return null;
+    }
 
+    const currentValue = this.value;
     return (
       <React.Fragment>
-        {this.options.map((option) => {
+        {options.map((option) => {
             const id = this.fromSelectValueToId(option);
             const isInlineOptionSelected = this.isInlineOptionSelected(id, currentValue);
 

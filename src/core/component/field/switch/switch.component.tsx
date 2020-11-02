@@ -17,21 +17,23 @@ export class Switch extends BaseCheckbox<ISwitchProps> {
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ISwitchProps>({}, BaseCheckbox);
 
   /**
-   * @stable [05.06.2020]
-   * @returns {JSX.Element}
+   * @stable [26.10.2020]
+   * @protected
    */
   protected getInputElement(): JSX.Element {
     const {
       thumbClassName,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     return (
       <React.Fragment>
         <Thumb
-          className={ClsUtils.joinClassName(
-            SwitchClassesEnum.SWITCH_THUMB,
-            CalcUtils.calc(thumbClassName)
-          )}
+          className={
+            ClsUtils.joinClassName(
+              SwitchClassesEnum.SWITCH_THUMB,
+              CalcUtils.calc(thumbClassName)
+            )
+          }
           disabled={this.isDisabled}
           value={this.value}
         />
@@ -42,7 +44,6 @@ export class Switch extends BaseCheckbox<ISwitchProps> {
 
   /**
    * @stable [05.06.2020]
-   * @returns {string}
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(super.getFieldClassName(), SwitchClassesEnum.SWITCH);
