@@ -2,38 +2,35 @@ import * as React from 'react';
 import * as JsBarcode from 'jsbarcode';
 import * as R from 'ramda';
 
-import { BaseComponent } from '../base';
-import { defValuesFilter, uuid, calc, nvl } from '../../util';
+import { GenericComponent } from '../base/generic.component';
+import { defValuesFilter, UuidUtils, calc, nvl } from '../../util';
 import { getBarcodeApplicableFormats } from './barcode.support';
 import { IBarcodeProps, BarcodeFormatEnum, BARCODE_APPLICABLE_FORMATS } from './barcode.interface';
 
-export class Barcode extends BaseComponent<IBarcodeProps> {
+export class Barcode extends GenericComponent<IBarcodeProps> {
 
   public static readonly defaultProps: IBarcodeProps = {
     format: BARCODE_APPLICABLE_FORMATS,
     filter: () => true,
   };
 
-  private readonly uuid = uuid(true);
+  private readonly uuid = UuidUtils.uuid(true);
 
   /**
-   * @stable [11.06.2018]
-   * @param {Readonly<IBarcodeProps>} prevProps
-   * @param {Readonly<{}>} prevState
+   * @stable [03.11.2020]
+   * @param prevProps
+   * @param prevState
    */
   public componentDidUpdate(prevProps: Readonly<IBarcodeProps>, prevState: Readonly<{}>): void {
-    super.componentDidUpdate(prevProps, prevState);
-
-    if (!R.equals(this.props, prevProps)) {
+    if (!R.equals(this.originalProps, prevProps)) {
       this.refresh();
     }
   }
 
   /**
-   * @stable [11.06.2018]
+   * @stable [03.11.2020]
    */
   public componentDidMount(): void {
-    super.componentDidMount();
     this.refresh();
   }
 
@@ -96,9 +93,9 @@ export class Barcode extends BaseComponent<IBarcodeProps> {
   }
 
   /**
-   * @stable [10.04.2019]
-   * @param {BarcodeFormatEnum} format
-   * @returns {string}
+   * @stable [03.11.2020]
+   * @param format
+   * @private
    */
   private toId(format: BarcodeFormatEnum): string {
     return `${this.uuid}-${format}`;

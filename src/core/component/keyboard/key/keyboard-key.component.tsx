@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BaseComponent } from '../../base';
+import { GenericComponent } from '../../base/generic.component';
 import { Button } from '../../button';
 import {
   IKeyboardKeyProps,
@@ -10,11 +10,11 @@ import {
 } from '../../../definition';
 import {
   calc,
-  TypeUtils,
   joinClassName,
+  TypeUtils,
 } from '../../../util';
 
-export class KeyboardKey extends BaseComponent<IKeyboardKeyProps> {
+export class KeyboardKey extends GenericComponent<IKeyboardKeyProps> {
 
   private readonly buttonRef = React.createRef<Button>();
 

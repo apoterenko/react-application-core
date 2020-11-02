@@ -8,13 +8,13 @@ import {
   IFormatWrapper,
   IHeightWrapper,
 } from '../../definitions.interface';
-import { IComponentProps } from '../../definition';
+import { IGenericComponentProps } from '../../definition';
 
 /**
  * @stable [10.04.2019]
  */
 export interface IBarcodeProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IBarcodeWrapper,
     IHeightWrapper,
     IFilterWrapper<(barcode: BarcodeFormatEnum, barcodes: BarcodeFormatEnum[]) => boolean>,
