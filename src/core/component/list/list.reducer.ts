@@ -2,13 +2,11 @@ import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  IEntityIdTWrapper,
-} from '../../definitions.interface';
-import {
   ArrayUtils,
   asErrorMessage,
   buildEntityByMergeStrategy,
   ConditionUtils,
+  FilterUtils,
   ifNotNilThanValue,
   isMulti,
   mapIdentifiedEntity,
@@ -190,25 +188,38 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
     case ListActionBuilder.buildInsertActionType(section):
       modifyDataPayload = nvl(modifyDataPayload, Selectors.payloadFromAction<IModifyEntity>(action));
       const doesEntityExist = ArrayUtils.doesArrayContainExistedEntity(state.data, modifyDataPayload);
-      const mergedData = ArrayUtils.mergeArrayItem<IEntityIdTWrapper>(
+      const mergedData = ArrayUtils.mergeArrayItem(
         state.data,
         mapIdentifiedEntity(modifyDataPayload),
-        SAME_ENTITY_PREDICATE,
+        FilterUtils.SAME_ENTITY_PREDICATE,
         (itm) => buildEntityByMergeStrategy(modifyDataPayload, itm)
       );
 
       return {
         ...state,
+
+        /* @stable [03.11.2020] */
         progress: false, // In a lazy-loading case
+
+        /* @stable [03.11.2020] */
         data: mergedData,
+
+        /* @stable [03.11.2020] */
         totalCount: (state.totalCount || 0) + (doesEntityExist ? 0 : 1),
+
+        /* @stable [03.11.2020] */
         selected: doesEntityExist
-          ? ifNotNilThanValue(
-            state.selected,
-            (selectedEntity) => nvl(mergedData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
+          ? (
+            ConditionUtils.ifNotNilThanValue(
+              state.selected,
+              (selectedEntity) =>
+                NvlUtils.nvl(mergedData.find((itm) => FilterUtils.SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
+            )
           )
-          // An inserted entity is selected by default
-          : mergedData.find((itm) => SAME_ENTITY_PREDICATE(itm, modifyDataPayload)),
+          : (
+            // An inserted entity is selected by default
+            mergedData.find((itm) => FilterUtils.SAME_ENTITY_PREDICATE(itm, modifyDataPayload))
+          ),
       };
     case ListActionBuilder.buildRemoveActionType(section):
       /**

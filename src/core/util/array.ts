@@ -65,7 +65,7 @@ const mergeArrayItem = <TValue = IKeyValue>(array: TValue[],
   const hasItemFactory = TypeUtils.isFn(itemFactory);
   const result = hasEntity
     ? $array
-    : [...$array, hasItemFactory ? itemFactory(item) : item];
+    : [hasItemFactory ? itemFactory(item) : item, ...$array];
 
   if (!hasEntity) {
     return result;
