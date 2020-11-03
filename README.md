@@ -114,6 +114,7 @@ The library is designed to quickly start develop the business applications are b
 # Utils
 
 * [MultiFieldUtils (29.08.2020)](src/core/util/multi-field.ts)
+* [PageUtils (03.11.2020)](src/core/util/page.ts)
 * [SelectOptionUtils (02.11.2020)](src/core/util/select-option.ts)
 * [SortUtils (14.10.2020)](src/core/util/sort.ts)
 * [StorageUtils (04.09.2020)](src/core/util/storage.ts)
