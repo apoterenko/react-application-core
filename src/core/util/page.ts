@@ -1,60 +1,52 @@
-import { ConditionUtils } from '../util';
+import { TypeUtils } from '../util';
 import {
   FIRST_PAGE,
   IReduxPaginatedEntity,
 } from '../definition';
 
 /**
- * @stable [05.05.2020]
- * @param {IReduxPaginatedEntity} entity
- * @returns {number}
+ * @stable [03.11.2020]
+ * @param entity
  */
 const pageCursorFrom =
   (entity: IReduxPaginatedEntity): number => 1 + (entity.page - FIRST_PAGE) * entity.pageSize;
 
 /**
- * @stable [05.05.2020]
- * @param {IReduxPaginatedEntity} entity
- * @returns {number}
+ * @stable [03.11.2020]
+ * @param entity
  */
 const pageCursorTo = (entity: IReduxPaginatedEntity): number =>
-  ConditionUtils.ifNotNilThanValue(
-    entity.pageSize,
-    (pageSize) => Math.min(entity.page * pageSize, entity.totalCount)
-  );
+  Math.min(entity.page * entity.pageSize, entity.totalCount);
 
 /**
- * @stable [05.05.2020]
- * @param {IReduxPaginatedEntity} entity
- * @returns {number}
+ * @stable [03.11.2020]
+ * @param entity
  */
 const pagesCount = (entity: IReduxPaginatedEntity): number => Math.ceil(entity.totalCount / entity.pageSize);
 
 /**
- * @stable [05.05.2020]
- * @param {IReduxPaginatedEntity} entity
- * @returns {boolean}
+ * @stable [03.11.2020]
+ * @param entity
  */
 const isPageCursorInEndPosition = (entity: IReduxPaginatedEntity): boolean =>
   pageCursorTo(entity) === entity.totalCount;
 
 /**
- * @stable [05.05.2020]
- * @param {IReduxPaginatedEntity} entity
- * @returns {boolean}
+ * @stable [03.11.2020]
+ * @param entity
  */
 const isPageCursorInStartPosition = (entity: IReduxPaginatedEntity): boolean =>
   entity.page === FIRST_PAGE;
 
 /**
- * @stable [05.05.2020]
- * @param {IReduxPaginatedEntity} entity
- * @returns {boolean}
+ * @stable [03.11.2020]
+ * @param entity
  */
-const isPageable = (entity: IReduxPaginatedEntity): boolean => entity.totalCount > entity.pageSize;
+const isPageable = (entity: IReduxPaginatedEntity): boolean =>
+  TypeUtils.isNumber(entity.pageSize) && entity.totalCount > entity.pageSize;
 
 /**
- * @stable [10.06.2020]
+ * @stable [03.11.2020]
  */
 export class PageUtils {
   public static readonly isPageable = isPageable;
