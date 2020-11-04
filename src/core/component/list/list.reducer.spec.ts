@@ -147,9 +147,9 @@ describe('list.reducer', () => {
 
       const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
+          {id: 3, field1: 'value3', field2: 'value5'},
           {id: 1, field1: 'value1', field2: 'value3'},
-          {id: 2, field1: 'value2', field2: 'value4'},
-          {id: 3, field1: 'value3', field2: 'value5'}
+          {id: 2, field1: 'value2', field2: 'value4'}
         ],
         selected: {id: 3, field1: 'value3', field2: 'value5'},
         totalCount: 3,
@@ -176,9 +176,9 @@ describe('list.reducer', () => {
 
       const result = Object.assign({}, INITIAL_REDUX_LIST_ENTITY, {
         data: [
+          {id: 3, field1: 'value3', field2: 'value5'},
           {id: 1, field1: 'value1', field2: 'value3'},
-          {id: 2, field1: 'value2', field2: 'value4'},
-          {id: 3, field1: 'value3', field2: 'value5'}
+          {id: 2, field1: 'value2', field2: 'value4'}
         ],
         selected: {id: 3, field1: 'value3', field2: 'value5'},
         totalCount: 3,
