@@ -1,19 +1,17 @@
 import {
-  IChannelsWrapper,
-  IKeyValue,
-  IQueryWrapper,
-  IChannelWrapper,
-  IParamsWrapper,
   AnyT,
+  IChannelWrapper,
+  IKeyValue,
+  IParamsWrapper,
+  IQueryWrapper,
 } from '../../definitions.interface';
 import { IChannel } from '../channel.interface';
 
 /**
  * @stable [12.12.2018]
  */
-export interface ISignalRChannelConfigEntity extends IChannelsWrapper<string[]>,
-                                                     IQueryWrapper<() => IKeyValue> {
-  transport?: string; // TODO
+export interface ISignalRChannelConfigEntity
+  extends IQueryWrapper<() => IKeyValue> {
 }
 
 /**
@@ -24,13 +22,9 @@ export interface ISignalRChannelMessageEntity extends IChannelWrapper,
 }
 
 /**
- * @stable [17.12.2018]
+ * @service
+ * @stable [04.11.2020]
  */
-export type SignalRChannelMessageEntityT = ISignalRChannelMessageEntity | AnyT;
-
-/**
- * @stable [12.12.2018]
- */
-export interface ISignalRChannel extends IChannel<ISignalRChannelConfigEntity,
-                                                  SignalRChannelMessageEntityT> {
+export interface ISignalRChannel
+  extends IChannel<ISignalRChannelConfigEntity> {
 }

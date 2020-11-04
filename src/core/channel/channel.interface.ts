@@ -16,7 +16,7 @@ export interface IChannelClient {
 /**
  * @stable [21.05.2018]
  */
-export interface IChannel<TConfig = AnyT, TMessage = AnyT> {
+export interface IChannel<TConfig = {}, TMessage = unknown> {
   connect(ip: string, config?: TConfig): void;
   disconnect(ip): void;
   onConnect(ip: string, client: IChannelClient): void;

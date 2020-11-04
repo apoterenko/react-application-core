@@ -4,15 +4,21 @@ import { Store } from 'redux';
 import * as R from 'ramda';
 
 import { defValuesFilter } from '../util';
-import { AnyT, UNDEF } from '../definitions.interface';
-import { lazyInject, DI_TYPES } from '../di';
+import {
+  AnyT,
+  UNDEF,
+} from '../definitions.interface';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../di';
 import { ISettingsEntity } from '../settings';
 import {
-  CHANNEL_CONNECT_MESSAGE,
-  CHANNEL_DISCONNECT_MESSAGE,
-  CHANNEL_CONNECT_EVENT,
-  CHANNEL_DISCONNECT_EVENT,
   $CHANNEL_MESSAGE_ACTION_TYPE,
+  CHANNEL_CONNECT_EVENT,
+  CHANNEL_CONNECT_MESSAGE,
+  CHANNEL_DISCONNECT_EVENT,
+  CHANNEL_DISCONNECT_MESSAGE,
   IChannel,
   IChannelClient,
 } from './channel.interface';
@@ -23,13 +29,13 @@ import {
 } from '../definition';
 
 @injectable()
-export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IChannel<TConfig, TMessage> {
-  protected static logger = LoggerFactory.makeLogger('BaseChannel');
+export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements IChannel<TConfig, TMessage> {
+  protected static readonly logger = LoggerFactory.makeLogger('BaseChannel');
 
-  @lazyInject(DI_TYPES.Settings) protected settings: ISettingsEntity;
-  @lazyInject(DI_TYPES.Store) protected appStore: Store<IStoreEntity>;
+  @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
+  @lazyInject(DI_TYPES.Store) protected readonly appStore: Store<IStoreEntity>;
 
-  private clients = new Map<string, IChannelClient>();
+  private readonly clients = new Map<string, IChannelClient>();
 
   /**
    * @stable [21.05.2018]
@@ -39,10 +45,12 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IC
   public abstract connect(ip: string, config?: TConfig): void;
 
   /**
-   * @stable [21.05.2018]
+   * @stable [04.11.2020]
    * @param ip
    */
-  public abstract disconnect(ip): void;
+  public disconnect(ip): void {
+    this.unregisterClient(ip);
+  }
 
   /**
    * @stable [21.05.2018]
@@ -87,22 +95,22 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = AnyT> implements IC
   }
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {string} event0
-   * @param {TMessage} args
+   * @stable [04.11.2020]
+   * @param ip
+   * @param $event
+   * @param args
    */
-  public emitEvent(ip: string, event0: string, ...args: TMessage[]): void {
+  public emitEvent(ip: string, $event: string, ...args: TMessage[]): void {
     const client = this.clients.get(ip);
     if (!client) {
       throw new Error(`The client ${ip} doesn't exist!`);
     }
     BaseChannel.logger.debug(
       () => `[$BaseChannel][emitEvent] The client is about to send a message ${args && JSON.stringify(args) || '[-]'
-      }. Ip: ${ip}, event: ${event0}`
+      }. Ip: ${ip}, event: ${$event}`
     );
 
-    client.emit(event0, ...args);
+    client.emit($event, ...args);
   }
 
   /**

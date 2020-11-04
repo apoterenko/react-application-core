@@ -18,12 +18,4 @@ export class SocketChannel extends BaseChannel {
       ...config,
     }));
   }
-
-  /**
-   * @stable [21.05.2018]
-   * @param ip
-   */
-  public disconnect(ip): void {
-    this.unregisterClient(ip);
-  }
 }

@@ -170,7 +170,7 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
   storage: DEFAULT_STORAGE_SETTINGS_ENTITY,
   channel: {
     eventToListen: 'client-event-to-listen',
-    eventToEmit: 'client-event-to-emit',
+    eventToEmit: 'newCommand',
   },
   authorization: {
     isAuthorizationNeeded: true,
