@@ -35,6 +35,8 @@ export interface IDateConverter<TDate = Date> {
   asDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   asDayOfYear(date?: Date): Date;
   asDayOfYearEntity(cfg?: IDateTimeConfigEntity<TDate>): IDayOfYearEntity;
+  asDaysOfMonth(cfg: IDateTimeConfigEntity<TDate>): TDate[];
+  asDaysOfMonthAsDates(cfg: IDateTimeConfigEntity<TDate>): Date[];
   asEndUnitOf(cfg: IDateTimeConfigEntity<TDate>): TDate;
   asFirstDayOfMonth(cfg?: IDateTimeConfigEntity<TDate>): TDate;
   asFirstDayOfMonthAsDate(cfg?: IDateTimeConfigEntity<TDate>): Date;
@@ -118,9 +120,6 @@ export interface IDateConverter<TDate = Date> {
   tryGetFirstDayOfWeekAsMomentDate(duration?: moment.DurationInputArg1,
                                    date?: DateTimeLikeTypeT,
                                    inputFormat?: string): moment.Moment;
-  tryGetFirstDayOfMonthAsMomentDate(duration?: moment.DurationInputArg1,
-                                    date?: DateTimeLikeTypeT,
-                                    inputFormat?: string): moment.Moment;
   tryGetFirstDayOfWeek(duration?: moment.DurationInputArg1,
                        date?: DateTimeLikeTypeT,
                        inputFormat?: string): Date;
@@ -131,6 +130,5 @@ export interface IDateConverter<TDate = Date> {
   get30DaysAgo(): Date;
   getXDaysAgo(days: number): Date;
   getLocalizedWeekdayShort(index: number): string;
-  isSameMonth(date1: Date, date2: Date): boolean;
   isWeekend(day: number): boolean;
 }

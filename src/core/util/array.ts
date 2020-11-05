@@ -13,9 +13,8 @@ import { nvl } from './nvl';
 import { TypeUtils } from './type';
 
 /**
- * @stable [16.12.2018]
- * @param {number} length
- * @returns {AnyT[]}
+ * @stable [05.11.2020]
+ * @param length
  */
 export const makeArray = (length: number): AnyT[] => Array.apply(null, {length});
 
@@ -110,5 +109,6 @@ const doesArrayContainExistedEntity =
  */
 export class ArrayUtils {
   public static readonly doesArrayContainExistedEntity = doesArrayContainExistedEntity;
+  public static readonly makeArray = makeArray;
   public static readonly mergeArrayItem = mergeArrayItem;
 }

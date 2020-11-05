@@ -1,9 +1,15 @@
 import { injectable } from 'inversify';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
+import {
+  ILogger,
+  LoggerFactory,
+} from 'ts-smart-logger';
 import { Store } from 'redux';
 import * as R from 'ramda';
 
-import { defValuesFilter } from '../util';
+import {
+  FilterUtils,
+  JsonUtils,
+} from '../util';
 import {
   AnyT,
   UNDEF,
@@ -38,9 +44,9 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
   private readonly clients = new Map<string, IChannelClient>();
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {TConfig} config
+   * @stable [06.11.2020]
+   * @param ip
+   * @param config
    */
   public abstract connect(ip: string, config?: TConfig): void;
 
@@ -53,9 +59,9 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
   }
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {IChannelClient} client
+   * @stable [06.11.2020]
+   * @param ip
+   * @param client
    */
   public onConnect(ip: string, client: IChannelClient): void {
     this.onMessage(ip, CHANNEL_CONNECT_MESSAGE);
@@ -64,9 +70,9 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
   }
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {IChannelClient} client
+   * @stable [06.11.2020]
+   * @param ip
+   * @param client
    */
   public onDisconnect(ip: string, client: IChannelClient): void {
     this.onMessage(ip, CHANNEL_DISCONNECT_MESSAGE);
@@ -75,10 +81,10 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
   }
 
   /**
-   * @stable [25.05.2018]
-   * @param {string} ip
-   * @param {string} messageName
-   * @param {AnyT} payload
+   * @stable [06.11.2020]
+   * @param ip
+   * @param messageName
+   * @param payload
    */
   public onMessage(ip: string, messageName?: string, payload?: AnyT): void {
     BaseChannel.logger.debug(
@@ -88,8 +94,10 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
 
     this.appStore.dispatch({
       type: $CHANNEL_MESSAGE_ACTION_TYPE,
-      data: defValuesFilter<IReduxChannelMessageEntity, IReduxChannelMessageEntity>({
-        ip, name: messageName, data: this.toMessage(payload),
+      data: FilterUtils.defValuesFilter<IReduxChannelMessageEntity, IReduxChannelMessageEntity>({
+        data: JsonUtils.parseJson(payload),
+        ip,
+        name: messageName,
       }),
     });
   }
@@ -114,27 +122,28 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
   }
 
   /**
-   * @stable [12.12.2018]
-   * @param {string} ip
-   * @param {TMessage} args
+   * @stable [06.11.2020]
+   * @param ip
+   * @param args
    */
   public emitChannelEvent(ip: string, ...args: TMessage[]): void {
     this.emitEvent(ip, this.eventToEmit, ...args);
   }
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {PayloadWrapper} requestPayload
+   * @stable [06.11.2020]
+   * @param ip
+   * @param requestPayload
    */
   public emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void {
     this.emitChannelEvent(ip, JSON.stringify(requestPayload) as AnyT);
   }
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {IChannelClient} client
+   * @stable [06.11.2020]
+   * @param ip
+   * @param client
+   * @protected
    */
   protected registerClient(ip: string, client: IChannelClient): void {
     this.clients.set(ip, client);
@@ -145,8 +154,9 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
   }
 
   /**
-   * @stable [11.12.2018]
-   * @param {string} ip
+   * @stable [06.11.2020]
+   * @param ip
+   * @protected
    */
   protected unregisterClient(ip: string): void {
     const client = this.clients.get(ip);
@@ -160,43 +170,28 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
   }
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {IChannelClient} client
+   * @stable [06.11.2020]
+   * @param ip
+   * @param client
+   * @protected
    */
   protected registerChannelEvent(ip: string, client: IChannelClient): void {
     client.on(this.eventToListen, (message) => this.onMessage(ip, UNDEF, message));
   }
 
   /**
-   * @stable [21.05.2018]
-   * @returns {string}
+   * @stable [06.11.2020]
+   * @protected
    */
   protected get eventToListen(): string {
     return this.settings.channel.eventToListen;
   }
 
   /**
-   * @stable [21.05.2018]
-   * @returns {string}
+   * @stable [06.11.2020]
+   * @protected
    */
   protected get eventToEmit(): string {
     return this.settings.channel.eventToEmit;
-  }
-
-  /**
-   * @stable [21.05.2018]
-   * @param {string} message
-   * @returns {AnyT}
-   */
-  private toMessage(message: string): AnyT {
-    if (R.isNil(message)) {
-      return message;
-    }
-    try {
-      return JSON.parse(message);
-    } catch (e) {
-      return message;
-    }
   }
 }

@@ -3,7 +3,6 @@ import { BaseStorage } from '../base-storage.service';
 import {
   JsonUtils,
   nvl,
-  parseJson,
 } from '../../util';
 import { ISettingsEntity } from '../../settings';
 import { StorageTypesEnum } from '../../definition';
@@ -40,7 +39,7 @@ export class DefaultStorage extends BaseStorage {
    */
   public async get(key: string, noPrefix?: boolean): Promise<AnyT> {
     const data = await this.storage.getItem(this.toKey(key, noPrefix));
-    return parseJson(data);
+    return JsonUtils.parseJson(data);
   }
 
   /**

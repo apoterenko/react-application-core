@@ -11,6 +11,7 @@ import {
   IKeyValue,
 } from '../../definitions.interface';
 import {
+  ArrayUtils,
   ConditionUtils,
   defValuesFilter,
   nvl,
@@ -462,6 +463,26 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [05.11.2020]
+   * @param cfg
+   */
+  public asDaysOfMonth(cfg: IDateTimeConfigEntity<MomentT>): MomentT[] {
+    const firstDayOfMonth = this.asFirstDayOfMonthAsDate(cfg);
+
+    return ArrayUtils
+      .makeArray(this.asLastDayOfMonthAsDate(cfg).getDate())
+      .map((_, index) => this.addDays({date: firstDayOfMonth, duration: index}));
+  }
+
+  /**
+   * @stable [05.11.2020]
+   * @param cfg
+   */
+  public asDaysOfMonthAsDates(cfg: IDateTimeConfigEntity<MomentT>): Date[] {
+    return this.asDaysOfMonth(cfg).map((date) => this.asDate({date}));
+  }
+
+  /**
    * @deprecated
    */
   public fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string {
@@ -759,32 +780,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [08.01.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {moment.Moment}
-   */
-  public tryGetFirstDayOfMonthAsMomentDate(duration: moment.DurationInputArg1 = 0,
-                                           date: DateTimeLikeTypeT = this.currentDate,
-                                           inputFormat = this.uiDateFormat): moment.Moment {
-    return this.tryGetFirstDayOfXAsMomentDate('months', 'month', duration, date, inputFormat);
-  }
-
-  /**
-   * @stable [10.02.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {moment.Moment}
-   */
-  public tryGetFirstDayOfQuarterAsMomentDate(duration: moment.DurationInputArg1 = 0,
-                                             date: DateTimeLikeTypeT = this.currentDate,
-                                             inputFormat = this.uiDateFormat): moment.Moment {
-    return this.tryGetFirstDayOfXAsMomentDate('quarters', 'quarter', duration, date, inputFormat);
-  }
-
-  /**
    * @stable [09.02.2019]
    * @param {moment.DurationInputArg1} duration
    * @param {DateTimeLikeTypeT} date
@@ -813,21 +808,6 @@ export class DateConverter implements IDateConverter<MomentT> {
                               inputFormat = this.uiDateFormat): Date {
     return ConditionUtils.ifNotNilThanValue<moment.Moment, Date>(
       this.tryGetFirstDayOfWeekAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
-    );
-  }
-
-  /**
-   * @stable [08.01.2019]
-   * @param {moment.DurationInputArg1} duration
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {Date}
-   */
-  public tryGetFirstDayOfMonth(duration: moment.DurationInputArg1 = 0,
-                               date: DateTimeLikeTypeT = this.currentDate,
-                               inputFormat = this.uiDateFormat): Date {
-    return ConditionUtils.ifNotNilThanValue<moment.Moment, Date>(
-      this.tryGetFirstDayOfMonthAsMomentDate(duration, date, inputFormat), (value) => value.toDate()
     );
   }
 
@@ -984,13 +964,6 @@ export class DateConverter implements IDateConverter<MomentT> {
       inputFormat: this.uiDateFormat,
       ...cfg as IDateTimeConfigEntity<MomentT>,
     }, (mDate) => mDate.diff(cfg.birthday, 'years'));
-  }
-
-  public isSameMonth(date1: Date, date2: Date): boolean {
-    return (
-      date1.getMonth() === date2.getMonth() &&
-      date1.getFullYear() === date2.getFullYear()
-    );
   }
 
   public isWeekend(day: number): boolean {

@@ -141,6 +141,14 @@ export interface ISelectedEntity<TEntity extends IEntity = IEntity>
  * @flux-entity
  * @stable [27.09.2020]
  */
+export interface IFluxEntityIdEntity
+  extends IFluxPayloadEntity<EntityIdT> {
+}
+
+/**
+ * @flux-entity
+ * @stable [27.09.2020]
+ */
 export interface IFluxNumberEntity
   extends IFluxPayloadEntity<number> {
 }

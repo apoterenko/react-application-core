@@ -13,11 +13,10 @@ import {
 const formatJson = (o: IKeyValue, space = 4) => JSON.stringify(o, null, space);
 
 /**
- * @stable [13.03.2020]
- * @param {string} o
- * @returns {TResult}
+ * @stable [06.11.2020]
+ * @param o
  */
-export const parseJson = <TResult = IKeyValue>(o: string): TResult => {
+const parseJson = <TResult = IKeyValue>(o: string): TResult => {
   if (R.isNil(o)) {
     return o;
   }
@@ -35,9 +34,10 @@ export const parseJson = <TResult = IKeyValue>(o: string): TResult => {
 const serializeJson = <TObject = unknown>(o: TObject): string => JSON.stringify(o);
 
 /**
- * @stable [10.09.2020]
+ * @stable [06.11.2020]
  */
 export class JsonUtils {
   public static readonly formatJson = formatJson;
+  public static readonly parseJson = parseJson;
   public static readonly serializeJson = serializeJson;
 }

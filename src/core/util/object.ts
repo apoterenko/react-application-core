@@ -53,7 +53,15 @@ const buildValuesObjectBy = <TValue>(object: TValue,
  * @stable [04.09.2020]
  * @param object
  */
-const buildUndefValuesObject = <TValue>(object: TValue): Record<StringNumberT, AnyT> => buildValuesObjectBy(object, () => UNDEF);
+const buildUndefValuesObject = <TValue>(object: TValue): Record<StringNumberT, unknown> =>
+  buildValuesObjectBy(object, () => UNDEF);
+
+/**
+ * @stable [05.11.2020]
+ * @param object
+ */
+const buildTrueValuesObject = <TValue>(object: TValue): Record<StringNumberT, boolean> =>
+  buildValuesObjectBy(object, () => true);
 
 /**
  * @stable [04.09.2020]
@@ -69,10 +77,11 @@ const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): Record<StringN
  * @stable [15.05.2020]
  */
 export class ObjectUtils {
-  public static buildNotEmptyOrNullValuesObject = buildNotEmptyOrNullValuesObject;               /* @stable [15.05.2020] */
-  public static buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
-  public static buildValuesObjectBy =  buildValuesObjectBy;                                      /* @stable [15.05.2020] */
-  public static isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
-  public static isObjectEmpty = isObjectEmpty;                                                   /* @stable [04.09.2020] */
-  public static isObjectNotEmpty = isObjectNotEmpty;                                             /* @stable [15.05.2020] */
+  public static readonly buildNotEmptyOrNullValuesObject = buildNotEmptyOrNullValuesObject;               /* @stable [15.05.2020] */
+  public static readonly buildTrueValuesObject = buildTrueValuesObject;                                   /* @stable [05.11.2020] */
+  public static readonly buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
+  public static readonly buildValuesObjectBy =  buildValuesObjectBy;                                      /* @stable [15.05.2020] */
+  public static readonly isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
+  public static readonly isObjectEmpty = isObjectEmpty;                                                   /* @stable [04.09.2020] */
+  public static readonly isObjectNotEmpty = isObjectNotEmpty;                                             /* @stable [15.05.2020] */
 }
