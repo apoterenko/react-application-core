@@ -64,9 +64,11 @@ export class ChannelActionBuilder {
    * @param wrapper
    * @param errorHandler
    */
-  public static buildFilteredCommandResultMessagesAction<TData = AnyT>(payload: IChannelMessageEntity<TData>,
-                                                                       wrapper: IReduxChannelHolderEntity,
-                                                                       errorHandler?: (resultData) => string): IEffectsAction[] {
+  public static buildFilteredCommandResultMessagesAction<TResult = AnyT>(
+    payload: IChannelMessageEntity,
+    wrapper: IReduxChannelHolderEntity,
+    errorHandler?: (resultData: TResult) => string): IEffectsAction[] {
+
     const ip = payload.ip;
     const messages = Selectors.channelMessagesByIp(wrapper, ip) || [];
     const currentCommandResult = new PayloadWrapper(payload.data).getCommandResult();
