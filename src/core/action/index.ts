@@ -1,3 +1,4 @@
+export * from './channel-action.builder';
 export * from './connector-action.builder';
 export * from './custom';
 export * from './dictionaries-action.builder';

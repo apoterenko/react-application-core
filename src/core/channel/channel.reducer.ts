@@ -1,60 +1,37 @@
-import { AnyAction, Reducer } from 'redux';
-import * as R from 'ramda';
+import { IEffectsAction } from 'redux-effects-promise';
 
-import { IChannelWrapper } from '../definitions.interface';
 import {
-  $CHANNEL_CONNECTED_ACTION_TYPE,
-  $CHANNEL_DESTROY_MESSAGE_ACTION_TYPE,
-  $CHANNEL_DISCONNECTED_ACTION_TYPE,
-  $CHANNEL_MESSAGE_ACTION_TYPE,
-  CHANNEL_CONNECT_MESSAGE,
-  CHANNEL_DISCONNECT_MESSAGE,
-} from './channel.interface';
-import {
-  IReduxChannelMessageEntity,
-  IReduxChannelsEntity,
+  $CHANNEL_RECEIVE_MESSAGE_ACTION_TYPE,
+  $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE,
+  CHANNEL_CONNECT_EVENT,
+  CHANNEL_DISCONNECT_EVENT,
+  IChannelMessageEntity,
   INITIAL_REDUX_CHANNELS_ENTITY,
+  IReduxChannelsEntity,
 } from '../definition';
+import { Selectors } from '../util';
 
 /**
- * @stable [21.05.2018]
- * @param {IReduxChannelsEntity} state
- * @param {AnyAction} action
- * @returns {IReduxChannelsEntity}
+ * @stable [06.11.2020]
+ * @param state
+ * @param action
  */
-export function channelReducer(state: IReduxChannelsEntity = INITIAL_REDUX_CHANNELS_ENTITY,
-                               action: AnyAction): IReduxChannelsEntity {
-  let current;
-  const message: IReduxChannelMessageEntity = action.data;
+export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANNELS_ENTITY,
+                               action: IEffectsAction): IReduxChannelsEntity => {
+  const message = Selectors.payloadFromAction<IChannelMessageEntity>(action);
+
   switch (action.type) {
-    case $CHANNEL_CONNECTED_ACTION_TYPE:
+    case $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE:
       return {
         ...state,
         [message.ip]: {
           ...state[message.ip],
-          connected: true,
+          messages: message.messages,
         },
       };
-    case $CHANNEL_DISCONNECTED_ACTION_TYPE:
-      return {
-        ...state,
-        [message.ip]: {
-          ...state[message.ip],
-          connected: false,
-        },
-      };
-    case $CHANNEL_DESTROY_MESSAGE_ACTION_TYPE:
-      current = state[message.ip] || {};
-      return {
-        ...state,
-        [message.ip]: {
-          ...current,
-          messages: R.filter(message.filter, current.messages || []),
-        },
-      };
-    case $CHANNEL_MESSAGE_ACTION_TYPE:
+    case $CHANNEL_RECEIVE_MESSAGE_ACTION_TYPE:
       switch (message.name) {
-        case CHANNEL_CONNECT_MESSAGE:
+        case CHANNEL_CONNECT_EVENT:
           return {
             ...state,
             [message.ip]: {
@@ -62,7 +39,7 @@ export function channelReducer(state: IReduxChannelsEntity = INITIAL_REDUX_CHANN
               connected: true,
             },
           };
-        case CHANNEL_DISCONNECT_MESSAGE:
+        case CHANNEL_DISCONNECT_EVENT:
           return {
             ...state,
             [message.ip]: {
@@ -71,22 +48,18 @@ export function channelReducer(state: IReduxChannelsEntity = INITIAL_REDUX_CHANN
             },
           };
         default:
-          current = state[message.ip] || {};
+          const previousState = state[message.ip] || {};
           return {
             ...state,
             [message.ip]: {
-              ...current,
-              messages: (current.messages || []).concat(message),
+              ...previousState,
+              messages: [
+                ...(previousState.messages || []),
+                message
+              ],
             },
           };
       }
   }
   return state;
 }
-
-/**
- * @stable [21.05.2018]
- */
-export const channelsReducers: IChannelWrapper<Reducer<{}>> = {
-  channel: channelReducer,
-};

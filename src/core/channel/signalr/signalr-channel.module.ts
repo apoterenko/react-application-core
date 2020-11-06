@@ -1,9 +1,8 @@
 import { bindInSingleton } from '../../di';
-
-import { IChannel } from '../channel.interface';
+import { IChannel } from '../../definition';
 import { SignalRChannel } from './signalr-channel.service';
 
 /**
- * @stable [11.12.2018]
+ * @stable [06.11.2020]
  */
 bindInSingleton<IChannel>(SignalRChannel);

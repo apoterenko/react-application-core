@@ -19,23 +19,19 @@ import {
   lazyInject,
 } from '../di';
 import { ISettingsEntity } from '../settings';
-import {
-  $CHANNEL_MESSAGE_ACTION_TYPE,
-  CHANNEL_CONNECT_EVENT,
-  CHANNEL_CONNECT_MESSAGE,
-  CHANNEL_DISCONNECT_EVENT,
-  CHANNEL_DISCONNECT_MESSAGE,
-  IChannel,
-  IChannelClient,
-} from './channel.interface';
 import { PayloadWrapper } from './protocol';
 import {
-  IReduxChannelMessageEntity,
+  CHANNEL_CONNECT_EVENT,
+  CHANNEL_DISCONNECT_EVENT,
+  IChannel,
+  IChannelClient,
+  IChannelMessageEntity,
   IStoreEntity,
 } from '../definition';
+import { ChannelActionBuilder } from '../action';
 
 @injectable()
-export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements IChannel<TConfig, TMessage> {
+export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements IChannel<TConfig, TMessage> {
   protected static readonly logger = LoggerFactory.makeLogger('BaseChannel');
 
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
@@ -64,7 +60,7 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
    * @param client
    */
   public onConnect(ip: string, client: IChannelClient): void {
-    this.onMessage(ip, CHANNEL_CONNECT_MESSAGE);
+    this.onMessage(ip, CHANNEL_CONNECT_EVENT);
 
     BaseChannel.logger.info(`[$BaseChannel][onConnect] The client has been connected successfully. Ip: ${ip}`);
   }
@@ -75,7 +71,7 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
    * @param client
    */
   public onDisconnect(ip: string, client: IChannelClient): void {
-    this.onMessage(ip, CHANNEL_DISCONNECT_MESSAGE);
+    this.onMessage(ip, CHANNEL_DISCONNECT_EVENT);
 
     BaseChannel.logger.info(`[$BaseChannel][onDisconnect] The client has been disconnected. Ip: ${ip}`);
   }
@@ -86,20 +82,21 @@ export abstract class BaseChannel<TConfig = AnyT, TMessage = unknown> implements
    * @param messageName
    * @param payload
    */
-  public onMessage(ip: string, messageName?: string, payload?: AnyT): void {
+  public onMessage(ip: string, messageName?: string, payload?: string): void {
     BaseChannel.logger.debug(
       '[$BaseChannel][onMessage] The client received the data', payload || '[-]',
       '. Ip:', ip, ', message:', messageName || '[-]'
     );
 
-    this.appStore.dispatch({
-      type: $CHANNEL_MESSAGE_ACTION_TYPE,
-      data: FilterUtils.defValuesFilter<IReduxChannelMessageEntity, IReduxChannelMessageEntity>({
-        data: JsonUtils.parseJson(payload),
-        ip,
-        name: messageName,
-      }),
-    });
+    this.appStore.dispatch(
+      ChannelActionBuilder.buildReceiveMessagePlainAction(
+        FilterUtils.defValuesFilter<IChannelMessageEntity, IChannelMessageEntity>({
+          data: JsonUtils.parseJson(payload),
+          ip,
+          name: messageName,
+        })
+      )
+    );
   }
 
   /**

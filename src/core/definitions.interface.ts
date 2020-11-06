@@ -257,7 +257,7 @@ export interface IInlineOptionsWrapper<TValue = boolean> { inlineOptions?: TValu
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
 export interface IInputTimeFormatWrapper { inputTimeFormat?: string; }
-export interface IIpWrapper<TIp = string> { ip?: TIp; }
+export interface IIpWrapper<TValue = string> { ip?: TValue; }
 export interface IIsFirstSelectedWrapper<TValue> { isFirstSelected?(payload?: TValue): boolean; }
 export interface IIsLastSelectedWrapper<TValue> { isLastSelected?(payload?: TValue): boolean; }
 export interface IIsMiddleSelectedWrapper<TValue> { isMiddleSelected?(payload?: TValue): boolean; }

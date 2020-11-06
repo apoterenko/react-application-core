@@ -5,7 +5,7 @@ import {
   IParamsWrapper,
   IQueryWrapper,
 } from '../../definitions.interface';
-import { IChannel } from '../channel.interface';
+import { IChannel } from '../../definition';
 
 /**
  * @stable [12.12.2018]

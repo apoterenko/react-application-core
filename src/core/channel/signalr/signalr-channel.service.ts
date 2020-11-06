@@ -10,7 +10,7 @@ import { TypeUtils } from '../../util';
 import {
   CHANNEL_CONNECT_EVENT,
   CHANNEL_DISCONNECT_EVENT,
-} from '../channel.interface';
+} from '../../definition';
 import { ISignalRChannelConfigEntity } from './signalr-channel.interface';
 
 /**

@@ -1,8 +1,8 @@
-import { IReduxChannelMessageEntity } from '../definition';
 import {
-  CHANNEL_CONNECT_MESSAGE,
-  CHANNEL_DISCONNECT_MESSAGE,
-} from './channel.interface';
+  CHANNEL_CONNECT_EVENT,
+  CHANNEL_DISCONNECT_EVENT,
+  IReduxChannelMessageEntity,
+} from '../definition';
 
 /**
  * @stable [25.05.2018]
@@ -10,4 +10,4 @@ import {
  * @returns {any}
  */
 export const isChannelServiceMessage = (message: IReduxChannelMessageEntity) =>
-  [CHANNEL_CONNECT_MESSAGE, CHANNEL_DISCONNECT_MESSAGE].includes(message.name);
+  [CHANNEL_CONNECT_EVENT, CHANNEL_DISCONNECT_EVENT].includes(message.name);

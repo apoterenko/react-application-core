@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-import { orNull, TypeUtils } from '../../util';
+import { TypeUtils } from '../../util/type';
 import { IKeyValue, AnyT } from '../../definitions.interface';
 import { ObjectStatus } from './object.status';
 import { CommandResult } from './command.result';
@@ -9,6 +9,7 @@ import {
   IProtocolPayloadEntity,
   RESPONSE_PAYLOAD_OBJECTS_CLASSES,
 } from './protocol.interface';
+import { ConditionUtils } from '../../util/cond';
 
 /**
  * @stable [24.05.2018]
@@ -52,7 +53,7 @@ export class PayloadWrapper {
    * @returns {ObjectStatus}
    */
   public getObjectStatus(): ObjectStatus {
-    return orNull<ObjectStatus>(
+    return ConditionUtils.orNull<ObjectStatus>(
       this.payload instanceof ObjectStatus,
       this.payload as ObjectStatus
     );
@@ -63,7 +64,7 @@ export class PayloadWrapper {
    * @returns {CommandResult}
    */
   public getCommandResult(): CommandResult {
-    return orNull<CommandResult>(
+    return ConditionUtils.orNull<CommandResult>(
       this.payload instanceof CommandResult,
       this.payload as CommandResult
     );

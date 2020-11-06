@@ -8,7 +8,7 @@ import {
 import { dictionariesReducer } from '../dictionary';
 import { PERMISSIONS_DESTROY_ACTION_TYPE, PERMISSIONS_UPDATE_ACTION_TYPE } from '../permissions';
 import { stackReducer } from './stack';
-import { channelsReducers } from '../channel';
+import { channelReducer } from '../channel';
 import { makeEntityReducer } from '../store/store.support';
 import {
   IReduxAsyncLibsEntity,
@@ -32,5 +32,5 @@ export const defaultReducers = {
   layout: defaultLayoutReducer,
   stack: stackReducer,
   notification: notificationReducer,
-  ...channelsReducers,
+  channel: channelReducer,
 };
