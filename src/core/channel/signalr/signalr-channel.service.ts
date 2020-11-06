@@ -6,7 +6,7 @@ import {
 } from 'ts-smart-logger';
 
 import { BaseChannel } from '../base-channel.service';
-import { TypeUtils } from '../../util';
+import { ArrayUtils, TypeUtils } from '../../util';
 import {
   CHANNEL_CONNECT_EVENT,
   CHANNEL_DISCONNECT_EVENT,
@@ -20,6 +20,11 @@ import { ISignalRChannelConfigEntity } from './signalr-channel.interface';
 @injectable()
 export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
   protected static readonly logger = LoggerFactory.makeLogger('SignalRChannel');
+
+  private static readonly RETRY_DELAYS = ArrayUtils
+    .makeArray(500)
+    .map((_, index) => Math.round(index * 1.2 * 1000))
+    .concat(null);
 
   /**
    * @stable [04.11.2020]
@@ -38,7 +43,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
   public connect(ip: string, config?: ISignalRChannelConfigEntity): void {
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(ip)
-      .withAutomaticReconnect()
+      .withAutomaticReconnect(SignalRChannel.RETRY_DELAYS)
       .build();
 
     let disconnectCallback;
@@ -50,8 +55,26 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
             connection.on(event, callback);
             break;
           case CHANNEL_CONNECT_EVENT:
-            await connection.start();
-            callback();
+            connection.onreconnecting(() => {
+              // The server is down
+              SignalRChannel.logger.info('[$SignalRChannel][connect][onreconnecting]');
+
+              if (TypeUtils.isFn(disconnectCallback)) {
+                disconnectCallback();
+              }
+            });
+
+            connection.onreconnected(() => {
+              SignalRChannel.logger.info('[$SignalRChannel][connect][onreconnected]');
+              callback();
+            });
+
+            try {
+              await connection.start();
+              callback();
+            } catch (e) {
+              SignalRChannel.logger.error('[$SignalRChannel][connect] Error:', e);
+            }
             break;
           case CHANNEL_DISCONNECT_EVENT:
             disconnectCallback = callback;
@@ -62,7 +85,11 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
         await connection.send(event, ...args);
       },
       close: async (): Promise<void> => {
-        await connection.stop();
+        try {
+          await connection.stop();
+        } catch (e) {
+          SignalRChannel.logger.error('[$SignalRChannel][close] Error:', e);
+        }
 
         if (TypeUtils.isFn(disconnectCallback)) {
           disconnectCallback();
