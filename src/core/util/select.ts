@@ -46,6 +46,10 @@ import {
 } from '../definitions.interface';
 import { NvlUtils } from './nvl';
 import {
+  IReduxChannelEntity,
+  IReduxChannelHolderEntity,
+  IReduxChannelMessageEntity,
+  IReduxChannelsEntity,
   IReduxFormHolderEntity,
   IReduxLayoutHolderEntity,
   IReduxListHolderEntity,
@@ -304,58 +308,79 @@ export const selectSelectedEntityIdFromAction =
     selectEntityId(selectSelectedEntityFromAction(action));
 
 /**
- * @stable [30.03.2020]
- * @param {IUserWrapper<TUser>} wrapper
- * @returns {TUser}
- */
-const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser =>
-  R.isNil(wrapper) ? UNDEF : wrapper.user;
-
-/**
- * @stable [18.09.2020]
+ * @stable [06.11.2020]
  * @param wrapper
  */
-const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity =>
-  R.isNil(wrapper) ? UNDEF : wrapper.stack;
+const selectUser = <TUser>(wrapper: IUserWrapper<TUser>): TUser => wrapper?.user;
 
 /**
- * @stable [14.04.2020]
- * @param {INotificationWrapper<TEntity>} wrapper
- * @returns {TEntity}
+ * @stable [06.11.2020]
+ * @param wrapper
  */
-const selectNotification = <TEntity>(wrapper: INotificationWrapper<TEntity>): TEntity =>
-  R.isNil(wrapper) ? UNDEF : wrapper.notification;
+const selectStack = <TEntity>(wrapper: IStackWrapper<TEntity>): TEntity => wrapper?.stack;
 
 /**
- * @stable [24.04.2020]
- * @param {IQueryWrapper} wrapper
- * @returns {string}
+ * @stable [06.11.2020]
+ * @param wrapper
  */
-const selectQuery = (wrapper: IQueryWrapper): string => R.isNil(wrapper) ? UNDEF : wrapper.query;
+const selectNotification = <TEntity>(wrapper: INotificationWrapper<TEntity>): TEntity => wrapper?.notification;
 
 /**
- * @stable [14.04.2020]
- * @param {ILayoutWrapper<TEntity>} wrapper
- * @returns {TEntity}
+ * @stable [06.11.2020]
+ * @param wrapper
  */
-const selectLayout = <TEntity>(wrapper: ILayoutWrapper<TEntity>): TEntity =>
-  R.isNil(wrapper) ? UNDEF : wrapper.layout;
+const selectQuery = (wrapper: IQueryWrapper): string => wrapper?.query;
 
 /**
- * @stable [21.05.2020]
- * @param {IModeWrapper<TEntity>} wrapper
- * @returns {TEntity}
+ * @stable [06.11.2020]
+ * @param wrapper
  */
-const selectMode = <TEntity>(wrapper: IModeWrapper<TEntity>): TEntity =>
-  R.isNil(wrapper) ? UNDEF : wrapper.mode;
+const selectLayout = <TEntity>(wrapper: ILayoutWrapper<TEntity>): TEntity => wrapper?.layout;
 
 /**
- * @stable [14.04.2020]
- * @param {IChannelWrapper<TEntity>} wrapper
- * @returns {TEntity}
+ * @stable [06.11.2020]
+ * @param wrapper
  */
-const selectChannel = <TEntity>(wrapper: IChannelWrapper<TEntity>): TEntity =>
-  R.isNil(wrapper) ? UNDEF : wrapper.channel;
+const selectMode = <TEntity>(wrapper: IModeWrapper<TEntity>): TEntity => wrapper?.mode;
+
+/**
+ * @stable [06.11.2020]
+ * @param wrapper
+ */
+const selectChannel = <TEntity>(wrapper: IChannelWrapper<TEntity>): TEntity => wrapper?.channel;
+
+/**
+ * @stable [06.11.2020]
+ * @param wrapper
+ * @param ip
+ */
+const selectChannelEntityByIp = <TWrapper = IReduxChannelsEntity>(wrapper: TWrapper, ip: string): IReduxChannelEntity =>
+  R.isNil(wrapper) ? UNDEF : wrapper[ip];
+
+/**
+ * @stable [06.11.2020]
+ * @param wrapper
+ */
+const selectChannelMessages = (wrapper: IReduxChannelEntity): IReduxChannelMessageEntity[] => wrapper?.messages;
+
+/**
+ * @stable [06.11.2020]
+ * @param wrapper
+ * @param ip
+ */
+const selectChannelEntity =
+  <TEntity = IReduxChannelsEntity>(wrapper: IReduxChannelHolderEntity<TEntity>, ip: string): IReduxChannelEntity =>
+    selectChannelEntityByIp(selectChannel<TEntity>(wrapper), ip);
+
+/**
+ * @stable [06.11.2020]
+ * @param wrapper
+ * @param ip
+ */
+const selectChannelMessagesByIp =
+  <TMessage = AnyT, TEntity = IReduxChannelsEntity>(wrapper: IReduxChannelHolderEntity<TEntity>,
+                                                    ip: string): IReduxChannelMessageEntity<TMessage>[] =>
+    selectChannelMessages(selectChannelEntity(wrapper, ip));
 
 /**
  * @stable [30.03.2020]
@@ -489,6 +514,8 @@ export class Selectors {
   public static readonly activeValue = selectActiveValue;                                                       /* @stable [30.07.2020] */
   public static readonly changes = selectChanges;
   public static readonly channel = selectChannel;                                                               /* @stable [12.06.2020] */
+  public static readonly channelEntity = selectChannelEntity;                                                   /* @stable [06.11.2020] */
+  public static readonly channelMessagesByIp = selectChannelMessagesByIp;                                       /* @stable [06.11.2020] */
   public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */
   public static readonly dictionaries = selectDictionaries;                                                     /* @stable [09.06.2020] */
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */

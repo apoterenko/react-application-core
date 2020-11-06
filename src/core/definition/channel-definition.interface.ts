@@ -34,10 +34,10 @@ export interface IFluxChannelMessageEntity<TData = AnyT>
  * @redux-entity
  * @stable [12.06.2020]
  */
-export interface IReduxChannelMessageEntity
+export interface IReduxChannelMessageEntity<TMessage = AnyT>
   extends IIpWrapper,
     INameWrapper,
-    IDataWrapper<AnyT> { // TODO Method + generic entity
+    IDataWrapper<TMessage> { // TODO Method + generic entity
   uuid?: string;
 }
 

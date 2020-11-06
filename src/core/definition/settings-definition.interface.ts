@@ -316,6 +316,7 @@ export interface IMessagesSettingsEntity {
   EXPORT?: string;
   FILTERS?: string;
   FIRST?: string;
+  HARDWARE_ERROR?: string;
   LAST?: string;
   LAST_MONTH?: string;
   LAST_QUARTER?: string;
@@ -384,6 +385,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   EXPORT: 'Export',
   FILTERS: 'Filters',
   FIRST: 'First',
+  HARDWARE_ERROR: 'Hardware error',
   LAST: 'Last',
   LAST_MONTH: 'Last month',
   LAST_QUARTER: 'Last quarter',

@@ -3,6 +3,7 @@ export * from './barcode';
 export * from './base64';
 export * from './blob';
 export * from './calc';
+export * from './channel';
 export * from './clone';
 export * from './cls';
 export * from './compressor';
