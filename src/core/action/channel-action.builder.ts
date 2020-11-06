@@ -84,13 +84,13 @@ export class ChannelActionBuilder {
       }),
       ...ConditionUtils.ifNotNilThanValue(
         currentCommandResult.getData(),
-        (resultData) => [
-          NotificationActionBuilder.buildErrorAction(
-            TypeUtils.isFn(errorHandler)
-              ? errorHandler(resultData)
-              : DiServices.settings().messages.HARDWARE_ERROR
+        (resultData) => TypeUtils.isFn(errorHandler)
+          ? ConditionUtils.ifNotNilThanValue(
+            errorHandler(resultData),
+            (errorMessage) => [NotificationActionBuilder.buildErrorAction(errorMessage)],
+            []
           )
-        ],
+          : [NotificationActionBuilder.buildErrorAction(DiServices.settings().messages.HARDWARE_ERROR)],
         []
       )
     ];
