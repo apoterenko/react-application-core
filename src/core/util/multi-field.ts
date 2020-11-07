@@ -287,6 +287,17 @@ const multiFieldValueAsEntitiesIds = <TEntity extends IEntity = IEntity>(multiFi
   );
 
 /**
+ * @stable [07.11.2020]
+ * @param entity
+ * @param keyAccessor
+ */
+export const multiFieldValueEntitiesAsTrueValuesObject =
+  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>,
+                                      keyAccessor: (item: TEntity) => EntityIdT = (item: TEntity) => item.id): Record<EntityIdT, boolean> =>
+    R.mergeAll((MultiFieldUtils.multiFieldValueAsEntities(entity) || [])
+      .map((key) => ({[keyAccessor(key)]: true})));
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
@@ -304,5 +315,6 @@ export class MultiFieldUtils {
   public static readonly multiFieldValueAsMultiItemAddEntities = multiFieldValueAsMultiItemAddEntities;
   public static readonly multiFieldValueAsMultiItemEditEntities = multiFieldValueAsMultiItemEditEntities;
   public static readonly multiFieldValueAsMultiItemRemoveEntities = multiFieldValueAsMultiItemRemoveEntities;
+  public static readonly multiFieldValueEntitiesAsTrueValuesObject = multiFieldValueEntitiesAsTrueValuesObject;
   public static readonly notMultiFieldValueAsEntities = notMultiFieldValueAsEntities;
 }

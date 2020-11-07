@@ -26,6 +26,7 @@ import { ISignalRChannelConfigEntity } from './signalr-channel.interface';
 export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
   protected static readonly logger = LoggerFactory.makeLogger('SignalRChannel');
 
+  private static readonly $$CONNECTION_STOPPED = '$$connectionStopped';
   private static readonly $$RECONNECT_TASK = '$$reconnectTask';
   private static readonly RETRY_DELAYS = ArrayUtils
     .makeArray(500)
@@ -86,7 +87,8 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
         await connection.send(event, ...args);
       },
       close: async (): Promise<void> => {
-        ConditionUtils.ifNotNilThanValue(this.getReconnectTask(connection), (reconnectTask) => reconnectTask.stop());
+        this.stopReconnectTask(connection);
+        this.setStopConnection(connection);
 
         try {
           await connection.stop();
@@ -111,9 +113,14 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
     try {
       await connection.start();
       callback();
+
+      this.stopReconnectTask(connection);
     } catch (e) {
       SignalRChannel.logger.error('[$SignalRChannel][connect] Error:', e);
-      this.tryReconnect(connection, callback);
+
+      if (!this.isConnectionStopped(connection)) {
+        this.tryReconnect(connection, callback);
+      }
     }
   }
 
@@ -122,24 +129,43 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
    * @private
    */
   private tryReconnect(connection: signalR.HubConnection, callback: (...args: unknown[]) => void): void {
+    SignalRChannel.logger.debug('[$SignalRChannel][tryReconnect] Connection:', connection);
+
     let reconnectTask = this.getReconnectTask(connection);
 
     ConditionUtils.ifNilThanValue(
       reconnectTask,
       () => {
-        reconnectTask = new DelayedTask(
-          async () => {
-            if (reconnectTask.progress) {
-              SignalRChannel.logger.debug('[$SignalRChannel][tryReconnect] Try reconnect. Connection:', connection);
-              await this.doConnect(connection, callback);
-            }
-          },
-          2000
+        this.setReconnectTask(
+          connection,
+          reconnectTask = new DelayedTask(
+            async () => {
+              if (!this.isConnectionStopped(connection)) {
+                SignalRChannel.logger.debug('[$SignalRChannel][tryReconnect] Task. Connection:', connection);
+                await this.doConnect(connection, callback);
+              }
+            },
+            2000
+          )
         );
-        Reflect.set(connection, SignalRChannel.$$RECONNECT_TASK, reconnectTask);
       }
     );
     reconnectTask.start();
+  }
+
+  /**
+   * @stable [07.11.2020]
+   * @param connection
+   * @private
+   */
+  private stopReconnectTask(connection: signalR.HubConnection): void {
+    ConditionUtils.ifNotNilThanValue(
+      this.getReconnectTask(connection),
+      (reconnectTask) => {
+        reconnectTask.stop();
+        this.setReconnectTask(connection, null);
+      }
+    );
   }
 
   /**
@@ -149,5 +175,33 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
    */
   private getReconnectTask(connection: signalR.HubConnection): DelayedTask {
     return Reflect.get(connection, SignalRChannel.$$RECONNECT_TASK);
+  }
+
+  /**
+   * @stable [07.11.2020]
+   * @param connection
+   * @param task
+   * @private
+   */
+  private setReconnectTask(connection: signalR.HubConnection, task: DelayedTask): void {
+    Reflect.set(connection, SignalRChannel.$$RECONNECT_TASK, task);
+  }
+
+  /**
+   * @stable [07.11.2020]
+   * @param connection
+   * @private
+   */
+  private setStopConnection(connection: signalR.HubConnection): void {
+    Reflect.set(connection, SignalRChannel.$$RECONNECT_TASK, true);
+  }
+
+  /**
+   * @stable [07.11.2020]
+   * @param connection
+   * @private
+   */
+  private isConnectionStopped(connection: signalR.HubConnection): boolean {
+    return !!Reflect.get(connection, SignalRChannel.$$CONNECTION_STOPPED);
   }
 }

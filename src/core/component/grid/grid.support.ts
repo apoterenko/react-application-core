@@ -203,10 +203,7 @@ export const filterAndSortGridOriginalDataSource = (source: IEntity[],
 };
 
 /**
- * @stable [29.12.2019]
- * @param {MultiFieldValueT<TEntity extends IEntity>} entity
- * @param {(item: TEntity) => EntityIdT} groupValueAccessor
- * @returns {Record<EntityIdT, boolean>}
+ * @deprecated MultiFieldUtils.multiFieldValueEntitiesAsTrueValuesObject
  */
 export const asExpandedGridGroups =
   <TEntity extends IEntity>(entity: MultiFieldValueT<TEntity>,
