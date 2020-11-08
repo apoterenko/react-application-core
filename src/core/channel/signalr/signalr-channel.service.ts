@@ -48,6 +48,11 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
    * @param config
    */
   public async connect(ip: string, config?: ISignalRChannelConfigEntity): Promise<void> {
+    if (this.hasClient(ip)) {
+      SignalRChannel.logger.info(`[$SignalRChannel][connect] The client is already registered. Ip: ${ip}`);
+      return;
+    }
+
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(ip)
       .withAutomaticReconnect(SignalRChannel.RETRY_DELAYS)

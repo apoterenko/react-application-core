@@ -137,6 +137,14 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
   }
 
   /**
+   * @stable [08.11.2020]
+   * @param ip
+   */
+  public hasClient(ip): boolean {
+    return this.clients.has(ip);
+  }
+
+  /**
    * @stable [06.11.2020]
    * @param ip
    * @param client
