@@ -193,7 +193,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
    * @private
    */
   private setStopConnection(connection: signalR.HubConnection): void {
-    Reflect.set(connection, SignalRChannel.$$RECONNECT_TASK, true);
+    Reflect.set(connection, SignalRChannel.$$CONNECTION_STOPPED, true);
   }
 
   /**
