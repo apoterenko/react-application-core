@@ -105,7 +105,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @param $event
    * @param args
    */
-  public emitEvent(ip: string, $event: string, ...args: TMessage[]): void {
+  public async emitEvent(ip: string, $event: string, ...args: TMessage[]): Promise<void> {
     const client = this.clients.get(ip);
     if (!client) {
       throw new Error(`The client ${ip} doesn't exist!`);
@@ -115,7 +115,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
       }. Ip: ${ip}, event: ${$event}`
     );
 
-    client.emit($event, ...args);
+    await client.emit($event, ...args);
   }
 
   /**
@@ -123,8 +123,8 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @param ip
    * @param args
    */
-  public emitChannelEvent(ip: string, ...args: TMessage[]): void {
-    this.emitEvent(ip, this.eventToEmit, ...args);
+  public async emitChannelEvent(ip: string, ...args: TMessage[]): Promise<void> {
+    await this.emitEvent(ip, this.eventToEmit, ...args);
   }
 
   /**
@@ -132,8 +132,8 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @param ip
    * @param requestPayload
    */
-  public emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void {
-    this.emitChannelEvent(ip, JSON.stringify(requestPayload) as AnyT);
+  public async emitRequestPayload(ip: string, requestPayload: PayloadWrapper): Promise<void> {
+    await this.emitChannelEvent(ip, JSON.stringify(requestPayload) as AnyT);
   }
 
   /**

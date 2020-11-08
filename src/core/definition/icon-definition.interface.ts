@@ -14,6 +14,7 @@ export enum IconsEnum {
   BARCODE = 'barcode',                                                    /* https://fontawesome.com/ */
   BARS = 'bars',                                                          /* https://fontawesome.com/ */
   CALENDAR_ALT_REGULAR = 'calendar-alt-regular',                          /* https://fontawesome.com/ */
+  CAMERA = 'camera',                                                      /* https://fontawesome.com/ */
   CHART_LINE = 'chart-line',                                              /* https://fontawesome.com/ */
   CHECK = 'check',                                                        /* https://fontawesome.com/ */
   CHECK_CIRCLE = 'check-circle',                                          /* https://fontawesome.com/ */

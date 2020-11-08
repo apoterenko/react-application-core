@@ -72,7 +72,7 @@ export interface IReduxChannelHolderEntity<TEntity = IReduxChannelsEntity>
  */
 export interface IChannelClient {
   close(): Promise<void>;
-  emit(event: string, ...args: unknown[]): void;
+  emit(event: string, ...args: unknown[]): Promise<void>;
   on(event: string, callback: (...args: AnyT[]) => void): Promise<void>;
 }
 
@@ -83,9 +83,9 @@ export interface IChannelClient {
 export interface IChannel<TConfig = {}, TMessage = unknown> {
   connect(ip: string, config?: TConfig): Promise<void>;
   disconnect(ip): Promise<void>;
-  emitChannelEvent(ip: string, ...args: TMessage[]): void;
-  emitEvent(ip: string, event: string, ...args: TMessage[]): void;
-  emitRequestPayload(ip: string, requestPayload: PayloadWrapper): void;
+  emitChannelEvent(ip: string, ...args: TMessage[]): Promise<void>;
+  emitEvent(ip: string, event: string, ...args: TMessage[]): Promise<void>;
+  emitRequestPayload(ip: string, requestPayload: PayloadWrapper): Promise<void>;
   onConnect(ip: string, client: IChannelClient): void;
   onDisconnect(ip: string, client: IChannelClient): void;
   onMessage(ip: string, messageName?: string, payload?: string): void;

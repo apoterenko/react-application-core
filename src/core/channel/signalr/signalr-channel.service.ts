@@ -47,7 +47,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
    * @param ip
    * @param config
    */
-  public connect(ip: string, config?: ISignalRChannelConfigEntity): void {
+  public async connect(ip: string, config?: ISignalRChannelConfigEntity): Promise<void> {
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(ip)
       .withAutomaticReconnect(SignalRChannel.RETRY_DELAYS)
@@ -55,7 +55,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
 
     let disconnectCallback;
 
-    this.registerClient(ip, {
+    await this.registerClient(ip, {
       on: async (event: string, callback: (...args: unknown[]) => void): Promise<void> => {
         switch (event) {
           case this.eventToListen:
