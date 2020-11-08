@@ -260,6 +260,7 @@ export type MultiFieldValueOrEntitiesIdsT<TEntity extends IEntity = IEntity> = M
 export enum FieldActionTypesEnum {
   ATTACH_FILE = 'paperclip',                                           /* https://fontawesome.com/ */
   CALENDAR = 'calendar-alt-regular',                                   /* https://fontawesome.com/ */
+  CAMERA = 'camera',                                                   /* https://fontawesome.com/ */
   CLOSE = 'times',                                                     /* https://fontawesome.com/ */
   DOWNLOAD = 'file-download',                                          /* https://fontawesome.com/ */
   DROP_DOWN = 'chevron-down',                                          /* https://fontawesome.com/ */

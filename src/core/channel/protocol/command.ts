@@ -1,9 +1,8 @@
-import { AnyT, IKeyValue } from '../../definitions.interface';
-import { uuid } from '../../util';
+import { UuidUtils } from '../../util';
 import { CommandParam } from './command.param';
 
 /**
- * @stable [21.05.2018]
+ * @stable [08.11.20]
  */
 export class Command {
   public static readonly $PROTOCOL_PAYLOAD_CLASS_IDENTIFIER = 'Command';
@@ -17,16 +16,15 @@ export class Command {
   }
 
   private command: string;
-  private params: IKeyValue = {};
-  private uuid = uuid();
+  private params = {};
+  private uuid = UuidUtils.uuid();
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} uuid0
-   * @returns {Command}
+   * @stable [08.11.2020]
+   * @param $uuid
    */
-  public setUuid(uuid0: string): Command {
-    this.uuid = uuid0;
+  public setUuid($uuid: string): Command {
+    this.uuid = $uuid;
     return this;
   }
 
@@ -46,7 +44,7 @@ export class Command {
    * @param {AnyT} paramValue
    * @returns {Command}
    */
-  public addParam(paramName: string, paramValue: AnyT): Command {
+  public addParam(paramName: string, paramValue: unknown): Command {
     this.params[paramName] = new CommandParam(paramName, paramValue);
     return this;
   }

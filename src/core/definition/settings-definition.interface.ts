@@ -293,6 +293,7 @@ export const DEFAULT_URLS_SETTINGS_ENTITY = Object.freeze<IUrlsSettingsEntity>({
  * @stable [07.10.2019]
  */
 export interface IMessagesSettingsEntity {
+  ACCEPT?: string;
   ADDRESS_SELECTION?: string;
   AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE?: string;
   APPLICATION_IS_INITIALIZING?: string;
@@ -346,6 +347,7 @@ export interface IMessagesSettingsEntity {
   SETTINGS?: string;
   SHORT_PAGES_INFO?: string;
   SOMETHING_WENT_WRONG?: string;
+  TAKE_SNAPSHOT?: string;
   THIS_MONTH?: string;
   THIS_QUARTER?: string;
   THIS_WEEK?: string;
@@ -362,6 +364,7 @@ export interface IMessagesSettingsEntity {
  * @stable [07.10.2019]
  */
 export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsEntity>({
+  ACCEPT: 'Accept',
   ADDRESS_SELECTION: 'Address selection',
   AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE: 'An error occurred during loading the file',
   APPLICATION_IS_INITIALIZING: 'The app is initializing...',
@@ -415,6 +418,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   SETTINGS: 'Settings',
   SHORT_PAGES_INFO: 'Page {page} of {count}',
   SOMETHING_WENT_WRONG: 'Something went wrong',
+  TAKE_SNAPSHOT: 'Take a snapshot',
   THIS_MONTH: 'This month',
   THIS_QUARTER: 'This quarter',
   THIS_WEEK: 'This week',

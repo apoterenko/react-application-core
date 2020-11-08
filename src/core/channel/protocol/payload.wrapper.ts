@@ -60,13 +60,12 @@ export class PayloadWrapper {
   }
 
   /**
-   * @stable [23.05.2018]
-   * @returns {CommandResult}
+   * @stable [08.11.2020]
    */
-  public getCommandResult(): CommandResult {
-    return ConditionUtils.orNull<CommandResult>(
+  public getCommandResult<TData = {}>(): CommandResult<TData> {
+    return ConditionUtils.orNull(
       this.payload instanceof CommandResult,
-      this.payload as CommandResult
+      this.payload as CommandResult<TData>
     );
   }
 

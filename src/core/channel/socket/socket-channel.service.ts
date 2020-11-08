@@ -8,12 +8,12 @@ import { BaseChannel } from '../base-channel.service';
 export class SocketChannel extends BaseChannel {
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} ip
-   * @param {AnyT} config
+   * @stable [08.11.2020]
+   * @param ip
+   * @param config
    */
-  public connect(ip: string, config?: AnyT): void {
-    this.registerClient(ip, io(ip, {
+  public async connect(ip: string, config?: AnyT): Promise<void> {
+    await this.registerClient(ip, io(ip, {
       transports: ['websocket'],
       ...config,
     }));

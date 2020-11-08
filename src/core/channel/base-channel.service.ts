@@ -44,14 +44,14 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @param ip
    * @param config
    */
-  public abstract connect(ip: string, config?: TConfig): void;
+  public abstract connect(ip: string, config?: TConfig): Promise<void>;
 
   /**
    * @stable [04.11.2020]
    * @param ip
    */
-  public disconnect(ip): void {
-    this.unregisterClient(ip);
+  public async disconnect(ip): Promise<void> {
+    await this.unregisterClient(ip);
   }
 
   /**
@@ -142,12 +142,13 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @param client
    * @protected
    */
-  protected registerClient(ip: string, client: IChannelClient): void {
+  protected async registerClient(ip: string, client: IChannelClient): Promise<void> {
     this.clients.set(ip, client);
 
-    client.on(CHANNEL_CONNECT_EVENT, () => this.onConnect(ip, client));
-    client.on(CHANNEL_DISCONNECT_EVENT, () => this.onDisconnect(ip, client));
-    this.registerChannelEvent(ip, client);
+    await client.on(this.eventToListen, (message) => this.onMessage(ip, UNDEF, message));
+    /**/
+    await client.on(CHANNEL_CONNECT_EVENT, () => this.onConnect(ip, client));
+    await client.on(CHANNEL_DISCONNECT_EVENT, () => this.onDisconnect(ip, client));
   }
 
   /**
@@ -155,25 +156,15 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @param ip
    * @protected
    */
-  protected unregisterClient(ip: string): void {
+  protected async unregisterClient(ip: string): Promise<void> {
     const client = this.clients.get(ip);
     if (R.isNil(client)) {
       return;
     }
-    client.close();
+    await client.close();
     this.clients.delete(ip);
 
     BaseChannel.logger.debug(`[$BaseChannel][unregisterClient] A registration has been canceled. Ip: ${ip}`);
-  }
-
-  /**
-   * @stable [06.11.2020]
-   * @param ip
-   * @param client
-   * @protected
-   */
-  protected registerChannelEvent(ip: string, client: IChannelClient): void {
-    client.on(this.eventToListen, (message) => this.onMessage(ip, UNDEF, message));
   }
 
   /**

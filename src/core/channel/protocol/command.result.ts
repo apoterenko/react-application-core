@@ -1,48 +1,43 @@
-import { AnyT } from '../../definitions.interface';
-
 /**
- * @stable [23.05.2018]
+ * @stable [08.11.2020]
  */
-export class CommandResult {
+export class CommandResult<TData = {}> {
   public static readonly $PROTOCOL_PAYLOAD_CLASS_IDENTIFIER = 'CommandResult';
 
-  private command: string;
-  private uuid: string;
-  private data: AnyT;
+  private readonly command: string;
+  private readonly data: TData;
+  private readonly uuid: string;
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} command
-   * @param {string} uuid
-   * @param {AnyT} data
+   * @stable [08.11.2020]
+   * @param command
+   * @param uuid
+   * @param data
    */
-  constructor(command?: string, uuid?: string, data?: AnyT) {
+  constructor(command?: string, uuid?: string, data?: TData) {
     this.command = command;
     this.uuid = uuid;
     this.data = data;
   }
 
   /**
-   * @stable [21.05.2018]
-   * @returns {string}
+   * @stable [08.11.2020]
    */
   public getCommand(): string {
     return this.command;
   }
 
   /**
-   * @stable [21.05.2018]
-   * @returns {string}
+   * @stable [08.11.2020]
    */
   public getUuid(): string {
     return this.uuid;
   }
 
   /**
-   * @stable [21.05.2018]
-   * @returns {AnyT}
+   * @stable [08.11.2020]
    */
-  public getData(): AnyT {
+  public getData(): TData {
     return this.data;
   }
 }

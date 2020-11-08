@@ -64,7 +64,6 @@ export interface IMessagesSettings extends IMessagesSettingsEntity {
   requestCancelErrorMessage?: string;
   serviceTemporarilyUnavailableMessage?: string;
   sorryMessage?: string;
-  takeSnapshotMessage?: string;
   waitingMessage?: string;
   waitMessage?: string;
 }
@@ -137,7 +136,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     requestCancelErrorMessage: 'The request has been canceled by the user.',
     serviceTemporarilyUnavailableMessage: 'Service temporarily unavailable. Please try later.',
     sorryMessage: 'Sorry about that.',
-    takeSnapshotMessage: 'Take a snapshot',
     waitingMessage: 'Waiting...',
     waitMessage: 'Please wait...',
   },
