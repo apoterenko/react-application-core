@@ -84,7 +84,7 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
   /**
    * @stable [19.09.2020]
    */
-  protected get originalProps(): TProps {
+  public get originalProps(): TProps {
     return this.props;
   }
 

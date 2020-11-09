@@ -13,6 +13,7 @@ export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAcceptActionConfigurationWrapper<TValue> { acceptActionConfiguration?: TValue; }
 export interface IAcceptDisabledWrapper { acceptDisabled?: boolean; }
 export interface IAcceptTextWrapper { acceptText?: string; }
+export interface IAcceptWrapper<TValue = string> { accept?: TValue; }
 export interface IAccessConfigurationWrapper<TValue> { accessConfiguration?: TValue; }
 export interface IAccessDeniedWrapper<TValue> { accessDenied?: TValue; }
 export interface IActionConfigurationWrapper<TValue> { actionConfiguration?: TValue; }
@@ -55,7 +56,6 @@ export interface IAuthorizedWrapper { authorized?: boolean; }
 export interface IAuthWrapper<TValue = string> { auth?: TValue; }
 export interface IAutoCompleteWrapper<TValue = string> { autoComplete?: TValue; }
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
-export interface IAcceptWrapper<TValue = string> { accept?: TValue; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
 export interface IAutoUnsubscribingWrapper { autoUnsubscribing?: boolean; }
 export interface IBackActionConfigurationWrapper<TValue = boolean> { backActionConfiguration?: TValue; }
@@ -74,6 +74,7 @@ export interface ICalendarEntityConfigurationWrapper<TValue> { calendarEntityCon
 export interface ICalendarEntityWrapper<TValue> { calendarEntity?: TValue; }
 // @ts-ignore
 export interface ICallbackWrapper<TValue = (payload?: TPayload) => void, TPayload = unknown> { callback?: TValue; }
+export interface ICameraActionDisabledWrapper { cameraActionDisabled?: boolean; }
 export interface ICancelTokenWrapper<TValue = string> { cancelToken?: TValue; }
 export interface ICaptureWrapper<TValue = boolean> { capture?: TValue; }
 export interface ICaretBlinkingFrequencyWrapper { caretBlinkingFrequency?: number; }
@@ -563,6 +564,7 @@ export interface IUrlWrapper<TValue = string> { url?: TValue; }
 export interface IUseActionsWrapper { useActions?: boolean; }
 export interface IUseCameraWrapper { useCamera?: boolean; }
 export interface IUseCursorWrapper<TValue = boolean> { useCursor?: TValue; }
+export interface IUseDownloadWrapper { useDownload?: boolean; }
 export interface IUseFilterWrapper { useFilter?: boolean; }
 export interface IUseKeyboardWrapper { useKeyboard?: boolean; }
 export interface IUsePeriodNavigatorWrapper { usePeriodNavigator?: boolean; }
@@ -572,6 +574,7 @@ export interface IUseShortDigitFormatWrapper { useShortDigitFormat?: boolean; }
 export interface IUseShortFormatWrapper { useShortFormat?: boolean; }
 export interface IUseSyntheticCalendarWrapper { useSyntheticCalendar?: boolean; }
 export interface IUseUppercaseWrapper { useUppercase?: boolean; }
+export interface IUseVideoWrapper { useVideo?: boolean; }
 export interface IUseZipCodeWrapper { useZipCode?: boolean; }
 export interface IUuidWrapper { uuid?: string; }
 export interface IValidateAfterResetWrapper { validateAfterReset?: boolean; }
@@ -698,13 +701,6 @@ export interface ICustomErrorWrapper<TCustomError = boolean> {
  */
 export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
   relatedEntity?: TRelatedEntity;
-}
-
-/**
- * @stable [28.06.2018]
- */
-export interface IUseDownloadActionWrapper {
-  useDownloadAction?: boolean;
 }
 
 /**

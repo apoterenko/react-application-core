@@ -307,7 +307,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @stable [19.10.2020]
    * @protected
    */
-  protected async clearValue(): Promise<void> {
+  public async clearValue(): Promise<void> {
     if (this.isValuePresent) {
       await this.doClearValue();
     }

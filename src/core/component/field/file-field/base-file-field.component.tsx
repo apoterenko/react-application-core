@@ -1,6 +1,9 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { LoggerFactory, ILogger } from 'ts-smart-logger';
+import {
+  LoggerFactory,
+  ILogger,
+} from 'ts-smart-logger';
 
 import { BaseTextField } from '../text-field/base-text-field.component';
 import {
@@ -10,6 +13,7 @@ import {
   downloadFileAsBlob,
   FilterUtils,
   NvlUtils,
+  ObjectUtils,
   PropsUtils,
   UuidUtils,
 } from '../../../util';
@@ -43,9 +47,10 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
 
   protected static readonly logger = LoggerFactory.makeLogger('BaseFileField');
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
-  private readonly cameraRef = React.createRef<WebCamera>();
-  private readonly cameraDialogRef = React.createRef<Dialog>();
+  /**/
   private readonly dndRef = React.createRef<DnD>();
+  private readonly videoDialogRef = React.createRef<Dialog>();
+  private readonly videoRef = React.createRef<WebCamera>();
 
   /**
    * @stable [20.10.2020]
@@ -55,28 +60,35 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     super(originalProps);
 
     this.downloadFile = this.downloadFile.bind(this);
-    this.onCameraDialogAccept = this.onCameraDialogAccept.bind(this);
-    this.onCameraDialogDeactivate = this.onCameraDialogDeactivate.bind(this);
-    this.onCameraSnapshotSelect = this.onCameraSnapshotSelect.bind(this);
+    this.onAttachFileClick = this.onAttachFileClick.bind(this);
+    this.onCameraActionClick = this.onCameraActionClick.bind(this);
     this.onSelect = this.onSelect.bind(this);
-    this.openCameraDialog = this.openCameraDialog.bind(this);
-    this.openFileDialog = this.openFileDialog.bind(this);
+    this.onVideoDialogAccept = this.onVideoDialogAccept.bind(this);
+    this.onVideoDialogDeactivate = this.onVideoDialogDeactivate.bind(this);
+    this.onVideoSnapshotSelect = this.onVideoSnapshotSelect.bind(this);
+    this.openVideoDialog = this.openVideoDialog.bind(this);
 
     const {
       useCamera,
-      useDownloadAction,
+      useDownload,
+      useVideo,
     } = originalProps;
 
     const actions = FilterUtils.objectValuesArrayFilter<IFieldActionEntity>(
-      useCamera && ({
+      useVideo && ({
         type: FieldActionTypesEnum.VIDEO,
-        onClick: this.openCameraDialog,
+        onClick: this.openVideoDialog,
+      }),
+      useCamera && ({
+        type: FieldActionTypesEnum.CAMERA,
+        disabled: () => this.isCameraActionDisabled,
+        onClick: this.onCameraActionClick,
       }),
       ({
         type: FieldActionTypesEnum.ATTACH_FILE,
-        onClick: this.openFileDialog,
+        onClick: this.onAttachFileClick,
       }),
-      useDownloadAction && ({
+      useDownload && ({
         type: FieldActionTypesEnum.DOWNLOAD,
         disabled: () => this.isDownloadActionDisabled,
         onClick: this.downloadFile,
@@ -108,6 +120,16 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
+   * @stable [09.11.2020]
+   * @param url
+   */
+  public doAddItem(url: string): void {
+    if (ObjectUtils.isObjectNotEmpty(url)) {
+      this.multiFieldPlugin.onAddItem({id: url});
+    }
+  }
+
+  /**
    * @stable [20.10.2020]
    * @protected
    */
@@ -128,7 +150,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     super.onClick(event);
 
     if (!this.isNativeFileFieldUsed) {
-      this.openFileDialog(event);
+      this.onAttachFileClick();
     }
   }
 
@@ -145,13 +167,13 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [03.08.2018]
-   * @returns {JSX.Element}
+   * @stable [07.11.2020]
+   * @protected
    */
   protected get attachmentBodyElement(): JSX.Element {
     const {
-      useCamera,
-    } = this.mergedProps;
+      useVideo,
+    } = this.originalProps;
 
     const dndElement = ConditionUtils.orNull(
       !this.isNativeFileFieldUsed,
@@ -163,20 +185,24 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
       )
     );
 
-    const messages = this.settings.messages;
-    const cameraElement = ConditionUtils.orNull(
-      useCamera,
-      () => this.state.opened && (
+    const {
+      ACCEPT,
+      TAKE_SNAPSHOT,
+    } = this.settings.messages;
+
+    const videoElement = ConditionUtils.orNull(
+      useVideo && this.state.$$videoOpened,
+      () => (
         <Dialog
-          ref={this.cameraDialogRef}
-          title={messages.takeSnapshotMessage}
-          acceptText={messages.acceptMessage}
-          onDeactivate={this.onCameraDialogDeactivate}
-          onBeforeAccept={this.onCameraDialogAccept}
+          ref={this.videoDialogRef}
+          title={TAKE_SNAPSHOT}
+          acceptText={ACCEPT}
+          onDeactivate={this.onVideoDialogDeactivate}
+          onBeforeAccept={this.onVideoDialogAccept}
         >
           <WebCamera
-            ref={this.cameraRef}
-            onSelect={this.onCameraSnapshotSelect}/>
+            ref={this.videoRef}
+            onSelect={this.onVideoSnapshotSelect}/>
         </Dialog>
       )
     );
@@ -184,7 +210,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     return (
       <React.Fragment>
         {dndElement}
-        {cameraElement}
+        {videoElement}
       </React.Fragment>
     );
   }
@@ -246,15 +272,15 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   /**
    * @stable [11.05.2020]
    */
-  private onCameraDialogDeactivate(): void {
-    this.setState({opened: false});
+  private onVideoDialogDeactivate(): void {
+    this.setState({$$videoOpened: false});
   }
 
   /**
    * @stable [11.05.2020]
    */
-  private onCameraDialogAccept(): void {
-    this.camera.capture();
+  private onVideoDialogAccept(): void {
+    this.video.capture();
   }
 
   /**
@@ -286,7 +312,7 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     const url = UuidUtils.uuid();
     await this.databaseStorage.set(url, blob);
 
-    this.multiFieldPlugin.onAddItem({id: url});
+    this.doAddItem(url);
   }
 
   /**
@@ -294,25 +320,31 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @param blob
    * @private
    */
-  private async onCameraSnapshotSelect(blob: Blob): Promise<void> {
+  private async onVideoSnapshotSelect(blob: Blob): Promise<void> {
     await this.onSelect([blob]);
   }
 
   /**
    * @stable [19.10.2020]
-   * @param event
    * @private
    */
-  private openCameraDialog(event: IBaseEvent): void {
-    this.setState({opened: true}, () => this.cameraDialog.activate());
+  private openVideoDialog(): void {
+    this.setState({$$videoOpened: true}, () => this.videoDialog.activate());
+  }
+
+  /**
+   * @stable [07.11.2020]
+   * @private
+   */
+  private onCameraActionClick(): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onCamera, (onCamera) => onCamera());
   }
 
   /**
    * @stable [19.10.2020]
-   * @param event
    * @private
    */
-  private openFileDialog(event: IBaseEvent): void {
+  private onAttachFileClick(): void {
     if (this.isNativeFileFieldUsed) {
       this.input.click();
     } else {
@@ -346,11 +378,19 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [19.10.2020]
+   * @stable [09.11.2020]
    * @private
    */
   private get isDownloadActionDisabled(): boolean {
-    return this.isDisabled || this.isBusy || this.isValueNotPresent;
+    return this.isValueNotPresent;
+  }
+
+  /**
+   * @stable [19.10.2020]
+   * @private
+   */
+  private get isCameraActionDisabled(): boolean {
+    return this.originalProps.cameraActionDisabled;
   }
 
   /**
@@ -365,16 +405,16 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
    * @stable [20.10.2020]
    * @private
    */
-  private get camera(): WebCamera {
-    return this.cameraRef.current;
+  private get video(): WebCamera {
+    return this.videoRef.current;
   }
 
   /**
    * @stable [20.10.2020]
    * @private
    */
-  private get cameraDialog(): Dialog {
-    return this.cameraDialogRef.current;
+  private get videoDialog(): Dialog {
+    return this.videoDialogRef.current;
   }
 
   /**

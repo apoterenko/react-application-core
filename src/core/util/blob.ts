@@ -2,6 +2,14 @@ import { MimeTypesEnum } from '../definition';
 import { nvl } from './nvl';
 
 /**
+ * @stable [09.11.2020]
+ * @param base64
+ * @param options
+ */
+const fromBase64UrlToBlob = (base64: string, options?: RequestInit): Promise<Blob> =>
+  fromUrlToBlob(`data:image;base64,${base64}`, options);
+
+/**
  * @stable [02.11.2020]
  * @param url
  * @param options
@@ -73,5 +81,6 @@ export const detectBlobMimeType = async (blob: Blob): Promise<MimeTypesEnum | st
  * @stable [02.11.2020]
  */
 export class BlobUtils {
+  public static readonly fromBase64UrlToBlob = fromBase64UrlToBlob;
   public static readonly fromUrlToBlob = fromUrlToBlob;
 }

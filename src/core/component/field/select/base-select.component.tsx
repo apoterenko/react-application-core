@@ -123,7 +123,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   /**
    * @stable [30.01.2020]
    */
-  protected async clearValue(): Promise<void> {
+  public async clearValue(): Promise<void> {
     await super.clearValue();
 
     if (this.isPlainValueApplied) {

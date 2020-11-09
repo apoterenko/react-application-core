@@ -112,9 +112,9 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [28.10.2019]
-   * @param {} action
-   * @returns {boolean}
+   * @stable [09.11.2020]
+   * @param action
+   * @protected
    */
   protected isFieldActionDisabled(action: IFieldActionEntity): boolean {
     return CalcUtils.calc(action.disabled) || this.isInactive;
@@ -138,8 +138,8 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [18.04.2020]
-   * @returns {JSX.Element}
+   * @stable [09.11.2020]
+   * @protected
    */
   protected get actionsElement(): JSX.Element {
     return (
