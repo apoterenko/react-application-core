@@ -1038,7 +1038,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @stable [21.08.2020]
    */
   private get progressInfoElement(): JSX.Element {
-    return ConditionUtils.orNull(this.isBusy, () => <Info progress={true}/>);
+    return ConditionUtils.orNull(
+      this.isBusy,
+      () =>
+        <Info
+          text={false}
+          progress={true}/>
+    );
   }
 
   /**

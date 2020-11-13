@@ -5,6 +5,7 @@ import {
   IFullWrapper,
   IMessageWrapper,
   IProgressWrapper,
+  ITextWrapper,
 } from '../definitions.interface';
 
 /**
@@ -16,7 +17,8 @@ export interface IPresetsInfoEntity
     IErrorWrapper<boolean | string | Error | {}>,
     IFullWrapper,
     IMessageWrapper<boolean | string>,
-    IProgressWrapper<boolean | string> {
+    IProgressWrapper<boolean | string>,
+    ITextWrapper<boolean | string> {
 }
 
 /**

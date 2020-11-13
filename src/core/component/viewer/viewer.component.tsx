@@ -419,7 +419,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    */
   private get bodyElement(): React.ReactNode {
     const {
-      AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE,
+      AN_ERROR_OCCURRED_WHILE_LOADING_THE_FILE,
     } = this.settings.messages;
 
     const Component = this.viewerLocator.resolve(ViewersEnum.PICTURE);
@@ -428,7 +428,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
       ? (
         <Info
           progress={this.inProgress}
-          error={AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE}/>
+          error={AN_ERROR_OCCURRED_WHILE_LOADING_THE_FILE}/>
       )
       : (
         this.isActualSrcAbsent

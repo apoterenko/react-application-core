@@ -33,6 +33,7 @@ export class Info extends GenericComponent<IInfoComponentProps> {
   public render(): JSX.Element {
     const {
       full,
+      text,
     } = this.originalProps;
 
     const props = this.props;
@@ -102,7 +103,14 @@ export class Info extends GenericComponent<IInfoComponentProps> {
         {result.text && (
           <span className={InfoClassesEnum.INFO_TEXT}>
             {result.progress && this.uiFactory.makeIcon({type: IconsEnum.SPINNER, className: InfoClassesEnum.INFO_ICON})}
-            {result.text}
+            {text === false
+              ? null
+              : (
+                TypeUtils.isString(text)
+                  ? text
+                  : result.text
+              )
+            }
           </span>
         )}
         {props.children}

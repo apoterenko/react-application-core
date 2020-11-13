@@ -53,7 +53,7 @@ export const makeSucceedFormMiddleware = (cfg?: ISucceedFormMiddlewareConfigEnti
         : [
           NotificationActionBuilder.buildInfoAction(
             DiServices.translator()(
-              succeedText as string || DiServices.settings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED
+              succeedText as string || DiServices.settings().messages.DATA_HAS_BEEN_SAVED_SUCCESSFULLY
             )
           )
         ]
@@ -136,7 +136,7 @@ const makeSucceedEditedListMiddleware =
           : [
             NotificationActionBuilder.buildInfoAction(
               DiServices.translator()(
-                succeedText as string || DiServices.settings().messages.DATA_HAS_BEEN_SUCCESSFULLY_SAVED
+                succeedText as string || DiServices.settings().messages.DATA_HAS_BEEN_SAVED_SUCCESSFULLY
               )
             )
           ]

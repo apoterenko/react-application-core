@@ -295,7 +295,7 @@ export const DEFAULT_URLS_SETTINGS_ENTITY = Object.freeze<IUrlsSettingsEntity>({
 export interface IMessagesSettingsEntity {
   ACCEPT?: string;
   ADDRESS_SELECTION?: string;
-  AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE?: string;
+  AN_ERROR_OCCURRED_WHILE_LOADING_THE_FILE?: string;
   APPLICATION_IS_INITIALIZING?: string;
   APPLY?: string;
   BUILD?: string;
@@ -305,7 +305,7 @@ export interface IMessagesSettingsEntity {
   COMPARE_TO?: string;
   CREATE?: string;
   CUSTOM?: string;
-  DATA_HAS_BEEN_SUCCESSFULLY_SAVED?: string;
+  DATA_HAS_BEEN_SAVED_SUCCESSFULLY?: string;
   DATE?: string;
   DAY?: string;
   DETAILS_INFO?: string;
@@ -366,7 +366,7 @@ export interface IMessagesSettingsEntity {
 export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsEntity>({
   ACCEPT: 'Accept',
   ADDRESS_SELECTION: 'Address selection',
-  AN_ERROR_OCCURRED_DURING_LOADING_THE_FILE: 'An error occurred during loading the file',
+  AN_ERROR_OCCURRED_WHILE_LOADING_THE_FILE: 'An error occurred while loading the file',
   APPLICATION_IS_INITIALIZING: 'The app is initializing...',
   APPLY: 'Apply',
   BUILD: 'Build',
@@ -376,7 +376,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   COMPARE_TO: 'Compare to',
   CREATE: 'Create',
   CUSTOM: 'Custom',
-  DATA_HAS_BEEN_SUCCESSFULLY_SAVED: 'The data has been successfully saved',
+  DATA_HAS_BEEN_SAVED_SUCCESSFULLY: 'The data has been saved successfully',
   DATE: 'Date',
   DAY: 'Day',
   DETAILS_INFO: 'Details info',
