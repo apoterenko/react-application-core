@@ -15,10 +15,11 @@ export class BaseEffects<TApi = {}> {
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;
 
   /**
-   * @stable [19.12.2018]
-   * @param {IOperationEntity} operation
+   * @stable [18.11.2020]
+   * @param operations
+   * @protected
    */
-  protected cancelApiRequest(operation: IOperationEntity): void {
-    this.transport.cancelRequest({operation});
+  protected cancelApiRequest(...operations: IOperationEntity[]): void {
+    operations.forEach((operation) => this.transport.cancelRequest({operation}));
   }
 }

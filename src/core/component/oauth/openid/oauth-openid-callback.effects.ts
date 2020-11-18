@@ -28,7 +28,7 @@ import {
   ConnectorActionBuilder,
   userActionBuilder,
 } from '../../../action';
-import { decodeJwt } from '../../../util/jwt';
+import { JwtUtils } from '../../../util/jwt';
 import {
   ICodeWrapper,
   IKeyValue,
@@ -91,7 +91,7 @@ export class OAuthOpenIdCallbackEffects {
 
     return [
       userActionBuilder.buildReplaceAction(
-        this.fieldConverter.fromOAuthJwtDecodedInfoToUserEntity(decodeJwt(token))
+        this.fieldConverter.fromOAuthJwtDecodedInfoToUserEntity(JwtUtils.decodeJwt(token))
       ),
       ApplicationActionBuilder.buildAfterLoginAction({token})
     ];

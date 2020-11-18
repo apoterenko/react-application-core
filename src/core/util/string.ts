@@ -22,7 +22,7 @@ const asCamelcase = (value: string | string[], options?: camelcase.Options): str
  * @param value
  * @param returnUndef
  */
-const asStringParameter = (value: AnyT, returnUndef = false): AnyT =>
+const asStringParameter = (value: AnyT, returnUndef = false): string =>
   ConditionUtils.ifNotNilThanValue(
     value,
     () => {
@@ -31,7 +31,7 @@ const asStringParameter = (value: AnyT, returnUndef = false): AnyT =>
         resultValue = (value as string).trim();
       }
       return ObjectUtils.isObjectNotEmpty(resultValue)
-        ? resultValue
+        ? String(resultValue)
         : (returnUndef ? UNDEF : null);
     },
     UNDEF_SYMBOL

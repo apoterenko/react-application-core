@@ -1,10 +1,14 @@
 import * as jwtDecode from 'jwt-decode';
 
-import { AnyT } from '../definitions.interface';
+/**
+ * @stable [18.11.2020]
+ * @param token
+ */
+const decodeJwt = <TResult = {}>(token: string): TResult => jwtDecode(token);
 
 /**
- * @stable [13.03.2020]
- * @param {string} token
- * @returns {TResult}
+ * @stable [18.11.2020]
  */
-export const decodeJwt = <TResult = AnyT>(token: string): TResult => jwtDecode(token);
+export class JwtUtils {
+  public static readonly decodeJwt = decodeJwt;
+}

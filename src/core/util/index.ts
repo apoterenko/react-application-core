@@ -21,6 +21,7 @@ export * from './fn';
 export * from './form';
 export * from './join';
 export * from './json';
+export * from './jwt';
 export * from './mapper';
 export * from './merge-strategy';
 export * from './multi-field';

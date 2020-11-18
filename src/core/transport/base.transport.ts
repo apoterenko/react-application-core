@@ -115,22 +115,29 @@ export class BaseTransport {
    */
   protected fromMultiFieldValueToDefinedEntities =
     <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
-      this.fieldConverter.fromMultiFieldValueToDefinedEntities(entity)
+      this.fieldConverter.fromMultiFieldValueToDefinedEntities(entity);
 
   /**
-   * @stable [01.09.2020]
+   * @stable [19.11.2020]
    * @param value
    */
-  protected fromSelectValueToId = (value: SelectValueT): EntityIdT =>
-    this.fieldConverter.fromSelectValueToId(value)
+  protected readonly fromSelectValueToId = (value: SelectValueT): EntityIdT =>
+    this.fieldConverter.fromSelectValueToId(value);
 
   /**
-   * @stable [04.08.2020]
+   * @stable [19.11.2020]
+   * @param value
+   */
+  protected readonly fromSelectValueToDisplayValue = (value: SelectValueT): StringNumberT =>
+    this.fieldConverter.fromSelectValueToDisplayValue(value);
+
+  /**
+   * @stable [19.11.2020]
    * @param value
    * @param converter
    */
-  protected numberParameter = (value: StringNumberT, converter?: (value: number) => number): number =>
-    this.nc.numberParameter(value, converter)
+  protected readonly numberParameter = (value: StringNumberT, converter?: (value: number) => number): number =>
+    this.nc.numberParameter(value, converter);
 
   /**
    * @stable [19.09.2020]
@@ -139,10 +146,11 @@ export class BaseTransport {
   protected phoneParameter = (value: StringNumberT): string => this.pc.phoneParameter({value})
 
   /**
-   * @stable [14.08.2020]
+   * @stable [15.11.2020]
    * @param value
+   * @param returnUndef
    */
-  protected stringParameter = (value: AnyT): AnyT => StringUtils.asStringParameter(value);
+  protected stringParameter = (value: AnyT, returnUndef = false): string => StringUtils.asStringParameter(value, returnUndef);
 
   /**
    * @stable [14.08.2020]
