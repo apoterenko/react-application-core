@@ -94,12 +94,30 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [23.11.2019]
-   * @param {IDomFireEventConfigEntity} cfg
+   * @stable [22.11.2020]
+   * @param cfg
    */
   public fireEvent(cfg: IDomFireEventConfigEntity): void {
-    const {eventName, element = this.window} = cfg;
-    element.dispatchEvent(new Event(eventName));
+    const {
+      eventName,
+    } = cfg;
+
+    this.dispatchEvent({
+      ...cfg,
+      event: new Event(eventName),
+    });
+  }
+
+  /**
+   * @stable [22.11.2020]
+   * @param cfg
+   */
+  public dispatchEvent(cfg: IDomFireEventConfigEntity): void {
+    const {
+      event,
+      element = this.window,
+    } = cfg;
+    element.dispatchEvent(event);
   }
 
   /**

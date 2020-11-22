@@ -103,9 +103,10 @@ export const DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY = Object.freeze<IDomPositi
  * @config-entity
  * @stable [23.11.2019]
  */
-export interface IDomFireEventConfigEntity
-  extends IEventNameWrapper,
-    IElementWrapper<Element | EventTarget> {
+export interface IDomFireEventConfigEntity<TEvent extends Event = Event>
+  extends IElementWrapper<Element | EventTarget>,
+    IEventNameWrapper,
+    IEventWrapper<TEvent> {
 }
 
 /**
@@ -136,6 +137,7 @@ export interface IDomAccessor {
   createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parentEl?: Element): TElement;
   createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement>;
   disableFullScreen(element?: Element);
+  dispatchEvent(cfg: IDomFireEventConfigEntity): void;
   enableFullScreen(element?: Element);
   findElement(selector: string, parent?: Element): Element;
   fireEvent(cfg: IDomFireEventConfigEntity): void;

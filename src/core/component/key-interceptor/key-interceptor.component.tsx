@@ -4,12 +4,9 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { GenericComponent } from '../base/generic.component';
 import {
   DelayedTask,
-  isFn,
+  TypeUtils,
 } from '../../util';
-import {
-  EventsEnum,
-  FieldConstants,
-} from '../../definition';
+import { EventsEnum } from '../../definition';
 import { IKeyInterceptorProps } from './key-interceptor.interface';
 
 export class KeyInterceptor extends GenericComponent<IKeyInterceptorProps> {
@@ -20,9 +17,11 @@ export class KeyInterceptor extends GenericComponent<IKeyInterceptorProps> {
   };
   private static readonly logger = LoggerFactory.makeLogger('KeyInterceptor');
 
-  private static IOS12_SAFARI_CAPTURE_EVENT = EventsEnum.KEY_DOWN;
-  private static DEFAULT_CAPTURE_EVENT = EventsEnum.KEY_PRESS;
-  private static ENTER_KEY_CODES = [10, 13];
+  private static ENTER_KEY_CODE = 13;
+  private static ENTER_KEY_CODES = [
+    10,
+    KeyInterceptor.ENTER_KEY_CODE
+  ];
   private static SPECIAL_KEY_CODES = [
     8,  // backspace
     9,  // tab
@@ -31,28 +30,35 @@ export class KeyInterceptor extends GenericComponent<IKeyInterceptorProps> {
     18  // alt
   ];
 
-  private delayedTask: DelayedTask;
+  private readonly delayedTask: DelayedTask;
   private unSubscriber: () => void;
-  private buffer = FieldConstants.DISPLAY_EMPTY_VALUE;
+  private defaultUnSubscriber: () => void;
+  private buffer = '';
 
   /**
-   * @stable [05.05.2018]
-   * @param props
+   * @stable [21.11.2020]
+   * @param originalProps
    */
-  constructor(props) {
-    super(props);
-    this.onEventCapture = this.onEventCapture.bind(this);
+  constructor(originalProps: IKeyInterceptorProps) {
+    super(originalProps);
 
-    this.delayedTask = new DelayedTask(this.onCheckBuffer.bind(this), props.delayTimeout);
+    this.onEventCapture = this.onEventCapture.bind(this);
+    this.onDefaultEventCapture = this.onDefaultEventCapture.bind(this);
+    this.delayedTask = new DelayedTask(this.onCheckBuffer.bind(this), originalProps.delayTimeout);
   }
 
   /**
    * @stable [18.05.2020]
    */
   public componentDidMount(): void {
+    this.defaultUnSubscriber = this.eventManager.subscribe(
+      this.environment.document,
+      EventsEnum.KEY_DOWN,
+      this.onDefaultEventCapture
+    );
     this.unSubscriber = this.eventManager.subscribe(
       this.environment.document,
-      this.captureEvent,
+      EventsEnum.KEY_PRESS,
       this.onEventCapture
     );
   }
@@ -63,38 +69,72 @@ export class KeyInterceptor extends GenericComponent<IKeyInterceptorProps> {
   public componentWillUnmount(): void {
     this.delayedTask.stop();
 
-    if (isFn(this.unSubscriber)) {
+    if (TypeUtils.isFn(this.defaultUnSubscriber)) {
+      this.defaultUnSubscriber();
+      this.defaultUnSubscriber = null;
+    }
+    if (TypeUtils.isFn(this.unSubscriber)) {
       this.unSubscriber();
       this.unSubscriber = null;
     }
   }
 
   /**
-   * @stable [08.10.2019]
-   * @returns {JSX.Element}
+   * @stable [21.11.2020]
    */
   public render(): JSX.Element {
     return null;
   }
 
   /**
-   * @stable [08.10.2019]
-   * @param {KeyboardEvent} e
+   * @stable [22.11.2020]
+   * @param e
+   * @private
+   */
+  private onDefaultEventCapture(e: KeyboardEvent): void {
+    if (this.domAccessor.isAlreadyFocused()) {
+      // Don't interfere with normal input typings
+      return;
+    }
+    // https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en
+    // Open a new tab, and jump to it	Ctrl + t
+    // Open the Downloads page in a new tab	Ctrl + j
+
+    if (e.ctrlKey && /[jmt]/i.test(e.key)) {
+      this.domAccessor.cancelEvent(e); // Disable keyboard shortcuts of Chrome, ...
+
+      // Simulate 13 key event
+      this.domAccessor.dispatchEvent({
+        event: new KeyboardEvent(EventsEnum.KEY_PRESS, {keyCode: KeyInterceptor.ENTER_KEY_CODE} as KeyboardEvent),
+        element: this.environment.document,
+      });
+    }
+  }
+
+  /**
+   * @stable [21.11.2020]
+   * @param e
+   * @private
    */
   private onEventCapture(e: KeyboardEvent): void {
     if (this.domAccessor.isAlreadyFocused()) {
       // Don't interfere with normal input typings
       return;
     }
+    this.domAccessor.cancelEvent(e);
+
     const keyCode = e.keyCode;
     if (KeyInterceptor.SPECIAL_KEY_CODES.includes(keyCode)) {
       return;
     }
 
-    const props = this.props;
+    const {
+      ignoreEnterKey,
+    } = this.originalProps;
     let char = e.key;
+
     if (KeyInterceptor.ENTER_KEY_CODES.includes(keyCode)) {
-      if (props.ignoreEnterKey) {
+      if (ignoreEnterKey) { // TODO Remove this props?
         KeyInterceptor.logger.debug('[$KeyInterceptor][onEventCapture] Ignore enter key code and exit.');
         return;
       }
@@ -105,40 +145,23 @@ export class KeyInterceptor extends GenericComponent<IKeyInterceptorProps> {
   }
 
   /**
-   * @stable [08.10.2019]
+   * @stable [21.11.2020]
+   * @private
    */
   private onCheckBuffer(): void {
-    const props = this.props;
-    if (this.buffer.length >= props.robotDetectionMinSymbolsCount) {
-      const onSelect = props.onSelect;
-      if (isFn(onSelect)) {
-        const normalizedValue = this.buffer.trim(); // Normalize a buffer in some specific case (production issue fix (!))
-        onSelect(normalizedValue);
+    const {
+      onSelect,
+      robotDetectionMinSymbolsCount,
+    } = this.originalProps;
+
+    if (this.buffer.length >= robotDetectionMinSymbolsCount) {
+      if (TypeUtils.isFn(onSelect)) {
+        const finalValue = this.buffer.trim();  // Normalize a buffer in some specific case
+
+        KeyInterceptor.logger.debug('[$KeyInterceptor][onCheckBuffer] Final value:', finalValue);
+        onSelect(finalValue);
       }
     }
-    this.buffer = FieldConstants.DISPLAY_EMPTY_VALUE;
-  }
-
-  /**
-   * @stable [11.09.2019]
-   * @returns {string}
-   */
-  private get captureEvent(): string {
-    // iOS Safari doesn't support space key at least
-    // keypress -> keydown
-    // https://developer.mozilla.org/en-US/docs/Web/API/Document/keypress_event
-    // Since this event has been deprecated, you should look to use beforeinput or keydown instead.
-    return this.isCaptureFilterDisabled
-      ? KeyInterceptor.IOS12_SAFARI_CAPTURE_EVENT
-      : KeyInterceptor.DEFAULT_CAPTURE_EVENT;
-  }
-
-  /**
-   * @stable [08.10.2019]
-   * @returns {boolean}
-   */
-  private get isCaptureFilterDisabled(): boolean {
-    const env = this.environment;
-    return env.safariOrSafariMobilePlatform && env.iosPlatform && !env.ios13Platform;
+    this.buffer = '';
   }
 }
