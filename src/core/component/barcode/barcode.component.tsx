@@ -5,7 +5,7 @@ import * as R from 'ramda';
 import { GenericComponent } from '../base/generic.component';
 import { defValuesFilter, UuidUtils, calc, nvl } from '../../util';
 import { getBarcodeApplicableFormats } from './barcode.support';
-import { IBarcodeProps, BarcodeFormatEnum, BARCODE_APPLICABLE_FORMATS } from './barcode.interface';
+import { IBarcodeProps, BarcodeFormatsEnum, BARCODE_APPLICABLE_FORMATS } from './barcode.interface';
 
 export class Barcode extends GenericComponent<IBarcodeProps> {
 
@@ -73,19 +73,19 @@ export class Barcode extends GenericComponent<IBarcodeProps> {
     this.validFormats.forEach((format) => {
       const barcodeInstance = JsBarcode(`#${this.toId(format)}`);
       switch (format) {
-        case BarcodeFormatEnum.CODE128:
+        case BarcodeFormatsEnum.CODE128:
           barcodeInstance.CODE128(barcode, options).render();
           break;
-        case BarcodeFormatEnum.CODE39:
+        case BarcodeFormatsEnum.CODE39:
           barcodeInstance.CODE39(barcode, options).render();
           break;
-        case BarcodeFormatEnum.EAN8:
+        case BarcodeFormatsEnum.EAN8:
           barcodeInstance.EAN8(barcode, options).render();
           break;
-        case BarcodeFormatEnum.EAN13:
+        case BarcodeFormatsEnum.EAN13:
           barcodeInstance.EAN13(barcode, options).render();
           break;
-        case BarcodeFormatEnum.UPC:
+        case BarcodeFormatsEnum.UPC:
           barcodeInstance.UPC(barcode, options).render();
           break;
       }
@@ -97,15 +97,15 @@ export class Barcode extends GenericComponent<IBarcodeProps> {
    * @param format
    * @private
    */
-  private toId(format: BarcodeFormatEnum): string {
+  private toId(format: BarcodeFormatsEnum): string {
     return `${this.uuid}-${format}`;
   }
 
   /**
    * @stable [10.04.2019]
-   * @returns {BarcodeFormatEnum[]}
+   * @returns {BarcodeFormatsEnum[]}
    */
-  private get validFormats(): BarcodeFormatEnum[] {
+  private get validFormats(): BarcodeFormatsEnum[] {
     const props = this.props;
     const barcodeFormats = getBarcodeApplicableFormats(props.barcode, props.format);
 

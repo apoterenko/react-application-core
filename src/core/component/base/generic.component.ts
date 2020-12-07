@@ -29,7 +29,6 @@ import {
   getEventEmitter,
   getEventManager,
   getNumberConverter,
-  getPhoneConverter,
   getPlaceApi,
   getSettings,
   getTranslator,
@@ -174,11 +173,11 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
   }
 
   /**
-   * @stable [30.03.2020]
-   * @returns {IPhoneConverter}
+   * @stable [30.11.2020]
+   * @protected
    */
   protected get pc(): IPhoneConverter {
-    return this.$pc = this.$pc || getPhoneConverter();
+    return this.$pc = this.$pc || DiServices.phoneConverter();
   }
 
   /**

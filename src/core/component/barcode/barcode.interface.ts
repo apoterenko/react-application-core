@@ -17,16 +17,16 @@ export interface IBarcodeProps
   extends IGenericComponentProps,
     IBarcodeWrapper,
     IHeightWrapper,
-    IFilterWrapper<(barcode: BarcodeFormatEnum, barcodes: BarcodeFormatEnum[]) => boolean>,
+    IFilterWrapper<(barcode: BarcodeFormatsEnum, barcodes: BarcodeFormatsEnum[]) => boolean>,
     IFontSizeWrapper,
     IFooterWrapper<React.ReactNode | (() => React.ReactNode)>,
-    IFormatWrapper<BarcodeFormatEnum[]> {
+    IFormatWrapper<BarcodeFormatsEnum[]> {
 }
 
 /**
  * @stable [10.04.2019]
  */
-export enum BarcodeFormatEnum {
+export enum BarcodeFormatsEnum {
   CODE128 = 'CODE128',
   CODE39 = 'CODE39',
   EAN13 = 'EAN13',
@@ -38,9 +38,9 @@ export enum BarcodeFormatEnum {
  * @stable [11.04.2019]
  */
 export const BARCODE_APPLICABLE_FORMATS = [
-  BarcodeFormatEnum.CODE128,
-  BarcodeFormatEnum.CODE39,
-  BarcodeFormatEnum.EAN13,
-  BarcodeFormatEnum.EAN8,
-  BarcodeFormatEnum.UPC
+  BarcodeFormatsEnum.CODE128,
+  BarcodeFormatsEnum.CODE39,
+  BarcodeFormatsEnum.EAN13,
+  BarcodeFormatsEnum.EAN8,
+  BarcodeFormatsEnum.UPC
 ];
