@@ -7,8 +7,6 @@ import {
   ConditionUtils,
   defValuesFilter,
   FilterUtils,
-  isCalendarActionRendered,
-  isPeriodNavigatorUsed,
   isRangeEnabled,
   joinClassName,
   nvl,
@@ -40,6 +38,8 @@ import {
   ICalendarEntity,
   ICalendarProps,
   IconsEnum,
+  IDateFieldProps,
+  IDateFieldState,
   IDatesRangeEntity,
   IDateTimeSettingsEntity,
   IFromToDayOfYearEntity,
@@ -47,10 +47,6 @@ import {
   QUARTERS_PERIODS,
   WEEKS_PERIODS,
 } from '../../../definition';
-import {
-  IDateFieldProps,
-  IDateFieldState,
-} from './date-field.interface';
 import { BaseTextField } from '../text-field/base-text-field.component';
 import { Button } from '../../button/button.component';
 import { Calendar } from '../../calendar/calendar.component';
@@ -59,52 +55,52 @@ import { Dialog } from '../../dialog/dialog.component';
 export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
 
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IDateFieldProps>({
+    calendarActionRendered: true,
     periodStep: 1,
     periodType: DatePeriodsEnum.MONTH,
     preventFocus: true,
   }, BaseTextField);
 
-  private static readonly INITIAL_PERIOD_DATE_VALUE = null;
-
-  private static readonly INITIAL_PERIOD_STATE: IDateFieldState = {
-    cursor: UNDEF,
-    fromDate: UNDEF,
-  };
-
-  private static readonly INITIAL_RANGE_TO_DATE_STATE: IDateFieldState = {
-    to: DateField.INITIAL_PERIOD_DATE_VALUE,
-    toDate: UNDEF,
-  };
-
-  private static readonly INITIAL_RANGE_PERIOD_STATE: IDateFieldState = {
-    ...DateField.INITIAL_PERIOD_STATE,
-    ...DateField.INITIAL_RANGE_TO_DATE_STATE,
-    from: DateField.INITIAL_PERIOD_DATE_VALUE,
-  };
-
-  private static readonly DEFAULT_RANGE_PERIOD_STATE: IDateFieldState = {
-    ...DateField.INITIAL_RANGE_PERIOD_STATE,
-    from: UNDEF,
-    to: UNDEF,
-  };
-
-  private readonly defaultRangeFieldProps: IDateFieldProps = {
+  private static readonly DEFAULT_RANGE_FIELD_PROPS = Object.freeze<IDateFieldProps>({
     calendarActionRendered: false,
     errorMessageRendered: false,
     full: false,
-    placeholder: this.fieldFormat,
     preventFocus: false,
-  };
+  });
+
+  private static readonly INITIAL_PERIOD_DATE_VALUE = null;
+
+  private static readonly INITIAL_PERIOD_STATE = Object.freeze<IDateFieldState>({
+    cursor: UNDEF,
+    fromDate: UNDEF,
+  });
+
+  private static readonly INITIAL_RANGE_TO_DATE_STATE = Object.freeze<IDateFieldState>({
+    to: DateField.INITIAL_PERIOD_DATE_VALUE,
+    toDate: UNDEF,
+  });
+
+  private static readonly INITIAL_RANGE_PERIOD_STATE = Object.freeze<IDateFieldState>({
+    ...DateField.INITIAL_PERIOD_STATE,
+    ...DateField.INITIAL_RANGE_TO_DATE_STATE,
+    from: DateField.INITIAL_PERIOD_DATE_VALUE,
+  });
+
+  private static readonly DEFAULT_RANGE_PERIOD_STATE = Object.freeze<IDateFieldState>({
+    ...DateField.INITIAL_RANGE_PERIOD_STATE,
+    from: UNDEF,
+    to: UNDEF,
+  });
 
   private readonly dialogRef = React.createRef<Dialog>();
   private readonly fromDateRef = React.createRef<DateField>();
 
   /**
-   * @stable [07.01.2020]
-   * @param {IDateFieldProps} props
+   * @stable [07.12.2020]
+   * @param originalProps
    */
-  constructor(props: IDateFieldProps) {
-    super(props);
+  constructor(originalProps: IDateFieldProps) {
+    super(originalProps);
 
     this.addPeriod = this.addPeriod.bind(this);
     this.isDaySelected = this.isDaySelected.bind(this);
@@ -130,7 +126,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
 
     this.defaultActions = [
       ...(
-        !this.isInline && isCalendarActionRendered(this.props)
+        !this.isInline && originalProps.calendarActionRendered
           ? [{type: FieldActionTypesEnum.CALENDAR, onClick: this.openDialog}]
           : []
       ),
@@ -139,11 +135,10 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
   }
 
   /**
-   * @stable [26.03.2020]
-   * @returns {JSX.Element}
+   * @stable [07.12.2020]
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const originalProps = this.originalProps;
     const baseElement = super.render();
 
     if (!this.isPeriodNavigatorUsed) {
@@ -152,11 +147,12 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
     const {
       backActionConfiguration = {},
       forwardActionConfiguration = {},
-    } = props;
+    } = originalProps;
 
     return (
       <div
-        className={DateFieldClassesEnum.DATE_FIELD_NAVIGATOR}>
+        className={DateFieldClassesEnum.DATE_FIELD_NAVIGATOR}
+      >
         <Button
           icon={IconsEnum.ARROW_LEFT}
           mini={true}
@@ -426,9 +422,9 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
     return (
       <React.Fragment>
         <DateField
-          {...this.defaultRangeFieldProps}
-          autoFocus={true}
           ref={this.fromDateRef}
+          {...this.rangeFieldProps}
+          autoFocus={true}
           value={this.fromDateFieldValue}
           onChange={this.onFromDateFieldChange}/>
         {
@@ -438,7 +434,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
             <React.Fragment>
               <span className={ComponentClassesEnum.CALENDAR_DIALOG_RANGE_INPUT_SEPARATOR}>&mdash;</span>
               <DateField
-                {...this.defaultRangeFieldProps}
+                {...this.rangeFieldProps}
                 value={this.toDateFieldValue}
                 onChange={this.onToDateFieldChange}/>
             </React.Fragment>
@@ -1383,7 +1379,7 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [07.12.2020]
    */
   private get isInline(): boolean {
     return this.originalProps.inline;
@@ -1398,11 +1394,11 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
   }
 
   /**
-   * @stable [25.03.2020]
-   * @returns {boolean}
+   * @stable [07.12.2020]
+   * @private
    */
   private get isPeriodNavigatorUsed(): boolean {
-    return isPeriodNavigatorUsed(this.props);
+    return this.originalProps.usePeriodNavigator;
   }
 
   /**
@@ -1422,8 +1418,22 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
   }
 
   /**
-   * @stable [06.03.2020]
-   * @returns {Dialog}
+   * @stable [07.12.2020]
+   * @private
+   */
+  private get rangeFieldProps(): IDateFieldProps {
+    return {
+      ...DateField.DEFAULT_RANGE_FIELD_PROPS,
+      format: this.fieldFormat,
+      mask: this.getFieldMask(),
+      pattern: this.getFieldPattern(),
+      placeholder: this.fieldFormat,
+    };
+  }
+
+  /**
+   * @stable [07.12.2020]
+   * @private
    */
   private get dialog(): Dialog {
     return this.dialogRef.current;

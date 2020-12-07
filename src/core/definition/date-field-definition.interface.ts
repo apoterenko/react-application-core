@@ -4,7 +4,6 @@ import {
   ICalendarActionRenderedWrapper,
   ICursorWrapper,
   IDialogOpenedWrapper,
-  IFormatWrapper,
   IForwardActionConfigurationWrapper,
   IFromDateWrapper,
   IFromToEntity,
@@ -29,22 +28,28 @@ import {
   ICalendarEntityConfigurationEntity,
 } from './calendar-definition.interface';
 import { IConfigurationDialogEntity } from './dialog-definition.interface';
+import {
+  IBaseTextFieldState,
+  IGenericBaseTextFieldEntity,
+} from './text-field-definition.interface';
+import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
 
 /**
  * @generic-entity
  * @stable [26.03.2020]
  */
 export interface IGenericDateFieldEntity
-  extends IAheadValueWrapper<DatesRangeValueT>,
+  extends IGenericBaseTextFieldEntity,
+    IAheadValueWrapper<DatesRangeValueT>,
     IBackActionConfigurationWrapper<IButtonProps>,
-    ICalendarActionRenderedWrapper,
+    ICalendarActionRenderedWrapper,                                                   /* @stable [07.12.2020] */
     ICalendarConfigurationEntity,
     ICalendarEntityConfigurationEntity,
     IDatePeriodModeEntity,
     IDatePeriodTypeEntity,
     IConfigurationDialogEntity,
     IForwardActionConfigurationWrapper<IButtonProps>,
-    IInlineWrapper,
+    IInlineWrapper,                                                                   /* @stable [07.12.2020] */
     IMaxDateWrapper<Date>,
     IMinDateWrapper<Date>,
     IPeriodStepWrapper,
@@ -64,6 +69,24 @@ export interface IGenericDateFieldState
     IFromDateWrapper<DateTimeLikeTypeT>,
     IFromToEntity<Date>,
     IToDateWrapper<DateTimeLikeTypeT> {
+}
+
+/**
+ * @props
+ * @stable [07.12.2020]
+ */
+export interface IDateFieldProps
+  extends IEnhancedGenericComponentProps,
+    IGenericDateFieldEntity {
+}
+
+/**
+ * @state
+ * @stable [07.12.2020]
+ */
+export interface IDateFieldState
+  extends IBaseTextFieldState,
+    IGenericDateFieldState {
 }
 
 /**
