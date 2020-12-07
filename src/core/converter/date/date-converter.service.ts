@@ -15,6 +15,7 @@ import {
   ConditionUtils,
   defValuesFilter,
   nvl,
+  NvlUtils,
   ObjectUtils,
   orNull,
   orUndef,
@@ -561,20 +562,14 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [25.12.2019]
-   * @tested
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string}
+   * @stable [07.12.2020]
+   * @param cfg
    */
   public fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsString({
       inputFormat: this.dateTimeFormat,
       ...cfg,
-      outputFormat: `${
-        nvl(cfg.outputFormat, this.uiDateFormat)} ${
-        nvl(cfg.outputTimeFormat, this.uiTimeFormat)
-        }`
-        .trim(),
+      outputFormat: this.concatUiDateTime(cfg.outputFormat, cfg.outputTimeFormat),
     });
   }
 
@@ -1271,6 +1266,19 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   private getCurrentMomentDate(): moment.Moment {
     return this.toMomentDate(this.currentDate);
+  }
+
+  /**
+   * @stable [07.12.2020]
+   * @param uiDateFormat
+   * @param uiTimeFormat
+   * @private
+   */
+  private concatUiDateTime(uiDateFormat: string, uiTimeFormat: string): string {
+    return `${
+      NvlUtils.nvl(uiDateFormat, this.uiDateFormat)} ${
+      NvlUtils.nvl(uiTimeFormat, this.uiTimeFormat)
+    }`.trim();
   }
 
   /**
