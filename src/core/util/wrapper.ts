@@ -23,7 +23,6 @@ import {
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
   ISelectedWrapper,
-  ISortableWrapper,
   ITouchedWrapper,
   IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
@@ -109,14 +108,6 @@ export const isRangeEnabled = (wrapper: IRangeEnabledWrapper): boolean =>
  */
 export const isEdited = (editedEntity: IEditedWrapper): boolean =>
   ifNotNilThanValue(editedEntity, () => editedEntity.edited === true, false);
-
-/**
- * @stable [26.10.2019]
- * @param {ISortableWrapper} wrapper
- * @returns {boolean}
- */
-export const isSortable = (wrapper: ISortableWrapper): boolean =>
-  ifNotNilThanValue(wrapper, () => wrapper.sortable === true, false);
 
 /**
  * @stable [03.02.2020]

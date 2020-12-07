@@ -5,6 +5,7 @@ import {
   buildEncodedURI,
   defValuesFilter,
   downloadFileAsBlobUrl,
+  FilterUtils,
   join,
   NumberUtils,
   orUndef,
@@ -132,6 +133,13 @@ export class BaseTransport {
     this.fieldConverter.fromSelectValueToDisplayValue(value);
 
   /**
+   * @stable [30.11.2020]
+   * @param value
+   */
+  protected readonly fromPhoneValueToDisplayValue = (value: StringNumberT): string =>
+    this.pc.phoneDisplayValue({value});
+
+  /**
    * @stable [19.11.2020]
    * @param value
    * @param converter
@@ -143,20 +151,27 @@ export class BaseTransport {
    * @stable [19.09.2020]
    * @param value
    */
-  protected phoneParameter = (value: StringNumberT): string => this.pc.phoneParameter({value})
+  protected readonly phoneParameter = (value: StringNumberT): string => this.pc.phoneParameter({value});
 
   /**
    * @stable [15.11.2020]
    * @param value
    * @param returnUndef
    */
-  protected stringParameter = (value: AnyT, returnUndef = false): string => StringUtils.asStringParameter(value, returnUndef);
+  protected readonly stringParameter = (value: AnyT, returnUndef = false): string => StringUtils.asStringParameter(value, returnUndef);
 
   /**
    * @stable [14.08.2020]
    * @param value
    */
-  protected queryParameter = (value: string): string => StringUtils.asStringParameter(value, true);
+  protected readonly queryParameter = (value: string): string => StringUtils.asStringParameter(value, true);
+
+  /**
+   * @stable [30.11.2020]
+   * @param result
+   */
+  protected readonly singleAddedFileIdParameter = (result: IMultiEntityStorageSetEntity): string =>
+    StorageUtils.asSingleAddedFileId(result);
 
   /**
    * @stable [01.09.2020]
@@ -165,22 +180,6 @@ export class BaseTransport {
    */
   protected roundByPrecision = (value: number, precision = DefaultEntities.CURRENCY_PRECISION_VALUE): number =>
     NumberUtils.roundByPrecision(value, precision);
-
-  /**
-   * @stable [04.09.2020]
-   * @param result
-   */
-  protected asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string =>
-    StorageUtils.asSingleAddedFileId(result);
-
-  /**
-   * @stable [25.07.2019]
-   * @param {string} value
-   * @returns {string}
-   */
-  protected preparePhoneValue(value: string): string {
-    return orUndef(!R.isNil(value), () => value.replace(/\D/g, ''));
-  }
 
   /**
    * @stable [30.09.2020]
@@ -197,6 +196,21 @@ export class BaseTransport {
   protected downloadFile(params: ITransportRequestEntity): void {
     const requestParams = this.transport.makeRequestData(params);
     downloadFileAsBlobUrl(join([this.settings.downloadUrl, buildEncodedURI(requestParams)]));
+  }
+
+  /**
+   * @stable [03.12.2020]
+   * @param savedFiles
+   * @protected
+   */
+  protected doClearUploadedFiles(savedFiles: IMultiEntityStorageSetEntity[]): Promise<void[]> {
+    let tasks = [];
+    const callbacks = FilterUtils.notNilValuesArrayFilter(...savedFiles)
+      .forEach((itm) => tasks = [
+        ...tasks,
+        ...itm.callback()
+      ]);
+    return Promise.all(tasks);
   }
 
   /**
