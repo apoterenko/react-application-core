@@ -250,7 +250,7 @@ const multiFieldValueAsEntities = <TEntity extends IEntity = IEntity>(entity: Mu
  * @stable [04.09.2020]
  * @param cfg
  */
-const multiFieldValueAsMergedTrueEntities =
+const multiFieldValueAsTrueEntitiesObject =
   <TEntity extends IEntity>(cfg: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> => {
     const {
       entity,
@@ -287,17 +287,6 @@ const multiFieldValueAsEntitiesIds = <TEntity extends IEntity = IEntity>(multiFi
   );
 
 /**
- * @stable [07.11.2020]
- * @param entity
- * @param keyAccessor
- */
-export const multiFieldValueEntitiesAsTrueValuesObject =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>,
-                                      keyAccessor: (item: TEntity) => EntityIdT = (item: TEntity) => item.id): Record<EntityIdT, boolean> =>
-    R.mergeAll((MultiFieldUtils.multiFieldValueAsEntities(entity) || [])
-      .map((key) => ({[keyAccessor(key)]: true})));
-
-/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
@@ -311,10 +300,9 @@ export class MultiFieldUtils {
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;
   public static readonly multiFieldValueAsEntitiesIds = multiFieldValueAsEntitiesIds;
   public static readonly multiFieldValueAsMappedEntities = multiFieldValueAsMappedEntities;
-  public static readonly multiFieldValueAsMergedTrueEntities = multiFieldValueAsMergedTrueEntities;
   public static readonly multiFieldValueAsMultiItemAddEntities = multiFieldValueAsMultiItemAddEntities;
   public static readonly multiFieldValueAsMultiItemEditEntities = multiFieldValueAsMultiItemEditEntities;
   public static readonly multiFieldValueAsMultiItemRemoveEntities = multiFieldValueAsMultiItemRemoveEntities;
-  public static readonly multiFieldValueEntitiesAsTrueValuesObject = multiFieldValueEntitiesAsTrueValuesObject;
+  public static readonly multiFieldValueAsTrueEntitiesObject = multiFieldValueAsTrueEntitiesObject;
   public static readonly notMultiFieldValueAsEntities = notMultiFieldValueAsEntities;
 }

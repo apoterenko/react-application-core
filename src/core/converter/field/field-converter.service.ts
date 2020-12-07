@@ -134,9 +134,9 @@ export class FieldConverter implements IFieldConverter {
       converter: this.$fromMultiFieldValueToDefinedEntities.bind(this),
     });
     this.register({
-      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY,
-      to: FieldConverterTypesEnum.MERGED_TRUE_ENTITIES,
-      converter: this.$fromMultiFieldValueMergeConfigEntityToMergedTrueEntities.bind(this),
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
+      to: FieldConverterTypesEnum.TRUE_ENTITIES_OBJECT,
+      converter: this.$fromMultiFieldValueToTrueEntitiesObject.bind(this),
     });
     this.register({
       from: FieldConverterTypesEnum.SELECT_VALUE,
@@ -314,11 +314,11 @@ export class FieldConverter implements IFieldConverter {
    * @stable [04.09.2020]
    * @param value
    */
-  public fromMultiFieldValueMergeConfigEntityToMergedTrueEntities<TEntity extends IEntity = IEntity>(
+  public fromMultiFieldValueToTrueEntitiesObject<TEntity extends IEntity = IEntity>(
     value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> {
     return this.convert({
-      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY,
-      to: FieldConverterTypesEnum.MERGED_TRUE_ENTITIES,
+      from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
+      to: FieldConverterTypesEnum.TRUE_ENTITIES_OBJECT,
       value,
     });
   }
@@ -487,9 +487,9 @@ export class FieldConverter implements IFieldConverter {
    * @param value
    * @private
    */
-  private $fromMultiFieldValueMergeConfigEntityToMergedTrueEntities<TEntity extends IEntity = IEntity>(
+  private $fromMultiFieldValueToTrueEntitiesObject<TEntity extends IEntity = IEntity>(
     value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> {
-    return MultiFieldUtils.multiFieldValueAsMergedTrueEntities(value);
+    return MultiFieldUtils.multiFieldValueAsTrueEntitiesObject(value);
   }
 
   /**

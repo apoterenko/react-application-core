@@ -31,9 +31,7 @@ export enum FieldConverterTypesEnum {
   ENTITIES = 'ENTITIES',
   GEO_CODER_RESULT = 'GEO_CODER_RESULT',
   ID = 'ID',
-  MERGED_TRUE_ENTITIES = 'MERGED_TRUE_ENTITIES',
   MULTI_FIELD_VALUE = 'MULTI_FIELD_VALUE',
-  MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY = 'MULTI_FIELD_VALUE_MERGE_CONFIG_ENTITY',
   NAMED_ENTITY = 'NAMED_ENTITY',
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
@@ -41,6 +39,7 @@ export enum FieldConverterTypesEnum {
   RAW_DATA_LABELED_VALUE_ENTITY = 'RAW_DATA_LABELED_VALUE_ENTITY',
   RAW_VALUE = 'RAW_VALUE',
   SELECT_VALUE = 'SELECT_VALUE',
+  TRUE_ENTITIES_OBJECT = 'TRUE_ENTITIES_OBJECT',
   USER_ENTITY = 'USER_ENTITY',
   ZIP_CODE_ENTITY = 'ZIP_CODE_ENTITY',
 }
@@ -63,10 +62,10 @@ export interface IFieldConverter {
   convert<TResult = unknown>(config: IFieldConverterConfigEntity): TResult;                                                                                                     /* @stable [01.09.2020] */
   converter(config: IFieldConverterConfigEntity): (value: unknown) => unknown;                                                                                                  /* @stable [01.09.2020] */
   fromCronExpressionToCronParameter(value: string): string;
-  fromMultiFieldValueMergeConfigEntityToMergedTrueEntities<TEntity extends IEntity = IEntity>(value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean>;   /* @stable [04.09.2020] */
   fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                                                        /* @stable [29.08.2020] */
   fromMultiFieldValueToEditEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[];                                                            /* @stable [03.09.2020] */
   fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                                                               /* @stable [29.08.2020] */
+  fromMultiFieldValueToTrueEntitiesObject<TEntity extends IEntity = IEntity>(value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean>;   /* @stable [04.09.2020] */
   fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                                                                           /* @stable [08.07.2020] */
   fromOAuthJwtDecodedInfoToUserEntity<TValue = unknown>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;

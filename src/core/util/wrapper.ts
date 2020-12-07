@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import {
   IAllowEmptyFilterValueWrapper,
   IAlwaysResettableWrapper,
-  ICalendarActionRenderedWrapper,
   IChangeableWrapper,
   IDecoratedWrapper,
   IDirtyWrapper,
@@ -24,7 +23,6 @@ import {
   IRefreshOnUpdateWrapper,
   ISelectedWrapper,
   ITouchedWrapper,
-  IUsePeriodNavigatorWrapper,
   IUsePreviewWrapper,
   IUseZipCodeWrapper,
   IValidWrapper,
@@ -134,14 +132,6 @@ const isExpandActionRendered  = (wrapper: IExpandActionRenderedWrapper): boolean
   R.isNil(wrapper) ? false : wrapper.expandActionRendered !== false;
 
 /**
- * @stable [03.02.2020]
- * @param {ICalendarActionRenderedWrapper} wrapper
- * @returns {boolean}
- */
-export const isCalendarActionRendered = (wrapper: ICalendarActionRenderedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.calendarActionRendered !== false;
-
-/**
  * @stable [23.03.2020]
  * @param {IAlwaysResettableWrapper} wrapper
  * @returns {boolean}
@@ -233,14 +223,6 @@ export const isOpened = (wrapper: IOpenedWrapper): boolean =>
  */
 export const isPreviewUsed = (wrapper: IUsePreviewWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.usePreview !== false;
-
-/**
- * @stable [25.03.2020]
- * @param {IUsePeriodNavigatorWrapper} wrapper
- * @returns {boolean}
- */
-export const isPeriodNavigatorUsed = (wrapper: IUsePeriodNavigatorWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.usePeriodNavigator === true;
 
 /**
  * @stable [09.09.2020]

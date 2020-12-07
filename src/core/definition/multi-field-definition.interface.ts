@@ -71,7 +71,7 @@ export interface IMultiFieldValueConcatConfigEntity<TEntity = IEntity> {
  */
 export interface IMultiFieldValueMergeConfigEntity<TEntity = IEntity> {
   entity: MultiFieldValueT<TEntity>
-  groupValueAccessor: (item: TEntity) => EntityIdT
+  groupValueAccessor?: (item: TEntity) => EntityIdT
 }
 
 /**
