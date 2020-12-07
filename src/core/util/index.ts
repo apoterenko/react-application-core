@@ -47,6 +47,7 @@ export * from './style';
 export * from './tab';
 export * from './task';
 export * from './time';
+export * from './tooltip';
 export * from './type';
 export * from './url';
 export * from './uuid';
