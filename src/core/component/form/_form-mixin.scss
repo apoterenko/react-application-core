@@ -25,6 +25,7 @@
   $rac-form-flex-shrink: unset,                                                 /* @stable [11.04.2020] */
   $rac-form-height: unset,                                                      /* @stable [27.05.2020] */
   $rac-form-margin: unset,                                                      /* @stable [27.05.2020] */
+  $rac-form-min-width: unset,                                                   /* @stable [08.12.2020] */
   $rac-form-padding: unset,                                                     /* @stable [27.05.2020] */
   $rac-form-position: unset                                                     /* @stable [27.05.2020] */
 ) {
@@ -37,6 +38,7 @@
       $rac-styles-flex-shrink: $rac-form-flex-shrink,
       $rac-styles-height: $rac-form-height,
       $rac-styles-margin: $rac-form-margin,
+      $rac-styles-min-width: $rac-form-min-width,
       $rac-styles-padding: $rac-form-padding,
       $rac-styles-position: $rac-form-position
     );
