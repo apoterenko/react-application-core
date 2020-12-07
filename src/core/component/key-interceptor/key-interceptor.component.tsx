@@ -99,8 +99,10 @@ export class KeyInterceptor extends GenericComponent<IKeyInterceptorProps> {
     // https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en
     // Open a new tab, and jump to it	Ctrl + t
     // Open the Downloads page in a new tab	Ctrl + j
+    // Jump to a specific tab	Ctrl + 1 through Ctrl + 8
+    // Jump to the rightmost tab	Ctrl + 9
 
-    if (e.ctrlKey && /[jmt]/i.test(e.key)) {
+    if (e.ctrlKey && /[jmt1-9]/i.test(e.key)) {
       this.domAccessor.cancelEvent(e); // Disable keyboard shortcuts of Chrome, ...
 
       // Simulate 13 key event
