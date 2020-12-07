@@ -1,5 +1,6 @@
 import {
   DEFAULT_CHANGEABLE_FIELD_ENTITY,
+  DEFAULT_EMAIL_FIELD_ENTITY,
   DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY,
   DEFAULT_PASSWORD_FIELD_ENTITY,
@@ -49,6 +50,7 @@ export class DefaultEntities {
   public static readonly CURRENCY_SETTINGS_ENTITY = DEFAULT_CURRENCY_SETTINGS_ENTITY;                   /* @stable [09.09.2020] */
   public static readonly DICTIONARY_PAGED_ENTITY = DEFAULT_DICTIONARY_PAGED_ENTITY;                     /* @stable [26.07.2020] */
   public static readonly DOM_RIGHT_POSITION_CONFIG_ENTITY = DEFAULT_DOM_RIGHT_POSITION_CONFIG_ENTITY;   /* @stable [21.05.2020] */
+  public static readonly EMAIL_FIELD_ENTITY = DEFAULT_EMAIL_FIELD_ENTITY;                               /* @stable [30.11.2020] */
   public static readonly ENVIRONMENT_ENTITY = DEFAULT_ENVIRONMENT_ENTITY;                               /* @stable [10.09.2020] */
   public static readonly FILTERED_MENU_ENTITY = DEFAULT_FILTERED_MENU_ENTITY;                           /* @stable [08.08.2020] */
   public static readonly FIRST_PAGE = FIRST_PAGE;                                                       /* @stable [16.07.2020] */
