@@ -22,8 +22,9 @@
   $rac-header-content-flex-grow: unset,                                                       /* @stable [10.02.2020] */
   $rac-header-display: unset,                                                                 /* @stable [06.02.2020] */
   $rac-header-flex-direction: unset,                                                          /* @stable [06.02.2020] */
-  $rac-header-flex: unset,                                                                    /* @stable [06.02.2020] */
   $rac-header-height: unset,                                                                  /* @stable [06.02.2020] */
+  $rac-header-help-height: unset,                                                             /* @stable [08.12.2020] */
+  $rac-header-help-width: unset,                                                              /* @stable [08.12.2020] */
   $rac-header-margin: unset,                                                                  /* @stable [06.02.2020] */
   $rac-header-menu-action-background: unset,                                                  /* @stable [06.02.2020] */
   $rac-header-menu-action-color: unset,                                                       /* @stable [12.02.2020] */
@@ -50,7 +51,6 @@
       $rac-styles-color: $rac-header-color,
       $rac-styles-display: $rac-header-display,
       $rac-styles-flex-direction: $rac-header-flex-direction,
-      $rac-styles-flex: $rac-header-flex,
       $rac-styles-height: $rac-header-height,
       $rac-styles-margin: $rac-header-margin,
       $rac-styles-padding: $rac-header-padding
@@ -80,6 +80,12 @@
       $rac-styles-font-size: $rac-header-user-info-font-size,
       $rac-styles-font-weight: $rac-header-user-info-font-weight,
       $rac-styles-margin: $rac-header-user-info-margin
+    );
+
+    @include rac-styles (
+      $rac-styles-custom: rac-header__help,
+      $rac-styles-height: $rac-header-help-height,
+      $rac-styles-width: $rac-header-help-width
     );
 
     @include rac-styles (
