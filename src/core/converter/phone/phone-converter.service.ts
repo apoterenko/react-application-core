@@ -13,6 +13,7 @@ import {
 import {
   IPhoneConfigEntity,
   IPhoneConverter,
+  IPhoneSettingsEntity,
 } from '../../definition';
 import { ISettingsEntity } from '../../settings';
 import {
@@ -30,38 +31,16 @@ export class PhoneConverter implements IPhoneConverter<PNF> {
   private readonly phoneUtilInstance = PNU.getInstance();
 
   /**
-   * @stable [19.09.2020]
-   * @param config
+   * @stable [30.11.2020]
+   * @param cfg
    */
-  public format(config: IPhoneConfigEntity<PNF>): string {
-    const {
-      value,
-      format,
-    } = config;
-    if (ObjectUtils.isObjectEmpty(value)) {
-      return '';
-    }
-
-    const phoneNumber = this.parse(config);
-    try {
-      return this.phoneUtilInstance.isValidNumber(phoneNumber)
-        ? this.phoneUtilInstance.format(phoneNumber, format)
-        : `${value}`;
-    } catch (e) {
-      return `${value}`;
-    }
-  }
-
-  /**
-   * @stable [19.09.2020]
-   * @param config
-   */
-  public parse(config: IPhoneConfigEntity<PNF>): PN {
+  public parse(cfg: IPhoneConfigEntity<PNF>): PN {
     const {
       countryAbbr,
       value,
-    } = config;
-    if (R.isNil(value)) {
+    } = cfg;
+
+    if (ObjectUtils.isObjectEmpty(value)) {
       return null;
     }
 
@@ -74,18 +53,71 @@ export class PhoneConverter implements IPhoneConverter<PNF> {
   }
 
   /**
-   * @stable [19.09.2020]
+   * @stable [30.11.2020]
+   * @param cfg
+   */
+  public format(cfg: IPhoneConfigEntity<PNF>): string {
+    const {
+      value,
+      format,
+    } = cfg;
+
+    const pnObject = this.parse(cfg);
+    if (R.isNil(pnObject)) {
+      return null;
+    }
+
+    try {
+      return this.phoneUtilInstance.isValidNumber(pnObject)
+        ? this.phoneUtilInstance.format(pnObject, format)
+        : `${value}`;
+    } catch (e) {
+      return `${value}`;
+    }
+  }
+
+  /**
+   * @stable [30.11.2020]
+   * @param cfg
+   */
+  public formatAsInternational(cfg: IPhoneConfigEntity<PNF>): string {
+    return this.format({
+      ...cfg,
+      format: PNF.INTERNATIONAL,
+    });
+  }
+
+  /**
+   * @stable [30.11.2020]
+   * @param cfg
+   */
+  public formatAsNational(cfg: IPhoneConfigEntity<PNF>): string {
+    return this.format({
+      ...cfg,
+      format: PNF.NATIONAL,
+    });
+  }
+
+  /**
+   * @stable [30.11.2020]
+   * @param cfg
+   */
+  public phoneParameter(cfg: IPhoneConfigEntity<PNF>): string {
+    return ConditionUtils.ifNotNilThanValue(
+      this.formatAsInternational(cfg),
+      (formattedValue) => formattedValue.replace(/\D/g, ''),
+      UNDEF_SYMBOL
+    );
+  }
+
+  /**
+   * @stable [30.11.2020]
    * @param config
    */
-  public phoneParameter(config: IPhoneConfigEntity<PNF>): string {
-    return ConditionUtils.ifNotEmptyThanValue(
-      config.value,
-      () => (
-        this.format({
-          format: PNF.INTERNATIONAL,
-          ...config,
-        }).replace(/\D/g, '')
-      ),
+  public phoneDisplayValue(config: IPhoneConfigEntity<PNF>): string {
+    return ConditionUtils.ifNotNilThanValue(
+      this.parse(config),
+      (cfg) => `${cfg.getNationalNumber()}`,
       UNDEF_SYMBOL
     );
   }
@@ -93,14 +125,29 @@ export class PhoneConverter implements IPhoneConverter<PNF> {
   /**
    * @stable [19.09.2020]
    */
-  public get countryCodeForRegion(): string {
+  public get countryCodeByRegion(): string {
     return this.phoneUtilInstance.getCountryCodeForRegion(this.region);
+  }
+
+  /**
+   * @stable [30.11.2020]
+   */
+  public get countryCodeByRegionDisplayValue(): string {
+    return this.phoneSettings.regionCodeTemplate
+      .replace('{value}', this.countryCodeByRegion);
   }
 
   /**
    * @stable [19.09.2020]
    */
   private get region(): string {
-    return this.settings.phone.countryAbbr;
+    return this.phoneSettings.countryAbbr;
+  }
+
+  /**
+   * @stable [19.09.2020]
+   */
+  private get phoneSettings(): IPhoneSettingsEntity {
+    return this.settings.phone;
   }
 }
