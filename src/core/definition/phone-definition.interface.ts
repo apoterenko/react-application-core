@@ -27,8 +27,12 @@ export interface IPhoneEntity {
  * @stable [24.12.2019]
  */
 export interface IPhoneConverter<TFormat = {}> {
-  countryCodeForRegion: string;
+  countryCodeByRegion: string;
+  countryCodeByRegionDisplayValue: string;
   format(config: IPhoneConfigEntity<TFormat>): string;
+  formatAsInternational(config: IPhoneConfigEntity<TFormat>): string;
+  formatAsNational(config: IPhoneConfigEntity<TFormat>): string;
   parse(config: IPhoneConfigEntity<TFormat>): IPhoneEntity;
+  phoneDisplayValue(config: IPhoneConfigEntity<TFormat>): string;
   phoneParameter(config: IPhoneConfigEntity<TFormat>): string;
 }

@@ -557,7 +557,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {string}
    */
   public dateAsUiDateString(cfg: IDateTimeConfigEntity<MomentT>): string {
-    return this.dateAsString({...cfg, outputFormat: this.uiDateFormat});
+    return this.dateAsString({outputFormat: this.uiDateFormat, ...cfg});
   }
 
   /**
@@ -959,11 +959,15 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {number}
    */
   public asPersonAge(cfg: IPersonAgeConfigEntity<MomentT>): number {
-    return this.processValidMomentDate({
+    const $cfg: IPersonAgeConfigEntity<MomentT> = {
       date: this.getCurrentDate(),
       inputFormat: this.uiDateFormat,
       ...cfg as IDateTimeConfigEntity<MomentT>,
-    }, (mDate) => mDate.diff(cfg.birthday, 'years'));
+    };
+    return this.processValidMomentDate(
+      $cfg,
+      (mDate) => mDate.diff(this.asMomentDate({date: cfg.birthday, inputFormat: $cfg.inputFormat}), 'years')
+    );
   }
 
   public isWeekend(day: number): boolean {
