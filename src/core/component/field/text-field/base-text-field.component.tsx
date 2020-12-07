@@ -6,7 +6,7 @@ import MaskedTextInput from 'react-text-mask';
 import {
   CalcUtils,
   ClsUtils,
-  nvl,
+  NvlUtils,
   ObjectUtils,
   PropsUtils,
 } from '../../../util';
@@ -50,13 +50,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [25.02.2019]
-   * @returns {JSX.Element}
+   * @stable [30.11.2020]
+   * @protected
    */
   protected getInputElement(): JSX.Element {
     return R.isNil(this.getFieldMask())
       ? super.getInputElement()
-      : this.getMaskedInputElement();
+      : this.maskedInputElement;
   }
 
   /**
@@ -121,17 +121,18 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [25.02.2019]
-   * @returns {JSX.Element}
+   * @stable [30.11.2020]
+   * @private
    */
-  private getMaskedInputElement(): JSX.Element {
+  private get maskedInputElement(): JSX.Element {
     const mask = this.getFieldMask();
-    const props = this.props;
+    const {
+      maskGuide,
+    } = this.originalProps;
 
     return (
       <MaskedTextInput
-        guide={nvl(props.maskGuide, BaseTextField.DEFAULT_MASK_GUIDE)}
-        placeholderChar={UniCodesEnum.SPACE}
+        guide={NvlUtils.nvl(maskGuide, BaseTextField.DEFAULT_MASK_GUIDE)}
         mask={mask}
         {...this.getInputElementProps()}/>
     );
