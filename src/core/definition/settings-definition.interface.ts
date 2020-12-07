@@ -176,6 +176,7 @@ export const DEFAULT_COMPONENTS_SETTINGS_ENTITY = Object.freeze<IComponentsSetti
  */
 export interface IRoutesSettingsEntity {
   accessDenied?: string;
+  help?: string;
   home?: string;
   logout?: string;
   oauthCallback?: string;
@@ -260,6 +261,7 @@ export const DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY = Object.freeze<IGoogleMapsSett
  */
 export interface IPhoneSettingsEntity {
   countryAbbr?: string;
+  regionCodeTemplate?: string,
   uiMask?: (string|RegExp)[];
 }
 
@@ -268,7 +270,8 @@ export interface IPhoneSettingsEntity {
  */
 export const DEFAULT_PHONE_SETTINGS_ENTITY = Object.freeze<IPhoneSettingsEntity>({
   countryAbbr: 'US',
-  uiMask: ['+', /\d/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+  regionCodeTemplate: '+{value}',
+  uiMask: [' ', '(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
 });
 
 /**

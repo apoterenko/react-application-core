@@ -2,6 +2,7 @@ import {
   ACTION_PREFIX,
   AnyT,
   IAddedFilesWrapper,
+  ICallbackWrapper,
   IFilePathWrapper,
   IIdWrapper,
   IRemovedFilesWrapper,
@@ -75,6 +76,7 @@ export interface IAddedFileEntity
  */
 export interface IMultiEntityStorageSetEntity
   extends IAddedFilesWrapper<IAddedFileEntity[]>,
+    ICallbackWrapper<() => Promise<void>[]>,
     IRemovedFilesWrapper<void[]> {
 }
 

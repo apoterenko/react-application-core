@@ -53,10 +53,9 @@ export const getNumberConverter = (): INumberConverter => staticInjector(DI_TYPE
 export const getDomAccessor = (): IDomAccessor => staticInjector(DI_TYPES.DomAccessor);
 
 /**
- * @stable [24.12.2019]
- * @returns {IPhoneConverter}
+ * @stable [30.11.2020]
  */
-export const getPhoneConverter = (): IPhoneConverter => staticInjector(DI_TYPES.PhoneConverter);
+const getPhoneConverter = (): IPhoneConverter => staticInjector(DI_TYPES.PhoneConverter);
 
 /**
  * @stable [16.11.2019]
@@ -280,6 +279,7 @@ export class DiServices {
   public static readonly fieldConverter = getFieldConverter;
   public static readonly modifyEntityFactory = getModifyEntityFactory;
   public static readonly numberConverter = getNumberConverter;
+  public static readonly phoneConverter = getPhoneConverter;
   public static readonly reactBootstrapper = getReactBootstrapper;
   public static readonly settings = getSettings;
   public static readonly store = getStore;

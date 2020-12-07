@@ -81,10 +81,10 @@ export enum TransportResponseTypesEnum {
  * @TransportRequest
  * @stable [15.09.2019]
  */
-export interface IBaseTransportRequestDataEntity
+export interface IBaseTransportRequestDataEntity<TParams = {}>
   extends INameWrapper,
     INoAuthWrapper,
-    IParamsWrapper {
+    IParamsWrapper<TParams> {
 }
 
 /**
@@ -105,9 +105,9 @@ export interface IBaseTransportRequestEntity
  * @TransportRequest
  * @stable [15.09.2019]
  */
-export interface ITransportRequestEntity
+export interface ITransportRequestEntity<TParams = {}>
   extends IBaseTransportRequestEntity,
-    IBaseTransportRequestDataEntity,
+    IBaseTransportRequestDataEntity<TParams>,
     IBlobDataWrapper,
     IFormDataWrapper,
     IPathWrapper,
@@ -120,7 +120,7 @@ export interface ITransportRequestEntity
     IResponseFactoryWrapper<ITransportResponseFactory>,
     ITransportFactoryWrapper<ITransportFactory>,
     IUrlFactoryWrapper<(request: ITransportRequestEntity) => string>,
-    IRequestDataFactoryWrapper<ITransportRequestDataFactory> {
+    IRequestDataFactoryWrapper<ITransportRequestDataFactory<TParams>> {
 }
 
 /**
@@ -155,8 +155,8 @@ export interface ITransportJsonRpcRequestDataEntity
  * @TransportRequest
  * @stable [15.09.2019]
  */
-export interface ITransportRequestDataFactory {
-  makeRequestData(req: ITransportRequestEntity): IKeyValue;
+export interface ITransportRequestDataFactory<TParams = {}> {
+  makeRequestData(req: ITransportRequestEntity<TParams>): IKeyValue;
 }
 
 /**
@@ -280,7 +280,7 @@ export interface ICancelableTransport {
 export interface ITransport
   extends ICancelableTransport,
     ITransportRequestDataFactory {
-  request<TResponse>(req: ITransportRequestEntity): Promise<TResponse>;
+  request<TResponse, TParams = {}>(req: ITransportRequestEntity<TParams>): Promise<TResponse>;
 }
 
 /**
