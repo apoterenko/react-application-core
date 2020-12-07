@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 
 import {
-  IReduxMultiEntity,
   IMultiEntityStorageSetEntity,
+  IReduxMultiEntity,
   IStorage,
 } from '../../definition';
 import {
@@ -13,14 +13,13 @@ import { MultiEntityStorage } from './multi-entity-storage.service';
 
 @injectable()
 export class MultiEntityDatabaseStorage implements IStorage {
-  @lazyInject(DI_TYPES.FileStorage) private readonly fileStorage: IStorage;
   @lazyInject(DI_TYPES.DatabaseStorage) private readonly databaseStorage: IStorage;
+  @lazyInject(DI_TYPES.FileStorage) private readonly fileStorage: IStorage;
 
   /**
-   * @stable [30.07.2019]
-   * @param {string} key
-   * @param {IReduxMultiEntity} entity
-   * @returns {Promise<IMultiEntityStorageSetEntity>}
+   * @stable [03.12.2020]
+   * @param key
+   * @param entity
    */
   public async set(key: string, entity: IReduxMultiEntity): Promise<IMultiEntityStorageSetEntity> {
     const ids = new Set<string>();
@@ -32,8 +31,9 @@ export class MultiEntityDatabaseStorage implements IStorage {
         return this.databaseStorage.get(id);
       }
     );
-    const result = await delegateStorage.set(key, entity);
-    ids.forEach((id) => this.databaseStorage.remove(id));
-    return result;
+    return {
+      ...await delegateStorage.set(key, entity),
+      callback: () => Array.from(ids).map((id) => this.databaseStorage.remove(id)),
+    };
   }
 }
