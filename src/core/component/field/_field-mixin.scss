@@ -128,6 +128,7 @@
   $rac-self-field-prefix-label-align-items: unset,                                  /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-color: unset,                                        /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-display: unset,                                      /* @stable [19.06.2020] */
+  $rac-self-field-prefix-label-font-size: unset,                                    /* @stable [30.11.2020] */
   $rac-self-field-prefix-label-height: unset,                                       /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-justify-content: unset,                              /* @stable [19.06.2020] */
   $rac-self-field-prefix-label-opacity: unset,                                      /* @stable [19.06.2020] */
@@ -184,6 +185,7 @@
           $rac-styles-align-items: $rac-self-field-prefix-label-align-items,
           $rac-styles-color: $rac-self-field-prefix-label-color,
           $rac-styles-display: $rac-self-field-prefix-label-display,
+          $rac-styles-font-size: $rac-self-field-prefix-label-font-size,
           $rac-styles-height: $rac-self-field-prefix-label-height,
           $rac-styles-justify-content: $rac-self-field-prefix-label-justify-content,
           $rac-styles-opacity: $rac-self-field-prefix-label-opacity,

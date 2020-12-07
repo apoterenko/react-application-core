@@ -1,55 +1,52 @@
 @import '../../_classes';
 @import '../../_primary-constant';
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [30.11.2020]
 $rac-primary-base-text-field-offset-0: $rac-primary-offset-1 !default;
 $rac-primary-base-text-field-offset-1: $rac-primary-field-offset-0 !default;
 $rac-primary-base-text-field-offset-2: $rac-primary-offset-4 !default;
+//
+$rac-primary-base-text-field-font-size-0: $rac-primary-font-size-0 !default;
 
-/************************/
-/* @stable [19.06.2020] */
-/************************/
-$rac-base-text-field-background: unset !default;                                                                         /* @stable [19.06.2020] */
-$rac-base-text-field-border-radius: unset !default;                                                                      /* @stable [19.06.2020] */
-$rac-base-text-field-overflow: unset !default;                                                                           /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-background: unset !default;                                                              /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-border-radius: $rac-primary-border-radius-1 !default;                                    /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-border: 1px solid $rac-primary-color-metis-1 !default;                                   /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-height: $rac-primary-field-size-0 !default;                                              /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-icon-color: $rac-primary-color-poseidon-3 !default;                                      /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-icon-height: 100% !default;                                                              /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-icon-padding: 0 $rac-primary-offset-1 0 0 !default;                                      /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-autofill-transition: background-color 10000s ease-in-out 0s; /* Will never do. */  /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-background: none !default;                                                         /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-border: none !default;                                                             /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-caret-bottom: 5px !default;                                                        /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-caret-font-size: $rac-primary-font-size-6 !default;                                /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-caret-position: absolute !default;                                                 /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-color: $rac-primary-color-poseidon-0 !default;                                     /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-font-size: $rac-primary-font-size-0 !default;                                      /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-font-weight: unset !default;                                                       /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-line-height: $rac-primary-line-height-2 !default;                                  /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-mirror-width: auto !default;                                                       /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-padding: 0 $rac-primary-base-text-field-offset-1 !default;                         /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-placeholder-color: $rac-primary-color-poseidon-3 !default;                         /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-resize: none !default;                                                             /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-input-width: 100% !default;                                                              /* @stable [21.07.2020] */
-$rac-base-text-field-self-field-input-wrapper-flex-grow: $rac-primary-flex-grow-1 !default;                              /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-overflow: unset !default;                                                                /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-prefix-label-align-items: center !default;                                               /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-prefix-label-color: $rac-primary-color-poseidon-0 !default;                              /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-prefix-label-display: $rac-primary-display-0 !default;                                   /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-prefix-label-height: 100% !default;                                                      /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-prefix-label-justify-content: flex-end !default;                                         /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-prefix-label-position: absolute !default;                                                /* @stable [19.06.2020] */
-$rac-base-text-field-self-field-prefix-label-width: $rac-primary-base-text-field-offset-1 !default;                      /* @stable [19.06.2020] */
-$rac-base-text-field-word-break: break-word !default;                                                                    /* @stable [19.06.2020] */
+// @stable [19.06.2020]
+$rac-base-text-field-background: unset !default;                                                                         // @stable [19.06.2020]
+$rac-base-text-field-border-radius: unset !default;                                                                      // @stable [19.06.2020]
+$rac-base-text-field-overflow: unset !default;                                                                           // @stable [19.06.2020]
+$rac-base-text-field-self-field-background: unset !default;                                                              // @stable [19.06.2020]
+$rac-base-text-field-self-field-border-radius: $rac-primary-border-radius-1 !default;                                    // @stable [19.06.2020]
+$rac-base-text-field-self-field-border: 1px solid $rac-primary-color-metis-1 !default;                                   // @stable [19.06.2020]
+$rac-base-text-field-self-field-height: $rac-primary-field-size-0 !default;                                              // @stable [19.06.2020]
+$rac-base-text-field-self-field-icon-color: $rac-primary-color-poseidon-3 !default;                                      // @stable [19.06.2020]
+$rac-base-text-field-self-field-icon-height: 100% !default;                                                              // @stable [19.06.2020]
+$rac-base-text-field-self-field-icon-padding: 0 $rac-primary-offset-1 0 0 !default;                                      // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-autofill-transition: background-color 10000s ease-in-out 0s; /* Will never do. */  // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-background: none !default;                                                         // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-border: none !default;                                                             // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-caret-bottom: 5px !default;                                                        // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-caret-font-size: $rac-primary-font-size-6 !default;                                // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-caret-position: absolute !default;                                                 // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-color: $rac-primary-color-poseidon-0 !default;                                     // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-font-size: $rac-primary-base-text-field-font-size-0 !default;                      // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-font-weight: unset !default;                                                       // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-line-height: $rac-primary-line-height-2 !default;                                  // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-mirror-width: auto !default;                                                       // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-padding: 0 $rac-primary-base-text-field-offset-1 !default;                         // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-placeholder-color: $rac-primary-color-poseidon-3 !default;                         // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-resize: none !default;                                                             // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-width: 100% !default;                                                              // @stable [19.06.2020]
+$rac-base-text-field-self-field-input-wrapper-flex-grow: $rac-primary-flex-grow-1 !default;                              // @stable [19.06.2020]
+$rac-base-text-field-self-field-overflow: unset !default;                                                                // @stable [19.06.2020]
+$rac-base-text-field-self-field-prefix-label-align-items: center !default;                                               // @stable [19.06.2020]
+$rac-base-text-field-self-field-prefix-label-color: $rac-primary-color-poseidon-0 !default;                              // @stable [19.06.2020]
+$rac-base-text-field-self-field-prefix-label-display: $rac-primary-display-0 !default;                                   // @stable [19.06.2020]
+$rac-base-text-field-self-field-prefix-label-font-size: $rac-primary-base-text-field-font-size-0 !default;               // @stable [30.11.2020]
+$rac-base-text-field-self-field-prefix-label-height: 100% !default;                                                      // @stable [19.06.2020]
+$rac-base-text-field-self-field-prefix-label-justify-content: flex-end !default;                                         // @stable [19.06.2020]
+$rac-base-text-field-self-field-prefix-label-position: absolute !default;                                                // @stable [19.06.2020]
+$rac-base-text-field-self-field-prefix-label-width: $rac-primary-base-text-field-offset-1 !default;                      // @stable [19.06.2020]
+$rac-base-text-field-word-break: break-word !default;                                                                    // @stable [19.06.2020]
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-labeled-self-field-flex-direction: unset !default;
 $rac-base-text-field-labeled-self-field-label-left: unset !default;
 $rac-base-text-field-labeled-self-field-label-position: absolute !default;
@@ -59,42 +56,28 @@ $rac-base-text-field-labeled-self-field-label-width: 100% !default;
 $rac-base-text-field-labeled-self-field-margin-top: $rac-primary-base-text-field-offset-2 !default;
 $rac-base-text-field-labeled-self-field-padding-top: unset !default;
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-labeled-value-not-present-self-field-margin-top: unset !default;
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-busy-self-field-input-opacity: 0 !default;
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-invalid-self-field-border-color: $rac-primary-color-dia-0 !default;
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-not-changeable-self-field-border-bottom: 0 !default;
 $rac-base-text-field-not-changeable-self-field-border-left: 0 !default;
 $rac-base-text-field-not-changeable-self-field-border-right: 0 !default;
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-actioned-self-field-input-padding: 0 $rac-primary-base-text-field-offset-0 0 $rac-primary-base-text-field-offset-1 !default;
 $rac-base-text-field-actioned-self-field-input-width: unset !default;
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-not-changeable-not-prefixed-self-field-input-padding: 0 !default;
 $rac-base-text-field-not-changeable-not-prefixed-self-field-input-width: 100% !default;
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [18.06.2020]
 $rac-base-text-field-not-changeable-prefixed-self-field-input-padding: 0 0 0 $rac-primary-base-text-field-offset-1 !default;
 $rac-base-text-field-not-changeable-prefixed-self-field-input-width: unset !default;
