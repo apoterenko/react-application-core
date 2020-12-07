@@ -15,10 +15,7 @@ import {
 } from '../definition/filter-definition.interface';
 import { TypeUtils } from './type';
 import { IFilterAndSorterConfiguration } from '../configurations-definitions.interface';
-import {
-  isObjectNotEmpty,
-  ObjectUtils,
-} from './object';
+import { ObjectUtils } from './object';
 
 /**
  * @stable [29.08.2020]
@@ -147,39 +144,47 @@ const NOT_NIL_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_NIL_VAL
 const NIL_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NIL_VALUE_PREDICATE(value);
 
 /**
- * @stable [20.05.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [07.12.2020]
+ * @param value
+ * @constructor
  */
 const STRING_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isString(value);
 
 /**
- * @stable [17.05.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [07.12.2020]
+ * @param value
  */
-const NOT_EMPTY_VALUE_PREDICATE = (value: AnyT) => isObjectNotEmpty(value);
+const NOT_EMPTY_OBJECT_VALUE_PREDICATE = (value: unknown) => ObjectUtils.isObjectNotEmpty(value);
 
 /**
- * @stable [27.07.2020]
+ * @stable [07.12.2020]
  * @param key
  * @param value
  */
-const DEF_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => TypeUtils.isDef(value);
+const DEF_KEY_VALUE_PREDICATE = (key: string, value: unknown) => TypeUtils.isDef(value);
 
 /**
- * @stable [28.07.2020]
+ * @stable [07.12.2020]
  * @param key
  * @param value
  */
-const POSITIVE_OR_NEGATIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: AnyT) => TypeUtils.isPositiveOrNegativeNumberLike(value);
+const POSITIVE_OR_NEGATIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: unknown) =>
+  TypeUtils.isPositiveOrNegativeNumberLike(value);
 
 /**
- * @stable [24.07.2020]
+ * @stable [07.12.2020]
  * @param key
  * @param value
  */
-const NOT_EMPTY_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_EMPTY_VALUE_PREDICATE(value);
+const POSITIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: unknown) =>
+  TypeUtils.isPositiveNumberLike(value);
+
+/**
+ * @stable [07.12.2020]
+ * @param key
+ * @param value
+ */
+const NOT_EMPTY_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_EMPTY_OBJECT_VALUE_PREDICATE(value);
 
 /**
  * @stable [16.05.2020]
@@ -244,7 +249,7 @@ const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterA
  * @param {TValue} data
  * @returns {TValue[]}
  */
-const notEmptyValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_EMPTY_VALUE_PREDICATE);
+const notEmptyValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_EMPTY_OBJECT_VALUE_PREDICATE);
 
 /**
  * @stable [22.10.2019]
@@ -282,6 +287,13 @@ const positiveOrNegativeNumberLikeValuesFilter = <TSource extends IKeyValue, TRe
   filterByPredicate<TSource, TResult>(source, POSITIVE_OR_NEGATIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE);
 
 /**
+ * @stable [07.12.2020]
+ * @param source
+ */
+const positiveNumberLikeValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, POSITIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE);
+
+/**
  * @stable [31.01.2019]
  * @param {TSource} source
  * @returns {TResult}
@@ -297,12 +309,11 @@ const nilValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(s
   filterByPredicate<TSource, TResult>(source, NIL_KEY_VALUE_PREDICATE);
 
 /**
- * @stable [08.05.2020]
- * @param {TSource} source
- * @returns {TResult}
+ * @stable [07.12.2020]
+ * @param source
  */
 const notEmptyValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
-  filterByPredicate<TSource, TResult>(source, NOT_EMPTY_KEY_VALUE_PREDICATE);
+  filterByPredicate<TSource, TResult>(source, NOT_EMPTY_OBJECT_KEY_VALUE_PREDICATE);
 
 export const excludeIdFieldFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, EXCLUDE_ID_FIELD_PREDICATE);
@@ -365,23 +376,24 @@ const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
  * @stable [15.05.2020]
  */
 export class FilterUtils {
-  public static readonly cloneByFilters = cloneByFilters;                                                          /* @stable [29.08.2020] */
-  public static readonly defValuesArrayFilter = defValuesArrayFilter;                                              /* @stable [15.05.2020] */
-  public static readonly defValuesFilter = defValuesFilter;                                                        /* @stable [27.07.2020] */
-  public static readonly EVENT_VALUE_PREDICATE = EVENT_VALUE_PREDICATE;                                            /* @stable [29.08.2020] */
-  public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;                    /* @stable [15.05.2020] */
-  public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;                            /* @stable [15.05.2020] */
-  public static readonly filterByPredicate = filterByPredicate;                                                    /* @stable [29.08.2020] */
-  public static readonly nilValuesFilter = nilValuesFilter;                                                        /* @stable [28.09.2020] */
-  public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;                                        /* @stable [18.05.2020] */
-  public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;                                    /* @stable [17.05.2020] */
-  public static readonly notEmptyValuesFilter = notEmptyValuesFilter;                                              /* @stable [24.07.2020] */
-  public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;                                        /* @stable [18.05.2020] */
-  public static readonly notNilValuesFilter = notNilValuesFilter;                                                  /* @stable [21.06.2020] */
-  public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;                                          /* @stable [19.05.2020] */
-  public static readonly objectValuesArrayFilter = objectValuesArrayFilter;                                        /* @stable [19.05.2020] */
-  public static readonly positiveOrNegativeNumberLikeValuesFilter = positiveOrNegativeNumberLikeValuesFilter;      /* @stable [28.07.2020] */
-  public static readonly queryFilter = queryFilter;                                                                /* @stable [03.08.2020] */
-  public static readonly SAME_ENTITY_PREDICATE = SAME_ENTITY_PREDICATE;                                            /* @stable [10.06.2020] */
-  public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;                                          /* @stable [20.05.2020] */
+  public static readonly cloneByFilters = cloneByFilters;
+  public static readonly defValuesArrayFilter = defValuesArrayFilter;
+  public static readonly defValuesFilter = defValuesFilter;
+  public static readonly EVENT_VALUE_PREDICATE = EVENT_VALUE_PREDICATE;
+  public static readonly EXCLUDE_ENTITY_ID_FIELD_PREDICATE = EXCLUDE_ENTITY_ID_FIELD_PREDICATE;
+  public static readonly excludeFieldsPredicateFactory = excludeFieldsPredicateFactory;
+  public static readonly filterByPredicate = filterByPredicate;
+  public static readonly nilValuesFilter = nilValuesFilter;
+  public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;
+  public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;
+  public static readonly notEmptyValuesFilter = notEmptyValuesFilter;
+  public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;
+  public static readonly notNilValuesFilter = notNilValuesFilter;
+  public static readonly OBJECT_VALUE_PREDICATE = OBJECT_VALUE_PREDICATE;
+  public static readonly objectValuesArrayFilter = objectValuesArrayFilter;
+  public static readonly positiveNumberLikeValuesFilter = positiveNumberLikeValuesFilter;
+  public static readonly positiveOrNegativeNumberLikeValuesFilter = positiveOrNegativeNumberLikeValuesFilter;
+  public static readonly queryFilter = queryFilter;
+  public static readonly SAME_ENTITY_PREDICATE = SAME_ENTITY_PREDICATE;
+  public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;
 }
