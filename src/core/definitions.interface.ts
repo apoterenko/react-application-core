@@ -241,6 +241,7 @@ export interface IHeaderWrapper<TValue = JSX.Element> { header?: TValue; }
 export interface IHeightRestrictedWrapper { heightRestricted?: boolean; }
 export interface IHeightWrapper { height?: number; }
 export interface IHighlightOddWrapper { highlightOdd?: boolean; }
+export interface IHintWrapper { hint?: string; }
 export interface IHistoryWrapper<TValue> { history?: TValue; }
 export interface IHomeWrapper<THome> { home?: THome; }
 export interface IHoveredWrapper { hovered?: boolean; }

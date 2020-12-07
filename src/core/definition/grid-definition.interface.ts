@@ -39,6 +39,7 @@ import {
   IHeaderRenderedWrapper,
   IHeaderRendererWrapper,
   IHeaderWidthWrapper,
+  IHintWrapper,
   IIndexedWrapper,
   IIndexWrapper,
   ILocalFilterWrapper,
@@ -98,6 +99,7 @@ export interface IPresetsGridColumnEntity
   extends IClosableWrapper,
     IClosedWrapper,
     IColSpanWrapper,
+    IHintWrapper,                                                       /* @stable [08.12.2020] */
     IOnCloseWrapper {
 }
 
@@ -293,13 +295,13 @@ export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps
  */
 export enum GridClassesEnum {
   GRID_ACTIVE_SORT_ACTION = 'rac-grid__active-sort-action',
-  GRID_ASC_SORT_ACTION = 'rac-grid__asc-sort-action',
   GRID_COLUMN = 'rac-grid-column',
   GRID_COLUMN_CLOSE_WRAPPER = 'rac-grid-column__close-wrapper',
   GRID_COLUMN_CONTENT = 'rac-grid-column__content',
-  GRID_COLUMN_SORT_ACTIONS = 'rac-grid-column__sort-actions',
+  GRID_COLUMN_EXTRA_ACTIONS = 'rac-grid-column__extra-actions',
   GRID_DESC_SORT_ACTION = 'rac-grid__desc-sort-action',
   GRID_EXPAND_ACTION = 'rac-grid__expand-action',
+  GRID_EXTRA_ACTION = 'rac-grid__extra-action',
   GRID_HEAD = 'rac-grid-head',
   GRID_ROW = 'rac-grid-row',
   GRID_ROW_FILTER = 'rac-grid-row-filter',
@@ -310,5 +312,4 @@ export enum GridClassesEnum {
   GRID_ROW_SELECTABLE = 'rac-grid-row-selectable',
   GRID_ROW_SELECTED = 'rac-grid-row-selected',
   GRID_ROW_UNSELECTED = 'rac-grid-row-unselected',
-  GRID_SORT_ACTION = 'rac-grid__sort-action',
 }
