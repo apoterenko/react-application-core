@@ -192,6 +192,21 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
+   * @stable [07.12.2020]
+   * @param value
+   */
+  public fromSelectValueToPositiveOrNegativeNumberLikeId(value: SelectValueT): EntityIdT {
+    return ConditionUtils.ifNotNilThanValue(
+      this.fromSelectValueToId(value),
+      (result) => ConditionUtils.orUndef(
+        TypeUtils.isPositiveOrNegativeNumberLike(result),
+        result
+      ),
+      UNDEF_SYMBOL
+    );
+  }
+
+  /**
    * @stable [28.10.2020]
    * @param value
    */

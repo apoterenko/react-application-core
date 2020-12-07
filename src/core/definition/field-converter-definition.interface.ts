@@ -73,6 +73,7 @@ export interface IFieldConverter {
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
   fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                                                                            /* @stable [08.08.2020] */
   fromSelectValueToId(value: SelectValueT): EntityIdT;                                                                                                                          /* @stable [11.08.2020] */
+  fromSelectValueToPositiveOrNegativeNumberLikeId(value: SelectValueT): EntityIdT;                                                                                              /* @stable [07.12.2020] */
   fromSelectValueToRawValue<TEntity = IEntity>(value: SelectValueT): TEntity;                                                                                                   /* @stable [28.10.2020] */
   register(config: IFieldConverterConfigEntity): void;                                                                                                                          /* @stable [01.09.2020] */
   // tslint:enable:max-line-length

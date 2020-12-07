@@ -126,6 +126,13 @@ export class BaseTransport {
     this.fieldConverter.fromSelectValueToId(value);
 
   /**
+   * @stable [07.12.2020]
+   * @param value
+   */
+  protected readonly fromSelectValueToPositiveOrNegativeNumberLikeId = (value: SelectValueT): EntityIdT =>
+    this.fieldConverter.fromSelectValueToPositiveOrNegativeNumberLikeId(value);
+
+  /**
    * @stable [19.11.2020]
    * @param value
    */
