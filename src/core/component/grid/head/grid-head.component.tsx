@@ -26,7 +26,7 @@ export class GridHead extends GenericComponent<IGridHeadProps> {
         {(stickyElementClassName) => (
           <thead className={
             ClsUtils.joinClassName(
-              GridClassesEnum.GRID_HEAD,
+              GridClassesEnum.HEAD,
               mergedProps.stickyHead && stickyElementClassName
             )
           }>

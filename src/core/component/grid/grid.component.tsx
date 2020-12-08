@@ -712,7 +712,7 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    */
   private makeExpandIcon(groupExpanded: boolean, cfg: IIconConfigEntity): JSX.Element {
     return this.uiFactory.makeIcon({
-      className: GridClassesEnum.GRID_EXPAND_ACTION,
+      className: GridClassesEnum.EXPAND_ACTION,
       type: groupExpanded
         ? IconsEnum.MINUS_SQUARE_REGULAR
         : IconsEnum.PLUS_SQUARE_REGULAR,

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import * as CSS from 'csstype';
 
 import {
@@ -35,9 +36,9 @@ import {
   IHeaderClassNameWrapper,
   IHeaderColSpanWrapper,
   IHeaderColumnClassNameWrapper,
-  IHeaderColumnStylesWrapper,
   IHeaderRenderedWrapper,
   IHeaderRendererWrapper,
+  IHeaderStyleWrapper,
   IHeaderWidthWrapper,
   IHintWrapper,
   IIndexedWrapper,
@@ -67,6 +68,7 @@ import {
   IValueWrapper,
   IWidthWrapper,
   IWrapperClassNameWrapper,
+  StringNumberT,
 } from '../definitions.interface';
 import {
   ISortDirectionEntity,
@@ -95,12 +97,19 @@ export interface IGridFilterConfigEntity<TEntity = IEntity>
  * @presets-entity
  * @stable [24.05.2020]
  */
-export interface IPresetsGridColumnEntity
-  extends IClosableWrapper,
+export interface IPresetsGridColumnEntity<TEntity = {}>
+  extends IAlignWrapper<CSS.TextAlignProperty>,                                                              /* @stable [08.12.2020] */
+    IClosableWrapper,
     IClosedWrapper,
     IColSpanWrapper,
-    IHintWrapper,                                                       /* @stable [08.12.2020] */
-    IOnCloseWrapper {
+    IEditedWrapper,                                                                                          /* @stable [08.12.2020] */
+    IHeaderStyleWrapper<React.CSSProperties| ((props: IGridColumnProps<TEntity>) => React.CSSProperties)>,   /* @stable [08.12.2020] */
+    IHeaderWidthWrapper<CSS.WidthProperty<StringNumberT>>,                                                   /* @stable [08.12.2020] */
+    IHintWrapper,                                                                                            /* @stable [08.12.2020] */
+    IIndexedWrapper,                                                                                         /* @stable [08.12.2020] */
+    IIndexWrapper,                                                                                           /* @stable [08.12.2020] */
+    IOnCloseWrapper,
+    IWidthWrapper<CSS.WidthProperty<StringNumberT>> {                                                        /* @stable [08.12.2020] */
 }
 
 /**
@@ -108,24 +117,19 @@ export interface IPresetsGridColumnEntity
  */
 export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
   extends IPresetsGridColumnEntity,
-    IAlignWrapper<CSS.TextAlignProperty>,
     IColumnColSpanWrapper,
     IColumnRenderedWrapper,
     IColumnTitleWrapper,
     IColumnWidthWrapper,
     IDirectionWrapper<SortDirectionsEnum>,
-    IEditedWrapper,
     IEntityWrapper<TEntity>,
     IHeaderClassNameWrapper,
     IHeaderColSpanWrapper,
     IHeaderRenderedWrapper,
-    IHeaderWidthWrapper,
-    IIndexWrapper,
     INameWrapper,
     IOnSortingDirectionChangeWrapper<ISortDirectionEntity>,
     IRenderedWrapper,
-    ISortableWrapper,
-    IWidthWrapper {
+    ISortableWrapper {
 }
 
 /**
@@ -138,12 +142,10 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
     IOnColumnClickWrapper<IGridColumnProps<TEntity>>,
     IOnColumnContentClickWrapper<IGridColumnProps<TEntity>>,
     ISorterWrapper<TEntity>,
-    IIndexedWrapper,
     /**/
     IColumnClassNameWrapper<string | ((props: IGridColumnProps<TEntity>) => string)>,
     IColumnStylesWrapper<CSS.Properties | ((props: IGridColumnProps<TEntity>) => CSS.Properties)>,
     IHeaderColumnClassNameWrapper<string | ((props: IGridColumnProps<TEntity>) => string)>,
-    IHeaderColumnStylesWrapper<CSS.Properties | ((props: IGridColumnProps<TEntity>) => CSS.Properties)>,
     /**/
     IFilterRendererWrapper<IGridColumnProps<TEntity>>,
     IHeaderRendererWrapper<IGridColumnProps<TEntity>>,
@@ -294,22 +296,25 @@ export interface IGridConfigurationEntity<TProps extends IGridProps = IGridProps
  * @stable [20.05.2020]
  */
 export enum GridClassesEnum {
-  GRID_ACTIVE_SORT_ACTION = 'rac-grid__active-sort-action',
-  GRID_COLUMN = 'rac-grid-column',
-  GRID_COLUMN_CLOSE_WRAPPER = 'rac-grid-column__close-wrapper',
-  GRID_COLUMN_CONTENT = 'rac-grid-column__content',
-  GRID_COLUMN_EXTRA_ACTIONS = 'rac-grid-column__extra-actions',
-  GRID_DESC_SORT_ACTION = 'rac-grid__desc-sort-action',
-  GRID_EXPAND_ACTION = 'rac-grid__expand-action',
-  GRID_EXTRA_ACTION = 'rac-grid__extra-action',
-  GRID_HEAD = 'rac-grid-head',
-  GRID_ROW = 'rac-grid-row',
-  GRID_ROW_FILTER = 'rac-grid-row-filter',
-  GRID_ROW_GROUP = 'rac-grid-row-group',
-  GRID_ROW_HOVERED = 'rac-grid-row-hovered',
-  GRID_ROW_ODD = 'rac-grid-row-odd',
-  GRID_ROW_PART_OF_GROUP = 'rac-grid-row-part-of-group',
-  GRID_ROW_SELECTABLE = 'rac-grid-row-selectable',
-  GRID_ROW_SELECTED = 'rac-grid-row-selected',
-  GRID_ROW_UNSELECTED = 'rac-grid-row-unselected',
+  ACTIVE_SORT_ACTION = 'rac-grid__active-sort-action',
+  COLUMN = 'rac-grid-column',
+  COLUMN_ACTIONABLE = 'rac-grid-column-actionable',
+  COLUMN_CLOSE_WRAPPER = 'rac-grid-column__close-wrapper',
+  COLUMN_CONTENT = 'rac-grid-column__content',
+  COLUMN_EDITED = 'rac-grid-column-edited',
+  COLUMN_EXTRA_ACTIONS = 'rac-grid-column__extra-actions',
+  COLUMN_ODD = 'rac-grid-column-odd',
+  DESC_SORT_ACTION = 'rac-grid__desc-sort-action',
+  EXPAND_ACTION = 'rac-grid__expand-action',
+  EXTRA_ACTION = 'rac-grid__extra-action',
+  HEAD = 'rac-grid-head',
+  ROW = 'rac-grid-row',
+  ROW_FILTER = 'rac-grid-row-filter',
+  ROW_GROUP = 'rac-grid-row-group',
+  ROW_HOVERED = 'rac-grid-row-hovered',
+  ROW_ODD = 'rac-grid-row-odd',
+  ROW_PART_OF_GROUP = 'rac-grid-row-part-of-group',
+  ROW_SELECTABLE = 'rac-grid-row-selectable',
+  ROW_SELECTED = 'rac-grid-row-selected',
+  ROW_UNSELECTED = 'rac-grid-row-unselected',
 }
