@@ -230,13 +230,13 @@ export interface IGroupWrapper { group?: boolean; }
 export interface IHasPreviousWrapper { hasPrevious?: boolean; }
 export interface IHeaderClassNameWrapper { headerClassName?: string; }
 export interface IHeaderColSpanWrapper { headerColSpan?: number; }
-export interface IHeaderColumnClassNameWrapper<TClassName = string> { headerColumnClassName?: TClassName; }
-export interface IHeaderColumnStylesWrapper<TStyles> { headerStyles?: TStyles; }
+export interface IHeaderColumnClassNameWrapper<TValue = string> { headerColumnClassName?: TValue; }
 export interface IHeaderConfigurationWrapper<TValue> { headerConfiguration?: TValue; }
 export interface IHeaderRenderedWrapper { headerRendered?: boolean; }
 export interface IHeaderRendererWrapper<TPayload> { headerRenderer?(payload: TPayload): React.ReactNode; }
+export interface IHeaderStyleWrapper<TValue> { headerStyle?: TValue; }
 export interface IHeadersWrapper<THeaders = IKeyValue> { headers?: THeaders; }
-export interface IHeaderWidthWrapper { headerWidth?: number; }
+export interface IHeaderWidthWrapper<TValue = number> { headerWidth?: TValue; }
 export interface IHeaderWrapper<TValue = JSX.Element> { header?: TValue; }
 export interface IHeightRestrictedWrapper { heightRestricted?: boolean; }
 export interface IHeightWrapper { height?: number; }

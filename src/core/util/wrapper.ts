@@ -7,7 +7,6 @@ import {
   IDecoratedWrapper,
   IDirtyWrapper,
   IDisabledWrapper,
-  IEditedWrapper,
   IErrorMessageRenderedWrapper,
   IErrorWrapper,
   IExpandActionRenderedWrapper,
@@ -98,14 +97,6 @@ export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean
  */
 export const isRangeEnabled = (wrapper: IRangeEnabledWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.rangeEnabled === true;
-
-/**
- * @stable [26.10.2019]
- * @param {IEditedWrapper} editedEntity
- * @returns {boolean}
- */
-export const isEdited = (editedEntity: IEditedWrapper): boolean =>
-  ifNotNilThanValue(editedEntity, () => editedEntity.edited === true, false);
 
 /**
  * @stable [03.02.2020]

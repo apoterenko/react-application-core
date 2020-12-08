@@ -58,21 +58,21 @@ export class GridRow extends GenericComponent<IGridRowProps> {
             ref={this.actualRef}
             className={
               ClsUtils.joinClassName(
-                GridClassesEnum.GRID_ROW,
+                GridClassesEnum.ROW,
                 CalcUtils.calc(className),
-                filter && GridClassesEnum.GRID_ROW_FILTER,
-                group && GridClassesEnum.GRID_ROW_GROUP,
-                isHovered && GridClassesEnum.GRID_ROW_HOVERED,
-                isIndexed && `${GridClassesEnum.GRID_ROW}-${entity.id}`,
-                isOddHighlighted && GridClassesEnum.GRID_ROW_ODD,
-                isSelectable && GridClassesEnum.GRID_ROW_SELECTABLE,
+                filter && GridClassesEnum.ROW_FILTER,
+                group && GridClassesEnum.ROW_GROUP,
+                isHovered && GridClassesEnum.ROW_HOVERED,
+                isIndexed && `${GridClassesEnum.ROW}-${entity.id}`,
+                isOddHighlighted && GridClassesEnum.ROW_ODD,
+                isSelectable && GridClassesEnum.ROW_SELECTABLE,
                 originalProps.groupExpanded && 'rac-grid-row-group-expanded',
                 originalProps.total && 'rac-grid-row-total',
-                partOfGroup && GridClassesEnum.GRID_ROW_PART_OF_GROUP,
+                partOfGroup && GridClassesEnum.ROW_PART_OF_GROUP,
                 ...isSelectable && (
                   selected
-                    ? [GridClassesEnum.GRID_ROW_SELECTED, selectedElementClassName]
-                    : [GridClassesEnum.GRID_ROW_UNSELECTED]
+                    ? [GridClassesEnum.ROW_SELECTED, selectedElementClassName]
+                    : [GridClassesEnum.ROW_UNSELECTED]
                 ) || []
               )
             }
