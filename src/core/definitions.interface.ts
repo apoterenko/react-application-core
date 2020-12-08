@@ -104,7 +104,7 @@ export interface IColumnNameWrapper { columnName?: string; }
 export interface IColumnNumWrapper { columnNum?: number; }
 export interface IColumnRenderedWrapper { columnRendered?: boolean; }
 export interface IColumnsConfigurationWrapper<TValue> { columnsConfiguration?: TValue; }
-export interface IColumnStylesWrapper<TValue> { columnStyles?: TValue; }
+export interface IColumnStyleWrapper<TValue> { columnStyle?: TValue; }
 export interface IColumnTitleWrapper<TValue = string> { columnTitle?: TValue; }
 export interface IColumnWidthWrapper { columnWidth?: number; }
 export interface IColumnWrapper<TValue> { column?: TValue; }

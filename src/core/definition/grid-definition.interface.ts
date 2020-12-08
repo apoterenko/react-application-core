@@ -14,7 +14,7 @@ import {
   IColumnNumWrapper,
   IColumnRenderedWrapper,
   IColumnsConfigurationWrapper,
-  IColumnStylesWrapper,
+  IColumnStyleWrapper,
   IColumnTitleWrapper,
   IColumnWidthWrapper,
   IColumnWrapper,
@@ -95,20 +95,23 @@ export interface IGridFilterConfigEntity<TEntity = IEntity>
 
 /**
  * @presets-entity
- * @stable [24.05.2020]
+ * @stable [09.12.2020]
  */
 export interface IPresetsGridColumnEntity<TEntity = {}>
   extends IAlignWrapper<CSS.TextAlignProperty>,                                                              /* @stable [08.12.2020] */
-    IClosableWrapper,
-    IClosedWrapper,
-    IColSpanWrapper,
+    IClosableWrapper,                                                                                        /* @stable [09.12.2020] */
+    IClosedWrapper,                                                                                          /* @stable [09.12.2020] */
+    IColSpanWrapper,                                                                                         /* @stable [09.12.2020] */
+    IColumnWidthWrapper,                                                                                     /* @stable [09.12.2020] */
     IEditedWrapper,                                                                                          /* @stable [08.12.2020] */
+    IHeaderClassNameWrapper,                                                                                 /* @stable [09.12.2020] */
+    IHeaderColSpanWrapper,                                                                                   /* @stable [09.12.2020] */
     IHeaderStyleWrapper<React.CSSProperties| ((props: IGridColumnProps<TEntity>) => React.CSSProperties)>,   /* @stable [08.12.2020] */
     IHeaderWidthWrapper<CSS.WidthProperty<StringNumberT>>,                                                   /* @stable [08.12.2020] */
     IHintWrapper,                                                                                            /* @stable [08.12.2020] */
     IIndexedWrapper,                                                                                         /* @stable [08.12.2020] */
     IIndexWrapper,                                                                                           /* @stable [08.12.2020] */
-    IOnCloseWrapper,
+    IOnCloseWrapper,                                                                                         /* @stable [09.12.2020] */
     IWidthWrapper<CSS.WidthProperty<StringNumberT>> {                                                        /* @stable [08.12.2020] */
 }
 
@@ -120,11 +123,8 @@ export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
     IColumnColSpanWrapper,
     IColumnRenderedWrapper,
     IColumnTitleWrapper,
-    IColumnWidthWrapper,
     IDirectionWrapper<SortDirectionsEnum>,
     IEntityWrapper<TEntity>,
-    IHeaderClassNameWrapper,
-    IHeaderColSpanWrapper,
     IHeaderRenderedWrapper,
     INameWrapper,
     IOnSortingDirectionChangeWrapper<ISortDirectionEntity>,
@@ -144,7 +144,7 @@ export interface IGridColumnProps<TEntity extends IEntity = IEntity>
     ISorterWrapper<TEntity>,
     /**/
     IColumnClassNameWrapper<string | ((props: IGridColumnProps<TEntity>) => string)>,
-    IColumnStylesWrapper<CSS.Properties | ((props: IGridColumnProps<TEntity>) => CSS.Properties)>,
+    IColumnStyleWrapper<CSS.Properties | ((props: IGridColumnProps<TEntity>) => CSS.Properties)>,
     IHeaderColumnClassNameWrapper<string | ((props: IGridColumnProps<TEntity>) => string)>,
     /**/
     IFilterRendererWrapper<IGridColumnProps<TEntity>>,
@@ -299,6 +299,7 @@ export enum GridClassesEnum {
   ACTIVE_SORT_ACTION = 'rac-grid__active-sort-action',
   COLUMN = 'rac-grid-column',
   COLUMN_ACTIONABLE = 'rac-grid-column-actionable',
+  COLUMN_CLOSABLE = 'rac-grid-column-closable',
   COLUMN_CLOSE_WRAPPER = 'rac-grid-column__close-wrapper',
   COLUMN_CONTENT = 'rac-grid-column__content',
   COLUMN_EDITED = 'rac-grid-column-edited',
