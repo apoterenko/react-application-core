@@ -6,7 +6,6 @@ import {
   ConditionUtils,
   FilterUtils,
   isEdited,
-  isSortable,
   NumberUtils,
   NvlUtils,
   TypeUtils,
@@ -48,9 +47,21 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
       indexed && TypeUtils.isNumber(index) && `rac-grid-column-${index}`,
       isEdited(originalProps) && 'rac-grid-column-edited',
       NumberUtils.isOddNumber(index) && 'rac-grid-column-odd',
-      isSortable(originalProps) && 'rac-grid-column-sortable',
+      this.isActionable() && 'rac-grid-column-actionable',
       ...classNames
     );
+  }
+
+  /**
+   * @stable [26.11.2020]
+   * @protected
+   */
+  protected isActionable(): boolean {
+    const {
+      sortable,
+    } = this.originalProps;
+
+    return sortable;
   }
 
   /**
