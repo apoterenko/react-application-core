@@ -39,7 +39,7 @@ export class GridColumn extends BaseGridColumn {
       columnClassName,
       columnColSpan,
       columnRendered,
-      columnStyles,
+      columnStyle,
       columnTitle,
       columnWidth,
       onColumnClick,
@@ -49,10 +49,7 @@ export class GridColumn extends BaseGridColumn {
       columnRendered,
       () => (
         <td
-          style={{
-            ...this.getStyle({width: columnWidth}),
-            ...CalcUtils.calc(columnStyles, originalProps),
-          }}
+          style={this.styles}
           colSpan={NvlUtils.nvl(columnColSpan, colSpan)}
           className={this.getClassName(CalcUtils.calc(columnClassName, originalProps))}
           title={
@@ -69,14 +66,13 @@ export class GridColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [21.07.2020]
-   * @returns {React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>}
+   * @stable [09.12.2020]
+   * @protected
    */
   protected getColumnContentProps(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    const originalProps = this.originalProps;
     const {
       onColumnContentClick,
-    } = originalProps;
+    } = this.originalProps;
 
     return {
       ...super.getColumnContentProps(),
@@ -85,7 +81,8 @@ export class GridColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [21.07.2020]
+   * @stable [09.12.2020]
+   * @private
    */
   private onColumnClick(): void {
     const originalProps = this.originalProps;
@@ -97,7 +94,8 @@ export class GridColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [21.07.2020]
+   * @stable [09.12.2020]
+   * @private
    */
   private onColumnContentClick(): void {
     const originalProps = this.originalProps;
@@ -106,5 +104,20 @@ export class GridColumn extends BaseGridColumn {
     } = originalProps;
 
     onColumnContentClick(originalProps);
+  }
+
+  /**
+   * @stable [09.12.2020]
+   */
+  private get styles(): React.CSSProperties {
+    const originalProps = this.originalProps;
+    const {
+      columnStyle,
+    } = originalProps;
+
+    return this.getStyle({
+      width: this.originalProps.columnWidth,
+      ...CalcUtils.calc(columnStyle, originalProps),
+    });
   }
 }

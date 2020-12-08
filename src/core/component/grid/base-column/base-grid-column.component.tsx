@@ -14,6 +14,10 @@ import {
   IGridColumnProps,
 } from '../../../definition';
 
+/**
+ * @component-impl
+ * @stable [09.12.2020]
+ */
 export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   extends GenericComponent<TProps> {
 
@@ -51,6 +55,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
       edited && GridClassesEnum.COLUMN_EDITED,
       NumberUtils.isOddNumber(index) && GridClassesEnum.COLUMN_ODD,
       this.isActionable() && GridClassesEnum.COLUMN_ACTIONABLE,
+      this.isClosable && GridClassesEnum.COLUMN_CLOSABLE,
       ...classNames
     );
   }
@@ -68,6 +73,14 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
   }
 
   /**
+   * @stable [09.12.2020]
+   * @protected
+   */
+  protected get isClosable(): boolean {
+    return this.originalProps.closable;
+  }
+
+  /**
    * @stable [08.12.2020]
    * @protected
    */
@@ -75,7 +88,9 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
     return ConditionUtils.ifNotNilThanValue(
       this.originalChildren,
       (children) => (
-        <div {...this.getColumnContentProps()}>
+        <div
+          {...this.getColumnContentProps()}
+        >
           {this.getColumnContentElement(children)}
         </div>
       )

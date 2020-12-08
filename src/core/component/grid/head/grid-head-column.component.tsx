@@ -11,18 +11,23 @@ import {
   ClsUtils,
   ConditionUtils,
   NvlUtils,
+  ObjectUtils,
+  PropsUtils,
+  TooltipUtils,
   TypeUtils,
 } from '../../../util';
 import { BaseGridColumn } from '../base-column';
 
 export class GridHeadColumn extends BaseGridColumn {
 
-  public static readonly defaultProps: IGridColumnProps = {
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IGridColumnProps>({
     headerRendered: true,
-  };
+  }, BaseGridColumn);
+
+  private readonly hintRef = React.createRef<HTMLElement>();
 
   /**
-   * @stable [28.07.2020]
+   * @stable [09.12.2020]
    * @param originalProps
    */
   constructor(originalProps: IGridColumnProps) {
@@ -34,7 +39,21 @@ export class GridHeadColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [28.07.2020]
+   * @stable [09.12.2020]
+   */
+  public componentDidMount() {
+    this.doRefreshHint();
+  }
+
+  /**
+   * @stable [09.12.2020]
+   */
+  public componentDidUpdate(prevProps: IGridColumnProps) {
+    this.doRefreshHint(prevProps);
+  }
+
+  /**
+   * @stable [09.12.2020]
    */
   public render(): JSX.Element {
     const originalProps = this.originalProps;
@@ -43,17 +62,13 @@ export class GridHeadColumn extends BaseGridColumn {
       headerClassName,
       headerColSpan,
       headerRendered,
-      headerStyles,
     } = originalProps;
 
     return ConditionUtils.orNull(
       headerRendered,
       () => (
         <th
-          style={{
-            ...this.styles,
-            ...CalcUtils.calc(headerStyles, originalProps),
-          }}
+          style={this.styles}
           colSpan={NvlUtils.nvl(headerColSpan, colSpan)}
           className={this.getClassName(CalcUtils.calc(headerClassName, originalProps))}
         >
@@ -69,52 +84,71 @@ export class GridHeadColumn extends BaseGridColumn {
    */
   protected getColumnContentElement(children: React.ReactNode): React.ReactNode {
     const {
-      closable,
       closed,
-      onClose,
       sortable,
     } = this.originalProps;
+
+    const hasHint = this.hasHint;
+    const haveExtraActions = sortable || hasHint;
 
     return (
       <React.Fragment>
         {
-          sortable && (
-            <div className={GridClassesEnum.GRID_COLUMN_SORT_ACTIONS}>
+          haveExtraActions && (
+            <div
+              className={GridClassesEnum.COLUMN_EXTRA_ACTIONS}
+            >
               {
-                this.uiFactory.makeIcon({
-                  className: ClsUtils.joinClassName(
-                    GridClassesEnum.GRID_SORT_ACTION,
-                    GridClassesEnum.GRID_DESC_SORT_ACTION,
-                    this.isDescSortingEnabled && GridClassesEnum.GRID_ACTIVE_SORT_ACTION
-                  ),
-                  type: IconsEnum.ARROW_DOWN,
-                  onClick: this.onDescSortingActionClick,
-                })
+                sortable && (
+                  <React.Fragment>
+                    {
+                      this.uiFactory.makeIcon({
+                        className: ClsUtils.joinClassName(
+                          GridClassesEnum.EXTRA_ACTION,
+                          GridClassesEnum.DESC_SORT_ACTION,
+                          this.isDescSortingEnabled && GridClassesEnum.ACTIVE_SORT_ACTION
+                        ),
+                        type: IconsEnum.ARROW_DOWN,
+                        onClick: this.onDescSortingActionClick,
+                      })
+                    }
+                    {
+                      this.uiFactory.makeIcon({
+                        className: ClsUtils.joinClassName(
+                          GridClassesEnum.EXTRA_ACTION,
+                          this.isAscSortingEnabled && GridClassesEnum.ACTIVE_SORT_ACTION
+                        ),
+                        type: IconsEnum.ARROW_UP,
+                        onClick: this.onAscSortingActionClick,
+                      })
+                    }
+                  </React.Fragment>
+                )
               }
               {
-                this.uiFactory.makeIcon({
-                  className: ClsUtils.joinClassName(
-                    GridClassesEnum.GRID_SORT_ACTION,
-                    GridClassesEnum.GRID_ASC_SORT_ACTION,
-                    this.isAscSortingEnabled && GridClassesEnum.GRID_ACTIVE_SORT_ACTION
-                  ),
-                  type: IconsEnum.ARROW_UP,
-                  onClick: this.onAscSortingActionClick,
-                })
+                hasHint && React.cloneElement<React.RefAttributes<{}>>(
+                  this.uiFactory.makeIcon({
+                    className: GridClassesEnum.EXTRA_ACTION,
+                    type: IconsEnum.QUESTION,
+                  }),
+                  {ref: this.hintRef}
+                )
               }
             </div>
           )
         }
         {
-          closable && TypeUtils.isFn(onClose)
+          this.hasCloseAction
             ? (
-              <div className={GridClassesEnum.GRID_COLUMN_CLOSE_WRAPPER}>
+              <React.Fragment>
                 {children}
-                {this.uiFactory.makeIcon({
-                  type: closed ? IconsEnum.CHEVRON_DOWN : IconsEnum.CHEVRON_UP,
-                  onClick: this.onCloseClick,
-                })}
-              </div>
+                {
+                  this.uiFactory.makeIcon({
+                    type: closed ? IconsEnum.CHEVRON_DOWN : IconsEnum.CHEVRON_UP,
+                    onClick: this.onCloseClick,
+                  })
+                }
+              </React.Fragment>
             )
             : children
         }
@@ -164,6 +198,28 @@ export class GridHeadColumn extends BaseGridColumn {
   }
 
   /**
+   * @stable [08.12.2020]
+   * @private
+   */
+  private doRefreshHint(prevProps?: IGridColumnProps): void {
+    const {
+      hint,
+    } = this.originalProps;
+
+    if (ObjectUtils.isCurrentValueNotEqualPreviousValue(hint, prevProps?.hint)) {
+      TooltipUtils.init(this.hintElement, hint);
+    }
+  }
+
+  /**
+   * @stable [26.11.2020]
+   * @protected
+   */
+  protected isActionable(): boolean {
+    return super.isActionable() || this.hasHint;
+  }
+
+  /**
    * @stable [28.07.2020]
    */
   private get isDescSortingEnabled(): boolean {
@@ -178,9 +234,46 @@ export class GridHeadColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [28.07.2020]
+   * @stable [08.12.2020]
    */
   private get styles(): React.CSSProperties {
-    return this.getStyle({width: this.originalProps.headerWidth});
+    const originalProps = this.originalProps;
+    const {
+      headerStyle,
+    } = originalProps;
+
+    return this.getStyle({
+      width: this.originalProps.headerWidth,
+      ...CalcUtils.calc(headerStyle, originalProps),
+    });
+  }
+
+  /**
+   * @stable [26.11.2020]
+   * @private
+   */
+  private get hasHint(): boolean {
+    return ObjectUtils.isObjectNotEmpty(this.originalProps.hint);
+  }
+
+  /**
+   * @stable [08.12.2020]
+   * @private
+   */
+  private get hasCloseAction(): boolean {
+    const {
+      closable,
+      onClose,
+    } = this.originalProps;
+
+    return closable && TypeUtils.isFn(onClose);
+  }
+
+  /**
+   * @stable [26.11.2020]
+   * @private
+   */
+  private get hintElement(): HTMLElement {
+    return this.hintRef.current;
   }
 }
