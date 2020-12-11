@@ -7,7 +7,7 @@ import {
 } from '../definitions.interface';
 import { isFn } from '../util';
 import { calc } from './calc';
-import { isObjectNotEmpty } from './object';
+import { ObjectUtils } from './object';
 
 /**
  * @stable [05.04.2020]
@@ -76,25 +76,23 @@ export const ifNilThanValue = <TValue, TResult>(value: TValue,
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 
 /**
- * @stable [17.10.2019]
- * @param {TValue} value
- * @param {(value: TValue) => TResult} callback
- * @param {any} defaultValue
- * @returns {TResult}
+ * @stable [11.12.2020]
+ * @param value
+ * @param callback
+ * @param defaultValue
  */
 export const ifNotEmptyThanValue = <TValue, TResult>(value: TValue,
                                                      callback: (value: TValue) => TResult,
                                                      defaultValue = null): TResult =>
-  isObjectNotEmpty(value)
+  ObjectUtils.isObjectNotEmpty(value)
     ? callback(value)
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 
 /**
- * @stable [04.04.2020]
- * @param {boolean} value
- * @param {(value: boolean) => TResult} callback
- * @param {any} defaultValue
- * @returns {TResult}
+ * @stable [11.12.2020]
+ * @param value
+ * @param callback
+ * @param defaultValue
  */
 export const ifNotFalseThanValue = <TResult>(value: boolean,
                                              callback: (value: boolean) => TResult,
@@ -121,6 +119,7 @@ export const ifNotTrueThanValue = <TResult>(value: boolean,
 export class ConditionUtils {
   public static readonly ifNilThanValue = ifNilThanValue;                         /* @stable [21.06.2020] */
   public static readonly ifNotEmptyThanValue = ifNotEmptyThanValue;               /* @stable [16.05.2020] */
+  public static readonly ifNotFalseThanValue = ifNotFalseThanValue;               /* @stable [11.12.2020] */
   public static readonly ifNotNilThanValue = ifNotNilThanValue;                   /* @stable [16.05.2020] */
   public static readonly orEmpty = orEmpty;                                       /* @stable [27.06.2020] */
   public static readonly orNull = orNull;                                         /* @stable [18.05.2020] */
