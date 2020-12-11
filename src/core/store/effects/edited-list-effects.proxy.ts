@@ -13,7 +13,7 @@ import { SectionUtils } from '../../util';
  * @stable [28.10.2020]
  * @param cfg
  */
-export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
+export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultChanges = TPayload>(
   cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>) =>
   (): void => {
 

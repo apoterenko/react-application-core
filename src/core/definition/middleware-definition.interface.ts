@@ -161,7 +161,7 @@ export interface IChainedMiddlewareConfigEntity<TState, TPayload = {}>
  * @config-entity
  * @stable [26.03.2020]
  */
-export interface IEditedListMiddlewareConfigEntity<TPathPayload = {}, TState = {}, TDefaultChanges = {}>
+export interface IEditedListMiddlewareConfigEntity<TPathPayload = {}, TState = {}, TDefaultChanges = TPathPayload>
   extends IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>,
     ILazyLoadingWrapper,
     ILoadedListMiddlewareConfigEntity<TState>,
