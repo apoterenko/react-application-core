@@ -44,12 +44,10 @@
   $rac-grid-column-content-display: unset,                                        /* @stable [22.10.2019] */
   $rac-grid-column-content-expand-action-color: unset,                                        /* @stable [30.07.2020] */
   $rac-grid-column-content-expand-action-size: unset,                                         /* @stable [30.07.2020] */
-  $rac-grid-column-content-extra-actions-left: unset,                                         /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-margin: unset,                                       /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-neighbor-child-margin: unset,                        /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-position: unset,                                     /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-top: unset,                                          /* @stable [12.12.2020] */
-  $rac-grid-column-content-extra-actions-transform: unset,                                    /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-white-space: unset,                                  /* @stable [12.12.2020] */
   $rac-grid-column-content-flex-direction: unset,                                 /* @stable [22.10.2019] */
   $rac-grid-column-content-flex: unset,                                           /* @stable [21.10.2019] */
@@ -120,14 +118,12 @@
     );
 
     > {
-      // @stable [19.07.2020]
+      // @stable [12.12.2020]
       .rac-grid-column__extra-actions {
         @include rac-styles (
-          $rac-styles-left: $rac-grid-column-content-extra-actions-left,
           $rac-styles-margin: $rac-grid-column-content-extra-actions-margin,
           $rac-styles-position: $rac-grid-column-content-extra-actions-position,
           $rac-styles-top: $rac-grid-column-content-extra-actions-top,
-          $rac-styles-transform: $rac-grid-column-content-extra-actions-transform,
           $rac-styles-white-space: $rac-grid-column-content-extra-actions-white-space
         );
 
@@ -218,12 +214,10 @@
   $rac-grid-column-content-display: unset,                                            /* @stable [21.10.2019] */
   $rac-grid-column-content-expand-action-color: unset,                                        /* @stable [30.07.2020] */
   $rac-grid-column-content-expand-action-size: unset,                                         /* @stable [30.07.2020] */
-  $rac-grid-column-content-extra-actions-left: unset,                                         /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-margin: unset,                                       /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-neighbor-child-margin: unset,                        /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-position: unset,                                     /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-top: unset,                                          /* @stable [12.12.2020] */
-  $rac-grid-column-content-extra-actions-transform: unset,                                    /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-white-space: unset,                                  /* @stable [12.12.2020] */
   $rac-grid-column-content-flex-direction: unset,                                     /* @stable [21.10.2019] */
   $rac-grid-column-content-flex: unset,                                               /* @stable [21.10.2019] */
@@ -331,12 +325,10 @@
       $rac-grid-column-content-display: $rac-grid-column-content-display,
       $rac-grid-column-content-expand-action-color: $rac-grid-column-content-expand-action-color,
       $rac-grid-column-content-expand-action-size: $rac-grid-column-content-expand-action-size,
-      $rac-grid-column-content-extra-actions-left: $rac-grid-column-content-extra-actions-left,
       $rac-grid-column-content-extra-actions-margin: $rac-grid-column-content-extra-actions-margin,
       $rac-grid-column-content-extra-actions-neighbor-child-margin: $rac-grid-column-content-extra-actions-neighbor-child-margin,
       $rac-grid-column-content-extra-actions-position: $rac-grid-column-content-extra-actions-position,
       $rac-grid-column-content-extra-actions-top: $rac-grid-column-content-extra-actions-top,
-      $rac-grid-column-content-extra-actions-transform: $rac-grid-column-content-extra-actions-transform,
       $rac-grid-column-content-extra-actions-white-space: $rac-grid-column-content-extra-actions-white-space,
       $rac-grid-column-content-flex-direction: $rac-grid-column-content-flex-direction,
       $rac-grid-column-content-flex: $rac-grid-column-content-flex,
@@ -497,11 +489,9 @@
   $rac-grid-column-content-cursor: unset,                                         /* @stable [04.01.2020] */
   $rac-grid-column-content-display: unset,                                        /* @stable [21.10.2019] */
   $rac-grid-column-content-expand-action-size: unset,                                         /* @stable [30.07.2020] */
-  $rac-grid-column-content-extra-actions-left: unset,                                         /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-neighbor-child-margin: unset,                        /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-position: unset,                                     /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-top: unset,                                          /* @stable [12.12.2020] */
-  $rac-grid-column-content-extra-actions-transform: unset,                                    /* @stable [12.12.2020] */
   $rac-grid-column-content-extra-actions-white-space: unset,                                  /* @stable [12.12.2020] */
   $rac-grid-column-content-flex-direction: unset,                                 /* @stable [21.10.2019] */
   $rac-grid-column-content-flex: unset,                                           /* @stable [21.10.2019] */
@@ -707,11 +697,9 @@
       $rac-grid-column-content-cursor: $rac-grid-column-content-cursor,
       $rac-grid-column-content-display: $rac-grid-column-content-display,
       $rac-grid-column-content-expand-action-size: $rac-grid-column-content-expand-action-size,
-      $rac-grid-column-content-extra-actions-left: $rac-grid-column-content-extra-actions-left,
       $rac-grid-column-content-extra-actions-neighbor-child-margin: $rac-grid-column-content-extra-actions-neighbor-child-margin,
       $rac-grid-column-content-extra-actions-position: $rac-grid-column-content-extra-actions-position,
       $rac-grid-column-content-extra-actions-top: $rac-grid-column-content-extra-actions-top,
-      $rac-grid-column-content-extra-actions-transform: $rac-grid-column-content-extra-actions-transform,
       $rac-grid-column-content-extra-actions-white-space: $rac-grid-column-content-extra-actions-white-space,
       $rac-grid-column-content-flex-direction: $rac-grid-column-content-flex-direction,
       $rac-grid-column-content-flex: $rac-grid-column-content-flex,
