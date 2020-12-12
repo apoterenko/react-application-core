@@ -10,8 +10,8 @@
   $rac-header-actions-align-items: unset,                                                     /* @stable [06.02.2020] */
   $rac-header-actions-display: unset,                                                         /* @stable [06.02.2020] */
   $rac-header-actions-flex-direction: unset,                                                  /* @stable [06.02.2020] */
-  $rac-header-actions-flex: unset,                                                            /* @stable [06.02.2020] */
   $rac-header-actions-margin: unset,                                                          /* @stable [06.02.2020] */
+  $rac-header-actions-neighbor-child-margin: unset,                                           /* @stable [12.12.2020] */
   $rac-header-actions-padding: unset,                                                         /* @stable [06.02.2020] */
   $rac-header-background: unset,                                                              /* @stable [06.02.2020] */
   $rac-header-chat-action-margin: unset,                                                      /* @stable [09.10.2020] */
@@ -23,8 +23,12 @@
   $rac-header-display: unset,                                                                 /* @stable [06.02.2020] */
   $rac-header-flex-direction: unset,                                                          /* @stable [06.02.2020] */
   $rac-header-height: unset,                                                                  /* @stable [06.02.2020] */
-  $rac-header-help-height: unset,                                                             /* @stable [08.12.2020] */
-  $rac-header-help-width: unset,                                                              /* @stable [08.12.2020] */
+  $rac-header-help-action-size: unset,                                                        /* @stable [12.12.2020] */
+  $rac-header-help-action-wrapper-align-items: unset,                                         /* @stable [12.12.2020] */
+  $rac-header-help-action-wrapper-color: unset,                                               /* @stable [12.12.2020] */
+  $rac-header-help-action-wrapper-display: unset,                                             /* @stable [12.12.2020] */
+  $rac-header-help-action-wrapper-justify-content: unset,                                     /* @stable [12.12.2020] */
+  $rac-header-help-action-wrapper-size: unset,                                                /* @stable [12.12.2020] */
   $rac-header-margin: unset,                                                                  /* @stable [06.02.2020] */
   $rac-header-menu-action-background: unset,                                                  /* @stable [06.02.2020] */
   $rac-header-menu-action-color: unset,                                                       /* @stable [12.02.2020] */
@@ -38,7 +42,6 @@
   $rac-header-user-avatar-background-size: unset,                                             /* @stable [06.02.2020] */
   $rac-header-user-avatar-border-radius: unset,                                               /* @stable [06.02.2020] */
   $rac-header-user-avatar-height: unset,                                                      /* @stable [06.02.2020] */
-  $rac-header-user-avatar-margin: unset,                                                      /* @stable [06.02.2020] */
   $rac-header-user-avatar-width: unset,                                                       /* @stable [06.02.2020] */
   $rac-header-user-info-color: unset,                                                         /* @stable [10.02.2020] */
   $rac-header-user-info-font-size: unset,                                                     /* @stable [10.02.2020] */
@@ -56,15 +59,19 @@
       $rac-styles-padding: $rac-header-padding
     );
 
-    @include rac-styles (
-      $rac-styles-custom: rac-header__actions,
-      $rac-styles-align-items: $rac-header-actions-align-items,
-      $rac-styles-display: $rac-header-actions-display,
-      $rac-styles-flex-direction: $rac-header-actions-flex-direction,
-      $rac-styles-flex: $rac-header-actions-flex,
-      $rac-styles-margin: $rac-header-actions-margin,
-      $rac-styles-padding: $rac-header-actions-padding
-    );
+    .rac-header__actions {
+      @include rac-styles (
+        $rac-styles-align-items: $rac-header-actions-align-items,
+        $rac-styles-display: $rac-header-actions-display,
+        $rac-styles-flex-direction: $rac-header-actions-flex-direction,
+        $rac-styles-margin: $rac-header-actions-margin,
+        $rac-styles-padding: $rac-header-actions-padding
+      );
+
+      @include rac-neighbor-child (
+        $rac-neighbor-child-margin: $rac-header-actions-neighbor-child-margin
+      );
+    }
 
     @include rac-styles (
       $rac-styles-custom: rac-header__content,
@@ -82,10 +89,18 @@
       $rac-styles-margin: $rac-header-user-info-margin
     );
 
+    @include rac-icon (
+      $rac-icon-custom: rac-header__help-action,
+      $rac-icon-size: $rac-header-help-action-size
+    );
+
     @include rac-styles (
-      $rac-styles-custom: rac-header__help,
-      $rac-styles-height: $rac-header-help-height,
-      $rac-styles-width: $rac-header-help-width
+      $rac-styles-custom: rac-header__help-action-wrapper,
+      $rac-styles-align-items: $rac-header-help-action-wrapper-align-items,
+      $rac-styles-color: $rac-header-help-action-wrapper-color,
+      $rac-styles-display: $rac-header-help-action-wrapper-display,
+      $rac-styles-justify-content: $rac-header-help-action-wrapper-justify-content,
+      $rac-styles-size: $rac-header-help-action-wrapper-size
     );
 
     @include rac-styles (
@@ -93,7 +108,6 @@
       $rac-styles-background-size: $rac-header-user-avatar-background-size,
       $rac-styles-border-radius: $rac-header-user-avatar-border-radius,
       $rac-styles-height: $rac-header-user-avatar-height,
-      $rac-styles-margin: $rac-header-user-avatar-margin,
       $rac-styles-width: $rac-header-user-avatar-width
     );
 

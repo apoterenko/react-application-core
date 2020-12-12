@@ -79,12 +79,14 @@ export interface IHeaderConfigurationEntity
  * @stable [24.03.2020]
  */
 export enum HeaderClassesEnum {
+  ACTIONS = 'rac-header__actions',
+  CHAT_ACTION = 'rac-header__chat-action',
+  CONTENT = 'rac-header__content',
   HEADER = 'rac-header',
-  HEADER_ACTIONS = 'rac-header__actions',
-  HEADER_CHAT_ACTION = 'rac-header__chat-action',
-  HEADER_CONTENT = 'rac-header__content',
-  HEADER_MENU_ACTION = 'rac-header__menu-action',
-  HEADER_NAVIGATION_ACTION = 'rac-header__navigation-action',
-  HEADER_USER_AVATAR = 'rac-header__user-avatar',
-  HEADER_USER_INFO = 'rac-header__user-info',
+  HELP_ACTION = 'rac-header__help-action',
+  HELP_ACTION_WRAPPER = 'rac-header__help-action-wrapper',
+  MENU_ACTION = 'rac-header__menu-action',
+  NAVIGATION_ACTION = 'rac-header__navigation-action',
+  USER_AVATAR = 'rac-header__user-avatar',
+  USER_INFO = 'rac-header__user-info',
 }

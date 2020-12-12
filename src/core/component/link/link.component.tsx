@@ -12,9 +12,8 @@ export class Link extends GenericComponent<ILinkProps> {
 
   /**
    * @stable [24.05.2020]
-   * @returns {JSX.Element}
    */
   public render(): JSX.Element {
-    return <RouterLink {...this.props} />;
+    return <RouterLink {...this.originalProps} />;
   }
 }

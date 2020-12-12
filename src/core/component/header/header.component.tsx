@@ -74,29 +74,43 @@ export class Header extends GenericComponent<IHeaderProps> {
       >
         {
           headerContentElement && (
-            <div className={HeaderClassesEnum.HEADER_CONTENT}>
+            <div className={HeaderClassesEnum.CONTENT}>
               {headerContentElement}
             </div>
           )
         }
         <div
-          className={HeaderClassesEnum.HEADER_ACTIONS}
+          className={HeaderClassesEnum.ACTIONS}
         >
           {this.originalChildren}
           {
             TypeUtils.isFn(onCommentClick) && this.uiFactory.makeIcon({
               type: IconsEnum.COMMENT,
-              className: HeaderClassesEnum.HEADER_CHAT_ACTION,
+              className: HeaderClassesEnum.CHAT_ACTION,
               onClick: onCommentClick,
             })
           }
+          {
+            routes.help && (
+              <a
+                className={HeaderClassesEnum.HELP_ACTION_WRAPPER}
+                href={routes.help}
+                target='_blank'
+              >
+                {this.uiFactory.makeIcon({
+                  type: IconsEnum.QUESTION_CIRCLE_REGULAR,
+                  className: HeaderClassesEnum.HELP_ACTION,
+                })}
+              </a>
+            )
+          }
           <Link
             to={routes.profile}
-            className={HeaderClassesEnum.HEADER_USER_AVATAR}
+            className={HeaderClassesEnum.USER_AVATAR}
             style={{backgroundImage: this.domAccessor.asImageUrl(user.url || urls.emptyAvatar)}}/>
           <Link
             to={routes.profile}
-            className={HeaderClassesEnum.HEADER_USER_INFO}
+            className={HeaderClassesEnum.USER_INFO}
           >
             {user.name}
           </Link>
@@ -128,7 +142,7 @@ export class Header extends GenericComponent<IHeaderProps> {
               {...navigationActionConfiguration}
               className={
                 ClsUtils.joinClassName(
-                  HeaderClassesEnum.HEADER_NAVIGATION_ACTION,
+                  HeaderClassesEnum.NAVIGATION_ACTION,
                   CalcUtils.calc(navigationActionConfiguration.className),
                 )
               }/>
@@ -158,7 +172,7 @@ export class Header extends GenericComponent<IHeaderProps> {
           {...menuActionConfiguration}
           className={
             ClsUtils.joinClassName(
-              HeaderClassesEnum.HEADER_MENU_ACTION,
+              HeaderClassesEnum.MENU_ACTION,
               CalcUtils.calc(menuActionConfiguration.className)
             )
           }
