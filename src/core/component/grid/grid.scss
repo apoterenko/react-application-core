@@ -9,7 +9,6 @@
     $rac-grid-active-sort-action-background: $rac-grid-active-sort-action-background,
     $rac-grid-active-sort-action-color: $rac-grid-active-sort-action-color,
     $rac-grid-active-sort-action-content-opacity: $rac-grid-active-sort-action-content-opacity,
-    $rac-grid-asc-sort-action-margin: $rac-grid-asc-sort-action-margin,
     $rac-grid-body-background: $rac-grid-body-background,
     $rac-grid-body-border-bottom: $rac-grid-body-border-bottom,
     $rac-grid-body-border-left: $rac-grid-body-border-left,
@@ -43,12 +42,13 @@
     $rac-grid-column-content-close-wrapper-justify-content: $rac-grid-column-content-close-wrapper-justify-content,
     $rac-grid-column-content-display: $rac-grid-column-content-display,
     $rac-grid-column-content-expand-action-size: $rac-grid-column-content-expand-action-size,
+    $rac-grid-column-content-extra-actions-neighbor-child-margin: $rac-grid-column-content-extra-actions-neighbor-child-margin,
+    $rac-grid-column-content-extra-actions-position: $rac-grid-column-content-extra-actions-position,
+    $rac-grid-column-content-extra-actions-top: $rac-grid-column-content-extra-actions-top,
+    $rac-grid-column-content-extra-actions-white-space: $rac-grid-column-content-extra-actions-white-space,
     $rac-grid-column-content-flex-direction: $rac-grid-column-content-flex-direction,
     $rac-grid-column-content-flex: $rac-grid-column-content-flex,
     $rac-grid-column-content-font-size: $rac-grid-column-content-font-size,
-    $rac-grid-column-content-sort-actions-position: $rac-grid-column-content-sort-actions-position,
-    $rac-grid-column-content-sort-actions-top: $rac-grid-column-content-sort-actions-top,
-    $rac-grid-column-content-sort-actions-white-space: $rac-grid-column-content-sort-actions-white-space,
     $rac-grid-column-content-width: $rac-grid-column-content-width,
     $rac-grid-column-edited-content-after-color: $rac-grid-column-edited-content-after-color,
     $rac-grid-column-edited-content-after-content: $rac-grid-column-edited-content-after-content,
@@ -73,14 +73,14 @@
     $rac-grid-head-border-right: $rac-grid-head-border-right,
     $rac-grid-head-box-sizing: $rac-grid-head-box-sizing,
     $rac-grid-head-color: $rac-grid-head-color,
+    $rac-grid-head-column-actionable-content-flex-direction: $rac-grid-head-column-actionable-content-flex-direction,
+    $rac-grid-head-column-actionable-content-margin: $rac-grid-head-column-actionable-content-margin,
     $rac-grid-head-column-content-expand-action-color: $rac-grid-head-column-content-expand-action-color,
     $rac-grid-head-column-content-font-size: $rac-grid-head-column-content-font-size,
     $rac-grid-head-column-content-font-weight: $rac-grid-head-column-content-font-weight,
     $rac-grid-head-column-content-white-space: $rac-grid-head-column-content-white-space,
     $rac-grid-head-column-padding-bottom: $rac-grid-head-column-padding-bottom,
     $rac-grid-head-column-padding-top: $rac-grid-head-column-padding-top,
-    $rac-grid-head-column-sortable-content-flex-direction: $rac-grid-head-column-sortable-content-flex-direction,
-    $rac-grid-head-column-sortable-content-margin: $rac-grid-head-column-sortable-content-margin,
     $rac-grid-head-column-text-align: $rac-grid-head-column-text-align,
     $rac-grid-head-column-vertical-align: $rac-grid-head-column-vertical-align,
     $rac-grid-head-column-white-space: $rac-grid-head-column-white-space,
@@ -142,17 +142,5 @@
     $rac-grid-column-content-align-items: $rac-grid-column-align-right-content-align-items,
     $rac-grid-column-content-base-text-field-self-field-input-text-align: $rac-grid-column-align-right-content-base-text-field-self-field-input-text-align,
     $rac-grid-column-content-text-align: $rac-grid-column-align-right-content-text-align
-  );
-
-  /**
-   * @grid
-   * @stable [26.10.2019]
-   */
-  @include rac-grid (
-    $rac-grid-column-custom: rac-cls2($rac-grid-column-align-center-cls, $rac-grid-column-sortable-cls),
-    $rac-grid-column-content-align-items: $rac-grid-column-align-center-sortable-content-align-items,
-    $rac-grid-column-content-justify-content: $rac-grid-column-align-center-sortable-content-justify-content,
-    $rac-grid-column-content-sort-left: $rac-grid-column-align-center-sortable-content-sort-left,
-    $rac-grid-column-content-sort-transform: $rac-grid-column-align-center-sortable-content-sort-transform
   );
 }

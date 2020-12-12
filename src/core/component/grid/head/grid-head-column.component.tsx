@@ -240,10 +240,11 @@ export class GridHeadColumn extends BaseGridColumn {
     const originalProps = this.originalProps;
     const {
       headerStyle,
+      headerWidth,
     } = originalProps;
 
     return this.getStyle({
-      width: this.originalProps.headerWidth,
+      width: headerWidth,
       ...CalcUtils.calc(headerStyle, originalProps),
     });
   }

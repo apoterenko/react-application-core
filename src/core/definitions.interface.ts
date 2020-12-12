@@ -106,7 +106,7 @@ export interface IColumnRenderedWrapper { columnRendered?: boolean; }
 export interface IColumnsConfigurationWrapper<TValue> { columnsConfiguration?: TValue; }
 export interface IColumnStyleWrapper<TValue> { columnStyle?: TValue; }
 export interface IColumnTitleWrapper<TValue = string> { columnTitle?: TValue; }
-export interface IColumnWidthWrapper { columnWidth?: number; }
+export interface IColumnWidthWrapper<TValue = number> { columnWidth?: TValue; }
 export interface IColumnWrapper<TValue> { column?: TValue; }
 export interface ICompactWrapper<TValue = boolean> { compact?: TValue; }
 export interface IComputedMatchWrapper<TValue> { computedMatch?: TValue; }
@@ -228,7 +228,7 @@ export interface IGroupNameWrapper { groupName?: string; }
 export interface IGroupValueWrapper<TValue> { groupValue?: TValue; }
 export interface IGroupWrapper { group?: boolean; }
 export interface IHasPreviousWrapper { hasPrevious?: boolean; }
-export interface IHeaderClassNameWrapper { headerClassName?: string; }
+export interface IHeaderClassNameWrapper<TValue = string> { headerClassName?: TValue; }
 export interface IHeaderColSpanWrapper { headerColSpan?: number; }
 export interface IHeaderColumnClassNameWrapper<TValue = string> { headerColumnClassName?: TValue; }
 export interface IHeaderConfigurationWrapper<TValue> { headerConfiguration?: TValue; }

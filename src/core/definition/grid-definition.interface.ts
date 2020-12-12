@@ -97,16 +97,22 @@ export interface IGridFilterConfigEntity<TEntity = IEntity>
  * @presets-entity
  * @stable [09.12.2020]
  */
-export interface IPresetsGridColumnEntity<TEntity = {}>
+export interface IPresetsGridColumnEntity<
+    TEntity = {},
+    TProps extends IPresetsGridColumnEntity<TEntity, {}> = IPresetsGridColumnEntity<TEntity, {}>
+  >
   extends IAlignWrapper<CSS.TextAlignProperty>,                                                              /* @stable [08.12.2020] */
     IClosableWrapper,                                                                                        /* @stable [09.12.2020] */
     IClosedWrapper,                                                                                          /* @stable [09.12.2020] */
     IColSpanWrapper,                                                                                         /* @stable [09.12.2020] */
-    IColumnWidthWrapper,                                                                                     /* @stable [09.12.2020] */
+    IColumnClassNameWrapper<string | ((props: TProps) => string)>,                                           /* @stable [12.12.2020] */
+    IColumnStyleWrapper<React.CSSProperties | ((props: TProps) => React.CSSProperties)>,                     /* @stable [12.12.2020] */
+    IColumnWidthWrapper<CSS.WidthProperty<StringNumberT>>,                                                   /* @stable [09.12.2020] */
     IEditedWrapper,                                                                                          /* @stable [08.12.2020] */
-    IHeaderClassNameWrapper,                                                                                 /* @stable [09.12.2020] */
+    IHeaderClassNameWrapper<string | ((props: TProps) => string)>,                                           /* @stable [12.12.2020] */
     IHeaderColSpanWrapper,                                                                                   /* @stable [09.12.2020] */
-    IHeaderStyleWrapper<React.CSSProperties| ((props: IGridColumnProps<TEntity>) => React.CSSProperties)>,   /* @stable [08.12.2020] */
+    IHeaderColumnClassNameWrapper<string | ((props: TProps) => string)>,                                     /* @stable [12.12.2020] */
+    IHeaderStyleWrapper<React.CSSProperties| ((props: TProps) => React.CSSProperties)>,                      /* @stable [08.12.2020] */
     IHeaderWidthWrapper<CSS.WidthProperty<StringNumberT>>,                                                   /* @stable [08.12.2020] */
     IHintWrapper,                                                                                            /* @stable [08.12.2020] */
     IIndexedWrapper,                                                                                         /* @stable [08.12.2020] */
@@ -118,8 +124,11 @@ export interface IPresetsGridColumnEntity<TEntity = {}>
 /**
  * @stable [17.10.2019]
  */
-export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
-  extends IPresetsGridColumnEntity,
+export interface IGenericGridColumnEntity<
+    TEntity extends IEntity = IEntity,
+    TProps extends IGenericGridColumnEntity<TEntity, {}> = IGenericGridColumnEntity<TEntity, {}>
+  >
+  extends IPresetsGridColumnEntity<TEntity, TProps>,
     IColumnColSpanWrapper,
     IColumnRenderedWrapper,
     IColumnTitleWrapper,
@@ -135,18 +144,16 @@ export interface IGenericGridColumnEntity<TEntity extends IEntity = IEntity>
 /**
  * @stable [18.10.2019]
  */
-export interface IGridColumnProps<TEntity extends IEntity = IEntity>
+export interface IGridColumnProps<
+    TEntity extends IEntity = IEntity,
+    TProps extends IGridColumnProps<TEntity, {}> = IGridColumnProps<TEntity, {}>
+  >
   extends IGenericComponentProps,
     IGenericGridColumnEntity<TEntity>,
     IOnClickWrapper<ISortDirectionEntity>,
     IOnColumnClickWrapper<IGridColumnProps<TEntity>>,
     IOnColumnContentClickWrapper<IGridColumnProps<TEntity>>,
     ISorterWrapper<TEntity>,
-    /**/
-    IColumnClassNameWrapper<string | ((props: IGridColumnProps<TEntity>) => string)>,
-    IColumnStyleWrapper<CSS.Properties | ((props: IGridColumnProps<TEntity>) => CSS.Properties)>,
-    IHeaderColumnClassNameWrapper<string | ((props: IGridColumnProps<TEntity>) => string)>,
-    /**/
     IFilterRendererWrapper<IGridColumnProps<TEntity>>,
     IHeaderRendererWrapper<IGridColumnProps<TEntity>>,
     IRendererWrapper<TEntity, IGridColumnProps<TEntity>, TEntity[]>,

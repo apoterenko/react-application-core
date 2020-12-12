@@ -17,8 +17,8 @@ export class GridColumn extends BaseGridColumn {
   };
 
   /**
-   * @stable [21.07.2020]
-   * @param {IGridColumnProps} originalProps
+   * @stable [12.12.2020]
+   * @param originalProps
    */
   constructor(originalProps: IGridColumnProps) {
     super(originalProps);
@@ -28,8 +28,7 @@ export class GridColumn extends BaseGridColumn {
   }
 
   /**
-   * @stable [21.07.2020]
-   * @returns {JSX.Element}
+   * @stable [12.12.2020]
    */
   public render(): JSX.Element {
     const originalProps = this.originalProps;
@@ -39,9 +38,7 @@ export class GridColumn extends BaseGridColumn {
       columnClassName,
       columnColSpan,
       columnRendered,
-      columnStyle,
       columnTitle,
-      columnWidth,
       onColumnClick,
     } = originalProps;
 
@@ -53,9 +50,8 @@ export class GridColumn extends BaseGridColumn {
           colSpan={NvlUtils.nvl(columnColSpan, colSpan)}
           className={this.getClassName(CalcUtils.calc(columnClassName, originalProps))}
           title={
-            columnTitle || ConditionUtils.orUndef(
-              TypeUtils.isPrimitive(originalChildren), () => String(originalChildren)
-            )
+            columnTitle ||
+            ConditionUtils.orUndef(TypeUtils.isPrimitive(originalChildren), () => String(originalChildren))
           }
           {...PropsUtils.buildClickHandlerProps(this.onColumnClick, TypeUtils.isFn(onColumnClick), false)}
         >
@@ -113,10 +109,11 @@ export class GridColumn extends BaseGridColumn {
     const originalProps = this.originalProps;
     const {
       columnStyle,
+      columnWidth,
     } = originalProps;
 
     return this.getStyle({
-      width: this.originalProps.columnWidth,
+      width: columnWidth,
       ...CalcUtils.calc(columnStyle, originalProps),
     });
   }

@@ -31,6 +31,7 @@ export class BaseGridColumn<TProps extends IGridColumnProps = IGridColumnProps>
    */
   protected getStyle(style?: React.CSSProperties): React.CSSProperties {
     return FilterUtils.defValuesFilter<React.CSSProperties, React.CSSProperties>({
+      ...style,
       width: NvlUtils.nvl(style && style.width, this.originalProps.width),
     });
   }
