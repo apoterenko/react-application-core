@@ -6,6 +6,7 @@ import {
   IHeightWrapper,
   IOpenedWrapper,
   IPageWrapper,
+  IPreviewDialogConfigurationWrapper,
   IPreviewPageWrapper,
   IPreviewScaleWrapper,
   IProgressWrapper,
@@ -18,6 +19,7 @@ import {
   IGenericComponentCtor,
   IGenericComponentProps,
 } from './generic-component-definition.interface';
+import { IDialogProps } from './dialog-definition.interface';
 
 /**
  * @base-entity
@@ -38,6 +40,7 @@ export interface IGenericViewerEntity
   extends IBaseViewerEntity,
     IDefaultSrcWrapper,
     IFullWrapper,
+    IPreviewDialogConfigurationWrapper<IDialogProps>,
     ISrcWrapper,
     IUsePreviewWrapper {
 }

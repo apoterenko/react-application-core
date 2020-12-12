@@ -79,7 +79,7 @@ export class PdfViewer extends Viewer {
    * @stable [16.03.2020]
    * @returns {JSX.Element}
    */
-  protected gePreviewElement(): JSX.Element {
+  protected getPreviewElement(): JSX.Element {
     return (
       <PdfViewer
         usePreview={false}

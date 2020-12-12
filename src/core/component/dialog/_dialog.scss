@@ -63,6 +63,8 @@
   // @stable [10.10.2020]
   @include rac-dialog (
     $rac-dialog-custom: $rac-inline-dialog-cls,
+    $rac-dialog-body-border-radius: $rac-inline-dialog-body-border-radius,
+    $rac-dialog-body-border: $rac-inline-dialog-body-border,
     $rac-dialog-position: $rac-inline-dialog-position
   );
 

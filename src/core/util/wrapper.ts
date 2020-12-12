@@ -13,7 +13,6 @@ import {
   IFullWrapper,
   IMultiWrapper,
   INavigateBackWrapper,
-  IOpenedWrapper,
   IPlaceActionRenderedWrapper,
   IProgressWrapper,
   IRangeEnabledWrapper,
@@ -198,14 +197,6 @@ export const isDirty = (entity: IDirtyWrapper): boolean =>
  */
 const isErrorMessageRendered = (wrapper: IErrorMessageRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.errorMessageRendered !== false;
-
-/**
- * @stable [15.03.2020]
- * @param {IOpenedWrapper} wrapper
- * @returns {boolean}
- */
-export const isOpened = (wrapper: IOpenedWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.opened === true;
 
 /**
  * @stable [16.03.2020]

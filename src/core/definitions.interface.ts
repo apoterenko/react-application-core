@@ -439,6 +439,7 @@ export interface IPrefixWrapper { prefix?: string; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IPreventManualChangesWrapper { preventManualChanges?: boolean; }
+export interface IPreviewDialogConfigurationWrapper<TValue> { previewDialogConfiguration?: TValue; }
 export interface IPreviewPageWrapper<TValue = number> { previewPage?: TValue; }
 export interface IPreviewScaleWrapper<TValue = number> { previewScale?: TValue; }
 export interface IPreviousActionWrapper<TValue> { previousAction?: TValue; }
@@ -583,6 +584,7 @@ export interface IValidateOnMountWrapper { validateOnMount?: boolean; }
 export interface IValidWrapper { valid?: boolean; }
 export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IViewerClassNameWrapper { viewerClassName?: string; }
+export interface IViewerConfigurationWrapper<TValue> { viewerConfiguration?: TValue; }
 export interface IViewerWrapper<TValue> { viewer?: TValue; }
 export interface IVisibleWrapper { visible?: boolean; }
 export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }

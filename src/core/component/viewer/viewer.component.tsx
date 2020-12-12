@@ -4,7 +4,6 @@ import * as R from 'ramda';
 import {
   CalcUtils,
   ClsUtils,
-  isOpened,
   isPreviewUsed,
   NvlUtils,
   ObjectUtils,
@@ -243,7 +242,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @stable [15.03.2020]
    * @returns {JSX.Element}
    */
-  protected abstract gePreviewElement(): JSX.Element;
+  protected abstract getPreviewElement(): JSX.Element;
 
   /**
    * @stable [02.08.2020]
@@ -442,20 +441,29 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @returns {JSX.Element}
    */
   private get previewDialogElement(): JSX.Element {
-    const messages = this.settings.messages;
-    const state = this.state;
+    const {
+      CLOSE,
+      PREVIEW,
+    } = this.settings.messages;
+    const {
+      opened,
+    } = this.state;
+    const {
+      previewDialogConfiguration,
+    } = this.mergedProps;
 
-    return isOpened(state) && this.canPreview && (
+    return opened && this.canPreview && (
       <Dialog
+        title={PREVIEW}
+        closeText={CLOSE}
+        {...previewDialogConfiguration}
         ref={this.previewDialogRef}
         className={DialogClassesEnum.PREVIEW_DIALOG}
-        title={messages.PREVIEW}
-        closeText={messages.CLOSE}
         acceptable={false}
         extraActions={this.getPreviewExtraActionsElement()}
         onDeactivate={this.onDialogClose}
       >
-        {this.gePreviewElement()}
+        {this.getPreviewElement()}
       </Dialog>
     );
   }

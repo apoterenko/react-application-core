@@ -5,6 +5,7 @@ import {
   IUrlWrapper,
   IUsePreviewWrapper,
   IViewerClassNameWrapper,
+  IViewerConfigurationWrapper,
   IViewerWrapper,
 } from '../definitions.interface';
 import {
@@ -12,7 +13,10 @@ import {
   IFieldState,
 } from './field-definition.interface';
 import { ITransportRequestEntity } from './transport-definition.interface';
-import { ViewersEnum } from './viewer-definition.interface';
+import {
+  IViewerProps,
+  ViewersEnum,
+} from './viewer-definition.interface';
 
 /**
  * @presets-entity
@@ -20,6 +24,7 @@ import { ViewersEnum } from './viewer-definition.interface';
  */
 export interface IPresetsViewFieldEntity
   extends IViewerClassNameWrapper,
+    IViewerConfigurationWrapper<IViewerProps>,
     IViewerWrapper<ViewersEnum> {
 }
 

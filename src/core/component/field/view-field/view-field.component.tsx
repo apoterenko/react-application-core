@@ -75,6 +75,7 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
       usePreview,
       viewer,
       viewerClassName,
+      viewerConfiguration,
     } = this.originalProps;
     const {
       type,
@@ -88,6 +89,7 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
 
     return (
       <Component
+        {...viewerConfiguration}
         className={
           ClsUtils.joinClassName(
             viewerClassName,

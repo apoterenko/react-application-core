@@ -50,7 +50,7 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
    * @stable [18.03.2020]
    * @returns {JSX.Element}
    */
-  protected gePreviewElement(): JSX.Element {
+  protected getPreviewElement(): JSX.Element {
     return <PictureViewer src={this.actualSrc}/>;
   }
 }
