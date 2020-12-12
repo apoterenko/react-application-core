@@ -425,9 +425,8 @@
   $rac-grid-row-custom: unset,
   $rac-grid-wrapper-custom: unset,
   /**/
-  $rac-grid-active-sort-action-background: unset,                                             /* @stable [21.07.2020] */
-  $rac-grid-active-sort-action-color: unset,                                                  /* @stable [21.07.2020] */
-  $rac-grid-active-sort-action-content-opacity: unset,                                        /* @stable [21.07.2020] */
+  $rac-grid-active-sort-action-background: unset,                                             /* @stable [12.12.2020] */
+  $rac-grid-active-sort-action-color: unset,                                                  /* @stable [12.12.2020] */
   $rac-grid-body-background: unset,                                                           /* @stable [19.07.2020] */
   $rac-grid-body-border-bottom: unset,                                                        /* @stable [19.07.2020] */
   $rac-grid-body-border-left: unset,                                                          /* @stable [19.07.2020] */
@@ -526,7 +525,6 @@
   $rac-grid-column-position: unset,                                               /* @stable [21.10.2019] */
   $rac-grid-column-width: unset,                                                  /* @stable [22.10.2019] */
   $rac-grid-cursor: unset,                                                        /* @stable [18.10.2019] */
-  $rac-grid-desc-sort-action-margin: unset,                                                   /* @stable [21.07.2020] */
   $rac-grid-display: unset,                                                       /* @stable [21.10.2019] */
   $rac-grid-extra-action-background: unset,                                                   /* @stable [12.12.2020] */
   $rac-grid-extra-action-border-radius: unset,                                                /* @stable [12.12.2020] */
@@ -750,18 +748,11 @@
       $rac-icon-content-size: $rac-grid-extra-action-content-size
     );
 
-    // @stable [21.07.2020]
+    // @stable [12.12.2020]
     @include rac-icon (
       $rac-icon-custom: $rac-grid-active-sort-action-cls,
       $rac-icon-background: $rac-grid-active-sort-action-background,
-      $rac-icon-color: $rac-grid-active-sort-action-color,
-      $rac-icon-content-opacity: $rac-grid-active-sort-action-content-opacity
-    );
-
-    // @stable [21.07.2020]
-    @include rac-icon (
-      $rac-icon-custom: $rac-grid-desc-sort-action-cls,
-      $rac-icon-margin: $rac-grid-desc-sort-action-margin
+      $rac-icon-color: $rac-grid-active-sort-action-color
     );
 
     .rac-grid-head {

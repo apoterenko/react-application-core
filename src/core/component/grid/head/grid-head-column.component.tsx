@@ -105,7 +105,6 @@ export class GridHeadColumn extends BaseGridColumn {
                       this.uiFactory.makeIcon({
                         className: ClsUtils.joinClassName(
                           GridClassesEnum.EXTRA_ACTION,
-                          GridClassesEnum.DESC_SORT_ACTION,
                           this.isDescSortingEnabled && GridClassesEnum.ACTIVE_SORT_ACTION
                         ),
                         type: IconsEnum.ARROW_DOWN,
