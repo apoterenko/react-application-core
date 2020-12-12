@@ -182,22 +182,20 @@ $rac-button-decorated-not-filled-cls: '#{$rac-button-decorated-cls}.#{$rac-butto
 $rac-button-decorated-not-filled-mini-cls: '#{$rac-button-mini-cls}.#{$rac-button-decorated-not-filled-cls}';
 
 // @stable [18.07.2020]
+$rac-grid-column-actionable-cls: rac-grid-column-actionable;
 $rac-grid-column-align-center-cls: rac-grid-column-align-center;
 $rac-grid-column-align-right-cls: rac-grid-column-align-right;
-$rac-grid-column-close-wrapper-cls: rac-grid-column__close-wrapper;
 $rac-grid-column-cls: rac-grid-column;
 $rac-grid-column-content-cls: rac-grid-column__content;
-$rac-grid-column-sort-actions-cls: rac-grid-column__sort-actions;
+$rac-grid-extra-action-cls: rac-grid__extra-action;
 $rac-grid-row-group-cls: rac-grid-row-group;
 $rac-grid-row-odd-cls: rac-grid-row-odd;
 $rac-grid-row-part-of-group-cls: rac-grid-row-part-of-group;
 $rac-grid-row-selectable-cls: rac-grid-row-selectable;
 $rac-grid-row-selected-cls: rac-grid-row-selected;
-$rac-grid-sort-action-cls: rac-grid__sort-action;
 //
-$rac-grid-active-sort-action-cls: '#{$rac-grid-sort-action-cls}.rac-grid__active-sort-action';
-$rac-grid-asc-sort-action-cls: '#{$rac-grid-sort-action-cls}.rac-grid__asc-sort-action';
-$rac-grid-desc-sort-action-cls: '#{$rac-grid-sort-action-cls}.rac-grid__desc-sort-action';
+$rac-grid-active-sort-action-cls: '#{$rac-grid-extra-action-cls}.rac-grid__active-sort-action';
+$rac-grid-desc-sort-action-cls: '#{$rac-grid-extra-action-cls}.rac-grid__desc-sort-action';
 $rac-grid-expand-action-cls: '#{$rac-action-icon-cls}.rac-grid__expand-action';
 
 // @stable [20.05.2020]
