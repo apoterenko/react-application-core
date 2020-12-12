@@ -166,8 +166,7 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
     return (
       <Header
         {...Mappers.defaultLayoutPropsAsHeaderProps(this.originalProps)}
-        navigationActionRendered={this.isNavigationActionRendered}
-        onCommentClick={this.commentClickHandler}/>
+        navigationActionRendered={this.isNavigationActionRendered}/>  // TODO onCommentClick={this.commentClickHandler}
     );
   }
 
