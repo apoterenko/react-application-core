@@ -13,6 +13,7 @@ import {
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
   MultiFieldValueT,
+  NotMultiFieldValueT,
   PlaceEntityValueT,
   SelectValueT,
 } from '../definition';
@@ -33,6 +34,7 @@ export enum FieldConverterTypesEnum {
   ID = 'ID',
   MULTI_FIELD_VALUE = 'MULTI_FIELD_VALUE',
   NAMED_ENTITY = 'NAMED_ENTITY',
+  NOT_MULTI_FIELD_VALUE = 'NOT_MULTI_FIELD_VALUE',
   OAUTH_JWT_DECODED_INFO = 'OAUTH_JWT_DECODED_INFO',
   PLACE_ENTITY = 'PLACE_ENTITY',
   PLACE_PARAMETER = 'PLACE_PARAMETER',
@@ -45,6 +47,7 @@ export enum FieldConverterTypesEnum {
 }
 
 /**
+ * @config-entity
  * @stable [09.01.2020]
  */
 export interface IFieldConverterConfigEntity
@@ -67,6 +70,7 @@ export interface IFieldConverter {
   fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                                                               /* @stable [29.08.2020] */
   fromMultiFieldValueToTrueEntitiesObject<TEntity extends IEntity = IEntity>(value: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean>;   /* @stable [04.09.2020] */
   fromNamedEntityToRawDataLabeledValueEntity(value: INamedEntity): IPresetsRawDataLabeledValueEntity;                                                                           /* @stable [08.07.2020] */
+  fromNotMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: NotMultiFieldValueT<TEntity>): TEntity[];
   fromOAuthJwtDecodedInfoToUserEntity<TValue = unknown>(value: TValue): IReduxUserEntity;
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;

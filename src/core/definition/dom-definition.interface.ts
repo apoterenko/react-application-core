@@ -7,12 +7,16 @@ import {
   ICallbackWrapper,
   ICaptureWrapper,
   IConditionWrapper,
+  IDataWrapper,
+  IDetectFileTypeWrapper,
   IElementWrapper,
   IEventNameWrapper,
   IEventWrapper,
+  IFileNameWrapper,
   IParentClassNameWrapper,
   IParentElementWrapper,
   IPositionConfigurationWrapper,
+  IUrlWrapper,
 } from '../definitions.interface';
 
 /**
@@ -119,6 +123,17 @@ export interface IDomParentConfigEntity
 }
 
 /**
+ * @config-entity
+ * @stable [13.12.2020]
+ */
+export interface IDownloadFileConfigEntity
+  extends IDataWrapper<Blob>,
+    IDetectFileTypeWrapper,
+    IFileNameWrapper,
+    IUrlWrapper {
+}
+
+/**
  * @stable [29.09.2019]
  */
 export interface IDomAccessor {
@@ -138,6 +153,8 @@ export interface IDomAccessor {
   createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement>;
   disableFullScreen(element?: Element);
   dispatchEvent(cfg: IDomFireEventConfigEntity): void;
+  downloadFile(cfg: IDownloadFileConfigEntity): Promise<void>;
+  downloadFileByBlob(cfg: IDownloadFileConfigEntity): void;
   enableFullScreen(element?: Element);
   findElement(selector: string, parent?: Element): Element;
   fireEvent(cfg: IDomFireEventConfigEntity): void;

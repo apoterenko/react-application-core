@@ -1,16 +1,14 @@
 import { injectable } from 'inversify';
-import * as R from 'ramda';
 
 import {
-  buildEncodedURI,
   defValuesFilter,
-  downloadFileAsBlobUrl,
+  DomUtils,
   FilterUtils,
-  join,
+  JoinUtils,
   NumberUtils,
-  orUndef,
   StorageUtils,
   StringUtils,
+  UrlUtils,
 } from '../util';
 import { AnyT } from '../definitions.interface';
 import {
@@ -197,12 +195,17 @@ export class BaseTransport {
   }
 
   /**
-   * @stable [31.08.2019]
-   * @param {ITransportRequestEntity} params
+   * @stable [13.12.2020]
+   * @param params
+   * @protected
    */
   protected downloadFile(params: ITransportRequestEntity): void {
-    const requestParams = this.transport.makeRequestData(params);
-    downloadFileAsBlobUrl(join([this.settings.downloadUrl, buildEncodedURI(requestParams)]));
+    DomUtils.downloadFileByUrl({
+      url: JoinUtils.join([
+        this.settings.downloadUrl,
+        UrlUtils.buildEncodedURI(this.transport.makeRequestData(params))
+      ]),
+    });
   }
 
   /**

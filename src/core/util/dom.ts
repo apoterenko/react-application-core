@@ -3,16 +3,18 @@ import * as R from 'ramda';
 
 import { BlobUtils } from './blob';
 import { isFn } from './type';
-import { nvl } from './nvl';
+import { NvlUtils } from './nvl';
 import {
   trueValuesArrayFilter,
 } from './filter';
 import {
   ComponentClassesEnum,
+  IDownloadFileConfigEntity,
   IJQueryElement,
   IPresetsXYEntity,
 } from '../definition';
 import { joinClassName } from './cls';
+import { ConditionUtils } from './cond';
 
 /**
  * @stable [28.08.2019]
@@ -182,16 +184,20 @@ export const isDocumentHasFocus = (): boolean => isFn(document.hasFocus) && docu
 export const toJqEl = <TJqElement extends IJQueryElement = IJQueryElement>(source: Element): TJqElement => $(source) as TJqElement;
 
 /**
- * @stable [30.08.2019]
- * @param {string} url
- * @param {string} fileName
+ * @stable [13.12.2020]
+ * @param cfg
  */
-export const downloadFileAsBlobUrl = (url: string, fileName?: string): void => {
+const downloadFileByUrl = (cfg: IDownloadFileConfigEntity): void => {
+  const {
+    fileName,
+    url,
+  } = cfg;
   const loader = createElement<HTMLAnchorElement>('a');
+
   try {
     addClassNames(loader, ComponentClassesEnum.INVISIBLE);
 
-    loader.download = nvl(fileName, url);
+    loader.download = NvlUtils.nvl(fileName, url);
     loader.href = url;
     loader.click();
   } finally {
@@ -200,34 +206,46 @@ export const downloadFileAsBlobUrl = (url: string, fileName?: string): void => {
 };
 
 /**
- * @stable [30.08.2019]
- * @param {string} url
- * @param {string} fileName
+ * @stable [13.12.2020]
+ * @param cfg
  */
-export const downloadFile = async (url: string, fileName?: string): Promise<void> =>
+const downloadFile = async (cfg: IDownloadFileConfigEntity): Promise<void> => {
+  const {
+    detectFileType,
+    fileName,
+    url,
+  } = cfg;
+
   //  Force apply file name via the proxy-link. Download attribute doesn't work in case of outer UUID link
-  downloadFileAsBlob(await BlobUtils.fromUrlToBlob(url), fileName);
+  const data = await BlobUtils.fromUrlToBlob(url);
+  const fileExtension = await ConditionUtils.orNull(
+    detectFileType,
+    async () => BlobUtils.asFileExtension(await BlobUtils.detectBlobMimeType(data))
+  );
+
+  return downloadFileByBlob({
+    data,
+    fileName: fileExtension
+      ? `${NvlUtils.nvl(fileName, url)}.${fileExtension}`
+      : fileName,
+  });
+};
 
 /**
- * @stable [30.08.2019]
- * @param {Blob} blob
- * @param {string} fileName
+ * @stable [13.12.2020]
+ * @param cfg
  */
-export const downloadFileAsBlob = (blob: Blob, fileName?: string): void => {
+const downloadFileByBlob = (cfg: IDownloadFileConfigEntity): void => {
+  const blob = cfg.data;
+  const fileName = cfg.fileName;
+
   const url = URL.createObjectURL(blob);
   try {
-    downloadFileAsBlobUrl(url, fileName);
+    downloadFileByUrl({url, fileName});
   } finally {
     URL.revokeObjectURL(url);
   }
 };
-
-/**
- * @stable [19.09.2018]
- * @param {string} v
- * @returns {number}
- */
-export const parseValueAtPx = (v: string): number => parseFloat((v || '').split('px')[0] || '0');
 
 /**
  * @stable [30.07.2018]
@@ -353,3 +371,12 @@ export const openFullScreen = (
     elem.msRequestFullscreen();
   }
 };
+
+/**
+ * @stable [13.12.2020]
+ */
+export class DomUtils {
+  public static readonly downloadFile = downloadFile;
+  public static readonly downloadFileByBlob = downloadFileByBlob;
+  public static readonly downloadFileByUrl = downloadFileByUrl;
+}

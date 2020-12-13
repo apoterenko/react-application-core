@@ -1,5 +1,8 @@
-import { MimeTypesEnum } from '../definition';
-import { nvl } from './nvl';
+import {
+  FileExtensionsEnum,
+  MimeTypesEnum,
+} from '../definition';
+import { NvlUtils } from './nvl';
 
 /**
  * @stable [09.11.2020]
@@ -18,12 +21,11 @@ const fromUrlToBlob = (url: string, options?: RequestInit): Promise<Blob> =>
   fetch(url, {mode: 'cors', ...options}).then((r) => r.blob());
 
 /**
- * @stable [04.08.2019]
- * @param {Blob} blob
- * @param {number} length
- * @returns {Promise<number[]>}
+ * @stable [13.12.2020]
+ * @param blob
+ * @param length
  */
-export const readBlobBytes = async (blob: Blob, length?: number): Promise<number[]> => new Promise<number[]>((resolve) => {
+const readBlobBytes = async (blob: Blob, length?: number): Promise<number[]> => new Promise<number[]>((resolve) => {
   const fileReader = new FileReader();
   fileReader.onloadend = (evt) => {
     const target = evt.target;
@@ -31,56 +33,74 @@ export const readBlobBytes = async (blob: Blob, length?: number): Promise<number
       resolve(Array.from(new Uint8Array(target.result as ArrayBuffer)));
     }
   };
-  fileReader.readAsArrayBuffer(blob.slice(0, nvl(length, blob.size)));
+  fileReader.readAsArrayBuffer(blob.slice(0, NvlUtils.nvl(length, blob.size)));
 });
 
 /**
- * @stable [04.08.2019]
- * @param {Blob} blob
- * @param {number} length
- * @returns {Promise<string>}
+ * @stable [13.12.2020]
+ * @param blob
+ * @param length
  */
-export const readBlobBytesAsString = async (blob: Blob, length?: number): Promise<string> =>
+const readBlobBytesAsString = async (blob: Blob, length?: number): Promise<string> =>
   readBlobBytes(blob, length)
     .then((bytes) => bytes.map((byte) => byte.toString(16)).join('').toUpperCase());
 
 /**
- * @stable [04.08.2019]
- * @param {string} signature
- * @returns {MimeTypesEnum | string}
+ * @stable [13.12.2020]
+ * @param signature
  */
-export const getBlobMimeType = (signature: string): MimeTypesEnum | string => {
+const asBlobMimeType = (signature: string): MimeTypesEnum | string => {
   switch (signature) {
     case '89504E47':
       return MimeTypesEnum.IMAGE_PNG;
     case '47494638':
-      return 'image/gif';
+      return MimeTypesEnum.IMAGE_GIF;
     case '25504446':
       return MimeTypesEnum.APPLICATION_PDF;
     case 'FFD8FFDB':
     case 'FFD8FFE0':
       return MimeTypesEnum.IMAGE_JPEG;
     case '504B0304':
-      return 'application/zip';
+      return MimeTypesEnum.APPLICATION_ZIP;
     default:
       return null;
   }
 };
 
 /**
- * @stable [19.09.2019]
- * @param {Blob} blob
- * @returns {Promise<MimeTypesEnum | string>}
+ * @stable [13.12.2020]
+ * @param mimeType
  */
-export const detectBlobMimeType = async (blob: Blob): Promise<MimeTypesEnum | string> => {
-  const bytes = await readBlobBytesAsString(blob, 4);
-  return getBlobMimeType(bytes);
+const asFileExtension = (mimeType: MimeTypesEnum | string): FileExtensionsEnum => {
+  switch (mimeType) {
+    case MimeTypesEnum.IMAGE_PNG:
+      return FileExtensionsEnum.PNG;
+    case MimeTypesEnum.IMAGE_JPEG:
+      return FileExtensionsEnum.JPEG;
+    case MimeTypesEnum.IMAGE_GIF:
+      return FileExtensionsEnum.GIF;
+    case MimeTypesEnum.APPLICATION_PDF:
+      return FileExtensionsEnum.PDF;
+    case MimeTypesEnum.APPLICATION_ZIP:
+      return FileExtensionsEnum.ZIP;
+    default:
+      return null;
+  }
 };
+
+/**
+ * @stable [13.12.2020]
+ * @param blob
+ */
+const detectBlobMimeType = async (blob: Blob): Promise<MimeTypesEnum | string> =>
+  asBlobMimeType(await readBlobBytesAsString(blob, 4));
 
 /**
  * @stable [02.11.2020]
  */
 export class BlobUtils {
+  public static readonly asFileExtension = asFileExtension;
+  public static readonly detectBlobMimeType = detectBlobMimeType;
   public static readonly fromBase64UrlToBlob = fromBase64UrlToBlob;
   public static readonly fromUrlToBlob = fromUrlToBlob;
 }

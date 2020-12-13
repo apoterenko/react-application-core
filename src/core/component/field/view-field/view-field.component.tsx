@@ -3,9 +3,9 @@ import * as R from 'ramda';
 import * as BPromise from 'bluebird';
 
 import {
+  BlobUtils,
   ClsUtils,
-  defValuesFilter,
-  detectBlobMimeType,
+  FilterUtils,
   UrlUtils,
 } from '../../../util';
 import { Field } from '../field/field.component';
@@ -189,7 +189,7 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
       url = currentValue;
 
       if (detectFileType) {
-        type = await detectBlobMimeType(
+        type = await BlobUtils.detectBlobMimeType(
           await this.transport.request<Blob>({
             blobResponse: true,
             method: TransportMethodsEnum.GET,
@@ -205,10 +205,10 @@ export class ViewField extends Field<IViewFieldProps, IViewFieldState> {
       if (!R.isNil(file)) {
         url = URL.createObjectURL(file);  // No memory leak! Will be clear later (see doClear)
         if (detectFileType) {
-          type = await detectBlobMimeType(file);
+          type = await BlobUtils.detectBlobMimeType(file);
         }
       }
     }
-    return defValuesFilter<IViewFieldState, IViewFieldState>({url, type});
+    return FilterUtils.defValuesFilter<IViewFieldState, IViewFieldState>({url, type});
   }
 }

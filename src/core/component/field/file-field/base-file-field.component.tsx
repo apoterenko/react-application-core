@@ -9,8 +9,6 @@ import { BaseTextField } from '../text-field/base-text-field.component';
 import {
   ClsUtils,
   ConditionUtils,
-  downloadFile,
-  downloadFileAsBlob,
   FilterUtils,
   NvlUtils,
   ObjectUtils,
@@ -19,11 +17,11 @@ import {
 } from '../../../util';
 import { DnD } from '../../dnd/dnd.component';
 import {
-  EntityIdT,
   AnyT,
+  EntityIdT,
+  IEntity,
 } from '../../../definitions.interface';
 import { MultiFieldPlugin } from '../multifield/multifield.plugin';
-import { toLastAddedMultiItemEntityId } from '../multifield';
 import { Dialog } from '../../dialog/dialog.component';
 import { WebCamera } from '../../web-camera/web-camera.component';
 import {
@@ -363,18 +361,35 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [28.06.2018]
-   * @param {IBaseEvent} event
+   * @stable [13.12.2020]
+   * @private
    */
-  private async downloadFile(event: IBaseEvent): Promise<void> {
-    if (this.isValueNotPresent) {
-      return;
-    }
-    const url = toLastAddedMultiItemEntityId(this.value) as string; // TODO
-    const fileName = this.props.fileName || url;
+  private async downloadFile(): Promise<void[]> {
+    const entities = this.fieldConverter
+      .fromNotMultiFieldValueToEntities(
+        this.fieldConverter
+          .fromMultiFieldValueToDefinedEntities(this.value)
+      );
 
-    const blob = await this.databaseStorage.get(url);
-    return R.isNil(blob) ? downloadFile(url, fileName) : downloadFileAsBlob(blob, fileName);
+    const blobs = await Promise.all(
+      entities
+        .map((entity: IEntity) => this.databaseStorage.get(entity.id as string))
+    );
+
+    const {
+      fileName,
+    } = this.originalProps;
+
+    return Promise.all(
+      blobs.map((data, index) => {
+        const url = entities[index].id as string;
+        const actualFileName = NvlUtils.nvl(fileName, url);
+
+        return R.isNil(data)
+          ? this.domAccessor.downloadFile({url, fileName: actualFileName})
+          : this.domAccessor.downloadFileByBlob({data, fileName: actualFileName});
+      })
+    );
   }
 
   /**

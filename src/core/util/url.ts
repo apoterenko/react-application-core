@@ -12,6 +12,7 @@ import {
 } from '../definition';
 import { isObjectNotEmpty } from './object';
 import { notNilValuesFilter } from './filter';
+import { JsonUtils } from './json';
 
 /**
  * @stable [07.10.2019]
@@ -67,11 +68,10 @@ export const getURLSearchParams = (search: string): URLSearchParams => new URLSe
 const isAbsoluteURI = (uri: string): boolean => URI(uri).is('absolute');
 
 /**
- * @stable [11.09.2018]
- * @param {IKeyValue} params
- * @returns {string}
+ * @stable [13.12.2020]
+ * @param params
  */
-export const buildEncodedURI = (params: IKeyValue) => encodeURIComponent(btoa(JSON.stringify(params)));
+const buildEncodedURI = <TParams = IKeyValue>(params: TParams) => encodeURIComponent(btoa(JsonUtils.serializeJson(params)));
 
 /**
  * @stable [12.09.2018]

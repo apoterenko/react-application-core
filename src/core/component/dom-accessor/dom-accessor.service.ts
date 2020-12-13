@@ -7,20 +7,20 @@ import {
   addChild,
   addClassNames,
   addRootElement,
-  calc,
+  CalcUtils,
   cancelEvent,
+  ConditionUtils,
   createElement,
   createScript,
-  defValuesFilter,
+  DomUtils,
+  FilterUtils,
   getContentHeight,
   getHeight,
   getScrollLeft,
   getScrollTop,
   getWidth,
   hasClasses,
-  ifNotNilThanValue,
   isElementVisibleWithinParent,
-  isFn,
   openFullScreen,
   removeChild,
   removeClassNames,
@@ -28,6 +28,7 @@ import {
   scrollTo,
   setScrollLeft,
   setScrollTop,
+  TypeUtils,
 } from '../../util';
 import {
   DEFAULT_DOM_POSITION_CONFIG_ENTITY,
@@ -38,6 +39,7 @@ import {
   IDomFireEventConfigEntity,
   IDomParentConfigEntity,
   IDomPositionConfigEntity,
+  IDownloadFileConfigEntity,
   IEnvironment,
   IEventManager,
   IJQueryElement,
@@ -82,12 +84,12 @@ export class DomAccessor implements IDomAccessor {
    * @param {IDomPositionConfigEntity} cfg
    */
   public setPosition(cfg: IDomPositionConfigEntity): void {
-    const cfg0 = defValuesFilter<IDomPositionConfigEntity, IDomPositionConfigEntity>({
+    const cfg0 = FilterUtils.defValuesFilter<IDomPositionConfigEntity, IDomPositionConfigEntity>({
       ...DEFAULT_DOM_POSITION_CONFIG_ENTITY,
       ...cfg,
       event: UNDEF,
       element: UNDEF,
-      ...ifNotNilThanValue(cfg.event, (event) => ({of: calc(event)})),
+      ...ConditionUtils.ifNotNilThanValue(cfg.event, (event) => ({of: CalcUtils.calc(event)})),
     });
     const el = this.asJqEl(cfg.element);
     el.position(cfg0);
@@ -118,6 +120,22 @@ export class DomAccessor implements IDomAccessor {
       element = this.window,
     } = cfg;
     element.dispatchEvent(event);
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @param cfg
+   */
+  public downloadFile(cfg: IDownloadFileConfigEntity): Promise<void> {
+    return DomUtils.downloadFile(cfg);
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @param cfg
+   */
+  public downloadFileByBlob(cfg: IDownloadFileConfigEntity): void {
+    DomUtils.downloadFileByBlob(cfg);
   }
 
   /**
@@ -201,11 +219,11 @@ export class DomAccessor implements IDomAccessor {
     let leaveUnsubscriber: () => void;
 
     const sideEffectsUnsubscriber = () => {
-      if (isFn(enterUnsubscriber)) {
+      if (TypeUtils.isFn(enterUnsubscriber)) {
         enterUnsubscriber();
         enterUnsubscriber = null;
       }
-      if (isFn(leaveUnsubscriber)) {
+      if (TypeUtils.isFn(leaveUnsubscriber)) {
         leaveUnsubscriber();
         leaveUnsubscriber = null;
       }

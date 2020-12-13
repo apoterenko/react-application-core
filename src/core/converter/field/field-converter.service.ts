@@ -21,6 +21,7 @@ import {
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
   MultiFieldValueT,
+  NotMultiFieldValueT,
   PlaceEntityValueT,
   SelectValueT,
   TranslatorT,
@@ -54,7 +55,7 @@ export class FieldConverter implements IFieldConverter {
   private static readonly logger = LoggerFactory.makeLogger('FieldConverter');
 
   @lazyInject(DI_TYPES.Translate) protected readonly t: TranslatorT;
-  protected readonly converters = new Map<string, (value: AnyT) => AnyT>();
+  protected readonly converters = new Map<string, (value: unknown) => unknown>();
 
   /**
    * @stable [09.01.2020]
@@ -143,6 +144,11 @@ export class FieldConverter implements IFieldConverter {
       to: FieldConverterTypesEnum.RAW_VALUE,
       converter: this.$fromSelectValueToRawValue.bind(this),
     });
+    this.register({
+      from: FieldConverterTypesEnum.NOT_MULTI_FIELD_VALUE,
+      to: FieldConverterTypesEnum.ENTITIES,
+      converter: this.$fromNotMultiFieldValueToEntities.bind(this),
+    });
   }
 
   /**
@@ -156,13 +162,15 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [24.12.2019]
-   * @param {IPhoneConfigEntity<libphonenumber.PhoneNumberFormat>} config
-   * @returns {string}
+   * @stable [13.12.2020]
+   * @param config
    */
   public convert(config: IFieldConverterConfigEntity): AnyT {
-    const {value} = config;
+    const {
+      value,
+    } = config;
     const converter = this.converter(config);
+
     if (!TypeUtils.isFn(converter)) {
       throw new Error(`The converter is not registered! A config ${JSON.stringify(config)}:`);
     }
@@ -171,8 +179,7 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [09.01.2020]
-   * @param {IFieldConverterConfigEntity} config
-   * @returns {(value: AnyT) => AnyT}
+   * @param config
    */
   public converter(config: IFieldConverterConfigEntity): (value: AnyT) => AnyT {
     return this.converters.get(this.asKey(config));
@@ -299,12 +306,23 @@ export class FieldConverter implements IFieldConverter {
 
   /**
    * @stable [16.05.2020]
-   * @param {MultiFieldValueT<TEntity extends IEntity>} value
-   * @returns {TEntity[]}
+   * @param value
    */
   public fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
     return this.convert({
       from: FieldConverterTypesEnum.MULTI_FIELD_VALUE,
+      to: FieldConverterTypesEnum.ENTITIES,
+      value,
+    });
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @param value
+   */
+  public fromNotMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: NotMultiFieldValueT<TEntity>): TEntity[] {
+    return this.convert({
+      from: FieldConverterTypesEnum.NOT_MULTI_FIELD_VALUE,
       to: FieldConverterTypesEnum.ENTITIES,
       value,
     });
@@ -462,6 +480,14 @@ export class FieldConverter implements IFieldConverter {
    */
   private $fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
     return MultiFieldUtils.multiFieldValueAsEntities(value);
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @param value
+   */
+  public $fromNotMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(value: NotMultiFieldValueT<TEntity>): TEntity[] {
+    return MultiFieldUtils.notMultiFieldValueAsEntities(value);
   }
 
   /**
