@@ -7,18 +7,6 @@ import {
 } from '../../definitions.interface';
 import { IContainerProps, IReduxListHolderEntity, IGridProps } from '../../definition';
 
-/**
- * @stable [10.09.2018]
- */
-export interface ITimeGridBuilderConfigEntity {
-  hourFrom?: number;
-  hourTo?: number;
-  cellWidthFactor?: number;
-  minPeriodAtMinutes?: number;
-  timeResolver?: (hour: number, isBeforeNoon?: boolean) => number;
-  timeAbbreviationResolver?: (isBeforeNoon?: boolean) => string;
-}
-
 // TODO
 export interface IGridContainerProps extends IContainerProps,
                                              IReduxListHolderEntity,

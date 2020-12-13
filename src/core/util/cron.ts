@@ -18,10 +18,10 @@ import {
   ICronEntity,
   ICronPlainEntity,
 } from '../definition';
+import { ConditionUtils } from './cond';
 import { DiServices } from '../di/di.services';
-import { isObjectNotEmpty } from './object';
-import { join } from './join';
-import { orNull } from './cond';
+import { JoinUtils } from './join';
+import { ObjectUtils } from './object';
 import { SortUtils } from './sort';
 import { StringNumberT } from '../definitions.interface';
 import { TypeUtils } from './type';
@@ -99,7 +99,7 @@ export const fromCronExpression = (expression?: string,
 const toCronPart = (values: number[],
                     partType: CronPartTypesEnum,
                     returnNeverExecutablePeriodAsEmptyValue = false): string => {
-  if (!isObjectNotEmpty(values)) {
+  if (!ObjectUtils.isObjectNotEmpty(values)) {
     return returnNeverExecutablePeriodAsEmptyValue
       ? CRON_NEVER_EXECUTABLE_SYMBOL
       : CRON_ALL_VALUES_SYMBOL;   // We can't set never executable period
@@ -133,7 +133,7 @@ const toCronPart = (values: number[],
         break;
     }
   }
-  return join(tryingToPack(result), ',');
+  return JoinUtils.join(tryingToPack(result), ',');
 };
 
 /**
@@ -155,7 +155,7 @@ const fromCronPart = (cronPart: string,
                       partType: CronPartTypesEnum,
                       from: Date,
                       to: Date): number[] => {
-  if (!isObjectNotEmpty(cronPart)) {
+  if (!ObjectUtils.isObjectNotEmpty(cronPart)) {
     return [];
   }
   const nc = DiServices.numberConverter();
@@ -168,10 +168,10 @@ const fromCronPart = (cronPart: string,
     if (ranges[0] === CRON_NEVER_EXECUTABLE_SYMBOL) {
       return;
     }
-    const period = orNull(repeatingParts.length > 1, () => nc.number(repeatingParts[1]) as number);
+    const period = ConditionUtils.orNull(repeatingParts.length > 1, () => nc.number(repeatingParts[1]) as number);
     /**/
     const lastDaysParts = item.split(CRON_LAST_DAY_SYMBOL);
-    const lastDay = orNull(lastDaysParts.length > 1, () => {
+    const lastDay = ConditionUtils.orNull(lastDaysParts.length > 1, () => {
       const lastDayPart = lastDaysParts[0];
       return R.isEmpty(lastDayPart)
         ? CRON_LAST_DAY_OF_MONTH // For LDoM
@@ -308,7 +308,7 @@ export class CronEntity implements ICronEntity {
    * @returns {CronEntity}
    */
   public fromExpression(expression?: string): ICronEntity {
-    if (!isObjectNotEmpty(expression)) {
+    if (!ObjectUtils.isObjectNotEmpty(expression)) {
       return this
         .withMinutes()
         .withHours()
@@ -334,7 +334,7 @@ export class CronEntity implements ICronEntity {
    * @returns {string}
    */
   public toExpression(returnNeverExecutablePeriodAsEmptyValue?: boolean): string {
-    return join([
+    return JoinUtils.join([
       toCronPart(this.minutes, CronPartTypesEnum.MINUTE, returnNeverExecutablePeriodAsEmptyValue),
       toCronPart(this.hours, CronPartTypesEnum.HOUR, returnNeverExecutablePeriodAsEmptyValue),
       toCronPart(this.daysOfMonths, CronPartTypesEnum.DAY_OF_MONTH, returnNeverExecutablePeriodAsEmptyValue),
