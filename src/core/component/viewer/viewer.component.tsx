@@ -57,12 +57,12 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
+   * @stable [13.12.2020]
+   * @param prevProps
+   * @param prevState
    */
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
-    if (this.hasSrcChanges(prevProps, prevState)) {
+    if (this.hasInlineDialogBeenClosed(prevProps, prevState) || this.hasSrcChanges(prevProps, prevState)) {
       this.refreshOnSrcChanges();
     } else if (this.hasInternalChanges(prevProps, prevState)) {
       this.refreshOnInternalChanges();
@@ -264,12 +264,12 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @param prevProps
+   * @param prevState
+   * @private
    */
-  protected hasInternalChanges(prevProps: TProps, prevState: TState): boolean {
+  private hasInternalChanges(prevProps: TProps, prevState: TState): boolean {
     return (
       this.hasPageChanges(prevProps, prevState)
       || this.hasScaleChanges(prevProps, prevState)
@@ -277,34 +277,44 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [15.03.2020]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @param prevProps
+   * @param prevState
+   * @private
    */
-  protected hasScaleChanges(prevProps: TProps, prevState: TState): boolean {
-    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.props.scale, prevProps.scale);
+  private hasScaleChanges(prevProps: TProps, prevState: TState): boolean {
+    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.scale, prevProps.scale);
   }
 
   /**
-   * @stable [16.03.2020]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @param prevProps
+   * @param prevState
+   * @private
    */
-  protected hasSrcChanges(prevProps: TProps, prevState: TState): boolean {
-    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.props.src, prevProps.src);
+  private hasSrcChanges(prevProps: TProps, prevState: TState): boolean {
+    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.src, prevProps.src);
   }
 
   /**
-   * @stable [16.03.2020]
-   * @param {TProps} prevProps
-   * @param {TState} prevState
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @param prevProps
+   * @param prevState
+   * @private
    */
-  protected hasPageChanges(prevProps: TProps, prevState: TState): boolean {
+  private hasInlineDialogBeenClosed(prevProps: TProps, prevState: TState): boolean {
+    return this.isPreviewDialogInline && prevState.opened && !this.state.opened;
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @param prevProps
+   * @param prevState
+   * @private
+   */
+  private hasPageChanges(prevProps: TProps, prevState: TState): boolean {
     return (
-      ObjectUtils.isCurrentValueNotEqualPreviousValue(this.props.page, prevProps.page)
+      ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.page, prevProps.page)
       || ObjectUtils.isCurrentValueNotEqualPreviousValue(this.state.page, prevState.page)
     );
   }
@@ -476,7 +486,15 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
    * @private
    */
   private get isBodyElementRendered(): boolean {
-    return !this.isPreviewDialogOpened || !this.previewDialogConfiguration.inline;
+    return !this.isPreviewDialogOpened || !this.isPreviewDialogInline;
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @private
+   */
+  private get isPreviewDialogInline(): boolean {
+    return this.previewDialogConfiguration.inline;
   }
 
   /**
