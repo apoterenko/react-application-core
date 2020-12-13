@@ -1,14 +1,20 @@
 import * as React from 'react';
 
-import { ConditionUtils } from '../../../util';
+import {
+  ConditionUtils,
+  PropsUtils,
+} from '../../../util';
 import {
   IGenericPdfPlugin,
   IPdfViewerProps,
+  IViewerProps,
 } from '../../../definition';
 import { GenericPdfPlugin } from './generic-pdf.plugin';
 import { Viewer } from '../viewer.component';
 
 export class PdfViewer extends Viewer {
+
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IViewerProps>({}, Viewer);
 
   private pdfRendererPlugin: IGenericPdfPlugin;
   private readonly canvasRef = React.createRef<HTMLCanvasElement>();
@@ -90,10 +96,10 @@ export class PdfViewer extends Viewer {
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @protected
    */
-  protected isPreviewForwardActionDisabled(): boolean {
+  protected get isPreviewForwardActionDisabled(): boolean {
     return this.actualOrDefaultPreviewPage === this.pdfRendererPlugin.pagesCount;
   }
 

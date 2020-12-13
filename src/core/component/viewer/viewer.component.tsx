@@ -4,7 +4,6 @@ import * as R from 'ramda';
 import {
   CalcUtils,
   ClsUtils,
-  isPreviewUsed,
   NvlUtils,
   ObjectUtils,
   WrapperUtils,
@@ -28,20 +27,24 @@ import { Dialog } from '../dialog/dialog.component';
 import { GenericComponent } from '../base/generic.component';
 import { Info } from '../info/info.component';
 
-export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
-                             TState extends IViewerState = IViewerState>
-  extends GenericComponent<TProps, TState> {
+export class Viewer<
+    TProps extends IViewerProps = IViewerProps,
+    TState extends IViewerState = IViewerState
+  > extends GenericComponent<TProps, TState> {
+
+  public static readonly defaultProps: IViewerProps = {
+    usePreview: true,
+  };
 
   private static readonly DEFAULT_PAGE = 1;
-
   private readonly previewDialogRef = React.createRef<Dialog>();
 
   /**
-   * @stable [16.03.2020]
-   * @param {TProps} props
+   * @stable [13.12.2020]
+   * @param originalProps
    */
-  constructor(props: TProps) {
-    super(props);
+  constructor(originalProps: TProps) {
+    super(originalProps);
 
     this.onBack = this.onBack.bind(this);
     this.onDecrementScale = this.onDecrementScale.bind(this);
@@ -77,10 +80,12 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [02.10.2020]
+   * @stable [13.12.2020]
    */
   public render(): JSX.Element {
-    const {style} = this.originalProps;
+    const {
+      style,
+    } = this.originalProps;
 
     return (
       <div
@@ -96,14 +101,14 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
   protected getPreviewExtraActionsElement(): JSX.Element {
     return (
       <React.Fragment>
-        {this.incrementScaleAction}
-        {this.decrementScaleAction}
+        {this.incrementScaleActionElement}
+        {this.decrementScaleActionElement}
         {this.previewBackActionElement}
         {this.previewForwardActionElement}
       </React.Fragment>
@@ -111,36 +116,36 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
   protected get previewForwardActionElement(): JSX.Element {
     return (
       <Button
         icon={IconsEnum.ARROW_RIGHT}
-        disabled={this.isPreviewForwardActionDisabled()}
+        disabled={this.isPreviewForwardActionDisabled}
         onClick={this.onForward}/>
     );
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
   protected get previewBackActionElement(): JSX.Element {
     return (
       <Button
         icon={IconsEnum.ARROW_LEFT}
-        disabled={this.isPreviewBackActionDisabled()}
+        disabled={this.isPreviewBackActionDisabled}
         onClick={this.onBack}/>
     );
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
-  protected get incrementScaleAction(): JSX.Element {
+  protected get incrementScaleActionElement(): JSX.Element {
     return (
       <Button
         icon={IconsEnum.SEARCH_PLUS}
@@ -149,10 +154,10 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
-  protected get decrementScaleAction(): JSX.Element {
+  protected get decrementScaleActionElement(): JSX.Element {
     return (
       <Button
         icon={IconsEnum.SEARCH_MINUS}
@@ -184,18 +189,18 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @protected
    */
-  protected isPreviewForwardActionDisabled(): boolean {
+  protected get isPreviewForwardActionDisabled(): boolean {
     return false;
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @protected
    */
-  protected isPreviewBackActionDisabled(): boolean {
+  protected get isPreviewBackActionDisabled(): boolean {
     const previewPage = this.state.previewPage;
     return !previewPage || previewPage === Viewer.DEFAULT_PAGE;
   }
@@ -234,16 +239,20 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
-  protected abstract getContentElement(): JSX.Element;
+  protected getContentElement(): JSX.Element {
+    return null;
+  }
 
   /**
-   * @stable [15.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
-  protected abstract getPreviewElement(): JSX.Element;
+  protected getPreviewElement(): JSX.Element {
+    return null;
+  }
 
   /**
    * @stable [02.08.2020]
@@ -506,8 +515,8 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @private
    */
   private get previewIconElement(): JSX.Element {
     return (
@@ -525,16 +534,16 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @private
    */
   private get isInfoRendered(): boolean {
     return this.inProgress || this.doesErrorExist;
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @private
    */
   private get canPreview(): boolean {
     return this.isPreviewUsed
@@ -544,42 +553,42 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @private
    */
   private get doesErrorExist(): boolean {
     return !R.isNil(this.state.error);
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @private
    */
   private get isActualSrcAbsent(): boolean {
     return this.isSrcAbsent && this.isDefaultSrcAbsent;
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @private
    */
   private get isSrcAbsent(): boolean {
-    return R.isNil(this.props.src);
+    return R.isNil(this.originalProps.src);
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @private
    */
   private get isDefaultSrcAbsent(): boolean {
-    return R.isNil(this.props.defaultScr);
+    return R.isNil(this.originalProps.defaultScr);
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {boolean}
+   * @stable [13.12.2020]
+   * @private
    */
   private get isPreviewUsed(): boolean {
-    return isPreviewUsed(this.props);
+    return this.originalProps.usePreview;
   }
 }

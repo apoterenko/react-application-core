@@ -21,7 +21,6 @@ import {
   IRefreshOnUpdateWrapper,
   ISelectedWrapper,
   ITouchedWrapper,
-  IUsePreviewWrapper,
   IUseZipCodeWrapper,
   IValidWrapper,
 } from '../definitions.interface';
@@ -197,14 +196,6 @@ export const isDirty = (entity: IDirtyWrapper): boolean =>
  */
 const isErrorMessageRendered = (wrapper: IErrorMessageRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.errorMessageRendered !== false;
-
-/**
- * @stable [16.03.2020]
- * @param {IUsePreviewWrapper} wrapper
- * @returns {boolean}
- */
-export const isPreviewUsed = (wrapper: IUsePreviewWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.usePreview !== false;
 
 /**
  * @stable [09.09.2020]

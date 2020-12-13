@@ -1,31 +1,26 @@
 import * as React from 'react';
 
 import {
+  DefaultEntities,
   IPictureViewerProps,
   ViewerClassesEnum,
 } from '../../../definition';
-import { ClsUtils } from '../../../util';
+import {
+  ClsUtils,
+  PropsUtils,
+} from '../../../util';
 import { Viewer } from '../viewer.component';
 
 export class PictureViewer extends Viewer<IPictureViewerProps> {
 
-  public static defaultProps: IPictureViewerProps = {
-    defaultScr: 'media/no_picture.jpg',
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IPictureViewerProps>({
+    defaultScr: DefaultEntities.MEDIA_NO_PICTURE_URL,
     usePreview: false,
-  };
+  }, Viewer);
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
-   */
-  protected getPreviewExtraActionsElement(): JSX.Element {
-    // You may implement this later..
-    return null;
-  }
-
-  /**
-   * @stable [19.06.2020]
-   * @returns {string}
+   * @stable [13.12.2020]
+   * @protected
    */
   protected getClassName(): string {
     return ClsUtils.joinClassName(
@@ -35,22 +30,44 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
   }
 
   /**
-   * @stable [11.01.2019]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
   protected getContentElement(): JSX.Element {
     return (
       <img
         className={ViewerClassesEnum.VIEWER_CONTENT}
-        src={this.actualSrc}/>
+        src={this.actualSrc}
+        style={{transform: `scale(${this.actualOrDefaultScale})`}}
+        alt=''/>
     );
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {JSX.Element}
+   * @stable [13.12.2020]
+   * @protected
    */
   protected getPreviewElement(): JSX.Element {
-    return <PictureViewer src={this.actualSrc}/>;
+    return (
+      <PictureViewer
+        src={this.actualSrc}
+        scale={this.actualOrDefaultPreviewScale}/>
+    );
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @protected
+   */
+  protected get previewForwardActionElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @protected
+   */
+  protected get previewBackActionElement(): JSX.Element {
+    return null;
   }
 }
