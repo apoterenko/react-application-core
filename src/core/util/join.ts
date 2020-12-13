@@ -1,36 +1,33 @@
-import {
-  AnyT,
-  UniCodesEnum,
-} from '../definitions.interface';
-import { isArrayNotEmpty } from './array';
+import { ArrayUtils } from './array';
 import { FilterUtils } from './filter';
-import { nvl } from './nvl';
+import { NvlUtils } from './nvl';
+import { UniCodesEnum } from '../definitions.interface';
 
 /**
- * @stable [17.05.2020]
- * @param {AnyT[]} parts
- * @param {string} joiner
- * @returns {string}
+ * @stable [13.12.2020]
+ * @param parts
+ * @param joiner
  */
-export const join = (parts: AnyT[], joiner: string = UniCodesEnum.SPACE): string =>
+const join = (parts: unknown[], joiner: string = UniCodesEnum.SPACE): string =>
   FilterUtils.notNilValuesArrayFilter(...parts).join(joiner);
 
 /**
- *
- * @param {AnyT[]} parts
- * @returns {string}
+ * @stable [13.12.2020]
+ * @param parts
  */
-export const joinReduce = (parts: AnyT[]): string => isArrayNotEmpty(parts)
-  ? (
-    parts.length > 1
-      ? `${parts[0]}, ...`
-      : nvl(parts[0], '')
-  )
-  : '';
+const joinReduce = (parts: unknown[]): string =>
+  ArrayUtils.isArrayNotEmpty(parts)
+    ? (
+      parts.length > 1
+        ? `${parts[0]}, ...`
+        : NvlUtils.nvl(parts[0], '')
+    )
+    : '';
 
 /**
- * @stable [17.05.2020]
+ * @stable [13.12.2020]
  */
 export class JoinUtils {
-  public static readonly join = join;                                       /* @stable [17.05.2020] */
+  public static readonly join = join;
+  public static readonly joinReduce = joinReduce;
 }

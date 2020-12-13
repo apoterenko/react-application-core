@@ -33,9 +33,8 @@ export const arrayMinValue = (array: number[]): number => R.reduce(R.min, Infini
 export const arrayNextMinNegativeValue = (array: number[]): number => Math.min(Number(arrayMinValue(array)), 0) - 1;
 
 /**
- * @stable [19.12.2018]
- * @param {TValue[]} array
- * @returns {boolean}
+ * @stable [13.12.2020]
+ * @param array
  */
 export const isArrayNotEmpty = <TValue>(array: TValue[]): boolean => Array.isArray(array) && !R.isEmpty(array);
 
@@ -109,6 +108,7 @@ const doesArrayContainExistedEntity =
  */
 export class ArrayUtils {
   public static readonly doesArrayContainExistedEntity = doesArrayContainExistedEntity;
+  public static readonly isArrayNotEmpty = isArrayNotEmpty;
   public static readonly makeArray = makeArray;
   public static readonly mergeArrayItem = mergeArrayItem;
 }
