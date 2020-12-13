@@ -379,6 +379,9 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
     const {
       fileName,
     } = this.originalProps;
+    const {
+      detectFileType,
+    } = this.mergedProps;
 
     return Promise.all(
       blobs.map((data, index) => {
@@ -386,8 +389,8 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
         const actualFileName = NvlUtils.nvl(fileName, url);
 
         return R.isNil(data)
-          ? this.domAccessor.downloadFile({url, fileName: actualFileName})
-          : this.domAccessor.downloadFileByBlob({data, fileName: actualFileName});
+          ? this.domAccessor.downloadFile({url, fileName: actualFileName, detectFileType})
+          : this.domAccessor.downloadFileByBlob({data, fileName: actualFileName, detectFileType});
       })
     );
   }

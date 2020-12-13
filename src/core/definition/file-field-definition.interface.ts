@@ -5,6 +5,7 @@ import {
 } from './text-field-definition.interface';
 import {
   ICameraActionDisabledWrapper,
+  IDetectFileTypeWrapper,
   IFileNameWrapper,
   IMultiWrapper,
   IUseCameraWrapper,
@@ -30,6 +31,7 @@ export interface IBaseFileFieldState
 export interface IPresetsBaseFileFieldEntity
   extends IPresetsBaseTextFieldEntity,
     ICameraActionDisabledWrapper,
+    IDetectFileTypeWrapper,
     IUseCameraWrapper,
     IUseDownloadWrapper,
     IUseVideoWrapper {
