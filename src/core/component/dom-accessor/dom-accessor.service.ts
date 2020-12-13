@@ -1,3 +1,4 @@
+import * as React from 'react';
 import * as R from 'ramda';
 import * as $ from 'jquery';
 import { injectable } from 'inversify';
@@ -162,6 +163,28 @@ export class DomAccessor implements IDomAccessor {
    */
   public createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement> {
     return createScript(cfg);
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @param transform
+   * @param transformOrigin
+   */
+  public getTransformStyles(transform: string, transformOrigin = '0 0'): React.CSSProperties {
+    // TODO Use https://github.com/FormidableLabs/radium
+    return {
+      transformOrigin,
+      transform,
+    };
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @param scale
+   * @param transformOrigin
+   */
+  public getTransformScaleStyles(scale: number, transformOrigin = '0 0'): React.CSSProperties {
+    return this.getTransformStyles(`scale(${scale})`, transformOrigin);
   }
 
   /**

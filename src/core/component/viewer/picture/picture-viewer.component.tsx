@@ -38,7 +38,7 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
       <img
         className={ViewerClassesEnum.VIEWER_CONTENT}
         src={this.actualSrc}
-        style={{transform: `scale(${this.actualOrDefaultScale})`}}
+        style={this.domAccessor.getTransformScaleStyles(this.actualOrDefaultScale)}
         alt=''/>
     );
   }

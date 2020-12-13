@@ -1,3 +1,4 @@
+import * as React from 'react';
 import JQuery from 'jquery';
 
 import { IBaseEvent } from './event-definition.interface';
@@ -168,6 +169,8 @@ export interface IDomAccessor {
   getScrollInfo(el: Element): IPresetsXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;
+  getTransformScaleStyles(scale: number, transformOrigin?: string): React.CSSProperties;
+  getTransformStyles(transform: string, transformOrigin?: string): React.CSSProperties
   getWidth(source: Element): number;
   hasClasses(target: Element, ...classNames: string[]): boolean;
   hasElements(selector: string, target?: Element): boolean;
