@@ -68,6 +68,7 @@
   /**/
   $rac-styles-align-content: unset,
   $rac-styles-align-items: unset,
+  $rac-styles-align-self: unset,
   $rac-styles-background-color: unset,
   $rac-styles-background-image: unset,
   $rac-styles-background-position: unset,
@@ -156,6 +157,7 @@
 ) {
   @if $rac-styles-align-content != unset { @include align-content($rac-styles-align-content); }
   @if $rac-styles-align-items != unset { @include align-items($rac-styles-align-items); }
+  @if $rac-styles-align-self != unset { @include align-self($rac-styles-align-self); }
   @if $rac-styles-background != unset { background: $rac-styles-background; }
   @if $rac-styles-background-color != unset { background-color: $rac-styles-background-color; }
   @if $rac-styles-background-image != unset { background-image: $rac-styles-background-image; }
@@ -265,6 +267,7 @@
   /**/
   $rac-styles-align-content: unset,
   $rac-styles-align-items: unset,
+  $rac-styles-align-self: unset,
   $rac-styles-background-color: unset,
   $rac-styles-background-image: unset,
   $rac-styles-background-position: unset,
@@ -357,6 +360,7 @@
       @include _rac-styles-properties (
         $rac-styles-align-content: $rac-styles-align-content,
         $rac-styles-align-items: $rac-styles-align-items,
+        $rac-styles-align-self: $rac-styles-align-self,
         $rac-styles-background-color: $rac-styles-background-color,
         $rac-styles-background-image: $rac-styles-background-image,
         $rac-styles-background-position: $rac-styles-background-position,
@@ -448,6 +452,7 @@
     @include _rac-styles-properties (
       $rac-styles-align-content: $rac-styles-align-content,
       $rac-styles-align-items: $rac-styles-align-items,
+      $rac-styles-align-self: $rac-styles-align-self,
       $rac-styles-background-color: $rac-styles-background-color,
       $rac-styles-background-image: $rac-styles-background-image,
       $rac-styles-background-position: $rac-styles-background-position,
