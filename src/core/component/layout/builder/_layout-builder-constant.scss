@@ -1,15 +1,14 @@
 @import '../../_primary-constant';
 @import '../../_classes';
 
-/************************/
-/* @stable [20.05.2020] */
-/************************/
+// @stable [20.05.2020]
 $rac-primary-layout-builder-offset-0: $rac-primary-offset-5 !default;
 
-/************************/
-/* @stable [07.04.2020] */
-/************************/
+// @stable [07.04.2020]
+$rac-layout-builder-0-30-flex-grow: .3 !default;
+$rac-layout-builder-0-70-flex-grow: .7 !default;
 $rac-layout-builder-1-2-flex-grow: .5 !default;
+$rac-layout-builder-1-4-flex-grow: .25 !default;
 $rac-layout-builder-3-4-flex-grow: .75 !default;
 $rac-layout-builder-column-view-display: $rac-primary-display-0 !default;
 $rac-layout-builder-column-view-flex-direction: $rac-primary-flex-direction-0 !default;

@@ -83,8 +83,14 @@ export class LayoutViewBuilder
     }
     switch (config.factor) {
       // TODO
+      case LayoutFactorsEnum.FACTOR_0_25:
+        return 'rac-layout-builder-stretch rac-layout-builder-1-4';
+      case LayoutFactorsEnum.FACTOR_0_30:
+        return 'rac-layout-builder-stretch rac-layout-builder-0-30';
       case LayoutFactorsEnum.FACTOR_0_5:
         return 'rac-layout-builder-stretch rac-layout-builder-1-2';
+      case LayoutFactorsEnum.FACTOR_0_70:
+        return 'rac-layout-builder-stretch rac-layout-builder-0-70';
       case LayoutFactorsEnum.FACTOR_0_75:
         return 'rac-layout-builder-stretch rac-layout-builder-3-4';
       case LayoutFactorsEnum.FACTOR_2:

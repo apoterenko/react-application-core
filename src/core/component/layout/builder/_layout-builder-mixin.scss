@@ -7,7 +7,10 @@
   $rac-layout-builder-column-view-custom: unset,
   $rac-layout-builder-row-view-custom: unset,
   /**/
+  $rac-layout-builder-0-30-flex-grow: unset,                                                  /* @stable [13.12.2020] */
+  $rac-layout-builder-0-70-flex-grow: unset,                                                  /* @stable [13.12.2020] */
   $rac-layout-builder-1-2-flex-grow: unset,                                                   /* @stable [23.01.2020] */
+  $rac-layout-builder-1-4-flex-grow: unset,                                                   /* @stable [13.12.2020] */
   $rac-layout-builder-3-4-flex-grow: unset,                                                   /* @stable [23.01.2020] */
   $rac-layout-builder-column-view-display: unset,                                             /* @stable [23.01.2020] */
   $rac-layout-builder-column-view-flex-direction: unset,                                      /* @stable [23.01.2020] */
@@ -50,8 +53,23 @@
   );
 
   @include rac-styles (
+    $rac-styles-custom: rac-layout-builder-1-4,
+    $rac-styles-flex-grow: $rac-layout-builder-1-4-flex-grow
+  );
+
+  @include rac-styles (
+    $rac-styles-custom: rac-layout-builder-0-30,
+    $rac-styles-flex-grow: $rac-layout-builder-0-30-flex-grow
+  );
+
+  @include rac-styles (
     $rac-styles-custom: rac-layout-builder-1-2,
     $rac-styles-flex-grow: $rac-layout-builder-1-2-flex-grow
+  );
+
+  @include rac-styles (
+    $rac-styles-custom: rac-layout-builder-0-70,
+    $rac-styles-flex-grow: $rac-layout-builder-0-70-flex-grow
   );
 
   @include rac-styles (

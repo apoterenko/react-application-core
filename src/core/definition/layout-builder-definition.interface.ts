@@ -24,7 +24,10 @@ export enum LayoutTypesEnum {
  * @stable [23.01.2020]
  */
 export enum LayoutFactorsEnum {
+  FACTOR_0_25,
+  FACTOR_0_30,
   FACTOR_0_5,
+  FACTOR_0_70,
   FACTOR_0_75,
   FACTOR_1,
   FACTOR_2,

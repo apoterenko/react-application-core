@@ -3,12 +3,12 @@
 
 .rac {
 
-  /**
-   * @layout-builder
-   * @stable [07.04.2020]
-   */
+  // @stable [07.04.2020]
   @include rac-layout-builder (
+    $rac-layout-builder-0-30-flex-grow: $rac-layout-builder-0-30-flex-grow,
+    $rac-layout-builder-0-70-flex-grow: $rac-layout-builder-0-70-flex-grow,
     $rac-layout-builder-1-2-flex-grow: $rac-layout-builder-1-2-flex-grow,
+    $rac-layout-builder-1-4-flex-grow: $rac-layout-builder-1-4-flex-grow,
     $rac-layout-builder-3-4-flex-grow: $rac-layout-builder-3-4-flex-grow,
     $rac-layout-builder-column-view-display: $rac-layout-builder-column-view-display,
     $rac-layout-builder-column-view-flex-direction: $rac-layout-builder-column-view-flex-direction,
