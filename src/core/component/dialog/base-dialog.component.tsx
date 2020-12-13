@@ -630,10 +630,13 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
           this.isInline
             ? DialogClassesEnum.INLINE_DIALOG
             : (
-              !this.isAnchored && (
-                this.$isCheckNeededAndAnotherModalDialogOpen
-                  ? DialogClassesEnum.TRANSPARENT_DIALOG
-                  : DialogClassesEnum.NOT_TRANSPARENT_DIALOG
+              ClsUtils.joinClassName(
+                DialogClassesEnum.NOT_INLINE_DIALOG,
+                !this.isAnchored && (
+                  this.$isCheckNeededAndAnotherModalDialogOpen
+                    ? DialogClassesEnum.TRANSPARENT_DIALOG
+                    : DialogClassesEnum.NOT_TRANSPARENT_DIALOG
+                )
               )
             ),
         )

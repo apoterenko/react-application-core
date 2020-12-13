@@ -60,7 +60,7 @@
 
   // @stable [13.12.2020]
   @include rac-preview-dialog (
-    $rac-preview-dialog-custom: $rac-inline-dialog-cls,
-    $rac-preview-dialog-body-max-width: $rac-preview-inline-dialog-body-max-width
+    $rac-preview-dialog-custom: $rac-not-inline-dialog-cls,
+    $rac-preview-dialog-body-max-width: $rac-preview-not-inline-dialog-body-max-width
   );
 }

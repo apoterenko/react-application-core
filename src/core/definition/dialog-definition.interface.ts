@@ -146,6 +146,7 @@ export enum DialogClassesEnum {
   INLINE_DIALOG = 'rac-inline-dialog',
   MODAL_DIALOG = 'rac-modal-dialog',
   NOT_ANCHORED_DIALOG = 'rac-not-anchored-dialog',
+  NOT_INLINE_DIALOG = 'rac-not-inline-dialog',
   NOT_TRANSPARENT_DIALOG = 'rac-not-transparent-dialog',
   OVERLAY_CLOSE_ICON = 'rac-dialog__overlay-close-icon',
   OVERLAY_DIALOG = 'rac-overlay-dialog',
