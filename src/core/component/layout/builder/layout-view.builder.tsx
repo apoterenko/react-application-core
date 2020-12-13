@@ -93,6 +93,8 @@ export class LayoutViewBuilder
         return 'rac-layout-builder-stretch rac-layout-builder-0-70';
       case LayoutFactorsEnum.FACTOR_0_75:
         return 'rac-layout-builder-stretch rac-layout-builder-3-4';
+      case LayoutFactorsEnum.FACTOR_0_85:
+        return 'rac-layout-builder-stretch rac-layout-builder-0-85';
       case LayoutFactorsEnum.FACTOR_2:
         return 'rac-layout-builder-stretch rac-layout-builder-x2';
       case LayoutFactorsEnum.FACTOR_4:

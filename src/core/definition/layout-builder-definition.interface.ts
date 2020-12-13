@@ -29,6 +29,7 @@ export enum LayoutFactorsEnum {
   FACTOR_0_5,
   FACTOR_0_70,
   FACTOR_0_75,
+  FACTOR_0_85,
   FACTOR_1,
   FACTOR_2,
   FACTOR_4,
