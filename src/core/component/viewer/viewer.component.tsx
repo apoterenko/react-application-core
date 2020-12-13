@@ -13,6 +13,7 @@ import {
   ComponentClassesEnum,
   DialogClassesEnum,
   IconsEnum,
+  IDialogProps,
   IViewerProps,
   IViewerState,
   ViewerClassesEnum,
@@ -87,7 +88,7 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
         className={this.getClassName()}
       >
         {this.originalChildren}
-        {this.bodyElement}
+        {this.isBodyElementRendered && this.bodyElement}
         {this.previewIconElement}
         {this.previewDialogElement}
       </div>
@@ -445,18 +446,12 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
       CLOSE,
       PREVIEW,
     } = this.settings.messages;
-    const {
-      opened,
-    } = this.state;
-    const {
-      previewDialogConfiguration,
-    } = this.mergedProps;
 
-    return opened && this.canPreview && (
+    return this.isPreviewDialogOpened && (
       <Dialog
         title={PREVIEW}
         closeText={CLOSE}
-        {...previewDialogConfiguration}
+        {...this.previewDialogConfiguration}
         ref={this.previewDialogRef}
         className={DialogClassesEnum.PREVIEW_DIALOG}
         acceptable={false}
@@ -466,6 +461,30 @@ export abstract class Viewer<TProps extends IViewerProps = IViewerProps,
         {this.getPreviewElement()}
       </Dialog>
     );
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @private
+   */
+  private get isPreviewDialogOpened(): boolean {
+    return this.state.opened && this.canPreview;
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @private
+   */
+  private get isBodyElementRendered(): boolean {
+    return !this.isPreviewDialogOpened || !this.previewDialogConfiguration.inline;
+  }
+
+  /**
+   * @stable [13.12.2020]
+   * @private
+   */
+  private get previewDialogConfiguration(): IDialogProps {
+    return this.mergedProps.previewDialogConfiguration || {};
   }
 
   /**

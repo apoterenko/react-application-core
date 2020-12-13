@@ -42,10 +42,7 @@
     $rac-viewer-justify-content: $rac-empty-picture-viewer-justify-content
   );
 
-  /**
-   * @preview-dialog
-   * @stable [16.03.2020]
-   */
+  // @stable [16.03.2020]
   @include rac-preview-dialog (
     $rac-preview-dialog-body-content-padding: $rac-preview-dialog-body-content-padding,
     $rac-preview-dialog-body-content-wrapper-overflow: $rac-preview-dialog-body-content-wrapper-overflow,
@@ -59,5 +56,11 @@
     $rac-preview-dialog-extra-actions-right: $rac-preview-dialog-extra-actions-right,
     $rac-preview-dialog-extra-actions-top: $rac-preview-dialog-extra-actions-top,
     $rac-preview-dialog-extra-actions-transform: $rac-preview-dialog-extra-actions-transform
+  );
+
+  // @stable [13.12.2020]
+  @include rac-preview-dialog (
+    $rac-preview-dialog-custom: $rac-inline-dialog-cls,
+    $rac-preview-dialog-body-max-width: $rac-preview-inline-dialog-body-max-width
   );
 }
