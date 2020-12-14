@@ -11,7 +11,6 @@ import {
   IFieldProps,
   IFieldsPresets,
   IFormProps,
-  IKeyboardEvent,
   IPresetsFieldEntity,
   IReduxFormEntity,
   ITextFieldProps,
@@ -68,7 +67,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
     this.doReset = this.doReset.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   /**
@@ -89,7 +87,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
         style={style}
         autoComplete='off'
         className={this.className}
-        onKeyDown={this.onKeyDown}
       >
         {
           compact
@@ -157,21 +154,6 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
    */
   public submit(): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onSubmit, (onSubmit) => onSubmit(this.apiEntity));
-  }
-
-  /**
-   * @stable [11.09.2020]
-   * @param event
-   * @private
-   */
-  private onKeyDown(event: IKeyboardEvent): void {
-    const key = event.key;
-
-    switch (key) {
-      case 'Enter':
-        this.doSubmit();
-        break;
-    }
   }
 
   /**
