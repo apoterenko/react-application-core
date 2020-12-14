@@ -10,6 +10,7 @@ import {
 } from '../../component/action.builder';
 import {
   ConnectorActionBuilder,
+  DictionariesActionBuilder,
   FormActionBuilder,
   NotificationActionBuilder,
 } from '../../action';
@@ -65,3 +66,10 @@ export const makeListLoadErrorEffectsProxy = (section: string): () => void =>
  */
 export const makeConnectorInitErrorEffectsProxy = (section: string): () => void =>
   makeFailedEffectsProxy(ConnectorActionBuilder.buildInitErrorActionType(section));
+
+/**
+ * @stable [14.12.2020]
+ * @param section
+ */
+export const makeDictionaryLoadErrorEffectsProxy = (section: string): () => void =>
+  makeFailedEffectsProxy(DictionariesActionBuilder.buildLoadErrorActionType(section));

@@ -1,6 +1,7 @@
 import { makeEditedListEffectsProxy } from './edited-list-effects.proxy';
 import {
   makeConnectorInitErrorEffectsProxy,
+  makeDictionaryLoadErrorEffectsProxy,
   makeErrorEffectsProxy,
   makeFormSubmitErrorEffectsProxy,
   makeListLazyLoadErrorEffectsProxy,
@@ -22,6 +23,7 @@ import { makeUntouchedListEffectsProxy } from './untouched-list-effects.proxy';
 export class EffectsFactories {
   public static readonly connectorInitErrorEffectsProxy = makeConnectorInitErrorEffectsProxy;
   public static readonly destroyedContainerEffectsProxy = makeDestroyedContainerEffectsProxy;
+  public static readonly dictionaryLoadErrorEffectsProxy = makeDictionaryLoadErrorEffectsProxy;
   public static readonly editedListEffectsProxy = makeEditedListEffectsProxy;
   public static readonly errorEffectsProxy = makeErrorEffectsProxy;
   public static readonly filteredListEffectsProxy = makeFilteredListEffectsProxy;
