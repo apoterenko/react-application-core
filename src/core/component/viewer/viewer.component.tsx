@@ -163,6 +163,7 @@ export class Viewer<
     return (
       <Button
         icon={IconsEnum.SEARCH_MINUS}
+        disabled={this.isDecrementScaleActionDisabled}
         onClick={this.onDecrementScale}/>
     );
   }
@@ -205,6 +206,14 @@ export class Viewer<
   protected get isPreviewBackActionDisabled(): boolean {
     const previewPage = this.state.previewPage;
     return !previewPage || previewPage === Viewer.DEFAULT_PAGE;
+  }
+
+  /**
+   * @stable [14.12.2020]
+   * @protected
+   */
+  protected get isDecrementScaleActionDisabled(): boolean {
+    return this.nextDecrementPreviewScale < 0;
   }
 
   /**
@@ -274,7 +283,7 @@ export class Viewer<
         previewPage: UNDEF,
         previewScale: UNDEF,
       },
-      () => ConditionUtils.ifNotNilThanValue(this.originalProps.onShowPreview, (onPreview) => onPreview())
+      () => ConditionUtils.ifNotNilThanValue(this.originalProps.onClosePreview, (onClosePreview) => onClosePreview())
     );
   }
 
@@ -283,7 +292,7 @@ export class Viewer<
    * @private
    */
   private onPreviewDialogOpen(): void {
-    ConditionUtils.ifNotNilThanValue(this.originalProps.onClosePreview, (onClosePreview) => onClosePreview());
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onShowPreview, (onShowPreview) => onShowPreview());
   }
 
   /**
@@ -364,10 +373,10 @@ export class Viewer<
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [14.12.2020]
    */
   private onDecrementScale(): void {
-    this.setState({previewScale: this.actualOrDefaultPreviewScale - this.defaultScaleDiff});
+    this.setState({previewScale: this.nextDecrementPreviewScale});
   }
 
   /**
@@ -375,6 +384,14 @@ export class Viewer<
    */
   private showPreviewDialog(): void {
     this.setState({opened: true}, () => this.previewDialogRef.current.activate());
+  }
+
+  /**
+   * @stable [14.12.2020]
+   * @private
+   */
+  private get nextDecrementPreviewScale(): number {
+    return this.actualOrDefaultPreviewScale - this.defaultScaleDiff;
   }
 
   /**
