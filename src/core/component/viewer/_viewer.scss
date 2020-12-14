@@ -1,5 +1,6 @@
 @import '../constant';
 @import '../mixin';
+@import './_viewer-constant';
 
 .rac {
 
@@ -58,9 +59,16 @@
     $rac-preview-dialog-extra-actions-transform: $rac-preview-dialog-extra-actions-transform
   );
 
-  // @stable [13.12.2020]
+  // @stable [14.12.2020]
   @include rac-preview-dialog (
     $rac-preview-dialog-custom: $rac-not-inline-dialog-cls,
-    $rac-preview-dialog-body-max-width: $rac-preview-not-inline-dialog-body-max-width
+    $rac-preview-dialog-body-max-width: $rac-preview-not-inline-dialog-body-max-width,
+    $rac-preview-dialog-body-min-height: $rac-preview-not-inline-dialog-body-min-height
+  );
+
+  // @stable [14.12.2020]
+  @include rac-preview-dialog (
+    $rac-preview-dialog-custom: $rac-inline-dialog-cls,
+    $rac-preview-dialog-body-min-height: $rac-preview-inline-dialog-body-min-height
   );
 }

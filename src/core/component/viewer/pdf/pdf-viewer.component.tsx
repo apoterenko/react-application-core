@@ -7,6 +7,7 @@ import {
 import {
   IGenericPdfPlugin,
   IPdfViewerProps,
+  IViewerCtor,
   IViewerProps,
 } from '../../../definition';
 import { GenericPdfPlugin } from './generic-pdf.plugin';
@@ -74,18 +75,29 @@ export class PdfViewer extends Viewer {
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {JSX.Element}
+   * @stable [14.12.2020]
+   * @protected
    */
-  protected getContentElement(): JSX.Element {
-    return <canvas ref={this.canvasRef}/>;
+  protected get ctor(): IViewerCtor {
+    return PdfViewer;
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {JSX.Element}
+   * @stable [14.12.2020]
+   * @protected
    */
-  protected getPreviewElement(): JSX.Element {
+  protected get contentElement(): JSX.Element {
+    return (
+      <canvas
+        ref={this.canvasRef}/>
+    );
+  }
+
+  /**
+   * @stable [14.12.2020]
+   * @protected
+   */
+  protected get previewElement(): JSX.Element {
     return (
       <PdfViewer
         usePreview={false}

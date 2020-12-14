@@ -4,6 +4,8 @@ import {
   IErrorWrapper,
   IFullWrapper,
   IHeightWrapper,
+  IOnClosePreviewWrapper,
+  IOnShowPreviewWrapper,
   IOpenedWrapper,
   IPageWrapper,
   IPreviewDialogConfigurationWrapper,
@@ -25,7 +27,7 @@ import { IDialogProps } from './dialog-definition.interface';
  * @base-entity
  * @stable [16.03.2020]
  */
-export interface IBaseViewerEntity
+export interface IPresetsBaseViewerEntity
   extends IPageWrapper,
     IPreviewPageWrapper,
     IPreviewScaleWrapper,
@@ -33,16 +35,26 @@ export interface IBaseViewerEntity
 }
 
 /**
- * @generic-entity
- * @stable [16.03.2020]
+ * @presets-entity
+ * @stable [14.12.2020]
  */
-export interface IGenericViewerEntity
-  extends IBaseViewerEntity,
+export interface IPresetsViewerEntity
+  extends IPresetsBaseViewerEntity,
     IDefaultSrcWrapper,
     IFullWrapper,
+    IOnClosePreviewWrapper,
+    IOnShowPreviewWrapper,
     IPreviewDialogConfigurationWrapper<IDialogProps>,
     ISrcWrapper,
     IUsePreviewWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [14.12.2020]
+ */
+export interface IGenericViewerEntity
+  extends IPresetsViewerEntity {
 }
 
 /**
@@ -66,7 +78,7 @@ export interface IGenericPictureViewerEntity
  * @stable [16.03.2020]
  */
 export interface IGenericViewerState
-  extends IBaseViewerEntity,
+  extends IPresetsBaseViewerEntity,
     IErrorWrapper<Error>,
     IOpenedWrapper,
     IProgressWrapper {

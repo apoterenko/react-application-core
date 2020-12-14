@@ -4,19 +4,19 @@ import * as R from 'ramda';
 import {
   CalcUtils,
   ClsUtils,
+  ConditionUtils,
   NvlUtils,
   ObjectUtils,
-  WrapperUtils,
 } from '../../util';
 import {
   ComponentClassesEnum,
   DialogClassesEnum,
   IconsEnum,
   IDialogProps,
+  IViewerCtor,
   IViewerProps,
   IViewerState,
   ViewerClassesEnum,
-  ViewersEnum,
 } from '../../definition';
 import {
   AnyT,
@@ -33,6 +33,7 @@ export class Viewer<
   > extends GenericComponent<TProps, TState> {
 
   public static readonly defaultProps: IViewerProps = {
+    full: true,
     usePreview: true,
   };
 
@@ -48,12 +49,13 @@ export class Viewer<
 
     this.onBack = this.onBack.bind(this);
     this.onDecrementScale = this.onDecrementScale.bind(this);
-    this.onDialogClose = this.onDialogClose.bind(this);
     this.onForward = this.onForward.bind(this);
     this.onIncrementScale = this.onIncrementScale.bind(this);
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadStart = this.onLoadStart.bind(this);
     this.onLoadSucceed = this.onLoadSucceed.bind(this);
+    this.onPreviewDialogClose = this.onPreviewDialogClose.bind(this);
+    this.onPreviewDialogOpen = this.onPreviewDialogOpen.bind(this);
     this.showPreviewDialog = this.showPreviewDialog.bind(this);
 
     this.state = {} as TState;
@@ -101,10 +103,10 @@ export class Viewer<
   }
 
   /**
-   * @stable [13.12.2020]
+   * @stable [14.12.2020]
    * @protected
    */
-  protected getPreviewExtraActionsElement(): JSX.Element {
+  protected get previewExtraActionsElement(): JSX.Element {
     return (
       <React.Fragment>
         {this.incrementScaleActionElement}
@@ -206,21 +208,21 @@ export class Viewer<
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {string}
+   * @stable [14.12.2020]
+   * @protected
    */
   protected getClassName(): string {
-    const originalProps = this.originalProps;
     const {
       className,
+      full,
     } = this.originalProps;
 
     return ClsUtils.joinClassName(
       ViewerClassesEnum.VIEWER,
+      full && ViewerClassesEnum.FULL_VIEWER,
       this.isSrcAbsent && ViewerClassesEnum.EMPTY_VIEWER,
       this.isInfoRendered && ViewerClassesEnum.INFO_VIEWER,
-      WrapperUtils.isFull(originalProps) && ViewerClassesEnum.FULL_VIEWER,
-      CalcUtils.calc<string>(className)
+      CalcUtils.calc(className)
     );
   }
 
@@ -242,7 +244,7 @@ export class Viewer<
    * @stable [13.12.2020]
    * @protected
    */
-  protected getContentElement(): JSX.Element {
+  protected get contentElement(): JSX.Element {
     return null;
   }
 
@@ -250,26 +252,38 @@ export class Viewer<
    * @stable [13.12.2020]
    * @protected
    */
-  protected getPreviewElement(): JSX.Element {
+  protected get previewElement(): JSX.Element {
     return null;
   }
 
   /**
-   * @stable [02.08.2020]
+   * @stable [14.12.2020]
    */
   protected get inProgress(): boolean {
-    return WrapperUtils.inProgress(this.state);
+    return this.state.progress;
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [14.12.2020]
+   * @private
    */
-  protected onDialogClose(): void {
-    this.setState({
-      opened: false,
-      previewPage: UNDEF,
-      previewScale: UNDEF,
-    });
+  private onPreviewDialogClose(): void {
+    this.setState(
+      {
+        opened: false,
+        previewPage: UNDEF,
+        previewScale: UNDEF,
+      },
+      () => ConditionUtils.ifNotNilThanValue(this.originalProps.onShowPreview, (onPreview) => onPreview())
+    );
+  }
+
+  /**
+   * @stable [14.12.2020]
+   * @private
+   */
+  private onPreviewDialogOpen(): void {
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onClosePreview, (onClosePreview) => onClosePreview());
   }
 
   /**
@@ -433,15 +447,23 @@ export class Viewer<
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {React.ReactNode}
+   * @stable [14.12.2020]
+   * @protected
    */
-  private get bodyElement(): React.ReactNode {
+  protected get ctor(): IViewerCtor {
+    return null;
+  }
+
+  /**
+   * @stable [14.12.2020]
+   * @private
+   */
+  private get bodyElement(): JSX.Element {
     const {
       AN_ERROR_OCCURRED_WHILE_LOADING_THE_FILE,
     } = this.settings.messages;
 
-    const Component = this.viewerLocator.resolve(ViewersEnum.PICTURE);
+    const Component = this.ctor;
 
     return this.isInfoRendered
       ? (
@@ -452,32 +474,39 @@ export class Viewer<
       : (
         this.isActualSrcAbsent
           ? <Component/>
-          : this.getContentElement()
+          : this.contentElement
       );
   }
 
   /**
-   * @stable [16.03.2020]
-   * @returns {JSX.Element}
+   * @stable [14.12.2020]
+   * @private
    */
   private get previewDialogElement(): JSX.Element {
     const {
       CLOSE,
       PREVIEW,
     } = this.settings.messages;
+    const configuration = this.previewDialogConfiguration;
 
     return this.isPreviewDialogOpened && (
       <Dialog
         title={PREVIEW}
         closeText={CLOSE}
-        {...this.previewDialogConfiguration}
+        {...configuration}
         ref={this.previewDialogRef}
-        className={DialogClassesEnum.PREVIEW_DIALOG}
+        className={
+          ClsUtils.joinClassName(
+            DialogClassesEnum.PREVIEW_DIALOG,
+            CalcUtils.calc(configuration.className)
+          )
+        }
         acceptable={false}
-        extraActions={this.getPreviewExtraActionsElement()}
-        onDeactivate={this.onDialogClose}
+        extraActions={this.previewExtraActionsElement}
+        onActivate={this.onPreviewDialogOpen}
+        onDeactivate={this.onPreviewDialogClose}
       >
-        {this.getPreviewElement()}
+        {this.previewElement}
       </Dialog>
     );
   }

@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   DefaultEntities,
   IPictureViewerProps,
+  IViewerCtor,
   ViewerClassesEnum,
 } from '../../../definition';
 import {
@@ -19,6 +20,14 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
   }, Viewer);
 
   /**
+   * @stable [14.12.2020]
+   * @protected
+   */
+  protected get ctor(): IViewerCtor {
+    return PictureViewer;
+  }
+
+  /**
    * @stable [13.12.2020]
    * @protected
    */
@@ -33,7 +42,7 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
    * @stable [13.12.2020]
    * @protected
    */
-  protected getContentElement(): JSX.Element {
+  protected get contentElement(): JSX.Element {
     return (
       <img
         className={ViewerClassesEnum.VIEWER_CONTENT}
@@ -47,7 +56,7 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
    * @stable [13.12.2020]
    * @protected
    */
-  protected getPreviewElement(): JSX.Element {
+  protected get previewElement(): JSX.Element {
     return (
       <PictureViewer
         src={this.actualSrc}

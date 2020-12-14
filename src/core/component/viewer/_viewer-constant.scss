@@ -1,0 +1,9 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+// @stable [14.12.2020]
+$rac-preview-dialog-body-max-width: unset !default;
+$rac-preview-dialog-body-min-height: unset !default;
+$rac-preview-inline-dialog-body-min-height: 320px !default;
+$rac-preview-not-inline-dialog-body-max-width: 80vw !default;
+$rac-preview-not-inline-dialog-body-min-height: 80vh !default;

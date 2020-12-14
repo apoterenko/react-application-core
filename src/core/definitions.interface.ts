@@ -354,6 +354,7 @@ export interface IOnChangeManuallyWrapper<TValue = AnyT> { onChangeManually?(val
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
 export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
+export interface IOnClosePreviewWrapper { onClosePreview?(): void; }
 export interface IOnCloseWrapper<TValue = {}> { onClose?(value?: TValue): void; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
@@ -388,6 +389,7 @@ export interface IOnRefreshClickWrapper<TValue = {}> { onRefreshClick?(value?: T
 export interface IOnResetWrapper { onReset?(): void; }
 export interface IOnScrollWrapper<TValue = {}> { onScroll?(value?: TValue): void; }
 export interface IOnSelectWrapper<TValue = {}> { onSelect?(value?: TValue): void; }
+export interface IOnShowPreviewWrapper { onShowPreview?(): void; }
 export interface IOnSortingDirectionChangeWrapper<TValue> { onSortingDirectionChange?(payload: TValue): void; }
 export interface IOnSubmitWrapper<TValue = {}> { onSubmit?(value?: TValue): void; }
 export interface IOnValidWrapper<TValue = boolean> { onValid?(value?: TValue): void; }
