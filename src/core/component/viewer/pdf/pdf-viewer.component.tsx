@@ -7,7 +7,6 @@ import {
 import {
   IGenericPdfPlugin,
   IPdfViewerProps,
-  IViewerCtor,
   IViewerProps,
 } from '../../../definition';
 import { GenericPdfPlugin } from './generic-pdf.plugin';
@@ -72,14 +71,6 @@ export class PdfViewer extends Viewer {
       .setPage(this.actualOrDefaultPage)
       .setScale(this.actualOrDefaultScale)
       .refreshPage();
-  }
-
-  /**
-   * @stable [14.12.2020]
-   * @protected
-   */
-  protected get ctor(): IViewerCtor {
-    return PdfViewer;
   }
 
   /**

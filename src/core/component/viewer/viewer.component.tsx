@@ -17,6 +17,7 @@ import {
   IViewerProps,
   IViewerState,
   ViewerClassesEnum,
+  ViewersEnum,
 } from '../../definition';
 import {
   AnyT,
@@ -480,7 +481,7 @@ export class Viewer<
       AN_ERROR_OCCURRED_WHILE_LOADING_THE_FILE,
     } = this.settings.messages;
 
-    const Component = this.ctor;
+    const Component = this.viewerLocator.resolve(ViewersEnum.PICTURE);
 
     return this.isInfoRendered
       ? (

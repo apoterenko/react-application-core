@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   DefaultEntities,
   IPictureViewerProps,
-  IViewerCtor,
   ViewerClassesEnum,
 } from '../../../definition';
 import {
@@ -18,14 +17,6 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
     defaultScr: DefaultEntities.MEDIA_NO_PICTURE_URL,
     usePreview: false,
   }, Viewer);
-
-  /**
-   * @stable [14.12.2020]
-   * @protected
-   */
-  protected get ctor(): IViewerCtor {
-    return PictureViewer;
-  }
 
   /**
    * @stable [13.12.2020]
