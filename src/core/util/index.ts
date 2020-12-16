@@ -1,3 +1,4 @@
+export * from './action';
 export * from './array';
 export * from './barcode';
 export * from './base64';

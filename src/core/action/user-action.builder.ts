@@ -1,4 +1,4 @@
-import { makeEntityActionBuilderFactory } from '../store/store.support';
+import { ActionUtils } from '../util';
 
 import {
   $RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY,
@@ -7,4 +7,4 @@ import {
 /**
  * @stable [14.03.2020]
  */
-export const userActionBuilder = makeEntityActionBuilderFactory($RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY);
+export const userActionBuilder = ActionUtils.entityActionBuilderFactory($RAC_USER_REDUCER_FACTORY_CONFIG_ENTITY);

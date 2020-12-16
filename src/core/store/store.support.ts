@@ -5,7 +5,6 @@ import {
   ReducersMapObject,
 } from 'redux';
 import {
-  EffectsAction,
   IEffectsAction,
 } from 'redux-effects-promise';
 import * as R from 'ramda';
@@ -24,7 +23,6 @@ import {
   IUpdatedWrapper,
 } from '../definitions.interface';
 import {
-  IEntityActionBuilder,
   IEntityReducerFactoryConfigEntity,
 } from '../definition';
 
@@ -152,61 +150,3 @@ export const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (s
     }
     return state;
   };
-
-/**
- * @stable [06.04.2020]
- * @param {IEntityReducerFactoryConfigEntity} config
- * @returns {IEntityActionBuilder<TValue>}
- */
-export const makeEntityActionBuilderFactory =
-  <TValue = {}>(config: IEntityReducerFactoryConfigEntity): IEntityActionBuilder<TValue> =>
-    Reflect.construct(class implements IEntityActionBuilder {
-
-      /**
-       * @stable [06.04.2020]
-       * @param {TPayload} replaced
-       * @returns {IEffectsAction}
-       */
-      public buildReplaceAction<TPayload = TValue>(replaced: TPayload): IEffectsAction {
-        const payloadWrapper: IReplacedWrapper<TPayload> = {replaced};
-        return EffectsAction.create(config.replace, payloadWrapper);
-      }
-
-      /**
-       * @stable [06.04.2020]
-       * @returns {IEffectsAction}
-       */
-      public buildDestroyAction(): IEffectsAction {
-        return EffectsAction.create(config.destroy);
-      }
-
-      /**
-       * @stable [06.04.2020]
-       * @param {TPayload} updated
-       * @returns {IEffectsAction}
-       */
-      public buildUpdateAction<TPayload = TValue>(updated: TPayload): IEffectsAction {
-        const payloadWrapper: IUpdatedWrapper<TPayload> = {updated};
-        return EffectsAction.create(config.update, payloadWrapper);
-      }
-
-      /**
-       * @stable [06.04.2020]
-       * @param {TPayload} selected
-       * @returns {IEffectsAction}
-       */
-      public buildSelectAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
-        const plainAction = this.buildSelectPlainAction(selected);
-        return EffectsAction.create(plainAction.type, plainAction.data);
-      }
-
-      /**
-       * @stable [06.04.2020]
-       * @param {TValue} selected
-       * @returns {IEffectsAction}
-       */
-      public buildSelectPlainAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
-        const payloadWrapper: ISelectedWrapper<TPayload> = {selected};
-        return {type: config.select, data: payloadWrapper};
-      }
-    }, []);

@@ -1,0 +1,75 @@
+import {
+  EffectsAction,
+  IEffectsAction,
+} from 'redux-effects-promise';
+
+import {
+  IEntityActionBuilder,
+  IEntityReducerFactoryConfigEntity,
+} from '../definition';
+import {
+  IReplacedWrapper,
+  ISelectedWrapper,
+  IUpdatedWrapper,
+} from '../definitions.interface';
+
+/**
+ * @stable [16.12.2020]
+ * @param config
+ */
+const makeEntityActionBuilderFactory =
+  <TValue = {}>(config: IEntityReducerFactoryConfigEntity): IEntityActionBuilder<TValue> =>
+    Reflect.construct(class implements IEntityActionBuilder {
+
+      /**
+       * @stable [16.12.2020]
+       * @param replaced
+       */
+      public buildReplaceAction<TPayload = TValue>(replaced: TPayload): IEffectsAction {
+        const payloadWrapper: IReplacedWrapper<TPayload> = {replaced};
+        return EffectsAction.create(config.replace, payloadWrapper);
+      }
+
+      /**
+       * @stable [16.12.2020]
+       */
+      public buildDestroyAction(): IEffectsAction {
+        return EffectsAction.create(config.destroy);
+      }
+
+      /**
+       * @stable [16.12.2020]
+       * @param updated
+       */
+      public buildUpdateAction<TPayload = TValue>(updated: TPayload): IEffectsAction {
+        const payloadWrapper: IUpdatedWrapper<TPayload> = {updated};
+        return EffectsAction.create(config.update, payloadWrapper);
+      }
+
+      /**
+       * @stable [16.12.2020]
+       * @param selected
+       */
+      public buildSelectAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
+        const plainAction = this.buildSelectPlainAction(selected);
+        return EffectsAction.create(plainAction.type, plainAction.data);
+      }
+
+      /**
+       * @stable [16.12.2020]
+       * @param selected
+       */
+      public buildSelectPlainAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
+        const payloadWrapper: ISelectedWrapper<TPayload> = {selected};
+        return {type: config.select, data: payloadWrapper};
+      }
+    }, []);
+
+/**
+ * @stable [16.12.2020]
+ */
+// tslint:disable:max-classes-per-file
+export class ActionUtils {
+  public static readonly entityActionBuilderFactory = makeEntityActionBuilderFactory;
+}
+// tslint:enable:max-classes-per-file
