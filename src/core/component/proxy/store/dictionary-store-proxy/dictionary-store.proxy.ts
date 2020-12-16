@@ -2,7 +2,7 @@ import { StoreProxy } from '../store.proxy';
 import { DictionariesActionBuilder } from '../../../../action';
 import {
   IDictionaryStoreProxy,
-  IFluxPayloadEntity,
+  IFluxEntity,
   IGenericContainer,
   IGenericContainerProps,
   IReduxStoreEntity,
@@ -26,19 +26,19 @@ export class DictionaryStoreProxy<TStore extends IReduxStoreEntity = IReduxStore
   /**
    * @stable [07.08.2020]
    * @param dictionary
-   * @param payload
+   * @param fluxEntity
    */
-  public dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>): void {
-    this.dispatchLoadDictionary(dictionary, payload);
+  public dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, fluxEntity?: IFluxEntity<TData>): void {
+    this.dispatchLoadDictionary(dictionary, fluxEntity);
   }
 
   /**
    * @stable [07.08.2020]
    * @param dictionary
-   * @param payload
+   * @param fluxEntity
    * @private
    */
-  private dispatchLoadDictionary<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>): void {
-    this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, payload));
+  private dispatchLoadDictionary<TData = {}>(dictionary: string, fluxEntity?: IFluxEntity<TData>): void {
+    this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, fluxEntity));
   }
 }

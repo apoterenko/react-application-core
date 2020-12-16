@@ -37,6 +37,7 @@ export * from './file-field-definition.interface';
 export * from './filter-definition.interface';
 export * from './filter-form-dialog-definition.interface';
 export * from './flex-layout-definition.interface';
+export * from './flux-definition.interface';
 export * from './form-definition.interface';
 export * from './generic-component-definition.interface';
 export * from './generic-container-definition.interface';

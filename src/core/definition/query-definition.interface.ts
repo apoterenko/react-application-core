@@ -3,7 +3,7 @@ import {
   IQueryFilterWrapper,
   IQueryWrapper,
 } from '../definitions.interface';
-import { IFluxPayloadEntity } from './entity-definition.interface';
+import { IFluxEntity } from './flux-definition.interface';
 
 /**
  * @redux-entity
@@ -23,19 +23,19 @@ export interface IReduxQueryFilterHolderEntity
 }
 
 /**
- * @flux-entity
- * @stable [08.05.2020]
+ * @entity
+ * @stable [16.12.2020]
  */
-export interface IFluxQueryEntity
+export interface IQueryEntity
   extends IQueryWrapper {
 }
 
 /**
  * @flux-entity
- * @stable [08.05.2020]
+ * @stable [16.12.2020]
  */
-export interface IFluxPayloadQueryEntity
-  extends IFluxPayloadEntity<IFluxQueryEntity> {
+export interface IFluxQueryEntity
+  extends IFluxEntity<IQueryEntity> {
 }
 
 /**

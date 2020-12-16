@@ -2,7 +2,7 @@ import {
   IXWrapper,
   IYWrapper,
 } from '../definitions.interface';
-import { IFluxPayloadEntity } from './entity-definition.interface';
+import { IFluxEntity } from './flux-definition.interface';
 
 /**
  * @presets-entity
@@ -18,5 +18,5 @@ export interface IPresetsXYEntity
  * @stable [08.05.2020]
  */
 export interface IFluxXYEntity
-  extends IFluxPayloadEntity<IPresetsXYEntity> {
+  extends IFluxEntity<IPresetsXYEntity> {
 }

@@ -10,7 +10,7 @@ import {
   FILTER_CHANGE_ACTION_TYPE,
   FILTER_DEACTIVATE_ACTION_TYPE,
   FILTER_DESTROY_ACTION_TYPE,
-  IFluxQueryEntity,
+  IQueryEntity,
 } from '../definition';
 
 /**
@@ -89,7 +89,7 @@ export class FilterActionBuilder {
    * @param query
    */
   public static buildChangePlainAction(section: string, query: string): IEffectsAction {
-    const fluxEntity: IFluxQueryEntity = {query};
+    const fluxEntity: IQueryEntity = {query}; // TODO -> FluxEntity
     return {type: this.buildChangeActionType(section), data: SectionUtils.applySection(section, fluxEntity)};
   }
 

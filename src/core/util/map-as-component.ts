@@ -8,7 +8,7 @@ import {
   IDefaultLayoutProps,
   IDictionariesContainer,
   IFilterFormDialogContainerProps,
-  IFluxPayloadEntity,
+  IFluxEntity,
   IFormContainerProps,
   IFormProps,
   IFormTabPanelContainerProps,
@@ -461,7 +461,7 @@ const mapDictionariesContainerAsParameterizedSelectProps =
   ): IBaseSelectProps => {
     const originalProps = mapDictionariesContainerAsSelectProps(cfg);
     const buildParameterizedPayloadWrapper =
-      (payloadWrapper = {}) => R.mergeDeepLeft<IFluxPayloadEntity, IFluxPayloadEntity>({
+      (payloadWrapper = {}) => R.mergeDeepLeft<IFluxEntity, IFluxEntity>({
         payload: cfg.payloadResolver(),
       }, payloadWrapper);
 

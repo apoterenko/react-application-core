@@ -6,7 +6,7 @@ import {
   IEntityIdTWrapper,
   IMergeStrategyWrapper,
 } from '../definitions.interface';
-import { IFluxPayloadEntity } from './entity-definition.interface';
+import { IFluxEntity } from './flux-definition.interface';
 
 /**
  * @entity
@@ -23,7 +23,7 @@ export interface IModifyEntity<TEntity = IEntity>
  * @stable [23.09.2020]
  */
 export interface IFluxModifyEntity<TEntity = IEntity>
-  extends IFluxPayloadEntity<IModifyEntity<TEntity>> {
+  extends IFluxEntity<IModifyEntity<TEntity>> {
 }
 
 /**

@@ -2,7 +2,7 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import { Selectors } from '../../util';
 import {
-  IFluxQueryEntity,
+  IQueryEntity,
   INITIAL_REDUX_QUERY_FILTER_ENTITY,
   IReduxQueryFilterEntity,
 } from '../../definition';
@@ -19,7 +19,7 @@ import { FilterActionBuilder } from '../../action';
 export const queryFilterReducer = (state: IReduxQueryFilterEntity = INITIAL_REDUX_QUERY_FILTER_ENTITY,
                                    action: IEffectsAction): IReduxQueryFilterEntity => {
   const section = Selectors.sectionFromAction(action);
-  const actionData: IFluxQueryEntity = action.data;
+  const actionData: IQueryEntity = action.data;
 
   switch (action.type) {
     case FilterActionBuilder.buildActivateActionType(section):

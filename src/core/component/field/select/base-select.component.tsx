@@ -34,7 +34,7 @@ import {
   IBaseEvent,
   IBaseSelectProps,
   IBaseSelectState,
-  IFluxQueryEntity,
+  IQueryEntity,
   IMenuProps,
   IMultiItemEntity,
   IPresetsSelectOptionEntity,
@@ -527,7 +527,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
         '[$BaseSelect][onFilterChange] The onDictionaryChange callback is being called. Query:', query
       );
       onDictionaryChange(this.dictionary, {
-        payload: FilterUtils.defValuesFilter<IFluxQueryEntity, IFluxQueryEntity>({query}),
+        payload: FilterUtils.defValuesFilter<IQueryEntity, IQueryEntity>({query}),
       });
     });
   }

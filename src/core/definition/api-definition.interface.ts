@@ -14,6 +14,7 @@ import {
   IPlaceGeoCodeRequestEntity,
   ISearchPlacesEntity,
 } from './place-field-definition.interface';
+import { IFluxEntity } from './flux-definition.interface';
 
 /**
  * @entity
@@ -50,4 +51,12 @@ export interface IUpdateEntity<TEntity extends IEntity, TExtraParams = IKeyValue
 export interface IPlaceApi {
   getPlaceGeoCode<TResult>(request: IPlaceGeoCodeRequestEntity): TResult;
   searchPlaces<TResult>(request: ISearchPlacesEntity): TResult;
+}
+
+/**
+ * @flux-entity
+ * @stable [16.12.2020]
+ */
+export interface IFluxApiEntity
+  extends IFluxEntity<IApiEntity> {
 }

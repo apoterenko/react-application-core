@@ -38,6 +38,7 @@ import { IUniversalApplicationWrapperEntity } from './application-definition.int
  */
 export interface IEntityActionBuilder<TValue = {}> {
   buildDestroyAction(): IEffectsAction;
+  buildDestroyPlainAction(): IEffectsAction;
   buildReplaceAction<TPayload extends TValue = TValue>(replaced: TPayload): IEffectsAction;
   buildSelectAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;
   buildSelectPlainAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;

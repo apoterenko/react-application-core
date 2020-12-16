@@ -13,7 +13,7 @@ import {
 } from '../definitions.interface';
 import { IApiEntity } from './api-definition.interface';
 import { IDialog } from './dialog-definition.interface';
-import { IFluxPayloadEntity } from './entity-definition.interface';
+import { IFluxEntity } from './flux-definition.interface';
 import { IGenericContainer } from './generic-container-definition.interface';
 import { IReduxStackItemEntity } from './stack-definition.interface';
 
@@ -118,7 +118,7 @@ export interface IRouterStoreProxy
  * @stable [30.03.2020]
  */
 export interface IDictionaryStoreProxy {
-  dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, payload?: IFluxPayloadEntity<TData>);
+  dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, fluxEntity?: IFluxEntity<TData>);
 }
 
 /**

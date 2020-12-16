@@ -8,7 +8,7 @@ import {
   IMessagesWrapper,
   INameWrapper,
 } from '../definitions.interface';
-import { IFluxPayloadEntity } from './entity-definition.interface';
+import { IFluxEntity } from './flux-definition.interface';
 import { PayloadWrapper } from '../channel/protocol/payload.wrapper';
 
 /**
@@ -27,7 +27,7 @@ export interface IChannelMessageEntity<TData = AnyT>
  * @stable [06.11.2020]
  */
 export interface IFluxChannelMessageEntity<TData = AnyT>
-  extends IFluxPayloadEntity<IChannelMessageEntity<TData>> {
+  extends IFluxEntity<IChannelMessageEntity<TData>> {
 }
 
 /**

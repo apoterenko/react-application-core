@@ -28,7 +28,7 @@ import {
   IReduxBaseTextFieldEntity,
 } from './text-field-definition.interface';
 import { IFieldState } from './field-definition.interface';
-import { IFluxPayloadQueryEntity } from './query-definition.interface';
+import { IFluxQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface';
 
@@ -47,7 +47,7 @@ export interface IPresetsBaseSelectEntity
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
-    IOnDictionaryChangeWrapper<string, IFluxPayloadQueryEntity>,
+    IOnDictionaryChangeWrapper<string, IFluxQueryEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity>,
     IOptionsWrapper<IPresetsSelectOptionEntity[]>,
     IRemoteFilterWrapper,

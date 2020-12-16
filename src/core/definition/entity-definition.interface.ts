@@ -138,41 +138,9 @@ export interface ISelectedEntity<TEntity extends IEntity = IEntity>
 }
 
 /**
- * @flux-entity
- * @stable [27.09.2020]
- */
-export interface IFluxEntityIdEntity
-  extends IFluxPayloadEntity<EntityIdT> {
-}
-
-/**
- * @flux-entity
- * @stable [27.09.2020]
- */
-export interface IFluxNumberEntity
-  extends IFluxPayloadEntity<number> {
-}
-
-/**
- * @flux-entity
- * @stable [27.09.2020]
- */
-export interface IFluxStringEntity
-  extends IFluxPayloadEntity<string> {
-}
-
-/**
  * @redux-holder-entity
  * @stable [29.07.2020]
  */
 export interface IReduxActiveValueHolderEntity
   extends IActiveValueWrapper {
-}
-
-/**
- * @flux-entity
- * @stable [07.08.2020]
- */
-export interface IFluxPayloadEntity<TEntity = {}>
-  extends IPayloadWrapper<TEntity> {
 }

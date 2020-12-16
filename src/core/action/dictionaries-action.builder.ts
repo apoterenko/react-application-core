@@ -86,12 +86,12 @@ export class DictionariesActionBuilder {
   /**
    * @stable [08.09.2020]
    * @param section
-   * @param data
+   * @param fluxEntity
    */
-  public static buildLoadPlainAction<TData = {}>(section: string, data?: TData): IEffectsAction {
+  public static buildLoadPlainAction<TData = {}>(section: string, fluxEntity?: TData): IEffectsAction {
     return {
       type: this.buildLoadActionType(section),
-      data: SectionUtils.applySection(section, data),
+      data: SectionUtils.applySection(section, fluxEntity),
     };
   }
 
