@@ -244,24 +244,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'smartphone': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M17 24H8a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3zm0-19.5H8v15h9v-15z'/>
-      </svg>
-    ),
-    'text': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M10.5 21a1.5 1.5 0 0 0 0-3h-9a1.5 1.5 0 0 0 0 3h9zm12-7.5a1.5 1.5 0 0 0 0-3h-21a1.5 1.5 0 0 0 0 3h21zm-6-7.5a1.5 1.5 0 0 0 0-3h-15a1.5 1.5 0 0 0 0 3h15z'/>
-      </svg>
-    ),
-    'email': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-           width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M3.01 22a3 3 0 0 1-2.193-.95A3.005 3.005 0 0 1 0 19V5a3.002 3.002 0 0 1 3.012-3h17.977A3.013 3.013 0 0 1 24 5v14a3.002 3.002 0 0 1-3.012 3H3.011zM21 19V7.205l-7.418 7.635c-.42.425-.994.66-1.59.66-.6 0-1.173-.235-1.594-.66L3 7.226V19h18zM18.945 5H5.04l6.951 7.17L18.945 5z'/>
-      </svg>
-    ),
     'change': (
       <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'>
         <path
