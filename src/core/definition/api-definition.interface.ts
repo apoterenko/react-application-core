@@ -57,6 +57,6 @@ export interface IPlaceApi {
  * @flux-entity
  * @stable [16.12.2020]
  */
-export interface IFluxApiEntity
-  extends IFluxEntity<IApiEntity> {
+export interface IFluxApiEntity<TEntity = IEntity>
+  extends IFluxEntity<IApiEntity<TEntity>> {
 }

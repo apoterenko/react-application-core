@@ -1,7 +1,6 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  ConditionUtils,
   NvlUtils,
   ObjectUtils,
   RouteUtils,
@@ -13,23 +12,14 @@ import {
   NotificationActionBuilder,
   RouterActionBuilder,
 } from '../../action';
-import { IEntity } from '../../definitions.interface';
 import {
   ListActionBuilder,
 } from '../../component/action.builder';
-import { ISucceedRelatedFormMiddlewareConfig } from './middleware.interface';
 import {
-  IApiEntity,
-  IFluxModifyEntity,
   ISucceedEditedListMiddlewareConfigEntity,
   ISucceedFormMiddlewareConfigEntity,
 } from '../../definition';
-import {
-  DI_TYPES,
-  DiServices,
-  staticInjector,
-} from '../../di';
-import { ISettingsEntity } from '../../settings';
+import { DiServices } from '../../di';
 
 /**
  * @stable [11.04.2020]
@@ -57,46 +47,6 @@ export const makeSucceedFormMiddleware = (cfg?: ISucceedFormMiddlewareConfigEnti
             )
           )
         ]
-    )
-  ];
-};
-
-/**
- * @deprecated Use makeSucceedRelatedFormEntityMiddleware
- */
-export const makeSucceedRelatedFormMiddleware = <TEntity extends IEntity,
-                                                 TRelatedEntity extends IEntity>(
-  config: ISucceedRelatedFormMiddlewareConfig<TEntity, TRelatedEntity>): IEffectsAction[] => {
-  const formSection = config.formSection;
-  const apiEntity = config.action.data as IApiEntity<TRelatedEntity>;
-  const parentEntity = config.getEntity(config.state);
-
-  const relatedEntities = apiEntity.newEntity
-    ? (config.getRelatedEntities(parentEntity) || []).concat(config.relatedEntity)
-    : (config.getRelatedEntities(parentEntity) || []).map(
-      (anotherEntity) => anotherEntity.id === config.relatedEntity.id ? config.relatedEntity : anotherEntity
-    );
-
-  const changes = config.makeRelatedChanges(relatedEntities);
-  const payloadWrapper: IFluxModifyEntity = {payload: {id: parentEntity.id, changes}};
-
-  return [
-    ...ConditionUtils.ifNotNilThanValue(
-      config.listSection,
-      (listSection) => (
-        [
-          ListActionBuilder.buildUpdateAction(listSection, payloadWrapper),
-          config.navigateBack !== false
-            ? RouterActionBuilder.buildBackAction()
-            : FormActionBuilder.buildSubmitDoneAction(formSection)
-        ]
-      ),
-      []
-    ),
-    NotificationActionBuilder.buildInfoAction(
-      DiServices.translator()(
-        config.succeedText || staticInjector<ISettingsEntity>(DI_TYPES.Settings).messages.dataSaved
-      )
     )
   ];
 };
