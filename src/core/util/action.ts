@@ -34,7 +34,8 @@ const makeEntityActionBuilderFactory =
        * @stable [16.12.2020]
        */
       public buildDestroyAction(): IEffectsAction {
-        return EffectsAction.create(config.destroy);
+        const plainAction = this.buildDestroyPlainAction();
+        return EffectsAction.create(plainAction.type);
       }
 
       /**
@@ -62,6 +63,13 @@ const makeEntityActionBuilderFactory =
       public buildSelectPlainAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
         const payloadWrapper: ISelectedWrapper<TPayload> = {selected};
         return {type: config.select, data: payloadWrapper};
+      }
+
+      /**
+       * @stable [16.12.2020]
+       */
+      public buildDestroyPlainAction(): IEffectsAction {
+        return {type: config.destroy};
       }
     }, []);
 
