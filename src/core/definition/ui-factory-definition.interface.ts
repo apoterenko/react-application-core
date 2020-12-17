@@ -3,15 +3,13 @@ import * as React from 'react';
 import {
   AnyT,
   IClassNameWrapper,
-  IDisabledWrapper,
   IMessageWrapper,
-  IOnClickWrapper,
   ITitleWrapper,
   ITouchedWrapper,
-  ITypeWrapper,
   IWrapperClassNameWrapper,
   IWrapperWrapper,
 } from '../definitions.interface';
+import { IPresetsActionEntity } from './entity-definition.interface';
 
 export interface IUiIconFactory {
 
@@ -53,13 +51,9 @@ export interface IUiFactory extends IUiIconFactory {
  * @stable [18.03.2020]
  */
 export interface IIconConfigEntity
-  extends React.RefAttributes<HTMLDivElement>,
-    IClassNameWrapper,
-    IDisabledWrapper,
-    IOnClickWrapper,
-    ITitleWrapper,
-    ITouchedWrapper,
-    ITypeWrapper {
+  extends IPresetsActionEntity,
+    React.RefAttributes<HTMLDivElement>,
+    ITitleWrapper {
 }
 
 /**

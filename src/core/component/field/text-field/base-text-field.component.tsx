@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as R from 'ramda';
-
 import MaskedTextInput from 'react-text-mask';
 
 import {
@@ -10,9 +9,7 @@ import {
   ObjectUtils,
   PropsUtils,
 } from '../../../util';
-import {
-  UniCodesEnum,
-} from '../../../definitions.interface';
+import { UniCodesEnum } from '../../../definitions.interface';
 import { Field } from '../field/field.component';
 import {
   ComponentClassesEnum,
@@ -45,7 +42,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     super(originalProps);
 
     if (originalProps.clearActionRendered) {
-      this.addClearAction();
+      this.defaultActions.push({
+        type: FieldActionTypesEnum.CLOSE,
+        onClick: this.clearValue,
+      });
     }
   }
 
@@ -139,7 +139,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [09.11.2020]
+   * @stable [17.12.2020]
    * @protected
    */
   protected get actionsElement(): JSX.Element {
@@ -148,13 +148,10 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
         {
           this.fieldActions.map(
             (action, index) => (
-              <React.Fragment key={`field-action-key-${index}`}>
-                {
-                  this.uiFactory.makeIcon({
-                    ...action,
-                    disabled: this.isFieldActionDisabled(action),
-                  })
-                }
+              <React.Fragment
+                key={`field-action-key-${index}`}
+              >
+                {this.uiFactory.makeIcon(action)}
               </React.Fragment>
             )
           )
@@ -164,44 +161,36 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [30.10.2019]
-   */
-  private addClearAction(): void {
-    this.defaultActions.push({
-      type: FieldActionTypesEnum.CLOSE,
-      onClick: () => this.clearValue(),
-      disabled: () => this.isInactive,
-    });
-  }
-
-  /**
-   * @stable [17.06.2020]
-   * @returns {IFieldActionEntity[]}
+   * @stable [17.12.2020]
+   * @private
    */
   private get fieldActions(): IFieldActionEntity[] {
-    if (this.isReadOnly) {
-      return [];
-    }
-    const originalProps = this.originalProps;
     const {
       actions = [],
       actionsPosition,
-    } = originalProps;
+    } = this.originalProps;
 
     const defaultActions = this.defaultActions || [];
     const fieldActions = actionsPosition === FieldActionPositionsEnum.LEFT
       ? defaultActions.concat(actions)
       : actions.concat(defaultActions);
 
-    return fieldActions.filter(
-      (action) => {
-        switch (action.type) {
-          case FieldActionTypesEnum.CLOSE:
-            return this.isValuePresent;
+    const isBusy = this.isBusy;
+    const isValuePresent = this.isValuePresent;
+    const isInactive = this.isInactive;
+
+    return fieldActions
+      .filter(
+        (action) => {
+          switch (action.type) {
+            case FieldActionTypesEnum.CLOSE:
+              return isValuePresent && !isInactive;
+            case FieldActionTypesEnum.DOWNLOAD:
+              return isValuePresent && !isBusy;
+          }
+          return !isInactive;
         }
-        return true;
-      }
-    );
+      );
   }
 
   /**

@@ -200,12 +200,11 @@ export class BaseTransport {
    * @protected
    */
   protected downloadFile(params: ITransportRequestEntity): void {
-    DomUtils.downloadFileByUrl({
-      url: JoinUtils.join([
-        this.settings.downloadUrl,
-        UrlUtils.buildEncodedURI(this.transport.makeRequestData(params))
-      ]),
-    });
+    const url = JoinUtils.join([
+      this.settings.downloadUrl,
+      UrlUtils.buildEncodedURI(this.transport.makeRequestData(params))
+    ]);
+    DomUtils.downloadFileByUrl({url});
   }
 
   /**

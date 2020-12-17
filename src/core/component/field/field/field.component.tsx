@@ -72,6 +72,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
 
     this.state = {} as TState;
 
+    this.clearValue = this.clearValue.bind(this);
     this.closeVirtualKeyboard = this.closeVirtualKeyboard.bind(this);
     this.doCancelEvent = this.doCancelEvent.bind(this);
     this.onBlur = this.onBlur.bind(this);

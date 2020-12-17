@@ -30,7 +30,7 @@ import {
   ClsUtils,
   getCurrentUrlPath,
   ifNotNilThanValue,
-  nvl,
+  NvlUtils,
   PropsUtils,
   TypeUtils,
 } from '../../../util';
@@ -57,32 +57,39 @@ export class UiFactory implements IUiFactory {
   }
 
   /**
-   * @stable [18.04.2020]
-   * @param {IIconConfigEntity | string} cfg
-   * @returns {JSX.Element}
+   * @stable [17.12.2020]
+   * @param cfg
    */
   public makeIcon(cfg: IIconConfigEntity | string): JSX.Element {
     if (R.isNil(cfg)) {
       return cfg;
     }
     const config = this.toIconConfig(cfg);
+    const disabled = CalcUtils.calc(config.disabled);
+    const className = CalcUtils.calc(config.className);
+    const {
+      onClick,
+      ref,
+      title,
+      touched,
+      type,
+    } = config;
 
     return (
       <div
-        ref={config.ref}
-        title={config.title as string}
-        className={ClsUtils.joinClassName(
-          IconClassesEnum.ICON,
-          TypeUtils.isFn(config.onClick) && (
-            ClsUtils.joinClassName(
-              IconClassesEnum.ACTION_ICON,
-              `rac-action-${config.type}-icon`
-            )
-          ),
-          config.disabled && IconClassesEnum.DISABLED_ICON,
-          CalcUtils.calc(config.className),
-        )}
-        {...PropsUtils.buildClickHandlerProps(config.onClick, !config.disabled, nvl(config.touched, false))}
+        ref={ref}
+        title={title}
+        className={
+          ClsUtils.joinClassName(
+            IconClassesEnum.ICON,
+            TypeUtils.isFn(onClick) && (
+              ClsUtils.joinClassName(IconClassesEnum.ACTION_ICON, `rac-action-${type}-icon`)
+            ),
+            disabled && IconClassesEnum.DISABLED_ICON,
+            className,
+          )
+        }
+        {...PropsUtils.buildClickHandlerProps(onClick, !disabled, NvlUtils.nvl(touched, false))}
       >
         {this.uiIconFactory.makeIcon(config)}
       </div>

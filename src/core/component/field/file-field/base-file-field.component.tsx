@@ -88,7 +88,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
       }),
       useDownload && ({
         type: FieldActionTypesEnum.DOWNLOAD,
-        disabled: () => this.isDownloadActionDisabled,
         onClick: this.downloadFile,
       })
     );
@@ -393,14 +392,6 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
           : this.domAccessor.downloadFileByBlob({data, fileName: actualFileName, detectFileType});
       })
     );
-  }
-
-  /**
-   * @stable [09.11.2020]
-   * @private
-   */
-  private get isDownloadActionDisabled(): boolean {
-    return this.isValueNotPresent;
   }
 
   /**

@@ -78,6 +78,7 @@ import {
 } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
 import {
+  IPresetsActionEntity,
   IReduxLifeCycleEntity,
 } from './entity-definition.interface';
 import {
@@ -272,11 +273,8 @@ export enum FieldActionTypesEnum {
  * @stable [06.05.2020]
  */
 export interface IFieldActionEntity
-  extends IClassNameWrapper,
-    IDisabledWrapper<boolean | (() => boolean)>,
-    IOnClickWrapper,
-    ITitleWrapper,
-    ITypeWrapper {
+  extends IPresetsActionEntity,
+    ITitleWrapper {
 }
 
 /**

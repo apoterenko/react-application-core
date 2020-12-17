@@ -3,6 +3,7 @@ import {
   EntityIdT,
   IActiveValueWrapper,
   IChangesWrapper,
+  IClassNameWrapper,
   IDisabledWrapper,
   IEntity,
   IEntityIdTWrapper,
@@ -15,6 +16,7 @@ import {
   IMinWrapper,
   INameWrapper,
   INewEntityWrapper,
+  IOnClickWrapper,
   IOriginalEntityWrapper,
   IPayloadWrapper,
   IProgressWrapper,
@@ -23,10 +25,23 @@ import {
   ISelectedWrapper,
   ITouchedWrapper,
   ITplWrapper,
+  ITypeWrapper,
   IValueWrapper,
   StringNumberT,
 } from '../definitions.interface';
 import { IErrorEntity } from './error-definition.interface';
+
+/**
+ * @presets-entity
+ * @stable [17.12.2020]
+ */
+export interface IPresetsActionEntity<TType = string>
+  extends IClassNameWrapper,
+    IDisabledWrapper<boolean | (() => boolean)>,
+    IOnClickWrapper,
+    ITouchedWrapper,
+    ITypeWrapper<TType> {
+}
 
 /**
  * @presets-entity

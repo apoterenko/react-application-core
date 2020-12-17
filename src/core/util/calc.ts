@@ -1,14 +1,12 @@
-import { isFn } from './type';
-import { AnyT } from '../definitions.interface';
+import { TypeUtils } from './type';
 
 /**
- * @stable [24.01.2020]
- * @param {((payload?: TPayload) => TResult) | TResult} result
- * @param {TPayload} payload
- * @returns {TResult}
+ * @stable [17.12.2020]
+ * @param result
+ * @param payload
  */
-export const calc = <TResult, TPayload = AnyT>(result: TResult | ((payload?: TPayload) => TResult), payload?: TPayload): TResult =>
-  isFn(result)
+export const calc = <TResult, TPayload = unknown>(result: TResult | ((payload?: TPayload) => TResult), payload?: TPayload): TResult =>
+  TypeUtils.isFn(result)
     ? (result as (payload?: TPayload) => TResult)(payload)
     : result as TResult;
 
