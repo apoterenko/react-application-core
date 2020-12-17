@@ -3,9 +3,19 @@ import * as JsBarcode from 'jsbarcode';
 import * as R from 'ramda';
 
 import { GenericComponent } from '../base/generic.component';
-import { defValuesFilter, UuidUtils, calc, nvl } from '../../util';
+import {
+  CalcUtils,
+  FilterUtils,
+  NvlUtils,
+  UuidUtils,
+} from '../../util';
 import { getBarcodeApplicableFormats } from './barcode.support';
-import { IBarcodeProps, BarcodeFormatsEnum, BARCODE_APPLICABLE_FORMATS } from './barcode.interface';
+import { IBarcodeProps } from './barcode.interface';
+import {
+  BARCODE_APPLICABLE_FORMATS,
+  BarcodeClassesEnum,
+  BarcodeFormatsEnum,
+} from '../../definition';
 
 export class Barcode extends GenericComponent<IBarcodeProps> {
 
@@ -35,23 +45,29 @@ export class Barcode extends GenericComponent<IBarcodeProps> {
   }
 
   /**
-   * @stable [11.06.2018]
-   * @returns {JSX.Element}
+   * @stable [17.12.2020]
    */
   public render(): JSX.Element {
-    const props = this.props;
+    const {
+      footer,
+    } = this.originalProps;
+
     return (
       <React.Fragment>
         {
-          this.validFormats.map((format, index) => (
-            <div
-              key={index}
-              className='rac-barcode'>
-              {props.children}
-              <svg id={this.toId(format)}/>
-              {nvl(calc(props.footer, format), format)}
-            </div>
-          ))
+          this.validFormats
+            .map((format, index) => (
+              <div
+                key={index}
+                className={BarcodeClassesEnum.BARCODE}
+              >
+                {this.originalChildren}
+                <svg
+                  id={this.toId(format)}
+                  className={BarcodeClassesEnum.DATA}/>
+                {NvlUtils.nvl(CalcUtils.calc(footer, format), format)}
+              </div>
+            ))
         }
       </React.Fragment>
     );
@@ -61,15 +77,17 @@ export class Barcode extends GenericComponent<IBarcodeProps> {
    * @stable [11.06.2018]
    */
   private refresh(): void {
-    const props = this.props;
-    const {barcode, height, fontSize} = props;
-    const options = {
-      // defValuesFilter returns frozen object but JsBarcode changes its
-      ...defValuesFilter({
-        height,
-        fontSize,
-      }),
-    };
+    const {
+      barcode,
+      fontSize,
+      height,
+    } = this.originalProps;
+
+    const options = FilterUtils.defValuesFilter<IBarcodeProps, IBarcodeProps>({
+      height,
+      fontSize,
+    }) as {};
+
     this.validFormats.forEach((format) => {
       const barcodeInstance = JsBarcode(`#${this.toId(format)}`);
       switch (format) {

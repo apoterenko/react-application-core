@@ -3,7 +3,7 @@ import * as JsBarcode from 'jsbarcode';
 import {
   BARCODE_APPLICABLE_FORMATS,
   BarcodeFormatsEnum,
-} from './barcode.interface';
+} from '../../definition';
 import { FilterUtils } from '../../util';
 
 /**

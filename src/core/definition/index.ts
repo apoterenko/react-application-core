@@ -2,6 +2,7 @@ export * from './api-definition.interface';
 export * from './application-definition.interface';
 export * from './async-lib-definition.interface';
 export * from './auth-definition.interface';
+export * from './barcode-definition.interface';
 export * from './bootstrap-definition.interface';
 export * from './button-definition.interface';
 export * from './calendar-definition.interface';
