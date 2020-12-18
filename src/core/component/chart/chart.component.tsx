@@ -7,7 +7,6 @@ import {
   ClsUtils,
   ConditionUtils,
   FilterUtils,
-  WrapperUtils,
 } from '../../util';
 import {
   ChartClassesEnum,
@@ -16,11 +15,12 @@ import {
 
 /**
  * @component-impl
- * @stable [23.05.2020]
+ * @stable [18.12.2020]
  */
 export class Chart extends GenericComponent<IChartProps> {
 
   public static readonly defaultProps: IChartProps = {
+    full: true,
     rendered: true,
   };
 
@@ -28,54 +28,57 @@ export class Chart extends GenericComponent<IChartProps> {
   private chartJs: ChartJs;
 
   /**
-   * @stable [23.05.2020]
+   * @stable [18.12.2020]
    */
   public componentDidMount(): void {
     this.refresh();
   }
 
   /**
-   * @stable [23.05.2020]
+   * @stable [18.12.2020]
    */
   public componentDidUpdate(): void {
     this.refresh();
   }
 
   /**
-   * @stable [23.05.2020]
-   * @returns {JSX.Element}
+   * @stable [18.12.2020]
    */
   public render(): JSX.Element {
-    const mergedProps = this.mergedProps;
+    const {
+      className,
+      east,
+      full,
+      rendered,
+      west,
+    } = this.originalProps;
     const items = FilterUtils.objectValuesArrayFilter(
-      mergedProps.west,
-      mergedProps.rendered && <React.Fragment/>,
-      mergedProps.east
+      west,
+      rendered && <React.Fragment/>,
+      east
     );
 
     return (
       <div
         ref={this.actualRef}
-        className={ClsUtils.joinClassName(
-          ChartClassesEnum.CHART,
-          WrapperUtils.isFull(mergedProps) && ChartClassesEnum.FULL_CHART,
-          `${ChartClassesEnum.CHART_WITH_ITEMS_COUNT}${items.length}`,
-          CalcUtils.calc(mergedProps.className)
-        )}
+        className={
+          ClsUtils.joinClassName(
+            ChartClassesEnum.CHART,
+            full && ChartClassesEnum.FULL_CHART,
+            `${ChartClassesEnum.CHART_WITH_ITEMS_COUNT}${items.length}`,
+            CalcUtils.calc(className)
+          )}
       >
         {
-          ConditionUtils.ifNotNilThanValue(
-            mergedProps.west,
-            (west) => (
-              <div
-                className={ChartClassesEnum.CHART_WEST}
-              >
-                {west}
-              </div>
-            )
+          west && (
+            <div
+              className={ChartClassesEnum.CHART_WEST}
+            >
+              {west}
+            </div>
           )
         }
-        {mergedProps.rendered && (
+        {rendered && (
           <div
             className={ChartClassesEnum.CHART_CANVAS_WRAPPER}
           >
@@ -84,15 +87,12 @@ export class Chart extends GenericComponent<IChartProps> {
           </div>
         )}
         {
-          ConditionUtils.ifNotNilThanValue(
-            mergedProps.east,
-            (east) => (
-              <div
-                className={ChartClassesEnum.CHART_EAST}
-              >
-                {east}
-              </div>
-            )
+          east && (
+            <div
+              className={ChartClassesEnum.CHART_EAST}
+            >
+              {east}
+            </div>
           )
         }
       </div>
@@ -100,7 +100,8 @@ export class Chart extends GenericComponent<IChartProps> {
   }
 
   /**
-   * @stable [28.02.2019]
+   * @stable [18.12.2020]
+   * @private
    */
   private refresh(): void {
     if (this.chartJs) {
@@ -120,8 +121,8 @@ export class Chart extends GenericComponent<IChartProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {IChartProps}
+   * @stable [18.12.2020]
+   * @protected
    */
   protected get componentsSettingsProps(): IChartProps {
     return this.componentsSettings.chart;

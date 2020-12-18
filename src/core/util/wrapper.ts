@@ -29,9 +29,10 @@ import { TypeUtils } from './type';
 import { ValueUtils } from './value';
 
 /**
- * @stable [08.06.2020]
- * @param {IValidWrapper} wrapper
- * @returns {boolean}
+ * See @Field
+ *
+ * @stable [18.12.2020]
+ * @param wrapper
  */
 const isValid = (wrapper: IValidWrapper): boolean =>
   R.isNil(wrapper)
@@ -39,14 +40,18 @@ const isValid = (wrapper: IValidWrapper): boolean =>
     : ValueUtils.isValueValid(wrapper.valid);
 
 /**
- * @stable [22.08.2020]
+ * See @Field and @Form
+ *
+ * @stable [18.12.2020]
  * @param wrapper
  */
 const isChangeable = (wrapper: IChangeableWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.changeable !== false;
 
 /**
- * @stable [22.08.2020]
+ * See @Field and @Form
+ *
+ * @stable [18.12.2020]
  * @param wrapper
  */
 const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
@@ -190,9 +195,8 @@ export const isDirty = (entity: IDirtyWrapper): boolean =>
   R.isNil(entity) ? false : entity.dirty === true;
 
 /**
- * @stable [16.02.2020]
- * @param {IErrorMessageRenderedWrapper} wrapper
- * @returns {boolean}
+ * @stable [18.12.2020]
+ * @param wrapper
  */
 const isErrorMessageRendered = (wrapper: IErrorMessageRenderedWrapper): boolean =>
   R.isNil(wrapper) ? false : wrapper.errorMessageRendered !== false;
@@ -208,19 +212,19 @@ const isNavigateBackNeeded = (wrapper: INavigateBackWrapper): boolean =>
  * @stable [18.05.2020]
  */
 export class WrapperUtils {
-  public static readonly inProgress = inProgress;                                          /* @stable [19.05.2020] */
-  public static readonly isAllowEmptyFilterValue = isAllowEmptyFilterValue;                /* @stable [08.08.2020] */
-  public static readonly isChangeable = isChangeable;                                      /* @stable [22.08.2020] */
-  public static readonly isDecorated = isDecorated;                                        /* @stable [02.06.2020] */
-  public static readonly isDirty = isDirty;                                                /* @stable [01.08.2020] */
-  public static readonly isDisabled = isDisabled;                                          /* @stable [01.06.2020] */
-  public static readonly isErrorMessageRendered = isErrorMessageRendered;                  /* @stable [18.06.2020] */
-  public static readonly isExpandActionRendered = isExpandActionRendered;                  /* @stable [16.06.2020] */
-  public static readonly isFull = isFull;                                                  /* @stable [20.05.2020] */
-  public static readonly isNavigateBackNeeded = isNavigateBackNeeded;                      /* @stable [09.09.2020] */
-  public static readonly isReadOnly = isReadOnly;                                          /* @stable [22.08.2020] */
-  public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;                /* @stable [08.06.2020] */
-  public static readonly isSelected = isSelected;                                          /* @stable [01.06.2020] */
-  public static readonly isTouched = isTouched;                                            /* @stable [18.05.2020] */
-  public static readonly isValid = isValid;                                                /* @stable [05.06.2020] */
+  public static readonly inProgress = inProgress;
+  public static readonly isAllowEmptyFilterValue = isAllowEmptyFilterValue;
+  public static readonly isChangeable = isChangeable;                                     /* @stable @stable [18.12.2020] */
+  public static readonly isDecorated = isDecorated;
+  public static readonly isDirty = isDirty;
+  public static readonly isDisabled = isDisabled;
+  public static readonly isErrorMessageRendered = isErrorMessageRendered;
+  public static readonly isExpandActionRendered = isExpandActionRendered;
+  public static readonly isFull = isFull;
+  public static readonly isNavigateBackNeeded = isNavigateBackNeeded;
+  public static readonly isReadOnly = isReadOnly;
+  public static readonly isRefreshOnUpdateNeeded = isRefreshOnUpdateNeeded;
+  public static readonly isSelected = isSelected;
+  public static readonly isTouched = isTouched;
+  public static readonly isValid = isValid;                                               /* @stable @stable [18.12.2020] */
 }

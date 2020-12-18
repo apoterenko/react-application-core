@@ -587,7 +587,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       this.isDisabled && FieldClassesEnum.DISABLED,
       this.isFocused ? FieldClassesEnum.FOCUSED : FieldClassesEnum.NOT_FOCUSED,
       this.isFocusPrevented && FieldClassesEnum.PREVENT_FOCUS,
-      this.isInvalid && FieldClassesEnum.INVALID,
+      !this.isValid && FieldClassesEnum.INVALID,
       this.isRequired && FieldClassesEnum.REQUIRED,
       this.isValuePresent ? FieldClassesEnum.VALUE_PRESENT : FieldClassesEnum.VALUE_NOT_PRESENT,
       CalcUtils.calc(className)
@@ -1098,11 +1098,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [21.06.2020]
-   * @returns {boolean}
+   * @stable [18.12.2020]
    */
-  private get isInvalid(): boolean {
-    return !WrapperUtils.isValid(this.originalProps) || !R.isNil(this.error);
+  private get isValid(): boolean {
+    return WrapperUtils.isValid(this.originalProps) && R.isNil(this.error);
   }
 
   /**
