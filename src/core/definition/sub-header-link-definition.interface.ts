@@ -37,6 +37,12 @@ export interface ISubHeaderLinkProps
 }
 
 /**
+ * @stable [19.12.2020]
+ */
+export type RouterStoreProxySubHeaderLinkPropsFactoryT =
+  (cfg: IRouterStoreProxyFactoryConfigEntity) => ISubHeaderLinkProps;
+
+/**
  * @classes
  * @stable [22.05.2020]
  */

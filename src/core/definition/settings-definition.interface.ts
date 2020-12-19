@@ -43,6 +43,7 @@ export enum StartDaysOfWeekEnum {
  */
 export interface ICurrencySettingsEntity {
   currency?: string;
+  currencyValueTemplate?: string;
   fractionalFormatOptions?: Intl.NumberFormatOptions;
   integerFormatOptions?: Intl.NumberFormatOptions;
   locale?: string;
@@ -55,6 +56,7 @@ export interface ICurrencySettingsEntity {
  */
 export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsEntity>({
   currency: 'USD',
+  currencyValueTemplate: '{value}, {shortCurrency}',  // {currency} | {shortCurrency}
   fractionalFormatOptions: {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
@@ -66,7 +68,6 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
   locale: 'en-US',
   shortCurrency: '$',
 });
-
 
 /**
  * @stable [25.12.2019]

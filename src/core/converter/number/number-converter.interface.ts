@@ -2,6 +2,7 @@ import { StringNumberT } from '../../definitions.interface';
 
 export interface INumberConverter {
   asNumber(value: StringNumberT): number;
+  currencyValue(value: StringNumberT): string;
   format(value: StringNumberT, formatter?: Intl.NumberFormat, options?: Intl.NumberFormatOptions): string;
   formatFractional(value: StringNumberT, options?: Intl.NumberFormatOptions): string;
   formatFractionalCurrency(value: StringNumberT, options?: Intl.NumberFormatOptions): string;

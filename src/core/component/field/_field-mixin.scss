@@ -14,6 +14,7 @@
   $rac-field-attachment-neighbor-child-margin: unset,                               /* @stable [19.06.2020] */
   $rac-field-attachment-position: unset,                                            /* @stable [19.06.2020] */
   $rac-field-background: unset,                                                     /* @stable [19.06.2020] */
+  $rac-field-border-bottom: unset,                                                  /* @stable [18.12.2020] */
   $rac-field-border-radius: unset,                                                  /* @stable [19.06.2020] */
   $rac-field-display: unset,                                                        /* @stable [19.06.2020] */
   $rac-field-error-message-color: unset,                                            /* @stable [20.06.2020] */
@@ -140,6 +141,7 @@
     @include rac-styles (
       $rac-styles-align-items: $rac-field-align-items,
       $rac-styles-background: $rac-field-background,
+      $rac-styles-border-bottom: $rac-field-border-bottom,
       $rac-styles-border-radius: $rac-field-border-radius,
       $rac-styles-display: $rac-field-display,
       $rac-styles-flex-basis: $rac-field-flex-basis,

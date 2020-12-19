@@ -756,6 +756,7 @@ export enum UniCodesEnum {
   DASH = '\u2014',
   N_DASH = '\u2013',
   NO_BREAK_SPACE = '\u00a0',
+  NO_BREAK_SPACE_x3 = '\u00a0\u00a0\u00a0',
   SPACE = '\u0020',
 }
 

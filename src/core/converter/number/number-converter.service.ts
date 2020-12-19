@@ -184,6 +184,21 @@ export class NumberConverter implements INumberConverter {
   }
 
   /**
+   * @stable [19.12.2020]
+   * @param value
+   */
+  public currencyValue(value: StringNumberT): string {
+    const currency = this.settings.currency;
+
+    // {currency} | {shortCurrency}
+    return currency
+      .currencyValueTemplate
+      .replace('{value}', String(value))
+      .replace('{currency}', currency.currency)
+      .replace('{shortCurrency}', currency.shortCurrency);
+  }
+
+  /**
    * @stable [09.09.2020]
    * @param value
    * @param formatter
