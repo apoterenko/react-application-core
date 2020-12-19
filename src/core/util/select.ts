@@ -162,30 +162,25 @@ export const selectChanges = <TResult = IEntity>(entity: IChangesWrapper<TResult
  * @param {IEntityWrapper<TResult>} entity
  * @returns {TResult}
  */
-export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>): TResult =>
-  R.isNil(entity) ? UNDEF : entity.entity;
+export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>): TResult => entity?.entity;
 
 /**
- * @stable [05.03.2020]
- * @param {IDataWrapper<TData>} wrapper
- * @returns {TData}
+ * @stable [19.12.2020]
+ * @param wrapper
  */
-export const selectData = <TData>(wrapper: IDataWrapper<TData>): TData =>
-  R.isNil(wrapper) ? UNDEF : wrapper.data;
+const selectData = <TData>(wrapper: IDataWrapper<TData>): TData => wrapper?.data;
 
 /**
  * @stable [30.07.2020]
  * @param wrapper
  */
-const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue =>
-  R.isNil(wrapper) ? UNDEF : wrapper.activeValue;
+const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue => wrapper?.activeValue;
 
 /**
  * @stable [26.07.2020]
  * @param wrapper
  */
-const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload =>
-  R.isNil(wrapper) ? UNDEF : wrapper.payload;
+const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload => wrapper?.payload;
 
 /**
  * @stable [26.07.2020]

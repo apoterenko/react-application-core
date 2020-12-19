@@ -8,8 +8,8 @@ import {
   IReduxNotificationEntity,
 } from '../../definition';
 import {
-  selectData,
   asErrorMessage,
+  Selectors,
 } from '../../util';
 
 /**
@@ -20,7 +20,7 @@ import {
  */
 export const notificationReducer = (state: IReduxNotificationEntity = INITIAL_REDUX_NOTIFICATION_ENTITY,
                                     action: IEffectsAction): IReduxNotificationEntity => {
-  const notificationEntity = selectData<IReduxNotificationEntity>(action);
+  const notificationEntity = Selectors.data<IReduxNotificationEntity>(action);
   switch (action.type) {
     case $_RAC_NOTIFICATION_INFO_ACTION_TYPE:
       return {

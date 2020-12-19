@@ -15,7 +15,6 @@ import {
   nvl,
   NvlUtils,
   SAME_ENTITY_PREDICATE,
-  selectData,
   Selectors,
   selectSelectedEntityFromAction,
 } from '../../util';
@@ -168,7 +167,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildLazyLoadDoneActionType(section):
-      const lazyLoadedEntity = selectSelectedEntityFromAction(action) || selectData(action);
+      const lazyLoadedEntity = selectSelectedEntityFromAction(action) || Selectors.data(action);
       modifyDataPayload = {
         id: lazyLoadedEntity.id,
         changes: lazyLoadedEntity,
