@@ -4,9 +4,7 @@ import * as R from 'ramda';
 import { BlobUtils } from './blob';
 import { isFn } from './type';
 import { NvlUtils } from './nvl';
-import {
-  trueValuesArrayFilter,
-} from './filter';
+import { FilterUtils } from './filter';
 import {
   ComponentClassesEnum,
   IDownloadFileConfigEntity,
@@ -261,7 +259,7 @@ export const preventContextMenu = () => document.body.oncontextmenu = () => fals
  */
 export const hasClasses = (target: Element, ...classNames: string[]): boolean => {
   const el = toJqEl(target);
-  return trueValuesArrayFilter(...classNames.map((className) => el.hasClass(className))).length > 0;
+  return FilterUtils.trueValuesArrayFilter(...classNames.map((className) => el.hasClass(className))).length > 0;
 };
 
 /**

@@ -87,7 +87,6 @@ export const SAME_ENTITY_PREDICATE =
 /**
  * @stable [29.08.2020]
  * @param value
- * @constructor
  */
 const OBJECT_VALUE_PREDICATE = (value: unknown): boolean => TypeUtils.isObject(value);
 
@@ -146,7 +145,6 @@ const NIL_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NIL_VALUE_PREDI
 /**
  * @stable [07.12.2020]
  * @param value
- * @constructor
  */
 const STRING_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isString(value);
 
@@ -187,18 +185,16 @@ const POSITIVE_NUMBER_LIKE_KEY_VALUE_PREDICATE = (key: string, value: unknown) =
 const NOT_EMPTY_OBJECT_KEY_VALUE_PREDICATE = (key: string, value: unknown) => NOT_EMPTY_OBJECT_VALUE_PREDICATE(value);
 
 /**
- * @stable [16.05.2020]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [21.12.2020]
+ * @param value
  */
 const DEF_VALUE_PREDICATE = (value: AnyT) => TypeUtils.isDef(value);
 
 /**
- * @stable [22.10.2019]
- * @param {AnyT} value
- * @returns {boolean}
+ * @stable [21.12.2020]
+ * @param value
  */
-export const TRUE_VALUE_PREDICATE = (value: AnyT) => value === true;
+const TRUE_VALUE_PREDICATE = (value: AnyT) => value === true;
 
 /**
  * @stable [18.05.2020]
@@ -224,46 +220,40 @@ const filterArray = <TValue>(data: TValue[], ...predicates: ValuePredicateT[]): 
   );
 
 /**
- * @stable [19.05.2020]
- * @param {TValue} data
- * @returns {TValue[]}
+ * @stable [21.12.2020]
+ * @param data
  */
 const objectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, OBJECT_VALUE_PREDICATE);
 
 /**
- * @stable [16.05.2020]
- * @param {TValue} data
- * @returns {TValue[]}
+ * @stable [21.12.2020]
+ * @param data
  */
 const defValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, DEF_VALUE_PREDICATE);
 
 /**
- * @stable [18.05.2020]
- * @param {TValue} data
- * @returns {TValue[]}
+ * @stable [21.12.2020]
+ * @param data
  */
 const notNilValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_NIL_VALUE_PREDICATE);
 
 /**
- * @stable [17.05.2020]
- * @param {TValue} data
- * @returns {TValue[]}
+ * @stable [21.12.2020]
+ * @param data
  */
-const notEmptyValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_EMPTY_OBJECT_VALUE_PREDICATE);
+const notEmptyObjectValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, NOT_EMPTY_OBJECT_VALUE_PREDICATE);
 
 /**
- * @stable [22.10.2019]
- * @param {TValue} data
- * @returns {TValue[]}
+ * @stable [07.12.2020]
+ * @param data
  */
-export const trueValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, TRUE_VALUE_PREDICATE);
+const trueValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, TRUE_VALUE_PREDICATE);
 
 /**
- * @stable [25.12.2019]
- * @param {TValue} data
- * @returns {TValue[]}
+ * @stable [07.12.2020]
+ * @param data
  */
-export const stringValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, STRING_VALUE_PREDICATE);
+const stringValuesArrayFilter = <TValue>(...data: TValue[]): TValue[] => filterArray(data, STRING_VALUE_PREDICATE);
 
 export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends IKeyValue>(
     source: TSource,
@@ -385,7 +375,7 @@ export class FilterUtils {
   public static readonly filterByPredicate = filterByPredicate;
   public static readonly nilValuesFilter = nilValuesFilter;
   public static readonly NOT_NIL_VALUE_PREDICATE = NOT_NIL_VALUE_PREDICATE;
-  public static readonly notEmptyValuesArrayFilter = notEmptyValuesArrayFilter;
+  public static readonly notEmptyObjectValuesArrayFilter = notEmptyObjectValuesArrayFilter;
   public static readonly notEmptyValuesFilter = notEmptyValuesFilter;
   public static readonly notNilValuesArrayFilter = notNilValuesArrayFilter;
   public static readonly notNilValuesFilter = notNilValuesFilter;
@@ -396,4 +386,6 @@ export class FilterUtils {
   public static readonly queryFilter = queryFilter;
   public static readonly SAME_ENTITY_PREDICATE = SAME_ENTITY_PREDICATE;
   public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;
+  public static readonly stringValuesArrayFilter = stringValuesArrayFilter;
+  public static readonly trueValuesArrayFilter = trueValuesArrayFilter;
 }

@@ -76,7 +76,7 @@ export const asPlaceEntity = (place: google.maps.GeocoderResult | google.maps.pl
  */
 const formatPlaceEntity = (placeEntity: IPlaceEntity): string =>
   JoinUtils.join(
-    FilterUtils.notEmptyValuesArrayFilter(
+    FilterUtils.notEmptyObjectValuesArrayFilter(
       ...[
         `${placeEntity.streetNumber || ''} ${placeEntity.street || ''}`,
         placeEntity.city,

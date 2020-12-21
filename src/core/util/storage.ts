@@ -54,7 +54,7 @@ const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string =>
  */
 const asNotVersionedKey = (env: IEnvironment): string =>
   FilterUtils
-    .notEmptyValuesArrayFilter(env.appProfile, env.port, env.normalizedBasePath)
+    .notEmptyObjectValuesArrayFilter(env.appProfile, env.port, env.normalizedBasePath)
     .join(DefaultEntities.PATH_SEPARATOR);
 
 /**
@@ -63,7 +63,7 @@ const asNotVersionedKey = (env: IEnvironment): string =>
  */
 const asVersionedKey = (env: IEnvironment): string =>
   FilterUtils
-    .notEmptyValuesArrayFilter(env.appVersion, asNotVersionedKey(env))
+    .notEmptyObjectValuesArrayFilter(env.appVersion, asNotVersionedKey(env))
     .join(DefaultEntities.PATH_SEPARATOR);
 
 /**
