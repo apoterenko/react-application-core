@@ -1,49 +1,35 @@
 import * as R from 'ramda';
 
 import {
-  AnyT,
   UNDEF,
   UNDEF_SYMBOL,
 } from '../definitions.interface';
-import { isFn } from '../util';
-import { calc } from './calc';
+import { CalcUtils } from './calc';
 import { ObjectUtils } from './object';
 
 /**
- * @stable [05.04.2020]
- * @param {AnyT} condition
- * @param {string | (() => string)} result
- * @returns {string}
+ * @stable [21.12.2020]
+ * @param condition
+ * @param result
  */
-export const orEmpty = (condition: AnyT, result: string | (() => string)) =>
-  condition ? calc(result) : '';
+const orEmpty = (condition: unknown, result: string | (() => string)) =>
+  condition ? CalcUtils.calc(result) : '';
 
 /**
  * @stable [21.12.2020]
  * @param condition
  * @param result
  */
-export const orNull = <TResult>(condition: AnyT, result: TResult | (() => TResult)): TResult =>
-  condition ? calc(result) : null;
+export const orNull = <TResult>(condition: unknown, result: TResult | (() => TResult)): TResult =>
+  condition ? CalcUtils.calc(result) : null;
 
 /**
  * @stable [21.12.2020]
  * @param condition
  * @param result
  */
-const orUndef = <TResult>(condition: AnyT, result: TResult | (() => TResult)): TResult =>
-  condition ? calc(result) : UNDEF;
-
-/**
- * @deprecated
- */
-export function orDefault<TResult1, TResult2>(cond: boolean,
-                                              result1: TResult1|(() => TResult1),
-                                              result2: TResult2|(() => TResult2)): TResult1|TResult2 {
-  return cond
-      ? (isFn(result1) ? (result1 as () => TResult1)() : result1 as TResult1)
-      : (isFn(result2) ? (result2 as () => TResult2)() : result2 as TResult2);
-}
+const orUndef = <TResult>(condition: unknown, result: TResult | (() => TResult)): TResult =>
+  condition ? CalcUtils.calc(result) : UNDEF;
 
 /**
  * @stable [10.08.2019]
@@ -60,15 +46,14 @@ export const ifNotNilThanValue = <TValue, TResult>(value: TValue,
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 
 /**
- * @stable [30.07.2019]
- * @param {TValue} value
- * @param {(value: TValue) => TResult} callback
- * @param {any} defaultValue
- * @returns {TResult}
+ * @stable [21.12.2020]
+ * @param value
+ * @param callback
+ * @param defaultValue
  */
-export const ifNilThanValue = <TValue, TResult>(value: TValue,
-                                                callback: (value: TValue) => TResult,
-                                                defaultValue = null): TResult =>
+const ifNilThanValue = <TValue, TResult>(value: TValue,
+                                         callback: (value: TValue) => TResult,
+                                         defaultValue = null): TResult =>
   R.isNil(value)
     ? callback(value)
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
