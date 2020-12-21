@@ -9,6 +9,7 @@ import {
 } from '../../di';
 import {
   IKeyValue,
+  UNDEF,
 } from '../../definitions.interface';
 import {
   ArrayUtils,
@@ -18,7 +19,6 @@ import {
   NvlUtils,
   ObjectUtils,
   orNull,
-  orUndef,
   TypeUtils,
 } from '../../util';
 import { IDateTimeSettings, ISettingsEntity } from '../../settings';
@@ -147,7 +147,7 @@ export class DateConverter implements IDateConverter<MomentT> {
     if (date instanceof Date || ObjectUtils.isObjectNotEmpty(date)) {
       return this.processValidMomentDate(cfg, (mDate) => mDate.format(outputFormat)) || String(date);
     } else {
-      return '';
+      return ConditionUtils.orUndef(!cfg.returnUndef, () => '');
     }
   }
 
@@ -523,7 +523,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromDateTimeToPstTime(cfg: IDateTimeConfigEntity<MomentT>): string {
+  public fromDateTimeToPstTimeString(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsString({...cfg, inputFormat: this.dateTimeFormat, outputFormat: this.pstTimeFormat});
   }
 
@@ -565,7 +565,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @stable [07.12.2020]
    * @param cfg
    */
-  public fromDateTimeToUiDateTime(cfg: IDateTimeConfigEntity<MomentT>): string {
+  public fromDateTimeToUiDateTimeString(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsString({
       inputFormat: this.dateTimeFormat,
       ...cfg,
@@ -590,21 +590,18 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [25.12.2019]
-   * @tested
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string}
+   * @stable [21.12.2020]
+   * @param cfg
    */
-  public fromUiDateTimeToDateTime(cfg: IDateTimeConfigEntity<MomentT>): string {
+  public fromUiDateTimeToDateTimeString(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsString({
       outputFormat: this.dateTimeFormat,
       ...cfg,
-      date: `${cfg.date} ${nvl(cfg.time, this.uiDefaultTime)}`.trim(),
+      date: `${cfg.date} ${NvlUtils.nvl(cfg.time, this.uiDefaultTime)}`.trim(),
       inputFormat: `${
-        nvl(cfg.inputFormat, this.uiDateFormat)} ${
-        nvl(cfg.inputTimeFormat, this.uiTimeFormat)
-        }`
-        .trim(),
+        NvlUtils.nvl(cfg.inputFormat, this.uiDateFormat)} ${
+        NvlUtils.nvl(cfg.inputTimeFormat, this.uiTimeFormat)
+      }`.trim(),
     });
   }
 
@@ -625,7 +622,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromUiDateToDateTime(cfg: IDateTimeConfigEntity<MomentT>): string {
+  public fromUiDateToDateTimeString(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsString({
       ...cfg,
       outputFormat: this.dateTimeFormat,
@@ -648,8 +645,8 @@ export class DateConverter implements IDateConverter<MomentT> {
     const date = dateResolver(entity);
 
     return defValuesFilter({
-      [timeFieldName]: orUndef<string>(date, () => this.fromDateTimeToTime(date)),
-      [dateFieldName]: orUndef<string>(date, () => this.fromDateTimeToDate(date)),
+      [timeFieldName]: ConditionUtils.orUndef<string>(date, () => this.fromDateTimeToTime(date)),
+      [dateFieldName]: ConditionUtils.orUndef<string>(date, () => this.fromDateTimeToDate(date)),
     });
   }
 
@@ -823,7 +820,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromDateToUiDate(cfg: IDateTimeConfigEntity<MomentT>): string {
+  public fromDateToUiDateString(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsUiDateString({
       strict: false, // UTC: ignore a time, by default (+00:00 | Z)
       inputFormat: this.dateFormat,
@@ -836,7 +833,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
    */
-  public fromDateTimeToUiDate(cfg: IDateTimeConfigEntity<MomentT>): string {
+  public fromDateTimeToUiDateString(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsUiDateString({
       inputFormat: this.dateTimeFormat,
       ...cfg,
@@ -1251,14 +1248,17 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [03.01.2019]
-   * @param {IDateTimeConfigEntity} cfg
-   * @param {(date: MomentT) => TResult} handler
-   * @returns {TResult}
+   * @stable [21.12.2020]
+   * @param cfg
+   * @param handler
+   * @private
    */
   private processValidMomentDate<TResult>(cfg: IDateTimeConfigEntity<MomentT>, handler: (date: MomentT) => TResult): TResult {
     const momentDate = this.asMomentDate(cfg);
-    return ConditionUtils.orNull(momentDate.isValid(), () => handler(momentDate));
+
+    return momentDate.isValid()
+      ? handler(momentDate)
+      : (cfg.returnUndef ? UNDEF : null);
   }
 
   /**

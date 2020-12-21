@@ -19,21 +19,19 @@ export const orEmpty = (condition: AnyT, result: string | (() => string)) =>
   condition ? calc(result) : '';
 
 /**
- * @stable [05.04.2020]
- * @param {AnyT} condition
- * @param {(() => TResult) | TResult} result
- * @returns {TResult}
+ * @stable [21.12.2020]
+ * @param condition
+ * @param result
  */
 export const orNull = <TResult>(condition: AnyT, result: TResult | (() => TResult)): TResult =>
   condition ? calc(result) : null;
 
 /**
- * @stable [05.04.2020]
- * @param {AnyT} condition
- * @param {(() => TResult) | TResult} result
- * @returns {TResult}
+ * @stable [21.12.2020]
+ * @param condition
+ * @param result
  */
-export const orUndef = <TResult>(condition: AnyT, result: TResult | (() => TResult)): TResult =>
+const orUndef = <TResult>(condition: AnyT, result: TResult | (() => TResult)): TResult =>
   condition ? calc(result) : UNDEF;
 
 /**

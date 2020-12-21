@@ -4,13 +4,13 @@ import * as R from 'ramda';
 import {
   buildTransportUrl,
   coalesce,
+  ConditionUtils,
   ifNotEmptyThanValue,
   isDef,
   isFn,
   JoinUtils,
   notNilValuesFilter,
   nvl,
-  orUndef,
 } from '../../../util';
 import { DI_TYPES, lazyInject } from '../../../di';
 import { ISettingsEntity } from '../../../settings';
@@ -54,7 +54,7 @@ export class TransportRequestPayloadFactory implements ITransportRequestPayloadF
         cancelToken: cancelToken && cancelToken.token,
         withCredentials: this.getWithCredentials(requestEntity),
         responseType: coalesce(
-          orUndef(requestEntity.blobResponse === true, () => TransportResponseTypesEnum.BLOB)
+          ConditionUtils.orUndef(requestEntity.blobResponse === true, () => TransportResponseTypesEnum.BLOB)
         ),
       }
     );

@@ -23,6 +23,7 @@ import {
   IPeriodModeWrapper,
   IPeriodTypeWrapper,
   IPreviousWrapper,
+  IReturnUndefWrapper,
   IStrictWrapper,
   ITimeWrapper,
   ITodayWrapper,
@@ -85,6 +86,7 @@ export interface IDateTimeConfigEntity<TDate>
     IIsoWeekWrapper,
     IOutputFormatWrapper,
     IOutputTimeFormatWrapper,
+    IReturnUndefWrapper,
     IStrictWrapper,
     ITimeWrapper,
     IUnitWrapper<string>,
@@ -94,7 +96,7 @@ export interface IDateTimeConfigEntity<TDate>
 /**
  * @stable [07.03.2020]
  */
-export type DatesRangeValueT = Array<DateTimeLikeTypeT | DatePeriodsEnum>;
+export type DatesRangeValueT = (DateTimeLikeTypeT | DatePeriodsEnum)[];
 
 /**
  * @entity

@@ -487,6 +487,7 @@ export interface IResponseReaderWrapper<TValue> { responseReader?: TValue; }
 export interface IResponseTypeWrapper { responseType?: string; }
 export interface IResultWrapper<TValue = {}> { result?: TValue; }
 export interface IReturnNeverExecutablePeriodAsEmptyValueWrapper { returnNeverExecutablePeriodAsEmptyValue?: boolean; }
+export interface IReturnUndefWrapper { returnUndef?: boolean; }
 export interface IRightContentWrapper<TValue> { rightContent?: TValue; }
 export interface IRobotDetectionMinSymbolsCountWrapper { robotDetectionMinSymbolsCount?: number; }
 export interface IRootPathWrapper { rootPath?: string; }

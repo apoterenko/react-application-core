@@ -8,6 +8,7 @@ import {
 } from '../../definitions.interface';
 import {
   calc,
+  ConditionUtils,
   FieldUtils,
   ifNotNilThanValue,
   isDef,
@@ -16,7 +17,6 @@ import {
   NvlUtils,
   ObjectUtils,
   orNull,
-  orUndef,
   PageUtils,
   TypeUtils,
   WrapperUtils,
@@ -400,10 +400,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
    * @param {string} name
    * @returns {AnyT}
    */
-  private toFilterFieldValue(name: string): AnyT {
-    const props = this.props;
+  private toFilterFieldValue(name: string): unknown {
+    const {
+      localFiltration,
+    } = this.originalProps;
     const state = this.state;
-    return orUndef<AnyT>(props.localFiltration, () => state.filterChanges[name]);
+
+    return ConditionUtils.orUndef(localFiltration, () => state.filterChanges[name]);
   }
 
   /**

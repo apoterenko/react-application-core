@@ -9,10 +9,10 @@ import {
 } from '../../../definitions.interface';
 import {
   buildMultiItemEntity,
+  ConditionUtils,
   ifNotNilThanValue,
   isDef,
   MultiFieldUtils,
-  orUndef,
   TypeUtils,
 } from '../../../util';
 import {
@@ -63,7 +63,7 @@ export function fromMultiFieldValueToEditedEntities<TItem extends IEntity = IEnt
   multiFieldValue: MultiFieldValueT<TItem>,
   mapper: (entity: TItem, index: number) => TResult): TResult[] {
   const result = MultiFieldUtils.multiFieldValueAsEditEntities<TItem>(multiFieldValue);
-  return orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
+  return ConditionUtils.orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
 
 /**
