@@ -10,6 +10,10 @@ import {
   PropsUtils,
 } from '../../../util';
 
+/**
+ * @component-impl
+ * @stable [22.12.2020]
+ */
 export class Select extends BaseSelect<ISelectProps, ISelectState> {
 
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ISelectProps>({
@@ -17,8 +21,8 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
   }, BaseSelect);
 
   /**
-   * @stable [28.01.2020]
-   * @returns {IPresetsSelectOptionEntity[]}
+   * @stable [22.12.2020]
+   * @protected
    */
   protected getFilteredOptions(): IPresetsSelectOptionEntity[] {
     const id = this.fromSelectValueToId(this.value);
@@ -26,8 +30,8 @@ export class Select extends BaseSelect<ISelectProps, ISelectState> {
   }
 
   /**
-   * @stable [17.06.2020]
-   * @returns {string}
+   * @stable [22.12.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(super.getFieldClassName(), SelectClassesEnum.SELECT);

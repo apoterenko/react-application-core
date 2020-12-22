@@ -8,6 +8,7 @@ export * from './gridfield';
 export * from './multifield';
 export * from './numberfield';
 export * from './place-field';
+export * from './radio-group';
 export * from './select';
 export * from './slider-field';
 export * from './switch';

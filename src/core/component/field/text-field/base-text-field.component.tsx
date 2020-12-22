@@ -60,16 +60,23 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   }
 
   /**
-   * @stable [18.06.2020]
-   * @returns {string}
+   * @stable [22.12.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
+    return ClsUtils.joinClassName(super.getFieldClassName(), this.baseTextFieldClassName);
+  }
+
+  /**
+   * @stable [22.12.2020]
+   * @protected
+   */
+  protected get baseTextFieldClassName(): string {
     const {
       prefixLabel,
     } = this.originalProps;
 
     return ClsUtils.joinClassName(
-      super.getFieldClassName(),
       TextFieldClassesEnum.BASE_TEXT_FIELD,
       this.isActioned && TextFieldClassesEnum.BASE_TEXT_FIELD_ACTIONED,
       prefixLabel

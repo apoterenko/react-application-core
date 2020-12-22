@@ -29,15 +29,14 @@ import {
 import {
   ChangeEventT,
   FieldActionTypesEnum,
-  FieldClassesEnum,
   FieldConstants,
   IBaseEvent,
   IBaseSelectProps,
   IBaseSelectState,
-  IQueryEntity,
   IMenuProps,
   IMultiItemEntity,
   IPresetsSelectOptionEntity,
+  IQueryEntity,
   SelectClassesEnum,
   SelectValueT,
 } from '../../../definition';
@@ -242,8 +241,8 @@ export class BaseSelect<TProps extends IBaseSelectProps,
   }
 
   /**
-   * @stable [22.01.2020]
-   * @returns {JSX.Element}
+   * @stable [22.12.2020]
+   * @protected
    */
   protected get inputAttachmentElement(): JSX.Element {
     return ConditionUtils.orNull(
@@ -315,10 +314,7 @@ export class BaseSelect<TProps extends IBaseSelectProps,
    * @protected
    */
   protected getFieldClassName(): string {
-    return ClsUtils.joinClassName(
-      super.getFieldClassName(),
-      SelectClassesEnum.BASE_SELECT
-    );
+    return ClsUtils.joinClassName(super.getFieldClassName(), SelectClassesEnum.BASE_SELECT);
   }
 
   /**

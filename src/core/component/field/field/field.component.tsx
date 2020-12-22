@@ -630,6 +630,40 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
+   * @stable [22.12.2020]
+   * @param content
+   * @protected
+   */
+  protected getSelfFieldWrapper(content: JSX.Element): JSX.Element {
+    return (
+      <div
+        ref={this.actualRef}
+        style={this.originalProps.style}
+        title={this.title}
+        className={FieldClassesEnum.SELF}
+      >
+        {content}
+      </div>
+    );
+  }
+
+  /**
+   * @stable [21.08.2020]
+   */
+  protected get labelElement(): JSX.Element {
+    return ConditionUtils.ifNotNilThanValue(
+      this.getLabel(),
+      (label) => (
+        <label
+          className={FieldClassesEnum.LABEL}
+        >
+          {this.t(label)}
+        </label>
+      )
+    );
+  }
+
+  /**
    * @stable [21.08.2020]
    */
   protected get attachmentElement(): JSX.Element {
@@ -941,36 +975,17 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   private get selfElement(): JSX.Element {
     if (this.isFieldRendered) {
-      return (
-        <div
-          ref={this.actualRef}
-          style={this.originalProps.style}
-          title={this.title}
-          className={FieldClassesEnum.SELF}
-        >
+      return this.getSelfFieldWrapper(
+        <React.Fragment>
           {this.prefixLabelElement}
           {this.inputWrapperElement}
           {this.actionsElement}
           {this.labelElement}
           {this.progressInfoElement}
-        </div>
+        </React.Fragment>
       );
     }
     return this.inputWrapperElement;
-  }
-
-  /**
-   * @stable [21.08.2020]
-   */
-  private get labelElement(): JSX.Element {
-    return ConditionUtils.ifNotNilThanValue(
-      this.getLabel(),
-      (label) => (
-        <label className={FieldClassesEnum.LABEL}>
-          {this.t(label)}
-        </label>
-      )
-    );
   }
 
   /**
