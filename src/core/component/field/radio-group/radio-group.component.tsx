@@ -34,6 +34,10 @@ export class RadioGroup extends BaseSelect<IRadioGroupProps> {
    * @protected
    */
   protected get attachmentBodyElement(): JSX.Element {
+    const {
+      disabled,
+      readOnly,
+    } = this.originalProps;
     const options = this.options;
     const id = this.fromSelectValueToId(this.value);
 
@@ -42,9 +46,11 @@ export class RadioGroup extends BaseSelect<IRadioGroupProps> {
         {options.map((option, index) => (
           <Radio
             key={`radio-option-${index}`}
-            errorMessageRendered={false}
             value={this.fromSelectValueToId(option) === id}
             label={this.fieldConverter.fromSelectValueToDisplayValue(option) as string}
+            errorMessageRendered={false}
+            disabled={disabled}
+            readOnly={readOnly}
             onChange={() => this.onSelect(option)}/>
         ))}
       </React.Fragment>

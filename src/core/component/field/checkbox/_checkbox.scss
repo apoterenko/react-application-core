@@ -72,4 +72,10 @@
     $rac-field-custom: $rac-radio-checked-cls,
     $rac-self-field-input-wrapper-background: $rac-radio-checked-self-field-input-wrapper-background
   );
+
+  // @stable [22.12.2020]
+  @include rac-field (
+    $rac-field-custom: $rac-radio-disabled-cls,
+    $rac-self-field-input-wrapper-opacity: $rac-radio-disabled-self-field-input-wrapper-opacity
+  );
 }
