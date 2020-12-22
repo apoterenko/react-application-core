@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { BaseSelect } from '../select';
 import {
-  ISelectProps,
-  ISelectState,
+  IRadioGroupProps,
   RadioGroupClassesEnum,
 } from '../../../definition';
 import {
@@ -16,9 +15,9 @@ import { Radio } from '../checkbox';
  * @component-impl
  * @stable [22.12.2020]
  */
-export class RadioGroup extends BaseSelect<ISelectProps, ISelectState> {
+export class RadioGroup extends BaseSelect<IRadioGroupProps> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ISelectProps>({
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IRadioGroupProps>({
     fieldRendered: false,
   }, BaseSelect);
 

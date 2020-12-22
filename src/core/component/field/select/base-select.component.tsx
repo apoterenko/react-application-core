@@ -41,8 +41,8 @@ import {
   SelectValueT,
 } from '../../../definition';
 
-export class BaseSelect<TProps extends IBaseSelectProps,
-                        TState extends IBaseSelectState>
+export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
+                        TState extends IBaseSelectState = IBaseSelectState>
   extends BaseTextField<TProps, TState> {
 
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseSelectProps>({
