@@ -15,11 +15,9 @@ import {
   ICaretPositionWrapper,
   ICaretVisibilityWrapper,
   IChangeableWrapper,
-  IClassNameWrapper,
   IDefaultValueWrapper,
   IDelayTimeoutWrapper,
   IDisabledWrapper,
-  IDisableLabelWrapper,
   IDisplayMessageWrapper,
   IDisplayNameWrapper,
   IDisplayValueRenderedOnlyWrapper,
@@ -350,14 +348,6 @@ export const DEFAULT_PASSWORD_FIELD_ENTITY = Object.freeze<IPresetsFieldEntity>(
  * @stable [06.03.2020]
  */
 export type DateFieldRangeValueT = DatesRangeValueT | DateTimeLikeTypeT;
-
-/**
- * @generic-entity
- * @stable [07.01.2020]
- */
-export interface IGenericBaseCheckboxEntity
-  extends IDisableLabelWrapper {
-}
 
 /**
  * @default-entity

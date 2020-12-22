@@ -104,10 +104,12 @@ $rac-cron-field-cls: rac-cron-field;
 // @stable [03.06.2020]
 $rac-base-checkbox-cls: rac-base-checkbox;
 $rac-checkbox-cls: rac-checkbox;
+$rac-radio-cls: rac-radio;
 //
 $rac-base-checkbox-checked-cls: '#{$rac-base-checkbox-cls}.rac-base-checkbox__checked';
 $rac-base-checkbox-disabled-cls: '#{$rac-base-checkbox-cls}.#{$rac-field-disabled-cls}';
 //
+$rac-radio-checked-cls: '#{$rac-radio-cls}.#{$rac-base-checkbox-checked-cls}';
 $rac-checkbox-disabled-cls: '#{$rac-checkbox-cls}.#{$rac-field-disabled-cls}';
 
 // @stable [18.06.2020]

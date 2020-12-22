@@ -3,10 +3,7 @@
 
 .rac {
 
-  /**
-   * @base-checkbox
-   * @stable [15.02.2020]
-   */
+  // @stable [15.02.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-checkbox-cls,
     $rac-self-field-align-items: $rac-base-checkbox-self-field-align-items,
@@ -21,37 +18,25 @@
     $rac-self-field-label-margin: $rac-base-checkbox-self-field-label-margin
   );
 
-  /**
-   * @base-checkbox-disabled
-   * @stable [20.06.2020]
-   */
+  // @stable [20.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-checkbox-disabled-cls,
     $rac-self-field-input-opacity: $rac-base-checkbox-disabled-self-field-input-opacity
   );
 
-  /**
-   * @base-checkbox-checked
-   * @stable [15.02.2020]
-   */
+  // @stable [15.02.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-checkbox-checked-cls,
     $rac-self-field-input-wrapper-background: $rac-base-checkbox-checked-self-field-input-wrapper-background
   );
 
-  /**
-   * @checkbox-disabled
-   * @stable [15.02.2020]
-   */
+  // @stable [15.02.2020]
   @include rac-field (
     $rac-field-custom: $rac-checkbox-disabled-cls,
     $rac-self-field-input-wrapper-opacity: $rac-checkbox-disabled-self-field-input-wrapper-opacity
   );
 
-  /**
-   * @checkbox
-   * @stable [03.06.2020]
-   */
+  // @stable [03.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-checkbox-cls,
     $rac-field-justify-content: $rac-checkbox-justify-content,
@@ -65,5 +50,26 @@
     $rac-self-field-input-wrapper-border: $rac-checkbox-self-field-input-wrapper-border,
     $rac-self-field-input-wrapper-justify-content: $rac-checkbox-self-field-input-wrapper-justify-content,
     $rac-self-field-input-wrapper-size: $rac-checkbox-self-field-input-wrapper-size
+  );
+
+  // @stable [03.06.2020]
+  @include rac-field (
+    $rac-field-custom: $rac-radio-cls,
+    $rac-self-field-input-cursor: $rac-radio-self-field-input-cursor,
+    $rac-self-field-input-icon-color: $rac-radio-self-field-input-icon-color,
+    $rac-self-field-input-icon-size: $rac-radio-self-field-input-icon-size,
+    $rac-self-field-input-position: $rac-radio-self-field-input-position,
+    $rac-self-field-input-size: $rac-radio-self-field-input-size,
+    $rac-self-field-input-wrapper-align-items: $rac-radio-self-field-input-wrapper-align-items,
+    $rac-self-field-input-wrapper-border-radius: $rac-radio-self-field-input-wrapper-border-radius,
+    $rac-self-field-input-wrapper-border: $rac-radio-self-field-input-wrapper-border,
+    $rac-self-field-input-wrapper-justify-content: $rac-radio-self-field-input-wrapper-justify-content,
+    $rac-self-field-input-wrapper-size: $rac-radio-self-field-input-wrapper-size
+  );
+
+  // @stable [22.12.2020]
+  @include rac-field (
+    $rac-field-custom: $rac-radio-checked-cls,
+    $rac-self-field-input-wrapper-background: $rac-radio-checked-self-field-input-wrapper-background
   );
 }

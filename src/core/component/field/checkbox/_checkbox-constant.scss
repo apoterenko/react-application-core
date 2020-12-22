@@ -1,16 +1,14 @@
 @import '../../_classes';
 @import '../../_primary-constant';
 
-/************************/
-/* @stable [03.06.2020] */
-/************************/
+// @stable [03.06.2020]
 $rac-primary-checkbox-color-0: $rac-primary-color-poseidon-5 !default;
-/**/
+$rac-primary-checkbox-color-1: $rac-primary-color-elara-0 !default;
+$rac-primary-checkbox-cursor-0: pointer !default;
 $rac-primary-checkbox-opacity-0: 0 !default;
+$rac-primary-checkbox-size-0: $rac-primary-size-3 !default;
 
-/************************/
-/* @stable [03.06.2020] */
-/************************/
+// @stable [03.06.2020]
 $rac-base-checkbox-checked-self-field-input-wrapper-background: $rac-primary-checkbox-color-0 !default;
 $rac-base-checkbox-self-field-align-items: center !default;
 $rac-base-checkbox-self-field-height: $rac-primary-field-size-0 !default;
@@ -23,18 +21,14 @@ $rac-base-checkbox-self-field-label-font-size: unset !default;
 $rac-base-checkbox-self-field-label-line-height: $rac-primary-line-height-2 !default;
 $rac-base-checkbox-self-field-label-margin: 0 0 0 $rac-primary-offset-1 !default;
 
-/************************/
-/* @stable [20.06.2020] */
-/************************/
+// @stable [20.06.2020]
 $rac-base-checkbox-disabled-self-field-input-opacity: $rac-primary-checkbox-opacity-0 !default;
 
-/************************/
-/* @stable [03.06.2020] */
-/************************/
+// @stable [03.06.2020]
 $rac-checkbox-disabled-self-field-input-wrapper-opacity: $rac-primary-opacity-4 !default;
 $rac-checkbox-justify-content: unset !default;
-$rac-checkbox-self-field-input-cursor: pointer !default;
-$rac-checkbox-self-field-input-icon-color: $rac-primary-color-elara-0 !default;
+$rac-checkbox-self-field-input-cursor: $rac-primary-checkbox-cursor-0 !default;
+$rac-checkbox-self-field-input-icon-color: $rac-primary-checkbox-color-1 !default;
 $rac-checkbox-self-field-input-icon-size: 10px !default;
 $rac-checkbox-self-field-input-position: absolute !default;
 $rac-checkbox-self-field-input-size: 100% !default;
@@ -42,4 +36,17 @@ $rac-checkbox-self-field-input-wrapper-align-items: center !default;
 $rac-checkbox-self-field-input-wrapper-border-radius: $rac-primary-border-radius-1 !default;
 $rac-checkbox-self-field-input-wrapper-border: 1px solid $rac-primary-checkbox-color-0 !default;
 $rac-checkbox-self-field-input-wrapper-justify-content: center !default;
-$rac-checkbox-self-field-input-wrapper-size: $rac-primary-size-3 !default;
+$rac-checkbox-self-field-input-wrapper-size: $rac-primary-checkbox-size-0 !default;
+
+// @stable [22.12.2020]
+$rac-radio-checked-self-field-input-wrapper-background: $rac-primary-checkbox-color-1 !default;
+$rac-radio-self-field-input-cursor: $rac-primary-checkbox-cursor-0 !default;
+$rac-radio-self-field-input-icon-color: $rac-primary-checkbox-color-0 !default;
+$rac-radio-self-field-input-icon-size: 10px !default;
+$rac-radio-self-field-input-position: absolute !default;
+$rac-radio-self-field-input-size: 100% !default;
+$rac-radio-self-field-input-wrapper-align-items: center !default;
+$rac-radio-self-field-input-wrapper-border-radius: 50% !default;
+$rac-radio-self-field-input-wrapper-border: 1px solid $rac-primary-checkbox-color-0 !default;
+$rac-radio-self-field-input-wrapper-justify-content: center !default;
+$rac-radio-self-field-input-wrapper-size: $rac-primary-checkbox-size-0 !default;

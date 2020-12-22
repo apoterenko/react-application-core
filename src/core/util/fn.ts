@@ -21,3 +21,10 @@ export const sequence = (sourceFn: (...args) => AnyT,
 /* tslint:disable */
 export function noop(): void {
 }
+
+/**
+ * @stable [21.12.2020]
+ */
+export class FnUtils {
+  public static readonly noop = noop;
+}

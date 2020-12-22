@@ -2,20 +2,22 @@ import * as React from 'react';
 
 import { Field } from '../field/field.component';
 import {
+  CheckboxClassesEnum,
   IBaseCheckboxInputProps,
   IBaseCheckboxProps,
   IBaseCheckboxState,
-} from './checkbox.interface';
-import {
-  CheckboxClassesEnum,
   IBaseEvent,
 } from '../../../definition';
 import {
   ClsUtils,
-  noop,
+  FnUtils,
   PropsUtils,
 } from '../../../util';
 
+/**
+ * @component-impl
+ * @stable [21.12.2020]
+ */
 export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps,
                           TState extends IBaseCheckboxState = IBaseCheckboxState>
   extends Field<TProps, TState> {
@@ -23,8 +25,8 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseCheckboxProps>({}, Field);
 
   /**
-   * @stable [31.08.2018]
-   * @returns {IBaseCheckboxInputProps}
+   * @stable [21.12.2020]
+   * @protected
    */
   protected getInputElementProps(): IBaseCheckboxInputProps {
     return {
@@ -34,21 +36,22 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
 
       /**
        * Needed for entity initialization
-       * @stable [17.08.2018]
+       * @stable [21.12.2020]
        */
       checked: this.displayValue,
 
       /**
        * Only the manual changes
-       * @stable [17.08.2018]
+       * @stable [21.12.2020]
        */
-      onChange: noop,
+      onChange: FnUtils.noop,
     };
   }
 
   /**
-   * @stable [23.10.2019]
-   * @param {IBaseEvent} event
+   * @stable [21.12.2020]
+   * @param event
+   * @protected
    */
   protected onClick(event: IBaseEvent): void {
     this.onChangeManually(!this.value);
@@ -57,20 +60,22 @@ export class BaseCheckbox<TProps extends IBaseCheckboxProps = IBaseCheckboxProps
   }
 
   /**
-   * @stable [05.06.2020]
-   * @returns {string}
+   * @stable [21.12.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(
       super.getFieldClassName(),
       CheckboxClassesEnum.BASE_CHECKBOX,
-      this.value ? CheckboxClassesEnum.BASE_CHECKBOX_CHECKED : CheckboxClassesEnum.BASE_CHECKBOX_UNCHECKED
+      this.value
+        ? CheckboxClassesEnum.BASE_CHECKBOX_CHECKED
+        : CheckboxClassesEnum.BASE_CHECKBOX_UNCHECKED
     );
   }
 
   /**
-   * @stable [19.06.2020]
-   * @returns {string}
+   * @stable [21.12.2020]
+   * @protected
    */
   protected getLabel(): string {
     const {

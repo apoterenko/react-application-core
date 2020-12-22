@@ -539,6 +539,7 @@ export interface ITabPanelSectionWrapper<TValue = string> { tabPanelSection?: TV
 export interface ITabPanelsSectionsWrapper<TValue> { tabPanelsSections?: TValue; }
 export interface ITabPanelWrapper<TValue> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
+export interface IThumbClassNameWrapper { thumbClassName?: string }
 export interface ITimeoutWrapper { timeout?: number; }
 export interface ITimeWrapper<TValue = string> { time?: TValue; }
 export interface ITitleRendererWrapper<TValue> { titleRenderer?(value?: TValue): JSX.Element; }
