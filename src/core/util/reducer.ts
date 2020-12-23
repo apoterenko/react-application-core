@@ -12,9 +12,8 @@ import { TypeUtils } from './type';
 import { CloneUtils } from './clone';
 
 /**
- * @stable [06.04.2020]
- * @param {IEntityReducerFactoryConfigEntity} config
- * @returns {(state: {}, action: AnyAction) => {}}
+ * @stable [23.12.2020]
+ * @param config
  */
 const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (state: {}, action: AnyAction) => {} =>
   (state = config.initialState || null, action): {} => {
