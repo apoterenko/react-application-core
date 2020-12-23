@@ -72,14 +72,15 @@ export interface IFluxSelectedEntity
 }
 
 /**
- * @stable [26.08.2019]
+ * @config-entity
+ * @stable [23.12.2020]
  */
 export interface IEntityReducerFactoryConfigEntity
-  extends IUpdateWrapper<string>,
-    IReplaceWrapper<string>,
-    ISelectWrapper<string>,
-    IDestroyWrapper<string>,
-    IInitialStateWrapper<{}> {
+  extends IDestroyWrapper,
+    IInitialStateWrapper,
+    IReplaceWrapper,
+    ISelectWrapper,
+    IUpdateWrapper {
 }
 
 /**

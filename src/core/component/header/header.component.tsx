@@ -93,6 +93,7 @@ export class Header extends GenericComponent<IHeaderProps> {
           {
             routes.help && (
               <a
+                id={DefaultEntities.HEADER_HELP_LINK_UUID}
                 className={HeaderClassesEnum.HELP_ACTION_WRAPPER}
                 href={routes.help}
                 target='_blank'

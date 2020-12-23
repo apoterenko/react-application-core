@@ -253,7 +253,7 @@ export interface IIndexedWrapper { indexed?: boolean; }
 export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
-export interface IInitialStateWrapper<TValue> { initialState?: TValue; }
+export interface IInitialStateWrapper<TValue = {}> { initialState?: TValue; }
 export interface IInlineOptionClassNameClassName { inlineOptionClassName?: string; }
 export interface IInlineOptionsWrapper<TValue = boolean> { inlineOptions?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }

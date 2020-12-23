@@ -12,7 +12,7 @@ import * as R from 'ramda';
 import {
   CloneUtils,
   coalesce,
-  coalesceDef,
+  NvlUtils,
   Selectors,
   TypeUtils,
 } from '../util';
@@ -20,11 +20,7 @@ import {
   IPayloadWrapper,
   IReplacedWrapper,
   ISelectedWrapper,
-  IUpdatedWrapper,
 } from '../definitions.interface';
-import {
-  IEntityReducerFactoryConfigEntity,
-} from '../definition';
 
 export type FilterT = (action: IEffectsAction) => boolean;
 
@@ -85,7 +81,7 @@ export const entityReducerFactory = (
         const entity = coalesce(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
 
         // selected === null or payload === null
-        const defEntity = coalesceDef(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
+        const defEntity = NvlUtils.coalesceDef(payloadWrapper.payload, selectedWrapper.selected, replacedWrapper.replaced);
 
         return R.isNil(entity)
           ? (TypeUtils.isUndef(defEntity) ? state : defEntity)
@@ -103,49 +99,6 @@ export const entityReducerFactory = (
               )
           );
       case destroyActionType:
-        return null;
-    }
-    return state;
-  };
-
-/**
- * @stable [06.04.2020]
- * @param {IEntityReducerFactoryConfigEntity} config
- * @returns {(state: {}, action: AnyAction) => {}}
- */
-export const makeEntityReducer = (config: IEntityReducerFactoryConfigEntity): (state: {}, action: AnyAction) => {} =>
-  (state = config.initialState || null, action): {} => {
-    switch (action.type) {
-      case config.update:
-      case config.replace:
-      case config.select:
-        const selectedWrapper: ISelectedWrapper<{}> = action.data;
-        const updatedWrapper: IUpdatedWrapper<{}> = action.data;
-        const replacedWrapper: IReplacedWrapper = action.data;
-        const selectedEntity = selectedWrapper.selected;
-        const updatedEntity = updatedWrapper.updated;
-        const replacedEntity = replacedWrapper.replaced;
-        const entity = coalesce(selectedEntity, updatedEntity, replacedEntity);
-
-        // When selected === null or replaced === null or updated === null
-        const defEntity = coalesceDef(selectedEntity, updatedEntity, replacedEntity);
-
-        return R.isNil(entity)
-          ? (TypeUtils.isUndef(defEntity) ? state : defEntity)
-          : (
-            TypeUtils.isPrimitive(entity)
-              ? entity
-              : (
-                Array.isArray(entity)
-                  ? [...entity]
-                  : (
-                    R.isNil(replacedEntity)
-                      ? {...state, ...entity}             // Select or update
-                      : CloneUtils.shallowClone(entity)   // Replace
-                  )
-              )
-          );
-      case config.destroy:
         return null;
     }
     return state;

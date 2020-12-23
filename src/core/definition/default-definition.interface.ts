@@ -54,6 +54,7 @@ export class DefaultEntities {
   public static readonly ENVIRONMENT_ENTITY = DEFAULT_ENVIRONMENT_ENTITY;                               /* @stable [10.09.2020] */
   public static readonly FILTERED_MENU_ENTITY = DEFAULT_FILTERED_MENU_ENTITY;                           /* @stable [08.08.2020] */
   public static readonly FIRST_PAGE = FIRST_PAGE;                                                       /* @stable [16.07.2020] */
+  public static readonly HEADER_HELP_LINK_UUID = 'd60431cb';                                            /* @stable [27.09.2020] */
   public static readonly INITIAL_REDUX_LIST_ENTITY = INITIAL_REDUX_LIST_ENTITY;                         /* @stable [29.07.2020] */
   public static readonly INITIAL_REDUX_STACK_ENTITY = INITIAL_REDUX_STACK_ENTITY;                       /* @stable [21.05.2020] */
   public static readonly LOCAL_PAGE_SIZE = DEFAULT_LOCAL_PAGE_SIZE;                                     /* @stable [16.07.2020] */
