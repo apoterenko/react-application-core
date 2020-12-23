@@ -7,6 +7,7 @@ import {
   INoMergedPropsWrapper,
   IStyleWrapper,
   ITitleWrapper,
+  StringFnT,
 } from '../definitions.interface';
 import { ISettingsEntity } from '../settings/settings.interface';
 
@@ -16,7 +17,7 @@ import { ISettingsEntity } from '../settings/settings.interface';
  */
 export interface IPresetsComponentEntity<TComponent = AnyT>
   extends React.RefAttributes<TComponent>,
-    IClassNameWrapper<string | ((...args: unknown[]) => string)>,
+    IClassNameWrapper<StringFnT>,
     IForwardedRefWrapper<React.RefObject<AnyT>>,
     INoMergedPropsWrapper,
     IStyleWrapper<React.CSSProperties>,

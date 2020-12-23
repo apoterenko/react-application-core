@@ -9,6 +9,8 @@ import {
   SliderClassesEnum,
 } from '../../definition';
 import {
+  CalcUtils,
+  ClsUtils,
   ConditionUtils,
   NvlUtils,
 } from '../../util';
@@ -51,10 +53,19 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
    * @stable [16.10.2020]
    */
   public render(): JSX.Element {
+    const {
+      className,
+    } = this.originalProps;
+
     return (
       <div
         ref={this.actualRef}
-        className={SliderClassesEnum.SLIDER}
+        className={
+          ClsUtils.joinClassName(
+            SliderClassesEnum.SLIDER,
+            CalcUtils.calc(className)
+          )
+        }
       >
         {this.valuesElement}
         <div

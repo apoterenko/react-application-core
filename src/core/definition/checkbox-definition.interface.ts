@@ -1,6 +1,7 @@
 import {
   IDisableLabelWrapper,
   IThumbClassNameWrapper,
+  StringFnT,
 } from '../definitions.interface';
 import {
   IFieldInputProps,
@@ -25,7 +26,7 @@ export interface IPresetsBaseCheckboxEntity
  */
 export interface IPresetsSwitchEntity
   extends IPresetsBaseCheckboxEntity,
-    IThumbClassNameWrapper {
+    IThumbClassNameWrapper<StringFnT> {
 }
 
 /**

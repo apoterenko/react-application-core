@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { IBaseEvent } from './definition';
 
-export type AnyT = any;
-export type StringNumberT = number | string;
-export type EntityIdT = StringNumberT;
+export const ACTION_PREFIX = '$$-RAC-';
 export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
-export const ACTION_PREFIX = '$$-RAC-';
+export type AnyT = any;
+export type EntityIdT = StringNumberT;
+export type StringFnT = string | ((...args: unknown[]) => string);
+export type StringNumberT = number | string;
 
 export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
@@ -511,6 +512,7 @@ export interface ISeparatorWrapper<TValue = string> { separator?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }
 export interface ISignInWrapper<TValue> { signIn?: TValue; }
+export interface ISliderClassNameWrapper<TValue = string> { sliderClassName?: TValue; }
 export interface ISortableWrapper { sortable?: boolean; }
 export interface ISorterWrapper<TValue = IEntity> { sorter?(entity1: TValue, entity2: TValue): number; }
 export interface ISourceWrapper<TValue> { source?: TValue; }
@@ -539,7 +541,7 @@ export interface ITabPanelSectionWrapper<TValue = string> { tabPanelSection?: TV
 export interface ITabPanelsSectionsWrapper<TValue> { tabPanelsSections?: TValue; }
 export interface ITabPanelWrapper<TValue> { tabPanel?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
-export interface IThumbClassNameWrapper { thumbClassName?: string }
+export interface IThumbClassNameWrapper<TValue = string> { thumbClassName?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }
 export interface ITimeWrapper<TValue = string> { time?: TValue; }
 export interface ITitleRendererWrapper<TValue> { titleRenderer?(value?: TValue): JSX.Element; }

@@ -10,6 +10,7 @@ import {
   SliderFieldClassesEnum,
 } from '../../../definition';
 import {
+  CalcUtils,
   ClsUtils,
   PropsUtils,
 } from '../../../util';
@@ -36,6 +37,7 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
       fieldConfiguration,
       max,
       min,
+      sliderClassName,
       step,
     } = this.mergedProps;
 
@@ -46,6 +48,12 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
         min={min}
         step={step}
         value={this.value}
+        className={
+          ClsUtils.joinClassName(
+            CalcUtils.calc(sliderClassName),
+            SliderFieldClassesEnum.SLIDER
+          )
+        }
         onChange={this.onChangeManually}/>
     );
   }

@@ -5,6 +5,8 @@ export * from './component/base/generic.component';                             
 export * from './component/base/generic.container';                                      /* @stable [09.06.2020] */
 export * from './component/button/button.component';                                     /* @stable [09.06.2020] */
 export * from './component/connector/connector.decorator';                               /* @stable [15.06.2020] */
+export * from './component/drawer/drawer.component';
+export * from './component/field/select/base-select.component';                          /* @stable [23.12.2020] */
 export * from './component/form/form.container';                                         /* @stable [09.06.2020] */
 export * from './component/form/form.reducer';                                           /* @stable [09.06.2020] */
 export * from './component/layout/flex/flex-layout.component';                           /* @stable [09.06.2020] */
@@ -17,6 +19,7 @@ export * from './component/ui/factory/icon/ui-icon-factory.service';            
 export * from './definition';                                                            /* @stable [08.06.2020] */
 export * from './definitions.interface';                                                 /* @stable [08.06.2020] */
 export * from './di';                                                                    /* @stable [08.06.2020] */
+export * from './navigation/navigation-menu.builder';
 export * from './settings';                                                              /* @stable [09.06.2020] */
 export * from './store/effects/base.effects';                                            /* @stable [15.06.2020] */
 export * from './store/effects/effects.factory';                                         /* @stable [09.06.2020] */

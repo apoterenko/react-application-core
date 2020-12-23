@@ -5,6 +5,10 @@ import {
   IReduxFieldEntity,
 } from './field-definition.interface';
 import { IPresetsSliderBaseEntity } from './slider-definition.interface';
+import {
+  ISliderClassNameWrapper,
+  StringFnT,
+} from '../definitions.interface';
 
 /**
  * @presets-entity
@@ -12,7 +16,8 @@ import { IPresetsSliderBaseEntity } from './slider-definition.interface';
  */
 export interface IPresetsSliderFieldEntity
   extends IPresetsFieldEntity,
-    IPresetsSliderBaseEntity {
+    IPresetsSliderBaseEntity,
+    ISliderClassNameWrapper<StringFnT> {
 }
 
 /**
@@ -54,5 +59,6 @@ export interface ISliderFieldState
  * @enum
  */
 export enum SliderFieldClassesEnum {
+  SLIDER = 'rac-slider-field__slider',
   SLIDER_FIELD = 'rac-slider-field',
 }

@@ -4,5 +4,5 @@
  */
 export enum SwitchClassesEnum {
   SWITCH = 'rac-switch',
-  SWITCH_THUMB = 'rac-switch__thumb',
+  THUMB = 'rac-switch__thumb',
 }

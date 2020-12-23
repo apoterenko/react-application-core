@@ -1,1 +1,11 @@
-// Waiting for customization...
+@import '../../_primary-constant';
+@import '../../_classes';
+
+// @stable [24.12.2020]
+$rac-primary-slider-field-width-0: calc(100% - #{$rac-primary-size-3}) !default;
+
+// @stable [24.12.2020]
+$rac-slider-field-horizontal-margin: 0 0 0 $rac-primary-offset-1 !default;
+$rac-slider-field-horizontal-width: $rac-primary-slider-field-width-0 !default;
+$rac-slider-field-vertical-margin: $rac-primary-offset-1 0 0 0 !default;
+$rac-slider-field-vertical-width: $rac-primary-slider-field-width-0 !default;

@@ -34,7 +34,7 @@ export class Switch extends BaseCheckbox<ISwitchProps> {
         <Thumb
           className={
             ClsUtils.joinClassName(
-              SwitchClassesEnum.SWITCH_THUMB,
+              SwitchClassesEnum.THUMB,
               CalcUtils.calc(thumbClassName)
             )
           }

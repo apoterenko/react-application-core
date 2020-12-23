@@ -1,6 +1,14 @@
-@import '../_field-mixin';
+@import '../../slider/_slider-mixin';
 @import './_slider-field-constant';
 
 .rac {
-  // Waiting for customization...
+
+  // @stable [23.12.2020]
+  @include rac-slider (
+    $rac-slider-custom: $rac-slider-field-slider-cls,
+    $rac-slider-horizontal-margin: $rac-slider-field-horizontal-margin,
+    $rac-slider-horizontal-width: $rac-slider-field-horizontal-width,
+    $rac-slider-vertical-margin: $rac-slider-field-vertical-margin,
+    $rac-slider-vertical-width: $rac-slider-field-vertical-width
+  );
 }

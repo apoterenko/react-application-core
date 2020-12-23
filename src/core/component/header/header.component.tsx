@@ -96,7 +96,6 @@ export class Header extends GenericComponent<IHeaderProps> {
                 id={DefaultEntities.HEADER_HELP_LINK_UUID}
                 className={HeaderClassesEnum.HELP_ACTION_WRAPPER}
                 href={routes.help}
-                target='_blank'
               >
                 {this.uiFactory.makeIcon({
                   type: IconsEnum.QUESTION_CIRCLE_REGULAR,

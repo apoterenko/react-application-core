@@ -23,10 +23,14 @@
   $rac-slider-horizontal-handle-top: unset,
   $rac-slider-horizontal-handle-width: unset,
   $rac-slider-horizontal-height: unset,
+  $rac-slider-horizontal-margin: unset,
+  $rac-slider-horizontal-width: unset,
   $rac-slider-target-background: unset,
   $rac-slider-target-border-radius: unset,
   $rac-slider-target-border: unset,
   $rac-slider-target-box-shadow: unset,
+  $rac-slider-vertical-height: unset,
+  $rac-slider-vertical-margin: unset,
   $rac-slider-vertical-width: unset
 ) {
   #{rac-cls(rac-slider, $rac-slider-custom)} {
@@ -83,7 +87,9 @@
 
     .noUi-horizontal {
       @include rac-styles (
-        $rac-styles-height: $rac-slider-horizontal-height
+        $rac-styles-height: $rac-slider-horizontal-height,
+        $rac-styles-margin: $rac-slider-horizontal-margin,
+        $rac-styles-width: $rac-slider-horizontal-width
       );
 
       @include rac-styles (
@@ -98,6 +104,8 @@
 
     .noUi-vertical {
       @include rac-styles (
+        $rac-styles-height: $rac-slider-vertical-height,
+        $rac-styles-margin: $rac-slider-vertical-margin,
         $rac-styles-width: $rac-slider-vertical-width
       );
     }
