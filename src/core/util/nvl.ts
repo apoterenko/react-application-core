@@ -2,9 +2,8 @@ import * as R from 'ramda';
 
 import {
   AnyT,
-  UNDEF,
 } from '../definitions.interface';
-import { isDef } from '../util';
+import { TypeUtils } from '../util';
 
 /**
  * @stable [05.08.2018]
@@ -22,16 +21,16 @@ export const nvl = (v1: AnyT, v2: AnyT): AnyT => R.isNil(v1) ? v2 : v1;
 export const coalesce = <TValue = AnyT>(...v: TValue[]): TValue => R.find<TValue>((v0) => !R.isNil(v0), v);
 
 /**
- * @stable [13.06.2019]
- * @param {TValue} v
- * @returns {TValue}
+ * @stable [23.12.2020]
+ * @param v
  */
-export const coalesceDef = <TValue = AnyT>(...v: TValue[]): TValue => R.find<TValue>((v0) => isDef(v0), v);
+const coalesceDef = <TValue = unknown>(...v: TValue[]): TValue => R.find<TValue>(($v) => TypeUtils.isDef($v), v);
 
 /**
  * @stable [19.05.2020]
  */
 export class NvlUtils {
   public static readonly coalesce = coalesce;                           /* @stable [19.05.2020] */
+  public static readonly coalesceDef = coalesceDef;
   public static readonly nvl = nvl;                                     /* @stable [21.05.2020] */
 }

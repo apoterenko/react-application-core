@@ -33,6 +33,7 @@ export * from './page';
 export * from './place';
 export * from './promise';
 export * from './props';
+export * from './reducer';
 export * from './replace';
 export * from './route';
 export * from './row';

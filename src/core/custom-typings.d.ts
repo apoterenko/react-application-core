@@ -4,6 +4,7 @@ interface Window {
   dataLayer;
   ga;
   google,
+  Intercom;
   jQuery;
 }
 /* tslint:enable */
