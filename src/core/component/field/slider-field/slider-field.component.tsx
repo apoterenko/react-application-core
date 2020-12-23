@@ -37,9 +37,11 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
       fieldConfiguration,
       max,
       min,
-      sliderClassName,
       step,
     } = this.mergedProps;
+    const {
+      sliderClassName,
+    } = this.originalProps;
 
     return (
       <Slider
@@ -50,8 +52,8 @@ export class SliderField<TProps extends ISliderFieldProps = ISliderFieldProps,
         value={this.value}
         className={
           ClsUtils.joinClassName(
-            CalcUtils.calc(sliderClassName),
-            SliderFieldClassesEnum.SLIDER
+            SliderFieldClassesEnum.SLIDER,
+            CalcUtils.calc(sliderClassName)
           )
         }
         onChange={this.onChangeManually}/>

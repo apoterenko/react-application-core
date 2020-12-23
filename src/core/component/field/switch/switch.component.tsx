@@ -27,7 +27,7 @@ export class Switch extends BaseCheckbox<ISwitchProps> {
   protected getInputElement(): JSX.Element {
     const {
       thumbClassName,
-    } = this.mergedProps;
+    } = this.originalProps;
 
     return (
       <React.Fragment>
