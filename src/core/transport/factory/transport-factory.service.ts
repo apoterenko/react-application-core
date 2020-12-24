@@ -12,15 +12,20 @@ import {
   ITransportResponseFactoryEntity,
 } from '../../definition';
 import { lazyInject, DI_TYPES } from '../../di';
-import { uuid, ifNotNilThanValue, isFn, nvl } from '../../util';
+import {
+  NvlUtils,
+  TypeUtils,
+  UuidUtils,
+} from '../../util';
 
 @injectable()
 export class TransportFactory implements ITransportFactory {
-  private readonly cancelUuid = uuid();
+  private readonly cancelUuid = UuidUtils.uuid();
   private readonly operationsIdsMap = new Map<string, ITransportCancelTokenEntity>();
+
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
-  @lazyInject(DI_TYPES.TransportRequestProvider) private readonly requestProvider: ITransportRequestProvider;
   @lazyInject(DI_TYPES.TransportRequestPayloadFactory) private readonly requestPayloadFactory: ITransportRequestPayloadFactory;
+  @lazyInject(DI_TYPES.TransportRequestProvider) private readonly requestProvider: ITransportRequestProvider;
   @lazyInject(DI_TYPES.TransportResponseFactory) private readonly responseFactory: ITransportResponseFactory;
 
   /**
@@ -32,7 +37,7 @@ export class TransportFactory implements ITransportFactory {
   public async request(req: ITransportRequestEntity,
                        requestPayloadHandler?: (payload: ITransportRequestEntity) => ITransportRequestEntity): Promise<ITransportResponseFactoryEntity> {
     let cancelTokenEntity: ITransportCancelTokenEntity;
-    const operationId = this.toOperationId(req);
+    const operationId = this.asOperationId(req);
     const requestProvider = this.getRequestProvider(req);
     if (operationId) {
       cancelTokenEntity = requestProvider.provideCancelToken();
@@ -44,7 +49,9 @@ export class TransportFactory implements ITransportFactory {
     const requestPayload = this.requestPayloadFactory.makeRequestPayload(req, cancelTokenEntity);
     try {
       res = await requestProvider.provideRequest(
-        isFn(requestPayloadHandler) ? requestPayloadHandler(requestPayload) : requestPayload
+        TypeUtils.isFn(requestPayloadHandler)
+          ? requestPayloadHandler(requestPayload)
+          : requestPayload
       );
       this.clearOperation(operationId);
     } catch (e) {
@@ -65,12 +72,13 @@ export class TransportFactory implements ITransportFactory {
   }
 
   /**
-   * @stable [07.02.2019]
-   * @param {ITransportRequestEntity} req
+   * @stable [24.12.2020]
+   * @param req
    */
   public cancelRequest(req: ITransportRequestEntity): void {
-    const operationId = this.toOperationId(req);
+    const operationId = this.asOperationId(req);
     const cancelToken = this.operationsIdsMap.get(operationId);
+
     if (cancelToken) {
       cancelToken.cancel(this.cancelUuid);
       this.clearOperation(operationId);
@@ -78,8 +86,9 @@ export class TransportFactory implements ITransportFactory {
   }
 
   /**
-   * @stable [01.02.2019]
-   * @param {string} operationId
+   * @stable [24.12.2020]
+   * @param operationId
+   * @private
    */
   private clearOperation(operationId?: string): void {
     if (R.isNil(operationId)) {
@@ -89,29 +98,29 @@ export class TransportFactory implements ITransportFactory {
   }
 
   /**
-   * @stable [02.02.2019]
-   * @param {ITransportRequestEntity} req
-   * @returns {ITransportResponseFactory}
+   * @stable [24.12.2020]
+   * @param req
+   * @private
    */
   private getResponseFactory(req: ITransportRequestEntity): ITransportResponseFactory {
-    return nvl(req.responseFactory, this.responseFactory);
+    return NvlUtils.nvl(req.responseFactory, this.responseFactory);
   }
 
   /**
-   * @stable [16.09.2019]
-   * @param {ITransportRequestEntity} req
-   * @returns {ITransportRequestProvider}
+   * @stable [24.12.2020]
+   * @param req
+   * @private
    */
   private getRequestProvider(req: ITransportRequestEntity): ITransportRequestProvider {
-    return nvl(req.requestProvider, this.requestProvider);
+    return NvlUtils.nvl(req.requestProvider, this.requestProvider);
   }
 
   /**
-   * @stable [07.02.2019]
-   * @param {ITransportRequestEntity} req
-   * @returns {string}
+   * @stable [24.12.2020]
+   * @param req
+   * @private
    */
-  private toOperationId(req: ITransportRequestEntity): string {
-    return ifNotNilThanValue(req.operation, (operation) => operation.id);
+  private asOperationId(req: ITransportRequestEntity): string {
+    return req.operation?.id;
   }
 }

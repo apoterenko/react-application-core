@@ -63,34 +63,28 @@ import { ConditionUtils } from './cond';
 import { WrapperUtils } from './wrapper';
 
 /**
- * @stable [30.03.2020]
- * @param {IQueueWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [24.12.2020]
+ * @param wrapper
  */
-const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue =>
-  R.isNil(wrapper) ? UNDEF : wrapper.queue;
+const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue => wrapper?.queue;
 
 /**
- * @stable [30.03.2020]
- * @param {IRawDataWrapper<TData>} wrapper
- * @returns {TData}
+ * @stable [24.12.2020]
+ * @param wrapper
  */
-const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): TValue =>
-  R.isNil(wrapper) ? UNDEF : wrapper.rawData;
+const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): TValue => wrapper?.rawData;
 
 /**
- * @stable [06.04.2020]
- * @param {IElementWrapper<TValue>} wrapper
- * @returns {TValue}
+ * @stable [24.12.2020]
+ * @param wrapper
  */
-const selectElement = <TValue = AnyT>(wrapper: IElementWrapper<TValue>): TValue =>
-  R.isNil(wrapper) ? UNDEF : wrapper.element;
+const selectElement = <TValue = unknown>(wrapper: IElementWrapper<TValue>): TValue => wrapper?.element;
 
 /**
- * @stable [31.07.2020]
+ * @stable [24.12.2020]
  * @param entity
  */
-const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => R.isNil(entity) ? UNDEF : entity.id;
+const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => entity?.id;
 
 /**
  * @stable [22.09.2020]

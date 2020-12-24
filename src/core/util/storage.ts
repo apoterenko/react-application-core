@@ -7,7 +7,6 @@ import {
 import { ConditionUtils } from './cond';
 import { FilterUtils } from './filter';
 import { TypeUtils } from './type';
-import { UNDEF_SYMBOL } from '../definitions.interface';
 import { UuidUtils } from './uuid';
 
 /**
@@ -32,21 +31,10 @@ const entitiesAsStorageTasks = <TEntity>(
   );
 
 /**
- * @stable [04.09.2020]
+ * @stable [24.12.2020]
  * @param result
  */
-const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string =>
-  ConditionUtils.ifNotNilThanValue(
-    result,
-    () => (
-      ConditionUtils.ifNotNilThanValue(
-        result.addedFiles[0],
-        (entity) => entity.id,
-        UNDEF_SYMBOL
-      )
-    ),
-    UNDEF_SYMBOL
-  );
+const asSingleAddedFileId = (result: IMultiEntityStorageSetEntity): string => result?.addedFiles[0]?.id;
 
 /**
  * @stable [10.09.2020]

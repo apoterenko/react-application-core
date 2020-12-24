@@ -91,7 +91,7 @@ export const mapSortDirectionEntity = (entity: ISortDirectionEntity): ISortDirec
  * @returns {boolean}
  */
 export const hasQueueOperations = (queue: string[],
-                                   ...operations: Array<string | IOperationEntity>): boolean =>
+                                   ...operations: (string | IOperationEntity)[]): boolean =>
   !R.isEmpty(
     R.intersection(
       queue,

@@ -193,23 +193,27 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
    * @returns {React.ReactNode}
    */
   protected getMessageElement(): React.ReactNode {
-    const props = this.props;
+    const {
+      error,
+    } = this.originalProps;
+    const messages = this.settings.messages;
+
     return (
       this.inProgress
-        ? this.uiFactory.makeMessage(this.prepareMessage({message: this.settings.messages.PLEASE_WAIT}))
+        ? this.uiFactory.makeMessage(this.prepareMessage({message: messages.PLEASE_WAIT}))
         : (
           this.doesErrorExist
             ? (
               this.uiFactory.makeReactError(
-                TypeUtils.isBoolean(props.error)
-                  ? new Error(this.settings.messages.UNKNOWN_ERROR)
-                  : new Error(String(props.error)),
+                TypeUtils.isBoolean(error)
+                  ? new Error(messages.UNKNOWN_ERROR)
+                  : new Error(String(error)),
                 false
               )
             )
             : (
               this.uiFactory.makeMessage(
-                this.prepareMessage({message: this.settings.messages.APPLICATION_IS_INITIALIZING})
+                this.prepareMessage({message: messages.APPLICATION_IS_INITIALIZING})
               )
             )
         )
