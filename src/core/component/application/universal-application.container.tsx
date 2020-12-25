@@ -207,8 +207,7 @@ export abstract class UniversalApplicationContainer<TProps extends IUniversalApp
               this.uiFactory.makeReactError(
                 TypeUtils.isBoolean(error)
                   ? new Error(messages.UNKNOWN_ERROR)
-                  : new Error(String(error)),
-                false
+                  : new Error(String(error))
               )
             )
             : (

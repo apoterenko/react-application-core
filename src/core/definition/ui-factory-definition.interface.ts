@@ -31,12 +31,10 @@ export interface IUiFactory extends IUiIconFactory {
   makeWindowError?(e: Error): Element;
 
   /**
-   * @stable [02.12.2019]
-   * @param {Error} e
-   * @param {boolean} logging
-   * @returns {React.ReactNode}
+   * @stable [24.12.2020]
+   * @param e
    */
-  makeReactError?(e: Error, logging?: boolean): React.ReactNode;
+  makeReactError?(e: Error): React.ReactNode;
 
   /**
    * @stable [28.11.2019]

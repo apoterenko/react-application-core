@@ -143,20 +143,20 @@ export class UiFactory implements IUiFactory {
   }
 
   /**
-   * @stable [02.12.2019]
-   * @param {Error} e
-   * @param {boolean} logging
-   * @returns {React.ReactNode}
+   * @stable [24.12.2020]
+   * @param e
    */
-  public makeReactError(e: Error, logging?: boolean): React.ReactNode {
-    if (logging !== false) {
-      this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
-      UiFactory.logger.error('$[UiFactory][makeReactError] Error:', e);
-    }
+  public makeReactError(e: Error): React.ReactNode {
+    this.logError(ErrorEventCategoriesEnum.REACT_ERROR, e);
+    UiFactory.logger.error('$[UiFactory][makeReactError] Error:', e);
 
     return (
-      <div className={ClsUtils.joinClassName(...this.getErrorWrapperClassNames())}>
-        <div className={ClsUtils.joinClassName(...this.getErrorClassNames())}>
+      <div
+        className={ClsUtils.joinClassName(...this.getErrorWrapperClassNames())}
+      >
+        <div
+          className={ClsUtils.joinClassName(...this.getErrorClassNames())}
+        >
           {this.makeReactErrorBodyElement(e)}
         </div>
       </div>
