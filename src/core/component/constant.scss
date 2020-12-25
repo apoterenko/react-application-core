@@ -56,10 +56,6 @@ $rac-keyboard-portal-position: fixed !default;
 $rac-keyboard-portal-z-index: $rac-z-index-keyboard !default;
 
 //
-$rac-icon-width0: 12px !default;
-$rac-icon-height0: 12px !default;
-
-//
 $rac-calendar-dialog-size-0: 32px !default;
 $rac-calendar-dialog-size-1: $rac-calendar-dialog-size-0 / 2 !default;
 $rac-calendar-dialog-color-0: $rac-primary-color-poseidon-0 !default;
@@ -302,7 +298,9 @@ $rac-calendar-day-border-radius: $rac-calendar-size-0 / 2 !default;
 $rac-calendar-day-cursor: pointer !default;
 $rac-calendar-day-margin: 0 auto !default;
 $rac-calendar-day-no-user-select: true !default;
-$rac-calendar-day-size: $rac-calendar-size-0 !default;
+$rac-calendar-day-width: $rac-calendar-size-0 !default;
+$rac-calendar-day-height: $rac-calendar-size-0 !default;
+$rac-calendar-day-line-height: $rac-calendar-size-0 !default;
 $rac-calendar-day-wrapper-padding-bottom: $rac-calendar-offset-0 !default;
 $rac-calendar-day-wrapper-padding-top: $rac-calendar-offset-0 !default;
 $rac-calendar-head-background: unset !default;

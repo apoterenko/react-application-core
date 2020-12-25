@@ -23,8 +23,8 @@ import {
   provideInSingleton,
 } from '../../../di';
 import {
+  ConditionUtils,
   CronEntity,
-  ifNotNilThanValue,
   isDef,
   isFn,
   NvlUtils,
@@ -98,7 +98,7 @@ export class CompositeCronFieldFactory
         )
         .map((defaultCfg) => {
           const userFieldConfig = userFields.find((userFieldConfig0) => userFieldConfig0.type === defaultCfg.type);
-          return ifNotNilThanValue(
+          return ConditionUtils.ifNotNilThanValue(
             userFieldConfig,
             () => R.mergeDeepRight(defaultCfg, userFieldConfig),
             defaultCfg
@@ -140,7 +140,7 @@ export class CompositeCronFieldFactory
               ? config.cronPeriodsMapper(option.value)
               : option.value;
 
-            ifNotNilThanValue(
+            ConditionUtils.ifNotNilThanValue(
               this.getDateFromFieldName(config),
               (dateFromFieldName) =>
                 this.onCompositeFieldChange(config, this.asContainerEntity(config)[dateFromFieldName], currentCronPeriod)
@@ -172,13 +172,13 @@ export class CompositeCronFieldFactory
           .toExpression();
         break;
       case CronPeriodsEnum.YEARLY:
-        ifNotNilThanValue(
+        ConditionUtils.ifNotNilThanValue(
           this.asCronEntity(config, fromDateValue),
           (cronEntity) => (cronFieldValue = cronEntity)
         );
         break;
       case CronPeriodsEnum.NO_REPETITIONS:
-        ifNotNilThanValue(
+        ConditionUtils.ifNotNilThanValue(
           this.asCronEntity(config, fromDateValue, true),
           (cronEntity) => (cronFieldValue = cronEntity)
         );
@@ -188,7 +188,7 @@ export class CompositeCronFieldFactory
     if (isDef(cronFieldValue)) {
       const proxy = this.$formStoreProxyFactory(config.container);
 
-      ifNotNilThanValue(
+      ConditionUtils.ifNotNilThanValue(
         this.getCronFieldName(config),
         (cronFieldName) => proxy.dispatchFormChanges({[cronFieldName]: cronFieldValue})
       );
@@ -262,7 +262,7 @@ export class CompositeCronFieldFactory
    * @returns {string}
    */
   private getFieldName(fieldItem: ICompositeCronFieldItemEntity): string {
-    return ifNotNilThanValue(fieldItem.fieldConfiguration, (fCfg) => fCfg.name);
+    return ConditionUtils.ifNotNilThanValue(fieldItem.fieldConfiguration, (fCfg) => fCfg.name);
   }
 
   /**
@@ -302,14 +302,15 @@ export class CompositeCronFieldFactory
   }
 
   /**
-   * @stable [13.01.2020]
-   * @param {ICompositeCronFieldConfigEntity} config
-   * @returns {CronPeriodsEnum}
+   * @stable [25.12.2020]
+   * @param config
+   * @private
    */
   private getPeriodValue(config: ICompositeCronFieldConfigEntity): CronPeriodsEnum {
-    return ifNotNilThanValue(
+    return ConditionUtils.ifNotNilThanValue(
       this.getPeriodFieldName(config),
-      (periodFieldName) => this.asContainerEntity(config)[periodFieldName]
+      (periodFieldName) =>
+        this.fieldConverter.fromSelectValueToId(this.asContainerEntity(config)[periodFieldName]) as CronPeriodsEnum
     );
   }
 

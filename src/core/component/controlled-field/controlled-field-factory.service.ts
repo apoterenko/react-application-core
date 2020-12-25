@@ -12,6 +12,7 @@ import {
   IControlledFieldConfigEntity,
   IControlledFieldItemEntity,
   IControlledMappedFieldEntity,
+  IFieldConverter,
   IFieldProps,
 } from '../../definition';
 import { SortUtils } from '../../util';
@@ -24,6 +25,7 @@ export class ControlledFieldFactory<
   > {
 
   @lazyInject(DI_TYPES.DictionaryStoreProxyFactory) protected readonly $dictionaryStoreProxyFactory: DictionaryStoreProxyFactoryT;
+  @lazyInject(DI_TYPES.FieldConverter) protected readonly fieldConverter: IFieldConverter;
   @lazyInject(DI_TYPES.FormStoreProxyFactory) protected readonly $formStoreProxyFactory: FormStoreProxyFactoryT;
 
   protected readonly fields = new Map<TControlledFieldItemsEnum, JSX.Element>();
