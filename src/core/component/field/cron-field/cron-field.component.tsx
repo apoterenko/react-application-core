@@ -1,68 +1,75 @@
 import * as React from 'react';
 import * as R from 'ramda';
 
-import { ICronFieldProps } from './cron-field.interface';
 import {
+  ClsUtils,
+  ConditionUtils,
   CronEntity,
-  ifNotNilThanValue,
-  isDef,
-  joinClassName,
-  makeArray,
+  PropsUtils,
+  TypeUtils,
 } from '../../../util';
 import { Field } from '../field/field.component';
 import {
   CRON_ALL_DAYS_OF_MONTH_VALUES,
   CRON_ALL_DAYS_OF_WEEK_VALUES,
+  CronFieldClassesEnum,
   CronPeriodsEnum,
   ICalendarDayEntity,
   ICalendarEntity,
-  ICalendarWeekEntity,
   ICronEntity,
+  ICronFieldProps,
 } from '../../../definition';
 import { Calendar } from '../../calendar';
 
+/**
+ * @component-impl
+ * @stable [28.12.2020]
+ */
 export class CronField extends Field<ICronFieldProps> {
 
-  public static readonly defaultProps: ICronFieldProps = {
+  /**
+   * @stable [28.12.2020]
+   */
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ICronFieldProps>({
     period: CronPeriodsEnum.MONTHLY,
     returnNeverExecutablePeriodAsEmptyValue: true,
     type: 'hidden',
-  };
-
-  private static readonly DEFAULT_VALUES_FACTORIES: Record<number, (returnNeverExecutablePeriodAsEmptyValue: boolean) => string> = {
-    [CronPeriodsEnum.MONTHLY]: (returnNeverExecutablePeriodAsEmptyValue: boolean): string =>
-      CronEntity.newInstance()
-        .withMinutes(0)
-        .withHours(0)
-        .withDaysOfMonths()
-        .toExpression(returnNeverExecutablePeriodAsEmptyValue),
-    [CronPeriodsEnum.WEEKLY]: (returnNeverExecutablePeriodAsEmptyValue: boolean): string =>
-      CronEntity.newInstance()
-        .withMinutes(0)
-        .withHours(0)
-        .withDaysOfWeeks()
-        .toExpression(returnNeverExecutablePeriodAsEmptyValue),
-  };
-  private static readonly DEFAULT_WEEKLY_DAYS: ICalendarWeekEntity[] = [{
-    id: 0,
-    ...R.mergeAll(makeArray(7).map((_, index): ICalendarWeekEntity => ({[index]: {current: true, day: index}}))),
-  }];
+  }, Field);
 
   /**
-   * @stable [04.01.2020]
-   * @param {ICronFieldProps} props
+   * @stable [28.12.2020]
    */
-  constructor(props: ICronFieldProps) {
-    super(props);
+  private static readonly DEFAULT_VALUES_FACTORIES: Record<number, (returnNeverExecutablePeriodAsEmptyValue: boolean) => string> =
+    {
+      [CronPeriodsEnum.MONTHLY]: (returnNeverExecutablePeriodAsEmptyValue: boolean): string =>
+        CronEntity.newInstance()
+          .withMinutes(0)
+          .withHours(0)
+          .withDaysOfMonths()
+          .toExpression(returnNeverExecutablePeriodAsEmptyValue),
+      [CronPeriodsEnum.WEEKLY]: (returnNeverExecutablePeriodAsEmptyValue: boolean): string =>
+        CronEntity.newInstance()
+          .withMinutes(0)
+          .withHours(0)
+          .withDaysOfWeeks()
+          .toExpression(returnNeverExecutablePeriodAsEmptyValue),
+    };
 
-    this.onDaySelect = this.onDaySelect.bind(this);
+  /**
+   * @stable [28.12.2020]
+   * @param originalProps
+   */
+  constructor(originalProps: ICronFieldProps) {
+    super(originalProps);
+
     this.getCalendarCellElement = this.getCalendarCellElement.bind(this);
+    this.onDaySelect = this.onDaySelect.bind(this);
   }
 
   /**
-   * @stable [15.12.2019]
-   * @param {string} value
-   * @returns {boolean}
+   * @stable [28.12.2020]
+   * @param value
+   * @protected
    */
   protected isValueDefined(value: string): boolean {
     return !R.isNil(value);
@@ -73,11 +80,15 @@ export class CronField extends Field<ICronFieldProps> {
    * @returns {string}
    */
   protected get defaultValue(): string {
-    const {defaultValue, period} = this.props;
-    return isDef(defaultValue)
+    const {
+      defaultValue,
+      period,
+    } = this.originalProps;
+
+    return TypeUtils.isDef(defaultValue)
       ? defaultValue
       : (
-        ifNotNilThanValue(
+        ConditionUtils.ifNotNilThanValue(
           CronField.DEFAULT_VALUES_FACTORIES[period],
           (factory) => factory(this.returnNeverExecutablePeriodAsEmptyValue),
           defaultValue
@@ -86,46 +97,58 @@ export class CronField extends Field<ICronFieldProps> {
   }
 
   /**
-   * @stable [03.01.2020]
-   * @returns {JSX.Element}
+   * @stable [28.12.2020]
+   * @protected
    */
   protected get inputAttachmentElement(): JSX.Element {
     const cronEntity = this.newCronEntity;
     return (
-      <div className='rac-cron-calendar-wrapper'>
-        <Calendar
-          showOnlyCurrentDays={true}
-          selectedDays={this.days.filter((cronDay) => this.isDaySelected(cronEntity, cronDay))}
-          className='rac-cron-calendar'
-          calendarEntity={this.calendarEntity}
-          renderer={this.getCalendarCellElement}
-          onSelect={this.onDaySelect}/>
-      </div>
+      <Calendar
+        showOnlyCurrentDays={true}
+        selectedDays={this.days.filter((cronDay) => this.isDaySelected(cronEntity, cronDay))}
+        className={CronFieldClassesEnum.CALENDAR}
+        gridConfiguration={{
+          wrapperClassName: CronFieldClassesEnum.CALENDAR_WRAPPER,
+        }}
+        calendarEntity={this.calendarEntity}
+        renderer={this.getCalendarCellElement}
+        onSelect={this.onDaySelect}/>
     );
   }
 
   /**
-   * @stable [15.12.2019]
-   * @returns {string}
+   * @stable [28.12.2020]
+   * @protected
    */
   protected getFieldClassName(): string {
-    return joinClassName(super.getFieldClassName(), 'rac-cron-field');
+    return ClsUtils.joinClassName(
+      super.getFieldClassName(),
+      CronFieldClassesEnum.CRON_FIELD
+    );
   }
 
   /**
-   * @stable [03.01.2020]
-   * @param {ICalendarDayEntity} calendarDayEntity
+   * @stable [28.12.2020]
+   * @param calendarDayEntity
+   * @private
    */
   private onDaySelect(calendarDayEntity: ICalendarDayEntity): void {
-    const day = calendarDayEntity.day;
+    const {
+      cronDay,
+      day,
+    } = calendarDayEntity;
+    const {
+      period,
+    } = this.originalProps;
+
     const cronEntity = this.newCronEntity;
 
-    switch (this.props.period) {
+    switch (period) {
       case CronPeriodsEnum.WEEKLY:
-        if (cronEntity.hasDayOfWeek(day)) {
-          cronEntity.excludeDaysOfWeeks(day);
+        if (cronEntity.hasDayOfWeek(cronDay)) {
+          cronEntity.excludeDaysOfWeeks(cronDay);
         } else {
-          cronEntity.addDaysOfWeeks(day);
+          cronEntity.addDaysOfWeeks(cronDay);
         }
         break;
       case CronPeriodsEnum.MONTHLY:
@@ -136,31 +159,73 @@ export class CronField extends Field<ICronFieldProps> {
         }
         break;
     }
-    this.onChangeManually(cronEntity.toExpression(this.returnNeverExecutablePeriodAsEmptyValue));
+    this.onChangeManually(
+      cronEntity.toExpression(this.returnNeverExecutablePeriodAsEmptyValue)
+    );
   }
 
   /**
-   * @stable [15.12.2019]
-   * @returns {ICronEntity}
-   */
-  private get newCronEntity(): ICronEntity {
-    return CronEntity.newInstance().fromExpression(this.value);
-  }
-
-  /**
-   * @stable [15.12.2019]
-   * @returns {boolean}
+   * @stable [28.12.2020]
+   * @private
    */
   private get returnNeverExecutablePeriodAsEmptyValue(): boolean {
-    return this.props.returnNeverExecutablePeriodAsEmptyValue;
+    return this.originalProps.returnNeverExecutablePeriodAsEmptyValue;
   }
 
   /**
-   * @stable [15.12.2019]
-   * @returns {number[]}
+   * @stable [28.12.2020]
+   * @param entity
+   * @param day
+   * @private
+   */
+  private isDaySelected(entity: ICronEntity, day: number): boolean {
+    switch (this.originalProps.period) {
+      case CronPeriodsEnum.WEEKLY:
+        return entity.hasDayOfWeek(this.dc.asCronDay({index: day, isoWeek: this.isoWeek}));
+    }
+    return entity.hasDayOfMonth(day);
+  }
+
+  /**
+   * @stable [28.12.2020]
+   * @param weekDayEntity
+   * @private
+   */
+  private getCalendarCellElement(weekDayEntity: ICalendarDayEntity): JSX.Element {
+    const {
+      date,
+      day,
+    } = weekDayEntity;
+
+    return (
+      <React.Fragment>
+        {
+          date
+            ? date.getDate()
+            : this.dc.getShortestWeekday({index: day, isoWeek: this.isoWeek})
+        }
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * @stable [28.12.2020]
+   * @private
+   */
+  private get calendarEntity(): ICalendarEntity {
+    switch (this.originalProps.period) {
+      case CronPeriodsEnum.WEEKLY:
+        return this.dc.asCalendarWeekEntity({isoWeek: this.isoWeek});
+    }
+    return null;
+  }
+
+  /**
+   * @stable [28.12.2020]
+   * @private
    */
   private get days(): number[] {
-    switch (this.props.period) {
+    switch (this.originalProps.period) {
       case CronPeriodsEnum.WEEKLY:
         return CRON_ALL_DAYS_OF_WEEK_VALUES;
     }
@@ -168,46 +233,18 @@ export class CronField extends Field<ICronFieldProps> {
   }
 
   /**
-   * @stable [15.12.2019]
-   * @param {ICronEntity} entity
-   * @param {number} cronDay
-   * @returns {boolean}
+   * @stable [28.12.2020]
+   * @private
    */
-  private isDaySelected(entity: ICronEntity, cronDay: number): boolean {
-    switch (this.props.period) {
-      case CronPeriodsEnum.WEEKLY:
-        return entity.hasDayOfWeek(cronDay);
-    }
-    return entity.hasDayOfMonth(cronDay);
+  private get newCronEntity(): ICronEntity {
+    return CronEntity.newInstance().fromExpression(this.value);
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {ICalendarDayEntity} weekDayEntity
-   * @returns {JSX.Element}
+   * @stable [28.12.2020]
+   * @private
    */
-  private getCalendarCellElement(weekDayEntity: ICalendarDayEntity): JSX.Element {
-    return (
-      <React.Fragment>
-        {weekDayEntity.date
-          ? weekDayEntity.date.getDate()
-          : this.dc.getLocalizedShortestWeekday({index: weekDayEntity.day})}
-      </React.Fragment>
-    );
-  }
-
-  /**
-   * @stable [04.01.2020]
-   * @returns {ICalendarEntity}
-   */
-  private get calendarEntity(): ICalendarEntity {
-    switch (this.props.period) {
-      case CronPeriodsEnum.WEEKLY:
-        return {
-          days: CronField.DEFAULT_WEEKLY_DAYS,
-          daysLabels: this.dc.getLocalizedShortestWeekdays(),
-        };
-    }
-    return null;
+  private get isoWeek(): boolean {
+    return this.originalProps.isoWeek;
   }
 }

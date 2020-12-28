@@ -5,6 +5,7 @@ import {
   DateTimeLikeTypeT,
   ICalendarConfigEntity,
   ICalendarEntity,
+  ICalendarWeekEntity,
   IDateTimeConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
@@ -32,6 +33,8 @@ export interface IDateConverter<TDate = Date> {
   addYearsAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   asAbsoluteDayOfYear(cfg?: IDateTimeConfigEntity<TDate>): number;
   asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity;
+  asCalendarWeekEntity(cfg?: ICalendarConfigEntity<TDate>): ICalendarEntity;
+  asCronDay(cfg?: IDateTimeConfigEntity<TDate>): number;
   asDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   asDayOfYear(date?: Date): Date;
   asDayOfYearEntity(cfg?: IDateTimeConfigEntity<TDate>): IDayOfYearEntity;
@@ -76,9 +79,8 @@ export interface IDateConverter<TDate = Date> {
   fromDayOfYearEntityAsDate(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity<TDate>): Date;
   fromUiDateTimeToDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromUiDateToDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
+  getCalendarWeekEntity(cfg?: IDateTimeConfigEntity<TDate>): ICalendarWeekEntity;
   getCurrentDate(): Date;
-  getLocalizedShortestWeekday(cfg: IDateTimeConfigEntity<TDate>): string;
-  getLocalizedShortestWeekdays(cfg?: IDateTimeConfigEntity<TDate>): string[];
   getShortestWeekday(cfg: IDateTimeConfigEntity<TDate>): string;
   getShortestWeekdays(cfg?: IDateTimeConfigEntity<TDate>): string[];
   isDateBelongToDatesRange(cfg: IMinMaxDatesRangeConfigEntity): boolean;
@@ -89,7 +91,6 @@ export interface IDateConverter<TDate = Date> {
   /**/
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;
   fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
-  fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string;
   fromDateTimeToDate(date: DateTimeLikeTypeT): string;
   fromDateTimeToTime(date: DateTimeLikeTypeT): string;
   fromDateTimeToDateTime(date: DateTimeLikeTypeT): string;
@@ -126,9 +127,7 @@ export interface IDateConverter<TDate = Date> {
   isDateBelongsToCurrentWeek(date?: DateTimeLikeTypeT, inputFormat?: string): boolean;
   toMomentDate(date: DateTimeLikeTypeT, inputFormat?: string, strict?: boolean): moment.Moment;
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
-  tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat?: string): number;
   get30DaysAgo(): Date;
   getXDaysAgo(days: number): Date;
   getLocalizedWeekdayShort(index: number): string;
-  isWeekend(day: number): boolean;
 }

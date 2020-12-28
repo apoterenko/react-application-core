@@ -1,22 +1,21 @@
 import * as R from 'ramda';
 
 import {
-  AnyT,
   IEntity,
   IEntityIdTWrapper,
   IKeyValue,
 } from '../definitions.interface';
+import { ConditionUtils } from './cond';
 import { EntityUtils } from './entity';
 import { FilterUtils } from './filter';
-import { ifNotNilThanValue } from './cond';
-import { nvl } from './nvl';
+import { NvlUtils } from './nvl';
 import { TypeUtils } from './type';
 
 /**
- * @stable [05.11.2020]
+ * @stable [27.12.2020]
  * @param length
  */
-export const makeArray = (length: number): AnyT[] => Array.apply(null, {length});
+const makeArray = <TValue = unknown>(length: number): TValue[] => Array.apply(null, {length});
 
 /**
  * @stable [19.11.2018]
@@ -39,13 +38,15 @@ export const arrayNextMinNegativeValue = (array: number[]): number => Math.min(N
 export const isArrayNotEmpty = <TValue>(array: TValue[]): boolean => Array.isArray(array) && !R.isEmpty(array);
 
 /**
- * @stable [28.01.2019]
- * @param {TValue[]} array
- * @param {number} limit
- * @returns {TValue[]}
+ * @stable [27.12.2020]
+ * @param array
+ * @param limit
  */
-export const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
-  ifNotNilThanValue(array, () => array.slice(0, Math.min(array.length, nvl(limit, array.length))));
+const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
+  ConditionUtils.ifNotNilThanValue(
+    array,
+    () => array.slice(0, Math.min(array.length, NvlUtils.nvl(limit, array.length)))
+  );
 
 /**
  * @stable [06.09.2020]
@@ -111,4 +112,5 @@ export class ArrayUtils {
   public static readonly isArrayNotEmpty = isArrayNotEmpty;
   public static readonly makeArray = makeArray;
   public static readonly mergeArrayItem = mergeArrayItem;
+  public static readonly subArray = subArray;
 }

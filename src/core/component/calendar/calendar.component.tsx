@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { GenericComponent } from '../base/generic.component';
 import {
+  CalendarClassesEnum,
   ICalendarDayEntity,
   ICalendarEntity,
   ICalendarProps,
@@ -25,11 +26,11 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   };
 
   /**
-   * @stable [04.01.2020]
-   * @param {ICalendarProps} props
+   * @stable [27.12.2020]
+   * @param originalProps
    */
-  constructor(props: ICalendarProps) {
-    super(props);
+  constructor(originalProps: ICalendarProps) {
+    super(originalProps);
 
     this.getCellElement = this.getCellElement.bind(this);
     this.getColumnClassName = this.getColumnClassName.bind(this);
@@ -37,31 +38,32 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [04.01.2020]
-   * @returns {JSX.Element}
+   * @stable [27.12.2020]
    */
   public render(): JSX.Element {
     const {
       className,
       gridConfiguration,
     } = this.originalProps;
-    const calendar = this.calendarEntity;
 
+    const $calendarEntity = this.calendarEntity;
     const listEntity: IReduxListEntity = {
       ...INITIAL_REDUX_LIST_ENTITY,
-      data: calendar.days,
+      data: $calendarEntity.days,
     };
 
-    const columns = calendar.daysLabels.map((day, index): IGridColumnProps => (
-      {
-        title: day,
-        index,
-        align: 'center',
-        columnClassName: this.getColumnClassName,
-        renderer: this.getCellElement,
-        onColumnContentClick: this.onClick,
-      }
-    ));
+    const columns = $calendarEntity
+      .daysLabels
+      .map((day, index): IGridColumnProps => (
+        {
+          align: 'center',
+          columnClassName: this.getColumnClassName,
+          index,
+          onColumnContentClick: this.onClick,
+          renderer: this.getCellElement,
+          title: day,
+        }
+      ));
 
     return (
       <Grid
@@ -73,7 +75,12 @@ export class Calendar extends GenericComponent<ICalendarProps> {
           hovered: false,
         }}
         columnsConfiguration={columns}
-        className={ClsUtils.joinClassName('rac-calendar', CalcUtils.calc(className))}
+        className={
+          ClsUtils.joinClassName(
+            CalendarClassesEnum.CALENDAR,
+            CalcUtils.calc(className)
+          )
+        }
         {...listEntity}
       />
     );
@@ -147,7 +154,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [20.10.2020]
+   * @stable [27.12.2020]
    * @param item
    * @param column
    * @private
@@ -157,7 +164,8 @@ export class Calendar extends GenericComponent<ICalendarProps> {
       renderer,
       showOnlyCurrentDays,
     } = this.originalProps;
-    const weekDayEntity: ICalendarDayEntity = item[column.index];
+
+    const weekDayEntity = item[column.index];
 
     if (showOnlyCurrentDays && !weekDayEntity.current) {
       return null;
@@ -173,31 +181,37 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {IGridColumnProps} payload
+   * @stable [27.12.2020]
+   * @param payload
+   * @private
    */
   private onClick(payload: IGridColumnProps): void {
-    const props = this.props;
-    if (TypeUtils.isFn(props.onSelect)) {
-      props.onSelect(this.asCalendarDayEntity(payload));
+    const {
+      onSelect,
+    } = this.originalProps;
+
+    if (TypeUtils.isFn(onSelect)) {
+      onSelect(this.asCalendarDayEntity(payload));
     }
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {IGridColumnProps} payload
-   * @returns {ICalendarDayEntity}
+   * @stable [27.12.2020]
+   * @param payload
+   * @private
    */
   private asCalendarDayEntity(payload: IGridColumnProps): ICalendarDayEntity {
     return payload.entity[payload.index];
   }
 
   /**
-   * @stable [04.01.2020]
-   * @returns {ICalendarEntity}
+   * @stable [27.12.2020]
+   * @private
    */
   private get calendarEntity(): ICalendarEntity {
-    const props = this.props;
-    return props.calendarEntity || this.dc.asCalendar({useSyntheticCalendar: true});
+    const {
+      calendarEntity,
+    } = this.originalProps;
+    return calendarEntity || this.dc.asCalendar({useSyntheticCalendar: true});
   }
 }

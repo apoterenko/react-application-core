@@ -1,10 +1,5 @@
 import * as R from 'ramda';
 
-import {
-  IPeriodWrapper,
-  IReturnNeverExecutablePeriodAsEmptyValueWrapper,
-} from '../definitions.interface';
-
 /**
  * @stable [15.11.2019]
  */
@@ -119,12 +114,4 @@ export interface ICronEntity<
   hasDayOfMonth(value: number): boolean;
   hasDayOfWeek(value: number): boolean;
   toExpression(returnNeverExecutablePeriodAsEmptyValue?: boolean): string;
-}
-
-/**
- * @stable [15.12.2019]
- */
-export interface IGenericCronEntity
-  extends IPeriodWrapper<CronPeriodsEnum>,
-    IReturnNeverExecutablePeriodAsEmptyValueWrapper {
 }

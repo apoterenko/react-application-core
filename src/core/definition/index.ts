@@ -16,6 +16,7 @@ export * from './connector-definition.interface';
 export * from './container-definition.interface';
 export * from './controlled-field-definition.interface';
 export * from './cron-definition.interface';
+export * from './cron-field-definition.interface';
 export * from './date-definition.interface';
 export * from './date-field-definition.interface';
 export * from './default-definition.interface';

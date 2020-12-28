@@ -15,13 +15,15 @@ import {
   ArrayUtils,
   ConditionUtils,
   defValuesFilter,
-  nvl,
   NvlUtils,
   ObjectUtils,
   orNull,
   TypeUtils,
 } from '../../util';
-import { IDateTimeSettings, ISettingsEntity } from '../../settings';
+import {
+  IDateTimeSettings,
+  ISettingsEntity,
+} from '../../settings';
 import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
@@ -37,8 +39,33 @@ import {
   IMinMaxDatesRangeConfigEntity,
   IPersonAgeConfigEntity,
   MomentT,
-  StartDaysOfWeekEnum,
 } from '../../definition';
+
+/**
+ * @stable [27.12.2020]
+ */
+const NUMBER_OF_DAYS_PER_WEEK = 7;
+
+/**
+ * @stable [28.12.2020]
+ * @param cronDayFactory
+ */
+const getCalendarWeekEntities =
+  (cronDayFactory: (index: number) => number = (index) => index): ICalendarWeekEntity =>
+    ({
+      id: 0,
+      ...R.mergeAll(
+        ArrayUtils
+          .makeArray(NUMBER_OF_DAYS_PER_WEEK)
+          .map((_, index): ICalendarWeekEntity => ({
+            [index]: {
+              cronDay: cronDayFactory(index),
+              current: true,
+              day: index,
+            },
+          }))
+      ),
+    });
 
 @injectable()
 export class DateConverter implements IDateConverter<MomentT> {
@@ -46,11 +73,32 @@ export class DateConverter implements IDateConverter<MomentT> {
       .slice(1, 7)
       .concat(moment.weekdaysShort()[0]);
 
-  private static DEFAULT_SHORTEST_ISO_WEEKDAYS = ['M', 'T', 'W', 'TH', 'F', 'SA', 'SU'];
-  private static DEFAULT_SHORTEST_WEEKDAYS = [
-    DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS[6],
-    ...DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS.slice(0, 6)
+  /**
+   * @stable [27.12.2020]
+   * @private
+   */
+  private static readonly SHORTEST_ISO_WEEKDAYS = ['M', 'T', 'W', 'TH', 'F', 'SA', 'SU'];
+  private static readonly SHORTEST_WEEKDAYS = [
+    DateConverter.SHORTEST_ISO_WEEKDAYS[NUMBER_OF_DAYS_PER_WEEK - 1],
+    ...DateConverter.SHORTEST_ISO_WEEKDAYS.slice(0, NUMBER_OF_DAYS_PER_WEEK - 1)
   ];
+
+  /**
+   * @stable [27.12.2020]
+   * @private
+   */
+  private static readonly DEFAULT_CALENDAR_WEEK_ENTITIES = getCalendarWeekEntities();
+
+  /**
+   * @stable [27.12.2020]
+   * @private
+   */
+  private static readonly ISO_CALENDAR_WEEK_ENTITIES = getCalendarWeekEntities((index) => {
+    if (index >= 0 && index < NUMBER_OF_DAYS_PER_WEEK - 1) {
+      return index + 1;
+    }
+    return 0;
+  });
 
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
@@ -491,16 +539,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [04.03.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string} outputFormat
-   * @returns {string}
-   */
-  public fromDateToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string {
-    return this.format(date, this.dateFormat, outputFormat);
-  }
-
-  /**
    * @stable [09.03.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
@@ -648,17 +686,6 @@ export class DateConverter implements IDateConverter<MomentT> {
       [timeFieldName]: ConditionUtils.orUndef<string>(date, () => this.fromDateTimeToTime(date)),
       [dateFieldName]: ConditionUtils.orUndef<string>(date, () => this.fromDateTimeToDate(date)),
     });
-  }
-
-  /**
-   * @stable [06.06.2019]
-   * @param {DateTimeLikeTypeT} date
-   * @param {string | undefined} inputFormat
-   * @returns {number}
-   */
-  public tryConvertToDateAsTime(date: DateTimeLikeTypeT, inputFormat = this.dateTimeFormat): number {
-    const momentDate = this.toMomentDate(date, inputFormat);
-    return momentDate.isValid() ? momentDate.toDate().getTime() : -1;
   }
 
   /**
@@ -906,43 +933,51 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string[]}
+   * @stable [27.12.2020]
+   * @param cfg
    */
   public getShortestWeekdays(cfg?: IDateTimeConfigEntity<MomentT>): string[] {
-    const {isoWeek = this.isIsoWeek} = cfg || {};
+    const {
+      isoWeek = this.isIsoWeek,
+    } = cfg || {};
+
     return isoWeek
-      ? DateConverter.DEFAULT_SHORTEST_ISO_WEEKDAYS
-      : DateConverter.DEFAULT_SHORTEST_WEEKDAYS;
+      ? DateConverter.SHORTEST_ISO_WEEKDAYS
+      : DateConverter.SHORTEST_WEEKDAYS;
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string[]}
+   * @stable [27.12.2020]
+   * @param cfg
    */
-  public getLocalizedShortestWeekdays(cfg?: IDateTimeConfigEntity<MomentT>): string[] {
-    // TODO Localize
-    return this.getShortestWeekdays(cfg);
+  public getCalendarWeekEntity(cfg?: IDateTimeConfigEntity<MomentT>): ICalendarWeekEntity {
+    const {
+      isoWeek = this.isIsoWeek,
+    } = cfg || {};
+
+    return isoWeek
+      ? DateConverter.ISO_CALENDAR_WEEK_ENTITIES
+      : DateConverter.DEFAULT_CALENDAR_WEEK_ENTITIES;
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string}
+   * @stable [28.12.2020]
+   * @param cfg
+   */
+  public asCronDay(cfg?: IDateTimeConfigEntity<MomentT>): number {
+    const {
+      index,
+    } = cfg || {};
+
+    return this.getCalendarWeekEntity(cfg)[index].cronDay;
+  }
+
+  /**
+   * @stable [27.12.2020]
+   * @param cfg
    */
   public getShortestWeekday(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.getShortestWeekdays(cfg)[cfg.index];
-  }
-
-  /**
-   * @stable [04.01.2020]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string}
-   */
-  public getLocalizedShortestWeekday(cfg: IDateTimeConfigEntity<MomentT>): string {
-    return this.getLocalizedShortestWeekdays(cfg)[cfg.index];
   }
 
   /**
@@ -960,10 +995,6 @@ export class DateConverter implements IDateConverter<MomentT> {
       $cfg,
       (mDate) => mDate.diff(this.asMomentDate({date: cfg.birthday, inputFormat: $cfg.inputFormat}), 'years')
     );
-  }
-
-  public isWeekend(day: number): boolean {
-    return day === 0 || day === 6;
   }
 
   /**
@@ -1087,8 +1118,8 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {boolean}
    */
   public isDateBelongToDatesRange(cfg: IMinMaxDatesRangeConfigEntity): boolean {
-    const minDate = nvl(cfg.minDate, this.dateTimeSettings.minDate);
-    const maxDate = nvl(cfg.maxDate, this.dateTimeSettings.maxDate);
+    const minDate = NvlUtils.nvl(cfg.minDate, this.dateTimeSettings.minDate);
+    const maxDate = NvlUtils.nvl(cfg.maxDate, this.dateTimeSettings.maxDate);
 
     return this.compare(cfg.date, minDate) >= 0 && this.compare(maxDate, cfg.date) >= 0;
   }
@@ -1149,19 +1180,23 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {ICalendarEntity}
    */
   public asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity {
-    const syntheticCalendar = ConditionUtils.ifNotNilThanValue(cfg, () => cfg.useSyntheticCalendar === true, false);
+    const syntheticCalendar = cfg?.useSyntheticCalendar === true;
     cfg = {
       isoWeek: syntheticCalendar || this.isIsoWeek,
       ...cfg,
       ...(
-        syntheticCalendar ? ({date: new Date('01/01/1900')}) : ({})  // The date "01/01/1900" starts on Monday.
+        syntheticCalendar
+          ? ({date: new Date('01/01/1900')})
+          : ({})  // The date "01/01/1900" starts on Monday.
       ),
     };
-    const {isoWeek} = cfg;
+    const {
+      isoWeek,
+    } = cfg;
+
     const firstDayOfMonthAsMDate = this.asFirstDayOfMonth(cfg);
     const firstDayOfIsoWeek = firstDayOfMonthAsMDate.isoWeekday();
     const maxWeeksCount = 6;
-    const maxDaysCountOnWeek = 7;
     const today = this.asDayOfYear();
 
     const data: ICalendarWeekEntity[] = [];
@@ -1184,7 +1219,7 @@ export class DateConverter implements IDateConverter<MomentT> {
       const row = {id: i};
       data.push(row);
 
-      for (let j = 0; j < maxDaysCountOnWeek; j++) {
+      for (let j = 0; j < NUMBER_OF_DAYS_PER_WEEK; j++) {
         if (R.isNil(currentDate)) {
           if (firstDayOfIsoWeek === j + 1) { // The ISO day of the week: 1 === Monday and 7 === Sunday
             currentDate = firstDayOfMonthAsMDate.toDate();
@@ -1211,12 +1246,12 @@ export class DateConverter implements IDateConverter<MomentT> {
 
     const result = {
       days: data,
-      daysLabels: this.getLocalizedShortestWeekdays(cfg),
+      daysLabels: this.getShortestWeekdays(cfg),
     };
     if (!isoWeek) {
       result.days = data.map((row, index) => {
         const newRow = {...row};
-        for (let i = 0; i < maxDaysCountOnWeek - 1; i++) {
+        for (let i = 0; i < NUMBER_OF_DAYS_PER_WEEK - 1; i++) {
           newRow[i + 1] = row[i];
         }
         const startingDate = data[index - 1];
@@ -1225,18 +1260,21 @@ export class DateConverter implements IDateConverter<MomentT> {
           dayEntity = buildDayEntity({previous: true, date: startingMDate.toDate()}, startingMDate);
           newRow[0] = dayEntity;
         } else {
-          newRow[0] = data[index - 1][maxDaysCountOnWeek - 1];
+          newRow[0] = data[index - 1][NUMBER_OF_DAYS_PER_WEEK - 1];
         }
         return newRow;
       });
     }
+
     let truncateFirstWeek = true;
     let truncateLastWeek = true;
     const days = result.days;
-    for (let j = 0; j < maxDaysCountOnWeek; j++) {
+
+    for (let j = 0; j < NUMBER_OF_DAYS_PER_WEEK; j++) {
       truncateFirstWeek = truncateFirstWeek && days[0][j].current === false;
       truncateLastWeek = truncateLastWeek && days[days.length - 1][j].current === false;
     }
+
     return {
       ...result,
       days: [
@@ -1244,6 +1282,17 @@ export class DateConverter implements IDateConverter<MomentT> {
         ...days.slice(1, days.length - 1),
         ...(truncateLastWeek ? [] : [days[days.length - 1]])
       ],
+    };
+  }
+
+  /**
+   * @stable [28.12.2020]
+   * @param cfg
+   */
+  public asCalendarWeekEntity(cfg?: ICalendarConfigEntity<MomentT>): ICalendarEntity {
+    return {
+      days: [this.getCalendarWeekEntity(cfg)],
+      daysLabels: this.getShortestWeekdays(cfg),
     };
   }
 
@@ -1348,11 +1397,11 @@ export class DateConverter implements IDateConverter<MomentT> {
    * https://en.wikipedia.org/wiki/ISO_week_date
    * Weeks start with Monday.
    *
-   * @stable [03.05.2020]
-   * @returns {boolean}
+   * @stable [28.12.2020]
+   * @private
    */
   private get isIsoWeek(): boolean {
-    return this.dateTimeSettings.startDayOfWeek === StartDaysOfWeekEnum.MONDAY;
+    return this.dateTimeSettings.isoWeek;
   }
 
   private get pstDateFormat(): string {

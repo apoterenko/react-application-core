@@ -1,7 +1,13 @@
 @import '../../_classes';
 @import '../../_primary-constant';
 
-/************************/
-/* @stable [18.06.2020] */
-/************************/
+// @stable [28.12.2020]
+$rac-cron-field-calendar-width: 240px !default;
+
+// @stable [28.12.2020]
+$rac-cron-field-calendar-wrapper-background: $rac-primary-color-metis-05 !default;
+$rac-cron-field-calendar-wrapper-border-radius: $rac-primary-border-radius-1 !default;
+$rac-cron-field-calendar-wrapper-padding: 6px $rac-primary-offset-0 !default;
+
+// @stable [28.12.2020]
 $rac-cron-field-self-field-input-wrapper-flex-grow: $rac-primary-flex-grow-1 !default;

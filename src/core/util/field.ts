@@ -18,7 +18,7 @@ import {
 import { ConditionUtils } from './cond';
 import {
   arrayNextMinNegativeValue,
-  makeArray,
+  ArrayUtils,
 } from './array';
 import { TypeUtils } from './type';
 import { defValuesFilter } from './filter';
@@ -119,7 +119,7 @@ export const asMultiFieldEntitiesLength = (value: MultiFieldValueOrEntityIdT): n
  */
 export const asOrderedMultiFieldEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>,
                                                                                entitiesCountLimit: number): TEntity[] => {
-  const result = makeArray(entitiesCountLimit);
+  const result = ArrayUtils.makeArray<TEntity>(entitiesCountLimit);
   const multiFieldEntities = MultiFieldUtils.multiFieldValueAsEntities(value);
 
   if (Array.isArray(multiFieldEntities)) {

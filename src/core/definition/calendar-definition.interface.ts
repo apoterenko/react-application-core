@@ -2,23 +2,31 @@ import {
   ICalendarConfigurationWrapper,
   ICalendarEntityConfigurationWrapper,
   ICalendarEntityWrapper,
+  ICronDayWrapper,
+  ICurrentWrapper,
+  IDateWrapper,
+  IDaysLabelsWrapper,
+  IDaysWrapper,
+  IEntityIdTWrapper,
   IIsFirstSelectedWrapper,
   IIsLastSelectedWrapper,
   IIsMiddleSelectedWrapper,
   IIsSelectedWrapper,
+  INextWrapper,
   IOnSelectWrapper,
+  IPreviousWrapper,
   IRendererWrapper,
   ISelectedDaysWrapper,
   IShowOnlyCurrentDaysWrapper,
+  ITodayWrapper,
   IUseSyntheticCalendarWrapper,
 } from '../definitions.interface';
-import { IComponentProps } from './props-definition.interface';
-import {
-  ICalendarDayEntity,
-  ICalendarEntity,
-  IDateTimeConfigEntity,
-} from './date-definition.interface';
 import { IGridConfigurationEntity } from './grid-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
+import {
+  IDateTimeConfigEntity,
+  IDayOfYearEntity,
+} from './date-definition.interface';
 
 /**
  * @generic-entity
@@ -49,7 +57,7 @@ export interface IBehavioralCalendarEntity
  * @stable [03.01.2020]
  */
 export interface ICalendarProps
-  extends IComponentProps,
+  extends IGenericComponentProps,
     IGenericCalendarEntity,
     IBehavioralCalendarEntity {
 }
@@ -81,6 +89,14 @@ export interface ICalendarEntityConfigurationEntity
 
 /**
  * @classes
+ * @stable [27.12.2020]
+ */
+export enum CalendarClassesEnum {
+  CALENDAR = 'rac-calendar',
+}
+
+/**
+ * @classes
  * @stable [08.03.2020]
  */
 export enum CalendarDialogClassesEnum {
@@ -92,4 +108,36 @@ export enum CalendarDialogClassesEnum {
   CALENDAR_DIALOG_RANGE_EXPLORER_DATE = 'rac-calendar-dialog__range-explorer-date',
   CALENDAR_DIALOG_SELECTED_QUICK_ACTION = 'rac-calendar-dialog__selected-quick-action',
   CALENDAR_INLINE_DIALOG = 'rac-calendar-inline-dialog',
+}
+
+/**
+ * @entity
+ * @stable [03.01.2020]
+ */
+export interface ICalendarDayEntity
+  extends IDayOfYearEntity,
+    ICronDayWrapper,
+    ICurrentWrapper<boolean>,
+    IDateWrapper<Date>,
+    INextWrapper<boolean>,
+    IPreviousWrapper<boolean>,
+    ITodayWrapper<boolean> {
+}
+
+/**
+ * @entity
+ * @stable [03.01.2020]
+ */
+export interface ICalendarWeekEntity
+  extends IEntityIdTWrapper {
+  [index: number]: ICalendarDayEntity;
+}
+
+/**
+ * @entity
+ * @stable [03.01.2020]
+ */
+export interface ICalendarEntity
+  extends IDaysWrapper<ICalendarWeekEntity[]>,
+    IDaysLabelsWrapper<string[]> {
 }

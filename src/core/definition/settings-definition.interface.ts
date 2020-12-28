@@ -30,14 +30,6 @@ import { IThumbProps } from './thumb-definition.interface';
 import { ITitleProps } from './title-definition.interface';
 
 /**
- * @stable [03.05.2020]
- */
-export enum StartDaysOfWeekEnum {
-  MONDAY,
-  SUNDAY,
-}
-
-/**
  * @entity
  * @stable [09.09.2020]
  */
@@ -75,9 +67,9 @@ export const DEFAULT_CURRENCY_SETTINGS_ENTITY = Object.freeze<ICurrencySettingsE
 export interface IDateTimeSettingsEntity {
   currentDate?: Date;
   dateTimeFormat?: string;
+  isoWeek?: boolean;
   maxDate?: Date;
   minDate?: Date;
-  startDayOfWeek?: StartDaysOfWeekEnum;
   uiDateFormat?: string;
   uiDateMask?: (string|RegExp)[];
   uiDatePattern?: string;
@@ -92,9 +84,9 @@ export interface IDateTimeSettingsEntity {
  */
 const defaultDateTimeSettingsEntity: IDateTimeSettingsEntity = {
   dateTimeFormat: 'YYYY-MM-DD[T]HH:mm:ssZ',
+  isoWeek: true,
   maxDate: new Date('01/01/4000'),
   minDate: new Date('01/01/1900'),
-  startDayOfWeek: StartDaysOfWeekEnum.MONDAY,
   uiDateFormat: 'YYYY-MM-DD',
   uiDateMask: [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
   uiDatePattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])',

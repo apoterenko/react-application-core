@@ -2,13 +2,9 @@ import * as moment from 'moment';
 
 import {
   IBirthdayWrapper,
-  ICurrentWrapper,
   IDateWrapper,
-  IDaysLabelsWrapper,
-  IDaysWrapper,
   IDayWrapper,
   IDurationWrapper,
-  IEntityIdTWrapper,
   IFromToEntity,
   IIndexWrapper,
   IInputFormatWrapper,
@@ -17,16 +13,13 @@ import {
   IMaxDateWrapper,
   IMinDateWrapper,
   IMonthWrapper,
-  INextWrapper,
   IOutputFormatWrapper,
   IOutputTimeFormatWrapper,
   IPeriodModeWrapper,
   IPeriodTypeWrapper,
-  IPreviousWrapper,
   IReturnUndefWrapper,
   IStrictWrapper,
   ITimeWrapper,
-  ITodayWrapper,
   IUnitWrapper,
   IYearWrapper,
   IZoneWrapper,
@@ -159,35 +152,4 @@ export interface IDayOfYearEntity
  */
 export interface IFromToDayOfYearEntity
   extends IFromToEntity<IDayOfYearEntity> {
-}
-
-/**
- * @entity
- * @stable [03.01.2020]
- */
-export interface ICalendarDayEntity
-  extends IDayOfYearEntity,
-    ICurrentWrapper<boolean>,
-    IDateWrapper<Date>,
-    INextWrapper<boolean>,
-    IPreviousWrapper<boolean>,
-    ITodayWrapper<boolean> {
-}
-
-/**
- * @entity
- * @stable [03.01.2020]
- */
-export interface ICalendarWeekEntity
-  extends IEntityIdTWrapper {
-  [index: number]: ICalendarDayEntity;
-}
-
-/**
- * @entity
- * @stable [03.01.2020]
- */
-export interface ICalendarEntity
-  extends IDaysWrapper<ICalendarWeekEntity[]>,
-    IDaysLabelsWrapper<string[]> {
 }

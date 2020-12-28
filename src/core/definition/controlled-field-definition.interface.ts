@@ -14,11 +14,11 @@ import {
   IGenericContainer,
   IGenericContainerProps,
 } from './generic-container-definition.interface';
-import { IReduxBaseDictionariesEntity } from './dictionary-definition.interface';
 import { IExtendedEntity } from './entity-definition.interface';
-import { IGenericCronEntity } from './cron-definition.interface';
-import { IPlaceFieldProps } from './place-field-definition.interface';
 import { IFieldProps } from './field-definition.interface';
+import { IGenericCronEntity } from './cron-field-definition.interface';
+import { IPlaceFieldProps } from './place-field-definition.interface';
+import { IReduxBaseDictionariesEntity } from './dictionary-definition.interface';
 
 /**
  * @controlled-field

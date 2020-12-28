@@ -4,44 +4,30 @@
 
 .rac {
 
-  /**
-   * @cron-field
-   * @stable [16.12.2019]
-   */
+  // @stable [28.12.2020]
   @include rac-field (
     $rac-field-custom: $rac-cron-field-cls,
     $rac-self-field-input-wrapper-flex-grow: $rac-cron-field-self-field-input-wrapper-flex-grow
   );
 
-  /**
-   * @cron-field-labeled
-   * @stable [04.03.2020]
-   */
+  // @stable [28.12.2020]
+  @include rac-calendar (
+    $rac-calendar-custom: $rac-cron-field-calendar-cls,
+    $rac-calendar-width: $rac-cron-field-calendar-width
+  );
+
+  // @stable [28.12.2020]
+  @include rac-styles (
+    $rac-styles-custom: $rac-cron-field-calendar-wrapper-cls,
+    $rac-styles-background: $rac-cron-field-calendar-wrapper-background,
+    $rac-styles-border-radius: $rac-cron-field-calendar-wrapper-border-radius,
+    $rac-styles-padding: $rac-cron-field-calendar-wrapper-padding
+  );
+
   @include rac-field (
     $rac-field-custom: $rac-cron-field-labeled-cls,
     $rac-self-field-label-position: $rac-cron-field-labeled-self-field-label-position,
     $rac-self-field-label-top: $rac-cron-field-labeled-self-field-label-top,
     $rac-self-field-margin-top: $rac-cron-field-labeled-self-field-margin-top
-  );
-
-  /**
-   * @cron-calendar-wrapper
-   * @stable [04.01.2020]
-   */
-  @include rac-styles (
-    $rac-styles-custom: rac-cron-calendar-wrapper,
-    $rac-styles-background: $rac-cron-calendar-wrapper-background,
-    $rac-styles-border-radius: $rac-cron-calendar-wrapper-border-radius,
-    $rac-styles-flex: $rac-cron-calendar-wrapper-flex,
-    $rac-styles-padding: $rac-cron-calendar-wrapper-padding
-  );
-
-  /**
-   * @cron-calendar
-   * @stable [04.01.2020]
-   */
-  @include rac-calendar (
-    $rac-calendar-custom: rac-cron-calendar,
-    $rac-calendar-width: $rac-cron-calendar-width
   );
 }

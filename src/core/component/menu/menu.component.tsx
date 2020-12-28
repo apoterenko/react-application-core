@@ -5,13 +5,13 @@ import {
   UNDEF,
 } from '../../definitions.interface';
 import {
+  ArrayUtils,
   CalcUtils,
   ClsUtils,
   ConditionUtils,
   DelayedTask,
   FilterUtils,
   ObjectUtils,
-  subArray,
   TypeUtils,
 } from '../../util';
 import {
@@ -274,7 +274,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
       maxCount,
     } = this.originalProps;
 
-    const items = subArray(this.items, maxCount);
+    const items = ArrayUtils.subArray(this.items, maxCount);
 
     return (
       <BasicList
