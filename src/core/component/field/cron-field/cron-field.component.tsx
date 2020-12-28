@@ -105,7 +105,7 @@ export class CronField extends Field<ICronFieldProps> {
     return (
       <Calendar
         showOnlyCurrentDays={true}
-        selectedDays={this.days.filter((cronDay) => this.isDaySelected(cronEntity, cronDay))}
+        selectedDays={this.days.filter((day) => this.isDaySelected(cronEntity, day))}
         className={CronFieldClassesEnum.CALENDAR}
         gridConfiguration={{
           wrapperClassName: CronFieldClassesEnum.CALENDAR_WRAPPER,
