@@ -9,6 +9,8 @@
   $rac-calendar-body-border-bottom: unset,                                                    /* @stable [29.12.2020] */
   $rac-calendar-body-border: unset,                                                           /* @stable [29.12.2020] */
   $rac-calendar-border-bottom: unset,                                                         /* @stable [29.12.2020] */
+  $rac-calendar-cell-content-margin: unset,                                                   /* @stable [29.12.2020] */
+  $rac-calendar-cell-content-no-user-select: unset,                                           /* @stable [29.12.2020] */
   $rac-calendar-cell-content-width: unset,                                                    /* @stable [29.12.2020] */
   $rac-calendar-cell-padding-left: unset,                                                     /* @stable [29.12.2020] */
   $rac-calendar-cell-padding-right: unset,                                                    /* @stable [29.12.2020] */
@@ -19,8 +21,6 @@
   $rac-calendar-day-font-size: unset,                                         /* @stable [08.01.2020] */
   $rac-calendar-day-height: unset,                                                            /* @stable [29.12.2020] */
   $rac-calendar-day-line-height: unset,                                                       /* @stable [29.12.2020] */
-  $rac-calendar-day-margin: unset,                                            /* @stable [14.01.2020] */
-  $rac-calendar-day-no-user-select: unset,                                    /* @stable [14.01.2020] */
   $rac-calendar-day-vertical-align: unset,
   $rac-calendar-day-wrapper-padding-bottom: unset,                            /* @stable [14.01.2020] */
   $rac-calendar-day-wrapper-padding-top: unset,                               /* @stable [14.01.2020] */
@@ -58,8 +58,8 @@
     $rac-grid-body-column-padding-top: $rac-calendar-day-wrapper-padding-top,
     $rac-grid-body-column-vertical-align: $rac-calendar-day-vertical-align,
     $rac-grid-border-bottom: $rac-calendar-border-bottom,
-    $rac-grid-column-content-margin: $rac-calendar-day-margin,
-    $rac-grid-column-content-no-user-select: $rac-calendar-day-no-user-select,
+    $rac-grid-column-content-margin: $rac-calendar-cell-content-margin,
+    $rac-grid-column-content-no-user-select: $rac-calendar-cell-content-no-user-select,
     $rac-grid-column-content-width: $rac-calendar-cell-content-width,
     $rac-grid-column-padding-left: $rac-calendar-cell-padding-left,
     $rac-grid-column-padding-right: $rac-calendar-cell-padding-right,
