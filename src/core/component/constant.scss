@@ -275,24 +275,14 @@ $rac-calendar-current-day-cls: rac-calendar__current-day;
 $rac-calendar-first-selected-day-cls: rac-calendar__first-selected-day;
 $rac-calendar-last-selected-day-cls: rac-calendar__last-selected-day;
 $rac-calendar-middle-selected-day-cls: rac-calendar__middle-selected-day;
-$rac-calendar-selected-day-cls: rac-calendar__selected-day;
-$rac-calendar-today-cls: rac-calendar__today;
 //
 $rac-calendar-size-0: 28px !default;
 $rac-calendar-offset-0: 2px !default;
 //
-$rac-calendar-body-background: unset !default;
-$rac-calendar-body-border: 0 !default;
-$rac-calendar-cell-padding-left: 0 !default;
-$rac-calendar-cell-padding-right: 0 !default;
 $rac-calendar-current-day-font-weight: $rac-primary-font-weight-4 !default;
 $rac-calendar-day-border-radius: $rac-calendar-size-0 / 2 !default;
-$rac-calendar-day-cursor: pointer !default;
 $rac-calendar-day-margin: 0 auto !default;
 $rac-calendar-day-no-user-select: true !default;
-$rac-calendar-day-width: $rac-calendar-size-0 !default;
-$rac-calendar-day-height: $rac-calendar-size-0 !default;
-$rac-calendar-day-line-height: $rac-calendar-size-0 !default;
 $rac-calendar-day-wrapper-padding-bottom: $rac-calendar-offset-0 !default;
 $rac-calendar-day-wrapper-padding-top: $rac-calendar-offset-0 !default;
 $rac-calendar-head-background: unset !default;

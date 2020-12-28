@@ -180,6 +180,11 @@ $rac-ps-list-cls: '#{$rac-list-cls}.ps'; // Perfect scrollbar plugin
 $rac-calendar-base-dialog-cls: rac-calendar-base-dialog;
 $rac-calendar-dialog-cls: rac-calendar-dialog;
 
+// @stable [29.12.2020]
+$rac-calendar-basic-day-cls: rac-calendar__basic-day;
+$rac-calendar-selected-day-cls: rac-calendar__selected-day;
+$rac-calendar-today-cls: rac-calendar__today;
+
 // @stable [26.03.2020]
 $rac-button-decorated-cls: rac-button-decorated;
 $rac-button-filled-cls: rac-button-filled;

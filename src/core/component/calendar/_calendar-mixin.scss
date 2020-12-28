@@ -1,0 +1,134 @@
+@import '../_core-mixin';
+@import '../grid/_grid-mixin';
+
+// @stable [29.12.2020]
+@mixin rac-calendar (
+  $rac-calendar-custom: unset,
+  /**/
+  $rac-calendar-body-background: unset,                                                       /* @stable [29.12.2020] */
+  $rac-calendar-body-border-bottom: unset,                                                    /* @stable [29.12.2020] */
+  $rac-calendar-body-border: unset,                                                           /* @stable [29.12.2020] */
+  $rac-calendar-border-bottom: unset,                                                         /* @stable [29.12.2020] */
+  $rac-calendar-cell-content-width: unset,                                                    /* @stable [29.12.2020] */
+  $rac-calendar-cell-padding-left: unset,                                                     /* @stable [29.12.2020] */
+  $rac-calendar-cell-padding-right: unset,                                                    /* @stable [29.12.2020] */
+  $rac-calendar-current-day-font-weight: unset,                               /* @stable [21.01.2020] */
+  $rac-calendar-day-border-radius: unset,                                                     /* @stable [29.12.2020] */
+  $rac-calendar-day-color: unset,                                                             /* @stable [29.12.2020] */
+  $rac-calendar-day-cursor: unset,                                                            /* @stable [29.12.2020] */
+  $rac-calendar-day-font-size: unset,                                         /* @stable [08.01.2020] */
+  $rac-calendar-day-height: unset,                                                            /* @stable [29.12.2020] */
+  $rac-calendar-day-line-height: unset,                                                       /* @stable [29.12.2020] */
+  $rac-calendar-day-margin: unset,                                            /* @stable [14.01.2020] */
+  $rac-calendar-day-no-user-select: unset,                                    /* @stable [14.01.2020] */
+  $rac-calendar-day-vertical-align: unset,
+  $rac-calendar-day-wrapper-padding-bottom: unset,                            /* @stable [14.01.2020] */
+  $rac-calendar-day-wrapper-padding-top: unset,                               /* @stable [14.01.2020] */
+  $rac-calendar-first-selected-day-border-radius: unset,                      /* @stable [21.01.2020] */
+  $rac-calendar-head-background: unset,                                                       /* @stable [29.12.2020] */
+  $rac-calendar-head-border-bottom: unset,                                                    /* @stable [29.12.2020] */
+  $rac-calendar-head-border-left: unset,                                                      /* @stable [29.12.2020] */
+  $rac-calendar-head-border-right: unset,                                                     /* @stable [29.12.2020] */
+  $rac-calendar-head-color: unset,                                                            /* @stable [29.12.2020] */
+  $rac-calendar-head-column-content-font-size: unset,                         /* @stable [14.01.2020] */
+  $rac-calendar-head-padding: unset,                                                          /* @stable [29.12.2020] */
+  $rac-calendar-last-selected-day-border-radius: unset,                       /* @stable [21.01.2020] */
+  $rac-calendar-margin: unset,                                                                /* @stable [29.12.2020] */
+  $rac-calendar-middle-selected-day-border-radius: unset,                     /* @stable [21.01.2020] */
+  $rac-calendar-middle-selected-day-width: unset,                             /* @stable [21.01.2020] */
+  $rac-calendar-selected-day-background: unset,                               /* @stable [07.01.2020] */
+  $rac-calendar-selected-day-color: unset,                                    /* @stable [14.01.2020] */
+  $rac-calendar-selected-day-width: unset,                                    /* @stable [21.01.2020] */
+  $rac-calendar-today-color: unset,                                           /* @stable [07.01.2020] */
+  $rac-calendar-width: unset                                                                  /* @stable [29.12.2020] */
+) {
+  $rac-calendar-cls: rac-cls2(rac-calendar, $rac-calendar-custom);
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-body-background: $rac-calendar-body-background,
+    $rac-grid-body-border-bottom: $rac-calendar-body-border-bottom,
+    $rac-grid-body-border: $rac-calendar-body-border,
+    $rac-grid-body-column-content-border-radius: $rac-calendar-day-border-radius,
+    $rac-grid-body-column-content-cursor: $rac-calendar-day-cursor,
+    $rac-grid-body-column-content-font-size: $rac-calendar-day-font-size,
+    $rac-grid-body-column-content-height: $rac-calendar-day-height,
+    $rac-grid-body-column-content-line-height: $rac-calendar-day-line-height,
+    $rac-grid-body-column-padding-bottom: $rac-calendar-day-wrapper-padding-bottom,
+    $rac-grid-body-column-padding-top: $rac-calendar-day-wrapper-padding-top,
+    $rac-grid-body-column-vertical-align: $rac-calendar-day-vertical-align,
+    $rac-grid-border-bottom: $rac-calendar-border-bottom,
+    $rac-grid-column-content-margin: $rac-calendar-day-margin,
+    $rac-grid-column-content-no-user-select: $rac-calendar-day-no-user-select,
+    $rac-grid-column-content-width: $rac-calendar-cell-content-width,
+    $rac-grid-column-padding-left: $rac-calendar-cell-padding-left,
+    $rac-grid-column-padding-right: $rac-calendar-cell-padding-right,
+    $rac-grid-head-background: $rac-calendar-head-background,
+    $rac-grid-head-border-bottom: $rac-calendar-head-border-bottom,
+    $rac-grid-head-border-left: $rac-calendar-head-border-left,
+    $rac-grid-head-border-right: $rac-calendar-head-border-right,
+    $rac-grid-head-color: $rac-calendar-head-color,
+    $rac-grid-head-column-content-font-size: $rac-calendar-head-column-content-font-size,
+    $rac-grid-head-padding: $rac-calendar-head-padding,
+    $rac-grid-margin: $rac-calendar-margin,
+    $rac-grid-width: $rac-calendar-width
+  );
+
+  // @stable [29.12.2020]
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: rac-not-cls($rac-calendar-selected-day-cls, $rac-calendar-basic-day-cls),
+    $rac-grid-body-column-content-color: $rac-calendar-day-color
+  );
+
+  // @stable [29.12.2020]
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: rac-not-cls($rac-calendar-today-cls, $rac-calendar-basic-day-cls),
+    $rac-grid-body-column-content-color: $rac-calendar-day-color
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: $rac-calendar-selected-day-cls,
+    $rac-grid-body-column-content-background: $rac-calendar-selected-day-background,
+    $rac-grid-body-column-content-width: $rac-calendar-selected-day-width
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: rac-not-cls($rac-calendar-today-cls, $rac-calendar-selected-day-cls),
+    $rac-grid-body-column-content-color: $rac-calendar-selected-day-color
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: $rac-calendar-middle-selected-day-cls,
+    $rac-grid-body-column-content-border-radius: $rac-calendar-middle-selected-day-border-radius,
+    $rac-grid-body-column-content-width: $rac-calendar-middle-selected-day-width
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: $rac-calendar-first-selected-day-cls,
+    $rac-grid-body-column-content-border-radius: $rac-calendar-first-selected-day-border-radius
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: $rac-calendar-last-selected-day-cls,
+    $rac-grid-body-column-content-border-radius: $rac-calendar-last-selected-day-border-radius
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: $rac-calendar-today-cls,
+    $rac-grid-body-column-content-color: $rac-calendar-today-color
+  );
+
+  @include rac-grid (
+    $rac-grid-custom: $rac-calendar-cls,
+    $rac-grid-column-custom: $rac-calendar-current-day-cls,
+    $rac-grid-body-column-content-font-weight: $rac-calendar-current-day-font-weight
+  );
+}

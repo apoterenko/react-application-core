@@ -1,6 +1,20 @@
 @import '../_primary-constant';
 @import '../_classes';
 
+// @stable [29.12.2020]
+$rac-primary-calendar-size-0: $rac-primary-size-6 !default;
+
+// @stable [29.12.2020]
+$rac-calendar-body-background: unset !default;
+$rac-calendar-body-border: 0 !default;
+$rac-calendar-cell-content-width: $rac-primary-calendar-size-0 !default;
+$rac-calendar-cell-padding-left: 0 !default;
+$rac-calendar-cell-padding-right: 0 !default;
+$rac-calendar-day-color: unset !default;
+$rac-calendar-day-cursor: pointer !default;
+$rac-calendar-day-height: $rac-primary-calendar-size-0 !default;
+$rac-calendar-day-line-height: $rac-primary-calendar-size-0 !default;
+
 /************************/
 /* @stable [25.03.2020] */
 /************************/
