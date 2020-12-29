@@ -67,7 +67,7 @@ export class GridRow extends GenericComponent<IGridRowProps> {
                 isOddHighlighted && GridClassesEnum.ROW_ODD,
                 isSelectable && GridClassesEnum.ROW_SELECTABLE,
                 originalProps.groupExpanded && 'rac-grid-row-group-expanded',
-                originalProps.total && 'rac-grid-row-total',
+                originalProps.total && GridClassesEnum.ROW_TOTAL,
                 partOfGroup && GridClassesEnum.ROW_PART_OF_GROUP,
                 ...isSelectable && (
                   selected

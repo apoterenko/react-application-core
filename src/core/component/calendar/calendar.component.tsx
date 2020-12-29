@@ -18,6 +18,10 @@ import {
   TypeUtils,
 } from '../../util';
 
+/**
+ * @component-impl
+ * @stable [29.12.2020]
+ */
 export class Calendar extends GenericComponent<ICalendarProps> {
 
   public static readonly defaultProps: ICalendarProps = {

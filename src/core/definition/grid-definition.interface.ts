@@ -323,5 +323,6 @@ export enum GridClassesEnum {
   ROW_PART_OF_GROUP = 'rac-grid-row-part-of-group',
   ROW_SELECTABLE = 'rac-grid-row-selectable',
   ROW_SELECTED = 'rac-grid-row-selected',
+  ROW_TOTAL = 'rac-grid-row-total',
   ROW_UNSELECTED = 'rac-grid-row-unselected',
 }
