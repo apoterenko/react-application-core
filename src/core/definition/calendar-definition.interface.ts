@@ -29,37 +29,37 @@ import {
 } from './date-definition.interface';
 
 /**
- * @generic-entity
- * @stable [04.01.2020]
+ * @presets-entity
+ * @stable [29.12.2020]
  */
-export interface IGenericCalendarEntity
-  extends ICalendarEntityWrapper<ICalendarEntity>,
-    ISelectedDaysWrapper<number[]>,
-    IShowOnlyCurrentDaysWrapper,
-    IGridConfigurationEntity {
-}
-
-/**
- * @behavioral-entity
- * @stable [04.01.2020]
- */
-export interface IBehavioralCalendarEntity
-  extends IIsFirstSelectedWrapper<ICalendarDayEntity>,
+export interface IPresetsCalendarEntity
+  extends ICalendarEntityWrapperEntity,
+    IGridConfigurationEntity,
+    IIsFirstSelectedWrapper<ICalendarDayEntity>,
     IIsLastSelectedWrapper<ICalendarDayEntity>,
     IIsMiddleSelectedWrapper<ICalendarDayEntity>,
     IIsSelectedWrapper<ICalendarDayEntity>,
     IOnSelectWrapper<ICalendarDayEntity>,
-    IRendererWrapper<ICalendarDayEntity> {
+    IRendererWrapper<ICalendarDayEntity>,
+    ISelectedDaysWrapper<number[]>,
+    IShowOnlyCurrentDaysWrapper {
+}
+
+/**
+ * @generic-entity
+ * @stable [29.12.2020]
+ */
+export interface IGenericCalendarEntity
+  extends IPresetsCalendarEntity {
 }
 
 /**
  * @props
- * @stable [03.01.2020]
+ * @stable [29.12.2020]
  */
 export interface ICalendarProps
   extends IGenericComponentProps,
-    IGenericCalendarEntity,
-    IBehavioralCalendarEntity {
+    IGenericCalendarEntity {
 }
 
 /**
@@ -95,6 +95,7 @@ export enum CalendarClassesEnum {
   BASIC_DAY = 'rac-calendar__basic-day',
   CALENDAR = 'rac-calendar',
   CURRENT_DAY = 'rac-calendar__current-day',
+  FIRST_SELECTED_DAY = 'rac-calendar__first-selected-day',
   LAST_SELECTED_DAY = 'rac-calendar__last-selected-day',
   MIDDLE_SELECTED_DAY = 'rac-calendar__middle-selected-day',
   SELECTED_DAY = 'rac-calendar__selected-day',
@@ -146,4 +147,12 @@ export interface ICalendarWeekEntity
 export interface ICalendarEntity
   extends IDaysWrapper<ICalendarWeekEntity[]>,
     IDaysLabelsWrapper<string[]> {
+}
+
+/**
+ * @wrapper-entity
+ * @stable [29.12.2020]
+ */
+export interface ICalendarEntityWrapperEntity
+  extends ICalendarEntityWrapper<ICalendarEntity> {
 }

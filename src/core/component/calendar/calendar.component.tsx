@@ -11,7 +11,7 @@ import {
   INITIAL_REDUX_LIST_ENTITY,
   IReduxListEntity,
 } from '../../definition';
-import { Grid } from '../grid';
+import { Grid } from '../grid/grid.component';
 import {
   CalcUtils,
   ClsUtils,
@@ -22,11 +22,10 @@ export class Calendar extends GenericComponent<ICalendarProps> {
 
   public static readonly defaultProps: ICalendarProps = {
     showOnlyCurrentDays: false,
-    gridConfiguration: {},
   };
 
   /**
-   * @stable [27.12.2020]
+   * @stable [29.12.2020]
    * @param originalProps
    */
   constructor(originalProps: ICalendarProps) {
@@ -38,13 +37,16 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [27.12.2020]
+   * @stable [29.12.2020]
    */
   public render(): JSX.Element {
     const {
       className,
-      gridConfiguration,
+      gridConfiguration = {},
     } = this.originalProps;
+    const {
+      itemConfiguration,
+    } = gridConfiguration;
 
     const $calendarEntity = this.calendarEntity;
     const listEntity: IReduxListEntity = {
@@ -59,9 +61,10 @@ export class Calendar extends GenericComponent<ICalendarProps> {
           align: 'center',
           columnClassName: this.getColumnClassName,
           index,
-          onColumnContentClick: this.onClick,
           renderer: this.getCellElement,
           title: day,
+          /**/
+          onColumnContentClick: this.onClick,
         }
       ));
 
@@ -70,7 +73,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
         headerRendered={false}
         {...gridConfiguration}
         itemConfiguration={{
-          ...gridConfiguration.itemConfiguration,
+          ...itemConfiguration,
           highlightOdd: false,
           hovered: false,
         }}
@@ -78,6 +81,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
         className={
           ClsUtils.joinClassName(
             CalendarClassesEnum.CALENDAR,
+            CalcUtils.calc(gridConfiguration.className),
             CalcUtils.calc(className)
           )
         }
@@ -103,7 +107,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
       entity.today && CalendarClassesEnum.TODAY,
       isDaySelected && CalendarClassesEnum.SELECTED_DAY,
       !isDaySelected && !entity.today && CalendarClassesEnum.BASIC_DAY,
-      isFirstSelectedDay && 'rac-calendar__first-selected-day',
+      isFirstSelectedDay && CalendarClassesEnum.FIRST_SELECTED_DAY,
       isMiddleSelectedDay && CalendarClassesEnum.MIDDLE_SELECTED_DAY,
       isLastSelectedDay && CalendarClassesEnum.LAST_SELECTED_DAY
     );
@@ -139,29 +143,35 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [21.01.2020]
-   * @param {ICalendarDayEntity} entity
-   * @returns {boolean}
+   * @stable [29.12.2020]
+   * @param entity
+   * @private
    */
   private isLastSelectedDay(entity: ICalendarDayEntity): boolean {
-    const {isLastSelected} = this.props;
+    const {
+      isLastSelected,
+    } = this.originalProps;
+
     return TypeUtils.isFn(isLastSelected) && isLastSelected(entity);
   }
 
   /**
-   * @stable [07.03.2020]
-   * @param {ICalendarDayEntity} entity
-   * @returns {boolean}
+   * @stable [29.12.2020]
+   * @param entity
+   * @private
    */
   private isMiddleSelectedDay(entity: ICalendarDayEntity): boolean {
-    const {isMiddleSelected} = this.props;
+    const {
+      isMiddleSelected,
+    } = this.originalProps;
+
     return TypeUtils.isFn(isMiddleSelected)
       ? isMiddleSelected(entity)
       : (!this.isFirstSelectedDay(entity) && !this.isLastSelectedDay(entity));
   }
 
   /**
-   * @stable [27.12.2020]
+   * @stable [29.12.2020]
    * @param item
    * @param column
    * @private
@@ -188,7 +198,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [27.12.2020]
+   * @stable [29.12.2020]
    * @param payload
    * @private
    */
@@ -203,7 +213,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [27.12.2020]
+   * @stable [29.12.2020]
    * @param payload
    * @private
    */
@@ -212,7 +222,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [27.12.2020]
+   * @stable [29.12.2020]
    * @private
    */
   private get calendarEntity(): ICalendarEntity {
