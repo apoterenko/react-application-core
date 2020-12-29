@@ -69,7 +69,9 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
        * @stable [18.09.2020]
        */
       public render(): React.ReactNode {
-        const {error} = this.state;
+        const {
+          error,
+        } = this.state;
         if (error) {
           if (this.rootPathOfFirstStackItem) {
             return null;
@@ -83,9 +85,11 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
             return null;
           }
         } catch (e) {
+          // If componentDidCatch doesn't work
           ConnectorContainerFactory.logger.error(`[$ConnectorContainerFactory][render] Error:`, error);
 
-          return this.uiFactory.makeReactError(e);
+          this.setState({error: e});
+          return null;
         }
       }
 
