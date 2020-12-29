@@ -87,9 +87,9 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [04.01.2020]
-   * @param {IGridColumnProps<ICalendarDayEntity>} payload
-   * @returns {string}
+   * @stable [29.12.2020]
+   * @param payload
+   * @private
    */
   private getColumnClassName(payload: IGridColumnProps<ICalendarDayEntity>): string {
     const entity = this.asCalendarDayEntity(payload);
@@ -99,35 +99,42 @@ export class Calendar extends GenericComponent<ICalendarProps> {
     const isMiddleSelectedDay = this.isMiddleSelectedDay(entity);
 
     return ClsUtils.joinClassName(
-      entity.current && 'rac-calendar__current-day',
-      entity.today && 'rac-calendar__today',
-      isDaySelected && 'rac-calendar__selected-day',
-      !isDaySelected && !entity.today && 'rac-calendar__basic-day',
+      entity.current && CalendarClassesEnum.CURRENT_DAY,
+      entity.today && CalendarClassesEnum.TODAY,
+      isDaySelected && CalendarClassesEnum.SELECTED_DAY,
+      !isDaySelected && !entity.today && CalendarClassesEnum.BASIC_DAY,
       isFirstSelectedDay && 'rac-calendar__first-selected-day',
-      isMiddleSelectedDay && 'rac-calendar__middle-selected-day',
-      isLastSelectedDay && 'rac-calendar__last-selected-day'
+      isMiddleSelectedDay && CalendarClassesEnum.MIDDLE_SELECTED_DAY,
+      isLastSelectedDay && CalendarClassesEnum.LAST_SELECTED_DAY
     );
   }
 
   /**
-   * @stable [07.01.2020]
-   * @param {ICalendarDayEntity} entity
-   * @returns {boolean}
+   * @stable [29.12.2020]
+   * @param entity
+   * @private
    */
   private isDaySelected(entity: ICalendarDayEntity): boolean {
-    const {isSelected, selectedDays = []} = this.props;
+    const {
+      isSelected,
+      selectedDays = [],
+    } = this.originalProps;
+
     return TypeUtils.isFn(isSelected)
       ? isSelected(entity)
       : selectedDays.includes(entity.day) && entity.current;
   }
 
   /**
-   * @stable [21.01.2020]
-   * @param {ICalendarDayEntity} entity
-   * @returns {boolean}
+   * @stable [29.12.2020]
+   * @param entity
+   * @private
    */
   private isFirstSelectedDay(entity: ICalendarDayEntity): boolean {
-    const {isFirstSelected} = this.props;
+    const {
+      isFirstSelected,
+    } = this.originalProps;
+
     return TypeUtils.isFn(isFirstSelected) && isFirstSelected(entity);
   }
 

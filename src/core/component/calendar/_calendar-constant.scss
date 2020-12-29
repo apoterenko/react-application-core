@@ -3,6 +3,8 @@
 
 // @stable [29.12.2020]
 $rac-primary-calendar-size-0: $rac-primary-size-6 !default;
+//
+$rac-primary-calendar-offset-0: 2px !default;
 
 // @stable [29.12.2020]
 $rac-calendar-body-background: unset !default;
@@ -12,17 +14,21 @@ $rac-calendar-cell-content-no-user-select: true !default;
 $rac-calendar-cell-content-width: $rac-primary-calendar-size-0 !default;
 $rac-calendar-cell-padding-left: 0 !default;
 $rac-calendar-cell-padding-right: 0 !default;
+$rac-calendar-current-day-font-weight: $rac-primary-font-weight-4 !default;
+$rac-calendar-day-border-radius: $rac-primary-calendar-size-0 / 2 !default;
 $rac-calendar-day-color: unset !default;
 $rac-calendar-day-cursor: pointer !default;
 $rac-calendar-day-height: $rac-primary-calendar-size-0 !default;
 $rac-calendar-day-line-height: $rac-primary-calendar-size-0 !default;
+$rac-calendar-day-wrapper-padding-bottom: $rac-primary-calendar-offset-0 !default;
+$rac-calendar-day-wrapper-padding-top: $rac-primary-calendar-offset-0 !default;
+$rac-calendar-day-wrapper-vertical-align: unset !default;
+$rac-calendar-head-background: unset !default;
+$rac-calendar-margin: 0 auto !default;
+$rac-calendar-selected-day-background: $rac-primary-color-ganymede-0 !default;
+$rac-calendar-today-color: $rac-primary-color-dia-0 !default;
 
 /************************/
 /* @stable [25.03.2020] */
 /************************/
 $rac-calendar-dialog-footer-input-width: 148px !default;
-
-/************************/
-/* @stable [19.05.2020] */
-/************************/
-$rac-calendar-selected-day-background: $rac-primary-color-ganymede-0 !default;

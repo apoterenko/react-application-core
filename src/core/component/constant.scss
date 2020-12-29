@@ -269,20 +269,3 @@ $rac-google-maps-position: relative !default;
 
 //
 $rac-cron-days-cls: rac-cron-days;
-
-//
-$rac-calendar-current-day-cls: rac-calendar__current-day;
-$rac-calendar-first-selected-day-cls: rac-calendar__first-selected-day;
-$rac-calendar-last-selected-day-cls: rac-calendar__last-selected-day;
-$rac-calendar-middle-selected-day-cls: rac-calendar__middle-selected-day;
-//
-$rac-calendar-size-0: 28px !default;
-$rac-calendar-offset-0: 2px !default;
-//
-$rac-calendar-current-day-font-weight: $rac-primary-font-weight-4 !default;
-$rac-calendar-day-border-radius: $rac-calendar-size-0 / 2 !default;
-$rac-calendar-day-wrapper-padding-bottom: $rac-calendar-offset-0 !default;
-$rac-calendar-day-wrapper-padding-top: $rac-calendar-offset-0 !default;
-$rac-calendar-head-background: unset !default;
-$rac-calendar-margin: 0 auto !default;
-$rac-calendar-today-color: $rac-primary-color-dia-0 !default;

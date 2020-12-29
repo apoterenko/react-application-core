@@ -92,7 +92,13 @@ export interface ICalendarEntityConfigurationEntity
  * @stable [27.12.2020]
  */
 export enum CalendarClassesEnum {
+  BASIC_DAY = 'rac-calendar__basic-day',
   CALENDAR = 'rac-calendar',
+  CURRENT_DAY = 'rac-calendar__current-day',
+  LAST_SELECTED_DAY = 'rac-calendar__last-selected-day',
+  MIDDLE_SELECTED_DAY = 'rac-calendar__middle-selected-day',
+  SELECTED_DAY = 'rac-calendar__selected-day',
+  TODAY = 'rac-calendar__today',
 }
 
 /**
