@@ -54,6 +54,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @component-impl
 
+* [Calendar (29.12.2020)](src/core/component/calendar/calendar.component.tsx)
 * [Chart (18.12.2020)](src/core/component/chart/chart.component.tsx)
 * [Chip (02.06.2020)](src/core/component/chip/chip.component.tsx)
 * [ChipsField (16.06.2020)](src/core/component/field/chips-field/chips-field.component.tsx)
