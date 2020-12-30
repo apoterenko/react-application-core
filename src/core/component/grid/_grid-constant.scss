@@ -9,6 +9,7 @@ $rac-primary-grid-size-0: 1px !default;
 // @stable [12.12.2020]
 $rac-grid-active-sort-action-background: $rac-primary-color-ganymede-0 !default;                                               // @stable [12.12.2020]
 $rac-grid-active-sort-action-color: $rac-primary-color-poseidon-0 !default;                                                    // @stable [12.12.2020]
+$rac-grid-body-column-content-position: unset !default;                                                                        // @stable [30.12.2020]
 $rac-grid-column-content-extra-actions-neighbor-child-margin: 0 0 0 $rac-primary-offset-1 !default;                            // @stable [12.12.2020]
 $rac-grid-column-content-extra-actions-position: absolute !default;                                                            // @stable [12.12.2020]
 $rac-grid-column-content-extra-actions-top: $rac-primary-offset-1 !default;                                                    // @stable [12.12.2020]
@@ -21,6 +22,10 @@ $rac-grid-extra-action-content-opacity: unset !default;                         
 $rac-grid-extra-action-content-size: $rac-primary-size-1 !default;                                                             // @stable [12.12.2020]
 $rac-grid-head-column-actionable-content-flex-direction: unset !default;                                                       // @stable [12.12.2020]
 $rac-grid-head-column-actionable-content-margin: $rac-primary-offset-5 0 0 0 !default;                                         // @stable [12.12.2020]
+$rac-grid-row-total-background: $rac-primary-color-metis-1-5 !default;                                                         // @stable [30.12.2020]
+$rac-grid-row-total-border-left: unset !default;                                                                               // @stable [30.12.2020]
+$rac-grid-row-total-border-right: unset !default;                                                                              // @stable [30.12.2020]
+$rac-grid-row-total-column-content-font-weight: $rac-primary-font-weight-4 !default;                                           // @stable [30.12.2020]
 
 // @stable [18.07.2020]
 $rac-grid-body-background: unset !default;                                                                                     // @stable [19.07.2020]
