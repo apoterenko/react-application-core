@@ -14,6 +14,8 @@ $rac-grid-column-content-extra-actions-neighbor-child-margin: 0 0 0 $rac-primary
 $rac-grid-column-content-extra-actions-position: absolute !default;                                                            // @stable [12.12.2020]
 $rac-grid-column-content-extra-actions-top: $rac-primary-offset-1 !default;                                                    // @stable [12.12.2020]
 $rac-grid-column-content-extra-actions-white-space: nowrap !default;                                                           // @stable [12.12.2020]
+$rac-grid-column-overflow: hidden !default;                                                                                    // @stable [30.12.2020]
+$rac-grid-cursor: default !default;                                                                                            // @stable [30.12.2020]
 $rac-grid-display: flex !default;                                                                                              // @stable [12.12.2020]
 $rac-grid-extra-action-background: $rac-primary-color-elara-3 !default;                                                        // @stable [12.12.2020]
 $rac-grid-extra-action-border-radius: 50% !default;                                                                            // @stable [12.12.2020]
