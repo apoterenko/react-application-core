@@ -252,8 +252,8 @@
   $rac-grid-column-padding-left: unset,                                               /* @stable [21.10.2019] */
   $rac-grid-column-padding-right: unset,                                              /* @stable [21.10.2019] */
   $rac-grid-column-padding-top: unset,                                                /* @stable [21.10.2019] */
-  $rac-grid-column-padding: unset,
-  $rac-grid-column-position: unset,
+  $rac-grid-column-padding: unset,                                                            /* @stable [30.12.2020] */
+  $rac-grid-column-position: unset,                                                           /* @stable [30.12.2020] */
   $rac-grid-column-text-align: unset,                                                 /* @stable [21.10.2019] */
   $rac-grid-column-vertical-align: unset,                                                     /* @stable [30.12.2020] */
   $rac-grid-column-white-space: unset,                                                /* @stable [21.10.2019] */
@@ -436,18 +436,15 @@
   $rac-grid-body-column-content-width: unset,                                                 /* @stable [30.12.2020] */
   $rac-grid-body-column-padding-bottom: unset,                                                /* @stable [29.12.2020] */
   $rac-grid-body-column-padding-top: unset,                                                   /* @stable [29.12.2020] */
-  $rac-grid-body-column-position: unset,                                          /* @stable [13.11.2019] */
   $rac-grid-body-column-vertical-align: unset,                                                /* @stable [29.12.2020] */
   $rac-grid-body-overflow: unset,                                                             /* @stable [21.07.2020] */
   $rac-grid-body-padding: unset,                                                              /* @stable [21.07.2020] */
-  $rac-grid-body-row-border-bottom: unset,                                        /* @stable [22.10.2019] */
   $rac-grid-body-row-box-sizing: unset,                                           /* @stable [11.11.2019] */
   $rac-grid-body-row-hover-background: unset,                                                 /* @stable [19.07.2020] */
   $rac-grid-body-row-part-of-group-border-top: unset,                                         /* @stable [20.07.2020] */
   $rac-grid-border-bottom: unset,                                                             /* @stable [30.12.2020] */
   $rac-grid-border-collapse: unset,                                                           /* @stable [21.07.2020] */
   $rac-grid-border-spacing: unset,                                                /* @stable [26.10.2019] */
-  $rac-grid-color: unset,                                                                     /* @stable [19.07.2020] */
   $rac-grid-column-background: unset,                                             /* @stable [21.10.2019] */
   $rac-grid-column-border-radius: unset,                                          /* @stable [21.10.2019] */
   $rac-grid-column-content-action-icon-color: unset,                                          /* @stable [19.07.2020] */
@@ -501,8 +498,8 @@
   $rac-grid-column-overflow: unset,                                                           /* @stable [30.12.2020] */
   $rac-grid-column-padding-left: unset,                                           /* @stable [21.10.2019] */
   $rac-grid-column-padding-right: unset,                                          /* @stable [21.10.2019] */
-  $rac-grid-column-padding: unset,                                                /* @stable [21.10.2019] */
-  $rac-grid-column-position: unset,                                               /* @stable [21.10.2019] */
+  $rac-grid-column-padding: unset,                                                            /* @stable [30.12.2020] */
+  $rac-grid-column-position: unset,                                                           /* @stable [30.12.2020] */
   $rac-grid-column-width: unset,                                                  /* @stable [22.10.2019] */
   $rac-grid-cursor: unset,                                                                    /* @stable [30.12.2020] */
   $rac-grid-display: unset,                                                       /* @stable [21.10.2019] */
@@ -585,7 +582,6 @@
       $rac-styles-border-bottom: $rac-grid-border-bottom,
       $rac-styles-border-collapse: $rac-grid-border-collapse,
       $rac-styles-border-spacing: $rac-grid-border-spacing,
-      $rac-styles-color: $rac-grid-color,
       $rac-styles-cursor: $rac-grid-cursor,
       $rac-styles-display: $rac-grid-display,
       $rac-styles-flex-direction: $rac-grid-flex-direction,
@@ -805,7 +801,6 @@
       > {
         @include rac-grid-row (
           $rac-grid-row-custom: $rac-grid-row-custom,
-          $rac-grid-row-border-bottom: $rac-grid-body-row-border-bottom,
           $rac-grid-row-box-sizing: $rac-grid-body-row-box-sizing,
           $rac-grid-row-hover-background: $rac-grid-body-row-hover-background
         );
@@ -831,7 +826,6 @@
         $rac-grid-column-content-width: $rac-grid-body-column-content-width,
         $rac-grid-column-padding-bottom: $rac-grid-body-column-padding-bottom,
         $rac-grid-column-padding-top: $rac-grid-body-column-padding-top,
-        $rac-grid-column-position: $rac-grid-body-column-position,
         $rac-grid-column-vertical-align: $rac-grid-body-column-vertical-align
       );
     }
