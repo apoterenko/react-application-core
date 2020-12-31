@@ -175,13 +175,13 @@ export class Grid extends BaseList<IGridProps, IGridState> {
   }
 
   /**
-   * @stable - 06.04.2018
-   * @param {IGridColumnProps} column
-   * @param {number} columnNum
-   * @returns {React.ReactNode}
+   * @stable [31.12.2020]
+   * @param column
+   * @param columnNum
+   * @private
    */
   private getHeaderColumnContent(column: IGridColumnProps, columnNum: number): React.ReactNode {
-    if (isFn(column.headerRenderer)) {
+    if (TypeUtils.isFn(column.headerRenderer)) {
       return column.headerRenderer(column);
     }
     return this.t(column.title as string);

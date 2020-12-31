@@ -1176,18 +1176,19 @@ export class DateConverter implements IDateConverter<MomentT> {
 
   /**
    * @stable [03.01.2020]
-   * @param {IDateTimeConfigEntity} cfg
+   * @param {IDateTimeConfigEntity} $cfg
    * @returns {ICalendarEntity}
    */
-  public asCalendar(cfg?: ICalendarConfigEntity): ICalendarEntity {
-    const syntheticCalendar = cfg?.useSyntheticCalendar === true;
-    cfg = {
-      isoWeek: syntheticCalendar || this.isIsoWeek,
-      ...cfg,
+  public asCalendar($cfg?: ICalendarConfigEntity): ICalendarEntity {
+    const useSyntheticCalendar = $cfg?.useSyntheticCalendar === true;
+
+    const cfg: IDateTimeConfigEntity<MomentT> = {
+      ...$cfg,
+      isoWeek: useSyntheticCalendar || NvlUtils.nvl($cfg?.isoWeek, this.isIsoWeek),
       ...(
-        syntheticCalendar
-          ? ({date: new Date('01/01/1900')})
-          : ({})  // The date "01/01/1900" starts on Monday.
+        useSyntheticCalendar
+          ? TypeUtils.asType<IDateTimeConfigEntity<MomentT>>({date: new Date('01/01/1900')})  // The date "01/01/1900" starts on Monday.
+          : ({})
       ),
     };
     const {
@@ -1276,6 +1277,7 @@ export class DateConverter implements IDateConverter<MomentT> {
     }
 
     return {
+      isoWeek,
       ...result,
       days: [
         ...(truncateFirstWeek ? [] : [days[0]]),

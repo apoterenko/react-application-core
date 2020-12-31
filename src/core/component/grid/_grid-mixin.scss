@@ -236,7 +236,6 @@
   $rac-grid-column-icon-content-size: unset,
   $rac-grid-column-icon-content-width: unset,
   $rac-grid-column-icon-height: unset,                                                /* @stable [26.10.2019] */
-  $rac-grid-column-icon-line-height: unset,
   $rac-grid-column-icon-margin: unset,
   $rac-grid-column-icon-size: unset,                                                  /* @stable [26.10.2019] */
   $rac-grid-column-icon-vertical-align: unset,                                        /* @stable [21.10.2019] */
@@ -341,7 +340,6 @@
       $rac-icon-content-size: $rac-grid-column-icon-content-size,
       $rac-icon-content-width: $rac-grid-column-icon-content-width,
       $rac-icon-height: $rac-grid-column-icon-height,
-      $rac-icon-line-height: $rac-grid-column-icon-line-height,
       $rac-icon-margin: $rac-grid-column-icon-margin,
       $rac-icon-size: $rac-grid-column-icon-size,
       $rac-icon-vertical-align: $rac-grid-column-icon-vertical-align,
@@ -471,7 +469,7 @@
   $rac-grid-column-content-margin: unset,                                                     /* @stable [30.12.2020] */
   $rac-grid-column-content-no-user-select: unset,                                             /* @stable [30.12.2020] */
   $rac-grid-column-content-text-align: unset,                                     /* @stable [22.10.2019] */
-  $rac-grid-column-content-width: unset,                                          /* @stable [04.01.2020] */
+  $rac-grid-column-content-width: unset,                                                      /* @stable [31.12.2020] */
   $rac-grid-column-edited-content-after-color: unset,                                         /* @stable [08.12.2020] */
   $rac-grid-column-edited-content-after-content: unset,                                       /* @stable [08.12.2020] */
   $rac-grid-column-edited-content-after-font-size: unset,                                     /* @stable [08.12.2020] */
@@ -528,7 +526,6 @@
   $rac-grid-height: unset,                                                        /* @stable [18.10.2019] */
   $rac-grid-margin: unset,                                                        /* @stable [18.10.2019] */
   $rac-grid-padding: unset,                                                       /* @stable [18.10.2019] */
-  $rac-grid-position: unset,                                                      /* @stable [18.10.2019] */
   $rac-grid-row-display: unset,                                                   /* @stable [18.10.2019] */
   $rac-grid-row-group-expanded-background: unset,                                 /* @stable [22.10.2019] */
   $rac-grid-row-group-font-weight: unset,                                                     /* @stable [19.07.2020] */
@@ -572,7 +569,6 @@
       $rac-styles-height: $rac-grid-height,
       $rac-styles-margin: $rac-grid-margin,
       $rac-styles-padding: $rac-grid-padding,
-      $rac-styles-position: $rac-grid-position,
       $rac-styles-table-layout: $rac-grid-table-layout,
       $rac-styles-width: $rac-grid-width
     );

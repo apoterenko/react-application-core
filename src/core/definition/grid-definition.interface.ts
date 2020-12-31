@@ -112,12 +112,14 @@ export interface IPresetsGridColumnEntity<
     IHeaderClassNameWrapper<string | ((props: TProps) => string)>,                                           /* @stable [12.12.2020] */
     IHeaderColSpanWrapper,                                                                                   /* @stable [09.12.2020] */
     IHeaderColumnClassNameWrapper<string | ((props: TProps) => string)>,                                     /* @stable [12.12.2020] */
+    IHeaderRendererWrapper<TProps>,                                                                          /* @stable [31.12.2020] */
     IHeaderStyleWrapper<React.CSSProperties| ((props: TProps) => React.CSSProperties)>,                      /* @stable [08.12.2020] */
     IHeaderWidthWrapper<CSS.WidthProperty<StringNumberT>>,                                                   /* @stable [08.12.2020] */
     IHintWrapper,                                                                                            /* @stable [08.12.2020] */
     IIndexedWrapper,                                                                                         /* @stable [08.12.2020] */
     IIndexWrapper,                                                                                           /* @stable [08.12.2020] */
     IOnCloseWrapper,                                                                                         /* @stable [09.12.2020] */
+    IRendererWrapper<TEntity, TProps, TEntity[]>,                                                            /* @stable [31.12.2020] */
     IWidthWrapper<CSS.WidthProperty<StringNumberT>> {                                                        /* @stable [08.12.2020] */
 }
 
@@ -145,7 +147,7 @@ export interface IGenericGridColumnEntity<
  * @stable [18.10.2019]
  */
 export interface IGridColumnProps<
-    TEntity extends IEntity = IEntity,
+    TEntity = IEntity,
     TProps extends IGridColumnProps<TEntity, {}> = IGridColumnProps<TEntity, {}>
   >
   extends IGenericComponentProps,
@@ -155,8 +157,6 @@ export interface IGridColumnProps<
     IOnColumnContentClickWrapper<IGridColumnProps<TEntity>>,
     ISorterWrapper<TEntity>,
     IFilterRendererWrapper<IGridColumnProps<TEntity>>,
-    IHeaderRendererWrapper<IGridColumnProps<TEntity>>,
-    IRendererWrapper<TEntity, IGridColumnProps<TEntity>, TEntity[]>,
     /**/
     ILocalFilterWrapper<IGridFilterConfigEntity>,
     ITplWrapper<TEntity, IGridColumnProps<TEntity>, number> {

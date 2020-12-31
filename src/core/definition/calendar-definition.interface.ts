@@ -8,9 +8,11 @@ import {
   IDaysLabelsWrapper,
   IDaysWrapper,
   IEntityIdTWrapper,
+  IHeaderRendererWrapper,
   IIsFirstSelectedWrapper,
   IIsLastSelectedWrapper,
   IIsMiddleSelectedWrapper,
+  IIsoWeekWrapper,
   IIsSelectedWrapper,
   INextWrapper,
   IOnSelectWrapper,
@@ -40,6 +42,7 @@ export interface IPresetsCalendarEntity
     IIsMiddleSelectedWrapper<ICalendarDayEntity>,
     IIsSelectedWrapper<ICalendarDayEntity>,
     IOnSelectWrapper<ICalendarDayEntity>,
+    IHeaderRendererWrapper<number>,
     IRendererWrapper<ICalendarDayEntity>,
     ISelectedDaysWrapper<number[]>,
     IShowOnlyCurrentDaysWrapper {
@@ -145,8 +148,9 @@ export interface ICalendarWeekEntity
  * @stable [03.01.2020]
  */
 export interface ICalendarEntity
-  extends IDaysWrapper<ICalendarWeekEntity[]>,
-    IDaysLabelsWrapper<string[]> {
+  extends IDaysLabelsWrapper<string[]>,
+    IDaysWrapper<ICalendarWeekEntity[]>,
+    IIsoWeekWrapper {
 }
 
 /**

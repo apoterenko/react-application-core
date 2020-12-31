@@ -60,15 +60,15 @@ export class Calendar extends GenericComponent<ICalendarProps> {
 
     const columns = $calendarEntity
       .daysLabels
-      .map((day, index): IGridColumnProps => (
+      .map((day, index): IGridColumnProps<ICalendarWeekEntity> => (
         {
           align: 'center',
           columnClassName: this.getColumnClassName,
+          headerRenderer: (column) => this.getTitleElement($calendarEntity, column),
           index,
+          onColumnContentClick: this.onClick,
           renderer: this.getCellElement,
           title: day,
-          /**/
-          onColumnContentClick: this.onClick,
         }
       ));
 
@@ -99,7 +99,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
    * @param payload
    * @private
    */
-  private getColumnClassName(payload: IGridColumnProps<ICalendarDayEntity>): string {
+  private getColumnClassName(payload: IGridColumnProps<ICalendarWeekEntity>): string {
     const entity = this.asCalendarDayEntity(payload);
     const isDaySelected = this.isDaySelected(entity);
     const isFirstSelectedDay = this.isFirstSelectedDay(entity);
@@ -175,30 +175,50 @@ export class Calendar extends GenericComponent<ICalendarProps> {
   }
 
   /**
-   * @stable [29.12.2020]
+   * @stable [31.12.2020]
    * @param item
    * @param column
    * @private
    */
-  private getCellElement(item: ICalendarWeekEntity, column: IGridColumnProps<ICalendarDayEntity>): JSX.Element {
+  private getCellElement(item: ICalendarWeekEntity, column: IGridColumnProps<ICalendarWeekEntity>): JSX.Element {
     const {
       renderer,
       showOnlyCurrentDays,
     } = this.originalProps;
 
-    const weekDayEntity = item[column.index];
+    const dayEntity = item[column.index];
 
-    if (showOnlyCurrentDays && !weekDayEntity.current) {
+    if (showOnlyCurrentDays && !dayEntity.current) {
       return null;
     }
     if (TypeUtils.isFn(renderer)) {
-      return renderer(weekDayEntity);
+      return renderer(dayEntity);
     }
     return (
       <React.Fragment>
-        {weekDayEntity.date.getDate()}
+        {dayEntity.date.getDate()}
       </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [31.12.2020]
+   * @param calendarEntity
+   * @param column
+   * @private
+   */
+  private getTitleElement(calendarEntity: ICalendarEntity, column: IGridColumnProps<ICalendarWeekEntity>): React.ReactNode {
+    const {
+      headerRenderer,
+    } = this.originalProps;
+    const {
+      index,
+    } = column;
+
+    if (TypeUtils.isFn(headerRenderer)) {
+      return headerRenderer(index);
+    }
+    return calendarEntity.daysLabels[index];
   }
 
   /**
@@ -206,7 +226,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
    * @param payload
    * @private
    */
-  private onClick(payload: IGridColumnProps): void {
+  private onClick(payload: IGridColumnProps<ICalendarWeekEntity>): void {
     const {
       onSelect,
     } = this.originalProps;
@@ -221,7 +241,7 @@ export class Calendar extends GenericComponent<ICalendarProps> {
    * @param payload
    * @private
    */
-  private asCalendarDayEntity(payload: IGridColumnProps): ICalendarDayEntity {
+  private asCalendarDayEntity(payload: IGridColumnProps<ICalendarWeekEntity>): ICalendarDayEntity {
     return payload.entity[payload.index];
   }
 
