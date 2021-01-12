@@ -3,6 +3,8 @@
 
 // @stable [18.07.2020]
 $rac-primary-grid-color-0: $rac-primary-color-metis-05-3 !default;
+$rac-primary-grid-color-1: $rac-primary-color-poseidon-0 !default;
+$rac-primary-grid-color-2: $rac-primary-color-metis-3 !default;
 /**/
 $rac-primary-grid-size-0: 1px !default;
 /**/
@@ -10,15 +12,18 @@ $rac-primary-grid-offset-0: $rac-primary-offset-1 !default;
 
 // @stable [12.12.2020]
 $rac-grid-active-sort-action-background: $rac-primary-color-ganymede-0 !default;                                               // @stable [12.12.2020]
-$rac-grid-active-sort-action-color: $rac-primary-color-poseidon-0 !default;                                                    // @stable [12.12.2020]
+$rac-grid-active-sort-action-color: $rac-primary-grid-color-1 !default;                                                        // @stable [12.12.2020]
 $rac-grid-body-column-content-position: unset !default;                                                                        // @stable [30.12.2020]
 $rac-grid-body-column-padding-bottom: $rac-primary-grid-offset-0 !default;                                                     // @stable [30.12.2020]
 $rac-grid-body-column-padding-top: $rac-primary-grid-offset-0 !default;                                                        // @stable [30.12.2020]
+$rac-grid-column-content-action-icon-color: $rac-primary-grid-color-2 !default;                                                // @stable [30.12.2020]
+$rac-grid-column-content-button-icon-color: $rac-primary-grid-color-2 !default;                                                // @stable [30.12.2020]
 $rac-grid-column-content-display: $rac-primary-display-0 !default;                                                             // @stable [30.12.2020]
 $rac-grid-column-content-extra-actions-neighbor-child-margin: 0 0 0 $rac-primary-offset-1 !default;                            // @stable [12.12.2020]
 $rac-grid-column-content-extra-actions-position: absolute !default;                                                            // @stable [12.12.2020]
 $rac-grid-column-content-extra-actions-top: $rac-primary-offset-1 !default;                                                    // @stable [12.12.2020]
 $rac-grid-column-content-extra-actions-white-space: nowrap !default;                                                           // @stable [12.12.2020]
+$rac-grid-column-content-flex-direction: $rac-primary-flex-direction-0 !default;                                               // @stable [30.12.2020]
 $rac-grid-column-overflow: hidden !default;                                                                                    // @stable [30.12.2020]
 $rac-grid-column-position: relative !default;                                                                                  // @stable [30ю12.2020]
 $rac-grid-cursor: default !default;                                                                                            // @stable [30.12.2020]
@@ -29,9 +34,14 @@ $rac-grid-extra-action-color: $rac-primary-color-elara-5 !default;              
 $rac-grid-extra-action-content-opacity: unset !default;                                                                        // @stable [12.12.2020]
 $rac-grid-extra-action-content-size: $rac-primary-size-1 !default;                                                             // @stable [12.12.2020]
 $rac-grid-flex-direction: $rac-primary-flex-direction-0 !default;                                                              // @stable [30.12.2020]
+$rac-grid-head-background: $rac-primary-grid-color-1 !default;                                                                 // @stable [31.12.2020]
+$rac-grid-head-border-left: 1px solid $rac-primary-grid-color-1 !default;                                                      // @stable [31.12.2020]
+$rac-grid-head-border-right: 1px solid $rac-primary-grid-color-1 !default;                                                     // @stable [31.12.2020]
 $rac-grid-head-box-sizing: border-box !default;                                                                                // @stable [30.12.2020]
 $rac-grid-head-column-actionable-content-flex-direction: unset !default;                                                       // @stable [12.12.2020]
 $rac-grid-head-column-actionable-content-margin: $rac-primary-offset-5 0 0 0 !default;                                         // @stable [12.12.2020]
+$rac-grid-head-column-content-white-space: unset !default;                                                                     // @stable [31.12.2020]
+$rac-grid-head-column-text-align: left !default;                                                                               // @stable [30.12.2020]
 $rac-grid-row-display: table !default;                                                                                         // @stable [30.12.2020]
 $rac-grid-row-table-layout: fixed !default;                                                                                    // @stable [30.12.2020]
 $rac-grid-row-total-background: $rac-primary-color-metis-1-5 !default;                                                         // @stable [30.12.2020]
@@ -58,7 +68,6 @@ $rac-grid-column-align-center-content-text-align: center !default;              
 $rac-grid-column-align-right-content-align-items: flex-end !default;                                                           // @stable [21.07.2020]
 $rac-grid-column-align-right-content-base-text-field-self-field-input-text-align: right !default;                              // @stable [21.07.2020]
 $rac-grid-column-align-right-content-text-align: right !default;                                                               // @stable [21.07.2020]
-$rac-grid-column-content-action-icon-color: $rac-primary-color-metis-3 !default;                                               // @stable [19.07.2020]
 $rac-grid-column-content-action-icon-content-size: $rac-primary-icon-size-2 !default;                                          // @stable [19.07.2020]
 $rac-grid-column-content-action-icon-size: $rac-primary-icon-size-6 !default;                                                  // @stable [19.07.2020]
 $rac-grid-column-content-base-text-field-self-field-icon-padding: 0 $rac-primary-offset-0 0 0 !default;                        // @stable [21.07.2020]
