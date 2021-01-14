@@ -988,11 +988,27 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [27.12.2020]
+   * @stable [14.01.2021]
    * @param cfg
    */
-  public getShortestWeekday(cfg: IDateTimeConfigEntity<MomentT>): string {
+  public getWeekday(cfg: IDateTimeConfigEntity<MomentT>): string {
+    return this.getWeekday(cfg)[cfg.index];
+  }
+
+  /**
+   * @stable [14.01.2021]
+   * @param cfg
+   */
+  public getWeekdayShortest(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.getWeekdaysShortest(cfg)[cfg.index];
+  }
+
+  /**
+   * @stable [14.01.2021]
+   * @param cfg
+   */
+  public getWeekdayShort(cfg: IDateTimeConfigEntity<MomentT>): string {
+    return this.getWeekdaysShort(cfg)[cfg.index];
   }
 
   /**

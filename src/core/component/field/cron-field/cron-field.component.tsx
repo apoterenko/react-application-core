@@ -202,7 +202,7 @@ export class CronField extends Field<ICronFieldProps> {
         {
           date
             ? date.getDate()
-            : this.dc.getShortestWeekday({index: day, isoWeek: this.isoWeek})
+            : this.dc.getWeekdayShortest({index: day, isoWeek: this.isoWeek})
         }
       </React.Fragment>
     );

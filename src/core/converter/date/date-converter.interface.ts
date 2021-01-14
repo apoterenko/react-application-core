@@ -84,8 +84,10 @@ export interface IDateConverter<TDate = Date> {
   fromUiDateToDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   getCalendarWeekEntity(cfg?: IDateTimeConfigEntity<TDate>): ICalendarWeekEntity;
   getCurrentDate(): Date;
-  getShortestWeekday(cfg: IDateTimeConfigEntity<TDate>): string;
+  getWeekday(cfg: IDateTimeConfigEntity<TDate>): string;
   getWeekdays(cfg?: IWeekConfigEntity): string[];
+  getWeekdayShort(cfg: IDateTimeConfigEntity<TDate>): string;
+  getWeekdayShortest(cfg: IDateTimeConfigEntity<TDate>): string;
   getWeekdaysShort(cfg?: IWeekConfigEntity): string[];
   getWeekdaysShortest(cfg?: IWeekConfigEntity): string[];
   isDateBelongToDatesRange(cfg: IMinMaxDatesRangeConfigEntity): boolean;
