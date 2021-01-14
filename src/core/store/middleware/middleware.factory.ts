@@ -35,6 +35,7 @@ export class MiddlewareFactories {
   public static readonly filterFormDialogResetMiddleware = FilterFormDialogMiddlewareFactories.filterFormDialogResetMiddleware;
   public static readonly lazyLoadedEntityMiddleware = makeLazyLoadedEntityMiddleware;
   public static readonly loadedListMiddleware = LoadedListMiddlewareFactories.loadedListMiddleware;
+  public static readonly loadedListOnFormValidMiddleware = LoadedListMiddlewareFactories.loadedListOnFormValidMiddleware;
   public static readonly loadedListOnNavigateToFirstPageMiddleware = makeLoadedListOnNavigateToFirstPageMiddleware;
   public static readonly loadedListOnNavigateToLastPageMiddleware = makeLoadedListOnNavigateToLastPageMiddleware;
   public static readonly loadedListOnNavigateToNextPageMiddleware = makeLoadedListOnNavigateToNextPageMiddleware;

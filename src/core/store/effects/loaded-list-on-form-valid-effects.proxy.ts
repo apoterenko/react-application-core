@@ -5,14 +5,13 @@ import {
 
 import { FormActionBuilder } from '../../action';
 import { ILoadedListOnFormValidMiddlewareConfigEntity } from '../../definition';
-import { makeLoadedListOnFormValidMiddleware } from '../middleware';
+import { MiddlewareFactories } from '../middleware';
 import { provideInSingleton } from '../../di';
 import { SectionUtils } from '../../util';
 
 /**
- * @stable [29.03.2020]
- * @param {ILoadedListOnFormValidMiddlewareConfigEntity<TState>} cfg
- * @returns {() => void}
+ * @stable [12.01.2021]
+ * @param cfg
  */
 export const makeLoadedListOnFormValidEffectsProxy =
   <TState = {}>(cfg: ILoadedListOnFormValidMiddlewareConfigEntity<TState>) => (
@@ -22,13 +21,13 @@ export const makeLoadedListOnFormValidEffectsProxy =
       class Effects {
 
         /**
-         * @stable [09.09.2020]
+         * @stable [12.01.2020]
          * @param action
          * @param state
          */
         @EffectsService.effects(FormActionBuilder.buildValidActionType(SectionUtils.asFormOrListSection(cfg)))
-        public $onFormValid = (action: IEffectsAction, state: TState): IEffectsAction =>
-          makeLoadedListOnFormValidMiddleware({...cfg, action, state})
+        public readonly $onFormValid = (action: IEffectsAction, state: TState): IEffectsAction =>
+          MiddlewareFactories.loadedListOnFormValidMiddleware({...cfg, action, state})
       }
     }
   );

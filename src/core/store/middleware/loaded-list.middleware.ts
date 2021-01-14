@@ -13,7 +13,7 @@ import {
   ConditionUtils,
   FilterUtils,
   SectionUtils,
-  selectValidFromAction,
+  Selectors,
   ValueUtils,
   WrapperUtils,
 } from '../../util';
@@ -27,13 +27,13 @@ const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddlewareConfigE
   ListActionBuilder.buildLoadAction(SectionUtils.asListSection(cfg));
 
 /**
- * @stable [09.09.2020]
+ * @stable [12.01.2021]
  * @param config
  */
-export const makeLoadedListOnFormValidMiddleware =
+const makeLoadedListOnFormValidMiddleware =
   <TState = {}>(config: ILoadedListOnFormValidMiddlewareConfigEntity<TState>): IEffectsAction =>
     ConditionUtils.orNull(
-      ValueUtils.isValueValid(selectValidFromAction(config.action)),
+      ValueUtils.isValueValid(Selectors.validFromAction(config.action)),
       () => makeLoadedListMiddleware(config)
     );
 
@@ -119,6 +119,7 @@ export const makeLoadedListOnNavigateToLastPageMiddleware =
  */
 export class LoadedListMiddlewareFactories {
   public static readonly loadedListMiddleware = makeLoadedListMiddleware;
+  public static readonly loadedListOnFormValidMiddleware = makeLoadedListOnFormValidMiddleware;
   public static readonly loadedListOnTabActivateMiddleware = makeLoadedListOnTabActivateMiddleware;
   public static readonly untouchedListMiddleware = makeUntouchedListMiddleware;
 }

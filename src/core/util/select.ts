@@ -171,33 +171,18 @@ const selectData = <TData>(wrapper: IDataWrapper<TData>): TData => wrapper?.data
 const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue => wrapper?.activeValue;
 
 /**
- * @stable [26.07.2020]
- * @param wrapper
- */
-const selectPayload = <TPayload>(wrapper: IPayloadWrapper<TPayload>): TPayload => wrapper?.payload;
-
-/**
- * @stable [26.07.2020]
+ * @stable [12.01.2021]
  * @param action
  */
 const selectPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
-  selectPayload(selectData(action));
+  selectData<IPayloadWrapper<TPayload>>(action)?.payload;
 
 /**
- * @stable [27.03.2020]
- * @param {IValidWrapper} wrapper
- * @returns {boolean}
+ * @stable [12.01.2021]
+ * @param action
  */
-export const selectValid = (wrapper: IValidWrapper): boolean =>
-  R.isNil(wrapper) ? UNDEF : wrapper.valid;
-
-/**
- * @stable [27.03.2020]
- * @param {IEffectsAction} wrapper
- * @returns {boolean}
- */
-export const selectValidFromAction = (wrapper: IEffectsAction): boolean =>
-  R.isNil(wrapper) ? UNDEF : selectValid(wrapper.data);
+const selectValidFromAction = (action: IEffectsAction): boolean =>
+  selectData<IValidWrapper>(action)?.valid;
 
 /**
  * @stable [26.03.2020]
@@ -546,4 +531,5 @@ export class Selectors {
   public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */
   public static readonly transport = selectTransport;                                                           /* @stable [12.06.2020] */
   public static readonly user = selectUser;                                                                     /* @stable [09.06.2020] */
+  public static readonly validFromAction = selectValidFromAction;                                               /* @stable [12.01.2021] */
 }
