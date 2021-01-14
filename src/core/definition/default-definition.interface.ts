@@ -58,6 +58,7 @@ export class DefaultEntities {
   public static readonly INITIAL_REDUX_LIST_ENTITY = INITIAL_REDUX_LIST_ENTITY;                         /* @stable [29.07.2020] */
   public static readonly INITIAL_REDUX_STACK_ENTITY = INITIAL_REDUX_STACK_ENTITY;                       /* @stable [21.05.2020] */
   public static readonly LOCAL_PAGE_SIZE = DEFAULT_LOCAL_PAGE_SIZE;                                     /* @stable [16.07.2020] */
+  public static readonly LOCALE = 'en';                                                                 /* @stable [14.01.2021] */
   public static readonly MAX_PAGED_ENTITY = DEFAULT_MAX_PAGED_ENTITY;                                   /* @stable [11.09.2020] */
   public static readonly MEDIA_NO_PICTURE_URL = 'media/no_picture.jpg';                                 /* @stable [13.12.2020] */
   public static readonly NEW = 'new';                                                                   /* @stable [10.09.2020] */

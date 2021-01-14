@@ -95,6 +95,7 @@ export interface ISettingsEntity {
   elementsMarkers?: IElementsMarkersSettingsEntity;
   emptyPictureUrl?: string;
   googleMaps?: IGoogleMapsSettingsEntity;
+  locale?: string;
   messages?: IMessagesSettings;
   metaFilesUrl?: string;
   number?: IApplicationNumberSettings;
@@ -154,12 +155,8 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     uiTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])',
     uiShortTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9])',
   },
-  bootstrap: {
-    rootId: 'appId',
-  },
-  number: {
-    uiPattern: RegexpEnum.NUMBER,
-  },
+  bootstrap: {rootId: 'appId'},
+  number: {uiPattern: RegexpEnum.NUMBER},
   components: DefaultEntities.COMPONENTS_SETTINGS_ENTITY,
   currency: DefaultEntities.CURRENCY_SETTINGS_ENTITY,
   elementsMarkers: DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY,
@@ -170,10 +167,9 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     eventToListen: 'client-event-to-listen',
     eventToEmit: 'client-event-to-emit',
   },
-  authorization: {
-    isAuthorizationNeeded: true,
-  },
+  authorization: {isAuthorizationNeeded: true},
   googleMaps: DEFAULT_GOOGLE_MAPS_SETTINGS_ENTITY,
+  locale: DefaultEntities.LOCALE,
   urls: DEFAULT_URLS_SETTINGS_ENTITY,
 };
 
