@@ -14,6 +14,7 @@ import {
 import {
   ArrayUtils,
   ConditionUtils,
+  DateUtils,
   defValuesFilter,
   NvlUtils,
   ObjectUtils,
@@ -34,19 +35,19 @@ import {
   ICalendarEntity,
   ICalendarWeekEntity,
   IDateTimeConfigEntity,
+  IDateTimeIndexConfigEntity,
   IDayOfYearEntity,
   IEnvironment,
   IFromToDayOfYearEntity,
   IMinMaxDatesRangeConfigEntity,
   IPersonAgeConfigEntity,
   IWeekConfigEntity,
-  MomentT,
 } from '../../definition';
 
 /**
- * @stable [27.12.2020]
+ * @stable [14.01.2021]
  */
-const NUMBER_OF_DAYS_PER_WEEK = 7;
+type MomentT = moment.Moment;
 
 /**
  * @stable [28.12.2020]
@@ -58,7 +59,7 @@ const getCalendarWeekEntities =
       id: 0,
       ...R.mergeAll(
         ArrayUtils
-          .makeArray(NUMBER_OF_DAYS_PER_WEEK)
+          .makeArray(DefaultEntities.NUMBER_OF_DAYS_PER_WEEK)
           .map((_, index): ICalendarWeekEntity => ({
             [index]: {
               cronDay: cronDayFactory(index),
@@ -83,7 +84,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @private
    */
   private static readonly ISO_CALENDAR_WEEK_ENTITIES = getCalendarWeekEntities((index) => {
-    if (index >= 0 && index < NUMBER_OF_DAYS_PER_WEEK - 1) {
+    if (index >= 0 && index < DefaultEntities.NUMBER_OF_DAYS_PER_WEEK - 1) {
       return index + 1;
     }
     return 0;
@@ -659,6 +660,18 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [14.01.2020]
+   * @param cfg
+   */
+  public isoWeekDayAsOrdinaryDay(cfg: IDateTimeIndexConfigEntity): number {
+    const {
+      index,
+    } = cfg;
+
+    return DateUtils.isoWeekDayAsOrdinaryDay(index);
+  }
+
+  /**
    * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
@@ -992,15 +1005,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param cfg
    */
   public getWeekday(cfg: IDateTimeConfigEntity<MomentT>): string {
-    return this.getWeekday(cfg)[cfg.index];
-  }
-
-  /**
-   * @stable [14.01.2021]
-   * @param cfg
-   */
-  public getWeekdayShortest(cfg: IDateTimeConfigEntity<MomentT>): string {
-    return this.getWeekdaysShortest(cfg)[cfg.index];
+    return this.getWeekdays(cfg)[cfg.index];
   }
 
   /**
@@ -1009,6 +1014,14 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public getWeekdayShort(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.getWeekdaysShort(cfg)[cfg.index];
+  }
+
+  /**
+   * @stable [14.01.2021]
+   * @param cfg
+   */
+  public getWeekdayShortest(cfg: IDateTimeConfigEntity<MomentT>): string {
+    return this.getWeekdaysShortest(cfg)[cfg.index];
   }
 
   /**
@@ -1251,7 +1264,7 @@ export class DateConverter implements IDateConverter<MomentT> {
       const row = {id: i};
       data.push(row);
 
-      for (let j = 0; j < NUMBER_OF_DAYS_PER_WEEK; j++) {
+      for (let j = 0; j < DefaultEntities.NUMBER_OF_DAYS_PER_WEEK; j++) {
         if (R.isNil(currentDate)) {
           if (firstDayOfIsoWeek === j + 1) { // The ISO day of the week: 1 === Monday and 7 === Sunday
             currentDate = firstDayOfMonthAsMDate.toDate();
@@ -1283,7 +1296,7 @@ export class DateConverter implements IDateConverter<MomentT> {
     if (!isoWeek) {
       result.days = data.map((row, index) => {
         const newRow = {...row};
-        for (let i = 0; i < NUMBER_OF_DAYS_PER_WEEK - 1; i++) {
+        for (let i = 0; i < DefaultEntities.NUMBER_OF_DAYS_PER_WEEK - 1; i++) {
           newRow[i + 1] = row[i];
         }
         const startingDate = data[index - 1];
@@ -1292,7 +1305,7 @@ export class DateConverter implements IDateConverter<MomentT> {
           dayEntity = buildDayEntity({previous: true, date: startingMDate.toDate()}, startingMDate);
           newRow[0] = dayEntity;
         } else {
-          newRow[0] = data[index - 1][NUMBER_OF_DAYS_PER_WEEK - 1];
+          newRow[0] = data[index - 1][DefaultEntities.NUMBER_OF_DAYS_PER_WEEK - 1];
         }
         return newRow;
       });
@@ -1302,7 +1315,7 @@ export class DateConverter implements IDateConverter<MomentT> {
     let truncateLastWeek = true;
     const days = result.days;
 
-    for (let j = 0; j < NUMBER_OF_DAYS_PER_WEEK; j++) {
+    for (let j = 0; j < DefaultEntities.NUMBER_OF_DAYS_PER_WEEK; j++) {
       truncateFirstWeek = truncateFirstWeek && days[0][j].current === false;
       truncateLastWeek = truncateLastWeek && days[days.length - 1][j].current === false;
     }

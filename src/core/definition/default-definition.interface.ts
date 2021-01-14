@@ -66,6 +66,7 @@ export class DefaultEntities {
   public static readonly NOT_CHANGEABLE_FIELD_ENTITY = DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY;             /* @stable [01.06.2020] */
   public static readonly NOT_HOVERED_LIST_ITEM_ENTITY = DEFAULT_NOT_HOVERED_LIST_ITEM_ENTITY;           /* @stable [19.05.2020] */
   public static readonly NUMBER_CONVERTER_SETTINGS_ENTITY = DEFAULT_NUMBER_CONVERTER_SETTINGS_ENTITY;   /* @stable [09.09.2020] */
+  public static readonly NUMBER_OF_DAYS_PER_WEEK = 7;                                                   /* @stable [14.01.2021] */
   public static readonly PAGINATED_SINGLE_ENTITY = DEFAULT_PAGINATED_SINGLE_ENTITY;                     /* @stable [17.06.2020] */
   public static readonly PASSWORD_FIELD_ENTITY = DEFAULT_PASSWORD_FIELD_ENTITY;                         /* @stable [19.08.2020] */
   public static readonly PATH_SEPARATOR = '#';                                                          /* @stable [10.09.2020] */

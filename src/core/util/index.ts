@@ -10,6 +10,7 @@ export * from './cls';
 export * from './compressor';
 export * from './cond';
 export * from './cron';
+export * from './date';
 export * from './dom';
 export * from './effects';
 export * from './entity';

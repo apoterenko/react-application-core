@@ -7,6 +7,7 @@ import {
   ICalendarEntity,
   ICalendarWeekEntity,
   IDateTimeConfigEntity,
+  IDateTimeIndexConfigEntity,
   IDayOfYearEntity,
   IFromToDayOfYearEntity,
   IMinMaxDatesRangeConfigEntity,
@@ -94,6 +95,7 @@ export interface IDateConverter<TDate = Date> {
   isDateValid(cfg: IDateTimeConfigEntity<TDate>): boolean;
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
   isDayOfYearEqualOtherDayOfYear(entity1: IDayOfYearEntity, entity2: IDayOfYearEntity): boolean;
+  isoWeekDayAsOrdinaryDay(cfg: IDateTimeIndexConfigEntity): number;
   selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;
   /**/
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;

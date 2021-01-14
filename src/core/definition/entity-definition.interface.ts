@@ -11,6 +11,7 @@ import {
   IEntityWrapper,
   IIconLeftAlignedWrapper,
   IIconWrapper,
+  IIndexWrapper,
   ILabelWrapper,
   IMaxWrapper,
   IMinWrapper,
@@ -117,6 +118,14 @@ export interface IExtendedEntity<TEntity = IEntity>
 export interface INamedEntity
   extends IEntityIdTWrapper,
     INameWrapper {
+}
+
+/**
+ * @entity
+ * @stable [14.01.2021]
+ */
+export interface IIndexEntity
+  extends IIndexWrapper {
 }
 
 /**

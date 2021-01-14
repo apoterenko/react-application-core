@@ -1,12 +1,9 @@
-import * as moment from 'moment';
-
 import {
   IBirthdayWrapper,
   IDateWrapper,
   IDayWrapper,
   IDurationWrapper,
   IFromToEntity,
-  IIndexWrapper,
   IInputFormatWrapper,
   IInputTimeFormatWrapper,
   IIsoWeekWrapper,
@@ -26,12 +23,12 @@ import {
   IZoneWrapper,
   StringNumberT,
 } from '../definitions.interface';
+import { IIndexEntity } from './entity-definition.interface';
 
 /**
  * @stable [22.12.2019]
  */
 export type DateTimeLikeTypeT = string | Date;
-export type MomentT = moment.Moment;
 
 /**
  * @stable [06.03.2020]
@@ -56,17 +53,6 @@ export const WEEKS_PERIODS = [DatePeriodsEnum.WEEK, DatePeriodsEnum.PREVIOUS_WEE
 export const MONTHS_PERIODS = [DatePeriodsEnum.MONTH, DatePeriodsEnum.PREVIOUS_MONTH];
 export const QUARTERS_PERIODS = [DatePeriodsEnum.QUARTER, DatePeriodsEnum.PREVIOUS_QUARTER];
 
-// TODO ?
-export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
-  {id: 0, name: 'Sunday'},
-  {id: 1, name: 'Monday'},
-  {id: 2, name: 'Tuesday'},
-  {id: 3, name: 'Wednesday'},
-  {id: 4, name: 'Thursday'},
-  {id: 5, name: 'Friday'},
-  {id: 6, name: 'Saturday'}
-]);
-
 /**
  * @config-entity
  * @stable [14.01.2021]
@@ -78,12 +64,20 @@ export interface IWeekConfigEntity
 
 /**
  * @config-entity
+ * @stable [14.01.2021]
+ */
+export interface IDateTimeIndexConfigEntity
+  extends IIndexEntity {
+}
+
+/**
+ * @config-entity
  * @stable [17.12.2019]
  */
 export interface IDateTimeConfigEntity<TDate>
-  extends IDateWrapper<DateTimeLikeTypeT | TDate>,
+  extends IDateTimeIndexConfigEntity,
+    IDateWrapper<DateTimeLikeTypeT | TDate>,
     IDurationWrapper<StringNumberT>,
-    IIndexWrapper,
     IInputFormatWrapper,
     IInputTimeFormatWrapper,
     IIsoWeekWrapper,
