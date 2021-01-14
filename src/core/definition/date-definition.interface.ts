@@ -10,6 +10,7 @@ import {
   IInputFormatWrapper,
   IInputTimeFormatWrapper,
   IIsoWeekWrapper,
+  ILocaleWrapper,
   IMaxDateWrapper,
   IMinDateWrapper,
   IMonthWrapper,
@@ -65,6 +66,15 @@ export const DAYS_OF_WEEK = Object.freeze<{id: number, name: string}>([
   {id: 5, name: 'Friday'},
   {id: 6, name: 'Saturday'}
 ]);
+
+/**
+ * @config-entity
+ * @stable [14.01.2021]
+ */
+export interface IWeekConfigEntity
+  extends IIsoWeekWrapper,
+    ILocaleWrapper {
+}
 
 /**
  * @config-entity

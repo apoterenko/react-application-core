@@ -11,6 +11,7 @@ import {
   IFromToDayOfYearEntity,
   IMinMaxDatesRangeConfigEntity,
   IPersonAgeConfigEntity,
+  IWeekConfigEntity,
 } from '../../definition';
 
 export interface IDateConverter<TDate = Date> {
@@ -18,6 +19,8 @@ export interface IDateConverter<TDate = Date> {
   appOnlineLifeTimeInSeconds: number;
   uiDateFormat: string;
   weekdays: string[];
+  weekdaysShort: string[];
+  weekdaysShortest: string[];
   addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
@@ -82,7 +85,9 @@ export interface IDateConverter<TDate = Date> {
   getCalendarWeekEntity(cfg?: IDateTimeConfigEntity<TDate>): ICalendarWeekEntity;
   getCurrentDate(): Date;
   getShortestWeekday(cfg: IDateTimeConfigEntity<TDate>): string;
-  getShortestWeekdays(cfg?: IDateTimeConfigEntity<TDate>): string[];
+  getWeekdays(cfg?: IWeekConfigEntity): string[];
+  getWeekdaysShort(cfg?: IWeekConfigEntity): string[];
+  getWeekdaysShortest(cfg?: IWeekConfigEntity): string[];
   isDateBelongToDatesRange(cfg: IMinMaxDatesRangeConfigEntity): boolean;
   isDateValid(cfg: IDateTimeConfigEntity<TDate>): boolean;
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
@@ -129,5 +134,4 @@ export interface IDateConverter<TDate = Date> {
   toDate(date: DateTimeLikeTypeT, inputFormat?: string): Date;
   get30DaysAgo(): Date;
   getXDaysAgo(days: number): Date;
-  getLocalizedWeekdayShort(index: number): string;
 }

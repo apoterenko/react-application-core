@@ -295,6 +295,7 @@ export interface IListsSectionsWrapper<TValue> { listsSections?: TValue; }
 export interface IListWrapper<TValue> { list?: TValue; }
 export interface ILngWrapper<TValue = number> { lng?: TValue; }
 export interface ILoadingWrapper { loading?: boolean; }
+export interface ILocaleWrapper { locale?: string; }
 export interface ILocalFilterWrapper<TValue = {}> { localFilter?(payload?: TValue): boolean; }
 export interface ILocalPaginationWrapper<TValue = boolean> { localPagination?: TValue; }
 export interface ILocalSortingWrapper { localSorting?: boolean; }

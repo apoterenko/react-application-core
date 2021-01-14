@@ -27,6 +27,7 @@ import {
 import { IDateConverter } from './date-converter.interface';
 import {
   DateTimeLikeTypeT,
+  DefaultEntities,
   EnvironmentGlobalVariablesEnum,
   ICalendarConfigEntity,
   ICalendarDayEntity,
@@ -38,6 +39,7 @@ import {
   IFromToDayOfYearEntity,
   IMinMaxDatesRangeConfigEntity,
   IPersonAgeConfigEntity,
+  IWeekConfigEntity,
   MomentT,
 } from '../../definition';
 
@@ -69,19 +71,6 @@ const getCalendarWeekEntities =
 
 @injectable()
 export class DateConverter implements IDateConverter<MomentT> {
-  private static WEEKDAYS_SHORT = moment.weekdaysShort()
-      .slice(1, 7)
-      .concat(moment.weekdaysShort()[0]);
-
-  /**
-   * @stable [27.12.2020]
-   * @private
-   */
-  private static readonly SHORTEST_ISO_WEEKDAYS = ['M', 'T', 'W', 'TH', 'F', 'SA', 'SU'];
-  private static readonly SHORTEST_WEEKDAYS = [
-    DateConverter.SHORTEST_ISO_WEEKDAYS[NUMBER_OF_DAYS_PER_WEEK - 1],
-    ...DateConverter.SHORTEST_ISO_WEEKDAYS.slice(0, NUMBER_OF_DAYS_PER_WEEK - 1)
-  ];
 
   /**
    * @stable [27.12.2020]
@@ -119,10 +108,24 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [10.08.2020]
+   * @stable [14.01.2021]
    */
   public get weekdays(): string[] {
-    return moment.weekdays();
+    return this.getWeekdays();
+  }
+
+  /**
+   * @stable [10.08.2021]
+   */
+  public get weekdaysShort(): string[] {
+    return this.getWeekdaysShort();
+  }
+
+  /**
+   * @stable [14.01.2021]
+   */
+  public get weekdaysShortest(): string[] {
+    return this.getWeekdaysShortest();
   }
 
   /**
@@ -928,22 +931,34 @@ export class DateConverter implements IDateConverter<MomentT> {
     return this.dateAsUiDateString({...cfg, date: this.getCurrentDate()});
   }
 
-  public getLocalizedWeekdayShort(index: number): string {
-    return DateConverter.WEEKDAYS_SHORT[index];
+  /**
+   * @stable [14.01.2020]
+   * @param cfg
+   */
+  public getWeekdays(cfg?: IWeekConfigEntity): string[] {
+    return this.getWeekLocale(cfg)
+      // @ts-ignore TODO
+      .weekdays(true);
   }
 
   /**
-   * @stable [27.12.2020]
+   * @stable [14.01.2020]
    * @param cfg
    */
-  public getShortestWeekdays(cfg?: IDateTimeConfigEntity<MomentT>): string[] {
-    const {
-      isoWeek = this.isIsoWeek,
-    } = cfg || {};
+  public getWeekdaysShort(cfg?: IWeekConfigEntity): string[] {
+    return this.getWeekLocale(cfg)
+      // @ts-ignore TODO
+      .weekdaysShort(true);
+  }
 
-    return isoWeek
-      ? DateConverter.SHORTEST_ISO_WEEKDAYS
-      : DateConverter.SHORTEST_WEEKDAYS;
+  /**
+   * @stable [14.01.2020]
+   * @param cfg
+   */
+  public getWeekdaysShortest(cfg?: IWeekConfigEntity): string[] {
+    return this.getWeekLocale(cfg)
+      // @ts-ignore TODO
+      .weekdaysMin(true);
   }
 
   /**
@@ -977,7 +992,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @param cfg
    */
   public getShortestWeekday(cfg: IDateTimeConfigEntity<MomentT>): string {
-    return this.getShortestWeekdays(cfg)[cfg.index];
+    return this.getWeekdaysShortest(cfg)[cfg.index];
   }
 
   /**
@@ -1247,7 +1262,7 @@ export class DateConverter implements IDateConverter<MomentT> {
 
     const result = {
       days: data,
-      daysLabels: this.getShortestWeekdays(cfg),
+      daysLabels: this.getWeekdaysShortest(cfg),
     };
     if (!isoWeek) {
       result.days = data.map((row, index) => {
@@ -1294,7 +1309,7 @@ export class DateConverter implements IDateConverter<MomentT> {
   public asCalendarWeekEntity(cfg?: ICalendarConfigEntity<MomentT>): ICalendarEntity {
     return {
       days: [this.getCalendarWeekEntity(cfg)],
-      daysLabels: this.getShortestWeekdays(cfg),
+      daysLabels: this.getWeekdaysShortest(cfg),
     };
   }
 
@@ -1330,6 +1345,25 @@ export class DateConverter implements IDateConverter<MomentT> {
       NvlUtils.nvl(uiDateFormat, this.uiDateFormat)} ${
       NvlUtils.nvl(uiTimeFormat, this.uiTimeFormat)
     }`.trim();
+  }
+
+  /**
+   * @stable [14.01.2020]
+   * @param cfg
+   * @private
+   */
+  private getWeekLocale(cfg: IWeekConfigEntity): moment.Locale {
+    const {
+      isoWeek = this.isIsoWeek,
+      locale = this.locale,
+    } = cfg || {};
+
+    return moment
+      .localeData(
+        isoWeek && locale === DefaultEntities.LOCALE
+          ? 'en-gb' // https://en.wikipedia.org/wiki/Date_and_time_notation_in_the_United_Kingdom
+          : locale
+      );
   }
 
   /**
@@ -1404,6 +1438,14 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   private get isIsoWeek(): boolean {
     return this.dateTimeSettings.isoWeek;
+  }
+
+  /**
+   * @stable [14.01.2020]
+   * @private
+   */
+  private get locale(): string {
+    return this.settings.locale;
   }
 
   private get pstDateFormat(): string {
