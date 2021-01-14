@@ -80,15 +80,12 @@ export class DateConverter implements IDateConverter<MomentT> {
   private static readonly DEFAULT_CALENDAR_WEEK_ENTITIES = getCalendarWeekEntities();
 
   /**
-   * @stable [27.12.2020]
+   * @stable [14.01.2020]
    * @private
    */
-  private static readonly ISO_CALENDAR_WEEK_ENTITIES = getCalendarWeekEntities((index) => {
-    if (index >= 0 && index < DefaultEntities.NUMBER_OF_DAYS_PER_WEEK - 1) {
-      return index + 1;
-    }
-    return 0;
-  });
+  private static readonly ISO_CALENDAR_WEEK_ENTITIES = getCalendarWeekEntities(
+    (index) => DateUtils.isoWeekDayAsOrdinaryDay(index)
+  );
 
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
