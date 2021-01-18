@@ -28,6 +28,7 @@ export enum IconsEnum {
   COMMENT = 'comment',                                                    /* https://fontawesome.com/ */
   DOLLAR_SIGN = 'dollar-sign',                                            /* https://fontawesome.com/ */
   ELLIPSIS_H = 'ellipsis-h',                                              /* https://fontawesome.com/ */
+  ERASER = 'eraser',                                                      /* https://fontawesome.com/ */
   EXCLAMATION = 'exclamation',                                            /* https://fontawesome.com/ */
   EXCLAMATION_CIRCLE = 'exclamation-circle',                              /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
