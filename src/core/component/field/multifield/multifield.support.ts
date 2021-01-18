@@ -46,14 +46,6 @@ export const toLastAddedMultiItemEntityId = (multiFieldEntity: MultiFieldSingleV
   );
 
 /**
- * @stable [04.07.2018]
- * @param {MultiFieldValueT} multiFieldEntity
- * @returns {EntityIdT[]}
- */
-export const fromMultiFieldEntityToEditedEntitiesIds = (multiFieldEntity: MultiFieldValueT): EntityIdT[] =>
-  fromMultiFieldValueToEditedEntities<IEntity, EntityIdT>(multiFieldEntity, (entity: IEntity) => entity.id);
-
-/**
  * @stable [18.08.2018]
  * @param {MultiFieldValueT} multiFieldValue
  * @param {(entity: TItem, index: number) => TResult} mapper
