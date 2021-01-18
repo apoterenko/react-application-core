@@ -29,7 +29,7 @@ const noop = () => {
 const nullNoop = () => null;
 
 /**
- * @stable [21.12.2020]
+ * @stable [18.01.2021]
  */
   export class FnUtils {
   public static readonly noop = noop;
