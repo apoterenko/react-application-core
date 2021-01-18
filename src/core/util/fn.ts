@@ -31,7 +31,7 @@ const nullNoop = () => null;
 /**
  * @stable [18.01.2021]
  */
-  export class FnUtils {
+export class FnUtils {
   public static readonly noop = noop;
   public static readonly nullNoop = nullNoop;
   public static readonly sequence = sequence;
