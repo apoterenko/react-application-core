@@ -99,6 +99,13 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [15.01.2021]
+   */
+  public get currentDate(): Date {
+    return this.dateTimeSettings.currentDate;
+  }
+
+  /**
    * @stable [23.09.2020]
    */
   public get uiDateFormat(): string {
@@ -669,6 +676,24 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [15.01.2020]
+   * @param date1
+   * @param date2
+   */
+  public isFuture(date1: DateTimeLikeTypeT, date2?: DateTimeLikeTypeT): boolean {
+    return this.compare(date1, NvlUtils.nvl(date2, this.currentDate)) > 0;
+  }
+
+  /**
+   * @stable [15.01.2021]
+   * @param date1
+   * @param date2
+   */
+  public isPast(date1: DateTimeLikeTypeT, date2?: DateTimeLikeTypeT): boolean {
+    return this.compare(date1, NvlUtils.nvl(date2, this.currentDate)) < 0;
+  }
+
+  /**
    * @stable [02.01.2019]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
@@ -743,12 +768,11 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [07.01.2020]
-   * @param {Date} date
-   * @returns {Date}
+   * @stable [15.01.2021]
+   * @param date
    */
   public asDayOfYear(date?: Date): Date {
-    const d = new Date(date || this.getCurrentDate());
+    const d = new Date(date || this.currentDate);
     d.setHours(0, 0, 0, 0);
     return d;
   }
@@ -938,7 +962,7 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {string}
    */
   public currentDateAsUiDateString(cfg?: IDateTimeConfigEntity<MomentT>): string {
-    return this.dateAsUiDateString({...cfg, date: this.getCurrentDate()});
+    return this.dateAsUiDateString({...cfg, date: this.currentDate});
   }
 
   /**
@@ -1398,14 +1422,6 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   private get timeZone(): string {
     return this.dateTimeSettings.timeZone;
-  }
-
-  /**
-   * @stable [25.12.2019]
-   * @returns {Date}
-   */
-  private get currentDate(): Date {
-    return this.dateTimeSettings.currentDate;
   }
 
   private get dateTimeFormat(): string {

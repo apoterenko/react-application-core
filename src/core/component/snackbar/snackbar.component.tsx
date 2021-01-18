@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { noop, joinClassName } from '../../util';
+import { FnUtils, joinClassName } from '../../util';
 import { ISnackbarProps } from './snackbar.interface';
 import { EnhancedGenericComponent } from '../base/enhanced-generic.component';
 
@@ -9,7 +9,7 @@ export class Snackbar extends EnhancedGenericComponent<ISnackbarProps> {
 
   public static defaultProps: ISnackbarProps = {
     timeout: 3000,
-    actionHandler: noop,
+    actionHandler: FnUtils.noop,
     submitText: 'Close',
   };
 

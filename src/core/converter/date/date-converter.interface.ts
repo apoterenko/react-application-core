@@ -18,6 +18,7 @@ import {
 export interface IDateConverter<TDate = Date> {
   appOnlineLifeTimeInHours: number;
   appOnlineLifeTimeInSeconds: number;
+  currentDate: Date;
   uiDateFormat: string;
   weekdays: string[];
   weekdaysShort: string[];
@@ -95,7 +96,9 @@ export interface IDateConverter<TDate = Date> {
   isDateValid(cfg: IDateTimeConfigEntity<TDate>): boolean;
   isDayOfYearBelongToDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): boolean;
   isDayOfYearEqualOtherDayOfYear(entity1: IDayOfYearEntity, entity2: IDayOfYearEntity): boolean;
+  isFuture(date1: DateTimeLikeTypeT, date2?: DateTimeLikeTypeT): boolean;
   isoWeekDayAsOrdinaryDay(cfg: IDateTimeIndexConfigEntity): number;
+  isPast(date1: DateTimeLikeTypeT, date2?: DateTimeLikeTypeT): boolean;
   selectDaysOfYearRange(range: IFromToDayOfYearEntity, entity: IDayOfYearEntity): IFromToDayOfYearEntity;
   /**/
   format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string;

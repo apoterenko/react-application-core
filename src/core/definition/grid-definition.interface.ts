@@ -158,7 +158,7 @@ export interface IGridColumnProps<
     ISorterWrapper<TEntity>,
     IFilterRendererWrapper<IGridColumnProps<TEntity>>,
     /**/
-    ILocalFilterWrapper<IGridFilterConfigEntity>,
+    ILocalFilterWrapper<IGridFilterConfigEntity<TEntity>>,
     ITplWrapper<TEntity, IGridColumnProps<TEntity>, number> {
 }
 

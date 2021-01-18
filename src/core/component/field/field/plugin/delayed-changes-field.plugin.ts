@@ -2,8 +2,8 @@ import {
   ConditionUtils,
   DelayedTask,
   EventUtils,
+  FnUtils,
   NvlUtils,
-  sequence,
 } from '../../../../util';
 import {
   AnyT,
@@ -31,9 +31,9 @@ export class DelayedChangesFieldPlugin implements IGenericPlugin {
       NvlUtils.nvl(component.props.delayTimeout, DelayedChangesFieldPlugin.DEFAULT_DELAY_TIMEOUT)
     );
 
-    component.onChange = sequence(component.onChange, this.onChange, this);
-    component.onChangeManually = sequence(component.onChangeManually, this.onChangeManually, this);
-    component.onKeyEnter = sequence(component.onKeyEnter, this.onKeyEnter, this);
+    component.onChange = FnUtils.sequence(component.onChange, this.onChange, this);
+    component.onChangeManually = FnUtils.sequence(component.onChangeManually, this.onChangeManually, this);
+    component.onKeyEnter = FnUtils.sequence(component.onKeyEnter, this.onKeyEnter, this);
   }
 
   /**

@@ -1,30 +1,38 @@
-import { AnyT } from '../definitions.interface';
-import { isFn } from '../util';
+import { TypeUtils } from '../util';
 
 /**
- * @stable [09.10.2019]
- * @param {(...args) => AnyT} sourceFn
- * @param {(...args) => AnyT} nextFn
- * @param {AnyT} nextFnScope
- * @returns {(...args) => AnyT}
+ * @stable [18.01.2021]
+ * @param sourceFn
+ * @param nextFn
+ * @param nextFnScope
  */
-export const sequence = (sourceFn: (...args) => AnyT,
-                         nextFn: (...args) => AnyT,
-                         nextFnScope?: AnyT): (...args) => AnyT =>
-  function() {
-    if (isFn(sourceFn)) {
+const sequence = (sourceFn: (...args) => unknown,
+                  nextFn: (...args) => unknown,
+                  nextFnScope?: unknown): (...args) => unknown =>
+  function () {
+    if (TypeUtils.isFn(sourceFn)) {
       sourceFn.apply(this, arguments);
     }
     nextFn.apply(nextFnScope || this, arguments);
   };
 
-/* tslint:disable */
-export function noop(): void {
-}
+/**
+ * @stable [18.01.2021]
+ */
+const noop = () => {
+  // Do nothing
+};
+
+/**
+ * @stable [18.01.2021]
+ */
+const nullNoop = () => null;
 
 /**
  * @stable [21.12.2020]
  */
-export class FnUtils {
+  export class FnUtils {
   public static readonly noop = noop;
+  public static readonly nullNoop = nullNoop;
+  public static readonly sequence = sequence;
 }

@@ -1,13 +1,14 @@
 import * as R from 'ramda';
 
 import {
+  EntityIdT,
   IEntity,
   IEntityIdTWrapper,
+  UNDEF_SYMBOL,
 } from '../definitions.interface';
-import {
-  IExtendedEntity,
-} from '../definition';
-import { ifNotNilThanValue } from './cond';
+import { ConditionUtils } from './cond';
+import { IExtendedEntity } from '../definition';
+import { JoinUtils } from './join';
 
 /**
  * @stable [31.07.2020]
@@ -31,28 +32,46 @@ const isNewExtendedEntity = <TEntity extends IEntity>(entity: IExtendedEntity<TE
   R.isNil(entity) || entity.newEntity === true;
 
 /**
- * @stable [01.09.2020]
+ * @stable [18.01.2021]
  * @param extendedEntity
  */
-export const doesExtendedEntityExist = <TEntity extends IEntity>(extendedEntity: IExtendedEntity<TEntity>): boolean =>
+const doesExtendedEntityExist = <TEntity extends IEntity>(extendedEntity: IExtendedEntity<TEntity>): boolean =>
   !isNewExtendedEntity(extendedEntity);
 
 /**
- * @stable [30.08.2019]
- * @param {TEntity} entity
- * @returns {string}
+ * @stable [18.01.2021]
+ * @param entities
  */
-export const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): string => ifNotNilThanValue(
-  entity,
-  () => `${entity.id}${ifNotNilThanValue(entity.name, (name) => `-${name.replace(/ /g, '_')}`, '')}`,
-  ''
-);
+const asEntitiesIds = <TEntity extends IEntity>(entities: TEntity[]): EntityIdT[] =>
+  ConditionUtils.ifNotNilThanValue(
+    entities,
+    () => entities.map((entity) => entity.id),
+    UNDEF_SYMBOL
+  );
 
 /**
- * @stable [31.07.2020]
+ * @stable [18.01.2021]
+ * @param entity
+ */
+const entityAsFileName = <TEntity extends IEntity>(entity: TEntity): string =>
+  ConditionUtils.ifNotNilThanValue(
+    entity,
+    () => (
+      JoinUtils.join([
+        entity.id,
+        ConditionUtils.ifNotNilThanValue(entity.name, (name) => `-${name.replace(/ /g, '_')}`)
+      ], '')
+    ),
+    ''
+  );
+
+/**
+ * @stable [18.01.2021]
  */
 export class EntityUtils {
+  public static readonly asEntitiesIds = asEntitiesIds;
   public static readonly doesExtendedEntityExist = doesExtendedEntityExist;
+  public static readonly entityAsFileName = entityAsFileName;
   public static readonly isNewEntity = isNewEntity;
   public static readonly isPhantomEntity = isPhantomEntity;
 }
