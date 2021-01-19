@@ -620,13 +620,6 @@ export interface IOnChangeFilterWrapper<TChangedValue = AnyT, TOnChangeFilter = 
 }
 
 /**
- * @stable [06.06.2018]
- */
-export interface IClearValueWrapper<TClearValue = () => void> {
-  clearValue: TClearValue;
-}
-
-/**
  * @stable [07.06.2018]
  */
 export interface IFilterChangesWrapper<TChanges extends IKeyValue = IKeyValue> {
@@ -705,13 +698,6 @@ export interface IErrorMessageWrapper<TErrorMessage = string> {
  */
 export interface ICustomErrorWrapper<TCustomError = boolean> {
   customError?: TCustomError;
-}
-
-/**
- * @stable [22.08.2018]
- */
-export interface IRelatedEntityWrapper<TRelatedEntity = IEntity> {
-  relatedEntity?: TRelatedEntity;
 }
 
 /**

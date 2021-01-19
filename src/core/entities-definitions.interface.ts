@@ -1,8 +1,6 @@
 import {
   IDateWrapper,
-  IIdWrapper,
   IKeyValue,
-  INameWrapper,
   ITimeWrapper,
 } from './definitions.interface';
 
@@ -11,13 +9,6 @@ import {
  */
 export interface IDateTimeEntity extends IDateWrapper,
                                          ITimeWrapper {
-}
-
-/**
- * @stable [03.07.2018]
- */
-export interface INamedNumericEntity extends IIdWrapper,
-                                             INameWrapper {
 }
 
 /**
