@@ -58,34 +58,44 @@ const notMultiFieldValueAsEntities =
  * @param converter
  * @param defaultValue
  */
-const extractEntitiesFromMultiFieldValue = (value: MultiFieldValueT,
-                                            converter: (value: IReduxMultiEntity) => IMultiItemEntity[],
-                                            defaultValue: IEntity[]): IMultiItemEntity[] | IEntity[] =>
-  isNotMultiEntity(value)
-    ? (
-      TypeUtils.isDef(defaultValue)
-        ? defaultValue
-        : notMultiFieldValueAsEntities(value as NotMultiFieldValueT)
-    )
-    : (R.isNil(value) ? [] : converter(value as IReduxMultiEntity));
+const extractEntitiesFromMultiFieldValue =
+  <TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>,
+                                      converter: (value: IReduxMultiEntity<TEntity>) => IMultiItemEntity[],
+                                      defaultValue: TEntity[]): IMultiItemEntity[] | TEntity[] =>
+    isNotMultiEntity(value)
+      ? (
+        TypeUtils.isDef(defaultValue)
+          ? defaultValue
+          : notMultiFieldValueAsEntities(value as NotMultiFieldValueT<TEntity>)
+      )
+      : (R.isNil(value) ? [] : converter(value as IReduxMultiEntity<TEntity>));
 
 /**
- * @stable [29.08.2020]
+ * @stable [21.01.2021]
  * @param value
  * @param defaultValue
  */
-const multiFieldValueAsMultiItemEditEntities = (value: MultiFieldValueT,
-                                                defaultValue: IEntity[] = []): IMultiItemEntity[] =>
-  extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.edit, defaultValue);
+const multiFieldValueAsMultiItemSourceEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>,
+                                                                                     defaultValue?: TEntity[]): TEntity[] =>
+  extractEntitiesFromMultiFieldValue<TEntity>(value, (currentValue) => currentValue.source, defaultValue) as TEntity[];
 
 /**
- * @stable [06.09.2020]
+ * @stable [21.01.2021]
  * @param value
  * @param defaultValue
  */
-const multiFieldValueAsMultiItemAddEntities = (value: MultiFieldValueT,
-                                               defaultValue: IEntity[] = []): IEntity[] =>
-  extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.add, defaultValue);
+const multiFieldValueAsMultiItemEditEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>,
+                                                                                   defaultValue: TEntity[] = []): IMultiItemEntity[] =>
+  extractEntitiesFromMultiFieldValue<TEntity>(value, (currentValue) => currentValue.edit, defaultValue);
+
+/**
+ * @stable [21.01.2021]
+ * @param value
+ * @param defaultValue
+ */
+const multiFieldValueAsMultiItemAddEntities = <TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>,
+                                                                                  defaultValue: TEntity[] = []): TEntity[] =>
+  extractEntitiesFromMultiFieldValue<TEntity>(value, (currentValue) => currentValue.add, defaultValue) as TEntity[];
 
 /**
  * @stable [29.08.2020]
@@ -312,6 +322,7 @@ export class MultiFieldUtils {
   public static readonly multiFieldValueAsMultiItemAddEntities = multiFieldValueAsMultiItemAddEntities;
   public static readonly multiFieldValueAsMultiItemEditEntities = multiFieldValueAsMultiItemEditEntities;
   public static readonly multiFieldValueAsMultiItemRemoveEntities = multiFieldValueAsMultiItemRemoveEntities;
+  public static readonly multiFieldValueAsMultiItemSourceEntities = multiFieldValueAsMultiItemSourceEntities;
   public static readonly multiFieldValueAsTrueEntitiesObject = multiFieldValueAsTrueEntitiesObject;
   public static readonly notMultiFieldValueAsEntities = notMultiFieldValueAsEntities;
 }
