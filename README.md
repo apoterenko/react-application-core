@@ -105,8 +105,8 @@ The library is designed to quickly start develop the business applications are b
 
 #### @middleware
 
-* [ChainedMiddlewareFactories](src/core/store/middleware/chained.middleware.ts)
-* [EditedListMiddlewareFactories](src/core/store/middleware/edited-list.middleware.ts)
+* [ChainedMiddlewareFactories (20.01.2021)](src/core/store/middleware/chained.middleware.ts)
+* [EditedListMiddlewareFactories (20.01.2021)](src/core/store/middleware/edited-list.middleware.ts)
 
 #### @configuration-entity
 

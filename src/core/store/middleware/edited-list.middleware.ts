@@ -22,7 +22,7 @@ import { ChainedMiddlewareFactories } from './chained.middleware';
 import { DefaultFormChangesMiddlewareFactories } from './default-form-changes.middleware';
 
 /**
- * @stable [19.09.2020]
+ * @stable [20.01.2021]
  * @param cfg
  */
 const asChainedConfigEntity = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
@@ -104,7 +104,7 @@ const makeLazyLoadedEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChan
   );
 
 /**
- * @stable [09.09.2020]
+ * @stable [20.01.2021]
  */
 export class EditedListMiddlewareFactories {
   public static readonly createEntityMiddleware = makeCreateEntityMiddleware;
