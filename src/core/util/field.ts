@@ -15,14 +15,11 @@ import {
   MultiFieldValueT,
   NotMultiFieldValueT,
 } from '../definition';
+import { ArrayUtils } from './array';
 import { ConditionUtils } from './cond';
-import {
-  arrayNextMinNegativeValue,
-  ArrayUtils,
-} from './array';
-import { TypeUtils } from './type';
 import { defValuesFilter } from './filter';
 import { MultiFieldUtils } from './multi-field';
+import { TypeUtils } from './type';
 
 /**
  * @stable [14.10.2020]
@@ -147,19 +144,6 @@ export const buildMultiItemEntity = <TEntity extends IEntity = IEntity>(name: st
                                                                         rawData: TEntity,
                                                                         newEntity?: boolean): IMultiItemEntity =>
   defValuesFilter<IMultiItemEntity, IMultiItemEntity>({id: rawData.id, value, name, rawData, newEntity});
-
-/**
- * @stable [19.11.2019]
- * @param {TEntity} original
- * @param {MultiFieldValueT<TEntity extends IEntity>} multiFieldEntity
- * @returns {{id: number}}
- */
-export const buildNewPhantomMultiItem =
-  <TEntity extends IEntity = IEntity>(original: TEntity,
-                                      multiFieldEntity: MultiFieldValueT<TEntity>): TEntity => ({
-    ...original as AnyT,
-    id: arrayNextMinNegativeValue(MultiFieldUtils.multiFieldValueAsEntitiesIds(multiFieldEntity) as number[] || []),
-  });
 
 /**
  * @stable [16.05.2020]

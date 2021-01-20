@@ -11,17 +11,14 @@ import {
   MultiFieldValueT,
   NotMultiFieldValueT,
 } from '../definition';
-import {
-  TypeUtils,
-} from './type';
+import { TypeUtils } from './type';
 import {
   EntityIdT,
   IEntity,
   UNDEF,
-  UNDEF_SYMBOL,
 } from '../definitions.interface';
+import { ArrayUtils } from './array';
 import { CloneUtils } from './clone';
-import { ConditionUtils } from './cond';
 import { FilterUtils } from './filter';
 import { NvlUtils } from './nvl';
 import { ObjectUtils } from './object';
@@ -263,34 +260,46 @@ const multiFieldValueAsTrueEntitiesObject =
   };
 
 /**
- * @stable [29.09.2020]
- * @param multiFieldEntity
+ * @stable [21.01.2021]
+ * @param multiFieldValue
  * @param mapper
  */
 const multiFieldValueAsMappedEntities =
-  <TEntity extends IEntity = IEntity, TResult = TEntity>(multiFieldEntity: MultiFieldValueT<TEntity>,
-                                                         mapper: (entity: TEntity, index: number) => TResult): TResult[] =>
-    ConditionUtils.ifNotNilThanValue(
-      multiFieldValueAsEntities(multiFieldEntity),
-      (result) => result.map(mapper),
-      UNDEF_SYMBOL
+  <TEntity = IEntity, TResult = TEntity>(multiFieldValue: MultiFieldValueT<TEntity>,
+                                         mapper: (entity: TEntity, index?: number) => TResult): TResult[] =>
+    multiFieldValueAsEntities(multiFieldValue)?.map(mapper);
+
+/**
+ * @stable [21.01.2021]
+ * @param multiFieldValueOrEntitiesIds
+ */
+const multiFieldValueAsEntitiesIds =
+  <TEntity extends IEntity = IEntity, TResult extends EntityIdT = EntityIdT>(multiFieldValueOrEntitiesIds: MultiFieldValueOrEntitiesIdsT<TEntity>): TResult[] =>
+    multiFieldValueAsMappedEntities<TEntity, TResult>(
+      multiFieldValueOrEntitiesIds as MultiFieldValueT<TEntity>,
+      (entity: TEntity) => entity.id as TResult
     );
 
 /**
- * @stable [30.09.2020]
- * @param multiFieldEntity
+ * @stable [21.01.2021]
+ * @param entity
+ * @param multiFieldValue
  */
-const multiFieldValueAsEntitiesIds = <TEntity extends IEntity = IEntity>(multiFieldEntity: MultiFieldValueOrEntitiesIdsT<TEntity>): EntityIdT[] =>
-  multiFieldValueAsMappedEntities(
-    multiFieldEntity as MultiFieldValueT<TEntity>,
-    (entity: IEntity) => entity.id
-  );
+const buildPhantomEntity =
+  <TEntity extends IEntity = IEntity>(entity: TEntity,
+                                      multiFieldValue: MultiFieldValueT<TEntity>): TEntity => ({
+    ...entity,
+    id: ArrayUtils.nextMinNegativeValue(
+      MultiFieldUtils.multiFieldValueAsEntitiesIds<TEntity, number>(multiFieldValue) || []
+    ),
+  });
 
 /**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
   public static readonly asMultiItemEntity = asMultiItemEntity;
+  public static readonly buildPhantomEntity = buildPhantomEntity;
   public static readonly concatMultiFieldValue = concatMultiFieldValue;
   public static readonly extractEntitiesFromMultiFieldValue = extractEntitiesFromMultiFieldValue;
   public static readonly filterMultiFieldValue = filterMultiFieldValue;

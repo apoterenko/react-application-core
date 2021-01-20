@@ -12,44 +12,43 @@ import { NvlUtils } from './nvl';
 import { TypeUtils } from './type';
 
 /**
- * @stable [27.12.2020]
+ * @stable [20.01.2021]
  * @param length
  */
 const makeArray = <TValue = unknown>(length: number): TValue[] => Array.apply(null, {length});
 
 /**
- * @stable [19.11.2018]
- * @param {number[]} array
- * @returns {number}
- */
-export const arrayMinValue = (array: number[]): number => R.reduce(R.min, Infinity, array) as number;
-
-/**
- * @stable [22.11.2018]
- * @param {number[]} array
- * @returns {number}
- */
-export const arrayNextMinNegativeValue = (array: number[]): number => Math.min(Number(arrayMinValue(array)), 0) - 1;
-
-/**
- * @stable [13.12.2020]
+ * @stable [20.01.2021]
  * @param array
+ */
+const minValue = (array: number[]): number => R.reduce(R.min, Infinity, array) as number;
+
+/**
+ * @stable [21.01.2021]
+ * @param array
+ */
+const nextMinNegativeValue = (array: number[]): number => Math.min(Number(minValue(array)), 0) - 1;
+
+/**
+ * TODO
+ * @deprecated
  */
 export const isArrayNotEmpty = <TValue>(array: TValue[]): boolean => Array.isArray(array) && !R.isEmpty(array);
 
 /**
- * @stable [27.12.2020]
+ * @stable [21.01.2021]
  * @param array
  * @param limit
+ * @param start
  */
-const subArray = <TValue>(array: TValue[], limit?: number): TValue[] =>
+const subArray = <TValue>(array: TValue[], limit?: number, start = 0): TValue[] =>
   ConditionUtils.ifNotNilThanValue(
     array,
-    () => array.slice(0, Math.min(array.length, NvlUtils.nvl(limit, array.length)))
+    () => array.slice(start, Math.min(array.length, NvlUtils.nvl(limit, array.length)))
   );
 
 /**
- * @stable [06.09.2020]
+ * @stable [21.01.2021]
  * @param array
  * @param item
  * @param predicate
@@ -81,7 +80,7 @@ const mergeArrayItem = <TValue = IKeyValue>(array: TValue[],
 };
 
 /**
- * @stable [31.07.2020]
+ * @stable [21.01.2021]
  * @param data
  * @param entity
  * @param predicate
@@ -93,7 +92,7 @@ const doesArrayContainEntity =
     R.any((item) => predicate(item, entity), data || []);
 
 /**
- * @stable [31.07.2020]
+ * @stable [21.01.2021]
  * @param data
  * @param entity
  * @param predicate
@@ -105,20 +104,20 @@ const doesArrayContainExistedEntity =
     !EntityUtils.isNewEntity(entity) && doesArrayContainEntity(data, entity, predicate);
 
 /**
- * @stable [20.01.2021]
+ * @stable [21.01.2021]
  * @param data
  */
 const withoutDuplicates = <TEntity = IEntity>(...data: TEntity[]): TEntity[] =>
   Array.from(new Set(data));
 
 /**
- * @stable [31.07.2020]
+ * @stable [21.01.2021]
  */
 export class ArrayUtils {
   public static readonly doesArrayContainExistedEntity = doesArrayContainExistedEntity;
-  public static readonly isArrayNotEmpty = isArrayNotEmpty;
   public static readonly makeArray = makeArray;
   public static readonly mergeArrayItem = mergeArrayItem;
+  public static readonly nextMinNegativeValue = nextMinNegativeValue;
   public static readonly subArray = subArray;
   public static readonly withoutDuplicates = withoutDuplicates;
 }
