@@ -105,6 +105,13 @@ const doesArrayContainExistedEntity =
     !EntityUtils.isNewEntity(entity) && doesArrayContainEntity(data, entity, predicate);
 
 /**
+ * @stable [20.01.2021]
+ * @param data
+ */
+const withoutDuplicates = <TEntity = IEntity>(...data: TEntity[]): TEntity[] =>
+  Array.from(new Set(data));
+
+/**
  * @stable [31.07.2020]
  */
 export class ArrayUtils {
@@ -113,4 +120,5 @@ export class ArrayUtils {
   public static readonly makeArray = makeArray;
   public static readonly mergeArrayItem = mergeArrayItem;
   public static readonly subArray = subArray;
+  public static readonly withoutDuplicates = withoutDuplicates;
 }
