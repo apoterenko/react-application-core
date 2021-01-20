@@ -103,6 +103,11 @@ The library is designed to quickly start develop the business applications are b
 * [map-entity-as-container](src/core/util/map-as-component.ts)
 * [mapper](src/core/util/mapper.ts)
 
+#### @middleware
+
+* [ChainedMiddlewareFactories](src/store/middleware/chained.middleware.ts)
+* [EditedListMiddlewareFactories](src/store/middleware/edited-list.middleware.ts)
+
 #### @configuration-entity
 
 * [IConfigurationDialogEntity](src/core/definition/dialog-definition.interface.ts)
