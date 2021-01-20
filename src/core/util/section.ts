@@ -40,22 +40,19 @@ const applySection =
     }) as TResult;
 
 /**
- * @stable [26.07.2020]
+ * @stable [20.01.2021]
  * @param section
  */
-const actionPrefix = (section: string): string => `${ACTION_PREFIX}${section}`;
+const asActionPrefix = (section: string): string => `${ACTION_PREFIX}${section}`;
 
 /**
- * @stable [09.09.2020]
+ * @stable [20.01.2021]
  * @param section
  * @param cfg
  */
 const asConfigSection =
   <TState = {}>(section: SectionT<TState>, cfg: IActionStateEntity<TState>): string =>
-    CalcUtils.calc(
-      section,
-      FilterUtils.defValuesFilter<IActionStateEntity<TState>, IActionStateEntity<TState>>({action: cfg.action, state: cfg.state})
-    );
+    CalcUtils.calc(section, FilterUtils.defValuesFilter(cfg));
 
 /**
  * @stable [09.09.2020]
@@ -100,7 +97,7 @@ const asTabPanelSection = <TState = {}>(cfg: ITabPanelMiddlewareConfigEntity<TSt
  * @stable [26.07.2020]
  */
 export class SectionUtils {
-  public static readonly actionPrefix = actionPrefix;
+  public static readonly actionPrefix = asActionPrefix;
   public static readonly applySection = applySection;
   public static readonly asContainerSection = asContainerSection;
   public static readonly asFormOrListSection = asFormOrListSection;

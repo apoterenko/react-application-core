@@ -26,8 +26,8 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        * @param state
        */
       @EffectsService.effects(ListActionBuilder.buildCreateActionType(SectionUtils.asListSection(cfg)))
-      public $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        MiddlewareFactories.createEntityMiddleware({...cfg, action, state})
+      public readonly $onEntityCreate = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        MiddlewareFactories.createEntityMiddleware({...cfg, action, state});
 
       /**
        * @stable [09.09.2020]
@@ -35,8 +35,8 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        * @param state
        */
       @EffectsService.effects(ListActionBuilder.buildSelectActionType(SectionUtils.asListSection(cfg)))
-      public $onEntitySelect = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        MiddlewareFactories.selectEntityMiddleware({...cfg, action, state})
+      public readonly $onEntitySelect = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        MiddlewareFactories.selectEntityMiddleware({...cfg, action, state});
 
       /**
        * @stable [09.09.2020]
@@ -44,7 +44,7 @@ export const makeEditedListEffectsProxy = <TPayload = {}, TState = {}, TDefaultC
        * @param state
        */
       @EffectsService.effects(ListActionBuilder.buildLazyLoadDoneActionType(SectionUtils.asListSection(cfg)))
-      public $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
-        MiddlewareFactories.lazyLoadedEntityMiddleware({...cfg, action, state})
+      public readonly $onLazyLoadDone = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        MiddlewareFactories.lazyLoadedEntityMiddleware({...cfg, action, state});
     }
   };

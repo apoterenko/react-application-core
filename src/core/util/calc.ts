@@ -14,5 +14,5 @@ export const calc = <TResult, TPayload = unknown>(result: TResult | ((payload?: 
  * @stable [18.05.2020]
  */
 export class CalcUtils {
-  public static readonly calc = calc;                                       /* @stable [18.05.2020] */
+  public static readonly calc = calc;
 }

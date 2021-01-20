@@ -1,9 +1,5 @@
-import { makeChainedMiddleware } from './chained.middleware';
-import {
-  EditedListMiddlewareFactories,
-  makeCreateEntityMiddleware,
-  makeLazyLoadedEntityMiddleware,
-} from './edited-list.middleware';
+import { ChainedMiddlewareFactories } from './chained.middleware';
+import { EditedListMiddlewareFactories } from './edited-list.middleware';
 import {
   LoadedListMiddlewareFactories,
   makeLoadedListOnNavigateToFirstPageMiddleware,
@@ -24,8 +20,8 @@ import { FilterFormDialogMiddlewareFactories } from './filer-form-dialog.middlew
  * @stable [07.06.2020]
  */
 export class MiddlewareFactories {
-  public static readonly chainedMiddleware = makeChainedMiddleware;
-  public static readonly createEntityMiddleware = makeCreateEntityMiddleware;
+  public static readonly chainedMiddleware = ChainedMiddlewareFactories.chainedMiddleware;
+  public static readonly createEntityMiddleware = EditedListMiddlewareFactories.createEntityMiddleware;
   public static readonly defaultFormChangesMiddleware = DefaultFormChangesMiddlewareFactories.defaultFormChangesMiddleware;
   public static readonly destroyedContainerMiddleware = DestroyedContainerMiddlewareFactories.destroyedContainerMiddleware;
   public static readonly filteredListApplyMiddleware = FilteredListMiddlewareFactories.filteredListApplyMiddleware;
@@ -33,7 +29,7 @@ export class MiddlewareFactories {
   public static readonly filterFormDialogAcceptMiddleware = FilterFormDialogMiddlewareFactories.filterFormDialogAcceptMiddleware;
   public static readonly filterFormDialogClearMiddleware = FilterFormDialogMiddlewareFactories.filterFormDialogClearMiddleware;
   public static readonly filterFormDialogResetMiddleware = FilterFormDialogMiddlewareFactories.filterFormDialogResetMiddleware;
-  public static readonly lazyLoadedEntityMiddleware = makeLazyLoadedEntityMiddleware;
+  public static readonly lazyLoadedEntityMiddleware = EditedListMiddlewareFactories.lazyLoadedEntityMiddleware;
   public static readonly loadedListMiddleware = LoadedListMiddlewareFactories.loadedListMiddleware;
   public static readonly loadedListOnFormValidMiddleware = LoadedListMiddlewareFactories.loadedListOnFormValidMiddleware;
   public static readonly loadedListOnNavigateToFirstPageMiddleware = makeLoadedListOnNavigateToFirstPageMiddleware;

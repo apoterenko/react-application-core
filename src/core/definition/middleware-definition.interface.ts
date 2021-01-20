@@ -1,5 +1,3 @@
-import { IEffectsAction } from 'redux-effects-promise';
-
 import {
   IContainerSectionWrapper,
   ICustomActionsWrapper,
@@ -26,18 +24,7 @@ import { IEffectsActionEntity } from './redux-definition.interface';
 import { IReduxListEntity } from './list-definition.interface';
 
 /**
- * @stable [19.10.2019]
- */
-export type ChainedMiddlewarePayloadFnT<TState, TPayload> =
-  ((payload: TPayload, state: TState, action: IEffectsAction) => string);
-
-/**
- * @stable [19.10.2019]
- */
-export type ChainedMiddlewarePayloadT<TState, TPayload> = string | ChainedMiddlewarePayloadFnT<TState, TPayload>;
-
-/**
- * @stable [29.03.2020]
+ * @stable [20.01.2021]
  */
 export type SectionT<TState> = string | ((cfg: IActionStateEntity<TState>) => string);
 
@@ -148,24 +135,37 @@ export interface IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges = {},
 
 /**
  * @config-entity
- * @stable [26.03.2020]
+ * @stable [20.01.2021]
+ */
+export interface IChainedMiddlewarePayloadConfigEntity<TState = {}, TPayload = {}>
+  extends IActionStateEntity<TState>,
+    IPayloadWrapper<TPayload> {
+}
+
+/**
+ * @stable [20.01.2021]
+ */
+export type ChainedMiddlewarePayloadT<TState, TPayload> = string | ((cfg: IChainedMiddlewarePayloadConfigEntity<TState, TPayload>) => string);
+
+/**
+ * @config-entity
+ * @stable [20.01.2021]
  */
 export interface IChainedMiddlewareConfigEntity<TState, TPayload = {}>
-  extends IActionStateEntity<TState>,
+  extends IChainedMiddlewarePayloadConfigEntity<TState, TPayload>,
     INextSectionWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
-    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>>,
-    IPayloadWrapper<TPayload> {
+    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>> {
 }
 
 /**
  * @config-entity
  * @stable [26.03.2020]
  */
-export interface IEditedListMiddlewareConfigEntity<TPathPayload = {}, TState = {}, TDefaultChanges = TPathPayload>
+export interface IEditedListMiddlewareConfigEntity<TPayload = {}, TState = {}, TDefaultChanges = TPayload>
   extends IDefaultFormChangesMiddlewareConfigEntity<TDefaultChanges, TState>,
     ILazyLoadingWrapper,
     ILoadedListMiddlewareConfigEntity<TState>,
-    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPathPayload>> {
+    IPathWrapper<ChainedMiddlewarePayloadT<TState, TPayload>> {
 }
 
 /**

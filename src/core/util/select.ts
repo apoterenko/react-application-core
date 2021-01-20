@@ -63,35 +63,64 @@ import { ConditionUtils } from './cond';
 import { WrapperUtils } from './wrapper';
 
 /**
- * @stable [24.12.2020]
+ * @stable [20.01.2021]
  * @param wrapper
  */
-const selectQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue => wrapper?.queue;
+const asPreviousAction = <TValue>(wrapper: IPreviousActionWrapper<TValue>): IPreviousActionWrapper<TValue> => wrapper?.previousAction;
 
 /**
- * @stable [24.12.2020]
+ * @stable [20.01.2021]
  * @param wrapper
  */
-const selectRawData = <TValue = AnyT>(wrapper: IRawDataWrapper<TValue>): TValue => wrapper?.rawData;
+const asData = <TData>(wrapper: IDataWrapper<TData>): TData => wrapper?.data;
 
 /**
- * @stable [24.12.2020]
+ * @stable [20.01.2021]
  * @param wrapper
  */
-const selectElement = <TValue = unknown>(wrapper: IElementWrapper<TValue>): TValue => wrapper?.element;
+const asError = <TValue = unknown>(wrapper: IErrorWrapper<TValue>): TValue => wrapper?.error;
 
 /**
- * @stable [24.12.2020]
- * @param entity
- */
-const selectEntityId = (entity: IEntityIdTWrapper): EntityIdT => entity?.id;
-
-/**
- * @stable [22.09.2020]
+ * @stable [20.01.2021]
  * @param wrapper
  */
-const selectForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue =>
-  R.isNil(wrapper) ? UNDEF : wrapper.form;
+const asPreventEffects = (wrapper: IPreventEffectsWrapper): boolean => wrapper?.preventEffects;
+
+/**
+ * @stable [20.01.2021]
+ * @param wrapper
+ */
+const asQueue = <TValue>(wrapper: IQueueWrapper<TValue>): TValue => wrapper?.queue;
+
+/**
+ * @stable [20.01.2021]
+ * @param wrapper
+ */
+const asRawData = <TValue = unknown>(wrapper: IRawDataWrapper<TValue>): TValue => wrapper?.rawData;
+
+/**
+ * @stable [20.01.2021]
+ * @param wrapper
+ */
+const asElement = <TValue = unknown>(wrapper: IElementWrapper<TValue>): TValue => wrapper?.element;
+
+/**
+ * @stable [20.01.2021]
+ * @param wrapper
+ */
+const asEntityId = (wrapper: IEntityIdTWrapper): EntityIdT => wrapper?.id;
+
+/**
+ * @stable [20.01.2021]
+ * @param wrapper
+ */
+const asForm = <TValue>(wrapper: IFormWrapper<TValue>): TValue => wrapper?.form;
+
+/**
+ * @stable [20.01.2021]
+ * @param wrapper
+ */
+const asSelected = <TValue = IEntity>(wrapper: ISelectedWrapper<TValue>): TValue => wrapper?.selected;
 
 /**
  * @stable [22.09.2020]
@@ -113,13 +142,6 @@ const selectPrimaryFilter = <TValue>(wrapper: IPrimaryFilterWrapper<TValue>): TV
  */
 const selectList = <TValue>(wrapper: IListWrapper<TValue>): TValue =>
   R.isNil(wrapper) ? UNDEF : wrapper.list;
-
-/**
- * @stable [22.09.2020]
- * @param entity
- */
-const selectError = <TValue = AnyT>(entity: IErrorWrapper<TValue>): TValue =>
-  R.isNil(entity) ? UNDEF : entity.error;
 
 /**
  * @stable [22.09.2020]
@@ -159,12 +181,6 @@ export const selectChanges = <TResult = IEntity>(entity: IChangesWrapper<TResult
 export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>): TResult => entity?.entity;
 
 /**
- * @stable [19.12.2020]
- * @param wrapper
- */
-const selectData = <TData>(wrapper: IDataWrapper<TData>): TData => wrapper?.data;
-
-/**
  * @stable [30.07.2020]
  * @param wrapper
  */
@@ -175,40 +191,32 @@ const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue
  * @param action
  */
 const selectPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
-  selectData<IPayloadWrapper<TPayload>>(action)?.payload;
+  asData<IPayloadWrapper<TPayload>>(action)?.payload;
 
 /**
  * @stable [12.01.2021]
  * @param action
  */
 const selectValidFromAction = (action: IEffectsAction): boolean =>
-  selectData<IValidWrapper>(action)?.valid;
+  asData<IValidWrapper>(action)?.valid;
 
 /**
- * @stable [26.03.2020]
- * @param {IPreventEffectsWrapper} wrapper
- * @returns {boolean}
+ * @stable [20.01.2021]
+ * @param wrapper
  */
-const selectPreventEffects = (wrapper: IPreventEffectsWrapper): boolean =>
-  R.isNil(wrapper) ? UNDEF : wrapper.preventEffects;
-
-/**
- * @stable [26.03.2020]
- * @param {IEffectsAction} wrapper
- * @returns {boolean}
- */
-const selectPreventEffectsFromAction = (wrapper: IEffectsAction): boolean =>
+const asPreventEffectsFromAction = (wrapper: IEffectsAction): boolean =>
   R.isNil(wrapper)
     ? UNDEF
-    : NvlUtils.coalesce(selectPreventEffects(wrapper.data), selectPreventEffects(wrapper.initialData));
+    : NvlUtils.nvl(asPreventEffects(wrapper.data), asPreventEffects(wrapper.initialData));
 
 /**
- * @stable [08.06.2020]
- * @param {IPreviousActionWrapper<TValue>} wrapper
- * @returns {IPreviousActionWrapper<TValue>}
+ * @stable [20.01.2021]
+ * @param wrapper
  */
-const selectPreviousAction = <TValue>(wrapper: IPreviousActionWrapper<TValue>): IPreviousActionWrapper<TValue> =>
-  R.isNil(wrapper) ? UNDEF : wrapper.previousAction;
+const asPreviousActionFromAction = (wrapper: IEffectsAction): IEffectsAction =>
+  R.isNil(wrapper)
+    ? UNDEF
+    : NvlUtils.nvl(asPreviousAction(wrapper.data), asPreviousAction(wrapper.initialData));
 
 /**
  * @stable [08.05.2020]
@@ -218,26 +226,10 @@ const selectPreviousAction = <TValue>(wrapper: IPreviousActionWrapper<TValue>): 
 const selectListProgress = (entity: IReduxListHolderEntity): boolean => WrapperUtils.inProgress(selectList(entity));
 
 /**
- * @stable [26.03.2020]
- * @param {IEffectsAction} wrapper
- * @returns {IEffectsAction}
+ * @stable [20.01.2021]
+ * @param action
  */
-const selectPreviousActionFromAction = (wrapper: IEffectsAction): IEffectsAction =>
-  R.isNil(wrapper)
-    ? UNDEF
-    : NvlUtils.coalesce(selectPreviousAction(wrapper.data), selectPreviousAction(wrapper.initialData));
-
-/**
- * @stable [26.03.2020]
- * @param {IEffectsAction} action
- * @returns {string}
- */
-const selectPreviousActionTypeFromAction = (action: IEffectsAction): string =>
-  ConditionUtils.ifNotNilThanValue(
-    selectPreviousActionFromAction(action),
-    (previousAction) => previousAction.type,
-    UNDEF_SYMBOL
-  );
+const asPreviousActionTypeFromAction = (action: IEffectsAction): string => asPreviousActionFromAction(action)?.type;
 
 /**
  * @stable [08.09.2020]
@@ -258,28 +250,17 @@ const selectSectionFromAction = (action: IEffectsAction): string =>
   );
 
 /**
- * @stable [27.07.2020]
- * @param entity
+ * @stable [20.01.2021]
+ * @param action
  */
-const selectSelected = <TEntity = IEntity>(entity: ISelectedWrapper<TEntity>): TEntity =>
-  R.isNil(entity) ? UNDEF : entity.selected;
+const asSelectedEntityFromAction = <TEntity = IEntity>(action: IEffectsAction): TEntity => asSelected(asData(action));
 
 /**
- * @stable [21.07.2020]
- * @param {IEffectsAction} action
- * @returns {TEntity}
+ * @stable [20.01.2021]
+ * @param action
  */
-export const selectSelectedEntityFromAction = <TEntity = IEntity>(action: IEffectsAction): TEntity =>
-  selectSelected(selectData(action));
-
-/**
- * @stable [21.07.2020]
- * @param {IEffectsAction} action
- * @returns {EntityIdT}
- */
-export const selectSelectedEntityIdFromAction =
-  <TEntity extends IEntity = IEntity>(action: IEffectsAction): EntityIdT =>
-    selectEntityId(selectSelectedEntityFromAction(action));
+const asSelectedEntityIdFromAction =
+  <TEntity extends IEntity = IEntity>(action: IEffectsAction): EntityIdT => asEntityId(asSelectedEntityFromAction(action));
 
 /**
  * @stable [06.11.2020]
@@ -398,7 +379,7 @@ const selectTabPanel = <TTabPanel>(entity: ITabPanelWrapper<TTabPanel>): TTabPan
  * @returns {TEntity}
  */
 const selectListSelectedEntity = <TEntity extends IEntity>(entity: IReduxListHolderEntity<TEntity>): TEntity =>
-  selectSelected(selectList(entity));
+  asSelected(selectList(entity));
 
 /**
  * @stable [08.05.2020]
@@ -413,14 +394,14 @@ const selectDirections = <TValue>(wrapper: IDirectionsWrapper<TValue>): TValue =
  * @param {IReduxListHolderEntity} entity
  * @returns {TRawData}
  */
-const selectListRawData = <TRawData = AnyT>(entity: IReduxListHolderEntity): TRawData => selectRawData(selectList(entity));
+const selectListRawData = <TRawData = AnyT>(entity: IReduxListHolderEntity): TRawData => asRawData(selectList(entity));
 
 /**
  * @stable [01.08.2020]
  * @param entity
  */
 const selectFormHolderEntityChanges = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): TEntity =>
-  selectChanges(selectForm(entity));
+  selectChanges(asForm(entity));
 
 /**
  * @stable [01.08.2020]
@@ -490,16 +471,16 @@ export class Selectors {
   public static readonly channel = selectChannel;                                                               /* @stable [12.06.2020] */
   public static readonly channelEntity = selectChannelEntity;                                                   /* @stable [06.11.2020] */
   public static readonly channelMessagesByIp = selectChannelMessagesByIp;                                       /* @stable [06.11.2020] */
-  public static readonly data = selectData;                                                                     /* @stable [19.05.2020] */
+  public static readonly data = asData;
   public static readonly dictionaries = selectDictionaries;                                                     /* @stable [09.06.2020] */
   public static readonly directions = selectDirections;                                                         /* @stable [08.05.2020] */
-  public static readonly element = selectElement;                                                               /* @stable [08.06.2020] */
+  public static readonly element = asElement;
   public static readonly entity = selectEntity;
-  public static readonly entityId = selectEntityId;                                                             /* @stable [31.07.2020] */
-  public static readonly error = selectError;                                                                   /* @stable [12.06.2020] */
+  public static readonly entityId = asEntityId;
+  public static readonly error = asError;
   public static readonly filter = selectFilter;
   public static readonly firstStackItemEntity = selectFirstStackItemEntity;                                     /* @stable [18.09.2020] */
-  public static readonly form = selectForm;                                                                     /* @stable [11.05.2020] */
+  public static readonly form = asForm;
   public static readonly formHolderEntityChanges = selectFormHolderEntityChanges;                               /* @stable [01.08.2020] */
   public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */
   public static readonly layoutMode = selectLayoutMode;                                                         /* @stable [21.05.2020] */
@@ -510,22 +491,22 @@ export class Selectors {
   public static readonly mergedLayoutMode = selectMergedLayoutMode;                                             /* @stable [21.05.2020] */
   public static readonly notification = selectNotification;                                                     /* @stable [12.06.2020] */
   public static readonly payloadFromAction = selectPayloadFromAction;                                           /* @stable [08.06.2020] */
-  public static readonly preventEffectsFromAction = selectPreventEffectsFromAction;                             /* @stable [08.06.2020] */
-  public static readonly previousActionFromAction = selectPreviousActionFromAction;                             /* @stable [08.05.2020] */
-  public static readonly previousActionTypeFromAction = selectPreviousActionTypeFromAction;                     /* @stable [08.05.2020] */
+  public static readonly preventEffectsFromAction = asPreventEffectsFromAction;
+  public static readonly previousActionFromAction = asPreviousActionFromAction;
+  public static readonly previousActionTypeFromAction = asPreviousActionTypeFromAction;
   public static readonly primaryFilter = selectPrimaryFilter;                                                   /* @stable [10.05.2020] */
   public static readonly progress = selectProgress;                                                             /* @stable [10.08.2020] */
   public static readonly query = selectQuery;
   public static readonly queryFilter = selectQueryFilter;
   public static readonly queryFilterEntityQuery = selectQueryFilterEntityQuery;
-  public static readonly queue = selectQueue;                                                                   /* @stable [09.06.2020] */
-  public static readonly rawData = selectRawData;                                                               /* @stable [09.06.2020] */
+  public static readonly queue = asQueue;
+  public static readonly rawData = asRawData;
   public static readonly secondaryFilter = selectSecondaryFilter;                                               /* @stable [09.05.2020] */
   public static readonly sectionFromAction = selectSectionFromAction;                                           /* @stable [08.09.2020] */
   public static readonly sectionName = selectSectionName;
-  public static readonly selected = selectSelected;                                                             /* @stable [27.07.2020] */
-  public static readonly selectedEntityFromAction = selectSelectedEntityFromAction;                             /* @stable [21.07.2020] */
-  public static readonly selectedEntityIdFromAction = selectSelectedEntityIdFromAction;                         /* @stable [21.07.2020] */
+  public static readonly selected = asSelected;
+  public static readonly selectedEntityFromAction = asSelectedEntityFromAction;
+  public static readonly selectedEntityIdFromAction = asSelectedEntityIdFromAction;                         /* @stable [21.07.2020] */
   public static readonly stack = selectStack;                                                                   /* @stable [21.05.2020] */
   public static readonly stackItemEntities = selectStackItemEntities;                                           /* @stable [21.05.2020] */
   public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */

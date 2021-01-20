@@ -7,6 +7,7 @@ import {
   ConditionUtils,
   ObjectUtils,
   SectionUtils,
+  Selectors,
 } from '../../util';
 
 /**
@@ -15,6 +16,9 @@ import {
  */
 const makeDefaultFormChangesMiddleware =
   <TChanges = {}, TState = {}>(cfg: IDefaultFormChangesMiddlewareConfigEntity<TChanges, TState>): IEffectsAction => {
+    if (Selectors.preventEffectsFromAction(cfg.action)) {
+      return null;
+    }
     const {
       defaultChanges,
     } = cfg;

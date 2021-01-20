@@ -1,12 +1,9 @@
 import { IEffectsAction } from 'redux-effects-promise';
 
+import { IChainedMiddlewareConfigEntity } from '../../definition';
 import {
-  ChainedMiddlewarePayloadFnT,
-  IChainedMiddlewareConfigEntity,
-} from '../../definition';
-import {
+  CalcUtils,
   Selectors,
-  TypeUtils,
 } from '../../util';
 import {
   RouterActionBuilder,
@@ -14,24 +11,23 @@ import {
 } from '../../action';
 
 /**
- * @stable [04.09.2020]
- * @param config
+ * @middleware
+ * @stable [20.01.2021]
+ *
+ * @param cfg
  */
-export const makeChainedMiddleware =
-  <TPayload, TState>(config: IChainedMiddlewareConfigEntity<TState, TPayload>): IEffectsAction[] =>
-    Selectors.preventEffectsFromAction(config.action) === true
-      ? []
-      : (
-        [
-          StackActionBuilder.buildLockAction(
-            TypeUtils.isFn(config.nextSection)
-              ? (config.nextSection as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
-              : config.nextSection as string
-          ),
-          RouterActionBuilder.buildNavigateAction(
-            TypeUtils.isFn(config.path)
-              ? (config.path as ChainedMiddlewarePayloadFnT<TState, TPayload>)(config.payload, config.state, config.action)
-              : config.path as string
-          )
-        ]
-      );
+const makeChainedMiddleware =
+  <TPayload, TState>(cfg: IChainedMiddlewareConfigEntity<TState, TPayload>): IEffectsAction[] =>
+    Selectors.preventEffectsFromAction(cfg.action)
+      ? null
+      : [
+        StackActionBuilder.buildLockAction(CalcUtils.calc(cfg.nextSection, cfg)),
+        RouterActionBuilder.buildNavigateAction(CalcUtils.calc(cfg.path, cfg))
+      ];
+
+/**
+ * @stable [20.01.2021]
+ */
+export class ChainedMiddlewareFactories {
+  public static readonly chainedMiddleware = makeChainedMiddleware;
+}

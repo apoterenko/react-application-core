@@ -12,14 +12,13 @@ import {
 import {
   ListActionBuilder,
 } from '../../component/action.builder';
-import { makeChainedMiddleware } from './chained.middleware';
 import {
   ConditionUtils,
   FilterUtils,
-  ObjectUtils,
   SectionUtils,
   Selectors,
 } from '../../util';
+import { ChainedMiddlewareFactories } from './chained.middleware';
 import { DefaultFormChangesMiddlewareFactories } from './default-form-changes.middleware';
 
 /**
@@ -37,66 +36,78 @@ const asChainedConfigEntity = <TPayload = {}, TState = {}, TDefaultChanges = {}>
   });
 
 /**
- * @stable [04.09.2020]
+ * @middleware
+ * @stable [20.01.2021]
+ *
  * @param config
  */
-export const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
+const makeCreateEntityMiddleware = <TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<{}, TState, TDefaultChanges>): IEffectsAction[] =>
-  ConditionUtils.ifNotNilThanValue(
-    makeChainedMiddleware(asChainedConfigEntity(config)),
-    (actions) => FilterUtils.notNilValuesArrayFilter(
-      ...actions,
+  ConditionUtils.ifNotEmptyThanValue(
+    FilterUtils.notNilValuesArrayFilter<IEffectsAction>(
+      ...ChainedMiddlewareFactories.chainedMiddleware(asChainedConfigEntity(config)) || [],
       DefaultFormChangesMiddlewareFactories.defaultFormChangesMiddleware(config)
-    )
+    ),
+    (actions) => actions
   );
 
 /**
- * @stable [09.09.2020]
+ * @middleware
+ * @stable [20.01.2021]
+ *
  * @param cfg
  */
 const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   cfg: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>): IEffectsAction[] => {
 
   const action = cfg.action;
-  const selected = Selectors.selectedEntityFromAction<TPayload>(action);
+  const payload = Selectors.selectedEntityFromAction(action);
 
   return cfg.lazyLoading
     ? [
       ListActionBuilder.buildLazyLoadAction(
         SectionUtils.asListSection(cfg),
         FilterUtils.defValuesFilter<IFluxSelectedEntity, IFluxSelectedEntity>({
-          selected,
           preventEffects: Selectors.preventEffectsFromAction(action),
           previousAction: Selectors.previousActionFromAction(action),
+          selected: payload,
         })
       )
     ]
-    : makeChainedMiddleware({...asChainedConfigEntity(cfg), payload: selected});
+    : ChainedMiddlewareFactories.chainedMiddleware({...asChainedConfigEntity(cfg), payload});
 };
 
 /**
- * @stable [03.04.2020]
- * @param {IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>} config
- * @returns {IEffectsAction[]}
+ * @middleware
+ * @stable [20.01.2021]
+ *
+ * @param config
  */
-export const makeLazyLoadedEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
+const makeLazyLoadedEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>
-): IEffectsAction[] => {
-  const {action} = config;
-  const result = [
-    ...ConditionUtils.ifNotNilThanValue(
-      Selectors.previousActionTypeFromAction(action),
-      (previousActionType) => [EffectsAction.create(EffectsActionBuilder.buildDoneActionType(previousActionType))],
-      []
+): IEffectsAction[] =>
+  ConditionUtils.ifNotEmptyThanValue(
+    FilterUtils.notNilValuesArrayFilter<IEffectsAction>(
+      ...ConditionUtils.ifNotNilThanValue(
+        Selectors.previousActionTypeFromAction(config.action),
+        (previousActionType) => [
+          EffectsAction.create(EffectsActionBuilder.buildDoneActionType(previousActionType))
+        ],
+        []
+      ),
+      ...ChainedMiddlewareFactories.chainedMiddleware({
+        ...asChainedConfigEntity(config),
+        payload: config.action.data,
+      }) || []
     ),
-    ...makeChainedMiddleware({...asChainedConfigEntity(config), payload: action.data}) || []
-  ];
-  return ConditionUtils.orNull(ObjectUtils.isObjectNotEmpty(result), result);
-};
+    (actions) => actions
+  );
 
 /**
  * @stable [09.09.2020]
  */
 export class EditedListMiddlewareFactories {
+  public static readonly createEntityMiddleware = makeCreateEntityMiddleware;
+  public static readonly lazyLoadedEntityMiddleware = makeLazyLoadedEntityMiddleware;
   public static readonly selectEntityMiddleware = makeSelectEntityMiddleware;
 }
