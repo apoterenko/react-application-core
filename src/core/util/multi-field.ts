@@ -325,9 +325,35 @@ const buildPhantomEntity =
   });
 
 /**
+ * @stable [21.01.2021]
+ * @param name
+ * @param multiFieldValue
+ * @param predicate
+ * @param factory
+ */
+const asMultiItemEditReplacedEntity = <TEntity extends IEntity = IEntity>(
+  name: string,
+  multiFieldValue: MultiFieldValueT<TEntity>,
+  predicate: (itm: IMultiItemEntity) => boolean,
+  factory: (multiItemEntity: IMultiItemEntity, entity: TEntity) => unknown): IMultiItemEntity => {
+
+  const multiItemSourceEntity = multiFieldValueAsMultiItemSourceEntities(multiFieldValue).find(predicate);
+
+  return asMultiItemEntity(
+    name,
+    factory(
+      multiFieldValueAsMultiItemEditEntities(multiFieldValue).find(predicate),
+      multiItemSourceEntity
+    ),
+    multiItemSourceEntity,
+  );
+};
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
+  public static readonly asMultiItemEditReplacedEntity = asMultiItemEditReplacedEntity;
   public static readonly asMultiItemEntity = asMultiItemEntity;
   public static readonly buildPhantomEntity = buildPhantomEntity;
   public static readonly concatMultiFieldValue = concatMultiFieldValue;

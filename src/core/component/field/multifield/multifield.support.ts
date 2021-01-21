@@ -1,14 +1,12 @@
 import * as R from 'ramda';
 
 import {
-  AnyT,
   EntityIdT,
   IEntity,
   IKeyValue,
   UNDEF,
 } from '../../../definitions.interface';
 import {
-  buildMultiItemEntity,
   ConditionUtils,
   ifNotNilThanValue,
   isDef,
@@ -19,10 +17,10 @@ import {
   IMultiFieldChangesEntity,
 } from './multifield.interface';
 import {
-  IReduxMultiEntity,
   IMultiItemEntity,
-  MultiFieldValueT,
+  IReduxMultiEntity,
   MultiFieldSingleValueT,
+  MultiFieldValueT,
 } from '../../../definition';
 
 /**
@@ -92,33 +90,6 @@ export const fromMultiItemEntityToEntity = (entity: IEntity | IMultiItemEntity):
     };
   }
   return entity;
-};
-
-/**
- * @stable [23.06.2018]
- * @param {string} fieldName
- * @param {MultiFieldValueT} multiFieldValue
- * @param {(itm: IMultiItemEntity) => boolean} predicate
- * @param {(itm: IMultiItemEntity) => AnyT} nextFieldValueFn
- * @returns {IMultiItemEntity}
- */
-export const buildMultiEditItemEntityPayload = <TEntity extends IEntity = IEntity>(
-  fieldName: string,
-  multiFieldValue: MultiFieldValueT,
-  predicate: (itm: IMultiItemEntity) => boolean,
-  nextFieldValueFn: (multiItemEntity: IMultiItemEntity, entity: TEntity) => AnyT): IMultiItemEntity => {
-
-  const sourceMultiItemEntities = extractMultiSourceItemEntities(multiFieldValue);
-  const editedMultiItemEntities = MultiFieldUtils.multiFieldValueAsMultiItemEditEntities(multiFieldValue);
-
-  const editedMultiItemEntity = editedMultiItemEntities.find(predicate);
-  const sourceMultiItemEntity = sourceMultiItemEntities.find(predicate);
-
-  return buildMultiItemEntity(
-    fieldName,
-    nextFieldValueFn(editedMultiItemEntity as TEntity, sourceMultiItemEntity as TEntity),
-    sourceMultiItemEntity,
-  );
 };
 
 /**

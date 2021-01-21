@@ -1,5 +1,4 @@
 import {
-  buildMultiEditItemEntityPayload,
   toMultiFieldChangesEntityOnEdit,
   toMultiFieldChangesEntityOnDelete,
 } from './multifield.support';
@@ -185,7 +184,7 @@ describe('multifield.support', () => {
   describe('buildMultiEditItemEntityPayload', () => {
     it('test1', () => {
       const entity = Object.freeze({id: 1, count: 100});
-      const result = buildMultiEditItemEntityPayload(
+      const result = MultiFieldUtils.asMultiItemEditReplacedEntity(
         'count',
         [entity],
         (itm) => itm.id === entity.id,
@@ -196,7 +195,7 @@ describe('multifield.support', () => {
 
     it('test2', () => {
       const entity = Object.freeze({id: 1, count: 100});
-      const result = buildMultiEditItemEntityPayload(
+      const result = MultiFieldUtils.asMultiItemEditReplacedEntity(
         'count',
         {
           add: [],
