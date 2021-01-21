@@ -40,8 +40,8 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   protected readonly multiFieldPlugin = new MultiFieldPlugin(this);
 
   /**
-   * @stable [08.07.2020]
-   * @param {TProps} originalProps
+   * @stable [21.01.2021]
+   * @param originalProps
    */
   constructor(originalProps: TProps) {
     super(originalProps);
@@ -78,8 +78,8 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
-   * @stable [29.08.2018]
-   * @param {IMultiItemEntity} item
+   * @stable [21.01.2021]
+   * @param item
    */
   public editItem(item: IMultiItemEntity): void {
     this.onEdit(item);
@@ -121,14 +121,6 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
    */
   protected onDelete(item: IEntity): void {
     this.multiFieldPlugin.onDeleteItem(item);
-  }
-
-  /**
-   * @stable [29.08.2018]
-   * @param {IMultiItemEntity} item
-   */
-  protected onEdit(item: IMultiItemEntity): void {
-    this.multiFieldPlugin.onEditItem(item);
   }
 
   /**
@@ -200,11 +192,19 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
-   * @stable [08.07.2020]
-   * @returns {IPresetsRawDataLabeledValueEntity[]}
+   * @stable [21.01.2021]
+   * @param item
+   */
+  private onEdit(item: IMultiItemEntity): void {
+    this.multiFieldPlugin.onEditItem(item);
+  }
+
+  /**
+   * @stable [21.01.2021]
    */
   private get menuInlineOptions(): IPresetsRawDataLabeledValueEntity[] {
-    const activeValue = this.multiFieldPlugin.activeValue;
-    return activeValue.map(this.fieldConverter.fromNamedEntityToRawDataLabeledValueEntity);
+    return this.multiFieldPlugin
+      .activeValue
+      .map(this.fieldConverter.fromNamedEntityToRawDataLabeledValueEntity);
   }
 }
