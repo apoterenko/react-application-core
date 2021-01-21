@@ -9,7 +9,7 @@ describe('util/multi-field', () => {
     });
     it('test1', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds(null);
-      expect(ids).toEqual(null);
+      expect(ids).toEqual(UNDEF);
     });
     it('test2', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds([]);
