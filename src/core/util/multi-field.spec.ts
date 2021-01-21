@@ -1,10 +1,25 @@
 import { UNDEF } from '../definitions.interface';
 import { MultiFieldUtils } from './multi-field';
 
-describe('multi-field', () => {
-
+describe('util/multi-field', () => {
   describe('MultiFieldUtils.multiFieldValueAsEntitiesIds', () => {
+    it('test0', () => {
+      const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds(UNDEF);
+      expect(ids).toEqual(UNDEF);
+    });
     it('test1', () => {
+      const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds(null);
+      expect(ids).toEqual(null);
+    });
+    it('test2', () => {
+      const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds([]);
+      expect(ids).toEqual([]);
+    });
+    it('test3', () => {
+      const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds([{id: 1}, {id: 2}]);
+      expect(ids).toEqual([1, 2]);
+    });
+    it('test4', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [],
         remove: [],
@@ -13,8 +28,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([]);
     });
-
-    it('test2', () => {
+    it('test5', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [],
         remove: [],
@@ -22,8 +36,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([]);
     });
-
-    it('test3', () => {
+    it('test6', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [{id: 1}],
         remove: [],
@@ -32,8 +45,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([1]);
     });
-
-    it('test4', () => {
+    it('test7', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
@@ -42,8 +54,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([1, 2]);
     });
-
-    it('test5', () => {
+    it('test8', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [],
@@ -52,8 +63,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([1, 2, 3]);
     });
-
-    it('test6', () => {
+    it('test9', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [{id: 1}, {id: 2}],
         remove: [{id: 3}],
@@ -62,8 +72,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([1, 2]);
     });
-
-    it('test7', () => {
+    it('test10', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [],
         remove: [{id: 3}],
@@ -72,8 +81,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([]);
     });
-
-    it('test8', () => {
+    it('test11', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [],
         remove: [{id: 3}],
@@ -82,8 +90,7 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([4]);
     });
-
-    it('test9', () => {
+    it('test12', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [{id: 1}],
         remove: [],
@@ -92,23 +99,13 @@ describe('multi-field', () => {
       });
       expect(ids).toEqual([1, 2, 3]);
     });
-
-    it('test10', () => {
+    it('test13', () => {
       const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds({
         add: [{id: 1}],
         remove: [],
         edit: [],
       });
       expect(ids).toEqual([1]);
-    });
-
-    it('test11', () => {
-      const ids = MultiFieldUtils.multiFieldValueAsEntitiesIds([{id: 1}, {id: 2}]);
-      expect(ids).toEqual([1, 2]);
-    });
-
-    it('test12', () => {
-      expect(MultiFieldUtils.multiFieldValueAsEntitiesIds(UNDEF)).toEqual(UNDEF);
     });
   });
 });
