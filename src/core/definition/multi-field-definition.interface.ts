@@ -1,6 +1,7 @@
 import {
   EntityIdT,
   IEntity,
+  IEntityWrapper,
   ISelectedValueIgnoredWrapper,
 } from '../definitions.interface';
 import {
@@ -69,9 +70,10 @@ export interface IMultiFieldValueConcatConfigEntity<TEntity = IEntity> {
  * @config-entity
  * @stable [04.09.2020]
  */
-export interface IMultiFieldValueMergeConfigEntity<TEntity = IEntity> {
-  entity: MultiFieldValueT<TEntity>
-  groupValueAccessor?: (item: TEntity) => EntityIdT
+export interface IMultiFieldValueMergeConfigEntity<TEntity = IEntity, TValue = unknown>
+  extends IEntityWrapper<MultiFieldValueT<TEntity>> {
+  groupKeyAccessor?: (item?: TEntity) => EntityIdT;
+  groupValueAccessor?: (item?: TEntity) => TValue;
 }
 
 /**

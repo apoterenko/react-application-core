@@ -16,7 +16,6 @@ import {
   IFieldConverterConfigEntity,
   IMultiFieldValueMergeConfigEntity,
   INamedEntity,
-  IPhoneConfigEntity,
   IPlaceEntity,
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
@@ -30,7 +29,6 @@ import {
   asPlaceEntity,
   ConditionUtils,
   CronEntity,
-  FieldUtils,
   FilterUtils,
   Mappers,
   MultiFieldUtils,
@@ -500,12 +498,11 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [29.08.2020]
+   * @stable [21.01.2021]
    * @param value
-   * @private
    */
   private $fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[] {
-    return FieldUtils.fromMultiFieldValueToDefinedEntities(value);
+    return MultiFieldUtils.multiFieldValueAsDefinedEntities(value);
   }
 
   /**

@@ -254,20 +254,40 @@ const multiFieldValueAsEntities = <TEntity extends IEntity = IEntity>(entity: Mu
 };
 
 /**
- * @stable [04.09.2020]
+ * @stable [21.01.2021]
+ * @param entity
+ */
+const multiFieldValueAsDefinedEntities = <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
+  multiFieldValueAsEntities(entity) || [];
+
+/**
+ * @stable [21.01.2021]
  * @param cfg
  */
-const multiFieldValueAsTrueEntitiesObject =
-  <TEntity extends IEntity>(cfg: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> => {
+const multiFieldValueAsUnknownEntitiesObject =
+  <TEntity extends IEntity, TValue = unknown>(cfg: IMultiFieldValueMergeConfigEntity<TEntity, TValue>): Record<EntityIdT, TValue> => {
     const {
       entity,
-      groupValueAccessor = (item) => item.id,
+      groupKeyAccessor = (item) => item.id,
+      groupValueAccessor,
     } = cfg;
 
     return R.mergeAll(
-      (multiFieldValueAsEntities<TEntity>(entity) || []).map((item) => ({[groupValueAccessor(item)]: true}))
+      multiFieldValueAsDefinedEntities<TEntity>(entity)
+        .map((item) => ({[groupKeyAccessor(item)]: groupValueAccessor(item)}))
     );
   };
+
+/**
+ * @stable [21.01.2021]
+ * @param cfg
+ */
+const multiFieldValueAsTrueEntitiesObject =
+  <TEntity extends IEntity = IEntity>(cfg: IMultiFieldValueMergeConfigEntity<TEntity>): Record<EntityIdT, boolean> =>
+    multiFieldValueAsUnknownEntitiesObject<TEntity, boolean>({
+      ...cfg,
+      groupValueAccessor: () => true,
+    });
 
 /**
  * @stable [21.01.2021]
@@ -315,6 +335,7 @@ export class MultiFieldUtils {
   public static readonly filterMultiFieldValue = filterMultiFieldValue;
   public static readonly fromMultiEntity = fromMultiEntity;
   public static readonly isNotMultiEntity = isNotMultiEntity;
+  public static readonly multiFieldValueAsDefinedEntities = multiFieldValueAsDefinedEntities;
   public static readonly multiFieldValueAsEditEntities = multiFieldValueAsEditEntities;
   public static readonly multiFieldValueAsEntities = multiFieldValueAsEntities;
   public static readonly multiFieldValueAsEntitiesIds = multiFieldValueAsEntitiesIds;
@@ -324,5 +345,6 @@ export class MultiFieldUtils {
   public static readonly multiFieldValueAsMultiItemRemoveEntities = multiFieldValueAsMultiItemRemoveEntities;
   public static readonly multiFieldValueAsMultiItemSourceEntities = multiFieldValueAsMultiItemSourceEntities;
   public static readonly multiFieldValueAsTrueEntitiesObject = multiFieldValueAsTrueEntitiesObject;
+  public static readonly multiFieldValueAsUnknownEntitiesObject = multiFieldValueAsUnknownEntitiesObject;
   public static readonly notMultiFieldValueAsEntities = notMultiFieldValueAsEntities;
 }

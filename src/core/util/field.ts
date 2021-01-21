@@ -85,14 +85,6 @@ const asDynamicObjectFromIds = <TResult = IKeyValue>(array: EntityIdT[],
   asDynamicObject<EntityIdT, TResult>(array, (itm) => itm, valueAccessor);
 
 /**
- * @stable [29.08.2020]
- * @param entity
- */
-const fromMultiFieldValueToDefinedEntities =
-  <TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[] =>
-    MultiFieldUtils.multiFieldValueAsEntities(entity) || [];
-
-/**
  * @stable [14.10.2019]
  * @param {MultiFieldValueOrEntityIdT} value
  * @returns {number}
@@ -154,5 +146,4 @@ export class FieldUtils {
   public static readonly asDynamicObjectFromIds = asDynamicObjectFromIds;                                         /* @stable [28.10.2020] */
   public static readonly dynamicFieldName = dynamicFieldName;                                                     /* @stable [29.06.2020] */
   public static readonly dynamicFieldValue = dynamicFieldValue;                                                   /* @stable [29.06.2020] */
-  public static readonly fromMultiFieldValueToDefinedEntities = fromMultiFieldValueToDefinedEntities;             /* @stable [16.05.2020] */
 }
