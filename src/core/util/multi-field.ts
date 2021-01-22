@@ -143,7 +143,7 @@ const multiFieldValueAsEditEntities =
   };
 
 /**
- * @stable [31.08.2020]
+ * @stable [21.01.2021]
  * @param name
  * @param value
  * @param rawData
@@ -154,7 +154,13 @@ const asMultiItemEntity =
                                       value: unknown,
                                       rawData: TEntity,
                                       newEntity?: boolean): IMultiItemEntity =>
-    FilterUtils.defValuesFilter<IMultiItemEntity, IMultiItemEntity>({id: rawData.id, value, name, rawData, newEntity});
+    FilterUtils.defValuesFilter<IMultiItemEntity, IMultiItemEntity>({
+      id: rawData.id,
+      value,
+      name,
+      rawData,
+      newEntity,
+    });
 
 /**
  * @stable [02.09.2020]
@@ -350,6 +356,20 @@ const asMultiItemEditReplacedEntity = <TEntity extends IEntity = IEntity>(
 };
 
 /**
+ * @stable [21.01.2021]
+ * @param multiItemEntity
+ */
+const multiItemEntityAsEntity = <TEntity extends IEntity = IEntity>(multiItemEntity: IMultiItemEntity): TEntity => {
+  if (TypeUtils.isDef(multiItemEntity.rawData)) {
+    return {
+      ...multiItemEntity.rawData,
+      [multiItemEntity.name]: multiItemEntity.value,
+    };
+  }
+  return multiItemEntity as TEntity;
+};
+
+/**
  * @stable [29.08.2020]
  */
 export class MultiFieldUtils {
@@ -357,7 +377,6 @@ export class MultiFieldUtils {
   public static readonly asMultiItemEntity = asMultiItemEntity;
   public static readonly buildPhantomEntity = buildPhantomEntity;
   public static readonly concatMultiFieldValue = concatMultiFieldValue;
-  public static readonly extractEntitiesFromMultiFieldValue = extractEntitiesFromMultiFieldValue;
   public static readonly filterMultiFieldValue = filterMultiFieldValue;
   public static readonly fromMultiEntity = fromMultiEntity;
   public static readonly isNotMultiEntity = isNotMultiEntity;
@@ -372,5 +391,6 @@ export class MultiFieldUtils {
   public static readonly multiFieldValueAsMultiItemSourceEntities = multiFieldValueAsMultiItemSourceEntities;
   public static readonly multiFieldValueAsTrueEntitiesObject = multiFieldValueAsTrueEntitiesObject;
   public static readonly multiFieldValueAsUnknownEntitiesObject = multiFieldValueAsUnknownEntitiesObject;
+  public static readonly multiItemEntityAsEntity = multiItemEntityAsEntity;
   public static readonly notMultiFieldValueAsEntities = notMultiFieldValueAsEntities;
 }

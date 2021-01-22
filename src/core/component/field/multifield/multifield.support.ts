@@ -9,7 +9,6 @@ import {
 import {
   ConditionUtils,
   ifNotNilThanValue,
-  isDef,
   MultiFieldUtils,
   TypeUtils,
 } from '../../../util';
@@ -55,42 +54,6 @@ export function fromMultiFieldValueToEditedEntities<TItem extends IEntity = IEnt
   const result = MultiFieldUtils.multiFieldValueAsEditEntities<TItem>(multiFieldValue);
   return ConditionUtils.orUndef<TResult[]>(!R.isNil(result), (): TResult[] => result.map<TResult>(mapper));
 }
-
-/**
- * @stable [02.07.2018]
- * @param {MultiFieldValueT} value
- * @param {IMultiItemEntity[]} defaultValue
- * @returns {IEntity[]}
- */
-export const extractMultiAddItemEntities = (value: MultiFieldValueT,
-                                            defaultValue: IMultiItemEntity[] = []): IEntity[] =>
-  MultiFieldUtils.extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.add, defaultValue);
-
-/**
- * @stable [23.06.2018]
- * @param {MultiFieldValueT} value
- * @param {IEntity[]} defaultValue
- * @returns {IEntity[]}
- */
-export const extractMultiSourceItemEntities = (value: MultiFieldValueT,
-                                               defaultValue?: IEntity[]): IEntity[] =>
-  MultiFieldUtils.extractEntitiesFromMultiFieldValue(value, (currentValue) => currentValue.source, defaultValue);
-
-/**
- * @stable [02.07.2018]
- * @param {IEntity | IMultiItemEntity} entity
- * @returns {IEntity}
- */
-export const fromMultiItemEntityToEntity = (entity: IEntity | IMultiItemEntity): IEntity => {
-  const entityAsMultiItemEntity = entity as IMultiItemEntity;
-  if (isDef(entityAsMultiItemEntity.rawData)) {
-    return {
-      ...entityAsMultiItemEntity.rawData,
-      [entityAsMultiItemEntity.name]: entityAsMultiItemEntity.value,
-    };
-  }
-  return entity;
-};
 
 /**
  * @stable [04.07.2018]
@@ -154,7 +117,7 @@ export const toMultiFieldChangesEntityOnEdit = (item: IMultiItemEntity,
     ? (
       item.value === UNDEF    // Need to destroy the added entities
         ? R.filter<IEntity>((itm) => itm.id !== item.id, addValue)
-        : R.map<IEntity, IEntity>((newItem) => newItem.id === item.id ? fromMultiItemEntityToEntity(item) : newItem, addValue)
+        : R.map<IEntity, IEntity>((newItem) => newItem.id === item.id ? MultiFieldUtils.multiItemEntityAsEntity(item) : newItem, addValue)
     )
     : addValue;
   return {addArray, removeArray, editArray};

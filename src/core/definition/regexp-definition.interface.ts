@@ -9,6 +9,7 @@ export enum RegexpEnum {
   POSITIVE_OR_NEGATIVE_NUMBER = '^-?\\d*\\.?\\d+$',              // @stable [28.07.2020] @see https://projects.lukehaas.me/regexhub/
   POSITIVE_OR_NEGATIVE_PRICE = '^[-+]?\\d+(\\.\\d{1,4})?$',      // @stable [28.07.2020]
   PRICE = '^\\d+(\\.\\d{1,4})?$',                                // @stable [28.07.2020]
+  SPECIAL_CHARACTER = '[^A-Za-z0-9]',                            // @stable [22.01.2021] @see https://github.com/nowsecure/owasp-password-strength-test/blob/master/owasp-password-strength-test.js
 }
 
 /**
@@ -22,4 +23,5 @@ export class RegexpConstants {
   public static readonly POSITIVE_OR_NEGATIVE_INTEGER = new RegExp(RegexpEnum.POSITIVE_OR_NEGATIVE_INTEGER);
   public static readonly POSITIVE_OR_NEGATIVE_NUMBER = new RegExp(RegexpEnum.POSITIVE_OR_NEGATIVE_NUMBER);
   public static readonly PRICE = new RegExp(RegexpEnum.PRICE);
+  public static readonly SPECIAL_CHARACTER = new RegExp(RegexpEnum.SPECIAL_CHARACTER);
 }

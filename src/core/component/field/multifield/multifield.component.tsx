@@ -10,6 +10,7 @@ import { IMultiField } from './multifield.interface';
 import { MultiFieldPlugin } from './multifield.plugin';
 import {
   ClsUtils,
+  ConditionUtils,
   PropsUtils,
 } from '../../../util';
 import {
@@ -62,8 +63,8 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
-   * @stable [19.11.2018]
-   * @param {IMultiItemEntity} item
+   * @stable [21.01.2021]
+   * @param item
    */
   public addItem(item: IMultiItemEntity): void {
     this.multiFieldPlugin.onAddItem(item);
@@ -82,15 +83,15 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
    * @param item
    */
   public editItem(item: IMultiItemEntity): void {
-    this.onEdit(item);
+    this.multiFieldPlugin.onEditItem(item);
   }
 
   /**
-   * @stable [29.08.2018]
-   * @param {IMultiItemEntity} item
+   * @stable [21.01.2021]
+   * @param item
    */
   public mergeItem(item: IMultiItemEntity): void {
-    this.onMerge(item);
+    this.multiFieldPlugin.onMergeItem(item);
   }
 
   /**
@@ -102,16 +103,12 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
   }
 
   /**
-   * @stable [11.08.2018]
-   * @param {IPresetsSelectOptionEntity} option
+   * @stable [21.01.2021]
+   * @param option
    */
   protected onSelect(option: IPresetsSelectOptionEntity): void {
     this.multiFieldPlugin.onAddItem({id: option.value, rawData: option.rawData});
-
-    const props = this.props;
-    if (props.onSelect) {
-      props.onSelect(option);
-    }
+    ConditionUtils.ifNotNilThanValue(this.originalProps.onSelect, (onSelect) => onSelect(option));
   }
 
   /**
@@ -121,14 +118,6 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
    */
   protected onDelete(item: IEntity): void {
     this.multiFieldPlugin.onDeleteItem(item);
-  }
-
-  /**
-   * @stable [29.08.2018]
-   * @param {IMultiItemEntity} item
-   */
-  protected onMerge(item: IMultiItemEntity): void {
-    this.multiFieldPlugin.onMergeItem(item);
   }
 
   /**
@@ -189,14 +178,6 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
    */
   private onMenuInlineOptionClose(option: IPresetsRawDataLabeledValueEntity): void {
     this.onDelete({id: this.fieldConverter.fromSelectValueToId(option)});
-  }
-
-  /**
-   * @stable [21.01.2021]
-   * @param item
-   */
-  private onEdit(item: IMultiItemEntity): void {
-    this.multiFieldPlugin.onEditItem(item);
   }
 
   /**

@@ -18,12 +18,20 @@ export enum ValidationRulesEnum {
   POSITIVE_OR_NEGATIVE_NUMBER_LIKE,
   POSITIVE_OR_NEGATIVE_OPTIONAL_NUMBER_LIKE,
   STRING,
+  STRONG_OPTIONAL_PASSWORD,
+  STRONG_PASSWORD,
 }
 
 /**
+ * @table [22.01.2021]
+ */
+export type ValidationRulesRecordT = Record<ValidationRulesEnum, boolean>;
+
+/**
+ * @entity
  * @stable [07.09.2020]
  */
-export interface IValidationResultEntity
-  extends IDataWrapper<Record<string, Record<ValidationRulesEnum, boolean>>>,
+export interface IValidationResultEntity<TEntity = unknown>
+  extends IDataWrapper<Record<keyof TEntity, ValidationRulesRecordT>>,
     IValidWrapper {
 }

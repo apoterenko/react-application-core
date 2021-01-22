@@ -57,6 +57,7 @@ import {
   IPrefixLabelWrapper,
   IPreventFocusWrapper,
   IPreventManualChangesWrapper,
+  IProgressWrapper,
   IRawDataWrapper,
   IReadOnlyWrapper,
   IRenderedWrapper,
@@ -75,10 +76,7 @@ import {
   DateTimeLikeTypeT,
 } from './date-definition.interface';
 import { IComponentCtor } from './component-definition.interface';
-import {
-  IPresetsActionEntity,
-  IReduxLifeCycleEntity,
-} from './entity-definition.interface';
+import { IPresetsActionEntity } from './entity-definition.interface';
 import {
   IGenericComponent,
 } from './generic-component-definition.interface';
@@ -122,6 +120,7 @@ export interface IPresetsFieldEntity
     IDisplayValueWrapper<string | ((value: AnyT) => string)>,                     /* @stable [22.06.2020] */
     IEmptyValueWrapper,
     IErrorMessageRenderedWrapper,                                                 /* @stable [18.06.2020] */
+    IErrorWrapper<string>,                                                        /* @stable [22.01.2021] */
     IFieldRenderedWrapper,
     IFormatWrapper,
     IFullWrapper,
@@ -148,6 +147,7 @@ export interface IPresetsFieldEntity
     IPrefixLabelWrapper,                                                          /* @stable [18.06.2020] */
     IPreventFocusWrapper,
     IPreventManualChangesWrapper,                                                 /* @stable [14.10.2020] */
+    IProgressWrapper,                                                             /* @stable [22.01.2021] */
     IReadOnlyWrapper,                                                             /* @stable [18.06.2020] */
     IRenderedWrapper,
     IRequiredWrapper,
@@ -171,7 +171,6 @@ export interface IPresetsFieldEntity
  */
 export interface IReduxFieldEntity
   extends IOriginalValueWrapper,
-    IReduxLifeCycleEntity,
     IValueWrapper {
 }
 

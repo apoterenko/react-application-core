@@ -5,64 +5,11 @@ import { IKeyValue } from '../definitions.interface';
 import {
   IValidationResultEntity,
   ValidationRulesEnum,
+  ValidationRulesRecordT,
 } from '../definition';
 import { MultiFieldUtils } from './multi-field';
 import { ObjectUtils } from './object';
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const positiveNumberChecker = (value: unknown): boolean => TypeUtils.isPositiveNumber(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const positiveOrNegativeNumberChecker = (value: unknown): boolean => TypeUtils.isNumber(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const positiveNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveNumberLike(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const positiveOrNegativeNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveOrNegativeNumberLike(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const positiveOrNegativeOptionalNumberLikeChecker = (value: unknown): boolean =>
-  TypeUtils.isPositiveOrNegativeOptionalNumberLike(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const positiveOptionalNumberLikeChecker = (value: unknown): boolean => TypeUtils.isPositiveOptionalNumberLike(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const stringChecker = (value): boolean => TypeUtils.isString(value);
-
-/**
- * @stable [07.09.2020]
- * @param value
- */
-const notEmptyStringChecker = (value: unknown): boolean => TypeUtils.isNotEmptyString(value);
-
-/**
- * @stable [28.09.2020]
- * @param value
- */
-const notEmptyObjectChecker = (value: unknown): boolean => TypeUtils.isNotEmptyObject(value);
+import { PasswordUtils } from './password';
 
 /**
  * @stable [28.09.2020]
@@ -76,15 +23,17 @@ const notEmptyMultiEntityChecker = (value: unknown): boolean =>
  */
 const ValidationRules = {
   [ValidationRulesEnum.NOT_EMPTY_MULTI_ENTITY]: notEmptyMultiEntityChecker,
-  [ValidationRulesEnum.NOT_EMPTY_OBJECT]: notEmptyObjectChecker,
-  [ValidationRulesEnum.NOT_EMPTY_STRING]: notEmptyStringChecker,
-  [ValidationRulesEnum.POSITIVE_NUMBER]: positiveNumberChecker,
-  [ValidationRulesEnum.POSITIVE_NUMBER_LIKE]: positiveNumberLikeChecker,
-  [ValidationRulesEnum.POSITIVE_OPTIONAL_NUMBER_LIKE]: positiveOptionalNumberLikeChecker,
-  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER]: positiveOrNegativeNumberChecker,
-  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER_LIKE]: positiveOrNegativeNumberLikeChecker,
-  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_OPTIONAL_NUMBER_LIKE]: positiveOrNegativeOptionalNumberLikeChecker,
-  [ValidationRulesEnum.STRING]: stringChecker,
+  [ValidationRulesEnum.NOT_EMPTY_OBJECT]: TypeUtils.isNotEmptyObject,
+  [ValidationRulesEnum.NOT_EMPTY_STRING]: TypeUtils.isNotEmptyString,
+  [ValidationRulesEnum.POSITIVE_NUMBER]: TypeUtils.isPositiveNumber,
+  [ValidationRulesEnum.POSITIVE_NUMBER_LIKE]: TypeUtils.isPositiveNumberLike,
+  [ValidationRulesEnum.POSITIVE_OPTIONAL_NUMBER_LIKE]: TypeUtils.isPositiveOptionalNumberLike,
+  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER]: TypeUtils.isNumber,
+  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_NUMBER_LIKE]: TypeUtils.isPositiveOrNegativeNumberLike,
+  [ValidationRulesEnum.POSITIVE_OR_NEGATIVE_OPTIONAL_NUMBER_LIKE]: TypeUtils.isPositiveOrNegativeOptionalNumberLike,
+  [ValidationRulesEnum.STRING]: TypeUtils.isString,
+  [ValidationRulesEnum.STRONG_OPTIONAL_PASSWORD]: PasswordUtils.isStrongOptional,
+  [ValidationRulesEnum.STRONG_PASSWORD]: PasswordUtils.isStrong,
 };
 
 /**
@@ -109,8 +58,16 @@ const validate =
   };
 
 /**
+ * @stable [22.01.2021]
+ * @param rules
+ */
+const isValid = (rules: ValidationRulesRecordT): boolean =>
+  R.reduce((a, b) => a && b, true, Object.values(rules));
+
+/**
  * @stable [08.09.2020]
  */
 export class ValidatorUtils {
+  public static readonly isValid = isValid;
   public static readonly validate = validate;
 }

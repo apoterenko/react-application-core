@@ -1,5 +1,6 @@
 import {
   asMultiFieldEntitiesLength,
+  FilterUtils,
   MultiFieldUtils,
 } from '../../../util';
 import { IEntity } from '../../../definitions.interface';
@@ -8,9 +9,6 @@ import {
   IMultiFieldPlugin,
 } from './multifield.interface';
 import {
-  extractMultiAddItemEntities,
-  extractMultiSourceItemEntities,
-  fromMultiItemEntityToEntity,
   toMultiFieldChangesEntityOnDelete,
   toMultiFieldChangesEntityOnEdit,
 } from './multifield.support';
@@ -29,23 +27,39 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   @lazyInject(DI_TYPES.FieldConverter) private readonly fieldConverter: IFieldConverter;
 
   /**
-   * @stable [14.10.2020]
+   * @stable [21.01.2021]
    * @param field
    */
   constructor(private readonly field: IUniversalField) {
   }
 
   /**
-   * @stable [01.06.2018]
-   * @param {IMultiItemEntity} item
+   * @stable [21.01.2021]
+   * @param item
    */
   public onAddItem(item: IMultiItemEntity): void {
-    this.onChangeManually(this.toChangesPayload(this.onAdd(item)));
+    this.onChangeManually(this.asMultiFieldValue(this.onAdd(item)));
   }
 
   /**
-   * @stable [01.07.2018]
+   * @stable [21.01.2021]
+   * @param item
+   */
+  public onEditItem(item: IMultiItemEntity): void {
+    this.onChangeManually(this.asMultiFieldValue(this.onEdit(item)));
+  }
+
+  /**
+   * @stable [01.06.2018]
    * @param {IMultiItemEntity} item
+   */
+  public onDeleteItem(item: IEntity): void {
+    this.onChangeManually(this.asMultiFieldValue(this.onDelete(item)));
+  }
+
+  /**
+   * @stable [21.01.2021]
+   * @param item
    */
   public onMergeItem(item: IMultiItemEntity): void {
     if (item.newEntity) {
@@ -55,34 +69,23 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     }
   }
 
-  /**
-   * @stable [01.06.2018]
-   * @param {IMultiItemEntity} item
-   */
-  public onEditItem(item: IMultiItemEntity): void {
-    this.onChangeManually(this.toChangesPayload(this.onEdit(item)));
-  }
-
-  /**
-   * @stable [01.06.2018]
-   * @param {IMultiItemEntity} item
-   */
-  public onDeleteItem(item: IEntity): void {
-    this.onChangeManually(this.toChangesPayload(this.onDelete(item)));
-  }
-
   public onAdd(item: IMultiItemEntity): IMultiFieldChangesEntity {
     const removeValue = this.removeValue;
     const addValue = this.addValue;
     const editArray = this.editValue;
-    const removeLen = removeValue.length;
-    const removeArray = removeValue.filter(((removeItem) => removeItem.id !== item.id));
+    const removeValueLength = removeValue.length;
+
+    const removeArray = removeValue.filter(((removedItem) => !FilterUtils.SAME_ENTITY_PREDICATE(removedItem, item)));
     let addArray = addValue;
 
-    if (removeArray.length === removeLen) {
-      addArray = addValue.concat(fromMultiItemEntityToEntity(item));
+    if (removeArray.length === removeValueLength) {
+      addArray = addValue.concat(MultiFieldUtils.multiItemEntityAsEntity(item));
     }
-    return {addArray, removeArray, editArray};
+    return {
+      addArray,
+      editArray,
+      removeArray,
+    };
   }
 
   /**
@@ -104,11 +107,10 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [23.06.2018]
-   * @returns {IMultiItemEntity[]}
+   * @stable [21.01.2021]
    */
   public get originalValue(): IMultiItemEntity[] {
-    return extractMultiSourceItemEntities(this.value);
+    return MultiFieldUtils.multiFieldValueAsMultiItemSourceEntities(this.value);
   }
 
   /**
@@ -133,44 +135,25 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [04.07.2018]
-   * @returns {IMultiItemEntity[]}
+   * @stable [21.01.2021]
    */
   public get editValue(): IMultiItemEntity[] {
     return MultiFieldUtils.multiFieldValueAsMultiItemEditEntities(this.value);
   }
 
   /**
-   * @stable [04.07.2018]
-   * @returns {IEntity[]}
+   * @stable [21.01.2021]
    */
   public get addValue(): IEntity[] {
-    return extractMultiAddItemEntities(this.value);
+    return MultiFieldUtils.multiFieldValueAsMultiItemAddEntities(this.value);
   }
 
   /**
-   * @stable [01.06.2018]
-   * @param {MultiFieldValueT} payload
+   * @stable [21.01.2021]
+   * @param payload
    */
   private onChangeManually(payload: MultiFieldValueT): void {
     this.field.onChangeManually(payload);
-  }
-
-  /**
-   * @stable [01.06.2018]
-   * @param {IMultiFieldChangesEntity} result
-   * @returns {MultiFieldValueT}
-   */
-  private toChangesPayload(result: IMultiFieldChangesEntity): MultiFieldValueT {
-    const add = result.addArray;
-    const remove = result.removeArray;
-    const edit = result.editArray;
-
-    if (add.length || remove.length || edit.length) {
-      return {add, remove, edit, source: this.originalValue};
-    } else {
-      return this.originalValue;
-    }
   }
 
   /**
@@ -182,8 +165,28 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
   }
 
   /**
-   * @stable [14.10.2020]
-   * @private
+   * @stable [21.01.2021]
+   * @param result
+   */
+  private asMultiFieldValue(result: IMultiFieldChangesEntity): MultiFieldValueT {
+    const add = result.addArray;
+    const remove = result.removeArray;
+    const edit = result.editArray;
+
+    if (add.length || remove.length || edit.length) {
+      return MultiFieldUtils.fromMultiEntity({
+        add,
+        edit,
+        remove,
+        source: this.originalValue,
+      });
+    } else {
+      return this.originalValue;
+    }
+  }
+
+  /**
+   * @stable [21.01.2021]
    */
   private get value(): MultiFieldValueT {
     return this.field.value;

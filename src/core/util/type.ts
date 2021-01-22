@@ -41,6 +41,12 @@ const isNotNumber = (value: unknown): boolean => !isNumber(value);
 const isPositiveNumber = (value: unknown): boolean => isNumber(value) && value >= 0;
 
 /**
+ * @stable [22.01.2021]
+ * @param value
+ */
+const isOptionalObject = (value: unknown): boolean => R.isNil(value);
+
+/**
  * @stable [07.09.2020]
  * @param value
  */
@@ -57,14 +63,14 @@ const isPositiveOrNegativeNumberLike = (value: unknown): boolean => RegexpConsta
  * @param value
  */
 const isPositiveOrNegativeOptionalNumberLike = (value: unknown): boolean =>
-  R.isNil(value) || isPositiveOrNegativeNumberLike(value);
+  isOptionalObject(value) || isPositiveOrNegativeNumberLike(value);
 
 /**
  * @stable [07.09.2020]
  * @param value
  */
 const isPositiveOptionalNumberLike = (value: unknown): boolean =>
-  R.isNil(value) || isPositiveNumberLike(value);
+  isOptionalObject(value) || isPositiveNumberLike(value);
 
 /**
  * @stable [08.09.2020]
@@ -141,6 +147,7 @@ export class TypeUtils {
   public static readonly isNotNumber = isNotNumber;                                                         /* @stable [07.09.2020] */
   public static readonly isNumber = isNumber;                                                               /* @stable [16.05.2020] */
   public static readonly isObject = isObject;                                                               /* @stable [16.05.2020] */
+  public static readonly isOptionalObject = isOptionalObject;                                               /* @stable [22.01.2021] */
   public static readonly isPositiveNumber = isPositiveNumber;                                               /* @stable [07.09.2020] */
   public static readonly isPositiveNumberLike = isPositiveNumberLike;                                       /* @stable [07.09.2020] */
   public static readonly isPositiveOptionalNumberLike = isPositiveOptionalNumberLike;                       /* @stable [07.09.2020] */

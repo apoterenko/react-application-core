@@ -31,6 +31,7 @@ export * from './number';
 export * from './nvl';
 export * from './object';
 export * from './page';
+export * from './password';
 export * from './place';
 export * from './promise';
 export * from './props';

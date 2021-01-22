@@ -34,6 +34,7 @@ import {
   DelayedTask,
   FieldUtils,
   FilterUtils,
+  NvlUtils,
   TypeUtils,
   ValueUtils,
   WrapperUtils,
@@ -1211,9 +1212,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [22.01.2021]
    */
   private get error(): string {
-    return this.state.error;
+    return NvlUtils.nvl(this.originalProps.error, this.state.error);
   }
 }

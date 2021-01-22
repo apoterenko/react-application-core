@@ -329,6 +329,7 @@ export interface IMessagesSettingsEntity {
   NOT_DATA_FOUND?: string;
   OK?: string;
   PAGES_INFO?: string;
+  PASSWORD_MUST_CONTAIN_AT_LEAST_8_CHARACTERS?: string;
   PATH?: string;
   PLEASE_WAIT?: string;
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER?: string;
@@ -400,6 +401,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   NOT_DATA_FOUND: 'No data found',
   OK: 'Ok',
   PAGES_INFO: '{from}-{to} of {count}',
+  PASSWORD_MUST_CONTAIN_AT_LEAST_8_CHARACTERS: 'Password must contain at least 8 characters. Use at least one uppercase, one lowercase, one numeric, and one special character',
   PATH: 'Path',
   PLEASE_WAIT: 'Please wait...',
   PLS_SEND_THIS_SCR_TO_SUPPORT_MANAGER: 'Please send this screenshot to your support manager',
