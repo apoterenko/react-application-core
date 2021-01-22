@@ -120,7 +120,7 @@ The library is designed to quickly start develop the business applications are b
 
 # Utils
 
-* [EntityUtils (18.01.2021)](src/core/util/entity.ts)
+* [EntityUtils (23.01.2021)](src/core/util/entity.ts)
 * [FnUtils (18.01.2021)](src/core/util/fn.ts)
 * [MultiFieldUtils (29.08.2020)](src/core/util/multi-field.ts)
 * [PageUtils (03.11.2020)](src/core/util/page.ts)
