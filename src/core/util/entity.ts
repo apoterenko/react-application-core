@@ -39,15 +39,11 @@ const doesExtendedEntityExist = <TEntity extends IEntity>(extendedEntity: IExten
   !isNewExtendedEntity(extendedEntity);
 
 /**
- * @stable [18.01.2021]
+ * @stable [23.01.2021]
  * @param entities
  */
 const asEntitiesIds = <TEntity extends IEntity>(entities: TEntity[]): EntityIdT[] =>
-  ConditionUtils.ifNotNilThanValue(
-    entities,
-    () => entities.map((entity) => entity.id),
-    UNDEF_SYMBOL
-  );
+  entities?.map((entity) => entity.id);
 
 /**
  * @stable [18.01.2021]
