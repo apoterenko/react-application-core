@@ -1,4 +1,3 @@
-import { ObjectUtils } from './object';
 import { RegexpConstants } from '../definition';
 import { TypeUtils } from './type';
 
@@ -7,7 +6,7 @@ import { TypeUtils } from './type';
  * @param value
  */
 const isStrong = (value: string): boolean => {
-  if (ObjectUtils.isObjectNotEmpty(value)) {
+  if (TypeUtils.isNotEmptyString(value)) {
     return value.length >= 8
       && /[A-Z]/.test(value)
       && /[a-z]/.test(value)

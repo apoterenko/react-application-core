@@ -12,14 +12,14 @@ import { ObjectUtils } from './object';
 import { PasswordUtils } from './password';
 
 /**
- * @stable [28.09.2020]
+ * @stable [22.01.2021]
  * @param value
  */
 const notEmptyMultiEntityChecker = (value: unknown): boolean =>
   ObjectUtils.isObjectNotEmpty(MultiFieldUtils.multiFieldValueAsEntities(value));
 
 /**
- * @stable [08.09.2020]
+ * @stable [22.01.2021]
  */
 const ValidationRules = {
   [ValidationRulesEnum.NOT_EMPTY_MULTI_ENTITY]: notEmptyMultiEntityChecker,
@@ -37,7 +37,7 @@ const ValidationRules = {
 };
 
 /**
- * @stable [08.09.2020]
+ * @stable [22.01.2021]
  * @param payloads
  * @param checkedObject
  */
@@ -47,14 +47,24 @@ const validate =
     const data = Object.create(null);
     let valid = true;
 
-    R.forEachObjIndexed((rules, fieldName) => {
-      const res = Object.create(null);
-      data[fieldName] = res;
-      [].concat(rules)
-        .forEach((ruleId) => valid = valid && (res[ruleId] = ValidationRules[ruleId](checkedObject[fieldName])));
-    }, payloads);
+    R.forEachObjIndexed(
+      (rules, fieldName) => {
+        const result = Object.create(null);
+        data[fieldName] = result;
 
-    return {valid, data};
+        [].concat(rules)
+          .forEach((ruleId) => {
+            const res = result[ruleId] = ValidationRules[ruleId](checkedObject[fieldName]);
+            valid = valid && res;
+          });
+      },
+      payloads
+    );
+
+    return {
+      data,
+      valid,
+    };
   };
 
 /**
@@ -65,7 +75,7 @@ const isValid = (rules: ValidationRulesRecordT): boolean =>
   R.reduce((a, b) => a && b, true, Object.values(rules));
 
 /**
- * @stable [08.09.2020]
+ * @stable [22.01.2021]
  */
 export class ValidatorUtils {
   public static readonly isValid = isValid;
