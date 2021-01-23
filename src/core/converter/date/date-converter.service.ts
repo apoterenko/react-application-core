@@ -48,6 +48,7 @@ import {
  * @stable [14.01.2021]
  */
 type MomentT = moment.Moment;
+type DateTimeConfigEntityT = IDateTimeConfigEntity<MomentT>;
 
 /**
  * @stable [28.12.2020]
@@ -540,6 +541,28 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [23.01.2021]
+   * @param cfg
+   */
+  public fromDateTimeToDateString(cfg: DateTimeConfigEntityT): string {
+    return this.dateAsString({
+      ...cfg,
+      inputFormat: this.dateTimeFormat,
+    });
+  }
+
+  /**
+   * @stable [23.01.2021]
+   * @param cfg
+   */
+  public fromDateTimeToPstTimeString(cfg: DateTimeConfigEntityT): string {
+    return this.fromDateTimeToDateString({
+      ...cfg,
+      outputFormat: this.pstTimeFormat,
+    });
+  }
+
+  /**
    * @deprecated
    */
   public fromDateTimeToArbitraryFormat(date: DateTimeLikeTypeT, outputFormat: string): string {
@@ -562,15 +585,6 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public dateAsPstTimeString(cfg: IDateTimeConfigEntity<MomentT>): string {
     return this.dateAsString({...cfg, outputFormat: this.pstTimeFormat});
-  }
-
-  /**
-   * @stable [02.01.2019]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string}
-   */
-  public fromDateTimeToPstTimeString(cfg: IDateTimeConfigEntity<MomentT>): string {
-    return this.dateAsString({...cfg, inputFormat: this.dateTimeFormat, outputFormat: this.pstTimeFormat});
   }
 
   /**
