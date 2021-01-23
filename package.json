@@ -132,7 +132,7 @@
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-effects-promise": "1.0.7",
+    "redux-effects-promise": "1.0.8",
     "reflect-metadata": "^0.1.10",
     "regenerator-runtime": "0.13.7",
     "replace": "^0.3.0",
