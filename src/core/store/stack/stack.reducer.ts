@@ -29,13 +29,13 @@ export const stackReducer = (state: IReduxStackEntity = DefaultEntities.INITIAL_
                              action: IEffectsAction): IReduxStackEntity => {
   const stack = state.stack;
   const payloadEntity: IFluxStackEntity = action.data;
-  const sectionsToDestroy: string[] = action.data;
 
   switch (action.type) {
     /**
      * @stable [21.09.2019]
      */
     case $RAC_STACK_REMOVE_ACTION_TYPE:
+      const sectionsToDestroy = action.data as string[];
       return {
         ...state,
         stack: R.filter<IReduxStackItemEntity>((entry) => !sectionsToDestroy.includes(entry.section), stack)
@@ -95,7 +95,7 @@ export const stackReducer = (state: IReduxStackEntity = DefaultEntities.INITIAL_
      * @stable [21.09.2019]
      */
     case $RAC_STACK_LOCK_ACTION_TYPE:
-      const nextSection: string = action.data;
+      const nextSection = action.data as string;
       return {
         ...state,
         lock: true,
