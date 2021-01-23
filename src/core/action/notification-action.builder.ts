@@ -13,6 +13,7 @@ import {
   Selectors,
   TypeUtils,
 } from '../util';
+import { IErrorWrapper } from '../definitions.interface';
 
 export class NotificationActionBuilder {
 
@@ -47,17 +48,18 @@ export class NotificationActionBuilder {
   }
 
   /**
-   * @stable [13.02.2020]
-   * @param {string | IEffectsAction} error
-   * @returns {IEffectsAction}
+   * @stable [23.01.2021]
+   * @param payload
    */
-  public static buildPlainErrorAction(error: string | IEffectsAction): IEffectsAction {
-    const notificationEntity: IFluxNotificationEntity = {
-      error: TypeUtils.isString(error)
-        ? error as string
-        : Selectors.error(error as IEffectsAction),
+  public static buildPlainErrorAction(payload: string | IEffectsAction): IEffectsAction<IFluxNotificationEntity> {
+    return {
+      type: $_RAC_NOTIFICATION_ERROR_ACTION_TYPE,
+      data: {
+        error: TypeUtils.isString(payload)
+          ? payload as string
+          : Selectors.error(payload as IErrorWrapper<string>),
+      },
     };
-    return {type: $_RAC_NOTIFICATION_ERROR_ACTION_TYPE, data: notificationEntity};
   }
 
   /**
