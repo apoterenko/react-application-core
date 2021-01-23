@@ -103,6 +103,18 @@ const isNotEmpty = (value: unknown): boolean => !isEmpty(value);
 const isNotEmptyString = (value: unknown): boolean => isString(value) && isNotEmpty(value);
 
 /**
+ * @stable [23.01.2021]
+ * @param value
+ */
+const isEmail = (value: string): boolean => isNotEmptyString(value) && RegexpConstants.EMAIL.test(`${value}`);
+
+/**
+ * @stable [23.01.2021]
+ * @param value
+ */
+const isOptionalEmail = (value: string): boolean => isOptionalObject(value) || isEmail(value);
+
+/**
  * @stable [28.09.2020]
  * @param value
  */
@@ -140,6 +152,7 @@ export class TypeUtils {
   public static readonly asType = asType;                                                                   /* @stable [08.09.2020] */
   public static readonly isBoolean = isBoolean;                                                             /* @stable [12.06.2020] */
   public static readonly isDef = isDef;                                                                     /* @stable [16.05.2020] */
+  public static readonly isEmail = isEmail;                                                                 /* @stable [23.01.2020] */
   public static readonly isEvent = isEvent;                                                                 /* @stable [29.08.2020] */
   public static readonly isFn = isFn;                                                                       /* @stable [16.05.2020] */
   public static readonly isNotEmptyObject = isNotEmptyObject;                                               /* @stable [28.09.2020] */
@@ -147,6 +160,7 @@ export class TypeUtils {
   public static readonly isNotNumber = isNotNumber;                                                         /* @stable [07.09.2020] */
   public static readonly isNumber = isNumber;                                                               /* @stable [16.05.2020] */
   public static readonly isObject = isObject;                                                               /* @stable [16.05.2020] */
+  public static readonly isOptionalEmail = isOptionalEmail;                                                 /* @stable [23.01.2020] */
   public static readonly isOptionalObject = isOptionalObject;                                               /* @stable [22.01.2021] */
   public static readonly isPositiveNumber = isPositiveNumber;                                               /* @stable [07.09.2020] */
   public static readonly isPositiveNumberLike = isPositiveNumberLike;                                       /* @stable [07.09.2020] */

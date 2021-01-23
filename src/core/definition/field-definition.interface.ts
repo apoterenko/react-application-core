@@ -87,6 +87,7 @@ import {
 } from './event-definition.interface';
 import { IReduxMultiEntity } from './multi-entity-definition.interface';
 import { IEnhancedGenericComponentProps } from './enhanced-generic-component-definition.interface';
+import { RegexpEnum } from './regexp-definition.interface';
 
 /**
  * @stable [16.05.2020]
@@ -332,6 +333,14 @@ export const DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY = Object.freeze<IPresetsField
  */
 export const DEFAULT_EMAIL_FIELD_ENTITY = Object.freeze<IPresetsFieldEntity>({
   type: 'email',
+});
+
+/**
+ * @default-entity
+ * @stable [23.01.2021]
+ */
+export const DEFAULT_VALIDATED_EMAIL_FIELD_ENTITY = Object.freeze<IPresetsFieldEntity>({
+  pattern: RegexpEnum.EMAIL,
 });
 
 /**

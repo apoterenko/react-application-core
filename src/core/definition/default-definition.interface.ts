@@ -4,6 +4,7 @@ import {
   DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY,
   DEFAULT_NOT_CHANGEABLE_FIELD_ENTITY,
   DEFAULT_PASSWORD_FIELD_ENTITY,
+  DEFAULT_VALIDATED_EMAIL_FIELD_ENTITY,
 } from './field-definition.interface';
 import {
   DEFAULT_PLACE_FIELD_ENTITY,
@@ -77,5 +78,6 @@ export class DefaultEntities {
   public static readonly SLIDER_ENTITY = DEFAULT_SLIDER_ENTITY;                                         /* @stable [16.10.2020] */
   public static readonly UNIT_OF_CURRENCY = 1;                                                          /* @stable [20.08.2020] */
   public static readonly UNLIMITED_HEIGHT_MENU_ENTITY = DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY;           /* @stable [10.08.2020] */
+  public static readonly VALIDATED_EMAIL_FIELD_ENTITY = DEFAULT_VALIDATED_EMAIL_FIELD_ENTITY;           /* @stable [23.01.2021] */
   public static readonly ZIP_CODE_FIELD_ENTITY = DEFAULT_ZIP_CODE_FIELD_ENTITY;                         /* @stable [17.05.2020] */
 }

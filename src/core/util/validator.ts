@@ -22,6 +22,8 @@ const notEmptyMultiEntityChecker = (value: unknown): boolean =>
  * @stable [22.01.2021]
  */
 const ValidationRules = {
+  [ValidationRulesEnum.EMAIL]: TypeUtils.isEmail,
+  [ValidationRulesEnum.EMAIL_OPTIONAL]: TypeUtils.isOptionalEmail,
   [ValidationRulesEnum.NOT_EMPTY_MULTI_ENTITY]: notEmptyMultiEntityChecker,
   [ValidationRulesEnum.NOT_EMPTY_OBJECT]: TypeUtils.isNotEmptyObject,
   [ValidationRulesEnum.NOT_EMPTY_STRING]: TypeUtils.isNotEmptyString,
