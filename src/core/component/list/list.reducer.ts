@@ -27,6 +27,7 @@ import {
   IReduxSortDirectionsEntity,
   ISortDirectionPayloadEntity,
 } from '../../definition';
+import { IEntity } from '../../definitions.interface';
 
 export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
                             action: IEffectsAction): IReduxListEntity => {
@@ -166,7 +167,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
      * @stable [19.10.2019]
      */
     case ListActionBuilder.buildLazyLoadDoneActionType(section):
-      const lazyLoadedEntity = Selectors.selectedEntityFromAction(action) || Selectors.data(action);
+      const lazyLoadedEntity = Selectors.selectedEntityFromAction(action) || Selectors.data<IEntity>(action);
       modifyDataPayload = {
         id: lazyLoadedEntity.id,
         changes: lazyLoadedEntity,

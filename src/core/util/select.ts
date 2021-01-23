@@ -253,7 +253,7 @@ const selectSectionFromAction = (action: IEffectsAction): string =>
  * @stable [20.01.2021]
  * @param action
  */
-const asSelectedEntityFromAction = <TEntity = IEntity>(action: IEffectsAction): TEntity => asSelected(asData(action));
+const asSelectedEntityFromAction = <TEntity extends IEntity = IEntity>(action: IEffectsAction): TEntity => asSelected(asData(action));
 
 /**
  * @stable [20.01.2021]
