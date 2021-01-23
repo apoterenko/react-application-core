@@ -94,12 +94,12 @@ export class RouterEffects {
   }
 
   /**
-   * @stable [18.05.2020]
-   * @param {IEffectsAction} action
-   * @returns {IFluxNavigateEntity<History.Path, History.LocationState>}
+   * @stable [21.01.2021]
+   * @param action
+   * @private
    */
   private asFluxEntity(action: IEffectsAction): IFluxNavigateEntity<History.Path, History.LocationState> {
-    const path: string = action.data;
+    const path = action.data as string;
     if (TypeUtils.isString(path)) {
       return {path};
     }
