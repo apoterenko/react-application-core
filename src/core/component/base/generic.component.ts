@@ -39,7 +39,10 @@ import {
   IDateConverter,
   INumberConverter,
 } from '../../converter';
-import { PropsUtils } from '../../util';
+import {
+  CalcUtils,
+  PropsUtils,
+} from '../../util';
 
 export class GenericComponent<TProps extends IGenericComponentProps = IGenericComponentProps,
   TState = {},
@@ -85,6 +88,14 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
    */
   public get originalProps(): TProps {
     return this.props;
+  }
+
+  /**
+   * @stable [23.01.2021]
+   * @protected
+   */
+  protected getOriginalClassName(componentProps = this.mergedProps): string {
+    return CalcUtils.calc(componentProps.className, componentProps);
   }
 
   /**

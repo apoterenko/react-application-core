@@ -38,7 +38,6 @@ export class GridRow extends GenericComponent<IGridRowProps> {
     const originalProps = this.originalProps;
     const mergedProps = this.mergedProps;
     const {
-      className,
       entity,
       filter,
       group,
@@ -59,7 +58,7 @@ export class GridRow extends GenericComponent<IGridRowProps> {
             className={
               ClsUtils.joinClassName(
                 GridClassesEnum.ROW,
-                CalcUtils.calc(className),
+                this.getOriginalClassName(mergedProps),
                 filter && GridClassesEnum.ROW_FILTER,
                 group && GridClassesEnum.ROW_GROUP,
                 isHovered && GridClassesEnum.ROW_HOVERED,
