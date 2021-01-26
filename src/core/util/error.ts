@@ -1,22 +1,43 @@
+import { IEffectsAction } from 'redux-effects-promise';
+
+import { FilterUtils } from './filter';
 import { IErrorMessageEntity } from '../definition';
 import { JoinUtils } from './join';
-import { notNilValuesFilter } from './filter';
+import { TypeUtils } from './type';
 
 /**
- * @stable [12.04.2020]
- * @param {number | string | Error | IErrorMessageEntity} error
- * @returns {IErrorMessageEntity}
+ * @stable [26.01.2021]
+ * @param error
  */
-export const asErrorMessage = (error: number | string | Error | IErrorMessageEntity): IErrorMessageEntity => {
-  const errorMessageEntity = error as IErrorMessageEntity;
-
-  if (error instanceof Error) {
-    return {message: error.message};
-  } else if (errorMessageEntity && errorMessageEntity.message) {
-    return notNilValuesFilter<IErrorMessageEntity, IErrorMessageEntity>({
-      message: JoinUtils.join([errorMessageEntity.code, errorMessageEntity.message], ': '),
-      code: errorMessageEntity.code,
-    });
+const asErrorMessage = (error: number | string | Error | IErrorMessageEntity | IEffectsAction): IErrorMessageEntity => {
+  switch (true) {
+    case error instanceof Error:
+      return {message: (error as Error).message};
+    case TypeUtils.isActionLike(error):
+      const errorAction = error as IEffectsAction;
+      return {message: asErrorMessage(errorAction.error).message};
+    case TypeUtils.isErrorMessageEntityLike(error):
+      const {
+        code,
+        message,
+      } = error as IErrorMessageEntity;
+      return FilterUtils.notNilValuesFilter<IErrorMessageEntity, IErrorMessageEntity>({
+        message: JoinUtils.join(
+            [
+              code,
+              message
+            ],
+            ': '
+        ),
+        code,
+      });
   }
   return {message: String(error)};
 };
+
+/**
+ * @stable [26.01.2021]
+ */
+export class ErrorUtils {
+  public static readonly asErrorMessage = asErrorMessage;
+}

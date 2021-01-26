@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux';
+import { IEffectsAction } from 'redux-effects-promise';
 
 import { ApplicationActionBuilder } from './application-action.builder';
 import {
@@ -10,10 +10,10 @@ import {
   INITIAL_UNIVERSAL_APPLICATION_ENTITY,
   IUniversalApplicationEntity,
 } from '../../definition';
-import { asErrorMessage } from '../../util';
+import { ErrorUtils } from '../../util';
 
 export function applicationReducer(state: IUniversalApplicationEntity = INITIAL_UNIVERSAL_APPLICATION_ENTITY,
-                                   action: AnyAction): IUniversalApplicationEntity {
+                                   action: IEffectsAction<string>): IUniversalApplicationEntity {
   switch (action.type) {
     case $RAC_APPLICATION_PREPARE_ACTION_TYPE:
       return {
@@ -33,7 +33,7 @@ export function applicationReducer(state: IUniversalApplicationEntity = INITIAL_
         ...state,
         customError: action.type === $RAC_APPLICATION_CUSTOM_ERROR_ACTION_TYPE,
         progress: false,
-        error: asErrorMessage(action.error).message,
+        error: ErrorUtils.asErrorMessage(action).message,
       };
     case $RAC_APPLICATION_READY_ACTION_TYPE:
       return {

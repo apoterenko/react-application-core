@@ -8,29 +8,32 @@ import {
   IReduxNotificationEntity,
 } from '../../definition';
 import {
-  asErrorMessage,
+  ErrorUtils,
   Selectors,
 } from '../../util';
 
 /**
- * @stable [13.02.2020]
- * @param {IReduxNotificationEntity} state
- * @param {IEffectsAction} action
- * @returns {IReduxNotificationEntity}
+ * @stable [26.01.2021]
+ * @param state
+ * @param action
  */
 export const notificationReducer = (state: IReduxNotificationEntity = INITIAL_REDUX_NOTIFICATION_ENTITY,
                                     action: IEffectsAction): IReduxNotificationEntity => {
-  const notificationEntity = Selectors.data<IReduxNotificationEntity>(action);
+  const {
+    error,
+    info,
+  } = Selectors.data<IReduxNotificationEntity>(action) || {};
+
   switch (action.type) {
     case $_RAC_NOTIFICATION_INFO_ACTION_TYPE:
       return {
         ...state,
-        info: notificationEntity.info,
+        info,
       };
     case $_RAC_NOTIFICATION_ERROR_ACTION_TYPE:
       return {
         ...state,
-        error: asErrorMessage(notificationEntity.error).message,
+        error: ErrorUtils.asErrorMessage(error).message,
       };
     case $_RAC_NOTIFICATION_CLEAR_ACTION_TYPE:
       return {

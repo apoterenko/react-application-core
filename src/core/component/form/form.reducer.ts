@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { IEffectsAction } from 'redux-effects-promise';
 
 import {
-  asErrorMessage,
+  ErrorUtils,
   FilterUtils,
   Selectors,
   TypeUtils,
@@ -101,7 +101,7 @@ export const formReducer = (state: IReduxFormEntity = INITIAL_REDUX_FORM_ENTITY,
       return {
         ...state,
         progress: false,
-        error: asErrorMessage(action.error).message,
+        error: ErrorUtils.asErrorMessage(action).message,
       };
     case FormActionBuilder.buildSubmitFinishActionType(section):
       /**

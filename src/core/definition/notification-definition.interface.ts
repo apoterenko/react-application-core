@@ -1,3 +1,5 @@
+import { IEffectsAction } from 'redux-effects-promise';
+
 import {
   ACTION_PREFIX,
   IErrorWrapper,
@@ -9,8 +11,8 @@ import {
  * @redux-entity
  * @stable [12.06.2020]
  */
-export interface IReduxNotificationEntity
-  extends IErrorWrapper<string>,
+export interface IReduxNotificationEntity<TError = string>
+  extends IErrorWrapper<TError>,
     IInfoWrapper {
 }
 
@@ -19,7 +21,7 @@ export interface IReduxNotificationEntity
  * @stable [12.06.2020]
  */
 export interface IFluxNotificationEntity
-  extends IReduxNotificationEntity {
+  extends IReduxNotificationEntity<string | Error | IEffectsAction> {
 }
 
 /**

@@ -1,6 +1,8 @@
+import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import { RegexpConstants } from '../definition/regexp-definition.interface';
+import {IErrorMessageEntity} from '../definition';
 
 /**
  * @stable [02.10.2019]
@@ -133,6 +135,20 @@ const isPrimitive = (v: unknown): boolean => isNumber(v) || isString(v) || isBoo
 const isObject = (v: unknown): boolean => Object.prototype.toString.call(v) === '[object Object]';
 
 /**
+ * @stable [26.01.2021]
+ * @param action
+ */
+const isActionLike = (action: IEffectsAction | unknown): boolean => isObject(action)
+    && isNotEmptyString((action as IEffectsAction).type);
+
+/**
+ * @stable [26.01.2021]
+ * @param action
+ */
+const isErrorMessageEntityLike = (action: IErrorMessageEntity | unknown): boolean => isObject(action)
+    && isNotEmptyString((action as IErrorMessageEntity).message);
+
+/**
  * @stable [29.08.2020]
  * @param v
  */
@@ -150,9 +166,11 @@ export const asType = <TResult>(result: TResult): TResult => result;
  */
 export class TypeUtils {
   public static readonly asType = asType;                                                                   /* @stable [08.09.2020] */
+  public static readonly isActionLike = isActionLike;                                                       /* @stable [26.01.2021] */
   public static readonly isBoolean = isBoolean;                                                             /* @stable [12.06.2020] */
   public static readonly isDef = isDef;                                                                     /* @stable [16.05.2020] */
   public static readonly isEmail = isEmail;                                                                 /* @stable [23.01.2020] */
+  public static readonly isErrorMessageEntityLike = isErrorMessageEntityLike;                               /* @stable [26.01.2021] */
   public static readonly isEvent = isEvent;                                                                 /* @stable [29.08.2020] */
   public static readonly isFn = isFn;                                                                       /* @stable [16.05.2020] */
   public static readonly isNotEmptyObject = isNotEmptyObject;                                               /* @stable [28.09.2020] */

@@ -3,9 +3,9 @@ import { IEffectsAction } from 'redux-effects-promise';
 
 import {
   ArrayUtils,
-  asErrorMessage,
   buildEntityByMergeStrategy,
   ConditionUtils,
+  ErrorUtils,
   FilterUtils,
   ifNotNilThanValue,
   isMulti,
@@ -145,7 +145,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
     case ListActionBuilder.buildLoadErrorActionType(section):
       return {
         ...INITIAL_REDUX_LIST_ENTITY,
-        error: asErrorMessage(action.error).message,
+        error: ErrorUtils.asErrorMessage(action).message,
       };
 
     /**
