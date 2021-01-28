@@ -44,7 +44,7 @@ export const isArrayNotEmpty = <TValue>(array: TValue[]): boolean => Array.isArr
 const subArray = <TValue>(array: TValue[], limit?: number, start = 0): TValue[] =>
   ConditionUtils.ifNotNilThanValue(
     array,
-    () => array.slice(start, Math.min(array.length, NvlUtils.nvl(limit, array.length)))
+    () => array.slice(start, start + Math.min(array.length, NvlUtils.nvl(limit, array.length)))
   );
 
 /**

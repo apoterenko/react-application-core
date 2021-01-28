@@ -17,6 +17,8 @@ export class DelayedTask
   constructor(private readonly task: (context?: unknown) => void,
               private readonly period = 0,
               private readonly repeat = false) {
+    this.start = this.start.bind(this);
+    this.startImmediately = this.startImmediately.bind(this);
   }
 
   /**
