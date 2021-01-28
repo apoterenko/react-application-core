@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import MaskedTextInput from 'react-text-mask';
 
 import {
-  CalcUtils,
   ClsUtils,
   NvlUtils,
   ObjectUtils,
@@ -116,15 +115,6 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
         {content}
       </span>
     );
-  }
-
-  /**
-   * @stable [09.11.2020]
-   * @param action
-   * @protected
-   */
-  protected isFieldActionDisabled(action: IFieldActionEntity): boolean {
-    return CalcUtils.calc(action.disabled) || this.isInactive;
   }
 
   /**
