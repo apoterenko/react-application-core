@@ -613,6 +613,14 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [27.01.2021]
+   * @param cfg
+   */
+  public dateAsTimeString(cfg: IDateTimeConfigEntity<MomentT>): string {
+    return this.dateAsString({...cfg, outputFormat: this.timeFormat});
+  }
+
+  /**
    * @stable [26.03.2020]
    * @param {IDateTimeConfigEntity} cfg
    * @returns {string}
