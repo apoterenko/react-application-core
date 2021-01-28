@@ -127,11 +127,12 @@ export class Environment implements IEnvironment {
   }
 
   /**
-   * @stable [08.10.2019]
-   * @returns {string}
+   * @stable [27.01.2021]
    */
   public get platformVersion(): string {
-    return this.ios13Platform ? '13.x' : P.os.version;
+    return this.ios13Platform
+      ? `13.x,14.x,.. (${P.os.version})`
+      : P.os.version;
   }
 
   /**

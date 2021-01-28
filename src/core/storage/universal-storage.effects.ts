@@ -151,7 +151,7 @@ export class UniversalStorageEffects {
       }
     });
     if (tasksToClearPreviousStates.length > 0) {
-      await Promise.resolve(tasksToClearPreviousStates);
+      await Promise.all(tasksToClearPreviousStates);
 
       UniversalStorageEffects.logger.debug(
         `[UniversalStorageEffects][clearPreviousStates] The previous states has been cleared successfully. Keys:`,
