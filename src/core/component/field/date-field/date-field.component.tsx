@@ -6,7 +6,6 @@ import {
   ClsUtils,
   ConditionUtils,
   FilterUtils,
-  isRangeEnabled,
   NvlUtils,
   ObjectUtils,
   PropsUtils,
@@ -1411,14 +1410,6 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
   }
 
   /**
-   * @stable [06.03.2020]
-   * @returns {boolean}
-   */
-  private get isRangeEnabled(): boolean {
-    return isRangeEnabled(this.props);
-  }
-
-  /**
    * @stable [07.12.2020]
    */
   private get isInline(): boolean {
@@ -1477,5 +1468,12 @@ export class DateField extends BaseTextField<IDateFieldProps, IDateFieldState> {
    */
   private get dialog(): Dialog {
     return this.dialogRef.current;
+  }
+
+  /**
+   * @stable [30.01.2021]
+   */
+  private get isRangeEnabled(): boolean {
+    return this.originalProps.rangeEnabled;
   }
 }

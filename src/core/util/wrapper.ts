@@ -15,7 +15,6 @@ import {
   INavigateBackWrapper,
   IPlaceActionRenderedWrapper,
   IProgressWrapper,
-  IRangeEnabledWrapper,
   IReadOnlyWrapper,
   IReadyWrapper,
   IRefreshOnUpdateWrapper,
@@ -31,37 +30,32 @@ import { ValueUtils } from './value';
 /**
  * See @Field
  *
- * @stable [18.12.2020]
+ * @stable [30.01.2021]
  * @param wrapper
  */
-const isValid = (wrapper: IValidWrapper): boolean =>
-  R.isNil(wrapper)
-    ? false
-    : ValueUtils.isValueValid(wrapper.valid);
+const isValid = (wrapper: IValidWrapper): boolean => ValueUtils.isValueValid(wrapper?.valid);
 
 /**
  * See @Field and @Form
  *
- * @stable [18.12.2020]
+ * @stable [30.01.2021]
  * @param wrapper
  */
-const isChangeable = (wrapper: IChangeableWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.changeable !== false;
+const isChangeable = (wrapper: IChangeableWrapper): boolean => wrapper?.changeable !== false;
 
 /**
  * See @Field and @Form
  *
- * @stable [18.12.2020]
+ * @stable [30.01.2021]
  * @param wrapper
  */
-const isReadOnly = (wrapper: IReadOnlyWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.readOnly === true;
+const isReadOnly = (wrapper: IReadOnlyWrapper): boolean => wrapper?.readOnly === true;
 
 /**
- * @stable [02.08.2020]
+ * @stable [30.01.2021]
  * @param wrapper
  */
-const inProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrapper) ? false : wrapper.progress === true;
+const inProgress = (wrapper: IProgressWrapper): boolean => wrapper?.progress === true;
 
 /**
  * @stable [28.11.2019]
@@ -92,14 +86,6 @@ export const doesErrorExist = (entity: IErrorWrapper<string | boolean>): boolean
         : !R.isNil(entity.error),
     false
   );
-
-/**
- * @stable [06.03.2020]
- * @param {IRangeEnabledWrapper} wrapper
- * @returns {boolean}
- */
-export const isRangeEnabled = (wrapper: IRangeEnabledWrapper): boolean =>
-  R.isNil(wrapper) ? false : wrapper.rangeEnabled === true;
 
 /**
  * @stable [03.02.2020]

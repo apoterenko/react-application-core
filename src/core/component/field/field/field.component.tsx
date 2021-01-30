@@ -659,14 +659,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [13.10.2020]
-   * @protected
-   */
-  protected get isCursorUsed(): boolean {
-    return this.originalProps.useCursor;
-  }
-
-  /**
    * @stable [07.10.2020]
    */
   protected get isKeyboardAndCursorUsed(): boolean {
@@ -1028,7 +1020,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   private get inputWrapperElement(): JSX.Element {
     if (this.isFieldRendered) {
@@ -1037,7 +1029,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
           className={FieldClassesEnum.INPUT_WRAPPER}
         >
           {this.getInputElement()}
-          {this.inputСoverElement}
+          {this.inputCoverElement}
           {this.inputMirrorElement}
           {this.inputCaretElement}
           {this.inputAttachmentElement}
@@ -1050,7 +1042,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   /**
    * @stable [30.01.2021]
    */
-  private get inputСoverElement(): JSX.Element {
+  private get inputCoverElement(): JSX.Element {
     if ((this.isFocusPrevented || this.isKeyboardUsed) && this.isActive) {
       return (
         <div
@@ -1085,7 +1077,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [29.01.2021]
+   * @stable [30.01.2021]
    * @param event
    */
   private onInputCoverElementClick(event: IBaseEvent): void {
@@ -1124,7 +1116,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [18.12.2020]
+   * @stable [30.01.2021]
    */
   private get isValid(): boolean {
     return WrapperUtils.isValid(this.originalProps) && R.isNil(this.error);
@@ -1214,6 +1206,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   private get areManualChangesPrevented(): boolean {
     return this.originalProps.preventManualChanges;
+  }
+
+  /**
+   * @stable [30.01.2021]
+   */
+  private get isCursorUsed(): boolean {
+    return this.originalProps.useCursor;
   }
 
   /**
