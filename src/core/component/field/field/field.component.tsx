@@ -1047,7 +1047,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       return (
         <div
           className={FieldClassesEnum.INPUT_COVER}
-          onClick={this.onInputCoverElementClick}
+          onClick={this.isKeyboardUsed ? this.onInputCoverElementClick : this.onClick}
         />
       );
     }

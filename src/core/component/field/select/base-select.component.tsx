@@ -62,6 +62,8 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
   constructor(originalProps: TProps) {
     super(originalProps);
 
+    this.getMenuAnchorElement = this.getMenuAnchorElement.bind(this);
+    this.getMenuWidth = this.getMenuWidth.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onInlineOptionClick = this.onInlineOptionClick.bind(this);
     this.onMenuFilterChange = this.onMenuFilterChange.bind(this);
@@ -250,8 +252,8 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
       () => (
         <Menu
           ref={this.menuRef}
-          anchorElement={ConditionUtils.orNull(this.isMenuAnchored, () => this.menuAnchorElement)}
-          width={ConditionUtils.orNull(this.isMenuAnchored, () => this.menuWidth)}
+          anchorElement={ConditionUtils.orNull(this.isMenuAnchored, () => this.getMenuAnchorElement)}
+          width={ConditionUtils.orNull(this.isMenuAnchored, () => this.getMenuWidth)}
           progress={this.isBusy}
           options={this.getFilteredOptions()}
           onSelect={this.onSelect}
@@ -683,14 +685,6 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
   }
 
   /**
-   * @stable [15.10.2020]
-   * @private
-   */
-  private get menuAnchorElement(): HTMLElement {
-    return CalcUtils.calc(this.originalProps.menuAnchorElement) || this.input;
-  }
-
-  /**
    * @stable [30.01.2020]
    * @returns {IPresetsSelectOptionEntity}
    */
@@ -702,61 +696,61 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
    * @stable [15.10.2020]
    * @private
    */
-  private get dictionary(): string {
-    return this.originalProps.dictionary;
-  }
-
-  /**
-   * @stable [15.10.2020]
-   * @private
-   */
   private get doOptionsExist(): boolean {
     return !R.isNil(this.originalProps.options);
   }
 
   /**
-   * @stable [15.10.2020]
-   * @private
+   * @stable [30.01.2021]
+   */
+  private getMenuWidth(): number {
+    return this.domAccessor.getWidth(this.actualRef.current);
+  }
+
+  /**
+   * @stable [30.01.2021]
+   */
+  private getMenuAnchorElement(): HTMLElement {
+    return CalcUtils.calc(this.originalProps.menuAnchorElement) || this.input;
+  }
+
+  /**
+   * @stable [30.01.2021]
    */
   private get isMenuAlreadyOpened(): boolean {
-    return ConditionUtils.ifNotNilThanValue(this.menu, (menu) => menu.isOpen(), false);
+    return this.menu?.isOpen();
   }
 
   /**
-   * @stable [15.10.2020]
-   * @private
-   */
-  private get isForceReload(): boolean {
-    return this.originalProps.forceReload;
-  }
-
-  /**
-   * @stable [15.10.2020]
-   * @private
+   * @stable [30.01.2021]
    */
   private get isRemoteFilterUsed(): boolean {
     return this.originalProps.remoteFilter && !this.areLocalOptionsUsed;
   }
 
   /**
-   * @stable [15.10.2020]
-   * @private
+   * @stable [30.01.2021]
+   */
+  private get isForceReload(): boolean {
+    return this.originalProps.forceReload;
+  }
+
+  /**
+   * @stable [30.01.2021]
    */
   private get isMenuRendered(): boolean {
     return this.state.menuRendered;
   }
 
   /**
-   * @stable [15.10.2020]
-   * @private
+   * @stable [30.01.2021]
    */
-  private get menuWidth(): number {
-    return this.domAccessor.getWidth(this.actualRef.current);
+  private get dictionary(): string {
+    return this.originalProps.dictionary;
   }
 
   /**
-   * @stable [15.10.2020]
-   * @private
+   * @stable [30.01.2021]
    */
   private get menu(): Menu {
     return this.menuRef.current;
