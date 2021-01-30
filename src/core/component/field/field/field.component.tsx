@@ -349,15 +349,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [05.06.2020]
-   */
-  protected removeFocus(): void {
-    if (this.hasInput) {
-      this.input.blur();
-    }
-  }
-
-  /**
    * @stable [07.10.2020]
    */
   protected getFieldPattern(): string {
@@ -372,33 +363,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
         onClose={this.closeVirtualKeyboard}
         onChange={this.onKeyboardChange}
         {...this.getKeyboardProps()}/>
-    );
-  }
-
-  /**
-   * @stable [21.06.2020]
-   * @param {IFocusEvent} event
-   */
-  protected onFocus(event: IFocusEvent): void {
-    if (this.isFocusPrevented) {
-      this.removeFocus();
-    } else {
-      this.setState(
-        {focused: true},
-        () => ConditionUtils.ifNotNilThanValue(this.originalProps.onFocus, (onFocus) => onFocus(event))
-      );
-    }
-  }
-
-  /**
-   * @stable [14.10.2020]
-   * @param event
-   * @protected
-   */
-  protected onBlur(event: IFocusEvent): void {
-    this.setState(
-      {focused: false},
-      () => ConditionUtils.ifNotNilThanValue(this.originalProps.onBlur, (onBlur) => onBlur(event))
     );
   }
 
@@ -871,7 +835,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
     if (this.hasInput) {
       this.input.setCustomValidity('');
     }
-    if (this.isInputValid) {
+    if (!this.hasInput || this.input.validity.valid) {
       return null;
     }
     return this.input.validationMessage;
@@ -1087,14 +1051,36 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @stable [30.01.2021]
    */
   private get inputСoverElement(): JSX.Element {
-    if (!this.isKeyboardUsed || !this.isActive) {
-      return null;
+    if ((this.isFocusPrevented || this.isKeyboardUsed) && this.isActive) {
+      return (
+        <div
+          className={FieldClassesEnum.INPUT_COVER}
+          onClick={this.onInputCoverElementClick}
+        />
+      );
     }
-    return (
-      <div
-        className={FieldClassesEnum.INPUT_COVER}
-        onClick={this.onInputCoverElementClick}
-      />
+    return null;
+  }
+
+  /**
+   * @stable [30.01.2021]
+   * @param event
+   */
+  private onFocus(event: IFocusEvent): void {
+    this.setState(
+      {focused: true},
+      () => ConditionUtils.ifNotNilThanValue(this.originalProps.onFocus, (onFocus) => onFocus(event))
+    );
+  }
+
+  /**
+   * @stable [30.01.2021]
+   * @param event
+   */
+  private onBlur(event: IFocusEvent): void {
+    this.setState(
+      {focused: false},
+      () => ConditionUtils.ifNotNilThanValue(this.originalProps.onBlur, (onBlur) => onBlur(event))
     );
   }
 
@@ -1131,7 +1117,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [30.01.2021]
    */
   private get isErrorMessageRendered(): boolean {
     return WrapperUtils.isErrorMessageRendered(this.mergedProps);
@@ -1145,71 +1131,63 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   private get isFocused(): boolean {
     return this.isKeyboardUsed ? this.isKeyboardOpen : this.state.focused;
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [30.01.2021]
    */
   private get isInlineKeyboard(): boolean {
     return this.getKeyboardProps().inline;
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   private get hasInput(): boolean {
     return !R.isNil(this.inputRef.current);
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   private get isChangeable(): boolean {
     return WrapperUtils.isChangeable(this.originalProps);
   }
 
   /**
-   * @stable [13.10.2020]
+   * @stable [30.01.2021]
    */
   private get isKeyboardOpen(): boolean {
     return this.state.keyboardOpen || this.isInlineKeyboard;
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   private get isFieldRendered(): boolean {
     return this.originalProps.fieldRendered;
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   private get isRequired(): boolean {
     return this.originalProps.required;
   }
 
   /**
-   * @stable [14.10.2020]
-   * @private
-   */
-  private get isInputValid(): boolean {
-    return !this.hasInput || this.input.validity.valid;
-  }
-
-  /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   private get isActive(): boolean {
     return !this.isInactive;
   }
 
   /**
-   * @stable [29.01.2021]
+   * @stable [30.01.2021]
    */
   private get isKeyboardUsed() {
     const {
@@ -1231,7 +1209,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    * @private
    */
   private get areManualChangesPrevented(): boolean {
@@ -1239,7 +1217,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [22.01.2021]
+   * @stable [30.01.2021]
    */
   private get error(): string {
     return NvlUtils.nvl(this.originalProps.error, this.state.error);
