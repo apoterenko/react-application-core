@@ -67,11 +67,10 @@ export class CronField extends Field<ICronFieldProps> {
   }
 
   /**
-   * @stable [28.12.2020]
+   * @stable [30.01.2021]
    * @param value
-   * @protected
    */
-  protected isValueDefined(value: string): boolean {
+  protected isValueDefined(value: unknown): boolean {
     return !R.isNil(value);
   }
 

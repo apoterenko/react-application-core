@@ -33,7 +33,7 @@ import { ValueUtils } from './value';
  * @stable [30.01.2021]
  * @param wrapper
  */
-const isValid = (wrapper: IValidWrapper): boolean => ValueUtils.isValueValid(wrapper?.valid);
+const isValid = (wrapper: IValidWrapper): boolean => ValueUtils.isValid(wrapper?.valid);
 
 /**
  * See @Field and @Form

@@ -13,6 +13,7 @@ import {
   IOnDictionaryChangeWrapper,
   IOnSelectWrapper,
   IOptionsWrapper,
+  IPlainValueWrapper,
   IProgressWrapper,
   IRemoteFilterWrapper,
   IWaitingForOptionsWrapper,
@@ -50,6 +51,7 @@ export interface IPresetsBaseSelectEntity
     IOnDictionaryChangeWrapper<string, IFluxQueryEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity>,
     IOptionsWrapper<IPresetsSelectOptionEntity[]>,
+    IPlainValueWrapper,                                                              /* @stable [30.01.2021] */
     IRemoteFilterWrapper,
     IWaitingForOptionsWrapper {
 }

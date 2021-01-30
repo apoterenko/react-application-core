@@ -49,9 +49,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
 
   public static readonly defaultProps: IFieldProps = {
     fieldRendered: true,
-    plainValue: true,
-    useCursor: true,
     full: true,
+    useCursor: true,
     useKeyboardOnMobilePlatformOnly: false,
   };
 
@@ -708,45 +707,36 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
-   */
-  protected get isPlainValueApplied(): boolean {
-    return this.originalProps.plainValue;
-  }
-
-  /**
-   * @stable [14.10.2020]
+   * @stable [30.01.2021]
    */
   protected get isValuePresent(): boolean {
-    return ValueUtils.isValuePresent(this.value, this.emptyValue);
+    return ValueUtils.isPresent(this.value, this.emptyValue);
   }
 
   /**
-   * @stable [07.10.2020]
+   * @stable [30.01.2021]
    */
   protected get isValueNotPresent(): boolean {
     return !this.isValuePresent;
   }
 
   /**
-   * @stable [07.10.2020]
+   * @stable [30.01.2021]
    * @param value
    */
-  protected isValueDefined(value: AnyT): boolean {
+  protected isValueDefined(value: unknown): boolean {
     return TypeUtils.isDef(value);
   }
 
   /**
-   * @stable [14.10.2020]
-   * @protected
+   * @stable [30.01.2021]
    */
   protected get isFocusPrevented() {
     return this.originalProps.preventFocus;
   }
 
   /**
-   * @stable [18.10.2020]
-   * @protected
+   * @stable [30.01.2021]
    */
   protected get isBusy(): boolean {
     return this.originalProps.progress;
@@ -760,9 +750,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [18.10.2020]
+   * @stable [30.01.2021]
    */
-  protected get isReadOnly(): boolean {
+  private get isReadOnly(): boolean {
     return this.originalProps.readOnly;
   }
 
@@ -775,8 +765,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
-   * @protected
+   * @stable [30.01.2021]
    */
   protected get isDisplayValueDefined(): boolean {
     return TypeUtils.isDef(this.originalProps.displayValue);

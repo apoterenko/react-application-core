@@ -33,7 +33,7 @@ const makeLoadedListMiddleware = <TState = {}>(cfg: ILoadedListMiddlewareConfigE
 const makeLoadedListOnFormValidMiddleware =
   <TState = {}>(config: ILoadedListOnFormValidMiddlewareConfigEntity<TState>): IEffectsAction =>
     ConditionUtils.orNull(
-      ValueUtils.isValueValid(Selectors.validFromAction(config.action)),
+      ValueUtils.isValid(Selectors.validFromAction(config.action)),
       () => makeLoadedListMiddleware(config)
     );
 

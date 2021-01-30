@@ -47,6 +47,7 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
 
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IBaseSelectProps>({
     forceReload: true,
+    plainValue: true,
     remoteFilter: true,
   }, BaseTextField);
 
@@ -438,6 +439,13 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
       super.getComponentsSettingsProps(),
       this.componentsSettings.baseSelect as TProps
     );
+  }
+
+  /**
+   * @stable [30.01.2021]
+   */
+  protected get isPlainValueApplied(): boolean {
+    return this.originalProps.plainValue;
   }
 
   /**
