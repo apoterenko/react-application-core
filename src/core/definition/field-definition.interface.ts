@@ -390,6 +390,7 @@ export enum FieldClassesEnum {
   FULL = 'rac-full-field',
   INPUT = 'rac-field__input',
   INPUT_CARET = 'rac-field__input-caret',
+  INPUT_COVER = 'rac-field__input-cover',
   INPUT_LABEL = 'rac-field__input-label',
   INPUT_MIRROR = 'rac-field__input-mirror',
   INPUT_WRAPPER = 'rac-field__input-wrapper',

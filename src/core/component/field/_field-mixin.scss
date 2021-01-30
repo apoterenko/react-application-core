@@ -64,6 +64,11 @@
   $rac-self-field-input-caret-font-size: unset,                                     /* @stable [09.11.2019] */
   $rac-self-field-input-caret-position: unset,                                      /* @stable [09.11.2019] */
   $rac-self-field-input-color: unset,                                               /* @stable [21.10.2019] */
+  $rac-self-field-input-cover-height: unset,                                        /* @stable [30.01.2021] */
+  $rac-self-field-input-cover-left: unset,                                          /* @stable [30.01.2021] */
+  $rac-self-field-input-cover-position: unset,                                      /* @stable [30.01.2021] */
+  $rac-self-field-input-cover-top: unset,                                           /* @stable [30.01.2021] */
+  $rac-self-field-input-cover-width: unset,                                         /* @stable [30.01.2021] */
   $rac-self-field-input-cursor: unset,                                              /* @stable [23.10.2019] */
   $rac-self-field-input-flex-grow: unset,                                           /* @stable [14.10.2020] */
   $rac-self-field-input-font-size: unset,                                           /* @stable [30.10.2019] */
@@ -260,6 +265,15 @@
               $rac-styles-color: $rac-self-field-input-caret-color,
               $rac-styles-font-size: $rac-self-field-input-caret-font-size,
               $rac-styles-position: $rac-self-field-input-caret-position
+            );
+
+            @include rac-styles (
+              $rac-styles-custom: rac-field__input-cover,
+              $rac-styles-height: $rac-self-field-input-cover-height,
+              $rac-styles-left: $rac-self-field-input-cover-left,
+              $rac-styles-position: $rac-self-field-input-cover-position,
+              $rac-styles-top: $rac-self-field-input-cover-top,
+              $rac-styles-width: $rac-self-field-input-cover-width
             );
 
             @include rac-styles (

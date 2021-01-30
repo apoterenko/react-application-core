@@ -88,7 +88,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
    * @stable [12.09.2018]
    * @returns {JSX.Element}
    */
-  protected get mirrorInputElement(): JSX.Element {
+  protected get inputMirrorElement(): JSX.Element {
     if (!this.isKeyboardAndCursorUsed || this.isValueNotPresent) {
       return null;
     }

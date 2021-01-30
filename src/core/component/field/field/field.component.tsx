@@ -83,6 +83,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
     this.onCloseVirtualKeyboard = this.onCloseVirtualKeyboard.bind(this);
     this.onDocumentClickHandler = this.onDocumentClickHandler.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onInputCoverElementClick = this.onInputCoverElementClick.bind(this);
     this.onKeyboardChange = this.onKeyboardChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
@@ -193,13 +194,15 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [21.06.2020]
+   * @stable [29.01.2021]
    */
   public setFocus(): void {
     ConditionUtils.ifNotNilThanValue(
       this.input,
       (input) => {
-        if (!this.isFocusPrevented) {
+        if (this.isKeyboardUsed) {
+          this.openVirtualKeyboard();
+        } else if (!this.isFocusPrevented) {
           input.focus();
         }
       }
@@ -377,12 +380,8 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @param {IFocusEvent} event
    */
   protected onFocus(event: IFocusEvent): void {
-    if (this.isFocusPrevented || this.isKeyboardUsed) {
-      this.removeFocus(); // Prevent native keyboard opening during use of a synthetic keyboard
-
-      if (this.isKeyboardUsed) {
-        this.openVirtualKeyboard();
-      }
+    if (this.isFocusPrevented) {
+      this.removeFocus();
     } else {
       this.setState(
         {focused: true},
@@ -689,9 +688,9 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [21.08.2020]
+   * @stable [30.01.2021]
    */
-  protected get mirrorInputElement(): JSX.Element {
+  protected get inputMirrorElement(): JSX.Element {
     return null;
   }
 
@@ -1074,13 +1073,38 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
           className={FieldClassesEnum.INPUT_WRAPPER}
         >
           {this.getInputElement()}
-          {this.mirrorInputElement}
+          {this.inputСoverElement}
+          {this.inputMirrorElement}
           {this.inputCaretElement}
           {this.inputAttachmentElement}
         </div>
       );
     }
     return this.inputAttachmentElement;
+  }
+
+  /**
+   * @stable [30.01.2021]
+   */
+  private get inputСoverElement(): JSX.Element {
+    if (!this.isKeyboardUsed || !this.isActive) {
+      return null;
+    }
+    return (
+      <div
+        className={FieldClassesEnum.INPUT_COVER}
+        onClick={this.onInputCoverElementClick}
+      />
+    );
+  }
+
+  /**
+   * @stable [29.01.2021]
+   * @param event
+   */
+  private onInputCoverElementClick(event: IBaseEvent): void {
+    this.doCancelEvent(event);
+    this.openVirtualKeyboard();
   }
 
   /**
@@ -1185,14 +1209,17 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [29.01.2021]
    */
   private get isKeyboardUsed() {
     const {
       useKeyboard,
     } = this.originalProps;
+    const {
+      useKeyboardOnMobilePlatformOnly,
+    } = this.mergedProps;
 
-    if (this.mergedProps.useKeyboardOnMobilePlatformOnly) {
+    if (useKeyboardOnMobilePlatformOnly) {
       if (this.environment.mobilePlatform) {
         return useKeyboard;
       } else {
