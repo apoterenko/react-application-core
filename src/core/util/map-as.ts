@@ -87,7 +87,7 @@ const mapExtendedEntityAsApiEntity =
 
     return FilterUtils.defValuesFilter<IApiEntity<TEntity>, IApiEntity<TEntity>>({
       changes,
-      diff: newEntity ? entity : changes,
+      diff: newEntity ? NvlUtils.nvl(entity, changes) : changes,
       entity,
       entityId,
       newEntity,
