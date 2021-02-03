@@ -456,11 +456,11 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [31.07.2020]
+   * @stable [02.02.2021]
    */
   public get apiEntity(): IApiEntity {
     return Mappers.extendedEntityAsApiEntity({
-      ...Mappers.extendedEntity(this.originalProps),
+      ...this.originalProps,
       changes: this.form.changes,
     });
   }
