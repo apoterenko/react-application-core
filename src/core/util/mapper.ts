@@ -155,6 +155,7 @@ export class Mappers {
   public static readonly entityAsFullSearchFilter = MapAsUtils.entityAsFullSearchFilter;                                                                                                    /* @stable [02.08.2020] */
   public static readonly extendedEntity = MapAsOriginalUtils.extendedEntity;                                                                                                                /* @stable [31.07.2020] */
   public static readonly extendedEntityAsApiEntity = MapAsUtils.extendedEntityAsApiEntity;                                                                                                  /* @stable [31.07.2020] */
+  public static readonly extendedFormEntityAsApiEntity = MapAsUtils.extendedFormEntityAsApiEntity;                                                                                          /* @stable [02.02.2021 */
   public static readonly filterFormDialogContainerProps = MapAsComponentUtils.filterFormDialogContainerProps;                                                                               /* @stable [02.08.2020] */
   public static readonly form = MapAsWrapperUtils.form;                                                                                                                                     /* @stable [27.07.2020] */
   public static readonly formContainerProps = MapAsComponentUtils.formContainerProps;                                                                                                       /* @stable [30.07.2020] */

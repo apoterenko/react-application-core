@@ -96,6 +96,17 @@ const mapExtendedEntityAsApiEntity =
   };
 
 /**
+ * @stable [02.02.2021]
+ * @param formEntity
+ * @param entity
+ */
+const mapExtendedFormEntityAsApiEntity =
+  <TEntity = IEntity>(formEntity: IReduxFormEntity<TEntity>,
+                      entity?: TEntity): IApiEntity<TEntity> => mapExtendedEntityAsApiEntity<TEntity>(
+    mapEntityAsExtendedFormEntity(formEntity, entity)
+  );
+
+/**
  * @map-as
  *
  * @stable [31.07.2020]
@@ -389,6 +400,7 @@ export class MapAsUtils {
   public static readonly entityAsExtendedFormEntity = mapEntityAsExtendedFormEntity;
   public static readonly entityAsFullSearchFilter = mapEntityAsFullSearchFilter;
   public static readonly extendedEntityAsApiEntity = mapExtendedEntityAsApiEntity;
+  public static readonly extendedFormEntityAsApiEntity = mapExtendedFormEntityAsApiEntity;
   public static readonly formEntityAsFinalEntity = mapFormEntityAsFinalEntity;
   public static readonly listHolderEntityAsDisabled = mapListHolderEntityAsDisabled;
   public static readonly listHolderEntityAsPagedEntity = mapListHolderEntityAsPagedEntity;

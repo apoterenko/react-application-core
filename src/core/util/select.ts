@@ -187,10 +187,10 @@ export const selectEntity = <TResult = IEntity>(entity: IEntityWrapper<TResult>)
 const selectActiveValue = <TValue>(wrapper: IActiveValueWrapper<TValue>): TValue => wrapper?.activeValue;
 
 /**
- * @stable [12.01.2021]
+ * @stable [01.02.2021]
  * @param action
  */
-const selectPayloadFromAction = <TPayload>(action: IEffectsAction): TPayload =>
+const asPayloadFromAction = <TPayload>(action: IEffectsAction<IPayloadWrapper<TPayload>>): TPayload =>
   asData<IPayloadWrapper<TPayload>>(action)?.payload;
 
 /**
@@ -217,13 +217,6 @@ const asPreviousActionFromAction = (wrapper: IEffectsAction): IEffectsAction =>
   R.isNil(wrapper)
     ? UNDEF
     : NvlUtils.nvl(asPreviousAction(wrapper.data), asPreviousAction(wrapper.initialData));
-
-/**
- * @stable [08.05.2020]
- * @param {IReduxListHolderEntity} entity
- * @returns {boolean}
- */
-const selectListProgress = (entity: IReduxListHolderEntity): boolean => WrapperUtils.inProgress(selectList(entity));
 
 /**
  * @stable [20.01.2021]
@@ -485,12 +478,11 @@ export class Selectors {
   public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */
   public static readonly layoutMode = selectLayoutMode;                                                         /* @stable [21.05.2020] */
   public static readonly list = selectList;
-  public static readonly listProgress = selectListProgress;                                                     /* @stable [08.05.2020] */
   public static readonly listRawData = selectListRawData;                                                       /* @stable [08.05.2020] */
   public static readonly listSelectedEntity = selectListSelectedEntity;                                         /* @stable [08.05.2020] */
   public static readonly mergedLayoutMode = selectMergedLayoutMode;                                             /* @stable [21.05.2020] */
   public static readonly notification = selectNotification;                                                     /* @stable [12.06.2020] */
-  public static readonly payloadFromAction = selectPayloadFromAction;                                           /* @stable [08.06.2020] */
+  public static readonly payloadFromAction = asPayloadFromAction;
   public static readonly preventEffectsFromAction = asPreventEffectsFromAction;
   public static readonly previousActionFromAction = asPreviousActionFromAction;
   public static readonly previousActionTypeFromAction = asPreviousActionTypeFromAction;
@@ -506,7 +498,7 @@ export class Selectors {
   public static readonly sectionName = selectSectionName;
   public static readonly selected = asSelected;
   public static readonly selectedEntityFromAction = asSelectedEntityFromAction;
-  public static readonly selectedEntityIdFromAction = asSelectedEntityIdFromAction;                         /* @stable [21.07.2020] */
+  public static readonly selectedEntityIdFromAction = asSelectedEntityIdFromAction;
   public static readonly stack = selectStack;                                                                   /* @stable [21.05.2020] */
   public static readonly stackItemEntities = selectStackItemEntities;                                           /* @stable [21.05.2020] */
   public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */
