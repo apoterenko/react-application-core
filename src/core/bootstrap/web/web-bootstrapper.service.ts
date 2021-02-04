@@ -1,11 +1,11 @@
 import { injectable } from 'inversify';
 
 import {
-  appendUrlArgs,
   ConditionUtils,
   nvl,
   orNull,
   TypeUtils,
+  UrlUtils,
 } from '../../util';
 import {
   DI_TYPES,
@@ -55,10 +55,10 @@ export class WebBootstrapper implements IBootstrapper {
       () => {
         ConditionUtils.ifNotNilThanValue(
           asyncLibraries.googleMaps,
-          (googleMapsLibCfg) => {
+          (googleMapsLibUri) => {
             this.registerAsyncLibrary({
-              url: appendUrlArgs(
-                googleMapsLibCfg,
+              url: UrlUtils.buildParameterizedURI(
+                googleMapsLibUri,
                 {
                   key: googleMapsKey,
                   libraries: googleMaps.libraries,

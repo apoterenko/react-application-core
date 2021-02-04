@@ -8,9 +8,11 @@ import {
 import { BaseChannel } from '../base-channel.service';
 import {
   ArrayUtils,
+  CalcUtils,
   ConditionUtils,
   DelayedTask,
   TypeUtils,
+  UrlUtils,
 } from '../../util';
 import {
   CHANNEL_CONNECT_EVENT,
@@ -45,16 +47,21 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
   /**
    * @stable [04.11.2020]
    * @param ip
-   * @param config
+   * @param cfg
    */
-  public async connect(ip: string, config?: ISignalRChannelConfigEntity): Promise<void> {
+  public async connect(ip: string, cfg?: ISignalRChannelConfigEntity): Promise<void> {
     if (this.hasClient(ip)) {
       SignalRChannel.logger.info(`[$SignalRChannel][connect] The client is already registered. Ip: ${ip}`);
       return;
     }
+    const {
+      query,
+    } = cfg || {};
 
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(ip)
+      .withUrl(
+        UrlUtils.buildParameterizedURI(ip, CalcUtils.calc(query))
+      )
       .withAutomaticReconnect(SignalRChannel.RETRY_DELAYS)
       .build();
 

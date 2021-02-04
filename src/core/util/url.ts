@@ -10,8 +10,11 @@ import {
   ITransportUrlConfigEntity,
   TransportMethodsEnum,
 } from '../definition';
-import { isObjectNotEmpty } from './object';
-import { notNilValuesFilter } from './filter';
+import {
+  isObjectNotEmpty,
+  ObjectUtils,
+} from './object';
+import { FilterUtils } from './filter';
 import { JsonUtils } from './json';
 
 /**
@@ -61,17 +64,31 @@ export const getUrlProtocol = (): string => URI().protocol();
 export const getURLSearchParams = (search: string): URLSearchParams => new URLSearchParams(search);
 
 /**
- * @stable [19.06.2020]
- * @param {string} uri
- * @returns {boolean}
+ * @stable [04.02.2021]
+ * @param uri
  */
 const isAbsoluteURI = (uri: string): boolean => URI(uri).is('absolute');
 
 /**
- * @stable [13.12.2020]
+ * @stable [04.02.2021]
  * @param params
  */
 const buildEncodedURI = <TParams = IKeyValue>(params: TParams) => encodeURIComponent(btoa(JsonUtils.serializeJson(params)));
+
+/**
+ * @stable [04.02.2021]
+ * @param initialURI
+ * @param params
+ */
+const buildParameterizedURI = <TParams = IKeyValue>(initialURI: string, params?: TParams): string => {
+  const uri = new URI(initialURI);
+
+  params = FilterUtils.notNilValuesFilter(params || {});
+  if (ObjectUtils.isObjectNotEmpty(params)) {
+    R.forEachObjIndexed((value, key) => uri.addSearch(String(key), value), params);
+  }
+  return uri.valueOf();
+};
 
 /**
  * @stable [12.09.2018]
@@ -109,25 +126,10 @@ export const buildTransportUrl = (config: ITransportUrlConfigEntity) => {
 };
 
 /**
- * @stable [08.01.2020]
- * @param {string} initialUrl
- * @param {IKeyValue} args
- * @returns {string}
- */
-export const appendUrlArgs = (initialUrl: string, args: IKeyValue) => {
-  const url = new URI(initialUrl);
-
-  args = notNilValuesFilter(args);
-  if (isObjectNotEmpty(args)) {
-    R.forEachObjIndexed((value, key) => url.addSearch(String(key), value), args);
-  }
-  return url.valueOf();
-};
-
-/**
- * @stable [14.06.2020]
+ * @stable [04.02.2021]
  */
 export class UrlUtils {
   public static readonly buildEncodedURI = buildEncodedURI;
+  public static readonly buildParameterizedURI = buildParameterizedURI;
   public static readonly isAbsoluteURI = isAbsoluteURI;
 }
