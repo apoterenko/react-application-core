@@ -9,6 +9,7 @@ import * as R from 'ramda';
 import {
   FilterUtils,
   JsonUtils,
+  NvlUtils,
 } from '../util';
 import {
   AnyT,
@@ -31,13 +32,18 @@ import {
 import { ChannelActionBuilder } from '../action';
 
 @injectable()
-export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements IChannel<TConfig, TMessage> {
+export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
+  implements IChannel<TConfig, TMessage> {
+
   protected static readonly logger = LoggerFactory.makeLogger('BaseChannel');
 
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Store) protected readonly appStore: Store<IStoreEntity>;
 
   private readonly clients = new Map<string, IChannelClient>();
+  /**/
+  private $eventToEmit: string;
+  private $eventToListen: string;
 
   /**
    * @stable [06.11.2020]
@@ -80,18 +86,18 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @stable [06.11.2020]
    * @param ip
    * @param messageName
-   * @param payload
+   * @param message
    */
-  public onMessage(ip: string, messageName?: string, payload?: string): void {
+  public onMessage(ip: string, messageName?: string, message?: string): void {
     BaseChannel.logger.debug(
-      '[$BaseChannel][onMessage] The client received the data', payload || '[-]',
+      '[$BaseChannel][onMessage] The client received the data', message || '[-]',
       '. Ip:', ip, ', message:', messageName || '[-]'
     );
 
     this.appStore.dispatch(
       ChannelActionBuilder.buildReceiveMessagePlainAction(
         FilterUtils.defValuesFilter<IChannelMessageEntity, IChannelMessageEntity>({
-          data: JsonUtils.parseJson(payload),
+          data: JsonUtils.parseJson(message),
           ip,
           name: messageName,
         })
@@ -145,6 +151,24 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
   }
 
   /**
+   * @stable [05.02.2021]
+   * @param $eventToListen
+   */
+  public setEventToListen($eventToListen: string): IChannel<TConfig, TMessage> {
+    this.$eventToListen = $eventToListen;
+    return this;
+  }
+
+  /**
+   * @stable [05.02.2021]
+   * @param $eventToEmit
+   */
+  public setEventToEmit($eventToEmit: string): IChannel<TConfig, TMessage> {
+    this.$eventToEmit = $eventToEmit;
+    return this;
+  }
+
+  /**
    * @stable [06.11.2020]
    * @param ip
    * @param client
@@ -180,7 +204,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @protected
    */
   protected get eventToListen(): string {
-    return this.settings.channel.eventToListen;
+    return NvlUtils.nvl(this.$eventToListen, this.settings.channel.eventToListen);
   }
 
   /**
@@ -188,6 +212,6 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown> implements I
    * @protected
    */
   protected get eventToEmit(): string {
-    return this.settings.channel.eventToEmit;
+    return NvlUtils.nvl(this.$eventToEmit, this.settings.channel.eventToEmit);
   }
 }
