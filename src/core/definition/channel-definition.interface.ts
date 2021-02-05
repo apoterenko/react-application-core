@@ -91,7 +91,7 @@ export interface IChannel<TConfig = {}, TMessage = unknown> {
   onDisconnect(ip: string, client: IChannelClient): void;
   onMessage(ip: string, messageName?: string, payload?: string): void;
   setEventToEmit($eventToEmit: string): IChannel<TConfig, TMessage>;
-  setEventToListen($eventToListen: string): IChannel<TConfig, TMessage>;
+  setEventToListen(...$eventToListen: string[]): IChannel<TConfig, TMessage>;
 }
 
 /**

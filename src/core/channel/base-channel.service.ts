@@ -11,10 +11,7 @@ import {
   JsonUtils,
   NvlUtils,
 } from '../util';
-import {
-  AnyT,
-  UNDEF,
-} from '../definitions.interface';
+import { AnyT } from '../definitions.interface';
 import {
   DI_TYPES,
   lazyInject,
@@ -43,7 +40,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
   private readonly clients = new Map<string, IChannelClient>();
   /**/
   private $eventToEmit: string;
-  private $eventToListen: string;
+  private $eventToListen: string | string [];
 
   /**
    * @stable [06.11.2020]
@@ -154,7 +151,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
    * @stable [05.02.2021]
    * @param $eventToListen
    */
-  public setEventToListen($eventToListen: string): IChannel<TConfig, TMessage> {
+  public setEventToListen(...$eventToListen: string[]): IChannel<TConfig, TMessage> {
     this.$eventToListen = $eventToListen;
     return this;
   }
@@ -177,7 +174,10 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
   protected async registerClient(ip: string, client: IChannelClient): Promise<void> {
     this.clients.set(ip, client);
 
-    await client.on(this.eventToListen, (message) => this.onMessage(ip, UNDEF, message));
+    await Promise.all(
+      this.eventToListen
+        .map(($eventToListen) => client.on($eventToListen, (message) => this.onMessage(ip, $eventToListen, message)))
+    );
     /**/
     await client.on(CHANNEL_CONNECT_EVENT, () => this.onConnect(ip, client));
     await client.on(CHANNEL_DISCONNECT_EVENT, () => this.onDisconnect(ip, client));
@@ -203,8 +203,10 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
    * @stable [06.11.2020]
    * @protected
    */
-  protected get eventToListen(): string {
-    return NvlUtils.nvl(this.$eventToListen, this.settings.channel.eventToListen);
+  protected get eventToListen(): string [] {
+    return [].concat(
+      NvlUtils.nvl(this.$eventToListen, this.settings.channel.eventToListen)
+    );
   }
 
   /**

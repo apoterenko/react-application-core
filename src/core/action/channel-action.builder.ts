@@ -35,15 +35,6 @@ export class ChannelActionBuilder {
    * @stable [06.11.2020]
    * @param payload
    */
-  public static buildReceiveMessageAction<TData = AnyT>(payload: IChannelMessageEntity<TData>): IEffectsAction {
-    const plainAction = this.buildReceiveMessagePlainAction(payload);
-    return EffectsAction.create(plainAction.type, plainAction.data);
-  }
-
-  /**
-   * @stable [06.11.2020]
-   * @param payload
-   */
   public static buildReplaceMessagesPlainAction<TData = AnyT>(payload: IChannelMessageEntity<TData>): IEffectsAction {
     const data: IFluxChannelMessageEntity = {payload};
     return {type: $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE, data};

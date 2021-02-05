@@ -69,10 +69,11 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
 
     await this.registerClient(ip, {
       on: async (event: string, callback: (...args: unknown[]) => void): Promise<void> => {
+        if (this.eventToListen.includes(event)) {
+          connection.on(event, callback);
+          return;
+        }
         switch (event) {
-          case this.eventToListen:
-            connection.on(event, callback);
-            break;
           case CHANNEL_CONNECT_EVENT:
             connection.onreconnecting(() => {
               // The server is down
