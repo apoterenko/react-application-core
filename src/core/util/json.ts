@@ -4,6 +4,9 @@ import {
   AnyT,
   IKeyValue,
 } from '../definitions.interface';
+import {
+  TypeUtils,
+} from './type';
 
 /**
  * @stable [10.09.2020]
@@ -13,15 +16,15 @@ import {
 const formatJson = (o: IKeyValue, space = 4) => JSON.stringify(o, null, space);
 
 /**
- * @stable [06.11.2020]
+ * @stable [08.02.2021]
  * @param o
  */
-const parseJson = <TResult = IKeyValue>(o: string): TResult => {
-  if (R.isNil(o)) {
-    return o;
+const parseJson = <TResult = IKeyValue>(o: AnyT): TResult => {
+  if (R.isNil(o) || !TypeUtils.isString(o)) {
+    return o as TResult;
   }
   try {
-    return JSON.parse(o);
+    return JSON.parse(o as string);
   } catch (e) {
     return o as AnyT;
   }

@@ -30,6 +30,7 @@ import {
   isFormSubmittable,
   Mappers,
   ObjectUtils,
+  Selectors,
   TypeUtils,
   WrapperUtils,
 } from '../../util';
@@ -461,7 +462,7 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   public get apiEntity(): IApiEntity {
     return Mappers.extendedEntityAsApiEntity({
       ...this.originalProps,
-      changes: this.form.changes,
+      changes: Selectors.formHolderEntityChanges(this.originalProps),
     });
   }
 

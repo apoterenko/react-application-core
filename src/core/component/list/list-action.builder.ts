@@ -16,6 +16,7 @@ import {
   IFluxSectionDataEntity,
   IFluxSelectedEntity,
   IModifyEntity,
+  IReduxListEntity,
   IReduxPagedEntity,
   ISelectedEntity,
   LIST_CANCEL_LOAD_ACTION_TYPE,
@@ -303,12 +304,11 @@ export class ListActionBuilder {
   }
 
   /**
-   * @stable [13.05.2019]
-   * @param {string} section
-   * @param {IDataWrapper<AnyT> & IReduxPagedEntity} data
-   * @returns {IEffectsAction}
+   * @stable [06.02.2021]
+   * @param section
+   * @param data
    */
-  public static buildLoadDoneAction(section: string, data?: IDataWrapper<AnyT> & IReduxPagedEntity): IEffectsAction {
+  public static buildLoadDoneAction(section: string, data?: IReduxListEntity): IEffectsAction {
     return EffectsAction.create(this.buildLoadDoneActionType(section), SectionUtils.applySection(section, data));
   }
 

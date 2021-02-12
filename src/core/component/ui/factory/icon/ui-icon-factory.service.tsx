@@ -175,12 +175,6 @@ export class UiIconFactory implements IUiIconFactory {
         />
       </svg>
     ),
-    'cart': (
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-            width='16' height='16' viewBox='0 0 16 16'>
-        <path fill='currentColor' d='M15.954 6.178l-1.62 8.047A2.238 2.238 0 0 1 12.194 16H3.808a2.237 2.237 0 0 1-2.142-1.776L.046 6.178a1.778 1.778 0 0 1 .347-1.52c.344-.426.865-.67 1.41-.658h2.208c0-2.21 1.79-4 3.995-4a3.997 3.997 0 0 1 3.995 4h2.197a1.772 1.772 0 0 1 1.758 2.178h-.002zM3.591 13.823a.28.28 0 0 0 .22.178h8.382a.28.28 0 0 0 .218-.178l.37-1.822H3.226l.366 1.822H3.59zM8.005 2a1.999 1.999 0 0 0-1.998 2H10c0-1.105-.894-2-1.997-2h.001zM2.019 6l.805 4h10.362l.81-4.006H2.011L2.02 6h-.002z'/>
-      </svg>
-    ),
     'chat': (
       <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
            width='24' height='24' viewBox='0 0 24 24'>

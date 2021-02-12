@@ -166,12 +166,10 @@ export const selectToken = <TValue = string>(wrapper: ITokenWrapper<TValue>): TV
   R.isNil(wrapper) ? UNDEF : wrapper.token;
 
 /**
- * @stable [05.03.2020]
- * @param {IChangesWrapper<TResult>} entity
- * @returns {TResult}
+ * @stable [06.02.2021]
+ * @param entity
  */
-export const selectChanges = <TResult = IEntity>(entity: IChangesWrapper<TResult>): TResult =>
-  R.isNil(entity) ? UNDEF : entity.changes;
+const asChanges = <TValue = IEntity>(entity: IChangesWrapper<TValue>): TValue => entity?.changes;
 
 /**
  * @stable [05.03.2020]
@@ -393,8 +391,8 @@ const selectListRawData = <TRawData = AnyT>(entity: IReduxListHolderEntity): TRa
  * @stable [01.08.2020]
  * @param entity
  */
-const selectFormHolderEntityChanges = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): TEntity =>
-  selectChanges(asForm(entity));
+const asFormHolderEntityChanges = <TEntity = IEntity>(entity: IReduxFormHolderEntity<TEntity>): TEntity =>
+  asChanges(asForm(entity));
 
 /**
  * @stable [01.08.2020]
@@ -460,7 +458,7 @@ const selectMergedLayoutMode = (merged: IReduxLayoutHolderEntity,
 export class Selectors {
   public static readonly activeToolbarToolsFromDirtyWrapper = selectActiveToolbarToolsFromDirtyWrapper;         /* @stable [08.05.2020] */
   public static readonly activeValue = selectActiveValue;                                                       /* @stable [30.07.2020] */
-  public static readonly changes = selectChanges;
+  public static readonly changes = asChanges;
   public static readonly channel = selectChannel;                                                               /* @stable [12.06.2020] */
   public static readonly channelEntity = selectChannelEntity;                                                   /* @stable [06.11.2020] */
   public static readonly channelMessagesByIp = selectChannelMessagesByIp;                                       /* @stable [06.11.2020] */
@@ -474,7 +472,7 @@ export class Selectors {
   public static readonly filter = selectFilter;
   public static readonly firstStackItemEntity = selectFirstStackItemEntity;                                     /* @stable [18.09.2020] */
   public static readonly form = asForm;
-  public static readonly formHolderEntityChanges = selectFormHolderEntityChanges;                               /* @stable [01.08.2020] */
+  public static readonly formHolderEntityChanges = asFormHolderEntityChanges;
   public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */
   public static readonly layoutMode = selectLayoutMode;                                                         /* @stable [21.05.2020] */
   public static readonly list = selectList;
