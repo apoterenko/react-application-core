@@ -80,21 +80,23 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
   }
 
   /**
-   * @stable [06.11.2020]
+   * @stable [08.02.2021]
    * @param ip
    * @param messageName
-   * @param message
+   * @param args
    */
-  public onMessage(ip: string, messageName?: string, message?: string): void {
+  public onMessage(ip: string, messageName?: string, ...args: unknown[]): void {
     BaseChannel.logger.debug(
-      '[$BaseChannel][onMessage] The client received the data', message || '[-]',
+      '[$BaseChannel][onMessage] The client received the data', args || '[-]',
       '. Ip:', ip, ', message:', messageName || '[-]'
     );
 
     this.appStore.dispatch(
       ChannelActionBuilder.buildReceiveMessagePlainAction(
         FilterUtils.defValuesFilter<IChannelMessageEntity, IChannelMessageEntity>({
-          data: JsonUtils.parseJson(message),
+          data: args.length === 1
+            ? JsonUtils.parseJson(args[0])
+            : args,
           ip,
           name: messageName,
         })
@@ -114,7 +116,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
       throw new Error(`The client ${ip} doesn't exist!`);
     }
     BaseChannel.logger.debug(
-      () => `[$BaseChannel][emitEvent] The client is about to send a message ${args && JSON.stringify(args) || '[-]'
+      () => `[$BaseChannel][emitEvent] The client is about to send a message ${args && JsonUtils.serializeJson(args) || '[-]'
       }. Ip: ${ip}, event: ${$event}`
     );
 
@@ -136,7 +138,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
    * @param requestPayload
    */
   public async emitRequestPayload(ip: string, requestPayload: PayloadWrapper): Promise<void> {
-    await this.emitChannelEvent(ip, JSON.stringify(requestPayload) as AnyT);
+    await this.emitChannelEvent(ip, JsonUtils.serializeJson(requestPayload) as AnyT);
   }
 
   /**
@@ -176,7 +178,7 @@ export abstract class BaseChannel<TConfig = {}, TMessage = unknown>
 
     await Promise.all(
       this.eventToListen
-        .map(($eventToListen) => client.on($eventToListen, (message) => this.onMessage(ip, $eventToListen, message)))
+        .map(($eventToListen) => client.on($eventToListen, (...args: unknown[]) => this.onMessage(ip, $eventToListen, ...args)))
     );
     /**/
     await client.on(CHANNEL_CONNECT_EVENT, () => this.onConnect(ip, client));
