@@ -1,8 +1,20 @@
-import { IIdWrapper } from '../definitions.interface';
+import {
+  IIdWrapper,
+  IOperationWrapper,
+} from '../definitions.interface';
 
 /**
- * @stable [26.02.2019]
+ * @entity
+ * @stable [14.02.2021]
  */
 export interface IOperationEntity
   extends IIdWrapper<string> {
+}
+
+/**
+ * @wrapper-entity
+ * @stable [14.02.2021]
+ */
+export interface IOperationWrapperEntity
+  extends IOperationWrapper<IOperationEntity> {
 }
