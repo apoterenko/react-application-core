@@ -5,6 +5,7 @@ import {
   IEntity,
   IEntityIdTWrapper,
   IMergeStrategyWrapper,
+  ISelectedByDefaultWrapper,
 } from '../definitions.interface';
 import { IFluxEntity } from './flux-definition.interface';
 
@@ -13,9 +14,10 @@ import { IFluxEntity } from './flux-definition.interface';
  * @stable [23.09.2020]
  */
 export interface IModifyEntity<TEntity = IEntity>
-  extends IEntityIdTWrapper,
-    IChangesWrapper<TEntity>,
-    IMergeStrategyWrapper<EntityMergeStrategiesEnum> {
+  extends IChangesWrapper<TEntity>,
+    IEntityIdTWrapper,
+    IMergeStrategyWrapper<EntityMergeStrategiesEnum>,
+    ISelectedByDefaultWrapper {
 }
 
 /**

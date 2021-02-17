@@ -25,8 +25,8 @@ export class RouterStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEnti
   implements IRouterStoreProxy {
 
   /**
-   * @stable [30.03.2020]
-   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
+   * @stable [17.02.2021]
+   * @param container
    */
   constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
@@ -34,19 +34,27 @@ export class RouterStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEnti
   }
 
   /**
-   * @stable [06.02.2020]
-   * @param {string} path
+   * @stable [17.02.2021]
+   * @param path
    */
   public navigate(path: string): void {
     this.dispatchPlainAction(RouterActionBuilder.buildNavigatePlainAction(path));
   }
 
   /**
-   * @stable [30.03.2020]
-   * @param {string} path
+   * @stable [17.02.2021]
+   * @param path
    */
   public rewrite(path: string): void {
     this.dispatchPlainAction(RouterActionBuilder.buildRewritePlainAction(path));
+  }
+
+  /**
+   * @stable [17.02.2021]
+   * @param path
+   */
+  public replace(path: string): void {
+    this.dispatchPlainAction(RouterActionBuilder.buildReplacePlainAction(path));
   }
 
   /**

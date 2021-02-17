@@ -110,6 +110,7 @@ export interface IRouterStoreProxy
     IGoBackWrapper {
   navigate(path: string): void;
   navigateBack(): void;
+  replace(path: string): void;
   rewrite(path: string): void;
 }
 

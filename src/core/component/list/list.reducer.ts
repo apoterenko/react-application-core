@@ -32,7 +32,7 @@ import { IEntity } from '../../definitions.interface';
 export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
                             action: IEffectsAction): IReduxListEntity => {
   const section = Selectors.sectionFromAction(action);
-  let modifyDataPayload;
+  let modifyDataPayload: IModifyEntity;
 
   switch (action.type) {
     /**
@@ -216,8 +216,14 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
             )
           )
           : (
-            // An inserted entity is selected by default
-            mergedData.find((itm) => FilterUtils.SAME_ENTITY_PREDICATE(itm, modifyDataPayload))
+            ConditionUtils.ifNotFalseThanValue(
+              modifyDataPayload.selectedByDefault,
+              () => (
+                // An inserted entity is selected by default
+                mergedData.find((itm) => FilterUtils.SAME_ENTITY_PREDICATE(itm, modifyDataPayload))
+              ),
+              state.selected
+            )
           ),
       };
     case ListActionBuilder.buildRemoveActionType(section):

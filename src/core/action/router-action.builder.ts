@@ -15,37 +15,40 @@ import {
 export class RouterActionBuilder {
 
   /**
-   * @stable [18.12.2019]
-   * @param {number} depth
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
+   * @param depth
    */
-  public static buildNavigateBackPlainAction(depth?: number): IEffectsAction {
-    const payload: IFluxNavigateEntity = {depth};
-    return {type: $RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE, data: payload};
+  public static buildNavigateBackPlainAction(depth?: number): IEffectsAction<IFluxNavigateEntity> {
+    return {type: $RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE, data: {depth}};
   }
 
   /**
-   * @stable [06.02.2020]
-   * @param {string} path
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
+   * @param path
    */
-  public static buildNavigatePlainAction(path: string): IEffectsAction {
-    return {type: $RAC_ROUTER_NAVIGATE_ACTION_TYPE, data: path};
+  public static buildNavigatePlainAction(path: string): IEffectsAction<IFluxNavigateEntity> {
+    return {type: $RAC_ROUTER_NAVIGATE_ACTION_TYPE, data: {path}};
   }
 
   /**
-   * @stable [30.03.2020]
-   * @param {string} path
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
+   * @param path
    */
-  public static buildRewritePlainAction(path: string): IEffectsAction {
-    return {type: $RAC_ROUTER_REWRITE_ACTION_TYPE, data: path};
+  public static buildRewritePlainAction(path: string): IEffectsAction<IFluxNavigateEntity> {
+    return {type: $RAC_ROUTER_REWRITE_ACTION_TYPE, data: {path}};
   }
 
   /**
-   * @stable [03.06.2018]
-   * @param {string} path
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
+   * @param path
+   */
+  public static buildReplacePlainAction(path: string): IEffectsAction<IFluxNavigateEntity> {
+    return {type: $RAC_ROUTER_REPLACE_ACTION_TYPE, data: {path}};
+  }
+
+  /**
+   * @stable [17.02.2021]
+   * @param path
    */
   public static buildNavigateAction(path: string): IEffectsAction {
     const plainAction = this.buildNavigatePlainAction(path);
@@ -53,9 +56,8 @@ export class RouterActionBuilder {
   }
 
   /**
-   * @stable [30.03.2020]
-   * @param {string} path
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
+   * @param path
    */
   public static buildRewriteAction(path: string): IEffectsAction {
     const plainAction = this.buildRewritePlainAction(path);
@@ -63,25 +65,23 @@ export class RouterActionBuilder {
   }
 
   /**
-   * @stable [17.11.2019]
-   * @param {string} path
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
+   * @param path
    */
   public static buildReplaceAction(path: string): IEffectsAction {
-    return EffectsAction.create($RAC_ROUTER_REPLACE_ACTION_TYPE, path);
+    const plainAction = this.buildReplacePlainAction(path);
+    return EffectsAction.create(plainAction.type, plainAction.data);
   }
 
   /**
-   * @stable [17.11.2019]
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
    */
   public static buildBackAction(): IEffectsAction {
     return EffectsAction.create($RAC_ROUTER_NAVIGATE_BACK_ACTION_TYPE);
   }
 
   /**
-   * @stable [17.11.2019]
-   * @returns {IEffectsAction}
+   * @stable [17.02.2021]
    */
   public static buildReloadAction(): IEffectsAction {
     return EffectsAction.create($RAC_ROUTER_RELOAD_ACTION_TYPE);

@@ -113,7 +113,7 @@ export class DefaultLayoutContainer extends GenericContainer<IDefaultLayoutConta
   private onHeaderMenuSelectItem(item: IPresetsMenuItemEntity): void {
     switch (item.value) {
       case HeaderUserMenuActionsEnum.EXIT:
-        this.routerStoreProxy.navigate(this.settings.routes.logout);
+        this.routerStoreProxy.replace(this.settings.routes.logout);
         break;
       case HeaderUserMenuActionsEnum.PROFILE:
         this.routerStoreProxy.navigate(this.settings.routes.profile);

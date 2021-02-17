@@ -506,6 +506,7 @@ export interface ISecondaryFilterWrapper<TValue> { secondaryFilter?: TValue; }
 export interface ISectionNameWrapper { sectionName?: string; }
 export interface ISectionWrapper<TValue = string> { section?: TValue; }
 export interface ISelectableWrapper<TValue = boolean> { selectable?: TValue; }
+export interface ISelectedByDefaultWrapper { selectedByDefault?: boolean; }
 export interface ISelectedDaysWrapper<TValue> { selectedDays?: TValue; }
 export interface ISelectedElementClassNameWrapper { selectedElementClassName?: string; }
 export interface ISelectedValueIgnoredWrapper { selectedValueIgnored?: boolean; }
