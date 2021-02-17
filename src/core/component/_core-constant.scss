@@ -85,32 +85,33 @@ $rac-icon-flex-shrink: $rac-primary-flex-shrink-0 !default;
 $rac-icon-justify-content: center !default;
 $rac-icon-size: $rac-primary-icon-size-2 !default;
 
-/************************/
-/* @stable [08.04.2020] */
-/************************/
+// @stable [08.04.2020]
 $rac-flex-one-quarter-flex-basis:  $rac-primary-flex-basis-0 !default;
 $rac-flex-one-quarter-flex-grow: .25 !default;
-/**/
+//
 $rac-flex-one-third-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-one-third-flex-grow: .333 !default;
-/**/
+//
 $rac-flex-half-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-half-flex-grow: .5 !default;
-/**/
+//
 $rac-flex-three-quarters-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-three-quarters-flex-grow: .75 !default;
-/**/
+//
 $rac-flex-x1-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-x1-flex-grow: 1 !default;
-/**/
+//
 $rac-flex-x2-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-x2-flex-grow: 2 !default;
-/**/
+//
 $rac-flex-x3-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-x3-flex-grow: 3 !default;
-/**/
+//
 $rac-flex-x4-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-flex-x4-flex-grow: 4 !default;
+
+// @stable [16.02.2021]
+$rac-flex-basis-1-flex-basis: $rac-primary-flex-basis-1 !default;
 
 /************************/
 /* @stable [11.04.2020] */

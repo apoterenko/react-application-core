@@ -5,6 +5,7 @@ import {
   IFilterWrapper,
   IHeightRestrictedWrapper,
   IHighlightOddWrapper,
+  IInlineOptionsRenderedWrapper,
   IInlineOptionsWrapper,
   IMaxCountWrapper,
   IMenuConfigurationWrapper,
@@ -44,6 +45,7 @@ export interface IPresetsMenuEntity
     IDelayTimeoutWrapper,
     IFilterPlaceholderWrapper,
     IHeightRestrictedWrapper,
+    IInlineOptionsRenderedWrapper,
     IInlineOptionsWrapper<IPresetsRawDataLabeledValueEntity[]>,
     IOnInlineOptionCloseWrapper<IPresetsRawDataLabeledValueEntity>,
     IUseFilterWrapper {

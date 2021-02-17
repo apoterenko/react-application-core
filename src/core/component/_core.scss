@@ -156,86 +156,75 @@
     $rac-styles-flex-grow: $rac-flex-x3-flex-grow
   );
 
-  /**
-   * @layout
-   * @stable [08.04.2020]
-   */
+  // @layout
+  // @stable [08.04.2020]
   @include rac-styles (
     $rac-styles-custom: rac-flex-x4,
     $rac-styles-flex-basis: $rac-flex-x4-flex-basis,
     $rac-styles-flex-grow: $rac-flex-x4-flex-grow
   );
 
-  /**
-   * @error
-   * @stable [30.09.2019]
-   */
+  // @layout
+  // @stable [16.02.2021]
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-basis-1,
+    $rac-styles-flex-basis: $rac-flex-basis-1-flex-basis
+  );
+
+  // @error
+  // @stable [30.09.2019]
   @include rac-styles (
     $rac-styles-custom: rac-window-error-wrapper,
     $rac-styles-background: $rac-window-error-wrapper-background,
     $rac-styles-z-index: $rac-window-error-wrapper-z-index
   );
 
-  /**
-   * @error
-   * @stable [07.10.2019]
-   */
+  // @error
+  // @stable [07.10.2019]
   @include rac-styles (
     $rac-styles-custom: rac-window-error,
     $rac-styles-min-width: $rac-window-error-min-width
   );
 
-  /**
-   * @error
-   * @stable [07.10.2019]
-   */
+  // @error
+  // @stable [07.10.2019]
   @include rac-styles (
     $rac-styles-custom: rac-window-error-restart-action,
     $rac-styles-margin: $rac-window-error-restart-action-margin,
     $rac-styles-min-width: $rac-window-error-restart-action-min-width
   );
 
-  /**
-   * @sticky
-   * @stable [16.10.2019]
-   */
+  // @sticky
+  // @stable [16.10.2019]
   @include rac-styles (
     $rac-styles-custom: rac-sticky-fixed,
     $rac-styles-z-index: $rac-sticky-fixed-z-index,
     $rac-styles-position: $rac-sticky-fixed-position
   );
 
-  /**
-   * @user-select
-   * @stable [17.10.2019]
-   */
+  // @user-select
+  // @stable [17.10.2019]
   @include rac-styles (
     $rac-styles-custom: rac-no-user-select,
     $rac-styles-no-user-select: true
   );
 
-  /**
-   * @styling
-   * @stable [03.01.2020]
-   */
+  // @styling
+  // @stable [03.01.2020]
   @include rac-styles (
     $rac-styles-custom: rac-nowrap,
     $rac-styles-white-space: $rac-nowrap-white-space
   );
 
-  /**
-   * @styling
-   * @stable [18.10.2019]
-   */
+  // @styling
+  // @stable [18.10.2019]
   @include rac-styles (
     $rac-styles-custom: rac-strong,
     $rac-styles-font-weight: $rac-strong-font-weight
   );
 
-  /**
-   * @styling
-   * @stable [21.12.2019]
-   */
+  // @styling
+  // @stable [21.12.2019]
   @include rac-styles (
     $rac-styles-custom: rac-break-word,
     $rac-styles-word-break: $rac-break-word-word-break
@@ -320,10 +309,8 @@
   );
 }
 
-/**
- * @perfect-scrollbar
- * @stable [02.06.2020]
- */
+// @perfect-scrollbar
+// @stable [02.06.2020]
 @include rac-perfect-scrollbar (
   $rac-perfect-scrollbar-custom: rac,
   $rac-perfect-scrollbar-active-background-color: $rac-perfect-scrollbar-active-background-color,
@@ -331,10 +318,8 @@
   $rac-perfect-scrollbar-rail-background-color: $rac-perfect-scrollbar-rail-background-color
 );
 
-/**
- * @scrollbar
- * @stable [02.06.2020]
- */
+// @scrollbar
+// @stable [02.06.2020]
 @include rac-scrollbar (
   $rac-scrollbar-size: $rac-scrollbar-size,
   $rac-scrollbar-thumb-background: $rac-scrollbar-thumb-background,

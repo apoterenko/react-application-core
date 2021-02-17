@@ -40,6 +40,7 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
     delayTimeout: 1000,
     filter: (query, entity) => FilterUtils.queryFilter(query, entity.label || entity.value),
     heightRestricted: true,
+    inlineOptionsRendered: true,
   };
 
   private readonly dialogRef = React.createRef<Dialog>();
@@ -339,8 +340,13 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
   private get inlineOptionsElement(): JSX.Element {
     const {
       inlineOptions,
+      inlineOptionsRendered,
       onInlineOptionClose,
     } = this.originalProps;
+
+    if (!inlineOptionsRendered) {
+      return null;
+    }
 
     return ConditionUtils.ifNotNilThanValue(
       inlineOptions,

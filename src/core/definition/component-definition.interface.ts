@@ -79,6 +79,7 @@ export enum ComponentClassesEnum {
   FIXED = 'rac-fixed',
   FLEX_ALIGN_ITEMS_CENTER = 'rac-flex-align-items-center',
   FLEX_ALIGN_ITEMS_END = 'rac-flex-align-items-end',
+  FLEX_BASIS_1 = 'rac-flex-basis-1',
   FLEX_HALF = 'rac-flex-half',
   FLEX_JUSTIFY_CONTENT_CENTER = 'rac-flex-justify-content-center',
   FLEX_ONE_QUARTER = 'rac-flex-one-quarter',

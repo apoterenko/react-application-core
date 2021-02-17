@@ -257,6 +257,7 @@ export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
 export interface IInitialStateWrapper<TValue = {}> { initialState?: TValue; }
 export interface IInlineOptionClassNameClassName { inlineOptionClassName?: string; }
+export interface IInlineOptionsRenderedWrapper { inlineOptionsRendered?: boolean; }
 export interface IInlineOptionsWrapper<TValue = boolean> { inlineOptions?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
 export interface IInputFormatWrapper { inputFormat?: string; }
