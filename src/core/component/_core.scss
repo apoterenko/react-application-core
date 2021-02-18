@@ -126,6 +126,30 @@
     $rac-styles-flex-grow: $rac-flex-three-quarters-flex-grow
   );
 
+  // layout
+  // @stable [18.02.2021]
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-0_4,
+    $rac-styles-flex-basis: $rac-flex-0_4-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-0_4-flex-grow
+  );
+
+  // layout
+  // @stable [18.02.2021]
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-0_5,
+    $rac-styles-flex-basis: $rac-flex-0_5-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-0_5-flex-grow
+  );
+
+  // layout
+  // @stable [18.02.2021]
+  @include rac-styles (
+    $rac-styles-custom: rac-flex-0_6,
+    $rac-styles-flex-basis: $rac-flex-0_6-flex-basis,
+    $rac-styles-flex-grow: $rac-flex-0_6-flex-grow
+  );
+
   /**
    * @layout
    * @stable [08.04.2020]

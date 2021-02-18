@@ -56,7 +56,8 @@ const validate =
 
         [].concat(rules)
           .forEach((ruleId) => {
-            const res = result[ruleId] = ValidationRules[ruleId](checkedObject[fieldName]);
+            const validator = ValidationRules[ruleId];
+            const res = result[ruleId] = !TypeUtils.isFn(validator) || validator(checkedObject[fieldName]);
             valid = valid && res;
           });
       },
