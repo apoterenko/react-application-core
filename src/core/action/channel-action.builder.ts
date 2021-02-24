@@ -44,9 +44,20 @@ export class ChannelActionBuilder {
    * @stable [06.11.2020]
    * @param payload
    */
-  public static buildReplaceMessagesAction<TData = AnyT>(payload: IChannelMessageEntity<TData>): IEffectsAction {
+  public static buildReplaceMessagesAction<TData = unknown>(payload: IChannelMessageEntity<TData>): IEffectsAction {
     const plainAction = this.buildReplaceMessagesPlainAction(payload);
     return EffectsAction.create(plainAction.type, plainAction.data);
+  }
+
+  /**
+   * @stable [24.02.2021]
+   * @param payload
+   */
+  public static buildClearMessagesAction<TData = unknown>(payload: IChannelMessageEntity<TData>): IEffectsAction {
+    return this.buildReplaceMessagesAction({
+      ...payload,
+      messages: [],
+    });
   }
 
   /**
