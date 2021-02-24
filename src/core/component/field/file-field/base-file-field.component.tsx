@@ -35,6 +35,7 @@ import {
   IFieldActionEntity,
   IFieldInputProps,
   IKeyboardEvent,
+  MultiFieldValueT,
 } from '../../../definition';
 
 export class BaseFileField<TProps extends IBaseFileFieldProps,
@@ -253,11 +254,10 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [19.10.2020]
+   * @stable [03.02.2021]
    * @param value
-   * @protected
    */
-  protected decorateDisplayValue(value: AnyT): string {
+  protected decorateDisplayValue(value: MultiFieldValueT): string {
     if (this.isNativeFileFieldUsed) {
       return FieldConstants.DISPLAY_EMPTY_VALUE;
     }
