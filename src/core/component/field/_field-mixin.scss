@@ -30,6 +30,7 @@
   $rac-field-message-line-height: unset,                                            /* @stable [19.06.2020] */
   $rac-field-message-margin: unset,                                                 /* @stable [21.06.2020] */
   $rac-field-message-opacity: unset,                                                /* @stable [21.06.2020] */
+  $rac-field-min-width: unset,                                                      /* @stable [25.02.2021] */
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
   $rac-field-padding: unset,                                                        /* @stable [18.06.2020] */
   $rac-field-position: unset,                                                       /* @stable [15.02.2020] */
@@ -157,6 +158,7 @@
       $rac-styles-justify-content: $rac-field-justify-content,
       $rac-styles-margin-top: $rac-field-margin-top,
       $rac-styles-margin: $rac-field-margin,
+      $rac-styles-min-width: $rac-field-min-width,
       $rac-styles-overflow: $rac-field-overflow,
       $rac-styles-padding: $rac-field-padding,
       $rac-styles-position: $rac-field-position,
