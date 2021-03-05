@@ -2,7 +2,8 @@ import { IEffectsAction } from 'redux-effects-promise';
 import * as R from 'ramda';
 
 import { RegexpConstants } from '../definition/regexp-definition.interface';
-import {IErrorMessageEntity} from '../definition';
+import { IErrorMessageEntity } from '../definition';
+import { AnyT } from '../definitions.interface';
 
 /**
  * @stable [02.10.2019]
@@ -29,6 +30,14 @@ export const isFn = (value: unknown): boolean => typeof value === 'function';
  * @param value
  */
 const isNumber = (value: unknown): boolean => typeof value === 'number' && !isNaN(value);
+
+/**
+ * @stable [28.02.2021]
+ * @param value
+ */
+const isPromiseLike = (value: AnyT): boolean => value instanceof Promise || (
+  isDef(value) && isFn(value.then) && isFn(value.catch)
+);
 
 /**
  * @stable [07.09.2020]
@@ -186,6 +195,7 @@ export class TypeUtils {
   public static readonly isPositiveOrNegativeNumberLike = isPositiveOrNegativeNumberLike;                   /* @stable [22.07.2020] */
   public static readonly isPositiveOrNegativeOptionalNumberLike = isPositiveOrNegativeOptionalNumberLike;   /* @stable [07.09.2020] */
   public static readonly isPrimitive = isPrimitive;                                                         /* @stable [16.05.2020] */
+  public static readonly isPromiseLike = isPromiseLike;                                                     /* @stable [28.02.2021] */
   public static readonly isString = isString;                                                               /* @stable [16.05.2020] */
   public static readonly isUndef = isUndef;                                                                 /* @stable [16.05.2020] */
 }

@@ -6,6 +6,7 @@ interface Window {
   google,
   Intercom;
   jQuery;
+  unlayer;
 }
 /* tslint:enable */
 
