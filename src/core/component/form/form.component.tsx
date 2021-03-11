@@ -196,17 +196,22 @@ export class Form extends GenericComponent<IFormProps, {}, HTMLFormElement> {
   }
 
   /**
-   * @stable [01.09.2020]
+   * @stable [28.02.2021]
    */
-  private doSubmit(): void {
+  private async doSubmit(): Promise<void> {
     const {
       onBeforeSubmit,
     } = this.originalProps;
 
     if (TypeUtils.isFn(onBeforeSubmit)) {
       const apiEntity = this.apiEntity;
+      const result = onBeforeSubmit(apiEntity);
 
-      if (onBeforeSubmit(apiEntity) !== false) {
+      if (TypeUtils.isPromiseLike(result)) {
+        if (await result !== false) {
+          this.submit();
+        }
+      } else if (result !== false) {
         this.submit();
       }
     } else {

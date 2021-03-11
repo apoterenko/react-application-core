@@ -153,7 +153,7 @@ export interface IPresetsFormEntity<TEntity = IEntity>
     IDisabledWrapper,
     IFormIdWrapper,
     IFullWrapper,
-    IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean>,
+    IOnBeforeSubmitWrapper<IApiEntity<TEntity>, boolean | Promise<boolean>>,
     IOnChangeWrapper,
     IOnDictionaryLoadWrapper<(items: unknown, dictionary?: string) => void>,
     IOnResetWrapper,
