@@ -25,7 +25,7 @@ export interface IPresetsSubHeaderEntity
  * @generic-entity
  * @stable [20.05.2020]
  */
-export interface IGenericSubHeader
+export interface IGenericSubHeaderEntity
   extends IPresetsSubHeaderEntity {
 }
 
@@ -35,7 +35,7 @@ export interface IGenericSubHeader
  */
 export interface ISubHeaderProps
   extends IGenericComponentProps,
-    IGenericSubHeader {
+    IGenericSubHeaderEntity {
 }
 
 /**
@@ -51,8 +51,8 @@ export interface ISubHeaderConfigurationEntity<TProps = ISubHeaderProps>
  * @stable [05.04.2020]
  */
 export enum SubHeaderClassesEnum {
+  NAVIGATION_ACTION = 'rac-sub-header__navigation-action',
+  SECTION_TITLE = 'rac-sub-header__section-title',
+  SUB_BORDER = 'rac-sub-header__sub-border',
   SUB_HEADER = 'rac-sub-header',
-  SUB_HEADER_NAVIGATION_ACTION = 'rac-sub-header__navigation-action',
-  SUB_HEADER_SECTION_TITLE = 'rac-sub-header__section-title',
-  SUB_HEADER_SUB_BORDER = 'rac-sub-header__sub-border',
 }

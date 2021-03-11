@@ -37,7 +37,7 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
     const headerTitleElement = title === false
       ? null
       : (
-        <span className={SubHeaderClassesEnum.SUB_HEADER_SECTION_TITLE}>
+        <span className={SubHeaderClassesEnum.SECTION_TITLE}>
           {title}
         </span>
       );
@@ -47,14 +47,14 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
         className={
           ClsUtils.joinClassName(
             SubHeaderClassesEnum.SUB_HEADER,
-            subBorder && SubHeaderClassesEnum.SUB_HEADER_SUB_BORDER
+            subBorder && SubHeaderClassesEnum.SUB_BORDER
           )}>
         {navigationActionRendered && (
           <Button
             icon={IconsEnum.ARROW_LEFT}
             {...navigationActionConfiguration}
             className={ClsUtils.joinClassName(
-              SubHeaderClassesEnum.SUB_HEADER_NAVIGATION_ACTION,
+              SubHeaderClassesEnum.NAVIGATION_ACTION,
               CalcUtils.calc(navigationActionConfiguration.className)
             )}/>
         )}
