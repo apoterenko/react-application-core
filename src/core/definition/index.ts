@@ -80,6 +80,7 @@ export * from './regexp-definition.interface';
 export * from './root-definition.interface';
 export * from './router-definition.interface';
 export * from './row-definition.interface';
+export * from './save-as-new-template-definition.interface';
 export * from './scrolled-definition.interface';
 export * from './select-definition.interface';
 export * from './selected-element-definition.interface';

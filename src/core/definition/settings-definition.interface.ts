@@ -21,6 +21,7 @@ import { IMainProps } from './main-definition.interface';
 import { INavigationListProps } from './navigation-list-definition.interface';
 import { INumberFieldProps } from '../component/field/numberfield/numberfield.interface';  // TODO
 import { IPageToolbarProps } from './toolbar-definition.interface';
+import { ISaveAsNewTemplateProps } from './save-as-new-template-definition.interface';
 import { ISliderFieldProps } from './slider-field-definition.interface';
 import { ISliderProps } from './slider-definition.interface';
 import { ISubHeaderLinkProps } from './sub-header-link-definition.interface';
@@ -146,6 +147,7 @@ export interface IComponentsSettingsEntity {
   navigationList?: INavigationListProps;
   numberField?: INumberFieldProps;
   pageToolbar?: IPageToolbarProps;
+  saveAsNewTemplate?: ISaveAsNewTemplateProps;
   slider?: ISliderProps;
   sliderField?: ISliderFieldProps;
   subHeader?: ISubHeaderProps;
@@ -304,6 +306,7 @@ export interface IMessagesSettingsEntity {
   DATA_HAS_BEEN_SAVED_SUCCESSFULLY?: string;
   DATE?: string;
   DAY?: string;
+  DELETE?: string;
   DETAILS_INFO?: string;
   DIALOG_ACCEPT?: string;
   DIALOG_CANCEL?: string;
@@ -328,6 +331,7 @@ export interface IMessagesSettingsEntity {
   NO_DATA?: string;
   NOT_DATA_FOUND?: string;
   OK?: string;
+  OVERWRITE_WITH_NEW_SETTINGS?: string;
   PAGES_INFO?: string;
   PASSWORD_MUST_CONTAIN_AT_LEAST_8_CHARACTERS?: string;
   PATH?: string;
@@ -339,7 +343,9 @@ export interface IMessagesSettingsEntity {
   REFRESH?: string;
   RESET?: string;
   RESTART_APP?: string;
+  RESTORE_SETTINGS?: string;
   SAVE?: string;
+  SAVE_AS_NEW?: string;
   SEARCH?: string;
   SETTINGS?: string;
   SHORT_PAGES_INFO?: string;
@@ -375,6 +381,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   CUSTOM: 'Custom',
   DATA_HAS_BEEN_SAVED_SUCCESSFULLY: 'The data has been saved successfully',
   DATE: 'Date',
+  OVERWRITE_WITH_NEW_SETTINGS: 'Overwrite with new settings',
   DAY: 'Day',
   DETAILS_INFO: 'Details info',
   DIALOG_ACCEPT: 'Continue',
@@ -416,11 +423,14 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   SETTINGS: 'Settings',
   SHORT_PAGES_INFO: 'Page {page} of {count}',
   SOMETHING_WENT_WRONG: 'Something went wrong',
+  RESTORE_SETTINGS: 'Restore settings',
   TAKE_SNAPSHOT: 'Take a snapshot',
   THIS_MONTH: 'This month',
   THIS_QUARTER: 'This quarter',
   THIS_WEEK: 'This week',
+  SAVE_AS_NEW: 'Save as new',
   TODAY: 'Today',
+  DELETE: 'Delete',
   UNKNOWN_ERROR: 'Unknown error',
   UPLOAD_FILES_HERE: 'Upload a file(s) here',
   USER: 'User',
