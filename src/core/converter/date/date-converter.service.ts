@@ -197,10 +197,21 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @stable [13.03.2021]
    * @param cfg
    */
-  public fromDateTimeAsString(cfg: DateTimeConfigEntityT): string {
+  public fromDateTimeToString(cfg: DateTimeConfigEntityT): string {
     return this.dateAsString({
       ...cfg,
       inputFormat: this.dateTimeFormat,
+    });
+  }
+
+  /**
+   * @stable [13.03.2021]
+   * @param cfg
+   */
+  public fromDateTimeToPstTimeString(cfg: DateTimeConfigEntityT): string {
+    return this.fromDateTimeToString({
+      ...cfg,
+      outputFormat: this.pstTimeFormat,
     });
   }
 
@@ -548,28 +559,6 @@ export class DateConverter implements IDateConverter<MomentT> {
    */
   public asDaysOfMonthAsDates(cfg: IDateTimeConfigEntity<MomentT>): Date[] {
     return this.asDaysOfMonth(cfg).map((date) => this.asDate({date}));
-  }
-
-  /**
-   * @stable [23.01.2021]
-   * @param cfg
-   */
-  public fromDateTimeToDateString(cfg: DateTimeConfigEntityT): string {
-    return this.dateAsString({
-      ...cfg,
-      inputFormat: this.dateTimeFormat,
-    });
-  }
-
-  /**
-   * @stable [23.01.2021]
-   * @param cfg
-   */
-  public fromDateTimeToPstTimeString(cfg: DateTimeConfigEntityT): string {
-    return this.fromDateTimeToDateString({
-      ...cfg,
-      outputFormat: this.pstTimeFormat,
-    });
   }
 
   /**

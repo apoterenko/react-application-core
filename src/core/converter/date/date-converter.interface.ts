@@ -73,13 +73,12 @@ export interface IDateConverter<TDate = Date> {
   dateAsDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsPstDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsPstTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
-  dateAsString(cfg: IDateTimeConfigEntity<TDate>): string;
+  dateAsString(cfg: IDateTimeConfigEntity<TDate>): string;                                              // @stable [13.03.2021]
   dateAsTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   equal(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean;
-  fromDateTimeAsString(cfg: IDateTimeConfigEntity<TDate>): string;
-  fromDateTimeToDateString(cfg: IDateTimeConfigEntity<TDate>): string;
-  fromDateTimeToPstTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromDateTimeToPstTimeString(cfg: IDateTimeConfigEntity<TDate>): string;                               // @stable [13.03.2021]
+  fromDateTimeToString(cfg: IDateTimeConfigEntity<TDate>): string;                                      // @stable [13.03.2021]
   fromDateTimeToUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateToUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
