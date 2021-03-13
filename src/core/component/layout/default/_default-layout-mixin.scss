@@ -3,9 +3,7 @@
 @import '../../icon/_icon-mixin';
 @import '../../tab-panel/_tab-panel-mixin';
 
-/**
- * @stable [27.05.2020]
- */
+// @stable [27.05.2020]
 @mixin rac-default-layout (
   $rac-default-layout-custom: unset,
   /**/
@@ -15,6 +13,7 @@
   $rac-default-layout-chat-dialog-body-content-wrapper-border-radius: unset,                  /* @stable [09.10.2020] */
   $rac-default-layout-chat-dialog-bottom: unset,                                              /* @stable [09.10.2020] */
   $rac-default-layout-chat-dialog-box-shadow: unset,                                          /* @stable [10.10.2020] */
+  $rac-default-layout-chat-dialog-position: unset,                                            /* @stable [13.03.2021] */
   $rac-default-layout-chat-dialog-right: unset,                                               /* @stable [09.10.2020] */
   $rac-default-layout-display: unset,                                                         /* @stable [04.02.2020] */
   $rac-default-layout-drawer-header-align-items: unset,                                       /* @stable [27.05.2020] */
@@ -95,6 +94,7 @@
       $rac-dialog-body-content-wrapper-border-radius: $rac-default-layout-chat-dialog-body-content-wrapper-border-radius,
       $rac-dialog-bottom: $rac-default-layout-chat-dialog-bottom,
       $rac-dialog-box-shadow: $rac-default-layout-chat-dialog-box-shadow,
+      $rac-dialog-position: $rac-default-layout-chat-dialog-position,
       $rac-dialog-right: $rac-default-layout-chat-dialog-right
     );
 
