@@ -13,6 +13,7 @@ import {
   ClsUtils,
   ConditionUtils,
   NvlUtils,
+  ObjectUtils,
 } from '../../util';
 import {
   StringNumberT,
@@ -97,6 +98,21 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
 
     this.slider.on('change.one', (data) => this.onChangeValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
     this.slider.on('update.one', (data) => this.onUpdateValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
+  }
+
+  /**
+   * @stable [13.03.2021]
+   * @param prevProps
+   * @param prevState
+   */
+  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
+    const {
+      value,
+    } = this.originalProps;
+
+    if (ObjectUtils.isCurrentValueNotEqualPreviousValue(value, prevProps.value)) {
+      this.slider.set([value.min, value.max]);
+    }
   }
 
   /**
