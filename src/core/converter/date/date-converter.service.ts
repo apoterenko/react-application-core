@@ -178,23 +178,8 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @deprecated
-   */
-  public format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string {
-    if (R.isNil(date) || R.isEmpty(date)) {
-      return '';
-    } else {
-      const momentDate = this.toMomentDate(date, inputFormat);
-      return momentDate.isValid()
-          ? momentDate.format(outputFormat)
-          : String(date);
-    }
-  }
-
-  /**
-   * @stable [26.03.2020]
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {string}
+   * @stable [13.03.2021]
+   * @param cfg
    */
   public dateAsString(cfg: IDateTimeConfigEntity<MomentT>): string {
     const {
@@ -205,6 +190,31 @@ export class DateConverter implements IDateConverter<MomentT> {
       return this.processValidMomentDate(cfg, (mDate) => mDate.format(outputFormat)) || String(date);
     } else {
       return ConditionUtils.orUndef(!cfg.returnUndef, () => '');
+    }
+  }
+
+  /**
+   * @stable [13.03.2021]
+   * @param cfg
+   */
+  public fromDateTimeAsString(cfg: DateTimeConfigEntityT): string {
+    return this.dateAsString({
+      ...cfg,
+      inputFormat: this.dateTimeFormat,
+    });
+  }
+
+  /**
+   * @deprecated
+   */
+  public format(date: DateTimeLikeTypeT, inputFormat: string, outputFormat: string): string {
+    if (R.isNil(date) || R.isEmpty(date)) {
+      return '';
+    } else {
+      const momentDate = this.toMomentDate(date, inputFormat);
+      return momentDate.isValid()
+          ? momentDate.format(outputFormat)
+          : String(date);
     }
   }
 

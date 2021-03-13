@@ -77,6 +77,7 @@ export interface IDateConverter<TDate = Date> {
   dateAsTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   equal(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean;
+  fromDateTimeAsString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToPstTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
