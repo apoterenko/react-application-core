@@ -1,5 +1,6 @@
 import {
   IPresetsBaseSelectEntity,
+  IPresetsSelectOptionEntity,
   IReduxBaseSelectEntity,
 } from './select-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
@@ -22,7 +23,7 @@ export interface IReduxRadioGroupEntity
  */
 export interface IPresetsRadioGroupEntity
   extends IPresetsBaseSelectEntity,
-    IOptionClassNameWrapper<StringFnT> {
+    IOptionClassNameWrapper<StringFnT<IPresetsSelectOptionEntity>> {
 }
 
 /**

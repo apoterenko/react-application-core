@@ -6,7 +6,7 @@ export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export type AnyT = any;
 export type EntityIdT = StringNumberT;
-export type StringFnT = string | ((...args: unknown[]) => string);
+export type StringFnT<TArgs = unknown> = string | ((...args: TArgs[]) => string);
 export type StringNumberT = number | string;
 
 export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
