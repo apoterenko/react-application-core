@@ -78,6 +78,7 @@ import { IComponentCtor } from './component-definition.interface';
 import { IPresetsActionEntity } from './entity-definition.interface';
 import {
   IGenericComponent,
+  IGenericComponentCtor,
 } from './generic-component-definition.interface';
 import { IKeyboardConfigurationEntity } from './keyboard-definition.interface';
 import {
@@ -297,6 +298,14 @@ export interface IFieldInputProps
 export interface IFieldTextAreaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement>,
     RefAttributes<HTMLTextAreaElement> {
+}
+
+/**
+ * @ctor
+ * @stable [06.03.2021]
+ */
+export interface IFieldCtor<TProps extends IFieldProps = IFieldProps, TState extends IFieldState = IFieldState>
+  extends IGenericComponentCtor<TProps, TState> {
 }
 
 /**

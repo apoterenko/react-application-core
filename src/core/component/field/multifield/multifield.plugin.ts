@@ -17,6 +17,7 @@ import {
   IMultiItemEntity,
   IUniversalField,
   MultiFieldValueT,
+  MultiItemEntityT,
 } from '../../../definition';
 import {
   DI_TYPES,
@@ -37,7 +38,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
    * @stable [21.01.2021]
    * @param item
    */
-  public onAddItem(item: IMultiItemEntity): void {
+  public onAddItem<TEntity extends IEntity = IEntity>(item: MultiItemEntityT<TEntity>): void {
     this.onChangeManually(this.asMultiFieldValue(this.onAdd(item)));
   }
 
@@ -69,7 +70,7 @@ export class MultiFieldPlugin implements IMultiFieldPlugin {
     }
   }
 
-  public onAdd(item: IMultiItemEntity): IMultiFieldChangesEntity {
+  public onAdd<TEntity extends IEntity = IEntity>(item: MultiItemEntityT<TEntity>): IMultiFieldChangesEntity {
     const removeValue = this.removeValue;
     const addValue = this.addValue;
     const editArray = this.editValue;

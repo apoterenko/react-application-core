@@ -9,6 +9,7 @@ import {
   MultiFieldValueOrEntitiesIdsT,
   MultiFieldValueOrEntityIdT,
   MultiFieldValueT,
+  MultiItemEntityT,
   NotMultiFieldValueT,
 } from '../definition';
 import { TypeUtils } from './type';
@@ -359,7 +360,7 @@ const asMultiItemEditReplacedEntity = <TEntity extends IEntity = IEntity>(
  * @stable [21.01.2021]
  * @param multiItemEntity
  */
-const multiItemEntityAsEntity = <TEntity extends IEntity = IEntity>(multiItemEntity: IMultiItemEntity): TEntity => {
+const multiItemEntityAsEntity = <TEntity extends IEntity = IEntity>(multiItemEntity: MultiItemEntityT<TEntity>): TEntity => {
   if (TypeUtils.isDef(multiItemEntity.rawData)) {
     return {
       ...multiItemEntity.rawData,

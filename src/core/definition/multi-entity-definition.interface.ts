@@ -22,6 +22,11 @@ export interface IMultiItemEntity
 }
 
 /**
+ * @stable [13.03.2021]
+ */
+export type MultiItemEntityT<TEntity extends IEntity = IEntity> = TEntity | IMultiItemEntity;
+
+/**
  * @redux-entity
  * @stable [08.05.2020]
  */

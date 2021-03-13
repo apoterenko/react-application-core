@@ -22,6 +22,7 @@ import {
   IPresetsRawDataLabeledValueEntity,
   IPresetsSelectOptionEntity,
   MultiFieldClassesEnum,
+  MultiItemEntityT,
 } from '../../../definition';
 
 export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
@@ -66,7 +67,7 @@ export class MultiField<TProps extends IMultiFieldProps = IMultiFieldProps,
    * @stable [21.01.2021]
    * @param item
    */
-  public addItem(item: IMultiItemEntity): void {
+  public addItem<TEntity extends IEntity = IEntity>(item: MultiItemEntityT<TEntity>): void {
     this.multiFieldPlugin.onAddItem(item);
   }
 
