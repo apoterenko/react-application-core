@@ -1,10 +1,46 @@
-import { IBaseSelectProps } from './select-definition.interface';
+import {
+  IPresetsBaseSelectEntity,
+  IReduxBaseSelectEntity,
+} from './select-definition.interface';
+import { IGenericComponentProps } from './generic-component-definition.interface';
+import {
+  IOptionClassNameWrapper,
+  StringFnT,
+} from '../definitions.interface';
 
 /**
- * @stable [22.12.2020]
+ * @redux-entity
+ * @stable [13.03.2021]
+ */
+export interface IReduxRadioGroupEntity
+  extends IReduxBaseSelectEntity {
+}
+
+/**
+ * @presets-entity
+ * @stable [13.03.2021]
+ */
+export interface IPresetsRadioGroupEntity
+  extends IPresetsBaseSelectEntity,
+    IOptionClassNameWrapper<StringFnT> {
+}
+
+/**
+ * @generic-entity
+ * @stable [19.05.2020]
+ */
+export interface IGenericRadioGroupEntity
+  extends IReduxRadioGroupEntity,
+    IPresetsRadioGroupEntity {
+}
+
+/**
+ * @props
+ * @stable [13.03.2021]
  */
 export interface IRadioGroupProps
-  extends IBaseSelectProps {
+  extends IGenericComponentProps,
+    IGenericRadioGroupEntity {
 }
 
 /**

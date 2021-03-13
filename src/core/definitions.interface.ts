@@ -400,6 +400,7 @@ export interface IOnValidWrapper<TValue = boolean> { onValid?(value?: TValue): v
 export interface IOpenedWrapper<TValue = boolean> { opened?: TValue; }
 export interface IOperationIdWrapper { operationId?: string; }
 export interface IOperationWrapper<TValue = IIdWrapper<string>> { operation?: TValue; }
+export interface IOptionClassNameWrapper<TValue = string> { optionClassName?: TValue; }
 export interface IOptionsWrapper<TValue> { options?: TValue; }
 export interface IOptionWrapper<TValue> { option?: TValue; }
 export interface IOrderWrapper<TValue = number> { order?: TValue; }

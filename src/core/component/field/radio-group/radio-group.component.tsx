@@ -6,6 +6,7 @@ import {
   RadioGroupClassesEnum,
 } from '../../../definition';
 import {
+  CalcUtils,
   ClsUtils,
   PropsUtils,
 } from '../../../util';
@@ -36,6 +37,7 @@ export class RadioGroup extends BaseSelect<IRadioGroupProps> {
   protected get attachmentBodyElement(): JSX.Element {
     const {
       disabled,
+      optionClassName,
       readOnly,
     } = this.originalProps;
     const options = this.options;
@@ -48,9 +50,10 @@ export class RadioGroup extends BaseSelect<IRadioGroupProps> {
             key={`radio-option-${index}`}
             value={this.fromSelectValueToId(option) === id}
             label={this.fieldConverter.fromSelectValueToDisplayValue(option) as string}
-            errorMessageRendered={false}
             disabled={disabled}
             readOnly={readOnly}
+            className={CalcUtils.calc(optionClassName, option)}
+            errorMessageRendered={false}
             onChange={() => this.onSelect(option)}/>
         ))}
       </React.Fragment>
