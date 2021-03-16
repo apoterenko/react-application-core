@@ -41,7 +41,9 @@ export abstract class UniversalLayoutViewBuilder<TNode, TProps extends IUniversa
   public isClonedItem(item: UniversalLayoutBuilderChildrenT<TNode>): boolean {
     const itemEl = item as JSX.Element;
     const type = itemEl.type;
+
     return TypeUtils.isFn(type)
+      || TypeUtils.isSymbol(type)
       || (TypeUtils.isString(type) && !R.isEmpty(type));  // type = {'div', 'span', ...}
   }
 

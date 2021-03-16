@@ -102,6 +102,12 @@ const isString = (value: unknown): boolean => typeof value === 'string';
 const isEmpty = (value: unknown): boolean => R.isEmpty(value);
 
 /**
+ * @stable [16.03.2021]
+ * @param value
+ */
+const isSymbol = (value: unknown): boolean => typeof value === 'symbol';
+
+/**
  * @stable [28.09.2020]
  * @param value
  */
@@ -197,5 +203,6 @@ export class TypeUtils {
   public static readonly isPrimitive = isPrimitive;                                                         /* @stable [16.05.2020] */
   public static readonly isPromiseLike = isPromiseLike;                                                     /* @stable [28.02.2021] */
   public static readonly isString = isString;                                                               /* @stable [16.05.2020] */
+  public static readonly isSymbol = isSymbol;                                                               /* @stable [16.03.2021] */
   public static readonly isUndef = isUndef;                                                                 /* @stable [16.05.2020] */
 }
