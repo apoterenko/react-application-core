@@ -1,4 +1,5 @@
 import camelcase from 'camelcase';
+import * as R from 'ramda';
 
 import {
   AnyT,
@@ -16,6 +17,13 @@ import { ObjectUtils } from './object';
  */
 const asCamelcase = (value: string | string[], options?: camelcase.Options): string =>
   camelcase(value, options);
+
+/**
+ * @stable [17.03.2021]
+ * @param value
+ */
+const asLowerCase = (value: string | string[]): string =>
+  R.isNil(value) ? value : String(value).toLowerCase();
 
 /**
  * @stable [14.08.2020]
@@ -42,5 +50,6 @@ const asStringParameter = (value: AnyT, returnUndef = false): string =>
  */
 export class StringUtils {
   public static readonly asCamelcase = asCamelcase;
+  public static readonly asLowerCase = asLowerCase;
   public static readonly asStringParameter = asStringParameter;
 }

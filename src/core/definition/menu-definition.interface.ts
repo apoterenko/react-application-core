@@ -47,6 +47,7 @@ export interface IPresetsMenuEntity
     IHeightRestrictedWrapper,
     IInlineOptionsRenderedWrapper,
     IInlineOptionsWrapper<IPresetsRawDataLabeledValueEntity[]>,
+    IOnFilterChangeWrapper<string>,
     IOnInlineOptionCloseWrapper<IPresetsRawDataLabeledValueEntity>,
     IUseFilterWrapper {
 }
@@ -59,7 +60,6 @@ export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity
     IMaxCountWrapper,
     IMultiWrapper,
     IOnCloseWrapper,
-    IOnFilterChangeWrapper<(query: string) => void>,
     IOnSelectWrapper<IPresetsMenuItemEntity>,
     IOptionsWrapper<TOptionEntity[]>,
     IProgressWrapper {

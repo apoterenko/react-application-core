@@ -370,7 +370,7 @@ export interface IOnDictionaryLoadWrapper<TValue1 = {}, TValue2 = {}> { onDictio
 export interface IOnDownloadFileClickWrapper<TValue = {}> { onDownloadFileClick?(value?: TValue): void; }
 export interface IOnDrawerHeaderClickWrapper { onDrawerHeaderClick?(): void; }
 export interface IOnEnterWrapper<TOnEnter> { onEnter?: TOnEnter; }
-export interface IOnFilterChangeWrapper<TValue> { onFilterChange?: TValue; }
+export interface IOnFilterChangeWrapper<TValue = {}> { onFilterChange?(value?: TValue): void; }
 export interface IOnFilterClickWrapper<TValue = {}> { onFilterClick?(value?: TValue): void; }
 export interface IOnFirstWrapper<TValue = AnyT> { onFirst?(value?: TValue): void; }
 export interface IOnFocusWrapper<TValue = {}> { onFocus?(value?: TValue): void; }
@@ -614,13 +614,6 @@ export interface IYWrapper<TY = number> { y?: TY; }
 export interface IZipCodeWrapper<TValue = string> { zipCode?: TValue; }
 export interface IZoneWrapper<TValue = string> { zone?: TValue; }
 export interface IZoomWrapper { zoom?: number; }
-
-/**
- * @stable [07.06.2018]
- */
-export interface IOnChangeFilterWrapper<TChangedValue = AnyT, TOnChangeFilter = (value?: TChangedValue) => void> {
-  onChangeFilter?: TOnChangeFilter;
-}
 
 /**
  * @stable [07.06.2018]

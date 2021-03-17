@@ -36,6 +36,7 @@ export * from './component/notification';
 export * from './component/plugin';
 export * from './component/proxy';
 export * from './component/root';
+export * from './component/save-as-new-template';
 export * from './component/slider';
 export * from './component/snackbar';
 export * from './component/sub-header';
