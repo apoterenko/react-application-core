@@ -3,10 +3,7 @@
 
 .rac {
 
-  /**
-   * @button
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-active-background: $rac-button-active-background,
     $rac-button-active-left: $rac-button-active-left,
@@ -41,10 +38,7 @@
     $rac-button-shadow: $rac-button-shadow
   );
 
-  /**
-   * @button-raised
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-custom: $rac-button-raised-cls,
     $rac-button-background: $rac-button-raised-background,
@@ -56,10 +50,7 @@
     $rac-button-shadow: $rac-button-raised-shadow
   );
 
-  /**
-   * @button-outlined
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-custom: $rac-button-outlined-cls,
     $rac-button-background: $rac-button-outlined-background,
@@ -68,46 +59,32 @@
     $rac-button-icon-color: $rac-button-outlined-icon-color
   );
 
-  /**
-   * @button-filled
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-custom: $rac-button-filled-cls,
     $rac-button-icon-margin: $rac-button-filled-icon-margin
   );
 
-  /**
-   * @button-not-filled
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-custom: $rac-button-not-filled-cls,
     $rac-button-icon-margin: $rac-button-not-filled-icon-margin
   );
 
-  /**
-   * @button-decorated-filled
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-custom: $rac-button-decorated-filled-cls,
     $rac-button-content-padding: $rac-button-decorated-filled-content-padding
   );
 
-  /**
-   * @button-decorated-not-filled
-   * @stable [13.01.2020]
-   */
+  // @stable [13.01.2020]
   @include rac-button (
     $rac-button-custom: $rac-button-decorated-not-filled-cls,
+    $rac-button-flex-shrink: $rac-button-decorated-not-filled-flex-shrink,
     $rac-button-width: $rac-button-decorated-not-filled-width
   );
 
-  /**
-   * @button-mini
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-custom: $rac-button-decorated-not-filled-mini-cls,
     $rac-button-height: $rac-button-decorated-not-filled-mini-height,
@@ -116,26 +93,17 @@
   );
 
 
-  /**
-   * @full-button
-   * @stable [02.02.2020]
-   */
+  // @stable [02.02.2020]
   @include rac-button (
     $rac-button-custom: $rac-full-button-cls,
     $rac-button-flex-basis: $rac-full-button-flex-basis,
     $rac-button-flex-grow: $rac-full-button-flex-grow
   );
 
-  /**
-   * @media
-   * @stable [11.06.2020]
-   */
+  // @stable [11.06.2020]
   @media (min-width: $rac-primary-media-query-breakpoint-0-min) and (max-width: $rac-primary-media-query-breakpoint-0-max) {
 
-    /**
-     * @button
-     * @stable [11.06.2020]
-     */
+    // @stable [11.06.2020]
     @include rac-button (
       $rac-button-height: $rac-button__media-query-breakpoint-0-min-max__height
     );

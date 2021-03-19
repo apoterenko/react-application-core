@@ -3,10 +3,7 @@
 
 .rac {
 
-  /**
-   * @sub-header
-   * @stable [20.05.2020]
-   */
+  // @stable [20.05.2020]
   @include rac-sub-header (
     $rac-sub-header-align-items: $rac-sub-header-align-items,
     $rac-sub-header-cursor: $rac-sub-header-cursor,
@@ -17,6 +14,7 @@
     $rac-sub-header-section-title-color: $rac-sub-header-section-title-color,
     $rac-sub-header-section-title-font-size: $rac-sub-header-section-title-font-size,
     $rac-sub-header-section-title-font-weight: $rac-sub-header-section-title-font-weight,
+    $rac-sub-header-section-title-line-height: $rac-sub-header-section-title-line-height,
     $rac-sub-header-section-title-margin-left: $rac-sub-header-section-title-margin-left,
     $rac-sub-header-section-title-margin-right: $rac-sub-header-section-title-margin-right,
     $rac-sub-header-sub-border-border-bottom: $rac-sub-header-sub-border-border-bottom,

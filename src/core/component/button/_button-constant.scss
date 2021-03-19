@@ -1,20 +1,16 @@
 @import '../_primary-constant';
 @import '../_classes';
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-primary-button-height-0: $rac-primary-size-7 !default;
-/**/
+//
 $rac-primary-button-offset-0: $rac-primary-offset-1 !default;
-/**/
+//
 $rac-primary-button-icon-size-0: $rac-primary-icon-size-0 !default;
 $rac-primary-button-icon-size-1: $rac-primary-icon-size-1 !default;
 $rac-primary-button-icon-size-2: $rac-primary-icon-size-2 !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-button-align-items: center !default;
 $rac-button-background: $rac-primary-color-metis-05 !default;
 $rac-button-border-radius: $rac-primary-border-radius-2 !default;
@@ -35,59 +31,46 @@ $rac-button-icon-size: unset !default;
 $rac-button-overflow: hidden !default;
 $rac-button-padding: 0 $rac-primary-button-offset-0 !default;
 $rac-button-shadow: unset !default;
-/**/
+//
 $rac-button-disabled-cursor: default !default;
 $rac-button-disabled-opacity: $rac-primary-opacity-3 !default;
 $rac-button-disabled-shadow: unset !default;
-/**/
+//
 $rac-button-active-background: unset !default;
 $rac-button-active-left: unset !default;
 $rac-button-active-position: unset !default;
 $rac-button-active-top: unset !default;
 $rac-button-active-transition: unset !default;
-/**/
+//
 $rac-button-focus-border: unset !default;
 $rac-button-focus-box-sizing: unset !default;
 $rac-button-focus-padding: unset !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-button-outlined-background: 0 !default;
 $rac-button-outlined-border: 1px solid $rac-primary-color-metis-5 !default;
 $rac-button-outlined-color: unset !default;
 $rac-button-outlined-icon-color: unset !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-button-filled-icon-margin: 0 $rac-primary-button-offset-0 !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-button-not-filled-icon-margin: 0 auto !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-button-decorated-filled-content-padding: 0 ($rac-primary-button-offset-0 * 2 + $rac-primary-button-icon-size-2) 0 0 !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [19.03.2021]
+$rac-button-decorated-not-filled-flex-shrink: $rac-primary-flex-shrink-0 !default;
 $rac-button-decorated-not-filled-width: $rac-primary-size-9 !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-button-decorated-not-filled-mini-height: $rac-primary-button-height-0 !default;
 $rac-button-decorated-not-filled-mini-icon-size: $rac-primary-icon-size-1 !default;
 $rac-button-decorated-not-filled-mini-width: $rac-primary-size-7 !default;
 
-/************************/
-/* @stable [13.05.2020] */
-/************************/
+// @stable [13.05.2020]
 $rac-button-raised-background: $rac-primary-color-metis-3 !default;
 $rac-button-raised-color: $rac-primary-color-elara-0 !default;
 $rac-button-raised-content-font-size: unset !default;
@@ -100,7 +83,5 @@ $rac-button-raised-shadow: $rac-primary-shadow-offset-0 $rac-primary-color-metis
 $rac-full-button-flex-basis: $rac-primary-flex-basis-0 !default;
 $rac-full-button-flex-grow: $rac-primary-flex-grow-1 !default;
 
-/************************/
-/* @stable [11.06.2020] */
-/************************/
+// @stable [11.06.2020]
 $rac-button__media-query-breakpoint-0-min-max__height: unset !default;

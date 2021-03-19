@@ -1,9 +1,7 @@
 @import '../_core-mixin';
 @import '../button/_button-mixin';
 
-/**
- * @stable [05.04.2020]
- */
+// @stable [05.04.2020]
 @mixin rac-sub-header (
   $rac-sub-header-custom: unset,
   /**/
@@ -16,6 +14,7 @@
   $rac-sub-header-section-title-color: unset,                                                 /* @stable [24.05.2020] */
   $rac-sub-header-section-title-font-size: unset,                                             /* @stable [20.05.2020] */
   $rac-sub-header-section-title-font-weight: unset,                                           /* @stable [20.05.2020] */
+  $rac-sub-header-section-title-line-height: unset,                                           /* @stable [19.03.2021] */
   $rac-sub-header-section-title-margin-left: unset,                                           /* @stable [20.05.2020] */
   $rac-sub-header-section-title-margin-right: unset,                                          /* @stable [20.05.2020] */
   $rac-sub-header-sub-border-border-bottom: unset,                                            /* @stable [21.05.2020] */
@@ -35,6 +34,7 @@
       $rac-styles-color: $rac-sub-header-section-title-color,
       $rac-styles-font-size: $rac-sub-header-section-title-font-size,
       $rac-styles-font-weight: $rac-sub-header-section-title-font-weight,
+      $rac-styles-line-height: $rac-sub-header-section-title-line-height,
       $rac-styles-margin-left: $rac-sub-header-section-title-margin-left,
       $rac-styles-margin-right: $rac-sub-header-section-title-margin-right
     );

@@ -5,71 +5,71 @@
 @mixin rac-button (
   $rac-button-custom: unset,
   /**/
-  $rac-button-active-background: unset,                                              /* stable [02.02.2020 ] */
-  $rac-button-active-border: unset,                                                  /* stable [15.02.2020 ] */
-  $rac-button-active-box-shadow: unset,                                              /* stable [15.02.2020 ] */
-  $rac-button-active-left: unset,                                                    /* stable [02.02.2020 ] */
-  $rac-button-active-padding: unset,                                                 /* stable [15.02.2020 ] */
-  $rac-button-active-position: unset,                                                /* stable [02.02.2020 ] */
-  $rac-button-active-top: unset,                                                     /* stable [02.02.2020 ] */
-  $rac-button-active-transform:  unset,                                              /* stable [15.02.2020 ] */
-  $rac-button-active-transition: unset,                                              /* stable [02.02.2020 ] */
-  $rac-button-align-items: unset,                                                    /* stable [02.02.2020 ] */
-  $rac-button-background: unset,                                                     /* stable [01.02.2020 ] */
-  $rac-button-border-radius: unset,                                                  /* stable [01.02.2020 ] */
-  $rac-button-border: unset,                                                         /* stable [02.02.2020 ] */
-  $rac-button-color: unset,                                                          /* stable [02.02.2020 ] */
-  $rac-button-content-color: unset,                                                  /* stable [02.02.2020 ] */
-  $rac-button-content-flex-grow: unset,                                              /* stable [11.06.2020 ] */
-  $rac-button-content-font-size: unset,                                              /* stable [02.02.2020 ] */
-  $rac-button-content-font-weight: unset,                                            /* stable [02.02.2020 ] */
-  $rac-button-content-height: unset,                                                 /* stable [15.02.2020 ] */
-  $rac-button-content-margin: unset,                                                 /* stable [02.02.2020 ] */
-  $rac-button-content-padding: unset,                                                /* stable [24.01.2020 ] */
-  $rac-button-content-text-align: unset,                                             /* stable [24.01.2020 ] */
-  $rac-button-content-text-transform: unset,                                         /* stable [05.06.2020 ] */
-  $rac-button-content-white-space: unset,                                            /* stable [24.01.2020 ] */
-  $rac-button-content-width: unset,                                                  /* stable [24.01.2020 ] */
-  $rac-button-content-word-break: unset,                                             /* stable [02.02.2020 ] */
-  $rac-button-cursor: unset,                                                         /* stable [02.02.2020 ] */
-  $rac-button-disabled-background: unset,                                            /* stable [02.02.2020 ] */
-  $rac-button-disabled-cursor: unset,                                                /* stable [02.02.2020 ] */
-  $rac-button-disabled-opacity: unset,                                               /* stable [02.02.2020 ] */
-  $rac-button-disabled-shadow: unset,                                                /* stable [03.02.2020 ] */
-  $rac-button-display: unset,                                                        /* stable [02.02.2020 ] */
-  $rac-button-flex-basis: unset,                                                     /* stable [03.04.2020 ] */
-  $rac-button-flex-grow: unset,                                                      /* stable [26.03.2020 ] */
-  $rac-button-flex: unset,                                                           /* stable [02.02.2020 ] */
-  $rac-button-focus-border: unset,                                                   /* stable [10.02.2020 ] */
-  $rac-button-focus-box-sizing: unset,                                               /* stable [10.02.2020 ] */
-  $rac-button-focus-padding: unset,                                                  /* stable [10.02.2020 ] */
-  $rac-button-height: unset,                                                         /* stable [02.02.2020 ] */
-  $rac-button-hover-background: unset,                                               /* stable [02.02.2020 ] */
-  $rac-button-hover-color: unset,                                                    /* stable [02.02.2020 ] */
-  $rac-button-hover-shadow: unset,                                                   /* stable [02.02.2020 ] */
-  $rac-button-hover-transform: unset,                                                /* stable [10.02.2020 ] */
-  $rac-button-hover-transition: unset,                                               /* stable [15.02.2020 ] */
-  $rac-button-icon-color: unset,                                                     /* stable [24.01.2020 ] */
-  $rac-button-icon-height: unset,                                                    /* stable [02.02.2020 ] */
-  $rac-button-icon-margin: unset,                                                    /* stable [02.02.2020 ] */
-  $rac-button-icon-size: unset,                                                      /* stable [02.02.2020 ] */
-  $rac-button-icon-width: unset,                                                     /* stable [02.02.2020 ] */
-  $rac-button-left: unset,                                                           /* stable [02.02.2020 ] */
-  $rac-button-margin-right: unset,                                                   /* stable [20.05.2020 ] */
-  $rac-button-margin-top: unset,                                                     /* stable [24.01.2020 ] */
-  $rac-button-margin: unset,                                                         /* stable [02.02.2020 ] */
-  $rac-button-max-width: unset,                                                      /* stable [17.07.2020 ] */
-  $rac-button-min-width: unset,                                                      /* stable [02.02.2020 ] */
-  $rac-button-opacity: unset,                                                        /* stable [02.02.2020 ] */
-  $rac-button-overflow: unset,                                                       /* stable [11.03.2020 ] */
-  $rac-button-padding: unset,                                                        /* stable [02.02.2020 ] */
-  $rac-button-position: unset,                                                       /* stable [02.02.2020 ] */
-  $rac-button-right: unset,                                                          /* stable [06.02.2020 ] */
-  $rac-button-shadow: unset,                                                         /* stable [02.02.2020 ] */
-  $rac-button-size: unset,                                                           /* stable [02.02.2020 ] */
-  $rac-button-top: unset,                                                            /* stable [02.02.2020 ] */
-  $rac-button-transition: unset,                                                     /* stable [15.02.2020 ] */
-  $rac-button-width: unset                                                           /* stable [02.02.2020 ] */
+  $rac-button-active-background: unset,                                              /* stable [02.02.2020] */
+  $rac-button-active-border: unset,                                                  /* stable [15.02.2020] */
+  $rac-button-active-box-shadow: unset,                                              /* stable [15.02.2020] */
+  $rac-button-active-left: unset,                                                    /* stable [02.02.2020] */
+  $rac-button-active-padding: unset,                                                 /* stable [15.02.2020] */
+  $rac-button-active-position: unset,                                                /* stable [02.02.2020] */
+  $rac-button-active-top: unset,                                                     /* stable [02.02.2020] */
+  $rac-button-active-transform:  unset,                                              /* stable [15.02.2020] */
+  $rac-button-active-transition: unset,                                              /* stable [02.02.2020] */
+  $rac-button-align-items: unset,                                                    /* stable [02.02.2020] */
+  $rac-button-background: unset,                                                     /* stable [01.02.2020] */
+  $rac-button-border-radius: unset,                                                  /* stable [01.02.2020] */
+  $rac-button-border: unset,                                                         /* stable [02.02.2020] */
+  $rac-button-color: unset,                                                          /* stable [02.02.2020] */
+  $rac-button-content-color: unset,                                                  /* stable [02.02.2020] */
+  $rac-button-content-flex-grow: unset,                                              /* stable [11.06.2020] */
+  $rac-button-content-font-size: unset,                                              /* stable [02.02.2020] */
+  $rac-button-content-font-weight: unset,                                            /* stable [02.02.2020] */
+  $rac-button-content-height: unset,                                                 /* stable [15.02.2020] */
+  $rac-button-content-margin: unset,                                                 /* stable [02.02.2020] */
+  $rac-button-content-padding: unset,                                                /* stable [24.01.2020] */
+  $rac-button-content-text-align: unset,                                             /* stable [24.01.2020] */
+  $rac-button-content-text-transform: unset,                                         /* stable [05.06.2020] */
+  $rac-button-content-white-space: unset,                                            /* stable [24.01.2020] */
+  $rac-button-content-width: unset,                                                  /* stable [24.01.2020] */
+  $rac-button-content-word-break: unset,                                             /* stable [02.02.2020] */
+  $rac-button-cursor: unset,                                                         /* stable [02.02.2020] */
+  $rac-button-disabled-background: unset,                                            /* stable [02.02.2020] */
+  $rac-button-disabled-cursor: unset,                                                /* stable [02.02.2020] */
+  $rac-button-disabled-opacity: unset,                                               /* stable [02.02.2020] */
+  $rac-button-disabled-shadow: unset,                                                /* stable [03.02.2020] */
+  $rac-button-display: unset,                                                        /* stable [02.02.2020] */
+  $rac-button-flex-basis: unset,                                                     /* stable [03.04.2020] */
+  $rac-button-flex-grow: unset,                                                      /* stable [26.03.2020] */
+  $rac-button-flex-shrink: unset,                                                    /* stable [19.03.2021] */
+  $rac-button-focus-border: unset,                                                   /* stable [10.02.2020] */
+  $rac-button-focus-box-sizing: unset,                                               /* stable [10.02.2020] */
+  $rac-button-focus-padding: unset,                                                  /* stable [10.02.2020] */
+  $rac-button-height: unset,                                                         /* stable [02.02.2020] */
+  $rac-button-hover-background: unset,                                               /* stable [02.02.2020] */
+  $rac-button-hover-color: unset,                                                    /* stable [02.02.2020] */
+  $rac-button-hover-shadow: unset,                                                   /* stable [02.02.2020] */
+  $rac-button-hover-transform: unset,                                                /* stable [10.02.2020] */
+  $rac-button-hover-transition: unset,                                               /* stable [15.02.2020] */
+  $rac-button-icon-color: unset,                                                     /* stable [24.01.2020] */
+  $rac-button-icon-height: unset,                                                    /* stable [02.02.2020] */
+  $rac-button-icon-margin: unset,                                                    /* stable [02.02.2020] */
+  $rac-button-icon-size: unset,                                                      /* stable [02.02.2020] */
+  $rac-button-icon-width: unset,                                                     /* stable [02.02.2020] */
+  $rac-button-left: unset,                                                           /* stable [02.02.2020] */
+  $rac-button-margin-right: unset,                                                   /* stable [20.05.2020] */
+  $rac-button-margin-top: unset,                                                     /* stable [24.01.2020] */
+  $rac-button-margin: unset,                                                         /* stable [02.02.2020] */
+  $rac-button-max-width: unset,                                                      /* stable [17.07.2020] */
+  $rac-button-min-width: unset,                                                      /* stable [02.02.2020] */
+  $rac-button-opacity: unset,                                                        /* stable [02.02.2020] */
+  $rac-button-overflow: unset,                                                       /* stable [11.03.2020] */
+  $rac-button-padding: unset,                                                        /* stable [02.02.2020] */
+  $rac-button-position: unset,                                                       /* stable [02.02.2020] */
+  $rac-button-right: unset,                                                          /* stable [06.02.2020] */
+  $rac-button-shadow: unset,                                                         /* stable [02.02.2020] */
+  $rac-button-size: unset,                                                           /* stable [02.02.2020] */
+  $rac-button-top: unset,                                                            /* stable [02.02.2020] */
+  $rac-button-transition: unset,                                                     /* stable [15.02.2020] */
+  $rac-button-width: unset                                                           /* stable [02.02.2020] */
 ) {
   #{rac-cls(rac-button, $rac-button-custom)} {
     @include rac-styles (
@@ -83,7 +83,7 @@
       $rac-styles-display: $rac-button-display,
       $rac-styles-flex-basis: $rac-button-flex-basis,
       $rac-styles-flex-grow: $rac-button-flex-grow,
-      $rac-styles-flex: $rac-button-flex,
+      $rac-styles-flex-shrink: $rac-button-flex-shrink,
       $rac-styles-height: $rac-button-height,
       $rac-styles-left: $rac-button-left,
       $rac-styles-margin : $rac-button-margin,
