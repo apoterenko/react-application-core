@@ -30,13 +30,15 @@ export class PersistentScrollPlugin implements IGenericPlugin {
   }
 
   /**
-   * @stable [23.10.2019]
+   * @stable [19.03.2021]
    */
   public componentDidMount() {
     const element = this.selfRef;
+    const originalProps = this.component.originalProps;
+    const left = originalProps.x;
+    const top = originalProps.y;
 
-    // Props contain x/y
-    this.domAccessor.scrollTo(this.component.props, element);
+    this.domAccessor.scrollTo({left, top}, element);
 
     this.scrollUnsubscriber = this.domAccessor.captureEvent({
       callback: this.onScroll,

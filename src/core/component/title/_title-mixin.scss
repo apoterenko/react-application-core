@@ -1,8 +1,6 @@
 @import '../_core-mixin';
 
-/**
- * @stable [09.02.2020]
- */
+// @stable [09.02.2020]
 @mixin rac-title (
   $rac-title-custom: unset,
   /**/
@@ -22,7 +20,9 @@
   $rac-title-content-margin: unset,                                                           /* @stable [09.02.2020] */
   $rac-title-content-padding: unset,                                                          /* @stable [09.02.2020] */
   $rac-title-display: unset,                                                                  /* @stable [09.02.2020] */
+  $rac-title-flex-basis: unset,                                                               /* @stable [20.03.2021] */
   $rac-title-flex-direction: unset,                                                           /* @stable [09.02.2020] */
+  $rac-title-flex-grow: unset,                                                                /* @stable [20.03.2021] */
   $rac-title-flex: unset,                                                                     /* @stable [09.02.2020] */
   $rac-title-justify-content: unset,                                                          /* @stable [01.06.2020] */
   $rac-title-margin: unset,                                                                   /* @stable [09.02.2020] */
@@ -44,7 +44,9 @@
       $rac-styles-align-items: $rac-title-align-items,
       $rac-styles-border-bottom: $rac-title-border-bottom,
       $rac-styles-display: $rac-title-display,
+      $rac-styles-flex-basis: $rac-title-flex-basis,
       $rac-styles-flex-direction: $rac-title-flex-direction,
+      $rac-styles-flex-grow: $rac-title-flex-grow,
       $rac-styles-flex: $rac-title-flex,
       $rac-styles-justify-content: $rac-title-justify-content,
       $rac-styles-margin: $rac-title-margin,

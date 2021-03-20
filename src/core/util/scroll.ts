@@ -1,16 +1,27 @@
-import * as scrollIntoView0 from 'dom-scroll-into-view';
+import * as $scrollIntoView from 'dom-scroll-into-view';
+import * as R from 'ramda';
 
-import { IScrollConfigEntity } from '../definition';
+import { IScrollIntoViewConfigEntity } from '../definition';
 
 /**
- * @stable [08.11.2019]
- * @param {Element} source
- * @param {Element} container
- * @param {IScrollConfigEntity} config
+ * @stable [19.03.2021]
+ * @param source
+ * @param container
+ * @param config
  */
-export const scrollIntoView = (source: Element,
-                               container: Element,
-                               config?: IScrollConfigEntity): void => {
-  const cfg: IScrollConfigEntity = {alignWithTop: true, alignWithLeft: true, ...config};
-  scrollIntoView0(source, container, cfg);
+const scrollIntoView = (source: Element,
+                        container: Element,
+                        config?: IScrollIntoViewConfigEntity): void => {
+  if (R.isNil(source) || R.isNil(container)) {
+    return;
+  }
+  const cfg: IScrollIntoViewConfigEntity = {alignWithTop: true, alignWithLeft: true, ...config};
+  $scrollIntoView(source, container, cfg);
 };
+
+/**
+ * @stable [19.03.2021]
+ */
+export class ScrollUtils {
+  public static readonly scrollIntoView = scrollIntoView;
+}

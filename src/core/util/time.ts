@@ -1,3 +1,11 @@
+import * as R from 'ramda';
+
+import {
+  UNDEF,
+  UNDEF_SYMBOL,
+} from '../definitions.interface';
+import { ConditionUtils } from './cond';
+
 /**
  * @stable [02.03.2019]
  * @param {number} hour
@@ -11,47 +19,56 @@ export const asUSATime = (hour: number,
   hour > 12 ? `${hour - 12}${pm}` : (hour === 12 ? `12${pm}` : `${hour}${am}`);
 
 /**
- * @stable [19.08.2018]
- * @param {string} time
- * @returns {string}
+ * @stable [20.03.2021]
+ * @param time
  */
-export const normalizeTime = (time: string): string => `${time.length > 1 ? time : ['0', time].join('')}`;
+const normalizeTime = (time: string): string => `${time.length > 1 ? time : ['0', time].join('')}`;
 
 /**
- * @stable [19.08.2018]
- * @param {number} time
- * @returns {string}
+ * @stable [20.03.2021]
+ * @param time
  */
-export const fromTimeAtMinutesToTimeAtString = (time: number): string => {
-  const minutesAtString = String(Math.floor(time / 60));
-  const secondsAtString = String(time % 60);
-  return `${normalizeTime(minutesAtString)}:${normalizeTime(secondsAtString)}`;
+const timeAtMinutesAsString = (time: number): string => {
+  if (R.isNil(time)) {
+    return time;
+  }
+  const minutes = String(Math.floor(time / 60));
+  const seconds = String(time % 60);
+
+  return `${normalizeTime(minutes)}:${normalizeTime(seconds)}`;
 };
 
 /**
- * @stable [19.08.2018]
- * @param {string} time1
- * @param {string} time2
- * @returns {number}
+ * @stable [20.03.2021]
+ * @param time1
+ * @param time2
  */
-export const getDiffAtSecondsBetween = (time1: string, time2: string): number => {
+const asDiffAtSeconds = (time1: string, time2: string): number => {
+  if (R.isNil(time1) || R.isNil(time2)) {
+    return UNDEF;
+  }
   const d1 = new Date(`01/01/2018 ${time1}`);
   const d2 = new Date(`01/01/2018 ${time2}`);
-  return (d2.getTime() - d1.getTime()) / 1000;
+
+  return Math.abs(d2.getTime() - d1.getTime()) / 1000;
 };
 
 /**
- * @stable [19.08.2018]
- * @param {string} time1
- * @param {string} time2
- * @returns {number}
+ * @stable [20.03.2021]
+ * @param time1
+ * @param time2
  */
-export const getDiffAtMinutesBetween = (time1: string, time2: string): number =>
-  getDiffAtSecondsBetween(time1, time2) / 60;
+const asDiffAtMinutes = (time1: string, time2: string = '00:00'): number =>
+  ConditionUtils.ifNotNilThanValue(
+    asDiffAtSeconds(time1, time2),
+    (diffAtSeconds) => diffAtSeconds / 60,
+    UNDEF_SYMBOL
+  );
 
 /**
- * @stable [19.08.2018]
- * @param {string} time1
- * @returns {number}
+ * @stable [20.03.2021]
  */
-export const getDiffAtMinutes = (time1: string): number => getDiffAtMinutesBetween('00:00', time1);
+export class TimeUtils {
+  public static readonly asDiffAtMinutes = asDiffAtMinutes;
+  public static readonly timeAtMinutesAsString = timeAtMinutesAsString;
+}

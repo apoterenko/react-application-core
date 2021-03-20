@@ -1,18 +1,14 @@
 @import '../_primary-constant';
 @import '../_classes';
 
-/************************/
-/* @stable [01.06.2020] */
-/************************/
-$rac-primary-title-offset-0: $rac-primary-offset-2 !default;
+// @stable [01.06.2020]
+$rac-primary-title-offset-0: $rac-primary-offset-3 !default;
 $rac-primary-title-offset-1: $rac-primary-offset-3 !default;
 $rac-primary-title-offset-2: $rac-primary-offset-5 !default;
 
-/************************/
-/* @stable [01.06.2020] */
-/************************/
+// @stable [01.06.2020]
 $rac-title-align-items: center !default;
-$rac-title-border-bottom: 1px solid $rac-primary-color-poseidon-1 !default;
+$rac-title-border-bottom: $rac-primary-layout-border-0 !default;
 $rac-title-content-color: $rac-primary-color-poseidon-0 !default;
 $rac-title-content-edge-background: unset !default;
 $rac-title-content-edge-border-radius: unset !default;
@@ -39,3 +35,7 @@ $rac-title-right-content-font-weight: unset !default;
 $rac-title-right-content-justify-content: unset !default;
 $rac-title-right-content-padding: 0 0 $rac-primary-title-offset-0 $rac-primary-title-offset-1 !default;
 $rac-title-white-space: nowrap !default;
+
+// @stable [20.03.2021]
+$rac-full-title-flex-basis: $rac-primary-flex-basis-0 !default;
+$rac-full-title-flex-grow: $rac-primary-flex-grow-1 !default;

@@ -3,10 +3,7 @@
 
 .rac {
 
-  /**
-   * @title
-   * @stable [01.06.2020]
-   */
+  // @stable [01.06.2020]
   @include rac-title (
     $rac-title-align-items: $rac-title-align-items,
     $rac-title-border-bottom: $rac-title-border-bottom,
@@ -36,5 +33,12 @@
     $rac-title-right-content-justify-content: $rac-title-right-content-justify-content,
     $rac-title-right-content-padding: $rac-title-right-content-padding,
     $rac-title-white-space: $rac-title-white-space
+  );
+
+  // @stable [02.02.2020]
+  @include rac-title (
+    $rac-title-custom: $rac-full-title-cls,
+    $rac-title-flex-basis: $rac-full-title-flex-basis,
+    $rac-title-flex-grow: $rac-full-title-flex-grow
   );
 }

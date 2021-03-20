@@ -27,7 +27,7 @@ export class Snackbar extends EnhancedGenericComponent<ISnackbarProps> {
           <button className={joinClassName('rac-snackbar-button', 'mdc-snackbar__action-button')}/>
         </div>
       </div>,
-      this.domAccessor.documentBody
+      this.domAccessor.documentBodyElement
     );
   }
 }

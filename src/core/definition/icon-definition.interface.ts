@@ -32,6 +32,7 @@ export enum IconsEnum {
   EXCLAMATION = 'exclamation',                                            /* https://fontawesome.com/ */
   EXCLAMATION_CIRCLE = 'exclamation-circle',                              /* https://fontawesome.com/ */
   EXCLAMATION_TRIANGLE = 'exclamation-triangle',                          /* https://fontawesome.com/ */
+  EXPAND_ALT = 'expand-alt',                                              /* https://fontawesome.com/ */
   FILE_DOWNLOAD = 'file-download',                                        /* https://fontawesome.com/ */
   FILE_REGULAR = 'file-regular',                                          /* https://fontawesome.com/ */
   FILTER = 'filter',                                                      /* https://fontawesome.com/ */

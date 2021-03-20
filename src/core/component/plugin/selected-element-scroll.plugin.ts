@@ -49,7 +49,7 @@ export class SelectedElementPlugin implements IGenericPlugin {
         const self = this.selfRef;
 
         if (!this.domAccessor.isElementVisibleWithinParent(selectedElement, self)) {
-          this.domAccessor.scrollTo(
+          this.domAccessor.scrollIntoView(
             selectedElement,
             self,
             ConditionUtils.ifNotNilThanValue(

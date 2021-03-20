@@ -4,34 +4,61 @@ import {
   CalcUtils,
   ClsUtils,
 } from '../../util';
-import { ITitleProps } from '../../definition';
+import {
+  ITitleProps,
+  TitleClassesEnum,
+} from '../../definition';
 import { GenericComponent } from '../base/generic.component';
 
 /**
  * @component-impl
- * @stable [01.06.2020]
+ * @stable [20.03.2021]
  */
 export class Title extends GenericComponent<ITitleProps> {
 
+  public static readonly defaultProps: ITitleProps = {
+    full: false,
+  };
+
   /**
-   * @stable [01.06.2020]
-   * @returns {JSX.Element}
+   * @stable [20.03.2021]
    */
   public render(): JSX.Element {
     const {
-      className,
       contentBorder,
-      items,
     } = this.mergedProps;
+    const {
+      className,
+      full,
+      items,
+    } = this.originalProps;
 
     return (
-      <div className={ClsUtils.joinClassName('rac-title', CalcUtils.calc(className))}>
-        <div className='rac-title__content'>
-          {this.t(this.props.children as string)}
-          {contentBorder && <div className='rac-title__content-edge'/>}
+      <div
+        className={
+          ClsUtils.joinClassName(
+            TitleClassesEnum.TITLE,
+            full && TitleClassesEnum.FULL_TITLE,
+            CalcUtils.calc(className)
+          )
+        }
+      >
+        <div
+          className={TitleClassesEnum.CONTENT}
+        >
+          {this.t(this.originalChildren as string)}
+          {
+            contentBorder && (
+              <div
+                className={TitleClassesEnum.CONTENT_EDGE}
+              />
+            )
+          }
         </div>
         {items && (
-          <div className='rac-title__right-content'>
+          <div
+            className={TitleClassesEnum.RIGHT_CONTENT}
+          >
             {items}
           </div>
         )}
@@ -40,8 +67,7 @@ export class Title extends GenericComponent<ITitleProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {ITitleProps}
+   * @stable [20.03.2021]
    */
   protected get componentsSettingsProps(): ITitleProps {
     return this.componentsSettings.title;

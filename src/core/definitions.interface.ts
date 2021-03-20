@@ -58,6 +58,7 @@ export interface IAuthWrapper<TValue = string> { auth?: TValue; }
 export interface IAutoCompleteWrapper<TValue = string> { autoComplete?: TValue; }
 export interface IAutoFocusWrapper { autoFocus?: boolean; }
 export interface IAutoResetWrapper { autoReset?: boolean; }
+export interface IAutoScrollToInitPositionWrapper<TValue = boolean> { autoScrollToInitPosition?: TValue; }
 export interface IAutoUnsubscribingWrapper { autoUnsubscribing?: boolean; }
 export interface IBackActionConfigurationWrapper<TValue = boolean> { backActionConfiguration?: TValue; }
 export interface IBarcodeWrapper<TValue = string> { barcode?: TValue; }

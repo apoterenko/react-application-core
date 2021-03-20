@@ -43,7 +43,7 @@ export class AutoScrollTopPlugin implements IGenericPlugin {
     const contentHeight = this.domAccessor.getContentHeight(self);
 
     if (this.contentHeight !== contentHeight) {
-      this.domAccessor.setScrollTop(self, this.contentHeight = contentHeight);
+      this.domAccessor.scrollTo({top: this.contentHeight = contentHeight}, self);
     }
   }
 }

@@ -240,11 +240,9 @@ export const getDictionaryStoreProxyFactory = (): DictionaryStoreProxyFactoryT =
   staticInjector(DI_TYPES.DictionaryStoreProxyFactory);
 
 /**
- * @stable [19.12.2019]
- * @returns {IConnectorContainerFactory}
+ * @stable [19.03.2021]
  */
-export const getConnectorContainerFactory = (): IConnectorContainerFactory =>
-  staticInjector(DI_TYPES.ConnectorContainerFactory);
+const getConnectorContainerFactory = (): IConnectorContainerFactory => staticInjector(DI_TYPES.ConnectorContainerFactory);
 
 /**
  * @stable [19.01.2020]
@@ -272,7 +270,9 @@ export const getReactBootstrapper = (): IBootstrapper =>
  */
 export class DiServices {
   public static readonly auth = getAuth;
+  public static readonly connectorContainerFactory = getConnectorContainerFactory;
   public static readonly dateConverter = getDateConverter;
+  public static readonly domAccessor = getDomAccessor;
   public static readonly dynamicRoutes = getDynamicRoutes;
   public static readonly dynamicSections = getDynamicSections;
   public static readonly environment = getEnvironment;

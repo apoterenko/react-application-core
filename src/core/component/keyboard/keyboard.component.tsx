@@ -98,7 +98,7 @@ export class Keyboard extends GenericComponent<IKeyboardProps, IKeyboardState> {
       </div>
     );
 
-    return this.isInline ? el : ReactDOM.createPortal(el, this.domAccessor.documentBody);  // TODO Dialog
+    return this.isInline ? el : ReactDOM.createPortal(el, this.domAccessor.documentBodyElement);  // TODO Dialog
   }
 
   /**
