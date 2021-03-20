@@ -25,10 +25,7 @@ import {
   openFullScreen,
   removeChild,
   removeClassNames,
-  scrollIntoView,
-  scrollTo,
-  setScrollLeft,
-  setScrollTop,
+  ScrollUtils,
   TypeUtils,
 } from '../../util';
 import {
@@ -45,7 +42,7 @@ import {
   IEventManager,
   IJQueryElement,
   IPresetsXYEntity,
-  IScrollConfigEntity,
+  IScrollIntoViewConfigEntity,
   TouchEventsEnum,
 } from '../../definition';
 import {
@@ -65,11 +62,17 @@ export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
 
   /**
-   * @stable [24.01.2020]
-   * @returns {Element}
+   * @stable [19.03.2021]
    */
-  public get documentBody(): Element {
-    return this.environment.document.body;
+  public get documentElement(): Element {
+    return this.document.documentElement;
+  }
+
+  /**
+   * @stable [19.03.2021]
+   */
+  public get documentBodyElement(): Element {
+    return this.document.body;
   }
 
   /**
@@ -476,15 +479,6 @@ export class DomAccessor implements IDomAccessor {
   /**
    * @stable [18.12.2018]
    * @param {Element} el
-   * @param {number} left
-   */
-  public setScrollLeft(el: Element, left: number): void {
-    setScrollLeft(el, left);
-  }
-
-  /**
-   * @stable [18.12.2018]
-   * @param {Element} el
    * @returns {number}
    */
   public getScrollLeft(el: Element): number {
@@ -537,31 +531,22 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [08.11.2019]
-   * @param {IPresetsXYEntity | Element} payload
-   * @param {Element} parent
-   * @param {IScrollConfigEntity} config
+   * @stable [19.03.2021]
+   * @param el
+   * @param parent
+   * @param config
    */
-  public scrollTo(payload: IPresetsXYEntity | Element, parent?: Element, config?: IScrollConfigEntity): void {
-    if (R.isNil(payload)) {
-      return;
-    }
-    const xyEntity = payload as IPresetsXYEntity;
-    const el = payload as Element;
-    if (el instanceof Element) {
-      scrollIntoView(el, parent, config);
-    } else if (!R.isNil(xyEntity.x) || !R.isNil(xyEntity.y)) {
-      scrollTo(parent, xyEntity);
-    }
+  public scrollIntoView(el: Element, parent: Element, config?: IScrollIntoViewConfigEntity): void {
+    ScrollUtils.scrollIntoView(el, parent, config);
   }
 
   /**
-   * @stable [01.12.2018]
-   * @param {Element} el
-   * @param {number} top
+   * @stable [19.03.2021]
+   * @param options
+   * @param source
    */
-  public setScrollTop(el: Element, top: number): void {
-    setScrollTop(el, top);
+  public scrollTo(options: ScrollToOptions, source: Element = this.documentElement): void {
+    DomUtils.scrollTo(source, options);
   }
 
   /**
@@ -602,14 +587,6 @@ export class DomAccessor implements IDomAccessor {
 
   /**
    * @stable [08.10.2019]
-   * @returns {Document}
-   */
-  private get document(): Document {
-    return this.environment.document;
-  }
-
-  /**
-   * @stable [08.10.2019]
    * @returns {Window}
    */
   private get window(): Window {
@@ -622,7 +599,7 @@ export class DomAccessor implements IDomAccessor {
    * @param {Element} target
    * @returns {IJQueryElement}
    */
-  private findElements(selector: string, target: Element = this.documentBody): IJQueryElement {
+  private findElements(selector: string, target: Element = this.documentBodyElement): IJQueryElement {
     return this.asJqEl(target).find(this.asSelector(selector));
   }
 
@@ -634,5 +611,12 @@ export class DomAccessor implements IDomAccessor {
   private isInputElement(element: Element): boolean {
     return element instanceof HTMLInputElement
       || element instanceof HTMLTextAreaElement;
+  }
+
+  /**
+   * @stable [19.03.2021]
+   */
+  private get document(): Document {
+    return this.environment.document;
   }
 }
