@@ -24,7 +24,9 @@ import {
 } from '../../../di';
 import {
   DynamicSectionsMapT,
+  IBasicConnectorEntity,
   IConnectorContainerFactory,
+  IDomAccessor,
   IEnvironment,
   IGenericConnectorContainerState,
   IGenericContainerCtor,
@@ -41,12 +43,14 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
 
   /**
-   * @stable [18.09.2020]
+   * @stable [19.03.2021]
    * @param target
    * @param section
+   * @param config
    */
   public fromTarget(target: IGenericContainerCtor<IGenericContainerProps, IGenericConnectorContainerState>,
-                    section: string): IGenericContainerCtor {
+                    section: string,
+                    config: IBasicConnectorEntity): IGenericContainerCtor {
     const dynamicSections = this.dynamicSections;
     const environment = this.environment;
 
@@ -123,6 +127,10 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
         if (TypeUtils.isFn(super.componentDidMount)) {
           super.componentDidMount();
         }
+
+        if (config.autoScrollToInitPosition) {
+          this.domAccessor.scrollTo({top: 0, left: 0});
+        }
       }
 
       /**
@@ -198,6 +206,13 @@ export class ConnectorContainerFactory implements IConnectorContainerFactory {
        */
       private get uiFactory(): IUiFactory {
         return DiServices.uiFactory(); // Without injection (!), because runtime service may be overridden
+      }
+
+      /**
+       * @stable [19.03.2021]
+       */
+      private get domAccessor(): IDomAccessor {
+        return DiServices.domAccessor(); // Without injection (!), because runtime service may be overridden
       }
     };
     // tslint:enable:max-classes-per-file

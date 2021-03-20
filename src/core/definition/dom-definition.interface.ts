@@ -21,11 +21,15 @@ import {
 } from '../definitions.interface';
 
 /**
- * @stable [08.11.2019]
+ * https://www.npmjs.com/package/dom-scroll-into-view
+ *
+ * @config-entity
+ * @stable [19.03.2021]
  */
-export interface IScrollConfigEntity {
+export interface IScrollIntoViewConfigEntity {
   alignWithLeft?: boolean;
   alignWithTop?: boolean;
+  offsetLeft?: number;
   offsetTop?: number;
 }
 
@@ -138,7 +142,8 @@ export interface IDownloadFileConfigEntity
  * @stable [29.09.2019]
  */
 export interface IDomAccessor {
-  documentBody?: Element;
+  documentBodyElement?: Element;
+  documentElement: Element;
   rootElement?: Element;
   addChild(child: Element, parentEl?: Element): Element;
   addClassNames(element: Element, ...clsNames: string[]): void;
@@ -183,8 +188,7 @@ export interface IDomAccessor {
   removeChild(child: Element, parentEl?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
   removeClassNamesFromRootElement(...clsNames: string[]);
-  scrollTo(payload: IPresetsXYEntity | Element, parentEl?: Element, config?: IScrollConfigEntity): void;
+  scrollIntoView(el: Element, parent: Element, config?: IScrollIntoViewConfigEntity): void;
+  scrollTo(options: ScrollToOptions, source?: Element): void;
   setPosition(cfg: IDomPositionConfigEntity): void;
-  setScrollLeft(el: Element, left: number): void;
-  setScrollTop(el: Element, top: number): void;
 }

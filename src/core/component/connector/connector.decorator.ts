@@ -1,9 +1,7 @@
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { ConditionUtils } from '../../util';
 import {
   DiServices,
-  getConnectorContainerFactory,
   getDynamicRoutes,
 } from '../../di';
 import { connectorFactory } from './connector.factory';
@@ -27,15 +25,15 @@ export const basicConnector = <TStoreEntity extends IReduxStoreEntity = IReduxSt
 ) =>
   (target: IGenericContainerCtor): void => {
     let finalTarget = target;
+    const section = target.defaultProps?.sectionName;
 
-    const section = ConditionUtils.ifNotNilThanValue(target.defaultProps, (defaultProps) => defaultProps.sectionName);
     if (section) {
       DiServices.dynamicSections().set(section, config);
-      finalTarget = getConnectorContainerFactory().fromTarget(target, section);
+      finalTarget = DiServices.connectorContainerFactory().fromTarget(target, section, config);
     } else {
       logger.warn(
-        `[$basicConnector] The sectionName is not defined for ${target.name ||
-        target}. The init and destroy actions are disabled.`
+        `[$basicConnector] The sectionName is not defined for ${target.name || target
+        }. The init and destroy actions are disabled.`
       );
     }
     getDynamicRoutes().set(connectorFactory<TStoreEntity>(finalTarget, ...config.mappers), config);

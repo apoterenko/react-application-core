@@ -2,12 +2,14 @@ import { IRouteEntity } from './router-definition.interface';
 import {
   ACTION_PREFIX,
   IAccessConfigurationWrapper,
+  IAutoScrollToInitPositionWrapper,
   IErrorWrapper,
   IKeyValue,
   IMappersWrapper,
   IRouteConfigurationWrapper,
 } from '../definitions.interface';
 import { IGenericContainerCtor } from './generic-container-definition.interface';
+import { IReduxStoreEntity } from './redux-definition.interface';
 
 /**
  * @stable [16.11.2019]
@@ -30,9 +32,10 @@ export interface IRouteConfigurationEntity
 /**
  * @stable [16.11.2019]
  */
-export interface IBasicConnectorEntity<TStoreEntity>
+export interface IBasicConnectorEntity<TStoreEntity = IReduxStoreEntity>
   extends IMappersWrapper<ConnectorMapperT<TStoreEntity>[]>,
-    IRouteConfigurationEntity {
+    IRouteConfigurationEntity,
+    IAutoScrollToInitPositionWrapper {
 }
 
 /**
@@ -47,7 +50,11 @@ export interface IConnectorEntity<TStoreEntity = {}, TAccessConfig = {}>
  * @stable [11.06.2020]
  */
 export interface IConnectorContainerFactory {
-  fromTarget(target: IGenericContainerCtor, section: string): IGenericContainerCtor;
+  fromTarget<TStoreEntity extends IReduxStoreEntity = IReduxStoreEntity>(
+    target: IGenericContainerCtor,
+    section: string,
+    config: IBasicConnectorEntity<TStoreEntity>
+  ): IGenericContainerCtor;
 }
 
 /**

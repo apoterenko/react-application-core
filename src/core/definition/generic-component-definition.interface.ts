@@ -50,6 +50,7 @@ export interface IGenericComponent<TProps extends IGenericComponentProps = IGene
   extends React.PureComponent<TProps, TState>,
     React.Component<TProps, TState> {
   actualRef: React.RefObject<TSelfRef>;
+  originalProps: TProps;
   selfRef: React.RefObject<TSelfRef>;
   settings: ISettingsEntity;
 }
