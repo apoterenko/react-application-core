@@ -3,10 +3,7 @@
 
 .rac {
 
-  /**
-   * @base-text-field
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-cls,
     $rac-field-background: $rac-base-text-field-background,
@@ -53,10 +50,7 @@
     $rac-self-field-prefix-label-width: $rac-base-text-field-self-field-prefix-label-width
   );
 
-  /**
-   * @base-text-field-labeled
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-labeled-cls,
     $rac-self-field-flex-direction: $rac-base-text-field-labeled-self-field-flex-direction,
@@ -69,47 +63,32 @@
     $rac-self-field-padding-top: $rac-base-text-field-labeled-self-field-padding-top
   );
 
-  /**
-   * @base-text-field-labeled-value-not-present
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-labeled-value-not-present-cls,
     $rac-self-field-margin-top: $rac-base-text-field-labeled-value-not-present-self-field-margin-top
   );
 
-  /**
-   * @base-text-field-busy
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-busy-cls,
     $rac-self-field-input-opacity: $rac-base-text-field-busy-self-field-input-opacity
   );
 
-  /**
-   * @base-text-field-invalid
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-invalid-cls,
     $rac-self-field-border-color: $rac-base-text-field-invalid-self-field-border-color
   );
 
-  /**
-   * @base-text-field-actioned
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-actioned-cls,
     $rac-self-field-input-padding: $rac-base-text-field-actioned-self-field-input-padding,
     $rac-self-field-input-width: $rac-base-text-field-actioned-self-field-input-width
   );
 
-  /**
-   * @base-text-field-not-changeable
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-not-changeable-cls,
     $rac-self-field-border-bottom: $rac-base-text-field-not-changeable-self-field-border-bottom,
@@ -117,20 +96,14 @@
     $rac-self-field-border-right: $rac-base-text-field-not-changeable-self-field-border-right
   );
 
-  /**
-   * @base-text-field-not-changeable-not-prefixed
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-not-changeable-not-prefixed-cls,
     $rac-self-field-input-padding: $rac-base-text-field-not-changeable-not-prefixed-self-field-input-padding,
     $rac-self-field-input-width: $rac-base-text-field-not-changeable-not-prefixed-self-field-input-width
   );
 
-  /**
-   * @base-text-field-not-changeable-prefixed
-   * @stable [18.06.2020]
-   */
+  // @stable [18.06.2020]
   @include rac-field (
     $rac-field-custom: $rac-base-text-field-not-changeable-prefixed-cls,
     $rac-self-field-input-padding: $rac-base-text-field-not-changeable-prefixed-self-field-input-padding,

@@ -22,7 +22,6 @@ import {
   getWidth,
   hasClasses,
   isElementVisibleWithinParent,
-  openFullScreen,
   removeChild,
   removeClassNames,
   ScrollUtils,
@@ -30,6 +29,7 @@ import {
 } from '../../util';
 import {
   DEFAULT_DOM_POSITION_CONFIG_ENTITY,
+  EnvironmentGlobalVariablesEnum,
   EventsEnum,
   IBaseEvent,
   ICaptureEventConfigEntity,
@@ -60,6 +60,16 @@ export class DomAccessor implements IDomAccessor {
   @lazyInject(DI_TYPES.Environment) private readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.EventManager) private readonly eventManager: IEventManager;
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
+
+  /**
+   * @stable [21.03.2021]
+   */
+  constructor() {
+    this.environment.setVariable(EnvironmentGlobalVariablesEnum.DOM_ACCESSOR, this);
+
+    this.disableFullScreen = this.disableFullScreen.bind(this);
+    this.enableFullScreen = this.enableFullScreen.bind(this);
+  }
 
   /**
    * @stable [19.03.2021]
@@ -398,19 +408,26 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [04.04.2019]
-   * @param {HTMLElement} element
+   * @stable [21.03.2021]
+   * @param element
    */
-  public enableFullScreen(element = document.body) {
-    openFullScreen(element);
+  public enableFullScreen(element: Element = this.documentElement) {
+    DomUtils.openFullScreen(element);
   }
 
   /**
-   * @stable [04.04.2019]
-   * @param {HTMLElement} element
+   * @stable [21.03.2021]
    */
-  public disableFullScreen(element = document.body) {
-    // TODO
+  public get isFullScreenEnabled(): boolean {
+    return !R.isNil(this.document.fullscreenElement);
+  }
+
+  /**
+   * @stable [21.03.2021]
+   * @param element
+   */
+  public disableFullScreen(element: Document = this.document) {
+    DomUtils.closeFullScreen(element);
   }
 
   /**

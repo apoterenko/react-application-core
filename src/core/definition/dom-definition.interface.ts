@@ -144,6 +144,7 @@ export interface IDownloadFileConfigEntity
 export interface IDomAccessor {
   documentBodyElement?: Element;
   documentElement: Element;
+  isFullScreenEnabled: boolean;
   rootElement?: Element;
   addChild(child: Element, parentEl?: Element): Element;
   addClassNames(element: Element, ...clsNames: string[]): void;
@@ -157,7 +158,7 @@ export interface IDomAccessor {
   captureEventWithinElement(cfg: ICaptureEventConfigEntity);
   createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parentEl?: Element): TElement;
   createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement>;
-  disableFullScreen(element?: Element);
+  disableFullScreen(element?: Document);
   dispatchEvent(cfg: IDomFireEventConfigEntity): void;
   downloadFile(cfg: IDownloadFileConfigEntity): Promise<void>;
   downloadFileByBlob(cfg: IDownloadFileConfigEntity): void;

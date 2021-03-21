@@ -9,6 +9,7 @@ import {
 export enum EnvironmentGlobalVariablesEnum {
   API = '$$api',
   DATE_CONVERTER = '$$dateConverter',
+  DOM_ACCESSOR = '$$domAccessor',
   ENVIRONMENT = '$$env',
   TRANSPORT = '$$transport',
 }

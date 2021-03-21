@@ -743,6 +743,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
+   * @stable [30.01.2021]
+   */
+  protected get isRequired(): boolean {
+    return this.originalProps.required;
+  }
+
+  /**
    * @stable [18.10.2020]
    */
   protected get isDisabled(): boolean {
@@ -1151,13 +1158,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   private get isFieldRendered(): boolean {
     return this.originalProps.fieldRendered;
-  }
-
-  /**
-   * @stable [30.01.2021]
-   */
-  private get isRequired(): boolean {
-    return this.originalProps.required;
   }
 
   /**

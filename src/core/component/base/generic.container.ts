@@ -10,6 +10,7 @@ import {
   IFormStoreProxy,
   IGenericContainer,
   IGenericContainerProps,
+  IGenericContainerState,
   IListStoreProxy,
   INotificationStoreProxy,
   IOperationEntity,
@@ -36,7 +37,7 @@ import {
 import { hasTransportWrapperQueueOperations } from '../../util';
 
 export class GenericContainer<TProps extends IGenericContainerProps = IGenericContainerProps,
-  TState = {},
+  TState extends IGenericContainerState = IGenericContainerState,
   TSelfRef = AnyT,
   TPermission = {}>
   extends GenericComponent<TProps, TState, TSelfRef>
@@ -54,6 +55,16 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   private $storeProxy: IStoreProxy;
   private $tabPanelStoreProxy: ITabPanelStoreProxy;
   private $userActivityManager: IUserActivityManager;
+
+  /**
+   * @stable [21.03.2021]
+   * @param originalProps
+   */
+  constructor(originalProps: TProps) {
+    super(originalProps);
+
+    this.onChangeFullscreen = this.onChangeFullscreen.bind(this);
+  }
 
   /**
    * @stable [27.11.2019]
@@ -135,6 +146,27 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    */
   public dispatchActionByType<TData = {}>(type: string, data?: TData): void {
     this.storeProxy.dispatchActionByType(type, data);
+  }
+
+  /**
+   * @stable [21.03.2021]
+   */
+  protected onChangeFullscreen(): void {
+    const fullscreenEnabled = this.isFullScreenEnabled;
+
+    this.setState(
+      () => ({fullscreenEnabled: !fullscreenEnabled}),
+      fullscreenEnabled
+        ? this.domAccessor.disableFullScreen
+        : this.domAccessor.enableFullScreen
+    );
+  }
+
+  /**
+   * @stable [21.03.2021]
+   */
+  protected get isFullScreenEnabled(): boolean {
+    return this.domAccessor.isFullScreenEnabled;
   }
 
   /**
