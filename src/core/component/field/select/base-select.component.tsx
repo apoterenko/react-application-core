@@ -199,6 +199,15 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
   }
 
   /**
+   * @stable [21.03.2021]
+   */
+  protected isClearActionRendered(): boolean {
+    return this.isRequired
+      ? false
+      : super.isClearActionRendered();
+  }
+
+  /**
    * @stable [16.10.2020]
    * @protected
    */

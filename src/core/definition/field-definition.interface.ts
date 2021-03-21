@@ -68,6 +68,7 @@ import {
   IUseKeyboardWrapper,
   IValidWrapper,
   IValueWrapper,
+  IVisibleWrapper,
   UNDEF,
 } from '../definitions.interface';
 import {
@@ -271,7 +272,8 @@ export enum FieldActionTypesEnum {
  */
 export interface IFieldActionEntity
   extends IPresetsActionEntity,
-    ITitleWrapper {
+    ITitleWrapper,
+    IVisibleWrapper {
 }
 
 /**
