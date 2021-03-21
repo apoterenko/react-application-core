@@ -15,6 +15,7 @@ import {
 import {
   AnyT,
   IDispatchWrapper,
+  IFullscreenEnabledWrapper,
   ISectionNameWrapper,
 } from '../definitions.interface';
 import {
@@ -47,6 +48,14 @@ export interface IGenericContainerEntity<TDictionaries = {}>
 export interface IGenericContainerProps<TDictionaries = {}, TComponent = AnyT>
   extends IGenericComponentProps<TComponent>,
     IGenericContainerEntity<TDictionaries> {
+}
+
+/**
+ * @state
+ * @stable [21.03.2021]
+ */
+export interface IGenericContainerState
+  extends IFullscreenEnabledWrapper {
 }
 
 /**
