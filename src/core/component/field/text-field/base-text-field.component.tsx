@@ -4,11 +4,15 @@ import MaskedTextInput from 'react-text-mask';
 
 import {
   ClsUtils,
+  FilterUtils,
   NvlUtils,
   ObjectUtils,
   PropsUtils,
 } from '../../../util';
-import { UniCodesEnum } from '../../../definitions.interface';
+import {
+  IVisibleWrapper,
+  UniCodesEnum,
+} from '../../../definitions.interface';
 import { Field } from '../field/field.component';
 import {
   ComponentClassesEnum,
@@ -40,7 +44,7 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   constructor(originalProps: TProps) {
     super(originalProps);
 
-    if (originalProps.clearActionRendered) {
+    if (this.isClearActionRendered()) {
       this.defaultActions.push({
         type: FieldActionTypesEnum.CLOSE,
         onClick: this.clearValue,
@@ -64,6 +68,13 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
    */
   protected getFieldClassName(): string {
     return ClsUtils.joinClassName(super.getFieldClassName(), this.baseTextFieldClassName);
+  }
+
+  /**
+   * @stable [21.03.2021]
+   */
+  protected isClearActionRendered(): boolean {
+    return this.originalProps.clearActionRendered;
   }
 
   /**
@@ -176,18 +187,30 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
     const isValuePresent = this.isValuePresent;
     const isInactive = this.isInactive;
 
-    return fieldActions
-      .filter(
-        (action) => {
+    const result = fieldActions
+      .map(
+        (action): IFieldActionEntity => {
+          let isVisible = !isInactive;
           switch (action.type) {
             case FieldActionTypesEnum.CLOSE:
-              return isValuePresent && !isInactive;
+              isVisible = isValuePresent && !isInactive;
+              break;
             case FieldActionTypesEnum.DOWNLOAD:
-              return isValuePresent && !isBusy;
+              isVisible = isValuePresent && !isBusy;
+              break;
           }
-          return !isInactive;
+          return FilterUtils.notNilValuesFilter<IFieldActionEntity, IFieldActionEntity>({
+            ...action,
+            visible: !isVisible,
+            className: ClsUtils.joinClassName(
+              action.className,
+              !isVisible && ComponentClassesEnum.VISIBILITY_HIDDEN
+            ),
+          });
         }
       );
+
+    return R.sort<IFieldActionEntity>(this.visibilitySorter, result);
   }
 
   /**
@@ -197,4 +220,14 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
   private get isActioned(): boolean {
     return ObjectUtils.isObjectNotEmpty(this.fieldActions);
   }
+
+  /**
+   * @stable [21.03.2021]
+   * @param a
+   * @param b
+   */
+  private readonly visibilitySorter = (a: IVisibleWrapper, b: IVisibleWrapper) =>
+    (a.visible && b.visible) || (!a.visible && !b.visible)
+      ? 0
+      : (!a.visible && b.visible ? 1 : -1);
 }

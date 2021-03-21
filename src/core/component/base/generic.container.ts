@@ -166,7 +166,7 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
    * @stable [21.03.2021]
    */
   protected get isFullScreenEnabled(): boolean {
-    return this.domAccessor.isFullScreenEnabled;
+    return this.state.fullscreenEnabled;
   }
 
   /**

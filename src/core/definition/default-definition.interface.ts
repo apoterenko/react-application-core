@@ -75,6 +75,7 @@ export class DefaultEntities {
   public static readonly QUICK_SEARCH_FIELD_ENTITY = DEFAULT_QUICK_SEARCH_FIELD_ENTITY;                 /* @stable [17.05.2020] */
   public static readonly ROOT_SECTION = 'root';                                                         /* @stable [22.05.2020] */
   public static readonly SELECTABLE_LIST_ITEM_ENTITY = DEFAULT_SELECTABLE_LIST_ITEM_ENTITY;             /* @stable [19.05.2020] */
+  public static readonly SHORT_TIME_FORMAT = '00:00';                                                   /* @stable [21.03.2021] */
   public static readonly SLIDER_ENTITY = DEFAULT_SLIDER_ENTITY;                                         /* @stable [16.10.2020] */
   public static readonly UNIT_OF_CURRENCY = 1;                                                          /* @stable [20.08.2020] */
   public static readonly UNLIMITED_HEIGHT_MENU_ENTITY = DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY;           /* @stable [10.08.2020] */

@@ -217,6 +217,7 @@ export interface IForwardActionConfigurationWrapper<TValue> { forwardActionConfi
 export interface IForwardedRefWrapper<TValue> { forwardedRef?: TValue; }
 export interface IFromToEntity<TValue> extends IToWrapper<TValue>, IFromWrapper<TValue> {}
 export interface IFromWrapper<TValue = string> { from?: TValue; }
+export interface IFullscreenEnabledWrapper { fullscreenEnabled?: boolean; }
 export interface IFullSizeWrapper { fullSize?: boolean; }
 export interface IFullWrapper<TValue = boolean> { full?: TValue; }
 export interface IGetSelfWrapper<TValue = Element> { getSelf(): TValue; }
