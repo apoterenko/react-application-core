@@ -56,10 +56,11 @@ export type LayoutBuilderChildrenT = UniversalLayoutBuilderChildrenT<LayoutBuild
  * @stable [23.01.2020]
  */
 export interface IUniversalLayoutBuilderConfigEntity<TNode>
-  extends IItemsWrapper<Array<UniversalLayoutBuilderChildrenT<TNode>>>,
+  extends React.RefAttributes<{}>,
     IClassNameWrapper,
     IFactorWrapper<LayoutFactorsEnum>,
     IFullWrapper,
+    IItemsWrapper<UniversalLayoutBuilderChildrenT<TNode>[]>,
     ILayoutWrapper<LayoutTypesEnum>,
     IStyleWrapper<IKeyValue> {
 }
@@ -74,10 +75,10 @@ export interface ILayoutBuilderConfigEntity
 
 /**
  * @props
- * @stable [23.01.2020]
+ * @stable [22.03.2021]
  */
-export interface IUniversalLayoutProps
-  extends React.Attributes {
+export interface IUniversalLayoutProps<T = {}>
+  extends React.ClassAttributes<T> {
 }
 
 /**
@@ -86,10 +87,10 @@ export interface IUniversalLayoutProps
  */
 export interface IUniversalLayoutViewBuilder<TNode, TProps extends IUniversalLayoutProps = IUniversalLayoutProps> {
   buildColumnView(props: TProps,
-                  children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
+                  children: UniversalLayoutBuilderChildrenT<TNode>[],
                   layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): TNode;
   buildRowView(props: TProps,
-               children: Array<UniversalLayoutBuilderChildrenT<TNode>>,
+               children: UniversalLayoutBuilderChildrenT<TNode>[],
                layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): TNode;
   cloneItem(item: TNode, props: TProps): TNode;
   getClonedItemProps(item: TNode, layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>, props: TProps): TProps;

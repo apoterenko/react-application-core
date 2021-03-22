@@ -151,14 +151,14 @@ export class GenericContainer<TProps extends IGenericContainerProps = IGenericCo
   /**
    * @stable [21.03.2021]
    */
-  protected onChangeFullscreen(): void {
+  protected onChangeFullscreen(element?: Element): void {
     const fullscreenEnabled = this.isFullScreenEnabled;
 
     this.setState(
       () => ({fullscreenEnabled: !fullscreenEnabled}),
       fullscreenEnabled
         ? this.domAccessor.disableFullScreen
-        : this.domAccessor.enableFullScreen
+        : () => this.domAccessor.enableFullScreen(element)
     );
   }
 

@@ -427,6 +427,9 @@ export class DomAccessor implements IDomAccessor {
    * @param element
    */
   public disableFullScreen(element: Document = this.document) {
+    if (!this.isFullScreenEnabled) {
+      return null;
+    }
     DomUtils.closeFullScreen(element);
   }
 

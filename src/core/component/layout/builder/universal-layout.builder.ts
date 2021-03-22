@@ -1,6 +1,6 @@
 import {
   FilterUtils,
-  uuid,
+  UuidUtils,
 } from '../../../util';
 import {
   IUniversalLayoutBuilderConfigEntity,
@@ -14,7 +14,7 @@ import { StringNumberT } from '../../../definitions.interface';
 export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps = IUniversalLayoutProps> {
 
   private index: number;
-  private readonly layoutId = uuid();
+  private readonly layoutId = UuidUtils.uuid();
 
   /**
    * @stable [22.10.2018]
@@ -54,38 +54,35 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
   }
 
   /**
-   * @stable [23.01.2020]
-   * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
-   * @returns {TNode}
+   * @stable [22.03.2021]
+   * @param layoutConfig
    */
   private buildHorizontalLayout(layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): TNode {
     return this.layoutViewBuilder.buildRowView(
-      this.key,
+      this.asProps(layoutConfig),
       this.filterChildren(layoutConfig).map((item, index) => this.asClonedItem(item, layoutConfig)),
       layoutConfig
     );
   }
 
   /**
-   * @stable [22.10.2018]
-   * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
-   * @returns {TNode}
+   * @stable [22.03.2021]
+   * @param layoutConfig
    */
   private buildVerticalLayout(layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): TNode {
     return this.layoutViewBuilder.buildColumnView(
-      this.key,
+      this.asProps(layoutConfig),
       this.filterChildren(layoutConfig).map((item) => this.asClonedItem(item, layoutConfig)),
       layoutConfig
     );
   }
 
   /**
-   * @stable [23.01.2020]
-   * @param {IUniversalLayoutBuilderConfigEntity<TNode>} layoutConfig
-   * @returns {Array<UniversalLayoutBuilderChildrenT<TNode>>}
+   * @stable [22.03.2021]
+   * @param layoutConfig
    */
   private filterChildren(
-    layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): Array<UniversalLayoutBuilderChildrenT<TNode>> {
+    layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): UniversalLayoutBuilderChildrenT<TNode>[] {
     return FilterUtils.notNilValuesArrayFilter(...(layoutConfig.items || []));
   }
 
@@ -115,16 +112,17 @@ export class UniversalLayoutBuilder<TNode, TProps extends IUniversalLayoutProps 
   }
 
   /**
-   * @stable [23.01.2020]
-   * @returns {TProps}
+   * @stable [22.03.2021]
    */
-  private get key(): TProps {
-    return {key: this.newKey} as TProps;
+  private asProps(layoutConfig: IUniversalLayoutBuilderConfigEntity<TNode>): TProps {
+    return FilterUtils.notNilValuesFilter({
+      key: this.newKey,
+      ref: layoutConfig.ref,
+    } as TProps);
   }
 
   /**
-   * @stable [23.01.2020]
-   * @returns {string}
+   * @stable [22.03.2021]
    */
   private get newKey(): string {
     return `${this.layoutId}-${this.index++}`;
