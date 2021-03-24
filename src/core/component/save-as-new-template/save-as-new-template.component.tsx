@@ -7,7 +7,7 @@ import {
   ConditionUtils,
   FilterUtils,
 } from '../../util';
-import { Button } from '../button';
+import { Button } from '../button/button.component';
 import { GenericComponent } from '../base/generic.component';
 import {
   IconsEnum,
