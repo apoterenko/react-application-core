@@ -215,7 +215,7 @@ export class FieldConverter implements IFieldConverter {
    * @stable [28.10.2020]
    * @param value
    */
-  public fromSelectValueToRawValue<TEntity = IEntity>(value: SelectValueT): TEntity {
+  public fromSelectValueToRawValue<TRawData = IEntity, TValue = EntityIdT>(value: SelectValueT<TRawData, TValue>): TRawData {
     return this.convert({
       from: FieldConverterTypesEnum.SELECT_VALUE,
       to: FieldConverterTypesEnum.RAW_VALUE,
