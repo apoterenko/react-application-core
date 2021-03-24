@@ -467,10 +467,11 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
       options,
     } = this.originalProps;
     const query = this.state.filter;
+    const optionsAsArray = CalcUtils.calc(options);
 
     return this.isFilterUsed && TypeUtils.isFn(filter)
-      ? options.filter((option) => filter(query, option))
-      : options;
+      ? optionsAsArray.filter((option) => filter(query, option))
+      : optionsAsArray;
   }
 
   /**
