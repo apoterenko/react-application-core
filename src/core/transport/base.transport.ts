@@ -15,6 +15,7 @@ import {
   DefaultEntities,
   IEnvironment,
   INamedEntity,
+  IPermissionsManager,
   IPhoneConverter,
   IPresetsRawDataLabeledValueEntity,
   IUpdateEntity,
@@ -55,6 +56,7 @@ export class BaseTransport {
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.FieldConverter) protected readonly fieldConverter: IFieldConverter;
   @lazyInject(DI_TYPES.NumberConverter) protected readonly nc: INumberConverter;
+  @lazyInject(DI_TYPES.PermissionsManager) protected readonly permissionsManager: IPermissionsManager;
   @lazyInject(DI_TYPES.PhoneConverter) protected readonly pc: IPhoneConverter;
   @lazyInject(DI_TYPES.Settings) protected readonly settings: ISettingsEntity;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;

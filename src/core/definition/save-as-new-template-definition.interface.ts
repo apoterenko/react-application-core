@@ -1,12 +1,21 @@
 import { IGenericComponentProps } from './generic-component-definition.interface';
-import { IOnSelectWrapper } from '../definitions.interface';
+import {
+  IActionWrapper,
+  IFieldWrapper,
+  IFormWrapper,
+  IOnSelectWrapper,
+} from '../definitions.interface';
+import { IField } from './field-definition.interface';
+import { IFluxEntity } from './flux-definition.interface';
 
 /**
  * @presets-entity
  * @stable [05.03.2021]
  */
 export interface IPresetsSaveAsNewTemplateEntity
-  extends IOnSelectWrapper<SaveAsNewTemplateMenuActionsEnum> {
+  extends IFieldWrapper<React.RefObject<IField>>,
+    IFormWrapper<JSX.Element>,
+    IOnSelectWrapper<SaveAsNewTemplateMenuActionsEnum> {
 }
 
 /**
@@ -27,6 +36,14 @@ export interface ISaveAsNewTemplateProps
 }
 
 /**
+ * @state
+ * @stable [24.03.2021]
+ */
+export interface ISaveAsNewTemplateState
+  extends IActionWrapper<SaveAsNewTemplateMenuActionsEnum> {
+}
+
+/**
  * @enum
  * @stable [05.03.2021]
  */
@@ -34,7 +51,16 @@ export enum SaveAsNewTemplateMenuActionsEnum {
   DELETE,
   OVERWRITE,
   RESTORE,
+  SAVE_AS,
   SAVE_AS_NEW,
+}
+
+/**
+ * @stable [24.03.2021]
+ * @flux-entity
+ */
+export interface ISaveAsNewTemplateMenuActionFluxEntity
+  extends IFluxEntity<SaveAsNewTemplateMenuActionsEnum> {
 }
 
 /**

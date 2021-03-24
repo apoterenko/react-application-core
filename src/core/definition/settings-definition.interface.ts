@@ -345,6 +345,7 @@ export interface IMessagesSettingsEntity {
   RESTART_APP?: string;
   RESTORE_SETTINGS?: string;
   SAVE?: string;
+  SAVE_AS?: string;
   SAVE_AS_NEW?: string;
   SEARCH?: string;
   SETTINGS?: string;
@@ -381,8 +382,8 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   CUSTOM: 'Custom',
   DATA_HAS_BEEN_SAVED_SUCCESSFULLY: 'The data has been saved successfully',
   DATE: 'Date',
-  OVERWRITE_WITH_NEW_SETTINGS: 'Overwrite with new settings',
   DAY: 'Day',
+  DELETE: 'Delete',
   DETAILS_INFO: 'Details info',
   DIALOG_ACCEPT: 'Continue',
   DIALOG_CANCEL: 'Cancel',
@@ -407,6 +408,7 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   NO_DATA: 'No data',
   NOT_DATA_FOUND: 'No data found',
   OK: 'Ok',
+  OVERWRITE_WITH_NEW_SETTINGS: 'Overwrite with new settings',
   PAGES_INFO: '{from}-{to} of {count}',
   PASSWORD_MUST_CONTAIN_AT_LEAST_8_CHARACTERS: 'Password must contain at least 8 characters. Use at least one uppercase, one lowercase, one numeric, and one special character',
   PATH: 'Path',
@@ -418,19 +420,19 @@ export const DEFAULT_MESSAGES_SETTINGS_ENTITY = Object.freeze<IMessagesSettingsE
   REFRESH: 'Refresh',
   RESET: 'Reset',
   RESTART_APP: 'Restart App',
+  RESTORE_SETTINGS: 'Restore settings',
   SAVE: 'Save',
+  SAVE_AS: 'Save as',
+  SAVE_AS_NEW: 'Save as new',
   SEARCH: 'Search',
   SETTINGS: 'Settings',
   SHORT_PAGES_INFO: 'Page {page} of {count}',
   SOMETHING_WENT_WRONG: 'Something went wrong',
-  RESTORE_SETTINGS: 'Restore settings',
   TAKE_SNAPSHOT: 'Take a snapshot',
   THIS_MONTH: 'This month',
   THIS_QUARTER: 'This quarter',
   THIS_WEEK: 'This week',
-  SAVE_AS_NEW: 'Save as new',
   TODAY: 'Today',
-  DELETE: 'Delete',
   UNKNOWN_ERROR: 'Unknown error',
   UPLOAD_FILES_HERE: 'Upload a file(s) here',
   USER: 'User',

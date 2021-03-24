@@ -4,6 +4,7 @@ import {
   IAllowEmptyFilterValueWrapper,
   IAnchoredWrapper,
   IDictionaryWrapper,
+  IEntity,
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
   IInlineOptionClassNameClassName,
@@ -84,7 +85,7 @@ export interface IPresetsSelectOptionEntity<TRawData = {}, TValue = EntityIdT>
 /**
  * @stable [12.04.2020]
  */
-export type SelectValueT = IPresetsRawDataLabeledValueEntity | StringNumberT;
+export type SelectValueT<TRawData = IEntity, TValue = EntityIdT> = IPresetsRawDataLabeledValueEntity<TRawData, TValue> | StringNumberT;
 
 /**
  * @generic-state

@@ -61,7 +61,7 @@ export interface IGenericMenuEntity<TOptionEntity extends IPresetsMenuItemEntity
     IMultiWrapper,
     IOnCloseWrapper,
     IOnSelectWrapper<IPresetsMenuItemEntity>,
-    IOptionsWrapper<TOptionEntity[]>,
+    IOptionsWrapper<TOptionEntity[] | (() => TOptionEntity[])>,
     IProgressWrapper {
 }
 
