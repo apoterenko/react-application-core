@@ -81,6 +81,7 @@ export interface IDateConverter<TDate = Date> {
   fromDateTimeToString(cfg: IDateTimeConfigEntity<TDate>): string;                                      // @stable [13.03.2021]
   fromDateTimeToUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromDateToString(cfg: IDateTimeConfigEntity<TDate>): string                                           // @stable [25.03.2021]
   fromDateToUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDayOfYearEntity(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity<TDate>): TDate;
   fromDayOfYearEntityAsDate(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity<TDate>): Date;

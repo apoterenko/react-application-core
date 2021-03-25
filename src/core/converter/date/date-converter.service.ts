@@ -205,6 +205,18 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
+   * @stable [25.03.2021]
+   * @param cfg
+   */
+  public fromDateToString(cfg: DateTimeConfigEntityT): string {
+    return this.dateAsString({
+      ...cfg,
+      inputFormat: this.dateFormat,
+      strict: false, // UTC: ignore a time, by default (+00:00 | Z)
+    });
+  }
+
+  /**
    * @stable [13.03.2021]
    * @param cfg
    */
@@ -625,7 +637,10 @@ export class DateConverter implements IDateConverter<MomentT> {
    * @returns {string}
    */
   public dateAsUiDateString(cfg: IDateTimeConfigEntity<MomentT>): string {
-    return this.dateAsString({outputFormat: this.uiDateFormat, ...cfg});
+    return this.dateAsString({
+      outputFormat: this.uiDateFormat,
+      ...cfg,
+    });
   }
 
   /**
