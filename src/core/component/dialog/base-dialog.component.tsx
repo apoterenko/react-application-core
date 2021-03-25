@@ -297,45 +297,64 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     const {
       acceptActionConfiguration,
       acceptDisabled,
+      actionsFactory,
       closeActionConfiguration,
       closeDisabled,
     } = this.originalProps;
 
+    const isActionsFactoryFn = TypeUtils.isFn(actionsFactory);
+
     return ConditionUtils.orNull(
-      this.closable || this.acceptable,
-      () => (
-        <div className={DialogClassesEnum.DIALOG_ACTIONS}>
-          {
-            ConditionUtils.orNull(
-              this.closable,
-              () => (
-                <Button
-                  icon={IconsEnum.TIMES}
-                  {...closeActionConfiguration}
-                  disabled={closeDisabled}
-                  onClick={this.onCloseClick}>
-                  {this.t(this.closeText)}
-                </Button>
-              )
-            )
-          }
-          {
-            ConditionUtils.orNull(
-              this.acceptable,
-              () => (
-                <Button
-                  icon={IconsEnum.CHECK_CIRCLE}
-                  raised={true}
-                  {...acceptActionConfiguration}
-                  disabled={acceptDisabled}
-                  onClick={this.onAcceptClick}>
-                  {this.t(this.acceptText)}
-                </Button>
-              )
-            )
-          }
-        </div>
-      )
+      this.closable || this.acceptable || isActionsFactoryFn,
+      () => {
+        const closeAction = ConditionUtils.orNull(
+          this.closable,
+          () => (
+            <Button
+              icon={IconsEnum.TIMES}
+              {...closeActionConfiguration}
+              disabled={closeDisabled}
+              onClick={this.onCloseClick}>
+              {this.t(this.closeText)}
+            </Button>
+          )
+        );
+        const acceptAction = ConditionUtils.orNull(
+          this.acceptable,
+          () => (
+            <Button
+              icon={IconsEnum.CHECK_CIRCLE}
+              raised={true}
+              {...acceptActionConfiguration}
+              disabled={acceptDisabled}
+              onClick={this.onAcceptClick}>
+              {this.t(this.acceptText)}
+            </Button>
+          )
+        );
+
+        return (
+          <div
+            className={DialogClassesEnum.DIALOG_ACTIONS}
+          >
+            {
+              isActionsFactoryFn
+                ? (
+                  actionsFactory(
+                    acceptAction,
+                    closeAction
+                  )
+                )
+                : (
+                  <React.Fragment>
+                    {closeAction}
+                    {acceptAction}
+                  </React.Fragment>
+                )
+            }
+          </div>
+        );
+      }
     );
   }
 
@@ -521,7 +540,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
    * @stable [10.10.2020]
    */
   private get portalElement(): Element {
-    return this.domAccessor.documentBody;
+    return this.domAccessor.documentBodyElement;
   }
 
   /**

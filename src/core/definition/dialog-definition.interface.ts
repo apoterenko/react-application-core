@@ -27,6 +27,7 @@ import {
   IScrollableWrapper,
   IWideWrapper,
   IWidthWrapper,
+  IActionsFactoryWrapper,
 } from '../definitions.interface';
 import { IButtonProps } from './button-definition.interface';
 import {
@@ -56,7 +57,9 @@ export interface IPresetsDialogEntity
     IAcceptActionConfigurationWrapper<IButtonProps>,
     IAcceptDisabledWrapper,
     IAcceptTextWrapper,
+    IActionsFactoryWrapper<(acceptAction: JSX.Element, closeAction: JSX.Element) => JSX.Element>,     /* @stable [25.03.2021] */
     ICheckModalWrapper,   // Check more than one dialog at a time
+    IClosableOverlayWrapper,
     IClosableWrapper,
     ICloseActionConfigurationWrapper<IButtonProps>,
     ICloseDisabledWrapper,
@@ -69,7 +72,6 @@ export interface IPresetsDialogEntity
     IOnBeforeAcceptWrapper,
     IOnCloseWrapper,
     IOnDeactivateWrapper,
-    IClosableOverlayWrapper,
     IOverlayWrapper,
     IProgressWrapper,
     IScrollableWrapper,
