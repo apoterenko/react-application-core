@@ -353,6 +353,7 @@ export interface IOnAcceptWrapper { onAccept?(...args: AnyT[]): void; }
 export interface IOnActivateWrapper { onActivate?(): void; }
 export interface IOnApplyWrapper<TValue = {}> { onApply?(value?: TValue): void; }
 export interface IOnBeforeAcceptWrapper { onBeforeAccept?(...args: AnyT[]): void; }
+export interface IOnBeforeDialogShowWrapper<TValue = {}> { onBeforeDialogShow?(value: TValue): void; }
 export interface IOnBeforeSubmitWrapper<TValue = {}, TResult = void> { onBeforeSubmit?(value?: TValue): TResult; }
 export interface IOnBlurWrapper<TValue = {}> { onBlur?(value?: TValue): void; }
 export interface IOnChangeLayoutModeWrapper<TValue = {}> { onChangeLayoutMode?(value?: TValue): void; }

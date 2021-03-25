@@ -53,6 +53,7 @@ export enum IconsEnum {
   QUESTION_CIRCLE_REGULAR = 'question-circle-regular',                    /* https://fontawesome.com/ */
   RECEIPT = 'receipt',                                                    /* https://fontawesome.com/ */
   REDO = 'redo',                                                          /* https://fontawesome.com/ */
+  SAVE_REGULAR = 'save-regular',                                          /* https://fontawesome.com/ */
   SEARCH = 'search',                                                      /* https://fontawesome.com/ */
   SEARCH_MINUS = 'search-minus',
   SEARCH_PLUS = 'search-plus',

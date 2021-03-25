@@ -1,0 +1,12 @@
+@import './_save-as-new-template-constant';
+@import './_save-as-new-template-mixin';
+
+.rac {
+
+  // @stable [24.03.2021]
+  @include rac-save-as-new-template (
+    $rac-save-as-new-template-display: $rac-save-as-new-template-display,
+    $rac-save-as-new-template-flex-direction: $rac-save-as-new-template-flex-direction,
+    $rac-save-as-new-template-neighbor-child-margin: $rac-save-as-new-template-neighbor-child-margin
+  );
+}

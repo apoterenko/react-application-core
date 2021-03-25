@@ -3,6 +3,7 @@ import {
   IActionWrapper,
   IFieldWrapper,
   IFormWrapper,
+  IOnBeforeDialogShowWrapper,
   IOnSelectWrapper,
 } from '../definitions.interface';
 import { IField } from './field-definition.interface';
@@ -15,6 +16,7 @@ import { IFluxEntity } from './flux-definition.interface';
 export interface IPresetsSaveAsNewTemplateEntity
   extends IFieldWrapper<React.RefObject<IField>>,
     IFormWrapper<JSX.Element>,
+    IOnBeforeDialogShowWrapper<SaveAsNewTemplateMenuActionsEnum>,
     IOnSelectWrapper<SaveAsNewTemplateMenuActionsEnum> {
 }
 

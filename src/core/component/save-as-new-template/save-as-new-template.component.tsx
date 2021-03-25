@@ -43,6 +43,7 @@ export class SaveAsNewTemplate
     this.state = {};
 
     this.doShowMenu = this.doShowMenu.bind(this);
+    this.onActionSet = this.onActionSet.bind(this);
     this.onDialogAccept = this.onDialogAccept.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
     this.onMenuItemSelect = this.onMenuItemSelect.bind(this);
@@ -84,7 +85,7 @@ export class SaveAsNewTemplate
         {this.originalChildren}
         <Button
           forwardedRef={this.actionsMenuAnchorRef}
-          icon={IconsEnum.ELLIPSIS_H}
+          icon={IconsEnum.SAVE_REGULAR}
           mini={true}
           onClick={this.doShowMenu}
         />
@@ -166,10 +167,7 @@ export class SaveAsNewTemplate
       case SaveAsNewTemplateMenuActionsEnum.SAVE_AS:
       case SaveAsNewTemplateMenuActionsEnum.SAVE_AS_NEW:
         if (this.hasSaveAsNewDialog) {
-          this.setState(
-            {action: menuItem.value},
-            () => this.newTemplateDialogRef.current.activate()
-          );
+          this.setState({action: menuItem.value}, this.onActionSet);
         } else {
           this.doSelectMenuItem(menuItem.value);
         }
@@ -178,6 +176,17 @@ export class SaveAsNewTemplate
         this.doSelectMenuItem(menuItem.value);
         break;
     }
+  }
+
+  /**
+   * @stable [24.03.2021]
+   */
+  private onActionSet(): void {
+    ConditionUtils.ifNotNilThanValue(
+      this.originalProps.onBeforeDialogShow,
+      (onBeforeDialogShow) => onBeforeDialogShow(this.state.action)
+    );
+    this.newTemplateDialogRef.current.activate();
   }
 
   /**

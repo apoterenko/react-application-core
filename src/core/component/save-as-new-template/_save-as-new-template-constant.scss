@@ -1,0 +1,7 @@
+@import '../_primary-constant';
+@import '../_classes';
+
+// @stable [24.03.2021]
+$rac-save-as-new-template-display: $rac-primary-display-0 !default;
+$rac-save-as-new-template-flex-direction: $rac-primary-flex-direction-1 !default;
+$rac-save-as-new-template-neighbor-child-margin: 0 0 0 $rac-primary-offset-1 !default;

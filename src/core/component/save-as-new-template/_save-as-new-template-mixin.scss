@@ -1,0 +1,21 @@
+@import '../_core-mixin';
+
+// @stable [24.03.2021]
+@mixin rac-save-as-new-template (
+  $rac-save-as-new-template-custom: unset,
+  /**/
+  $rac-save-as-new-template-display: unset,
+  $rac-save-as-new-template-flex-direction: unset,
+  $rac-save-as-new-template-neighbor-child-margin: unset
+) {
+  #{rac-cls($rac-save-as-new-template-cls, $rac-save-as-new-template-custom)} {
+    @include rac-styles (
+      $rac-styles-display: $rac-save-as-new-template-display,
+      $rac-styles-flex-direction: $rac-save-as-new-template-flex-direction,
+    );
+
+    @include rac-neighbor-child (
+      $rac-neighbor-child-margin: $rac-save-as-new-template-neighbor-child-margin
+    );
+  }
+}
