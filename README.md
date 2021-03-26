@@ -118,6 +118,10 @@ The library is designed to quickly start develop the business applications are b
 * [IReduxFormHolderEntity](src/core/definition/form-definition.interface.ts)
 * [IReduxUnsavedFormChangesDialogHolderEntity](src/core/definition/unsaved-form-changes-dialog-definition.interface.ts)
 
+#### @service-impl
+
+* [AsyncLibManager](src/core/async-lib/async-lib-manager.service.ts)
+
 # Utils
 
 * [EntityUtils (23.01.2021)](src/core/util/entity.ts)
