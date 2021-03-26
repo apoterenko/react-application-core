@@ -6,19 +6,31 @@ import {
   ILoadingWrapper,
   IUrlWrapper,
 } from '../definitions.interface';
+import { IFluxEntity } from './flux-definition.interface';
 
 /**
- * @stable [09.01.2020]
+ * @enum
+ * @stable [26.03.2021]
  */
 export enum AsyncLibsEnum {
   GOOGLE_MAPS = '$$GOOGLE_MAPS',
+  UNLAYER = '$$UNLAYER',
 }
 
 /**
- * @stable [09.01.2020]
+ * @entity
+ * @stable [26.03.2021]
  */
-export interface IAsyncLibPayloadEntity
+export interface IAsyncLibEntity
   extends IAliasWrapper {
+}
+
+/**
+ * @flux-entity
+ * @stable [26.03.2021]
+ */
+export interface IAsyncLibFluxEntity
+  extends IFluxEntity<IAsyncLibEntity> {
 }
 
 /**
@@ -31,13 +43,14 @@ export interface IAsyncLibConfigEntity
 }
 
 /**
- * @stable [09.01.2020]
+ * @service
+ * @stable [08.06.2020]
  */
-export interface IAsyncLibManager {
-  cancelWaiting<TPromise>(promise: TPromise): boolean;
+export interface IAsyncLibManager<TPromise extends Promise<HTMLScriptElement> = Promise<HTMLScriptElement>> {
+  cancelWaiting(promise: TPromise): boolean;
   loadLib(cfg: IAsyncLibConfigEntity): Promise<HTMLScriptElement>;
   registerLib(cfg: IAsyncLibConfigEntity): void;
-  waitForLib<TPromise>(cfg: IAsyncLibConfigEntity): TPromise;
+  waitForLib(cfg: IAsyncLibConfigEntity): TPromise;
 }
 
 /**

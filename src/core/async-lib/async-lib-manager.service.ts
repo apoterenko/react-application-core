@@ -12,15 +12,18 @@ import {
   $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE,
   IAsyncLibConfigEntity,
   IAsyncLibManager,
-  IAsyncLibPayloadEntity,
+  IAsyncLibFluxEntity,
   IDomAccessor,
   IUniversalStoreEntity,
 } from '../definition';
-import { ifNotNilThanValue } from '../util';
-import { AnyT } from '../definitions.interface';
+import { ConditionUtils } from '../util';
 
+/**
+ * @service-impl
+ * @stable [26.03.2021]
+ */
 @injectable()
-export class AsyncLibManager implements IAsyncLibManager {
+export class AsyncLibManager implements IAsyncLibManager<BPromise<HTMLScriptElement>> {
 
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
   @lazyInject(DI_TYPES.Store) private readonly store: Store<IUniversalStoreEntity>;
@@ -29,67 +32,72 @@ export class AsyncLibManager implements IAsyncLibManager {
   private readonly registeredLibs = new Map<string, IAsyncLibConfigEntity>();
 
   /**
-   * @stable [09.01.2020]
-   * @param {IAsyncLibConfigEntity} cfg
+   * @stable [26.03.2021]
+   * @param cfg
    */
   public registerLib(cfg: IAsyncLibConfigEntity): void {
-    const alias = cfg.alias || cfg.url;
-    this.registeredLibs.set(alias, cfg);
+    this.registeredLibs.set(this.asAlias(cfg), cfg);
   }
 
   /**
-   * @stable [08.01.2020]
-   * @param {IAsyncLibConfigEntity} cfg
-   * @returns {Promise<HTMLScriptElement>}
+   * @stable [26.03.2021]
+   * @param cfg
    */
   public loadLib(cfg: IAsyncLibConfigEntity): Promise<HTMLScriptElement> {
-    const alias = cfg.alias || cfg.url;
+    const alias = this.asAlias(cfg);
     cfg = this.registeredLibs.get(alias) || cfg;
 
-    let task = this.scriptsTasks.get(alias);
-    if (R.isNil(task)) {
-      const data: IAsyncLibPayloadEntity = {alias};
-      this.store.dispatch({type: $RAC_ASYNC_LIB_LOAD_ACTION_TYPE, data});
-
-      this.scriptsTasks.set(
-        alias,
-        task = this.domAccessor
-          .createScript({src: cfg.url})
-          .then((el) => {
-            this.store.dispatch({type: $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE, data});
-            return el;
-          })
-      );
+    const task = this.scriptsTasks.get(alias);
+    if (!R.isNil(task)) {
+      return task;
     }
-    return task;
+
+    const data: IAsyncLibFluxEntity = {payload: {alias}};
+    this.store.dispatch({type: $RAC_ASYNC_LIB_LOAD_ACTION_TYPE, data});
+
+    this.scriptsTasks.set(
+      alias,
+      this.domAccessor
+        .createScript({src: cfg.url})
+        .then((el) => {
+          this.store.dispatch({type: $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE, data});
+          return el;
+        })
+    );
   }
 
   /**
-   * @stable [09.01.2020]
-   * @param {IAsyncLibConfigEntity} cfg
-   * @returns {Bluebird<HTMLScriptElement>}
+   * @stable [26.03.2021]
+   * @param cfg
    */
-  public waitForLib(cfg: IAsyncLibConfigEntity): BPromise<HTMLScriptElement> | AnyT {
-    // This new promise may be canceled, but not the original!
+  public waitForLib(cfg: IAsyncLibConfigEntity): BPromise<HTMLScriptElement> {
+    // This new promise may be canceled, but not original!
     return new BPromise((resolve) => this.loadLib(cfg).then(resolve));
   }
 
   /**
-   * @stable [10.01.2020]
-   * @param {Bluebird<HTMLScriptElement> | AnyT} promise
-   * @returns {boolean}
+   * @stable [26.03.2021]
+   * @param promise
    */
-  public cancelWaiting(promise: BPromise<HTMLScriptElement> | AnyT): boolean {
-    return ifNotNilThanValue<BPromise<HTMLScriptElement>, boolean>(
+  public cancelWaiting(promise: BPromise<HTMLScriptElement>): boolean {
+    return ConditionUtils.ifNotNilThanValue(
       promise,
-      ($$promise) => {
-        if ($$promise.isPending()) {
-          $$promise.cancel();
+      () => {
+        if (promise.isPending()) {
+          promise.cancel();
           return true;
         }
         return false;
       },
       false
     );
+  }
+
+  /**
+   * @stable [26.03.2021]
+   * @param cfg
+   */
+  private asAlias(cfg: IAsyncLibConfigEntity): string {
+    return cfg.alias || cfg.url;
   }
 }

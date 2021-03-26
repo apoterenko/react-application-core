@@ -26,6 +26,7 @@ import { ISliderFieldProps } from './slider-field-definition.interface';
 import { ISliderProps } from './slider-definition.interface';
 import { ISubHeaderLinkProps } from './sub-header-link-definition.interface';
 import { ISubHeaderProps } from './sub-header-definition.interface';
+import { ITemplateFieldProps } from './template-field-definition.interface';
 import { ITextAreaProps } from './text-area-definition.interface';
 import { IThumbProps } from './thumb-definition.interface';
 import { ITitleProps } from './title-definition.interface';
@@ -152,6 +153,7 @@ export interface IComponentsSettingsEntity {
   sliderField?: ISliderFieldProps;
   subHeader?: ISubHeaderProps;
   subHeaderLink?: ISubHeaderLinkProps;
+  templateField?: ITemplateFieldProps;
   textarea?: ITextAreaProps;
   thumb?: IThumbProps;
   title?: ITitleProps;
