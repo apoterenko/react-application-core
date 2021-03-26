@@ -120,7 +120,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @service-impl
 
-* [AsyncLibManager](src/core/async-lib/async-lib-manager.service.ts)
+* [AsyncLibManager (26.03.2021)](src/core/async-lib/async-lib-manager.service.ts)
 
 # Utils
 
