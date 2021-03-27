@@ -3,26 +3,27 @@ import { AnyAction } from 'redux';
 import {
   $RAC_ASYNC_LIB_LOAD_ACTION_TYPE,
   $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE,
-  IAsyncLibPayloadEntity,
+  IAsyncLibFluxEntity,
   INITIAL_REDUX_ASYNC_LIBS_ENTITY,
   IReduxAsyncLibsEntity,
 } from '../definition';
 
 /**
- * @stable [08.01.2020]
- * @param {IReduxAsyncLibsEntity} state
- * @param {AnyAction} action
- * @returns {IReduxAsyncLibsEntity}
+ * @reducer
+ * @stable [26.03.2021]
+ * @param state
+ * @param action
  */
 export const asyncLibReducer = (state: IReduxAsyncLibsEntity = INITIAL_REDUX_ASYNC_LIBS_ENTITY,
                                 action: AnyAction): IReduxAsyncLibsEntity => {
-  const actionData: IAsyncLibPayloadEntity = action.data;
+  const fluxEntity: IAsyncLibFluxEntity = action.data;
+  const {alias} = fluxEntity?.payload || {};
 
   switch (action.type) {
     case $RAC_ASYNC_LIB_LOAD_ACTION_TYPE:
       return {
         ...state,
-        [actionData.alias]: {
+        [alias]: {
           data: false,
           loading: true,
         },
@@ -30,7 +31,7 @@ export const asyncLibReducer = (state: IReduxAsyncLibsEntity = INITIAL_REDUX_ASY
     case $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE:
       return {
         ...state,
-        [actionData.alias]: {
+        [alias]: {
           data: true,
           loading: false,
         },
