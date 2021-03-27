@@ -89,6 +89,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @reducer
 
+* [async-lib (27.03.2021)](src/core/async-lib/async-lib.reducer.ts)
 * [formReducer](src/core/component/form/form.reducer.ts)
 * [queryFilterReducer](src/core/component/filter/query-filter.reducer.ts)
 
