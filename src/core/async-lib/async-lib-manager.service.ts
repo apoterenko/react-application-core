@@ -11,8 +11,8 @@ import {
   $RAC_ASYNC_LIB_LOAD_ACTION_TYPE,
   $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE,
   IAsyncLibConfigEntity,
-  IAsyncLibManager,
   IAsyncLibFluxEntity,
+  IAsyncLibManager,
   IDomAccessor,
   IUniversalStoreEntity,
 } from '../definition';
@@ -47,7 +47,7 @@ export class AsyncLibManager implements IAsyncLibManager<BPromise<HTMLScriptElem
     const alias = this.asAlias(cfg);
     cfg = this.registeredLibs.get(alias) || cfg;
 
-    const task = this.scriptsTasks.get(alias);
+    let task = this.scriptsTasks.get(alias);
     if (!R.isNil(task)) {
       return task;
     }
@@ -57,13 +57,14 @@ export class AsyncLibManager implements IAsyncLibManager<BPromise<HTMLScriptElem
 
     this.scriptsTasks.set(
       alias,
-      this.domAccessor
+      task = this.domAccessor
         .createScript({src: cfg.url})
         .then((el) => {
           this.store.dispatch({type: $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE, data});
           return el;
         })
     );
+    return task;
   }
 
   /**
