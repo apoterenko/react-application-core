@@ -57,13 +57,6 @@ const buildUndefValuesObject = <TValue>(object: TValue): Record<StringNumberT, u
   buildValuesObjectBy(object, () => UNDEF);
 
 /**
- * @stable [05.11.2020]
- * @param object
- */
-const buildTrueValuesObject = <TValue>(object: TValue): Record<StringNumberT, boolean> =>
-  buildValuesObjectBy(object, () => true);
-
-/**
  * @stable [04.09.2020]
  * @param object
  */
@@ -74,13 +67,18 @@ const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): Record<StringN
   });
 
 /**
+ * @stable [27.03.2021]
+ */
+const EMPTY_OBJECT = Object.freeze(Object.create(null));
+
+/**
  * @stable [15.05.2020]
  */
 export class ObjectUtils {
   public static readonly buildNotEmptyOrNullValuesObject = buildNotEmptyOrNullValuesObject;               /* @stable [15.05.2020] */
-  public static readonly buildTrueValuesObject = buildTrueValuesObject;                                   /* @stable [05.11.2020] */
   public static readonly buildUndefValuesObject = buildUndefValuesObject;                                 /* @stable [15.05.2020] */
   public static readonly buildValuesObjectBy =  buildValuesObjectBy;                                      /* @stable [15.05.2020] */
+  public static readonly EMPTY_OBJECT = EMPTY_OBJECT;                                                     /* @stable [27.03.2021] */
   public static readonly isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
   public static readonly isObjectEmpty = isObjectEmpty;                                                   /* @stable [04.09.2020] */
   public static readonly isObjectNotEmpty = isObjectNotEmpty;                                             /* @stable [15.05.2020] */

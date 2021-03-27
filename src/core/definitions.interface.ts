@@ -548,6 +548,7 @@ export interface ITabPanelConfigurationWrapper<TValue> { tabPanelConfiguration?:
 export interface ITabPanelSectionWrapper<TValue = string> { tabPanelSection?: TValue; }
 export interface ITabPanelsSectionsWrapper<TValue> { tabPanelsSections?: TValue; }
 export interface ITabPanelWrapper<TValue> { tabPanel?: TValue; }
+export interface ITagsWrapper<TValue> { tags?: TValue; }
 export interface ITextWrapper<TValue = string> { text?: TValue; }
 export interface IThumbClassNameWrapper<TValue = string> { thumbClassName?: TValue; }
 export interface ITimeoutWrapper { timeout?: number; }

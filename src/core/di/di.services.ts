@@ -166,10 +166,9 @@ export const getStorage = (): IStorage => staticInjector(DI_TYPES.Storage);
 export const getEventManager = (): IEventManager => staticInjector(DI_TYPES.EventManager);
 
 /**
- * @stable [09.01.2020]
- * @returns {IAsyncLibManager}
+ * @stable [26.03.2021]
  */
-export const getAsyncLibManager = (): IAsyncLibManager => staticInjector(DI_TYPES.AsyncLibManager);
+const getAsyncLibManager = (): IAsyncLibManager => staticInjector(DI_TYPES.AsyncLibManager);
 
 /**
  * @stable [09.01.2020]
@@ -277,6 +276,7 @@ export class DiServices {
   public static readonly dynamicSections = getDynamicSections;
   public static readonly environment = getEnvironment;
   public static readonly fieldConverter = getFieldConverter;
+  public static readonly getAsyncLibManager = getAsyncLibManager;
   public static readonly modifyEntityFactory = getModifyEntityFactory;
   public static readonly numberConverter = getNumberConverter;
   public static readonly phoneConverter = getPhoneConverter;

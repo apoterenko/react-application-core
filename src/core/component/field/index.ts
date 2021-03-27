@@ -15,4 +15,5 @@ export * from './switch';
 export * from './text-area';
 export * from './text-field';
 export * from './timefield';
+export * from './template-field';
 export * from './view-field';
