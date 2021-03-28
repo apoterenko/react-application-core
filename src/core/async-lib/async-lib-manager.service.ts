@@ -16,7 +16,7 @@ import {
   IDomAccessor,
   IUniversalStoreEntity,
 } from '../definition';
-import { ConditionUtils } from '../util';
+import { PromiseUtils } from '../util';
 
 /**
  * @service-impl
@@ -77,21 +77,11 @@ export class AsyncLibManager implements IAsyncLibManager<BPromise<HTMLScriptElem
   }
 
   /**
-   * @stable [26.03.2021]
+   * @stable [27.03.2021]
    * @param promise
    */
   public cancelWaiting(promise: BPromise<HTMLScriptElement>): boolean {
-    return ConditionUtils.ifNotNilThanValue(
-      promise,
-      () => {
-        if (promise.isPending()) {
-          promise.cancel();
-          return true;
-        }
-        return false;
-      },
-      false
-    );
+    return PromiseUtils.cancel(promise);
   }
 
   /**

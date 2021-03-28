@@ -21,7 +21,6 @@ import {
 } from '../../definition';
 import {
   DiServices,
-  getAsyncLibManager,
   getDatabaseStorage,
   getDateConverter,
   getDomAccessor,
@@ -153,11 +152,10 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
   }
 
   /**
-   * @stable [18.05.2020]
-   * @returns {IAsyncLibManager}
+   * @stable [26.03.2021]
    */
   protected get asyncLibManager(): IAsyncLibManager {
-    return this.$asyncLibManager = this.$asyncLibManager || getAsyncLibManager();
+    return this.$asyncLibManager = this.$asyncLibManager || DiServices.getAsyncLibManager();
   }
 
   /**

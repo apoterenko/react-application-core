@@ -7,7 +7,6 @@ import {
   DictionariesEnum,
   IPlaceApi,
   ISearchPlaceEntity,
-  ISearchPlacesEntity,
 } from '../definition';
 import {
   DI_TYPES,
@@ -22,11 +21,10 @@ export class DictionariesEffects {
   @lazyInject(DI_TYPES.PlacesApi) private readonly placesApi: IPlaceApi;
 
   /**
-   * @stable [12.01.2020]
-   * @param {IEffectsAction} action
-   * @returns {Promise<ISearchPlaceEntity[]>}
+   * @stable [27.03.2021]
+   * @param action
    */
   @EffectsService.effects(DictionariesActionBuilder.buildLoadActionType(DictionariesEnum.PLACES))
-  public $onSearchPlaces = (action: IEffectsAction): Promise<ISearchPlaceEntity[]> =>
-    this.placesApi.searchPlaces(Selectors.payloadFromAction<ISearchPlacesEntity>(action))
+  public readonly $onSearchPlaces = (action: IEffectsAction): Promise<ISearchPlaceEntity[]> =>
+    this.placesApi.searchPlaces(Selectors.payloadFromAction(action))
 }

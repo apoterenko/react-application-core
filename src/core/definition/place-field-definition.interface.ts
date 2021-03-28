@@ -11,7 +11,6 @@ import {
   IPlaceEntityWrapper,
   IPlaceIdWrapper,
   IProgressWrapper,
-  IQueryWrapper,
   IRegionWrapper,
   IStreetNumberWrapper,
   IStreetWrapper,
@@ -131,15 +130,6 @@ export interface IGenericPlaceFieldState
 export interface IPlaceFieldState
   extends IBaseSelectState,
     IGenericPlaceFieldState {
-}
-
-/**
- * @entity
- * @stable [09.01.2020]
- */
-export interface ISearchPlacesEntity
-  extends ICountryWrapper,
-    IQueryWrapper {
 }
 
 /**
