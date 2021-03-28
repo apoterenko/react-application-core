@@ -1,5 +1,5 @@
-import { injectable } from 'inversify';
 import * as BPromise from 'bluebird';
+import { injectable } from 'inversify';
 
 import { ISettingsEntity } from '../../../settings';
 import {
@@ -8,29 +8,24 @@ import {
 } from '../../../di';
 import {
   AsyncLibsEnum,
-  FieldConverterTypesEnum,
   IAsyncLibManager,
   IFieldConverter,
   IPlaceApi,
   IPlaceEntity,
-  IPlaceGeoCodeRequestEntity,
-  ISearchPlaceEntity,
-  ISearchPlacesEntity,
+  IPlaceGeoCodeApiRequest,
+  ISimplePlaceEntity,
+  ISearchPlacesApiRequest,
 } from '../../../definition';
 import {
   ConditionUtils,
   FilterUtils,
   NvlUtils,
-  ObjectUtils,
-  TypeUtils,
-  UuidUtils,
 } from '../../../util';
-import {
-  AnyT,
-  IEntityIdTWrapper,
-  IKeyValue,
-} from '../../../definitions.interface';
 
+/**
+ * @service-impl
+ * @stable [28.03.2021]
+ */
 @injectable()
 export class GooglePlaceApi implements IPlaceApi {
   @lazyInject(DI_TYPES.AsyncLibManager) private readonly asyncLibManager: IAsyncLibManager;
@@ -38,95 +33,81 @@ export class GooglePlaceApi implements IPlaceApi {
   @lazyInject(DI_TYPES.Settings) private readonly settings: ISettingsEntity;
 
   /**
-   * @stable [09.01.2020]
-   * @param {IPlaceGeoCodeRequestEntity} req
-   * @returns {Bluebird<IPlaceEntity[]> | AnyT}
+   * @stable [28.03.2021]
+   * @param req
    */
-  public getPlaceGeoCode(req: IPlaceGeoCodeRequestEntity): BPromise<IPlaceEntity[]> | AnyT {
-    const request = FilterUtils.notNilValuesFilter<google.maps.GeocoderRequest, google.maps.GeocoderRequest>({
-      placeId: req.placeId,
-      ...(
-        ConditionUtils.ifNotNilThanValue(
-          NvlUtils.nvl(req.lat, req.lng),
-          () => ({location: {lat: req.lat, lng: req.lng}})
-        )
-      ),
-    });
-    return this.makePromise((resolve) => {
+  public async getPlaceGeoCode(req: IPlaceGeoCodeApiRequest): BPromise<IPlaceEntity[]> {
+    await this.awaitLib();
+
+    return new BPromise((resolve) => {
       new google.maps.Geocoder().geocode(
-        request,
-        (result) => {
-          if (ObjectUtils.isObjectNotEmpty(result)) {
-            const converter = this.fieldConverter.converter({
-              from: FieldConverterTypesEnum.GEO_CODER_RESULT,
-              to: FieldConverterTypesEnum.PLACE_ENTITY,
-            });
-            if (TypeUtils.isFn(converter)) {
-              resolve(result.map(converter));
-            } else {
-              resolve(result);
-            }
-          } else {
-            resolve([]);
-          }
-        });
-    });
-  }
-
-  /**
-   * @stable [10.01.2020]
-   * @param {ISearchPlacesEntity} request
-   * @returns {Bluebird<ISearchPlaceEntity[]> | AnyT}
-   */
-  public searchPlaces(request: ISearchPlacesEntity): BPromise<ISearchPlaceEntity[]> | AnyT {
-    request = NvlUtils.nvl(request, {});
-    const {query = ' '} = request;
-
-    return this.makePromise((resolve) => {
-      const searchService = new google.maps.places.AutocompleteService();
-      searchService.getPlacePredictions(
-        {
-          ...this.getDefaultParams(request.country),
-          input: query,
-        },
-        (result: Array<google.maps.places.AutocompletePrediction & IEntityIdTWrapper>) => {
-          resolve(
-            (result || []).map((entity): ISearchPlaceEntity => ({
-              id: entity.place_id || UuidUtils.uuid(),
-              name: entity.description,
-            }))
-          );
-        },
+        this.asGeocoderRequest(req),
+        (result) => resolve(
+          (result || []).map(this.fieldConverter.fromGeoCodeResultToPlaceEntity)
+        )
       );
     });
   }
 
   /**
-   * @stable [11.01.2020]
-   * @param {string} requestCountry
-   * @returns {IKeyValue}
+   * @stable [28.03.2021]
+   * @param request
    */
-  private getDefaultParams(requestCountry: string): IKeyValue {
-    const {googleMaps = {}} = this.settings || {};
-    const {componentRestrictions = {}} = googleMaps;
-    const {country = {}} = componentRestrictions || {};
+  public async searchPlaces(request: ISearchPlacesApiRequest): BPromise<ISimplePlaceEntity[]> {
+    await this.awaitLib();
 
-    return FilterUtils.notNilValuesFilter({
-      componentRestrictions: FilterUtils.notNilValuesFilter({country: NvlUtils.nvl(requestCountry, country)}),
+    return new BPromise(
+      (resolve: (entities: ISimplePlaceEntity[]) => void) =>
+        new google.maps.places.AutocompleteService()
+          .getPlacePredictions(
+            this.asAutoCompletionRequest(request),
+            (result: google.maps.places.AutocompletePrediction[]) => {
+              resolve(
+                (result || []).map(this.fieldConverter.fromAutocompletePredictionToSimplePlaceEntity)
+              );
+            },
+          )
+    );
+  }
+
+  /**
+   * @stable [28.03.2021]
+   * @param request
+   */
+  private asAutoCompletionRequest(request: ISearchPlacesApiRequest): google.maps.places.AutocompletionRequest {
+    const {
+      country,
+      query = ' ',
+    } = request || {};
+
+    const settingsCountry = this.settings?.googleMaps?.componentRestrictions?.country || {};
+
+    return FilterUtils.notNilValuesFilter<google.maps.places.AutocompletionRequest, google.maps.places.AutocompletionRequest>({
+      componentRestrictions: FilterUtils.notNilValuesFilter({country: NvlUtils.nvl(country, settingsCountry)}),
+      input: query,
     });
   }
 
   /**
-   * @stable [10.01.2020]
-   * @param {(resolve: (value?: TResult) => void) => void} callback
-   * @returns {Bluebird<TResult>}
+   * @stable [28.03.2021]
+   * @param req
    */
-  private readonly makePromise = <TResult>(callback: (resolve: (value?: TResult) => void) => void): BPromise<TResult> =>
-    new BPromise<TResult>((resolve) => (
-      this.asyncLibManager
-        .loadLib({alias: AsyncLibsEnum.GOOGLE_MAPS})
-        .then(() => {
-          callback(resolve);
-        })
-    ))
+  private asGeocoderRequest(req: IPlaceGeoCodeApiRequest): google.maps.GeocoderRequest {
+    return FilterUtils.notNilValuesFilter<google.maps.GeocoderRequest, google.maps.GeocoderRequest>({
+      placeId: req.placeId,
+      ...(
+        ConditionUtils.ifNotNilThanValue(
+          NvlUtils.nvl(req.lat, req.lng),
+          (): google.maps.GeocoderRequest => ({location: {lat: req.lat, lng: req.lng}})
+        )
+      ),
+    });
+  }
+
+  /**
+   * @stable [28.03.2021]
+   */
+  private readonly awaitLib = (): Promise<HTMLScriptElement> =>
+    this.asyncLibManager
+      .waitForLib({alias: AsyncLibsEnum.GOOGLE_MAPS});
 }
