@@ -9,6 +9,7 @@ import {
   isUseZipCode,
   nvl,
   ObjectUtils,
+  PromiseUtils,
   PropsUtils,
   uuid,
 } from '../../../util';
@@ -24,7 +25,7 @@ import {
   IPlaceEntity,
   IPlaceFieldProps,
   IPlaceFieldState,
-  IPlaceGeoCodeRequestEntity,
+  IPlaceGeoCodeApiRequest,
   IPlaceSelectOptionEntity,
   IPresetsMenuItemEntity,
   PlaceEntityValueT,
@@ -155,15 +156,15 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [11.01.2020]
-   * @param {IPlaceGeoCodeRequestEntity} geoCodeRequest
-   * @param {IPlaceSelectOptionEntity} option
+   * @stable [28.03.2021]
+   * @param apiRequest
+   * @param option
    */
-  private refreshGeocodeInfo(geoCodeRequest: IPlaceGeoCodeRequestEntity, option?: IPlaceSelectOptionEntity): void {
+  private refreshGeocodeInfo(apiRequest: IPlaceGeoCodeApiRequest, option?: IPlaceSelectOptionEntity): void {
     this.cancelPlaceGeoCodeTask();
 
     this.setState({progress: true}, () => {
-      this.placeGeoCodeTask = this.placeApi.getPlaceGeoCode<BPromise<IPlaceEntity[]>>(geoCodeRequest)
+      this.placeGeoCodeTask = this.placeApi.getPlaceGeoCode(apiRequest)
         .then(
           (result) => {
             this.setState({progress: false});
@@ -255,18 +256,11 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [27.03.2021]
    */
   private cancelPlaceGeoCodeTask(): void {
-    ConditionUtils.ifNotNilThanValue(
-      this.placeGeoCodeTask,
-      (promise) => {
-        if (promise.isPending()) {
-          promise.cancel();
-        }
-        this.placeGeoCodeTask = null;
-      }
-    );
+    PromiseUtils.cancel(this.placeGeoCodeTask);
+    this.placeGeoCodeTask = null;
   }
 
   /**
