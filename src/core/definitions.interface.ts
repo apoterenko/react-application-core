@@ -460,6 +460,7 @@ export interface IPrimaryFilterWrapper<TValue> { primaryFilter?: TValue; }
 export interface IProfileWrapper<TValue> { profile?: TValue; }
 export interface IProgressMessageWrapper<TValue = string> { progressMessage?: TValue; }
 export interface IProgressWrapper<TValue = boolean> { progress?: TValue; }
+export interface IProjectIdWrapper<TValue = number> { projectId?: TValue; }
 export interface IProxyContainerWrapper<TValue> { proxyContainer?: TValue; }
 export interface IQueryFilterWrapper<TValue> { queryFilter?: TValue; }
 export interface IQueryParamsWrapper<TValue> { queryParams?: TValue; }

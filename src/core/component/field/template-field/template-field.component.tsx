@@ -200,13 +200,16 @@ export class TemplateField extends Field<ITemplateFieldProps> {
       tags,
       user,
     } = this.originalProps;
+    const {
+      projectId,
+    } = this.mergedProps;
 
     const id = this.id;
     const editor = this.editor = this.environment.window.unlayer.createEditor({
       displayMode: 'email',
       id,
       mergeTags: tags,
-      projectId: 12653,
+      projectId,
       user,
     });
 
