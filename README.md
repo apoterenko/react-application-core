@@ -35,6 +35,12 @@ The library is designed to quickly start develop the business applications are b
 
 # Classes & markers
 
+* @action-builder
+* @component-impl
+* @service
+* @service-impl
+* @utils
+
 #### @action-builder
 
 * [FilterFormDialogActionBuilder (08.09.2020)](src/core/action/filter-form-dialog-action.builder.ts)
@@ -122,6 +128,10 @@ The library is designed to quickly start develop the business applications are b
 #### @service-impl
 
 * [AsyncLibManager (26.03.2021)](src/core/async-lib/async-lib-manager.service.ts)
+
+#### @utils
+
+* [promise (28.03.2021)](src/core/promise/promise.ts)
 
 # Utils
 
