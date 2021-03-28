@@ -128,6 +128,7 @@ The library is designed to quickly start develop the business applications are b
 #### @service-impl
 
 * [AsyncLibManager (26.03.2021)](src/core/async-lib/async-lib-manager.service.ts)
+* [GooglePlaceApi (28.03.2021)](src/core/api/place/google/google-place-api.service.ts)
 
 #### @utils
 
