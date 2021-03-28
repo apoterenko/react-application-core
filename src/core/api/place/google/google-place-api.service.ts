@@ -80,10 +80,15 @@ export class GooglePlaceApi implements IPlaceApi {
       query = ' ',
     } = request || {};
 
-    const settingsCountry = this.settings?.googleMaps?.componentRestrictions?.country || {};
-
     return FilterUtils.notNilValuesFilter<google.maps.places.AutocompletionRequest, google.maps.places.AutocompletionRequest>({
-      componentRestrictions: FilterUtils.notNilValuesFilter({country: NvlUtils.nvl(country, settingsCountry)}),
+      componentRestrictions: FilterUtils.notNilValuesFilter<google.maps.places.ComponentRestrictions, google.maps.places.ComponentRestrictions>(
+        {
+          country: NvlUtils.nvl(
+            country,
+            this.settings?.googleMaps?.componentRestrictions?.country
+          ),
+        }
+      ),
       input: query,
     });
   }
