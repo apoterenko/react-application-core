@@ -6,7 +6,7 @@ import {
 import {
   DictionariesEnum,
   IPlaceApi,
-  ISearchPlaceEntity,
+  ISimplePlaceEntity,
 } from '../definition';
 import {
   DI_TYPES,
@@ -25,6 +25,6 @@ export class DictionariesEffects {
    * @param action
    */
   @EffectsService.effects(DictionariesActionBuilder.buildLoadActionType(DictionariesEnum.PLACES))
-  public readonly $onSearchPlaces = (action: IEffectsAction): Promise<ISearchPlaceEntity[]> =>
+  public readonly $onSearchPlaces = (action: IEffectsAction): Promise<ISimplePlaceEntity[]> =>
     this.placesApi.searchPlaces(Selectors.payloadFromAction(action))
 }

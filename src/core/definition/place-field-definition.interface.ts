@@ -1,23 +1,10 @@
 import {
-  IAreaWrapper,
-  ICityWrapper,
-  ICountryWrapper,
   IDialogClassNameWrapper,
   IDialogOpenedWrapper,
-  IFormattedNameWrapper,
-  ILatWrapper,
-  ILngWrapper,
   IPlaceActionRenderedWrapper,
-  IPlaceEntityWrapper,
-  IPlaceIdWrapper,
   IProgressWrapper,
-  IRegionWrapper,
-  IStreetNumberWrapper,
-  IStreetWrapper,
   IUseZipCodeWrapper,
-  IZipCodeWrapper,
 } from '../definitions.interface';
-import { INamedEntity } from './entity-definition.interface';
 import {
   IBaseSelectProps,
   IBaseSelectState,
@@ -30,6 +17,10 @@ import {
 } from './select-definition.interface';
 import { DEFAULT_NO_AUTO_COMPLETE_FIELD_ENTITY } from './field-definition.interface';
 import { DEFAULT_UNLIMITED_HEIGHT_MENU_ENTITY } from './menu-definition.interface';
+import {
+  IPlaceEntity,
+  IPlaceEntityWrapperEntity,
+} from './place-definition.interface';
 
 /**
  * @stable [09.01.2020]
@@ -42,46 +33,8 @@ export enum PlaceMarkerActionsEnum {
  * @entity
  * @stable [09.01.2020]
  */
-export interface ILatLngEntity
-  extends ILatWrapper,
-    ILngWrapper {
-}
-
-/**
- * @entity
- * @stable [09.01.2020]
- */
-export interface IPlaceEntity<TCity = string>
-  extends IAreaWrapper,
-    ICityWrapper<TCity>,
-    ICountryWrapper,
-    IFormattedNameWrapper,
-    ILatLngEntity,
-    IPlaceIdWrapper,
-    IRegionWrapper,
-    IStreetNumberWrapper,
-    IStreetWrapper,
-    IZipCodeWrapper {
-}
-
-/**
- * @stable [17.05.2020]
- */
-export type PlaceEntityValueT = IPlaceEntity | string;
-
-/**
- * @entity
- * @stable [09.01.2020]
- */
 export interface IPlaceSelectOptionEntity
   extends IPresetsSelectOptionEntity<IPlaceEntity> {
-}
-
-/**
- * @stable [09.01.2020]
- */
-export interface IPlaceEntityWrapperEntity<TCity = string>
-  extends IPlaceEntityWrapper<IPlaceEntity<TCity>> {
 }
 
 /**
@@ -130,22 +83,6 @@ export interface IGenericPlaceFieldState
 export interface IPlaceFieldState
   extends IBaseSelectState,
     IGenericPlaceFieldState {
-}
-
-/**
- * @stable [09.01.2020]
- */
-export interface IPlaceGeoCodeRequestEntity
-  extends ICountryWrapper,
-    ILatLngEntity,
-    IPlaceIdWrapper {
-}
-
-/**
- * @stable [10.01.2020]
- */
-export interface ISearchPlaceEntity
-  extends INamedEntity {
 }
 
 /**

@@ -10,10 +10,6 @@ import {
 } from '../definitions.interface';
 import { IExtendedEntity } from './entity-definition.interface';
 import { IOperationEntity } from './operation-definition.interface';
-import {
-  IPlaceGeoCodeRequestEntity,
-  ISearchPlacesEntity,
-} from './place-field-definition.interface';
 import { IFluxEntity } from './flux-definition.interface';
 
 /**
@@ -43,14 +39,6 @@ export interface IUpdateEntity<TEntity extends IEntity, TExtraParams = IKeyValue
     IEditApiWrapper,
     IExtraParamsWrapper<TExtraParams>,
     IOperationWrapper<IOperationEntity> {
-}
-
-/**
- * TODO Move to place definition
- */
-export interface IPlaceApi {
-  getPlaceGeoCode<TResult>(request: IPlaceGeoCodeRequestEntity): TResult;
-  searchPlaces<TResult>(request: ISearchPlacesEntity): TResult;
 }
 
 /**

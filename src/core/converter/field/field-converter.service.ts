@@ -19,6 +19,7 @@ import {
   IPlaceEntity,
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
+  ISimplePlaceEntity,
   MultiFieldValueT,
   NotMultiFieldValueT,
   PlaceEntityValueT,
@@ -35,6 +36,7 @@ import {
   PlaceUtils,
   SelectOptionUtils,
   TypeUtils,
+  UuidUtils,
 } from '../../util';
 import {
   AnyT,
@@ -59,13 +61,20 @@ export class FieldConverter implements IFieldConverter {
    * @stable [09.01.2020]
    */
   constructor() {
+    this.fromAutocompletePredictionToSimplePlaceEntity = this.fromAutocompletePredictionToSimplePlaceEntity.bind(this);
+    this.fromGeoCodeResultToPlaceEntity = this.fromGeoCodeResultToPlaceEntity.bind(this);
     this.fromNamedEntityToRawDataLabeledValueEntity = this.fromNamedEntityToRawDataLabeledValueEntity.bind(this);
     this.zipCodeEntityAsDisplayValue = this.zipCodeEntityAsDisplayValue.bind(this);
 
     this.register({
       from: FieldConverterTypesEnum.GEO_CODER_RESULT,
       to: FieldConverterTypesEnum.PLACE_ENTITY,
-      converter: asPlaceEntity,
+      converter: this.$fromGeoCodeResultToPlaceEntity,
+    });
+    this.register({
+      from: FieldConverterTypesEnum.AUTOCOMPLETE_PREDICTION,
+      to: FieldConverterTypesEnum.SIMPLE_PLACE_ENTITY,
+      converter: this.$fromAutocompletePredictionToSimplePlaceEntity,
     });
     this.register({
       from: FieldConverterTypesEnum.PLACE_ENTITY,
@@ -327,6 +336,30 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
+   * @stable [28.03.2021]
+   * @param value
+   */
+  public fromGeoCodeResultToPlaceEntity(value: google.maps.GeocoderResult | google.maps.places.PlaceResult): IPlaceEntity {
+    return this.convert({
+      from: FieldConverterTypesEnum.GEO_CODER_RESULT,
+      to: FieldConverterTypesEnum.PLACE_ENTITY,
+      value,
+    });
+  }
+
+  /**
+   * @stable [28.03.2021]
+   * @param value
+   */
+  public fromAutocompletePredictionToSimplePlaceEntity(value: google.maps.places.AutocompletePrediction): ISimplePlaceEntity {
+    return this.convert({
+      from: FieldConverterTypesEnum.AUTOCOMPLETE_PREDICTION,
+      to: FieldConverterTypesEnum.SIMPLE_PLACE_ENTITY,
+      value,
+    });
+  }
+
+  /**
    * @stable [04.09.2020]
    * @param value
    */
@@ -460,6 +493,19 @@ export class FieldConverter implements IFieldConverter {
    */
   private $fromPlaceEntityToDisplayValue(placeEntity: PlaceEntityValueT): string {
     return PlaceUtils.fromPlaceEntityToDisplayValue(placeEntity);
+  }
+
+  // TODO
+  private $fromGeoCodeResultToPlaceEntity(placeEntity: google.maps.GeocoderResult | google.maps.places.PlaceResult): IPlaceEntity {
+    return asPlaceEntity(placeEntity);
+  }
+
+  // TODO
+  private $fromAutocompletePredictionToSimplePlaceEntity(value: google.maps.places.AutocompletePrediction): ISimplePlaceEntity {
+    return {
+      id: value.place_id || UuidUtils.uuid(),
+      name: value.description,
+    };
   }
 
   /**

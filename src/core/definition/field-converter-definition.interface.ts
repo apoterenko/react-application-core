@@ -10,8 +10,10 @@ import {
 import {
   IMultiFieldValueMergeConfigEntity,
   INamedEntity,
+  IPlaceEntity,
   IPresetsRawDataLabeledValueEntity,
   IReduxUserEntity,
+  ISimplePlaceEntity,
   MultiFieldValueT,
   NotMultiFieldValueT,
   PlaceEntityValueT,
@@ -22,6 +24,7 @@ import {
  * @stable [09.01.2020]
  */
 export enum FieldConverterTypesEnum {
+  AUTOCOMPLETE_PREDICTION = 'AUTOCOMPLETE_PREDICTION',
   CRON_EXPRESSION = 'CRON_EXPRESSION',
   CRON_PARAMETER = 'CRON_PARAMETER',
   DATES_RANGE_ENTITY = 'DATES_RANGE_ENTITY',
@@ -41,6 +44,7 @@ export enum FieldConverterTypesEnum {
   RAW_DATA_LABELED_VALUE_ENTITY = 'RAW_DATA_LABELED_VALUE_ENTITY',
   RAW_VALUE = 'RAW_VALUE',
   SELECT_VALUE = 'SELECT_VALUE',
+  SIMPLE_PLACE_ENTITY = 'SIMPLE_PLACE_ENTITY',
   TRUE_ENTITIES_OBJECT = 'TRUE_ENTITIES_OBJECT',
   USER_ENTITY = 'USER_ENTITY',
   ZIP_CODE_ENTITY = 'ZIP_CODE_ENTITY',
@@ -64,7 +68,9 @@ export interface IFieldConverter {
   // tslint:disable:max-line-length
   convert<TResult = unknown>(config: IFieldConverterConfigEntity): TResult;                                                                                                     /* @stable [01.09.2020] */
   converter(config: IFieldConverterConfigEntity): (value: unknown) => unknown;                                                                                                  /* @stable [01.09.2020] */
+  fromAutocompletePredictionToSimplePlaceEntity(value: google.maps.places.AutocompletePrediction): ISimplePlaceEntity;                                                          /* @stable [28.03.2021] */
   fromCronExpressionToCronParameter(value: string): string;
+  fromGeoCodeResultToPlaceEntity(value: google.maps.GeocoderResult | google.maps.places.PlaceResult): IPlaceEntity;                                                             /* @stable [28.03.2021] */
   fromMultiFieldValueToDefinedEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                                                        /* @stable [29.08.2020] */
   fromMultiFieldValueToEditEntities<TEntity extends IEntity = IEntity>(value: MultiFieldValueT<TEntity>): TEntity[];                                                            /* @stable [03.09.2020] */
   fromMultiFieldValueToEntities<TEntity extends IEntity = IEntity>(entity: MultiFieldValueT<TEntity>): TEntity[];                                                               /* @stable [29.08.2020] */
