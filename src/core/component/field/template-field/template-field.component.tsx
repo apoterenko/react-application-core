@@ -4,7 +4,6 @@ import * as R from 'ramda';
 import { Field } from '../field/field.component';
 import {
   AsyncLibsEnum,
-  IFieldInputProps,
   IUnlayerEditorEntity,
   IUnlayerEditorMetaEntity,
   SyntheticEmitterEventsEnum,
