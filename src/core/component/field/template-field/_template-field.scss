@@ -6,6 +6,8 @@
   // @stable [28.03.2021]
   @include rac-field (
     $rac-field-custom: $rac-template-field-cls,
+    $rac-field-attachment-child-position: $rac-template-field-attachment-child-position,
+    $rac-field-attachment-position: $rac-template-field-attachment-position,
     $rac-field-min-height: $rac-template-field-min-height
   );
 }
