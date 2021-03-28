@@ -5,6 +5,7 @@ import * as Printf from 'sprintf-js';
 import {
   AnyT,
   IChangeEvent,
+  UNDEF,
   UniCodesEnum,
 } from '../../../definitions.interface';
 import {
@@ -156,7 +157,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
     if (this.isKeyboardUsed) {
-      if (this.isKeyboardOpen && !R.equals(this.originalProps.value, prevProps.value)) {
+      if (this.isKeyboardOpen && this.isCurrentValueNotEqualPreviousValue(prevProps)) {
         this.refreshCaretPosition();
       }
     } else if (prevProps.useKeyboard) {
@@ -318,6 +319,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
 
     ConditionUtils.ifNotNilThanValue(this.originalProps.onClear, (onClear) => onClear());
     this.setFocus();
+  }
+
+  /**
+   * @stable [27.03.2021]
+   * @param prevProps
+   */
+  protected isCurrentValueNotEqualPreviousValue(prevProps: TProps): boolean {
+    return !R.equals(this.originalProps.value, prevProps.value);
   }
 
   /**
@@ -634,12 +643,20 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       this.attachmentBodyElement,
       (attachmentBodyElement) => (
         <div
+          id={this.attachmentElementId}
           className={FieldClassesEnum.ATTACHMENT}
         >
           {attachmentBodyElement}
         </div>
       )
     );
+  }
+
+  /**
+   * @stable [27.03.2021]
+   */
+  protected get attachmentElementId(): string {
+    return UNDEF;
   }
 
   /**
