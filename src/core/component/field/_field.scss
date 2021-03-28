@@ -6,6 +6,7 @@
 @import './select/_select';
 @import './slider-field/_slider-field';
 @import './switch/_switch';
+@import './template-field/_template-field';
 @import './text-area/_text-area';
 @import './text-field/_text-field';
 @import './view-field/_view-field';
@@ -16,6 +17,7 @@
 
   // @stable [16.10.2020]
   @include rac-field (
+    $rac-field-attachment-flex-grow: $rac-field-attachment-flex-grow,
     $rac-field-attachment-margin: $rac-field-attachment-margin,
     $rac-field-display: $rac-field-display,
     $rac-field-error-message-color: $rac-field-error-message-color,
@@ -24,6 +26,7 @@
     $rac-field-message-font-size: $rac-field-message-font-size,
     $rac-field-message-line-height: $rac-field-message-line-height,
     $rac-field-message-margin: $rac-field-message-margin,
+    $rac-self-field-attachment-sibling-margin: $rac-self-field-attachment-sibling-margin,
     $rac-self-field-background: $rac-self-field-background,
     $rac-self-field-box-sizing: $rac-self-field-box-sizing,
     $rac-self-field-display: $rac-self-field-display,

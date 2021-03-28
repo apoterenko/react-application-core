@@ -8,6 +8,7 @@
   /**/
   $rac-field-align-items: unset,                                                    /* @stable [19.06.2020] */
   $rac-field-attachment-display: unset,                                             /* @stable [19.06.2020] */
+  $rac-field-attachment-flex-grow: unset,                                           /* @stable [28.03.2021] */
   $rac-field-attachment-margin: unset,                                              /* @stable [19.06.2020] */
   $rac-field-attachment-neighbor-child-margin: unset,                               /* @stable [19.06.2020] */
   $rac-field-attachment-position: unset,                                            /* @stable [19.06.2020] */
@@ -28,6 +29,7 @@
   $rac-field-message-line-height: unset,                                            /* @stable [19.06.2020] */
   $rac-field-message-margin: unset,                                                 /* @stable [21.06.2020] */
   $rac-field-message-opacity: unset,                                                /* @stable [21.06.2020] */
+  $rac-field-min-height: unset,                                                     /* @stable [28.03.2021] */
   $rac-field-min-width: unset,                                                      /* @stable [25.02.2021] */
   $rac-field-overflow: unset,                                                       /* @stable [23.01.2020] */
   $rac-field-padding: unset,                                                        /* @stable [18.06.2020] */
@@ -37,6 +39,7 @@
   $rac-field-width: unset,                                                          /* @stable [18.06.2020] */
   $rac-field-word-break: unset,                                                     /* @stable [23.09.2020] */
   $rac-self-field-align-items: unset,                                               /* @stable [24.10.2019] */
+  $rac-self-field-attachment-sibling-margin: unset,                                 /* @stable [28.03.2021] */
   $rac-self-field-background: unset,                                                /* @stable [21.10.2019] */
   $rac-self-field-border-bottom: unset,                                             /* @stable [18.06.2020] */
   $rac-self-field-border-color: unset,                                              /* @stable [21.10.2019] */
@@ -156,6 +159,7 @@
       $rac-styles-justify-content: $rac-field-justify-content,
       $rac-styles-margin-top: $rac-field-margin-top,
       $rac-styles-margin: $rac-field-margin,
+      $rac-styles-min-height: $rac-field-min-height,
       $rac-styles-min-width: $rac-field-min-width,
       $rac-styles-overflow: $rac-field-overflow,
       $rac-styles-padding: $rac-field-padding,
@@ -186,6 +190,12 @@
         $rac-styles-padding-top: $rac-self-field-padding-top,
         $rac-styles-position: $rac-self-field-position
       );
+
+      & + .rac-field__attachment {
+        @include rac-styles (
+          $rac-styles-margin: $rac-self-field-attachment-sibling-margin
+        );
+      }
 
       > {
         @include rac-styles (
@@ -357,6 +367,7 @@
       .rac-field__attachment {
         @include rac-styles (
           $rac-styles-display: $rac-field-attachment-display,
+          $rac-styles-flex-grow: $rac-field-attachment-flex-grow,
           $rac-styles-margin: $rac-field-attachment-margin,
           $rac-styles-position: $rac-field-attachment-position
         );

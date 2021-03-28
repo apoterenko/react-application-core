@@ -1,0 +1,11 @@
+@import './template-field-constant';
+@import '../_field-mixin';
+
+.rac {
+
+  // @stable [28.03.2021]
+  @include rac-field (
+    $rac-field-custom: $rac-template-field-cls,
+    $rac-field-min-height: $rac-template-field-min-height
+  );
+}

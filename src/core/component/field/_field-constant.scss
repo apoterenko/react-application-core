@@ -2,7 +2,8 @@
 @import '../_classes';
 
 // @stable [19.06.2020]
-$rac-field-attachment-margin: $rac-primary-offset-1 0 0 0 !default;                           /* @stable [16.10.2020] */
+$rac-field-attachment-flex-grow: $rac-primary-flex-grow-1 !default;                           /* @stable [28.03.2021] */
+$rac-field-attachment-margin: unset !default;                                                 /* @stable [28.03.2021] */
 $rac-field-display: $rac-primary-display-0 !default;                                          /* @stable [19.06.2020] */
 $rac-field-error-message-color: $rac-primary-color-dia-0 !default;                            /* @stable [20.06.2020] */
 $rac-field-flex-direction: $rac-primary-flex-direction-0 !default;                            /* @stable [19.06.2020] */
@@ -10,6 +11,7 @@ $rac-field-message-color: $rac-primary-color-poseidon-5 !default;               
 $rac-field-message-font-size: 10px !default;                                                  /* @stable [19.06.2020] */
 $rac-field-message-line-height: $rac-primary-line-height-2 !default;                          /* @stable [19.06.2020] */
 $rac-field-message-margin: 2px 0 0 0 !default;                                                /* @stable [21.06.2020] */
+$rac-self-field-attachment-sibling-margin: $rac-primary-offset-1 0 0 0 !default;              /* @stable [28.03.2021] */
 $rac-self-field-background: unset !default;                                                   /* @stable [19.06.2020] */
 $rac-self-field-box-sizing: border-box !default;                                              /* @stable [19.06.2020] */
 $rac-self-field-display: $rac-primary-display-0 !default;                                     /* @stable [19.06.2020] */
