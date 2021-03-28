@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import * as BPromise from 'bluebird';
 
 import { Menu } from '../../menu';
 import {
@@ -9,7 +8,6 @@ import {
   ConditionUtils,
   DelayedTask,
   FilterUtils,
-  isArrayNotEmpty,
   NvlUtils,
   ObjectUtils,
   TypeUtils,
@@ -46,7 +44,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   private dbClickEventListener: google.maps.MapsEventListener;
   private directionsService: google.maps.DirectionsService;
   private draggedMarkerId: string;
-  private googleMapsLibTask: BPromise<void>;
+  private googleMapsLibTask: Promise<HTMLScriptElement>;
   private heatMapLayer: google.maps.visualization.HeatmapLayer;
   private map: google.maps.Map;
   private markers = new Map<string, google.maps.Marker>();
@@ -63,13 +61,13 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     super(props);
 
     this.addHeatMapLayer = this.addHeatMapLayer.bind(this);
-    this.onGoogleMapsReady = this.onGoogleMapsReady.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
     this.onMapDbClick = this.onMapDbClick.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMarkerMouseOut = this.onMarkerMouseOut.bind(this);
     this.onMarkerMouseOver = this.onMarkerMouseOver.bind(this);
     this.onMenuSelect = this.onMenuSelect.bind(this);
+    this.onScriptInit = this.onScriptInit.bind(this);
     this.openMenu = this.openMenu.bind(this);
 
     if (this.haveMenuOptions) {
@@ -103,9 +101,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @stable [09.01.2020]
    */
   public componentDidMount(): void {
-    this.googleMapsLibTask = this.asyncLibManager
-      .waitForLib<BPromise<HTMLScriptElement>>({alias: AsyncLibsEnum.GOOGLE_MAPS})
-      .then(() => this.onGoogleMapsReady());
+    this.googleMapsLibTask = this.createGoogleMapsLibTask();
 
     // It seems google doesn't stop mouse wheel propagate event.
     this.wheelListenerUnsubscriber = this.domAccessor.captureEvent({
@@ -252,8 +248,10 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {IGoogleMapsHeatMapLayerConfigEntity} cfg
    */
   public addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void {
-    const {points} = cfg;
-    const isArrayOfPointsNotEmpty = isArrayNotEmpty(points);
+    const {
+      points,
+    } = cfg;
+    const isArrayOfPointsNotEmpty = ObjectUtils.isObjectNotEmpty(points);
 
     if (isArrayOfPointsNotEmpty) {
       this.heatMapLayer = new google.maps.visualization.HeatmapLayer({
@@ -483,7 +481,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   /**
    * @stable [28.07.2020]
    */
-  private onGoogleMapsReady(): void {
+  private onScriptInit(script: HTMLScriptElement): HTMLScriptElement {
     const {
       initialMarkers,
       onInit,
@@ -526,6 +524,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     );
 
     ConditionUtils.ifNotNilThanValue(onInit, () => onInit(this.map));
+    return script;
   }
 
   /**
@@ -542,8 +541,17 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @stable [09.01.2020]
    */
   private cancelGoogleMapsLibTask(): void {
-    this.asyncLibManager.cancelWaiting<BPromise<void>>(this.googleMapsLibTask);
+    this.asyncLibManager.cancelWaiting(this.googleMapsLibTask);
     this.googleMapsLibTask = null;
+  }
+
+  /**
+   * @stable [28.03.2021]
+   */
+  private createGoogleMapsLibTask(): Promise<HTMLScriptElement> {
+    return this.asyncLibManager
+      .waitForLib({alias: AsyncLibsEnum.GOOGLE_MAPS})
+      .then(this.onScriptInit);
   }
 
   /**
