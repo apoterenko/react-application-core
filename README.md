@@ -131,7 +131,7 @@ The library is designed to quickly start develop the business applications are b
 
 #### @utils
 
-* [promise (28.03.2021)](src/core/promise/promise.ts)
+* [promise (28.03.2021)](src/core/util/promise.ts)
 
 # Utils
 
