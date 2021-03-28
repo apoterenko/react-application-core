@@ -16,8 +16,8 @@ import { IFluxEntity } from './flux-definition.interface';
 export interface IPresetsSaveAsNewTemplateEntity
   extends IFieldWrapper<React.RefObject<IField>>,
     IFormWrapper<JSX.Element>,
-    IOnBeforeDialogShowWrapper<SaveAsNewTemplateMenuActionsEnum>,
-    IOnSelectWrapper<SaveAsNewTemplateMenuActionsEnum> {
+    IOnBeforeDialogShowWrapper<SaveAsNewTemplateActionsEnum>,
+    IOnSelectWrapper<SaveAsNewTemplateActionsEnum> {
 }
 
 /**
@@ -42,14 +42,14 @@ export interface ISaveAsNewTemplateProps
  * @stable [24.03.2021]
  */
 export interface ISaveAsNewTemplateState
-  extends IActionWrapper<SaveAsNewTemplateMenuActionsEnum> {
+  extends IActionWrapper<SaveAsNewTemplateActionsEnum> {
 }
 
 /**
  * @enum
  * @stable [05.03.2021]
  */
-export enum SaveAsNewTemplateMenuActionsEnum {
+export enum SaveAsNewTemplateActionsEnum {
   DELETE,
   OVERWRITE,
   RESTORE,
@@ -61,8 +61,8 @@ export enum SaveAsNewTemplateMenuActionsEnum {
  * @stable [24.03.2021]
  * @flux-entity
  */
-export interface ISaveAsNewTemplateMenuActionFluxEntity
-  extends IFluxEntity<SaveAsNewTemplateMenuActionsEnum> {
+export interface ISaveAsNewTemplateActionFluxEntity
+  extends IFluxEntity<SaveAsNewTemplateActionsEnum> {
 }
 
 /**

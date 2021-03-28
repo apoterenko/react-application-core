@@ -1,8 +1,14 @@
 import * as React from 'react';
 
 import { Grid } from '../../grid';
-import { IGridFieldProps, IGridFieldState } from './gridfield.interface';
-import { MultiField, fromMultiItemEntitiesToFieldsChanges } from '../multifield';
+import {
+  IGridFieldProps,
+  IGridFieldState,
+} from './gridfield.interface';
+import {
+  MultiField,
+  fromMultiItemEntitiesToFieldsChanges,
+} from '../multifield';
 import {
   ClsUtils,
   PropsUtils,
@@ -17,14 +23,20 @@ import {
 
 export class GridField extends MultiField<IGridFieldProps, IGridFieldState> {
 
-  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IGridFieldProps>({}, MultiField);
+  /**
+   * @stable [28.03.2021]
+   */
+  public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<IGridFieldProps>({
+    errorMessageRendered: false,
+  }, MultiField);
 
   /**
-   * @stable [02.06.2018]
-   * @param {IGridFieldProps} props
+   * @stable [28.03.2021]
+   * @param originalProps
    */
-  constructor(props: IGridFieldProps) {
-    super(props);
+  constructor(originalProps: IGridFieldProps) {
+    super(originalProps);
+
     this.onChangeRowField = this.onChangeRowField.bind(this);
   }
 

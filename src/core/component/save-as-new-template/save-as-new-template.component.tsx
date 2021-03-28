@@ -16,7 +16,7 @@ import {
   ISaveAsNewTemplateProps,
   ISaveAsNewTemplateState,
   SaveAsNewTemplateClassesEnum,
-  SaveAsNewTemplateMenuActionsEnum,
+  SaveAsNewTemplateActionsEnum,
 } from '../../definition';
 import { Menu } from '../menu/menu.component';
 import { Dialog } from '../dialog/dialog.component';
@@ -97,7 +97,7 @@ export class SaveAsNewTemplate
                 form,
                 (): IPresetsSelectOptionEntity => ({
                   label: SAVE_AS_NEW,
-                  value: SaveAsNewTemplateMenuActionsEnum.SAVE_AS_NEW,
+                  value: SaveAsNewTemplateActionsEnum.SAVE_AS_NEW,
                 })
               ),
               ...ConditionUtils.ifNotNilThanValue(
@@ -105,19 +105,19 @@ export class SaveAsNewTemplate
                 (): IPresetsSelectOptionEntity[] => ([
                   {
                     label: SAVE_AS,
-                    value: SaveAsNewTemplateMenuActionsEnum.SAVE_AS,
+                    value: SaveAsNewTemplateActionsEnum.SAVE_AS,
                   },
                   {
                     label: OVERWRITE_WITH_NEW_SETTINGS,
-                    value: SaveAsNewTemplateMenuActionsEnum.OVERWRITE,
+                    value: SaveAsNewTemplateActionsEnum.OVERWRITE,
                   },
                   {
                     label: RESTORE_SETTINGS,
-                    value: SaveAsNewTemplateMenuActionsEnum.RESTORE,
+                    value: SaveAsNewTemplateActionsEnum.RESTORE,
                   },
                   {
                     label: DELETE,
-                    value: SaveAsNewTemplateMenuActionsEnum.DELETE,
+                    value: SaveAsNewTemplateActionsEnum.DELETE,
                   }
                 ]),
                 []
@@ -162,10 +162,10 @@ export class SaveAsNewTemplate
    * @stable [05.03.2021]
    * @param menuItem
    */
-  private onMenuItemSelect(menuItem: IPresetsMenuItemEntity<{}, SaveAsNewTemplateMenuActionsEnum>): void {
+  private onMenuItemSelect(menuItem: IPresetsMenuItemEntity<{}, SaveAsNewTemplateActionsEnum>): void {
     switch (menuItem.value) {
-      case SaveAsNewTemplateMenuActionsEnum.SAVE_AS:
-      case SaveAsNewTemplateMenuActionsEnum.SAVE_AS_NEW:
+      case SaveAsNewTemplateActionsEnum.SAVE_AS:
+      case SaveAsNewTemplateActionsEnum.SAVE_AS_NEW:
         if (this.hasSaveAsNewDialog) {
           this.setState({action: menuItem.value}, this.onActionSet);
         } else {
@@ -200,7 +200,7 @@ export class SaveAsNewTemplate
    * @stable [05.03.2021]
    * @param item
    */
-  private doSelectMenuItem(item: SaveAsNewTemplateMenuActionsEnum): void {
+  private doSelectMenuItem(item: SaveAsNewTemplateActionsEnum): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onSelect, (onSelect) => onSelect(item));
   }
 
