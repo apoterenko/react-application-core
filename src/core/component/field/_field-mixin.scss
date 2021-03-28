@@ -373,7 +373,7 @@
           $rac-styles-position: $rac-field-attachment-position
         );
 
-        > {
+        > * {
           @include rac-styles (
             $rac-styles-position: $rac-field-attachment-child-position
           );
