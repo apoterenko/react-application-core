@@ -6,6 +6,14 @@ import {
  * @entity
  * @stable [26.03.2021]
  */
+export interface IUnlayerEditorMergeTagsEntity
+  extends IKeyValue {
+}
+
+/**
+ * @entity
+ * @stable [26.03.2021]
+ */
 export interface IUnlayerEditorDesignEntity
   extends IKeyValue {
 }
