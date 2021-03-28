@@ -17,7 +17,6 @@ import {
 } from '../../../util';
 import { DnD } from '../../dnd/dnd.component';
 import {
-  AnyT,
   EntityIdT,
   IEntity,
 } from '../../../definitions.interface';
