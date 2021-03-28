@@ -602,11 +602,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [22.12.2020]
+   * @stable [28.03.2021]
    * @param content
-   * @protected
    */
   protected getSelfFieldWrapper(content: JSX.Element): JSX.Element {
+    if (R.isNil(content)) {
+      return null;
+    }
     return (
       <div
         ref={this.actualRef}
@@ -944,14 +946,22 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   private get selfElement(): JSX.Element {
     if (this.isFieldRendered) {
-      return this.getSelfFieldWrapper(
-        <React.Fragment>
-          {this.prefixLabelElement}
-          {this.inputWrapperElement}
-          {this.actionsElement}
-          {this.labelElement}
-          {this.progressInfoElement}
-        </React.Fragment>
+      const elements = FilterUtils.notNilValuesArrayFilter<JSX.Element>(
+        this.prefixLabelElement,
+        this.inputWrapperElement,
+        this.actionsElement,
+        this.labelElement,
+        this.progressInfoElement
+      );
+      return ConditionUtils.ifNotEmptyThanValue(
+        elements,
+        () => (
+          this.getSelfFieldWrapper(
+            <React.Fragment>
+              {...elements}
+            </React.Fragment>
+          )
+        )
       );
     }
     return this.inputWrapperElement;
