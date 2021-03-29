@@ -43,6 +43,7 @@ export class TemplateField extends Field<ITemplateFieldProps> {
   constructor(originalProps: ITemplateFieldProps) {
     super(originalProps);
 
+    this.exportHtml = this.exportHtml.bind(this);
     this.onScriptInit = this.onScriptInit.bind(this);
     this.onTemplateLoaded = this.onTemplateLoaded.bind(this);
     this.onTemplateUpdated = this.onTemplateUpdated.bind(this);
