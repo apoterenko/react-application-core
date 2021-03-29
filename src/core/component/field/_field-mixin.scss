@@ -7,10 +7,12 @@
   $rac-field-custom: unset,
   /**/
   $rac-field-align-items: unset,                                                    /* @stable [19.06.2020] */
+  $rac-field-attachment-border: unset,                                              /* @stable [29.03.2021] */
   $rac-field-attachment-child-position: unset,                                      /* @stable [28.03.2021] */
   $rac-field-attachment-display: unset,                                             /* @stable [19.06.2020] */
   $rac-field-attachment-flex-grow: unset,                                           /* @stable [28.03.2021] */
   $rac-field-attachment-margin: unset,                                              /* @stable [19.06.2020] */
+  $rac-field-attachment-min-width: unset,                                           /* @stable [29.03.2021] */
   $rac-field-attachment-neighbor-child-margin: unset,                               /* @stable [19.06.2020] */
   $rac-field-attachment-position: unset,                                            /* @stable [19.06.2020] */
   $rac-field-background: unset,                                                     /* @stable [19.06.2020] */
@@ -367,9 +369,11 @@
 
       .rac-field__attachment {
         @include rac-styles (
+          $rac-styles-border: $rac-field-attachment-border,
           $rac-styles-display: $rac-field-attachment-display,
           $rac-styles-flex-grow: $rac-field-attachment-flex-grow,
           $rac-styles-margin: $rac-field-attachment-margin,
+          $rac-styles-min-width: $rac-field-attachment-min-width,
           $rac-styles-position: $rac-field-attachment-position
         );
 

@@ -2,6 +2,8 @@
 @import '../../_primary-constant';
 
 // @stable [28.03.2021]
+$rac-template-field-attachment-border: 1px solid $rac-primary-color-metis-1 !default;
 $rac-template-field-attachment-child-position: absolute !default;
+$rac-template-field-attachment-min-width: 1024px !default;
 $rac-template-field-attachment-position: relative !default;
 $rac-template-field-min-height: 60vh !default;
