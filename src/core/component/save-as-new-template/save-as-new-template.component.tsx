@@ -43,6 +43,7 @@ export class SaveAsNewTemplate
     this.state = {};
 
     this.doShowMenu = this.doShowMenu.bind(this);
+    this.getMenuOptions = this.getMenuOptions.bind(this);
     this.onActionSet = this.onActionSet.bind(this);
     this.onDialogAccept = this.onDialogAccept.bind(this);
     this.onDialogDeactivate = this.onDialogDeactivate.bind(this);
@@ -56,19 +57,12 @@ export class SaveAsNewTemplate
     const originalProps = this.originalProps;
     const {
       className,
-      field,
       form,
       style,
     } = originalProps;
 
-    const fieldInstanceValue = field?.current?.value;
-
     const {
-      DELETE,
-      OVERWRITE_WITH_NEW_SETTINGS,
-      RESTORE_SETTINGS,
       SAVE,
-      SAVE_AS,
       SAVE_AS_NEW,
     } = this.settings.messages;
 
@@ -91,39 +85,7 @@ export class SaveAsNewTemplate
         />
         <Menu
           ref={this.actionsMenuRef}
-          options={() => (
-            FilterUtils.notNilValuesArrayFilter<IPresetsSelectOptionEntity>(
-              ConditionUtils.ifNotNilThanValue(
-                form,
-                (): IPresetsSelectOptionEntity => ({
-                  label: SAVE_AS_NEW,
-                  value: SaveAsNewTemplateActionsEnum.SAVE_AS_NEW,
-                })
-              ),
-              ...ConditionUtils.ifNotNilThanValue(
-                fieldInstanceValue,
-                (): IPresetsSelectOptionEntity[] => ([
-                  {
-                    label: SAVE_AS,
-                    value: SaveAsNewTemplateActionsEnum.SAVE_AS,
-                  },
-                  {
-                    label: OVERWRITE_WITH_NEW_SETTINGS,
-                    value: SaveAsNewTemplateActionsEnum.OVERWRITE,
-                  },
-                  {
-                    label: RESTORE_SETTINGS,
-                    value: SaveAsNewTemplateActionsEnum.RESTORE,
-                  },
-                  {
-                    label: DELETE,
-                    value: SaveAsNewTemplateActionsEnum.DELETE,
-                  }
-                ]),
-                []
-              ),
-            )
-          )}
+          options={this.getMenuOptions}
           anchorElement={this.actionsMenuAnchorRef.current}
           onSelect={this.onMenuItemSelect}/>
         {
@@ -140,6 +102,59 @@ export class SaveAsNewTemplate
           )
         }
       </div>
+    );
+  }
+
+  /**
+   * @stable [29.03.2021]
+   */
+  private getMenuOptions(): IPresetsSelectOptionEntity[] {
+    const originalProps = this.originalProps;
+    const {
+      field,
+      form,
+    } = originalProps;
+
+    const fieldInstanceValue = field?.current?.value;
+
+    const {
+      DELETE,
+      OVERWRITE_WITH_NEW_SETTINGS,
+      RESTORE_SETTINGS,
+      SAVE_AS,
+      SAVE_AS_NEW,
+    } = this.settings.messages;
+
+    return FilterUtils.notNilValuesArrayFilter<IPresetsSelectOptionEntity>(
+      ConditionUtils.ifNotNilThanValue(
+        form,
+        (): IPresetsSelectOptionEntity => ({
+          label: SAVE_AS_NEW,
+          value: SaveAsNewTemplateActionsEnum.SAVE_AS_NEW,
+        })
+      ),
+      ...ConditionUtils.ifNotNilThanValue(
+        fieldInstanceValue,
+        (): IPresetsSelectOptionEntity[] => ([
+          {
+            label: SAVE_AS,
+            value: SaveAsNewTemplateActionsEnum.SAVE_AS,
+          },
+          {
+            label: OVERWRITE_WITH_NEW_SETTINGS,
+            value: SaveAsNewTemplateActionsEnum.OVERWRITE,
+          },
+          {
+            label: RESTORE_SETTINGS,
+            value: SaveAsNewTemplateActionsEnum.RESTORE,
+          },
+          {
+            label: DELETE,
+            value: SaveAsNewTemplateActionsEnum.DELETE,
+          }
+        ]),
+        []
+      ),
     );
   }
 
