@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import { LoggerFactory } from 'ts-smart-logger';
 
 import { Field } from '../field/field.component';
 import {
@@ -24,6 +25,8 @@ import { ITemplateFieldProps } from '../../../definition';
  * @stable [26.03.2021]
  */
 export class TemplateField extends Field<ITemplateFieldProps> {
+
+  private static readonly logger = LoggerFactory.makeLogger('TemplateField');
 
   public static readonly defaultProps = PropsUtils.mergeWithParentDefaultProps<ITemplateFieldProps>({
     fieldRendered: false,
@@ -143,7 +146,16 @@ export class TemplateField extends Field<ITemplateFieldProps> {
   private loadDesign(initialValue: string): void {
     ConditionUtils.ifNotNilThanValue(
       Base64Utils.base64ToJson(initialValue),
-      (templateAsJson) => this.editor.loadDesign(templateAsJson)
+      (templateAsJson) => {
+        if (TypeUtils.isObject(templateAsJson)) {
+          this.editor.loadDesign(templateAsJson);
+        } else {
+          TemplateField.logger.debug(
+            '[$TemplateField][loadDesign] The template is invalid. Do nothing. Template:',
+            templateAsJson
+          );
+        }
+      }
     );
   }
 
