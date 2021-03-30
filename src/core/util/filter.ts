@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import {
   AnyT,
   EntityIdT,
+  IActiveWrapper,
   IEntity,
   IEntityIdTWrapper,
   IKeyValue,
@@ -76,13 +77,22 @@ const EXCLUDE_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(FieldConstants.
 const EXCLUDE_ENTITY_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(FieldConstants.ENTITY_ID_FIELD_NAME);
 
 /**
- * @stable [09.01.2019]
- * @param {IEntity} entity1
- * @param {IEntity} entity2
+ * @stable [30.03.2021]
+ * @param entity1
+ * @param entity2
  */
-export const SAME_ENTITY_PREDICATE =
-  <TEntity extends IEntityIdTWrapper = IEntityIdTWrapper>(entity1: TEntity, entity2: TEntity) =>
+const SAME_ENTITY_PREDICATE =
+  <TEntity extends IEntityIdTWrapper = IEntityIdTWrapper>(entity1: TEntity, entity2: TEntity): boolean =>
     entity1 === entity2 || (!R.isNil(entity1) && !R.isNil(entity2) && entity1.id === entity2.id);
+
+/**
+ * @wrapper-predicate
+ *
+ * @stable [30.03.2021]
+ * @param entity
+ */
+const ACTIVE_WRAPPER_PREDICATE =
+  <TEntity extends IActiveWrapper = IActiveWrapper>(entity: TEntity): boolean => entity?.active === true;
 
 /**
  * @stable [29.08.2020]
@@ -315,6 +325,7 @@ const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
  * @stable [15.05.2020]
  */
 export class FilterUtils {
+  public static readonly ACTIVE_WRAPPER_PREDICATE = ACTIVE_WRAPPER_PREDICATE;
   public static readonly cloneByFilters = cloneByFilters;
   public static readonly defValuesArrayFilter = defValuesArrayFilter;
   public static readonly defValuesFilter = defValuesFilter;
