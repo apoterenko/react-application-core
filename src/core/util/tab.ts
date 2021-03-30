@@ -7,26 +7,20 @@ import { Selectors } from './select';
 import { ConditionUtils } from './cond';
 
 /**
- * @stable [29.07.2020]
- * @param activeValueHolderEntity
+ * @stable [30.03.2021]
+ * @param holderEntity
  * @param tabEntity
  */
-const isTabActive = (activeValueHolderEntity: IReduxActiveValueHolderEntity,
+const isTabActive = (holderEntity: IReduxActiveValueHolderEntity,
                      tabEntity: IPresetsTabEntity): boolean =>
   ConditionUtils.ifNotNilThanValue(
-    activeValueHolderEntity,
-    () => (
-      ConditionUtils.ifNotNilThanValue(
-        activeValueHolderEntity.activeValue,
-        (activeValue) => activeValue === tabEntity.value,
-        !!tabEntity.active
-      )
-    ),
-    false
+    holderEntity?.activeValue,
+    (activeValue) => activeValue === tabEntity.value,
+    !!tabEntity.active
   );
 
 /**
- * @stable [29.07.2020]
+ * @stable [30.03.2021]
  * @param tabPanelHolderEntity
  * @param tabEntity
  */
@@ -35,9 +29,10 @@ const isTabHolderActive = (tabPanelHolderEntity: IReduxTabPanelHolderEntity,
   isTabActive(Selectors.tabPanel(tabPanelHolderEntity), tabEntity);
 
 /**
- * @stable [17.05.2020]
+ * @utils
+ * @stable [30.03.2021]
  */
 export class TabUtils {
-  public static isActive = isTabActive;                              /* @stable [17.05.2020] */
-  public static isHolderActive = isTabHolderActive;                  /* @stable [17.05.2020] */
+  public static isActive = isTabActive;                              /* @stable [30.03.2021] */
+  public static isHolderActive = isTabHolderActive;                  /* @stable [30.03.2021] */
 }
