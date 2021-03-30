@@ -272,6 +272,7 @@ export interface IIsMiddleSelectedWrapper<TValue> { isMiddleSelected?(payload?: 
 export interface IIsoWeekWrapper { isoWeek?: boolean; }
 export interface IIsSelectedWrapper<TValue> { isSelected?(payload?: TValue): boolean; }
 export interface IItemConfigurationWrapper<TValue> { itemConfiguration?: TValue; }
+export interface IItemPropsWrapper<TValue> { itemProps?: TValue; }
 export interface IItemsWrapper<TValue> { items?: TValue; }
 export interface IItemWrapper<TValue> { item?: TValue; }
 export interface IJustifyContentCenterWrapper { justifyContentCenter?: boolean; }
@@ -518,6 +519,7 @@ export interface ISelectedElementClassNameWrapper { selectedElementClassName?: s
 export interface ISelectedValueIgnoredWrapper { selectedValueIgnored?: boolean; }
 export interface ISelectedWrapper<TValue = boolean> { selected?: TValue; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
+export interface ISelfPropsWrapper<TValue> { selfProps?: TValue; }
 export interface ISelfWrapper<TValue> { self?: TValue; }
 export interface ISeparatorWrapper<TValue = string> { separator?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }

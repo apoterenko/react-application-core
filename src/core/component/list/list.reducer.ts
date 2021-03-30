@@ -14,7 +14,6 @@ import {
   notNilValuesFilter,
   nvl,
   NvlUtils,
-  SAME_ENTITY_PREDICATE,
   Selectors,
 } from '../../util';
 import { ListActionBuilder } from './list-action.builder';
@@ -136,7 +135,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
       if (!R.isNil(oldSelectedEntity)) {
         return {
           ...resultState,
-          selected: R.find((entity) => SAME_ENTITY_PREDICATE(entity, oldSelectedEntity), resultState.data)
+          selected: R.find((entity) => FilterUtils.SAME_ENTITY_PREDICATE(entity, oldSelectedEntity), resultState.data)
             || resultState.selected,
         };
       }
@@ -231,12 +230,12 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
        * @stable [08.06.2019]
        */
       const removedEntity = Selectors.payloadFromAction(action);
-      const filteredData = state.data.filter((entity) => !SAME_ENTITY_PREDICATE(entity, removedEntity));
+      const filteredData = state.data.filter((entity) => !FilterUtils.SAME_ENTITY_PREDICATE(entity, removedEntity));
       return {
         ...state,
         selected: ConditionUtils.ifNotNilThanValue(
           state.selected,
-          (selectedEntity) => NvlUtils.nvl(filteredData.find((itm) => SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
+          (selectedEntity) => NvlUtils.nvl(filteredData.find((itm) => FilterUtils.SAME_ENTITY_PREDICATE(itm, selectedEntity)), null)
         ),
         data: filteredData,
         totalCount: filteredData.length === state.data.length ? state.totalCount : --state.totalCount,

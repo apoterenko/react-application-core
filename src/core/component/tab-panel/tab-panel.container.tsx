@@ -72,7 +72,7 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
    * @param cfg
    */
   private onTabClick(cfg: ITabPanelOnCLickConfigEntity): void {
-    this.dispatchActiveValue(cfg.item.value);
+    this.dispatchActiveValue(cfg.itemProps.value);
   }
 
   /**

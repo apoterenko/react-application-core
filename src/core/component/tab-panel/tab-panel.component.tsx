@@ -84,9 +84,10 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
 
   /**
    * @stable [30.03.2021]
-   * @param item
+   * @param itemProps
    */
-  private onTabClick(item: ITabProps): void {
+  private onTabClick(itemProps: ITabProps): void {
+    const selfProps = this.originalProps;
     const {
       onClick,
     } = this.originalProps;
@@ -95,7 +96,11 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
 
     if (TypeUtils.isFn(onClick)) {
       const self = this;
-      onClick({item, self});
+      onClick({
+        itemProps,
+        self,
+        selfProps,
+      });
     }
   }
 
@@ -114,17 +119,18 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
 
   /**
    * @stable [30.03.2021]
-   * @param item
+   * @param itemProps
    * @param index
    * @param activeValue
    */
-  private asTabElement(item: ITabProps, index: number, activeValue: number): JSX.Element {
+  private asTabElement(itemProps: ITabProps, index: number, activeValue: number): JSX.Element {
     const {
       items,
       renderer,
     } = this.originalProps;
+    const selfProps = this.originalProps;
 
-    const isActiveTab = item.value === activeValue;
+    const isActiveTab = itemProps.value === activeValue;
     const isAfterActiveTab = items[index - 1]?.value === activeValue;
     const isBeforeActiveTab = items[index + 1]?.value === activeValue;
     const isLastTab = index === items.length - 1;
@@ -132,7 +138,7 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
 
     return (
       <div
-        key={`rac-tab-key-${item.value}`}
+        key={`rac-tab-key-${itemProps.value}`}
         className={
           ClsUtils.joinClassName(
             TabPanelClassesEnum.TAB,
@@ -144,25 +150,26 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
             isBeforeActiveTab && TabPanelClassesEnum.BEFORE_ACTIVE_TAB
           )
         }
-        {...PropsUtils.buildClickHandlerProps(() => this.onTabClick(item), true, false)}
+        {...PropsUtils.buildClickHandlerProps(() => this.onTabClick(itemProps), true, false)}
       >
         {
           TypeUtils.isFn(renderer)
             ? (
               renderer({
-                item,
                 contentWrapperElement: this.getContentWrapperElement,
+                itemProps,
+                selfProps,
               })
             )
             : (
-              item.icon
+              itemProps.icon
                 ? (
                   this.uiFactory.makeIcon({
                     className: TabPanelClassesEnum.TAB_ICON,
-                    type: item.icon,
+                    type: itemProps.icon,
                   })
                 )
-                : this.getContentWrapperElement(this.t(item.name))
+                : this.getContentWrapperElement(this.t(itemProps.name))
             )
         }
       </div>

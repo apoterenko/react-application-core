@@ -217,7 +217,7 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
       inlineOptions,
     } = this.originalProps;
 
-    if (R.isNil(inlineOptions)) {
+    if (!inlineOptions) {
       return null;
     }
     const options = this.options;

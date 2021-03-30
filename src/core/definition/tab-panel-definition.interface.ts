@@ -6,12 +6,13 @@ import {
   IContentWrapperElementWrapper,
   IEntity,
   IIconWrapper,
+  IItemPropsWrapper,
   IItemsWrapper,
-  IItemWrapper,
   INameWrapper,
   IOnClickWrapper,
   IOnDeactivateWrapper,
   IRendererWrapper,
+  ISelfPropsWrapper,
   ISelfWrapper,
   ITabPanelConfigurationWrapper,
   ITabPanelWrapper,
@@ -161,7 +162,8 @@ export interface IFormTabPanelContainerProps<TEntity = IEntity>
  */
 export interface ITabPanelRendererConfigEntity
   extends IContentWrapperElementWrapper<(content: React.ReactNode) => JSX.Element>,
-    IItemWrapper<ITabProps> {
+    IItemPropsWrapper<ITabProps>,
+    ISelfPropsWrapper<ITabPanelProps> {
 }
 
 /**
@@ -169,7 +171,8 @@ export interface ITabPanelRendererConfigEntity
  * @stable [30.03.2021]
  */
 export interface ITabPanelOnCLickConfigEntity
-  extends IItemWrapper<ITabProps>,
+  extends IItemPropsWrapper<ITabProps>,
+    ISelfPropsWrapper<ITabPanelProps>,
     ISelfWrapper<ITabPanel> {
 }
 
