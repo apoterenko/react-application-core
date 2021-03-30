@@ -4,8 +4,8 @@ import { GenericContainer } from '../base/generic.container';
 import { TabPanel } from './tab-panel.component';
 import {
   ITabPanelContainerProps,
+  ITabPanelOnCLickConfigEntity,
   ITabPanelProps,
-  ITabProps,
 } from '../../definition';
 import { Mappers } from '../../util';
 
@@ -68,11 +68,11 @@ export class TabPanelContainer<TProps extends ITabPanelContainerProps = ITabPane
   }
 
   /**
-   * @stable [12.04.2020]
-   * @param {ITabProps} tab
+   * @stable [30.03.2021]
+   * @param cfg
    */
-  private onTabClick(tab: ITabProps): void {
-    this.dispatchActiveValue(tab.value);
+  private onTabClick(cfg: ITabPanelOnCLickConfigEntity): void {
+    this.dispatchActiveValue(cfg.item.value);
   }
 
   /**

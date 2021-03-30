@@ -4,28 +4,32 @@ import * as R from 'ramda';
 import {
   CalcUtils,
   ClsUtils,
-  ifNotNilThanValue,
-  isFn,
+  FilterUtils,
   NumberUtils,
+  PropsUtils,
   TypeUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
 import {
-  IBaseEvent,
+  ITabPanel,
   ITabPanelProps,
   ITabProps,
   TabPanelClassesEnum,
 } from '../../definition';
 
-export class TabPanel extends GenericComponent<ITabPanelProps> {
+/**
+ * @component-impl
+ * @stable [30.03.2021]
+ */
+export class TabPanel extends GenericComponent<ITabPanelProps>
+  implements ITabPanel {
 
   public static readonly defaultProps: ITabPanelProps = {
     wrapped: true,
   };
 
   /**
-   * @stable [12.02.2020]
-   * @returns {JSX.Element}
+   * @stable [30.03.2021]
    */
   public render(): JSX.Element {
     const {
@@ -41,7 +45,7 @@ export class TabPanel extends GenericComponent<ITabPanelProps> {
     }
     const activeValue = this.activeValue;
 
-    const bodyEl = (
+    const el = (
       <div
         ref={this.actualRef}
         className={
@@ -57,41 +61,46 @@ export class TabPanel extends GenericComponent<ITabPanelProps> {
     if (wrapped) {
       return (
         <div
-          className={ClsUtils.joinClassName(TabPanelClassesEnum.TAB_PANEL_WRAPPER, CalcUtils.calc(wrapperClassName))}>
-          {bodyEl}
+          className={
+            ClsUtils.joinClassName(
+              TabPanelClassesEnum.TAB_PANEL_WRAPPER,
+              CalcUtils.calc(wrapperClassName)
+            )
+          }
+        >
+          {el}
         </div>
       );
     }
-    return bodyEl;
+    return el;
   }
 
   /**
-   * @stable [28.07.2020]
+   * @stable [30.03.2021]
    */
   public componentWillUnmount(): void {
     this.onDeactivateValue();
   }
 
   /**
-   * @stable [28.07.2020]
-   * @param event
-   * @param tab
+   * @stable [30.03.2021]
+   * @param item
    */
-  private onTabClick(event: IBaseEvent, tab: ITabProps): void {
+  private onTabClick(item: ITabProps): void {
     const {
       onClick,
     } = this.originalProps;
 
-    this.domAccessor.cancelEvent(event);
     this.onDeactivateValue();
 
     if (TypeUtils.isFn(onClick)) {
-      onClick(tab);
+      const self = this;
+      onClick({item, self});
     }
   }
 
   /**
-   * @stable [28.07.2020]
+   * @stable [30.03.2021]
    */
   private onDeactivateValue(): void {
     const {
@@ -104,53 +113,56 @@ export class TabPanel extends GenericComponent<ITabPanelProps> {
   }
 
   /**
-   * @stable [12.02.2020]
-   * @param {ITabProps} tab
-   * @param {number} index
-   * @param {number} activeValue
-   * @returns {JSX.Element}
+   * @stable [30.03.2021]
+   * @param item
+   * @param index
+   * @param activeValue
    */
-  private asTabElement(tab: ITabProps, index: number, activeValue: number): JSX.Element {
-    const props = this.props;
+  private asTabElement(item: ITabProps, index: number, activeValue: number): JSX.Element {
     const {
       items,
       renderer,
-    } = props;
+    } = this.originalProps;
 
-    const isActiveTab = tab.value === activeValue;
-    const isAfterActiveTab = ifNotNilThanValue(items[index - 1], (tb) => tb.value === activeValue, false);
-    const isBeforeActiveTab = ifNotNilThanValue(items[index + 1], (tb) => tb.value === activeValue, false);
+    const isActiveTab = item.value === activeValue;
+    const isAfterActiveTab = items[index - 1]?.value === activeValue;
+    const isBeforeActiveTab = items[index + 1]?.value === activeValue;
     const isLastTab = index === items.length - 1;
     const isFirstTab = index === 0;
-    const callback = (event) => this.onTabClick(event, tab);
 
     return (
       <div
-        key={`rac-tab-key-${tab.value}`}
+        key={`rac-tab-key-${item.value}`}
         className={
           ClsUtils.joinClassName(
-            'rac-tab-panel__tab',
-            isActiveTab ? 'rac-tab-panel__active-tab' : 'rac-tab-panel__inactive-tab',
-            isFirstTab && 'rac-tab-panel__first-tab',
-            isLastTab && 'rac-tab-panel__last-tab',
-            NumberUtils.isOddNumber(index) && 'rac-tab-panel__odd-tab',
-            isAfterActiveTab && 'rac-tab-panel__after-active-tab',
-            isBeforeActiveTab && 'rac-tab-panel__before-active-tab'
+            TabPanelClassesEnum.TAB,
+            isActiveTab ? TabPanelClassesEnum.ACTIVE_TAB : TabPanelClassesEnum.INACTIVE_TAB,
+            isFirstTab && TabPanelClassesEnum.FIRST_TAB,
+            isLastTab && TabPanelClassesEnum.LAST_TAB,
+            NumberUtils.isOddNumber(index) && TabPanelClassesEnum.ODD_TAB,
+            isAfterActiveTab && TabPanelClassesEnum.AFTER_ACTIVE_TAB,
+            isBeforeActiveTab && TabPanelClassesEnum.BEFORE_ACTIVE_TAB
           )
         }
-        onClick={callback}>
+        {...PropsUtils.buildClickHandlerProps(() => this.onTabClick(item), true, false)}
+      >
         {
-          isFn(renderer)
-            ? renderer(tab, callback)
+          TypeUtils.isFn(renderer)
+            ? (
+              renderer({
+                item,
+                contentWrapperElement: this.getContentWrapperElement,
+              })
+            )
             : (
-              tab.icon
+              item.icon
                 ? (
                   this.uiFactory.makeIcon({
-                    className: 'rac-tab-panel__tab-icon',
-                    type: tab.icon,
+                    className: TabPanelClassesEnum.TAB_ICON,
+                    type: item.icon,
                   })
                 )
-                : <div className='rac-tab-panel__tab-content'>{this.t(tab.name)}</div>
+                : this.getContentWrapperElement(this.t(item.name))
             )
         }
       </div>
@@ -158,17 +170,32 @@ export class TabPanel extends GenericComponent<ITabPanelProps> {
   }
 
   /**
-   * @stable [12.02.2020]
-   * @returns {number}
+   * @stable [30.03.2021]
+   * @param content
+   */
+  private getContentWrapperElement(content: React.ReactNode): JSX.Element {
+    return (
+      <div
+        className={TabPanelClassesEnum.TAB_CONTENT}
+      >
+        {content}
+      </div>
+    );
+  }
+
+  /**
+   * @stable [30.03.2021]
    */
   private get activeValue(): number {
-    const props = this.props;
-    const {activeValue, items} = props;
+    const {
+      activeValue,
+      items,
+    } = this.originalProps;
 
     if (!R.isNil(activeValue)) {
       return activeValue;
     }
-    const activeItem = items.find((tab) => tab.active);
+    const activeItem = items.find(FilterUtils.ACTIVE_WRAPPER_PREDICATE);
     return R.isNil(activeItem) ? items[0].value : activeItem.value;
   }
 }
