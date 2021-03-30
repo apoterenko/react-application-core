@@ -119,6 +119,7 @@ export interface IContainerSectionWrapper<TValue = string> { containerSection?: 
 export interface IContainerWrapper<TValue> { container?: TValue; }
 export interface IContentBorderWrapper<TValue = boolean> { contentBorder?: TValue; }
 export interface IContentWrapper<TValue = React.ReactNode> { content?: TValue; }
+export interface IContentWrapperElementWrapper<TValue> { contentWrapperElement?: TValue; }
 export interface IConverterWrapper<TValue> { converter?: TValue; }
 export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
 export interface ICountryWrapper<TValue = string> { country?: TValue; }
@@ -360,7 +361,7 @@ export interface IOnChangeLayoutModeWrapper<TValue = {}> { onChangeLayoutMode?(v
 export interface IOnChangeManuallyWrapper<TValue = AnyT> { onChangeManually?(value?: TValue): void; }
 export interface IOnChangeWrapper<TValue = AnyT> { onChange?(value?: TValue): void; }
 export interface IOnClearWrapper<TValue = void> { onClear?(): TValue; }
-export interface IOnClickWrapper<TValue = {}> { onClick?(value?: TValue): void; }
+export interface IOnClickWrapper<TValue = unknown> { onClick?(value?: TValue): void; }
 export interface IOnClosePreviewWrapper { onClosePreview?(): void; }
 export interface IOnCloseWrapper<TValue = {}> { onClose?(value?: TValue): void; }
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
@@ -517,6 +518,7 @@ export interface ISelectedElementClassNameWrapper { selectedElementClassName?: s
 export interface ISelectedValueIgnoredWrapper { selectedValueIgnored?: boolean; }
 export interface ISelectedWrapper<TValue = boolean> { selected?: TValue; }
 export interface ISelectWrapper<TValue = string> { select?: TValue; }
+export interface ISelfWrapper<TValue> { self?: TValue; }
 export interface ISeparatorWrapper<TValue = string> { separator?: TValue; }
 export interface ISettingsWrapper<TValue> { settings?: TValue; }
 export interface IShowOnlyCurrentDaysWrapper { showOnlyCurrentDays?: boolean; }

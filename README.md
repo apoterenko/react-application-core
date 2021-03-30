@@ -80,6 +80,7 @@ The library is designed to quickly start develop the business applications are b
 * [SliderField (16.10.2020)](src/core/component/field/slider-field/slider-field.component.tsx)
 * [SubHeader (22.05.2020)](src/core/component/sub-header/sub-header.component.tsx)
 * [SubHeaderLink (22.05.2020)](src/core/component/sub-header-link/sub-header-link.component.tsx)
+* [TabPanel (30.03.2021)](src/core/component/tab-panel/tab-panel.component.tsx)
 * [TemplateField (26.03.2021)](src/core/component/field/template-field/template-field.component.tsx)
 * [TextField (21.08.2020)](src/core/component/field/text-field/text-field.component.tsx)
 * [Title (01.06.2020)](src/core/component/title/title.component.tsx)
