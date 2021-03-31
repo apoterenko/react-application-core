@@ -53,6 +53,7 @@ export * from './task';
 export * from './time';
 export * from './tooltip';
 export * from './type';
+export * from './unlayer';
 export * from './url';
 export * from './uuid';
 export * from './validator';

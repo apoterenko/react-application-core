@@ -1,13 +1,26 @@
 import {
   IKeyValue,
+  INameWrapper,
+  IValueWrapper,
 } from '../definitions.interface';
 
 /**
+ * @stable [31.03.2021]
+ */
+export interface IUnlayerEditorMergeTagsItemEntity
+  extends INameWrapper,
+    IValueWrapper<string> {
+  mergeTags?: IUnlayerEditorMergeTagsEntity;
+}
+
+/**
+ * https://docs.unlayer.com/docs/merge-tags
+ *
  * @entity
  * @stable [26.03.2021]
  */
 export interface IUnlayerEditorMergeTagsEntity
-  extends IKeyValue {
+  extends Record<string, IUnlayerEditorMergeTagsItemEntity> {
 }
 
 /**
