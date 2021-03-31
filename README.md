@@ -136,6 +136,7 @@ The library is designed to quickly start develop the business applications are b
 
 * [promise (28.03.2021)](src/core/util/promise.ts)
 * [tab (30.03.2021)](src/core/util/tab.ts)
+* [unlayer (31.03.2021)](src/core/util/unlayer.ts)
 
 # Utils
 
