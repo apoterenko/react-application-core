@@ -221,6 +221,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
+   * @stable [31.03.2021]
+   */
+  public get cursorPosition(): number {
+    return this.domAccessor.getCursorPosition({element: this.input});
+  }
+
+  /**
    * @stable [14.10.2020]
    * @param event
    */
@@ -346,8 +353,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [15.10.2020]
-   * @protected
+   * @stable [31.03.2021]
    */
   protected get input(): InputElementT {
     return ConditionUtils.ifNotNilThanValue(
@@ -945,17 +951,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @stable [28.03.2021]
    */
   private get selfElement(): JSX.Element {
-    const {
-      inputWrapperElement,
-    } = this;
+    const inputWrapperElement = this.inputWrapperElement;
 
     if (this.isFieldRendered) {
-      const {
-        actionsElement,
-        labelElement,
-        prefixLabelElement,
-        progressInfoElement,
-      } = this;
+      const actionsElement = this.actionsElement;
+      const labelElement = this.labelElement;
+      const prefixLabelElement = this.prefixLabelElement;
+      const progressInfoElement = this.progressInfoElement;
 
       return ConditionUtils.ifNotNilThanValue(
         NvlUtils.coalesce(

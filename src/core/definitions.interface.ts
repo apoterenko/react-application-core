@@ -125,6 +125,7 @@ export interface ICountryAbbrWrapper<TValue = string> { countryAbbr?: TValue; }
 export interface ICountryWrapper<TValue = string> { country?: TValue; }
 export interface ICronDayWrapper<TValue = number> { cronDay?: TValue; }
 export interface ICurrentWrapper<TValue> { current?: TValue; }
+export interface ICursorPositionWrapper<TValue = number> { cursorPosition?: TValue; }
 export interface ICursorWrapper<TValue> { cursor?: TValue; }
 export interface ICustomActionsWrapper<TValue> { customActions?: TValue; }
 export interface IDataProviderWrapper<TValue> { dataProvider?: TValue; }

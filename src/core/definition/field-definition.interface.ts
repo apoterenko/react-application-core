@@ -15,6 +15,7 @@ import {
   ICaretPositionWrapper,
   ICaretVisibilityWrapper,
   IChangeableWrapper,
+  ICursorPositionWrapper,
   IDefaultValueWrapper,
   IDelayTimeoutWrapper,
   IDisabledWrapper,
@@ -228,7 +229,8 @@ export interface IFieldState
  * @stable [14.10.2020]
  */
 export interface IUniversalField
-  extends IOnChangeManuallyWrapper,
+  extends ICursorPositionWrapper,
+    IOnChangeManuallyWrapper,
     IValueWrapper {
 }
 

@@ -76,12 +76,20 @@ export interface IDomPositionConfigurationEntity
 
 /**
  * @config-entity
+ * @stable [31.03.2021]
+ */
+export interface IDomElementConfigEntity<TElement extends HTMLElement = HTMLElement>
+  extends IElementWrapper<TElement> {
+}
+
+/**
+ * @config-entity
  * @see https://api.jqueryui.com/position/
  * @stable [24.01.2020]
  */
 export interface IDomPositionConfigEntity<TElement extends HTMLElement = HTMLElement>
-  extends IEventWrapper<Event | (() => Event)>, // Extra synthetic props
-    IElementWrapper<TElement> { // Extra synthetic props
+  extends IDomElementConfigEntity,
+    IEventWrapper<Event | (() => Event)> {// Extra synthetic props
   at?: string;
   collision?: string;
   my?: string;
@@ -167,6 +175,7 @@ export interface IDomAccessor {
   fireEvent(cfg: IDomFireEventConfigEntity): void;
   getActiveElement(): Element;
   getContentHeight(source: Element): number;
+  getCursorPosition(cfg: IDomPositionConfigEntity): number;
   getElement(id: string): Element;
   getHeight(source: Element): number;
   getParents(cfg: IDomParentConfigEntity): IJQueryElement;

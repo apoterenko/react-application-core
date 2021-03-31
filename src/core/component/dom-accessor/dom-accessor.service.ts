@@ -94,6 +94,14 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [31.03.2021]
+   * @param cfg
+   */
+  public getCursorPosition(cfg: IDomPositionConfigEntity): number {
+    return this.asJqEl(cfg.element).prop('selectionStart');
+  }
+
+  /**
    * @stable [24.01.2020]
    * @param {IDomPositionConfigEntity} cfg
    */
