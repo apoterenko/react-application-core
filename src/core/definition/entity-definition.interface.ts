@@ -24,6 +24,8 @@ import {
   IRawDataWrapper,
   IRendererWrapper,
   ISelectedWrapper,
+  ISelfPropsWrapper,
+  ISelfWrapper,
   ITouchedWrapper,
   ITplWrapper,
   ITypeWrapper,
@@ -167,4 +169,13 @@ export interface ISelectedEntity<TEntity extends IEntity = IEntity>
  */
 export interface IReduxActiveValueHolderEntity
   extends IActiveValueWrapper {
+}
+
+/**
+ * @config-entity
+ * @stable [31.03.2021]
+ */
+export interface ISelfConfigEntity<TProps, TSelf>
+  extends ISelfPropsWrapper<TProps>,
+    ISelfWrapper<TSelf> {
 }

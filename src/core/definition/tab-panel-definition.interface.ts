@@ -12,8 +12,6 @@ import {
   IOnClickWrapper,
   IOnDeactivateWrapper,
   IRendererWrapper,
-  ISelfPropsWrapper,
-  ISelfWrapper,
   ITabPanelConfigurationWrapper,
   ITabPanelWrapper,
   IValueWrapper,
@@ -25,7 +23,10 @@ import {
   IGenericComponentProps,
 } from './generic-component-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
-import { IReduxActiveValueHolderEntity } from './entity-definition.interface';
+import {
+  IReduxActiveValueHolderEntity,
+  ISelfConfigEntity,
+} from './entity-definition.interface';
 import { IReduxFormHolderEntity } from './form-definition.interface';
 
 /**
@@ -158,22 +159,21 @@ export interface IFormTabPanelContainerProps<TEntity = IEntity>
 
 /**
  * @config-entity
- * @stable [30.03.2021]
+ * @stable [31.03.2021]
  */
 export interface ITabPanelRendererConfigEntity
-  extends IContentWrapperElementWrapper<(content: React.ReactNode) => JSX.Element>,
-    IItemPropsWrapper<ITabProps>,
-    ISelfPropsWrapper<ITabPanelProps> {
+  extends ISelfConfigEntity<ITabPanelProps, ITabPanel>,
+    IContentWrapperElementWrapper<(content: React.ReactNode) => JSX.Element>,
+    IItemPropsWrapper<ITabProps> {
 }
 
 /**
  * @config-entity
- * @stable [30.03.2021]
+ * @stable [31.03.2021]
  */
 export interface ITabPanelOnCLickConfigEntity
   extends IItemPropsWrapper<ITabProps>,
-    ISelfPropsWrapper<ITabPanelProps>,
-    ISelfWrapper<ITabPanel> {
+    ISelfConfigEntity<ITabPanelProps, ITabPanel> {
 }
 
 /**

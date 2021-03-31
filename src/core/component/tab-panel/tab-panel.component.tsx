@@ -128,6 +128,7 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
       items,
       renderer,
     } = this.originalProps;
+    const self = this;
     const selfProps = this.originalProps;
 
     const isActiveTab = itemProps.value === activeValue;
@@ -158,6 +159,7 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
               renderer({
                 contentWrapperElement: this.getContentWrapperElement,
                 itemProps,
+                self,
                 selfProps,
               })
             )
