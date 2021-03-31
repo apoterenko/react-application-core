@@ -37,6 +37,7 @@ The library is designed to quickly start develop the business applications are b
 
 * @action-builder
 * @component-impl
+* @config-entity
 * @service
 * @service-impl
 * @utils
@@ -86,6 +87,11 @@ The library is designed to quickly start develop the business applications are b
 * [Title (01.06.2020)](src/core/component/title/title.component.tsx)
 * [ToolbarTools (01.08.2020)](src/core/component/toolbar-tools/toolbar-tools.component.tsx)
 * [UnsavedFormChangesDialog (01.08.2020)](src/core/component/dialog/unsaved-form-changes-dialog/unsaved-form-changes-dialog.component.ts)
+
+#### @config-entity
+
+* [ITabPanelOnCLickConfigEntity (31.03.2021)](src/core/definition/tab-panel-definition.interface.ts)
+* [ITabPanelRendererConfigEntity (31.03.2021)](src/core/definition/tab-panel-definition.interface.ts)
 
 #### @effects-proxy-factory [EffectsFactories](src/core/store/effects/effects.factory.ts)
 
