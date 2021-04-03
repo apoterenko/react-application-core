@@ -10,27 +10,39 @@ import { ConditionUtils } from './cond';
  * @stable [03.04.2021]
  * @param time
  */
-const normalizeTime = (time: string): string => `${time.length > 1 ? time : ['0', time].join('')}`;
+const normalizeTime = (time: string): string =>
+  ConditionUtils.ifNotNilThanValue(
+    time,
+    () => `${time.length > 1 ? time : ['0', time].join('')}`,
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [03.04.2021]
  * @param time
  */
-const fromSecondsToMinutes = (time: number): number => Math.floor(time / 60);
+const fromSecondsToMinutes = (time: number): number =>
+  ConditionUtils.ifNotNilThanValue(
+    time,
+    () => Math.floor(time / 60),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [03.04.2021]
  * @param time
  */
-const fromSecondsToMinutesAsString = (time: number): string => {
-  if (R.isNil(time)) {
-    return time;
-  }
-  const minutes = String(fromSecondsToMinutes(time));
-  const seconds = String(time % 60);
+const fromSecondsToMinutesAsString = (time: number): string =>
+  ConditionUtils.ifNotNilThanValue(
+    time,
+    () => {
+      const minutes = String(fromSecondsToMinutes(time));
+      const seconds = String(time % 60);
 
-  return `${normalizeTime(minutes)}:${normalizeTime(seconds)}`;
-};
+      return `${normalizeTime(minutes)}:${normalizeTime(seconds)}`;
+    },
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [03.04.2021]
@@ -41,7 +53,11 @@ const fromSecondsToMinutesAsString = (time: number): string => {
 const fromHourToUsaHour = (hour: number,
                            pm = ' PM',
                            am = ' AM'): string =>
-  hour > 12 ? `${hour - 12}${pm}` : (hour === 12 ? `12${pm}` : `${hour}${am}`);
+  ConditionUtils.ifNotNilThanValue(
+    hour,
+    () => hour > 12 ? `${hour - 12}${pm}` : (hour === 12 ? `12${pm}` : `${hour}${am}`),
+    UNDEF_SYMBOL
+  );
 
 /**
  * @stable [03.04.2021]
