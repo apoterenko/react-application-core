@@ -1,4 +1,5 @@
 import { IAutoResetWrapper } from '../definitions.interface';
+import { IDialogConfigurationEntity } from './dialog-definition.interface';
 import { IExtendedFormEntity } from './form-definition.interface';
 import { IGenericContainerProps } from './generic-container-definition.interface';
 
@@ -8,6 +9,7 @@ import { IGenericContainerProps } from './generic-container-definition.interface
  */
 export interface IGenericFilterFormDialogContainerEntity
   extends IAutoResetWrapper,
+    IDialogConfigurationEntity,
     IExtendedFormEntity {
 }
 

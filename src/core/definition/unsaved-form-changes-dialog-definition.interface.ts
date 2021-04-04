@@ -1,5 +1,5 @@
 import {
-  IConfigurationDialogEntity,
+  IDialogConfigurationEntity,
   IGenericDialogEntity,
 } from './dialog-definition.interface';
 import { IEntity } from '../definitions.interface';
@@ -39,7 +39,7 @@ export interface IUnsavedFormChangesDialogProps
  * @stable [15.06.2020]
  */
 export interface IGenericUnsavedFormChangesDialogContainerEntity<TProps = IUnsavedFormChangesDialogProps>
-  extends IConfigurationDialogEntity<TProps>,
+  extends IDialogConfigurationEntity<TProps>,
     IProxyContainerHolderEntity,
     IReduxUnsavedFormChangesDialogHolderEntity {
 }

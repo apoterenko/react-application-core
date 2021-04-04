@@ -27,7 +27,7 @@ import {
   ICalendarConfigurationEntity,
   ICalendarEntityConfigurationEntity,
 } from './calendar-definition.interface';
-import { IConfigurationDialogEntity } from './dialog-definition.interface';
+import { IDialogConfigurationEntity } from './dialog-definition.interface';
 import {
   IBaseTextFieldState,
   IGenericBaseTextFieldEntity,
@@ -47,7 +47,7 @@ export interface IGenericDateFieldEntity
     ICalendarEntityConfigurationEntity,
     IDatePeriodModeEntity,
     IDatePeriodTypeEntity,
-    IConfigurationDialogEntity,
+    IDialogConfigurationEntity,
     IForwardActionConfigurationWrapper<IButtonProps>,
     IInlineWrapper,                                                                   /* @stable [07.12.2020] */
     IMaxDateWrapper<Date>,

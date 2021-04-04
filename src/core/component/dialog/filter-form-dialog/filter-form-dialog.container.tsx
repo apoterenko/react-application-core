@@ -48,6 +48,9 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
   public render(): JSX.Element {
     const originalProps = this.originalProps;
     const {
+      dialogConfiguration,
+    } = originalProps;
+    const {
       APPLY,
       CLEAR_ALL,
       CLOSE,
@@ -56,10 +59,11 @@ export class FilterFormDialogContainer extends GenericContainer<IFilterFormDialo
 
     return (
       <Dialog
-        ref={this.actualRef}
         title={FILTERS}
         closeText={this.isFormTouched ? CLEAR_ALL : CLOSE}
         acceptText={APPLY}
+        {...dialogConfiguration}
+        ref={this.actualRef}
         acceptDisabled={!this.canAccept}
         onAccept={this.onAcceptFilter}
         onClose={this.onClearFilter}

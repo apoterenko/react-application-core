@@ -27,7 +27,7 @@ export const makeFilterFormDialogEffectsProxy =
          * @param state
          */
         @EffectsService.effects(FilterFormDialogActionBuilder.buildAcceptActionType(SectionUtils.asFormSection(cfg)))
-        public $onAccept = (action: IEffectsAction, state: TState): IEffectsAction =>
+        public readonly $onAccept = (action: IEffectsAction, state: TState): IEffectsAction =>
           MiddlewareFactories.filterFormDialogAcceptMiddleware({...cfg, action, state})
 
         /**
@@ -36,7 +36,7 @@ export const makeFilterFormDialogEffectsProxy =
          * @param state
          */
         @EffectsService.effects(FilterFormDialogActionBuilder.buildClearActionType(SectionUtils.asFormSection(cfg)))
-        public $onClear = (action: IEffectsAction, state: TState): IEffectsAction[] =>
+        public readonly $onClear = (action: IEffectsAction, state: TState): IEffectsAction[] =>
           MiddlewareFactories.filterFormDialogClearMiddleware({...cfg, action, state})
 
         /**
@@ -45,7 +45,7 @@ export const makeFilterFormDialogEffectsProxy =
          * @param state
          */
         @EffectsService.effects(FilterFormDialogActionBuilder.buildResetActionType(SectionUtils.asFormSection(cfg)))
-        public $onReset = (action: IEffectsAction, state: TState): IEffectsAction =>
+        public readonly $onReset = (action: IEffectsAction, state: TState): IEffectsAction =>
           MiddlewareFactories.filterFormDialogResetMiddleware({...cfg, action, state})
       }
     };
