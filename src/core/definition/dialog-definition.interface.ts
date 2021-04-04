@@ -124,9 +124,9 @@ export interface IDialogState
 
 /**
  * @configuration-entity
- * @stable [01.08.2020]
+ * @stable [04.04.2021]
  */
-export interface IConfigurationDialogEntity<TProps = IDialogProps>
+export interface IDialogConfigurationEntity<TProps = IDialogProps>
   extends IDialogConfigurationWrapper<TProps> {
 }
 
