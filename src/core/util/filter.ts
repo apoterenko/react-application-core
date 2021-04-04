@@ -8,6 +8,7 @@ import {
   IEntityIdTWrapper,
   IKeyValue,
   ITypeWrapper,
+  StringNumberT,
 } from '../definitions.interface';
 import { FieldConstants } from '../definition/field-definition.interface';
 import {
@@ -300,12 +301,12 @@ const findByType = <TValue extends ITypeWrapper<TType>, TType>(data: TValue[], t
   data.find((itm) => itm.type === type);
 
 /**
- * @stable [09.08.2020]
+ * @stable [03.04.2021]
  * @param query
  * @param items
  */
-const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
-  if (!ObjectUtils.isObjectNotEmpty(query)) {
+const queryFilter = (query: StringNumberT, ...items: EntityIdT[]): boolean => {
+  if (ObjectUtils.isObjectEmpty(query)) {
     return true;
   }
   let result = false;
@@ -317,7 +318,7 @@ const queryFilter = (query: string, ...items: EntityIdT[]): boolean => {
           : R.isNil(item) ? '' : String(item)
       ).toUpperCase()
     )
-    .forEach((v) => result = result || v.includes(query.toUpperCase()));
+    .forEach((v) => result = result || v.includes((String(query).toUpperCase())));
   return result;
 };
 
