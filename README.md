@@ -38,6 +38,7 @@ The library is designed to quickly start develop the business applications are b
 * @action-builder
 * @component-impl
 * @config-entity
+* @configuration-entity
 * @service
 * @service-impl
 * @utils
@@ -93,6 +94,10 @@ The library is designed to quickly start develop the business applications are b
 * [ITabPanelOnCLickConfigEntity (31.03.2021)](src/core/definition/tab-panel-definition.interface.ts)
 * [ITabPanelRendererConfigEntity (31.03.2021)](src/core/definition/tab-panel-definition.interface.ts)
 
+#### @configuration-entity
+
+* [IDialogConfigurationEntity (04.04.2021)](src/core/definition/dialog-definition.interface.ts)
+
 #### @effects-proxy-factory [EffectsFactories](src/core/store/effects/effects.factory.ts)
 
 * [makeDestroyedContainerEffectsProxy (09.09.2020)](src/core/store/effects/destroyed-container-effects.proxy.ts)
@@ -122,11 +127,6 @@ The library is designed to quickly start develop the business applications are b
 
 * [ChainedMiddlewareFactories (20.01.2021)](src/core/store/middleware/chained.middleware.ts)
 * [EditedListMiddlewareFactories (20.01.2021)](src/core/store/middleware/edited-list.middleware.ts)
-
-#### @configuration-entity
-
-* [IConfigurationDialogEntity](src/core/definition/dialog-definition.interface.ts)
-* [IConfigurationToolbarToolsEntity](src/core/definition/toolbar-tools-definition.interface.ts)
 
 #### @redux-holder-entity
 
