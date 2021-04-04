@@ -433,6 +433,16 @@ const selectFirstStackItemEntity = (entity: IReduxStackHolderEntity): IReduxStac
   );
 
 /**
+ * @stable [02.04.2021]
+ * @param entity
+ */
+const selectLastStackItemEntity = (entity: IReduxStackHolderEntity): IReduxStackItemEntity =>
+  ConditionUtils.ifNotEmptyThanValue(
+    selectStackItemEntities(entity),
+    (stackItemEntities) => R.last(stackItemEntities)
+  );
+
+/**
  * @stable [21.05.2020]
  * @param {IReduxLayoutHolderEntity} entity
  * @returns {LayoutModesEnum}
@@ -473,6 +483,7 @@ export class Selectors {
   public static readonly firstStackItemEntity = selectFirstStackItemEntity;                                     /* @stable [18.09.2020] */
   public static readonly form = asForm;
   public static readonly formHolderEntityChanges = asFormHolderEntityChanges;
+  public static readonly lastStackItemEntity = selectLastStackItemEntity;                                       /* @stable [02.04.2021] */
   public static readonly layout = selectLayout;                                                                 /* @stable [08.05.2020] */
   public static readonly layoutMode = selectLayoutMode;                                                         /* @stable [21.05.2020] */
   public static readonly list = selectList;
