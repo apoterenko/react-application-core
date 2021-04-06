@@ -646,20 +646,6 @@ export interface IToDateWrapper<TToDate = string> {
   toDate?: TToDate;
 }
 
-/**
- * @stable [19.08.2018]
- */
-export interface IFromTimeWrapper<TFromTime = string> {
-  fromTime?: TFromTime;
-}
-
-/**
- * @stable [19.08.2018]
- */
-export interface IToTimeWrapper<TToTime = string> {
-  toTime?: TToTime;
-}
-
 export interface IFromDateToDateEntity extends IFromDateWrapper,
                                                IToDateWrapper {
 }

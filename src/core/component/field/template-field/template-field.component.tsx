@@ -38,6 +38,7 @@ export class TemplateField extends Field<ITemplateFieldProps> {
 
   private editor: IUnlayerEditorEntity;
   private unlayerLibTask: Promise<HTMLScriptElement>;
+  private currentTemplate: string;
 
   /**
    * @stable [26.03.2021]
@@ -148,7 +149,12 @@ export class TemplateField extends Field<ITemplateFieldProps> {
       Base64Utils.base64ToJson(initialValue),
       (templateAsJson) => {
         if (TypeUtils.isObject(templateAsJson)) {
-          this.editor.loadDesign(templateAsJson);
+          if (!R.equals(initialValue, this.currentTemplate)) { // Because of Flux cycle
+            this.editor.loadDesign(templateAsJson);
+            this.currentTemplate = null;
+          } else {
+            TemplateField.logger.debug('[$TemplateField][loadDesign] Self-updating. Do nothing');
+          }
         } else {
           TemplateField.logger.debug(
             '[$TemplateField][loadDesign] The template is invalid. Do nothing. Template:',
@@ -164,7 +170,7 @@ export class TemplateField extends Field<ITemplateFieldProps> {
    * @param data
    */
   private exportHtml(data: IUnlayerEditorMetaEntity): void {
-    this.onChangeManually(Base64Utils.jsonToBase64(data.design));
+    this.onChangeManually(this.currentTemplate = Base64Utils.jsonToBase64(data.design));
   }
 
   /**
