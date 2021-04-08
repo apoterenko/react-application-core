@@ -78,7 +78,8 @@ export interface IFormStoreProxy {
  * @stable [30.03.2020]
  */
 export interface INotificationStoreProxy {
-  dispatchNotification(info: string);
+  dispatchError(error: string): void;
+  dispatchInfo(info: string);
 }
 
 /**

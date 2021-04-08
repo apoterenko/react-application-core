@@ -8,20 +8,29 @@ import {
 } from '../definitions.interface';
 
 /**
- * @redux-entity
- * @stable [12.06.2020]
+ * @entity
+ * @stable [08.04.2021]
  */
-export interface IReduxNotificationEntity<TError = string>
+interface INotificationEntity<TError = string>
   extends IErrorWrapper<TError>,
     IInfoWrapper {
 }
 
 /**
+ * @redux-entity
+ * @stable [12.06.2020]
+ */
+export interface IReduxNotificationEntity<TError = string>
+  extends INotificationEntity<TError> {
+}
+
+/**
+ * TODO Flux entity?
  * @flux-entity
  * @stable [12.06.2020]
  */
 export interface IFluxNotificationEntity
-  extends IReduxNotificationEntity<string | Error | IEffectsAction> {
+  extends INotificationEntity<string | Error | IEffectsAction> {
 }
 
 /**

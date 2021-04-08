@@ -34,9 +34,8 @@ export class NotificationActionBuilder {
    * @stable [26.01.2021]
    * @param info
    */
-  public static buildPlainInfoAction(info: string): IEffectsAction {
-    const notificationEntity: IFluxNotificationEntity = {info};
-    return {type: $_RAC_NOTIFICATION_INFO_ACTION_TYPE, data: notificationEntity};
+  public static buildPlainInfoAction(info: string): IEffectsAction<IFluxNotificationEntity> {
+    return {type: $_RAC_NOTIFICATION_INFO_ACTION_TYPE, data: {info}};
   }
 
   /**
@@ -44,10 +43,7 @@ export class NotificationActionBuilder {
    * @param error
    */
   public static buildPlainErrorAction(error: string | Error | IEffectsAction): IEffectsAction<IFluxNotificationEntity> {
-    return {
-      type: $_RAC_NOTIFICATION_ERROR_ACTION_TYPE,
-      data: {error},
-    };
+    return {type: $_RAC_NOTIFICATION_ERROR_ACTION_TYPE, data: {error}};
   }
 
   /**

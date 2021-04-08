@@ -429,7 +429,7 @@ const mapDictionariesContainerAsSelectProps = <TDictionary extends IReduxBaseDic
       const noAvailableItemsToSelect = cfg.container.settings.messages.NO_AVAILABLE_ITEMS_TO_SELECT;
 
       if (noAvailableItemsToSelect && R.isEmpty(items)) {
-        cfg.container.notificationStoreProxy.dispatchNotification(noAvailableItemsToSelect);
+        cfg.container.notificationStoreProxy.dispatchInfo(noAvailableItemsToSelect);
       }
     },
     onDictionaryChange: cfg.container.dictionaryStoreProxy.dispatchLoadDictionaryOnChange,

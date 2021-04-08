@@ -1,8 +1,8 @@
 import {
   IGenericContainer,
   IGenericContainerProps,
-  IReduxStoreEntity,
   INotificationStoreProxy,
+  IReduxStoreEntity,
 } from '../../../../definition';
 import { StoreProxy } from '../store.proxy';
 import { NotificationActionBuilder } from '../../../../action';
@@ -13,19 +13,27 @@ export class NotificationStoreProxy<TStore extends IReduxStoreEntity = IReduxSto
   implements INotificationStoreProxy {
 
   /**
-   * @stable [30.03.2020]
-   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
+   * @stable [08.04.2021]
+   * @param container
    */
   constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
-    this.dispatchNotification = this.dispatchNotification.bind(this);
+    this.dispatchInfo = this.dispatchInfo.bind(this);
   }
 
   /**
-   * @stable [30.03.2020]
-   * @param {string} info
+   * @stable [08.04.2021]
+   * @param info
    */
-  public dispatchNotification(info: string): void {
+  public dispatchInfo(info: string): void {
     this.dispatchPlainAction(NotificationActionBuilder.buildPlainInfoAction(info));
+  }
+
+  /**
+   * @stable [08.04.2021]
+   * @param error
+   */
+  public dispatchError(error: string): void {
+    this.dispatchPlainAction(NotificationActionBuilder.buildPlainErrorAction(error));
   }
 }
