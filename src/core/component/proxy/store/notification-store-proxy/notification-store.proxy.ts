@@ -19,6 +19,7 @@ export class NotificationStoreProxy<TStore extends IReduxStoreEntity = IReduxSto
   constructor(readonly container: IGenericContainer<TProps>) {
     super(container);
     this.dispatchInfo = this.dispatchInfo.bind(this);
+    this.dispatchError = this.dispatchError.bind(this);
   }
 
   /**
