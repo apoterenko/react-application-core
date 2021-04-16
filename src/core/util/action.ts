@@ -26,8 +26,8 @@ const makeEntityActionBuilderFactory =
        * @param replaced
        */
       public buildReplaceAction<TPayload = TValue>(replaced: TPayload): IEffectsAction {
-        const payloadWrapper: IReplacedWrapper<TPayload> = {replaced};
-        return EffectsAction.create(config.replace, payloadWrapper);
+        const plainAction = this.buildReplacePlainAction(replaced);
+        return EffectsAction.create(plainAction.type, plainAction.data);
       }
 
       /**
@@ -63,6 +63,15 @@ const makeEntityActionBuilderFactory =
       public buildSelectPlainAction<TPayload = TValue>(selected: TPayload): IEffectsAction {
         const payloadWrapper: ISelectedWrapper<TPayload> = {selected};
         return {type: config.select, data: payloadWrapper};
+      }
+
+      /**
+       * @stable [15.04.2021]
+       * @param replaced
+       */
+      public buildReplacePlainAction<TPayload = TValue>(replaced: TPayload): IEffectsAction {
+        const payloadWrapper: IReplacedWrapper<TPayload> = {replaced};
+        return {type: config.replace, data: payloadWrapper};
       }
 
       /**

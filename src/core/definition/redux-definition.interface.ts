@@ -40,6 +40,7 @@ export interface IEntityActionBuilder<TValue = {}> {
   buildDestroyAction(): IEffectsAction;
   buildDestroyPlainAction(): IEffectsAction;
   buildReplaceAction<TPayload extends TValue = TValue>(replaced: TPayload): IEffectsAction;
+  buildReplacePlainAction<TPayload extends TValue = TValue>(replaced: TPayload): IEffectsAction;
   buildSelectAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;
   buildSelectPlainAction<TPayload extends TValue = TValue>(selected: TPayload): IEffectsAction;
   buildUpdateAction<TPayload extends TValue = TValue>(updated: TPayload): IEffectsAction;
