@@ -277,15 +277,16 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
     this.setState({opened: false}, () => {
       this.onDestroy();
 
+      if (TypeUtils.isFn(callback)) {
+        callback.call(this);
+      }
+
       if (TypeUtils.isFn(this.$onDeactivateCallback)) {
         this.$onDeactivateCallback.call(this);
         this.$onDeactivateCallback = null;
       }
       if (TypeUtils.isFn(onDeactivate)) {
         onDeactivate();
-      }
-      if (TypeUtils.isFn(callback)) {
-        callback.call(this);
       }
     });
   }
