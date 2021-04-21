@@ -83,10 +83,17 @@ const makeEntityActionBuilderFactory =
     }, []);
 
 /**
+ * @stable [16.04.2021]
+ * @param action
+ */
+const asPlainAction = (action: IEffectsAction): IEffectsAction => ({...action});
+
+/**
  * @stable [16.12.2020]
  */
 // tslint:disable:max-classes-per-file
 export class ActionUtils {
+  public static readonly asPlainAction = asPlainAction;
   public static readonly entityActionBuilderFactory = makeEntityActionBuilderFactory;
 }
 // tslint:enable:max-classes-per-file

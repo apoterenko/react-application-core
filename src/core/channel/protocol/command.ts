@@ -1,4 +1,7 @@
-import { UuidUtils } from '../../util';
+import {
+  TypeUtils,
+  UuidUtils,
+} from '../../util';
 import { CommandParam } from './command.param';
 
 /**
@@ -39,12 +42,14 @@ export class Command {
   }
 
   /**
-   * @stable [21.05.2018]
-   * @param {string} paramName
-   * @param {AnyT} paramValue
-   * @returns {Command}
+   * @stable [20.04.2021]
+   * @param paramName
+   * @param paramValue
    */
   public addParam(paramName: string, paramValue: unknown): Command {
+    if (TypeUtils.isUndef(paramValue)) {
+      return this;
+    }
     this.params[paramName] = new CommandParam(paramName, paramValue);
     return this;
   }
