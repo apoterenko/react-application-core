@@ -15,16 +15,16 @@ import { DiServices } from '../di/di.services';
 
 /**
  * 02.11.2020
- * @param option
+ * @param value
  */
-const fromSelectValueToId = (option: SelectValueT): EntityIdT => {
-  if (R.isNil(option)) {
-    return option;
+const fromSelectValueToId = (value: SelectValueT): EntityIdT => {
+  if (R.isNil(value)) {
+    return value;
   }
-  if (TypeUtils.isPrimitive(option)) {
-    return option as StringNumberT;
+  if (TypeUtils.isPrimitive(value)) {
+    return value as StringNumberT;
   }
-  const optionAsObject = option as IPresetsRawDataLabeledValueEntity;
+  const optionAsObject = value as IPresetsRawDataLabeledValueEntity;
   return optionAsObject.value;
 };
 
