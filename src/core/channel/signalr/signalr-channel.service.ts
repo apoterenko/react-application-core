@@ -11,14 +11,24 @@ import {
   CalcUtils,
   ConditionUtils,
   DelayedTask,
+  FilterUtils,
   TypeUtils,
   UrlUtils,
+  UuidUtils,
 } from '../../util';
 import {
   CHANNEL_CONNECT_EVENT,
   CHANNEL_DISCONNECT_EVENT,
+  ILogManager,
 } from '../../definition';
-import { ISignalRChannelConfigEntity } from './signalr-channel.interface';
+import {
+  ISignalRChannelConfigEntity,
+  SignalRChannelEventCategoriesEnum,
+} from './signalr-channel.interface';
+import {
+  DI_TYPES,
+  lazyInject,
+} from '../../di';
 
 /**
  * @service
@@ -28,12 +38,16 @@ import { ISignalRChannelConfigEntity } from './signalr-channel.interface';
 export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
   protected static readonly logger = LoggerFactory.makeLogger('SignalRChannel');
 
-  private static readonly $$CONNECTION_STOPPED = '$$connectionStopped';
+  private static readonly $$CONNECTION_ALIVE = '$$connectionAlive';
+  private static readonly $$CONNECTION_DIED = '$$connectionDied';
+  private static readonly $$CONNECTION_IN_PROGRESS = '$$connectionInProgress';
   private static readonly $$RECONNECT_TASK = '$$reconnectTask';
   private static readonly RETRY_DELAYS = ArrayUtils
     .makeArray(500)
     .map((_, index) => Math.round(index * 1.2 * 1000))
     .concat(null);
+
+  @lazyInject(DI_TYPES.LogManager) private readonly logManager: ILogManager;
 
   /**
    * @stable [04.11.2020]
@@ -45,19 +59,20 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
   }
 
   /**
-   * @stable [04.11.2020]
+   * @stable [23.04.2021]
    * @param ip
    * @param cfg
    */
   public async connect(ip: string, cfg?: ISignalRChannelConfigEntity): Promise<void> {
     if (this.hasClient(ip)) {
-      SignalRChannel.logger.info(`[$SignalRChannel][connect] The client is already registered. Ip: ${ip}`);
+      SignalRChannel.logger.info(this.getMessage('connect', ip, '[-]', 'Client is already registered'));
       return;
     }
     const {
       query,
     } = cfg || {};
 
+    const uuid = UuidUtils.uuid();
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(
         UrlUtils.buildParameterizedURI(ip, CalcUtils.calc(query))
@@ -68,6 +83,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
     let disconnectCallback;
 
     await this.registerClient(ip, {
+      uuid,
       on: async (event: string, callback: (...args: unknown[]) => void): Promise<void> => {
         if (this.eventToListen.includes(event)) {
           connection.on(event, callback);
@@ -75,21 +91,11 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
         }
         switch (event) {
           case CHANNEL_CONNECT_EVENT:
-            connection.onreconnecting(() => {
-              // The server is down
-              SignalRChannel.logger.info('[$SignalRChannel][connect][onreconnecting]');
+            connection.onreconnecting(() => this.onConnectionClose(connection, disconnectCallback, 'onreconnecting', ip, uuid));
+            connection.onreconnected(() => this.onConnectionAlive(connection, callback, 'onreconnected', ip, uuid));
+            connection.onclose(() => this.onConnectionClose(connection, disconnectCallback, 'onclose', ip, uuid));
 
-              if (TypeUtils.isFn(disconnectCallback)) {
-                disconnectCallback();
-              }
-            });
-
-            connection.onreconnected(() => {
-              SignalRChannel.logger.info('[$SignalRChannel][connect][onreconnected]');
-              callback();
-            });
-
-            await this.doConnect(connection, callback);
+            await this.doConnect(connection, callback, ip, uuid);
             break;
           case CHANNEL_DISCONNECT_EVENT:
             disconnectCallback = callback;
@@ -100,76 +106,110 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
         await connection.send(event, ...args);
       },
       close: async (): Promise<void> => {
-        this.stopReconnectTask(connection);
-        this.setStopConnection(connection);
+        if (this.isConnectionDied(connection)) {
+          SignalRChannel.logger.info(this.getMessage('close', ip, uuid, 'Connection is already died => do nothing'));
+          return;
+        }
+        this.setConnectionDied(connection, true);
 
+        this.setConnectionInProgress(connection, true);
         try {
           await connection.stop();
+          SignalRChannel.logger.info(this.getMessage('close', ip, uuid, 'Connection has been stopped successfully'));
         } catch (e) {
-          SignalRChannel.logger.error('[$SignalRChannel][close] Error:', e);
-        }
 
-        if (TypeUtils.isFn(disconnectCallback)) {
-          disconnectCallback();
+          SignalRChannel.logger.error(this.getMessageError('close', ip, uuid), e);
+          this.logManager.send(
+            SignalRChannelEventCategoriesEnum.SIGNALR_ERROR,
+            'close',
+            FilterUtils.defValuesFilter({ip, uuid, error: e.message})
+          );
+        } finally {
+          this.setConnectionInProgress(connection, false);
         }
       },
     });
   }
 
   /**
-   * @stable [06.11.2020]
+   * @stable [23.04.2021]
    * @param connection
    * @param callback
-   * @private
+   * @param ip
+   * @param uuid
    */
-  private async doConnect(connection: signalR.HubConnection, callback: (...args: unknown[]) => void): Promise<void> {
+  private async doConnect(connection: signalR.HubConnection, callback: (...args: unknown[]) => void, ip: string, uuid: string): Promise<void> {
+    const isConnectionInProgress = this.isConnectionInProgress(connection);
+    const isConnectionDied = this.isConnectionDied(connection);
+    const isConnectionAlive = this.isConnectionAlive(connection);
+
+    if (isConnectionInProgress
+      || isConnectionDied
+      || isConnectionAlive) {
+
+      SignalRChannel.logger.error(this.getMessage('doConnect', ip, uuid,
+        `Do nothing because: isConnectionInProgress[${isConnectionInProgress}], isConnectionDied[${
+          isConnectionDied}], isConnectionAlive[${isConnectionAlive}]`));
+      return;
+    }
+
+    this.setConnectionInProgress(connection, true);
     try {
       await connection.start();
-      callback();
-
-      this.stopReconnectTask(connection);
     } catch (e) {
-      SignalRChannel.logger.error('[$SignalRChannel][connect] Error:', e);
 
-      if (!this.isConnectionStopped(connection)) {
-        this.tryReconnect(connection, callback);
-      }
+      SignalRChannel.logger.error(this.getMessageError('doConnect', ip, uuid), e);
+      this.logManager.send(
+        SignalRChannelEventCategoriesEnum.SIGNALR_ERROR,
+        'doConnect',
+        FilterUtils.defValuesFilter({ip, uuid, error: e.message})
+      );
+
+      this.setConnectionInProgress(connection, false);
+      this.doReconnect(connection, callback, ip, uuid);
+      return;
     }
+    this.setConnectionInProgress(connection, false);
+
+    this.onConnectionAlive(connection, callback, 'doConnect', ip, uuid);
   }
 
   /**
-   * @stable [06.11.2020]
-   * @private
+   * @stable [23.04.2021]
+   * @param connection
+   * @param callback
+   * @param ip
+   * @param uuid
    */
-  private tryReconnect(connection: signalR.HubConnection, callback: (...args: unknown[]) => void): void {
-    SignalRChannel.logger.debug('[$SignalRChannel][tryReconnect] Connection:', connection);
+  private doReconnect(connection: signalR.HubConnection, callback: (...args: unknown[]) => void, ip: string, uuid: string): void {
+    SignalRChannel.logger.debug(this.getMessage('doReconnect', ip, uuid));
+    this.logManager.send(
+      SignalRChannelEventCategoriesEnum.SIGNALR,
+      'doReconnect',
+      FilterUtils.defValuesFilter({ip, uuid})
+    );
 
     let reconnectTask = this.getReconnectTask(connection);
 
     ConditionUtils.ifNilThanValue(
       reconnectTask,
       () => {
-        this.setReconnectTask(
-          connection,
-          reconnectTask = new DelayedTask(
-            async () => {
-              if (!this.isConnectionStopped(connection)) {
-                SignalRChannel.logger.debug('[$SignalRChannel][tryReconnect] Task. Connection:', connection);
-                await this.doConnect(connection, callback);
-              }
-            },
-            2000
-          )
+        reconnectTask = new DelayedTask(
+          async () => {
+            SignalRChannel.logger.debug(this.getMessage('doReconnect:task', ip, uuid));
+            await this.doConnect(connection, callback, ip, uuid);
+          },
+          2000
         );
+        this.setReconnectTask(connection, reconnectTask);
       }
     );
     reconnectTask.start();
   }
 
   /**
-   * @stable [07.11.2020]
+   * @stable [23.04.2021]
    * @param connection
-   * @private
    */
   private stopReconnectTask(connection: signalR.HubConnection): void {
     ConditionUtils.ifNotNilThanValue(
@@ -182,39 +222,154 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
   }
 
   /**
-   * @stable [06.11.2020]
+   * @stable [23.04.2021]
    * @param connection
-   * @private
+   * @param callback
+   * @param method
+   * @param ip
+   * @param uuid
+   */
+  private onConnectionAlive(connection: signalR.HubConnection,
+                            callback: (...args: unknown[]) => void,
+                            method: string,
+                            ip: string,
+                            uuid: string): void {
+    SignalRChannel.logger.info(this.getMessage(method, ip, uuid, 'Server is connected/reconnected'));
+    this.logManager.send(
+      SignalRChannelEventCategoriesEnum.SIGNALR,
+      `onConnectionAlive:${method}`,
+      FilterUtils.defValuesFilter({ip, uuid})
+    );
+
+    this.setConnectionAlive(connection, true);
+
+    if (TypeUtils.isFn(callback)) {
+      callback();
+    }
+  }
+
+  /**
+   * @stable [23.04.2021]
+   * @param connection
+   * @param callback
+   * @param method
+   * @param ip
+   * @param uuid
+   */
+  private onConnectionClose(connection: signalR.HubConnection,
+                            callback: (...args: unknown[]) => void,
+                            method: string,
+                            ip: string,
+                            uuid: string): void {
+    SignalRChannel.logger.info(this.getMessage(method, ip, uuid, 'Connection has been closed'));
+    this.logManager.send(
+      SignalRChannelEventCategoriesEnum.SIGNALR,
+      `onConnectionClose:${method}`,
+      FilterUtils.defValuesFilter({ip, uuid})
+    );
+
+    this.setConnectionAlive(connection, false);
+
+    if (TypeUtils.isFn(callback)) {
+      callback();
+    }
+  }
+
+  /**
+   * @stable [23.04.2021]
+   * @param connection
    */
   private getReconnectTask(connection: signalR.HubConnection): DelayedTask {
     return Reflect.get(connection, SignalRChannel.$$RECONNECT_TASK);
   }
 
   /**
-   * @stable [07.11.2020]
+   * @stable [23.04.2021]
    * @param connection
    * @param task
-   * @private
    */
   private setReconnectTask(connection: signalR.HubConnection, task: DelayedTask): void {
     Reflect.set(connection, SignalRChannel.$$RECONNECT_TASK, task);
   }
 
   /**
-   * @stable [07.11.2020]
+   * @stable [23.04.2021]
    * @param connection
-   * @private
+   * @param alive
    */
-  private setStopConnection(connection: signalR.HubConnection): void {
-    Reflect.set(connection, SignalRChannel.$$CONNECTION_STOPPED, true);
+  private setConnectionAlive(connection: signalR.HubConnection, alive: boolean): void {
+    Reflect.set(connection, SignalRChannel.$$CONNECTION_ALIVE, alive);
+
+    if (alive) {
+      this.stopReconnectTask(connection);
+    }
   }
 
   /**
-   * @stable [07.11.2020]
+   * @stable [23.04.2021]
    * @param connection
-   * @private
+   * @param died
    */
-  private isConnectionStopped(connection: signalR.HubConnection): boolean {
-    return !!Reflect.get(connection, SignalRChannel.$$CONNECTION_STOPPED);
+  private setConnectionDied(connection: signalR.HubConnection, died: boolean): void {
+    Reflect.set(connection, SignalRChannel.$$CONNECTION_DIED, died);
+
+    if (died) {
+      this.stopReconnectTask(connection);
+    }
+  }
+
+  /**
+   * @stable [23.04.2021]
+   * @param connection
+   * @param inProgress
+   */
+  private setConnectionInProgress(connection: signalR.HubConnection, inProgress: boolean): void {
+    Reflect.set(connection, SignalRChannel.$$CONNECTION_IN_PROGRESS, inProgress);
+  }
+
+  /**
+   * @stable [23.04.2021]
+   * @param connection
+   */
+  private isConnectionInProgress(connection: signalR.HubConnection): boolean {
+    return !!Reflect.get(connection, SignalRChannel.$$CONNECTION_IN_PROGRESS);
+  }
+
+  /**
+   * @stable [23.04.2021]
+   * @param connection
+   */
+  private isConnectionAlive(connection: signalR.HubConnection): boolean {
+    return !!Reflect.get(connection, SignalRChannel.$$CONNECTION_ALIVE);
+  }
+
+  /**
+   * @stable [23.04.2021]
+   * @param connection
+   */
+  private isConnectionDied(connection: signalR.HubConnection): boolean {
+    return !!Reflect.get(connection, SignalRChannel.$$CONNECTION_DIED);
+  }
+
+  /**
+   * @stable [24.04.2021]
+   * @param method
+   * @param ip
+   * @param uuid
+   * @param message
+   */
+  private getMessage(method: string, ip: string, uuid: string, message?: string,): string {
+    return `[$SignalRChannel][${method}] ${message ? `${message}.` : '[...]'} Ip: ${ip}. Client uuid: ${uuid}`;
+  }
+
+  /**
+   * @stable [24.04.2021]
+   * @param method
+   * @param ip
+   * @param uuid
+   * @param message
+   */
+  private getMessageError(method: string, ip: string, uuid: string, message?: string): string {
+    return `${this.getMessage(method, ip, uuid, message)}. Error:`;
   }
 }

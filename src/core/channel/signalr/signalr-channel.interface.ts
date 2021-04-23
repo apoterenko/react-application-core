@@ -1,8 +1,5 @@
 import {
-  AnyT,
-  IChannelWrapper,
   IKeyValue,
-  IParamsWrapper,
   IQueryWrapper,
 } from '../../definitions.interface';
 import { IChannel } from '../../definition';
@@ -15,16 +12,18 @@ export interface ISignalRChannelConfigEntity
 }
 
 /**
- * @stable [17.12.2018]
- */
-export interface ISignalRChannelMessageEntity extends IChannelWrapper,
-                                                      IParamsWrapper<AnyT[]> {
-}
-
-/**
  * @service
  * @stable [04.11.2020]
  */
 export interface ISignalRChannel
   extends IChannel<ISignalRChannelConfigEntity> {
+}
+
+/**
+ * @enum
+ * @stable [23.04.2021]
+ */
+export enum SignalRChannelEventCategoriesEnum {
+  SIGNALR = 'signalr',
+  SIGNALR_ERROR = 'signalr:error',
 }
