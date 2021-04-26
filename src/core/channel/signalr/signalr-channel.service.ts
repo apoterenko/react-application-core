@@ -24,6 +24,7 @@ import {
 import {
   ISignalRChannelConfigEntity,
   SignalRChannelEventCategoriesEnum,
+  SignalRChannelEventsEnum,
 } from './signalr-channel.interface';
 import {
   DI_TYPES,
@@ -121,7 +122,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
           SignalRChannel.logger.error(this.getMessageError('close', ip, uuid), e);
           this.logManager.send(
             SignalRChannelEventCategoriesEnum.SIGNALR_ERROR,
-            'close',
+            SignalRChannelEventsEnum.STOP,
             FilterUtils.defValuesFilter({ip, uuid, error: e.message})
           );
         } finally {
@@ -161,7 +162,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
       SignalRChannel.logger.error(this.getMessageError('doConnect', ip, uuid), e);
       this.logManager.send(
         SignalRChannelEventCategoriesEnum.SIGNALR_ERROR,
-        'doConnect',
+        SignalRChannelEventsEnum.CONNECT,
         FilterUtils.defValuesFilter({ip, uuid, error: e.message})
       );
 
@@ -185,7 +186,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
     SignalRChannel.logger.debug(this.getMessage('doReconnect', ip, uuid));
     this.logManager.send(
       SignalRChannelEventCategoriesEnum.SIGNALR,
-      'doReconnect',
+      SignalRChannelEventsEnum.RECONNECT,
       FilterUtils.defValuesFilter({ip, uuid})
     );
 
@@ -237,7 +238,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
     SignalRChannel.logger.info(this.getMessage(method, ip, uuid, 'Server is connected/reconnected'));
     this.logManager.send(
       SignalRChannelEventCategoriesEnum.SIGNALR,
-      `onConnectionAlive:${method}`,
+      `${SignalRChannelEventsEnum.ON_ALIVE}:${method}`,
       FilterUtils.defValuesFilter({ip, uuid})
     );
 
@@ -264,7 +265,7 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
     SignalRChannel.logger.info(this.getMessage(method, ip, uuid, 'Connection has been closed'));
     this.logManager.send(
       SignalRChannelEventCategoriesEnum.SIGNALR,
-      `onConnectionClose:${method}`,
+      `${SignalRChannelEventsEnum.ON_CLOSE}:${method}`,
       FilterUtils.defValuesFilter({ip, uuid})
     );
 

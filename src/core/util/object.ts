@@ -37,6 +37,14 @@ const isCurrentValueNotEqualPreviousValue = (current: AnyT, previous: AnyT): boo
   isObjectNotEmpty(current) && !R.equals(current, previous);
 
 /**
+ * @stable [25.04.2021]
+ * @param value1
+ * @param value2
+ */
+const isEqualAsString = (value1: unknown, value2: unknown): boolean =>
+  !R.isNil(value1) && String(value1) === String(value2);
+
+/**
  * @stable [04.09.2020]
  * @param object
  * @param mergeFn
@@ -80,6 +88,7 @@ export class ObjectUtils {
   public static readonly buildValuesObjectBy =  buildValuesObjectBy;                                      /* @stable [15.05.2020] */
   public static readonly EMPTY_OBJECT = EMPTY_OBJECT;                                                     /* @stable [27.03.2021] */
   public static readonly isCurrentValueNotEqualPreviousValue = isCurrentValueNotEqualPreviousValue;       /* @stable [15.05.2020] */
+  public static readonly isEqualAsString = isEqualAsString;                                               /* @stable [25.04.2021] */
   public static readonly isObjectEmpty = isObjectEmpty;                                                   /* @stable [04.09.2020] */
   public static readonly isObjectNotEmpty = isObjectNotEmpty;                                             /* @stable [15.05.2020] */
 }

@@ -27,3 +27,15 @@ export enum SignalRChannelEventCategoriesEnum {
   SIGNALR = 'signalr',
   SIGNALR_ERROR = 'signalr:error',
 }
+
+/**
+ * @enum
+ * @stable [23.04.2021]
+ */
+export enum SignalRChannelEventsEnum {
+  CONNECT = 'connect',
+  ON_ALIVE = 'on:alive',
+  ON_CLOSE = 'on:close',
+  RECONNECT = 'reconnect',
+  STOP = 'stop',
+}

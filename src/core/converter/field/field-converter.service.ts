@@ -193,11 +193,10 @@ export class FieldConverter implements IFieldConverter {
   }
 
   /**
-   * @stable [08.07.2020]
-   * @param {SelectValueT} value
-   * @returns {EntityIdT}
+   * @stable [21.04.2021]
+   * @param value
    */
-  public fromSelectValueToId(value: SelectValueT): EntityIdT {
+  public fromSelectValueToId<TResult = EntityIdT>(value: SelectValueT): TResult {
     return this.convert({
       from: FieldConverterTypesEnum.SELECT_VALUE,
       to: FieldConverterTypesEnum.ID,
