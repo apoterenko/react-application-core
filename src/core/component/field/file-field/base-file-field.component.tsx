@@ -139,16 +139,13 @@ export class BaseFileField<TProps extends IBaseFileFieldProps,
   }
 
   /**
-   * @stable [19.10.2020]
+   * @stable [21.04.2021]
    * @param event
-   * @protected
    */
   protected onClick(event: IBaseEvent): void {
     super.onClick(event);
 
-    if (!this.isNativeFileFieldUsed) {
-      this.onAttachFileClick();
-    }
+    this.onAttachFileClick();
   }
 
   /**
