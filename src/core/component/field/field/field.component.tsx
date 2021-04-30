@@ -51,6 +51,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   public static readonly defaultProps: IFieldProps = {
     fieldRendered: true,
     full: true,
+    type: 'text',
     useCursor: true,
     useKeyboardOnMobilePlatformOnly: false,
   };
@@ -463,12 +464,12 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @stable [07.10.2020]
    */
   protected getInputElementProps(): FieldComposedInputAttributesT {
-    const $props = this.originalProps;
+    const originalProps = this.originalProps;
     const {
       name,
       tabIndex,
-      type = 'text',
-    } = $props;
+    } = originalProps;
+
     const {
       accept,
       autoComplete = 'off',
@@ -479,7 +480,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
 
     const ref = this.inputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>;
     const pattern = this.getFieldPattern();
-    const placeholder = ConditionUtils.orUndef($props.placeholder && !this.isBusy, () => this.t($props.placeholder));
+    const placeholder = ConditionUtils.orUndef(originalProps.placeholder && !this.isBusy, () => this.t(originalProps.placeholder));
     const readOnly = this.isInactive;
     const required = this.isRequired;
     const disabled = this.isDisabled;
@@ -500,7 +501,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
       ref,
       required,
       tabIndex,
-      type,
+      type: this.type,
       value,
       ...(
         this.isActive
@@ -1252,5 +1253,15 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   private get error(): string {
     return NvlUtils.nvl(this.originalProps.error, this.state.error);
+  }
+
+  /**
+   * @stable [30.04.2021]
+   */
+  private get type(): string {
+    const {
+      type,
+    } = this.originalProps;
+    return type === 'password' ? 'text' : type;
   }
 }
