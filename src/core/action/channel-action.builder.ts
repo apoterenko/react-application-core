@@ -7,7 +7,7 @@ import {
   $CHANNEL_RECEIVE_MESSAGE_ACTION_TYPE,
   $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE,
   IChannelMessageEntity,
-  IFluxChannelMessageEntity,
+  IChannelMessageFluxEntity,
   IReduxChannelHolderEntity,
 } from '../definition';
 import { AnyT } from '../definitions.interface';
@@ -27,7 +27,7 @@ export class ChannelActionBuilder {
    * @param payload
    */
   public static buildReceiveMessagePlainAction<TData = AnyT>(payload: IChannelMessageEntity<TData>): IEffectsAction {
-    const data: IFluxChannelMessageEntity = {payload};
+    const data: IChannelMessageFluxEntity = {payload};
     return {type: $CHANNEL_RECEIVE_MESSAGE_ACTION_TYPE, data};
   }
 
@@ -36,7 +36,7 @@ export class ChannelActionBuilder {
    * @param payload
    */
   public static buildReplaceMessagesPlainAction<TData = AnyT>(payload: IChannelMessageEntity<TData>): IEffectsAction {
-    const data: IFluxChannelMessageEntity = {payload};
+    const data: IChannelMessageFluxEntity = {payload};
     return {type: $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE, data};
   }
 

@@ -3,24 +3,26 @@ import { IEffectsAction } from 'redux-effects-promise';
 import {
   $RAC_ASYNC_LIB_LOAD_ACTION_TYPE,
   $RAC_ASYNC_LIB_LOAD_DONE_ACTION_TYPE,
-  IAsyncLibFluxEntity,
+  IAsyncLibEntity,
   INITIAL_REDUX_ASYNC_LIBS_ENTITY,
   IReduxAsyncLibsEntity,
 } from '../definition';
-import { ObjectUtils } from '../util';
+import {
+  ObjectUtils,
+  Selectors,
+} from '../util';
 
 /**
  * @reducer
- * @stable [27.03.2021]
+ * @stable [30.04.2021]
  * @param state
  * @param action
  */
 export const asyncLibReducer = (state: IReduxAsyncLibsEntity = INITIAL_REDUX_ASYNC_LIBS_ENTITY,
                                 action: IEffectsAction): IReduxAsyncLibsEntity => {
-  const fluxEntity: IAsyncLibFluxEntity = action.data;
   const {
     alias,
-  } = fluxEntity?.payload || ObjectUtils.EMPTY_OBJECT;
+  } = Selectors.payloadFromAction<IAsyncLibEntity>(action) || ObjectUtils.EMPTY_OBJECT as IAsyncLibEntity;
 
   switch (action.type) {
     case $RAC_ASYNC_LIB_LOAD_ACTION_TYPE:

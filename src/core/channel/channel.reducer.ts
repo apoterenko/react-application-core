@@ -7,9 +7,13 @@ import {
   CHANNEL_DISCONNECT_EVENT,
   IChannelMessageEntity,
   INITIAL_REDUX_CHANNELS_ENTITY,
+  IReduxChannelEntity,
   IReduxChannelsEntity,
 } from '../definition';
-import { Selectors } from '../util';
+import {
+  ObjectUtils,
+  Selectors,
+} from '../util';
 
 /**
  * @reducer
@@ -20,12 +24,15 @@ import { Selectors } from '../util';
 export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANNELS_ENTITY,
                                action: IEffectsAction): IReduxChannelsEntity => {
   const channelMessageEntity = Selectors.payloadFromAction<IChannelMessageEntity>(action);
+
   let previousState;
+  let ip;
 
   switch (action.type) {
     case $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE:
     case $CHANNEL_RECEIVE_MESSAGE_ACTION_TYPE:
-      previousState = state[channelMessageEntity.ip] || {};
+      ip = channelMessageEntity.ip;
+      previousState = state[ip] || ObjectUtils.EMPTY_OBJECT as IReduxChannelEntity;
       break;
   }
 
@@ -33,7 +40,7 @@ export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANN
     case $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE:
       return {
         ...state,
-        [channelMessageEntity.ip]: {
+        [ip]: {
           ...previousState,
           messages: channelMessageEntity.messages,
         },
@@ -43,7 +50,7 @@ export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANN
         case CHANNEL_CONNECT_EVENT:
           return {
             ...state,
-            [channelMessageEntity.ip]: {
+            [ip]: {
               ...INITIAL_REDUX_CHANNELS_ENTITY,
               connected: true,
             },
@@ -51,7 +58,7 @@ export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANN
         case CHANNEL_DISCONNECT_EVENT:
           return {
             ...state,
-            [channelMessageEntity.ip]: {
+            [ip]: {
               ...INITIAL_REDUX_CHANNELS_ENTITY,
               connected: false,
             },
@@ -59,7 +66,7 @@ export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANN
         default:
           return {
             ...state,
-            [channelMessageEntity.ip]: {
+            [ip]: {
               ...previousState,
               messages: [
                 ...previousState.messages || [],
