@@ -27,7 +27,7 @@ export class DefaultStorage extends BaseStorage {
    * @param value
    */
   public async set(key: string, value: unknown): Promise<boolean> {
-    this.storage.setItem(this.toKey(key), JsonUtils.serializeJson(value));
+    this.storage.setItem(this.asFullKey(key), JsonUtils.serializeJson(value));
     return true;
   }
 
@@ -38,7 +38,7 @@ export class DefaultStorage extends BaseStorage {
    * @returns {Promise<AnyT>}
    */
   public async get(key: string, noPrefix?: boolean): Promise<AnyT> {
-    const data = await this.storage.getItem(this.toKey(key, noPrefix));
+    const data = await this.storage.getItem(this.asFullKey(key, noPrefix));
     return JsonUtils.parseJson(data);
   }
 
@@ -49,7 +49,7 @@ export class DefaultStorage extends BaseStorage {
    * @returns {Promise<boolean>}
    */
   public async remove(key: string, noPrefix?: boolean): Promise<void> {
-    this.storage.removeItem(this.toKey(key, noPrefix));
+    this.storage.removeItem(this.asFullKey(key, noPrefix));
   }
 
   /**

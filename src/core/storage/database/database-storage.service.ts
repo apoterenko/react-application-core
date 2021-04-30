@@ -1,14 +1,16 @@
 import 'localforage';
+import { LoggerFactory } from 'ts-smart-logger';
 
-import { AnyT } from '../../definitions.interface';
 import { BaseStorage } from '../base-storage.service';
 
 export class DatabaseStorage extends BaseStorage {
 
+  private static readonly logger = LoggerFactory.makeLogger('DatabaseStorage');
+
   /**
-   * @stable [28.07.2019]
-   * @param {string} prefix
-   * @param {LocalForage} instance
+   * @stable [29.04.2021]
+   * @param instance
+   * @param prefix
    */
   constructor(private instance: LocalForage,
               prefix: string) {
@@ -16,39 +18,45 @@ export class DatabaseStorage extends BaseStorage {
   }
 
   /**
-   * @stable [29.07.2019]
-   * @param {string} key
-   * @param {AnyT} value
-   * @returns {Promise<boolean>}
+   * @stable [29.04.2021]
+   * @param key
+   * @param value
    */
-  public set(key: string, value: AnyT): Promise<boolean> {
-    return this.instance.setItem(this.toKey(key), value);
+  public async set(key: string, value: unknown): Promise<boolean> {
+    const fullKey = this.asFullKey(key);
+    try {
+      await this.instance.setItem(fullKey, value);
+    } catch (e) {
+      DatabaseStorage.logger.error(`[$DatabaseStorage][set] Error:`, e);
+      return false;
+    }
+    return true;
   }
 
   /**
-   * @stable [28.07.2019]
-   * @param {string} key
-   * @returns {Promise<AnyT>}
+   * @stable [29.04.2021]
+   * @param key
    */
-  public async get(key: string): Promise<AnyT> {
-    return this.instance.getItem(this.toKey(key));
+  public async get(key: string): Promise<unknown> {
+    const fullKey = this.asFullKey(key);
+    return this.instance.getItem(fullKey);
   }
 
   /**
-   * @stable [28.07.2019]
-   * @param {string} key
-   * @param {boolean} noPrefix
-   * @returns {Promise<boolean>}
+   * @stable [29.04.2021]
+   * @param key
+   * @param noPrefix
    */
   public remove(key: string, noPrefix?: boolean): Promise<void> {
-    return this.instance.removeItem(this.toKey(key, noPrefix));
+    const fullKey = this.asFullKey(key, noPrefix);
+    return this.instance.removeItem(fullKey);
   }
 
   /**
-   * @stable [25.09.2019]
-   * @param {(value: AnyT, key: string) => void} callback
+   * @stable [29.04.2021]
+   * @param callback
    */
-  public each(callback: (value: AnyT, key: string) => void): void {
+  public each(callback: (value: unknown, key: string) => void): void {
     this.instance.iterate((v, k) => callback(v, k));
   }
 }
