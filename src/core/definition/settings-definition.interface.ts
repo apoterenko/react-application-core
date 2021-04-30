@@ -241,6 +241,15 @@ export interface IGoogleMapsSettingsEntity {
 }
 
 /**
+ * @entity
+ * @stable [30.04.2021]
+ */
+export interface IChannelSettingsEntity {
+  eventToEmit?: string;
+  eventToListen?: string;
+}
+
+/**
  * @default-entity
  * @stable [10.01.2020]
  */

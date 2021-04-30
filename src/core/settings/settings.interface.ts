@@ -12,6 +12,7 @@ import {
   DEFAULT_URLS_SETTINGS_ENTITY,
   DefaultEntities,
   IAsyncLibrariesSettingsEntity,
+  IChannelSettingsEntity,
   IComponentsSettingsEntity,
   ICurrencySettingsEntity,
   IDateTimeSettingsEntity,
@@ -71,11 +72,6 @@ export interface IAuthorizationSettings {
   isAuthorizationNeeded?: boolean;
 }
 
-export interface IApplicationChannelSettings {
-  eventToListen?: string;
-  eventToEmit?: string;
-}
-
 export interface IBootstrapSettings {
   flexEnabled?: boolean;
   rootId?: string;
@@ -85,7 +81,7 @@ export interface ISettingsEntity {
   asyncLibraries?: IAsyncLibrariesSettingsEntity;
   authorization?: IAuthorizationSettings;
   bootstrap?: IBootstrapSettings;
-  channel?: IApplicationChannelSettings;
+  channel?: IChannelSettingsEntity;
   companyName?: string;
   components?: IComponentsSettingsEntity;
   currency?: ICurrencySettingsEntity;

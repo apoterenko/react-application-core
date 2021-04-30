@@ -12,29 +12,38 @@ import {
 import { Selectors } from '../util';
 
 /**
- * @stable [06.11.2020]
+ * @reducer
+ * @stable [30.04.2021]
  * @param state
  * @param action
  */
 export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANNELS_ENTITY,
                                action: IEffectsAction): IReduxChannelsEntity => {
-  const message = Selectors.payloadFromAction<IChannelMessageEntity>(action);
+  const channelMessageEntity = Selectors.payloadFromAction<IChannelMessageEntity>(action);
+  let previousState;
+
+  switch (action.type) {
+    case $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE:
+    case $CHANNEL_RECEIVE_MESSAGE_ACTION_TYPE:
+      previousState = state[channelMessageEntity.ip] || {};
+      break;
+  }
 
   switch (action.type) {
     case $CHANNEL_REPLACE_MESSAGES_ACTION_TYPE:
       return {
         ...state,
-        [message.ip]: {
-          ...state[message.ip],
-          messages: message.messages,
+        [channelMessageEntity.ip]: {
+          ...previousState,
+          messages: channelMessageEntity.messages,
         },
       };
     case $CHANNEL_RECEIVE_MESSAGE_ACTION_TYPE:
-      switch (message.name) {
+      switch (channelMessageEntity.name) {
         case CHANNEL_CONNECT_EVENT:
           return {
             ...state,
-            [message.ip]: {
+            [channelMessageEntity.ip]: {
               ...INITIAL_REDUX_CHANNELS_ENTITY,
               connected: true,
             },
@@ -42,24 +51,23 @@ export const channelReducer = (state: IReduxChannelsEntity = INITIAL_REDUX_CHANN
         case CHANNEL_DISCONNECT_EVENT:
           return {
             ...state,
-            [message.ip]: {
+            [channelMessageEntity.ip]: {
               ...INITIAL_REDUX_CHANNELS_ENTITY,
               connected: false,
             },
           };
         default:
-          const previousState = state[message.ip] || {};
           return {
             ...state,
-            [message.ip]: {
+            [channelMessageEntity.ip]: {
               ...previousState,
               messages: [
-                ...(previousState.messages || []),
-                message
+                ...previousState.messages || [],
+                channelMessageEntity
               ],
             },
           };
       }
   }
   return state;
-}
+};

@@ -81,7 +81,7 @@ export interface IFieldConverter {
   fromPlaceEntityToDisplayValue(value: PlaceEntityValueT): string;
   fromPlaceEntityToPlaceParameter(value: PlaceEntityValueT): string;
   fromSelectValueToDisplayValue(value: SelectValueT): StringNumberT;                                                                                                            /* @stable [08.08.2020] */
-  fromSelectValueToId(value: SelectValueT): EntityIdT;                                                                                                                          /* @stable [11.08.2020] */
+  fromSelectValueToId<TResult = EntityIdT>(value: SelectValueT): TResult;                                                                                                                          /* @stable [11.08.2020] */
   fromSelectValueToPositiveOrNegativeNumberLikeId(value: SelectValueT): EntityIdT;                                                                                              /* @stable [07.12.2020] */
   fromSelectValueToRawValue<TRawData = IEntity, TValue = EntityIdT>(value: SelectValueT<TRawData, TValue>): TRawData;                                                                                                   /* @stable [28.10.2020] */
   register(config: IFieldConverterConfigEntity): void;                                                                                                                          /* @stable [01.09.2020] */
