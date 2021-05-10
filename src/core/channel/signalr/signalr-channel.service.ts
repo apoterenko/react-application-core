@@ -19,17 +19,12 @@ import {
 import {
   CHANNEL_CONNECT_EVENT,
   CHANNEL_DISCONNECT_EVENT,
-  ILogManager,
 } from '../../definition';
 import {
   ISignalRChannelConfigEntity,
   SignalRChannelEventCategoriesEnum,
   SignalRChannelEventsEnum,
 } from './signalr-channel.interface';
-import {
-  DI_TYPES,
-  lazyInject,
-} from '../../di';
 
 /**
  * @service
@@ -47,8 +42,6 @@ export class SignalRChannel extends BaseChannel<ISignalRChannelConfigEntity> {
     .makeArray(500)
     .map((_, index) => Math.round(index * 1.2 * 1000))
     .concat(null);
-
-  @lazyInject(DI_TYPES.LogManager) private readonly logManager: ILogManager;
 
   /**
    * @stable [04.11.2020]

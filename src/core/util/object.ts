@@ -75,9 +75,14 @@ const buildNotEmptyOrNullValuesObject = <TValue>(object: TValue): Record<StringN
   });
 
 /**
+ * @stable [09.05.2021]
+ */
+const newEmptyObject = <TValue = unknown>(): TValue => Object.create(null);
+
+/**
  * @stable [27.03.2021]
  */
-const EMPTY_OBJECT = Object.freeze(Object.create(null));
+const EMPTY_OBJECT = Object.freeze(newEmptyObject());
 
 /**
  * @stable [15.05.2020]
@@ -91,4 +96,5 @@ export class ObjectUtils {
   public static readonly isEqualAsString = isEqualAsString;                                               /* @stable [25.04.2021] */
   public static readonly isObjectEmpty = isObjectEmpty;                                                   /* @stable [04.09.2020] */
   public static readonly isObjectNotEmpty = isObjectNotEmpty;                                             /* @stable [15.05.2020] */
+  public static readonly newEmptyObject = newEmptyObject;                                                 /* @stable [09.05.2021] */
 }

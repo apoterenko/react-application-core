@@ -51,7 +51,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   public static readonly defaultProps: IFieldProps = {
     fieldRendered: true,
     full: true,
-    type: 'text',
     useCursor: true,
     useKeyboardOnMobilePlatformOnly: false,
   };
@@ -452,12 +451,11 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [18.05.2020]
-   * @param {AnyT} value
-   * @returns {AnyT}
+   * @stable [30.04.2021]
+   * @param value
    */
-  protected decorateDisplayValue(value: AnyT): AnyT {
-    return value;
+  protected decorateDisplayValue(value: unknown): string {
+    return value as string;
   }
 
   /**
@@ -810,6 +808,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    */
   protected get componentsSettingsProps(): TProps {
     return this.getComponentsSettingsProps();
+  }
+
+  /**
+   * @stable [30.04.2021]
+   */
+  protected get isOriginalPasswordType(): boolean {
+    return this.originalType === 'password';
   }
 
   /**
@@ -1259,9 +1264,14 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
    * @stable [30.04.2021]
    */
   private get type(): string {
-    const {
-      type,
-    } = this.originalProps;
-    return type === 'password' ? 'text' : type;
+    const defaultType = 'text';
+    return this.originalType || defaultType;
+  }
+
+  /**
+   * @stable [30.04.2021]
+   */
+  private get originalType(): string {
+    return this.originalProps.type;
   }
 }
