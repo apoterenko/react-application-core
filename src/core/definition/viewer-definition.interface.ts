@@ -1,6 +1,7 @@
 import {
   AnyT,
   IDefaultSrcWrapper,
+  IDegreeWrapper,
   IErrorWrapper,
   IFullWrapper,
   IHeightWrapper,
@@ -8,6 +9,7 @@ import {
   IOnShowPreviewWrapper,
   IOpenedWrapper,
   IPageWrapper,
+  IPreviewDegreeWrapper,
   IPreviewDialogConfigurationWrapper,
   IPreviewPageWrapper,
   IPreviewScaleWrapper,
@@ -25,12 +27,15 @@ import { IDialogProps } from './dialog-definition.interface';
 
 /**
  * @base-entity
- * @stable [16.03.2020]
+ * @stable [15.05.2021]
  */
 export interface IPresetsBaseViewerEntity
-  extends IPageWrapper,
-    IPreviewPageWrapper,
-    IPreviewScaleWrapper,
+  extends IDegreeWrapper,                                             /* @stable [15.05.2021] */
+    IOpenedWrapper,                                                   /* @stable [15.05.2021] */
+    IPageWrapper,                                                     /* @stable [15.05.2021] */
+    IPreviewDegreeWrapper,                                            /* @stable [15.05.2021] */
+    IPreviewPageWrapper,                                              /* @stable [15.05.2021] */
+    IPreviewScaleWrapper,                                             /* @stable [15.05.2021] */
     IScaleWrapper {
 }
 
@@ -50,8 +55,18 @@ export interface IPresetsViewerEntity
 }
 
 /**
+ * @state
+ * @stable [16.03.2020]
+ */
+export interface IViewerState
+  extends IPresetsBaseViewerEntity,
+    IErrorWrapper<Error>,
+    IProgressWrapper {
+}
+
+/**
  * @generic-entity
- * @stable [14.12.2020]
+ * @stable [16.05.2021]
  */
 export interface IGenericViewerEntity
   extends IPresetsViewerEntity {
@@ -59,42 +74,23 @@ export interface IGenericViewerEntity
 
 /**
  * @generic-entity
- * @stable [16.03.2020]
- */
-export interface IGenericPdfViewerEntity
-  extends IGenericViewerEntity {
-}
-
-/**
- * @generic-entity
- * @stable [16.03.2020]
+ * @stable [16.05.2021]
  */
 export interface IGenericPictureViewerEntity
   extends IGenericViewerEntity {
 }
 
 /**
- * @generic-state
- * @stable [16.03.2020]
+ * @generic-entity
+ * @stable [16.05.2021]
  */
-export interface IGenericViewerState
-  extends IPresetsBaseViewerEntity,
-    IErrorWrapper<Error>,
-    IOpenedWrapper,
-    IProgressWrapper {
-}
-
-/**
- * @state
- * @stable [16.03.2020]
- */
-export interface IViewerState
-  extends IGenericViewerState {
+export interface IGenericPdfViewerEntity
+  extends IGenericViewerEntity {
 }
 
 /**
  * @props
- * @stable [19.09.2018]
+ * @stable [16.05.2021]
  */
 export interface IViewerProps
   extends IGenericComponentProps,
@@ -103,7 +99,7 @@ export interface IViewerProps
 
 /**
  * @props
- * @stable [16.03.2020]
+ * @stable [16.05.2021]
  */
 export interface IPdfViewerProps
   extends IGenericComponentProps,
@@ -112,7 +108,7 @@ export interface IPdfViewerProps
 
 /**
  * @props
- * @stable [16.03.2020]
+ * @stable [16.05.2021]
  */
 export interface IPictureViewerProps
   extends IGenericComponentProps,
@@ -154,6 +150,7 @@ export interface IGenericPdfPlugin {
   loadDocument(): void;
   refreshPage(): void;
   setAutoScale(autoScale: boolean): IGenericPdfPlugin;
+  setDegree(degree: number): IGenericPdfPlugin;
   setOnError(onError: (error: AnyT) => void): IGenericPdfPlugin;
   setOnStart(onStart: () => void): IGenericPdfPlugin;
   setPage(page: number): IGenericPdfPlugin;
@@ -191,11 +188,11 @@ export interface IViewerLocator {
  * @stable [15.03.2020]
  */
 export enum ViewerClassesEnum {
-  EMPTY_VIEWER = 'rac-empty-viewer',
   FULL_VIEWER = 'rac-full-viewer',
   INFO_VIEWER = 'rac-info-viewer',
+  PDF_VIEWER = 'rac-pdf-viewer',
   PICTURE_VIEWER = 'rac-picture-viewer',
+  SELECTABLE_VIEWER = 'rac-selectable-viewer',
   VIEWER = 'rac-viewer',
   VIEWER_CONTENT = 'rac-viewer__content',
-  VIEWER_PREVIEW_ICON = 'rac-viewer__preview-icon',
 }

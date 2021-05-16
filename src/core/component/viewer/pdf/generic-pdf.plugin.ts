@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import * as Promise from 'bluebird';
+import * as BPromise from 'bluebird';
 import * as pdfjsLib from 'pdfjs-dist';
 import { LoggerFactory } from 'ts-smart-logger';
 
@@ -28,12 +28,13 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   private autoScale = true;
   private initialScale: number;
   private loadedDocument: IPdfViewerDocumentEntity;
-  private loadPageTask: Promise<IPdfViewerPageEntity>;
-  private loadTask: Promise<IPdfViewerDocumentEntity>;
+  private loadPageTask: BPromise<IPdfViewerPageEntity>;
+  private loadTask: BPromise<IPdfViewerDocumentEntity>;
   private onError?: (error: AnyT) => void;
   private onStart: () => void;
   private page = 1;
   private scale: number;
+  private degree: number;
   private src: string;
 
   /**
@@ -53,9 +54,8 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [23.03.2020]
-   * @param {() => void} onStart
-   * @returns {IGenericPdfPlugin}
+   * @stable [16.05.2021]
+   * @param onStart
    */
   public setOnStart(onStart: () => void): IGenericPdfPlugin {
     this.onStart = onStart;
@@ -63,9 +63,8 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [23.03.2020]
-   * @param {(error: AnyT) => void} onError
-   * @returns {IGenericPdfPlugin}
+   * @stable [16.05.2021]
+   * @param onError
    */
   public setOnError(onError: (error: AnyT) => void): IGenericPdfPlugin {
     this.onError = onError;
@@ -73,12 +72,20 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [14.11.2018]
-   * @param {number} page
-   * @returns {IGenericPdfPlugin}
+   * @stable [16.05.2021]
+   * @param page
    */
   public setPage(page: number): IGenericPdfPlugin {
     this.page = page;
+    return this;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   * @param degree
+   */
+  public setDegree(degree: number): IGenericPdfPlugin {
+    this.degree = degree;
     return this;
   }
 
@@ -93,9 +100,8 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [14.11.2018]
-   * @param {number} scale
-   * @returns {IGenericPdfPlugin}
+   * @stable [16.05.2021]
+   * @param scale
    */
   public setScale(scale: number): IGenericPdfPlugin {
     this.scale = scale;
@@ -103,9 +109,8 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [23.03.2020]
-   * @param {boolean} autoScale
-   * @returns {IGenericPdfPlugin}
+   * @stable [16.05.2021]
+   * @param autoScale
    */
   public setAutoScale(autoScale: boolean): IGenericPdfPlugin {
     this.autoScale = autoScale;
@@ -125,7 +130,7 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
     if (isFn(this.onStart)) {
       this.onStart();
     }
-    this.loadTask = Promise.resolve(pdfjsLib.getDocument(this.src).promise)
+    this.loadTask = BPromise.resolve(pdfjsLib.getDocument(this.src).promise)
       .then(this.onLoad, this.onLoadError);
   }
 
@@ -137,7 +142,7 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
       GenericPdfPlugin.logger.warn('[$GenericPdfPlugin][refreshPage] The document is not defined!');
       return;
     }
-    this.loadPageTask = new Promise<IPdfViewerPageEntity>((resolve, reject) =>
+    this.loadPageTask = new BPromise<IPdfViewerPageEntity>((resolve, reject) =>
       this.loadedDocument.getPage(this.page).then(resolve, reject)
     ).then(
       (page) => this.onFinish(() => this.onLoadPage(page)),

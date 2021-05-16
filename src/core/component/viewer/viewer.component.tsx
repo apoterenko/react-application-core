@@ -9,66 +9,64 @@ import {
   ObjectUtils,
 } from '../../util';
 import {
-  ComponentClassesEnum,
   DialogClassesEnum,
   IconsEnum,
   IDialogProps,
-  IViewerCtor,
   IViewerProps,
   IViewerState,
   ViewerClassesEnum,
   ViewersEnum,
 } from '../../definition';
-import {
-  AnyT,
-  UNDEF,
-} from '../../definitions.interface';
 import { Button } from '../button/button.component';
 import { Dialog } from '../dialog/dialog.component';
 import { GenericComponent } from '../base/generic.component';
 import { Info } from '../info/info.component';
+import { UNDEF } from '../../definitions.interface';
 
-export class Viewer<
-    TProps extends IViewerProps = IViewerProps,
-    TState extends IViewerState = IViewerState
-  > extends GenericComponent<TProps, TState> {
+/**
+ * @component-impl
+ * @stable [16.05.2021]
+ */
+export class Viewer<TProps extends IViewerProps = IViewerProps,
+  TState extends IViewerState = IViewerState> extends GenericComponent<TProps, TState> {
 
   public static readonly defaultProps: IViewerProps = {
     full: true,
     usePreview: true,
   };
 
-  private static readonly DEFAULT_PAGE = 1;
   private readonly previewDialogRef = React.createRef<Dialog>();
 
   /**
-   * @stable [13.12.2020]
+   * @stable [16.05.2021]
    * @param originalProps
    */
   constructor(originalProps: TProps) {
     super(originalProps);
 
     this.onBack = this.onBack.bind(this);
-    this.onDecrementScale = this.onDecrementScale.bind(this);
+    this.onDecrementPreviewScale = this.onDecrementPreviewScale.bind(this);
     this.onForward = this.onForward.bind(this);
-    this.onIncrementScale = this.onIncrementScale.bind(this);
+    this.onIncrementPreviewScale = this.onIncrementPreviewScale.bind(this);
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadStart = this.onLoadStart.bind(this);
     this.onLoadSucceed = this.onLoadSucceed.bind(this);
     this.onPreviewDialogClose = this.onPreviewDialogClose.bind(this);
     this.onPreviewDialogOpen = this.onPreviewDialogOpen.bind(this);
+    this.onRedoPreviewDegree = this.onRedoPreviewDegree.bind(this);
+    this.onUndoPreviewDegree = this.onUndoPreviewDegree.bind(this);
     this.showPreviewDialog = this.showPreviewDialog.bind(this);
 
     this.state = {} as TState;
   }
 
   /**
-   * @stable [13.12.2020]
+   * @stable [16.05.2021]
    * @param prevProps
    * @param prevState
    */
   public componentDidUpdate(prevProps: TProps, prevState: TState): void {
-    if (this.hasInlineDialogBeenClosed(prevProps, prevState) || this.hasSrcChanges(prevProps, prevState)) {
+    if (this.hasSrcChanges(prevProps, prevState) || this.hasInlineDialogBeenClosed(prevProps, prevState)) {
       this.refreshOnSrcChanges();
     } else if (this.hasInternalChanges(prevProps, prevState)) {
       this.refreshOnInternalChanges();
@@ -76,14 +74,14 @@ export class Viewer<
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [16.05.2021]
    */
   public componentDidMount(): void {
     this.refreshOnSrcChanges();
   }
 
   /**
-   * @stable [13.12.2020]
+   * @stable [16.05.2021]
    */
   public render(): JSX.Element {
     const {
@@ -92,35 +90,33 @@ export class Viewer<
 
     return (
       <div
+        ref={this.actualRef}
         style={style}
         className={this.getClassName()}
       >
         {this.originalChildren}
-        {this.isBodyElementRendered && this.bodyElement}
-        {this.previewIconElement}
-        {this.previewDialogElement}
+        {!(this.isPreviewDialogInline && this.isOpened) && this.bodyElement}
+        {this.canPreview && this.previewDialogElement}
       </div>
     );
   }
 
   /**
-   * @stable [14.12.2020]
-   * @protected
+   * @stable [16.05.2021]
    */
-  protected get previewExtraActionsElement(): JSX.Element {
-    return (
-      <React.Fragment>
-        {this.incrementScaleActionElement}
-        {this.decrementScaleActionElement}
-        {this.previewBackActionElement}
-        {this.previewForwardActionElement}
-      </React.Fragment>
-    );
+  protected get contentElement(): JSX.Element {
+    return null;
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
+   * @stable [16.05.2021]
+   */
+  protected get previewElement(): JSX.Element {
+    return null;
+  }
+
+  /**
+   * @stable [16.05.2021]
    */
   protected get previewForwardActionElement(): JSX.Element {
     return (
@@ -132,8 +128,7 @@ export class Viewer<
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
+   * @stable [16.05.2021]
    */
   protected get previewBackActionElement(): JSX.Element {
     return (
@@ -145,81 +140,113 @@ export class Viewer<
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
+   * @stable [16.05.2021]
+   */
+  protected get redoActionElement(): JSX.Element {
+    return (
+      <Button
+        icon={IconsEnum.REDO}
+        onClick={this.onRedoPreviewDegree}/>
+    );
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get undoActionElement(): JSX.Element {
+    return (
+      <Button
+        icon={IconsEnum.UNDO}
+        onClick={this.onUndoPreviewDegree}/>
+    );
+  }
+
+  /**
+   * @stable [16.05.2021]
    */
   protected get incrementScaleActionElement(): JSX.Element {
     return (
       <Button
         icon={IconsEnum.SEARCH_PLUS}
-        onClick={this.onIncrementScale}/>
+        disabled={this.isIncrementPreviewScaleActionDisabled}
+        onClick={this.onIncrementPreviewScale}/>
     );
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
+   * @stable [16.05.2021]
    */
   protected get decrementScaleActionElement(): JSX.Element {
     return (
       <Button
         icon={IconsEnum.SEARCH_MINUS}
-        disabled={this.isDecrementScaleActionDisabled}
-        onClick={this.onDecrementScale}/>
+        disabled={this.isDecrementPreviewScaleActionDisabled}
+        onClick={this.onDecrementPreviewScale}/>
     );
   }
 
   /**
-   * @stable [18.03.2020]
-   * @param {AnyT} error
+   * @stable [16.05.2021]
    */
-  protected onLoadError(error: AnyT): void {
+  protected showPreviewDialog(): void {
+    this.setState({opened: true}, () => this.previewDialogRef.current.activate());
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected doShowPreviewDialogIfApplicable(): void {
+    if (this.originalProps.opened && this.canPreview) {
+      this.showPreviewDialog();
+    }
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected refreshOnSrcChanges(): void {
+    // Do nothing
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected refreshOnInternalChanges(): void {
+    // Do nothing
+  }
+
+  /**
+   * @stable [16.05.2021]
+   * @param error
+   */
+  protected onLoadError(error: Error): void {
     this.setState({error, progress: false});
   }
 
   /**
-   * @stable [18.03.2020]
-   * @param {(...args) => void} callback
+   * @stable [16.05.2021]
+   * @param callback
    */
   protected onLoadSucceed(callback?: (...args) => void): void {
     this.setState({progress: false}, callback);
   }
 
   /**
-   * @stable [18.03.2020]
+   * @stable [16.05.2021]
    */
   protected onLoadStart(): void {
     this.setState({error: null, progress: true});
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
+   * @stable [16.05.2021]
    */
-  protected get isPreviewForwardActionDisabled(): boolean {
-    return false;
+  protected get showPreviewDialogHandler(): () => void {
+    return ConditionUtils.orUndef(this.canPreview, () => this.showPreviewDialog);
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
-   */
-  protected get isPreviewBackActionDisabled(): boolean {
-    const previewPage = this.state.previewPage;
-    return !previewPage || previewPage === Viewer.DEFAULT_PAGE;
-  }
-
-  /**
-   * @stable [14.12.2020]
-   * @protected
-   */
-  protected get isDecrementScaleActionDisabled(): boolean {
-    return this.nextDecrementPreviewScale < 0;
-  }
-
-  /**
-   * @stable [14.12.2020]
-   * @protected
+   * @stable [16.05.2021]
    */
   protected getClassName(): string {
     const {
@@ -230,57 +257,204 @@ export class Viewer<
     return ClsUtils.joinClassName(
       ViewerClassesEnum.VIEWER,
       full && ViewerClassesEnum.FULL_VIEWER,
-      this.isSrcAbsent && ViewerClassesEnum.EMPTY_VIEWER,
-      this.isInfoRendered && ViewerClassesEnum.INFO_VIEWER,
+      this.canPreview && ViewerClassesEnum.SELECTABLE_VIEWER,
+      this.isInfoElementRendered && ViewerClassesEnum.INFO_VIEWER,
       CalcUtils.calc(className)
     );
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [16.05.2021]
    */
-  protected refreshOnSrcChanges(): void {
-    // Do nothing
+  protected get canPreview(): boolean {
+    return this.isPreviewUsed
+      && !this.inProgress
+      && !this.isActualSrcAbsent
+      && !this.doesErrorExist;
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [16.05.2021]
    */
-  protected refreshOnInternalChanges(): void {
-    // Do nothing
+  protected get isPreviewForwardActionDisabled(): boolean {
+    return false;
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
+   * @stable [16.05.2021]
    */
-  protected get contentElement(): JSX.Element {
-    return null;
+  protected get isPreviewBackActionDisabled(): boolean {
+    const previewPage = this.actualOrDefaultPreviewPage;
+    return !previewPage || previewPage === this.defaultPage;
   }
 
   /**
-   * @stable [13.12.2020]
-   * @protected
+   * @stable [16.05.2021]
    */
-  protected get previewElement(): JSX.Element {
-    return null;
+  protected get isDecrementPreviewScaleActionDisabled(): boolean {
+    return this.nextDecrementPreviewScale < 0;
   }
 
   /**
-   * @stable [14.12.2020]
+   * @stable [16.05.2021]
    */
-  protected get inProgress(): boolean {
-    return this.state.progress;
+  protected get isIncrementPreviewScaleActionDisabled(): boolean {
+    return false;
   }
 
   /**
-   * @stable [14.12.2020]
-   * @private
+   * @stable [16.05.2021]
+   */
+  protected get isOpened(): boolean {
+    return this.state.opened;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualSrc(): string {
+    const {
+      defaultScr,
+      src,
+    } = this.originalProps;
+
+    return src || defaultScr;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualPage(): number {
+    return NvlUtils.nvl(this.state.page, this.originalProps.page);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualScale(): number {
+    return NvlUtils.nvl(this.state.scale, this.originalProps.scale);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualDegree(): number {
+    return NvlUtils.nvl(this.state.degree, this.originalProps.degree);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualPreviewPage(): number {
+    return NvlUtils.nvl(this.state.previewPage, this.originalProps.previewPage);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualPreviewScale(): number {
+    return NvlUtils.nvl(this.state.previewScale, this.originalProps.previewScale);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualPreviewDegree(): number {
+    return NvlUtils.nvl(this.state.previewDegree, this.originalProps.previewDegree);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualOrDefaultPage(): number {
+    return NvlUtils.nvl(this.actualPage, this.defaultPage);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualOrDefaultScale(): number {
+    return NvlUtils.nvl(this.actualScale, this.defaultScale);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualOrDefaultDegree(): number {
+    return NvlUtils.nvl(this.actualDegree, this.defaultDegree);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualOrDefaultPreviewPage(): number {
+    return NvlUtils.nvl(this.actualPreviewPage, this.defaultPage);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualOrDefaultPreviewScale(): number {
+    return NvlUtils.nvl(this.actualPreviewScale, this.defaultScale);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get actualOrDefaultPreviewDegree(): number {
+    return NvlUtils.nvl(this.actualPreviewDegree, this.defaultDegree);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get defaultScale(): number {
+    return 1;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get defaultDegree(): number {
+    return 0;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get defaultPage(): number {
+    return 1;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get defaultScaleDiff(): number {
+    return .1;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get defaultDegreeDiff(): number {
+    return 90;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  protected get defaultPageDiff(): number {
+    return 1;
+  }
+
+  /**
+   * @stable [16.05.2021]
    */
   private onPreviewDialogClose(): void {
     this.setState(
       {
         opened: false,
+        previewDegree: UNDEF,
         previewPage: UNDEF,
         previewScale: UNDEF,
       },
@@ -289,61 +463,71 @@ export class Viewer<
   }
 
   /**
-   * @stable [14.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
   private onPreviewDialogOpen(): void {
     ConditionUtils.ifNotNilThanValue(this.originalProps.onShowPreview, (onShowPreview) => onShowPreview());
   }
 
   /**
-   * @stable [13.12.2020]
+   * @stable [16.05.2021]
+   */
+  private onIncrementPreviewScale(): void {
+    this.setState({previewScale: this.nextIncrementPreviewScale});
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private onDecrementPreviewScale(): void {
+    this.setState({previewScale: this.nextDecrementPreviewScale});
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private onRedoPreviewDegree(): void {
+    this.setState({previewDegree: this.nextIncrementPreviewDegree});
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private onUndoPreviewDegree(): void {
+    this.setState({previewDegree: this.nextDecrementPreviewDegree});
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private onBack(): void {
+    this.setState({previewPage: this.nextDecrementPreviewPage});
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private onForward(): void {
+    this.setState({previewPage: this.nextIncrementPreviewPage});
+  }
+
+  /**
+   * @stable [16.05.2021]
    * @param prevProps
    * @param prevState
-   * @private
    */
   private hasInternalChanges(prevProps: TProps, prevState: TState): boolean {
     return (
       this.hasPageChanges(prevProps, prevState)
       || this.hasScaleChanges(prevProps, prevState)
+      || this.hasDegreeChanges(prevProps, prevState)
     );
   }
 
   /**
-   * @stable [13.12.2020]
+   * @stable [16.05.2021]
    * @param prevProps
    * @param prevState
-   * @private
-   */
-  private hasScaleChanges(prevProps: TProps, prevState: TState): boolean {
-    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.scale, prevProps.scale);
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @param prevProps
-   * @param prevState
-   * @private
-   */
-  private hasSrcChanges(prevProps: TProps, prevState: TState): boolean {
-    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.src, prevProps.src);
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @param prevProps
-   * @param prevState
-   * @private
-   */
-  private hasInlineDialogBeenClosed(prevProps: TProps, prevState: TState): boolean {
-    return this.isPreviewDialogInline && prevState.opened && !this.state.opened;
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @param prevProps
-   * @param prevState
-   * @private
    */
   private hasPageChanges(prevProps: TProps, prevState: TState): boolean {
     return (
@@ -353,128 +537,49 @@ export class Viewer<
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [16.05.2021]
+   * @param prevProps
+   * @param prevState
    */
-  private onBack(): void {
-    this.setState({previewPage: this.actualOrDefaultPreviewPage - 1});
+  private hasDegreeChanges(prevProps: TProps, prevState: TState): boolean {
+    return (
+      ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.degree, prevProps.degree)
+      || ObjectUtils.isCurrentValueNotEqualPreviousValue(this.state.degree, prevState.degree)
+    );
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [16.05.2021]
+   * @param prevProps
+   * @param prevState
    */
-  private onForward(): void {
-    this.setState({previewPage: this.actualOrDefaultPreviewPage + 1});
+  private hasScaleChanges(prevProps: TProps, prevState: TState): boolean {
+    return (
+      ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.scale, prevProps.scale)
+      || ObjectUtils.isCurrentValueNotEqualPreviousValue(this.state.scale, prevState.scale)
+    );
   }
 
   /**
-   * @stable [16.03.2020]
+   * @stable [16.05.2021]
+   * @param prevProps
+   * @param prevState
    */
-  private onIncrementScale(): void {
-    this.setState({previewScale: this.actualOrDefaultPreviewScale + this.defaultScaleDiff});
+  private hasSrcChanges(prevProps: TProps, prevState: TState): boolean {
+    return ObjectUtils.isCurrentValueNotEqualPreviousValue(this.originalProps.src, prevProps.src);
   }
 
   /**
-   * @stable [14.12.2020]
+   * @stable [16.05.2021]
+   * @param prevProps
+   * @param prevState
    */
-  private onDecrementScale(): void {
-    this.setState({previewScale: this.nextDecrementPreviewScale});
+  private hasInlineDialogBeenClosed(prevProps: TProps, prevState: TState): boolean {
+    return this.isPreviewDialogInline && prevState.opened && !this.isOpened;
   }
 
   /**
-   * @stable [16.03.2020]
-   */
-  private showPreviewDialog(): void {
-    this.setState({opened: true}, () => this.previewDialogRef.current.activate());
-  }
-
-  /**
-   * @stable [14.12.2020]
-   * @private
-   */
-  private get nextDecrementPreviewScale(): number {
-    return this.actualOrDefaultPreviewScale - this.defaultScaleDiff;
-  }
-
-  /**
-   * @stable [16.03.2020]
-   * @returns {number}
-   */
-  protected get actualOrDefaultPage(): number {
-    return NvlUtils.nvl(this.actualPage, Viewer.DEFAULT_PAGE);
-  }
-
-  /**
-   * @stable [02.10.2020]
-   */
-  protected get actualPage(): number {
-    return NvlUtils.nvl(this.state.page, this.originalProps.page);
-  }
-
-  /**
-   * @stable [16.03.2020]
-   * @returns {number}
-   */
-  protected get actualOrDefaultPreviewPage(): number {
-    return NvlUtils.nvl(this.actualPreviewPage, Viewer.DEFAULT_PAGE);
-  }
-
-  /**
-   * @stable [16.03.2020]
-   * @returns {number}
-   */
-  protected get actualPreviewPage(): number {
-    return NvlUtils.nvl(this.state.previewPage, this.props.previewPage);
-  }
-
-  /**
-   * @stable [02.10.2020]
-   */
-  protected get actualOrDefaultPreviewScale(): number {
-    return NvlUtils.coalesce(this.state.previewScale, this.originalProps.previewScale, this.defaultScale);
-  }
-
-  /**
-   * @stable [02.10.2020]
-   */
-  protected get actualOrDefaultScale(): number {
-    return NvlUtils.coalesce(this.state.scale, this.originalProps.scale, this.defaultScale);
-  }
-
-  /**
-   * @stable [18.03.2020]
-   * @returns {string}
-   */
-  protected get actualSrc(): string {
-    return this.props.src || this.props.defaultScr;
-  }
-
-  /**
-   * @stable [23.03.2020]
-   * @returns {number}
-   */
-  protected get defaultScaleDiff(): number {
-    return .3;
-  }
-
-  /**
-   * @stable [23.03.2020]
-   * @returns {number}
-   */
-  protected get defaultScale(): number {
-    return 1;
-  }
-
-  /**
-   * @stable [14.12.2020]
-   * @protected
-   */
-  protected get ctor(): IViewerCtor {
-    return null;
-  }
-
-  /**
-   * @stable [14.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
   private get bodyElement(): JSX.Element {
     const {
@@ -483,7 +588,7 @@ export class Viewer<
 
     const Component = this.viewerLocator.resolve(ViewersEnum.PICTURE);
 
-    return this.isInfoRendered
+    return this.isInfoElementRendered
       ? (
         <Info
           progress={this.inProgress}
@@ -497,29 +602,32 @@ export class Viewer<
   }
 
   /**
-   * @stable [14.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
   private get previewDialogElement(): JSX.Element {
     const {
       CLOSE,
       PREVIEW,
     } = this.settings.messages;
-    const configuration = this.previewDialogConfiguration;
+    const {
+      opened,
+    } = this.originalProps;
+    const previewDialogProps = this.previewDialogProps;
 
-    return this.isPreviewDialogOpened && (
+    return this.isOpened && (
       <Dialog
-        title={PREVIEW}
-        closeText={CLOSE}
-        {...configuration}
         ref={this.previewDialogRef}
+        title={ConditionUtils.orUndef(!opened, () => PREVIEW)}
+        closeText={CLOSE}
+        {...previewDialogProps}
         className={
           ClsUtils.joinClassName(
             DialogClassesEnum.PREVIEW_DIALOG,
-            CalcUtils.calc(configuration.className)
+            CalcUtils.calc(previewDialogProps.className)
           )
         }
         acceptable={false}
+        closable={!opened}
         extraActions={this.previewExtraActionsElement}
         onActivate={this.onPreviewDialogOpen}
         onDeactivate={this.onPreviewDialogClose}
@@ -530,112 +638,123 @@ export class Viewer<
   }
 
   /**
-   * @stable [13.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
-  private get isPreviewDialogOpened(): boolean {
-    return this.state.opened && this.canPreview;
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @private
-   */
-  private get isBodyElementRendered(): boolean {
-    return !this.isPreviewDialogOpened || !this.isPreviewDialogInline;
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @private
-   */
-  private get isPreviewDialogInline(): boolean {
-    return this.previewDialogConfiguration.inline;
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @private
-   */
-  private get previewDialogConfiguration(): IDialogProps {
-    return this.mergedProps.previewDialogConfiguration || {};
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @private
-   */
-  private get previewIconElement(): JSX.Element {
+  private get previewExtraActionsElement(): JSX.Element {
     return (
-      this.canPreview && (
-        this.uiFactory.makeIcon({
-          type: IconsEnum.SEARCH_PLUS,
-          className: ClsUtils.joinClassName(
-            ComponentClassesEnum.ALIGNMENT_CENTER,
-            ViewerClassesEnum.VIEWER_PREVIEW_ICON
-          ),
-          onClick: this.showPreviewDialog,
-        })
-      )
+      <React.Fragment>
+        {this.incrementScaleActionElement}
+        {this.decrementScaleActionElement}
+        {this.redoActionElement}
+        {this.undoActionElement}
+        {this.previewBackActionElement}
+        {this.previewForwardActionElement}
+      </React.Fragment>
     );
   }
 
   /**
-   * @stable [13.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
-  private get isInfoRendered(): boolean {
+  private get nextDecrementPreviewScale(): number {
+    return this.actualOrDefaultPreviewScale - this.defaultScaleDiff;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get nextIncrementPreviewScale(): number {
+    return this.actualOrDefaultPreviewScale + this.defaultScaleDiff;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get nextDecrementPreviewDegree(): number {
+    return this.actualOrDefaultPreviewDegree - this.defaultDegreeDiff;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get nextIncrementPreviewDegree(): number {
+    return this.actualOrDefaultPreviewDegree + this.defaultDegreeDiff;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get nextDecrementPreviewPage(): number {
+    return this.actualOrDefaultPreviewPage - this.defaultPageDiff;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get nextIncrementPreviewPage(): number {
+    return this.actualOrDefaultPreviewPage + this.defaultPageDiff;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get isInfoElementRendered(): boolean {
     return this.inProgress || this.doesErrorExist;
   }
 
   /**
-   * @stable [13.12.2020]
-   * @private
-   */
-  private get canPreview(): boolean {
-    return this.isPreviewUsed
-      && !this.inProgress
-      && !this.isActualSrcAbsent
-      && !this.doesErrorExist;
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @private
-   */
-  private get doesErrorExist(): boolean {
-    return !R.isNil(this.state.error);
-  }
-
-  /**
-   * @stable [13.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
   private get isActualSrcAbsent(): boolean {
     return this.isSrcAbsent && this.isDefaultSrcAbsent;
   }
 
   /**
-   * @stable [13.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
   private get isSrcAbsent(): boolean {
     return R.isNil(this.originalProps.src);
   }
 
   /**
-   * @stable [13.12.2020]
-   * @private
+   * @stable [16.05.2021]
    */
   private get isDefaultSrcAbsent(): boolean {
     return R.isNil(this.originalProps.defaultScr);
   }
 
   /**
-   * @stable [13.12.2020]
-   * @private
+   * @stable [16.05.2021]
+   */
+  private get inProgress(): boolean {
+    return this.state.progress;
+  }
+
+  /**
+   * @stable [16.05.2021]
    */
   private get isPreviewUsed(): boolean {
     return this.originalProps.usePreview;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get doesErrorExist(): boolean {
+    return !R.isNil(this.state.error);
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get isPreviewDialogInline(): boolean {
+    return this.previewDialogProps.inline;
+  }
+
+  /**
+   * @stable [16.05.2021]
+   */
+  private get previewDialogProps(): IDialogProps {
+    return this.mergedProps.previewDialogConfiguration || {};
   }
 }

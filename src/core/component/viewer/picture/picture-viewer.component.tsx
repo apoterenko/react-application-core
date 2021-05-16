@@ -35,9 +35,7 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
     super.componentDidMount();
 
     // For only images because there no need to prefetch file manually
-    if (this.canPreview && this.originalProps.opened) {
-      this.showPreviewDialog();
-    }
+    this.doShowPreviewDialogIfApplicable();
   }
 
   /**
@@ -60,7 +58,7 @@ export class PictureViewer extends Viewer<IPictureViewerProps> {
         src={this.actualSrc}
         style={this.actualStyles}
         alt=''
-        onClick={ConditionUtils.orUndef(this.canPreview, () => this.showPreviewDialog)}/>
+        onClick={this.showPreviewDialogHandler}/>
     );
   }
 

@@ -101,6 +101,7 @@ export * from './template-field-definition.interface';
 export * from './text-area-definition.interface';
 export * from './text-field-definition.interface';
 export * from './thumb-definition.interface';
+export * from './time-definition.interface';
 export * from './title-definition.interface';
 export * from './toolbar-definition.interface';
 export * from './toolbar-tools-definition.interface';
