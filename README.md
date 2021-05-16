@@ -62,9 +62,12 @@ The library is designed to quickly start develop the business applications are b
 
 #### @component-impl
 
+|Component|Date|
+|[PdfViewer](src/core/component/viewer/pdf/pdf-viewer.component.tsx)|16.05.2021|
+|[Viewer](src/core/component/viewer/viewer.component.tsx)|16.05.2021|
+
 * [Calendar (29.12.2020)](src/core/component/calendar/calendar.component.tsx)
 * [Chart (18.12.2020)](src/core/component/chart/chart.component.tsx)
-* [Chip (02.06.2020)](src/core/component/chip/chip.component.tsx)
 * [ChipsField (16.06.2020)](src/core/component/field/chips-field/chips-field.component.tsx)
 * [CronField (28.12.2020)](src/core/component/field/cron-field/cron-field.component.tsx)
 * [Dialog & BaseDialog (10.10.2020)](src/core/component/dialog/base-dialog.component.tsx)
