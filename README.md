@@ -63,8 +63,10 @@ The library is designed to quickly start develop the business applications are b
 #### @component-impl
 
 |Component|Date|
+|----------|---|
 |[PdfViewer](src/core/component/viewer/pdf/pdf-viewer.component.tsx)|16.05.2021|
 |[Viewer](src/core/component/viewer/viewer.component.tsx)|16.05.2021|
+|
 
 * [Calendar (29.12.2020)](src/core/component/calendar/calendar.component.tsx)
 * [Chart (18.12.2020)](src/core/component/chart/chart.component.tsx)
