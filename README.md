@@ -65,8 +65,8 @@ The library is designed to quickly start develop the business applications are b
 |Component|Date|
 |----------|---|
 |[PdfViewer](src/core/component/viewer/pdf/pdf-viewer.component.tsx)|16.05.2021|
+|[PictureViewer](src/core/component/viewer/picture/picture-viewer.component.tsx)|16.05.2021|
 |[Viewer](src/core/component/viewer/viewer.component.tsx)|16.05.2021|
-|
 
 * [Calendar (29.12.2020)](src/core/component/calendar/calendar.component.tsx)
 * [Chart (18.12.2020)](src/core/component/chart/chart.component.tsx)
@@ -82,7 +82,6 @@ The library is designed to quickly start develop the business applications are b
 * [ListItem (17.08.2020)](src/core/component/list/item/list-item.component.tsx)
 * [Main (22.05.2020)](src/core/component/main/main.component.tsx)
 * [PageToolbar (10.06.2020)](src/core/component/toolbar/page/page-toolbar.component.tsx)
-* [PictureViewer (16.05.2021)](src/core/component/viewer/picture/picture-viewer.component.tsx)
 * [SearchToolbar](src/core/component/toolbar/search/search-toolbar.component.tsx)
 * [Slider (16.10.2020)](src/core/component/slider/slider.component.tsx)
 * [SliderField (16.10.2020)](src/core/component/field/slider-field/slider-field.component.tsx)
