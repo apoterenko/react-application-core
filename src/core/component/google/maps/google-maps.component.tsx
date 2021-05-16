@@ -31,6 +31,7 @@ import {
   IPresetsMenuItemEntity,
 } from '../../../definition';
 import { GenericComponent } from '../../base/generic.component';
+import { EntityIdT } from '../../../definitions.interface';
 
 export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   implements IGoogleMaps,
@@ -43,15 +44,17 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   private clickEventListener: google.maps.MapsEventListener;
   private dbClickEventListener: google.maps.MapsEventListener;
   private directionsService: google.maps.DirectionsService;
-  private draggedMarkerId: string;
+  private draggedMarkerId: EntityIdT;
   private googleMapsLibTask: Promise<HTMLScriptElement>;
   private heatMapLayer: google.maps.visualization.HeatmapLayer;
   private map: google.maps.Map;
-  private markers = new Map<string, google.maps.Marker>();
-  private markersListeners = new Map<string, google.maps.MapsEventListener[]>();
+  private markersListeners = new Map<EntityIdT, google.maps.MapsEventListener[]>();
   private openMenuTask: DelayedTask;
   private readonly menuRef = React.createRef<Menu>();
   private wheelListenerUnsubscriber: () => void;
+  // @stable [11.05.2021]
+  private $$markers = new Map<EntityIdT, google.maps.Marker>();
+  private $$polyLines = new Map<EntityIdT, google.maps.Polyline>();
 
   /**
    * @stable [10.01.2020]
@@ -130,26 +133,27 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.cancelGoogleMapsLibTask();
     this.unbindListeners();
 
-    this.markers = null;
+    this.$$markers = null;
     this.markersListeners = null;
     this.event = null;
+    this.$$polyLines = null;
   }
 
   /**
    * @stable [28.07.2020]
    * @param cfg
-   * @param name
+   * @param id
    */
-  public addMarker(cfg?: IGoogleMapsMarkerOptionConfigEntity, name?: string): google.maps.Marker {
+  public addMarker(cfg?: IGoogleMapsMarkerOptionConfigEntity, id?: EntityIdT): google.maps.Marker {
     const config: IGoogleMapsMarkerOptionConfigEntity = {
       anchorPoint: new google.maps.Point(0, -29),
       position: null,
       ...cfg,
       map: this.map,
     };
-    const markerId = name || UuidUtils.uuid();
+    const markerId = id || UuidUtils.uuid();
     const marker = new google.maps.Marker(config);
-    this.markers.set(markerId, marker);
+    this.$$markers.set(markerId, marker);
 
     if (config.clickable) {
       this.addMakerListener('click', markerId, marker, (event) => this.onMarkerClick(event, markerId, marker));
@@ -166,18 +170,19 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [03.03.2020]
-   * @param {string} name
+   * @stable [11.05.2021]
+   * @param name
    */
-  public removeMarker(name: string): void {
-    ConditionUtils.ifNotNilThanValue(
-      this.markers.get(name),
-      (marker) => {
-        marker.unbindAll();
-        marker.setMap(null);
-        this.markers.delete(name);
-      }
-    );
+  public removeMarker(name: EntityIdT): void {
+    this.removeObject(name, this.$$markers);
+  }
+
+  /**
+   * @stable [11.05.2021]
+   * @param name
+   */
+  public removePolyLine(name: EntityIdT): void {
+    this.removeObject(name, this.$$polyLines);
   }
 
   /**
@@ -195,7 +200,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     } = cfg;
 
     const markerAsObject = TypeUtils.isString(marker)
-      ? this.markers.get(marker as string)
+      ? this.$$markers.get(marker as string)
       : marker as google.maps.Marker;
 
     markerAsObject.setPosition({lat, lng});
@@ -207,9 +212,11 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [23.02.2020]
+   * @stable [11.05.2021]
+   * @param polylineCfg
+   * @param id
    */
-  public addPolyline(polylineCfg: google.maps.PolylineOptions): google.maps.Polyline {
+  public addPolyline(polylineCfg: google.maps.PolylineOptions, id?: EntityIdT): google.maps.Polyline {
     const polylineConfig: google.maps.PolylineOptions = {
       strokeWeight: 2,
       ...polylineCfg,
@@ -218,6 +225,8 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     const polyline = new google.maps.Polyline(polylineConfig);
     polyline.setMap(this.map);
 
+    const polylineId = id || UuidUtils.uuid();
+    this.$$polyLines.set(polylineId, polyline);
     return polyline;
   }
 
@@ -276,10 +285,10 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [20.02.2020]
+   * @stable [11.05.2021]
    */
-  public getMarkers(): Map<string, google.maps.Marker> {
-    return this.markers;
+  public get markers(): Map<EntityIdT, google.maps.Marker> {
+    return this.$$markers;
   }
 
   /**
@@ -315,7 +324,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {string} markerId
    * @param {google.maps.Marker} marker
    */
-  private onMarkerDragEnd(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+  private onMarkerDragEnd(event: IGoogleMapsEventEntity, markerId: EntityIdT, marker: google.maps.Marker): void {
     const {
       onMarkerDragEnd,
     } = this.originalProps;
@@ -323,7 +332,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.draggedMarkerId = null;
 
     if (TypeUtils.isFn(onMarkerDragEnd)) {
-      onMarkerDragEnd(this.asMarkerInfo(event, markerId, marker));
+      onMarkerDragEnd(GoogleMaps.asMarkerInfo(event, markerId, marker));
 
       // 156543.03392 * Math.cos(this.map.getCenter().lat() * Math.PI / 180) / Math.pow(2, this.map.getZoom())
     }
@@ -335,7 +344,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param {string} markerId
    * @param {google.maps.Marker} marker
    */
-  private onMarkerDragStart(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+  private onMarkerDragStart(event: IGoogleMapsEventEntity, markerId: EntityIdT, marker: google.maps.Marker): void {
     const {
       onMarkerDragStart,
     } = this.originalProps;
@@ -343,7 +352,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.draggedMarkerId = markerId;
 
     if (TypeUtils.isFn(onMarkerDragStart)) {
-      onMarkerDragStart(this.asMarkerInfo(event, markerId, marker));
+      onMarkerDragStart(GoogleMaps.asMarkerInfo(event, markerId, marker));
     }
   }
 
@@ -353,7 +362,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param markerId
    * @param marker
    */
-  private onMarkerMouseOver(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+  private onMarkerMouseOver(event: IGoogleMapsEventEntity, markerId: EntityIdT, marker: google.maps.Marker): void {
     const {
       onMarkerEnter,
     } = this.originalProps;
@@ -372,7 +381,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param markerId
    * @param marker
    */
-  private onMarkerMouseOut(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+  private onMarkerMouseOut(event: IGoogleMapsEventEntity, markerId: EntityIdT, marker: google.maps.Marker): void {
     const {
       onMarkerLeave,
     } = this.originalProps;
@@ -386,34 +395,40 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [28.07.2020]
+   * @stable [11.05.2021]
    * @param event
    * @param markerId
    * @param marker
    */
-  private onMarkerClick(event: IGoogleMapsEventEntity, markerId: string, marker: google.maps.Marker): void {
+  private onMarkerClick(event: IGoogleMapsEventEntity, markerId: EntityIdT, marker: google.maps.Marker): void {
     const {
       onMarkerClick,
     } = this.originalProps;
 
     if (TypeUtils.isFn(onMarkerClick)) {
-      onMarkerClick(this.asMarkerInfo(event, markerId, marker));
+      onMarkerClick(GoogleMaps.asMarkerInfo(event, markerId, marker));
     }
   }
 
   /**
-   * @stable [28.07.2020]
+   * @stable [11.05.2021]
    * @param event
    * @param markerId
    * @param marker
    */
-  private asMarkerInfo(event: IGoogleMapsEventEntity,
-                       markerId: string,
-                       marker: google.maps.Marker): IGoogleMapsMarkerInfoEntity {
+  private static asMarkerInfo(event: IGoogleMapsEventEntity,
+                              markerId: EntityIdT,
+                              marker: google.maps.Marker): IGoogleMapsMarkerInfoEntity {
     const position = marker.getPosition();
     const lat = position.lat();
     const lng = position.lng();
-    return {name: markerId, item: marker, lat, lng, event};
+    return {
+      event,
+      item: marker,
+      lat,
+      lng,
+      name: String(markerId),
+    };
   }
 
   /**
@@ -562,7 +577,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param callback
    */
   private addMakerListener(eventName: string,
-                           markerId: string,
+                           markerId: EntityIdT,
                            marker: google.maps.Marker,
                            callback: (event: IGoogleMapsEventEntity) => void): void {
     let listeners = this.markersListeners.get(markerId);
@@ -573,14 +588,33 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
+   * @stable [11.05.2021]
+   * @param name
+   * @param map
+   */
+  private removeObject(name: EntityIdT, map: Map<EntityIdT, google.maps.Marker | google.maps.Polyline>): void {
+    ConditionUtils.ifNotNilThanValue(
+      map.get(name),
+      (marker) => {
+        marker.unbindAll();
+        marker.setMap(null);
+        map.delete(name);
+      }
+    );
+  }
+
+  /**
    * @stable [22.01.2020]
    */
   private unbindListeners(): void {
     this.markersListeners.forEach((listeners) => listeners.forEach((listener) => listener.remove()));
     this.markersListeners.clear();
 
-    this.markers.forEach((marker) => marker.unbindAll());
-    this.markers.clear();
+    this.$$markers.forEach((marker) => marker.unbindAll());
+    this.$$markers.clear();
+
+    this.$$polyLines.forEach((polyLine) => polyLine.unbindAll());
+    this.$$polyLines.clear();
 
     ConditionUtils.ifNotNilThanValue(
       this.clickEventListener,
