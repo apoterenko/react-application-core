@@ -11,6 +11,7 @@ import {
 } from '../../../util';
 import {
   IVisibleWrapper,
+  StringNumberT,
   UniCodesEnum,
 } from '../../../definitions.interface';
 import { Field } from '../field/field.component';
@@ -106,11 +107,11 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
 
     // TODO Move to support
     const value = this.value;
-    const content = String((
-      this.props.type === 'password'
-        ? String(value).replace(/./g, this.environment.passwordPlaceholder)
+    const content = String(
+      this.isOriginalPasswordType
+        ? this.replaceByPasswordPlaceholder(value)
         : value
-    )).replace(/ /g, UniCodesEnum.NO_BREAK_SPACE);
+    ).replace(/ /g, UniCodesEnum.NO_BREAK_SPACE);
 
     return (
       <span
@@ -166,6 +167,16 @@ export class BaseTextField<TProps extends IBaseTextFieldProps = IBaseTextFieldPr
         }
       </React.Fragment>
     );
+  }
+
+  /**
+   * @stable [30.04.2021]
+   * @param value
+   */
+  private replaceByPasswordPlaceholder(value: StringNumberT): string {
+    return R.isNil(value)
+      ? value
+      : String(value).replace(/./g, this.environment.passwordPlaceholder);
   }
 
   /**
