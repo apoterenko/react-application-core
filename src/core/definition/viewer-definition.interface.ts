@@ -1,5 +1,4 @@
 import {
-  AnyT,
   IDefaultSrcWrapper,
   IDegreeWrapper,
   IErrorWrapper,
@@ -124,15 +123,17 @@ export interface IPdfViewerViewport
 }
 
 /**
- * @stable [23.03.2020]
+ * @entity
+ * @stable [17.05.2021]
  */
 export interface IPdfViewerPageEntity {
-  getViewport(scale: number): IPdfViewerViewport;
+  getViewport(scale: number, rotation?: number): IPdfViewerViewport;
   render({canvasContext: HTMLCanvasContext, viewport: IPdfViewerViewport}): void;
 }
 
 /**
- * @stable [23.03.2020]
+ * @entity
+ * @stable [17.05.2021]
  */
 export interface IPdfViewerDocumentEntity {
   numPages: number;
@@ -141,7 +142,7 @@ export interface IPdfViewerDocumentEntity {
 
 /**
  * @generic-plugin
- * @stable [23.03.2020]
+ * @stable [17.05.2021]
  */
 export interface IGenericPdfPlugin {
   hasLoadedDocument: boolean;
@@ -151,7 +152,7 @@ export interface IGenericPdfPlugin {
   refreshPage(): void;
   setAutoScale(autoScale: boolean): IGenericPdfPlugin;
   setDegree(degree: number): IGenericPdfPlugin;
-  setOnError(onError: (error: AnyT) => void): IGenericPdfPlugin;
+  setOnError(onError: (error: Error) => void): IGenericPdfPlugin;
   setOnStart(onStart: () => void): IGenericPdfPlugin;
   setPage(page: number): IGenericPdfPlugin;
   setScale(scale: number): IGenericPdfPlugin;

@@ -3,9 +3,8 @@ import * as BPromise from 'bluebird';
 import * as pdfjsLib from 'pdfjs-dist';
 import { LoggerFactory } from 'ts-smart-logger';
 
-import { AnyT } from '../../../definitions.interface';
 import {
-  isFn,
+  PromiseUtils,
   TypeUtils,
 } from '../../../util';
 import {
@@ -19,42 +18,54 @@ import {
   lazyInject,
 } from '../../../di';
 
+/**
+ * @generic-plugin-impl
+ * @stable [17.05.2021]
+ */
 export class GenericPdfPlugin implements IGenericPdfPlugin {
   private static readonly logger = LoggerFactory.makeLogger('GenericPdfPlugin');
-  private static readonly DEFAULT_VIEWPORT_SCALE = 1;
+  private static readonly DEFAULT_SCALE = 1;
 
   @lazyInject(DI_TYPES.DomAccessor) private readonly domAccessor: IDomAccessor;
 
+  // @stable [17.05.2021]
   private autoScale = true;
-  private initialScale: number;
-  private loadedDocument: IPdfViewerDocumentEntity;
-  private loadPageTask: BPromise<IPdfViewerPageEntity>;
-  private loadTask: BPromise<IPdfViewerDocumentEntity>;
-  private onError?: (error: AnyT) => void;
-  private onStart: () => void;
+  private degree: number;
   private page = 1;
   private scale: number;
-  private degree: number;
   private src: string;
 
+  // @stable [17.05.2021]
+  private $$initialScale: number;
+  private $$loadedDocument: IPdfViewerDocumentEntity;
+
+  // @stable [17.05.2021]
+  private $$loadPageTask: BPromise<IPdfViewerPageEntity | Error>;
+  private $$loadTask: BPromise<IPdfViewerDocumentEntity | Error>;
+
+  // @stable [17.05.2021]
+  private onError?: (error: Error) => void;
+  private onStart: () => void;
+
   /**
-   * @stable [23.03.2020]
-   * @param {string} workerSrc
-   * @param {() => HTMLCanvasElement} canvasResolver
-   * @param {(callback: (page: IPdfViewerPageEntity) => void) => void} onFinish
+   * @stable [17.05.2021]
+   * @param workerSrc
+   * @param canvasResolver
+   * @param onFinish
    */
-  constructor(private workerSrc: string,
-              private canvasResolver: () => HTMLCanvasElement,
-              private onFinish: (callback: (page: IPdfViewerPageEntity) => void) => void) {
+  constructor(private readonly workerSrc: string,
+              private readonly canvasResolver: () => HTMLCanvasElement,
+              private readonly onFinish?: (callback: (page: IPdfViewerPageEntity) => void) => void) {
+
+    this.onLoad = this.onLoad.bind(this);
     this.onLoadError = this.onLoadError.bind(this);
     this.onLoadPage = this.onLoadPage.bind(this);
-    this.onLoad = this.onLoad.bind(this);
 
     pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
   }
 
   /**
-   * @stable [16.05.2021]
+   * @stable [17.05.2021]
    * @param onStart
    */
   public setOnStart(onStart: () => void): IGenericPdfPlugin {
@@ -63,16 +74,16 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [16.05.2021]
+   * @stable [17.05.2021]
    * @param onError
    */
-  public setOnError(onError: (error: AnyT) => void): IGenericPdfPlugin {
+  public setOnError(onError: (error: Error) => void): IGenericPdfPlugin {
     this.onError = onError;
     return this;
   }
 
   /**
-   * @stable [16.05.2021]
+   * @stable [17.05.2021]
    * @param page
    */
   public setPage(page: number): IGenericPdfPlugin {
@@ -81,7 +92,7 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [16.05.2021]
+   * @stable [17.05.2021]
    * @param degree
    */
   public setDegree(degree: number): IGenericPdfPlugin {
@@ -90,9 +101,8 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [14.11.2018]
-   * @param {string} src
-   * @returns {IGenericPdfPlugin}
+   * @stable [17.05.2021]
+   * @param src
    */
   public setSrc(src: string): IGenericPdfPlugin {
     this.src = src;
@@ -100,7 +110,7 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [16.05.2021]
+   * @stable [17.05.2021]
    * @param scale
    */
   public setScale(scale: number): IGenericPdfPlugin {
@@ -109,7 +119,7 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [16.05.2021]
+   * @stable [17.05.2021]
    * @param autoScale
    */
   public setAutoScale(autoScale: boolean): IGenericPdfPlugin {
@@ -118,152 +128,150 @@ export class GenericPdfPlugin implements IGenericPdfPlugin {
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [17.05.2021]
    */
   public loadDocument(): void {
     this.cancel();
 
     if (!this.src) {
-      GenericPdfPlugin.logger.warn('[$GenericPdfPlugin][loadDocument] The src is not defined!');
+      GenericPdfPlugin.logger.warn('[$GenericPdfPlugin][loadDocument] Src is not defined');
       return;
     }
-    if (isFn(this.onStart)) {
+    if (TypeUtils.isFn(this.onStart)) {
       this.onStart();
     }
-    this.loadTask = BPromise.resolve(pdfjsLib.getDocument(this.src).promise)
+    this.$$loadTask = BPromise
+      .resolve(pdfjsLib.getDocument(this.src).promise)
       .then(this.onLoad, this.onLoadError);
   }
 
   /**
-   * @stable [18.03.2020]
+   * @stable [17.05.2021]
    */
   public refreshPage(): void {
     if (!this.hasLoadedDocument) {
-      GenericPdfPlugin.logger.warn('[$GenericPdfPlugin][refreshPage] The document is not defined!');
+      GenericPdfPlugin.logger.warn('[$GenericPdfPlugin][refreshPage] Document is not defined');
       return;
     }
-    this.loadPageTask = new BPromise<IPdfViewerPageEntity>((resolve, reject) =>
-      this.loadedDocument.getPage(this.page).then(resolve, reject)
-    ).then(
-      (page) => this.onFinish(() => this.onLoadPage(page)),
-      this.onLoadError
-    );
+    this.$$loadPageTask = BPromise
+      .resolve(this.$$loadedDocument.getPage(this.page))
+      .then(
+        (page) => {
+          if (TypeUtils.isFn(this.onFinish)) {
+            this.onFinish(() => this.onLoadPage(page));
+          } else {
+            this.onLoadPage(page);
+          }
+          return page;
+        },
+        this.onLoadError
+      );
   }
 
   /**
-   * @stable [18.03.2020]
-   * @returns {boolean}
+   * @stable [17.05.2021]
    */
   public get hasLoadedDocument(): boolean {
-    return !R.isNil(this.loadedDocument);
+    return !R.isNil(this.$$loadedDocument);
   }
 
   /**
-   * @stable [23.03.2020]
-   * @returns {number}
+   * @stable [17.05.2021]
    */
   public get pagesCount(): number {
-    return this.loadedDocument.numPages;
+    return this.$$loadedDocument.numPages;
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [17.05.2021]
    */
   public cancel(): void {
     this.cancelTask();
     this.cancelPageTask();
 
-    this.initialScale = null;
-    this.loadTask = null;
-    this.loadPageTask = null;
-    this.loadedDocument = null;
+    // @stable [17.05.2021]
+    this.$$initialScale = null;
+    this.$$loadedDocument = null;
   }
 
   /**
-   * @stable [14.11.2018]
-   * @param {IPdfViewerDocumentEntity} pdf
-   * @returns {IPdfViewerDocumentEntity}
+   * @stable [17.05.2021]
+   * @param pdf
    */
   private onLoad(pdf: IPdfViewerDocumentEntity): IPdfViewerDocumentEntity {
-    this.loadedDocument = pdf;
+    this.$$loadedDocument = pdf;
     this.refreshPage();
     return pdf;
   }
 
   /**
-   * @stable [14.11.2018]
-   * @param {IPdfViewerPageEntity} page
-   * @returns {IPdfViewerPageEntity}
+   * @stable [17.05.2021]
+   * @param page
    */
   private onLoadPage(page: IPdfViewerPageEntity): IPdfViewerPageEntity {
     const renderArea = this.renderArea;
     const w = this.domAccessor.getWidth(renderArea.parentElement);
     const h = this.domAccessor.getHeight(renderArea.parentElement);
 
-    const unscaledViewport = page.getViewport(GenericPdfPlugin.DEFAULT_VIEWPORT_SCALE);
-    const outerScale = this.scale;
-    const hasOuterScale = TypeUtils.isNumber(this.scale);
-
     if (this.autoScale) {
-      this.initialScale = R.isNil(this.initialScale)
+      const unscaledViewport = page.getViewport(GenericPdfPlugin.DEFAULT_SCALE);
+      this.$$initialScale = R.isNil(this.$$initialScale)
         ? Math.min(h / unscaledViewport.height, w / unscaledViewport.width)
-        : this.initialScale;
+        : this.$$initialScale;
     } else {
-      this.initialScale = 0;
+      this.$$initialScale = 0;
     }
 
-    const viewport = page.getViewport(this.initialScale + (hasOuterScale ? outerScale : 0));
-
-    const canvasContext = renderArea.getContext('2d');
+    const hasOuterScale = TypeUtils.isNumber(this.scale);
+    const viewport = page.getViewport(this.$$initialScale + (hasOuterScale ? this.scale : 0), this.degree);
 
     renderArea.height = hasOuterScale ? viewport.height : h;
     renderArea.width = hasOuterScale ? viewport.width : w;
 
-    page.render({canvasContext, viewport});
+    page.render({
+      canvasContext: renderArea.getContext('2d'),
+      viewport,
+    });
     return page;
   }
 
   /**
-   * @stable [14.11.2018]
-   * @param {AnyT} error
-   * @returns {AnyT}
+   * @stable [17.05.2021]
+   * @param error
    */
-  private onLoadError(error: AnyT): AnyT {
+  private onLoadError(error: Error): Error {
     GenericPdfPlugin.logger.error(`[$GenericPdfPlugin][onLoadError] Error:`, error);
 
-    if (isFn(this.onError)) {
+    if (TypeUtils.isFn(this.onError)) {
       this.onError(error);
     }
     return error;
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [17.05.2021]
    */
   private cancelTask(): void {
-    if (this.loadTask && this.loadTask.isPending()) {
-      this.loadTask.cancel();
-
-      GenericPdfPlugin.logger.warn(`[$GenericPdfPlugin][cancelTask] The pdf task has been cancelled.`);
+    if (PromiseUtils.cancel(this.$$loadTask)) {
+      GenericPdfPlugin.logger.debug('[$GenericPdfPlugin][cancelTask] Pdf task has been cancelled');
     }
+    this.$$loadTask = null;
   }
 
   /**
-   * @stable [14.11.2018]
+   * @stable [17.05.2021]
    */
   private cancelPageTask(): void {
-    if (this.loadPageTask && this.loadPageTask.isPending()) {
-      this.loadPageTask.cancel();
-
-      GenericPdfPlugin.logger.warn(`[$GenericPdfPlugin][cancelPageTask] The pdf page task has been cancelled.`);
+    if (PromiseUtils.cancel(this.$$loadPageTask)) {
+      GenericPdfPlugin.logger.debug('[$GenericPdfPlugin][cancelPageTask] Pdf page task has been cancelled');
     }
+    this.$$loadPageTask = null;
   }
 
   /**
-   * @stable [14.11.2018]
-   * @returns {HTMLCanvasElement}
+   * @stable [17.05.2021]
    */
   private get renderArea(): HTMLCanvasElement {
-    return this.canvasResolver() as HTMLCanvasElement;
+    return this.canvasResolver();
   }
 }
