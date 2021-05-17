@@ -38,7 +38,7 @@ export class DictionaryStoreProxy<TStore extends IReduxStoreEntity = IReduxStore
    * @param fluxEntity
    * @private
    */
-  private dispatchLoadDictionary<TData = {}>(dictionary: string, fluxEntity?: IFluxEntity<TData>): void {
+  public dispatchLoadDictionary<TData = {}>(dictionary: string, fluxEntity?: IFluxEntity<TData>): void {
     this.dispatchPlainAction(DictionariesActionBuilder.buildLoadPlainAction(dictionary, fluxEntity));
   }
 }
