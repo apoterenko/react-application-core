@@ -111,6 +111,12 @@ The library is designed to quickly start develop the business applications are b
 * [makeLoadedListOnTabActivateEffectsProxy (22.09.2020)](src/core/store/effects/loaded-list-on-tab-activate-effects.proxy.ts)
 * [makeSucceedEditedListEffectsProxy (10.09.2020)](src/core/store/effects/succeed-edited-list-effects.proxy.ts)
 
+#### @generic-plugin-impl
+
+|Plugin|Date|
+|----------|---|
+|[GenericPdfPlugin](src/core/component/viewer/pdf/generic-pdf.plugin.ts)|17.05.2021|
+
 #### @reducer
 
 * [async-lib (30.04.2021)](src/core/async-lib/async-lib.reducer.ts)
