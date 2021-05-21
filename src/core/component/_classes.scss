@@ -58,15 +58,13 @@ $rac-tab-panel-cls: rac-tab-panel;
 $rac-tab-panel-wrapper-cls: rac-tab-panel-wrapper;
 
 // @stable [11.03.2020]
-$rac-empty-viewer-cls: rac-empty-viewer;
 $rac-full-viewer-cls: rac-full-viewer;
 $rac-info-viewer-cls: rac-info-viewer;
+$rac-pdf-viewer-cls: rac-pdf-viewer;
 $rac-picture-viewer-cls: rac-picture-viewer;
+$rac-selectable-viewer-cls: rac-selectable-viewer;
 $rac-viewer-cls: rac-viewer;
 $rac-viewer-content-cls: rac-viewer__content;
-$rac-viewer-preview-icon-cls: rac-viewer__preview-icon;
-//
-$rac-empty-picture-viewer-cls: '#{$rac-empty-viewer-cls}.#{$rac-picture-viewer-cls}';
 
 // @stable [22.06.2020]
 $rac-field-busy-cls: rac-field-busy;
