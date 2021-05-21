@@ -53,7 +53,10 @@ import {
   IBootstrapSettings,
   ISettingsEntity,
 } from '../../settings';
-import { UNDEF } from '../../definitions.interface';
+import {
+  StringNumberT,
+  UNDEF,
+} from '../../definitions.interface';
 
 @injectable()
 export class DomAccessor implements IDomAccessor {
@@ -187,25 +190,44 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [13.12.2020]
-   * @param transform
-   * @param transformOrigin
+   * @stable [13.05.2021]
    */
-  public getTransformStyles(transform: string, transformOrigin = '0 0'): React.CSSProperties {
-    // TODO Use https://github.com/FormidableLabs/radium
-    return {
-      transformOrigin,
-      transform,
-    };
+  public createPreloadedPasswordInput(): void {
+    DomUtils.createPreloadedPasswordInput();
   }
 
   /**
-   * @stable [13.12.2020]
+   * @stable [15.05.2021]
+   * @param transform
+   * @param transformOrigin
+   */
+  public getTransformStyles(transform: string, transformOrigin?: StringNumberT): React.CSSProperties {
+    return FilterUtils.defValuesFilter<React.CSSProperties, React.CSSProperties>({
+      transform,
+      transformOrigin,
+    });
+  }
+
+  /**
+   * @stable [15.05.2021]
    * @param scale
    * @param transformOrigin
    */
-  public getTransformScaleStyles(scale: number, transformOrigin = '0 0'): React.CSSProperties {
-    return this.getTransformStyles(`scale(${scale})`, transformOrigin);
+  public getTransformScaleStyles(scale: number, transformOrigin?: StringNumberT): React.CSSProperties {
+    return ConditionUtils.ifNotEmptyThanValue(
+      scale, () => this.getTransformStyles(`scale(${scale})`, transformOrigin)
+    );
+  }
+
+  /**
+   * @stable [15.05.2021]
+   * @param degree
+   * @param transformOrigin
+   */
+  public getTransformRotateStyles(degree: number, transformOrigin?: StringNumberT): React.CSSProperties {
+    return ConditionUtils.ifNotEmptyThanValue(
+      degree, () => this.getTransformStyles(`rotate(${degree}deg)`, transformOrigin)
+    );
   }
 
   /**
