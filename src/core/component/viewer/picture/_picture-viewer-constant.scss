@@ -1,0 +1,10 @@
+@import '../../_primary-constant';
+@import '../../_classes';
+
+// @stable [15.05.2021]
+$rac-picture-viewer-align-items: center !default;
+$rac-picture-viewer-content-max-width: 100% !default;
+$rac-picture-viewer-content-transform-origin: 50% 50% !default;
+$rac-picture-viewer-content-width: unset !default;
+$rac-picture-viewer-display: $rac-primary-display-0 !default;
+$rac-picture-viewer-justify-content: center !default;

@@ -1,0 +1,12 @@
+@import '../_viewer-mixin';
+@import './_pdf-viewer-constant';
+
+.rac {
+
+  // @stable [16.05.2021]
+  @include rac-viewer (
+    $rac-viewer-custom: $rac-pdf-viewer-cls,
+    $rac-viewer-content-display: $rac-viewer-content-display,
+    $rac-viewer-content-margin: $rac-viewer-content-margin
+  );
+}

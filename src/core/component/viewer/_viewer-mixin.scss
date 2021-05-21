@@ -1,0 +1,57 @@
+@import '../_core-mixin';
+
+// @stable [16.05.2021]
+@mixin rac-viewer (
+  $rac-viewer-custom: unset,
+  /**/
+  $rac-viewer-align-items: unset,
+  $rac-viewer-bottom: unset,
+  $rac-viewer-content-border-radius: unset,
+  $rac-viewer-content-cursor: unset,
+  $rac-viewer-content-display: unset,
+  $rac-viewer-content-margin: unset,
+  $rac-viewer-content-max-height: unset,
+  $rac-viewer-content-max-width: unset,
+  $rac-viewer-content-position: unset,
+  $rac-viewer-content-size: unset,
+  $rac-viewer-content-transform-origin: unset,
+  $rac-viewer-content-width: unset,
+  $rac-viewer-display: unset,
+  $rac-viewer-flex-grow: unset,
+  $rac-viewer-justify-content: unset,
+  $rac-viewer-left: unset,
+  $rac-viewer-margin: unset,
+  $rac-viewer-position: unset,
+  $rac-viewer-right: unset
+) {
+
+  #{rac-cls($rac-viewer-cls, $rac-viewer-custom)} {
+    @include rac-styles (
+      $rac-styles-align-items: $rac-viewer-align-items,
+      $rac-styles-bottom: $rac-viewer-bottom,
+      $rac-styles-display: $rac-viewer-display,
+      $rac-styles-flex-grow: $rac-viewer-flex-grow,
+      $rac-styles-justify-content: $rac-viewer-justify-content,
+      $rac-styles-left: $rac-viewer-left,
+      $rac-styles-margin: $rac-viewer-margin,
+      $rac-styles-position: $rac-viewer-position,
+      $rac-styles-right: $rac-viewer-right
+    );
+
+    > {
+      @include rac-styles (
+        $rac-styles-custom: $rac-viewer-content-cls,
+        $rac-styles-border-radius: $rac-viewer-content-border-radius,
+        $rac-styles-cursor: $rac-viewer-content-cursor,
+        $rac-styles-display: $rac-viewer-content-display,
+        $rac-styles-margin: $rac-viewer-content-margin,
+        $rac-styles-max-height: $rac-viewer-content-max-height,
+        $rac-styles-max-width: $rac-viewer-content-max-width,
+        $rac-styles-position: $rac-viewer-content-position,
+        $rac-styles-size: $rac-viewer-content-size,
+        $rac-styles-transform-origin: $rac-viewer-content-transform-origin,
+        $rac-styles-width: $rac-viewer-content-width
+      );
+    }
+  }
+}

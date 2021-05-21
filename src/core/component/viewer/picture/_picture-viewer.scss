@@ -1,0 +1,16 @@
+@import '../_viewer-mixin';
+@import './_picture-viewer-constant';
+
+.rac {
+
+  // @stable [15.05.2021]
+  @include rac-viewer (
+    $rac-viewer-custom: $rac-picture-viewer-cls,
+    $rac-viewer-align-items: $rac-picture-viewer-align-items,
+    $rac-viewer-content-max-width: $rac-picture-viewer-content-max-width,
+    $rac-viewer-content-transform-origin: $rac-picture-viewer-content-transform-origin,
+    $rac-viewer-content-width: $rac-picture-viewer-content-width,
+    $rac-viewer-display: $rac-picture-viewer-display,
+    $rac-viewer-justify-content: $rac-picture-viewer-justify-content
+  );
+}
