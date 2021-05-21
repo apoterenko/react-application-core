@@ -91,6 +91,7 @@ export class WebBootstrapper implements IBootstrapper {
     const document = environment.document;
 
     const ready = () => {
+      this.addStubPasswordInput();
       this.applyClasses();
       this.addRootElement();
       callback();
@@ -119,6 +120,13 @@ export class WebBootstrapper implements IBootstrapper {
       this.domAccessor.addRootElement(),
       orNull(this.bSettings.flexEnabled, 'rac-flex') // TODO Drop later
     );
+  }
+
+  /**
+   * @stable [13.05.2021]
+   */
+  private addStubPasswordInput(): void {
+    this.domAccessor.createPreloadedPasswordInput();
   }
 
   /**
