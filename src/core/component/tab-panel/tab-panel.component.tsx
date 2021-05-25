@@ -144,8 +144,17 @@ export class TabPanel extends GenericComponent<ITabPanelProps>
           ClsUtils.joinClassName(
             TabPanelClassesEnum.TAB,
             isActiveTab ? TabPanelClassesEnum.ACTIVE_TAB : TabPanelClassesEnum.INACTIVE_TAB,
-            isFirstTab && TabPanelClassesEnum.FIRST_TAB,
-            isLastTab && TabPanelClassesEnum.LAST_TAB,
+            isFirstTab && isLastTab
+              ? TabPanelClassesEnum.SINGLE_TAB
+              : (
+                isLastTab
+                  ? TabPanelClassesEnum.LAST_TAB
+                  : (
+                    isFirstTab
+                      ? TabPanelClassesEnum.FIRST_TAB
+                      : null
+                  )
+              ),
             NumberUtils.isOddNumber(index) && TabPanelClassesEnum.ODD_TAB,
             isAfterActiveTab && TabPanelClassesEnum.AFTER_ACTIVE_TAB,
             isBeforeActiveTab && TabPanelClassesEnum.BEFORE_ACTIVE_TAB

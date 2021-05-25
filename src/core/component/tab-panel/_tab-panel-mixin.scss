@@ -23,6 +23,7 @@
   $rac-inactive-tab-border-right-color: unset,                                                /* @stable [10.02.2020] */
   $rac-inactive-tab-opacity: unset,                                                           /* @stable [10.02.2020] */
   $rac-last-tab-border-radius: unset,                                                         /* @stable [10.02.2020] */
+  $rac-single-tab-border-radius: unset,                                                       /* @stable [25.05.2021] */
   $rac-tab-align-items: unset,                                                                /* @stable [10.02.2020] */
   $rac-tab-background: unset,                                                                 /* @stable [10.02.2020] */
   $rac-tab-border-bottom: unset,                                                              /* @stable [10.02.2020] */
@@ -178,6 +179,12 @@
             );
           }
         }
+      }
+
+      &.rac-tab-panel__single-tab {
+        @include rac-styles (
+          $rac-styles-border-radius: $rac-single-tab-border-radius
+        );
       }
     }
 

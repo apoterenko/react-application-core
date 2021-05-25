@@ -3,10 +3,7 @@
 
 .rac {
 
-  /**
-   * @tab-panel
-   * @stable [10.02.2020]
-   */
+  // @stable [10.02.2020]
   @include rac-tab-panel (
     $rac-active-tab-after-background: $rac-active-tab-after-background,
     $rac-active-tab-after-bottom: $rac-active-tab-after-bottom,
@@ -22,6 +19,7 @@
     $rac-inactive-tab-border-left-color: $rac-inactive-tab-border-left-color,
     $rac-inactive-tab-border-right-color: $rac-inactive-tab-border-right-color,
     $rac-last-tab-border-radius: $rac-last-tab-border-radius,
+    $rac-single-tab-border-radius: $rac-single-tab-border-radius,
     $rac-tab-align-items: $rac-tab-align-items,
     $rac-tab-background: $rac-tab-background,
     $rac-tab-border-bottom: $rac-tab-border-bottom,
