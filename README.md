@@ -160,7 +160,7 @@ The library is designed to quickly start develop the business applications are b
 
 # Utils
 
-|Plugin|Date|Tests|
+|Utils|Date|Tests|
 |----------------------------------|----------|-|
 |[BlobUtils](src/core/util/blob.ts)|24.05.2021|X|
 
