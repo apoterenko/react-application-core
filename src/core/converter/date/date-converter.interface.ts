@@ -6,6 +6,7 @@ import {
   ICalendarConfigEntity,
   ICalendarEntity,
   ICalendarWeekEntity,
+  IDateGenericConverter,
   IDateTimeConfigEntity,
   IDateTimeIndexConfigEntity,
   IDayOfYearEntity,
@@ -15,7 +16,7 @@ import {
   IWeekConfigEntity,
 } from '../../definition';
 
-export interface IDateConverter<TDate = Date> {
+export interface IDateConverter<TDate = Date> extends IDateGenericConverter<TDate> {
   appOnlineLifeTimeInHours: number;
   appOnlineLifeTimeInSeconds: number;
   currentDate: Date;
@@ -73,7 +74,6 @@ export interface IDateConverter<TDate = Date> {
   dateAsDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsPstDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsPstTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
-  dateAsString(cfg: IDateTimeConfigEntity<TDate>): string;                                              // @stable [13.03.2021]
   dateAsTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
   dateAsUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   equal(date1: DateTimeLikeTypeT, date2: DateTimeLikeTypeT): boolean;
@@ -81,7 +81,6 @@ export interface IDateConverter<TDate = Date> {
   fromDateTimeToString(cfg: IDateTimeConfigEntity<TDate>): string;                                      // @stable [13.03.2021]
   fromDateTimeToUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDateTimeToUiDateTimeString(cfg: IDateTimeConfigEntity<TDate>): string;
-  fromDateToString(cfg: IDateTimeConfigEntity<TDate>): string                                           // @stable [25.03.2021]
   fromDateToUiDateString(cfg: IDateTimeConfigEntity<TDate>): string;
   fromDayOfYearEntity(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity<TDate>): TDate;
   fromDayOfYearEntityAsDate(entity: IDayOfYearEntity, cfg?: IDateTimeConfigEntity<TDate>): Date;

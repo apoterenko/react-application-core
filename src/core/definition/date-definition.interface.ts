@@ -157,3 +157,12 @@ export interface IDayOfYearEntity
 export interface IFromToDayOfYearEntity
   extends IFromToEntity<IDayOfYearEntity> {
 }
+
+/**
+ * @service
+ * @stable [21.05.2021]
+ */
+export interface IDateGenericConverter<TDate = Date> {
+  dateAsString(cfg: IDateTimeConfigEntity<TDate>): string;
+  fromDateToString(cfg: IDateTimeConfigEntity<TDate>): string;
+}
