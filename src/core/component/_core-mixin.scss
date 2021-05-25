@@ -41,13 +41,20 @@
   @return ':not(#{rac-cls($rac-not-cls)})';
 }
 
-/**
- * @stable [02.02.2020]
- */
+// @stable [15.05.2021]
 @mixin rac-transform ($transform) {
+  -moz-transform: $transform;
   -ms-transform: $transform;
   -webkit-transform: $transform;
   transform: $transform;
+}
+
+// @stable [15.05.2021]
+@mixin rac-transform-origin ($origin) {
+  -moz-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -webkit-transform-origin: $origin;
+  transform-origin: $origin;
 }
 
 /**
@@ -146,6 +153,7 @@
   $rac-styles-text-overflow: unset,
   $rac-styles-text-transform: unset,
   $rac-styles-top: unset,
+  $rac-styles-transform-origin: unset,
   $rac-styles-transform: unset,
   $rac-styles-transition: unset,
   $rac-styles-vertical-align: unset,
@@ -241,8 +249,9 @@
   @if $rac-styles-text-overflow != unset { text-overflow: $rac-styles-text-overflow; }
   @if $rac-styles-text-transform != unset { text-transform: $rac-styles-text-transform; }
   @if $rac-styles-top != unset { top: $rac-styles-top; }
-  @if $rac-styles-transform != unset { @include rac-transform($rac-styles-transform); }
-  @if $rac-styles-transition != unset { @include rac-transition($rac-styles-transition); }
+  @if $rac-styles-transform != unset { @include rac-transform ($rac-styles-transform); }
+  @if $rac-styles-transform-origin != unset { @include rac-transform-origin ($rac-styles-transform-origin); }
+  @if $rac-styles-transition != unset { @include rac-transition ($rac-styles-transition); }
   @if $rac-styles-vertical-align != unset { vertical-align: $rac-styles-vertical-align; }
   @if $rac-styles-visibility != unset { visibility: $rac-styles-visibility; }
   @if $rac-styles-white-space != unset { white-space: $rac-styles-white-space; }
@@ -345,6 +354,7 @@
   $rac-styles-text-overflow: unset,
   $rac-styles-text-transform: unset,
   $rac-styles-top: unset,
+  $rac-styles-transform-origin: unset,
   $rac-styles-transform: unset,
   $rac-styles-transition: unset,
   $rac-styles-vertical-align: unset,
@@ -438,6 +448,7 @@
         $rac-styles-text-overflow: $rac-styles-text-overflow,
         $rac-styles-text-transform: $rac-styles-text-transform,
         $rac-styles-top: $rac-styles-top,
+        $rac-styles-transform-origin: $rac-styles-transform-origin,
         $rac-styles-transform: $rac-styles-transform,
         $rac-styles-transition: $rac-styles-transition,
         $rac-styles-vertical-align: $rac-styles-vertical-align,
@@ -530,6 +541,7 @@
       $rac-styles-text-overflow: $rac-styles-text-overflow,
       $rac-styles-text-transform: $rac-styles-text-transform,
       $rac-styles-top: $rac-styles-top,
+      $rac-styles-transform-origin: $rac-styles-transform-origin,
       $rac-styles-transform: $rac-styles-transform,
       $rac-styles-transition: $rac-styles-transition,
       $rac-styles-vertical-align: $rac-styles-vertical-align,
