@@ -1,52 +1,88 @@
 import {
   FileExtensionsEnum,
+  IReadBlobConfigEntity,
   MimeTypesEnum,
 } from '../definition';
+import { Base64Utils } from './base64';
+import { ConditionUtils } from './cond';
 import { NvlUtils } from './nvl';
+import { UNDEF_SYMBOL } from '../definitions.interface';
 
 /**
- * @stable [09.11.2020]
- * @param base64
- * @param options
- */
-const fromBase64UrlToBlob = (base64: string, options?: RequestInit): Promise<Blob> =>
-  fromUrlToBlob(`data:image;base64,${base64}`, options);
-
-/**
- * @stable [02.11.2020]
+ * @stable [24.05.2021]
  * @param url
  * @param options
  */
 const fromUrlToBlob = (url: string, options?: RequestInit): Promise<Blob> =>
-  fetch(url, {mode: 'cors', ...options}).then((r) => r.blob());
+  ConditionUtils.ifNotEmptyThanValue(
+    url,
+    () => fetch(url, {mode: 'cors', ...options}).then((r) => r.blob()),
+    UNDEF_SYMBOL
+  );
 
 /**
- * @stable [13.12.2020]
- * @param blob
- * @param length
+ * @stable [24.05.2021]
+ * @param cfg
  */
-const readBlobBytes = async (blob: Blob, length?: number): Promise<number[]> => new Promise<number[]>((resolve) => {
-  const fileReader = new FileReader();
-  fileReader.onloadend = (evt) => {
-    const target = evt.target;
-    if (target.readyState === FileReader.DONE) {
-      resolve(Array.from(new Uint8Array(target.result as ArrayBuffer)));
-    }
-  };
-  fileReader.readAsArrayBuffer(blob.slice(0, NvlUtils.nvl(length, blob.size)));
-});
+const fromBlobToBytes = async (cfg: IReadBlobConfigEntity): Promise<number[]> =>
+  ConditionUtils.ifNotNilThanValue(
+    cfg.data,
+    (blob) => (
+      new Promise<number[]>((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.onloadend = (evt) => {
+          const target = evt.target;
+          if (target.readyState === FileReader.DONE) {
+            resolve(Array.from(new Uint8Array(target.result as ArrayBuffer)));
+          }
+        };
+        fileReader.onerror = (evt) => reject(evt);
+        fileReader.readAsArrayBuffer(blob.slice(0, NvlUtils.nvl(cfg.length, blob.size)));
+      })
+    ),
+    UNDEF_SYMBOL
+  );
 
 /**
- * @stable [13.12.2020]
- * @param blob
- * @param length
+ * @stable [24.05.2021]
+ * @param cfg
  */
-const readBlobBytesAsString = async (blob: Blob, length?: number): Promise<string> =>
-  readBlobBytes(blob, length)
-    .then((bytes) => bytes.map((byte) => byte.toString(16)).join('').toUpperCase());
+const fromBlobToString = async (cfg: IReadBlobConfigEntity): Promise<string> =>
+  ConditionUtils.ifNotEmptyThanValue(
+    await fromBlobToBytes(cfg),
+    (bytes) => bytes.map((byte) => byte.toString(16)).join('').toUpperCase(),
+    UNDEF_SYMBOL
+  );
 
 /**
- * @stable [13.12.2020]
+ * @stable [24.05.2021]
+ * @param cfg
+ */
+const fromBlobToBase64 = async (cfg: IReadBlobConfigEntity): Promise<string> =>
+  ConditionUtils.ifNotEmptyThanValue(
+    await fromBlobToString(cfg),
+    (data) => Base64Utils.stringToBase64(data),
+    UNDEF_SYMBOL
+  );
+
+/**
+ * @stable [24.05.2021]
+ * @param url
+ * @param options
+ */
+const fromUrlToBase64 = async (url: string, options?: RequestInit): Promise<string> =>
+  fromBlobToBase64({data: await fromUrlToBlob(url, options)});
+
+/**
+ * @stable [24.05.2021]
+ * @param base64
+ * @param options
+ */
+const fromBase64ToBlob = (base64: string, options?: RequestInit): Promise<Blob> =>
+  fromUrlToBlob(`data:image;base64,${base64}`, options);
+
+/**
+ * @stable [24.05.2021]
  * @param signature
  */
 const asBlobMimeType = (signature: string): MimeTypesEnum | string => {
@@ -68,7 +104,7 @@ const asBlobMimeType = (signature: string): MimeTypesEnum | string => {
 };
 
 /**
- * @stable [13.12.2020]
+ * @stable [24.05.2021]
  * @param mimeType
  */
 const asFileExtension = (mimeType: MimeTypesEnum | string): FileExtensionsEnum => {
@@ -89,18 +125,22 @@ const asFileExtension = (mimeType: MimeTypesEnum | string): FileExtensionsEnum =
 };
 
 /**
- * @stable [13.12.2020]
- * @param blob
+ * @stable [24.05.2021]
+ * @param data
  */
-const detectBlobMimeType = async (blob: Blob): Promise<MimeTypesEnum | string> =>
-  asBlobMimeType(await readBlobBytesAsString(blob, 4));
+const detectBlobMimeType = async (data: Blob): Promise<MimeTypesEnum | string> =>
+  asBlobMimeType(await fromBlobToString({data, length: 4}));
 
 /**
- * @stable [02.11.2020]
+ * @utils
+ * @stable [24.05.2021]
  */
 export class BlobUtils {
   public static readonly asFileExtension = asFileExtension;
   public static readonly detectBlobMimeType = detectBlobMimeType;
-  public static readonly fromBase64UrlToBlob = fromBase64UrlToBlob;
+  public static readonly fromBase64ToBlob = fromBase64ToBlob;
+  public static readonly fromBlobToBase64 = fromBlobToBase64;
+  public static readonly fromBlobToString = fromBlobToString;
+  public static readonly fromUrlToBase64 = fromUrlToBase64;
   public static readonly fromUrlToBlob = fromUrlToBlob;
 }
