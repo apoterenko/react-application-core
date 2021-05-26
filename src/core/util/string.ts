@@ -5,8 +5,8 @@ import {
   UNDEF_SYMBOL,
 } from '../definitions.interface';
 import { ConditionUtils } from './cond';
-import { TypeUtils } from './type';
 import { ObjectUtils } from './object';
+import { TypeUtils } from './type';
 
 /**
  * @stable [31.03.2021]
@@ -65,6 +65,33 @@ const insertSubstring = (source: string, value: string, position: number = 0): s
   );
 
 /**
+ * @stable [26.05.2021]
+ * @param source
+ * @param placeholder
+ * @param start
+ * @param end
+ */
+const replaceByPlaceholder = (source: string, placeholder: string, start?: number, end?: number): string =>
+  ConditionUtils.ifNotNilThanValue(
+    source,
+    () => {
+      const sourceEndPosition = source.length;
+      const endPosition = TypeUtils.isNumber(end) ? end + 1 : sourceEndPosition;
+
+      return (
+        `${
+          source.substring(0, start)
+        }${
+          source.substring(start, endPosition).replace(/./g, placeholder)
+        }${
+          source.substring(endPosition, sourceEndPosition)
+        }`
+      );
+    },
+    UNDEF_SYMBOL
+  );
+
+/**
  * @utils
  * @stable [31.03.2021]
  */
@@ -73,4 +100,5 @@ export class StringUtils {
   public static readonly asLowerCase = asLowercase;
   public static readonly asStringParameter = asStringParameter;
   public static readonly insertSubstring = insertSubstring;
+  public static readonly replaceByPlaceholder = replaceByPlaceholder;
 }
