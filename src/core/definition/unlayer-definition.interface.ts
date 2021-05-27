@@ -43,6 +43,7 @@ export interface IUnlayerEditorMetaEntity {
  */
 export interface IUnlayerEditorEntity {
   exportHtml(callback: (data: IUnlayerEditorMetaEntity) => void): void;
+  loadBlank(): void;
   loadDesign(design: IUnlayerEditorDesignEntity): void;
   registerCallback(callbackName: string, callback: (params: IKeyValue, done: (cfg: IKeyValue) => void) => void): void;
 }

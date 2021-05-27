@@ -6,6 +6,7 @@ import { LoggerFactory } from 'ts-smart-logger';
 import { Field } from '../field/field.component';
 import {
   AsyncLibsEnum,
+  FieldConstants,
   IUnlayerEditorEntity,
   IUnlayerEditorMetaEntity,
   SyntheticEmitterEventsEnum,
@@ -14,7 +15,7 @@ import {
 import {
   Base64Utils,
   ClsUtils,
-  ConditionUtils,
+  ObjectUtils,
   PropsUtils,
   TypeUtils,
   UuidUtils,
@@ -23,7 +24,7 @@ import { ITemplateFieldProps } from '../../../definition';
 
 /**
  * @component-impl
- * @stable [26.03.2021]
+ * @stable [28.05.2021]
  */
 export class TemplateField extends Field<ITemplateFieldProps> {
 
@@ -34,7 +35,6 @@ export class TemplateField extends Field<ITemplateFieldProps> {
     url: 'https://editor.unlayer.com/embed.js',
   }, Field);
 
-  private static readonly EMPTY_TEMPLATE_AS_BASE64 = 'eyJjb3VudGVycyI6eyJ1X2NvbHVtbiI6MiwidV9yb3ciOjJ9LCJib2R5Ijp7InJvd3MiOlt7ImNlbGxzIjpbMV0sImNvbHVtbnMiOlt7ImNvbnRlbnRzIjpbXSwidmFsdWVzIjp7ImJhY2tncm91bmRDb2xvciI6IiIsInBhZGRpbmciOiIwcHgiLCJib3JkZXIiOnt9LCJfbWV0YSI6eyJodG1sSUQiOiJ1X2NvbHVtbl8xIiwiaHRtbENsYXNzTmFtZXMiOiJ1X2NvbHVtbiJ9fX1dLCJ2YWx1ZXMiOnsiZGlzcGxheUNvbmRpdGlvbiI6bnVsbCwiY29sdW1ucyI6ZmFsc2UsImJhY2tncm91bmRDb2xvciI6IiIsImNvbHVtbnNCYWNrZ3JvdW5kQ29sb3IiOiIiLCJiYWNrZ3JvdW5kSW1hZ2UiOnsidXJsIjoiIiwiZnVsbFdpZHRoIjp0cnVlLCJyZXBlYXQiOmZhbHNlLCJjZW50ZXIiOnRydWUsImNvdmVyIjpmYWxzZX0sInBhZGRpbmciOiIwcHgiLCJoaWRlRGVza3RvcCI6ZmFsc2UsImhpZGVNb2JpbGUiOmZhbHNlLCJub1N0YWNrTW9iaWxlIjpmYWxzZSwiX21ldGEiOnsiaHRtbElEIjoidV9yb3dfMSIsImh0bWxDbGFzc05hbWVzIjoidV9yb3cifSwic2VsZWN0YWJsZSI6dHJ1ZSwiZHJhZ2dhYmxlIjp0cnVlLCJkdXBsaWNhdGFibGUiOnRydWUsImRlbGV0YWJsZSI6dHJ1ZX19XSwidmFsdWVzIjp7ImJhY2tncm91bmRDb2xvciI6IiNlN2U3ZTciLCJiYWNrZ3JvdW5kSW1hZ2UiOnsidXJsIjoiIiwiZnVsbFdpZHRoIjp0cnVlLCJyZXBlYXQiOmZhbHNlLCJjZW50ZXIiOnRydWUsImNvdmVyIjpmYWxzZX0sImNvbnRlbnRXaWR0aCI6IjUwMHB4IiwiY29udGVudEFsaWduIjoiY2VudGVyIiwiZm9udEZhbWlseSI6eyJsYWJlbCI6IkFyaWFsIiwidmFsdWUiOiJhcmlhbCxoZWx2ZXRpY2Esc2Fucy1zZXJpZiJ9LCJwcmVoZWFkZXJUZXh0IjoiIiwibGlua1N0eWxlIjp7ImJvZHkiOnRydWUsImxpbmtDb2xvciI6IiMwMDAwZWUiLCJsaW5rSG92ZXJDb2xvciI6IiMwMDAwZWUiLCJsaW5rVW5kZXJsaW5lIjp0cnVlLCJsaW5rSG92ZXJVbmRlcmxpbmUiOnRydWV9LCJfbWV0YSI6eyJodG1sSUQiOiJ1X2JvZHkiLCJodG1sQ2xhc3NOYW1lcyI6InVfYm9keSJ9fX0sInNjaGVtYVZlcnNpb24iOjV9';
   private readonly id = UuidUtils.uuid(true);
 
   private editor: IUnlayerEditorEntity;
@@ -66,8 +66,9 @@ export class TemplateField extends Field<ITemplateFieldProps> {
    */
   public componentWillUnmount(): void {
     this.asyncLibManager.cancelWaiting(this.unlayerLibTask);
-    this.unlayerLibTask = null;
+
     this.editor = null;
+    this.unlayerLibTask = null;
   }
 
   /**
@@ -81,6 +82,13 @@ export class TemplateField extends Field<ITemplateFieldProps> {
     if (this.editor && this.isCurrentValueNotEqualPreviousValue(prevProps)) {
       this.doRefresh();
     }
+  }
+
+  /**
+   * @stable [28.05.2021]
+   */
+  protected get originalEmptyValue(): string {
+    return FieldConstants.VALUE_TO_RESET;
   }
 
   /**
@@ -127,18 +135,14 @@ export class TemplateField extends Field<ITemplateFieldProps> {
   }
 
   /**
-   * @stable [26.03.2021]
+   * @stable [27.05.2021]
    */
   private doRefresh(): void {
     const value = this.value;
-    if (!TypeUtils.isDef(value)) {
+    if (TypeUtils.isUndef(value)) {
       return;
     }
-    this.loadDesign(
-      R.isNil(value)
-        ? TemplateField.EMPTY_TEMPLATE_AS_BASE64  // Because we have no clearDesign method (see https://docs.unlayer.com/docs/react-component)
-        : value
-    );
+    this.loadDesign(value);
   }
 
   /**
@@ -146,24 +150,24 @@ export class TemplateField extends Field<ITemplateFieldProps> {
    * @param initialValue
    */
   private loadDesign(initialValue: string): void {
-    ConditionUtils.ifNotNilThanValue(
-      Base64Utils.base64ToJson(initialValue),
-      (templateAsJson) => {
-        if (TypeUtils.isObject(templateAsJson)) {
-          if (!R.equals(initialValue, this.currentTemplate)) { // Because of Flux cycle
-            this.editor.loadDesign(templateAsJson);
-            this.currentTemplate = null;
-          } else {
-            TemplateField.logger.debug('[$TemplateField][loadDesign] Self-updating. Do nothing');
-          }
+    if (ObjectUtils.isObjectNotEmpty(initialValue)) {
+      const templateAsJson = Base64Utils.base64ToJson(initialValue);
+      if (TypeUtils.isObject(templateAsJson)) {
+        if (R.equals(initialValue, this.currentTemplate)) { // Because of Flux cycle
+          TemplateField.logger.debug('[$TemplateField][loadDesign] Self-updating. Do nothing');
         } else {
-          TemplateField.logger.debug(
-            '[$TemplateField][loadDesign] The template is invalid. Do nothing. Template:',
-            templateAsJson
-          );
+          this.editor.loadDesign(templateAsJson);
+          this.currentTemplate = null;
         }
+        return;
       }
+    }
+
+    TemplateField.logger.debug(
+      '[$TemplateField][loadDesign] The template is invalid. Load a blank template. Template:',
+      initialValue
     );
+    this.editor.loadBlank();
   }
 
   /**
