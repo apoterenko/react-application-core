@@ -1,5 +1,6 @@
 export * from './action';
 export * from './array';
+export * from './audio';
 export * from './barcode';
 export * from './base64';
 export * from './blob';

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
+import * as Mustache from 'mustache';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { Field } from '../field/field.component';
@@ -216,6 +217,7 @@ export class TemplateField extends Field<ITemplateFieldProps> {
    */
   private createEditor(): IUnlayerEditorEntity {
     const {
+      data,
       tags,
       user,
     } = this.originalProps;
@@ -234,6 +236,14 @@ export class TemplateField extends Field<ITemplateFieldProps> {
 
     editor.addEventListener('design:updated', this.onTemplateUpdated);
     editor.addEventListener('design:loaded', this.onTemplateLoaded);
+
+    if (TypeUtils.isFn(data)) {
+      editor.registerCallback('previewHtml', (params, done) => {
+        done({
+          html: Mustache.render(params.html, data()),
+        });
+      });
+    }
     return editor;
   }
 }

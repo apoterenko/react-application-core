@@ -4,6 +4,7 @@ import {
   IReduxFieldEntity,
 } from './field-definition.interface';
 import {
+  IDataWrapper,
   IProjectIdWrapper,
   ITagsWrapper,
   IUrlWrapper,
@@ -20,6 +21,7 @@ import { IUnlayerEditorMergeTagsEntity } from './unlayer-definition.interface';
  */
 export interface IPresetsTemplateFieldEntity
   extends IPresetsFieldEntity,
+    IDataWrapper<() => unknown>,
     IProjectIdWrapper,
     ITagsWrapper<IUnlayerEditorMergeTagsEntity>,
     IUrlWrapper,

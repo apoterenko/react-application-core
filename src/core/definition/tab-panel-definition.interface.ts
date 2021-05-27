@@ -201,6 +201,7 @@ export enum TabPanelClassesEnum {
   INACTIVE_TAB = 'rac-tab-panel__inactive-tab',
   LAST_TAB = 'rac-tab-panel__last-tab',
   ODD_TAB = 'rac-tab-panel__odd-tab',
+  SINGLE_TAB = 'rac-tab-panel__single-tab',
   TAB = 'rac-tab-panel__tab',
   TAB_CONTENT = 'rac-tab-panel__tab-content',
   TAB_ICON = 'rac-tab-panel__tab-icon',
