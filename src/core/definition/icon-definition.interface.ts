@@ -42,6 +42,7 @@ export enum IconsEnum {
   MINUS = 'minus',                                                        /* https://fontawesome.com/ */
   MINUS_CIRCLE = 'minus-circle',                                          /* https://fontawesome.com/ */
   MINUS_SQUARE_REGULAR = 'minus-square-regular',                          /* https://fontawesome.com/ */
+  PAPER_PLANE_REGULAR = 'paper-plane-regular',                            /* https://fontawesome.com/ */
   PAPERCLIP = 'paperclip',                                                /* https://fontawesome.com/ */
   PENCIL_ALT = 'pencil-alt',                                              /* https://fontawesome.com/ */
   PEOPLE_CARRY = 'people-carry',                                          /* https://fontawesome.com/ */

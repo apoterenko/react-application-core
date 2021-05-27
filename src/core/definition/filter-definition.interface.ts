@@ -1,7 +1,7 @@
 /**
  * @stable [29.08.2020]
  */
-export type KeyValuePredicateT = (key: string, value: unknown) => boolean;
+export type KeyValuePredicateT = <TValue = unknown>(key: string, value: TValue) => boolean;
 export type ValuePredicateT = (value: unknown) => boolean;
 
 /**
