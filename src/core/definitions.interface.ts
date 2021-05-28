@@ -6,9 +6,17 @@ export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export type AnyT = any;
 export type EntityIdT = StringNumberT;
-export type StringFnT<TArgs = unknown> = string | ((...args: TArgs[]) => string);
+export type StringFnT<TArg1 = unknown, TArg2 = unknown, TArg3 = unknown> = string | ((arg1?: TArg1, arg2?: TArg2, arg3?: TArg3) => string);
 export type StringNumberT = number | string;
 
+/**
+ * @stable [24.05.2021]
+ */
+export interface IInlineOptionClassNameWrapper<TValue = string> { inlineOptionClassName?: TValue; }
+export interface ILengthWrapper<TValue = number> { length?: TValue; }
+export interface ITypeWrapper<TValue = string> { type?: TValue; }
+
+/**/
 export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
 export interface IAcceptableWrapper { acceptable?: boolean; }
 export interface IAcceptActionConfigurationWrapper<TValue> { acceptActionConfiguration?: TValue; }
@@ -142,6 +150,7 @@ export interface IDefaultLayoutPropsWrapper<TValue> { defaultLayoutProps?: TValu
 export interface IDefaultSrcWrapper<TDefaultSrc = string> { defaultScr?: TDefaultSrc; }
 export interface IDefaultValueWrapper<TDefaultValue = AnyT> { defaultValue?: TDefaultValue; }
 export interface IDefaultWrapper { default?: boolean; }
+export interface IDegreeWrapper<TValue = number> { degree?: TValue; }
 export interface IDelayTimeoutWrapper<TValue = number> { delayTimeout?: TValue; }
 export interface IDepthWrapper { depth?: number; }
 export interface IDestroySectionsWrapper<TValue = string[]> { destroySections?: TValue; }
@@ -260,7 +269,6 @@ export interface IIndexWrapper<TValue = number> { index?: TValue; }
 export interface IInfoWrapper<TValue = string> { info?: TValue; }
 export interface IInitialMarkersWrapper<TValue> { initialMarkers?: TValue; }
 export interface IInitialStateWrapper<TValue = {}> { initialState?: TValue; }
-export interface IInlineOptionClassNameClassName { inlineOptionClassName?: string; }
 export interface IInlineOptionsRenderedWrapper { inlineOptionsRendered?: boolean; }
 export interface IInlineOptionsWrapper<TValue = boolean> { inlineOptions?: TValue; }
 export interface IInlineWrapper { inline?: boolean; }
@@ -452,6 +460,7 @@ export interface IPrefixWrapper { prefix?: string; }
 export interface IPreventEffectsWrapper<TValue = boolean> { preventEffects?: TValue; }
 export interface IPreventFocusWrapper { preventFocus?: boolean; }
 export interface IPreventManualChangesWrapper { preventManualChanges?: boolean; }
+export interface IPreviewDegreeWrapper<TValue = number> { previewDegree?: TValue; }
 export interface IPreviewDialogConfigurationWrapper<TValue> { previewDialogConfiguration?: TValue; }
 export interface IPreviewPageWrapper<TValue = number> { previewPage?: TValue; }
 export interface IPreviewScaleWrapper<TValue = number> { previewScale?: TValue; }
@@ -576,7 +585,6 @@ export interface ITplWrapper<T1 = {}, T2 = {}, T3 = {}> { tpl?(value1?: T1, valu
 export interface ITrackableWrapper { trackable?: boolean; }
 export interface ITransportFactoryWrapper<TValue> { transportFactory?: TValue; }
 export interface ITransportWrapper<TValue> { transport?: TValue; }
-export interface ITypeWrapper<TValue = string> { type?: TValue; }
 export interface IUniqueParamNameWrapper { uniqueParamName?: string; }
 export interface IUnitWrapper<TValue> { unit?: TValue; }
 export interface IUpdatedWrapper<TValue = boolean> { updated?: TValue; }

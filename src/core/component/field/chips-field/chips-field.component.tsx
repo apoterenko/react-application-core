@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import { InlineOption } from '../../inline-option';
 import {
+  CalcUtils,
   ClsUtils,
   ObjectUtils,
   PropsUtils,
@@ -67,7 +68,7 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
         disabled={this.isInactive}
         className={
           ClsUtils.joinClassName(
-            inlineOptionClassName,
+            CalcUtils.calc(inlineOptionClassName),
             ChipsFieldClassesEnum.CHIPS_FIELD_INLINE_OPTION
           )
         }

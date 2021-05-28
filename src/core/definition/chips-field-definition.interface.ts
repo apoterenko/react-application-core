@@ -1,13 +1,17 @@
-import { IInlineOptionClassNameClassName } from '../definitions.interface';
+import {
+  IInlineOptionClassNameWrapper,
+  StringFnT,
+} from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericMultiFieldEntity } from './multi-field-definition.interface';
+import { IPresetsSelectOptionEntity } from './select-definition.interface';
 
 /**
  * @presets-entity
  * @stable [16.06.2020]
  */
 export interface IPresetsChipsFieldEntity
-  extends IInlineOptionClassNameClassName {
+  extends IInlineOptionClassNameWrapper<StringFnT<IPresetsSelectOptionEntity>> {
 }
 
 /**

@@ -7,7 +7,7 @@ import {
   IEntity,
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
-  IInlineOptionClassNameClassName,
+  IInlineOptionClassNameWrapper,
   IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
@@ -18,6 +18,7 @@ import {
   IProgressWrapper,
   IRemoteFilterWrapper,
   IWaitingForOptionsWrapper,
+  StringFnT,
   StringNumberT,
 } from '../definitions.interface';
 import {
@@ -45,7 +46,7 @@ export interface IPresetsBaseSelectEntity
     IDictionaryWrapper,
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
-    IInlineOptionClassNameClassName,
+    IInlineOptionClassNameWrapper<StringFnT<IPresetsSelectOptionEntity>>,
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,

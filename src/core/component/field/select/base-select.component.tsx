@@ -239,7 +239,7 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
                 selected={isInlineOptionSelected}
                 className={
                   ClsUtils.joinClassName(
-                    inlineOptionClassName,
+                    CalcUtils.calc(inlineOptionClassName, option),
                     SelectClassesEnum.BASE_SELECT_INLINE_OPTION
                   )
                 }
@@ -662,10 +662,9 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
   }
 
   /**
-   * @stable [15.10.2020]
-   * @protected
+   * @stable [28.05.2021]
    */
-  protected get originalEmptyValue(): AnyT {
+  protected get originalEmptyValue(): SelectValueT | EntityIdT[] {
     return FieldConstants.VALUE_TO_RESET;
   }
 
