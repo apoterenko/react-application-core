@@ -18,6 +18,7 @@ import {
   IParentElementWrapper,
   IPositionConfigurationWrapper,
   IUrlWrapper,
+  StringNumberT,
 } from '../definitions.interface';
 
 /**
@@ -165,6 +166,7 @@ export interface IDomAccessor {
   captureEvent(cfg: ICaptureEventConfigEntity): () => void;
   captureEventWithinElement(cfg: ICaptureEventConfigEntity);
   createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parentEl?: Element): TElement;
+  createPreloadedPasswordInput(): HTMLInputElement;
   createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement>;
   disableFullScreen(element?: Document);
   dispatchEvent(cfg: IDomFireEventConfigEntity): void;
@@ -184,8 +186,9 @@ export interface IDomAccessor {
   getScrollInfo(el: Element): IPresetsXYEntity;
   getScrollLeft(el: Element): number;
   getScrollTop(el: Element): number;
-  getTransformScaleStyles(scale: number, transformOrigin?: string): React.CSSProperties;
-  getTransformStyles(transform: string, transformOrigin?: string): React.CSSProperties
+  getTransformRotateStyles(degree: number, transformOrigin?: StringNumberT): React.CSSProperties;
+  getTransformScaleStyles(scale: number, transformOrigin?: StringNumberT): React.CSSProperties;
+  getTransformStyles(transform: string, transformOrigin?: StringNumberT): React.CSSProperties
   getWidth(source: Element): number;
   hasClasses(target: Element, ...classNames: string[]): boolean;
   hasElements(selector: string, target?: Element): boolean;

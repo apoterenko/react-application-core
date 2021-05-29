@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import * as Mustache from 'mustache';
 import { LoggerFactory } from 'ts-smart-logger';
 
 import { Field } from '../field/field.component';
@@ -21,6 +20,7 @@ import {
   UuidUtils,
 } from '../../../util';
 import { ITemplateFieldProps } from '../../../definition';
+import { TemplateUtils } from '../../../util/template';
 
 /**
  * @component-impl
@@ -244,7 +244,7 @@ export class TemplateField extends Field<ITemplateFieldProps> {
     if (TypeUtils.isFn(data)) {
       editor.registerCallback('previewHtml', (params, done) => {
         done({
-          html: Mustache.render(params.html, data()),
+          html: TemplateUtils.render(params.html, data()),
         });
       });
     }

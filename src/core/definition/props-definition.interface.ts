@@ -20,8 +20,7 @@ export interface IUniversalComponentProps
  * @deprecated
  */
 export interface IComponentProps
-  extends IUniversalComponentEntity,
-    IWebComponentEntity {
+  extends IUniversalComponentEntity {
 }
 
 /**

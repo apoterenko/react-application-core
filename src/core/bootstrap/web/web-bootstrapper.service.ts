@@ -86,12 +86,14 @@ export class WebBootstrapper implements IBootstrapper {
    * @stable [01.10.2019]
    * @param {() => void} callback
    */
-  public init(callback: (() => void)): void {
+  public init(callback: () => void): void {
     const environment = this.environment;
     const document = environment.document;
 
     const ready = () => {
-      this.addStubPasswordInput();
+      if (this.environment.iosPlatform) {
+        this.domAccessor.createPreloadedPasswordInput();
+      }
       this.applyClasses();
       this.addRootElement();
       callback();
@@ -120,13 +122,6 @@ export class WebBootstrapper implements IBootstrapper {
       this.domAccessor.addRootElement(),
       orNull(this.bSettings.flexEnabled, 'rac-flex') // TODO Drop later
     );
-  }
-
-  /**
-   * @stable [13.05.2021]
-   */
-  private addStubPasswordInput(): void {
-    this.domAccessor.createPreloadedPasswordInput();
   }
 
   /**

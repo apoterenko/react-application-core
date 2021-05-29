@@ -15,10 +15,11 @@ import {
 import { IGenericComponentEntity } from './generic-component-definition.interface';
 
 /**
+ * TODO
  * @deprecated
  */
 export interface IWebComponentEntity
-  extends IClassNameWrapper<string | ((...args: unknown[]) => string)>,
+  extends IClassNameWrapper<any>,
     IStyleWrapper<React.CSSProperties> {
 }
 
