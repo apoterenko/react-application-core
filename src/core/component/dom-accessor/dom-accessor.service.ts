@@ -192,8 +192,8 @@ export class DomAccessor implements IDomAccessor {
   /**
    * @stable [13.05.2021]
    */
-  public createPreloadedPasswordInput(): void {
-    DomUtils.createPreloadedPasswordInput();
+  public createPreloadedPasswordInput(): HTMLInputElement {
+    return DomUtils.createPreloadedPasswordInput();
   }
 
   /**
