@@ -91,9 +91,7 @@ export class WebBootstrapper implements IBootstrapper {
     const document = environment.document;
 
     const ready = () => {
-      if (this.environment.iosPlatform) {
-        this.domAccessor.createPreloadedPasswordInput();
-      }
+      this.domAccessor.createPreloadedPasswordInput();
       this.applyClasses();
       this.addRootElement();
       callback();

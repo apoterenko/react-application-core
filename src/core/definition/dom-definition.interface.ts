@@ -166,7 +166,7 @@ export interface IDomAccessor {
   captureEvent(cfg: ICaptureEventConfigEntity): () => void;
   captureEventWithinElement(cfg: ICaptureEventConfigEntity);
   createElement<TElement extends HTMLElement = HTMLElement>(tag?: string, parentEl?: Element): TElement;
-  createPreloadedPasswordInput(): HTMLInputElement;
+  createPreloadedPasswordInput(): HTMLFormElement;
   createScript(cfg: Partial<HTMLScriptElement>): Promise<HTMLScriptElement>;
   disableFullScreen(element?: Document);
   dispatchEvent(cfg: IDomFireEventConfigEntity): void;
