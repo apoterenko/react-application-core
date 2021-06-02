@@ -71,7 +71,7 @@ export class InlineOption extends GenericComponent<IInlineOptionProps> {
           {displayValue}
         </span>
         {
-          closable && TypeUtils.isFn(onClose) && this.uiFactory.makeIcon({
+          CalcUtils.calc(closable, option) && TypeUtils.isFn(onClose) && this.uiFactory.makeIcon({
             className: InlineOptionClassesEnum.INLINE_OPTION_CLOSE,
             disabled,
             onClick: this.onClose,

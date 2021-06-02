@@ -59,21 +59,26 @@ export class ChipsField extends MultiField<IChipsFieldProps> {
    */
   private getInlineOptionElement(item: INamedEntity): JSX.Element {
     const {
-      inlineOptionClassName,
+      inlineOptionConfiguration,
     } = this.originalProps;
+
+    const {
+      className: inlineOptionClassName,
+    } = inlineOptionConfiguration || {};
 
     return (
       <InlineOption
-        key={`key-${item.id}`}
         disabled={this.isInactive}
+        option={this.fieldConverter.fromNamedEntityToRawDataLabeledValueEntity(item)}
+        onClose={() => this.onDelete(item)}
+        {...inlineOptionConfiguration}
+        key={`key-${item.id}`}
         className={
           ClsUtils.joinClassName(
             CalcUtils.calc(inlineOptionClassName),
             ChipsFieldClassesEnum.CHIPS_FIELD_INLINE_OPTION
           )
         }
-        option={this.fieldConverter.fromNamedEntityToRawDataLabeledValueEntity(item)}
-        onClose={() => this.onDelete(item)}
       />
     );
   }

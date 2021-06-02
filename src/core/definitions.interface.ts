@@ -6,13 +6,16 @@ export const UNDEF = void 0;
 export const UNDEF_SYMBOL = Symbol('UNDEF');
 export type AnyT = any;
 export type EntityIdT = StringNumberT;
-export type StringFnT<TArg1 = unknown, TArg2 = unknown, TArg3 = unknown> = string | ((arg1?: TArg1, arg2?: TArg2, arg3?: TArg3) => string);
+export type ResultFnT<TResult, TArg1 = unknown, TArg2 = unknown, TArg3 = unknown> = TResult | ((arg1?: TArg1, arg2?: TArg2, arg3?: TArg3) => TResult);
+export type BooleanFnT<TArg1 = unknown, TArg2 = unknown, TArg3 = unknown> = ResultFnT<boolean, TArg1, TArg2, TArg3>;
+export type StringFnT<TArg1 = unknown, TArg2 = unknown, TArg3 = unknown> = ResultFnT<string, TArg1, TArg2, TArg3>;
 export type StringNumberT = number | string;
 
 /**
  * @stable [24.05.2021]
  */
-export interface IInlineOptionClassNameWrapper<TValue = string> { inlineOptionClassName?: TValue; }
+export interface IClosableWrapper<TValue = boolean> { closable?: TValue; }
+export interface IInlineOptionConfigurationWrapper<TValue> { inlineOptionConfiguration?: TValue; }
 export interface ILengthWrapper<TValue = number> { length?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
 
@@ -102,7 +105,6 @@ export interface ICityWrapper<TValue = string> { city?: TValue; }
 export interface IClassNameWrapper<TValue = string> { className?: TValue; }
 export interface IClearActionRenderedWrapper { clearActionRendered?: boolean; }
 export interface IClosableOverlayWrapper { closableOverlay?: boolean; }
-export interface IClosableWrapper { closable?: boolean; }
 export interface ICloseActionConfigurationWrapper<TValue> { closeActionConfiguration?: TValue; }
 export interface ICloseDisabledWrapper { closeDisabled?: boolean; }
 export interface IClosedWrapper { closed?: boolean; }

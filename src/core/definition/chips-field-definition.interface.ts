@@ -1,25 +1,27 @@
-import {
-  IInlineOptionClassNameWrapper,
-  StringFnT,
-} from '../definitions.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import { IGenericMultiFieldEntity } from './multi-field-definition.interface';
-import { IPresetsSelectOptionEntity } from './select-definition.interface';
 
 /**
  * @presets-entity
- * @stable [16.06.2020]
+ * @stable [02.06.2021]
  */
-export interface IPresetsChipsFieldEntity
-  extends IInlineOptionClassNameWrapper<StringFnT<IPresetsSelectOptionEntity>> {
+export interface IPresetsChisFieldEntity {
+}
+
+/**
+ * @redux-entity
+ * @stable [02.06.2021]
+ */
+export interface IReduxChisFieldEntity {
 }
 
 /**
  * @generic-entity
- * @stable [16.06.2020]
+ * @stable [02.06.2021]
  */
 export interface IGenericChipsFieldEntity
-  extends IPresetsChipsFieldEntity,
+  extends IPresetsChisFieldEntity,
+    IReduxChisFieldEntity,
     IGenericMultiFieldEntity {
 }
 

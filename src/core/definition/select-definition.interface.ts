@@ -7,7 +7,6 @@ import {
   IEntity,
   IExpandActionRenderedWrapper,
   IForceReloadWrapper,
-  IInlineOptionClassNameWrapper,
   IInlineOptionsWrapper,
   IMenuAnchorElementWrapper,
   IMenuRenderedWrapper,
@@ -33,6 +32,7 @@ import {
 import { IFieldState } from './field-definition.interface';
 import { IFluxQueryEntity } from './query-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
+import { IInlineOptionConfigurationEntity } from './inline-option-definition.interface';
 import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface';
 
 /**
@@ -46,14 +46,14 @@ export interface IPresetsBaseSelectEntity
     IDictionaryWrapper,
     IExpandActionRenderedWrapper,
     IForceReloadWrapper,
-    IInlineOptionClassNameWrapper<StringFnT<IPresetsSelectOptionEntity>>,
+    IInlineOptionConfigurationEntity,                                                         /* @stable [02.06.2021] */
     IInlineOptionsWrapper,
     IMenuAnchorElementWrapper<HTMLElement | (() => HTMLElement)>,
     IMenuConfigurationEntity,
     IOnDictionaryChangeWrapper<string, IFluxQueryEntity>,
     IOnSelectWrapper<IPresetsSelectOptionEntity>,
     IOptionsWrapper<IPresetsSelectOptionEntity[]>,
-    IPlainValueWrapper,                                                              /* @stable [30.01.2021] */
+    IPlainValueWrapper,                                                                       /* @stable [30.01.2021] */
     IRemoteFilterWrapper,
     IWaitingForOptionsWrapper {
 }

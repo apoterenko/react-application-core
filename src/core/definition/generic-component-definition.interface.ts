@@ -12,12 +12,18 @@ import {
 import { ISettingsEntity } from '../settings/settings.interface';
 
 /**
+ * @component
+ * @stable [02.06.2021]
+ */
+export type GenericComponentT = AnyT;
+
+/**
  * @presets-entity
  * @stable [24.05.2020]
  */
-export interface IPresetsComponentEntity<TComponent = AnyT>
+export interface IPresetsComponentEntity<TComponent = GenericComponentT, TClassName = StringFnT>
   extends React.RefAttributes<TComponent>,
-    IClassNameWrapper<StringFnT>,
+    IClassNameWrapper<TClassName>,
     IForwardedRefWrapper<React.RefObject<AnyT>>,
     INoMergedPropsWrapper,
     IStyleWrapper<React.CSSProperties>,
@@ -45,10 +51,10 @@ export interface IGenericComponentProps<TComponent = AnyT>
  * @stable [30.03.2020]
  */
 export interface IGenericComponent<TProps extends IGenericComponentProps = IGenericComponentProps,
-                                   TState = {},
-                                   TSelfRef = AnyT>
-  extends React.PureComponent<TProps, TState>,
-    React.Component<TProps, TState> {
+  TState = {},
+  TSelfRef = AnyT>
+  extends React.PureComponent<TProps, TState> {
+
   actualRef: React.RefObject<TSelfRef>;
   originalProps: TProps;
   selfRef: React.RefObject<TSelfRef>;

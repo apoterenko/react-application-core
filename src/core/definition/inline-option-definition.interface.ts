@@ -1,20 +1,28 @@
 import {
+  BooleanFnT,
   IClosableWrapper,
   IDisabledWrapper,
+  IInlineOptionConfigurationWrapper,
   IOnClickWrapper,
   IOnCloseWrapper,
   IOptionWrapper,
   ISelectedWrapper,
+  StringFnT,
 } from '../definitions.interface';
-import { IGenericComponentProps } from './generic-component-definition.interface';
+import {
+  GenericComponentT,
+  IPresetsComponentEntity,
+} from './generic-component-definition.interface';
 import { IPresetsRawDataLabeledValueEntity } from './entity-definition.interface';
+import { IPresetsSelectOptionEntity } from './select-definition.interface';
 
 /**
  * @presets-entity
  * @stable [16.06.2020]
  */
 export interface IPresetsInlineOptionEntity
-  extends IClosableWrapper,
+  extends IPresetsComponentEntity<GenericComponentT, StringFnT<IPresetsSelectOptionEntity>>,
+    IClosableWrapper<BooleanFnT<IPresetsSelectOptionEntity>>,
     IDisabledWrapper,
     IOnClickWrapper<IPresetsRawDataLabeledValueEntity>,
     IOnCloseWrapper<IPresetsRawDataLabeledValueEntity>,
@@ -35,8 +43,15 @@ export interface IGenericInlineOptionEntity
  * @stable [02.06.2020]
  */
 export interface IInlineOptionProps
-  extends IGenericComponentProps,
-    IGenericInlineOptionEntity {
+  extends IGenericInlineOptionEntity {
+}
+
+/**
+ * @configuration-entity
+ * @stable [02.06.2021]
+ */
+export interface IInlineOptionConfigurationEntity<TProps = IInlineOptionProps>
+  extends IInlineOptionConfigurationWrapper<TProps> {
 }
 
 /**

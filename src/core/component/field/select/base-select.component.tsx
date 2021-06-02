@@ -213,7 +213,7 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
    */
   protected get attachmentBodyElement(): JSX.Element {
     const {
-      inlineOptionClassName,
+      inlineOptionConfiguration,
       inlineOptions,
     } = this.originalProps;
 
@@ -225,6 +225,10 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
       return null;
     }
 
+    const {
+      className: inlineOptionClassName,
+    } = inlineOptionConfiguration || {};
+
     const currentValue = this.value;
     return (
       <React.Fragment>
@@ -234,16 +238,17 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
 
             return (
               <InlineOption
-                key={`inline-option-key-${id}`}
                 option={option}
                 selected={isInlineOptionSelected}
+                onClick={() => this.onInlineOptionClick(option, isInlineOptionSelected)}
+                {...inlineOptionConfiguration}
+                key={`inline-option-key-${id}`}
                 className={
                   ClsUtils.joinClassName(
                     CalcUtils.calc(inlineOptionClassName, option),
                     SelectClassesEnum.BASE_SELECT_INLINE_OPTION
                   )
                 }
-                onClick={() => this.onInlineOptionClick(option, isInlineOptionSelected)}
               />
             );
           }
