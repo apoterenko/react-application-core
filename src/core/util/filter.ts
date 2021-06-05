@@ -8,6 +8,7 @@ import {
   IEntityIdTWrapper,
   IKeyValue,
   ITypeWrapper,
+  IValueWrapper,
   StringNumberT,
 } from '../definitions.interface';
 import { FieldConstants } from '../definition/field-definition.interface';
@@ -85,6 +86,14 @@ const EXCLUDE_ENTITY_ID_FIELD_PREDICATE = excludeFieldsPredicateFactory(FieldCon
 const SAME_ENTITY_PREDICATE =
   <TEntity extends IEntityIdTWrapper = IEntityIdTWrapper>(entity1: TEntity, entity2: TEntity): boolean =>
     entity1 === entity2 || (!R.isNil(entity1) && !R.isNil(entity2) && entity1.id === entity2.id);
+
+/**
+ * @stable [05.06.2021]
+ * @param entity1
+ * @param entity2
+ */
+const VALUE_PREDICATE = <TEntity = IEntity>(entity1: IValueWrapper<TEntity>, entity2: IValueWrapper<TEntity>): boolean =>
+  !R.isNil(entity1) && entity1?.value === entity2?.value;
 
 /**
  * @wrapper-predicate
@@ -346,4 +355,5 @@ export class FilterUtils {
   public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;
   public static readonly stringValuesArrayFilter = stringValuesArrayFilter;
   public static readonly trueValuesArrayFilter = trueValuesArrayFilter;
+  public static readonly VALUE_PREDICATE = VALUE_PREDICATE;
 }

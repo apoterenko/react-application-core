@@ -75,6 +75,12 @@ const asPreviousAction = <TValue>(wrapper: IPreviousActionWrapper<TValue>): IPre
 const asData = <TData>(wrapper: IDataWrapper<TData>): TData => wrapper?.data;
 
 /**
+ * @stable [05.06.2021]
+ * @param entity
+ */
+const asTabPanel = <TTabPanel>(entity: ITabPanelWrapper<TTabPanel>): TTabPanel => entity?.tabPanel;
+
+/**
  * @stable [20.01.2021]
  * @param wrapper
  */
@@ -357,14 +363,6 @@ const selectSectionName = (wrapper: ISectionNameWrapper): string => R.isNil(wrap
 const selectProgress = (wrapper: IProgressWrapper): boolean => R.isNil(wrapper) ? UNDEF : wrapper.progress;
 
 /**
- * @stable [17.05.2020]
- * @param {ITabPanelWrapper<TTabPanel>} entity
- * @returns {TTabPanel}
- */
-const selectTabPanel = <TTabPanel>(entity: ITabPanelWrapper<TTabPanel>): TTabPanel =>
-  R.isNil(entity) ? UNDEF : entity.tabPanel;
-
-/**
  * @stable [08.05.2020]
  * @param {IReduxListHolderEntity<TEntity extends IEntity>} entity
  * @returns {TEntity}
@@ -510,7 +508,7 @@ export class Selectors {
   public static readonly selectedEntityIdFromAction = asSelectedEntityIdFromAction;
   public static readonly stack = selectStack;                                                                   /* @stable [21.05.2020] */
   public static readonly stackItemEntities = selectStackItemEntities;                                           /* @stable [21.05.2020] */
-  public static readonly tabPanel = selectTabPanel;                                                             /* @stable [17.05.2020] */
+  public static readonly tabPanel = asTabPanel;
   public static readonly transport = selectTransport;                                                           /* @stable [12.06.2020] */
   public static readonly user = selectUser;                                                                     /* @stable [09.06.2020] */
   public static readonly validFromAction = selectValidFromAction;                                               /* @stable [12.01.2021] */

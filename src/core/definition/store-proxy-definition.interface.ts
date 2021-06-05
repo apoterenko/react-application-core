@@ -120,6 +120,7 @@ export interface IRouterStoreProxy
  * @stable [30.03.2020]
  */
 export interface IDictionaryStoreProxy {
+  dispatchLoadDictionary<TData = {}>(dictionary: string, fluxEntity?: IFluxEntity<TData>);
   dispatchLoadDictionaryOnChange<TData = {}>(dictionary: string, fluxEntity?: IFluxEntity<TData>);
 }
 
