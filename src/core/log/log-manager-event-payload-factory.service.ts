@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 import { Store } from 'redux';
 import { injectable } from 'inversify';
-import { LoggerFactory } from 'ts-smart-logger';
 
 import {
   DI_TYPES,
@@ -12,14 +11,15 @@ import {
   ILogManagerEventPayloadFactory,
   IUniversalStoreEntity,
 } from '../definition';
-import { getCurrentUrlPath } from '../util';
+import {
+  getCurrentUrlPath,
+  JsonUtils,
+} from '../util';
 import { IDateConverter } from '../converter';
 import { AnyT } from '../definitions.interface';
 
 @injectable()
-export class LogManagerEventPayloadFactory
-  implements ILogManagerEventPayloadFactory {
-  private static readonly logger = LoggerFactory.makeLogger('LogManagerEventPayloadFactory');
+export class LogManagerEventPayloadFactory implements ILogManagerEventPayloadFactory {
 
   @lazyInject(DI_TYPES.DateConverter) protected readonly dc: IDateConverter;
   @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
@@ -69,30 +69,17 @@ export class LogManagerEventPayloadFactory
       browserName}:${
       browserVersion}:${
       getCurrentUrlPath()}${
-      this.getEventLabel(payload)}`;
+      this.asEventLabel(payload)}`;
   }
 
   /**
-   * @stable [17.10.2019]
-   * @param {AnyT} payload
-   * @returns {string}
+   * @stable [07.06.2021]
+   * @param payload
    */
-  protected getEventLabel(payload: AnyT): string {
+  protected asEventLabel(payload: unknown): string {
     if (R.isNil(payload)) {
       return '[-]';
     }
-    try {
-      return `:${JSON.stringify(payload)}`;
-    } catch (e) {
-      LogManagerEventPayloadFactory.logger.error(
-        '[$LogManagerEventPayloadFactory][getEventLabel] The system error has occurred:',
-        e
-      );
-      try {
-        return `:${String(payload)}`;
-      } catch (ignored) {
-        // Do nothing
-      }
-    }
+    return `:${JsonUtils.serializeJson(payload)}`;
   }
 }

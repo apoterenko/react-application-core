@@ -37,6 +37,7 @@ const serializeJson = <TObject = unknown>(o: TObject): string => {
     return o as AnyT;
   }
   try {
+    // JSON.stringify() throws an error when it detects a cyclical object
     return JSON.stringify(o);
   } catch (e) {
     return String(o);
