@@ -22,6 +22,7 @@ import {
   FieldConverterTypesEnum,
   IGoogleMaps,
   IGoogleMapsMenuItemEntity,
+  IGoogleMapsRefreshMarkerConfigEntity,
   IPlaceEntity,
   IPlaceFieldProps,
   IPlaceFieldState,
@@ -269,21 +270,20 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
   private initPlaceMarker(): void {
     this.googleMaps.addMarker({draggable: true, position: null}, PlaceField.PLACE_MARKER);
 
-    const {lat, lng} = this.valueAsPlaceEntity || {} as IPlaceEntity;
+    const {lat, lng} = this.valueAsPlaceEntity || {};
 
-    const initialCfg = {marker: PlaceField.PLACE_MARKER};
+    const initialCfg: IGoogleMapsRefreshMarkerConfigEntity = R.isNil(lat) || R.isNil(lng)
+      ? {visible: false, refresh: !this.hasMapInitialMarkers}
+      : {
+        lat,
+        lng,
+        refresh: true,
+        zoom: this.settings.googleMaps.prettyZoom,
+      };
+
     this.googleMaps.refreshMarker({
+      marker: PlaceField.PLACE_MARKER,
       ...initialCfg,
-      ...(
-        !R.isNil(lat) && !R.isNil(lng)
-          ? {
-            lat,
-            lng,
-            refreshMap: true,
-            zoom: this.settings.googleMaps.prettyZoom,
-          }
-          : {visible: false, refreshMap: !this.hasMapInitialMarkers}
-      ),
     });
   }
 
