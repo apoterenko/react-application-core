@@ -1,4 +1,5 @@
 import {
+  EntityIdT,
   IEventWrapper,
   IGoogleMapsConfigurationWrapper,
   IInitialMarkersWrapper,
@@ -16,7 +17,7 @@ import {
   IOnSelectWrapper,
   IOptionsWrapper,
   IPointsWrapper,
-  IRefreshMapWrapper,
+  IRefreshWrapper,
   ITrackableWrapper,
   IVisibleWrapper,
   IZoomWrapper,
@@ -36,14 +37,23 @@ export interface IGoogleMapsMenuItemEntity
 
 /**
  * @config-entity
- * @stable [09.01.2020]
+ * @stable [09.06.2021]
  */
-export interface IGoogleMapsMarkerConfigEntity
+export interface IGoogleMapsRefreshMarkerConfigEntity
   extends ILatLngEntity,
     IMarkerWrapper<string | google.maps.Marker>,
-    IRefreshMapWrapper,
+    IRefreshWrapper,
     IVisibleWrapper,
     IZoomWrapper {
+}
+
+/**
+ * @config-entity
+ * @stable [09.06.2021]
+ */
+export interface IGoogleMapsAddMarkerConfigEntity
+  extends google.maps.MarkerOptions,
+    ITrackableWrapper {
 }
 
 /**
@@ -52,7 +62,7 @@ export interface IGoogleMapsMarkerConfigEntity
  */
 export interface IGoogleMapsHeatMapLayerConfigEntity
   extends IPointsWrapper<ILatLngEntity[]>,
-    IRefreshMapWrapper,
+    IRefreshWrapper,
     IZoomWrapper {
 }
 
@@ -140,28 +150,20 @@ export interface IGoogleMapsConfigurationEntity
 }
 
 /**
- * @config-entity
- * @stable [28.07.2020]
- */
-export interface IGoogleMapsMarkerOptionConfigEntity
-  extends google.maps.MarkerOptions,
-    ITrackableWrapper {
-}
-
-/**
  * @component
  * @stable [09.01.2020]
  */
 export interface IGoogleMaps {
   isInitialized: boolean;
+  markers: Map<EntityIdT, google.maps.Marker>;
   addDirectionPolyline(directionCfg: google.maps.DirectionsRequest, polylineCfg: google.maps.PolylineOptions): void;
   addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void;
-  addMarker(cfg?: IGoogleMapsMarkerOptionConfigEntity, name?: string): google.maps.Marker;
-  addPolyline(polylineCfg: google.maps.PolylineOptions): google.maps.Polyline;
+  addMarker(cfg: IGoogleMapsAddMarkerConfigEntity, id?: string): google.maps.Marker;
+  addPolyline(polylineCfg: google.maps.PolylineOptions, id?: EntityIdT): google.maps.Polyline;
   fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
-  getMarkers(): Map<string, google.maps.Marker>;
-  refreshMarker(cfg: IGoogleMapsMarkerConfigEntity): void;
-  removeMarker(name: string): void;
+  refreshMarker(cfg: IGoogleMapsRefreshMarkerConfigEntity): void;
+  removeMarker(name: EntityIdT): void;
+  removePolyLine(name: EntityIdT): void;
 }
 
 /**

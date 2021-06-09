@@ -225,7 +225,7 @@ export class PlaceField extends BaseSelect<IPlaceFieldProps, IPlaceFieldState> {
       case PlaceMarkerActionsEnum.PUT_MARKER:
         this.googleMaps.refreshMarker({
           marker: PlaceField.PLACE_MARKER,
-          refreshMap: false,
+          refresh: false,
           lat: payload.lat,
           lng: payload.lng,
         });

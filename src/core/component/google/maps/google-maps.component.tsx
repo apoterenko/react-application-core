@@ -21,9 +21,9 @@ import {
   IGoogleMaps,
   IGoogleMapsEventEntity,
   IGoogleMapsHeatMapLayerConfigEntity,
-  IGoogleMapsMarkerConfigEntity,
+  IGoogleMapsRefreshMarkerConfigEntity,
   IGoogleMapsMarkerInfoEntity,
-  IGoogleMapsMarkerOptionConfigEntity,
+  IGoogleMapsAddMarkerConfigEntity,
   IGoogleMapsMenuContextEntity,
   IGoogleMapsProps,
   IGoogleMapsSettingsEntity,
@@ -144,13 +144,18 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param cfg
    * @param id
    */
-  public addMarker(cfg?: IGoogleMapsMarkerOptionConfigEntity, id?: EntityIdT): google.maps.Marker {
-    const config: IGoogleMapsMarkerOptionConfigEntity = {
+  public addMarker(cfg: IGoogleMapsAddMarkerConfigEntity, id?: EntityIdT): google.maps.Marker {
+    if (!R.isNil(id) && this.$$markers.has(id)) {
+      return this.$$markers.get(id);
+    }
+
+    const config: IGoogleMapsAddMarkerConfigEntity = {
       anchorPoint: new google.maps.Point(0, -29),
       position: null,
       ...cfg,
       map: this.map,
     };
+
     const markerId = id || UuidUtils.uuid();
     const marker = new google.maps.Marker(config);
     this.$$markers.set(markerId, marker);
@@ -186,28 +191,29 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [10.01.2020]
-   * @param {IGoogleMapsMarkerConfigEntity} cfg
+   * @stable [09.06.2021]
+   * @param cfg
    */
-  public refreshMarker(cfg: IGoogleMapsMarkerConfigEntity): void {
+  public refreshMarker(cfg: IGoogleMapsRefreshMarkerConfigEntity): void {
+    const mapsSettings = this.mapsSettings;
+
     const {
+      lat = mapsSettings.lat,
+      lng = mapsSettings.lng,
       marker,
+      refresh,
       visible = true,
-      refreshMap,
-      lat = this.mapsSettings.lat,
-      lng = this.mapsSettings.lng,
-      zoom = this.mapsSettings.zoom,
+      zoom = mapsSettings.zoom,
     } = cfg;
 
-    const markerAsObject = TypeUtils.isString(marker)
-      ? this.$$markers.get(marker as string)
-      : marker as google.maps.Marker;
+    const latLng = {lat, lng};
+    const markerAsObject = this.asMarkerObject(marker);
 
-    markerAsObject.setPosition({lat, lng});
+    markerAsObject.setPosition(latLng);
     markerAsObject.setVisible(visible);
 
-    if (refreshMap) {
-      this.refreshMap({lat, lng}, zoom);
+    if (refresh) {
+      this.refreshMap(latLng, zoom);
     }
   }
 
@@ -268,7 +274,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
         data: points.map((point) => new google.maps.LatLng(point.lat, point.lng)),
       });
     }
-    if (cfg.refreshMap) {
+    if (cfg.refresh) {
       this.refreshMap(
         isArrayOfPointsNotEmpty ? points[0] : this.mapsSettings,
         NvlUtils.nvl(cfg.zoom, this.mapsSettings.zoom)
@@ -532,7 +538,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
             lat: markerPosition.lat(),
             lng: markerPosition.lng(),
             visible: true,
-            refreshMap: initialMarkers.length - 1 === index,
+            refresh: initialMarkers.length - 1 === index,
           });
         });
       }
@@ -543,9 +549,9 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [04.03.2019]
-   * @param {ILatLngEntity} latLng
-   * @param {number} zoom
+   * @stable [09.06.2021]
+   * @param latLng
+   * @param zoom
    */
   private refreshMap(latLng: ILatLngEntity, zoom: number): void {
     this.map.setCenter({lat: latLng.lat, lng: latLng.lng});
@@ -553,7 +559,17 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [09.01.2020]
+   * @stable [09.06.2021]
+   * @param marker
+   */
+  private asMarkerObject(marker: string | google.maps.Marker): google.maps.Marker {
+    return TypeUtils.isString(marker)
+      ? this.$$markers.get(marker as string)
+      : marker as google.maps.Marker;
+  }
+
+  /**
+   * @stable [09.06.2021]
    */
   private cancelGoogleMapsLibTask(): void {
     this.asyncLibManager.cancelWaiting(this.googleMapsLibTask);

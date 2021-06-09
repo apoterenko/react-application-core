@@ -17,7 +17,11 @@ export type StringNumberT = number | string;
 export interface IClosableWrapper<TValue = boolean> { closable?: TValue; }
 export interface IInlineOptionConfigurationWrapper<TValue> { inlineOptionConfiguration?: TValue; }
 export interface ILengthWrapper<TValue = number> { length?: TValue; }
+export interface IMarkerWrapper<TValue> { marker?: TValue; }
+export interface IRefreshWrapper<TValue = boolean> { refresh?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
+export interface IVisibleWrapper<TValue = boolean> { visible?: TValue; }
+export interface IZoomWrapper<TValue = number> { zoom?: TValue; }
 
 /**/
 export interface I$$cachedValueWrapper<TValue> { $$cachedValue?: TValue; }
@@ -322,7 +326,6 @@ export interface ILoginWrapper<TValue = string> { login?: TValue; }
 export interface ILogoutWrapper<TValue = string> { logout?: TValue; }
 export interface IMainConfigurationWrapper<TValue> { mainConfiguration?: TValue; }
 export interface IMappersWrapper<TValue> { mappers?: TValue; }
-export interface IMarkerWrapper<TValue> { marker?: TValue; }
 export interface IMaskGuideWrapper<TValue = boolean> { maskGuide?: TValue; }
 export interface IMaskWrapper<TValue = (string | RegExp)[]> { mask?: TValue; }
 export interface IMaxCountWrapper { maxCount?: number; }
@@ -485,7 +488,6 @@ export interface IRangeEnabledWrapper { rangeEnabled?: boolean; }
 export interface IRawDataWrapper<TValue = AnyT> { rawData?: TValue; }
 export interface IReadOnlyWrapper { readOnly?: boolean; }
 export interface IReadyWrapper { ready?: boolean; }
-export interface IRefreshMapWrapper { refreshMap?: boolean; }
 export interface IRefreshOnUpdateWrapper { refreshOnUpdate?: boolean; }
 export interface IRegionWrapper<TValue = string> { region?: TValue; }
 export interface IRelatedLinksWrapper<TValue> { relatedLinks?: TValue; }
@@ -617,7 +619,6 @@ export interface IValueWrapper<TValue = AnyT> { value?: TValue; }
 export interface IViewerClassNameWrapper { viewerClassName?: string; }
 export interface IViewerConfigurationWrapper<TValue> { viewerConfiguration?: TValue; }
 export interface IViewerWrapper<TValue> { viewer?: TValue; }
-export interface IVisibleWrapper { visible?: boolean; }
 export interface IWaitingForOptionsWrapper { waitingForOptions?: boolean; }
 export interface IWestWrapper<TValue = JSX.Element> { west?: TValue; }
 export interface IWideWrapper { wide?: boolean; }
@@ -633,7 +634,6 @@ export interface IYearWrapper<TValue = number> { year?: TValue; }
 export interface IYWrapper<TY = number> { y?: TY; }
 export interface IZipCodeWrapper<TValue = string> { zipCode?: TValue; }
 export interface IZoneWrapper<TValue = string> { zone?: TValue; }
-export interface IZoomWrapper { zoom?: number; }
 
 /**
  * @stable [07.06.2018]
