@@ -54,6 +54,7 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   constructor(originalProps: TProps) {
     super(originalProps);
 
+    this.activate = this.activate.bind(this);
     this.doClose = this.doClose.bind(this);
     this.onAcceptClick = this.onAcceptClick.bind(this);
     this.onCloseClick = this.onCloseClick.bind(this);
