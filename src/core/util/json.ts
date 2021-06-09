@@ -4,9 +4,7 @@ import {
   AnyT,
   IKeyValue,
 } from '../definitions.interface';
-import {
-  TypeUtils,
-} from './type';
+import { TypeUtils } from './type';
 
 /**
  * @stable [10.09.2020]
@@ -34,7 +32,16 @@ const parseJson = <TResult = IKeyValue>(o: AnyT): TResult => {
  * @stable [07.10.2020]
  * @param o
  */
-const serializeJson = <TObject = unknown>(o: TObject): string => JSON.stringify(o);
+const serializeJson = <TObject = unknown>(o: TObject): string => {
+  if (R.isNil(o) || TypeUtils.isString(o)) {
+    return o as AnyT;
+  }
+  try {
+    return JSON.stringify(o);
+  } catch (e) {
+    return String(o);
+  }
+};
 
 /**
  * @stable [06.11.2020]
