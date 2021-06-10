@@ -140,11 +140,14 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [28.07.2020]
+   * @stable [10.06.2021]
    * @param cfg
    * @param id
    */
   public addMarker(cfg: IGoogleMapsAddMarkerConfigEntity, id?: EntityIdT): google.maps.Marker {
+    if (!this.isGoogleMapsLibLoaded) {
+      return;
+    }
     if (!R.isNil(id) && this.$$markers.has(id)) {
       return this.$$markers.get(id);
     }
@@ -191,6 +194,17 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
+   * @stable [10.06.2021]
+   * @param x
+   * @param y
+   */
+  public makePoint(x: number, y: number): google.maps.Point {
+    return this.isGoogleMapsLibLoaded
+      ? new google.maps.Point(x, y)
+      : null;
+  }
+
+  /**
    * @stable [09.06.2021]
    * @param cfg
    */
@@ -202,19 +216,32 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
       lng = mapsSettings.lng,
       marker,
       refresh,
+      url,
       visible = true,
       zoom = mapsSettings.zoom,
     } = cfg;
 
     const latLng = {lat, lng};
-    const markerAsObject = this.asMarkerObject(marker);
 
-    markerAsObject.setPosition(latLng);
-    markerAsObject.setVisible(visible);
+    ConditionUtils.ifNotNilThanValue(
+      this.asMarkerObject(marker),
+      (markerAsObject) => {
+        markerAsObject.setPosition(latLng);
+        markerAsObject.setVisible(visible);
 
-    if (refresh) {
-      this.refreshMap(latLng, zoom);
-    }
+        if (ObjectUtils.isObjectNotEmpty(url)) {
+          markerAsObject.setIcon({
+            labelOrigin: this.makePoint(22, 15),
+            path: null,
+            url,
+          });
+        }
+
+        if (refresh) {
+          this.refreshMap(latLng, zoom);
+        }
+      }
+    );
   }
 
   /**
@@ -679,8 +706,14 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
   }
 
   /**
-   * @stable [09.08.2020]
-   * @private
+   * @stable [10.06.2021]
+   */
+  private get isGoogleMapsLibLoaded(): boolean {
+    return TypeUtils.isDef(this.environment.window.google);
+  }
+
+  /**
+   * @stable [10.06.2021]
    */
   private get menu(): Menu {
     return this.menuRef.current;

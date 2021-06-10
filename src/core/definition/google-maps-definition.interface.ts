@@ -19,6 +19,7 @@ import {
   IPointsWrapper,
   IRefreshWrapper,
   ITrackableWrapper,
+  IUrlWrapper,
   IVisibleWrapper,
   IZoomWrapper,
 } from '../definitions.interface';
@@ -43,6 +44,7 @@ export interface IGoogleMapsRefreshMarkerConfigEntity
   extends ILatLngEntity,
     IMarkerWrapper<string | google.maps.Marker>,
     IRefreshWrapper,
+    IUrlWrapper,
     IVisibleWrapper,
     IZoomWrapper {
 }
@@ -161,6 +163,7 @@ export interface IGoogleMaps {
   addMarker(cfg: IGoogleMapsAddMarkerConfigEntity, id?: string): google.maps.Marker;
   addPolyline(polylineCfg: google.maps.PolylineOptions, id?: EntityIdT): google.maps.Polyline;
   fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
+  makePoint(x: number, y: number): google.maps.Point;
   refreshMarker(cfg: IGoogleMapsRefreshMarkerConfigEntity): void;
   removeMarker(name: EntityIdT): void;
   removePolyLine(name: EntityIdT): void;

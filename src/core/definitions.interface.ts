@@ -18,6 +18,7 @@ export interface IClosableWrapper<TValue = boolean> { closable?: TValue; }
 export interface IInlineOptionConfigurationWrapper<TValue> { inlineOptionConfiguration?: TValue; }
 export interface ILengthWrapper<TValue = number> { length?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
+export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IRefreshWrapper<TValue = boolean> { refresh?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
 export interface IVisibleWrapper<TValue = boolean> { visible?: TValue; }
@@ -440,7 +441,6 @@ export interface IParentWrapper<TValue> { parent?: TValue; }
 export interface IPartOfGroupWrapper { partOfGroup?: boolean; }
 export interface IPartsWrapper<TValue = string[]> { parts?: TValue; }
 export interface IPasswordWrapper<TValue = string> { password?: TValue; }
-export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IPatternWrapper<TValue = string> { pattern?: TValue; }
 export interface IPayloadWrapper<TValue = {}> { payload?: TValue; }
 export interface IPerfectScrollWrapper<TValue> { perfectScroll?: TValue; }
