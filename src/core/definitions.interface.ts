@@ -14,10 +14,12 @@ export type StringNumberT = number | string;
 /**
  * @stable [24.05.2021]
  */
+export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
 export interface IClosableWrapper<TValue = boolean> { closable?: TValue; }
 export interface IInlineOptionConfigurationWrapper<TValue> { inlineOptionConfiguration?: TValue; }
 export interface ILengthWrapper<TValue = number> { length?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
+export interface IOnDeactivateWrapper<TValue = unknown> { onDeactivate?(value?: TValue): void; }
 export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IRefreshWrapper<TValue = boolean> { refresh?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
@@ -62,7 +64,6 @@ export interface IAllowSingleTabWrapper { allowSingleTab?: boolean; }
 export interface IAlwaysDirtyWrapper { alwaysDirty?: boolean; }
 export interface IAlwaysResettableWrapper { alwaysResettable?: boolean; }
 export interface IAnchoredWrapper { anchored?: boolean; }
-export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
 export interface IApiEntityWrapper<TValue> { apiEntity?: TValue; }
 export interface IApiUrlWrapper { apiUrl?: string; }
 export interface IApplicationWrapper<TValue> { application?: TValue; }
@@ -383,7 +384,6 @@ export interface IOnCloseWrapper<TValue = {}> { onClose?(value?: TValue): void; 
 export interface IOnColumnClickWrapper<TValue = {}> { onColumnClick?(value?: TValue): void; }
 export interface IOnColumnContentClickWrapper<TValue = {}> { onColumnContentClick?(value?: TValue): void; }
 export interface IOnCommentClickWrapper { onCommentClick?(): void; }
-export interface IOnDeactivateWrapper<TValue = {}> { onDeactivate?(value?: TValue): void; }
 export interface IOnDelayWrapper { onDelay?(): void; }
 export interface IOnDictionaryChangeWrapper<TValue1, TValue2> { onDictionaryChange?(value1?: TValue1, value2?: TValue2): void; }
 export interface IOnDictionaryLoadWrapper<TValue1 = {}, TValue2 = {}> { onDictionaryLoad?(value1?: TValue1, value2?: TValue2): void; }

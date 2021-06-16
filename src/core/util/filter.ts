@@ -169,6 +169,13 @@ const NOT_EMPTY_OBJECT_VALUE_PREDICATE = (value: unknown) => ObjectUtils.isObjec
 const DEF_KEY_VALUE_PREDICATE = (key: string, value: unknown) => TypeUtils.isDef(value);
 
 /**
+ * @stable [14.06.2021]
+ * @param key
+ * @param value
+ */
+const TRUE_KEY_VALUE_PREDICATE = (key: string, value: unknown) => value === true;
+
+/**
  * @stable [07.12.2020]
  * @param key
  * @param value
@@ -259,6 +266,13 @@ export function excludeFieldsFilter<TSource extends IKeyValue, TResult extends I
  */
 export const defValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
   filterByPredicate<TSource, TResult>(source, DEF_KEY_VALUE_PREDICATE);
+
+/**
+ * @stable [14.06.2021]
+ * @param source
+ */
+export const trueValuesFilter = <TSource extends IKeyValue, TResult extends IKeyValue>(source: TSource): TResult =>
+  filterByPredicate<TSource, TResult>(source, TRUE_KEY_VALUE_PREDICATE);
 
 /**
  * @stable [31.01.2019]
@@ -355,5 +369,6 @@ export class FilterUtils {
   public static readonly STRING_VALUE_PREDICATE = STRING_VALUE_PREDICATE;
   public static readonly stringValuesArrayFilter = stringValuesArrayFilter;
   public static readonly trueValuesArrayFilter = trueValuesArrayFilter;
+  public static readonly trueValuesFilter = trueValuesFilter;
   public static readonly VALUE_PREDICATE = VALUE_PREDICATE;
 }
