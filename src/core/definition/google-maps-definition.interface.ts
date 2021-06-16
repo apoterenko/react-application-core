@@ -60,6 +60,13 @@ export interface IGoogleMapsAddMarkerConfigEntity
 
 /**
  * @config-entity
+ * @stable [11.06.2021]
+ */
+export interface IGoogleMapsAddOverlayConfigEntity {
+}
+
+/**
+ * @config-entity
  * @stable [09.01.2020]
  */
 export interface IGoogleMapsHeatMapLayerConfigEntity
@@ -161,8 +168,10 @@ export interface IGoogleMaps {
   addDirectionPolyline(directionCfg: google.maps.DirectionsRequest, polylineCfg: google.maps.PolylineOptions): void;
   addHeatMapLayer(cfg: IGoogleMapsHeatMapLayerConfigEntity): void;
   addMarker(cfg: IGoogleMapsAddMarkerConfigEntity, id?: string): google.maps.Marker;
+  addOverlay(cfg?: IGoogleMapsAddOverlayConfigEntity): void;
   addPolyline(polylineCfg: google.maps.PolylineOptions, id?: EntityIdT): google.maps.Polyline;
   fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
+  makeLatLng(lat: number, lng: number): google.maps.LatLng;
   makePoint(x: number, y: number): google.maps.Point;
   refreshMarker(cfg: IGoogleMapsRefreshMarkerConfigEntity): void;
   removeMarker(name: EntityIdT): void;

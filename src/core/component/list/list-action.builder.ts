@@ -257,8 +257,12 @@ export class ListActionBuilder {
     return EffectsAction.create(this.buildDeselectActionType(section), SectionUtils.applySection(section));
   }
 
+  /**
+   * @stable [12.06.2021]
+   * @param section
+   */
   public static buildDeselectPlainAction(section: string): IEffectsAction {
-    return EffectsAction.create(this.buildDeselectActionType(section), SectionUtils.applySection(section));
+    return {type: this.buildDeselectActionType(section), data: SectionUtils.applySection(section)};
   }
 
   /**

@@ -48,4 +48,12 @@ export class ListStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity
   public dispatchListCreate(otherSection?: string): void {
     this.dispatchPlainAction(ListActionBuilder.buildCreatePlainAction(this.asSection(otherSection)));
   }
+
+  /**
+   * @stable [12.06.2021]
+   * @param otherSection
+   */
+  public dispatchListDeselect(otherSection?: string): void {
+    this.dispatchPlainAction(ListActionBuilder.buildDeselectPlainAction(this.asSection(otherSection)));
+  }
 }
