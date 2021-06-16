@@ -29,6 +29,7 @@ import {
   IGoogleMapsSettingsEntity,
   ILatLngEntity,
   IPresetsMenuItemEntity,
+  IGoogleMapsAddOverlayConfigEntity,
 } from '../../../definition';
 import { GenericComponent } from '../../base/generic.component';
 import { EntityIdT } from '../../../definitions.interface';
@@ -164,15 +165,15 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.$$markers.set(markerId, marker);
 
     if (config.clickable) {
-      this.addMakerListener('click', markerId, marker, (event) => this.onMarkerClick(event, markerId, marker));
+      this.addMarkerListener('click', markerId, marker, (event) => this.onMarkerClick(event, markerId, marker));
     }
     if (config.draggable) {
-      this.addMakerListener('dragstart', markerId, marker, (event) => this.onMarkerDragStart(event, markerId, marker));
-      this.addMakerListener('dragend', markerId, marker, (event) => this.onMarkerDragEnd(event, markerId, marker));
+      this.addMarkerListener('dragstart', markerId, marker, (event) => this.onMarkerDragStart(event, markerId, marker));
+      this.addMarkerListener('dragend', markerId, marker, (event) => this.onMarkerDragEnd(event, markerId, marker));
     }
     if (config.trackable) {
-      this.addMakerListener('mouseover', markerId, marker, (event) => this.onMarkerMouseOver(event, markerId, marker));
-      this.addMakerListener('mouseout', markerId, marker, (event) => this.onMarkerMouseOut(event, markerId, marker));
+      this.addMarkerListener('mouseover', markerId, marker, (event) => this.onMarkerMouseOver(event, markerId, marker));
+      this.addMarkerListener('mouseout', markerId, marker, (event) => this.onMarkerMouseOut(event, markerId, marker));
     }
     return marker;
   }
@@ -193,15 +194,68 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.removeObject(name, this.$$polyLines);
   }
 
-  /**
-   * @stable [10.06.2021]
-   * @param x
-   * @param y
-   */
-  public makePoint(x: number, y: number): google.maps.Point {
-    return this.isGoogleMapsLibLoaded
-      ? new google.maps.Point(x, y)
-      : null;
+  // TODO
+  public addOverlay(cfg?: IGoogleMapsAddOverlayConfigEntity): void {
+    if (!this.isGoogleMapsLibLoaded) {
+      return;
+    }
+    const domAccessor = this.domAccessor;
+    const self = this;
+
+    // tslint:disable-next-line:max-classes-per-file
+    class MapOverlay extends google.maps.OverlayView {
+
+      // tslint:disable-next-line:variable-name
+      private bounds_;
+      // tslint:disable-next-line:variable-name
+      private div_;
+
+      /**
+       * @stable [11.06.2021]
+       */
+      constructor() {
+        super();
+
+        this.bounds_ = new google.maps.LatLngBounds(self.makeLatLng(85, -180), self.makeLatLng(-85, 180));
+        this.div_ = null;
+      }
+
+      /**
+       * @stable [11.06.2021]
+       */
+      public onAdd() {
+        this.div_ = domAccessor.createElement('div');
+        this.div_.style.position = 'absolute';
+        this.div_.style.opacity = .6;
+
+        this.div_.style.background = 'white';
+        const panes = this.getPanes();
+        panes.overlayLayer.appendChild(this.div_);
+      }
+
+      /**
+       * @stable [11.06.2021]
+       */
+      public draw() {
+        this.div_.style.left = '-10000px';
+        this.div_.style.top = '-10000px';
+        this.div_.style.width = '20000px';
+        this.div_.style.height = '20000px';
+      }
+
+      /**
+       * @stable [11.06.2021]
+       */
+      public onRemove() {
+        if (this.div_) {
+          this.div_.parentNode.removeChild(this.div_);
+          this.div_ = null;
+        }
+      }
+    }
+
+    const overlay = new MapOverlay();
+    overlay.setMap(this.map);
   }
 
   /**
@@ -298,7 +352,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     if (isArrayOfPointsNotEmpty) {
       this.heatMapLayer = new google.maps.visualization.HeatmapLayer({
         map: this.map,
-        data: points.map((point) => new google.maps.LatLng(point.lat, point.lng)),
+        data: points.map((point) => this.makeLatLng(point.lat, point.lng)),
       });
     }
     if (cfg.refresh) {
@@ -307,6 +361,28 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
         NvlUtils.nvl(cfg.zoom, this.mapsSettings.zoom)
       );
     }
+  }
+
+  /**
+   * @stable [11.06.2021]
+   * @param lat
+   * @param lng
+   */
+  public makeLatLng(lat: number, lng: number): google.maps.LatLng {
+    return this.isGoogleMapsLibLoaded
+      ? new google.maps.LatLng(lat, lng)
+      : null;
+  }
+
+  /**
+   * @stable [10.06.2021]
+   * @param x
+   * @param y
+   */
+  public makePoint(x: number, y: number): google.maps.Point {
+    return this.isGoogleMapsLibLoaded
+      ? new google.maps.Point(x, y)
+      : null;
   }
 
   /**
@@ -619,10 +695,10 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
    * @param marker
    * @param callback
    */
-  private addMakerListener(eventName: string,
-                           markerId: EntityIdT,
-                           marker: google.maps.Marker,
-                           callback: (event: IGoogleMapsEventEntity) => void): void {
+  private addMarkerListener(eventName: string,
+                            markerId: EntityIdT,
+                            marker: google.maps.Marker,
+                            callback: (event: IGoogleMapsEventEntity) => void): void {
     let listeners = this.markersListeners.get(markerId);
     if (!Array.isArray(listeners)) {
       this.markersListeners.set(markerId, listeners = []);
