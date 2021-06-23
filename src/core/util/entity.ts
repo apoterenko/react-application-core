@@ -8,6 +8,7 @@ import {
 import { ConditionUtils } from './cond';
 import { IExtendedEntity } from '../definition';
 import { JoinUtils } from './join';
+import { TypeUtils } from './type';
 
 /**
  * @stable [23.01.2021]
@@ -21,7 +22,7 @@ const isNewEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolea
  * @param entity
  */
 const isPhantomEntity = <TEntity extends IEntityIdTWrapper>(entity: TEntity): boolean =>
-  !isNewEntity(entity) && entity.id < 0;
+  !isNewEntity(entity) && TypeUtils.isNumber(entity.id) && entity.id < 0;
 
 /**
  * @stable [23.01.2021]

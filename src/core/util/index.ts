@@ -59,4 +59,5 @@ export * from './url';
 export * from './uuid';
 export * from './validator';
 export * from './value';
+export * from './visibility-task';
 export * from './wrapper';
