@@ -25,12 +25,14 @@
   $rac-last-tab-border-radius: unset,                                                         /* @stable [10.02.2020] */
   $rac-single-tab-border-radius: unset,                                                       /* @stable [25.05.2021] */
   $rac-tab-align-items: unset,                                                                /* @stable [10.02.2020] */
+  $rac-tab-align-self: unset,
   $rac-tab-background: unset,                                                                 /* @stable [10.02.2020] */
   $rac-tab-border-bottom: unset,                                                              /* @stable [10.02.2020] */
   $rac-tab-border-left: unset,                                                                /* @stable [10.02.2020] */
   $rac-tab-border-right: unset,                                                               /* @stable [10.02.2020] */
   $rac-tab-border-top: unset,                                                                 /* @stable [10.02.2020] */
   $rac-tab-border: unset,                                                                     /* @stable [10.02.2020] */
+  $rac-tab-box-sizing: unset,
   $rac-tab-content-color: unset,                                                              /* @stable [19.06.2020] */
   $rac-tab-content-font-size: unset,                                                          /* @stable [10.02.2020] */
   $rac-tab-content-font-weight: unset,                                                        /* @stable [10.02.2020] */
@@ -44,6 +46,7 @@
   $rac-tab-icon-padding: unset,                                                               /* @stable [10.02.2020] */
   $rac-tab-justify-content: unset,                                                            /* @stable [19.02.2020] */
   $rac-tab-margin: unset,                                                                     /* @stable [10.02.2020] */
+  $rac-tab-min-height: unset,
   $rac-tab-overflow: unset,                                                                   /* @stable [24.02.2020] */
   $rac-tab-padding: unset,                                                                    /* @stable [10.02.2020] */
   $rac-tab-panel-border-bottom: unset,                                                        /* @stable [10.02.2020] */
@@ -95,18 +98,21 @@
     .rac-tab-panel__tab {
       @include rac-styles (
         $rac-styles-align-items: $rac-tab-align-items,
+        $rac-styles-align-self: $rac-tab-align-self,
         $rac-styles-background: $rac-tab-background,
         $rac-styles-border-bottom: $rac-tab-border-bottom,
         $rac-styles-border-left: $rac-tab-border-left,
         $rac-styles-border-right: $rac-tab-border-right,
         $rac-styles-border-top: $rac-tab-border-top,
         $rac-styles-border: $rac-tab-border,
+        $rac-styles-box-sizing: $rac-tab-box-sizing,
         $rac-styles-cursor: $rac-tab-cursor,
         $rac-styles-display: $rac-tab-display,
         $rac-styles-flex-direction: $rac-tab-flex-direction,
         $rac-styles-flex: $rac-tab-flex,
         $rac-styles-justify-content: $rac-tab-justify-content,
         $rac-styles-margin: $rac-tab-margin,
+        $rac-styles-min-height: $rac-tab-min-height,
         $rac-styles-overflow: $rac-tab-overflow,
         $rac-styles-padding: $rac-tab-padding,
         $rac-styles-position: $rac-tab-position
