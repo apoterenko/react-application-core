@@ -28,8 +28,8 @@ import { ISettingsEntity } from '../../../settings';
 import {
   CalcUtils,
   ClsUtils,
+  ConditionUtils,
   getCurrentUrlPath,
-  ifNotNilThanValue,
   NvlUtils,
   PropsUtils,
   TypeUtils,
@@ -216,7 +216,7 @@ export class UiFactory implements IUiFactory {
     return [
       `${messages.ENVIRONMENT}: `,
       [
-        ifNotNilThanValue(user, () => `${messages.USER} ${user.id}`),
+        ConditionUtils.ifNotNilThanValue(user, () => `${messages.USER} ${user.id}`),
         `${messages.BUILD} ${environment.appVersion}`,
         `${environment.browserName} ${environment.browserVersion}${environment.platformType}`,
         `${messages.PATH} ${getCurrentUrlPath()}`

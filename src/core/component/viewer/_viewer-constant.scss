@@ -1,9 +1,16 @@
 @import '../_primary-constant';
 @import '../_classes';
 
+// @stable [15.05.2021]
+$rac-full-viewer-flex-grow: $rac-primary-flex-grow-1 !default;
+
+// @stable [15.05.2021]
+$rac-selectable-viewer-content-cursor: pointer !default;
+
+// @stable [15.05.2021]
+$rac-info-viewer-display: $rac-primary-display-0 !default;
+
 // @stable [14.12.2020]
-$rac-preview-dialog-body-max-width: unset !default;
-$rac-preview-dialog-body-min-height: unset !default;
-$rac-preview-inline-dialog-body-min-height: 320px !default;
+$rac-preview-inline-dialog-body-min-height: 460px !default;
 $rac-preview-not-inline-dialog-body-max-width: 80vw !default;
 $rac-preview-not-inline-dialog-body-min-height: 80vh !default;

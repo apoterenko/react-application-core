@@ -1,26 +1,22 @@
 @import '../constant';
 @import '../mixin';
+@import './_viewer-mixin';
 @import './_viewer-constant';
+@import './picture/_picture-viewer';
+@import './pdf/_pdf-viewer';
 
 .rac {
 
-  // @stable [16.03.2020]
-  @include rac-viewer (
-    $rac-viewer-content-display: $rac-viewer-content-display,
-    $rac-viewer-content-margin: $rac-viewer-content-margin,
-    $rac-viewer-display: $rac-viewer-display,
-    $rac-viewer-preview-icon-color: $rac-viewer-preview-icon-color,
-    $rac-viewer-preview-icon-not-hover-display: $rac-viewer-preview-icon-not-hover-display,
-    $rac-viewer-preview-icon-size: $rac-viewer-preview-icon-size
-  );
-
-  /**
-    * @full-viewer
-    * @stable [16.03.2020]
-    */
+  // @stable [15.05.2021]
   @include rac-viewer (
     $rac-viewer-custom: $rac-full-viewer-cls,
     $rac-viewer-flex-grow: $rac-full-viewer-flex-grow
+  );
+
+  // @stable [15.05.2021]
+  @include rac-viewer (
+    $rac-viewer-custom: $rac-selectable-viewer-cls,
+    $rac-viewer-content-cursor: $rac-selectable-viewer-content-cursor
   );
 
   /**
@@ -32,24 +28,11 @@
     $rac-viewer-display: $rac-info-viewer-display
   );
 
-  /**
-    * @empty-picture-viewer
-    * @stable [18.03.2020]
-    */
-  @include rac-viewer (
-    $rac-viewer-custom: $rac-empty-picture-viewer-cls,
-    $rac-viewer-align-items: $rac-empty-picture-viewer-align-items,
-    $rac-viewer-display: $rac-empty-picture-viewer-display,
-    $rac-viewer-justify-content: $rac-empty-picture-viewer-justify-content
-  );
-
   // @stable [16.03.2020]
   @include rac-preview-dialog (
     $rac-preview-dialog-body-content-padding: $rac-preview-dialog-body-content-padding,
     $rac-preview-dialog-body-content-wrapper-overflow: $rac-preview-dialog-body-content-wrapper-overflow,
     $rac-preview-dialog-body-content-wrapper-padding: $rac-preview-dialog-body-content-wrapper-padding,
-    $rac-preview-dialog-body-max-width: $rac-preview-dialog-body-max-width,
-    $rac-preview-dialog-body-min-height: $rac-preview-dialog-body-min-height,
     $rac-preview-dialog-extra-action-background: $rac-preview-dialog-extra-action-background,
     $rac-preview-dialog-extra-action-border-radius: $rac-preview-dialog-extra-action-border-radius,
     $rac-preview-dialog-extra-actions-neighbor-child-margin: $rac-preview-dialog-extra-actions-neighbor-child-margin,
