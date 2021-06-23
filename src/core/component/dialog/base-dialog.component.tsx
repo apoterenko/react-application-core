@@ -366,6 +366,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
   private get dialogBodyElement(): JSX.Element {
     const {
       closableOverlay,
+      onMouseEnter,
+      onMouseLeave,
       width,
     } = this.originalProps;
 
@@ -375,6 +377,8 @@ export class BaseDialog<TProps extends IDialogProps = IDialogProps,
         style={{width: CalcUtils.calc(width)}}
         className={DialogClassesEnum.DIALOG_BODY}
         onClick={this.domAccessor.cancelEvent}  // To stop the events bubbling
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         {
           this.isDialogInProgress
