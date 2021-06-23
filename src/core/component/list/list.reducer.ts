@@ -7,7 +7,6 @@ import {
   ConditionUtils,
   ErrorUtils,
   FilterUtils,
-  ifNotNilThanValue,
   isMulti,
   mapIdentifiedEntity,
   mapSortDirectionEntity,
@@ -44,7 +43,7 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
         ...state,
         directions: notNilValuesFilter<IReduxSortDirectionsEntity, IReduxSortDirectionsEntity>({
           ...isMulti(sdPayload) ? state.directions : {},
-          [sdPayload.name]: ifNotNilThanValue(sdPayload.direction, () => mapSortDirectionEntity(sdPayload)),
+          [sdPayload.name]: ConditionUtils.ifNotNilThanValue(sdPayload.direction, () => mapSortDirectionEntity(sdPayload)),
         }),
       };
     case ListActionBuilder.buildFirstPageActionType(section):

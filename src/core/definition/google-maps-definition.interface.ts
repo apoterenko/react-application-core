@@ -1,11 +1,14 @@
 import {
   EntityIdT,
+  IElementWrapper,
   IEventWrapper,
   IGoogleMapsConfigurationWrapper,
   IInitialMarkersWrapper,
   IItemWrapper,
+  IMarkerIdWrapper,
   IMarkerWrapper,
   IMenuOptionsWrapper,
+  IMultiWrapper,
   INameWrapper,
   IOnClickWrapper,
   IOnInitWrapper,
@@ -77,17 +80,6 @@ export interface IGoogleMapsHeatMapLayerConfigEntity
 
 /**
  * @entity
- * @stable [23.01.2020]
- */
-export interface IGoogleMapsMarkerInfoEntity
-  extends IEventWrapper<IGoogleMapsEventEntity>,
-    IItemWrapper<google.maps.Marker>,
-    ILatLngEntity,
-    INameWrapper {
-}
-
-/**
- * @entity
  * @stable [10.01.2020]
  */
 export interface IGoogleMapsMenuContextEntity
@@ -96,10 +88,11 @@ export interface IGoogleMapsMenuContextEntity
 }
 
 /**
- * @external-entity
- * @stable [03.03.2019]
+ * @framework-entity
+ * @stable [16.06.2021]
  */
-export interface IGoogleMapsEventEntity {
+export interface IGoogleMapsFrameworkEventEntity {
+  domEvent?: MouseEvent;
   latLng?: google.maps.LatLng;
   pixel?: google.maps.Point;
 }
@@ -116,19 +109,33 @@ export enum GoogleMapsMapTypesEnum {
 }
 
 /**
+ * @config-entity
+ * @stable [16.06.2021]
+ */
+export interface IGoogleMapsMarkerEventContextConfigEntity
+  extends IElementWrapper<HTMLElement>,
+    IEventWrapper<IGoogleMapsFrameworkEventEntity>,
+    ILatLngEntity,
+    IMarkerIdWrapper,
+    IMarkerWrapper<google.maps.Marker>,
+    IMultiWrapper,
+    INameWrapper {
+}
+
+/**
  * @presets-entity
  * @stable [18.05.2020]
  */
 export interface IPresetsGoogleMapsEntity
   extends IInitialMarkersWrapper<google.maps.MarkerOptions[]>,
     IMenuOptionsWrapper<IPresetsMenuItemEntity[]>,
-    IOnClickWrapper<IGoogleMapsEventEntity>,
+    IOnClickWrapper<IGoogleMapsFrameworkEventEntity>,
     IOnInitWrapper,
-    IOnMarkerClickWrapper<IGoogleMapsMarkerInfoEntity>,
-    IOnMarkerDragEndWrapper<IGoogleMapsMarkerInfoEntity>,
-    IOnMarkerDragStartWrapper<IGoogleMapsMarkerInfoEntity>,
-    IOnMarkerEnterWrapper,
-    IOnMarkerLeaveWrapper,
+    IOnMarkerClickWrapper<IGoogleMapsMarkerEventContextConfigEntity>,
+    IOnMarkerDragEndWrapper<IGoogleMapsMarkerEventContextConfigEntity>,
+    IOnMarkerDragStartWrapper<IGoogleMapsMarkerEventContextConfigEntity>,
+    IOnMarkerEnterWrapper<IGoogleMapsMarkerEventContextConfigEntity>,
+    IOnMarkerLeaveWrapper<IGoogleMapsMarkerEventContextConfigEntity>,
     IOnSelectWrapper<IGoogleMapsMenuItemEntity>,
     IOptionsWrapper<google.maps.MapOptions> {
 }
@@ -170,6 +177,7 @@ export interface IGoogleMaps {
   addMarker(cfg: IGoogleMapsAddMarkerConfigEntity, id?: string): google.maps.Marker;
   addOverlay(cfg?: IGoogleMapsAddOverlayConfigEntity): void;
   addPolyline(polylineCfg: google.maps.PolylineOptions, id?: EntityIdT): google.maps.Polyline;
+  fitBoundByMarkers(minCount?: number): void;
   fitBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral, padding?: number | google.maps.Padding): void;
   makeLatLng(lat: number, lng: number): google.maps.LatLng;
   makePoint(x: number, y: number): google.maps.Point;

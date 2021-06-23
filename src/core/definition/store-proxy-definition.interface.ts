@@ -55,6 +55,7 @@ export interface ITabPanelStoreProxy {
 export interface IListStoreProxy {
   dispatchListCancelLoad(otherSection?: string): void;
   dispatchListCreate(otherSection?: string): void;
+  dispatchListDeselect(otherSection?: string): void;
   dispatchListSelect<TEntity = IEntity>(entity: TEntity, otherSection?: string): void;
 }
 

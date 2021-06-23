@@ -118,5 +118,6 @@ export * from './validation-definition.interface';
 export * from './version-definition.interface';
 export * from './view-field-definition.interface';
 export * from './viewer-definition.interface';
+export * from './visibility-task-definition.interface';
 export * from './web-camera-definition.interface';
 export * from './xy-definition.interface';
