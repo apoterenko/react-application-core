@@ -9,7 +9,7 @@ import {
   IStateSerializer,
   IStoreEntity,
 } from '../../../definition';
-import { ifNotNilThanValue } from '../../../util';
+import { ConditionUtils } from '../../../util';
 
 @injectable()
 export class StateSerializer implements IStateSerializer {
@@ -22,23 +22,23 @@ export class StateSerializer implements IStateSerializer {
   public serialize(state: IStoreEntity): IStoreEntity {
     return {
       ...state,
-      ...ifNotNilThanValue(
+      ...ConditionUtils.ifNotNilThanValue(
         state.application,
         () => ({application: INITIAL_UNIVERSAL_APPLICATION_ENTITY})
       ),
-      ...ifNotNilThanValue(
+      ...ConditionUtils.ifNotNilThanValue(
         state.notification,
         () => ({notification: INITIAL_REDUX_NOTIFICATION_ENTITY})
       ),
-      ...ifNotNilThanValue(
+      ...ConditionUtils.ifNotNilThanValue(
         state.transport,
         () => ({transport: INITIAL_REDUX_TRANSPORT_ENTITY})
       ),
-      ...ifNotNilThanValue(
+      ...ConditionUtils.ifNotNilThanValue(
         state.asyncLibs,
         () => ({asyncLibs: INITIAL_REDUX_ASYNC_LIBS_ENTITY})
       ),
-      ...ifNotNilThanValue(
+      ...ConditionUtils.ifNotNilThanValue(
         state.channel,
         () => ({channel: INITIAL_REDUX_CHANNELS_ENTITY})
       ),

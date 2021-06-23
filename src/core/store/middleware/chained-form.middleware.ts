@@ -4,7 +4,7 @@ import {
   ListActionBuilder,
 } from '../../component/action.builder';
 import { IChainedFormMiddlewareConfigEntity } from '../../definition';
-import { ifNotNilThanValue } from '../../util';
+import { ConditionUtils } from '../../util';
 import {
   FormActionBuilder,
   RouterActionBuilder,
@@ -23,14 +23,14 @@ export const makeChainedFormMiddleware = <TChanges>(config: IChainedFormMiddlewa
     // Need to call reset the previous form because "lock". We cannot use destroy because "listeners" + "active value"
     FormActionBuilder.buildResetAction(config.previousFormSection),
 
-    ...ifNotNilThanValue(
+    ...ConditionUtils.ifNotNilThanValue(
       config.nextListSection,
       // Clear previous created entity applied to the list. We cannot use destroy because "listeners"
       () => [ListActionBuilder.buildResetAction(config.nextListSection)],
       []
     ),
 
-    ...ifNotNilThanValue(
+    ...ConditionUtils.ifNotNilThanValue(
       config.nextFormChanges,
       () => [FormActionBuilder.buildChangesAction(config.nextFormSection, config.nextFormChanges)],
       []

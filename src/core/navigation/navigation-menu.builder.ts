@@ -11,8 +11,8 @@ import {
   NavigationItemTypesEnum,
 } from '../definition';
 import {
+  ConditionUtils,
   getRoutePathBySection,
-  ifNotNilThanValue,
   TypeUtils,
 } from '../util';
 
@@ -46,7 +46,7 @@ export class NavigationMenuBuilder {
     const dynamicSections = this.dynamicSections;
 
     // TODO refactoring
-    const stackRoutePaths = ifNotNilThanValue(
+    const stackRoutePaths = ConditionUtils.ifNotNilThanValue(
       wrapperEntity.stack.stack,
       (stack) => Array.from(stack.map((itm) => getRoutePathBySection(itm.section, dynamicSections))).reverse(),
       []

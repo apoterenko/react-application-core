@@ -10,7 +10,6 @@ import {
   asType,
   coalesce,
   ConditionUtils,
-  ifNotNilThanValue,
   JsonUtils,
   notNilValuesFilter,
 } from '../util';
@@ -180,7 +179,7 @@ export class Transport implements ITransport {
    * @returns {string}
    */
   private toOperationId(req: ITransportRequestEntity): string {
-    return ifNotNilThanValue(req.operation, (operation) => operation.id);
+    return ConditionUtils.ifNotNilThanValue(req.operation, (operation) => operation.id);
   }
 
   /**

@@ -10,7 +10,7 @@ const cachedServices = new Map();
  * @param {interfaces.ServiceIdentifier<T>} serviceIdentifier
  * @returns {any}
  */
-export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifier<T>) => {
+export const staticInjector = <T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T => {
   // Two-level cache because of a low performance
   let instance = cachedServices.get(serviceIdentifier);
   if (cachedServices.has(serviceIdentifier)) {

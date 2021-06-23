@@ -16,10 +16,17 @@ export type StringNumberT = number | string;
  */
 export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
 export interface IClosableWrapper<TValue = boolean> { closable?: TValue; }
+export interface IElementWrapper<TValue = Element> { element?: TValue; }
 export interface IInlineOptionConfigurationWrapper<TValue> { inlineOptionConfiguration?: TValue; }
 export interface ILengthWrapper<TValue = number> { length?: TValue; }
+export interface IMarkerIdWrapper<TValue = EntityIdT> { markerId?: TValue; }
 export interface IMarkerWrapper<TValue> { marker?: TValue; }
+export interface IMultiWrapper<TValue = boolean> { boolean?: TValue; }
 export interface IOnDeactivateWrapper<TValue = unknown> { onDeactivate?(value?: TValue): void; }
+export interface IOnMarkerEnterWrapper<TValue = unknown> { onMarkerEnter?(value?: TValue): void; }
+export interface IOnMarkerLeaveWrapper<TValue = unknown> { onMarkerLeave?(value?: TValue): void; }
+export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
+export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
 export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IRefreshWrapper<TValue = boolean> { refresh?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
@@ -188,7 +195,6 @@ export interface IEastWrapper<TValue = JSX.Element> { east?: TValue; }
 export interface IEditApiWrapper { editApi?: string; }
 export interface IEditedWrapper { edited?: boolean; }
 export interface IEditWrapper<TValue> { edit?: TValue; }
-export interface IElementWrapper<TValue = Element> { element?: TValue; }
 export interface IEmptyDataMessageWrapper<TValue = string> { emptyDataMessage?: TValue; }
 export interface IEmptyDataWrapper<TValue = boolean> { emptyData?: TValue; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
@@ -403,10 +409,6 @@ export interface IOnLastWrapper<TValue = AnyT> { onLast?(value?: TValue): void; 
 export interface IOnMarkerClickWrapper<TValue = {}> { onMarkerClick?(value?: TValue): void; }
 export interface IOnMarkerDragEndWrapper<TValue = {}> { onMarkerDragEnd?(value?: TValue): void; }
 export interface IOnMarkerDragStartWrapper<TValue = {}> { onMarkerDragStart?(value?: TValue): void; }
-export interface IOnMarkerEnterWrapper<TValue = {}> { onMarkerEnter?(value?: TValue): void; }
-export interface IOnMarkerLeaveWrapper<TValue = {}> { onMarkerLeave?(value?: TValue): void; }
-export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
-export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
 export interface IOnNextWrapper<TValue = {}> { onNext?(value?: TValue): void; }
 export interface IOnPreviousWrapper<TValue = {}> { onPrevious?(value?: TValue): void; }
 export interface IOnRefreshClickWrapper<TValue = {}> { onRefreshClick?(value?: TValue): void; }

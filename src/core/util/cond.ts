@@ -6,6 +6,7 @@ import {
 } from '../definitions.interface';
 import { CalcUtils } from './calc';
 import { ObjectUtils } from './object';
+import { TypeUtils } from './type';
 
 /**
  * @stable [21.12.2020]
@@ -46,7 +47,7 @@ export const ifNotNilThanValue = <TValue, TResult>(value: TValue,
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 
 /**
- * @stable [21.12.2020]
+ * @stable [16.06.2021]
  * @param value
  * @param callback
  * @param defaultValue
@@ -55,6 +56,19 @@ const ifNilThanValue = <TValue, TResult>(value: TValue,
                                          callback: (value: TValue) => TResult,
                                          defaultValue = null): TResult =>
   R.isNil(value)
+    ? callback(value)
+    : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
+
+/**
+ * @stable [16.06.2021]
+ * @param value
+ * @param callback
+ * @param defaultValue
+ */
+const ifFnThanValue = <TValue, TResult>(value: TValue,
+                                        callback: (value: TValue) => TResult,
+                                        defaultValue = null): TResult =>
+  TypeUtils.isFn(value)
     ? callback(value)
     : (defaultValue === UNDEF_SYMBOL ? UNDEF : defaultValue);
 
@@ -100,6 +114,7 @@ export const ifNotTrueThanValue = <TResult>(value: boolean,
  * @stable [16.05.2020]
  */
 export class ConditionUtils {
+  public static readonly ifFnThanValue = ifFnThanValue;
   public static readonly ifNilThanValue = ifNilThanValue;                         /* @stable [21.06.2020] */
   public static readonly ifNotEmptyThanValue = ifNotEmptyThanValue;               /* @stable [16.05.2020] */
   public static readonly ifNotFalseThanValue = ifNotFalseThanValue;               /* @stable [11.12.2020] */
