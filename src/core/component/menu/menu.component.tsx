@@ -181,9 +181,8 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
   }
 
   /**
-   * @stable [08.08.2020]
+   * @stable [16.06.2021]
    * @param filter
-   * @private
    */
   private onFilterValueChange(filter: string): void {
     this.setState(
@@ -215,19 +214,20 @@ export class Menu extends GenericComponent<IMenuProps, IMenuState> {
   }
 
   /**
-   * @stable [09.08.2020]
-   * @private
+   * @stable [16.06.2021]
    */
   private onDialogActivate(): void {
     ConditionUtils.ifNotNilThanValue(this.field, (field) => field.setFocus());
   }
 
   /**
-   * @stable [08.08.2020]
-   * @private
+   * @stable [16.06.2021]
    */
   private onDialogDeactivate(): void {
-    this.setState({opened: false});
+    this.setState(
+      {opened: false},
+      () => ConditionUtils.ifFnThanValue(this.originalProps.onDeactivate, (onDeactivate) => onDeactivate())
+    );
   }
 
   /**
