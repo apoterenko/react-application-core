@@ -6,6 +6,7 @@
 @import './drawer/_drawer-mixin';
 @import './field/_field-mixin';
 @import './form/_form-mixin';
+@import './google/maps/_google-maps-mixin';
 @import './grid/_grid-mixin';
 @import './header/_header-mixin';
 @import './icon/_icon-mixin';
@@ -25,6 +26,7 @@
 @import './title/_title-mixin';
 @import './toolbar-tools/_toolbar-tools-mixin';
 @import './toolbar/_toolbar-mixin';
+@import './viewer/_viewer-mixin';
 
 /**
  * @stable [27.10.2018] TODO
@@ -181,80 +183,6 @@
 }
 
 /**
- * @stable [18.03.2020]
- */
-@mixin rac-viewer (
-  $rac-viewer-custom: unset,
-  /**/
-  $rac-viewer-content-position: unset,
-  $rac-viewer-right: unset,
-  $rac-viewer-bottom: unset,
-  $rac-viewer-left: unset,
-  $rac-viewer-position: unset,
-  $rac-viewer-align-items: unset,                                             /* @stable [18.03.2020] */
-  $rac-viewer-content-border-radius: unset,                                   /* @stable [18.03.2020] */
-  $rac-viewer-content-display: unset,                                         /* @stable [18.03.2020] */
-  $rac-viewer-content-margin: unset,                                          /* @stable [18.03.2020] */
-  $rac-viewer-content-max-height: unset,                                      /* @stable [18.03.2020] */
-  $rac-viewer-content-max-width: unset,                                       /* @stable [18.03.2020] */
-  $rac-viewer-content-size: unset,                                            /* @stable [18.03.2020] */
-  $rac-viewer-content-width: unset,                                           /* @stable [18.03.2020] */
-  $rac-viewer-display: unset,                                                 /* @stable [18.03.2020] */
-  $rac-viewer-flex-grow: unset,                                               /* @stable [15.03.2020] */
-  $rac-viewer-flex: unset,                                                    /* @stable [15.03.2020] */
-  $rac-viewer-justify-content: unset,                                         /* @stable [18.03.2020] */
-  $rac-viewer-margin: unset,                                                  /* @stable [18.03.2020] */
-  $rac-viewer-preview-icon-color: unset,                                      /* @stable [18.03.2020] */
-  $rac-viewer-preview-icon-not-hover-display: unset,                          /* @stable [18.03.2020] */
-  $rac-viewer-preview-icon-size: unset                                        /* @stable [18.03.2020] */
-) {
-
-  #{rac-cls($rac-viewer-cls, $rac-viewer-custom)} {
-    @include rac-styles (
-      $rac-styles-align-items: $rac-viewer-align-items,
-      $rac-styles-bottom: $rac-viewer-bottom,
-      $rac-styles-display: $rac-viewer-display,
-      $rac-styles-flex-grow: $rac-viewer-flex-grow,
-      $rac-styles-flex: $rac-viewer-flex,
-      $rac-styles-justify-content: $rac-viewer-justify-content,
-      $rac-styles-left: $rac-viewer-left,
-      $rac-styles-margin: $rac-viewer-margin,
-      $rac-styles-position: $rac-viewer-position,
-      $rac-styles-right: $rac-viewer-right
-    );
-
-    &:not(:hover) {
-      > {
-        @include rac-icon (
-          $rac-icon-custom: $rac-viewer-preview-icon-cls,
-          $rac-icon-display: $rac-viewer-preview-icon-not-hover-display
-        );
-      }
-    }
-
-    > {
-      @include rac-icon (
-        $rac-icon-custom: $rac-viewer-preview-icon-cls,
-        $rac-icon-color: $rac-viewer-preview-icon-color,
-        $rac-icon-size: $rac-viewer-preview-icon-size
-      );
-
-      @include rac-styles (
-        $rac-styles-custom: $rac-viewer-content-cls,
-        $rac-styles-border-radius: $rac-viewer-content-border-radius,
-        $rac-styles-display: $rac-viewer-content-display,
-        $rac-styles-margin: $rac-viewer-content-margin,
-        $rac-styles-max-height: $rac-viewer-content-max-height,
-        $rac-styles-max-width: $rac-viewer-content-max-width,
-        $rac-styles-position: $rac-viewer-content-position,
-        $rac-styles-size: $rac-viewer-content-size,
-        $rac-styles-width: $rac-viewer-content-width
-      );
-    }
-  }
-}
-
-/**
  * @stable [13.01.2019]
  */
 @mixin rac-keyboard (
@@ -358,33 +286,6 @@
 }
 
 /**
- * @stable [22.01.2020]
- */
-@mixin rac-google-maps (
-  $rac-google-maps-custom: unset,
-  /**/
-  $rac-google-maps-body-flex: unset,                                                          /* @stable [22.01.2020] */
-  $rac-google-maps-display: unset,                                                            /* @stable [22.01.2020] */
-  $rac-google-maps-flex: unset,                                                               /* @stable [22.01.2020] */
-  $rac-google-maps-margin: unset,                                                             /* @stable [22.01.2020] */
-  $rac-google-maps-position: unset                                                            /* @stable [22.01.2020] */
-) {
-  #{rac-cls(rac-google-maps, $rac-google-maps-custom)} {
-    @include rac-styles (
-      $rac-styles-display: $rac-google-maps-display,
-      $rac-styles-flex: $rac-google-maps-flex,
-      $rac-styles-margin: $rac-google-maps-margin,
-      $rac-styles-position: $rac-google-maps-position
-    );
-
-    @include rac-styles (
-      $rac-styles-custom: rac-google-maps__body,
-      $rac-styles-flex: $rac-google-maps-body-flex
-    );
-  }
-}
-
-/**
  * @stable [15.03.2020]
  */
 @mixin rac-preview-dialog (
@@ -401,8 +302,7 @@
   $rac-preview-dialog-extra-actions-position: unset,                                          /* @stable [16.03.2020] */
   $rac-preview-dialog-extra-actions-right: unset,                                             /* @stable [16.03.2020] */
   $rac-preview-dialog-extra-actions-top: unset,                                               /* @stable [16.03.2020] */
-  $rac-preview-dialog-extra-actions-transform: unset,                                         /* @stable [16.03.2020] */
-  $rac-preview-dialog-viewer-flex: unset                                                      /* @stable [16.03.2020] */
+  $rac-preview-dialog-extra-actions-transform: unset                                          /* @stable [16.03.2020] */
 ) {
   @include rac-dialog (
     $rac-dialog-custom: rac-cls2($rac-preview-dialog-cls, $rac-preview-dialog-custom),
@@ -419,12 +319,6 @@
     $rac-dialog-extra-actions-top: $rac-preview-dialog-extra-actions-top,
     $rac-dialog-extra-actions-transform: $rac-preview-dialog-extra-actions-transform
   );
-
-  #{rac-cls($rac-preview-dialog-cls, $rac-preview-dialog-custom)} {
-    @include rac-viewer (
-      $rac-viewer-flex: $rac-preview-dialog-viewer-flex
-    );
-  }
 }
 
 /**
