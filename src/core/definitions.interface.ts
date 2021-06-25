@@ -17,6 +17,7 @@ export type StringNumberT = number | string;
 export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
 export interface IClosableWrapper<TValue = boolean> { closable?: TValue; }
 export interface IElementWrapper<TValue = Element> { element?: TValue; }
+export interface IEntityIdTWrapper<TValue = EntityIdT> extends IIdWrapper<TValue> {}
 export interface IInlineOptionConfigurationWrapper<TValue> { inlineOptionConfiguration?: TValue; }
 export interface ILengthWrapper<TValue = number> { length?: TValue; }
 export interface IMarkerIdWrapper<TValue = EntityIdT> { markerId?: TValue; }
@@ -29,6 +30,8 @@ export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
 export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IRefreshWrapper<TValue = boolean> { refresh?: TValue; }
+export interface IScaledSizeWrapper<TValue> { scaledSize?: TValue; }
+export interface ISizeWrapper<TValue> { size?: TValue; }
 export interface ITypeWrapper<TValue = string> { type?: TValue; }
 export interface IVisibleWrapper<TValue = boolean> { visible?: TValue; }
 export interface IZoomWrapper<TValue = number> { zoom?: TValue; }
@@ -200,7 +203,6 @@ export interface IEmptyDataWrapper<TValue = boolean> { emptyData?: TValue; }
 export interface IEmptyMessageWrapper<TValue = string> { emptyMessage?: TValue; }
 export interface IEmptyValueWrapper<TValue = AnyT> { emptyValue?: TValue; }
 export interface IEntity extends IEntityIdTWrapper, IKeyValue {}
-export interface IEntityIdTWrapper extends IIdWrapper<EntityIdT> {}
 export interface IEntityIdWrapper<TValue = EntityIdT> { entityId?: TValue; }
 export interface IEntityWrapper<TEntity = IEntity> { entity?: TEntity; }
 export interface IErrorMessageRenderedWrapper { errorMessageRendered?: boolean; }
