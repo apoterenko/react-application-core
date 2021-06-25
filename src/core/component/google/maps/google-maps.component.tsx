@@ -73,6 +73,7 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
     this.onMenuSelect = this.onMenuSelect.bind(this);
     this.onScriptInit = this.onScriptInit.bind(this);
     this.openMenu = this.openMenu.bind(this);
+    this.removeMarker = this.removeMarker.bind(this);
 
     if (this.haveMenuOptions) {
       this.openMenuTask = new DelayedTask(this.openMenu, 200); // Double click issue
@@ -273,6 +274,8 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
       lng = mapsSettings.lng,
       marker,
       refresh,
+      scaledSize,
+      size,
       url,
       visible = true,
       zoom = mapsSettings.zoom,
@@ -287,11 +290,13 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
         markerAsObject.setVisible(visible);
 
         if (ObjectUtils.isObjectNotEmpty(url)) {
-          markerAsObject.setIcon({
+          markerAsObject.setIcon(FilterUtils.defValuesFilter<google.maps.Icon & google.maps.Symbol, google.maps.Icon & google.maps.Symbol>({
             labelOrigin: this.makePoint(22, 15),
             path: null,
+            scaledSize: ConditionUtils.orUndef(scaledSize, () => new google.maps.Size(scaledSize[0], scaledSize[1])),
+            size: ConditionUtils.orUndef(size, () => new google.maps.Size(size[0], size[1])),
             url,
-          });
+          }));
         }
 
         if (refresh) {
@@ -443,7 +448,6 @@ export class GoogleMaps extends GenericComponent<IGoogleMapsProps>
       (menuOptions) => (
         <Menu
           ref={this.menuRef}
-          inline={true}
           positionConfiguration={{event: () => this.event}}
           anchorElement={() => this.actualRef.current}
           options={menuOptions}

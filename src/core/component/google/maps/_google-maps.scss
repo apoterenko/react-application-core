@@ -1,12 +1,9 @@
-@import '../../constant';
-@import '../../mixin';
+@import './_google-maps-mixin';
+@import './_google-maps-constant';
 
 .rac {
 
-  /**
-   * @google-maps
-   * @stable [22.01.2020]
-   */
+  // @stable [22.06.2021]
   @include rac-google-maps (
     $rac-google-maps-body-flex: $rac-google-maps-body-flex,
     $rac-google-maps-display: $rac-google-maps-display,

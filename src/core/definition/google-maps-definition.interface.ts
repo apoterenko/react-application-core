@@ -21,6 +21,8 @@ import {
   IOptionsWrapper,
   IPointsWrapper,
   IRefreshWrapper,
+  IScaledSizeWrapper,
+  ISizeWrapper,
   ITrackableWrapper,
   IUrlWrapper,
   IVisibleWrapper,
@@ -47,6 +49,8 @@ export interface IGoogleMapsRefreshMarkerConfigEntity
   extends ILatLngEntity,
     IMarkerWrapper<string | google.maps.Marker>,
     IRefreshWrapper,
+    IScaledSizeWrapper<number[]>,
+    ISizeWrapper<number[]>,
     IUrlWrapper,
     IVisibleWrapper,
     IZoomWrapper {

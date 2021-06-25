@@ -61,11 +61,9 @@
     $rac-dialog-z-index: $rac-modal-dialog-z-index
   );
 
-  // @stable [10.10.2020]
+  // @stable [24.06.2021]
   @include rac-dialog (
     $rac-dialog-custom: $rac-inline-dialog-cls,
-    $rac-dialog-body-border-radius: $rac-inline-dialog-body-border-radius,
-    $rac-dialog-body-border: $rac-inline-dialog-body-border,
     $rac-dialog-position: $rac-inline-dialog-position
   );
 

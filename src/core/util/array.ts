@@ -111,9 +111,30 @@ const withoutDuplicates = <TEntity = IEntity>(...data: TEntity[]): TEntity[] =>
   Array.from(new Set(data));
 
 /**
+ * @stable [24.06.2021]
+ * @param ids
+ * @param actualIds
+ */
+const arraysDiffs = <TValue = unknown>(ids: TValue[],
+                                       actualIds: TValue[]): { removed: TValue[], added: TValue[], actual: TValue[] } => {
+  const added = R.difference(ids, actualIds);
+  const removed = R.difference(actualIds, ids);
+  return {
+    removed,
+    added,
+    actual: [
+      ...added,
+      ...ids
+        .filter((id) => ![...added, ...removed].includes(id))
+    ],
+  };
+};
+
+/**
  * @stable [21.01.2021]
  */
 export class ArrayUtils {
+  public static readonly arraysDiffs = arraysDiffs;
   public static readonly doesArrayContainExistedEntity = doesArrayContainExistedEntity;
   public static readonly makeArray = makeArray;
   public static readonly mergeArrayItem = mergeArrayItem;
