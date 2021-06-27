@@ -29,22 +29,6 @@
 @import './viewer/_viewer-mixin';
 
 /**
- * @stable [27.10.2018] TODO
- */
-@mixin rac-invert($value: 100%) {
-  -webkit-filter: invert($value);
-  filter: invert($value);
-}
-
-/**
- * @deprecated
- */
-@mixin rac-size($size) {
-  height: $size;
-  width: $size;
-}
-
-/**
  * @stable [19.05.2019]
  */
 @mixin rac-flex($rac-flex-responsive-flex-direction: unset) {
@@ -91,80 +75,6 @@
     $rac-styles-left: 50%,
     $rac-styles-transform: translateX(-50%)
   );
-}
-
-/**
- * @deprecated
- */
-@mixin _rac-position-properties($rac-position-left: unset,
-                                $rac-position-top: unset,
-                                $rac-position-bottom: unset,
-                                $rac-position-right: unset,
-                                $rac-position-height: unset,
-                                $rac-position-width: unset,
-                                $rac-position: unset,
-                                $rac-position-horizontal-align-center: unset) {
-  @if $rac-position != unset {
-    position: $rac-position;
-  }
-  @if $rac-position-right != unset {
-    right: $rac-position-right;
-  }
-  @if $rac-position-left != unset {
-    left: $rac-position-left;
-  }
-  @if $rac-position-top != unset {
-    top: $rac-position-top;
-  }
-  @if $rac-position-bottom != unset {
-    bottom: $rac-position-bottom;
-  }
-  @if $rac-position-width != unset {
-    width: $rac-position-width;
-  }
-  @if $rac-position-height != unset {
-    height: $rac-position-height;
-  }
-  @if $rac-position-horizontal-align-center != unset {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-/**
- * @stable [30.10.2018]
- */
-@mixin rac-circle($size,
-                  $background: unset) {
-  border-radius: $size / 2;
-  background: $background;
-  @include rac-size($size);
-}
-
-/**
- * @stable [21.02.2020]
- */
-@mixin rac-circle-area (
-  $rac-circle-area-custom: unset,
-  /**/
-  $rac-circle-area-background: unset,
-  $rac-circle-area-border: unset,
-  $rac-circle-area-margin: unset,
-  $rac-circle-area-size: unset
-) {
-  @include rac-styles (
-    $rac-styles-custom: $rac-circle-area-custom,
-    $rac-styles-background: $rac-circle-area-background,
-    $rac-styles-border: $rac-circle-area-border,
-    $rac-styles-margin: $rac-circle-area-margin,
-    $rac-styles-size: $rac-circle-area-size
-  );
-  @if $rac-circle-area-size != unset {
-    @include rac-styles (
-      $rac-styles-custom: $rac-circle-area-custom,
-      $rac-styles-border-radius: $rac-circle-area-size / 2
-    );
-  }
 }
 
 // TODO deprecated
