@@ -1,6 +1,5 @@
 import { PropsUtils, toClassName } from '../../../util';
 import { BaseTextField } from '../text-field/base-text-field.component';
-import { IApplicationNumberSettings } from '../../../settings';
 import {
   INumberFieldInternalState,
   INumberFieldProps,
@@ -8,9 +7,9 @@ import {
 import { KEYBOARD_NUMERIC_LAYOUT } from '../../keyboard';
 import {
   ChangeEventT,
-  IFieldInputProps,
   IKeyboardProps,
 } from '../../../definition';
+import { StringNumberT } from '../../../definitions.interface';
 
 export class NumberField extends BaseTextField<INumberFieldProps,
   INumberFieldInternalState> {
@@ -20,16 +19,12 @@ export class NumberField extends BaseTextField<INumberFieldProps,
     // We can't use number type because an input field throws an empty value on change if valid = false
   }, BaseTextField);
 
-  public getRawValueFromEvent(event: ChangeEventT): number | string {
+  /**
+   * @stable [01.07.2021]
+   * @param event
+   */
+  public getRawValueFromEvent(event: ChangeEventT): StringNumberT {
     return this.nc.number(super.getRawValueFromEvent(event));
-  }
-
-  protected getFieldPattern(): string {
-    return super.getFieldPattern() || this.numberSettings.uiPattern;
-  }
-
-  private get numberSettings(): IApplicationNumberSettings {
-    return this.settings.number || {};
   }
 
   /**
@@ -52,28 +47,12 @@ export class NumberField extends BaseTextField<INumberFieldProps,
   }
 
   /**
-   * @stable [14.10.2020]
-   * @protected
+   * @stable [01.07.2021]
    */
-  protected getInputElementProps(): IFieldInputProps {
-    const {
-      step,
-    } = this.originalProps;
-
-    return {
-      ...super.getInputElementProps() as IFieldInputProps,
-      step,
-    };
-  }
-
-  /**
-   * @stable [12.10.2020]
-   * @protected
-   */
-  protected getComponentsSettingsProps(): INumberFieldProps {
-    return PropsUtils.mergeWithSystemProps(
-      super.getComponentsSettingsProps(),
-      this.componentsSettings.numberField
+  protected getComponentSettingsProps(): Readonly<INumberFieldProps> {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.numberField
     );
   }
 }

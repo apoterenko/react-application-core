@@ -445,13 +445,12 @@ export class BaseSelect<TProps extends IBaseSelectProps = IBaseSelectProps,
   }
 
   /**
-   * @stable [10.08.2020]
-   * @protected
+   * @stable [01.07.2021]
    */
-  protected getComponentsSettingsProps(): TProps {
-    return PropsUtils.mergeWithSystemProps<TProps>(
-      super.getComponentsSettingsProps(),
-      this.componentsSettings.baseSelect as TProps
+  protected getComponentSettingsProps(): Readonly<TProps> {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.baseSelect as TProps
     );
   }
 
