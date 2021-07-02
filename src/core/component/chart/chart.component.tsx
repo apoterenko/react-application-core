@@ -7,6 +7,7 @@ import {
   ClsUtils,
   ConditionUtils,
   FilterUtils,
+  PropsUtils,
 } from '../../util';
 import {
   ChartClassesEnum,
@@ -121,10 +122,12 @@ export class Chart extends GenericComponent<IChartProps> {
   }
 
   /**
-   * @stable [18.12.2020]
-   * @protected
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IChartProps {
-    return this.componentsSettings.chart;
+  protected getComponentSettingsProps(): Readonly<IChartProps> {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.chart
+    );
   }
 }

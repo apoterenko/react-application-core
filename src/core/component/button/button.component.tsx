@@ -211,10 +211,12 @@ export class Button extends GenericComponent<IButtonProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {IButtonProps}
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IButtonProps {
-    return this.componentsSettings.button;
+  protected getComponentSettingsProps(): Readonly<IButtonProps> {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.button
+    );
   }
 }
