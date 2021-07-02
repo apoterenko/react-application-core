@@ -10,8 +10,8 @@ import {
   getCurrentUrlPath,
   getFullPath,
   getSectionFullPath,
-  getUrlQueryParams,
   JsonUtils,
+  UrlUtils,
 } from '../util';
 import {
   DefaultEntities,
@@ -266,11 +266,10 @@ export class Environment implements IEnvironment {
   }
 
   /**
-   * @stable [13.03.2020]
-   * @returns {TParams}
+   * @stable [30.06.2021]
    */
-  public getUrlQueryParams<TParams = IKeyValue>(): TParams {
-    return getUrlQueryParams();
+  public asUrlQueryParams<TParams = IKeyValue>(): TParams {
+    return UrlUtils.asUrlQueryParams();
   }
 
   /**

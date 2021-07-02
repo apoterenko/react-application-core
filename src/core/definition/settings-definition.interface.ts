@@ -30,6 +30,7 @@ import { ITemplateFieldProps } from './template-field-definition.interface';
 import { ITextAreaProps } from './text-area-definition.interface';
 import { IThumbProps } from './thumb-definition.interface';
 import { ITitleProps } from './title-definition.interface';
+import { RegexpEnum } from './regexp-definition.interface';
 
 /**
  * @entity
@@ -161,10 +162,11 @@ export interface IComponentsSettingsEntity {
 
 /**
  * @default-entity
- * @stable [24.03.2020]
+ * @stable [02.07.2021]
  */
 export const DEFAULT_COMPONENTS_SETTINGS_ENTITY = Object.freeze<IComponentsSettingsEntity>({
   header: {navigationActionRendered: false},
+  numberField: {pattern: RegexpEnum.NUMBER},
 });
 
 /**

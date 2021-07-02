@@ -2,6 +2,7 @@ import { IPresetsMinMaxEntity } from './entity-definition.interface';
 import { IGenericComponentProps } from './generic-component-definition.interface';
 import {
   IFieldConfigurationWrapper,
+  IFromToEntity,
   IOnChangeWrapper,
   IStepWrapper,
   IValueWrapper,
@@ -50,7 +51,7 @@ export interface ISliderProps
  * @stable [15.10.2020]
  */
 export interface ISliderState
-  extends IPresetsMinMaxEntity {
+  extends IFromToEntity<number> {
 }
 
 /**

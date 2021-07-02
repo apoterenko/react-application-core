@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
+  PropsUtils,
 } from '../../util';
 import {
   IThumbProps,
@@ -40,10 +41,12 @@ export class Thumb extends GenericComponent<IThumbProps> {
   }
 
   /**
-   * @stable [05.06.2020]
-   * @returns {IChipProps}
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IThumbProps {
-    return this.componentsSettings.thumb;
+  protected getComponentSettingsProps(): IThumbProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.thumb
+    );
   }
 }

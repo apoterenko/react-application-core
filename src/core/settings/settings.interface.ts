@@ -47,10 +47,6 @@ export interface IDateTimeSettings extends IDateTimeSettingsEntity {
   uiShortTimePattern?: string;            // UI pattern
 }
 
-export interface IApplicationNumberSettings {
-  uiPattern?: string;
-}
-
 /**
  * @stable [10.03.2019]
  */
@@ -93,7 +89,6 @@ export interface ISettingsEntity {
   locale?: string;
   messages?: IMessagesSettings;
   metaFilesUrl?: string;
-  number?: IApplicationNumberSettings;
   numberConverter?: INumberConverterSettingsEntity;
   oauth?: IOAuthSettingsEntity;
   persistenceStorage?: StorageTypesEnum;
@@ -150,7 +145,6 @@ export const DEFAULT_APPLICATION_SETTINGS: ISettingsEntity = {
     uiShortTimePattern: '([0-1][0-9]|2[0-3]):([0-5][0-9])',
   },
   bootstrap: {rootId: 'appId'},
-  number: {uiPattern: RegexpEnum.NUMBER},
   components: DefaultEntities.COMPONENTS_SETTINGS_ENTITY,
   currency: DefaultEntities.CURRENCY_SETTINGS_ENTITY,
   elementsMarkers: DEFAULT_ELEMENTS_MARKERS_SETTINGS_ENTITY,

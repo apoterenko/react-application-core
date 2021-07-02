@@ -37,10 +37,9 @@ export const getSectionFullPath = (sectionRoute: string): string => URI(getFullP
 export const getFullPath = (): string => `${getUrlProtocol()}://${getUrlHost()}${getUrlDirectory()}`;
 
 /**
- * @stable [13.03.2020]
- * @returns {TParams}
+ * @stable [30.06.2021]
  */
-export const getUrlQueryParams = <TParams = IKeyValue>(): TParams => new URI().query(true) as AnyT;
+const asUrlQueryParams = <TParams = IKeyValue>(): TParams => URI().query(true) as AnyT;
 
 /**
  * @stable [13.03.2020]
@@ -129,6 +128,7 @@ export const buildTransportUrl = (config: ITransportUrlConfigEntity) => {
  * @stable [04.02.2021]
  */
 export class UrlUtils {
+  public static readonly asUrlQueryParams = asUrlQueryParams;
   public static readonly buildEncodedURI = buildEncodedURI;
   public static readonly buildParameterizedURI = buildParameterizedURI;
   public static readonly isAbsoluteURI = isAbsoluteURI;

@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
+  PropsUtils,
 } from '../../util';
 import {
   ITitleProps,
@@ -67,9 +68,12 @@ export class Title extends GenericComponent<ITitleProps> {
   }
 
   /**
-   * @stable [20.03.2021]
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): ITitleProps {
-    return this.componentsSettings.title;
+  protected getComponentSettingsProps(): ITitleProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.title
+    );
   }
 }

@@ -5,6 +5,7 @@ import {
   lazyInject,
 } from '../../di';
 import {
+  IEnvironment,
   IFieldConverter,
   IOperationEntity,
   ITransport,
@@ -14,6 +15,7 @@ import {
 @injectable()
 export class BaseEffects<TApi = {}> {
   @lazyInject(DI_TYPES.Api) protected readonly api: TApi;
+  @lazyInject(DI_TYPES.Environment) protected readonly environment: IEnvironment;
   @lazyInject(DI_TYPES.FieldConverter) protected readonly fieldConverter: IFieldConverter;
   @lazyInject(DI_TYPES.Translate) protected readonly t: TranslatorT;
   @lazyInject(DI_TYPES.Transport) protected readonly transport: ITransport;

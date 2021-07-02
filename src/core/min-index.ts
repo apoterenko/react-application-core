@@ -11,6 +11,7 @@ export * from './component/form/form.container';                                
 export * from './component/form/form.reducer';                                           /* @stable [09.06.2020] */
 export * from './component/layout/flex/flex-layout.component';                           /* @stable [09.06.2020] */
 export * from './component/list/list-action.builder';
+export * from './component/list/list.container';                                         /* @stable [01.07.2021] */
 export * from './component/list/list.reducer';                                           /* @stable [15.06.2020] */
 export * from './component/plugin/perfect-scroll.plugin';                                /* @stable [14.06.2020] */
 export * from './component/plugin/selected-element-scroll.plugin';                       /* @stable [14.06.2020] */

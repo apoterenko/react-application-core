@@ -15,6 +15,7 @@ export type StringNumberT = number | string;
  * @stable [24.05.2021]
  */
 export interface IAnchorElementWrapper<TValue> { anchorElement?: TValue; }
+export interface IClickableAreasRefsWrapper<TValue> { clickableAreasRefs?: TValue; }
 export interface IClosableWrapper<TValue = boolean> { closable?: TValue; }
 export interface IElementWrapper<TValue = Element> { element?: TValue; }
 export interface IEntityIdTWrapper<TValue = EntityIdT> extends IIdWrapper<TValue> {}
@@ -28,6 +29,8 @@ export interface IOnMarkerEnterWrapper<TValue = unknown> { onMarkerEnter?(value?
 export interface IOnMarkerLeaveWrapper<TValue = unknown> { onMarkerLeave?(value?: TValue): void; }
 export interface IOnMouseEnterWrapper<TValue = IBaseEvent> { onMouseEnter?(value?: TValue): void; }
 export interface IOnMouseLeaveWrapper<TValue = IBaseEvent> { onMouseLeave?(value?: TValue): void; }
+export interface IParentClassNameWrapper<TValue = string> { parentClassName?: TValue; }
+export interface IParentElementWrapper<TValue = Element> { parentElement?: TValue; }
 export interface IPathWrapper<TValue = string> { path?: TValue; }
 export interface IRefreshWrapper<TValue = boolean> { refresh?: TValue; }
 export interface IScaledSizeWrapper<TValue> { scaledSize?: TValue; }
@@ -439,8 +442,6 @@ export interface IPagesCountWrapper { pagesCount?: number; }
 export interface IPageSizeWrapper<TValue = number> { pageSize?: TValue; }
 export interface IPageWrapper<TValue = number> { page?: TValue; }
 export interface IParamsWrapper<TValue = {}> { params?: TValue; }
-export interface IParentClassNameWrapper<TValue = string> { parentClassName?: TValue; }
-export interface IParentElementWrapper<TValue = Element> { parentElement?: TValue; }
 export interface IParentWrapper<TValue> { parent?: TValue; }
 export interface IPartOfGroupWrapper { partOfGroup?: boolean; }
 export interface IPartsWrapper<TValue = string[]> { parts?: TValue; }

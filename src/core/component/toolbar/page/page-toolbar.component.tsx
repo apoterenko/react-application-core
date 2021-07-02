@@ -5,6 +5,7 @@ import {
   ClsUtils,
   ConditionUtils,
   PageUtils,
+  PropsUtils,
   WrapperUtils,
 } from '../../../util';
 import {
@@ -333,10 +334,12 @@ export class PageToolbar extends GenericComponent<IPageToolbarProps> {
   }
 
   /**
-   * @stable [10.06.2020]
-   * @returns {IPageToolbarProps}
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IPageToolbarProps {
-    return this.componentsSettings.pageToolbar;
+  protected getComponentSettingsProps(): IPageToolbarProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.pageToolbar
+    );
   }
 }

@@ -129,7 +129,7 @@ export interface IDomFireEventConfigEntity<TEvent extends Event = Event>
 
 /**
  * @config-entity
- * @stable [25.01.2020]
+ * @stable [01.07.2021]
  */
 export interface IDomParentConfigEntity
   extends IElementWrapper,
@@ -173,7 +173,7 @@ export interface IDomAccessor {
   downloadFile(cfg: IDownloadFileConfigEntity): Promise<void>;
   downloadFileByBlob(cfg: IDownloadFileConfigEntity): void;
   enableFullScreen(element?: Element);
-  findElement(selector: string, parent?: Element): Element;
+  findElement(selector: string, parentEl?: Element): Element;
   fireEvent(cfg: IDomFireEventConfigEntity): void;
   getActiveElement(): Element;
   getContentHeight(source: Element): number;
@@ -197,6 +197,7 @@ export interface IDomAccessor {
   isElementFocused(element: Element): boolean;
   isElementVisibleWithinParent(child: Element, parentEl?: Element): boolean;
   redirect(path: string): void;
+  refsAsElements(refs: React.RefObject<Element> | React.RefObject<Element>[]): Element[];
   reload(forceReload?: boolean): void;
   removeChild(child: Element, parentEl?: Element);
   removeClassNames(element: Element, ...clsNames: string[]): void;
