@@ -36,6 +36,7 @@ import {
   FieldUtils,
   FilterUtils,
   NvlUtils,
+  PropsUtils,
   TypeUtils,
   ValueUtils,
   WrapperUtils,
@@ -345,7 +346,7 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
+   * @stable [01.07.2021]
    * @param event
    */
   protected getRawValueFromEvent(event: ChangeEventT): AnyT {
@@ -363,10 +364,10 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [07.10.2020]
+   * @stable [02.07.2021]
    */
   protected getFieldPattern(): string {
-    return this.originalProps.pattern;
+    return this.mergedProps.pattern;
   }
 
   private get keyboardElement(): JSX.Element {
@@ -595,13 +596,6 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   /**
    * @stable [21.08.2020]
    */
-  protected getComponentsSettingsProps(): TProps {
-    return this.componentsSettings.field as TProps;
-  }
-
-  /**
-   * @stable [21.08.2020]
-   */
   protected get inputAttachmentElement(): JSX.Element {
     return null;
   }
@@ -803,11 +797,13 @@ export class Field<TProps extends IFieldProps, TState extends IFieldState = IFie
   }
 
   /**
-   * @stable [14.10.2020]
-   * @protected
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): TProps {
-    return this.getComponentsSettingsProps();
+  protected getComponentSettingsProps(): Readonly<TProps> {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.field as TProps
+    );
   }
 
   /**
