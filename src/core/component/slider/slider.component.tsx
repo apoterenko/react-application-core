@@ -9,13 +9,14 @@ import {
   SliderClassesEnum,
 } from '../../definition';
 import {
-  CalcUtils,
   ClsUtils,
   ConditionUtils,
   NvlUtils,
   ObjectUtils,
+  PropsUtils,
 } from '../../util';
 import {
+  IFromToEntity,
   StringNumberT,
   UNDEF,
 } from '../../definitions.interface';
@@ -24,11 +25,9 @@ import { NumberField } from '../field/numberfield/numberfield.component';
 
 /**
  * @component-impl
- * @stable [16.10.2020]
+ * @stable [03.07.2021]
  */
-export class Slider<TProps extends ISliderProps = ISliderProps,
-  TState extends ISliderState = ISliderState>
-  extends GenericComponent<TProps, TState> {
+export class Slider extends GenericComponent<ISliderProps, ISliderState> {
 
   public static readonly defaultProps: ISliderProps = {
     ...DefaultEntities.SLIDER_ENTITY,
@@ -36,27 +35,26 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
 
   private readonly attachmentRef = React.createRef<HTMLDivElement>();
   private slider;
+  private silent = false;
 
   /**
-   * @stable [16.10.2020]
+   * @stable [02.07.2021]
    * @param originalProps
    */
-  constructor(originalProps: TProps) {
+  constructor(originalProps: Readonly<ISliderProps>) {
     super(originalProps);
 
-    this.state = {} as TState;
+    this.state = {};
 
-    this.onMaxValueChange = this.onMaxValueChange.bind(this);
-    this.onMinValueChange = this.onMinValueChange.bind(this);
+    this.onFromValueChange = this.onFromValueChange.bind(this);
+    this.onToValueChange = this.onToValueChange.bind(this);
   }
 
   /**
-   * @stable [16.10.2020]
+   * @stable [02.07.2021]
    */
   public render(): JSX.Element {
-    const {
-      className,
-    } = this.originalProps;
+    const mergedProps = this.mergedProps;
 
     return (
       <div
@@ -64,7 +62,7 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
         className={
           ClsUtils.joinClassName(
             SliderClassesEnum.SLIDER,
-            CalcUtils.calc(className)
+            this.getOriginalClassName(mergedProps)
           )
         }
       >
@@ -76,7 +74,7 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
   }
 
   /**
-   * @stable [16.10.2020]
+   * @stable [02.07.2021]
    */
   public componentDidMount(): void {
     const {
@@ -84,10 +82,10 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
       min,
       step,
     } = this.mergedProps;
-    const minMaxEntity = this.minMaxEntity;
+    const fromToEntity = this.fromToEntity;
 
     this.slider = noUiSlider.create(this.attachmentRef.current, {
-      start: [NvlUtils.nvl(minMaxEntity.min, min), NvlUtils.nvl(minMaxEntity.max, max)],
+      start: [NvlUtils.nvl(fromToEntity.from, min), NvlUtils.nvl(fromToEntity.to, max)],
       connect: true,
       step,
       range: {
@@ -96,46 +94,44 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
       },
     });
 
-    this.slider.on('change.one', (data) => this.onChangeValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
-    this.slider.on('update.one', (data) => this.onUpdateValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
+    this.doSubscribeEvents();
   }
 
   /**
-   * @stable [13.03.2021]
+   * @stable [02.07.2021]
    * @param prevProps
    * @param prevState
    */
-  public componentDidUpdate(prevProps: Readonly<TProps>, prevState: Readonly<TState>): void {
-    const {
-      value,
-    } = this.originalProps;
+  public componentDidUpdate(prevProps: Readonly<ISliderProps>, prevState: Readonly<ISliderState>): void {
+    const currentValue = this.currentValue;
 
-    if (ObjectUtils.isCurrentValueNotEqualPreviousValue(value, prevProps.value)) {
-      this.slider.set([value.min, value.max]);
+    if (ObjectUtils.isCurrentValueNotEqualPreviousValue(currentValue, prevProps.value)) {
+      this.doSliderUpdate(currentValue.min, currentValue.max);
     }
   }
 
   /**
-   * @stable [16.10.2020]
+   * @stable [02.07.2021]
    */
   public componentWillUnmount(): void {
     this.slider = null;
   }
 
   /**
-   * @stable [16.10.2020]
-   * @protected
+   * @stable [02.07.2021]
    */
-  protected get componentsSettingsProps(): TProps {
-    return this.componentsSettings.slider as TProps;
+  protected getComponentSettingsProps(): Readonly<ISliderProps> {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.slider
+    );
   }
 
   /**
-   * @stable [15.10.2020]
-   * @protected
+   * @stable [02.07.2021]
    */
-  protected get valuesElement(): JSX.Element {
-    const minMaxEntity = this.minMaxEntity;
+  private get valuesElement(): JSX.Element {
+    const fromToEntity = this.fromToEntity;
     const {
       fieldConfiguration,
     } = this.mergedProps;
@@ -148,109 +144,114 @@ export class Slider<TProps extends ISliderProps = ISliderProps,
           errorMessageRendered={false}
           full={false}
           {...fieldConfiguration}
-          value={minMaxEntity.min}
-          onChange={this.onMinValueChange}/>
+          value={fromToEntity.from}
+          onChange={this.onFromValueChange}/>
         <NumberField
           errorMessageRendered={false}
           full={false}
           {...fieldConfiguration}
-          value={minMaxEntity.max}
-          onChange={this.onMaxValueChange}/>
+          value={fromToEntity.to}
+          onChange={this.onToValueChange}/>
       </div>
     )
   }
 
   /**
-   * @stable [16.10.2020]
-   * @protected
+   * @stable [03.07.2021]
+   * @param fromValue
+   * @param toValue
    */
-  protected get minMaxEntity(): IPresetsMinMaxEntity {
+  private doSliderUpdate(fromValue: StringNumberT, toValue: StringNumberT): void {
+    this.silent = true;                         // To prevent the events broadcasting: change.one + update.one
+                                                // Don't use a call "this.slider.off" (!!!)
+    this.slider.set([fromValue, toValue]);
+    this.silent = false;
+  }
+
+  /**
+   * @stable [03.07.2021]
+   */
+  private doSubscribeEvents(): void {
+    this.slider.on('change.one', (data) => this.onChangeValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
+    this.slider.on('update.one', (data) => this.onUpdateValues(this.nc.asNumber(data[0]), this.nc.asNumber(data[1])));
+  }
+
+  /**
+   * @stable [02.07.2021]
+   * @param value
+   */
+  private onFromValueChange(value: StringNumberT): void {
+    this.onFromToValueChange(value, this.fromToEntity.to);
+  }
+
+  /**
+   * @stable [02.07.2021]
+   * @param value
+   */
+  private onToValueChange(value: StringNumberT): void {
+    this.onFromToValueChange(this.fromToEntity.from, value);
+  }
+
+  /**
+   * @stable [02.07.2021]
+   * @param fromValue
+   * @param toValue
+   */
+  private onFromToValueChange(fromValue: StringNumberT, toValue: StringNumberT): void {
+    this.doSliderUpdate(fromValue, toValue);
+    this.onChangeValues(fromValue, toValue);
+  }
+
+  /**
+   * @stable [02.07.2021]
+   * @param from
+   * @param to
+   */
+  private onUpdateValues(from: number, to: number): void {
+    if (this.silent) {
+      return;
+    }
+    this.setState({from, to});
+  }
+
+  /**
+   * @stable [02.07.2021]
+   * @param min
+   * @param max
+   */
+  private onChangeValues(min: StringNumberT, max: StringNumberT): void {
+    if (this.silent) {
+      return;
+    }
+    this.setState({from: UNDEF, to: UNDEF}, () => this.onChangeManually({min, max}));
+  }
+
+  /**
+   * @stable [02.07.2021]
+   * @param entity
+   */
+  private onChangeManually(entity: IPresetsMinMaxEntity): void {
+    ConditionUtils.ifFnThanValue(this.originalProps.onChange, (onChange) => onChange(entity));
+  }
+
+  /**
+   * @stable [02.07.2021]
+   */
+  private get fromToEntity(): IFromToEntity<number> {
     const {
-      max,
-      min,
+      from,
+      to,
     } = this.state;
-
-    let minValue = min;
-    let maxValue = max;
-
-    ConditionUtils.ifNotNilThanValue(
-      this.currentValue,
-      ($value) => {
-        minValue = NvlUtils.nvl(minValue, $value.min);
-        maxValue = NvlUtils.nvl(maxValue, $value.max);
-      }
-    );
+    const currentValue = this.currentValue;
 
     return {
-      max: maxValue,
-      min: minValue,
+      from: NvlUtils.nvl(from, currentValue?.min),
+      to: NvlUtils.nvl(to, currentValue?.max),
     };
   }
 
   /**
-   * @stable [15.10.2020]
-   * @param min
-   * @param max
-   * @private
-   */
-  private onChangeValues(min: StringNumberT, max: StringNumberT): void {
-    this.setState(
-      {
-        min: UNDEF,
-        max: UNDEF,
-      },
-      () => this.onChangeManually({min, max})
-    );
-  }
-
-  /**
-   * @stable [16.10.2020]
-   * @param value
-   * @private
-   */
-  private onMinValueChange(value: StringNumberT): void {
-    const min = value;
-    const max = this.minMaxEntity.max;
-
-    this.slider.set([min, max]);
-    this.onChangeValues(min, max);
-  }
-
-  /**
-   * @stable [16.10.2020]
-   * @param value
-   * @private
-   */
-  private onMaxValueChange(value: StringNumberT): void {
-    const min = this.minMaxEntity.min;
-    const max = value;
-
-    this.slider.set([min, max]);
-    this.onChangeValues(min, max);
-  }
-
-  /**
-   * @stable [16.10.2020]
-   * @param entity
-   * @private
-   */
-  private onChangeManually(entity: IPresetsMinMaxEntity): void {
-    ConditionUtils.ifNotNilThanValue(this.originalProps.onChange, (onChange) => onChange(entity));
-  }
-
-  /**
-   * @stable [15.10.2020]
-   * @param min
-   * @param max
-   * @private
-   */
-  private onUpdateValues(min: number, max: number): void {
-    this.setState({min, max});
-  }
-
-  /**
-   * @stable [15.10.2020]
-   * @private
+   * @stable [02.07.2021]
    */
   private get currentValue(): IPresetsMinMaxEntity {
     return this.originalProps.value;
