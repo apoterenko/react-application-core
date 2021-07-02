@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 
 import { AnyT } from '../../definitions.interface';
 import {
@@ -75,6 +76,14 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
     return this.props.forwardedRef || this.selfRef;
   }
 
+
+  /**
+   * @stable [01.07.2021]
+   */
+  public get isRendered(): boolean {
+    return !R.isNil(this.actualRef?.current);
+  }
+
   /**
    * @stable [19.09.2020]
    */
@@ -83,32 +92,38 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
   }
 
   /**
-   * @stable [19.09.2020]
+   * @stable [01.07.2021]
    */
-  public get originalProps(): TProps {
+  public get originalProps(): Readonly<TProps> {
     return this.props;
   }
 
   /**
-   * @stable [23.01.2021]
-   * @protected
+   * @stable [01.07.2021]
+   * @param componentProps
    */
-  protected getOriginalClassName(componentProps = this.mergedProps): string {
+  protected getOriginalClassName(componentProps: Readonly<TProps>): string {
     return CalcUtils.calc(componentProps.className, componentProps);
   }
 
   /**
-   * @stable [19.09.2020]
+   * @stable [01.07.2021]
+   */
+  protected getComponentSettingsProps(): Readonly<TProps> {
+    return null;
+  }
+
+  /**
+   * @stable [01.07.2021]
    */
   protected get originalChildren(): React.ReactNode {
     return this.props.children;
   }
 
   /**
-   * @stable [12.10.2020]
-   * @protected
+   * @stable [01.07.2021]
    */
-  protected get mergedProps(): TProps {
+  protected get mergedProps(): Readonly<TProps> {
     const originalProps = this.originalProps;
     const {
       noMergedProps,
@@ -116,20 +131,11 @@ export class GenericComponent<TProps extends IGenericComponentProps = IGenericCo
 
     return noMergedProps
       ? originalProps
-      : PropsUtils.mergeWithSystemProps(originalProps, this.componentsSettingsProps);
+      : PropsUtils.extendProps(originalProps, this.getComponentSettingsProps());
   }
 
   /**
-   * @stable [10.08.2020]
-   * @protected
-   */
-  protected get componentsSettingsProps(): TProps {
-    return null;
-  }
-
-  /**
-   * @stable [21.05.2020]
-   * @returns {IComponentsSettingsEntity}
+   * @stable [01.07.2021]
    */
   protected get componentsSettings(): IComponentsSettingsEntity {
     return this.settings.components;
