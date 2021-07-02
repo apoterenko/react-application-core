@@ -66,6 +66,7 @@ The library is designed to quickly start develop the business applications are b
 |----------|---|
 |[PdfViewer](src/core/component/viewer/pdf/pdf-viewer.component.tsx)|16.05.2021|
 |[PictureViewer](src/core/component/viewer/picture/picture-viewer.component.tsx)|16.05.2021|
+|[Slider](src/core/component/slider/slider.component.tsx)|03.07.2021|
 |[TemplateField](src/core/component/field/template-field/template-field.component.tsx)|28.05.2021|
 |[Viewer](src/core/component/viewer/viewer.component.tsx)|16.05.2021|
 
