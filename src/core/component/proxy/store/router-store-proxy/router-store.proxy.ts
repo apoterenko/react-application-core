@@ -83,7 +83,7 @@ export class RouterStoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEnti
         section: DefaultEntities.ROOT_SECTION,
         url: this.settings.routes.home,
       },
-      ...(Selectors.stackItemEntities(this.props) || [])
+      ...(Selectors.stackItemEntities(this.originalProps) || [])
     ];
     const stepsCount = steps.length;
     let hasPrevious = false;

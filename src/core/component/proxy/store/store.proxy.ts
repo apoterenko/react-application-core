@@ -1,7 +1,10 @@
 import { Store } from 'redux';
 import { IEffectsAction } from 'redux-effects-promise';
 
-import { SectionUtils } from '../../../util';
+import {
+  ActionUtils,
+  SectionUtils,
+} from '../../../util';
 import {
   DI_TYPES,
   lazyInject,
@@ -22,60 +25,60 @@ export class StoreProxy<TStore extends IReduxStoreEntity = IReduxStoreEntity,
   @lazyInject(DI_TYPES.Store) protected readonly appStore: Store<TStore>;
 
   /**
-   * @stable [30.03.2020]
-   * @param {IGenericContainer<TProps extends IGenericContainerProps>} container
+   * @stable [07.07.2021]
+   * @param container
    */
   constructor(protected readonly container: IGenericContainer<TProps>) {
   }
 
   /**
-   * @stable [03.10.2019]
-   * @param {string} type
-   * @param {TChanges} data
+   * @stable [07.07.2021]
+   * @param type
+   * @param data
    */
   public dispatch<TChanges = {}>(type: string, data?: TChanges): void {
-    this.dispatchActionByType(`${this.sectionName}.${type}`, SectionUtils.applySection(this.sectionName, data));
+    this.dispatchActionByType(
+      ActionUtils.asComplexActionType(this.sectionName, type),
+      SectionUtils.applySection(this.sectionName, data)
+    );
   }
 
   /**
-   * @stable [11.09.2019]
-   * @param {string} type
-   * @param {TData} data
+   * @stable [07.07.2021]
+   * @param type
+   * @param data
    */
   public dispatchActionByType<TData = {}>(type: string, data?: TData): void {
     this.dispatchPlainAction({type, data});
   }
 
   /**
-   * @stable [24.03.2020]
-   * @param {IEffectsAction} action
+   * @stable [07.07.2021]
+   * @param action
    */
   public dispatchPlainAction(action: IEffectsAction): void {
     this.appStore.dispatch(action);
   }
 
   /**
-   * @stable [11.09.2019]
-   * @returns {string}
+   * @stable [07.07.2021]
    */
   protected get sectionName(): string {
-    return this.props.sectionName;
+    return this.originalProps.sectionName;
   }
 
   /**
-   * @stable [03.02.2020]
-   * @param {string} otherSection
-   * @returns {string}
+   * @stable [07.07.2021]
+   * @param otherSection
    */
   protected asSection(otherSection?: string): string {
     return otherSection || this.sectionName;
   }
 
   /**
-   * @stable [11.09.2019]
-   * @returns {TProps}
+   * @stable [07.07.2021]
    */
-  protected get props(): TProps {
-    return this.container.props as TProps;
+  protected get originalProps(): TProps {
+    return this.container.originalProps as TProps;
   }
 }

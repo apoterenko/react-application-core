@@ -62,7 +62,7 @@ export class OAuthOpenIdCallbackEffects {
       return null;
     }
 
-    const params = this.environment.getUrlQueryParams<ICodeWrapper>();
+    const params = this.environment.asUrlQueryParams<ICodeWrapper>();
     const code = params.code;
 
     const key = await this.getValueFromStorage<string>(OAuthOpenIdCallbackEffects.AUTHORIZATION_REQUEST_HANDLE_KEY);
