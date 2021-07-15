@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
-  CalcUtils,
   ClsUtils,
+  PropsUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
 import {
@@ -12,19 +12,18 @@ import {
 
 /**
  * @component-impl
- * @stable [29.05.2020]
+ * @stable [15.07.2021]
  */
 export class Drawer extends GenericComponent<IDrawerProps> {
 
   /**
-   * @stable [29.05.2020]
-   * @returns {JSX.Element}
+   * @stable [15.07.2021]
    */
   public render(): JSX.Element {
+    const mergedProps = this.mergedProps;
     const {
-      className,
       mini,
-    } = this.mergedProps;
+    } = mergedProps;
 
     return (
       <div
@@ -33,19 +32,21 @@ export class Drawer extends GenericComponent<IDrawerProps> {
           ClsUtils.joinClassName(
             DrawerClassesEnum.DRAWER,
             mini && DrawerClassesEnum.DRAWER_MINI,
-            CalcUtils.calc(className)
+            this.getOriginalClassName(mergedProps)
           )}
       >
-        {this.props.children}
+        {this.originalChildren}
       </div>
     );
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {IDrawerProps}
+   * @stable [15.07.2021]
    */
-  protected get componentsSettingsProps(): IDrawerProps {
-    return this.componentsSettings.drawer;
+  protected getComponentSettingsProps(): Readonly<IDrawerProps> {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.drawer
+    );
   }
 }
