@@ -50,8 +50,8 @@ export interface IEnvironment {
   window?: Window;
   windowsPhonePlatform?: boolean;
   windowsPlatform?: boolean;
+  asUrlQueryParams?<TParams = IKeyValue>(): TParams;
   getSectionFullPath?(sectionRoute: string): string;
-  getUrlQueryParams?<TParams = IKeyValue>(): TParams;
   setVariable?(name: string, scope: AnyT): void;
 }
 

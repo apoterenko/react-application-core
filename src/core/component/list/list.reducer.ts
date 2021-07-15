@@ -166,6 +166,11 @@ export const listReducer = (state: IReduxListEntity = INITIAL_REDUX_LIST_ENTITY,
      */
     case ListActionBuilder.buildLazyLoadDoneActionType(section):
       const lazyLoadedEntity = Selectors.selectedEntityFromAction(action) || Selectors.data<IEntity>(action);
+
+      if (R.isNil(lazyLoadedEntity)) {
+        // Because a request may be canceled
+        return state;
+      }
       modifyDataPayload = {
         id: lazyLoadedEntity.id,
         changes: lazyLoadedEntity,
