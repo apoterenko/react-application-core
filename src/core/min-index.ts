@@ -20,6 +20,7 @@ export * from './component/ui/factory/icon/ui-icon-factory.service';            
 export * from './definition';                                                            /* @stable [08.06.2020] */
 export * from './definitions.interface';                                                 /* @stable [08.06.2020] */
 export * from './di';                                                                    /* @stable [08.06.2020] */
+export * from './log/log-manager.service';                                               /* @stable [11.07.2021] */
 export * from './navigation/navigation-menu.builder';
 export * from './settings';                                                              /* @stable [09.06.2020] */
 export * from './store/effects/base.effects';                                            /* @stable [15.06.2020] */

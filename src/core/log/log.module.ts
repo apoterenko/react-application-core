@@ -16,3 +16,4 @@ LoggerFactory.configure({
 
 bindInSingleton(DI_TYPES.LogManager, LogManager);
 bindInSingleton(DI_TYPES.LogManagerEventPayloadFactory, LogManagerEventPayloadFactory);
+bindInSingleton(LogManager, LogManager);

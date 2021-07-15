@@ -10,6 +10,7 @@ export type ResultFnT<TResult, TArg1 = unknown, TArg2 = unknown, TArg3 = unknown
 export type BooleanFnT<TArg1 = unknown, TArg2 = unknown, TArg3 = unknown> = ResultFnT<boolean, TArg1, TArg2, TArg3>;
 export type StringFnT<TArg1 = unknown, TArg2 = unknown, TArg3 = unknown> = ResultFnT<string, TArg1, TArg2, TArg3>;
 export type StringNumberT = number | string;
+export type NullableT<TValue> = TValue | null | undefined;
 
 /**
  * @stable [24.05.2021]

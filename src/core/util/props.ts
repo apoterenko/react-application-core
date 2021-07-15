@@ -9,20 +9,21 @@ import {
 import { cancelEvent } from './event';
 import { DiServices } from '../di/di.services';
 import { IKeyValue } from '../definitions.interface';
+import { NvlUtils } from './nvl';
 import { TypeUtils } from './type';
 
 /**
- * @stable [21.08.2020]
+ * @stable [01.07.2021]
  * @param props
- * @param systemProps
+ * @param extendedProps
  */
-const mergeWithSystemProps = <TProps = IKeyValue>(props: TProps, systemProps: TProps): TProps =>
-  R.isNil(systemProps)
-    ? props
-    : ({
-      ...props as {},
-      ...systemProps as {},
-    } as TProps);
+const extendProps = <TProps = IKeyValue>(props: TProps, extendedProps: TProps): TProps =>
+  !R.isNil(extendedProps) && !R.isNil(props)
+    ? ({
+      ...props,
+      ...extendedProps,
+    })
+    : NvlUtils.nvl(props, extendedProps);
 
 /**
  * @stable [21.08.2020]
@@ -69,6 +70,6 @@ const buildClickHandlerProps =
  */
 export class PropsUtils {
   public static readonly buildClickHandlerProps = buildClickHandlerProps;                /* @stable [22.05.2020] */
+  public static readonly extendProps = extendProps;                                       /* @stable [01.07.2021] */
   public static readonly mergeWithParentDefaultProps = mergeWithParentDefaultProps;      /* @stable [21.08.2020] */
-  public static readonly mergeWithSystemProps = mergeWithSystemProps;                    /* @stable [18.05.2020] */
 }

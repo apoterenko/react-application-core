@@ -12,6 +12,7 @@ import {
   ISelectedWrapper,
   IUpdatedWrapper,
 } from '../definitions.interface';
+import { JoinUtils } from './join';
 
 /**
  * @stable [16.12.2020]
@@ -89,10 +90,16 @@ const makeEntityActionBuilderFactory =
 const asPlainAction = (action: IEffectsAction): IEffectsAction => ({...action});
 
 /**
+ * @stable [07.07.2021]
+ */
+const asComplexActionType = (prefix: string, postfix: string): string => JoinUtils.join([prefix, postfix], '.');
+
+/**
  * @stable [16.12.2020]
  */
 // tslint:disable:max-classes-per-file
 export class ActionUtils {
+  public static readonly asComplexActionType = asComplexActionType;
   public static readonly asPlainAction = asPlainAction;
   public static readonly entityActionBuilderFactory = makeEntityActionBuilderFactory;
 }

@@ -20,6 +20,7 @@ import {
 } from '../../util';
 import { ChainedMiddlewareFactories } from './chained.middleware';
 import { DefaultFormChangesMiddlewareFactories } from './default-form-changes.middleware';
+import { NullableT } from '../../definitions.interface';
 
 /**
  * @stable [20.01.2021]
@@ -79,13 +80,14 @@ const makeSelectEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges 
 
 /**
  * @middleware
- * @stable [20.01.2021]
+ * @nullable
+ * @stable [08.07.2021]
  *
  * @param config
  */
 const makeLazyLoadedEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChanges = {}>(
   config: IEditedListMiddlewareConfigEntity<TPayload, TState, TDefaultChanges>
-): IEffectsAction[] =>
+): NullableT<IEffectsAction[]> =>
   ConditionUtils.ifNotEmptyThanValue(
     FilterUtils.notNilValuesArrayFilter<IEffectsAction>(
       ...ConditionUtils.ifNotNilThanValue(
@@ -95,10 +97,17 @@ const makeLazyLoadedEntityMiddleware = <TPayload = {}, TState = {}, TDefaultChan
         ],
         []
       ),
-      ...ChainedMiddlewareFactories.chainedMiddleware({
-        ...asChainedConfigEntity(config),
-        payload: config.action.data,
-      }) || []
+      ...(
+        ConditionUtils.ifNotNilThanValue(
+          config.action.data, // Because a request may be canceled
+          (payload) => (
+            ChainedMiddlewareFactories.chainedMiddleware({
+              ...asChainedConfigEntity(config),
+              payload,
+            })
+          )
+        ) || []
+      )
     ),
     (actions) => actions
   );
