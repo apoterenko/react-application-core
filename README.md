@@ -64,7 +64,7 @@ The library is designed to quickly start develop the business applications are b
 
 |Component|Date|
 |----------|---|
-|[Driver](src/core/component/drawer/drawer.component.tsx)|15.07.2021|
+|[Drawer](src/core/component/drawer/drawer.component.tsx)|15.07.2021|
 |[PdfViewer](src/core/component/viewer/pdf/pdf-viewer.component.tsx)|16.05.2021|
 |[PictureViewer](src/core/component/viewer/picture/picture-viewer.component.tsx)|16.05.2021|
 |[Slider](src/core/component/slider/slider.component.tsx)|03.07.2021|
