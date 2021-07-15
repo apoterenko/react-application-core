@@ -27,7 +27,6 @@ export interface IDateConverter<TDate = Date> extends IDateGenericConverter<TDat
   addDays(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addDaysAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDaysToUiDate(cfg: IDateTimeConfigEntity<TDate>): TDate;
-  addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;
   addDuration(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addMonths(cfg: IDateTimeConfigEntity<TDate>): TDate;
   addMonthsAsDate(cfg: IDateTimeConfigEntity<TDate>): Date;

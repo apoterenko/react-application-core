@@ -544,16 +544,6 @@ export class DateConverter implements IDateConverter<MomentT> {
   }
 
   /**
-   * @stable [02.01.2019]
-   * @tested
-   * @param {IDateTimeConfigEntity} cfg
-   * @returns {Date}
-   */
-  public addDaysToUiDateAsDate(cfg: IDateTimeConfigEntity<MomentT>): Date {
-    return ConditionUtils.ifNotNilThanValue(this.addDaysToUiDate(cfg), (momentDate) => momentDate.toDate());
-  }
-
-  /**
    * @stable [05.11.2020]
    * @param cfg
    */

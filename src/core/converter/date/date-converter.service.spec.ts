@@ -74,17 +74,6 @@ describe('date-converter.service', () => {
     });
   });
 
-  describe('addDaysToUiDateAsDate', () => {
-    it('test1', () => {
-      const value = dateConverter.addDaysToUiDateAsDate({date: '2020-01-31', duration: 1});
-      expect(value).toEqual(new Date('February 1 2020 00:00:00 GMT-0800'));
-    });
-    it('test2', () => {
-      const value = dateConverter.addDaysToUiDateAsDate({date: '2020-02-29', duration: 1});
-      expect(value).toEqual(new Date('March 1 2020 00:00:00 GMT-0800'));
-    });
-  });
-
   describe('asAbsoluteDayOfYear', () => {
     it('test1', () => {
       const value = dateConverter.asAbsoluteDayOfYear({date: '2020-02-29', inputFormat: 'YYYY-MM-DD'});
