@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {
   AnyT,
-  INameWrapper,
   IValueWrapper,
 } from '../definitions.interface';
 
@@ -29,9 +28,9 @@ export interface IKeyboardEvent<TValue = {}>
 }
 
 /**
- * @stable [17.05.2020]
+ * @stable [01.07.2021]
  */
-export type ChangeEventT = React.ChangeEvent<INameWrapper & IValueWrapper>;
+export type ChangeEventT = React.ChangeEvent<IValueWrapper>;
 
 /**
  * @stable [31.08.2019]

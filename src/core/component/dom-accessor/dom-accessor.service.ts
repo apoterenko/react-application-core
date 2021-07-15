@@ -385,6 +385,17 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
+   * @stable [01.07.2021]
+   * @param refs
+   */
+  public refsAsElements(refs: React.RefObject<Element> | React.RefObject<Element>[]): Element[] {
+    return []
+      .concat(refs || [])
+      .map((clickableAreaRef: React.RefObject<Element>) => clickableAreaRef.current)
+      .filter(FilterUtils.NOT_NIL_VALUE_PREDICATE);
+  }
+
+  /**
    * @stable [01.10.2019]
    * @returns {Element}
    */
@@ -483,18 +494,19 @@ export class DomAccessor implements IDomAccessor {
   }
 
   /**
-   * @stable [25.01.2020]
-   * @param {IDomParentConfigEntity} cfg
-   * @returns {IJQueryElement}
+   * @stable [01.07.2021]
+   * @param cfg
    */
   public getParents(cfg: IDomParentConfigEntity): IJQueryElement {
-    return this.asJqEl(cfg.element).parents(this.asSelector(cfg.parentClassName));
+    const jqEl = this.asJqEl(cfg.element);
+    return cfg.parentClassName
+      ? jqEl.parents(this.asSelector(cfg.parentClassName))
+      : jqEl.parents();
   }
 
   /**
-   * @stable [29.01.2020]
-   * @param {IDomParentConfigEntity} cfg
-   * @returns {TElement[]}
+   * @stable [01.07.2021]
+   * @param cfg
    */
   public getParentsAsElements<TElement extends HTMLElement = HTMLElement>(cfg: IDomParentConfigEntity): TElement[] {
     return this.getParents(cfg).get() as TElement[];
