@@ -63,9 +63,12 @@ export class SubHeaderLink extends GenericComponent<ISubHeaderLinkProps> {
   }
 
   /**
-   * @stable [24.09.2020]
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): ISubHeaderLinkProps {
-    return this.componentsSettings.subHeaderLink;
+  protected getComponentSettingsProps(): ISubHeaderLinkProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.subHeaderLink
+    );
   }
 }

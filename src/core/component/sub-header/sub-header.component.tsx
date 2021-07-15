@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
+  PropsUtils,
   TypeUtils,
 } from '../../util';
 import { Button } from '../button';
@@ -69,10 +70,12 @@ export class SubHeader extends GenericComponent<ISubHeaderProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {ISubHeaderProps}
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): ISubHeaderProps {
-    return this.componentsSettings.subHeader;
+  protected getComponentSettingsProps(): ISubHeaderProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.subHeader
+    );
   }
 }

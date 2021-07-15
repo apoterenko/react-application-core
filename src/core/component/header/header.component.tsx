@@ -4,6 +4,7 @@ import {
   CalcUtils,
   ClsUtils,
   ConditionUtils,
+  PropsUtils,
   TypeUtils,
 } from '../../util';
 import { GenericComponent } from '../base/generic.component';
@@ -221,10 +222,12 @@ export class Header extends GenericComponent<IHeaderProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {IHeaderProps}
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IHeaderProps {
-    return this.componentsSettings.header;
+  protected getComponentSettingsProps(): IHeaderProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.header
+    );
   }
 }

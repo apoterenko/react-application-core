@@ -43,7 +43,7 @@ export class Thumb extends GenericComponent<IThumbProps> {
   /**
    * @stable [01.07.2021]
    */
-  protected getComponentSettingsProps(): IThumbProps {
+  protected getComponentSettingsProps(): Readonly<IThumbProps> {
     return PropsUtils.extendProps(
       super.getComponentSettingsProps(),
       this.componentsSettings?.thumb

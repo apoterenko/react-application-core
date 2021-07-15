@@ -99,9 +99,12 @@ export class GridRow extends GenericComponent<IGridRowProps> {
   }
 
   /**
-   * @stable [17.08.2020]
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IGridRowProps {
-    return this.componentsSettings.gridRow;
+  protected getComponentSettingsProps(): IGridRowProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.gridRow
+    );
   }
 }

@@ -6,6 +6,7 @@ import {
   ClsUtils,
   ConditionUtils,
   Mappers,
+  PropsUtils,
   Selectors,
   StackUtils,
   TypeUtils,
@@ -299,10 +300,12 @@ export class DefaultLayout extends GenericComponent<IDefaultLayoutProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {IDefaultLayoutProps}
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IDefaultLayoutProps {
-    return this.componentsSettings.defaultLayout;
+  protected getComponentSettingsProps(): IDefaultLayoutProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.defaultLayout
+    );
   }
 }

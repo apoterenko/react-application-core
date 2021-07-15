@@ -70,7 +70,7 @@ export class Title extends GenericComponent<ITitleProps> {
   /**
    * @stable [01.07.2021]
    */
-  protected getComponentSettingsProps(): ITitleProps {
+  protected getComponentSettingsProps(): Readonly<ITitleProps> {
     return PropsUtils.extendProps(
       super.getComponentSettingsProps(),
       this.componentsSettings?.title

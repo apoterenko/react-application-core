@@ -6,6 +6,7 @@ import {
   ClsUtils,
   ConditionUtils,
   FilterUtils,
+  PropsUtils,
 } from '../../util';
 import { Button } from '../button/button.component';
 import { GenericComponent } from '../base/generic.component';
@@ -227,9 +228,12 @@ export class SaveAsNewTemplate
   }
 
   /**
-   * @stable [05.02.2021]
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): ISaveAsNewTemplateProps {
-    return this.componentsSettings.saveAsNewTemplate;
+  protected getComponentSettingsProps(): ISaveAsNewTemplateProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.saveAsNewTemplate
+    );
   }
 }

@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   CalcUtils,
   ClsUtils,
+  PropsUtils,
 } from '../../../util';
 import { GenericComponent } from '../../base/generic.component';
 import {
@@ -47,10 +48,12 @@ export class FormLayout extends GenericComponent<IFormLayoutProps> {
   }
 
   /**
-   * @stable [02.06.2020]
-   * @returns {IFormLayoutProps}
+   * @stable [01.07.2021]
    */
-  protected get componentsSettingsProps(): IFormLayoutProps {
-    return this.componentsSettings.formLayout;
+  protected getComponentSettingsProps(): IFormLayoutProps {
+    return PropsUtils.extendProps(
+      super.getComponentSettingsProps(),
+      this.componentsSettings?.formLayout
+    );
   }
 }
